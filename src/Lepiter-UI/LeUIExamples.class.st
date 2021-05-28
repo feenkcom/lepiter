@@ -317,7 +317,7 @@ LeUIExamples >> databaseWithPageAAndLinkToPageB [
 LeUIExamples >> databaseWithTableOfContents [
 	<gtExample>
 	| aDatabase aFile |
-	aFile := GtResourceReference path: Path * 'feenkcom/lepiter-engine/test-data/toc'.
+	aFile := GtResourceReference path: Path * 'feenkcom/lepiter/test-data/toc'.
 	aDatabase := LeLocalStoreLoad current loadAndMonitorFrom: aFile fileReference.
 	^ aDatabase
 ]
