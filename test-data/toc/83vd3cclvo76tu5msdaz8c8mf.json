@@ -1,0 +1,38 @@
+{
+	"__schema" : "3.2",
+	"__type" : "page",
+	"children" : {
+		"__type" : "snippets",
+		"items" : [ ]
+	},
+	"createEmail" : {
+		"__type" : "email",
+		"emailString" : "tudor@tudorgirba.com"
+	},
+	"createTime" : {
+		"__type" : "time",
+		"time" : {
+			"__type" : "dateAndTime",
+			"dateAndTimeString" : "2021-02-01T23:10:27.774245+01:00"
+		}
+	},
+	"editEmail" : {
+		"__type" : "email",
+		"emailString" : "tudor@tudorgirba.com"
+	},
+	"editTime" : {
+		"__type" : "time",
+		"time" : {
+			"__type" : "dateAndTime",
+			"dateAndTimeString" : "2021-02-01T23:10:33.866501+01:00"
+		}
+	},
+	"pageType" : {
+		"__type" : "namedPage",
+		"title" : "Visualizing code structure"
+	},
+	"uid" : {
+		"__type" : "uuid",
+		"uuid" : "a70abe5b-af76-0d00-8901-9c4c072cf288"
+	}
+}

@@ -1,0 +1,106 @@
+{
+	"__schema" : "V3",
+	"__type" : "page",
+	"editEmail" : {
+		"__type" : "email",
+		"emailString" : "akgrant@gmail.com"
+	},
+	"createEmail" : {
+		"__type" : "email",
+		"emailString" : "akgrant@gmail.com"
+	},
+	"createTime" : {
+		"__type" : "time",
+		"time" : {
+			"__type" : "dateAndTime",
+			"dateAndTimeString" : "2020-10-21T10:27:19.187454+02:00"
+		}
+	},
+	"editTime" : {
+		"__type" : "time",
+		"time" : {
+			"__type" : "dateAndTime",
+			"dateAndTimeString" : "2020-10-21T10:27:19.187454+02:00"
+		}
+	},
+	"children" : {
+		"__type" : "snippets",
+		"items" : [
+			{
+				"__type" : "textSnippet",
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "akgrant@gmail.com"
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "akgrant@gmail.com"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2020-10-21T10:27:19.188353+02:00"
+					}
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2020-10-21T10:27:19.188353+02:00"
+					}
+				},
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "egMdI3+y"
+				},
+				"string" : "Pharo snippet follows",
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				}
+			},
+			{
+				"__type" : "pharoSnippet",
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "akgrant@gmail.com"
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "akgrant@gmail.com"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2020-10-21T10:27:19.188869+02:00"
+					}
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2020-10-21T10:27:19.188869+02:00"
+					}
+				},
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "UGicyccV"
+				},
+				"code" : "42 inspect"
+			}
+		]
+	},
+	"title" : "Page 4",
+	"pageType" : {
+		"__type" : "defaultType"
+	}
+}

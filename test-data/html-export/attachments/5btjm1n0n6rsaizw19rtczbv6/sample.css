@@ -1,0 +1,68 @@
+
+.class_annotation {
+    background-color: #F0F0F0;
+}
+
+.class_definition {
+    font-family: "Source Code Pro", monospace;
+    white-space: pre;
+    margin-top: 10pt;
+    margin-left: 20pt;
+    background-color: #F8F8F8;
+}
+
+.method_annotation {
+    background-color: #F0F0F0;
+}
+
+.method_definition {
+    font-family: "Source Code Pro", monospace;
+    white-space: pre;
+    margin-top: 10pt;
+    margin-left: 20pt;
+    background-color: #F8F8F8;
+}
+
+.example_annotation {
+    /* background-color: #F0F0F0; */
+}
+
+.example_definition {
+    font-family: "Source Code Pro", monospace;
+    white-space: pre;
+    margin-top: 10pt;
+    margin-left: 20pt;
+    background-color: #F8F8F8;
+}
+
+.example_result {
+    font-family: "Source Code Pro", monospace;
+    white-space: pre;
+    margin-top: 10pt;
+    margin-left: 20pt;
+    background-color: #F8F8F8;
+}
+
+.code_block {
+    font-family: "Source Code Pro", monospace;
+    white-space: pre;
+}
+
+.text_snippet {
+    margin-top: 10pt;
+}
+
+.pharo_snippet {
+    font-family: "Source Code Pro", monospace;
+    margin-top: 10pt;
+    white-space: pre;
+}
+
+.hidden_annotation>span {
+	display:none;
+}
+
+.visible_annotation>span {
+	display:block;
+}
+

@@ -1,0 +1,113 @@
+{
+	"__type" : "page",
+	"__schema" : "3.2",
+	"pageType" : {
+		"date" : {
+			"dateString" : "22 October 2020",
+			"__type" : "date"
+		},
+		"__type" : "dailyNote"
+	},
+	"editEmail" : {
+		"__type" : "email",
+		"emailString" : "alistairgrant@fastmail.com.au"
+	},
+	"createTime" : {
+		"time" : {
+			"dateAndTimeString" : "2020-10-22T05:06:41.146315+02:00",
+			"__type" : "dateAndTime"
+		},
+		"__type" : "time"
+	},
+	"uid" : {
+		"uuid" : "7fc17480-4f7d-0d00-bf01-95d30c87571b",
+		"__type" : "uuid"
+	},
+	"editTime" : {
+		"time" : {
+			"dateAndTimeString" : "2020-10-22T05:06:41.146315+02:00",
+			"__type" : "dateAndTime"
+		},
+		"__type" : "time"
+	},
+	"createEmail" : {
+		"__type" : "email",
+		"emailString" : "alistairgrant@fastmail.com.au"
+	},
+	"children" : {
+		"items" : [
+			{
+				"__type" : "textSnippet",
+				"string" : "Daily Note",
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "alistairgrant@fastmail.com.au"
+				},
+				"createTime" : {
+					"time" : {
+						"dateAndTimeString" : "2020-10-22T05:06:47.215179+02:00",
+						"__type" : "dateAndTime"
+					},
+					"__type" : "time"
+				},
+				"uid" : {
+					"uidString" : "/pZDNd/T",
+					"__type" : "uid"
+				},
+				"editTime" : {
+					"time" : {
+						"dateAndTimeString" : "2020-10-22T05:06:48.54775+02:00",
+						"__type" : "dateAndTime"
+					},
+					"__type" : "time"
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "alistairgrant@fastmail.com.au"
+				},
+				"children" : {
+					"items" : [ ],
+					"__type" : "snippets"
+				}
+			},
+			{
+				"__type" : "pharoSnippet",
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "alistairgrant@fastmail.com.au"
+				},
+				"createTime" : {
+					"time" : {
+						"dateAndTimeString" : "2020-10-22T05:06:52.136242+02:00",
+						"__type" : "dateAndTime"
+					},
+					"__type" : "time"
+				},
+				"code" : "4 + 3",
+				"uid" : {
+					"uidString" : "reIKDhPY",
+					"__type" : "uid"
+				},
+				"editTime" : {
+					"time" : {
+						"dateAndTimeString" : "2020-10-22T05:06:55.710014+02:00",
+						"__type" : "dateAndTime"
+					},
+					"__type" : "time"
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "alistairgrant@fastmail.com.au"
+				},
+				"children" : {
+					"items" : [ ],
+					"__type" : "snippets"
+				}
+			}
+		],
+		"__type" : "snippets"
+	}
+}

@@ -1,0 +1,34 @@
+LePage {
+	#editEmail : LeEmail {
+		#email : 'akgrant@gmail.com'
+	},
+	#createEmail : @2,
+	#editTime : LeTime {
+		#time : DateAndTime [ '2020-10-21T10:26:34.03534+02:00' ]
+	},
+	#createTime : @3,
+	#children : LeBlocks [
+		LeTextBlock {
+			#editEmail : LeEmail {
+				#email : 'akgrant@gmail.com'
+			},
+			#createEmail : @7,
+			#editTime : LeTime {
+				#time : DateAndTime [ '2020-10-21T10:26:34.05222+02:00' ]
+			},
+			#createTime : @8,
+			#children : LeBlocks [
+				
+			],
+			#uid : LeUID {
+				#uid : 's1XlgHli'
+			},
+			#string : 'Page 1 Paragraph 1',
+			#heading : nil
+		}
+	],
+	#title : 'Page 1',
+	#type : LeDefaultPageType {
+		
+	}
+}

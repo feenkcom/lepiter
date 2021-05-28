@@ -1,0 +1,51 @@
+LePage {
+	#editEmail : LeEmail {
+		#email : 'akgrant@gmail.com'
+	},
+	#createEmail : @2,
+	#editTime : LeTime {
+		#time : DateAndTime [ '2020-10-21T10:26:34.069125+02:00' ]
+	},
+	#createTime : @3,
+	#children : LeBlocks [
+		LeTextBlock {
+			#editEmail : LeEmail {
+				#email : 'akgrant@gmail.com'
+			},
+			#createEmail : @7,
+			#editTime : LeTime {
+				#time : DateAndTime [ '2020-10-21T10:26:34.070745+02:00' ]
+			},
+			#createTime : @8,
+			#children : LeBlocks [
+				
+			],
+			#uid : LeUID {
+				#uid : 'reIKDhPY'
+			},
+			#string : 'Pharo snippet follows',
+			#heading : nil
+		},
+		LePharoSnippet {
+			#editEmail : LeEmail {
+				#email : 'akgrant@gmail.com'
+			},
+			#createEmail : @13,
+			#editTime : LeTime {
+				#time : DateAndTime [ '2020-10-21T10:26:34.071314+02:00' ]
+			},
+			#createTime : @14,
+			#children : LeBlocks [
+				
+			],
+			#uid : LeUID {
+				#uid : 'zdmQNgV1'
+			},
+			#code : '42 inspect'
+		}
+	],
+	#title : 'Page 4',
+	#type : LeDefaultPageType {
+		
+	}
+}
