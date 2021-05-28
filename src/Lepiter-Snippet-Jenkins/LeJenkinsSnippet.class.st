@@ -1,0 +1,69 @@
+Class {
+	#name : #LeJenkinsSnippet,
+	#superclass : #LeSnippet,
+	#instVars : [
+		'jenkinsUrl'
+	],
+	#category : #'Lepiter-Snippet-Jenkins-Model'
+}
+
+{ #category : #'api - accessing menu' }
+LeJenkinsSnippet class >> contextMenuItemSpefication [
+	<leSnippetSpecification>
+	^ LeContextMenuItemSpecification new
+		snippetClass: self;
+		title: 'Jenkins'
+]
+
+{ #category : #accessing }
+LeJenkinsSnippet class >> empty [ 
+	^ self new jenkinsUrl: ''.
+]
+
+{ #category : #accessing }
+LeJenkinsSnippet class >> leJsonV3AttributeMapping [
+	^ super leJsonV3AttributeMapping
+		add: (#jenkinsUrl -> #jenkinsUrl);
+		yourself 
+]
+
+{ #category : #accessing }
+LeJenkinsSnippet class >> leJsonV3Name [
+	^ 'jenkinsSnippet'
+]
+
+{ #category : #accessing }
+LeJenkinsSnippet class >> leJsonV4AttributeMapping [
+	^ super leJsonV4AttributeMapping
+		add: (#jenkinsUrl -> #jenkinsUrl);
+		yourself 
+]
+
+{ #category : #accessing }
+LeJenkinsSnippet class >> leJsonV4Name [
+	^ 'jenkinsSnippet'
+]
+
+{ #category : #accessing }
+LeJenkinsSnippet >> asSnippetViewModel [
+	<return: #LeSnippetViewModel>
+	^ LeJenkinsSnippetViewModel new jenkinsSnippetModel: self
+]
+
+{ #category : #accessing }
+LeJenkinsSnippet >> contentAsString [
+	<return: #String>
+	^ String streamContents: [ :aStream |
+			aStream
+				nextPutAll: (self jenkinsUrl ifEmpty: [ '<jenkinsUrl>' ])]
+]
+
+{ #category : #accessing }
+LeJenkinsSnippet >> jenkinsUrl [
+	^ jenkinsUrl
+]
+
+{ #category : #accessing }
+LeJenkinsSnippet >> jenkinsUrl: aJenkinsUrl [
+	jenkinsUrl := aJenkinsUrl
+]

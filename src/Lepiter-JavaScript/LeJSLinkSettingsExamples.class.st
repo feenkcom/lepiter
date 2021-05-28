@@ -1,0 +1,141 @@
+Class {
+	#name : #LeJSLinkSettingsExamples,
+	#superclass : #LePropertiesExamples,
+	#category : #'Lepiter-JavaScript-Examples'
+}
+
+{ #category : #examples }
+LeJSLinkSettingsExamples >> defaultDirectory [
+	"Answer the default directory  from the settings"
+	<gtExample>
+	| fileReference |
+
+	fileReference := self settings directory.
+	self assert: fileReference isNil.
+	^ fileReference
+]
+
+{ #category : #examples }
+LeJSLinkSettingsExamples >> defaultNodeJSPath [
+	"Answer the default NodeJS path from the settings"
+	<gtExample>
+	| fileReference |
+
+	fileReference := self settings nodejsPath.
+	self assert: fileReference isNil.
+	^ fileReference
+]
+
+{ #category : #examples }
+LeJSLinkSettingsExamples >> setAbsoluteDirectory [
+	"Set the directory to an absolute file reference"
+	<gtExample>
+	| fileReference settings propertiesObject |
+
+	settings := self settings.
+	fileReference := FileLocator image resolve asAbsolute.
+	settings directory: fileReference.
+	propertiesObject := self propertiesDictionaryFrom: settings.
+
+	self assert: ((propertiesObject at: #jsLink) at: #directory)
+			equals: fileReference fullName.
+
+	^ fileReference
+]
+
+{ #category : #examples }
+LeJSLinkSettingsExamples >> setAbsoluteNodeJSPath [
+	"Set the NodeJS path to an absolute file reference"
+	<gtExample>
+	| fileString settings propertiesObject |
+
+	settings := self settings.
+	fileString := '/usr/bin/nodejs'.
+	settings nodejsPath: fileString.
+	propertiesObject := self propertiesDictionaryFrom: settings.
+
+	self assert: ((propertiesObject at: #jsLink) at: #nodejsPath)
+			equals: fileString.
+
+	^ fileString asFileReference
+]
+
+{ #category : #examples }
+LeJSLinkSettingsExamples >> setFileLocatorDirectory [
+	"Set the directory to an absolute file reference"
+	<gtExample>
+	| fileReference settings propertiesObject |
+
+	settings := self settings.
+	fileReference := FileLocator home / 'path'.
+	settings directory: fileReference.
+	propertiesObject := self propertiesDictionaryFrom: settings.
+
+	self assert: ((propertiesObject at: #jsLink) at: #directory)
+			equals: '{home}/path'.
+
+	^ fileReference
+]
+
+{ #category : #examples }
+LeJSLinkSettingsExamples >> setFileLocatorNodeJSPath [
+	"Set the NodeJS path to an absolute file reference"
+	<gtExample>
+	| fileLocator settings propertiesObject |
+
+	settings := self settings.
+	fileLocator := FileLocator home / '.local/bin/nodejs'.
+	settings nodejsPath: fileLocator.
+	propertiesObject := self propertiesDictionaryFrom: settings.
+
+	self assert: ((propertiesObject at: #jsLink) at: #nodejsPath)
+			equals: '{home}/.local/bin/nodejs'.
+
+	^ fileLocator
+]
+
+{ #category : #examples }
+LeJSLinkSettingsExamples >> setRelativeDirectory [
+	"Set the directory to a relative file reference"
+	<gtExample>
+	| fileString settings propertiesObject |
+
+	settings := self settings.
+	fileString := '../relative'.
+
+	settings directory: fileString.
+	propertiesObject := self propertiesDictionaryFrom: settings.
+	self assert: ((propertiesObject at: #jsLink) at: #directory)
+			equals: fileString.
+
+	settings directory: fileString asFileReference.
+	propertiesObject := self propertiesDictionaryFrom: settings.
+	self assert: ((propertiesObject at: #jsLink) at: #directory)
+			equals: fileString.
+
+	^ fileString
+]
+
+{ #category : #examples }
+LeJSLinkSettingsExamples >> setRelativeNodeJSPath [
+	"Set the NodeJS path to an absolute file reference"
+	<gtExample>
+	| fileString settings propertiesObject |
+
+	settings := self settings.
+	fileString := '../bin/nodejs'.
+	settings nodejsPath: fileString.
+	propertiesObject := self propertiesDictionaryFrom: settings.
+
+	self assert: ((propertiesObject at: #jsLink) at: #nodejsPath)
+			equals: fileString.
+
+	^ fileString asFileReference
+]
+
+{ #category : #private }
+LeJSLinkSettingsExamples >> settings [ 
+	"Answer a default LeJSLinkSettings object"
+
+	^ self newProperties jsLinkSettings 
+]

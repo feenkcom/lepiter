@@ -1,0 +1,77 @@
+Class {
+	#name : #LeDatabasesRegistry,
+	#superclass : #LeModel,
+	#traits : 'TGtUniqueInstance',
+	#classTraits : 'TGtUniqueInstance classTrait',
+	#instVars : [
+		'defaultLogicalDatabase'
+	],
+	#category : #'Lepiter-Core-Model'
+}
+
+{ #category : #accessing }
+LeDatabasesRegistry class >> defaultLogicalDatabase [
+
+	^ self uniqueInstance defaultLogicalDatabase
+]
+
+{ #category : #accessing }
+LeDatabasesRegistry class >> defaultPlaygroundDatabase [
+
+	^ self uniqueInstance defaultPlaygroundDatabase
+]
+
+{ #category : #accessing }
+LeDatabasesRegistry class >> defaultPrimaryDatabase [
+
+	^ self uniqueInstance defaultPrimaryDatabase
+]
+
+{ #category : #accessing }
+LeDatabasesRegistry >> clearDefaultLogicalDatabase [
+
+	^ defaultLogicalDatabase := nil
+]
+
+{ #category : #accessing }
+LeDatabasesRegistry >> defaultLogicalDatabase [
+
+	^ defaultLogicalDatabase ifNil: [ defaultLogicalDatabase := self loadDefaultLogicalDatabase ]
+]
+
+{ #category : #accessing }
+LeDatabasesRegistry >> defaultLogicalDatabase: anObject [
+	defaultLogicalDatabase := anObject
+]
+
+{ #category : #accessing }
+LeDatabasesRegistry >> defaultPlaygroundDatabase [
+
+	^ self defaultLogicalDatabase playgroundDB
+]
+
+{ #category : #accessing }
+LeDatabasesRegistry >> defaultPrimaryDatabase [
+
+	^ self defaultLogicalDatabase primaryDB
+]
+
+{ #category : #testing }
+LeDatabasesRegistry >> hasDatabasesLoaded [
+	^ defaultLogicalDatabase notNil
+]
+
+{ #category : #private }
+LeDatabasesRegistry >> initializeForGlamorousToolkit [
+	| databaseProperties |
+	self assert: [ defaultLogicalDatabase isNil ].
+	databaseProperties := LeLogicalDatabaseProperties defaultForGlamorousToolkit.
+	self defaultLogicalDatabase: databaseProperties logicalDatabase
+	
+]
+
+{ #category : #private }
+LeDatabasesRegistry >> loadDefaultLogicalDatabase [
+
+	^ LeLogicalDatabaseProperties default logicalDatabase
+]

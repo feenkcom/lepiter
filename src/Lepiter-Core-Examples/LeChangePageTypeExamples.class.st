@@ -1,0 +1,117 @@
+Class {
+	#name : #LeChangePageTypeExamples,
+	#superclass : #Object,
+	#category : #'Lepiter-Core-Examples-Content'
+}
+
+{ #category : #'examples - model' }
+LeChangePageTypeExamples >> basicUnnamedPage [
+	<gtExample>
+	| page |
+	page := LePage unnamedPage.
+	
+	self assert: page title equals: 'Page'.
+	self assert: page type title equals: 'Page'.
+	
+	^ page
+]
+
+{ #category : #'examples - model' }
+LeChangePageTypeExamples >> basicUnnamedPageWithCustomDefaultTitle [
+	<gtExample>
+	| page |
+	page := LePage unnamedPageWithDefaultTitle: 'Custom Default'.
+	
+	self assert: page title equals: 'Custom Default'.
+	self assert: page type title equals: 'Custom Default'.
+	
+	^ page
+]
+
+{ #category : #'examples - page title' }
+LeChangePageTypeExamples >> dailyNoteToNormalPage [
+	<gtExample>
+	| aDatabase aPage |
+	aDatabase := self updateUnnamedPageToDailyNotePage.
+	aPage := aDatabase pages first.
+	aPage updateTitle: 'normal page'.
+	self assert: aPage title equals: 'normal page'.
+	self assert: aPage type isNamedPageType.
+	
+	self assert: aDatabase pages size equals: 1.
+	self assert: aDatabase pagesByName size equals: 1.
+	self assert: aDatabase unnamedPagesByUid size equals: 0.
+	self assert: aDatabase dailyNotes size equals: 0.
+	
+	^ aDatabase
+]
+
+{ #category : #'examples - model' }
+LeChangePageTypeExamples >> databaseWithOneUnnamedPage [
+	<gtExample>
+	| aPage aDatabase |
+	aDatabase := LeContentBuilderExamples new database.
+	aPage := self basicUnnamedPage.
+	aDatabase addPage: aPage.
+	
+	self assert: aDatabase pages size equals: 1.
+	self assert: aDatabase pagesByName size equals: 0.
+	self assert: aDatabase unnamedPagesByUid size equals: 1.
+	self assert: aDatabase dailyNotes size equals: 0.
+	
+	^ aDatabase
+]
+
+{ #category : #'examples - model' }
+LeChangePageTypeExamples >> databaseWithTwoUnnamedPage [
+	<gtExample>
+	| aFirstPage aSecondPage aDatabase |
+	aDatabase := LeContentBuilderExamples new database.
+	aFirstPage := self basicUnnamedPage.
+	aSecondPage := self basicUnnamedPageWithCustomDefaultTitle.
+	aDatabase addPage: aFirstPage.
+	aDatabase addPage: aSecondPage.
+	
+	self assert: aDatabase pages size equals: 2.
+	self assert: aDatabase pagesByName size equals: 0.
+	self assert: aDatabase unnamedPagesByUid size equals: 2.
+	self assert: aDatabase dailyNotes size equals: 0.
+	
+	^ aDatabase
+]
+
+{ #category : #'examples - page title' }
+LeChangePageTypeExamples >> updateUnnamedPageToDailyNotePage [
+	<gtExample>
+	| aDatabase aPage |
+	aDatabase := self databaseWithOneUnnamedPage.
+	aPage := aDatabase pages first.
+	aPage updateTitle: 'November 9th, 2020'.
+	self assert: aPage title equals: 'November 9th, 2020'.
+	self assert: aPage type isDailyNote.
+	
+	self assert: aDatabase pages size equals: 1.
+	self assert: aDatabase pagesByName size equals: 1.
+	self assert: aDatabase unnamedPagesByUid size equals: 0.
+	self assert: aDatabase dailyNotes size equals: 1.
+	
+	^ aDatabase
+]
+
+{ #category : #'examples - page title' }
+LeChangePageTypeExamples >> updateUnnamedPageToNamedPage [
+	<gtExample>
+	| aDatabase aPage |
+	aDatabase := self databaseWithOneUnnamedPage.
+	aPage := aDatabase pages first.
+	aPage updateTitle: 'named'.
+	self assert: aPage title equals: 'named'.
+	self assert: aPage type isNamedPageType.
+	
+	self assert: aDatabase pages size equals: 1.
+	self assert: aDatabase pagesByName size equals: 1.
+	self assert: aDatabase unnamedPagesByUid size equals: 0.
+	self assert: aDatabase dailyNotes size equals: 0.
+	
+	^ aDatabase
+]
