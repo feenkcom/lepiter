@@ -41,7 +41,7 @@ LeLocalExamples class >> testDataLocation [
 	"Answer the location of the test data based on the git repository"
 	| fileReference |
 
-	fileReference := ((IceRepository registry detect: [ :each | each name = 'lepiter-engine' ]) location resolve) / 'test-data'.
+	fileReference := ((IceRepository registry detect: [ :each | each name = 'lepiter' ]) location resolve) / 'test-data'.
 	self assert: fileReference exists.
 	^ fileReference.
 ]
