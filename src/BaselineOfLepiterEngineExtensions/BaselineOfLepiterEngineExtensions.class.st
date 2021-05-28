@@ -17,7 +17,7 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 		for: #common do: [
 			spec
 				baseline: 'LepiterEngineCore' with: [ 
-					spec repository: 'github://feenkcom/lepiter-engine:main/src' ].
+					spec repository: 'github://feenkcom/lepiter:main/src' ].
 				
 			"LepiterTextSnippet"
 			spec
