@@ -25,7 +25,9 @@ LeLocalStorageExamples >> ensureAttributeOrdering [
 	storage write: jsonObject toJsonFile: file2.
 	pageJson2 := file2 contents.
 
-	self assert: pageJson2 equals: pageJson.
+	self 
+		assert: pageJson2 withUnixLineEndings 
+		equals: pageJson.
 	^ pageJson
 ]
 
