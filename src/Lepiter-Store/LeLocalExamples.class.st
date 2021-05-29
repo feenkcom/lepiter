@@ -40,18 +40,11 @@ Class {
 LeLocalExamples class >> testDataLocation [
 	"Answer the location of the test data based on the git repository"
 	| fileReference |
-
-	NonInteractiveTranscript stdout
-		cr; cr;
-		show: '--->testDataLocation';
-		cr.
-	IceRepository registry do: [:each | 
-		NonInteractiveTranscript stdout
-			show: each name;
-			cr ].
 	
-	fileReference := ((IceRepository registry 
-		detect: [ :each | each name = 'lepiter' ]) location resolve) / 'test-data'.
+	fileReference := GtResourceReference path: Path 
+		* 'feenkcom' 
+		/ 'lepiter' 
+		/ 'test-data'.
 	self assert: fileReference exists.
 	^ fileReference.
 ]
