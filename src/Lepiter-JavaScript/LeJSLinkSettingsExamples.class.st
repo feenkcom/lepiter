@@ -72,7 +72,7 @@ LeJSLinkSettingsExamples >> setFileLocatorDirectory [
 	propertiesObject := self propertiesDictionaryFrom: settings.
 
 	self assert: ((propertiesObject at: #jsLink) at: #directory)
-			equals: '{home}/path'.
+			equals: (self pathFrom: {'{home}' . 'path'}).
 
 	^ fileReference
 ]
@@ -84,12 +84,12 @@ LeJSLinkSettingsExamples >> setFileLocatorNodeJSPath [
 	| fileLocator settings propertiesObject |
 
 	settings := self settings.
-	fileLocator := FileLocator home / '.local/bin/nodejs'.
+	fileLocator := FileLocator home / '.local' / 'bin' / 'nodejs'.
 	settings nodejsPath: fileLocator.
 	propertiesObject := self propertiesDictionaryFrom: settings.
 
 	self assert: ((propertiesObject at: #jsLink) at: #nodejsPath)
-			equals: '{home}/.local/bin/nodejs'.
+			equals: (self pathFrom: {'{home}' . '.local' . 'bin' . 'nodejs'}).
 
 	^ fileLocator
 ]
@@ -101,7 +101,7 @@ LeJSLinkSettingsExamples >> setRelativeDirectory [
 	| fileString settings propertiesObject |
 
 	settings := self settings.
-	fileString := '../relative'.
+	fileString := self pathFrom: {'..' . 'relative'}.
 
 	settings directory: fileString.
 	propertiesObject := self propertiesDictionaryFrom: settings.

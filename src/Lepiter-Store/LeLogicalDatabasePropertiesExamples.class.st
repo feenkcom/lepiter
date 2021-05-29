@@ -71,7 +71,7 @@ LeLogicalDatabasePropertiesExamples >> migrateStonProperties [
 	self assert: (properties properties at: #playgroundDatabaseDirectory)
 			equals: (FileLocator localDirectory / 'lepiterdbs' / 'v3' / 'playground') printString.
 	self assert: (properties properties at: #registeredDatabaseDirectories) first
-			equals: '{image}/registered'.
+			equals: '{image}', FileSystem disk delimiter asString, 'registered'.
 
 	^ propertiesFile
 ]
@@ -173,7 +173,7 @@ LeLogicalDatabasePropertiesExamples >> setLocatorPrimaryDirectory [
 	properties primaryDatabaseDirectory: fileReference.
 
 	self assert: (properties properties at: #primaryDatabaseDirectory)
-			equals: '{home}/path'.
+			equals: '{home}', FileSystem disk delimiter asString, 'path'.
 
 	^ fileReference
 ]

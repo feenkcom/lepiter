@@ -15,7 +15,9 @@ LeDatabasePropertiesExamples >> fileReferenceEncoding [
 	localStore := LeLocalStore new localRoot: FileLocator imageDirectory.
 	locator := FileLocator imageDirectory / 'pharo-local'.
 	string := localStore fileReferenceString: locator.
-	self assert: string equals: '{imageDirectory}/pharo-local'.
+	self 
+		assert: string 
+		equals: '{imageDirectory}', FileSystem disk delimiter asString, 'pharo-local'.
 	fileReference := localStore fileReferenceFrom: string.
 	self assert: fileReference equals: locator.
 	^ fileReference

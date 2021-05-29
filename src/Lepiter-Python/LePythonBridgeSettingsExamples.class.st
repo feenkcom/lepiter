@@ -72,7 +72,7 @@ LePythonBridgeSettingsExamples >> setFileLocatorDirectory [
 	propertiesObject := self propertiesDictionaryFrom: settings.
 
 	self assert: ((propertiesObject at: #pythonBridge) at: #directory)
-			equals: '{home}/path'.
+			equals: (self pathFrom: {'{home}' . 'path'}).
 
 	^ fileReference
 ]
@@ -89,7 +89,7 @@ LePythonBridgeSettingsExamples >> setFileLocatorPipenvPath [
 	propertiesObject := self propertiesDictionaryFrom: settings.
 
 	self assert: ((propertiesObject at: #pythonBridge) at: #pipenvPath)
-			equals: '{home}/.local/bin/pipenv'.
+			equals: (self pathFrom: {'{home}' . '.local' . 'bin' . 'pipenv'}).
 
 	^ fileLocator
 ]
@@ -101,7 +101,7 @@ LePythonBridgeSettingsExamples >> setRelativeDirectory [
 	| fileString settings propertiesObject |
 
 	settings := self settings.
-	fileString := '../relative'.
+	fileString := self pathFrom: {'..' . 'relative'}.
 
 	settings directory: fileString.
 	propertiesObject := self propertiesDictionaryFrom: settings.

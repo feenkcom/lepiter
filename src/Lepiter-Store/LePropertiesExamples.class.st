@@ -11,6 +11,14 @@ LePropertiesExamples >> newProperties [
 	^ LeLocalStore new localRoot: FileSystem memory root
 ]
 
+{ #category : #accessing }
+LePropertiesExamples >> pathFrom: anArray [
+	^ String streamContents: [ :aStream | 
+			anArray 
+				asStringOn: aStream 
+				delimiter: FileSystem disk delimiter asString ]
+]
+
 { #category : #private }
 LePropertiesExamples >> propertiesDictionaryFrom: settings [
 	"Answer the properties dictionary for the supplied settings"
