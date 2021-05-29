@@ -5,8 +5,8 @@ The monitor subscribes to announcements from the database and adds them to a que
 
 The monitor can be in one of two states:
 
-- #running - it is listening to the database for changes and saving them.
-- #stopped - it isn't listening.
+- running - it is listening to the database for changes and saving them.
+- stopped - it isn't listening.
 
  
 !!Internal Representation and Key Implementation Points.
