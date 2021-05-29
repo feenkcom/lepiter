@@ -1,5 +1,5 @@
 "
-${class:LeLocalJSONStoreMonitor}$ listens to its ${class:LeDatabase}$ and saves pages back to disk whenever the page is updated (added, content modified, title changed, removed).
+${class:LeLocalStoreMonitor}$ listens to its ${class:LeDatabase}$ and saves pages back to disk whenever the page is updated (added, content modified, title changed, removed).
 
 The monitor subscribes to announcements from the database and adds them to a queue of pages to be saved.   After each saveDelay has elapsed it saves all the pages back to the store.  See ${method:name=LeLocalStoreMonitor>>#defaultDelay}$ for the default value.
 

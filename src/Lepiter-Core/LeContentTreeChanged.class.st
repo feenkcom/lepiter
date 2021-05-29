@@ -1,5 +1,5 @@
 "
-${class:LeContentTreeChanged}$ is a common parent for Add, Move and Remove announcements.  Changes to a ${class:LeBlock}$'s content should be announced with ${class:LeBlockTextChanged}$
+${class:LeContentTreeChanged}$ is a common parent for Add, Move and Remove announcements.  Changes to a ${class:LeSnippet}$'s content should be announced with ${class:LeSnippetTextChanged}$
 
 Historically, ${class:LeContentTreeChanged}$ has been used as a general announcement that the entire tree should be re-processed, however this should be avoided for performance reasons. 
 

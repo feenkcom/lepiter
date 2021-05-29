@@ -1,5 +1,5 @@
 "
-I inform that ${method:LeDatabase>>#LeDatabase>>#tableOfContents|label=Table of Contents}$ ${class:LePage}$ has been changed.
+I inform that ${method:LeDatabase>>#tableOfContents|label=Table of Contents}$ ${class:LePage}$ has been changed.
 "
 Class {
 	#name : #LeDatabaseTableOfContentsUUIDChanged,

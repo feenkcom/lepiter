@@ -1,7 +1,6 @@
 "
 I am a root model object.
 I hold all ${class:LePage}$ instances in my database.
-You can load a database from a JSON using ${method:LeDatabase class>>#fromFile:}$.
 
 
 !!Internal Representation and Key Implementation Points.

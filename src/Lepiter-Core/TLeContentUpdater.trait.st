@@ -1,5 +1,5 @@
 "
-I proved common API for ${class:LeDatabasePageUpdater}$ and ${class:LeDatabaseBlockUpdater}$.
+I proved common API for ${class:LeDatabasePageUpdater}$ and ${class:LeDatabaseSnippetUpdater}$.
 "
 Trait {
 	#name : #TLeContentUpdater,

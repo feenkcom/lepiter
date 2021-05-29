@@ -1,5 +1,5 @@
 "
-I exemplify ${class:LeDatabaseBlockUpdater}$.
+I exemplify ${class:LeDatabaseSnippetUpdater}$.
 "
 Class {
 	#name : #LeDatabaseSnippetUpdaterExamples,

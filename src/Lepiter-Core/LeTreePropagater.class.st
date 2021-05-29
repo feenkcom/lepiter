@@ -1,5 +1,5 @@
 "
-I announce ${class:Announcement|label=announcements}$ in a given ${class:LePage}$ or ${class:LeBlock}$ announcer and in all its children.
+I announce ${class:Announcement|label=announcements}$ in a given ${class:LePage}$ or ${class:LeSnippet}$ announcer and in all its children.
 See the ${method:LeTreePropagater>>#propagate:in:|label=#selector|expanded}$.
 I am used by ${class:LeNotifier}$.
 !! Example
