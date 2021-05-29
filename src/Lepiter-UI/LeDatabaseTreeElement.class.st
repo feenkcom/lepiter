@@ -1,5 +1,5 @@
 "
-I display a ${class:LeDatabase}$ items, including ${class:LePage}$ instances and their ${class:LeBlock}$ instances.
+I display a ${class:LeDatabase}$ items, including ${class:LePage}$ instances and their ${class:LeSnippet}$ instances.
 
 ${example:LeUIExamples>>#databaseTreeElement|previewExpanded}$
 

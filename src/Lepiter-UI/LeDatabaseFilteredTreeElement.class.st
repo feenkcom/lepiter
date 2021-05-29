@@ -1,5 +1,5 @@
 "
-I display a ${class:LeDatabase}$ items, including ${class:LePage}$ instances and their ${class:LeBlock}$ instances. The items can be filtered using ${class:GtFiltersElement}$.
+I display a ${class:LeDatabase}$ items, including ${class:LePage}$ instances and their ${class:LeSnippet}$ instances. The items can be filtered using ${class:GtFiltersElement}$.
 
 ${example:LeUIExamples>>#databaseFilteredTreeElement|previewExpanded}$
 

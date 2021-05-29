@@ -1,5 +1,5 @@
 "
-I announce ${class:Announcement|label=announcements}$ locally in a given ${class:LePage}$ or ${class:LeBlock}$ announcer.
+I announce ${class:Announcement|label=announcements}$ locally in a given ${class:LePage}$ or ${class:LeSnippet}$ announcer.
 See the ${method:LeLocalPropagater>>#propagate:in:|label=#selector|expanded}$.
 I am used by ${class:LeNotifier}$.
 !! Example
