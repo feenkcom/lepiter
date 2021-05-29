@@ -41,10 +41,10 @@ LeLocalExamples class >> testDataLocation [
 	"Answer the location of the test data based on the git repository"
 	| fileReference |
 	
-	fileReference := GtResourceReference path: Path 
+	fileReference := (GtResourceReference path: Path 
 		* 'feenkcom' 
 		/ 'lepiter' 
-		/ 'test-data'.
+		/ 'test-data') fileReference.
 	self assert: fileReference exists.
 	^ fileReference.
 ]
