@@ -40,6 +40,7 @@ GtJavaScriptCoderModel >> asCoderUIModel [
 { #category : #'private - execution' }
 GtJavaScriptCoderModel >> bindAndExecute: sourceString [
 	"Answer the source code with all declared variables returned in an immediate dictionary"
+	<gtIgnoreConstraint: #GtRBAcceptVisitorCalledFromNonVisitingMethods>
 	| trimmedSource visitor ast lastStatement varNames jsBindings jsSource commandFactory application |
 
 	trimmedSource := SmaCCString on: sourceString trimRight.
