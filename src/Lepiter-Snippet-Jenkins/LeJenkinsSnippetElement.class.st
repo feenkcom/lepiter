@@ -235,13 +235,16 @@ LeJenkinsSnippetElement >> subscribeToJenkinsSnippetViewModel [
 
 	self snippetViewModel weak
 		when: LeJenkinsSnippetShowFormAnnouncement
-		do: [ self updateFormVisibility ]
+		send: #updateFormVisibility
+		to: self
 ]
 
 { #category : #'api - jenkins snippet view model' }
 LeJenkinsSnippetElement >> unsubscribeFromJenkinsSnippetViewModel [
 	"Is sent before a new jenkinsSnippet view model is assigned to the element.
 	Elements that subscribe to jenkinsSnippet view model in domain model are required to implement this methods"
+	
+	self snippetViewModel unsubscribe: self
 ]
 
 { #category : #'api - jenkins snippet view model' }
