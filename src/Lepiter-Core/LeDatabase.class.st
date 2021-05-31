@@ -51,7 +51,7 @@ LeDatabase >> addAttachmentByCopy: aFileReference [
 	^ String streamContents: [ :stream |
 		(attachmentFileReference path segments last: 3) 
 				do: [ :segment | stream << segment ]
-				separatedBy: [ stream nextPut: FileSystem disk delimiter ]]
+				separatedBy: [ stream nextPut: aFileReference fileSystem delimiter ]]
 ]
 
 { #category : #'api - attachments' }
