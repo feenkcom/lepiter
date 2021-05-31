@@ -1,6 +1,6 @@
 "
-I am the model for a single text snippet in *Roam Reseach>http://roamresearch.com*. 
-The following example display one ${class:LePage|label=page}$ with three blocks in a tree structure: ${example:LeExamples>>#pageOneWithTwoBlocksAndWithBlockChild|noCode}$ 
+I am the model for a single text snippet. 
+The following example display one ${class:LePage|label=page}$ with three blocks in a tree structure: ${example:LeContentExamples>>#pageOneWithTwoBlocksAndWithBlockChild|noCode}$ 
 !! Properties
 Common properties that can be accessed from a LeSnippet include:
 - ${method:LeTextSnippet>>#text|label=#selector}$ is a  *Markdown>https://en.wikipedia.org/wiki/Markdown* text as a ${class:BlText}$ instance,
@@ -10,16 +10,16 @@ Common properties that can be accessed from a LeSnippet include:
 - ${method:LeContent>>#children|label=#selector}$ is a collection of other ${class:LeSnippet}$ instances.
 Additional properties can be found in `api - accessing`.
 !! Initialization
-The ${method:LeTextSnippet>>#text|label=#selector}$ is """"initialized"""" either using ${method:LeSnippet>>#text:|label=#selector}$ or ${method:LeSnippet>>#string:|label=#selector}$.  The former one is useful particularly for the ${class:LeJson}$ reader and writer.
-From a UI, new ${class:LeSnippet}$ can be created (added as my children) using ${method:LeContent>>#blockBuilder|label=#selector}$: ${example:LeSnippetBuilderExamples>>#blockInPageAndDatabase}$ 
+The ${method:LeTextSnippet>>#text|label=#selector}$ is """"initialized"""" either using ${method:LeTextSnippet>>#text:|label=#selector}$ or ${method:LeTextSnippet>>#string:|label=#selector}$.  The former one is useful particularly for the json reader and writer.
+From a UI, new ${class:LeSnippet}$ can be created (added as my children) using ${method:LeContent>>#blockBuilder|label=#selector}$: ${example:LeContentExamples>>#textBlockInPageAndDatabase}$ 
 !! Updates
 A number of methods for """"updating"""" text are provided (mirroring the protocol for {${class:BlRopedText}$:
-- ${method:LeTextSnippet>>#updateText:|label=#selector}$
+- ${method:LeTextSnippet>>#updateText:source:|label=#selector}$
 - ${method:LeTextSnippet>>#updateString:|label=#selector}$
-- ${method:LeTextSnippet>>#appendText:|label=#selector}$
+- ${method:LeTextSnippet>>#appendText:source:|label=#selector}$
 - ${method:name=LeTextSnippet>>#insertText:at:|label=#selector}$
 
- ${example:LeDatabaseBlockUpdaterExamples>>#updateBlockOneToTwo_Simplified_Text}$ ${example:LeDatabaseBlockUpdaterExamples>>#updateBlockOneToTwo_Simplified_String}$ 
+ ${example:LeDatabaseSnippetUpdaterExamples>>#updateSnippetOneToTwo_Simplified_Text}$ ${example:LeDatabaseSnippetUpdaterExamples>>#updateSnippetOneToTwo_Simplified_String}$ 
  
 
 Text editors are responsible for using a copy of ${method:LeTextSnippet>>#text|label=#selector}$ since sharing ${class:BlTextAttribute|label=text attributes}$  may produces undesired (and undefinied) behavior. ${class:BlText}$ is not thread safe, it therefore cannot be edited simultaneously in several editors.

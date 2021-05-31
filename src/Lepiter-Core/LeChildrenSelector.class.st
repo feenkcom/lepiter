@@ -2,7 +2,6 @@
 I am ${class:LeRootItemsSelector}$.
 I select all direct children of an item, e.g., ${class:LePage}$:
 ${method:LeChildrenSelector>>#rootsFor:into:|expanded}$
-I am used by ${class:LeBlockTreeElement}$.
 "
 Class {
 	#name : #LeChildrenSelector,

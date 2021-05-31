@@ -3,9 +3,9 @@ ${class:LeLocalStore}$ is an abstract class providing a persistent, automaticall
 
 ${class:LeLocalStore}$ stores the database as a file per ${class:LePage}$ in its localRoot.  The file name and format are defined by subclasses.
 
-As Lepiter is currently memory resident, databases may be converted from one format to another by loading the old format, see e.g. ${class:name=LeLocalSTONStoreLoad}$, and storing in the new format, e.g. ${class:name=LeLocalSTONStoreExport}$.
+As Lepiter is currently memory resident, databases may be converted from one format to another by loading the old format, see e.g. ${class:name=LeLocalStoreLoad}$, and storing in the new format, e.g. ${class:name=LeLocalStoreExport}$.
 
-A Lepiter database may be loaded from an existing store with ${method:name=LeLocalStore>>#loadAndMonitor}$.  Using #loadAndMonitor will set up a ${class:LeLocalStoreMonitor}$, which will automatically save changes to the database as they are made.
+A Lepiter database may be loaded from an existing store with ${method:name=LeLocalStoreLoad>>#loadAndMonitorFrom:}$.  Using #loadAndMonitorFrom: will set up a ${class:LeLocalStoreMonitor}$, which will automatically save changes to the database as they are made.
 
 The store is responsible for ensuring that an attachments directory exists in the database.
 

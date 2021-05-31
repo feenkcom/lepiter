@@ -1,6 +1,5 @@
 "
 I define root items, e.g., ${class:LeSnippets}$ that should be displayed in a tree (or potentionaly in a list).
-I am used by ${class:LeBlockTreeElement}$.
 "
 Class {
 	#name : #LeRootItemsSelector,
