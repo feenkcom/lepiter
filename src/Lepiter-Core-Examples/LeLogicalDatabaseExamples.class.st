@@ -312,6 +312,7 @@ LeLogicalDatabaseExamples >> logicalDatabaseWithPrimaryWorkspaceAndAdditionalDBS
 LeLogicalDatabaseExamples >> pagesByDate [
 	"Demonstrate LeLogicalDatabase>>pagesByDate"
 	<gtExample>
+	<noTest>
 	| database pagesByDate |
 
 	database := self primaryAndWorkspaceDB.

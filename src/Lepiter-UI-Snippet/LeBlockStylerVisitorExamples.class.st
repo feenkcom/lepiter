@@ -91,6 +91,7 @@ LeBlockStylerVisitorExamples >> fileRelativeURL [
 
 { #category : #examples }
 LeBlockStylerVisitorExamples >> isValidLinkWideString [
+	<noTest>
 	<gtExample>
 	"Check that a file url with non-ascii characters (ěščřžýáíé) is accepted"
 	| file fileUrl visitor |

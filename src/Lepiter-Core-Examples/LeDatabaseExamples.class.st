@@ -14,6 +14,7 @@ Class {
 LeDatabaseExamples >> addAttachmentByCopy [
 	"Demonstrate attaching a file to a database by copy"
 	<gtExample>
+	<noTest>
 	<after: #cleanUp>
 	| db attachmentSource attachment userEmail now propertiesFileReference properties |
 
@@ -50,6 +51,7 @@ LeDatabaseExamples >> addAttachmentByCopy [
 LeDatabaseExamples >> addAttachmentByMove [
 	"Demonstrate attaching a file to a database by moving the file to the database"
 	<gtExample>
+	<noTest>
 	<after: #cleanUp>
 	| db attachmentSource sourceName attachment userEmail now propertiesFileReference properties |
 
