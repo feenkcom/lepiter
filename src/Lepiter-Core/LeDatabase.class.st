@@ -66,7 +66,7 @@ LeDatabase >> addAttachmentByMove: aFileReference [
 	^ String streamContents: [ :stream |
 		(attachmentFileReference path segments last: 3) 
 				do: [ :segment | stream << segment ]
-				separatedBy: [ stream nextPut: $/ ]]
+				separatedBy: [ stream nextPut: aFileReference fileSystem delimiter ]]
 ]
 
 { #category : #'api - attachments' }
@@ -82,7 +82,7 @@ LeDatabase >> addAttachmentWithContent: aString named: aName [
 	^ String streamContents: [ :stream |
 		(attachmentFileReference path segments last: 3) 
 				do: [ :segment | stream << segment ]
-				separatedBy: [ stream nextPut: $/ ]]
+				separatedBy: [ stream nextPut: attachmentFileReference fileSystem delimiter ]]
 ]
 
 { #category : #'api - adding / removing' }
