@@ -1,5 +1,5 @@
 {
-	"__schema" : "3.2",
+	"__schema" : "4.1",
 	"__type" : "page",
 	"children" : {
 		"__type" : "snippets",
@@ -18,7 +18,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2020-11-30T08:48:42.064306+01:00"
+						"dateAndTimeString" : "2020-11-30T08:48:32.387001+01:00"
 					}
 				},
 				"editEmail" : {
@@ -29,17 +29,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2020-11-30T08:48:45.848027+01:00"
+						"dateAndTimeString" : "2020-11-30T08:48:38.334106+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "rxokDhAQ"
+					"uidString" : "N6hgRyaBAAAAAAAAAAAAAA=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "This is Part One Sub Two."
+				"string" : "This is Part One Sub One."
 			}
 		]
 	},
@@ -51,7 +51,7 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2020-11-30T08:47:10.378946+01:00"
+			"dateAndTimeString" : "2020-11-30T08:47:02.579577+01:00"
 		}
 	},
 	"editEmail" : {
@@ -62,15 +62,15 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2021-02-03T09:12:50.112347+01:00"
+			"dateAndTimeString" : "2021-02-03T09:12:28.683812+01:00"
 		}
 	},
 	"pageType" : {
 		"__type" : "namedPage",
-		"title" : "Applications"
+		"title" : "Basics of Mondrian"
 	},
 	"uid" : {
 		"__type" : "uuid",
-		"uuid" : "2fe25ff4-af71-0d00-a9db-502906c92981"
+		"uuid" : "fae0e8f3-af71-0d00-a9da-8f4e06c92981"
 	}
 }

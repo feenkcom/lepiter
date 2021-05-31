@@ -1,5 +1,5 @@
 {
-	"__schema" : "3.2",
+	"__schema" : "4.1",
 	"__type" : "page",
 	"children" : {
 		"__type" : "snippets",
@@ -12,46 +12,46 @@
 				},
 				"createEmail" : {
 					"__type" : "email",
-					"emailString" : "akgrant@gmail.com"
+					"emailString" : "tudor@tudorgirba.com"
 				},
 				"createTime" : {
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2020-11-30T08:49:09.115411+01:00"
+						"dateAndTimeString" : "2021-02-03T09:29:27.511763+01:00"
 					}
 				},
 				"editEmail" : {
 					"__type" : "email",
-					"emailString" : "akgrant@gmail.com"
+					"emailString" : "tudor@tudorgirba.com"
 				},
 				"editTime" : {
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2020-11-30T08:49:12.077009+01:00"
+						"dateAndTimeString" : "2021-02-03T09:29:28.265558+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "mFGuzf4G"
+					"uidString" : "RhR4ebczAAAAAAAAAAAAAA=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "First part of Part Two"
+				"string" : "something"
 			}
 		]
 	},
 	"createEmail" : {
 		"__type" : "email",
-		"emailString" : "akgrant@gmail.com"
+		"emailString" : "tudor@tudorgirba.com"
 	},
 	"createTime" : {
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2020-11-30T08:47:36.155014+01:00"
+			"dateAndTimeString" : "2021-02-01T23:09:18.053863+01:00"
 		}
 	},
 	"editEmail" : {
@@ -62,15 +62,15 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2021-02-03T09:13:01.438021+01:00"
+			"dateAndTimeString" : "2021-02-01T23:09:18.053863+01:00"
 		}
 	},
 	"pageType" : {
 		"__type" : "namedPage",
-		"title" : "Beyond graphs"
+		"title" : "Using visualizations during development"
 	},
 	"uid" : {
 		"__type" : "uuid",
-		"uuid" : "4033e9f5-af71-0d00-a9e1-a4a306c92981"
+		"uuid" : "85319657-af76-0d00-88e9-169c072cf288"
 	}
 }
