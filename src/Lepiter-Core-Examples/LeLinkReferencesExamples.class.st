@@ -155,7 +155,7 @@ LeLinkReferencesExamples >> pageReferenceByUid_equality [
 LeLinkReferencesExamples >> snippetReference [
 	<gtExample>
 	| reference uid |
-	uid := LeUID new uidString: '6k3mgsn3df0owp9vdtm10uvln'.
+	uid := LeUID new uidString: 'txSE1CFVRYu2vAcF6O7o8g=='.
 	reference := LeLinkSnippetUidReference forSnippetUid: uid.
 	
 	self assert: reference targetId equals: uid.
@@ -183,7 +183,7 @@ LeLinkReferencesExamples >> snippetReferenceWithDatabaseUuid_equality [
 	<gtExample>
 	| referenceA referenceB |
 	referenceA := self snippetReferenceWithDatabaseUuid.
-	referenceB := LeLinkSnippetUidReference forSnippetUid: (LeUID new uidString: '6k3mgsn3df0owp9vdtm10uvln').
+	referenceB := LeLinkSnippetUidReference forSnippetUid: (LeUID new uidString: 'NlHHOQGADQCAkgvfCO2heg==').
 	referenceB targetDatabaseUUID: self databaseTwoUuid asString36.
 	
 	self assert: (referenceA matches: referenceA).
@@ -198,7 +198,7 @@ LeLinkReferencesExamples >> snippetReference_equality [
 	<gtExample>
 	| referenceA referenceB |
 	referenceA := self snippetReference.
-	referenceB := LeLinkSnippetUidReference forSnippetUid: (LeUID new uidString: '6k3mgsn3df0owp9vdtm10uvln').
+	referenceB := LeLinkSnippetUidReference forSnippetUid: (LeUID new uidString: 'txSE1CFVRYu2vA8F6O7o8g==').
 	
 	self assert: (referenceA matches: referenceA).
 	self assert: (referenceA matches: self snippetReference).

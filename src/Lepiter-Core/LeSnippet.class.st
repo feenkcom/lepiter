@@ -461,7 +461,7 @@ LeSnippet >> uid: aLeUID [
 { #category : #'api - accessing' }
 LeSnippet >> uidString [ 
 
-	^ uid base64Encoded
+	^ uid uidString
 ]
 
 { #category : #accessing }

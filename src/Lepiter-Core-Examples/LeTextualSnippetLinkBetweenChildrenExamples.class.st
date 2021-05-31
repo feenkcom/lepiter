@@ -185,8 +185,8 @@ LeTextualSnippetLinkBetweenChildrenExamples >> createDatabaseWithTextualLink_tex
 	currentLink := database explicitLinks items first.
 	
 	self assert: currentLink isTextualSnippetLink.
-	self assert: currentLink targetSnippetUid equals: firstSnippet uidString.
-	self assert: currentLink targetUID equals: firstSnippet uidString.
+	self assert: currentLink targetSnippetUid equals: firstSnippet uid.
+	self assert: currentLink targetUID equals: firstSnippet uid.
 	self assert: currentLink target equals: firstSnippet.
 	self assert: currentLink origin equals: secondSnippet.
 	

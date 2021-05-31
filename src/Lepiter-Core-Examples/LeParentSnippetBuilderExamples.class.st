@@ -23,7 +23,5 @@ LeParentSnippetBuilderExamples >> emptySnippetInPageAndDatabase [
 	self assert: aSnippet editTime equals: aSnippet createTime.
 	self assert: aSnippet editEmail equals: aSnippet createEmail.
 	self assert: aSnippet uid isNotNil.
-	self assert: aSnippet uid uid isString.
-	self assert: aSnippet uid uid isNotEmpty.
 	^ aSnippet
 ]

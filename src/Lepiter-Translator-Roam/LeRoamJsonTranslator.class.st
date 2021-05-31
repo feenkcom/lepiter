@@ -55,7 +55,7 @@ LeRoamJsonTranslator >> blockMappingFor: aNeoJSONMapper [
 			(mapping mapAccessor: #createEmail to: #'create-email') valueSchema: LeEmail.
 			(mapping mapAccessor: #editTime to: #'edit-time') valueSchema: LeTime.
 			(mapping mapAccessor: #editEmail to: #'edit-email') valueSchema: LeEmail.
-			(mapping mapAccessor: #uidString to: #uid) valueSchema: LeUID.
+			(mapping mapAccessor: #uid to: #uid) valueSchema: LeUID.
 			(mapping mapAccessor: #children to: #children) valueSchema: LeSnippets. ].
 	self
 		timeMappingFor: aNeoJSONMapper;
