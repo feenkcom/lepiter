@@ -15,12 +15,7 @@ LepiterCoreDefaults class >> databasePropertiesBasename [
 
 { #category : #defaults }
 LepiterCoreDefaults class >> defaultGtoolkitDocumentationDirectory [
-	"^ GtResourcesUtility default 
-		resourceAtPath: Path * 'feenkcom' / 'lepiter-engine' / 'glamorous-toolkit-lepiterdb'."
-	
-	^ FileLocator imageDirectory 
-		/ 'pharo-local' 
-		/ 'iceberg' 
+	^ FileLocator gtResource 
 		/ 'feenkcom' 
 		/ 'gtoolkit' 
 		/ 'lepiter'
