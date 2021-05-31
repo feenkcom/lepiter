@@ -21,7 +21,7 @@ LeJsonV4000Updater class >> minorVersion [
 
 { #category : #private }
 LeJsonV4000Updater >> cleanUidString: aString [
-	"Come up with a deterministic, (hopefully) unique UID by replacing any characters which aren't part of the base64 alphabet and extending the string by repeating the first part until it is a valid length."
+	"Come up with a deterministic and (hopefully) unique UID by replacing any characters which aren't part of the base64 alphabet and extending the string by repeating the first part until it is a valid length."
 	| alphabet uidString uid |
 
 	uidString := aString.
@@ -86,9 +86,13 @@ LeJsonV4000Updater >> updateLinks: jsonObject [
 
 { #category : #private }
 LeJsonV4000Updater >> updateReference: referenceDictionary [
+	| uidDictionary |
 
 	(referenceDictionary at: #'__type') = #snippetReference ifFalse: [ ^ self ].
-	self halt.
+	
+	uidDictionary := referenceDictionary at: #snippetUid.
+	self assert: (uidDictionary at: #'__type') equals: #uid.
+	uidDictionary at: #uidString put: (self cleanUidString: (uidDictionary at: #uidString)).
 ]
 
 { #category : #private }
@@ -109,16 +113,7 @@ LeJsonV4000Updater >> updateSnippetLinks: snippetDictionary [
 LeJsonV4000Updater >> updateUID: uidDictionary [
 	"Ensure that the current uidString is valid base64.  
 	If not, use the valid portion and add a differentiator."
-	| uid oldUidString newUidString |
 
 	self assert: (uidDictionary at: #'__type') equals: #uid.
-
-	oldUidString := uidDictionary at: #uidString.
-	uid := UUID nilUUID.
-	newUidString := [ ZnBase64Encoder new decode: oldUidString readStream to: uid writeStream.
-		uid base64Encoded ]
-			on: ZnCharacterEncodingError
-			do: [ :ex | self cleanUidString: oldUidString ].
-
-	uidDictionary at: #uidString put: newUidString.
+	uidDictionary at: #uidString put: (self cleanUidString: (uidDictionary at: #uidString)).
 ]
