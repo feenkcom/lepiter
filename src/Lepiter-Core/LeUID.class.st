@@ -9,25 +9,34 @@ Class {
 
 { #category : #comparing }
 LeUID >> = anObject [
-	^ self class = anObject class and: [ 
-		self uid = anObject uid ]
+	"Answer whether the receiver and anObject represent the same object."
+
+	self == anObject ifTrue: [ ^ true ].
+	self class = anObject class ifFalse: [ ^ false ].
+	^ uid = anObject uid
 ]
 
 { #category : #'api - testing' }
-LeUID >> hasUID: aUID [
-	^ self uid isNotNil and: [
-		 aUID = self uid ]
+LeUID >> hasUidString: aString64 [
+
+	self deprecated: '= should be used, less space and CPU required'.
+
+	^ uid isNotNil and: [
+		 aString64 = uid base64Encoded ]
 ]
 
 { #category : #comparing }
 LeUID >> hash [
-	^ self class hash bitXor: self uid hash
+	"Answer an integer value that is related to the identity of the receiver."
+
+	^ uid hash
 ]
 
 { #category : #printing }
 LeUID >> printOn: aStream [
-	self uid ifNil: [ ^ super printOn: aStream ].
-	aStream nextPutAll: self uid asString.
+
+	uid ifNil: [ ^ super printOn: aStream ].
+	aStream << uid base64Encoded.
 ]
 
 { #category : #accessing }
@@ -36,6 +45,20 @@ LeUID >> uid [
 ]
 
 { #category : #accessing }
-LeUID >> uid: anObject [
-	uid := anObject
+LeUID >> uid: aUUID [
+	uid := aUUID
+]
+
+{ #category : #'api - accessing' }
+LeUID >> uidString [ 
+
+	^ uid base64Encoded
+]
+
+{ #category : #accessing }
+LeUID >> uidString: aString64 [
+
+	uid := UUID nilUUID.
+	ZnBase64Encoder new decode: aString64 readStream to: uid writeStream.
+
 ]

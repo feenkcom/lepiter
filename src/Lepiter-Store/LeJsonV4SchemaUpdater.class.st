@@ -21,6 +21,15 @@ LeJsonV4SchemaUpdater class >> minorVersion [
 ]
 
 { #category : #accessing }
+LeJsonV4SchemaUpdater class >> updatedVersion [ 
+	"Answer the version that the file is updated to, typically minorVersion+1"
+
+	^ LeDbVersion new
+		major: 4;
+		minor: self minorVersion + 1.
+]
+
+{ #category : #accessing }
 LeJsonV4SchemaUpdater class >> updaterFor: version [
 	"Answer an instance of the subclass that updates from minor version to version+1"
 

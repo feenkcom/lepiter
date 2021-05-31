@@ -55,7 +55,7 @@ LeRoamJsonTranslator >> blockMappingFor: aNeoJSONMapper [
 			(mapping mapAccessor: #createEmail to: #'create-email') valueSchema: LeEmail.
 			(mapping mapAccessor: #editTime to: #'edit-time') valueSchema: LeTime.
 			(mapping mapAccessor: #editEmail to: #'edit-email') valueSchema: LeEmail.
-			(mapping mapAccessor: #uid to: #uid) valueSchema: LeUID.
+			(mapping mapAccessor: #uidString to: #uid) valueSchema: LeUID.
 			(mapping mapAccessor: #children to: #children) valueSchema: LeSnippets. ].
 	self
 		timeMappingFor: aNeoJSONMapper;
@@ -270,13 +270,16 @@ LeRoamJsonTranslator >> timeMappingFor: aNeoJSONMapper [
 
 { #category : #'mapping - model' }
 LeRoamJsonTranslator >> uidMappingFor: neoJSONMapper [
+	"Reading a Roam block UID as a string36 UUID representation works fine (the same UUID will always be generated).
+	Whether Roam can take a longer UID back is untested (UUID asString36 is about 25 characters long)"
+
 	neoJSONMapper
 		for: LeUID customDo: [ :mapping |
 	      mapping 
 				reader: [ :jsonReader |
-					LeUID new uid: jsonReader next. ];
+					LeUID new uidString: jsonReader next. ];
 				writer: [ :jsonWriter :uid |
-					jsonWriter nextPut: uid uid ] ].
+					jsonWriter nextPut: uid uidString ] ].
 ]
 
 { #category : #'private - reading and writing' }

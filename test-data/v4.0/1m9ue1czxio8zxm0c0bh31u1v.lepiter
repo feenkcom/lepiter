@@ -1,0 +1,110 @@
+{
+	"__type" : "page",
+	"__schema" : "4.0",
+	"pageType" : {
+		"title" : "Page 4",
+		"__type" : "namedPage"
+	},
+	"editEmail" : {
+		"__type" : "email",
+		"emailString" : "akgrant@gmail.com"
+	},
+	"createTime" : {
+		"time" : {
+			"dateAndTimeString" : "2020-10-21T10:27:19.187454+02:00",
+			"__type" : "dateAndTime"
+		},
+		"__type" : "time"
+	},
+	"uid" : {
+		"uuid" : "63c57480-4f7d-0d00-bf03-f4ed0c87571b",
+		"__type" : "uuid"
+	},
+	"editTime" : {
+		"time" : {
+			"dateAndTimeString" : "2020-10-21T10:27:19.187454+02:00",
+			"__type" : "dateAndTime"
+		},
+		"__type" : "time"
+	},
+	"createEmail" : {
+		"__type" : "email",
+		"emailString" : "akgrant@gmail.com"
+	},
+	"children" : {
+		"items" : [
+			{
+				"__type" : "textSnippet",
+				"string" : "Pharo snippet follows",
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "akgrant@gmail.com"
+				},
+				"createTime" : {
+					"time" : {
+						"dateAndTimeString" : "2020-10-21T10:27:19.188353+02:00",
+						"__type" : "dateAndTime"
+					},
+					"__type" : "time"
+				},
+				"uid" : {
+					"uidString" : "egMdI3+y",
+					"__type" : "uid"
+				},
+				"editTime" : {
+					"time" : {
+						"dateAndTimeString" : "2020-10-21T10:27:19.188353+02:00",
+						"__type" : "dateAndTime"
+					},
+					"__type" : "time"
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "akgrant@gmail.com"
+				},
+				"children" : {
+					"items" : [ ],
+					"__type" : "snippets"
+				}
+			},
+			{
+				"__type" : "pharoSnippet",
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "akgrant@gmail.com"
+				},
+				"createTime" : {
+					"time" : {
+						"dateAndTimeString" : "2020-10-21T10:27:19.188869+02:00",
+						"__type" : "dateAndTime"
+					},
+					"__type" : "time"
+				},
+				"code" : "42 inspect",
+				"uid" : {
+					"uidString" : "UGicyccV",
+					"__type" : "uid"
+				},
+				"editTime" : {
+					"time" : {
+						"dateAndTimeString" : "2020-10-21T10:27:19.188869+02:00",
+						"__type" : "dateAndTime"
+					},
+					"__type" : "time"
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "akgrant@gmail.com"
+				},
+				"children" : {
+					"items" : [ ],
+					"__type" : "snippets"
+				}
+			}
+		],
+		"__type" : "snippets"
+	}
+}

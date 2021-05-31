@@ -169,10 +169,9 @@ LeSnippet >> detachFromParent [
 ]
 
 { #category : #'api - testing' }
-LeSnippet >> hasUID: aUID [
-	^ self uid
-		ifNil: [ false ] 
-		ifNotNil: [ :theUID | theUID hasUID: aUID ]
+LeSnippet >> hasUid: aLeUID [
+
+	^ uid = aLeUID
 ]
 
 { #category : #'t-rotating' }
@@ -181,10 +180,10 @@ LeSnippet >> heading [
 ]
 
 { #category : #'api - testing' }
-LeSnippet >> includesBlockUid: aString [
+LeSnippet >> includesSnippetUid: aLeUID [
 	"Answer a boolean indicating whether the supplied uid is present"
 
-	^ (self hasUID: aString) or: [ self children includesBlockUid: aString ]
+	^ (uid = aLeUID) or: [ self children includesSnippetUid: aLeUID ]
 ]
 
 { #category : #'api - editing' }
@@ -462,13 +461,13 @@ LeSnippet >> uid: aLeUID [
 { #category : #'api - accessing' }
 LeSnippet >> uidString [ 
 
-	^ uid uid
+	^ uid base64Encoded
 ]
 
 { #category : #accessing }
-LeSnippet >> uidString: aString [ 
+LeSnippet >> uidString: aString64 [
 
-	uid := LeUID new uid: aString
+	uid := LeUID new uidString: aString64
 ]
 
 { #category : #'api - editing' }

@@ -169,15 +169,15 @@ LeDatabase >> attachmentsDirectory [
 ]
 
 { #category : #'api - accessing' }
-LeDatabase >> blockWithUID: aLeUIDString [
+LeDatabase >> blockWithUID: aLeUID [
 
-	^ blocksByUID at: aLeUIDString 
+	^ blocksByUID at: aLeUID
 ]
 
 { #category : #'api - accessing' }
-LeDatabase >> blockWithUID: aLeUIDString ifPresent: presentBlock ifAbsent: absentBlock [
+LeDatabase >> blockWithUID: aLeUID ifPresent: presentBlock ifAbsent: absentBlock [
 
-	^ blocksByUID at: aLeUIDString ifPresent: presentBlock ifAbsent: absentBlock
+	^ blocksByUID at: aLeUID ifPresent: presentBlock ifAbsent: absentBlock
 ]
 
 { #category : #'api - accessing' }
@@ -363,8 +363,9 @@ LeDatabase >> gtViewUnnamedPageFor: aView [
 ]
 
 { #category : #'api - testing' }
-LeDatabase >> hasBlockUID: aUUID [
-	^ blocksByUID includesKey: aUUID
+LeDatabase >> hasBlockUID: aLeUID [
+
+	^ blocksByUID includesKey: aLeUID
 ]
 
 { #category : #'api - testing' }
@@ -554,16 +555,12 @@ LeDatabase >> name: aString [
 LeDatabase >> newUID [
 	"Generate a new UID.
 	Ensure the UID doesn't already exist"
-	| rnd bytes uidString |
+	| uid |
 
-	rnd := SharedRandom globalGenerator.
-	[ bytes := ByteArray new: 6.
-	1 to: 6 do: [ :i |
-		bytes at: i put: (rnd next * 256) truncated ].
-	uidString := bytes base64Encoded.
-	blocksByUID includesKey: uidString ] whileTrue.
+	[ uid := LeUID new uid: UUID new.
+	blocksByUID includesKey: uid ] whileTrue.
 
-	^ LeUID new uid: uidString
+	^ uid
 ]
 
 { #category : #accessing }
@@ -806,9 +803,9 @@ LeDatabase >> reSortCollectionsDueTo: aLePageTitleChanged [
 LeDatabase >> registerSnippet: aSnippet [
 	self assert: [ aSnippet uid notNil ].
 	self assert: [ aSnippet uid uid notNil ].
-	self assert: [ (blocksByUID includesKey: aSnippet uid uid) not ].
+	self assert: [ (blocksByUID includesKey: aSnippet uid) not ].
 	
-	blocksByUID at: aSnippet uid uid put: aSnippet
+	blocksByUID at: aSnippet uid put: aSnippet
 ]
 
 { #category : #'api - import and export' }
@@ -1047,9 +1044,9 @@ LeDatabase >> unnamedPagesDo: aBlock [
 LeDatabase >> unregisterSnippet: aSnippet [
 	self assert: [ aSnippet uid notNil ].
 	self assert: [ aSnippet uid uid notNil ].
-	self assert: [ (blocksByUID includesKey: aSnippet uid uid) ].
+	self assert: [ (blocksByUID includesKey: aSnippet uid) ].
 	
-	blocksByUID removeKey: aSnippet uid uid
+	blocksByUID removeKey: aSnippet uid
 ]
 
 { #category : #accessing }

@@ -707,15 +707,6 @@ LeContent >> parent [
 	^ nil
 ]
 
-{ #category : #'api - enumerating' }
-LeContent >> partWithUID: aUID [
-	<return: #LeTextSnippet or: nil>
-	self allChildrenBreadthFirstDo: [ :eachPart | 
-		(eachPart hasUID: aUID) ifTrue: [ 
-			^ eachPart ] ].
-	^ nil
-]
-
 { #category : #'private - updating' }
 LeContent >> reloadFromChildren: aCollection [
 	"Update the receiver to match the supplied children"

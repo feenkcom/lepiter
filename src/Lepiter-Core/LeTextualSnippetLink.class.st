@@ -14,22 +14,22 @@ LeTextualSnippetLink >> printOn: aStream [
 	self targetReference ifNil: [ ^ super printOn: aStream ].
 	aStream
 		nextPutAll: 'Snippet Link: ';
-		nextPutAll: self targetUID
+		print: self targetUID
 ]
 
 { #category : #'api - accessing' }
 LeTextualSnippetLink >> targetSnippetUid [
 	<return: #String>
-	^ self targetReference snippetUid uid
+	^ self targetReference snippetUid
 ]
 
 { #category : #'api - accessing' }
-LeTextualSnippetLink >> targetSnippetUid: aString [
-	self assert: [ aString notNil ].
+LeTextualSnippetLink >> targetSnippetUid: aString64 [
+	self assert: [ aString64 notNil ].
 	self assert: [ targetReference isNil ].
 	
 	targetReference := LeLinkSnippetUidReference 
-		forSnippetUid: (LeUID new uid: aString).
+		forSnippetUid: (LeUID new uidString: aString64).
 	targetReference explicitLink: self
 ]
 

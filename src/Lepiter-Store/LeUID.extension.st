@@ -4,7 +4,7 @@ Extension { #name : #LeUID }
 LeUID class >> leJsonV3AttributeMapping [
 
 	^ super leJsonV3AttributeMapping
-		add: (#uid -> #uidString);
+		add: (#uidString -> #uidString);
 		yourself
 ]
 
@@ -18,7 +18,7 @@ LeUID class >> leJsonV3Name [
 LeUID class >> leJsonV4AttributeMapping [
 
 	^ super leJsonV4AttributeMapping
-		add: (#uid -> #uidString);
+		add: (#uidString -> #uidString);
 		yourself
 ]
 

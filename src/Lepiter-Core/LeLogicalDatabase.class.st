@@ -143,15 +143,15 @@ LeLogicalDatabase >> at: aKey ifPresent: aPresentBlock ifAbsent: anAbsentBlock f
 ]
 
 { #category : #'api - accessing' }
-LeLogicalDatabase >> blockWithUID: aLeUIDString [
+LeLogicalDatabase >> blockWithUID: aLeUID [
 	"Answer the snippet with the supplied UID"
 
 	self databasesDo: [ :db |
 		db 
-			blockWithUID: aLeUIDString 
+			blockWithUID: aLeUID
 			ifPresent: [ :aLeSnippet | ^ aLeSnippet ] 
 			ifAbsent: [ ] ].
-	KeyNotFound signalFor: aLeUIDString
+	KeyNotFound signalFor: aLeUID
 ]
 
 { #category : #'api - accessing' }

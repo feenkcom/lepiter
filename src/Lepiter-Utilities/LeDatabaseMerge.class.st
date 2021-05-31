@@ -53,7 +53,7 @@ LeDatabaseMerge >> appendBlocksFromPage: sourcePage to: targetPage [
 
 	sourcePage children items copy
 		do: [ :aLeSnippet | 
-			(targetPage includesBlockUid: aLeSnippet uid uid)
+			(targetPage includesSnippetUid: aLeSnippet uid)
 				ifFalse: [ sourcePage removeSnippet: aLeSnippet.
 					targetPage addSnippet: aLeSnippet ] ]
 ]
