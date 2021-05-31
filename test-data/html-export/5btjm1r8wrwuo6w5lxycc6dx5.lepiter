@@ -1,5 +1,5 @@
 {
-	"__schema" : "3.2",
+	"__schema" : "4.1",
 	"__type" : "page",
 	"editEmail" : {
 		"__type" : "email",
@@ -56,7 +56,7 @@
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "VllckklX"
+					"uidString" : "VllckklXAAAAAAAAAAAAAA=="
 				},
 				"string" : "This page contains examples of most of the different content in a Lepiter Page that can be exported to a HTML file.",
 				"paragraphStyle" : {
@@ -93,7 +93,7 @@
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "HCTLxsIk"
+					"uidString" : "HCTLxsIkAAAAAAAAAAAAAA=="
 				},
 				"string" : "This includes basic markup such as *italic*, **bold**, and `code`.",
 				"paragraphStyle" : {
@@ -130,7 +130,7 @@
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "/rQeKD50"
+					"uidString" : "/rQeKD50AAAAAAAAAAAAAA=="
 				},
 				"code" : "\"A code block with an expression\"\r4 + 3"
 			},
@@ -191,7 +191,7 @@
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "a0nneBph"
+								"uidString" : "a0nneBphAAAAAAAAAAAAAA=="
 							},
 							"string" : "First a class definition: {{gtClass:LeHtmlPageExporterExamples}}.",
 							"paragraphStyle" : {
@@ -228,7 +228,7 @@
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "ghNs9ve/"
+								"uidString" : "ghNs9ve/AAAAAAAAAAAAAA=="
 							},
 							"string" : "Followed by a method definition: {{gtMethod:LeHtmlPageExporterExamples>>#samplePage}}.",
 							"paragraphStyle" : {
@@ -265,7 +265,7 @@
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "D2MQ5Ne7"
+								"uidString" : "D2MQ5Ne7AAAAAAAAAAAAAA=="
 							},
 							"string" : "Both classes and methods can be embedded using a string label:\n {{gtClass:LeHtmlPageExporterExamples|label=Exporter}}\n {{gtMethod:LeHtmlPageExporterExamples>>#samplePage|label=samplePage}}.",
 							"paragraphStyle" : {
@@ -276,7 +276,7 @@
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "8Ug0UBJN"
+					"uidString" : "8Ug0UBJNAAAAAAAAAAAAAA=="
 				},
 				"string" : "Annotations for code",
 				"paragraphStyle" : {
@@ -340,7 +340,7 @@
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "SZ86RS2c"
+								"uidString" : "SZ86RS2cAAAAAAAAAAAAAA=="
 							},
 							"string" : "Example with only code:\n{{gtExample:LeHtmlFragmentExporterExamples>>#basicMarkdown}}",
 							"paragraphStyle" : {
@@ -377,7 +377,7 @@
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "jiObruQH"
+								"uidString" : "jiObruQHAAAAAAAAAAAAAA=="
 							},
 							"string" : "Example with  code and specific view:\n{{gtExample:BlBasicExamples>>circle|previewExpanded=true|previewShow=#gtLiveFor:|previewHeight=100}}",
 							"paragraphStyle" : {
@@ -414,7 +414,7 @@
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "pet446sH"
+								"uidString" : "pet446sHAAAAAAAAAAAAAA=="
 							},
 							"string" : "Example having a label: {{gtExample:BlBasicExamples>>circle|label=#gtDisplayString}}",
 							"paragraphStyle" : {
@@ -451,7 +451,7 @@
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "9ctxjwQV"
+								"uidString" : "9ctxjwQVAAAAAAAAAAAAAA=="
 							},
 							"string" : "Example with no code and all views:\n{{gtExample:BlBasicExamples>>circle|noCode=true}}\n",
 							"paragraphStyle" : {
@@ -515,7 +515,7 @@
 										},
 										"uid" : {
 											"__type" : "uid",
-											"uidString" : "j64ZS8QY"
+											"uidString" : "j64ZS8QYAAAAAAAAAAAAAA=="
 										},
 										"string" : "Controlling the preview height of a view:\n{{gtExample:BlBasicExamples>>circle|noCode=true|previewShow=#gtLiveFor:|previewHeight=100}}\n\n",
 										"paragraphStyle" : {
@@ -552,7 +552,7 @@
 										},
 										"uid" : {
 											"__type" : "uid",
-											"uidString" : "be4u8DGs"
+											"uidString" : "be4u8DGsAAAAAAAAAAAAAA=="
 										},
 										"string" : "Controlling the alignment:\n{{gtExample:BlBasicExamples>>circle|noCode=true|previewShow=#gtLiveFor:|previewHeight=100|alignment=documentWidth}}",
 										"paragraphStyle" : {
@@ -563,7 +563,7 @@
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "WfXixy4v"
+								"uidString" : "WfXixy4vAAAAAAAAAAAAAA=="
 							},
 							"string" : "Example with no code and specific view:\n{{gtExample:BlBasicExamples>>circle|noCode=true|previewShow=#gtLiveFor:}}",
 							"paragraphStyle" : {
@@ -574,7 +574,7 @@
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "KkvVgxST"
+					"uidString" : "KkvVgxSTAAAAAAAAAAAAAA=="
 				},
 				"string" : "Embedding examples",
 				"paragraphStyle" : {
@@ -638,7 +638,7 @@
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "zV0LwZ/5"
+								"uidString" : "zV0LwZ/5AAAAAAAAAAAAAA=="
 							},
 							"string" : "Attached image displayed in place:\n ![gt-logo.png](file://attachments/5wtlpb8wiu9ccm5wh7ldrl3zf/gt-logo.png)",
 							"paragraphStyle" : {
@@ -675,7 +675,7 @@
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "OADyRZch"
+								"uidString" : "OADyRZchAAAAAAAAAAAAAA=="
 							},
 							"string" : "Attached image as link: [gt-logo.png](file://attachments/5wtlpb8wiu9ccm5wh7ldrl3zf/gt-logo.png)",
 							"paragraphStyle" : {
@@ -686,7 +686,7 @@
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "vjPlR1rp"
+					"uidString" : "vjPlR1rpAAAAAAAAAAAAAA=="
 				},
 				"string" : "Attaching images",
 				"paragraphStyle" : {
@@ -723,7 +723,7 @@
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "MYBnNnG9"
+					"uidString" : "MYBnNnG9AAAAAAAAAAAAAA=="
 				},
 				"string" : "And more to come...",
 				"paragraphStyle" : {
@@ -760,7 +760,7 @@
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "wMs54kWO"
+					"uidString" : "wMs54kWOAAAAAAAAAAAAAA=="
 				},
 				"string" : "Here's the css file: [sample.css](file://attachments/5btjm1n0n6rsaizw19rtczbv6/sample.css).",
 				"paragraphStyle" : {
