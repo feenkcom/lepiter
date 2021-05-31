@@ -14,7 +14,7 @@ LeLocalJsonV4Storage class >> currentVersion [
 LeLocalJsonV4Storage class >> currentVersionString [
 	"Answer the string representation of the current version number"
 
-	^ '4.0'
+	^ '4.1'
 ]
 
 { #category : #accessing }
@@ -118,21 +118,26 @@ LeLocalJsonV4Storage >> updateDbStore: store [
 		[ 
 			(self dbFilesAllVersionsIn: store localRoot) do: [ :file |
 				self updateFile: file from: updateVersion ].
-			updateVersion := (LeJsonV3SchemaUpdater updaterFor: updateVersion minor) class updatedVersion ].
+			updateVersion := (LeJsonV4SchemaUpdater updaterFor: updateVersion minor) class updatedVersion ].
 	store dbSchema: updateVersion.
 ]
 
 { #category : #'schema updating' }
 LeLocalJsonV4Storage >> updateFile: file from: oldVersion [
 	"If the supplied file is at the oldVersion, update it to the next version"
-	| updater jsonObject version backup newFileReference |
+	| extension updater jsonObject version backup newFileReference |
 
 	jsonObject := self loadJsonFrom: file.
 	version := LeDbVersion fromString: (jsonObject at: #'__schema').
 	version > oldVersion ifTrue: [ ^ self ].
 
 	updater := LeJsonV4SchemaUpdater updaterFor: oldVersion minor.
-	updater update: jsonObject.
+	extension := file extension.
+	extension = #lepiter ifTrue:
+		[ updater update: jsonObject ]
+	ifFalse: [ extension = #links ifTrue:
+		[ updater updateLinks: jsonObject ]
+	ifFalse: [ self error: 'Unknown file type: ', extension ] ].
 	newFileReference := updater fileReferenceFor: jsonObject named: file.
 
 	backup := file withExtension: (version asString, 'bak').

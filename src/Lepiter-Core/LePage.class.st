@@ -174,7 +174,7 @@ LePage >> canMoveToDatabase: aNewDatabase [
 	(aNewDatabase hasPageUID: self uid) ifTrue: [ ^ false ].
 	
 	self allChildrenBreadthFirstDo: [ :aSnippet | 
-		(aNewDatabase hasBlockUID: aSnippet uid uid) 
+		(aNewDatabase hasBlockUID: aSnippet uid) 
 			ifTrue: [ ^ false ] ].
 	
 	^ true
@@ -215,7 +215,7 @@ LePage >> ensureOneBlock [
 { #category : #'gt-extensions' }
 LePage >> gtSpotterActDefaultFrom: aSpotterElement [
 	| pageTool toolElement |
-			
+
 	pageTool := self asLepiterPagePhlowTool.
 	toolElement := pageTool asElementDo: [ :e | e ].
 	(GtPager 
@@ -240,10 +240,10 @@ LePage >> hasTitle [
 ]
 
 { #category : #'api - testing' }
-LePage >> includesBlockUid: aString [
+LePage >> includesSnippetUid: aLeUID [
 	"Answer a boolean indicating whether the supplied uid is present"
 
-	^ self children includesBlockUid: aString
+	^ self children includesSnippetUid: aLeUID
 ]
 
 { #category : #'api - unlinked' }
@@ -361,7 +361,8 @@ LePage >> moveToDatabase: aNewDatabase [
 	self database = aNewDatabase ifTrue: [ 
 		Error signal: 'Can only be moved to a different database.' ].
 	self allChildrenBreadthFirstDo: [ :aSnippet |
-		self assert: (aNewDatabase hasBlockUID: aSnippet uid uid) not ].
+		self assert: (aNewDatabase hasBlockUID: aSnippet uid) not ].
+
 	
 	self database movePage: self toDatabase: aNewDatabase.
 ]

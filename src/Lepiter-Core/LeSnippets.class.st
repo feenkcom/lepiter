@@ -53,10 +53,10 @@ LeSnippets >> gtSnippetsFor: aView [
 ]
 
 { #category : #testing }
-LeSnippets >> includesBlockUid: aString [
+LeSnippets >> includesSnippetUid: aLeUID [
 	"Answer a boolean indicating whether the supplied uid is present"
 
-	^ items detect: [ :each | each includesBlockUid: aString ] 
+	^ items detect: [ :each | each includesSnippetUid: aLeUID ] 
 		ifFound: [ true ] 
 		ifNone: [ false ]
 ]

@@ -64,7 +64,7 @@ LeLinkSnippetUidReference >> resolveInDatabase: aDatabase [
 	self assert: [ self content isNil ].
 	
 	aDatabase 
-		blockWithUID: self snippetUid asString
+		blockWithUID: self snippetUid
 		ifPresent: [ :aSnippet | 
 			self basicContent: aSnippet ] 
 		ifAbsent: [ self inform: 'Could not find snippet for uid ', self snippetUid asString ]

@@ -44,7 +44,7 @@ LeWardleyMapSnippetExamples >> emptySnippet [
 	<gtExample>
 	| snippet |
 	snippet := LeWardleyMapSnippet new.
-	snippet uid: (LeUID new uid: 'vKpABbS2').
+	snippet uid: (LeUID new uidString: 'vKpABbS2').
 	
 	self assert: snippet wardleyMap isNotNil.
 	self assert: snippet wardleyMap nodes isEmpty.
