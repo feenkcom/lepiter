@@ -93,7 +93,7 @@ LeDatabaseMergeExamples >> sourceDatabase [
 		string: 'Common 1 Duplicate Source Block 1';
 		add.
 	"Force the uid to a known value for testing merge rules"
-	snippet uidString: 'aaa'.
+	snippet uidString: 'UaP+TQGADQCSxU4BCO2heg=='.
 	
 
 	^ database
@@ -131,7 +131,7 @@ LeDatabaseMergeExamples >> targetDatabase [
 		string: 'Common 1 Duplicate Target Block 1';
 		add.
 	"Force the uid to a known value for testing merge rules"
-	snippet uidString: 'aaa'.
+	snippet uidString: 'UaP+TQGADQCSxU4BCO2heg=='.
 
 
 	^ database
