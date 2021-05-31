@@ -12,7 +12,6 @@ LeImageImportExamples >> importImages [
 	"Demonstrate importing images through text & picture snippets and check that images that can't be downloaded are flagged correctly."
 
 	<gtExample>
-	<noTest>
 	| database memStore page textSnippet pictureSnippet badUrlSnippet badUrl visitor |
 	memStore := FileSystem memory root / 'db'.
 	memStore ensureCreateDirectory.
