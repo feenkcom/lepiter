@@ -120,7 +120,7 @@ LeGitHubIssueUrlValidator >> validate [
 	anUrl pathSegments size = 4 ifFalse: [ isValid := false. ^ self ].
 	anUrl pathSegments third = 'issues' ifFalse: [ isValid := false. ^ self ].
 	
-	anIssueNumber := (NumberParser on: anUrl pathSegments fourth) 
+	anIssueNumber := (NumberParser on: anUrl pathSegments fourth asString) 
 		failBlock: [ isValid := false. ^ self ];
 		nextNumber.	
 	anIssueNumber asString = anUrl pathSegments fourth ifFalse: [ isValid := false ].
