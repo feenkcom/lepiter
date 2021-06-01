@@ -14,7 +14,6 @@ Class {
 LeDatabaseExamples >> addAttachmentByCopy [
 	"Demonstrate attaching a file to a database by copy"
 	<gtExample>
-	<noTest>
 	<after: #cleanUp>
 	| db attachmentSource attachment userEmail now propertiesFileReference properties |
 
@@ -42,8 +41,8 @@ LeDatabaseExamples >> addAttachmentByCopy [
 
 	properties := LeAttachment loadFrom: propertiesFileReference.
 	self assert: properties uploadedBy email equals: userEmail.
-	"It isn't actually possible to directly reference the original, since it is a memory file system.  Just check that the full path is correct."
-	self assert: properties originalReference fullName equals: attachmentSource fullName.
+	"It isn't actually possible to directly reference the original, since it is a memory file system.  Just check that the path is correct."
+	self assert: properties originalReference path equals: attachmentSource path.
 	self assert: (properties uploadDate - now) < 1 hour.
 ]
 
@@ -51,7 +50,6 @@ LeDatabaseExamples >> addAttachmentByCopy [
 LeDatabaseExamples >> addAttachmentByMove [
 	"Demonstrate attaching a file to a database by moving the file to the database"
 	<gtExample>
-	<noTest>
 	<after: #cleanUp>
 	| db attachmentSource sourceName attachment userEmail now propertiesFileReference properties |
 
@@ -80,8 +78,8 @@ LeDatabaseExamples >> addAttachmentByMove [
 
 	properties := LeAttachment loadFrom: propertiesFileReference.
 	self assert: properties uploadedBy email equals: userEmail.
-	"It isn't actually possible to directly reference the original, since it is a memory file system.  Just check that the full path is correct."
-	self assert: properties originalReference fullName equals: sourceName.
+	"It isn't actually possible to directly reference the original, since it is a memory file system.  Just check that the path is correct."
+	self assert: properties originalReference path equals: attachmentSource path.
 	self assert: (properties uploadDate - now) < 1 hour.
 ]
 
