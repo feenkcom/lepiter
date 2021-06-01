@@ -78,61 +78,6 @@ LeSnippetStylerVisitor >> changes [
 	^ self styler changes
 ]
 
-{ #category : #private }
-LeSnippetStylerVisitor >> cleanPlainFileURL: aUrlString in: rootDir [
-	"For file urls, resolve against the database directory or root directory, and allow file urls of the form 'file://path/to/image.png' (the host is missing), with the same resolution"
-	| absPath |
-
-	absPath := self findFileUrlPath: aUrlString in: rootDir.
-	absPath ifNotNil: [ ^ 'file://localhost', absPath ].
-
-	^ aUrlString
-
-]
-
-{ #category : #private }
-LeSnippetStylerVisitor >> cleanSchemeURL: aUrlString in: rootDir [
-	"For file urls, resolve against the database directory or root directory, and allow file urls of the form 'file://path/to/image.png' (the host is missing), with the same resolution"
-	| absPath pathString |
-
-	pathString := aUrlString copyFrom: 8 to: aUrlString size.
-
-	"Assume the host is present, search for the path"
-	absPath := self findFileUrlPath: ($/ join: (($/ split: pathString) allButFirst)) in: rootDir.
-	absPath ifNotNil: [ ^ 'file://localhost', absPath ].
-
-	"Assume the host is actually part of the path and search for it"
-	absPath := self findFileUrlPath: pathString in: rootDir.
-	absPath ifNotNil: [ ^ 'file://localhost', absPath ].
-
-	^ aUrlString
-
-]
-
-{ #category : #private }
-LeSnippetStylerVisitor >> cleanURL: aUrlString [
-	"For file urls, resolve against the database directory or root directory, and allow file urls of the form 'file://path/to/image.png' (the host is missing), with the same resolution"
-	| rootDir |
-	
-	rootDir :=  (self snippetViewModel notNil and: [ self snippetViewModel snippetModel database monitor notNil ])
-		ifTrue: [ self snippetViewModel snippetModel database monitor localRoot ]
-		ifFalse: [ FileLocator workingDirectory resolve ].
-	^ self cleanURL: aUrlString in: rootDir.
-]
-
-{ #category : #private }
-LeSnippetStylerVisitor >> cleanURL: aUrlString in: rootDir [
-	"For file urls, resolve against the database directory or root directory, and allow file urls of the form 'file://path/to/image.png' (the host is missing), with the same resolution"
-
-	(aUrlString indexOfSubCollection: '://') = 0 ifTrue: 
-		[ ^ self cleanPlainFileURL: aUrlString in: rootDir ].
-
-	(aUrlString beginsWith: 'file://') ifFalse: [ ^ aUrlString ].
-
-	^ self cleanSchemeURL: aUrlString in: rootDir.
-
-]
-
 { #category : #'api - accessing' }
 LeSnippetStylerVisitor >> editor [
 	^ styler editor
@@ -272,18 +217,9 @@ LeSnippetStylerVisitor >> isValidLink: urlString [
 	"Answer a boolean indicating whether the supplied string is valid.
 	There's no restriction on what schemes are supported as we don't know what schemes the OS supports, so any scheme other than file:// will answer true.
 	If the scheme is file:// or no scheme is provided, answer a boolean based on the files existence."
-	| cleanUrl znUrl validLink |
+	<return: #Boolean>
 
-	cleanUrl := self cleanURL: urlString.
-
-	"ZnUrls don't handle wide strings, which local files may be"
-	(cleanUrl beginsWith: 'file://localhost/') ifTrue:
-		[ ^ (cleanUrl copyFrom: 17 to: cleanUrl size) asFileReference exists ].
-
-	znUrl := cleanUrl asZnUrl.
-	validLink := ((znUrl scheme isNotNil and: [ znUrl isFile not ])
-		or: [ ('/', znUrl path) asFileReference exists ]).
-	^ validLink
+	^ (self resolveUrl: urlString) isValid
 ]
 
 { #category : #'private - instance creation' }
@@ -327,6 +263,20 @@ LeSnippetStylerVisitor >> referencedPage [
 { #category : #'api - accessing' }
 LeSnippetStylerVisitor >> referencedPage: aLePage [
 	referencedPage := aLePage
+]
+
+{ #category : #private }
+LeSnippetStylerVisitor >> resolveUrl: aUrlString [
+	"For file urls, resolve against the database directory or root directory, and allow file urls of the form 'file://path/to/image.png' (the host is missing), with the same resolution"
+	<return: #GtUrlStringUtility>
+	| rootDir |
+	
+	rootDir :=  (self snippetViewModel notNil and: [ self snippetViewModel snippetModel database monitor notNil ])
+		ifTrue: [ self snippetViewModel snippetModel database monitor localRoot ]
+		ifFalse: [ FileLocator workingDirectory resolve ].
+	^ GtUrlStringUtility new
+		rootDirectory: rootDir;
+		urlString: aUrlString.
 ]
 
 { #category : #'private - testing' }
@@ -620,7 +570,7 @@ LeSnippetStylerVisitor >> styleLinkText: aSubText valid: hasValidTarget [
 LeSnippetStylerVisitor >> styleOpenExternalImage: aLink text: aSubText [
 	| anImageURL attribute |
 	
-	anImageURL := self cleanURL: aLink url.
+	anImageURL := (self resolveUrl: aLink url) url asString.
 
 	attribute := BrTextAdornmentDynamicAttribute new
 		beAppend;
@@ -652,7 +602,7 @@ LeSnippetStylerVisitor >> styleOpenExternalLinkButton: aLink text: aSubText [
 							defaultColor: oldLook defaultColor);
 				icon: BrGlamorousVectorIcons link;
 				label: aLink displayLabel;
-				action: [ :aButton | WebBrowser openOn: (self cleanURL: aLink url) ].
+				action: [ :aButton | WebBrowser openOn: (self resolveUrl: aLink url) url asString ].
 			button ]
 ]
 
