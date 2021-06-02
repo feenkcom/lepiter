@@ -99,17 +99,6 @@ LeTextCoderSnippetViewModel >> onSnippetTextChanged: aLeSnippetTextChanged [
 	isAnnouncedByMe := aLeSnippetTextChanged source = (self -> true)
 		or: [ aLeSnippetTextChanged source = (self -> false) ].
 	
-	NonInteractiveTranscript stdout
-		nextPutAll: self identityHash asString;
-		space;
-		nextPutAll: aLeSnippetTextChanged source printString;
-		space;
-		nextPutAll: ' === ';
-		nextPutAll: isAnnouncedByMe asString;
-		space;
-		nextPutAll: self snippetModel text asString;
-		cr.
-	
 	isAnnouncedByMe
 		ifTrue: [ ^ self ].
 	
