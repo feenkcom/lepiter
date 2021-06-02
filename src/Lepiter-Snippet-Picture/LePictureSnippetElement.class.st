@@ -158,9 +158,9 @@ LePictureSnippetElement >> snippetToolbar [
 LePictureSnippetElement >> updatePicture [
 	| imageElement |
 
-	imageElement := gtUrlUtility urlString 
-		ifEmpty: [ BlElement new size: 0@0 ]
-		ifNotEmpty: 
+	imageElement := gtUrlUtility isValid
+		ifFalse: [ BlElement new size: 0@0 ]
+		ifTrue: 
 			[ (BlUrlImageElement new url: gtUrlUtility urlString)
 				constraintsDo: [ :c |
 					c horizontal matchParent.

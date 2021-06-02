@@ -7,6 +7,12 @@ Class {
 	#category : #'Lepiter-Snippet-Text-Snippet'
 }
 
+{ #category : #adding }
+LeTextCoderSnippetElement >> addEditorShortcut: aBrEditorShortcut [
+
+	editorElement addEditorShortcut: aBrEditorShortcut
+]
+
 { #category : #'private - accessing' }
 LeTextCoderSnippetElement >> editor [
 	<return: #BrTextEditor>
