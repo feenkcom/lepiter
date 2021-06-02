@@ -333,6 +333,16 @@ LeDatabase >> gtViewPagesByTypeFor: aView [
 		send: #value
 ]
 
+{ #category : #accessing }
+LeDatabase >> gtViewTableOfContentsNodesFor: aView [
+	<gtView>
+	^ aView tree
+		title: 'Table of Content Nodes';
+		priority: 50;
+		items: [ self tableOfContentsNodes  ];
+		children: #children
+]
+
 { #category : #'gt-extensions' }
 LeDatabase >> gtViewUnnamedPageFor: aView [
 	<gtView>
