@@ -20,7 +20,7 @@ LePages >> gtPagesFor: aView [
 		items: [ self ];
 		children: [ :eachPage | eachPage children ];
 		expandUpTo: 5;
-		column: 'Title' item: #title;
-		column: 'Edit Time' item: #editOrCreateTime;
-		column: 'Author' item: #editOrCreateEmail
+		column: 'Content' item: #contentAsString;
+		column: 'Edit Time' item: #latestEditTime;
+		column: 'Author' item: #editEmail
 ]

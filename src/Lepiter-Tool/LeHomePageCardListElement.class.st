@@ -12,15 +12,6 @@ LeHomePageCardListElement >> defaultLayout [
 	^ BlFrameLayout new
 ]
 
-{ #category : #'private - testing' }
-LeHomePageCardListElement >> hasTodayPage [
-	^ self database 
-		pageNamed: (LeDailyNoteTitleBuilder new 
-			title: Date today)
-		ifPresent: [ true ]
-		ifAbsent: [ false ].
-]
-
 { #category : #initialization }
 LeHomePageCardListElement >> initialize [
 	super initialize.

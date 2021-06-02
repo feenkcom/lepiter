@@ -20,6 +20,17 @@ LeTableOfContentsRestNode >> children: anObject [
 ]
 
 { #category : #'gt-extension' }
+LeTableOfContentsRestNode >> gtChildrenFor: aView [
+	<gtView>
+
+	^ aView tree
+		title: 'Children';
+		priority: 50;
+		items: [ self children ];
+		children: #children
+]
+
+{ #category : #'gt-extension' }
 LeTableOfContentsRestNode >> gtLiveFor: aView [
 	<gtView>
 	self page ifNil: [ ^ aView empty ].

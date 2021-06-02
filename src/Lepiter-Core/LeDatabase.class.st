@@ -288,15 +288,36 @@ LeDatabase >> gtDailyNotesFor: aView [
 	<gtView>
 	self pages ifNil: [ ^ aView empty ].
 	^ aView columnedTree
-		title: 'Daily Notes';
+		title: 'Daily Notes (old)';
 		priority: 9;
 		items: [ self dailyNotes ];
 		children: [ :eachPage | eachPage children ];
-		column: 'Title' item: #title;
+		column: 'Content' item: #contentAsString;
 		column: 'Time' item: #editTime;
-		column: 'Author' item: #editEmail;
-		send: [ :eachPageOrPart | 
-			eachPageOrPart ]
+		column: 'Author' item: #editEmail
+]
+
+{ #category : #'gt-extensions' }
+LeDatabase >> gtDailyNotesGroupFor: aView [
+	<gtView>
+	self pages ifNil: [ ^ aView empty ].
+	^ aView columnedTree
+		title: 'Daily Notes (new)';
+		priority: 10;
+		items: [ self dailyNotesGroup ];
+		children: [ :eachPage | eachPage children ];
+		column: 'Content' item: [ :aPageOrDailyNote |
+			(aPageOrDailyNote isKindOf: LeDailyNote)
+				ifTrue: [ aPageOrDailyNote date  ]
+				ifFalse: [ aPageOrDailyNote contentAsString ] ];
+		column: 'Time' item: [ :aPageOrDailyNote |
+			(aPageOrDailyNote isKindOf: LeDailyNote)
+				ifTrue: [ ''  ]
+				ifFalse: [ aPageOrDailyNote editTime ] ];
+		column: 'Author' item: [ :aPageOrDailyNote |
+			(aPageOrDailyNote isKindOf: LeDailyNote)
+				ifTrue: [ ''  ]
+				ifFalse: [ aPageOrDailyNote editEmail ] ]
 ]
 
 { #category : #'gt-extensions' }
@@ -331,6 +352,16 @@ LeDatabase >> gtViewPagesByTypeFor: aView [
 		column: 'Type' text: #key;
 		column: 'Number of Pages' text: [ :assoc | assoc value size ];
 		send: #value
+]
+
+{ #category : #accessing }
+LeDatabase >> gtViewTableOfContentsNodesFor: aView [
+	<gtView>
+	^ aView tree
+		title: 'Table of Content Nodes';
+		priority: 50;
+		items: [ self tableOfContentsNodes  ];
+		children: #children
 ]
 
 { #category : #'gt-extensions' }
