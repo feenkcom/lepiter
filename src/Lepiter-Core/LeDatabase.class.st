@@ -138,7 +138,7 @@ LeDatabase >> attachmentDirectoryAndMetadataFor: aFileReference [
 	fileUID := UUID new asString36.
 	attachmentDirectory := self attachmentsDirectory / fileUID.
 	self assert: attachmentDirectory exists not.
-	attachmentDirectory createDirectory.
+	attachmentDirectory ensureCreateDirectory.
 	attachment := LeAttachment new
 		originalReference: aFileReference asFileReference;
 		uploadDate: DateAndTime now;
