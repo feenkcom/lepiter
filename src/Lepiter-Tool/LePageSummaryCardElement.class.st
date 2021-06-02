@@ -70,17 +70,17 @@ LePageSummaryCardElement >> initialize [
 	
 	self addChild: self titleElement as: #title.
 	self addChild: self summaryElement as: #summary.
-	self addChild: self emailElement as: #email.
-	self addChild: self dateElement as: #date.
+	"self addChild: self emailElement as: #email.
+	self addChild: self dateElement as: #date."
 	
 	self addAptitude: (BrLayoutResizerAptitude inherit
 		hInherit: self titleElement;
 		vAnyToFitContent: self titleElement;
-		inherit: self summaryElement;
+		inherit: self summaryElement";
 		hInherit: self emailElement;
 		vAnyToFitContent: self emailElement;
 		hInherit: self dateElement;
-		vAnyToFitContent: self dateElement).
+		vAnyToFitContent: self dateElement").
 	
 	self exact: 150@200.
 	self addAptitude: BrGlamorousButtonExteriorAptitude + (BrShadowAptitude new beLarge).
@@ -138,8 +138,8 @@ LePageSummaryCardElement >> onPageViewModelChanged [
 	
 	self updatePageTitleElement.
 	self updatePageSummaryElement.
-	self updatePageEmailElement.
-	self updatePageDateElement
+"	self updatePageEmailElement.
+	self updatePageDateElement"
 ]
 
 { #category : #'api - page view model' }
