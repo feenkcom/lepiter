@@ -602,7 +602,11 @@ LeSnippetStylerVisitor >> styleOpenExternalLinkButton: aLink text: aSubText [
 							defaultColor: oldLook defaultColor);
 				icon: BrGlamorousVectorIcons link;
 				label: aLink displayLabel;
-				action: [ :aButton | WebBrowser openOn: (self resolveUrl: aLink url) url asString ].
+				action: [ :aButton | | urlUtility |
+					urlUtility := self resolveUrl: aLink url.
+					urlUtility isFile
+						ifTrue: [ aButton phlow spawnObject: urlUtility asFileReference ]
+						ifFalse: [ WebBrowser openOn: urlUtility asString ] ].
 			button ]
 ]
 
