@@ -6,10 +6,14 @@ Class {
 
 { #category : #'private - testing' }
 LeHomePagesElement >> isForTodayNote [
+	"Disable the creation of daily notes"
+	^ false
+
+
 	"Only primary and logical databases display daily notes"
-	<return: #Boolean>
+	"<return: #Boolean>
 	^ self database isPrimary or: [ 
-		self database isLogicalDatabase ]
+		self database isLogicalDatabase ]"
 ]
 
 { #category : #'private - event handling' }
