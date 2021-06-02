@@ -292,7 +292,7 @@ LeDatabase >> gtDailyNotesFor: aView [
 		priority: 9;
 		items: [ self dailyNotes ];
 		children: [ :eachPage | eachPage children ];
-		column: 'Title' item: #title;
+		column: 'Content' item: #contentAsString;
 		column: 'Time' item: #editTime;
 		column: 'Author' item: #editEmail;
 		send: [ :eachPageOrPart | 
