@@ -305,9 +305,9 @@ LeBasicDatabaseWithTextLinksExamples >> snippetsAreAddedToTheDatabaseWhenPageCre
 	self assert: page childrenCount equals: 2.
 	self assert: snippetOne childrenCount equals: 1.
 	
-	self assert: (database hasBlockUID: snippetOne uid uid).
-	self assert: (database hasBlockUID: snippetTwo uid uid).
-	self assert: (database hasBlockUID: snippetOneChildren uid uid).
+	self assert: (database hasBlockUID: snippetOne uid).
+	self assert: (database hasBlockUID: snippetTwo uid).
+	self assert: (database hasBlockUID: snippetOneChildren uid).
 	self assert: database snippetsCount equals: 3.
 
 	^ database
@@ -328,9 +328,9 @@ LeBasicDatabaseWithTextLinksExamples >> snippetsAreAddedToTheDatabaseWhenPageMan
 	database addPage: page.
 	self assert: page childrenCount equals: 2.
 	self assert: snippetOne childrenCount equals: 1.
-	self assert: (database hasBlockUID: snippetOne uid uid).
-	self assert: (database hasBlockUID: snippetTwo uid uid).
-	self assert: (database hasBlockUID: snippetOneChildren uid uid).
+	self assert: (database hasBlockUID: snippetOne uid).
+	self assert: (database hasBlockUID: snippetTwo uid).
+	self assert: (database hasBlockUID: snippetOneChildren uid).
 	self assert: database snippetsCount equals: 3.
 	^ database
 ]
@@ -348,9 +348,9 @@ LeBasicDatabaseWithTextLinksExamples >> snippetsAreRemovedFromTheDatabaseWhenRem
 
 	page removeSelf.
 	
-	self assert: (database hasBlockUID: snippetOne uid uid) not.
-	self assert: (database hasBlockUID: snippetTwo uid uid) not.
-	self assert: (database hasBlockUID: snippetOneChildren uid uid) not.
+	self assert: (database hasBlockUID: snippetOne uid) not.
+	self assert: (database hasBlockUID: snippetTwo uid) not.
+	self assert: (database hasBlockUID: snippetOneChildren uid) not.
 	self assert: database snippetsCount equals: 0.
 
 	^ database
@@ -369,9 +369,9 @@ LeBasicDatabaseWithTextLinksExamples >> snippetsAreRemovedFromTheDatabaseWhenRem
 	
 	snippetOne removeSelf.
 	
-	self assert: (database hasBlockUID: snippetOne uid uid) not.
-	self assert: (database hasBlockUID: snippetTwo uid uid).
-	self assert: (database hasBlockUID: snippetOneChildren uid uid) not.
+	self assert: (database hasBlockUID: snippetOne uid) not.
+	self assert: (database hasBlockUID: snippetTwo uid).
+	self assert: (database hasBlockUID: snippetOneChildren uid) not.
 	self assert: database snippetsCount equals: 1.
 
 	^ database

@@ -224,6 +224,7 @@ LePharoSnippetByScripterExamples >> pageContentElementWithPharoSnippetsSharingSa
 { #category : #'examples - page - pharo snippets' }
 LePharoSnippetByScripterExamples >> scrollDownEnumeradedPharoSnippets [
 	<gtExample>
+	<noTest>
 	| aScripter |
 	aScripter := self pageContentElementWithEnumeradedPharoSnippets.
 	aScripter
@@ -292,6 +293,7 @@ LePharoSnippetByScripterExamples >> scrollDownPharoSnippets [
 { #category : #'examples - page - pharo snippets' }
 LePharoSnippetByScripterExamples >> scrollUpEnumeradedPharoSnippets [
 	<gtExample>
+	<noTest>
 	| aScripter |
 	aScripter := self scrollDownEnumeradedPharoSnippets.
 	aScripter

@@ -48,10 +48,7 @@ LeDatabase >> addAttachmentByCopy: aFileReference [
 	attachmentDirectory := self attachmentDirectoryAndMetadataFor: aFileReference.
 	attachmentFileReference := attachmentDirectory / aFileReference basename.
 	aFileReference copyTo: attachmentFileReference.
-	^ String streamContents: [ :stream |
-		(attachmentFileReference path segments last: 3) 
-				do: [ :segment | stream << segment ]
-				separatedBy: [ stream nextPut: aFileReference fileSystem delimiter ]]
+	^ (attachmentFileReference relativeTo: self localStoreRootDirectory) fullName.
 ]
 
 { #category : #'api - attachments' }
@@ -63,10 +60,8 @@ LeDatabase >> addAttachmentByMove: aFileReference [
 	attachmentDirectory := self attachmentDirectoryAndMetadataFor: aFileReference.
 	attachmentFileReference := attachmentDirectory / aFileReference basename.
 	aFileReference resolve copy moveTo: attachmentFileReference resolve.
-	^ String streamContents: [ :stream |
-		(attachmentFileReference path segments last: 3) 
-				do: [ :segment | stream << segment ]
-				separatedBy: [ stream nextPut: $/ ]]
+	^ (attachmentFileReference relativeTo: self localStoreRootDirectory) fullName.
+
 ]
 
 { #category : #'api - attachments' }
@@ -79,10 +74,7 @@ LeDatabase >> addAttachmentWithContent: aString named: aName [
 	attachmentFileReference := attachmentDirectory / aName asString.
 	attachmentFileReference writeStreamEncoded: 'utf8' do: [ :aStream |
 		aStream nextPutAll: aString asString ].
-	^ String streamContents: [ :stream |
-		(attachmentFileReference path segments last: 3) 
-				do: [ :segment | stream << segment ]
-				separatedBy: [ stream nextPut: $/ ]]
+	^ (attachmentFileReference relativeTo: self localStoreRootDirectory) fullName.
 ]
 
 { #category : #'api - adding / removing' }

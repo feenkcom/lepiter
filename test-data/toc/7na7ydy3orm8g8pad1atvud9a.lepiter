@@ -1,5 +1,5 @@
 {
-	"__schema" : "3.2",
+	"__schema" : "4.1",
 	"__type" : "page",
 	"children" : {
 		"__type" : "snippets",
@@ -34,7 +34,7 @@
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "be4u8DGs"
+					"uidString" : "be4u8DGsAAAAAAAAAAAAAA=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"

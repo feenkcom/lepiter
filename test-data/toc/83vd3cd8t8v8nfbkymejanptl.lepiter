@@ -1,5 +1,5 @@
 {
-	"__schema" : "3.2",
+	"__schema" : "4.1",
 	"__type" : "page",
 	"children" : {
 		"__type" : "snippets",
@@ -13,7 +13,7 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2021-02-01T23:10:27.774245+01:00"
+			"dateAndTimeString" : "2021-02-01T23:10:14.908132+01:00"
 		}
 	},
 	"editEmail" : {
@@ -24,15 +24,15 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2021-02-01T23:10:33.866501+01:00"
+			"dateAndTimeString" : "2021-02-01T23:10:14.908132+01:00"
 		}
 	},
 	"pageType" : {
 		"__type" : "namedPage",
-		"title" : "Visualizing code structure"
+		"title" : "Visualizing memory consumption"
 	},
 	"uid" : {
 		"__type" : "uuid",
-		"uuid" : "a70abe5b-af76-0d00-8901-9c4c072cf288"
+		"uuid" : "79b8f95a-af76-0d00-88f7-d661072cf288"
 	}
 }

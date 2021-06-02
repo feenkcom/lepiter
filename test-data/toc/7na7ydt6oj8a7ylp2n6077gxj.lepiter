@@ -1,5 +1,5 @@
 {
-	"__schema" : "3.2",
+	"__schema" : "4.1",
 	"__type" : "page",
 	"children" : {
 		"__type" : "snippets",
@@ -12,34 +12,34 @@
 				},
 				"createEmail" : {
 					"__type" : "email",
-					"emailString" : "akgrant@gmail.com"
+					"emailString" : "tudor@tudorgirba.com"
 				},
 				"createTime" : {
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2020-11-30T08:49:18.817171+01:00"
+						"dateAndTimeString" : "2021-02-03T09:09:36.930479+01:00"
 					}
 				},
 				"editEmail" : {
 					"__type" : "email",
-					"emailString" : "akgrant@gmail.com"
+					"emailString" : "tudor@tudorgirba.com"
 				},
 				"editTime" : {
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2020-11-30T08:49:23.089971+01:00"
+						"dateAndTimeString" : "2021-02-03T09:09:52.593041+01:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "SulYD8/a"
+					"uidString" : "OADyRZchAAAAAAAAAAAAAA=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "This is Part Two Sub One."
+				"string" : "The development environment should host visualizations from the ground up."
 			}
 		]
 	},
@@ -51,7 +51,7 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2020-11-30T08:47:45.495874+01:00"
+			"dateAndTimeString" : "2020-11-30T08:46:30.595864+01:00"
 		}
 	},
 	"editEmail" : {
@@ -62,15 +62,15 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2021-02-03T09:13:10.183905+01:00"
+			"dateAndTimeString" : "2021-02-03T09:09:18.848013+01:00"
 		}
 	},
 	"pageType" : {
 		"__type" : "namedPage",
-		"title" : "Treemaps"
+		"title" : "Pervasive visualization"
 	},
 	"uid" : {
 		"__type" : "uuid",
-		"uuid" : "cab977f6-af71-0d00-a9ea-e12006c92981"
+		"uuid" : "77d800f2-af71-0d00-a9d5-5d5006c92981"
 	}
 }

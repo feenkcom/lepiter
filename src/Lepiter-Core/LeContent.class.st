@@ -440,6 +440,8 @@ LeContent >> gtSerializationFor: aView [
 	^ aView textEditor
 		title: 'Serialization';
 		priority: 80;
+		aptitude: BrGlamorousCodeEditorAptitude;
+		styler: JSONParser gtStyler;
 		text: [String streamContents: [ :s | 
 				LeJsonV4 uniqueInstance serialize: self on: s prettyPrint: true ]]
 ]
