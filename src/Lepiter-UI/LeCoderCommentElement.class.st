@@ -31,6 +31,7 @@ LeCoderCommentElement >> initializeForClassName: aSymbol [
 	snippetView := viewModel snippetView.
 	snippetView needsEmbellishments: false.
 	snippetElement := snippetView asElement.
+	snippetElement vMatchParent.
 	snippetElement snippetViewModel: viewModel.
 	snippetElement padding: (BlInsets all: 10).
 	snippetElement addEditorShortcut: (BrEditorLineEndingShortcut new combination: (LeSnippetElement keyboardShortcut: #NewLine)).
