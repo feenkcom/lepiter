@@ -330,6 +330,13 @@ LeDatabaseSidebarElement >> tableOfContentsTab [
 	^ tableOfContentsTab
 ]
 
+{ #category : #'private - subscriptions' }
+LeDatabaseSidebarElement >> unsubscribeFromContent [
+	super unsubscribeFromContent.
+	
+	self database unsubscribe: self.
+]
+
 { #category : #'private - updating' }
 LeDatabaseSidebarElement >> updateContent [
 	self updateTableOfContentTab.
