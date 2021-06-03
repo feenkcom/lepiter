@@ -47,8 +47,9 @@ LePillarConverter >> source [
 ]
 
 { #category : #accessing }
-LePillarConverter >> source: anObject [
-	source := anObject
+LePillarConverter >> source: aString [
+
+	source := aString
 ]
 
 { #category : #'visiting-document' }
