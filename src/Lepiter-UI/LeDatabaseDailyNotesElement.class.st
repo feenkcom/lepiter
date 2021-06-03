@@ -70,6 +70,18 @@ LeDatabaseDailyNotesElement >> onContentUIModelChanged [
 	self updateTreeItems.
 ]
 
+{ #category : #hooks }
+LeDatabaseDailyNotesElement >> onPageAdded: aLeDatabasePageAdded [
+	self enqueueTask: (BlTaskAction new action: [ 
+		self updateTreeItems ]).
+]
+
+{ #category : #hooks }
+LeDatabaseDailyNotesElement >> onPageRemoved: aLeDatabasePageRemoved [
+	self enqueueTask: (BlTaskAction new action: [ 
+		self updateTreeItems ]).
+]
+
 { #category : #updating }
 LeDatabaseDailyNotesElement >> onSelectionChanged [
 	self updateSelection.
@@ -100,9 +112,34 @@ LeDatabaseDailyNotesElement >> selection: aViewModel [
 	self onSelectionChanged
 ]
 
+{ #category : #'private - subscriptions' }
+LeDatabaseDailyNotesElement >> subscribeToContent [
+	super subscribeToContent.
+	self database weak
+		when: LeDatabasePageAdded
+			send: #onPageAdded:
+			to: self;
+		when: LeDatabasePageRemoved
+			send: #onPageRemoved:
+			to: self;
+		when: LePageUnloadAnnouncement 
+			send: #onPageRemoved:
+			to: self;
+		when: LeDatabaseTableOfContentsUUIDChanged
+			send: #onTableOfContentsUUIDChanged:
+			to: self.
+]
+
 { #category : #accessing }
 LeDatabaseDailyNotesElement >> treeElement [
 	^ treeElement
+]
+
+{ #category : #'private - subscriptions' }
+LeDatabaseDailyNotesElement >> unsubscribeFromContent [
+	super unsubscribeFromContent.
+	
+	self database unsubscribe: self.
 ]
 
 { #category : #'private - updating' }
