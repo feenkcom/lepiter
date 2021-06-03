@@ -16,7 +16,7 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 	spec for: #'common' do: [
 		spec 
 			baseline: 'LepiterEngineCore' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.7/src' ];
+				spec repository: 'github://feenkcom/lepiter:v0.6.8/src' ];
 			baseline: 'GToolkit4DockerEngine' with: [
 				spec repository: 'github://feenkcom/gt4dockerengine:v0.5.126/src' ];
 			baseline: 'Gt4JSLink' with: [
