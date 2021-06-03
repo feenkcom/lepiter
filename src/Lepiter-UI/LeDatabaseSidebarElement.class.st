@@ -178,7 +178,7 @@ LeDatabaseSidebarElement >> newDailyNotesElement [
 LeDatabaseSidebarElement >> newDailyNotesGroupElement [
 	| newDailyNotesElement |
 
-	newDailyNotesElement := LeDatabaseDailyNotesElement new.
+	newDailyNotesElement := LeDatabaseDailyNotesTreeElement new.
 		
 	self hasDatabase
 		ifTrue: [
