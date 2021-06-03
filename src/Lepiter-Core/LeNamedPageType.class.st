@@ -72,16 +72,6 @@ LeNamedPageType >> title [
 
 { #category : #accessing }
 LeNamedPageType >> title: aString [
-	"Set the receiver's title.
-	For backward compatibility, the page may be converted between named pages and daily notes by the title format.
-	Answer the resulting page type (either self or a named page)"
-	| aDate |
-
-	aDate := LeDailyNoteTitleParser parse: aString.
-	aDate 
-		ifNotNil: [ 
-			^ LeDailyNotePageType date: aDate page: page ]
-		ifNil: [ 
-			title := aString.
-			^ self ].
+	"Set the receiver's title"
+	title := aString.
 ]
