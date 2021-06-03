@@ -146,11 +146,11 @@ LeDatabaseTableOfContentsTreeElement >> selection [
 ]
 
 { #category : #'api - accessing' }
-LeDatabaseTableOfContentsTreeElement >> selection: aPage [
-	"Set selected page"
-	selection = aPage
+LeDatabaseTableOfContentsTreeElement >> selection: aPageViewModel [
+	"Set selected page view model"
+	selection = aPageViewModel
 		ifTrue: [ ^ self ].
-	selection := aPage.
+	selection := aPageViewModel.
 	self onSelectionChanged
 ]
 
@@ -159,17 +159,17 @@ LeDatabaseTableOfContentsTreeElement >> subscribeToContent [
 	super subscribeToContent.
 	self database weak
 		when: LeDatabasePageAdded
-		send: #onPageAdded:
-		to: self;
+			send: #onPageAdded:
+			to: self;
 		when: LeDatabasePageRemoved
-		send: #onPageRemoved:
-		to: self;
+			send: #onPageRemoved:
+			to: self;
 		when: LePageUnloadAnnouncement 
-		send: #onPageRemoved:
-		to: self;
+			send: #onPageRemoved:
+			to: self;
 		when: LeDatabaseTableOfContentsUUIDChanged
-		send: #onTableOfContentsUUIDChanged:
-		to: self.
+			send: #onTableOfContentsUUIDChanged:
+			to: self.
 	self subscribeToTableOfContentsPage.
 ]
 
@@ -188,8 +188,10 @@ LeDatabaseTableOfContentsTreeElement >> treeElement [
 
 { #category : #'private - subscriptions' }
 LeDatabaseTableOfContentsTreeElement >> unsubscribeFromContent [
-	self unsubscribeFromTableOfContentsPage.
 	super unsubscribeFromContent.
+	
+	self unsubscribeFromTableOfContentsPage.
+	self database unsubscribe: self.
 ]
 
 { #category : #'private - subscriptions' }

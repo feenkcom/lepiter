@@ -28,24 +28,6 @@ LeChangePageTypeExamples >> basicUnnamedPageWithCustomDefaultTitle [
 	^ page
 ]
 
-{ #category : #'examples - page title' }
-LeChangePageTypeExamples >> dailyNoteToNormalPage [
-	<gtExample>
-	| aDatabase aPage |
-	aDatabase := self updateUnnamedPageToDailyNotePage.
-	aPage := aDatabase pages first.
-	aPage updateTitle: 'normal page'.
-	self assert: aPage title equals: 'normal page'.
-	self assert: aPage type isNamedPageType.
-	
-	self assert: aDatabase pages size equals: 1.
-	self assert: aDatabase pagesByName size equals: 1.
-	self assert: aDatabase unnamedPagesByUid size equals: 0.
-	self assert: aDatabase dailyNotes size equals: 0.
-	
-	^ aDatabase
-]
-
 { #category : #'examples - model' }
 LeChangePageTypeExamples >> databaseWithOneUnnamedPage [
 	<gtExample>
@@ -76,24 +58,6 @@ LeChangePageTypeExamples >> databaseWithTwoUnnamedPage [
 	self assert: aDatabase pagesByName size equals: 0.
 	self assert: aDatabase unnamedPagesByUid size equals: 2.
 	self assert: aDatabase dailyNotes size equals: 0.
-	
-	^ aDatabase
-]
-
-{ #category : #'examples - page title' }
-LeChangePageTypeExamples >> updateUnnamedPageToDailyNotePage [
-	<gtExample>
-	| aDatabase aPage |
-	aDatabase := self databaseWithOneUnnamedPage.
-	aPage := aDatabase pages first.
-	aPage updateTitle: 'November 9th, 2020'.
-	self assert: aPage title equals: 'November 9th, 2020'.
-	self assert: aPage type isDailyNote.
-	
-	self assert: aDatabase pages size equals: 1.
-	self assert: aDatabase pagesByName size equals: 1.
-	self assert: aDatabase unnamedPagesByUid size equals: 0.
-	self assert: aDatabase dailyNotes size equals: 1.
 	
 	^ aDatabase
 ]
