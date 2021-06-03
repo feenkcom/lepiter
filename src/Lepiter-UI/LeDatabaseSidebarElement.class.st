@@ -15,7 +15,8 @@ Class {
 		'dailyNotesElement',
 		'selection',
 		'tableOfContentsElement',
-		'tableOfContentsTab'
+		'tableOfContentsTab',
+		'dailyNotesGroupElement'
 	],
 	#category : #'Lepiter-UI-! UI - Database'
 }
@@ -53,6 +54,17 @@ LeDatabaseSidebarElement >> dailyNotesElement [
 { #category : #'private - accessing' }
 LeDatabaseSidebarElement >> dailyNotesElementDo: aBlock [
 	dailyNotesElement ifNotNil: aBlock
+]
+
+{ #category : #'private - accessing' }
+LeDatabaseSidebarElement >> dailyNotesGroupElement [
+	^ dailyNotesGroupElement ifNil: [ 
+		dailyNotesGroupElement := self newDailyNotesGroupElement ].
+]
+
+{ #category : #'private - accessing' }
+LeDatabaseSidebarElement >> dailyNotesGroupElementDo: aBlock [
+	dailyNotesGroupElement ifNotNil: aBlock
 ]
 
 { #category : #defaults }
@@ -131,8 +143,12 @@ LeDatabaseSidebarElement >> initializeTabGroupElement [
 			stencil: [ self pagesElement ]);
 		addTab: (BrTab new
 			aptitude: BrGlamorousTabAptitude new;
-			label: 'Daily Notes';
-			stencil: [ self dailyNotesElement ]).
+			label: 'Daily Notes (old)';
+			stencil: [ self dailyNotesElement ]);
+		addTab: (BrTab new
+			aptitude: BrGlamorousTabAptitude new;
+			label: 'Daily Notes (new)';
+			stencil: [ self dailyNotesGroupElement ]).
 			
 	tabGroupElement padding: tabGroupElement padding + (BlInsets right: 3).
 ]
@@ -154,6 +170,21 @@ LeDatabaseSidebarElement >> newDailyNotesElement [
 			newDailyNotesElement
 				databaseViewModel: self databaseViewModel;
 				showDailyNotes ].
+	
+	^ newDailyNotesElement
+]
+
+{ #category : #'private - instance creation' }
+LeDatabaseSidebarElement >> newDailyNotesGroupElement [
+	| newDailyNotesElement |
+
+	newDailyNotesElement := LeDatabaseDailyNotesElement new.
+		
+	self hasDatabase
+		ifTrue: [
+			newDailyNotesElement
+				databaseViewModel: self databaseViewModel;
+				selection: self selection ].
 	
 	^ newDailyNotesElement
 ]
@@ -312,6 +343,7 @@ LeDatabaseSidebarElement >> updateSelection [
 	self tableOfContentsElementDo: [ :anElement | anElement selection: self selection ].
 	self pagesElementDo: [ :anElement | anElement selection: self selection ].
 	self dailyNotesElementDo: [ :anElement | anElement selection: self selection ].
+	self dailyNotesGroupElementDo: [ :anElement | anElement selection: self selection ].
 ]
 
 { #category : #'private - updating' }

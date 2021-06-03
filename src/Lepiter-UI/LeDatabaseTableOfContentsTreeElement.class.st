@@ -146,11 +146,11 @@ LeDatabaseTableOfContentsTreeElement >> selection [
 ]
 
 { #category : #'api - accessing' }
-LeDatabaseTableOfContentsTreeElement >> selection: aPage [
-	"Set selected page"
-	selection = aPage
+LeDatabaseTableOfContentsTreeElement >> selection: aPageViewModel [
+	"Set selected page view model"
+	selection = aPageViewModel
 		ifTrue: [ ^ self ].
-	selection := aPage.
+	selection := aPageViewModel.
 	self onSelectionChanged
 ]
 

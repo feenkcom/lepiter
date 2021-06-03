@@ -18,6 +18,11 @@ Class {
 	#category : #'Lepiter-UI-Page-! Views'
 }
 
+{ #category : #accessing }
+LePageTitleAndEditInfoElement >> contentViewModel: aPageViewModel [
+	self pageViewModel: aPageViewModel
+]
+
 { #category : #'private - accessing' }
 LePageTitleAndEditInfoElement >> dateAndEmailElement [
 	^ dateAndEmailElement
