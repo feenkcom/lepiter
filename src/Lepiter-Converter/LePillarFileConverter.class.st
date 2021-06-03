@@ -36,7 +36,7 @@ LePillarFileConverter >> convert: aFileReference in: aLeDatabase [
 	newTitle := title ifNil: [ aFileReference basename ].
 	newPage := LePage named: newTitle.
 	snippets do: [ :snippet |
-		newPage addBlock: snippet ].
+		newPage addSnippet: snippet ].
 	leDatabase addPage: newPage.
 	^ newPage
 ]
@@ -47,7 +47,7 @@ LePillarFileConverter >> startNewSnippet [
 	| snippetSource |
 
 	snippetSource := outStream contents trimBoth.
-	snippetSource ifNotEmpty: [ snippets add: (LeTextBlock string: snippetSource) ].
+	snippetSource ifNotEmpty: [ snippets add: (LeTextSnippet string: snippetSource) ].
 	outStream := String new writeStream.
 ]
 
@@ -132,7 +132,7 @@ LePillarFileConverter >> visitListItem: aPRListItem [
 	"List items become the child of the previous snippet"
 	self startNewSnippet.
 	listSnippet := snippets removeLast.
-	snippets last addBlock: listSnippet.
+	snippets last addSnippet: listSnippet.
 ]
 
 { #category : #'visiting-document' }

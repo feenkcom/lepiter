@@ -27,6 +27,13 @@ LeDatabasesRegistry class >> defaultPrimaryDatabase [
 	^ self uniqueInstance defaultPrimaryDatabase
 ]
 
+{ #category : #'private - hooks' }
+LeDatabasesRegistry class >> onRemoveUniqueInstance: anInstance [
+	"Stop any open databases before removing the instance"
+
+	uniqueInstance stopMonitoring
+]
+
 { #category : #accessing }
 LeDatabasesRegistry >> clearDefaultLogicalDatabase [
 
@@ -74,4 +81,11 @@ LeDatabasesRegistry >> initializeForGlamorousToolkit [
 LeDatabasesRegistry >> loadDefaultLogicalDatabase [
 
 	^ LeLogicalDatabaseProperties default logicalDatabase
+]
+
+{ #category : #'startup-shutdown' }
+LeDatabasesRegistry >> stopMonitoring [
+
+	defaultLogicalDatabase ifNotNil: 
+		[ defaultLogicalDatabase stopMonitoring ]
 ]
