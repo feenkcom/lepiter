@@ -50,6 +50,11 @@ LeDatabaseDailyNotesElement >> initializeTreeElement [
 		matchParent.
 ]
 
+{ #category : #accessing }
+LeDatabaseDailyNotesElement >> items [
+	^ self dailyNoteNodes 
+]
+
 { #category : #'private - notifying' }
 LeDatabaseDailyNotesElement >> notifyListSelectionChangedTo: aTreeNode [
 	| aPageUIModel |
@@ -147,6 +152,8 @@ LeDatabaseDailyNotesElement >> updateSelection [
 	| pageTreeNode |
 	self hasSelection
 		ifFalse: [ ^ self ].
+	
+	self selection class = LeContentViewModel ifTrue: [^ self ].
 	
 	pageTreeNode := LePageTreeNodeModel forPage: self selection pageModel.
 	self treeElement selectAndScrollTo: pageTreeNode.

@@ -186,7 +186,7 @@ LeUIExamples >> databaseSidebarElement [
 
 	self assert: anElement database equals: aDatabase.
 	self assert: anElement pagesElement items size equals: 4.
-	self assert: anElement dailyNotesElement items size equals: 2.
+	self assert: anElement dailyNotesGroupElement items size equals: 1.
 	
 	aValue := nil.
 	anElement tableOfContentsElementDo: [ :tocElement | aValue := tocElement ].
@@ -207,7 +207,7 @@ LeUIExamples >> databaseSidebarElementWithTableOfContents [
 	anElement databaseViewModel: aDatabase asContentUIModel.
 	self assert: anElement database equals: aDatabase.
 	self assert: anElement pagesElement items size equals: 9.
-	self assert: anElement dailyNotesElement items size equals: 0.
+	self assert: anElement dailyNotesGroupElement items size equals: 1.
 	
 	self assert: anElement tableOfContentsTab isNotNil.
 	self assert: anElement tabGroupElement tabs size equals: 3.
@@ -228,7 +228,7 @@ LeUIExamples >> databaseSidebarElement_AddPage [
 	aDatabase := anElement database.
 	aDatabase pageBuilder title: 'newly added'; add.
 	self assert: anElement pagesElement items size equals: 5.
-	self assert: anElement dailyNotesElement items size equals: 2.
+	self assert: anElement dailyNotesGroupElement items size equals: 1.
 	^ anElement
 ]
 

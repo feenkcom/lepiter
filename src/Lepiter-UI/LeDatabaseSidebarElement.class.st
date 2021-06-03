@@ -141,13 +141,13 @@ LeDatabaseSidebarElement >> initializeTabGroupElement [
 			aptitude: BrGlamorousTabAptitude new;
 			label: 'Pages';
 			stencil: [ self pagesElement ]);
-		addTab: (BrTab new
+		"addTab: (BrTab new
 			aptitude: BrGlamorousTabAptitude new;
 			label: 'Daily Notes (old)';
-			stencil: [ self dailyNotesElement ]);
+			stencil: [ self dailyNotesElement ]);"
 		addTab: (BrTab new
 			aptitude: BrGlamorousTabAptitude new;
-			label: 'Daily Notes (new)';
+			label: 'Daily Notes';
 			stencil: [ self dailyNotesGroupElement ]).
 			
 	tabGroupElement padding: tabGroupElement padding + (BlInsets right: 3).
@@ -341,7 +341,8 @@ LeDatabaseSidebarElement >> unsubscribeFromContent [
 LeDatabaseSidebarElement >> updateContent [
 	self updateTableOfContentTab.
 	self tableOfContentsElementDo: [ :anElement | anElement databaseViewModel: self databaseViewModel ].
-	self dailyNotesElementDo: [ :anElement | anElement databaseViewModel: self databaseViewModel ].
+	"self dailyNotesElementDo: [ :anElement | anElement databaseViewModel: self databaseViewModel ]."
+	self dailyNotesGroupElementDo: [ :anElement | anElement databaseViewModel: self databaseViewModel ].
 	self pagesElementDo: [ :anElement | anElement databaseViewModel: self databaseViewModel ].
 ]
 
@@ -349,7 +350,7 @@ LeDatabaseSidebarElement >> updateContent [
 LeDatabaseSidebarElement >> updateSelection [
 	self tableOfContentsElementDo: [ :anElement | anElement selection: self selection ].
 	self pagesElementDo: [ :anElement | anElement selection: self selection ].
-	self dailyNotesElementDo: [ :anElement | anElement selection: self selection ].
+	"self dailyNotesElementDo: [ :anElement | anElement selection: self selection ]."
 	self dailyNotesGroupElementDo: [ :anElement | anElement selection: self selection ].
 ]
 
