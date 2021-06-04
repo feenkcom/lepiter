@@ -1,5 +1,5 @@
 "
-1. Snippet width
+# Snippet width
 Represents how large a snippet should be within a page
 
 "

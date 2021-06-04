@@ -44,8 +44,11 @@ LePillarClassCommentConverterVisitor >> classFilterBlockRepositoryNamed: aString
 LePillarClassCommentConverterVisitor >> classesToConvert [
 	"Answer the collection of classes that should be converted"
 	<return: #Array>
+	| selected |
 
-	^ Object withAllSubclasses select: classFilterBlock
+	selected := Object withAllSubclasses select: classFilterBlock.
+	self assert: selected size equals: selected asSet size.
+	^ selected.
 ]
 
 { #category : #corrections }
@@ -86,7 +89,7 @@ LePillarClassCommentConverterVisitor >> convert: aClass [
 
 	aClass isMeta ifTrue: [ ^ self ].
 	(ignoredClasses includes: aClass) ifTrue: [ ^ self ].
-	(dryRun and: [ self isAlreadyLepiter: aClass comment]) ifTrue: 
+	(self isAlreadyLepiter: aClass comment) ifTrue: 
 		[ ^ self halt: 'Already converted?' ].
 	lepiterComment := LePillarClassCommentConverter convert: aClass dryRun: dryRun.
 	convertedClasses at: aClass put: lepiterComment.
@@ -131,7 +134,12 @@ LePillarClassCommentConverterVisitor >> initialize [
 LePillarClassCommentConverterVisitor >> isAlreadyLepiter: pillarComment [
 	"Answer a boolean answering true if the supplied string looks like a lepiter class comment"
 
-	^ 'gtpage\:|gtclass\:|gtmethod\:' asRegexIgnoringCase search: pillarComment
+	('gtpage\:|gtclass\:|gtmethod\:' asRegexIgnoringCase search: pillarComment) ifTrue: [ ^ true ].
+
+	^ pillarComment lines 
+		detect: [ :each | each trimLeft beginsWith: '#' ]
+		ifFound: [ :x | true ]
+		ifNone: [ false ]
 ]
 
 { #category : #running }
