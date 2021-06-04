@@ -1,5 +1,6 @@
 "
-I exemplify ${class:LeElement}$.
+I exemplify {{gtClass:LeElement}}.
+
 
 "
 Class {

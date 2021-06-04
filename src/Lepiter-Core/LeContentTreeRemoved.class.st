@@ -1,6 +1,7 @@
 "
 LeContentTreeAdded is used to announce that content has been removed from a page.
 
+
 "
 Class {
 	#name : #LeContentTreeRemoved,

@@ -9,13 +9,17 @@ Public API and Key Messages
 
    One simple example is simply gorgeous.
  
-!!Internal Representation and Key Implementation Points.
+1. # Internal Representation and Key Implementation Points.
 
-!!!Instance Variables
+
+1. ## Instance Variables
+
 	sourcePage:		<LePage>
 
 
-!!!Implementation Points
+1. ## Implementation Points
+
+
 "
 Class {
 	#name : #LeUnlinkedReferenceMaintenace,

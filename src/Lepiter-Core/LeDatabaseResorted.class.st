@@ -1,5 +1,7 @@
 "
-I am announced by ${class:LeDatabase}$, with the appropriate ${class:LeDatabase}$ and ${class:LePage}$, when a ${class:LePage}$ change its name.
+I am announced by {{gtClass:LeDatabase}}, with the appropriate {{gtClass:LeDatabase}} and {{gtClass:LePage}}, when a {{gtClass:LePage}} change its name.
+
+
 "
 Class {
 	#name : #LeDatabaseResorted,

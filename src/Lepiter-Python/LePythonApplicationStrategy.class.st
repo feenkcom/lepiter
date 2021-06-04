@@ -1,6 +1,7 @@
 "
 LePythonApplicationStrategy is responsible for answering the appropriate server to be used by the Python snippet.
 
+
 "
 Class {
 	#name : #LePythonApplicationStrategy,

@@ -1,7 +1,8 @@
 "
-I display a ${class:LePage}$ title, edit date and edit email:
+I display a {{gtClass:LePage}} title, edit date and edit email:
 
-${example:LeUIExamples>>#pageTitleAndEditInfoElement|previewExpanded}$
+{{gtExample:LeUIExamples>>#pageTitleAndEditInfoElement|previewExpanded}}
+
 
 "
 Class {

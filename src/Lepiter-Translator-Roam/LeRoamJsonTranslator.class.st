@@ -1,10 +1,14 @@
 "
-I read and write JSON files (stream in general) using the Roam format that include ${class:LeDatabase}$.
-I use ${class:LeRoamJsonPurificator}$ to properly initialize ${class:LeDatabase}$ structures for JSON files.
-!! Reading
-${example:LeRoamJsonExamples>>#databaseWithOnePageNoEditValues_Read}$
-!! Writing
-${example:LeRoamJsonExamples>>#databaseWithOnePageNoEditValues_Write}$
+I read and write JSON files (stream in general) using the Roam format that include {{gtClass:LeDatabase}}.
+I use {{gtClass:LeRoamJsonPurificator}} to properly initialize {{gtClass:LeDatabase}} structures for JSON files.
+1. # Reading
+
+{{gtExample:LeRoamJsonExamples>>#databaseWithOnePageNoEditValues_Read}}
+1. # Writing
+
+{{gtExample:LeRoamJsonExamples>>#databaseWithOnePageNoEditValues_Write}}
+
+
 "
 Class {
 	#name : #LeRoamJsonTranslator,

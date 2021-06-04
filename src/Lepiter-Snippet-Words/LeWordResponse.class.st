@@ -1,6 +1,7 @@
 "
 I am an abstract class.
-I am a ${class:LeWordClient}$ response, providing response information.
+I am a {{gtClass:LeWordClient}} response, providing response information.
+
 
 "
 Class {

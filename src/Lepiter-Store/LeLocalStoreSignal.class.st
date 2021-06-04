@@ -1,5 +1,7 @@
 "
-LeLocalStoreSignal is emitted each time a ${class:name=LeLocalStoreMonitor}$ saves or removes a page.
+LeLocalStoreSignal is emitted each time a {{gtClass:name=LeLocalStoreMonitor}} saves or removes a page.
+
+
 "
 Class {
 	#name : #LeLocalStoreSignal,

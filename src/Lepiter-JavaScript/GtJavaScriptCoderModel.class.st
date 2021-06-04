@@ -5,21 +5,23 @@ Variables that are used, but not declared, in the JS snippet and exist in the ph
 
 E.g. evaluating the following sequence of snippets:
 
-[[[
+```
 phVar := 41.
-]]]
+```
 
-[[[lang=javascript
+```lang=javascript
 var jsVar;
 jsVar = ""hello, world"";
 phVar += 1;
-]]]
+```
 
-[[[
+```
 { phVar, jsVar }
-]]]
+```
 
 will result in an array with 42 and 'hello, world'.
+
+
 "
 Class {
 	#name : #GtJavaScriptCoderModel,

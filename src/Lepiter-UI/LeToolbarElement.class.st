@@ -1,5 +1,5 @@
 "
-I display a ${class:BrToolbar}$ that I extend with ${method:LeToolbarElement>>#addFixedSeparator|label=fixed}$ and ${method:LeToolbarElement>>#addFlexibleSeparator|label=flexible}$ separators: ${example:LeUIExamples>>#toolbarWithButtonsFlexibleAndFixedSeparators|previewExpanded|previewHeight=150}$
+I display a {{gtClass:BrToolbar}} that I extend with {{gtMethod:LeToolbarElement>>#addFixedSeparator|label=fixed}} and {{gtMethod:LeToolbarElement>>#addFlexibleSeparator|label=flexible}} separators: {{gtExample:LeUIExamples>>#toolbarWithButtonsFlexibleAndFixedSeparators|previewExpanded|previewHeight=150}}
 
 
 "

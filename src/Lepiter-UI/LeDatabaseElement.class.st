@@ -1,7 +1,9 @@
 "
 I am an abstract class.
-I provide basic ${method:LeDatabaseElement>>#database|label=#selector}$ accessors.
-See my ${class:LeDatabaseElement|expanded|show=#gtSubclassesFor:}$ for concrete implementations:
+I provide basic {{gtMethod:LeDatabaseElement>>#database|label=#selector}} accessors.
+See my {{gtClass:LeDatabaseElement|expanded|show=#gtSubclassesFor:}} for concrete implementations:
+
+
 "
 Class {
 	#name : #LeDatabaseElement,

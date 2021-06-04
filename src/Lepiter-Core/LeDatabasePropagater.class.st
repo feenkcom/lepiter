@@ -1,12 +1,16 @@
 "
-I announce ${class:Announcement|label=announcements}$ locally in a given ${class:LePage}$ or ${class:LeSnippet}$ announcer and its ${class:LeDatabase}$.
-See the ${method:LeDatabasePropagater>>#propagate:in:|label=#selector|expanded}$.
-I am used by ${class:LeNotifier}$.
-!! Example
-In a model: ${example:LeNotifierExamples>>#hierarchy_database|noCode|previewShow=#gtLiveFor:|previewHeight=150}$
-I announce only in the third block and in the database: ${example:LeNotifierExamples>>#databaseNotification_BlockThree}$.
-!! Usage
-I can be used for announcements that a ${class:LeDatabase}$ needs to listen to or announcements that should be also announce in the ${class:LeDatabase}$. For example, ${method:LePage>>#updateTitle:}$ announces the ${class:LePageTitleChanged}$ using the ${class:LePage}$'s announcer and the ${class:LeDatabase}$'s announcer. By doing so, the database does not need to listen to the page announcements. It is a code optimization.
+I announce {{gtClass:Announcement|label=announcements}} locally in a given {{gtClass:LePage}} or {{gtClass:LeSnippet}} announcer and its {{gtClass:LeDatabase}}.
+See the {{gtMethod:LeDatabasePropagater>>#propagate:in:|label=#selector|expanded}}.
+I am used by {{gtClass:LeNotifier}}.
+1. # Example
+
+In a model: {{gtExample:LeNotifierExamples>>#hierarchy_database|noCode|previewShow=#gtLiveFor:|previewHeight=150}}
+I announce only in the third block and in the database: {{gtExample:LeNotifierExamples>>#databaseNotification_BlockThree}}.
+1. # Usage
+
+I can be used for announcements that a {{gtClass:LeDatabase}} needs to listen to or announcements that should be also announce in the {{gtClass:LeDatabase}}. For example, {{gtMethod:LePage>>#updateTitle:}} announces the {{gtClass:LePageTitleChanged}} using the {{gtClass:LePage}}'s announcer and the {{gtClass:LeDatabase}}'s announcer. By doing so, the database does not need to listen to the page announcements. It is a code optimization.
+
+
 "
 Class {
 	#name : #LeDatabasePropagater,

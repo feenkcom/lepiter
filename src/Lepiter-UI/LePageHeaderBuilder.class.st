@@ -1,8 +1,10 @@
 "
 I am an abstract class.
-I am used by ${class:LePageToolContentElement}$.
-My subclasses build ${class:LePageToolContentElement}$'s ${class:LeToolbarElement|label=toolbar}$ items.
-See my ${class:LePageHeaderBuilder|expanded|show=#gtSubclassesFor:}$ for concrete implementations:
+I am used by {{gtClass:LePageToolContentElement}}.
+My subclasses build {{gtClass:LePageToolContentElement}}'s {{gtClass:LeToolbarElement|label=toolbar}} items.
+See my {{gtClass:LePageHeaderBuilder|expanded|show=#gtSubclassesFor:}} for concrete implementations:
+
+
 "
 Class {
 	#name : #LePageHeaderBuilder,

@@ -1,7 +1,8 @@
 "
-I display a ${class:LeDatabase}$ header that includes a title and action buttons, e.g., Spotter.
+I display a {{gtClass:LeDatabase}} header that includes a title and action buttons, e.g., Spotter.
 
-${example:LeUIExamples>>#databaseHeaderElement|previewExpanded}$
+{{gtExample:LeUIExamples>>#databaseHeaderElement|previewExpanded}}
+
 
 "
 Class {
