@@ -182,6 +182,16 @@ LeLogicalDatabase >> dailyNotes [
 ]
 
 { #category : #accessing }
+LeLogicalDatabase >> databaseNamed: aDatabaseName [
+	"Answer the database with the supplied name"
+	<return: #LeDatabase>
+
+	^ self databases 
+		detect: [ :db | db databaseName = aDatabaseName ]
+		ifNone: [ KeyNotFound signalFor: aDatabaseName ]
+]
+
+{ #category : #accessing }
 LeLogicalDatabase >> databaseWithID: aUUIDString [
 	"Answer the database with the supplied id"
 	<return: #LeDatabase>
