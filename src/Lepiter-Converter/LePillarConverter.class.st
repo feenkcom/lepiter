@@ -120,7 +120,11 @@ LePillarConverter >> visitExternalLink: anObject [
 { #category : #'visiting-document' }
 LePillarConverter >> visitFigure: aPRFigure [
 
-
+	aPRFigure children isEmpty ifTrue:
+		[ "This isn't a valid figure definition since there isn't a label.  Just copy the text as is.
+		This is typically triggered by text such as '==ctrl+alt+k=='.  In that case, just copying the text is the correct action."
+		outStream << (source copyFrom: aPRFigure start to: aPRFigure stop).
+		^ self ].
 	outStream << '!['.
 	super visitFigure: aPRFigure.
 	outStream 

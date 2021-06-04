@@ -1,6 +1,6 @@
 "
 I announce ${class:Announcement|label=announcements}$.
-I use different ${class:LeAnnouncementPropagater|label=propagater strategies|show=#gtSubclassesFor:|height=130|expanded}$  to announce a same announcement in a different model instances. See examples in the corresponding promoter class comments:
+I use different ${class:LeAnnouncementPropagater|label=propagater strategies|previewShow=#gtSubclassesFor:|height=130|expanded}$  to announce a same announcement in a different model instances. See examples in the corresponding promoter class comments:
 !! Combining Propagaters
 Users can combine either ${class:LeLocalPropagater}$ and ${class:LeDatabase}$, or ${class:LeBubblingPropagater}$ and ${class:LeDatabasePropagater}$. The following examples show that the execution order is always the same.
 

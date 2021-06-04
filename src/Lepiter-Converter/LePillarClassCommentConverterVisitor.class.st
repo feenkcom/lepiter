@@ -37,6 +37,34 @@ LePillarClassCommentConverterVisitor >> classesToConvert [
 	^ Object withAllSubclasses select: classFilterBlock
 ]
 
+{ #category : #corrections }
+LePillarClassCommentConverterVisitor >> classesWithExampleShowEquals [
+	"Lots of class comments appear to include the example key 'expandedPreview', when it should be 'previewExpanded'.
+	Correct all of those with simple string replacement."
+	| matchingClasses |
+
+	matchingClasses := Object withAllSubclasses select: 
+		[ :each | (each comment includesSubstring: '${example') and: [ each comment includesSubstring: '|show=' ] ].
+
+	matchingClasses do: [ :cls |
+		cls comment: (cls comment copyReplaceAll: '|show=' with: '|previewShow=') ].
+
+	^ matchingClasses
+]
+
+{ #category : #corrections }
+LePillarClassCommentConverterVisitor >> classesWithExpandedPreview [
+	"Lots of class comments appear to include the example key 'expandedPreview', when it should be 'previewExpanded'.
+	Correct all of those with simple string replacement."
+	| matchingClasses |
+
+	matchingClasses := Object withAllSubclasses select: 
+		[ :each | each comment includesSubstring: #expandedPreview ].
+
+	matchingClasses do: [ :cls |
+		cls comment: (cls comment copyReplaceAll: #expandedPreview with: #previewExpanded) ].
+]
+
 { #category : #running }
 LePillarClassCommentConverterVisitor >> convert: aClass [
 	"Convert the comment in the supplied class from pillar to lepiter.
@@ -80,10 +108,10 @@ LePillarClassCommentConverterVisitor >> isAlreadyLepiter: pillarComment [
 { #category : #running }
 LePillarClassCommentConverterVisitor >> run [ 
 
-	EpMonitor disableDuring:
-		[ self classesToConvert do: [ :cls |
+	"EpMonitor disableDuring:
+		[" self classesToConvert do: [ :cls |
 			self convert: cls ].
-		self saveConvertedClasses ].
+		self saveConvertedClasses "]".
 ]
 
 { #category : #private }
