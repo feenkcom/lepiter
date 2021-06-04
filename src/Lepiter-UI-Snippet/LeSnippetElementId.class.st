@@ -1,5 +1,6 @@
 "
 An element that represents a snippet. Often a snippet element may be wrapped in other embellishment or decorator elements.
+
 "
 Class {
 	#name : #LeSnippetElementId,

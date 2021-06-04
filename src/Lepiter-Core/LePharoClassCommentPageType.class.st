@@ -4,6 +4,7 @@ LeClassPageType is page containing information about a Pharo class, i.e. the cla
 Pages of this type should only have a single text snippet, which will be saved back to the class.
 
 This page type should only be used in a LePharoClassDatabase.
+
 "
 Class {
 	#name : #LePharoClassCommentPageType,

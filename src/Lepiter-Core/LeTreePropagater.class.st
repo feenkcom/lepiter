@@ -1,12 +1,13 @@
 "
-I announce ${class:Announcement|label=announcements}$ in a given ${class:LePage}$ or ${class:LeSnippet}$ announcer and in all its children.
-See the ${method:LeTreePropagater>>#propagate:in:|label=#selector|expanded}$.
-I am used by ${class:LeNotifier}$.
-!! Example
-In a model: ${example:LeNotifierExamples>>#hierarchy_database|noCode|previewShow=#gtLiveFor:|previewHeight=150}$
-I announce in the page, the first, the second, and the third block: ${example:LeNotifierExamples>>#treeNotification_Page}$
-!! Usage
+I announce {{gtClass:Announcement|label=announcements}} in a given {{gtClass:LePage}} or {{gtClass:LeSnippet}} announcer and in all its children.
+See the {{gtMethod:LeTreePropagater>>#propagate:in:|label=#selector|expanded}}.
+I am used by {{gtClass:LeNotifier}}.
+## Example
+In a model: {{gtExample:LeNotifierExamples>>#hierarchy_database|noCode|previewShow=#gtLiveFor:|previewHeight=150}}
+I announce in the page, the first, the second, and the third block: {{gtExample:LeNotifierExamples>>#treeNotification_Page}}
+## Usage
 I am used for announcements that needs to be propagated to all children. For example, if all blocks needs to be restiled after a block evaluation.
+
 "
 Class {
 	#name : #LeTreePropagater,

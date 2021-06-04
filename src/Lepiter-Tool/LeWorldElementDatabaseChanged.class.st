@@ -1,5 +1,6 @@
 "
 Announce that the world element's database has been replaced
+
 "
 Class {
 	#name : #LeWorldElementDatabaseChanged,

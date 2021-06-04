@@ -2,6 +2,7 @@
 LeElementSnippetElement displays the result of a code snippet, which must return an object that responds to #asElement.
 
 Clicking on the ""Browse Code"" button opens a snippet editor for modifying the source snippet.
+
 "
 Class {
 	#name : #LeElementSnippetElement,

@@ -1,10 +1,11 @@
 "
-I display a Table of Contents that is defined in a ${class:LePage}$.
-!! Collaborators
-I use ${class:LeTableOfContentsVisitor}$ to extract Table of Contents items, see ${method:LeDatabase>>#tableOfContentsNodes}$.
-I am used by ${class:LeDatabaseSidebarElement}$, see ${method:LeDatabaseSidebarElement>>#newTableOfContentsElement}$.
-!! Examples
-${example:LeUIExamples>>#databaseTableOfContentsElement|previewExpanded}$
+I display a Table of Contents that is defined in a {{gtClass:LePage}}.
+## Collaborators
+I use {{gtClass:LeTableOfContentsVisitor}} to extract Table of Contents items, see {{gtMethod:LeDatabase>>#tableOfContentsNodes}}.
+I am used by {{gtClass:LeDatabaseSidebarElement}}, see {{gtMethod:LeDatabaseSidebarElement>>#newTableOfContentsElement}}.
+## Examples
+{{gtExample:LeUIExamples>>#databaseTableOfContentsElement|previewExpanded}}
+
 
 "
 Class {

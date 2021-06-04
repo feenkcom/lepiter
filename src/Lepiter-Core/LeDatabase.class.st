@@ -1,16 +1,17 @@
 "
 I am a root model object.
-I hold all ${class:LePage}$ instances in my database.
+I hold all {{gtClass:LePage}} instances in my database.
 
 
-!!Internal Representation and Key Implementation Points.
+## Internal Representation and Key Implementation Points.
 
-!!!Instance Variables
+### Instance Variables
 
 
-!!!Implementation Points
+### Implementation Points
 
 The database currently holds a single userEmail address, implying that a database is only ever used by a single person, which isn't really a valid assumption.  This should probably be replaced by a ""current user"" model.
+
 
 "
 Class {

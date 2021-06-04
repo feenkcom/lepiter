@@ -6,6 +6,7 @@ While this is normall one minor version, e.g. 3.0 to 3.1, the updater is reponsi
 To avoid shotgun parsing, i.e. the core model dealing with different DB representations, all updates are done using basic JSON types, i.e. numbers, strings, arrays and dictionaries, avoiding the need to create core objects.
 
 A subclass is created for each step of the upgrade, allowing the database to be updated from any previous minor version to the current version.
+
 "
 Class {
 	#name : #LeJsonV4SchemaUpdater,

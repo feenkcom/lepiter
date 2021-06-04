@@ -1,5 +1,5 @@
 "
-LeTableOfContentsVisitor takes a LePage and produces a ${class:name=LeTableOfContentsNode}$ representing the ToC for the supplied page.
+LeTableOfContentsVisitor takes a LePage and produces a {{gtClass:name=LeTableOfContentsNode}} representing the ToC for the supplied page.
 
 Public API and Key Messages
 

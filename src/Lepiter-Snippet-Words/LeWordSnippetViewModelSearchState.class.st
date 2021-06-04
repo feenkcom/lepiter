@@ -1,6 +1,7 @@
 "
 I am an abstract class.
-I identify a ${class:LeWordSnippetViewModel}$ state in which a word ${class:LeWordExplanation|label=explanatation}$ is searched on the internet.
+I identify a {{gtClass:LeWordSnippetViewModel}} state in which a word {{gtClass:LeWordExplanation|label=explanatation}} is searched on the internet.
+
 "
 Class {
 	#name : #LeWordSnippetViewModelSearchState,

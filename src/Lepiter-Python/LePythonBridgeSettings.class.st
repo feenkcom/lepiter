@@ -1,5 +1,6 @@
 "
 LePythonBridgeSettings provides a wrapper around the DB properties to group PythonBridge settings together.
+
 "
 Class {
 	#name : #LePythonBridgeSettings,

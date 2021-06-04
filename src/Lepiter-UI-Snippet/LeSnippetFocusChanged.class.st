@@ -1,7 +1,8 @@
 "
-!Focus state changed announcement
+# Focus state changed announcement
 
-Is announced by the ${class:LeAbstractSnippetViewModel}$ when its focus state changed
+Is announced by the {{gtClass:LeAbstractSnippetViewModel}} when its focus state changed
+
 "
 Class {
 	#name : #LeSnippetFocusChanged,

@@ -1,5 +1,6 @@
 "
 Upgrade to V4.0.
+
 "
 Class {
 	#name : #LeJsonV3002Updater,

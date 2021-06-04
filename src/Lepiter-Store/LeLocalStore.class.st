@@ -1,23 +1,24 @@
 "
-${class:LeLocalStore}$ is an abstract class providing a persistent, automatically updated store for a Lepiter database.
+{{gtClass:LeLocalStore}} is an abstract class providing a persistent, automatically updated store for a Lepiter database.
 
-${class:LeLocalStore}$ stores the database as a file per ${class:LePage}$ in its localRoot.  The file name and format are defined by subclasses.
+{{gtClass:LeLocalStore}} stores the database as a file per {{gtClass:LePage}} in its localRoot.  The file name and format are defined by subclasses.
 
-As Lepiter is currently memory resident, databases may be converted from one format to another by loading the old format, see e.g. ${class:name=LeLocalStoreLoad}$, and storing in the new format, e.g. ${class:name=LeLocalStoreExport}$.
+As Lepiter is currently memory resident, databases may be converted from one format to another by loading the old format, see e.g. {{gtClass:name=LeLocalStoreLoad}}, and storing in the new format, e.g. {{gtClass:name=LeLocalStoreExport}}.
 
-A Lepiter database may be loaded from an existing store with ${method:name=LeLocalStoreLoad>>#loadAndMonitorFrom:}$.  Using #loadAndMonitorFrom: will set up a ${class:LeLocalStoreMonitor}$, which will automatically save changes to the database as they are made.
+A Lepiter database may be loaded from an existing store with {{gtMethod:name=LeLocalStoreLoad>>#loadAndMonitorFrom:}}.  Using #loadAndMonitorFrom: will set up a {{gtClass:LeLocalStoreMonitor}}, which will automatically save changes to the database as they are made.
 
 The store is responsible for ensuring that an attachments directory exists in the database.
 
  
-!!Internal Representation and Key Implementation Points.
+## Internal Representation and Key Implementation Points.
 
-!!!Instance Variables
+### Instance Variables
 	database:		<LeDatabase>
 	localRoot:	<FileReference>
 
 
-!!!Implementation Points
+### Implementation Points
+
 "
 Class {
 	#name : #LeLocalStore,

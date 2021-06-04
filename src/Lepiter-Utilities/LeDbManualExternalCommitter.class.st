@@ -14,12 +14,13 @@ This can be added to, e.g., a preload script for the database.
 
 Example setup: 
 
-[[[
+```
 LeDbManualExternalCommitter uniqueInstance
 	reset;
 	addDirectory: '/path/to/git/repository';
 	syncCommand: '/path/to/git-sync'.
-]]]
+```
+
 "
 Class {
 	#name : #LeDbManualExternalCommitter,

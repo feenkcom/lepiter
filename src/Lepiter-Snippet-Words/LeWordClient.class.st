@@ -1,6 +1,7 @@
 "
-I search for a word explanation using *https://dictionaryapi.dev*.
-See ${method:LeWordSnippetViewModel>>#searchExplanationFrom:|expanded=true}$ for my usage:
+I search for a word explanation using <https://dictionaryapi.dev>.
+See {{gtMethod:LeWordSnippetViewModel>>#searchExplanationFrom:|expanded=true}} for my usage:
+
 
 "
 Class {

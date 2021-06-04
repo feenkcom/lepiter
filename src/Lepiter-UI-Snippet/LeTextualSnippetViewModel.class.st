@@ -1,7 +1,8 @@
 "
-! Textual Snippet View Model
-Is a text oriented ${class:LeSnippetViewModel}$.
+# Textual Snippet View Model
+Is a text oriented {{gtClass:LeSnippetViewModel}}.
 Textual snippets support merging, splitting and seamless cursor navigation between them.
+
 "
 Class {
 	#name : #LeTextualSnippetViewModel,

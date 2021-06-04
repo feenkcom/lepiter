@@ -1,5 +1,6 @@
 "
-Announced by ${class:LePageViewModel}$ when underlying ${class:LePage}$ is replaced
+Announced by {{gtClass:LePageViewModel}} when underlying {{gtClass:LePage}} is replaced
+
 "
 Class {
 	#name : #LePageViewModelPageReplaced,

@@ -1,7 +1,8 @@
 "
-Demonstrate the operation of ${class:name=LeHtmlFragmentExporterVisitor}$.
+Demonstrate the operation of {{gtClass:name=LeHtmlFragmentExporterVisitor}}.
 
-Since there is no page or database present at this level, links to other pages, etc. can't be resolved and page related tags such as body, metadata, etc. are not included.  See ${class:name=LeHtmlPageExporterVisitor}$.
+Since there is no page or database present at this level, links to other pages, etc. can't be resolved and page related tags such as body, metadata, etc. are not included.  See {{gtClass:name=LeHtmlPageExporterVisitor}}.
+
 "
 Class {
 	#name : #LeHtmlFragmentExporterExamples,

@@ -1,5 +1,6 @@
 "
 LeDBLoadError is resignaled when exceptions are caught during the DB load process.  The offending file will be renamed to corrupt, and reported in the exception, allowing the DB load process to continue and the offending file to be reported.
+
 "
 Class {
 	#name : #LeDBLoadError,

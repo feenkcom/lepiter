@@ -1,7 +1,8 @@
 "
-I display a ${class:LePage}$ list of a ${class:LeDatabase}$:
+I display a {{gtClass:LePage}} list of a {{gtClass:LeDatabase}}:
 
-${example:LeUIExamples>>#databaseSidebarElement|previewExpanded}$
+{{gtExample:LeUIExamples>>#databaseSidebarElement|previewExpanded}}
+
 
 "
 Class {

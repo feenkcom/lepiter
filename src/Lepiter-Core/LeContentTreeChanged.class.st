@@ -1,17 +1,18 @@
 "
-${class:LeContentTreeChanged}$ is a common parent for Add, Move and Remove announcements.  Changes to a ${class:LeSnippet}$'s content should be announced with ${class:LeSnippetTextChanged}$
+{{gtClass:LeContentTreeChanged}} is a common parent for Add, Move and Remove announcements.  Changes to a {{gtClass:LeSnippet}}'s content should be announced with {{gtClass:LeSnippetTextChanged}}
 
-Historically, ${class:LeContentTreeChanged}$ has been used as a general announcement that the entire tree should be re-processed, however this should be avoided for performance reasons. 
+Historically, {{gtClass:LeContentTreeChanged}} has been used as a general announcement that the entire tree should be re-processed, however this should be avoided for performance reasons. 
 
  
-!!Internal Representation and Key Implementation Points.
+## Internal Representation and Key Implementation Points.
 
-!!!Instance Variables
+### Instance Variables
 	commonContent:		<Object>
 	content:				<Object>
 
 
-!!!Implementation Points
+### Implementation Points
+
 "
 Class {
 	#name : #LeContentTreeChanged,

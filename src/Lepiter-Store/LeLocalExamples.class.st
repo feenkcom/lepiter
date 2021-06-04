@@ -1,28 +1,29 @@
 "
 Examples and tests for local storage.
 
-The migration examples rely on having test data from each of the previous storage versions at ${method:name=LeLocalExamples>>#testDataLocation}$.
+The migration examples rely on having test data from each of the previous storage versions at {{gtMethod:name=LeLocalExamples>>#testDataLocation}}.
 
 Prior to introducing a new schema version and snapshot of the current version should be created with: 
 
-[[[ 
+``` 
 db := LeLocalStoreLoad forJsonV3 loadFrom: LeLocalExamples testDataLocation / 'v3'.
 LeLocalStoreExport forJsonV3 export: db to: LeLocalExamples testDataLocation / 'v3.1'.
 db.
-]]]
+```
 
 replacing the version numbers as appropriate.
 
 
 
-!!Internal Representation and Key Implementation Points.
+## Internal Representation and Key Implementation Points.
 
-!!!Instance Variables
+### Instance Variables
 	database:		<LeDatabase>
 	memStore:		<FileReference>
 
 
-!!!Implementation Points
+### Implementation Points
+
 "
 Class {
 	#name : #LeLocalExamples,

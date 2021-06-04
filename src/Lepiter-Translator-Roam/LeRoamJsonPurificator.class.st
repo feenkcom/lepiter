@@ -1,22 +1,22 @@
 "
-It may happen that an exported *Roam JSON database>https://roamresearch.com/#/app/help/page/RxZF78p60* may have unitialized ${class:LePage}$ and ${class:LeSnippet}$ values. Particullarly, the create and edit time and email values.
+It may happen that an exported [Roam JSON database](https://roamresearch.com/#/app/help/page/RxZF78p60) may have unitialized {{gtClass:LePage}} and {{gtClass:LeSnippet}} values. Particullarly, the create and edit time and email values.
 
 I ensure that the model have expected values.
-I am used by ${class:LeRoamJsonTranslator}$.
-!! Examples
-!!! Missing Edit Values
-${example:LeRoamJsonExamples>>#databaseWithOnePageNoEditValues|noCode}$
+I am used by {{gtClass:LeRoamJsonTranslator}}.
+## Examples
+### Missing Edit Values
+{{gtExample:LeRoamJsonExamples>>#databaseWithOnePageNoEditValues|noCode}}
 
 is purified as: 
 
-${example:LeRoamJsonExamples>>#pageNoEditValues|noCode}$
+{{gtExample:LeRoamJsonExamples>>#pageNoEditValues|noCode}}
 
-!!! Missing Create Values
-${example:LeRoamJsonExamples>>#databaseWithOnePageNoCreateValues|noCode}$
+### Missing Create Values
+{{gtExample:LeRoamJsonExamples>>#databaseWithOnePageNoCreateValues|noCode}}
 
 is purified as: 
 
-${example:LeRoamJsonExamples>>#pageNoCreateValues|noCode}$
+{{gtExample:LeRoamJsonExamples>>#pageNoCreateValues|noCode}}
 
 
 "

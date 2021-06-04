@@ -1,5 +1,6 @@
 "
-Spotter extensions should return ${class:TLeContextMenuItemSpecification}$ objects.
+Spotter extensions should return {{gtClass:TLeContextMenuItemSpecification}} objects.
+
 "
 Class {
 	#name : #LeContextMenuSpotterStart,

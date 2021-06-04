@@ -1,11 +1,12 @@
 "
-I am a ${class:LeSnippetElement}$.
-I display ${class:LeWordSnippet}$ information.
-!! Example
-!!! User Input
-${example:LeWordExamples>>#editInputEditorText|codeExpanded=false|previewExpanded=true}$
-!!! Word Explanation
-${example:LeWordExamples>>#searchAnotherWordExplanation|codeExpanded=false|previewExpanded=true}$
+I am a {{gtClass:LeSnippetElement}}.
+I display {{gtClass:LeWordSnippet}} information.
+## Example
+### User Input
+{{gtExample:LeWordExamples>>#editInputEditorText|codeExpanded=false|previewExpanded=true}}
+### Word Explanation
+{{gtExample:LeWordExamples>>#searchAnotherWordExplanation|codeExpanded=false|previewExpanded=true}}
+
 "
 Class {
 	#name : #LeWordSnippetElement,

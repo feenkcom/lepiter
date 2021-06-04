@@ -1,9 +1,10 @@
 "
-I am an ${class:BlElement}$.
-I display ${class:LeWordExplanation}$.
-I am used by ${class:LeWordSnippetElement}$, see ${method:LeWordSnippetElement>>#initializeContentElement}$.
-!! Example
-${example:LeWordExamples>>#viewElement|codeExpanded=false|previewExpanded=true}$
+I am an {{gtClass:BlElement}}.
+I display {{gtClass:LeWordExplanation}}.
+I am used by {{gtClass:LeWordSnippetElement}}, see {{gtMethod:LeWordSnippetElement>>#initializeContentElement}}.
+## Example
+{{gtExample:LeWordExamples>>#viewElement|codeExpanded=false|previewExpanded=true}}
+
 "
 Class {
 	#name : #LeWordViewElement,

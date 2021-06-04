@@ -1,13 +1,14 @@
 "
 LePharoClassPageType holds the playground for the named class. 
 
-!!Internal Representation and Key Implementation Points.
+## Internal Representation and Key Implementation Points.
 
-!!!Instance Variables
+### Instance Variables
 	pageClassName:		<Symbol>
 
 
-!!!Implementation Points
+### Implementation Points
+
 "
 Class {
 	#name : #LePharoClassPageType,
