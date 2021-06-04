@@ -127,6 +127,13 @@ LeTextualSnippetViewModel >> notifyCursorsChanged: aBrTextEditorCursor from: aSo
 	self announce: (LeTextualSnippetCursorsChanged new cursors: aBrTextEditorCursor; source: aSourceObject)
 ]
 
+{ #category : #'api - accessing' }
+LeTextualSnippetViewModel >> snippetView [
+	<return: #LeSnippetView>
+	
+	^ super snippetView beParagraphWidth
+]
+
 { #category : #'api - snippet' }
 LeTextualSnippetViewModel >> splitAt: aCursorPosition [
 	"Split the block being edited at the current cursor position. Children stay with the receiver.

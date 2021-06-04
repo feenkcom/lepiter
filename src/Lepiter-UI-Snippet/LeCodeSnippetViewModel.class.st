@@ -49,5 +49,7 @@ LeCodeSnippetViewModel >> snippetBindings: aGtSnippetBindings [
 LeCodeSnippetViewModel >> snippetView [
 	<return: #LeSnippetView>
 	
-	^ super snippetView needsContentDecorationBar: true
+	^ super snippetView
+		needsContentDecorationBar: true;
+		beDocumentWidth
 ]
