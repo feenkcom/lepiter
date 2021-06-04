@@ -73,6 +73,19 @@ LeSnippetStylerVisitor class >> textLinkButtonPadding: additionalPadding margin:
 
 ]
 
+{ #category : #visiting }
+LeSnippetStylerVisitor >> acceptNode: aSmaCCParseNode [
+	aSmaCCParseNode isNil
+		ifTrue: [ ^ nil ].	
+	
+	^ BlTextStylerTelemetry
+		timeSync: [ 'Visit ', aSmaCCParseNode class name ]
+		during: [	
+			(self lookupVisitorFor: aSmaCCParseNode)
+				ifNil: [ self visitSmaCCParseNode: aSmaCCParseNode ]
+				ifNotNil: [ :visitor | aSmaCCParseNode acceptVisitor: visitor ] ]
+]
+
 { #category : #evaluating }
 LeSnippetStylerVisitor >> changes [
 	^ self styler changes
