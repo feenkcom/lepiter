@@ -39,9 +39,11 @@ LePillarClassCommentConverter >> convert: aClass [
 	| newSource |
 
 	sourceClass := aClass.
+	sourceClass hasComment ifFalse: [ ^ nil ].
 	self source: aClass comment.
 	self visit: (GtDocumenterParser new parse: source asString).
 	newSource := self newSource.
+	newSource = source ifTrue: [ ^ self ].
 	dryRun ifFalse: [ aClass comment: newSource ].
 	^ newSource
 ]
