@@ -41,6 +41,12 @@ LeDatabasesRegistry >> clearDefaultLogicalDatabase [
 ]
 
 { #category : #accessing }
+LeDatabasesRegistry >> currentLoadedDefaultLogicalDatabase [
+
+	^ defaultLogicalDatabase 
+]
+
+{ #category : #accessing }
 LeDatabasesRegistry >> defaultLogicalDatabase [
 
 	^ defaultLogicalDatabase ifNil: [ defaultLogicalDatabase := self loadDefaultLogicalDatabase ]
