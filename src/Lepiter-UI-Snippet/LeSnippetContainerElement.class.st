@@ -1,5 +1,5 @@
 "
-1. Snippet container element
+# Snippet container element
 Wraps a {{gtClass:LeSnippetElement}} and adds support for max width to limit how much space a snippet occupies within a page.
 
 "
