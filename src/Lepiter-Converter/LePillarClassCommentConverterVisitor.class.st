@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'classFilterBlock',
 		'dryRun',
-		'convertedClasses'
+		'convertedClasses',
+		'ignoredClasses'
 	],
 	#category : #'Lepiter-Converter'
 }
@@ -73,6 +74,8 @@ LePillarClassCommentConverterVisitor >> convert: aClass [
 	<return: #String>
 	| lepiterComment |
 
+	aClass isMeta ifTrue: [ ^ self ].
+	(ignoredClasses includes: aClass) ifTrue: [ ^ self ].
 	(dryRun and: [ self isAlreadyLepiter: aClass comment]) ifTrue: 
 		[ ^ self halt: 'Already converted?' ].
 	lepiterComment := LePillarClassCommentConverter convert: aClass dryRun: dryRun.
@@ -91,12 +94,25 @@ LePillarClassCommentConverterVisitor >> dryRun: anObject [
 ]
 
 { #category : #initialization }
+LePillarClassCommentConverterVisitor >> ignoredClassesCollection [
+	"Answer a list of classes that shouldn't be convertd.
+	These are generally classes that cause the pillar parser to go into infinite recursion"
+
+	^ { 
+		SpartaCanvas.
+		SpartaFontBuilder.
+		SpartaTransformationBuilder.
+	 }
+]
+
+{ #category : #initialization }
 LePillarClassCommentConverterVisitor >> initialize [ 
 
 	super initialize.
 	convertedClasses := OrderedCollection new.
 	classFilterBlock := [ :cls | self error: 'No filter block set' ].
 	dryRun := true.
+	ignoredClasses := self ignoredClassesCollection.
 ]
 
 { #category : #testing }
