@@ -11,7 +11,7 @@ Rules:
 
 !!Public API and Key Messages
 
-Messages in the ==api - *== protocols are common between ${gtClass:name=LeDatabase}$ and LeLogicalDatabase.
+Messages in the ==api - *== protocols are common between ${class:name=LeDatabase}$ and LeLogicalDatabase.
 
  
 !!Internal Representation and Key Implementation Points.

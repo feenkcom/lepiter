@@ -40,7 +40,8 @@ LePillarClassCommentConverterVisitor >> classesToConvert [
 { #category : #corrections }
 LePillarClassCommentConverterVisitor >> classesWithExampleShowEquals [
 	"Lots of class comments appear to include the example key 'expandedPreview', when it should be 'previewExpanded'.
-	Correct all of those with simple string replacement."
+	Correct all of those with simple string replacement.
+	WARNING: this doesn't really work since ${class:Abc|show=#selectorFor:}$ is valid, and this changes those instances incorrectly"
 	| matchingClasses |
 
 	matchingClasses := Object withAllSubclasses select: 
@@ -72,8 +73,8 @@ LePillarClassCommentConverterVisitor >> convert: aClass [
 	<return: #String>
 	| lepiterComment |
 
-	(self isAlreadyLepiter: aClass comment) ifTrue: 
-		[ self halt: 'Already converted?' ].
+	(dryRun and: [ self isAlreadyLepiter: aClass comment]) ifTrue: 
+		[ ^ self halt: 'Already converted?' ].
 	lepiterComment := LePillarClassCommentConverter convert: aClass dryRun: dryRun.
 	convertedClasses add: aClass.
 	^ lepiterComment

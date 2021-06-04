@@ -6,7 +6,7 @@ I am used by ${class:LeNotifier}$.
 In a model: ${example:LeNotifierExamples>>#hierarchy_database|noCode|previewShow=#gtLiveFor:|previewHeight=150}$
 I announce only in the third block: ${example:LeNotifierExamples>>#localNotification_BlockThree}$.
 !! Usage
-I am a common (basic) announcement strategy and I complement the ${class:LeAnnouncementPropagater|label=other strategies|previewShow=#gtSubclassesFor:|height=130|expanded}$:
+I am a common (basic) announcement strategy and I complement the ${class:LeAnnouncementPropagater|label=other strategies|show=#gtSubclassesFor:|height=130|expanded}$:
 "
 Class {
 	#name : #LeLocalPropagater,

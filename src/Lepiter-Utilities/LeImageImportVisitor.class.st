@@ -3,7 +3,7 @@ LeImageImport visits the supplied lepiter model and updates all textual and pict
 
 The database must have a monitor, i.e. a root directory where the images are attached.
 
-The database can either be implicitly supplied by visiting it, or explicitly set with ${gtMethod:name=LeImageImport>>#database:}$.
+The database can either be implicitly supplied by visiting it, or explicitly set with ${method:name=LeImageImport>>#database:}$.
 
 If the original source URL of the image is to be saved as metadata, the database must have savePersonalInformation true, i.e.:
 
