@@ -105,8 +105,7 @@ LeExternalEvaluatedSnippetElement >> initializeTextEditor [
 	editorElement := GtSourceCoderEditorElement new 
 		padding: (BlInsets top: 5 left: 5 bottom: 5 right: 0).
 
-	editorElement editor navigator
-		whenReachedBoundary: [ :anEvent | self onReachedBoundary: anEvent ]
+	editorElement editor addEventHandler: (LeEditorReachedBorderEventHandler new snippetElement: self)
 ]
 
 { #category : #initialization }

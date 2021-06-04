@@ -97,40 +97,62 @@ LeAbstractSnippetViewModel >> focusAfterCreation [
 	"Give this snippet focus because it was just created. Custom snippets may overide this to give focus
 	to their internal components of choice"
 
-	^ self focused: true
+	self focused: true
+]
+
+{ #category : #'api - focus' }
+LeAbstractSnippetViewModel >> focusDueToNavigationDown [
+	"Give this snippet focus because the user requested to focus a previous snippet (usually arrow down)"
+
+	self focused: true
+]
+
+{ #category : #'api - focus' }
+LeAbstractSnippetViewModel >> focusDueToNavigationUp [
+	"Give this snippet focus because the user requested to focus a previous snippet (usually arrow up)"
+
+	self focused: true
 ]
 
 { #category : #'api - focus' }
 LeAbstractSnippetViewModel >> focusNextSnippet [
-	"Give focus to the snippet after me that is either:
+	"Try to give focus to the snippet after me that is either:
 	- a next parent of the snippet if this is the last child
-	- a next sibling if this is not the last child"
+	- a next sibling if this is not the last child.
+	Return true if there was a next snippet and focus transfer was succesful, false otherwise"
+	<return: #Boolean>
 	
 	self snippetsCollectionDo: [ :aSnippetsCollection |
-		self snippetModel
+		^ self snippetModel
 			nextSnippetDo: [ :previousSnippet |
 				| snippetViewModelToFocus |
 
 				snippetViewModelToFocus := aSnippetsCollection findOrCreateSnippetViewModel: previousSnippet.
-				snippetViewModelToFocus focused: true.
-				aSnippetsCollection scrollToViewModel: snippetViewModelToFocus ]
-			ifNone: [ ] ]
+				snippetViewModelToFocus focusDueToNavigationDown.
+				aSnippetsCollection scrollToViewModel: snippetViewModelToFocus.
+				true ]
+			ifNone: [ false ] ].
+	^ false
 ]
 
 { #category : #'api - focus' }
 LeAbstractSnippetViewModel >> focusPreviousSnippet [
-	"Give focus to the snippet before me that is either:
+	"Try to give focus to the snippet before me that is either:
 	- a parent of the snippet if this is the first child
-	- a previous sibling if this is not the first child"
+	- a previous sibling if this is not the first child.
+	Return true if there was a previous snippet and focus transfer was succesful, false otherwise"
+	<return: #Boolean>
 	
 	self snippetsCollectionDo: [ :aSnippetsCollection |
-		self snippetModel
+		^ self snippetModel
 			previousSnippetDo: [ :previousSnippet |
 				| snippetViewModelToFocus |
 				snippetViewModelToFocus := aSnippetsCollection findOrCreateSnippetViewModel: previousSnippet.
-				snippetViewModelToFocus focused: true.
-				aSnippetsCollection scrollToViewModel: snippetViewModelToFocus ] 
-			ifNone: [ ] ]
+				snippetViewModelToFocus focusDueToNavigationUp.
+				aSnippetsCollection scrollToViewModel: snippetViewModelToFocus.
+				true ] 
+			ifNone: [ false ] ].
+	^ false
 ]
 
 { #category : #'api - focus' }

@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'snippetElementClass',
 		'needsEmbellishments',
-		'needsContentDecorationBar'
+		'needsContentDecorationBar',
+		'desiredSnippetWidth'
 	],
 	#category : #'Lepiter-UI-Snippet-! Views'
 }
@@ -20,10 +21,25 @@ LeSnippetView >> = anObject [
 	^ snippetElementClass = anObject snippetElementClass
 ]
 
+{ #category : #accessing }
+LeSnippetView >> beDocumentWidth [
+	self desiredSnippetWidth: LeSnippetDocumentWidth new
+]
+
+{ #category : #accessing }
+LeSnippetView >> beFullWidth [
+	self desiredSnippetWidth: LeSnippetFullWidth new
+]
+
+{ #category : #accessing }
+LeSnippetView >> beParagraphWidth [
+	self desiredSnippetWidth: LeSnippetParagraphWidth new
+]
+
 { #category : #'api - instantiation' }
 LeSnippetView >> create [
 	<return: #Object>
-	| aSnippetElement aSnippetLook |
+	| aSnippetElement aSnippetLook aSnippetElementContainer |
 
 	aSnippetElement := self snippetElementClass new.
 
@@ -44,8 +60,13 @@ LeSnippetView >> create [
 	aSnippetLook sidebarContainer: (self createSidebarContainerFor: aSnippetElement).
 
 	aSnippetElement addAptitude: aSnippetLook.
+	aSnippetElement id: LeSnippetElementId.
+	
+	aSnippetElementContainer := LeSnippetContainerElement new.
+	aSnippetElementContainer snippetElement: aSnippetElement.
+	aSnippetElementContainer snippetMaxWidth: self desiredSnippetWidth maxWidth.
 
-	^ aSnippetElement
+	^ aSnippetElementContainer
 ]
 
 { #category : #'api - instantiation' }
@@ -111,6 +132,16 @@ LeSnippetView >> createSidebarMenuFor: aSnippetElement [
 		addChildren: theActionElements
 ]
 
+{ #category : #accessing }
+LeSnippetView >> desiredSnippetWidth [
+	^ desiredSnippetWidth
+]
+
+{ #category : #accessing }
+LeSnippetView >> desiredSnippetWidth: anObject [
+	desiredSnippetWidth := anObject
+]
+
 { #category : #comparing }
 LeSnippetView >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
@@ -123,7 +154,8 @@ LeSnippetView >> initialize [
 	super initialize.
 	
 	needsEmbellishments := true.
-	needsContentDecorationBar := false
+	needsContentDecorationBar := false.
+	desiredSnippetWidth := LeSnippetFullWidth new
 ]
 
 { #category : #accessing }

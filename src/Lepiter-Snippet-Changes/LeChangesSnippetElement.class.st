@@ -115,6 +115,7 @@ LeChangesSnippetElement >> initialize [
 		constraintsDo: [ :c | c minWidth: 50 ];
 		aptitude: BrGlamorousRegularEditorAptitude + BrGlamorousEditorSpacingAptitude;
 		padding: (BlInsets top: 3 left: 3 bottom: 4 right: 3).
+	fileNameEditor editor addEventHandler: (LeEditorReachedBorderEventHandler new snippetElement: self).
 
 	inspectChangesButton := self createInpsectChangesButton.
 	createChangesFileButton := self createChangesFileButton.

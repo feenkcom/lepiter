@@ -12,6 +12,24 @@ LeCodeSnippetViewModel >> coderViewModel [
 	^ coderViewModel
 ]
 
+{ #category : #'api - focus' }
+LeCodeSnippetViewModel >> focusDueToNavigationDown [
+	super focusDueToNavigationDown.
+	
+	self coderViewModel
+		focused: true;
+		moveCursorAtEnd
+]
+
+{ #category : #'api - focus' }
+LeCodeSnippetViewModel >> focusDueToNavigationUp [
+	super focusDueToNavigationUp.
+	
+	self coderViewModel
+		focused: true;
+		moveCursorAtEnd
+]
+
 { #category : #'api - snippet model' }
 LeCodeSnippetViewModel >> initializeCoderAddOns: aCoderViewModel [
 ]
@@ -49,5 +67,7 @@ LeCodeSnippetViewModel >> snippetBindings: aGtSnippetBindings [
 LeCodeSnippetViewModel >> snippetView [
 	<return: #LeSnippetView>
 	
-	^ super snippetView needsContentDecorationBar: true
+	^ super snippetView
+		needsContentDecorationBar: true;
+		beDocumentWidth
 ]
