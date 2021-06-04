@@ -80,7 +80,7 @@ LeInspectorPlaygroundElement >> isCollapsed [
 { #category : #'private - accessing' }
 LeInspectorPlaygroundElement >> locatePageForObject [
 	| database currentPage |
-	database := LeDatabasesRegistry uniqueInstance defaultLogicalDatabase
+	database := LeDatabasesRegistry uniqueInstance currentLoadedDefaultLogicalDatabase
 		playgroundDB.
 	currentPage := database
 		at: self object class name
