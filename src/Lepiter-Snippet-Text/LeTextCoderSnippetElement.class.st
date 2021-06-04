@@ -35,8 +35,7 @@ LeTextCoderSnippetElement >> initialize [
 
 	editorElement padding: (BlInsets top: 5 left: 7 bottom: 5 right: 0).
 	editorElement margin: BlInsets empty.
-	editorElement editor navigator
-		whenReachedBoundary: [ :anEvent | self onReachedBoundary: anEvent ]
+	editorElement editor addEventHandler: (LeEditorReachedBorderEventHandler new snippetElement: self)
 ]
 
 { #category : #'private - elements' }

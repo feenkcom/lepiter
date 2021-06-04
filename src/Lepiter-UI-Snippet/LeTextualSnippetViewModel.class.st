@@ -12,50 +12,17 @@ Class {
 }
 
 { #category : #'api - snippet' }
-LeTextualSnippetViewModel >> focusAndGiveCursorNextSnippet [
-	"Give focus to the snippet after me that is either:
-	- a next parent of the snippet if this is the last child
-	- a next sibling if this is not the last child.
-	If the next snippet is of the textual type, also place cursor at the start of the snippet.
-	Return true if we were able to give focus to the next snippet"
-	<return: #Boolean>
-
-	self snippetsCollectionDo: [ :aSnippetsCollection |
-		^ self snippetModel
-			nextSnippetDo: [ :nextSnippet |
-				| aNextSnippetViewModel |
-				aNextSnippetViewModel := (aSnippetsCollection findOrCreateSnippetViewModel: nextSnippet).
-				aNextSnippetViewModel focused: true.
-				(aNextSnippetViewModel isKindOf: self class)
-					ifTrue: [ aNextSnippetViewModel moveCursorAtStart ].
-				aSnippetsCollection scrollToViewModel: aNextSnippetViewModel.
-				true ] 
-			ifNone: [ false ] ].
-	^ false
+LeTextualSnippetViewModel >> focusDueToNavigationDown [
+	super focusDueToNavigationDown.
+	
+	self moveCursorAtStart
 ]
 
 { #category : #'api - snippet' }
-LeTextualSnippetViewModel >> focusAndGiveCursorPreviousSnippet [
-	"Give focus to the snippet before me that is either:
-	- a parent of the snippet if this is the first child
-	- a previous sibling if this is not the first child.
-	If the next snippet is of the textual type, also place cursor at the end of the snippet.
-	Return true if we were able to give focus to the previous snippet"
-	<return: #Boolean>
+LeTextualSnippetViewModel >> focusDueToNavigationUp [
+	super focusDueToNavigationUp.
 	
-	self snippetsCollectionDo: [ :aSnippetsCollection |
-		^ self snippetModel
-			previousSnippetDo: [ :previousSnippet |
-				| aPreviousSnippetViewModel |
-				aPreviousSnippetViewModel := (aSnippetsCollection findOrCreateSnippetViewModel: previousSnippet).
-				aPreviousSnippetViewModel focused: true.
-				(aPreviousSnippetViewModel isKindOf: self class)
-					ifTrue: [ aPreviousSnippetViewModel moveCursorAtEnd ].
-				aSnippetsCollection scrollToViewModel: aPreviousSnippetViewModel.
-				true ] 
-			ifNone: [ false ] ].
-		
-	^ false
+	self moveCursorAtEnd
 ]
 
 { #category : #'api - snippet' }

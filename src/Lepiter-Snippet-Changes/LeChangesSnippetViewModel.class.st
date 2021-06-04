@@ -89,7 +89,27 @@ LeChangesSnippetViewModel >> fileNameCoderViewModel: aNewFileNameCoderViewModel 
 LeChangesSnippetViewModel >> focusAfterCreation [
 	super focusAfterCreation.
 	
-	self fileNameCoderViewModel focused: true
+	self fileNameCoderViewModel
+		focused: true;
+		moveCursorAtEnd
+]
+
+{ #category : #'api - focus' }
+LeChangesSnippetViewModel >> focusDueToNavigationDown [
+	super focusDueToNavigationDown.
+	
+	self fileNameCoderViewModel
+		focused: true;
+		moveCursorAtEnd
+]
+
+{ #category : #'api - focus' }
+LeChangesSnippetViewModel >> focusDueToNavigationUp [
+	super focusDueToNavigationUp.
+	
+	self fileNameCoderViewModel
+		focused: true;
+		moveCursorAtEnd
 ]
 
 { #category : #'api - changes' }

@@ -41,14 +41,6 @@ LeTextualSnippetElement >> mergeWithPrevious [
 ]
 
 { #category : #'private - focus' }
-LeTextualSnippetElement >> onReachedBoundary: anEvent [
-	anEvent isTop
-		ifTrue: [ anEvent consumed: self snippetViewModel focusAndGiveCursorPreviousSnippet ].
-	anEvent isBottom
-		ifTrue: [ anEvent consumed: self snippetViewModel focusAndGiveCursorNextSnippet ]
-]
-
-{ #category : #'private - focus' }
 LeTextualSnippetElement >> registerFocusEventHandlers [
 	"When we lose focus we should also deselect text so that the whole page feels like one single document"
 	super registerFocusEventHandlers.
