@@ -2,13 +2,17 @@
 Daily Notes are identified by the page's date.
 
  
-!!Internal Representation and Key Implementation Points.
+1. # Internal Representation and Key Implementation Points.
 
-!!!Instance Variables
+
+1. ## Instance Variables
+
 	date:		<Date>
 
 
-!!!Implementation Points
+1. ## Implementation Points
+
+
 "
 Class {
 	#name : #LeDailyNotePageType,

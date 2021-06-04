@@ -1,5 +1,5 @@
 "
-! Explicit snippet view model
+1. Explicit snippet view model
 
 "
 Class {

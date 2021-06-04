@@ -5,6 +5,7 @@ It is a tree of page links representing the Table Of Contents (ToC) of the book.
 
 While the database currently only supports a single specified ToC, there is nothing preventing multiple pages being used as ToCs representing different views in to the database.
 
+
 "
 Class {
 	#name : #LeTableOfContentsNode,

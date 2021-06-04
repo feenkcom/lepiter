@@ -1,6 +1,8 @@
 "
 I am an abstract class.
-I identify a ${class:LeWordSnippetViewModel}$ state in which a user input is requested.
+I identify a {{gtClass:LeWordSnippetViewModel}} state in which a user input is requested.
+
+
 "
 Class {
 	#name : #LeWordSnippetViewModelEditState,

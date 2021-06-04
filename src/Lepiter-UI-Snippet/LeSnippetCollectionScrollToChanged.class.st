@@ -1,5 +1,6 @@
 "
-!Snippet to scroll to changed announcement
+1. Snippet to scroll to changed announcement
+
 "
 Class {
 	#name : #LeSnippetCollectionScrollToChanged,

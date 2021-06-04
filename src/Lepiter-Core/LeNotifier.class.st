@@ -1,13 +1,15 @@
 "
-I announce ${class:Announcement|label=announcements}$.
-I use different ${class:LeAnnouncementPropagater|label=propagater strategies|show=#gtSubclassesFor:|height=130|expanded}$  to announce a same announcement in a different model instances. See examples in the corresponding promoter class comments:
-!! Combining Propagaters
-Users can combine either ${class:LeLocalPropagater}$ and ${class:LeDatabase}$, or ${class:LeBubblingPropagater}$ and ${class:LeDatabasePropagater}$. The following examples show that the execution order is always the same.
+I announce {{gtClass:Announcement|label=announcements}}.
+I use different {{gtClass:LeAnnouncementPropagater|label=propagater strategies|show=#gtSubclassesFor:|height=130|expanded}}  to announce a same announcement in a different model instances. See examples in the corresponding promoter class comments:
+1. # Combining Propagaters
 
-In this example we first define ${method:LeNotifier>>#local|label=#selector}$ followed by ${method:LeNotifier>>#database|label=#selector}$: ${example:LeNotifierExamples>>#localAndDatabaseNotification_BlockThree}$
+Users can combine either {{gtClass:LeLocalPropagater}} and {{gtClass:LeDatabase}}, or {{gtClass:LeBubblingPropagater}} and {{gtClass:LeDatabasePropagater}}. The following examples show that the execution order is always the same.
 
-In this example we first define ${method:LeNotifier>>#database|label=#selector}$ followed by ${method:LeNotifier>>#local|label=#selector}$: ${example:LeNotifierExamples>>#localAndDatabaseNotification_BlockThree}$
-The ${method:LeNotifier>>#local|label=#selector}$ promoter is always executed first, followed by the ${method:LeNotifier>>#database|label=#selector}$ promoter. 
+In this example we first define {{gtMethod:LeNotifier>>#local|label=#selector}} followed by {{gtMethod:LeNotifier>>#database|label=#selector}}: {{gtExample:LeNotifierExamples>>#localAndDatabaseNotification_BlockThree}}
+
+In this example we first define {{gtMethod:LeNotifier>>#database|label=#selector}} followed by {{gtMethod:LeNotifier>>#local|label=#selector}}: {{gtExample:LeNotifierExamples>>#localAndDatabaseNotification_BlockThree}}
+The {{gtMethod:LeNotifier>>#local|label=#selector}} promoter is always executed first, followed by the {{gtMethod:LeNotifier>>#database|label=#selector}} promoter. 
+
 
 "
 Class {

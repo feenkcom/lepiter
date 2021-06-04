@@ -1,7 +1,9 @@
 "
-LeImageImportTextVisitor is used by ${class:name=LeImageImportVisitor}$ to visit an individual text snippet, download any images that are referenced, i.e. links of the form ==![label](url)==, and add them as attachments to the database.
+LeImageImportTextVisitor is used by {{gtClass:name=LeImageImportVisitor}} to visit an individual text snippet, download any images that are referenced, i.e. links of the form `![label](url)`, and add them as attachments to the database.
 
-See ${class:name=LeImageImportVisitor}$ for more information.
+See {{gtClass:name=LeImageImportVisitor}} for more information.
+
+
 "
 Class {
 	#name : #LeImageImportTextVisitor,

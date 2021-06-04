@@ -1,6 +1,7 @@
 "
 Confirm that the main Lepiter objects are encoded as expected in JSON V4.
 
+
 "
 Class {
 	#name : #LeJsonV4Examples,

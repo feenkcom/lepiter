@@ -1,5 +1,7 @@
 "
 LeDatabaseReload updates a database to match the on-disk storage.
+
+
 "
 Class {
 	#name : #LeDatabaseReload,

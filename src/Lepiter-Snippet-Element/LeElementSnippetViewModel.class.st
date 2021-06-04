@@ -1,8 +1,10 @@
 "
-! Element snippet UI Model
+1. Element snippet UI Model
 
 Implementation detail:
 I am a subset of the pharo snippet
+
+
 "
 Class {
 	#name : #LeElementSnippetViewModel,

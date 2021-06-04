@@ -1,7 +1,9 @@
 "
-I am ${class:LeRootItemsSelector}$.
-I select all direct children of an item, e.g., ${class:LePage}$:
-${method:LeChildrenSelector>>#rootsFor:into:|expanded}$
+I am {{gtClass:LeRootItemsSelector}}.
+I select all direct children of an item, e.g., {{gtClass:LePage}}:
+{{gtMethod:LeChildrenSelector>>#rootsFor:into:|expanded}}
+
+
 "
 Class {
 	#name : #LeChildrenSelector,

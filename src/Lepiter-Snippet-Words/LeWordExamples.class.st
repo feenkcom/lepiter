@@ -1,5 +1,7 @@
 "
 I provide examples for the word snippet.
+
+
 "
 Class {
 	#name : #LeWordExamples,

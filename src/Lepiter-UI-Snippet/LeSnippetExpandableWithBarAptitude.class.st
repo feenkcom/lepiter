@@ -1,6 +1,8 @@
 "
-! Expandable snippet look with a left gray side bar
+1. Expandable snippet look with a left gray side bar
 Adds a decoration - a gray vertical bar to the left from the snippet content to visually mark the actual space occupied by the content of a snippet. When a snippet receives focus the toolbar appears and the left vertical bar extends to accomodate the hight of a toolbar.
+
+
 "
 Class {
 	#name : #LeSnippetExpandableWithBarAptitude,

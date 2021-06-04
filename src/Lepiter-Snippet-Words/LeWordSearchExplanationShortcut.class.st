@@ -1,5 +1,7 @@
 "
 I perform a word explanation search on when an editor shortcut is pressed (typically the Enter key).
+
+
 "
 Class {
 	#name : #LeWordSearchExplanationShortcut,

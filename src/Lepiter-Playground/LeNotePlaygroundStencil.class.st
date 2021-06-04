@@ -1,6 +1,9 @@
 Class {
 	#name : #LeNotePlaygroundStencil,
 	#superclass : #BrStencil,
+	#instVars : [
+		'knowledgeBase'
+	],
 	#category : #'Lepiter-Playground'
 }
 
@@ -12,7 +15,13 @@ LeNotePlaygroundStencil >> asPreviewElement [
 
 { #category : #'api - instantiation' }
 LeNotePlaygroundStencil >> create [
-	^ LePlayground createWithNotePage
+	^ LePlayground createWithNotePageInKnowledgeBase: self currentKnowledgeBase
+]
+
+{ #category : #'api - instantiation' }
+LeNotePlaygroundStencil >> currentKnowledgeBase [
+	^ self knowledgeBase ifNil: [
+		LeDatabasesRegistry uniqueInstance currentLoadedDefaultLogicalDatabase ]
 ]
 
 { #category : #printing }
@@ -36,6 +45,16 @@ LeNotePlaygroundStencil >> gtSpotterActDefaultFrom: aSpotterElement [
 { #category : #accessing }
 LeNotePlaygroundStencil >> icon [
 	^ LeIcons lepiterIcon
+]
+
+{ #category : #accessing }
+LeNotePlaygroundStencil >> knowledgeBase [
+	^ knowledgeBase
+]
+
+{ #category : #accessing }
+LeNotePlaygroundStencil >> knowledgeBase: aKnowledgeBase [
+	knowledgeBase := aKnowledgeBase
 ]
 
 { #category : #accessing }
