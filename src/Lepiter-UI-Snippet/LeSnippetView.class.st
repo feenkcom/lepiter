@@ -60,6 +60,7 @@ LeSnippetView >> create [
 	aSnippetLook sidebarContainer: (self createSidebarContainerFor: aSnippetElement).
 
 	aSnippetElement addAptitude: aSnippetLook.
+	aSnippetElement id: LeSnippetElementId.
 	
 	aSnippetElementContainer := LeSnippetContainerElement new.
 	aSnippetElementContainer snippetElement: aSnippetElement.
