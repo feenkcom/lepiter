@@ -101,20 +101,19 @@ LePillarConverter >> visitCodeblock: aCodeBlock [
 
 { #category : #'visiting-document' }
 LePillarConverter >> visitExternalLink: anObject [
-	| hasLabel |
 
-	hasLabel := anObject hasChildren.
-	hasLabel ifTrue: 
+	anObject hasChildren ifTrue: 
 		[ outStream << '['.
 		super visitExternalLink: anObject.
-		outStream << '](' ]
+		outStream 
+			<< '](';
+			<< (source copyFrom: anObject children last stop + 2 to: anObject stop - 1);
+			<< ')' ]
 	ifFalse: 
-		[ outStream << '<' ].
-	outStream 
-		<< (source copyFrom: anObject children last stop + 2 to: anObject stop - 1);
-		<< (hasLabel
-				ifTrue: [ ')' ]
-				ifFalse: [ '>' ]).
+		[ outStream
+			<< '<';
+			<< (source copyFrom: anObject start + 1 to: anObject stop - 1);
+			<< '>'  ].
 
 ]
 
