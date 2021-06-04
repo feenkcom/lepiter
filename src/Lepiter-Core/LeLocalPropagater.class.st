@@ -1,16 +1,12 @@
 "
-I announce {{gtClass:Announcement|label=announcements}} locally in a given {{gtClass:LePage}} or {{gtClass:LeSnippet}} announcer.
-See the {{gtMethod:LeLocalPropagater>>#propagate:in:|label=#selector|expanded}}.
-I am used by {{gtClass:LeNotifier}}.
-1. # Example
-
-In a model: {{gtExample:LeNotifierExamples>>#hierarchy_database|noCode|previewShow=#gtLiveFor:|previewHeight=150}}
-I announce only in the third block: {{gtExample:LeNotifierExamples>>#localNotification_BlockThree}}.
-1. # Usage
-
-I am a common (basic) announcement strategy and I complement the {{gtClass:LeAnnouncementPropagater|label=other strategies|show=#gtSubclassesFor:|height=130|expanded}}:
-
-
+I announce ${class:Announcement|label=announcements}$ locally in a given ${class:LePage}$ or ${class:LeSnippet}$ announcer.
+See the ${method:LeLocalPropagater>>#propagate:in:|label=#selector|expanded}$.
+I am used by ${class:LeNotifier}$.
+!! Example
+In a model: ${example:LeNotifierExamples>>#hierarchy_database|noCode|previewShow=#gtLiveFor:|previewHeight=150}$
+I announce only in the third block: ${example:LeNotifierExamples>>#localNotification_BlockThree}$.
+!! Usage
+I am a common (basic) announcement strategy and I complement the ${class:LeAnnouncementPropagater|label=other strategies|show=#gtSubclassesFor:|height=130|expanded}$:
 "
 Class {
 	#name : #LeLocalPropagater,

@@ -1,7 +1,5 @@
 "
 I am a glue package to embed wardley maps in lepiter
-
-
 "
 Class {
 	#name : #ManifestLepiterSnippetWardleyMap,

@@ -1,13 +1,10 @@
 "
 I provide a word definition.
 I know a word definition and example.
-I am used by {{gtClass:LeWordMeaning}}.
-1. # Example
-
+I am used by ${class:LeWordMeaning}$.
+!! Example
 The following explanation example holds several definitions that you can explore.
-{{gtExample:LeWordExamples>>#helloExplanation|codeExpanded=false|previewExpanded=true}}
-
-
+${example:LeWordExamples>>#helloExplanation|codeExpanded=false|previewExpanded=true}$
 "
 Class {
 	#name : #LeWordDefinition,

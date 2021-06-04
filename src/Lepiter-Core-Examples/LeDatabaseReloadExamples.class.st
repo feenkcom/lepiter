@@ -1,7 +1,5 @@
 "
 LeDatabaseReloadExamples demonstrates the scenario where a database is opened, the underlying files are changed and the database reloaded.  The database doesn't monitor the file system.  This scenario arises when an image is saved with the database open, the database is then modified without saving the image and the image is opened again.
-
-
 "
 Class {
 	#name : #LeDatabaseReloadExamples,

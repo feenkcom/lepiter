@@ -1,8 +1,7 @@
 "
-I display a {{gtClass:LeDatabase}} items, including {{gtClass:LePage}} instances and their {{gtClass:LeSnippet}} instances.
+I display a ${class:LeDatabase}$ items, including ${class:LePage}$ instances and their ${class:LeSnippet}$ instances.
 
-{{gtExample:LeUIExamples>>#databaseTreeElement|previewExpanded}}
-
+${example:LeUIExamples>>#databaseTreeElement|previewExpanded}$
 
 "
 Class {

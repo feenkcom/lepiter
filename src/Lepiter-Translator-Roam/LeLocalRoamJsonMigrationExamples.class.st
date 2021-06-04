@@ -1,7 +1,5 @@
 "
 Check that the a database loads correcty from a Roam JSON file.
-
-
 "
 Class {
 	#name : #LeLocalRoamJsonMigrationExamples,

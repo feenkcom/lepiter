@@ -1,9 +1,7 @@
 "
 I am an abstract class.
-I am a {{gtClass:LeDatabase}} announcement.
-See my {{gtClass:LeDatabaseAnnouncement|expanded|show=#gtSubclassesFor:}} for concrete announcements:
-
-
+I am a ${class:LeDatabase}$ announcement.
+See my ${class:LeDatabaseAnnouncement|expanded|show=#gtSubclassesFor:}$ for concrete announcements:
 "
 Class {
 	#name : #LeDatabaseAnnouncement,

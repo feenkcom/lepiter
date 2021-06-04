@@ -1,10 +1,8 @@
 "
-I am {{gtClass:LeRootItemsSelector}}.
+I am ${class:LeRootItemsSelector}$.
 I select the parent itself as a root item:
-{{gtMethod:LeParentSelector>>#rootsFor:into:|expanded}}
-I am used by {{gtClass:LeBlockTreeElement}}.
-
-
+${method:LeParentSelector>>#rootsFor:into:|expanded}$
+I am used by ${class:LeBlockTreeElement}$.
 "
 Class {
 	#name : #LeParentSelector,

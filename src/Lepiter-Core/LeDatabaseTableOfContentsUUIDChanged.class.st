@@ -1,7 +1,5 @@
 "
-I inform that {{gtMethod:LeDatabase>>#tableOfContents|label=Table of Contents}} {{gtClass:LePage}} has been changed.
-
-
+I inform that ${method:LeDatabase>>#tableOfContents|label=Table of Contents}$ ${class:LePage}$ has been changed.
 "
 Class {
 	#name : #LeDatabaseTableOfContentsUUIDChanged,

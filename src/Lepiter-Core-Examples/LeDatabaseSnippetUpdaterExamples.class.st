@@ -1,7 +1,5 @@
 "
-I exemplify {{gtClass:LeDatabaseSnippetUpdater}}.
-
-
+I exemplify ${class:LeDatabaseSnippetUpdater}$.
 "
 Class {
 	#name : #LeDatabaseSnippetUpdaterExamples,

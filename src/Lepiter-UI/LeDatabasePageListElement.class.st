@@ -1,14 +1,12 @@
 "
-I display a {{gtClass:LePage}} list of a {{gtClass:LeDatabase}}.
+I display a ${class:LePage}$ list of a ${class:LeDatabase}$.
 
 I can display all pages and daily notes:
 
-{{gtExample:LeUIExamples>>#databasePageListElement_Pages|previewExpanded}}
+${example:LeUIExamples>>#databasePageListElement_Pages|previewExpanded}$
 
 I can also display any subset of pages, e.g., just daily notes:
-{{gtExample:LeUIExamples>>#databasePageListElement_DailyNotes|previewExpanded}}
-
-
+${example:LeUIExamples>>#databasePageListElement_DailyNotes|previewExpanded}$
 "
 Class {
 	#name : #LeDatabasePageListElement,

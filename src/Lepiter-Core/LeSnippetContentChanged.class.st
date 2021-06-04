@@ -1,8 +1,6 @@
 "
-Announced by the {{gtClass:LeSnippet}} when its content changes.
+Announced by the ${class:LeSnippet}$ when its content changes.
 This should trigger a database save
-
-
 "
 Class {
 	#name : #LeSnippetContentChanged,

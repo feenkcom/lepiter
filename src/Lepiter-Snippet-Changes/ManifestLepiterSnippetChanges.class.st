@@ -1,7 +1,5 @@
 "
 Lepiter snippet that allows users to display .ombu changes file using Epicea
-
-
 "
 Class {
 	#name : #ManifestLepiterSnippetChanges,

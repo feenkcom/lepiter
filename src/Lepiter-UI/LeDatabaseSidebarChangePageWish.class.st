@@ -1,8 +1,7 @@
 "
-I inform that a selection in {{gtClass:LeDatabasePageListElement}} was changed and a user wants to see another {{gtClass:LePage}}. 
+I inform that a selection in ${class:LeDatabasePageListElement}$ was changed and a user wants to see another ${class:LePage}$. 
 
-I am used by {{gtClass:LeDatabasePageListElement}} and by {{gtClass:LePageToolElement}}.
-
+I am used by ${class:LeDatabasePageListElement}$ and by ${class:LePageToolElement}$.
 
 "
 Class {

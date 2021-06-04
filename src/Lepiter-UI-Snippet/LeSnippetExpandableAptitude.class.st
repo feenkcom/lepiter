@@ -1,9 +1,7 @@
 "
-1. Expandable snippet container look
+! Expandable snippet container look
 Adds support of an optional snippet toolbar which appears below the snippet content when it gets focus.
 The snippet toolbar is taken into account when calculating the height of a snippet, which means that even if the toolbar is not visible it still occupies an empty space, which may introduce a visual gap between snippets.
-
-
 "
 Class {
 	#name : #LeSnippetExpandableAptitude,

@@ -3,14 +3,12 @@ Visit all .pillar files in the rootDirectory and below and convert them to lepit
 
 Typical usage:
 
-```
+[[[
 LePillarFileConverterVisitor new
 	rootDirectory: '/path/to/pillar/documentation' asFileReference;
 	leDatabase: aLeDatabase;
 	preorder.
-```
-
-
+]]]
 "
 Class {
 	#name : #LePillarFileConverterVisitor,

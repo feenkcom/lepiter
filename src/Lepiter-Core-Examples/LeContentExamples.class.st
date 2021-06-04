@@ -1,7 +1,5 @@
 "
-I exemplify {{gtClass:LeModel}} and other objects in this package.
-
-
+I exemplify ${class:LeModel}$ and other objects in this package.
 "
 Class {
 	#name : #LeContentExamples,

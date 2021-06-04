@@ -1,10 +1,8 @@
 "
 I am an abstract class.
-I announce {{gtClass:Announcement|label=announcements}}.
-I am used by {{gtClass:LeNotifier}}.
-See my subclasses for different announcement {{gtClass:LeAnnouncementPropagater|label=strategies|show=#gtSubclassesFor:|height=130|expanded}}:
-
-
+I announce ${class:Announcement|label=announcements}$.
+I am used by ${class:LeNotifier}$.
+See my subclasses for different announcement ${class:LeAnnouncementPropagater|label=strategies|show=#gtSubclassesFor:|height=130|expanded}$:
 "
 Class {
 	#name : #LeAnnouncementPropagater,

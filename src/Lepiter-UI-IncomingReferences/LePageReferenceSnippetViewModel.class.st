@@ -1,8 +1,6 @@
 "
-1. Page reference snippet's view model
+! Page reference snippet's view model
 Is a very little snippet whose only purpose it to display reference to a page
-
-
 "
 Class {
 	#name : #LePageReferenceSnippetViewModel,

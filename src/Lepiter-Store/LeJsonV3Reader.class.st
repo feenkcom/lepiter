@@ -1,31 +1,27 @@
 "
-LeJsonV3Reader is a type of {{gtClass:name=NeoJSONReader}} that:
+LeJsonV3Reader is a type of ${class:name=NeoJSONReader}$ that:
 
 - Returns a single instance for all objects that are equal in the JSON string.
 - Stores a schema identifier in the first mapped object saved.
 - supports storing objects in the form: 
 
-```
+[[[
 	{ 
-		""type"" : <type name>,
-		""schema"" : <schema identifier>,
+		""__type"" : <type name>,
+		""__schema"" : <schema identifier>,
 		""attribute name"" : <attribute value> ...
 	}
-```
+]]]
 
 
-1. # Internal Representation and Key Implementation Points.
+!!Internal Representation and Key Implementation Points.
 
-
-1. ## Instance Variables
-
+!!!Instance Variables
 	objects:		<Dictionary> 	Holds the objects used to keep a single instance of equal objects
 	typeMap:		<Dictionary> 	Maps the type name to the class that decodes the object
 
 
-1. ## Implementation Points
-
-
+!!!Implementation Points
 "
 Class {
 	#name : #LeJsonV3Reader,

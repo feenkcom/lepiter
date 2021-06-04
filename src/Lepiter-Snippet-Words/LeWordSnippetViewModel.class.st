@@ -1,8 +1,6 @@
 "
-I am a {{gtClass:LeSnippetViewModel}} for {{gtClass:LeWordSnippet}}.
-I am used by {{gtClass:LeWordSnippetElement}}.
-
-
+I am a ${class:LeSnippetViewModel}$ for ${class:LeWordSnippet}$.
+I am used by ${class:LeWordSnippetElement}$.
 "
 Class {
 	#name : #LeWordSnippetViewModel,

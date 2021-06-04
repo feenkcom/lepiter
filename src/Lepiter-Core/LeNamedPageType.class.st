@@ -1,7 +1,5 @@
 "
 LeNamedPageType is what might be considered a ""normal"" page, i.e. one with a title set by the user.
-
-
 "
 Class {
 	#name : #LeNamedPageType,

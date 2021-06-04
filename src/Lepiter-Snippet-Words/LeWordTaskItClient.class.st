@@ -1,7 +1,5 @@
 "
-I am an asynchronous version of the {{gtClass:LeWordClient}}. I use {{gtClass:BlTktWorkerProvider}} to execute requests.
-
-
+I am an asynchronous version of the ${class:LeWordClient}$. I use ${class:BlTktWorkerProvider}$ to execute requests.
 "
 Class {
 	#name : #LeWordTaskItClient,

@@ -1,8 +1,6 @@
 "
-I am a {{gtClass:BlEvent}}.
+I am a ${class:BlEvent}$.
 I inform that a content has changed.
-
-
 "
 Class {
 	#name : #LeContentChanged,

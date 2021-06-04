@@ -1,8 +1,6 @@
 "
 I define text editor common shortcuts.
-I am used during {{gtClass:BrEditor}} initialization.
-
-
+I am used during ${class:BrEditor}$ initialization.
 "
 Class {
 	#name : #LeSnippetEditorElementShortcuter,

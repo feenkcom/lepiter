@@ -1,5 +1,5 @@
 "
-I exemplify {{gtClass:LeParser}}. 
+I exemplify ${class:LeParser}$. 
 
 
 "

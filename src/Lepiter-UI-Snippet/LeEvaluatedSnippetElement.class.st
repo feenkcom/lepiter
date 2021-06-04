@@ -1,7 +1,5 @@
 "
 LeEvaluatedSnippetElement provides the common elements required to evaluate and display the results of strings (typically code snippets).
-
-
 "
 Class {
 	#name : #LeEvaluatedSnippetElement,

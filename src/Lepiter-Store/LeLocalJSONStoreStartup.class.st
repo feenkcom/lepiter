@@ -1,6 +1,5 @@
 "
-{{gtClass:LeLocalJSONStoreStartup}} is announced whenever pharo is being first started.  This gives monitors a chance to reload their databases. 
-
+${class:LeLocalJSONStoreStartup}$ is announced whenever pharo is being first started.  This gives monitors a chance to reload their databases. 
 
 "
 Class {

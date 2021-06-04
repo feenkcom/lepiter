@@ -1,12 +1,9 @@
 "
-I am an {{gtClass:BlElement}}.
+I am an ${class:BlElement}$.
 I am an input editor which is used to fill a word that should be explained.
-I am used by {{gtClass:LeWordSnippetElement}}, see {{gtMethod:LeWordSnippetElement>>#initializeContentElement}}.
-1. # Example
-
-{{gtExample:LeWordExamples>>#inputElement|codeExpanded=false|previewExpanded=true}}
-
-
+I am used by ${class:LeWordSnippetElement}$, see ${method:LeWordSnippetElement>>#initializeContentElement}$.
+!! Example
+${example:LeWordExamples>>#inputElement|codeExpanded=false|previewExpanded=true}$
 "
 Class {
 	#name : #LeWordInputElement,

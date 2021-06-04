@@ -2,8 +2,6 @@
 Upgrade 3.3 to 4.0.
 
 3.3 was never released, so this shouldn't normally be used.
-
-
 "
 Class {
 	#name : #LeJsonV3003Updater,

@@ -1,7 +1,5 @@
 "
-I am an abstract {{gtClass:Announcement}} for all lepiter {{gtClass:BlElement}} widgets.
-
-
+I am an abstract ${class:Announcement}$ for all lepiter ${class:BlElement}$ widgets.
 "
 Class {
 	#name : #LeUIAnnouncement,

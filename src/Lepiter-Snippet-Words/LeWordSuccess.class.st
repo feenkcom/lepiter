@@ -1,7 +1,6 @@
 "
-I am a {{gtClass:LeWordResponse}}
-I provide a success response with {{gtMethod:LeWordSuccess>>#explanation|label=#selector}}.
-
+I am a ${class:LeWordResponse}$
+I provide a success response with ${method:LeWordSuccess>>#explanation|label=#selector}$.
 
 "
 Class {

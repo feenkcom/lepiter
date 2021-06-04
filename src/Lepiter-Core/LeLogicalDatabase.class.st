@@ -9,37 +9,30 @@ Rules:
 - If a page with the same name exists in multiple databases, the page in lower priority databases is hidden from lookup operations.  WARNING: Iterating over all pages will include the lower priority pages.
 
 
-1. # Public API and Key Messages
+!!Public API and Key Messages
 
-
-Messages in the `api - *` protocols are common between {{gtClass:name=LeDatabase}} and LeLogicalDatabase.
+Messages in the ==api - *== protocols are common between ${class:name=LeDatabase}$ and LeLogicalDatabase.
 
  
-1. # Internal Representation and Key Implementation Points.
+!!Internal Representation and Key Implementation Points.
 
-
-1. ## Instance Variables
-
+!!!Instance Variables
 	announcer:		<Announcer>
 	primaryDB:		<LeDatabase>
 	registeredDBs:	<Array of LeDatabase>
 	workspaceDB:		<LeDatabase>
 
 
-1. ## Implementation Points
-
+!!!Implementation Points
 
 - The current implementation is kept simple by assuming that the number of registered databases will be relatively small and that the cost of simply searching in db in turn is not excessive, so no additional indexes need to be kept.
 
 
-1. ## ToDos
-
+!!!ToDos
 
 - Be able to move pages between databases
 - Create cross-database links
   - Requires links are pointers, and not hold on to the target page (can be by UID).
-
-
 "
 Class {
 	#name : #LeLogicalDatabase,

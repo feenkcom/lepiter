@@ -1,11 +1,10 @@
 "
-1. Snippet View Model# Properties
-
+! Snippet View Model
+!! Properties
 Each snippet is focusable and expandable.
-1. # Types of snippets from UI perspective
-
+!! Types of snippets from UI perspective
 Displayed snippets can come from multiple sources; they can be persistently stored in a database or computed dynamically.
-We call snippets that are stored in a database {{gtClass:LeSnippetViewModel|label=explicit}} and dynamically computed {{gtClass:LeDynamicSnippetViewModel|label=dynamic}}
+We call snippets that are stored in a database ${class:LeSnippetViewModel|label=explicit}$ and dynamically computed ${class:LeDynamicSnippetViewModel|label=dynamic}$
 
 
 "

@@ -1,8 +1,6 @@
 "
 I am an abstract class.
-See {{gtClass:LeWordExplanation}}.
-
-
+See ${class:LeWordExplanation}$.
 "
 Class {
 	#name : #LeWordData,

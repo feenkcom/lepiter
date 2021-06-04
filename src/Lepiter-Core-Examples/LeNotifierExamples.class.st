@@ -1,7 +1,5 @@
 "
-I exemplify {{gtClass:LeNotifier}}.
-
-
+I exemplify ${class:LeNotifier}$.
 "
 Class {
 	#name : #LeNotifierExamples,

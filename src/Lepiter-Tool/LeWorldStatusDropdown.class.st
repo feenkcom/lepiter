@@ -8,8 +8,6 @@ Green = running and everything saved.
 Pressing the button provides a detailed view of the cause of the current status.
 
 LeWorldStatusDropdown listens directly to the database for page changes and to the monitor for page saves, rather than relying on the monitor for all information to help catch the case where the monitor may not be receiving announcements from the DB for whatever reason.
-
-
 "
 Class {
 	#name : #LeWorldStatusDropdown,

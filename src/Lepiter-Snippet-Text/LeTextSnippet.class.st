@@ -1,36 +1,36 @@
 "
 I am the model for a single text snippet. 
-The following example display one {{gtClass:LePage|label=page}} with three blocks in a tree structure: {{gtExample:LeContentExamples>>#pageOneWithTwoBlocksAndWithBlockChild|noCode}} 
-1. # Properties
-
+The following example display one ${class:LePage|label=page}$ with three blocks in a tree structure: ${example:LeContentExamples>>#pageOneWithTwoBlocksAndWithBlockChild|noCode}$ 
+!! Properties
 Common properties that can be accessed from a LeSnippet include:
-- {{gtMethod:LeTextSnippet>>#text|label=#selector}} is a  [Markdown](https://en.wikipedia.org/wiki/Markdown) text as a {{gtClass:BlText}} instance,
-- {{gtMethod:LeSnippet>>#parent|label=#selector}} that can be either another {{gtClass:LeSnippet}} or {{gtClass:LePage}},
-- {{gtMethod:LeSnippet>>#page|label=#selector}}  is a {{gtClass:LePage}} or nil,
-- {{gtMethod:LeSnippet>>#topBlock|label=#selector}} is a {{gtClass:LeSnippet}} or nil,
-- {{gtMethod:LeContent>>#children|label=#selector}} is a collection of other {{gtClass:LeSnippet}} instances.
+- ${method:LeTextSnippet>>#text|label=#selector}$ is a  *Markdown>https://en.wikipedia.org/wiki/Markdown* text as a ${class:BlText}$ instance,
+- ${method:LeSnippet>>#parent|label=#selector}$ that can be either another ${class:LeSnippet}$ or ${class:LePage}$,
+- ${method:LeSnippet>>#page|label=#selector}$  is a ${class:LePage}$ or nil,
+- ${method:LeSnippet>>#topBlock|label=#selector}$ is a ${class:LeSnippet}$ or nil,
+- ${method:LeContent>>#children|label=#selector}$ is a collection of other ${class:LeSnippet}$ instances.
 Additional properties can be found in `api - accessing`.
-1. # Initialization
+!! Initialization
+The ${method:LeTextSnippet>>#text|label=#selector}$ is """"initialized"""" either using ${method:LeTextSnippet>>#text:|label=#selector}$ or ${method:LeTextSnippet>>#string:|label=#selector}$.  The former one is useful particularly for the json reader and writer.
+From a UI, new ${class:LeSnippet}$ can be created (added as my children) using ${method:LeContent>>#blockBuilder|label=#selector}$: ${example:LeContentExamples>>#textBlockInPageAndDatabase}$ 
+!! Updates
+A number of methods for """"updating"""" text are provided (mirroring the protocol for {${class:BlRopedText}$:
+- ${method:LeTextSnippet>>#updateText:source:|label=#selector}$
+- ${method:LeTextSnippet>>#updateString:|label=#selector}$
+- ${method:LeTextSnippet>>#appendText:source:|label=#selector}$
+- ${method:name=LeTextSnippet>>#insertText:at:|label=#selector}$
 
-The {{gtMethod:LeTextSnippet>>#text|label=#selector}} is * either using {{gtMethod:LeTextSnippet* text are provided (mirroring the protocol for {{{gtClass:BlRopedText}}:
-- {{gtMethod:LeTextSnippet>>#updateText:source:|label=#selector}}
-- {{gtMethod:LeTextSnippet>>#updateString:|label=#selector}}
-- {{gtMethod:LeTextSnippet>>#appendText:source:|label=#selector}}
-- {{gtMethod:name=LeTextSnippet>>#insertText:at:|label=#selector}}
-
- {{gtExample:LeDatabaseSnippetUpdaterExamples>>#updateSnippetOneToTwo_Simplified_Text}} {{gtExample:LeDatabaseSnippetUpdaterExamples>>#updateSnippetOneToTwo_Simplified_String}} 
+ ${example:LeDatabaseSnippetUpdaterExamples>>#updateSnippetOneToTwo_Simplified_Text}$ ${example:LeDatabaseSnippetUpdaterExamples>>#updateSnippetOneToTwo_Simplified_String}$ 
  
 
-Text editors are responsible for using a copy of {{gtMethod:LeTextSnippet>>#text|label=#selector}} since sharing {{gtClass:BlTextAttribute|label=text attributes}}  may produces undesired (and undefinied) behavior. {{gtClass:BlText}} is not thread safe, it therefore cannot be edited simultaneously in several editors.
-The text is stored as a {{gtClass:BlRopedText}} (rather than a {{gtClass:String}}) since converting text to strings is expensive, and this would be done on every keystroke while editing in the UI.
-1. # Navigation
-
+Text editors are responsible for using a copy of ${method:LeTextSnippet>>#text|label=#selector}$ since sharing ${class:BlTextAttribute|label=text attributes}$  may produces undesired (and undefinied) behavior. ${class:BlText}$ is not thread safe, it therefore cannot be edited simultaneously in several editors.
+The text is stored as a ${class:BlRopedText}$ (rather than a ${class:String}$) since converting text to strings is expensive, and this would be done on every keystroke while editing in the UI.
+!!Navigation
 A number of methods for navigating betwee blocks are provided, including:
 
-- {{gtMethod:name=LeSnippet>>#previousSibling}}
-- {{gtMethod:name=LeSnippet>>#nextSibling}}
-- {{gtMethod:name=LeSnippet>>#previousBlockDo:ifNone:}}
-- {{gtMethod:name=LeSnippet>>#nextBlockDo:ifNone:}}
+- ${method:name=LeSnippet>>#previousSibling}$
+- ${method:name=LeSnippet>>#nextSibling}$
+- ${method:name=LeSnippet>>#previousBlockDo:ifNone:}$
+- ${method:name=LeSnippet>>#nextBlockDo:ifNone:}$
 
 next and previousBlockDo... are based on the user expectations of editing paragraphs in a text editor, i.e. the previous block is the deepest last child of the block's previous subling.
 

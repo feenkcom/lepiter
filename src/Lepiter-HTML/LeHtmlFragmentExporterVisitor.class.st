@@ -3,11 +3,9 @@ Write the supplied LeModel on to the stream as an HTML fragment that uses DIVs t
 
 This is a HTML fragment in that it doesn't contain metadata. body tag, etc.
 
-To export a page as a complete HTML document see {{gtClass:name=LeHtmlPageExporterVisitor}}.
+To export a page as a complete HTML document see ${class:name=LeHtmlPageExporterVisitor}$.
 
-To export a fragment to the supplied stream see {{gtMethod:name=LeContent>>#asHTMLFragment}}.
-
-
+To export a fragment to the supplied stream see ${method:name=LeContent>>#asHTMLFragment}$.
 "
 Class {
 	#name : #LeHtmlFragmentExporterVisitor,

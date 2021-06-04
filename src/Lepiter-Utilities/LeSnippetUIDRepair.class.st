@@ -18,21 +18,19 @@ Basic instructions:
 1. Take a backup copy of the DB
 2. Ensure that no DBs are open, or at least that the monitors are stopped:
 
-``` 
+[[[ 
 	LeLocalStoreMonitor allInstancesDo: [ :monitor | monitor stopMonitoring ]
-```
+]]]
 
 3. Run the repair on the target DB:
 
-``` 
+[[[ 
 LeSnippetUIDRepair new
    dbFileReference: '/path/to/the/db';
    run.
-```
+]]]
 
 4. Restart the image since any in-memory copy of the DB will now be out of sync.
-
-
 "
 Class {
 	#name : #LeSnippetUIDRepair,

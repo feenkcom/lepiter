@@ -7,8 +7,6 @@ Limitations:
 - As there is no context to resolve file names, these URLs are left unchanged.
 
 Subclasses provide the additional context to address both the limitations above.
-
-
 "
 Class {
 	#name : #LePillarConverter,

@@ -1,7 +1,5 @@
 "
-{{gtClass:LeSnippetTextChanged}} is announced whenever the text of a {{gtClass:LeSnippet}} is modified.
-
-
+${class:LeSnippetTextChanged}$ is announced whenever the text of a ${class:LeSnippet}$ is modified.
 "
 Class {
 	#name : #LeSnippetTextChanged,

@@ -2,8 +2,6 @@
 PythonBridge currently only includes functionality to build up statements programatically, while snippets allow users to enter Python code as strings.
 
 LeUninterpretedPythonStatement represents a single Python statement on a single line and can be added to a PBCommandFactory.
-
-
 "
 Class {
 	#name : #LeUninterpretedPythonStatement,

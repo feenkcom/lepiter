@@ -1,7 +1,5 @@
 "
 Announce that the specified content has been unloaded from the system.
-
-
 "
 Class {
 	#name : #LeUnloadAnnouncement,

@@ -1,12 +1,11 @@
 "
-I display a {{gtClass:LePage}} complete tool:
+I display a ${class:LePage}$ complete tool:
 
-{{gtExample:LeUIExamples>>#pageToolElement_Hierarchy_Normal|previewExpanded}}
+${example:LeUIExamples>>#pageToolElement_Hierarchy_Normal|previewExpanded}$
 
 When maximized, I display a sidebar:
 
-{{gtExample:LeUIExamples>>#pageToolElement_Hierarchy_Maximized|previewExpanded}}
-
+${example:LeUIExamples>>#pageToolElement_Hierarchy_Maximized|previewExpanded}$
 
 "
 Class {

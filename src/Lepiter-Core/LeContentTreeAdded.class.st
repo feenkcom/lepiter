@@ -3,18 +3,14 @@ LeContentTreeAdded is used to announce that content has been added to a page.
 
 The parent is the parent object of where the content has been added.  The index is where the content was added. 
  
-1. # Internal Representation and Key Implementation Points.
+!!Internal Representation and Key Implementation Points.
 
-
-1. ## Instance Variables
-
+!!!Instance Variables
 	index:		<Integer>
 	parent:	<LeContent>
 
 
-1. ## Implementation Points
-
-
+!!!Implementation Points
 "
 Class {
 	#name : #LeContentTreeAdded,

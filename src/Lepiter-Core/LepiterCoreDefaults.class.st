@@ -1,7 +1,5 @@
 "
 LepiterCoreDefaults defines all default and constant values used by Lepiter-Core and dependents.
-
-
 "
 Class {
 	#name : #LepiterCoreDefaults,

@@ -1,7 +1,5 @@
 "
-I take care of a {{gtClass:BrToggle}} widget that is responsible for displaying and promoting {{gtClass:LePage}} as {{gtMethod:LeDatabase>>#tableOfContents|label=Table of Contents}}.
-
-
+I take care of a ${class:BrToggle}$ widget that is responsible for displaying and promoting ${class:LePage}$ as ${method:LeDatabase>>#tableOfContents|label=Table of Contents}$.
 "
 Class {
 	#name : #LeTableOfContentsToggleEventHandler,

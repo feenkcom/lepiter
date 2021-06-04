@@ -1,8 +1,7 @@
 "
-I display a {{gtClass:LePage}} title:
+I display a ${class:LePage}$ title:
 
-{{gtExample:LeUIWorldExamples>>#pageSummaryCardElement|previewExpanded|codeExpanded=false|previewExpanded=true|previewHeight=333}}
-
+${example:LeUIWorldExamples>>#pageSummaryCardElement|previewExpanded|codeExpanded=false|previewExpanded=true|previewHeight=333}$
 
 "
 Class {

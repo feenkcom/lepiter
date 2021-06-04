@@ -1,7 +1,5 @@
 "
 I am playground using a Lepiter page.
-
-
 "
 Class {
 	#name : #LePlayground,

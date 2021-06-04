@@ -1,10 +1,8 @@
 "
-I am {{gtClass:LeRootItemsSelector}}.
-I select all {{gtClass:LeDatabase}} direct children that satisfies a filter conditions:
-{{gtMethod:LeFilteredChildrenSelector>>#rootsFor:into:|expanded}}
-I am used by {{gtClass:LeDatabaseFilteredTreeElement|show=#gtDocumentFor:}}.
-
-
+I am ${class:LeRootItemsSelector}$.
+I select all ${class:LeDatabase}$ direct children that satisfies a filter conditions:
+${method:LeFilteredChildrenSelector>>#rootsFor:into:|expanded}$
+I am used by ${class:LeDatabaseFilteredTreeElement|show=#gtDocumentFor:}$.
 "
 Class {
 	#name : #LeFilteredChildrenSelector,

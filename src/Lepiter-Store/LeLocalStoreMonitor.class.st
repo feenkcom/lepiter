@@ -1,7 +1,7 @@
 "
-{{gtClass:LeLocalStoreMonitor}} listens to its {{gtClass:LeDatabase}} and saves pages back to disk whenever the page is updated (added, content modified, title changed, removed).
+${class:LeLocalStoreMonitor}$ listens to its ${class:LeDatabase}$ and saves pages back to disk whenever the page is updated (added, content modified, title changed, removed).
 
-The monitor subscribes to announcements from the database and adds them to a queue of pages to be saved.   After each saveDelay has elapsed it saves all the pages back to the store.  See {{gtMethod:name=LeLocalStoreMonitor>>#defaultDelay}} for the default value.
+The monitor subscribes to announcements from the database and adds them to a queue of pages to be saved.   After each saveDelay has elapsed it saves all the pages back to the store.  See ${method:name=LeLocalStoreMonitor>>#defaultDelay}$ for the default value.
 
 The monitor can be in one of two states:
 
@@ -9,18 +9,14 @@ The monitor can be in one of two states:
 - stopped - it isn't listening.
 
  
-1. # Internal Representation and Key Implementation Points.
+!!Internal Representation and Key Implementation Points.
 
-
-1. ## Instance Variables
-
+!!!Instance Variables
 	saveDelay:		<Duration>
 	state: 			<Symbol>
 
 
-1. ## Implementation Points
-
-
+!!!Implementation Points
 "
 Class {
 	#name : #LeLocalStoreMonitor,
