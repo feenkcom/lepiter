@@ -1,7 +1,9 @@
 "
-I display a ${class:LeIncomingReferencesCards}$ and ${class:LeIncomingReferences}$ label:
+I display a {{gtClass:LeIncomingReferencesCards}} and {{gtClass:LeIncomingReferences}} label:
 
-${example:LeUIExamples>>#incomingReferencesLabelElement|previewExpanded}$
+{{gtExample:LeUIExamples>>#incomingReferencesLabelElement|previewExpanded}}
+
+
 "
 Class {
 	#name : #LeIncomingPageLinksTypeAndAmountElement,

@@ -1,5 +1,7 @@
 "
 Lepiter snippet that allows users to link to an existing GToolkit Example.
+
+
 "
 Class {
 	#name : #ManifestLepiterSnippetExample,

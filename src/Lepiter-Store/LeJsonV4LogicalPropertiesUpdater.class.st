@@ -3,20 +3,20 @@ LeJsonV4LogicalPropertiesUpdater updates earlier logical-database.properties fil
 
 The updater can be run in default mode:
 
-[[[ 
+``` 
 LeJsonV4LogicalPropertiesUpdater updateDefault
-]]]
+```
 
-which searches for the properties file in ==FileLocator preferences / 'pharo' / 'lepiterdbs' / 'v3'== and updates it if it exists, or it can be given a specific file to update (without moving):
+which searches for the properties file in `FileLocator preferences / 'pharo' / 'lepiterdbs' / 'v3'` and updates it if it exists, or it can be given a specific file to update (without moving):
 
-[[[ 
+``` 
 LeJsonV4LogicalPropertiesUpdater updateFile: aPropertiesFile
-]]]
+```
 
 
 The default actions are: 
 
-- Move the properties file from ==FileLocator preferences / 'pharo' / 'lepiterdbs' / 'v3'== to ==FileLocator documents / 'lepiter'==
+- Move the properties file from `FileLocator preferences / 'pharo' / 'lepiterdbs' / 'v3'` to `FileLocator documents / 'lepiter'`
 - Add the schema version number to the properties.
 
 "

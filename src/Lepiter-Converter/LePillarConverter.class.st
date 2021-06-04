@@ -7,6 +7,8 @@ Limitations:
 - As there is no context to resolve file names, these URLs are left unchanged.
 
 Subclasses provide the additional context to address both the limitations above.
+
+
 "
 Class {
 	#name : #LePillarConverter,
@@ -101,27 +103,30 @@ LePillarConverter >> visitCodeblock: aCodeBlock [
 
 { #category : #'visiting-document' }
 LePillarConverter >> visitExternalLink: anObject [
-	| hasLabel |
 
-	hasLabel := anObject hasChildren.
-	hasLabel ifTrue: 
+	anObject hasChildren ifTrue: 
 		[ outStream << '['.
 		super visitExternalLink: anObject.
-		outStream << '](' ]
+		outStream 
+			<< '](';
+			<< (source copyFrom: anObject children last stop + 2 to: anObject stop - 1);
+			<< ')' ]
 	ifFalse: 
-		[ outStream << '<' ].
-	outStream 
-		<< (source copyFrom: anObject children last stop + 2 to: anObject stop - 1);
-		<< (hasLabel
-				ifTrue: [ ')' ]
-				ifFalse: [ '>' ]).
+		[ outStream
+			<< '<';
+			<< (source copyFrom: anObject start + 1 to: anObject stop - 1);
+			<< '>'  ].
 
 ]
 
 { #category : #'visiting-document' }
 LePillarConverter >> visitFigure: aPRFigure [
 
-
+	aPRFigure children isEmpty ifTrue:
+		[ "This isn't a valid figure definition since there isn't a label.  Just copy the text as is.
+		This is typically triggered by text such as '==ctrl+alt+k=='.  In that case, just copying the text is the correct action."
+		outStream << (source copyFrom: aPRFigure start to: aPRFigure stop).
+		^ self ].
 	outStream << '!['.
 	super visitFigure: aPRFigure.
 	outStream 

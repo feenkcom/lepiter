@@ -1,7 +1,9 @@
 "
-! Page references card element
+1. Page references card element
 
 Displays a list of snippets in a #page that reference #referencedPage
+
+
 "
 Class {
 	#name : #LeIncomingPageLinksGroupCardsElement,

@@ -1,7 +1,9 @@
 "
 I am an abstract class.
-I provide basic ${method:LeContentElement>>#content:|label=content}$ accessors, model ${method:LeContentElement>>#subscribeToContent|label=subscriptons}$, and model ${method:LeContentElement>>#onContentChanged|label=instance changes}$.
-See my ${class:LeContentElement|expanded|show=#gtSubclassesFor:}$ for concrete implementations:
+I provide basic {{gtMethod:LeContentElement>>#content:|label=content}} accessors, model {{gtMethod:LeContentElement>>#subscribeToContent|label=subscriptons}}, and model {{gtMethod:LeContentElement>>#onContentChanged|label=instance changes}}.
+See my {{gtClass:LeContentElement|expanded|show=#gtSubclassesFor:}} for concrete implementations:
+
+
 "
 Class {
 	#name : #LeContentElement,

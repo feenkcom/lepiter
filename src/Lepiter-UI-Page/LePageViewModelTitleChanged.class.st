@@ -1,5 +1,7 @@
 "
-Announced by ${class:LePageViewModel}$ when ${class:LePage}$'s title changes
+Announced by {{gtClass:LePageViewModel}} when {{gtClass:LePage}}'s title changes
+
+
 "
 Class {
 	#name : #LePageViewModelTitleChanged,

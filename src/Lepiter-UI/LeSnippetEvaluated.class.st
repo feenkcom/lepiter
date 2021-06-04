@@ -1,5 +1,7 @@
 "
-I inform ${class:BlElement}$ parents that a ${class:LeCodeSnippet}$ was evaluated.
+I inform {{gtClass:BlElement}} parents that a {{gtClass:LeCodeSnippet}} was evaluated.
+
+
 "
 Class {
 	#name : #LeSnippetEvaluated,

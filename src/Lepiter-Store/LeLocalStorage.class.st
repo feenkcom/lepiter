@@ -5,7 +5,8 @@ LeLocalStorage is responsible for:
 - loading pages from the database
 - updating pages for changes within a schema version 
 
-The database is a directory containing a page per file, with ==db.properties== containing database attributes such as the schema version, user email, etc.
+The database is a directory containing a page per file, with `db.properties` containing database attributes such as the schema version, user email, etc.
+
 
 "
 Class {

@@ -1,7 +1,9 @@
 "
 LeHtmlScriptDefinition holds the information needed to fill out an HTML script tag, i.e. a collection of key/value attributes and optional source string.
 
-See ${method:name=LeHtmlPageExporterVisitor>>#addHideAndShowScript}$ for example usage.
+See {{gtMethod:name=LeHtmlPageExporterVisitor>>#addHideAndShowScript}} for example usage.
+
+
 "
 Class {
 	#name : #LeHtmlScriptDefinition,
