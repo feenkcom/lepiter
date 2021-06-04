@@ -1,7 +1,8 @@
 "
-!Expansion state changed announcement
+# Expansion state changed announcement
 
-Is announced by the ${class:LeAbstractSnippetViewModel}$ when its expansion state changed
+Is announced by the {{gtClass:LeAbstractSnippetViewModel}} when its expansion state changed
+
 "
 Class {
 	#name : #LeSnippetExpansionChanged,

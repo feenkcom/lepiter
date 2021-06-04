@@ -87,7 +87,8 @@ LeFileSelectStencil >> importFromFile: file type: importType [
 		[ file asAbsolute fullName ]
 	ifFalse: [ self error: 'Unknown import type' ] ] ].
 	"Convert the attachedFile to a file URL relative to the database"
-	attachedUrl := 'file:///', attachedFile.
+
+	attachedUrl := attachedFile asFileReference asZnRelativeUrl.
 	"update the snippet to link to the new attachment"
 	subTextSize := subText size.
 	"Check that nothing's changed"

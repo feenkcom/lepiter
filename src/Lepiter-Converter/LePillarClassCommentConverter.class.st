@@ -3,11 +3,12 @@ Convert class comments from pillar format to lepiter format.
 
 The conversion may be tested by setting dryRun to true, in which case the conversion answers the lepiter format string.
 
-[[[ 
+``` 
 LePillarClassCommentConverter convert: MyOldClass dryRun: true
-]]]
+```
 
 While the class comment is updated, it isn't saved externally, e.g. committed with Iceberg.
+
 "
 Class {
 	#name : #LePillarClassCommentConverter,
@@ -39,9 +40,11 @@ LePillarClassCommentConverter >> convert: aClass [
 	| newSource |
 
 	sourceClass := aClass.
+	sourceClass hasComment ifFalse: [ ^ nil ].
 	self source: aClass comment.
 	self visit: (GtDocumenterParser new parse: source asString).
 	newSource := self newSource.
+	newSource = source ifTrue: [ ^ nil ].
 	dryRun ifFalse: [ aClass comment: newSource ].
 	^ newSource
 ]

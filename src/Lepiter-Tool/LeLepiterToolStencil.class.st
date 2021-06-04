@@ -1,6 +1,9 @@
 Class {
 	#name : #LeLepiterToolStencil,
 	#superclass : #BrStencil,
+	#instVars : [
+		'knowledgeBase'
+	],
 	#category : #'Lepiter-Tool-Stencils'
 }
 
@@ -13,9 +16,15 @@ LeLepiterToolStencil >> asPreviewElement [
 { #category : #'api - instantiation' }
 LeLepiterToolStencil >> create [
 	^ LeHomeDatabasesElement new 
-		databaseViewModel: LeDatabasesRegistry uniqueInstance defaultLogicalDatabase asContentUIModel;
+		databaseViewModel: self currentKnowledgeBase asContentUIModel;
 		padding: (BlInsets all: 20);
 		background: BrGlamorousColors backdropColor
+]
+
+{ #category : #'api - instantiation' }
+LeLepiterToolStencil >> currentKnowledgeBase [
+	^ self knowledgeBase ifNil: [
+		LeDatabasesRegistry uniqueInstance currentLoadedDefaultLogicalDatabase ]
 ]
 
 { #category : #printing }
@@ -39,6 +48,16 @@ LeLepiterToolStencil >> gtSpotterActDefaultFrom: aSpotterElement [
 { #category : #accessing }
 LeLepiterToolStencil >> icon [
 	^ LeIcons lepiterIcon
+]
+
+{ #category : #accessing }
+LeLepiterToolStencil >> knowledgeBase [
+	^ knowledgeBase
+]
+
+{ #category : #accessing }
+LeLepiterToolStencil >> knowledgeBase: aKnowledgeBase [
+	knowledgeBase := aKnowledgeBase
 ]
 
 { #category : #accessing }

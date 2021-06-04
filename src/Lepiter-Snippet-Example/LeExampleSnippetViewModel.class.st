@@ -92,7 +92,27 @@ LeExampleSnippetViewModel >> exampleSelector: aExampleSelector [
 LeExampleSnippetViewModel >> focusAfterCreation [
 	super focusAfterCreation.
 	
-	self annotationCoderViewModel focused: true
+	self annotationCoderViewModel
+		focused: true;
+		moveCursorAtEnd
+]
+
+{ #category : #'api - focus' }
+LeExampleSnippetViewModel >> focusDueToNavigationDown [
+	super focusDueToNavigationDown.
+	
+	self annotationCoderViewModel
+		focused: true;
+		moveCursorAtEnd
+]
+
+{ #category : #'api - focus' }
+LeExampleSnippetViewModel >> focusDueToNavigationUp [
+	super focusDueToNavigationUp.
+	
+	self annotationCoderViewModel
+		focused: true;
+		moveCursorAtEnd
 ]
 
 { #category : #'api - accessing' }

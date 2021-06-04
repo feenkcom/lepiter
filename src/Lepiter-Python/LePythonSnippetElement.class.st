@@ -1,7 +1,8 @@
 "
-LePythonElement displays the contents of a ${class:name=LePythonSnippet}$ as styled text, with a floating toolbar to execute the contents, and optionally inspect the results.
+LePythonElement displays the contents of a {{gtClass:name=LePythonSnippet}} as styled text, with a floating toolbar to execute the contents, and optionally inspect the results.
 
-Currently the global uniqueInstance of the ${class:name=PBApplication}$ is always used for execution.
+Currently the global uniqueInstance of the {{gtClass:name=PBApplication}} is always used for execution.
+
 "
 Class {
 	#name : #LePythonSnippetElement,

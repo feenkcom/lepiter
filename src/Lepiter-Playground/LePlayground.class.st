@@ -1,5 +1,6 @@
 "
 I am playground using a Lepiter page.
+
 "
 Class {
 	#name : #LePlayground,
@@ -23,6 +24,16 @@ LePlayground class >> createWithNotePage [
 	^ self createOn: self newDefaultNotePage
 ]
 
+{ #category : #'api - instantiation' }
+LePlayground class >> createWithNotePageInKnowledgeBase: aKnowledgeBase [
+	^ self createOn: (self newDefaultNotePageInKnowledgeBase: aKnowledgeBase)
+]
+
+{ #category : #'api - instantiation' }
+LePlayground class >> createWithPlaygroundPageInKnowledgeBase: aKnowledgeBase [
+	^ self createOn: (self newDefaultPlaygroundPageInKnowledgeBase: aKnowledgeBase)
+]
+
 { #category : #accessing }
 LePlayground class >> defaultIcon [
 	^ LeIcons lepiterPage
@@ -37,27 +48,44 @@ LePlayground class >> newBasicNotePage [
 ]
 
 { #category : #'window creation' }
-LePlayground class >> newDefaultCodePage [
-	| database page |
-	database := LeDatabasesRegistry default defaultPlaygroundDatabase.
+LePlayground class >> newBasicPlaygroundPage [
+	| page |
 	page := LePage unnamedPageWithDefaultTitle: 'Playground'.
 	page addSnippet: LePharoSnippet new.
-	database addPage: page.
 	^ page
 ]
 
 { #category : #'window creation' }
 LePlayground class >> newDefaultNotePage [
-	| database page |
-	database := LeDatabasesRegistry default defaultPrimaryDatabase.
+	^ self newDefaultNotePageInKnowledgeBase: LeDatabasesRegistry default 
+		currentLoadedDefaultLogicalDatabase.
+]
+
+{ #category : #'window creation' }
+LePlayground class >> newDefaultNotePageInKnowledgeBase: aKnowledgeBase [
+	| page |
 	page := self newBasicNotePage.
-	database addPage: page.
+	aKnowledgeBase primaryDB addPage: page.
 	^ page
 ]
 
 { #category : #'window creation' }
 LePlayground class >> newDefaultPage [
-	^ self newDefaultCodePage
+	^ self newDefaultPlaygroundPage
+]
+
+{ #category : #'window creation' }
+LePlayground class >> newDefaultPlaygroundPage [
+	^ self newDefaultPlaygroundPageInKnowledgeBase: LeDatabasesRegistry default 
+		currentLoadedDefaultLogicalDatabase.
+]
+
+{ #category : #'window creation' }
+LePlayground class >> newDefaultPlaygroundPageInKnowledgeBase: aKnowledgeBase [
+	| page |
+	page := self newBasicPlaygroundPage.
+	aKnowledgeBase playgroundDB addPage: page.
+	^ page
 ]
 
 { #category : #'instance creation' }

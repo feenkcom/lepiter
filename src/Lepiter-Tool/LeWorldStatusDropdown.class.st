@@ -8,6 +8,7 @@ Green = running and everything saved.
 Pressing the button provides a detailed view of the cause of the current status.
 
 LeWorldStatusDropdown listens directly to the database for page changes and to the monitor for page saves, rather than relying on the monitor for all information to help catch the case where the monitor may not be receiving announcements from the DB for whatever reason.
+
 "
 Class {
 	#name : #LeWorldStatusDropdown,
@@ -101,6 +102,10 @@ LeWorldStatusDropdown >> leWorldElement: aLeWorld [
 	leWorldElement announcer
 		when: LeWorldElementDatabaseChanged 
 		send: #onDatabaseChanged
+		to: self.
+	leWorldElement announcer
+		when: LeWorldElementDatabaseRemoved
+		send: #onDatabaseRemoved:
 		to: self
 ]
 
@@ -168,20 +173,18 @@ LeWorldStatusDropdown >> newListViewFor: aView [
 { #category : #callbacks }
 LeWorldStatusDropdown >> onDatabaseChanged [
 
-	leWorldElement database ifNotNil: [ :database |
-		database weak when: LeSnippetContentChanged send: #onPageChanged: to: self.
-		database weak when: LeContentTreeChanged send: #onPageChanged: to: self.
-		database weak when: LeDatabasePageAdded send: #onPageChanged: to: self.
-		database weak when: LeDatabasePageRemoved send: #onPageChanged: to: self.
-		database weak when: LePageTitleChanged send: #onPageChanged: to: self.
-		self databases
+	self registerDatabaseEvents.
+	self updateWidget
+]
+
+{ #category : #callbacks }
+LeWorldStatusDropdown >> onDatabaseRemoved: anAnnouncement [ 
+	anAnnouncement database ifNotNil: [ :aKnowledgeBase |
+		aKnowledgeBase unsubscribe: self.
+		aKnowledgeBase databases
 			select: [ :db | db monitor isNotNil ]
 			thenDo: [ :db |
-				db monitor weak
-					when: LeLocalStoreMonitorSaved 
-					send: #onDbSaved 
-					to: self ] ].
-	self updateWidget
+				db monitor unsubscribe: self ] ]
 ]
 
 { #category : #callbacks }
@@ -199,6 +202,23 @@ LeWorldStatusDropdown >> onPageChanged: anAnnouncement [
 	pageChanged := true.
 	self updateWidget.
 	StringSignal emit: 'set page changed'.
+]
+
+{ #category : #private }
+LeWorldStatusDropdown >> registerDatabaseEvents [
+	leWorldElement database ifNotNil: [ :database |
+		database weak when: LeSnippetContentChanged send: #onPageChanged: to: self.
+		database weak when: LeContentTreeChanged send: #onPageChanged: to: self.
+		database weak when: LeDatabasePageAdded send: #onPageChanged: to: self.
+		database weak when: LeDatabasePageRemoved send: #onPageChanged: to: self.
+		database weak when: LePageTitleChanged send: #onPageChanged: to: self.
+		self databases
+			select: [ :db | db monitor isNotNil ]
+			thenDo: [ :db |
+				db monitor weak
+					when: LeLocalStoreMonitorSaved 
+					send: #onDbSaved 
+					to: self ] ].
 ]
 
 { #category : #updating }

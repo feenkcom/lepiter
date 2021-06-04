@@ -1,6 +1,7 @@
 "
 Confirm that the Lepiter DB Monitor saves pages as expected.
 
+
 "
 Class {
 	#name : #LeLocalMonitorExamples,

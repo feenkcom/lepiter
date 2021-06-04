@@ -4,6 +4,7 @@ LeUnkownSnippet is used to hold the json of any snippet type that isn't recognis
 It's capable of serialising itself in the original json, so pages can otherwise be modified.
 
 Note that metadata (timestamps and email addresses) from the unknown snippet are lost since the original json is used for serialisation.
+
 "
 Class {
 	#name : #LeUnknownSnippet,

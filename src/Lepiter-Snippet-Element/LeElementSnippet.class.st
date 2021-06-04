@@ -1,6 +1,7 @@
 "
-!Element snippet
-Is a code snippet which must return an object that responds to ==#asElement==.
+# Element snippet
+Is a code snippet which must return an object that responds to `#asElement`.
+
 "
 Class {
 	#name : #LeElementSnippet,

@@ -1,6 +1,7 @@
 "
-I am a ${class:LeWordResponse}$
-I provide an error message when a ${class:LeWordExplanation}$ cannot is not obtained due to some issues, e.g., the service does not provide an explanation for a given word.
+I am a {{gtClass:LeWordResponse}}
+I provide an error message when a {{gtClass:LeWordExplanation}} cannot is not obtained due to some issues, e.g., the service does not provide an explanation for a given word.
+
 "
 Class {
 	#name : #LeWordFailure,

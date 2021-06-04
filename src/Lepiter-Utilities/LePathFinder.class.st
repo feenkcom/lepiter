@@ -1,13 +1,13 @@
 "
-${class:LePathFinder}$ finds the shortest path between two pages, or nil if there is no connection. 
+{{gtClass:LePathFinder}} finds the shortest path between two pages, or nil if there is no connection. 
 
 Public API and Key Messages
 
 - betweenPagesNamed:and:in:   Finds the shortest path between the two pages
  
-!!Internal Representation and Key Implementation Points.
+## Internal Representation and Key Implementation Points.
 
-!!!Instance Variables
+### Instance Variables
 	currentNode:		<LePage>
 	endPage:			<LePage>
 	shortestPaths:	<Dictionary>
@@ -15,9 +15,10 @@ Public API and Key Messages
 	visited:			<Set>
 
 
-!!!Implementation Points
+### Implementation Points
 
 Uses Dijkstra's algorithm to find the path, see: https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
+
 "
 Class {
 	#name : #LePathFinder,

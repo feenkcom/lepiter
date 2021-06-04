@@ -41,6 +41,12 @@ LeDatabasesRegistry >> clearDefaultLogicalDatabase [
 ]
 
 { #category : #accessing }
+LeDatabasesRegistry >> currentLoadedDefaultLogicalDatabase [
+
+	^ defaultLogicalDatabase 
+]
+
+{ #category : #accessing }
 LeDatabasesRegistry >> defaultLogicalDatabase [
 
 	^ defaultLogicalDatabase ifNil: [ defaultLogicalDatabase := self loadDefaultLogicalDatabase ]
@@ -81,6 +87,12 @@ LeDatabasesRegistry >> initializeForGlamorousToolkit [
 LeDatabasesRegistry >> loadDefaultLogicalDatabase [
 
 	^ LeLogicalDatabaseProperties default logicalDatabase
+]
+
+{ #category : #private }
+LeDatabasesRegistry >> setupForGlamorousToolkit [
+	self initializeForGlamorousToolkit.
+	^ self currentLoadedDefaultLogicalDatabase 
 ]
 
 { #category : #'startup-shutdown' }

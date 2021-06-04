@@ -1,8 +1,9 @@
 "
 I am an abstract class.
-One of my subclasses is a main page in ${class:LeWorldElement}$, see ${method:LeWorldElement>>#defaultHomeElement}$.
-I provide ${method:LeHomeBasicElement>>#updateContent|label=#selector}$.
-See my ${class:LeHomeBasicElement|expanded|show=#gtSubclassesFor:}$ subclasses for concrete implementations:
+One of my subclasses is a main page in {{gtClass:LeWorldElement}}, see {{gtMethod:LeWorldElement>>#defaultHomeElement}}.
+I provide {{gtMethod:LeHomeBasicElement>>#updateContent|label=#selector}}.
+See my {{gtClass:LeHomeBasicElement|expanded|show=#gtSubclassesFor:}} subclasses for concrete implementations:
+
 
 "
 Class {

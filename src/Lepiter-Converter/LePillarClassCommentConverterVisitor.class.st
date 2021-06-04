@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'classFilterBlock',
 		'dryRun',
-		'convertedClasses'
+		'convertedClasses',
+		'ignoredClasses'
 	],
 	#category : #'Lepiter-Converter'
 }
@@ -29,12 +30,51 @@ LePillarClassCommentConverterVisitor >> classFilterBlockRepositoryNameBeginsWith
 			ifNotNil: [ :package | package name ]) beginsWith: aString ]
 ]
 
+{ #category : #convenience }
+LePillarClassCommentConverterVisitor >> classFilterBlockRepositoryNamed: aString [
+	"Set the class filter block to select classes where the associated Iceberg repository name begins with the supplied string"
+
+	self classFilterBlock: [ :cls | 
+		((IceRepository registeredRepositoryIncludingPackage: cls package)
+			ifNil: [ '' ]
+			ifNotNil: [ :package | package name ]) = aString ]
+]
+
 { #category : #private }
 LePillarClassCommentConverterVisitor >> classesToConvert [
 	"Answer the collection of classes that should be converted"
 	<return: #Array>
 
 	^ Object withAllSubclasses select: classFilterBlock
+]
+
+{ #category : #corrections }
+LePillarClassCommentConverterVisitor >> classesWithExampleShowEquals [
+	"Lots of class comments appear to include the example key 'expandedPreview', when it should be 'previewExpanded'.
+	Correct all of those with simple string replacement.
+	WARNING: this doesn't really work since ${class:Abc|show=#selectorFor:}$ is valid, and this changes those instances incorrectly"
+	| matchingClasses |
+
+	matchingClasses := Object withAllSubclasses select: 
+		[ :each | (each comment includesSubstring: '${example') and: [ each comment includesSubstring: '|show=' ] ].
+
+	matchingClasses do: [ :cls |
+		cls comment: (cls comment copyReplaceAll: '|show=' with: '|previewShow=') ].
+
+	^ matchingClasses
+]
+
+{ #category : #corrections }
+LePillarClassCommentConverterVisitor >> classesWithExpandedPreview [
+	"Lots of class comments appear to include the example key 'expandedPreview', when it should be 'previewExpanded'.
+	Correct all of those with simple string replacement."
+	| matchingClasses |
+
+	matchingClasses := Object withAllSubclasses select: 
+		[ :each | each comment includesSubstring: #expandedPreview ].
+
+	matchingClasses do: [ :cls |
+		cls comment: (cls comment copyReplaceAll: #expandedPreview with: #previewExpanded) ].
 ]
 
 { #category : #running }
@@ -44,10 +84,12 @@ LePillarClassCommentConverterVisitor >> convert: aClass [
 	<return: #String>
 	| lepiterComment |
 
-	(self isAlreadyLepiter: aClass comment) ifTrue: 
-		[ self halt: 'Already converted?' ].
+	aClass isMeta ifTrue: [ ^ self ].
+	(ignoredClasses includes: aClass) ifTrue: [ ^ self ].
+	(dryRun and: [ self isAlreadyLepiter: aClass comment]) ifTrue: 
+		[ ^ self halt: 'Already converted?' ].
 	lepiterComment := LePillarClassCommentConverter convert: aClass dryRun: dryRun.
-	convertedClasses add: aClass.
+	convertedClasses at: aClass put: lepiterComment.
 	^ lepiterComment
 ]
 
@@ -62,12 +104,27 @@ LePillarClassCommentConverterVisitor >> dryRun: anObject [
 ]
 
 { #category : #initialization }
+LePillarClassCommentConverterVisitor >> ignoredClassesCollection [
+	"Answer a list of classes that shouldn't be convertd.
+	These are generally classes that cause the pillar parser to go into infinite recursion"
+
+	^ { 
+		SpartaCanvas.
+		SpartaFontBuilder.
+		SpartaTransformationBuilder.
+		DPProcessSingleFileStream.
+		DPProcessCSVByRow.
+	 }
+]
+
+{ #category : #initialization }
 LePillarClassCommentConverterVisitor >> initialize [ 
 
 	super initialize.
-	convertedClasses := OrderedCollection new.
+	convertedClasses := Dictionary new.
 	classFilterBlock := [ :cls | self error: 'No filter block set' ].
 	dryRun := true.
+	ignoredClasses := self ignoredClassesCollection.
 ]
 
 { #category : #testing }
@@ -80,19 +137,18 @@ LePillarClassCommentConverterVisitor >> isAlreadyLepiter: pillarComment [
 { #category : #running }
 LePillarClassCommentConverterVisitor >> run [ 
 
-	EpMonitor disableDuring:
-		[ self classesToConvert do: [ :cls |
-			self convert: cls ].
-		self saveConvertedClasses ].
+	self classesToConvert do: [ :cls |
+		self convert: cls ].
+	dryRun ifFalse: [ self saveConvertedClasses ].
 ]
 
 { #category : #private }
 LePillarClassCommentConverterVisitor >> saveConvertedClasses [
 	"Write the converted classes out to a file"
 
-	(DateAndTime now asIso8601, ' LePillarClassCommentConverterVisitor.txt') writeStreamDo: [ :stream |
-		convertedClasses do: [ :each |
+	(DateAndTime now asIso8601, ' LePillarClassCommentConverterVisitor.txt') asFileReference writeStreamDo: [ :stream |
+		convertedClasses associationsDo: [ :each |
 			stream 
-				<< each name;
+				<< each key name;
 				lf ] ].
 ]

@@ -1,7 +1,8 @@
 "
-!Cursors state changed announcement
+# Cursors state changed announcement
 
-Is announced by the ${class:LeTextualSnippetViewModel}$ when its cursors state changed
+Is announced by the {{gtClass:LeTextualSnippetViewModel}} when its cursors state changed
+
 "
 Class {
 	#name : #LeTextualSnippetCursorsChanged,

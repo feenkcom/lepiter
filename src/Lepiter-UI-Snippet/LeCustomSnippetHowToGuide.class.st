@@ -1,15 +1,16 @@
 "
-! How to create a custom snippet
-!! Snippet Element
-!!! Snippet Element instantiation
-All snippet elements should be instantiatable by sending ${method:Behavior>>#new|label=new}$ to the class of the snippet element. Once a snippet element is instantiated it should be provided with a valid instance of ${class:LeContentViewModel}$ via ${method:LeContentElement>>#contentUIModel:}$.
-It is important to not provide accessor methods to set ${method:LeContentElement>>#content|label=content}$ directly without involving a ${class:LeContentViewModel}$.
-!!! Reacting to changes in a View Model
-When a new UI Model (${class:LeContentViewModel}$) is set, a snippet element receives ${method:LeContentElement>>#onContentUIModelChanged}$ which should usually be overriden by a custom snippet element. All changes to the UI-related state should be instantly propagated to the current ${method:LeContentElement>>#contentUIModel}$.
-!!! Handling focus
-${class:LeSnippetElement}$ and its corresponding ${class:LeSnippetViewModel}$ already provide focus support. By default, ${class:LeSnippetElement}$ subscribes to focus in/out events (${method:LeSnippetElement>>#registerFocusEventHandlers}$) and updates the state in the ${class:LeSnippetViewModel}$. This also works the other way around, whenever the focus state changes in ${class:LeSnippetViewModel}$ it should also be updated in the ${class:LeSnippetElement}$. To properly handle focus, custom snippet elements are required to override ${method:LeSnippetElement>>#onSnippetViewModelFocused:}$ and give focus to itself or to one of the children, depending on the element composition and concrete snippet implementation. The synchronise the focus state a UI model announces ${class:LeSnippetFocusChanged}$ which is handled and processed by ${method:LeSnippetElement>>#onFocusChangedAnnouncement:}$. To break potential circular updates all ${class:LeSnippetFocusChanged}$ announcements know the ${method:LeSnippetFocusChanged>>#source|label=source}$ object which triggered the focus state update.
-!!! Listening to updates from a snippet (content)
-To subscribe to the announcements from the snippet override both ${method:LeContentElement>>#subscribeToContent}$ and ${method:LeContentElement>>#unsubscribeFromContent}$
+# How to create a custom snippet
+## Snippet Element
+### Snippet Element instantiation
+All snippet elements should be instantiatable by sending {{gtMethod:Behavior>>#new|label=new}} to the class of the snippet element. Once a snippet element is instantiated it should be provided with a valid instance of {{gtClass:LeContentViewModel}} via {{gtMethod:LeContentElement>>#contentUIModel:}}.
+It is important to not provide accessor methods to set {{gtMethod:LeContentElement>>#content|label=content}} directly without involving a {{gtClass:LeContentViewModel}}.
+### Reacting to changes in a View Model
+When a new UI Model ({{gtClass:LeContentViewModel}}) is set, a snippet element receives {{gtMethod:LeContentElement>>#onContentUIModelChanged}} which should usually be overriden by a custom snippet element. All changes to the UI-related state should be instantly propagated to the current {{gtMethod:LeContentElement>>#contentUIModel}}.
+### Handling focus
+{{gtClass:LeSnippetElement}} and its corresponding {{gtClass:LeSnippetViewModel}} already provide focus support. By default, {{gtClass:LeSnippetElement}} subscribes to focus in/out events ({{gtMethod:LeSnippetElement>>#registerFocusEventHandlers}}) and updates the state in the {{gtClass:LeSnippetViewModel}}. This also works the other way around, whenever the focus state changes in {{gtClass:LeSnippetViewModel}} it should also be updated in the {{gtClass:LeSnippetElement}}. To properly handle focus, custom snippet elements are required to override {{gtMethod:LeSnippetElement>>#onSnippetViewModelFocused:}} and give focus to itself or to one of the children, depending on the element composition and concrete snippet implementation. The synchronise the focus state a UI model announces {{gtClass:LeSnippetFocusChanged}} which is handled and processed by {{gtMethod:LeSnippetElement>>#onFocusChangedAnnouncement:}}. To break potential circular updates all {{gtClass:LeSnippetFocusChanged}} announcements know the {{gtMethod:LeSnippetFocusChanged>>#source|label=source}} object which triggered the focus state update.
+### Listening to updates from a snippet (content)
+To subscribe to the announcements from the snippet override both {{gtMethod:LeContentElement>>#subscribeToContent}} and {{gtMethod:LeContentElement>>#unsubscribeFromContent}}
+
 "
 Class {
 	#name : #LeCustomSnippetHowToGuide,

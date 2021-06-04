@@ -5,14 +5,15 @@ As a scan of all pages in the database is required, this is typically submitted 
 
 
  
-!!Internal Representation and Key Implementation Points.
+## Internal Representation and Key Implementation Points.
 
-!!!Instance Variables
+### Instance Variables
 	database:				<LeDatabase>
 	sourceSnippet:		<LeSnippet>
 
 
-!!!Implementation Points
+### Implementation Points
+
 "
 Class {
 	#name : #LeUnlinkedReferenceRemovalMaintenace,

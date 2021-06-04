@@ -1,8 +1,9 @@
 "
 I add a title to a header.
-I am used by ${class:LePageToolContentElement}$ in ${method:LePageToolContentElement>>#withTitleOnly|label=#selector}$.
-!! Example
-${example:LeUIExamples>>#pageToolContentElement_TitleOnly|previewExpanded|codeExpanded=false}$
+I am used by {{gtClass:LePageToolContentElement}} in {{gtMethod:LePageToolContentElement>>#withTitleOnly|label=#selector}}.
+## Example
+{{gtExample:LeUIExamples>>#pageToolContentElement_TitleOnly|previewExpanded|codeExpanded=false}}
+
 "
 Class {
 	#name : #LePageHeaderWithTitleOnlyBuilder,

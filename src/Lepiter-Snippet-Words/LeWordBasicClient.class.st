@@ -1,6 +1,7 @@
 "
 I am an abstract class.
-I document ${class:LeWordClient}$ common API that clients must implement.
+I document {{gtClass:LeWordClient}} common API that clients must implement.
+
 "
 Class {
 	#name : #LeWordBasicClient,

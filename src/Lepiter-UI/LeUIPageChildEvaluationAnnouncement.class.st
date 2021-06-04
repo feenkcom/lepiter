@@ -1,5 +1,6 @@
 "
-I inform all ${class:LePage}$ children that a ${class:LeCodeSnippet}$ was evaluated.
+I inform all {{gtClass:LePage}} children that a {{gtClass:LeCodeSnippet}} was evaluated.
+
 "
 Class {
 	#name : #LeUIPageChildEvaluationAnnouncement,

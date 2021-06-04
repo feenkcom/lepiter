@@ -7,6 +7,7 @@ Currently this is:
 - Class and Method names
 
 Explicitly excluded are internal links (double bracket links).
+
 "
 Class {
 	#name : #LeUnlinkedReferenceTextSnippetVisitor,

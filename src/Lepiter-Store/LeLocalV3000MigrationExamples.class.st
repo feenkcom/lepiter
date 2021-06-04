@@ -3,6 +3,7 @@ Check that the saved V3 database loads correctly.
 
 The database was saved to disk and put in the repository in an earlier version of Lepiter.
 
+
 "
 Class {
 	#name : #LeLocalV3000MigrationExamples,

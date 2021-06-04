@@ -3,18 +3,19 @@ A LePage is a collection of snippets, that can mostly be considered analogous to
 
 
  
-!!Internal Representation and Key Implementation Points.
+## Internal Representation and Key Implementation Points.
 
-!!!Instance Variables
+### Instance Variables
 	latestEditTime:		<LeTime>
 	type:					<LePageType>
 	uid:					<UUID>
 
 
-!!!Implementation Points
+### Implementation Points
 
 - While the UID of the page is generated at instance creation, databases are free to change it if a conflict is found when adding the page to the database.  While in a database the UID may not be changed.
 - The UID is used by LeLocalStore to generate the file name.
+
 "
 Class {
 	#name : #LePage,

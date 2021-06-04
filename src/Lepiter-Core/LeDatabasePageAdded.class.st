@@ -1,5 +1,6 @@
 "
-I am announced by ${class:LeDatabase}$, with the appropriate ${class:LeDatabase}$ and ${class:LePage}$, when a ${class:LePage}$ is added to the ${class:LeDatabase}$.
+I am announced by {{gtClass:LeDatabase}}, with the appropriate {{gtClass:LeDatabase}} and {{gtClass:LePage}}, when a {{gtClass:LePage}} is added to the {{gtClass:LeDatabase}}.
+
 "
 Class {
 	#name : #LeDatabasePageAdded,

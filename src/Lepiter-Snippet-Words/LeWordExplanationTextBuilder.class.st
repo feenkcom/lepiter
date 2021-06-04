@@ -1,9 +1,10 @@
 "
-I build a ${class:BlText}$ that is displayed to user.
-The text is a textural representation of a ${class:LeWordExplanation}$.
-I am used by ${class:LeWordViewElement}$.
-!! Example
-${example:LeWordExamples>>#explanationTextBuilder|codeExpanded=false|previewExpanded=true}$
+I build a {{gtClass:BlText}} that is displayed to user.
+The text is a textural representation of a {{gtClass:LeWordExplanation}}.
+I am used by {{gtClass:LeWordViewElement}}.
+## Example
+{{gtExample:LeWordExamples>>#explanationTextBuilder|codeExpanded=false|previewExpanded=true}}
+
 "
 Class {
 	#name : #LeWordExplanationTextBuilder,

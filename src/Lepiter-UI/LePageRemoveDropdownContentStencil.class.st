@@ -1,8 +1,9 @@
 "
 I build a dropdown that confirms a page removal.
-I am used in ${method:LePageHeaderBuilder>>#addRemovePageButton}$. 
-!! Example
-${example:LeUIExamples>>#pageToolContentElement_TitleAndAllActionButtons|previewExpanded|codeExpanded=false}$
+I am used in {{gtMethod:LePageHeaderBuilder>>#addRemovePageButton}}. 
+## Example
+{{gtExample:LeUIExamples>>#pageToolContentElement_TitleAndAllActionButtons|previewExpanded|codeExpanded=false}}
+
 "
 Class {
 	#name : #LePageRemoveDropdownContentStencil,

@@ -1,8 +1,9 @@
 "
-I display a ${class:LePage}$ complete tool:
-${example:LeUIExamples>>#pageToolContentElement_Hierarchy|previewExpanded}$
+I display a {{gtClass:LePage}} complete tool:
+{{gtExample:LeUIExamples>>#pageToolContentElement_Hierarchy|previewExpanded}}
 
-My header (tittle and toolbar) is configurable using ${class:LePageHeaderBuilder}$.
+My header (tittle and toolbar) is configurable using {{gtClass:LePageHeaderBuilder}}.
+
 "
 Class {
 	#name : #LePageToolContentTreeElement,

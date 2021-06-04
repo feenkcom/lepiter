@@ -9,13 +9,13 @@ Public API and Key Messages
 
    One simple example is simply gorgeous.
  
-!!Internal Representation and Key Implementation Points.
+## Internal Representation and Key Implementation Points.
 
-!!!Instance Variables
+### Instance Variables
 	code:		<String>
 
 
-!!Implementation Points
+## Implementation Points
 
 "
 Class {

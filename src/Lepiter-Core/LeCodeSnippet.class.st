@@ -1,13 +1,14 @@
 "
-!Code snippet
-${class:LeCodeSnippet}$ is an abstract representation of a snipet of code in any language.
-The language support is provided by specialized ${class:GtSourceCoder}$
+# Code snippet
+{{gtClass:LeCodeSnippet}} is an abstract representation of a snipet of code in any language.
+The language support is provided by specialized {{gtClass:GtSourceCoder}}
 
-!!!Instance Variables
+### Instance Variables
 	code:		<String>
 
 
-!!!Implementation Points
+### Implementation Points
+
 "
 Class {
 	#name : #LeCodeSnippet,

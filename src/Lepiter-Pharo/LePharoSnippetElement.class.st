@@ -26,17 +26,10 @@ LePharoSnippetElement >> initialize [
 	editorElement := GtSourceCoderEditorElement new.
 	editorElement padding: (BlInsets top: 5 left: 7 bottom: 5 right: 0).
 	editorElement margin: BlInsets empty.
-
-	self initializeTextEditor.
+	editorElement editor addEventHandler: (LeEditorReachedBorderEventHandler new snippetElement: self).
 	
 	self registerSpawnBelowHandler.
 	self initializeSpawnDownElements
-]
-
-{ #category : #initialization }
-LePharoSnippetElement >> initializeTextEditor [
-	self editor navigator
-		whenReachedBoundary: [ :anEvent | self onReachedBoundary: anEvent ].
 ]
 
 { #category : #'private - announcement handling' }

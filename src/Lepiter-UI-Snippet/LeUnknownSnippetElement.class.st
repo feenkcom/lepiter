@@ -27,8 +27,7 @@ LeUnknownSnippetElement >> initializeTextEditor [
 		styler: JSONParser gtStyler;
 		padding: (BlInsets top: 0 left: 2 bottom: 0 right: 0).
 
-	editorElement editor navigator
-		whenReachedBoundary: [ :anEvent | self onReachedBoundary: anEvent ].
+	editorElement editor addEventHandler: (LeEditorReachedBorderEventHandler new snippetElement: self).
 
 	editorElement editor
 		when: BrTextEditorModifiedEvent

@@ -2,6 +2,7 @@
 LeRegisterDbDropdown provides a UI for adding a lepiter DB to the default logical database.
 
 This is used by the FileReference inspector to make it easy to add concrete databases to the default logical database.
+
 "
 Class {
 	#name : #LeRegisterDbDropdown,

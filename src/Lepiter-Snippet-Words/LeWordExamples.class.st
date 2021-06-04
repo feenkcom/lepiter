@@ -1,5 +1,6 @@
 "
 I provide examples for the word snippet.
+
 "
 Class {
 	#name : #LeWordExamples,
@@ -58,16 +59,19 @@ LeWordExamples >> basicViewElement [
 { #category : #'examples - snippet element' }
 LeWordExamples >> editInputEditorText [
 	<gtExample>
-	| anElement anEditor |
+	| anElement anInputElement anEditor |
 	anElement := self element.
-	anEditor := anElement inputElement editor.
+	
+	anInputElement := (anElement childWithId: LeSnippetElementId) inputElement.
+	anEditor := anInputElement editor.
+
 	anEditor selecter all; select.
 	anEditor inserter
 		atCursor;
 		string: self anotherWord;
 		insert.
 	
-	self assert: anElement inputElement editorElement text asString equals: self anotherWord.
+	self assert: anInputElement editorElement text asString equals: self anotherWord.
 	self assert: anElement snippetViewModel word equals: self anotherWord.
 	self assert: anElement snippetViewModel state equals: LeWordSnippetViewModelEditState default.
 	self assert: anElement snippetViewModel response isNil.
@@ -79,13 +83,16 @@ LeWordExamples >> editInputEditorText [
 { #category : #'examples - snippet element' }
 LeWordExamples >> element [
 	<gtExample>
-	| aSnippet aViewModel anElement |
+
+	| aSnippet aViewModel anElement anInputElement |
 	aSnippet := self snippet.
 	aViewModel := aSnippet asSnippetViewModel.
 	anElement := aViewModel snippetView asElement.
 	anElement snippetViewModel: aViewModel.
 	
-	self assert: anElement inputElement editorElement text asString equals: self word.
+	anInputElement := (anElement childWithId: LeSnippetElementId) inputElement.
+
+	self assert: anInputElement editorElement text asString equals: self word.
 	self assert: anElement snippetViewModel word equals: self word.
 	self assert: anElement snippetViewModel state equals: LeWordSnippetViewModelEditState default.
 	self assert: anElement snippetViewModel response isNil.
@@ -199,12 +206,13 @@ LeWordExamples >> inputElement [
 { #category : #'examples - snippet element' }
 LeWordExamples >> searchAnotherWordExplanation [
 	<gtExample>
-	| anElement |
+	| anElement anInputElement |
 	anElement := self editInputEditorText.
 	BlUseAsyncFeatures disableDuring: [ 
 		anElement snippetViewModel searchExplanation ].
-	
-	self assert: anElement inputElement editorElement text asString equals: self anotherWord.
+
+	anInputElement := (anElement childWithId: LeSnippetElementId) inputElement.
+	self assert: anInputElement editorElement text asString equals: self anotherWord.
 
 	"Snippet view model"
 	self assert: anElement snippetViewModel word equals: self anotherWord.
@@ -220,7 +228,7 @@ LeWordExamples >> searchAnotherWordExplanation [
 			self assert: anElement snippetViewModel snippetModel word equals: self word ].
 
 	"There should be at least (ideally) one update request"
-	self assert: anElement taskQueue tasks size isZero not.
+	self assert: (anElement childWithId: LeSnippetElementId) taskQueue tasks size isZero not.
 	
 	^ anElement
 ]

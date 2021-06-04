@@ -1,7 +1,8 @@
 "
-LeJavaScriptSnippetElement displays the contents of a ${class:name=LeJavaScriptSnippet}$ as styled text, with a floating toolbar to execute the contents, and optionally inspect the results.
+LeJavaScriptSnippetElement displays the contents of a {{gtClass:name=LeJavaScriptSnippet}} as styled text, with a floating toolbar to execute the contents, and optionally inspect the results.
 
-Currently the global uniqueInstance of the ${class:name=JSLinkApplication}$ is always used for execution.
+Currently the global uniqueInstance of the {{gtClass:name=JSLinkApplication}} is always used for execution.
+
 "
 Class {
 	#name : #LeJavaScriptSnippetElement,
