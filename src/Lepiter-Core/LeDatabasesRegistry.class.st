@@ -89,6 +89,12 @@ LeDatabasesRegistry >> loadDefaultLogicalDatabase [
 	^ LeLogicalDatabaseProperties default logicalDatabase
 ]
 
+{ #category : #private }
+LeDatabasesRegistry >> setupForGlamorousToolkit [
+	self initializeForGlamorousToolkit.
+	^ self currentLoadedDefaultLogicalDatabase 
+]
+
 { #category : #'startup-shutdown' }
 LeDatabasesRegistry >> stopMonitoring [
 
