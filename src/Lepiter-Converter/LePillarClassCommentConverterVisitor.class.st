@@ -102,6 +102,8 @@ LePillarClassCommentConverterVisitor >> ignoredClassesCollection [
 		SpartaCanvas.
 		SpartaFontBuilder.
 		SpartaTransformationBuilder.
+		DPProcessSingleFileStream.
+		DPProcessCSVByRow.
 	 }
 ]
 
@@ -125,17 +127,16 @@ LePillarClassCommentConverterVisitor >> isAlreadyLepiter: pillarComment [
 { #category : #running }
 LePillarClassCommentConverterVisitor >> run [ 
 
-	"EpMonitor disableDuring:
-		[" self classesToConvert do: [ :cls |
-			self convert: cls ].
-		self saveConvertedClasses "]".
+	self classesToConvert do: [ :cls |
+		self convert: cls ].
+	dryRun ifFalse: [ self saveConvertedClasses ].
 ]
 
 { #category : #private }
 LePillarClassCommentConverterVisitor >> saveConvertedClasses [
 	"Write the converted classes out to a file"
 
-	(DateAndTime now asIso8601, ' LePillarClassCommentConverterVisitor.txt') writeStreamDo: [ :stream |
+	(DateAndTime now asIso8601, ' LePillarClassCommentConverterVisitor.txt') asFileReference writeStreamDo: [ :stream |
 		convertedClasses do: [ :each |
 			stream 
 				<< each name;
