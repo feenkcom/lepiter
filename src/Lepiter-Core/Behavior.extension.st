@@ -5,7 +5,7 @@ Behavior >> gtCoderLepiterCommentsFor: aView [
 	<gtClassView>
 
 	^ aView explicit
-		title: 'Comment (Lepiter)';
+		title: 'Comment';
 		tooltip: 'Lepiter Class comment';
 		priority: 30;
 		disableAsync;
