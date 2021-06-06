@@ -289,21 +289,7 @@ LeDatabase >> gtDailyNotesFor: aView [
 	<gtView>
 	self pages ifNil: [ ^ aView empty ].
 	^ aView columnedTree
-		title: 'Daily Notes (old)';
-		priority: 9;
-		items: [ self dailyNotes ];
-		children: [ :eachPage | eachPage children ];
-		column: 'Content' item: #contentAsString;
-		column: 'Time' item: #editTime;
-		column: 'Author' item: #editEmail
-]
-
-{ #category : #'gt-extensions' }
-LeDatabase >> gtDailyNotesGroupFor: aView [
-	<gtView>
-	self pages ifNil: [ ^ aView empty ].
-	^ aView columnedTree
-		title: 'Daily Notes (new)';
+		title: 'Daily Notes';
 		priority: 10;
 		items: [ self dailyNotesGroup ];
 		children: [ :eachPage | eachPage children ];

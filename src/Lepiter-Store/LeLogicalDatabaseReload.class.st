@@ -99,11 +99,11 @@ LeLogicalDatabaseReload >> reloadProperties [
 	propertiesFile ifNil: [ ^ self ].
 
 	"Ensure the default properties file is at the latest version"
-	propertiesFile = LepiterCoreDefaults logicalDatabasePropertiesFileReference ifTrue:
-		[ LeJsonV4LogicalPropertiesUpdater updateDefault ].
+	propertiesFile = LepiterCoreDefaults logicalDatabasePropertiesFileReference 
+		ifTrue: [ LeJsonV4LogicalPropertiesUpdater updateDefault ].
 
-	propertiesFile exists not ifTrue: 
-		[ database properties: LeLogicalDatabaseProperties default.
+	propertiesFile exists ifFalse: [ 
+		database properties: LeLogicalDatabaseProperties defaultForGlamorousToolkit.
 		^ self ].
 
 	database properties: (LeLogicalDatabaseProperties new localFile: propertiesFile)

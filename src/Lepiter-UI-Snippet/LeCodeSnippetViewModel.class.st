@@ -69,5 +69,5 @@ LeCodeSnippetViewModel >> snippetView [
 	
 	^ super snippetView
 		needsContentDecorationBar: true;
-		beDocumentWidth
+		beFullWidth
 ]
