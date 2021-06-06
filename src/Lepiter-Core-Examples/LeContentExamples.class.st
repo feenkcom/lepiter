@@ -698,7 +698,8 @@ LeContentExamples >> sortedPagesInitializesWithAllAvailablePages [
 
 { #category : #'examples - model' }
 LeContentExamples >> sortedPagesRemoveUnnamedPageAfterInitialization [
-	"When creating initially the sorted pages cache all pages should be added there."
+	"Remove an unnamed pages after pages by date was computed. This verifies that 
+	pages by date was initialized correctly."
 	<gtExample>
 	| basicDatabase unnamedPage pharoClassPage |
 	basicDatabase := self basicDatabase.
@@ -722,7 +723,7 @@ LeContentExamples >> sortedPagesRemoveUnnamedPageAfterInitialization [
 
 { #category : #'examples - model' }
 LeContentExamples >> sortedPagesRemoveUnnamedPageBeforeInitialization [
-	"When creating initially the sorted pages cache all pages should be added there."
+	"Remove an unnamed pages before pages by date was computed."
 	<gtExample>
 	| basicDatabase unnamedPage pharoClassPage |
 	basicDatabase := self basicDatabase.
