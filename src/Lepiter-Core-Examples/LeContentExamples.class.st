@@ -676,6 +676,73 @@ LeContentExamples >> renameDatabasePage_PageTitleChanged_ReceivedByDatabase [
 	^ aDatabase
 ]
 
+{ #category : #'examples - model' }
+LeContentExamples >> sortedPagesInitializesWithAllAvailablePages [
+	"When creating initially the sorted pages cache all pages should be added there."
+	<gtExample>
+	| basicDatabase unnamedPage pharoClassPage |
+	basicDatabase := self basicDatabase.
+
+	basicDatabase pageBuilder title: 'page one'; add.
+	unnamedPage := LePage unnamedPage.
+	basicDatabase addPage: unnamedPage.
+	pharoClassPage := LePage pharoClassName: self class name.
+	basicDatabase addPage: pharoClassPage.
+	
+	self assert: basicDatabase hasSortedItems not.
+	
+	self assert: basicDatabase size equals: 3.
+	self assert: basicDatabase sortedPages size equals: 3.
+	^ basicDatabase
+]
+
+{ #category : #'examples - model' }
+LeContentExamples >> sortedPagesRemoveUnnamedPageAfterInitialization [
+	"Remove an unnamed pages after pages by date was computed. This verifies that 
+	pages by date was initialized correctly."
+	<gtExample>
+	| basicDatabase unnamedPage pharoClassPage |
+	basicDatabase := self basicDatabase.
+
+	basicDatabase pageBuilder title: 'page one'; add.
+	unnamedPage := LePage unnamedPage.
+	basicDatabase addPage: unnamedPage.
+	pharoClassPage := LePage pharoClassName: self class name.
+	basicDatabase addPage: pharoClassPage.
+	
+	basicDatabase sortedPages.
+	self assert: basicDatabase sortedPages size equals: 3.
+	self assert: basicDatabase hasSortedItems.
+	
+	basicDatabase removePage: unnamedPage.
+	
+	self assert: basicDatabase size equals: 2.
+	self assert: basicDatabase sortedPages size equals: 2.
+	^ basicDatabase
+]
+
+{ #category : #'examples - model' }
+LeContentExamples >> sortedPagesRemoveUnnamedPageBeforeInitialization [
+	"Remove an unnamed pages before pages by date was computed."
+	<gtExample>
+	| basicDatabase unnamedPage pharoClassPage |
+	basicDatabase := self basicDatabase.
+
+	basicDatabase pageBuilder title: 'page one'; add.
+	unnamedPage := LePage unnamedPage.
+	basicDatabase addPage: unnamedPage.
+	pharoClassPage := LePage pharoClassName: self class name.
+	basicDatabase addPage: pharoClassPage.
+	
+	self assert: basicDatabase hasSortedItems not.
+	basicDatabase removePage: unnamedPage.
+	self assert: basicDatabase hasSortedItems not.
+	
+	self assert: basicDatabase size equals: 2.
+	self assert: basicDatabase sortedPages size equals: 2.
+	^ basicDatabase
+]
+
 { #category : #'examples - basic' }
 LeContentExamples >> stopDatabaseMonitor [
 	database ifNotNil: [ database stopMonitoring ]
