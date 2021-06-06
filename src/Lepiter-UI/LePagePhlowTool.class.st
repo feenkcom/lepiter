@@ -2,7 +2,8 @@ Class {
 	#name : #LePagePhlowTool,
 	#superclass : #LePhlowTool,
 	#instVars : [
-		'page'
+		'page',
+		'shouldFocusFirstSnippet'
 	],
 	#category : #'Lepiter-UI-Phlow Tools'
 }
@@ -12,12 +13,12 @@ LePagePhlowTool class >> page: aPage [
 	^ self new page: aPage
 ]
 
-{ #category : #accessing }
+{ #category : #'api - converting' }
 LePagePhlowTool >> asElementDo: aOneArgBlock [
 	| aPageViewModel anElement |
 	aPageViewModel := LePageViewModel new
 		pageModel: self page;
-		shouldFocusFirstSnippet: true.
+		shouldFocusFirstSnippet: self shouldFocusFirstSnippet.
 
 	anElement := LePageToolElement new
 		pageViewModel: aPageViewModel;
@@ -53,6 +54,16 @@ LePagePhlowTool >> page [
 { #category : #'api - accessing' }
 LePagePhlowTool >> page: aPage [
 	page := aPage
+]
+
+{ #category : #'api - accessing' }
+LePagePhlowTool >> shouldFocusFirstSnippet [
+	^ shouldFocusFirstSnippet ifNil: [ true ]
+]
+
+{ #category : #'api - accessing' }
+LePagePhlowTool >> shouldFocusFirstSnippet: aBoolean [
+	shouldFocusFirstSnippet := aBoolean
 ]
 
 { #category : #'api - accessing' }

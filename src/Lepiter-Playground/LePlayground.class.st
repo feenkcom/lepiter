@@ -30,8 +30,8 @@ LePlayground class >> createWithNotePageInKnowledgeBase: aKnowledgeBase [
 ]
 
 { #category : #'api - instantiation' }
-LePlayground class >> createWithPlaygroundPageInKnowledgeBase: aKnowledgeBase [
-	^ self createOn: (self newDefaultPlaygroundPageInKnowledgeBase: aKnowledgeBase)
+LePlayground class >> createWithPharoCodPageInKnowledgeBase: aKnowledgeBase [
+	^ self createOn: (self newDefaultPharoCodePageInKnowledgeBase: aKnowledgeBase)
 ]
 
 { #category : #accessing }
@@ -48,7 +48,7 @@ LePlayground class >> newBasicNotePage [
 ]
 
 { #category : #'window creation' }
-LePlayground class >> newBasicPlaygroundPage [
+LePlayground class >> newBasicPharoCodePage [
 	| page |
 	page := LePage unnamedPageWithDefaultTitle: 'Playground'.
 	page addSnippet: LePharoSnippet new.
@@ -71,19 +71,19 @@ LePlayground class >> newDefaultNotePageInKnowledgeBase: aKnowledgeBase [
 
 { #category : #'window creation' }
 LePlayground class >> newDefaultPage [
-	^ self newDefaultPlaygroundPage
+	^ self newDefaultPharoCodePage
 ]
 
 { #category : #'window creation' }
-LePlayground class >> newDefaultPlaygroundPage [
-	^ self newDefaultPlaygroundPageInKnowledgeBase: LeDatabasesRegistry default 
+LePlayground class >> newDefaultPharoCodePage [
+	^ self newDefaultPharoCodePageInKnowledgeBase: LeDatabasesRegistry default 
 		currentLoadedDefaultLogicalDatabase.
 ]
 
 { #category : #'window creation' }
-LePlayground class >> newDefaultPlaygroundPageInKnowledgeBase: aKnowledgeBase [
+LePlayground class >> newDefaultPharoCodePageInKnowledgeBase: aKnowledgeBase [
 	| page |
-	page := self newBasicPlaygroundPage.
+	page := self newBasicPharoCodePage.
 	aKnowledgeBase playgroundDB addPage: page.
 	^ page
 ]
