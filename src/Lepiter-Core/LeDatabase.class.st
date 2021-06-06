@@ -737,10 +737,12 @@ LeDatabase >> pages [
 { #category : #'api - accessing' }
 LeDatabase >> pagesByDate [
 
-	^ pagesByDate ifNil: [ pagesByDate := SortedCollection new 
-			sortBlock: [ :a :b | a latestEditTime > b latestEditTime ];
-			addAll: self pagesByName values;
-			yourself ]
+	^ pagesByDate ifNil: [ 
+			pagesByDate := SortedCollection new 
+				sortBlock: [ :a :b | a latestEditTime > b latestEditTime ].
+			pagesByType valuesDo: [ :aCollectionOfPages |
+				pagesByDate addAll: aCollectionOfPages ].
+			pagesByDate ]
 ]
 
 { #category : #'api - accessing' }
