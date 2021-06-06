@@ -4,7 +4,6 @@ I am used by {{gtClass:LePageToolContentElement}}.
 My subclasses build {{gtClass:LePageToolContentElement}}'s {{gtClass:LeToolbarElement|label=toolbar}} items.
 See my {{gtClass:LePageHeaderBuilder|expanded|show=#gtSubclassesFor:}} for concrete implementations:
 
-
 "
 Class {
 	#name : #LePageHeaderBuilder,

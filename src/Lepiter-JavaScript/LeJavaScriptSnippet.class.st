@@ -2,16 +2,13 @@
 A LeJavaScriptSnippet is an executable piece of JavaScript code, i.e. a script.
 
  
-1. # Internal Representation and Key Implementation Points.
+## Internal Representation and Key Implementation Points.
 
-
-1. ## Instance Variables
-
+### Instance Variables
 	code:		<String>
 
 
-1. # Implementation Points
-
+## Implementation Points
 
 "
 Class {

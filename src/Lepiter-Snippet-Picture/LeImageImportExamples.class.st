@@ -1,7 +1,6 @@
 "
 Demonstrate visiting a {{gtClass:name=LeDatabase}} and importing all externally referenced images as local attachments.
 
-
 "
 Class {
 	#name : #LeImageImportExamples,

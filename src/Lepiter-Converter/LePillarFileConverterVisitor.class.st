@@ -10,7 +10,6 @@ LePillarFileConverterVisitor new
 	preorder.
 ```
 
-
 "
 Class {
 	#name : #LePillarFileConverterVisitor,

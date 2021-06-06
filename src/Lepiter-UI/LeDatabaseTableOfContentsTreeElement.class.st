@@ -1,11 +1,9 @@
 "
 I display a Table of Contents that is defined in a {{gtClass:LePage}}.
-1. # Collaborators
-
+## Collaborators
 I use {{gtClass:LeTableOfContentsVisitor}} to extract Table of Contents items, see {{gtMethod:LeDatabase>>#tableOfContentsNodes}}.
 I am used by {{gtClass:LeDatabaseSidebarElement}}, see {{gtMethod:LeDatabaseSidebarElement>>#newTableOfContentsElement}}.
-1. # Examples
-
+## Examples
 {{gtExample:LeUIExamples>>#databaseTableOfContentsElement|previewExpanded}}
 
 

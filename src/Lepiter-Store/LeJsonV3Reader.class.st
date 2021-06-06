@@ -7,24 +7,21 @@ LeJsonV3Reader is a type of {{gtClass:name=NeoJSONReader}} that:
 
 ```
 	{ 
-		""type"" : <type name>,
-		""schema"" : <schema identifier>,
+		""__type"" : <type name>,
+		""__schema"" : <schema identifier>,
 		""attribute name"" : <attribute value> ...
 	}
 ```
 
 
-1. # Internal Representation and Key Implementation Points.
+## Internal Representation and Key Implementation Points.
 
-
-1. ## Instance Variables
-
+### Instance Variables
 	objects:		<Dictionary> 	Holds the objects used to keep a single instance of equal objects
 	typeMap:		<Dictionary> 	Maps the type name to the class that decodes the object
 
 
-1. ## Implementation Points
-
+### Implementation Points
 
 "
 Class {

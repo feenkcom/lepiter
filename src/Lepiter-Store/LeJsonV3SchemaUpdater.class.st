@@ -5,7 +5,6 @@ To avoid shotgun parsing, i.e. the core model dealing with different DB represen
 
 A subclass is created for each step of the upgrade, allowing the database to be updated from any previous minor version to the current version.
 
-
 "
 Class {
 	#name : #LeJsonV3SchemaUpdater,

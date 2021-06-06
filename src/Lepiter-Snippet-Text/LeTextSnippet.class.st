@@ -1,8 +1,7 @@
 "
 I am the model for a single text snippet. 
 The following example display one {{gtClass:LePage|label=page}} with three blocks in a tree structure: {{gtExample:LeContentExamples>>#pageOneWithTwoBlocksAndWithBlockChild|noCode}} 
-1. # Properties
-
+## Properties
 Common properties that can be accessed from a LeSnippet include:
 - {{gtMethod:LeTextSnippet>>#text|label=#selector}} is a  [Markdown](https://en.wikipedia.org/wiki/Markdown) text as a {{gtClass:BlText}} instance,
 - {{gtMethod:LeSnippet>>#parent|label=#selector}} that can be either another {{gtClass:LeSnippet}} or {{gtClass:LePage}},
@@ -10,9 +9,11 @@ Common properties that can be accessed from a LeSnippet include:
 - {{gtMethod:LeSnippet>>#topBlock|label=#selector}} is a {{gtClass:LeSnippet}} or nil,
 - {{gtMethod:LeContent>>#children|label=#selector}} is a collection of other {{gtClass:LeSnippet}} instances.
 Additional properties can be found in `api - accessing`.
-1. # Initialization
-
-The {{gtMethod:LeTextSnippet>>#text|label=#selector}} is * either using {{gtMethod:LeTextSnippet* text are provided (mirroring the protocol for {{{gtClass:BlRopedText}}:
+## Initialization
+The {{gtMethod:LeTextSnippet>>#text|label=#selector}} is **initialized** either using {{gtMethod:LeTextSnippet>>#text:|label=#selector}} or {{gtMethod:LeTextSnippet>>#string:|label=#selector}}.  The former one is useful particularly for the json reader and writer.
+From a UI, new {{gtClass:LeSnippet}} can be created (added as my children) using {{gtMethod:LeContent>>#blockBuilder|label=#selector}}: {{gtExample:LeContentExamples>>#textBlockInPageAndDatabase}} 
+## Updates
+A number of methods for **updating** text are provided (mirroring the protocol for {{{gtClass:BlRopedText}}:
 - {{gtMethod:LeTextSnippet>>#updateText:source:|label=#selector}}
 - {{gtMethod:LeTextSnippet>>#updateString:|label=#selector}}
 - {{gtMethod:LeTextSnippet>>#appendText:source:|label=#selector}}
@@ -23,8 +24,7 @@ The {{gtMethod:LeTextSnippet>>#text|label=#selector}} is * either using {{gtMeth
 
 Text editors are responsible for using a copy of {{gtMethod:LeTextSnippet>>#text|label=#selector}} since sharing {{gtClass:BlTextAttribute|label=text attributes}}  may produces undesired (and undefinied) behavior. {{gtClass:BlText}} is not thread safe, it therefore cannot be edited simultaneously in several editors.
 The text is stored as a {{gtClass:BlRopedText}} (rather than a {{gtClass:String}}) since converting text to strings is expensive, and this would be done on every keystroke while editing in the UI.
-1. # Navigation
-
+## Navigation
 A number of methods for navigating betwee blocks are provided, including:
 
 - {{gtMethod:name=LeSnippet>>#previousSibling}}

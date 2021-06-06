@@ -9,17 +9,14 @@ The monitor can be in one of two states:
 - stopped - it isn't listening.
 
  
-1. # Internal Representation and Key Implementation Points.
+## Internal Representation and Key Implementation Points.
 
-
-1. ## Instance Variables
-
+### Instance Variables
 	saveDelay:		<Duration>
 	state: 			<Symbol>
 
 
-1. ## Implementation Points
-
+### Implementation Points
 
 "
 Class {

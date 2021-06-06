@@ -4,17 +4,14 @@
 Historically, {{gtClass:LeContentTreeChanged}} has been used as a general announcement that the entire tree should be re-processed, however this should be avoided for performance reasons. 
 
  
-1. # Internal Representation and Key Implementation Points.
+## Internal Representation and Key Implementation Points.
 
-
-1. ## Instance Variables
-
+### Instance Variables
 	commonContent:		<Object>
 	content:				<Object>
 
 
-1. ## Implementation Points
-
+### Implementation Points
 
 "
 Class {

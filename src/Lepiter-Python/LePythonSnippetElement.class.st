@@ -3,7 +3,6 @@ LePythonElement displays the contents of a {{gtClass:name=LePythonSnippet}} as s
 
 Currently the global uniqueInstance of the {{gtClass:name=PBApplication}} is always used for execution.
 
-
 "
 Class {
 	#name : #LePythonSnippetElement,

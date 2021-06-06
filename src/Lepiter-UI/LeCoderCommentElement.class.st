@@ -3,7 +3,6 @@ LeCoderCommentElement is a container for the single snippet element used when ed
 
 LeCoderCommentElement handles the shortcuts for increasing and decreasing font size while editing.
 
-
 "
 Class {
 	#name : #LeCoderCommentElement,

@@ -1,10 +1,8 @@
 "
 I add a title and all other action buttons to a header.
 I am used by {{gtClass:LePageToolContentElement}} in {{gtMethod:LePageToolContentElement>>#withTitleAndAllActionButtons|label=#selector}}.
-1. # Example
-
+## Example
 {{gtExample:LeUIExamples>>#pageToolContentElement_TitleAndAllActionButtons|previewExpanded|codeExpanded=false}}
-
 
 "
 Class {

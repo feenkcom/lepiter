@@ -3,7 +3,6 @@ PythonBridge currently only includes functionality to build up statements progra
 
 LeUninterpretedPythonStatement represents a single Python statement on a single line and can be added to a PBCommandFactory.
 
-
 "
 Class {
 	#name : #LeUninterpretedPythonStatement,

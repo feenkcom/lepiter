@@ -3,7 +3,6 @@ I am an abstract class.
 I am a {{gtClass:LeDatabase}} announcement.
 See my {{gtClass:LeDatabaseAnnouncement|expanded|show=#gtSubclassesFor:}} for concrete announcements:
 
-
 "
 Class {
 	#name : #LeDatabaseAnnouncement,

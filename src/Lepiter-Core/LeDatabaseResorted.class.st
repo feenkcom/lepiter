@@ -1,7 +1,6 @@
 "
 I am announced by {{gtClass:LeDatabase}}, with the appropriate {{gtClass:LeDatabase}} and {{gtClass:LePage}}, when a {{gtClass:LePage}} change its name.
 
-
 "
 Class {
 	#name : #LeDatabaseResorted,

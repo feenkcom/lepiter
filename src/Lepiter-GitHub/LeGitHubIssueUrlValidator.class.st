@@ -1,12 +1,9 @@
 "
 I validate a GitHub Issue URL link.
-1. # Valid GitHub Issue URL Example
-
+## Valid GitHub Issue URL Example
 {{gtExample:LeGitHubIssueUrlValidatorExamples>>#validator_ValidUrl|codeExpanded=false|previewExpanded=true|previewHeight=250}}
-1. # Invalid GitHub Issue URL Example
-
+## Invalid GitHub Issue URL Example
 {{gtExample:LeGitHubIssueUrlValidatorExamples>>#validator_InvalidUrl|codeExpanded=false|previewExpanded=true|previewHeight=250}}
-
 
 "
 Class {

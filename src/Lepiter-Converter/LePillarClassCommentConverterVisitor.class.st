@@ -30,12 +30,25 @@ LePillarClassCommentConverterVisitor >> classFilterBlockRepositoryNameBeginsWith
 			ifNotNil: [ :package | package name ]) beginsWith: aString ]
 ]
 
+{ #category : #convenience }
+LePillarClassCommentConverterVisitor >> classFilterBlockRepositoryNamed: aString [
+	"Set the class filter block to select classes where the associated Iceberg repository name begins with the supplied string"
+
+	self classFilterBlock: [ :cls | 
+		((IceRepository registeredRepositoryIncludingPackage: cls package)
+			ifNil: [ '' ]
+			ifNotNil: [ :package | package name ]) = aString ]
+]
+
 { #category : #private }
 LePillarClassCommentConverterVisitor >> classesToConvert [
 	"Answer the collection of classes that should be converted"
 	<return: #Array>
+	| selected |
 
-	^ Object withAllSubclasses select: classFilterBlock
+	selected := Object withAllSubclasses select: classFilterBlock.
+	self assert: selected size equals: selected asSet size.
+	^ selected.
 ]
 
 { #category : #corrections }
@@ -76,10 +89,10 @@ LePillarClassCommentConverterVisitor >> convert: aClass [
 
 	aClass isMeta ifTrue: [ ^ self ].
 	(ignoredClasses includes: aClass) ifTrue: [ ^ self ].
-	(dryRun and: [ self isAlreadyLepiter: aClass comment]) ifTrue: 
+	(self isAlreadyLepiter: aClass comment) ifTrue: 
 		[ ^ self halt: 'Already converted?' ].
 	lepiterComment := LePillarClassCommentConverter convert: aClass dryRun: dryRun.
-	convertedClasses add: aClass.
+	convertedClasses at: aClass put: lepiterComment.
 	^ lepiterComment
 ]
 
@@ -111,7 +124,7 @@ LePillarClassCommentConverterVisitor >> ignoredClassesCollection [
 LePillarClassCommentConverterVisitor >> initialize [ 
 
 	super initialize.
-	convertedClasses := OrderedCollection new.
+	convertedClasses := Dictionary new.
 	classFilterBlock := [ :cls | self error: 'No filter block set' ].
 	dryRun := true.
 	ignoredClasses := self ignoredClassesCollection.
@@ -121,7 +134,12 @@ LePillarClassCommentConverterVisitor >> initialize [
 LePillarClassCommentConverterVisitor >> isAlreadyLepiter: pillarComment [
 	"Answer a boolean answering true if the supplied string looks like a lepiter class comment"
 
-	^ 'gtpage\:|gtclass\:|gtmethod\:' asRegexIgnoringCase search: pillarComment
+	('gtpage\:|gtclass\:|gtmethod\:' asRegexIgnoringCase search: pillarComment) ifTrue: [ ^ true ].
+
+	^ pillarComment lines 
+		detect: [ :each | each trimLeft beginsWith: '#' ]
+		ifFound: [ :x | true ]
+		ifNone: [ false ]
 ]
 
 { #category : #running }
@@ -137,8 +155,8 @@ LePillarClassCommentConverterVisitor >> saveConvertedClasses [
 	"Write the converted classes out to a file"
 
 	(DateAndTime now asIso8601, ' LePillarClassCommentConverterVisitor.txt') asFileReference writeStreamDo: [ :stream |
-		convertedClasses do: [ :each |
+		convertedClasses associationsDo: [ :each |
 			stream 
-				<< each name;
+				<< each key name;
 				lf ] ].
 ]

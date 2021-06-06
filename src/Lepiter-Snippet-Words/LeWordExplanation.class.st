@@ -1,10 +1,8 @@
 "
 I provide a word explanation.
 I hold collection of {{gtClass:LeWordMeaning}}.
-1. # Example
-
+## Example
 {{gtExample:LeWordExamples>>#helloExplanation|codeExpanded=false|previewExpanded=true}}
-
 
 "
 Class {

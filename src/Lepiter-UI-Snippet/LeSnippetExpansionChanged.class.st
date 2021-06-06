@@ -1,8 +1,7 @@
 "
-1. Expansion state changed announcement
+# Expansion state changed announcement
 
 Is announced by the {{gtClass:LeAbstractSnippetViewModel}} when its expansion state changed
-
 
 "
 Class {

@@ -1,10 +1,8 @@
 "
 I build a dropdown that confirms a page removal.
 I am used in {{gtMethod:LePageHeaderBuilder>>#addRemovePageButton}}. 
-1. # Example
-
+## Example
 {{gtExample:LeUIExamples>>#pageToolContentElement_TitleAndAllActionButtons|previewExpanded|codeExpanded=false}}
-
 
 "
 Class {

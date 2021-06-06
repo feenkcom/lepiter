@@ -2,16 +2,13 @@
 LeBlock is the common, abstract, superclass of all the content that can be added to a Lepiter Page.
 
  
-1. # Internal Representation and Key Implementation Points.
+## Internal Representation and Key Implementation Points.
 
-
-1. ## Instance Variables
-
+### Instance Variables
 	parent:		<LeContent>
 
 
-1. ## Implementation Points
-
+### Implementation Points
 
 "
 Class {

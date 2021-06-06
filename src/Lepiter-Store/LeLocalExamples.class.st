@@ -15,17 +15,14 @@ replacing the version numbers as appropriate.
 
 
 
-1. # Internal Representation and Key Implementation Points.
+## Internal Representation and Key Implementation Points.
 
-
-1. ## Instance Variables
-
+### Instance Variables
 	database:		<LeDatabase>
 	memStore:		<FileReference>
 
 
-1. ## Implementation Points
-
+### Implementation Points
 
 "
 Class {

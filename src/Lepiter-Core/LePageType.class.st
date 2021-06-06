@@ -3,7 +3,6 @@ Lepiter supports various types of pages, see the subclasses for a description of
 
 Page types are considered equal if they are of the same type and have equal keys.  This means that two pages in different databases may be not equal, but their type may be.
 
-
 "
 Class {
 	#name : #LePageType,

@@ -1,13 +1,11 @@
 "
 I am a {{gtClass:LeSnippet}}.
 I hold a {{gtMethod:LeWordSnippet>>#word|label=#selector}} and its {{gtMethod:LeWordSnippet>>#explanation|label=#selector}}.
-1. # Examples
-## Snippet without explanation
-
+## Examples
+### Snippet without explanation
 The following example shows a snippet with the {{gtExample:LeWordExamples>>#word|label}} word. By pressing the Enter key or pressing the search button, it searches the word explanation.
 {{gtExample:LeWordExamples>>#snippet|codeExpanded=false|previewExpanded=true}}
-1. ## Snippet with a word explanation
-
+### Snippet with a word explanation
 {{gtExample:LeWordExamples>>#snippetWithExplanation|codeExpanded=false|previewExpanded=true}}
 
 

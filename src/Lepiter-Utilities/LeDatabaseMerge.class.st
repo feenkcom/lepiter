@@ -16,17 +16,14 @@ Public API and Key Messages
 
    One simple example is simply gorgeous.
  
-1. # Internal Representation and Key Implementation Points.
+## Internal Representation and Key Implementation Points.
 
-
-1. ## Instance Variables
-
+### Instance Variables
 	sourceDatabase:		<LeDatabase>
 	targetDatabase:		<LeDatabase>
 
 
-1. ## Implementation Points
-
+### Implementation Points
 
 The typical expected use case is that the target database imported from somewhere, merged in to the target database and then discarded.  As such, the target database takes ownership of any pages and blocks and simply removes them from the source database.
 

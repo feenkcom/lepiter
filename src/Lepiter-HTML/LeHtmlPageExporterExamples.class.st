@@ -3,7 +3,6 @@ Demonstrate the operation of {{gtClass:name=LeHtmlPageExporterVisitor}}.
 
 Since there is no database present at this level, links to other pages, etc. can't be resolved.
 
-
 "
 Class {
 	#name : #LeHtmlPageExporterExamples,

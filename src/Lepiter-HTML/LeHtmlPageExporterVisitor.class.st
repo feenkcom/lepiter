@@ -4,7 +4,6 @@ Write the supplied LeModel on to the stream as an HTML page.
 
 To export a fragment to the supplied stream see {{gtMethod:name=LePage>>#asHTMLDocument}}.
 
-
 "
 Class {
 	#name : #LeHtmlPageExporterVisitor,

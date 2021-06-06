@@ -8,7 +8,6 @@ Currently this is:
 
 Explicitly excluded are internal links (double bracket links).
 
-
 "
 Class {
 	#name : #LeUnlinkedReferenceTextSnippetVisitor,

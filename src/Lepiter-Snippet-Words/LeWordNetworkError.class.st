@@ -2,7 +2,6 @@
 I am a {{gtClass:LeWordResponse}}
 I provide an error message when a {{gtClass:LeWordExplanation}} cannot is not obtained due to network failures.
 
-
 "
 Class {
 	#name : #LeWordNetworkError,

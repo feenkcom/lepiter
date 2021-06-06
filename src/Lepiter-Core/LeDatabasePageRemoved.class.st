@@ -1,7 +1,6 @@
 "
 I am announced by {{gtClass:LeDatabase}}, with the appropriate {{gtClass:LeDatabase}} and {{gtClass:LePage}}, when the {{gtClass:LePage}} is removed from the {{gtClass:LeDatabase}}.
 
-
 "
 Class {
 	#name : #LeDatabasePageRemoved,

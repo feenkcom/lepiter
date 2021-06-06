@@ -3,7 +3,6 @@ Example:
 
 LePagesHistogram new pages: self pages duringLast: 10 days
 
-
 "
 Class {
 	#name : #LePagesHistogram,

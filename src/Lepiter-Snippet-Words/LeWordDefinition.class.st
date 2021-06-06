@@ -2,11 +2,9 @@
 I provide a word definition.
 I know a word definition and example.
 I am used by {{gtClass:LeWordMeaning}}.
-1. # Example
-
+## Example
 The following explanation example holds several definitions that you can explore.
 {{gtExample:LeWordExamples>>#helloExplanation|codeExpanded=false|previewExpanded=true}}
-
 
 "
 Class {

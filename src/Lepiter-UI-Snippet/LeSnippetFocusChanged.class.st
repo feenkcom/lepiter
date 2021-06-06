@@ -1,8 +1,7 @@
 "
-1. Focus state changed announcement
+# Focus state changed announcement
 
 Is announced by the {{gtClass:LeAbstractSnippetViewModel}} when its focus state changed
-
 
 "
 Class {

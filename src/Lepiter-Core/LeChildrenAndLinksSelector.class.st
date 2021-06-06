@@ -3,7 +3,6 @@ I am {{gtClass:LeRootItemsSelector}}.
 I select all direct {{gtClass:LePage}} children and incoming references:
 {{gtMethod:LeChildrenAndLinksSelector>>#rootsFor:into:|expanded}}
 
-
 "
 Class {
 	#name : #LeChildrenAndLinksSelector,

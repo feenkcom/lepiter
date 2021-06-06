@@ -5,7 +5,6 @@ It's capable of serialising itself in the original json, so pages can otherwise 
 
 Note that metadata (timestamps and email addresses) from the unknown snippet are lost since the original json is used for serialisation.
 
-
 "
 Class {
 	#name : #LeUnknownSnippet,

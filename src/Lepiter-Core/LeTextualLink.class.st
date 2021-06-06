@@ -2,11 +2,9 @@
 Link to a page or snippet.
 
 
-1. # Implementation Points
-
+## Implementation Points
 
 targetDatabaseUUID must be nil if the link is for the origin's database.  This allows a single physical database to be operated without a monitor (which is responsible for storing the database uuid).
-
 
 "
 Class {

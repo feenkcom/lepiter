@@ -21,7 +21,6 @@ LeDbManualExternalCommitter uniqueInstance
 	syncCommand: '/path/to/git-sync'.
 ```
 
-
 "
 Class {
 	#name : #LeDbManualExternalCommitter,

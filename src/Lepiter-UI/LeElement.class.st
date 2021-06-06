@@ -3,7 +3,6 @@ I am an abstract class.
 I provide basic {{gtClass:TBrLayoutResizable}} methods.
 See my {{gtClass:LeElement|expanded|show=#gtSubclassesFor:}} for concrete implementations:
 
-
 "
 Class {
 	#name : #LeElement,

@@ -22,7 +22,6 @@ visitor cleanUp.
 
 See {{gtClass:name=LeImageImportExamples}} for example use.
 
-
 "
 Class {
 	#name : #LeImageImportVisitor,

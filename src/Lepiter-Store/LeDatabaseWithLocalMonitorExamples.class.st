@@ -1,7 +1,6 @@
 "
 I am used by other examples, providing a {{gtClass:LeDatabase}} with {{gtClass:LeLocalStoreMonitor}} that stores database content in a {{gtMethod:FileSystem class>>#memory|label=#selector}}.
 
-
 "
 Class {
 	#name : #LeDatabaseWithLocalMonitorExamples,

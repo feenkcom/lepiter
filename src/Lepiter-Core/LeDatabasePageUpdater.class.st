@@ -2,8 +2,7 @@
 I update {{gtClass:LePage}}. 
 I proceed only permited updates that do not break a whole {{gtClass:LeDatabase}} model.
 I execute {{gtMethod:LeDatabasePageUpdater>>#callback:|label=callbacks}} when a change is applied.
-1. # Example 
-
+## Example 
 For a database with two pages: {{gtExample:LeDatabasePageUpdaterExamples>>#databaseWithTwoPages|noCode}}
 A page `one` can be renamed to `three`: {{gtExample:LeDatabasePageUpdaterExamples>>#updatePageOneToThree|previewExpanded}}
 But it cannot be renamed to `two`: {{gtExample:LeDatabasePageUpdaterExamples>>#updatePageOneToTwo|previewExpanded}}

@@ -3,7 +3,6 @@ I am {{gtClass:LeRootItemsSelector}}.
 I select all direct children of an item, e.g., {{gtClass:LePage}}:
 {{gtMethod:LeChildrenSelector>>#rootsFor:into:|expanded}}
 
-
 "
 Class {
 	#name : #LeChildrenSelector,

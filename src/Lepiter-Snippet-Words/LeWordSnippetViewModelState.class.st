@@ -2,7 +2,6 @@
 I am an abstract class.
 I define a {{gtClass:LeWordSnippetViewModel}} state which is used by {{gtClass:LeWordSnippetElement}} to define what it should display, e.g., either user input field, a progress, or a word explanation.
 
-
 "
 Class {
 	#name : #LeWordSnippetViewModelState,

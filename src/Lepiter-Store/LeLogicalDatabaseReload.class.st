@@ -59,29 +59,33 @@ LeLogicalDatabaseReload >> reload [
 		existingDbs add: db ].
 
 	"2. Shuffle and load the databases"
-	primaryDirectory := self properties primaryDatabaseDirectory.
-	playgroundDirectory := self properties playgroundDatabaseDirectory.
-	registeredDirectories := self properties registeredDatabaseDirectories.
+	primaryDirectory := self properties primaryDatabaseDirectory resolve.
+	playgroundDirectory := self properties playgroundDatabaseDirectory resolve.
+	registeredDirectories := self properties registeredDatabaseDirectories collect: #resolve.
 	"The primary and playground databases should be re-created if they don't exist
 	(allowing the Lepiter App to be started on a new machine."
 	primaryDirectory ensureCreateDirectory.
-	primaryDirectory = database primaryDB localStoreRootDirectory 
-		ifFalse: [ database primaryDB: (self dbFor: primaryDirectory) ].
+	primaryDirectory ~= database primaryDB localStoreRootDirectory resolve
+		ifTrue: [ database primaryDB: (self dbFor: primaryDirectory) ].
 
 	playgroundDirectory ensureCreateDirectory.
-	playgroundDirectory = database playgroundDB localStoreRootDirectory
-		ifFalse: [ database playgroundDB: (self dbFor: playgroundDirectory) ].
+	playgroundDirectory ~= database playgroundDB localStoreRootDirectory resolve ifTrue:
+		[ playgroundDirectory ~= primaryDirectory ifTrue:
+			[ database playgroundDB: (self dbFor: playgroundDirectory) ]
+		ifFalse:
+			[ database playgroundDB: database primaryDB ] ].
 
 	self updateRegisteredDatabases.
 
 	"3. Unload the unused databases"
 	self unloadUnusedDatabases.
 
-	"4. Reload and start monitoring"
+	"4. Reload and start monitoring existing databases that are not discarded"
 	database databasesDo: [ :db | 
-		db monitor
-			primitiveReload;
-			startMonitoring ].
+		(existingDbs includes: db) ifTrue:
+			[ db monitor
+				primitiveReload;
+				startMonitoring ] ].
 ]
 
 { #category : #private }

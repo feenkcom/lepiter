@@ -10,17 +10,14 @@ V3 = Lepiter JSON V3
 The minor version is changed whenever the on-disk representation of an item changes, e.g. page type.
 
  
-1. # Internal Representation and Key Implementation Points.
+## Internal Representation and Key Implementation Points.
 
-
-1. ## Instance Variables
-
+### Instance Variables
 	major:		<Integer>
 	minor:		<Integer>
 
 
-1. ## Implementation Points
-
+### Implementation Points
 
 "
 Class {

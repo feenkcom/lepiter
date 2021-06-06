@@ -3,7 +3,6 @@ Update from schema 4.0 to 4.1.
 
 This changes LeUID from a 6 byte ByteArray to a UUID.  But since UUIDs can read base64 strings, no actual migration of the UID is needed.  Just bump the schema version number.
 
-
 "
 Class {
 	#name : #LeJsonV4000Updater,

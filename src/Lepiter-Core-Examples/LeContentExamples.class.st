@@ -1,7 +1,6 @@
 "
 I exemplify {{gtClass:LeModel}} and other objects in this package.
 
-
 "
 Class {
 	#name : #LeContentExamples,

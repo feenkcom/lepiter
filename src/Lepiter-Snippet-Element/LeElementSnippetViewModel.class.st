@@ -1,9 +1,8 @@
 "
-1. Element snippet UI Model
+# Element snippet UI Model
 
 Implementation detail:
 I am a subset of the pharo snippet
-
 
 "
 Class {

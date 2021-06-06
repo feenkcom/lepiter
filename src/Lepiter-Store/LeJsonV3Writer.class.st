@@ -2,16 +2,13 @@
 LeJsonV3Writer is a type of {{gtClass:name=NeoJSONWriter}} that includes the schema identifier ""V3"" in the first mapped object written to the JSON stream.
 
  
-1. # Internal Representation and Key Implementation Points.
+## Internal Representation and Key Implementation Points.
 
-
-1. ## Instance Variables
-
+### Instance Variables
 	firstMappedObject:		<Boolean> 	A flag indicating whether the schema has been written.
 
 
-1. ## Implementation Points
-
+### Implementation Points
 
 "
 Class {
