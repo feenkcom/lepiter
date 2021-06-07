@@ -26,11 +26,14 @@ LeLogicalDatabaseReload >> database: anObject [
 LeLogicalDatabaseReload >> dbFor: aFileReference [
 	"Answer the concrete database for the supplied file reference.
 	If it is an existing DB, use that instance.  If it is a new DB, load it."
+	| newDb |
 
 	existingDbs detect: [ :db | db localStoreRootDirectory = aFileReference ]
 		ifFound: [ :db | ^ db ].
 
-	^ LeLocalStoreLoad current loadAndMonitorFrom: aFileReference.
+	newDb := LeLocalStoreLoad current loadAndMonitorFrom: aFileReference.
+	database setupAddedDB: newDb.
+	^ newDb
 ]
 
 { #category : #accessing }
@@ -66,14 +69,14 @@ LeLogicalDatabaseReload >> reload [
 	(allowing the Lepiter App to be started on a new machine."
 	primaryDirectory ensureCreateDirectory.
 	primaryDirectory ~= database primaryDB localStoreRootDirectory resolve
-		ifTrue: [ database primaryDB: (self dbFor: primaryDirectory) ].
+		ifTrue: [ database basicPrimaryDB: (self dbFor: primaryDirectory) ].
 
 	playgroundDirectory ensureCreateDirectory.
 	playgroundDirectory ~= database playgroundDB localStoreRootDirectory resolve ifTrue:
 		[ playgroundDirectory ~= primaryDirectory ifTrue:
-			[ database playgroundDB: (self dbFor: playgroundDirectory) ]
+			[ database basicPlaygroundDB: (self dbFor: playgroundDirectory) ]
 		ifFalse:
-			[ database playgroundDB: database primaryDB ] ].
+			[ database basicPlaygroundDB: database primaryDB ] ].
 
 	self updateRegisteredDatabases.
 

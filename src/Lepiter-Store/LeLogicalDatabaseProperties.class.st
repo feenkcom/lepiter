@@ -89,7 +89,10 @@ LeLogicalDatabaseProperties class >> withDefaultValues [
 
 { #category : #adding }
 LeLogicalDatabaseProperties >> addRegisteredDirectory: aFileReference [ 
+	"Add the supplied directories to the receiver's list of registered directories.
+	Quietly ignore duplicates."
 
+	((self registeredDatabaseDirectories collect: #resolve) includes: aFileReference asFileReference resolve) ifTrue: [ ^ self ].
 	self registeredDatabaseDirectories: (self registeredDatabaseDirectories copyWith: 
 		(self encodeFileReferenceToString: aFileReference))
 ]
@@ -145,6 +148,24 @@ LeLogicalDatabaseProperties >> hasLocalFile [
 	^ localFile isNotNil
 ]
 
+{ #category : #private }
+LeLogicalDatabaseProperties >> integrityCheck: dictionary [
+	"Check the supplied properties dictionary.
+	The list of registered databases shouldn't contain duplicates."
+	| registeredDirectories |
+
+	registeredDirectories := (dictionary at: #registeredDatabaseDirectories ifAbsent: [ #() ])
+		collect: [ :each | (self decodeFileReferenceString: each) resolve ].
+	registeredDirectories asBag doWithOccurrences:
+		[ :directory :count | count > 1 ifTrue: 
+			[ self error: 'Duplicate Registered Database: ', directory fullName ] ].
+	(registeredDirectories includes: (dictionary at: #primaryDatabaseDirectory ifAbsent: [])) ifTrue: 
+		[ self error: 'Primary Database is also Registered' ].
+	(registeredDirectories includes: (dictionary at: #playgroundDatabaseDirectory ifAbsent: [])) ifTrue: 
+		[ self error: 'Playground Database is also Registered' ].
+
+]
+
 { #category : #'api - testing' }
 LeLogicalDatabaseProperties >> isNull [
 
@@ -160,6 +181,7 @@ LeLogicalDatabaseProperties >> load [
 		readStreamEncoded: #utf8 
 		do: [ :aStream | STONJSON fromStream: aStream ].
 	self migrateStonPropertiesIn: dictionary.
+	self integrityCheck: dictionary.
 	properties := dictionary.
 	^ dictionary
 ]
