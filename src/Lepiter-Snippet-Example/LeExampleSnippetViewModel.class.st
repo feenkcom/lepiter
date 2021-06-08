@@ -200,7 +200,7 @@ LeExampleSnippetViewModel >> notifyAnnotationCoderViewModelChanged [
 
 { #category : #'private - event handling' }
 LeExampleSnippetViewModel >> onAnnotationAstChanged: anAstChangedAnnouncement [
-	| anAst |
+	| anAst aNewSnippet |
 	
 	anAst := anAstChangedAnnouncement ast.
 	anAst
@@ -208,15 +208,27 @@ LeExampleSnippetViewModel >> onAnnotationAstChanged: anAstChangedAnnouncement [
 		andTokensDo: [ :eachToken | ]
 		includeErrors: true.
 	
+	aNewSnippet := LeExampleSnippet new.
+	
+	"this will modify the properties of a default snippet while making sure that removing properties falls back to default"
+	LeExampleSnippetAnnotationVisitor new
+		exampleSnippet: aNewSnippet;
+		accept: anAst.
+	
+	"if properties did not change, do nothing"
+	(self snippetModel similarTo: aNewSnippet)
+		ifTrue: [ ^ self ].
+	
 	"it is possible that multiple parameters were changes as part of the ast update.
 	we should queue them up and request annotation update only once at the very end"
 	self optionAt: #doNotUpdateText put: true.
 	[
-		LeExampleSnippetAnnotationVisitor new
-			exampleSnippet: self;
-			accept: anAst.
+		self snippetModel copyFrom: aNewSnippet
 	] ensure: [ self optionAt: #doNotUpdateText put: false ].
-
+	
+	(LeExampleSnippetAnnotationValidator new validate: anAst)
+		ifFalse: [ ^ self ].
+	
 	self requestUpdateAnnotationText
 ]
 
