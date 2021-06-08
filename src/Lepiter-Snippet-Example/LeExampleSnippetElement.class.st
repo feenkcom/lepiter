@@ -101,9 +101,9 @@ LeExampleSnippetElement >> subscribeToSnippetViewModel [
 	super subscribeToSnippetViewModel.
 	
 	self snippetViewModel weak
-		when: LeExampleSnippetContentChanged
-		send: #onExampleSnippetContentChanged
-		to: self
+		when: LeExampleSnippetContentChanged, LeExampleSnippetViewModelExampleChanged
+			send: #onExampleSnippetContentChanged
+			to: self
 ]
 
 { #category : #'private - updating' }
