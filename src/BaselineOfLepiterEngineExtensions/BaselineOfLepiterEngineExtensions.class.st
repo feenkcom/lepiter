@@ -16,17 +16,17 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 	spec for: #'common' do: [
 		spec 
 			baseline: 'LepiterEngineCore' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.18/src' ];
+				spec repository: 'github://feenkcom/lepiter:v0.6.19/src' ];
 			baseline: 'GToolkit4DockerEngine' with: [
 				spec repository: 'github://feenkcom/gt4dockerengine:v0.5.126/src' ];
 			baseline: 'Gt4JSLink' with: [
-				spec repository: 'github://feenkcom/gtoolkit-remote-javascript:v0.5.171/src' ];
+				spec repository: 'github://feenkcom/gtoolkit-remote-javascript:v0.5.172/src' ];
 			baseline: 'Gt4ChromeDevTools' with: [
 				spec repository: 'github://feenkcom/gtoolkit-chrome:v0.5.126/src' ];
 			baseline: 'Gt4PythonBridge' with: [
-				spec repository: 'github://feenkcom/gtoolkit-remote-python:v0.5.140/src' ];
+				spec repository: 'github://feenkcom/gtoolkit-remote-python:v0.5.141/src' ];
 			baseline: 'Gt4DebugAdapterProtocol' with: [
-				spec repository: 'github://feenkcom/gtoolkit-debugadapterprotocol:v0.5.139/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-debugadapterprotocol:v0.5.140/src' ].
 		spec 
 			package: 'Lepiter-Snippet-Text' with: [
 				spec requires: #('LepiterEngineCore' ). ];
