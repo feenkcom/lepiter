@@ -12,6 +12,11 @@ Class {
 	#category : #'Lepiter-UI-Snippet-Looks'
 }
 
+{ #category : #accessing }
+LeSnippetExpandableWithBarAptitude >> decorationBarWidth: aNumber [
+	snippetExpander width: aNumber
+]
+
 { #category : #private }
 LeSnippetExpandableWithBarAptitude >> hideActions [
 	super hideActions.

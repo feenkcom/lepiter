@@ -22,7 +22,7 @@ LePageEditableTitleElement >> createTitleElement [
 		aptitude: (BrGlamorousEditableLabelAptitude new
 			defaultBackground: Color transparent; 
 			glamorousRegularFont);
-		margin: (BlInsets top: 5 left: 0 bottom: 5 right: 0);
+		margin: (BlInsets top: 5 left: LeSnippetView contentPaddingLeft bottom: 5 right: 0);
 		padding: (BlInsets top: 5 left: 10 bottom: 5 right: 15);
 		hFitContentLimited;
 		vFitContent;

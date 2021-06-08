@@ -10,6 +10,11 @@ Class {
 	#category : #'Lepiter-UI-Snippet-! Views'
 }
 
+{ #category : #accessing }
+LeSnippetView class >> contentPaddingLeft [
+	^ 5
+]
+
 { #category : #comparing }
 LeSnippetView >> = anObject [
 	"Answer whether the receiver and anObject represent the same object."
@@ -36,10 +41,15 @@ LeSnippetView >> beParagraphWidth [
 	self desiredSnippetWidth: LeSnippetParagraphWidth new
 ]
 
+{ #category : #'private - accessing' }
+LeSnippetView >> contentPaddingLeft [
+	^ self class contentPaddingLeft
+]
+
 { #category : #'api - instantiation' }
 LeSnippetView >> create [
 	<return: #Object>
-	| aSnippetElement aSnippetLook aSnippetElementContainer |
+	| aSnippetElement aSnippetLook anExtraLeftMargin aSnippetElementContainer |
 
 	aSnippetElement := self snippetElementClass new.
 
@@ -51,9 +61,17 @@ LeSnippetView >> create [
 						snippetContent: aSnippetContent) ].
 			^ aSnippetElement ].
 
-	aSnippetLook := self snippetElementLookClass new.
-	aSnippetLook margin: (BlInsets top: 3 left: 0 bottom: 3 right: 0).
+	aSnippetLook := self newSnippetElementLook.
+
+	anExtraLeftMargin := self needsContentDecorationBar
+		ifTrue: [ self contentPaddingLeft ]
+		ifFalse: [ 0 ].
+	aSnippetLook margin: (BlInsets top: 3 left: anExtraLeftMargin bottom: 3 right: 0).
+
 	aSnippetLook snippetContent: aSnippetElement snippetContent.
+	
+	self needsContentDecorationBar
+		ifFalse: [ aSnippetElement alignContentLeftBy: self contentPaddingLeft ].
 
 	aSnippetElement clipChildren: false.
 	aSnippetLook snippetToolbar: aSnippetElement snippetToolbar.
@@ -132,6 +150,11 @@ LeSnippetView >> createSidebarMenuFor: aSnippetElement [
 		addChildren: theActionElements
 ]
 
+{ #category : #'private - accessing' }
+LeSnippetView >> decorationBarWidth [
+	^ 8
+]
+
 { #category : #accessing }
 LeSnippetView >> desiredSnippetWidth [
 	^ desiredSnippetWidth
@@ -178,6 +201,13 @@ LeSnippetView >> needsEmbellishments: anObject [
 	needsEmbellishments := anObject
 ]
 
+{ #category : #'api - instantiation' }
+LeSnippetView >> newSnippetElementLook [
+	^ self needsContentDecorationBar
+		ifFalse: [ LeSnippetExpandableAptitude new ]
+		ifTrue: [ LeSnippetExpandableWithBarAptitude new decorationBarWidth: self decorationBarWidth ]
+]
+
 { #category : #accessing }
 LeSnippetView >> snippetElementClass [
 	^ snippetElementClass
@@ -186,11 +216,4 @@ LeSnippetView >> snippetElementClass [
 { #category : #accessing }
 LeSnippetView >> snippetElementClass: anObject [
 	snippetElementClass := anObject
-]
-
-{ #category : #accessing }
-LeSnippetView >> snippetElementLookClass [
-	^ self needsContentDecorationBar
-		ifFalse: [ LeSnippetExpandableAptitude ]
-		ifTrue: [ LeSnippetExpandableWithBarAptitude ]
 ]

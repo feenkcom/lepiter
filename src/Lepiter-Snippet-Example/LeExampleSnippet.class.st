@@ -140,7 +140,7 @@ LeExampleSnippet >> defaultNoCode [
 
 { #category : #initialization }
 LeExampleSnippet >> defaultPreviewExpanded [
-	^ true
+	^ false
 ]
 
 { #category : #initialization }
