@@ -29,13 +29,14 @@ LeCoderCommentElement >> initializeForClassName: aSymbol [
 	page := LePharoClassDatabase uniqueInstance pageNamed: aSymbol.
 	snippet := page children first.
 	viewModel := snippet asSnippetViewModel.
+	viewModel coderViewModel addShortcut: 
+		(BrEditorLineEndingShortcut new combination: (LeSnippetElement keyboardShortcut: #NewLine)).
 	snippetView := viewModel snippetView.
 	snippetView needsEmbellishments: false.
 	snippetElement := snippetView asElement.
 	snippetElement vMatchParent.
 	snippetElement snippetViewModel: viewModel.
 	snippetElement padding: (BlInsets all: 10).
-	viewModel coderViewModel shortcuts add: (BrEditorLineEndingShortcut new combination: (LeSnippetElement keyboardShortcut: #NewLine)).
 
 	self initializeFontSizeShortcuts.
 	self constraintsDo: [ :c |
