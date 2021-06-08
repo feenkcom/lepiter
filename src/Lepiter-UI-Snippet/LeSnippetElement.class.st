@@ -149,7 +149,10 @@ LeSnippetElement >> onFocusChangedAnnouncement: anAnnouncement [
 	
 	anAnnouncement source == self
 		ifTrue: [ ^ self ].
-	
+
+	anAnnouncement source == self snippetViewModel
+		ifFalse: [ ^ self ].
+
 	self onSnippetViewModelFocused: anAnnouncement focused
 ]
 
@@ -176,13 +179,17 @@ LeSnippetElement >> page [
 LeSnippetElement >> registerFocusEventHandlers [
 	"Register event handlers to update the focused state of the Block UI Model"
 
+	"Re-focusing infinite loop breaker warning!
+	When multiple snippet elements are created for the same snippet view model there is a danger of an infinite re-focusing loop. The UI framework guarantees that there us only one UI element focused at the time, which may lead to the situation when two snippet elements are competing for the focus.
+	Passing the source of the focus allows snippet elements to ignore focus changes that do not come from the view model, hence breaking the cycle.
+	Relevant issue: https://github.com/feenkcom/gtoolkit/issues/1944"
 	self when: BlFocusInEvent do: [ :anEvent |
-		self snippetViewModel focused: true ].
+		self snippetViewModel focused: true from: self ].
 	self when: BlFocusOutEvent do: [ :anEvent |
 		"when elements are removed from the scene graph due to tab switching or scrolling they lose focus.
 		We are only interested when focus is lost explicitly via user interaction"
 		anEvent isDueToRemoval
-			ifFalse: [ self snippetViewModel focused: false ] ]
+			ifFalse: [ self snippetViewModel focused: false from: self ] ]
 ]
 
 { #category : #'api - accessing' }
