@@ -35,7 +35,7 @@ LeCoderCommentElement >> initializeForClassName: aSymbol [
 	snippetElement vMatchParent.
 	snippetElement snippetViewModel: viewModel.
 	snippetElement padding: (BlInsets all: 10).
-	viewModel coderViewModel shortcuts add: (BrEditorLineEndingShortcut new combination: (LeSnippetElement keyboardShortcut: #NewLine)).
+	snippetElement addEditorShortcut: (BrEditorLineEndingShortcut new combination: (LeSnippetElement keyboardShortcut: #NewLine)).
 
 	self initializeFontSizeShortcuts.
 	self constraintsDo: [ :c |
