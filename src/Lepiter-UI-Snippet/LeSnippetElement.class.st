@@ -94,6 +94,12 @@ LeSnippetElement class >> startUp: resuming [
 
 ]
 
+{ #category : #'api - snippet view model' }
+LeSnippetElement >> alignContentLeftBy: aNumber [
+	"All snippets should be nicely aligned to the left. However, only snippets themselves know their content and layout structure.
+	Override me to align the content by aNumber of points to the left. Usually it should just involve setting a corresponding padding or margin"
+]
+
 { #category : #private }
 LeSnippetElement >> assertUIProcess [
 	"Make sure that I am executing in a UI process"

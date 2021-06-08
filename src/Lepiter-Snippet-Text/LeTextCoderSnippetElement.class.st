@@ -7,6 +7,11 @@ Class {
 	#category : #'Lepiter-Snippet-Text-Snippet'
 }
 
+{ #category : #'api - snippet view model' }
+LeTextCoderSnippetElement >> alignContentLeftBy: aNumber [
+	editorElement padding: ((editorElement padding withLeft: aNumber) withRight: aNumber)
+]
+
 { #category : #'private - accessing' }
 LeTextCoderSnippetElement >> editor [
 	<return: #BrTextEditor>
@@ -27,7 +32,7 @@ LeTextCoderSnippetElement >> initialize [
 	editorElement := GtTextualCoderEditorElement new.
 	editorElement aptitudeDo: [ :aLook | aLook glamorousRegularDefaultFont ].
 
-	editorElement padding: (BlInsets top: 5 left: 7 bottom: 5 right: 0).
+	editorElement padding: (BlInsets top: 5 bottom: 5).
 	editorElement margin: BlInsets empty.
 	editorElement editor addEventHandler: (LeEditorReachedBorderEventHandler new snippetElement: self)
 ]
