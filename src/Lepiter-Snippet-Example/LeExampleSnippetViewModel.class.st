@@ -149,6 +149,31 @@ LeExampleSnippetViewModel >> gtExampleDo: aBlock [
 	aBlock value: gtExample
 ]
 
+{ #category : #'private - event handling' }
+LeExampleSnippetViewModel >> handleSystemClassAnnouncement: aClassAnnouncement [
+	self gtExampleDo: [ :aGtExample |
+		(aClassAnnouncement affectsClass: aGtExample methodClass)
+			ifFalse: [ ^ self ].
+			
+		self
+			clearOption: #gtExample
+			ifAbsent: [ ] ].
+
+	self announce: LeExampleSnippetViewModelExampleChanged new
+]
+
+{ #category : #'private - event handling' }
+LeExampleSnippetViewModel >> handleSystemMethodAnnouncement: aMethodAnnouncement [
+	self gtExampleDo: [ :aGtExample |
+		(aMethodAnnouncement affectsMethod: aGtExample method)
+			ifFalse: [ ^ self ].
+			
+		self
+			clearOption: #gtExample
+			ifAbsent: [ ] ].
+	self announce: LeExampleSnippetViewModelExampleChanged new
+]
+
 { #category : #'api - annotation coder view model' }
 LeExampleSnippetViewModel >> hasAnnotationCoderViewModel [
 	<return: #Boolean>
@@ -169,7 +194,14 @@ LeExampleSnippetViewModel >> initialize [
 	
 	self annotationCoderViewModel: (annotationCoder asCoderViewModel addStyler: LeExampleSnippetStyler new).
 	
-	self when: LeExampleSnippetContentChanged send: #requestUpdateAnnotationText to: self
+	self when: LeExampleSnippetContentChanged send: #requestUpdateAnnotationText to: self.
+	SystemAnnouncer uniqueInstance weak 
+		when: ClassAnnouncement
+			send: #handleSystemClassAnnouncement:
+			to: self;
+		when: MethodAnnouncement
+			send: #handleSystemMethodAnnouncement:
+			to: self
 ]
 
 { #category : #'api - no code' }
