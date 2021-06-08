@@ -2,10 +2,8 @@
 I am an {{gtClass:BlElement}}.
 I display {{gtClass:LeWordExplanation}}.
 I am used by {{gtClass:LeWordSnippetElement}}, see {{gtMethod:LeWordSnippetElement>>#initializeContentElement}}.
-1. # Example
-
+## Example
 {{gtExample:LeWordExamples>>#viewElement|codeExpanded=false|previewExpanded=true}}
-
 
 "
 Class {

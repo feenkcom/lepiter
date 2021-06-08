@@ -2,11 +2,9 @@
 I provide a word explanation.
 I hold collection of {{gtClass:LeWordDefinition}}.
 I am used by {{gtClass:LeWordExplanation}}.
-1. # Example
-
+## Example
 The following explanation example holds several meanings that you can explore.
 {{gtExample:LeWordExamples>>#helloExplanation|codeExpanded=false|previewExpanded=true}}
-
 
 "
 Class {

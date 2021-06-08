@@ -5,7 +5,6 @@ Pages of this type should only have a single text snippet, which will be saved b
 
 This page type should only be used in a LePharoClassDatabase.
 
-
 "
 Class {
 	#name : #LePharoClassCommentPageType,

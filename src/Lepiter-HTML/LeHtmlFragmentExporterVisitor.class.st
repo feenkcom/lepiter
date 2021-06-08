@@ -7,7 +7,6 @@ To export a page as a complete HTML document see {{gtClass:name=LeHtmlPageExport
 
 To export a fragment to the supplied stream see {{gtMethod:name=LeContent>>#asHTMLFragment}}.
 
-
 "
 Class {
 	#name : #LeHtmlFragmentExporterVisitor,

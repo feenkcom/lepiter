@@ -3,17 +3,15 @@ It may happen that an exported [Roam JSON database](https://roamresearch.com/#/a
 
 I ensure that the model have expected values.
 I am used by {{gtClass:LeRoamJsonTranslator}}.
-1. # Examples
-## Missing Edit Values
-
+## Examples
+### Missing Edit Values
 {{gtExample:LeRoamJsonExamples>>#databaseWithOnePageNoEditValues|noCode}}
 
 is purified as: 
 
 {{gtExample:LeRoamJsonExamples>>#pageNoEditValues|noCode}}
 
-1. ## Missing Create Values
-
+### Missing Create Values
 {{gtExample:LeRoamJsonExamples>>#databaseWithOnePageNoCreateValues|noCode}}
 
 is purified as: 

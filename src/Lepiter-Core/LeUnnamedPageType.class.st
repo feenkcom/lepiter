@@ -3,7 +3,6 @@ Unnamed pages are used to hold ""yellow sticky notes"", where there is content, 
 
 This is a placeholder until the database has been updated to handle unnamed pages.  Since there is a fixed title, only one page can exist in a database.
 
-
 "
 Class {
 	#name : #LeUnnamedPageType,

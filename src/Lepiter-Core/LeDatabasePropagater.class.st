@@ -2,14 +2,11 @@
 I announce {{gtClass:Announcement|label=announcements}} locally in a given {{gtClass:LePage}} or {{gtClass:LeSnippet}} announcer and its {{gtClass:LeDatabase}}.
 See the {{gtMethod:LeDatabasePropagater>>#propagate:in:|label=#selector|expanded}}.
 I am used by {{gtClass:LeNotifier}}.
-1. # Example
-
+## Example
 In a model: {{gtExample:LeNotifierExamples>>#hierarchy_database|noCode|previewShow=#gtLiveFor:|previewHeight=150}}
 I announce only in the third block and in the database: {{gtExample:LeNotifierExamples>>#databaseNotification_BlockThree}}.
-1. # Usage
-
+## Usage
 I can be used for announcements that a {{gtClass:LeDatabase}} needs to listen to or announcements that should be also announce in the {{gtClass:LeDatabase}}. For example, {{gtMethod:LePage>>#updateTitle:}} announces the {{gtClass:LePageTitleChanged}} using the {{gtClass:LePage}}'s announcer and the {{gtClass:LeDatabase}}'s announcer. By doing so, the database does not need to listen to the page announcements. It is a code optimization.
-
 
 "
 Class {

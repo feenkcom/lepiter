@@ -3,7 +3,6 @@ LeExternalServerStrategy is responsible for managing the server instance for the
 
 The strategy is used to determine which server should be used, e.g. a global server, one per database, one per page, one per snippet, etc.
 
-
 "
 Class {
 	#name : #LeExternalServerStrategy,

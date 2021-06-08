@@ -4,7 +4,6 @@ I select the parent itself as a root item:
 {{gtMethod:LeParentSelector>>#rootsFor:into:|expanded}}
 I am used by {{gtClass:LeBlockTreeElement}}.
 
-
 "
 Class {
 	#name : #LeParentSelector,

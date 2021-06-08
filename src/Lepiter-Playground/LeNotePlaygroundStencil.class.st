@@ -9,7 +9,12 @@ Class {
 
 { #category : #converting }
 LeNotePlaygroundStencil >> asPreviewElement [
-	^ (LePlayground newOn: LePlayground newBasicNotePage)
+	| notePage toolElement |
+	notePage := LePlayground newBasicNotePage.
+	toolElement := notePage asLepiterPagePhlowToolWithoutFocus 
+		asElementDo: [ :e | e ].
+	
+	^ toolElement
 		padding: (BlInsets all: 10)
 ]
 

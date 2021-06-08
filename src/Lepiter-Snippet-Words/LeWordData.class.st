@@ -2,7 +2,6 @@
 I am an abstract class.
 See {{gtClass:LeWordExplanation}}.
 
-
 "
 Class {
 	#name : #LeWordData,

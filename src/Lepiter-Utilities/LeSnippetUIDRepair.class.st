@@ -32,7 +32,6 @@ LeSnippetUIDRepair new
 
 4. Restart the image since any in-memory copy of the DB will now be out of sync.
 
-
 "
 Class {
 	#name : #LeSnippetUIDRepair,

@@ -2,10 +2,8 @@
 I am an {{gtClass:BlElement}}.
 I am an input editor which is used to fill a word that should be explained.
 I am used by {{gtClass:LeWordSnippetElement}}, see {{gtMethod:LeWordSnippetElement>>#initializeContentElement}}.
-1. # Example
-
+## Example
 {{gtExample:LeWordExamples>>#inputElement|codeExpanded=false|previewExpanded=true}}
-
 
 "
 Class {

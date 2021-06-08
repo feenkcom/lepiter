@@ -1,7 +1,6 @@
 "
 I define root items, e.g., {{gtClass:LeSnippets}} that should be displayed in a tree (or potentionaly in a list).
 
-
 "
 Class {
 	#name : #LeRootItemsSelector,

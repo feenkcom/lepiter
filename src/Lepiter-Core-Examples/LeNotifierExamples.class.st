@@ -1,7 +1,6 @@
 "
 I exemplify {{gtClass:LeNotifier}}.
 
-
 "
 Class {
 	#name : #LeNotifierExamples,

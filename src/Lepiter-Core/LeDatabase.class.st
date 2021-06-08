@@ -3,15 +3,12 @@ I am a root model object.
 I hold all {{gtClass:LePage}} instances in my database.
 
 
-1. # Internal Representation and Key Implementation Points.
+## Internal Representation and Key Implementation Points.
+
+### Instance Variables
 
 
-1. ## Instance Variables
-
-
-
-1. ## Implementation Points
-
+### Implementation Points
 
 The database currently holds a single userEmail address, implying that a database is only ever used by a single person, which isn't really a valid assumption.  This should probably be replaced by a ""current user"" model.
 
@@ -292,21 +289,7 @@ LeDatabase >> gtDailyNotesFor: aView [
 	<gtView>
 	self pages ifNil: [ ^ aView empty ].
 	^ aView columnedTree
-		title: 'Daily Notes (old)';
-		priority: 9;
-		items: [ self dailyNotes ];
-		children: [ :eachPage | eachPage children ];
-		column: 'Content' item: #contentAsString;
-		column: 'Time' item: #editTime;
-		column: 'Author' item: #editEmail
-]
-
-{ #category : #'gt-extensions' }
-LeDatabase >> gtDailyNotesGroupFor: aView [
-	<gtView>
-	self pages ifNil: [ ^ aView empty ].
-	^ aView columnedTree
-		title: 'Daily Notes (new)';
+		title: 'Daily Notes';
 		priority: 10;
 		items: [ self dailyNotesGroup ];
 		children: [ :eachPage | eachPage children ];
@@ -754,10 +737,12 @@ LeDatabase >> pages [
 { #category : #'api - accessing' }
 LeDatabase >> pagesByDate [
 
-	^ pagesByDate ifNil: [ pagesByDate := SortedCollection new 
-			sortBlock: [ :a :b | a latestEditTime > b latestEditTime ];
-			addAll: self pagesByName values;
-			yourself ]
+	^ pagesByDate ifNil: [ 
+			pagesByDate := SortedCollection new 
+				sortBlock: [ :a :b | a latestEditTime > b latestEditTime ].
+			pagesByType valuesDo: [ :aCollectionOfPages |
+				pagesByDate addAll: aCollectionOfPages ].
+			pagesByDate ]
 ]
 
 { #category : #'api - accessing' }

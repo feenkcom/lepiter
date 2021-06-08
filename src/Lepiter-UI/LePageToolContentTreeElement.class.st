@@ -4,7 +4,6 @@ I display a {{gtClass:LePage}} complete tool:
 
 My header (tittle and toolbar) is configurable using {{gtClass:LePageHeaderBuilder}}.
 
-
 "
 Class {
 	#name : #LePageToolContentTreeElement,

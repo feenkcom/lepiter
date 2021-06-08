@@ -1,7 +1,6 @@
 "
 Announced by {{gtClass:LePageViewModel}} when {{gtClass:LePage}}'s title changes
 
-
 "
 Class {
 	#name : #LePageViewModelTitleChanged,

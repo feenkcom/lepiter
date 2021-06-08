@@ -4,7 +4,6 @@ I select all {{gtClass:LeDatabase}} direct children that satisfies a filter cond
 {{gtMethod:LeFilteredChildrenSelector>>#rootsFor:into:|expanded}}
 I am used by {{gtClass:LeDatabaseFilteredTreeElement|show=#gtDocumentFor:}}.
 
-
 "
 Class {
 	#name : #LeFilteredChildrenSelector,

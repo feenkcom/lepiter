@@ -1,7 +1,6 @@
 "
-1. Incoming page links
+# Incoming page links
 Represents the incoming links whose target is a page
-
 
 "
 Class {

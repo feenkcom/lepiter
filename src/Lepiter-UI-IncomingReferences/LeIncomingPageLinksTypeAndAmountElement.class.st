@@ -3,7 +3,6 @@ I display a {{gtClass:LeIncomingReferencesCards}} and {{gtClass:LeIncomingRefere
 
 {{gtExample:LeUIExamples>>#incomingReferencesLabelElement|previewExpanded}}
 
-
 "
 Class {
 	#name : #LeIncomingPageLinksTypeAndAmountElement,

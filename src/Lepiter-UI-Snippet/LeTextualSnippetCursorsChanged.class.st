@@ -1,8 +1,7 @@
 "
-1. Cursors state changed announcement
+# Cursors state changed announcement
 
 Is announced by the {{gtClass:LeTextualSnippetViewModel}} when its cursors state changed
-
 
 "
 Class {

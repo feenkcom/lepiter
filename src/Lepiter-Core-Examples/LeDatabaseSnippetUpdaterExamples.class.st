@@ -1,7 +1,6 @@
 "
 I exemplify {{gtClass:LeDatabaseSnippetUpdater}}.
 
-
 "
 Class {
 	#name : #LeDatabaseSnippetUpdaterExamples,

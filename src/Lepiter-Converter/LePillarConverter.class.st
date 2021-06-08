@@ -8,7 +8,6 @@ Limitations:
 
 Subclasses provide the additional context to address both the limitations above.
 
-
 "
 Class {
 	#name : #LePillarConverter,

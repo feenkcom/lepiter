@@ -21,7 +21,6 @@ phVar += 1;
 
 will result in an array with 42 and 'hello, world'.
 
-
 "
 Class {
 	#name : #GtJavaScriptCoderModel,

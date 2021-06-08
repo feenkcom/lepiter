@@ -1,7 +1,6 @@
 "
 Spotter extensions should return {{gtClass:TLeContextMenuItemSpecification}} objects.
 
-
 "
 Class {
 	#name : #LeContextMenuSpotterStart,

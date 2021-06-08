@@ -9,36 +9,30 @@ Rules:
 - If a page with the same name exists in multiple databases, the page in lower priority databases is hidden from lookup operations.  WARNING: Iterating over all pages will include the lower priority pages.
 
 
-1. # Public API and Key Messages
-
+## Public API and Key Messages
 
 Messages in the `api - *` protocols are common between {{gtClass:name=LeDatabase}} and LeLogicalDatabase.
 
  
-1. # Internal Representation and Key Implementation Points.
+## Internal Representation and Key Implementation Points.
 
-
-1. ## Instance Variables
-
+### Instance Variables
 	announcer:		<Announcer>
 	primaryDB:		<LeDatabase>
 	registeredDBs:	<Array of LeDatabase>
 	workspaceDB:		<LeDatabase>
 
 
-1. ## Implementation Points
-
+### Implementation Points
 
 - The current implementation is kept simple by assuming that the number of registered databases will be relatively small and that the cost of simply searching in db in turn is not excessive, so no additional indexes need to be kept.
 
 
-1. ## ToDos
-
+### ToDos
 
 - Be able to move pages between databases
 - Create cross-database links
   - Requires links are pointers, and not hold on to the target page (can be by UID).
-
 
 "
 Class {
@@ -90,16 +84,7 @@ LeLogicalDatabase >> addDB: aLeDatabase [
 	self assert: aLeDatabase isDatabase.
 
 	registeredDBs := registeredDBs copyWith: aLeDatabase.
-	aLeDatabase parent: self.
-	
-	self subscribeToDatabase: aLeDatabase.
-	self notifyDatabaseAdded: aLeDatabase.
-
-	"Cross-database links are updated by the target page.
-	Update links from existing databases that reference the newly loaded database."
-	self pagesDo: [ :page | page onAddedToDatabase ].
-
-	^ aLeDatabase 
+	^ self setupAddedDB: aLeDatabase
 ]
 
 { #category : #announcer }
@@ -149,6 +134,22 @@ LeLogicalDatabase >> at: aKey ifPresent: aPresentBlock ifAbsent: anAbsentBlock f
 	^ anAbsentBlock value
 ]
 
+{ #category : #'private - accessing' }
+LeLogicalDatabase >> basicPlaygroundDB: aLeDatabase [
+	"Set the primary DB without any processing."
+
+	self assert: [ aLeDatabase isNotNil ].
+	playgroundDB := aLeDatabase.
+]
+
+{ #category : #'private - accessing' }
+LeLogicalDatabase >> basicPrimaryDB: aLeDatabase [
+	"Set the primary DB without any processing."
+
+	self assert: [ aLeDatabase isNotNil ].
+	primaryDB := aLeDatabase.
+]
+
 { #category : #'api - accessing' }
 LeLogicalDatabase >> blockWithUID: aLeUID [
 	"Answer the snippet with the supplied UID"
@@ -179,6 +180,16 @@ LeLogicalDatabase >> dailyNotes [
 
 	^ (self pages select: #isDailyNote) sorted: [ :a :b | 
 		a type date > b type date ]
+]
+
+{ #category : #accessing }
+LeLogicalDatabase >> databaseNamed: aDatabaseName [
+	"Answer the database with the supplied name"
+	<return: #LeDatabase>
+
+	^ self databases 
+		detect: [ :db | db databaseName = aDatabaseName ]
+		ifNone: [ KeyNotFound signalFor: aDatabaseName ]
 ]
 
 { #category : #accessing }
@@ -550,10 +561,12 @@ LeLogicalDatabase >> playgroundDB: aLeDatabase [
 		^ self ].
 
 	(playgroundDB isNotNil and: [ playgroundDB ~= primaryDB ]) ifTrue: 
-		[ self unsubscribeFromDatabase: playgroundDB ].
+		[ self unsubscribeFromDatabase: playgroundDB.
+		self notifyDatabaseRemoved: playgroundDB ].
 	playgroundDB := aLeDatabase.
 	playgroundDB parent: self.
 	self subscribeToDatabase: aLeDatabase.
+	self notifyDatabaseAdded: aLeDatabase.
 
 	"Cross-database links are updated by the target page.
 	Update links from existing databases that reference the newly loaded database."
@@ -574,13 +587,16 @@ LeLogicalDatabase >> primaryDB: aLeDatabase [
 
 	self assert: [ aLeDatabase isNotNil ].
 
-	primaryDB ifNotNil: [ :anOldDB | self unsubscribeFromDatabase: anOldDB ].
+	primaryDB ifNotNil: [ :anOldDB | 
+		self unsubscribeFromDatabase: anOldDB.
+		self notifyDatabaseRemoved: anOldDB ].
 
 	primaryDB := aLeDatabase.
 	primaryDB parent: self.
 	playgroundDB ifNil: [ playgroundDB := primaryDB ].
 	
 	self subscribeToDatabase: aLeDatabase.
+	self notifyDatabaseAdded: aLeDatabase.
 ]
 
 { #category : #'api - initialization' }
@@ -660,6 +676,23 @@ LeLogicalDatabase >> scanForLinksTo: aPage [
 	Right now there aren't any cross-DB links, so delegate to the page's DB"
 
 	^ aPage database scanForLinksTo: aPage.
+]
+
+{ #category : #private }
+LeLogicalDatabase >> setupAddedDB: aLeDatabase [
+	"Set up the announcements and update links for a newly added DB.
+	This is called by #addDB: and the logical DB reload code."
+
+	aLeDatabase parent: self.
+	
+	self subscribeToDatabase: aLeDatabase.
+	self notifyDatabaseAdded: aLeDatabase.
+
+	"Cross-database links are updated by the target page.
+	Update links from existing databases that reference the newly loaded database."
+	self pagesDo: [ :page | page onAddedToDatabase ].
+
+	^ aLeDatabase 
 ]
 
 { #category : #'api - accessing' }

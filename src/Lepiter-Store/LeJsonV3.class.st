@@ -9,8 +9,7 @@ LeJsonV3 has a unique instance which is normally used.  If any of the following 
 - leJsonV3AddMappingsTo:
 - leJsonV3Name
 
-1. # Public API and Key Messages
-
+## Public API and Key Messages
 
 - uniqueInstance 					returns the default instance
 - serialize:on:prettyPrint: 	is used to write an object to the supplied stream

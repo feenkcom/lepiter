@@ -3,7 +3,6 @@ LeImageImportTextVisitor is used by {{gtClass:name=LeImageImportVisitor}} to vis
 
 See {{gtClass:name=LeImageImportVisitor}} for more information.
 
-
 "
 Class {
 	#name : #LeImageImportTextVisitor,

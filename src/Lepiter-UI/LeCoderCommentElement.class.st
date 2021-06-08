@@ -3,7 +3,6 @@ LeCoderCommentElement is a container for the single snippet element used when ed
 
 LeCoderCommentElement handles the shortcuts for increasing and decreasing font size while editing.
 
-
 "
 Class {
 	#name : #LeCoderCommentElement,
@@ -30,13 +29,14 @@ LeCoderCommentElement >> initializeForClassName: aSymbol [
 	page := LePharoClassDatabase uniqueInstance pageNamed: aSymbol.
 	snippet := page children first.
 	viewModel := snippet asSnippetViewModel.
+	viewModel coderViewModel addShortcut: 
+		(BrEditorLineEndingShortcut new combination: (LeSnippetElement keyboardShortcut: #NewLine)).
 	snippetView := viewModel snippetView.
 	snippetView needsEmbellishments: false.
 	snippetElement := snippetView asElement.
 	snippetElement vMatchParent.
 	snippetElement snippetViewModel: viewModel.
 	snippetElement padding: (BlInsets all: 10).
-	snippetElement addEditorShortcut: (BrEditorLineEndingShortcut new combination: (LeSnippetElement keyboardShortcut: #NewLine)).
 
 	self initializeFontSizeShortcuts.
 	self constraintsDo: [ :c |

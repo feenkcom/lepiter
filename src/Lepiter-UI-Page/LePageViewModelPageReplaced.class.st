@@ -1,7 +1,6 @@
 "
 Announced by {{gtClass:LePageViewModel}} when underlying {{gtClass:LePage}} is replaced
 
-
 "
 Class {
 	#name : #LePageViewModelPageReplaced,

@@ -1,10 +1,8 @@
 "
 I add a title and an inspect button to a header.
 I am used by {{gtClass:LePageToolContentElement}} in {{gtMethod:LePageToolContentElement>>#withTitleAndInspectButton|label=#selector}}.
-1. # Example
-
+## Example
 {{gtExample:LeUIExamples>>#pageToolContentElement_TitleAndInspectButton|previewExpanded|codeExpanded=false}}
-
 
 "
 Class {

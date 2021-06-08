@@ -1,7 +1,6 @@
 "
-1. Page reference element
+# Page reference element
 Is a very simple snippet whose only purpose it to display a clickable reference to a page that looks like a button and has page's title as a label
-
 
 "
 Class {

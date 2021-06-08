@@ -8,7 +8,6 @@ I can display all pages and daily notes:
 I can also display any subset of pages, e.g., just daily notes:
 {{gtExample:LeUIExamples>>#databasePageListElement_DailyNotes|previewExpanded}}
 
-
 "
 Class {
 	#name : #LeDatabasePageListElement,

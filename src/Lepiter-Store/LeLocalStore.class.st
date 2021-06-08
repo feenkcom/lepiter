@@ -10,17 +10,14 @@ A Lepiter database may be loaded from an existing store with {{gtMethod:name=LeL
 The store is responsible for ensuring that an attachments directory exists in the database.
 
  
-1. # Internal Representation and Key Implementation Points.
+## Internal Representation and Key Implementation Points.
 
-
-1. ## Instance Variables
-
+### Instance Variables
 	database:		<LeDatabase>
 	localRoot:	<FileReference>
 
 
-1. ## Implementation Points
-
+### Implementation Points
 
 "
 Class {

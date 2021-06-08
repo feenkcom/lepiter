@@ -26,11 +26,14 @@ LeLogicalDatabaseReload >> database: anObject [
 LeLogicalDatabaseReload >> dbFor: aFileReference [
 	"Answer the concrete database for the supplied file reference.
 	If it is an existing DB, use that instance.  If it is a new DB, load it."
+	| newDb |
 
 	existingDbs detect: [ :db | db localStoreRootDirectory = aFileReference ]
 		ifFound: [ :db | ^ db ].
 
-	^ LeLocalStoreLoad current loadAndMonitorFrom: aFileReference.
+	newDb := LeLocalStoreLoad current loadAndMonitorFrom: aFileReference.
+	database setupAddedDB: newDb.
+	^ newDb
 ]
 
 { #category : #accessing }
@@ -59,29 +62,33 @@ LeLogicalDatabaseReload >> reload [
 		existingDbs add: db ].
 
 	"2. Shuffle and load the databases"
-	primaryDirectory := self properties primaryDatabaseDirectory.
-	playgroundDirectory := self properties playgroundDatabaseDirectory.
-	registeredDirectories := self properties registeredDatabaseDirectories.
+	primaryDirectory := self properties primaryDatabaseDirectory resolve.
+	playgroundDirectory := self properties playgroundDatabaseDirectory resolve.
+	registeredDirectories := self properties registeredDatabaseDirectories collect: #resolve.
 	"The primary and playground databases should be re-created if they don't exist
 	(allowing the Lepiter App to be started on a new machine."
 	primaryDirectory ensureCreateDirectory.
-	primaryDirectory = database primaryDB localStoreRootDirectory 
-		ifFalse: [ database primaryDB: (self dbFor: primaryDirectory) ].
+	primaryDirectory ~= database primaryDB localStoreRootDirectory resolve
+		ifTrue: [ database basicPrimaryDB: (self dbFor: primaryDirectory) ].
 
 	playgroundDirectory ensureCreateDirectory.
-	playgroundDirectory = database playgroundDB localStoreRootDirectory
-		ifFalse: [ database playgroundDB: (self dbFor: playgroundDirectory) ].
+	playgroundDirectory ~= database playgroundDB localStoreRootDirectory resolve ifTrue:
+		[ playgroundDirectory ~= primaryDirectory ifTrue:
+			[ database basicPlaygroundDB: (self dbFor: playgroundDirectory) ]
+		ifFalse:
+			[ database basicPlaygroundDB: database primaryDB ] ].
 
 	self updateRegisteredDatabases.
 
 	"3. Unload the unused databases"
 	self unloadUnusedDatabases.
 
-	"4. Reload and start monitoring"
+	"4. Reload and start monitoring existing databases that are not discarded"
 	database databasesDo: [ :db | 
-		db monitor
-			primitiveReload;
-			startMonitoring ].
+		(existingDbs includes: db) ifTrue:
+			[ db monitor
+				primitiveReload;
+				startMonitoring ] ].
 ]
 
 { #category : #private }
@@ -95,11 +102,11 @@ LeLogicalDatabaseReload >> reloadProperties [
 	propertiesFile ifNil: [ ^ self ].
 
 	"Ensure the default properties file is at the latest version"
-	propertiesFile = LepiterCoreDefaults logicalDatabasePropertiesFileReference ifTrue:
-		[ LeJsonV4LogicalPropertiesUpdater updateDefault ].
+	propertiesFile = LepiterCoreDefaults logicalDatabasePropertiesFileReference 
+		ifTrue: [ LeJsonV4LogicalPropertiesUpdater updateDefault ].
 
-	propertiesFile exists not ifTrue: 
-		[ database properties: LeLogicalDatabaseProperties default.
+	propertiesFile exists ifFalse: [ 
+		database properties: LeLogicalDatabaseProperties defaultForGlamorousToolkit.
 		^ self ].
 
 	database properties: (LeLogicalDatabaseProperties new localFile: propertiesFile)

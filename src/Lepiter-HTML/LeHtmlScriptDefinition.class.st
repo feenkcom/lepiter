@@ -3,7 +3,6 @@ LeHtmlScriptDefinition holds the information needed to fill out an HTML script t
 
 See {{gtMethod:name=LeHtmlPageExporterVisitor>>#addHideAndShowScript}} for example usage.
 
-
 "
 Class {
 	#name : #LeHtmlScriptDefinition,

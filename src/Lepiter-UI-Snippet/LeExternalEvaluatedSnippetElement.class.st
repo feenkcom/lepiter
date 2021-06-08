@@ -1,7 +1,6 @@
 "
 LeExternalEvaluatedSnippetElement is an abstract class that provides common behaviour for snippets that are evaluated in an external process.
 
-
 "
 Class {
 	#name : #LeExternalEvaluatedSnippetElement,

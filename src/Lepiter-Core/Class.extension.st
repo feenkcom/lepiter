@@ -1,17 +1,15 @@
-Extension { #name : #Behavior }
+Extension { #name : #Class }
 
 { #category : #'*Lepiter-Core' }
-Behavior >> gtCoderLepiterCommentsFor: aView [
-	<gtClassView>
-
+Class >> gtLepiterCommentFor: aView [
+	<gtView>
 	^ aView explicit
 		title: 'Comment';
-		tooltip: 'Lepiter Class comment';
-		priority: 30;
+		priority: -1;
 		disableAsync;
 		stencil: [ LeCoderCommentElement coderElementFor: self name ];
 		actionButtonIcon: BrGlamorousVectorIcons accept 
-			tooltip: 'Save document' 
+			tooltip: 'Save Comment' 
 			action: [ :aToggle :aTab | LePharoClassDatabase uniqueInstance savePage: aTab viewContentElement page ];
 		actionUpdateButtonTooltip: 'Update class comment'
 ]

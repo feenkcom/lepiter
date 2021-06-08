@@ -5,7 +5,6 @@ It only stores one type of page, {{gtClass:LePharoClassCommentPageType}}.  Each 
 
 There isn't a database monitor, and Individual pages must be manually saved back to the class using {{gtMethod:LePharoClassDatabase>>#savePage:}}.
 
-
 "
 Class {
 	#name : #LePharoClassDatabase,

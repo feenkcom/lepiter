@@ -1,14 +1,11 @@
 "
 I am a {{gtClass:LeSnippetElement}}.
 I display {{gtClass:LeWordSnippet}} information.
-1. # Example
-## User Input
-
+## Example
+### User Input
 {{gtExample:LeWordExamples>>#editInputEditorText|codeExpanded=false|previewExpanded=true}}
-1. ## Word Explanation
-
+### Word Explanation
 {{gtExample:LeWordExamples>>#searchAnotherWordExplanation|codeExpanded=false|previewExpanded=true}}
-
 
 "
 Class {

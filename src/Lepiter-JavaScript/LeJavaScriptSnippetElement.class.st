@@ -3,7 +3,6 @@ LeJavaScriptSnippetElement displays the contents of a {{gtClass:name=LeJavaScrip
 
 Currently the global uniqueInstance of the {{gtClass:name=JSLinkApplication}} is always used for execution.
 
-
 "
 Class {
 	#name : #LeJavaScriptSnippetElement,

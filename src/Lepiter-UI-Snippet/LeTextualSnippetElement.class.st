@@ -5,7 +5,6 @@ See my {{gtClass:LeBlockElement|expanded|show=#gtSubclassesFor:}} for concrete i
 
 KeyboardShortcuts holds a list of named shortcuts used by subclasses.  No keyboard shortcuts should be defined directly in subclasses to allow a different binding to be defined for non-English keyboards (if required / desired).
 
-
 "
 Class {
 	#name : #LeTextualSnippetElement,

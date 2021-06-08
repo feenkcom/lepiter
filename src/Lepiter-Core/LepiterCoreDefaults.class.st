@@ -1,11 +1,13 @@
 "
 LepiterCoreDefaults defines all default and constant values used by Lepiter-Core and dependents.
 
-
 "
 Class {
 	#name : #LepiterCoreDefaults,
 	#superclass : #Object,
+	#classInstVars : [
+		'defaultDocumentationDirectory'
+	],
 	#category : #'Lepiter-Core-Defaults'
 }
 
@@ -16,8 +18,20 @@ LepiterCoreDefaults class >> databasePropertiesBasename [
 ]
 
 { #category : #defaults }
+LepiterCoreDefaults class >> defaultDocumentationDirectory [
+	^ defaultDocumentationDirectory ifNil: [ 
+		FileLocator imageDirectory 
+			/ 'gt-extra' ]
+]
+
+{ #category : #defaults }
+LepiterCoreDefaults class >> defaultDocumentationDirectory: aFileLocator [
+	defaultDocumentationDirectory := aFileLocator
+]
+
+{ #category : #defaults }
 LepiterCoreDefaults class >> defaultGtoolkitDocumentationDirectory [
-	^ FileLocator gtResource 
+	^ self defaultDocumentationDirectory
 		/ 'feenkcom' 
 		/ 'gtoolkit' 
 		/ 'lepiter'

@@ -1,10 +1,8 @@
 "
 I add a title to a header.
 I am used by {{gtClass:LePageToolContentElement}} in {{gtMethod:LePageToolContentElement>>#withTitleOnly|label=#selector}}.
-1. # Example
-
+## Example
 {{gtExample:LeUIExamples>>#pageToolContentElement_TitleOnly|previewExpanded|codeExpanded=false}}
-
 
 "
 Class {

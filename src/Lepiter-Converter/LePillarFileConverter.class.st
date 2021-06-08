@@ -5,7 +5,6 @@ Pillar paragraphs are converted to separate snippets.
 
 If references to files can be found, i.e. the file exists, they are added as attachments in the db and the references updated.
 
-
 "
 Class {
 	#name : #LePillarFileConverter,
