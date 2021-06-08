@@ -128,6 +128,17 @@ LeExampleSnippet >> contentAsString [
 	^ '{{gtExample:', self asAnnotationString, '}}'
 ]
 
+{ #category : #'api - accessing' }
+LeExampleSnippet >> copyFrom: aLeExampleSnippet [
+	self codeExpanded: aLeExampleSnippet codeExpanded.
+	self exampleBehaviorName: aLeExampleSnippet exampleBehaviorName.
+	self exampleSelector: aLeExampleSnippet exampleSelector.
+	self noCode: aLeExampleSnippet noCode.
+	self previewExpanded: aLeExampleSnippet previewExpanded.
+	self previewHeight: aLeExampleSnippet previewHeight.
+	self previewShowSelector: aLeExampleSnippet previewShowSelector.
+]
+
 { #category : #initialization }
 LeExampleSnippet >> defaultCodeExpanded [
 	^ true

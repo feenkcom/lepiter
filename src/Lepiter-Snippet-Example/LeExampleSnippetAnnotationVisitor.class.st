@@ -51,7 +51,7 @@ LeExampleSnippetAnnotationVisitor >> visitNoCodeArgument: aNoCodeArgument [
 LeExampleSnippetAnnotationVisitor >> visitPreviewExpandedArgument: aPreviewExpandedArgument [
 	aPreviewExpandedArgument hasValidBooleanValue
 		ifFalse: [ ^ self ].
-
+	
 	self exampleSnippet previewExpanded: aPreviewExpandedArgument booleanValue
 ]
 
