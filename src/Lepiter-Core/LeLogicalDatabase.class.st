@@ -87,6 +87,13 @@ LeLogicalDatabase >> addDB: aLeDatabase [
 	^ self setupAddedDB: aLeDatabase
 ]
 
+{ #category : #'api - adding / removing' }
+LeLogicalDatabase >> addPage: aLePage [
+	"Add the supplied page to the receiver's primary DB"
+
+	^ primaryDB addPage: aLePage
+]
+
 { #category : #announcer }
 LeLogicalDatabase >> announcer [
 
