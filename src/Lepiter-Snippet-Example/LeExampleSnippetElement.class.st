@@ -7,10 +7,17 @@ Class {
 		'exampleContainer',
 		'exampleEditor',
 		'toolbarContainer',
-		'updateRequester'
+		'updateRequester',
+		'browseExampleButton'
 	],
 	#category : #'Lepiter-Snippet-Example-Snippet'
 }
+
+{ #category : #'private - event handling' }
+LeExampleSnippetElement >> browseExample [
+	self snippetViewModel gtExampleDo: [ :aGtExample |
+		self phlow spawnTool: (GtMethodCoderTool compiledMethod: aGtExample method) ]
+]
 
 { #category : #initialization }
 LeExampleSnippetElement >> initialize [
@@ -32,6 +39,15 @@ LeExampleSnippetElement >> initialize [
 		margin: (BlInsets left: 2 right: 2).
 	
 	exampleEditor editor addEventHandler: (LeEditorReachedBorderEventHandler new snippetElement: self).
+	
+	browseExampleButton := BrButton new
+		beSmallSize;
+		disable;
+		aptitude: BrGlamorousButtonWithIconAptitude;
+		icon: BrGlamorousVectorIcons browse;
+		label: 'Browse example code';
+		margin: (BlInsets top: 1 left: 4 bottom: 0 right: 3);
+		action: [ self browseExample ].
 
 	toolbarContainer := BrHorizontalPane new
 		hMatchParent;
@@ -46,7 +62,8 @@ LeExampleSnippetElement >> initialize [
 			BrLabel new
 				margin: (BlInsets top: 1);
 				aptitude: (BrGlamorousLabelAptitude new foreground: Color darkGray);
-				text: '}}' }.
+				text: '}}'.
+			browseExampleButton }.
 				
 	updateRequester := GtPhlowUpdateRequester new 
 		element: self selector: #updateExamplePreview.
@@ -114,6 +131,8 @@ LeExampleSnippetElement >> updateExamplePreview [
 
 	self snippetViewModel gtExampleDo: [ :aGtExample |
 		| anExampleElement |
+		
+		browseExampleButton enable.
 	
 		anExampleElement := GtExamplePreviewStencil new
 			example: aGtExample;
@@ -127,6 +146,8 @@ LeExampleSnippetElement >> updateExamplePreview [
 		exampleContainer addChild: anExampleElement as: #example.
 		^ self ].
 	
+	browseExampleButton disable.
+	
 	exampleContainer addChild: (BrHorizontalPane new
 		hMatchParent;
 		vExact: self snippetViewModel previewHeight;
@@ -137,9 +158,4 @@ LeExampleSnippetElement >> updateExamplePreview [
 			aptitude: (BrGlamorousLabelAptitude new light foreground: Color veryDarkGray);
 			text: 'Example not found')
 	) as: #example.
-]
-
-{ #category : #generated }
-LeExampleSnippetElement >> visitPreviewShowArgument: aPreviewShowArgument [
-	self previewShowSelector: aPreviewShowArgument selectorValue asSymbol
 ]
