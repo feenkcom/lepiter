@@ -1,7 +1,7 @@
 Class {
 	#name : #LeTextSnippetUpdateExamples,
 	#superclass : #LeSingleSnippetUpdateExamples,
-	#category : #'Lepiter-Snippet-Text-Examples'
+	#category : #'Lepiter-Core-Examples-Content'
 }
 
 { #category : #'examples - snippets' }
