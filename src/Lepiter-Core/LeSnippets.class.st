@@ -166,7 +166,7 @@ LeSnippets >> neoJsonOn: neoJSONWriter [
 LeSnippets >> printOn: aStream [
 	aStream 
 		print: self size;
-		nextPutAll: ' blocks'
+		nextPutAll: ' snippets'
 ]
 
 { #category : #removing }
