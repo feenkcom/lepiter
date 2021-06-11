@@ -17,6 +17,11 @@ LeWardleyMapSnippet class >> contextMenuItemSpefication [
 		title: 'Wardley Map'
 ]
 
+{ #category : #accessing }
+LeWardleyMapSnippet class >> defaultHeight [
+	^ 300
+]
+
 { #category : #factory }
 LeWardleyMapSnippet class >> empty [
 	^ self new
@@ -88,6 +93,11 @@ LeWardleyMapSnippet >> createLinkFromNode: aWardleyMapNodeModel toPageNamed: aPa
 		targetReference: aTargetReference)
 ]
 
+{ #category : #accessing }
+LeWardleyMapSnippet >> defaultHeight [
+	^ self class defaultHeight
+]
+
 { #category : #'api - actions' }
 LeWardleyMapSnippet >> detachWardleyMap [
 	self wardleyMap ifNotNil: [ :aWardleyMap |
@@ -98,7 +108,7 @@ LeWardleyMapSnippet >> detachWardleyMap [
 LeWardleyMapSnippet >> initialize [
 	super initialize.
 
-	height := 300.
+	height := self defaultHeight.
 	wardleyMap := GtWardleyMapModel new
 ]
 

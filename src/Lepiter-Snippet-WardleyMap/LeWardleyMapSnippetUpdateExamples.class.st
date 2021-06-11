@@ -4,27 +4,7 @@ Class {
 	#category : #'Lepiter-Snippet-WardleyMap-Examples'
 }
 
-{ #category : #'examples - snippets' }
-LeWardleyMapSnippetUpdateExamples >> assertSnippetModifiedFor: aSnippet [ 
-	self 
-		assert: aSnippet wardleyMap
-		equals: (GtWardleyMapModelExamples new newMap 
-			addNode: self newWardleyMapNode)
-]
-
-{ #category : #'examples - snippets' }
-LeWardleyMapSnippetUpdateExamples >> createTargetSnippet [
-	<gtExample>
-	^ LeWardleyMapSnippetExamples new emptySnippet
-]
-
-{ #category : #'examples - snippets' }
-LeWardleyMapSnippetUpdateExamples >> modifySnippet: aSnippet [ 
-	aSnippet wardleyMap 
-		addNode: self newWardleyMapNode.
-]
-
-{ #category : #'examples - snippets' }
+{ #category : #accessing }
 LeWardleyMapSnippetUpdateExamples >> newWardleyMapNode [
 	| node |
 	node := GtWardleyMapNodeModelExamples new newNode.
@@ -35,7 +15,15 @@ LeWardleyMapSnippetUpdateExamples >> newWardleyMapNode [
 	^ node
 ]
 
-{ #category : #'examples - snippets' }
+{ #category : #accessing }
 LeWardleyMapSnippetUpdateExamples >> nodeUUID [
 	^ UUID fromString: '5c97622e-e180-0d00-93b3-e25f0cc8dc70'
+]
+
+{ #category : #'examples - snippets' }
+LeWardleyMapSnippetUpdateExamples >> wardleyMapWithNode [
+	<gtExample>
+	^ GtWardleyMapModelExamples new newMap 
+		addNode: self newWardleyMapNode;
+		yourself
 ]

@@ -18,6 +18,18 @@ LeContentAttributesReloadExamples >> attributeReloadedForTextSnippet [
 ]
 
 { #category : #'as yet unclassified' }
+LeContentAttributesReloadExamples >> attributesReloaderForPharoSnippet [
+	<gtExample>
+	| textSnippet attributesReloader |
+	textSnippet := LePharoSnippet code: '1+1'.
+	attributesReloader := LeContentAttributesReloader forContent: textSnippet.
+	
+	self assert: attributesReloader hasChanges not.
+	
+	^ attributesReloader
+]
+
+{ #category : #'as yet unclassified' }
 LeContentAttributesReloadExamples >> correctMappingsForPharoSnippet [
 	<gtExample>
 	| attributesReloader attributeMappings |
