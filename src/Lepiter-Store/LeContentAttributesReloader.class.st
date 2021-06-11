@@ -53,7 +53,7 @@ LeContentAttributesReloader >> relevantAttributeMappings [
 { #category : #actions }
 LeContentAttributesReloader >> reloadCommonMetadataFromContent: aContent [
 	"Reload only the common attributes defined inside the mappings.
-	These are the attributes common among all snippets or pages"
+	These are the attributes common among all snippets or pages."
 	| attributeMapping |
 	self assertCanUpdateFomContent: aContent.
 	
@@ -69,7 +69,6 @@ LeContentAttributesReloader >> reloadFromContent: aSnippet [
 	| attributeMapping |
 	self assertCanUpdateFomContent: aSnippet.
 	
-	hasChanges := false.
 	attributeMapping := self relevantAttributeMappings.
 	self 
 		updateForMappings: attributeMapping 
