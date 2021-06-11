@@ -4,3 +4,8 @@ Extension { #name : #LeNullDatabase }
 LeNullDatabase >> databasesToDisplayDo: aBlock [
 	"do nothing"
 ]
+
+{ #category : #'*Lepiter-Tool' }
+LeNullDatabase >> localSyncMonitorStatus [
+	^ LeLocalSyncMissingMonitorStatus new
+]

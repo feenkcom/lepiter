@@ -43,6 +43,16 @@ LeWorldStatusDropdown >> dropdownElement [
 	^ dropdownElement
 ]
 
+{ #category : #testing }
+LeWorldStatusDropdown >> hasPendingChanges [
+	"Answer a boolean indicating whether any database has pending changes"
+
+	^ leWorldElement database 
+		ifNotNil: [ :aDatabase |
+			aDatabase localSyncMonitorStatus hasPendingChanges ]
+		ifNil: [ false ]
+]
+
 { #category : #initialization }
 LeWorldStatusDropdown >> initialize [
 	super initialize.
@@ -113,13 +123,10 @@ LeWorldStatusDropdown >> leWorldElement: aLeWorld [
 LeWorldStatusDropdown >> monitorQueuesEmpty [
 	"Answer a boolean indicating whether all the receiver's monitor queues are empty"
 
-	leWorldElement database 
-		ifNotNil: [ :db |
-			db databasesDo: [ :each |
-				each monitor isEmpty ifFalse: [ ^ false ] ] ]
-		ifNil: [ ^ false ].
-	
-	^ true
+	^ leWorldElement database 
+		ifNotNil: [ :aDatabase |
+			aDatabase localSyncMonitorStatus hasPendingChanges not ]
+		ifNil: [ false ]
 ]
 
 { #category : #'building widgets' }
@@ -190,7 +197,7 @@ LeWorldStatusDropdown >> onDatabaseRemoved: anAnnouncement [
 { #category : #callbacks }
 LeWorldStatusDropdown >> onDbSaved [
 
-	pageChanged := self monitorQueuesEmpty not.
+	pageChanged := self hasPendingChanges.
 	self updateWidget
 ]
 
@@ -237,6 +244,18 @@ LeWorldStatusDropdown >> reusedDropdownContent [
 
 { #category : #private }
 LeWorldStatusDropdown >> statusIcon [
+	"Answer the icon to display in the receiver's button"
+	
+	"Report an error in case we do not have a database."
+	(leWorldElement isNil or: [ 
+		leWorldElement database isNil ]) 
+			ifTrue: [ ^ BrGlamorousIcons redcircle ].
+	
+	^ leWorldElement database localSyncMonitorStatus statusIcon
+]
+
+{ #category : #private }
+LeWorldStatusDropdown >> statusIconOld [
 	"Answer the icon to display in the receiver's button"
 
 	self isRunningCleanly ifFalse: 

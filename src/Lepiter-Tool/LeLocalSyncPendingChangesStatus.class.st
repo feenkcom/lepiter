@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #testing }
-LeLocalSyncPendingChangesStatus >> isPendingChangesStatus [
+LeLocalSyncPendingChangesStatus >> hasPendingChanges [
 	^ true
 ]
 
