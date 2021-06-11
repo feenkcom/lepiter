@@ -33,7 +33,14 @@ LeExampleSnippet class >> leJsonV4AttributeMapping [
 	"To retries properties:
 	(Pragma allNamed: #propertyGetter: in: self) collect: [ :eachPragma | (eachPragma argumentAt: 1) -> (eachPragma argumentAt: 1) ]"
 	^ super leJsonV4AttributeMapping
-		addAll: {#exampleSelector->#exampleSelector. #previewHeight->#previewHeight. #previewShowSelector->#previewShowSelector. #exampleBehaviorName->#exampleBehaviorName. #codeExpanded->#codeExpanded. #previewExpanded->#previewExpanded. #noCode->#noCode};
+		addAll: {
+			#exampleSelector->#exampleSelector. 
+			#previewHeight->#previewHeight. 
+			#previewShowSelector->#previewShowSelector. 
+			#exampleBehaviorName->#exampleBehaviorName. 
+			#codeExpanded->#codeExpanded. 
+			#previewExpanded->#previewExpanded. 
+			#noCode->#noCode};
 		yourself
 ]
 

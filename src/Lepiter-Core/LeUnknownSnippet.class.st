@@ -162,8 +162,12 @@ LeUnknownSnippet >> reloadFromContent: aLeSnippet [
 		myParent addSnippet: aLeSnippet beforeIndex: index.
 		^ true ].
 
-	"It's still unknown, update the jsonString"
-	changed := super reloadFromContent: aLeSnippet.
+	"It's still unknown, update the children snippets and the jsonString.
+	No other metadata needs to be update for an unknown snippet, as that
+	snippet is created on-the-fly by the importer."
+	self reloadFromChildren: aLeSnippet children.
+	
+	changed := false.
 	jsonString = aLeSnippet jsonString ifFalse: 
 		[ self jsonString: aLeSnippet jsonString.
 		changed := true ].
