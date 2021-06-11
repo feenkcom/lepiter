@@ -113,18 +113,6 @@ LeCodeSnippet >> printOn: aStream [
 		nextPutAll: ')'
 ]
 
-{ #category : #'private - updating' }
-LeCodeSnippet >> reloadFromContent: aLeCodeSnippet [
-	"Reload the receiver from the supplied snippet"
-	| changed |
-	
-	changed := super reloadFromContent: aLeCodeSnippet.
-	self code = aLeCodeSnippet code ifFalse: [ 
-		self code: aLeCodeSnippet code.
-		changed := true ].
-	^ changed
-]
-
 { #category : #'api - accessing' }
 LeCodeSnippet >> text [ 
 	<return: #BlText>
