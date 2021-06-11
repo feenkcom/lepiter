@@ -26,6 +26,12 @@ LeLocalSyncLogicalDatabaseMonitorStatus >> gtViewStatusesFor: aView [
 		itemText: [ :aStatus | aStatus formattedShortName ]
 ]
 
+{ #category : #testing }
+LeLocalSyncLogicalDatabaseMonitorStatus >> hasPendingChanges [
+	^ self databaseStatuses anySatisfy: [ :aMonitorStatus |
+		aMonitorStatus hasPendingChanges ]
+]
+
 { #category : #initialization }
 LeLocalSyncLogicalDatabaseMonitorStatus >> initialize [
 	super initialize.
@@ -34,14 +40,8 @@ LeLocalSyncLogicalDatabaseMonitorStatus >> initialize [
 
 { #category : #testing }
 LeLocalSyncLogicalDatabaseMonitorStatus >> isErrorStatus [
-	^ self databaseStatuses allSatisfy: [ :aMonitorStatus |
+	^ self databaseStatuses anySatisfy: [ :aMonitorStatus |
 		aMonitorStatus isErrorStatus ]
-]
-
-{ #category : #testing }
-LeLocalSyncLogicalDatabaseMonitorStatus >> isPendingChangesStatus [
-	^ self databaseStatuses allSatisfy: [ :aMonitorStatus |
-		aMonitorStatus isPendingChangesStatus ]
 ]
 
 { #category : #accessing }
@@ -50,7 +50,7 @@ LeLocalSyncLogicalDatabaseMonitorStatus >> shortName [
 	self isErrorStatus ifTrue: 
 		[ ^ 'Error' ].
 
-	self isPendingChangesStatus ifTrue: 
+	self hasPendingChanges ifTrue: 
 		[ ^ 'Pending changes' ].
 
 	^ 'Synchronized'
@@ -62,7 +62,7 @@ LeLocalSyncLogicalDatabaseMonitorStatus >> statusColor [
 	self isErrorStatus ifTrue: 
 		[ ^ Color red ].
 
-	self isPendingChangesStatus ifTrue: 
+	self hasPendingChanges ifTrue: 
 		[ ^ Color yellow muchDarker ].
 
 	^ Color green muchDarker
@@ -75,7 +75,7 @@ LeLocalSyncLogicalDatabaseMonitorStatus >> statusIcon [
 	self isErrorStatus ifTrue: 
 		[ ^ BrGlamorousIcons redcircle ].
 
-	self isPendingChangesStatus ifTrue: 
+	self hasPendingChanges ifTrue: 
 		[ ^ BrGlamorousIcons yellowcircle ].
 
 	^ BrGlamorousIcons greencircle
