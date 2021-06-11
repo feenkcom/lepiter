@@ -710,6 +710,32 @@ LeContent >> parent [
 ]
 
 { #category : #'private - updating' }
+LeContent >> reloadEditMetadataFromContent: aLeContent [
+	"Reload the receiver edit metadata from the supplied snippet"
+	| changed |
+
+	changed := false.
+
+	editEmail = aLeContent editEmail ifFalse: 
+		[ editEmail := aLeContent editEmail.
+		changed := true ].
+
+	createEmail = aLeContent createEmail ifFalse: 
+		[ createEmail := aLeContent createEmail.
+		changed := true ].
+
+	editTime = aLeContent editTime ifFalse: 
+		[ editTime := aLeContent editTime.
+		changed := true ].
+
+	createTime = aLeContent createTime ifFalse: 
+		[ createTime := aLeContent createTime.
+		changed := true ].
+
+	^ changed
+]
+
+{ #category : #'private - updating' }
 LeContent >> reloadFromChildren: aCollection [
 	"Update the receiver to match the supplied children"
 
@@ -743,23 +769,7 @@ LeContent >> reloadFromContent: aLeContent [
 	"Reload the receiver from the supplied snippet"
 	| changed |
 
-	changed := false.
-
-	editEmail = aLeContent editEmail ifFalse: 
-		[ editEmail := aLeContent editEmail.
-		changed := true ].
-
-	createEmail = aLeContent createEmail ifFalse: 
-		[ createEmail := aLeContent createEmail.
-		changed := true ].
-
-	editTime = aLeContent editTime ifFalse: 
-		[ editTime := aLeContent editTime.
-		changed := true ].
-
-	createTime = aLeContent createTime ifFalse: 
-		[ createTime := aLeContent createTime.
-		changed := true ].
+	changed := self reloadEditMetadataFromContent: aLeContent.
 
 	"Reload the receiver's children from the supplied content.
 	While this answers a boolean indicating whether changes were made, each change is announced individually, so no need to re-announce here"
