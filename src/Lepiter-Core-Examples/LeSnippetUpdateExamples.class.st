@@ -72,21 +72,21 @@ LeSnippetUpdateExamples >> pageWithSnippets [
 { #category : #'examples - snippets' }
 LeSnippetUpdateExamples >> pageWithSnippetsChangedWhileMonitorStopped [
 	<gtExample>
-	| database secondDatabase targetPageSecondDatabase |
-	database := self pageWithSnippets.
-	database monitor stopMonitoring. 
+	| mainDatabase secondDatabase targetPageSecondDatabase |
+	mainDatabase := self pageWithSnippets.
+	mainDatabase monitor stopMonitoring. 
 	
 	"We create another database on the same storag and use it to change the snippet,
 	while the monitor of the initial database is stopped."
 	secondDatabase := self secondDatabaseWithMockedStorage.
-	self assert: database pages size equals: 1.
 	
 	targetPageSecondDatabase := secondDatabase pageNamed: 'PageOne'.
 	self modifySnippetsInPage: targetPageSecondDatabase.
+	self assert: secondDatabase pages size equals: 1.
 	
 	secondDatabase stopMonitoring.
 	
-	^ database
+	^ mainDatabase
 ]
 
 { #category : #'examples - snippets' }

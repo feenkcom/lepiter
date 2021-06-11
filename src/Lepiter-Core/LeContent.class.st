@@ -551,8 +551,7 @@ LeContent >> isNotEmpty [
 	"Answer a boolean indicating if the receiver is empty, i.e.
 	has no children, or the only child is empty"
 
-	^ self hasChildren
-		and: [ self childrenCount >= 1 and: [ self children first isNotEmpty ] ]
+	^ self isEmpty not
 ]
 
 { #category : #'api - testing' }
