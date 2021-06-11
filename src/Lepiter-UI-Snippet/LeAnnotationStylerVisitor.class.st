@@ -438,9 +438,7 @@ LeAnnotationStylerVisitor >> visitClassAnnotation: aClassAnnotation [
 				spawnTool: (GtClassCoderTool observedClass: aClassAnnotation imageObject) ].
 	self
 		styleButton: aClassAnnotation
-		withTool: [ GtPhlowCompositeTool new
-				addTool: (GtDocumenterTool forClass: aClassAnnotation imageObject);
-				addTool: (GtClassCoderTool forClass: aClassAnnotation imageObject) ].
+		withTool: [ GtClassCoderTool forClass: aClassAnnotation imageObject ].
 	self
 		styleExpandingObject: aClassAnnotation
 		withDefault: GtDocumentConstants defaultClassShowSelector
