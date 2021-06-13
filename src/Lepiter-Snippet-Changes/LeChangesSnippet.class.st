@@ -9,7 +9,7 @@ Class {
 }
 
 { #category : #'api - accessing menu' }
-LeChangesSnippet class >> contextMenuItemSpefication [
+LeChangesSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;

@@ -10,7 +10,7 @@ Class {
 }
 
 { #category : #'api - accessing menu' }
-LeWardleyMapSnippet class >> contextMenuItemSpefication [
+LeWardleyMapSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;

@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #'api - accessing menu' }
-LePythonSnippet class >> contextMenuItemSpefication [
+LePythonSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;

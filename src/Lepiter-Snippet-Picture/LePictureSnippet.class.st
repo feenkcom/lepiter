@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #accessing }
-LePictureSnippet class >> contextMenuItemSpefication [
+LePictureSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		priority: 3;

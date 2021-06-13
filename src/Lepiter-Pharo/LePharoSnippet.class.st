@@ -31,7 +31,7 @@ LePharoSnippet class >> code: aString [
 ]
 
 { #category : #accessing }
-LePharoSnippet class >> contextMenuItemSpefication [
+LePharoSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 
 	^ LeContextMenuItemSpecification new
