@@ -463,6 +463,11 @@ LePage >> renameTo: aString [
 	self updateTitle: aString
 ]
 
+{ #category : #accessing }
+LePage >> shouldAppearInIndexOrDailyNotes [
+	^ self type shouldAppearInIndexOrDailyNotes
+]
+
 { #category : #'api - accessing' }
 LePage >> title [
 	"Answer the page's title"

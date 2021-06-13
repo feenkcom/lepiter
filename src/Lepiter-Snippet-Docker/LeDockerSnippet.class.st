@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #accessing }
-LeDockerSnippet class >> contextMenuItemSpefication [
+LeDockerSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;

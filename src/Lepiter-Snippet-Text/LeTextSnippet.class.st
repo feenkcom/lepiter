@@ -56,7 +56,7 @@ LeTextSnippet class >> builder [
 ]
 
 { #category : #accessing }
-LeTextSnippet class >> contextMenuItemSpefication [
+LeTextSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		priority: 1;

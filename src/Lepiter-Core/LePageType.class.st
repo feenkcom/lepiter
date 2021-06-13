@@ -92,6 +92,11 @@ LePageType >> saveEmptyPages [
 ]
 
 { #category : #accessing }
+LePageType >> shouldAppearInIndexOrDailyNotes [
+	^ false
+]
+
+{ #category : #accessing }
 LePageType >> title [
 	"Answer the receiver's title"
 

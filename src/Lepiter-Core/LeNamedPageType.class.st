@@ -66,6 +66,11 @@ LeNamedPageType >> saveEmptyPages [
 ]
 
 { #category : #accessing }
+LeNamedPageType >> shouldAppearInIndexOrDailyNotes [
+	^ true
+]
+
+{ #category : #accessing }
 LeNamedPageType >> title [
 
 	^ title

@@ -20,7 +20,7 @@ LeElementSnippet class >> code: aString [
 ]
 
 { #category : #factory }
-LeElementSnippet class >> contextMenuItemSpefication [
+LeElementSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		priority: 4;
