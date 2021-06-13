@@ -86,7 +86,7 @@ LeUIExamples >> basicPageBlockTreeElement [
 LeUIExamples >> basicPageTitleAndEditInfoElement [
 	<gtExample>
 	| anElement |
-	anElement := LePageTitleAndEditInfoElement new.
+	anElement := LePageTitleAndSummaryElement new.
 	self assert: anElement hasPage not.
 	^ anElement
 ]

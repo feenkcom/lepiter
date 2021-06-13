@@ -15,7 +15,7 @@ LePageElementShowroomExamples >> allElements [
 			self
 				createExampleCard: self pageTitleAndEditInfoElement fitContent
 				named: 'Title and edit info'
-				class: LePageTitleAndEditInfoElement.
+				class: LePageTitleAndSummaryElement.
 				
 			self
 				createExampleCard: self pageEditableTitleElement
@@ -84,7 +84,7 @@ LePageElementShowroomExamples >> pageTitleAndEditInfoElement [
 	<gtExample>
 	| aTitleAndEditInfoElement |
 	
-	aTitleAndEditInfoElement := LePageTitleAndEditInfoElement new
+	aTitleAndEditInfoElement := LePageTitleAndSummaryElement new
 		pageViewModel: self pageWithTitleViewModel.
 		
 	^ aTitleAndEditInfoElement

@@ -65,9 +65,10 @@ LeDatabasePageListElement >> initializeListElement [
 	listElement := BrSimpleList new
 		margin: (BlInsets top: 5);
 		itemStencil: [ :anItemType |
-			LePageTitleAndEditInfoElement new
+			LePageTitleAndSummaryElement new
 				hMatchParent;
 				vFitContent;
+				padding: (BlInsets top: 3 left: 12 bottom: 3 right: 12);
 				addAptitude: BrGlamorousListItemAptitude ];
 		itemDataBinder: [ :anItemElement :eachPageViewModel | anItemElement pageViewModel: eachPageViewModel ];
 		when: BrSelectionChanged
