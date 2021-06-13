@@ -33,6 +33,11 @@ LeCollection >> addFirstChild: aChild [
 
 ]
 
+{ #category : #accessing }
+LeCollection >> anyOne [
+	^ self first
+]
+
 { #category : #enumerating }
 LeCollection >> anySatisfy: aBlock [
 	^ self items anySatisfy: aBlock
