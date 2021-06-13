@@ -4,6 +4,11 @@ Class {
 	#category : #'Lepiter-Snippet-WardleyMap-Examples'
 }
 
+{ #category : #testing }
+LeWardleyMapSnippetUpdateExamples class >> isAbstract [
+	^ self = LeWardleyMapSnippetUpdateExamples
+]
+
 { #category : #accessing }
 LeWardleyMapSnippetUpdateExamples >> newWardleyMapNode [
 	| node |

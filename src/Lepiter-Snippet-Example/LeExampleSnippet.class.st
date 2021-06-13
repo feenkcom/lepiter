@@ -305,6 +305,11 @@ LeExampleSnippet >> initialize [
 	previewHeight := self defaultPreviewHeight
 ]
 
+{ #category : #'api - testing' }
+LeExampleSnippet >> isEmpty [ 
+	^ self exampleBehaviorName isNil
+]
+
 { #category : #'api - no code' }
 LeExampleSnippet >> noCode [
 	<return: #Boolean>
