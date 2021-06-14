@@ -15,7 +15,7 @@ LePageTreeNodeModel class >> forPage: aPage [
 
 { #category : #accessing }
 LePageTreeNodeModel class >> treeNodeInfoElementClass [
-	^ LePageTitleAndEditInfoElement 
+	^ LePageTitleAndSummaryElement 
 ]
 
 { #category : #comparing }

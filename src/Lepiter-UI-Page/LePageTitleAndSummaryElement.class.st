@@ -6,7 +6,7 @@ I display a {{gtClass:LePage}} title, edit date and edit email:
 
 "
 Class {
-	#name : #LePageTitleAndEditInfoElement,
+	#name : #LePageTitleAndSummaryElement,
 	#superclass : #BlElement,
 	#traits : 'TLeWithPageViewModel + TBrLayoutResizable',
 	#classTraits : 'TLeWithPageViewModel classTrait + TBrLayoutResizable classTrait',
@@ -14,41 +14,43 @@ Class {
 		'titleElement',
 		'dateElement',
 		'emailElement',
-		'dateAndEmailElement'
+		'dateAndEmailElement',
+		'summaryElement'
 	],
 	#category : #'Lepiter-UI-Page-! Views'
 }
 
 { #category : #accessing }
-LePageTitleAndEditInfoElement >> contentViewModel: aPageViewModel [
+LePageTitleAndSummaryElement >> contentViewModel: aPageViewModel [
 	self pageViewModel: aPageViewModel
 ]
 
 { #category : #'private - accessing' }
-LePageTitleAndEditInfoElement >> dateAndEmailElement [
+LePageTitleAndSummaryElement >> dateAndEmailElement [
 	^ dateAndEmailElement
 ]
 
 { #category : #'private - accessing' }
-LePageTitleAndEditInfoElement >> dateElement [
+LePageTitleAndSummaryElement >> dateElement [
 	^ dateElement
 ]
 
 { #category : #'private - accessing' }
-LePageTitleAndEditInfoElement >> emailElement [
+LePageTitleAndSummaryElement >> emailElement [
 	^ emailElement
 ]
 
 { #category : #initialization }
-LePageTitleAndEditInfoElement >> initialize [
+LePageTitleAndSummaryElement >> initialize [
 	super initialize.
 	self initializeTitleElement.
 "	self initializeDateAndEmailElement.
 	self initializeDateElement.
 	self initializeEmailElement."
-	self layout: BlLinearLayout vertical.
+	self layout: BlLinearLayout horizontal.
 	
 	self addChild: self titleElement as: #title.
+	self addChild: self summaryElement as: #summary.
 "	self addChild: self dateAndEmailElement as: #dateAndEmail.
 	self dateAndEmailElement addChild: self dateElement as: #date.
 	self dateAndEmailElement addChild: self emailElement as: #email.
@@ -68,14 +70,14 @@ LePageTitleAndEditInfoElement >> initialize [
 ]
 
 { #category : #initialization }
-LePageTitleAndEditInfoElement >> initializeDateAndEmailElement [
+LePageTitleAndSummaryElement >> initializeDateAndEmailElement [
 	dateAndEmailElement := BrHorizontalPane new
 		hMatchParent;
 		vFitContent
 ]
 
 { #category : #initialization }
-LePageTitleAndEditInfoElement >> initializeDateElement [
+LePageTitleAndSummaryElement >> initializeDateElement [
 	dateElement := BrLabel new
 		aptitude: (BrGlamorousLabelAptitude new glamorousRegularFont; foreground: Color gray);
 		hMatchParent;
@@ -83,7 +85,7 @@ LePageTitleAndEditInfoElement >> initializeDateElement [
 ]
 
 { #category : #initialization }
-LePageTitleAndEditInfoElement >> initializeEmailElement [
+LePageTitleAndSummaryElement >> initializeEmailElement [
 	emailElement := BrLabel new
 		aptitude: (BrGlamorousLabelAptitude new glamorousRegularFont; foreground: Color gray);
 		hMatchParent;
@@ -91,29 +93,39 @@ LePageTitleAndEditInfoElement >> initializeEmailElement [
 ]
 
 { #category : #initialization }
-LePageTitleAndEditInfoElement >> initializeTitleElement [
-	titleElement := BrLabel new
+LePageTitleAndSummaryElement >> initializeSummaryElement [
+	summaryElement := BrLabel new
 		beSmallSize;
-		aptitude: (BrGlamorousLabelAptitude new);
+		aptitude: (BrGlamorousLabelAptitude new foreground: self theme header disabledTextColor);
+		margin: (BlInsets left: 10);
 		hMatchParent;
 		vFitContent
 ]
 
+{ #category : #initialization }
+LePageTitleAndSummaryElement >> initializeTitleElement [
+	titleElement := BrLabel new
+		beSmallSize;
+		aptitude: (BrGlamorousLabelAptitude new);
+		hFitContent;
+		vFitContent
+]
+
 { #category : #'private - event handling' }
-LePageTitleAndEditInfoElement >> onPageTitleChanged [
+LePageTitleAndSummaryElement >> onPageTitleChanged [
 	self titleElement enqueueTask: (BlTaskAction new action: [ 
 		self updatePageInfo ])
 ]
 
 { #category : #'api - page view model' }
-LePageTitleAndEditInfoElement >> onPageViewModelChanged [
+LePageTitleAndSummaryElement >> onPageViewModelChanged [
 	"Is sent when a new page view model is assigned to the element"
 	
 	self updatePageInfo
 ]
 
 { #category : #'api - page view model' }
-LePageTitleAndEditInfoElement >> subscribeToPageViewModel [
+LePageTitleAndSummaryElement >> subscribeToPageViewModel [
 	"Is sent after a new page view model is assigned to the element.
 	It is required to unsubscribe from the view model or domain model by implementing
 	#unsubscribeFromPageViewModel if elements subscribe to them"
@@ -122,13 +134,26 @@ LePageTitleAndEditInfoElement >> subscribeToPageViewModel [
 		when: LePageViewModelTitleChanged send: #onPageTitleChanged to: self
 ]
 
+{ #category : #initialization }
+LePageTitleAndSummaryElement >> summaryElement [
+	^ summaryElement
+		ifNil: [ summaryElement := BrLabel new
+				beSmallSize;
+				aptitude:
+					(BrGlamorousLabelAptitude new
+						foreground: self theme header disabledTextColor);
+				margin: (BlInsets left: 10);
+				hMatchParent;
+				vFitContent ]
+]
+
 { #category : #'private - accessing' }
-LePageTitleAndEditInfoElement >> titleElement [
+LePageTitleAndSummaryElement >> titleElement [
 	^ titleElement
 ]
 
 { #category : #'api - page view model' }
-LePageTitleAndEditInfoElement >> unsubscribeFromPageViewModel [
+LePageTitleAndSummaryElement >> unsubscribeFromPageViewModel [
 	"Is sent before a new page view model is assigned to the element.
 	Elements that subscribe to page view model in domain model are required to implement this methods"
 	
@@ -136,8 +161,9 @@ LePageTitleAndEditInfoElement >> unsubscribeFromPageViewModel [
 ]
 
 { #category : #'private - updating' }
-LePageTitleAndEditInfoElement >> updatePageInfo [
+LePageTitleAndSummaryElement >> updatePageInfo [
 	self titleElement text: self pageViewModel pageTitle.
+	self summaryElement text: ((self pageViewModel printPageSummaryLimitedTo: 43) truncateWithElipsisTo: 40).
 	"self emailElement text: self pageViewModel printPageEditOrCreateEmail.
 	self dateElement text: self pageViewModel printPageLatestEditTime"
 ]

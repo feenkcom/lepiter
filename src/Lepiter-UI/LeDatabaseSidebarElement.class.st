@@ -142,13 +142,9 @@ LeDatabaseSidebarElement >> initializeTabGroupElement [
 			aptitude: BrGlamorousTabAptitude new;
 			label: 'Pages';
 			stencil: [ self pagesElement ]);
-		"addTab: (BrTab new
-			aptitude: BrGlamorousTabAptitude new;
-			label: 'Daily Notes (old)';
-			stencil: [ self dailyNotesElement ]);"
 		addTab: (BrTab new
 			aptitude: BrGlamorousTabAptitude new;
-			label: 'Daily Notes';
+			label: 'By Day';
 			stencil: [ self dailyNotesGroupElement ]).
 			
 	tabGroupElement padding: tabGroupElement padding + (BlInsets right: 3).

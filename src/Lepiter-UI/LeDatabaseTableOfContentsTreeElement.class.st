@@ -43,7 +43,7 @@ LeDatabaseTableOfContentsTreeElement >> initializeTreeElement [
 		rowStencil: (BrGlamorousSimpleTreeSelectableRowElementStencilBuilder new);
 		nodeType: [ :anItemTypeFactory :aTreeNode :anItemIndex | aTreeNode value page class ];
 		nodeStencil: [ :aNodeType |
-			LePageTitleAndEditInfoElement new
+			LePageTitleAndSummaryElement new
 				hMatchParent;
 				vFitContent ];
 		nodeDataBinder: [ :anItemElement :eachLeTableOfContentsNode |
