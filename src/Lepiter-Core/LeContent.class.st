@@ -551,8 +551,7 @@ LeContent >> isNotEmpty [
 	"Answer a boolean indicating if the receiver is empty, i.e.
 	has no children, or the only child is empty"
 
-	^ self hasChildren
-		and: [ self childrenCount >= 1 and: [ self children first isNotEmpty ] ]
+	^ self isEmpty not
 ]
 
 { #category : #'api - testing' }
@@ -710,6 +709,19 @@ LeContent >> parent [
 ]
 
 { #category : #'private - updating' }
+LeContent >> reloadAttributesFromContent: aLeContent [
+	^ self subclassResponsibility
+]
+
+{ #category : #'private - updating' }
+LeContent >> reloadCommonMetadataFromContent: aLeContent [
+	| attributesReloader |
+	attributesReloader := LeContentAttributesReloader forContent: self.
+	attributesReloader reloadCommonMetadataFromContent: aLeContent.
+	^ attributesReloader hasChanges
+]
+
+{ #category : #'private - updating' }
 LeContent >> reloadFromChildren: aCollection [
 	"Update the receiver to match the supplied children"
 
@@ -743,23 +755,7 @@ LeContent >> reloadFromContent: aLeContent [
 	"Reload the receiver from the supplied snippet"
 	| changed |
 
-	changed := false.
-
-	editEmail = aLeContent editEmail ifFalse: 
-		[ editEmail := aLeContent editEmail.
-		changed := true ].
-
-	createEmail = aLeContent createEmail ifFalse: 
-		[ createEmail := aLeContent createEmail.
-		changed := true ].
-
-	editTime = aLeContent editTime ifFalse: 
-		[ editTime := aLeContent editTime.
-		changed := true ].
-
-	createTime = aLeContent createTime ifFalse: 
-		[ createTime := aLeContent createTime.
-		changed := true ].
+	changed := self reloadAttributesFromContent: aLeContent.
 
 	"Reload the receiver's children from the supplied content.
 	While this answers a boolean indicating whether changes were made, each change is announced individually, so no need to re-announce here"

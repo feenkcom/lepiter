@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #accessing }
-LeDockerSnippet class >> contextMenuItemSpefication [
+LeDockerSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;
@@ -58,6 +58,19 @@ LeDockerSnippet >> contentAsString [
 				nextPutAll: (self url ifEmpty: [ '<dockerUrl>' ])]
 ]
 
+{ #category : #'api - testing' }
+LeDockerSnippet >> isEmpty [ 
+	^ self url isNil
+]
+
+{ #category : #notifications }
+LeDockerSnippet >> notifyUrlChanged [
+	self notifyAnnouncement: (LeDockerSnippetUrlChanged new
+		source: self;
+		snippet: self;
+		url: self url).
+]
+
 { #category : #accessing }
 LeDockerSnippet >> url [
 	^ url
@@ -65,5 +78,8 @@ LeDockerSnippet >> url [
 
 { #category : #accessing }
 LeDockerSnippet >> url: dockerApiUrl [
-	url := dockerApiUrl
+	self url = dockerApiUrl ifTrue: [ ^ self ].
+			
+	url := dockerApiUrl.
+	self notifyUrlChanged.
 ]

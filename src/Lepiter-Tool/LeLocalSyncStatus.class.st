@@ -10,6 +10,21 @@ LeLocalSyncStatus >> formattedShortName [
 		foreground: self statusColor
 ]
 
+{ #category : #testing }
+LeLocalSyncStatus >> hasPendingChanges [
+	^ false
+]
+
+{ #category : #testing }
+LeLocalSyncStatus >> isErrorStatus [
+	^ false
+]
+
+{ #category : #testing }
+LeLocalSyncStatus >> isRunningCleanly [
+	^ self isErrorStatus not
+]
+
 { #category : #printing }
 LeLocalSyncStatus >> printOn: aStream [
 	super printOn: aStream.

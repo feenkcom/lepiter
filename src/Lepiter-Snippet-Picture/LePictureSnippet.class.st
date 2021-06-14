@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #accessing }
-LePictureSnippet class >> contextMenuItemSpefication [
+LePictureSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		priority: 3;
@@ -77,11 +77,6 @@ LePictureSnippet >> initialize [
 { #category : #'api - testing' }
 LePictureSnippet >> isEmpty [
 	^ super isEmpty and: [ urlString isEmpty ]
-]
-
-{ #category : #'api - testing' }
-LePictureSnippet >> isNotEmpty [
-	^ super isNotEmpty or: [ urlString isNotEmpty ]
 ]
 
 { #category : #'private - exporting' }

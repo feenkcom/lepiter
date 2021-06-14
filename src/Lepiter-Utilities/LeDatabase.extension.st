@@ -5,12 +5,13 @@ LeDatabase >> dailyNotesGroup [
 	| dailyNotesGroupedByDate |
 	dailyNotesGroupedByDate := Dictionary new.
 	self pagesDo: [ :aPage |
-		| creationDay dailyNote |
-		creationDay := aPage createTime asDate.
-		dailyNote := dailyNotesGroupedByDate
-			at: creationDay 
-			ifAbsentPut: [ LeDailyNote forDate: creationDay ].
-		dailyNote addChild: aPage ].
+		aPage shouldAppearInIndexOrDailyNotes ifTrue: [
+			| creationDay dailyNote |
+			creationDay := aPage createTime asDate.
+			dailyNote := dailyNotesGroupedByDate
+				at: creationDay 
+				ifAbsentPut: [ LeDailyNote forDate: creationDay ].
+			dailyNote addChild: aPage ] ].
 	^ dailyNotesGroupedByDate values sorted: [ :a :b | a date > b date ]
 ]
 

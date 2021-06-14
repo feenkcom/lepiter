@@ -407,6 +407,14 @@ LeSnippet >> previousSnippetDo: aBlock ifNone: aNoneBlock [
 		ifFalse: [ aBlock value: (self parent children at: myIndex - 1) lastChildOrSelf ]
 ]
 
+{ #category : #'private - updating' }
+LeSnippet >> reloadAttributesFromContent: aSnippet [
+	| attributesReloader |
+	attributesReloader := LeContentAttributesReloader forContent: self.
+	attributesReloader reloadFromContent: aSnippet.
+	^ attributesReloader hasChanges
+]
+
 { #category : #removing }
 LeSnippet >> removeSelf [
 	"Remove the receiver from its parent"

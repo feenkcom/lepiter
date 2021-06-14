@@ -56,7 +56,7 @@ LeTextSnippet class >> builder [
 ]
 
 { #category : #accessing }
-LeTextSnippet class >> contextMenuItemSpefication [
+LeTextSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		priority: 1;
@@ -398,11 +398,11 @@ LeTextSnippet >> printOn: aStream [
 ]
 
 { #category : #'private - updating' }
-LeTextSnippet >> reloadFromContent: aLeSnippet [
-	"Reload the receiver from the supplied snippet"
+LeTextSnippet >> reloadAttributesFromContent: aLeSnippet [
+	"Reload the receiver's attributes from the supplied snippet"
 	| changed |
 	
-	changed := super reloadFromContent: aLeSnippet.
+	changed := self reloadCommonMetadataFromContent: aLeSnippet.
 	paragraphStyle = aLeSnippet paragraphStyle ifFalse:
 		[ paragraphStyle := aLeSnippet paragraphStyle.
 		changed := true ].

@@ -8,9 +8,8 @@ Class {
 	#category : #'Lepiter-Snippet-Words-Examples'
 }
 
-{ #category : #'examples - words' }
+{ #category : #'accessing - words' }
 LeWordExamples >> anotherWord [
-	<gtExample>
 	^ 'human'
 ]
 
@@ -121,9 +120,8 @@ LeWordExamples >> helloExplanation [
 		rawData: self helloWordJsonObject
 ]
 
-{ #category : #'examples - words' }
+{ #category : #'accessing - words' }
 LeWordExamples >> helloWord [
-	<gtExample>
 	^ 'hello'
 ]
 
@@ -135,7 +133,6 @@ LeWordExamples >> helloWordJsonObject [
 
 { #category : #'examples - model' }
 LeWordExamples >> helloWordJsonRawData [
-	<gtExample>
 	^ '[
     {
       "word": "hello",
@@ -268,8 +265,7 @@ LeWordExamples >> viewElement [
 	^ anElement
 ]
 
-{ #category : #'examples - words' }
+{ #category : #'accessing - words' }
 LeWordExamples >> word [
-	<gtExample>
 	^ 'Earth'
 ]

@@ -10,11 +10,16 @@ Class {
 }
 
 { #category : #'api - accessing menu' }
-LeWardleyMapSnippet class >> contextMenuItemSpefication [
+LeWardleyMapSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;
 		title: 'Wardley Map'
+]
+
+{ #category : #accessing }
+LeWardleyMapSnippet class >> defaultHeight [
+	^ 300
 ]
 
 { #category : #factory }
@@ -88,12 +93,28 @@ LeWardleyMapSnippet >> createLinkFromNode: aWardleyMapNodeModel toPageNamed: aPa
 		targetReference: aTargetReference)
 ]
 
+{ #category : #accessing }
+LeWardleyMapSnippet >> defaultHeight [
+	^ self class defaultHeight
+]
+
+{ #category : #'api - actions' }
+LeWardleyMapSnippet >> detachWardleyMap [
+	self wardleyMap ifNotNil: [ :aWardleyMap |
+		aWardleyMap unsubscribe: self ]
+]
+
 { #category : #initialization }
 LeWardleyMapSnippet >> initialize [
 	super initialize.
 
-	height := 300.
+	height := self defaultHeight.
 	wardleyMap := GtWardleyMapModel new
+]
+
+{ #category : #'api - testing' }
+LeWardleyMapSnippet >> isEmpty [
+	^ super isEmpty and: [ wardleyMap isNil ]
 ]
 
 { #category : #'api - links' }
@@ -126,6 +147,26 @@ LeWardleyMapSnippet >> onWardleyMapChanged: anAnnouncement [
 	"I am sent when wardley map changes, this triggers auto-save of the wardley map snippet"
 
 	self announceContentChanged
+]
+
+{ #category : #'private - updating' }
+LeWardleyMapSnippet >> reloadAttributesFromContent: aSnippet [
+	"Reload the receiver's attributes from the supplied snippet. We need to handle the 
+	WardleyMap object directly. We cannot just use the setter wardleyMapDictionary:. The 
+	issue with that is that when creating th dictionary UUIDs are exported using the lepiter
+	format. However, when using the setter we expect UUID object, as that"
+	| changed |
+	
+	changed := self reloadCommonMetadataFromContent: aSnippet.
+	height = aSnippet height ifFalse: [ 
+		height := aSnippet height.
+		changed := true ].
+	wardleyMap = aSnippet wardleyMap ifFalse:  [ 
+		"We detach the Wardley map, as we do not need the old snippet anymore."
+		aSnippet detachWardleyMap. 
+		self wardleyMap: aSnippet wardleyMap.
+		changed := true ].
+	^ changed
 ]
 
 { #category : #accessing }

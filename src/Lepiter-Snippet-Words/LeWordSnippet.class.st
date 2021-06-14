@@ -22,7 +22,7 @@ Class {
 }
 
 { #category : #'api - accessing menu' }
-LeWordSnippet class >> contextMenuItemSpefication [
+LeWordSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;
@@ -189,6 +189,13 @@ LeWordSnippet >> hasWord [
 LeWordSnippet >> initialize [
 	super initialize.
 	word := ''.
+]
+
+{ #category : #'api - testing' }
+LeWordSnippet >> isEmpty [
+	^ super isEmpty and: [ 
+		word isNil and: [ 
+			explanation isNil ] ]
 ]
 
 { #category : #'api - accessing' }

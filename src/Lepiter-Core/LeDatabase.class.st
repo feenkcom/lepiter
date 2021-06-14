@@ -289,7 +289,7 @@ LeDatabase >> gtDailyNotesFor: aView [
 	<gtView>
 	self pages ifNil: [ ^ aView empty ].
 	^ aView columnedTree
-		title: 'Daily Notes';
+		title: 'By Day';
 		priority: 10;
 		items: [ self dailyNotesGroup ];
 		children: [ :eachPage | eachPage children ];

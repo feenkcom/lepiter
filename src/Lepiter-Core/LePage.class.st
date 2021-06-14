@@ -417,15 +417,20 @@ LePage >> printOn: aStream [
 ]
 
 { #category : #'private - updating' }
+LePage >> reloadAttributesFromContent: aLeContent [
+	^ self reloadCommonMetadataFromContent: aLeContent.
+]
+
+{ #category : #'private - updating' }
 LePage >> reloadFromPage: aLePage [
 	"Update the receiver to match the supplied page"
 	| changed |
-
+	
 	changed := self reloadFromContent: aLePage.
 	latestEditTime := nil.
-
-	type = aLePage type ifFalse:
-		[ type := aLePage type.
+	
+	type = aLePage type ifFalse: [ 
+		type := aLePage type.
 		changed := true ].
 
 	changed ifTrue: [ self announceTreeChanged: self ]
@@ -456,6 +461,11 @@ LePage >> removeSelfIfEmpty [
 { #category : #'api - editing' }
 LePage >> renameTo: aString [
 	self updateTitle: aString
+]
+
+{ #category : #accessing }
+LePage >> shouldAppearInIndexOrDailyNotes [
+	^ self type shouldAppearInIndexOrDailyNotes
 ]
 
 { #category : #'api - accessing' }

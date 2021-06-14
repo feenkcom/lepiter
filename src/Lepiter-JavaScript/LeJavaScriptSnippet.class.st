@@ -18,7 +18,7 @@ Class {
 }
 
 { #category : #'api - accessing menu' }
-LeJavaScriptSnippet class >> contextMenuItemSpefication [
+LeJavaScriptSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;

@@ -86,6 +86,11 @@ LeUnnamedPageType >> shortDescription [
 ]
 
 { #category : #accessing }
+LeUnnamedPageType >> shouldAppearInIndexOrDailyNotes [
+	^ true
+]
+
+{ #category : #accessing }
 LeUnnamedPageType >> title [
 	^ self defaultTitle
 ]
