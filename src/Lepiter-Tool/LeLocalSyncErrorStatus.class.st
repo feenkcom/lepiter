@@ -12,7 +12,6 @@ LeLocalSyncErrorStatus >> corruptFiles [
 { #category : #'gt-extensions' }
 LeLocalSyncErrorStatus >> gtViewCorruptFilesFor: aView [
 	<gtView>
-	<gtView>
 	^ aView forward
 		title: 'Corrupt files';
 		priority: 67;

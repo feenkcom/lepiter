@@ -144,11 +144,9 @@ LeLocalStoreMonitor >> gtAttachmentsFor: aView [
 { #category : #accessing }
 LeLocalStoreMonitor >> gtViewCorruptFilesFor: aView [
 	<gtView>
-	^ aView forward
+	^ aView list
 		title: 'Corrupt files';
-		priority: 67;
-		object: [ self database ];
-		view: #gtViewCorruptFilesFor:
+		items: [ self corruptFiles]
 ]
 
 { #category : #testing }
