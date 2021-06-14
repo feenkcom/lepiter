@@ -95,7 +95,9 @@ LePageHeaderBuilder >> addTableOfContentsToggle [
 			deactivated: [ :aState | aState do: [ :aWidget | 
 				aWidget label: 'Promote page as Table of Contents' ] ]).
 	
-	self toolbarElement addItem: aToggle.
+	"self toolbarElement addItem: (BrToggleGroup new
+		aptitude: BrGlamorousToggleGroupAptitude new;
+		addToggle: aToggle)"
 ]
 
 { #category : #'private - building' }
