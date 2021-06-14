@@ -15,7 +15,7 @@ BaselineOfLepiterEngine >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
 		spec baseline: 'LepiterEngineExtensions' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.35/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.6.36/src' ].
 		spec package: 'Lepiter-Tool' with: [
 				spec requires: #('LepiterEngineExtensions' ). ]. ].
 
