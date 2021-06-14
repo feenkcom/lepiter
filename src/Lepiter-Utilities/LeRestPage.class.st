@@ -8,6 +8,11 @@ Class {
 	#category : #'Lepiter-Utilities-ToC'
 }
 
+{ #category : #'api - enumerating' }
+LeRestPage >> allChildrenDepthFirstDo: aBlock [
+	"There are no children to enumerate"
+]
+
 { #category : #converting }
 LeRestPage >> asContentUIModel [
 	<return: #LeContentViewModel>
