@@ -37,6 +37,7 @@ LeDatabasesRegistry class >> onRemoveUniqueInstance: anInstance [
 { #category : #accessing }
 LeDatabasesRegistry >> clearDefaultLogicalDatabase [
 
+	self stopMonitoring.
 	^ defaultLogicalDatabase := nil
 ]
 
