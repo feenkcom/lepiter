@@ -1,15 +1,16 @@
 Class {
-	#name : #LePharoSnippetAttributeReloadedExamples,
+	#name : #LePictureSnippetAttributeReloadedExamples,
 	#superclass : #Object,
-	#category : #'Lepiter-Pharo-Examples'
+	#category : #'Lepiter-Snippet-Picture-Examples'
 }
 
 { #category : #examples }
-LePharoSnippetAttributeReloadedExamples >> attributesReloaderForPharoSnippet [
+LePictureSnippetAttributeReloadedExamples >> attributesReloaderForPictureSnippet [
 	<gtExample>
-	| textSnippet attributesReloader |
-	textSnippet := LePharoSnippet code: '1+1'.
-	attributesReloader := LeContentAttributesReloader forContent: textSnippet.
+	| snippet attributesReloader |
+	snippet := LePictureSnippet new
+		urlString: 'https://domain.com/picture.jpg'.
+	attributesReloader := LeContentAttributesReloader forContent: snippet.
 	
 	self assert: attributesReloader hasChanges not.
 	
@@ -18,24 +19,24 @@ LePharoSnippetAttributeReloadedExamples >> attributesReloaderForPharoSnippet [
 ]
 
 { #category : #examples }
-LePharoSnippetAttributeReloadedExamples >> correctMappingsForPharoSnippet [
+LePictureSnippetAttributeReloadedExamples >> correctMappingsForPictureSnippet [
 	<gtExample>
 	| attributesReloader attributeMappings |
-	attributesReloader := self attributesReloaderForPharoSnippet.
+	attributesReloader := self attributesReloaderForPictureSnippet.
 	attributeMappings := attributesReloader relevantAttributeMappings.
 	
 	self assert: attributeMappings size equals: 5.
 	self 
 		assert: (attributeMappings collect: #key) sorted asArray 
-		equals: #(code createEmail createTime editEmail editTime).
+		equals: #(createEmail createTime editEmail editTime urlString).
 	
 	^ attributesReloader
 ]
 
 { #category : #utils }
-LePharoSnippetAttributeReloadedExamples >> newPharoSnippetWithMetadataFrom: aSnippet [
+LePictureSnippetAttributeReloadedExamples >> newPictureSnippetWithMetadataFrom: aSnippet [
 	| newSnippet |
-	newSnippet := LePharoSnippet new.
+	newSnippet := LePictureSnippet new.
 	newSnippet 
 		createEmail: aSnippet createEmail;
 		createTime: aSnippet createTime;
@@ -45,20 +46,20 @@ LePharoSnippetAttributeReloadedExamples >> newPharoSnippetWithMetadataFrom: aSni
 ]
 
 { #category : #examples }
-LePharoSnippetAttributeReloadedExamples >> reloadPharoSnippetWithChangedCode [
+LePictureSnippetAttributeReloadedExamples >> reloadPictureSnippetWithChangedUrl [
 	<gtExample>
 	| attributesReloader originalSnippet changedSnippet |
-	attributesReloader := self attributesReloaderForPharoSnippet.
+	attributesReloader := self attributesReloaderForPictureSnippet.
 	originalSnippet := attributesReloader targetContent.
-	changedSnippet := self newPharoSnippetWithMetadataFrom: originalSnippet.
+	changedSnippet := self newPictureSnippetWithMetadataFrom: originalSnippet.
 	
-	changedSnippet code: '1+41'.
+	changedSnippet urlString: 'https://domain.com/picture2.jpg'.
 	attributesReloader reloadFromContent: changedSnippet.
 	
 	self assert: attributesReloader hasChanges.
 	self assert: attributesReloader changedAttributes size equals: 1.
-	self assert: attributesReloader changedAttributes asArray equals: #(code).
-	self assert: originalSnippet code equals: '1+41'.
+	self assert: attributesReloader changedAttributes asArray equals: #(urlString).
+	self assert: originalSnippet urlString equals: 'https://domain.com/picture2.jpg'.
 	self assert: originalSnippet createEmail equals: changedSnippet createEmail.
 	self assert: originalSnippet createTime equals: changedSnippet createTime.
 	self assert: originalSnippet editEmail equals: changedSnippet editEmail.
@@ -68,17 +69,17 @@ LePharoSnippetAttributeReloadedExamples >> reloadPharoSnippetWithChangedCode [
 ]
 
 { #category : #examples }
-LePharoSnippetAttributeReloadedExamples >> reloadPharoSnippetWithNoChange [
+LePictureSnippetAttributeReloadedExamples >> reloadPictureSnippetWithNoChange [
 	<gtExample>
 	| attributesReloader originalSnippet changedSnippet |
-	attributesReloader := self attributesReloaderForPharoSnippet.
+	attributesReloader := self attributesReloaderForPictureSnippet.
 	originalSnippet := attributesReloader targetContent.
 	changedSnippet := originalSnippet.
 	
 	attributesReloader reloadFromContent: originalSnippet.
 	
 	self assert: attributesReloader hasChanges not.
-	self assert: originalSnippet code equals: '1+1'.
+	self assert: originalSnippet urlString equals: 'https://domain.com/picture.jpg'.
 	self assert: originalSnippet createEmail equals: changedSnippet createEmail.
 	self assert: originalSnippet createTime equals: changedSnippet createTime.
 	self assert: originalSnippet editEmail equals: changedSnippet editEmail.
