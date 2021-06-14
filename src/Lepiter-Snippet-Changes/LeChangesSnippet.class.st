@@ -47,7 +47,9 @@ LeChangesSnippet >> asSnippetViewModel [
 
 { #category : #'api - accessing' }
 LeChangesSnippet >> contentAsString [
-	^ '{{gtChanges:', self fileName, '}}'
+	^ '{{gtChanges:'
+			, (self fileName ifNil: ['<missing>']), 
+			'}}'
 ]
 
 { #category : #'api - file name' }
@@ -103,6 +105,11 @@ LeChangesSnippet >> initialize [
 	super initialize.
 	
 	previewHeight := 200
+]
+
+{ #category : #'api - testing' }
+LeChangesSnippet >> isEmpty [
+	^ self fileName isNil
 ]
 
 { #category : #'api - file name' }
