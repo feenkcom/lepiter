@@ -141,6 +141,14 @@ LeLocalStoreMonitor >> gtAttachmentsFor: aView [
 	
 ]
 
+{ #category : #accessing }
+LeLocalStoreMonitor >> gtViewCorruptedFilesFor: aView [
+	<gtView>
+	^ aView list
+		title: 'Corrupt files';
+		items: [ self corruptFiles]
+]
+
 { #category : #testing }
 LeLocalStoreMonitor >> hasCorruptFiles [
 	"Answer a boolean indicating whether the receiver is aware of any corrupt files"

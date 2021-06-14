@@ -280,7 +280,8 @@ LeDatabase >> gtAttachmentsFor: aView [
 	self monitor ifNil: [ ^ aView empty ].
 	^ aView forward
 		title: 'Attachments';
-		object: [ self monitor ];
+		priority: 70;
+		object: [self monitor ];
 		view: #gtAttachmentsFor:
 ]
 
@@ -327,6 +328,28 @@ LeDatabase >> gtMapFor: aView [
 				connectToAll: [ :each | (each allChildOutgoingTextualLinks collect: [:l | l target ifNotNil: #page]) asSet ].
 			m layout force.
 			m ]
+]
+
+{ #category : #accessing }
+LeDatabase >> gtViewCorruptedFilesFor: aView [
+	<gtView>
+	monitor ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Corrupt files';
+		priority: 67;
+		object: [ self monitor ];
+		view: #gtViewCorruptedFilesFor:
+]
+
+{ #category : #accessing }
+LeDatabase >> gtViewFilesNameMappingFor: aView [
+	<gtView>
+	monitor ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Page File Mappings';
+		priority: 66;
+		object: [ self monitor ];
+		view: #gtNameMappingFor:
 ]
 
 { #category : #'gt-extensions' }
