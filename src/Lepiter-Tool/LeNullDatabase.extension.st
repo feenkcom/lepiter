@@ -7,5 +7,5 @@ LeNullDatabase >> databasesToDisplayDo: aBlock [
 
 { #category : #'*Lepiter-Tool' }
 LeNullDatabase >> localSyncMonitorStatus [
-	^ LeLocalSyncMissingMonitorStatus new
+	^ LeLocalSyncMissingMonitorStatus forDatabase: self
 ]

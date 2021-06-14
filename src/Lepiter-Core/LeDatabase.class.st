@@ -331,14 +331,14 @@ LeDatabase >> gtMapFor: aView [
 ]
 
 { #category : #accessing }
-LeDatabase >> gtViewCorruptedFilesFor: aView [
+LeDatabase >> gtViewCorruptFilesFor: aView [
 	<gtView>
 	monitor ifNil: [ ^ aView empty ].
 	^ aView forward
 		title: 'Corrupt files';
 		priority: 67;
 		object: [ self monitor ];
-		view: #gtViewCorruptedFilesFor:
+		view: #gtViewCorruptFilesFor:
 ]
 
 { #category : #accessing }
