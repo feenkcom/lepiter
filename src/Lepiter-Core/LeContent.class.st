@@ -156,6 +156,32 @@ LeContent >> allChildOutgoingTextualLinks [
 	^ all
 ]
 
+{ #category : #'api - enumerating' }
+LeContent >> allChildrenBreadthFirst [
+	| all |
+	all := OrderedCollection new.
+	self allChildrenBreadthFirstDo: [:each | all add: each].
+	^ all 
+]
+
+{ #category : #'api - enumerating' }
+LeContent >> allChildrenBreadthFirstDo: aBlock [ 
+	self childrenDo: [ :each | each withAllChildrenBreadthFirstDo: aBlock ]
+]
+
+{ #category : #'api - enumerating' }
+LeContent >> allChildrenDepthFirst [
+	| all |
+	all := OrderedCollection new.
+	self allChildrenDepthFirstDo: [:each | all add: each].
+	^ all 
+]
+
+{ #category : #'api - enumerating' }
+LeContent >> allChildrenDepthFirstDo: aBlock [ 
+	self childrenDo: [ :each | each withAllChildrenDepthFirstDo: aBlock ]
+]
+
 { #category : #'private - accessing' }
 LeContent >> allOutgoingExplicitLinks [
 	| all |
@@ -858,4 +884,10 @@ LeContent >> wasEdited [
 	In other words, it does not mean that it was edited in an existing editing session"
 	<return: #Boolean>
 	^ self editTime ~= self createTime
+]
+
+{ #category : #'api - enumerating' }
+LeContent >> withAllChildrenDepthFirstDo: aBlock [ 
+	self allChildrenBreadthFirstDo: aBlock.
+	aBlock value: self.
 ]

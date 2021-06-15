@@ -186,20 +186,6 @@ LeContentExamples >> blockOneString [
 ]
 
 { #category : #'examples - model' }
-LeContentExamples >> blockOneWithOneChild [
-	<gtExample>
-	| aBlock aChild |
-	aBlock := self blockOne.
-	aChild := self blockThree.
-	aBlock children: (self basicBlocksWithAll: { aChild }).
-	self assert: aChild parent equals: aBlock.
-	self assert: aBlock hasChildren.
-	self assert: aBlock childrenCount equals: 1.
-	self assert: aBlock children items first equals: aChild.
-	^ aBlock
-]
-
-{ #category : #'examples - model' }
 LeContentExamples >> blockOne_hasNoCachedLinks [
 	<gtExample>
 	| aBlock |
@@ -247,6 +233,19 @@ LeContentExamples >> blockTwo [
 { #category : #accessing }
 LeContentExamples >> blockTwoString [
 	^ 'block two content'
+]
+
+{ #category : #accessing }
+LeContentExamples >> breadthFirstForPageOneWithTwoBlocksAndWithBlockChild [
+	<gtExample>
+	| page allChildren |
+	page := self pageOneWithTwoBlocksAndWithBlockChild.
+	allChildren := page allChildrenBreadthFirst.
+	self assert: allChildren size = 3.
+	self assert: allChildren first contentAsString = self blockOneString.
+	self assert: allChildren second contentAsString = self blockThreeString.
+	self assert: allChildren third contentAsString = self blockTwoString.
+	^ page
 ]
 
 { #category : #'examples - basic' }
@@ -456,13 +455,13 @@ LeContentExamples >> pageOneWithOneBlock [
 { #category : #'examples - model' }
 LeContentExamples >> pageOneWithOneBlockWithChild [
 	<gtExample>
-	| aPage aBlock |
+	| aPage aSnippet |
 	aPage := self pageOne.
-	aBlock := self blockOneWithOneChild.
-	aPage children: (self basicBlocksWithAll: { aBlock }).
+	aSnippet := self snippetOneWithOneChild.
+	aPage children: (self basicBlocksWithAll: { aSnippet }).
 	self assert: aPage hasChildren.
 	self assert: aPage childrenCount equals: 1.
-	self assert: aPage children items first equals: aBlock.
+	self assert: aPage children items first equals: aSnippet.
 	^ aPage
 ]
 
@@ -674,6 +673,20 @@ LeContentExamples >> renameDatabasePage_PageTitleChanged_ReceivedByDatabase [
 	self assert: aCollection size equals: 1.
 	self assert: aCollection first page equals: aPage.
 	^ aDatabase
+]
+
+{ #category : #'examples - model' }
+LeContentExamples >> snippetOneWithOneChild [
+	<gtExample>
+	| aSnippet aChild |
+	aSnippet := self blockOne.
+	aChild := self blockThree.
+	aSnippet children: (self basicBlocksWithAll: { aChild }).
+	self assert: aChild parent equals: aSnippet.
+	self assert: aSnippet hasChildren.
+	self assert: aSnippet childrenCount equals: 1.
+	self assert: aSnippet children items first equals: aChild.
+	^ aSnippet
 ]
 
 { #category : #'examples - model' }
