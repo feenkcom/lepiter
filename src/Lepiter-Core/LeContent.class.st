@@ -732,20 +732,24 @@ LeContent >> reloadFromChildren: aCollection [
 	removedIDs := existingBlockIDs difference: replacementBlockIDs.
 	modifiedIDs := existingBlockIDs intersection: replacementBlockIDs.
 	changed := false.
+	
 	aCollection items
 		doWithIndex: [ :child :index | 
 			(addedIDs includes: child uid)
-				ifTrue: [ self addSnippet: child beforeIndex: index.
+				ifTrue: [ 
+					self addSnippet: child beforeIndex: index.
 					changed := true ]
-				ifFalse: [ (modifiedIDs includes: child uid)
-						ifTrue: [ changed := changed
-								|
-									((self children detect: [ :each | each uid = child uid ])
-										reloadFromContent: (aCollection at: index)) ]
+				ifFalse: [ 
+					(modifiedIDs includes: child uid)
+						ifTrue: [ 
+							| existingSnippet existingSnippetChanged |
+							existingSnippet := self children detect: [ :each | each uid = child uid ].
+							existingSnippetChanged := existingSnippet reloadFromContent: (aCollection at: index).
+							changed := changed |existingSnippetChanged ]
 						ifFalse: [ self error: 'ID integrity check fail' ] ] ].
 	removedIDs
-		do:
-			[ :uid | self children removeAllSuchThat: [ :each | each uid = uid ] ].
+		do: [ :uid | 
+			self children removeAllSuchThat: [ :each | each uid = uid ] ].
 	removedIDs ifNotEmpty: [ changed := true ].
 	^ changed
 ]
