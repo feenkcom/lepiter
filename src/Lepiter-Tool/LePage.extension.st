@@ -1,12 +1,23 @@
 Extension { #name : #LePage }
 
 { #category : #'*Lepiter-Tool' }
+LePage >> printPageSummaryLimitedTo: aNumber [
+	"Return a short textual representation of the content of the page"
+	<return: #String>
+	^ String 
+		streamContents: [ :aStream | 
+			self allChildrenDepthFirstDo: [ :eachChild | 
+				eachChild contentAsString asString
+					do: [ :eachCharacter | 
+						eachCharacter isLineSeparator
+							ifTrue: [ aStream space ]
+							ifFalse: [ aStream nextPut: eachCharacter ] ] ] ]
+		limitedTo: aNumber
+]
+
+{ #category : #'*Lepiter-Tool' }
 LePage >> spotterItemName [
 	^ self isUnnamedPage
-		ifTrue: [ String 
-			streamContents: [ :aStream |
-				self allChildrenDepthFirstDo: [ :eachSnippet | 
-					aStream nextPutAll: eachSnippet contentAsString asString; space ] ]
-			limitedTo: 50 ]
+		ifTrue: [ self printPageSummaryLimitedTo: 50 ]
 		ifFalse: [ self contentAsString ]
 ]
