@@ -1,8 +1,28 @@
 Class {
 	#name : #LeLocalSyncStatus,
 	#superclass : #Object,
+	#instVars : [
+		'database'
+	],
 	#category : #'Lepiter-Tool-Monitoring'
 }
+
+{ #category : #'instance creation' }
+LeLocalSyncStatus class >> forDatabase: aDatabase [
+	^ self new
+		database: aDatabase
+	
+]
+
+{ #category : #accessing }
+LeLocalSyncStatus >> database [
+	^ database
+]
+
+{ #category : #accessing }
+LeLocalSyncStatus >> database: aLeDatabase [
+	database := aLeDatabase
+]
 
 { #category : #accessing }
 LeLocalSyncStatus >> formattedShortName [

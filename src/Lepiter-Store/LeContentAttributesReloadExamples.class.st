@@ -4,7 +4,7 @@ Class {
 	#category : #'Lepiter-Store-Examples'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #examples }
 LeContentAttributesReloadExamples >> attributeReloadedForTextSnippet [
 	<gtExample>
 	| textSnippet attributesReloader |
@@ -17,34 +17,7 @@ LeContentAttributesReloadExamples >> attributeReloadedForTextSnippet [
 	
 ]
 
-{ #category : #'as yet unclassified' }
-LeContentAttributesReloadExamples >> attributesReloaderForPharoSnippet [
-	<gtExample>
-	| textSnippet attributesReloader |
-	textSnippet := LePharoSnippet code: '1+1'.
-	attributesReloader := LeContentAttributesReloader forContent: textSnippet.
-	
-	self assert: attributesReloader hasChanges not.
-	
-	^ attributesReloader
-]
-
-{ #category : #'as yet unclassified' }
-LeContentAttributesReloadExamples >> correctMappingsForPharoSnippet [
-	<gtExample>
-	| attributesReloader attributeMappings |
-	attributesReloader := self attributesReloaderForPharoSnippet.
-	attributeMappings := attributesReloader relevantAttributeMappings.
-	
-	self assert: attributeMappings size equals: 5.
-	self 
-		assert: (attributeMappings collect: #key) sorted asArray 
-		equals: #(code createEmail createTime editEmail editTime).
-	
-	^ attributesReloader
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #examples }
 LeContentAttributesReloadExamples >> correctMappingsForTextSnippet [
 	<gtExample>
 	| attributesReloader attributeMappings |
@@ -55,21 +28,6 @@ LeContentAttributesReloadExamples >> correctMappingsForTextSnippet [
 	self 
 		assert: (attributeMappings collect: #key) sorted asArray 
 		equals: #(createEmail createTime editEmail editTime paragraphStyle string).
-	
-	^ attributesReloader
-]
-
-{ #category : #'as yet unclassified' }
-LeContentAttributesReloadExamples >> reloadPharoSnippetWithChangedCode [
-	<gtExample>
-	| attributesReloader attributeMappings |
-	attributesReloader := self attributesReloaderForPharoSnippet.
-	attributeMappings := attributesReloader relevantAttributeMappings.
-	
-	self assert: attributeMappings size equals: 5.
-	self 
-		assert: (attributeMappings collect: #key) sorted asArray 
-		equals: #(code createEmail createTime editEmail editTime).
 	
 	^ attributesReloader
 ]

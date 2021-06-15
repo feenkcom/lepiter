@@ -20,7 +20,7 @@ LeLogicalDatabase >> databasesToDisplayDo: aBlock [
 { #category : #'*Lepiter-Tool' }
 LeLogicalDatabase >> localSyncMonitorStatus [
 	| monitorStatus |
-	monitorStatus := LeLocalSyncLogicalDatabaseMonitorStatus new.
+	monitorStatus := LeLocalSyncLogicalDatabaseMonitorStatus forDatabase: self.
 	self databasesDo: [ :aDatabase | 
 		monitorStatus addDatabaseStatus: aDatabase localSyncMonitorStatus ].
 	^ monitorStatus

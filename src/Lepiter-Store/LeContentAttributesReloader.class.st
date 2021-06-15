@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'targetContent',
-		'hasChanges'
+		'changedAttributes'
 	],
 	#category : #'Lepiter-Store-Reload'
 }
@@ -14,12 +14,27 @@ LeContentAttributesReloader class >> forContent: aContent [
 		targetContent: aContent
 ]
 
+{ #category : #update }
+LeContentAttributesReloader >> addChangedAttribute: anAttributeName [
+	changedAttributes add: anAttributeName
+]
+
+{ #category : #'accessing - mappings' }
+LeContentAttributesReloader >> allContentAttributeMappings [
+	^ self targetContent class leJsonV4AttributeMapping 
+]
+
 { #category : #assertions }
 LeContentAttributesReloader >> assertCanUpdateFomContent: aContent [
 	self assert: [ self targetContent notNil ].
 	self assert: [ aContent notNil ].
 	self assert: [ self targetContent class = aContent class ].
 	self assert: [ self targetContent uid = aContent uid ].
+]
+
+{ #category : #accessing }
+LeContentAttributesReloader >> changedAttributes [
+	^ changedAttributes ifNil: [ #() ]
 ]
 
 { #category : #'accessing - mappings' }
@@ -32,8 +47,21 @@ LeContentAttributesReloader >> commonMetadataAttributeMappings [
 ]
 
 { #category : #accessing }
+LeContentAttributesReloader >> gtViewUpdateStatusFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Update status';
+		items: [ self allContentAttributeMappings ];
+		column: 'Attribute' text: [ :anAttributeMapping |
+			anAttributeMapping key ];	
+		column: 'Status' text: [ :anAttributeMapping |
+			self updateStatusForAttributeNamed: anAttributeMapping key  ]
+]
+
+{ #category : #accessing }
 LeContentAttributesReloader >> hasChanges [
-	^ hasChanges ifNil: [ false ]
+	^ changedAttributes notNil and: [ 
+		changedAttributes notEmpty ]
 ]
 
 { #category : #'accessing - mappings' }
@@ -45,7 +73,7 @@ LeContentAttributesReloader >> ignoredAttributes [
 LeContentAttributesReloader >> relevantAttributeMappings [
 	| ignoredAttributes |
 	ignoredAttributes := self ignoredAttributes.
-	^ self targetContent class leJsonV4AttributeMapping 
+	^ self allContentAttributeMappings
 		reject: [ :aMapping |
 			ignoredAttributes includes: aMapping key ]
 ]
@@ -75,6 +103,11 @@ LeContentAttributesReloader >> reloadFromContent: aSnippet [
 		fromContent: aSnippet
 ]
 
+{ #category : #update }
+LeContentAttributesReloader >> resetChangedAttributes [
+	changedAttributes := OrderedCollection new.
+]
+
 { #category : #accessing }
 LeContentAttributesReloader >> targetContent [
 	^ targetContent
@@ -94,7 +127,7 @@ LeContentAttributesReloader >> updateAttributeForMapping: aMapping fromContent: 
 	attributeOldValue := self targetContent perform: attributeName.
 	attributeNewValue := aContent perform: attributeName.
 	attributeOldValue = attributeNewValue ifFalse: [
-		hasChanges := true.
+		self addChangedAttribute: attributeName.
 		self targetContent 
 			perform: attributeName asMutator 
 			with: attributeNewValue ].
@@ -102,9 +135,18 @@ LeContentAttributesReloader >> updateAttributeForMapping: aMapping fromContent: 
 
 { #category : #update }
 LeContentAttributesReloader >> updateForMappings: attributeMapping  fromContent: aContent [
-	hasChanges := false.
+	self resetChangedAttributes.
 	attributeMapping do: [ :aMapping |
 		self 
 			updateAttributeForMapping: aMapping
 			fromContent: aContent ]
+]
+
+{ #category : #accessing }
+LeContentAttributesReloader >> updateStatusForAttributeNamed: anAttributeName [
+	(self ignoredAttributes includes:  anAttributeName) 
+		ifTrue: [ ^ 'Ignored' asRopedText foreground: Color gray ].
+	(self changedAttributes includes:  anAttributeName) 
+		ifTrue: [ ^ 'Changed' asRopedText foreground: Color blue muchDarker ].
+	^ 'Equal' asRopedText foreground: Color green muchDarker
 ]

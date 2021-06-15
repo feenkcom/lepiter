@@ -44,7 +44,7 @@ GtPythonCoderModel >> bindAndExecute: sourceString [
 GtPythonCoderModel >> computeAst: theSourceString [
 	^ PythonParser2
 		parseWithErrors: theSourceString
-		startingAt: JSParser startingStateForExpression
+		startingAt: PythonParser2 startingStateForfile_input
 ]
 
 { #category : #initialize }
