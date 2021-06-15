@@ -151,9 +151,10 @@ LeWorldStatusDropdown >> newListViewFor: aView [
 			text: [ :aDatabase | 
 				aDatabase databaseName ]
 			width: 300;
-		column: 'Local Sync' 
-			text: [ :aDatabase | 
-				aDatabase localSyncMonitorStatus formattedShortName ]
+		column: 'Local Sync'
+			icon: [ :aDatabase | 
+				aDatabase localSyncMonitorStatus statusWidget ]
+			width: 200
 ]
 
 { #category : #callbacks }
