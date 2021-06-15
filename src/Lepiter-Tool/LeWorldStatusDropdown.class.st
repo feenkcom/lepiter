@@ -85,17 +85,6 @@ LeWorldStatusDropdown >> initializeDropdownElement [
 			content: [ self reusedDropdownContent ])
 ]
 
-{ #category : #testing }
-LeWorldStatusDropdown >> isRunningCleanly [ 
-	"Answer a boolean indicating if all DBs are running cleanly"
-
-	^ leWorldElement isNotNil and: 
-		[ self databases allSatisfy: [ :db | 
-			db isDatabase and:
-			[ db monitor isNotNil and:
-			[ db monitor isRunningCleanly ] ] ] ]
-]
-
 { #category : #accessing }
 LeWorldStatusDropdown >> leWorldElement [
 	^ leWorldElement
@@ -117,16 +106,6 @@ LeWorldStatusDropdown >> leWorldElement: aLeWorld [
 		when: LeWorldElementDatabaseRemoved
 		send: #onDatabaseRemoved:
 		to: self
-]
-
-{ #category : #testing }
-LeWorldStatusDropdown >> monitorQueuesEmpty [
-	"Answer a boolean indicating whether all the receiver's monitor queues are empty"
-
-	^ leWorldElement database 
-		ifNotNil: [ :aDatabase |
-			aDatabase localSyncMonitorStatus hasPendingChanges not ]
-		ifNil: [ false ]
 ]
 
 { #category : #'building widgets' }
@@ -172,9 +151,10 @@ LeWorldStatusDropdown >> newListViewFor: aView [
 			text: [ :aDatabase | 
 				aDatabase databaseName ]
 			width: 300;
-		column: 'Local Sync' 
-			text: [ :aDatabase | 
-				aDatabase localSyncMonitorStatus formattedShortName ]
+		column: 'Local Sync'
+			icon: [ :aDatabase | 
+				aDatabase localSyncMonitorStatus statusWidget ]
+			width: 200
 ]
 
 { #category : #callbacks }
@@ -252,19 +232,6 @@ LeWorldStatusDropdown >> statusIcon [
 			ifTrue: [ ^ BrGlamorousIcons redcircle ].
 	
 	^ leWorldElement database localSyncMonitorStatus statusIcon
-]
-
-{ #category : #private }
-LeWorldStatusDropdown >> statusIconOld [
-	"Answer the icon to display in the receiver's button"
-
-	self isRunningCleanly ifFalse: 
-		[ ^ BrGlamorousIcons redcircle ].
-
-	self monitorQueuesEmpty ifFalse: 
-		[ ^ BrGlamorousIcons yellowcircle ].
-
-	^ BrGlamorousIcons greencircle
 ]
 
 { #category : #private }

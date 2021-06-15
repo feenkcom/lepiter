@@ -4,33 +4,14 @@ Class {
 	#category : #'Lepiter-Tool-Monitoring'
 }
 
-{ #category : #accessing }
-LeLocalSyncErrorStatus >> corruptFiles [
-	^ self database monitor corruptFiles
-]
-
 { #category : #'gt-extensions' }
 LeLocalSyncErrorStatus >> gtViewCorruptFilesFor: aView [
 	<gtView>
 	^ aView forward
 		title: 'Corrupt files';
-		priority: 15;
+		priority: 5;
 		object: [ self database ];
 		view: #gtViewCorruptFilesFor:
-]
-
-{ #category : #'gt-extensions' }
-LeLocalSyncErrorStatus >> gtViewDetailsFor: aView [
-	<gtView>
-	^ aView columnedList
-		title: 'Details';
-		priority: 10;
-		items: [ {
-			'Has corrupt files' -> (self corruptFiles size > 0) .
-			'Is monitor stopped' -> self database monitor isRunning }];
-		column: 'Name' text: #key;
-		column: 'Value' text: #value;
-		send: #value
 ]
 
 { #category : #testing }
@@ -46,4 +27,22 @@ LeLocalSyncErrorStatus >> statusColor [
 { #category : #accessing }
 LeLocalSyncErrorStatus >> statusIcon [
 	^ BrGlamorousIcons redcircle
+]
+
+{ #category : #'gt-extensions' }
+LeLocalSyncErrorStatus >> statusWidget [
+	| container |
+	container := super statusWidget.
+	container addChild: (BrButton new
+		aptitude: BrGlamorousButtonWithIconAptitude;
+		icon: BrGlamorousIcons inspect;
+		label: 'View status';
+		margin: (BlInsets left: 5);
+		action: [ :aButtonElement |
+			GtWorldUtility 
+				showSpaceWithTitle: self 
+				with: (GtInspector createOn: self) maximized
+				from: aButtonElement.
+			aButtonElement fireEvent: BrDropdownHideWish new ]).
+	^ container
 ]

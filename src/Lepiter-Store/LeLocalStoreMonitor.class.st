@@ -121,7 +121,7 @@ LeLocalStoreMonitor >> forceSchemaUpgradeFrom: aString [
 	self reload.
 ]
 
-{ #category : #accessing }
+{ #category : #'gt-extensions' }
 LeLocalStoreMonitor >> gtAttachmentsFor: aView [
 	<gtView>
 	self attachmentsDirectory ifNil: [ ^ aView empty ].
@@ -141,12 +141,27 @@ LeLocalStoreMonitor >> gtAttachmentsFor: aView [
 	
 ]
 
-{ #category : #accessing }
+{ #category : #'gt-extensions' }
 LeLocalStoreMonitor >> gtViewCorruptFilesFor: aView [
 	<gtView>
 	^ aView list
 		title: 'Corrupt files';
 		items: [ self corruptFiles]
+]
+
+{ #category : #'gt-extensions' }
+LeLocalStoreMonitor >> gtViewStatusDetailsFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Details';
+		priority: 10;
+		items: [ {
+			'Has pengind change' -> self isEmpty not.
+			'Has corrupt files' -> (self corruptFiles size > 0) .
+			'Is monitor stopped' -> self isRunning not}];
+		column: 'Name' text: #key;
+		column: 'Value' text: #value;
+		send: #value
 ]
 
 { #category : #testing }

@@ -2,7 +2,8 @@ Class {
 	#name : #LeDockerSnippetElement,
 	#superclass : #LeSnippetElement,
 	#instVars : [
-		'contentElement'
+		'contentElement',
+		'urlInputElement'
 	],
 	#category : #'Lepiter-Snippet-Docker-View-Element'
 }
@@ -14,7 +15,7 @@ LeDockerSnippetElement >> contentElement [
 
 { #category : #accessing }
 LeDockerSnippetElement >> createFormElement [
-	| jenkinsAccount urlInputElement formElement |
+	| jenkinsAccount formElement |
 	formElement := BlElement new.
 	formElement
 		constraintsDo: [ :c | 
@@ -23,11 +24,30 @@ LeDockerSnippetElement >> createFormElement [
 	formElement
 		layout:
 			(BlGridLayout horizontal
-				columnCount: 2;
+				columnCount: 3;
 				cellSpacing: 10).
 	urlInputElement := self inputElementNamed: 'Url' in: formElement.
-	
+	formElement addChild: self createInspectButtonToolbar.
 	^ formElement 
+]
+
+{ #category : #accessing }
+LeDockerSnippetElement >> createInspectButtonToolbar [
+	| playInspectButton result |
+	playInspectButton := BrButton new.
+	playInspectButton
+		beSmallSize;
+		aptitude: BrGlamorousButtonWithIconAptitude;
+		label: 'Inspect connection';
+		icon: BrGlamorousVectorIcons playinspect;
+		constraintsDo: [ :c | 
+			c grid vertical alignCenter ];
+		action: [ | client username tokenString urlString |
+			urlString := urlInputElement editor text asString.
+			playInspectButton phlow 
+						spawnObject: (GtDeAPIClient new baseUrl: urlString)].
+	
+	^ playInspectButton
 ]
 
 { #category : #accessing }
@@ -59,7 +79,7 @@ LeDockerSnippetElement >> inputElementNamed: aString in: formElement [
 				hMatchParent;
 				vFitContentLimited;
 				aptitude: BrGlamorousInputFieldSpacingAptitude new + BrGlamorousRegularEditorAptitude new;
-				text: ''.
+				text: 'http://localhost:2375'.
 	
 	formElement addChild: labelElement.
 	formElement addChild: inputElement.
@@ -73,4 +93,5 @@ LeDockerSnippetElement >> snippetContent [
 
 { #category : #accessing }
 LeDockerSnippetElement >> snippetToolbar [
+	^ nil
 ]
