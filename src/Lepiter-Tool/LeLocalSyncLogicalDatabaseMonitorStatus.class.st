@@ -20,10 +20,11 @@ LeLocalSyncLogicalDatabaseMonitorStatus >> databaseStatuses [
 { #category : #accessing }
 LeLocalSyncLogicalDatabaseMonitorStatus >> gtViewStatusesFor: aView [
 	<gtView>
-	^ aView list
+	^ aView columnedList
 		title: 'Statuses';
 		items: [ self databaseStatuses ];
-		itemText: [ :aStatus | aStatus formattedShortName ]
+		column: 'Database' text: [ :aStatus | aStatus databaseName ];
+		column: 'Local Sync' text: [ :aStatus | aStatus formattedShortName ]
 ]
 
 { #category : #testing }

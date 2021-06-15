@@ -15,13 +15,13 @@ LeDatabase >> localSyncMonitorStatus [
 	| currentMonitor |
 	currentMonitor := self monitor.
 
-	currentMonitor ifNil: [ ^ LeLocalSyncMissingMonitorStatus new ].
+	currentMonitor ifNil: [ ^ LeLocalSyncMissingMonitorStatus forDatabase: self ].
 	currentMonitor isRunning 
-		ifFalse: [ ^ LeLocalSyncMonitorStoppedStatus new ].
+		ifFalse: [ ^ LeLocalSyncMonitorStoppedStatus forDatabase: self ].
 	currentMonitor hasCorruptFiles 
-		ifTrue: [ ^ LeLocalSyncCorruptedFilesStatus new ].
+		ifTrue: [ ^ LeLocalSyncCorruptedFilesStatus forDatabase: self ].
 	currentMonitor isEmpty 
-		ifFalse: [ ^ LeLocalSyncPendingChangesStatus new ] .
+		ifFalse: [ ^ LeLocalSyncPendingChangesStatus forDatabase: self ] .
 	
-	^ LeLocalSyncMonitorCleanStatus new
+	^ LeLocalSyncMonitorCleanStatus forDatabase: self
 ]

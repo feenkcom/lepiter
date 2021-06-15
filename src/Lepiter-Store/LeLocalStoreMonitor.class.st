@@ -142,7 +142,7 @@ LeLocalStoreMonitor >> gtAttachmentsFor: aView [
 ]
 
 { #category : #accessing }
-LeLocalStoreMonitor >> gtViewCorruptedFilesFor: aView [
+LeLocalStoreMonitor >> gtViewCorruptFilesFor: aView [
 	<gtView>
 	^ aView list
 		title: 'Corrupt files';
