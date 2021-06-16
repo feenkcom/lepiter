@@ -70,6 +70,14 @@ LeRestPage >> page: anObject [
 	page := anObject
 ]
 
+{ #category : #printing }
+LeRestPage >> printPageSummaryLimitedTo: aNumber [
+	"Return a short textual representation of the content of the page"
+	<return: #String>
+
+	^ page printPageSummaryLimitedTo: aNumber
+]
+
 { #category : #accessing }
 LeRestPage >> title [
 	^ self childrenSizeString, ' Unclassified Pages'
