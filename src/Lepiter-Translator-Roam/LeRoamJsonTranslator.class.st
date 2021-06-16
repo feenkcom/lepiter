@@ -215,6 +215,7 @@ LeRoamJsonTranslator >> pageMappingFor: aNeoJSONMapper [
 	aNeoJSONMapper
 		for: LePage do: [ :mapping |
 			(mapping mapAccessor: #title to: #title).
+			"(mapping mapAccessor: #uid to: #uid) valueSchema: LeUID."
 			(mapping mapAccessor: #createTime to: #'create-time') valueSchema: LeTime.
 			(mapping mapAccessor: #createEmail to: #'create-email') valueSchema: LeEmail.
 			(mapping mapAccessor: #editTime to: #'edit-time') valueSchema: LeTime.
@@ -278,7 +279,10 @@ LeRoamJsonTranslator >> uidMappingFor: neoJSONMapper [
 		for: LeUID customDo: [ :mapping |
 	      mapping 
 				reader: [ :jsonReader |
-					LeUID new uidString: jsonReader next. ];
+					| currentUid migratedUid |
+					currentUid := jsonReader next.
+					migratedUid := LeJsonV4000Updater cleanUidString: currentUid.
+					LeUID new uidString: migratedUid ];
 				writer: [ :jsonWriter :uid |
 					jsonWriter nextPut: uid uidString ] ].
 ]

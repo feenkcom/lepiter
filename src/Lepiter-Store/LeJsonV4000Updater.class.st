@@ -13,15 +13,8 @@ Class {
 	#category : #'Lepiter-Store-JsonV4'
 }
 
-{ #category : #'private - accessing' }
-LeJsonV4000Updater class >> minorVersion [ 
-	"Answer the minor version number that this class upgrades from"
-
-	^ 0
-]
-
 { #category : #private }
-LeJsonV4000Updater >> cleanUidString: aString [
+LeJsonV4000Updater class >> cleanUidString: aString [
 	"Come up with a deterministic and (hopefully) unique UID by replacing any characters which aren't part of the base64 alphabet and extending the string by repeating the first part until it is a valid length."
 	| alphabet uidString uid |
 
@@ -36,6 +29,18 @@ LeJsonV4000Updater >> cleanUidString: aString [
 	uid := UUID nilUUID.
 	ZnBase64Encoder new decode: uidString readStream to: uid writeStream.
 	^ uid base64Encoded.
+]
+
+{ #category : #'private - accessing' }
+LeJsonV4000Updater class >> minorVersion [ 
+	"Answer the minor version number that this class upgrades from"
+
+	^ 0
+]
+
+{ #category : #private }
+LeJsonV4000Updater >> cleanUidString: aString [
+	^ self class cleanUidString: aString
 ]
 
 { #category : #private }

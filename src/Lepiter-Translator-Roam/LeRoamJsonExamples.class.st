@@ -14,7 +14,7 @@ LeRoamJsonExamples >> databaseWithOnePageNoCreateValues [
 	^ aDatabase
 ]
 
-{ #category : #'examples - json' }
+{ #category : #'accessing - json' }
 LeRoamJsonExamples >> databaseWithOnePageNoCreateValuesJson [
 
 	^ '[ {
@@ -34,7 +34,7 @@ LeRoamJsonExamples >> databaseWithOnePageNoEditValues [
 	^ aDatabase
 ]
 
-{ #category : #'examples - json' }
+{ #category : #'accessing - json' }
 LeRoamJsonExamples >> databaseWithOnePageNoEditValuesJson [
 	^ '[ {
 		"title" : "July 26th, 2019",
@@ -68,6 +68,45 @@ LeRoamJsonExamples >> databaseWithOnePageNoEditValues_Write [
 	^ aFile
 ]
 
+{ #category : #'examples - json' }
+LeRoamJsonExamples >> databaseWithOnePageWithSnippetWithInvalidBase64Encoder [
+	<gtExample>
+	| aDatabase targetPage targetSnippet |
+	aDatabase := self reader
+		databaseFromString: self databaseWithOnePageWithSnippetWithInvalidBase64EncoderJson.
+	self assert: aDatabase size equals: 1.
+	
+	targetPage := aDatabase pages first.
+	self assert: targetPage children size equals: 1.
+	
+	targetSnippet := targetPage children first.
+	self 
+		assert: targetSnippet uidString 
+		equals: 'Wuu11jwlbWuuAAAAAAAAAA=='.
+	
+	^ aDatabase
+]
+
+{ #category : #'accessing - json' }
+LeRoamJsonExamples >> databaseWithOnePageWithSnippetWithInvalidBase64EncoderJson [
+	^ '[ {
+		"title" : "Page with a snippet",
+		"create-time" : 1564179233107,
+		"create-email" : "email@example.com",
+		"uid": "RA1UXmzp0",
+		"children" : [
+			{
+				"string" : "A link with an id that triggers a ZnCharacterEncodingError encoding.",
+				"create-time" : 1599417273794,
+				"create-email" : "@<unknown>",
+				"edit-time" : 1599417281535,
+				"edit-email" : "@<unknown>",
+				"uid" : "Wuu11jwlb"
+			}
+		]
+	} ]'
+]
+
 { #category : #accessing }
 LeRoamJsonExamples >> defaultPictureSnippet [
 	<gtExample>
@@ -84,7 +123,7 @@ LeRoamJsonExamples >> editTime [
 	^ 1564179233107
 ]
 
-{ #category : #'examples - json' }
+{ #category : #'accessing - json' }
 LeRoamJsonExamples >> exportedDatabaseJson [
 	^ '[
 	{
@@ -94,6 +133,142 @@ LeRoamJsonExamples >> exportedDatabaseJson [
 		"edit-time" : 1564179233107,
 		"edit-email" : "email@example.com",
 		"children" : [ ]
+	}
+]'
+]
+
+{ #category : #'examples - json' }
+LeRoamJsonExamples >> helpDatabaseFromJsonImport [
+	<gtExample>
+	| aDatabase |
+	aDatabase := self reader
+		databaseFromString: self helpDatabaseJson.
+	
+	self assert: aDatabase size equals: 5.
+	
+	^ aDatabase
+]
+
+{ #category : #'accessing - json' }
+LeRoamJsonExamples >> helpDatabaseJson [
+	^ '[
+	{
+		"title" : "September 4th, 2020",
+		"create-time" : 1599255508029,
+		"create-email" : "jane@doe.com",
+		"edit-time" : 1599255508029,
+		"edit-email" : "jane@doe.com",
+		"children" : [
+			{
+				"string" : "[[lepĭter]] is powered by [[Glamorous Toolkit]]",
+				"create-time" : 1599255550821,
+				"create-email" : "jane@doe.com",
+				"edit-time" : 1599255611651,
+				"edit-email" : "jane@doe.com",
+				"uid" : "reIKDhPY",
+				"children" : [ ]
+			}
+		]
+	},
+	{
+		"title" : "lepĭter",
+		"create-time" : 1599417193575,
+		"create-email" : "@<unknown>",
+		"edit-time" : 1599417193575,
+		"edit-email" : "@<unknown>",
+		"children" : [
+			{
+				"string" : "lepĭter is multiple things at the same time:",
+				"create-time" : 1599255621591,
+				"create-email" : "jane@doe.com",
+				"edit-time" : 1599255774594,
+				"edit-email" : "jane@doe.com",
+				"uid" : "1qpXSwWM",
+				"children" : [
+					{
+						"string" : "It is a local-first solution for managing networked thought.",
+						"create-time" : 1599255647980,
+						"create-email" : "jane@doe.com",
+						"edit-time" : 1599255847250,
+						"edit-email" : "jane@doe.com",
+						"uid" : "LhB0QVSA",
+						"children" : [ ]
+					},
+					{
+						"string" : "It is a programmable interface for your database.",
+						"create-time" : 1599255749469,
+						"create-email" : "jane@doe.com",
+						"edit-time" : 1599255846067,
+						"edit-email" : "jane@doe.com",
+						"uid" : "egMdI3+y",
+						"children" : [ ]
+					},
+					{
+						"string" : "It is an example of using the mechanisms of  [[Glamorous Toolkit]] for an end user application.",
+						"create-time" : 1599255668805,
+						"create-email" : "jane@doe.com",
+						"edit-time" : 1599255844251,
+						"edit-email" : "jane@doe.com",
+						"uid" : "aKDB+Bgd",
+						"children" : [ ]
+					}
+				]
+			}
+		]
+	},
+	{
+		"title" : "Glamorous Toolkit",
+		"create-time" : 1599417193576,
+		"create-email" : "@<unknown>",
+		"edit-time" : 1599417193576,
+		"edit-email" : "@<unknown>",
+		"children" : [
+			{
+				"string" : "[Glamorous Toolkit](https://gtoolkit.com) is the moldable development environment. It is a live notebook. It is a flexible search interface. It is a fancy code editor. It is a software analysis platform. It is a data visualization engine. All in one. ((reIKDhPY))",
+				"create-time" : 1599289069146,
+				"create-email" : "jane@doe.com",
+				"edit-time" : 1599417308601,
+				"edit-email" : "@<unknown>",
+				"uid" : "xaIfkjaN",
+				"children" : [ ]
+			}
+		]
+	},
+	{
+		"title" : "September 5th, 2020",
+		"create-time" : 1599299533370,
+		"create-email" : "jane@doe.com",
+		"edit-time" : 1599299533370,
+		"edit-email" : "jane@doe.com",
+		"children" : [
+			{
+				"string" : "Lepiters is ((LhB0QVSA)), ((egMdI3+y)) and ((aKDB+Bgd)) / ((aKDB+Bgd))",
+				"create-time" : 1599417273794,
+				"create-email" : "@<unknown>",
+				"edit-time" : 1599417281535,
+				"edit-email" : "@<unknown>",
+				"uid" : "Wuu11jwlb",
+				"children" : [ ]
+			}
+		]
+	},
+	{
+		"title" : "One snippet with link",
+		"create-time" : 1599299533370,
+		"create-email" : "jane@doe.com",
+		"edit-time" : 1599299533370,
+		"edit-email" : "jane@doe.com",
+		"children" : [
+			{
+				"string" : "link ((LhB0QVSA))",
+				"create-time" : 1599417273794,
+				"create-email" : "@<unknown>",
+				"edit-time" : 1599417281535,
+				"edit-email" : "@<unknown>",
+				"uid" : "pWRyFfmVo",
+				"children" : [ ]
+			}
+		]
 	}
 ]'
 ]
@@ -216,7 +391,7 @@ LeRoamJsonExamples >> simplePage [
 	^ aPage
 ]
 
-{ #category : #'examples - json' }
+{ #category : #'accessing - json' }
 LeRoamJsonExamples >> simplePageJson [
 	^ '{
 		"title" : "July 26th, 2019",
