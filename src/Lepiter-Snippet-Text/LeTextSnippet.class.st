@@ -419,7 +419,14 @@ LeTextSnippet >> resetCachedTextualLinks [
 
 { #category : #converting }
 LeTextSnippet >> roamJsonStringContent: aString [
-	self string: aString
+	"Convert short UIDs to UUIDs"
+	| snippetDictionary |
+	
+	snippetDictionary := { 'string' -> aString } asDictionary.
+	LeJsonV4000Updater new 
+		updateSnippetLinks: snippetDictionary.
+			
+	self string: (snippetDictionary at: 'string') 
 ]
 
 { #category : #'api - links' }

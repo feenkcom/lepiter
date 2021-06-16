@@ -107,6 +107,133 @@ LeRoamJsonExamples >> databaseWithOnePageWithSnippetWithInvalidBase64EncoderJson
 	} ]'
 ]
 
+{ #category : #'examples - json' }
+LeRoamJsonExamples >> databaseWithPageWithSnippetLink [
+	<gtExample>
+	| aDatabase pageWithLink snippetWithLink |
+	aDatabase := self reader
+		databaseFromString: self databaseWithPageWithSnippetLinkJson.
+	self assert: aDatabase size equals: 2.
+	
+	pageWithLink := aDatabase pageNamed: 'One snippet with link'.
+	self assert: pageWithLink children size equals: 1.
+	
+	snippetWithLink := pageWithLink children first.
+	self 
+		assert: snippetWithLink string 
+		equals: 'link ((Wuu11jwlbWuuAAAAAAAAAA==))'.
+	
+	^ aDatabase
+]
+
+{ #category : #'accessing - json' }
+LeRoamJsonExamples >> databaseWithPageWithSnippetLinkJson [
+	^ '[ {
+		"title" : "Target Page",
+		"create-time" : 1599299533370,
+		"create-email" : "jane@doe.com",
+		"edit-time" : 1599299533370,
+		"edit-email" : "jane@doe.com",
+		"children" : [
+			{
+				"string" : "Target Snippet",
+				"create-time" : 1599417273794,
+				"create-email" : "@<unknown>",
+				"edit-time" : 1599417281535,
+				"edit-email" : "@<unknown>",
+				"uid" : "Wuu11jwlb",
+				"children" : [ ]
+			}
+		]
+	},
+	{
+		"title" : "One snippet with link",
+		"create-time" : 1599299533370,
+		"create-email" : "jane@doe.com",
+		"edit-time" : 1599299533370,
+		"edit-email" : "jane@doe.com",
+		"children" : [
+			{
+				"string" : "link ((Wuu11jwlb))",
+				"create-time" : 1599417273794,
+				"create-email" : "@<unknown>",
+				"edit-time" : 1599417281535,
+				"edit-email" : "@<unknown>",
+				"uid" : "pWRyFfmVo",
+				"children" : [ ]
+			}
+		]
+	} ]'
+]
+
+{ #category : #'examples - json' }
+LeRoamJsonExamples >> databaseWithPageWithSnippetWithTwoLinks [
+	<gtExample>
+	| aDatabase pageWithLink snippetWithLink |
+	aDatabase := self reader
+		databaseFromString: self databaseWithPageWithSnippetWithTwoLinksJson.
+	self assert: aDatabase size equals: 2.
+	
+	pageWithLink := aDatabase pageNamed: 'One snippet with link'.
+	self assert: pageWithLink children size equals: 1.
+	
+	snippetWithLink := pageWithLink children first.
+	self 
+		assert: snippetWithLink string 
+		equals: 'link ((Wuu11jwlbWuuAAAAAAAAAA==)) and ((OpgJN0KUhOpgAAAAAAAAAA==))'.
+	
+	^ aDatabase
+]
+
+{ #category : #'accessing - json' }
+LeRoamJsonExamples >> databaseWithPageWithSnippetWithTwoLinksJson [
+	^ '[ {
+		"title" : "Target Page",
+		"create-time" : 1599299533370,
+		"create-email" : "jane@doe.com",
+		"edit-time" : 1599299533370,
+		"edit-email" : "jane@doe.com",
+		"children" : [
+			{
+				"string" : "Target Snippet One",
+				"create-time" : 1599417273794,
+				"create-email" : "@<unknown>",
+				"edit-time" : 1599417281535,
+				"edit-email" : "@<unknown>",
+				"uid" : "Wuu11jwlb",
+				"children" : [ ]
+			},
+			{
+				"string" : "Target Snippet Two",
+				"create-time" : 1599417273796,
+				"create-email" : "@<unknown>",
+				"edit-time" : 1599417281539,
+				"edit-email" : "@<unknown>",
+				"uid" : "OpgJN0KUh",
+				"children" : [ ]
+			}
+		]
+	},
+	{
+		"title" : "One snippet with link",
+		"create-time" : 1599299533370,
+		"create-email" : "jane@doe.com",
+		"edit-time" : 1599299533370,
+		"edit-email" : "jane@doe.com",
+		"children" : [
+			{
+				"string" : "link ((Wuu11jwlb)) and ((OpgJN0KUh))",
+				"create-time" : 1599417273794,
+				"create-email" : "@<unknown>",
+				"edit-time" : 1599417281535,
+				"edit-email" : "@<unknown>",
+				"uid" : "pWRyFfmVo",
+				"children" : [ ]
+			}
+		]
+	} ]'
+]
+
 { #category : #accessing }
 LeRoamJsonExamples >> defaultPictureSnippet [
 	<gtExample>
@@ -235,7 +362,7 @@ LeRoamJsonExamples >> helpDatabaseJson [
 		]
 	},
 	{
-		"title" : "September 5th, 2020",
+		"title" : "Page with Snippet with 4 links",
 		"create-time" : 1599299533370,
 		"create-email" : "jane@doe.com",
 		"edit-time" : 1599299533370,
@@ -271,6 +398,25 @@ LeRoamJsonExamples >> helpDatabaseJson [
 		]
 	}
 ]'
+]
+
+{ #category : #'examples - json' }
+LeRoamJsonExamples >> helpDatabaseSnippetWithFourLinks [
+	<gtExample>
+	| aDatabase targetPage targetSnippet |
+	aDatabase := self reader
+		databaseFromString: self helpDatabaseJson.
+	self assert: aDatabase size equals: 5.
+	
+	targetPage := aDatabase pageNamed: 'Page with Snippet with 4 links'.
+	self assert: targetPage children size equals: 1.
+	
+	targetSnippet := targetPage children first.
+	self 
+		assert: targetSnippet string 
+		equals: 'Lepiters is ((LhB0QVSAAAAAAAAAAAAAAA==)), ((egMdI3+yAAAAAAAAAAAAAA==)) and ((aKDB+BgdAAAAAAAAAAAAAA==)) / ((aKDB+BgdAAAAAAAAAAAAAA==))'.
+	
+	^ aDatabase
 ]
 
 { #category : #'examples - json' }
