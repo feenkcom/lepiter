@@ -69,6 +69,65 @@ LeRoamJsonExamples >> databaseWithOnePageNoEditValues_Write [
 ]
 
 { #category : #'examples - json' }
+LeRoamJsonExamples >> databaseWithOnePageWithSnippetLink [
+	<gtExample>
+	| aDatabase pageWithLink snippetWithLink |
+	aDatabase := self reader
+		databaseFromString: self databaseWithOnePageWithSnippetLinkJson.
+	self assert: aDatabase size equals: 2.
+	
+	pageWithLink := aDatabase pageNamed: 'One snippet with link'.
+	self assert: pageWithLink children size equals: 1.
+	
+	snippetWithLink := pageWithLink children first.
+	self 
+		assert: snippetWithLink string 
+		equals: 'link ((Wuu11jwlbWuuAAAAAAAAAA==))'.
+	
+	^ aDatabase
+]
+
+{ #category : #'accessing - json' }
+LeRoamJsonExamples >> databaseWithOnePageWithSnippetLinkJson [
+	^ '[ {
+		"title" : "Target Page",
+		"create-time" : 1599299533370,
+		"create-email" : "jane@doe.com",
+		"edit-time" : 1599299533370,
+		"edit-email" : "jane@doe.com",
+		"children" : [
+			{
+				"string" : "Target Snippet",
+				"create-time" : 1599417273794,
+				"create-email" : "@<unknown>",
+				"edit-time" : 1599417281535,
+				"edit-email" : "@<unknown>",
+				"uid" : "Wuu11jwlb",
+				"children" : [ ]
+			}
+		]
+	},
+	{
+		"title" : "One snippet with link",
+		"create-time" : 1599299533370,
+		"create-email" : "jane@doe.com",
+		"edit-time" : 1599299533370,
+		"edit-email" : "jane@doe.com",
+		"children" : [
+			{
+				"string" : "link ((Wuu11jwlb))",
+				"create-time" : 1599417273794,
+				"create-email" : "@<unknown>",
+				"edit-time" : 1599417281535,
+				"edit-email" : "@<unknown>",
+				"uid" : "pWRyFfmVo",
+				"children" : [ ]
+			}
+		]
+	} ]'
+]
+
+{ #category : #'examples - json' }
 LeRoamJsonExamples >> databaseWithOnePageWithSnippetWithInvalidBase64Encoder [
 	<gtExample>
 	| aDatabase targetPage targetSnippet |
@@ -242,7 +301,7 @@ LeRoamJsonExamples >> helpDatabaseJson [
 		"edit-email" : "jane@doe.com",
 		"children" : [
 			{
-				"string" : "Lepiters is ((LhB0QVSA)), ((egMdI3+y)) and ((aKDB+Bgd)) / ((aKDB+Bgd))",
+				"string" : "Lepiters is ((LhB0QVSA)), (egMdI3+y) and (aKDB+Bgd) / (aKDB+Bgd)",
 				"create-time" : 1599417273794,
 				"create-email" : "@<unknown>",
 				"edit-time" : 1599417281535,
