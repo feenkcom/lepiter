@@ -75,7 +75,7 @@ LeRestPage >> printPageSummaryLimitedTo: aNumber [
 	"Return a short textual representation of the content of the page"
 	<return: #String>
 
-	^ page printPageSummaryLimitedTo: aNumber
+	^ ''
 ]
 
 { #category : #accessing }
