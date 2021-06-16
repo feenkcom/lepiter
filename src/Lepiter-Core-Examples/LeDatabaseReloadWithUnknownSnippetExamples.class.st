@@ -53,14 +53,14 @@ LeDatabaseReloadWithUnknownSnippetExamples >> reloadPageWithUnknownSnippet [
 	"Confirm that attachment properties don't include personal information when saved to disk"
 
 	<gtExample>
-	| memStore database page snippet jsonSnippet pageFile loadedPage loadedSnippet |
+	| memStore database page jsonSnippet pageFile loadedPage loadedSnippet |
 	memStore := FileSystem memory root / 'db'.
 	memStore ensureCreateDirectory.
 	database := LeLocalStoreLoad current
 		loadAndMonitorFrom: memStore
 		saveDelay: 0 seconds.
 	page := LePage named: #page1.
-	snippet := page addSnippet: (LeTextSnippet string: #snipept1).
+	page addSnippet: (LeTextSnippet string: #snipept1).
 	database addPage: page.
 	pageFile := database monitor pageFileReference: page.
 	jsonSnippet := STONJSON fromString: pageFile contents.
