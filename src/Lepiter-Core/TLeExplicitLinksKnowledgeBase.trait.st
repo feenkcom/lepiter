@@ -257,7 +257,7 @@ TLeExplicitLinksKnowledgeBase >> updateLocalUnresolvedReferencesForPage: aPage [
 { #category : #updating }
 TLeExplicitLinksKnowledgeBase >> updateUnresolvedReferencesForPage: aPage [
 	self parent 
-		ifNil: [ 	self updateLocalUnresolvedReferencesForPage: aPage. ]
+		ifNil: [ self updateLocalUnresolvedReferencesForPage: aPage. ]
 		ifNotNil: [ :aParentDatabase |
 			aParentDatabase updateUnresolvedReferencesForPage: aPage  ]
 ]
