@@ -6,7 +6,7 @@ LePage >> printPageSummaryLimitedTo: aNumber [
 	<return: #String>
 	^ String 
 		streamContents: [ :aStream | 
-			self allChildrenDepthFirstDo: [ :eachChild | 
+			self allChildrenBreadthFirstDo: [ :eachChild | 
 				eachChild contentAsString asString
 					do: [ :eachCharacter | 
 						eachCharacter isLineSeparator
