@@ -77,7 +77,7 @@ LeHomeCommonDatabaseElement >> onDatatabasePageRemoved: anAnnouncement [
 
 { #category : #'private - accessing' }
 LeHomeCommonDatabaseElement >> recentPageCardsElement [
-	<return: #LeHomeRecentPageCardsElement>
+	<return: #LeHomePagesElement>
 	^ recentPageCardsElement
 ]
 
