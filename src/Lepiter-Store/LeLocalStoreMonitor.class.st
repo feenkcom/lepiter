@@ -144,8 +144,11 @@ LeLocalStoreMonitor >> gtAttachmentsFor: aView [
 { #category : #'gt-extensions' }
 LeLocalStoreMonitor >> gtViewCorruptFilesFor: aView [
 	<gtView>
+	(corruptFiles isNil or: [
+		corruptFiles isEmpty]) ifTrue: [ ^ aView empty ].
 	^ aView list
 		title: 'Corrupt files';
+		priority: 4;
 		items: [ self corruptFiles]
 ]
 
@@ -154,7 +157,7 @@ LeLocalStoreMonitor >> gtViewStatusDetailsFor: aView [
 	<gtView>
 	^ aView columnedList
 		title: 'Details';
-		priority: 10;
+		priority: 5;
 		items: [ {
 			'Has pengind change' -> self isEmpty not.
 			'Has corrupt files' -> (self corruptFiles size > 0) .
