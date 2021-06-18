@@ -52,16 +52,20 @@ LeHtmlExporterAnnotationVisitor >> labelStringForAnnotation: anExampleAnnotation
 { #category : #generated }
 LeHtmlExporterAnnotationVisitor >> visitClassAnnotation: aClassAnnotation [
 	| classNameArgument |
-	aClassAnnotation hasLabel ifTrue: [ 
-		^ self writeClassLabel: aClassAnnotation ].
-	
+	aClassAnnotation hasLabel
+		ifTrue: [ ^ self writeClassLabel: aClassAnnotation ].
 	classNameArgument := aClassAnnotation nameNode.
-	self putTag: 'span' andAttributes: 'class="class_annotation"' with: [
-		self putString: classNameArgument value source asHTMLString.
-		self putTag: 'span' andAttributes: 'class="class_definition"' with: [
-			self putString: classNameArgument behavior definition trimBoth asHTMLString.
-		]
-	]
+	self
+		putTag: 'pre '
+		with: [ self
+				putTag: 'code'
+				andAttributes: 'class="class_annotation"'
+				with: [ self putString: classNameArgument value source asHTMLString.
+					self
+						putTag: 'code'
+						andAttributes: 'class="class_definition"'
+						with: [ self
+								putString: classNameArgument behavior definition trimBoth asHTMLString ] ] ]
 ]
 
 { #category : #generated }
@@ -76,17 +80,20 @@ LeHtmlExporterAnnotationVisitor >> visitExampleAnnotation: anExampleAnnotation [
 { #category : #generated }
 LeHtmlExporterAnnotationVisitor >> visitMethodAnnotation: aMethodAnnotation [
 	| methodNameArgument |
-	
-	aMethodAnnotation hasLabel ifTrue: [ 
-		^ self writeMethodLabel: aMethodAnnotation ].
-	
+	aMethodAnnotation hasLabel
+		ifTrue: [ ^ self writeMethodLabel: aMethodAnnotation ].
 	methodNameArgument := aMethodAnnotation nameNode.
-	self putTag: 'span' andAttributes: 'class="method_annotation"' with: [
-		self putString:methodNameArgument source asHTMLString.
-		self putTag: 'span' andAttributes: 'class="method_definition"' with: [
-			self putString:methodNameArgument imageObject sourceCode asHTMLString.
-		]
-	]
+	self
+		putTag: 'pre'
+		with: [ self
+				putTag: 'code'
+				andAttributes: 'class="method_annotation"'
+				with: [ self putString: methodNameArgument source asHTMLString.
+					self
+						putTag: 'code'
+						andAttributes: 'class="method_definition"'
+						with: [ self
+								putString: methodNameArgument imageObject sourceCode asHTMLString ] ] ]
 ]
 
 { #category : #html }

@@ -39,17 +39,10 @@ LeHtmlFragmentExporterVisitor >> initialize [
 
 { #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitContent: aLeContent [
-
 	aLeContent hasChildren ifFalse: [ ^ self ].
-	level := level + 1.
-	stream 
-		<< '<div class="content_children" style="margin-left: ';
-		print: level * 20;
-		<< 'pt';
-		<< '">'.
-	aLeContent children acceptVisitor: self.
-	stream << '</div>'; cr.
-
+	self putTag: 'div' andAttributes: 'class="content_children"' with: [
+		aLeContent children acceptVisitor: self.
+	]
 ]
 
 { #category : #visiting }
