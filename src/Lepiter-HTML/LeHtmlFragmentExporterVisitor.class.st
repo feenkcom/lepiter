@@ -16,7 +16,8 @@ Class {
 	#instVars : [
 		'stream',
 		'level',
-		'externalPicturesWriter'
+		'externalPicturesWriter',
+		'nestingLevel'
 	],
 	#category : #'Lepiter-HTML-Exporter'
 }
@@ -31,11 +32,46 @@ LeHtmlFragmentExporterVisitor >> externalPicturesWriter: aDataWriter [
 	externalPicturesWriter := aDataWriter
 ]
 
+{ #category : #accessing }
+LeHtmlFragmentExporterVisitor >> indent: aBlock [
+	nestingLevel := nestingLevel + 1.
+	aBlock value.
+	nestingLevel := nestingLevel - 1.
+]
+
 { #category : #initialization }
 LeHtmlFragmentExporterVisitor >> initialize [
 
 	super initialize.
 	level := 1.
+	nestingLevel := 1.
+]
+
+{ #category : #accessing }
+LeHtmlFragmentExporterVisitor >> putPre: aString [
+	stream
+		nextPutAll: aString;
+		cr
+]
+
+{ #category : #accessing }
+LeHtmlFragmentExporterVisitor >> putString: aString [
+	stream
+		tab: nestingLevel;
+		nextPutAll: aString;
+		cr
+]
+
+{ #category : #accessing }
+LeHtmlFragmentExporterVisitor >> putTag: aTag andAttributes: attributesString with: aBlock [
+	self putString: '<',aTag, (attributesString ifNotEmpty: [' ',attributesString]), '>'.
+	self indent:aBlock.
+	self putString: '</',aTag,'>'.
+]
+
+{ #category : #accessing }
+LeHtmlFragmentExporterVisitor >> putTag: aTag with: aBlock [
+	self putTag: aTag andAttributes: '' with: aBlock
 ]
 
 { #category : #accessing }
@@ -73,19 +109,13 @@ LeHtmlFragmentExporterVisitor >> visitPage: aLePage [
 
 { #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitPharoSnippet: aLePharoSnippet [
-
-	stream
-		<< '<div class="pharo_snippet codeBlock">';
-		<< '<pre>';
-		<< '<code class="hljs smalltalk">';
-		<< aLePharoSnippet code asHTMLString.
-	self visitTextualSnippet: aLePharoSnippet.
-	stream
-		<< '</code>';
-		<< '</pre>';
-		<< '</div>';
-		cr.
-
+	self putTag: 'div' andAttributes: 'class="pharo_snippet codeBlock"' with: [
+		self putTag: 'pre' with: [
+			self putTag: 'code' with: [
+				self putPre: aLePharoSnippet code asHTMLString.
+			]
+		]
+	]
 ]
 
 { #category : #visiting }
@@ -100,4 +130,13 @@ LeHtmlFragmentExporterVisitor >> visitTextSnippet: aLeTextSnippet [
 		<< '</div>';
 		cr.
 
+]
+
+{ #category : #visiting }
+LeHtmlFragmentExporterVisitor >> visitTweetReferenceSnippet: aLeTweetReferenceSnippet [
+	self putTag: 'blockquote' andAttributes: 'class="twitter-tweet"' with: [
+		self putTag: 'p' andAttributes: 'lang="en" dir="ltr"' with: [
+			self putString: aLeTweetReferenceSnippet tweet plainText
+		]
+	]
 ]
