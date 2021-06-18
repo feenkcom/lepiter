@@ -15,12 +15,23 @@ LeHtmlFragmentExporterExamples >> basicMarkdown [
 	"Confirm that basic markup is converted"
 	<gtExample>
 	| markdown html |
-
 	markdown := LeTextSnippet string: '*italic* **bold** `mono`'.
 	html := String streamContents: [ :stream |
 		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
 	self assert: html trimBoth
-		equals: '<div class="text_snippet"><i>italic</i> <b>bold</b> <code>mono</code></div>'.
+		equals: '<div class="text_snippet">
+	<i>
+		italic
+	</i>
+	 
+	<b>
+		bold
+	</b>
+	 
+	<code>
+		mono
+	</code>
+</div>'.
 	^ html
 ]
 
@@ -33,12 +44,6 @@ LeHtmlFragmentExporterExamples >> classAnnotation [
 	markdown := LeTextSnippet string: '{{gtClass:LeHtmlFragmentExporterExamples}}'.
 	html := String streamContents: [ :stream |
 		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
-	self assert: html trimBoth
-		equals: '<div class="text_snippet"><span class="class_annotation">LeHtmlFragmentExporterExamples<span class="class_definition">Object subclass: #LeHtmlFragmentExporterExamples
-	instanceVariableNames: ''''
-	classVariableNames: ''''
-	package: ''Lepiter-HTML-Examples''<br></span></span>
-</div>'.
 	^ html
 ]
 
@@ -51,8 +56,19 @@ LeHtmlFragmentExporterExamples >> codeBlock [
 	markdown := LeTextSnippet string: '```\answer:=42.\```' withCRs.
 	html := String streamContents: [ :stream |
 		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
+		
 	self assert: html trimBoth
-		equals: '<div class="text_snippet"><div class="code_block"><pre><code class="hljs smalltalk">\answer:=42.\</code></pre></div>\</div>' withCRs.
+		equals: '<div class="text_snippet">
+	<div class="code_block">
+		<pre>
+			<code class="smalltalk">
+
+answer:=42.
+
+			</code>
+		</pre>
+	</div>
+</div>'.
 	^ html
 ]
 
@@ -93,17 +109,17 @@ LeHtmlFragmentExporterExamples >> tweetSnippet [
 		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
 	self assert: html trimBoth
 		equals: '<blockquote class="twitter-tweet">
-		<p lang="en" dir="ltr">
-			Cosmos https://t.co/qrF9Wfhrop
-			&mdash; 
-			JKTesting
-			(@testing_jk)
-			<a href="https://twitter.com/testing_jk/status/1359470619839070211?ref_src=twsrc%5Etfw">
-				2021-02-10T11:53:48+00:00
-			</a>
-		</p>
-	</blockquote>
-	<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'.
-	^ html trimBoth
+	<p lang="en" dir="ltr">
+		Cosmos https://t.co/qrF9Wfhrop
+		&mdash; 
+		JKTesting
+		(@testing_jk)
+		<a href="https://twitter.com/testing_jk/status/1359470619839070211?ref_src=twsrc%5Etfw">
+			2021-02-10T11:53:48+00:00
+		</a>
+	</p>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'.
+	^ html
 
 ]

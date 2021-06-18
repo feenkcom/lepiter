@@ -11,13 +11,11 @@ To export a fragment to the supplied stream see {{gtMethod:name=LeContent>>#asHT
 Class {
 	#name : #LeHtmlFragmentExporterVisitor,
 	#superclass : #Object,
-	#traits : 'TLeModelVisitor',
-	#classTraits : 'TLeModelVisitor classTrait',
+	#traits : 'TLeModelVisitor + TIndentWriter',
+	#classTraits : 'TLeModelVisitor classTrait + TIndentWriter classTrait',
 	#instVars : [
-		'stream',
 		'level',
-		'externalPicturesWriter',
-		'nestingLevel'
+		'externalPicturesWriter'
 	],
 	#category : #'Lepiter-HTML-Exporter'
 }
@@ -32,56 +30,11 @@ LeHtmlFragmentExporterVisitor >> externalPicturesWriter: aDataWriter [
 	externalPicturesWriter := aDataWriter
 ]
 
-{ #category : #accessing }
-LeHtmlFragmentExporterVisitor >> indent: aBlock [
-	nestingLevel := nestingLevel + 1.
-	aBlock value.
-	nestingLevel := nestingLevel - 1.
-]
-
 { #category : #initialization }
 LeHtmlFragmentExporterVisitor >> initialize [
-
 	super initialize.
 	level := 1.
-	nestingLevel := 1.
-]
-
-{ #category : #accessing }
-LeHtmlFragmentExporterVisitor >> putPre: aString [
-	stream
-		nextPutAll: aString;
-		cr
-]
-
-{ #category : #accessing }
-LeHtmlFragmentExporterVisitor >> putString: aString [
-	stream
-		tab: nestingLevel;
-		nextPutAll: aString;
-		cr
-]
-
-{ #category : #accessing }
-LeHtmlFragmentExporterVisitor >> putTag: aTag andAttributes: attributesString with: aBlock [
-	self putString: '<',aTag, (attributesString ifNotEmpty: [' ',attributesString]), '>'.
-	self indent:aBlock.
-	self putString: '</',aTag,'>'.
-]
-
-{ #category : #accessing }
-LeHtmlFragmentExporterVisitor >> putTag: aTag with: aBlock [
-	self putTag: aTag andAttributes: '' with: aBlock
-]
-
-{ #category : #accessing }
-LeHtmlFragmentExporterVisitor >> stream [
-	^ stream
-]
-
-{ #category : #accessing }
-LeHtmlFragmentExporterVisitor >> stream: anObject [
-	stream := anObject
+	self nestingLevel:0.
 ]
 
 { #category : #visiting }
@@ -120,16 +73,13 @@ LeHtmlFragmentExporterVisitor >> visitPharoSnippet: aLePharoSnippet [
 
 { #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitTextSnippet: aLeTextSnippet [
-
-	stream << '<div class="text_snippet">'.
-	aLeTextSnippet ast acceptVisitor: (LeHtmlExporterTextSnippetVisitor new 
-		stream: stream;
-		externalPicturesWriter: self externalPicturesWriter).
+	self putTag: 'div' andAttributes: 'class="text_snippet"' with: [
+		aLeTextSnippet ast acceptVisitor: (LeHtmlExporterTextSnippetVisitor new 
+			stream: stream;
+			nestingLevel: nestingLevel;
+			externalPicturesWriter: self externalPicturesWriter).
 	self visitTextualSnippet: aLeTextSnippet.
-	stream
-		<< '</div>';
-		cr.
-
+	]
 ]
 
 { #category : #visiting }
@@ -144,7 +94,6 @@ LeHtmlFragmentExporterVisitor >> visitTweetReferenceSnippet: aLeTweetReferenceSn
 			linkHref := 'href="',aLeTweetReferenceSnippet url,'?ref_src=twsrc%5Etfw"'.
 			self putTag: 'a' andAttributes: linkHref with: [
 				self putString: aLeTweetReferenceSnippet tweet createdAt asString.
-				
 			].
 		]
 	].
