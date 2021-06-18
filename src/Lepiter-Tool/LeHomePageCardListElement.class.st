@@ -60,29 +60,13 @@ LeHomePageCardListElement >> onContentUIModelChanged [
 LeHomePageCardListElement >> onPageCardClick: aCard [
 	| aPageViewModel |
 	aPageViewModel := aCard pageViewModel.
-	
-	"We know that there might be a daily note page that is not part of the database.
-	It does not happen for other pages, we therefore create a new daily note."
-	aPageViewModel database isDatabase ifFalse: [ 
-		| aNewPage |
-		aNewPage := self database pageBuilder todayNote; ensure.
-		aPageViewModel := self databaseViewModel pageUIModelFor: aNewPage.
-		aCard pageViewModel: aPageViewModel ].
-	
 	self onPageClick: aPageViewModel
 ]
 
 { #category : #'private - updating' }
 LeHomePageCardListElement >> updateElement [
 	| allPages |
-	allPages := self pagesByDateToShow copy.
-	
-	self isForTodayNote ifTrue: [ 
-		| aTodayPage |
-		aTodayPage := self todayPage.
-		aTodayPage database isDatabase ifFalse: [ 
-			allPages add: aTodayPage ]
- 	].
-
-	self listElement items: (allPages collect: [ :eachPage | eachPage asContentUIModel ])
+	allPages := self pagesByDateToShow.
+	self listElement items: (allPages collect: [ :eachPage | 
+		eachPage asContentUIModel ])
 ]

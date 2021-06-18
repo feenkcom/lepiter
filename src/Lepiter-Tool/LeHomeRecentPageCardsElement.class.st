@@ -31,14 +31,6 @@ LeHomeRecentPageCardsElement >> newPageSummaryCardElement [
 		margin: (BlInsets top: 20 right: 40 bottom: 20 left: 0)
 ]
 
-{ #category : #'private - event handling' }
-LeHomeRecentPageCardsElement >> onAddTodayPageFrom: aCardElement [
-	| aNewPage |
-	aNewPage := self database pageBuilder todayNote; ensure.
-	aCardElement page: aNewPage.
-	self onPageCardClick: aCardElement.
-]
-
 { #category : #'private - hooks' }
 LeHomeRecentPageCardsElement >> onContentUIModelChanged [
 	super onContentUIModelChanged.
@@ -84,23 +76,16 @@ LeHomeRecentPageCardsElement >> unsubscribeFromContent [
 
 { #category : #'private - updating' }
 LeHomeRecentPageCardsElement >> updateElement [
-	| anAmount aMaxPages aTodayPageUIModel |
+	| anAmount aMaxPages |
 	anAmount := 0.
-	aTodayPageUIModel := nil.
-	self isForTodayNote
-		ifTrue: [ self updateTodayPageCard.
-			aTodayPageUIModel := (self childAt: 1) pageViewModel.
-			anAmount := 1 ].
 	aMaxPages := 5.
 	self pagesByDateToShow
 		do: [ :eachPage | 
 			| anIndex |
 			anIndex := anAmount + 1.
+			"self updatePageCardAt: anIndex withPage: eachPage pageViewModel."
 			anAmount = aMaxPages
-				ifTrue: [ ^ self removeCardsAfterStarting: anIndex ].
-			eachPage = aTodayPageUIModel pageModel
-				ifFalse: [ self updatePageCardAt: anIndex withPage: aTodayPageUIModel.
-					anAmount := anAmount + 1 ] ].
+				ifTrue: [ ^ self removeCardsAfterStarting: anIndex ] ].
 	self removeCardsAfterStarting: anAmount + 1
 ]
 
@@ -114,20 +99,4 @@ LeHomeRecentPageCardsElement >> updatePageCardAt: anIndex withPage: aPageViewMod
 				addChild: (aCard := self newPageSummaryCardElement)
 				at: anIndex ].
 	aCard pageViewModel: aPageViewModel
-]
-
-{ #category : #'private - updating' }
-LeHomeRecentPageCardsElement >> updateTodayPageCard [
-	| aPageUIModel aCard |
-	aPageUIModel := self databaseViewModel pageUIModelFor: self todayPage.
-			
-	self updatePageCardAt: 1 withPage: aPageUIModel.
-	aCard := self childAt: 1.
-	
-	self 
-		assert: [ aCard pageViewModel = aPageUIModel ] 
-		description: [ 'Today card element must have today page' ].
-		
-	aCard action: [ :theCard | 
-		self onAddTodayPageFrom: theCard ]
 ]
