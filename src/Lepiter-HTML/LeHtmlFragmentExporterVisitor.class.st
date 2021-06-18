@@ -134,9 +134,19 @@ LeHtmlFragmentExporterVisitor >> visitTextSnippet: aLeTextSnippet [
 
 { #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitTweetReferenceSnippet: aLeTweetReferenceSnippet [
+	| linkHref |
 	self putTag: 'blockquote' andAttributes: 'class="twitter-tweet"' with: [
 		self putTag: 'p' andAttributes: 'lang="en" dir="ltr"' with: [
-			self putString: aLeTweetReferenceSnippet tweet plainText
+			self putString: aLeTweetReferenceSnippet tweet plainText.
+			self putString:'&mdash; '.
+			self putString: (aLeTweetReferenceSnippet tweet authorObject at: 'name').
+			self putString:'(@',aLeTweetReferenceSnippet tweet authorUsername,')'.
+			linkHref := 'href="',aLeTweetReferenceSnippet url,'?ref_src=twsrc%5Etfw"'.
+			self putTag: 'a' andAttributes: linkHref with: [
+				self putString: aLeTweetReferenceSnippet tweet createdAt asString.
+				
+			].
 		]
-	]
+	].
+	self putString: '<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'.
 ]

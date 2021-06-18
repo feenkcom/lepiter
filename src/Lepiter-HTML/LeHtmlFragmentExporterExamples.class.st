@@ -91,9 +91,19 @@ LeHtmlFragmentExporterExamples >> tweetSnippet [
 		tweet: LeTweetRefSnippetExamples new validTweet.
 	html := String streamContents: [ :stream |
 		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
-		
-	'<blockquote class="twitter-tweet"><p lang="es" dir="ltr">Cosmos <a href="https://t.co/qrF9Wfhrop">pic.twitter.com/qrF9Wfhrop</a></p>&mdash; JKTesting (@testing_jk) <a href="https://twitter.com/testing_jk/status/1359470619839070211?ref_src=twsrc%5Etfw">February 10, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'.
-	'<blockquote class="twitter-tweet"><p lang="es" dir="ltr">Eloquent. <a href="https://t.co/ndI6Y7B9qi">https://t.co/ndI6Y7B9qi</a></p>&mdash; Tudor Girba (@girba) <a href="https://twitter.com/girba/status/1405805371617329160?ref_src=twsrc%5Etfw">June 18, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'.
-	^ html
+	self assert: html trimBoth
+		equals: '<blockquote class="twitter-tweet">
+		<p lang="en" dir="ltr">
+			Cosmos https://t.co/qrF9Wfhrop
+			&mdash; 
+			JKTesting
+			(@testing_jk)
+			<a href="https://twitter.com/testing_jk/status/1359470619839070211?ref_src=twsrc%5Etfw">
+				2021-02-10T11:53:48+00:00
+			</a>
+		</p>
+	</blockquote>
+	<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'.
+	^ html trimBoth
 
 ]
