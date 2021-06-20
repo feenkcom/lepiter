@@ -97,29 +97,3 @@ LeHtmlFragmentExporterExamples >> pharoSnippet [
 	^ html
 
 ]
-
-{ #category : #accessing }
-LeHtmlFragmentExporterExamples >> tweetSnippet [
-	<gtExample>
-	| markdown html |
-	markdown := LeTweetReferenceSnippet new
-		url:'https://twitter.com/testing_jk/status/1359470619839070211';
-		tweet: LeTweetRefSnippetExamples new validTweet.
-	html := String streamContents: [ :stream |
-		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
-	self assert: html trimBoth
-		equals: '<blockquote class="twitter-tweet">
-	<p lang="en" dir="ltr">
-		Cosmos https://t.co/qrF9Wfhrop
-		&mdash; 
-		JKTesting
-		(@testing_jk)
-		<a href="https://twitter.com/testing_jk/status/1359470619839070211?ref_src=twsrc%5Etfw">
-			2021-02-10T11:53:48+00:00
-		</a>
-	</p>
-</blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'.
-	^ html
-
-]
