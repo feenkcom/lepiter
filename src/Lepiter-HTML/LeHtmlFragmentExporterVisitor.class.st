@@ -11,10 +11,9 @@ To export a fragment to the supplied stream see {{gtMethod:name=LeContent>>#asHT
 Class {
 	#name : #LeHtmlFragmentExporterVisitor,
 	#superclass : #Object,
-	#traits : 'TLeModelVisitor',
-	#classTraits : 'TLeModelVisitor classTrait',
+	#traits : 'TLeModelVisitor + TIndentWriter',
+	#classTraits : 'TLeModelVisitor classTrait + TIndentWriter classTrait',
 	#instVars : [
-		'stream',
 		'level',
 		'externalPicturesWriter'
 	],
@@ -33,34 +32,17 @@ LeHtmlFragmentExporterVisitor >> externalPicturesWriter: aDataWriter [
 
 { #category : #initialization }
 LeHtmlFragmentExporterVisitor >> initialize [
-
 	super initialize.
 	level := 1.
-]
-
-{ #category : #accessing }
-LeHtmlFragmentExporterVisitor >> stream [
-	^ stream
-]
-
-{ #category : #accessing }
-LeHtmlFragmentExporterVisitor >> stream: anObject [
-	stream := anObject
+	self nestingLevel:0.
 ]
 
 { #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitContent: aLeContent [
-
 	aLeContent hasChildren ifFalse: [ ^ self ].
-	level := level + 1.
-	stream 
-		<< '<div class="content_children" style="margin-left: ';
-		print: level * 20;
-		<< 'pt';
-		<< '">'.
-	aLeContent children acceptVisitor: self.
-	stream << '</div>'; cr.
-
+	self putTag: 'div' andAttributes: 'class="content_children"' with: [
+		aLeContent children acceptVisitor: self.
+	]
 ]
 
 { #category : #visiting }
@@ -73,31 +55,40 @@ LeHtmlFragmentExporterVisitor >> visitPage: aLePage [
 
 { #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitPharoSnippet: aLePharoSnippet [
-
-	stream
-		<< '<div class="pharo_snippet codeBlock">';
-		<< '<pre>';
-		<< '<code class="hljs smalltalk">';
-		<< aLePharoSnippet code asHTMLString.
-	self visitTextualSnippet: aLePharoSnippet.
-	stream
-		<< '</code>';
-		<< '</pre>';
-		<< '</div>';
-		cr.
-
+	self putTag: 'div' andAttributes: 'class="pharo_snippet codeBlock"' with: [
+		self putTag: 'pre' with: [
+			self putTag: 'code' with: [
+				self putPre: aLePharoSnippet code asHTMLString.
+			]
+		]
+	]
 ]
 
 { #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitTextSnippet: aLeTextSnippet [
-
-	stream << '<div class="text_snippet">'.
-	aLeTextSnippet ast acceptVisitor: (LeHtmlExporterTextSnippetVisitor new 
-		stream: stream;
-		externalPicturesWriter: self externalPicturesWriter).
+	self putTag: 'div' andAttributes: 'class="text_snippet"' with: [
+		aLeTextSnippet ast acceptVisitor: (LeHtmlExporterTextSnippetVisitor new 
+			stream: stream;
+			nestingLevel: nestingLevel;
+			externalPicturesWriter: self externalPicturesWriter).
 	self visitTextualSnippet: aLeTextSnippet.
-	stream
-		<< '</div>';
-		cr.
+	]
+]
 
+{ #category : #visiting }
+LeHtmlFragmentExporterVisitor >> visitTweetReferenceSnippet: aLeTweetReferenceSnippet [
+	| linkHref |
+	self putTag: 'blockquote' andAttributes: 'class="twitter-tweet"' with: [
+		self putTag: 'p' andAttributes: 'lang="en" dir="ltr"' with: [
+			self putString: aLeTweetReferenceSnippet tweet plainText.
+			self putString:'&mdash; '.
+			self putString: (aLeTweetReferenceSnippet tweet authorObject at: 'name').
+			self putString:'(@',aLeTweetReferenceSnippet tweet authorUsername,')'.
+			linkHref := 'href="',aLeTweetReferenceSnippet url,'?ref_src=twsrc%5Etfw"'.
+			self putTag: 'a' andAttributes: linkHref with: [
+				self putString: aLeTweetReferenceSnippet tweet createdAt asString.
+			].
+		]
+	].
+	self putString: '<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'.
 ]

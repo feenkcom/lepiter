@@ -1,10 +1,9 @@
 Class {
 	#name : #LeHtmlExporterTextSnippetVisitor,
 	#superclass : #Object,
-	#traits : 'TSmaCCCompositeVisitor + (TLeContentNodeVisitor - {#acceptNode:})',
-	#classTraits : 'TSmaCCCompositeVisitor classTrait + TLeContentNodeVisitor classTrait',
+	#traits : 'TSmaCCCompositeVisitor + TIndentWriter + (TLeContentNodeVisitor - {#acceptNode:})',
+	#classTraits : 'TSmaCCCompositeVisitor classTrait + TIndentWriter classTrait + TLeContentNodeVisitor classTrait',
 	#instVars : [
-		'stream',
 		'externalPicturesWriter'
 	],
 	#category : #'Lepiter-HTML-Exporter'
@@ -52,45 +51,28 @@ LeHtmlExporterTextSnippetVisitor >> isLocalAttachmentUrl: aUrlLink [
 	^ aUrlLink beginsWith: 'file://'
 ]
 
-{ #category : #accessing }
-LeHtmlExporterTextSnippetVisitor >> stream [
-	^ stream
-]
-
-{ #category : #accessing }
-LeHtmlExporterTextSnippetVisitor >> stream: anObject [
-	stream := anObject
-]
-
 { #category : #visiting }
 LeHtmlExporterTextSnippetVisitor >> visitBold: aBold [
-
-	stream << '<b>'.
-	self visitContent: aBold.
-	stream << '</b>'.
-
+	self putTag: 'b' with: [self visitContent: aBold]
 ]
 
 { #category : #generated }
 LeHtmlExporterTextSnippetVisitor >> visitCodeBlock: aCodeBlock [
-
-	stream
-		<< '<div class="code_block">';
-		<< '<pre>';
-		<< '<code class="hljs smalltalk">';
-		<< aCodeBlock code value asString asHTMLString;
-		<< '</code>';
-		<< '</pre>';
-		<< '</div>'; cr.
+	self putTag: 'div' andAttributes: 'class="code_block"' with: [
+		self putTag: 'pre' with: [
+			self putTag: 'code' andAttributes: 'class="smalltalk"' with: [
+				self putPre: aCodeBlock code value asString asHTMLString
+			]
+		]
+	]
 ]
 
 { #category : #generated }
 LeHtmlExporterTextSnippetVisitor >> visitDocumenterAnnotation: aDocumenterAnnotation [
-
 	aDocumenterAnnotation annotation acceptVisitor: (LeHtmlExporterAnnotationVisitor new 
 		stream: stream;
+		nestingLevel: nestingLevel;
 		externalPicturesWriter: self externalPicturesWriter)
-
 ]
 
 { #category : #generated }
@@ -130,23 +112,15 @@ LeHtmlExporterTextSnippetVisitor >> visitExternalLabelUrlLink: anExternalLabelUr
 { #category : #visiting }
 LeHtmlExporterTextSnippetVisitor >> visitInlineCode: anInlineCode [
 	| md code |
-
 	md := anInlineCode code value.
 	code := md copyFrom: 2 to: md size - 1.
-	stream 
-		<< '<code>';
-		<< code asHTMLString;
-		<< '</code>'.
-
+	self putTag: 'code' with: [
+		self putString: code asHTMLString ].
 ]
 
 { #category : #visiting }
 LeHtmlExporterTextSnippetVisitor >> visitItalic: anItalic [
-
-	stream << '<i>'.
-	self visitContent: anItalic.
-	stream << '</i>'.
-
+	self putTag: 'i' with: [self visitContent: anItalic]
 ]
 
 { #category : #generated }
@@ -157,7 +131,5 @@ LeHtmlExporterTextSnippetVisitor >> visitPageLink: aPageLink [
 
 { #category : #generated }
 LeHtmlExporterTextSnippetVisitor >> visitText: aText [
-
-	stream << aText content asHTMLString
-
+	self putString: aText content asHTMLString
 ]

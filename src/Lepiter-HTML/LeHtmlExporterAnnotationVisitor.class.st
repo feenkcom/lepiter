@@ -1,10 +1,9 @@
 Class {
 	#name : #LeHtmlExporterAnnotationVisitor,
 	#superclass : #Object,
-	#traits : 'TLeAnnotationParseNodeVisitor',
-	#classTraits : 'TLeAnnotationParseNodeVisitor classTrait',
+	#traits : 'TLeAnnotationParseNodeVisitor + TIndentWriter',
+	#classTraits : 'TLeAnnotationParseNodeVisitor classTrait + TIndentWriter classTrait',
 	#instVars : [
-		'stream',
 		'externalPicturesWriter'
 	],
 	#category : #'Lepiter-HTML-Exporter'
@@ -50,31 +49,23 @@ LeHtmlExporterAnnotationVisitor >> labelStringForAnnotation: anExampleAnnotation
 		labelFor: resultObject
 ]
 
-{ #category : #accessing }
-LeHtmlExporterAnnotationVisitor >> stream [
-	^ stream
-]
-
-{ #category : #accessing }
-LeHtmlExporterAnnotationVisitor >> stream: anObject [
-	stream := anObject
-]
-
 { #category : #generated }
 LeHtmlExporterAnnotationVisitor >> visitClassAnnotation: aClassAnnotation [
 	| classNameArgument |
-	
-	aClassAnnotation hasLabel ifTrue: [ 
-		^ self writeClassLabel: aClassAnnotation ].
-	
+	aClassAnnotation hasLabel
+		ifTrue: [ ^ self writeClassLabel: aClassAnnotation ].
 	classNameArgument := aClassAnnotation nameNode.
-	stream
-		<< '<span class="class_annotation">';
-		<< classNameArgument value source asHTMLString;
-		<< '<span class="class_definition">';
-		<< classNameArgument behavior definition trimBoth asHTMLString;
-		<< '<br></span></span>'; cr.
-
+	self
+		putTag: 'pre '
+		with: [ self
+				putTag: 'code'
+				andAttributes: 'class="class_annotation"'
+				with: [ self putString: classNameArgument value source asHTMLString.
+					self
+						putTag: 'code'
+						andAttributes: 'class="class_definition"'
+						with: [ self
+								putString: classNameArgument behavior definition trimBoth asHTMLString ] ] ]
 ]
 
 { #category : #generated }
@@ -89,27 +80,27 @@ LeHtmlExporterAnnotationVisitor >> visitExampleAnnotation: anExampleAnnotation [
 { #category : #generated }
 LeHtmlExporterAnnotationVisitor >> visitMethodAnnotation: aMethodAnnotation [
 	| methodNameArgument |
-	
-	aMethodAnnotation hasLabel ifTrue: [ 
-		^ self writeMethodLabel: aMethodAnnotation ].
-	
+	aMethodAnnotation hasLabel
+		ifTrue: [ ^ self writeMethodLabel: aMethodAnnotation ].
 	methodNameArgument := aMethodAnnotation nameNode.
-	stream
-		<< '<span class="method_annotation">';
-		<< methodNameArgument source asHTMLString;
-		<< '<span class="method_definition">';
-		<< methodNameArgument imageObject sourceCode asHTMLString;
-		<< '</span></span>'; cr.
-
+	self
+		putTag: 'pre'
+		with: [ self
+				putTag: 'code'
+				andAttributes: 'class="method_annotation"'
+				with: [ self putString: methodNameArgument source asHTMLString.
+					self
+						putTag: 'code'
+						andAttributes: 'class="method_definition"'
+						with: [ self
+								putString: methodNameArgument imageObject sourceCode asHTMLString ] ] ]
 ]
 
 { #category : #html }
 LeHtmlExporterAnnotationVisitor >> writeClassLabel: anAnnotation [
-	stream
-		<< '<code class="class_label">';
-		<< anAnnotation label;
-		<< '</code>'
-
+	self putTag: 'code' andAttributes: 'class="class_label"' with: [
+		self putString: anAnnotation label
+	]
 ]
 
 { #category : #html }
@@ -189,9 +180,7 @@ LeHtmlExporterAnnotationVisitor >> writeExampleViewOrCodeFor: exampleAnnotation 
 
 { #category : #html }
 LeHtmlExporterAnnotationVisitor >> writeMethodLabel: anAnnotation [
-	stream
-		<< '<code class="method_label">';
-		<< anAnnotation label;
-		<< '</code>'
-
+	self putTag: 'code' andAttributes: 'class="method_label"' with: [
+		self putString: anAnnotation label
+	]
 ]
