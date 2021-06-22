@@ -26,6 +26,17 @@ LesPageResourceVisitor >> page: anObject [
 ]
 
 { #category : #visiting }
+LesPageResourceVisitor >> visitPictureSnippet: aLePictureSnippet [
+	| linkUrl fileName |
+	fileName := aLePictureSnippet urlString.
+	self addResource: (LeLocalAttachmentResource new
+		source: aLePictureSnippet;
+		name: fileName;
+		fileReference: aLePictureSnippet 
+			database monitor localRoot asFileReference / fileName)
+]
+
+{ #category : #visiting }
 LesPageResourceVisitor >> visitTextSnippet: aLeTextSnippet [
 	| snippetVisitor |
 	snippetVisitor := LeTextSnippetResourcesVisitor new
@@ -34,4 +45,9 @@ LesPageResourceVisitor >> visitTextSnippet: aLeTextSnippet [
 	self addResources: snippetVisitor resources.
 	
 	^ self visitTextualSnippet: aLeTextSnippet
+]
+
+{ #category : #visiting }
+LesPageResourceVisitor >> visitTweetReferenceSnippet: aLeTweetReferenceSnippet [
+	^ self visitTextualSnippet: aLeTweetReferenceSnippet
 ]
