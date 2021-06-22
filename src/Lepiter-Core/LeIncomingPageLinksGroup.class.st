@@ -24,7 +24,7 @@ LeIncomingPageLinksGroup class >> forPage: aLePage [
 LeIncomingPageLinksGroup >> groupedByOrigin [
 	| theGroupedLinks |
 
-	theGroupedLinks := OrderedDictionary new.
+	theGroupedLinks := Dictionary new.
 
 	self links do: [ :eachIncomingPageLink |
 		| eachLinkOrigin |
@@ -37,7 +37,7 @@ LeIncomingPageLinksGroup >> groupedByOrigin [
 				ifTrue: [ LeIncomingPageLinksGroupedByPage new referencingPage: eachLinkOrigin ]
 				ifFalse: [ LeIncomingPageLinksGroupedByOrigin new origin: eachLinkOrigin ] ]) addIncomingPageLink: eachIncomingPageLink ].
 
-	theGroupedLinks := theGroupedLinks values.
+	theGroupedLinks := theGroupedLinks values sorted: #latestEditDateAndTime descending.
 	theGroupedLinks do: [ :eachGroup | eachGroup privateSetReferencedPage: self referencedPage ].
 	^ theGroupedLinks
 ]
@@ -81,6 +81,22 @@ LeIncomingPageLinksGroup >> isExplicit [
 { #category : #testing }
 LeIncomingPageLinksGroup >> isImplicit [
 	^ false
+]
+
+{ #category : #'api - accessing' }
+LeIncomingPageLinksGroup >> latestEditDateAndTime [ 
+	"Answer the latest edit time of the receiver's links"
+	<return: #DateAndTime>
+
+	^ (links collect: #editTime) max time
+]
+
+{ #category : #'api - accessing' }
+LeIncomingPageLinksGroup >> latestEditTime [ 
+	"Answer the latest edit time of the receiver's links"
+	<return: #LeTime>
+
+	^ (links collect: #editTime) max
 ]
 
 { #category : #accessing }

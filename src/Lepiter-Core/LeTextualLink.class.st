@@ -23,6 +23,14 @@ LeTextualLink >> database [
 	^ self origin database
 ]
 
+{ #category : #'api - accessing' }
+LeTextualLink >> editTime [ 
+	"Answer the edit time of the receiver's origin"
+	<return: #LeTime>
+
+	^ origin editTime
+]
+
 { #category : #'api - testing' }
 LeTextualLink >> hasTarget [
 	^ self target isNotNil
