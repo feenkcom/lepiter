@@ -77,6 +77,7 @@ LeUnnamedPageType >> printOn: aStream [
 LeUnnamedPageType >> shortDescription [
 	| string |
 
+	defaultTitle ifNotNil: [ ^ defaultTitle ].
 	page hasChildren ifFalse: [ ^ '' ].
 	
 	string := page children first contentAsString.
