@@ -22,7 +22,7 @@ LeHtmlPageExporterExamples >> sampleDatabase [
 	"Answer the sample database to be used.
 	The database is opened without a monitor, so no changes will be saved"
 
-	^ LeLocalStoreLoad current loadFrom: self sampleDatabaseLocation
+	^ LeLocalStoreLoad current loadAndMonitorFrom: self sampleDatabaseLocation
 ]
 
 { #category : #private }
@@ -55,6 +55,31 @@ LeHtmlPageExporterExamples >> samplePage [
 	self assert: (html includesSubstring: '<code>
 		code
 	</code>').
+
+	^ html
+]
+
+{ #category : #examples }
+LeHtmlPageExporterExamples >> sampleSnippetsPage [
+	"Answer the html of a sample page"
+	<gtExample>
+	| database visitor html page |
+
+	database := self sampleDatabase.
+	page := database pageNamed: 'SnippetsToHTML'.
+
+	html := String streamContents: [ :stream |
+		visitor := LeHtmlPageExporterVisitor new stream: stream.
+		visitor addInternalStyle: self sampleCssFile contents.
+		page acceptVisitor: visitor ].
+
+	self assert: (html includesSubstring: '<i>
+		italic text
+	</i>').
+
+	self assert: (html includesSubstring: '<code>
+1+41
+		</code>').
 
 	^ html
 ]

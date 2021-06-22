@@ -65,6 +65,11 @@ LeHtmlFragmentExporterVisitor >> visitPharoSnippet: aLePharoSnippet [
 ]
 
 { #category : #visiting }
+LeHtmlFragmentExporterVisitor >> visitPictureSnippet: aLePictureSnippet [
+	self putTag: 'img' andAttributes: 'class="picture_snippet" href="',aLePictureSnippet urlString, '"' with: []
+]
+
+{ #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitTextSnippet: aLeTextSnippet [
 	self putTag: 'div' andAttributes: 'class="text_snippet"' with: [
 		aLeTextSnippet ast acceptVisitor: (LeHtmlExporterTextSnippetVisitor new 

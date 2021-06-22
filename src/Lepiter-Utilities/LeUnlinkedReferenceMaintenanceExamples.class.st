@@ -1,5 +1,5 @@
 Class {
-	#name : #LeUnlinkedReferenceMaintenaceExamples,
+	#name : #LeUnlinkedReferenceMaintenanceExamples,
 	#superclass : #Object,
 	#traits : 'TAssertable',
 	#classTraits : 'TAssertable classTrait',
@@ -7,24 +7,24 @@ Class {
 }
 
 { #category : #examples }
-LeUnlinkedReferenceMaintenaceExamples >> addPageWithIncommingUnlinkedReference [
+LeUnlinkedReferenceMaintenanceExamples >> addPageWithIncommingUnlinkedReference [
+	"Unlinked reference maintenance only updates as snippets are added, so adding a page currently doesn't have its incoming references updated"
 	<gtExample>
 	<noTest>
-	| database newPage  |
+	| database newPage |
 	database := self linkedAndUnlinkedReferences.
-	
+
 	BlUseAsyncFeatures disableDuring: [
 		newPage := database pageBuilder title: 'Block 1'; add ].
-	
+
 	self assert: newPage incomingUnlinked size equals: 1.
-	
+
 	^ database
 ]
 
 { #category : #examples }
-LeUnlinkedReferenceMaintenaceExamples >> addPageWithOutgoingUnlinkedReference [
+LeUnlinkedReferenceMaintenanceExamples >> addPageWithOutgoingUnlinkedReference [
 	<gtExample>
-	<noTest>
 	| database pageTwo newPage |
 	database := self linkedAndUnlinkedReferences.
 	pageTwo := database pageNamed: 'Page2'.
@@ -41,7 +41,7 @@ LeUnlinkedReferenceMaintenaceExamples >> addPageWithOutgoingUnlinkedReference [
 ]
 
 { #category : #examples }
-LeUnlinkedReferenceMaintenaceExamples >> addSnippetWithIncommingUnlinkedReference [
+LeUnlinkedReferenceMaintenanceExamples >> addSnippetWithIncommingUnlinkedReference [
 	<gtExample>
 	
 	| database pageOne pageTwo |
@@ -59,7 +59,7 @@ LeUnlinkedReferenceMaintenaceExamples >> addSnippetWithIncommingUnlinkedReferenc
 ]
 
 { #category : #examples }
-LeUnlinkedReferenceMaintenaceExamples >> crossDatabaseUnlinkedReference [
+LeUnlinkedReferenceMaintenanceExamples >> crossDatabaseUnlinkedReference [
 	<gtExample>
 	| db1 db2 ldb referencedPage namedPage unnamedPage dailyNote blocks maintainer |
 	db1 := LeDatabase new.
@@ -87,7 +87,7 @@ LeUnlinkedReferenceMaintenaceExamples >> crossDatabaseUnlinkedReference [
 				addSnippet: (LeTextSnippet string: 'DailyNote ref to ReferencedPage.')).
 	blocks
 		do: [ :block | 
-			maintainer := LeUnlinkedReferenceMaintenace forBlock: block.
+			maintainer := LeUnlinkedReferenceMaintenance forBlock: block.
 			maintainer run ].
 		
 	self assert: referencedPage incomingUnlinked size equals: 3.
@@ -95,7 +95,7 @@ LeUnlinkedReferenceMaintenaceExamples >> crossDatabaseUnlinkedReference [
 ]
 
 { #category : #examples }
-LeUnlinkedReferenceMaintenaceExamples >> linkedAndUnlinkedReferences [
+LeUnlinkedReferenceMaintenanceExamples >> linkedAndUnlinkedReferences [
 	<gtExample>
 	| database snippets page1 page2 page3 maintainer link |
 	database := LeDatabase new.
@@ -128,7 +128,7 @@ LeUnlinkedReferenceMaintenaceExamples >> linkedAndUnlinkedReferences [
 		add: (page3 addSnippet: (LeTextSnippet string: 'Hash to #Page2 here')).
 	snippets
 		do: [ :snippet | 
-			maintainer := LeUnlinkedReferenceMaintenace forBlock: snippet.
+			maintainer := LeUnlinkedReferenceMaintenance forBlock: snippet.
 			maintainer run ].
 	self assert: page1 incomingUnlinked size equals: 0.
 	self assert: page1 incomingLinks size equals: 0.
@@ -142,7 +142,7 @@ LeUnlinkedReferenceMaintenaceExamples >> linkedAndUnlinkedReferences [
 ]
 
 { #category : #examples }
-LeUnlinkedReferenceMaintenaceExamples >> noUnlinkedReferencesToUnamedPage [
+LeUnlinkedReferenceMaintenanceExamples >> noUnlinkedReferencesToUnamedPage [
 	<gtExample>
 	| database unnamedPage page1 page2  |
 	database := LeDatabase new.
@@ -169,7 +169,7 @@ LeUnlinkedReferenceMaintenaceExamples >> noUnlinkedReferencesToUnamedPage [
 ]
 
 { #category : #examples }
-LeUnlinkedReferenceMaintenaceExamples >> noUnlinkedReferencesToUnamedPageWithSameDefaultTitleAsNamedPage [
+LeUnlinkedReferenceMaintenanceExamples >> noUnlinkedReferencesToUnamedPageWithSameDefaultTitleAsNamedPage [
 	<gtExample>
 	| database unnamedPage page1 page2  |
 	database := LeDatabase new.
@@ -198,7 +198,7 @@ LeUnlinkedReferenceMaintenaceExamples >> noUnlinkedReferencesToUnamedPageWithSam
 ]
 
 { #category : #examples }
-LeUnlinkedReferenceMaintenaceExamples >> pageTitleWithRegexChars [
+LeUnlinkedReferenceMaintenanceExamples >> pageTitleWithRegexChars [
 	<gtExample>
 	| database blocks page1 page2 page3 maintainer link |
 	database := LeDatabase new.
@@ -228,7 +228,7 @@ LeUnlinkedReferenceMaintenaceExamples >> pageTitleWithRegexChars [
 	
 	blocks
 		do: [ :block | 
-			maintainer := LeUnlinkedReferenceMaintenace forBlock: block.
+			maintainer := LeUnlinkedReferenceMaintenance forBlock: block.
 			maintainer run ].
 		
 	self assert: page1 incomingUnlinked size equals: 0.
@@ -243,7 +243,7 @@ LeUnlinkedReferenceMaintenaceExamples >> pageTitleWithRegexChars [
 ]
 
 { #category : #examples }
-LeUnlinkedReferenceMaintenaceExamples >> removePageWithOutgoingUnlinkedReference [
+LeUnlinkedReferenceMaintenanceExamples >> removePageWithOutgoingUnlinkedReference [
 	<gtExample>
 	| database pageOne pageTwo  |
 	database := self linkedAndUnlinkedReferences.
@@ -261,7 +261,7 @@ LeUnlinkedReferenceMaintenaceExamples >> removePageWithOutgoingUnlinkedReference
 ]
 
 { #category : #examples }
-LeUnlinkedReferenceMaintenaceExamples >> removeUnlinkedReference [
+LeUnlinkedReferenceMaintenanceExamples >> removeUnlinkedReference [
 	"Remove the first unlinked reference from #linkedAndUnlinkedReferences"
 	<gtExample>
 	| database page1 snippet page2 found |
@@ -287,7 +287,7 @@ LeUnlinkedReferenceMaintenaceExamples >> removeUnlinkedReference [
 ]
 
 { #category : #examples }
-LeUnlinkedReferenceMaintenaceExamples >> removesSnippetWithChildSnippetsWithOutgoingUnlinkedReference [
+LeUnlinkedReferenceMaintenanceExamples >> removesSnippetWithChildSnippetsWithOutgoingUnlinkedReference [
 	<gtExample>
 	| database pageOne pageTwo newSnippet |
 	database := self linkedAndUnlinkedReferences.
@@ -309,7 +309,7 @@ LeUnlinkedReferenceMaintenaceExamples >> removesSnippetWithChildSnippetsWithOutg
 ]
 
 { #category : #examples }
-LeUnlinkedReferenceMaintenaceExamples >> removesSnippetWithOutgoingUnlinkedReference [
+LeUnlinkedReferenceMaintenanceExamples >> removesSnippetWithOutgoingUnlinkedReference [
 	<gtExample>
 	| database pageOne pageOneSnippetOne pageTwo |
 	database := self linkedAndUnlinkedReferences.
@@ -328,7 +328,7 @@ LeUnlinkedReferenceMaintenaceExamples >> removesSnippetWithOutgoingUnlinkedRefer
 ]
 
 { #category : #examples }
-LeUnlinkedReferenceMaintenaceExamples >> renamePageWithIncommingUnlinkedReference [
+LeUnlinkedReferenceMaintenanceExamples >> renamePageWithIncommingUnlinkedReference [
 	<gtExample>
 	<noTest>
 	| database pageTwo  |
@@ -346,7 +346,7 @@ LeUnlinkedReferenceMaintenaceExamples >> renamePageWithIncommingUnlinkedReferenc
 ]
 
 { #category : #examples }
-LeUnlinkedReferenceMaintenaceExamples >> textSnippetVisitor [
+LeUnlinkedReferenceMaintenanceExamples >> textSnippetVisitor [
 	"Confirm the operation of the text snippet visitor"
 	<gtExample>
 	| snippet string |
@@ -374,7 +374,7 @@ LeUnlinkedReferenceMaintenaceExamples >> textSnippetVisitor [
 ]
 
 { #category : #examples }
-LeUnlinkedReferenceMaintenaceExamples >> unlinkedReferencesExcludeLinks [
+LeUnlinkedReferenceMaintenanceExamples >> unlinkedReferencesExcludeLinks [
 	<gtExample>
 	| database blocks page1 page1too page2 maintainer |
 	database := LeDatabase new.
@@ -410,7 +410,7 @@ LeUnlinkedReferenceMaintenaceExamples >> unlinkedReferencesExcludeLinks [
 						string: '[[Page1 too]] shouldn''t link to the other page 1.')).
 	blocks
 		do: [ :block | 
-			maintainer := LeUnlinkedReferenceMaintenace forBlock: block.
+			maintainer := LeUnlinkedReferenceMaintenance forBlock: block.
 			maintainer run ].
 	self assert: page1 incomingUnlinked size equals: 3.
 	self assert: page1 incomingLinks size equals: 0.
