@@ -27,6 +27,18 @@ LeIncomingPageLinksGroupedByPageCardsViewModel >> initialize [
 	linkViewModels := #()
 ]
 
+{ #category : #'api - accessing' }
+LeIncomingPageLinksGroupedByPageCardsViewModel >> latestEditDateAndTime [
+
+	^ self latestEditTime time
+]
+
+{ #category : #'api - accessing' }
+LeIncomingPageLinksGroupedByPageCardsViewModel >> latestEditTime [ 
+
+	^ incomingPageLinksGroupedByPageModel latestEditTime
+]
+
 { #category : #'api - incoming page links grouped by page model' }
 LeIncomingPageLinksGroupedByPageCardsViewModel >> onIncomingPageLinksGroupedByPageModelChanged [
 	"Is sent when a new incomingPageLinksGroupedByPage model is assigned to the view model"
