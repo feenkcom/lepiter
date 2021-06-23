@@ -29,6 +29,18 @@ LeIncomingPageLinksReferencingPageLabelViewModel >> initialize [
 	marginTop := 15
 ]
 
+{ #category : #'api - accessing' }
+LeIncomingPageLinksReferencingPageLabelViewModel >> latestEditDateAndTime [
+
+	^ self latestEditTime time
+]
+
+{ #category : #'api - accessing' }
+LeIncomingPageLinksReferencingPageLabelViewModel >> latestEditTime [ 
+
+	^ incomingPageLinksGroupedByPageModel latestEditTime
+]
+
 { #category : #accessing }
 LeIncomingPageLinksReferencingPageLabelViewModel >> marginTop [
 	^ marginTop
