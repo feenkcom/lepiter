@@ -41,6 +41,18 @@ TLeWithIncomingPageLinksGroupedByPageModel >> incomingPageLinksGroupedByPageMode
 	self subscribeToIncomingPageLinksGroupedByPageModel
 ]
 
+{ #category : #'api - accessing' }
+TLeWithIncomingPageLinksGroupedByPageModel >> latestEditDateAndTime [
+
+	^ self latestEditTime time
+]
+
+{ #category : #'api - accessing' }
+TLeWithIncomingPageLinksGroupedByPageModel >> latestEditTime [ 
+
+	^ incomingPageLinksGroupedByPageModel latestEditTime
+]
+
 { #category : #'api - incoming page links grouped by page model' }
 TLeWithIncomingPageLinksGroupedByPageModel >> onIncomingPageLinksGroupedByPageModelChanged [
 	"Is sent when a new incomingPageLinksGroupedByPage model is assigned to the view model"

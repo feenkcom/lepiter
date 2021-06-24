@@ -16,6 +16,14 @@ LeImplicitPageLink >> database [
 	^ origin database
 ]
 
+{ #category : #'api - accessing' }
+LeImplicitPageLink >> editTime [ 
+	"Answer the edit time of the receiver's origin"
+	<return: #LeTime>
+
+	^ origin editTime
+]
+
 { #category : #accessing }
 LeImplicitPageLink >> node [
 	<return: #LeContentNode>
