@@ -16,11 +16,11 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 	spec for: #'common' do: [
 		spec 
 			baseline: 'LepiterEngineCore' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.48/src' ];
+				spec repository: 'github://feenkcom/lepiter:v0.6.49/src' ];
 			baseline: 'GToolkit4DockerEngine' with: [
 				spec repository: 'github://feenkcom/gt4dockerengine:v0.5.126/src' ];
 			baseline: 'Gt4JSLink' with: [
-				spec repository: 'github://feenkcom/gtoolkit-remote-javascript:v0.5.184/src' ];
+				spec repository: 'github://feenkcom/gtoolkit-remote-javascript:v0.5.185/src' ];
 			baseline: 'Gt4ChromeDevTools' with: [
 				spec repository: 'github://feenkcom/gtoolkit-chrome:v0.5.126/src' ];
 			baseline: 'Gt4PythonBridge' with: [
