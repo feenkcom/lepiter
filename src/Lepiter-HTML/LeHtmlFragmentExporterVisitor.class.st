@@ -57,7 +57,7 @@ LeHtmlFragmentExporterVisitor >> visitPage: aLePage [
 LeHtmlFragmentExporterVisitor >> visitPharoSnippet: aLePharoSnippet [
 	self
 		putTag: 'div'
-		andAttributes: 'class="pharo_snippet code_block"'
+		andAttributes: 'class="snippet textual-snippet code-snippet pharo-snippet"'
 		with: [ self
 				putTag: 'pre'
 				andAttributes: 'class="no_bottom_margin"'
@@ -66,24 +66,23 @@ LeHtmlFragmentExporterVisitor >> visitPharoSnippet: aLePharoSnippet [
 
 { #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitPictureSnippet: aLePictureSnippet [
-	self putTag: 'img' andAttributes: 'class="picture_snippet" src="./',aLePictureSnippet urlString, '"' with: []
+	self putTag: 'img' andAttributes: 'class="snippet picture_snippet" src="./',aLePictureSnippet urlString, '"' with: []
 ]
 
 { #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitTextSnippet: aLeTextSnippet [
-	self putTag: 'div' andAttributes: 'class="text_snippet"' with: [
+	self putTag: 'div' andAttributes: 'class="snippet textual-snippet text_snippet"' with: [
 		aLeTextSnippet ast acceptVisitor: (LeHtmlExporterTextSnippetVisitor new 
 			stream: stream;
 			nestingLevel: nestingLevel;
 			externalPicturesWriter: self externalPicturesWriter).
-	self visitTextualSnippet: aLeTextSnippet.
-	]
+	self visitTextualSnippet: aLeTextSnippet.]
 ]
 
 { #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitTweetReferenceSnippet: aLeTweetReferenceSnippet [
 	| linkHref |
-	self putTag: 'blockquote' andAttributes: 'class="twitter-tweet"' with: [
+	self putTag: 'blockquote' andAttributes: 'class="snippet textual-snippet tweet-reference-snippet"' with: [
 		self putTag: 'p' andAttributes: 'lang="en" dir="ltr"' with: [
 			self putString: aLeTweetReferenceSnippet tweet plainText.
 			self putString:'&mdash; '.
