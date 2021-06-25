@@ -61,7 +61,7 @@ LeHtmlFragmentExporterVisitor >> visitPharoSnippet: aLePharoSnippet [
 		with: [ self
 				putTag: 'pre'
 				andAttributes: 'class="no_bottom_margin"'
-				with: [ self putPre: aLePharoSnippet code asHTMLString ] ]
+				with: [ self putString:aLePharoSnippet code asHTMLString ] ]
 ]
 
 { #category : #visiting }
