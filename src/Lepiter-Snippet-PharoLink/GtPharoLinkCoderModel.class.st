@@ -109,7 +109,7 @@ GtPharoLinkCoderModel >> pharoBindingsFrom: visitor [
 	| llBindings |
 
 	llBindings := OrderedCollection new.
-	visitor undeclaredVariableNames do: [ :name |
+	visitor accessedFirstVariableNames do: [ :name |
 		(pharoBindings hasBindingOf: name) ifTrue: 
 			[ llBindings add: (PharoLinkBinding key: name wrap: (pharoBindings bindingOf: name) value) ] ].
 	^ llBindings
