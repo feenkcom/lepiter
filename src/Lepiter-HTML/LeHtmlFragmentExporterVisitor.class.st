@@ -66,12 +66,12 @@ LeHtmlFragmentExporterVisitor >> visitPharoSnippet: aLePharoSnippet [
 
 { #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitPictureSnippet: aLePictureSnippet [
-	self putTag: 'img' andAttributes: 'class="snippet picture_snippet" src="./',aLePictureSnippet urlString, '"' with: []
+	self putTag: 'img' andAttributes: 'class="snippet picture-snippet" src="./',aLePictureSnippet urlString, '"' with: []
 ]
 
 { #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitTextSnippet: aLeTextSnippet [
-	self putTag: 'div' andAttributes: 'class="snippet textual-snippet text_snippet"' with: [
+	self putTag: 'div' andAttributes: 'class="snippet textual-snippet text-snippet"' with: [
 		aLeTextSnippet ast acceptVisitor: (LeHtmlExporterTextSnippetVisitor new 
 			stream: stream;
 			nestingLevel: nestingLevel;
