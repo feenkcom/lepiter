@@ -5,7 +5,7 @@ LePharoLinkSettings provides a wrapper around the DB properties to group PythonB
 Class {
 	#name : #LePharoLinkSettings,
 	#superclass : #LeSubSettings,
-	#category : #'Lepiter-PharoLink-Settings'
+	#category : #'Lepiter-Snippet-PharoLink-Settings'
 }
 
 { #category : #'accessing - db properties' }

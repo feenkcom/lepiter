@@ -1,7 +1,7 @@
 Class {
 	#name : #LePharoLinkSnippetViewModel,
 	#superclass : #LeCodeSnippetViewModel,
-	#category : #'Lepiter-PharoLink-Snippet'
+	#category : #'Lepiter-Snippet-PharoLink-Snippet'
 }
 
 { #category : #initialization }

@@ -5,7 +5,7 @@ Class {
 		'pharoBindings',
 		'applicationStrategy'
 	],
-	#category : #'Lepiter-PharoLink-Coder'
+	#category : #'Lepiter-Snippet-PharoLink-Coder'
 }
 
 { #category : #accessing }

@@ -7,7 +7,7 @@ Currently the global uniqueInstance of the {{gtClass:name=PharoLinkApplication}}
 Class {
 	#name : #LePharoLinkSnippetElement,
 	#superclass : #LeExternalEvaluatedSnippetElement,
-	#category : #'Lepiter-PharoLink-Snippet'
+	#category : #'Lepiter-Snippet-PharoLink-Snippet'
 }
 
 { #category : #'api - snippet view model' }

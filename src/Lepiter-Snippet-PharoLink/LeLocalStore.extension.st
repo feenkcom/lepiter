@@ -1,6 +1,6 @@
 Extension { #name : #LeLocalStore }
 
-{ #category : #'*Lepiter-PharoLink' }
+{ #category : #'*Lepiter-Snippet-PharoLink' }
 LeLocalStore >> pharoLink [
 	"Answer the Dictionary containing the PharoLink settings for this database"
 	<return: #Dictionary>
@@ -10,7 +10,7 @@ LeLocalStore >> pharoLink [
 		ifAbsent: [ Dictionary new ]
 ]
 
-{ #category : #'*Lepiter-PharoLink' }
+{ #category : #'*Lepiter-Snippet-PharoLink' }
 LeLocalStore >> pharoLink: aDictionaryOrNil [
 
 	self 
@@ -18,7 +18,7 @@ LeLocalStore >> pharoLink: aDictionaryOrNil [
 		value: aDictionaryOrNil
 ]
 
-{ #category : #'*Lepiter-PharoLink' }
+{ #category : #'*Lepiter-Snippet-PharoLink' }
 LeLocalStore >> pharoLinkSettings [
 	"Answer the initialised LePharoLinkSettings for this database"
 	<return: #LePharoLinkSettings>
