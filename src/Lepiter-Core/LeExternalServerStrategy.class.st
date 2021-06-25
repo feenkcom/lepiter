@@ -35,7 +35,7 @@ LeExternalServerStrategy >> applicationServer [
 	^ self subclassResponsibility
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 LeExternalServerStrategy >> applicationSettings [
 	"Answer the settings that will be used by the server.
 	This musn't actually start the server as that should be deferred until a snippet is evaluated for the first time."
