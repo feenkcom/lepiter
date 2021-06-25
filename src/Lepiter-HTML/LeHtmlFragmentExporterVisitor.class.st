@@ -55,13 +55,13 @@ LeHtmlFragmentExporterVisitor >> visitPage: aLePage [
 
 { #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitPharoSnippet: aLePharoSnippet [
-	self putTag: 'div' andAttributes: 'class="pharo_snippet codeBlock"' with: [
-		self putTag: 'pre' with: [
-			self putTag: 'code' with: [
-				self putPre: aLePharoSnippet code asHTMLString.
-			]
-		]
-	]
+	self
+		putTag: 'div'
+		andAttributes: 'class="pharo_snippet code_block"'
+		with: [ self
+				putTag: 'pre'
+				andAttributes: 'class="no_bottom_margin"'
+				with: [ self putPre: aLePharoSnippet code asHTMLString ] ]
 ]
 
 { #category : #visiting }
