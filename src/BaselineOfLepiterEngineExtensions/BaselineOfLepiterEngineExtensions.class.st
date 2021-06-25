@@ -98,6 +98,14 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 			spec
 				package: 'Lepiter-Python' with: [
 					spec requires: #( 'LepiterEngineCore' 'Gt4PythonBridge' ) ].
+
+			"LepiterPharoLink"
+			spec 
+				baseline: 'Gt4PharoLink' with: [ 
+					spec repository: 'github://feenkcom/gtoolkit-remote/src' ].
+			spec
+				package: 'Lepiter-Snippet-PharoLink' with: [
+					spec requires: #( 'LepiterEngineCore' 'Gt4PharoLink' ) ].
 		]
 ]
 
