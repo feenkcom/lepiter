@@ -94,6 +94,12 @@ LeHtmlFragmentExporterExamples >> pharoSnippet [
 	markdown := LePharoSnippet code: 'answer := 41.'.
 	html := String streamContents: [ :stream |
 		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
+	self assert: html trimBoth
+		equals: '<div class="pharo_snippet code_block">
+	<pre class="no_bottom_margin">
+		answer := 41.
+	</pre>
+</div>'.
 	^ html
 
 ]

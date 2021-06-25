@@ -77,9 +77,9 @@ LeHtmlPageExporterExamples >> sampleSnippetsPage [
 		italic text
 	</i>').
 
-	self assert: (html includesSubstring: '<code>
-1+41
-		</code>').
+	self assert: (html includesSubstring: '<pre class="no_bottom_margin">
+		1+41
+	</pre>').
 
 	^ html
 ]
