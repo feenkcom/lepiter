@@ -97,8 +97,8 @@ LeHtmlFragmentExporterExamples >> pharoSnippet [
 	self assert: html trimBoth
 		equals: '<div class="snippet textual-snippet code-snippet pharo-snippet">
 	<pre class="no_bottom_margin">
-		answer := 41.
-	</pre>
+answer := 41.
+</pre>
 </div>'.
 	^ html
 
