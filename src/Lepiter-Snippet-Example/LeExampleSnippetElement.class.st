@@ -8,7 +8,8 @@ Class {
 		'exampleEditor',
 		'toolbarContainer',
 		'updateRequester',
-		'browseExampleButton'
+		'browseExampleButton',
+		'runExampleButton'
 	],
 	#category : #'Lepiter-Snippet-Example-Snippet'
 }
@@ -49,6 +50,15 @@ LeExampleSnippetElement >> initialize [
 		margin: (BlInsets top: 1 left: 4 bottom: 0 right: 3);
 		action: [ self browseExample ].
 
+	runExampleButton := BrButton new
+		beSmallSize;
+		disable;
+		aptitude: BrGlamorousButtonWithIconAptitude;
+		icon: BrGlamorousVectorIcons playinspect;
+		label: 'Play and inspect example result';
+		margin: (BlInsets top: 1 left: 4 bottom: 0 right: 3);
+		action: [ self runExample ].
+		
 	toolbarContainer := BrHorizontalPane new
 		hMatchParent;
 		vFitContent;
@@ -63,7 +73,8 @@ LeExampleSnippetElement >> initialize [
 				margin: (BlInsets top: 1);
 				aptitude: (BrGlamorousLabelAptitude new foreground: Color darkGray);
 				text: '}}'.
-			browseExampleButton }.
+			browseExampleButton.
+			runExampleButton }.
 				
 	updateRequester := GtPhlowUpdateRequester new 
 		element: self selector: #updateExamplePreview.
@@ -90,6 +101,12 @@ LeExampleSnippetElement >> onSnippetViewModelFocused: aBoolean [
 
 	aBoolean
 		ifFalse: [ self loseFocus ]
+]
+
+{ #category : #'private - event handling' }
+LeExampleSnippetElement >> runExample [
+	self snippetViewModel gtExampleDo: [ :aGtExample |
+		self phlow spawnObject: aGtExample run returnValueOrExampleException ]
 ]
 
 { #category : #'api - view' }
@@ -133,6 +150,7 @@ LeExampleSnippetElement >> updateExamplePreview [
 		| anExampleElement |
 		
 		browseExampleButton enable.
+		runExampleButton enable.
 	
 		anExampleElement := GtExamplePreviewStencil new
 			example: aGtExample;
@@ -147,6 +165,7 @@ LeExampleSnippetElement >> updateExamplePreview [
 		^ self ].
 	
 	browseExampleButton disable.
+	runExampleButton disable.
 	
 	exampleContainer addChild: (BrHorizontalPane new
 		hMatchParent;
