@@ -78,8 +78,8 @@ LeHtmlPageExporterExamples >> sampleSnippetsPage [
 	</i>').
 
 	self assert: (html includesSubstring: '<pre class="no_bottom_margin">
-		1+41
-	</pre>').
+1+41
+</pre>').
 
 	^ html
 ]
