@@ -19,7 +19,7 @@ LeHtmlFragmentExporterExamples >> basicMarkdown [
 	html := String streamContents: [ :stream |
 		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
 	self assert: html trimBoth
-		equals: '<div class="text_snippet">
+		equals: '<div class="snippet textual-snippet text-snippet">
 	<i>
 		italic
 	</i>
@@ -58,7 +58,7 @@ LeHtmlFragmentExporterExamples >> codeBlock [
 		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
 		
 	self assert: html trimBoth
-		equals: '<div class="text_snippet">
+		equals: '<div class="snippet textual-snippet text-snippet">
 	<div class="code_block">
 		<pre>
 			<code class="smalltalk">
@@ -95,7 +95,7 @@ LeHtmlFragmentExporterExamples >> pharoSnippet [
 	html := String streamContents: [ :stream |
 		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
 	self assert: html trimBoth
-		equals: '<div class="pharo_snippet code_block">
+		equals: '<div class="snippet textual-snippet code-snippet pharo-snippet">
 	<pre class="no_bottom_margin">
 		answer := 41.
 	</pre>
