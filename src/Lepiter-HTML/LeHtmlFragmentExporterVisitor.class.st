@@ -38,6 +38,13 @@ LeHtmlFragmentExporterVisitor >> initialize [
 ]
 
 { #category : #visiting }
+LeHtmlFragmentExporterVisitor >> putPre: aTag andAttributes: attributesString with: aBlock [
+	self putString: '<',aTag, (attributesString ifNotEmpty: [' ',attributesString]), '>'.
+	self indent:aBlock.
+	self putPre: '</',aTag,'>'.
+]
+
+{ #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitContent: aLeContent [
 	aLeContent hasChildren ifFalse: [ ^ self ].
 	self putTag: 'div' andAttributes: 'class="content_children"' with: [
@@ -59,9 +66,9 @@ LeHtmlFragmentExporterVisitor >> visitPharoSnippet: aLePharoSnippet [
 		putTag: 'div'
 		andAttributes: 'class="snippet textual-snippet code-snippet pharo-snippet"'
 		with: [ self
-				putTag: 'pre'
+				putPre: 'pre'
 				andAttributes: 'class="no_bottom_margin"'
-				with: [ self putString:aLePharoSnippet code asHTMLString ] ]
+				with: [ self putPre:aLePharoSnippet code asHTMLString ] ]
 ]
 
 { #category : #visiting }
