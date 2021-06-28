@@ -103,3 +103,28 @@ answer := 41.
 	^ html
 
 ]
+
+{ #category : #accessing }
+LeHtmlFragmentExporterExamples >> pictureFile [
+	^ (GtResourcesUtility resourceAtPath: Path 
+		* 'feenkcom'
+		/ 'gtoolkit-demos' 
+		/ 'data' 
+		/ 'faceapi' 
+		/ '1280px-Einstein-with-habicht-and-solovine.jpg') asUrl asString
+]
+
+{ #category : #accessing }
+LeHtmlFragmentExporterExamples >> pictureSnippet [
+	<gtExample>
+	| markdown html |
+	markdown := LePictureSnippet new urlString: self pictureFile.
+	html := String streamContents: [ :stream |
+		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
+	self assert: (html includesSubstring: '<img class="snippet picture-snippet" src=').
+	self assert: (html includesSubstring: 'pharo-local/iceberg/feenkcom/gtoolkit-demos/data/faceapi/1280px-Einstein-with-habicht-and-solovine.jpg">
+</img>').
+		
+	^ html
+
+]
