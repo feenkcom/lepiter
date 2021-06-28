@@ -122,7 +122,7 @@ LeHtmlFragmentExporterExamples >> pictureSnippet [
 	html := String streamContents: [ :stream |
 		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
 	self assert: (html includesSubstring: '<img class="snippet picture-snippet" src=').
-	self assert: (html includesSubstring: 'pharo-local/iceberg/feenkcom/gtoolkit-demos/data/faceapi/1280px-Einstein-with-habicht-and-solovine.jpg">
+	self assert: (html includesSubstring: 'feenkcom/gtoolkit-demos/data/faceapi/1280px-Einstein-with-habicht-and-solovine.jpg">
 </img>').
 		
 	^ html
