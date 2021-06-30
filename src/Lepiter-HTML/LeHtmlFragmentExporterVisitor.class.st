@@ -53,6 +53,20 @@ LeHtmlFragmentExporterVisitor >> visitContent: aLeContent [
 ]
 
 { #category : #visiting }
+LeHtmlFragmentExporterVisitor >> visitExampleSnippet: aLeExampleSnippet [
+	| linkHref |
+	self putTag: 'figure' andAttributes: 'class="codeBlock gtexample-src paragraphWidth"' with: [
+		self putTag: 'pre' with: [
+			self putTag: 'code' andAttributes: 'class="smalltalk"' with: [
+				"self putPre:" 
+			]
+		]
+
+	].
+	
+]
+
+{ #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitPage: aLePage [
 
 	"Iterate over children, but don't mark as child content"

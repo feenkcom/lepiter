@@ -50,6 +50,11 @@ LeExampleSnippet class >> leJsonV4Name [
 	^ 'exampleSnippet'
 ]
 
+{ #category : #accessing }
+LeExampleSnippet >> acceptVisitor: aVisitor [
+	^ aVisitor visitExampleSnippet: self
+]
+
 { #category : #'api - accessing' }
 LeExampleSnippet >> asAnnotationString [
 	^ String streamContents: [ :aStream |	

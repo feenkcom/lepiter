@@ -73,6 +73,21 @@ answer:=42.
 ]
 
 { #category : #examples }
+LeHtmlFragmentExporterExamples >> exampleSnippet [
+	"Confirm that basic markup is converted"
+	<gtExample>
+	| markdown html |
+
+	markdown := LeExampleSnippet new exampleSelector: LeHtmlFragmentExporterExamples>>#exampleSnippet.
+	html := String streamContents: [ :stream |
+		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
+"	self assert: (html includesSubstring: 'method_annotation').
+	self assert: (html includesSubstring: 'LeHtmlFragmentExporterExamples&gt;&gt;#basicMarkdown').
+	self assert: (html includesSubstring: 'method_definition')."
+	^ html
+]
+
+{ #category : #examples }
 LeHtmlFragmentExporterExamples >> methodAnnotation [
 	"Confirm that basic markup is converted"
 	<gtExample>
