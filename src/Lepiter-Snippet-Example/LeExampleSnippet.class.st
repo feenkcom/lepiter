@@ -610,6 +610,19 @@ LeExampleSnippet >> previewShowSelector: aNewPreviewShowSelector [
 	self notifyPreviewShowSelectorChanged
 ]
 
+{ #category : #accessing }
+LeExampleSnippet >> referencedExample [
+	<return: #RGMethodDefinition or: nil>
+	self exampleBehaviorName ifNil: [ ^ nil ].
+	self exampleSelector ifNil: [ ^ nil ].
+	^ GtSystemUtility methodDefinitionFromString: self exampleBehaviorName,'>>#', self exampleSelector
+]
+
+{ #category : #accessing }
+LeExampleSnippet >> referencedExampleSourceCode [
+	^ self referencedExample sourceCode
+]
+
 { #category : #'api - testing' }
 LeExampleSnippet >> similarTo: anotherExampleSnippet [
 	^ self codeExpanded = anotherExampleSnippet codeExpanded

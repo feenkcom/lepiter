@@ -55,14 +55,19 @@ LeHtmlFragmentExporterVisitor >> visitContent: aLeContent [
 { #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitExampleSnippet: aLeExampleSnippet [
 	| linkHref |
-	self putTag: 'figure' andAttributes: 'class="codeBlock gtexample-src paragraphWidth"' with: [
-		self putTag: 'pre' with: [
-			self putTag: 'code' andAttributes: 'class="smalltalk"' with: [
-				"self putPre:" 
-			]
-		]
-
-	].
+	self
+		putTag: 'div'
+		with: [ aLeExampleSnippet noCode
+				ifFalse: [ self
+						putTag: 'figure'
+						andAttributes: 'class="codeBlock gtexample-src paragraphWidth"'
+						with: [ self
+								putTag: 'pre'
+								with: [ self
+										putTag: 'code'
+										andAttributes: 'class="smalltalk"'
+										with: [ self putPre: aLeExampleSnippet referencedExample sourceCode ] ] ] ].
+			self writeExampleResult: aLeExampleSnippet ]
 	
 ]
 
@@ -116,4 +121,17 @@ LeHtmlFragmentExporterVisitor >> visitTweetReferenceSnippet: aLeTweetReferenceSn
 		]
 	].
 	self putString: '<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'.
+]
+
+{ #category : #accessing }
+LeHtmlFragmentExporterVisitor >> writeExampleResult: aLeExampleSnippet [ 
+	|  aFigureReference |
+	aFigureReference := self externalPicturesWriter  exampleSnippetResultReferenceFor: aLeExampleSnippet.
+
+"	aFigure parameterAt: GtDocumentConstants alignmentParameterName put: aGt2ExampleAnnotation alignmentParameterValue.
+	aFigure parameterAt: GtDocumentConstants heightParameterName put: aGt2ExampleAnnotation previewHeight."
+	self putTag: 'figure' andAttributes: 'paragraphWidth"' with: [
+		self putTag: 'img' andAttributes: 'src="', aFigureReference, '"' with: [
+		]
+	]
 ]

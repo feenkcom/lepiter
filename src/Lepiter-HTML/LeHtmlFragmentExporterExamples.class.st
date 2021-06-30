@@ -78,12 +78,31 @@ LeHtmlFragmentExporterExamples >> exampleSnippet [
 	<gtExample>
 	| markdown html |
 
-	markdown := LeExampleSnippet new exampleSelector: LeHtmlFragmentExporterExamples>>#exampleSnippet.
+	markdown := LeExampleSnippet new 
+		exampleBehaviorName: 'LeHtmlFragmentExporterExamples';
+		exampleSelector: 'pictureSnippet'.
 	html := String streamContents: [ :stream |
-		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
-"	self assert: (html includesSubstring: 'method_annotation').
-	self assert: (html includesSubstring: 'LeHtmlFragmentExporterExamples&gt;&gt;#basicMarkdown').
-	self assert: (html includesSubstring: 'method_definition')."
+		markdown acceptVisitor: ((LeHtmlFragmentExporterVisitor new 
+		externalPicturesWriter: LeExternalPicturesWriter new)
+		stream: stream) ].
+	self assert: (html includesSubstring: '<div>
+	<figure class="codeBlock gtexample-src paragraphWidth">
+		<pre>
+			<code class="smalltalk">
+pictureSnippet
+	<gtExample>
+	| markdown html |
+	markdown := LePictureSnippet new urlString: self pictureFile.').
+	self assert: (html includesSubstring: '^ html
+
+			</code>
+		</pre>
+	</figure>
+	<figure paragraphWidth">
+		<img src="gt-figures/1000.png">
+		</img>
+	</figure>
+</div>').
 	^ html
 ]
 
@@ -136,7 +155,7 @@ LeHtmlFragmentExporterExamples >> pictureSnippet [
 	markdown := LePictureSnippet new urlString: self pictureFile.
 	html := String streamContents: [ :stream |
 		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
-	self assert: (html includesSubstring: '<img class="snippet picture-snippet" src=').
+	self assert: (html includesSubstring: 'img class="snippet picture-snippet" src=').
 	self assert: (html includesSubstring: 'feenkcom/gtoolkit-demos/data/faceapi/1280px-Einstein-with-habicht-and-solovine.jpg">
 </img>').
 		
