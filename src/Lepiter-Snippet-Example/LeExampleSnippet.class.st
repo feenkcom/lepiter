@@ -89,7 +89,7 @@ LeExampleSnippet >> asAnnotationString [
 			ifFalse: [
 				aStream
 					nextPutAll: ' | previewShow=';
-					print: self previewShowSelector ].
+					nextPutAll: self previewShowSelector asString ].
 				
 		self previewHeight = self defaultPreviewHeight
 			ifFalse: [
