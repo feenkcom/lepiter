@@ -1,7 +1,7 @@
 Class {
 	#name : #LePharoLinkSnippetUpdateExamples,
 	#superclass : #LeSingleSnippetUpdateExamples,
-	#category : #'Lepiter-PharoLink-Examples'
+	#category : #'Lepiter-Snippet-PharoLink-Examples'
 }
 
 { #category : #'examples - snippets' }

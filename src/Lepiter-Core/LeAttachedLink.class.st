@@ -53,6 +53,18 @@ LeAttachedLink >> description [
 			nextPutAll: ')' ]
 ]
 
+{ #category : #accessing }
+LeAttachedLink >> editEmail [
+	"Attached links cannot be currently edited."
+	^ self createEmail
+]
+
+{ #category : #accessing }
+LeAttachedLink >> editTime [
+	"Attached links cannot be currently edited."
+	^ self createTime
+]
+
 { #category : #'gt - extensions' }
 LeAttachedLink >> gtSerializationFor: aView [
 	<gtView>

@@ -30,6 +30,23 @@ LeExternalPicturesWriter >> exampleResultReferenceFor: anExampleAnnotation [
 	^ aPath fullName
 ]
 
+{ #category : #accessing }
+LeExternalPicturesWriter >> exampleSnippetResultReferenceFor: aSnippetExample [
+	<return: #String>
+	| aPath |
+	aPath := GtDocumentConstants exportedResultsDirectoryPath
+		/ self nextNumber asString
+		withExtension: GtDocumentConstants exportedResultsExtension.
+		
+	self
+		exportGtExampleResultOf: aSnippetExample referencedExample compiledMethod gtExample  
+		to: aPath
+		height: GtDocumentConstants defaultPreviewHeight
+		withPreviewSelector: GtDocumentConstants defaultShowSelector.
+	associatedNames at: aSnippetExample put: aPath.
+	^ aPath fullName
+]
+
 { #category : #private }
 LeExternalPicturesWriter >> exportExampleResultOf: anExampleAnnotation to: aRelativePath [ 
 	| fileReference exampleReturnValue container scaleFactor height |
@@ -49,6 +66,38 @@ LeExternalPicturesWriter >> exportExampleResultOf: anExampleAnnotation to: aRela
 			on: exampleReturnValue 
 			perform: (anExampleAnnotation previewShowSelector ifNil: [
 				GtDocumentConstants defaultShowSelector ]).
+		view asElementDo: [ :anElement | container addChild: anElement ].
+
+		container forceLayout.
+
+		fileReference ensureDelete.
+		fileReference parent ensureCreateDirectory.
+		
+		BlExporter png 
+			scaled: scaleFactor;
+			background: Color white;
+			element: container; 
+			fileName: fileReference; 
+			export ].
+]
+
+{ #category : #private }
+LeExternalPicturesWriter >> exportGtExampleResultOf: aGtExample to: aRelativePath height: aHeight withPreviewSelector: aPreviewSelector [
+	| fileReference exampleReturnValue container scaleFactor height |
+	fileReference := memoryStore referenceTo: aRelativePath.
+	exampleReturnValue := aGtExample  returnValue.
+	
+	container := XdExporterContainerElement new.
+	"recommended size"
+	scaleFactor := GtDocumentConstants exportFigureScaleFactor.
+	height := aHeight.
+	container size: GtDocumentConstants defaultExportFigureWidth @ height.
+
+	BlUseAsyncFeatures disableDuring: [ 
+		| view |
+		view := GtPhlowView empty 
+			on: exampleReturnValue 
+			perform: aPreviewSelector.
 		view asElementDo: [ :anElement | container addChild: anElement ].
 
 		container forceLayout.

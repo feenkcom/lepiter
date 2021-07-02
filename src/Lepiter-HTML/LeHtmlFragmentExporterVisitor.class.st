@@ -38,11 +38,37 @@ LeHtmlFragmentExporterVisitor >> initialize [
 ]
 
 { #category : #visiting }
+LeHtmlFragmentExporterVisitor >> putPre: aTag andAttributes: attributesString with: aBlock [
+	self putString: '<',aTag, (attributesString ifNotEmpty: [' ',attributesString]), '>'.
+	self indent:aBlock.
+	self putPre: '</',aTag,'>'.
+]
+
+{ #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitContent: aLeContent [
 	aLeContent hasChildren ifFalse: [ ^ self ].
 	self putTag: 'div' andAttributes: 'class="content_children"' with: [
 		aLeContent children acceptVisitor: self.
 	]
+]
+
+{ #category : #visiting }
+LeHtmlFragmentExporterVisitor >> visitExampleSnippet: aLeExampleSnippet [
+	| linkHref |
+	self
+		putTag: 'div'
+		with: [ aLeExampleSnippet noCode
+				ifFalse: [ self
+						putTag: 'figure'
+						andAttributes: 'class="codeBlock gtexample-src paragraphWidth"'
+						with: [ self
+								putTag: 'pre'
+								with: [ self
+										putTag: 'code'
+										andAttributes: 'class="smalltalk"'
+										with: [ self putPre: aLeExampleSnippet referencedExample sourceCode ] ] ] ].
+			self writeExampleResult: aLeExampleSnippet ]
+	
 ]
 
 { #category : #visiting }
@@ -55,35 +81,34 @@ LeHtmlFragmentExporterVisitor >> visitPage: aLePage [
 
 { #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitPharoSnippet: aLePharoSnippet [
-	self putTag: 'div' andAttributes: 'class="pharo_snippet codeBlock"' with: [
-		self putTag: 'pre' with: [
-			self putTag: 'code' with: [
-				self putPre: aLePharoSnippet code asHTMLString.
-			]
-		]
-	]
+	self
+		putTag: 'div'
+		andAttributes: 'class="snippet textual-snippet code-snippet pharo-snippet"'
+		with: [ self
+				putPre: 'pre'
+				andAttributes: 'class="no_bottom_margin"'
+				with: [ self putPre:aLePharoSnippet code asHTMLString ] ]
 ]
 
 { #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitPictureSnippet: aLePictureSnippet [
-	self putTag: 'img' andAttributes: 'class="picture_snippet" src="./',aLePictureSnippet urlString, '"' with: []
+	self putTag: 'img' andAttributes: 'class="snippet picture-snippet" src="./',aLePictureSnippet urlString, '"' with: []
 ]
 
 { #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitTextSnippet: aLeTextSnippet [
-	self putTag: 'div' andAttributes: 'class="text_snippet"' with: [
+	self putTag: 'div' andAttributes: 'class="snippet textual-snippet text-snippet"' with: [
 		aLeTextSnippet ast acceptVisitor: (LeHtmlExporterTextSnippetVisitor new 
 			stream: stream;
 			nestingLevel: nestingLevel;
 			externalPicturesWriter: self externalPicturesWriter).
-	self visitTextualSnippet: aLeTextSnippet.
-	]
+	self visitTextualSnippet: aLeTextSnippet.]
 ]
 
 { #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitTweetReferenceSnippet: aLeTweetReferenceSnippet [
 	| linkHref |
-	self putTag: 'blockquote' andAttributes: 'class="twitter-tweet"' with: [
+	self putTag: 'blockquote' andAttributes: 'class="snippet textual-snippet tweet-reference-snippet"' with: [
 		self putTag: 'p' andAttributes: 'lang="en" dir="ltr"' with: [
 			self putString: aLeTweetReferenceSnippet tweet plainText.
 			self putString:'&mdash; '.
@@ -96,4 +121,17 @@ LeHtmlFragmentExporterVisitor >> visitTweetReferenceSnippet: aLeTweetReferenceSn
 		]
 	].
 	self putString: '<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'.
+]
+
+{ #category : #accessing }
+LeHtmlFragmentExporterVisitor >> writeExampleResult: aLeExampleSnippet [ 
+	|  aFigureReference |
+	aFigureReference := self externalPicturesWriter  exampleSnippetResultReferenceFor: aLeExampleSnippet.
+
+"	aFigure parameterAt: GtDocumentConstants alignmentParameterName put: aGt2ExampleAnnotation alignmentParameterValue.
+	aFigure parameterAt: GtDocumentConstants heightParameterName put: aGt2ExampleAnnotation previewHeight."
+	self putTag: 'figure' andAttributes: 'paragraphWidth"' with: [
+		self putTag: 'img' andAttributes: 'src="', aFigureReference, '"' with: [
+		]
+	]
 ]

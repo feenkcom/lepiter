@@ -25,6 +25,11 @@ LesPageResourceVisitor >> page: anObject [
 	page := anObject
 ]
 
+{ #category : #accessing }
+LesPageResourceVisitor >> visitExampleSnippet: aLeSnippet [
+	^ self visitContent: aLeSnippet
+]
+
 { #category : #visiting }
 LesPageResourceVisitor >> visitPictureSnippet: aLePictureSnippet [
 	| linkUrl fileName |

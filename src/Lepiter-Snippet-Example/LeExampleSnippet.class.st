@@ -50,6 +50,11 @@ LeExampleSnippet class >> leJsonV4Name [
 	^ 'exampleSnippet'
 ]
 
+{ #category : #accessing }
+LeExampleSnippet >> acceptVisitor: aVisitor [
+	^ aVisitor visitExampleSnippet: self
+]
+
 { #category : #'api - accessing' }
 LeExampleSnippet >> asAnnotationString [
 	^ String streamContents: [ :aStream |	
@@ -84,7 +89,8 @@ LeExampleSnippet >> asAnnotationString [
 			ifFalse: [
 				aStream
 					nextPutAll: ' | previewShow=';
-					print: self previewShowSelector ].
+					nextPut: $#;
+					nextPutAll: self previewShowSelector asString ].
 				
 		self previewHeight = self defaultPreviewHeight
 			ifFalse: [
@@ -603,6 +609,19 @@ LeExampleSnippet >> previewShowSelector: aNewPreviewShowSelector [
 	previewShowSelector := aNewPreviewShowSelector.
 	self onNewPreviewShowSelectorSet: aNewPreviewShowSelector.
 	self notifyPreviewShowSelectorChanged
+]
+
+{ #category : #accessing }
+LeExampleSnippet >> referencedExample [
+	<return: #RGMethodDefinition or: nil>
+	self exampleBehaviorName ifNil: [ ^ nil ].
+	self exampleSelector ifNil: [ ^ nil ].
+	^ GtSystemUtility methodDefinitionFromString: self exampleBehaviorName,'>>#', self exampleSelector
+]
+
+{ #category : #accessing }
+LeExampleSnippet >> referencedExampleSourceCode [
+	^ self referencedExample sourceCode
 ]
 
 { #category : #'api - testing' }

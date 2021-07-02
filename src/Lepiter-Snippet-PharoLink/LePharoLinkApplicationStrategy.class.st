@@ -1,7 +1,7 @@
 Class {
 	#name : #LePharoLinkApplicationStrategy,
 	#superclass : #LeExternalServerStrategy,
-	#category : #'Lepiter-PharoLink-Settings'
+	#category : #'Lepiter-Snippet-PharoLink-Settings'
 }
 
 { #category : #'instance creation' }

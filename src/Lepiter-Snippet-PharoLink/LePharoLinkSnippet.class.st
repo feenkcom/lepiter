@@ -1,7 +1,7 @@
 Class {
 	#name : #LePharoLinkSnippet,
 	#superclass : #LeCodeSnippet,
-	#category : #'Lepiter-PharoLink-Snippet'
+	#category : #'Lepiter-Snippet-PharoLink-Snippet'
 }
 
 { #category : #'api - accessing menu' }

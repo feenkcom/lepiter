@@ -8,7 +8,7 @@ Class {
 		'assignedVariables',
 		'temporaryVariables'
 	],
-	#category : #'Lepiter-PharoLink-Coder'
+	#category : #'Lepiter-Snippet-PharoLink-Coder'
 }
 
 { #category : #accessing }

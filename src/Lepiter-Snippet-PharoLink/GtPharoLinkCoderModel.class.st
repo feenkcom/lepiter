@@ -5,7 +5,7 @@ Class {
 		'pharoBindings',
 		'applicationStrategy'
 	],
-	#category : #'Lepiter-PharoLink-Coder'
+	#category : #'Lepiter-Snippet-PharoLink-Coder'
 }
 
 { #category : #accessing }
@@ -109,7 +109,7 @@ GtPharoLinkCoderModel >> pharoBindingsFrom: visitor [
 	| llBindings |
 
 	llBindings := OrderedCollection new.
-	visitor undeclaredVariableNames do: [ :name |
+	visitor accessedFirstVariableNames do: [ :name |
 		(pharoBindings hasBindingOf: name) ifTrue: 
 			[ llBindings add: (PharoLinkBinding key: name wrap: (pharoBindings bindingOf: name) value) ] ].
 	^ llBindings
