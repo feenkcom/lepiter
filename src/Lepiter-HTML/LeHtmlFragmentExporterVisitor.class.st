@@ -59,16 +59,14 @@ LeHtmlFragmentExporterVisitor >> visitExampleSnippet: aLeExampleSnippet [
 		putTag: 'div'
 		with: [ aLeExampleSnippet noCode
 				ifFalse: [ self
-						putTag: 'figure'
-						andAttributes: 'class="codeBlock gtexample-src paragraphWidth"'
+						putTag: 'div'
+						andAttributes: 'class="snippet textual-snippet code-snippet pharo-snippet"'
 						with: [ self
-								putTag: 'pre'
-								with: [ self
-										putTag: 'code'
-										andAttributes: 'class="smalltalk"'
-										with: [ self putPre: aLeExampleSnippet referencedExample sourceCode ] ] ] ].
+								putPre: 'pre'
+								andAttributes: 'class="no_bottom_margin"'
+								with:
+									[ self putPre: aLeExampleSnippet referencedExample sourceCode ] ] ].
 			self writeExampleResult: aLeExampleSnippet ]
-	
 ]
 
 { #category : #visiting }
@@ -128,8 +126,7 @@ LeHtmlFragmentExporterVisitor >> writeExampleResult: aLeExampleSnippet [
 	|  aFigureReference |
 	aFigureReference := self externalPicturesWriter  exampleSnippetResultReferenceFor: aLeExampleSnippet.
 
-"	aFigure parameterAt: GtDocumentConstants alignmentParameterName put: aGt2ExampleAnnotation alignmentParameterValue.
-	aFigure parameterAt: GtDocumentConstants heightParameterName put: aGt2ExampleAnnotation previewHeight."
+	self putTag: 'div' andAttributes: 'class="height-one-em"' with:[].
 	self putTag: 'figure' andAttributes: 'paragraphWidth"' with: [
 		self putTag: 'img' andAttributes: 'src="', aFigureReference, '"' with: [
 		]
