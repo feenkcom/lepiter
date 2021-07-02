@@ -85,19 +85,24 @@ LeHtmlFragmentExporterExamples >> exampleSnippet [
 		markdown acceptVisitor: ((LeHtmlFragmentExporterVisitor new 
 		externalPicturesWriter: LeExternalPicturesWriter new)
 		stream: stream) ].
-	self assert: (html includesSubstring: '<div>
-	<figure class="codeBlock gtexample-src paragraphWidth">
-		<pre>
-			<code class="smalltalk">
+	self assert: (html includesSubstring:'<div>
+	<div class="snippet textual-snippet code-snippet pharo-snippet">
+		<pre class="no_bottom_margin">
 pictureSnippet
 	<gtExample>
 	| markdown html |
-	markdown := LePictureSnippet new urlString: self pictureFile.').
-	self assert: (html includesSubstring: '^ html
+	markdown := LePictureSnippet new urlString: self pictureFile.
+	html := String streamContents: [ :stream |
+		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
+	self assert: (html includesSubstring:').
+	self assert: (html includesSubstring:').
+		
+	^ html
 
-			</code>
-		</pre>
-	</figure>
+</pre>
+	</div>
+	<div class="height-one-em">
+	</div>
 	<figure paragraphWidth">
 		<img src="gt-figures/1000.png">
 		</img>
