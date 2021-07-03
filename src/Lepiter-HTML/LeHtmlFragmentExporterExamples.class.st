@@ -73,6 +73,45 @@ answer:=42.
 ]
 
 { #category : #examples }
+LeHtmlFragmentExporterExamples >> exampleSnippet [
+	"Confirm that basic markup is converted"
+	<gtExample>
+	| markdown html |
+
+	markdown := LeExampleSnippet new 
+		exampleBehaviorName: 'LeHtmlFragmentExporterExamples';
+		exampleSelector: 'pictureSnippet'.
+	html := String streamContents: [ :stream |
+		markdown acceptVisitor: ((LeHtmlFragmentExporterVisitor new 
+		externalPicturesWriter: LeExternalPicturesWriter new)
+		stream: stream) ].
+	self assert: (html includesSubstring:'<div>
+	<div class="snippet textual-snippet code-snippet pharo-snippet">
+		<pre class="no_bottom_margin">
+pictureSnippet
+	<gtExample>
+	| markdown html |
+	markdown := LePictureSnippet new urlString: self pictureFile.
+	html := String streamContents: [ :stream |
+		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
+	self assert: (html includesSubstring:').
+	self assert: (html includesSubstring:').
+		
+	^ html
+
+</pre>
+	</div>
+	<div class="height-one-em">
+	</div>
+	<figure paragraphWidth">
+		<img src="gt-figures/1000.png">
+		</img>
+	</figure>
+</div>').
+	^ html
+]
+
+{ #category : #examples }
 LeHtmlFragmentExporterExamples >> methodAnnotation [
 	"Confirm that basic markup is converted"
 	<gtExample>
@@ -100,6 +139,31 @@ LeHtmlFragmentExporterExamples >> pharoSnippet [
 answer := 41.
 </pre>
 </div>'.
+	^ html
+
+]
+
+{ #category : #accessing }
+LeHtmlFragmentExporterExamples >> pictureFile [
+	^ (GtResourcesUtility resourceAtPath: Path 
+		* 'feenkcom'
+		/ 'gtoolkit-demos' 
+		/ 'data' 
+		/ 'faceapi' 
+		/ '1280px-Einstein-with-habicht-and-solovine.jpg') asUrl asString
+]
+
+{ #category : #accessing }
+LeHtmlFragmentExporterExamples >> pictureSnippet [
+	<gtExample>
+	| markdown html |
+	markdown := LePictureSnippet new urlString: self pictureFile.
+	html := String streamContents: [ :stream |
+		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
+	self assert: (html includesSubstring: 'img class="snippet picture-snippet" src=').
+	self assert: (html includesSubstring: 'feenkcom/gtoolkit-demos/data/faceapi/1280px-Einstein-with-habicht-and-solovine.jpg">
+</img>').
+		
 	^ html
 
 ]

@@ -53,6 +53,23 @@ LeHtmlFragmentExporterVisitor >> visitContent: aLeContent [
 ]
 
 { #category : #visiting }
+LeHtmlFragmentExporterVisitor >> visitExampleSnippet: aLeExampleSnippet [
+	| linkHref |
+	self
+		putTag: 'div'
+		with: [ aLeExampleSnippet noCode
+				ifFalse: [ self
+						putTag: 'div'
+						andAttributes: 'class="snippet textual-snippet code-snippet pharo-snippet"'
+						with: [ self
+								putPre: 'pre'
+								andAttributes: 'class="no_bottom_margin"'
+								with:
+									[ self putPre: aLeExampleSnippet referencedExample sourceCode ] ] ].
+			self writeExampleResult: aLeExampleSnippet ]
+]
+
+{ #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitPage: aLePage [
 
 	"Iterate over children, but don't mark as child content"
@@ -102,4 +119,16 @@ LeHtmlFragmentExporterVisitor >> visitTweetReferenceSnippet: aLeTweetReferenceSn
 		]
 	].
 	self putString: '<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'.
+]
+
+{ #category : #accessing }
+LeHtmlFragmentExporterVisitor >> writeExampleResult: aLeExampleSnippet [ 
+	|  aFigureReference |
+	aFigureReference := self externalPicturesWriter  exampleSnippetResultReferenceFor: aLeExampleSnippet.
+
+	self putTag: 'div' andAttributes: 'class="height-one-em"' with:[].
+	self putTag: 'figure' andAttributes: 'paragraphWidth"' with: [
+		self putTag: 'img' andAttributes: 'src="', aFigureReference, '"' with: [
+		]
+	]
 ]

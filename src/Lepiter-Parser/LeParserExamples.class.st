@@ -219,8 +219,9 @@ LeParserExamples >> emptyLabelImageLink [
 ]
 
 { #category : #'examples - annotations' }
-LeParserExamples >> exampleAnnotation [
+LeParserExamples >> exampleSnippet [
 	<gtExample>
+	<noTest>
 	| aNode found |
 	aNode := self
 		parse: '{{gtExample:LeParserExamples>>exampleAnnotation}}'.
