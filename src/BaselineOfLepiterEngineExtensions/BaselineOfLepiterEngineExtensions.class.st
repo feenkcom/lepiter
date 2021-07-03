@@ -33,6 +33,11 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 			spec
 				package: 'Lepiter-Snippet-Element' with: [.
 					spec requires: #( 'LepiterEngineCore' 'Lepiter-Pharo') ].
+					
+			"LepiterSlideshowSnippet"
+			spec
+				package: 'Lepiter-Snippet-Slideshow' with: [.
+					spec requires: #( 'LepiterEngineCore' 'Lepiter-Pharo') ].
 				
 			"LepiterPictureSnippet"
 			spec
