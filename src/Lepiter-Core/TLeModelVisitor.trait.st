@@ -87,6 +87,11 @@ TLeModelVisitor >> visitSlide: aLeSlide [
 ]
 
 { #category : #visiting }
+TLeModelVisitor >> visitSlideshowSnippet: aLeSlideshowSnippet [
+	^ self visitTextualSnippet: aLeSlideshowSnippet.
+]
+
+{ #category : #visiting }
 TLeModelVisitor >> visitSnippet: aLeSnippet [
 
 	^ self visitContent: aLeSnippet
