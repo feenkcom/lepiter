@@ -121,6 +121,12 @@ LeHtmlFragmentExporterVisitor >> visitTweetReferenceSnippet: aLeTweetReferenceSn
 	self putString: '<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'.
 ]
 
+{ #category : #visiting }
+LeHtmlFragmentExporterVisitor >> visitYoutubeReferenceSnippet: aLeYoutubeReferenceSnippet [
+	self putTag: 'div' andAttributes: 'class="snippet youtube-reference-snippet"' with: [
+		self putString: aLeYoutubeReferenceSnippet html]
+]
+
 { #category : #accessing }
 LeHtmlFragmentExporterVisitor >> writeExampleResult: aLeExampleSnippet [ 
 	|  aFigureReference |
