@@ -440,13 +440,13 @@ LeExampleSnippetViewModel >> subscribeToSnippetModel [
 	<generatedFrom: #'TGtRobocoderWithObjectTraitTemplate>>#subscribeToObjectTemplate'>
 	super subscribeToSnippetModel.
 
-	self snippetModel when: LeExampleSnippetExampleBehaviorNameChanged send: #onSnippetExampleBehaviorNameChanged: to: self.
-	self snippetModel when: LeExampleSnippetExampleSelectorChanged send: #onSnippetExampleSelectorChanged: to: self.
-	self snippetModel when: LeExampleSnippetCodeExpandedChanged send: #onSnippetCodeExpandedChanged: to: self.
-	self snippetModel when: LeExampleSnippetNoCodeChanged send: #onSnippetNoCodeChanged: to: self.
-	self snippetModel when: LeExampleSnippetPreviewExpandedChanged send: #onSnippetPreviewExpandedChanged: to: self.
-	self snippetModel when: LeExampleSnippetPreviewShowSelectorChanged send: #onSnippetPreviewShowSelectorChanged: to: self.
-	self snippetModel when: LeExampleSnippetPreviewHeightChanged send: #onSnippetPreviewHeightChanged: to: self.
+	self snippetModel weak when: LeExampleSnippetExampleBehaviorNameChanged send: #onSnippetExampleBehaviorNameChanged: to: self.
+	self snippetModel weak when: LeExampleSnippetExampleSelectorChanged send: #onSnippetExampleSelectorChanged: to: self.
+	self snippetModel weak when: LeExampleSnippetCodeExpandedChanged send: #onSnippetCodeExpandedChanged: to: self.
+	self snippetModel weak when: LeExampleSnippetNoCodeChanged send: #onSnippetNoCodeChanged: to: self.
+	self snippetModel weak when: LeExampleSnippetPreviewExpandedChanged send: #onSnippetPreviewExpandedChanged: to: self.
+	self snippetModel weak when: LeExampleSnippetPreviewShowSelectorChanged send: #onSnippetPreviewShowSelectorChanged: to: self.
+	self snippetModel weak when: LeExampleSnippetPreviewHeightChanged send: #onSnippetPreviewHeightChanged: to: self.
 ]
 
 { #category : #'api - annotation coder view model' }
