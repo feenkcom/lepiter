@@ -50,7 +50,7 @@ LePharoClassDatabase >> pageNamed: aSymbol [
 LePharoClassDatabase >> registerForClassCommentAnnouncements [
 	"Register for class comment announcements so we can manage the cache"
 
-	SystemAnnouncer uniqueInstance
+	SystemAnnouncer uniqueInstance weak
 		when: ClassCommented
 		send: #onClassCommentChanged:
 		to: self.
