@@ -195,7 +195,11 @@ LeExampleSnippetViewModel >> initialize [
 	
 	self annotationCoderViewModel: (annotationCoder asCoderViewModel addStyler: LeExampleSnippetStyler new).
 	
-	self when: LeExampleSnippetContentChanged send: #requestUpdateAnnotationText to: self.
+	self weak 
+		when: LeExampleSnippetContentChanged 
+		send: #requestUpdateAnnotationText 
+		to: self.
+	
 	SystemAnnouncer uniqueInstance weak 
 		when: ClassAnnouncement
 			send: #handleSystemClassAnnouncement:
