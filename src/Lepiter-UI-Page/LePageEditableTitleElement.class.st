@@ -1,7 +1,5 @@
 "
-I display a {{gtClass:LePage}} title:
-
-{{gtExample:LeUIExamples>>#pageEditableTitleElement_TitledPage|previewExpanded}}
+I display a {{gtClass:LePage}} title: {{gtExample: LePageEditableTitleElementExamples>>#pageEditableTitleElement_TitledPage | previewExpanded=true | codeExpanded=false}}
 
 
 "
@@ -27,7 +25,18 @@ LePageEditableTitleElement >> createTitleElement [
 		hFitContentLimited;
 		vFitContent;
 		when: BrEditorAcceptWish do: [ :aWish | 
-			self onAcceptTitleWish: aWish ]
+			self onAcceptTitleWish: aWish ];
+		whenKey: BlKeyCombination primaryG
+			labelDo: [ :aShortcutEvent | 
+				self hasPage
+					ifTrue: [ aShortcutEvent currentTarget phlow
+							spawnTool: self pageViewModel asPhlowTool ] ];
+		whenKey: BlKeyCombination primaryR
+			labelDo: [ :aShortcutEvent | aShortcutEvent currentTarget switchToEditor ];
+		whenKey: BlKeyCombination primaryC
+			labelDo: [ :aShortcutEvent | 
+				self hasPage
+					ifTrue: [ Clipboard clipboardText: self pageViewModel pageTitle asString ] ]
 ]
 
 { #category : #initialization }
