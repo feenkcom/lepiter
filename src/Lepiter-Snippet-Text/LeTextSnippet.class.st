@@ -481,7 +481,7 @@ LeTextSnippet >> unlinkedTarget: aLeContent in: aLeLink [
 LeTextSnippet >> updateOutgoingTextualLinks [
 	| aNode aVisitor |
 
-	aNode := LeParser parseWithErrors: self text.
+	aNode := LeParser parseWithErrors: self string.
 	self ast: aNode.
 	aVisitor := LeBlockLinksVisitor new.
 	aVisitor addVisitor: LePageLinkAnnotationVisitor new.
