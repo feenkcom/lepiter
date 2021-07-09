@@ -78,7 +78,7 @@ LeLogicalDatabaseReload >> reload [
 		ifFalse:
 			[ database basicPlaygroundDB: database primaryDB ] ].
 
-	self updateRegisteredDatabases.
+	self updateRegisteredDatabasesAndSpaces.
 
 	"3. Unload the unused databases"
 	self unloadUnusedDatabases.
@@ -129,7 +129,7 @@ LeLogicalDatabaseReload >> unloadUnusedDatabases [
 ]
 
 { #category : #private }
-LeLogicalDatabaseReload >> updateRegisteredDatabases [
+LeLogicalDatabaseReload >> updateRegisteredDatabasesAndSpaces [
 	"Replace the existing registered DBs with the updated collection.
 	This will resort the array in to that specified by the properties file."
 
