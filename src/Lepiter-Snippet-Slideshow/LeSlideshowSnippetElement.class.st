@@ -412,7 +412,7 @@ LeSlideshowSnippetElement >> initialize [
 	sceneContainer addChild: dropdownMenuButton.
 	sceneContainer addAptitude: (maximizerAptitude := BrGlamorousWithMaximizerAptitude new
 			// #elementContainer;
-			preferredBackground: BrGlamorousColors backdropColor).
+			preferredBackground: Color white ).
 
 	self onSnippetViewModelFocused: false.
 	
