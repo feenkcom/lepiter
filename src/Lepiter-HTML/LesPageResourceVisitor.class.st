@@ -56,3 +56,8 @@ LesPageResourceVisitor >> visitTextSnippet: aLeTextSnippet [
 LesPageResourceVisitor >> visitTweetReferenceSnippet: aLeTweetReferenceSnippet [
 	^ self visitTextualSnippet: aLeTweetReferenceSnippet
 ]
+
+{ #category : #accessing }
+LesPageResourceVisitor >> visitYoutubeReferenceSnippet: aLeSnippet [
+	^ self visitContent: aLeSnippet
+]

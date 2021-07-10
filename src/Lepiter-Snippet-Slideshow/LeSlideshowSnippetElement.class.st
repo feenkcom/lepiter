@@ -128,7 +128,7 @@ LeSlideshowSnippetElement >> createDropdownMenuButton [
 							- BrGlamorousButtonExteriorAptitude;
 						icon: BrGlamorousIcons hamburger asElement;
 						yourself ]
-				content: [ | el |
+				content: [ | dropdownMenu dropdownContainer |
 					aToolbar := BrToolbar new
 						aptitude: BrGlamorousToolbarAptitude;
 						margin: (BlInsets bottom: 5).
@@ -159,12 +159,24 @@ LeSlideshowSnippetElement >> createDropdownMenuButton [
 									do: [ :anEvent | self snippetViewModel showCode ];
 								when: BrToggleDeactivatedEvent
 									do: [ :anEvent | self snippetViewModel hideCode ]).
-					el := BlElement new
-						size: 700 @ 520;
+					dropdownContainer := BlElement new
+						size: 700 @ 320;
 						layout: BlLinearLayout vertical;
 						addChild: slidesPreviewsContainer asScrollableElement;
 						addChild: aToolbar.
-					el ]);
+					dropdownMenu := BlElement new
+						size: 700 @ 320;
+						layout: BlLinearLayout vertical;
+						addChild: dropdownContainer;
+						addChild: (BrResizer new
+							aptitude: BrGlamorousResizerAptitude;
+							elevation: (BlRelativeElevation elevation: 1000);
+							beBottom;
+							constraintsDo: [ :c | c ignoreByLayout ];
+							target: dropdownContainer;
+							when: BlResizerResizedEvent do: [ :anEvent |
+								dropdownMenu height: anEvent extent y ]).
+					dropdownMenu ]);
 			constraintsDo: [ :c | c linear horizontal alignRight ];
 			padding: (BlInsets all: 10);
 			yourself.
@@ -399,8 +411,8 @@ LeSlideshowSnippetElement >> initialize [
 	dropdownMenuButton := self createDropdownMenuButton.
 	sceneContainer addChild: dropdownMenuButton.
 	sceneContainer addAptitude: (maximizerAptitude := BrGlamorousWithMaximizerAptitude new
-			// #displayElement;
-			preferredBackground: BrGlamorousColors backdropColor).
+			// #elementContainer;
+			preferredBackground: Color white ).
 
 	self onSnippetViewModelFocused: false.
 	
