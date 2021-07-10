@@ -244,7 +244,7 @@ LeSlide >> runSnippetCode [
 	(self code isEmpty)
 		ifTrue: [result := BlElement new]
 		ifFalse: [
-			[[ result := self coder doItAll value]
+			[[ result := self coder doItAll value asElement]
 			on: Error
 				do: [ :anException | result := anException asDebuggableElement ]]
 			on: GtCoderEvaluationUnhandledError
@@ -292,7 +292,7 @@ LeSlide >> updateCoderUIModel [
 { #category : #'api - updating' }
 LeSlide >> updateElements [
 	| element formElement |
-	element := self runSnippetCode asElement.
+	element := self runSnippetCode.
 	formElement := element asSpartaForm asElement asPannableElement.
 	cachedElement
 		removeChildren;
