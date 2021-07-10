@@ -292,7 +292,7 @@ LeSlide >> updateCoderUIModel [
 { #category : #'api - updating' }
 LeSlide >> updateElements [
 	| element formElement |
-	element := self runSnippetCode.
+	element := self runSnippetCode asElement.
 	formElement := element asSpartaForm asElement asPannableElement.
 	cachedElement
 		removeChildren;
