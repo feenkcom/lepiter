@@ -159,7 +159,7 @@ LeLocalStoreMonitor >> gtViewStatusDetailsFor: aView [
 		title: 'Details';
 		priority: 5;
 		items: [ {
-			'Has pengind change' -> self isEmpty not.
+			'Has pending change' -> self isEmpty not.
 			'Has corrupt files' -> (self corruptFiles size > 0) .
 			'Is monitor stopped' -> self isRunning not}];
 		column: 'Name' text: #key;
