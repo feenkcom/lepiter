@@ -78,6 +78,7 @@ LeWardleyMapNodeEditorElement >> createPropertyEditorElements [
 		
 		BrHorizontalPane new
 			cellSpacing: 5;
+			hMatchParent;
 			margin: (BlInsets top: 5 left: 0 bottom: 2 right: 0);
 			alignCenterLeft;
 			addChildren: {
