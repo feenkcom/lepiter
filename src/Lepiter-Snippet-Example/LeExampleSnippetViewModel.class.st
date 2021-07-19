@@ -124,10 +124,10 @@ LeExampleSnippetViewModel >> gtExampleDo: aBlock [
 	self
 		optionAt: #gtExample
 		ifPresent: [ :aGtExample |
-			(aGtExample methodClass name = self exampleBehaviorName
-				and: [ aGtExample selector = self exampleSelector 
-					and: [ aGtExample exists ] ])
-						ifTrue: [ ^ aBlock value: aGtExample ] ]
+			aGtExample exists and: [
+				(aGtExample methodClass name = self exampleBehaviorName
+					and: [ aGtExample selector = self exampleSelector ])
+						ifTrue: [ ^ aBlock value: aGtExample ] ] ]
 		ifAbsent: [ ].
 	
 	self snippetModel hasExampleBehaviorName
@@ -144,6 +144,7 @@ LeExampleSnippetViewModel >> gtExampleDo: aBlock [
 		ifNil: [ ^ self ].
 	
 	gtExample := anExampleMethod gtExample.
+	gtExample ifNil: [ ^ self ].
 	self
 		optionAt: #gtExample
 		put: gtExample.
