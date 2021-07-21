@@ -38,6 +38,12 @@ LeExampleSnippetElement >> initialize [
 		aptitude: BrGlamorousRegularEditorAptitude + BrGlamorousEditorSpacingAptitude;
 		padding: (BlInsets top: 2 left: 3 bottom: 2 right: 3);
 		margin: (BlInsets left: 2 right: 2).
+		
+	LeSnippetEditorElementShortcuter new
+		editor: exampleEditor;
+		indent;
+		moveUpAndDown;
+		loseFocus.
 	
 	exampleEditor editor addEventHandler: (LeEditorReachedBorderEventHandler new snippetElement: self).
 	
