@@ -1,10 +1,10 @@
 Class {
-	#name : #LeSubstringFilter,
-	#superclass : #GtUnorderedFilter,
-	#category : #'Lepiter-Core-Utility'
+	#name : 'LeSubstringFilter',
+	#superclass : 'GtUnorderedFilter',
+	#category : 'Lepiter-Core-Utility'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 LeSubstringFilter >> ifMatchedString: aString do: aBlock [
 	| anIndex |
 	anIndex := aString
@@ -15,7 +15,7 @@ LeSubstringFilter >> ifMatchedString: aString do: aBlock [
 	aBlock cull: anIndex cull: aString
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSubstringFilter >> isMatchedItem: aPage [
 	self ifMatchedString: aPage contentAsString do: [ ^ true ].
 	aPage

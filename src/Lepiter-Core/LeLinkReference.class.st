@@ -1,23 +1,23 @@
 Class {
-	#name : #LeLinkReference,
-	#superclass : #LeModel,
+	#name : 'LeLinkReference',
+	#superclass : 'LeModel',
 	#instVars : [
 		'explicitLink'
 	],
-	#category : #'Lepiter-Core-Links'
+	#category : 'Lepiter-Core-Links'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLinkReference >> description [
 	^ self class name
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLinkReference >> explicitLink [
 	^ explicitLink
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLinkReference >> explicitLink: anExplicitLink [
 	self assert: [ anExplicitLink notNil ].
 	self assert: [ explicitLink isNil ].
@@ -25,7 +25,7 @@ LeLinkReference >> explicitLink: anExplicitLink [
 	explicitLink := anExplicitLink
 ]
 
-{ #category : #'gt - extensions' }
+{ #category : 'gt - extensions' }
 LeLinkReference >> gtViewDefaultMatchingOriginLinksFor: aView [
 	<gtView>
 	self explicitLink ifNotNil: [ ^ aView empty ].
@@ -39,7 +39,7 @@ LeLinkReference >> gtViewDefaultMatchingOriginLinksFor: aView [
 		view: #gtViewExplicitLinksFor:
 ]
 
-{ #category : #'gt - extensions' }
+{ #category : 'gt - extensions' }
 LeLinkReference >> gtViewDefaultMatchingTargetLinksFor: aView [
 	<gtView>
 	self explicitLink ifNotNil: [ ^ aView empty ].
@@ -53,7 +53,7 @@ LeLinkReference >> gtViewDefaultMatchingTargetLinksFor: aView [
 		view: #gtViewExplicitLinksFor:
 ]
 
-{ #category : #'gt - extensions' }
+{ #category : 'gt - extensions' }
 LeLinkReference >> gtViewMatchingOriginLinksFor: aView [
 	<gtView>
 	self explicitLink ifNil: [ ^ aView empty ].
@@ -64,7 +64,7 @@ LeLinkReference >> gtViewMatchingOriginLinksFor: aView [
 		view: #gtViewExplicitLinksFor:
 ]
 
-{ #category : #'gt - extensions' }
+{ #category : 'gt - extensions' }
 LeLinkReference >> gtViewMatchingTargetLinksFor: aView [
 	<gtView>
 	self explicitLink ifNil: [ ^ aView empty ].
@@ -75,47 +75,47 @@ LeLinkReference >> gtViewMatchingTargetLinksFor: aView [
 		view: #gtViewExplicitLinksFor:
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeLinkReference >> isExternalReference [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeLinkReference >> isLeContentReference [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeLinkReference >> isPageReference [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeLinkReference >> isSnippetReference [
 	^ false
 ]
 
-{ #category : #query }
+{ #category : 'query' }
 LeLinkReference >> linksWithMatchingOriginReference [
 	^ self linksWithMatchingOriginReferenceInDatabase: self explicitLink database
 ]
 
-{ #category : #query }
+{ #category : 'query' }
 LeLinkReference >> linksWithMatchingOriginReferenceInDatabase: aDatabase [
 	^ aDatabase linksWithOriginReferenceMatching: self
 ]
 
-{ #category : #query }
+{ #category : 'query' }
 LeLinkReference >> linksWithMatchingTargetReference [
 	^ self linksWithMatchingTargetReferenceInDatabase: self explicitLink database
 ]
 
-{ #category : #query }
+{ #category : 'query' }
 LeLinkReference >> linksWithMatchingTargetReferenceInDatabase: aDatabase [
 	^ aDatabase linksWithTargetReferenceMatching: self
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeLinkReference >> matches: anotherObject [
 	self == anotherObject ifTrue: [ ^ true ].
 	(anotherObject class = self class)
@@ -123,20 +123,20 @@ LeLinkReference >> matches: anotherObject [
 	^ true
 ]
 
-{ #category : #copying }
+{ #category : 'copying' }
 LeLinkReference >> postCopy [
 	super postCopy.
 	explicitLink := nil
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 LeLinkReference >> resolveAndLinkReference [
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 LeLinkReference >> resolveReference [
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 LeLinkReference >> unlink [
 ]

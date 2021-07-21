@@ -10,19 +10,19 @@ I can be used for announcements that a {{gtClass:LeDatabase}} needs to listen to
 
 "
 Class {
-	#name : #LeDatabasePropagater,
-	#superclass : #LeAnnouncementPropagater,
-	#category : #'Lepiter-Core-Notifier'
+	#name : 'LeDatabasePropagater',
+	#superclass : 'LeAnnouncementPropagater',
+	#category : 'Lepiter-Core-Notifier'
 }
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeDatabasePropagater >> order [
 	"Return a number representing the order of ${class:LeAnnouncementPropagater} execution.
 	Lower number is executed first."
 	^ 3
 ]
 
-{ #category : #'api - promoting' }
+{ #category : 'api - promoting' }
 LeDatabasePropagater >> propagate: anAnnouncement in: aLeContent [
 	<return: #LeAnnouncement>
 

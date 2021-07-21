@@ -1,17 +1,17 @@
 Class {
-	#name : #LeIncomingImplicitPageLinksGroup,
-	#superclass : #LeIncomingPageLinksGroup,
-	#category : #'Lepiter-Core-IncomingReferences'
+	#name : 'LeIncomingImplicitPageLinksGroup',
+	#superclass : 'LeIncomingPageLinksGroup',
+	#category : 'Lepiter-Core-IncomingReferences'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeIncomingImplicitPageLinksGroup >> initializeForPage: aLePage [
 	super initializeForPage: aLePage.
 
 	self initializeWithLinks: aLePage incomingUnlinked
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeIncomingImplicitPageLinksGroup >> isImplicit [
 	^ true
 ]

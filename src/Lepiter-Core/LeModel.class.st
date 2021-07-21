@@ -1,12 +1,12 @@
 Class {
-	#name : #LeModel,
-	#superclass : #Object,
+	#name : 'LeModel',
+	#superclass : 'Object',
 	#traits : 'TGtAssert + TGtOptions',
 	#classTraits : 'TGtAssert classTrait + TGtOptions classTrait',
-	#category : #'Lepiter-Core-Model'
+	#category : 'Lepiter-Core-Model'
 }
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeModel >> acceptVisitor: aVisitor [
 
 	^ aVisitor visitModel: self

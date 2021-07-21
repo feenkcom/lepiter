@@ -1,13 +1,13 @@
 Class {
-	#name : #LeTime,
-	#superclass : #LeModel,
+	#name : 'LeTime',
+	#superclass : 'LeModel',
 	#instVars : [
 		'time'
 	],
-	#category : #'Lepiter-Core-Model'
+	#category : 'Lepiter-Core-Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeTime class >> now [ 
 
 	^ self new 
@@ -15,52 +15,52 @@ LeTime class >> now [
 		yourself.
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 LeTime >> < aTime [
 	^ self class = aTime class and: [ 
 		self time < aTime time ]
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 LeTime >> <= aTime [
 	^ (self > aTime) not
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 LeTime >> = aTime [
 	^ self class = aTime class and: [ 
 		self time = aTime time ]
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 LeTime >> > aTime [
 	^ aTime < self
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 LeTime >> >= aTime [
 	^ aTime <= self
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeTime >> asDate [
 	<return: #Date>
 	^ self time asDate
 ]
 
-{ #category : #'private - asserting' }
+{ #category : 'private - asserting' }
 LeTime >> assertTime: aDateAndTime [
 	self 
 		assert: [ aDateAndTime isNotNil ] 
 		description: [ 'Date and time must be non-nil' ].
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 LeTime >> hash [
 	^ self class hash bitXor: self time hash
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 LeTime >> max: aLeTime [
 
 	^ (self > aLeTime)
@@ -68,19 +68,19 @@ LeTime >> max: aLeTime [
 		ifFalse: [ aLeTime ]
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LeTime >> printOn: aStream [
 	self time ifNil: [ ^ super printOn: aStream ].
 	self time printSeparateDateAndTimeOn: aStream.
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeTime >> time [
 	<return: #DateAndTime>
 	^ time
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeTime >> time: aDateAndTime [
 	self assertTime: aDateAndTime.
 	time := aDateAndTime

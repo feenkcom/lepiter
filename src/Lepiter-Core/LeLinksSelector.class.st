@@ -1,12 +1,12 @@
 Class {
-	#name : #LeLinksSelector,
-	#superclass : #LeRootItemsSelector,
+	#name : 'LeLinksSelector',
+	#superclass : 'LeRootItemsSelector',
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
-	#category : #'Lepiter-Core-Utility'
+	#category : 'Lepiter-Core-Utility'
 }
 
-{ #category : #'api - collect' }
+{ #category : 'api - collect' }
 LeLinksSelector >> rootsFor: aPageOrSnippet into: aStream [
 	"Collect all link items"
 	| aReferencedPage |

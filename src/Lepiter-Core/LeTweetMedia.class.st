@@ -1,18 +1,18 @@
 Class {
-	#name : #LeTweetMedia,
-	#superclass : #Object,
+	#name : 'LeTweetMedia',
+	#superclass : 'Object',
 	#instVars : [
 		'rawData'
 	],
-	#category : #'Lepiter-Core-Twitter'
+	#category : 'Lepiter-Core-Twitter'
 }
 
-{ #category : #'api - raw data' }
+{ #category : 'api - raw data' }
 LeTweetMedia >> end [
 	^ self rawData at: 'end'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeTweetMedia >> gtLiveFor: aView [
 	<gtView>
 	^ aView explicit
@@ -27,7 +27,7 @@ LeTweetMedia >> gtLiveFor: aView [
 		
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 LeTweetMedia >> gtRawDataFor: aView [
 	<gtView>
 	self hasRawData ifFalse: [ ^ aView empty ].
@@ -38,23 +38,23 @@ LeTweetMedia >> gtRawDataFor: aView [
 		view: #gtItemsFor:
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LeTweetMedia >> hasRawData [
 	<return: #Boolean>
 	^ self rawData isNotNil
 ]
 
-{ #category : #'api - item testing' }
+{ #category : 'api - item testing' }
 LeTweetMedia >> isPhoto [
 	^ self type = 'photo'
 ]
 
-{ #category : #'api - item accessing' }
+{ #category : 'api - item accessing' }
 LeTweetMedia >> mediaKey [
 	^ self rawData at: 'media_key'
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LeTweetMedia >> printOn: aStream [
 	super printOn: aStream.
 	aStream
@@ -65,27 +65,27 @@ LeTweetMedia >> printOn: aStream [
 		nextPut: $)
 ]
 
-{ #category : #'api - raw data' }
+{ #category : 'api - raw data' }
 LeTweetMedia >> rawData [
 	^ rawData
 ]
 
-{ #category : #'api - raw data' }
+{ #category : 'api - raw data' }
 LeTweetMedia >> rawData: anObject [
 	rawData := anObject
 ]
 
-{ #category : #'api - raw data' }
+{ #category : 'api - raw data' }
 LeTweetMedia >> start [
 	^ self rawData at: 'start' 
 ]
 
-{ #category : #'api - item accessing' }
+{ #category : 'api - item accessing' }
 LeTweetMedia >> type [
 	^ self rawData at: 'type'
 ]
 
-{ #category : #'api - item accessing' }
+{ #category : 'api - item accessing' }
 LeTweetMedia >> url [
 	^ self rawData at: 'url' ifAbsent: [ self rawData at: 'preview_url' ifAbsent: [self rawData at: 'preview_image_url']]
 ]

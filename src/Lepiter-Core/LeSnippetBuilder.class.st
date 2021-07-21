@@ -1,10 +1,10 @@
 Class {
-	#name : #LeSnippetBuilder,
-	#superclass : #LeContentBuilder,
-	#category : #'Lepiter-Core-Builders'
+	#name : 'LeSnippetBuilder',
+	#superclass : 'LeContentBuilder',
+	#category : 'Lepiter-Core-Builders'
 }
 
-{ #category : #'private - asserting' }
+{ #category : 'private - asserting' }
 LeSnippetBuilder >> assertSnippet: aSnippet [
 	self
 		assert: [ aSnippet isNotNil ] 
@@ -15,7 +15,7 @@ LeSnippetBuilder >> assertSnippet: aSnippet [
 			self snippet className, ' type, while intending to build a new one of ', aSnippet className, '.' ].
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeSnippetBuilder >> block [
 	self 
 		deprecated: 'Use #snippet instead.' 
@@ -23,7 +23,7 @@ LeSnippetBuilder >> block [
 	^ self snippet
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeSnippetBuilder >> block: aSnippet [
 	self 
 		deprecated: 'Use #snippet: instead.' 
@@ -31,29 +31,29 @@ LeSnippetBuilder >> block: aSnippet [
 	^ self snippet: aSnippet.
 ]
 
-{ #category : #'api - building' }
+{ #category : 'api - building' }
 LeSnippetBuilder >> build [
 	<return: #LeSnippet>
 	^ self snippet
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 LeSnippetBuilder >> defaultContent [
 	^ LeSnippet null
 ]
 
-{ #category : #'api - configuration' }
+{ #category : 'api - configuration' }
 LeSnippetBuilder >> empty [
 	self text: '' asRopedText.
 ]
 
-{ #category : #'private - building' }
+{ #category : 'private - building' }
 LeSnippetBuilder >> ensureSnippetOfClass: aClass [
 	<return: #LeSnippet>
 	^ self ensureSnippetOfClass: aClass do: [ aClass new ]
 ]
 
-{ #category : #'private - building' }
+{ #category : 'private - building' }
 LeSnippetBuilder >> ensureSnippetOfClass: aClass do: aCreationBlock [
 	<return: #LeSnippet>
 	(self snippet isKindOf: aClass) ifTrue: [ ^ self snippet ].
@@ -61,19 +61,19 @@ LeSnippetBuilder >> ensureSnippetOfClass: aClass do: aCreationBlock [
 	^ self snippet
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeSnippetBuilder >> snippet [
 	<return: #LeSnippet>
 	^ content
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeSnippetBuilder >> snippet: aSnippet [
 	self assertSnippet: aSnippet.
 	content := aSnippet
 ]
 
-{ #category : #'api - configuration' }
+{ #category : 'api - configuration' }
 LeSnippetBuilder >> string: aString [
 	^ self text: aString asRopedText
 ]

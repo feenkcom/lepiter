@@ -6,28 +6,28 @@ Users of the ${class:TLeSnippetWithHeight}$ must initialize the ==height== with 
 The height is rounded to the closest integer
 "
 Trait {
-	#name : #TLeSnippetWithHeight,
+	#name : 'TLeSnippetWithHeight',
 	#instVars : [
 		'height'
 	],
-	#category : #'Lepiter-Core-Model'
+	#category : 'Lepiter-Core-Model'
 }
 
-{ #category : #'api - height' }
+{ #category : 'api - height' }
 TLeSnippetWithHeight >> hasHeight [
 	<return: #Boolean>
 
 	^ height notNil
 ]
 
-{ #category : #'api - height' }
+{ #category : 'api - height' }
 TLeSnippetWithHeight >> height [
 	<return: #Number>
 
 	^ height
 ]
 
-{ #category : #'api - height' }
+{ #category : 'api - height' }
 TLeSnippetWithHeight >> height: aNewHeight [
 	| aRoundedHeight |
 	
@@ -39,7 +39,7 @@ TLeSnippetWithHeight >> height: aNewHeight [
 	self notifyHeightChanged.
 ]
 
-{ #category : #'api - height' }
+{ #category : 'api - height' }
 TLeSnippetWithHeight >> notifyHeightChanged [
 	self notifyAnnouncement: (LeSnippetHeightChanged new
 		source: self;

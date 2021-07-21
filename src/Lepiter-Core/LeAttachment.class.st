@@ -1,58 +1,58 @@
 Class {
-	#name : #LeAttachment,
-	#superclass : #LeModel,
+	#name : 'LeAttachment',
+	#superclass : 'LeModel',
 	#instVars : [
 		'originalReference',
 		'uploadedBy',
 		'uploadDate'
 	],
-	#category : #'Lepiter-Core-Model'
+	#category : 'Lepiter-Core-Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAttachment class >> basename [ 
 	"Answer the file name used to store attachment properties"
 
 	^ 'lepiter_attachment.properties'
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeAttachment class >> forAttachedFile: aFileReference [
 	"The supplied file is presumed to have lepiter_attachment.properties in the same directory"
 
 	^ self loadFrom: aFileReference parent / self basename
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeAttachment class >> loadFrom: aFileReference [
 	"Load the receiver from the supplied file"
 
 	^ LeLocalStore currentStorageClass new loadFromFile: aFileReference
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeAttachment class >> loadFromFolder: aFolderReference [
 	^ LeLocalStore currentStorageClass new 
 		loadFromFile: aFolderReference /  self basename
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeAttachment >> acceptVisitor: aVisitor [
 
 	^ aVisitor visitAttachment: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAttachment >> originalReference [
 	^ originalReference
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAttachment >> originalReference: anObject [
 	originalReference := anObject
 ]
 
-{ #category : #saving }
+{ #category : 'saving' }
 LeAttachment >> saveTo: aFileReference for: aLeDatabase [
 	"Save the receiver in the supplied directory in JSON format.
 	Only include personal information if explicitly flagged in the database"
@@ -71,22 +71,22 @@ LeAttachment >> saveTo: aFileReference for: aLeDatabase [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAttachment >> uploadDate [
 	^ uploadDate
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAttachment >> uploadDate: anObject [
 	uploadDate := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAttachment >> uploadedBy [
 	^ uploadedBy
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAttachment >> uploadedBy: anObject [
 	uploadedBy := anObject
 ]

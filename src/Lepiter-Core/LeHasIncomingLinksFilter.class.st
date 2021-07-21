@@ -1,10 +1,10 @@
 Class {
-	#name : #LeHasIncomingLinksFilter,
-	#superclass : #LeFilter,
-	#category : #'Lepiter-Core-Database - Filters'
+	#name : 'LeHasIncomingLinksFilter',
+	#superclass : 'LeFilter',
+	#category : 'Lepiter-Core-Database - Filters'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeHasIncomingLinksFilter class >> filterDescriptorFor: aLeDatabase do: aBlock [
 	aBlock
 		value:
@@ -20,12 +20,12 @@ LeHasIncomingLinksFilter class >> filterDescriptorFor: aLeDatabase do: aBlock [
 				order: 13) valueNotRequired
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeHasIncomingLinksFilter >> matches: aLeContent [
 	^ aLeContent hasIncomingLinks
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LeHasIncomingLinksFilter >> printOn: aStream [
 	aStream
 		nextPutAll: 'Page is referenced'

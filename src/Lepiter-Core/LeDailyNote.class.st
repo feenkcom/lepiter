@@ -1,29 +1,29 @@
 Class {
-	#name : #LeDailyNote,
-	#superclass : #LePages,
+	#name : 'LeDailyNote',
+	#superclass : 'LePages',
 	#instVars : [
 		'date'
 	],
-	#category : #'Lepiter-Core-Model'
+	#category : 'Lepiter-Core-Model'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeDailyNote class >> forDate: aDate [
 	^ self new
 		date: aDate
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeDailyNote >> date [
 	^ date
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeDailyNote >> date: aDate [
 	date := aDate
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeDailyNote >> printOn: aStream [
 	super printOn: aStream.
 	aStream

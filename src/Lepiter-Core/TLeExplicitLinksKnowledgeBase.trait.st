@@ -1,13 +1,13 @@
 Trait {
-	#name : #TLeExplicitLinksKnowledgeBase,
+	#name : 'TLeExplicitLinksKnowledgeBase',
 	#instVars : [
 		'explicitLinks',
 		'contentLinksByOrigin'
 	],
-	#category : #'Lepiter-Core-Model'
+	#category : 'Lepiter-Core-Model'
 }
 
-{ #category : #'adding / removing' }
+{ #category : 'adding / removing' }
 TLeExplicitLinksKnowledgeBase >> addExplicitLink: anExplicitLink [
 	self assert: [ anExplicitLink notNil ].
 	
@@ -22,7 +22,7 @@ TLeExplicitLinksKnowledgeBase >> addExplicitLink: anExplicitLink [
 		newExplicitLink: anExplicitLink).
 ]
 
-{ #category : #'adding / removing' }
+{ #category : 'adding / removing' }
 TLeExplicitLinksKnowledgeBase >> addExplicitLinks: aCollectionOfExplicitLinks [
 	self assert: [ aCollectionOfExplicitLinks notNil ].
 	
@@ -30,12 +30,12 @@ TLeExplicitLinksKnowledgeBase >> addExplicitLinks: aCollectionOfExplicitLinks [
 		self addExplicitLink: eachLink ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TLeExplicitLinksKnowledgeBase >> announce: anAnnouncement [
 	self explicitRequirement
 ]
 
-{ #category : #'adding / removing' }
+{ #category : 'adding / removing' }
 TLeExplicitLinksKnowledgeBase >> basicAddExplicitLink: anExplicitLink [
 	self assert: [ anExplicitLink notNil ].
 	
@@ -43,7 +43,7 @@ TLeExplicitLinksKnowledgeBase >> basicAddExplicitLink: anExplicitLink [
 	self explicitLinks addLink: anExplicitLink.
 ]
 
-{ #category : #'adding / removing' }
+{ #category : 'adding / removing' }
 TLeExplicitLinksKnowledgeBase >> basicAddLinkToContentCache: anExplicitLink [
 	"Temporary fix to cache the links from a page.
 	Works now as we do not have unresolved origin 
@@ -63,7 +63,7 @@ TLeExplicitLinksKnowledgeBase >> basicAddLinkToContentCache: anExplicitLink [
 			contentLinks addLink: anExplicitLink ] 
 ]
 
-{ #category : #'adding / removing' }
+{ #category : 'adding / removing' }
 TLeExplicitLinksKnowledgeBase >> basicRemoveExplicitLinks: leExplicitLinksToRemove [
 	self assert: [ leExplicitLinksToRemove notNil ].
 
@@ -71,7 +71,7 @@ TLeExplicitLinksKnowledgeBase >> basicRemoveExplicitLinks: leExplicitLinksToRemo
 	^ leExplicitLinksToRemove
 ]
 
-{ #category : #'adding / removing' }
+{ #category : 'adding / removing' }
 TLeExplicitLinksKnowledgeBase >> basicRemoveLinkFromContentCache: anExplicitLink [
 	"Temporary fix to cache the links from a page.
 	Works now as we do not have unresolved origin 
@@ -92,13 +92,13 @@ TLeExplicitLinksKnowledgeBase >> basicRemoveLinkFromContentCache: anExplicitLink
 						ifAbsent: [ "no action needed" ] ] ] 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TLeExplicitLinksKnowledgeBase >> cachedLinksForContent: aLeContent [
 	^ contentLinksByOrigin 
 		at: aLeContent ifAbsentPut: [ LeExplicitLinks new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TLeExplicitLinksKnowledgeBase >> ensureExplicitLinksStorage [
 	explicitLinks ifNil: [ 
 		explicitLinks := LeExplicitLinks new ].
@@ -106,19 +106,19 @@ TLeExplicitLinksKnowledgeBase >> ensureExplicitLinksStorage [
 		contentLinksByOrigin := OrderedDictionary new ].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TLeExplicitLinksKnowledgeBase >> ensureExplicitLinksStorageUid [
 	self assert: [ self explicitLinks notNil ].
 	self explicitLinks uid ifNil: [ 
 		self explicitLinks uid: self newUniqueUuid ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TLeExplicitLinksKnowledgeBase >> explicitLinkWithUuid: anUuid [
 	^ explicitLinks linkWithUuid: anUuid
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TLeExplicitLinksKnowledgeBase >> explicitLinkWithUuid: anUuid ifPresent: aPresentBlock ifAbsent: anAbsentBlock [
 	^ self explicitLinks 
 		at: anUuid 
@@ -126,17 +126,17 @@ TLeExplicitLinksKnowledgeBase >> explicitLinkWithUuid: anUuid ifPresent: aPresen
 		ifAbsent: anAbsentBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TLeExplicitLinksKnowledgeBase >> explicitLinks [
 	^ explicitLinks
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TLeExplicitLinksKnowledgeBase >> explicitLinksCount [
 	^ self explicitLinks size
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TLeExplicitLinksKnowledgeBase >> gtViewExplicitLinksFor: aView [
 	<gtView>
 	explicitLinks ifNil: [ aView empty ].
@@ -146,31 +146,31 @@ TLeExplicitLinksKnowledgeBase >> gtViewExplicitLinksFor: aView [
 		view: #gtViewExplicitLinksFor:
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 TLeExplicitLinksKnowledgeBase >> hasExplicitLinkUID: aUUID [
 	^ explicitLinks 
 		ifNil: [ false ] 
 		ifNotNil: [ explicitLinks hasExplicitLinkUID: aUUID ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 TLeExplicitLinksKnowledgeBase >> hasExplicitLinks [
 	^ explicitLinks notNil and: [ explicitLinks notEmpty ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 TLeExplicitLinksKnowledgeBase >> hasExplicityAttachedLinks [
 	^ self hasExplicitLinks and: [ 
 		explicitLinks anySatisfy: [ :aLink | 
 			aLink isAttachedLink ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TLeExplicitLinksKnowledgeBase >> newUniqueUuid [
 	self explicitRequirement
 ]
 
-{ #category : #'adding / removing' }
+{ #category : 'adding / removing' }
 TLeExplicitLinksKnowledgeBase >> removeExplicitLinks: leExplicitLinksToRemove [
 	| removedLinks |
 	self assert: [ leExplicitLinksToRemove notNil ].
@@ -186,7 +186,7 @@ TLeExplicitLinksKnowledgeBase >> removeExplicitLinks: leExplicitLinksToRemove [
 		removedExplicitLinks: removedLinks)
 ]
 
-{ #category : #'adding / removing' }
+{ #category : 'adding / removing' }
 TLeExplicitLinksKnowledgeBase >> removeExplicitOutgoingLinksForContent: aLeContent [
 	| linksToRemove |
 	linksToRemove := self explicitLinks 
@@ -196,7 +196,7 @@ TLeExplicitLinksKnowledgeBase >> removeExplicitOutgoingLinksForContent: aLeConte
 	self removeExplicitLinks: linksToRemove
 ]
 
-{ #category : #'adding / removing' }
+{ #category : 'adding / removing' }
 TLeExplicitLinksKnowledgeBase >> removeIncomingExplicitLinksForContent: aLeContent [
 	"Go through the links that point to this content, and clear the
 	reference to this content object from the link. This does not
@@ -210,7 +210,7 @@ TLeExplicitLinksKnowledgeBase >> removeIncomingExplicitLinksForContent: aLeConte
 	incomingLinks removeAll
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 TLeExplicitLinksKnowledgeBase >> setExplicitLinks: aCollectionOfLinks [
 	"Set the receiver's explicit links.
 	This is used for bulk loading, but there can already be textual links."
@@ -227,7 +227,7 @@ TLeExplicitLinksKnowledgeBase >> setExplicitLinks: aCollectionOfLinks [
 		self basicAddLinkToContentCache: aLink. ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 TLeExplicitLinksKnowledgeBase >> setExplicitLinksContainer: newExplicitLinks [
 	"Set the receiver's container for storing explicit links.
 	This is used for bulk loading, so assumes the database is empty."
@@ -240,7 +240,7 @@ TLeExplicitLinksKnowledgeBase >> setExplicitLinksContainer: newExplicitLinks [
 	explicitLinks := newExplicitLinks
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 TLeExplicitLinksKnowledgeBase >> updateLocalUnresolvedReferencesForPage: aPage [
 	| unresolvedIncomingLinks |
 	unresolvedIncomingLinks := OrderedCollection new.
@@ -254,7 +254,7 @@ TLeExplicitLinksKnowledgeBase >> updateLocalUnresolvedReferencesForPage: aPage [
 		aLink resolveReferences ].
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 TLeExplicitLinksKnowledgeBase >> updateUnresolvedReferencesForPage: aPage [
 	self parent 
 		ifNil: [ self updateLocalUnresolvedReferencesForPage: aPage. ]

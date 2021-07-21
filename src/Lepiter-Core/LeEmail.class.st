@@ -1,30 +1,30 @@
 Class {
-	#name : #LeEmail,
-	#superclass : #LeModel,
+	#name : 'LeEmail',
+	#superclass : 'LeModel',
 	#instVars : [
 		'email'
 	],
-	#category : #'Lepiter-Core-Model'
+	#category : 'Lepiter-Core-Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeEmail class >> address: aString [
 
 	^ self new email: aString
 ]
 
-{ #category : #factory }
+{ #category : 'factory' }
 LeEmail class >> null [
 	^ LeNullEmail default
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 LeEmail >> = anObject [
 	^ self class = anObject class and: [ 
 		self email = anObject email ]
 ]
 
-{ #category : #'private - asserting' }
+{ #category : 'private - asserting' }
 LeEmail >> assertEmail: aString [
 	self 
 		assert: [ aString isNotNil ]
@@ -34,31 +34,31 @@ LeEmail >> assertEmail: aString [
 		description: [ 'Email must include the "@" character' ]
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeEmail >> email [
 	<return: #String>
 	^ email
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeEmail >> email: aString [
 	self assertEmail: aString.
 	email := aString
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 LeEmail >> hash [
 	^ self class hash bitXor: self email hash
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeEmail >> isEmail [
 	"Answer a boolean indicating if this is an email address"
 
 	^ true
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LeEmail >> printOn: aStream [
 	self email ifNil: [ ^ super printOn: aStream ].
 	aStream nextPutAll: self email asString.

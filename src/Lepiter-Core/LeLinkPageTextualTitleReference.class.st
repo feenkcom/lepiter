@@ -1,35 +1,35 @@
 Class {
-	#name : #LeLinkPageTextualTitleReference,
-	#superclass : #LeLinkPageReference,
+	#name : 'LeLinkPageTextualTitleReference',
+	#superclass : 'LeLinkPageReference',
 	#instVars : [
 		'pageTitle'
 	],
-	#category : #'Lepiter-Core-Links'
+	#category : 'Lepiter-Core-Links'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeLinkPageTextualTitleReference class >> forPageTitle: aPageTitle [
 	^ self new
 		pageTitle: aPageTitle
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLinkPageTextualTitleReference >> content: aPage [
 	self pageTitle: aPage title.
 	super content: aPage.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLinkPageTextualTitleReference >> description [
 	^ 'Page Title Reference: ', self pageTitle
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeLinkPageTextualTitleReference >> isExistingPage [
 	^ self explicitLink database hasPageNamed: self pageTitle
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeLinkPageTextualTitleReference >> isReferencingContent: aLeContent [ 
 	self assert: [ aLeContent notNil ].
 	
@@ -38,12 +38,12 @@ LeLinkPageTextualTitleReference >> isReferencingContent: aLeContent [
 				aLeContent title = self pageTitle ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLinkPageTextualTitleReference >> pageTitle [
 	^ pageTitle
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLinkPageTextualTitleReference >> pageTitle: aString [
 	self assert: [ aString notNil ].
 	self assert: [ pageTitle isNil ].
@@ -52,7 +52,7 @@ LeLinkPageTextualTitleReference >> pageTitle: aString [
 	pageTitle := aString
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 LeLinkPageTextualTitleReference >> resolveInDatabase: aDatabase [
 	
 	self assert: [ aDatabase notNil ].
@@ -71,12 +71,12 @@ LeLinkPageTextualTitleReference >> resolveInDatabase: aDatabase [
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLinkPageTextualTitleReference >> targetId [
 	^ self pageTitle
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 LeLinkPageTextualTitleReference >> unlink [	
 	| previousContent |
 	previousContent := self content.

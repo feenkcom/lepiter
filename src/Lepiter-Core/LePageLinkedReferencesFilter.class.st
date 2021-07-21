@@ -1,13 +1,13 @@
 Class {
-	#name : #LePageLinkedReferencesFilter,
-	#superclass : #LeFilter,
+	#name : 'LePageLinkedReferencesFilter',
+	#superclass : 'LeFilter',
 	#instVars : [
 		'title'
 	],
-	#category : #'Lepiter-Core-Database - Filters'
+	#category : 'Lepiter-Core-Database - Filters'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageLinkedReferencesFilter class >> filterDescriptorFor: aLeDatabase do: aBlock [
 	| titles |
 	titles := GtPrefixTree new.
@@ -21,7 +21,7 @@ LePageLinkedReferencesFilter class >> filterDescriptorFor: aLeDatabase do: aBloc
 				completion: (GtStringsCompletionStrategy new completions: titles))
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LePageLinkedReferencesFilter >> matches: aLeContent [
 	"Answer a boolean indicating whether the supplied content (page or snippet) explicitly references the page with the receiver's title."
  	
@@ -32,19 +32,19 @@ LePageLinkedReferencesFilter >> matches: aLeContent [
 				ifNil: [ false ] ]
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LePageLinkedReferencesFilter >> printOn: aStream [
 	aStream
 		nextPutAll: self title;
 		nextPutAll: ' Linked References'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageLinkedReferencesFilter >> title [
 	^ title
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageLinkedReferencesFilter >> title: aString [
 	title := aString
 ]

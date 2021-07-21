@@ -5,14 +5,14 @@ I select all direct {{gtClass:LePage}} children and incoming references:
 
 "
 Class {
-	#name : #LeChildrenAndLinksSelector,
-	#superclass : #LeRootItemsSelector,
+	#name : 'LeChildrenAndLinksSelector',
+	#superclass : 'LeRootItemsSelector',
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
-	#category : #'Lepiter-Core-Utility'
+	#category : 'Lepiter-Core-Utility'
 }
 
-{ #category : #'api - collect' }
+{ #category : 'api - collect' }
 LeChildrenAndLinksSelector >> rootsFor: aPageOrBlock into: aStream [
 	"Collect all root items"
 	LeChildrenSelector default rootsFor: aPageOrBlock into: aStream.
