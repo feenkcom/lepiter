@@ -1,6 +1,6 @@
 Class {
-	#name : #LeExampleSnippet,
-	#superclass : #LeSnippet,
+	#name : 'LeExampleSnippet',
+	#superclass : 'LeSnippet',
 	#instVars : [
 		'exampleBehaviorName',
 		'exampleSelector',
@@ -10,10 +10,10 @@ Class {
 		'previewShowSelector',
 		'previewHeight'
 	],
-	#category : #'Lepiter-Snippet-Example-Snippet'
+	#category : 'Lepiter-Snippet-Example-Snippet'
 }
 
-{ #category : #'api - accessing menu' }
+{ #category : 'api - accessing menu' }
 LeExampleSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
@@ -21,14 +21,14 @@ LeExampleSnippet class >> contextMenuItemSpecification [
 		title: 'Example'
 ]
 
-{ #category : #factory }
+{ #category : 'factory' }
 LeExampleSnippet class >> empty [
 	"Return a content (page or block) with empty values (title or text).
 	Required by ${method:LeContent>>#addBlockOfClass:after:}$"
 	^ self new
 ]
 
-{ #category : #jsonV3 }
+{ #category : 'jsonV3' }
 LeExampleSnippet class >> leJsonV4AttributeMapping [
 	"To retries properties:
 	(Pragma allNamed: #propertyGetter: in: self) collect: [ :eachPragma | (eachPragma argumentAt: 1) -> (eachPragma argumentAt: 1) ]"
@@ -44,25 +44,25 @@ LeExampleSnippet class >> leJsonV4AttributeMapping [
 		yourself
 ]
 
-{ #category : #'lepiter-store' }
+{ #category : 'lepiter-store' }
 LeExampleSnippet class >> leJsonV4Name [
 
 	^ 'exampleSnippet'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeExampleSnippet >> acceptVisitor: aVisitor [
 	^ aVisitor visitExampleSnippet: self
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeExampleSnippet >> asAnnotationString [
 	^ String streamContents: [ :aStream |	
 		aStream
 			nextPutAll: (self exampleBehaviorName ifNil: [ '' ]).
 
 		(self hasExampleBehaviorName and: [ self hasExampleSelector ])
-			ifTrue: [ aStream nextPutAll: '>>#' ].
+			ifTrue: [ aStream nextPutAll: ' >> #' ].
 
 		aStream
 			nextPutAll: (self exampleSelector ifNil: [ '' ]).
@@ -99,14 +99,14 @@ LeExampleSnippet >> asAnnotationString [
 					print: self previewHeight ] ]
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeExampleSnippet >> asSnippetViewModel [
 	<return: #LeSnippetViewModel>
 
 	^ LeExampleSnippetViewModel new snippetModel: self
 ]
 
-{ #category : #'api - code expanded' }
+{ #category : 'api - code expanded' }
 LeExampleSnippet >> codeExpanded [
 	<return: #Boolean>
 	<propertyGetter: #codeExpanded>
@@ -115,7 +115,7 @@ LeExampleSnippet >> codeExpanded [
 	^ codeExpanded
 ]
 
-{ #category : #'api - code expanded' }
+{ #category : 'api - code expanded' }
 LeExampleSnippet >> codeExpanded: aNewCodeExpanded [
 	<propertySetter: #codeExpanded>
 	<propertyAnnouncement: #LeExampleSnippetCodeExpandedChanged>
@@ -136,12 +136,12 @@ LeExampleSnippet >> codeExpanded: aNewCodeExpanded [
 	self notifyCodeExpandedChanged
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeExampleSnippet >> contentAsString [
 	^ '{{gtExample:', self asAnnotationString, '}}'
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeExampleSnippet >> copyFrom: aLeExampleSnippet [
 	self codeExpanded: aLeExampleSnippet codeExpanded.
 	self exampleBehaviorName: aLeExampleSnippet exampleBehaviorName.
@@ -152,32 +152,32 @@ LeExampleSnippet >> copyFrom: aLeExampleSnippet [
 	self previewShowSelector: aLeExampleSnippet previewShowSelector.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeExampleSnippet >> defaultCodeExpanded [
 	^ true
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeExampleSnippet >> defaultNoCode [
 	^ false
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeExampleSnippet >> defaultPreviewExpanded [
 	^ false
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeExampleSnippet >> defaultPreviewHeight [
 	^ 200
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeExampleSnippet >> defaultPreviewShowSelector [
 	^ #gtViewsFor:
 ]
 
-{ #category : #'api - example behavior name' }
+{ #category : 'api - example behavior name' }
 LeExampleSnippet >> exampleBehaviorName [
 	<return: #Symbol>
 	<propertyGetter: #exampleBehaviorName>
@@ -186,7 +186,7 @@ LeExampleSnippet >> exampleBehaviorName [
 	^ exampleBehaviorName
 ]
 
-{ #category : #'api - example behavior name' }
+{ #category : 'api - example behavior name' }
 LeExampleSnippet >> exampleBehaviorName: aNewExampleBehaviorName [
 	<propertySetter: #exampleBehaviorName>
 	<propertyAnnouncement: #LeExampleSnippetExampleBehaviorNameChanged>
@@ -207,7 +207,7 @@ LeExampleSnippet >> exampleBehaviorName: aNewExampleBehaviorName [
 	self notifyExampleBehaviorNameChanged
 ]
 
-{ #category : #'api - example selector' }
+{ #category : 'api - example selector' }
 LeExampleSnippet >> exampleSelector [
 	<return: #Symbol>
 	<propertyGetter: #exampleSelector>
@@ -216,7 +216,7 @@ LeExampleSnippet >> exampleSelector [
 	^ exampleSelector
 ]
 
-{ #category : #'api - example selector' }
+{ #category : 'api - example selector' }
 LeExampleSnippet >> exampleSelector: aNewExampleSelector [
 	<propertySetter: #exampleSelector>
 	<propertyAnnouncement: #LeExampleSnippetExampleSelectorChanged>
@@ -237,7 +237,7 @@ LeExampleSnippet >> exampleSelector: aNewExampleSelector [
 	self notifyExampleSelectorChanged
 ]
 
-{ #category : #'api - code expanded' }
+{ #category : 'api - code expanded' }
 LeExampleSnippet >> hasCodeExpanded [
 	<return: #Boolean>
 	<propertyTester: #codeExpanded>
@@ -246,7 +246,7 @@ LeExampleSnippet >> hasCodeExpanded [
 	^ codeExpanded notNil
 ]
 
-{ #category : #'api - example behavior name' }
+{ #category : 'api - example behavior name' }
 LeExampleSnippet >> hasExampleBehaviorName [
 	<return: #Boolean>
 	<propertyTester: #exampleBehaviorName>
@@ -255,7 +255,7 @@ LeExampleSnippet >> hasExampleBehaviorName [
 	^ exampleBehaviorName notNil
 ]
 
-{ #category : #'api - example selector' }
+{ #category : 'api - example selector' }
 LeExampleSnippet >> hasExampleSelector [
 	<return: #Boolean>
 	<propertyTester: #exampleSelector>
@@ -264,7 +264,7 @@ LeExampleSnippet >> hasExampleSelector [
 	^ exampleSelector notNil
 ]
 
-{ #category : #'api - no code' }
+{ #category : 'api - no code' }
 LeExampleSnippet >> hasNoCode [
 	<return: #Boolean>
 	<propertyTester: #noCode>
@@ -273,7 +273,7 @@ LeExampleSnippet >> hasNoCode [
 	^ noCode notNil
 ]
 
-{ #category : #'api - preview expanded' }
+{ #category : 'api - preview expanded' }
 LeExampleSnippet >> hasPreviewExpanded [
 	<return: #Boolean>
 	<propertyTester: #previewExpanded>
@@ -282,7 +282,7 @@ LeExampleSnippet >> hasPreviewExpanded [
 	^ previewExpanded notNil
 ]
 
-{ #category : #'api - preview height' }
+{ #category : 'api - preview height' }
 LeExampleSnippet >> hasPreviewHeight [
 	<return: #Boolean>
 	<propertyTester: #previewHeight>
@@ -291,7 +291,7 @@ LeExampleSnippet >> hasPreviewHeight [
 	^ previewHeight notNil
 ]
 
-{ #category : #'api - preview show selector' }
+{ #category : 'api - preview show selector' }
 LeExampleSnippet >> hasPreviewShowSelector [
 	<return: #Boolean>
 	<propertyTester: #previewShowSelector>
@@ -300,7 +300,7 @@ LeExampleSnippet >> hasPreviewShowSelector [
 	^ previewShowSelector notNil
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeExampleSnippet >> initialize [
 	super initialize.
 	
@@ -311,12 +311,12 @@ LeExampleSnippet >> initialize [
 	previewHeight := self defaultPreviewHeight
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LeExampleSnippet >> isEmpty [ 
 	^ self exampleBehaviorName isNil
 ]
 
-{ #category : #'api - no code' }
+{ #category : 'api - no code' }
 LeExampleSnippet >> noCode [
 	<return: #Boolean>
 	<propertyGetter: #noCode>
@@ -325,7 +325,7 @@ LeExampleSnippet >> noCode [
 	^ noCode
 ]
 
-{ #category : #'api - no code' }
+{ #category : 'api - no code' }
 LeExampleSnippet >> noCode: aNewNoCode [
 	<propertySetter: #noCode>
 	<propertyAnnouncement: #LeExampleSnippetNoCodeChanged>
@@ -346,7 +346,7 @@ LeExampleSnippet >> noCode: aNewNoCode [
 	self notifyNoCodeChanged
 ]
 
-{ #category : #'api - code expanded' }
+{ #category : 'api - code expanded' }
 LeExampleSnippet >> notifyCodeExpandedChanged [
 	"Override this notify method to announce changes to the property"
 	<propertyChangeNotifier: #codeExpanded>
@@ -357,7 +357,7 @@ LeExampleSnippet >> notifyCodeExpandedChanged [
 		codeExpanded: self codeExpanded).
 ]
 
-{ #category : #'api - example behavior name' }
+{ #category : 'api - example behavior name' }
 LeExampleSnippet >> notifyExampleBehaviorNameChanged [
 	"Override this notify method to announce changes to the property"
 	<propertyChangeNotifier: #exampleBehaviorName>
@@ -368,7 +368,7 @@ LeExampleSnippet >> notifyExampleBehaviorNameChanged [
 		exampleBehaviorName: self exampleBehaviorName).
 ]
 
-{ #category : #'api - example selector' }
+{ #category : 'api - example selector' }
 LeExampleSnippet >> notifyExampleSelectorChanged [
 	"Override this notify method to announce changes to the property"
 	<propertyChangeNotifier: #exampleSelector>
@@ -379,7 +379,7 @@ LeExampleSnippet >> notifyExampleSelectorChanged [
 		exampleSelector: self exampleSelector).
 ]
 
-{ #category : #'api - no code' }
+{ #category : 'api - no code' }
 LeExampleSnippet >> notifyNoCodeChanged [
 	"Override this notify method to announce changes to the property"
 	<propertyChangeNotifier: #noCode>
@@ -390,7 +390,7 @@ LeExampleSnippet >> notifyNoCodeChanged [
 		noCode: self noCode).
 ]
 
-{ #category : #'api - preview expanded' }
+{ #category : 'api - preview expanded' }
 LeExampleSnippet >> notifyPreviewExpandedChanged [
 	"Override this notify method to announce changes to the property"
 	<propertyChangeNotifier: #previewExpanded>
@@ -401,7 +401,7 @@ LeExampleSnippet >> notifyPreviewExpandedChanged [
 		previewExpanded: self previewExpanded).
 ]
 
-{ #category : #'api - preview height' }
+{ #category : 'api - preview height' }
 LeExampleSnippet >> notifyPreviewHeightChanged [
 	"Override this notify method to announce changes to the property"
 	<propertyChangeNotifier: #previewHeight>
@@ -412,7 +412,7 @@ LeExampleSnippet >> notifyPreviewHeightChanged [
 		previewHeight: self previewHeight).
 ]
 
-{ #category : #'api - preview show selector' }
+{ #category : 'api - preview show selector' }
 LeExampleSnippet >> notifyPreviewShowSelectorChanged [
 	"Override this notify method to announce changes to the property"
 	<propertyChangeNotifier: #previewShowSelector>
@@ -423,105 +423,105 @@ LeExampleSnippet >> notifyPreviewShowSelectorChanged [
 		previewShowSelector: self previewShowSelector).
 ]
 
-{ #category : #'api - code expanded' }
+{ #category : 'api - code expanded' }
 LeExampleSnippet >> onNewCodeExpandedSet: aNewCodeExpanded [
 	"Is sent after a new value of the codeExpanded is assigned"
 	<propertySetHook: #codeExpanded>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#onNewPropertySetHookTemplate'>
 ]
 
-{ #category : #'api - example behavior name' }
+{ #category : 'api - example behavior name' }
 LeExampleSnippet >> onNewExampleBehaviorNameSet: aNewExampleBehaviorName [
 	"Is sent after a new value of the exampleBehaviorName is assigned"
 	<propertySetHook: #exampleBehaviorName>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#onNewPropertySetHookTemplate'>
 ]
 
-{ #category : #'api - example selector' }
+{ #category : 'api - example selector' }
 LeExampleSnippet >> onNewExampleSelectorSet: aNewExampleSelector [
 	"Is sent after a new value of the exampleSelector is assigned"
 	<propertySetHook: #exampleSelector>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#onNewPropertySetHookTemplate'>
 ]
 
-{ #category : #'api - no code' }
+{ #category : 'api - no code' }
 LeExampleSnippet >> onNewNoCodeSet: aNewNoCode [
 	"Is sent after a new value of the noCode is assigned"
 	<propertySetHook: #noCode>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#onNewPropertySetHookTemplate'>
 ]
 
-{ #category : #'api - preview expanded' }
+{ #category : 'api - preview expanded' }
 LeExampleSnippet >> onNewPreviewExpandedSet: aNewPreviewExpanded [
 	"Is sent after a new value of the previewExpanded is assigned"
 	<propertySetHook: #previewExpanded>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#onNewPropertySetHookTemplate'>
 ]
 
-{ #category : #'api - preview height' }
+{ #category : 'api - preview height' }
 LeExampleSnippet >> onNewPreviewHeightSet: aNewPreviewHeight [
 	"Is sent after a new value of the previewHeight is assigned"
 	<propertySetHook: #previewHeight>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#onNewPropertySetHookTemplate'>
 ]
 
-{ #category : #'api - preview show selector' }
+{ #category : 'api - preview show selector' }
 LeExampleSnippet >> onNewPreviewShowSelectorSet: aNewPreviewShowSelector [
 	"Is sent after a new value of the previewShowSelector is assigned"
 	<propertySetHook: #previewShowSelector>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#onNewPropertySetHookTemplate'>
 ]
 
-{ #category : #'api - code expanded' }
+{ #category : 'api - code expanded' }
 LeExampleSnippet >> onPreviousCodeExpandedUnset: aPreviousCodeExpanded [
 	"Is sent after a previous value of the codeExpanded is de-assigned"
 	<propertyUnsetHook: #codeExpanded>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#onPreviousPropertyUnsetHookTemplate'>
 ]
 
-{ #category : #'api - example behavior name' }
+{ #category : 'api - example behavior name' }
 LeExampleSnippet >> onPreviousExampleBehaviorNameUnset: aPreviousExampleBehaviorName [
 	"Is sent after a previous value of the exampleBehaviorName is de-assigned"
 	<propertyUnsetHook: #exampleBehaviorName>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#onPreviousPropertyUnsetHookTemplate'>
 ]
 
-{ #category : #'api - example selector' }
+{ #category : 'api - example selector' }
 LeExampleSnippet >> onPreviousExampleSelectorUnset: aPreviousExampleSelector [
 	"Is sent after a previous value of the exampleSelector is de-assigned"
 	<propertyUnsetHook: #exampleSelector>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#onPreviousPropertyUnsetHookTemplate'>
 ]
 
-{ #category : #'api - no code' }
+{ #category : 'api - no code' }
 LeExampleSnippet >> onPreviousNoCodeUnset: aPreviousNoCode [
 	"Is sent after a previous value of the noCode is de-assigned"
 	<propertyUnsetHook: #noCode>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#onPreviousPropertyUnsetHookTemplate'>
 ]
 
-{ #category : #'api - preview expanded' }
+{ #category : 'api - preview expanded' }
 LeExampleSnippet >> onPreviousPreviewExpandedUnset: aPreviousPreviewExpanded [
 	"Is sent after a previous value of the previewExpanded is de-assigned"
 	<propertyUnsetHook: #previewExpanded>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#onPreviousPropertyUnsetHookTemplate'>
 ]
 
-{ #category : #'api - preview height' }
+{ #category : 'api - preview height' }
 LeExampleSnippet >> onPreviousPreviewHeightUnset: aPreviousPreviewHeight [
 	"Is sent after a previous value of the previewHeight is de-assigned"
 	<propertyUnsetHook: #previewHeight>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#onPreviousPropertyUnsetHookTemplate'>
 ]
 
-{ #category : #'api - preview show selector' }
+{ #category : 'api - preview show selector' }
 LeExampleSnippet >> onPreviousPreviewShowSelectorUnset: aPreviousPreviewShowSelector [
 	"Is sent after a previous value of the previewShowSelector is de-assigned"
 	<propertyUnsetHook: #previewShowSelector>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#onPreviousPropertyUnsetHookTemplate'>
 ]
 
-{ #category : #'api - preview expanded' }
+{ #category : 'api - preview expanded' }
 LeExampleSnippet >> previewExpanded [
 	<return: #Boolean>
 	<propertyGetter: #previewExpanded>
@@ -530,7 +530,7 @@ LeExampleSnippet >> previewExpanded [
 	^ previewExpanded
 ]
 
-{ #category : #'api - preview expanded' }
+{ #category : 'api - preview expanded' }
 LeExampleSnippet >> previewExpanded: aNewPreviewExpanded [
 	<propertySetter: #previewExpanded>
 	<propertyAnnouncement: #LeExampleSnippetPreviewExpandedChanged>
@@ -551,7 +551,7 @@ LeExampleSnippet >> previewExpanded: aNewPreviewExpanded [
 	self notifyPreviewExpandedChanged
 ]
 
-{ #category : #'api - preview height' }
+{ #category : 'api - preview height' }
 LeExampleSnippet >> previewHeight [
 	<return: #Number>
 	<propertyGetter: #previewHeight>
@@ -560,7 +560,7 @@ LeExampleSnippet >> previewHeight [
 	^ previewHeight
 ]
 
-{ #category : #'api - preview height' }
+{ #category : 'api - preview height' }
 LeExampleSnippet >> previewHeight: aNewPreviewHeight [
 	<propertySetter: #previewHeight>
 	<propertyAnnouncement: #LeExampleSnippetPreviewHeightChanged>
@@ -581,7 +581,7 @@ LeExampleSnippet >> previewHeight: aNewPreviewHeight [
 	self notifyPreviewHeightChanged
 ]
 
-{ #category : #'api - preview show selector' }
+{ #category : 'api - preview show selector' }
 LeExampleSnippet >> previewShowSelector [
 	<return: #Symbol>
 	<propertyGetter: #previewShowSelector>
@@ -590,7 +590,7 @@ LeExampleSnippet >> previewShowSelector [
 	^ previewShowSelector
 ]
 
-{ #category : #'api - preview show selector' }
+{ #category : 'api - preview show selector' }
 LeExampleSnippet >> previewShowSelector: aNewPreviewShowSelector [
 	<propertySetter: #previewShowSelector>
 	<propertyAnnouncement: #LeExampleSnippetPreviewShowSelectorChanged>
@@ -611,7 +611,7 @@ LeExampleSnippet >> previewShowSelector: aNewPreviewShowSelector [
 	self notifyPreviewShowSelectorChanged
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeExampleSnippet >> referencedExample [
 	<return: #RGMethodDefinition or: nil>
 	self exampleBehaviorName ifNil: [ ^ nil ].
@@ -619,12 +619,12 @@ LeExampleSnippet >> referencedExample [
 	^ GtSystemUtility methodDefinitionFromString: self exampleBehaviorName,'>>#', self exampleSelector
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeExampleSnippet >> referencedExampleSourceCode [
 	^ self referencedExample sourceCode
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LeExampleSnippet >> similarTo: anotherExampleSnippet [
 	^ self codeExpanded = anotherExampleSnippet codeExpanded
 		and: [ self exampleBehaviorName = anotherExampleSnippet exampleBehaviorName
@@ -635,7 +635,7 @@ LeExampleSnippet >> similarTo: anotherExampleSnippet [
 							and: [ self previewShowSelector = anotherExampleSnippet previewShowSelector ] ] ] ] ] ]
 ]
 
-{ #category : #'api - code expanded' }
+{ #category : 'api - code expanded' }
 LeExampleSnippet >> unsetCodeExpanded [
 	<propertyUnsetter: #codeExpanded>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#propertyUnsetterTemplate'>
@@ -650,7 +650,7 @@ LeExampleSnippet >> unsetCodeExpanded [
 	self notifyCodeExpandedChanged
 ]
 
-{ #category : #'api - example behavior name' }
+{ #category : 'api - example behavior name' }
 LeExampleSnippet >> unsetExampleBehaviorName [
 	<propertyUnsetter: #exampleBehaviorName>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#propertyUnsetterTemplate'>
@@ -665,7 +665,7 @@ LeExampleSnippet >> unsetExampleBehaviorName [
 	self notifyExampleBehaviorNameChanged
 ]
 
-{ #category : #'api - example selector' }
+{ #category : 'api - example selector' }
 LeExampleSnippet >> unsetExampleSelector [
 	<propertyUnsetter: #exampleSelector>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#propertyUnsetterTemplate'>
@@ -680,7 +680,7 @@ LeExampleSnippet >> unsetExampleSelector [
 	self notifyExampleSelectorChanged
 ]
 
-{ #category : #'api - no code' }
+{ #category : 'api - no code' }
 LeExampleSnippet >> unsetNoCode [
 	<propertyUnsetter: #noCode>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#propertyUnsetterTemplate'>
@@ -695,7 +695,7 @@ LeExampleSnippet >> unsetNoCode [
 	self notifyNoCodeChanged
 ]
 
-{ #category : #'api - preview expanded' }
+{ #category : 'api - preview expanded' }
 LeExampleSnippet >> unsetPreviewExpanded [
 	<propertyUnsetter: #previewExpanded>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#propertyUnsetterTemplate'>
@@ -710,7 +710,7 @@ LeExampleSnippet >> unsetPreviewExpanded [
 	self notifyPreviewExpandedChanged
 ]
 
-{ #category : #'api - preview height' }
+{ #category : 'api - preview height' }
 LeExampleSnippet >> unsetPreviewHeight [
 	<propertyUnsetter: #previewHeight>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#propertyUnsetterTemplate'>
@@ -725,7 +725,7 @@ LeExampleSnippet >> unsetPreviewHeight [
 	self notifyPreviewHeightChanged
 ]
 
-{ #category : #'api - preview show selector' }
+{ #category : 'api - preview show selector' }
 LeExampleSnippet >> unsetPreviewShowSelector [
 	<propertyUnsetter: #previewShowSelector>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#propertyUnsetterTemplate'>
