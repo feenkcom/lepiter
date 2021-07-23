@@ -1,15 +1,15 @@
 Class {
-	#name : #LeHtmlExporterAnnotationVisitor,
-	#superclass : #Object,
+	#name : 'LeHtmlExporterAnnotationVisitor',
+	#superclass : 'Object',
 	#traits : 'TLeAnnotationParseNodeVisitor + TIndentWriter',
 	#classTraits : 'TLeAnnotationParseNodeVisitor classTrait + TIndentWriter classTrait',
 	#instVars : [
 		'externalPicturesWriter'
 	],
-	#category : #'Lepiter-HTML-Exporter'
+	#category : 'Lepiter-HTML-Exporter'
 }
 
-{ #category : #html }
+{ #category : 'html' }
 LeHtmlExporterAnnotationVisitor >> exportImageTagForPath: filePath forAnnotation: anExampleAnnotation [
 	stream
 		<< ('<img src="{1}" alt="{2}"/>' format: {
@@ -19,17 +19,17 @@ LeHtmlExporterAnnotationVisitor >> exportImageTagForPath: filePath forAnnotation
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeHtmlExporterAnnotationVisitor >> externalPicturesWriter [
 	^ externalPicturesWriter
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeHtmlExporterAnnotationVisitor >> externalPicturesWriter: aDataWriter [
 	externalPicturesWriter := aDataWriter
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeHtmlExporterAnnotationVisitor >> labelStringForAnnotation: anExampleAnnotation [
 	| rbMethod example resultObject |
 	
@@ -49,7 +49,7 @@ LeHtmlExporterAnnotationVisitor >> labelStringForAnnotation: anExampleAnnotation
 		labelFor: resultObject
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeHtmlExporterAnnotationVisitor >> visitClassAnnotation: aClassAnnotation [
 	| classNameArgument |
 	aClassAnnotation hasLabel
@@ -64,11 +64,17 @@ LeHtmlExporterAnnotationVisitor >> visitClassAnnotation: aClassAnnotation [
 					self
 						putTag: 'code'
 						andAttributes: 'class="class_definition"'
-						with: [ self
-								putString: classNameArgument behavior definition trimBoth asHTMLString ] ] ]
+						with: [
+							| behaviorDefinitionString |
+
+							behaviorDefinitionString := self
+								forPharo8: [ classNameArgument behavior definition ]
+								forPharo9: [ classNameArgument behavior definitionString ].
+
+							self putString: behaviorDefinitionString trimBoth asHTMLString ] ] ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeHtmlExporterAnnotationVisitor >> visitExampleAnnotation: anExampleAnnotation [	
 	self visitAnnotation: anExampleAnnotation. 
 		
@@ -77,7 +83,7 @@ LeHtmlExporterAnnotationVisitor >> visitExampleAnnotation: anExampleAnnotation [
 	self writeExampleViewOrCodeFor: anExampleAnnotation
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeHtmlExporterAnnotationVisitor >> visitMethodAnnotation: aMethodAnnotation [
 	| methodNameArgument |
 	aMethodAnnotation hasLabel
@@ -96,14 +102,14 @@ LeHtmlExporterAnnotationVisitor >> visitMethodAnnotation: aMethodAnnotation [
 								putString: methodNameArgument imageObject sourceCode asHTMLString ] ] ]
 ]
 
-{ #category : #html }
+{ #category : 'html' }
 LeHtmlExporterAnnotationVisitor >> writeClassLabel: anAnnotation [
 	self putTag: 'code' andAttributes: 'class="class_label"' with: [
 		self putString: anAnnotation label
 	]
 ]
 
-{ #category : #html }
+{ #category : 'html' }
 LeHtmlExporterAnnotationVisitor >> writeCodeForExample: anExample [
 	stream
 		<< '<div class="example_definition">';
@@ -118,7 +124,7 @@ LeHtmlExporterAnnotationVisitor >> writeCodeForExample: anExample [
 
 ]
 
-{ #category : #html }
+{ #category : 'html' }
 LeHtmlExporterAnnotationVisitor >> writeExampleLabelFor: anExampleAnnotation [
 	stream
 		<< '<code class="example_inlined">'
@@ -126,7 +132,7 @@ LeHtmlExporterAnnotationVisitor >> writeExampleLabelFor: anExampleAnnotation [
 		<< '</code>'
 ]
 
-{ #category : #html }
+{ #category : 'html' }
 LeHtmlExporterAnnotationVisitor >> writeExampleResultForAnnotation: anExampleAnnotation [
 	| filePath |
 	self externalPicturesWriter ifNil: [
@@ -153,7 +159,7 @@ LeHtmlExporterAnnotationVisitor >> writeExampleResultForAnnotation: anExampleAnn
 
 ]
 
-{ #category : #html }
+{ #category : 'html' }
 LeHtmlExporterAnnotationVisitor >> writeExampleViewOrCodeFor: exampleAnnotation [	
 	| rbMethod example |
 	rbMethod := exampleAnnotation imageObject.
@@ -178,7 +184,7 @@ LeHtmlExporterAnnotationVisitor >> writeExampleViewOrCodeFor: exampleAnnotation 
 
 ]
 
-{ #category : #html }
+{ #category : 'html' }
 LeHtmlExporterAnnotationVisitor >> writeMethodLabel: anAnnotation [
 	self putTag: 'code' andAttributes: 'class="method_label"' with: [
 		self putString: anAnnotation label

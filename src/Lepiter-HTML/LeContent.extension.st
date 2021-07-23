@@ -1,6 +1,6 @@
-Extension { #name : #LeContent }
+Extension { #name : 'LeContent' }
 
-{ #category : #'*Lepiter-HTML' }
+{ #category : '*Lepiter-HTML' }
 LeContent >> asHTMLFragment [
 	"Answer the receiver as an HTML fragment (no meta, body, etc.)"
 

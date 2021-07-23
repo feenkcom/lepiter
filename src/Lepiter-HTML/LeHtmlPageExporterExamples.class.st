@@ -5,19 +5,19 @@ Since there is no database present at this level, links to other pages, etc. can
 
 "
 Class {
-	#name : #LeHtmlPageExporterExamples,
-	#superclass : #Object,
-	#category : #'Lepiter-HTML-Examples'
+	#name : 'LeHtmlPageExporterExamples',
+	#superclass : 'Object',
+	#category : 'Lepiter-HTML-Examples'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 LeHtmlPageExporterExamples >> sampleCssFile [
 	"Answer the sample css file included in the test data"
 
 	^ self testDataLocation / 'html-export' / 'attachments/5btjm1n0n6rsaizw19rtczbv6/sample.css'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeHtmlPageExporterExamples >> sampleDatabase [
 	"Answer the sample database to be used.
 	The database is opened without a monitor, so no changes will be saved"
@@ -25,14 +25,14 @@ LeHtmlPageExporterExamples >> sampleDatabase [
 	^ LeLocalStoreLoad current loadAndMonitorFrom: self sampleDatabaseLocation
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeHtmlPageExporterExamples >> sampleDatabaseLocation [
 	"Answer the sample database for the examples"
 
 	^ self testDataLocation / 'html-export'
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeHtmlPageExporterExamples >> samplePage [
 	"Answer the html of a sample page"
 	<gtExample>
@@ -59,7 +59,7 @@ LeHtmlPageExporterExamples >> samplePage [
 	^ html
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeHtmlPageExporterExamples >> sampleSnippetsPage [
 	"Answer the html of a sample page"
 	<gtExample>
@@ -84,7 +84,7 @@ LeHtmlPageExporterExamples >> sampleSnippetsPage [
 	^ html
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 LeHtmlPageExporterExamples >> testDataLocation [
 	"Answer the location of the test data based on the git repository"
 	| fileReference |

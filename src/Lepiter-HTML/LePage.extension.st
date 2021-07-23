@@ -1,6 +1,6 @@
-Extension { #name : #LePage }
+Extension { #name : 'LePage' }
 
-{ #category : #'*Lepiter-HTML' }
+{ #category : '*Lepiter-HTML' }
 LePage >> asHTMLContent [
 	"Answer the receiver as an HTML document"
 
@@ -8,7 +8,7 @@ LePage >> asHTMLContent [
 		self acceptVisitor: (LeHtmlPageExporterVisitor new stream: stream) ]
 ]
 
-{ #category : #'*Lepiter-HTML' }
+{ #category : '*Lepiter-HTML' }
 LePage >> asHTMLDocument [
 	"Answer the receiver as an HTML document"
 
@@ -18,7 +18,7 @@ LePage >> asHTMLDocument [
 			stream: stream) ]
 ]
 
-{ #category : #'*Lepiter-HTML' }
+{ #category : '*Lepiter-HTML' }
 LePage >> resourcesVisitor [
 	^ LesPageResourceVisitor new 
 		page: self
