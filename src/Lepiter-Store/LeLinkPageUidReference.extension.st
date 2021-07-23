@@ -1,6 +1,6 @@
-Extension { #name : #LeLinkPageUidReference }
+Extension { #name : 'LeLinkPageUidReference' }
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 LeLinkPageUidReference class >> leJsonV3AttributeMapping [
 
 	^ super leJsonV3AttributeMapping
@@ -8,13 +8,13 @@ LeLinkPageUidReference class >> leJsonV3AttributeMapping [
 		yourself
 ]
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 LeLinkPageUidReference class >> leJsonV3Name [
 
 	^ 'pageReferenceByUid'
 ]
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 LeLinkPageUidReference class >> leJsonV4AttributeMapping [
 
 	^ super leJsonV4AttributeMapping
@@ -22,7 +22,7 @@ LeLinkPageUidReference class >> leJsonV4AttributeMapping [
 		yourself
 ]
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 LeLinkPageUidReference class >> leJsonV4Name [
 
 	^ 'pageReferenceByUid'

@@ -1,6 +1,6 @@
-Extension { #name : #LeAttachedLink }
+Extension { #name : 'LeAttachedLink' }
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 LeAttachedLink class >> leJsonV3AttributeMapping [
 
 	^ super leJsonV3AttributeMapping
@@ -12,13 +12,13 @@ LeAttachedLink class >> leJsonV3AttributeMapping [
 		yourself
 ]
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 LeAttachedLink class >> leJsonV3Name [
 
 	^ #explicitLink
 ]
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 LeAttachedLink class >> leJsonV4AttributeMapping [
 
 	^ super leJsonV4AttributeMapping
@@ -30,7 +30,7 @@ LeAttachedLink class >> leJsonV4AttributeMapping [
 		yourself
 ]
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 LeAttachedLink class >> leJsonV4Name [
 
 	^ #explicitLink

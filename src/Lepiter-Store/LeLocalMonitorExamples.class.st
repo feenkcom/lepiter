@@ -4,15 +4,15 @@ Confirm that the Lepiter DB Monitor saves pages as expected.
 
 "
 Class {
-	#name : #LeLocalMonitorExamples,
-	#superclass : #LeLocalExamples,
+	#name : 'LeLocalMonitorExamples',
+	#superclass : 'LeLocalExamples',
 	#instVars : [
 		'monitor'
 	],
-	#category : #'Lepiter-Store-Local-Examples'
+	#category : 'Lepiter-Store-Local-Examples'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 LeLocalMonitorExamples >> createDatabase [
 	"Reset the receiver and create a sample database"
 
@@ -49,7 +49,7 @@ LeLocalMonitorExamples >> createDatabase [
 	^ database
 ]
 
-{ #category : #'examples - monitor' }
+{ #category : 'examples - monitor' }
 LeLocalMonitorExamples >> databaseRoundTrip [
 	<gtExample>
 	| page1 page2 page4 snippet imported link links |
@@ -75,7 +75,7 @@ LeLocalMonitorExamples >> databaseRoundTrip [
 	^ database
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeLocalMonitorExamples >> exportedDatabase [
 	"Create and export the database"
 
@@ -85,7 +85,7 @@ LeLocalMonitorExamples >> exportedDatabase [
 	^ database
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeLocalMonitorExamples >> importedDatabase [
 	"Answer the sample database as imported"
 
@@ -94,7 +94,7 @@ LeLocalMonitorExamples >> importedDatabase [
 	^ database := LeLocalStoreLoad current loadFrom: memStore
 ]
 
-{ #category : #'examples - monitor' }
+{ #category : 'examples - monitor' }
 LeLocalMonitorExamples >> monitorBlockAdded [
 	<gtExample>
 	| page3 page3FromFile |
@@ -111,7 +111,7 @@ LeLocalMonitorExamples >> monitorBlockAdded [
 	^ monitor
 ]
 
-{ #category : #'examples - monitor' }
+{ #category : 'examples - monitor' }
 LeLocalMonitorExamples >> monitorBlockModified [
 	<gtExample>
 	| page3 page3FromFile block31 |
@@ -129,7 +129,7 @@ LeLocalMonitorExamples >> monitorBlockModified [
 	^ monitor
 ]
 
-{ #category : #'examples - monitor' }
+{ #category : 'examples - monitor' }
 LeLocalMonitorExamples >> monitorBlockRemoved [
 	<gtExample>
 	| page2 page2FromFile block21 |
@@ -148,7 +148,7 @@ LeLocalMonitorExamples >> monitorBlockRemoved [
 	^ monitor
 ]
 
-{ #category : #'examples - monitor' }
+{ #category : 'examples - monitor' }
 LeLocalMonitorExamples >> monitorExplicitLinkBetweenPagesAdded [
 	<gtExample>
 	| page1 page2 explicitLink explicitLinksFile explicitLinksFromFile |
@@ -174,7 +174,7 @@ LeLocalMonitorExamples >> monitorExplicitLinkBetweenPagesAdded [
 	^ monitor
 ]
 
-{ #category : #'examples - monitor' }
+{ #category : 'examples - monitor' }
 LeLocalMonitorExamples >> monitorExplicitLinkBetweenPagesRemoved [
 	<gtExample>
 	| explicitLink explicitLinksFile explicitLinksFromFile |
@@ -197,7 +197,7 @@ LeLocalMonitorExamples >> monitorExplicitLinkBetweenPagesRemoved [
 	^ monitor
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 LeLocalMonitorExamples >> monitorNamedPageEmptied [
 	"Removing all content from a named page should leave it on disk (with no content)"
 	<gtExample>
@@ -212,7 +212,7 @@ LeLocalMonitorExamples >> monitorNamedPageEmptied [
 	^ monitor
 ]
 
-{ #category : #'examples - monitor' }
+{ #category : 'examples - monitor' }
 LeLocalMonitorExamples >> monitorPageAdded [
 	<gtExample>
 	| page title mpaFilename mpaFromFile |
@@ -230,7 +230,7 @@ LeLocalMonitorExamples >> monitorPageAdded [
 	^ monitor
 ]
 
-{ #category : #'examples - monitor' }
+{ #category : 'examples - monitor' }
 LeLocalMonitorExamples >> monitorPageRemoved [
 	<gtExample>
 	| page3 page3Filename |
@@ -245,7 +245,7 @@ LeLocalMonitorExamples >> monitorPageRemoved [
 	^ monitor
 ]
 
-{ #category : #'examples - monitor' }
+{ #category : 'examples - monitor' }
 LeLocalMonitorExamples >> monitorPageTitleChanged [
 	<gtExample>
 	| page3 page3Filename newPage3 |
@@ -262,7 +262,7 @@ LeLocalMonitorExamples >> monitorPageTitleChanged [
 	^ monitor
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 LeLocalMonitorExamples >> monitorPharoClassPageEmptied [
 	"Removing all content from a pharo class page should remove it from disk"
 	<gtExample>
@@ -284,7 +284,7 @@ LeLocalMonitorExamples >> monitorPharoClassPageEmptied [
 	^ monitor
 ]
 
-{ #category : #'examples - monitor' }
+{ #category : 'examples - monitor' }
 LeLocalMonitorExamples >> monitorSaveDelay [
 	"Do a check that multiple updates are queued and processed."
 	<gtExample>
@@ -308,7 +308,7 @@ LeLocalMonitorExamples >> monitorSaveDelay [
 	^ monitor
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeLocalMonitorExamples >> monitorWithDuration: aDuration [
 	self exportedDatabase.
 	database := nil.
@@ -317,7 +317,7 @@ LeLocalMonitorExamples >> monitorWithDuration: aDuration [
 	^ monitor
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeLocalMonitorExamples >> reset [ 
 
 	memStore := nil.
@@ -325,7 +325,7 @@ LeLocalMonitorExamples >> reset [
 	monitor := nil.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeLocalMonitorExamples >> snippetTypes [
 	"Create a database and one page with all block types"
 

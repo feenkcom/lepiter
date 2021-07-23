@@ -1,12 +1,12 @@
-Extension { #name : #LeUnnamedPageType }
+Extension { #name : 'LeUnnamedPageType' }
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 LeUnnamedPageType class >> leJsonV3Name [
 
 	^ 'unnamedPage'
 ]
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 LeUnnamedPageType class >> leJsonV4AttributeMapping [
 
 	^ super leJsonV4AttributeMapping
@@ -15,7 +15,7 @@ LeUnnamedPageType class >> leJsonV4AttributeMapping [
 
 ]
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 LeUnnamedPageType class >> leJsonV4Name [
 
 	^ 'unnamedPage'

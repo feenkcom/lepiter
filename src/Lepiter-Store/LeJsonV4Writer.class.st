@@ -1,20 +1,20 @@
 Class {
-	#name : #LeJsonV4Writer,
-	#superclass : #NeoJSONWriter,
+	#name : 'LeJsonV4Writer',
+	#superclass : 'NeoJSONWriter',
 	#instVars : [
 		'firstMappedObject'
 	],
-	#category : #'Lepiter-Store-JsonV4'
+	#category : 'Lepiter-Store-JsonV4'
 }
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 LeJsonV4Writer >> on: aStream [
 
 	super on: aStream.
 	firstMappedObject := true.
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 LeJsonV4Writer >> writeMap: keyValueCollection [
 	"Write the map out with sorted keys so code version history is cleaner"
 
@@ -24,7 +24,7 @@ LeJsonV4Writer >> writeMap: keyValueCollection [
 			jsonMapWriter writeKey: key value: value ] ]
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 LeJsonV4Writer >> writeMapStreamingDo: block [
 	writeStream nextPut: ${.
 	self writeStreamingDo: 
@@ -35,7 +35,7 @@ LeJsonV4Writer >> writeMapStreamingDo: block [
 	writeStream nextPut: $}
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 LeJsonV4Writer >> writeSchemaOn: jsonMapWriter [
 
 	jsonMapWriter writeKey: #'__schema' value: LeLocalJsonV4Storage currentVersionString.

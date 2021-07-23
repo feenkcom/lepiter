@@ -6,12 +6,12 @@ The database was saved to disk and put in the repository in an earlier version o
 
 "
 Class {
-	#name : #LeLocalV3000MigrationExamples,
-	#superclass : #LeLocalExamples,
-	#category : #'Lepiter-Store-Local-Examples'
+	#name : 'LeLocalV3000MigrationExamples',
+	#superclass : 'LeLocalExamples',
+	#category : 'Lepiter-Store-Local-Examples'
 }
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeLocalV3000MigrationExamples >> migrateFromV3 [
 	<gtExample>
 	| page1 page2 page4 dailyNote snippet link links |

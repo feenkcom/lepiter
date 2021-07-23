@@ -10,30 +10,30 @@ The database is a directory containing a page per file, with `db.properties` con
 
 "
 Class {
-	#name : #LeLocalStorage,
-	#superclass : #Object,
-	#category : #'Lepiter-Store-LocalJSON-Store'
+	#name : 'LeLocalStorage',
+	#superclass : 'Object',
+	#category : 'Lepiter-Store-LocalJSON-Store'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStorage >> dbFileExtension [
 
 	self subclassResponsibility 
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 LeLocalStorage >> dbFilesIn: aDirectory [
 
 	self subclassResponsibility 
 ]
 
-{ #category : #loading }
+{ #category : 'loading' }
 LeLocalStorage >> loadFromFile: aFileReference [
 
 	self subclassResponsibility 
 ]
 
-{ #category : #'schema updating' }
+{ #category : 'schema updating' }
 LeLocalStorage >> loadJsonFrom: aFileReference [
 	"Load the JSON object from the supplied file, without any interpretation of the contents, but keeping the attribute order"
 
@@ -44,21 +44,21 @@ LeLocalStorage >> loadJsonFrom: aFileReference [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStorage >> pageFilename: aPage [
 	"Answer the filename where aPage is stored"
 
 	^ self pageFilenameForUid: aPage uid
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStorage >> pageFilenameForUid: aPageUid [
 	"Answer the filename where the page with the given id is stored"
 
 	^ aPageUid asString36, self dbFileExtension
 ]
 
-{ #category : #saving }
+{ #category : 'saving' }
 LeLocalStorage >> saveExplicitLinksAsPage: aPage in: aDirectory [
 	"Write the supplied page back to the local store"
 	| pageFile |
@@ -68,7 +68,7 @@ LeLocalStorage >> saveExplicitLinksAsPage: aPage in: aDirectory [
 	self savePage: aPage inFile: pageFile
 ]
 
-{ #category : #saving }
+{ #category : 'saving' }
 LeLocalStorage >> savePage: aPage in: aDirectory [
 	"Write the supplied page back to the local store"
 	| pageFile |
@@ -77,7 +77,7 @@ LeLocalStorage >> savePage: aPage in: aDirectory [
 	self savePage: aPage inFile: pageFile
 ]
 
-{ #category : #saving }
+{ #category : 'saving' }
 LeLocalStorage >> savePage: aPage inFile: aPageFile [
 	"Write the supplied page back to the local store"
 	| backup |
@@ -102,13 +102,13 @@ LeLocalStorage >> savePage: aPage inFile: aPageFile [
 		emit.
 ]
 
-{ #category : #saving }
+{ #category : 'saving' }
 LeLocalStorage >> serialize: aPage on: aStream prettyPrint: aBoolean [
 
 	self subclassResponsibility 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStorage >> titleFilename: aString [
 	"Answer the filename string used to store the supplied page title.
 	This is the sha256 hash of the page's title."
@@ -117,19 +117,19 @@ LeLocalStorage >> titleFilename: aString [
 	^ (SHA256 hashMessage: aString) hex, self dbFileExtension
 ]
 
-{ #category : #'schema updating' }
+{ #category : 'schema updating' }
 LeLocalStorage >> updateDbStore: store [
 	"Update the store to the latest minor version.
 	Subclasses should overwrite with the appropriate action."
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 LeLocalStorage >> withExplicitLinksFileIn: aRootFolder do: aBlock [
 	"Override if the storage provides support for explicit links."
 	^ nil
 ]
 
-{ #category : #'schema updating' }
+{ #category : 'schema updating' }
 LeLocalStorage >> write: jsonObject toJsonFile: aFileReference [
 	"Write the supplied JSON object to the given file."
 

@@ -3,20 +3,20 @@ LeLocalStoreMonitorSaved is announced each time the monitor has completed a cycl
 
 "
 Class {
-	#name : #LeLocalStoreMonitorSaved,
-	#superclass : #Announcement,
+	#name : 'LeLocalStoreMonitorSaved',
+	#superclass : 'Announcement',
 	#instVars : [
 		'monitor'
 	],
-	#category : #'Lepiter-Store-LocalJSON-Store'
+	#category : 'Lepiter-Store-LocalJSON-Store'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStoreMonitorSaved >> monitor [
 	^ monitor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStoreMonitorSaved >> monitor: anObject [
 	monitor := anObject
 ]

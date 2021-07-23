@@ -12,22 +12,22 @@ LeJsonV3Writer is a type of {{gtClass:name=NeoJSONWriter}} that includes the sch
 
 "
 Class {
-	#name : #LeJsonV3Writer,
-	#superclass : #NeoJSONWriter,
+	#name : 'LeJsonV3Writer',
+	#superclass : 'NeoJSONWriter',
 	#instVars : [
 		'firstMappedObject'
 	],
-	#category : #'Lepiter-Store-JSONV3'
+	#category : 'Lepiter-Store-JSONV3'
 }
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 LeJsonV3Writer >> on: aStream [
 
 	super on: aStream.
 	firstMappedObject := true.
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 LeJsonV3Writer >> writeMap: keyValueCollection [
 	"Write the map out with sorted keys so code version history is cleaner"
 
@@ -37,7 +37,7 @@ LeJsonV3Writer >> writeMap: keyValueCollection [
 			jsonMapWriter writeKey: key value: value ] ]
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 LeJsonV3Writer >> writeMapStreamingDo: block [
 	writeStream nextPut: ${.
 	self writeStreamingDo: 
@@ -48,7 +48,7 @@ LeJsonV3Writer >> writeMapStreamingDo: block [
 	writeStream nextPut: $}
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 LeJsonV3Writer >> writeSchemaOn: jsonMapWriter [
 
 	jsonMapWriter writeKey: #'__schema' value: LeLocalJsonV3Storage currentVersionString.
