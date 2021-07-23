@@ -64,8 +64,14 @@ LeHtmlExporterAnnotationVisitor >> visitClassAnnotation: aClassAnnotation [
 					self
 						putTag: 'code'
 						andAttributes: 'class="class_definition"'
-						with: [ self
-								putString: classNameArgument behavior definition trimBoth asHTMLString ] ] ]
+						with: [
+							| behaviorDefinitionString |
+
+							behaviorDefinitionString := self
+								forPharo8: [ classNameArgument behavior definition ]
+								forPharo9: [ classNameArgument behavior definitionString ].
+
+							self putString: behaviorDefinitionString trimBoth asHTMLString ] ] ]
 ]
 
 { #category : #generated }
