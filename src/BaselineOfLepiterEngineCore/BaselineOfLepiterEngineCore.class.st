@@ -15,7 +15,7 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
 		spec baseline: 'GToolkitInspector' with: [
-				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.479/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.480/src' ].
 		spec 
 			package: 'Lepiter-Parser';
 			package: 'Lepiter-Core' with: [
