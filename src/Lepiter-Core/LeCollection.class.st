@@ -196,6 +196,11 @@ LeCollection >> second [
 	^ items second
 ]
 
+{ #category : 'api - enumerating' }
+LeCollection >> select: aBlock [
+	^ self items select: aBlock
+]
+
 { #category : 'api - accessing' }
 LeCollection >> size [
 	^ self items size

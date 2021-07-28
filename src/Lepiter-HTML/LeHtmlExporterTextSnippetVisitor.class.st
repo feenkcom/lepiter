@@ -109,6 +109,13 @@ LeHtmlExporterTextSnippetVisitor >> visitExternalLabelUrlLink: anExternalLabelUr
 		cr
 ]
 
+{ #category : 'generated' }
+LeHtmlExporterTextSnippetVisitor >> visitHeader: aHeader [
+	^ self
+		  putTag: 'h' , (aHeader headerLevel + 1) asString
+		  with: [ self visitContent: aHeader ]
+]
+
 { #category : 'visiting' }
 LeHtmlExporterTextSnippetVisitor >> visitInlineCode: anInlineCode [
 	| md code |
