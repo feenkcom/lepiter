@@ -31,6 +31,11 @@ LePageEditableTitleElement >> createTitleElement [
 				self hasPage
 					ifTrue: [ aShortcutEvent currentTarget phlow
 							spawnTool: self pageViewModel asPhlowTool ] ];
+		whenKey: BlKeyCombination primaryB
+			labelDo: [ :aShortcutEvent | 
+				self hasPage
+					ifTrue: [ aShortcutEvent currentTarget phlow
+							spawnTool: self pageViewModel asPhlowTool ] ];
 		whenKey: BlKeyCombination primaryR
 			labelDo: [ :aShortcutEvent | aShortcutEvent currentTarget switchToEditor ];
 		whenKey: BlKeyCombination primaryC
