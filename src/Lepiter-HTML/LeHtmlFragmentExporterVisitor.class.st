@@ -67,7 +67,7 @@ LeHtmlFragmentExporterVisitor >> visitExampleSnippet: aLeExampleSnippet [
 		with: [ aLeExampleSnippet noCode
 				ifFalse: [ self
 						putTag: 'div'
-						andAttributes: 'class="snippet textual-snippet code-snippet pharo-snippet"'
+						andAttributes: 'class="snippet textual-snippet code-snippet pharo-snippet documentWidth"'
 						with: [ self
 								putPre: 'pre'
 								andAttributes: 'class="no_bottom_margin"'
@@ -140,7 +140,7 @@ LeHtmlFragmentExporterVisitor >> writeExampleResult: aLeExampleSnippet [
 	aFigureReference := self externalPicturesWriter  exampleSnippetResultReferenceFor: aLeExampleSnippet.
 
 	self putTag: 'div' andAttributes: 'class="height-one-em"' with:[].
-	self putTag: 'figure' andAttributes: 'paragraphWidth"' with: [
+	self putTag: 'figure' andAttributes: 'class="documentWidth"' with: [
 		self putTag: 'img' andAttributes: 'src="', aFigureReference, '"' with: [
 		]
 	]
