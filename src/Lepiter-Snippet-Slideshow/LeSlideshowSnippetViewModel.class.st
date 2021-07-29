@@ -27,6 +27,11 @@ LeSlideshowSnippetViewModel >> collectSlides [
 	^ self snippetModel slides.
 ]
 
+{ #category : #'api - snippet' }
+LeSlideshowSnippetViewModel >> currentSlideIndex [
+	^ self snippetModel currentSlideIndex.
+]
+
 { #category : #accessing }
 LeSlideshowSnippetViewModel >> displayElement [
 	<return: #BlElement>
@@ -109,6 +114,11 @@ LeSlideshowSnippetViewModel >> onElementHeightChanged [
 { #category : #'api - snippet' }
 LeSlideshowSnippetViewModel >> previousSlide [
 	^ self snippetModel previousSlide.
+]
+
+{ #category : #'api - snippet' }
+LeSlideshowSnippetViewModel >> rearrangeSlides [
+	self snippetModel rearrangeSlides.
 ]
 
 { #category : #'api - snippet' }

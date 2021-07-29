@@ -22,7 +22,8 @@ Class {
 		'slideElement',
 		'nextArrow',
 		'previousArrow',
-		'snippetResizer'
+		'snippetResizer',
+		'slidePreviewEventHandler'
 	],
 	#category : #'Lepiter-Snippet-Slideshow-Snippet'
 }
@@ -551,6 +552,37 @@ LeSlideshowSnippetElement >> registerEventsForCoder: aCoder [
 		to: self
 ]
 
+{ #category : #'api - updating' }
+LeSlideshowSnippetElement >> reorderSlides [
+	| slideNr slides currentSlideIndex shouldUpdateCurrentSlide slideCode |
+
+	slideNr := 1.
+	shouldUpdateCurrentSlide := false.
+	slides := self collectSlides.
+	currentSlideIndex := self snippetViewModel currentSlideIndex.
+	slidesPreviewsContainer childrenDo: [ :each | 
+		| slide methodString newSlideMethod |
+		slide := slides detect: [ :sl | sl previewElement = each ].
+		slide slideIndex = slideNr
+			ifFalse: [
+				slide slideIndex = currentSlideIndex
+					ifTrue: [
+						shouldUpdateCurrentSlide := true ].
+				slide slideIndex: slideNr ].
+		slideNr := slideNr + 1 ].
+	self snippetViewModel rearrangeSlides.
+	
+	shouldUpdateCurrentSlide 
+		ifTrue: [
+			slideCode := self snippetViewModel changeToSlideWithIndex: currentSlideIndex.
+			self changeSnippetCode: slideCode.
+			self setElementFromCoder.
+			self updateArrows.
+			self snippetViewModel updateSlidePreviewsAptitude ].
+	
+	self updateSlidesPreviewsContainer.
+]
+
 { #category : #private }
 LeSlideshowSnippetElement >> setElement: anElementStencil [
 	"Set the value of the supplied stencil as the receiver's display element"
@@ -712,13 +744,21 @@ LeSlideshowSnippetElement >> updateCoderWhenFocused: isFocused [
 
 { #category : #'api - updating' }
 LeSlideshowSnippetElement >> updateSlidesPreviewsContainer [
+	slidePreviewEventHandler 
+		ifNil: [
+			slidePreviewEventHandler := LeSlidesSortHandler new
+				dropBlock: [ self reorderSlides ];
+				yourself ].
 	slidesPreviewsContainer removeChildren.
 	self collectSlides
 		do: [ :each |
+			each updateElements.
 			each asPreviewElement removeFromParent.
+			each asPreviewElement removeEventHandlersSuchThat: [ :handler |
+				handler isKindOf: LeSlidesSortHandler ].
 			slidesPreviewsContainer
 				addChild:
-					(each asPreviewElement
+					( each asPreviewElement
 						when: BlClickEvent
 						do: [ :e |
 							| slideCode |
@@ -726,5 +766,7 @@ LeSlideshowSnippetElement >> updateSlidesPreviewsContainer [
 							self changeSnippetCode: slideCode.
 							self setElementFromCoder.
 							self updateArrows.
-							self snippetViewModel updateSlidePreviewsAptitude. ])].
+							self snippetViewModel updateSlidePreviewsAptitude. ];
+						preventChildrenMouseEvents;
+						addEventHandlerIfNotPresent: slidePreviewEventHandler )].
 ]
