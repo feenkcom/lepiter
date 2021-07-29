@@ -353,7 +353,7 @@ LeSlideshowSnippetElement >> ensureCoderCreated [
 LeSlideshowSnippetElement >> exceptionAction [
 
 	^ [
-		elementContainer removeChildNamed: #displayElement.
+		slideElement removeChildNamed: #displayElement.
 		exception ifNotNil: [ | exceptionElement |
 				exceptionElement := (self errorStencil arguments: { exception }) create.
 				exceptionElement constraintsDo: [ :c | 
@@ -361,7 +361,7 @@ LeSlideshowSnippetElement >> exceptionAction [
 					c vertical fitContent.
 					c frame vertical alignCenter.
 					c frame horizontal alignCenter ].
-				elementContainer addChild: exceptionElement as: #displayElement ] ]
+				slideElement addChild: exceptionElement as: #displayElement ] ]
 ]
 
 { #category : #private }
@@ -415,13 +415,11 @@ LeSlideshowSnippetElement >> initialize [
 			// #elementContainer;
 			preferredBackground: Color white ).
 
-	self onSnippetViewModelFocused: false.
+	"self onSnippetViewModelFocused: false."
 	
 	self enqueueTask: (BlTaskAction new action: [
-		| slideCode |
-		slideCode := self snippetViewModel changeToSlideWithIndex: 1.
-		self changeSnippetCode: slideCode.
-		self setElementFromCoder ]).
+		self setElementFromCoder.
+		self snippetViewModel updateSlidePreviewsAptitude ]).
 ]
 
 { #category : #initialization }
