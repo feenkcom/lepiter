@@ -10,7 +10,7 @@ Class {
 		'previewShowSelector',
 		'previewHeight'
 	],
-	#category : #'Lepiter-Snippet-Example-Snippet'
+	#category : 'Lepiter-Snippet-Example-Snippet'
 }
 
 { #category : #'api - accessing menu' }
@@ -62,7 +62,7 @@ LeExampleSnippet >> asAnnotationString [
 			nextPutAll: (self exampleBehaviorName ifNil: [ '' ]).
 
 		(self hasExampleBehaviorName and: [ self hasExampleSelector ])
-			ifTrue: [ aStream nextPutAll: '>>#' ].
+			ifTrue: [ aStream nextPutAll: ' >> #' ].
 
 		aStream
 			nextPutAll: (self exampleSelector ifNil: [ '' ]).

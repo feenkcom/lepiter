@@ -3,7 +3,7 @@ Class {
 	#superclass : #LeNullModel,
 	#traits : 'TGtAnnouncer',
 	#classTraits : 'TGtAnnouncer classTrait',
-	#category : #'Lepiter-Core-Model'
+	#category : 'Lepiter-Core-Model'
 }
 
 { #category : #announcer }
@@ -158,6 +158,10 @@ LeNullDatabase >> tableOfContents [
 
 { #category : #'adding / removing' }
 LeNullDatabase >> unregisterSnippet: aSnippet [
+]
+
+{ #category : #updating }
+LeNullDatabase >> updateUnresolvedReferencesForPage: aPage [
 ]
 
 { #category : #'api - accessing' }

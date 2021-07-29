@@ -30,7 +30,7 @@ Class {
 		'dbProperties',
 		'attachmentsDirectory'
 	],
-	#category : #'Lepiter-Store-LocalJSON-Store'
+	#category : 'Lepiter-Store-LocalJSON-Store'
 }
 
 { #category : #'instance creation' }
@@ -138,6 +138,11 @@ LeLocalStore >> dbProperties [
 				[ dbProperties at: #uuid put: UUID new asString.
 				self savePropertiesDictionary: dbProperties ].
 		dbProperties ]
+]
+
+{ #category : #accessing }
+LeLocalStore >> dbPropertiesFile [
+	^ localRoot / self propertiesBasename
 ]
 
 { #category : #accessing }

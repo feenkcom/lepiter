@@ -10,7 +10,7 @@ Class {
 	#instVars : [
 		'jsonPage'
 	],
-	#category : #'Lepiter-Store-JsonV4'
+	#category : 'Lepiter-Store-JsonV4'
 }
 
 { #category : #private }
@@ -23,7 +23,10 @@ LeJsonV4000Updater class >> cleanUidString: aString [
 	alphabet := 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'.
 	uidString doWithIndex: [ :ch :index |
 		(alphabet includes: ch) ifFalse: 
-			[ uidString at: index put: (alphabet at: (ch codePoint \\ (alphabet size + 1))) ] ].
+			[ uidString := uidString 
+				copyReplaceFrom: index 
+				to: index 
+				with: (alphabet at: (ch codePoint \\ (alphabet size + 1))) asString ] ].
 	(uidString size \\ 4) = 0 ifFalse:
 		[ uidString := uidString, (uidString copyFrom: 1 to: (4 - (uidString size \\ 4))) ].
 	uid := UUID nilUUID.

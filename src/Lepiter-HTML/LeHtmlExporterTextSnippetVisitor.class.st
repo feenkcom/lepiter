@@ -6,7 +6,7 @@ Class {
 	#instVars : [
 		'externalPicturesWriter'
 	],
-	#category : #'Lepiter-HTML-Exporter'
+	#category : 'Lepiter-HTML-Exporter'
 }
 
 { #category : #utils }
@@ -51,9 +51,16 @@ LeHtmlExporterTextSnippetVisitor >> isLocalAttachmentUrl: aUrlLink [
 	^ aUrlLink beginsWith: 'file://'
 ]
 
+{ #category : #accessing }
+LeHtmlExporterTextSnippetVisitor >> putPre: aString [
+	stream
+		nextPutAll: aString;
+		cr
+]
+
 { #category : #visiting }
 LeHtmlExporterTextSnippetVisitor >> visitBold: aBold [
-	self putTag: 'b' with: [self visitContent: aBold]
+	self putTagInline: 'b' with: [self visitContent: aBold]
 ]
 
 { #category : #generated }
@@ -61,7 +68,8 @@ LeHtmlExporterTextSnippetVisitor >> visitCodeBlock: aCodeBlock [
 	self putTag: 'div' andAttributes: 'class="code_block"' with: [
 		self putTag: 'pre' with: [
 			self putTag: 'code' andAttributes: 'class="smalltalk"' with: [
-				self putPre: aCodeBlock code value asString asHTMLString
+				self putStringInline: aCodeBlock code value asString trimBoth asHTMLString.
+				stream cr.
 			]
 		]
 	]
@@ -109,18 +117,25 @@ LeHtmlExporterTextSnippetVisitor >> visitExternalLabelUrlLink: anExternalLabelUr
 		cr
 ]
 
+{ #category : #generated }
+LeHtmlExporterTextSnippetVisitor >> visitHeader: aHeader [
+	^ self
+		  putTag: 'h' , (aHeader headerLevel + 1) asString
+		  with: [ self visitContent: aHeader ]
+]
+
 { #category : #visiting }
 LeHtmlExporterTextSnippetVisitor >> visitInlineCode: anInlineCode [
 	| md code |
 	md := anInlineCode code value.
 	code := md copyFrom: 2 to: md size - 1.
-	self putTag: 'code' with: [
-		self putString: code asHTMLString ].
+	self putTagInline: 'code' with: [
+		self putStringInline: code asHTMLString ].
 ]
 
 { #category : #visiting }
 LeHtmlExporterTextSnippetVisitor >> visitItalic: anItalic [
-	self putTag: 'i' with: [self visitContent: anItalic]
+	self putTagInline: 'i' with: [self visitContent: anItalic]
 ]
 
 { #category : #generated }
@@ -131,5 +146,5 @@ LeHtmlExporterTextSnippetVisitor >> visitPageLink: aPageLink [
 
 { #category : #generated }
 LeHtmlExporterTextSnippetVisitor >> visitText: aText [
-	self putString: aText content asHTMLString
+	self putStringInline: aText content asHTMLString
 ]
