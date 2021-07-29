@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeParentSnippetBuilder',
-	#superclass : 'LeSnippetBuilder',
+	#name : #LeParentSnippetBuilder,
+	#superclass : #LeSnippetBuilder,
 	#instVars : [
 		'database',
 		'parent'
@@ -8,27 +8,27 @@ Class {
 	#category : 'Lepiter-Core-Builders'
 }
 
-{ #category : 'api - building' }
+{ #category : #'api - building' }
 LeParentSnippetBuilder >> add [
 	<return: #LeTextSnippet>
 	^ self buildDo: [ :aNewBlock | self parent addSnippet: aNewBlock ]
 ]
 
-{ #category : 'api - building' }
+{ #category : #'api - building' }
 LeParentSnippetBuilder >> addAfter: anExistingSnippet [
 	<return: #LeTextSnippet>
 	^ self buildDo: [ :aNewSnippet |
 		self parent addSnippet: aNewSnippet after: anExistingSnippet ].
 ]
 
-{ #category : 'api - building' }
+{ #category : #'api - building' }
 LeParentSnippetBuilder >> addBefore: anExistingSnippet [
 	<return: #LeTextSnippet>
 	^ self buildDo: [ :aNewSnippet |
 		self parent addSnippet: aNewSnippet before: anExistingSnippet ].
 ]
 
-{ #category : 'private - building' }
+{ #category : #'private - building' }
 LeParentSnippetBuilder >> buildDo: aBlock [
 	<return: #LeSnippet>
 	| aNewBlock |
@@ -42,36 +42,36 @@ LeParentSnippetBuilder >> buildDo: aBlock [
 	^ aNewBlock
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeParentSnippetBuilder >> database [
 	^ database
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeParentSnippetBuilder >> database: aDatabase [
 
 	database := aDatabase.
 
 ]
 
-{ #category : 'private - testing' }
+{ #category : #'private - testing' }
 LeParentSnippetBuilder >> hasDatabase [
 	^ self database isDatabase
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeParentSnippetBuilder >> initialize [
 	super initialize.
 	database := LeDatabase null.
 
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeParentSnippetBuilder >> parent [
 	^ parent
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeParentSnippetBuilder >> parent: anObject [
 	parent := anObject
 ]

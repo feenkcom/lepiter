@@ -36,8 +36,8 @@ Messages in the `api - *` protocols are common between {{gtClass:name=LeDatabase
 
 "
 Class {
-	#name : 'LeLogicalDatabase',
-	#superclass : 'LeModel',
+	#name : #LeLogicalDatabase,
+	#superclass : #LeModel,
 	#traits : 'TGtAnnouncer + TLeSpotterChildrenEnumerationSearch + TLeSpotterPagesSearch',
 	#classTraits : 'TGtAnnouncer classTrait + TLeSpotterChildrenEnumerationSearch classTrait + TLeSpotterPagesSearch classTrait',
 	#instVars : [
@@ -50,7 +50,7 @@ Class {
 	#category : 'Lepiter-Core-Model'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 LeLogicalDatabase class >> primaryDB: aLeDatabase [
 	"Answer an instance of the receiver with the supplied primary DB"
 
@@ -58,7 +58,7 @@ LeLogicalDatabase class >> primaryDB: aLeDatabase [
 		primaryDB: aLeDatabase
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 LeLogicalDatabase class >> primaryDB: aPrimaryLeDatabase playgroundDB: aWorkspaceLeDatabase [
 	"Answer an instance of the receiver with the supplied primary and workspace DBs"
 
@@ -67,7 +67,7 @@ LeLogicalDatabase class >> primaryDB: aPrimaryLeDatabase playgroundDB: aWorkspac
 		playgroundDB: aWorkspaceLeDatabase
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 LeLogicalDatabase class >> withProperties: aLeLogicalDatabaseProperties [
 
 	^ self new 
@@ -75,7 +75,7 @@ LeLogicalDatabase class >> withProperties: aLeLogicalDatabaseProperties [
 		loadFromProperties
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLogicalDatabase >> addDB: aLeDatabase [
 	"Add the supplied database to the receiver"
 
@@ -87,26 +87,26 @@ LeLogicalDatabase >> addDB: aLeDatabase [
 	^ self setupAddedDB: aLeDatabase
 ]
 
-{ #category : 'api - adding / removing' }
+{ #category : #'api - adding / removing' }
 LeLogicalDatabase >> addPage: aLePage [
 	"Add the supplied page to the receiver's primary DB"
 
 	^ primaryDB addPage: aLePage
 ]
 
-{ #category : 'announcer' }
+{ #category : #announcer }
 LeLogicalDatabase >> announcer [
 
 	^ announcer
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> anyOne [
 
 	^ primaryDB anyOne
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> at: aKey forPageType: aPageType [
 	"Lookup the given key for aPageType, if not present raise an exception"
 
@@ -116,7 +116,7 @@ LeLogicalDatabase >> at: aKey forPageType: aPageType [
 		forPageType: aPageType
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> at: aKey ifAbsent: anAbsentBlock forPageType: aPageType [
 	"Lookup the given key for aPageType, if not present raise an exception"
 
@@ -128,7 +128,7 @@ LeLogicalDatabase >> at: aKey ifAbsent: anAbsentBlock forPageType: aPageType [
 
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> at: aKey ifPresent: aPresentBlock ifAbsent: anAbsentBlock forPageType: aPageType [
 	"Lookup the given key for aPageType, if not present raise an exception"
 
@@ -141,7 +141,7 @@ LeLogicalDatabase >> at: aKey ifPresent: aPresentBlock ifAbsent: anAbsentBlock f
 	^ anAbsentBlock value
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeLogicalDatabase >> basicPlaygroundDB: aLeDatabase [
 	"Set the primary DB without any processing."
 
@@ -149,7 +149,7 @@ LeLogicalDatabase >> basicPlaygroundDB: aLeDatabase [
 	playgroundDB := aLeDatabase.
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeLogicalDatabase >> basicPrimaryDB: aLeDatabase [
 	"Set the primary DB without any processing."
 
@@ -157,7 +157,7 @@ LeLogicalDatabase >> basicPrimaryDB: aLeDatabase [
 	primaryDB := aLeDatabase.
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> blockWithUID: aLeUID [
 	"Answer the snippet with the supplied UID"
 
@@ -169,7 +169,7 @@ LeLogicalDatabase >> blockWithUID: aLeUID [
 	KeyNotFound signalFor: aLeUID
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> children [ 
 	| children |
 
@@ -179,7 +179,7 @@ LeLogicalDatabase >> children [
 	^ children
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> dailyNotes [ 
 	"Answer all the daily notes in the receiver sorted by date.
 	Performance WARNING!"
@@ -189,7 +189,7 @@ LeLogicalDatabase >> dailyNotes [
 		a type date > b type date ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLogicalDatabase >> databaseNamed: aDatabaseName [
 	"Answer the database with the supplied name"
 	<return: #LeDatabase>
@@ -199,7 +199,7 @@ LeLogicalDatabase >> databaseNamed: aDatabaseName [
 		ifNone: [ KeyNotFound signalFor: aDatabaseName ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLogicalDatabase >> databaseWithID: aUUIDString [
 	"Answer the database with the supplied id"
 	<return: #LeDatabase>
@@ -209,7 +209,7 @@ LeLogicalDatabase >> databaseWithID: aUUIDString [
 		ifNone: [ KeyNotFound signalFor: aUUIDString ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLogicalDatabase >> databaseWithID: aUUIDString ifFound: foundBlock ifNone: noneBlock [
 	"Answer the database with the supplied id"
 	<return: #LeDatabase>
@@ -220,7 +220,7 @@ LeLogicalDatabase >> databaseWithID: aUUIDString ifFound: foundBlock ifNone: non
 		ifNone: noneBlock
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLogicalDatabase >> databaseWithID: aUUIDString ifNone: noneBlock [
 	"Answer the database with the supplied id"
 	<return: #LeDatabase>
@@ -230,7 +230,7 @@ LeLogicalDatabase >> databaseWithID: aUUIDString ifNone: noneBlock [
 		ifNone: noneBlock
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLogicalDatabase >> databases [
 	"Answer the receiver's databases in evaluation order, without duplicates"
 
@@ -242,7 +242,7 @@ LeLogicalDatabase >> databases [
 			stream nextPut: db ] ] .
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> databasesDo: aBlock [
 	"Evaluate aBlock for each of the receiver's DBS in the following order:
 	1. primaryDB
@@ -256,14 +256,14 @@ LeLogicalDatabase >> databasesDo: aBlock [
 		aBlock cull: db ].
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> ensurePageNamed: aString [ 
 	"Answer the page named aString, creating if necessary"
 
 	^ primaryDB ensurePageNamed: aString
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> explicitLinksCount [
 	"Answer the number of links in the receiver"
 	| total |
@@ -274,7 +274,7 @@ LeLogicalDatabase >> explicitLinksCount [
 	^ total
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLogicalDatabase >> gtDatabasesFor: aView [
 	<gtView>
 	^ aView list
@@ -282,7 +282,7 @@ LeLogicalDatabase >> gtDatabasesFor: aView [
 		items: [ self databases ]
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeLogicalDatabase >> hasChildren [ 
 	"Answer a boolean indicating if any of the receiver's DBs have children"
 
@@ -291,7 +291,7 @@ LeLogicalDatabase >> hasChildren [
 	^ false
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeLogicalDatabase >> hasDatabaseAt: aFileReference [
 	"Answer a boolean if the receiver has a database with its localStoreRootDirectory = aFileReference"
 	| resolvedFr |
@@ -305,7 +305,7 @@ LeLogicalDatabase >> hasDatabaseAt: aFileReference [
 	^ false
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeLogicalDatabase >> hasNamedPages [
 	"Answer a boolean indicating if any of the receiver's DBs contain named pages"
 	<return: #Boolean>
@@ -315,7 +315,7 @@ LeLogicalDatabase >> hasNamedPages [
 	^ false
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeLogicalDatabase >> hasPageNamed: aTitle [
 	"Answer a boolean indicating if any of the receiver's DBs contain a page with the supplied name"
 	<return: #Boolean>
@@ -325,7 +325,7 @@ LeLogicalDatabase >> hasPageNamed: aTitle [
 	^ false
 ]
 
-{ #category : 'api - query' }
+{ #category : #'api - query' }
 LeLogicalDatabase >> hasPageWithLinkTo: aTargetReference [
 	"Answer a boolean indicating if any of the receiver's DBs contain a page having a link to the given reference"
 	
@@ -334,19 +334,19 @@ LeLogicalDatabase >> hasPageWithLinkTo: aTargetReference [
 	^ false
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeLogicalDatabase >> hasParentDatabase [
 	^ false
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeLogicalDatabase >> hasProperties [
 	"Answer a boolean indicating whether the receiver has a configuration file (logical-database.properties)"
 
 	^ properties isNull not and: [ properties hasLocalFile ]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeLogicalDatabase >> initialize [
 
 	super initialize.
@@ -355,33 +355,33 @@ LeLogicalDatabase >> initialize [
 	properties := LeLogicalDatabaseProperties null.
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeLogicalDatabase >> isDatabase [
 	^ true
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeLogicalDatabase >> isLogicalDatabase [
 	^ true
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeLogicalDatabase >> isPrimary [
 	^ false
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeLogicalDatabase >> isPrimary: aDatabase [
 	^ self primaryDB = aDatabase
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> linksCount [
 	"Answer the number of links in the receiver"
 	^ self explicitLinksCount
 ]
 
-{ #category : 'api - initialization' }
+{ #category : #'api - initialization' }
 LeLogicalDatabase >> loadFromProperties [
 	"Load the receiver from its properties file"
 
@@ -398,7 +398,7 @@ LeLogicalDatabase >> loadFromProperties [
 	properties registeredDatabases do: [ :db | self addDB: db ].
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> localStoreRootDirectory [
 	<return: #FileReference or: nil>
 	self databasesDo: [ :eachDatabase | 
@@ -407,57 +407,57 @@ LeLogicalDatabase >> localStoreRootDirectory [
 	^ nil
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> logicalDatabase [
 
 	^ self
 ]
 
-{ #category : 'private - notifying' }
+{ #category : #'private - notifying' }
 LeLogicalDatabase >> notifyDatabaseAdded: aLeDatabase [
 	self announce: (LeDatabasesAddedAnnouncement new
 		database: aLeDatabase;
 		parent: self)
 ]
 
-{ #category : 'private - notifying' }
+{ #category : #'private - notifying' }
 LeLogicalDatabase >> notifyDatabaseRemoved: aLeDatabase [
 	self announce: (LeDatabaseUnloadAnnouncement new
 		content: aLeDatabase)
 ]
 
-{ #category : 'api - adding / removing' }
+{ #category : #'api - adding / removing' }
 LeLogicalDatabase >> pageBuilder [
 
 	^ primaryDB pageBuilder
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> pageCount [
 	"Answer the total number of pages in the receiver's databases"
 
 	^ self databases inject: 0 into: [ :s :v | s + v pageCount ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> pageNamed: aString [
 
 	^ self at: aString forPageType: LeNamedPageType
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> pageNamed: aString ifAbsent: absentBlock [
 
 	^ self at: aString ifAbsent: absentBlock forPageType: LeNamedPageType
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> pageNamed: aString ifPresent: presentBlock ifAbsent: absentBlock [
 
 	^ self at: aString ifPresent: presentBlock ifAbsent: absentBlock forPageType: LeNamedPageType
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> pageNamed: aString inDatabase: targetDatabaseUID ifDbAbsent: dbAbsentBlock [
 	"Answer the page with the given title in the specified database.
 	If the database is absent, answer dbAbsentBlock's value.  If the page is absent, raise an exception."
@@ -467,7 +467,7 @@ LeLogicalDatabase >> pageNamed: aString inDatabase: targetDatabaseUID ifDbAbsent
 		ifNone: dbAbsentBlock
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> pageNames [
 	"Answer the set of unique names in the receiver's DBs"
 	| pageNames |
@@ -478,7 +478,7 @@ LeLogicalDatabase >> pageNames [
 	^ pageNames
 ]
 
-{ #category : 'api - query' }
+{ #category : #'api - query' }
 LeLogicalDatabase >> pageWithLinkTo: aTargetReference ifAbsent: anAbsentBlock [ 
 	^ self 
 		pageWithLinkTo: aTargetReference 
@@ -486,7 +486,7 @@ LeLogicalDatabase >> pageWithLinkTo: aTargetReference ifAbsent: anAbsentBlock [
 		ifAbsent: anAbsentBlock 
 ]
 
-{ #category : 'api - query' }
+{ #category : #'api - query' }
 LeLogicalDatabase >> pageWithLinkTo: aTargetReference ifPresent: aPresentBlock ifAbsent: anAbsentBlock [ 
 	self databasesDo: [ :aLeDatabase |
 		aLeDatabase 
@@ -496,7 +496,7 @@ LeLogicalDatabase >> pageWithLinkTo: aTargetReference ifPresent: aPresentBlock i
 	^ anAbsentBlock value
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> pages [
 	"Answer the collection of all the pages in the receiver's DBs"
 	| pages |
@@ -507,7 +507,7 @@ LeLogicalDatabase >> pages [
 	^ pages
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> pagesByDate [
 	"Answer the collection of all the pages in the receiver's DBs sorted by latestEditTime.
 	This currently rebuilds the list each time it is requested.  Performance to be revisited."
@@ -519,13 +519,13 @@ LeLogicalDatabase >> pagesByDate [
 	^ sortedPages
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> pagesByDateToShow [
 	^ self pagesByDate reject: [ :aPage |
 		aPage type isPharoClassPageType  ]
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeLogicalDatabase >> pagesByName [
 	"Answer a single dictionary of all the pages by name.
 	This is private, and very inefficient, and shouldn't be used."
@@ -538,25 +538,25 @@ LeLogicalDatabase >> pagesByName [
 	^ pagesByName
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 LeLogicalDatabase >> pagesDo: aBlock [ 
 
 	self databasesDo: [ :db | db pagesDo: aBlock ]
 ]
 
-{ #category : 'api - enumerating' }
+{ #category : #'api - enumerating' }
 LeLogicalDatabase >> pagesWithNameDo: aBlock [ 
 
 	self databasesDo: [ :db | db pagesWithNameDo: aBlock ]
 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLogicalDatabase >> playgroundDB [
 	^ playgroundDB
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLogicalDatabase >> playgroundDB: aLeDatabase [
 
 	self assert: [ aLeDatabase isNotNil ].
@@ -582,12 +582,12 @@ LeLogicalDatabase >> playgroundDB: aLeDatabase [
 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLogicalDatabase >> primaryDB [
 	^ primaryDB
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLogicalDatabase >> primaryDB: aLeDatabase [
 	"Set the primary DB.
 	If there isn't a workspaceDB, set it to the primary."
@@ -606,24 +606,24 @@ LeLogicalDatabase >> primaryDB: aLeDatabase [
 	self notifyDatabaseAdded: aLeDatabase.
 ]
 
-{ #category : 'api - initialization' }
+{ #category : #'api - initialization' }
 LeLogicalDatabase >> properties [
 	<return: #LeLogicalDatabaseProperties>
 	^ properties
 ]
 
-{ #category : 'api - initialization' }
+{ #category : #'api - initialization' }
 LeLogicalDatabase >> properties: aLeLocalProperties [
 	properties := aLeLocalProperties
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeLogicalDatabase >> registeredDBs [
 	<return: #Array of: #LeDatabase>
 	^ registeredDBs
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeLogicalDatabase >> registeredDBs: anArray [
 	"Set the receiver's registered DBs.
 	NOTE: This should only be used by LeLogicalDatabaseReload."
@@ -631,7 +631,7 @@ LeLogicalDatabase >> registeredDBs: anArray [
 	registeredDBs := anArray
 ]
 
-{ #category : 'startup-shutdown' }
+{ #category : #'startup-shutdown' }
 LeLogicalDatabase >> reload [ 
 
 	LeLogicalDatabaseReload new 
@@ -639,7 +639,7 @@ LeLogicalDatabase >> reload [
 		reload
 ]
 
-{ #category : 'startup-shutdown' }
+{ #category : #'startup-shutdown' }
 LeLogicalDatabase >> reloadRequestFrom: aLeDatabase [
 	"All concrete databases will be requested to reload at Pharo session startup.
 	Only reload the receiver once - when the primary DB requests it."
@@ -647,7 +647,7 @@ LeLogicalDatabase >> reloadRequestFrom: aLeDatabase [
 	aLeDatabase == primaryDB ifTrue: [ self reload ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLogicalDatabase >> removeDB: aLeDatabase [
 	"Remove the supplied database from the receiver.
 	Only registered databases can be removed."
@@ -664,7 +664,7 @@ LeLogicalDatabase >> removeDB: aLeDatabase [
 	^ aLeDatabase 
 ]
 
-{ #category : 'private - properties' }
+{ #category : #'private - properties' }
 LeLogicalDatabase >> saveProperties [
 	"Update the properties to reflect the receiver's current state and save to disk"
 
@@ -677,7 +677,7 @@ LeLogicalDatabase >> saveProperties [
 
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> scanForLinksTo: aPage [
 	"Answer the links to the supplied page.
 	Right now there aren't any cross-DB links, so delegate to the page's DB"
@@ -685,7 +685,7 @@ LeLogicalDatabase >> scanForLinksTo: aPage [
 	^ aPage database scanForLinksTo: aPage.
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeLogicalDatabase >> setupAddedDB: aLeDatabase [
 	"Set up the announcements and update links for a newly added DB.
 	This is called by #addDB: and the logical DB reload code."
@@ -702,13 +702,13 @@ LeLogicalDatabase >> setupAddedDB: aLeDatabase [
 	^ aLeDatabase 
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> size [
 
 	^ self pageCount
 ]
 
-{ #category : 'api - enumerating' }
+{ #category : #'api - enumerating' }
 LeLogicalDatabase >> snippetsDo: aBlock [ 
 	"Evalute aBlock against every snippet in the receiver"
 
@@ -716,20 +716,20 @@ LeLogicalDatabase >> snippetsDo: aBlock [
 
 ]
 
-{ #category : 'startup-shutdown' }
+{ #category : #'startup-shutdown' }
 LeLogicalDatabase >> startMonitoring [ 
 	"Instruct each of the physical databases to start monitoring changes"
 
 	self databasesDo: [ :db | db startMonitoring ]
 ]
 
-{ #category : 'startup-shutdown' }
+{ #category : #'startup-shutdown' }
 LeLogicalDatabase >> stopMonitoring [
 
 	self databasesDo: [ :db | db stopMonitoring ]
 ]
 
-{ #category : 'private - subscriptions' }
+{ #category : #'private - subscriptions' }
 LeLogicalDatabase >> subscribeToDatabase: aDatabase [
 	aDatabase weak
 		when: Announcement 
@@ -737,12 +737,12 @@ LeLogicalDatabase >> subscribeToDatabase: aDatabase [
 		to: self
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLogicalDatabase >> tableOfContents [
 	^ primaryDB tableOfContents
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> textualPageLinksCount [
 	"Answer the number of textual page links in the receiver"
 	| total |
@@ -753,7 +753,7 @@ LeLogicalDatabase >> textualPageLinksCount [
 	^ total
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> textualSnippetsLinksCount [
 	"Answer the number of textual snippet links in the receiver"
 	| total |
@@ -764,25 +764,25 @@ LeLogicalDatabase >> textualSnippetsLinksCount [
 	^ total
 ]
 
-{ #category : 'api - enumerating' }
+{ #category : #'api - enumerating' }
 LeLogicalDatabase >> unnamedPagesDo: aBlock [ 
 
 	self databasesDo: [ :db | db unnamedPagesDo: aBlock ]
 
 ]
 
-{ #category : 'private - subscriptions' }
+{ #category : #'private - subscriptions' }
 LeLogicalDatabase >> unsubscribeFromDatabase: aDatabase [
 	aDatabase unsubscribe: self.
 ]
 
-{ #category : 'updating' }
+{ #category : #updating }
 LeLogicalDatabase >> updateUnresolvedReferencesForPage: aPage [ 
 	self databasesDo: [ :aDatabase |
 		aDatabase updateLocalUnresolvedReferencesForPage: aPage ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> userEmail [
 	"Answer the primaryDB email"
 	<return: #LeEmail>
@@ -790,7 +790,7 @@ LeLogicalDatabase >> userEmail [
 	^ primaryDB userEmail
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLogicalDatabase >> userEmail: anEmail [
 	"Set the user's email address in the primaryDB"
 

@@ -1,10 +1,10 @@
 Class {
-	#name : 'LeDatabaseUnloadAnnouncement',
-	#superclass : 'LeUnloadAnnouncement',
+	#name : #LeDatabaseUnloadAnnouncement,
+	#superclass : #LeUnloadAnnouncement,
 	#category : 'Lepiter-Core-Announcements'
 }
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabaseUnloadAnnouncement >> database [ 
 
 	^ content

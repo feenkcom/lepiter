@@ -4,8 +4,8 @@ Represents the incoming links whose target is a page
 
 "
 Class {
-	#name : 'LeIncomingPageLinksGroup',
-	#superclass : 'LeModel',
+	#name : #LeIncomingPageLinksGroup,
+	#superclass : #LeModel,
 	#instVars : [
 		'page',
 		'links'
@@ -13,14 +13,14 @@ Class {
 	#category : 'Lepiter-Core-IncomingReferences'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 LeIncomingPageLinksGroup class >> forPage: aLePage [
 	^ self new
 		initializeForPage: aLePage;
 		yourself
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 LeIncomingPageLinksGroup >> groupedByOrigin [
 	| theGroupedLinks |
 
@@ -42,19 +42,19 @@ LeIncomingPageLinksGroup >> groupedByOrigin [
 	^ theGroupedLinks
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeIncomingPageLinksGroup >> initialize [
 	super initialize.
 	
 	links := OrderedCollection new
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeIncomingPageLinksGroup >> initializeForPage: aLePage [
 	page := aLePage
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeIncomingPageLinksGroup >> initializeWithLinks: aCollectionOfLeLinks [
 	links := (aCollectionOfLeLinks select: [ :eachLink | 
 		"simply add everything which is not content (e.g. external links) without page comparison"
@@ -73,17 +73,17 @@ LeIncomingPageLinksGroup >> initializeWithLinks: aCollectionOfLeLinks [
 							link: eachLink ] ] as: OrderedCollection
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeIncomingPageLinksGroup >> isExplicit [
 	^ false
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeIncomingPageLinksGroup >> isImplicit [
 	^ false
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeIncomingPageLinksGroup >> latestEditDateAndTime [ 
 	"Answer the latest edit time of the receiver's links"
 	<return: #DateAndTime>
@@ -91,7 +91,7 @@ LeIncomingPageLinksGroup >> latestEditDateAndTime [
 	^ (links collect: #editTime) max time
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeIncomingPageLinksGroup >> latestEditTime [ 
 	"Answer the latest edit time of the receiver's links"
 	<return: #LeTime>
@@ -99,24 +99,24 @@ LeIncomingPageLinksGroup >> latestEditTime [
 	^ (links collect: #editTime) max
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeIncomingPageLinksGroup >> links [
 	<return: #Collection of: #LeIncomingPageLink>
 
 	^ links
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeIncomingPageLinksGroup >> privateSetLinks: aCollectionOfIncomingPageLinks [
 	links := aCollectionOfIncomingPageLinks
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeIncomingPageLinksGroup >> privateSetReferencedPage: aLePage [
 	page := aLePage
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeIncomingPageLinksGroup >> referencedPage [
 	"Return a page which is a target of all #links"
 	<return: #LePage>
@@ -124,7 +124,7 @@ LeIncomingPageLinksGroup >> referencedPage [
 	^ page
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 LeIncomingPageLinksGroup >> select: aBlockClosure [
 	| theLinks |
 	
@@ -135,7 +135,7 @@ LeIncomingPageLinksGroup >> select: aBlockClosure [
 		yourself
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeIncomingPageLinksGroup >> size [
 	^ self links size
 ]

@@ -1,6 +1,6 @@
-Extension { #name : 'Class' }
+Extension { #name : #Class }
 
-{ #category : '*Lepiter-Core' }
+{ #category : #'*Lepiter-Core' }
 Class >> gtLepiterCommentFor: aView [
 	<gtView>
 	^ aView explicit

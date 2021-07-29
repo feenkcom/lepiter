@@ -1,20 +1,20 @@
 Class {
-	#name : 'LeTextualPageLink',
-	#superclass : 'LeTextualLink',
+	#name : #LeTextualPageLink,
+	#superclass : #LeTextualLink,
 	#category : 'Lepiter-Core-Links'
 }
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeTextualPageLink >> isExistingPage [
 	^ self targetReference isExistingPage
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeTextualPageLink >> isTextualPageLink [
 	^ true
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeTextualPageLink >> linkNameInterval [
 	(node isKindOf: LeShortHashLinkNode)
 		ifTrue: [ ^ node startPosition + 1 to: node stopPosition ].
@@ -27,7 +27,7 @@ LeTextualPageLink >> linkNameInterval [
 	^ self error: 'Unknown link type'
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 LeTextualPageLink >> printOn: aStream [
 	self targetPageTitle ifNil: [ ^ super printOn: aStream ].
 	aStream
@@ -35,7 +35,7 @@ LeTextualPageLink >> printOn: aStream [
 		nextPutAll: self targetUID
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeTextualPageLink >> renameTargetTo: aString [
 	| source needsBrackets newName interval |
 
@@ -52,13 +52,13 @@ LeTextualPageLink >> renameTargetTo: aString [
 				, (source copyFrom: interval last + 1 to: source size)
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeTextualPageLink >> targetPageTitle [
 	<return: #String>
 	^ self targetReference pageTitle
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeTextualPageLink >> targetPageTitle: aString [
 	self assert: [ aString notNil ].
 	self assert: [ targetReference isNil ].
@@ -68,7 +68,7 @@ LeTextualPageLink >> targetPageTitle: aString [
 	targetReference explicitLink: self
 ]
 
-{ #category : 'api - accepting' }
+{ #category : #'api - accepting' }
 LeTextualPageLink >> targetUID [
 	<return: #String>
 	^ self targetPageTitle

@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeLinkContentReference',
-	#superclass : 'LeLinkReference',
+	#name : #LeLinkContentReference,
+	#superclass : #LeLinkReference,
 	#instVars : [
 		'content',
 		'targetDatabaseUUID'
@@ -8,35 +8,35 @@ Class {
 	#category : 'Lepiter-Core-Links'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 LeLinkContentReference class >> forContent: aLeContent [
 	^ self new
 		content: aLeContent
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkContentReference >> basicContent: aLeContent [
 	content := aLeContent.
 ]
 
-{ #category : 'updating' }
+{ #category : #updating }
 LeLinkContentReference >> clearContent [
 	content := nil
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkContentReference >> content [
 	^ content
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkContentReference >> content: aLeContent [
 	self assert: [ content isNil ].
 	
 	self basicContent: aLeContent
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 LeLinkContentReference >> gtLiveFor: aView [
 	<gtView>
 	self content ifNil: [ ^ aView empty ].
@@ -51,12 +51,12 @@ LeLinkContentReference >> gtLiveFor: aView [
 			action: [ :aButton | aButton phlow spawnObject: self content ]
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeLinkContentReference >> isLeContentReference [
 	^ true
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeLinkContentReference >> isReferencingContent: aLeContent [
 	"I check if this reference is for the given content. I do not rely on 
 	comparing the identity of the content as the reference could be unresolved."
@@ -77,12 +77,12 @@ LeLinkContentReference >> isReferencingContent: aLeContent [
 	^ givenContentDatabaseUUID = linkReferenceDatabaseUUID
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeLinkContentReference >> isResolved [
 	^ self content notNil
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 LeLinkContentReference >> matches: anObject [
 	"Equality with another reference means we indicate towards the same content.
 	For example two references pointint to the page name 'One' are equal, even
@@ -95,7 +95,7 @@ LeLinkContentReference >> matches: anObject [
 		and: [ self targetDatabaseUUID = anObject targetDatabaseUUID ]
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 LeLinkContentReference >> resolveAndLinkInDatabase: aDatabase [
 	self assert: [ aDatabase notNil ].
 	
@@ -104,7 +104,7 @@ LeLinkContentReference >> resolveAndLinkInDatabase: aDatabase [
 		aLeContent linkedBy: self explicitLink ]
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 LeLinkContentReference >> resolveAndLinkReference [ 
 	self isResolved ifTrue: [
 		"Only resolve the reference if it needs to be resolved."
@@ -113,12 +113,12 @@ LeLinkContentReference >> resolveAndLinkReference [
 		self resolveAndLinkInDatabase: aTargetDatabase ]
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 LeLinkContentReference >> resolveInDatabase: aDatabase [
 	self subclassResponsibility
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 LeLinkContentReference >> resolveReference [ 
 	self isResolved ifTrue: [
 		"Only resolve the reference if it needs to be resolved."
@@ -127,14 +127,14 @@ LeLinkContentReference >> resolveReference [
 		self resolveInDatabase: aTargetDatabase ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkContentReference >> targetDatabaseDo: aBlock [ 	
 	^ self 
 		targetDatabaseFrom: self explicitLink database 
 		do: aBlock 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkContentReference >> targetDatabaseFrom: aCurrentDatabase do: aBlock [ 
 
 	"In case there is no database specified or the id is the same
@@ -155,12 +155,12 @@ LeLinkContentReference >> targetDatabaseFrom: aCurrentDatabase do: aBlock [
 			^ self ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkContentReference >> targetDatabaseUUID [
 	^ targetDatabaseUUID
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkContentReference >> targetDatabaseUUID: aUUIDString36 [
 	"Set the UUID of the database containing the link.
 	Links within the origins database should have UUID = nil"
@@ -168,12 +168,12 @@ LeLinkContentReference >> targetDatabaseUUID: aUUIDString36 [
 	targetDatabaseUUID := aUUIDString36
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkContentReference >> targetId [
 	self subclassResponsibility
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 LeLinkContentReference >> unlink [	
 	self content ifNil: [ ^ self ].
 	self content unlinkedBy: self explicitLink.

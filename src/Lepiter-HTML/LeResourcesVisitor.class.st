@@ -1,29 +1,29 @@
 Class {
-	#name : 'LeResourcesVisitor',
-	#superclass : 'Object',
+	#name : #LeResourcesVisitor,
+	#superclass : #Object,
 	#instVars : [
 		'resources'
 	],
 	#category : 'Lepiter-HTML-Exporter'
 }
 
-{ #category : 'adding' }
+{ #category : #adding }
 LeResourcesVisitor >> addResource: aResource [
 	self resources add: aResource
 ]
 
-{ #category : 'adding' }
+{ #category : #adding }
 LeResourcesVisitor >> addResources: aCollection [
 	self resources addAll: aCollection
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeResourcesVisitor >> initialize [ 	
 	super initialize.
 	resources := OrderedCollection new.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeResourcesVisitor >> resources [
 	^ resources
 ]

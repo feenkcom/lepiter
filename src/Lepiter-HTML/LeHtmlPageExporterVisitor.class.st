@@ -6,8 +6,8 @@ To export a fragment to the supplied stream see {{gtMethod:name=LePage>>#asHTMLD
 
 "
 Class {
-	#name : 'LeHtmlPageExporterVisitor',
-	#superclass : 'LeHtmlFragmentExporterVisitor',
+	#name : #LeHtmlPageExporterVisitor,
+	#superclass : #LeHtmlFragmentExporterVisitor,
 	#instVars : [
 		'scripts',
 		'metaTags',
@@ -18,7 +18,7 @@ Class {
 	#category : 'Lepiter-HTML-Exporter'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeHtmlPageExporterVisitor class >> hideAndShowScript [
 	"Answer the script to be used to hide and show expandable annotations"
 
@@ -43,7 +43,7 @@ LeHtmlPageExporterVisitor class >> hideAndShowScript [
 
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeHtmlPageExporterVisitor >> addHideAndShowScript [
 	"Add the annotation hide and show scripts to the receiver, along with the jQuery dependency"
 
@@ -56,35 +56,35 @@ LeHtmlPageExporterVisitor >> addHideAndShowScript [
 		attributes: { 'type' -> 'text/javascript' }).
 ]
 
-{ #category : 'adding' }
+{ #category : #adding }
 LeHtmlPageExporterVisitor >> addInternalStyle: aString [
 	"Add the supplied string as an internal style for the receiver"
 
 	^ internalStyles add: aString.
 ]
 
-{ #category : 'adding' }
+{ #category : #adding }
 LeHtmlPageExporterVisitor >> addLink: aCollection [
 	"Add the link with the supplied collection of attributes (Association key: attributeName value: attributeValue"
 
 	^ links add: aCollection.
 ]
 
-{ #category : 'adding' }
+{ #category : #adding }
 LeHtmlPageExporterVisitor >> addMetaTag: aCollection [
 	"Add the meta tag with the supplied collection of attributes (Association key: attributeName value: attributeValue"
 
 	^ metaTags add: aCollection.
 ]
 
-{ #category : 'adding' }
+{ #category : #adding }
 LeHtmlPageExporterVisitor >> addScript: aLeHtmlScriptDefinition [
 	"Add the supplied script definition to the receiver"
 
 	^ scripts add: aLeHtmlScriptDefinition.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeHtmlPageExporterVisitor >> initialize [ 
 
 	super initialize.
@@ -96,17 +96,17 @@ LeHtmlPageExporterVisitor >> initialize [
 	self addHideAndShowScript.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeHtmlPageExporterVisitor >> shouldGenerateHeader [
 	^ shouldGenerateHeader ifNil: [ false ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeHtmlPageExporterVisitor >> shouldGenerateHeader: aBoolean [
 	shouldGenerateHeader := aBoolean
 ]
 
-{ #category : 'visiting' }
+{ #category : #visiting }
 LeHtmlPageExporterVisitor >> visitPage: aLePage [
 
 	self shouldGenerateHeader ifTrue: [
@@ -126,7 +126,7 @@ LeHtmlPageExporterVisitor >> visitPage: aLePage [
 		stream << '</body>'; cr ]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeHtmlPageExporterVisitor >> writeAttributes: attributes [.
 
 	attributes do: [ :attribute |
@@ -138,13 +138,13 @@ LeHtmlPageExporterVisitor >> writeAttributes: attributes [.
 
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeHtmlPageExporterVisitor >> writeDocType [
 
 	stream << '<!DOCTYPE html>'; cr.
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeHtmlPageExporterVisitor >> writeHeadFor: aLePage [
 
 	stream
@@ -160,7 +160,7 @@ LeHtmlPageExporterVisitor >> writeHeadFor: aLePage [
 		<< '</head>'; cr.
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeHtmlPageExporterVisitor >> writeInternalStylesFor: aLePage [
 
 	internalStyles do: [ :style |
@@ -171,7 +171,7 @@ LeHtmlPageExporterVisitor >> writeInternalStylesFor: aLePage [
 	
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeHtmlPageExporterVisitor >> writeLinksFor: aLePage [
 
 	metaTags do: [ :attributes |
@@ -181,7 +181,7 @@ LeHtmlPageExporterVisitor >> writeLinksFor: aLePage [
 	
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeHtmlPageExporterVisitor >> writeMetaTagsFor: aLePage [
 
 	metaTags do: [ :attributes |
@@ -191,7 +191,7 @@ LeHtmlPageExporterVisitor >> writeMetaTagsFor: aLePage [
 	
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeHtmlPageExporterVisitor >> writeScriptsFor: aLePage [
 
 	scripts do: [ :script |

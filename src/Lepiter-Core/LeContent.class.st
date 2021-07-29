@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeContent',
-	#superclass : 'LeModel',
+	#name : #LeContent,
+	#superclass : #LeModel,
 	#traits : 'TLeSpotterChildrenEnumerationSearch + TGtAnnouncer',
 	#classTraits : 'TLeSpotterChildrenEnumerationSearch classTrait + TGtAnnouncer classTrait',
 	#instVars : [
@@ -15,24 +15,24 @@ Class {
 	#category : 'Lepiter-Core-Model'
 }
 
-{ #category : 'factory' }
+{ #category : #factory }
 LeContent class >> empty [
 	"Return a content (page or block) with empty values (title or text).
 	Required by ${method:LeContent>>#addBlockOfClass:after:}$"
 	^ self subclassResponsibility
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeContent class >> isAbstract [
 	^ self name = #LeContent
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 LeContent class >> null [
 	^ LeNullContent default
 ]
 
-{ #category : 'api - notifications' }
+{ #category : #'api - notifications' }
 LeContent >> aboutToAddToDatabase: aDatabase [
 	"Notify the receiver that it is about to be added to a database.
 	In case the receiver is already added to the database do nothing."
@@ -44,13 +44,13 @@ LeContent >> aboutToAddToDatabase: aDatabase [
 		eachChild aboutToAddToDatabase: aDatabase ].
 ]
 
-{ #category : 'visiting' }
+{ #category : #visiting }
 LeContent >> acceptVisitor: aVisitor [
 
 	^ aVisitor visitContent: self
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeContent >> addSnippet: newSnippet [
 
 	self basicAddSnippet: newSnippet.
@@ -58,7 +58,7 @@ LeContent >> addSnippet: newSnippet [
 	^ newSnippet
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeContent >> addSnippet: newLeSnippet after: aLeSnippet [
 
 	self basicAddSnippet: newLeSnippet after: aLeSnippet.
@@ -66,7 +66,7 @@ LeContent >> addSnippet: newLeSnippet after: aLeSnippet [
 	^ newLeSnippet
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeContent >> addSnippet: newLeSnippet before: aLeSnippet [
 
 	self children addSnippet: newLeSnippet before: aLeSnippet.
@@ -75,7 +75,7 @@ LeContent >> addSnippet: newLeSnippet before: aLeSnippet [
 	^ newLeSnippet
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeContent >> addSnippet: newLeSnippet beforeIndex: anInteger [
 
 	self children addSnippet: newLeSnippet beforeIndex: anInteger.
@@ -84,7 +84,7 @@ LeContent >> addSnippet: newLeSnippet beforeIndex: anInteger [
 	^ newLeSnippet
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeContent >> addSnippetAfter: aLeSnippet [
 	"Add an empty snippet after the supplied snippet.
 	This works its way through to #addSnippet:after:, which will announce the change"
@@ -92,7 +92,7 @@ LeContent >> addSnippetAfter: aLeSnippet [
 	^ self addSnippetOfClass: aLeSnippet class after: aLeSnippet
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeContent >> addSnippetBefore: aLeSnippet [
 	"Add an empty snippet before the supplied snippet.
 	This works its way through to #addSnippet:before:, which will announce the change"
@@ -103,7 +103,7 @@ LeContent >> addSnippetBefore: aLeSnippet [
 	^ newLeSnippet
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeContent >> addSnippetOfClass: aNewSnippetClass after: aLeSnippet [
 	"Add an empty snippet of the given type after the supplied snippet.
 	This works its way through to #addSnippet:after:, which will announce the change"
@@ -114,7 +114,7 @@ LeContent >> addSnippetOfClass: aNewSnippetClass after: aLeSnippet [
 	^ newLeSnippet
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeContent >> addSnippetOfClass: aNewSnippetClass before: aLeSnippet [
 	"Add an empty snippet of the given type before the supplied snippet.
 	This works its way through to #addSnippet:before:, which will announce the change"
@@ -125,7 +125,7 @@ LeContent >> addSnippetOfClass: aNewSnippetClass before: aLeSnippet [
 	^ newLeSnippet
 ]
 
-{ #category : 'api - notifications' }
+{ #category : #'api - notifications' }
 LeContent >> addedToDatabase: aDatabase [
 	"Set the receiver's database and update metadata if required.
 	This is called when adding content in a running system."
@@ -138,7 +138,7 @@ LeContent >> addedToDatabase: aDatabase [
 		eachChild addedToDatabase: aDatabase ].
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeContent >> allChildOutgoingLinks [
 	| all |
 	all := OrderedCollection new.
@@ -147,7 +147,7 @@ LeContent >> allChildOutgoingLinks [
 	^ all
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeContent >> allChildOutgoingTextualLinks [
 	| all |
 	all := OrderedCollection new.
@@ -156,7 +156,7 @@ LeContent >> allChildOutgoingTextualLinks [
 	^ all
 ]
 
-{ #category : 'api - enumerating' }
+{ #category : #'api - enumerating' }
 LeContent >> allChildrenBreadthFirst [
 	| all |
 	all := OrderedCollection new.
@@ -164,12 +164,12 @@ LeContent >> allChildrenBreadthFirst [
 	^ all 
 ]
 
-{ #category : 'api - enumerating' }
+{ #category : #'api - enumerating' }
 LeContent >> allChildrenBreadthFirstDo: aBlock [ 
 	self childrenDo: [ :each | each withAllChildrenBreadthFirstDo: aBlock ]
 ]
 
-{ #category : 'api - enumerating' }
+{ #category : #'api - enumerating' }
 LeContent >> allChildrenDepthFirst [
 	| all |
 	all := OrderedCollection new.
@@ -177,12 +177,12 @@ LeContent >> allChildrenDepthFirst [
 	^ all 
 ]
 
-{ #category : 'api - enumerating' }
+{ #category : #'api - enumerating' }
 LeContent >> allChildrenDepthFirstDo: aBlock [ 
 	self childrenDo: [ :each | each withAllChildrenDepthFirstDo: aBlock ]
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeContent >> allOutgoingExplicitLinks [
 	| all |
 	all := LeExplicitLinks new.
@@ -192,7 +192,7 @@ LeContent >> allOutgoingExplicitLinks [
 	^ all
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeContent >> allOutgoingLinks [
 	| all |
 	all := OrderedCollection new.
@@ -202,12 +202,12 @@ LeContent >> allOutgoingLinks [
 	^ all
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeContent >> allOutgoingTextualLinks [
 	^ self allOutgoingLinks select: [ :each | each isTextualLink ]
 ]
 
-{ #category : 'private - notifications' }
+{ #category : #'private - notifications' }
 LeContent >> announceContentAdded: aLeSnippet [
 	"Announce that the receiver has added a snippet to the tree"
 
@@ -219,7 +219,7 @@ LeContent >> announceContentAdded: aLeSnippet [
 			index: (children indexOf: aLeSnippet)).
 ]
 
-{ #category : 'private - notifications' }
+{ #category : #'private - notifications' }
 LeContent >> announceContentMoved: aLeSnippet [
 	"Announce that the receiver has moved a snippet in the tree"
 
@@ -231,7 +231,7 @@ LeContent >> announceContentMoved: aLeSnippet [
 			destinationIndex: (children indexOf: aLeSnippet)).
 ]
 
-{ #category : 'private - notifications' }
+{ #category : #'private - notifications' }
 LeContent >> announceContentRemoved: aLeSnippet from: aLePage in: aLeDatabase [
 	"Announce that the receiver has removed a snippet from a page"
 
@@ -243,7 +243,7 @@ LeContent >> announceContentRemoved: aLeSnippet from: aLePage in: aLeDatabase [
 			content: aLeSnippet).
 ]
 
-{ #category : 'private - notifications' }
+{ #category : #'private - notifications' }
 LeContent >> announceTreeChanged: aLeContent [
 	"Announce that the receiver's page has changed'"
 
@@ -252,14 +252,14 @@ LeContent >> announceTreeChanged: aLeContent [
 		announce: (LeContentTreeChanged new content: aLeContent).
 ]
 
-{ #category : 'announcer' }
+{ #category : #announcer }
 LeContent >> announcer [
 	<return: #Announcer>
 
 	^ announcer
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 LeContent >> asMarkdownString [
 	"Answer the receiver as an HTML string"
 
@@ -267,7 +267,7 @@ LeContent >> asMarkdownString [
 			self markdownOn: stream ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeContent >> ast [ 
 	"Answer the AST for the receiver, nil if none.
 	Subclasses that have ASTs will over-write this."
@@ -275,7 +275,7 @@ LeContent >> ast [
 	^ nil
 ]
 
-{ #category : 'private - editing' }
+{ #category : #'private - editing' }
 LeContent >> basicAddSnippet: newLeSnippet [
 
 	self children addChild: newLeSnippet.
@@ -283,7 +283,7 @@ LeContent >> basicAddSnippet: newLeSnippet [
 
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeContent >> basicAddSnippet: newLeSnippet after: aLeSnippet [
 
 	self children addSnippet: newLeSnippet after: aLeSnippet.
@@ -291,7 +291,7 @@ LeContent >> basicAddSnippet: newLeSnippet after: aLeSnippet [
 
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeContent >> blockBuilder [
 	self 
 		deprecated: 'Use #snippetBuilder instead.' 
@@ -299,7 +299,7 @@ LeContent >> blockBuilder [
 	^ self snippetBuilder
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeContent >> blocks [
 	self 
 		deprecated: 'Use #children instead.' 
@@ -308,24 +308,24 @@ LeContent >> blocks [
 	^ self children
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeContent >> children [
 	^ children
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeContent >> children: aCollection [
 	children := aCollection.
 	self onChildrenChanged
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeContent >> childrenCount [
 	<return: #Integer>
 	^ self children size
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeContent >> clearDatabase [
 	"Clear the receiver's database.
 	This should obviously only be removed if the receiver has been removed from its database"
@@ -333,7 +333,7 @@ LeContent >> clearDatabase [
 	self database: self defaultDatabase
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeContent >> content [
 	self
 		deprecated: 'Use @contentAsString'
@@ -344,45 +344,45 @@ LeContent >> content [
 	^ self contentAsString 
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeContent >> contentAsString [
 	self subclassResponsibility
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeContent >> createEmail [
 	^ createEmail
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeContent >> createEmail: aLeEmail [
 	createEmail := aLeEmail
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeContent >> createTime [
 	^ createTime
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeContent >> createTime: anObject [
 
 	createTime := anObject.
 	editTime := createTime.
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeContent >> database [
 	<return: #LeDatabase>
 	^ database
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeContent >> database: aDatabase [
 	database := aDatabase
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeContent >> databaseDo: aBlock [
 	| aDatabase |
 	aDatabase := self database.
@@ -391,51 +391,51 @@ LeContent >> databaseDo: aBlock [
 	aBlock value: aDatabase.
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 LeContent >> defaultChildren [
 	^ LeSnippets empty
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 LeContent >> defaultDatabase [
 	^ LeDatabase null
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeContent >> editEmail [
 	^ editEmail
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeContent >> editEmail: anObject [
 	editEmail := anObject
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeContent >> editOrCreateEmail [
 	<return: #LeEmail>
 	^ self editEmail ifNil: [ self createEmail ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeContent >> editOrCreateTime [
 	<return: #LeTime>
 	^ self editTime ifNil: [ self createTime ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeContent >> editTime [
 	<return: #LeTime>
 	^ editTime
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeContent >> editTime: aLeTime [
 
 	editTime := aLeTime
 ]
 
-{ #category : 'private - calculating' }
+{ #category : #'private - calculating' }
 LeContent >> getLatestEditTime [
 	"Determine the latest edit time, i.e. the most recent edit time in the receiver and its children"
 	| latestTime |
@@ -447,7 +447,7 @@ LeContent >> getLatestEditTime [
 	^ latestTime
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 LeContent >> gtIncomingLinksFor: aView [
 	<gtView>
 	self hasIncomingLinks ifFalse: [ ^ aView empty ].
@@ -460,7 +460,7 @@ LeContent >> gtIncomingLinksFor: aView [
 		column: 'Target' item: [ :aLink | aLink targetReference description ]
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 LeContent >> gtSerializationFor: aView [
 	<gtView>
 	^ aView textEditor
@@ -472,7 +472,7 @@ LeContent >> gtSerializationFor: aView [
 				LeJsonV4 uniqueInstance serialize: self on: s prettyPrint: true ]]
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 LeContent >> gtSnippetsFor: aView [
 	<gtView>
 	self children ifNil: [ ^ aView empty ].
@@ -483,7 +483,7 @@ LeContent >> gtSnippetsFor: aView [
 		view: #gtSnippetsFor:
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 LeContent >> gtViewAllOutgoingExplicitLinksFor: aView [
 	<gtView>
 	^ aView forward
@@ -492,7 +492,7 @@ LeContent >> gtViewAllOutgoingExplicitLinksFor: aView [
 		view: #gtViewExplicitLinksFor:
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 LeContent >> gtViewDirectOutgoingExplicitLinksFor: aView [
 	<gtView>
 	self hasOutgoingLinks ifFalse: [ ^ aView empty ].
@@ -502,19 +502,19 @@ LeContent >> gtViewDirectOutgoingExplicitLinksFor: aView [
 		view: #gtViewExplicitLinksFor:
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeContent >> hasBlocks [
 	<return: #Boolean>
 	^ self blocks isNotEmpty
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeContent >> hasChildren [
 	<return: #Boolean>
 	^ self children isNotEmpty
 ]
 
-{ #category : 'private - testing' }
+{ #category : #'private - testing' }
 LeContent >> hasIncomingLinks [
 	^ self
 		optionAt: self incomingLinksOptionName  
@@ -523,30 +523,30 @@ LeContent >> hasIncomingLinks [
 
 ]
 
-{ #category : 'private - testing' }
+{ #category : #'private - testing' }
 LeContent >> hasOutgoingLinks [
 	^ self outgoingExplicitLinks size > 0
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeContent >> hasParent: aLeConent [
 	^ self parent notNil
 		and:
 			[ self parent = aLeConent or: [ self parent hasParent: aLeConent ] ]
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeContent >> incomingLinks [
 	<return: #Collection of: #LeTextualLink>
 	^ self optionAt: self incomingLinksOptionName ifAbsentPut: [ OrderedCollection new ].
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeContent >> incomingLinksOptionName [
 	^ #incomingLinks
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeContent >> indentSnippet: aLeSnippet [
 	"Indent the receiver in the receiver, i.e. make it a child of the previous snippet.
 	If this is the first snippet at the current level, do nothing"
@@ -555,7 +555,7 @@ LeContent >> indentSnippet: aLeSnippet [
 		[ :newParent | newParent announceContentMoved: aLeSnippet ].
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeContent >> initialize [
 	super initialize.
 	database := self defaultDatabase.
@@ -563,7 +563,7 @@ LeContent >> initialize [
 	announcer := Announcer new.
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeContent >> isEmpty [
 	"Answer a boolean indicating if the receiver is empty, i.e.
 	has no children, or the only child is empty"
@@ -572,7 +572,7 @@ LeContent >> isEmpty [
 		or: [ self childrenCount = 1 and: [ self children first isEmpty ] ]
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeContent >> isNotEmpty [
 	"Answer a boolean indicating if the receiver is empty, i.e.
 	has no children, or the only child is empty"
@@ -580,18 +580,18 @@ LeContent >> isNotEmpty [
 	^ self isEmpty not
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeContent >> isPage [
 	^ false
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeContent >> isSnippet [
 
 	^ false
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeContent >> lastChildOrSelf [
 	"Answer the last child or self, i.e. descend through child nodes until there are no more"
 
@@ -600,37 +600,37 @@ LeContent >> lastChildOrSelf [
 		ifFalse: [ self ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeContent >> latestEditTime [ 
 	"Answer the most recent edit time from the receiver or its children"
 
 	^ self getLatestEditTime 
 ]
 
-{ #category : 'api - updating' }
+{ #category : #'api - updating' }
 LeContent >> linkedBy: aLink [
 	self incomingLinks add: aLink
 ]
 
-{ #category : 'api - updating' }
+{ #category : #'api - updating' }
 LeContent >> linkedTarget: aLeContent in: aLeLink [
 	"subclasses may react to link target losts"
 ]
 
-{ #category : 'private - exporting' }
+{ #category : #'private - exporting' }
 LeContent >> markdownOn: stream [
 
 	^ self markdownOn: stream level: 0
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeContent >> mergeSnippet: mergeLeSnippet after: afterLeSnippet [
 
 	self children mergeSnippet: mergeLeSnippet after: afterLeSnippet.
 
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeContent >> mergeWithSuccessor: aBlock [ 
 	"Merge the supplied block with the receiver's successor.
 	Answer the merged block"
@@ -638,7 +638,7 @@ LeContent >> mergeWithSuccessor: aBlock [
 	self parent mergeSnippet: aBlock after: self
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeContent >> moveDownSnippet: aLeSnippet [
 	"Try to move the supplied snippet down one item in the receiver's children.
 	If that isn't possible, try to move the snippet down as the receiver's sibling"
@@ -649,7 +649,7 @@ LeContent >> moveDownSnippet: aLeSnippet [
 		[ :newParent | newParent announceContentMoved: aLeSnippet ].
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeContent >> moveSnippet: aLeSnippet above: parentSnippet [
 	"Move aLeSnippet to the snippet above its current parent (parentSnippet).
 	Answer the new parent if the move was made, or nil if it wasn't."
@@ -660,7 +660,7 @@ LeContent >> moveSnippet: aLeSnippet above: parentSnippet [
 	^ newParent
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeContent >> moveSnippet: aLeSnippet below: parentSnippet [
 	"Move aLeSnippet to the snippet below its current parent (parentSnippet).
 	Answer the new parent if the move was made, or nil if it wasn't."
@@ -671,7 +671,7 @@ LeContent >> moveSnippet: aLeSnippet below: parentSnippet [
 	^ newParent
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeContent >> moveUpSnippet: aLeSnippet [
 	"Try to move the supplied snippet up one item in the receiver's children.
 	If that isn't possible, try to move the snippet down to the receiver's sibling"
@@ -682,13 +682,13 @@ LeContent >> moveUpSnippet: aLeSnippet [
 		[ :newParent | newParent announceContentMoved: aLeSnippet ].
 ]
 
-{ #category : 'api - notifications' }
+{ #category : #'api - notifications' }
 LeContent >> notifier [
 	<return: #LeNotifier>
 	^ self subclassResponsibility
 ]
 
-{ #category : 'private - hooks' }
+{ #category : #'private - hooks' }
 LeContent >> onAboutToAddToDatabase: aDatabase [
 	"Set the receiver's email and time metadata needed 
 	before the content is added to the database.
@@ -698,23 +698,23 @@ LeContent >> onAboutToAddToDatabase: aDatabase [
 
 ]
 
-{ #category : 'private - hooks' }
+{ #category : #'private - hooks' }
 LeContent >> onAddedToDatabase [
 	"Callback called after the content was added to the database"
 ]
 
-{ #category : 'private - hooks' }
+{ #category : #'private - hooks' }
 LeContent >> onChildrenChanged [
 	self children do: [ :eachChild | 
 		eachChild addedToParent: self ]
 ]
 
-{ #category : 'private - hooks' }
+{ #category : #'private - hooks' }
 LeContent >> onRemovedFromDatabase: aDatabase [
 	"Subclasses may react to the change"
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeContent >> outgoingExplicitLinks [
 	^ self database cachedLinksForContent: self.
 	
@@ -723,23 +723,23 @@ LeContent >> outgoingExplicitLinks [
 			each originReference content = self ] ]"
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeContent >> page [
 	"Return parent, which should be alway ${class:LePage}$"
 	^ self subclassResponsibility
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeContent >> parent [
 	^ nil
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeContent >> reloadAttributesFromContent: aLeContent [
 	^ self subclassResponsibility
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeContent >> reloadCommonMetadataFromContent: aLeContent [
 	| attributesReloader |
 	attributesReloader := LeContentAttributesReloader forContent: self.
@@ -747,7 +747,7 @@ LeContent >> reloadCommonMetadataFromContent: aLeContent [
 	^ attributesReloader hasChanges
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeContent >> reloadFromChildren: aCollection [
 	"Update the receiver to match the supplied children"
 
@@ -780,7 +780,7 @@ LeContent >> reloadFromChildren: aCollection [
 	^ changed
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeContent >> reloadFromContent: aLeContent [
 	"Reload the receiver from the supplied snippet"
 	| changed |
@@ -794,7 +794,7 @@ LeContent >> reloadFromContent: aLeContent [
 	^ changed
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeContent >> removeSnippet: aLeSnippet [
 	"Remove the supplied snippet from the receiver"
 
@@ -806,7 +806,7 @@ LeContent >> removeSnippet: aLeSnippet [
 	self announceContentRemoved: aLeSnippet from: self page in: self database.
 ]
 
-{ #category : 'api - notifications' }
+{ #category : #'api - notifications' }
 LeContent >> removedFromDatabase: aDatabase [
 
 	self assert: aDatabase equals: self database.
@@ -816,7 +816,7 @@ LeContent >> removedFromDatabase: aDatabase [
 	self onRemovedFromDatabase: aDatabase.
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeContent >> setCreateTimeAndEmailUsingDatabase: aDatabase [
 	"Set the receiver's email and time metadata"
 
@@ -829,7 +829,7 @@ LeContent >> setCreateTimeAndEmailUsingDatabase: aDatabase [
 	editEmail := createEmail.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeContent >> setDatabase: aDatabase [
 	"Set the receiver's and childrens database.
 	Metadata is never updated - this is called as part of a bulk load of the database."
@@ -841,14 +841,14 @@ LeContent >> setDatabase: aDatabase [
 
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeContent >> snippetBuilder [
 	^ LeParentSnippetBuilder new
 		parent: self;
 		database: self database.
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeContent >> unindentSnippet: aLeSnippet [
 	"Unindent the supplied snippet in the receiver, i.e. make it follow its parent snippet.
 	If this is a first level snippet, do nothing"
@@ -858,23 +858,23 @@ LeContent >> unindentSnippet: aLeSnippet [
 	self parent announceContentMoved: aLeSnippet.
 ]
 
-{ #category : 'api - updating' }
+{ #category : #'api - updating' }
 LeContent >> unlinkedBy: aLink [
 	self incomingLinks remove: aLink ifAbsent: [ "ignore" ]
 ]
 
-{ #category : 'api - updating' }
+{ #category : #'api - updating' }
 LeContent >> unlinkedTarget: aLeContent in: aLeLink [
 	"subclasses may react to link target losts"
 ]
 
-{ #category : 'installing' }
+{ #category : #installing }
 LeContent >> unload [ 
 
 	self subclassResponsibility 
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeContent >> updateEditTimeAndEmail [
 
 	database isDatabase ifFalse: [ ^ self ].
@@ -882,7 +882,7 @@ LeContent >> updateEditTimeAndEmail [
 	editEmail := self database userEmail.
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeContent >> wasEdited [
 	"It may be edited in past (by any person). 
 	In other words, it does not mean that it was edited in an existing editing session"
@@ -890,7 +890,7 @@ LeContent >> wasEdited [
 	^ self editTime ~= self createTime
 ]
 
-{ #category : 'api - enumerating' }
+{ #category : #'api - enumerating' }
 LeContent >> withAllChildrenDepthFirstDo: aBlock [ 
 	self allChildrenBreadthFirstDo: aBlock.
 	aBlock value: self.

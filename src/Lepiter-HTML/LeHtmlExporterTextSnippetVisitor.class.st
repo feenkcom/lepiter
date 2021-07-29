@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeHtmlExporterTextSnippetVisitor',
-	#superclass : 'Object',
+	#name : #LeHtmlExporterTextSnippetVisitor,
+	#superclass : #Object,
 	#traits : 'TSmaCCCompositeVisitor + TIndentWriter + (TLeContentNodeVisitor - {#acceptNode:})',
 	#classTraits : 'TSmaCCCompositeVisitor classTrait + TIndentWriter classTrait + TLeContentNodeVisitor classTrait',
 	#instVars : [
@@ -9,12 +9,12 @@ Class {
 	#category : 'Lepiter-HTML-Exporter'
 }
 
-{ #category : 'utils' }
+{ #category : #utils }
 LeHtmlExporterTextSnippetVisitor >> convertLocalAttachmentToRelativeUrl: anUrlLink [
 	^ anUrlLink removePrefix: 'file://'
 ]
 
-{ #category : 'utils' }
+{ #category : #utils }
 LeHtmlExporterTextSnippetVisitor >> convertToLocalOrAbsoluteUrl: aUrlLink [
 	^ (self isLocalAttachmentUrl: aUrlLink) 
 		ifTrue: [ self convertLocalAttachmentToRelativeUrl: aUrlLink ]
@@ -22,7 +22,7 @@ LeHtmlExporterTextSnippetVisitor >> convertToLocalOrAbsoluteUrl: aUrlLink [
 
 ]
 
-{ #category : 'utils' }
+{ #category : #utils }
 LeHtmlExporterTextSnippetVisitor >> exportImageTagFor: anExternalImageLink [
 	| linkUrl |
 	linkUrl := self convertToLocalOrAbsoluteUrl: anExternalImageLink url.
@@ -36,38 +36,46 @@ LeHtmlExporterTextSnippetVisitor >> exportImageTagFor: anExternalImageLink [
 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeHtmlExporterTextSnippetVisitor >> externalPicturesWriter [
 	^ externalPicturesWriter
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeHtmlExporterTextSnippetVisitor >> externalPicturesWriter: aDataWriter [
 	externalPicturesWriter := aDataWriter
 ]
 
-{ #category : 'utils' }
+{ #category : #utils }
 LeHtmlExporterTextSnippetVisitor >> isLocalAttachmentUrl: aUrlLink [
 	^ aUrlLink beginsWith: 'file://'
 ]
 
-{ #category : 'visiting' }
-LeHtmlExporterTextSnippetVisitor >> visitBold: aBold [
-	self putTag: 'b' with: [self visitContent: aBold]
+{ #category : #accessing }
+LeHtmlExporterTextSnippetVisitor >> putPre: aString [
+	stream
+		nextPutAll: aString;
+		cr
 ]
 
-{ #category : 'generated' }
+{ #category : #visiting }
+LeHtmlExporterTextSnippetVisitor >> visitBold: aBold [
+	self putTagInline: 'b' with: [self visitContent: aBold]
+]
+
+{ #category : #generated }
 LeHtmlExporterTextSnippetVisitor >> visitCodeBlock: aCodeBlock [
 	self putTag: 'div' andAttributes: 'class="code_block"' with: [
 		self putTag: 'pre' with: [
 			self putTag: 'code' andAttributes: 'class="smalltalk"' with: [
-				self putPre: aCodeBlock code value asString asHTMLString
+				self putStringInline: aCodeBlock code value asString trimBoth asHTMLString.
+				stream cr.
 			]
 		]
 	]
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeHtmlExporterTextSnippetVisitor >> visitDocumenterAnnotation: aDocumenterAnnotation [
 	aDocumenterAnnotation annotation acceptVisitor: (LeHtmlExporterAnnotationVisitor new 
 		stream: stream;
@@ -75,7 +83,7 @@ LeHtmlExporterTextSnippetVisitor >> visitDocumenterAnnotation: aDocumenterAnnota
 		externalPicturesWriter: self externalPicturesWriter)
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeHtmlExporterTextSnippetVisitor >> visitExternalImageLink: anExternalImageLink [	
 	| linkLabel |
 	stream
@@ -94,7 +102,7 @@ LeHtmlExporterTextSnippetVisitor >> visitExternalImageLink: anExternalImageLink 
 		<< '</figure>'; cr
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeHtmlExporterTextSnippetVisitor >> visitExternalLabelUrlLink: anExternalLabelUrlLink [
 	| linkUrl convertedUrl |
 	linkUrl := anExternalLabelUrlLink url.
@@ -109,27 +117,34 @@ LeHtmlExporterTextSnippetVisitor >> visitExternalLabelUrlLink: anExternalLabelUr
 		cr
 ]
 
-{ #category : 'visiting' }
+{ #category : #generated }
+LeHtmlExporterTextSnippetVisitor >> visitHeader: aHeader [
+	^ self
+		  putTag: 'h' , (aHeader headerLevel + 1) asString
+		  with: [ self visitContent: aHeader ]
+]
+
+{ #category : #visiting }
 LeHtmlExporterTextSnippetVisitor >> visitInlineCode: anInlineCode [
 	| md code |
 	md := anInlineCode code value.
 	code := md copyFrom: 2 to: md size - 1.
-	self putTag: 'code' with: [
-		self putString: code asHTMLString ].
+	self putTagInline: 'code' with: [
+		self putStringInline: code asHTMLString ].
 ]
 
-{ #category : 'visiting' }
+{ #category : #visiting }
 LeHtmlExporterTextSnippetVisitor >> visitItalic: anItalic [
-	self putTag: 'i' with: [self visitContent: anItalic]
+	self putTagInline: 'i' with: [self visitContent: anItalic]
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeHtmlExporterTextSnippetVisitor >> visitPageLink: aPageLink [
 
 	^ self visitDefinedLink: aPageLink
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeHtmlExporterTextSnippetVisitor >> visitText: aText [
-	self putString: aText content asHTMLString
+	self putStringInline: aText content asHTMLString
 ]

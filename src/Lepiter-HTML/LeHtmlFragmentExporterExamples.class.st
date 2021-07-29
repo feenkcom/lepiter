@@ -5,12 +5,12 @@ Since there is no page or database present at this level, links to other pages, 
 
 "
 Class {
-	#name : 'LeHtmlFragmentExporterExamples',
-	#superclass : 'Object',
+	#name : #LeHtmlFragmentExporterExamples,
+	#superclass : #Object,
 	#category : 'Lepiter-HTML-Examples'
 }
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeHtmlFragmentExporterExamples >> basicMarkdown [
 	"Confirm that basic markup is converted"
 	<gtExample>
@@ -19,23 +19,12 @@ LeHtmlFragmentExporterExamples >> basicMarkdown [
 	html := String streamContents: [ :stream |
 		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
 	self assert: html trimBoth
-		equals: '<div class="snippet textual-snippet text-snippet">
-	<i>
-		italic
-	</i>
-	 
-	<b>
-		bold
-	</b>
-	 
-	<code>
-		mono
-	</code>
-</div>'.
+		equals: '<p class="snippet textual-snippet text-snippet">
+<i>italic</i> <b>bold</b> <code>mono</code></p>'.
 	^ html
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeHtmlFragmentExporterExamples >> classAnnotation [
 	"Confirm that basic markup is converted"
 	<gtExample>
@@ -47,7 +36,7 @@ LeHtmlFragmentExporterExamples >> classAnnotation [
 	^ html
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeHtmlFragmentExporterExamples >> codeBlock [
 	"Confirm that a code block is converted"
 	<gtExample>
@@ -58,21 +47,19 @@ LeHtmlFragmentExporterExamples >> codeBlock [
 		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
 		
 	self assert: html trimBoth
-		equals: '<div class="snippet textual-snippet text-snippet">
+		equals: '<p class="snippet textual-snippet text-snippet">
 	<div class="code_block">
 		<pre>
 			<code class="smalltalk">
-
 answer:=42.
-
 			</code>
 		</pre>
 	</div>
-</div>'.
+</p>'.
 	^ html
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeHtmlFragmentExporterExamples >> exampleSnippet [
 	"Confirm that basic markup is converted"
 	<gtExample>
@@ -86,24 +73,15 @@ LeHtmlFragmentExporterExamples >> exampleSnippet [
 		externalPicturesWriter: LeExternalPicturesWriter new)
 		stream: stream) ].
 	self assert: (html includesSubstring:'<div>
-	<div class="snippet textual-snippet code-snippet pharo-snippet">
+	<div class="snippet textual-snippet code-snippet pharo-snippet documentWidth">
 		<pre class="no_bottom_margin">
 pictureSnippet
-	<gtExample>
-	| markdown html |
-	markdown := LePictureSnippet new urlString: self pictureFile.
-	html := String streamContents: [ :stream |
-		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
-	self assert: (html includesSubstring:').
-	self assert: (html includesSubstring:').
-		
-	^ html
-
-</pre>
+	<gtExample>').
+	self assert: (html includesSubstring:'</pre>
 	</div>
 	<div class="height-one-em">
 	</div>
-	<figure paragraphWidth">
+	<figure class="documentWidth">
 		<img src="gt-figures/1000.png">
 		</img>
 	</figure>
@@ -111,7 +89,7 @@ pictureSnippet
 	^ html
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeHtmlFragmentExporterExamples >> methodAnnotation [
 	"Confirm that basic markup is converted"
 	<gtExample>
@@ -126,7 +104,7 @@ LeHtmlFragmentExporterExamples >> methodAnnotation [
 	^ html
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeHtmlFragmentExporterExamples >> pharoSnippet [
 	<gtExample>
 	| markdown html |
@@ -143,7 +121,7 @@ answer := 41.
 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeHtmlFragmentExporterExamples >> pictureFile [
 	^ (GtResourcesUtility resourceAtPath: Path 
 		* 'feenkcom'
@@ -153,17 +131,15 @@ LeHtmlFragmentExporterExamples >> pictureFile [
 		/ '1280px-Einstein-with-habicht-and-solovine.jpg') asUrl asString
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeHtmlFragmentExporterExamples >> pictureSnippet [
 	<gtExample>
 	| markdown html |
 	markdown := LePictureSnippet new urlString: self pictureFile.
 	html := String streamContents: [ :stream |
 		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
-	self assert: (html includesSubstring: 'img class="snippet picture-snippet" src=').
+	self assert: (html beginsWith: '<img class="snippet picture-snippet paragraphWidth" src=').
 	self assert: (html includesSubstring: 'feenkcom/gtoolkit-demos/data/faceapi/1280px-Einstein-with-habicht-and-solovine.jpg">
 </img>').
-		
 	^ html
-
 ]

@@ -7,8 +7,8 @@ There isn't a database monitor, and Individual pages must be manually saved back
 
 "
 Class {
-	#name : 'LePharoClassDatabase',
-	#superclass : 'LeAbstractDatabase',
+	#name : #LePharoClassDatabase,
+	#superclass : #LeAbstractDatabase,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
 	#instVars : [
@@ -17,7 +17,7 @@ Class {
 	#category : 'Lepiter-Core-Model'
 }
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LePharoClassDatabase >> initialize [
 
 	super initialize.
@@ -25,7 +25,7 @@ LePharoClassDatabase >> initialize [
 	self registerForClassCommentAnnouncements.
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LePharoClassDatabase >> onClassCommentChanged: aClassCommentedAnnouncement [
 	| page snippet newComment |
 
@@ -37,7 +37,7 @@ LePharoClassDatabase >> onClassCommentChanged: aClassCommentedAnnouncement [
 	snippet updateString: newComment.
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LePharoClassDatabase >> pageNamed: aSymbol [
 
 	^ pagesByName at: aSymbol ifAbsentPut:
@@ -46,7 +46,7 @@ LePharoClassDatabase >> pageNamed: aSymbol [
 			yourself ]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LePharoClassDatabase >> registerForClassCommentAnnouncements [
 	"Register for class comment announcements so we can manage the cache"
 
@@ -56,13 +56,13 @@ LePharoClassDatabase >> registerForClassCommentAnnouncements [
 		to: self.
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LePharoClassDatabase >> savePage: aLePage [
 
 	^ self savePageNamed: aLePage type pharoClassName
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LePharoClassDatabase >> savePageNamed: aSymbol [
 
 	^ pagesByName at: aSymbol 
