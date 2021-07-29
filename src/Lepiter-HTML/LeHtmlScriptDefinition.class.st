@@ -5,8 +5,8 @@ See {{gtMethod:name=LeHtmlPageExporterVisitor>>#addHideAndShowScript}} for examp
 
 "
 Class {
-	#name : 'LeHtmlScriptDefinition',
-	#superclass : 'Object',
+	#name : #LeHtmlScriptDefinition,
+	#superclass : #Object,
 	#instVars : [
 		'source',
 		'attributes'
@@ -14,13 +14,13 @@ Class {
 	#category : 'Lepiter-HTML-Model'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 LeHtmlScriptDefinition class >> attributes: aCollection [
 
 	^ self new attributes: aCollection
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 LeHtmlScriptDefinition class >> source: aString attributes: aCollection [
 
 	^ self new 
@@ -28,26 +28,26 @@ LeHtmlScriptDefinition class >> source: aString attributes: aCollection [
 		attributes: aCollection
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeHtmlScriptDefinition >> attributes [
 	<return: #Collection of: #Association>
 
 	^ attributes
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeHtmlScriptDefinition >> attributes: anObject [
 	attributes := anObject
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeHtmlScriptDefinition >> initialize [
 
 	super initialize.
 	attributes := #().
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeHtmlScriptDefinition >> source [
 	"Answer the javascript source that defines the script or nil"
 	<return: #String or: nil>
@@ -55,12 +55,12 @@ LeHtmlScriptDefinition >> source [
 	^ source
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeHtmlScriptDefinition >> source: anObject [
 	source := anObject
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 LeHtmlScriptDefinition >> storeOn: aStream [
 	"Write the receiver as html string on aStream"
 

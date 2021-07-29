@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeTextSnippetResourcesVisitor',
-	#superclass : 'LeResourcesVisitor',
+	#name : #LeTextSnippetResourcesVisitor,
+	#superclass : #LeResourcesVisitor,
 	#traits : 'TSmaCCCompositeVisitor + (TLeContentNodeVisitor - {#acceptNode:})',
 	#classTraits : 'TSmaCCCompositeVisitor classTrait + TLeContentNodeVisitor classTrait',
 	#instVars : [
@@ -9,28 +9,28 @@ Class {
 	#category : 'Lepiter-HTML-Exporter'
 }
 
-{ #category : 'building' }
+{ #category : #building }
 LeTextSnippetResourcesVisitor >> compute [
 	self textSnippet ast acceptVisitor: self.
 	^ self resources
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeTextSnippetResourcesVisitor >> isLocalAttachmentUrl: aUrlLink [
 	^ aUrlLink beginsWith: 'file://'
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeTextSnippetResourcesVisitor >> textSnippet [
 	^ textSnippet
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeTextSnippetResourcesVisitor >> textSnippet: anObject [
 	textSnippet := anObject
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeTextSnippetResourcesVisitor >> visitExternalLink: anExternalLink [
 	| linkUrl fileName |
 	linkUrl := anExternalLink url.
