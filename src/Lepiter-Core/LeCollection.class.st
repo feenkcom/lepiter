@@ -6,7 +6,7 @@ Class {
 	#instVars : [
 		'items'
 	],
-	#category : #'Lepiter-Core-Model'
+	#category : 'Lepiter-Core-Model'
 }
 
 { #category : #'api - factory' }
@@ -194,6 +194,11 @@ LeCollection >> removeAllSuchThat: aBlock [
 LeCollection >> second [
 
 	^ items second
+]
+
+{ #category : #'api - enumerating' }
+LeCollection >> select: aBlock [
+	^ self items select: aBlock
 ]
 
 { #category : #'api - accessing' }

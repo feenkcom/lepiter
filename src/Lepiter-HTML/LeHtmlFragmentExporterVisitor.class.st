@@ -17,7 +17,7 @@ Class {
 		'level',
 		'externalPicturesWriter'
 	],
-	#category : #'Lepiter-HTML-Exporter'
+	#category : 'Lepiter-HTML-Exporter'
 }
 
 { #category : #accessing }
@@ -44,6 +44,13 @@ LeHtmlFragmentExporterVisitor >> putPre: aTag andAttributes: attributesString wi
 	self putPre: '</',aTag,'>'.
 ]
 
+{ #category : #accessing }
+LeHtmlFragmentExporterVisitor >> putTag: aTag andAttributes: attributesString with: aBlock [
+	self putString: '<',aTag, (attributesString ifNotEmpty: [' ',attributesString]), '>'.
+	self indent:aBlock.
+	self putString: '</',aTag,'>'.
+]
+
 { #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitContent: aLeContent [
 	aLeContent hasChildren ifFalse: [ ^ self ].
@@ -60,7 +67,7 @@ LeHtmlFragmentExporterVisitor >> visitExampleSnippet: aLeExampleSnippet [
 		with: [ aLeExampleSnippet noCode
 				ifFalse: [ self
 						putTag: 'div'
-						andAttributes: 'class="snippet textual-snippet code-snippet pharo-snippet"'
+						andAttributes: 'class="snippet textual-snippet code-snippet pharo-snippet documentWidth"'
 						with: [ self
 								putPre: 'pre'
 								andAttributes: 'class="no_bottom_margin"'
@@ -90,12 +97,12 @@ LeHtmlFragmentExporterVisitor >> visitPharoSnippet: aLePharoSnippet [
 
 { #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitPictureSnippet: aLePictureSnippet [
-	self putTag: 'img' andAttributes: 'class="snippet picture-snippet" src="./',aLePictureSnippet urlString, '"' with: []
+	self putTag: 'img' andAttributes: 'class="snippet picture-snippet paragraphWidth" src="./',aLePictureSnippet urlString, '"' with: []
 ]
 
 { #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitTextSnippet: aLeTextSnippet [
-	self putTag: 'div' andAttributes: 'class="snippet textual-snippet text-snippet"' with: [
+	self putTag: 'p' andAttributes: 'class="snippet textual-snippet text-snippet"' with: [
 		aLeTextSnippet ast acceptVisitor: (LeHtmlExporterTextSnippetVisitor new 
 			stream: stream;
 			nestingLevel: nestingLevel;
@@ -133,7 +140,7 @@ LeHtmlFragmentExporterVisitor >> writeExampleResult: aLeExampleSnippet [
 	aFigureReference := self externalPicturesWriter  exampleSnippetResultReferenceFor: aLeExampleSnippet.
 
 	self putTag: 'div' andAttributes: 'class="height-one-em"' with:[].
-	self putTag: 'figure' andAttributes: 'paragraphWidth"' with: [
+	self putTag: 'figure' andAttributes: 'class="documentWidth"' with: [
 		self putTag: 'img' andAttributes: 'src="', aFigureReference, '"' with: [
 		]
 	]
