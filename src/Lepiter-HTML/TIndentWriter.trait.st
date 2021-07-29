@@ -35,6 +35,11 @@ TIndentWriter >> putString: aString [
 ]
 
 { #category : 'accessing' }
+TIndentWriter >> putStringInline: aString [
+	stream nextPutAll: aString
+]
+
+{ #category : 'accessing' }
 TIndentWriter >> putTag: aTag andAttributes: attributesString with: aBlock [
 	self putString: '<',aTag, (attributesString ifNotEmpty: [' ',attributesString]), '>'.
 	self indent:aBlock.
@@ -44,6 +49,18 @@ TIndentWriter >> putTag: aTag andAttributes: attributesString with: aBlock [
 { #category : 'accessing' }
 TIndentWriter >> putTag: aTag with: aBlock [
 	self putTag: aTag andAttributes: '' with: aBlock
+]
+
+{ #category : 'accessing' }
+TIndentWriter >> putTagInline: aTag andAttributes: attributesString with: aBlock [
+	self putStringInline: '<',aTag, (attributesString ifNotEmpty: [' ',attributesString]), '>'.
+	aBlock value.
+	self putStringInline: '</',aTag,'>'.
+]
+
+{ #category : 'accessing' }
+TIndentWriter >> putTagInline: aTag with: aBlock [
+	self putTagInline: aTag andAttributes: '' with: aBlock
 ]
 
 { #category : 'accessing' }

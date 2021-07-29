@@ -44,6 +44,13 @@ LeHtmlFragmentExporterVisitor >> putPre: aTag andAttributes: attributesString wi
 	self putPre: '</',aTag,'>'.
 ]
 
+{ #category : 'accessing' }
+LeHtmlFragmentExporterVisitor >> putTag: aTag andAttributes: attributesString with: aBlock [
+	self putString: '<',aTag, (attributesString ifNotEmpty: [' ',attributesString]), '>'.
+	self indent:aBlock.
+	self putString: '</',aTag,'>'.
+]
+
 { #category : 'visiting' }
 LeHtmlFragmentExporterVisitor >> visitContent: aLeContent [
 	aLeContent hasChildren ifFalse: [ ^ self ].

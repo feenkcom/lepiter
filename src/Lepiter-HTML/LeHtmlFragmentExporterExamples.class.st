@@ -19,19 +19,8 @@ LeHtmlFragmentExporterExamples >> basicMarkdown [
 	html := String streamContents: [ :stream |
 		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
 	self assert: html trimBoth
-		equals: '<div class="snippet textual-snippet text-snippet">
-	<i>
-		italic
-	</i>
-	 
-	<b>
-		bold
-	</b>
-	 
-	<code>
-		mono
-	</code>
-</div>'.
+		equals: '<p class="snippet textual-snippet text-snippet">
+<i>italic</i> <b>bold</b> <code>mono</code></p>'.
 	^ html
 ]
 
@@ -58,17 +47,15 @@ LeHtmlFragmentExporterExamples >> codeBlock [
 		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
 		
 	self assert: html trimBoth
-		equals: '<div class="snippet textual-snippet text-snippet">
+		equals: '<p class="snippet textual-snippet text-snippet">
 	<div class="code_block">
 		<pre>
 			<code class="smalltalk">
-
 answer:=42.
-
 			</code>
 		</pre>
 	</div>
-</div>'.
+</p>'.
 	^ html
 ]
 
@@ -160,10 +147,8 @@ LeHtmlFragmentExporterExamples >> pictureSnippet [
 	markdown := LePictureSnippet new urlString: self pictureFile.
 	html := String streamContents: [ :stream |
 		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
-	self assert: (html includesSubstring: 'img class="snippet picture-snippet" src=').
+	self assert: (html beginsWith: '<img class="snippet picture-snippet paragraphWidth" src=').
 	self assert: (html includesSubstring: 'feenkcom/gtoolkit-demos/data/faceapi/1280px-Einstein-with-habicht-and-solovine.jpg">
 </img>').
-		
 	^ html
-
 ]
