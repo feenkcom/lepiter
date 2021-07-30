@@ -130,6 +130,11 @@ LeSlideshowSnippet >> codeVisible: aBoolean [
 ]
 
 { #category : #accessing }
+LeSlideshowSnippet >> currentSlideIndex [
+	^ currentSlideIndex
+]
+
+{ #category : #accessing }
 LeSlideshowSnippet >> elementHeight [
 	^ elementHeight
 ]
@@ -202,6 +207,15 @@ LeSlideshowSnippet >> previousSlide [
 	(self slides at: currentSlideIndex) isSlideSelected: true.
 	self updateSlidePreviewsAptitude.
 	^ self changeToSlideWithIndex: currentSlideIndex.
+]
+
+{ #category : #'api - updating' }
+LeSlideshowSnippet >> rearrangeSlides [
+	| tempCollection |
+	tempCollection := SortedCollection sortBlock: [ :a :b | a slideIndex < b slideIndex ].
+	tempCollection addAll: self slides.
+	self slides removeAll.
+	self slides addAll: tempCollection.
 ]
 
 { #category : #accessing }
