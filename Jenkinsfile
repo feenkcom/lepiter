@@ -7,7 +7,7 @@ pipeline {
                 }
             }
             steps {
-                build(job: '../gtoolkit/master', wait: false)
+                build(job: '../gtoolkit/main', wait: false)
             }
         }
     }
