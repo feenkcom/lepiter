@@ -1,20 +1,20 @@
-Extension { #name : #FileReference }
+Extension { #name : 'FileReference' }
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 FileReference class >> leFromJsonV3Dictionary: aDictionary [
 	"Create a new instance of the receiver from the supplied dictionary."
 
 	^ (aDictionary at: #filename) asFileReference
 ]
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 FileReference class >> leFromJsonV4Dictionary: aDictionary [
 	"Create a new instance of the receiver from the supplied dictionary."
 
 	^ (aDictionary at: #filename) asFileReference
 ]
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 FileReference class >> leJsonV3MappingFor: aNeoJSONMapper [
 	"Dates are encoded as their type and a single string in default Date format"
 
@@ -30,13 +30,13 @@ FileReference class >> leJsonV3MappingFor: aNeoJSONMapper [
 
 ]
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 FileReference class >> leJsonV3Name [
 
 	^ #file
 ]
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 FileReference class >> leJsonV4MappingFor: aNeoJSONMapper [
 	"Dates are encoded as their type and a single string in default Date format"
 
@@ -52,7 +52,7 @@ FileReference class >> leJsonV4MappingFor: aNeoJSONMapper [
 
 ]
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 FileReference class >> leJsonV4Name [
 
 	^ #file

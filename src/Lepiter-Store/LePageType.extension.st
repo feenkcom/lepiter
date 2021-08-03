@@ -1,12 +1,12 @@
-Extension { #name : #LePageType }
+Extension { #name : 'LePageType' }
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 LePageType class >> leJsonV3Name [
 
 	^ #pageType
 ]
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 LePageType class >> leJsonV4Name [
 
 	^ #pageType

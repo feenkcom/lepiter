@@ -1,17 +1,17 @@
 Class {
-	#name : #LeLocalSTONStorage,
-	#superclass : #LeLocalStorage,
-	#category : #'Lepiter-Store-LocalJSON-Store'
+	#name : 'LeLocalSTONStorage',
+	#superclass : 'LeLocalStorage',
+	#category : 'Lepiter-Store-LocalJSON-Store'
 }
 
-{ #category : #loading }
+{ #category : 'loading' }
 LeLocalSTONStorage >> loadFromFile: aFileReference [
 
 	^ aFileReference readStreamDo: [ :stream |
 			STON fromStream: stream ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalSTONStorage >> pageFilename: aPage [
 
 	^ self titleFilename: aPage title

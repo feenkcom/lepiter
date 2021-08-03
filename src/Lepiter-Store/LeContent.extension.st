@@ -1,13 +1,13 @@
-Extension { #name : #LeContent }
+Extension { #name : 'LeContent' }
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 LeContent >> fromSton: stonReader [
 
 	stonReader parseMapDo: [ :key :value |
 		self fromStonMapKey: key value: value ].
 ]
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 LeContent >> fromStonMapKey: key value: value [
 
 	key = #editEmail ifTrue: [ editEmail := value ].
@@ -17,7 +17,7 @@ LeContent >> fromStonMapKey: key value: value [
 	key = #children ifTrue: [ self children: value ].
 ]
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 LeContent class >> leJsonV3AttributeMapping [
 
 	^ super leJsonV3AttributeMapping
@@ -29,7 +29,7 @@ LeContent class >> leJsonV3AttributeMapping [
 		yourself
 ]
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 LeContent class >> leJsonV4AttributeMapping [
 
 	^ super leJsonV4AttributeMapping
@@ -41,7 +41,7 @@ LeContent class >> leJsonV4AttributeMapping [
 		yourself
 ]
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 LeContent >> stonProcessSubObjects: block [
 	"Evaluate block on each of the receiver's variables that are part of the ston state.
 	Object>>stonProcessSubObjects: is overridden since part of the receiver's state has circular references, which isn't handled by STON.

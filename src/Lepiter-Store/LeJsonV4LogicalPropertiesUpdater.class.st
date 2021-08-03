@@ -21,12 +21,12 @@ The default actions are:
 
 "
 Class {
-	#name : #LeJsonV4LogicalPropertiesUpdater,
-	#superclass : #Object,
-	#category : #'Lepiter-Store-JsonV4'
+	#name : 'LeJsonV4LogicalPropertiesUpdater',
+	#superclass : 'Object',
+	#category : 'Lepiter-Store-JsonV4'
 }
 
-{ #category : #updating }
+{ #category : 'updating' }
 LeJsonV4LogicalPropertiesUpdater class >> updateDefault [
 	"Update the default properties file if found"
 	| oldPropertiesFile propertiesFile |
@@ -45,7 +45,7 @@ LeJsonV4LogicalPropertiesUpdater class >> updateDefault [
 	self updateFile: propertiesFile.
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 LeJsonV4LogicalPropertiesUpdater class >> updateFile: propertiesFile [
 	"Update the supplied properties file"
 	| jsonDictionary |

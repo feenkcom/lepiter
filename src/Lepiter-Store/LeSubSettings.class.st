@@ -4,32 +4,32 @@ LeSubSettings provides a means of grouping together settings under a common prop
 The settings are stored as a Dictionary under the parent property.
 "
 Class {
-	#name : #LeSubSettings,
-	#superclass : #Object,
+	#name : 'LeSubSettings',
+	#superclass : 'Object',
 	#instVars : [
 		'dbProperties'
 	],
-	#category : #'Lepiter-Store-Settings'
+	#category : 'Lepiter-Store-Settings'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSubSettings >> dbProperties [
 	^ dbProperties
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSubSettings >> dbProperties: anObject [
 	dbProperties := anObject
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 LeSubSettings >> gtSettingsFor: aView [
 	<gtView>
 
 	^ aView columnedList
 		title: 'Settings';
 		priority: 1;
-		items: [ self settingNames ];
+		items: [ self settingsNames ];
 		column: #Item 
 			text: [ :item | item ] 
 			width: 170;
@@ -38,27 +38,27 @@ LeSubSettings >> gtSettingsFor: aView [
 		send: [ :item | item value: self ]
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 LeSubSettings >> settingsNames [
 
 	^ #()
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeSubSettings >> subProperties [
 	"Answer the dictionary for the sub-properties"
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeSubSettings >> subProperties: aDictionary [
 	"Set the dictionary for the sub-properties"
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSubSettings >> updateProperty: propertyName value: aJSONObject [
 	| subDictionary |
 
