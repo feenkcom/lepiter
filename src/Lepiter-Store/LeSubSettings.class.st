@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'dbProperties'
 	],
-	#category : #'Lepiter-Store-Settings'
+	#category : 'Lepiter-Store-Settings'
 }
 
 { #category : #accessing }
@@ -29,7 +29,7 @@ LeSubSettings >> gtSettingsFor: aView [
 	^ aView columnedList
 		title: 'Settings';
 		priority: 1;
-		items: [ self settingNames ];
+		items: [ self settingsNames ];
 		column: #Item 
 			text: [ :item | item ] 
 			width: 170;
