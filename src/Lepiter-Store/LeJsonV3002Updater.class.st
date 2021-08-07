@@ -3,19 +3,19 @@ Upgrade to V4.0.
 
 "
 Class {
-	#name : 'LeJsonV3002Updater',
-	#superclass : 'LeJsonV3SchemaUpdater',
+	#name : #LeJsonV3002Updater,
+	#superclass : #LeJsonV3SchemaUpdater,
 	#category : 'Lepiter-Store-JSONV3'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeJsonV3002Updater class >> minorVersion [ 
 	"Answer the minor version number that this class upgrades FROM"
 
 	^ 2
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeJsonV3002Updater class >> updatedVersion [ 
 	"Answer the version that the file is updated to, V4.0 in this case"
 
@@ -24,7 +24,7 @@ LeJsonV3002Updater class >> updatedVersion [
 		minor: 0.
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeJsonV3002Updater >> fileReferenceFor: jsonObject named: file [
 	"Answer the new file name to be used to store the page.
 	V4.0 changed the file extension from .json to .lepiter."
@@ -34,7 +34,7 @@ LeJsonV3002Updater >> fileReferenceFor: jsonObject named: file [
 
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeJsonV3002Updater >> linksFileFor: file [
 	"Rename the .json.links file to .lepiter.links"
 	| fullName |
@@ -46,7 +46,7 @@ LeJsonV3002Updater >> linksFileFor: file [
 		path: ((fullName copyFrom: 1 to: fullName size - 10), 'lepiter.links') asPath.
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeJsonV3002Updater >> update: jsonObject [
 	"Update the supplied JSON object by one version"
 

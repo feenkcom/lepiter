@@ -20,8 +20,8 @@ The monitor can be in one of two states:
 
 "
 Class {
-	#name : 'LeLocalStoreMonitor',
-	#superclass : 'LeLocalStore',
+	#name : #LeLocalStoreMonitor,
+	#superclass : #LeLocalStore,
 	#traits : 'TGtAnnouncer',
 	#classTraits : 'TGtAnnouncer classTrait',
 	#instVars : [
@@ -36,17 +36,17 @@ Class {
 		'NoStartup',
 		'SessionAnnouncer'
 	],
-	#category : 'Lepiter-Store-LocalJSON-Store'
+	#category : #'Lepiter-Store-LocalJSON-Store'
 }
 
-{ #category : 'system startup' }
+{ #category : #'system startup' }
 LeLocalStoreMonitor class >> clearNoStartup [
 	"Clear the flag to say that Lepiter startup actions should be ignored"
 
-	NoStartup := false.
+	NoStartup := true.
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLocalStoreMonitor class >> database: aLeDatabase root: aFileReference [
 
 	^ self new 
@@ -55,35 +55,42 @@ LeLocalStoreMonitor class >> database: aLeDatabase root: aFileReference [
 		yourself
 ]
 
-{ #category : 'class initialization' }
+{ #category : #'class initialization' }
 LeLocalStoreMonitor class >> initialize [ 
 
 	SessionManager default 
 		registerUserClassNamed: self name.
-	NoStartup := false.
+	NoStartup := true.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLocalStoreMonitor class >> sessionAnnouncer [
 
 	^ SessionAnnouncer ifNil: [ SessionAnnouncer := Announcer new ]
 ]
 
-{ #category : 'system startup' }
+{ #category : #'system startup' }
+LeLocalStoreMonitor class >> setEnableStartup [
+	"Set the flag to say that Lepiter startup actions should not be ignored"
+
+	NoStartup := false.
+]
+
+{ #category : #'system startup' }
 LeLocalStoreMonitor class >> setNoStartup [
 	"Set the flag to say that Lepiter startup actions should be ignored"
 
 	NoStartup := true.
 ]
 
-{ #category : 'system startup' }
+{ #category : #'system startup' }
 LeLocalStoreMonitor class >> shutDown: quitting [
 	"Announce the shutdown, giving monitors a chance to flush their queues"
 
 	self sessionAnnouncer announce: LeLocalJSONStoreShutdown new.
 ]
 
-{ #category : 'system startup' }
+{ #category : #'system startup' }
 LeLocalStoreMonitor class >> startUp: resuming [
 	| noStartup |
 
@@ -93,26 +100,26 @@ LeLocalStoreMonitor class >> startUp: resuming [
 		[ self sessionAnnouncer announce: LeLocalJSONStoreStartup new ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLocalStoreMonitor >> announcer [ 
 
 	^ announcer
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLocalStoreMonitor >> corruptFiles [
 	"Answer the receiver's collection of corrupt files"
 
 	^ corruptFiles
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeLocalStoreMonitor >> defaultDelay [
 
 	^ 30 seconds
 ]
 
-{ #category : 'schema updating' }
+{ #category : #'schema updating' }
 LeLocalStoreMonitor >> forceSchemaUpgradeFrom: aString [ 
 	"Run the receiver's db files through an update from the supplied version number, e.g. '3.0'"
 
@@ -121,7 +128,7 @@ LeLocalStoreMonitor >> forceSchemaUpgradeFrom: aString [
 	self reload.
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 LeLocalStoreMonitor >> gtAttachmentsFor: aView [
 	<gtView>
 	self attachmentsDirectory ifNil: [ ^ aView empty ].
@@ -141,7 +148,7 @@ LeLocalStoreMonitor >> gtAttachmentsFor: aView [
 	
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 LeLocalStoreMonitor >> gtViewCorruptFilesFor: aView [
 	<gtView>
 	(corruptFiles isNil or: [
@@ -152,7 +159,7 @@ LeLocalStoreMonitor >> gtViewCorruptFilesFor: aView [
 		items: [ self corruptFiles]
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 LeLocalStoreMonitor >> gtViewStatusDetailsFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -167,14 +174,14 @@ LeLocalStoreMonitor >> gtViewStatusDetailsFor: aView [
 		send: #value
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeLocalStoreMonitor >> hasCorruptFiles [
 	"Answer a boolean indicating whether the receiver is aware of any corrupt files"
 
 	^ corruptFiles isNotEmpty 
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeLocalStoreMonitor >> initialize [
 
 	super initialize.
@@ -186,7 +193,7 @@ LeLocalStoreMonitor >> initialize [
 	corruptFiles := #().
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeLocalStoreMonitor >> isEmpty [ 
 	"Answer a boolean indicating if the receiver's queues are empty.
 	This is approximate as it uses a non-locking test"
@@ -194,21 +201,21 @@ LeLocalStoreMonitor >> isEmpty [
 	^ saveQueue isEmpty and: [ removeQueue isEmpty ]
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeLocalStoreMonitor >> isRunning [ 
 	"Answer a boolean indicating whether the receiver is running"
 
 	^ state = #running
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeLocalStoreMonitor >> isRunningCleanly [
 	"Answer a boolean indicating whether the receiver is running without any known issues"
 
 	^ state = #running and: [ self hasCorruptFiles not ]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeLocalStoreMonitor >> loadCorruptFilenames [
 	"Load the list of corrupt files (which should of course be empty)"
 
@@ -216,7 +223,7 @@ LeLocalStoreMonitor >> loadCorruptFilenames [
 		localRoot childrenMatching: pattern ]
 ]
 
-{ #category : 'startup-shutdown' }
+{ #category : #'startup-shutdown' }
 LeLocalStoreMonitor >> primitiveReload [
 	"Reload the receiver's database."
 
@@ -226,7 +233,7 @@ LeLocalStoreMonitor >> primitiveReload [
 		reload
 ]
 
-{ #category : 'private - announcements' }
+{ #category : #'private - announcements' }
 LeLocalStoreMonitor >> processContentTreeChanged: anAnnouncement [
 	| page |
 
@@ -245,13 +252,13 @@ LeLocalStoreMonitor >> processContentTreeChanged: anAnnouncement [
 
 ]
 
-{ #category : 'private - announcements' }
+{ #category : #'private - announcements' }
 LeLocalStoreMonitor >> processExplicitLinksChanged: anAnnouncement [
 	anAnnouncement requiresSavingOfLinks ifTrue: [
 		self savePage: anAnnouncement explicitLinks copyForSavingOnlyWithAttachedLinks ]
 ]
 
-{ #category : 'private - announcements' }
+{ #category : #'private - announcements' }
 LeLocalStoreMonitor >> processPageAdded: anAnnouncement [
 	"Save added pages that aren't empty"
 
@@ -261,25 +268,25 @@ LeLocalStoreMonitor >> processPageAdded: anAnnouncement [
 		[ self savePage: anAnnouncement page ]
 ]
 
-{ #category : 'private - announcements' }
+{ #category : #'private - announcements' }
 LeLocalStoreMonitor >> processPageRemoved: anAnnouncement [
 
 	self removePage: anAnnouncement page.
 ]
 
-{ #category : 'private - announcements' }
+{ #category : #'private - announcements' }
 LeLocalStoreMonitor >> processPageTitleChanged: anAnnouncement [
 
 	self savePage: anAnnouncement page.
 
 ]
 
-{ #category : 'private - announcements' }
+{ #category : #'private - announcements' }
 LeLocalStoreMonitor >> processSnippetContentChanged: anAnnouncement [
 	self savePage: anAnnouncement snippet page
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeLocalStoreMonitor >> queueRemove: aString [
 	"Add the supplied page title to the queue of pages to be removed"
 
@@ -290,7 +297,7 @@ LeLocalStoreMonitor >> queueRemove: aString [
 		emit."
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeLocalStoreMonitor >> queueSave: aPage [
 	"Add the supplied page to the queue of pages to be saved"
 
@@ -301,7 +308,7 @@ LeLocalStoreMonitor >> queueSave: aPage [
 		emit."
 ]
 
-{ #category : 'startup-shutdown' }
+{ #category : #'startup-shutdown' }
 LeLocalStoreMonitor >> reload [
 	"Reload the receiver's database.
 	If the receiver is part of a logical database, defer to the logical database to coordinate reloads across all concrete databases."
@@ -311,7 +318,7 @@ LeLocalStoreMonitor >> reload [
 	self primitiveReload.
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeLocalStoreMonitor >> removePage: aPage [
 	"Remove the supplied page from the local store"
 
@@ -319,7 +326,7 @@ LeLocalStoreMonitor >> removePage: aPage [
 
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeLocalStoreMonitor >> removePageFile: aString [
 	"Remove the supplied page file named aString from the local store"
 
@@ -329,7 +336,7 @@ LeLocalStoreMonitor >> removePageFile: aString [
 
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeLocalStoreMonitor >> removePageNowNamed: aString [
 	"Remove the supplied page file named aString from the local store"
 	| pageFile |
@@ -342,7 +349,7 @@ LeLocalStoreMonitor >> removePageNowNamed: aString [
 		emit.
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeLocalStoreMonitor >> runTimedUpdate [
 	"Perform all the queued updates"
 
@@ -351,12 +358,12 @@ LeLocalStoreMonitor >> runTimedUpdate [
 			ensure: [ self scheduleNextUpdate ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLocalStoreMonitor >> saveDelay [
 	^ saveDelay
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLocalStoreMonitor >> saveDelay: aDuration [
 	"Set the duration to wait between updates.
 	A duration of 0 means that updates are saved immediately and no further timed updates are scheduled.
@@ -365,7 +372,7 @@ LeLocalStoreMonitor >> saveDelay: aDuration [
 	saveDelay := aDuration
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeLocalStoreMonitor >> savePage: aPage [
 	"Write the supplied page back to the local store.
 	If the saveDelay is 0, write the page immediately, otherwise queue for the next timed update."
@@ -376,7 +383,7 @@ LeLocalStoreMonitor >> savePage: aPage [
 
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeLocalStoreMonitor >> scheduleNextUpdate [
 	"Queue the next update to be run after the saveDelay duration"
 
@@ -389,7 +396,7 @@ LeLocalStoreMonitor >> scheduleNextUpdate [
 		at: DateAndTime now + saveDelay.
 ]
 
-{ #category : 'startup-shutdown' }
+{ #category : #'startup-shutdown' }
 LeLocalStoreMonitor >> startMonitoring [
 	state = #running ifTrue: [ ^ self ].
 	state := #running.
@@ -407,14 +414,14 @@ LeLocalStoreMonitor >> startMonitoring [
 	self loadCorruptFilenames.
 ]
 
-{ #category : 'system startup' }
+{ #category : #'system startup' }
 LeLocalStoreMonitor >> startUp [
 	"The system is starting up, reload the databases"
 
 	self submitReload.
 ]
 
-{ #category : 'startup-shutdown' }
+{ #category : #'startup-shutdown' }
 LeLocalStoreMonitor >> stopMonitoring [
 
 	database unsubscribe: self.
@@ -423,7 +430,7 @@ LeLocalStoreMonitor >> stopMonitoring [
 	self updateEntries.
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeLocalStoreMonitor >> submitReload [
 
 	[ self reload ] asBlTktCommand 
@@ -431,7 +438,7 @@ LeLocalStoreMonitor >> submitReload [
 		scheduleInPool: BlTktWorkerProvider highUIExternalResourceBoundPool
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeLocalStoreMonitor >> updateEntries [
 	"Perform all the queued updates"
 	| oldSaveQueue oldRemoveQueue newSaveQueue newRemoveQueue savePages removePageFiles page |
@@ -461,7 +468,7 @@ LeLocalStoreMonitor >> updateEntries [
 	self announce: (LeLocalStoreMonitorSaved new monitor: self)
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLocalStoreMonitor >> userEmail: aString [
 	"Update the DB properties with the supplied user email.
 	It is assumed that the value has already been validated by the database."

@@ -1,6 +1,6 @@
-Extension { #name : 'LeLinkExternalUrlReference' }
+Extension { #name : #LeLinkExternalUrlReference }
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeLinkExternalUrlReference class >> leJsonV3AttributeMapping [
 
 	^ super leJsonV3AttributeMapping
@@ -8,13 +8,13 @@ LeLinkExternalUrlReference class >> leJsonV3AttributeMapping [
 		yourself
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeLinkExternalUrlReference class >> leJsonV3Name [
 
 	^ 'urlReference'
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeLinkExternalUrlReference class >> leJsonV4AttributeMapping [
 
 	^ super leJsonV4AttributeMapping
@@ -22,7 +22,7 @@ LeLinkExternalUrlReference class >> leJsonV4AttributeMapping [
 		yourself
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeLinkExternalUrlReference class >> leJsonV4Name [
 
 	^ 'urlReference'

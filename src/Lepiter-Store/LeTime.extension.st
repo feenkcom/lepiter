@@ -1,6 +1,6 @@
-Extension { #name : 'LeTime' }
+Extension { #name : #LeTime }
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeTime class >> leJsonV3AttributeMapping [
 
 	^ super leJsonV3AttributeMapping
@@ -8,13 +8,13 @@ LeTime class >> leJsonV3AttributeMapping [
 		yourself
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeTime class >> leJsonV3Name [
 
 	^ 'time'
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeTime class >> leJsonV4AttributeMapping [
 
 	^ super leJsonV4AttributeMapping
@@ -22,7 +22,7 @@ LeTime class >> leJsonV4AttributeMapping [
 		yourself
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeTime class >> leJsonV4Name [
 
 	^ 'time'

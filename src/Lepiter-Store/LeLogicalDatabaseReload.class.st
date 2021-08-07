@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeLogicalDatabaseReload',
-	#superclass : 'Object',
+	#name : #LeLogicalDatabaseReload,
+	#superclass : #Object,
 	#instVars : [
 		'database',
 		'existingDbs',
@@ -12,17 +12,17 @@ Class {
 	#category : 'Lepiter-Store-Reload'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLogicalDatabaseReload >> database [
 	^ database
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLogicalDatabaseReload >> database: anObject [
 	database := anObject
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeLogicalDatabaseReload >> dbFor: aFileReference [
 	"Answer the concrete database for the supplied file reference.
 	If it is an existing DB, use that instance.  If it is a new DB, load it."
@@ -36,13 +36,13 @@ LeLogicalDatabaseReload >> dbFor: aFileReference [
 	^ newDb
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLogicalDatabaseReload >> properties [ 
 
 	^ database properties
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 LeLogicalDatabaseReload >> reload [ 
 	"Reload the receiver's database.
 	This may involve adding, moving or removing concrete databases.
@@ -91,7 +91,7 @@ LeLogicalDatabaseReload >> reload [
 				startMonitoring ] ].
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeLogicalDatabaseReload >> reloadProperties [
 	"Reload the properties file from disk.
 	If no file is specified, use the current in-memory properties.
@@ -112,7 +112,7 @@ LeLogicalDatabaseReload >> reloadProperties [
 	database properties: (LeLogicalDatabaseProperties new localFile: propertiesFile)
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeLogicalDatabaseReload >> unloadUnusedDatabases [
 	"Unload any unused databases"
 	| currentDatabases toBeRemoved |
@@ -128,7 +128,7 @@ LeLogicalDatabaseReload >> unloadUnusedDatabases [
 	database registeredDBs: registeredDatabases.
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeLogicalDatabaseReload >> updateRegisteredDatabasesAndSpaces [
 	"Replace the existing registered DBs with the updated collection.
 	This will resort the array in to that specified by the properties file."

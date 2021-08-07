@@ -1,21 +1,21 @@
 Class {
-	#name : 'LeNoStartupCommandline',
-	#superclass : 'CommandLineHandler',
+	#name : #LeNoStartupCommandline,
+	#superclass : #CommandLineHandler,
 	#category : 'Lepiter-Store-LocalJSON-Store'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeNoStartupCommandline class >> commandName [
 	^ 'lepiternostartup'
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeNoStartupCommandline class >> description [
 
 	^ 'Instruct Lepiter to not run startup actions'
 ]
 
-{ #category : 'activation' }
+{ #category : #activation }
 LeNoStartupCommandline >> activate [
 
 	self activateHelp ifTrue: [  ^ self ].

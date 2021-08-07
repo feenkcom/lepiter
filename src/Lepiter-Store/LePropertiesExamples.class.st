@@ -1,19 +1,19 @@
 Class {
-	#name : 'LePropertiesExamples',
-	#superclass : 'Object',
+	#name : #LePropertiesExamples,
+	#superclass : #Object,
 	#traits : 'TAssertable',
 	#classTraits : 'TAssertable classTrait',
 	#category : 'Lepiter-Store-Examples'
 }
 
-{ #category : 'private' }
+{ #category : #private }
 LePropertiesExamples >> newProperties [
 	"Answer a default Lepiter properties object"
 
 	^ LeLocalStore new localRoot: FileSystem memory root
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePropertiesExamples >> pathFrom: anArray [
 	^ String streamContents: [ :aStream | 
 			anArray 
@@ -21,7 +21,7 @@ LePropertiesExamples >> pathFrom: anArray [
 				delimiter: FileSystem disk delimiter asString ]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LePropertiesExamples >> propertiesDictionaryFrom: settings [
 	"Answer the properties dictionary for the supplied settings"
 

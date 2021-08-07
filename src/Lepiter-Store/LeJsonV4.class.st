@@ -1,12 +1,12 @@
 Class {
-	#name : 'LeJsonV4',
-	#superclass : 'Object',
+	#name : #LeJsonV4,
+	#superclass : #Object,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
 	#category : 'Lepiter-Store-JsonV4'
 }
 
-{ #category : 'private' }
+{ #category : #private }
 LeJsonV4 >> allClassMappingsFor: aNeoJSONMapper [ 
 
 	LeModel allSubclassesDo: [ :leClass |
@@ -18,7 +18,7 @@ LeJsonV4 >> allClassMappingsFor: aNeoJSONMapper [
 
 ]
 
-{ #category : 'api - serializing' }
+{ #category : #'api - serializing' }
 LeJsonV4 >> deserialize: aStream [
 	"Deserialise the supplied object. aLeClass is a subclass of LeModel"
 
@@ -28,7 +28,7 @@ LeJsonV4 >> deserialize: aStream [
 
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeJsonV4 >> newReader [ 
 	| newReader |
 
@@ -38,7 +38,7 @@ LeJsonV4 >> newReader [
 
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeJsonV4 >> newWriter [ 
 	| newWriter |
 
@@ -47,7 +47,7 @@ LeJsonV4 >> newWriter [
 	^ newWriter 
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeJsonV4 >> schemaFor: aKey [
 	"Answer the schema (class) for the given key"
 
@@ -55,7 +55,7 @@ LeJsonV4 >> schemaFor: aKey [
 		[ :each | each leJsonV4Name = aKey ].
 ]
 
-{ #category : 'api - serializing' }
+{ #category : #'api - serializing' }
 LeJsonV4 >> serialize: aLeModel on: aStream prettyPrint: aBoolean [
 	"Serialise the supplied object. aLeModel is a subclass of LeModel"
 

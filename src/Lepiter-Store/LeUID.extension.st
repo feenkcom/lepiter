@@ -1,6 +1,6 @@
-Extension { #name : 'LeUID' }
+Extension { #name : #LeUID }
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeUID class >> leJsonV3AttributeMapping [
 
 	^ super leJsonV3AttributeMapping
@@ -8,13 +8,13 @@ LeUID class >> leJsonV3AttributeMapping [
 		yourself
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeUID class >> leJsonV3Name [
 
 	^ 'uid'
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeUID class >> leJsonV4AttributeMapping [
 
 	^ super leJsonV4AttributeMapping
@@ -22,7 +22,7 @@ LeUID class >> leJsonV4AttributeMapping [
 		yourself
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeUID class >> leJsonV4Name [
 
 	^ 'uid'

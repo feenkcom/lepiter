@@ -1,20 +1,20 @@
-Extension { #name : 'Date' }
+Extension { #name : #Date }
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 Date class >> leFromJsonV3Dictionary: aDictionary [
 	"Create a new instance of the receiver from the supplied dictionary."
 
 	^ self fromString: (aDictionary at: #dateString)
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 Date class >> leFromJsonV4Dictionary: aDictionary [
 	"Create a new instance of the receiver from the supplied dictionary."
 
 	^ self fromString: (aDictionary at: #dateString)
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 Date class >> leJsonV3MappingFor: aNeoJSONMapper [
 	"Dates are encoded as their type and a single string in default Date format"
 
@@ -30,13 +30,13 @@ Date class >> leJsonV3MappingFor: aNeoJSONMapper [
 
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 Date class >> leJsonV3Name [
 
 	^ #date
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 Date class >> leJsonV4MappingFor: aNeoJSONMapper [
 	"Dates are encoded as their type and a single string in default Date format"
 
@@ -52,7 +52,7 @@ Date class >> leJsonV4MappingFor: aNeoJSONMapper [
 
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 Date class >> leJsonV4Name [
 
 	^ #date
