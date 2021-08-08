@@ -41,9 +41,9 @@ Class {
 
 { #category : #'system startup' }
 LeLocalStoreMonitor class >> clearNoStartup [
-	"Clear the flag to say that Lepiter startup actions should be ignored"
+	"Clear the flag to say that Lepiter startup actions should not be ignored"
 
-	NoStartup := true.
+	NoStartup := false.
 ]
 
 { #category : #'api - accessing' }
@@ -60,7 +60,7 @@ LeLocalStoreMonitor class >> initialize [
 
 	SessionManager default 
 		registerUserClassNamed: self name.
-	NoStartup := true.
+	NoStartup := false.
 ]
 
 { #category : #accessing }
