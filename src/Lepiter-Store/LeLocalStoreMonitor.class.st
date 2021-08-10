@@ -41,7 +41,7 @@ Class {
 
 { #category : #'system startup' }
 LeLocalStoreMonitor class >> clearNoStartup [
-	"Clear the flag to say that Lepiter startup actions should be ignored"
+	"Clear the flag to say that Lepiter startup actions should not be ignored"
 
 	NoStartup := false.
 ]
@@ -67,6 +67,13 @@ LeLocalStoreMonitor class >> initialize [
 LeLocalStoreMonitor class >> sessionAnnouncer [
 
 	^ SessionAnnouncer ifNil: [ SessionAnnouncer := Announcer new ]
+]
+
+{ #category : #'system startup' }
+LeLocalStoreMonitor class >> setEnableStartup [
+	"Set the flag to say that Lepiter startup actions should not be ignored"
+
+	NoStartup := false.
 ]
 
 { #category : #'system startup' }
