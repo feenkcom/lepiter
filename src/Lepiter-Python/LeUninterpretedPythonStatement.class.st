@@ -5,15 +5,15 @@ LeUninterpretedPythonStatement represents a single Python statement on a single 
 
 "
 Class {
-	#name : #LeUninterpretedPythonStatement,
-	#superclass : #P3GGenerable,
+	#name : 'LeUninterpretedPythonStatement',
+	#superclass : 'P3GGenerable',
 	#instVars : [
 		'string'
 	],
-	#category : #'Lepiter-Python-Bridge'
+	#category : 'Lepiter-Python-Bridge'
 }
 
-{ #category : #convenience }
+{ #category : 'convenience' }
 LeUninterpretedPythonStatement class >> addStatements: aCollection to: aCommandFactory [
 
 	aCollection do: [ :statement |
@@ -21,7 +21,7 @@ LeUninterpretedPythonStatement class >> addStatements: aCollection to: aCommandF
 	^ aCommandFactory
 ]
 
-{ #category : #convenience }
+{ #category : 'convenience' }
 LeUninterpretedPythonStatement class >> addStatementsFrom: aString to: aCommandFactory [
 	"Separate the supplied python statements in to individual statements and add to the supplied command factory"
 
@@ -30,7 +30,7 @@ LeUninterpretedPythonStatement class >> addStatementsFrom: aString to: aCommandF
 	^ aCommandFactory
 ]
 
-{ #category : #convenience }
+{ #category : 'convenience' }
 LeUninterpretedPythonStatement class >> statementsFrom: aString [
 	"Answer a collection of uninterpreted statements from the supplied string.
 	Until we have a proper python parser: separate statements, join continued lines and hope for the best"
@@ -55,7 +55,7 @@ LeUninterpretedPythonStatement class >> statementsFrom: aString [
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeUninterpretedPythonStatement >> isPythonValue [
 	"A python value doesn't have assignment or begin with 'import'.
 	This doesn't parse the expression and doesn't handle strings containing an $= character."
@@ -63,7 +63,7 @@ LeUninterpretedPythonStatement >> isPythonValue [
 	^ ((string includes: $=) or: [ string beginsWith: 'import' ]) not
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LeUninterpretedPythonStatement >> printOn: aStream [
 
 	string
@@ -71,17 +71,17 @@ LeUninterpretedPythonStatement >> printOn: aStream [
 		ifNotNil: [ aStream << string ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeUninterpretedPythonStatement >> string [
 	^ string
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeUninterpretedPythonStatement >> string: anObject [
 	string := anObject
 ]
 
-{ #category : #translating }
+{ #category : 'translating' }
 LeUninterpretedPythonStatement >> writePython3On: aStream [
 	"Write the Python 3 code generated on aStream."
 

@@ -1,16 +1,16 @@
 Class {
-	#name : #PBImageMetadata,
-	#superclass : #PBProxyObject,
-	#category : #'Lepiter-Python-ProxyObjects'
+	#name : 'PBImageMetadata',
+	#superclass : 'PBProxyObject',
+	#category : 'Lepiter-Python-ProxyObjects'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PBImageMetadata class >> pythonClass [
 
 	^ #Image
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PBImageMetadata >> at: attributeString [
 	"Answer the value of the named attribute"
 
@@ -19,7 +19,7 @@ PBImageMetadata >> at: attributeString [
 		sendAndWait
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PBImageMetadata >> attributes [
 	"Answer the list of metadata attributes"
 
@@ -28,7 +28,7 @@ PBImageMetadata >> attributes [
 		sendAndWait
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PBImageMetadata >> getAll [
 	"Answer all attributes"
 
@@ -37,7 +37,7 @@ PBImageMetadata >> getAll [
 		sendAndWait
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 PBImageMetadata >> gtAttributesFor: aView [
 	<gtView>
 
@@ -48,7 +48,7 @@ PBImageMetadata >> gtAttributesFor: aView [
 		view: #gtItemsFor:
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 PBImageMetadata >> gtImageFor: aView [
 	<gtView>
 
@@ -61,7 +61,7 @@ PBImageMetadata >> gtImageFor: aView [
 					c vertical matchParent ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PBImageMetadata >> imageData [
 	"Answer the image data"
 
@@ -70,7 +70,7 @@ PBImageMetadata >> imageData [
 		sendAndWait
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 PBImageMetadata >> sourceFileName [
 	"Answer the image source file name"
 

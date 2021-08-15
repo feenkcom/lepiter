@@ -1,20 +1,20 @@
 Class {
-	#name : #GtPythonCoderModel,
-	#superclass : #GtSourceCoder,
+	#name : 'GtPythonCoderModel',
+	#superclass : 'GtSourceCoder',
 	#instVars : [
 		'pythonApplicationStrategy',
 		'pharoBindings'
 	],
-	#category : #'Lepiter-Python-Coder'
+	#category : 'Lepiter-Python-Coder'
 }
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtPythonCoderModel >> asCoderUIModel [
 
 	^ GtSourceCoderViewModel new coder: self
 ]
 
-{ #category : #'private - execution' }
+{ #category : 'private - execution' }
 GtPythonCoderModel >> bindAndExecute: sourceString [
 	"Answer the source code with all declared variables returned in an immediate dictionary"
 	| statements commandFactory lastStatement pythonBindings application |
@@ -40,21 +40,21 @@ GtPythonCoderModel >> bindAndExecute: sourceString [
 
 ]
 
-{ #category : #'api - ast' }
+{ #category : 'api - ast' }
 GtPythonCoderModel >> computeAst: theSourceString [
-	^ PythonParser2
+	^ PythonParser
 		parseWithErrors: theSourceString
-		startingAt: PythonParser2 startingStateForfile_input
+		startingAt: PythonParser startingStateForfile_input
 ]
 
-{ #category : #initialize }
+{ #category : 'initialize' }
 GtPythonCoderModel >> initializeAddOns: addOns [
 	super initializeAddOns: addOns.
 	
-	addOns addStyler: (GtCoderAstSmaCCParserStyler new smaccStyler: PythonParser2 gtStyler)
+	addOns addStyler: (GtCoderAstSmaCCParserStyler new smaccStyler: PythonParser gtStyler)
 ]
 
-{ #category : #initialize }
+{ #category : 'initialize' }
 GtPythonCoderModel >> initializeShortcuts: addOns [
 	super initializeShortcuts: addOns.
 
@@ -63,27 +63,27 @@ GtPythonCoderModel >> initializeShortcuts: addOns [
 		addShortcut: GtSourceCoderDoItAndInspectShortcut new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtPythonCoderModel >> newCompletionStrategy [
 	^ GtCompletionStrategy new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPythonCoderModel >> pharoBindings [
 	^ pharoBindings
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPythonCoderModel >> pharoBindings: anObject [
 	pharoBindings := anObject
 ]
 
-{ #category : #'private - actions' }
+{ #category : 'private - actions' }
 GtPythonCoderModel >> primitiveDebug: aSourceString inContext: aGtSourceCoderEvaluationContext onFailDo: anEvaluationFailBlock [
 	self flag: #TODO.
 ]
 
-{ #category : #'private - actions' }
+{ #category : 'private - actions' }
 GtPythonCoderModel >> primitiveEvaluate: aSourceString inContext: aGtSourceCoderEvaluationContext onFailDo: anEvaluationFailBlock [
 	| result |
 
@@ -96,17 +96,17 @@ GtPythonCoderModel >> primitiveEvaluate: aSourceString inContext: aGtSourceCoder
 		ifAbsent: anEvaluationFailBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPythonCoderModel >> pythonApplicationStrategy [
 	^ pythonApplicationStrategy
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPythonCoderModel >> pythonApplicationStrategy: anObject [
 	pythonApplicationStrategy := anObject
 ]
 
-{ #category : #'private - execution' }
+{ #category : 'private - execution' }
 GtPythonCoderModel >> pythonBindings [
 	"Answer a collection of python bindings.
 	This is basically any snippet binding that can be passed in, but always excluding thisSnippet, thisSnippetElement and snippetResult"
@@ -124,7 +124,7 @@ GtPythonCoderModel >> pythonBindings [
 	^ pythonBindings
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 GtPythonCoderModel >> returnVariablesExpressionFrom: pythonBindings [
 	"Answer the LeUninterpretedPythonStatement that returns all the bindings"
 	| bindingNames expressionString |
@@ -146,7 +146,7 @@ GtPythonCoderModel >> returnVariablesExpressionFrom: pythonBindings [
 	^ LeUninterpretedPythonStatement new string: expressionString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPythonCoderModel >> variableBindings: aGtSnippetBindings [
 
 	^ self pharoBindings: aGtSnippetBindings
