@@ -1,21 +1,21 @@
 Class {
-	#name : #BaselineOfLepiterEngineCore,
-	#superclass : #BaselineOf,
-	#category : #BaselineOfLepiterEngineCore
+	#name : 'BaselineOfLepiterEngineCore',
+	#superclass : 'BaselineOf',
+	#category : 'BaselineOfLepiterEngineCore'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BaselineOfLepiterEngineCore class >> gtDependencyAnalysisPreloadedBaselines [
 	^ super gtDependencyAnalysisPreloadedBaselines
 		copyWith: BaselineOfGToolkit
 ]
 
-{ #category : #baseline }
+{ #category : 'baseline' }
 BaselineOfLepiterEngineCore >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
 		spec baseline: 'GToolkitInspector' with: [
-				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.491/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.492/src' ].
 		spec 
 			package: 'Lepiter-Parser';
 			package: 'Lepiter-Core' with: [
