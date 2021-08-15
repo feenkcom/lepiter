@@ -1,6 +1,6 @@
-Extension { #name : #LeLocalStore }
+Extension { #name : 'LeLocalStore' }
 
-{ #category : #'*Lepiter-Python' }
+{ #category : '*Lepiter-Python' }
 LeLocalStore >> pythonBridge [
 	"Answer the Dictionary containing the PythonBridge settings for this database"
 	<return: #Dictionary>
@@ -10,7 +10,7 @@ LeLocalStore >> pythonBridge [
 		ifAbsent: [ Dictionary new ]
 ]
 
-{ #category : #'*Lepiter-Python' }
+{ #category : '*Lepiter-Python' }
 LeLocalStore >> pythonBridge: aDictionaryOrNil [
 
 	self 
@@ -18,7 +18,7 @@ LeLocalStore >> pythonBridge: aDictionaryOrNil [
 		value: aDictionaryOrNil
 ]
 
-{ #category : #'*Lepiter-Python' }
+{ #category : '*Lepiter-Python' }
 LeLocalStore >> pythonBridgeSettings [
 	"Answer the initialised LePythonBridgeSettings for this database"
 	<return: #LePythonBridgeSettings>

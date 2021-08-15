@@ -1,10 +1,10 @@
 Class {
-	#name : #LePythonBridgeSettingsExamples,
-	#superclass : #LePropertiesExamples,
-	#category : #'Lepiter-Python-Examples'
+	#name : 'LePythonBridgeSettingsExamples',
+	#superclass : 'LePropertiesExamples',
+	#category : 'Lepiter-Python-Examples'
 }
 
-{ #category : #examples }
+{ #category : 'examples' }
 LePythonBridgeSettingsExamples >> defaultDirectory [
 	"Answer the default directory  from the settings"
 	<gtExample>
@@ -15,7 +15,7 @@ LePythonBridgeSettingsExamples >> defaultDirectory [
 	^ fileReference
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LePythonBridgeSettingsExamples >> defaultPipenvPath [
 	"Answer the default pipenv path from the settings"
 	<gtExample>
@@ -26,7 +26,7 @@ LePythonBridgeSettingsExamples >> defaultPipenvPath [
 	^ fileReference
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LePythonBridgeSettingsExamples >> setAbsoluteDirectory [
 	"Set the directory to an absolute file reference"
 	<gtExample>
@@ -43,7 +43,7 @@ LePythonBridgeSettingsExamples >> setAbsoluteDirectory [
 	^ fileReference
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LePythonBridgeSettingsExamples >> setAbsolutePipenvPath [
 	"Set the pipenv path to an absolute file reference"
 	<gtExample>
@@ -60,7 +60,7 @@ LePythonBridgeSettingsExamples >> setAbsolutePipenvPath [
 	^ fileString asFileReference
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LePythonBridgeSettingsExamples >> setFileLocatorDirectory [
 	"Set the directory to an absolute file reference"
 	<gtExample>
@@ -77,7 +77,7 @@ LePythonBridgeSettingsExamples >> setFileLocatorDirectory [
 	^ fileReference
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LePythonBridgeSettingsExamples >> setFileLocatorPipenvPath [
 	"Set the pipenv path to an absolute file reference"
 	<gtExample>
@@ -94,7 +94,7 @@ LePythonBridgeSettingsExamples >> setFileLocatorPipenvPath [
 	^ fileLocator
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LePythonBridgeSettingsExamples >> setRelativeDirectory [
 	"Set the directory to a relative file reference"
 	<gtExample>
@@ -116,7 +116,7 @@ LePythonBridgeSettingsExamples >> setRelativeDirectory [
 	^ fileString
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LePythonBridgeSettingsExamples >> setRelativePipenvPath [
 	"Set the pipenv path to an absolute file reference"
 	<gtExample>
@@ -133,7 +133,7 @@ LePythonBridgeSettingsExamples >> setRelativePipenvPath [
 	^ fileString asFileReference
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LePythonBridgeSettingsExamples >> settings [ 
 	"Answer a default LePythonBridgeSettings object"
 

@@ -1,10 +1,10 @@
 Class {
-	#name : #LePythonSnippet,
-	#superclass : #LeCodeSnippet,
-	#category : #'Lepiter-Python-Snippet'
+	#name : 'LePythonSnippet',
+	#superclass : 'LeCodeSnippet',
+	#category : 'Lepiter-Python-Snippet'
 }
 
-{ #category : #'api - accessing menu' }
+{ #category : 'api - accessing menu' }
 LePythonSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
@@ -12,31 +12,31 @@ LePythonSnippet class >> contextMenuItemSpecification [
 		title: 'Python'
 ]
 
-{ #category : #'lepiter-store' }
+{ #category : 'lepiter-store' }
 LePythonSnippet class >> leJsonV3Name [
 
 	^ 'pythonSnippet'
 ]
 
-{ #category : #'lepiter-store' }
+{ #category : 'lepiter-store' }
 LePythonSnippet class >> leJsonV4Name [
 
 	^ 'pythonSnippet'
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LePythonSnippet >> acceptVisitor: aVisitor [
 
 	^ aVisitor visitPythonSnippet: self
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 LePythonSnippet >> asSnippetViewModel [
 	<return: #LeSnippetViewModel>
 	^ LePythonSnippetViewModel new snippetModel: self
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePythonSnippet >> newCoder [
 	^ GtPythonCoderModel new
 ]

@@ -1,16 +1,16 @@
 Class {
-	#name : #LePythonApplicationGlobalStrategy,
-	#superclass : #LePythonApplicationStrategy,
-	#category : #'Lepiter-Python-Settings'
+	#name : 'LePythonApplicationGlobalStrategy',
+	#superclass : 'LePythonApplicationStrategy',
+	#category : 'Lepiter-Python-Settings'
 }
 
-{ #category : #naming }
+{ #category : 'naming' }
 LePythonApplicationGlobalStrategy class >> strategyName [
 
 	^ #global
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePythonApplicationGlobalStrategy >> applicationServer [
 
 	content database isDatabase ifFalse: [ ^ nil ].
@@ -19,7 +19,7 @@ LePythonApplicationGlobalStrategy >> applicationServer [
 	^ PBApplication uniqueInstance
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePythonApplicationGlobalStrategy >> applicationSettings [
 	"Answer the settings that will be used by the server.
 	This musn't actually start the server as that should be deferred until a snippet is evaluated for the first time."

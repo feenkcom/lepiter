@@ -1,10 +1,10 @@
 Class {
-	#name : #LePythonSnippetViewModel,
-	#superclass : #LeCodeSnippetViewModel,
-	#category : #'Lepiter-Python-Snippet'
+	#name : 'LePythonSnippetViewModel',
+	#superclass : 'LeCodeSnippetViewModel',
+	#category : 'Lepiter-Python-Snippet'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePythonSnippetViewModel >> initializeCoderAddOns: aCoderViewModel [
 	"Initialise the keyboard shortcuts in the code editor"
 
@@ -23,7 +23,7 @@ LePythonSnippetViewModel >> initializeCoderAddOns: aCoderViewModel [
 		addShortcut: (LeSnippetMoveSnippetDownShortcut new combination: (self keyboardShortcut: #MoveSnippetDown))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePythonSnippetViewModel >> snippetElementClass [
 	^ LePythonSnippetElement
 ]
