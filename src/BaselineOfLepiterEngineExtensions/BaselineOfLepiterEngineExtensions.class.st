@@ -14,53 +14,59 @@ BaselineOfLepiterEngineExtensions class >> gtDependencyAnalysisPreloadedBaseline
 BaselineOfLepiterEngineExtensions >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
-		spec 
+		spec
 			baseline: 'LepiterEngineCore' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.117/src' ];
+				spec repository: 'github://feenkcom/lepiter:v0.6.118/src' ].
+		spec
 			baseline: 'GToolkit4DockerEngine' with: [
-				spec repository: 'github://feenkcom/gt4dockerengine:v0.5.127/src' ];
+				spec repository: 'github://feenkcom/gt4dockerengine:v0.5.127/src' ].
+		spec
 			baseline: 'Gt4JSLink' with: [
-				spec repository: 'github://feenkcom/gtoolkit-remote-javascript:v0.5.196/src' ];
+				spec repository: 'github://feenkcom/gtoolkit-remote-javascript:v0.5.196/src' ].
+		spec
 			baseline: 'Gt4ChromeDevTools' with: [
-				spec repository: 'github://feenkcom/gtoolkit-chrome:v0.5.128/src' ];
+				spec repository: 'github://feenkcom/gtoolkit-chrome:v0.5.128/src' ].
+		spec
 			baseline: 'Gt4PythonBridge' with: [
-				spec repository: 'github://feenkcom/gtoolkit-remote-python:v0.5.155/src' ];
+				spec repository: 'github://feenkcom/gtoolkit-remote-python:v0.5.155/src' ].
+		spec
 			baseline: 'Gt4DebugAdapterProtocol' with: [
-				spec repository: 'github://feenkcom/gtoolkit-debugadapterprotocol:v0.5.154/src' ];
+				spec repository: 'github://feenkcom/gtoolkit-debugadapterprotocol:v0.5.154/src' ].
+		spec
 			baseline: 'Gt4PharoLink' with: [
 				spec repository: 'github://feenkcom/gtoolkit-remote:v0.8.550/src' ].
-		spec 
-			package: 'Lepiter-Snippet-Text' with: [
-				spec requires: #('LepiterEngineCore' ). ];
-			package: 'Lepiter-Pharo' with: [
-				spec requires: #('LepiterEngineCore' ). ];
-			package: 'Lepiter-Snippet-Element' with: [
-				spec requires: #('LepiterEngineCore' 'Lepiter-Pharo' ). ];
-			package: 'Lepiter-Snippet-Slideshow' with: [
-				spec requires: #('LepiterEngineCore' 'Lepiter-Pharo' ). ];
-			package: 'Lepiter-Snippet-Picture' with: [
-				spec requires: #('LepiterEngineCore' ). ];
-			package: 'Lepiter-Snippet-Words' with: [
-				spec requires: #('LepiterEngineCore' ). ];
-			package: 'Lepiter-GitHub' with: [
-				spec requires: #('LepiterEngineCore' ). ];
-			package: 'Lepiter-Snippet-WardleyMap' with: [
-				spec requires: #('LepiterEngineCore' ). ];
-			package: 'Lepiter-Snippet-Example' with: [
-				spec requires: #('LepiterEngineCore' ). ];
-			package: 'Lepiter-Snippet-Changes' with: [
-				spec requires: #('LepiterEngineCore' ). ];
-			package: 'Lepiter-Snippet-Jenkins' with: [
-				spec requires: #('LepiterEngineCore' ). ];
-			package: 'Lepiter-Snippet-Docker' with: [
-				spec requires: #('LepiterEngineCore' 'GToolkit4DockerEngine' ). ];
-			package: 'Lepiter-JavaScript' with: [
-				spec requires: #('LepiterEngineCore' 'Gt4JSLink' 'Gt4ChromeDevTools' ). ];
-			package: 'Lepiter-Python' with: [
-				spec requires: #('LepiterEngineCore' 'Gt4PythonBridge' ). ];
-			package: 'Lepiter-Snippet-PharoLink' with: [
-				spec requires: #('LepiterEngineCore' 'Gt4PharoLink' ). ]. ].
 
+		spec package: 'Lepiter-Snippet-Text' with: [
+			spec requires: #('LepiterEngineCore') ].
+		spec package: 'Lepiter-Pharo' with: [
+			spec requires: #('LepiterEngineCore') ].
+		spec package: 'Lepiter-Snippet-Element' with: [
+			spec requires: #('LepiterEngineCore' 'Lepiter-Pharo') ].
+		spec package: 'Lepiter-Snippet-Slideshow' with: [
+			spec requires: #('LepiterEngineCore' 'Lepiter-Pharo') ].
+		spec package: 'Lepiter-Snippet-Picture' with: [
+			spec requires: #('LepiterEngineCore') ].
+		spec package: 'Lepiter-Snippet-Words' with: [
+			spec requires: #('LepiterEngineCore') ].
+		spec package: 'Lepiter-GitHub' with: [
+			spec requires: #('LepiterEngineCore') ].
+		spec package: 'Lepiter-Snippet-WardleyMap' with: [
+			spec requires: #('LepiterEngineCore') ].
+		spec package: 'Lepiter-Snippet-Example' with: [
+			spec requires: #('LepiterEngineCore') ].
+		spec package: 'Lepiter-Snippet-Changes' with: [
+			spec requires: #('LepiterEngineCore') ].
+		spec package: 'Lepiter-Snippet-Jenkins' with: [
+			spec requires: #('LepiterEngineCore') ].
+		spec package: 'Lepiter-Snippet-Docker' with: [
+			spec requires: #('LepiterEngineCore' 'GToolkit4DockerEngine') ].
+		spec package: 'Lepiter-JavaScript' with: [
+			spec requires: #('LepiterEngineCore' 'Gt4JSLink' 'Gt4ChromeDevTools') ].
+		spec package: 'Lepiter-Python' with: [
+			spec requires: #('LepiterEngineCore' 'Gt4PythonBridge') ].
+		spec package: 'Lepiter-Snippet-PharoLink' with: [
+			spec requires: #('LepiterEngineCore' 'Gt4PharoLink') ].
+	]
 ]
 
 { #category : 'baselines' }
