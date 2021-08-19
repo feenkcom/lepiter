@@ -1,10 +1,10 @@
 Class {
-	#name : #LeUnknownSnippetViewModel,
-	#superclass : #LeSnippetViewModel,
-	#category : #'Lepiter-UI-Snippet-! View Models'
+	#name : 'LeUnknownSnippetViewModel',
+	#superclass : 'LeSnippetViewModel',
+	#category : 'Lepiter-UI-Snippet-! View Models'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeUnknownSnippetViewModel >> snippetElementClass [
 	^ LeUnknownSnippetElement 
 ]

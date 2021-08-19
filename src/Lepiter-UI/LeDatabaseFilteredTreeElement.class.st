@@ -6,17 +6,17 @@ I display a {{gtClass:LeDatabase}} items, including {{gtClass:LePage}} instances
 
 "
 Class {
-	#name : #LeDatabaseFilteredTreeElement,
-	#superclass : #LeDatabaseElement,
+	#name : 'LeDatabaseFilteredTreeElement',
+	#superclass : 'LeDatabaseElement',
 	#instVars : [
 		'treeElement',
 		'filtersElement',
 		'filters'
 	],
-	#category : #'Lepiter-UI-! UI - Database'
+	#category : 'Lepiter-UI-! UI - Database'
 }
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 LeDatabaseFilteredTreeElement >> buildFilters: anEvent [
 	filters := OrderedCollection new.
 	anEvent filterElement
@@ -25,18 +25,18 @@ LeDatabaseFilteredTreeElement >> buildFilters: anEvent [
 	self updateTreeElementItems
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeDatabaseFilteredTreeElement >> filters [
 	^ filters
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeDatabaseFilteredTreeElement >> filtersElement [
 	<return: #GtFiltersElement>
 	^ filtersElement
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeDatabaseFilteredTreeElement >> initialize [
 	super initialize.
 	filters := #().
@@ -50,7 +50,7 @@ LeDatabaseFilteredTreeElement >> initialize [
 	self addAptitude: (BrLayoutResizerAptitude inherit inherit: self treeElement)
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeDatabaseFilteredTreeElement >> initializeFiltersElement [
 	filtersElement := GtFiltersElement new.
 	filtersElement padding: (BlInsets all: 2).
@@ -59,13 +59,13 @@ LeDatabaseFilteredTreeElement >> initializeFiltersElement [
 		do: [ :event | self buildFilters: event ].
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeDatabaseFilteredTreeElement >> initializeTreeElement [
 	treeElement := LeDatabaseTreeElement new
 		rootItemsSelector: (LeFilteredChildrenSelector new element: self)
 ]
 
-{ #category : #'private - hooks' }
+{ #category : 'private - hooks' }
 LeDatabaseFilteredTreeElement >> onContentUIModelChanged [
 	super onContentUIModelChanged.
 
@@ -74,19 +74,19 @@ LeDatabaseFilteredTreeElement >> onContentUIModelChanged [
 	self updateTreeElementItems.
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeDatabaseFilteredTreeElement >> treeElement [
 	<return: #LeDatabaseTreeElement>
 	^ treeElement
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 LeDatabaseFilteredTreeElement >> updateFilterDescriptors [
 	filtersElement descriptors: (
 		LeFilter allFilterDescriptorsFor: self database)
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 LeDatabaseFilteredTreeElement >> updateTreeElementItems [
 	self treeElement updateTreeElementItems
 ]

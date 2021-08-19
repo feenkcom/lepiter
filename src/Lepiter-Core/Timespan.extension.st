@@ -1,6 +1,6 @@
-Extension { #name : #Timespan }
+Extension { #name : 'Timespan' }
 
-{ #category : #'*Lepiter-Core' }
+{ #category : '*Lepiter-Core' }
 Timespan >> dayWithSuffix [
 	"Answer the dayOfMonth with its suffix, i.e. one of st, nd, rd, th"
 	| dayOfMonth lastDigit suffix |

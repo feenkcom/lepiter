@@ -1,10 +1,10 @@
 Class {
-	#name : #LePageUnloadAnnouncement,
-	#superclass : #LeUnloadAnnouncement,
-	#category : #'Lepiter-Core-Announcements'
+	#name : 'LePageUnloadAnnouncement',
+	#superclass : 'LeUnloadAnnouncement',
+	#category : 'Lepiter-Core-Announcements'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageUnloadAnnouncement >> page [ 
 
 	^ content

@@ -1,6 +1,6 @@
-Extension { #name : #LeParagraphStyle }
+Extension { #name : 'LeParagraphStyle' }
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LeParagraphStyle >> styleText: aText using: aLeBlockStyler [
 	"Subclasses may style a text"
 ]

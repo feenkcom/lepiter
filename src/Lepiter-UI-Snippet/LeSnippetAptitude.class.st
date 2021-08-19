@@ -27,8 +27,8 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : #LeSnippetAptitude,
-	#superclass : #BrAptitude,
+	#name : 'LeSnippetAptitude',
+	#superclass : 'BrAptitude',
 	#instVars : [
 		'bottomToolbar',
 		'padding',
@@ -40,25 +40,25 @@ Class {
 		'sidebarContainer',
 		'sidebarContent'
 	],
-	#category : #'Lepiter-UI-Snippet-Looks'
+	#category : 'Lepiter-UI-Snippet-Looks'
 }
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeSnippetAptitude >> bottomToolbar [
 	^ bottomToolbar
 ]
 
-{ #category : #'private - layout' }
+{ #category : 'private - layout' }
 LeSnippetAptitude >> bottomToolbarMargin [
 	^ -8
 ]
 
-{ #category : #'private - layout' }
+{ #category : 'private - layout' }
 LeSnippetAptitude >> computeBottomToolbarMargin [
 	^ BlInsets bottom: self bottomToolbarMargin + self internalBorderBottomOffset
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSnippetAptitude >> hideActions [
 	areActionsVisible := false.
 
@@ -67,7 +67,7 @@ LeSnippetAptitude >> hideActions [
 	self updateBottomToolbarMargin
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSnippetAptitude >> initialize [
 	super initialize.
 
@@ -113,7 +113,7 @@ LeSnippetAptitude >> initialize [
 	self hideActions
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSnippetAptitude >> initializeBottomToolbar [
 	bottomToolbar := self newAddSnippetDropdown
 		elevation: (BlRelativeElevation elevation: 20);
@@ -123,7 +123,7 @@ LeSnippetAptitude >> initializeBottomToolbar [
 			c ignored vertical alignBottom ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSnippetAptitude >> initializeElements [
 	self initializeBottomToolbar.
 	self initializeWidgetContent.
@@ -131,7 +131,7 @@ LeSnippetAptitude >> initializeElements [
 	self initializeSidebarContainer
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSnippetAptitude >> initializeListeners [
 	super initializeListeners.
 	"self
@@ -148,7 +148,7 @@ LeSnippetAptitude >> initializeListeners [
 		do: [ self onFocusLost ].
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSnippetAptitude >> initializeSidebarContainer [
 	sidebarContainer := BlElement new
 		layout: BlLinearLayout vertical;
@@ -158,7 +158,7 @@ LeSnippetAptitude >> initializeSidebarContainer [
 			c vertical matchParent ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSnippetAptitude >> initializeSnippetContainer [
 	snippetContainer := BrHorizontalPane new
 		hMatchParent;
@@ -166,7 +166,7 @@ LeSnippetAptitude >> initializeSnippetContainer [
 		clipChildren: false
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSnippetAptitude >> initializeWidgetContent [
 	widgetContent := BrHorizontalPane new
 		hMatchParent;
@@ -174,24 +174,24 @@ LeSnippetAptitude >> initializeWidgetContent [
 		clipChildren: false
 ]
 
-{ #category : #'private - layout' }
+{ #category : 'private - layout' }
 LeSnippetAptitude >> internalBorderBottomOffset [
 	"Return the bottom offset of the internal border"
 
 	^ self padding bottom
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetAptitude >> margin [
 	^ margin
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetAptitude >> margin: anObject [
 	margin := anObject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSnippetAptitude >> mayHideActions [
 	"Only hide actions if the widget does not have focus"
 	self widgetDo: [ :aWidget |
@@ -199,7 +199,7 @@ LeSnippetAptitude >> mayHideActions [
 	self hideActions
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeSnippetAptitude >> newAddSnippetDropdown [
 	<return: #BlElement>
 	
@@ -231,7 +231,7 @@ LeSnippetAptitude >> newAddSnippetDropdown [
 	^ aButton
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeSnippetAptitude >> newPlusElement [
 	<return: #BlElement>
 
@@ -240,39 +240,39 @@ LeSnippetAptitude >> newPlusElement [
 		yourself
 ]
 
-{ #category : #callbacks }
+{ #category : 'callbacks' }
 LeSnippetAptitude >> onFocusLost [
 	self hideActions
 ]
 
-{ #category : #callbacks }
+{ #category : 'callbacks' }
 LeSnippetAptitude >> onFocusReceived [
 	self showActions
 ]
 
-{ #category : #callbacks }
+{ #category : 'callbacks' }
 LeSnippetAptitude >> onMouseEnter [
 	self showActions
 ]
 
-{ #category : #callbacks }
+{ #category : 'callbacks' }
 LeSnippetAptitude >> onMouseLeave [
 	self mayHideActions
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetAptitude >> padding [
 	<return: #BlInsets>
 
 	^ padding
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetAptitude >> padding: aBlInsets [
 	padding := aBlInsets
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSnippetAptitude >> showActions [
 	areActionsVisible := true.
 
@@ -281,12 +281,12 @@ LeSnippetAptitude >> showActions [
 	self updateBottomToolbarMargin
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeSnippetAptitude >> sidebarContainer [
 	^ sidebarContainer
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetAptitude >> sidebarContainer: anElement [
 	sidebarContainer := anElement.
 	sidebarContainer visibility: (areActionsVisible
@@ -294,12 +294,12 @@ LeSnippetAptitude >> sidebarContainer: anElement [
 		ifFalse: [ BlVisibility hidden ] )
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetAptitude >> sidebarContent: anElement [
 	sidebarContent := anElement
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSnippetAptitude >> snippetBelowRequested: aSnippet [
 	self hasOwner ifNil: [ 
 		^ self inform: 'Must be attached to a container' ].
@@ -307,17 +307,17 @@ LeSnippetAptitude >> snippetBelowRequested: aSnippet [
 	self widget snippetViewModel insertNewSnippet: aSnippet
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeSnippetAptitude >> snippetContainer [
 	^ snippetContainer
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetAptitude >> snippetContent: aSnippetContent [
 	snippetContent := aSnippetContent
 ]
 
-{ #category : #'private - layout' }
+{ #category : 'private - layout' }
 LeSnippetAptitude >> updateBottomToolbarMargin [
 	bottomToolbar margin: self computeBottomToolbarMargin
 ]

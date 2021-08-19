@@ -1,13 +1,13 @@
 Class {
-	#name : #LeContentEmailFilter,
-	#superclass : #LeFilter,
+	#name : 'LeContentEmailFilter',
+	#superclass : 'LeFilter',
 	#instVars : [
 		'email'
 	],
-	#category : #'Lepiter-Core-Database - Filters'
+	#category : 'Lepiter-Core-Database - Filters'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentEmailFilter class >> filterDescriptorFor: aLeDatabase do: aBlock [
 	| addresses |
 	addresses := GtPrefixTree new.
@@ -24,23 +24,23 @@ LeContentEmailFilter class >> filterDescriptorFor: aLeDatabase do: aBlock [
 				completion: (GtWeightedStringsCompletionStrategy new completions: addresses))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentEmailFilter >> email [
 	^ email
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentEmailFilter >> email: aString [
 	email := aString
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeContentEmailFilter >> matches: aLeContent [
 	^ aLeContent editOrCreateEmail notNil
 		and: [ aLeContent editOrCreateEmail email = email ]
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LeContentEmailFilter >> printOn: aStream [
 	aStream
 		nextPutAll: 'Edited by ';

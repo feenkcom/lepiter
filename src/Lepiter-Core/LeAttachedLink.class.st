@@ -1,6 +1,6 @@
 Class {
-	#name : #LeAttachedLink,
-	#superclass : #LeExplicitLink,
+	#name : 'LeAttachedLink',
+	#superclass : 'LeExplicitLink',
 	#instVars : [
 		'storageDatabase',
 		'originReference',
@@ -8,41 +8,41 @@ Class {
 		'createEmail',
 		'createTime'
 	],
-	#category : #'Lepiter-Core-Links'
+	#category : 'Lepiter-Core-Links'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAttachedLink >> createEmail [
 	^ createEmail
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAttachedLink >> createEmail: anObject [
 	createEmail := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAttachedLink >> createTime [
 	^ createTime
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAttachedLink >> createTime: anObject [
 	createTime := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAttachedLink >> database [
 	^ storageDatabase
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAttachedLink >> database: aDatabase [
 	self assert: [ aDatabase notNil and: [ storageDatabase isNil ] ].
 	storageDatabase := aDatabase
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LeAttachedLink >> description [
 	^ String streamContents: [ :aStream | .
 		aStream 
@@ -53,19 +53,19 @@ LeAttachedLink >> description [
 			nextPutAll: ')' ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAttachedLink >> editEmail [
 	"Attached links cannot be currently edited."
 	^ self createEmail
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAttachedLink >> editTime [
 	"Attached links cannot be currently edited."
 	^ self createTime
 ]
 
-{ #category : #'gt - extensions' }
+{ #category : 'gt - extensions' }
 LeAttachedLink >> gtSerializationFor: aView [
 	<gtView>
 	^ aView textEditor
@@ -75,12 +75,12 @@ LeAttachedLink >> gtSerializationFor: aView [
 				LeJsonV4 uniqueInstance serialize: self on: s prettyPrint: true ]]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeAttachedLink >> isAttachedLink [
 	^ true
 ]
 
-{ #category : #callbacks }
+{ #category : 'callbacks' }
 LeAttachedLink >> onAboutToAddToDatabase: aDatabase [
 	self assert: [ self database isNil ].
 	super onAboutToAddToDatabase: aDatabase.
@@ -91,7 +91,7 @@ LeAttachedLink >> onAboutToAddToDatabase: aDatabase [
 		self createTime: LeTime now ].
 ]
 
-{ #category : #callbacks }
+{ #category : 'callbacks' }
 LeAttachedLink >> onAddedToDatabase: aDatabase [
 	self assert: [ self database isNil ] description: 'There should be no database explicitly set'.
 	super onAddedToDatabase: aDatabase.
@@ -100,12 +100,12 @@ LeAttachedLink >> onAddedToDatabase: aDatabase [
 	self resolveReferences
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAttachedLink >> originReference [
 	^ originReference
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAttachedLink >> originReference: aLinkReference [
 	self assert: [ aLinkReference notNil and: [ originReference isNil ] ].
 	self assert: [ aLinkReference explicitLink isNil ].
@@ -114,7 +114,7 @@ LeAttachedLink >> originReference: aLinkReference [
 	originReference explicitLink: self.
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LeAttachedLink >> printOn: aStream [
 	super printOn: aStream.
 	aStream 
@@ -125,7 +125,7 @@ LeAttachedLink >> printOn: aStream [
 		nextPutAll: ')'
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 LeAttachedLink >> reloadFromExternalLink: anotherAttachedLink [
 	"Currently no changes of links during reloading are supported.
 	Normally this should not happen as now it is not posssibe to change links from the UI"
@@ -138,18 +138,18 @@ LeAttachedLink >> reloadFromExternalLink: anotherAttachedLink [
 	self assert: [ self targetReference matches: anotherAttachedLink targetReference ].
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 LeAttachedLink >> resolveReferences [
 	self originReference resolveReference.
 	self targetReference resolveAndLinkReference.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAttachedLink >> targetReference [
 	^ targetReference
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAttachedLink >> targetReference: aLinkReference [
 	self assert: [ aLinkReference notNil and: [ targetReference isNil ] ].
 	self assert: [ aLinkReference explicitLink isNil ].
@@ -158,7 +158,7 @@ LeAttachedLink >> targetReference: aLinkReference [
 	targetReference explicitLink: self.
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 LeAttachedLink >> unlinkReferences [
 	self targetReference unlink.
 ]

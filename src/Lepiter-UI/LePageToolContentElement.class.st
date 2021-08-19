@@ -1,22 +1,22 @@
 Class {
-	#name : #LePageToolContentElement,
-	#superclass : #BlElement,
+	#name : 'LePageToolContentElement',
+	#superclass : 'BlElement',
 	#traits : 'TLeWithPageViewModel + TBrLayoutResizable',
 	#classTraits : 'TLeWithPageViewModel classTrait + TBrLayoutResizable classTrait',
 	#instVars : [
 		'titleElement',
 		'headerElement'
 	],
-	#category : #'Lepiter-UI-! Tool - Page'
+	#category : 'Lepiter-UI-! Tool - Page'
 }
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LePageToolContentElement >> headerElement [
 	<return: #LeToolbarElement>
 	^ headerElement
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePageToolContentElement >> initialize [
 	super initialize.
 	
@@ -33,28 +33,28 @@ LePageToolContentElement >> initialize [
 	self withTitleAndInspectButton
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePageToolContentElement >> initializeHeaderElement [
 	headerElement := LeToolbarElement new.
 	headerElement margin: (BlInsets left: 3)
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePageToolContentElement >> initializeListeners [
 	self when: LeSnippetEvaluated do: [ :anEvent | self onSnippetEvaluated: anEvent ].
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePageToolContentElement >> initializeTitleElement [
 	titleElement := LePageEditableTitleElement new.
 ]
 
-{ #category : #'private - notifying' }
+{ #category : 'private - notifying' }
 LePageToolContentElement >> notifyContentChanged [
 	self dispatchEvent: (LeContentChanged new content: self pageViewModel pageModel)
 ]
 
-{ #category : #'api - page view model' }
+{ #category : 'api - page view model' }
 LePageToolContentElement >> onPageViewModelChanged [
 	"Is sent when a new page view model is assigned to the element"
 	
@@ -62,7 +62,7 @@ LePageToolContentElement >> onPageViewModelChanged [
 	self notifyContentChanged
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 LePageToolContentElement >> onSnippetEvaluated: anEvent [
 	self pageViewModel pageModel notifier tree announce: (LeUIPageChildEvaluationAnnouncement new
 		evaluatedBlock: anEvent snippet;
@@ -71,7 +71,7 @@ LePageToolContentElement >> onSnippetEvaluated: anEvent [
 		evaluationResult: anEvent evaluationResult)
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePageToolContentElement >> registerSpawnBelowHandler [
 	self
 		when: GtPhlowObjectToSpawn
@@ -82,16 +82,16 @@ LePageToolContentElement >> registerSpawnBelowHandler [
 					spawnBelowTool: aSpawnEvent tool ] ]
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePageToolContentElement >> selectionTransformation: aBlock [
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LePageToolContentElement >> titleElement [
 	^ titleElement
 ]
 
-{ #category : #'api - initialization' }
+{ #category : 'api - initialization' }
 LePageToolContentElement >> withEmptyHeader [
 	"Do not display any toolbar neither the title."
 	(LePageEmptyHeaderBuilder new
@@ -101,7 +101,7 @@ LePageToolContentElement >> withEmptyHeader [
 		build)
 ]
 
-{ #category : #'api - initialization' }
+{ #category : 'api - initialization' }
 LePageToolContentElement >> withTitleAndAllActionButtons [
 	"Install all toolbar items (including the title)"
 	(LePageHeaderWithAllItemsBuilder new
@@ -111,7 +111,7 @@ LePageToolContentElement >> withTitleAndAllActionButtons [
 		build)
 ]
 
-{ #category : #'api - initialization' }
+{ #category : 'api - initialization' }
 LePageToolContentElement >> withTitleAndInspectButton [
 	(LePageHeaderWithTitleAndInspectButtonBuilder new
 		pageElement: self;
@@ -120,7 +120,7 @@ LePageToolContentElement >> withTitleAndInspectButton [
 		build)
 ]
 
-{ #category : #'api - initialization' }
+{ #category : 'api - initialization' }
 LePageToolContentElement >> withTitleAndRemoveAction [
 	"Do not display other toolbar items, e.g., buttons.
 	Display only a page title."
@@ -131,7 +131,7 @@ LePageToolContentElement >> withTitleAndRemoveAction [
 		build)
 ]
 
-{ #category : #'api - initialization' }
+{ #category : 'api - initialization' }
 LePageToolContentElement >> withTitleOnly [
 	"Do not display other toolbar items, e.g., buttons.
 	Display only a page title."

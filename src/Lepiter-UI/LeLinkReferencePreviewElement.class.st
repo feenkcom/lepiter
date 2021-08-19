@@ -1,6 +1,6 @@
 Class {
-	#name : #LeLinkReferencePreviewElement,
-	#superclass : #BlElement,
+	#name : 'LeLinkReferencePreviewElement',
+	#superclass : 'BlElement',
 	#traits : 'TBrLayoutResizable + TLeWithSnippetViewModel',
 	#classTraits : 'TBrLayoutResizable classTrait + TLeWithSnippetViewModel classTrait',
 	#instVars : [
@@ -8,22 +8,22 @@ Class {
 		'snippetsViewModel',
 		'updateRequester'
 	],
-	#category : #'Lepiter-UI-! Link Reference'
+	#category : 'Lepiter-UI-! Link Reference'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeLinkReferencePreviewElement >> defaultLayout [
 	^ BlFrameLayout new
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeLinkReferencePreviewElement >> initialize [
 	super initialize.
 	self hMatchParent.
 	self vFitContent.
 ]
 
-{ #category : #'api - snippet view model' }
+{ #category : 'api - snippet view model' }
 LeLinkReferencePreviewElement >> onSnippetViewModelChanged [
 	"Is sent when a new Snippet view model is assigned to the element"
 	

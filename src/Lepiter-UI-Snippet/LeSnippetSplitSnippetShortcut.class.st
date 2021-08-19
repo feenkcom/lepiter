@@ -1,10 +1,10 @@
 Class {
-	#name : #LeSnippetSplitSnippetShortcut,
-	#superclass : #LeSnippetEditorShortcut,
-	#category : #'Lepiter-UI-Snippet-Shortcuts'
+	#name : 'LeSnippetSplitSnippetShortcut',
+	#superclass : 'LeSnippetEditorShortcut',
+	#category : 'Lepiter-UI-Snippet-Shortcuts'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetSplitSnippetShortcut >> description [
 	^ 'Split the snippet being edited at the current cursor position. Children stay with the receiver.
 	This means:
@@ -12,12 +12,12 @@ LeSnippetSplitSnippetShortcut >> description [
 	- deleting the text before the cursor in the receiver''s snippet'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetSplitSnippetShortcut >> name [
 	^ 'Split snippet'
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 LeSnippetSplitSnippetShortcut >> performOnEditor: aBrTextEditor snippet: aLeSnippetElement dueTo: aShortcutEvent [
 	| cursorPosition |
 

@@ -3,25 +3,25 @@ Announce that the specified content has been unloaded from the system.
 
 "
 Class {
-	#name : #LeUnloadAnnouncement,
-	#superclass : #LeAnnouncement,
+	#name : 'LeUnloadAnnouncement',
+	#superclass : 'LeAnnouncement',
 	#instVars : [
 		'content'
 	],
-	#category : #'Lepiter-Core-Announcements'
+	#category : 'Lepiter-Core-Announcements'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeUnloadAnnouncement >> content [
 	^ content
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeUnloadAnnouncement >> content: anObject [
 	content := anObject
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeUnloadAnnouncement >> database [ 
 
 	^ content database

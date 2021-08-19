@@ -3,20 +3,20 @@ I am announced by {{gtClass:LeDatabase}}, with the appropriate {{gtClass:LeDatab
 
 "
 Class {
-	#name : #LeDatabasePageAdded,
-	#superclass : #LeDatabaseAnnouncement,
+	#name : 'LeDatabasePageAdded',
+	#superclass : 'LeDatabaseAnnouncement',
 	#instVars : [
 		'page'
 	],
-	#category : #'Lepiter-Core-Announcements'
+	#category : 'Lepiter-Core-Announcements'
 }
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeDatabasePageAdded >> page [
 	^ page
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeDatabasePageAdded >> page: anObject [
 	page := anObject
 ]

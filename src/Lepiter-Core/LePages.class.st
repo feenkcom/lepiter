@@ -1,16 +1,16 @@
 Class {
-	#name : #LePages,
-	#superclass : #LeCollection,
-	#category : #'Lepiter-Core-Model'
+	#name : 'LePages',
+	#superclass : 'LeCollection',
+	#category : 'Lepiter-Core-Model'
 }
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LePages >> acceptVisitor: aVisitor [
 
 	^ aVisitor visitPages: self
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 LePages >> gtPagesFor: aView [
 	<gtView>
 	self items ifNil: [ ^ aView empty ].

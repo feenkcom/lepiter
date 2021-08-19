@@ -3,7 +3,7 @@
 
 "
 Class {
-	#name : #LeSnippetTextChanged,
-	#superclass : #LeSnippetContentChanged,
-	#category : #'Lepiter-Core-Announcements'
+	#name : 'LeSnippetTextChanged',
+	#superclass : 'LeSnippetContentChanged',
+	#category : 'Lepiter-Core-Announcements'
 }

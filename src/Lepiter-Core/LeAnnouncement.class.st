@@ -14,20 +14,20 @@ The source is an optional object that may be used to determine whether a change 
 
 "
 Class {
-	#name : #LeAnnouncement,
-	#superclass : #Announcement,
+	#name : 'LeAnnouncement',
+	#superclass : 'Announcement',
 	#instVars : [
 		'source'
 	],
-	#category : #'Lepiter-Core-Announcements'
+	#category : 'Lepiter-Core-Announcements'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAnnouncement >> source [
 	^ source
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAnnouncement >> source: anObject [
 	source := anObject
 ]

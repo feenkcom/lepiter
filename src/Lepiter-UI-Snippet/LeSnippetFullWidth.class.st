@@ -1,10 +1,10 @@
 Class {
-	#name : #LeSnippetFullWidth,
-	#superclass : #LeSnippetWidth,
-	#category : #'Lepiter-UI-Snippet-! Views'
+	#name : 'LeSnippetFullWidth',
+	#superclass : 'LeSnippetWidth',
+	#category : 'Lepiter-UI-Snippet-! Views'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetFullWidth >> maxWidth [
 	^ Float infinity
 ]

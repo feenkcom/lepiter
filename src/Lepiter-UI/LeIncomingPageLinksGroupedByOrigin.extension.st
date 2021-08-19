@@ -1,6 +1,6 @@
-Extension { #name : #LeIncomingPageLinksGroupedByOrigin }
+Extension { #name : 'LeIncomingPageLinksGroupedByOrigin' }
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LeIncomingPageLinksGroupedByOrigin >> contentFilter [
 	"Answer a LeFilter that will match the receiver's references"
 

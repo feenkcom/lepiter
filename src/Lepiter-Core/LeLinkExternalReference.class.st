@@ -1,15 +1,15 @@
 Class {
-	#name : #LeLinkExternalReference,
-	#superclass : #LeLinkReference,
-	#category : #'Lepiter-Core-Links'
+	#name : 'LeLinkExternalReference',
+	#superclass : 'LeLinkReference',
+	#category : 'Lepiter-Core-Links'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeLinkExternalReference >> isExternalReference [
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeLinkExternalReference >> isUrlReference [
 	^ false
 ]

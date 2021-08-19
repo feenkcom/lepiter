@@ -1,12 +1,12 @@
 Trait {
-	#name : #TLeWithSnippetModel,
+	#name : 'TLeWithSnippetModel',
 	#instVars : [
 		'snippetModel'
 	],
-	#category : #'Lepiter-UI-Snippet-! View Models'
+	#category : 'Lepiter-UI-Snippet-! View Models'
 }
 
-{ #category : #'api - snippet model' }
+{ #category : 'api - snippet model' }
 TLeWithSnippetModel >> hasSnippet [
 	"Return a true if snippet model is assigned to the receiver, false otherwise"
 	<return: #Boolean>
@@ -14,7 +14,7 @@ TLeWithSnippetModel >> hasSnippet [
 	^ snippetModel notNil
 ]
 
-{ #category : #'api - snippet model' }
+{ #category : 'api - snippet model' }
 TLeWithSnippetModel >> hasSnippetModel [
 	"Return a true if nil is assigned to the receiver, false otherwise"
 	<return: #Boolean>
@@ -24,7 +24,7 @@ TLeWithSnippetModel >> hasSnippetModel [
 	^ snippetModel notNil
 ]
 
-{ #category : #'api - snippet model' }
+{ #category : 'api - snippet model' }
 TLeWithSnippetModel >> onPostSnippetModelChanged [
 	"I am an optional hook method that is sent after #subscribeToSnippetModel.
 	I do nothing by default but allow users to perform update operations when a receiver object is already
@@ -32,7 +32,7 @@ TLeWithSnippetModel >> onPostSnippetModelChanged [
 	<generatedFrom: #'TGtRobocoderWithObjectTraitTemplate>>#onPostObjectChangedTemplate'>
 ]
 
-{ #category : #'api - snippet model' }
+{ #category : 'api - snippet model' }
 TLeWithSnippetModel >> onSnippetModelChanged [
 	"Is sent when a new snippetModel is assigned to the receiver.
 	Note: #onSnippetModelChanged is sent before #subscribeToSnippetModel
@@ -42,7 +42,7 @@ TLeWithSnippetModel >> onSnippetModelChanged [
 	<generatedFrom: #'TGtRobocoderWithObjectTraitTemplate>>#onObjectChangedTemplate'>
 ]
 
-{ #category : #'api - snippet model' }
+{ #category : 'api - snippet model' }
 TLeWithSnippetModel >> snippetModel [
 	"Return a not-null snippetModel assigned to the receiver"
 	<modelGetter: #snippet>
@@ -54,7 +54,7 @@ TLeWithSnippetModel >> snippetModel [
 	^ snippetModel
 ]
 
-{ #category : #'api - snippet model' }
+{ #category : 'api - snippet model' }
 TLeWithSnippetModel >> snippetModel: aSnippetModel [
 	"Set a not-null snippetModel assigned to the receiver"
 	<modelSetter: #snippet>
@@ -74,7 +74,7 @@ TLeWithSnippetModel >> snippetModel: aSnippetModel [
 	self onPostSnippetModelChanged
 ]
 
-{ #category : #'api - snippet model' }
+{ #category : 'api - snippet model' }
 TLeWithSnippetModel >> subscribeToSnippetModel [
 	"Is sent after a new snippetModel is assigned to the receiver.
 	It is required to unsubscribe from the previously subscribed objects by implementing
@@ -83,7 +83,7 @@ TLeWithSnippetModel >> subscribeToSnippetModel [
 	<generatedFrom: #'TGtRobocoderWithObjectTraitTemplate>>#subscribeToObjectTemplate'>
 ]
 
-{ #category : #'api - snippet model' }
+{ #category : 'api - snippet model' }
 TLeWithSnippetModel >> unsubscribeFromSnippetModel [
 	"Is sent before a new snippetModel is assigned to the receiver.
 	Objects that subscribe to snippetModel are required to implement this method."

@@ -1,14 +1,14 @@
 Class {
-	#name : #LeIncomingPageLink,
-	#superclass : #LeModel,
+	#name : 'LeIncomingPageLink',
+	#superclass : 'LeModel',
 	#instVars : [
 		'referencedPage',
 		'link'
 	],
-	#category : #'Lepiter-Core-IncomingReferences'
+	#category : 'Lepiter-Core-IncomingReferences'
 }
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeIncomingPageLink >> editTime [ 
 	"Answer the edit time of the receiver's link"
 	<return: #LeTime>
@@ -16,7 +16,7 @@ LeIncomingPageLink >> editTime [
 	^ link editTime
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeIncomingPageLink >> isFromPage [
 	"Return true if the page link is coming from some page"
 	<reutrn: #Boolean>
@@ -24,7 +24,7 @@ LeIncomingPageLink >> isFromPage [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeIncomingPageLink >> isFromPage: aLePage [
 	"Return true if the page link is coming from a given page"
 	<reutrn: #Boolean>
@@ -32,29 +32,29 @@ LeIncomingPageLink >> isFromPage: aLePage [
 	^ false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeIncomingPageLink >> link [
 	^ link
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeIncomingPageLink >> link: anObject [
 	link := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeIncomingPageLink >> originReference [
 	<return: #LeLinkReference>
 
 	^ self link originReference
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeIncomingPageLink >> referencedPage [
 	^ referencedPage
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeIncomingPageLink >> referencedPage: anObject [
 	referencedPage := anObject
 ]

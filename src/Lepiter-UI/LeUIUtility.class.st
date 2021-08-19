@@ -1,10 +1,10 @@
 Class {
-	#name : #LeUIUtility,
-	#superclass : #Object,
-	#category : #'Lepiter-UI-Utility'
+	#name : 'LeUIUtility',
+	#superclass : 'Object',
+	#category : 'Lepiter-UI-Utility'
 }
 
-{ #category : #'api - snippet elements' }
+{ #category : 'api - snippet elements' }
 LeUIUtility class >> elementForSnippet: aSnippet [
 	"I am for a testing purposes. 
 	I should be used only in examples and other testing use cases"
@@ -12,7 +12,7 @@ LeUIUtility class >> elementForSnippet: aSnippet [
 	^ self elementForSnippetViewModel: aSnippet asSnippetViewModel
 ]
 
-{ #category : #'api - snippet elements' }
+{ #category : 'api - snippet elements' }
 LeUIUtility class >> elementForSnippetViewModel: aSnippetViewModel [
 	"I am for a testing purposes. 
 	I should be used only in examples and other testing use cases"

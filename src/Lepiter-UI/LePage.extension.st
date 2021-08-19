@@ -1,17 +1,17 @@
-Extension { #name : #LePage }
+Extension { #name : 'LePage' }
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LePage >> asContentUIModel [
 	<return: #LeContentViewModel>
 	^ LePageViewModel new pageModel: self
 ]
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LePage >> asLepiterPagePhlowTool [
 	^ self asLepiterPagePhlowToolFocusStatus: true
 ]
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LePage >> asLepiterPagePhlowToolFocusStatus: aBoolean [
 	^ GtPhlowCompositeTool new
 		addTool: (LePagePhlowTool new
@@ -21,12 +21,12 @@ LePage >> asLepiterPagePhlowToolFocusStatus: aBoolean [
 		addTool: (GtConnectorTool new object: self)"
 ]
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LePage >> asLepiterPagePhlowToolWithoutFocus [
 	^ self asLepiterPagePhlowToolFocusStatus: false
 ]
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LePage >> asLepiterReferencedPagePhlowTool: aReferencedPage [
 	^ GtPhlowCompositeTool new
 		addTool: ((LeReferencedPagePhlowTool page: self) referencedPage: aReferencedPage);
@@ -34,13 +34,13 @@ LePage >> asLepiterReferencedPagePhlowTool: aReferencedPage [
 		addTool: (GtConnectorTool new object: self)
 ]
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LePage >> asPhlowTool [
 	<return: #LePhlowTool>
 	^ self asLepiterPagePhlowTool
 ]
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LePage >> asPreviewElement [
 	^ LePageToolContentTreeElement new 
 		withTitleOnly;
@@ -49,7 +49,7 @@ LePage >> asPreviewElement [
 		matchParent
 ]
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LePage >> gtConnectionsFor: aView [
 	^ aView explicit
 		title: 'Connections';
@@ -118,7 +118,7 @@ LePage >> gtConnectionsFor: aView [
 					c margin: (BlInsets all: 10 )] ]
 ]
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LePage >> gtCopyPageFilePathActionFor: anAction [
 	<gtAction>
 	
@@ -134,7 +134,7 @@ LePage >> gtCopyPageFilePathActionFor: anAction [
 			aButton phlow spawnObject: (self database monitor pageFileReference: self) ]
 ]
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LePage >> gtDependenciesMapFor: aView [
 	<gtView>
 	^ aView mondrian 
@@ -179,7 +179,7 @@ m layout force.
 m ]
 ]
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LePage >> gtSpotterDatabaseFor: aStep [
 	<gtSearch>
 	self database ifNil: [ ^ self ].
@@ -195,7 +195,7 @@ LePage >> gtSpotterDatabaseFor: aStep [
 		items: [ self database children ]
 ]
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LePage >> gtSpotterSubPartsFor: aStep [
 	<gtSearch>
 	self hasChildren ifFalse: [ ^ self ].
@@ -208,7 +208,7 @@ LePage >> gtSpotterSubPartsFor: aStep [
 				self allChildrenBreadthFirstDo: filter ]
 ]
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LePage >> tabLabel [
 	"Return a short title that first nicely in ${class:LeWorldElement}$'s tab label"
 	<return: #String>

@@ -1,30 +1,30 @@
 Class {
-	#name : #LeIncomingReferencesTool,
-	#superclass : #LePhlowTool,
+	#name : 'LeIncomingReferencesTool',
+	#superclass : 'LePhlowTool',
 	#instVars : [
 		'appliedFilter'
 	],
-	#category : #'Lepiter-UI-Phlow Tools'
+	#category : 'Lepiter-UI-Phlow Tools'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeIncomingReferencesTool class >> appliedFilter: aLePageReferencesFilter [
 	^ self new
 		appliedFilter: aLePageReferencesFilter;
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeIncomingReferencesTool >> appliedFilter [
 	^ appliedFilter
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeIncomingReferencesTool >> appliedFilter: anObject [
 	appliedFilter := anObject
 ]
 
-{ #category : #'api - converting' }
+{ #category : 'api - converting' }
 LeIncomingReferencesTool >> asElementDo: aBlock [
 	| element |
 	element := LeDatabaseFilteredCardElement new.
@@ -44,12 +44,12 @@ LeIncomingReferencesTool >> asElementDo: aBlock [
 				yourself)
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeIncomingReferencesTool >> object [
 	^ self appliedFilter
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeIncomingReferencesTool >> title [
 	^ 'Filter'
 ]

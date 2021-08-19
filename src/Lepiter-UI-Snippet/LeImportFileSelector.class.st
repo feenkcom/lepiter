@@ -1,16 +1,16 @@
 Class {
-	#name : #LeImportFileSelector,
-	#superclass : #BrFileSelector,
+	#name : 'LeImportFileSelector',
+	#superclass : 'BrFileSelector',
 	#instVars : [
 		'importTypeButton',
 		'importType',
 		'importTypes',
 		'importTypeLabels'
 	],
-	#category : #'Lepiter-UI-Snippet-Text actions'
+	#category : 'Lepiter-UI-Snippet-Text actions'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 LeImportFileSelector >> createOkButton [
 	| alignedButton |
 
@@ -24,19 +24,19 @@ LeImportFileSelector >> createOkButton [
 	^alignedButton
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeImportFileSelector >> currentLabel [
 
 	^ importTypeLabels at: importType 
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeImportFileSelector >> currentType [
 
 	^ importTypes at: importType 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeImportFileSelector >> initialize [ 
 
 	importType := 1.
@@ -47,7 +47,7 @@ LeImportFileSelector >> initialize [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeImportFileSelector >> toggleType [
 
 	importType := importType + 1.

@@ -1,10 +1,10 @@
 Class {
-	#name : #LeContextMenuBuilderExamples,
-	#superclass : #Object,
-	#category : #'Lepiter-UI-Snippet-Spotter'
+	#name : 'LeContextMenuBuilderExamples',
+	#superclass : 'Object',
+	#category : 'Lepiter-UI-Snippet-Spotter'
 }
 
-{ #category : #'examples - builder' }
+{ #category : 'examples - builder' }
 LeContextMenuBuilderExamples >> basicBuilder [
 	<gtExample>
 	| aBuilder |
@@ -12,7 +12,7 @@ LeContextMenuBuilderExamples >> basicBuilder [
 	^ aBuilder
 ]
 
-{ #category : #'examples - builder' }
+{ #category : 'examples - builder' }
 LeContextMenuBuilderExamples >> realBuilder [
 	<gtExample>
 	| aBuilder aCollection |

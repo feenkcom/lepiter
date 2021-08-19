@@ -15,25 +15,25 @@ Historically, {{gtClass:LeContentTreeChanged}} has been used as a general announ
 
 "
 Class {
-	#name : #LeContentTreeChanged,
-	#superclass : #LeAnnouncement,
+	#name : 'LeContentTreeChanged',
+	#superclass : 'LeAnnouncement',
 	#instVars : [
 		'content'
 	],
-	#category : #'Lepiter-Core-Announcements'
+	#category : 'Lepiter-Core-Announcements'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentTreeChanged >> content [
 	^ content
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentTreeChanged >> content: anObject [
 	content := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentTreeChanged >> page [
 
 	^ content page

@@ -1,6 +1,6 @@
 Class {
-	#name : #LeSnippetStyler,
-	#superclass : #BlTextStyler,
+	#name : 'LeSnippetStyler',
+	#superclass : 'BlTextStyler',
 	#instVars : [
 		'snippetViewModel',
 		'editor',
@@ -10,58 +10,58 @@ Class {
 		'subscribedMethods',
 		'subscribedToSystemAnnouncer'
 	],
-	#category : #'Lepiter-UI-Snippet-Text styler'
+	#category : 'Lepiter-UI-Snippet-Text styler'
 }
 
-{ #category : #'private - asserting' }
+{ #category : 'private - asserting' }
 LeSnippetStyler >> assertNormalFontSize: aNumber [
 	self 
 		assert: [ aNumber isInteger ] 
 		description: [ 'Font size resize number must be an integer' ].
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSnippetStyler >> changes [
 	^ self snippetViewModel
 		ifNil: [ Dictionary new ]
 		ifNotNil: [ self snippetViewModel optionAt: #changes ifAbsentPut: [ Dictionary new ] ]
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetStyler >> database [ 
 
 	^ snippetViewModel database
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 LeSnippetStyler >> defaultNormalFontSize [
 	^ 14
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetStyler >> displayMarkup [
 	self showMarkup: true.
 	self restyle.
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetStyler >> editor [
 	^ editor
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetStyler >> editor: anObject [
 	editor := anObject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSnippetStyler >> handleEpiceaUpdate: anAnnouncement [
 	anAnnouncement impactChangedOrNumberOfEventsChanged
 		ifFalse: [ ^ self ].
 	self restyle
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSnippetStyler >> handleSystemChangeAnnouncement: anAnnouncement [
 	anAnnouncement affectsClasses
 		ifTrue: [ (subscribedClasses
@@ -76,13 +76,13 @@ LeSnippetStyler >> handleSystemChangeAnnouncement: anAnnouncement [
 	self updateChanges
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetStyler >> hideMarkup [
 	self showMarkup: false.
 	self restyle.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSnippetStyler >> initialize [
 	super initialize.
 
@@ -93,7 +93,7 @@ LeSnippetStyler >> initialize [
 	subscribedMethods := Set new
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeSnippetStyler >> normalFontSize [
 	<return: #Integer>
 
@@ -104,7 +104,7 @@ LeSnippetStyler >> normalFontSize [
 	^ 20
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSnippetStyler >> privateStyle: aText [ 
 	<return: #BlText>
 
@@ -117,19 +117,19 @@ LeSnippetStyler >> privateStyle: aText [
 	^ self style: aText using: aNode
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSnippetStyler >> restyle [
 	editor notNil
 		ifTrue: [ editor styleText ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSnippetStyler >> restyleWhenClassChanged: aClassName [
 	self subscribeToSystem.
 	subscribedClasses add: aClassName
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSnippetStyler >> restyleWhenMethodChanged: aSelector inClass: aClassName [
 	self subscribeToSystem.
 	subscribedMethods
@@ -138,35 +138,35 @@ LeSnippetStyler >> restyleWhenMethodChanged: aSelector inClass: aClassName [
 			aSelector}
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetStyler >> showMarkup [
 	^ showMarkup
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetStyler >> showMarkup: aBoolean [
 	showMarkup := aBoolean
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetStyler >> snippet [
 
 	^ snippetViewModel snippetModel
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetStyler >> snippetViewModel [
 	"Snippet view model is required to cache various things such as elements, examples or changes"
 
 	^ snippetViewModel
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetStyler >> snippetViewModel: anObject [
 	snippetViewModel := anObject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSnippetStyler >> style: aText using: aNode [
 	<return: #BlText>
 	| visitor aParagraphStyle |
@@ -183,11 +183,11 @@ LeSnippetStyler >> style: aText using: aNode [
 	^ aText
 ]
 
-{ #category : #'api - visiting' }
+{ #category : 'api - visiting' }
 LeSnippetStyler >> styleText: aText body: aLeTextStyle [
 ]
 
-{ #category : #'api - visiting' }
+{ #category : 'api - visiting' }
 LeSnippetStyler >> styleText: aText heading: aHeadingStyle [
 
 	"We should remove it, we use ## for headings"
@@ -195,7 +195,7 @@ LeSnippetStyler >> styleText: aText heading: aHeadingStyle [
 	aText fontSize: (1 + (aHeadingStyle level * 0.2)) fontEm
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSnippetStyler >> subscribeToSystem [
 	subscribedToSystemAnnouncer
 		ifTrue: [ ^ self ].
@@ -206,7 +206,7 @@ LeSnippetStyler >> subscribeToSystem [
 		to: self
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSnippetStyler >> unsubscribeFromSystem [
 	subscribedToSystemAnnouncer
 		ifFalse: [ ^ self ].
@@ -216,7 +216,7 @@ LeSnippetStyler >> unsubscribeFromSystem [
 	subscribedToSystemAnnouncer := false
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSnippetStyler >> updateChanges [
 	self changes
 		do: [ :each | 
@@ -224,7 +224,7 @@ LeSnippetStyler >> updateChanges [
 				ifTrue: [ each updateImpact ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSnippetStyler >> visitorForText: aText [
 	^ LeSnippetStylerVisitor new
 		styler: self;

@@ -3,15 +3,15 @@ LeNamedPageType is what might be considered a ""normal"" page, i.e. one with a t
 
 "
 Class {
-	#name : #LeNamedPageType,
-	#superclass : #LePageType,
+	#name : 'LeNamedPageType',
+	#superclass : 'LePageType',
 	#instVars : [
 		'title'
 	],
-	#category : #'Lepiter-Core-Model'
+	#category : 'Lepiter-Core-Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeNamedPageType class >> title: aString page: aLePage [
 	| newType |
 	newType := self new 
@@ -19,7 +19,7 @@ LeNamedPageType class >> title: aString page: aLePage [
 	^ newType title: aString
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 LeNamedPageType >> = anObject [
 	"Answer whether the receiver and anObject represent the same page type."
 
@@ -30,26 +30,26 @@ LeNamedPageType >> = anObject [
 	^ title = anObject title
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeNamedPageType >> databaseKey [
 	"Answer the attribute used to index a page of the receiver's type in the database."
 
 	^ self title
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 LeNamedPageType >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
 	^ title hash
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LeNamedPageType >> isNamedPageType [
 	^ true
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LeNamedPageType >> printOn: aStream [
 
 	aStream 
@@ -57,7 +57,7 @@ LeNamedPageType >> printOn: aStream [
 		print: title
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LeNamedPageType >> saveEmptyPages [
 	"Flag whether to save empty pages or not.
 	Empty named pages are saved."
@@ -65,18 +65,18 @@ LeNamedPageType >> saveEmptyPages [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeNamedPageType >> shouldAppearInIndexOrDailyNotes [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeNamedPageType >> title [
 
 	^ title
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeNamedPageType >> title: aString [
 	"Set the receiver's title"
 	title := aString.

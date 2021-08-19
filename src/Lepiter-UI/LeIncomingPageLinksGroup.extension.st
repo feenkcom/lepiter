@@ -1,6 +1,6 @@
-Extension { #name : #LeIncomingPageLinksGroup }
+Extension { #name : 'LeIncomingPageLinksGroup' }
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LeIncomingPageLinksGroup >> asLepiterIncomingReferencesPhlowTool [
 	| aFilter |
 
@@ -11,7 +11,7 @@ LeIncomingPageLinksGroup >> asLepiterIncomingReferencesPhlowTool [
 	^ LeIncomingReferencesTool appliedFilter: aFilter
 ]
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LeIncomingPageLinksGroup >> contentFilter [
 	"Answer a LeFilter that will match the receiver's references"
 

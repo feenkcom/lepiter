@@ -1,6 +1,6 @@
 Class {
-	#name : #LePageViewModel,
-	#superclass : #Object,
+	#name : 'LePageViewModel',
+	#superclass : 'Object',
 	#traits : 'TGtAnnouncer + TLeWithPageModel',
 	#classTraits : 'TGtAnnouncer classTrait + TLeWithPageModel classTrait',
 	#instVars : [
@@ -9,22 +9,22 @@ Class {
 		'snippetBindings',
 		'shouldFocusFirstSnippet'
 	],
-	#category : #'Lepiter-UI-Page-! View Models'
+	#category : 'Lepiter-UI-Page-! View Models'
 }
 
-{ #category : #announcer }
+{ #category : 'announcer' }
 LePageViewModel >> announcer [
 	<return: #Announcer>
 
 	^ announcer ifNil: [ announcer := Announcer new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageViewModel >> clearDatabaseViewModel [
 	databaseViewModel := nil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageViewModel >> content [
 	<return: #LePage>
 
@@ -35,7 +35,7 @@ LePageViewModel >> content [
 	^ self pageModel
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageViewModel >> content: aLePage [
 	self
 		deprecated: 'Use #pageModel: instead.'
@@ -44,29 +44,29 @@ LePageViewModel >> content: aLePage [
 	self pageModel: aLePage
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageViewModel >> database [
 	^ self databaseViewModel database
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageViewModel >> databaseViewModel [
 	^ databaseViewModel
 		ifNil: [ databaseViewModel := self pageModel database asContentUIModel
 				registerPageViewModel: self ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageViewModel >> databaseViewModel: anObject [
 	databaseViewModel := anObject
 ]
 
-{ #category : #'api - page' }
+{ #category : 'api - page' }
 LePageViewModel >> ensurePageHasAtLeastOneSnippet [
-	self pageModel ensureOneBlock
+	self pageModel ensureOneSnippet
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePageViewModel >> initialize [
 	super initialize.
 	
@@ -74,7 +74,7 @@ LePageViewModel >> initialize [
 	shouldFocusFirstSnippet := false
 ]
 
-{ #category : #'api - page' }
+{ #category : 'api - page' }
 LePageViewModel >> isPageTableOfContents [
 	"Return true if the page plays a role of the table of contents, false otherwise"
 	<return: #Boolean>
@@ -82,22 +82,22 @@ LePageViewModel >> isPageTableOfContents [
 	^ self pageModel isTableOfContents
 ]
 
-{ #category : #'private - notifying' }
+{ #category : 'private - notifying' }
 LePageViewModel >> notifyPageReplaced [
 	self announce: (LePageViewModelPageReplaced new pageViewModel: self)
 ]
 
-{ #category : #'private - notifying' }
+{ #category : 'private - notifying' }
 LePageViewModel >> notifyPageSnippetsChanged [
 	self announce: (LePageViewModelSnippetsChanged new pageViewModel: self)
 ]
 
-{ #category : #'private - notifying' }
+{ #category : 'private - notifying' }
 LePageViewModel >> notifyPageTitleChanged [
 	self announce: (LePageViewModelTitleChanged new pageViewModel: self)
 ]
 
-{ #category : #'api - page model' }
+{ #category : 'api - page model' }
 LePageViewModel >> onPageModelChanged [
 	"Is sent when a new page model is assigned to the view model"
 	
@@ -105,14 +105,14 @@ LePageViewModel >> onPageModelChanged [
 	self notifyPageTitleChanged
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 LePageViewModel >> onPageMoved: aPageDatabaseMovedAnnouncement [
 	self clearDatabaseViewModel.
 	
 	self announce: (LePageViewModelDatabaseChanged new pageViewModel: self)
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 LePageViewModel >> onPageRemoved: aPageRemovedAnnouncement [
 	| aRemovedPage anOriginalDatabase anotherPage |
 
@@ -130,12 +130,12 @@ LePageViewModel >> onPageRemoved: aPageRemovedAnnouncement [
 	self pageModel: anotherPage
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 LePageViewModel >> onPageTitleChanged: aTitleChangedAnnouncement [
 	self announce: (LePageViewModelTitleChanged new pageViewModel: self)
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 LePageViewModel >> onSnippetAdded: anAnnouncement [
 	"Is sent after a new #snippet is added to the #parent snippet at an #index.
 	Can be sent from a non-UI thread"
@@ -143,7 +143,7 @@ LePageViewModel >> onSnippetAdded: anAnnouncement [
 	self notifyPageSnippetsChanged
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 LePageViewModel >> onSnippetMoved: anAnnouncement [
 	"Is sent after a snippet is moved within its parent or from one parent to another.
 	Can be sent from a non-UI thread"
@@ -151,7 +151,7 @@ LePageViewModel >> onSnippetMoved: anAnnouncement [
 	self notifyPageSnippetsChanged
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 LePageViewModel >> onSnippetRemoved: anAnnouncement [
 	"Is sent after a snippet is removed.
 	Can be sent from a non-UI thread"
@@ -159,7 +159,7 @@ LePageViewModel >> onSnippetRemoved: anAnnouncement [
 	self notifyPageSnippetsChanged
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageViewModel >> page [
 	<return: #LePage>
 
@@ -170,7 +170,7 @@ LePageViewModel >> page [
 	^ self pageModel
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageViewModel >> page: aLePage [
 	self
 		deprecated: 'Use #pageModel: instead.'
@@ -179,40 +179,40 @@ LePageViewModel >> page: aLePage [
 	self pageModel: aLePage
 ]
 
-{ #category : #'api - page' }
+{ #category : 'api - page' }
 LePageViewModel >> pageEditOrCreateEmail [
 	<return: #LeEmail>
 
 	^ self pageModel editOrCreateEmail
 ]
 
-{ #category : #'api - page' }
+{ #category : 'api - page' }
 LePageViewModel >> pageLatestEditTime [
 	<return: #LeTime>
 
 	^ self pageModel latestEditTime
 ]
 
-{ #category : #'api - page' }
+{ #category : 'api - page' }
 LePageViewModel >> pageTitle [
 	<return: #String>
 	
 	^ self pageModel title
 ]
 
-{ #category : #'api - page' }
+{ #category : 'api - page' }
 LePageViewModel >> pageTitle: aString [
 	"Change the page's title to a given one"
 	
 	self pageModel updateTitle: aString
 ]
 
-{ #category : #'api - page' }
+{ #category : 'api - page' }
 LePageViewModel >> pageUid [
 	^ self pageModel uid
 ]
 
-{ #category : #'api - page' }
+{ #category : 'api - page' }
 LePageViewModel >> printPageEditOrCreateEmail [
 	"Return a string representation of the last user that edited or created a page.
 	If there is no email set, return empty string"
@@ -223,7 +223,7 @@ LePageViewModel >> printPageEditOrCreateEmail [
 		ifNotNil: [ :aLeEmail|  aLeEmail email ]
 ]
 
-{ #category : #'api - page' }
+{ #category : 'api - page' }
 LePageViewModel >> printPageLatestEditTime [
 	"Return a string representation of the last edit time to be dispalyed in the UI.
 	If there is no last edit time set, return empty string"
@@ -234,7 +234,7 @@ LePageViewModel >> printPageLatestEditTime [
 		ifNotNil: [ :aLeTime | aLeTime asDate asString ]
 ]
 
-{ #category : #'api - page' }
+{ #category : 'api - page' }
 LePageViewModel >> printPageSummary [
 	"Return a short textual representation of the content of the page"
 	<return: #String>
@@ -242,14 +242,14 @@ LePageViewModel >> printPageSummary [
 	^ self printPageSummaryLimitedTo: 300
 ]
 
-{ #category : #'api - page' }
+{ #category : 'api - page' }
 LePageViewModel >> printPageSummaryLimitedTo: aNumber [
 	"Return a short textual representation of the content of the page"
 	<return: #String>
 	^ self pageModel printPageSummaryLimitedTo: aNumber
 ]
 
-{ #category : #'api - page' }
+{ #category : 'api - page' }
 LePageViewModel >> printPageTabLabel [
 	"Return a short title that fits nicely in ${class:LeWorldElement}$'s tab label"
 	<return: #String>
@@ -262,34 +262,34 @@ LePageViewModel >> printPageTabLabel [
 		ifFalse: [ (aTitle first: (aTitle size min: 21)), '...' ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageViewModel >> receiver: anObject [
 	self snippetBindings receiver: anObject.
 ]
 
-{ #category : #'api - page' }
+{ #category : 'api - page' }
 LePageViewModel >> removePage [
 	self pageModel removeSelf
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageViewModel >> shouldFocusFirstSnippet [
 	^ shouldFocusFirstSnippet
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageViewModel >> shouldFocusFirstSnippet: aBoolean [
 	shouldFocusFirstSnippet := aBoolean
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageViewModel >> snippetBindings [
 	<return: #GtSnippetBindings>
 
 	^ snippetBindings
 ]
 
-{ #category : #'api - page model' }
+{ #category : 'api - page model' }
 LePageViewModel >> subscribeToPageModel [
 	"Is sent after a new page model is assigned to the view model.
 	It is required to unsubscribe from the domain model by implementing
@@ -305,7 +305,7 @@ LePageViewModel >> subscribeToPageModel [
 		when: LePageDatabaseChanged send: #onPageMoved: to: self.
 ]
 
-{ #category : #'api - page model' }
+{ #category : 'api - page model' }
 LePageViewModel >> unsubscribeFromPageModel [
 	"Is sent before a new page model is assigned to the view model.
 	View models that subscribe to page model are required to implement this methods"

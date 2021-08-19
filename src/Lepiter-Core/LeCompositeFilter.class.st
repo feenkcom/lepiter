@@ -1,29 +1,29 @@
 Class {
-	#name : #LeCompositeFilter,
-	#superclass : #LeFilter,
+	#name : 'LeCompositeFilter',
+	#superclass : 'LeFilter',
 	#instVars : [
 		'left',
 		'right'
 	],
-	#category : #'Lepiter-Core-Database - Filters'
+	#category : 'Lepiter-Core-Database - Filters'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeCompositeFilter >> left [
 	^ left
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeCompositeFilter >> left: aLeFilter [
 	left := aLeFilter
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeCompositeFilter >> right [
 	^ right
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeCompositeFilter >> right: aLeFilter [
 	right := aLeFilter
 ]

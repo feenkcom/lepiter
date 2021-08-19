@@ -1,19 +1,19 @@
 Class {
-	#name : #LePagePhlowTool,
-	#superclass : #LePhlowTool,
+	#name : 'LePagePhlowTool',
+	#superclass : 'LePhlowTool',
 	#instVars : [
 		'page',
 		'shouldFocusFirstSnippet'
 	],
-	#category : #'Lepiter-UI-Phlow Tools'
+	#category : 'Lepiter-UI-Phlow Tools'
 }
 
-{ #category : #'api - instance creation' }
+{ #category : 'api - instance creation' }
 LePagePhlowTool class >> page: aPage [ 
 	^ self new page: aPage
 ]
 
-{ #category : #'api - converting' }
+{ #category : 'api - converting' }
 LePagePhlowTool >> asElementDo: aOneArgBlock [
 	| aPageViewModel anElement |
 	aPageViewModel := LePageViewModel new
@@ -28,7 +28,7 @@ LePagePhlowTool >> asElementDo: aOneArgBlock [
 	^ aOneArgBlock cull: anElement
 ]
 
-{ #category : #'private - converting' }
+{ #category : 'private - converting' }
 LePagePhlowTool >> asTabElement [
 	| anElement |
 	anElement := super asTabElement.
@@ -40,33 +40,33 @@ LePagePhlowTool >> asTabElement [
 	^ anElement
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePagePhlowTool >> object [
 	^ self page
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePagePhlowTool >> page [
 	<return: #LePage>
 	^ page
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePagePhlowTool >> page: aPage [
 	page := aPage
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePagePhlowTool >> shouldFocusFirstSnippet [
 	^ shouldFocusFirstSnippet ifNil: [ true ]
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePagePhlowTool >> shouldFocusFirstSnippet: aBoolean [
 	shouldFocusFirstSnippet := aBoolean
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePagePhlowTool >> title [
 	^ self page title
 ]

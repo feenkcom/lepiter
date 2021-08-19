@@ -1,10 +1,10 @@
 Class {
-	#name : #LePageElementShowroomExamples,
-	#superclass : #Object,
-	#category : #'Lepiter-UI-Page-Examples'
+	#name : 'LePageElementShowroomExamples',
+	#superclass : 'Object',
+	#category : 'Lepiter-UI-Page-Examples'
 }
 
-{ #category : #'examples - showroom' }
+{ #category : 'examples - showroom' }
 LePageElementShowroomExamples >> allElements [
 	<gtExample>
 
@@ -28,7 +28,7 @@ LePageElementShowroomExamples >> allElements [
 				class: LePageCardElement }) asScrollableElement
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LePageElementShowroomExamples >> createExampleCard: anExampleElement named: anExampleName class: anElementClass [
 	^ BrVerticalPane new
 		fitContent;
@@ -47,17 +47,17 @@ LePageElementShowroomExamples >> createExampleCard: anExampleElement named: anEx
 				addChild: anExampleElement }
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LePageElementShowroomExamples >> createTime [
 	^ LeTime new time: (DateAndTime year: 2021 month: 3 day: 1 hour: 8 minute: 10 second: 54)
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LePageElementShowroomExamples >> editTime [
 	^ LeTime new time: (DateAndTime year: 2021 month: 3 day: 4 hour: 16 minute: 18 second: 31)
 ]
 
-{ #category : #'examples - showroom' }
+{ #category : 'examples - showroom' }
 LePageElementShowroomExamples >> pageCardElement [
 	<gtExample>
 	| aPageCardElement |
@@ -68,7 +68,7 @@ LePageElementShowroomExamples >> pageCardElement [
 	^ aPageCardElement
 ]
 
-{ #category : #'examples - showroom' }
+{ #category : 'examples - showroom' }
 LePageElementShowroomExamples >> pageEditableTitleElement [
 	<gtExample>
 	| anEditableTitleElement |
@@ -79,7 +79,7 @@ LePageElementShowroomExamples >> pageEditableTitleElement [
 	^ anEditableTitleElement
 ]
 
-{ #category : #'examples - showroom' }
+{ #category : 'examples - showroom' }
 LePageElementShowroomExamples >> pageTitleAndEditInfoElement [
 	<gtExample>
 	| aTitleAndEditInfoElement |
@@ -90,7 +90,7 @@ LePageElementShowroomExamples >> pageTitleAndEditInfoElement [
 	^ aTitleAndEditInfoElement
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LePageElementShowroomExamples >> pageWithTitle [
 	<gtExample>
 	| aPage |
@@ -105,7 +105,7 @@ LePageElementShowroomExamples >> pageWithTitle [
 	^ aPage
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LePageElementShowroomExamples >> pageWithTitleViewModel [
 	<gtExample>
 	| aPage aPageViewModel |

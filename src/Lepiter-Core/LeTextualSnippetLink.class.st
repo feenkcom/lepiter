@@ -1,15 +1,15 @@
 Class {
-	#name : #LeTextualSnippetLink,
-	#superclass : #LeTextualLink,
-	#category : #'Lepiter-Core-Links'
+	#name : 'LeTextualSnippetLink',
+	#superclass : 'LeTextualLink',
+	#category : 'Lepiter-Core-Links'
 }
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LeTextualSnippetLink >> isTextualSnippetLink [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeTextualSnippetLink >> printOn: aStream [
 	self targetReference ifNil: [ ^ super printOn: aStream ].
 	aStream
@@ -17,13 +17,13 @@ LeTextualSnippetLink >> printOn: aStream [
 		print: self targetUID
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeTextualSnippetLink >> targetSnippetUid [
 	<return: #String>
 	^ self targetReference snippetUid
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeTextualSnippetLink >> targetSnippetUid: aString64 [
 	self assert: [ aString64 notNil ].
 	self assert: [ targetReference isNil ].
@@ -33,7 +33,7 @@ LeTextualSnippetLink >> targetSnippetUid: aString64 [
 	targetReference explicitLink: self
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeTextualSnippetLink >> targetUID [
 	^ self targetSnippetUid
 ]

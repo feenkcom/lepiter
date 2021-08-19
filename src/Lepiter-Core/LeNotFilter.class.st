@@ -1,28 +1,28 @@
 Class {
-	#name : #LeNotFilter,
-	#superclass : #LeFilter,
+	#name : 'LeNotFilter',
+	#superclass : 'LeFilter',
 	#instVars : [
 		'filter'
 	],
-	#category : #'Lepiter-Core-Database - Filters'
+	#category : 'Lepiter-Core-Database - Filters'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeNotFilter >> filter [
 	^ filter
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeNotFilter >> filter: aLeFilter [
 	filter := aLeFilter
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeNotFilter >> matches: aLeContent [
 	^ (filter matches: aLeContent) not
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LeNotFilter >> printOn: aStream [
 	aStream nextPutAll: 'not '.
 	self filter printOn: aStream

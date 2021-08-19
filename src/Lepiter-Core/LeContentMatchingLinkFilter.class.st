@@ -1,29 +1,29 @@
 Class {
-	#name : #LeContentMatchingLinkFilter,
-	#superclass : #LeFilter,
+	#name : 'LeContentMatchingLinkFilter',
+	#superclass : 'LeFilter',
 	#instVars : [
 		'linkFilter'
 	],
-	#category : #'Lepiter-Core-Database - Filters Links'
+	#category : 'Lepiter-Core-Database - Filters Links'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentMatchingLinkFilter >> linkFilter [
 	^ linkFilter
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentMatchingLinkFilter >> linkFilter: anObject [
 	linkFilter := anObject
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeContentMatchingLinkFilter >> matches: aLeContent [
 	^ aLeContent allOutgoingExplicitLinks anySatisfy: [ :aLink |
 		self linkFilter matches: aLink ]
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LeContentMatchingLinkFilter >> printOn: aStream [
 	aStream
 		nextPutAll: 'Content with links '.

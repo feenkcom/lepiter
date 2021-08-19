@@ -1,18 +1,18 @@
 Class {
-	#name : #LePageToolContentCanvasElement,
-	#superclass : #LePageToolContentElement,
+	#name : 'LePageToolContentCanvasElement',
+	#superclass : 'LePageToolContentElement',
 	#instVars : [
 		'canvasElement'
 	],
-	#category : #'Lepiter-UI-! Tool - Page'
+	#category : 'Lepiter-UI-! Tool - Page'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageToolContentCanvasElement >> canvasElement [
 	^ canvasElement
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePageToolContentCanvasElement >> initialize [
 	super initialize.
 
@@ -26,7 +26,7 @@ LePageToolContentCanvasElement >> initialize [
 		inherit: self canvasElement)
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePageToolContentCanvasElement >> initializeCanvasElement [
 	canvasElement := BlCanvassableElement new.
 	canvasElement layout: (BlOnceLayout on: GtGraphRectanglePackLayout new).
@@ -36,7 +36,7 @@ LePageToolContentCanvasElement >> initializeCanvasElement [
 	canvasElement addEventHandler: BlSlideHandler new.
 ]
 
-{ #category : #'api - page view model' }
+{ #category : 'api - page view model' }
 LePageToolContentCanvasElement >> onPageViewModelChanged [
 	| pageSnippetsTreeViewModel |
 	super onPageViewModelChanged.

@@ -6,8 +6,8 @@ My header (tittle and toolbar) is configurable using {{gtClass:LePageHeaderBuild
 
 "
 Class {
-	#name : #LePageToolContentTreeElement,
-	#superclass : #LePageToolContentElement,
+	#name : 'LePageToolContentTreeElement',
+	#superclass : 'LePageToolContentElement',
 	#traits : 'TLePageToolContentTreeElement + TLeWithFontSize + TBlAssertUIProcess',
 	#classTraits : 'TLePageToolContentTreeElement classTrait + TLeWithFontSize classTrait + TBlAssertUIProcess classTrait',
 	#instVars : [
@@ -16,35 +16,35 @@ Class {
 	#classInstVars : [
 		'incomingLinksViewModelClass'
 	],
-	#category : #'Lepiter-UI-! Tool - Page'
+	#category : 'Lepiter-UI-! Tool - Page'
 }
 
-{ #category : #'api - incoming links' }
+{ #category : 'api - incoming links' }
 LePageToolContentTreeElement class >> defaultIncomingLinksViewModelClass [
 	^ LeIncomingLinksCardsViewModel
 ]
 
-{ #category : #'api - incoming links' }
+{ #category : 'api - incoming links' }
 LePageToolContentTreeElement class >> incomingLinksViewModelClass [
 	^ incomingLinksViewModelClass ifNil: [ self defaultIncomingLinksViewModelClass ]
 ]
 
-{ #category : #'api - incoming links' }
+{ #category : 'api - incoming links' }
 LePageToolContentTreeElement class >> incomingLinksViewModelClass: aSubclassOfLeIncomingLinksCollectionViewModel [
 	incomingLinksViewModelClass := aSubclassOfLeIncomingLinksCollectionViewModel
 ]
 
-{ #category : #'api - incoming links' }
+{ #category : 'api - incoming links' }
 LePageToolContentTreeElement class >> showIncomingReferencesAsCards [
 	self incomingLinksViewModelClass: LeIncomingLinksCardsViewModel
 ]
 
-{ #category : #'api - incoming links' }
+{ #category : 'api - incoming links' }
 LePageToolContentTreeElement class >> showIncomingReferencesInlined [
 	self incomingLinksViewModelClass: LeIncomingLinksInlinedViewModel
 ]
 
-{ #category : #'private - tree element' }
+{ #category : 'private - tree element' }
 LePageToolContentTreeElement >> createTreeElement [
 	^ BrSimpleTree new
 		matchParent;
@@ -58,7 +58,7 @@ LePageToolContentTreeElement >> createTreeElement [
 		rowDataBinder: [ :aRowElement :aTreeNode :aRowIndex | self bindTreeRowData: aTreeNode to: aRowElement at: aRowIndex ]
 ]
 
-{ #category : #'private - tree element' }
+{ #category : 'private - tree element' }
 LePageToolContentTreeElement >> createTreeRowFor: aSnippetElement [
 	^ BlElement new
 		layout: BlLinearLayout horizontal;
@@ -75,7 +75,7 @@ LePageToolContentTreeElement >> createTreeRowFor: aSnippetElement [
 		addChild: aSnippetElement
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePageToolContentTreeElement >> initialize [
 	super initialize.
 	self initializeFontSizeShortcuts.
@@ -95,13 +95,13 @@ LePageToolContentTreeElement >> initialize [
 		inherit: treeElement)
 ]
 
-{ #category : #'api - page view model' }
+{ #category : 'api - page view model' }
 LePageToolContentTreeElement >> onPageDatabaseChanged [
 	updateRequester requestUpdate.
 	footerToolbarElement updateContent.
 ]
 
-{ #category : #'api - page view model' }
+{ #category : 'api - page view model' }
 LePageToolContentTreeElement >> onPageModelReplaced [
 	snippetsViewModel content: self pageViewModel pageModel.
 	updateRequester requestUpdate.
@@ -109,7 +109,7 @@ LePageToolContentTreeElement >> onPageModelReplaced [
 	footerToolbarElement pageModel: self pageViewModel pageModel.
 ]
 
-{ #category : #'api - page view model' }
+{ #category : 'api - page view model' }
 LePageToolContentTreeElement >> onPageViewModelChanged [
 	| pageSnippetsTreeViewModel pageIncomingLinksViewModel |
 	super onPageViewModelChanged.
@@ -134,15 +134,15 @@ LePageToolContentTreeElement >> onPageViewModelChanged [
 		ifTrue: [ pageSnippetsTreeViewModel focusFirstSnippet ]
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePageToolContentTreeElement >> rootItemsSelector: aRootItemsSelector [
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePageToolContentTreeElement >> selectionTransformation: aBlock [
 ]
 
-{ #category : #'api - page view model' }
+{ #category : 'api - page view model' }
 LePageToolContentTreeElement >> subscribeToPageViewModel [
 	super subscribeToPageViewModel.
 
@@ -155,7 +155,7 @@ LePageToolContentTreeElement >> subscribeToPageViewModel [
 		when: LeSnippetCollectionScrollToChanged send: #onContentTreeScrollTo to: self
 ]
 
-{ #category : #'api - page view model' }
+{ #category : 'api - page view model' }
 LePageToolContentTreeElement >> unsubscribeFromPageViewModel [
 	super unsubscribeFromPageViewModel.
 	

@@ -1,10 +1,10 @@
 Class {
-	#name : #LeIcons,
-	#superclass : #Object,
-	#category : #'Lepiter-UI-Basic - UI'
+	#name : 'LeIcons',
+	#superclass : 'Object',
+	#category : 'Lepiter-UI-Basic - UI'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeIcons class >> lepiterDatabase [
 	<script: 'self lepiterDatabase inspect'>
 
@@ -23,14 +23,14 @@ LeIcons class >> lepiterDatabase [
 			} ] asStencil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeIcons class >> lepiterIcon [
 	<script: 'self lepiterIcon inspect'>
 
 	^ [ (BlTextElement new text: 'ĭ' asRopedText glamorousRegularFont bold; padding: (BlInsets all: 1)) asScalableElement size: 16@16 ] asStencil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeIcons class >> lepiterPage [
 	<script: 'self lepiterPage inspect'>
 

@@ -11,27 +11,27 @@ The language support is provided by specialized {{gtClass:GtSourceCoder}}
 
 "
 Class {
-	#name : #LeCodeSnippet,
-	#superclass : #LeTextualSnippet,
+	#name : 'LeCodeSnippet',
+	#superclass : 'LeTextualSnippet',
 	#instVars : [
 		'coder'
 	],
-	#category : #'Lepiter-Core-Model'
+	#category : 'Lepiter-Core-Model'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeCodeSnippet class >> code: aString [
 
 	^ self new code: aString
 ]
 
-{ #category : #factory }
+{ #category : 'factory' }
 LeCodeSnippet class >> empty [ 
 
 	^ self new
 ]
 
-{ #category : #'api - editing' }
+{ #category : 'api - editing' }
 LeCodeSnippet >> appendText: aText source: anObject [
 
 	coder
@@ -39,20 +39,20 @@ LeCodeSnippet >> appendText: aText source: anObject [
 		with: (GtCoderUpdateStrategy new source: anObject)
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeCodeSnippet >> code [
 	<return: #String>
 
 	^ coder currentSourceString
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeCodeSnippet >> code: aString [ 
 
 	^ self code: aString source: self
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeCodeSnippet >> code: aString source: anObject [
 	"Set a new source string"
 
@@ -61,19 +61,19 @@ LeCodeSnippet >> code: aString source: anObject [
 		withStrategy: (GtCoderUpdateStrategy new source: anObject)
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeCodeSnippet >> coder [
 	<return: #GtTextualCoder>
 
 	^ coder
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeCodeSnippet >> contentAsString [
 	^ self code
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeCodeSnippet >> initialize [ 
 	super initialize.
 
@@ -84,17 +84,17 @@ LeCodeSnippet >> initialize [
 		to: self
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LeCodeSnippet >> isCodeSnippet [
 	^ true
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeCodeSnippet >> newCoder [
 	^ self subclassResponsibility
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 LeCodeSnippet >> onCoderSourceModified: aGtCoderSourceCodeChanged [
 	"Is announced by the Coder model when its source code changes"
 
@@ -103,7 +103,7 @@ LeCodeSnippet >> onCoderSourceModified: aGtCoderSourceCodeChanged [
 	self announceTextChangedBy: aGtCoderSourceCodeChanged source
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LeCodeSnippet >> printOn: aStream [
 	super printOn: aStream.
 	aStream
@@ -113,14 +113,14 @@ LeCodeSnippet >> printOn: aStream [
 		nextPutAll: ')'
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeCodeSnippet >> text [ 
 	<return: #BlText>
 
 	^ coder sourceText
 ]
 
-{ #category : #'api - editing' }
+{ #category : 'api - editing' }
 LeCodeSnippet >> updateText: aText source: anObject [
 	"Change the text of the textual snippet to a given one. A source object represent an object that requested a text change"
 

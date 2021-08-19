@@ -5,20 +5,20 @@ Is announced by the {{gtClass:LeAbstractSnippetViewModel}} when its expansion st
 
 "
 Class {
-	#name : #LeSnippetExpansionChanged,
-	#superclass : #Announcement,
+	#name : 'LeSnippetExpansionChanged',
+	#superclass : 'Announcement',
 	#instVars : [
 		'expanded'
 	],
-	#category : #'Lepiter-UI-Snippet-Events'
+	#category : 'Lepiter-UI-Snippet-Events'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetExpansionChanged >> expanded [
 	^ expanded
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetExpansionChanged >> expanded: anObject [
 	expanded := anObject
 ]

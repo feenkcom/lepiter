@@ -6,17 +6,17 @@ See my {{gtClass:LePageHeaderBuilder|expanded|show=#gtSubclassesFor:}} for concr
 
 "
 Class {
-	#name : #LePageHeaderBuilder,
-	#superclass : #Object,
+	#name : 'LePageHeaderBuilder',
+	#superclass : 'Object',
 	#instVars : [
 		'pageElement',
 		'toolbarElement',
 		'titleElement'
 	],
-	#category : #'Lepiter-UI-Support - Page Toolbar'
+	#category : 'Lepiter-UI-Support - Page Toolbar'
 }
 
-{ #category : #'api - building' }
+{ #category : 'api - building' }
 LePageHeaderBuilder >> addExtensionButtons [
 	^ (Pragma
 		allNamed: #leHeaderAction
@@ -26,17 +26,17 @@ LePageHeaderBuilder >> addExtensionButtons [
 				self perform: eachPragma methodSelector ]. 
 ]
 
-{ #category : #'private - building' }
+{ #category : 'private - building' }
 LePageHeaderBuilder >> addFixedSeparator [
 	self toolbarElement addFixedSeparator
 ]
 
-{ #category : #'private - building' }
+{ #category : 'private - building' }
 LePageHeaderBuilder >> addFlexibleSeparator [
 	self toolbarElement addFlexibleSeparator
 ]
 
-{ #category : #'private - building' }
+{ #category : 'private - building' }
 LePageHeaderBuilder >> addInspectButton [
 	| anInspectButton |
 	anInspectButton := BrButton new 
@@ -48,7 +48,7 @@ LePageHeaderBuilder >> addInspectButton [
 	self toolbarElement addItem: anInspectButton.
 ]
 
-{ #category : #'private - building' }
+{ #category : 'private - building' }
 LePageHeaderBuilder >> addRemoteLinkToClipboardButton [
 	"Add a button the copies the markdown to reference the receiver as a remote page"
 	| newButton |
@@ -61,7 +61,7 @@ LePageHeaderBuilder >> addRemoteLinkToClipboardButton [
 	self toolbarElement addItem: newButton.
 ]
 
-{ #category : #'private - building' }
+{ #category : 'private - building' }
 LePageHeaderBuilder >> addRemovePageButton [
 	| aButton |
 	aButton := BrButton new.
@@ -79,7 +79,7 @@ LePageHeaderBuilder >> addRemovePageButton [
 	self toolbarElement addItem: aButton.
 ]
 
-{ #category : #'private - building' }
+{ #category : 'private - building' }
 LePageHeaderBuilder >> addTableOfContentsToggle [
 	| aToggle |
 	aToggle := BrToggle new.
@@ -100,62 +100,62 @@ LePageHeaderBuilder >> addTableOfContentsToggle [
 		addToggle: aToggle)"
 ]
 
-{ #category : #'private - building' }
+{ #category : 'private - building' }
 LePageHeaderBuilder >> addTitle [
 	self toolbarElement addItem: self titleElement.
 ]
 
-{ #category : #'api - building' }
+{ #category : 'api - building' }
 LePageHeaderBuilder >> build [
 	"Build toolbar items"
 	self subclassResponsibility
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePageHeaderBuilder >> database [
 	<return: #LeDatabase>
 	^ self pageElement database
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePageHeaderBuilder >> page [
 	<return: #LePage>
 	^ self pageElement pageViewModel pageModel
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePageHeaderBuilder >> pageElement [
 
 	^ pageElement
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePageHeaderBuilder >> pageElement: anObject [
 	pageElement := anObject
 ]
 
-{ #category : #'private - building' }
+{ #category : 'private - building' }
 LePageHeaderBuilder >> removeAllItems [
 	self toolbarElement removeAllItems
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePageHeaderBuilder >> titleElement [
 	^ titleElement
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePageHeaderBuilder >> titleElement: anObject [
 	titleElement := anObject
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePageHeaderBuilder >> toolbarElement [
 	<return: #LeToolbarElement>
 	^ toolbarElement
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePageHeaderBuilder >> toolbarElement: anObject [
 	toolbarElement := anObject
 ]

@@ -4,35 +4,35 @@ I display a {{gtClass:BrToolbar}} that I extend with {{gtMethod:LeToolbarElement
 
 "
 Class {
-	#name : #LeToolbarElement,
-	#superclass : #LeElement,
+	#name : 'LeToolbarElement',
+	#superclass : 'LeElement',
 	#instVars : [
 		'toolbarElement'
 	],
-	#category : #'Lepiter-UI-! Content Elements'
+	#category : 'Lepiter-UI-! Content Elements'
 }
 
-{ #category : #'api - adding / removing' }
+{ #category : 'api - adding / removing' }
 LeToolbarElement >> addFixedSeparator [
 	self addItem: self newFixedSeparator
 ]
 
-{ #category : #'api - adding / removing' }
+{ #category : 'api - adding / removing' }
 LeToolbarElement >> addFlexibleSeparator [
 	self addItem: self newFlexibleSeparator
 ]
 
-{ #category : #'api - adding / removing' }
+{ #category : 'api - adding / removing' }
 LeToolbarElement >> addItem: anElement [
 	self toolbarElement addItem: anElement
 ]
 
-{ #category : #'api - adding / removing' }
+{ #category : 'api - adding / removing' }
 LeToolbarElement >> addItems: aCollection [
 	self toolbarElement addItem: aCollection
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeToolbarElement >> initialize [
 	super initialize.
 	self initializeToolbarElement.
@@ -47,7 +47,7 @@ LeToolbarElement >> initialize [
 		vAnyToFitContent: self toolbarElement).
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeToolbarElement >> initializeToolbarElement [
 	toolbarElement := BrToolbar new
 		aptitude: BrGlamorousToolbarAptitude new;
@@ -55,7 +55,7 @@ LeToolbarElement >> initializeToolbarElement [
 		fitContent.
 ]
 
-{ #category : #'private - instance creation' }
+{ #category : 'private - instance creation' }
 LeToolbarElement >> newFixedSeparator [
 	^ BrLabel new
 		aptitude: BrLabelAptitude;
@@ -64,7 +64,7 @@ LeToolbarElement >> newFixedSeparator [
 		vFitContent
 ]
 
-{ #category : #'private - instance creation' }
+{ #category : 'private - instance creation' }
 LeToolbarElement >> newFlexibleSeparator [
 	^ BrLabel new
 		aptitude: BrLabelAptitude;
@@ -73,13 +73,13 @@ LeToolbarElement >> newFlexibleSeparator [
 		vFitContent
 ]
 
-{ #category : #'api - adding / removing' }
+{ #category : 'api - adding / removing' }
 LeToolbarElement >> removeAllItems [
 	self toolbarElement numberOfItems timesRepeat: [ 
 		self toolbarElement removeItemAt: 1 ]
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeToolbarElement >> toolbarElement [
 	<return: #BrToolbar>
 	^ toolbarElement

@@ -1,6 +1,6 @@
-Extension { #name : #Array }
+Extension { #name : 'Array' }
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 Array >> asLepiterPagePhlowTool [
 	^ LePagesTool collection: self
 ]

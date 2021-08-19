@@ -5,14 +5,14 @@ See my {{gtClass:LeElement|expanded|show=#gtSubclassesFor:}} for concrete implem
 
 "
 Class {
-	#name : #LeElement,
-	#superclass : #BlElement,
+	#name : 'LeElement',
+	#superclass : 'BlElement',
 	#traits : 'TBrLayoutResizable',
 	#classTraits : 'TBrLayoutResizable classTrait',
-	#category : #'Lepiter-UI-! Content Elements'
+	#category : 'Lepiter-UI-! Content Elements'
 }
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 LeElement >> assertUIProcess [
 	"Make sure that I am executing in a UI process"
 	| aCurrentProcess aUIProcess |
@@ -35,7 +35,7 @@ LeElement >> assertUIProcess [
 		ifFalse: [ self error: ('I am running from a non-UI process ({1}) expected ({2})' format: { aCurrentProcess asString . aUIProcess asString }) ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeElement >> initialize [
 	super initialize.
 	

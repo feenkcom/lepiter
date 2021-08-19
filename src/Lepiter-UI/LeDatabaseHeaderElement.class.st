@@ -6,20 +6,20 @@ I display a {{gtClass:LeDatabase}} header that includes a title and action butto
 
 "
 Class {
-	#name : #LeDatabaseHeaderElement,
-	#superclass : #LeDatabaseElement,
+	#name : 'LeDatabaseHeaderElement',
+	#superclass : 'LeDatabaseElement',
 	#instVars : [
 		'toolbarElement'
 	],
-	#category : #'Lepiter-UI-! UI - Database'
+	#category : 'Lepiter-UI-! UI - Database'
 }
 
-{ #category : #'private - adding / removing' }
+{ #category : 'private - adding / removing' }
 LeDatabaseHeaderElement >> addItem: anElement [
 	self toolbarElement addItem: anElement
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeDatabaseHeaderElement >> initialize [
 	super initialize.
 	self initializeToolbarElement.
@@ -34,7 +34,7 @@ LeDatabaseHeaderElement >> initialize [
 		vAnyToFitContent: self toolbarElement).
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeDatabaseHeaderElement >> initializeLabelToolbarItem [
 	| aLabel |
 	aLabel := BrLabel new 
@@ -46,7 +46,7 @@ LeDatabaseHeaderElement >> initializeLabelToolbarItem [
 	self addItem: aLabel.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeDatabaseHeaderElement >> initializeSpotterToolbarItem [
 	| aButton |
 	aButton := GtSpotterDropdownButtonStencil new
@@ -59,20 +59,20 @@ LeDatabaseHeaderElement >> initializeSpotterToolbarItem [
 	self addItem: aButton.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeDatabaseHeaderElement >> initializeToolbarElement [
 	toolbarElement := BrToolbar new
 		aptitude: BrGlamorousToolbarAptitude new;
 		padding: (BlInsets top: 5 bottom: 5)
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeDatabaseHeaderElement >> initializeToolbarItems [
 	self initializeLabelToolbarItem.
 	self initializeSpotterToolbarItem.
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeDatabaseHeaderElement >> toolbarElement [
 	<return: #BrToolbar>
 	^ toolbarElement

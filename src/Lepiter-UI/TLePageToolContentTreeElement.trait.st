@@ -1,19 +1,19 @@
 Trait {
-	#name : #TLePageToolContentTreeElement,
+	#name : 'TLePageToolContentTreeElement',
 	#instVars : [
 		'treeElement',
 		'updateRequester',
 		'snippetsViewModel'
 	],
-	#category : #'Lepiter-UI-! Tool - Page'
+	#category : 'Lepiter-UI-! Tool - Page'
 }
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 TLePageToolContentTreeElement >> assertUIProcess [
 	self explicitRequirement
 ]
 
-{ #category : #'private - tree element' }
+{ #category : 'private - tree element' }
 TLePageToolContentTreeElement >> bindTreeRowData: aTreeNode to: aTreeRowElement at: aRowIndex [
 	| theLines |
 	aTreeRowElement
@@ -55,7 +55,7 @@ TLePageToolContentTreeElement >> bindTreeRowData: aTreeNode to: aTreeRowElement 
 	aTreeRowElement addChildren: theLines
 ]
 
-{ #category : #'private - tree element' }
+{ #category : 'private - tree element' }
 TLePageToolContentTreeElement >> createTreeElement [
 	^ BrSimpleTree new
 		matchParent;
@@ -70,7 +70,7 @@ TLePageToolContentTreeElement >> createTreeElement [
 		rowDataBinder: [ :aRowElement :aTreeNode :aRowIndex | self bindTreeRowData: aTreeNode to: aRowElement at: aRowIndex ]
 ]
 
-{ #category : #'private - tree element' }
+{ #category : 'private - tree element' }
 TLePageToolContentTreeElement >> createTreeRowFor: aSnippetElement [
 	^ BlElement new
 		layout: BlLinearLayout horizontal;
@@ -87,7 +87,7 @@ TLePageToolContentTreeElement >> createTreeRowFor: aSnippetElement [
 		addChild: aSnippetElement
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 TLePageToolContentTreeElement >> initializeUpdaterRequester [
 	updateRequester := GtPhlowUpdateRequester new element: self.
 	updateRequester postponedDuration: 0 seconds.
@@ -95,7 +95,7 @@ TLePageToolContentTreeElement >> initializeUpdaterRequester [
 	
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 TLePageToolContentTreeElement >> onContentTreeScrollTo [
 	self assertUIProcess.
 	
@@ -103,13 +103,13 @@ TLePageToolContentTreeElement >> onContentTreeScrollTo [
 		ifNotNil: [ :aViewModelToScrollTo | self treeElement scrollToItem: aViewModelToScrollTo ]
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 TLePageToolContentTreeElement >> onSnippetsChanged: anAnnouncement [
 
 	updateRequester requestUpdate
 ]
 
-{ #category : #'private - tree element' }
+{ #category : 'private - tree element' }
 TLePageToolContentTreeElement >> primitiveUpdateSnippetsAndTree [
 	self assertUIProcess.
 
@@ -123,7 +123,7 @@ TLePageToolContentTreeElement >> primitiveUpdateSnippetsAndTree [
 		ifNotNil: [ :aViewModelToScrollTo | self treeElement scrollToItem: aViewModelToScrollTo ]
 ]
 
-{ #category : #'private - tree element' }
+{ #category : 'private - tree element' }
 TLePageToolContentTreeElement >> primitiveUpdateTree [
 	self assertUIProcess.
 
@@ -132,13 +132,13 @@ TLePageToolContentTreeElement >> primitiveUpdateTree [
 		expandSuchThat: [ :eachTreeNode | eachTreeNode value expanded ].
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 TLePageToolContentTreeElement >> snippetsViewModel [
 	<return: #LeContentCollectionViewModel or: nil>
 	^ snippetsViewModel
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 TLePageToolContentTreeElement >> treeElement [
 	<return: #BrSimpleTree>
 	^ treeElement

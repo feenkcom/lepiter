@@ -6,20 +6,20 @@ I am used by {{gtClass:LeDatabasePageListElement}} and by {{gtClass:LePageToolEl
 
 "
 Class {
-	#name : #LeDatabaseSidebarChangePageWish,
-	#superclass : #BrWish,
+	#name : 'LeDatabaseSidebarChangePageWish',
+	#superclass : 'BrWish',
 	#instVars : [
 		'pageUIModel'
 	],
-	#category : #'Lepiter-UI-Basic - Events'
+	#category : 'Lepiter-UI-Basic - Events'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeDatabaseSidebarChangePageWish >> pageUIModel [
 	^ pageUIModel
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeDatabaseSidebarChangePageWish >> pageUIModel: anObject [
 	pageUIModel := anObject
 ]

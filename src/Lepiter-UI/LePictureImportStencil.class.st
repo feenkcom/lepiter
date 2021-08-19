@@ -1,15 +1,15 @@
 Class {
-	#name : #LePictureImportStencil,
-	#superclass : #BrStencil,
+	#name : 'LePictureImportStencil',
+	#superclass : 'BrStencil',
 	#instVars : [
 		'tooltip',
 		'extent',
 		'pictureElement'
 	],
-	#category : #'Lepiter-UI-Basic - Support'
+	#category : 'Lepiter-UI-Basic - Support'
 }
 
-{ #category : #'api - instantiation' }
+{ #category : 'api - instantiation' }
 LePictureImportStencil >> create [
 	"Create the new element"
 	| aButton |
@@ -41,23 +41,23 @@ LePictureImportStencil >> create [
 	^ aButton
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePictureImportStencil >> database [
 
 	^ pictureElement database
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePictureImportStencil >> extent [
 	^ extent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePictureImportStencil >> extent: anObject [
 	extent := anObject
 ]
 
-{ #category : #importing }
+{ #category : 'importing' }
 LePictureImportStencil >> importFromFile: aFile type: importType [ 
 	"If required, copy or move the file to the receiver's database, and then update the URL to point to it"
 	| attachedFile |
@@ -75,29 +75,29 @@ LePictureImportStencil >> importFromFile: aFile type: importType [
 	pictureElement pictureUrlString: attachedFile.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePictureImportStencil >> initialize [
 	super initialize.
 	tooltip := 'Select Picture'.
 	extent := 400 @ 300
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePictureImportStencil >> pictureElement [
 	^ pictureElement
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePictureImportStencil >> pictureElement: anObject [
 	pictureElement := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePictureImportStencil >> tooltip [
 	^ tooltip
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePictureImportStencil >> tooltip: anObject [
 	tooltip := anObject
 ]

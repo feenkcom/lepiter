@@ -1,13 +1,13 @@
 Class {
-	#name : #LeReferencedPagePhlowTool,
-	#superclass : #LePagePhlowTool,
+	#name : 'LeReferencedPagePhlowTool',
+	#superclass : 'LePagePhlowTool',
 	#instVars : [
 		'referencedPage'
 	],
-	#category : #'Lepiter-UI-Phlow Tools'
+	#category : 'Lepiter-UI-Phlow Tools'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeReferencedPagePhlowTool >> asElementDo: aOneArgBlock [
 	^ super
 		asElementDo: [ :element | 
@@ -15,12 +15,12 @@ LeReferencedPagePhlowTool >> asElementDo: aOneArgBlock [
 			aOneArgBlock value: element ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeReferencedPagePhlowTool >> referencedPage [
 	^ referencedPage
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeReferencedPagePhlowTool >> referencedPage: aLePage [
 	referencedPage := aLePage
 ]

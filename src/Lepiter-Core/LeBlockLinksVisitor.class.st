@@ -1,32 +1,32 @@
 Class {
-	#name : #LeBlockLinksVisitor,
-	#superclass : #LeContentNodeVisitor,
+	#name : 'LeBlockLinksVisitor',
+	#superclass : 'LeContentNodeVisitor',
 	#traits : 'TSmaCCCompositeVisitor + (TLeContentNodeVisitor - {#acceptNode:})',
 	#classTraits : 'TSmaCCCompositeVisitor classTrait + TLeContentNodeVisitor classTrait',
 	#instVars : [
 		'links'
 	],
-	#category : #'Lepiter-Core-Utility'
+	#category : 'Lepiter-Core-Utility'
 }
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 LeBlockLinksVisitor >> defaultLinks [
 	^ OrderedCollection new
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeBlockLinksVisitor >> initialize [
 	super initialize.
 	links := self defaultLinks.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeBlockLinksVisitor >> links [
 	<return: #Collection of: #LeTextualLink>
 	^ links
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeBlockLinksVisitor >> visitBlockLink: aLink [
 	super visitBlockLink: aLink.
 	links add: (LeTextualSnippetLink new 
@@ -34,7 +34,7 @@ LeBlockLinksVisitor >> visitBlockLink: aLink [
 		targetSnippetUid: aLink linkUID).
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeBlockLinksVisitor >> visitPageLink: aLink [
 	super visitPageLink: aLink.
 	links add: (LeTextualPageLink new 

@@ -1,13 +1,13 @@
 Class {
-	#name : #LeSnippetAnnouncement,
-	#superclass : #LeAnnouncement,
+	#name : 'LeSnippetAnnouncement',
+	#superclass : 'LeAnnouncement',
 	#instVars : [
 		'snippet'
 	],
-	#category : #'Lepiter-Core-Announcements'
+	#category : 'Lepiter-Core-Announcements'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetAnnouncement >> block [
 	self 
 		deprecated: 'Use #snippet instead.' 
@@ -15,7 +15,7 @@ LeSnippetAnnouncement >> block [
 	^ self snippet
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetAnnouncement >> block: aSnippet [
 	self 
 		deprecated: 'Use #snippet: instead.' 
@@ -23,13 +23,13 @@ LeSnippetAnnouncement >> block: aSnippet [
 	^ self snippet: aSnippet.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetAnnouncement >> snippet [
 	<return: #LeSnippet>
 	^ snippet
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetAnnouncement >> snippet: aSnippet [
 	snippet := aSnippet
 ]

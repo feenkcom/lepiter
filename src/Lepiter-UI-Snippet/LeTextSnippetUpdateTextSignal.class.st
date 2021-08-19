@@ -1,40 +1,40 @@
 Class {
-	#name : #LeTextSnippetUpdateTextSignal,
-	#superclass : #ContextStackSignal,
+	#name : 'LeTextSnippetUpdateTextSignal',
+	#superclass : 'ContextStackSignal',
 	#instVars : [
 		'previousText',
 		'newText',
 		'frameId'
 	],
-	#category : #'Lepiter-UI-Snippet-Signals'
+	#category : 'Lepiter-UI-Snippet-Signals'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeTextSnippetUpdateTextSignal >> frameId [
 	^ frameId
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeTextSnippetUpdateTextSignal >> frameId: anObject [
 	frameId := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeTextSnippetUpdateTextSignal >> newText [
 	^ newText
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeTextSnippetUpdateTextSignal >> newText: anObject [
 	newText := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeTextSnippetUpdateTextSignal >> previousText [
 	^ previousText
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeTextSnippetUpdateTextSignal >> previousText: anObject [
 	previousText := anObject
 ]

@@ -1,27 +1,27 @@
 Class {
-	#name : #LeCompletionStrategy,
-	#superclass : #GtCompletionStrategy,
+	#name : 'LeCompletionStrategy',
+	#superclass : 'GtCompletionStrategy',
 	#instVars : [
 		'database',
 		'pageTitles',
 		'allClasses',
 		'gtViewSelectors'
 	],
-	#category : #'Lepiter-UI-Snippet-Text completion'
+	#category : 'Lepiter-UI-Snippet-Text completion'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeCompletionStrategy >> allClasses [
 	^ allClasses
 		ifNil: [ allClasses := GtPrefixTree
 				withAll: (ProtoObject withAllSubclasses collect: [ :each | each name ]) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeCompletionStrategy >> astCompletionActionsFor: aText at: positionInteger max: maxInteger requested: aBoolean [
 	| ast visitor items |
 	items := OrderedCollection new.
-	ast := LeParser parseWithErrors: aText.
+	ast := LeParser parseWithErrors: aText asString.
 	visitor := LeContentCompletionVisitor new.
 	visitor strategy: self.
 	visitor text: aText.
@@ -35,7 +35,7 @@ LeCompletionStrategy >> astCompletionActionsFor: aText at: positionInteger max: 
 	^ items
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeCompletionStrategy >> bracketCompletionActionsFor: aText at: positionInteger max: maxInteger withPrefix: prefix needsAdditionalBracket: aBoolean [
 	| rightBracketCount index char rightBracketIndex leftBracket |
 	index := positionInteger + 1.
@@ -92,7 +92,7 @@ LeCompletionStrategy >> bracketCompletionActionsFor: aText at: positionInteger m
 			action ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeCompletionStrategy >> completionActionsFor: aText at: positionInteger max: maxInteger requested: aBoolean [
 	| seenWhitespace char index actions |
 	actions := self
@@ -121,18 +121,18 @@ LeCompletionStrategy >> completionActionsFor: aText at: positionInteger max: max
 	^ #()
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeCompletionStrategy >> database [
 	^ database
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeCompletionStrategy >> database: aLeDatabase [
 	database := aLeDatabase.
 	pageTitles := nil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeCompletionStrategy >> gtViewSelectors [
 	^ gtViewSelectors
 		ifNil: [ gtViewSelectors := GtPrefixTree new.
@@ -145,12 +145,12 @@ LeCompletionStrategy >> gtViewSelectors [
 			gtViewSelectors ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeCompletionStrategy >> hasCompletionsAt: anInteger in: aText [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeCompletionStrategy >> pageTitles [
 	^ pageTitles
 		ifNil: [ pageTitles := GtPrefixTree new.

@@ -1,20 +1,20 @@
-Extension { #name : #LeDatabase }
+Extension { #name : 'LeDatabase' }
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LeDatabase >> asContentUIModel [
 	<return: #LeContentViewModel>
 	
 	^ LeDatabaseViewModel new database: self
 ]
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LeDatabase >> asPhlowTool [
 	^ GtPhlowCompositeTool new
 		addTool: (LeDatabaseTool database: self);
 		addTool: (GtPhlowTool default object: self)
 ]
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LeDatabase >> asToolElement [
 	^ LeDatabaseToolElement new
 		margin: (BlInsets all: 10);
@@ -22,7 +22,7 @@ LeDatabase >> asToolElement [
 		matchParent
 ]
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LeDatabase >> gtLiveFor: aView [
 	<gtView>
 	self pagesByName ifEmpty: [ ^ aView empty ].

@@ -3,12 +3,12 @@
 
 "
 Class {
-	#name : #LeSnippetViewModel,
-	#superclass : #LeAbstractSnippetViewModel,
-	#category : #'Lepiter-UI-Snippet-! View Models'
+	#name : 'LeSnippetViewModel',
+	#superclass : 'LeAbstractSnippetViewModel',
+	#category : 'Lepiter-UI-Snippet-! View Models'
 }
 
-{ #category : #'gt - extensions' }
+{ #category : 'gt - extensions' }
 LeSnippetViewModel >> gtActionIndentFor: anAction [
 	<gtAction>
 
@@ -20,7 +20,7 @@ LeSnippetViewModel >> gtActionIndentFor: anAction [
 		action: [ :aButton :aSnippetElement | self indent ]
 ]
 
-{ #category : #'gt - extensions' }
+{ #category : 'gt - extensions' }
 LeSnippetViewModel >> gtActionInspectSnippetFor: anAction [
 	<gtAction>
 
@@ -32,7 +32,7 @@ LeSnippetViewModel >> gtActionInspectSnippetFor: anAction [
 		action: [ :aButton :aSnippetElement | aSnippetElement phlow spawnObject: aSnippetElement snippet ]
 ]
 
-{ #category : #'gt - extensions' }
+{ #category : 'gt - extensions' }
 LeSnippetViewModel >> gtActionInspectViewModelFor: anAction [
 	<gtAction>
 
@@ -44,7 +44,7 @@ LeSnippetViewModel >> gtActionInspectViewModelFor: anAction [
 		action: [ :aButton :aSnippetElement | aSnippetElement phlow spawnObject: aSnippetElement snippetViewModel ]
 ]
 
-{ #category : #'gt - extensions' }
+{ #category : 'gt - extensions' }
 LeSnippetViewModel >> gtActionMoveDownFor: anAction [
 	<gtAction>
 
@@ -56,7 +56,7 @@ LeSnippetViewModel >> gtActionMoveDownFor: anAction [
 		action: [ :aButton :aSnippetElement | self moveDown ]
 ]
 
-{ #category : #'gt - extensions' }
+{ #category : 'gt - extensions' }
 LeSnippetViewModel >> gtActionMoveUpFor: anAction [
 	<gtAction>
 
@@ -68,7 +68,7 @@ LeSnippetViewModel >> gtActionMoveUpFor: anAction [
 		action: [ :aButton :aSnippetElement | self moveUp ]
 ]
 
-{ #category : #'gt - extensions' }
+{ #category : 'gt - extensions' }
 LeSnippetViewModel >> gtActionUnindentFor: anAction [
 	<gtAction>
 
@@ -80,7 +80,7 @@ LeSnippetViewModel >> gtActionUnindentFor: anAction [
 		action: [ :aButton :aSnippetElement | self unindent ]
 ]
 
-{ #category : #'api - actions' }
+{ #category : 'api - actions' }
 LeSnippetViewModel >> indent [
 	"Indent the receiver in the receiver's page, i.e. make it a child of the previous snippet.
 	If this is the first snippet at the current level, do nothing"
@@ -88,7 +88,7 @@ LeSnippetViewModel >> indent [
 	self snippetModel indent
 ]
 
-{ #category : #'api - actions' }
+{ #category : 'api - actions' }
 LeSnippetViewModel >> insertNewSnippet: aLeSnippet [
 	"Add a new snippet that is either:
 	- a sibling of the receiver if there are no children.
@@ -107,7 +107,7 @@ LeSnippetViewModel >> insertNewSnippet: aLeSnippet [
 		aSnippetsCollection scrollToViewModel: newSnippetUIModel ]
 ]
 
-{ #category : #'api - actions' }
+{ #category : 'api - actions' }
 LeSnippetViewModel >> insertNewSnippetOfType: aLeSnippetClass [
 	"Add a new snippet that is either:
 	- a sibling of the receiver if there are no children.
@@ -123,21 +123,21 @@ LeSnippetViewModel >> insertNewSnippetOfType: aLeSnippetClass [
 		aSnippetsCollection scrollToViewModel: newSnippetUIModel ]
 ]
 
-{ #category : #'api - actions' }
+{ #category : 'api - actions' }
 LeSnippetViewModel >> moveDown [
 	"Move snippet down swapping it with a next sibling if it exists"
 
 	self snippetModel moveDown
 ]
 
-{ #category : #'api - actions' }
+{ #category : 'api - actions' }
 LeSnippetViewModel >> moveUp [
 	"Move snippet up swapping it with a previous sibling if it exists"
 
 	self snippetModel moveUp
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetViewModel >> uid [
 	"Each snippet view model displayed in the snippets element should have a uid.
 	By default we take the uid of the content, however, custom snippet view models are free to override it"
@@ -146,7 +146,7 @@ LeSnippetViewModel >> uid [
 	^ self snippetModel uid
 ]
 
-{ #category : #'api - actions' }
+{ #category : 'api - actions' }
 LeSnippetViewModel >> unindent [
 	"Unindent the receiver in the receiver's page, i.e. make it follow its parent snippet.
 	If this is a first level snippet, do nothing"

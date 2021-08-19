@@ -4,20 +4,20 @@ Adds a decoration - a gray vertical bar to the left from the snippet content to 
 
 "
 Class {
-	#name : #LeSnippetExpandableWithBarAptitude,
-	#superclass : #LeSnippetExpandableAptitude,
+	#name : 'LeSnippetExpandableWithBarAptitude',
+	#superclass : 'LeSnippetExpandableAptitude',
 	#instVars : [
 		'snippetExpander'
 	],
-	#category : #'Lepiter-UI-Snippet-Looks'
+	#category : 'Lepiter-UI-Snippet-Looks'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetExpandableWithBarAptitude >> decorationBarWidth: aNumber [
 	snippetExpander width: aNumber
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSnippetExpandableWithBarAptitude >> hideActions [
 	super hideActions.
 	
@@ -25,7 +25,7 @@ LeSnippetExpandableWithBarAptitude >> hideActions [
 	snippetExpander background: BrGlamorousColors lightBorderColor
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSnippetExpandableWithBarAptitude >> initializeSnippetContainer [
 	snippetContainer := BlElement new
 		layout: (BlGridLayout horizontal columnCount: 2);
@@ -39,7 +39,7 @@ LeSnippetExpandableWithBarAptitude >> initializeSnippetContainer [
 	snippetContainer addChild: snippetExpander
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSnippetExpandableWithBarAptitude >> initializeSnippetExpander [
 	snippetExpander := BlElement new
 		constraintsDo: [ :c |
@@ -49,7 +49,7 @@ LeSnippetExpandableWithBarAptitude >> initializeSnippetExpander [
 		geometry: (BlRoundedRectangleGeometry cornerRadii: (BlCornerRadii new topLeft: 4; topRight: 0; bottomRight: 0; bottomLeft: 4))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSnippetExpandableWithBarAptitude >> showActions [
 	super showActions.
 

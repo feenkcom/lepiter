@@ -1,11 +1,11 @@
-Extension { #name : #LePageViewModel }
+Extension { #name : 'LePageViewModel' }
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LePageViewModel >> asPhlowReferencedToolFrom: aReferencedPage [
 	^ self pageModel asLepiterReferencedPagePhlowTool: aReferencedPage
 ]
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LePageViewModel >> asPhlowTool [
 	^ GtPhlowCompositeTool new
 		addTool: (LePagePhlowTool page: self pageModel);
@@ -13,7 +13,7 @@ LePageViewModel >> asPhlowTool [
 		addTool: (GtConnectorTool new object: self)"
 ]
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LePageViewModel >> gtLiveFor: aView [
 	<gtView>
 	^ aView explicit

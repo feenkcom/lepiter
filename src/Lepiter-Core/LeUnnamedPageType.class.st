@@ -5,22 +5,22 @@ This is a placeholder until the database has been updated to handle unnamed page
 
 "
 Class {
-	#name : #LeUnnamedPageType,
-	#superclass : #LePageType,
+	#name : 'LeUnnamedPageType',
+	#superclass : 'LePageType',
 	#instVars : [
 		'defaultTitle'
 	],
-	#category : #'Lepiter-Core-Model'
+	#category : 'Lepiter-Core-Model'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeUnnamedPageType class >> page: aLePage [
 
 	^ self new
 		page: aLePage
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeUnnamedPageType class >> page: aLePage withDefaultTitle: aString [
 
 	^ self new
@@ -28,7 +28,7 @@ LeUnnamedPageType class >> page: aLePage withDefaultTitle: aString [
 		defaultTitle: aString
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 LeUnnamedPageType >> = anObject [
 	"Answer whether the receiver and anObject represent the same page type."
 
@@ -38,42 +38,42 @@ LeUnnamedPageType >> = anObject [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeUnnamedPageType >> databaseKey [
 	"Answer the attribute used to index a page of the receiver's type in the database."
 
 	^ page uid
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeUnnamedPageType >> defaultTitle [
 	^ defaultTitle ifNil: [ 'Page' ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeUnnamedPageType >> defaultTitle: aString [
 	defaultTitle := aString
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 LeUnnamedPageType >> hash [ 
 
 	^ self class hash
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LeUnnamedPageType >> isUnnamedPageType [
 	^ true
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LeUnnamedPageType >> printOn: aStream [
 	aStream 
 		<< 'Unnamed page: ';
 		<< self shortDescription
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeUnnamedPageType >> shortDescription [
 	| string |
 
@@ -86,17 +86,17 @@ LeUnnamedPageType >> shortDescription [
 		ifFalse: [ (string copyFrom: 1 to: 47), '...' ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeUnnamedPageType >> shouldAppearInIndexOrDailyNotes [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeUnnamedPageType >> title [
 	^ self defaultTitle
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeUnnamedPageType >> title: aString [
 	^ LeNamedPageType title: aString page: self page
 ]

@@ -1,39 +1,39 @@
 Class {
-	#name : #LePageBuilder,
-	#superclass : #LeContentBuilder,
-	#category : #'Lepiter-Core-Builders'
+	#name : 'LePageBuilder',
+	#superclass : 'LeContentBuilder',
+	#category : 'Lepiter-Core-Builders'
 }
 
-{ #category : #'api - building' }
+{ #category : 'api - building' }
 LePageBuilder >> build [
 	<return: #LePage>
 	^ self page
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 LePageBuilder >> defaultContent [
 	^ LePage named: ''.
 ]
 
-{ #category : #'api - configuration' }
+{ #category : 'api - configuration' }
 LePageBuilder >> noteOf: aDate [
 	| aTitle |
 	aTitle := LeDailyNoteTitleBuilder new title: aDate asDate.
 	self title: aTitle.
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LePageBuilder >> page [
 	<return: #LePage>
 	^ content
 ]
 
-{ #category : #'api - configuration' }
+{ #category : 'api - configuration' }
 LePageBuilder >> title: aTitle [
 	self page title: aTitle
 ]
 
-{ #category : #'api - configuration' }
+{ #category : 'api - configuration' }
 LePageBuilder >> todayNote [
 	| aTitle |
 	aTitle := LeDailyNoteTitleBuilder new title: Date today.

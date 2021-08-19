@@ -5,20 +5,20 @@ When pages are moved between databasess this announcement is not triggered, as t
 
 "
 Class {
-	#name : #LePageRemovedFromDatabase,
-	#superclass : #LePageAnnouncement,
+	#name : 'LePageRemovedFromDatabase',
+	#superclass : 'LePageAnnouncement',
 	#instVars : [
 		'database'
 	],
-	#category : #'Lepiter-Core-Announcements'
+	#category : 'Lepiter-Core-Announcements'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageRemovedFromDatabase >> database [
 	^ database
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageRemovedFromDatabase >> database: anObject [
 	database := anObject
 ]

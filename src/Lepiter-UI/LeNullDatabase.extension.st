@@ -1,6 +1,6 @@
-Extension { #name : #LeNullDatabase }
+Extension { #name : 'LeNullDatabase' }
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LeNullDatabase >> asContentUIModel [
 	^ LeDatabaseViewModel new database: self
 ]

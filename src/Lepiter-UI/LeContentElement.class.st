@@ -5,43 +5,43 @@ See my {{gtClass:LeContentElement|expanded|show=#gtSubclassesFor:}} for concrete
 
 "
 Class {
-	#name : #LeContentElement,
-	#superclass : #LeElement,
+	#name : 'LeContentElement',
+	#superclass : 'LeElement',
 	#instVars : [
 		'contentUIModel'
 	],
-	#category : #'Lepiter-UI-! Content Elements'
+	#category : 'Lepiter-UI-! Content Elements'
 }
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeContentElement >> content [
 	<return: #LePage or: #LeSnippet>
 
 	^ self contentUIModel content
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeContentElement >> content: aPageOrBlock [
 	"Create and set a new default ui model for a given page or block"
 
 	self contentUIModel: aPageOrBlock asContentUIModel
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentElement >> contentHolder [
 	self deprecated: 'Use #contentUIModel instead'.
 
 	^ contentUIModel
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeContentElement >> contentHolder: aContentHolder [
 
 	self deprecated: 'Use contentUIModel: instead'.
 	self halt
 ]
 
-{ #category : #'api - ui model' }
+{ #category : 'api - ui model' }
 LeContentElement >> contentUIModel [
 	<return: #LeContentViewModel>
 
@@ -52,7 +52,7 @@ LeContentElement >> contentUIModel [
 	^ contentUIModel
 ]
 
-{ #category : #'api - ui model' }
+{ #category : 'api - ui model' }
 LeContentElement >> contentUIModel: aLeContentUIModel [
 	"Quietly set the receivers UI Model (without performing #onContentUIModelChanged).
 	Answer a boolean indicating whether the content holder was actually changed"
@@ -72,7 +72,7 @@ LeContentElement >> contentUIModel: aLeContentUIModel [
 	self subscribeToContent
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 LeContentElement >> gtLiveFor: aView [
 	<gtView>
 	^ (super gtLiveFor: aView)
@@ -82,14 +82,14 @@ LeContentElement >> gtLiveFor: aView [
 			action: [ :aButton | aButton phlow spawnObject: self content ]
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LeContentElement >> hasContent [
 	<return: #Boolean>
 
 	^ contentUIModel notNil
 ]
 
-{ #category : #'private - hooks' }
+{ #category : 'private - hooks' }
 LeContentElement >> onContentChanged [
 	"Subclasses can react to content (page and block) changes"
 	
@@ -97,19 +97,19 @@ LeContentElement >> onContentChanged [
 	self halt
 ]
 
-{ #category : #'api - ui model' }
+{ #category : 'api - ui model' }
 LeContentElement >> onContentUIModelChanged [
 	"Subclasses can react to content (page and block) changes"
 	
 	self assertUIProcess.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentElement >> selectAndScrollTo: aPage [
 	self flag: 'TODO define this method to be able scroll to a specific block'
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeContentElement >> setContent: aPageOrBlock [
 	"Quietly set the receivers content. Delegate to the method setting the content holder."
 
@@ -117,7 +117,7 @@ LeContentElement >> setContent: aPageOrBlock [
 	self halt
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeContentElement >> setContentHolder: aNewContentHolder [
 	"Quietly set the receivers content holder (without performing #onContentHolderChanged.
 	Answer a boolean indicating whether the content holder was actually changed"
@@ -126,14 +126,14 @@ LeContentElement >> setContentHolder: aNewContentHolder [
 	self halt
 ]
 
-{ #category : #'private - subscriptions' }
+{ #category : 'private - subscriptions' }
 LeContentElement >> subscribeToContent [
 	"Subclasses can subscribe to what they are interested in.
 	All subscriptions to the model should be weak.
 	Announcements may happen in a non-UI process."
 ]
 
-{ #category : #'private - subscriptions' }
+{ #category : 'private - subscriptions' }
 LeContentElement >> unsubscribeFromContent [
 	"Subclasses can unsubscribe from what they are interested in"
 ]

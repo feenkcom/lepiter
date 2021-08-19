@@ -4,7 +4,7 @@ This should trigger a database save
 
 "
 Class {
-	#name : #LeSnippetContentChanged,
-	#superclass : #LeSnippetAnnouncement,
-	#category : #'Lepiter-Core-Announcements'
+	#name : 'LeSnippetContentChanged',
+	#superclass : 'LeSnippetAnnouncement',
+	#category : 'Lepiter-Core-Announcements'
 }
