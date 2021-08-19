@@ -1,19 +1,19 @@
 Class {
-	#name : #LeDatabasesRemovedAnnouncement,
-	#superclass : #LeDatabaseAnnouncement,
+	#name : 'LeDatabasesRemovedAnnouncement',
+	#superclass : 'LeDatabaseAnnouncement',
 	#instVars : [
 		'parent'
 	],
-	#category : #'Lepiter-Core-Announcements'
+	#category : 'Lepiter-Core-Announcements'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeDatabasesRemovedAnnouncement >> parent [
 	<return: #LeLogicalDatabase>
 	^ parent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeDatabasesRemovedAnnouncement >> parent: anObject [
 	parent := anObject
 ]

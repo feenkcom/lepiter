@@ -1,39 +1,39 @@
 Class {
-	#name : #LeLinkPageUidReference,
-	#superclass : #LeLinkPageReference,
+	#name : 'LeLinkPageUidReference',
+	#superclass : 'LeLinkPageReference',
 	#instVars : [
 		'pageUid'
 	],
-	#category : #'Lepiter-Core-Links'
+	#category : 'Lepiter-Core-Links'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeLinkPageUidReference class >> forPageUid: aPageUid [
 	^ self new
 		pageUid: aPageUid
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeLinkPageUidReference class >> forPageUid: aPageUid targetDatabaseUUID: aDatabaseUUID [
 	^ self new
 		pageUid: aPageUid;
 		targetDatabaseUUID: aDatabaseUUID
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLinkPageUidReference >> content: aPage [
 	self pageUid: aPage uid.
 	super content: aPage.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLinkPageUidReference >> description [
 	^ 'Page Uid Reference: ', (self page 
 			ifNil: [ self pageUid asString ] 
 			ifNotNil: [ :aPage | aPage title ])
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeLinkPageUidReference >> isReferencingContent: aLeContent [ 
 	self assert: [ aLeContent notNil ].
 	
@@ -42,12 +42,12 @@ LeLinkPageUidReference >> isReferencingContent: aLeContent [
 				aLeContent uid = self pageUid ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLinkPageUidReference >> pageUid [
 	^ pageUid
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLinkPageUidReference >> pageUid: anUid [
 	self assert: [ anUid notNil ].
 	self assert: [ pageUid isNil ].
@@ -56,7 +56,7 @@ LeLinkPageUidReference >> pageUid: anUid [
 	pageUid := anUid
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 LeLinkPageUidReference >> resolveInDatabase: aDatabase [
 	self assert: [ self pageUid notNil ].
 	self assert: [ self content isNil ].
@@ -69,7 +69,7 @@ LeLinkPageUidReference >> resolveInDatabase: aDatabase [
 		ifAbsent: [ "self inform: 'Could not find page for uuid ', self pageUid asString" ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLinkPageUidReference >> targetId [
 	^ self pageUid
 ]

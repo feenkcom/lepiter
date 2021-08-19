@@ -1,10 +1,10 @@
 Class {
-	#name : #LeConnectorExamples,
-	#superclass : #Object,
-	#category : #'Lepiter-UI-Examples'
+	#name : 'LeConnectorExamples',
+	#superclass : 'Object',
+	#category : 'Lepiter-UI-Examples'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeConnectorExamples >> emptyPageShowsOnlyChildren [
 	<gtExample>
 	<noTest>

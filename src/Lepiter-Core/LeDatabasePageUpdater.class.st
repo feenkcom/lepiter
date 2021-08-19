@@ -10,8 +10,8 @@ But it cannot be renamed to `two`: {{gtExample:LeDatabasePageUpdaterExamples>>#u
 
 "
 Class {
-	#name : #LeDatabasePageUpdater,
-	#superclass : #LePageBuilder,
+	#name : 'LeDatabasePageUpdater',
+	#superclass : 'LePageBuilder',
 	#traits : 'TLeContentUpdater',
 	#classTraits : 'TLeContentUpdater classTrait',
 	#instVars : [
@@ -19,15 +19,15 @@ Class {
 		'callbacks',
 		'isUpdated'
 	],
-	#category : #'Lepiter-Core-Builders'
+	#category : 'Lepiter-Core-Builders'
 }
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 LeDatabasePageUpdater >> beUpdated [
 	isUpdated := true
 ]
 
-{ #category : #'api - configuration' }
+{ #category : 'api - configuration' }
 LeDatabasePageUpdater >> callback: aCallback [
 	"Set a callback that understands #cull: message.
 	The callback is executed at the end of changes if any changed is applied.
@@ -35,13 +35,13 @@ LeDatabasePageUpdater >> callback: aCallback [
 	callbacks := callbacks copyWith: aCallback
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeDatabasePageUpdater >> database [
 	<return: #LeDatabase>
 	^ database
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeDatabasePageUpdater >> database: aDatabase [
 	self 
 		assert: [ aDatabase isDatabase ] 
@@ -49,33 +49,33 @@ LeDatabasePageUpdater >> database: aDatabase [
 	database := aDatabase.
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 LeDatabasePageUpdater >> defaultCallbacks [
 	^ #()
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 LeDatabasePageUpdater >> defaultContent [
 	^ LePage null
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 LeDatabasePageUpdater >> defaultDatabase [
 	^ LeDatabase null
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 LeDatabasePageUpdater >> executeCallbacks [
 	self isUpdated ifFalse: [ ^ self ].
 	callbacks do: [ :eachCallback | eachCallback cull: self page ].
 ]
 
-{ #category : #'private - testing' }
+{ #category : 'private - testing' }
 LeDatabasePageUpdater >> hasContent [
 	^ self page hasTitle
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeDatabasePageUpdater >> initialize [
 	super initialize.
 	isUpdated := false.
@@ -83,7 +83,7 @@ LeDatabasePageUpdater >> initialize [
 	database := self defaultDatabase.
 ]
 
-{ #category : #'private - testing' }
+{ #category : 'private - testing' }
 LeDatabasePageUpdater >> isTitleAllowed: aString [
 	^ self database 
 		pageNamed: aString
@@ -91,17 +91,17 @@ LeDatabasePageUpdater >> isTitleAllowed: aString [
 		ifAbsent: [ true ]
 ]
 
-{ #category : #'private - testing' }
+{ #category : 'private - testing' }
 LeDatabasePageUpdater >> isUpdated [
 	^ isUpdated
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeDatabasePageUpdater >> page: aPage [
 	content := aPage
 ]
 
-{ #category : #'api - configuration' }
+{ #category : 'api - configuration' }
 LeDatabasePageUpdater >> title: aTitle [
 	| aString |
 	aString := aTitle asString.
@@ -111,7 +111,7 @@ LeDatabasePageUpdater >> title: aTitle [
 	super title: aString.
 ]
 
-{ #category : #'api - updating' }
+{ #category : 'api - updating' }
 LeDatabasePageUpdater >> update [
 	"Currently we update immediately for individual method calls"
 	<return: #LePage>
@@ -120,7 +120,7 @@ LeDatabasePageUpdater >> update [
 	^ self page
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 LeDatabasePageUpdater >> updateLinks [
 	| links |
 	links := (self page incomingLinks 

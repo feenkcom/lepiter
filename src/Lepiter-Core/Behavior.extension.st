@@ -1,6 +1,6 @@
-Extension { #name : #Behavior }
+Extension { #name : 'Behavior' }
 
-{ #category : #'*Lepiter-Core' }
+{ #category : '*Lepiter-Core' }
 Behavior >> gtCoderLepiterCommentsFor: aView [
 	<gtClassView>
 

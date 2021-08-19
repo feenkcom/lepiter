@@ -1,13 +1,13 @@
 Class {
-	#name : #LePageTitleFilter,
-	#superclass : #LeFilter,
+	#name : 'LePageTitleFilter',
+	#superclass : 'LeFilter',
 	#instVars : [
 		'title'
 	],
-	#category : #'Lepiter-Core-Database - Filters'
+	#category : 'Lepiter-Core-Database - Filters'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageTitleFilter class >> filterDescriptorFor: aLeDatabase do: aBlock [
 	| titles |
 	titles := GtPrefixTree new.
@@ -22,25 +22,25 @@ LePageTitleFilter class >> filterDescriptorFor: aLeDatabase do: aBlock [
 				emptyDefaultValue: 'All')
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LePageTitleFilter >> matches: aLePage [
 	^ (aLePage title asLowercase
 		indexOfSubCollection: title asLowercase) > 0
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LePageTitleFilter >> printOn: aStream [
 	aStream
 		nextPutAll: 'Pages Matching ';
 		nextPutAll: self title
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageTitleFilter >> title [
 	^ title
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageTitleFilter >> title: aString [
 	title := aString
 ]

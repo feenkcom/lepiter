@@ -1,35 +1,35 @@
 Class {
-	#name : #LePhlowTool,
-	#superclass : #GtPhlowTool,
-	#category : #'Lepiter-UI-Phlow Tools'
+	#name : 'LePhlowTool',
+	#superclass : 'GtPhlowTool',
+	#category : 'Lepiter-UI-Phlow Tools'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 LePhlowTool class >> isAbstract [
 	^ self name = #LePhlowTool 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePhlowTool >> icon [ 
 	^ LeIcons lepiterIcon 
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePhlowTool >> name [
 	^ 'Lepiter'
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePhlowTool >> object [
 	^ self subclassResponsibility
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LePhlowTool >> tabLook [
 	^ BrGlamorousTabSwitcherWithIconAptitude
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePhlowTool >> title [
 	"Subclasses may override it to define more appropriate titles"
 	^ 'Lepiter'

@@ -1,11 +1,11 @@
-Extension { #name : #ZnUrl }
+Extension { #name : 'ZnUrl' }
 
-{ #category : #'*Lepiter-Core' }
+{ #category : '*Lepiter-Core' }
 ZnUrl >> asLepiterLinkReference [
 	^ LeLinkExternalUrlReference forUrl: self asString
 ]
 
-{ #category : #'*Lepiter-Core' }
+{ #category : '*Lepiter-Core' }
 ZnUrl >> gtViewMatchingOriginLinksFor: aView [
 	<gtView>
 	LeDatabasesRegistry uniqueInstance hasDatabasesLoaded 
@@ -17,7 +17,7 @@ ZnUrl >> gtViewMatchingOriginLinksFor: aView [
 		view: #gtViewDefaultMatchingOriginLinksFor:
 ]
 
-{ #category : #'*Lepiter-Core' }
+{ #category : '*Lepiter-Core' }
 ZnUrl >> gtViewMatchingTargetLinksFor: aView [
 	<gtView>
 	LeDatabasesRegistry uniqueInstance hasDatabasesLoaded 

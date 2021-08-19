@@ -1,62 +1,62 @@
 Class {
-	#name : #LePageTreeNodeModel,
-	#superclass : #Object,
+	#name : 'LePageTreeNodeModel',
+	#superclass : 'Object',
 	#instVars : [
 		'page'
 	],
-	#category : #'Lepiter-UI-Page-Tree-Nodes'
+	#category : 'Lepiter-UI-Page-Tree-Nodes'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LePageTreeNodeModel class >> forPage: aPage [
 	^ self new
 		page: aPage
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageTreeNodeModel class >> treeNodeInfoElementClass [
 	^ LePageTitleAndSummaryElement 
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 LePageTreeNodeModel >> = anObject [
 	self == anObject ifTrue: [ ^ true ].
 	self class = anObject class ifFalse: [ ^ false ].
 	^ self page = anObject page
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 LePageTreeNodeModel >> asNodeViewModel [
 	^ self page asContentUIModel
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageTreeNodeModel >> childPageNodes [
 	^ #()
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 LePageTreeNodeModel >> hash [
 	^ self class hash bitXor: [ 
 		self page hash ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LePageTreeNodeModel >> isForPage [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageTreeNodeModel >> nodeEntity [
 	^ self page
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageTreeNodeModel >> page [
 	^ page
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageTreeNodeModel >> page: anObject [
 	page := anObject
 ]

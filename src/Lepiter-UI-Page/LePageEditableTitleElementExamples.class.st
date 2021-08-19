@@ -1,10 +1,10 @@
 Class {
-	#name : #LePageEditableTitleElementExamples,
-	#superclass : #Object,
-	#category : #'Lepiter-UI-Page-Examples'
+	#name : 'LePageEditableTitleElementExamples',
+	#superclass : 'Object',
+	#category : 'Lepiter-UI-Page-Examples'
 }
 
-{ #category : #'examples - page - editable title' }
+{ #category : 'examples - page - editable title' }
 LePageEditableTitleElementExamples >> basicPageEditableTitleElement [
 	<gtExample>
 	| anElement |
@@ -13,7 +13,7 @@ LePageEditableTitleElementExamples >> basicPageEditableTitleElement [
 	^ anElement
 ]
 
-{ #category : #'private - instance creation' }
+{ #category : 'private - instance creation' }
 LePageEditableTitleElementExamples >> database [
 	<gtExample>
 	| database folderReference localStore  |
@@ -27,7 +27,7 @@ LePageEditableTitleElementExamples >> database [
 	^ database
 ]
 
-{ #category : #'private - instance creation' }
+{ #category : 'private - instance creation' }
 LePageEditableTitleElementExamples >> databaseWithPageAAndLinkToPageB [
 	<gtExample>
 	| aDatabase |
@@ -37,7 +37,7 @@ LePageEditableTitleElementExamples >> databaseWithPageAAndLinkToPageB [
 	^ aDatabase	
 ]
 
-{ #category : #'private - instance creation' }
+{ #category : 'private - instance creation' }
 LePageEditableTitleElementExamples >> databaseWithTwoPagesAndTwoDailyNotes [
 	<gtExample>
 	| aDatabase |
@@ -48,7 +48,7 @@ LePageEditableTitleElementExamples >> databaseWithTwoPagesAndTwoDailyNotes [
 	^ aDatabase
 ]
 
-{ #category : #'examples - page - editable title' }
+{ #category : 'examples - page - editable title' }
 LePageEditableTitleElementExamples >> pageEditableTitleElement_ApprovedTitleRename [
 	<gtExample>
 	| anElement aPage aDatabase |
@@ -65,7 +65,7 @@ LePageEditableTitleElementExamples >> pageEditableTitleElement_ApprovedTitleRena
 	^ anElement
 ]
 
-{ #category : #'examples - page - editable title' }
+{ #category : 'examples - page - editable title' }
 LePageEditableTitleElementExamples >> pageEditableTitleElement_DisapprovedTitleRename [
 	<gtExample>
 	| anElement aPage aDatabase |
@@ -82,7 +82,7 @@ LePageEditableTitleElementExamples >> pageEditableTitleElement_DisapprovedTitleR
 	^ anElement
 ]
 
-{ #category : #'examples - page - editable title' }
+{ #category : 'examples - page - editable title' }
 LePageEditableTitleElementExamples >> pageEditableTitleElement_LongTitle [
 	<gtExample>
 	| anElement aPage |
@@ -96,7 +96,7 @@ LePageEditableTitleElementExamples >> pageEditableTitleElement_LongTitle [
 	^ anElement
 ]
 
-{ #category : #'examples - page - editable title' }
+{ #category : 'examples - page - editable title' }
 LePageEditableTitleElementExamples >> pageEditableTitleElement_RenamePageBToC [
 	<gtExample>
 	| anElement aPage aDatabase |
@@ -115,7 +115,7 @@ LePageEditableTitleElementExamples >> pageEditableTitleElement_RenamePageBToC [
 	^ anElement
 ]
 
-{ #category : #'examples - page - editable title' }
+{ #category : 'examples - page - editable title' }
 LePageEditableTitleElementExamples >> pageEditableTitleElement_TitledPage [
 	<gtExample>
 	| anElement aPage |
@@ -126,7 +126,7 @@ LePageEditableTitleElementExamples >> pageEditableTitleElement_TitledPage [
 	^ anElement
 ]
 
-{ #category : #'examples - page - editable title' }
+{ #category : 'examples - page - editable title' }
 LePageEditableTitleElementExamples >> pageEditableTitleElement_UntitledPage [
 	<gtExample>
 	| anElement aPage |
@@ -137,14 +137,14 @@ LePageEditableTitleElementExamples >> pageEditableTitleElement_UntitledPage [
 	^ anElement
 ]
 
-{ #category : #'private - instance creation' }
+{ #category : 'private - instance creation' }
 LePageEditableTitleElementExamples >> titledPage [
 	<gtExample>
 
 	^ self database pageBuilder title: 'one'; add
 ]
 
-{ #category : #'private - instance creation' }
+{ #category : 'private - instance creation' }
 LePageEditableTitleElementExamples >> titledPageWithBlockHierachy [
 	<gtExample>
 	| aPage aSnippetOne aSnippetTwo |
@@ -158,7 +158,7 @@ LePageEditableTitleElementExamples >> titledPageWithBlockHierachy [
 	^ aPage
 ]
 
-{ #category : #'private - instance creation' }
+{ #category : 'private - instance creation' }
 LePageEditableTitleElementExamples >> untitledPage [
 	<gtExample>
 	^ self database pageBuilder addOnlyAfterSettingTitle

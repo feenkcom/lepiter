@@ -18,58 +18,58 @@ A LePage is a collection of snippets, that can mostly be considered analogous to
 
 "
 Class {
-	#name : #LePage,
-	#superclass : #LeContent,
+	#name : 'LePage',
+	#superclass : 'LeContent',
 	#instVars : [
 		'type',
 		'latestEditTime',
 		'uid'
 	],
-	#category : #'Lepiter-Core-Model'
+	#category : 'Lepiter-Core-Model'
 }
 
-{ #category : #factory }
+{ #category : 'factory' }
 LePage class >> builder [
 	^ LePageBuilder new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LePage class >> dailyNoteFor: aDate [
 
 	^ self new initializeDailyNote: aDate
 ]
 
-{ #category : #factory }
+{ #category : 'factory' }
 LePage class >> empty [
 	"Return a page or empty title"
 	^ self named: ''
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LePage class >> named: aTitleString [
 
 	^ self new initializeTitle: aTitleString
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LePage class >> pharoClassName: aSymbol [
 
 	^ self new initializePharoClassName: aSymbol
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LePage class >> pharoCommentClassName: aSymbol [
 
 	^ self new initializePharoCommentClassName: aSymbol
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LePage class >> unnamedPage [
 
 	^ self new initializeUnnamedPage
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LePage class >> unnamedPageWithDefaultTitle: aString [
 	| newPage |
 	newPage := self new initializeUnnamedPage.
@@ -77,13 +77,13 @@ LePage class >> unnamedPageWithDefaultTitle: aString [
 	^ newPage
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LePage >> acceptVisitor: aVisitor [
 
 	^ aVisitor visitPage: self
 ]
 
-{ #category : #'api - links' }
+{ #category : 'api - links' }
 LePage >> addAllIncomingUnlinked: aCollection [
 	"Add all the incoming unlinked references to the receiver"
 
@@ -92,7 +92,7 @@ LePage >> addAllIncomingUnlinked: aCollection [
 		addAll: aCollection
 ]
 
-{ #category : #'api - links' }
+{ #category : 'api - links' }
 LePage >> addExplicitLinkTo: aTargetReference [
 	self assert: [ self database notNil ].
 	self 
@@ -105,7 +105,7 @@ page is associated to a database. If not the link will be lost.'.
 		targetReference: aTargetReference).
 ]
 
-{ #category : #'api - converting' }
+{ #category : 'api - converting' }
 LePage >> asRemoteLink [
 	"Answer the string representing a remote link to the receiver"
 
@@ -118,7 +118,7 @@ LePage >> asRemoteLink [
 			<< '}}' ]
 ]
 
-{ #category : #'private - asserting' }
+{ #category : 'private - asserting' }
 LePage >> assertTitle: aString [
 	self 
 		assert: [ aString isNotNil ] 
@@ -130,20 +130,20 @@ LePage >> assertTitle: aString [
 		description: [ 'Title must not exist in a database: ', aString ].
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LePage >> assignNewUID [
 	"Assign the receiver a new UID"
 
 	uid := UUID new.
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LePage >> basicUid [ 
 
 	^ uid
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LePage >> basicUid: aUUID [
 	"Set the receiver's UID.
 	Only for testing purposes."
@@ -151,7 +151,7 @@ LePage >> basicUid: aUUID [
 	uid := aUUID
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LePage >> canMoveToAnotherDatabase [
 	(self outgoingExplicitLinks anySatisfy: [ :aLink | aLink isAttachedLink ])
 		ifTrue: [ ^ false ].
@@ -169,7 +169,7 @@ LePage >> canMoveToAnotherDatabase [
 	^ true
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LePage >> canMoveToDatabase: aNewDatabase [
 	(aNewDatabase hasPageNamed: self title) ifTrue: [ ^ false ].
 	(aNewDatabase hasPageUID: self uid) ifTrue: [ ^ false ].
@@ -181,19 +181,19 @@ LePage >> canMoveToDatabase: aNewDatabase [
 	^ true
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePage >> contentAsString [
 	^ self title
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePage >> databaseKey [
 	"Answer the value used to index a page of the receiver's type in the database."
 
 	^ type databaseKey
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePage >> editOrCreateTime [
 	<return: #LeTime>
 	
@@ -204,8 +204,8 @@ LePage >> editOrCreateTime [
 	^ self latestEditTime
 ]
 
-{ #category : #'api - editing' }
-LePage >> ensureOneBlock [
+{ #category : 'api - editing' }
+LePage >> ensureOneSnippet [
 	"Ensure the receiver has at least one LeSnippet child.
 	Typically used so the user has somewhere to start inserting text."
 	
@@ -213,7 +213,7 @@ LePage >> ensureOneBlock [
 	self snippetBuilder empty; add.
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 LePage >> gtSpotterActDefaultFrom: aSpotterElement [
 	| pageTool toolElement |
 
@@ -225,7 +225,7 @@ LePage >> gtSpotterActDefaultFrom: aSpotterElement [
 		from: aSpotterElement) maximized
 ]
 
-{ #category : #'api - unlinked' }
+{ #category : 'api - unlinked' }
 LePage >> hasIncomingUnlinked [
 	"Answer a boolean indicating whether the receiver has incoming unlinked references"
 
@@ -235,19 +235,19 @@ LePage >> hasIncomingUnlinked [
 		ifAbsent: [ false ]
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LePage >> hasTitle [
 	^ self title isNotNil and: [ self title isNotEmpty ]
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LePage >> includesSnippetUid: aLeUID [
 	"Answer a boolean indicating whether the supplied uid is present"
 
 	^ self children includesSnippetUid: aLeUID
 ]
 
-{ #category : #'api - unlinked' }
+{ #category : 'api - unlinked' }
 LePage >> incomingUnlinked [
 	"Answer the collection of links that reference the receiver in plain text.
 	Most pages won't have incoming unlinked references, so answer an array.
@@ -256,12 +256,12 @@ LePage >> incomingUnlinked [
 	^ self optionAt: self incomingUnlinkedOptionName ifAbsent: [ #() ]
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LePage >> incomingUnlinkedOptionName [
 	^ #incomingUnlinkedReferences
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePage >> initialize [ 
 
 	super initialize.
@@ -269,69 +269,69 @@ LePage >> initialize [
 	self assignNewUID.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePage >> initializeDailyNote: aDate [
 
 	type := LeDailyNotePageType date: aDate page: self
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePage >> initializePharoClassName: aSymbol [
 
 	type := LePharoClassPageType pageClassName: aSymbol page: self
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePage >> initializePharoCommentClassName: aSymbol [
 
 	type := LePharoClassCommentPageType pharoClassName: aSymbol page: self
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePage >> initializeTitle: aTitleString [
 
 	type := LeNamedPageType title: aTitleString page: self
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePage >> initializeUnnamedPage [
 
 	type := LeUnnamedPageType page: self
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LePage >> isDailyNote [
 	^ self type isDailyNote
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LePage >> isPage [
 	^ true
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LePage >> isTableOfContents [
 	^ self database tableOfContents == self
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LePage >> isTodayDailyNote [
 	^ self type isTodayDailyNote
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LePage >> isUnnamedPage [
 	^ self type isUnnamedPageType
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePage >> latestEditTime [
 	"Answer the most recent time the page or one of its blocks was changed in some way"
 
 	^ latestEditTime ifNil: [ latestEditTime := self getLatestEditTime ]
 ]
 
-{ #category : #'private - exporting' }
+{ #category : 'private - exporting' }
 LePage >> markdownOn: stream [
 	"Write the receiver as an HTML string on the supplied stream"
 
@@ -347,7 +347,7 @@ LePage >> markdownOn: stream [
 
 ]
 
-{ #category : #'api - editing' }
+{ #category : 'api - editing' }
 LePage >> moveDownSnippet: aLeSnippet [
 	"Try to move the supplied snippet down one item in the receiver's children.
 	If that isn't possible, do nothing"
@@ -356,7 +356,7 @@ LePage >> moveDownSnippet: aLeSnippet [
 		[ self announceContentMoved: aLeSnippet ].
 ]
 
-{ #category : #'api - editing' }
+{ #category : 'api - editing' }
 LePage >> moveToDatabase: aNewDatabase [
 	self assert: [ aNewDatabase notNil ].
 	self database = aNewDatabase ifTrue: [ 
@@ -368,7 +368,7 @@ LePage >> moveToDatabase: aNewDatabase [
 	self database movePage: self toDatabase: aNewDatabase.
 ]
 
-{ #category : #'api - editing' }
+{ #category : 'api - editing' }
 LePage >> moveUpSnippet: aLeSnippet [
 	"Try to move the supplied snippet up one item in the receiver's children.
 	If that isn't possible, do nothing"
@@ -377,19 +377,19 @@ LePage >> moveUpSnippet: aLeSnippet [
 		[ self announceContentMoved: aLeSnippet ].
 ]
 
-{ #category : #'api - notifications' }
+{ #category : 'api - notifications' }
 LePage >> notifier [
 	^ LeNotifier new
 		content: self
 ]
 
-{ #category : #'private - hooks' }
+{ #category : 'private - hooks' }
 LePage >> onAddedToDatabase [
 	super onAddedToDatabase.
 	self database updateUnresolvedReferencesForPage: self.
 ]
 
-{ #category : #'private - hooks' }
+{ #category : 'private - hooks' }
 LePage >> onRemovedFromDatabase: aDatabase [
 	super onRemovedFromDatabase: aDatabase.
 	
@@ -397,31 +397,31 @@ LePage >> onRemovedFromDatabase: aDatabase [
 	aDatabase removeIncomingExplicitLinksForContent: self.
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePage >> page [
 	^ self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePage >> pageTypeClass [
 	"Answer the class used to store the pages in ${class:name=LeDatabase}$."
 
 	^ type pageTypeClass
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LePage >> printOn: aStream [
 
 	type ifNil: [ ^ super printOn: aStream ].
 	type printOn: aStream.
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 LePage >> reloadAttributesFromContent: aLeContent [
 	^ self reloadCommonMetadataFromContent: aLeContent.
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 LePage >> reloadFromPage: aLePage [
 	"Update the receiver to match the supplied page"
 	| changed |
@@ -436,7 +436,7 @@ LePage >> reloadFromPage: aLePage [
 	changed ifTrue: [ self announceTreeChanged: self ]
 ]
 
-{ #category : #'api - unlinked' }
+{ #category : 'api - unlinked' }
 LePage >> removeAllIncomingUnlinkedSuchThat: aBlock [
 	"Remove all the incoming unlinked references that match aBlock"
 
@@ -444,31 +444,31 @@ LePage >> removeAllIncomingUnlinkedSuchThat: aBlock [
 	self incomingUnlinked removeAllSuchThat: aBlock.
 ]
 
-{ #category : #'api - editing' }
+{ #category : 'api - editing' }
 LePage >> removeSelf [
 	"Remove the page from a database"
 	
 	self database removePage: self
 ]
 
-{ #category : #'api - editing' }
+{ #category : 'api - editing' }
 LePage >> removeSelfIfEmpty [
 	"Remove the receiver if it is empty"
 
 	self isEmpty ifTrue: [ self removeSelf ]
 ]
 
-{ #category : #'api - editing' }
+{ #category : 'api - editing' }
 LePage >> renameTo: aString [
 	self updateTitle: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePage >> shouldAppearInIndexOrDailyNotes [
 	^ self type shouldAppearInIndexOrDailyNotes
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePage >> title [
 	"Answer the page's title"
 	<return: #String>
@@ -476,7 +476,7 @@ LePage >> title [
 	^ type title
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePage >> title: aString [
 	"Set the receiver's title.
 	As the title can currently change the page type, also update the type.
@@ -486,38 +486,38 @@ LePage >> title: aString [
 
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LePage >> type [
 	<return: #LePageType>
 	^ type
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LePage >> type: aType [
 	type := aType
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePage >> uid [
 	<return: #UUID>
 
 	^ uid
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LePage >> uidString [
 	<return: #String>
 
 	^ uid asString36
 ]
 
-{ #category : #'api - editing' }
+{ #category : 'api - editing' }
 LePage >> unindentSnippet: aLeSnippet [
 	"Pages can't unindent a snippet, there's no where to go.  Do nothing."
 
 ]
 
-{ #category : #'api - updating' }
+{ #category : 'api - updating' }
 LePage >> unlinkedBy: aLink [
 	"Remove the incoming link aLink.
 	If the receiver is empty and there are no incoming links, remove the receiver."
@@ -527,7 +527,7 @@ LePage >> unlinkedBy: aLink [
 		[ self database removePage: self ].
 ]
 
-{ #category : #installing }
+{ #category : 'installing' }
 LePage >> unload [ 
 
 	self allChildrenDepthFirstDo: [ :child | child unload ].
@@ -536,7 +536,7 @@ LePage >> unload [
 		announce: (LePageUnloadAnnouncement new content: self).
 ]
 
-{ #category : #'api - editing' }
+{ #category : 'api - editing' }
 LePage >> updateTitle: aTitle [
 	"Update a page title if allowed.
 	Notice that it is allowed only if a page of the same title does not exist in a database."
@@ -561,7 +561,7 @@ LePage >> updateTitle: aTitle [
 		update.
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 LePage >> updateType [
 	| aDate |
 	aDate := LeDailyNoteTitleParser parse: self title.
@@ -570,7 +570,7 @@ LePage >> updateType [
 		ifNil: [ self type: LePageType default ].
 ]
 
-{ #category : #'api - editing' }
+{ #category : 'api - editing' }
 LePage >> updater [
 	^ LeDatabasePageUpdater new
 		page: self;

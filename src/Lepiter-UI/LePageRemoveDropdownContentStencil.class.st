@@ -6,8 +6,8 @@ I am used in {{gtMethod:LePageHeaderBuilder>>#addRemovePageButton}}.
 
 "
 Class {
-	#name : #LePageRemoveDropdownContentStencil,
-	#superclass : #BrStencil,
+	#name : 'LePageRemoveDropdownContentStencil',
+	#superclass : 'BrStencil',
 	#instVars : [
 		'pageElement',
 		'anchor',
@@ -15,30 +15,30 @@ Class {
 		'label',
 		'action'
 	],
-	#category : #'Lepiter-UI-Support - Page Toolbar'
+	#category : 'Lepiter-UI-Support - Page Toolbar'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageRemoveDropdownContentStencil >> action [
 	^ action
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageRemoveDropdownContentStencil >> action: anObject [
 	action := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageRemoveDropdownContentStencil >> anchor [
 	^ anchor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageRemoveDropdownContentStencil >> anchor: anObject [
 	anchor := anObject
 ]
 
-{ #category : #'api - instantiation' }
+{ #category : 'api - instantiation' }
 LePageRemoveDropdownContentStencil >> create [
 	^ BrVerticalPane new
 		hFitContent;
@@ -48,23 +48,23 @@ LePageRemoveDropdownContentStencil >> create [
 		addChild: self newConfirmationButton.
 ]
 
-{ #category : #'private - actions' }
+{ #category : 'private - actions' }
 LePageRemoveDropdownContentStencil >> hideDropdown [
 	self anchor ifNotNil: [ :theAnchor | 
 		theAnchor dispatchEvent: (BrDropdownHideWish new anchor: theAnchor) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageRemoveDropdownContentStencil >> icon [
 	^ icon
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageRemoveDropdownContentStencil >> icon: anObject [
 	icon := anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePageRemoveDropdownContentStencil >> initialize [
 	super initialize.
 	action := [ :aConfirmationButton | self removePage ].
@@ -72,17 +72,17 @@ LePageRemoveDropdownContentStencil >> initialize [
 	label := 'Remove Page'.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageRemoveDropdownContentStencil >> label [
 	^ label
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageRemoveDropdownContentStencil >> label: anObject [
 	label := anObject
 ]
 
-{ #category : #'private - instance creation' }
+{ #category : 'private - instance creation' }
 LePageRemoveDropdownContentStencil >> newConfirmationButton [
 	^ BrButton new
 		icon: self icon;
@@ -101,14 +101,14 @@ LePageRemoveDropdownContentStencil >> newConfirmationButton [
 			self action cull: theButton ]
 ]
 
-{ #category : #'private - instance creation' }
+{ #category : 'private - instance creation' }
 LePageRemoveDropdownContentStencil >> newDescriptionElement [
 	^ self page hasIncomingLinks
 		ifTrue: [ self newLinkedPageDescriptionElement ]
 		ifFalse: [ self newNotLinkedPageDescriptionElement ]
 ]
 
-{ #category : #'private - instance creation' }
+{ #category : 'private - instance creation' }
 LePageRemoveDropdownContentStencil >> newLinkedPageDescriptionElement [
 	| aContainer |
 	aContainer := BrHorizontalPane new
@@ -130,7 +130,7 @@ LePageRemoveDropdownContentStencil >> newLinkedPageDescriptionElement [
 	^ aContainer
 ]
 
-{ #category : #'private - instance creation' }
+{ #category : 'private - instance creation' }
 LePageRemoveDropdownContentStencil >> newNotLinkedPageDescriptionElement [
 	| aDescription |
 	aDescription := 'Remove page <1s>?' expandMacrosWith: self page title.
@@ -140,29 +140,29 @@ LePageRemoveDropdownContentStencil >> newNotLinkedPageDescriptionElement [
 		text: aDescription
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LePageRemoveDropdownContentStencil >> page [
 	^ self pageElement 
 		ifNotNil: [ :anElement | anElement pageViewModel pageModel ] 
 		ifNil: [ LePage null ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageRemoveDropdownContentStencil >> pageElement [
 	^ pageElement
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageRemoveDropdownContentStencil >> pageElement: anObject [
 	pageElement := anObject
 ]
 
-{ #category : #'private - actions' }
+{ #category : 'private - actions' }
 LePageRemoveDropdownContentStencil >> removePage [
 	self pageElement ifNotNil: [ :anElement | anElement pageViewModel removePage ]
 ]
 
-{ #category : #'private - actions' }
+{ #category : 'private - actions' }
 LePageRemoveDropdownContentStencil >> spawnPageLinksFrom: aButton [
 	| theReferences aTool |
 	theReferences := LeIncomingExplicitPageLinksGroup forPage: self page.

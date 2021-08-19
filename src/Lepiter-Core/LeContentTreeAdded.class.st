@@ -14,31 +14,31 @@ The parent is the parent object of where the content has been added.  The index 
 
 "
 Class {
-	#name : #LeContentTreeAdded,
-	#superclass : #LeContentTreeChanged,
+	#name : 'LeContentTreeAdded',
+	#superclass : 'LeContentTreeChanged',
 	#instVars : [
 		'parent',
 		'index'
 	],
-	#category : #'Lepiter-Core-Announcements'
+	#category : 'Lepiter-Core-Announcements'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentTreeAdded >> index [
 	^ index
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentTreeAdded >> index: anObject [
 	index := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentTreeAdded >> parent [
 	^ parent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentTreeAdded >> parent: anObject [
 	parent := anObject
 ]

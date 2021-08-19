@@ -1,12 +1,12 @@
 Class {
-	#name : #LeUIByScripterExamples,
-	#superclass : #Object,
+	#name : 'LeUIByScripterExamples',
+	#superclass : 'Object',
 	#traits : 'TBlDevScripterExamples',
 	#classTraits : 'TBlDevScripterExamples classTrait',
-	#category : #'Lepiter-UI-Examples'
+	#category : 'Lepiter-UI-Examples'
 }
 
-{ #category : #'examples - database - page list' }
+{ #category : 'examples - database - page list' }
 LeUIByScripterExamples >> basicDatabasePageListElement [
 	<gtExample>
 	| anElement |
@@ -19,7 +19,7 @@ LeUIByScripterExamples >> basicDatabasePageListElement [
 	^ anElement
 ]
 
-{ #category : #'examples - database - page list' }
+{ #category : 'examples - database - page list' }
 LeUIByScripterExamples >> databasePageListElement_DailyNotes [
 	<gtExample>
 	| aScripter |
@@ -36,7 +36,7 @@ LeUIByScripterExamples >> databasePageListElement_DailyNotes [
 	^ aScripter
 ]
 
-{ #category : #'examples - database - page list' }
+{ #category : 'examples - database - page list' }
 LeUIByScripterExamples >> databasePageListElement_Pages [
 	<gtExample>
 	| aScripter |
@@ -53,7 +53,7 @@ LeUIByScripterExamples >> databasePageListElement_Pages [
 	^ aScripter syncContinue
 ]
 
-{ #category : #'examples - database - page list' }
+{ #category : 'examples - database - page list' }
 LeUIByScripterExamples >> databasePageListElement_Pages_AddNewPage [
 	<gtExample>
 	| aScripter aPage |
@@ -75,7 +75,7 @@ LeUIByScripterExamples >> databasePageListElement_Pages_AddNewPage [
 	^ aScripter syncContinue
 ]
 
-{ #category : #'examples - database - page list' }
+{ #category : 'examples - database - page list' }
 LeUIByScripterExamples >> databasePageListElement_Pages_RemovePageTwo [
 	<gtExample>
 	| aScripter aPage anInitialPageCount |
@@ -104,7 +104,7 @@ LeUIByScripterExamples >> databasePageListElement_Pages_RemovePageTwo [
 	^ aScripter syncContinue
 ]
 
-{ #category : #'examples - database - page list' }
+{ #category : 'examples - database - page list' }
 LeUIByScripterExamples >> databasePageListElement_Pages_Selection [
 	<gtExample>
 	<noTest>

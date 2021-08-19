@@ -1,6 +1,6 @@
 Class {
-	#name : #LeLinkReferenceElement,
-	#superclass : #BlElement,
+	#name : 'LeLinkReferenceElement',
+	#superclass : 'BlElement',
 	#traits : 'TBrLayoutResizable + TLeWithLinkReferenceViewModel + TLeWithFontSize + TLePageToolContentTreeElement + TBlAssertUIProcess',
 	#classTraits : 'TBrLayoutResizable classTrait + TLeWithLinkReferenceViewModel classTrait + TLeWithFontSize classTrait + TLePageToolContentTreeElement classTrait + TBlAssertUIProcess classTrait',
 	#instVars : [
@@ -8,10 +8,10 @@ Class {
 		'snippetsViewModel',
 		'updateRequester'
 	],
-	#category : #'Lepiter-UI-! Link Reference'
+	#category : 'Lepiter-UI-! Link Reference'
 }
 
-{ #category : #'private - tree element' }
+{ #category : 'private - tree element' }
 LeLinkReferenceElement >> createTreeElement [
 	^ BrSimpleTree new
 		matchParent;
@@ -26,7 +26,7 @@ LeLinkReferenceElement >> createTreeElement [
 		rowDataBinder: [ :aRowElement :aTreeNode :aRowIndex | self bindTreeRowData: aTreeNode to: aRowElement at: aRowIndex ]
 ]
 
-{ #category : #'private - tree element' }
+{ #category : 'private - tree element' }
 LeLinkReferenceElement >> createTreeRowFor: aSnippetElement [
 	^ BlElement new
 		layout: BlLinearLayout horizontal;
@@ -43,12 +43,12 @@ LeLinkReferenceElement >> createTreeRowFor: aSnippetElement [
 		addChild: aSnippetElement
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeLinkReferenceElement >> defaultLayout [
 	^ BlLinearLayout vertical
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeLinkReferenceElement >> initialize [
 	super initialize.
 	self initializeFontSizeShortcuts.
@@ -65,12 +65,12 @@ LeLinkReferenceElement >> initialize [
 	self matchParent.
 ]
 
-{ #category : #'api - link reference view model' }
+{ #category : 'api - link reference view model' }
 LeLinkReferenceElement >> onLinkReferenceViewModelChanged [
 	"Is sent when a new linkReference view model is assigned to the element"
 	| linkReferenceSnippetViewModel pageSnippetsTreeViewModel pageIncomingLinksViewModel |
 
-	self page ensureOneBlock.
+	self page ensureOneSnippet.
 	
 	linkReferenceSnippetViewModel := LeLinkReferenceCollectionViewModel new
 		linkReferencePreviewViewModel: self linkReferenceViewModel previewViewModel.
@@ -92,18 +92,18 @@ LeLinkReferenceElement >> onLinkReferenceViewModelChanged [
 		ifTrue: [ pageSnippetsTreeViewModel focusFirstSnippet ]
 ]
 
-{ #category : #'api - link reference view model' }
+{ #category : 'api - link reference view model' }
 LeLinkReferenceElement >> page [
 	<return: #LePage>
 	^ self linkReferenceViewModel page
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeLinkReferenceElement >> pageViewModel [
 	^ self linkReferenceViewModel pageViewModel
 ]
 
-{ #category : #'api - link reference view model' }
+{ #category : 'api - link reference view model' }
 LeLinkReferenceElement >> subscribeToLinkReferenceViewModel [
 	"Is sent after a new linkReference view model is assigned to the element.
 	It is required to unsubscribe from the view model or domain model by implementing
@@ -116,7 +116,7 @@ LeLinkReferenceElement >> subscribeToLinkReferenceViewModel [
 		when: LeSnippetCollectionScrollToChanged send: #onContentTreeScrollTo to: self.
 ]
 
-{ #category : #'api - link reference view model' }
+{ #category : 'api - link reference view model' }
 LeLinkReferenceElement >> unsubscribeFromLinkReferenceViewModel [
 	"Is sent before a new linkReference view model is assigned to the element.
 	Elements that subscribe to linkReference view model in domain model are required to implement this methods"

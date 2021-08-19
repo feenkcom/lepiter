@@ -1,6 +1,6 @@
-Extension { #name : #LePages }
+Extension { #name : 'LePages' }
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LePages >> asToolElement [
 	^ LeDatabaseToolElement new
 		margin: (BlInsets all: 10);

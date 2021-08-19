@@ -5,24 +5,24 @@ LeCoderCommentElement handles the shortcuts for increasing and decreasing font s
 
 "
 Class {
-	#name : #LeCoderCommentElement,
-	#superclass : #BlElement,
+	#name : 'LeCoderCommentElement',
+	#superclass : 'BlElement',
 	#traits : 'TLeWithFontSize',
 	#classTraits : 'TLeWithFontSize classTrait',
 	#instVars : [
 		'snippetElement'
 	],
-	#category : #'Lepiter-UI-Coder'
+	#category : 'Lepiter-UI-Coder'
 }
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeCoderCommentElement class >> coderElementFor: aSymbol [
 	"Answer a snippet element for the supplied class name"
 
 	^ self new initializeForClassName: aSymbol
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeCoderCommentElement >> initializeForClassName: aSymbol [
 	| page snippet viewModel snippetView |
 
@@ -46,7 +46,7 @@ LeCoderCommentElement >> initializeForClassName: aSymbol [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeCoderCommentElement >> page [ 
 	"Answer the page used to hold the receiver's class comment"
 

@@ -3,17 +3,17 @@ I inform {{gtClass:BlElement}} parents that a {{gtClass:LeCodeSnippet}} was eval
 
 "
 Class {
-	#name : #LeSnippetEvaluated,
-	#superclass : #BlEvent,
+	#name : 'LeSnippetEvaluated',
+	#superclass : 'BlEvent',
 	#instVars : [
 		'snippet',
 		'element',
 		'evaluationResult'
 	],
-	#category : #'Lepiter-UI-Basic - Events'
+	#category : 'Lepiter-UI-Basic - Events'
 }
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetEvaluated >> block [
 	self 
 		deprecated: 'Use #snippet instead.' 
@@ -21,7 +21,7 @@ LeSnippetEvaluated >> block [
 	^ self snippet
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetEvaluated >> block: aSnippet [
 	self 
 		deprecated: 'Use #snippet: instead.' 
@@ -29,32 +29,32 @@ LeSnippetEvaluated >> block: aSnippet [
 	^ self snippet: aSnippet.
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetEvaluated >> element [
 	^ element
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetEvaluated >> element: anObject [
 	element := anObject
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetEvaluated >> evaluationResult [
 	^ evaluationResult
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetEvaluated >> evaluationResult: anObject [
 	evaluationResult := anObject
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetEvaluated >> snippet [
 	^ snippet
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetEvaluated >> snippet: aSnippet [
 	snippet := aSnippet
 ]

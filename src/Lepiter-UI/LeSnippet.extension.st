@@ -1,27 +1,27 @@
-Extension { #name : #LeSnippet }
+Extension { #name : 'LeSnippet' }
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LeSnippet >> asContentUIModel [
 	<return: #LeSnippetViewModel>
 
 	^ self shouldNotImplement
 ]
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LeSnippet >> asLepiterPagePhlowTool [
 	^ GtPhlowCompositeTool new
 		addTool: (LeSnippetInPagePhlowTool snippet: self);
 		addTool: (GtPhlowTool default object: self)
 ]
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LeSnippet >> asSnippetViewModel [
 	<return: #LeSnippetViewModel>
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #'*Lepiter-UI' }
+{ #category : '*Lepiter-UI' }
 LeSnippet >> gtLiveFor: aView [
 	<gtView>
 	self class isAbstract

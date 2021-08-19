@@ -8,22 +8,22 @@ targetDatabaseUUID must be nil if the link is for the origin's database.  This a
 
 "
 Class {
-	#name : #LeTextualLink,
-	#superclass : #LeExplicitLink,
+	#name : 'LeTextualLink',
+	#superclass : 'LeExplicitLink',
 	#instVars : [
 		'origin',
 		'node',
 		'targetReference'
 	],
-	#category : #'Lepiter-Core-Links'
+	#category : 'Lepiter-Core-Links'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeTextualLink >> database [ 
 	^ self origin database
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeTextualLink >> editTime [ 
 	"Answer the edit time of the receiver's origin"
 	<return: #LeTime>
@@ -31,47 +31,47 @@ LeTextualLink >> editTime [
 	^ origin editTime
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LeTextualLink >> hasTarget [
 	^ self target isNotNil
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LeTextualLink >> isForeign [
 	"Answer a boolean indicating whether the receiver links to a foreign database"
 
 	^ self targetDatabaseUUID isNotNil
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LeTextualLink >> isLocalLink [
 	"Answer a boolean indicating whether the target database is local"
 
 	^ self targetDatabaseUUID isNil
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LeTextualLink >> isTextualLink [
 	^ true
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LeTextualLink >> isTextualPageLink [
 	^ false
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LeTextualLink >> isTextualSnippetLink [
 	^ false
 ]
 
-{ #category : #'api - accepting' }
+{ #category : 'api - accepting' }
 LeTextualLink >> node [
 	<return: #LeContentNode>
 	^ node
 ]
 
-{ #category : #'api - accepting' }
+{ #category : 'api - accepting' }
 LeTextualLink >> node: aNode [
 	self
 		assert: [ node isNil ] 
@@ -79,7 +79,7 @@ LeTextualLink >> node: aNode [
 	node := aNode
 ]
 
-{ #category : #callbacks }
+{ #category : 'callbacks' }
 LeTextualLink >> onAddedToDatabase: aDatabase [
 	self assert: [ self database isNotNil ] description: 'There should be no database explicitly set'.
 	super onAddedToDatabase: aDatabase.
@@ -87,22 +87,22 @@ LeTextualLink >> onAddedToDatabase: aDatabase [
 	self resolveReferences
 ]
 
-{ #category : #hooks }
+{ #category : 'hooks' }
 LeTextualLink >> onTargetChanged [
 	self origin linkedTarget: self target in: self.
 ]
 
-{ #category : #hooks }
+{ #category : 'hooks' }
 LeTextualLink >> onTargetRemoved: aTarget [
 	self origin unlinkedTarget: aTarget in: self.
 ]
 
-{ #category : #'api - accepting' }
+{ #category : 'api - accepting' }
 LeTextualLink >> origin [
 	^ origin
 ]
 
-{ #category : #'api - accepting' }
+{ #category : 'api - accepting' }
 LeTextualLink >> origin: aLeSnippet [
 
 	self
@@ -118,23 +118,23 @@ LeTextualLink >> origin: aLeSnippet [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeTextualLink >> originReference [
 	^ (LeLinkSnippetUidReference forSnippet: origin)
 			explicitLink: self
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 LeTextualLink >> resolveReferences [ 
 	self targetReference resolveAndLinkReference
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeTextualLink >> target [
 	^ self targetReference content
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeTextualLink >> targetDatabaseUUID [
 	"Answer the UUID of the database containing the link.
 	Links within the origins database should have UUID = nil"
@@ -143,7 +143,7 @@ LeTextualLink >> targetDatabaseUUID [
 	^ self targetReference targetDatabaseUUID
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeTextualLink >> targetDatabaseUUID: aUUIDString36 [
 	"Set the UUID of the database containing the link.
 	Links within the origins database should have UUID = nil"
@@ -151,18 +151,18 @@ LeTextualLink >> targetDatabaseUUID: aUUIDString36 [
 	self targetReference targetDatabaseUUID: aUUIDString36
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeTextualLink >> targetReference [
 	^ targetReference
 ]
 
-{ #category : #'api - accepting' }
+{ #category : 'api - accepting' }
 LeTextualLink >> targetUID [
 	<return: #String>
 	^ self subclassResponsibility
 ]
 
-{ #category : #'api - updating' }
+{ #category : 'api - updating' }
 LeTextualLink >> unlinkReferences [
 	self targetReference unlink. 
 ]

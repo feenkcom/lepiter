@@ -1,13 +1,13 @@
 Class {
-	#name : #LeSnippetPhlowTool,
-	#superclass : #LePhlowTool,
+	#name : 'LeSnippetPhlowTool',
+	#superclass : 'LePhlowTool',
 	#instVars : [
 		'snippet'
 	],
-	#category : #'Lepiter-UI-Phlow Tools'
+	#category : 'Lepiter-UI-Phlow Tools'
 }
 
-{ #category : #'api - instance creation' }
+{ #category : 'api - instance creation' }
 LeSnippetPhlowTool class >> block: aSnippet [
 	self 
 		deprecated: 'Use #snippet: instead.' 
@@ -15,12 +15,12 @@ LeSnippetPhlowTool class >> block: aSnippet [
 	^ self snippet: aSnippet.
 ]
 
-{ #category : #'api - instance creation' }
+{ #category : 'api - instance creation' }
 LeSnippetPhlowTool class >> snippet: aPart [
 	^ self new snippet: aPart
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetPhlowTool >> block [
 	self 
 		deprecated: 'Use #snippet instead.' 
@@ -28,7 +28,7 @@ LeSnippetPhlowTool >> block [
 	^ self snippet
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetPhlowTool >> block: aSnippet [
 	self 
 		deprecated: 'Use #snippet: instead.' 
@@ -36,23 +36,23 @@ LeSnippetPhlowTool >> block: aSnippet [
 	^ self snippet: aSnippet.
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetPhlowTool >> object [
 	^ self block
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetPhlowTool >> snippet [
 	<return: #LeTextSnippet>
 	^ snippet
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetPhlowTool >> snippet: aSnippet [ 
 	snippet := aSnippet
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetPhlowTool >> title [
 	^ self block title
 ]

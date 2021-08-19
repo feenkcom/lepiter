@@ -1,34 +1,34 @@
 Class {
-	#name : #LeAppliedFilter,
-	#superclass : #Object,
+	#name : 'LeAppliedFilter',
+	#superclass : 'Object',
 	#instVars : [
 		'database',
 		'filter'
 	],
-	#category : #'Lepiter-UI-Database - Filters'
+	#category : 'Lepiter-UI-Database - Filters'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAppliedFilter >> database [
 	^ database
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAppliedFilter >> database: aLeDatabase [
 	database := aLeDatabase
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAppliedFilter >> filter [
 	^ filter
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAppliedFilter >> filter: aLeFilter [
 	filter := aLeFilter
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 LeAppliedFilter >> gtPagesView: aView [
 	<gtView>
 	^ aView explicit
@@ -37,12 +37,12 @@ LeAppliedFilter >> gtPagesView: aView [
 		stencil: [ LeDatabaseFilteredCardElement new appliedFilter: self ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAppliedFilter >> pages [
 	^ self database pages select: [ :each | self filter matches: each ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAppliedFilter >> printOn: aStream [
 	super printOn: aStream.
 	self filter ifNotNil: [

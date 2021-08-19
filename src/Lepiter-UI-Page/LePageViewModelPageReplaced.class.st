@@ -3,7 +3,7 @@ Announced by {{gtClass:LePageViewModel}} when underlying {{gtClass:LePage}} is r
 
 "
 Class {
-	#name : #LePageViewModelPageReplaced,
-	#superclass : #LePageViewModelAnnouncement,
-	#category : #'Lepiter-UI-Page-Events'
+	#name : 'LePageViewModelPageReplaced',
+	#superclass : 'LePageViewModelAnnouncement',
+	#category : 'Lepiter-UI-Page-Events'
 }

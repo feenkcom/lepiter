@@ -3,7 +3,7 @@ Announced by {{gtClass:LePageViewModel}} when {{gtClass:LePage}}'s snippets stru
 
 "
 Class {
-	#name : #LePageViewModelSnippetsChanged,
-	#superclass : #LePageViewModelAnnouncement,
-	#category : #'Lepiter-UI-Page-Events'
+	#name : 'LePageViewModelSnippetsChanged',
+	#superclass : 'LePageViewModelAnnouncement',
+	#category : 'Lepiter-UI-Page-Events'
 }

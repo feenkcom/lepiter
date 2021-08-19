@@ -5,20 +5,20 @@ See my {{gtClass:LeDatabaseAnnouncement|expanded|show=#gtSubclassesFor:}} for co
 
 "
 Class {
-	#name : #LeDatabaseAnnouncement,
-	#superclass : #LeAnnouncement,
+	#name : 'LeDatabaseAnnouncement',
+	#superclass : 'LeAnnouncement',
 	#instVars : [
 		'database'
 	],
-	#category : #'Lepiter-Core-Announcements'
+	#category : 'Lepiter-Core-Announcements'
 }
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeDatabaseAnnouncement >> database [
 	^ database
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeDatabaseAnnouncement >> database: anObject [
 	database := anObject
 ]

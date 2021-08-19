@@ -1,24 +1,24 @@
 Class {
-	#name : #LeLinkSnippetUidReference,
-	#superclass : #LeLinkContentReference,
+	#name : 'LeLinkSnippetUidReference',
+	#superclass : 'LeLinkContentReference',
 	#instVars : [
 		'snippetUid'
 	],
-	#category : #'Lepiter-Core-Links'
+	#category : 'Lepiter-Core-Links'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeLinkSnippetUidReference class >> forSnippet: aLeSnippet [
 	^ self forContent: aLeSnippet
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeLinkSnippetUidReference class >> forSnippetUid: aSnippetUid [
 	^ self new
 		snippetUid: aSnippetUid
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLinkSnippetUidReference >> content: aSnippet [
 	self assert: [ snippetUid isNil ].
 	
@@ -26,7 +26,7 @@ LeLinkSnippetUidReference >> content: aSnippet [
 	super content: aSnippet.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLinkSnippetUidReference >> description [
 	^ 'Snippet Reference: '
 		,
@@ -35,7 +35,7 @@ LeLinkSnippetUidReference >> description [
 				ifNotNil: [ :aSnippet | aSnippet contentAsString truncateTo: 20 ])
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeLinkSnippetUidReference >> isReferencingContent: aLeContent [ 
 	self assert: [ aLeContent notNil ].
 	
@@ -44,12 +44,12 @@ LeLinkSnippetUidReference >> isReferencingContent: aLeContent [
 				aLeContent uid = self snippetUid ] ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeLinkSnippetUidReference >> isSnippetReference [
 	^ true
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LeLinkSnippetUidReference >> printOn: aStream [
 	super printOn: aStream.
 	aStream 
@@ -58,7 +58,7 @@ LeLinkSnippetUidReference >> printOn: aStream [
 		nextPutAll: ')'
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 LeLinkSnippetUidReference >> resolveInDatabase: aDatabase [
 	self assert: [ self snippetUid notNil ].
 	self assert: [ self content isNil ].
@@ -70,17 +70,17 @@ LeLinkSnippetUidReference >> resolveInDatabase: aDatabase [
 		ifAbsent: [ self inform: 'Could not find snippet for uid ', self snippetUid asString ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLinkSnippetUidReference >> snippet [
 	^ self content
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLinkSnippetUidReference >> snippetUid [
 	^ snippetUid
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLinkSnippetUidReference >> snippetUid: anUid [
 	self assert: [ anUid notNil ].
 	self assert: [ snippetUid isNil ].
@@ -91,7 +91,7 @@ LeLinkSnippetUidReference >> snippetUid: anUid [
 	snippetUid := anUid
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLinkSnippetUidReference >> targetId [
 	^ self snippetUid
 ]

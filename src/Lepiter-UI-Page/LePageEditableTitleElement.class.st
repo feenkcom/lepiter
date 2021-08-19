@@ -4,17 +4,17 @@ I display a {{gtClass:LePage}} title: {{gtExample: LePageEditableTitleElementExa
 
 "
 Class {
-	#name : #LePageEditableTitleElement,
-	#superclass : #BlElement,
+	#name : 'LePageEditableTitleElement',
+	#superclass : 'BlElement',
 	#traits : 'TLeWithPageViewModel + TBrLayoutResizable',
 	#classTraits : 'TLeWithPageViewModel classTrait + TBrLayoutResizable classTrait',
 	#instVars : [
 		'titleElement'
 	],
-	#category : #'Lepiter-UI-Page-! Views'
+	#category : 'Lepiter-UI-Page-! Views'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePageEditableTitleElement >> createTitleElement [
 	^ BrEditableLabel new
 		aptitude: (BrGlamorousEditableLabelAptitude new
@@ -44,7 +44,7 @@ LePageEditableTitleElement >> createTitleElement [
 					ifTrue: [ Clipboard clipboardText: self pageViewModel pageTitle asString ] ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePageEditableTitleElement >> initialize [
 	super initialize.
 
@@ -65,7 +65,7 @@ LePageEditableTitleElement >> initialize [
 		vAnyToFitContent: self titleElement).
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 LePageEditableTitleElement >> onAcceptTitleWish: aWish [
 	"Is sent by the editable title when users `accept` a new page title"
 
@@ -73,19 +73,19 @@ LePageEditableTitleElement >> onAcceptTitleWish: aWish [
 	self updatePageTitle
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 LePageEditableTitleElement >> onPageTitleChanged [
 	self titleElement enqueueTask: (BlTaskAction new action: [ self updatePageTitle ])
 ]
 
-{ #category : #'api - page view model' }
+{ #category : 'api - page view model' }
 LePageEditableTitleElement >> onPageViewModelChanged [
 	"Is sent when a new page view model is assigned to the element"
 	
 	self updatePageTitle
 ]
 
-{ #category : #'api - page view model' }
+{ #category : 'api - page view model' }
 LePageEditableTitleElement >> subscribeToPageViewModel [
 	"Is sent after a new page view model is assigned to the element.
 	It is required to unsubscribe from the view model or domain model by implementing
@@ -94,12 +94,12 @@ LePageEditableTitleElement >> subscribeToPageViewModel [
 	self pageViewModel weak when: LePageViewModelTitleChanged send: #onPageTitleChanged to: self
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LePageEditableTitleElement >> titleElement [
 	^ titleElement
 ]
 
-{ #category : #'api - page view model' }
+{ #category : 'api - page view model' }
 LePageEditableTitleElement >> unsubscribeFromPageViewModel [
 	"Is sent before a new page view model is assigned to the element.
 	Elements that subscribe to page view model in domain model are required to implement this methods"
@@ -107,7 +107,7 @@ LePageEditableTitleElement >> unsubscribeFromPageViewModel [
 	self pageViewModel unsubscribe: self
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 LePageEditableTitleElement >> updatePageTitle [
 	| page |
 	"I must be called from a UI process."

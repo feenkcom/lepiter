@@ -1,13 +1,13 @@
 Class {
-	#name : #LeLinkReferenceTool,
-	#superclass : #GtPhlowTool,
+	#name : 'LeLinkReferenceTool',
+	#superclass : 'GtPhlowTool',
 	#instVars : [
 		'linkReferenceViewModel'
 	],
-	#category : #'Lepiter-UI-! Link Reference'
+	#category : 'Lepiter-UI-! Link Reference'
 }
 
-{ #category : #'api - converting' }
+{ #category : 'api - converting' }
 LeLinkReferenceTool >> asElementDo: aOneArgBlock [
 	"Create a tool element and execute the block."
 	| anElement |
@@ -16,32 +16,32 @@ LeLinkReferenceTool >> asElementDo: aOneArgBlock [
 	^ aOneArgBlock cull: anElement.
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeLinkReferenceTool >> icon [
 	"Return a tool icon"
 	<return: #BlElement>
 	^ BrGlamorousVectorIcons refresh 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLinkReferenceTool >> linkReferenceViewModel [
 	<return: #LeLinkReferenceViewModel>
 	^ linkReferenceViewModel
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLinkReferenceTool >> linkReferenceViewModel: aLeLinkReferenceViewModel [
 	linkReferenceViewModel := aLeLinkReferenceViewModel
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeLinkReferenceTool >> name [
 	"Return a tool name"
 	<return: #String or: #BlText>
 	^ 'reference'
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeLinkReferenceTool >> tabLook [
 	^ BrGlamorousTabSwitcherWithIconAptitude
 ]

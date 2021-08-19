@@ -1,28 +1,28 @@
 Class {
-	#name : #LeConnectorPageElement,
-	#superclass : #BlElement,
+	#name : 'LeConnectorPageElement',
+	#superclass : 'BlElement',
 	#traits : 'TGtPhlowToolDetailAdjustable + TLeWithPageViewModel + TBrLayoutResizable',
 	#classTraits : 'TGtPhlowToolDetailAdjustable classTrait + TLeWithPageViewModel classTrait + TBrLayoutResizable classTrait',
 	#instVars : [
 		'contentElement'
 	],
-	#category : #'Lepiter-UI-Connector'
+	#category : 'Lepiter-UI-Connector'
 }
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 LeConnectorPageElement >> actOnDetailedVolume [
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 LeConnectorPageElement >> actOnNormalVolume [
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeConnectorPageElement >> contentElement [
 	^ contentElement
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeConnectorPageElement >> initialize [
 	super initialize.
 	self layout: BlLinearLayout horizontal.
@@ -37,7 +37,7 @@ LeConnectorPageElement >> initialize [
 	self addChild: self contentElement as: #content.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeConnectorPageElement >> initializeContentElement [
 	contentElement := LePageToolContentTreeElement new 
 		withTitleAndInspectButton;
@@ -46,14 +46,14 @@ LeConnectorPageElement >> initializeContentElement [
 		matchParent
 ]
 
-{ #category : #'api - page view model' }
+{ #category : 'api - page view model' }
 LeConnectorPageElement >> onPageViewModelChanged [
 	"Is sent when a new page view model is assigned to the element"
 	
 	self updateContent
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 LeConnectorPageElement >> updateContent [
 	self contentElement pageViewModel: self pageViewModel
 ]

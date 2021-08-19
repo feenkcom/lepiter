@@ -1,29 +1,29 @@
 Class {
-	#name : #LeTextStyle,
-	#superclass : #LeParagraphStyle,
+	#name : 'LeTextStyle',
+	#superclass : 'LeParagraphStyle',
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
-	#category : #'Lepiter-Core-Model'
+	#category : 'Lepiter-Core-Model'
 }
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 LeTextStyle >> = anObject [
 
 	^ self class = anObject class
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 LeTextStyle >> hash [ 
 
 	^ self class hash
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeTextStyle >> level [
 	^ nil
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LeTextStyle >> printOn: aStream [
 	aStream nextPutAll: 'Paragraph Style'
 ]

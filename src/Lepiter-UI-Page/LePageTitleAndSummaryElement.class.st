@@ -6,8 +6,8 @@ I display a {{gtClass:LePage}} title, edit date and edit email:
 
 "
 Class {
-	#name : #LePageTitleAndSummaryElement,
-	#superclass : #BlElement,
+	#name : 'LePageTitleAndSummaryElement',
+	#superclass : 'BlElement',
 	#traits : 'TLeWithPageViewModel + TBrLayoutResizable',
 	#classTraits : 'TLeWithPageViewModel classTrait + TBrLayoutResizable classTrait',
 	#instVars : [
@@ -17,30 +17,30 @@ Class {
 		'dateAndEmailElement',
 		'summaryElement'
 	],
-	#category : #'Lepiter-UI-Page-! Views'
+	#category : 'Lepiter-UI-Page-! Views'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePageTitleAndSummaryElement >> contentViewModel: aPageViewModel [
 	self pageViewModel: aPageViewModel
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LePageTitleAndSummaryElement >> dateAndEmailElement [
 	^ dateAndEmailElement
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LePageTitleAndSummaryElement >> dateElement [
 	^ dateElement
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LePageTitleAndSummaryElement >> emailElement [
 	^ emailElement
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePageTitleAndSummaryElement >> initialize [
 	super initialize.
 	self initializeTitleElement.
@@ -69,14 +69,14 @@ LePageTitleAndSummaryElement >> initialize [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePageTitleAndSummaryElement >> initializeDateAndEmailElement [
 	dateAndEmailElement := BrHorizontalPane new
 		hMatchParent;
 		vFitContent
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePageTitleAndSummaryElement >> initializeDateElement [
 	dateElement := BrLabel new
 		aptitude: (BrGlamorousLabelAptitude new glamorousRegularFont; foreground: Color gray);
@@ -84,7 +84,7 @@ LePageTitleAndSummaryElement >> initializeDateElement [
 		vFitContent
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePageTitleAndSummaryElement >> initializeEmailElement [
 	emailElement := BrLabel new
 		aptitude: (BrGlamorousLabelAptitude new glamorousRegularFont; foreground: Color gray);
@@ -92,7 +92,7 @@ LePageTitleAndSummaryElement >> initializeEmailElement [
 		vFitContent
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePageTitleAndSummaryElement >> initializeSummaryElement [
 	summaryElement := BrLabel new
 		beSmallSize;
@@ -102,7 +102,7 @@ LePageTitleAndSummaryElement >> initializeSummaryElement [
 		vFitContent
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePageTitleAndSummaryElement >> initializeTitleElement [
 	titleElement := BrLabel new
 		beSmallSize;
@@ -111,20 +111,20 @@ LePageTitleAndSummaryElement >> initializeTitleElement [
 		vFitContent
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 LePageTitleAndSummaryElement >> onPageTitleChanged [
 	self titleElement enqueueTask: (BlTaskAction new action: [ 
 		self updatePageInfo ])
 ]
 
-{ #category : #'api - page view model' }
+{ #category : 'api - page view model' }
 LePageTitleAndSummaryElement >> onPageViewModelChanged [
 	"Is sent when a new page view model is assigned to the element"
 	
 	self updatePageInfo
 ]
 
-{ #category : #'api - page view model' }
+{ #category : 'api - page view model' }
 LePageTitleAndSummaryElement >> subscribeToPageViewModel [
 	"Is sent after a new page view model is assigned to the element.
 	It is required to unsubscribe from the view model or domain model by implementing
@@ -134,7 +134,7 @@ LePageTitleAndSummaryElement >> subscribeToPageViewModel [
 		when: LePageViewModelTitleChanged send: #onPageTitleChanged to: self
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePageTitleAndSummaryElement >> summaryElement [
 	^ summaryElement
 		ifNil: [ summaryElement := BrLabel new
@@ -147,12 +147,12 @@ LePageTitleAndSummaryElement >> summaryElement [
 				vFitContent ]
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LePageTitleAndSummaryElement >> titleElement [
 	^ titleElement
 ]
 
-{ #category : #'api - page view model' }
+{ #category : 'api - page view model' }
 LePageTitleAndSummaryElement >> unsubscribeFromPageViewModel [
 	"Is sent before a new page view model is assigned to the element.
 	Elements that subscribe to page view model in domain model are required to implement this methods"
@@ -160,7 +160,7 @@ LePageTitleAndSummaryElement >> unsubscribeFromPageViewModel [
 	self pageViewModel unsubscribe: self
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 LePageTitleAndSummaryElement >> updatePageInfo [
 	self titleElement text: self pageViewModel pageTitle.
 	self summaryElement text: ((self pageViewModel printPageSummaryLimitedTo: 43) truncateWithElipsisTo: 40).

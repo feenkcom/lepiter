@@ -10,19 +10,19 @@ I am used for announcements that needs to be propagated to all parents. For exam
 
 "
 Class {
-	#name : #LeBubblingPropagater,
-	#superclass : #LeAnnouncementPropagater,
-	#category : #'Lepiter-Core-Notifier'
+	#name : 'LeBubblingPropagater',
+	#superclass : 'LeAnnouncementPropagater',
+	#category : 'Lepiter-Core-Notifier'
 }
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeBubblingPropagater >> order [
 	"Return a number representing the order of ${class:LeAnnouncementPropagater} execution.
 	Lower number is executed first."
 	^ 1
 ]
 
-{ #category : #'private - enumeration' }
+{ #category : 'private - enumeration' }
 LeBubblingPropagater >> parents: aLeContent do: aBlock [
 	| aParent |
 	aParent := aLeContent parent.
@@ -31,7 +31,7 @@ LeBubblingPropagater >> parents: aLeContent do: aBlock [
 		aParent := aParent parent ].
 ]
 
-{ #category : #'api - promoting' }
+{ #category : 'api - promoting' }
 LeBubblingPropagater >> propagate: anAnnouncement in: aLeContent [
 	<return: #LeAnnouncement>
 	| theAnnouncement |
