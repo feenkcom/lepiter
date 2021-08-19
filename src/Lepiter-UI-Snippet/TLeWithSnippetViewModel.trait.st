@@ -1,12 +1,12 @@
 Trait {
-	#name : #TLeWithSnippetViewModel,
+	#name : 'TLeWithSnippetViewModel',
 	#instVars : [
 		'snippetViewModel'
 	],
-	#category : #'Lepiter-UI-Snippet-! Views'
+	#category : 'Lepiter-UI-Snippet-! Views'
 }
 
-{ #category : #'api - snippet view model' }
+{ #category : 'api - snippet view model' }
 TLeWithSnippetViewModel >> hasSnippetViewModel [
 	"Return a true if snippet view model is assigned to the receiver element, false otherwise"
 	<return: #Boolean>
@@ -14,14 +14,14 @@ TLeWithSnippetViewModel >> hasSnippetViewModel [
 	^ snippetViewModel notNil
 ]
 
-{ #category : #'api - snippet view model' }
+{ #category : 'api - snippet view model' }
 TLeWithSnippetViewModel >> onPostSnippetViewModelChanged [
 	"I am an optional hook method that is sent after #subscribeToSnippetViewModel.
 	I do nothing by default but allow users to perform update operations when a receiver object is already
 	subscribed to announcements."
 ]
 
-{ #category : #'api - snippet view model' }
+{ #category : 'api - snippet view model' }
 TLeWithSnippetViewModel >> onSnippetViewModelChanged [
 	"Is sent when a new snippet view model is assigned to the element.
 	Note: #onSnippetViewModelChanged is sent before #subscribeToSnippetViewModel
@@ -32,7 +32,7 @@ TLeWithSnippetViewModel >> onSnippetViewModelChanged [
 	self explicitRequirement
 ]
 
-{ #category : #'api - snippet view model' }
+{ #category : 'api - snippet view model' }
 TLeWithSnippetViewModel >> snippetViewModel [
 	"Return a not-null snippet view model assigned to the receiver element"
 	self
@@ -42,7 +42,7 @@ TLeWithSnippetViewModel >> snippetViewModel [
 	^ snippetViewModel
 ]
 
-{ #category : #'api - snippet view model' }
+{ #category : 'api - snippet view model' }
 TLeWithSnippetViewModel >> snippetViewModel: aSnippetViewModel [
 	"Set a not-null snippet view model assigned to the receiver element"
 	self
@@ -60,14 +60,14 @@ TLeWithSnippetViewModel >> snippetViewModel: aSnippetViewModel [
 	self onPostSnippetViewModelChanged
 ]
 
-{ #category : #'api - snippet view model' }
+{ #category : 'api - snippet view model' }
 TLeWithSnippetViewModel >> subscribeToSnippetViewModel [
 	"Is sent after a new snippet view model is assigned to the element.
 	It is required to unsubscribe from the view model or domain model by implementing
 	#unsubscribeFromSnippetViewModel if elements subscribe to them"
 ]
 
-{ #category : #'api - snippet view model' }
+{ #category : 'api - snippet view model' }
 TLeWithSnippetViewModel >> unsubscribeFromSnippetViewModel [
 	"Is sent before a new snippet view model is assigned to the element.
 	Elements that subscribe to snippet view model in domain model are required to implement this methods."

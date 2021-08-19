@@ -5,26 +5,26 @@ Textual snippets support merging, splitting and seamless cursor navigation betwe
 
 "
 Class {
-	#name : #LeTextualSnippetViewModel,
-	#superclass : #LeSnippetViewModel,
-	#category : #'Lepiter-UI-Snippet-! View Models'
+	#name : 'LeTextualSnippetViewModel',
+	#superclass : 'LeSnippetViewModel',
+	#category : 'Lepiter-UI-Snippet-! View Models'
 }
 
-{ #category : #'api - snippet' }
+{ #category : 'api - snippet' }
 LeTextualSnippetViewModel >> focusDueToNavigationDown [
 	super focusDueToNavigationDown.
 	
 	self moveCursorAtStart
 ]
 
-{ #category : #'api - snippet' }
+{ #category : 'api - snippet' }
 LeTextualSnippetViewModel >> focusDueToNavigationUp [
 	super focusDueToNavigationUp.
 	
 	self moveCursorAtEnd
 ]
 
-{ #category : #'api - snippet' }
+{ #category : 'api - snippet' }
 LeTextualSnippetViewModel >> mergeWithNext [
 	"Try to merge the contents of the receiver with the next textual snippet (the next sibling, or the parent's next)
 	if they are of the same type."
@@ -45,7 +45,7 @@ LeTextualSnippetViewModel >> mergeWithNext [
 			ifNone: [ ] ]
 ]
 
-{ #category : #'api - snippet' }
+{ #category : 'api - snippet' }
 LeTextualSnippetViewModel >> mergeWithPrevious [
 	"Try to merge the contents of the receiver with the previous textual snippet (the previous sibling, or the parent's previous)
 	if they are of the same type."
@@ -66,7 +66,7 @@ LeTextualSnippetViewModel >> mergeWithPrevious [
 			ifNone: [ ] ]
 ]
 
-{ #category : #'api - snippet' }
+{ #category : 'api - snippet' }
 LeTextualSnippetViewModel >> moveCursorAt: aCursorPosition [
 	"Move the cursor at the given position of the textual snippet if applicable.
 	If a custom snippet is not supposed to handle cursor movement programmatically implement this method and leave it empty"
@@ -74,33 +74,33 @@ LeTextualSnippetViewModel >> moveCursorAt: aCursorPosition [
 	self subclassResponsibility
 ]
 
-{ #category : #'api - snippet' }
+{ #category : 'api - snippet' }
 LeTextualSnippetViewModel >> moveCursorAtEnd [
 	"Move the cursor at the end of the textual snippet"
 
 	self moveCursorAt: self snippetModel text size
 ]
 
-{ #category : #'api - snippet' }
+{ #category : 'api - snippet' }
 LeTextualSnippetViewModel >> moveCursorAtStart [
 	"Move the cursor at the start of the textual snippet"
 
 	self moveCursorAt: 0
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeTextualSnippetViewModel >> notifyCursorsChanged: aBrTextEditorCursor from: aSourceObject [
 	self announce: (LeTextualSnippetCursorsChanged new cursors: aBrTextEditorCursor; source: aSourceObject)
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeTextualSnippetViewModel >> snippetView [
 	<return: #LeSnippetView>
 	
 	^ super snippetView beParagraphWidth
 ]
 
-{ #category : #'api - snippet' }
+{ #category : 'api - snippet' }
 LeTextualSnippetViewModel >> splitAt: aCursorPosition [
 	"Split the block being edited at the current cursor position. Children stay with the receiver.
 	This means:
@@ -134,7 +134,7 @@ LeTextualSnippetViewModel >> splitAt: aCursorPosition [
 			aSnippetsCollection scrollToViewModel: self ]
 ]
 
-{ #category : #'api - snippet' }
+{ #category : 'api - snippet' }
 LeTextualSnippetViewModel >> splitAtEnd [
 	"Splitting a textual snippet at the end creates a new snippet that is either:
 	- a sibling of the receiver if there are no children.
@@ -151,7 +151,7 @@ LeTextualSnippetViewModel >> splitAtEnd [
 		aSnippetsCollection scrollToViewModel: newSnippetViewModel ]
 ]
 
-{ #category : #'api - snippet' }
+{ #category : 'api - snippet' }
 LeTextualSnippetViewModel >> splitAtStart [
 	"When splitting at the start of the snippet we want a new snippet above the current one"
 

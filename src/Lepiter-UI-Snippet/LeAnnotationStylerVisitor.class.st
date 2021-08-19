@@ -1,16 +1,16 @@
 Class {
-	#name : #LeAnnotationStylerVisitor,
-	#superclass : #LeAnnotationParseNodeVisitor,
+	#name : 'LeAnnotationStylerVisitor',
+	#superclass : 'LeAnnotationParseNodeVisitor',
 	#traits : 'TSmaCCComponentVisitor + (TLeAnnotationParseNodeVisitor - {#acceptNode:})',
 	#classTraits : 'TSmaCCComponentVisitor classTrait + TLeAnnotationParseNodeVisitor classTrait',
 	#instVars : [
 		'styler',
 		'normalFontSize'
 	],
-	#category : #'Lepiter-UI-Snippet-Text styler'
+	#category : 'Lepiter-UI-Snippet-Text styler'
 }
 
-{ #category : #styling }
+{ #category : 'styling' }
 LeAnnotationStylerVisitor >> applyButtonAttributeFor: aChangesAnnotation [
 	^ GtButtonAttribute new
 		beAppend;
@@ -21,12 +21,12 @@ LeAnnotationStylerVisitor >> applyButtonAttributeFor: aChangesAnnotation [
 				action: [ aChangesAnnotation changes applyChanges ])
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAnnotationStylerVisitor >> changes [
 	^ self composite changes
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeAnnotationStylerVisitor >> changesFor: aChangesAnnotation [
 	^ aChangesAnnotation filename
 		ifNotNil: [ :fn | 
@@ -47,7 +47,7 @@ LeAnnotationStylerVisitor >> changesFor: aChangesAnnotation [
 					changes ] ]
 ]
 
-{ #category : #styling }
+{ #category : 'styling' }
 LeAnnotationStylerVisitor >> createButtonAttributeFor: aChangesAnnotation [
 	^ GtButtonAttribute new
 		beAppend;
@@ -58,12 +58,12 @@ LeAnnotationStylerVisitor >> createButtonAttributeFor: aChangesAnnotation [
 				action: [ :aButton | aButton phlow spawnObject: aChangesAnnotation changes ])
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAnnotationStylerVisitor >> elements [
 	^ self composite elements
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeAnnotationStylerVisitor >> exampleFor: aMethodDefinition [
 	^ self examples
 		at: aMethodDefinition
@@ -76,41 +76,41 @@ LeAnnotationStylerVisitor >> exampleFor: aMethodDefinition [
 				do: [ :ex | ex return: nil ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAnnotationStylerVisitor >> examples [
 	^ self composite examples
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAnnotationStylerVisitor >> expanded [
 	^ self composite expanded
 ]
 
-{ #category : #styling }
+{ #category : 'styling' }
 LeAnnotationStylerVisitor >> hasCursorInside: start to: end [
 	self composite editor ifNil: [ ^ false ].
 	^ self composite editor cursors
 		anySatisfy: [ :each | each position between: start and: end ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeAnnotationStylerVisitor >> initialize [
 	super initialize.
 
 	normalFontSize := 16
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAnnotationStylerVisitor >> normalFontSize [
 	^ normalFontSize
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAnnotationStylerVisitor >> normalFontSize: anObject [
 	normalFontSize := anObject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeAnnotationStylerVisitor >> resolve: aFilenameString [
 	"Search for the supplied file name in the database or working directory"
 	| fileReference |
@@ -125,14 +125,14 @@ LeAnnotationStylerVisitor >> resolve: aFilenameString [
 	^ FileLocator workingDirectory / aFilenameString.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeAnnotationStylerVisitor >> restyleWhenClassChanged: aClassAnnotation [
 	aClassAnnotation nameNode
 		ifNotNil:
 			[ :node | self styler restyleWhenClassChanged: node stringValue asSymbol ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeAnnotationStylerVisitor >> restyleWhenMethodChanged: aMethodAnnotation [
 	aMethodAnnotation nameNode
 		ifNotNil: [ :node | 
@@ -146,22 +146,22 @@ LeAnnotationStylerVisitor >> restyleWhenMethodChanged: aMethodAnnotation [
 								ifFalse: [ ' class' ])) asSymbol ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeAnnotationStylerVisitor >> showMarkup [
 	^ self styler showMarkup
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAnnotationStylerVisitor >> snippetViewModel [
 	^ self styler snippetViewModel
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeAnnotationStylerVisitor >> sourceDirectory [
 	^ '.' asFileReference
 ]
 
-{ #category : #styling }
+{ #category : 'styling' }
 LeAnnotationStylerVisitor >> styleAnnotationWithMarkup: anAnnotation [
 	self utility
 		subtleMarkupsInText: self text
@@ -169,7 +169,7 @@ LeAnnotationStylerVisitor >> styleAnnotationWithMarkup: anAnnotation [
 		stop: anAnnotation parent stopPosition
 ]
 
-{ #category : #styling }
+{ #category : 'styling' }
 LeAnnotationStylerVisitor >> styleApplyButtonFor: aChangesAnnotation [
 	aChangesAnnotation changes
 		ifNotNil: [ :changes | 
@@ -181,7 +181,7 @@ LeAnnotationStylerVisitor >> styleApplyButtonFor: aChangesAnnotation [
 				attribute: (self applyButtonAttributeFor: aChangesAnnotation) ]
 ]
 
-{ #category : #styling }
+{ #category : 'styling' }
 LeAnnotationStylerVisitor >> styleAutoHidingAnnotation: anAnnotation [
 	| anAttribute aMarkerAttribute aStartPosition aStopPosition aSubText |
 
@@ -232,7 +232,7 @@ LeAnnotationStylerVisitor >> styleAutoHidingAnnotation: anAnnotation [
 						to: anEnd) attribute: anAttribute ] ]
 ]
 
-{ #category : #styling }
+{ #category : 'styling' }
 LeAnnotationStylerVisitor >> styleButton: anAnnotation for: object defaultLabel: aLabelBlock withTool: aBlock [
 	"Style the buttons for gtClass and gtMethod annotations"
 	| attribute |
@@ -267,7 +267,7 @@ LeAnnotationStylerVisitor >> styleButton: anAnnotation for: object defaultLabel:
 		to: anAnnotation parent stopPosition
 ]
 
-{ #category : #styling }
+{ #category : 'styling' }
 LeAnnotationStylerVisitor >> styleButton: anAnnotation for: object withTool: aBlock [
 	self
 		styleButton: anAnnotation
@@ -276,7 +276,7 @@ LeAnnotationStylerVisitor >> styleButton: anAnnotation for: object withTool: aBl
 		withTool: aBlock
 ]
 
-{ #category : #styling }
+{ #category : 'styling' }
 LeAnnotationStylerVisitor >> styleButton: anAnnotation withTool: aBlock [
 	self
 		styleButton: anAnnotation
@@ -284,7 +284,7 @@ LeAnnotationStylerVisitor >> styleButton: anAnnotation withTool: aBlock [
 		withTool: aBlock
 ]
 
-{ #category : #styling }
+{ #category : 'styling' }
 LeAnnotationStylerVisitor >> styleCreateButtonFor: aChangesAnnotation [
 	| changes |
 
@@ -299,7 +299,7 @@ LeAnnotationStylerVisitor >> styleCreateButtonFor: aChangesAnnotation [
 		to: aChangesAnnotation parent stopPosition
 ]
 
-{ #category : #styling }
+{ #category : 'styling' }
 LeAnnotationStylerVisitor >> styleExpandingExample: anExampleAnnotation [
 	| attribute |
 
@@ -325,7 +325,7 @@ LeAnnotationStylerVisitor >> styleExpandingExample: anExampleAnnotation [
 		to: anExampleAnnotation parent stopPosition) attribute: attribute
 ]
 
-{ #category : #styling }
+{ #category : 'styling' }
 LeAnnotationStylerVisitor >> styleExpandingObject: aClassAnnotation withDefault: aSymbol [
 	| cacheKey attribute |
 	aClassAnnotation isDefined
@@ -349,7 +349,7 @@ LeAnnotationStylerVisitor >> styleExpandingObject: aClassAnnotation withDefault:
 		to: aClassAnnotation parent stopPosition
 ]
 
-{ #category : #'private - styling' }
+{ #category : 'private - styling' }
 LeAnnotationStylerVisitor >> styleLinkButton: aLink text: aSubText [
 	"Style the buttons for gtPage annotations"
 
@@ -371,7 +371,7 @@ LeAnnotationStylerVisitor >> styleLinkButton: aLink text: aSubText [
 			button ]
 ]
 
-{ #category : #styling }
+{ #category : 'styling' }
 LeAnnotationStylerVisitor >> styleName: aClassAnnotation spawning: aBlock [
 	| nameNode aLinkColor |
 
@@ -386,29 +386,29 @@ LeAnnotationStylerVisitor >> styleName: aClassAnnotation spawning: aBlock [
 		foreground: aLinkColor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAnnotationStylerVisitor >> styler [
 	^ composite styler
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeAnnotationStylerVisitor >> text [
 	^ self composite text
 ]
 
-{ #category : #styling }
+{ #category : 'styling' }
 LeAnnotationStylerVisitor >> utility [
 	^ GtDocumentUtility
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeAnnotationStylerVisitor >> visitAnnotation: anAnnotation [
 	self styleAnnotationWithMarkup: anAnnotation.
 	self styleAutoHidingAnnotation: anAnnotation.
 	super visitAnnotation: anAnnotation
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeAnnotationStylerVisitor >> visitChangesAnnotation: aChangesAnnotation [
 	(self changesFor: aChangesAnnotation)
 		ifNotNil: [ :changes | 
@@ -426,7 +426,7 @@ LeAnnotationStylerVisitor >> visitChangesAnnotation: aChangesAnnotation [
 	self styleApplyButtonFor: aChangesAnnotation
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeAnnotationStylerVisitor >> visitClassAnnotation: aClassAnnotation [
 
 	super visitClassAnnotation: aClassAnnotation.
@@ -444,7 +444,7 @@ LeAnnotationStylerVisitor >> visitClassAnnotation: aClassAnnotation [
 		withDefault: GtDocumentConstants defaultClassShowSelector
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeAnnotationStylerVisitor >> visitExampleAnnotation: anExampleAnnotation [
 	| result |
 	super visitExampleAnnotation: anExampleAnnotation.
@@ -465,7 +465,7 @@ LeAnnotationStylerVisitor >> visitExampleAnnotation: anExampleAnnotation [
 		ifFalse: [ self styleExpandingExample: anExampleAnnotation ]
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeAnnotationStylerVisitor >> visitMethodAnnotation: aMethodAnnotation [
 	super visitMethodAnnotation: aMethodAnnotation.
 	self restyleWhenMethodChanged: aMethodAnnotation.
@@ -481,7 +481,7 @@ LeAnnotationStylerVisitor >> visitMethodAnnotation: aMethodAnnotation [
 		withDefault: GtDocumentConstants defaultMethodShowSelector
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationStylerVisitor >> visitPageAnnotation: aPageAnnotation [
 	| linkText |
 

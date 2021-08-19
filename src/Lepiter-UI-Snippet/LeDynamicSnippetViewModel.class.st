@@ -1,10 +1,10 @@
 Class {
-	#name : #LeDynamicSnippetViewModel,
-	#superclass : #LeAbstractSnippetViewModel,
-	#category : #'Lepiter-UI-Snippet-! View Models'
+	#name : 'LeDynamicSnippetViewModel',
+	#superclass : 'LeAbstractSnippetViewModel',
+	#category : 'Lepiter-UI-Snippet-! View Models'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeDynamicSnippetViewModel >> snippetView [
 	<return: #LeSnippetView>
 

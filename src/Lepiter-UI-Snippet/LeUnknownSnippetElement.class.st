@@ -1,18 +1,18 @@
 Class {
-	#name : #LeUnknownSnippetElement,
-	#superclass : #LeTextualSnippetElement,
+	#name : 'LeUnknownSnippetElement',
+	#superclass : 'LeTextualSnippetElement',
 	#instVars : [
 		'editorElement'
 	],
-	#category : #'Lepiter-UI-Snippet-! Views'
+	#category : 'Lepiter-UI-Snippet-! Views'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeUnknownSnippetElement >> editor [
 	^ editorElement editor
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeUnknownSnippetElement >> initialize [
 	super initialize.
 
@@ -20,7 +20,7 @@ LeUnknownSnippetElement >> initialize [
 	self initializeTextEditorShortcuts
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeUnknownSnippetElement >> initializeTextEditor [
 	editorElement := BrEditor new
 		aptitude: BrGlamorousRegularEditorAptitude new;
@@ -34,7 +34,7 @@ LeUnknownSnippetElement >> initializeTextEditor [
 		do: [ :anEvent | self onTextEditorModified: anEvent ].
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeUnknownSnippetElement >> initializeTextEditorShortcuts [
 	"Initialise the receiver's text editor shortcuts"
 	
@@ -61,28 +61,28 @@ LeUnknownSnippetElement >> initializeTextEditorShortcuts [
 		addEditorShortcut: (LeSnippetRenameSnippetShortcut new combination: (self keyboardShortcut: #RenameSnippet)).
 ]
 
-{ #category : #'api - snippet view model' }
+{ #category : 'api - snippet view model' }
 LeUnknownSnippetElement >> onSnippetViewModelChanged [
 	super onSnippetViewModelChanged.
 
 	self updateEditorText
 ]
 
-{ #category : #'api - snippet view model' }
+{ #category : 'api - snippet view model' }
 LeUnknownSnippetElement >> onSnippetViewModelFocused: aBoolean [
 	aBoolean
 		ifTrue: [ editorElement requestFocus ]
 		ifFalse: [ editorElement loseFocus ]
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 LeUnknownSnippetElement >> onTextEditorModified: anEvent [
 	"I am triggered when a editor's text is modified"
 
 	self snippet jsonString: anEvent text asString source: self
 ]
 
-{ #category : #'api - view' }
+{ #category : 'api - view' }
 LeUnknownSnippetElement >> snippetContent [
 	"Return an element that represents a content of the snippet.
 	The embedder is responsible for placing #snippetContent in the right place within snippet element depending on the
@@ -92,7 +92,7 @@ LeUnknownSnippetElement >> snippetContent [
 	^ editorElement
 ]
 
-{ #category : #'api - view' }
+{ #category : 'api - view' }
 LeUnknownSnippetElement >> snippetToolbar [
 	"Return an element that represents a toolbar of the snippet. A toolbar usually appears below the snippet content.
 	The embedder is responsible for placing #snippetToolbar in the right place within snippet element depending on the
@@ -103,7 +103,7 @@ LeUnknownSnippetElement >> snippetToolbar [
 	^ nil
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 LeUnknownSnippetElement >> updateEditorText [
 	"Update the receiver's editor.
 	As this can be called from an announcement it may be in any process (not just the UI process)"

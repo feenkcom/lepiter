@@ -1,12 +1,12 @@
 Class {
-	#name : #LeBlockStylerVisitorExamples,
-	#superclass : #Object,
+	#name : 'LeBlockStylerVisitorExamples',
+	#superclass : 'Object',
 	#traits : 'TAssertable',
 	#classTraits : 'TAssertable classTrait',
-	#category : #'Lepiter-UI-Snippet-Examples'
+	#category : 'Lepiter-UI-Snippet-Examples'
 }
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeBlockStylerVisitorExamples >> isValidLinkWideString [
 	<gtExample>
 	"Check that a file url with non-ascii characters (ěščřžýáíé) is accepted.

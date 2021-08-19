@@ -1,51 +1,51 @@
 Class {
-	#name : #LeEvaluationResult,
-	#superclass : #Object,
+	#name : 'LeEvaluationResult',
+	#superclass : 'Object',
 	#instVars : [
 		'value',
 		'position',
 		'expanded',
 		'cachedPreview'
 	],
-	#category : #'Lepiter-UI-Snippet-Text styler'
+	#category : 'Lepiter-UI-Snippet-Text styler'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeEvaluationResult >> cachedPreview [
 	^ cachedPreview
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeEvaluationResult >> cachedPreview: anObject [
 	cachedPreview := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeEvaluationResult >> expanded [
 	^ expanded ifNil: [ false ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeEvaluationResult >> expanded: aBoolean [
 	expanded := aBoolean
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeEvaluationResult >> position [
 	^ position
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeEvaluationResult >> position: anInteger [
 	position := anInteger
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeEvaluationResult >> value [
 	^ value
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeEvaluationResult >> value: anObject [
 	value := anObject
 ]

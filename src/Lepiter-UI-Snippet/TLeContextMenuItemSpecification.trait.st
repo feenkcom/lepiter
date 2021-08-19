@@ -3,11 +3,11 @@ I define minimum API that Spotter candidates (items) must satisfy to work proper
 See ${method:LeSnippetAptitude>>#newAddSnippetDropdown}$ where the ${method:TLeContextMenuItemSpecification>>#asSnippet|label=#selector}$ is used. 
 "
 Trait {
-	#name : #TLeContextMenuItemSpecification,
-	#category : #'Lepiter-UI-Snippet-Spotter'
+	#name : 'TLeContextMenuItemSpecification',
+	#category : 'Lepiter-UI-Snippet-Spotter'
 }
 
-{ #category : #'api - converting' }
+{ #category : 'api - converting' }
 TLeContextMenuItemSpecification >> asSnippet [
 	<return: #LeSnippet>
 	^ self explicitRequirement

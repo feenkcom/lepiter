@@ -1,10 +1,10 @@
 Class {
-	#name : #LeSnippetEditorShortcut,
-	#superclass : #BrEditorShortcut,
-	#category : #'Lepiter-UI-Snippet-Shortcuts'
+	#name : 'LeSnippetEditorShortcut',
+	#superclass : 'BrEditorShortcut',
+	#category : 'Lepiter-UI-Snippet-Shortcuts'
 }
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 LeSnippetEditorShortcut >> gtSourceCodeFor: aView [ 
 	<gtView>
 
@@ -14,13 +14,13 @@ LeSnippetEditorShortcut >> gtSourceCodeFor: aView [
 		view: #gtSourceFor:
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 LeSnippetEditorShortcut >> performOnEditor: aBrTextEditor block: aLeSnippetElement dueTo: aShortcutEvent [
 	self deprecated: 'use #performOnEditor:snippet:dueTo: instead.'.
 	self performOnEditor: aBrTextEditor snippet: aLeSnippetElement dueTo: aShortcutEvent.
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 LeSnippetEditorShortcut >> performOnEditor: aBrTextEditor element: aBrEditorElement dueTo: aShortcutEvent [
 	aBrEditorElement
 		withAllParentsDetect: [ :eachParent | eachParent isKindOf: LeSnippetElement ]
@@ -32,7 +32,7 @@ LeSnippetEditorShortcut >> performOnEditor: aBrTextEditor element: aBrEditorElem
 		ifNone: [  ]
 ]
 
-{ #category : #evaluation }
+{ #category : 'evaluation' }
 LeSnippetEditorShortcut >> performOnEditor: aBrTextEditor snippet: aLeSnippetElement dueTo: aShortcutEvent [
 	self subclassResponsibility
 ]

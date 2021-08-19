@@ -5,16 +5,16 @@ The snippet toolbar is taken into account when calculating the height of a snipp
 
 "
 Class {
-	#name : #LeSnippetExpandableAptitude,
-	#superclass : #LeSnippetAptitude,
+	#name : 'LeSnippetExpandableAptitude',
+	#superclass : 'LeSnippetAptitude',
 	#instVars : [
 		'toolbarContainer',
 		'toolbarElement'
 	],
-	#category : #'Lepiter-UI-Snippet-Looks'
+	#category : 'Lepiter-UI-Snippet-Looks'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 LeSnippetExpandableAptitude >> hideActions [
 	super hideActions.
 
@@ -25,7 +25,7 @@ LeSnippetExpandableAptitude >> hideActions [
 	snippetContainer background: Color transparent
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSnippetExpandableAptitude >> initialize [
 	super initialize.
 
@@ -35,14 +35,14 @@ LeSnippetExpandableAptitude >> initialize [
 	self addChangeAddChildAs: #(toolbarContainer toolbar) with: [ toolbarElement ].
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSnippetExpandableAptitude >> initializeElements [
 	super initializeElements.
 	
 	self initializeToolbarContainer
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSnippetExpandableAptitude >> initializeSnippetContainer [
 	snippetContainer := BlElement new
 		layout: (BlLinearLayout vertical);
@@ -53,7 +53,7 @@ LeSnippetExpandableAptitude >> initializeSnippetContainer [
 		geometry: (BlRoundedRectangleGeometry cornerRadius: 4)
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSnippetExpandableAptitude >> initializeToolbarContainer [
 	toolbarContainer := BrHorizontalPane new
 		preventMouseEvents;
@@ -64,7 +64,7 @@ LeSnippetExpandableAptitude >> initializeToolbarContainer [
 		constraintsDo: [ :c | c grid horizontal span: 2 ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSnippetExpandableAptitude >> showActions [
 	super showActions.
 
@@ -78,7 +78,7 @@ LeSnippetExpandableAptitude >> showActions [
 	snippetContainer background: Color white
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetExpandableAptitude >> snippetToolbar: anElementOrNil [
 	toolbarElement := anElementOrNil ifNil: [ BlElement new size: 0@0 ].
 	anElementOrNil ifNil: [ toolbarContainer := BlElement new size: 0@0 ]

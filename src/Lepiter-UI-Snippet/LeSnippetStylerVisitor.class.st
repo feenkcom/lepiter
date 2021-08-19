@@ -1,6 +1,6 @@
 Class {
-	#name : #LeSnippetStylerVisitor,
-	#superclass : #LeContentNodeVisitor,
+	#name : 'LeSnippetStylerVisitor',
+	#superclass : 'LeContentNodeVisitor',
 	#traits : 'TSmaCCCompositeVisitor + (TLeContentNodeVisitor - {#acceptNode:})',
 	#classTraits : 'TSmaCCCompositeVisitor classTrait + TLeContentNodeVisitor classTrait',
 	#instVars : [
@@ -12,31 +12,31 @@ Class {
 	#classVars : [
 		'AdditionalStylers'
 	],
-	#category : #'Lepiter-UI-Snippet-Text styler'
+	#category : 'Lepiter-UI-Snippet-Text styler'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetStylerVisitor class >> addStyler: aVisitorClass [
 	self additionalStylers add: aVisitorClass
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetStylerVisitor class >> additionalStylers [
 	^ AdditionalStylers
 		ifNil: [ AdditionalStylers := self defaultStylers ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetStylerVisitor class >> defaultStylers [
 	^ OrderedCollection with: LeAnnotationStylerVisitor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetStylerVisitor class >> removeStyler: aVisitorClass [
 	self additionalStylers remove: aVisitorClass ifAbsent: [  ]
 ]
 
-{ #category : #widgets }
+{ #category : 'widgets' }
 LeSnippetStylerVisitor class >> textLinkButtonPadding: additionalPadding margin: additionalMargin [
 	"Answer a button used for in-text links in Lepiter.
 	This sets a common font, size, color and style for the button"
@@ -44,7 +44,7 @@ LeSnippetStylerVisitor class >> textLinkButtonPadding: additionalPadding margin:
 	^ self textLinkButtonPadding: additionalPadding margin: additionalMargin valid: true
 ]
 
-{ #category : #widgets }
+{ #category : 'widgets' }
 LeSnippetStylerVisitor class >> textLinkButtonPadding: additionalPadding margin: additionalMargin valid: isValid [
 	"Answer a button used for in-text links in Lepiter.
 	This sets a common font, size, color and style for the button"
@@ -73,7 +73,7 @@ LeSnippetStylerVisitor class >> textLinkButtonPadding: additionalPadding margin:
 
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeSnippetStylerVisitor >> acceptNode: aSmaCCParseNode [
 	aSmaCCParseNode isNil
 		ifTrue: [ ^ nil ].	
@@ -86,17 +86,17 @@ LeSnippetStylerVisitor >> acceptNode: aSmaCCParseNode [
 				ifNotNil: [ :visitor | aSmaCCParseNode acceptVisitor: visitor ] ]
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 LeSnippetStylerVisitor >> changes [
 	^ self styler changes
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetStylerVisitor >> editor [
 	^ styler editor
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 LeSnippetStylerVisitor >> elements [
 	 self snippetViewModel
 	 	ifNil: [ ^ Dictionary new ].
@@ -104,7 +104,7 @@ LeSnippetStylerVisitor >> elements [
 	^ self snippetViewModel optionAt: #elements ifAbsentPut: [ Dictionary new ]
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 LeSnippetStylerVisitor >> evaluateCodeBlock: aCodeBlock expanded: aBoolean from: aButton [
 	| aCommand anErrorCatchingCommand position source |
 	aCommand := GtEvaluateSourceCodeCommand new.
@@ -125,20 +125,20 @@ LeSnippetStylerVisitor >> evaluateCodeBlock: aCodeBlock expanded: aBoolean from:
 				value: anErrorCatchingCommand result;
 				expanded: aBoolean;
 				position: position).
-	self editor styleText
+	self editor ifNotNil: #styleText
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 LeSnippetStylerVisitor >> evaluationReceiver [
 	^ nil
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 LeSnippetStylerVisitor >> examples [
 	^ self snippetViewModel optionAt: #examples ifAbsentPut: [ Dictionary new ]
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 LeSnippetStylerVisitor >> executionResults [
 	self snippetViewModel
 		ifNil: [ ^ Dictionary new ].
@@ -146,17 +146,17 @@ LeSnippetStylerVisitor >> executionResults [
 	^ self snippetViewModel optionAt: #evaluationResults ifAbsentPut: [ Dictionary new ]
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 LeSnippetStylerVisitor >> executionResults: aDictionary [
 	self snippetViewModel ifNotNil: [ :aSnippetViewModel | aSnippetViewModel optionAt: #evaluationResults put: aDictionary ]
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 LeSnippetStylerVisitor >> expanded [
 	^ self snippetViewModel optionAt: #expanded ifAbsentPut: [ Dictionary new ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSnippetStylerVisitor >> findFileUrlPath: pathString in: rootDir [
 	"Try to find the supplied path resolved against the supplied root directory or as an absolute path.
 	Answer nil if path not found"
@@ -175,7 +175,7 @@ LeSnippetStylerVisitor >> findFileUrlPath: pathString in: rootDir [
 
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 LeSnippetStylerVisitor >> finished [
 	self
 		executionResults:
@@ -183,7 +183,7 @@ LeSnippetStylerVisitor >> finished [
 				reject: [ :each | (results includes: each) not ])
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSnippetStylerVisitor >> fontSizeForHeadingLevel: aHeadingLevel [
 	"Compute the relative (em) font size for a text with a given heading level (1-6)"
 	<return: #BlFontSize>
@@ -205,7 +205,7 @@ LeSnippetStylerVisitor >> fontSizeForHeadingLevel: aHeadingLevel [
 	^ (1.0 + anExtraFontSize) fontEm
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSnippetStylerVisitor >> initialize [
 	super initialize.
 	self class additionalStylers
@@ -213,7 +213,7 @@ LeSnippetStylerVisitor >> initialize [
 	results := IdentitySet new
 ]
 
-{ #category : #'private - testing' }
+{ #category : 'private - testing' }
 LeSnippetStylerVisitor >> isCursorInside: anInterval [
 	self editor ifNil: [ ^ false ].
 	^ self editor cursors
@@ -225,7 +225,7 @@ LeSnippetStylerVisitor >> isCursorInside: anInterval [
 		ifNone: [ false ]
 ]
 
-{ #category : #'private - testing' }
+{ #category : 'private - testing' }
 LeSnippetStylerVisitor >> isValidLink: urlString [
 	"Answer a boolean indicating whether the supplied string is valid.
 	There's no restriction on what schemes are supported as we don't know what schemes the OS supports, so any scheme other than file:// will answer true.
@@ -235,7 +235,7 @@ LeSnippetStylerVisitor >> isValidLink: urlString [
 	^ (self resolveUrl: urlString) isValid
 ]
 
-{ #category : #'private - instance creation' }
+{ #category : 'private - instance creation' }
 LeSnippetStylerVisitor >> newExpandedElement: aLink [
 	| aTarget anElement aContainer |
 	aContainer := BrFrame new
@@ -260,7 +260,7 @@ LeSnippetStylerVisitor >> newExpandedElement: aLink [
 	^ aContainer
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetStylerVisitor >> normalFontSize [
 	"Styler should specify font sizes in relative units"
 
@@ -268,17 +268,17 @@ LeSnippetStylerVisitor >> normalFontSize [
 	^ 20
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetStylerVisitor >> referencedPage [
 	^ referencedPage
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetStylerVisitor >> referencedPage: aLePage [
 	referencedPage := aLePage
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSnippetStylerVisitor >> resolveUrl: aUrlString [
 	"For file urls, resolve against the database directory or root directory, and allow file urls of the form 'file://path/to/image.png' (the host is missing), with the same resolution"
 	<return: #GtUrlStringUtility>
@@ -292,17 +292,17 @@ LeSnippetStylerVisitor >> resolveUrl: aUrlString [
 		urlString: aUrlString.
 ]
 
-{ #category : #'private - testing' }
+{ #category : 'private - testing' }
 LeSnippetStylerVisitor >> showMarkup [
 	^ self styler showMarkup
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetStylerVisitor >> snippetViewModel [
 	^ styler snippetViewModel
 ]
 
-{ #category : #'private - styling' }
+{ #category : 'private - styling' }
 LeSnippetStylerVisitor >> styleAutoHiding: leftRange and: rightRange whenOutside: nodeInterval [
 	| anAttribute marker1 marker2 |
 	self showMarkup
@@ -351,7 +351,7 @@ LeSnippetStylerVisitor >> styleAutoHiding: leftRange and: rightRange whenOutside
 						attributes: {anAttribute} ] ]
 ]
 
-{ #category : #'private - styling' }
+{ #category : 'private - styling' }
 LeSnippetStylerVisitor >> styleAutoHiding: anInterval text: aSubText [
 	| anAttribute aMarkerAttribute |
 	self showMarkup
@@ -394,7 +394,7 @@ LeSnippetStylerVisitor >> styleAutoHiding: anInterval text: aSubText [
 						to: anEnd) attribute: anAttribute ] ]
 ]
 
-{ #category : #'private - styling' }
+{ #category : 'private - styling' }
 LeSnippetStylerVisitor >> styleBold: aBoldNode [
 	(self text from: aBoldNode startPosition to: aBoldNode stopPosition)
 		attributes: {BlFontWeightAttribute bold}.
@@ -406,7 +406,7 @@ LeSnippetStylerVisitor >> styleBold: aBoldNode [
 		whenOutside: aBoldNode sourceInterval
 ]
 
-{ #category : #'private - styling' }
+{ #category : 'private - styling' }
 LeSnippetStylerVisitor >> styleCode: aCodeNode size: anInteger [
 	(self text from: aCodeNode startPosition to: aCodeNode stopPosition)
 		glamorousCodeFont.
@@ -416,7 +416,7 @@ LeSnippetStylerVisitor >> styleCode: aCodeNode size: anInteger [
 		whenOutside: aCodeNode sourceInterval
 ]
 
-{ #category : #'private - styling' }
+{ #category : 'private - styling' }
 LeSnippetStylerVisitor >> styleCodeBlock: aCodeNode [
 	aCodeNode isForSmalltalk
 		ifTrue: [ self styleSmalltalkCodeBlock: aCodeNode ].
@@ -448,7 +448,7 @@ LeSnippetStylerVisitor >> styleCodeBlock: aCodeNode [
 				ifPresent: [ :result | self styleResult: result for: aCodeNode ] ]
 ]
 
-{ #category : #'private - styling' }
+{ #category : 'private - styling' }
 LeSnippetStylerVisitor >> styleExpandingButton: aLink text: aSubText [
 	aSubText
 		expandingAdornment: [ :aTBrTextEditorTextualPiece :anEditorElement | 
@@ -457,7 +457,7 @@ LeSnippetStylerVisitor >> styleExpandingButton: aLink text: aSubText [
 			Array with: anElement ]
 ]
 
-{ #category : #'private - styling' }
+{ #category : 'private - styling' }
 LeSnippetStylerVisitor >> styleExternalLink: anExternalLink [
 	| linkText |
 
@@ -469,7 +469,7 @@ LeSnippetStylerVisitor >> styleExternalLink: anExternalLink [
 	self styleExternalLinkButton: anExternalLink text: linkText.
 ]
 
-{ #category : #'private - styling' }
+{ #category : 'private - styling' }
 LeSnippetStylerVisitor >> styleExternalLinkButton: aLink text: aSubText [
 	"Append a button to the supplied link text.
 	If the link is defined (not empty), the button opens the link.
@@ -481,7 +481,7 @@ LeSnippetStylerVisitor >> styleExternalLinkButton: aLink text: aSubText [
 
 ]
 
-{ #category : #'private - styling' }
+{ #category : 'private - styling' }
 LeSnippetStylerVisitor >> styleFileSelection: aLink text: aSubText [
 	"Append a button to the supplied link text that opens the link"
 
@@ -500,7 +500,7 @@ LeSnippetStylerVisitor >> styleFileSelection: aLink text: aSubText [
 		selectDropdown ]
 ]
 
-{ #category : #'private - styling' }
+{ #category : 'private - styling' }
 LeSnippetStylerVisitor >> styleHeader: aHeaderNode [
 
 	aHeaderNode parts isEmpty
@@ -519,7 +519,7 @@ LeSnippetStylerVisitor >> styleHeader: aHeaderNode [
 			to: (aHeaderNode numberSigns last stopPosition min: aHeaderNode stopPosition))
 ]
 
-{ #category : #'private - styling' }
+{ #category : 'private - styling' }
 LeSnippetStylerVisitor >> styleItalic: anItalicNode [
 	(self text
 		from: anItalicNode startPosition
@@ -532,7 +532,7 @@ LeSnippetStylerVisitor >> styleItalic: anItalicNode [
 		whenOutside: anItalicNode sourceInterval
 ]
 
-{ #category : #'private - styling' }
+{ #category : 'private - styling' }
 LeSnippetStylerVisitor >> styleLinkButton: aLink text: aSubText [
 	"Style the text used to link to another page"
 
@@ -568,7 +568,7 @@ LeSnippetStylerVisitor >> styleLinkButton: aLink text: aSubText [
 			button ]
 ]
 
-{ #category : #'private - styling' }
+{ #category : 'private - styling' }
 LeSnippetStylerVisitor >> styleLinkText: aSubText valid: hasValidTarget [
 	"Set the colour of the source markup text"
 	| aColor |
@@ -579,7 +579,7 @@ LeSnippetStylerVisitor >> styleLinkText: aSubText valid: hasValidTarget [
 	aSubText foreground: aColor.
 ]
 
-{ #category : #'private - styling' }
+{ #category : 'private - styling' }
 LeSnippetStylerVisitor >> styleOpenExternalImage: aLink text: aSubText [
 	| anImageURL attribute |
 	
@@ -599,7 +599,7 @@ LeSnippetStylerVisitor >> styleOpenExternalImage: aLink text: aSubText [
 	aSubText attribute: attribute
 ]
 
-{ #category : #'private - styling' }
+{ #category : 'private - styling' }
 LeSnippetStylerVisitor >> styleOpenExternalLinkButton: aLink text: aSubText [
 	"Append a button to the supplied link text that opens the link"
 
@@ -623,7 +623,7 @@ LeSnippetStylerVisitor >> styleOpenExternalLinkButton: aLink text: aSubText [
 			button ]
 ]
 
-{ #category : #'private - styling' }
+{ #category : 'private - styling' }
 LeSnippetStylerVisitor >> styleResult: result for: aCodeNode [
 	| evaluatedCodeAttribute |
 	results add: result.
@@ -655,7 +655,7 @@ LeSnippetStylerVisitor >> styleResult: result for: aCodeNode [
 		to: aCodeNode code startPosition + result position - 1
 ]
 
-{ #category : #'private - styling' }
+{ #category : 'private - styling' }
 LeSnippetStylerVisitor >> styleSmalltalkCodeBlock: aCodeNode [
 	| styler strategy |
 	styler := BrRBTextStyler new.
@@ -669,44 +669,44 @@ LeSnippetStylerVisitor >> styleSmalltalkCodeBlock: aCodeNode [
 				to: aCodeNode code stopPosition)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetStylerVisitor >> styler [
 	^ styler
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetStylerVisitor >> styler: anObject [
 	styler := anObject
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetStylerVisitor >> text [
 	^ text
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetStylerVisitor >> text: anObject [
 	text := anObject
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 LeSnippetStylerVisitor >> variableBindings [
 	^ GtSnippetBindings new
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeSnippetStylerVisitor >> visitBold: aBoldNode [
 	self styleBold: aBoldNode.
 	^ self visitContent: aBoldNode
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeSnippetStylerVisitor >> visitCodeBlock: aCodeBlock [
 	self styleCodeBlock: aCodeBlock.
 	^ self visitContent: aCodeBlock
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeSnippetStylerVisitor >> visitDefinedLink: aLink [
 	| hasValidTarget aSubText |
 	super visitDefinedLink: aLink.
@@ -727,7 +727,7 @@ LeSnippetStylerVisitor >> visitDefinedLink: aLink [
 	self styleExpandingButton: aLink text: aSubText.
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeSnippetStylerVisitor >> visitExternalImageLink: anExternalLink [ 
 	| linkText url validLink |
 
@@ -745,7 +745,7 @@ LeSnippetStylerVisitor >> visitExternalImageLink: anExternalLink [
 
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeSnippetStylerVisitor >> visitExternalLabelUrlLink: anExternalLink [ 
 
 	super visitExternalLabelUrlLink: anExternalLink.
@@ -753,7 +753,7 @@ LeSnippetStylerVisitor >> visitExternalLabelUrlLink: anExternalLink [
 
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeSnippetStylerVisitor >> visitExternalUrlLink: anExternalLink [ 
 
 	super visitExternalUrlLink: anExternalLink.
@@ -761,13 +761,13 @@ LeSnippetStylerVisitor >> visitExternalUrlLink: anExternalLink [
 
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeSnippetStylerVisitor >> visitHeader: aHeader [
 	self styleHeader: aHeader.
 	^ self visitContent: aHeader
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeSnippetStylerVisitor >> visitInlineCode: anInlineCode [
 	self
 		styleCode: anInlineCode
@@ -778,7 +778,7 @@ LeSnippetStylerVisitor >> visitInlineCode: anInlineCode [
 	^ self visitContent: anInlineCode
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeSnippetStylerVisitor >> visitItalic: anItalicNode [
 	self styleItalic: anItalicNode.
 	^ self visitContent: anItalicNode
