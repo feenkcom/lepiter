@@ -1,6 +1,6 @@
 Class {
-	#name : #LeContentCompletionVisitor,
-	#superclass : #LeContentNodeVisitor,
+	#name : 'LeContentCompletionVisitor',
+	#superclass : 'LeContentNodeVisitor',
 	#traits : 'TSmaCCCompositeVisitor + (TLeContentNodeVisitor - {#acceptNode:})',
 	#classTraits : 'TSmaCCCompositeVisitor classTrait + TLeContentNodeVisitor classTrait',
 	#instVars : [
@@ -12,31 +12,31 @@ Class {
 	#classVars : [
 		'AdditionalCompletionVisitors'
 	],
-	#category : #'Lepiter-UI-Snippet-Text completion'
+	#category : 'Lepiter-UI-Snippet-Text completion'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentCompletionVisitor class >> additionalCompletionVisitors [
 	^ AdditionalCompletionVisitors
 		ifNil: [ AdditionalCompletionVisitors := self defaultCompletionVisitors ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentCompletionVisitor class >> defaultCompletionVisitors [
 	^ OrderedCollection with: LeAnnotationCompletionVisitor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentCompletionVisitor >> actionBlock: aBlock [
 	actionBlock := aBlock
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 LeContentCompletionVisitor >> addAction: aCompletionAction [
 	actionBlock value: aCompletionAction
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeContentCompletionVisitor >> completeStartAnnotation: aNode startingWith: aString [
 	| trailing source completions |
 	completions := LeParser annotationParsers keys
@@ -63,7 +63,7 @@ LeContentCompletionVisitor >> completeStartAnnotation: aNode startingWith: aStri
 						newPosition: self position + each size - aString size + 1) ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeContentCompletionVisitor >> hashCompletionActionsWithPrefix: prefix [
 	^ (self strategy pageTitles first: 100 startingWith: prefix)
 		collect: [ :each | 
@@ -92,51 +92,51 @@ LeContentCompletionVisitor >> hashCompletionActionsWithPrefix: prefix [
 			self addAction: mainAction ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeContentCompletionVisitor >> initialize [
 	super initialize.
 	self class additionalCompletionVisitors
 		do: [ :each | self addVisitor: each new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentCompletionVisitor >> position [
 	^ position
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentCompletionVisitor >> position: anInteger [
 	position := anInteger
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentCompletionVisitor >> strategy [
 	^ strategy
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentCompletionVisitor >> strategy: aCompletionStrategy [
 	strategy := aCompletionStrategy
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentCompletionVisitor >> text [
 	^ text
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentCompletionVisitor >> text: aText [
 	text := aText
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeContentCompletionVisitor >> visitEmptyHashLink: anEmptyHashLink [
 	anEmptyHashLink stopPosition = self position
 		ifTrue: [ self hashCompletionActionsWithPrefix: '' ].
 	^ self visitEmptyLink: anEmptyHashLink
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeContentCompletionVisitor >> visitShortHashLink: aShortHashLink [
 	aShortHashLink stopPosition = self position
 		ifTrue: [ self
@@ -144,7 +144,7 @@ LeContentCompletionVisitor >> visitShortHashLink: aShortHashLink [
 	^ self visitHashLink: aShortHashLink
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeContentCompletionVisitor >> visitSmaCCError: aSmaCCError [
 	| token name |
 	aSmaCCError stackContents notEmpty

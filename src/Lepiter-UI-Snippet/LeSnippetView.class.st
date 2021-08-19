@@ -1,21 +1,21 @@
 Class {
-	#name : #LeSnippetView,
-	#superclass : #BrStencil,
+	#name : 'LeSnippetView',
+	#superclass : 'BrStencil',
 	#instVars : [
 		'snippetElementClass',
 		'needsEmbellishments',
 		'needsContentDecorationBar',
 		'desiredSnippetWidth'
 	],
-	#category : #'Lepiter-UI-Snippet-! Views'
+	#category : 'Lepiter-UI-Snippet-! Views'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetView class >> contentPaddingLeft [
 	^ 5
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 LeSnippetView >> = anObject [
 	"Answer whether the receiver and anObject represent the same object."
 
@@ -26,27 +26,27 @@ LeSnippetView >> = anObject [
 	^ snippetElementClass = anObject snippetElementClass
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetView >> beDocumentWidth [
 	self desiredSnippetWidth: LeSnippetDocumentWidth new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetView >> beFullWidth [
 	self desiredSnippetWidth: LeSnippetFullWidth new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetView >> beParagraphWidth [
 	self desiredSnippetWidth: LeSnippetParagraphWidth new
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeSnippetView >> contentPaddingLeft [
 	^ self class contentPaddingLeft
 ]
 
-{ #category : #'api - instantiation' }
+{ #category : 'api - instantiation' }
 LeSnippetView >> create [
 	<return: #Object>
 	| aSnippetElement aSnippetLook anExtraLeftMargin aSnippetElementContainer |
@@ -87,7 +87,7 @@ LeSnippetView >> create [
 	^ aSnippetElementContainer
 ]
 
-{ #category : #'api - instantiation' }
+{ #category : 'api - instantiation' }
 LeSnippetView >> createSidebarContainerFor: aSnippetElement [
 	^ BlElement new
 		layout: BlFrameLayout new;
@@ -126,7 +126,7 @@ LeSnippetView >> createSidebarContainerFor: aSnippetElement [
 						asStencil)
 ]
 
-{ #category : #'api - instantiation' }
+{ #category : 'api - instantiation' }
 LeSnippetView >> createSidebarMenuFor: aSnippetElement [
 	| theActionElements |
 
@@ -150,29 +150,29 @@ LeSnippetView >> createSidebarMenuFor: aSnippetElement [
 		addChildren: theActionElements
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeSnippetView >> decorationBarWidth [
 	^ 8
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetView >> desiredSnippetWidth [
 	^ desiredSnippetWidth
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetView >> desiredSnippetWidth: anObject [
 	desiredSnippetWidth := anObject
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 LeSnippetView >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
 	^ snippetElementClass hash
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSnippetView >> initialize [
 	super initialize.
 	
@@ -181,39 +181,39 @@ LeSnippetView >> initialize [
 	desiredSnippetWidth := LeSnippetFullWidth new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetView >> needsContentDecorationBar [
 	^ needsContentDecorationBar
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetView >> needsContentDecorationBar: anObject [
 	needsContentDecorationBar := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetView >> needsEmbellishments [
 	^ needsEmbellishments
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetView >> needsEmbellishments: anObject [
 	needsEmbellishments := anObject
 ]
 
-{ #category : #'api - instantiation' }
+{ #category : 'api - instantiation' }
 LeSnippetView >> newSnippetElementLook [
 	^ self needsContentDecorationBar
 		ifFalse: [ LeSnippetExpandableAptitude new ]
 		ifTrue: [ LeSnippetExpandableWithBarAptitude new decorationBarWidth: self decorationBarWidth ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetView >> snippetElementClass [
 	^ snippetElementClass
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetView >> snippetElementClass: anObject [
 	snippetElementClass := anObject
 ]

@@ -3,7 +3,7 @@
 
 "
 Class {
-	#name : #LeSnippetCollectionScrollToChanged,
-	#superclass : #Announcement,
-	#category : #'Lepiter-UI-Snippet-Events'
+	#name : 'LeSnippetCollectionScrollToChanged',
+	#superclass : 'Announcement',
+	#category : 'Lepiter-UI-Snippet-Events'
 }

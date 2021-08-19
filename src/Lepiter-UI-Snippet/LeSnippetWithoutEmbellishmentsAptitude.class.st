@@ -1,15 +1,15 @@
 Class {
-	#name : #LeSnippetWithoutEmbellishmentsAptitude,
-	#superclass : #BrAptitude,
+	#name : 'LeSnippetWithoutEmbellishmentsAptitude',
+	#superclass : 'BrAptitude',
 	#instVars : [
 		'padding',
 		'margin',
 		'snippetContent'
 	],
-	#category : #'Lepiter-UI-Snippet-Looks'
+	#category : 'Lepiter-UI-Snippet-Looks'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSnippetWithoutEmbellishmentsAptitude >> initialize [
 	super initialize.
 
@@ -28,29 +28,29 @@ LeSnippetWithoutEmbellishmentsAptitude >> initialize [
 		inherit: [ snippetContent ])
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetWithoutEmbellishmentsAptitude >> margin [
 	^ margin
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetWithoutEmbellishmentsAptitude >> margin: anObject [
 	margin := anObject
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetWithoutEmbellishmentsAptitude >> padding [
 	<return: #BlInsets>
 
 	^ padding
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetWithoutEmbellishmentsAptitude >> padding: aBlInsets [
 	padding := aBlInsets
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSnippetWithoutEmbellishmentsAptitude >> snippetContent: aSnippetContent [
 	snippetContent := aSnippetContent
 ]

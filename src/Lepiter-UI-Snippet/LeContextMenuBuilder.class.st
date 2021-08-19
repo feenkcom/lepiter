@@ -1,10 +1,10 @@
 Class {
-	#name : #LeContextMenuBuilder,
-	#superclass : #Object,
-	#category : #'Lepiter-UI-Snippet-Spotter'
+	#name : 'LeContextMenuBuilder',
+	#superclass : 'Object',
+	#category : 'Lepiter-UI-Snippet-Spotter'
 }
 
-{ #category : #building }
+{ #category : 'building' }
 LeContextMenuBuilder >> build [
 	| aCollector aCollection |
 	aCollector := (PragmaCollector
@@ -23,7 +23,7 @@ LeContextMenuBuilder >> build [
 	^ aCollection
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContextMenuBuilder >> gtMenuItemsFor: aView [
 	<gtView>
 	^ aView columnedList 

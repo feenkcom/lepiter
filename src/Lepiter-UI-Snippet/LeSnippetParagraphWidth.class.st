@@ -1,10 +1,10 @@
 Class {
-	#name : #LeSnippetParagraphWidth,
-	#superclass : #LeSnippetWidth,
-	#category : #'Lepiter-UI-Snippet-! Views'
+	#name : 'LeSnippetParagraphWidth',
+	#superclass : 'LeSnippetWidth',
+	#category : 'Lepiter-UI-Snippet-! Views'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetParagraphWidth >> maxWidth [
 	^ 600
 ]

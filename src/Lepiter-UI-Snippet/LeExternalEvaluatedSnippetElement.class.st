@@ -3,8 +3,8 @@ LeExternalEvaluatedSnippetElement is an abstract class that provides common beha
 
 "
 Class {
-	#name : #LeExternalEvaluatedSnippetElement,
-	#superclass : #LeEvaluatedSnippetElement,
+	#name : 'LeExternalEvaluatedSnippetElement',
+	#superclass : 'LeEvaluatedSnippetElement',
 	#instVars : [
 		'snippetBindings',
 		'coderModel',
@@ -13,22 +13,22 @@ Class {
 		'server',
 		'serverException'
 	],
-	#category : #'Lepiter-UI-Snippet-! Views'
+	#category : 'Lepiter-UI-Snippet-! Views'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeExternalEvaluatedSnippetElement class >> isAbstract [
 	^ self = LeExternalEvaluatedSnippetElement
 ]
 
-{ #category : #'private - execution' }
+{ #category : 'private - execution' }
 LeExternalEvaluatedSnippetElement >> executeContents [
 	"Execute the receiver's contents"
 
 	self coderViewModel doItAll
 ]
 
-{ #category : #'private - execution' }
+{ #category : 'private - execution' }
 LeExternalEvaluatedSnippetElement >> executeContentsAndSpawnFrom: anElement [
 	"Execute the receiver's contents and spawn the result"
 
@@ -37,7 +37,7 @@ LeExternalEvaluatedSnippetElement >> executeContentsAndSpawnFrom: anElement [
 	self coderViewModel doItAndGo
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeExternalEvaluatedSnippetElement >> initialize [ 
 	super initialize.
 
@@ -48,7 +48,7 @@ LeExternalEvaluatedSnippetElement >> initialize [
 	self registerSpawnBelowHandler
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeExternalEvaluatedSnippetElement >> initializeCoderToolbar [
 	"Initialise the toolbar that contains the control buttons (doIt, doIt and inspect)"
 	| buttonBar toolbar |
@@ -98,7 +98,7 @@ LeExternalEvaluatedSnippetElement >> initializeCoderToolbar [
 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeExternalEvaluatedSnippetElement >> initializeTextEditor [
 
 	editorElement := GtSourceCoderEditorElement new 
@@ -107,7 +107,7 @@ LeExternalEvaluatedSnippetElement >> initializeTextEditor [
 	editorElement editor addEventHandler: (LeEditorReachedBorderEventHandler new snippetElement: self)
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeExternalEvaluatedSnippetElement >> initializeTextEditorShortcuts [
 	"Initialise the receiver's text editor shortcuts"
 	
@@ -134,7 +134,7 @@ LeExternalEvaluatedSnippetElement >> initializeTextEditorShortcuts [
 		addEditorShortcut: (LeSnippetRenameSnippetShortcut new combination: (self keyboardShortcut: #RenameSnippet)).
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeExternalEvaluatedSnippetElement >> registerSpawnBelowHandler [
 	self
 		when: GtPhlowObjectToSpawn

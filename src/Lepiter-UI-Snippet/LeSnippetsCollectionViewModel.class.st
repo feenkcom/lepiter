@@ -1,21 +1,21 @@
 Class {
-	#name : #LeSnippetsCollectionViewModel,
-	#superclass : #LeContentCollectionViewModel,
+	#name : 'LeSnippetsCollectionViewModel',
+	#superclass : 'LeContentCollectionViewModel',
 	#instVars : [
 		'snippetsMap',
 		'snippetBindings',
 		'focusedSnippetUIModel',
 		'viewModelToScrollTo'
 	],
-	#category : #'Lepiter-UI-Snippet-! View Models'
+	#category : 'Lepiter-UI-Snippet-! View Models'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeSnippetsCollectionViewModel class >> isAbstract [
 	^ self = LeSnippetsCollectionViewModel
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetsCollectionViewModel >> content: aLeContent [
 	super content: aLeContent.
 
@@ -23,21 +23,21 @@ LeSnippetsCollectionViewModel >> content: aLeContent [
 	self updateChildren
 ]
 
-{ #category : #'private - instance creation' }
+{ #category : 'private - instance creation' }
 LeSnippetsCollectionViewModel >> createSnippetUIModelFor: aLeSnippet [
 	^ aLeSnippet asSnippetViewModel
 		snippetsCollection: self;
 		snippetBindings: self snippetBindings
 ]
 
-{ #category : #'api - snippets' }
+{ #category : 'api - snippets' }
 LeSnippetsCollectionViewModel >> findOrCreateSnippetViewModel: aLeSnippet [
 	^ snippetsMap
 		at: aLeSnippet
 		ifAbsentPut: [ self createSnippetUIModelFor: aLeSnippet ]
 ]
 
-{ #category : #'api - focus' }
+{ #category : 'api - focus' }
 LeSnippetsCollectionViewModel >> focusFirstSnippet [
 	(focusedSnippetUIModel notNil and: [ self includesContentUIModel: focusedSnippetUIModel ])
 		ifTrue: [ ^ self ].
@@ -47,7 +47,7 @@ LeSnippetsCollectionViewModel >> focusFirstSnippet [
 		^ self ].
 ]
 
-{ #category : #'api - focus' }
+{ #category : 'api - focus' }
 LeSnippetsCollectionViewModel >> focusSnippetUIModel: aSnippetUIModel [
 	(focusedSnippetUIModel notNil
 		and: [ focusedSnippetUIModel ~= aSnippetUIModel ])
@@ -57,7 +57,7 @@ LeSnippetsCollectionViewModel >> focusSnippetUIModel: aSnippetUIModel [
 	focusedSnippetUIModel focused: true
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSnippetsCollectionViewModel >> includesContentUIModel: aContentUIModel [
 	self allChildrenBreadthFirstDo: [ :eachUIModel |
 		eachUIModel == aContentUIModel
@@ -66,7 +66,7 @@ LeSnippetsCollectionViewModel >> includesContentUIModel: aContentUIModel [
 	^ false
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSnippetsCollectionViewModel >> initialize [
 	super initialize.
 
@@ -74,12 +74,12 @@ LeSnippetsCollectionViewModel >> initialize [
 	snippetsMap := IdentityDictionary new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSnippetsCollectionViewModel >> notifyScrollToChanged [
 	self announce: (LeSnippetCollectionScrollToChanged new)
 ]
 
-{ #category : #'api - scrolling' }
+{ #category : 'api - scrolling' }
 LeSnippetsCollectionViewModel >> scrollToViewModel: aLeViewModel [
 	self
 		assert: [ aLeViewModel notNil ]
@@ -89,12 +89,12 @@ LeSnippetsCollectionViewModel >> scrollToViewModel: aLeViewModel [
 	self notifyScrollToChanged
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetsCollectionViewModel >> snippetBindings [
 	^ snippetBindings
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetsCollectionViewModel >> snippetBindings: aGtSnippetBindings [
 	self
 		assert: [ aGtSnippetBindings notNil ]
@@ -105,7 +105,7 @@ LeSnippetsCollectionViewModel >> snippetBindings: aGtSnippetBindings [
 	self allChildrenBreadthFirstDo: [ :eachSnippetUIModel | eachSnippetUIModel snippetBindings: aGtSnippetBindings ]
 ]
 
-{ #category : #'api - scrolling' }
+{ #category : 'api - scrolling' }
 LeSnippetsCollectionViewModel >> takeViewModelToScrollTo [
 	| aViewModelToScrollTo |
 
@@ -114,7 +114,7 @@ LeSnippetsCollectionViewModel >> takeViewModelToScrollTo [
 	^ aViewModelToScrollTo
 ]
 
-{ #category : #'api - focus' }
+{ #category : 'api - focus' }
 LeSnippetsCollectionViewModel >> unfocusSnippetUIModel: aSnippetUIModel [
 	focusedSnippetUIModel = aSnippetUIModel
 		ifTrue: [ focusedSnippetUIModel := nil ].
@@ -122,7 +122,7 @@ LeSnippetsCollectionViewModel >> unfocusSnippetUIModel: aSnippetUIModel [
 	aSnippetUIModel focused: false
 ]
 
-{ #category : #'api - scrolling' }
+{ #category : 'api - scrolling' }
 LeSnippetsCollectionViewModel >> viewModelToScrollTo [
 	^ viewModelToScrollTo
 ]

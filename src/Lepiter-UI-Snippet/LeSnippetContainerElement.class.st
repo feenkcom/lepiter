@@ -4,17 +4,17 @@ Wraps a {{gtClass:LeSnippetElement}} and adds support for max width to limit how
 
 "
 Class {
-	#name : #LeSnippetContainerElement,
-	#superclass : #BlElement,
+	#name : 'LeSnippetContainerElement',
+	#superclass : 'BlElement',
 	#traits : 'TLeWithSnippetViewModel + TBrLayoutResizable',
 	#classTraits : 'TLeWithSnippetViewModel classTrait + TBrLayoutResizable classTrait',
 	#instVars : [
 		'snippetElement'
 	],
-	#category : #'Lepiter-UI-Snippet-! Views'
+	#category : 'Lepiter-UI-Snippet-! Views'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSnippetContainerElement >> initialize [
 	super initialize.
 	
@@ -27,7 +27,7 @@ LeSnippetContainerElement >> initialize [
 	self addAptitude: (BrLayoutResizerAptitude new inherit: [ self snippetElement ])
 ]
 
-{ #category : #'api - snippet view model' }
+{ #category : 'api - snippet view model' }
 LeSnippetContainerElement >> onSnippetViewModelChanged [
 	"Is sent when a new snippet view model is assigned to the element.
 	Note: #onSnippetViewModelChanged is sent before #subscribeToSnippetViewModel
@@ -38,18 +38,18 @@ LeSnippetContainerElement >> onSnippetViewModelChanged [
 	self snippetElement snippetViewModel: self snippetViewModel
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetContainerElement >> snippetElement [
 	^ snippetElement
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetContainerElement >> snippetElement: anElement [
 	snippetElement := anElement.
 	self addChild: anElement
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSnippetContainerElement >> snippetMaxWidth: aNumber [
 	self constraintsDo: [ :c | c maxWidth: aNumber ]
 ]
