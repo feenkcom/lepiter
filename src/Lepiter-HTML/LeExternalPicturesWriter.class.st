@@ -1,26 +1,26 @@
 Class {
-	#name : #LeExternalPicturesWriter,
-	#superclass : #Object,
+	#name : 'LeExternalPicturesWriter',
+	#superclass : 'Object',
 	#instVars : [
 		'associatedNames',
 		'counter',
 		'memoryStore'
 	],
-	#category : #'Lepiter-HTML-Exporter'
+	#category : 'Lepiter-HTML-Exporter'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeExternalPicturesWriter class >> initialCounterValue [
 	^ 999
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 LeExternalPicturesWriter >> allFiles [
 	<return: #Array of: #FileReference>
 	^ self rootDirectory allFiles
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeExternalPicturesWriter >> exampleResultReferenceFor: anExampleAnnotation [ 
 	<return: #String>
 	| aPath |
@@ -30,7 +30,7 @@ LeExternalPicturesWriter >> exampleResultReferenceFor: anExampleAnnotation [
 	^ aPath fullName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeExternalPicturesWriter >> exampleSnippetResultReferenceFor: aSnippetExample [
 	<return: #String>
 	| aPath |
@@ -47,7 +47,7 @@ LeExternalPicturesWriter >> exampleSnippetResultReferenceFor: aSnippetExample [
 	^ aPath fullName
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeExternalPicturesWriter >> exportExampleResultOf: anExampleAnnotation to: aRelativePath [ 
 	| fileReference exampleReturnValue container scaleFactor height |
 	fileReference := memoryStore referenceTo: aRelativePath.
@@ -81,7 +81,7 @@ LeExternalPicturesWriter >> exportExampleResultOf: anExampleAnnotation to: aRela
 			export ].
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeExternalPicturesWriter >> exportGtExampleResultOf: aGtExample to: aRelativePath height: aHeight withPreviewSelector: aPreviewSelector [
 	| fileReference exampleReturnValue container scaleFactor height |
 	fileReference := memoryStore referenceTo: aRelativePath.
@@ -113,7 +113,18 @@ LeExternalPicturesWriter >> exportGtExampleResultOf: aGtExample to: aRelativePat
 			export ].
 ]
 
-{ #category : #initialization }
+{ #category : 'gt - extensions' }
+LeExternalPicturesWriter >> gtDirectoryFor: aView [
+	<gtView>
+	memoryStore ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Directory';
+		priority: 1;
+		object: [ self rootDirectory ];
+		view: #gtTreeFor:
+]
+
+{ #category : 'initialization' }
 LeExternalPicturesWriter >> initialize [
 	super initialize.
 	associatedNames := Dictionary new.
@@ -121,13 +132,13 @@ LeExternalPicturesWriter >> initialize [
 	memoryStore := FileSystem memory
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeExternalPicturesWriter >> nextNumber [
 	counter := counter + 1.
 	^ counter
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeExternalPicturesWriter >> rootDirectory [
 	<return: #FileReference>
 	^ memoryStore root
