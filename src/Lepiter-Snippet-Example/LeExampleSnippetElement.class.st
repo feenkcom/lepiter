@@ -21,7 +21,7 @@ LeExampleSnippetElement >> browseExample [
 		self phlow spawnTool: (GtMethodCoderTool compiledMethod: aGtExample method) ]
 ]
 
-{ #category : 'initialization' }
+{ #category : 'private - event handling' }
 LeExampleSnippetElement >> exportExample [
 
 	self snippetViewModel gtExampleDo: [ :aGtExample | 
@@ -51,15 +51,16 @@ LeExampleSnippetElement >> exportExample [
 
 						aFileName asFileReference ensureDelete.
 
-						BlExporter png
-							element: anExampleElement;
-							scaled: 2;
-							fileName: aFileName;
-							export.
+						self enqueueTask: (BlTaskAction new action: [ 
+								 BlExporter png
+									 element: anExampleElement;
+									 scaled: 2;
+									 fileName: aFileName;
+									 export.
 
-						aQuery all doWithIndex: [ :eachElement :eachIndex | 
-							eachElement visibility: (aQueryVisibility at: eachIndex) ].
-						exportExampleButton enable ] ] ]
+								 aQuery all doWithIndex: [ :eachElement :eachIndex | 
+									 eachElement visibility: (aQueryVisibility at: eachIndex) ].
+								 exportExampleButton enable ]) ] ] ]
 ]
 
 { #category : 'initialization' }
@@ -112,7 +113,7 @@ LeExampleSnippetElement >> initialize [
 		disable;
 		aptitude: BrGlamorousButtonWithIconAptitude;
 		icon: BrGlamorousIcons save;
-		label: 'Export example result to a disk';
+		label: 'Export example preview to a file';
 		margin: (BlInsets top: 1 left: 4 bottom: 0 right: 3);
 		action: [ self exportExample ].
 		
