@@ -16,7 +16,7 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'LepiterEngineCore' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.139/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.6.140/src' ].
 		spec
 			baseline: 'GToolkit4DockerEngine' with: [
 				spec repository: 'github://feenkcom/gt4dockerengine:v0.5.127/src' ].
@@ -34,7 +34,7 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 				spec repository: 'github://feenkcom/gtoolkit-debugadapterprotocol:v0.5.154/src' ].
 		spec
 			baseline: 'Gt4PharoLink' with: [
-				spec repository: 'github://feenkcom/gtoolkit-remote:v0.8.560/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-remote:v0.8.561/src' ].
 
 		spec package: 'Lepiter-Snippet-Text' with: [
 			spec requires: #('LepiterEngineCore') ].
