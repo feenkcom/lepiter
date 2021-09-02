@@ -1,6 +1,6 @@
 Class {
-	#name : #LeExampleSnippetElement,
-	#superclass : #LeSnippetElement,
+	#name : 'LeExampleSnippetElement',
+	#superclass : 'LeSnippetElement',
 	#traits : 'TBlElementError',
 	#classTraits : 'TBlElementError classTrait',
 	#instVars : [
@@ -9,18 +9,61 @@ Class {
 		'toolbarContainer',
 		'updateRequester',
 		'browseExampleButton',
-		'runExampleButton'
+		'runExampleButton',
+		'exportExampleButton'
 	],
 	#category : 'Lepiter-Snippet-Example-Snippet'
 }
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 LeExampleSnippetElement >> browseExample [
 	self snippetViewModel gtExampleDo: [ :aGtExample |
 		self phlow spawnTool: (GtMethodCoderTool compiledMethod: aGtExample method) ]
 ]
 
-{ #category : #initialization }
+{ #category : 'private - event handling' }
+LeExampleSnippetElement >> exportExample [
+
+	self snippetViewModel gtExampleDo: [ :aGtExample | 
+		exampleContainer
+			childNamed: #example
+			ifFound: [ :anExampleElement | 
+				anExampleElement
+					childNamed: #preview
+					ifFound: [ :aPreviewElement | 
+						| aFileName aQuery aQueryVisibility |
+						aQuery := aPreviewElement parent query / BrResizer.
+						aQueryVisibility := aQuery all collect: [ :eachElement | 
+							                    eachElement visibility ].
+						aQuery all do: [ :eachElement | 
+							eachElement visibility: BlVisibility hidden ].
+						exportExampleButton disable.
+
+						aFileName := GtFileUtility
+							             secureFileName:
+								             aGtExample providerClass name , '_'
+								             , aGtExample selector asString , '_'
+								             ,
+								             self snippetViewModel previewShowSelector
+									             asString
+							             extension: 'png'
+							             maxLenght: 72.
+
+						aFileName asFileReference ensureDelete.
+
+						self enqueueTask: (BlTaskAction new action: [ 
+								 BlExporter png
+									 element: anExampleElement;
+									 scaled: 2;
+									 fileName: aFileName;
+									 export.
+
+								 aQuery all doWithIndex: [ :eachElement :eachIndex | 
+									 eachElement visibility: (aQueryVisibility at: eachIndex) ].
+								 exportExampleButton enable ]) ] ] ]
+]
+
+{ #category : 'initialization' }
 LeExampleSnippetElement >> initialize [
 	super initialize.
 	
@@ -64,6 +107,15 @@ LeExampleSnippetElement >> initialize [
 		label: 'Play and inspect example result';
 		margin: (BlInsets top: 1 left: 4 bottom: 0 right: 3);
 		action: [ self runExample ].
+	
+	exportExampleButton := BrButton new
+		beSmallSize;
+		disable;
+		aptitude: BrGlamorousButtonWithIconAptitude;
+		icon: BrGlamorousIcons save;
+		label: 'Export example preview to a file';
+		margin: (BlInsets top: 1 left: 4 bottom: 0 right: 3);
+		action: [ self exportExample ].
 		
 	toolbarContainer := BrHorizontalPane new
 		hMatchParent;
@@ -80,25 +132,26 @@ LeExampleSnippetElement >> initialize [
 				aptitude: (BrGlamorousLabelAptitude new foreground: Color darkGray);
 				text: '}}'.
 			browseExampleButton.
+			exportExampleButton.
 			runExampleButton }.
 				
 	updateRequester := GtPhlowUpdateRequester new 
 		element: self selector: #updateExamplePreview.
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 LeExampleSnippetElement >> onExampleSnippetContentChanged [
 	updateRequester requestUpdate
 ]
 
-{ #category : #'api - snippet view model' }
+{ #category : 'api - snippet view model' }
 LeExampleSnippetElement >> onSnippetViewModelChanged [
 	super onSnippetViewModelChanged.
 	
 	self updateExamplePreview
 ]
 
-{ #category : #'api - snippet view model' }
+{ #category : 'api - snippet view model' }
 LeExampleSnippetElement >> onSnippetViewModelFocused: aBoolean [
 	"Override me to either request or lose focus when the focused state is changed in the UI Model"
 
@@ -109,13 +162,13 @@ LeExampleSnippetElement >> onSnippetViewModelFocused: aBoolean [
 		ifFalse: [ self loseFocus ]
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 LeExampleSnippetElement >> runExample [
 	self snippetViewModel gtExampleDo: [ :aGtExample |
 		self phlow spawnObject: aGtExample run returnValueOrExampleException ]
 ]
 
-{ #category : #'api - view' }
+{ #category : 'api - view' }
 LeExampleSnippetElement >> snippetContent [
 	"Return an element that represents a content of the snippet.
 	The embedder is responsible for placing #snippetContent in the right place within snippet element depending on the
@@ -125,7 +178,7 @@ LeExampleSnippetElement >> snippetContent [
 	^ exampleContainer
 ]
 
-{ #category : #'api - view' }
+{ #category : 'api - view' }
 LeExampleSnippetElement >> snippetToolbar [
 	"Return an element that represents a toolbar of the snippet. A toolbar usually appears below the snippet content.
 	The embedder is responsible for placing #snippetToolbar in the right place within snippet element depending on the
@@ -136,7 +189,7 @@ LeExampleSnippetElement >> snippetToolbar [
 	^ toolbarContainer
 ]
 
-{ #category : #'api - snippet view model' }
+{ #category : 'api - snippet view model' }
 LeExampleSnippetElement >> subscribeToSnippetViewModel [
 	super subscribeToSnippetViewModel.
 	
@@ -146,7 +199,7 @@ LeExampleSnippetElement >> subscribeToSnippetViewModel [
 			to: self
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 LeExampleSnippetElement >> updateExamplePreview [
 	exampleEditor textualCoderViewModel: self snippetViewModel annotationCoderViewModel.
 	
@@ -157,6 +210,7 @@ LeExampleSnippetElement >> updateExamplePreview [
 		
 		browseExampleButton enable.
 		runExampleButton enable.
+		exportExampleButton enable.
 	
 		anExampleElement := GtExamplePreviewStencil new
 			example: aGtExample;
@@ -172,6 +226,7 @@ LeExampleSnippetElement >> updateExamplePreview [
 	
 	browseExampleButton disable.
 	runExampleButton disable.
+	exportExampleButton disable.
 	
 	exampleContainer addChild: (BrHorizontalPane new
 		hMatchParent;

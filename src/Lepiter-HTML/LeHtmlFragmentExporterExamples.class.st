@@ -5,12 +5,12 @@ Since there is no page or database present at this level, links to other pages, 
 
 "
 Class {
-	#name : #LeHtmlFragmentExporterExamples,
-	#superclass : #Object,
+	#name : 'LeHtmlFragmentExporterExamples',
+	#superclass : 'Object',
 	#category : 'Lepiter-HTML-Examples'
 }
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeHtmlFragmentExporterExamples >> basicMarkdown [
 	"Confirm that basic markup is converted"
 	<gtExample>
@@ -24,7 +24,7 @@ LeHtmlFragmentExporterExamples >> basicMarkdown [
 	^ html
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeHtmlFragmentExporterExamples >> classAnnotation [
 	"Confirm that basic markup is converted"
 	<gtExample>
@@ -36,7 +36,7 @@ LeHtmlFragmentExporterExamples >> classAnnotation [
 	^ html
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeHtmlFragmentExporterExamples >> codeBlock [
 	"Confirm that a code block is converted"
 	<gtExample>
@@ -59,7 +59,7 @@ answer:=42.
 	^ html
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeHtmlFragmentExporterExamples >> exampleSnippet [
 	"Confirm that basic markup is converted"
 	<gtExample>
@@ -89,7 +89,7 @@ pictureSnippet
 	^ html
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeHtmlFragmentExporterExamples >> methodAnnotation [
 	"Confirm that basic markup is converted"
 	<gtExample>
@@ -104,7 +104,7 @@ LeHtmlFragmentExporterExamples >> methodAnnotation [
 	^ html
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeHtmlFragmentExporterExamples >> pharoSnippet [
 	<gtExample>
 	| markdown html |
@@ -121,7 +121,7 @@ answer := 41.
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeHtmlFragmentExporterExamples >> pictureFile [
 	^ (GtResourcesUtility resourceAtPath: Path 
 		* 'feenkcom'
@@ -131,7 +131,7 @@ LeHtmlFragmentExporterExamples >> pictureFile [
 		/ '1280px-Einstein-with-habicht-and-solovine.jpg') asUrl asString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeHtmlFragmentExporterExamples >> pictureSnippet [
 	<gtExample>
 	| markdown html |

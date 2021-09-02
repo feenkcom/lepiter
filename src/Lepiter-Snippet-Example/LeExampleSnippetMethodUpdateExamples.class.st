@@ -1,10 +1,10 @@
 Class {
-	#name : #LeExampleSnippetMethodUpdateExamples,
-	#superclass : #LeSingleSnippetUpdateExamples,
-	#category : #'Lepiter-Snippet-Example-Examples'
+	#name : 'LeExampleSnippetMethodUpdateExamples',
+	#superclass : 'LeSingleSnippetUpdateExamples',
+	#category : 'Lepiter-Snippet-Example-Examples'
 }
 
-{ #category : #'examples - snippets' }
+{ #category : 'examples - snippets' }
 LeExampleSnippetMethodUpdateExamples >> assertSnippetModifiedFor: targetSnippet [
 	self 
 		assert: targetSnippet exampleBehaviorName 
@@ -14,7 +14,7 @@ LeExampleSnippetMethodUpdateExamples >> assertSnippetModifiedFor: targetSnippet 
 		equals: #bounds
 ]
 
-{ #category : #'examples - snippets' }
+{ #category : 'examples - snippets' }
 LeExampleSnippetMethodUpdateExamples >> createTargetSnippet [
 	<gtExample>
 	^ LeExampleSnippet new 
@@ -22,7 +22,7 @@ LeExampleSnippetMethodUpdateExamples >> createTargetSnippet [
 		exampleSelector: #circle
 ]
 
-{ #category : #'examples - snippets' }
+{ #category : 'examples - snippets' }
 LeExampleSnippetMethodUpdateExamples >> modifySnippet: aTargetSnippet [
 	<gtExample>
 	^ aTargetSnippet 

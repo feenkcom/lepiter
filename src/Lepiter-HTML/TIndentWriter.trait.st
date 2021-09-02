@@ -1,5 +1,5 @@
 Trait {
-	#name : #TIndentWriter,
+	#name : 'TIndentWriter',
 	#instVars : [
 		'nestingLevel',
 		'stream'
@@ -7,26 +7,26 @@ Trait {
 	#category : 'Lepiter-HTML-Exporter'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TIndentWriter >> indent: aBlock [
 	nestingLevel := nestingLevel + 1.
 	aBlock value.
 	nestingLevel := nestingLevel - 1.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TIndentWriter >> nestingLevel: aNestingLevel [
 	nestingLevel := aNestingLevel
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TIndentWriter >> putPre: aString [
 	stream
 		nextPutAll: aString;
 		cr
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TIndentWriter >> putString: aString [
 	stream
 		tab: nestingLevel;
@@ -34,41 +34,41 @@ TIndentWriter >> putString: aString [
 		cr
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TIndentWriter >> putStringInline: aString [
 	stream nextPutAll: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TIndentWriter >> putTag: aTag andAttributes: attributesString with: aBlock [
 	self putString: '<',aTag, (attributesString ifNotEmpty: [' ',attributesString]), '>'.
 	self indent:aBlock.
 	self putString: '</',aTag,'>'.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TIndentWriter >> putTag: aTag with: aBlock [
 	self putTag: aTag andAttributes: '' with: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TIndentWriter >> putTagInline: aTag andAttributes: attributesString with: aBlock [
 	self putStringInline: '<',aTag, (attributesString ifNotEmpty: [' ',attributesString]), '>'.
 	aBlock value.
 	self putStringInline: '</',aTag,'>'.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TIndentWriter >> putTagInline: aTag with: aBlock [
 	self putTagInline: aTag andAttributes: '' with: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TIndentWriter >> stream [
 	^ stream
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TIndentWriter >> stream: anObject [
 	stream := anObject
 ]
