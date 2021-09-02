@@ -1,13 +1,13 @@
 Class {
-	#name : #LeExampleSnippetExampleSelectorChanged,
-	#superclass : #LeExampleSnippetContentChanged,
+	#name : 'LeExampleSnippetExampleSelectorChanged',
+	#superclass : 'LeExampleSnippetContentChanged',
 	#instVars : [
 		'exampleSelector'
 	],
-	#category : #'Lepiter-Snippet-Example-Snippet - Events'
+	#category : 'Lepiter-Snippet-Example-Snippet - Events'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeExampleSnippetExampleSelectorChanged >> exampleSelector [
 	<objectGetter: #example>
 	<generatedFrom: #'GtRobocoderMetamodelAnnouncementTemplate>>#objectGetterTemplate'>
@@ -15,7 +15,7 @@ LeExampleSnippetExampleSelectorChanged >> exampleSelector [
 	^ exampleSelector
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeExampleSnippetExampleSelectorChanged >> exampleSelector: aExampleSelector [
 	<objectSetter: #example>
 	<generatedFrom: #'GtRobocoderMetamodelAnnouncementTemplate>>#objectSetterTemplate'>

@@ -3,12 +3,12 @@ Lepiter snippet that allows users to link to an existing GToolkit Example.
 
 "
 Class {
-	#name : #ManifestLepiterSnippetExample,
-	#superclass : #PackageManifest,
-	#category : #'Lepiter-Snippet-Example-Manifest'
+	#name : 'ManifestLepiterSnippetExample',
+	#superclass : 'PackageManifest',
+	#category : 'Lepiter-Snippet-Example-Manifest'
 }
 
-{ #category : #'private - templates' }
+{ #category : 'private - templates' }
 ManifestLepiterSnippetExample class >> notifyChangeTemplate [
 	<gtMethodTemplate>
 	<generatedFrom: #'GtRobocoderTemplateMethod class>>#storageMethodTemplate'>
@@ -21,7 +21,7 @@ ManifestLepiterSnippetExample class >> notifyChangeTemplate [
 		storageMethod: thisContext method
 ]
 
-{ #category : #'private - templates' }
+{ #category : 'private - templates' }
 ManifestLepiterSnippetExample class >> snippet [
 "
 @prefix Le
@@ -70,7 +70,7 @@ example {
 "
 ]
 
-{ #category : #'private - templates' }
+{ #category : 'private - templates' }
 ManifestLepiterSnippetExample class >> snippetViewModel [
 "
 @prefix Le
