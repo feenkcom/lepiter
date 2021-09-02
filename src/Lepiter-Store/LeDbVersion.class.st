@@ -21,8 +21,8 @@ The minor version is changed whenever the on-disk representation of an item chan
 
 "
 Class {
-	#name : #LeDbVersion,
-	#superclass : #Magnitude,
+	#name : 'LeDbVersion',
+	#superclass : 'Magnitude',
 	#instVars : [
 		'major',
 		'minor'
@@ -30,13 +30,13 @@ Class {
 	#category : 'Lepiter-Store-LocalJSON-Store'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeDbVersion class >> fromString: aString [ 
 
 	^ self new fromString: aString
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeDbVersion class >> major: majorNumber minor: minorNumber [
 
 	^ self new
@@ -44,7 +44,7 @@ LeDbVersion class >> major: majorNumber minor: minorNumber [
 		minor: minorNumber
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeDbVersion >> < aLeDbVersion [
 
 	^ self major < aLeDbVersion major or:
@@ -52,7 +52,7 @@ LeDbVersion >> < aLeDbVersion [
 			[ self minor < aLeDbVersion minor ] ]
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 LeDbVersion >> = anObject [
 
 	^ self class = anObject class and: [ 
@@ -60,7 +60,7 @@ LeDbVersion >> = anObject [
 		self minor = anObject minor ] ]
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeDbVersion >> fromString: aString [ 
 	| re |
 
@@ -73,13 +73,13 @@ LeDbVersion >> fromString: aString [
 					ifNotNil: [ :minorString | minorString allButFirst asNumber ].
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 LeDbVersion >> hash [ 
 
 	^ major hash bitXor: minor hash
 ]
 
-{ #category : #operations }
+{ #category : 'operations' }
 LeDbVersion >> incrementMinorVersionNumber [ 
 	"Answer a new instance of the receiver with the minor version number incremented by 1"
 
@@ -89,27 +89,27 @@ LeDbVersion >> incrementMinorVersionNumber [
 		yourself.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeDbVersion >> major [
 	^ major
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeDbVersion >> major: anObject [
 	major := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeDbVersion >> minor [
 	^ minor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeDbVersion >> minor: anObject [
 	minor := anObject
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LeDbVersion >> printOn: aStream [
 
 	aStream

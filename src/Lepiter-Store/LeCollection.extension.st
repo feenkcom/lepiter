@@ -1,6 +1,6 @@
-Extension { #name : #LeCollection }
+Extension { #name : 'LeCollection' }
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 LeCollection >> fromSton: stonReader [
 
 	items := OrderedCollection new.
@@ -8,7 +8,7 @@ LeCollection >> fromSton: stonReader [
 		items add: each ]
 ]
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 LeCollection class >> leJsonV3AttributeMapping [
 
 	^ super leJsonV3AttributeMapping
@@ -16,7 +16,7 @@ LeCollection class >> leJsonV3AttributeMapping [
 		yourself
 ]
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 LeCollection class >> leJsonV4AttributeMapping [
 
 	^ super leJsonV4AttributeMapping

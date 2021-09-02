@@ -1,10 +1,10 @@
 Class {
-	#name : #LeGitHubTagViewModel,
-	#superclass : #LeGitHubSnippetViewModel,
-	#category : #'Lepiter-GitHub-UI Snippet View Models'
+	#name : 'LeGitHubTagViewModel',
+	#superclass : 'LeGitHubSnippetViewModel',
+	#category : 'Lepiter-GitHub-UI Snippet View Models'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeGitHubTagViewModel >> snippetElementClass [
 	^ LeGitHubTagSnippetElement
 ]

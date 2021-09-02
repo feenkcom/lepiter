@@ -1,5 +1,5 @@
 Class {
-	#name : #LeGitHubModelResponseChangedAnnouncement,
-	#superclass : #LeGitHubModelChangedAnnouncement,
-	#category : #'Lepiter-GitHub-Announcements'
+	#name : 'LeGitHubModelResponseChangedAnnouncement',
+	#superclass : 'LeGitHubModelChangedAnnouncement',
+	#category : 'Lepiter-GitHub-Announcements'
 }

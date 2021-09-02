@@ -4,14 +4,14 @@ I define a {{gtClass:LeWordSnippetViewModel}} state which is used by {{gtClass:L
 
 "
 Class {
-	#name : #LeWordSnippetViewModelState,
-	#superclass : #Object,
+	#name : 'LeWordSnippetViewModelState',
+	#superclass : 'Object',
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
-	#category : #'Lepiter-Snippet-Words-UI View Model'
+	#category : 'Lepiter-Snippet-Words-UI View Model'
 }
 
-{ #category : #visitor }
+{ #category : 'visitor' }
 LeWordSnippetViewModelState >> accept: aVisitor [
 	^ self subclassResponsibility
 ]

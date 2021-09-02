@@ -4,7 +4,7 @@
 
 "
 Class {
-	#name : #LeLocalJSONStoreStartup,
-	#superclass : #Announcement,
+	#name : 'LeLocalJSONStoreStartup',
+	#superclass : 'Announcement',
 	#category : 'Lepiter-Store-LocalJSON-Store'
 }

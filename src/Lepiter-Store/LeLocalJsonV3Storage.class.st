@@ -1,48 +1,48 @@
 Class {
-	#name : #LeLocalJsonV3Storage,
-	#superclass : #LeLocalStorage,
+	#name : 'LeLocalJsonV3Storage',
+	#superclass : 'LeLocalStorage',
 	#category : 'Lepiter-Store-LocalJSON-Store'
 }
 
-{ #category : #versions }
+{ #category : 'versions' }
 LeLocalJsonV3Storage class >> currentVersion [ 
 
 	^ LeDbVersion fromString: self currentVersionString
 ]
 
-{ #category : #versions }
+{ #category : 'versions' }
 LeLocalJsonV3Storage class >> currentVersionString [
 	"Answer the string representation of the current version number"
 
 	^ '3.3'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalJsonV3Storage >> dbFileExtension [
 
 	^ '.lepiter'
 ]
 
-{ #category : #'schema updating' }
+{ #category : 'schema updating' }
 LeLocalJsonV3Storage >> dbFilesAllVersionsIn: aDirectory [
 	"Answer all the db files in the supplied directory, including those from previous storage versions, i.e. V3.*"
 
 	^ aDirectory childrenMatching: '*.lepiter;*.json;*.links'
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 LeLocalJsonV3Storage >> dbFilesIn: aDirectory [
 
 	^ aDirectory childrenMatching: '*.lepiter'
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 LeLocalJsonV3Storage >> explicitLinksFileOrNilIn: aDirectory [
 	self withExplicitLinksFileIn: aDirectory do: [ :aFile | ^ aFile].
 	^ nil
 ]
 
-{ #category : #loading }
+{ #category : 'loading' }
 LeLocalJsonV3Storage >> loadFromFile: aFileReference [
 
 	^ [ aFileReference readStreamDo: [ :stream |
@@ -59,13 +59,13 @@ LeLocalJsonV3Storage >> loadFromFile: aFileReference [
 					loadError signal ]
 ]
 
-{ #category : #saving }
+{ #category : 'saving' }
 LeLocalJsonV3Storage >> serialize: anObject on: aStream prettyPrint: aBoolean [
 
 	LeJsonV3 uniqueInstance serialize: anObject on: aStream prettyPrint: aBoolean
 ]
 
-{ #category : #'schema updating' }
+{ #category : 'schema updating' }
 LeLocalJsonV3Storage >> updateDatabasePropertiesNameIn: rootDirectory [
 	"Update the database properties file.
 	Since we haven't read it yet, we don't know what the current version is, so this must update from any previous version to the current one."
@@ -84,7 +84,7 @@ LeLocalJsonV3Storage >> updateDatabasePropertiesNameIn: rootDirectory [
 	self error: 'Unable to update database properties file'.
 ]
 
-{ #category : #'schema updating' }
+{ #category : 'schema updating' }
 LeLocalJsonV3Storage >> updateDbStore: store [
 	"Update the store to the latest minor version."
 	| storeVersion currentVersion updateVersion |
@@ -107,7 +107,7 @@ LeLocalJsonV3Storage >> updateDbStore: store [
 	store dbSchema: updateVersion.
 ]
 
-{ #category : #'schema updating' }
+{ #category : 'schema updating' }
 LeLocalJsonV3Storage >> updateFile: file from: oldVersion [
 	"If the supplied file is at the oldVersion, update it to the next version"
 	| updater jsonObject version backup newFileReference |
@@ -129,7 +129,7 @@ LeLocalJsonV3Storage >> updateFile: file from: oldVersion [
 
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 LeLocalJsonV3Storage >> withExplicitLinksFileIn: aDirectory do: aBlock [
 	| linksFiles |
 	linksFiles := aDirectory childrenMatching: '*.lepiter.links'.

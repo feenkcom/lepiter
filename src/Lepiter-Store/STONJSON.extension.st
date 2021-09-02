@@ -1,6 +1,6 @@
-Extension { #name : #STONJSON }
+Extension { #name : 'STONJSON' }
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 STONJSON class >> prettyPrint: aString [ 
 	"Pretty print the supplied string"
 

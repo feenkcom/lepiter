@@ -1,10 +1,10 @@
 Class {
-	#name : #LeGitHubUtility,
-	#superclass : #Object,
-	#category : #'Lepiter-GitHub-Utility'
+	#name : 'LeGitHubUtility',
+	#superclass : 'Object',
+	#category : 'Lepiter-GitHub-Utility'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeGitHubUtility class >> isValidGitHubIssueUrl: aString [
 	^ LeGitHubIssueUrlValidator new 
 		url: aString asString;
@@ -12,7 +12,7 @@ LeGitHubUtility class >> isValidGitHubIssueUrl: aString [
 		isValid
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeGitHubUtility class >> shortGitHubIssueNameFromUrl: aString [
 	^ LeGitHubIssueUrlValidator new 
 		url: aString asString;

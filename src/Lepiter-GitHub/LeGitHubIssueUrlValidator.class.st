@@ -7,8 +7,8 @@ I validate a GitHub Issue URL link.
 
 "
 Class {
-	#name : #LeGitHubIssueUrlValidator,
-	#superclass : #Object,
+	#name : 'LeGitHubIssueUrlValidator',
+	#superclass : 'Object',
 	#instVars : [
 		'url',
 		'isValid',
@@ -16,10 +16,10 @@ Class {
 		'projectName',
 		'issueNumber'
 	],
-	#category : #'Lepiter-GitHub-Client'
+	#category : 'Lepiter-GitHub-Client'
 }
 
-{ #category : #'gt - extensions' }
+{ #category : 'gt - extensions' }
 LeGitHubIssueUrlValidator >> gtOverviewFor: aView [
 	<gtView>
 	self url ifNil: [ ^ aView empty ].
@@ -37,12 +37,12 @@ LeGitHubIssueUrlValidator >> gtOverviewFor: aView [
 						aStream nextPut: ('Project' -> self projectName).
 						aStream nextPut: ('Issue number' -> self issueNumber).
 						aStream nextPut: ('Identifier' -> self identifier) ] ] ];
-		column: 'Name' item: #key;
-		column: 'Value' item: [ :anAssoc |  anAssoc value ifNil: [ String empty ] ];
+		column: 'Name' text: #key;
+		column: 'Value' text: [ :anAssoc |  anAssoc value ifNil: [ String empty ] ];
 		send: #value
 ]
 
-{ #category : #'api - issue' }
+{ #category : 'api - issue' }
 LeGitHubIssueUrlValidator >> identifier [
 	self isValid ifFalse: [ ^ self url ].
 
@@ -57,13 +57,13 @@ LeGitHubIssueUrlValidator >> identifier [
 			nextPut: $] ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeGitHubIssueUrlValidator >> initialize [
 	super initialize.
 	self initializeValidation
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeGitHubIssueUrlValidator >> initializeValidation [
 	url := nil.
 	isValid := nil.
@@ -72,7 +72,7 @@ LeGitHubIssueUrlValidator >> initializeValidation [
 	issueNumber := nil.
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LeGitHubIssueUrlValidator >> isValid [
 	<return: #Boolean>
 	self
@@ -81,33 +81,33 @@ LeGitHubIssueUrlValidator >> isValid [
 	^ isValid
 ]
 
-{ #category : #'api - issue' }
+{ #category : 'api - issue' }
 LeGitHubIssueUrlValidator >> issueNumber [
 	^ issueNumber
 ]
 
-{ #category : #'api - issue' }
+{ #category : 'api - issue' }
 LeGitHubIssueUrlValidator >> ownerName [
 	^ ownerName
 ]
 
-{ #category : #'api - issue' }
+{ #category : 'api - issue' }
 LeGitHubIssueUrlValidator >> projectName [
 	^ projectName
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeGitHubIssueUrlValidator >> url [
 	^ url
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeGitHubIssueUrlValidator >> url: anObject [
 	self initializeValidation.
 	url := anObject asString
 ]
 
-{ #category : #'api - validating' }
+{ #category : 'api - validating' }
 LeGitHubIssueUrlValidator >> validate [
 	| anUrl anIssueNumber |
 	

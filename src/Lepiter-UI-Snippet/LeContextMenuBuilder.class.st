@@ -29,8 +29,8 @@ LeContextMenuBuilder >> gtMenuItemsFor: aView [
 	^ aView columnedList 
 		title: 'Menu Items';
 		items: [ self build ];
-		column: 'Title' item: #title;
-		column: 'Snippet' item: #snippetClass;
+		column: 'Title' text: #title;
+		column: 'Snippet' text: #snippetClass;
 		column: 'Priority' text: [ :aMenuItem | 
 			aMenuItem isDefaultPriority
 				ifTrue: [ aMenuItem priority asRopedText foreground: BrGlamorousColors disabledButtonTextColor ] 

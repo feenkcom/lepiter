@@ -294,15 +294,15 @@ LeDatabase >> gtDailyNotesFor: aView [
 		priority: 10;
 		items: [ self dailyNotesGroup ];
 		children: [ :eachPage | eachPage children ];
-		column: 'Content' item: [ :aPageOrDailyNote |
+		column: 'Content' text: [ :aPageOrDailyNote |
 			(aPageOrDailyNote isKindOf: LeDailyNote)
 				ifTrue: [ aPageOrDailyNote date  ]
 				ifFalse: [ aPageOrDailyNote contentAsString ] ];
-		column: 'Time' item: [ :aPageOrDailyNote |
+		column: 'Time' text: [ :aPageOrDailyNote |
 			(aPageOrDailyNote isKindOf: LeDailyNote)
 				ifTrue: [ ''  ]
 				ifFalse: [ aPageOrDailyNote editTime ] ];
-		column: 'Author' item: [ :aPageOrDailyNote |
+		column: 'Author' text: [ :aPageOrDailyNote |
 			(aPageOrDailyNote isKindOf: LeDailyNote)
 				ifTrue: [ ''  ]
 				ifFalse: [ aPageOrDailyNote editEmail ] ]

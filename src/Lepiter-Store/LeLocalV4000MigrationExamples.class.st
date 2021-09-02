@@ -1,10 +1,10 @@
 Class {
-	#name : #LeLocalV4000MigrationExamples,
-	#superclass : #LeLocalExamples,
+	#name : 'LeLocalV4000MigrationExamples',
+	#superclass : 'LeLocalExamples',
 	#category : 'Lepiter-Store-Local-Examples'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 LeLocalV4000MigrationExamples >> cleanUidString [
 	"Check the conversion of to base64 compatible UIDs"
 	<gtExample>
@@ -26,7 +26,7 @@ LeLocalV4000MigrationExamples >> cleanUidString [
 
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeLocalV4000MigrationExamples >> migrateSchema [
 	<gtExample>
 	| page1 page2 page3 page4 dailyNote snippet link links properties |

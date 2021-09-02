@@ -1,6 +1,6 @@
 Class {
-	#name : #LeContentAttributesReloader,
-	#superclass : #Object,
+	#name : 'LeContentAttributesReloader',
+	#superclass : 'Object',
 	#instVars : [
 		'targetContent',
 		'changedAttributes'
@@ -8,23 +8,23 @@ Class {
 	#category : 'Lepiter-Store-Reload'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeContentAttributesReloader class >> forContent: aContent [
 	^ self new
 		targetContent: aContent
 ]
 
-{ #category : #update }
+{ #category : 'update' }
 LeContentAttributesReloader >> addChangedAttribute: anAttributeName [
 	changedAttributes add: anAttributeName
 ]
 
-{ #category : #'accessing - mappings' }
+{ #category : 'accessing - mappings' }
 LeContentAttributesReloader >> allContentAttributeMappings [
 	^ self targetContent class leJsonV4AttributeMapping 
 ]
 
-{ #category : #assertions }
+{ #category : 'assertions' }
 LeContentAttributesReloader >> assertCanUpdateFomContent: aContent [
 	self assert: [ self targetContent notNil ].
 	self assert: [ aContent notNil ].
@@ -32,12 +32,12 @@ LeContentAttributesReloader >> assertCanUpdateFomContent: aContent [
 	self assert: [ self targetContent uid = aContent uid ].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentAttributesReloader >> changedAttributes [
 	^ changedAttributes ifNil: [ #() ]
 ]
 
-{ #category : #'accessing - mappings' }
+{ #category : 'accessing - mappings' }
 LeContentAttributesReloader >> commonMetadataAttributeMappings [
 	| ignoredAttributes |
 	ignoredAttributes := self ignoredAttributes.
@@ -46,7 +46,7 @@ LeContentAttributesReloader >> commonMetadataAttributeMappings [
 			ignoredAttributes includes: aMapping key ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentAttributesReloader >> gtViewUpdateStatusFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -58,18 +58,18 @@ LeContentAttributesReloader >> gtViewUpdateStatusFor: aView [
 			self updateStatusForAttributeNamed: anAttributeMapping key  ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentAttributesReloader >> hasChanges [
 	^ changedAttributes notNil and: [ 
 		changedAttributes notEmpty ]
 ]
 
-{ #category : #'accessing - mappings' }
+{ #category : 'accessing - mappings' }
 LeContentAttributesReloader >> ignoredAttributes [
 	^ #(children uid)
 ]
 
-{ #category : #'accessing - mappings' }
+{ #category : 'accessing - mappings' }
 LeContentAttributesReloader >> relevantAttributeMappings [
 	| ignoredAttributes |
 	ignoredAttributes := self ignoredAttributes.
@@ -78,7 +78,7 @@ LeContentAttributesReloader >> relevantAttributeMappings [
 			ignoredAttributes includes: aMapping key ]
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 LeContentAttributesReloader >> reloadCommonMetadataFromContent: aContent [
 	"Reload only the common attributes defined inside the mappings.
 	These are the attributes common among all snippets or pages."
@@ -91,7 +91,7 @@ LeContentAttributesReloader >> reloadCommonMetadataFromContent: aContent [
 		fromContent: aContent
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 LeContentAttributesReloader >> reloadFromContent: aSnippet [
 	"Reload all the relavant attributes of the content defined inside the mappings."
 	| attributeMapping |
@@ -103,22 +103,22 @@ LeContentAttributesReloader >> reloadFromContent: aSnippet [
 		fromContent: aSnippet
 ]
 
-{ #category : #update }
+{ #category : 'update' }
 LeContentAttributesReloader >> resetChangedAttributes [
 	changedAttributes := OrderedCollection new.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentAttributesReloader >> targetContent [
 	^ targetContent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentAttributesReloader >> targetContent: aContent [
 	targetContent := aContent
 ]
 
-{ #category : #update }
+{ #category : 'update' }
 LeContentAttributesReloader >> updateAttributeForMapping: aMapping fromContent: aContent [
 	| attributeName attributeOldValue attributeNewValue |
 	self assert: [ aMapping key isSymbol ].
@@ -133,7 +133,7 @@ LeContentAttributesReloader >> updateAttributeForMapping: aMapping fromContent: 
 			with: attributeNewValue ].
 ]
 
-{ #category : #update }
+{ #category : 'update' }
 LeContentAttributesReloader >> updateForMappings: attributeMapping  fromContent: aContent [
 	self resetChangedAttributes.
 	attributeMapping do: [ :aMapping |
@@ -142,7 +142,7 @@ LeContentAttributesReloader >> updateForMappings: attributeMapping  fromContent:
 			fromContent: aContent ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeContentAttributesReloader >> updateStatusForAttributeNamed: anAttributeName [
 	(self ignoredAttributes includes:  anAttributeName) 
 		ifTrue: [ ^ 'Ignored' asRopedText foreground: Color gray ].

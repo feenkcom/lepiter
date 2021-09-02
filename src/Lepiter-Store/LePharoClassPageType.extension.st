@@ -1,6 +1,6 @@
-Extension { #name : #LePharoClassPageType }
+Extension { #name : 'LePharoClassPageType' }
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 LePharoClassPageType class >> leJsonV3AttributeMapping [
 
 	^ super leJsonV3AttributeMapping
@@ -9,13 +9,13 @@ LePharoClassPageType class >> leJsonV3AttributeMapping [
 
 ]
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 LePharoClassPageType class >> leJsonV3Name [
 
 	^ 'pharoClassPage'
 ]
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 LePharoClassPageType class >> leJsonV4AttributeMapping [
 
 	^ super leJsonV4AttributeMapping
@@ -24,7 +24,7 @@ LePharoClassPageType class >> leJsonV4AttributeMapping [
 
 ]
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 LePharoClassPageType class >> leJsonV4Name [
 
 	^ 'pharoClassPage'

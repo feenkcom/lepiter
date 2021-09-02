@@ -1,6 +1,6 @@
-Extension { #name : #LeCodeSnippet }
+Extension { #name : 'LeCodeSnippet' }
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 LeCodeSnippet class >> leJsonV3AttributeMapping [
 
 	^ super leJsonV3AttributeMapping
@@ -8,7 +8,7 @@ LeCodeSnippet class >> leJsonV3AttributeMapping [
 		yourself
 ]
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 LeCodeSnippet class >> leJsonV4AttributeMapping [
 
 	^ super leJsonV4AttributeMapping

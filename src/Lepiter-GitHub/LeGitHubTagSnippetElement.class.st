@@ -1,16 +1,16 @@
 Class {
-	#name : #LeGitHubTagSnippetElement,
-	#superclass : #LeGitHubSnippetElement,
-	#category : #'Lepiter-GitHub-UI Snippet Elements'
+	#name : 'LeGitHubTagSnippetElement',
+	#superclass : 'LeGitHubSnippetElement',
+	#category : 'Lepiter-GitHub-UI Snippet Elements'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeGitHubTagSnippetElement >> defaultModelElement [
 	<return: #LeGitHubModelElement>
 	^ LeGitHubTagModelElement new
 ]
 
-{ #category : #'api - ui model' }
+{ #category : 'api - ui model' }
 LeGitHubTagSnippetElement >> onSnippetViewModelFocused: aBoolean [
 	"Override me to either request or lose focus when the focused state is changed in the UI Model"
 

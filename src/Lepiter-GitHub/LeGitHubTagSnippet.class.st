@@ -1,13 +1,13 @@
 Class {
-	#name : #LeGitHubTagSnippet,
-	#superclass : #LeGitHubSnippet,
+	#name : 'LeGitHubTagSnippet',
+	#superclass : 'LeGitHubSnippet',
 	#instVars : [
 		'tagName'
 	],
-	#category : #'Lepiter-GitHub-Snippets'
+	#category : 'Lepiter-GitHub-Snippets'
 }
 
-{ #category : #'api - accessing menu' }
+{ #category : 'api - accessing menu' }
 LeGitHubTagSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
@@ -15,7 +15,7 @@ LeGitHubTagSnippet class >> contextMenuItemSpecification [
 		title: 'GitHub tag'
 ]
 
-{ #category : #jsonV3 }
+{ #category : 'jsonV3' }
 LeGitHubTagSnippet class >> leJsonV3AttributeMapping [
 
 	^ super leJsonV3AttributeMapping
@@ -23,13 +23,13 @@ LeGitHubTagSnippet class >> leJsonV3AttributeMapping [
 		yourself
 ]
 
-{ #category : #jsonV3 }
+{ #category : 'jsonV3' }
 LeGitHubTagSnippet class >> leJsonV3Name [
 
 	^ 'githubTagSnippet'
 ]
 
-{ #category : #jsonV3 }
+{ #category : 'jsonV3' }
 LeGitHubTagSnippet class >> leJsonV4AttributeMapping [
 
 	^ super leJsonV4AttributeMapping
@@ -37,25 +37,25 @@ LeGitHubTagSnippet class >> leJsonV4AttributeMapping [
 		yourself
 ]
 
-{ #category : #jsonV3 }
+{ #category : 'jsonV3' }
 LeGitHubTagSnippet class >> leJsonV4Name [
 
 	^ 'githubTagSnippet'
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeGitHubTagSnippet >> acceptVisitor: aVisitor [
 
 	^ aVisitor visitGitHubTagSnippet: self
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 LeGitHubTagSnippet >> asSnippetViewModel [
 	<return: #LeSnippetViewModel>
 	^ LeGitHubTagViewModel new snippetModel: self
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeGitHubTagSnippet >> contentAsString [
 	<return: #String>
 	^ String streamContents: [ :aStream |
@@ -67,17 +67,17 @@ LeGitHubTagSnippet >> contentAsString [
 				nextPutAll: (self tagName ifEmpty: [ '<tag>' ]) ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeGitHubTagSnippet >> defaultModel [
 	^ LeGitHubTagModel new
 ]
 
-{ #category : #'api - model' }
+{ #category : 'api - model' }
 LeGitHubTagSnippet >> tagName [
 	^ self model tagName ifNil: [ String empty ]
 ]
 
-{ #category : #'api - model' }
+{ #category : 'api - model' }
 LeGitHubTagSnippet >> tagName: aString [
 	self model tagName: aString
 ]

@@ -1,10 +1,10 @@
 Class {
-	#name : #LeLogicalDatabasePropertiesExamples,
-	#superclass : #Object,
+	#name : 'LeLogicalDatabasePropertiesExamples',
+	#superclass : 'Object',
 	#category : 'Lepiter-Store-Examples'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 LeLogicalDatabasePropertiesExamples >> createStonDictionaryString [
 	"Answer a properties dictionary string in STON format.
 	Since the ston format is never written, the representation can't change, thus a constant string is used instead: #stonDictionaryString.
@@ -20,7 +20,7 @@ LeLogicalDatabasePropertiesExamples >> createStonDictionaryString [
 	^ (STONJSON toStringPretty: dictionary) printString.
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeLogicalDatabasePropertiesExamples >> defaultPlaygroundDirectory [
 	"Answer the default directory for the primary database"
 	<gtExample>
@@ -32,7 +32,7 @@ LeLogicalDatabasePropertiesExamples >> defaultPlaygroundDirectory [
 	^ properties playgroundDatabaseDirectory
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeLogicalDatabasePropertiesExamples >> defaultPrimaryDirectory [
 	"Answer the default directory for the primary database"
 	<gtExample>
@@ -44,7 +44,7 @@ LeLogicalDatabasePropertiesExamples >> defaultPrimaryDirectory [
 	^ properties primaryDatabaseDirectory
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeLogicalDatabasePropertiesExamples >> defaultRegisteredDatabaseDirectories [
 	"Answer the default directory for the primary database"
 	<gtExample>
@@ -55,7 +55,7 @@ LeLogicalDatabasePropertiesExamples >> defaultRegisteredDatabaseDirectories [
 	^ properties registeredDatabaseDirectories
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeLogicalDatabasePropertiesExamples >> migrateStonProperties [
 	"Confirm the migration of the old STON format"
 	<gtExample>
@@ -76,7 +76,7 @@ LeLogicalDatabasePropertiesExamples >> migrateStonProperties [
 	^ propertiesFile
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeLogicalDatabasePropertiesExamples >> newProperties [
 	"Anwswer a new default logical database properties"
 
@@ -84,13 +84,13 @@ LeLogicalDatabasePropertiesExamples >> newProperties [
 		localFile: self newPropertiesFile.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeLogicalDatabasePropertiesExamples >> newPropertiesFile [
 
 	^ FileSystem memory root / LepiterCoreDefaults logicalDatabasePropertiesBasename
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeLogicalDatabasePropertiesExamples >> setAbsolutePlaygroundDirectory [
 	"Set the directory to an absolute file reference"
 	<gtExample>
@@ -108,7 +108,7 @@ LeLogicalDatabasePropertiesExamples >> setAbsolutePlaygroundDirectory [
 	^ fileReference
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeLogicalDatabasePropertiesExamples >> setAbsolutePrimaryDirectory [
 	"Set the directory to an absolute file reference"
 	<gtExample>
@@ -124,7 +124,7 @@ LeLogicalDatabasePropertiesExamples >> setAbsolutePrimaryDirectory [
 	^ fileReference
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeLogicalDatabasePropertiesExamples >> setAbsoluteRegisteredDirectory [
 	"Set the directory to an absolute file reference"
 	<gtExample>
@@ -144,7 +144,7 @@ LeLogicalDatabasePropertiesExamples >> setAbsoluteRegisteredDirectory [
 	^ fileReference
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeLogicalDatabasePropertiesExamples >> setLocatorPlaygroundDirectory [
 	"Set the directory to an absolute file reference"
 	<gtExample>
@@ -162,7 +162,7 @@ LeLogicalDatabasePropertiesExamples >> setLocatorPlaygroundDirectory [
 	^ fileReference
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeLogicalDatabasePropertiesExamples >> setLocatorPrimaryDirectory [
 	"Set the directory to an absolute file reference"
 	<gtExample>
@@ -178,7 +178,7 @@ LeLogicalDatabasePropertiesExamples >> setLocatorPrimaryDirectory [
 	^ fileReference
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeLogicalDatabasePropertiesExamples >> setLocatorRegisteredDirectory [
 	"Set the directory to an absolute file reference"
 	<gtExample>
@@ -198,7 +198,7 @@ LeLogicalDatabasePropertiesExamples >> setLocatorRegisteredDirectory [
 	^ fileReference
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeLogicalDatabasePropertiesExamples >> stonDictionaryString [
 	"Answer a properties dictionary string in STON format"
 

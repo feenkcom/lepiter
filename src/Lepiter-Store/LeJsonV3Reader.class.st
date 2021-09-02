@@ -25,8 +25,8 @@ LeJsonV3Reader is a type of {{gtClass:name=NeoJSONReader}} that:
 
 "
 Class {
-	#name : #LeJsonV3Reader,
-	#superclass : #NeoJSONReader,
+	#name : 'LeJsonV3Reader',
+	#superclass : 'NeoJSONReader',
 	#instVars : [
 		'objects',
 		'typeMap'
@@ -34,7 +34,7 @@ Class {
 	#category : 'Lepiter-Store-JSONV3'
 }
 
-{ #category : #mapping }
+{ #category : 'mapping' }
 LeJsonV3Reader >> for: smalltalkClass do: block [
 	| mapping |
 
@@ -43,32 +43,32 @@ LeJsonV3Reader >> for: smalltalkClass do: block [
 	^ mapping
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 LeJsonV3Reader >> initialize [
 
 	super initialize.
 	typeMap := Dictionary new.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeJsonV3Reader >> next [
 
 	^ self objectFor: super next
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeJsonV3Reader >> nextAs: schema [
 
 	^ self objectFor: (super nextAs: schema)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeJsonV3Reader >> nextListAs: schema [
 
 	^ self objectFor: (super nextListAs: schema)
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeJsonV3Reader >> object: type from: map [
 
 	^ typeMap at: type
@@ -76,21 +76,21 @@ LeJsonV3Reader >> object: type from: map [
 		ifAbsent: [ self unknownSnippetTypeFrom: map ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeJsonV3Reader >> objectFor: anObject [
 	"Answer the single instance of anObject."
 
 	^ objects at: anObject ifAbsentPut: [ anObject ]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 LeJsonV3Reader >> on: aStream [
 
 	super on: aStream.
 	objects := Dictionary new.
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 LeJsonV3Reader >> parseMap [ 
 	| map |
 
@@ -101,13 +101,13 @@ LeJsonV3Reader >> parseMap [
 		ifAbsent: [ map ]
 ]
 
-{ #category : #parsing }
+{ #category : 'parsing' }
 LeJsonV3Reader >> parseValue [ 
 
 	^ self objectFor: super parseValue
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeJsonV3Reader >> unknownSnippetTypeFrom: map [
 	"If the supplied map looks like a snippet, answer an unknown snippet, otherwise raise an exception"
 	| children snippet |

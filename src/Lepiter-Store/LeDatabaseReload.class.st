@@ -3,8 +3,8 @@ LeDatabaseReload updates a database to match the on-disk storage.
 
 "
 Class {
-	#name : #LeDatabaseReload,
-	#superclass : #Object,
+	#name : 'LeDatabaseReload',
+	#superclass : 'Object',
 	#instVars : [
 		'monitor',
 		'monitorIsRunning',
@@ -19,35 +19,35 @@ Class {
 	#category : 'Lepiter-Store-Reload'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeDatabaseReload >> database [ 
 
 	^ monitor database
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeDatabaseReload >> localRoot [ 
 
 	^ monitor localRoot
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeDatabaseReload >> monitor [
 	^ monitor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeDatabaseReload >> monitor: anObject [
 	monitor := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeDatabaseReload >> properties [ 
 
 	^ self database properties
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 LeDatabaseReload >> reload [
 	"Reload the receiver's database.
 	The monitor has flushed the db properties prior to calling this method."
@@ -97,7 +97,7 @@ LeDatabaseReload >> reload [
 				ifFalse: [ monitor loadCorruptFilenames ] ].
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeDatabaseReload >> reloadDatabaseProperties [
 	"Update attributes from lepiter.properties that affect the database"
 
@@ -105,7 +105,7 @@ LeDatabaseReload >> reloadDatabaseProperties [
 	self monitor loadDatabasePropertiesIn: self database.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeDatabaseReload >> reloadExplicitLink: anExplicitLink fromFile: aFile [
 	| corruptFileReference |
 
@@ -131,7 +131,7 @@ LeDatabaseReload >> reloadExplicitLink: anExplicitLink fromFile: aFile [
 			loadedLinkIDs add: anExplicitLink linkUuid ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeDatabaseReload >> reloadExplicitLinksFile: aFile [ 
 	| explicitLinks  |
 	explicitLinks := self storage loadFromFile: aFile.
@@ -139,7 +139,7 @@ LeDatabaseReload >> reloadExplicitLinksFile: aFile [
 		self reloadExplicitLink: anExplicitLink fromFile: aFile ].
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeDatabaseReload >> reloadFile: file [
 	| page corruptFileReference |
 
@@ -163,7 +163,7 @@ LeDatabaseReload >> reloadFile: file [
 		loadedPageIDs add: page uid ]
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 LeDatabaseReload >> reloadOnlyLinks [
 	"Reload the receiver's explicit links."
 
@@ -191,7 +191,7 @@ LeDatabaseReload >> reloadOnlyLinks [
 				ifFalse: [ monitor loadCorruptFilenames ] ].
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeDatabaseReload >> removeDeletedLinks [
 	deletedLinksIDs := ((self database explicitLinks
 		select: [ :aLink | aLink isAttachedLink ])
@@ -200,20 +200,20 @@ LeDatabaseReload >> removeDeletedLinks [
 		self database removeExplicitLinks: {self database explicitLinkWithUuid: uuid} ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeDatabaseReload >> removeDeletedPages [
 	deletedPageIDs := (self database pages collect: #uid as: Set) difference: loadedPageIDs.
 	deletedPageIDs do: [ :uid |
 		self database removePage: (self database pageWithID: uid) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeDatabaseReload >> storage [ 
 
 	^ monitor storage
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeDatabaseReload >> updateAddedExplicitLinks [
 
 	addedExplicitLinks do: [ :anExplicitLink |
@@ -221,14 +221,14 @@ LeDatabaseReload >> updateAddedExplicitLinks [
 		self database basicAddLinkToContentCache: anExplicitLink ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeDatabaseReload >> updateAddedPages [
 
 	addedPages do: [ :page |
 		self database setPageUpdate: page ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeDatabaseReload >> updateExplicitLinksContainer [
 	"When reloading a database ensure that the uid of the container storing
 	explicit links is not changed. If it changes than a new file will be created, 
@@ -251,7 +251,7 @@ LeDatabaseReload >> updateExplicitLinksContainer [
 				fork: [ :ex | ex pass ] ].
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeDatabaseReload >> updateReloadedPages [
 	"Tell all the existing pages to reload themselves from the on-disk version.
 	This must be called after all new pages have been added (#setPage:)"

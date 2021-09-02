@@ -4,14 +4,14 @@ Confirm that the main Lepiter objects are encoded as expected in JSON V4.
 
 "
 Class {
-	#name : #LeJsonV4Examples,
-	#superclass : #Object,
+	#name : 'LeJsonV4Examples',
+	#superclass : 'Object',
 	#traits : 'TAssertable',
 	#classTraits : 'TAssertable classTrait',
 	#category : 'Lepiter-Store-Local-Examples'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 LeJsonV4Examples >> checkMetadata: expected equals: actual [ 
 
 	self assert: expected createTime equals: actual createTime.
@@ -21,7 +21,7 @@ LeJsonV4Examples >> checkMetadata: expected equals: actual [
 
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeJsonV4Examples >> codeSnippet [
 	<gtExample>
 	| code object |
@@ -37,7 +37,7 @@ LeJsonV4Examples >> codeSnippet [
 	^ object.
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeJsonV4Examples >> emailAddress [
 	<gtExample>
 	| email object |
@@ -48,7 +48,7 @@ LeJsonV4Examples >> emailAddress [
 	^ object
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeJsonV4Examples >> emptyPage [
 	<gtExample>
 	| page pageObject |
@@ -70,7 +70,7 @@ LeJsonV4Examples >> emptyPage [
 	^ pageObject
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeJsonV4Examples >> emptyPageNoCreateValues [
 	<gtExample>
 	| page pageObject |
@@ -96,7 +96,7 @@ LeJsonV4Examples >> emptyPageNoCreateValues [
 	^ pageObject
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeJsonV4Examples >> emptyPageNoEditValues [
 	<gtExample>
 	| page pageObject |
@@ -122,7 +122,7 @@ LeJsonV4Examples >> emptyPageNoEditValues [
 	^ pageObject
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeJsonV4Examples >> explicitLinkPageAndSnippet [
 	<gtExample>
 	| page textSnippet explicitLink explicitLinkObject |
@@ -164,7 +164,7 @@ LeJsonV4Examples >> explicitLinkPageAndSnippet [
 	^ explicitLinkObject
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeJsonV4Examples >> pageWithText [
 	<gtExample>
 	| page text code pageObject |
@@ -197,7 +197,7 @@ LeJsonV4Examples >> pageWithText [
 	^ pageObject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeJsonV4Examples >> seLinkMetadataFor: anExplicitLink [
 
 	anExplicitLink
@@ -207,7 +207,7 @@ LeJsonV4Examples >> seLinkMetadataFor: anExplicitLink [
 		createEmail: (LeEmail address: 'create@email.com')
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeJsonV4Examples >> serialize: anObject encodedString: aString [
 	| string readObject |
 
@@ -218,7 +218,7 @@ LeJsonV4Examples >> serialize: anObject encodedString: aString [
 	^ readObject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeJsonV4Examples >> setMetadataFor: aLeContent [
 
 	aLeContent
@@ -233,7 +233,7 @@ LeJsonV4Examples >> setMetadataFor: aLeContent [
 
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeJsonV4Examples >> textSnippet [
 	<gtExample>
 	| text object |
@@ -251,7 +251,7 @@ LeJsonV4Examples >> textSnippet [
 	^ object.
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeJsonV4Examples >> textWithPharoCode [
 	<gtExample>
 	| text code textObject codeObject |
@@ -281,7 +281,7 @@ LeJsonV4Examples >> textWithPharoCode [
 	^ textObject
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeJsonV4Examples >> time [
 	<gtExample>
 	| time object |

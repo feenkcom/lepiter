@@ -1,10 +1,10 @@
 Class {
-	#name : #LeGitHubIssueUrlValidatorExamples,
-	#superclass : #Object,
-	#category : #'Lepiter-GitHub-Client'
+	#name : 'LeGitHubIssueUrlValidatorExamples',
+	#superclass : 'Object',
+	#category : 'Lepiter-GitHub-Client'
 }
 
-{ #category : #'examples - validator' }
+{ #category : 'examples - validator' }
 LeGitHubIssueUrlValidatorExamples >> basicValidator [
 	<gtExample>
 	| aValidator |
@@ -12,22 +12,22 @@ LeGitHubIssueUrlValidatorExamples >> basicValidator [
 	^ aValidator
 ]
 
-{ #category : #'examples - url' }
+{ #category : 'examples - url' }
 LeGitHubIssueUrlValidatorExamples >> invalidUrl [
 	^ 'https://github.com/feenkcom/gtoolkit/issues/anythingelse'
 ]
 
-{ #category : #'examples - url' }
+{ #category : 'examples - url' }
 LeGitHubIssueUrlValidatorExamples >> shortInvalidUrl [
 	^ 'https://github.com/feenkcom/gtoolkit/issues/'
 ]
 
-{ #category : #'examples - url' }
+{ #category : 'examples - url' }
 LeGitHubIssueUrlValidatorExamples >> validUrl [
 	^ 'https://github.com/feenkcom/gtoolkit/issues/1822'
 ]
 
-{ #category : #'examples - validator' }
+{ #category : 'examples - validator' }
 LeGitHubIssueUrlValidatorExamples >> validator_InvalidUrl [
 	<gtExample>
 	| aValidator anUrl |
@@ -44,7 +44,7 @@ LeGitHubIssueUrlValidatorExamples >> validator_InvalidUrl [
 	^ aValidator
 ]
 
-{ #category : #'examples - validator' }
+{ #category : 'examples - validator' }
 LeGitHubIssueUrlValidatorExamples >> validator_ShortInvalidUrl [
 	<gtExample>
 	| aValidator anUrl |
@@ -61,7 +61,7 @@ LeGitHubIssueUrlValidatorExamples >> validator_ShortInvalidUrl [
 	^ aValidator
 ]
 
-{ #category : #'examples - validator' }
+{ #category : 'examples - validator' }
 LeGitHubIssueUrlValidatorExamples >> validator_ValidUrl [
 	<gtExample>
 	| aValidator anUrl |

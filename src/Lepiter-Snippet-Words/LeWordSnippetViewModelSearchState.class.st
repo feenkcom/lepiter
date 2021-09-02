@@ -4,12 +4,12 @@ I identify a {{gtClass:LeWordSnippetViewModel}} state in which a word {{gtClass:
 
 "
 Class {
-	#name : #LeWordSnippetViewModelSearchState,
-	#superclass : #LeWordSnippetViewModelState,
-	#category : #'Lepiter-Snippet-Words-UI View Model'
+	#name : 'LeWordSnippetViewModelSearchState',
+	#superclass : 'LeWordSnippetViewModelState',
+	#category : 'Lepiter-Snippet-Words-UI View Model'
 }
 
-{ #category : #visitor }
+{ #category : 'visitor' }
 LeWordSnippetViewModelSearchState >> accept: aVisitor [
 	^ aVisitor visitLeWordSnippetViewModelSearchState: self
 ]

@@ -1,20 +1,20 @@
 Class {
-	#name : #LeGitHubIssueSummaryModelElement,
-	#superclass : #LeGitHubModelElement,
+	#name : 'LeGitHubIssueSummaryModelElement',
+	#superclass : 'LeGitHubModelElement',
 	#instVars : [
 		'titleElement',
 		'bodyElement'
 	],
-	#category : #'Lepiter-GitHub-UI Model Elements'
+	#category : 'Lepiter-GitHub-UI Model Elements'
 }
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeGitHubIssueSummaryModelElement >> bodyElement [
 	<return: #BrEditor>
 	^ bodyElement
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeGitHubIssueSummaryModelElement >> initialize [
 	super initialize.
 	self initializeTitleElement.
@@ -29,7 +29,7 @@ LeGitHubIssueSummaryModelElement >> initialize [
 		vAnyToFitContent: self bodyElement).
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeGitHubIssueSummaryModelElement >> initializeBodyElement [
 	bodyElement := BrEditor new
 		beReadOnlyWithSelection;
@@ -39,7 +39,7 @@ LeGitHubIssueSummaryModelElement >> initializeBodyElement [
 		vFitContentLimited.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeGitHubIssueSummaryModelElement >> initializeTitleElement [
 	titleElement := BrLabel new
 		text: '';
@@ -48,13 +48,13 @@ LeGitHubIssueSummaryModelElement >> initializeTitleElement [
 		fitContent.
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeGitHubIssueSummaryModelElement >> titleElement [
 	<return: #BrLabel>
 	^ titleElement
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 LeGitHubIssueSummaryModelElement >> updateElement [
 	super updateElement.
 	self titleElement text: self model title.

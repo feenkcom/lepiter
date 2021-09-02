@@ -1,10 +1,10 @@
 Class {
-	#name : #LeDatabasePropertiesExamples,
-	#superclass : #Object,
+	#name : 'LeDatabasePropertiesExamples',
+	#superclass : 'Object',
 	#category : 'Lepiter-Store-Local-Examples'
 }
 
-{ #category : #example }
+{ #category : 'example' }
 LeDatabasePropertiesExamples >> fileReferenceEncoding [
 	<gtExample>
 	"Confirm referencing the image directory by name in lepiter.properties"

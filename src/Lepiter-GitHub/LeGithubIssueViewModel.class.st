@@ -1,10 +1,10 @@
 Class {
-	#name : #LeGithubIssueViewModel,
-	#superclass : #LeGitHubSnippetViewModel,
-	#category : #'Lepiter-GitHub-UI Snippet View Models'
+	#name : 'LeGithubIssueViewModel',
+	#superclass : 'LeGitHubSnippetViewModel',
+	#category : 'Lepiter-GitHub-UI Snippet View Models'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeGithubIssueViewModel >> snippetElementClass [
 	^ LeGitHubIssueSnippetElement
 ]

@@ -1,14 +1,14 @@
 Class {
-	#name : #LeGitHubTagSummaryModelElement,
-	#superclass : #LeGitHubModelElement,
+	#name : 'LeGitHubTagSummaryModelElement',
+	#superclass : 'LeGitHubModelElement',
 	#instVars : [
 		'messageElement',
 		'titleElement'
 	],
-	#category : #'Lepiter-GitHub-UI Model Elements'
+	#category : 'Lepiter-GitHub-UI Model Elements'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeGitHubTagSummaryModelElement >> initialize [
 	super initialize.
 
@@ -25,7 +25,7 @@ LeGitHubTagSummaryModelElement >> initialize [
 	
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeGitHubTagSummaryModelElement >> initializeMessageElement [
 	messageElement := BrEditor new
 		beReadOnlyWithSelection;
@@ -35,7 +35,7 @@ LeGitHubTagSummaryModelElement >> initializeMessageElement [
 		vFitContentLimited. 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeGitHubTagSummaryModelElement >> initializeTitleElement [
 	titleElement := BrLabel new
 		text: '';
@@ -44,19 +44,19 @@ LeGitHubTagSummaryModelElement >> initializeTitleElement [
 		fitContent.
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeGitHubTagSummaryModelElement >> messageElement [
 	<return: #BrEditor>
 	^ messageElement
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeGitHubTagSummaryModelElement >> titleElement [
 	<return: #BrLabel>
 	^ titleElement
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 LeGitHubTagSummaryModelElement >> updateElement [
 	super updateElement.
 

@@ -1,10 +1,10 @@
 Class {
-	#name : #LeDatabasePropertyExamples,
-	#superclass : #LeLocalExamples,
+	#name : 'LeDatabasePropertyExamples',
+	#superclass : 'LeLocalExamples',
 	#category : 'Lepiter-Store-Local-Examples'
 }
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeDatabasePropertyExamples >> databaseWithPersonalInfo [
 	"Check the personal information saved to disk when savePersonalInformation is true"
 	<gtExample>
@@ -29,7 +29,7 @@ LeDatabasePropertyExamples >> databaseWithPersonalInfo [
 
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeDatabasePropertyExamples >> databaseWithoutPersonalInfo [
 	"Confirm that attachment properties don't include personal information when saved to disk"
 	<gtExample>

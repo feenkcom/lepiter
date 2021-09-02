@@ -1,32 +1,32 @@
 Class {
-	#name : #LeGitHubModel,
-	#superclass : #LeGitHubAnnouncingModel,
+	#name : 'LeGitHubModel',
+	#superclass : 'LeGitHubAnnouncingModel',
 	#instVars : [
 		'ownerName',
 		'projectName',
 		'response'
 	],
-	#category : #'Lepiter-GitHub-Model'
+	#category : 'Lepiter-GitHub-Model'
 }
 
-{ #category : #'private - announcing' }
+{ #category : 'private - announcing' }
 LeGitHubModel >> announceConfigurationChangedBy: aSource [
 	self announce: (LeGitHubModelConfigurationChangedAnnouncement new
 		model: self;
 		source: aSource)
 ]
 
-{ #category : #'api - response' }
+{ #category : 'api - response' }
 LeGitHubModel >> clearResponse [
 	response := nil.
 ]
 
-{ #category : #'private - execution' }
+{ #category : 'private - execution' }
 LeGitHubModel >> download [
 	^ Dictionary new
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 LeGitHubModel >> gtResponseRawDataFor: aView [
 	<gtView>
 	self hasResponse ifFalse: [ ^ aView empty ].
@@ -37,83 +37,83 @@ LeGitHubModel >> gtResponseRawDataFor: aView [
 		view: #gtRawDataFor:
 ]
 
-{ #category : #'public - testing' }
+{ #category : 'public - testing' }
 LeGitHubModel >> hasErrorResponse [
 	^ self hasResponse and: [ self response isSuccess not ]
 ]
 
-{ #category : #'public - testing' }
+{ #category : 'public - testing' }
 LeGitHubModel >> hasResponse [
 	^ response isNotNil
 ]
 
-{ #category : #'public - testing' }
+{ #category : 'public - testing' }
 LeGitHubModel >> hasSuccessResponse [
 	^ self hasResponse and: [ self response isSuccess ]
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LeGitHubModel >> ifError: aSuccessBlock otherwise: aOtherwiseBlock [
 	^ self hasErrorResponse
 		ifTrue: aSuccessBlock 
 		ifFalse: aOtherwiseBlock
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LeGitHubModel >> ifSuccess: aSuccessBlock otherwise: aOtherwiseBlock [
 	^ self hasSuccessResponse
 		ifTrue: aSuccessBlock 
 		ifFalse: aOtherwiseBlock
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeGitHubModel >> initialize [
 	super initialize.
 	ownerName := String empty .
 	projectName := String empty.
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeGitHubModel >> ownerName [
 	^ ownerName
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeGitHubModel >> ownerName: aString [
 	self ownerName: aString source: nil.
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeGitHubModel >> ownerName: aString source: aSource [
 	self ownerName = aString ifTrue: [ ^ self ].
 	ownerName := aString.
 	self announceConfigurationChangedBy: aSource
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeGitHubModel >> projectName [
 	^ projectName
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeGitHubModel >> projectName: aString [
 	self projectName: aString source: nil
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeGitHubModel >> projectName: aString source: aSource [
 	self projectName = aString ifTrue: [ ^ self ].
 	projectName := aString.
 	self announceConfigurationChangedBy: aSource
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeGitHubModel >> response [
 	<return: #LeGitHubResponse>
 	^ self responseFrom: nil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeGitHubModel >> response: aResponse source: aSource [
 	response := aResponse.
 	self announce: (LeGitHubModelResponseChangedAnnouncement new
@@ -121,14 +121,14 @@ LeGitHubModel >> response: aResponse source: aSource [
 		model: self)
 ]
 
-{ #category : #'api - response' }
+{ #category : 'api - response' }
 LeGitHubModel >> responseAtPath: anArray ifAbsent: anAbsentBlock [
 	^ self hasResponse
 		ifTrue: [ self response atPath: anArray ifAbsent: anAbsentBlock ] 
 		ifFalse: anAbsentBlock
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeGitHubModel >> responseFrom: aSource [
 	<return: #LeGitHubResponse>
 	response ifNil: [

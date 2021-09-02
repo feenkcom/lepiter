@@ -1,20 +1,20 @@
 Class {
-	#name : #LeGitHubResponse,
-	#superclass : #Object,
+	#name : 'LeGitHubResponse',
+	#superclass : 'Object',
 	#traits : 'TBlDebug',
 	#classTraits : 'TBlDebug classTrait',
 	#instVars : [
 		'rawData'
 	],
-	#category : #'Lepiter-GitHub-Model'
+	#category : 'Lepiter-GitHub-Model'
 }
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeGitHubResponse >> atPath: anArray ifAbsent: anAbsentBlock [
 	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeGitHubResponse >> gtRawDataFor: aView [
 	<gtView>
 	self rawData ifNil: [ ^ aView empty ].
@@ -25,23 +25,23 @@ LeGitHubResponse >> gtRawDataFor: aView [
 		view: #gtItemsFor:
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LeGitHubResponse >> isSuccess [
 	^ false
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeGitHubResponse >> message [
 	<return: #String>
 	^ ''
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeGitHubResponse >> rawData [
 	^ rawData
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeGitHubResponse >> rawData: anObject [
 	rawData := anObject
 ]

@@ -1,18 +1,18 @@
 Class {
-	#name : #LeWordSnippetWordChangedAnnouncement,
-	#superclass : #LeWordSnippetChangedAnnouncement,
+	#name : 'LeWordSnippetWordChangedAnnouncement',
+	#superclass : 'LeWordSnippetChangedAnnouncement',
 	#instVars : [
 		'word'
 	],
-	#category : #'Lepiter-Snippet-Words-Announcements'
+	#category : 'Lepiter-Snippet-Words-Announcements'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeWordSnippetWordChangedAnnouncement >> word [
 	^ word
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeWordSnippetWordChangedAnnouncement >> word: anObject [
 	word := anObject
 ]

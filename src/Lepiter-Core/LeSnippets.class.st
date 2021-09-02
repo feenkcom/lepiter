@@ -44,12 +44,12 @@ LeSnippets >> gtSnippetsFor: aView [
 		items: [ self ];
 		children: [ :eachPage | eachPage children ];
 		expandUpTo: 5;
-		column: 'Type' item: [ :aSnippet | aSnippet class ] width: 200;
+		column: 'Type' text: [ :aSnippet | aSnippet class ] width: 200;
 		column: 'Content'
-			item: [ :aSnippet | aSnippet contentAsString truncateTo: 200 ]
+			text: [ :aSnippet | aSnippet contentAsString truncateTo: 200 ]
 			width: 200;
-		column: 'Edit Time' item: #editOrCreateTime;
-		column: 'Author' item: #editOrCreateEmail
+		column: 'Edit Time' text: #editOrCreateTime;
+		column: 'Author' text: #editOrCreateEmail
 ]
 
 { #category : 'testing' }

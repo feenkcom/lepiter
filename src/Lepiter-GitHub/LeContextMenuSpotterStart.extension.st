@@ -1,6 +1,6 @@
-Extension { #name : #LeContextMenuSpotterStart }
+Extension { #name : 'LeContextMenuSpotterStart' }
 
-{ #category : #'*Lepiter-GitHub' }
+{ #category : '*Lepiter-GitHub' }
 LeContextMenuSpotterStart >> gtSpotterForGitHubIssueUrlFor: aStep [
 	<gtSearch>
 	aStep listProcessor

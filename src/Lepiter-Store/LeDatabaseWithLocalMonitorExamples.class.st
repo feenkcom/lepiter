@@ -3,18 +3,18 @@ I am used by other examples, providing a {{gtClass:LeDatabase}} with {{gtClass:L
 
 "
 Class {
-	#name : #LeDatabaseWithLocalMonitorExamples,
-	#superclass : #Object,
+	#name : 'LeDatabaseWithLocalMonitorExamples',
+	#superclass : 'Object',
 	#category : 'Lepiter-Store-Local-Examples'
 }
 
-{ #category : #'examples - database' }
+{ #category : 'examples - database' }
 LeDatabaseWithLocalMonitorExamples >> databaseWithMonitor [
 	<gtExample>
 	^ self databaseWithMonitorForDirectory: self directory
 ]
 
-{ #category : #'examples - utility' }
+{ #category : 'examples - utility' }
 LeDatabaseWithLocalMonitorExamples >> databaseWithMonitorForDirectory: aDirectory [
 	<gtExample>
 	| aDatabase |
@@ -27,7 +27,7 @@ LeDatabaseWithLocalMonitorExamples >> databaseWithMonitorForDirectory: aDirector
 	^ aDatabase
 ]
 
-{ #category : #'examples - database' }
+{ #category : 'examples - database' }
 LeDatabaseWithLocalMonitorExamples >> directory [
 	<gtExample>
 	| aDirectory |
@@ -37,7 +37,7 @@ LeDatabaseWithLocalMonitorExamples >> directory [
 	^ aDirectory
 ]
 
-{ #category : #'examples - utility' }
+{ #category : 'examples - utility' }
 LeDatabaseWithLocalMonitorExamples >> directoryDatabase: aDatabase [
 	<gtExample>
 	| aDirectory |

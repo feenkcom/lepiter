@@ -11,17 +11,17 @@ The following example shows a snippet with the {{gtExample:LeWordExamples>>#word
 
 "
 Class {
-	#name : #LeWordSnippet,
-	#superclass : #LeSnippet,
+	#name : 'LeWordSnippet',
+	#superclass : 'LeSnippet',
 	#instVars : [
 		'word',
 		'explanation',
 		'explanationAttachmentName'
 	],
-	#category : #'Lepiter-Snippet-Words-Snippet'
+	#category : 'Lepiter-Snippet-Words-Snippet'
 }
 
-{ #category : #'api - accessing menu' }
+{ #category : 'api - accessing menu' }
 LeWordSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
@@ -29,12 +29,12 @@ LeWordSnippet class >> contextMenuItemSpecification [
 		title: 'Word explanation'
 ]
 
-{ #category : #factory }
+{ #category : 'factory' }
 LeWordSnippet class >> empty [
 	^ self new
 ]
 
-{ #category : #'lepiter-store' }
+{ #category : 'lepiter-store' }
 LeWordSnippet class >> leJsonV3AttributeMapping [
 
 	^ super leJsonV3AttributeMapping
@@ -43,13 +43,13 @@ LeWordSnippet class >> leJsonV3AttributeMapping [
 		yourself
 ]
 
-{ #category : #'lepiter-store' }
+{ #category : 'lepiter-store' }
 LeWordSnippet class >> leJsonV3Name [
 
 	^ 'wordSnippet'
 ]
 
-{ #category : #'lepiter-store' }
+{ #category : 'lepiter-store' }
 LeWordSnippet class >> leJsonV4AttributeMapping [
 
 	^ super leJsonV4AttributeMapping
@@ -58,13 +58,13 @@ LeWordSnippet class >> leJsonV4AttributeMapping [
 		yourself
 ]
 
-{ #category : #'lepiter-store' }
+{ #category : 'lepiter-store' }
 LeWordSnippet class >> leJsonV4Name [
 
 	^ 'wordSnippet'
 ]
 
-{ #category : #'private - announcing' }
+{ #category : 'private - announcing' }
 LeWordSnippet >> announceExplanationChangedBy: aSource [
 	self notifyAnnouncement: (LeWordSnippetExplanationChangedAnnouncement new
 		source: aSource;
@@ -72,7 +72,7 @@ LeWordSnippet >> announceExplanationChangedBy: aSource [
 		explanation: self explanation)
 ]
 
-{ #category : #'private - announcing' }
+{ #category : 'private - announcing' }
 LeWordSnippet >> announceWordChangedBy: aSource [
 	self notifyAnnouncement: (LeWordSnippetWordChangedAnnouncement new
 		source: aSource;
@@ -80,35 +80,35 @@ LeWordSnippet >> announceWordChangedBy: aSource [
 		word: self word)
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 LeWordSnippet >> asSnippetViewModel [
 	<return: #LeSnippetViewModel>
 	^ LeWordSnippetViewModel new snippetModel: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeWordSnippet >> attachments [
 	^ {LeAttachment loadFromFolder: (self database 
 		resolveDbFile: (Path  *self explanationAttachmentName) parent pathString )}
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeWordSnippet >> contentAsString [
 	^ self word
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeWordSnippet >> explanation [
 	<return: #LeWordExplanation>
 	^ explanation
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeWordSnippet >> explanation: anExplanation [
 	self explanation: anExplanation source: nil.
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeWordSnippet >> explanation: anExplanation source: aSource [
 	self 
 		assert: [ anExplanation isNotNil ] 
@@ -123,38 +123,38 @@ LeWordSnippet >> explanation: anExplanation source: aSource [
 	self announceExplanationChangedBy: aSource.
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeWordSnippet >> explanationAttachmentName [
 	^ explanationAttachmentName
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeWordSnippet >> explanationAttachmentName: aString [
 	self explanationAttachmentName: aString source: nil
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeWordSnippet >> explanationAttachmentName: aString source: aSource [
 	self explanationAttachmentName = aString
 		ifTrue: [ ^ self ].
 	explanationAttachmentName := aString.
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 LeWordSnippet >> gtDefinitionsFor: aView [
 	<gtView>
 	explanation ifNil: [ ^ aView empty ].
 	^ explanation gtDefinitionsFor: aView 
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 LeWordSnippet >> gtUIExplanationFor: aView [
 	<gtView>
 	explanation ifNil: [ ^ aView empty ].
 	^ explanation gtUIExplanationFor: aView 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeWordSnippet >> gtViewAttachmentsFor: aView [
 	<gtView>
 	self explanationAttachmentName ifNil: [ ^ aView empty ].
@@ -162,8 +162,8 @@ LeWordSnippet >> gtViewAttachmentsFor: aView [
 		title: 'Attachments';
 		items: [ { self database 
 			resolveDbFile: (Path  *self explanationAttachmentName) parent pathString } ];
-		column: 'ID' item: #basename;
-		column: 'Name' item: [ :aDirectory | 
+		column: 'ID' text: #basename;
+		column: 'Name' text: [ :aDirectory | 
 			| allFiles |
 			allFiles := aDirectory files select: [ :aFile | 
 				aFile basename ~= LeAttachment basename ].
@@ -172,7 +172,7 @@ LeWordSnippet >> gtViewAttachmentsFor: aView [
 				ifFalse: [ allFiles size asString, ' attachments' ] ]
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 LeWordSnippet >> gtViewExplanationRawDataFor: aView [
 	<gtView>
 	explanation ifNil: [ ^ aView empty ].
@@ -180,32 +180,32 @@ LeWordSnippet >> gtViewExplanationRawDataFor: aView [
 		title: 'Explanation Raw Data' 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeWordSnippet >> hasWord [
 	^ self word notNil
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeWordSnippet >> initialize [
 	super initialize.
 	word := ''.
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LeWordSnippet >> isEmpty [
 	^ super isEmpty and: [ 
 		word isNil and: [ 
 			explanation isNil ] ]
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeWordSnippet >> onAddedToDatabase [
 	super onAddedToDatabase.
 	self explanationAttachmentName ifNil: [ ^ self ].
 	self readCachedExplanationBy: nil.
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LeWordSnippet >> printOn: aStream [
 	super printOn: aStream.
 	aStream 
@@ -214,7 +214,7 @@ LeWordSnippet >> printOn: aStream [
 		nextPutAll: ')'
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 LeWordSnippet >> readCachedExplanationBy: aSource [
 	LeStoreAttachmentReader new
 		database: self database;
@@ -230,7 +230,7 @@ LeWordSnippet >> readCachedExplanationBy: aSource [
 		read
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 LeWordSnippet >> updateCachedExplanationBy: aSource [
 	LeStoreAttachmentWriter new
 		database: self database;
@@ -244,17 +244,17 @@ LeWordSnippet >> updateCachedExplanationBy: aSource [
 		write.
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeWordSnippet >> word [
 	^ word
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeWordSnippet >> word: aWordString [
 	self word: aWordString source: nil
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeWordSnippet >> word: aWordString source: aSource [
 	self 
 		assert: [ aWordString isNotNil ]

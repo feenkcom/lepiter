@@ -1,10 +1,10 @@
 Class {
-	#name : #LeGitHubErrorMessageElementId,
-	#superclass : #BlElementUniqueId,
-	#category : #'Lepiter-GitHub-UI IDs'
+	#name : 'LeGitHubErrorMessageElementId',
+	#superclass : 'BlElementUniqueId',
+	#category : 'Lepiter-GitHub-UI IDs'
 }
 
-{ #category : #converting }
+{ #category : 'converting' }
 LeGitHubErrorMessageElementId >> asSymbol [
 	^ #'lepiter--github-error-message'
 ]

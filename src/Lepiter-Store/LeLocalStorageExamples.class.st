@@ -1,12 +1,12 @@
 Class {
-	#name : #LeLocalStorageExamples,
-	#superclass : #Object,
+	#name : 'LeLocalStorageExamples',
+	#superclass : 'Object',
 	#traits : 'TAssertable',
 	#classTraits : 'TAssertable classTrait',
 	#category : 'Lepiter-Store-Local-Examples'
 }
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeLocalStorageExamples >> ensureAttributeOrdering [
 	"Check that a the process of reading and writing a JSON file doesn't change the attribute ordering"
 	<gtExample>
@@ -31,7 +31,7 @@ LeLocalStorageExamples >> ensureAttributeOrdering [
 	^ pageJson
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeLocalStorageExamples >> jsonSource [
 	"The following comment contains the test json.
 	It must be the second comment in the method."
