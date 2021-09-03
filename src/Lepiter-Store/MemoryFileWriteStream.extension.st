@@ -1,6 +1,6 @@
-Extension { #name : #MemoryFileWriteStream }
+Extension { #name : 'MemoryFileWriteStream' }
 
-{ #category : #'*Lepiter-Store' }
+{ #category : '*Lepiter-Store' }
 MemoryFileWriteStream >> truncate [ 
 
 	stream truncate

@@ -1,17 +1,17 @@
 Class {
-	#name : #LeGitHubExamples,
-	#superclass : #Object,
+	#name : 'LeGitHubExamples',
+	#superclass : 'Object',
 	#traits : 'TAssertable',
 	#classTraits : 'TAssertable classTrait',
-	#category : #'Lepiter-GitHub-Examples'
+	#category : 'Lepiter-GitHub-Examples'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeGitHubExamples >> ownerName [
 	^ 'feenkcom'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeGitHubExamples >> projectName [
 	^ 'gtoolkit'
 ]

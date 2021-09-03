@@ -3,36 +3,36 @@ LeLocalStoreSignal is emitted each time a {{gtClass:name=LeLocalStoreMonitor}} s
 
 "
 Class {
-	#name : #LeLocalStoreSignal,
-	#superclass : #BeaconSignal,
+	#name : 'LeLocalStoreSignal',
+	#superclass : 'BeaconSignal',
 	#instVars : [
 		'pageTitle',
 		'operation'
 	],
-	#category : #'Lepiter-Store-LocalJSON-Beacon'
+	#category : 'Lepiter-Store-LocalJSON-Beacon'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStoreSignal >> operation [
 	^ operation
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStoreSignal >> operation: anObject [
 	operation := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStoreSignal >> pageTitle [
 	^ pageTitle
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStoreSignal >> pageTitle: anObject [
 	pageTitle := anObject
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LeLocalStoreSignal >> printOneLineContentsOn: stream [
 
 	stream 

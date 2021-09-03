@@ -1,15 +1,15 @@
 Class {
-	#name : #LeGitHubTagModelElement,
-	#superclass : #LeGitHubEditorAndSummaryModelElement,
-	#category : #'Lepiter-GitHub-UI Model Elements'
+	#name : 'LeGitHubTagModelElement',
+	#superclass : 'LeGitHubEditorAndSummaryModelElement',
+	#category : 'Lepiter-GitHub-UI Model Elements'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeGitHubTagModelElement >> defaultEditorModelElementClass [
 	^ LeGitHubTagEditorModelElement
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeGitHubTagModelElement >> defaultSummaryModelElementClass [
 	^ LeGitHubTagSummaryModelElement
 ]

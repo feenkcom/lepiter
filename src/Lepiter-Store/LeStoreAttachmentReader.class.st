@@ -1,41 +1,41 @@
 Class {
-	#name : #LeStoreAttachmentReader,
-	#superclass : #Object,
+	#name : 'LeStoreAttachmentReader',
+	#superclass : 'Object',
 	#instVars : [
 		'database',
 		'reader',
 		'attachmentName'
 	],
-	#category : #'Lepiter-Store-Attachments'
+	#category : 'Lepiter-Store-Attachments'
 }
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeStoreAttachmentReader >> attachmentName [
 	^ attachmentName
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeStoreAttachmentReader >> attachmentName: anObject [
 	attachmentName := anObject
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeStoreAttachmentReader >> database [
 	^ database
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeStoreAttachmentReader >> database: anObject [
 	database := anObject
 ]
 
-{ #category : #'private - testing' }
+{ #category : 'private - testing' }
 LeStoreAttachmentReader >> hasMonitor [
 	^ self database isDatabase and: [ 
 		self database monitor isNotNil ]
 ]
 
-{ #category : #'api - storage' }
+{ #category : 'api - storage' }
 LeStoreAttachmentReader >> read [
 	"read an attachment content and return its content"
 	<return: #Object>
@@ -50,12 +50,12 @@ LeStoreAttachmentReader >> read [
 	^ self reader value: aContent
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeStoreAttachmentReader >> reader [
 	^ reader
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeStoreAttachmentReader >> reader: aValuable [
 	reader := aValuable
 ]

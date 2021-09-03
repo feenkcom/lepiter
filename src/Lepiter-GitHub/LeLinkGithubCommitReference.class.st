@@ -1,23 +1,23 @@
 Class {
-	#name : #LeLinkGithubCommitReference,
-	#superclass : #LeLinkGithubReference,
+	#name : 'LeLinkGithubCommitReference',
+	#superclass : 'LeLinkGithubReference',
 	#instVars : [
 		'commitId'
 	],
-	#category : #'Lepiter-GitHub-Model'
+	#category : 'Lepiter-GitHub-Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLinkGithubCommitReference >> commitId [
 	^ commitId
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLinkGithubCommitReference >> commitId: anObject [
 	commitId := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLinkGithubCommitReference >> description [
 	^ String streamContents: [ :aStream | 
 		aStream 
@@ -25,7 +25,7 @@ LeLinkGithubCommitReference >> description [
 		self printDetailsOn: aStream ]
 ]
 
-{ #category : #communication }
+{ #category : 'communication' }
 LeLinkGithubCommitReference >> download [
 	^ IceGitHubAPI new
 			beAnonymous;
@@ -35,7 +35,7 @@ LeLinkGithubCommitReference >> download [
 				self commitId asString
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LeLinkGithubCommitReference >> printDetailsOn: aStream [
 	super printDetailsOn: aStream.
 	aStream 
@@ -43,7 +43,7 @@ LeLinkGithubCommitReference >> printDetailsOn: aStream [
 		nextPutAll: self commitId asString
 ]
 
-{ #category : #communication }
+{ #category : 'communication' }
 LeLinkGithubCommitReference >> urlString [
 	^ String streamContents: [ :aStream |
 		aStream 

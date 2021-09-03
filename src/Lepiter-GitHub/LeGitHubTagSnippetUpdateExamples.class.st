@@ -1,17 +1,17 @@
 Class {
-	#name : #LeGitHubTagSnippetUpdateExamples,
-	#superclass : #LeSingleSnippetUpdateExamples,
-	#category : #'Lepiter-GitHub-Examples'
+	#name : 'LeGitHubTagSnippetUpdateExamples',
+	#superclass : 'LeSingleSnippetUpdateExamples',
+	#category : 'Lepiter-GitHub-Examples'
 }
 
-{ #category : #'examples - snippets' }
+{ #category : 'examples - snippets' }
 LeGitHubTagSnippetUpdateExamples >> assertSnippetModifiedFor: targetSnippet [
 	self assert: targetSnippet ownerName equals: 'pharo-project'.
 	self assert: targetSnippet projectName equals: 'pharo'.
 	self assert: targetSnippet tagName equals: 'v8.0.0'
 ]
 
-{ #category : #'examples - snippets' }
+{ #category : 'examples - snippets' }
 LeGitHubTagSnippetUpdateExamples >> createTargetSnippet [
 	<gtExample>
 	^ LeGitHubTagSnippet new
@@ -20,7 +20,7 @@ LeGitHubTagSnippetUpdateExamples >> createTargetSnippet [
 		tagName: 'v0.8.439'
 ]
 
-{ #category : #'examples - snippets' }
+{ #category : 'examples - snippets' }
 LeGitHubTagSnippetUpdateExamples >> modifySnippet: aTargetSnippet [
 	<gtExample>
 	^ aTargetSnippet 

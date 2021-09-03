@@ -1,18 +1,18 @@
 Class {
-	#name : #LeGitHubTagEditorModelElement,
-	#superclass : #LeGitHubEditorModelElement,
+	#name : 'LeGitHubTagEditorModelElement',
+	#superclass : 'LeGitHubEditorModelElement',
 	#instVars : [
 		'tagEditor'
 	],
-	#category : #'Lepiter-GitHub-UI Model Elements'
+	#category : 'Lepiter-GitHub-UI Model Elements'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeGitHubTagEditorModelElement >> defaultTitle [
 	^ 'Provide GitHub Tag Information'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeGitHubTagEditorModelElement >> initializeInputFieldsElement [
 	super initializeInputFieldsElement.
 	
@@ -20,23 +20,23 @@ LeGitHubTagEditorModelElement >> initializeInputFieldsElement [
 		self onTagInputModified: anEvent ].
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeGitHubTagEditorModelElement >> onTagInputModified: anEvent [ 
 	self model tagName: anEvent text asString source: self
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeGitHubTagEditorModelElement >> tagEditor [
 	<return: #BrEditor>
 	^ tagEditor
 ]
 
-{ #category : #'private - constants' }
+{ #category : 'private - constants' }
 LeGitHubTagEditorModelElement >> tagFieldName [
 	^ 'Tag'
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 LeGitHubTagEditorModelElement >> updateInputFieldsElement [
 	super updateInputFieldsElement.
 	self tagEditor text: self model tagName.

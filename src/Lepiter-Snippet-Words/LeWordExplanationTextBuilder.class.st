@@ -7,18 +7,18 @@ I am used by {{gtClass:LeWordViewElement}}.
 
 "
 Class {
-	#name : #LeWordExplanationTextBuilder,
-	#superclass : #Object,
+	#name : 'LeWordExplanationTextBuilder',
+	#superclass : 'Object',
 	#traits : 'TBlDebug',
 	#classTraits : 'TBlDebug classTrait',
 	#instVars : [
 		'explanation',
 		'text'
 	],
-	#category : #'Lepiter-Snippet-Words-UI Auxiliar Elements'
+	#category : 'Lepiter-Snippet-Words-UI Auxiliar Elements'
 }
 
-{ #category : #'api - building' }
+{ #category : 'api - building' }
 LeWordExplanationTextBuilder >> build [
 	<return: #BlText>
 	self
@@ -33,7 +33,7 @@ LeWordExplanationTextBuilder >> build [
 	^ self text
 ]
 
-{ #category : #'private - building' }
+{ #category : 'private - building' }
 LeWordExplanationTextBuilder >> buildMeanings [
 	self explanation meanings do: [ :aMeaning |
 		| aText |
@@ -62,7 +62,7 @@ LeWordExplanationTextBuilder >> buildMeanings [
 	]
 ]
 
-{ #category : #'private - building' }
+{ #category : 'private - building' }
 LeWordExplanationTextBuilder >> buildTitle [
 		
 	| aTitle |
@@ -71,17 +71,17 @@ LeWordExplanationTextBuilder >> buildTitle [
 	self text append: aTitle
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeWordExplanationTextBuilder >> explanation [
 	^ explanation
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeWordExplanationTextBuilder >> explanation: anObject [
 	explanation := anObject
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 LeWordExplanationTextBuilder >> gtTextFor: aView [
 	<gtView>
 	self text ifNil: [ ^ aView empty ].
@@ -95,13 +95,13 @@ LeWordExplanationTextBuilder >> gtTextFor: aView [
 			action: [ :aButton | aButton phlow spawnObject: self explanation ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeWordExplanationTextBuilder >> initialize [
 	super initialize.
 	text := '' asRopedText.
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeWordExplanationTextBuilder >> text [
 	^ text
 ]

@@ -6,20 +6,20 @@ I hold collection of {{gtClass:LeWordMeaning}}.
 
 "
 Class {
-	#name : #LeWordExplanation,
-	#superclass : #LeWordData,
+	#name : 'LeWordExplanation',
+	#superclass : 'LeWordData',
 	#instVars : [
 		'word'
 	],
-	#category : #'Lepiter-Snippet-Words-Model'
+	#category : 'Lepiter-Snippet-Words-Model'
 }
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeWordExplanation >> definitions [
 	^ self meanings flatCollect: #definitions
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 LeWordExplanation >> gtDefinitionsFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -30,7 +30,7 @@ LeWordExplanation >> gtDefinitionsFor: aView [
 		column: 'Definition' text: [ :aDefinition | aDefinition definition ]
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 LeWordExplanation >> gtMeaningsFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -41,7 +41,7 @@ LeWordExplanation >> gtMeaningsFor: aView [
 		column: 'Number of Definitions' text: [ :aMeaning | aMeaning definitions size ]
 ]
 
-{ #category : #'gt-extensions' }
+{ #category : 'gt-extensions' }
 LeWordExplanation >> gtUIExplanationFor: aView [
 	<gtView>
 	^ aView explicit
@@ -52,7 +52,7 @@ LeWordExplanation >> gtUIExplanationFor: aView [
 				explanation: self ]
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeWordExplanation >> meanings [ 	
 	| meanings |
 	meanings := OrderedCollection new.
@@ -63,7 +63,7 @@ LeWordExplanation >> meanings [
 	^ meanings
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LeWordExplanation >> printOn: aStream [
 	super printOn: aStream.
 	aStream 
@@ -72,12 +72,12 @@ LeWordExplanation >> printOn: aStream [
 		nextPut: $)
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeWordExplanation >> word [
 	^ word
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeWordExplanation >> word: anObject [
 	word := anObject
 ]

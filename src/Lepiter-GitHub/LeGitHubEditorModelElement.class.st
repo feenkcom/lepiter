@@ -1,6 +1,6 @@
 Class {
-	#name : #LeGitHubEditorModelElement,
-	#superclass : #LeGitHubModelElement,
+	#name : 'LeGitHubEditorModelElement',
+	#superclass : 'LeGitHubModelElement',
 	#instVars : [
 		'inputFieldsElement',
 		'toolbarElement',
@@ -8,23 +8,23 @@ Class {
 		'projectEditor',
 		'errorLabel'
 	],
-	#category : #'Lepiter-GitHub-UI Model Elements'
+	#category : 'Lepiter-GitHub-UI Model Elements'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeGitHubEditorModelElement >> defaultTitle [
 	"Return a widget title that indicates to users what the element is about"
 	<return: #String>
 	^ self subclassResponsibility 
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeGitHubEditorModelElement >> errorLabel [
 	<return: #BrLabel>
 	^ errorLabel
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeGitHubEditorModelElement >> initialize [
 	| aTitle |
 	super initialize.
@@ -43,7 +43,7 @@ LeGitHubEditorModelElement >> initialize [
 		vAnyToFitContent: self toolbarElement)
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeGitHubEditorModelElement >> initializeInputFieldsElement [
 	inputFieldsElement := BrHorizontalGrid new
 		columnCount: 2.
@@ -56,7 +56,7 @@ LeGitHubEditorModelElement >> initializeInputFieldsElement [
 	
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeGitHubEditorModelElement >> initializeToolbarElement [
 	| anAcceptButton |
 	toolbarElement := BrToolbar new
@@ -85,13 +85,13 @@ LeGitHubEditorModelElement >> initializeToolbarElement [
 	self toolbarElement addItem: errorLabel
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeGitHubEditorModelElement >> inputFieldsElement [
 	<return: #BrHorizontalGrid>
 	^ inputFieldsElement
 ]
 
-{ #category : #'private - instance creation' }
+{ #category : 'private - instance creation' }
 LeGitHubEditorModelElement >> newInputNamed: aName onModificationDo: aModificationBlock [
 	| aLabel anEditor |
 	aLabel := BrLabel new
@@ -120,7 +120,7 @@ LeGitHubEditorModelElement >> newInputNamed: aName onModificationDo: aModificati
 	^ anEditor.
 ]
 
-{ #category : #'private - instance creation' }
+{ #category : 'private - instance creation' }
 LeGitHubEditorModelElement >> newTitleElement [
 	^ BrLabel new
 		text: self defaultTitle;
@@ -129,7 +129,7 @@ LeGitHubEditorModelElement >> newTitleElement [
 		fitContent.
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 LeGitHubEditorModelElement >> onAcceptAction: aButton [
 	self updateErrorText: ''.
 	[ 
@@ -141,46 +141,46 @@ LeGitHubEditorModelElement >> onAcceptAction: aButton [
 	 ] ensure: [ aButton enable ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeGitHubEditorModelElement >> onConfigurationChanged: anAnnouncement [
 	anAnnouncement source = self ifTrue: [ ^ self ].
 	self enqueueTask: (BlTaskAction new action: [
 		self updateInputFieldsElement ])
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeGitHubEditorModelElement >> onOwnerInputModified: anEvent [
 	self model ownerName: anEvent text asString source: self
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeGitHubEditorModelElement >> onProjectInputModified: anEvent [ 
 	self model projectName: anEvent text asString source: self
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeGitHubEditorModelElement >> ownerEditor [
 	<return: #BrEditor>
 	^ ownerEditor
 ]
 
-{ #category : #'private - constants' }
+{ #category : 'private - constants' }
 LeGitHubEditorModelElement >> ownerFieldName [
 	^ 'Owner'
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeGitHubEditorModelElement >> projectEditor [
 	<return: #BrEditor>
 	^ projectEditor
 ]
 
-{ #category : #'private - constants' }
+{ #category : 'private - constants' }
 LeGitHubEditorModelElement >> projectFieldName [
 	^ 'Project'
 ]
 
-{ #category : #'private - subscriptions' }
+{ #category : 'private - subscriptions' }
 LeGitHubEditorModelElement >> subscribeToModel [
 	super subscribeToModel.
 	self model weak
@@ -189,32 +189,32 @@ LeGitHubEditorModelElement >> subscribeToModel [
 		to: self
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeGitHubEditorModelElement >> toolbarElement [
 	<return: #BrToolbar>
 	^ toolbarElement
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 LeGitHubEditorModelElement >> updateElement [
 	super updateElement.
 	self updateErrorText.
 	self updateInputFieldsElement.
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 LeGitHubEditorModelElement >> updateErrorText [
 	self model 
 		ifError: [ self updateErrorText: self model response message ]
 		otherwise: [ self updateErrorText: '' ]
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 LeGitHubEditorModelElement >> updateErrorText: aString [
 	self errorLabel text: aString
 ]
 
-{ #category : #'private - updating' }
+{ #category : 'private - updating' }
 LeGitHubEditorModelElement >> updateInputFieldsElement [
 	self ownerEditor text: self model ownerName.
 	self projectEditor text: self model projectName.

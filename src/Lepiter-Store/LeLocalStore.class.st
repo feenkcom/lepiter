@@ -21,8 +21,8 @@ The store is responsible for ensuring that an attachments directory exists in th
 
 "
 Class {
-	#name : #LeLocalStore,
-	#superclass : #Object,
+	#name : 'LeLocalStore',
+	#superclass : 'Object',
 	#instVars : [
 		'localRoot',
 		'storage',
@@ -33,54 +33,54 @@ Class {
 	#category : 'Lepiter-Store-LocalJSON-Store'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeLocalStore class >> current [
 	"Answer an instance of the receiver with the current storage format"
 
 	^ self forJsonV4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStore class >> currentStorageClass [
 
 	^ LeLocalJsonV4Storage 
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeLocalStore class >> forJsonV3 [
 	"Answer an instance of the receiver with JSON V3 storage format"
 
 	^ self new storage: LeLocalJsonV3Storage new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeLocalStore class >> forJsonV4 [
 	"Answer an instance of the receiver with JSON V4 storage format"
 
 	^ self new storage: LeLocalJsonV4Storage new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStore >> attachmentsDirectory [
 	^ attachmentsDirectory
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStore >> attachmentsDirectory: anObject [
 	attachmentsDirectory := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStore >> database [
 	^ database
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStore >> database: anObject [
 	database := anObject
 ]
 
-{ #category : #'accessing - db properties' }
+{ #category : 'accessing - db properties' }
 LeLocalStore >> databaseName [
 	<return: #String or: nil>
 
@@ -89,7 +89,7 @@ LeLocalStore >> databaseName [
 		ifAbsent: [ self databaseNameFromLocalRoot ]
 ]
 
-{ #category : #'accessing - db properties' }
+{ #category : 'accessing - db properties' }
 LeLocalStore >> databaseName: aString [
 	"Store the database name"
 
@@ -99,7 +99,7 @@ LeLocalStore >> databaseName: aString [
 	self updateProperty: #databaseName value: aString asString 
 ]
 
-{ #category : #'accessing - db properties' }
+{ #category : 'accessing - db properties' }
 LeLocalStore >> databaseNameFromLocalRoot [
 	<return: #String>
 
@@ -124,7 +124,7 @@ LeLocalStore >> databaseNameFromLocalRoot [
 			separatedBy: [ aStream nextPut: DiskStore delimiter ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStore >> dbProperties [
 
 	^ dbProperties ifNil: 
@@ -140,18 +140,18 @@ LeLocalStore >> dbProperties [
 		dbProperties ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStore >> dbPropertiesFile [
 	^ localRoot / self propertiesBasename
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStore >> dbSchema [
 
 	^ LeDbVersion fromString: (self dbProperties at: #schema)
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeLocalStore >> dbSchema: aLeDbVersion [ 
 
 
@@ -159,12 +159,12 @@ LeLocalStore >> dbSchema: aLeDbVersion [
 	self savePropertiesDictionary: dbProperties
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStore >> explicitLinksFileReference [
 	^ self storage explicitLinksFileOrNilIn: self localRoot
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeLocalStore >> fileReferenceFrom: aString [
 	"Answer a FileReference or FileLocator from the supplied string.
 	FileLocator origins + 'dbParentDirectory' are available as formatted strings, e.g.
@@ -187,7 +187,7 @@ LeLocalStore >> fileReferenceFrom: aString [
 	 	[ aString asFileReference ].
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeLocalStore >> fileReferenceString: aFileReferenceStringOrNil [
 	"Answer the string form of the supplied reference"
 
@@ -203,7 +203,7 @@ LeLocalStore >> fileReferenceString: aFileReferenceStringOrNil [
 							on: stream ] ] ] ]
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 LeLocalStore >> gtNameMappingFor: aView [
 	"Provide a page title -> filename view"
 	<gtView>
@@ -219,7 +219,7 @@ LeLocalStore >> gtNameMappingFor: aView [
 		send: [ :each | each value ]
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 LeLocalStore >> gtPropertiesFor: aView [
 	"Provide a simple view of the current properties"
 	<gtView>
@@ -231,7 +231,7 @@ LeLocalStore >> gtPropertiesFor: aView [
 		view: #gtItemsFor:
 ]
 
-{ #category : #'private - db properties' }
+{ #category : 'private - db properties' }
 LeLocalStore >> loadDatabasePropertiesIn: aDatabase [
 	"Load the lepiter.properties file and update the database"
 
@@ -239,7 +239,7 @@ LeLocalStore >> loadDatabasePropertiesIn: aDatabase [
 		[ :email | database userEmail: email ].
 ]
 
-{ #category : #'private - db properties' }
+{ #category : 'private - db properties' }
 LeLocalStore >> loadPropertiesDictionary [
 	"Answer the leptier.properties file contents"
 	| propertiesFile |
@@ -251,12 +251,12 @@ LeLocalStore >> loadPropertiesDictionary [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStore >> localRoot [
 	^ localRoot
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStore >> localRoot: aFileReference [
 	"Set the localRoot for the storage"
 
@@ -264,25 +264,25 @@ LeLocalStore >> localRoot: aFileReference [
 	attachmentsDirectory := localRoot / 'attachments'.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStore >> pageFileReference: aLePage [
 
 	^ localRoot / (self pageFilename: aLePage)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStore >> pageFilename: aLePage [
 
 	^ storage pageFilename: aLePage
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStore >> pageFilenameForId: aLePage [
 
 	^ storage pageFilenameForUid: aLePage
 ]
 
-{ #category : #'accessing - db properties' }
+{ #category : 'accessing - db properties' }
 LeLocalStore >> preloadScript [
 	<return: #FileReference or: nil>
 
@@ -291,7 +291,7 @@ LeLocalStore >> preloadScript [
 		ifAbsent: [ nil ]
 ]
 
-{ #category : #'accessing - db properties' }
+{ #category : 'accessing - db properties' }
 LeLocalStore >> preloadScript: aFileReferenceOrNil [
 
 	self 
@@ -299,7 +299,7 @@ LeLocalStore >> preloadScript: aFileReferenceOrNil [
 		value: (self fileReferenceString: aFileReferenceOrNil)
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeLocalStore >> primitiveReload [
 	"Reload the receiver.
 	Flush any data that may have changed on-disk since the last (re)load."
@@ -307,28 +307,28 @@ LeLocalStore >> primitiveReload [
 	dbProperties := nil.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStore >> propertiesBasename [
 	"Answer the basename of the receiver's database properties file"
 
 	^ LepiterCoreDefaults databasePropertiesBasename
 ]
 
-{ #category : #'accessing - db properties' }
+{ #category : 'accessing - db properties' }
 LeLocalStore >> propertyAt: aSymbol [
 	<return: #String or: #Dictionary>
 
 	^ self dbProperties at: aSymbol
 ]
 
-{ #category : #'accessing - db properties' }
+{ #category : 'accessing - db properties' }
 LeLocalStore >> propertyAt: aSymbol ifAbsent: absentBlock [
 	<return: #String or: #Dictionary>
 
 	^ self dbProperties at: aSymbol ifAbsent: absentBlock
 ]
 
-{ #category : #'accessing - db properties' }
+{ #category : 'accessing - db properties' }
 LeLocalStore >> propertyAt: aSymbol ifPresent: presentBlock ifAbsent: absentBlock [
 
 	^ self dbProperties 
@@ -337,7 +337,7 @@ LeLocalStore >> propertyAt: aSymbol ifPresent: presentBlock ifAbsent: absentBloc
 		ifAbsent: absentBlock
 ]
 
-{ #category : #loading }
+{ #category : 'loading' }
 LeLocalStore >> reloadExplicitLinks: aLeExplicitLinks [
 	"Answer the explicit links as they exists in the store.
 	This is for testing purposes."
@@ -346,7 +346,7 @@ LeLocalStore >> reloadExplicitLinks: aLeExplicitLinks [
 
 ]
 
-{ #category : #loading }
+{ #category : 'loading' }
 LeLocalStore >> reloadPage: aLePage [
 	"Answer the page as it exists in the store.
 	This is for testing purposes."
@@ -355,14 +355,14 @@ LeLocalStore >> reloadPage: aLePage [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStore >> resolveDbFile: aString [
 	"Resolve the supplied relative path reference against the receiver's database"
 
 	^ localRoot / aString
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeLocalStore >> savePageNow: aPage [
 	"Write the supplied page back to the local store"
 	
@@ -371,7 +371,7 @@ LeLocalStore >> savePageNow: aPage [
 		ifFalse: [ storage savePage: aPage in: localRoot ]
 ]
 
-{ #category : #'accessing - db properties' }
+{ #category : 'accessing - db properties' }
 LeLocalStore >> savePersonalInformation [
 	<return: #Boolean>
 
@@ -380,7 +380,7 @@ LeLocalStore >> savePersonalInformation [
 		ifAbsent: [ false ]
 ]
 
-{ #category : #'accessing - db properties' }
+{ #category : 'accessing - db properties' }
 LeLocalStore >> savePersonalInformation: aBooleanOrNil [
 	"Update the flag on whether to store personal information in the database.
 	nil = default, which is false (see #savePersonalInformaation)"
@@ -388,7 +388,7 @@ LeLocalStore >> savePersonalInformation: aBooleanOrNil [
 	self updateProperty: #savePersonalInformation value: aBooleanOrNil 
 ]
 
-{ #category : #'private - db properties' }
+{ #category : 'private - db properties' }
 LeLocalStore >> savePropertiesDictionary: properties [
 	"Save the lepiter.properties file contents"
 	| propertiesFile |
@@ -400,17 +400,17 @@ LeLocalStore >> savePropertiesDictionary: properties [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStore >> storage [
 	^ storage
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStore >> storage: anObject [
 	storage := anObject
 ]
 
-{ #category : #'accessing - db properties' }
+{ #category : 'accessing - db properties' }
 LeLocalStore >> tableOfContentsPageID [
 	"Answer the page UUID for the Table Of Contents, or nil if not set"
 
@@ -419,20 +419,20 @@ LeLocalStore >> tableOfContentsPageID [
 		ifAbsent: [ nil ]
 ]
 
-{ #category : #'accessing - db properties' }
+{ #category : 'accessing - db properties' }
 LeLocalStore >> tableOfContentsPageID: aUUID [
 	"Store the page to be used as a Table of Contents"
 
 	self updateProperty: #tableOfContents value: (aUUID ifNotNil: #asString36) 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLocalStore >> titleFilename: aString [
 
 	^ storage titleFilename: aString
 ]
 
-{ #category : #'private - db properties' }
+{ #category : 'private - db properties' }
 LeLocalStore >> updateProperty: propertyName value: aJSONObject [
 	| properties |
 
@@ -445,7 +445,7 @@ LeLocalStore >> updateProperty: propertyName value: aJSONObject [
 	self savePropertiesDictionary: properties.
 ]
 
-{ #category : #'accessing - db properties' }
+{ #category : 'accessing - db properties' }
 LeLocalStore >> uuid [ 
 	"Answer the UUID of the receiver's DB"
 	<return: #UUID>
@@ -453,7 +453,7 @@ LeLocalStore >> uuid [
 	^ UUID fromString: (self dbProperties at: #uuid)
 ]
 
-{ #category : #'accessing - db properties' }
+{ #category : 'accessing - db properties' }
 LeLocalStore >> uuidString [
 	"Answer the UUID of the receiver's DB in String36 format"
 	<return: #String>

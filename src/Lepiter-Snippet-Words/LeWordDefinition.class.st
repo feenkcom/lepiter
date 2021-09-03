@@ -8,35 +8,35 @@ The following explanation example holds several definitions that you can explore
 
 "
 Class {
-	#name : #LeWordDefinition,
-	#superclass : #LeWordData,
+	#name : 'LeWordDefinition',
+	#superclass : 'LeWordData',
 	#instVars : [
 		'partOfSpeach'
 	],
-	#category : #'Lepiter-Snippet-Words-Model'
+	#category : 'Lepiter-Snippet-Words-Model'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeWordDefinition >> definition [
 	^ rawData at: 'definition'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeWordDefinition >> exampleSentence [
 	^ rawData at: 'example' ifAbsent: [ nil ].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeWordDefinition >> partOfSpeech [
 	^ partOfSpeach
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeWordDefinition >> partOfSpeech: anObject [
 	partOfSpeach := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeWordDefinition >> printOn: aStream [
 	super printOn: aStream.
 	aStream

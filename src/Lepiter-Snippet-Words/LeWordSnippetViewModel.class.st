@@ -4,27 +4,27 @@ I am used by {{gtClass:LeWordSnippetElement}}.
 
 "
 Class {
-	#name : #LeWordSnippetViewModel,
-	#superclass : #LeSnippetViewModel,
+	#name : 'LeWordSnippetViewModel',
+	#superclass : 'LeSnippetViewModel',
 	#instVars : [
 		'word',
 		'response',
 		'state'
 	],
-	#category : #'Lepiter-Snippet-Words-UI View Model'
+	#category : 'Lepiter-Snippet-Words-UI View Model'
 }
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeWordSnippetViewModel >> acceptStateVisitor: aVisitor [
 	self state accept: aVisitor.
 ]
 
-{ #category : #'api - state' }
+{ #category : 'api - state' }
 LeWordSnippetViewModel >> editStateFrom: aSource [
 	self state: LeWordSnippetViewModelEditState default source: aSource
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeWordSnippetViewModel >> explanation [
 	self
 		assert: [ self hasSuccessResponse ] 
@@ -32,41 +32,41 @@ LeWordSnippetViewModel >> explanation [
 	^ self response explanation
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeWordSnippetViewModel >> explanation: anExplanation [
 	self explanation: anExplanation source: self
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeWordSnippetViewModel >> explanation: anExplanation source: aSource [
 	self response: (LeWordSuccess new explanation: anExplanation) source: aSource
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LeWordSnippetViewModel >> hasResponse [
 	^ response isNotNil
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LeWordSnippetViewModel >> hasSuccessResponse [
 	^ self hasResponse and: [ self response isSuccess ]
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LeWordSnippetViewModel >> ifSuccess: aSuccessBlock otherwise: anOtherwiseBlock [
 	self hasSuccessResponse
 		ifTrue: aSuccessBlock 
 		ifFalse: anOtherwiseBlock
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeWordSnippetViewModel >> initialize [
 	super initialize.
 	word := String empty.
 	state := LeWordSnippetViewModelEditState default.
 ]
 
-{ #category : #'private - announcing' }
+{ #category : 'private - announcing' }
 LeWordSnippetViewModel >> notifyResponseChangedBy: aSource [
 	self announce: (LeWordViewModelResponseChangedAnnouncement new
 		source: aSource;
@@ -74,7 +74,7 @@ LeWordSnippetViewModel >> notifyResponseChangedBy: aSource [
 		word: self word)
 ]
 
-{ #category : #'private - announcing' }
+{ #category : 'private - announcing' }
 LeWordSnippetViewModel >> notifyStateChangedBy: aSource [
 	self announce: (LeWordViewModelStateChangedAnnouncement new
 		source: aSource;
@@ -82,14 +82,14 @@ LeWordSnippetViewModel >> notifyStateChangedBy: aSource [
 		word: self word)
 ]
 
-{ #category : #'private - announcing' }
+{ #category : 'private - announcing' }
 LeWordSnippetViewModel >> notifyWordChangedBy: aSource [
 	self announce: (LeWordViewModelWordChangedAnnouncement new
 		source: aSource;
 		word: self word)
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 LeWordSnippetViewModel >> onResponse: aResponse source: aSource [
 	self response: aResponse source: aSource.
 	self 
@@ -100,13 +100,13 @@ LeWordSnippetViewModel >> onResponse: aResponse source: aSource [
 		otherwise: [ "ignore" ]
 ]
 
-{ #category : #'private - announcement handling' }
+{ #category : 'private - announcement handling' }
 LeWordSnippetViewModel >> onSnippetExplanationChanged: anAnnouncement [
 	anAnnouncement source == self ifTrue: [ ^ self ].
 	self explanation: anAnnouncement explanation source: anAnnouncement source.
 ]
 
-{ #category : #'api - snippet model' }
+{ #category : 'api - snippet model' }
 LeWordSnippetViewModel >> onSnippetModelChanged [
 	super onSnippetModelChanged.
 	
@@ -126,24 +126,24 @@ LeWordSnippetViewModel >> onSnippetModelChanged [
 		to: self
 ]
 
-{ #category : #'private - announcement handling' }
+{ #category : 'private - announcement handling' }
 LeWordSnippetViewModel >> onSnippetWordChanged: anAnnouncement [
 	anAnnouncement source == self ifTrue: [ ^ self ].
 	self word: anAnnouncement word source: anAnnouncement source.
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeWordSnippetViewModel >> response [
 	<return: #LeWordResponse>
 	^ response
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeWordSnippetViewModel >> response: aResponse [
 	self response: aResponse source: self.
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeWordSnippetViewModel >> response: aResponse source: aSource [
 	self 
 		assert: [ aResponse notNil ] 
@@ -158,12 +158,12 @@ LeWordSnippetViewModel >> response: aResponse source: aSource [
 	self notifyResponseChangedBy: aSource.
 ]
 
-{ #category : #'api - communication' }
+{ #category : 'api - communication' }
 LeWordSnippetViewModel >> searchExplanation [
 	self searchExplanationFrom: nil
 ]
 
-{ #category : #'api - communication' }
+{ #category : 'api - communication' }
 LeWordSnippetViewModel >> searchExplanationFrom: aSource [
 
 	self state: LeWordSnippetViewModelSearchState default source: aSource.
@@ -173,23 +173,23 @@ LeWordSnippetViewModel >> searchExplanationFrom: aSource [
 		explanation: self word
 ]
 
-{ #category : #'api - state' }
+{ #category : 'api - state' }
 LeWordSnippetViewModel >> searchStateFrom: aSource [
 	self state: LeWordSnippetViewModelSearchState default source: aSource
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeWordSnippetViewModel >> snippetElementClass [
 	^ LeWordSnippetElement
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeWordSnippetViewModel >> state [
 	<return: #LeWordSnippetViewModelState>
 	^ state
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LeWordSnippetViewModel >> state: aState source: aSource [
 	self
 		assert: [ aState isNotNil ] 
@@ -201,7 +201,7 @@ LeWordSnippetViewModel >> state: aState source: aSource [
 	self notifyStateChangedBy: aSource.
 ]
 
-{ #category : #'api - snippet model' }
+{ #category : 'api - snippet model' }
 LeWordSnippetViewModel >> subscribeToSnippetModel [
 	super subscribeToSnippetModel.
  
@@ -216,32 +216,32 @@ LeWordSnippetViewModel >> subscribeToSnippetModel [
 		to: self
 ]
 
-{ #category : #'api - snippet model' }
+{ #category : 'api - snippet model' }
 LeWordSnippetViewModel >> unsubscribeFromSnippetModel [
 	super unsubscribeFromSnippetModel.
 	
 	self snippetModel unsubscribe: self
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeWordSnippetViewModel >> userMessage [
 	^ self hasResponse 
 		ifTrue: [ self response userMessage ] 
 		ifFalse: [ '' ]
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeWordSnippetViewModel >> word [
 	<return: #String>
 	^ word
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeWordSnippetViewModel >> word: aString [
 	self word: aString source: self.
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeWordSnippetViewModel >> word: aString source: aSource [
 	self 
 		assert: [ aString isNotNil ] 

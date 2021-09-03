@@ -1,23 +1,23 @@
 Class {
-	#name : #LeGitHubCommitCommand,
-	#superclass : #LeGitHubCommand,
+	#name : 'LeGitHubCommitCommand',
+	#superclass : 'LeGitHubCommand',
 	#instVars : [
 		'commitId'
 	],
-	#category : #'Lepiter-GitHub-Client'
+	#category : 'Lepiter-GitHub-Client'
 }
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeGitHubCommitCommand >> commitId [
 	^ commitId
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeGitHubCommitCommand >> commitId: anObject [
 	commitId := anObject
 ]
 
-{ #category : #'private - execution' }
+{ #category : 'private - execution' }
 LeGitHubCommitCommand >> download [
 	^ IceGitHubAPI new
 			beAnonymous;

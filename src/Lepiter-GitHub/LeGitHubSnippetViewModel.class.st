@@ -1,10 +1,10 @@
 Class {
-	#name : #LeGitHubSnippetViewModel,
-	#superclass : #LeSnippetViewModel,
-	#category : #'Lepiter-GitHub-UI Snippet View Models'
+	#name : 'LeGitHubSnippetViewModel',
+	#superclass : 'LeSnippetViewModel',
+	#category : 'Lepiter-GitHub-UI Snippet View Models'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeGitHubSnippetViewModel class >> isAbstract [
 	^ self name = #LeGitHubSnippetViewModel 
 ]

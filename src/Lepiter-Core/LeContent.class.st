@@ -455,9 +455,9 @@ LeContent >> gtIncomingLinksFor: aView [
 		title: 'Incoming Links';
 		priority: 15;
 		items: [ self incomingLinks ];
-		column: 'Type' item: #class;
-		column: 'Origin' item: [ :aLink | aLink originReference description ];
-		column: 'Target' item: [ :aLink | aLink targetReference description ]
+		column: 'Type' text: #class;
+		column: 'Origin' text: [ :aLink | aLink originReference description ];
+		column: 'Target' text: [ :aLink | aLink targetReference description ]
 ]
 
 { #category : 'gt-extensions' }

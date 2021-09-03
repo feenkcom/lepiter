@@ -3,17 +3,17 @@ I provide examples for the word snippet.
 
 "
 Class {
-	#name : #LeWordExamples,
-	#superclass : #Object,
-	#category : #'Lepiter-Snippet-Words-Examples'
+	#name : 'LeWordExamples',
+	#superclass : 'Object',
+	#category : 'Lepiter-Snippet-Words-Examples'
 }
 
-{ #category : #'accessing - words' }
+{ #category : 'accessing - words' }
 LeWordExamples >> anotherWord [
 	^ 'human'
 ]
 
-{ #category : #'examples - explanation text builder' }
+{ #category : 'examples - explanation text builder' }
 LeWordExamples >> basicExplanationTextBuilder [
 	<gtExample>
 	| aBuilder |
@@ -22,7 +22,7 @@ LeWordExamples >> basicExplanationTextBuilder [
 	^ aBuilder
 ]
 
-{ #category : #'examples - auxiliar elements' }
+{ #category : 'examples - auxiliar elements' }
 LeWordExamples >> basicInputElement [
 	<gtExample>
 	| anElement |
@@ -33,7 +33,7 @@ LeWordExamples >> basicInputElement [
 	^ anElement
 ]
 
-{ #category : #'examples - snippet' }
+{ #category : 'examples - snippet' }
 LeWordExamples >> basicSnippet [
 	<gtExample>
 	| aSnippet |
@@ -44,7 +44,7 @@ LeWordExamples >> basicSnippet [
 	^ aSnippet
 ]
 
-{ #category : #'examples - auxiliar elements' }
+{ #category : 'examples - auxiliar elements' }
 LeWordExamples >> basicViewElement [
 	<gtExample>
 	| anElement |
@@ -55,7 +55,7 @@ LeWordExamples >> basicViewElement [
 	^ anElement
 ]
 
-{ #category : #'examples - snippet element' }
+{ #category : 'examples - snippet element' }
 LeWordExamples >> editInputEditorText [
 	<gtExample>
 	| anElement anInputElement anEditor |
@@ -79,7 +79,7 @@ LeWordExamples >> editInputEditorText [
 	^ anElement
 ]
 
-{ #category : #'examples - snippet element' }
+{ #category : 'examples - snippet element' }
 LeWordExamples >> element [
 	<gtExample>
 
@@ -99,7 +99,7 @@ LeWordExamples >> element [
 	^ anElement
 ]
 
-{ #category : #'examples - explanation text builder' }
+{ #category : 'examples - explanation text builder' }
 LeWordExamples >> explanationTextBuilder [
 	<gtExample>
 	| aBuilder aText |
@@ -112,7 +112,7 @@ LeWordExamples >> explanationTextBuilder [
 	^ aBuilder
 ]
 
-{ #category : #'examples - model' }
+{ #category : 'examples - model' }
 LeWordExamples >> helloExplanation [
 	<gtExample>
 	^ LeWordExplanation new
@@ -120,18 +120,18 @@ LeWordExamples >> helloExplanation [
 		rawData: self helloWordJsonObject
 ]
 
-{ #category : #'accessing - words' }
+{ #category : 'accessing - words' }
 LeWordExamples >> helloWord [
 	^ 'hello'
 ]
 
-{ #category : #'examples - model' }
+{ #category : 'examples - model' }
 LeWordExamples >> helloWordJsonObject [
 	<gtExample>
 	^ STONJSON fromString: self helloWordJsonRawData
 ]
 
-{ #category : #'examples - model' }
+{ #category : 'examples - model' }
 LeWordExamples >> helloWordJsonRawData [
 	^ '[
     {
@@ -188,7 +188,7 @@ LeWordExamples >> helloWordJsonRawData [
   ]'
 ]
 
-{ #category : #'examples - auxiliar elements' }
+{ #category : 'examples - auxiliar elements' }
 LeWordExamples >> inputElement [
 	<gtExample>
 	| anElement |
@@ -200,7 +200,7 @@ LeWordExamples >> inputElement [
 	^ anElement
 ]
 
-{ #category : #'examples - snippet element' }
+{ #category : 'examples - snippet element' }
 LeWordExamples >> searchAnotherWordExplanation [
 	<gtExample>
 	| anElement anInputElement |
@@ -230,7 +230,7 @@ LeWordExamples >> searchAnotherWordExplanation [
 	^ anElement
 ]
 
-{ #category : #'examples - snippet' }
+{ #category : 'examples - snippet' }
 LeWordExamples >> snippet [
 	<gtExample>
 	| aSnippet |
@@ -241,7 +241,7 @@ LeWordExamples >> snippet [
 	^ aSnippet
 ]
 
-{ #category : #'examples - snippet' }
+{ #category : 'examples - snippet' }
 LeWordExamples >> snippetWithExplanation [
 	<gtExample>
 	| aSnippet |
@@ -253,7 +253,7 @@ LeWordExamples >> snippetWithExplanation [
 	^ aSnippet
 ]
 
-{ #category : #'examples - auxiliar elements' }
+{ #category : 'examples - auxiliar elements' }
 LeWordExamples >> viewElement [
 	<gtExample>
 	| anElement |
@@ -265,7 +265,7 @@ LeWordExamples >> viewElement [
 	^ anElement
 ]
 
-{ #category : #'accessing - words' }
+{ #category : 'accessing - words' }
 LeWordExamples >> word [
 	^ 'Earth'
 ]
