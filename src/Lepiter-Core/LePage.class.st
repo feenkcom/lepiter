@@ -213,6 +213,16 @@ LePage >> ensureOneSnippet [
 	self snippetBuilder empty; add.
 ]
 
+{ #category : 'accessing' }
+LePage >> gtMarkAsTableOfContentsFor: anAction [
+	<gtAction>
+	^ anAction button
+		icon: BrGlamorousVectorIcons transcript;
+		label: 'ToC';
+		tooltip: 'Mark as Table of Contents';
+		action: [ :aButton | self database tableOfContentsPageID: self uid  ]
+]
+
 { #category : 'gt-extensions' }
 LePage >> gtSpotterActDefaultFrom: aSpotterElement [
 	| pageTool toolElement |

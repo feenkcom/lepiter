@@ -613,6 +613,8 @@ LeSnippetStylerVisitor >> styleOpenExternalLinkButton: aLink text: aSubText [
 				removeAptitude: oldLook;
 				addAptitude: (BrGlamorousButtonLabelAndIconAptitude new
 							defaultColor: oldLook defaultColor);
+				addAptitude: (BrGlamorousWithLabelTooltipAptitude new
+							text: aLink url asString asRopedText);
 				icon: BrGlamorousVectorIcons link;
 				label: aLink displayLabel;
 				action: [ :aButton | | urlUtility |
