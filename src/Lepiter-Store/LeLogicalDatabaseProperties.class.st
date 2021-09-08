@@ -142,6 +142,24 @@ LeLogicalDatabaseProperties >> gtPropertiesFor: aView [
 		view: #gtItemsFor:
 ]
 
+{ #category : 'gt-extensions' }
+LeLogicalDatabaseProperties >> gtRegisteredDirectoriesFor: aView [
+
+	<gtView>
+	properties ifNil: [ ^ aView empty ].
+	^ aView columnedList
+		  title: 'Directories';
+		  priority: 5;
+		  items: [ 
+			  Array streamContents: [ :aStream | 
+					  | aDir |
+					  aStream nextPut: (aDir := self primaryDatabaseDirectory).
+					  self playgroundDatabaseDirectory = aDir ifFalse: [ 
+							  aStream nextPut: self playgroundDatabaseDirectory ].
+					  aStream nextPutAll: self registeredDatabaseDirectories ] ];
+		  column: 'Name' text: #yourself
+]
+
 { #category : 'testing' }
 LeLogicalDatabaseProperties >> hasLocalFile [
 
