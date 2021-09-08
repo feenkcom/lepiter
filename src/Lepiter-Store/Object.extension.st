@@ -24,7 +24,7 @@ Object class >> leJsonV4AddMappingsTo: aJsonMapping [
 	"The default mapping is to write all instance variables.
 	Subclasses may overwrite this with specific behaviour"
 
-	self class allInstVarNames do: [ :instVarName |
+	self allInstVarNames do: [ :instVarName |
 		aJsonMapping mapAccessor: instVarName to: instVarName ].
 ]
 
