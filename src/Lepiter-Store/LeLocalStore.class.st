@@ -164,7 +164,7 @@ LeLocalStore >> explicitLinksFileReference [
 	^ self storage explicitLinksFileOrNilIn: self localRoot
 ]
 
-{ #category : 'private' }
+{ #category : 'private - db properties' }
 LeLocalStore >> fileReferenceFrom: aString [
 	"Answer a FileReference or FileLocator from the supplied string.
 	FileLocator origins + 'dbParentDirectory' are available as formatted strings, e.g.
@@ -187,7 +187,7 @@ LeLocalStore >> fileReferenceFrom: aString [
 	 	[ aString asFileReference ].
 ]
 
-{ #category : 'private' }
+{ #category : 'private - db properties' }
 LeLocalStore >> fileReferenceString: aFileReferenceStringOrNil [
 	"Answer the string form of the supplied reference"
 
