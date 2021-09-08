@@ -183,16 +183,21 @@ LeAnnotationStylerVisitor >> styleApplyButtonFor: aChangesAnnotation [
 
 { #category : 'styling' }
 LeAnnotationStylerVisitor >> styleAutoHidingAnnotation: anAnnotation [
-	| anAttribute aMarkerAttribute aStartPosition aStopPosition aSubText |
+	| anAttribute aMarkerAttribute aStartPositionToHide aStopPositionToHide anAnnotationTextToHide aSurroundingTextToRespondToCursor aStartPositionToReactToCursor aStopPositionToReactToCursor |
 
 	self showMarkup
 		ifTrue: [ ^ self ].
+
 	anAnnotation isDefined
 		ifFalse: [ ^ self ].
 		
-	aStartPosition := anAnnotation parent startPosition - 1 max: 1.
-	aStopPosition := anAnnotation parent stopPosition min: self text size.
-	aSubText := self text from: aStartPosition to: aStopPosition.
+	aStartPositionToHide := anAnnotation parent startPosition max: 1.
+	aStopPositionToHide := anAnnotation parent stopPosition min: self text size.
+	aStartPositionToReactToCursor := (aStartPositionToHide - 2) max: 1.
+	aStopPositionToReactToCursor := (aStopPositionToHide + 2) min: self text size.
+
+	anAnnotationTextToHide := self text from: aStartPositionToHide to: aStopPositionToHide.
+	aSurroundingTextToRespondToCursor := self text from: aStartPositionToReactToCursor to: aStopPositionToReactToCursor.
 	
 	"when https://github.com/feenkcom/gtoolkit/issues/1430 is solved this should be refactored!
 	The issue was not really solved, the associated commits solve another issue. The editor is still requiered."
@@ -201,27 +206,22 @@ LeAnnotationStylerVisitor >> styleAutoHidingAnnotation: anAnnotation [
 	aMarkerAttribute := BrTextInvisibleMarkerAttribute new.
 
 	"so that we will be able to find where to add adornment attribute dynamically"
-	aSubText attribute: aMarkerAttribute.
+	anAnnotationTextToHide attribute: aMarkerAttribute.
 
-	anAttribute := BrTextAdornmentDynamicAttribute new
-		beReplace;
-		stencil: [ :aTBrTextEditorTextualPiece :anEditorElement | #() ].
+	anAttribute := BrTextHideAttribute new.
 
-	(self hasCursorInside: aStartPosition to: aStopPosition)
-		ifFalse: [ aSubText attribute: anAttribute ].
+	(self hasCursorInside: aStartPositionToHide to: aStopPositionToHide)
+		ifFalse: [ anAnnotationTextToHide attribute: anAttribute ].
 
-	aSubText
+	aSurroundingTextToRespondToCursor
 		onCursorEnter: [ :aTextEditor |
 			"we have a reference to the attribute instance. find its interval dynamically"
 			aTextEditor text
 				findAttribute: aMarkerAttribute
-				indicesDo: [ :aStart :anEnd | | cursorIndex |
-					cursorIndex := aTextEditor cursors first position.
-					"and now that we know valid attribute indices we can work with them"
-					(cursorIndex between: aStart-2 and: anEnd) ifTrue:
-						[ (aTextEditor text
-							from: aStart
-							to: anEnd) clearAttributes: [ :eachAttribute | eachAttribute == anAttribute ] ] ] ]
+				indicesDo: [ :aStart :anEnd |
+					(aTextEditor text
+						from: aStart
+						to: anEnd) clearAttributes: [ :eachAttribute | eachAttribute == anAttribute ] ] ]
 
 		leave: [ :aTextEditor |
 			aTextEditor text
