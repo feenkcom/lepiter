@@ -30,6 +30,12 @@ LepiterCoreDefaults class >> defaultDocumentationDirectory: aFileLocator [
 ]
 
 { #category : 'defaults' }
+LepiterCoreDefaults class >> defaultGemStonePropertiesFileReference [
+
+	^ self defaultLocalDirectory / self gemStonePropertiesBasename
+]
+
+{ #category : 'defaults' }
 LepiterCoreDefaults class >> defaultGtoolkitDocumentationDirectory [
 	^ self defaultDocumentationDirectory
 		/ 'feenkcom' 
@@ -38,16 +44,26 @@ LepiterCoreDefaults class >> defaultGtoolkitDocumentationDirectory [
 ]
 
 { #category : 'defaults' }
-LepiterCoreDefaults class >> defaultLocalLogicalDatabasePropertiesFileReference [
+LepiterCoreDefaults class >> defaultLocalDirectory [
 	^ FileLocator imageDirectory 
 		/ 'pharo-local' 
 		/ 'lepiter'
-		/ self logicalDatabasePropertiesBasename
+]
+
+{ #category : 'defaults' }
+LepiterCoreDefaults class >> defaultLocalLogicalDatabasePropertiesFileReference [
+	^ self defaultLocalDirectory / self logicalDatabasePropertiesBasename
 ]
 
 { #category : 'defaults' }
 LepiterCoreDefaults class >> defaultStorageDirectory [
 	^ FileLocator documents / 'lepiter'
+]
+
+{ #category : 'constants' }
+LepiterCoreDefaults class >> gemStonePropertiesBasename [
+
+	^ 'gt4gemstone.properties'
 ]
 
 { #category : 'constants' }
