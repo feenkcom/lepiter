@@ -7,15 +7,11 @@ Object class >> leFromJsonV4Dictionary: aDictionary [
 	| anObject |
 
 	anObject := self new.
-	self class allInstVarNames do: [ :instVarName |
-		aDictionary 
-			at: instVarName
-			ifPresent: [ :aValue |
-				anObject
-					perform: instVarName asMutator
-					with: aValue ]
-			ifAbsent: [ "ignore it" ]
-	].
+	aDictionary keysAndValuesDo: [ :key :value |
+		(#(__schema __type) includes: key) ifFalse:
+			[ anObject
+				perform: key asSymbol asMutator
+				with: value ] ].
 	^ anObject
 ]
 
