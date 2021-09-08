@@ -194,7 +194,7 @@ LeAnnotationStylerVisitor >> styleAutoHidingAnnotation: anAnnotation [
 	aStartPositionToHide := anAnnotation parent startPosition max: 1.
 	aStopPositionToHide := anAnnotation parent stopPosition min: self text size.
 	aStartPositionToReactToCursor := (aStartPositionToHide - 2) max: 1.
-	aStopPositionToReactToCursor := (aStopPositionToHide + 2) min: self text size.
+	aStopPositionToReactToCursor := (aStopPositionToHide + 1) min: self text size.
 
 	anAnnotationTextToHide := self text from: aStartPositionToHide to: aStopPositionToHide.
 	aSurroundingTextToRespondToCursor := self text from: aStartPositionToReactToCursor to: aStopPositionToReactToCursor.
