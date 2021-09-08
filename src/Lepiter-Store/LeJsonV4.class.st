@@ -9,12 +9,19 @@ Class {
 { #category : 'private' }
 LeJsonV4 >> allClassMappingsFor: aNeoJSONMapper [ 
 
-	LeModel allSubclassesDo: [ :leClass |
+	(SystemNavigation default allImplementorsOf: #leJsonV4Name) do: [ :method |
+		| jsonName |
+		jsonName := method 
+							gtValueWithReceiver: method methodClass basicNew 
+							possibleArguments: #().
+		jsonName ifNotNil: [ method methodClass instanceSide leJsonV4MappingFor: aNeoJSONMapper ] ].
+
+	"LeModel allSubclassesDo: [ :leClass |
 		leClass leJsonV4MappingFor: aNeoJSONMapper ].
 	Date leJsonV4MappingFor: aNeoJSONMapper.
 	DateAndTime leJsonV4MappingFor: aNeoJSONMapper.
 	UUID leJsonV4MappingFor: aNeoJSONMapper.
-	FileReference leJsonV4MappingFor: aNeoJSONMapper.
+	FileReference leJsonV4MappingFor: aNeoJSONMapper."
 
 ]
 
