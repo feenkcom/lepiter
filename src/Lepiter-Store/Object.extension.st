@@ -17,11 +17,19 @@ Object class >> leFromJsonV4Dictionary: aDictionary [
 
 { #category : '*Lepiter-Store' }
 Object class >> leJsonV4AddMappingsTo: aJsonMapping [
-	"The default mapping is to write all instance variables.
-	Subclasses may overwrite this with specific behaviour"
+	"Subclasses may over-write this to add custom mappings"
 
-	self allInstVarNames do: [ :instVarName |
-		aJsonMapping mapAccessor: instVarName to: instVarName ].
+	self leJsonV4AttributeMapping do: [ :attributeMap |
+		aJsonMapping mapAccessor: attributeMap key to: attributeMap value ].
+]
+
+{ #category : '*Lepiter-Store' }
+Object class >> leJsonV4AttributeMapping [
+	"Answer the Array of attribute to store keys.
+	Subclasses should override this with their attributes."
+
+	^ self allInstVarNames collect: [ :instVarName |
+		instVarName -> instVarName ]
 ]
 
 { #category : '*Lepiter-Store' }
