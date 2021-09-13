@@ -45,6 +45,8 @@ LepiterCoreDefaults class >> defaultGtoolkitDocumentationDirectory [
 
 { #category : 'defaults' }
 LepiterCoreDefaults class >> defaultLocalDirectory [
+	"Answer the FileReference pointing to the lepiter knowledge base root directory as used by GtWorld."
+
 	^ FileLocator imageDirectory 
 		/ 'pharo-local' 
 		/ 'lepiter'
@@ -52,11 +54,15 @@ LepiterCoreDefaults class >> defaultLocalDirectory [
 
 { #category : 'defaults' }
 LepiterCoreDefaults class >> defaultLocalLogicalDatabasePropertiesFileReference [
+	"Answer the FileReference pointing to the logical database properties used by GtWorld."
+
 	^ self defaultLocalDirectory / self logicalDatabasePropertiesBasename
 ]
 
 { #category : 'defaults' }
 LepiterCoreDefaults class >> defaultStorageDirectory [
+	"Answer the FileReference pointing to the lepiter knowledge base root directory as used by the Lepiter Application."
+
 	^ FileLocator documents / 'lepiter'
 ]
 
@@ -74,6 +80,8 @@ LepiterCoreDefaults class >> logicalDatabasePropertiesBasename [
 
 { #category : 'defaults' }
 LepiterCoreDefaults class >> logicalDatabasePropertiesFileReference [
+	"Answer the FileReference pointing to the logical database properties used by the Lepiter Application."
+
 	^ self defaultStorageDirectory
 		/ self logicalDatabasePropertiesBasename
 ]

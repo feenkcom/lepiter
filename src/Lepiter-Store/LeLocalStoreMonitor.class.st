@@ -57,6 +57,8 @@ LeLocalStoreMonitor class >> database: aLeDatabase root: aFileReference [
 
 { #category : 'class initialization' }
 LeLocalStoreMonitor class >> initialize [ 
+	"Get notified on session starts so the knowledgebase can be reloaded.
+	GtGemStoneSessionRegistry has its priority set to be notified after LeLocalStoreMonitor"
 
 	SessionManager default 
 		registerUserClassNamed: self name.
