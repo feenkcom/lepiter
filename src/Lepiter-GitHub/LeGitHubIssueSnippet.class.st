@@ -70,6 +70,11 @@ LeGitHubIssueSnippet >> defaultModel [
 ]
 
 { #category : 'api - accessing' }
+LeGitHubIssueSnippet >> htmlUrl [
+	^ self model htmlUrl
+]
+
+{ #category : 'api - accessing' }
 LeGitHubIssueSnippet >> issueNumber [
 	^ self model issueNumber
 ]
@@ -77,6 +82,11 @@ LeGitHubIssueSnippet >> issueNumber [
 { #category : 'api - accessing' }
 LeGitHubIssueSnippet >> issueNumber: aNumber [
 	self model issueNumber: aNumber
+]
+
+{ #category : 'api - accessing' }
+LeGitHubIssueSnippet >> longIdentificator [
+	^ self model longIdentificator
 ]
 
 { #category : 'api - accessing' }

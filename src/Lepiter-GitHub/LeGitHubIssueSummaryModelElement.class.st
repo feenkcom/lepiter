@@ -14,6 +14,21 @@ LeGitHubIssueSummaryModelElement >> bodyElement [
 	^ bodyElement
 ]
 
+{ #category : 'api - actions' }
+LeGitHubIssueSummaryModelElement >> copyIssueIdIntoClipboard [
+]
+
+{ #category : 'gt - extensions' }
+LeGitHubIssueSummaryModelElement >> gtCopyIssueIdentificatorIntoClipboardFor: anAction [
+	<gtAction>
+	^ anAction button
+		tooltip: 'Copy Issue ID Into Clipboard';
+		icon: BrGlamorousVectorIcons clipboard;
+		target: LeSnippetContextMenuActionTarget uniqueInstance;
+		priority: 20;
+		action: [ :aButton :aSnippetElement | self copyIssueIdIntoClipboard ]
+]
+
 { #category : 'initialization' }
 LeGitHubIssueSummaryModelElement >> initialize [
 	super initialize.
@@ -37,6 +52,10 @@ LeGitHubIssueSummaryModelElement >> initializeBodyElement [
 		styler: LeSnippetStyler new;
 		hMatchParent;
 		vFitContentLimited.
+]
+
+{ #category : 'initialization' }
+LeGitHubIssueSummaryModelElement >> initializeIssueIdElement [
 ]
 
 { #category : 'initialization' }
