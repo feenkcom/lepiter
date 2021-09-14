@@ -1,10 +1,10 @@
 Class {
-	#name : #LeJSLinkSettingsExamples,
-	#superclass : #LePropertiesExamples,
-	#category : #'Lepiter-JavaScript-Examples'
+	#name : 'LeJSLinkSettingsExamples',
+	#superclass : 'LePropertiesExamples',
+	#category : 'Lepiter-JavaScript-Examples'
 }
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeJSLinkSettingsExamples >> defaultDirectory [
 	"Answer the default directory  from the settings"
 	<gtExample>
@@ -15,7 +15,7 @@ LeJSLinkSettingsExamples >> defaultDirectory [
 	^ fileReference
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeJSLinkSettingsExamples >> defaultNodeJSPath [
 	"Answer the default NodeJS path from the settings"
 	<gtExample>
@@ -26,7 +26,7 @@ LeJSLinkSettingsExamples >> defaultNodeJSPath [
 	^ fileReference
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeJSLinkSettingsExamples >> setAbsoluteDirectory [
 	"Set the directory to an absolute file reference"
 	<gtExample>
@@ -43,7 +43,7 @@ LeJSLinkSettingsExamples >> setAbsoluteDirectory [
 	^ fileReference
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeJSLinkSettingsExamples >> setAbsoluteNodeJSPath [
 	"Set the NodeJS path to an absolute file reference"
 	<gtExample>
@@ -60,7 +60,7 @@ LeJSLinkSettingsExamples >> setAbsoluteNodeJSPath [
 	^ fileString asFileReference
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeJSLinkSettingsExamples >> setFileLocatorDirectory [
 	"Set the directory to an absolute file reference"
 	<gtExample>
@@ -77,7 +77,7 @@ LeJSLinkSettingsExamples >> setFileLocatorDirectory [
 	^ fileReference
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeJSLinkSettingsExamples >> setFileLocatorNodeJSPath [
 	"Set the NodeJS path to an absolute file reference"
 	<gtExample>
@@ -94,7 +94,7 @@ LeJSLinkSettingsExamples >> setFileLocatorNodeJSPath [
 	^ fileLocator
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeJSLinkSettingsExamples >> setRelativeDirectory [
 	"Set the directory to a relative file reference"
 	<gtExample>
@@ -116,7 +116,7 @@ LeJSLinkSettingsExamples >> setRelativeDirectory [
 	^ fileString
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LeJSLinkSettingsExamples >> setRelativeNodeJSPath [
 	"Set the NodeJS path to an absolute file reference"
 	<gtExample>
@@ -133,7 +133,7 @@ LeJSLinkSettingsExamples >> setRelativeNodeJSPath [
 	^ fileString asFileReference
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeJSLinkSettingsExamples >> settings [ 
 	"Answer a default LeJSLinkSettings object"
 

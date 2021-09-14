@@ -1,6 +1,6 @@
-Extension { #name : #LeLocalStore }
+Extension { #name : 'LeLocalStore' }
 
-{ #category : #'*Lepiter-JavaScript' }
+{ #category : '*Lepiter-JavaScript' }
 LeLocalStore >> jsLink [
 	"Answer the Dictionary containing the JSLink settings for this database"
 	<return: #Dictionary>
@@ -10,7 +10,7 @@ LeLocalStore >> jsLink [
 		ifAbsent: [ Dictionary new ]
 ]
 
-{ #category : #'*Lepiter-JavaScript' }
+{ #category : '*Lepiter-JavaScript' }
 LeLocalStore >> jsLink: aDictionaryOrNil [
 
 	self 
@@ -18,7 +18,7 @@ LeLocalStore >> jsLink: aDictionaryOrNil [
 		value: aDictionaryOrNil
 ]
 
-{ #category : #'*Lepiter-JavaScript' }
+{ #category : '*Lepiter-JavaScript' }
 LeLocalStore >> jsLinkSettings [
 	"Answer the initialised LePythonBridgeSettings for this database"
 	<return: #LeJSLinkSettings>

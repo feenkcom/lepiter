@@ -23,22 +23,22 @@ will result in an array with 42 and 'hello, world'.
 
 "
 Class {
-	#name : #GtJavaScriptCoderModel,
-	#superclass : #GtSourceCoder,
+	#name : 'GtJavaScriptCoderModel',
+	#superclass : 'GtSourceCoder',
 	#instVars : [
 		'jsLinkApplicationStrategy',
 		'pharoBindings'
 	],
-	#category : #'Lepiter-JavaScript-Coder'
+	#category : 'Lepiter-JavaScript-Coder'
 }
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtJavaScriptCoderModel >> asCoderUIModel [
 
 	^ GtSourceCoderViewModel new coder: self
 ]
 
-{ #category : #'private - execution' }
+{ #category : 'private - execution' }
 GtJavaScriptCoderModel >> bindAndExecute: sourceString [
 	"Answer the source code with all declared variables returned in an immediate dictionary"
 	<gtIgnoreConstraint: #GtRBAcceptVisitorCalledFromNonVisitingMethods>
@@ -79,21 +79,30 @@ GtJavaScriptCoderModel >> bindAndExecute: sourceString [
 
 ]
 
-{ #category : #'api - ast' }
+{ #category : 'api - ast' }
 GtJavaScriptCoderModel >> computeAst: theSourceString [
 	^ JSParser
 		parseWithErrors: theSourceString
 		startingAt: JSParser startingStateForExpression
 ]
 
-{ #category : #initialize }
+{ #category : 'api - ast' }
+GtJavaScriptCoderModel >> implicitVariableReferencesTo: aString do: aBlock [
+	self astAwait allNodesOfType: JSNameExpressionNode do: [ :node | 
+		node name source = aString ifTrue: [ 
+			(node parent isKindOf: JSVariableDeclarationNode)
+				ifTrue: [ ^ self ]
+				ifFalse: [ aBlock value: node ] ] ]
+]
+
+{ #category : 'initialize' }
 GtJavaScriptCoderModel >> initializeAddOns: addOns [
 	super initializeAddOns: addOns.
 	
 	addOns addStyler: (GtCoderAstSmaCCParserStyler new smaccStyler: JSParser gtStyler)
 ]
 
-{ #category : #initialize }
+{ #category : 'initialize' }
 GtJavaScriptCoderModel >> initializeShortcuts: addOns [
 	super initializeShortcuts: addOns.
 
@@ -102,7 +111,7 @@ GtJavaScriptCoderModel >> initializeShortcuts: addOns [
 		addShortcut: GtSourceCoderDoItAndInspectShortcut new
 ]
 
-{ #category : #'private - execution' }
+{ #category : 'private - execution' }
 GtJavaScriptCoderModel >> jsBindingsFrom: visitor [
 	"Answer a collection of JS bindings for variables that aren't declared in the JS source and are in the snipets bindings"
 	| jsBindings |
@@ -115,37 +124,37 @@ GtJavaScriptCoderModel >> jsBindingsFrom: visitor [
 	^ jsBindings
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtJavaScriptCoderModel >> jsLinkApplicationStrategy [
 	^ jsLinkApplicationStrategy
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtJavaScriptCoderModel >> jsLinkApplicationStrategy: anObject [
 	jsLinkApplicationStrategy := anObject
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtJavaScriptCoderModel >> newCompletionStrategy [
 	^ GtCompletionStrategy new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtJavaScriptCoderModel >> pharoBindings [
 	^ pharoBindings
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtJavaScriptCoderModel >> pharoBindings: anObject [
 	pharoBindings := anObject
 ]
 
-{ #category : #'private - actions' }
+{ #category : 'private - actions' }
 GtJavaScriptCoderModel >> primitiveDebug: aSourceString inContext: aGtSourceCoderEvaluationContext onFailDo: anEvaluationFailBlock [
 	self flag: #TODO
 ]
 
-{ #category : #'private - actions' }
+{ #category : 'private - actions' }
 GtJavaScriptCoderModel >> primitiveEvaluate: aSourceString inContext: aGtSourceCoderEvaluationContext onFailDo: anEvaluationFailBlock [
 	| result |
 
@@ -159,7 +168,7 @@ GtJavaScriptCoderModel >> primitiveEvaluate: aSourceString inContext: aGtSourceC
 		ifAbsent: anEvaluationFailBlock
 ]
 
-{ #category : #'private - execution' }
+{ #category : 'private - execution' }
 GtJavaScriptCoderModel >> sourceFrom: trimmedSourceString returnedVarNames: varNames [
 	"Answer the modified source to return the declared variables"
 
@@ -181,7 +190,7 @@ GtJavaScriptCoderModel >> sourceFrom: trimmedSourceString returnedVarNames: varN
 			<< '__jsLinkImmediate: true }' ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtJavaScriptCoderModel >> variableBindings: aGtSnippetBindings [
 
 	^ self pharoBindings: aGtSnippetBindings

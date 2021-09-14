@@ -1,10 +1,10 @@
 Class {
-	#name : #LeJavaScriptSnippetViewModel,
-	#superclass : #LeCodeSnippetViewModel,
-	#category : #'Lepiter-JavaScript-Snippet'
+	#name : 'LeJavaScriptSnippetViewModel',
+	#superclass : 'LeCodeSnippetViewModel',
+	#category : 'Lepiter-JavaScript-Snippet'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeJavaScriptSnippetViewModel >> initializeCoderAddOns: aCoderViewModel [
 	"Initialise the keyboard shortcuts in the code editor"
 
@@ -23,7 +23,7 @@ LeJavaScriptSnippetViewModel >> initializeCoderAddOns: aCoderViewModel [
 		addShortcut: (LeSnippetMoveSnippetDownShortcut new combination: (self keyboardShortcut: #MoveSnippetDown))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeJavaScriptSnippetViewModel >> snippetElementClass [
 	^ LeJavaScriptSnippetElement
 ]
