@@ -47,6 +47,12 @@ GtPythonCoderModel >> computeAst: theSourceString [
 		startingAt: PythonParser startingStateForfile_input
 ]
 
+{ #category : 'api - ast' }
+GtPythonCoderModel >> implicitVariableReferencesTo: aString do: aBlock [
+	self astAwait allNodesOfType: PySymbolNode do: [ :node | 
+		node nameToken source = aString ifTrue: [ aBlock value: node ] ]
+]
+
 { #category : 'initialize' }
 GtPythonCoderModel >> initializeAddOns: addOns [
 	super initializeAddOns: addOns.

@@ -12,12 +12,12 @@ A LeJavaScriptSnippet is an executable piece of JavaScript code, i.e. a script.
 
 "
 Class {
-	#name : #LeJavaScriptSnippet,
-	#superclass : #LeCodeSnippet,
-	#category : #'Lepiter-JavaScript-Snippet'
+	#name : 'LeJavaScriptSnippet',
+	#superclass : 'LeCodeSnippet',
+	#category : 'Lepiter-JavaScript-Snippet'
 }
 
-{ #category : #'api - accessing menu' }
+{ #category : 'api - accessing menu' }
 LeJavaScriptSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
@@ -25,31 +25,31 @@ LeJavaScriptSnippet class >> contextMenuItemSpecification [
 		title: 'Javascript'
 ]
 
-{ #category : #'lepiter-store' }
+{ #category : 'lepiter-store' }
 LeJavaScriptSnippet class >> leJsonV3Name [
 
 	^ 'javascriptSnippet'
 ]
 
-{ #category : #'lepiter-store' }
+{ #category : 'lepiter-store' }
 LeJavaScriptSnippet class >> leJsonV4Name [
 
 	^ 'javascriptSnippet'
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeJavaScriptSnippet >> acceptVisitor: aVisitor [
 
 	^ aVisitor visitJavaScriptSnippet: self
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 LeJavaScriptSnippet >> asSnippetViewModel [
 	<return: #LeSnippetViewModel>
 	^ LeJavaScriptSnippetViewModel new snippetModel: self
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeJavaScriptSnippet >> newCoder [
 	^ GtJavaScriptCoderModel new
 ]
