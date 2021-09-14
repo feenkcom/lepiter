@@ -1,1 +1,1 @@
-Package { #name : #'Lepiter-JavaScript' }
+Package { #name : 'Lepiter-JavaScript' }

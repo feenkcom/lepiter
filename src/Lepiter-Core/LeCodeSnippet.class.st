@@ -80,8 +80,11 @@ LeCodeSnippet >> initialize [
 	coder := self newCoder.
 	coder weak
 		when: GtCoderSourceCodeChanged
-		send: #onCoderSourceModified:
-		to: self
+			send: #onCoderSourceModified:
+			to: self;
+		when: GtCoderRenameTemporaryRequestedAnnouncement
+			send: #onCoderRenameTemporaryRequested:
+			to: self
 ]
 
 { #category : 'api - testing' }
@@ -92,6 +95,16 @@ LeCodeSnippet >> isCodeSnippet [
 { #category : 'initialization' }
 LeCodeSnippet >> newCoder [
 	^ self subclassResponsibility
+]
+
+{ #category : 'private - event handling' }
+LeCodeSnippet >> onCoderRenameTemporaryRequested: aGtCoderRenameTemporaryRequestedAnnouncement [
+	self page
+		allChildrenDepthFirstDo:
+			[ :each | 
+			(each isCodeSnippet
+				and: [ self coder hasImplicitVariableReferenceTo: aGtCoderRenameTemporaryRequestedAnnouncement variableName ])
+				ifTrue: [ aGtCoderRenameTemporaryRequestedAnnouncement interestedCoders add: each coder ] ]
 ]
 
 { #category : 'private - event handling' }
