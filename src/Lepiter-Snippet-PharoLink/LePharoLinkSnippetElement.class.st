@@ -5,12 +5,12 @@ Currently the global uniqueInstance of the {{gtClass:name=PharoLinkApplication}}
 
 "
 Class {
-	#name : #LePharoLinkSnippetElement,
-	#superclass : #LeExternalEvaluatedSnippetElement,
-	#category : #'Lepiter-Snippet-PharoLink-Snippet'
+	#name : 'LePharoLinkSnippetElement',
+	#superclass : 'LeExternalEvaluatedSnippetElement',
+	#category : 'Lepiter-Snippet-PharoLink-Snippet'
 }
 
-{ #category : #'api - snippet view model' }
+{ #category : 'api - snippet view model' }
 LePharoLinkSnippetElement >> onSnippetViewModelChanged [
 	super onSnippetViewModelChanged.
 
@@ -20,14 +20,14 @@ LePharoLinkSnippetElement >> onSnippetViewModelChanged [
 		pharoBindings: self snippetViewModel snippetBindings.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePharoLinkSnippetElement >> serverStrategy [
 
 	^ serverStrategy ifNil: 
 		[ serverStrategy := LePharoLinkApplicationGlobalStrategy new content: self ].
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LePharoLinkSnippetElement >> updateLanguageLabel [
 	| serverAddress label |
 
@@ -38,6 +38,6 @@ LePharoLinkSnippetElement >> updateLanguageLabel [
 			<< serverAddress ipOrName;
 			<< ':';
 			print: serverAddress port ].
-	languageLabel text: (label asRopedText glamorousRegularFont foreground: BrGlamorousColors textMarkupColor).
+	languageElement text: (label asRopedText glamorousRegularFont foreground: BrGlamorousColors textMarkupColor).
 
 ]

@@ -1,30 +1,30 @@
 Class {
-	#name : #GtPharoLinkCoderModel,
-	#superclass : #GtSourceCoder,
+	#name : 'GtPharoLinkCoderModel',
+	#superclass : 'GtSourceCoder',
 	#instVars : [
 		'pharoBindings',
 		'applicationStrategy'
 	],
-	#category : #'Lepiter-Snippet-PharoLink-Coder'
+	#category : 'Lepiter-Snippet-PharoLink-Coder'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPharoLinkCoderModel >> applicationStrategy [
 	^ applicationStrategy
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPharoLinkCoderModel >> applicationStrategy: anObject [
 	applicationStrategy := anObject
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 GtPharoLinkCoderModel >> asCoderUIModel [
 
 	^ GtSourceCoderViewModel new coder: self
 ]
 
-{ #category : #'private - execution' }
+{ #category : 'private - execution' }
 GtPharoLinkCoderModel >> bindAndExecute: sourceString [
 	"Answer the source code with all declared variables returned in an immediate dictionary"
 	| trimmedSource visitor ast lastStatement varNames llBindings llSource commandFactory application |
@@ -65,21 +65,21 @@ GtPharoLinkCoderModel >> bindAndExecute: sourceString [
 
 ]
 
-{ #category : #'api - ast' }
+{ #category : 'api - ast' }
 GtPharoLinkCoderModel >> computeAst: theSourceString [
 	^ GtPharoParser
 		parseWithErrors: theSourceString
 		startingAt: GtPharoParser startingStateForMethodSequence
 ]
 
-{ #category : #initialize }
+{ #category : 'initialize' }
 GtPharoLinkCoderModel >> initializeAddOns: addOns [
 	super initializeAddOns: addOns.
 	
 	addOns addStyler: (GtCoderAstSmaCCParserStyler new smaccStyler: StParser gtStyler)
 ]
 
-{ #category : #initialize }
+{ #category : 'initialize' }
 GtPharoLinkCoderModel >> initializeShortcuts: addOns [
 	super initializeShortcuts: addOns.
 
@@ -88,22 +88,22 @@ GtPharoLinkCoderModel >> initializeShortcuts: addOns [
 		addShortcut: GtSourceCoderDoItAndInspectShortcut new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 GtPharoLinkCoderModel >> newCompletionStrategy [
 	^ GtCompletionStrategy new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPharoLinkCoderModel >> pharoBindings [
 	^ pharoBindings
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPharoLinkCoderModel >> pharoBindings: anObject [
 	pharoBindings := anObject
 ]
 
-{ #category : #'private - execution' }
+{ #category : 'private - execution' }
 GtPharoLinkCoderModel >> pharoBindingsFrom: visitor [
 	"Answer a collection of bindings for variables that aren't declared in the source and are in the snippet's bindings"
 	| llBindings |
@@ -115,12 +115,12 @@ GtPharoLinkCoderModel >> pharoBindingsFrom: visitor [
 	^ llBindings
 ]
 
-{ #category : #'private - actions' }
+{ #category : 'private - actions' }
 GtPharoLinkCoderModel >> primitiveDebug: aSourceString inContext: aGtSourceCoderEvaluationContext onFailDo: anEvaluationFailBlock [
 	self flag: #TODO.
 ]
 
-{ #category : #'private - actions' }
+{ #category : 'private - actions' }
 GtPharoLinkCoderModel >> primitiveEvaluate: aSourceString inContext: aGtSourceCoderEvaluationContext onFailDo: anEvaluationFailBlock [
 	| result |
 
@@ -134,7 +134,7 @@ GtPharoLinkCoderModel >> primitiveEvaluate: aSourceString inContext: aGtSourceCo
 		ifAbsent: anEvaluationFailBlock
 ]
 
-{ #category : #'private - execution' }
+{ #category : 'private - execution' }
 GtPharoLinkCoderModel >> sourceFrom: trimmedSourceString returnedVarNames: varNames [
 	"Answer the modified source to return the declared variables"
 
@@ -157,7 +157,7 @@ GtPharoLinkCoderModel >> sourceFrom: trimmedSourceString returnedVarNames: varNa
 			<< '#__pharolinkImmediate -> true. } asDictionary' ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 GtPharoLinkCoderModel >> variableBindings: aGtSnippetBindings [
 
 	^ self pharoBindings: aGtSnippetBindings
