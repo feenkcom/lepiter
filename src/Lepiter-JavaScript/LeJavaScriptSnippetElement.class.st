@@ -38,5 +38,5 @@ LeJavaScriptSnippetElement >> updateLanguageLabel [
 			<< serverAddress ipOrName;
 			<< ':';
 			print: serverAddress port ].
-	languageLabel text: (label asRopedText glamorousRegularFont foreground: BrGlamorousColors textMarkupColor).
+	languageElement text: (label asRopedText glamorousRegularFont foreground: BrGlamorousColors textMarkupColor).
 ]

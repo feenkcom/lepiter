@@ -11,7 +11,6 @@ Class {
 LeGitHubIssueCommand >> download [
 	| aRawData |
 	aRawData := IceGitHubAPI new
-			beAnonymous;
 			getIssue: self userName 
 				project: self projectName 
 				number: self issueNumber.

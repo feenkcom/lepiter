@@ -1,10 +1,10 @@
 Class {
-	#name : #LePharoLinkSnippetViewModel,
-	#superclass : #LeCodeSnippetViewModel,
-	#category : #'Lepiter-Snippet-PharoLink-Snippet'
+	#name : 'LePharoLinkSnippetViewModel',
+	#superclass : 'LeCodeSnippetViewModel',
+	#category : 'Lepiter-Snippet-PharoLink-Snippet'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePharoLinkSnippetViewModel >> initializeCoderAddOns: aCoderViewModel [
 	"Initialise the keyboard shortcuts in the code editor"
 
@@ -23,7 +23,7 @@ LePharoLinkSnippetViewModel >> initializeCoderAddOns: aCoderViewModel [
 		addShortcut: (LeSnippetMoveSnippetDownShortcut new combination: (self keyboardShortcut: #MoveSnippetDown))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePharoLinkSnippetViewModel >> snippetElementClass [
 	^ LePharoLinkSnippetElement
 ]
