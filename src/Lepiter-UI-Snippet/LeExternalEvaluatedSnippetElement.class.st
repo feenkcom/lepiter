@@ -8,10 +8,10 @@ Class {
 	#instVars : [
 		'snippetBindings',
 		'coderModel',
-		'languageLabel',
 		'serverStrategy',
 		'server',
-		'serverException'
+		'serverException',
+		'languageElement'
 	],
 	#category : 'Lepiter-UI-Snippet-! Views'
 }
@@ -72,20 +72,14 @@ LeExternalEvaluatedSnippetElement >> initializeCoderToolbar [
 		label: #Inspect;
 		action: [ :aButton | self executeContentsAndSpawnFrom: aButton ]) as: #executeAndSpawnButton.
 
-	languageLabel := BlAttributedTextElement new
-		glamorousRegularSmallSize;
-		text: ('<unknown>' asRopedText foreground: BrGlamorousColors textMarkupColor);
-		padding: (BlInsets top: 5 left: 5 bottom: 0 right: 30);
-		constraintsDo: [ :c |
-			c vertical matchParent.
-			c horizontal fitContent. ].
+	languageElement := self initializeLanguageElement.
 
 	toolbar := BrHorizontalPane new matchParent preventMouseEvents.
 	toolbar
 		vFitContent;
 		hMatchParent;
 		addChild: buttonBar;
-		addChild: languageLabel.
+		addChild: languageElement.
 
 	coderToolbar := BrHorizontalPane new
 		vFitContent;
@@ -95,6 +89,21 @@ LeExternalEvaluatedSnippetElement >> initializeCoderToolbar [
 
 	spawnDestinationLook := GtSourceCoderSpawnDestinationAptitude new.
 	coderToolbar addAptitude: spawnDestinationLook.
+
+]
+
+{ #category : 'initialization' }
+LeExternalEvaluatedSnippetElement >> initializeLanguageElement [
+	"Initialise the element that displays the language and connection details.
+	This is normally a text element, but subclasses may replace it with something else, e.g. a button"
+
+	^ BlAttributedTextElement new
+		glamorousRegularSmallSize;
+		text: ('<unknown>' asRopedText foreground: BrGlamorousColors textMarkupColor);
+		padding: (BlInsets top: 5 left: 5 bottom: 0 right: 30);
+		constraintsDo: [ :c |
+			c vertical matchParent.
+			c horizontal fitContent. ].
 
 ]
 

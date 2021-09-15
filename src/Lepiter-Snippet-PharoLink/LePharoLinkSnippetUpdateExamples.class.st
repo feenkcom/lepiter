@@ -1,21 +1,21 @@
 Class {
-	#name : #LePharoLinkSnippetUpdateExamples,
-	#superclass : #LeSingleSnippetUpdateExamples,
-	#category : #'Lepiter-Snippet-PharoLink-Examples'
+	#name : 'LePharoLinkSnippetUpdateExamples',
+	#superclass : 'LeSingleSnippetUpdateExamples',
+	#category : 'Lepiter-Snippet-PharoLink-Examples'
 }
 
-{ #category : #'examples - snippets' }
+{ #category : 'examples - snippets' }
 LePharoLinkSnippetUpdateExamples >> assertSnippetModifiedFor: targetSnippet [
 	self assert: targetSnippet code equals: '1+2+3'.
 ]
 
-{ #category : #'examples - snippets' }
+{ #category : 'examples - snippets' }
 LePharoLinkSnippetUpdateExamples >> createTargetSnippet [
 	<gtExample>
 	^ LePharoLinkSnippet code: '1+2'
 ]
 
-{ #category : #'examples - snippets' }
+{ #category : 'examples - snippets' }
 LePharoLinkSnippetUpdateExamples >> modifySnippet: aTargetSnippet [
 	<gtExample>
 	aTargetSnippet code: '1+2+3'.
