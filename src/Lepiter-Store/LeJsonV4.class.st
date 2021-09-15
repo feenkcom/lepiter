@@ -27,12 +27,17 @@ LeJsonV4 >> allClassMappingsFor: aNeoJSONMapper [
 
 { #category : 'api - serializing' }
 LeJsonV4 >> deserialize: aStream [
-	"Deserialise the supplied object. aLeClass is a subclass of LeModel"
+	"Deserialise the supplied stream"
+	| object |
 
-	^ self newReader 
+	object := self newReader 
 		on: aStream;
 		next.
+	"If the deserialised object is a Dictionary, the __schema should be removed"
+	object isDictionary ifTrue:
+		[ object removeKey: #'__schema' ifAbsent: [ ] ].
 
+	^ object
 ]
 
 { #category : 'initialization' }
