@@ -103,7 +103,7 @@ LeCodeSnippet >> onCoderRenameTemporaryRequested: aGtCoderRenameTemporaryRequest
 		allChildrenDepthFirstDo:
 			[ :each | 
 			(each isCodeSnippet
-				and: [ self coder hasImplicitVariableReferenceTo: aGtCoderRenameTemporaryRequestedAnnouncement variableName ])
+				and: [ each coder hasImplicitVariableReferenceTo: aGtCoderRenameTemporaryRequestedAnnouncement variableName ])
 				ifTrue: [ aGtCoderRenameTemporaryRequestedAnnouncement interestedCoders add: each coder ] ]
 ]
 
