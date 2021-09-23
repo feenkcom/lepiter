@@ -659,12 +659,10 @@ LeSnippetStylerVisitor >> styleResult: result for: aCodeNode [
 
 { #category : 'private - styling' }
 LeSnippetStylerVisitor >> styleSmalltalkCodeBlock: aCodeNode [
-	| styler strategy |
-	styler := BrRBTextStyler new.
-	strategy := GtHighlightingBindingStrategy new
-		bindings: self variableBindings.
-	styler workspace: strategy.
-	styler
+	| aStyler |
+	aStyler := BrRBTextStyler new.
+	aStyler workspace: self variableBindings.
+	aStyler
 		style:
 			(text
 				from: aCodeNode code startPosition
