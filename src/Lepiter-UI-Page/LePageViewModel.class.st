@@ -6,8 +6,8 @@ Class {
 	#instVars : [
 		'announcer',
 		'databaseViewModel',
-		'snippetBindings',
-		'shouldFocusFirstSnippet'
+		'shouldFocusFirstSnippet',
+		'sharedSnippetContext'
 	],
 	#category : 'Lepiter-UI-Page-! View Models'
 }
@@ -70,7 +70,7 @@ LePageViewModel >> ensurePageHasAtLeastOneSnippet [
 LePageViewModel >> initialize [
 	super initialize.
 	
-	snippetBindings := GtSnippetBindings new.
+	sharedSnippetContext := LeSharedSnippetContext new.
 	shouldFocusFirstSnippet := false
 ]
 
@@ -264,12 +264,19 @@ LePageViewModel >> printPageTabLabel [
 
 { #category : 'accessing' }
 LePageViewModel >> receiver: anObject [
-	self snippetBindings receiver: anObject.
+	sharedSnippetContext selfObject: anObject
 ]
 
 { #category : 'api - page' }
 LePageViewModel >> removePage [
 	self pageModel removeSelf
+]
+
+{ #category : 'accessing' }
+LePageViewModel >> sharedSnippetContext [
+	<return: #LeSharedSnippetContext>
+
+	^ sharedSnippetContext
 ]
 
 { #category : 'accessing' }
@@ -284,9 +291,9 @@ LePageViewModel >> shouldFocusFirstSnippet: aBoolean [
 
 { #category : 'accessing' }
 LePageViewModel >> snippetBindings [
-	<return: #GtSnippetBindings>
+	<return: #GtSharedVariablesBindings>
 
-	^ snippetBindings
+	^ sharedSnippetContext sharedBindings
 ]
 
 { #category : 'api - page model' }

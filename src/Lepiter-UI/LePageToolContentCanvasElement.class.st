@@ -45,7 +45,7 @@ LePageToolContentCanvasElement >> onPageViewModelChanged [
 	self canvasElement layout isStopped: false.
 
 	pageSnippetsTreeViewModel := LeSnippetsTreeViewModel new
-		snippetBindings: self pageViewModel snippetBindings;
+		sharedSnippetContext: self pageViewModel sharedSnippetContext;
 		content: self pageViewModel pageModel.
 
 	self canvasElement addChildren: (Array streamContents: [ :aStream |

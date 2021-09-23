@@ -76,7 +76,7 @@ LeLinkReferenceElement >> onLinkReferenceViewModelChanged [
 		linkReferencePreviewViewModel: self linkReferenceViewModel previewViewModel.
 
 	pageSnippetsTreeViewModel := LeSnippetsTreeViewModel new
-		snippetBindings: self pageViewModel snippetBindings.
+		sharedSnippetContext: self pageViewModel sharedSnippetContext.
 
 	"pageIncomingLinksViewModel := self class incomingLinksViewModelClass new."
 

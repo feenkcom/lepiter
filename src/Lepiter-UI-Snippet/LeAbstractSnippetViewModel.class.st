@@ -17,9 +17,9 @@ Class {
 		'announcer',
 		'snippetsCollection',
 		'snippetChildren',
-		'snippetBindings',
 		'focused',
-		'expanded'
+		'expanded',
+		'sharedContext'
 	],
 	#category : 'Lepiter-UI-Snippet-! View Models'
 }
@@ -223,7 +223,7 @@ LeAbstractSnippetViewModel >> initialize [
 	snippetChildren := #().
 	focused := false.
 	expanded := true.
-	snippetBindings := GtSnippetBindings new
+	sharedContext := LeSharedSnippetContext new
 ]
 
 { #category : 'private' }
@@ -275,6 +275,15 @@ LeAbstractSnippetViewModel >> resolveFileName: aFilenameString [
 	^ FileLocator workingDirectory / aFilenameString
 ]
 
+{ #category : 'api - shared context' }
+LeAbstractSnippetViewModel >> sharedSnippetContext: aLeSharedSnippetContext [
+	self
+		assert: [ aLeSharedSnippetContext notNil ]
+		description: [ 'Shared context must not be nil' ].
+
+	sharedContext := aLeSharedSnippetContext
+]
+
 { #category : 'api - accessing' }
 LeAbstractSnippetViewModel >> shortSummaryText [
 	"Return a short textual represenation of the snippet to be displayed as a preview"
@@ -308,20 +317,11 @@ LeAbstractSnippetViewModel >> snippet: aLeSnippet [
 	self snippetModel: aLeSnippet
 ]
 
-{ #category : 'api - bindings' }
+{ #category : 'api - shared context' }
 LeAbstractSnippetViewModel >> snippetBindings [
-	<return: #GtSnippetBindings>
+	<return: #GtSharedVariablesBindings>
 
-	^ snippetBindings
-]
-
-{ #category : 'api - bindings' }
-LeAbstractSnippetViewModel >> snippetBindings: aGtSnippetBindings [
-	self
-		assert: [ aGtSnippetBindings notNil ]
-		description: [ 'Snippet bindings must not be nil' ].
-
-	snippetBindings := aGtSnippetBindings
+	^ sharedContext sharedBindings
 ]
 
 { #category : 'api - children' }

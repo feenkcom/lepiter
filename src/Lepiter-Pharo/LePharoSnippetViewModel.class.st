@@ -1,18 +1,18 @@
 Class {
-	#name : #LePharoSnippetViewModel,
-	#superclass : #LeCodeSnippetViewModel,
-	#category : #'Lepiter-Pharo-Snippet'
+	#name : 'LePharoSnippetViewModel',
+	#superclass : 'LeCodeSnippetViewModel',
+	#category : 'Lepiter-Pharo-Snippet'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePharoSnippetViewModel >> initializeCoderAddOns: aCoderViewModel [
 	"Initialise the keyboard shortcuts in the code editor"
 	
-	aCoderViewModel bindingStrategy bindings
+	aCoderViewModel localBindings
 		localAt: #thisSnippetViewModel
 		put: self.
 
-	aCoderViewModel bindingStrategy bindings
+	aCoderViewModel localBindings
 		localAt: #thisSnippet
 		put: self snippetModel.
 
@@ -31,21 +31,25 @@ LePharoSnippetViewModel >> initializeCoderAddOns: aCoderViewModel [
 		addShortcut: (LeSnippetMoveSnippetDownShortcut new combination: (self keyboardShortcut: #MoveSnippetDown))
 ]
 
-{ #category : #'api - snippet model' }
-LePharoSnippetViewModel >> setSelfObjectFromBindings [
-	"Set the receiver's coderViewModel self object based on the receiver in the bindings"
-
-	self coderViewModel selfObject: self snippetBindings receiver
+{ #category : 'api - bindings' }
+LePharoSnippetViewModel >> onSelfObjectChanged [
+	coderViewModel selfObject: sharedContext selfObject
 ]
 
-{ #category : #'api - bindings' }
-LePharoSnippetViewModel >> snippetBindings: aGtSnippetBindings [
-	super snippetBindings: aGtSnippetBindings.
+{ #category : 'api - bindings' }
+LePharoSnippetViewModel >> sharedSnippetContext: aLeSharedSnippetContext [
+	sharedContext unsubscribe: self.
 	
-	coderViewModel sharedBindings: aGtSnippetBindings
+	super sharedSnippetContext: aLeSharedSnippetContext.
+
+	coderViewModel
+		sharedBindings: aLeSharedSnippetContext sharedBindings;
+		selfObject: aLeSharedSnippetContext selfObject.
+		
+	aLeSharedSnippetContext whenSelfObjectChangedSend: #onSelfObjectChanged to: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePharoSnippetViewModel >> snippetElementClass [
 	^ LePharoSnippetElement
 ]

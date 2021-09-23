@@ -3,9 +3,9 @@ Class {
 	#superclass : 'LeContentCollectionViewModel',
 	#instVars : [
 		'snippetsMap',
-		'snippetBindings',
 		'focusedSnippetUIModel',
-		'viewModelToScrollTo'
+		'viewModelToScrollTo',
+		'sharedSnippetContext'
 	],
 	#category : 'Lepiter-UI-Snippet-! View Models'
 }
@@ -27,7 +27,7 @@ LeSnippetsCollectionViewModel >> content: aLeContent [
 LeSnippetsCollectionViewModel >> createSnippetUIModelFor: aLeSnippet [
 	^ aLeSnippet asSnippetViewModel
 		snippetsCollection: self;
-		snippetBindings: self snippetBindings
+		sharedSnippetContext: self sharedSnippetContext
 ]
 
 { #category : 'api - snippets' }
@@ -70,7 +70,7 @@ LeSnippetsCollectionViewModel >> includesContentUIModel: aContentUIModel [
 LeSnippetsCollectionViewModel >> initialize [
 	super initialize.
 
-	snippetBindings := GtSnippetBindings new.
+	sharedSnippetContext := LeSharedSnippetContext new.
 	snippetsMap := IdentityDictionary new
 ]
 
@@ -90,19 +90,19 @@ LeSnippetsCollectionViewModel >> scrollToViewModel: aLeViewModel [
 ]
 
 { #category : 'accessing' }
-LeSnippetsCollectionViewModel >> snippetBindings [
-	^ snippetBindings
+LeSnippetsCollectionViewModel >> sharedSnippetContext [
+	^ sharedSnippetContext
 ]
 
 { #category : 'accessing' }
-LeSnippetsCollectionViewModel >> snippetBindings: aGtSnippetBindings [
+LeSnippetsCollectionViewModel >> sharedSnippetContext: aLeSharedSnippetContext [
 	self
-		assert: [ aGtSnippetBindings notNil ]
-		description: [ 'Snippet bindings must not be nil' ].
+		assert: [ aLeSharedSnippetContext notNil ]
+		description: [ 'Shared snippet context must not be nil' ].
 
-	snippetBindings := aGtSnippetBindings.
+	sharedSnippetContext := aLeSharedSnippetContext.
 	
-	self allChildrenBreadthFirstDo: [ :eachSnippetUIModel | eachSnippetUIModel snippetBindings: aGtSnippetBindings ]
+	self allChildrenBreadthFirstDo: [ :eachSnippetUIModel | eachSnippetUIModel sharedSnippetContext: aLeSharedSnippetContext ]
 ]
 
 { #category : 'api - scrolling' }

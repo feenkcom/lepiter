@@ -1,10 +1,10 @@
 Class {
-	#name : #LePharoSnippetExamples,
-	#superclass : #Object,
-	#category : #'Lepiter-Pharo-Examples'
+	#name : 'LePharoSnippetExamples',
+	#superclass : 'Object',
+	#category : 'Lepiter-Pharo-Examples'
 }
 
-{ #category : #examples }
+{ #category : 'examples' }
 LePharoSnippetExamples >> database [
 	<gtExample>
 	| database |
@@ -17,7 +17,7 @@ LePharoSnippetExamples >> database [
 	^ database
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LePharoSnippetExamples >> pageWithCodeAndTextSnippets [
 	<gtExample>
 	| database page snippet |
@@ -36,7 +36,7 @@ LePharoSnippetExamples >> pageWithCodeAndTextSnippets [
 	^ page
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LePharoSnippetExamples >> pageWithPharoSnippets [
 	<gtExample>
 	| database page snippet |
@@ -55,7 +55,7 @@ LePharoSnippetExamples >> pageWithPharoSnippets [
 	^ page
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LePharoSnippetExamples >> userEmail [
 
 	^ LeEmail address: 'snippets@email.com'

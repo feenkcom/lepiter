@@ -1,10 +1,10 @@
 Class {
-	#name : #LePharoSnippetsMergingExamples,
-	#superclass : #Object,
-	#category : #'Lepiter-Pharo-Examples'
+	#name : 'LePharoSnippetsMergingExamples',
+	#superclass : 'Object',
+	#category : 'Lepiter-Pharo-Examples'
 }
 
-{ #category : #examples }
+{ #category : 'examples' }
 LePharoSnippetsMergingExamples >> cannotMergePharoSnippetIntoTextSnippet [
 	<gtExample>
 	| page textSnippetTwo codeSnippetThree |
@@ -24,7 +24,7 @@ LePharoSnippetsMergingExamples >> cannotMergePharoSnippetIntoTextSnippet [
 	^ page
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LePharoSnippetsMergingExamples >> cannotMergeTextSnippetIntoPharoSnippet [
 	<gtExample>
 	| page textSnippetTwo codeSnippetOne |
@@ -45,7 +45,7 @@ LePharoSnippetsMergingExamples >> cannotMergeTextSnippetIntoPharoSnippet [
 	^ page
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LePharoSnippetsMergingExamples >> mergeSiblingInPreviousSibling [
 	<gtExample>
 	| page snippetOne snippetTwo snippetThree |

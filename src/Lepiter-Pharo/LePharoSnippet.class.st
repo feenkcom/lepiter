@@ -19,18 +19,18 @@ Public API and Key Messages
 
 "
 Class {
-	#name : #LePharoSnippet,
-	#superclass : #LeCodeSnippet,
-	#category : #'Lepiter-Pharo-Snippet'
+	#name : 'LePharoSnippet',
+	#superclass : 'LeCodeSnippet',
+	#category : 'Lepiter-Pharo-Snippet'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LePharoSnippet class >> code: aString [
 
 	^ self new code: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePharoSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 
@@ -40,38 +40,38 @@ LePharoSnippet class >> contextMenuItemSpecification [
 		title: 'Pharo'
 ]
 
-{ #category : #factory }
+{ #category : 'factory' }
 LePharoSnippet class >> empty [ 
 
 	^ self new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePharoSnippet class >> leJsonV3Name [
 
 	^ 'pharoSnippet'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePharoSnippet class >> leJsonV4Name [
 
 	^ 'pharoSnippet'
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LePharoSnippet >> acceptVisitor: aVisitor [
 
 	^ aVisitor visitPharoSnippet: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LePharoSnippet >> asSnippetViewModel [
 	<return: #LeSnippetViewModel>
 
 	^ LePharoSnippetViewModel new snippetModel: self
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LePharoSnippet >> newCoder [
 	^ GtPharoSnippetCoder new
 ]

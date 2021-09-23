@@ -1,12 +1,12 @@
 Class {
-	#name : #LePharoSnippetUIExamples,
-	#superclass : #Object,
+	#name : 'LePharoSnippetUIExamples',
+	#superclass : 'Object',
 	#traits : 'TLeSpaceExamples + TAssertable',
 	#classTraits : 'TLeSpaceExamples classTrait + TAssertable classTrait',
-	#category : #'Lepiter-Pharo-Examples'
+	#category : 'Lepiter-Pharo-Examples'
 }
 
-{ #category : #'examples - basic' }
+{ #category : 'examples - basic' }
 LePharoSnippetUIExamples >> basicDatabase [
 	<gtExample>
 	| aDatabase |
@@ -15,14 +15,14 @@ LePharoSnippetUIExamples >> basicDatabase [
 	^ aDatabase
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LePharoSnippetUIExamples >> snippet [ 
 	<gtExample>
 
 	^ LePharoSnippet new code: '42 inspect'.
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 LePharoSnippetUIExamples >> treeNodeElement [
 	<gtExample>
 	| aSnippet aSnippetUIModel aSnippetElement |

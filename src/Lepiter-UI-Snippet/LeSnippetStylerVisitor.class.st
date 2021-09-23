@@ -693,7 +693,7 @@ LeSnippetStylerVisitor >> text: anObject [
 
 { #category : 'evaluating' }
 LeSnippetStylerVisitor >> variableBindings [
-	^ GtSnippetBindings new
+	^ GtSharedVariablesBindings new
 ]
 
 { #category : 'visiting' }
