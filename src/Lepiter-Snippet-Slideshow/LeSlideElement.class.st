@@ -1,19 +1,19 @@
 Class {
-	#name : #LeSlideElement,
-	#superclass : #BlAsyncElement,
+	#name : 'LeSlideElement',
+	#superclass : 'BlAsyncElement',
 	#instVars : [
 		'slide',
 		'slideElement'
 	],
-	#category : #'Lepiter-Snippet-Slideshow-Slide'
+	#category : 'Lepiter-Snippet-Slideshow-Slide'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSlideElement >> defaultPreviewStrategy [
 	^ BlAsyncPreviewStrategy delayedStencil: BrGlamorousAsyncElementProgressPreviewStencil new
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 LeSlideElement >> drawOnSpartaCanvas: aCanvas [
 	super drawOnSpartaCanvas: aCanvas.
 
@@ -22,7 +22,7 @@ LeSlideElement >> drawOnSpartaCanvas: aCanvas [
 	slideElement ifNil: [ self queueAsyncUpdate ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeSlideElement >> needsUpdate [
 	"Answer a boolean indicating whether the receiver needs to be updated (via an asynchronous task).
 	In GtSlideShow only the current slide is attached to the scene graph - the receiver needs to be updated if its slide show is attached to the scene graph."
@@ -38,7 +38,7 @@ LeSlideElement >> needsUpdate [
 	^true
 ]
 
-{ #category : #'async processing' }
+{ #category : 'async processing' }
 LeSlideElement >> queueAsyncUpdate [
 	"Queue a task to update the receiver's state.
 	Since slides generate their cached element and preview element together defer to the slide"
@@ -49,29 +49,29 @@ LeSlideElement >> queueAsyncUpdate [
 	self slide queueAsyncUpdate: self space
 ]
 
-{ #category : #'async processing' }
+{ #category : 'async processing' }
 LeSlideElement >> queueEntry [
 	"GtSlideElement is unusual in that it is the slide that is responsible for queueing tasks"
 
 	^self shouldNotImplement 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSlideElement >> slide [
 	^ slide
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSlideElement >> slide: anObject [
 	slide := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSlideElement >> slideElement [
 	^ slideElement
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSlideElement >> slideElement: aBlElement [
 	"Set the receiver's slide element.
 	Must be called from the UI process"
@@ -83,7 +83,7 @@ LeSlideElement >> slideElement: aBlElement [
 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeSlideElement >> slideShowIsAttachedToSceneGraph [
 	"Answer a boolean indicating whether the receiver's slide show is attached to a scene graph.
 	The receiver will only be attached to a scene graph while it is the current slide."

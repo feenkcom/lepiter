@@ -1,6 +1,6 @@
 Class {
-	#name : #LeSlidesSortHandler,
-	#superclass : #BlCustomEventHandler,
+	#name : 'LeSlidesSortHandler',
+	#superclass : 'BlCustomEventHandler',
 	#instVars : [
 		'dropBlock',
 		'placeholder',
@@ -9,10 +9,10 @@ Class {
 		'dragStartPosition',
 		'originalPosition'
 	],
-	#category : #'Lepiter-Snippet-Slideshow-Events'
+	#category : 'Lepiter-Snippet-Slideshow-Events'
 }
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 LeSlidesSortHandler >> dragEndEvent: anEvent [
 	| draggable |
 	draggable := anEvent currentTarget.
@@ -24,7 +24,7 @@ LeSlidesSortHandler >> dragEndEvent: anEvent [
 	anEvent currentTarget dispatchEvent: BlPullEndEvent new.
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 LeSlidesSortHandler >> dragEvent: anEvent [
 	| dragPosition dragDelta aNewPosition |
 	dragPosition := anEvent currentTarget
@@ -46,7 +46,7 @@ LeSlidesSortHandler >> dragEvent: anEvent [
 				delta: dragDelta ).
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 LeSlidesSortHandler >> dragStartEvent: anEvent [
 	|draggable |
 	anEvent consumed: true.
@@ -67,17 +67,17 @@ LeSlidesSortHandler >> dragStartEvent: anEvent [
 	anEvent currentTarget dispatchEvent: BlPullStartEvent new.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSlidesSortHandler >> dropBlock: aBlock [
 	dropBlock := aBlock.
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeSlidesSortHandler >> eventsToHandle [
 	^ { BlDragStartEvent . BlDragEvent . BlDragEndEvent }.
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 LeSlidesSortHandler >> movePlaceholderIfOverOtherChild: anEvent [
 	| mouseOverOther |
 	mouseOverOther := placeholder.
@@ -92,7 +92,7 @@ LeSlidesSortHandler >> movePlaceholderIfOverOtherChild: anEvent [
 			parent addChild: placeholder at: index ].
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 LeSlidesSortHandler >> placeholderFor: draggable [
 	^ BlElement new
 		size: draggable size;
