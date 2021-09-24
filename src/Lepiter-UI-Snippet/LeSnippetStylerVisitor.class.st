@@ -106,14 +106,17 @@ LeSnippetStylerVisitor >> elements [
 
 { #category : 'evaluating' }
 LeSnippetStylerVisitor >> evaluateCodeBlock: aCodeBlock expanded: aBoolean from: aButton [
-	| aCommand anErrorCatchingCommand position source |
-	aCommand := GtEvaluateSourceCodeCommand new.
-	aCommand requestor: aCodeBlock.
-	aCommand sourceCode: aCodeBlock code source.
-	aCommand variableBindings: self variableBindings.
-	aCommand receiver: self evaluationReceiver.
-	anErrorCatchingCommand := aCommand asErrorCatchingCommand.
-	anErrorCatchingCommand execute.
+	| aSnippetCoder aSnippetCoderViewModel aResult position source |
+	
+	source := aCodeBlock code source.
+	
+	aSnippetCoder := GtPharoSnippetCoder forSource: source.
+	aSnippetCoderViewModel := aSnippetCoder asCoderViewModel.
+	aSnippetCoderViewModel selfObject: self evaluationReceiver.
+	aSnippetCoderViewModel sharedBindings: self variableBindings.
+	
+	aResult := aSnippetCoderViewModel doItAll.
+
 	source := aCodeBlock code source.
 	position := source size.
 	[ position > 1 and: [ (source at: position) isLineBreak ] ]
@@ -122,9 +125,10 @@ LeSnippetStylerVisitor >> evaluateCodeBlock: aCodeBlock expanded: aBoolean from:
 		at: aCodeBlock code
 		put:
 			(LeEvaluationResult new
-				value: anErrorCatchingCommand result;
+				value: aResult;
 				expanded: aBoolean;
 				position: position).
+
 	self editor ifNotNil: #styleText
 ]
 
