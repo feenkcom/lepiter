@@ -1,5 +1,5 @@
 Class {
-	#name : #LeSlideshowSnippetElementHeightChanged,
-	#superclass : #LeSlideshowSnippetAnnouncement,
-	#category : #'Lepiter-Snippet-Slideshow-Events'
+	#name : 'LeSlideshowSnippetElementHeightChanged',
+	#superclass : 'LeSlideshowSnippetAnnouncement',
+	#category : 'Lepiter-Snippet-Slideshow-Events'
 }

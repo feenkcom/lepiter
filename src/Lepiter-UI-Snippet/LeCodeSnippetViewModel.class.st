@@ -57,8 +57,8 @@ LeCodeSnippetViewModel >> onSnippetModelChanged [
 ]
 
 { #category : 'api - bindings' }
-LeCodeSnippetViewModel >> snippetBindings: aGtSnippetBindings [
-	super snippetBindings: aGtSnippetBindings.
+LeCodeSnippetViewModel >> sharedSnippetContext: aGtSnippetBindings [
+	super sharedSnippetContext: aGtSnippetBindings.
 	
 	
 ]

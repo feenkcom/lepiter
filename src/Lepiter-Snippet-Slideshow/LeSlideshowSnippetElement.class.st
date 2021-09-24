@@ -1,6 +1,6 @@
 Class {
-	#name : #LeSlideshowSnippetElement,
-	#superclass : #LeTextualSnippetElement,
+	#name : 'LeSlideshowSnippetElement',
+	#superclass : 'LeTextualSnippetElement',
 	#traits : 'TBlElementError',
 	#classTraits : 'TBlElementError classTrait',
 	#instVars : [
@@ -25,10 +25,10 @@ Class {
 		'snippetResizer',
 		'slidePreviewEventHandler'
 	],
-	#category : #'Lepiter-Snippet-Slideshow-Snippet'
+	#category : 'Lepiter-Snippet-Slideshow-Snippet'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 LeSlideshowSnippetElement >> changeSnippetCode: aString [
 	self snippetViewModel coderViewModel coder 
 		sourceCode: (GtCoderExplicitSourceCode new source: aString)
@@ -37,12 +37,12 @@ LeSlideshowSnippetElement >> changeSnippetCode: aString [
 			source: self).
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSlideshowSnippetElement >> collectSlides [
 	^ self snippetViewModel collectSlides.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSlideshowSnippetElement >> createAddSlideButton [
 	^ BrButton new
 		beSmallSize;
@@ -58,7 +58,7 @@ LeSlideshowSnippetElement >> createAddSlideButton [
 		yourself
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSlideshowSnippetElement >> createCoderContainer [
 	^ BlElement new
 		layout: (BlGridLayout horizontal columnCount: 3);
@@ -68,7 +68,7 @@ LeSlideshowSnippetElement >> createCoderContainer [
 			c vertical fitContent ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSlideshowSnippetElement >> createCoderDecorationBar [
 	^ BlElement new
 		constraintsDo: [ :c |
@@ -77,7 +77,7 @@ LeSlideshowSnippetElement >> createCoderDecorationBar [
 		geometry: (BlRoundedRectangleGeometry cornerRadii: (BlCornerRadii new topLeft: 4; topRight: 0; bottomRight: 0; bottomLeft: 4))
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSlideshowSnippetElement >> createCoderElement [
 	^ GtSourceCoderEditorElement new
 		padding: (BlInsets top: 5 left: 7 bottom: 5 right: 0);
@@ -86,7 +86,7 @@ LeSlideshowSnippetElement >> createCoderElement [
 		hMatchParent
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSlideshowSnippetElement >> createCoderSlideActionsToolbar [
 	^ BrToolbar new
 		constraintsDo: [ :c |
@@ -98,13 +98,13 @@ LeSlideshowSnippetElement >> createCoderSlideActionsToolbar [
 		addItem: self createRemoveSlideButton.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSlideshowSnippetElement >> createCoderToolbar [
 	^ GtCoderActionsElement new
 		margin: (BlInsets left: 5)
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSlideshowSnippetElement >> createDropdownMenuButton [
 	| aToolbar |
 	slidesPreviewsContainer := self createSlidesPreviewsContainer.
@@ -183,7 +183,7 @@ LeSlideshowSnippetElement >> createDropdownMenuButton [
 			yourself.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSlideshowSnippetElement >> createElementContainer [
 	^ BrHorizontalPane new
 		hMatchParent;
@@ -191,7 +191,7 @@ LeSlideshowSnippetElement >> createElementContainer [
 		padding: (BlInsets all: 5)
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSlideshowSnippetElement >> createNextArrow [
 	nextArrow := BlElement new
 		size: 12 @ 24;
@@ -209,7 +209,7 @@ LeSlideshowSnippetElement >> createNextArrow [
 			hovered: [ :aStyle | aStyle background: (BrGlamorousColors hoveredButtonBorderColor) ]).
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSlideshowSnippetElement >> createPreviousArrow [
 	previousArrow := BlElement new
 		size: 12 @ 24;
@@ -227,7 +227,7 @@ LeSlideshowSnippetElement >> createPreviousArrow [
 			hovered: [ :aStyle | aStyle background: (BrGlamorousColors hoveredButtonBorderColor) ]).
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSlideshowSnippetElement >> createRemoveSlideButton [
 	^ BrButton new
 		beSmallSize;
@@ -246,7 +246,7 @@ LeSlideshowSnippetElement >> createRemoveSlideButton [
 		yourself
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSlideshowSnippetElement >> createSceneContainer [
 	^ BrVerticalPane new
 		hMatchParent;
@@ -254,7 +254,7 @@ LeSlideshowSnippetElement >> createSceneContainer [
 		clipChildren: false
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSlideshowSnippetElement >> createShowCodeToggleButton [
 	^ BrToggle new
 		beSmallSize;
@@ -275,12 +275,12 @@ LeSlideshowSnippetElement >> createShowCodeToggleButton [
 		yourself
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSlideshowSnippetElement >> createSlideElement [
 	^ BrHorizontalPane new matchParent.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSlideshowSnippetElement >> createSlidesPreviewsContainer [
 	^ BlElement new
 		layout: BlFlowLayout new;
@@ -290,7 +290,7 @@ LeSlideshowSnippetElement >> createSlidesPreviewsContainer [
 		padding: (BlInsets all: 10).
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSlideshowSnippetElement >> createVerticalResizer [
 	^ BrResizer new
 		aptitude: BrGlamorousResizerAptitude;
@@ -299,7 +299,7 @@ LeSlideshowSnippetElement >> createVerticalResizer [
 		constraintsDo: [ :c | c ignoreByLayout ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSlideshowSnippetElement >> defaultErrorStencil [
 
 	^ BrValuableStencil new valuable: [ :anException | | container message |
@@ -323,13 +323,13 @@ LeSlideshowSnippetElement >> defaultErrorStencil [
 		container ].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSlideshowSnippetElement >> editor [ 
 	"Answer the current editor element"
 	^ coderElement
 ]
 
-{ #category : #'private - coder' }
+{ #category : 'private - coder' }
 LeSlideshowSnippetElement >> ensureCoderCreated [
 	"The coder element is initialized lazily only when view model's #shouldShowCode is true"
 	
@@ -349,7 +349,7 @@ LeSlideshowSnippetElement >> ensureCoderCreated [
 		addChild: coderToolbar.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSlideshowSnippetElement >> exceptionAction [
 
 	^ [
@@ -364,7 +364,7 @@ LeSlideshowSnippetElement >> exceptionAction [
 				slideElement addChild: exceptionElement as: #displayElement ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSlideshowSnippetElement >> generateDisplayElement [
 	[[		
 		self snippetViewModel doItAllRequestedBy: self ]
@@ -374,7 +374,7 @@ LeSlideshowSnippetElement >> generateDisplayElement [
 			do: [ :ex | self exception: ex exception ]
 ]
 
-{ #category : #'private - coder' }
+{ #category : 'private - coder' }
 LeSlideshowSnippetElement >> hideCoder [	
 	self isCoderCreated
 		ifFalse: [ ^ self ].
@@ -386,7 +386,7 @@ LeSlideshowSnippetElement >> hideCoder [
 		ifTrue: [ elementContainer removeChild: coderResizer ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSlideshowSnippetElement >> initialize [
 	| nextArrowElement previousArrowElement |
 	
@@ -422,7 +422,7 @@ LeSlideshowSnippetElement >> initialize [
 		self snippetViewModel updateSlidePreviewsAptitude ]).
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSlideshowSnippetElement >> initializeCoderAddOns: anObject [
 	"Initialise the keyboard shortcuts in the code editor"
 
@@ -441,13 +441,13 @@ LeSlideshowSnippetElement >> initializeCoderAddOns: anObject [
 		addShortcut: (LeSnippetMoveSnippetDownShortcut new combination: (self keyboardShortcut: #MoveSnippetDown))
 ]
 
-{ #category : #'private - coder' }
+{ #category : 'private - coder' }
 LeSlideshowSnippetElement >> isCoderCreated [
 	<return: #Boolean>
 	^ coderContainer notNil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSlideshowSnippetElement >> nextSlide [
 	| slideCode |
 	self snippetViewModel hasNextSlide ifFalse: [ ^ self ].
@@ -457,7 +457,7 @@ LeSlideshowSnippetElement >> nextSlide [
 	self updateArrows.
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 LeSlideshowSnippetElement >> onCodeEvaluated: anEvaluatedAnnouncement [
 	"(anEvaluatedAnnouncement isRequestedByElementOrItsChild: self)
 		ifFalse: [ ^ self ]."
@@ -467,7 +467,7 @@ LeSlideshowSnippetElement >> onCodeEvaluated: anEvaluatedAnnouncement [
 	self setElement: [ anEvaluatedAnnouncement evaluationResult value ]
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 LeSlideshowSnippetElement >> onCodeVisibilityChanged [
 	self snippetViewModel shouldShowCode
 		ifTrue: [ self showCoder ]
@@ -476,18 +476,18 @@ LeSlideshowSnippetElement >> onCodeVisibilityChanged [
 	"showCoderToggle activated: self snippetViewModel shouldShowCode"
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 LeSlideshowSnippetElement >> onHeightChanged [
 	elementContainer vExact: self snippetViewModel elementHeight.
 	self updateCoderHeight
 ]
 
-{ #category : #'private - event handling' }
+{ #category : 'private - event handling' }
 LeSlideshowSnippetElement >> onPageChildEvaluated: aLeUIPageChildEvaluationAnnouncement [
 	snippetViewModel ifNotNil: [ self snippetViewModel coderViewModel coder requestStyleSourceText ]
 ]
 
-{ #category : #'api - snippet view model' }
+{ #category : 'api - snippet view model' }
 LeSlideshowSnippetElement >> onPostSnippetViewModelChanged [
 	super onPostSnippetViewModelChanged.
 	
@@ -496,7 +496,7 @@ LeSlideshowSnippetElement >> onPostSnippetViewModelChanged [
 		ifNil: [ self generateDisplayElement ]
 ]
 
-{ #category : #'api - snippet view model' }
+{ #category : 'api - snippet view model' }
 LeSlideshowSnippetElement >> onSnippetViewModelChanged [
 	super onSnippetViewModelChanged.
 
@@ -506,7 +506,7 @@ LeSlideshowSnippetElement >> onSnippetViewModelChanged [
 	self updateCoderElementViewModel
 ]
 
-{ #category : #'api - snippet view model' }
+{ #category : 'api - snippet view model' }
 LeSlideshowSnippetElement >> onSnippetViewModelFocused: aBoolean [
 	"Override me to either request or lose focus when the focused state is changed in the UI Model"
 
@@ -531,7 +531,7 @@ LeSlideshowSnippetElement >> onSnippetViewModelFocused: aBoolean [
 	self updateCoderWhenFocused: aBoolean
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeSlideshowSnippetElement >> previousSlide [
 	| slideCode |
 	self snippetViewModel hasPreviousSlide ifFalse: [ ^ self ].
@@ -541,7 +541,7 @@ LeSlideshowSnippetElement >> previousSlide [
 	self updateArrows.
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeSlideshowSnippetElement >> registerEventsForCoder: aCoder [
 
 	aCoder announcer weak
@@ -550,7 +550,7 @@ LeSlideshowSnippetElement >> registerEventsForCoder: aCoder [
 		to: self
 ]
 
-{ #category : #'api - updating' }
+{ #category : 'api - updating' }
 LeSlideshowSnippetElement >> reorderSlides [
 	| slideNr slides currentSlideIndex shouldUpdateCurrentSlide slideCode |
 
@@ -581,7 +581,7 @@ LeSlideshowSnippetElement >> reorderSlides [
 	self updateSlidesPreviewsContainer.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSlideshowSnippetElement >> setElement: anElementStencil [
 	"Set the value of the supplied stencil as the receiver's display element"
 	| displayElement |
@@ -601,7 +601,7 @@ LeSlideshowSnippetElement >> setElement: anElementStencil [
 	self updateArrows.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeSlideshowSnippetElement >> setElementFromCoder [
 	"Set the receiver's display element based on the coder's content"
 
@@ -613,7 +613,7 @@ LeSlideshowSnippetElement >> setElementFromCoder [
 		[ self setElement: [ BlElement new ] ]
 ]
 
-{ #category : #'private - coder' }
+{ #category : 'private - coder' }
 LeSlideshowSnippetElement >> showCoder [		
 	self ensureCoderCreated.
 	
@@ -632,7 +632,7 @@ LeSlideshowSnippetElement >> showCoder [
 	self updateCoderElementViewModel
 ]
 
-{ #category : #'api - view' }
+{ #category : 'api - view' }
 LeSlideshowSnippetElement >> snippetContent [
 	"Return an element that represents a content of the snippet.
 	The embedder is responsible for placing #snippetContent in the right place within snippet element depending on the
@@ -642,7 +642,7 @@ LeSlideshowSnippetElement >> snippetContent [
 	^ sceneContainer
 ]
 
-{ #category : #'api - view' }
+{ #category : 'api - view' }
 LeSlideshowSnippetElement >> snippetToolbar [
 	"Return an element that represents a toolbar of the snippet. A toolbar usually appears below the snippet content.
 	The embedder is responsible for placing #snippetToolbar in the right place within snippet element depending on the
@@ -653,7 +653,7 @@ LeSlideshowSnippetElement >> snippetToolbar [
 	^ nil
 ]
 
-{ #category : #'api - snippet view model' }
+{ #category : 'api - snippet view model' }
 LeSlideshowSnippetElement >> subscribeToSnippetViewModel [
 	super subscribeToSnippetViewModel.
 
@@ -678,7 +678,7 @@ LeSlideshowSnippetElement >> subscribeToSnippetViewModel [
 		to: self
 ]
 
-{ #category : #'api - snippet view model' }
+{ #category : 'api - snippet view model' }
 LeSlideshowSnippetElement >> unsubscribeFromSnippetViewModel [
 	super unsubscribeFromSnippetViewModel.
 
@@ -687,7 +687,7 @@ LeSlideshowSnippetElement >> unsubscribeFromSnippetViewModel [
 	self snippetViewModel coderViewModel coder unsubscribe: self
 ]
 
-{ #category : #'api - updating' }
+{ #category : 'api - updating' }
 LeSlideshowSnippetElement >> updateArrows [
 	(arrowsAreVisible and: [ self snippetViewModel hasPreviousSlide ])
 		ifTrue: [ previousArrow visibility: BlVisibility visible ]
@@ -697,7 +697,7 @@ LeSlideshowSnippetElement >> updateArrows [
 		ifFalse: [ nextArrow visibility: BlVisibility hidden ]
 ]
 
-{ #category : #'private - coder' }
+{ #category : 'private - coder' }
 LeSlideshowSnippetElement >> updateCoderElementViewModel [
 	self isCoderCreated
 		ifFalse: [ ^ self ].
@@ -706,7 +706,7 @@ LeSlideshowSnippetElement >> updateCoderElementViewModel [
 	coderToolbar textualCoderViewModel: self snippetViewModel coderViewModel
 ]
 
-{ #category : #'private - coder' }
+{ #category : 'private - coder' }
 LeSlideshowSnippetElement >> updateCoderHeight [
 	self isCoderCreated
 		ifFalse: [ ^ self ].
@@ -714,7 +714,7 @@ LeSlideshowSnippetElement >> updateCoderHeight [
 	coderElement vExact: self snippetViewModel codeHeight
 ]
 
-{ #category : #'private - coder' }
+{ #category : 'private - coder' }
 LeSlideshowSnippetElement >> updateCoderWhenFocused: isFocused [
 	self isCoderCreated
 		ifFalse: [ ^ self ].
@@ -740,7 +740,7 @@ LeSlideshowSnippetElement >> updateCoderWhenFocused: isFocused [
 			coderToolbar visibility: BlVisibility hidden ]
 ]
 
-{ #category : #'api - updating' }
+{ #category : 'api - updating' }
 LeSlideshowSnippetElement >> updateSlidesPreviewsContainer [
 	slidePreviewEventHandler 
 		ifNil: [

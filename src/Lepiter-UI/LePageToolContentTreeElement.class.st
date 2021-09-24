@@ -117,7 +117,7 @@ LePageToolContentTreeElement >> onPageViewModelChanged [
 	self pageViewModel ensurePageHasAtLeastOneSnippet.
 
 	pageSnippetsTreeViewModel := LeSnippetsTreeViewModel new
-		snippetBindings: self pageViewModel snippetBindings.
+		sharedSnippetContext: self pageViewModel sharedSnippetContext.
 
 	pageIncomingLinksViewModel := self class incomingLinksViewModelClass new.
 
