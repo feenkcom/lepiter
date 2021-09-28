@@ -52,7 +52,7 @@ GtJavaScriptCoderModel >> bindAndExecute: sourceString [
 	1. globals declared in the code
 	2. undeclared names that are in pharoBindings"
 	varNames := visitor declaredVarNames, 
-		(visitor allUndeclaredNames asSet intersection: pharoBindings allNames asSet).
+		(visitor allUndeclaredNames asSet intersection: pharoBindings bindingNames asSet).
 
 	"Assign the final statement to snippetResult"
 	lastStatement := ast items last.
@@ -161,7 +161,7 @@ GtJavaScriptCoderModel >> primitiveEvaluate: aSourceString inContext: aGtSourceC
 	result := self bindAndExecute: aSourceString.
 	
 	result removeKey: '__jsLinkImmediate'.
-	result associationsDo: [ :binding | pharoBindings at: binding key asSymbol put: binding value ].
+	result associationsDo: [ :binding | (pharoBindings bindingOf: binding key asSymbol) value: binding value ].
 
 	^ result
 		at: 'snippetResult'
