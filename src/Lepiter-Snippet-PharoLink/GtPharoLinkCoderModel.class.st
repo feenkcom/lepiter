@@ -76,7 +76,26 @@ GtPharoLinkCoderModel >> computeAst: theSourceString [
 GtPharoLinkCoderModel >> initializeAddOns: addOns [
 	super initializeAddOns: addOns.
 	
-	addOns addStyler: (GtCoderAstSmaCCParserStyler new smaccStyler: StParser gtStyler)
+	addOns addStyler: (GtCoderAstSmaCCParserStyler new smaccStyler: StParser gtStyler).
+	
+	addOns
+		addMainAction: 'Evaluate' translated
+		icon: BrGlamorousVectorIcons play
+		action: [ :aCoderUIModel :anElement | 
+			GtCoderCodeExecutor doIt
+				coderUIModel: aCoderUIModel;
+				element: anElement;
+				execute ]
+		id: GtSourceCoderDoItActionId.
+	addOns
+		addMainAction: 'Inspect' translated
+		icon: BrGlamorousVectorIcons playinspect
+		action: [ :aCoderUIModel :anElement | 
+			GtCoderCodeExecutor doItAndGo
+				coderUIModel: aCoderUIModel;
+				element: anElement;
+				execute ]
+		id: GtSourceCoderDoItAndGoActionId.
 ]
 
 { #category : 'initialize' }
