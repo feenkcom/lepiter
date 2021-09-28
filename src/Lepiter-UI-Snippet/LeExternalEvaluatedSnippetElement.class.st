@@ -33,7 +33,7 @@ LeExternalEvaluatedSnippetElement >> initialize [
 	languageElement := self initializeLanguageElement.
 	languageElement constraintsDo: [ :c |
 		c frame horizontal alignRight.
-		c frame vertical alignBottom ].
+		c frame vertical alignTop ].
 	
 	contentElement := BrFrame new
 		hMatchParent;
@@ -51,7 +51,7 @@ LeExternalEvaluatedSnippetElement >> initializeLanguageElement [
 	^ BrLabel new
 		aptitude: (BrGlamorousLabelAptitude new glamorousRegularSmallSize
 		foreground: BrGlamorousColors textMarkupColor);
-		margin: (BlInsets right: 5);
+		margin: (BlInsets top: 5 right: 5);
 		text: '<unknown>'
 ]
 
