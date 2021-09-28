@@ -95,7 +95,7 @@ GtPythonCoderModel >> primitiveEvaluate: aSourceString inContext: aGtSourceCoder
 
 	result := self bindAndExecute: aSourceString.
 	result associationsDo: [ :binding |
-		pharoBindings at: binding key asSymbol put: binding value ].
+		(pharoBindings bindingOf: binding key asSymbol) value: binding value ].
 
 	^ result
 		at: 'snippetResult'
@@ -119,7 +119,7 @@ GtPythonCoderModel >> pythonBindings [
 	| pythonBindings canBind |
 
 	pythonBindings := OrderedCollection new.
-	pharoBindings at: #snippetResult put: nil.
+	(pharoBindings bindingOf: #snippetResult) value: nil.
 	pharoBindings asDictionary keysAndValuesDo: [ :key :value |
 		(#(thisSnippet thisSnippetElement) includes: key) ifFalse: 
 			[ canBind := [ MpEncoder encode: value value.
