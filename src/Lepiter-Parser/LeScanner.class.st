@@ -1,20 +1,20 @@
 Class {
-	#name : #LeScanner,
-	#superclass : #SmaCCScanner,
-	#category : #'Lepiter-Parser'
+	#name : 'LeScanner',
+	#superclass : 'SmaCCScanner',
+	#category : 'Lepiter-Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeScanner >> emptySymbolTokenId [
 	^ 74
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeScanner >> errorTokenId [
 	^ 75
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeScanner >> scan1 [
 	self step.
 	currentCharacter == Character lf
@@ -80,7 +80,7 @@ LeScanner >> scan1 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeScanner >> scan1X1 [
 	self recordMatch: #(3 20).
 	self step.
@@ -103,7 +103,7 @@ LeScanner >> scan1X1 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeScanner >> scan1X10 [
 	self recordMatch: #(15).
 	self step.
@@ -112,7 +112,7 @@ LeScanner >> scan1X10 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeScanner >> scan1X11 [
 	self recordMatch: #(27).
 	self step.
@@ -121,7 +121,7 @@ LeScanner >> scan1X11 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeScanner >> scan1X12 [
 	self recordMatch: #(26).
 	self step.
@@ -130,7 +130,7 @@ LeScanner >> scan1X12 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeScanner >> scan1X13 [
 	self recordMatch: #(20).
 	self step.
@@ -139,7 +139,7 @@ LeScanner >> scan1X13 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeScanner >> scan1X1X1 [
 	[ self recordMatch: #(3).
 	self step.
@@ -160,7 +160,7 @@ LeScanner >> scan1X1X1 [
 		whileTrue
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeScanner >> scan1X2 [
 	[ self recordMatch: #(3).
 	self step.
@@ -181,7 +181,7 @@ LeScanner >> scan1X2 [
 		whileTrue
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeScanner >> scan1X3 [
 	self step.
 	(currentCharacter <= Character backspace
@@ -209,7 +209,7 @@ LeScanner >> scan1X3 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeScanner >> scan1X4 [
 	self recordMatch: #(12).
 	self step.
@@ -234,7 +234,7 @@ LeScanner >> scan1X4 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeScanner >> scan1X5 [
 	self recordMatch: #(25).
 	self step.
@@ -263,7 +263,7 @@ LeScanner >> scan1X5 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeScanner >> scan1X6 [
 	self step.
 	currentCharacter == $[
@@ -280,7 +280,7 @@ LeScanner >> scan1X6 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeScanner >> scan1X7 [
 	self recordMatch: #(19).
 	self step.
@@ -289,7 +289,7 @@ LeScanner >> scan1X7 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeScanner >> scan1X8 [
 	self recordMatch: #(18).
 	self step.
@@ -298,7 +298,7 @@ LeScanner >> scan1X8 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeScanner >> scan1X9 [
 	self recordMatch: #(10).
 	self step.
@@ -307,7 +307,7 @@ LeScanner >> scan1X9 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeScanner >> scan2 [
 	self step.
 	currentCharacter == $(
@@ -323,7 +323,7 @@ LeScanner >> scan2 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeScanner >> scan3 [
 	[ self step.
 	currentCharacter == $`
@@ -343,7 +343,7 @@ LeScanner >> scan3 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeScanner >> scan4 [
 	[ self recordMatch: #(22).
 	self step.
@@ -354,7 +354,7 @@ LeScanner >> scan4 [
 	true ] whileTrue
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeScanner >> scan5 [
 	self step.
 	(currentCharacter <= $Z
@@ -363,7 +363,7 @@ LeScanner >> scan5 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeScanner >> scan6 [
 	self step.
 	currentCharacter ~~ $]
@@ -371,7 +371,7 @@ LeScanner >> scan6 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeScanner >> scanForToken [
 	scope == #default
 		ifTrue: [ ^ self scan1 ].
@@ -400,7 +400,7 @@ LeScanner >> scanForToken [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeScanner >> tokenActions [
 	^ #(nil #whitespace)
 ]

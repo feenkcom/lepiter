@@ -1,10 +1,10 @@
 Class {
-	#name : #LeEmptyDoubleBracketLinkNode,
-	#superclass : #LeEmptyLinkNode,
-	#category : #'Lepiter-Parser'
+	#name : 'LeEmptyDoubleBracketLinkNode',
+	#superclass : 'LeEmptyLinkNode',
+	#category : 'Lepiter-Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeEmptyDoubleBracketLinkNode >> acceptVisitor: aContentVisitor [
 	^ aContentVisitor visitEmptyDoubleBracketLink: self
 ]

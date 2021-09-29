@@ -1,20 +1,20 @@
 Class {
-	#name : #LeLabelArgumentNode,
-	#superclass : #LeArgumentNode,
-	#category : #'Lepiter-Parser'
+	#name : 'LeLabelArgumentNode',
+	#superclass : 'LeArgumentNode',
+	#category : 'Lepiter-Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeLabelArgumentNode >> acceptVisitor: anAnnotationParseVisitor [
 	^ anAnnotationParseVisitor visitLabelArgument: self
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeLabelArgumentNode >> isLabel [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeLabelArgumentNode >> labelFor: anObject [
 	| label |
 	label := self stringValue.

@@ -1,56 +1,56 @@
 Class {
-	#name : #LeHeaderNode,
-	#superclass : #LeContentNode,
+	#name : 'LeHeaderNode',
+	#superclass : 'LeContentNode',
 	#instVars : [
 		'numberSigns',
 		'parts'
 	],
-	#category : #'Lepiter-Parser'
+	#category : 'Lepiter-Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeHeaderNode >> acceptVisitor: aContentVisitor [
 	^ aContentVisitor visitHeader: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeHeaderNode >> compositeNodeVariables [
 	^ #(#parts)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeHeaderNode >> compositeTokenVariables [
 	^ #(#numberSigns)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeHeaderNode >> headerLevel [
 	^ numberSigns size min: 6
 ]
 
-{ #category : #'generated-initialize-release' }
+{ #category : 'generated-initialize-release' }
 LeHeaderNode >> initialize [
 	super initialize.
 	numberSigns := OrderedCollection new: 2.
 	parts := OrderedCollection new: 2.
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeHeaderNode >> numberSigns [
 	^ numberSigns
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeHeaderNode >> numberSigns: anOrderedCollection [
 	numberSigns := anOrderedCollection
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeHeaderNode >> parts [
 	^ parts
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeHeaderNode >> parts: anOrderedCollection [
 	self setParents: self parts to: nil.
 	parts := anOrderedCollection.

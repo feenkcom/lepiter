@@ -1,15 +1,15 @@
 Class {
-	#name : #LeHeightArgumentNode,
-	#superclass : #LeArgumentNode,
-	#category : #'Lepiter-Parser'
+	#name : 'LeHeightArgumentNode',
+	#superclass : 'LeArgumentNode',
+	#category : 'Lepiter-Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeHeightArgumentNode >> acceptVisitor: anAnnotationParseVisitor [
 	^ anAnnotationParseVisitor visitHeightArgument: self
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeHeightArgumentNode >> isHeight [
 	^ true
 ]
