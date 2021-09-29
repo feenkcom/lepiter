@@ -21,8 +21,8 @@ Uses Dijkstra's algorithm to find the path, see: https://en.wikipedia.org/wiki/D
 
 "
 Class {
-	#name : #LePathFinder,
-	#superclass : #Object,
+	#name : 'LePathFinder',
+	#superclass : 'Object',
 	#instVars : [
 		'startPage',
 		'endPage',
@@ -30,10 +30,10 @@ Class {
 		'currentNode',
 		'visited'
 	],
-	#category : #'Lepiter-Utilities-Model'
+	#category : 'Lepiter-Utilities-Model'
 }
 
-{ #category : #'api - search' }
+{ #category : 'api - search' }
 LePathFinder >> betweenPage: firstPage and: secondPage [
 	"Find the shortest path between the two pages"
 
@@ -48,7 +48,7 @@ LePathFinder >> betweenPage: firstPage and: secondPage [
 	^ self findShortest.
 ]
 
-{ #category : #'api - search' }
+{ #category : 'api - search' }
 LePathFinder >> betweenPageNamed: startPageName and: endPageName in: aLeDatabase [
 	| firstPage secondPage |
 
@@ -57,7 +57,7 @@ LePathFinder >> betweenPageNamed: startPageName and: endPageName in: aLeDatabase
 	^ self betweenPage: firstPage and: secondPage.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LePathFinder >> findShortest [
 	| destinations weightToCurrentNode currentShortestWeight nextDestinations path |
 
@@ -89,7 +89,7 @@ LePathFinder >> findShortest [
 	^ path reversed.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LePathFinder >> linkedPagesFrom: aNode [
 	| linkedPages |
 
@@ -99,7 +99,7 @@ LePathFinder >> linkedPagesFrom: aNode [
 	^ linkedPages
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LePathFinder >> lowestWeightDestinationIn: nextDestinations [
 	| destination weight |
 

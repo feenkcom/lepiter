@@ -21,8 +21,7 @@ LeSnippetExpandableWithBarAptitude >> decorationBarWidth: aNumber [
 LeSnippetExpandableWithBarAptitude >> hideActions [
 	super hideActions.
 	
-	snippetExpander constraintsDo: [ :c | c grid vertical span: 1 ].
-	snippetExpander background: BrGlamorousColors lightBorderColor
+	snippetExpander constraintsDo: [ :c | c grid vertical span: 1 ]
 ]
 
 { #category : 'initialization' }
@@ -53,6 +52,26 @@ LeSnippetExpandableWithBarAptitude >> initializeSnippetExpander [
 LeSnippetExpandableWithBarAptitude >> showActions [
 	super showActions.
 
-	snippetExpander constraintsDo: [ :c | c grid vertical span: 2 ].
+	snippetExpander constraintsDo: [ :c | c grid vertical span: 2 ]
+]
+
+{ #category : 'private' }
+LeSnippetExpandableWithBarAptitude >> visuallyFocus [
+	super visuallyFocus.
+
 	snippetExpander background: (BrGlamorousColors primaryBorderColor alpha: 0.4) gtOpaqueColorOnWhite
+]
+
+{ #category : 'private' }
+LeSnippetExpandableWithBarAptitude >> visuallyHover [
+	super visuallyHover.
+
+	snippetExpander background: BrGlamorousColors lightBorderColor
+]
+
+{ #category : 'private' }
+LeSnippetExpandableWithBarAptitude >> visuallyUnfocusAndUnhover [
+	super visuallyUnfocusAndUnhover.
+
+	snippetExpander background: BrGlamorousColors lightBorderColor
 ]

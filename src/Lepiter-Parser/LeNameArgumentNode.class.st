@@ -1,25 +1,25 @@
 Class {
-	#name : #LeNameArgumentNode,
-	#superclass : #LeArgumentNode,
-	#category : #'Lepiter-Parser'
+	#name : 'LeNameArgumentNode',
+	#superclass : 'LeArgumentNode',
+	#category : 'Lepiter-Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeNameArgumentNode >> acceptVisitor: anAnnotationParseVisitor [
 	^ anAnnotationParseVisitor visitNameArgument: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeNameArgumentNode >> imageObject [
 	^ self subclassResponsibility
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeNameArgumentNode >> isDefined [
 	^ self imageObject notNil
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeNameArgumentNode >> isName [
 	^ true
 ]

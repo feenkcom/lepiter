@@ -11,7 +11,8 @@ Class {
 		'serverStrategy',
 		'server',
 		'serverException',
-		'languageElement'
+		'languageElement',
+		'contentElement'
 	],
 	#category : 'Lepiter-UI-Snippet-! Views'
 }
@@ -21,22 +22,6 @@ LeExternalEvaluatedSnippetElement class >> isAbstract [
 	^ self = LeExternalEvaluatedSnippetElement
 ]
 
-{ #category : 'private - execution' }
-LeExternalEvaluatedSnippetElement >> executeContents [
-	"Execute the receiver's contents"
-
-	self coderViewModel doItAll
-]
-
-{ #category : 'private - execution' }
-LeExternalEvaluatedSnippetElement >> executeContentsAndSpawnFrom: anElement [
-	"Execute the receiver's contents and spawn the result"
-
-	self database isDatabase ifFalse:
-		[ self error: 'Unable to execute - no database ' ].
-	self coderViewModel doItAndGo
-]
-
 { #category : 'initialization' }
 LeExternalEvaluatedSnippetElement >> initialize [ 
 	super initialize.
@@ -44,52 +29,18 @@ LeExternalEvaluatedSnippetElement >> initialize [
 	self initializeTextEditor.
 	self initializeCoderToolbar.
 	self initializeSpawnDownElements.
+	
+	languageElement := self initializeLanguageElement.
+	languageElement constraintsDo: [ :c |
+		c frame horizontal alignRight.
+		c frame vertical alignTop ].
+	
+	contentElement := BrFrame new
+		hMatchParent;
+		vFitContent;
+		addChildren: { editorElement. languageElement}.
 
 	self registerSpawnBelowHandler
-]
-
-{ #category : 'initialization' }
-LeExternalEvaluatedSnippetElement >> initializeCoderToolbar [
-	"Initialise the toolbar that contains the control buttons (doIt, doIt and inspect)"
-	| buttonBar toolbar |
-
-	buttonBar := BrHorizontalPane new matchParent preventMouseEvents.
-	buttonBar
-		vFitContent;
-		hMatchParent;
-		zIndex: 1000.
-
-	buttonBar addChild: (BrButton new 
-		beTinySize;
-		aptitude: BrGlamorousButtonWithIconAptitude;
-		icon: BrGlamorousVectorIcons play;
-		label: #Evaluate;
-		action: [ :aButton | self executeContents ]) as: #executeButton.
-	buttonBar addChild: (BrButton new 
-		beTinySize;
-		aptitude: BrGlamorousButtonWithIconAptitude;
-		icon: BrGlamorousVectorIcons playinspect;
-		label: #Inspect;
-		action: [ :aButton | self executeContentsAndSpawnFrom: aButton ]) as: #executeAndSpawnButton.
-
-	languageElement := self initializeLanguageElement.
-
-	toolbar := BrHorizontalPane new matchParent preventMouseEvents.
-	toolbar
-		vFitContent;
-		hMatchParent;
-		addChild: buttonBar;
-		addChild: languageElement.
-
-	coderToolbar := BrHorizontalPane new
-		vFitContent;
-		hMatchParent;
-		alignBottomLeft;
-		addChild: toolbar.
-
-	spawnDestinationLook := GtSourceCoderSpawnDestinationAptitude new.
-	coderToolbar addAptitude: spawnDestinationLook.
-
 ]
 
 { #category : 'initialization' }
@@ -97,14 +48,11 @@ LeExternalEvaluatedSnippetElement >> initializeLanguageElement [
 	"Initialise the element that displays the language and connection details.
 	This is normally a text element, but subclasses may replace it with something else, e.g. a button"
 
-	^ BlAttributedTextElement new
-		glamorousRegularSmallSize;
-		text: ('<unknown>' asRopedText foreground: BrGlamorousColors textMarkupColor);
-		padding: (BlInsets top: 5 left: 5 bottom: 0 right: 30);
-		constraintsDo: [ :c |
-			c vertical matchParent.
-			c horizontal fitContent. ].
-
+	^ BrLabel new
+		aptitude: (BrGlamorousLabelAptitude new glamorousRegularSmallSize
+		foreground: BrGlamorousColors textMarkupColor);
+		margin: (BlInsets top: 5 right: 5);
+		text: '<unknown>'
 ]
 
 { #category : 'initialization' }
@@ -159,4 +107,9 @@ LeExternalEvaluatedSnippetElement >> registerSpawnBelowHandler [
 					in: [ :anNewEvent | 
 						anNewEvent propertyAt: #spawnContainer put: self ];
 					yourself) ] ].
+]
+
+{ #category : 'accessing' }
+LeExternalEvaluatedSnippetElement >> snippetContent [
+	^ contentElement
 ]

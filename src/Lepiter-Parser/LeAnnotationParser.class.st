@@ -1,15 +1,15 @@
 Class {
-	#name : #LeAnnotationParser,
-	#superclass : #SmaCCGLRParser,
-	#category : #'Lepiter-Parser'
+	#name : 'LeAnnotationParser',
+	#superclass : 'SmaCCGLRParser',
+	#category : 'Lepiter-Parser'
 }
 
-{ #category : #'generated-accessing' }
+{ #category : 'generated-accessing' }
 LeAnnotationParser class >> cacheId [
 	^'2020-11-12T14:07:29.400364-06:00'
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeAnnotationParser class >> createParserOnStream: aStream startingAt: anInteger [
 	| parser |
 	parser := super createParserOnStream: aStream startingAt: anInteger.
@@ -19,7 +19,7 @@ LeAnnotationParser class >> createParserOnStream: aStream startingAt: anInteger 
 	^ parser
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationParser class >> definitionComment [
 "%glr;
 %prefix Le;
@@ -299,7 +299,7 @@ PageLabel
 	;"
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationParser class >> reduceTable [
 ^#(
 	#(42 1 #reduceActionForClassName3: 2713603 false ) 
@@ -381,47 +381,47 @@ LeAnnotationParser class >> reduceTable [
 	).
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationParser class >> scannerClass [
 	^LeAnnotationScanner
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationParser class >> startingStateForChangesAnnotation [
 	^ 4
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationParser class >> startingStateForClassAnnotation [
 	^ 1
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationParser class >> startingStateForExampleAnnotation [
 	^ 2
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationParser class >> startingStateForMethodAnnotation [
 	^ 3
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationParser class >> startingStateForPageAnnotation [
 	^ 5
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationParser class >> symbolNames [
 	^ #('<className>' '<unarySelector>' '<selector>' '<integer>' '<labelText>' '<whitespace>' '<name>' '<eq>' '<label>' '<full>' '<expanded>' '<boolean>' '<show>' '<height>' '<bar>' '<return>' '<alignment>' '<previewShow>' '<previewExpanded>' '<previewHeight>' '<noCode>' '<gtgt>' '<codeExpanded>' '<documentWidth>' '<fullWidth>' '<paragraphWidth>' '<class>' '<path>' '<db>' '<uuid>' 'B e g i n' 'ClassAnnotation' 'ClassAnnotationItems' 'ClassAnnotationItem' 'Height' 'Show' 'Expanded' 'Full' 'Label' 'SwitchToDefault' 'SwitchToLabel' 'ClassName' 'ExampleAnnotation' 'ExampleAnnotationItems' 'ExampleAnnotationItem' 'Return' 'Alignment' 'PreviewShow' 'PreviewExpanded' 'OptionalBooleanValue' 'PreviewHeight' 'NoCode' 'CodeExpanded' 'MethodAnnotation' 'MethodAnnotationItems' 'MethodAnnotationItem' 'MethodName' 'ChangesAnnotation' 'ChangesAnnotationItems' 'ChangesAnnotationItem' 'Path' 'PageAnnotation' 'PageAnnotationItems' 'PageAnnotationItem' 'Db' 'SwitchToUuid' 'SwitchToPath' 'PageLabel' 'E O F' 'error')
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationParser class >> symbolTypes [
 	^ #(#SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #LeClassAnnotationNode #LeClassAnnotationNode #OrderedCollection #LeArgumentNode #LeHeightArgumentNode #LeShowArgumentNode #LeExpandedArgumentNode #LeFullArgumentNode #LeLabelArgumentNode nil nil #LeClassNameArgumentNode #LeExampleAnnotationNode #OrderedCollection #LeArgumentNode #LeReturnArgumentNode #LeAlignmentArgumentNode #LePreviewShowArgumentNode #LePreviewExpandedArgumentNode #OrderedCollection #LePreviewHeightArgumentNode #LeNoCodeArgumentNode #LeCodeExpandedArgumentNode #LeMethodAnnotationNode #OrderedCollection #LeArgumentNode #LeMethodNameArgumentNode #LeChangesAnnotationNode #OrderedCollection #LeArgumentNode #LeFileNameArgumentNode #LePageAnnotationNode #OrderedCollection #LeArgumentNode #LeDbArgumentNode nil nil #LePageArgumentNode #SmaCCToken #SmaCCErrorNode)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationParser class >> transitionTable [
 ^#(
 #[1 0 25 0 1 0 29 0 7 0 33 0 9 0 37 0 10 0 41 0 11 0 45 0 13 0 49 0 14 0 53 0 32 0 57 0 33 0 61 0 34 0 61 0 35 0 61 0 36 0 61 0 37 0 61 0 38 0 61 0 39 0 61 0 42] 
@@ -554,7 +554,7 @@ LeAnnotationParser class >> transitionTable [
 	).
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForAlignment1: nodes [
 	| result |
 	result := LeAlignmentArgumentNode new.
@@ -564,7 +564,7 @@ LeAnnotationParser >> reduceActionForAlignment1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForChangesAnnotation1: nodes [
 	| result |
 	result := LeChangesAnnotationNode new.
@@ -573,7 +573,7 @@ LeAnnotationParser >> reduceActionForChangesAnnotation1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForClassAnnotation1: nodes [
 	| result |
 	result := LeClassAnnotationNode new.
@@ -582,7 +582,7 @@ LeAnnotationParser >> reduceActionForClassAnnotation1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForClassAnnotationItems1: nodes [
 	| result |
 	result := nodes at: 1.
@@ -591,7 +591,7 @@ LeAnnotationParser >> reduceActionForClassAnnotationItems1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForClassAnnotationItems2: nodes [
 	| result |
 	result := Array new: 2.
@@ -601,7 +601,7 @@ LeAnnotationParser >> reduceActionForClassAnnotationItems2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForClassName1: nodes [
 	| result |
 	result := LeClassNameArgumentNode new.
@@ -611,7 +611,7 @@ LeAnnotationParser >> reduceActionForClassName1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForClassName2: nodes [
 	| result |
 	result := LeClassNameArgumentNode new.
@@ -622,7 +622,7 @@ LeAnnotationParser >> reduceActionForClassName2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForClassName3: nodes [
 	| result |
 	result := LeClassNameArgumentNode new.
@@ -630,7 +630,7 @@ LeAnnotationParser >> reduceActionForClassName3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForClassName4: nodes [
 	| result |
 	result := LeClassNameArgumentNode new.
@@ -639,7 +639,7 @@ LeAnnotationParser >> reduceActionForClassName4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForCodeExpanded1: nodes [
 	| result |
 	result := LeCodeExpandedArgumentNode new.
@@ -649,7 +649,7 @@ LeAnnotationParser >> reduceActionForCodeExpanded1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForDb1: nodes [
 	| result |
 	result := LeDbArgumentNode new.
@@ -659,7 +659,7 @@ LeAnnotationParser >> reduceActionForDb1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForExampleAnnotation1: nodes [
 	| result |
 	result := LeExampleAnnotationNode new.
@@ -668,7 +668,7 @@ LeAnnotationParser >> reduceActionForExampleAnnotation1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForExpanded1: nodes [
 	| result |
 	result := LeExpandedArgumentNode new.
@@ -678,7 +678,7 @@ LeAnnotationParser >> reduceActionForExpanded1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForFull1: nodes [
 	| result |
 	result := LeFullArgumentNode new.
@@ -688,7 +688,7 @@ LeAnnotationParser >> reduceActionForFull1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForHeight1: nodes [
 	| result |
 	result := LeHeightArgumentNode new.
@@ -698,7 +698,7 @@ LeAnnotationParser >> reduceActionForHeight1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForLabel1: nodes [
 	| result |
 	result := LeLabelArgumentNode new.
@@ -708,7 +708,7 @@ LeAnnotationParser >> reduceActionForLabel1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForMethodAnnotation1: nodes [
 	| result |
 	result := LeMethodAnnotationNode new.
@@ -717,7 +717,7 @@ LeAnnotationParser >> reduceActionForMethodAnnotation1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForMethodName1: nodes [
 	| result |
 	result := LeMethodNameArgumentNode new.
@@ -727,7 +727,7 @@ LeAnnotationParser >> reduceActionForMethodName1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForMethodName2: nodes [
 	| result |
 	result := LeMethodNameArgumentNode new.
@@ -738,7 +738,7 @@ LeAnnotationParser >> reduceActionForMethodName2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForMethodName3: nodes [
 	| result |
 	result := LeMethodNameArgumentNode new.
@@ -750,7 +750,7 @@ LeAnnotationParser >> reduceActionForMethodName3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForMethodName4: nodes [
 	| result |
 	result := LeMethodNameArgumentNode new.
@@ -763,7 +763,7 @@ LeAnnotationParser >> reduceActionForMethodName4: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForNoCode1: nodes [
 	| result |
 	result := LeNoCodeArgumentNode new.
@@ -773,14 +773,14 @@ LeAnnotationParser >> reduceActionForNoCode1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForOptionalBooleanValue1: nodes [
 	| result |
 	result := Array new: 2.
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForOptionalBooleanValue2: nodes [
 	| result |
 	result := Array new: 2.
@@ -788,7 +788,7 @@ LeAnnotationParser >> reduceActionForOptionalBooleanValue2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForOptionalBooleanValue3: nodes [
 	| result |
 	result := Array new: 2.
@@ -797,7 +797,7 @@ LeAnnotationParser >> reduceActionForOptionalBooleanValue3: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForPageAnnotation1: nodes [
 	| result |
 	result := LePageAnnotationNode new.
@@ -806,7 +806,7 @@ LeAnnotationParser >> reduceActionForPageAnnotation1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForPageLabel1: nodes [
 	| result |
 	result := LePageArgumentNode new.
@@ -814,7 +814,7 @@ LeAnnotationParser >> reduceActionForPageLabel1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForPageLabel2: nodes [
 	| result |
 	result := LePageArgumentNode new.
@@ -824,7 +824,7 @@ LeAnnotationParser >> reduceActionForPageLabel2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForPath1: nodes [
 	| result |
 	result := LeFileNameArgumentNode new.
@@ -832,7 +832,7 @@ LeAnnotationParser >> reduceActionForPath1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForPath2: nodes [
 	| result |
 	result := LeFileNameArgumentNode new.
@@ -842,7 +842,7 @@ LeAnnotationParser >> reduceActionForPath2: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForPreviewExpanded1: nodes [
 	| result |
 	result := LePreviewExpandedArgumentNode new.
@@ -852,7 +852,7 @@ LeAnnotationParser >> reduceActionForPreviewExpanded1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForPreviewHeight1: nodes [
 	| result |
 	result := LePreviewHeightArgumentNode new.
@@ -862,7 +862,7 @@ LeAnnotationParser >> reduceActionForPreviewHeight1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForPreviewShow1: nodes [
 	| result |
 	result := LePreviewShowArgumentNode new.
@@ -872,7 +872,7 @@ LeAnnotationParser >> reduceActionForPreviewShow1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForReturn1: nodes [
 	| result |
 	result := LeReturnArgumentNode new.
@@ -882,7 +882,7 @@ LeAnnotationParser >> reduceActionForReturn1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForShow1: nodes [
 	| result |
 	result := LeShowArgumentNode new.
@@ -892,31 +892,31 @@ LeAnnotationParser >> reduceActionForShow1: nodes [
 	^ result
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForSwitchToDefault1: nodes [
 	self scope: #default.
 	^ nil
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForSwitchToLabel1: nodes [
 	self scope: #label.
 	^ nil
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForSwitchToPath1: nodes [
 	self scope: #path.
 	^ nil
 ]
 
-{ #category : #'generated-reduction actions' }
+{ #category : 'generated-reduction actions' }
 LeAnnotationParser >> reduceActionForSwitchToUuid1: nodes [
 	self scope: #uuid.
 	^ nil
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeAnnotationParser >> tryAllTokens [
 	^ true
 ]

@@ -1,39 +1,39 @@
 Class {
-	#name : #LeEmptyLinkNode,
-	#superclass : #LeLinkNode,
+	#name : 'LeEmptyLinkNode',
+	#superclass : 'LeLinkNode',
 	#instVars : [
 		'left',
 		'right'
 	],
-	#category : #'Lepiter-Parser'
+	#category : 'Lepiter-Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeEmptyLinkNode >> acceptVisitor: aContentVisitor [
 	^ aContentVisitor visitEmptyLink: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeEmptyLinkNode >> left [
 	^ left
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeEmptyLinkNode >> left: aSmaCCToken [
 	left := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeEmptyLinkNode >> right [
 	^ right
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeEmptyLinkNode >> right: aSmaCCToken [
 	right := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeEmptyLinkNode >> tokenVariables [
 	^ #(#left #right)
 ]

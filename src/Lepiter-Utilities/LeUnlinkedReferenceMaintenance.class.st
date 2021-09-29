@@ -23,32 +23,32 @@ Public API and Key Messages
 
 "
 Class {
-	#name : #LeUnlinkedReferenceMaintenance,
-	#superclass : #Object,
+	#name : 'LeUnlinkedReferenceMaintenance',
+	#superclass : 'Object',
 	#instVars : [
 		'newLinksByPage',
 		'sourceBlock',
 		'sourceString',
 		'linkedPages'
 	],
-	#category : #'Lepiter-Utilities-Utilities'
+	#category : 'Lepiter-Utilities-Utilities'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeUnlinkedReferenceMaintenance class >> forBlock: aLeBlock [
 
 	(aLeBlock isNil or: [ aLeBlock database isDatabase not]) ifTrue: [ ^ nil ].
 	^ self new sourceBlock: aLeBlock
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeUnlinkedReferenceMaintenance class >> submitForBlock: aLeBlock [
 
 	^ (self forBlock: aLeBlock) ifNotNil: 
 		[ :maintainer | maintainer submit ]
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeUnlinkedReferenceMaintenance class >> synchronouslyUpdateDatabase: aLeDatabase [
 	"Update all snippets in the supplied database in the calling process.
 	This is normally only used for example methods where we want to be sure that the unlinked references are in a known state."
@@ -58,7 +58,7 @@ LeUnlinkedReferenceMaintenance class >> synchronouslyUpdateDatabase: aLeDatabase
 
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeUnlinkedReferenceMaintenance class >> updateDatabase: aLeDatabase [
 	"Update all snippets in the supplied database.
 	This is normally only used for example methods where we want to be sure that the unlinked references are in a known state."
@@ -67,20 +67,20 @@ LeUnlinkedReferenceMaintenance class >> updateDatabase: aLeDatabase [
 		self submitForBlock: aLeSnippet ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeUnlinkedReferenceMaintenance >> database [ 
 
 	^ sourceBlock database
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeUnlinkedReferenceMaintenance >> initialize [ 
 
 	super initialize.
 	newLinksByPage := Dictionary new.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeUnlinkedReferenceMaintenance >> linkedPages [ 
 
 	^ linkedPages ifNil: 
@@ -88,7 +88,7 @@ LeUnlinkedReferenceMaintenance >> linkedPages [
 			collect: [ :each | each asLowercase] as: Array. ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeUnlinkedReferenceMaintenance >> linkedPagesFrom: aLeBlock [
 	"Answer the titles of all the pages linked from aLeBlock"
 	| visitor |
@@ -98,20 +98,20 @@ LeUnlinkedReferenceMaintenance >> linkedPagesFrom: aLeBlock [
 	^ visitor linkedPages.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeUnlinkedReferenceMaintenance >> logicalDatabase [ 
 
 	^ self database logicalDatabase
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeUnlinkedReferenceMaintenance >> newLinksFor: page [
 	"Answer the unlinked references to the supplied page"
 
 	^ newLinksByPage at: page title ifAbsent: [ #() ]
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 LeUnlinkedReferenceMaintenance >> run [
 	"Update the unlinked references from sourcePage"
 
@@ -130,7 +130,7 @@ LeUnlinkedReferenceMaintenance >> run [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeUnlinkedReferenceMaintenance >> scanForLinks [
 	"Iterate over the page names and build links for any matches.
 	Only take into account named pages."
@@ -140,7 +140,7 @@ LeUnlinkedReferenceMaintenance >> scanForLinks [
 			self scanPage: page ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeUnlinkedReferenceMaintenance >> scanPage: page [
 	"Scan the block to see if it has unlinked references the supplied page.
 	If it also has linked references it doesn't count."
@@ -160,19 +160,19 @@ LeUnlinkedReferenceMaintenance >> scanPage: page [
 					target: page) ].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeUnlinkedReferenceMaintenance >> sourceBlock [
 	^ sourceBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeUnlinkedReferenceMaintenance >> sourceBlock: aLeBlock [
 
 	sourceBlock := aLeBlock.
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeUnlinkedReferenceMaintenance >> sourceString [
 	^ sourceString
 		ifNil: [ sourceString := (sourceBlock isTextSnippet
@@ -183,7 +183,7 @@ LeUnlinkedReferenceMaintenance >> sourceString [
 				ifFalse: [ sourceBlock contentAsString ]) asLowercase ]
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 LeUnlinkedReferenceMaintenance >> submit [ 
 	"Submit the receiver for processing in the low priority non-UI single pool.
 	If BlUseAsyncFeatures are disabled, run immediately"
@@ -194,7 +194,7 @@ LeUnlinkedReferenceMaintenance >> submit [
 		otherwise: [ self run ].
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeUnlinkedReferenceMaintenance >> updateDestinationPages [
 	"Update all the pages in the database with updated links"
 

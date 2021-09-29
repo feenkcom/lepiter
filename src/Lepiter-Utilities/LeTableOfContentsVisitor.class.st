@@ -7,15 +7,15 @@ Public API and Key Messages
 
 "
 Class {
-	#name : #LeTableOfContentsVisitor,
-	#superclass : #Object,
+	#name : 'LeTableOfContentsVisitor',
+	#superclass : 'Object',
 	#instVars : [
 		'stack'
 	],
-	#category : #'Lepiter-Utilities-ToC'
+	#category : 'Lepiter-Utilities-ToC'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeTableOfContentsVisitor class >> tocForPage: aLePage [
 	"Answer the table of Contents based on the supplied page"
 	<return: #Collection of: #LeTableOfContentsNode>
@@ -23,14 +23,14 @@ LeTableOfContentsVisitor class >> tocForPage: aLePage [
 	^ self new tocForPage: aLePage
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeTableOfContentsVisitor >> initialize [
 
 	super initialize.
 	stack := Stack new.
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LeTableOfContentsVisitor >> tocForPage: aLePage [
 	"Construct the ToC tree for the supplied page."
 	<return: #Collection of: #LeTableOfContentsNode>
@@ -52,7 +52,7 @@ LeTableOfContentsVisitor >> tocForPage: aLePage [
 			with: unclassifiedPages ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeTableOfContentsVisitor >> visitChild: aLeContent [
 	| relavantLinks sortedLinks |
 
@@ -69,7 +69,7 @@ LeTableOfContentsVisitor >> visitChild: aLeContent [
 				[ stack top addChild: (LeTableOfContentsNode new link: link) ] ].
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeTableOfContentsVisitor >> visitChildrenOf: aLeContent [
 	| stackTopHasChildren |
 

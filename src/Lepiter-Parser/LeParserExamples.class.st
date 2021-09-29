@@ -4,12 +4,12 @@ I exemplify {{gtClass:LeParser}}.
 
 "
 Class {
-	#name : #LeParserExamples,
-	#superclass : #Object,
-	#category : #'Lepiter-Parser'
+	#name : 'LeParserExamples',
+	#superclass : 'Object',
+	#category : 'Lepiter-Parser'
 }
 
-{ #category : #'examples - links' }
+{ #category : 'examples - links' }
 LeParserExamples >> blockLink [
 	<gtExample>
 	| aNode |
@@ -21,7 +21,7 @@ LeParserExamples >> blockLink [
 	^ aNode
 ]
 
-{ #category : #'examples - markdown' }
+{ #category : 'examples - markdown' }
 LeParserExamples >> bold [
 	<gtExample>
 	| node bold |
@@ -38,7 +38,7 @@ LeParserExamples >> bold [
 	^ node
 ]
 
-{ #category : #'examples - markdown' }
+{ #category : 'examples - markdown' }
 LeParserExamples >> boldItalic [
 	<gtExample>
 	| node bold italic boldItalic |
@@ -62,7 +62,7 @@ LeParserExamples >> boldItalic [
 	^ node
 ]
 
-{ #category : #'examples - markdown' }
+{ #category : 'examples - markdown' }
 LeParserExamples >> boldWithAStar [
 	<gtExample>
 	| node bold |
@@ -76,7 +76,7 @@ LeParserExamples >> boldWithAStar [
 	^ node
 ]
 
-{ #category : #'examples - links' }
+{ #category : 'examples - links' }
 LeParserExamples >> bracketLink [
 	<gtExample>
 	| aNode |
@@ -88,7 +88,7 @@ LeParserExamples >> bracketLink [
 	^ aNode
 ]
 
-{ #category : #'examples - markdown' }
+{ #category : 'examples - markdown' }
 LeParserExamples >> bracketedLink [
 	<gtExample>
 	| node italic link |
@@ -105,7 +105,7 @@ LeParserExamples >> bracketedLink [
 	^ node
 ]
 
-{ #category : #'examples - annotations' }
+{ #category : 'examples - annotations' }
 LeParserExamples >> changesAnnotation [
 	<gtExample>
 	| aNode found |
@@ -123,7 +123,7 @@ LeParserExamples >> changesAnnotation [
 	^ aNode
 ]
 
-{ #category : #'examples - annotations' }
+{ #category : 'examples - annotations' }
 LeParserExamples >> classAnnotation [
 	<gtExample>
 	| aNode found |
@@ -139,7 +139,7 @@ LeParserExamples >> classAnnotation [
 	^ aNode
 ]
 
-{ #category : #'examples - markdown' }
+{ #category : 'examples - markdown' }
 LeParserExamples >> codeBlock [
 	<gtExample>
 	| node codeBlocks |
@@ -175,7 +175,7 @@ console.log(3 + 4);
 	^ node
 ]
 
-{ #category : #'examples - empty links' }
+{ #category : 'examples - empty links' }
 LeParserExamples >> emptyBracketLink [
 	<gtExample>
 	| aNode |
@@ -186,7 +186,7 @@ LeParserExamples >> emptyBracketLink [
 	^ aNode
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeParserExamples >> emptyBracketLink_Incomplete [
 	<gtExample>
 	| aNode |
@@ -197,7 +197,7 @@ LeParserExamples >> emptyBracketLink_Incomplete [
 	^ aNode
 ]
 
-{ #category : #'examples - links' }
+{ #category : 'examples - links' }
 LeParserExamples >> emptyLabelImageLink [
 	<gtExample>
 	| aNode url linkNode |
@@ -218,7 +218,7 @@ LeParserExamples >> emptyLabelImageLink [
 	^ aNode
 ]
 
-{ #category : #'examples - annotations' }
+{ #category : 'examples - annotations' }
 LeParserExamples >> exampleSnippet [
 	<gtExample>
 	<noTest>
@@ -238,7 +238,7 @@ LeParserExamples >> exampleSnippet [
 	^ aNode
 ]
 
-{ #category : #'examples - links' }
+{ #category : 'examples - links' }
 LeParserExamples >> externalImageLink [
 	<gtExample>
 	| aNode label url linkNode |
@@ -262,7 +262,7 @@ LeParserExamples >> externalImageLink [
 	^ aNode
 ]
 
-{ #category : #'examples - links' }
+{ #category : 'examples - links' }
 LeParserExamples >> externalLabelUrlLink [
 	<gtExample>
 	| aNode label url |
@@ -283,7 +283,7 @@ LeParserExamples >> externalLabelUrlLink [
 	^ aNode
 ]
 
-{ #category : #'examples - links' }
+{ #category : 'examples - links' }
 LeParserExamples >> externalLabelUrlLinkWithSpace [
 	<gtExample>
 	| aNode label url |
@@ -304,7 +304,7 @@ LeParserExamples >> externalLabelUrlLinkWithSpace [
 	^ aNode
 ]
 
-{ #category : #'examples - links' }
+{ #category : 'examples - links' }
 LeParserExamples >> externalUrlLink [
 	<gtExample>
 	| aNode url |
@@ -322,7 +322,7 @@ LeParserExamples >> externalUrlLink [
 	^ aNode
 ]
 
-{ #category : #'examples - markdown' }
+{ #category : 'examples - markdown' }
 LeParserExamples >> headers [
 	<gtExample>
 	| node headers |
@@ -336,7 +336,7 @@ LeParserExamples >> headers [
 	^ node
 ]
 
-{ #category : #'examples - markdown' }
+{ #category : 'examples - markdown' }
 LeParserExamples >> inlineCode [
 	<gtExample>
 	| node code |
@@ -349,7 +349,7 @@ LeParserExamples >> inlineCode [
 	^ node
 ]
 
-{ #category : #'examples - markdown' }
+{ #category : 'examples - markdown' }
 LeParserExamples >> italic [
 	<gtExample>
 	| node italic |
@@ -366,7 +366,7 @@ LeParserExamples >> italic [
 	^ node
 ]
 
-{ #category : #'examples - links' }
+{ #category : 'examples - links' }
 LeParserExamples >> keywordLink [
 	<gtExample>
 	| aNode |
@@ -378,7 +378,7 @@ LeParserExamples >> keywordLink [
 	^ aNode
 ]
 
-{ #category : #'examples - links' }
+{ #category : 'examples - links' }
 LeParserExamples >> keywordLinkFollowedByText [
 	<gtExample>
 	| aNode |
@@ -392,7 +392,7 @@ LeParserExamples >> keywordLinkFollowedByText [
 	^ aNode
 ]
 
-{ #category : #'examples - links' }
+{ #category : 'examples - links' }
 LeParserExamples >> keywordLinkWithTwoWords [
 	<gtExample>
 	| aNode |
@@ -404,7 +404,7 @@ LeParserExamples >> keywordLinkWithTwoWords [
 	^ aNode
 ]
 
-{ #category : #'examples - annotations' }
+{ #category : 'examples - annotations' }
 LeParserExamples >> methodAnnotation [
 	<gtExample>
 	| aNode found |
@@ -423,7 +423,7 @@ LeParserExamples >> methodAnnotation [
 	^ aNode
 ]
 
-{ #category : #'examples - support' }
+{ #category : 'examples - support' }
 LeParserExamples >> parse: aString [
 	<gtExample>
 	| aResult |
@@ -432,13 +432,13 @@ LeParserExamples >> parse: aString [
 	^ aResult
 ]
 
-{ #category : #'examples - support' }
+{ #category : 'examples - support' }
 LeParserExamples >> parser [
 	<gtExample>
 	^ LeParser
 ]
 
-{ #category : #'examples - links' }
+{ #category : 'examples - links' }
 LeParserExamples >> specialCharacterBracketLink [
 	<gtExample>
 	| node source links |
@@ -468,7 +468,7 @@ LeParserExamples >> specialCharacterBracketLink [
 	^ node
 ]
 
-{ #category : #'examples - strings' }
+{ #category : 'examples - strings' }
 LeParserExamples >> text [
 	<gtExample>
 	| aNode |
@@ -479,7 +479,7 @@ LeParserExamples >> text [
 	^ aNode
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeParserExamples >> textAndLinkAndURL [
 	<gtExample>
 	| aNode |
@@ -491,7 +491,7 @@ LeParserExamples >> textAndLinkAndURL [
 	^ aNode
 ]
 
-{ #category : #'examples - strings' }
+{ #category : 'examples - strings' }
 LeParserExamples >> textAndLinks [
 	<gtExample>
 	| aNode |
@@ -506,7 +506,7 @@ LeParserExamples >> textAndLinks [
 	^ aNode
 ]
 
-{ #category : #'examples - annotations' }
+{ #category : 'examples - annotations' }
 LeParserExamples >> unknownAnnotation [
 	<gtExample>
 	| aNode annotationNode |

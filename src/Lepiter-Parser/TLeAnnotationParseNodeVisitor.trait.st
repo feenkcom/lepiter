@@ -1,136 +1,136 @@
 Trait {
-	#name : #TLeAnnotationParseNodeVisitor,
+	#name : 'TLeAnnotationParseNodeVisitor',
 	#traits : 'TSmaCCParseNodeVisitor',
 	#classTraits : 'TSmaCCParseNodeVisitor classTrait',
-	#category : #'Lepiter-Parser'
+	#category : 'Lepiter-Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeAnnotationParseNodeVisitor >> visitAlignmentArgument: anAlignmentArgument [
 	^ self visitArgument: anAlignmentArgument
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeAnnotationParseNodeVisitor >> visitAnnotation: anAnnotation [
 	^ self visitAnnotationParse: anAnnotation
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeAnnotationParseNodeVisitor >> visitAnnotationParse: anAnnotationParse [
 	^ self visitSmaCCParseNode: anAnnotationParse
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeAnnotationParseNodeVisitor >> visitArgument: anArgument [
 	^ self visitAnnotationParse: anArgument
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeAnnotationParseNodeVisitor >> visitChangesAnnotation: aChangesAnnotation [
 	^ self visitAnnotation: aChangesAnnotation
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeAnnotationParseNodeVisitor >> visitClassAnnotation: aClassAnnotation [
 	^ self visitAnnotation: aClassAnnotation
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeAnnotationParseNodeVisitor >> visitClassNameArgument: aClassNameArgument [
 	^ self visitNameArgument: aClassNameArgument
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeAnnotationParseNodeVisitor >> visitCodeExpandedArgument: aCodeExpandedArgument [
 	^ self visitArgument: aCodeExpandedArgument
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeAnnotationParseNodeVisitor >> visitDbArgument: aDbArgument [
 	^ self visitArgument: aDbArgument
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeAnnotationParseNodeVisitor >> visitExampleAnnotation: anExampleAnnotation [
 	^ self visitAnnotation: anExampleAnnotation
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeAnnotationParseNodeVisitor >> visitExpandedArgument: anExpandedArgument [
 	^ self visitArgument: anExpandedArgument
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeAnnotationParseNodeVisitor >> visitFileNameArgument: aFileNameArgument [
 	^ self visitNameArgument: aFileNameArgument
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeAnnotationParseNodeVisitor >> visitFullArgument: aFullArgument [
 	^ self visitArgument: aFullArgument
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeAnnotationParseNodeVisitor >> visitHeightArgument: aHeightArgument [
 	^ self visitArgument: aHeightArgument
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeAnnotationParseNodeVisitor >> visitLabelArgument: aLabelArgument [
 	^ self visitArgument: aLabelArgument
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeAnnotationParseNodeVisitor >> visitMethodAnnotation: aMethodAnnotation [
 	^ self visitAnnotation: aMethodAnnotation
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeAnnotationParseNodeVisitor >> visitMethodNameArgument: aMethodNameArgument [
 	^ self visitClassNameArgument: aMethodNameArgument
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeAnnotationParseNodeVisitor >> visitNameArgument: aNameArgument [
 	^ self visitArgument: aNameArgument
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeAnnotationParseNodeVisitor >> visitNoCodeArgument: aNoCodeArgument [
 	^ self visitArgument: aNoCodeArgument
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeAnnotationParseNodeVisitor >> visitPageAnnotation: aPageAnnotation [
 	^ self visitAnnotation: aPageAnnotation
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeAnnotationParseNodeVisitor >> visitPageArgument: aPageArgument [
 	^ self visitArgument: aPageArgument
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeAnnotationParseNodeVisitor >> visitPreviewExpandedArgument: aPreviewExpandedArgument [
 	^ self visitArgument: aPreviewExpandedArgument
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeAnnotationParseNodeVisitor >> visitPreviewHeightArgument: aPreviewHeightArgument [
 	^ self visitArgument: aPreviewHeightArgument
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeAnnotationParseNodeVisitor >> visitPreviewShowArgument: aPreviewShowArgument [
 	^ self visitArgument: aPreviewShowArgument
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeAnnotationParseNodeVisitor >> visitReturnArgument: aReturnArgument [
 	^ self visitArgument: aReturnArgument
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeAnnotationParseNodeVisitor >> visitShowArgument: aShowArgument [
 	^ self visitArgument: aShowArgument
 ]

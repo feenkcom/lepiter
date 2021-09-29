@@ -1,28 +1,28 @@
 Class {
-	#name : #LeEmptyHashLinkNode,
-	#superclass : #LeEmptyLinkNode,
+	#name : 'LeEmptyHashLinkNode',
+	#superclass : 'LeEmptyLinkNode',
 	#instVars : [
 		'prefix'
 	],
-	#category : #'Lepiter-Parser'
+	#category : 'Lepiter-Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeEmptyHashLinkNode >> acceptVisitor: aContentVisitor [
 	^ aContentVisitor visitEmptyHashLink: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeEmptyHashLinkNode >> prefix [
 	^ prefix
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeEmptyHashLinkNode >> prefix: aSmaCCToken [
 	prefix := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeEmptyHashLinkNode >> tokenVariables [
 	^ #(#prefix)
 ]

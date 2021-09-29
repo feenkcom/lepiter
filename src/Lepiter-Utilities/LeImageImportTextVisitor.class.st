@@ -5,40 +5,40 @@ See {{gtClass:name=LeImageImportVisitor}} for more information.
 
 "
 Class {
-	#name : #LeImageImportTextVisitor,
-	#superclass : #Object,
+	#name : 'LeImageImportTextVisitor',
+	#superclass : 'Object',
 	#traits : 'TLeContentNodeVisitor',
 	#classTraits : 'TLeContentNodeVisitor classTrait',
 	#instVars : [
 		'importer',
 		'snippet'
 	],
-	#category : #'Lepiter-Utilities-ImageImport'
+	#category : 'Lepiter-Utilities-ImageImport'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeImageImportTextVisitor >> importer [
 	^ importer
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeImageImportTextVisitor >> importer: anObject [
 	importer := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeImageImportTextVisitor >> snippet [
 	<return: #LeTextSnippet>
 
 	^ snippet
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeImageImportTextVisitor >> snippet: aLeTextSnippet [
 	snippet := aLeTextSnippet 
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeImageImportTextVisitor >> visitExternalImageLink: anExternalImageLink [
 	"Attempt to download the supplied link and add it as an attachment to the snippet's database."
 	| urlString pathString oldString newString |

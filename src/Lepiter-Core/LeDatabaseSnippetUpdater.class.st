@@ -1,8 +1,8 @@
 "
-I update {{gtClass:LeBlock}} instances.
-I properly update {{gtMethod:LeBlock>>#text}}, and {{gtMethod:LeContent>>#editTime|label=#selector}} and {{gtMethod:LeContent>>#editEmail|label=#selector}} values.
-Use me by calling {{gtMethod:LeBlock>>#updateText:}} {{gtExample:LeDatabaseBlockUpdaterExamples>>#updateBlockOneToTwo_Simplified_Text}} 
-You can also use {{gtMethod:LeBlock>>#updateString:}} {{gtExample:LeDatabaseBlockUpdaterExamples>>#updateBlockOneToTwo_Simplified_String}} 
+I update {{gtClass:LeSnippet}} instances.
+I properly update {{gtMethod:LeTextSnippet>>#text}}, and {{gtMethod:LeContent>>#editTime|label=#selector}} and {{gtMethod:LeContent>>#editEmail|label=#selector}} values.
+Use me by calling {{gtMethod:LeTextSnippet>>#updateText:source:}} {{gtExample:LeDatabaseSnippetUpdaterExamples>>#updateSnippetOneToTwo_Simplified_Text}} 
+You can also use {{gtMethod:LeTextSnippet>>#updateString:}} {{gtExample:LeDatabaseSnippetUpdaterExamples>>#updateSnippetOneToTwo_Simplified_String}} 
 
 
 "

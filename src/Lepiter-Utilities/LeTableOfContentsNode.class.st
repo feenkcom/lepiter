@@ -8,8 +8,8 @@ While the database currently only supports a single specified ToC, there is noth
 
 "
 Class {
-	#name : #LeTableOfContentsNode,
-	#superclass : #Object,
+	#name : 'LeTableOfContentsNode',
+	#superclass : 'Object',
 	#traits : 'TLeSpotterChildrenEnumerationSearch',
 	#classTraits : 'TLeSpotterChildrenEnumerationSearch classTrait',
 	#instVars : [
@@ -17,28 +17,28 @@ Class {
 		'link',
 		'children'
 	],
-	#category : #'Lepiter-Utilities-ToC'
+	#category : 'Lepiter-Utilities-ToC'
 }
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 LeTableOfContentsNode >> = anObject [
 	^ self class = anObject class and: [ 
 		self page = anObject page ]
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 LeTableOfContentsNode >> addChild: aLeTableOfContentsNode [
 	"Add the supplied node to the receiver's children"
 
 	children := children copyWith: aLeTableOfContentsNode
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeTableOfContentsNode >> children [
 	^ children
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 LeTableOfContentsNode >> gtChildrenFor: aView [
 	<gtView>
 
@@ -49,7 +49,7 @@ LeTableOfContentsNode >> gtChildrenFor: aView [
 		children: #children
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeTableOfContentsNode >> gtLiveFor: aView [
 	<gtView>
 	self page ifNil: [ ^ aView empty ].
@@ -60,19 +60,19 @@ LeTableOfContentsNode >> gtLiveFor: aView [
 		view: #gtLiveFor:
 ]
 
-{ #category : #'api - testing' }
+{ #category : 'api - testing' }
 LeTableOfContentsNode >> hasChildren [
 	<return: #Boolean>
 	^ self children isNotEmpty
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 LeTableOfContentsNode >> hash [
 	^ self class hash bitXor: [ 
 		self page hash ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeTableOfContentsNode >> initialize [
 
 	super initialize.
@@ -80,12 +80,12 @@ LeTableOfContentsNode >> initialize [
 	children := #().
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeTableOfContentsNode >> isToCNode [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeTableOfContentsNode >> link [
 	"Answer the page link the receiver refers to"
 	<return: #LeTextualPageLink>
@@ -93,23 +93,23 @@ LeTableOfContentsNode >> link [
 	^ link
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeTableOfContentsNode >> link: aLePageLink [
 
 	link := aLePageLink
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeTableOfContentsNode >> page [
 	^ page ifNil: [ link ifNotNil: [ page := link target ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeTableOfContentsNode >> page: anObject [
 	page := anObject
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LeTableOfContentsNode >> printOn: aStream [
 	| pageTitle |
 
@@ -129,7 +129,7 @@ LeTableOfContentsNode >> printOn: aStream [
 		nextPut: $).
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 LeTableOfContentsNode >> selectedPageDo: aBlock [
 	aBlock cull: self page
 ]

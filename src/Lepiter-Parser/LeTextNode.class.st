@@ -1,34 +1,34 @@
 Class {
-	#name : #LeTextNode,
-	#superclass : #LeContentNode,
+	#name : 'LeTextNode',
+	#superclass : 'LeContentNode',
 	#instVars : [
 		'text'
 	],
-	#category : #'Lepiter-Parser'
+	#category : 'Lepiter-Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeTextNode >> acceptVisitor: aContentVisitor [
 	^ aContentVisitor visitText: self
 ]
 
-{ #category : #'api - accessing' }
+{ #category : 'api - accessing' }
 LeTextNode >> content [
 	"Return text that represents this node"
 	^ self text source
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeTextNode >> text [
 	^ text
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeTextNode >> text: aSmaCCToken [
 	text := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeTextNode >> tokenVariables [
 	^ #(#text)
 ]

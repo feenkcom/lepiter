@@ -1,15 +1,15 @@
 Class {
-	#name : #LePageArgumentNode,
-	#superclass : #LeArgumentNode,
-	#category : #'Lepiter-Parser'
+	#name : 'LePageArgumentNode',
+	#superclass : 'LeArgumentNode',
+	#category : 'Lepiter-Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 LePageArgumentNode >> acceptVisitor: anAnnotationParseVisitor [
 	^ anAnnotationParseVisitor visitPageArgument: self
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LePageArgumentNode >> isDefined [
 
 	^ value value isNotNil

@@ -1,76 +1,76 @@
 Class {
-	#name : #LeCodeBlockNode,
-	#superclass : #LeContentNode,
+	#name : 'LeCodeBlockNode',
+	#superclass : 'LeContentNode',
 	#instVars : [
 		'language',
 		'code',
 		'begin',
 		'end'
 	],
-	#category : #'Lepiter-Parser'
+	#category : 'Lepiter-Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeCodeBlockNode >> acceptVisitor: aContentVisitor [
 	^ aContentVisitor visitCodeBlock: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeCodeBlockNode >> begin [
 	^ begin
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeCodeBlockNode >> begin: aSmaCCToken [
 	begin := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeCodeBlockNode >> code [
 	^ code
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeCodeBlockNode >> code: anObject [
 	self setParent: self code to: nil.
 	code := anObject.
 	self setParent: self code to: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeCodeBlockNode >> end [
 	^ end
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeCodeBlockNode >> end: aSmaCCToken [
 	end := aSmaCCToken
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeCodeBlockNode >> isForSmalltalk [
 	^ language isNil
 		or: [ #('smalltalk' 'st' 'pharo') includes: language source asLowercase ]
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeCodeBlockNode >> language [
 	^ language
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeCodeBlockNode >> language: anObject [
 	self setParent: self language to: nil.
 	language := anObject.
 	self setParent: self language to: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeCodeBlockNode >> otherVariables [
 	^ #(#language #code)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeCodeBlockNode >> tokenVariables [
 	^ #(#begin #end)
 ]

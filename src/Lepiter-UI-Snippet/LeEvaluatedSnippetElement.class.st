@@ -207,5 +207,6 @@ LeEvaluatedSnippetElement >> spawnBelowTool: aTool [
 LeEvaluatedSnippetElement >> updateCoderUIModel [
 	coderContentModel sourceCoder: self snippetViewModel coderViewModel.
 	editorElement textualCoderViewModel: self snippetViewModel coderViewModel.
-	spawnDestinationLook onCoderChanged: self snippetViewModel coderViewModel
+	spawnDestinationLook onCoderChanged: self snippetViewModel coderViewModel.
+	coderToolbar coderUIModel: self snippetViewModel coderViewModel
 ]

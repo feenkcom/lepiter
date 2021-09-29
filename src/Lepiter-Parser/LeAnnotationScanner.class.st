@@ -1,10 +1,10 @@
 Class {
-	#name : #LeAnnotationScanner,
-	#superclass : #SmaCCScanner,
-	#category : #'Lepiter-Parser'
+	#name : 'LeAnnotationScanner',
+	#superclass : 'SmaCCScanner',
+	#category : 'Lepiter-Parser'
 }
 
-{ #category : #'generated-initialization' }
+{ #category : 'generated-initialization' }
 LeAnnotationScanner class >> initializeKeywordMap [
 	keywordMap := Dictionary new.
 	#(#(2 'alignment' #(17 #(#default))) #(2 'class' #(27 #(#default))) #(2 'codeExpanded' #(23 #(#default))) #(2 'documentWidth' #(24 #(#default))) #(2 'full' #(10 #(#default))) #(2 'fullWidth' #(25 #(#default))) #(2 'name' #(7 #(#default))) #(2 'noCode' #(21 #(#default))) #(2 'paragraphWidth' #(26 #(#default))) #(2 'previewExpanded' #(19 #(#default))) #(2 'previewHeight' #(20 #(#default))) #(2 'previewShow' #(18 #(#default))) #(2 'return' #(16 #(#default))) #(3 '>>' #(22 #(#default))) #(3 'alignment' #(17 #(#default))) #(3 'class' #(27 #(#default))) #(3 'codeExpanded' #(23 #(#default))) #(3 'documentWidth' #(24 #(#default))) #(3 'full' #(10 #(#default))) #(3 'fullWidth' #(25 #(#default))) #(3 'name' #(7 #(#default))) #(3 'noCode' #(21 #(#default))) #(3 'paragraphWidth' #(26 #(#default))) #(3 'previewExpanded' #(19 #(#default))) #(3 'previewHeight' #(20 #(#default))) #(3 'previewShow' #(18 #(#default))) #(3 'return' #(16 #(#default))))
@@ -15,17 +15,17 @@ LeAnnotationScanner class >> initializeKeywordMap [
 	^ keywordMap
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> emptySymbolTokenId [
 	^ 69
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> errorTokenId [
 	^ 70
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan1 [
 	self step.
 	currentCharacter == $#
@@ -58,7 +58,7 @@ LeAnnotationScanner >> scan1 [
 	^ self scan1X11
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan10 [
 	self step.
 	currentCharacter == $#
@@ -83,7 +83,7 @@ LeAnnotationScanner >> scan10 [
 	^ self scan10X8
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan10X1 [
 	self recordMatch: #(28).
 	self step.
@@ -126,7 +126,7 @@ LeAnnotationScanner >> scan10X1 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan10X1X1 [
 	[ self recordMatch: #(28).
 	self step.
@@ -135,7 +135,7 @@ LeAnnotationScanner >> scan10X1X1 [
 				or: [ currentCharacter >= $~ ] ] ] whileTrue
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan10X2 [
 	self recordMatch: #(3 28).
 	self step.
@@ -156,7 +156,7 @@ LeAnnotationScanner >> scan10X2 [
 	^ self scan10X2X2
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan10X2X1 [
 	[ self recordMatch: #(28).
 	self step.
@@ -165,7 +165,7 @@ LeAnnotationScanner >> scan10X2X1 [
 				or: [ currentCharacter >= $~ ] ] ] whileTrue
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan10X2X2 [
 	(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
 		ifTrue: [ ^ self scan13 ].
@@ -189,7 +189,7 @@ LeAnnotationScanner >> scan10X2X2 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan10X3 [
 	self recordMatch: #(3 28).
 	self step.
@@ -205,7 +205,7 @@ LeAnnotationScanner >> scan10X3 [
 	^ self scan10X3X2
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan10X3X1 [
 	[ self recordMatch: #(28).
 	self step.
@@ -214,7 +214,7 @@ LeAnnotationScanner >> scan10X3X1 [
 				or: [ currentCharacter >= $~ ] ] ] whileTrue
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan10X3X2 [
 	(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
 		ifTrue: [ ^ self scan13 ].
@@ -238,7 +238,7 @@ LeAnnotationScanner >> scan10X3X2 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan10X4 [
 	self recordMatch: #(3 28).
 	self step.
@@ -252,7 +252,7 @@ LeAnnotationScanner >> scan10X4 [
 	^ self scan10X4X2
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan10X4X1 [
 	[ self recordMatch: #(28).
 	self step.
@@ -261,7 +261,7 @@ LeAnnotationScanner >> scan10X4X1 [
 				or: [ currentCharacter >= $~ ] ] ] whileTrue
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan10X4X2 [
 	(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
 		ifTrue: [ ^ self scan13 ].
@@ -285,7 +285,7 @@ LeAnnotationScanner >> scan10X4X2 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan10X5 [
 	[ self recordMatch: #(4 28).
 	self step.
@@ -302,7 +302,7 @@ LeAnnotationScanner >> scan10X5 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan10X6 [
 	[ self recordMatch: #(28).
 	self step.
@@ -311,7 +311,7 @@ LeAnnotationScanner >> scan10X6 [
 				or: [ currentCharacter >= $~ ] ] ] whileTrue
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan10X7 [
 	(currentCharacter <= Character space
 		or: [ ('"$' includes: currentCharacter)
@@ -339,7 +339,7 @@ LeAnnotationScanner >> scan10X7 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan10X8 [
 	currentCharacter == $s
 		ifTrue: [ ^ self scan26 ].
@@ -363,7 +363,7 @@ LeAnnotationScanner >> scan10X8 [
 	^ self scan10X7
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan11 [
 	[ self recordMatch: #(3 28).
 	self step.
@@ -380,7 +380,7 @@ LeAnnotationScanner >> scan11 [
 	^ self scan11X2
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan11X1 [
 	[ self recordMatch: #(28).
 	self step.
@@ -389,7 +389,7 @@ LeAnnotationScanner >> scan11X1 [
 				or: [ currentCharacter >= $~ ] ] ] whileTrue
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan11X2 [
 	(currentCharacter <= Character space
 		or: [ (currentCharacter between: $" and: $$)
@@ -404,7 +404,7 @@ LeAnnotationScanner >> scan11X2 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan12 [
 	self recordMatch: #(28).
 	self step.
@@ -420,7 +420,7 @@ LeAnnotationScanner >> scan12 [
 	^ self scan12X2
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan12X1 [
 	[ self recordMatch: #(28).
 	self step.
@@ -429,7 +429,7 @@ LeAnnotationScanner >> scan12X1 [
 				or: [ currentCharacter >= $~ ] ] ] whileTrue
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan12X2 [
 	(currentCharacter <= Character space
 		or: [ (currentCharacter between: $" and: $$)
@@ -444,7 +444,7 @@ LeAnnotationScanner >> scan12X2 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan13 [
 	[ self recordMatch: #(3 28).
 	self step.
@@ -455,7 +455,7 @@ LeAnnotationScanner >> scan13 [
 	^ self scan13X2
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan13X1 [
 	[ self recordMatch: #(28).
 	self step.
@@ -464,7 +464,7 @@ LeAnnotationScanner >> scan13X1 [
 				or: [ currentCharacter >= $~ ] ] ] whileTrue
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan13X2 [
 	(currentCharacter <= $/
 		or: [ (currentCharacter between: $; and: $<)
@@ -487,7 +487,7 @@ LeAnnotationScanner >> scan13X2 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan14 [
 	self recordMatch: #(3 28).
 	self step.
@@ -514,7 +514,7 @@ LeAnnotationScanner >> scan14 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan14X1 [
 	[ self recordMatch: #(28).
 	self step.
@@ -525,7 +525,7 @@ LeAnnotationScanner >> scan14X1 [
 	^ self scan14X1X2
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan14X1X1 [
 	[ self recordMatch: #(28).
 	self step.
@@ -534,7 +534,7 @@ LeAnnotationScanner >> scan14X1X1 [
 				or: [ currentCharacter >= $~ ] ] ] whileTrue
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan14X1X2 [
 	(currentCharacter <= $/
 		or: [ (currentCharacter between: $; and: $<)
@@ -557,7 +557,7 @@ LeAnnotationScanner >> scan14X1X2 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan14X2 [
 	[ self recordMatch: #(28).
 	self step.
@@ -566,7 +566,7 @@ LeAnnotationScanner >> scan14X2 [
 				or: [ currentCharacter >= $~ ] ] ] whileTrue
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan15 [
 	self recordMatch: #(3 28).
 	self step.
@@ -577,7 +577,7 @@ LeAnnotationScanner >> scan15 [
 	^ self scan15X2
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan15X1 [
 	[ self recordMatch: #(28).
 	self step.
@@ -586,7 +586,7 @@ LeAnnotationScanner >> scan15X1 [
 				or: [ currentCharacter >= $~ ] ] ] whileTrue
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan15X2 [
 	(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
 		ifTrue: [ ^ self scan13 ].
@@ -611,7 +611,7 @@ LeAnnotationScanner >> scan15X2 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan16 [
 	self recordMatch: #(3 28).
 	self step.
@@ -622,7 +622,7 @@ LeAnnotationScanner >> scan16 [
 	^ self scan16X2
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan16X1 [
 	[ self recordMatch: #(28).
 	self step.
@@ -631,7 +631,7 @@ LeAnnotationScanner >> scan16X1 [
 				or: [ currentCharacter >= $~ ] ] ] whileTrue
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan16X2 [
 	(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
 		ifTrue: [ ^ self scan13 ].
@@ -656,7 +656,7 @@ LeAnnotationScanner >> scan16X2 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan17 [
 	self recordMatch: #(3 28).
 	self step.
@@ -667,7 +667,7 @@ LeAnnotationScanner >> scan17 [
 	^ self scan17X2
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan17X1 [
 	[ self recordMatch: #(28).
 	self step.
@@ -676,7 +676,7 @@ LeAnnotationScanner >> scan17X1 [
 				or: [ currentCharacter >= $~ ] ] ] whileTrue
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan17X2 [
 	(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
 		ifTrue: [ ^ self scan13 ].
@@ -701,7 +701,7 @@ LeAnnotationScanner >> scan17X2 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan18 [
 	self recordMatch: #(3 28).
 	self step.
@@ -712,7 +712,7 @@ LeAnnotationScanner >> scan18 [
 	^ self scan18X2
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan18X1 [
 	[ self recordMatch: #(28).
 	self step.
@@ -721,7 +721,7 @@ LeAnnotationScanner >> scan18X1 [
 				or: [ currentCharacter >= $~ ] ] ] whileTrue
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan18X2 [
 	(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
 		ifTrue: [ ^ self scan13 ].
@@ -746,7 +746,7 @@ LeAnnotationScanner >> scan18X2 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan19 [
 	self recordMatch: #(3 28).
 	self step.
@@ -770,7 +770,7 @@ LeAnnotationScanner >> scan19 [
 	^ self scan19X2
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan19X1 [
 	[ self recordMatch: #(28).
 	self step.
@@ -779,7 +779,7 @@ LeAnnotationScanner >> scan19X1 [
 				or: [ currentCharacter >= $~ ] ] ] whileTrue
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan19X2 [
 	(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
 		ifTrue: [ ^ self scan13 ].
@@ -803,7 +803,7 @@ LeAnnotationScanner >> scan19X2 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan1X1 [
 	self step.
 	currentCharacter == $\
@@ -825,7 +825,7 @@ LeAnnotationScanner >> scan1X1 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan1X10 [
 	[ self recordMatch: #(4).
 	self step.
@@ -833,7 +833,7 @@ LeAnnotationScanner >> scan1X10 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan1X11 [
 	currentCharacter == $|
 		ifTrue: [ ^ self recordAndReportMatch: #(15) ].
@@ -859,7 +859,7 @@ LeAnnotationScanner >> scan1X11 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan1X2 [
 	self recordMatch: #(2 3).
 	self step.
@@ -895,7 +895,7 @@ LeAnnotationScanner >> scan1X2 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan1X3 [
 	self recordMatch: #(2 3).
 	self step.
@@ -926,7 +926,7 @@ LeAnnotationScanner >> scan1X3 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan1X4 [
 	self recordMatch: #(2 3).
 	self step.
@@ -952,7 +952,7 @@ LeAnnotationScanner >> scan1X4 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan1X5 [
 	self recordMatch: #(2 3).
 	self step.
@@ -975,7 +975,7 @@ LeAnnotationScanner >> scan1X5 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan1X6 [
 	self recordMatch: #(2 3).
 	self step.
@@ -993,7 +993,7 @@ LeAnnotationScanner >> scan1X6 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan1X7 [
 	self recordMatch: #(2 3).
 	self step.
@@ -1009,7 +1009,7 @@ LeAnnotationScanner >> scan1X7 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan1X8 [
 	[ self recordMatch: #(1 2 3).
 	self step.
@@ -1020,7 +1020,7 @@ LeAnnotationScanner >> scan1X8 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan1X9 [
 	[ self recordMatch: #(6).
 	self step.
@@ -1029,7 +1029,7 @@ LeAnnotationScanner >> scan1X9 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan2 [
 	[ self recordMatch: #(3).
 	self step.
@@ -1044,7 +1044,7 @@ LeAnnotationScanner >> scan2 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan20 [
 	self recordMatch: #(3 28).
 	self step.
@@ -1058,7 +1058,7 @@ LeAnnotationScanner >> scan20 [
 	^ self scan20X2
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan20X1 [
 	[ self recordMatch: #(28).
 	self step.
@@ -1067,7 +1067,7 @@ LeAnnotationScanner >> scan20X1 [
 				or: [ currentCharacter >= $~ ] ] ] whileTrue
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan20X2 [
 	(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
 		ifTrue: [ ^ self scan13 ].
@@ -1091,7 +1091,7 @@ LeAnnotationScanner >> scan20X2 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan21 [
 	self recordMatch: #(3 28).
 	self step.
@@ -1102,7 +1102,7 @@ LeAnnotationScanner >> scan21 [
 	^ self scan21X2
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan21X1 [
 	[ self recordMatch: #(28).
 	self step.
@@ -1111,7 +1111,7 @@ LeAnnotationScanner >> scan21X1 [
 				or: [ currentCharacter >= $~ ] ] ] whileTrue
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan21X2 [
 	(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
 		ifTrue: [ ^ self scan13 ].
@@ -1136,7 +1136,7 @@ LeAnnotationScanner >> scan21X2 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan22 [
 	self recordMatch: #(3 28).
 	self step.
@@ -1147,7 +1147,7 @@ LeAnnotationScanner >> scan22 [
 	^ self scan22X2
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan22X1 [
 	[ self recordMatch: #(28).
 	self step.
@@ -1156,7 +1156,7 @@ LeAnnotationScanner >> scan22X1 [
 				or: [ currentCharacter >= $~ ] ] ] whileTrue
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan22X2 [
 	(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
 		ifTrue: [ ^ self scan13 ].
@@ -1181,7 +1181,7 @@ LeAnnotationScanner >> scan22X2 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan23 [
 	self recordMatch: #(3 28).
 	self step.
@@ -1205,7 +1205,7 @@ LeAnnotationScanner >> scan23 [
 	^ self scan23X2
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan23X1 [
 	[ self recordMatch: #(28).
 	self step.
@@ -1214,7 +1214,7 @@ LeAnnotationScanner >> scan23X1 [
 				or: [ currentCharacter >= $~ ] ] ] whileTrue
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan23X2 [
 	(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
 		ifTrue: [ ^ self scan13 ].
@@ -1238,7 +1238,7 @@ LeAnnotationScanner >> scan23X2 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan24 [
 	self recordMatch: #(3 28).
 	self step.
@@ -1249,7 +1249,7 @@ LeAnnotationScanner >> scan24 [
 	^ self scan24X2
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan24X1 [
 	[ self recordMatch: #(28).
 	self step.
@@ -1258,7 +1258,7 @@ LeAnnotationScanner >> scan24X1 [
 				or: [ currentCharacter >= $~ ] ] ] whileTrue
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan24X2 [
 	(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
 		ifTrue: [ ^ self scan13 ].
@@ -1283,7 +1283,7 @@ LeAnnotationScanner >> scan24X2 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan25 [
 	self recordMatch: #(3 28).
 	self step.
@@ -1307,7 +1307,7 @@ LeAnnotationScanner >> scan25 [
 	^ self scan25X2
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan25X1 [
 	[ self recordMatch: #(28).
 	self step.
@@ -1316,7 +1316,7 @@ LeAnnotationScanner >> scan25X1 [
 				or: [ currentCharacter >= $~ ] ] ] whileTrue
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan25X2 [
 	(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
 		ifTrue: [ ^ self scan13 ].
@@ -1340,7 +1340,7 @@ LeAnnotationScanner >> scan25X2 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan26 [
 	self recordMatch: #(3 28).
 	self step.
@@ -1364,7 +1364,7 @@ LeAnnotationScanner >> scan26 [
 	^ self scan26X2
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan26X1 [
 	[ self recordMatch: #(28).
 	self step.
@@ -1373,7 +1373,7 @@ LeAnnotationScanner >> scan26X1 [
 				or: [ currentCharacter >= $~ ] ] ] whileTrue
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan26X2 [
 	(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
 		ifTrue: [ ^ self scan13 ].
@@ -1397,7 +1397,7 @@ LeAnnotationScanner >> scan26X2 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan3 [
 	self step.
 	(currentCharacter == $!
@@ -1411,7 +1411,7 @@ LeAnnotationScanner >> scan3 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan4 [
 	self recordMatch: #(3).
 	self step.
@@ -1424,7 +1424,7 @@ LeAnnotationScanner >> scan4 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan5 [
 	self recordMatch: #(3 8).
 	self step.
@@ -1440,7 +1440,7 @@ LeAnnotationScanner >> scan5 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan6 [
 	[ self recordMatch: #(2 3).
 	self step.
@@ -1451,7 +1451,7 @@ LeAnnotationScanner >> scan6 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan7 [
 	self recordMatch: #(2 3).
 	self step.
@@ -1497,7 +1497,7 @@ LeAnnotationScanner >> scan7 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan8 [
 	self recordMatch: #(2 3).
 	self step.
@@ -1513,7 +1513,7 @@ LeAnnotationScanner >> scan8 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scan9 [
 	[ self recordMatch: #(5).
 	self step.
@@ -1527,7 +1527,7 @@ LeAnnotationScanner >> scan9 [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> scanForToken [
 	scope == #path
 		ifTrue: [ ^ self scan10 ].
@@ -1642,7 +1642,7 @@ LeAnnotationScanner >> scanForToken [
 	^ self reportLastMatch
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationScanner >> tokenActions [
 	^ #(nil nil nil nil nil #whitespace)
 ]

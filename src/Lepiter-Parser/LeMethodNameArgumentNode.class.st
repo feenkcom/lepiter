@@ -1,29 +1,29 @@
 Class {
-	#name : #LeMethodNameArgumentNode,
-	#superclass : #LeClassNameArgumentNode,
+	#name : 'LeMethodNameArgumentNode',
+	#superclass : 'LeClassNameArgumentNode',
 	#instVars : [
 		'gtGt',
 		'selector'
 	],
-	#category : #'Lepiter-Parser'
+	#category : 'Lepiter-Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeMethodNameArgumentNode >> acceptVisitor: anAnnotationParseVisitor [
 	^ anAnnotationParseVisitor visitMethodNameArgument: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeMethodNameArgumentNode >> gtGt [
 	^ gtGt
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeMethodNameArgumentNode >> gtGt: aSmaCCToken [
 	gtGt := aSmaCCToken
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeMethodNameArgumentNode >> imageObject [
 	^ super imageObject
 		ifNotNil: [ :cls | 
@@ -32,22 +32,22 @@ LeMethodNameArgumentNode >> imageObject [
 						ifTrue: [ RGMethodDefinition realClass: cls selector: self methodName ] ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeMethodNameArgumentNode >> methodName [
 	^ self selectorFrom: selector source
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeMethodNameArgumentNode >> selector [
 	^ selector
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeMethodNameArgumentNode >> selector: aSmaCCToken [
 	selector := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeMethodNameArgumentNode >> tokenVariables [
 	^ #(#gtGt #selector #classToken #name #equals #value)
 ]
