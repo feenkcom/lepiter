@@ -24,12 +24,6 @@ Class {
 	#category : 'Lepiter-Pharo-Snippet'
 }
 
-{ #category : 'instance creation' }
-LePharoSnippet class >> code: aString [
-
-	^ self new code: aString
-]
-
 { #category : 'accessing' }
 LePharoSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
@@ -38,12 +32,6 @@ LePharoSnippet class >> contextMenuItemSpecification [
 		priority: 2;
 		snippetClass: self;
 		title: 'Pharo'
-]
-
-{ #category : 'factory' }
-LePharoSnippet class >> empty [ 
-
-	^ self new
 ]
 
 { #category : 'accessing' }
