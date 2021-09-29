@@ -1,6 +1,6 @@
-Extension { #name : #Date }
+Extension { #name : 'Date' }
 
-{ #category : #'*Lepiter-Utilities' }
+{ #category : '*Lepiter-Utilities' }
 Date >> iso8601 [
 	"Answer the receiver printed in ISO 86601 format (YYYY-MM-DD)"
 

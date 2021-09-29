@@ -1,12 +1,12 @@
 Class {
-	#name : #LePageLinkAnnotationVisitor,
-	#superclass : #LeAnnotationParseNodeVisitor,
+	#name : 'LePageLinkAnnotationVisitor',
+	#superclass : 'LeAnnotationParseNodeVisitor',
 	#traits : 'TSmaCCComponentVisitor + (TLeAnnotationParseNodeVisitor - {#acceptNode:})',
 	#classTraits : 'TSmaCCComponentVisitor classTrait + TLeAnnotationParseNodeVisitor classTrait',
-	#category : #'Lepiter-Utilities-Utilities'
+	#category : 'Lepiter-Utilities-Utilities'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 LePageLinkAnnotationVisitor >> visitPageAnnotation: aPageAnnotation [
 
 	super visitPageAnnotation: aPageAnnotation.

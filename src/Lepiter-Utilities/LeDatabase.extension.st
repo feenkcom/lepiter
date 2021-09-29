@@ -1,6 +1,6 @@
-Extension { #name : #LeDatabase }
+Extension { #name : 'LeDatabase' }
 
-{ #category : #'*Lepiter-Utilities' }
+{ #category : '*Lepiter-Utilities' }
 LeDatabase >> dailyNotesGroup [
 	| dailyNotesGroupedByDate |
 	dailyNotesGroupedByDate := Dictionary new.
@@ -15,7 +15,7 @@ LeDatabase >> dailyNotesGroup [
 	^ dailyNotesGroupedByDate values sorted: [ :a :b | a date > b date ]
 ]
 
-{ #category : #'*Lepiter-Utilities' }
+{ #category : '*Lepiter-Utilities' }
 LeDatabase >> tableOfContentsNodes [
 	<return: #Collection of: #LeTableOfContentsNode>
 	| page |

@@ -1,18 +1,18 @@
 Class {
-	#name : #LeTableOfContentsUnclassifiedNode,
-	#superclass : #Object,
+	#name : 'LeTableOfContentsUnclassifiedNode',
+	#superclass : 'Object',
 	#instVars : [
 		'page'
 	],
-	#category : #'Lepiter-Utilities-ToC'
+	#category : 'Lepiter-Utilities-ToC'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeTableOfContentsUnclassifiedNode >> children [
 	^ #()
 ]
 
-{ #category : #'gt-extension' }
+{ #category : 'gt-extension' }
 LeTableOfContentsUnclassifiedNode >> gtLiveFor: aView [
 	<gtView>
 	self page ifNil: [ ^ aView empty ].
@@ -23,22 +23,22 @@ LeTableOfContentsUnclassifiedNode >> gtLiveFor: aView [
 		view: #gtLiveFor:
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeTableOfContentsUnclassifiedNode >> isToCNode [
 	^ false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeTableOfContentsUnclassifiedNode >> page [
 	^ page
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeTableOfContentsUnclassifiedNode >> page: anObject [
 	page := anObject
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LeTableOfContentsUnclassifiedNode >> printOn: aStream [
 	| pageTitle |
 
@@ -50,7 +50,7 @@ LeTableOfContentsUnclassifiedNode >> printOn: aStream [
 		nextPutAll: pageTitle.
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 LeTableOfContentsUnclassifiedNode >> selectedPageDo: aBlock [
 	aBlock cull: self page
 ]

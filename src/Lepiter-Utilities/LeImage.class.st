@@ -1,6 +1,6 @@
 Class {
-	#name : #LeImage,
-	#superclass : #Object,
+	#name : 'LeImage',
+	#superclass : 'Object',
 	#instVars : [
 		'version',
 		'timestamp'
@@ -8,10 +8,10 @@ Class {
 	#classInstVars : [
 		'singleton'
 	],
-	#category : #'Lepiter-Utilities-Versioning'
+	#category : 'Lepiter-Utilities-Versioning'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeImage class >> instance [
 	singleton ifNil: [
 		singleton := self new.
@@ -19,7 +19,7 @@ LeImage class >> instance [
 	^ singleton
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeImage class >> stampVersion [
 	| v |
 	v := LeReleaserCommandline new buildWorkflow rootProjectRelease repositoryRelease version.
@@ -27,22 +27,22 @@ LeImage class >> stampVersion [
 	self instance timestamp: DateAndTime now.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeImage >> timestamp [
 	^ timestamp
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeImage >> timestamp: aTimestamp [
 	timestamp := aTimestamp
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeImage >> version [
 	^ version
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeImage >> version: aVersion [
 	version := aVersion
 ]
