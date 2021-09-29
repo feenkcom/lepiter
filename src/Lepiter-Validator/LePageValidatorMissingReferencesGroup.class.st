@@ -17,25 +17,26 @@ LePageValidatorMissingReferencesGroup >> collect: aBlock [
 	^ missingReferences collect: aBlock
 ]
 
-{ #category : 'ui' }
+{ #category : 'accessing' }
 LePageValidatorMissingReferencesGroup >> gtItemsFor: aView [
 	<gtView>
 	^ aView list
-		title: 'Missing references by page';
+		title: 'Items';
 		priority: 10;
-		items: [ missingReferences ];
-		itemText: [ :aResult | aResult targetPage gtDisplayString ]
-]
-
-{ #category : 'accessing' }
-LePageValidatorMissingReferencesGroup >> gtViewPagesFor: aView [
-	<gtView>
-	^ aView list
-		title: 'Pages';
-		priority: 20;
 		items: [ missingReferences ];
 		itemText: [ :aResult | aResult targetPage gtDisplayString ];
 		send: [ :aResult | aResult targetPage ]
+]
+
+{ #category : 'accessing' }
+LePageValidatorMissingReferencesGroup >> gtViewReferencesFor: aView [
+	<gtView>
+	<gtView>
+	^ aView list
+		title: 'Missing references by page';
+		priority: 20;
+		items: [ missingReferences ];
+		itemText: [ :aResult | aResult targetPage gtDisplayString ]
 ]
 
 { #category : 'initialization' }
