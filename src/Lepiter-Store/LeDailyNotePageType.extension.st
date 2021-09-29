@@ -1,6 +1,6 @@
-Extension { #name : 'LeDailyNotePageType' }
+Extension { #name : #LeDailyNotePageType }
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeDailyNotePageType class >> leJsonV3AttributeMapping [
 
 	^ super leJsonV3AttributeMapping
@@ -9,13 +9,13 @@ LeDailyNotePageType class >> leJsonV3AttributeMapping [
 
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeDailyNotePageType class >> leJsonV3Name [
 
 	^ 'dailyNote'
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeDailyNotePageType class >> leJsonV4AttributeMapping [
 
 	^ super leJsonV4AttributeMapping
@@ -24,7 +24,7 @@ LeDailyNotePageType class >> leJsonV4AttributeMapping [
 
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeDailyNotePageType class >> leJsonV4Name [
 
 	^ 'dailyNote'

@@ -1,10 +1,10 @@
 Class {
-	#name : 'LeContentAttributesReloadExamples',
-	#superclass : 'Object',
+	#name : #LeContentAttributesReloadExamples,
+	#superclass : #Object,
 	#category : 'Lepiter-Store-Examples'
 }
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeContentAttributesReloadExamples >> attributeReloadedForTextSnippet [
 	<gtExample>
 	| textSnippet attributesReloader |
@@ -17,7 +17,7 @@ LeContentAttributesReloadExamples >> attributeReloadedForTextSnippet [
 	
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeContentAttributesReloadExamples >> correctMappingsForTextSnippet [
 	<gtExample>
 	| attributesReloader attributeMappings |

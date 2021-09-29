@@ -1,6 +1,6 @@
-Extension { #name : 'LeLinkSnippetUidReference' }
+Extension { #name : #LeLinkSnippetUidReference }
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeLinkSnippetUidReference class >> leJsonV3AttributeMapping [
 
 	^ super leJsonV3AttributeMapping
@@ -8,13 +8,13 @@ LeLinkSnippetUidReference class >> leJsonV3AttributeMapping [
 		yourself
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeLinkSnippetUidReference class >> leJsonV3Name [
 
 	^ 'snippetReference'
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeLinkSnippetUidReference class >> leJsonV4AttributeMapping [
 
 	^ super leJsonV4AttributeMapping
@@ -22,7 +22,7 @@ LeLinkSnippetUidReference class >> leJsonV4AttributeMapping [
 		yourself
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeLinkSnippetUidReference class >> leJsonV4Name [
 
 	^ 'snippetReference'

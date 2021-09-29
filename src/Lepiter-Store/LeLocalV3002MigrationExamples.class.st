@@ -1,10 +1,10 @@
 Class {
-	#name : 'LeLocalV3002MigrationExamples',
-	#superclass : 'LeLocalExamples',
+	#name : #LeLocalV3002MigrationExamples,
+	#superclass : #LeLocalExamples,
 	#category : 'Lepiter-Store-Local-Examples'
 }
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeLocalV3002MigrationExamples >> migrateFromV3 [
 	<gtExample>
 	| page1 page2 page4 dailyNote snippet link links properties |

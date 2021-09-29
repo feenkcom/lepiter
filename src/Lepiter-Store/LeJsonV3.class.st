@@ -17,14 +17,14 @@ LeJsonV3 has a unique instance which is normally used.  If any of the following 
 
 "
 Class {
-	#name : 'LeJsonV3',
-	#superclass : 'Object',
+	#name : #LeJsonV3,
+	#superclass : #Object,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
 	#category : 'Lepiter-Store-JSONV3'
 }
 
-{ #category : 'private' }
+{ #category : #private }
 LeJsonV3 >> allClassMappingsFor: aNeoJSONMapper [ 
 
 	LeModel allSubclassesDo: [ :leClass |
@@ -36,7 +36,7 @@ LeJsonV3 >> allClassMappingsFor: aNeoJSONMapper [
 
 ]
 
-{ #category : 'api - serializing' }
+{ #category : #'api - serializing' }
 LeJsonV3 >> deserialize: aStream [
 	"Deserialise the supplied object. aLeClass is a subclass of LeModel"
 
@@ -46,7 +46,7 @@ LeJsonV3 >> deserialize: aStream [
 
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeJsonV3 >> newReader [ 
 	| newReader |
 
@@ -56,7 +56,7 @@ LeJsonV3 >> newReader [
 
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeJsonV3 >> newWriter [ 
 	| newWriter |
 
@@ -65,7 +65,7 @@ LeJsonV3 >> newWriter [
 	^ newWriter 
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeJsonV3 >> schemaFor: aKey [
 	"Answer the schema (class) for the given key"
 
@@ -73,7 +73,7 @@ LeJsonV3 >> schemaFor: aKey [
 		[ :each | each leJsonV3Name = aKey ].
 ]
 
-{ #category : 'api - serializing' }
+{ #category : #'api - serializing' }
 LeJsonV3 >> serialize: aLeModel on: aStream prettyPrint: aBoolean [
 	"Serialise the supplied object. aLeModel is a subclass of LeModel"
 

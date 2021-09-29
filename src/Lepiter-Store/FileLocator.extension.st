@@ -1,6 +1,6 @@
-Extension { #name : 'FileLocator' }
+Extension { #name : #FileLocator }
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 FileLocator class >> leFromJsonV4Dictionary: aDictionary [
 	"Create a new instance of the receiver from the supplied dictionary."
 	| src regex originName path |
@@ -17,7 +17,7 @@ FileLocator class >> leFromJsonV4Dictionary: aDictionary [
 	 	[ self error: 'Invalid FileLocator: ', src ].
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 FileLocator class >> leJsonV4MappingFor: aNeoJSONMapper [
 	"FileReferences are encoded as their type and a single string in default FileReference format"
 
@@ -33,7 +33,7 @@ FileLocator class >> leJsonV4MappingFor: aNeoJSONMapper [
 
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 FileLocator class >> leJsonV4Name [
 
 	^ #fileLocator

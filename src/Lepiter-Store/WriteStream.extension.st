@@ -1,6 +1,6 @@
-Extension { #name : 'WriteStream' }
+Extension { #name : #WriteStream }
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 WriteStream >> truncate [ 
 
 	readLimit := readLimit min: writeLimit

@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeLocalStoreLoad',
-	#superclass : 'LeLocalStore',
+	#name : #LeLocalStoreLoad,
+	#superclass : #LeLocalStore,
 	#instVars : [
 		'duplicates',
 		'corrupted'
@@ -8,17 +8,17 @@ Class {
 	#category : 'Lepiter-Store-LocalJSON-Store'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLocalStoreLoad >> corrupted [
 	^ corrupted
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLocalStoreLoad >> duplicates [
 	^ duplicates
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeLocalStoreLoad >> hasCorruptedFiles [
 	"Answer a boolean indicating whether any corrupted files were found.
 	Only valid after loading the DB."
@@ -26,7 +26,7 @@ LeLocalStoreLoad >> hasCorruptedFiles [
 	^ corrupted isNotEmpty
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeLocalStoreLoad >> hasDuplicateFiles [
 	"Answer a boolean indicating whether any duplicate files were found.
 	Only valid after loading the DB."
@@ -34,7 +34,7 @@ LeLocalStoreLoad >> hasDuplicateFiles [
 	^ duplicates isNotEmpty
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeLocalStoreLoad >> initialize [ 
 
 	super initialize.
@@ -42,7 +42,7 @@ LeLocalStoreLoad >> initialize [
 	corrupted := OrderedCollection new.
 ]
 
-{ #category : 'loading' }
+{ #category : #loading }
 LeLocalStoreLoad >> loadAndMonitorFrom: aFileReference [
 	"Answer a LeLocalJSONStoreMonitor with its database loaded from the page files in aFileReference (directory)"
 
@@ -51,7 +51,7 @@ LeLocalStoreLoad >> loadAndMonitorFrom: aFileReference [
 		loadAndMonitorWithDelay: nil
 ]
 
-{ #category : 'loading' }
+{ #category : #loading }
 LeLocalStoreLoad >> loadAndMonitorFrom: aFileReference saveDelay: aDuration [
 	"Answer a LeLocalStoreMonitor with its database loaded from the page files in aFileReference (directory)"
 
@@ -60,7 +60,7 @@ LeLocalStoreLoad >> loadAndMonitorFrom: aFileReference saveDelay: aDuration [
 		loadAndMonitorWithDelay: aDuration
 ]
 
-{ #category : 'loading' }
+{ #category : #loading }
 LeLocalStoreLoad >> loadAndMonitorWithDelay: aDuration [
 	"Load the Lepiter database from the localRoot directory, start the monitor, and answer the database"
 	| monitor |
@@ -86,7 +86,7 @@ LeLocalStoreLoad >> loadAndMonitorWithDelay: aDuration [
 	^ database
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeLocalStoreLoad >> loadContentInDatabase: aDatabase [
 	| pages explicitLinks |
 	self assert: [ aDatabase explicitLinks notNil ].
@@ -107,7 +107,7 @@ LeLocalStoreLoad >> loadContentInDatabase: aDatabase [
 		aDatabase setExplicitLinks: explicitLinks ].
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeLocalStoreLoad >> loadExplicitLinksIn: aRootFolder [	
 	
 	storage withExplicitLinksFileIn: aRootFolder do: [ :aFile |
@@ -117,7 +117,7 @@ LeLocalStoreLoad >> loadExplicitLinksIn: aRootFolder [
 	^ nil
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeLocalStoreLoad >> loadFrom: aFileReference [
 	"Answer a LeDirectory with its pages loaded from the page files in aFileReference (directory).
 	This is only used for testing as it answers a LeDatabase without a monitor, which means that any functionality that relies on properties, attachments, saving, etc. will fail."
@@ -136,14 +136,14 @@ LeLocalStoreLoad >> loadFrom: aFileReference [
 	^ database
 ]
 
-{ #category : 'loading' }
+{ #category : #loading }
 LeLocalStoreLoad >> loadPageFrom: aFileReference [
 	"Load a single page from the supplied file"
 
 	^ storage loadFromFile: aFileReference
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeLocalStoreLoad >> loadPagesIn: aRootFolder [
 	"Load all the pages from the supplied directory.
 	If a duplicate uid is found, raise a signal.  The exception handler can take action and decide whether to continue"

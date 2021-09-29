@@ -26,8 +26,8 @@ replacing the version numbers as appropriate.
 
 "
 Class {
-	#name : 'LeLocalExamples',
-	#superclass : 'Object',
+	#name : #LeLocalExamples,
+	#superclass : #Object,
 	#traits : 'TAssertable',
 	#classTraits : 'TAssertable classTrait',
 	#instVars : [
@@ -37,7 +37,7 @@ Class {
 	#category : 'Lepiter-Store-Local-Examples'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLocalExamples class >> testDataLocation [
 	"Answer the location of the test data based on the git repository"
 	| fileReference |
@@ -50,7 +50,7 @@ LeLocalExamples class >> testDataLocation [
 	^ fileReference.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLocalExamples >> testDataLocation [
 
 	^ self class testDataLocation

@@ -1,20 +1,20 @@
-Extension { #name : 'UUID' }
+Extension { #name : #UUID }
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 UUID class >> leFromJsonV3Dictionary: aDictionary [
 	"Create a new instance of the receiver from the supplied dictionary."
 
 	^ self fromString: (aDictionary at: #uuid)
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 UUID class >> leFromJsonV4Dictionary: aDictionary [
 	"Create a new instance of the receiver from the supplied dictionary."
 
 	^ self fromString: (aDictionary at: #uuid)
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 UUID class >> leJsonV3MappingFor: aNeoJSONMapper [
 	"Dates are encoded as their type and a single string in default Date format"
 
@@ -30,13 +30,13 @@ UUID class >> leJsonV3MappingFor: aNeoJSONMapper [
 
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 UUID class >> leJsonV3Name [
 
 	^ #uuid
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 UUID class >> leJsonV4MappingFor: aNeoJSONMapper [
 	"Dates are encoded as their type and a single string in default Date format"
 
@@ -52,13 +52,13 @@ UUID class >> leJsonV4MappingFor: aNeoJSONMapper [
 
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 UUID class >> leJsonV4Name [
 
 	^ #uuid
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 UUID >> neoJsonOn: neoJSONWriter [
 	"Write the receiver with the supplied writer"
 
