@@ -93,18 +93,32 @@ LeSnippetAptitude >> initialize [
 	self addChangeAddChildAs: #(sidebarContainer sidebarContent) with: [ sidebarContent ].
 	self addChangeProperty: #(snippetContainer padding) with: [ padding ].
 
-	self add: (BrLayoutResizerAptitude new
-		inherit;
-		inherit: [ widgetContent ]).
+	self add: (BrLayoutResizerAptitude new inherit: [ widgetContent ]).
+	widgetContent addAptitude: (BrLayoutResizerAptitude new inherit: [ snippetContainer ]).
+	snippetContainer addAptitude: (BrLayoutResizerAptitude new inherit: [ snippetContent ]).
 
-	widgetContent addAptitude: (BrLayoutResizerAptitude new
-		inherit;
-		inherit: [ snippetContainer ]).
-		
-	snippetContainer addAptitude: (BrLayoutResizerAptitude new
-		inherit;
-		inherit: [ snippetContent ]).
-		
+	self add: (BrStyleCommonAptitude new
+		when: BlElementState focused | BlElementState hovered
+			style: [ :aStyle |
+				aStyle
+					do: [ self showActions ]
+					after: [ self hideActions ]];
+		when: (BlElementState focused & BlElementState hovered)
+			style: [ :aStyle |
+				aStyle
+					do: [ self visuallyFocus ]
+					after: [ self visuallyUnfocusAndUnhover ] ];
+		when: (BlElementState focused & BlElementState hovered not)
+			style: [ :aStyle |
+				aStyle
+					do: [ self visuallyFocus ]
+					after: [ self visuallyUnfocusAndUnhover ] ];
+		when: (BlElementState hovered & BlElementState focused not)
+			style: [ :aStyle |
+				aStyle
+					do: [ self visuallyHover ]
+					after: [ self visuallyUnfocusAndUnhover ] ]).
+
 	snippetContainer addShortcut: (BlShortcutWithAction new
 		combination: (BlKeyCombination builder shift; primary; key: BlKeyboardKey return; build);
 		action: [ :anEvent :aShortcut | 
@@ -129,23 +143,6 @@ LeSnippetAptitude >> initializeElements [
 	self initializeWidgetContent.
 	self initializeSnippetContainer.
 	self initializeSidebarContainer
-]
-
-{ #category : 'initialization' }
-LeSnippetAptitude >> initializeListeners [
-	super initializeListeners.
-	"self
-		when: BlMouseEnterEvent
-		do: [ self onMouseEnter ].
-	self
-		when: BlMouseLeaveEvent
-		do: [ self onMouseLeave ]."
-	self 
-		when: BlFocusInEvent 
-		do: [ self onFocusReceived ].
-	self 
-		when: BlFocusOutEvent 
-		do: [ self onFocusLost ].
 ]
 
 { #category : 'initialization' }
@@ -240,26 +237,6 @@ LeSnippetAptitude >> newPlusElement [
 		yourself
 ]
 
-{ #category : 'callbacks' }
-LeSnippetAptitude >> onFocusLost [
-	self hideActions
-]
-
-{ #category : 'callbacks' }
-LeSnippetAptitude >> onFocusReceived [
-	self showActions
-]
-
-{ #category : 'callbacks' }
-LeSnippetAptitude >> onMouseEnter [
-	self showActions
-]
-
-{ #category : 'callbacks' }
-LeSnippetAptitude >> onMouseLeave [
-	self mayHideActions
-]
-
 { #category : 'api - accessing' }
 LeSnippetAptitude >> padding [
 	<return: #BlInsets>
@@ -320,4 +297,16 @@ LeSnippetAptitude >> snippetContent: aSnippetContent [
 { #category : 'private - layout' }
 LeSnippetAptitude >> updateBottomToolbarMargin [
 	bottomToolbar margin: self computeBottomToolbarMargin
+]
+
+{ #category : 'private' }
+LeSnippetAptitude >> visuallyFocus [
+]
+
+{ #category : 'private' }
+LeSnippetAptitude >> visuallyHover [
+]
+
+{ #category : 'private' }
+LeSnippetAptitude >> visuallyUnfocusAndUnhover [
 ]

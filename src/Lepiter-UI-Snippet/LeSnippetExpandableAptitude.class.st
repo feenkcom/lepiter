@@ -19,10 +19,7 @@ LeSnippetExpandableAptitude >> hideActions [
 	super hideActions.
 
 	toolbarContainer constraintsDo: [ :c | c grid horizontal span: 2 ].
-	toolbarContainer visibility: BlVisibility hidden.
-	
-	snippetContainer effect: BlNullEffect new.
-	snippetContainer background: Color transparent
+	toolbarContainer visibility: BlVisibility hidden
 ]
 
 { #category : 'initialization' }
@@ -69,7 +66,18 @@ LeSnippetExpandableAptitude >> showActions [
 	super showActions.
 
 	toolbarContainer constraintsDo: [ :c | c grid horizontal span: 1 ].
-	toolbarContainer visibility: BlVisibility visible.
+	toolbarContainer visibility: BlVisibility visible
+]
+
+{ #category : 'accessing' }
+LeSnippetExpandableAptitude >> snippetToolbar: anElementOrNil [
+	toolbarElement := anElementOrNil ifNil: [ BlElement new size: 0@0 ].
+	anElementOrNil ifNil: [ toolbarContainer := BlElement new size: 0@0 ]
+]
+
+{ #category : 'private' }
+LeSnippetExpandableAptitude >> visuallyFocus [
+	super visuallyFocus.
 
 	snippetContainer effect: (BlGaussianShadowEffect
 		color: (BrGlamorousColors primaryBorderColor alpha: 0.5)
@@ -78,8 +86,21 @@ LeSnippetExpandableAptitude >> showActions [
 	snippetContainer background: Color white
 ]
 
-{ #category : 'accessing' }
-LeSnippetExpandableAptitude >> snippetToolbar: anElementOrNil [
-	toolbarElement := anElementOrNil ifNil: [ BlElement new size: 0@0 ].
-	anElementOrNil ifNil: [ toolbarContainer := BlElement new size: 0@0 ]
+{ #category : 'private' }
+LeSnippetExpandableAptitude >> visuallyHover [
+	super visuallyHover.
+
+	snippetContainer effect: (BlGaussianShadowEffect
+		color: (BrGlamorousColors defaultShadowColor)
+		width: 2
+		offset: 0 @ 1).
+	snippetContainer background: Color white
+]
+
+{ #category : 'private' }
+LeSnippetExpandableAptitude >> visuallyUnfocusAndUnhover [
+	super visuallyUnfocusAndUnhover.
+
+	snippetContainer effect: BlNullEffect new.
+	snippetContainer background: Color transparent
 ]
