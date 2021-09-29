@@ -31,7 +31,6 @@ LePageValidatorMissingReferencesGroup >> gtItemsFor: aView [
 { #category : 'accessing' }
 LePageValidatorMissingReferencesGroup >> gtViewReferencesFor: aView [
 	<gtView>
-	<gtView>
 	^ aView list
 		title: 'Missing references by page';
 		priority: 20;
