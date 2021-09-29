@@ -32,7 +32,7 @@ LesPageResourceVisitor >> visitExampleSnippet: aLeSnippet [
 
 { #category : 'visiting' }
 LesPageResourceVisitor >> visitPictureSnippet: aLePictureSnippet [
-	| linkUrl fileName |
+	| fileName |
 	fileName := aLePictureSnippet urlString.
 	self addResource: (LeLocalAttachmentResource new
 		source: aLePictureSnippet;

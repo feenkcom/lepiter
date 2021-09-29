@@ -1,15 +1,15 @@
 Class {
-	#name : #LeCodeExpandedArgumentNode,
-	#superclass : #LeArgumentNode,
-	#category : #'Lepiter-Parser'
+	#name : 'LeCodeExpandedArgumentNode',
+	#superclass : 'LeArgumentNode',
+	#category : 'Lepiter-Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeCodeExpandedArgumentNode >> acceptVisitor: anAnnotationParseVisitor [
 	^ anAnnotationParseVisitor visitCodeExpandedArgument: self
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeCodeExpandedArgumentNode >> isCodeExpanded [
 	^ true
 ]

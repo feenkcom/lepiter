@@ -23,8 +23,8 @@ LeDbManualExternalCommitter uniqueInstance
 
 "
 Class {
-	#name : #LeDbManualExternalCommitter,
-	#superclass : #Object,
+	#name : 'LeDbManualExternalCommitter',
+	#superclass : 'Object',
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
 	#instVars : [
@@ -35,10 +35,10 @@ Class {
 		'postCommitValuable',
 		'preCommitValuable'
 	],
-	#category : #'Lepiter-Utilities-CommitButton'
+	#category : 'Lepiter-Utilities-CommitButton'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 LeDbManualExternalCommitter >> addAllFiles: dbDir [
 	| proc |
 
@@ -53,7 +53,7 @@ LeDbManualExternalCommitter >> addAllFiles: dbDir [
 	self appendStdio: proc.
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 LeDbManualExternalCommitter >> addDirectory: aFileReference [
 	"Add the supplied directory to the list to be committed.
 	This must be the root directory of the git repository"
@@ -66,7 +66,7 @@ LeDbManualExternalCommitter >> addDirectory: aFileReference [
 	dbDirs add: fileReference.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeDbManualExternalCommitter >> appendStdio: proc [
 
 	stdout := String streamContents: [ :stream |
@@ -81,7 +81,7 @@ LeDbManualExternalCommitter >> appendStdio: proc [
 			stream << proc stderr ] ].
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeDbManualExternalCommitter >> appendToOuputStreams: aString [ 
 
 	stdout := String streamContents: [ :stream |
@@ -95,7 +95,7 @@ LeDbManualExternalCommitter >> appendToOuputStreams: aString [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeDbManualExternalCommitter >> commit: dbDir [
 	| proc |
 
@@ -112,7 +112,7 @@ LeDbManualExternalCommitter >> commit: dbDir [
 	self appendStdio: proc.
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 LeDbManualExternalCommitter >> commitAll [ 
 	"Commit and sync the current state"
 
@@ -129,7 +129,7 @@ LeDbManualExternalCommitter >> commitAll [
 		self appendToOuputStreams: 'Committed: ', dbDir fullName ].
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 LeDbManualExternalCommitter >> gtStderrFor: aView [
 	<gtView>
 
@@ -140,7 +140,7 @@ LeDbManualExternalCommitter >> gtStderrFor: aView [
 		text: [ stderr asRopedText ]
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 LeDbManualExternalCommitter >> gtStdoutFor: aView [
 	<gtView>
 
@@ -151,41 +151,41 @@ LeDbManualExternalCommitter >> gtStdoutFor: aView [
 		text: [ stdout asRopedText ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeDbManualExternalCommitter >> hasDbDirs [
 	"Answer a boolean indicating whether the receiver has directories configured"
 
 	^ dbDirs isNotEmpty
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeDbManualExternalCommitter >> initialize [ 
 
 	super initialize.
 	self reset.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeDbManualExternalCommitter >> postCommitValuable [
 	^ postCommitValuable
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeDbManualExternalCommitter >> postCommitValuable: anObject [
 	postCommitValuable := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeDbManualExternalCommitter >> preCommitValuable [
 	^ preCommitValuable
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeDbManualExternalCommitter >> preCommitValuable: anObject [
 	preCommitValuable := anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeDbManualExternalCommitter >> reset [
 
 	stdout := ''.
@@ -195,7 +195,7 @@ LeDbManualExternalCommitter >> reset [
 	postCommitValuable := [ :dbDir | ].
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeDbManualExternalCommitter >> status: dbDir [
 	| proc |
 
@@ -211,7 +211,7 @@ LeDbManualExternalCommitter >> status: dbDir [
 	self appendStdio: proc.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LeDbManualExternalCommitter >> sync: dbDir [
 	| proc |
 
@@ -227,7 +227,7 @@ LeDbManualExternalCommitter >> sync: dbDir [
 	self appendStdio: proc.
 ]
 
-{ #category : #configuration }
+{ #category : 'configuration' }
 LeDbManualExternalCommitter >> syncCommand: aStringOrNil [
 
 	self assert: (aStringOrNil isNil or: [ aStringOrNil isString ]).

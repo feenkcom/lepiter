@@ -1,25 +1,25 @@
 Class {
-	#name : #LeFileNameArgumentNode,
-	#superclass : #LeNameArgumentNode,
-	#category : #'Lepiter-Parser'
+	#name : 'LeFileNameArgumentNode',
+	#superclass : 'LeNameArgumentNode',
+	#category : 'Lepiter-Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeFileNameArgumentNode >> acceptVisitor: anAnnotationParseVisitor [
 	^ anAnnotationParseVisitor visitFileNameArgument: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeFileNameArgumentNode >> changes [
 	^ self attributeNamed: #changes
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeFileNameArgumentNode >> changes: aGtEpicea [
 	self attributeNamed: #changes put: aGtEpicea
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeFileNameArgumentNode >> imageObject [
 	^ self changes
 ]

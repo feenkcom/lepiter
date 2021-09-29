@@ -1,141 +1,141 @@
 Trait {
-	#name : #TLeContentNodeVisitor,
+	#name : 'TLeContentNodeVisitor',
 	#traits : 'TSmaCCParseNodeVisitor',
 	#classTraits : 'TSmaCCParseNodeVisitor classTrait',
-	#category : #'Lepiter-Parser'
+	#category : 'Lepiter-Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeContentNodeVisitor >> visitAnnotation: anAnnotation [
 	^ self visitContent: anAnnotation
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeContentNodeVisitor >> visitBlockLink: aBlockLink [
 	^ self visitDefinedLink: aBlockLink
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeContentNodeVisitor >> visitBold: aBold [
 	^ self visitContent: aBold
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeContentNodeVisitor >> visitCodeBlock: aCodeBlock [
 	^ self visitContent: aCodeBlock
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeContentNodeVisitor >> visitContent: aContent [
 	^ self visitSmaCCParseNode: aContent
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeContentNodeVisitor >> visitDefinedLink: aDefinedLink [
 	^ self visitLink: aDefinedLink
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeContentNodeVisitor >> visitDocumenterAnnotation: aDocumenterAnnotation [
 	^ self visitContent: aDocumenterAnnotation
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeContentNodeVisitor >> visitDoubleBracketLink: aDoubleBracketLink [
 	^ self visitPageLink: aDoubleBracketLink
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeContentNodeVisitor >> visitEmptyDoubleBracketLink: anEmptyDoubleBracketLink [
 	^ self visitEmptyLink: anEmptyDoubleBracketLink
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeContentNodeVisitor >> visitEmptyExternalLink: anEmptyExternalLink [
 	^ self visitContent: anEmptyExternalLink
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeContentNodeVisitor >> visitEmptyHashLink: anEmptyHashLink [
 	^ self visitEmptyLink: anEmptyHashLink
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeContentNodeVisitor >> visitEmptyLink: anEmptyLink [
 	^ self visitLink: anEmptyLink
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeContentNodeVisitor >> visitExternalImageLink: anExternalImageLink [
 	^ self visitExternalLink: anExternalImageLink
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeContentNodeVisitor >> visitExternalLabelUrlLink: anExternalLabelUrlLink [
 	^ self visitExternalLink: anExternalLabelUrlLink
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeContentNodeVisitor >> visitExternalLink: anExternalLink [
 	^ self visitContent: anExternalLink
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeContentNodeVisitor >> visitExternalUrlLink: anExternalUrlLink [
 	^ self visitExternalLink: anExternalUrlLink
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeContentNodeVisitor >> visitFullHashLink: aFullHashLink [
 	^ self visitHashLink: aFullHashLink
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeContentNodeVisitor >> visitHashLink: aHashLink [
 	^ self visitPageLink: aHashLink
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeContentNodeVisitor >> visitHeader: aHeader [
 	^ self visitContent: aHeader
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeContentNodeVisitor >> visitInlineCode: anInlineCode [
 	^ self visitContent: anInlineCode
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeContentNodeVisitor >> visitItalic: anItalic [
 	^ self visitContent: anItalic
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeContentNodeVisitor >> visitKeywordLink: aKeywordLink [
 	^ self visitPageLink: aKeywordLink
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeContentNodeVisitor >> visitLink: aLink [
 	^ self visitContent: aLink
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeContentNodeVisitor >> visitPageLink: aPageLink [
 	^ self visitDefinedLink: aPageLink
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeContentNodeVisitor >> visitShortHashLink: aShortHashLink [
 	^ self visitHashLink: aShortHashLink
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeContentNodeVisitor >> visitString: aString [
 	^ self visitContent: aString
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 TLeContentNodeVisitor >> visitText: aText [
 	^ self visitContent: aText
 ]

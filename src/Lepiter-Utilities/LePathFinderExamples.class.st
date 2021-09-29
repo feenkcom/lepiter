@@ -1,10 +1,10 @@
 Class {
-	#name : #LePathFinderExamples,
-	#superclass : #Object,
-	#category : #'Lepiter-Utilities-Examples'
+	#name : 'LePathFinderExamples',
+	#superclass : 'Object',
+	#category : 'Lepiter-Utilities-Examples'
 }
 
-{ #category : #helper }
+{ #category : 'helper' }
 LePathFinderExamples >> database [ 
 
 	^ LeDatabase new.

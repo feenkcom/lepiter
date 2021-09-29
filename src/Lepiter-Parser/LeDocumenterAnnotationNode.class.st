@@ -1,6 +1,6 @@
 Class {
-	#name : #LeDocumenterAnnotationNode,
-	#superclass : #LeContentNode,
+	#name : 'LeDocumenterAnnotationNode',
+	#superclass : 'LeContentNode',
 	#instVars : [
 		'left',
 		'name',
@@ -8,72 +8,72 @@ Class {
 		'colon',
 		'right'
 	],
-	#category : #'Lepiter-Parser'
+	#category : 'Lepiter-Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeDocumenterAnnotationNode >> acceptVisitor: aContentVisitor [
 	^ aContentVisitor visitDocumenterAnnotation: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeDocumenterAnnotationNode >> annotation [
 	^ annotation
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeDocumenterAnnotationNode >> annotation: anObject [
 	self setParent: self annotation to: nil.
 	annotation := anObject.
 	self setParent: self annotation to: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeDocumenterAnnotationNode >> colon [
 	^ colon
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeDocumenterAnnotationNode >> colon: aSmaCCToken [
 	colon := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeDocumenterAnnotationNode >> left [
 	^ left
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeDocumenterAnnotationNode >> left: aSmaCCToken [
 	left := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeDocumenterAnnotationNode >> name [
 	^ name
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeDocumenterAnnotationNode >> name: aSmaCCToken [
 	name := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeDocumenterAnnotationNode >> otherVariables [
 	^ #(#annotation)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeDocumenterAnnotationNode >> right [
 	^ right
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeDocumenterAnnotationNode >> right: aSmaCCToken [
 	right := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeDocumenterAnnotationNode >> tokenVariables [
 	^ #(#left #name #colon #right)
 ]
