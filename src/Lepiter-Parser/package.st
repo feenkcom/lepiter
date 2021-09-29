@@ -1,1 +1,1 @@
-Package { #name : #'Lepiter-Parser' }
+Package { #name : 'Lepiter-Parser' }

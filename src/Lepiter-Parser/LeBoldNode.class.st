@@ -1,30 +1,30 @@
 Class {
-	#name : #LeBoldNode,
-	#superclass : #LeContentNode,
+	#name : 'LeBoldNode',
+	#superclass : 'LeContentNode',
 	#instVars : [
 		'leftStars',
 		'parts',
 		'rightStars'
 	],
-	#category : #'Lepiter-Parser'
+	#category : 'Lepiter-Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeBoldNode >> acceptVisitor: aContentVisitor [
 	^ aContentVisitor visitBold: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeBoldNode >> compositeNodeVariables [
 	^ #(#parts)
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeBoldNode >> compositeTokenVariables [
 	^ #(#leftStars #rightStars)
 ]
 
-{ #category : #'generated-initialize-release' }
+{ #category : 'generated-initialize-release' }
 LeBoldNode >> initialize [
 	super initialize.
 	leftStars := OrderedCollection new: 2.
@@ -32,34 +32,34 @@ LeBoldNode >> initialize [
 	rightStars := OrderedCollection new: 2.
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeBoldNode >> leftStars [
 	^ leftStars
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeBoldNode >> leftStars: anOrderedCollection [
 	leftStars := anOrderedCollection
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeBoldNode >> parts [
 	^ parts
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeBoldNode >> parts: anOrderedCollection [
 	self setParents: self parts to: nil.
 	parts := anOrderedCollection.
 	self setParents: self parts to: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeBoldNode >> rightStars [
 	^ rightStars
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeBoldNode >> rightStars: anOrderedCollection [
 	rightStars := anOrderedCollection
 ]

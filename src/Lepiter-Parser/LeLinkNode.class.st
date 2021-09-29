@@ -1,10 +1,10 @@
 Class {
-	#name : #LeLinkNode,
-	#superclass : #LeContentNode,
-	#category : #'Lepiter-Parser'
+	#name : 'LeLinkNode',
+	#superclass : 'LeContentNode',
+	#category : 'Lepiter-Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeLinkNode >> acceptVisitor: aContentVisitor [
 	^ aContentVisitor visitLink: self
 ]

@@ -1,28 +1,28 @@
 Class {
-	#name : #LeExampleAnnotationNode,
-	#superclass : #LeAnnotationNode,
-	#category : #'Lepiter-Parser'
+	#name : 'LeExampleAnnotationNode',
+	#superclass : 'LeAnnotationNode',
+	#category : 'Lepiter-Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeExampleAnnotationNode >> acceptVisitor: anAnnotationParseVisitor [
 	^ anAnnotationParseVisitor visitExampleAnnotation: self
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeExampleAnnotationNode >> alignment [
 	^ self alignmentNode ifNotNil: [ :aNode |
 		aNode stringValue ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeExampleAnnotationNode >> alignmentNode [
 	^ items 
 		detect: [ :node | node isAlignment ] 
 		ifNone: [ nil ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeExampleAnnotationNode >> codeExpanded [
 	items
 		do: [ :each | 
@@ -31,7 +31,7 @@ LeExampleAnnotationNode >> codeExpanded [
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeExampleAnnotationNode >> noCode [
 	items
 		do: [ :each | 
@@ -40,7 +40,7 @@ LeExampleAnnotationNode >> noCode [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeExampleAnnotationNode >> previewExpanded [
 	items
 		do: [ :each | 
@@ -49,7 +49,7 @@ LeExampleAnnotationNode >> previewExpanded [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LeExampleAnnotationNode >> previewHeight [
 	items
 		do: [ :each | 
@@ -58,7 +58,7 @@ LeExampleAnnotationNode >> previewHeight [
 	^ nil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeExampleAnnotationNode >> previewShowSelector [
 	items
 		do: [ :each | 

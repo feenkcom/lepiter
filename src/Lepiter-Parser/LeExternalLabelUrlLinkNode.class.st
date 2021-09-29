@@ -1,15 +1,15 @@
 Class {
-	#name : #LeExternalLabelUrlLinkNode,
-	#superclass : #LeExternalLinkNode,
-	#category : #'Lepiter-Parser'
+	#name : 'LeExternalLabelUrlLinkNode',
+	#superclass : 'LeExternalLinkNode',
+	#category : 'Lepiter-Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeExternalLabelUrlLinkNode >> acceptVisitor: aContentVisitor [
 	^ aContentVisitor visitExternalLabelUrlLink: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeExternalLabelUrlLinkNode >> displayLabel [
 	"Answer the string that should be used to display the receiver.
 	If a label is present, use that, otherwise the URL"
@@ -17,7 +17,7 @@ LeExternalLabelUrlLinkNode >> displayLabel [
 	^ self label ifEmpty: [ self url ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeExternalLabelUrlLinkNode >> label [ 
 	| linkString endOfLabel |
 
@@ -27,7 +27,7 @@ LeExternalLabelUrlLinkNode >> label [
 	^ linkString copyFrom: 2 to: endOfLabel - 1.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeExternalLabelUrlLinkNode >> url [
 	| linkString endOfLabel |
 
