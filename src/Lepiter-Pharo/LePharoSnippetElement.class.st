@@ -94,10 +94,3 @@ LePharoSnippetElement >> unsubscribeFromSnippetViewModel [
 	self snippet unsubscribe: self.
 	self coder announcer unsubscribe: self.
 ]
-
-{ #category : 'private - updating' }
-LePharoSnippetElement >> updateCoderUIModel [
-	super updateCoderUIModel.
-
-	coderToolbar coderUIModel: self snippetViewModel coderViewModel
-]
