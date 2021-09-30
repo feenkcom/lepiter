@@ -1,10 +1,10 @@
 Class {
-	#name : #LeAnnotationParseNode,
-	#superclass : #SmaCCParseNode,
-	#category : #'Lepiter-Parser'
+	#name : 'LeAnnotationParseNode',
+	#superclass : 'SmaCCParseNode',
+	#category : 'Lepiter-Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeAnnotationParseNode >> acceptVisitor: anAnnotationParseVisitor [
 	^ anAnnotationParseVisitor visitAnnotationParse: self
 ]

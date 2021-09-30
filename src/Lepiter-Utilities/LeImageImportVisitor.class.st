@@ -3,7 +3,7 @@ LeImageImport visits the supplied lepiter model and updates all textual and pict
 
 The database must have a monitor, i.e. a root directory where the images are attached.
 
-The database can either be implicitly supplied by visiting it, or explicitly set with {{gtMethod:name=LeImageImport>>#database:}}.
+The database can either be implicitly supplied by visiting it, or explicitly set with {{gtMethod:name=LeImageImportVisitor>>#database:}}.
 
 If the original source URL of the image is to be saved as metadata, the database must have savePersonalInformation true, i.e.:
 
@@ -24,8 +24,8 @@ See {{gtClass:name=LeImageImportExamples}} for example use.
 
 "
 Class {
-	#name : #LeImageImportVisitor,
-	#superclass : #Object,
+	#name : 'LeImageImportVisitor',
+	#superclass : 'Object',
 	#traits : 'TLeModelVisitor',
 	#classTraits : 'TLeModelVisitor classTrait',
 	#instVars : [
@@ -35,22 +35,22 @@ Class {
 		'pageChanged',
 		'downloadDirectory'
 	],
-	#category : #'Lepiter-Utilities-ImageImport'
+	#category : 'Lepiter-Utilities-ImageImport'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeImageImportVisitor >> addedImages [
 	^ addedImages
 ]
 
-{ #category : #'private - assertions' }
+{ #category : 'private - assertions' }
 LeImageImportVisitor >> assertDatabaseOk: aLeDatabase [
 
 	self assert: [ aLeDatabase isNotNil and: [ aLeDatabase hasMonitor ] ]
 		description: 'The supplied database must have a monitor (root directory)'.
 ]
 
-{ #category : #'private - attaching' }
+{ #category : 'private - attaching' }
 LeImageImportVisitor >> attachURL: aUrlString [
 	"Attempt to download and add the image at the supplied URL as an attachment"
 	| downloadFile attachedFile attachedFileReference metadata |
@@ -66,7 +66,7 @@ LeImageImportVisitor >> attachURL: aUrlString [
 	^ attachedFile
 ]
 
-{ #category : #cleanup }
+{ #category : 'cleanup' }
 LeImageImportVisitor >> cleanUp [ 
 	"Remove any temporary resources left behind"
 
@@ -74,17 +74,17 @@ LeImageImportVisitor >> cleanUp [
 		[ downloadDirectory ensureDeleteAll ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeImageImportVisitor >> database [
 	^ database
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeImageImportVisitor >> database: anObject [
 	database := anObject
 ]
 
-{ #category : #'private - attaching' }
+{ #category : 'private - attaching' }
 LeImageImportVisitor >> downloadURL: aUrlString [
 	"Attempt to download the supplied URL.
 	If successful, answer the file reference, otherwise nil."
@@ -99,12 +99,12 @@ LeImageImportVisitor >> downloadURL: aUrlString [
 			do: [ :ex | failedImages at: aUrlString put: ex. nil ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeImageImportVisitor >> failedImages [
 	^ failedImages
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 LeImageImportVisitor >> gtAddedImagesFor: aView [
 	<gtView>
 
@@ -117,7 +117,7 @@ LeImageImportVisitor >> gtAddedImagesFor: aView [
 		send: [ :item | item value ]
 ]
 
-{ #category : #ui }
+{ #category : 'ui' }
 LeImageImportVisitor >> gtFailedImagesFor: aView [
 	<gtView>
 
@@ -130,7 +130,7 @@ LeImageImportVisitor >> gtFailedImagesFor: aView [
 		send: [ :item | item value ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LeImageImportVisitor >> initialize [
 
 	super initialize.
@@ -140,13 +140,13 @@ LeImageImportVisitor >> initialize [
 	downloadDirectory ensureCreateDirectory.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LeImageImportVisitor >> rootDirectory [ 
 
 	^ database monitor localRoot
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeImageImportVisitor >> visitDatabase: aLeDatabase [
 
 	self assertDatabaseOk: aLeDatabase.
@@ -156,7 +156,7 @@ LeImageImportVisitor >> visitDatabase: aLeDatabase [
 
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeImageImportVisitor >> visitPictureSnippet: aLePictureSnippet [
 	| newUrl |
 
@@ -165,7 +165,7 @@ LeImageImportVisitor >> visitPictureSnippet: aLePictureSnippet [
 	^ self visitSnippet: aLePictureSnippet 
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 LeImageImportVisitor >> visitTextSnippet: aLeTextSnippet [
 	| textVisitor |
 

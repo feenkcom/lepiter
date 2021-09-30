@@ -2,11 +2,11 @@
 TGtMacroStringEncoding provides convenience methods to convert FileReferences to and from strings, allowing ${method:name=FileLocator class>>#supportedOrigins}$ as macro names encoded with curly-braces. 
 "
 Trait {
-	#name : #TGtMacroFileReferenceEncoding,
-	#category : #'Lepiter-Utilities'
+	#name : 'TGtMacroFileReferenceEncoding',
+	#category : 'Lepiter-Utilities'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TGtMacroFileReferenceEncoding >> decodeFileReferenceString: aString [
 	"Answer a FileReference or FileLocator from the supplied string.
 	FileLocator origins are available as formatted strings, e.g.
@@ -30,7 +30,7 @@ TGtMacroFileReferenceEncoding >> decodeFileReferenceString: aString [
 	 	[ aString asFileReference ].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TGtMacroFileReferenceEncoding >> encodeFileReferenceToString: aFileReferenceStringOrNil [
 	"Answer the string form of the supplied reference"
 

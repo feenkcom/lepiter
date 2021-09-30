@@ -1,28 +1,28 @@
 Class {
-	#name : #LeInlineCodeNode,
-	#superclass : #LeContentNode,
+	#name : 'LeInlineCodeNode',
+	#superclass : 'LeContentNode',
 	#instVars : [
 		'code'
 	],
-	#category : #'Lepiter-Parser'
+	#category : 'Lepiter-Parser'
 }
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeInlineCodeNode >> acceptVisitor: aContentVisitor [
 	^ aContentVisitor visitInlineCode: self
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeInlineCodeNode >> code [
 	^ code
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeInlineCodeNode >> code: aSmaCCToken [
 	code := aSmaCCToken
 ]
 
-{ #category : #generated }
+{ #category : 'generated' }
 LeInlineCodeNode >> tokenVariables [
 	^ #(#code)
 ]

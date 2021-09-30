@@ -1,7 +1,7 @@
 "
 I display a {{gtClass:LePage}} title:
 
-{{gtExample:LeUIExamples>>#pageCardElement|previewExpanded}}
+{{gtExample:LePageCardElementExamples>>#pageCardElement|previewExpanded}}
 
 
 "

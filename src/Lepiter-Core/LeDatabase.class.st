@@ -836,10 +836,21 @@ LeDatabase >> reSortCollectionsDueTo: aLePageTitleChanged [
 
 { #category : 'adding / removing' }
 LeDatabase >> registerSnippet: aSnippet [
-	self assert: [ aSnippet uid notNil ].
-	self assert: [ aSnippet uid uid notNil ].
-	self assert: [ (blocksByUID includesKey: aSnippet uid) not ].
-	
+
+	self
+		assert: [ aSnippet uid notNil ]
+		description: [ 'Snippet UID must be non-nil: ' , aSnippet asString ].
+	self
+		assert: [ aSnippet uid uid notNil ]
+		description: [ 
+		'Snippet UID''s uid must be non-nil: ' , aSnippet uid asString ].
+	self
+		assert: [ (blocksByUID includesKey: aSnippet uid) not ]
+		description: [ 
+			'There is already a snippet with the same UID, existing '
+			, (blocksByUID at: aSnippet uid) asString , ', registering '
+			, aSnippet asString ].
+
 	blocksByUID at: aSnippet uid put: aSnippet
 ]
 

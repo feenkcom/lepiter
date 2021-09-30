@@ -3,10 +3,10 @@ I display a {{gtClass:LePage}} list of a {{gtClass:LeDatabase}}.
 
 I can display all pages and daily notes:
 
-{{gtExample:LeUIExamples>>#databasePageListElement_Pages|previewExpanded}}
+{{gtExample:LeUIByScripterExamples>>#databasePageListElement_Pages|previewExpanded}}
 
 I can also display any subset of pages, e.g., just daily notes:
-{{gtExample:LeUIExamples>>#databasePageListElement_DailyNotes|previewExpanded}}
+{{gtExample:LeUIByScripterExamples>>#databasePageListElement_DailyNotes|previewExpanded}}
 
 "
 Class {
