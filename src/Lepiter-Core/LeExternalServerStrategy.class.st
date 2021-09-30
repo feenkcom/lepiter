@@ -5,21 +5,21 @@ The strategy is used to determine which server should be used, e.g. a global ser
 
 "
 Class {
-	#name : 'LeExternalServerStrategy',
-	#superclass : 'Object',
+	#name : #LeExternalServerStrategy,
+	#superclass : #Object,
 	#instVars : [
 		'content'
 	],
 	#category : 'Lepiter-Core-ExternalServer'
 }
 
-{ #category : 'naming' }
+{ #category : #naming }
 LeExternalServerStrategy class >> strategyName [ 
 
 	^ self subclassResponsibility 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExternalServerStrategy class >> strategyNamed: aSymbol [
 	"Answer the strategy with the supplied name"
 
@@ -27,7 +27,7 @@ LeExternalServerStrategy class >> strategyNamed: aSymbol [
 		cls strategyName = aSymbol ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExternalServerStrategy >> applicationServer [ 
 	"Answer the application server, e.g. JSLinkApplication, PBApplication.
 	For the null database, answer nil."
@@ -35,7 +35,7 @@ LeExternalServerStrategy >> applicationServer [
 	^ self subclassResponsibility
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExternalServerStrategy >> applicationSettings [
 	"Answer the settings that will be used by the server.
 	This musn't actually start the server as that should be deferred until a snippet is evaluated for the first time."
@@ -43,12 +43,12 @@ LeExternalServerStrategy >> applicationSettings [
 	^ self subclassResponsibility
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExternalServerStrategy >> content [
 	^ content
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExternalServerStrategy >> content: anObject [
 	content := anObject
 ]

@@ -3,39 +3,39 @@ LepiterCoreDefaults defines all default and constant values used by Lepiter-Core
 
 "
 Class {
-	#name : 'LepiterCoreDefaults',
-	#superclass : 'Object',
+	#name : #LepiterCoreDefaults,
+	#superclass : #Object,
 	#classInstVars : [
 		'defaultDocumentationDirectory'
 	],
 	#category : 'Lepiter-Core-Defaults'
 }
 
-{ #category : 'constants' }
+{ #category : #constants }
 LepiterCoreDefaults class >> databasePropertiesBasename [
 
 	^ 'lepiter.properties'
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 LepiterCoreDefaults class >> defaultDocumentationDirectory [
 	^ defaultDocumentationDirectory ifNil: [ 
 		FileLocator imageDirectory 
 			/ 'gt-extra' ]
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 LepiterCoreDefaults class >> defaultDocumentationDirectory: aFileLocator [
 	defaultDocumentationDirectory := aFileLocator
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 LepiterCoreDefaults class >> defaultGemStonePropertiesFileReference [
 
 	^ self defaultLocalDirectory / self gemStonePropertiesBasename
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 LepiterCoreDefaults class >> defaultGtoolkitDocumentationDirectory [
 	^ self defaultDocumentationDirectory
 		/ 'feenkcom' 
@@ -43,7 +43,7 @@ LepiterCoreDefaults class >> defaultGtoolkitDocumentationDirectory [
 		/ 'lepiter'
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 LepiterCoreDefaults class >> defaultLocalDirectory [
 	"Answer the FileReference pointing to the lepiter knowledge base root directory as used by GtWorld."
 
@@ -52,33 +52,33 @@ LepiterCoreDefaults class >> defaultLocalDirectory [
 		/ 'lepiter'
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 LepiterCoreDefaults class >> defaultLocalLogicalDatabasePropertiesFileReference [
 	"Answer the FileReference pointing to the logical database properties used by GtWorld."
 
 	^ self defaultLocalDirectory / self logicalDatabasePropertiesBasename
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 LepiterCoreDefaults class >> defaultStorageDirectory [
 	"Answer the FileReference pointing to the lepiter knowledge base root directory as used by the Lepiter Application."
 
 	^ FileLocator documents / 'lepiter'
 ]
 
-{ #category : 'constants' }
+{ #category : #constants }
 LepiterCoreDefaults class >> gemStonePropertiesBasename [
 
 	^ 'gt4gemstone.properties'
 ]
 
-{ #category : 'constants' }
+{ #category : #constants }
 LepiterCoreDefaults class >> logicalDatabasePropertiesBasename [
 
 	^ 'logical-database.properties'
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 LepiterCoreDefaults class >> logicalDatabasePropertiesFileReference [
 	"Answer the FileReference pointing to the logical database properties used by the Lepiter Application."
 
@@ -86,13 +86,13 @@ LepiterCoreDefaults class >> logicalDatabasePropertiesFileReference [
 		/ self logicalDatabasePropertiesBasename
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 LepiterCoreDefaults class >> playgroundDatabaseDirectory [ 
 
 	^ self defaultStorageDirectory / 'playground'
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 LepiterCoreDefaults class >> primaryDatabaseDirectory [
 
 	^ self defaultStorageDirectory / 'default'

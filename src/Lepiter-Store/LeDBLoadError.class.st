@@ -3,8 +3,8 @@ LeDBLoadError is resignaled when exceptions are caught during the DB load proces
 
 "
 Class {
-	#name : 'LeDBLoadError',
-	#superclass : 'Error',
+	#name : #LeDBLoadError,
+	#superclass : #Error,
 	#instVars : [
 		'fileReference',
 		'reason',
@@ -13,27 +13,27 @@ Class {
 	#category : 'Lepiter-Store-Exceptions'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDBLoadError >> fileReference [
 	^ fileReference
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDBLoadError >> fileReference: anObject [
 	fileReference := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDBLoadError >> originalException [
 	^ originalException
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDBLoadError >> originalException: anObject [
 	originalException := anObject
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 LeDBLoadError >> printOn: aStream [
 
 	aStream
@@ -42,12 +42,12 @@ LeDBLoadError >> printOn: aStream [
 		print: fileReference
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDBLoadError >> reason [
 	^ reason
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDBLoadError >> reason: anObject [
 	reason := anObject
 ]

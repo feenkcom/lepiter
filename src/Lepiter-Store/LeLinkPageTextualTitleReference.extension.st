@@ -1,6 +1,6 @@
-Extension { #name : 'LeLinkPageTextualTitleReference' }
+Extension { #name : #LeLinkPageTextualTitleReference }
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeLinkPageTextualTitleReference class >> leJsonV3AttributeMapping [
 
 	^ super leJsonV3AttributeMapping
@@ -8,13 +8,13 @@ LeLinkPageTextualTitleReference class >> leJsonV3AttributeMapping [
 		yourself
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeLinkPageTextualTitleReference class >> leJsonV3Name [
 
 	^ 'pageReferenceByTitle'
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeLinkPageTextualTitleReference class >> leJsonV4AttributeMapping [
 
 	^ super leJsonV4AttributeMapping
@@ -22,7 +22,7 @@ LeLinkPageTextualTitleReference class >> leJsonV4AttributeMapping [
 		yourself
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeLinkPageTextualTitleReference class >> leJsonV4Name [
 
 	^ 'pageReferenceByTitle'

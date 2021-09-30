@@ -1,1 +1,1 @@
-Package { #name : 'Lepiter-Store' }
+Package { #name : #'Lepiter-Store' }

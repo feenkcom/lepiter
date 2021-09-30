@@ -1,6 +1,6 @@
-Extension { #name : 'LeHeadingStyle' }
+Extension { #name : #LeHeadingStyle }
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeHeadingStyle class >> leJsonV3AttributeMapping [
 
 	^ super leJsonV3AttributeMapping
@@ -8,13 +8,13 @@ LeHeadingStyle class >> leJsonV3AttributeMapping [
 		yourself
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeHeadingStyle class >> leJsonV3Name [
 
 	^ 'headingStyle'
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeHeadingStyle class >> leJsonV4AttributeMapping [
 
 	^ super leJsonV4AttributeMapping
@@ -22,7 +22,7 @@ LeHeadingStyle class >> leJsonV4AttributeMapping [
 		yourself
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeHeadingStyle class >> leJsonV4Name [
 
 	^ 'headingStyle'

@@ -7,8 +7,8 @@ You can also use {{gtMethod:LeTextSnippet>>#updateString:}} {{gtExample:LeDataba
 
 "
 Class {
-	#name : 'LeDatabaseSnippetUpdater',
-	#superclass : 'LeSnippetBuilder',
+	#name : #LeDatabaseSnippetUpdater,
+	#superclass : #LeSnippetBuilder,
 	#traits : 'TLeContentUpdater',
 	#classTraits : 'TLeContentUpdater classTrait',
 	#instVars : [
@@ -17,7 +17,7 @@ Class {
 	#category : 'Lepiter-Core-Builders'
 }
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabaseSnippetUpdater >> block: aSnippet [
 	self 
 		deprecated: 'Use #snippet: instead.' 
@@ -25,40 +25,40 @@ LeDatabaseSnippetUpdater >> block: aSnippet [
 	^ self snippet: aSnippet.
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabaseSnippetUpdater >> database [
 	^ database
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabaseSnippetUpdater >> database: aDatabase [
 	database = aDatabase ifTrue: [ ^ self ].
 	database := aDatabase.
 ]
 
-{ #category : 'private - testing' }
+{ #category : #'private - testing' }
 LeDatabaseSnippetUpdater >> hasContent [
 	<return: #Boolean>
 	^ self snippet hasText
 ]
 
-{ #category : 'private - testing' }
+{ #category : #'private - testing' }
 LeDatabaseSnippetUpdater >> hasDatabase [
 	^ self database isKindOf: LeDatabase
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeDatabaseSnippetUpdater >> initialize [
 	super initialize.
 	database := LeDatabase null.
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabaseSnippetUpdater >> snippet: aSnippet [
 	content := aSnippet
 ]
 
-{ #category : 'api - updating' }
+{ #category : #'api - updating' }
 LeDatabaseSnippetUpdater >> update [
 	"Currently we update immediately for individual method calls"
 	<return: #LeTextSnippet>

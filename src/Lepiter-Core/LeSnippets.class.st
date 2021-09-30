@@ -1,16 +1,16 @@
 Class {
-	#name : 'LeSnippets',
-	#superclass : 'LeCollection',
+	#name : #LeSnippets,
+	#superclass : #LeCollection,
 	#category : 'Lepiter-Core-Model'
 }
 
-{ #category : 'visiting' }
+{ #category : #visiting }
 LeSnippets >> acceptVisitor: aVisitor [
 
 	^ aVisitor visitSnippets: self
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeSnippets >> addSnippet: newLeSnippet after: aLeSnippet [
 	"Add the new snippet after the existing snippet. Answer the new snippet"
 
@@ -18,7 +18,7 @@ LeSnippets >> addSnippet: newLeSnippet after: aLeSnippet [
 	^ newLeSnippet
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeSnippets >> addSnippet: newLeSnippet before: aLeSnippet [
 	"Add the new snippet before the existing block. Answer the new snippet"
 
@@ -26,7 +26,7 @@ LeSnippets >> addSnippet: newLeSnippet before: aLeSnippet [
 	^ newLeSnippet
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeSnippets >> addSnippet: newLeSnippet beforeIndex: anInteger [
 	"Add the new snippet at the supplied index. Answer the new snippet"
 
@@ -34,7 +34,7 @@ LeSnippets >> addSnippet: newLeSnippet beforeIndex: anInteger [
 	^ newLeSnippet
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 LeSnippets >> gtSnippetsFor: aView [
 	<gtView>
 	self items ifNil: [ ^ aView empty ].
@@ -52,7 +52,7 @@ LeSnippets >> gtSnippetsFor: aView [
 		column: 'Author' text: #editOrCreateEmail
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeSnippets >> includesSnippetUid: aLeUID [
 	"Answer a boolean indicating whether the supplied uid is present"
 
@@ -61,7 +61,7 @@ LeSnippets >> includesSnippetUid: aLeUID [
 		ifNone: [ false ]
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeSnippets >> indentSnippet: aLeSnippet [
 	"Indent the supplied snippet, i.e. make it a child of the previous snippet.
 	If it is the first snippet at the current level, do nothing.
@@ -79,7 +79,7 @@ LeSnippets >> indentSnippet: aLeSnippet [
 	^ newParent.
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeSnippets >> mergeSnippet: mergeLeSnippet after: afterLeSnippet [
 	"Merge the supplied snippet with the after afterLeSnippet.
 	Answer the merged snippet"
@@ -94,7 +94,7 @@ LeSnippets >> mergeSnippet: mergeLeSnippet after: afterLeSnippet [
 	^ nextSnippet.
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeSnippets >> moveDownSnippet: aLeSnippet [
 	"Try to move the supplied snippet down one item.
 	Answer a boolean indicating the change was made."
@@ -108,7 +108,7 @@ LeSnippets >> moveDownSnippet: aLeSnippet [
 	^ true
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSnippets >> moveSnippet: aLeSnippet above: parentSnippet [
 	"Move aLeSnippet to the snippet above its current parent (parentSnippet).
 	Answer the new parent if the move was made, or nil if it wasn't."
@@ -123,7 +123,7 @@ LeSnippets >> moveSnippet: aLeSnippet above: parentSnippet [
 	^ newParent.
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeSnippets >> moveSnippet: aLeSnippet below: parentSnippet [
 	"Move aLeSnippet to the snippet below its current parent (parentSnippet).
 	Answer the new parent if the move was made, or nil if it wasn't."
@@ -138,7 +138,7 @@ LeSnippets >> moveSnippet: aLeSnippet below: parentSnippet [
 	^ newParent
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeSnippets >> moveUpSnippet: aLeSnippet [
 	"Try to move the supplied snippet up one item.
 	Answer a boolean indicating the change was made."
@@ -152,7 +152,7 @@ LeSnippets >> moveUpSnippet: aLeSnippet [
 	^ true
 ]
 
-{ #category : 'serialization' }
+{ #category : #serialization }
 LeSnippets >> neoJsonOn: neoJSONWriter [
 	"If the receiver has only a single, empty child, write an empty collection"
 
@@ -162,14 +162,14 @@ LeSnippets >> neoJsonOn: neoJSONWriter [
 	neoJSONWriter writeObject: self
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 LeSnippets >> printOn: aStream [
 	aStream 
 		print: self size;
 		nextPutAll: ' snippets'
 ]
 
-{ #category : 'removing' }
+{ #category : #removing }
 LeSnippets >> removeSnippet: aLeSnippet [
 	"Remove the supplied block from the receiver"
 

@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeJsonV4Reader',
-	#superclass : 'NeoJSONReader',
+	#name : #LeJsonV4Reader,
+	#superclass : #NeoJSONReader,
 	#instVars : [
 		'objects',
 		'typeMap'
@@ -8,7 +8,7 @@ Class {
 	#category : 'Lepiter-Store-JsonV4'
 }
 
-{ #category : 'mapping' }
+{ #category : #mapping }
 LeJsonV4Reader >> for: smalltalkClass do: block [
 	| mapping |
 
@@ -17,32 +17,32 @@ LeJsonV4Reader >> for: smalltalkClass do: block [
 	^ mapping
 ]
 
-{ #category : 'initialize-release' }
+{ #category : #'initialize-release' }
 LeJsonV4Reader >> initialize [
 
 	super initialize.
 	typeMap := Dictionary new.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeJsonV4Reader >> next [
 
 	^ self objectFor: super next
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeJsonV4Reader >> nextAs: schema [
 
 	^ self objectFor: (super nextAs: schema)
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeJsonV4Reader >> nextListAs: schema [
 
 	^ self objectFor: (super nextListAs: schema)
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeJsonV4Reader >> object: type from: map [
 
 	^ typeMap at: type
@@ -50,21 +50,21 @@ LeJsonV4Reader >> object: type from: map [
 		ifAbsent: [ self unknownSnippetTypeFrom: map ]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeJsonV4Reader >> objectFor: anObject [
 	"Answer the single instance of anObject."
 
 	^ objects at: anObject ifAbsentPut: [ anObject ]
 ]
 
-{ #category : 'initialize-release' }
+{ #category : #'initialize-release' }
 LeJsonV4Reader >> on: aStream [
 
 	super on: aStream.
 	objects := Dictionary new.
 ]
 
-{ #category : 'parsing' }
+{ #category : #parsing }
 LeJsonV4Reader >> parseMap [ 
 	| map |
 
@@ -75,13 +75,13 @@ LeJsonV4Reader >> parseMap [
 		ifAbsent: [ map ]
 ]
 
-{ #category : 'parsing' }
+{ #category : #parsing }
 LeJsonV4Reader >> parseValue [ 
 
 	^ self objectFor: super parseValue
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeJsonV4Reader >> unknownSnippetTypeFrom: map [
 	"If the supplied map looks like a snippet, answer an unknown snippet, otherwise raise an exception"
 	| children snippet |

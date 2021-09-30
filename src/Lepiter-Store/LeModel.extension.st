@@ -1,6 +1,6 @@
-Extension { #name : 'LeModel' }
+Extension { #name : #LeModel }
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeModel class >> leFromJsonV3Dictionary: aDictionary [
 	"Create a new instance of the receiver from the supplied dictionary.
 	Subclasses can override this to provide custom mappings."
@@ -19,7 +19,7 @@ LeModel class >> leFromJsonV3Dictionary: aDictionary [
 	^ aLeModel
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeModel class >> leFromJsonV4Dictionary: aDictionary [
 	"Create a new instance of the receiver from the supplied dictionary.
 	Subclasses can override this to provide custom mappings."
@@ -38,7 +38,7 @@ LeModel class >> leFromJsonV4Dictionary: aDictionary [
 	^ aLeModel
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeModel class >> leJsonV3AddMappingsTo: aJsonMapping [
 	"Subclasses may over-write this to add custom mappings"
 
@@ -46,7 +46,7 @@ LeModel class >> leJsonV3AddMappingsTo: aJsonMapping [
 		aJsonMapping mapAccessor: attributeMap key to: attributeMap value ].
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeModel class >> leJsonV3AttributeMapping [
 	"Answer the Array of attribute to store keys.
 	Subclasses should override this with their attributes.
@@ -55,7 +55,7 @@ LeModel class >> leJsonV3AttributeMapping [
 	^ OrderedCollection new.
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeModel class >> leJsonV3MappingFor: aNeoJSONMapper [
 	"By default, Lepiter objects are written as a mapping.
 	Any subclasses that want a different representation should over-write this method"
@@ -69,13 +69,13 @@ LeModel class >> leJsonV3MappingFor: aNeoJSONMapper [
 
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeModel class >> leJsonV3Name [
 
 	^ nil
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeModel class >> leJsonV4AddMappingsTo: aJsonMapping [
 	"Subclasses may over-write this to add custom mappings"
 
@@ -83,7 +83,7 @@ LeModel class >> leJsonV4AddMappingsTo: aJsonMapping [
 		aJsonMapping mapAccessor: attributeMap key to: attributeMap value ].
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeModel class >> leJsonV4AttributeMapping [
 	"Answer the Array of attribute to store keys.
 	Subclasses should override this with their attributes.
@@ -92,7 +92,7 @@ LeModel class >> leJsonV4AttributeMapping [
 	^ OrderedCollection new.
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeModel class >> leJsonV4Name [
 
 	^ nil

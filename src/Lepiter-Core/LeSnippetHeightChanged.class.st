@@ -1,18 +1,18 @@
 Class {
-	#name : 'LeSnippetHeightChanged',
-	#superclass : 'LeSnippetContentChanged',
+	#name : #LeSnippetHeightChanged,
+	#superclass : #LeSnippetContentChanged,
 	#instVars : [
 		'height'
 	],
 	#category : 'Lepiter-Core-Announcements'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSnippetHeightChanged >> height [
 	^ height
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSnippetHeightChanged >> height: anObject [
 	height := anObject
 ]

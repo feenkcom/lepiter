@@ -1,15 +1,15 @@
 Trait {
-	#name : 'TLeSpotterPagesSearch',
+	#name : #TLeSpotterPagesSearch,
 	#category : 'Lepiter-Core-Utility'
 }
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 TLeSpotterPagesSearch >> children [
 	<return: #Collection of: #LeContent>
 	^ self explicitRequirement
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 TLeSpotterPagesSearch >> gtSpotterContainingSubPartsFor: aStep [
 	<gtSearch>
 	self hasChildren ifNil: [ ^ self ].
@@ -21,7 +21,7 @@ TLeSpotterPagesSearch >> gtSpotterContainingSubPartsFor: aStep [
 		items: [ self children ]
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 TLeSpotterPagesSearch >> gtSpotterContentFor: aStep [
 	<gtSearch>
 	self hasChildren ifFalse: [ ^ self ].
@@ -34,7 +34,7 @@ TLeSpotterPagesSearch >> gtSpotterContentFor: aStep [
 		filter: GtFilterSubstring
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 TLeSpotterPagesSearch >> gtSpotterSubPartsFor: aStep [
 	<gtSearch>
 	false ifFalse: [ ^ self ].
@@ -47,7 +47,7 @@ TLeSpotterPagesSearch >> gtSpotterSubPartsFor: aStep [
 				self allChildrenBreadthFirstDo: filter ]
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 TLeSpotterPagesSearch >> hasChildren [
 	<return: #Boolean>
 	^ self explicitRequirement

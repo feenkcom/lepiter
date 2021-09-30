@@ -1,13 +1,13 @@
 Class {
-	#name : 'LeUID',
-	#superclass : 'LeModel',
+	#name : #LeUID,
+	#superclass : #LeModel,
 	#instVars : [
 		'uid'
 	],
 	#category : 'Lepiter-Core-Model'
 }
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 LeUID >> = anObject [
 	"Answer whether the receiver and anObject represent the same object."
 
@@ -16,7 +16,7 @@ LeUID >> = anObject [
 	^ uid = anObject uid
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeUID >> hasUidString: aString64 [
 
 	self deprecated: '= should be used, less space and CPU required'.
@@ -25,37 +25,37 @@ LeUID >> hasUidString: aString64 [
 		 aString64 = uid base64Encoded ]
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 LeUID >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
 	^ uid hash
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 LeUID >> printOn: aStream [
 
 	uid ifNil: [ ^ super printOn: aStream ].
 	aStream << uid base64Encoded.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeUID >> uid [
 	^ uid
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeUID >> uid: aUUID [
 	uid := aUUID
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeUID >> uidString [ 
 
 	^ uid base64Encoded
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeUID >> uidString: aString64 [
 
 	uid := UUID nilUUID.

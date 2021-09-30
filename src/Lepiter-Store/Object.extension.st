@@ -1,6 +1,6 @@
-Extension { #name : 'Object' }
+Extension { #name : #Object }
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 Object class >> leFromJsonV4Dictionary: aDictionary [
 	"Create a new instance of the receiver from the supplied dictionary.
 	Subclasses can override this to provide custom mappings."
@@ -15,7 +15,7 @@ Object class >> leFromJsonV4Dictionary: aDictionary [
 	^ anObject
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 Object class >> leJsonV4AddMappingsTo: aJsonMapping [
 	"Subclasses may over-write this to add custom mappings"
 
@@ -23,7 +23,7 @@ Object class >> leJsonV4AddMappingsTo: aJsonMapping [
 		aJsonMapping mapAccessor: attributeMap key to: attributeMap value ].
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 Object class >> leJsonV4AttributeMapping [
 	"Answer the Array of attribute to store keys.
 	Subclasses should override this with their attributes."
@@ -32,7 +32,7 @@ Object class >> leJsonV4AttributeMapping [
 		instVarName -> instVarName ]
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 Object class >> leJsonV4MappingFor: aNeoJSONMapper [
 	"By default, Lepiter objects are written as a mapping.
 	Any subclasses that want a different representation should over-write this method"

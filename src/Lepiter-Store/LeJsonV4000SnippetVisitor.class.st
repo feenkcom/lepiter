@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeJsonV4000SnippetVisitor',
-	#superclass : 'LeContentNodeVisitor',
+	#name : #LeJsonV4000SnippetVisitor,
+	#superclass : #LeContentNodeVisitor,
 	#instVars : [
 		'snippetString',
 		'updater',
@@ -9,24 +9,24 @@ Class {
 	#category : 'Lepiter-Store-JsonV4'
 }
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeJsonV4000SnippetVisitor >> initialize [
 
 	super initialize.
 	substitutions := OrderedCollection new.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeJsonV4000SnippetVisitor >> snippetString [
 	^ snippetString
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeJsonV4000SnippetVisitor >> snippetString: anObject [
 	snippetString := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeJsonV4000SnippetVisitor >> updatedSnippetString [
 	"Answer the string with updated snippet UIDs"
 	| currentPosition |
@@ -43,17 +43,17 @@ LeJsonV4000SnippetVisitor >> updatedSnippetString [
 	
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeJsonV4000SnippetVisitor >> updater [
 	^ updater
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeJsonV4000SnippetVisitor >> updater: anObject [
 	updater := anObject
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeJsonV4000SnippetVisitor >> visitBlockLink: aBlockLink [
 	| oldUidString newUidString start end |
 

@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeExplicitLinks',
-	#superclass : 'LeModel',
+	#name : #LeExplicitLinks,
+	#superclass : #LeModel,
 	#instVars : [
 		'uid',
 		'externalLinksByUuid'
@@ -8,7 +8,7 @@ Class {
 	#category : 'Lepiter-Core-Links'
 }
 
-{ #category : 'adding' }
+{ #category : #adding }
 LeExplicitLinks >> addAllLinks: aCollectionOfLinks [
 	self assert: [ aCollectionOfLinks notNil ].
 	
@@ -16,7 +16,7 @@ LeExplicitLinks >> addAllLinks: aCollectionOfLinks [
 		self addLink: aLink ]
 ]
 
-{ #category : 'adding' }
+{ #category : #adding }
 LeExplicitLinks >> addLink: aLink [
 	self assert: [ aLink notNil ].
 	self assert: [ aLink linkUuid notNil ] description: 'Here links should have a unique id'.
@@ -25,17 +25,17 @@ LeExplicitLinks >> addLink: aLink [
 	externalLinksByUuid at: aLink linkUuid put: aLink
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExplicitLinks >> anyOne [
 	^ externalLinksByUuid anyOne
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 LeExplicitLinks >> anySatisfy: aBlock [ 
 	^ externalLinksByUuid anySatisfy: aBlock 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExplicitLinks >> at: aLinkUuid ifPresent: aPresentBlock ifAbsent: anAbsentBlock [
 	self assert: [ aLinkUuid notNil ].
 	
@@ -45,17 +45,17 @@ LeExplicitLinks >> at: aLinkUuid ifPresent: aPresentBlock ifAbsent: anAbsentBloc
 		ifAbsent: anAbsentBlock
 ]
 
-{ #category : 'private-for tests' }
+{ #category : #'private-for tests' }
 LeExplicitLinks >> clearUid [
 	uid := nil
 ]
 
-{ #category : 'mimic various enumerating' }
+{ #category : #'mimic various enumerating' }
 LeExplicitLinks >> collect: aBlock as: aClass [
 	^ externalLinksByUuid collect: aBlock as: aClass
 ]
 
-{ #category : 'copying' }
+{ #category : #copying }
 LeExplicitLinks >> copyForSavingOnlyWithAttachedLinks [
 	^ self class new
 		uid: self uid;
@@ -63,33 +63,33 @@ LeExplicitLinks >> copyForSavingOnlyWithAttachedLinks [
 			anExplicitLink isAttachedLink ])
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExplicitLinks >> count: aBlock [ 
 	^ externalLinksByUuid count: aBlock 
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 LeExplicitLinks >> detect: aBlock [
 	^ externalLinksByUuid detect: aBlock
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 LeExplicitLinks >> detect: aBlock ifFound: foundBlock ifNone: exceptionBlock [
 	^ externalLinksByUuid detect: aBlock ifFound: foundBlock ifNone: exceptionBlock
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 LeExplicitLinks >> do: aBlock [
 	externalLinksByUuid do: aBlock
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExplicitLinks >> first [ 	
 	externalLinksByUuid emptyCheck.
 	externalLinksByUuid do: [ :each | ^ each ].
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 LeExplicitLinks >> gtViewExplicitLinksFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -104,57 +104,57 @@ LeExplicitLinks >> gtViewExplicitLinksFor: aView [
 			anExplicitLink targetReference description ]
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeExplicitLinks >> hasExplicitLinkUID: aUUID [
 	^ externalLinksByUuid includesKey: aUUID
 	
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExplicitLinks >> ifEmpty: aBlock [
 	^ externalLinksByUuid ifEmpty: aBlock
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeExplicitLinks >> initialize [
 	super initialize.
 	externalLinksByUuid := OrderedDictionary new.
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeExplicitLinks >> isEmpty [
 	^ externalLinksByUuid isEmpty
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeExplicitLinks >> isNotEmpty [
 	^ externalLinksByUuid isNotEmpty
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExplicitLinks >> items [
 	^ externalLinksByUuid 
 		ifNil: [ #() ] 
 		ifNotNil: [ externalLinksByUuid values ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExplicitLinks >> items: aCollection [
 	"I am utility method for the JSON export"
 	self addAllLinks: aCollection
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExplicitLinks >> linkWithUuid: anUuid [
 	^ externalLinksByUuid at: anUuid
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeExplicitLinks >> notEmpty [
 	^ externalLinksByUuid notEmpty
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 LeExplicitLinks >> printOn: aStream [
 	super printOn: aStream.
 	aStream
@@ -163,14 +163,14 @@ LeExplicitLinks >> printOn: aStream [
 		nextPutAll: ')'
 ]
 
-{ #category : 'removing' }
+{ #category : #removing }
 LeExplicitLinks >> remove: anExplicitLink ifAbsent: aBlock [
 	^ externalLinksByUuid 
 		removeKey: anExplicitLink linkUuid 
 		ifAbsent: aBlock
 ]
 
-{ #category : 'removing' }
+{ #category : #removing }
 LeExplicitLinks >> removeAll: aCollectionOfLinks [ 
 	aCollectionOfLinks do: [ :anExplicitLink |
 		externalLinksByUuid 
@@ -178,28 +178,28 @@ LeExplicitLinks >> removeAll: aCollectionOfLinks [
 			ifAbsent: [  "ignore absent links" ] ]
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 LeExplicitLinks >> select: aBlock [ 
 	^ self class new
 		addAllLinks: (externalLinksByUuid select: aBlock)
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExplicitLinks >> size [ 	
 	^ externalLinksByUuid size
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExplicitLinks >> title [ 	
 	^ 'Explicit links -', self uid asString
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExplicitLinks >> uid [
 	^ uid
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExplicitLinks >> uid: anUuid [
 	self assert: [ anUuid notNil ].
 	self assert: [ uid isNil ].

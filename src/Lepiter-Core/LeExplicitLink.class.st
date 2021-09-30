@@ -1,18 +1,18 @@
 Class {
-	#name : 'LeExplicitLink',
-	#superclass : 'LeLink',
+	#name : #LeExplicitLink,
+	#superclass : #LeLink,
 	#instVars : [
 		'linkUuid'
 	],
 	#category : 'Lepiter-Core-Links'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExplicitLink >> database [
 	^ self subclassResponsibility
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 LeExplicitLink >> gtLiveOriginFor: aView [
 	<gtView>
 	self originReference ifNil: [ ^ aView empty ].
@@ -27,7 +27,7 @@ LeExplicitLink >> gtLiveOriginFor: aView [
 			action: [ :aButton :aTab | aButton phlow spawnObject: self originReference ]
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 LeExplicitLink >> gtLiveTargetFor: aView [
 	<gtView>
 	self targetReference ifNil: [ ^ aView empty ].
@@ -42,33 +42,33 @@ LeExplicitLink >> gtLiveTargetFor: aView [
 			action: [ :aButton :aTab | aButton phlow spawnObject: self targetReference ]
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeExplicitLink >> isAttachedLink [
 	^ false
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeExplicitLink >> isExplicitLink [
 	^ true
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeExplicitLink >> isTextualLink [
 	^ false
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExplicitLink >> linkUuid [
 	^ linkUuid
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExplicitLink >> linkUuid: anUuid [
 	self assert: [ anUuid notNil and: [ linkUuid isNil ] ].
 	linkUuid := anUuid
 ]
 
-{ #category : 'callbacks' }
+{ #category : #callbacks }
 LeExplicitLink >> onAboutToAddToDatabase: aDatabase [
 	"The link is about to be added to the database. At this point the link should
 	make sure all its relevant properties, needed by the database, are set."
@@ -79,18 +79,18 @@ LeExplicitLink >> onAboutToAddToDatabase: aDatabase [
 		self linkUuid: newUuid ].
 ]
 
-{ #category : 'callbacks' }
+{ #category : #callbacks }
 LeExplicitLink >> onAddedToDatabase: aDatabase [
 	"The link was added to a database."
 	self assert: [ self linkUuid notNil ] description: 'Ensure that the link has an uuid'.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExplicitLink >> originReference [
 	self subclassResponsibility
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExplicitLink >> targetReference [
 	self subclassResponsibility
 ]

@@ -1,27 +1,27 @@
 Class {
-	#name : 'LeTweetRefLinkReference',
-	#superclass : 'LeLinkExternalUrlReference',
+	#name : #LeTweetRefLinkReference,
+	#superclass : #LeLinkExternalUrlReference,
 	#category : 'Lepiter-Core-Twitter'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeTweetRefLinkReference class >> leJsonV3Name [
 
 	^ 'tweetReference'
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeTweetRefLinkReference class >> leJsonV4Name [
 
 	^ 'tweetReference'
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeTweetRefLinkReference >> description [
 	^ 'Tweet Reference: ', (self url asString ifNil: [ String empty ])
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 LeTweetRefLinkReference >> gtLiveFor: aView [
 	<gtView>
 	self url ifNil: [ ^ aView empty ].
@@ -51,7 +51,7 @@ LeTweetRefLinkReference >> gtLiveFor: aView [
 			aContainer addChild: anViewElement ]
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeTweetRefLinkReference >> isExternalTweetReference [
 	^ true
 ]

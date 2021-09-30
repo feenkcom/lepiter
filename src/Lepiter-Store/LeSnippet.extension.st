@@ -1,13 +1,13 @@
-Extension { #name : 'LeSnippet' }
+Extension { #name : #LeSnippet }
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeSnippet >> fromStonMapKey: key value: value [
 
 	super fromStonMapKey: key value: value.
 	key = #uid ifTrue: [ uid := value ].
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeSnippet class >> leJsonV3AttributeMapping [
 
 	^ super leJsonV3AttributeMapping
@@ -15,7 +15,7 @@ LeSnippet class >> leJsonV3AttributeMapping [
 		yourself
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeSnippet class >> leJsonV4AttributeMapping [
 
 	^ super leJsonV4AttributeMapping
@@ -23,7 +23,7 @@ LeSnippet class >> leJsonV4AttributeMapping [
 		yourself
 ]
 
-{ #category : '*Lepiter-Store' }
+{ #category : #'*Lepiter-Store' }
 LeSnippet >> stonProcessSubObjects: block [
 
 	super stonProcessSubObjects: block.
