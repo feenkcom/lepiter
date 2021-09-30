@@ -5,8 +5,8 @@ Is announced by the {{gtClass:LeTextualSnippetViewModel}} when its cursors state
 
 "
 Class {
-	#name : 'LeTextualSnippetCursorsChanged',
-	#superclass : 'Announcement',
+	#name : #LeTextualSnippetCursorsChanged,
+	#superclass : #Announcement,
 	#instVars : [
 		'source',
 		'cursors'
@@ -14,22 +14,22 @@ Class {
 	#category : 'Lepiter-UI-Snippet-Events'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeTextualSnippetCursorsChanged >> cursors [
 	^ cursors
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeTextualSnippetCursorsChanged >> cursors: anObject [
 	cursors := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeTextualSnippetCursorsChanged >> source [
 	^ source
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeTextualSnippetCursorsChanged >> source: anObject [
 	source := anObject
 ]

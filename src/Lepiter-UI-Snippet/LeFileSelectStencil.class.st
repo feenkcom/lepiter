@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeFileSelectStencil',
-	#superclass : 'BrStencil',
+	#name : #LeFileSelectStencil,
+	#superclass : #BrStencil,
 	#instVars : [
 		'label',
 		'tooltip',
@@ -13,7 +13,7 @@ Class {
 	#category : 'Lepiter-UI-Snippet-Text actions'
 }
 
-{ #category : 'api - instantiation' }
+{ #category : #'api - instantiation' }
 LeFileSelectStencil >> create [
 	"Create the new element"
 
@@ -57,24 +57,24 @@ LeFileSelectStencil >> create [
 	^ aButton
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeFileSelectStencil >> database [ 
 	"Answer the LeDatabase of the receiver's snippet"
 
 	^ visitor styler database
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeFileSelectStencil >> extent [
 	^ extent
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeFileSelectStencil >> extent: anObject [
 	extent := anObject
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeFileSelectStencil >> importFromFile: file type: importType [
 	"If required, copy or move the file to the receiver's database, and then update the link to point to it"
 	| attachedFile attachedUrl subTextSize |
@@ -100,7 +100,7 @@ LeFileSelectStencil >> importFromFile: file type: importType [
 		[ self snippet insertText: file basename asRopedText at: subText start source: nil ].
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeFileSelectStencil >> initialize [
 	super initialize.
 	tooltip := 'Import File'.
@@ -108,74 +108,74 @@ LeFileSelectStencil >> initialize [
 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeFileSelectStencil >> label [
 	^ label
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeFileSelectStencil >> label: anObject [
 	label := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeFileSelectStencil >> selectionElement [
 	^ selectionElement
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeFileSelectStencil >> selectionElement: anObject [
 	selectionElement := anObject
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeFileSelectStencil >> snippet [ 
 	"Answer the LeSnippet of the receiver's snippet"
 
 	^ visitor styler snippet
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeFileSelectStencil >> subText [
 	^ subText
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeFileSelectStencil >> subText: anObject [
 	subText := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeFileSelectStencil >> textEditorPiece [
 	^ textEditorPiece
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeFileSelectStencil >> textEditorPiece: anObject [
 	textEditorPiece := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeFileSelectStencil >> tooltip [
 	^ tooltip
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeFileSelectStencil >> tooltip: anObject [
 	tooltip := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeFileSelectStencil >> visitor [
 	^ visitor
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeFileSelectStencil >> visitor: anObject [
 	visitor := anObject
 ]
 
-{ #category : 'announcer - subscription' }
+{ #category : #'announcer - subscription' }
 LeFileSelectStencil >> when: anAnnouncementClass do: aValuable [
 
 	selectionElement when: anAnnouncementClass do: aValuable

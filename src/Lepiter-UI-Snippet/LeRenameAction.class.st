@@ -1,16 +1,16 @@
 Class {
-	#name : 'LeRenameAction',
-	#superclass : 'GtRenameAction',
+	#name : #LeRenameAction,
+	#superclass : #GtRenameAction,
 	#category : 'Lepiter-UI-Snippet-Text actions'
 }
 
-{ #category : 'private' }
+{ #category : #private }
 LeRenameAction >> addRenameAttributes [
 	super addRenameAttributes.
 	self clearAdornments
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeRenameAction >> clearAdornments [
 	renameAttributes
 		do: [ :each | 
@@ -20,13 +20,13 @@ LeRenameAction >> clearAdornments [
 						or: [ attr isKindOf: BrTextEventHandlerAttribute ] ] ]
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 LeRenameAction >> updateName: blText [
 	super updateName: blText.
 	self clearAdornments
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeRenameAction >> updateSource [
 	"Renaming is handled through the model"
 ]

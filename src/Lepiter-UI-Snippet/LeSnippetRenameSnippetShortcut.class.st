@@ -1,20 +1,20 @@
 Class {
-	#name : 'LeSnippetRenameSnippetShortcut',
-	#superclass : 'LeSnippetEditorShortcut',
+	#name : #LeSnippetRenameSnippetShortcut,
+	#superclass : #LeSnippetEditorShortcut,
 	#category : 'Lepiter-UI-Snippet-Shortcuts'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSnippetRenameSnippetShortcut >> description [
 	^ 'Requests to rename a snippet.'
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSnippetRenameSnippetShortcut >> name [
 	^ 'Rename snippet'
 ]
 
-{ #category : 'evaluation' }
+{ #category : #evaluation }
 LeSnippetRenameSnippetShortcut >> performOnEditor: aBrTextEditor snippet: aLeSnippetElement dueTo: aShortcutEvent [
 	aLeSnippetElement renamePageIn: aShortcutEvent currentTarget
 ]

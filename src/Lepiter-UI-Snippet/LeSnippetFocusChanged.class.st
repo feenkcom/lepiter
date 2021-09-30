@@ -5,8 +5,8 @@ Is announced by the {{gtClass:LeAbstractSnippetViewModel}} when its focus state 
 
 "
 Class {
-	#name : 'LeSnippetFocusChanged',
-	#superclass : 'Announcement',
+	#name : #LeSnippetFocusChanged,
+	#superclass : #Announcement,
 	#instVars : [
 		'source',
 		'focused'
@@ -14,22 +14,22 @@ Class {
 	#category : 'Lepiter-UI-Snippet-Events'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSnippetFocusChanged >> focused [
 	^ focused
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSnippetFocusChanged >> focused: anObject [
 	focused := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSnippetFocusChanged >> source [
 	^ source
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSnippetFocusChanged >> source: anObject [
 	source := anObject
 ]

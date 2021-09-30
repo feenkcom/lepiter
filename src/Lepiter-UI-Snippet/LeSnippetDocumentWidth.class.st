@@ -1,10 +1,10 @@
 Class {
-	#name : 'LeSnippetDocumentWidth',
-	#superclass : 'LeSnippetWidth',
+	#name : #LeSnippetDocumentWidth,
+	#superclass : #LeSnippetWidth,
 	#category : 'Lepiter-UI-Snippet-! Views'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSnippetDocumentWidth >> maxWidth [
 	^ 800
 ]

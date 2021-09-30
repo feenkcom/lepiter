@@ -3,8 +3,8 @@ LeExternalEvaluatedSnippetElement is an abstract class that provides common beha
 
 "
 Class {
-	#name : 'LeExternalEvaluatedSnippetElement',
-	#superclass : 'LeEvaluatedSnippetElement',
+	#name : #LeExternalEvaluatedSnippetElement,
+	#superclass : #LeEvaluatedSnippetElement,
 	#instVars : [
 		'snippetBindings',
 		'coderModel',
@@ -17,12 +17,12 @@ Class {
 	#category : 'Lepiter-UI-Snippet-! Views'
 }
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeExternalEvaluatedSnippetElement class >> isAbstract [
 	^ self = LeExternalEvaluatedSnippetElement
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeExternalEvaluatedSnippetElement >> initialize [ 
 	super initialize.
 
@@ -43,7 +43,7 @@ LeExternalEvaluatedSnippetElement >> initialize [
 	self registerSpawnBelowHandler
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeExternalEvaluatedSnippetElement >> initializeLanguageElement [
 	"Initialise the element that displays the language and connection details.
 	This is normally a text element, but subclasses may replace it with something else, e.g. a button"
@@ -55,7 +55,7 @@ LeExternalEvaluatedSnippetElement >> initializeLanguageElement [
 		text: '<unknown>'
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeExternalEvaluatedSnippetElement >> initializeTextEditor [
 
 	editorElement := GtSourceCoderEditorElement new 
@@ -64,7 +64,7 @@ LeExternalEvaluatedSnippetElement >> initializeTextEditor [
 	editorElement editor addEventHandler: (LeEditorReachedBorderEventHandler new snippetElement: self)
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeExternalEvaluatedSnippetElement >> initializeTextEditorShortcuts [
 	"Initialise the receiver's text editor shortcuts"
 	
@@ -91,7 +91,7 @@ LeExternalEvaluatedSnippetElement >> initializeTextEditorShortcuts [
 		addEditorShortcut: (LeSnippetRenameSnippetShortcut new combination: (self keyboardShortcut: #RenameSnippet)).
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeExternalEvaluatedSnippetElement >> registerSpawnBelowHandler [
 	self
 		when: GtPhlowObjectToSpawn
@@ -109,7 +109,7 @@ LeExternalEvaluatedSnippetElement >> registerSpawnBelowHandler [
 					yourself) ] ].
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExternalEvaluatedSnippetElement >> snippetContent [
 	^ contentElement
 ]

@@ -1,12 +1,12 @@
 Class {
-	#name : 'LeCompleterExamples',
-	#superclass : 'Object',
+	#name : #LeCompleterExamples,
+	#superclass : #Object,
 	#traits : 'TAssertable',
 	#classTraits : 'TAssertable classTrait',
 	#category : 'Lepiter-UI-Snippet-Examples'
 }
 
-{ #category : 'completion' }
+{ #category : #completion }
 LeCompleterExamples >> completeAnnotationStart [
 	<gtExample>
 	| actions text position |
@@ -17,7 +17,7 @@ LeCompleterExamples >> completeAnnotationStart [
 	^ actions
 ]
 
-{ #category : 'completion' }
+{ #category : #completion }
 LeCompleterExamples >> completeAnnotationWithText [
 	<gtExample>
 	| actions text position |
@@ -29,7 +29,7 @@ LeCompleterExamples >> completeAnnotationWithText [
 	^ actions
 ]
 
-{ #category : 'completion' }
+{ #category : #completion }
 LeCompleterExamples >> completeArgumentWithText [
 	<gtExample>
 	| actions text position |
@@ -41,7 +41,7 @@ LeCompleterExamples >> completeArgumentWithText [
 	^ actions
 ]
 
-{ #category : 'completion' }
+{ #category : #completion }
 LeCompleterExamples >> completeClassNameWithoutParseError [
 	<gtExample>
 	| actions text position |
@@ -52,7 +52,7 @@ LeCompleterExamples >> completeClassNameWithoutParseError [
 	^ actions
 ]
 
-{ #category : 'completion' }
+{ #category : #completion }
 LeCompleterExamples >> completeExampleSelector [
 	<gtExample>
 	| actions text position |
@@ -66,7 +66,7 @@ LeCompleterExamples >> completeExampleSelector [
 	^ actions
 ]
 
-{ #category : 'completion' }
+{ #category : #completion }
 LeCompleterExamples >> completeExampleStartSelector [
 	<gtExample>
 	| actions text position |
@@ -80,7 +80,7 @@ LeCompleterExamples >> completeExampleStartSelector [
 	^ actions
 ]
 
-{ #category : 'completion' }
+{ #category : #completion }
 LeCompleterExamples >> completeExpandedBoolean [
 	<gtExample>
 	| actions text position |
@@ -95,7 +95,7 @@ LeCompleterExamples >> completeExpandedBoolean [
 	^ actions
 ]
 
-{ #category : 'completion' }
+{ #category : #completion }
 LeCompleterExamples >> completeMetaclass [
 	<gtExample>
 	| actions text position |
@@ -106,7 +106,7 @@ LeCompleterExamples >> completeMetaclass [
 	^ actions
 ]
 
-{ #category : 'completion' }
+{ #category : #completion }
 LeCompleterExamples >> completeSecondArgument [
 	<gtExample>
 	| actions text position |
@@ -120,7 +120,7 @@ LeCompleterExamples >> completeSecondArgument [
 	^ actions
 ]
 
-{ #category : 'completion' }
+{ #category : #completion }
 LeCompleterExamples >> completeStartArgument [
 	<gtExample>
 	| actions text position |
@@ -132,13 +132,13 @@ LeCompleterExamples >> completeStartArgument [
 	^ actions
 ]
 
-{ #category : 'completion' }
+{ #category : #completion }
 LeCompleterExamples >> completer [
 	<gtExample>
 	^ LeCompletionStrategy new database: LeDatabase new
 ]
 
-{ #category : 'completion' }
+{ #category : #completion }
 LeCompleterExamples >> completionActionsFor: text at: position [
 	^ self completer
 		completionActionsFor: text

@@ -7,39 +7,39 @@ KeyboardShortcuts holds a list of named shortcuts used by subclasses.  No keyboa
 
 "
 Class {
-	#name : 'LeTextualSnippetElement',
-	#superclass : 'LeSnippetElement',
+	#name : #LeTextualSnippetElement,
+	#superclass : #LeSnippetElement,
 	#category : 'Lepiter-UI-Snippet-! Views'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeTextualSnippetElement >> editor [
 	"Required by ${method:LeTextualSnippetElement>>#registerFocusEventHandlers}$"
 	^ self subclassResponsibility
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeTextualSnippetElement >> keyboardShortcut: aSymbol [
 	"Answer the named keyboard shortcut"
 
 	^ self class keyboardShortcut: aSymbol
 ]
 
-{ #category : 'api - snippet' }
+{ #category : #'api - snippet' }
 LeTextualSnippetElement >> mergeWithNext [
 	"Request this snippet to be merged with the snippet that is below me"
 
 	self snippetViewModel mergeWithNext
 ]
 
-{ #category : 'api - snippet' }
+{ #category : #'api - snippet' }
 LeTextualSnippetElement >> mergeWithPrevious [
 	"Request this snippet to be merged with the snippet that is above me"
 
 	self snippetViewModel mergeWithPrevious
 ]
 
-{ #category : 'private - focus' }
+{ #category : #'private - focus' }
 LeTextualSnippetElement >> registerFocusEventHandlers [
 	"When we lose focus we should also deselect text so that the whole page feels like one single document"
 	super registerFocusEventHandlers.
@@ -51,7 +51,7 @@ LeTextualSnippetElement >> registerFocusEventHandlers [
 			ifFalse: [ self editor ifNotNil: [ :anEditor | anEditor deselecter all deselect ] ] ]
 ]
 
-{ #category : 'api - snippet' }
+{ #category : #'api - snippet' }
 LeTextualSnippetElement >> splitAt: aCursorPosition [
 	"Split the block being edited at the given cursor position.  Children stay with the receiver.
 	This means:
@@ -61,7 +61,7 @@ LeTextualSnippetElement >> splitAt: aCursorPosition [
 	self snippetViewModel splitAt: aCursorPosition
 ]
 
-{ #category : 'api - snippet' }
+{ #category : #'api - snippet' }
 LeTextualSnippetElement >> splitAtEnd [
 	"Pressing enter at the end of the cursor creates a new block that is either:
 	- a sibling of the receiver if there are no children.
@@ -70,7 +70,7 @@ LeTextualSnippetElement >> splitAtEnd [
 	self snippetViewModel splitAtEnd
 ]
 
-{ #category : 'api - snippet' }
+{ #category : #'api - snippet' }
 LeTextualSnippetElement >> splitAtStart [
 	"Pressing enter at the start of the line we want a new block above the current line with the cursor"
 

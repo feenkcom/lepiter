@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeSnippetElement',
-	#superclass : 'BlElement',
+	#name : #LeSnippetElement,
+	#superclass : #BlElement,
 	#traits : 'TLeWithSnippetViewModel + TBrLayoutResizable',
 	#classTraits : 'TLeWithSnippetViewModel classTrait + TBrLayoutResizable classTrait',
 	#classVars : [
@@ -9,7 +9,7 @@ Class {
 	#category : 'Lepiter-UI-Snippet-! Views'
 }
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 LeSnippetElement class >> gtKeyboardShortcutsFor: aView [
 	<gtClassView>
 	KeyboardShortcuts ifNil: [ ^ aView empty ].
@@ -20,7 +20,7 @@ LeSnippetElement class >> gtKeyboardShortcutsFor: aView [
 		view: #gtItemsFor:
 ]
 
-{ #category : 'class initialization' }
+{ #category : #'class initialization' }
 LeSnippetElement class >> initialize [
 
 	SessionManager default
@@ -28,7 +28,7 @@ LeSnippetElement class >> initialize [
 	self initializeKeyboardShortcuts.
 ]
 
-{ #category : 'class initialization' }
+{ #category : #'class initialization' }
 LeSnippetElement class >> initializeKeyboardShortcuts [
 	"Initialise the keyboard shortcuts used by subclasses"
 	<script>
@@ -72,14 +72,14 @@ LeSnippetElement class >> initializeKeyboardShortcuts [
 			put: BlKeyCombinationBuilder new primary r build.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSnippetElement class >> keyboardShortcut: aSymbol [
 	"Answer the named keyboard shortcut"
 
 	^ KeyboardShortcuts at: aSymbol
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSnippetElement class >> keyboardShortcuts [
 	"Answer all keyboard shortcuts used by subclasses"
 
@@ -87,20 +87,20 @@ LeSnippetElement class >> keyboardShortcuts [
 
 ]
 
-{ #category : 'class initialization' }
+{ #category : #'class initialization' }
 LeSnippetElement class >> startUp: resuming [
 
 	resuming ifTrue: [ self initializeKeyboardShortcuts ].
 
 ]
 
-{ #category : 'api - snippet view model' }
+{ #category : #'api - snippet view model' }
 LeSnippetElement >> alignContentLeftBy: aNumber [
 	"All snippets should be nicely aligned to the left. However, only snippets themselves know their content and layout structure.
 	Override me to align the content by aNumber of points to the left. Usually it should just involve setting a corresponding padding or margin"
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeSnippetElement >> assertUIProcess [
 	"Make sure that I am executing in a UI process"
 	| aCurrentProcess aUIProcess |
@@ -123,7 +123,7 @@ LeSnippetElement >> assertUIProcess [
 		ifFalse: [ self error: ('I am running from a non-UI process ({1}) expected ({2})' format: { aCurrentProcess asString . aUIProcess asString }) ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeSnippetElement >> database [
 	<return: #LeDatabase>
 
@@ -131,7 +131,7 @@ LeSnippetElement >> database [
 	^ self snippet database
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeSnippetElement >> initialize [ 
 	super initialize.
 	
@@ -149,7 +149,7 @@ LeSnippetElement >> initialize [
 			self snippetViewModel focused: true ]
 ]
 
-{ #category : 'private - focus' }
+{ #category : #'private - focus' }
 LeSnippetElement >> onFocusChangedAnnouncement: anAnnouncement [
 	self assertUIProcess.
 	
@@ -162,26 +162,26 @@ LeSnippetElement >> onFocusChangedAnnouncement: anAnnouncement [
 	self onSnippetViewModelFocused: anAnnouncement focused
 ]
 
-{ #category : 'api - snippet view model' }
+{ #category : #'api - snippet view model' }
 LeSnippetElement >> onSnippetViewModelChanged [
 	"Is sent when a new Snippet view model is assigned to the element"
 	
 	self onSnippetViewModelFocused: self snippetViewModel focused
 ]
 
-{ #category : 'api - snippet view model' }
+{ #category : #'api - snippet view model' }
 LeSnippetElement >> onSnippetViewModelFocused: aBoolean [
 	"Override me to either request or lose focus when the focused state is changed in the UI Model"
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeSnippetElement >> page [
 	"Answer the page that the receiver is part of"
 
 	^ self snippet page
 ]
 
-{ #category : 'private - focus' }
+{ #category : #'private - focus' }
 LeSnippetElement >> registerFocusEventHandlers [
 	"Register event handlers to update the focused state of the Block UI Model"
 
@@ -198,13 +198,13 @@ LeSnippetElement >> registerFocusEventHandlers [
 			ifFalse: [ self snippetViewModel focused: false from: self ] ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeSnippetElement >> snippet [
 	<return: #LeTextSnippet>
 	^ self snippetViewModel snippetModel
 ]
 
-{ #category : 'api - view' }
+{ #category : #'api - view' }
 LeSnippetElement >> snippetContent [
 	"Return an element that represents a content of the snippet.
 	The embedder is responsible for placing #snippetContent in the right place within snippet element depending on the
@@ -214,7 +214,7 @@ LeSnippetElement >> snippetContent [
 	^ self subclassResponsibility
 ]
 
-{ #category : 'api - view' }
+{ #category : #'api - view' }
 LeSnippetElement >> snippetToolbar [
 	"Return an element that represents a toolbar of the snippet. A toolbar usually appears below the snippet content.
 	The embedder is responsible for placing #snippetToolbar in the right place within snippet element depending on the
@@ -225,7 +225,7 @@ LeSnippetElement >> snippetToolbar [
 	^ self subclassResponsibility
 ]
 
-{ #category : 'api - snippet view model' }
+{ #category : #'api - snippet view model' }
 LeSnippetElement >> subscribeToSnippetViewModel [
 	"Is sent after a new Snippet view model is assigned to the element.
 	It is required to unsubscribe from the view model or domain model by implementing
@@ -237,21 +237,21 @@ LeSnippetElement >> subscribeToSnippetViewModel [
 		to: self
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeSnippetElement >> text [
 	<return: #BlText>
 
 	^ self snippet text
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeSnippetElement >> textCopy [
 	<return: #BlText>
 
 	^ self text copy
 ]
 
-{ #category : 'api - snippet view model' }
+{ #category : #'api - snippet view model' }
 LeSnippetElement >> unsubscribeFromSnippetViewModel [
 	"Is sent before a new Snippet view model is assigned to the element.
 	Elements that subscribe to Snippet view model in domain model are required to implement this methods"

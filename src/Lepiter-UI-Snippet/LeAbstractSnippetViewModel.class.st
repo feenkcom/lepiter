@@ -9,8 +9,8 @@ We call snippets that are stored in a database {{gtClass:LeSnippetViewModel|labe
 
 "
 Class {
-	#name : 'LeAbstractSnippetViewModel',
-	#superclass : 'Object',
+	#name : #LeAbstractSnippetViewModel,
+	#superclass : #Object,
 	#traits : 'TGtAnnouncer + TGtOptions + TLeWithSnippetModel',
 	#classTraits : 'TGtAnnouncer classTrait + TGtOptions classTrait + TLeWithSnippetModel classTrait',
 	#instVars : [
@@ -24,7 +24,7 @@ Class {
 	#category : 'Lepiter-UI-Snippet-! View Models'
 }
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeAbstractSnippetViewModel class >> isAbstract [
 	^ self
 		classAndMethodFor: #snippetElementClass
@@ -32,20 +32,20 @@ LeAbstractSnippetViewModel class >> isAbstract [
 		ifAbsent: [ true ]
 ]
 
-{ #category : 'api - children' }
+{ #category : #'api - children' }
 LeAbstractSnippetViewModel >> allSnippetChildrenBreadthFirstDo: aBlock [ 
 	self snippetChildren do: aBlock.
 	self snippetChildren do: [ :each | each allSnippetChildrenBreadthFirstDo: aBlock ]
 ]
 
-{ #category : 'announcer' }
+{ #category : #announcer }
 LeAbstractSnippetViewModel >> announcer [
 	<return: #Announcer>
 
 	^ announcer ifNil: [ announcer := Announcer new ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeAbstractSnippetViewModel >> content [
 	self
 		deprecated: 'Use #snippetModel instead.'
@@ -54,7 +54,7 @@ LeAbstractSnippetViewModel >> content [
 	^ self snippetModel
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeAbstractSnippetViewModel >> content: aLeSnippet [
 	self
 		deprecated: 'Use #snippetModel: instead.'
@@ -63,14 +63,14 @@ LeAbstractSnippetViewModel >> content: aLeSnippet [
 	self snippetModel: aLeSnippet
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeAbstractSnippetViewModel >> database [ 
 	"Answer the database associated with the receiver"
 
 	^ self snippetModel database
 ]
 
-{ #category : 'api - expansion' }
+{ #category : #'api - expansion' }
 LeAbstractSnippetViewModel >> expanded [
 	"Return true if a snippet should be expanded or collapsed.
 	Collapsing a parent snippet does not collapse children, although depending
@@ -81,7 +81,7 @@ LeAbstractSnippetViewModel >> expanded [
 	^ expanded
 ]
 
-{ #category : 'api - expansion' }
+{ #category : #'api - expansion' }
 LeAbstractSnippetViewModel >> expanded: aBoolean [	
 	expanded = aBoolean
 		ifTrue: [ ^ self ].
@@ -91,7 +91,7 @@ LeAbstractSnippetViewModel >> expanded: aBoolean [
 	self notifyExpansionChanged: aBoolean
 ]
 
-{ #category : 'api - focus' }
+{ #category : #'api - focus' }
 LeAbstractSnippetViewModel >> focusAfterCreation [
 	"Give this snippet focus because it was just created. Custom snippets may overide this to give focus
 	to their internal components of choice"
@@ -99,21 +99,21 @@ LeAbstractSnippetViewModel >> focusAfterCreation [
 	self focused: true
 ]
 
-{ #category : 'api - focus' }
+{ #category : #'api - focus' }
 LeAbstractSnippetViewModel >> focusDueToNavigationDown [
 	"Give this snippet focus because the user requested to focus a previous snippet (usually arrow down)"
 
 	self focused: true
 ]
 
-{ #category : 'api - focus' }
+{ #category : #'api - focus' }
 LeAbstractSnippetViewModel >> focusDueToNavigationUp [
 	"Give this snippet focus because the user requested to focus a previous snippet (usually arrow up)"
 
 	self focused: true
 ]
 
-{ #category : 'api - focus' }
+{ #category : #'api - focus' }
 LeAbstractSnippetViewModel >> focusNextSnippet [
 	"Try to give focus to the snippet after me that is either:
 	- a next parent of the snippet if this is the last child
@@ -134,7 +134,7 @@ LeAbstractSnippetViewModel >> focusNextSnippet [
 	^ false
 ]
 
-{ #category : 'api - focus' }
+{ #category : #'api - focus' }
 LeAbstractSnippetViewModel >> focusPreviousSnippet [
 	"Try to give focus to the snippet before me that is either:
 	- a parent of the snippet if this is the first child
@@ -154,19 +154,19 @@ LeAbstractSnippetViewModel >> focusPreviousSnippet [
 	^ false
 ]
 
-{ #category : 'api - focus' }
+{ #category : #'api - focus' }
 LeAbstractSnippetViewModel >> focused [
 	<return: #Boolean>
 
 	^ focused
 ]
 
-{ #category : 'api - focus' }
+{ #category : #'api - focus' }
 LeAbstractSnippetViewModel >> focused: aBoolean [
 	self focused: aBoolean from: self
 ]
 
-{ #category : 'api - focus' }
+{ #category : #'api - focus' }
 LeAbstractSnippetViewModel >> focused: aBoolean from: aSourceObject [
 	focused = aBoolean
 		ifTrue: [ ^ self ].
@@ -181,7 +181,7 @@ LeAbstractSnippetViewModel >> focused: aBoolean from: aSourceObject [
 			ifFalse: [ aSnippetsCollectionUIModel unfocusSnippetUIModel: self ] ]
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 LeAbstractSnippetViewModel >> gtChildrenFor: aView [
 	<gtView>
 	
@@ -197,7 +197,7 @@ LeAbstractSnippetViewModel >> gtChildrenFor: aView [
 		expandUpTo: 2
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 LeAbstractSnippetViewModel >> gtLiveFor: aView [
 	<gtView>
 	
@@ -216,7 +216,7 @@ LeAbstractSnippetViewModel >> gtLiveFor: aView [
 		view: #gtLiveFor:
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeAbstractSnippetViewModel >> initialize [
 	super initialize.
 	
@@ -226,33 +226,33 @@ LeAbstractSnippetViewModel >> initialize [
 	sharedContext := LeSharedSnippetContext new
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeAbstractSnippetViewModel >> keyboardShortcut: aSymbol [
 	"Answer the named keyboard shortcut"
 	
 	^ LeSnippetElement keyboardShortcut: aSymbol
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeAbstractSnippetViewModel >> notifyExpansionChanged: aBoolean [
 	self announce: (LeSnippetExpansionChanged new expanded: aBoolean)
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeAbstractSnippetViewModel >> notifyFocusChanged: aBoolean from: aSourceObject [
 	self announce: (LeSnippetFocusChanged new focused: aBoolean; source: aSourceObject)
 ]
 
-{ #category : 'api - focus' }
+{ #category : #'api - focus' }
 LeAbstractSnippetViewModel >> onFocusChanged: aBoolean [
 ]
 
-{ #category : 'api - snippet model' }
+{ #category : #'api - snippet model' }
 LeAbstractSnippetViewModel >> onSnippetModelChanged [
 	"Is sent when a new snippet model is assigned to the view model"
 ]
 
-{ #category : 'copying' }
+{ #category : #copying }
 LeAbstractSnippetViewModel >> postCopy [
 	super postCopy.
 	
@@ -260,7 +260,7 @@ LeAbstractSnippetViewModel >> postCopy [
 	snippetsCollection := nil
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeAbstractSnippetViewModel >> resolveFileName: aFilenameString [
 	"Search for the supplied file name in the database or working directory"
 	| fileReference |
@@ -275,7 +275,7 @@ LeAbstractSnippetViewModel >> resolveFileName: aFilenameString [
 	^ FileLocator workingDirectory / aFilenameString
 ]
 
-{ #category : 'api - shared context' }
+{ #category : #'api - shared context' }
 LeAbstractSnippetViewModel >> sharedSnippetContext: aLeSharedSnippetContext [
 	self
 		assert: [ aLeSharedSnippetContext notNil ]
@@ -284,7 +284,7 @@ LeAbstractSnippetViewModel >> sharedSnippetContext: aLeSharedSnippetContext [
 	sharedContext := aLeSharedSnippetContext
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeAbstractSnippetViewModel >> shortSummaryText [
 	"Return a short textual represenation of the snippet to be displayed as a preview"
 	<return: #String>
@@ -299,7 +299,7 @@ LeAbstractSnippetViewModel >> shortSummaryText [
 		limitedTo: 300
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeAbstractSnippetViewModel >> snippet [
 	self
 		deprecated: 'Use #snippetModel instead.'
@@ -308,7 +308,7 @@ LeAbstractSnippetViewModel >> snippet [
 	^ self snippetModel
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeAbstractSnippetViewModel >> snippet: aLeSnippet [
 	self
 		deprecated: 'Use #snippetModel: instead.'
@@ -317,38 +317,38 @@ LeAbstractSnippetViewModel >> snippet: aLeSnippet [
 	self snippetModel: aLeSnippet
 ]
 
-{ #category : 'api - shared context' }
+{ #category : #'api - shared context' }
 LeAbstractSnippetViewModel >> snippetBindings [
 	<return: #GtSharedVariablesBindings>
 
 	^ sharedContext sharedBindings
 ]
 
-{ #category : 'api - children' }
+{ #category : #'api - children' }
 LeAbstractSnippetViewModel >> snippetChildren [
 	<return: #Collection of: #LeAbstractSnippetViewModel>
 
 	^ snippetChildren
 ]
 
-{ #category : 'api - children' }
+{ #category : #'api - children' }
 LeAbstractSnippetViewModel >> snippetChildren: aCollectionOfSnippetViewModels [
 	snippetChildren := aCollectionOfSnippetViewModels
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeAbstractSnippetViewModel >> snippetElementClass [
 	^ self subclassResponsibility
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeAbstractSnippetViewModel >> snippetView [
 	<return: #LeSnippetView>
 
 	^ LeSnippetView new snippetElementClass: self snippetElementClass
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeAbstractSnippetViewModel >> snippetsCollection: aLeSnippetsCollectionUIModel [
 	self
 		assert: [ aLeSnippetsCollectionUIModel notNil ]
@@ -357,14 +357,14 @@ LeAbstractSnippetViewModel >> snippetsCollection: aLeSnippetsCollectionUIModel [
 	snippetsCollection := aLeSnippetsCollectionUIModel
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeAbstractSnippetViewModel >> snippetsCollectionDo: aBlock [
 	"Evaluate aBlock with the current snippets collection as an arguments if it is assigned"
 	
 	snippetsCollection ifNotNil: aBlock
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeAbstractSnippetViewModel >> uid [
 	"Each snippet view model displayed in the snippets element should have a uid.
 	By default we take the uid of the content, however, custom snippet view models are free to override it"
@@ -373,7 +373,7 @@ LeAbstractSnippetViewModel >> uid [
 	^ self subclassResponsibility
 ]
 
-{ #category : 'api - children' }
+{ #category : #'api - children' }
 LeAbstractSnippetViewModel >> withAllSnippetChildrenBreadthFirstDo: aBlock [ 
 	aBlock value: self.
 	self allSnippetChildrenBreadthFirstDo: aBlock

@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeContextMenuSpotterStartExamples',
-	#superclass : 'Object',
+	#name : #LeContextMenuSpotterStartExamples,
+	#superclass : #Object,
 	#instVars : [
 		'dbDir',
 		'diskDb'
@@ -8,7 +8,7 @@ Class {
 	#category : 'Lepiter-UI-Snippet-Examples'
 }
 
-{ #category : 'private' }
+{ #category : #private }
 LeContextMenuSpotterStartExamples >> createDatabase [
 	| database dbName |
 
@@ -20,7 +20,7 @@ LeContextMenuSpotterStartExamples >> createDatabase [
 	^ database
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeContextMenuSpotterStartExamples >> createDatabaseOnDisk [
 
 	dbDir := (FileReference newTempFilePrefix: self class name, '-' suffix: '-testDbs') / #db.
@@ -29,14 +29,14 @@ LeContextMenuSpotterStartExamples >> createDatabaseOnDisk [
 	^ diskDb
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeContextMenuSpotterStartExamples >> deleteTemporaryDirectory [
 
 	dbDir ifNotNil: 	
 		[ dbDir ensureDeleteAll ]
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeContextMenuSpotterStartExamples >> imageUrlForDbFile [
 	"Demonstrate the URl that is used for the picture snippet when the supplied URL is a file that is already a DB attachment"
 	<gtExample>
@@ -52,7 +52,7 @@ LeContextMenuSpotterStartExamples >> imageUrlForDbFile [
 	^ pictureUrl
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeContextMenuSpotterStartExamples >> imageUrlForHttp [
 	"Demonstrate the URl that is used for the picture snippet when the supplied URL is http(s)://..."
 	<gtExample>
@@ -68,7 +68,7 @@ LeContextMenuSpotterStartExamples >> imageUrlForHttp [
 	^ pictureUrl
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeContextMenuSpotterStartExamples >> imageUrlForHttpNonImage [
 	"Demonstrate the URl that is used for the picture snippet when the supplied URL is http(s)://..."
 	<gtExample>
@@ -83,7 +83,7 @@ LeContextMenuSpotterStartExamples >> imageUrlForHttpNonImage [
 	self assert: (db localStoreRootDirectory / #attachments) hasChildren not.
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeContextMenuSpotterStartExamples >> imageUrlForLocalFile [
 	"Demonstrate the URl that is used for the picture snippet when the supplied URL is a local file"
 	<gtExample>
@@ -102,7 +102,7 @@ LeContextMenuSpotterStartExamples >> imageUrlForLocalFile [
 	^ pictureUrl
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeContextMenuSpotterStartExamples >> imageUrlForLocalFileNonImage [
 	"Demonstrate the URl that is used for the picture snippet when the supplied URL is http(s)://..."
 	<gtExample>
@@ -117,7 +117,7 @@ LeContextMenuSpotterStartExamples >> imageUrlForLocalFileNonImage [
 	self assert: (db localStoreRootDirectory / #attachments) hasChildren not.
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeContextMenuSpotterStartExamples >> imageUrlForLocalFileUppercase [
 	"Demonstrate the URl that is used for the picture snippet when the supplied URL is a local file"
 	<gtExample>
