@@ -1,13 +1,13 @@
 Class {
-	#name : 'LeSnippetExpandableCodeContainerAptitude',
-	#superclass : 'LeSnippetExpandableWithBarAptitude',
+	#name : #LeSnippetExpandableCodeContainerAptitude,
+	#superclass : #LeSnippetExpandableWithBarAptitude,
 	#instVars : [
 		'language'
 	],
 	#category : 'Lepiter-UI-Snippet-Looks'
 }
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeSnippetExpandableCodeContainerAptitude >> initialize [
 	super initialize.
 

@@ -1,12 +1,12 @@
 Class {
-	#name : 'LeAnnotationCompletionVisitor',
-	#superclass : 'LeAnnotationParseNodeVisitor',
+	#name : #LeAnnotationCompletionVisitor,
+	#superclass : #LeAnnotationParseNodeVisitor,
 	#traits : 'TSmaCCComponentVisitor + (TLeAnnotationParseNodeVisitor - {#acceptNode:})',
 	#classTraits : 'TSmaCCComponentVisitor classTrait + TLeAnnotationParseNodeVisitor classTrait',
 	#category : 'Lepiter-UI-Snippet-Text completion'
 }
 
-{ #category : 'private' }
+{ #category : #private }
 LeAnnotationCompletionVisitor >> addAction: aString prefixLength: anInteger [
 	self composite
 		addAction:
@@ -16,14 +16,14 @@ LeAnnotationCompletionVisitor >> addAction: aString prefixLength: anInteger [
 				position: self position)
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeAnnotationCompletionVisitor >> classesStartingWith: name [
 	self strategy allClasses
 		do: [ :each | self addAction: each prefixLength: name size ]
 		startingWith: name
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeAnnotationCompletionVisitor >> completeShowArgument: anArgument [
 	| selector |
 	anArgument value stopPosition = self position
@@ -34,7 +34,7 @@ LeAnnotationCompletionVisitor >> completeShowArgument: anArgument [
 				do: [ :each | self addAction: each prefixLength: selector size ] ]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeAnnotationCompletionVisitor >> optionsFor: annotationType startingWith: aString ignoring: aCollection [
 	| values |
 	values := #().
@@ -52,12 +52,12 @@ LeAnnotationCompletionVisitor >> optionsFor: annotationType startingWith: aStrin
 				ifTrue: [ self addAction: each , '=' prefixLength: aString size ] ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeAnnotationCompletionVisitor >> position [
 	^ self composite position
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeAnnotationCompletionVisitor >> previousOptionsFor: aSmaCCErrorNode [
 	aSmaCCErrorNode stackContents
 		do: [ :each | 
@@ -68,7 +68,7 @@ LeAnnotationCompletionVisitor >> previousOptionsFor: aSmaCCErrorNode [
 	^ #()
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeAnnotationCompletionVisitor >> selectorCompletionsFor: aClass startingWith: aString isExample: aBoolean [
 	| selectors name |
 	aClass isNil
@@ -85,12 +85,12 @@ LeAnnotationCompletionVisitor >> selectorCompletionsFor: aClass startingWith: aS
 	selectors do: [ :sel | self addAction: sel prefixLength: name size ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeAnnotationCompletionVisitor >> strategy [
 	^ self composite strategy
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeAnnotationCompletionVisitor >> valueForOption: optionName startingWith: aString [
 	(#('expanded' 'codeExpanded' 'noCode' 'previewExpanded')
 		includes: optionName)
@@ -100,7 +100,7 @@ LeAnnotationCompletionVisitor >> valueForOption: optionName startingWith: aStrin
 						ifTrue: [ self addAction: each prefixLength: aString size ] ] ]
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeAnnotationCompletionVisitor >> visitArgument: anArgument [
 	(anArgument equals notNil
 		and: [ self position = anArgument equals stopPosition ])
@@ -109,7 +109,7 @@ LeAnnotationCompletionVisitor >> visitArgument: anArgument [
 	^ self visitAnnotationParse: anArgument
 ]
 
-{ #category : 'visiting' }
+{ #category : #visiting }
 LeAnnotationCompletionVisitor >> visitMethodNameArgument: aMethodNameArgument [
 	aMethodNameArgument selector stopPosition = self position
 		ifTrue: [ aMethodNameArgument behavior
@@ -121,7 +121,7 @@ LeAnnotationCompletionVisitor >> visitMethodNameArgument: aMethodNameArgument [
 	^ super visitMethodNameArgument: aMethodNameArgument
 ]
 
-{ #category : 'visiting' }
+{ #category : #visiting }
 LeAnnotationCompletionVisitor >> visitNameArgument: aNameArgument [
 	self position = aNameArgument value stopPosition
 		ifTrue: [ | name |
@@ -130,19 +130,19 @@ LeAnnotationCompletionVisitor >> visitNameArgument: aNameArgument [
 	^ super visitNameArgument: aNameArgument
 ]
 
-{ #category : 'visiting' }
+{ #category : #visiting }
 LeAnnotationCompletionVisitor >> visitPreviewShowArgument: aPreviewShowArgument [
 	self completeShowArgument: aPreviewShowArgument.
 	^ self visitArgument: aPreviewShowArgument
 ]
 
-{ #category : 'visiting' }
+{ #category : #visiting }
 LeAnnotationCompletionVisitor >> visitShowArgument: aShowArgument [
 	self completeShowArgument: aShowArgument.
 	^ self visitArgument: aShowArgument
 ]
 
-{ #category : 'visiting' }
+{ #category : #visiting }
 LeAnnotationCompletionVisitor >> visitSmaCCError: aSmaCCError [
 	| index token annotationType class className isMeta |
 	index := (1 to: aSmaCCError dismissedTokens size)

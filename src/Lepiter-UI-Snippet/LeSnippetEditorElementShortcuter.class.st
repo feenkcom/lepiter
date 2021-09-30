@@ -4,15 +4,15 @@ I am used during {{gtClass:BrEditor}} initialization.
 
 "
 Class {
-	#name : 'LeSnippetEditorElementShortcuter',
-	#superclass : 'Object',
+	#name : #LeSnippetEditorElementShortcuter,
+	#superclass : #Object,
 	#instVars : [
 		'editor'
 	],
 	#category : 'Lepiter-UI-Snippet-Shortcuts'
 }
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 LeSnippetEditorElementShortcuter class >> gtKeyboardShortcutsFor: aView [
 	<gtClassView>
 	^ aView forward
@@ -22,17 +22,17 @@ LeSnippetEditorElementShortcuter class >> gtKeyboardShortcutsFor: aView [
 		view: #gtKeyboardShortcutsFor:
 ]
 
-{ #category : 'api - initialization' }
+{ #category : #'api - initialization' }
 LeSnippetEditorElementShortcuter >> editor [
 	^ editor
 ]
 
-{ #category : 'api - initialization' }
+{ #category : #'api - initialization' }
 LeSnippetEditorElementShortcuter >> editor: anObject [
 	editor := anObject
 ]
 
-{ #category : 'api - shortcuts' }
+{ #category : #'api - shortcuts' }
 LeSnippetEditorElementShortcuter >> indent [
 	self editor
 		"Indent LeSnippet"
@@ -41,14 +41,14 @@ LeSnippetEditorElementShortcuter >> indent [
 		addEditorShortcut: (LeSnippetUnindentSnippetShortcut new combination: (self keyboardShortcut: #UnindentSnippet)).
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeSnippetEditorElementShortcuter >> keyboardShortcut: aSymbol [
 	"Answer the named keyboard shortcut"
 	
 	^ LeSnippetElement keyboardShortcut: aSymbol
 ]
 
-{ #category : 'api - shortcuts' }
+{ #category : #'api - shortcuts' }
 LeSnippetEditorElementShortcuter >> loseFocus [
 	self editor
 		"Lose focus LeBlock"
@@ -56,7 +56,7 @@ LeSnippetEditorElementShortcuter >> loseFocus [
 		
 ]
 
-{ #category : 'api - shortcuts' }
+{ #category : #'api - shortcuts' }
 LeSnippetEditorElementShortcuter >> moveUpAndDown [
 	self editor
 		"Move block up"

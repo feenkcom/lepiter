@@ -3,8 +3,8 @@ LeEvaluatedSnippetElement provides the common elements required to evaluate and 
 
 "
 Class {
-	#name : 'LeEvaluatedSnippetElement',
-	#superclass : 'LeTextualSnippetElement',
+	#name : #LeEvaluatedSnippetElement,
+	#superclass : #LeTextualSnippetElement,
 	#instVars : [
 		'spawnDestinationLook',
 		'editorElement',
@@ -16,17 +16,17 @@ Class {
 	#category : 'Lepiter-UI-Snippet-! Views'
 }
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeEvaluatedSnippetElement class >> isAbstract [
 	^ self = LeEvaluatedSnippetElement
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeEvaluatedSnippetElement >> arrowElement [
 	^ arrowElement
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 LeEvaluatedSnippetElement >> clearPreview [
 	self arrowElement visibility: BlVisibility gone.
 	self previewContainer 
@@ -34,28 +34,28 @@ LeEvaluatedSnippetElement >> clearPreview [
 		removeChildNamed: #previewElement.
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeEvaluatedSnippetElement >> coder [
 	<return: #GtPharoSourceCoder>
 
 	^ self snippetViewModel coderViewModel coder
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeEvaluatedSnippetElement >> coderViewModel [
 	<return: #GtSourceCoderViewModel>
 
 	^ self snippetViewModel coderViewModel
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeEvaluatedSnippetElement >> editor [
 	<return: #BrTextEditor>
 
 	^ editorElement editor
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeEvaluatedSnippetElement >> initialize [
 	super initialize.
 	
@@ -63,20 +63,20 @@ LeEvaluatedSnippetElement >> initialize [
 	self addViewModel: coderContentModel
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeEvaluatedSnippetElement >> initializeCoderToolbar [
 	coderToolbar := GtCoderActionsElement new.
 	spawnDestinationLook := GtSourceCoderSpawnDestinationAptitude new.
 	coderToolbar addAptitude: spawnDestinationLook.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeEvaluatedSnippetElement >> initializeSpawnDownElements [
 	arrowElement := self newArrowElement.
 	previewContainer := self newPreviewContainer
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 LeEvaluatedSnippetElement >> newArrowElement [
 	"Instantiate and return a new element playing a role of a down arrow."
 	<return: #BlElement>
@@ -93,7 +93,7 @@ LeEvaluatedSnippetElement >> newArrowElement [
 			c linear vertical alignCenter ].
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 LeEvaluatedSnippetElement >> newPreviewContainer [
 	| previewContainer |
 	previewContainer := BlElement new.
@@ -116,7 +116,7 @@ LeEvaluatedSnippetElement >> newPreviewContainer [
 			c vertical exact: self previewHeight ]
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 LeEvaluatedSnippetElement >> newPreviewElementFor: anObject [
 	<return: #BlElement>
 	| aView |
@@ -124,7 +124,7 @@ LeEvaluatedSnippetElement >> newPreviewElementFor: anObject [
 	^ aView asElementDo: [ :anElement | anElement ]
 ]
 
-{ #category : 'api - snippet view model' }
+{ #category : #'api - snippet view model' }
 LeEvaluatedSnippetElement >> onSnippetViewModelChanged [
 	arrowElement hasParent
 		ifFalse: [ self addChild: arrowElement ].
@@ -139,7 +139,7 @@ LeEvaluatedSnippetElement >> onSnippetViewModelChanged [
 
 ]
 
-{ #category : 'api - snippet view model' }
+{ #category : #'api - snippet view model' }
 LeEvaluatedSnippetElement >> onSnippetViewModelFocused: aBoolean [
 	"Override me to either request or lose focus depending on the boolean"
 
@@ -148,17 +148,17 @@ LeEvaluatedSnippetElement >> onSnippetViewModelFocused: aBoolean [
 		ifFalse: [ editorElement loseFocus ]
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeEvaluatedSnippetElement >> previewContainer [
 	^ previewContainer
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeEvaluatedSnippetElement >> previewHeight [
 	^ 300
 ]
 
-{ #category : 'api - view' }
+{ #category : #'api - view' }
 LeEvaluatedSnippetElement >> snippetContent [
 	"Return an element that represents a content of the snippet.
 	The embedder is responsible for placing #snippetContent in the right place within snippet element depending on the
@@ -168,7 +168,7 @@ LeEvaluatedSnippetElement >> snippetContent [
 	^ editorElement
 ]
 
-{ #category : 'api - view' }
+{ #category : #'api - view' }
 LeEvaluatedSnippetElement >> snippetToolbar [
 	"Return an element that represents a toolbar of the snippet. A toolbar usually appears below the snippet content.
 	The embedder is responsible for placing #snippetToolbar in the right place within snippet element depending on the
@@ -179,7 +179,7 @@ LeEvaluatedSnippetElement >> snippetToolbar [
 	^ coderToolbar
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 LeEvaluatedSnippetElement >> spawnBelowPreviewElement: anElement [
 	| arrowElement previewContainer |
 
@@ -193,7 +193,7 @@ LeEvaluatedSnippetElement >> spawnBelowPreviewElement: anElement [
 	previewContainer addChild: anElement as: #previewElement
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 LeEvaluatedSnippetElement >> spawnBelowTool: aTool [
 	| aPreviewElement |
 	
@@ -203,7 +203,7 @@ LeEvaluatedSnippetElement >> spawnBelowTool: aTool [
 	self spawnBelowPreviewElement: aPreviewElement
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeEvaluatedSnippetElement >> updateCoderUIModel [
 	coderContentModel sourceCoder: self snippetViewModel coderViewModel.
 	editorElement textualCoderViewModel: self snippetViewModel coderViewModel.

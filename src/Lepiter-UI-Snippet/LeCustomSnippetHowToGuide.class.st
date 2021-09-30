@@ -13,12 +13,12 @@ To subscribe to the announcements from the snippet override both {{gtMethod:LeCo
 
 "
 Class {
-	#name : 'LeCustomSnippetHowToGuide',
-	#superclass : 'Object',
+	#name : #LeCustomSnippetHowToGuide,
+	#superclass : #Object,
 	#category : 'Lepiter-UI-Snippet-Docs'
 }
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeCustomSnippetHowToGuide >> snippetsStructure [
 	<gtExample>
 	| view |

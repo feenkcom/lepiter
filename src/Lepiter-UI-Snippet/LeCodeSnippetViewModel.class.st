@@ -1,18 +1,18 @@
 Class {
-	#name : 'LeCodeSnippetViewModel',
-	#superclass : 'LeTextualSnippetViewModel',
+	#name : #LeCodeSnippetViewModel,
+	#superclass : #LeTextualSnippetViewModel,
 	#instVars : [
 		'coderViewModel'
 	],
-	#category : 'Lepiter-UI-Snippet-! View Models'
+	#category : #'Lepiter-UI-Snippet-! View Models'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeCodeSnippetViewModel >> coderViewModel [
 	^ coderViewModel
 ]
 
-{ #category : 'api - focus' }
+{ #category : #'api - focus' }
 LeCodeSnippetViewModel >> focusDueToNavigationDown [
 	super focusDueToNavigationDown.
 	
@@ -21,7 +21,7 @@ LeCodeSnippetViewModel >> focusDueToNavigationDown [
 		moveCursorAtEnd
 ]
 
-{ #category : 'api - focus' }
+{ #category : #'api - focus' }
 LeCodeSnippetViewModel >> focusDueToNavigationUp [
 	super focusDueToNavigationUp.
 	
@@ -30,25 +30,25 @@ LeCodeSnippetViewModel >> focusDueToNavigationUp [
 		moveCursorAtEnd
 ]
 
-{ #category : 'api - snippet model' }
+{ #category : #'api - snippet model' }
 LeCodeSnippetViewModel >> initializeCoderAddOns: aCoderViewModel [
 ]
 
-{ #category : 'api - snippet' }
+{ #category : #'api - snippet' }
 LeCodeSnippetViewModel >> isCoderFocused [
 	<return: #Boolean>
 
 	^ self coderViewModel focused
 ]
 
-{ #category : 'api - snippet' }
+{ #category : #'api - snippet' }
 LeCodeSnippetViewModel >> moveCursorAt: aCursorPosition [
 	"Move the cursor at the given position of the textual snippet"
 	
 	coderViewModel cursors: (BrTextEditorCursor at: aCursorPosition)
 ]
 
-{ #category : 'api - snippet model' }
+{ #category : #'api - snippet model' }
 LeCodeSnippetViewModel >> onSnippetModelChanged [
 	super onSnippetModelChanged.
 
@@ -56,14 +56,7 @@ LeCodeSnippetViewModel >> onSnippetModelChanged [
 	self initializeCoderAddOns: coderViewModel
 ]
 
-{ #category : 'api - bindings' }
-LeCodeSnippetViewModel >> sharedSnippetContext: aGtSnippetBindings [
-	super sharedSnippetContext: aGtSnippetBindings.
-	
-	
-]
-
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeCodeSnippetViewModel >> snippetView [
 	<return: #LeSnippetView>
 	

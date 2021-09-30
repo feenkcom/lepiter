@@ -1,20 +1,20 @@
 Class {
-	#name : 'LeSnippetMoveSnippetUpShortcut',
-	#superclass : 'LeSnippetEditorShortcut',
+	#name : #LeSnippetMoveSnippetUpShortcut,
+	#superclass : #LeSnippetEditorShortcut,
 	#category : 'Lepiter-UI-Snippet-Shortcuts'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSnippetMoveSnippetUpShortcut >> description [
 	^ 'Moves snippet up, shifting the other snippets down.'
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSnippetMoveSnippetUpShortcut >> name [
 	^ 'Move snippet up'
 ]
 
-{ #category : 'evaluation' }
+{ #category : #evaluation }
 LeSnippetMoveSnippetUpShortcut >> performOnEditor: aBrTextEditor snippet: aLeSnippetElement dueTo: aShortcutEvent [
 	aLeSnippetElement snippetViewModel moveUp
 ]

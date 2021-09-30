@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeContextMenuItemValuableSpecification',
-	#superclass : 'Object',
+	#name : #LeContextMenuItemValuableSpecification,
+	#superclass : #Object,
 	#traits : 'TLeContextMenuItemSpecification',
 	#classTraits : 'TLeContextMenuItemSpecification classTrait',
 	#instVars : [
@@ -10,28 +10,28 @@ Class {
 	#category : 'Lepiter-UI-Snippet-Spotter'
 }
 
-{ #category : 'api - converting' }
+{ #category : #'api - converting' }
 LeContextMenuItemValuableSpecification >> asSnippet [
 	<return: #LeSnippet>
 	^ self valuable value
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeContextMenuItemValuableSpecification >> title [
 	^ title value ifNil: [ String empty ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeContextMenuItemValuableSpecification >> title: anObject [
 	title := anObject
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeContextMenuItemValuableSpecification >> valuable [
 	^ valuable
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeContextMenuItemValuableSpecification >> valuable: aValuable [
 	valuable := aValuable
 ]
