@@ -1,23 +1,23 @@
 Class {
-	#name : 'LePharoSnippetElement',
-	#superclass : 'LeEvaluatedSnippetElement',
+	#name : #LePharoSnippetElement,
+	#superclass : #LeEvaluatedSnippetElement,
 	#category : 'Lepiter-Pharo-Snippet'
 }
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LePharoSnippetElement >> editorElement [
 	"Answer the BrEditor used by the receiver"
 
 	^ editorElement
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LePharoSnippetElement >> hasText [
 	<return: #Boolean>
 	^ self text isNotNil and: [ self text isNotEmpty ]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LePharoSnippetElement >> initialize [
 	super initialize.
 
@@ -32,7 +32,7 @@ LePharoSnippetElement >> initialize [
 	self initializeSpawnDownElements
 ]
 
-{ #category : 'private - announcement handling' }
+{ #category : #'private - announcement handling' }
 LePharoSnippetElement >> onCodeEvaluated: anEvaluatedAnnouncement [
 	"We inform a parent page element"
 	
@@ -42,12 +42,12 @@ LePharoSnippetElement >> onCodeEvaluated: anEvaluatedAnnouncement [
 		evaluationResult: anEvaluatedAnnouncement evaluationResult)
 ]
 
-{ #category : 'private - announcement handling' }
+{ #category : #'private - announcement handling' }
 LePharoSnippetElement >> onPageChildEvaluated: aLeUIPageChildEvaluationAnnouncement [
 	self coder requestStyleSourceText.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LePharoSnippetElement >> registerSpawnBelowHandler [
 	editorElement
 		when: GtPhlowObjectToSpawn
@@ -64,7 +64,7 @@ LePharoSnippetElement >> registerSpawnBelowHandler [
 					yourself) ] ].
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 LePharoSnippetElement >> spawnBelowObject: anObject [
 	| previewElement |
 	
@@ -72,7 +72,7 @@ LePharoSnippetElement >> spawnBelowObject: anObject [
 	self spawnBelowPreviewElement: previewElement
 ]
 
-{ #category : 'api - snippet view model' }
+{ #category : #'api - snippet view model' }
 LePharoSnippetElement >> subscribeToSnippetViewModel [
 	super subscribeToSnippetViewModel.
 
@@ -87,7 +87,7 @@ LePharoSnippetElement >> subscribeToSnippetViewModel [
 		to: self
 ]
 
-{ #category : 'api - snippet view model' }
+{ #category : #'api - snippet view model' }
 LePharoSnippetElement >> unsubscribeFromSnippetViewModel [
 	super unsubscribeFromSnippetViewModel.
 

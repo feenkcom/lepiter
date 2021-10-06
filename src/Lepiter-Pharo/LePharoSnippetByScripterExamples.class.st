@@ -1,12 +1,12 @@
 Class {
-	#name : 'LePharoSnippetByScripterExamples',
-	#superclass : 'Object',
+	#name : #LePharoSnippetByScripterExamples,
+	#superclass : #Object,
 	#traits : 'TBlDevScripterExamples',
 	#classTraits : 'TBlDevScripterExamples classTrait',
 	#category : 'Lepiter-Pharo-Examples'
 }
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 LePharoSnippetByScripterExamples >> assertBindingsIn: aStep [
 	<gtExample>
 		
@@ -27,7 +27,7 @@ LePharoSnippetByScripterExamples >> assertBindingsIn: aStep [
 	^ aStep
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 LePharoSnippetByScripterExamples >> assertPharoSnippetElementContentIn: aStep [
 	<gtExample>
 	aStep check
@@ -42,7 +42,7 @@ LePharoSnippetByScripterExamples >> assertPharoSnippetElementContentIn: aStep [
 		onBreadthFirstChildOfClass: BrInfiniteTreeElement
 ]
 
-{ #category : 'examples - page' }
+{ #category : #'examples - page' }
 LePharoSnippetByScripterExamples >> checkEveryPharoSnippetHasSameVariableValue [
 	<gtExample>
 	| aScripter |
@@ -53,7 +53,7 @@ LePharoSnippetByScripterExamples >> checkEveryPharoSnippetHasSameVariableValue [
 	^ aScripter syncContinue
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 LePharoSnippetByScripterExamples >> clickOnPharoSnippetAt: anIndex step: aStep [
 	<gtExample>
 	
@@ -68,7 +68,7 @@ LePharoSnippetByScripterExamples >> clickOnPharoSnippetAt: anIndex step: aStep [
 	^ aStep
 ]
 
-{ #category : 'examples - page' }
+{ #category : #'examples - page' }
 LePharoSnippetByScripterExamples >> clickOnTheFirstPharoSnippet [
 	<gtExample>
 	| aScripter |
@@ -79,7 +79,7 @@ LePharoSnippetByScripterExamples >> clickOnTheFirstPharoSnippet [
 	^ aScripter syncContinue
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 LePharoSnippetByScripterExamples >> editEveryVisiblePharoSnippetIn: aStep appending: aString [
 	<gtExample>
 	aStep do
@@ -95,7 +95,7 @@ LePharoSnippetByScripterExamples >> editEveryVisiblePharoSnippetIn: aStep append
 		onBreadthFirstChildOfClass: BrInfiniteTreeElement
 ]
 
-{ #category : 'examples - page' }
+{ #category : #'examples - page' }
 LePharoSnippetByScripterExamples >> executeAndAgainScrollDownPharoSnippets [
 	<gtExample>
 	| aScripter |
@@ -131,7 +131,7 @@ LePharoSnippetByScripterExamples >> executeAndAgainScrollDownPharoSnippets [
 	^ aScripter syncContinue
 ]
 
-{ #category : 'examples - page' }
+{ #category : #'examples - page' }
 LePharoSnippetByScripterExamples >> executeFirstPharoSnippet [
 	<gtExample>
 	| aScripter |
@@ -142,7 +142,7 @@ LePharoSnippetByScripterExamples >> executeFirstPharoSnippet [
 	^ aScripter syncContinue
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 LePharoSnippetByScripterExamples >> executePharoSnippetAt: anIndex step: aStep [ 
 	<gtExample>
 	
@@ -183,7 +183,7 @@ LePharoSnippetByScripterExamples >> executePharoSnippetAt: anIndex step: aStep [
 	^ aStep
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 LePharoSnippetByScripterExamples >> moveDownPharoSnippetAt: anIndex step: aStep [
 	<gtExample>
 	
@@ -201,7 +201,7 @@ LePharoSnippetByScripterExamples >> moveDownPharoSnippetAt: anIndex step: aStep 
 	^ aStep
 ]
 
-{ #category : 'examples - page - pharo snippets' }
+{ #category : #'examples - page - pharo snippets' }
 LePharoSnippetByScripterExamples >> pageContentElementWithEnumeradedPharoSnippets [
 	<gtExample>
 	| aScripter |
@@ -211,7 +211,7 @@ LePharoSnippetByScripterExamples >> pageContentElementWithEnumeradedPharoSnippet
 	^ aScripter syncContinue
 ]
 
-{ #category : 'examples - page' }
+{ #category : #'examples - page' }
 LePharoSnippetByScripterExamples >> pageContentElementWithPharoSnippetsSharingSameVariable [
 	<gtExample>
 	| aScripter |
@@ -221,7 +221,7 @@ LePharoSnippetByScripterExamples >> pageContentElementWithPharoSnippetsSharingSa
 	^ aScripter syncContinue
 ]
 
-{ #category : 'examples - page - pharo snippets' }
+{ #category : #'examples - page - pharo snippets' }
 LePharoSnippetByScripterExamples >> scrollDownEnumeradedPharoSnippets [
 	<gtExample>
 	<noTest>
@@ -254,7 +254,7 @@ LePharoSnippetByScripterExamples >> scrollDownEnumeradedPharoSnippets [
 	^ aScripter syncContinue
 ]
 
-{ #category : 'examples - page' }
+{ #category : #'examples - page' }
 LePharoSnippetByScripterExamples >> scrollDownPharoSnippets [
 	<gtExample>
 	| aScripter |
@@ -290,7 +290,7 @@ LePharoSnippetByScripterExamples >> scrollDownPharoSnippets [
 	^ aScripter syncContinue
 ]
 
-{ #category : 'examples - page - pharo snippets' }
+{ #category : #'examples - page - pharo snippets' }
 LePharoSnippetByScripterExamples >> scrollUpEnumeradedPharoSnippets [
 	<gtExample>
 	<noTest>
@@ -321,7 +321,7 @@ LePharoSnippetByScripterExamples >> scrollUpEnumeradedPharoSnippets [
 	^ aScripter syncContinue
 ]
 
-{ #category : 'examples - page' }
+{ #category : #'examples - page' }
 LePharoSnippetByScripterExamples >> scrollUpPharoSnippets [
 	<gtExample>
 	| aScripter |

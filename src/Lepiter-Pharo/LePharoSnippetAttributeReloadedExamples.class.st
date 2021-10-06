@@ -1,10 +1,10 @@
 Class {
-	#name : 'LePharoSnippetAttributeReloadedExamples',
-	#superclass : 'Object',
+	#name : #LePharoSnippetAttributeReloadedExamples,
+	#superclass : #Object,
 	#category : 'Lepiter-Pharo-Examples'
 }
 
-{ #category : 'examples' }
+{ #category : #examples }
 LePharoSnippetAttributeReloadedExamples >> attributesReloaderForPharoSnippet [
 	<gtExample>
 	| textSnippet attributesReloader |
@@ -17,7 +17,7 @@ LePharoSnippetAttributeReloadedExamples >> attributesReloaderForPharoSnippet [
 	
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LePharoSnippetAttributeReloadedExamples >> correctMappingsForPharoSnippet [
 	<gtExample>
 	| attributesReloader attributeMappings |
@@ -32,7 +32,7 @@ LePharoSnippetAttributeReloadedExamples >> correctMappingsForPharoSnippet [
 	^ attributesReloader
 ]
 
-{ #category : 'utils' }
+{ #category : #utils }
 LePharoSnippetAttributeReloadedExamples >> newPharoSnippetWithMetadataFrom: aSnippet [
 	| newSnippet |
 	newSnippet := LePharoSnippet new.
@@ -44,7 +44,7 @@ LePharoSnippetAttributeReloadedExamples >> newPharoSnippetWithMetadataFrom: aSni
 	^ newSnippet
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LePharoSnippetAttributeReloadedExamples >> reloadPharoSnippetWithChangedCode [
 	<gtExample>
 	| attributesReloader originalSnippet changedSnippet |
@@ -67,7 +67,7 @@ LePharoSnippetAttributeReloadedExamples >> reloadPharoSnippetWithChangedCode [
 	^ attributesReloader
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LePharoSnippetAttributeReloadedExamples >> reloadPharoSnippetWithNoChange [
 	<gtExample>
 	| attributesReloader originalSnippet changedSnippet |

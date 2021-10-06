@@ -19,12 +19,12 @@ Public API and Key Messages
 
 "
 Class {
-	#name : 'LePharoSnippet',
-	#superclass : 'LeCodeSnippet',
-	#category : 'Lepiter-Pharo-Snippet'
+	#name : #LePharoSnippet,
+	#superclass : #LeCodeSnippet,
+	#category : #'Lepiter-Pharo-Snippet'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePharoSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 
@@ -34,32 +34,69 @@ LePharoSnippet class >> contextMenuItemSpecification [
 		title: 'Pharo'
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePharoSnippet class >> leJsonV3Name [
 
 	^ 'pharoSnippet'
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePharoSnippet class >> leJsonV4Name [
 
 	^ 'pharoSnippet'
 ]
 
-{ #category : 'visiting' }
+{ #category : #visiting }
 LePharoSnippet >> acceptVisitor: aVisitor [
 
 	^ aVisitor visitPharoSnippet: self
 ]
 
-{ #category : 'accessing' }
+{ #category : #converting }
+LePharoSnippet >> asExampleMethodStringFor: aSelector [
+	| newAST variables |
+	newAST := RBParser parseMethod:
+		          aSelector , String cr , coder sourceText.
+	variables := Set new.
+	coder astAwait allNodesOfType: GtPharoVariableNode do: [ :node | 
+		(node whoDefines notNil or: [ 
+			 Smalltalk globals includesKey: node variableName ]) ifFalse: [ 
+			variables add: node variableName ] ].
+	newAST body addTemporariesNamed: variables.
+	newAST addPragma:
+		(RBPragmaNode selector: #gtExample arguments: #(  )).
+	newAST addReturn.
+	^ newAST formattedCode
+]
+
+{ #category : #accessing }
 LePharoSnippet >> asSnippetViewModel [
 	<return: #LeSnippetViewModel>
 
 	^ LePharoSnippetViewModel new snippetModel: self
 ]
 
-{ #category : 'initialization' }
+{ #category : #converting }
+LePharoSnippet >> compileExampleMethod: aSelector in: aClass [
+	| change newSource |
+	newSource := self asExampleMethodStringFor: aSelector.
+	change := RBAddMethodChange
+		          compile: newSource
+		          in: aClass
+		          classified: #examples.
+	GtPharoCodeModifier current performRefactoryChange: change
+]
+
+{ #category : #converting }
+LePharoSnippet >> convertToExample: aSelector in: aClass [
+	self compileExampleMethod: aSelector in: aClass.
+	self addSnippetAfterSelf: (LeExampleSnippet new
+			 exampleBehaviorName: aClass name;
+			 exampleSelector: aSelector).
+	self removeSelf
+]
+
+{ #category : #initialization }
 LePharoSnippet >> newCoder [
 	^ GtPharoSnippetCoder new
 ]
