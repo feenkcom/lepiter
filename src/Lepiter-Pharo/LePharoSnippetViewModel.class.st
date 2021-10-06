@@ -1,10 +1,10 @@
 Class {
-	#name : 'LePharoSnippetViewModel',
-	#superclass : 'LeCodeSnippetViewModel',
+	#name : #LePharoSnippetViewModel,
+	#superclass : #LeCodeSnippetViewModel,
 	#category : 'Lepiter-Pharo-Snippet'
 }
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LePharoSnippetViewModel >> initializeCoderAddOns: aCoderViewModel [
 	"Initialise the keyboard shortcuts in the code editor"
 	
@@ -31,12 +31,12 @@ LePharoSnippetViewModel >> initializeCoderAddOns: aCoderViewModel [
 		addShortcut: (LeSnippetMoveSnippetDownShortcut new combination: (self keyboardShortcut: #MoveSnippetDown))
 ]
 
-{ #category : 'api - bindings' }
+{ #category : #'api - bindings' }
 LePharoSnippetViewModel >> onSelfObjectChanged [
 	coderViewModel selfObject: sharedContext selfObject
 ]
 
-{ #category : 'api - bindings' }
+{ #category : #'api - bindings' }
 LePharoSnippetViewModel >> sharedSnippetContext: aLeSharedSnippetContext [
 	sharedContext unsubscribe: self.
 	
@@ -49,7 +49,7 @@ LePharoSnippetViewModel >> sharedSnippetContext: aLeSharedSnippetContext [
 	aLeSharedSnippetContext whenSelfObjectChangedSend: #onSelfObjectChanged to: self
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePharoSnippetViewModel >> snippetElementClass [
 	^ LePharoSnippetElement
 ]
