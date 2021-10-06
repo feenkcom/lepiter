@@ -77,22 +77,27 @@ LePharoSnippet >> asSnippetViewModel [
 ]
 
 { #category : #converting }
-LePharoSnippet >> compileExampleMethod: aSelector in: aClass [
+LePharoSnippet >> compileExampleMethod: aSelector in: aClass classified: aSymbol [
 	| change newSource |
 	newSource := self asExampleMethodStringFor: aSelector.
 	change := RBAddMethodChange
-		          compile: newSource
-		          in: aClass
-		          classified: #examples.
+		compile: newSource
+		in: aClass
+		classified: aSymbol.
 	GtPharoCodeModifier current performRefactoryChange: change
 ]
 
 { #category : #converting }
-LePharoSnippet >> convertToExample: aSelector in: aClass [
-	self compileExampleMethod: aSelector in: aClass.
-	self addSnippetAfterSelf: (LeExampleSnippet new
-			 exampleBehaviorName: aClass name;
-			 exampleSelector: aSelector).
+LePharoSnippet >> convertToExample: aSelector in: aClass classified: aSymbol [
+	self
+		compileExampleMethod: aSelector
+		in: aClass
+		classified: aSymbol.
+	self
+		addSnippetAfterSelf:
+			((LeExampleSnippet new)
+				exampleBehaviorName: aClass name;
+				exampleSelector: aSelector).
 	self removeSelf
 ]
 
