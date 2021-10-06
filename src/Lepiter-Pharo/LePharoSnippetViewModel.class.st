@@ -1,7 +1,7 @@
 Class {
 	#name : #LePharoSnippetViewModel,
 	#superclass : #LeCodeSnippetViewModel,
-	#category : 'Lepiter-Pharo-Snippet'
+	#category : #'Lepiter-Pharo-Snippet'
 }
 
 { #category : #initialization }
@@ -28,7 +28,14 @@ LePharoSnippetViewModel >> initializeCoderAddOns: aCoderViewModel [
 		"Move Snippet up"
 		addShortcut: (LeSnippetMoveSnippetUpShortcut new combination: (self keyboardShortcut: #MoveSnippetUp));
 		"Move Snippet down"
-		addShortcut: (LeSnippetMoveSnippetDownShortcut new combination: (self keyboardShortcut: #MoveSnippetDown))
+		addShortcut: (LeSnippetMoveSnippetDownShortcut new combination: (self keyboardShortcut: #MoveSnippetDown)).
+		
+	aCoderViewModel
+		addMainAction: 
+			(GtCoderDropDownAction new
+				title: 'Convert to Example Method' translated;
+				icon: BrGlamorousVectorIcons eg;
+				stencil: [ LePharoCreateExampleElement new snippet: snippetModel ])
 ]
 
 { #category : #'api - bindings' }
