@@ -1,13 +1,13 @@
 Class {
-	#name : 'LeExampleSnippetViewModel',
-	#superclass : 'LeSnippetViewModel',
+	#name : #LeExampleSnippetViewModel,
+	#superclass : #LeSnippetViewModel,
 	#instVars : [
 		'annotationCoderViewModel'
 	],
-	#category : 'Lepiter-Snippet-Example-Snippet'
+	#category : #'Lepiter-Snippet-Example-Snippet'
 }
 
-{ #category : 'api - annotation coder view model' }
+{ #category : #'api - annotation coder view model' }
 LeExampleSnippetViewModel >> annotationCoderViewModel [
 	<return: #GtTextCoder>
 	<propertyGetter: #annotationCoderViewModel>
@@ -16,7 +16,7 @@ LeExampleSnippetViewModel >> annotationCoderViewModel [
 	^ annotationCoderViewModel
 ]
 
-{ #category : 'api - annotation coder view model' }
+{ #category : #'api - annotation coder view model' }
 LeExampleSnippetViewModel >> annotationCoderViewModel: aNewAnnotationCoderViewModel [
 	<propertySetter: #annotationCoderViewModel>
 	<propertyAnnouncement: #LeExampleSnippetViewModelAnnotationCoderViewModelChanged>
@@ -37,7 +37,7 @@ LeExampleSnippetViewModel >> annotationCoderViewModel: aNewAnnotationCoderViewMo
 	self notifyAnnotationCoderViewModelChanged
 ]
 
-{ #category : 'api - code expanded' }
+{ #category : #'api - code expanded' }
 LeExampleSnippetViewModel >> codeExpanded [
 	<return: #Boolean>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#getterDelegateTemplate'>
@@ -45,7 +45,7 @@ LeExampleSnippetViewModel >> codeExpanded [
 	^ self snippetModel codeExpanded
 ]
 
-{ #category : 'api - code expanded' }
+{ #category : #'api - code expanded' }
 LeExampleSnippetViewModel >> codeExpanded: aCodeExpanded [
 	<propertySetter: #codeExpanded>
 	<propertyAnnouncement: #LeExampleSnippetCodeExpandedChanged>
@@ -54,7 +54,7 @@ LeExampleSnippetViewModel >> codeExpanded: aCodeExpanded [
 	self snippetModel codeExpanded: aCodeExpanded
 ]
 
-{ #category : 'api - example behavior name' }
+{ #category : #'api - example behavior name' }
 LeExampleSnippetViewModel >> exampleBehaviorName [
 	<return: #Symbol>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#getterDelegateTemplate'>
@@ -62,7 +62,7 @@ LeExampleSnippetViewModel >> exampleBehaviorName [
 	^ self snippetModel exampleBehaviorName
 ]
 
-{ #category : 'api - example behavior name' }
+{ #category : #'api - example behavior name' }
 LeExampleSnippetViewModel >> exampleBehaviorName: aExampleBehaviorName [
 	<propertySetter: #exampleBehaviorName>
 	<propertyAnnouncement: #LeExampleSnippetExampleBehaviorNameChanged>
@@ -71,7 +71,7 @@ LeExampleSnippetViewModel >> exampleBehaviorName: aExampleBehaviorName [
 	self snippetModel exampleBehaviorName: aExampleBehaviorName
 ]
 
-{ #category : 'api - example selector' }
+{ #category : #'api - example selector' }
 LeExampleSnippetViewModel >> exampleSelector [
 	<return: #Symbol>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#getterDelegateTemplate'>
@@ -79,7 +79,7 @@ LeExampleSnippetViewModel >> exampleSelector [
 	^ self snippetModel exampleSelector
 ]
 
-{ #category : 'api - example selector' }
+{ #category : #'api - example selector' }
 LeExampleSnippetViewModel >> exampleSelector: aExampleSelector [
 	<propertySetter: #exampleSelector>
 	<propertyAnnouncement: #LeExampleSnippetExampleSelectorChanged>
@@ -88,7 +88,7 @@ LeExampleSnippetViewModel >> exampleSelector: aExampleSelector [
 	self snippetModel exampleSelector: aExampleSelector
 ]
 
-{ #category : 'api - focus' }
+{ #category : #'api - focus' }
 LeExampleSnippetViewModel >> focusAfterCreation [
 	super focusAfterCreation.
 	
@@ -97,7 +97,7 @@ LeExampleSnippetViewModel >> focusAfterCreation [
 		moveCursorAtEnd
 ]
 
-{ #category : 'api - focus' }
+{ #category : #'api - focus' }
 LeExampleSnippetViewModel >> focusDueToNavigationDown [
 	super focusDueToNavigationDown.
 	
@@ -106,7 +106,7 @@ LeExampleSnippetViewModel >> focusDueToNavigationDown [
 		moveCursorAtEnd
 ]
 
-{ #category : 'api - focus' }
+{ #category : #'api - focus' }
 LeExampleSnippetViewModel >> focusDueToNavigationUp [
 	super focusDueToNavigationUp.
 	
@@ -115,7 +115,21 @@ LeExampleSnippetViewModel >> focusDueToNavigationUp [
 		moveCursorAtEnd
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'gt extensions' }
+LeExampleSnippetViewModel >> gtActionCreateExampleFor: anAction [
+
+	<gtAction>
+	^ anAction button
+		  tooltip: 'Create snippet';
+		  icon: BrGlamorousVectorIcons play;
+		  target: LeSnippetContextMenuActionTarget uniqueInstance;
+		  priority: 10;
+		  action: [ :aButton :aSnippetElement | 
+			  snippetModel convertToScript.
+			  aButton fireEvent: BrDropdownHideWish new ]
+]
+
+{ #category : #'api - accessing' }
 LeExampleSnippetViewModel >> gtExampleDo: aBlock [
 	"Try to retrieve a GtExample for an example snippet"
 	<return: #GtExample>
@@ -151,7 +165,7 @@ LeExampleSnippetViewModel >> gtExampleDo: aBlock [
 	aBlock value: gtExample
 ]
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 LeExampleSnippetViewModel >> handleSystemClassAnnouncement: aClassAnnouncement [
 	self gtExampleDo: [ :aGtExample |
 		(aClassAnnouncement affectsClass: aGtExample methodClass)
@@ -164,7 +178,7 @@ LeExampleSnippetViewModel >> handleSystemClassAnnouncement: aClassAnnouncement [
 	self announce: LeExampleSnippetViewModelExampleChanged new
 ]
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 LeExampleSnippetViewModel >> handleSystemMethodAnnouncement: aMethodAnnouncement [
 	self gtExampleDo: [ :aGtExample |
 		(aMethodAnnouncement affectsMethod: aGtExample method)
@@ -176,7 +190,7 @@ LeExampleSnippetViewModel >> handleSystemMethodAnnouncement: aMethodAnnouncement
 	self announce: LeExampleSnippetViewModelExampleChanged new
 ]
 
-{ #category : 'api - annotation coder view model' }
+{ #category : #'api - annotation coder view model' }
 LeExampleSnippetViewModel >> hasAnnotationCoderViewModel [
 	<return: #Boolean>
 	<propertyTester: #annotationCoderViewModel>
@@ -185,7 +199,7 @@ LeExampleSnippetViewModel >> hasAnnotationCoderViewModel [
 	^ annotationCoderViewModel notNil
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeExampleSnippetViewModel >> initialize [
 	| annotationCoder |
 	super initialize.
@@ -210,7 +224,7 @@ LeExampleSnippetViewModel >> initialize [
 			to: self
 ]
 
-{ #category : 'api - no code' }
+{ #category : #'api - no code' }
 LeExampleSnippetViewModel >> noCode [
 	<return: #Boolean>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#getterDelegateTemplate'>
@@ -218,7 +232,7 @@ LeExampleSnippetViewModel >> noCode [
 	^ self snippetModel noCode
 ]
 
-{ #category : 'api - no code' }
+{ #category : #'api - no code' }
 LeExampleSnippetViewModel >> noCode: aNoCode [
 	<propertySetter: #noCode>
 	<propertyAnnouncement: #LeExampleSnippetNoCodeChanged>
@@ -227,7 +241,7 @@ LeExampleSnippetViewModel >> noCode: aNoCode [
 	self snippetModel noCode: aNoCode
 ]
 
-{ #category : 'api - annotation coder view model' }
+{ #category : #'api - annotation coder view model' }
 LeExampleSnippetViewModel >> notifyAnnotationCoderViewModelChanged [
 	"Override this notify method to announce changes to the property"
 	<propertyChangeNotifier: #annotationCoderViewModel>
@@ -236,7 +250,7 @@ LeExampleSnippetViewModel >> notifyAnnotationCoderViewModelChanged [
 		annotationCoderViewModel: self annotationCoderViewModel).
 ]
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 LeExampleSnippetViewModel >> onAnnotationAstChanged: anAstChangedAnnouncement [
 	| anAst aNewSnippet |
 	
@@ -270,7 +284,7 @@ LeExampleSnippetViewModel >> onAnnotationAstChanged: anAstChangedAnnouncement [
 	self requestUpdateAnnotationText
 ]
 
-{ #category : 'api - annotation coder view model' }
+{ #category : #'api - annotation coder view model' }
 LeExampleSnippetViewModel >> onNewAnnotationCoderViewModelSet: aNewAnnotationCoderViewModel [
 	"Is sent after a new value of the annotationCoderViewModel is assigned"
 	<propertySetHook: #annotationCoderViewModel>
@@ -282,7 +296,7 @@ LeExampleSnippetViewModel >> onNewAnnotationCoderViewModelSet: aNewAnnotationCod
 		to: self
 ]
 
-{ #category : 'api - annotation coder view model' }
+{ #category : #'api - annotation coder view model' }
 LeExampleSnippetViewModel >> onPreviousAnnotationCoderViewModelUnset: aPreviousAnnotationCoderViewModel [
 	"Is sent after a previous value of the annotationCoderViewModel is de-assigned"
 	<propertyUnsetHook: #annotationCoderViewModel>
@@ -291,7 +305,7 @@ LeExampleSnippetViewModel >> onPreviousAnnotationCoderViewModelUnset: aPreviousA
 	aPreviousAnnotationCoderViewModel unsubscribe: self
 ]
 
-{ #category : 'api - code expanded' }
+{ #category : #'api - code expanded' }
 LeExampleSnippetViewModel >> onSnippetCodeExpandedChanged: aLeExampleSnippetCodeExpandedChanged [
 	<modelEventHandler: #snippet event: #LeExampleSnippetCodeExpandedChanged>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#onPropertyChangedTemplate'>
@@ -299,7 +313,7 @@ LeExampleSnippetViewModel >> onSnippetCodeExpandedChanged: aLeExampleSnippetCode
 	self announce: aLeExampleSnippetCodeExpandedChanged
 ]
 
-{ #category : 'api - example behavior name' }
+{ #category : #'api - example behavior name' }
 LeExampleSnippetViewModel >> onSnippetExampleBehaviorNameChanged: aLeExampleSnippetExampleBehaviorNameChanged [
 	<modelEventHandler: #snippet event: #LeExampleSnippetExampleBehaviorNameChanged>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#onPropertyChangedTemplate'>
@@ -307,7 +321,7 @@ LeExampleSnippetViewModel >> onSnippetExampleBehaviorNameChanged: aLeExampleSnip
 	self announce: aLeExampleSnippetExampleBehaviorNameChanged
 ]
 
-{ #category : 'api - example selector' }
+{ #category : #'api - example selector' }
 LeExampleSnippetViewModel >> onSnippetExampleSelectorChanged: aLeExampleSnippetExampleSelectorChanged [
 	<modelEventHandler: #snippet event: #LeExampleSnippetExampleSelectorChanged>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#onPropertyChangedTemplate'>
@@ -315,14 +329,14 @@ LeExampleSnippetViewModel >> onSnippetExampleSelectorChanged: aLeExampleSnippetE
 	self announce: aLeExampleSnippetExampleSelectorChanged
 ]
 
-{ #category : 'api - snippet model' }
+{ #category : #'api - snippet model' }
 LeExampleSnippetViewModel >> onSnippetModelChanged [
 	super onSnippetModelChanged.
 	
 	self updateAnnotationText
 ]
 
-{ #category : 'api - no code' }
+{ #category : #'api - no code' }
 LeExampleSnippetViewModel >> onSnippetNoCodeChanged: aLeExampleSnippetNoCodeChanged [
 	<modelEventHandler: #snippet event: #LeExampleSnippetNoCodeChanged>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#onPropertyChangedTemplate'>
@@ -330,7 +344,7 @@ LeExampleSnippetViewModel >> onSnippetNoCodeChanged: aLeExampleSnippetNoCodeChan
 	self announce: aLeExampleSnippetNoCodeChanged
 ]
 
-{ #category : 'api - preview expanded' }
+{ #category : #'api - preview expanded' }
 LeExampleSnippetViewModel >> onSnippetPreviewExpandedChanged: aLeExampleSnippetPreviewExpandedChanged [
 	<modelEventHandler: #snippet event: #LeExampleSnippetPreviewExpandedChanged>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#onPropertyChangedTemplate'>
@@ -338,7 +352,7 @@ LeExampleSnippetViewModel >> onSnippetPreviewExpandedChanged: aLeExampleSnippetP
 	self announce: aLeExampleSnippetPreviewExpandedChanged
 ]
 
-{ #category : 'api - preview height' }
+{ #category : #'api - preview height' }
 LeExampleSnippetViewModel >> onSnippetPreviewHeightChanged: aLeExampleSnippetPreviewHeightChanged [
 	<modelEventHandler: #snippet event: #LeExampleSnippetPreviewHeightChanged>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#onPropertyChangedTemplate'>
@@ -346,7 +360,7 @@ LeExampleSnippetViewModel >> onSnippetPreviewHeightChanged: aLeExampleSnippetPre
 	self announce: aLeExampleSnippetPreviewHeightChanged
 ]
 
-{ #category : 'api - preview show selector' }
+{ #category : #'api - preview show selector' }
 LeExampleSnippetViewModel >> onSnippetPreviewShowSelectorChanged: aLeExampleSnippetPreviewShowSelectorChanged [
 	<modelEventHandler: #snippet event: #LeExampleSnippetPreviewShowSelectorChanged>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#onPropertyChangedTemplate'>
@@ -354,7 +368,7 @@ LeExampleSnippetViewModel >> onSnippetPreviewShowSelectorChanged: aLeExampleSnip
 	self announce: aLeExampleSnippetPreviewShowSelectorChanged
 ]
 
-{ #category : 'api - preview expanded' }
+{ #category : #'api - preview expanded' }
 LeExampleSnippetViewModel >> previewExpanded [
 	<return: #Boolean>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#getterDelegateTemplate'>
@@ -362,7 +376,7 @@ LeExampleSnippetViewModel >> previewExpanded [
 	^ self snippetModel previewExpanded
 ]
 
-{ #category : 'api - preview expanded' }
+{ #category : #'api - preview expanded' }
 LeExampleSnippetViewModel >> previewExpanded: aPreviewExpanded [
 	<propertySetter: #previewExpanded>
 	<propertyAnnouncement: #LeExampleSnippetPreviewExpandedChanged>
@@ -371,7 +385,7 @@ LeExampleSnippetViewModel >> previewExpanded: aPreviewExpanded [
 	self snippetModel previewExpanded: aPreviewExpanded
 ]
 
-{ #category : 'api - preview height' }
+{ #category : #'api - preview height' }
 LeExampleSnippetViewModel >> previewHeight [
 	<return: #Number>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#getterDelegateTemplate'>
@@ -379,7 +393,7 @@ LeExampleSnippetViewModel >> previewHeight [
 	^ self snippetModel previewHeight
 ]
 
-{ #category : 'api - preview height' }
+{ #category : #'api - preview height' }
 LeExampleSnippetViewModel >> previewHeight: aPreviewHeight [
 	<propertySetter: #previewHeight>
 	<propertyAnnouncement: #LeExampleSnippetPreviewHeightChanged>
@@ -388,7 +402,7 @@ LeExampleSnippetViewModel >> previewHeight: aPreviewHeight [
 	self snippetModel previewHeight: aPreviewHeight
 ]
 
-{ #category : 'api - preview show selector' }
+{ #category : #'api - preview show selector' }
 LeExampleSnippetViewModel >> previewShowSelector [
 	<return: #Symbol>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#getterDelegateTemplate'>
@@ -396,7 +410,7 @@ LeExampleSnippetViewModel >> previewShowSelector [
 	^ self snippetModel previewShowSelector
 ]
 
-{ #category : 'api - preview show selector' }
+{ #category : #'api - preview show selector' }
 LeExampleSnippetViewModel >> previewShowSelector: aPreviewShowSelector [
 	<propertySetter: #previewShowSelector>
 	<propertyAnnouncement: #LeExampleSnippetPreviewShowSelectorChanged>
@@ -405,7 +419,7 @@ LeExampleSnippetViewModel >> previewShowSelector: aPreviewShowSelector [
 	self snippetModel previewShowSelector: aPreviewShowSelector
 ]
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 LeExampleSnippetViewModel >> requestUpdateAnnotationText [
 
 	self
@@ -427,12 +441,12 @@ LeExampleSnippetViewModel >> requestUpdateAnnotationText [
 			ifFalse: [ self updateAnnotationText ] ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeExampleSnippetViewModel >> snippetElementClass [
 	^ LeExampleSnippetElement
 ]
 
-{ #category : 'api - snippet model' }
+{ #category : #'api - snippet model' }
 LeExampleSnippetViewModel >> subscribeToSnippetModel [
 	"Is sent after a new snippetModel is assigned to the receiver.
 	It is required to unsubscribe from the previously subscribed objects by implementing
@@ -450,7 +464,7 @@ LeExampleSnippetViewModel >> subscribeToSnippetModel [
 	self snippetModel weak when: LeExampleSnippetPreviewHeightChanged send: #onSnippetPreviewHeightChanged: to: self.
 ]
 
-{ #category : 'api - annotation coder view model' }
+{ #category : #'api - annotation coder view model' }
 LeExampleSnippetViewModel >> unsetAnnotationCoderViewModel [
 	<propertyUnsetter: #annotationCoderViewModel>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#propertyUnsetterTemplate'>
@@ -465,7 +479,7 @@ LeExampleSnippetViewModel >> unsetAnnotationCoderViewModel [
 	self notifyAnnotationCoderViewModelChanged
 ]
 
-{ #category : 'api - snippet model' }
+{ #category : #'api - snippet model' }
 LeExampleSnippetViewModel >> unsubscribeFromSnippetModel [
 	"Is sent before a new snippetModel is assigned to the receiver.
 	Objects that subscribe to snippetModel are required to implement this method."
@@ -475,7 +489,7 @@ LeExampleSnippetViewModel >> unsubscribeFromSnippetModel [
 	self snippetModel unsubscribe: self.
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeExampleSnippetViewModel >> updateAnnotationText [
 	annotationCoderViewModel
 		sourceText: self snippetModel asAnnotationString asRopedText

@@ -1,13 +1,13 @@
 Class {
-	#name : 'LeExampleSnippetExampleBehaviorNameChanged',
-	#superclass : 'LeExampleSnippetContentChanged',
+	#name : #LeExampleSnippetExampleBehaviorNameChanged,
+	#superclass : #LeExampleSnippetContentChanged,
 	#instVars : [
 		'exampleBehaviorName'
 	],
 	#category : 'Lepiter-Snippet-Example-Snippet - Events'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeExampleSnippetExampleBehaviorNameChanged >> exampleBehaviorName [
 	<objectGetter: #example>
 	<generatedFrom: #'GtRobocoderMetamodelAnnouncementTemplate>>#objectGetterTemplate'>
@@ -15,7 +15,7 @@ LeExampleSnippetExampleBehaviorNameChanged >> exampleBehaviorName [
 	^ exampleBehaviorName
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeExampleSnippetExampleBehaviorNameChanged >> exampleBehaviorName: aExampleBehaviorName [
 	<objectSetter: #example>
 	<generatedFrom: #'GtRobocoderMetamodelAnnouncementTemplate>>#objectSetterTemplate'>

@@ -1,13 +1,13 @@
 Class {
-	#name : 'LeExampleSnippetPreviewHeightChanged',
-	#superclass : 'LeExampleSnippetContentChanged',
+	#name : #LeExampleSnippetPreviewHeightChanged,
+	#superclass : #LeExampleSnippetContentChanged,
 	#instVars : [
 		'previewHeight'
 	],
 	#category : 'Lepiter-Snippet-Example-Snippet - Events'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeExampleSnippetPreviewHeightChanged >> previewHeight [
 	<objectGetter: #example>
 	<generatedFrom: #'GtRobocoderMetamodelAnnouncementTemplate>>#objectGetterTemplate'>
@@ -15,7 +15,7 @@ LeExampleSnippetPreviewHeightChanged >> previewHeight [
 	^ previewHeight
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeExampleSnippetPreviewHeightChanged >> previewHeight: aPreviewHeight [
 	<objectSetter: #example>
 	<generatedFrom: #'GtRobocoderMetamodelAnnouncementTemplate>>#objectSetterTemplate'>

@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeExampleSnippetAnnotationVisitor',
-	#superclass : 'Object',
+	#name : #LeExampleSnippetAnnotationVisitor,
+	#superclass : #Object,
 	#traits : 'TLeAnnotationParseNodeVisitor',
 	#classTraits : 'TLeAnnotationParseNodeVisitor classTrait',
 	#instVars : [
@@ -9,17 +9,17 @@ Class {
 	#category : 'Lepiter-Snippet-Example-Snippet'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExampleSnippetAnnotationVisitor >> exampleSnippet [
 	^ exampleSnippet
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExampleSnippetAnnotationVisitor >> exampleSnippet: anObject [
 	exampleSnippet := anObject
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeExampleSnippetAnnotationVisitor >> visitCodeExpandedArgument: aCodeExpandedArgument [
 	aCodeExpandedArgument hasValidBooleanValue
 		ifFalse: [ ^ self ].
@@ -27,7 +27,7 @@ LeExampleSnippetAnnotationVisitor >> visitCodeExpandedArgument: aCodeExpandedArg
 	self exampleSnippet codeExpanded: aCodeExpandedArgument booleanValue
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeExampleSnippetAnnotationVisitor >> visitMethodNameArgument: aMethodNameArgument [
 	| anExampleBehaviorName |
 
@@ -39,7 +39,7 @@ LeExampleSnippetAnnotationVisitor >> visitMethodNameArgument: aMethodNameArgumen
 	self exampleSnippet exampleSelector: aMethodNameArgument methodName asSymbol
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeExampleSnippetAnnotationVisitor >> visitNoCodeArgument: aNoCodeArgument [
 	aNoCodeArgument hasValidBooleanValue
 		ifFalse: [ ^ self ].
@@ -47,7 +47,7 @@ LeExampleSnippetAnnotationVisitor >> visitNoCodeArgument: aNoCodeArgument [
 	self exampleSnippet noCode: aNoCodeArgument booleanValue
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeExampleSnippetAnnotationVisitor >> visitPreviewExpandedArgument: aPreviewExpandedArgument [
 	aPreviewExpandedArgument hasValidBooleanValue
 		ifFalse: [ ^ self ].
@@ -55,12 +55,12 @@ LeExampleSnippetAnnotationVisitor >> visitPreviewExpandedArgument: aPreviewExpan
 	self exampleSnippet previewExpanded: aPreviewExpandedArgument booleanValue
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeExampleSnippetAnnotationVisitor >> visitPreviewHeightArgument: aPreviewHeightArgument [
 	self exampleSnippet previewHeight: aPreviewHeightArgument integerValue
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeExampleSnippetAnnotationVisitor >> visitPreviewShowArgument: aPreviewShowArgument [
 	self exampleSnippet previewShowSelector: aPreviewShowArgument selectorValue
 ]
