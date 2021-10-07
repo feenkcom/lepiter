@@ -19,7 +19,7 @@ LePharoCreateExampleElement >> buildElement [
 		layout: (BlGridLayout new columnCount: 2);
 		constraintsDo:
 				[ :c | 
-					c horizontal matchParent.
+					c horizontal fitContent.
 					c vertical fitContent ];
 		padding: (BlInsets all: 10).
 	self addChild: (self createLabel: 'Class:').

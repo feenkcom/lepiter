@@ -4,6 +4,28 @@ Class {
 	#category : #'Lepiter-Pharo-Snippet'
 }
 
+{ #category : #'gt extensions' }
+LePharoSnippetViewModel >> gtActionCreateExampleFor: anAction [
+
+	<gtAction>
+	^ anAction button
+		  tooltip: 'Create example';
+		  icon: BrGlamorousVectorIcons eg;
+		  target: LeSnippetContextMenuActionTarget uniqueInstance;
+		  priority: 10;
+		  action: [ :aButton :aSnippetElement | 
+			  | index |
+			  index := aButton parent childIndexOf: aButton.
+			  (index < aButton parent childrenCount and: [ 
+					   (aButton parent childAt: index + 1) isKindOf:
+							   LePharoCreateExampleElement ])
+				  ifTrue: [ (aButton parent childAt: index + 1) removeFromParent ]
+				  ifFalse: [ 
+					  aButton parent addChild: (LePharoCreateExampleElement new
+								   snippet: snippetModel;
+								   constraintsDo: [ :c | c grid horizontal span: 2 ]) ] ]
+]
+
 { #category : #initialization }
 LePharoSnippetViewModel >> initializeCoderAddOns: aCoderViewModel [
 	"Initialise the keyboard shortcuts in the code editor"
@@ -28,14 +50,7 @@ LePharoSnippetViewModel >> initializeCoderAddOns: aCoderViewModel [
 		"Move Snippet up"
 		addShortcut: (LeSnippetMoveSnippetUpShortcut new combination: (self keyboardShortcut: #MoveSnippetUp));
 		"Move Snippet down"
-		addShortcut: (LeSnippetMoveSnippetDownShortcut new combination: (self keyboardShortcut: #MoveSnippetDown)).
-		
-	aCoderViewModel
-		addMainAction: 
-			(GtCoderDropDownAction new
-				title: 'Convert to Example Method' translated;
-				icon: BrGlamorousVectorIcons eg;
-				stencil: [ LePharoCreateExampleElement new snippet: snippetModel ])
+		addShortcut: (LeSnippetMoveSnippetDownShortcut new combination: (self keyboardShortcut: #MoveSnippetDown))
 ]
 
 { #category : #'api - bindings' }
