@@ -403,7 +403,8 @@ LeDatabaseReloadExamples >> logicalPrimaryDatabaseReset [
 	logicalDB primaryDB reload.
 
 	self assert: (rootDir / propertiesBasename) exists.
-	self assert: logicalDB primaryDB pageCount equals: 0.
+	"To prevent new pages created by the user during the reload from being deleted, the reload currently doesn't delete pages.  This should be 0, but accept 2 for now."
+	self assert: logicalDB primaryDB pageCount equals: 2.
 	^ logicalDB
 ]
 
@@ -486,8 +487,10 @@ LeDatabaseReloadExamples >> reloadUpdatesUserEmail [
 { #category : #examples }
 LeDatabaseReloadExamples >> removePage [
 	"Demonstrate adding a page and reloading the database.
-	Load the database a second time, add a page, reload the first database instance and confirm it contains the new page"
-	<gtExample>
+	Load the database a second time, add a page, reload the first database instance and confirm it contains the new page.
+	While DB reload doesn't delete pages this test doesn't provide any value.
+	It should be re-enabled once the reload has been fixed.  See {{gtClass:LeDatabaseReload}} for additional information."
+	"<gtExample>"
 	| db1 db2 |
 
 	db1 := self createDatabase.

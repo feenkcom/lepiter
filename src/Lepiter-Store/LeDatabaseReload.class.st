@@ -1,6 +1,13 @@
 "
 LeDatabaseReload updates a database to match the on-disk storage.
 
+### Notes
+
+Pages that have been deleted on disk are not removed from the in-memory copy.  This is to prevent pages that are added prior to the reload completing from being incorrectly removed.  Most people move to a new image fairly regularly and the deleted page will be lost at that point.  Keeping the deleted page in memory is considered less of an evil than removing a page that someone has just added (and which hasn't been saved to disk).
+
+The intention is to move to implementing all changes as commands and saving a transaction log.  At that point, reloading the database will be a replay of the transaction log, and so will avoid this issue (we well as being much faster).
+
+See: <https://github.com/feenkcom/gtoolkit/issues/2163>
 "
 Class {
 	#name : #LeDatabaseReload,
@@ -16,7 +23,7 @@ Class {
 		'deletedPageIDs',
 		'deletedLinksIDs'
 	],
-	#category : 'Lepiter-Store-Reload'
+	#category : #'Lepiter-Store-Reload'
 }
 
 { #category : #accessing }
@@ -88,7 +95,11 @@ LeDatabaseReload >> reload [
 		
 		self updateAddedExplicitLinks.
 
-		self removeDeletedPages.
+		"For now, don't remove deleted pages.
+		This removes pages that are added (new pages) prior to the reload completing.
+		See the class comments for more information.
+		
+		self removeDeletedPages."
 		self removeDeletedLinks.
 	
 	] ensure:
