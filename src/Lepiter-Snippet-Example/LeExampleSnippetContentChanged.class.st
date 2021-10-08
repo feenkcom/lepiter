@@ -1,5 +1,5 @@
 Class {
-	#name : 'LeExampleSnippetContentChanged',
-	#superclass : 'LeSnippetContentChanged',
+	#name : #LeExampleSnippetContentChanged,
+	#superclass : #LeSnippetContentChanged,
 	#category : 'Lepiter-Snippet-Example-Snippet - Events'
 }

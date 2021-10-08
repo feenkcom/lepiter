@@ -1,13 +1,13 @@
 Class {
-	#name : 'LeExampleSnippetNoCodeChanged',
-	#superclass : 'LeExampleSnippetContentChanged',
+	#name : #LeExampleSnippetNoCodeChanged,
+	#superclass : #LeExampleSnippetContentChanged,
 	#instVars : [
 		'noCode'
 	],
 	#category : 'Lepiter-Snippet-Example-Snippet - Events'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeExampleSnippetNoCodeChanged >> noCode [
 	<objectGetter: #example>
 	<generatedFrom: #'GtRobocoderMetamodelAnnouncementTemplate>>#objectGetterTemplate'>
@@ -15,7 +15,7 @@ LeExampleSnippetNoCodeChanged >> noCode [
 	^ noCode
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeExampleSnippetNoCodeChanged >> noCode: aNoCode [
 	<objectSetter: #example>
 	<generatedFrom: #'GtRobocoderMetamodelAnnouncementTemplate>>#objectSetterTemplate'>

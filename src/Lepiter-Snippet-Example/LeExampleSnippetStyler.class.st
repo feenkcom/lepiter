@@ -1,19 +1,19 @@
 Class {
-	#name : 'LeExampleSnippetStyler',
-	#superclass : 'GtCoderAstStyler',
+	#name : #LeExampleSnippetStyler,
+	#superclass : #GtCoderAstStyler,
 	#traits : 'TLeAnnotationParseNodeVisitor',
 	#classTraits : 'TLeAnnotationParseNodeVisitor classTrait',
 	#category : 'Lepiter-Snippet-Example-Snippet'
 }
 
-{ #category : 'api - styling' }
+{ #category : #'api - styling' }
 LeExampleSnippetStyler >> style: aText ast: theAst [
 	text := aText.
 	[ self accept: theAst ]
 		ensure: [ text := nil ]
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeExampleSnippetStyler >> visitArgument: anArgument [
 	self
 		attributes: { BlTextForegroundAttribute color: Color veryVeryDarkGray }
@@ -21,7 +21,7 @@ LeExampleSnippetStyler >> visitArgument: anArgument [
 		to: anArgument name stopPosition.
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeExampleSnippetStyler >> visitCodeExpandedArgument: aCodeExpandedArgument [
 	self visitArgument: aCodeExpandedArgument.
 	
@@ -31,7 +31,7 @@ LeExampleSnippetStyler >> visitCodeExpandedArgument: aCodeExpandedArgument [
 		to: aCodeExpandedArgument value stopPosition
 ]
 
-{ #category : 'visiting' }
+{ #category : #visiting }
 LeExampleSnippetStyler >> visitErrorToken: anErrorToken [
 	self
 		attributes: { BlTextForegroundAttribute color: Color red }
@@ -39,7 +39,7 @@ LeExampleSnippetStyler >> visitErrorToken: anErrorToken [
 		to: anErrorToken stopPosition
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeExampleSnippetStyler >> visitMethodNameArgument: aMethodNameArgument [
 	self
 		attributes: { BlTextForegroundAttribute color: Color blue muchDarker }
@@ -57,7 +57,7 @@ LeExampleSnippetStyler >> visitMethodNameArgument: aMethodNameArgument [
 		to: aMethodNameArgument selector stopPosition
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeExampleSnippetStyler >> visitNoCodeArgument: aNoCodeArgument [
 	self visitArgument: aNoCodeArgument.
 
@@ -67,7 +67,7 @@ LeExampleSnippetStyler >> visitNoCodeArgument: aNoCodeArgument [
 		to: aNoCodeArgument value stopPosition
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeExampleSnippetStyler >> visitPreviewExpandedArgument: aPreviewExpandedArgument [
 	self visitArgument: aPreviewExpandedArgument.
 
@@ -77,7 +77,7 @@ LeExampleSnippetStyler >> visitPreviewExpandedArgument: aPreviewExpandedArgument
 		to: aPreviewExpandedArgument value stopPosition
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeExampleSnippetStyler >> visitPreviewHeightArgument: aPreviewHeightArgument [
 	self visitArgument: aPreviewHeightArgument.
 
@@ -87,7 +87,7 @@ LeExampleSnippetStyler >> visitPreviewHeightArgument: aPreviewHeightArgument [
 		to: aPreviewHeightArgument value stopPosition
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeExampleSnippetStyler >> visitPreviewShowArgument: aPreviewShowArgument [
 	self visitArgument: aPreviewShowArgument.
 
@@ -97,7 +97,7 @@ LeExampleSnippetStyler >> visitPreviewShowArgument: aPreviewShowArgument [
 		to: aPreviewShowArgument value stopPosition.
 ]
 
-{ #category : 'visiting' }
+{ #category : #visiting }
 LeExampleSnippetStyler >> visitSmaCCError: aSmaCCError [	
 	aSmaCCError
 		nodesDo: [ :eachNode | self acceptNode: eachNode ]

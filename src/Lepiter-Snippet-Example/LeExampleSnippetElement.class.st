@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeExampleSnippetElement',
-	#superclass : 'LeSnippetElement',
+	#name : #LeExampleSnippetElement,
+	#superclass : #LeSnippetElement,
 	#traits : 'TBlElementError',
 	#classTraits : 'TBlElementError classTrait',
 	#instVars : [
@@ -15,13 +15,13 @@ Class {
 	#category : 'Lepiter-Snippet-Example-Snippet'
 }
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 LeExampleSnippetElement >> browseExample [
 	self snippetViewModel gtExampleDo: [ :aGtExample |
 		self phlow spawnTool: (GtMethodCoderTool compiledMethod: aGtExample method) ]
 ]
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 LeExampleSnippetElement >> exportExample [
 
 	self snippetViewModel gtExampleDo: [ :aGtExample | 
@@ -63,7 +63,7 @@ LeExampleSnippetElement >> exportExample [
 								 exportExampleButton enable ]) ] ] ]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeExampleSnippetElement >> initialize [
 	super initialize.
 	
@@ -139,19 +139,19 @@ LeExampleSnippetElement >> initialize [
 		element: self selector: #updateExamplePreview.
 ]
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 LeExampleSnippetElement >> onExampleSnippetContentChanged [
 	updateRequester requestUpdate
 ]
 
-{ #category : 'api - snippet view model' }
+{ #category : #'api - snippet view model' }
 LeExampleSnippetElement >> onSnippetViewModelChanged [
 	super onSnippetViewModelChanged.
 	
 	self updateExamplePreview
 ]
 
-{ #category : 'api - snippet view model' }
+{ #category : #'api - snippet view model' }
 LeExampleSnippetElement >> onSnippetViewModelFocused: aBoolean [
 	"Override me to either request or lose focus when the focused state is changed in the UI Model"
 
@@ -162,13 +162,13 @@ LeExampleSnippetElement >> onSnippetViewModelFocused: aBoolean [
 		ifFalse: [ self loseFocus ]
 ]
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 LeExampleSnippetElement >> runExample [
 	self snippetViewModel gtExampleDo: [ :aGtExample |
 		self phlow spawnObject: aGtExample run returnValueOrExampleException ]
 ]
 
-{ #category : 'api - view' }
+{ #category : #'api - view' }
 LeExampleSnippetElement >> snippetContent [
 	"Return an element that represents a content of the snippet.
 	The embedder is responsible for placing #snippetContent in the right place within snippet element depending on the
@@ -178,7 +178,7 @@ LeExampleSnippetElement >> snippetContent [
 	^ exampleContainer
 ]
 
-{ #category : 'api - view' }
+{ #category : #'api - view' }
 LeExampleSnippetElement >> snippetToolbar [
 	"Return an element that represents a toolbar of the snippet. A toolbar usually appears below the snippet content.
 	The embedder is responsible for placing #snippetToolbar in the right place within snippet element depending on the
@@ -189,7 +189,7 @@ LeExampleSnippetElement >> snippetToolbar [
 	^ toolbarContainer
 ]
 
-{ #category : 'api - snippet view model' }
+{ #category : #'api - snippet view model' }
 LeExampleSnippetElement >> subscribeToSnippetViewModel [
 	super subscribeToSnippetViewModel.
 	
@@ -199,7 +199,7 @@ LeExampleSnippetElement >> subscribeToSnippetViewModel [
 			to: self
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeExampleSnippetElement >> updateExamplePreview [
 	exampleEditor textualCoderViewModel: self snippetViewModel annotationCoderViewModel.
 	

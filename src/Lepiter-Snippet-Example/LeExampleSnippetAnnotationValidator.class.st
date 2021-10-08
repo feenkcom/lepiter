@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeExampleSnippetAnnotationValidator',
-	#superclass : 'Object',
+	#name : #LeExampleSnippetAnnotationValidator,
+	#superclass : #Object,
 	#traits : 'TLeAnnotationParseNodeVisitor',
 	#classTraits : 'TLeAnnotationParseNodeVisitor classTrait',
 	#instVars : [
@@ -9,36 +9,36 @@ Class {
 	#category : 'Lepiter-Snippet-Example-Snippet'
 }
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeExampleSnippetAnnotationValidator >> initialize [
 	super initialize.
 	
 	isValid := true
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExampleSnippetAnnotationValidator >> isValid [
 	^ isValid
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExampleSnippetAnnotationValidator >> validate: anAst [
 	isValid := true.
 	self accept: anAst.
 	^ self isValid
 ]
 
-{ #category : 'visiting' }
+{ #category : #visiting }
 LeExampleSnippetAnnotationValidator >> visitCodeExpandedArgument: aCodeExpandedArgument [
 	isValid := isValid and: [ aCodeExpandedArgument hasValidBooleanValue ]
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeExampleSnippetAnnotationValidator >> visitNoCodeArgument: aNoCodeArgument [
 	isValid := isValid and: [ aNoCodeArgument hasValidBooleanValue ]
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeExampleSnippetAnnotationValidator >> visitPreviewExpandedArgument: aPreviewExpandedArgument [
 	isValid := isValid and: [ aPreviewExpandedArgument hasValidBooleanValue ]
 ]

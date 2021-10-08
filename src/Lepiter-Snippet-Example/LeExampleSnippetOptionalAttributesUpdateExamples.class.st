@@ -1,10 +1,10 @@
 Class {
-	#name : 'LeExampleSnippetOptionalAttributesUpdateExamples',
-	#superclass : 'LeSingleSnippetUpdateExamples',
+	#name : #LeExampleSnippetOptionalAttributesUpdateExamples,
+	#superclass : #LeSingleSnippetUpdateExamples,
 	#category : 'Lepiter-Snippet-Example-Examples'
 }
 
-{ #category : 'examples - snippets' }
+{ #category : #'examples - snippets' }
 LeExampleSnippetOptionalAttributesUpdateExamples >> assertSnippetModifiedFor: targetSnippet [
 	self 
 		assert: targetSnippet exampleBehaviorName 
@@ -19,7 +19,7 @@ LeExampleSnippetOptionalAttributesUpdateExamples >> assertSnippetModifiedFor: ta
 	self assert: targetSnippet previewHeight equals: 400
 ]
 
-{ #category : 'examples - snippets' }
+{ #category : #'examples - snippets' }
 LeExampleSnippetOptionalAttributesUpdateExamples >> createTargetSnippet [
 	<gtExample>
 	^ LeExampleSnippet new 
@@ -32,7 +32,7 @@ LeExampleSnippetOptionalAttributesUpdateExamples >> createTargetSnippet [
 		previewHeight: 300
 ]
 
-{ #category : 'examples - snippets' }
+{ #category : #'examples - snippets' }
 LeExampleSnippetOptionalAttributesUpdateExamples >> modifySnippet: aTargetSnippet [
 	<gtExample>
 	^ aTargetSnippet 

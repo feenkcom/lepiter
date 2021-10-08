@@ -1,13 +1,13 @@
 Class {
-	#name : 'LeExampleSnippetViewModelAnnotationCoderViewModelChanged',
-	#superclass : 'Announcement',
+	#name : #LeExampleSnippetViewModelAnnotationCoderViewModelChanged,
+	#superclass : #Announcement,
 	#instVars : [
 		'annotationCoderViewModel'
 	],
 	#category : 'Lepiter-Snippet-Example-Snippet - Events'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeExampleSnippetViewModelAnnotationCoderViewModelChanged >> annotationCoderViewModel [
 	<objectGetter: #example>
 	<generatedFrom: #'GtRobocoderMetamodelAnnouncementTemplate>>#objectGetterTemplate'>
@@ -15,7 +15,7 @@ LeExampleSnippetViewModelAnnotationCoderViewModelChanged >> annotationCoderViewM
 	^ annotationCoderViewModel
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeExampleSnippetViewModelAnnotationCoderViewModelChanged >> annotationCoderViewModel: aAnnotationCoderViewModel [
 	<objectSetter: #example>
 	<generatedFrom: #'GtRobocoderMetamodelAnnouncementTemplate>>#objectSetterTemplate'>
