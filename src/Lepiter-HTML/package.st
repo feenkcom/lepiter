@@ -1,1 +1,1 @@
-Package { #name : 'Lepiter-HTML' }
+Package { #name : #'Lepiter-HTML' }
