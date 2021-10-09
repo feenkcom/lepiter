@@ -7,7 +7,7 @@ Since there is no page or database present at this level, links to other pages, 
 Class {
 	#name : #LeHtmlFragmentExporterExamples,
 	#superclass : #Object,
-	#category : 'Lepiter-HTML-Examples'
+	#category : #'Lepiter-HTML-Examples'
 }
 
 { #category : #examples }
@@ -19,8 +19,8 @@ LeHtmlFragmentExporterExamples >> basicMarkdown [
 	html := String streamContents: [ :stream |
 		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
 	self assert: html trimBoth
-		equals: '<p class="snippet textual-snippet text-snippet">
-<i>italic</i> <b>bold</b> <code>mono</code></p>'.
+		equals: '<div class="snippet textual-snippet text-snippet">
+<i>italic</i> <b>bold</b> <code>mono</code></div>'.
 	^ html
 ]
 
@@ -47,7 +47,7 @@ LeHtmlFragmentExporterExamples >> codeBlock [
 		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
 		
 	self assert: html trimBoth
-		equals: '<p class="snippet textual-snippet text-snippet">
+		equals: '<div class="snippet textual-snippet text-snippet">
 	<div class="code_block">
 		<pre>
 			<code class="smalltalk">
@@ -55,7 +55,7 @@ answer:=42.
 			</code>
 		</pre>
 	</div>
-</p>'.
+</div>'.
 	^ html
 ]
 
@@ -139,7 +139,6 @@ LeHtmlFragmentExporterExamples >> pictureSnippet [
 	html := String streamContents: [ :stream |
 		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
 	self assert: (html beginsWith: '<img class="snippet picture-snippet paragraphWidth" src=').
-	self assert: (html includesSubstring: 'feenkcom/gtoolkit-demos/data/faceapi/1280px-Einstein-with-habicht-and-solovine.jpg">
-</img>').
+	self assert: (html includesSubstring: 'feenkcom/gtoolkit-demos/data/faceapi/1280px-Einstein-with-habicht-and-solovine.jpg"/>').
 	^ html
 ]
