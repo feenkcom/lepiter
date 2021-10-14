@@ -1,10 +1,10 @@
 Class {
-	#name : 'LePharoLinkApplicationGlobalStrategy',
-	#superclass : 'LePharoLinkApplicationStrategy',
+	#name : #LePharoLinkApplicationGlobalStrategy,
+	#superclass : #LePharoLinkApplicationStrategy,
 	#category : 'Lepiter-Snippet-PharoLink-Settings'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePharoLinkApplicationGlobalStrategy >> applicationServer [
 
 	content database isDatabase ifFalse: [ ^ nil ].
@@ -13,7 +13,7 @@ LePharoLinkApplicationGlobalStrategy >> applicationServer [
 	^ PharoLinkApplication uniqueInstance
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePharoLinkApplicationGlobalStrategy >> applicationSettings [
 	"Answer the settings that will be used by the server.
 	This musn't actually start the server as that should be deferred until a snippet is evaluated for the first time."

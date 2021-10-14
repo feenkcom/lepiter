@@ -1,10 +1,10 @@
 Class {
-	#name : 'LePharoLinkSettingsExamples',
-	#superclass : 'LePropertiesExamples',
+	#name : #LePharoLinkSettingsExamples,
+	#superclass : #LePropertiesExamples,
 	#category : 'Lepiter-Snippet-PharoLink-Examples'
 }
 
-{ #category : 'examples' }
+{ #category : #examples }
 LePharoLinkSettingsExamples >> defaultValues [
 	"Confirm the default values in the settings"
 	<gtExample>
@@ -22,7 +22,7 @@ LePharoLinkSettingsExamples >> defaultValues [
 	^ settings
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LePharoLinkSettingsExamples >> setAbsoluteServerExecutable [
 	"Set the serverExecutable to an absolute file reference"
 	<gtExample>
@@ -39,7 +39,7 @@ LePharoLinkSettingsExamples >> setAbsoluteServerExecutable [
 	^ fileReference
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LePharoLinkSettingsExamples >> setAbsoluteServerImage [
 	"Set the serverImage to an absolute file reference"
 	<gtExample>
@@ -56,7 +56,7 @@ LePharoLinkSettingsExamples >> setAbsoluteServerImage [
 	^ fileReference
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LePharoLinkSettingsExamples >> setClientAddressLocalhost [
 	"Set the client address to a port on the localhost"
 	<gtExample>
@@ -76,7 +76,7 @@ LePharoLinkSettingsExamples >> setClientAddressLocalhost [
 	^ socketAddress
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LePharoLinkSettingsExamples >> setFileLocatorServerExecutable [
 	"Set the serverExecutable to a FileLocator"
 	<gtExample>
@@ -93,7 +93,7 @@ LePharoLinkSettingsExamples >> setFileLocatorServerExecutable [
 	^ fileReference
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LePharoLinkSettingsExamples >> setFileLocatorServerImage [
 	"Set the serverExecutable to a FileLocator"
 	<gtExample>
@@ -110,7 +110,7 @@ LePharoLinkSettingsExamples >> setFileLocatorServerImage [
 	^ fileReference
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LePharoLinkSettingsExamples >> setRelativeServerExecutable [
 	"Set the directory to a relative file reference"
 	<gtExample>
@@ -132,7 +132,7 @@ LePharoLinkSettingsExamples >> setRelativeServerExecutable [
 	^ fileString
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LePharoLinkSettingsExamples >> setRelativeServerImage [
 	"Set the directory to a relative file reference"
 	<gtExample>
@@ -154,7 +154,7 @@ LePharoLinkSettingsExamples >> setRelativeServerImage [
 	^ fileString
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LePharoLinkSettingsExamples >> settings [ 
 	"Answer a default LePythonBridgeSettings object"
 
