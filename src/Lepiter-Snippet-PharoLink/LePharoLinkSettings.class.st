@@ -3,12 +3,12 @@ LePharoLinkSettings provides a wrapper around the DB properties to group PythonB
 
 "
 Class {
-	#name : 'LePharoLinkSettings',
-	#superclass : 'LeSubSettings',
+	#name : #LePharoLinkSettings,
+	#superclass : #LeSubSettings,
 	#category : 'Lepiter-Snippet-PharoLink-Settings'
 }
 
-{ #category : 'accessing - db properties' }
+{ #category : #'accessing - db properties' }
 LePharoLinkSettings >> associations [ 
 	"Answer an array of associations of the receiver's properties"
 
@@ -16,7 +16,7 @@ LePharoLinkSettings >> associations [
 		[ :name | name -> (name value: self) ]
 ]
 
-{ #category : 'accessing - db properties' }
+{ #category : #'accessing - db properties' }
 LePharoLinkSettings >> clientAddress [
 	"Answer the host:port string the client should listen on"
 	<return: #String or: nil>
@@ -24,7 +24,7 @@ LePharoLinkSettings >> clientAddress [
 	^ self subProperties at: #clientAddress ifAbsent: [ nil ]
 ]
 
-{ #category : 'accessing - db properties' }
+{ #category : #'accessing - db properties' }
 LePharoLinkSettings >> clientAddress: aStringOrNil [
 	"Set the host:port string the client should listen on"
 
@@ -32,14 +32,14 @@ LePharoLinkSettings >> clientAddress: aStringOrNil [
 	^ self updateProperty: #clientAddress value: aStringOrNil
 ]
 
-{ #category : 'accessing - db properties' }
+{ #category : #'accessing - db properties' }
 LePharoLinkSettings >> clientSocketAddress [ 
 	<return: #LanguageLinkSocketAddress>
 
 	^ self socketAddressFrom: self clientAddress
 ]
 
-{ #category : 'accessing - db properties' }
+{ #category : #'accessing - db properties' }
 LePharoLinkSettings >> manualProcess [
 	"Answer a boolean indicating whether the server is externally managed"
 	<return: #Boolean>
@@ -49,14 +49,14 @@ LePharoLinkSettings >> manualProcess [
 		ifAbsent: [ false ]
 ]
 
-{ #category : 'accessing - db properties' }
+{ #category : #'accessing - db properties' }
 LePharoLinkSettings >> manualProcess: aBooleanOrNil [
 	"Set a boolean indicating whether the server process is externally managed"
 
 	^ self updateProperty: #manualProcess value: aBooleanOrNil
 ]
 
-{ #category : 'accessing - db properties' }
+{ #category : #'accessing - db properties' }
 LePharoLinkSettings >> serverAddress [
 	"Answer the host:port string the client should listen on"
 	<return: #String or: nil>
@@ -64,14 +64,14 @@ LePharoLinkSettings >> serverAddress [
 	^ self subProperties at: #serverAddress ifAbsent: [ nil ]
 ]
 
-{ #category : 'accessing - db properties' }
+{ #category : #'accessing - db properties' }
 LePharoLinkSettings >> serverAddress: aStringOrNil [
 	"Set the host:port string the server should listen on"
 
 	^ self updateProperty: #serverAddress value: aStringOrNil
 ]
 
-{ #category : 'accessing - db properties' }
+{ #category : #'accessing - db properties' }
 LePharoLinkSettings >> serverDebugMode [
 	"Answer a boolean indicating whether the server should be started in debug mode"
 	<return: #Boolean>
@@ -81,14 +81,14 @@ LePharoLinkSettings >> serverDebugMode [
 		ifAbsent: [ false ]
 ]
 
-{ #category : 'accessing - db properties' }
+{ #category : #'accessing - db properties' }
 LePharoLinkSettings >> serverDebugMode: aBooleanOrNil [
 	"Set a boolean indicating whether the server should be started in debug mode"
 
 	^ self updateProperty: #serverDebugMode value: aBooleanOrNil
 ]
 
-{ #category : 'accessing - db properties' }
+{ #category : #'accessing - db properties' }
 LePharoLinkSettings >> serverExecutable [
 	"Answer the FileReference representing the server executable to use"
 	<return: #FileReference or: nil>
@@ -98,7 +98,7 @@ LePharoLinkSettings >> serverExecutable [
 		ifAbsent: [ nil ]
 ]
 
-{ #category : 'accessing - db properties' }
+{ #category : #'accessing - db properties' }
 LePharoLinkSettings >> serverExecutable: aFileReferenceStringOrNil [
 	"Store the serverExecutable as a string."
 
@@ -106,7 +106,7 @@ LePharoLinkSettings >> serverExecutable: aFileReferenceStringOrNil [
 		value: (dbProperties fileReferenceString: aFileReferenceStringOrNil)
 ]
 
-{ #category : 'accessing - db properties' }
+{ #category : #'accessing - db properties' }
 LePharoLinkSettings >> serverImage [
 	"Answer the FileReference representing the server image to use"
 	<return: #FileReference or: nil>
@@ -116,7 +116,7 @@ LePharoLinkSettings >> serverImage [
 		ifAbsent: [ nil ]
 ]
 
-{ #category : 'accessing - db properties' }
+{ #category : #'accessing - db properties' }
 LePharoLinkSettings >> serverImage: aFileReferenceStringOrNil [
 	"Store the serverImage as a string."
 
@@ -124,21 +124,21 @@ LePharoLinkSettings >> serverImage: aFileReferenceStringOrNil [
 		value: (dbProperties fileReferenceString: aFileReferenceStringOrNil)
 ]
 
-{ #category : 'accessing - db properties' }
+{ #category : #'accessing - db properties' }
 LePharoLinkSettings >> serverSocketAddress [ 
 	<return: #LanguageLinkSocketAddress>
 
 	^ self socketAddressFrom: self serverAddress
 ]
 
-{ #category : 'accessing - db properties' }
+{ #category : #'accessing - db properties' }
 LePharoLinkSettings >> settingsNames [
 	"Answer the names of the receiver's properties"
 
 	^ #(serverExecutable serverImage clientAddress serverAddress serverDebugMode manualProcess)
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LePharoLinkSettings >> socketAddressFrom: aString [
 	"Parse an address in the form <host>:<port> in to a LanguageLinkSocketAddress"
 	| segments port |
@@ -156,19 +156,19 @@ LePharoLinkSettings >> socketAddressFrom: aString [
 		port: port asNumber
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LePharoLinkSettings >> subProperties [
 
 	^ dbProperties pharoLink
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LePharoLinkSettings >> subProperties: aDictionary [
 
 	dbProperties pharoLink: aDictionary
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LePharoLinkSettings >> validateAddress: aStringOrNil [
 	"Ensure that the supplied string is in the form <host>:<port>.
 	Currently no checking is done on the host format"

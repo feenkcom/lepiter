@@ -1,10 +1,10 @@
 Class {
-	#name : 'LePharoLinkApplicationStrategy',
-	#superclass : 'LeExternalServerStrategy',
+	#name : #LePharoLinkApplicationStrategy,
+	#superclass : #LeExternalServerStrategy,
 	#category : 'Lepiter-Snippet-PharoLink-Settings'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 LePharoLinkApplicationStrategy >> newApplicationFor: aLeDatabase [
 	| settings |
 
@@ -13,7 +13,7 @@ LePharoLinkApplicationStrategy >> newApplicationFor: aLeDatabase [
 	^ PharoLinkApplication newWith: settings
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LePharoLinkApplicationStrategy >> updatedSettings: applicationSettings [
 	"Update the supplied settings with the lepiter configuration"
 	| lepiterSettings lepiterDatabase |
