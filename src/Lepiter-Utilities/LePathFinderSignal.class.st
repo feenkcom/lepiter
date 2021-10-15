@@ -1,6 +1,6 @@
 Class {
-	#name : 'LePathFinderSignal',
-	#superclass : 'BeaconSignal',
+	#name : #LePathFinderSignal,
+	#superclass : #BeaconSignal,
 	#instVars : [
 		'backlinksSize',
 		'pagesLeftSize'
@@ -8,27 +8,27 @@ Class {
 	#category : 'Lepiter-Utilities-Beacon'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePathFinderSignal >> backlinksSize [
 	^ backlinksSize
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePathFinderSignal >> backlinksSize: anObject [
 	backlinksSize := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePathFinderSignal >> pagesLeftSize [
 	^ pagesLeftSize
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePathFinderSignal >> pagesLeftSize: anObject [
 	pagesLeftSize := anObject
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 LePathFinderSignal >> printOneLineContentsOn: stream [
 
 	stream 

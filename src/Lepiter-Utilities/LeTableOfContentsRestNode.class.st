@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeTableOfContentsRestNode',
-	#superclass : 'Object',
+	#name : #LeTableOfContentsRestNode,
+	#superclass : #Object,
 	#instVars : [
 		'page',
 		'rootNode',
@@ -9,17 +9,17 @@ Class {
 	#category : 'Lepiter-Utilities-ToC'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeTableOfContentsRestNode >> children [
 	^ children
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeTableOfContentsRestNode >> children: anObject [
 	children := anObject
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 LeTableOfContentsRestNode >> gtChildrenFor: aView [
 	<gtView>
 
@@ -30,7 +30,7 @@ LeTableOfContentsRestNode >> gtChildrenFor: aView [
 		children: #children
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 LeTableOfContentsRestNode >> gtLiveFor: aView [
 	<gtView>
 	self page ifNil: [ ^ aView empty ].
@@ -41,29 +41,29 @@ LeTableOfContentsRestNode >> gtLiveFor: aView [
 		view: #gtLiveFor:
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeTableOfContentsRestNode >> initialize [
 	super initialize.
 	children := #().
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeTableOfContentsRestNode >> isToCNode [
 	^ false
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeTableOfContentsRestNode >> page [
 	<return: #LeRestPage>
 	^ page
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeTableOfContentsRestNode >> page: aPage [
 	page := LeRestPage new page: aPage; node: self
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 LeTableOfContentsRestNode >> printOn: aStream [
 
 	aStream
@@ -75,12 +75,12 @@ LeTableOfContentsRestNode >> printOn: aStream [
 		nextPut: $).
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeTableOfContentsRestNode >> rootNode [
 	^ rootNode
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeTableOfContentsRestNode >> rootNode: aNode [
 	| tocPages otherPages |
 	rootNode := aNode.
@@ -94,7 +94,7 @@ LeTableOfContentsRestNode >> rootNode: aNode [
 	self children: (otherPages collect: [ :eachPage | LeTableOfContentsUnclassifiedNode new page: eachPage ]).
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 LeTableOfContentsRestNode >> selectedPageDo: aBlock [
 	"aBlock cull: self page page"
 ]

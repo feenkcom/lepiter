@@ -1,12 +1,12 @@
 Class {
-	#name : 'LeUnlinkedReferenceMaintenanceExamples',
-	#superclass : 'Object',
+	#name : #LeUnlinkedReferenceMaintenanceExamples,
+	#superclass : #Object,
 	#traits : 'TAssertable',
 	#classTraits : 'TAssertable classTrait',
 	#category : 'Lepiter-Utilities-Examples'
 }
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeUnlinkedReferenceMaintenanceExamples >> addPageWithIncommingUnlinkedReference [
 	"Unlinked reference maintenance only updates as snippets are added, so adding a page currently doesn't have its incoming references updated"
 	<gtExample>
@@ -22,7 +22,7 @@ LeUnlinkedReferenceMaintenanceExamples >> addPageWithIncommingUnlinkedReference 
 	^ database
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeUnlinkedReferenceMaintenanceExamples >> addPageWithOutgoingUnlinkedReference [
 	<gtExample>
 	| database pageTwo newPage |
@@ -40,7 +40,7 @@ LeUnlinkedReferenceMaintenanceExamples >> addPageWithOutgoingUnlinkedReference [
 	^ database
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeUnlinkedReferenceMaintenanceExamples >> addSnippetWithIncommingUnlinkedReference [
 	<gtExample>
 	
@@ -58,7 +58,7 @@ LeUnlinkedReferenceMaintenanceExamples >> addSnippetWithIncommingUnlinkedReferen
 	^ database
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeUnlinkedReferenceMaintenanceExamples >> crossDatabaseUnlinkedReference [
 	<gtExample>
 	| db1 db2 ldb referencedPage namedPage unnamedPage dailyNote blocks maintainer |
@@ -94,7 +94,7 @@ LeUnlinkedReferenceMaintenanceExamples >> crossDatabaseUnlinkedReference [
 	^ ldb
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeUnlinkedReferenceMaintenanceExamples >> linkedAndUnlinkedReferences [
 	<gtExample>
 	| database snippets page1 page2 page3 maintainer link |
@@ -141,7 +141,7 @@ LeUnlinkedReferenceMaintenanceExamples >> linkedAndUnlinkedReferences [
 	^ database
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeUnlinkedReferenceMaintenanceExamples >> noUnlinkedReferencesToUnamedPage [
 	<gtExample>
 	| database unnamedPage page1 page2  |
@@ -168,7 +168,7 @@ LeUnlinkedReferenceMaintenanceExamples >> noUnlinkedReferencesToUnamedPage [
 	^ unnamedPage
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeUnlinkedReferenceMaintenanceExamples >> noUnlinkedReferencesToUnamedPageWithSameDefaultTitleAsNamedPage [
 	<gtExample>
 	| database unnamedPage page1 page2  |
@@ -197,7 +197,7 @@ LeUnlinkedReferenceMaintenanceExamples >> noUnlinkedReferencesToUnamedPageWithSa
 	^ unnamedPage
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeUnlinkedReferenceMaintenanceExamples >> pageTitleWithRegexChars [
 	<gtExample>
 	| database blocks page1 page2 page3 maintainer link |
@@ -242,7 +242,7 @@ LeUnlinkedReferenceMaintenanceExamples >> pageTitleWithRegexChars [
 	^ page2
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeUnlinkedReferenceMaintenanceExamples >> removePageWithOutgoingUnlinkedReference [
 	<gtExample>
 	| database pageOne pageTwo  |
@@ -260,7 +260,7 @@ LeUnlinkedReferenceMaintenanceExamples >> removePageWithOutgoingUnlinkedReferenc
 	^ database
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeUnlinkedReferenceMaintenanceExamples >> removeUnlinkedReference [
 	"Remove the first unlinked reference from #linkedAndUnlinkedReferences"
 	<gtExample>
@@ -286,7 +286,7 @@ LeUnlinkedReferenceMaintenanceExamples >> removeUnlinkedReference [
 	^ database
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeUnlinkedReferenceMaintenanceExamples >> removesSnippetWithChildSnippetsWithOutgoingUnlinkedReference [
 	<gtExample>
 	| database pageOne pageTwo newSnippet |
@@ -308,7 +308,7 @@ LeUnlinkedReferenceMaintenanceExamples >> removesSnippetWithChildSnippetsWithOut
 	^ database
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeUnlinkedReferenceMaintenanceExamples >> removesSnippetWithOutgoingUnlinkedReference [
 	<gtExample>
 	| database pageOne pageOneSnippetOne pageTwo |
@@ -327,7 +327,7 @@ LeUnlinkedReferenceMaintenanceExamples >> removesSnippetWithOutgoingUnlinkedRefe
 	^ database
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeUnlinkedReferenceMaintenanceExamples >> renamePageWithIncommingUnlinkedReference [
 	<gtExample>
 	<noTest>
@@ -345,7 +345,7 @@ LeUnlinkedReferenceMaintenanceExamples >> renamePageWithIncommingUnlinkedReferen
 	^ database
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeUnlinkedReferenceMaintenanceExamples >> textSnippetVisitor [
 	"Confirm the operation of the text snippet visitor"
 	<gtExample>
@@ -373,7 +373,7 @@ LeUnlinkedReferenceMaintenanceExamples >> textSnippetVisitor [
 
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeUnlinkedReferenceMaintenanceExamples >> unlinkedReferencesExcludeLinks [
 	<gtExample>
 	| database blocks page1 page1too page2 maintainer |

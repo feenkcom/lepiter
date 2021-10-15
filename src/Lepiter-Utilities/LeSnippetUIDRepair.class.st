@@ -34,8 +34,8 @@ LeSnippetUIDRepair new
 
 "
 Class {
-	#name : 'LeSnippetUIDRepair',
-	#superclass : 'Object',
+	#name : #LeSnippetUIDRepair,
+	#superclass : #Object,
 	#instVars : [
 		'dbFileReference',
 		'store',
@@ -45,7 +45,7 @@ Class {
 	#category : 'Lepiter-Utilities'
 }
 
-{ #category : 'private' }
+{ #category : #private }
 LeSnippetUIDRepair >> assignNewUIDTo: snippet [
 	"Assign a new UID to the supplied snippet.
 	Use the DB to create the snippet, but check that it isn't a duplicate locally.
@@ -57,7 +57,7 @@ LeSnippetUIDRepair >> assignNewUIDTo: snippet [
 	snippet uid: uid.
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeSnippetUIDRepair >> checkPages [
 	"For each page: 
 	- iterate over each snippet
@@ -77,30 +77,30 @@ LeSnippetUIDRepair >> checkPages [
 			[ store savePageNow: page ] ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSnippetUIDRepair >> database [
 	^ store database
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSnippetUIDRepair >> dbFileReference [
 	^ dbFileReference
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSnippetUIDRepair >> dbFileReference: aFileReference [
 
 	dbFileReference := aFileReference asFileReference.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeSnippetUIDRepair >> initialize [
 
 	super initialize.
 	snippetUIDs := Set new.
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 LeSnippetUIDRepair >> run [
 
 	self assert: dbFileReference isDirectory.

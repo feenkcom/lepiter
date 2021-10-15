@@ -1,6 +1,6 @@
-Extension { #name : 'LePage' }
+Extension { #name : #LePage }
 
-{ #category : '*Lepiter-Utilities' }
+{ #category : #'*Lepiter-Utilities' }
 LePage >> gtCommitButtonFor: anAction [
 	<gtAction>
 

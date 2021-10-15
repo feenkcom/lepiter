@@ -1,6 +1,6 @@
-Extension { #name : 'DateAndTime' }
+Extension { #name : #DateAndTime }
 
-{ #category : '*Lepiter-Utilities' }
+{ #category : #'*Lepiter-Utilities' }
 DateAndTime >> printToMinute [
 	"Answer a string YYYY-MM-DD HH:MM"
 	^ String streamContents: [ :stream |

@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeUnlinkedReferenceAnnotationVisitor',
-	#superclass : 'Object',
+	#name : #LeUnlinkedReferenceAnnotationVisitor,
+	#superclass : #Object,
 	#traits : 'TLeAnnotationParseNodeVisitor',
 	#classTraits : 'TLeAnnotationParseNodeVisitor classTrait',
 	#instVars : [
@@ -9,24 +9,24 @@ Class {
 	#category : 'Lepiter-Utilities-Utilities'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeUnlinkedReferenceAnnotationVisitor >> stream [
 	^ stream
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeUnlinkedReferenceAnnotationVisitor >> stream: anObject [
 	stream := anObject
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeUnlinkedReferenceAnnotationVisitor >> visitArgument: anArgument [
 
 	anArgument value ifNotNil: [ :value |
 		stream << value source ]
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeUnlinkedReferenceAnnotationVisitor >> visitMethodNameArgument: aMethodNameArgument [
 
 	self visitClassNameArgument: aMethodNameArgument.

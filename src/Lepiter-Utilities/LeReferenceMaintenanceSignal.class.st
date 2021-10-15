@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeReferenceMaintenanceSignal',
-	#superclass : 'BeaconSignal',
+	#name : #LeReferenceMaintenanceSignal,
+	#superclass : #BeaconSignal,
 	#instVars : [
 		'page',
 		'operation',
@@ -9,37 +9,37 @@ Class {
 	#category : 'Lepiter-Utilities-Beacon'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeReferenceMaintenanceSignal >> operation [
 	^ operation
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeReferenceMaintenanceSignal >> operation: anObject [
 	operation := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeReferenceMaintenanceSignal >> page [
 	^ page
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeReferenceMaintenanceSignal >> page: anObject [
 	page := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeReferenceMaintenanceSignal >> parameter [
 	^ parameter
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeReferenceMaintenanceSignal >> parameter: anObject [
 	parameter := anObject
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 LeReferenceMaintenanceSignal >> printOneLineContentsOn: stream [
 
 	stream 
