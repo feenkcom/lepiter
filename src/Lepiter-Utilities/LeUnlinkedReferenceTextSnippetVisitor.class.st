@@ -10,8 +10,8 @@ Explicitly excluded are internal links (double bracket links).
 
 "
 Class {
-	#name : 'LeUnlinkedReferenceTextSnippetVisitor',
-	#superclass : 'Object',
+	#name : #LeUnlinkedReferenceTextSnippetVisitor,
+	#superclass : #Object,
 	#traits : 'TSmaCCCompositeVisitor + (TLeContentNodeVisitor - {#acceptNode:})',
 	#classTraits : 'TSmaCCCompositeVisitor classTrait + TLeContentNodeVisitor classTrait',
 	#instVars : [
@@ -20,17 +20,17 @@ Class {
 	#category : 'Lepiter-Utilities-Utilities'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeUnlinkedReferenceTextSnippetVisitor >> stream [
 	^ stream
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeUnlinkedReferenceTextSnippetVisitor >> stream: anObject [
 	stream := anObject
 ]
 
-{ #category : 'visiting' }
+{ #category : #visiting }
 LeUnlinkedReferenceTextSnippetVisitor >> visitDocumenterAnnotation: aDocumenterAnnotation [
 
 	aDocumenterAnnotation annotation acceptVisitor: 
@@ -38,7 +38,7 @@ LeUnlinkedReferenceTextSnippetVisitor >> visitDocumenterAnnotation: aDocumenterA
 
 ]
 
-{ #category : 'visiting' }
+{ #category : #visiting }
 LeUnlinkedReferenceTextSnippetVisitor >> visitText: aText [
 
 	stream << aText content

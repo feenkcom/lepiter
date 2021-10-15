@@ -30,8 +30,8 @@ The typical expected use case is that the target database imported from somewher
 
 "
 Class {
-	#name : 'LeDatabaseMerge',
-	#superclass : 'Object',
+	#name : #LeDatabaseMerge,
+	#superclass : #Object,
 	#instVars : [
 		'sourceDatabase',
 		'targetDatabase'
@@ -39,7 +39,7 @@ Class {
 	#category : 'Lepiter-Utilities'
 }
 
-{ #category : 'building' }
+{ #category : #building }
 LeDatabaseMerge class >> merge: sourceDatabase into: targetDatabase [
 
 	^ self new 
@@ -48,7 +48,7 @@ LeDatabaseMerge class >> merge: sourceDatabase into: targetDatabase [
 		merge.
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeDatabaseMerge >> appendBlocksFromPage: sourcePage to: targetPage [
 	"Append the blocks from the sourcePage to targetPage"
 
@@ -59,7 +59,7 @@ LeDatabaseMerge >> appendBlocksFromPage: sourcePage to: targetPage [
 					targetPage addSnippet: aLeSnippet ] ]
 ]
 
-{ #category : 'operations' }
+{ #category : #operations }
 LeDatabaseMerge >> merge [ 
 	"Perform the actual merge in four phases:
 	1. Group pages by added and merged (adding snippets to an existing page).
@@ -90,7 +90,7 @@ LeDatabaseMerge >> merge [
 	^ targetDatabase
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeDatabaseMerge >> mergePage: aPage [
 	"Merge the snippets from the supplied page in to the target database"
 
@@ -100,7 +100,7 @@ LeDatabaseMerge >> mergePage: aPage [
 		ifAbsent: [ self error: 'The target page should exist' ]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeDatabaseMerge >> setPage: aPage [
 	"Add the supplied page to the target database without updating links, etc..
 	The page must not already exist"
@@ -111,29 +111,29 @@ LeDatabaseMerge >> setPage: aPage [
 	targetDatabase setPage: aPage.
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeDatabaseMerge >> setPageUpdate: aPage [
 	"Update metadata, links, etc. in the supplied page"
 
 	targetDatabase setPageUpdate: aPage.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabaseMerge >> sourceDatabase [
 	^ sourceDatabase
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabaseMerge >> sourceDatabase: anObject [
 	sourceDatabase := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabaseMerge >> targetDatabase [
 	^ targetDatabase
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabaseMerge >> targetDatabase: anObject [
 	targetDatabase := anObject
 ]

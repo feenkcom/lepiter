@@ -16,8 +16,8 @@ As a scan of all pages in the database is required, this is typically submitted 
 
 "
 Class {
-	#name : 'LeUnlinkedReferenceRemovalMaintenace',
-	#superclass : 'Object',
+	#name : #LeUnlinkedReferenceRemovalMaintenace,
+	#superclass : #Object,
 	#instVars : [
 		'database',
 		'sourceSnippet'
@@ -25,7 +25,7 @@ Class {
 	#category : 'Lepiter-Utilities-Utilities'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 LeUnlinkedReferenceRemovalMaintenace class >> forSnippet: snippet database: database [
 
 	^ self new
@@ -33,24 +33,24 @@ LeUnlinkedReferenceRemovalMaintenace class >> forSnippet: snippet database: data
 		database: database.
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 LeUnlinkedReferenceRemovalMaintenace class >> submitForSnippet: aLeSnippet database: aLeDatabase [
 
 	(aLeSnippet isNil or: [ aLeDatabase isNil ]) ifTrue: [ ^ self ].
 	^ (self forSnippet: aLeSnippet database: aLeDatabase) submit
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeUnlinkedReferenceRemovalMaintenace >> database [
 	^ database
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeUnlinkedReferenceRemovalMaintenace >> database: anObject [
 	database := anObject
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 LeUnlinkedReferenceRemovalMaintenace >> run [
 	"Update the unlinked references from sourcePage"
 
@@ -68,7 +68,7 @@ LeUnlinkedReferenceRemovalMaintenace >> run [
 
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeUnlinkedReferenceRemovalMaintenace >> scanForLinks [
 	"Iterate over all pages in the receiver's database and remove any incoming unlinked references from the receiver's block"
 
@@ -76,7 +76,7 @@ LeUnlinkedReferenceRemovalMaintenace >> scanForLinks [
 		self scanPage: page ]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeUnlinkedReferenceRemovalMaintenace >> scanPage: page [
 	"Remove any incoming unlinked references from the receiver's snippet from the supplied page"
 	| matches incomingLinks |
@@ -89,17 +89,17 @@ LeUnlinkedReferenceRemovalMaintenace >> scanPage: page [
 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeUnlinkedReferenceRemovalMaintenace >> sourceSnippet [
 	^ sourceSnippet
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeUnlinkedReferenceRemovalMaintenace >> sourceSnippet: anObject [
 	sourceSnippet := anObject
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 LeUnlinkedReferenceRemovalMaintenace >> submit [ 
 	"Submit the receiver for processing in the low priority non-UI single pool"
 

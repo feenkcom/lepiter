@@ -1,12 +1,12 @@
 Class {
-	#name : 'LeDatabaseMergeExamples',
-	#superclass : 'Object',
+	#name : #LeDatabaseMergeExamples,
+	#superclass : #Object,
 	#traits : 'TAssertable',
 	#classTraits : 'TAssertable classTrait',
 	#category : 'Lepiter-Utilities-Examples'
 }
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeDatabaseMergeExamples >> merge [ 
 	"Merge two databases and answer the merge db"
 	<gtExample>
@@ -51,7 +51,7 @@ LeDatabaseMergeExamples >> merge [
 	^ target
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabaseMergeExamples >> sourceDatabase [ 
 	| database page snippet |
 
@@ -99,13 +99,13 @@ LeDatabaseMergeExamples >> sourceDatabase [
 	^ database
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabaseMergeExamples >> sourceEmail [
 
 	^ 'source@email.com'
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabaseMergeExamples >> targetDatabase [ 
 	| database page snippet |
 
@@ -137,7 +137,7 @@ LeDatabaseMergeExamples >> targetDatabase [
 	^ database
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabaseMergeExamples >> targetEmail [
 
 	^ 'target@email.com'
