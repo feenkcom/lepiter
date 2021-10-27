@@ -6,7 +6,7 @@ Class {
 	#instVars : [
 		'externalPicturesWriter'
 	],
-	#category : 'Lepiter-HTML-Exporter'
+	#category : #'Lepiter-HTML-Exporter'
 }
 
 { #category : #utils }
@@ -113,6 +113,20 @@ LeHtmlExporterTextSnippetVisitor >> visitExternalLabelUrlLink: anExternalLabelUr
 		<< convertedUrl asHTMLString;
 		<< '">';
 		<< anExternalLabelUrlLink label asHTMLString;
+		<< '</a>'; 
+		cr
+]
+
+{ #category : #generated }
+LeHtmlExporterTextSnippetVisitor >> visitExternalUrlLink: anExternalUrlLink [
+	| linkUrl convertedUrl |
+	linkUrl := anExternalUrlLink url.
+	convertedUrl := self convertToLocalOrAbsoluteUrl: linkUrl.
+	stream
+		<< '<a href="';
+		<< convertedUrl asHTMLString;
+		<< '">';
+		<< convertedUrl asHTMLString;
 		<< '</a>'; 
 		cr
 ]
