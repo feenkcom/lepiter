@@ -1,6 +1,6 @@
-Extension { #name : 'LeIncomingPageLinksTypeAndAmountViewModel' }
+Extension { #name : #LeIncomingPageLinksTypeAndAmountViewModel }
 
-{ #category : '*Lepiter-UI' }
+{ #category : #'*Lepiter-UI' }
 LeIncomingPageLinksTypeAndAmountViewModel >> asPhlowTool [
 	^ self incomingPageLinksGroupModel asLepiterIncomingReferencesPhlowTool
 ]

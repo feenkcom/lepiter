@@ -6,8 +6,8 @@ I display a {{gtClass:LeDatabase}} items, including {{gtClass:LePage}} instances
 
 "
 Class {
-	#name : 'LeDatabaseTreeElement',
-	#superclass : 'LeDatabaseElement',
+	#name : #LeDatabaseTreeElement,
+	#superclass : #LeDatabaseElement,
 	#instVars : [
 		'treeElement',
 		'selectionTransformationHandler',
@@ -16,17 +16,17 @@ Class {
 	#category : 'Lepiter-UI-! UI - Database'
 }
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 LeDatabaseTreeElement >> defaultRootItemsSelector [
 	^ LeChildrenSelector default
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 LeDatabaseTreeElement >> defaultSelectionTransformation [
 	^ [ :aNode :anIndex | aNode value ]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeDatabaseTreeElement >> initialize [
 	super initialize.
 	rootItemsSelector := self defaultRootItemsSelector.
@@ -40,7 +40,7 @@ LeDatabaseTreeElement >> initialize [
 		inherit: self treeElement)
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeDatabaseTreeElement >> initializeTreeColumns [
 	self treeElement column
 		title: 'Title';
@@ -61,7 +61,7 @@ LeDatabaseTreeElement >> initializeTreeColumns [
 		weight: 1
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeDatabaseTreeElement >> initializeTreeElement [
 	treeElement := BrColumnedTree new
 		matchParent;
@@ -73,43 +73,43 @@ LeDatabaseTreeElement >> initializeTreeElement [
 	treeElement addEventHandler: selectionTransformationHandler
 ]
 
-{ #category : 'private - hooks' }
+{ #category : #'private - hooks' }
 LeDatabaseTreeElement >> onContentUIModelChanged [
 	super onContentUIModelChanged.
 
 	self updateTreeElementItems.
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabaseTreeElement >> rootItems [
 	^ Array streamContents: [ :aStream | 
 		self rootItemsInto: aStream ].
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabaseTreeElement >> rootItemsInto: aStream [
 	self rootItemsSelector rootsFor: self database into: aStream.
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabaseTreeElement >> rootItemsSelector [
 	"Get selector for root items"
 	^ rootItemsSelector
 ]
 
-{ #category : 'api - initialization' }
+{ #category : #'api - initialization' }
 LeDatabaseTreeElement >> rootItemsSelector: aRootItemsSelector [
 	"Set selector for root items"
 	rootItemsSelector := aRootItemsSelector.
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabaseTreeElement >> treeElement [
 	<return: #BrColumnedTree>
 	^ treeElement
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeDatabaseTreeElement >> updateTreeElementItems [
 	self treeElement items: self rootItems lazy: #children.
 ]

@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeLinkReferencePreviewViewModel',
-	#superclass : 'LeDynamicSnippetViewModel',
+	#name : #LeLinkReferencePreviewViewModel,
+	#superclass : #LeDynamicSnippetViewModel,
 	#instVars : [
 		'linkReferenceViewModel',
 		'uid'
@@ -8,19 +8,19 @@ Class {
 	#category : 'Lepiter-UI-! Link Reference'
 }
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLinkReferencePreviewViewModel >> database [
 	<return: #LeDatabase>
 	^ self linkReferenceViewModel database
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLinkReferencePreviewViewModel >> linkReference [
 	<return: #LeLinkReference>
 	^ self linkReferenceViewModel linkReference
 ]
 
-{ #category : 'api - instance creation' }
+{ #category : #'api - instance creation' }
 LeLinkReferencePreviewViewModel >> linkReferenceElement [
 	| aStencilBuilder |
 	aStencilBuilder := self linkReferenceViewModel linkReferenceStencil.
@@ -32,28 +32,28 @@ LeLinkReferencePreviewViewModel >> linkReferenceElement [
 		asElement
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLinkReferencePreviewViewModel >> linkReferenceViewModel [
 	^ linkReferenceViewModel
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLinkReferencePreviewViewModel >> linkReferenceViewModel: anObject [
 	linkReferenceViewModel := anObject
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeLinkReferencePreviewViewModel >> page [
 	<return: #LePage>
 	^ self linkReferenceViewModel page
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkReferencePreviewViewModel >> snippetElementClass [
 	^ LeLinkReferencePreviewElement
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkReferencePreviewViewModel >> uid [
 	"Each snippet view model displayed in the snippets element should have a uid.
 	By default we take the uid of the content, however, custom snippet view models are free to override it"

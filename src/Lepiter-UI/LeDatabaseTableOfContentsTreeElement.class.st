@@ -9,8 +9,8 @@ I am used by {{gtClass:LeDatabaseSidebarElement}}, see {{gtMethod:LeDatabaseSide
 
 "
 Class {
-	#name : 'LeDatabaseTableOfContentsTreeElement',
-	#superclass : 'LeDatabaseElement',
+	#name : #LeDatabaseTableOfContentsTreeElement,
+	#superclass : #LeDatabaseElement,
 	#instVars : [
 		'selection',
 		'treeElement'
@@ -18,12 +18,12 @@ Class {
 	#category : 'Lepiter-UI-! UI - Database'
 }
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabaseTableOfContentsTreeElement >> hasSelection [
 	^ selection notNil
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeDatabaseTableOfContentsTreeElement >> initialize [
 	super initialize.
 	
@@ -36,7 +36,7 @@ LeDatabaseTableOfContentsTreeElement >> initialize [
 	self addAptitude: (BrLayoutResizerAptitude inherit inherit: self treeElement).
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeDatabaseTableOfContentsTreeElement >> initializeTreeElement [
 	treeElement := BrSimpleTree new
 		margin: (BlInsets top: 5);
@@ -53,13 +53,13 @@ LeDatabaseTableOfContentsTreeElement >> initializeTreeElement [
 		matchParent.
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabaseTableOfContentsTreeElement >> items [
 	"Return pages to display"
 	^ self database tableOfContentsNodes
 ]
 
-{ #category : 'private - notifying' }
+{ #category : #'private - notifying' }
 LeDatabaseTableOfContentsTreeElement >> notifyListSelectionChangedTo: aPage [
 	| aPageUIModel |
 	
@@ -71,49 +71,49 @@ LeDatabaseTableOfContentsTreeElement >> notifyListSelectionChangedTo: aPage [
 	self fireEvent: (LeDatabaseSidebarChangePageWish new pageUIModel: aPageUIModel)
 ]
 
-{ #category : 'hooks - children' }
+{ #category : #'hooks - children' }
 LeDatabaseTableOfContentsTreeElement >> onAddedToSceneGraph [
 	super onAddedToSceneGraph.
 	self updateSelection.
 ]
 
-{ #category : 'private - hooks' }
+{ #category : #'private - hooks' }
 LeDatabaseTableOfContentsTreeElement >> onContentUIModelChanged [
 	super onContentUIModelChanged.
 
 	self updateTreeItems.
 ]
 
-{ #category : 'private - announcement handling' }
+{ #category : #'private - announcement handling' }
 LeDatabaseTableOfContentsTreeElement >> onPageAdded: aLeDatabasePageAdded [
 	self enqueueTask: (BlTaskAction new action: [ 
 		self updateTreeItems ]).
 ]
 
-{ #category : 'private - announcement handling' }
+{ #category : #'private - announcement handling' }
 LeDatabaseTableOfContentsTreeElement >> onPageRemoved: aLeDatabasePageRemoved [
 	self enqueueTask: (BlTaskAction new action: [ 
 		self updateTreeItems ]).
 ]
 
-{ #category : 'private - hooks' }
+{ #category : #'private - hooks' }
 LeDatabaseTableOfContentsTreeElement >> onSelectionChanged [
 	self updateSelection.
 ]
 
-{ #category : 'private - announcement handling' }
+{ #category : #'private - announcement handling' }
 LeDatabaseTableOfContentsTreeElement >> onTableOfContentsTextChanged: aLeContentTreeChanged [
 	self enqueueTask: (BlTaskAction new action: [ 
 		self updateTreeItems ]).
 ]
 
-{ #category : 'private - announcement handling' }
+{ #category : #'private - announcement handling' }
 LeDatabaseTableOfContentsTreeElement >> onTableOfContentsTreeChanged: aLeContentTreeChanged [
 	self enqueueTask: (BlTaskAction new action: [ 
 		self updateTreeItems ]).
 ]
 
-{ #category : 'private - announcement handling' }
+{ #category : #'private - announcement handling' }
 LeDatabaseTableOfContentsTreeElement >> onTableOfContentsUUIDChanged: aLeDatabaseTableOfContentsUUIDChanged [
 
 	aLeDatabaseTableOfContentsUUIDChanged 
@@ -125,7 +125,7 @@ LeDatabaseTableOfContentsTreeElement >> onTableOfContentsUUIDChanged: aLeDatabas
 		self updateTreeItems ]).
 ]
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 LeDatabaseTableOfContentsTreeElement >> onTreeSelectionChanged: aBrSelectionChanged [
 	aBrSelectionChanged selectedDo: [ :anInterval | 
 		self treeElement selectedNodeDo: [ :aNode | 
@@ -135,7 +135,7 @@ LeDatabaseTableOfContentsTreeElement >> onTreeSelectionChanged: aBrSelectionChan
 				self notifyListSelectionChangedTo: aPage ] ] ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabaseTableOfContentsTreeElement >> selection [
 	<return: #LePageViewModel>
 
@@ -146,7 +146,7 @@ LeDatabaseTableOfContentsTreeElement >> selection [
 	^ selection
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabaseTableOfContentsTreeElement >> selection: aPageViewModel [
 	"Set selected page view model"
 	selection = aPageViewModel
@@ -155,7 +155,7 @@ LeDatabaseTableOfContentsTreeElement >> selection: aPageViewModel [
 	self onSelectionChanged
 ]
 
-{ #category : 'private - subscriptions' }
+{ #category : #'private - subscriptions' }
 LeDatabaseTableOfContentsTreeElement >> subscribeToContent [
 	super subscribeToContent.
 	self database weak
@@ -174,7 +174,7 @@ LeDatabaseTableOfContentsTreeElement >> subscribeToContent [
 	self subscribeToTableOfContentsPage.
 ]
 
-{ #category : 'private - subscriptions' }
+{ #category : #'private - subscriptions' }
 LeDatabaseTableOfContentsTreeElement >> subscribeToTableOfContentsPage [
 	self tableOfContentsDo: [ :aPage |
 		aPage weak
@@ -182,12 +182,12 @@ LeDatabaseTableOfContentsTreeElement >> subscribeToTableOfContentsPage [
 			when: LeSnippetTextChanged send: #onTableOfContentsTextChanged: to: self ]
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabaseTableOfContentsTreeElement >> treeElement [
 	^ treeElement
 ]
 
-{ #category : 'private - subscriptions' }
+{ #category : #'private - subscriptions' }
 LeDatabaseTableOfContentsTreeElement >> unsubscribeFromContent [
 	super unsubscribeFromContent.
 	
@@ -195,13 +195,13 @@ LeDatabaseTableOfContentsTreeElement >> unsubscribeFromContent [
 	self database unsubscribe: self.
 ]
 
-{ #category : 'private - subscriptions' }
+{ #category : #'private - subscriptions' }
 LeDatabaseTableOfContentsTreeElement >> unsubscribeFromTableOfContentsPage [
 	self tableOfContentsDo: [ :aPage |
 		aPage unsubscribe: self ]
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeDatabaseTableOfContentsTreeElement >> updateSelection [
 	| aToCNode |
 	
@@ -216,7 +216,7 @@ LeDatabaseTableOfContentsTreeElement >> updateSelection [
 				ifFalse: [ self treeElement deselectAll ] ]
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeDatabaseTableOfContentsTreeElement >> updateTreeItems [
 	self treeElement items: self items immediate: #children.
 	self treeElement expandSuchThat: [ :eachNode | eachNode value isToCNode ].

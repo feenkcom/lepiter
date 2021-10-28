@@ -2,11 +2,11 @@
 I provide examples to easily show ${class:BlElement}$ instances in a ${class:BlSpace}$.
 "
 Trait {
-	#name : 'TLeSpaceExamples',
+	#name : #TLeSpaceExamples,
 	#category : 'Lepiter-UI-Examples'
 }
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 TLeSpaceExamples >> closeSpace: aSpace with: anElement [
 	<gtExample>
 	"Remove an element from the space and close the space"
@@ -14,7 +14,7 @@ TLeSpaceExamples >> closeSpace: aSpace with: anElement [
 	aSpace close.
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 TLeSpaceExamples >> newSpace [
 	<gtExample>
 	| aSpace |
@@ -26,13 +26,13 @@ TLeSpaceExamples >> newSpace [
 	^ aSpace
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 TLeSpaceExamples >> performUIAction: aBlock in: anElement [
 	anElement enqueueTask: (BlTaskAction new action: aBlock).
 	self waitTaskExecutionIn: anElement.
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 TLeSpaceExamples >> putInSpace: aBlElement [
 	<gtExample>
 	| aSpace |
@@ -45,7 +45,7 @@ TLeSpaceExamples >> putInSpace: aBlElement [
 	^ aSpace
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 TLeSpaceExamples >> showInSpace: aBlElement [
 	<gtExample>
 	| aSpace |
@@ -55,7 +55,7 @@ TLeSpaceExamples >> showInSpace: aBlElement [
 	^ aSpace
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 TLeSpaceExamples >> waitTaskExecutionIn: anElement [
 	| aSemaphore isExpired |
 	aSemaphore := Semaphore new.

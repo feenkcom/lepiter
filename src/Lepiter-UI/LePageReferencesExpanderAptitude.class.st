@@ -1,6 +1,6 @@
 Class {
-	#name : 'LePageReferencesExpanderAptitude',
-	#superclass : 'BrExpanderAptitude',
+	#name : #LePageReferencesExpanderAptitude,
+	#superclass : #BrExpanderAptitude,
 	#instVars : [
 		'sidebar',
 		'toggle',
@@ -9,7 +9,7 @@ Class {
 	#category : 'Lepiter-UI-Basic - Support'
 }
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LePageReferencesExpanderAptitude >> initialize [
 	super initialize.
 
@@ -50,12 +50,12 @@ LePageReferencesExpanderAptitude >> initialize [
 		fitContentLimitedToFitContentLimited: [ :aBlock | self resizableElementsDo: aBlock ])
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePageReferencesExpanderAptitude >> padding: anInsets [
 	container padding: anInsets
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePageReferencesExpanderAptitude >> resizableElementsDo: aBlock [
 	super resizableElementsDo: aBlock.
 	

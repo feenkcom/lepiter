@@ -6,8 +6,8 @@ I display a {{gtClass:LePage}} list of a {{gtClass:LeDatabase}}:
 
 "
 Class {
-	#name : 'LeDatabaseSidebarElement',
-	#superclass : 'LeDatabaseElement',
+	#name : #LeDatabaseSidebarElement,
+	#superclass : #LeDatabaseElement,
 	#instVars : [
 		'resizerElement',
 		'widthStrategy',
@@ -22,7 +22,7 @@ Class {
 	#category : 'Lepiter-UI-! UI - Database'
 }
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeDatabaseSidebarElement >> addTableOfContentsTab [
 
 	self tableOfContentsTab ifNil: [ 
@@ -37,59 +37,59 @@ LeDatabaseSidebarElement >> addTableOfContentsTab [
 		tabGroupElement addTab: self tableOfContentsTab at: 1 ].
 ]
 
-{ #category : 'private - visibility' }
+{ #category : #'private - visibility' }
 LeDatabaseSidebarElement >> beExact: aNumber [
 	widthStrategy := BrResizerElementLength exact: aNumber
 ]
 
-{ #category : 'private - visibility' }
+{ #category : #'private - visibility' }
 LeDatabaseSidebarElement >> collapse [
 	self width: self resizerElement width
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabaseSidebarElement >> dailyNotesElement [
 	^ dailyNotesElement ifNil: [ dailyNotesElement := self newDailyNotesElement ].
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabaseSidebarElement >> dailyNotesElementDo: aBlock [
 	dailyNotesElement ifNotNil: aBlock
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabaseSidebarElement >> dailyNotesGroupElement [
 	^ dailyNotesGroupElement ifNil: [ 
 		dailyNotesGroupElement := self newDailyNotesGroupElement ].
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabaseSidebarElement >> dailyNotesGroupElementDo: aBlock [
 	dailyNotesGroupElement ifNotNil: aBlock
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 LeDatabaseSidebarElement >> defaultSelection [
 	^ LePage null asContentUIModel
 ]
 
-{ #category : 'private - visibility' }
+{ #category : #'private - visibility' }
 LeDatabaseSidebarElement >> expand [
 	widthStrategy adjustWidthFor: self.
 ]
 
-{ #category : 'private - testing' }
+{ #category : #'private - testing' }
 LeDatabaseSidebarElement >> hasTableOfContents [
 	<return: #Boolean>
 	^ self database tableOfContents isNotNil.
 ]
 
-{ #category : 'private - visibility' }
+{ #category : #'private - visibility' }
 LeDatabaseSidebarElement >> hide [
 	self visibility: BlVisibility gone
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeDatabaseSidebarElement >> initialize [
 	super initialize.
 	selection := self defaultSelection.
@@ -113,7 +113,7 @@ LeDatabaseSidebarElement >> initialize [
 		vInherit: self tabGroupElement)
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeDatabaseSidebarElement >> initializeElement [
 	self
 		layout: BlFrameLayout new;
@@ -125,7 +125,7 @@ LeDatabaseSidebarElement >> initializeElement [
 		background: BrGlamorousColors neutralBackgroundColor.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeDatabaseSidebarElement >> initializeListeners [
 	self resizerElement
 			when: BlResizerResizedEvent
@@ -134,7 +134,7 @@ LeDatabaseSidebarElement >> initializeListeners [
 				do: [ :anEvent | self onResizerDoubleClick: anEvent ]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeDatabaseSidebarElement >> initializeTabGroupElement [
 	tabGroupElement := BrTabGroup new
 		aptitude: BrGlamorousTabGroupAptitude;
@@ -150,13 +150,13 @@ LeDatabaseSidebarElement >> initializeTabGroupElement [
 	tabGroupElement padding: tabGroupElement padding + (BlInsets right: 3).
 ]
 
-{ #category : 'private - testing' }
+{ #category : #'private - testing' }
 LeDatabaseSidebarElement >> isCollapsed [
 	<return: #Boolean>
 	^ self width <= self resizerElement width
 ]
 
-{ #category : 'private - instance creation' }
+{ #category : #'private - instance creation' }
 LeDatabaseSidebarElement >> newDailyNotesElement [
 	| newDailyNotesElement |
 
@@ -171,7 +171,7 @@ LeDatabaseSidebarElement >> newDailyNotesElement [
 	^ newDailyNotesElement
 ]
 
-{ #category : 'private - instance creation' }
+{ #category : #'private - instance creation' }
 LeDatabaseSidebarElement >> newDailyNotesGroupElement [
 	| newDailyNotesElement |
 
@@ -186,7 +186,7 @@ LeDatabaseSidebarElement >> newDailyNotesGroupElement [
 	^ newDailyNotesElement
 ]
 
-{ #category : 'private - instance creation' }
+{ #category : #'private - instance creation' }
 LeDatabaseSidebarElement >> newPagesElement [
 	| newPagesElement |
 	
@@ -198,7 +198,7 @@ LeDatabaseSidebarElement >> newPagesElement [
 	^ newPagesElement
 ]
 
-{ #category : 'private - instance creation' }
+{ #category : #'private - instance creation' }
 LeDatabaseSidebarElement >> newTableOfContentsElement [
 	| newTableOfContentsElement |
 
@@ -210,24 +210,24 @@ LeDatabaseSidebarElement >> newTableOfContentsElement [
 	^ newTableOfContentsElement
 ]
 
-{ #category : 'private - hooks' }
+{ #category : #'private - hooks' }
 LeDatabaseSidebarElement >> onContentUIModelChanged [
 	super onContentUIModelChanged.
 
 	self updateContent.
 ]
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 LeDatabaseSidebarElement >> onDetailedVolume [
 	self show
 ]
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 LeDatabaseSidebarElement >> onNormalVolume [
 	self hide
 ]
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 LeDatabaseSidebarElement >> onResizerDoubleClick: anEvent [
 	anEvent consumed: true.
 	self isCollapsed
@@ -235,33 +235,33 @@ LeDatabaseSidebarElement >> onResizerDoubleClick: anEvent [
 		ifFalse: [ self collapse ]
 ]
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 LeDatabaseSidebarElement >> onResizerResized: anEvent [
 	self beExact: anEvent extent x
 ]
 
-{ #category : 'private - hooks' }
+{ #category : #'private - hooks' }
 LeDatabaseSidebarElement >> onSelectionChanged [
 	self updateSelection.
 ]
 
-{ #category : 'private - announcement handling' }
+{ #category : #'private - announcement handling' }
 LeDatabaseSidebarElement >> onTableOfContentsUUIDChanged: anAnnouncement [
 	self enqueueTask: (BlTaskAction new action: [
 		self updateTableOfContentTab ]).
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabaseSidebarElement >> pagesElement [
 	^ pagesElement ifNil: [ pagesElement := self newPagesElement ]
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabaseSidebarElement >> pagesElementDo: aBlock [
 	pagesElement ifNotNil: aBlock
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeDatabaseSidebarElement >> removeTableOfContentsTab [
 	self tableOfContentsTab ifNil: [ ^ self ].
 	(tabGroupElement hasTab: self tableOfContentsTab)
@@ -270,19 +270,19 @@ LeDatabaseSidebarElement >> removeTableOfContentsTab [
 	tableOfContentsTab := nil.
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabaseSidebarElement >> resizerElement [
 	^ resizerElement
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabaseSidebarElement >> selection [
 	<return: #LePageViewModel>
 
 	^ selection
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabaseSidebarElement >> selection: aLePageUIModel [
 	"Set selected page"
 	
@@ -292,12 +292,12 @@ LeDatabaseSidebarElement >> selection: aLePageUIModel [
 	self onSelectionChanged
 ]
 
-{ #category : 'private - visibility' }
+{ #category : #'private - visibility' }
 LeDatabaseSidebarElement >> show [
 	self visibility: BlVisibility visible
 ]
 
-{ #category : 'private - subscriptions' }
+{ #category : #'private - subscriptions' }
 LeDatabaseSidebarElement >> subscribeToContent [
 	super subscribeToContent.
 	self database weak
@@ -306,35 +306,35 @@ LeDatabaseSidebarElement >> subscribeToContent [
 		to: self.
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabaseSidebarElement >> tabGroupElement [
 	^ tabGroupElement
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabaseSidebarElement >> tableOfContentsElement [
 	^ tableOfContentsElement ifNil: [ tableOfContentsElement := self newTableOfContentsElement ].
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabaseSidebarElement >> tableOfContentsElementDo: aBlock [
 	tableOfContentsElement ifNotNil: aBlock
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabaseSidebarElement >> tableOfContentsTab [
 	<return: #BrTab>
 	^ tableOfContentsTab
 ]
 
-{ #category : 'private - subscriptions' }
+{ #category : #'private - subscriptions' }
 LeDatabaseSidebarElement >> unsubscribeFromContent [
 	super unsubscribeFromContent.
 	
 	self database unsubscribe: self.
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeDatabaseSidebarElement >> updateContent [
 	self updateTableOfContentTab.
 	self tableOfContentsElementDo: [ :anElement | anElement databaseViewModel: self databaseViewModel ].
@@ -343,7 +343,7 @@ LeDatabaseSidebarElement >> updateContent [
 	self pagesElementDo: [ :anElement | anElement databaseViewModel: self databaseViewModel ].
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeDatabaseSidebarElement >> updateSelection [
 	self tableOfContentsElementDo: [ :anElement | anElement selection: self selection ].
 	self pagesElementDo: [ :anElement | anElement selection: self selection ].
@@ -351,7 +351,7 @@ LeDatabaseSidebarElement >> updateSelection [
 	self dailyNotesGroupElementDo: [ :anElement | anElement selection: self selection ].
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeDatabaseSidebarElement >> updateTableOfContentTab [
 	self hasTableOfContents 
 		ifFalse: [ self removeTableOfContentsTab ]

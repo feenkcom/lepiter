@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeConnectorPageContainerElement',
-	#superclass : 'BlElement',
+	#name : #LeConnectorPageContainerElement,
+	#superclass : #BlElement,
 	#traits : 'TGtPhlowToolDetailAdjustable + TLeWithPageViewModel + TBrLayoutResizable',
 	#classTraits : 'TGtPhlowToolDetailAdjustable classTrait + TLeWithPageViewModel classTrait + TBrLayoutResizable classTrait',
 	#instVars : [
@@ -13,41 +13,41 @@ Class {
 	#category : 'Lepiter-UI-Connector'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 LeConnectorPageContainerElement >> actOnDetailedVolume [	
 	self constraintsDo: [ :c | c doNotAccountTransformation ].
 	
 	innerContainer allowChildrenMouseEvents.
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 LeConnectorPageContainerElement >> actOnNormalVolume [	
 	self constraintsDo: [ :c | c accountTransformation ].
 
 	innerContainer preventChildrenMouseEvents.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeConnectorPageContainerElement >> connectorElement [
 	^ connectorElement
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeConnectorPageContainerElement >> connectorElement: aConnectorElement [
 	connectorElement := aConnectorElement
 ]
 
-{ #category : 'api - zooming' }
+{ #category : #'api - zooming' }
 LeConnectorPageContainerElement >> decreaseZoomLevel [
 	self addAnimation: ((BlTransformAnimation scale: 0.25) absolute duration: self zoomAnimationDuration)
 ]
 
-{ #category : 'api - zooming' }
+{ #category : #'api - zooming' }
 LeConnectorPageContainerElement >> increaseZoomLevel [
 	self addAnimation: ((BlTransformAnimation scale: 1) absolute duration: self zoomAnimationDuration)
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeConnectorPageContainerElement >> initialize [ 	
 	| aCloseButton aRightResizer aBottomResizer |
 	super initialize.
@@ -132,30 +132,30 @@ LeConnectorPageContainerElement >> initialize [
 		detailed: [ self actOnDetailedVolume ]).
 ]
 
-{ #category : 'api - page view model' }
+{ #category : #'api - page view model' }
 LeConnectorPageContainerElement >> onPageViewModelChanged [
 	"Is sent when a new page view model is assigned to the element"
 	
 	self updateContent
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeConnectorPageContainerElement >> page [
 	^ page
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeConnectorPageContainerElement >> page: aPage [
 	page := aPage.
 	self onContentChanged.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeConnectorPageContainerElement >> pageElement [
 	^ pageElement
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : #'as yet unclassified' }
 LeConnectorPageContainerElement >> toggleVolume [
 	volumeModel isDetailed ifFalse: [ 
 		self beDetailedLevel.
@@ -163,12 +163,12 @@ LeConnectorPageContainerElement >> toggleVolume [
 			aContainer beNormalLevel ] ].
 ]
 
-{ #category : 'updating' }
+{ #category : #updating }
 LeConnectorPageContainerElement >> updateContent [
 	self pageElement pageViewModel: (LePageViewModel new pageModel: self page)
 ]
 
-{ #category : 'api - zooming' }
+{ #category : #'api - zooming' }
 LeConnectorPageContainerElement >> zoomAnimationDuration [
 	^ 300 milliSeconds
 ]

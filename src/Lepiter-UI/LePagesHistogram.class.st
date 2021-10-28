@@ -5,12 +5,12 @@ LePagesHistogram new pages: self pages duringLast: 10 days
 
 "
 Class {
-	#name : 'LePagesHistogram',
-	#superclass : 'BlElement',
+	#name : #LePagesHistogram,
+	#superclass : #BlElement,
 	#category : 'Lepiter-UI-Histogram'
 }
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LePagesHistogram >> initialize [
 	super initialize.
 	
@@ -20,7 +20,7 @@ LePagesHistogram >> initialize [
 		c vertical matchParent ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePagesHistogram >> pages: aCollectionOfPages between: aStartDate and: anEndDate [
 	| pagesByDate maxPagesPerDay theNormalizedValues |
 	pagesByDate := (aCollectionOfPages
@@ -41,7 +41,7 @@ LePagesHistogram >> pages: aCollectionOfPages between: aStartDate and: anEndDate
 	self geometry: (BlHistogram new values: theNormalizedValues)
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePagesHistogram >> pages: aCollectionOfPages duringLast: aDuration [
 	| aTodayDate |
 	

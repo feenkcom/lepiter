@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeContentViewModel',
-	#superclass : 'Object',
+	#name : #LeContentViewModel,
+	#superclass : #Object,
 	#traits : 'TGtAnnouncer',
 	#classTraits : 'TGtAnnouncer classTrait',
 	#instVars : [
@@ -10,21 +10,21 @@ Class {
 	#category : 'Lepiter-UI-! Content Elements - View Models'
 }
 
-{ #category : 'announcer' }
+{ #category : #announcer }
 LeContentViewModel >> announcer [
 	<return: #Announcer>
 
 	^ announcer ifNil: [ announcer := Announcer new ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeContentViewModel >> content [
 	<return: #LeContent>
 
 	^ content
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeContentViewModel >> content: aLeContent [
 	self
 		assert: [ content isNil ]
@@ -37,12 +37,12 @@ LeContentViewModel >> content: aLeContent [
 	content := aLeContent
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeContentViewModel >> initialize [
 	super initialize
 ]
 
-{ #category : 'copying' }
+{ #category : #copying }
 LeContentViewModel >> postCopy [
 	super postCopy.
 	

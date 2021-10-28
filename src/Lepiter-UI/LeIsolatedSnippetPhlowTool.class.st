@@ -1,10 +1,10 @@
 Class {
-	#name : 'LeIsolatedSnippetPhlowTool',
-	#superclass : 'LeSnippetPhlowTool',
+	#name : #LeIsolatedSnippetPhlowTool,
+	#superclass : #LeSnippetPhlowTool,
 	#category : 'Lepiter-UI-Phlow Tools'
 }
 
-{ #category : 'api - converting' }
+{ #category : #'api - converting' }
 LeIsolatedSnippetPhlowTool >> asElementDo: aOneArgBlock [
 	| anElement |
 	anElement := self snippet asToolElement.

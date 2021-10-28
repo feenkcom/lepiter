@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeDatabaseDailyNotesTreeElement',
-	#superclass : 'LeDatabaseElement',
+	#name : #LeDatabaseDailyNotesTreeElement,
+	#superclass : #LeDatabaseElement,
 	#instVars : [
 		'selection',
 		'treeElement'
@@ -8,19 +8,19 @@ Class {
 	#category : 'Lepiter-UI-! UI - Database'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabaseDailyNotesTreeElement >> dailyNoteNodes [
 	"Return pages to display"
 	^ self database dailyNotesGroup collect: [ :aDailyNote |
 		LeDailyNoteTreeNodeModel forDailyNote: aDailyNote ]
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeDatabaseDailyNotesTreeElement >> hasSelection [
 	^ selection notNil
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeDatabaseDailyNotesTreeElement >> initialize [
 	super initialize.
 	
@@ -33,7 +33,7 @@ LeDatabaseDailyNotesTreeElement >> initialize [
 	self addAptitude: (BrLayoutResizerAptitude inherit inherit: self treeElement).
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeDatabaseDailyNotesTreeElement >> initializeTreeElement [
 	treeElement := BrSimpleTree new
 		margin: (BlInsets top: 5);
@@ -50,12 +50,12 @@ LeDatabaseDailyNotesTreeElement >> initializeTreeElement [
 		matchParent.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabaseDailyNotesTreeElement >> items [
 	^ self dailyNoteNodes 
 ]
 
-{ #category : 'private - notifying' }
+{ #category : #'private - notifying' }
 LeDatabaseDailyNotesTreeElement >> notifyListSelectionChangedTo: aTreeNode [
 	| aPageUIModel |
 	
@@ -68,38 +68,38 @@ LeDatabaseDailyNotesTreeElement >> notifyListSelectionChangedTo: aTreeNode [
 	self fireEvent: (LeDatabaseSidebarChangePageWish new pageUIModel: aPageUIModel)
 ]
 
-{ #category : 'private - hooks' }
+{ #category : #'private - hooks' }
 LeDatabaseDailyNotesTreeElement >> onContentUIModelChanged [
 	super onContentUIModelChanged.
 
 	self updateTreeItems.
 ]
 
-{ #category : 'hooks' }
+{ #category : #hooks }
 LeDatabaseDailyNotesTreeElement >> onPageAdded: aLeDatabasePageAdded [
 	self enqueueTask: (BlTaskAction new action: [ 
 		self updateTreeItems ]).
 ]
 
-{ #category : 'hooks' }
+{ #category : #hooks }
 LeDatabaseDailyNotesTreeElement >> onPageRemoved: aLeDatabasePageRemoved [
 	self enqueueTask: (BlTaskAction new action: [ 
 		self updateTreeItems ]).
 ]
 
-{ #category : 'updating' }
+{ #category : #updating }
 LeDatabaseDailyNotesTreeElement >> onSelectionChanged [
 	self updateSelection.
 ]
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 LeDatabaseDailyNotesTreeElement >> onTreeSelectionChanged: aBrSelectionChanged [
 	aBrSelectionChanged selectedDo: [ :anInterval | 
 		self treeElement selectedNodeDo: [ :aNode | 
 			self notifyListSelectionChangedTo: aNode value ] ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabaseDailyNotesTreeElement >> selection [
 	self
 		assert: [ selection notNil ]
@@ -108,7 +108,7 @@ LeDatabaseDailyNotesTreeElement >> selection [
 	^ selection
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabaseDailyNotesTreeElement >> selection: aViewModel [
 	"Set selected page"
 	selection = aViewModel
@@ -117,7 +117,7 @@ LeDatabaseDailyNotesTreeElement >> selection: aViewModel [
 	self onSelectionChanged
 ]
 
-{ #category : 'private - subscriptions' }
+{ #category : #'private - subscriptions' }
 LeDatabaseDailyNotesTreeElement >> subscribeToContent [
 	super subscribeToContent.
 	self database weak
@@ -135,19 +135,19 @@ LeDatabaseDailyNotesTreeElement >> subscribeToContent [
 			to: self.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabaseDailyNotesTreeElement >> treeElement [
 	^ treeElement
 ]
 
-{ #category : 'private - subscriptions' }
+{ #category : #'private - subscriptions' }
 LeDatabaseDailyNotesTreeElement >> unsubscribeFromContent [
 	super unsubscribeFromContent.
 	
 	self database unsubscribe: self.
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeDatabaseDailyNotesTreeElement >> updateSelection [
 	| pageTreeNode |
 	self hasSelection
@@ -159,7 +159,7 @@ LeDatabaseDailyNotesTreeElement >> updateSelection [
 	self treeElement selectAndScrollTo: pageTreeNode.
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeDatabaseDailyNotesTreeElement >> updateTreeItems [
 	self treeElement 
 		items: self dailyNoteNodes 

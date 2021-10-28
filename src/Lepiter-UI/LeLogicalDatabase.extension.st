@@ -1,11 +1,11 @@
-Extension { #name : 'LeLogicalDatabase' }
+Extension { #name : #LeLogicalDatabase }
 
-{ #category : '*Lepiter-UI' }
+{ #category : #'*Lepiter-UI' }
 LeLogicalDatabase >> asContentUIModel [
 	^ LeLogicalDatabaseViewModel new database: self
 ]
 
-{ #category : '*Lepiter-UI' }
+{ #category : #'*Lepiter-UI' }
 LeLogicalDatabase >> gtDailyNotesFor: aView [
 	<gtView>
 	self pages ifNil: [ ^ aView empty ].
@@ -21,7 +21,7 @@ LeLogicalDatabase >> gtDailyNotesFor: aView [
 			eachPageOrPart ]
 ]
 
-{ #category : '*Lepiter-UI' }
+{ #category : #'*Lepiter-UI' }
 LeLogicalDatabase >> gtLiveFor: aView [
 	<gtView>
 	self pagesByName ifEmpty: [ ^ aView empty ].
