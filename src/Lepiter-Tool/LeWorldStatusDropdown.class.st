@@ -188,7 +188,7 @@ LeWorldStatusDropdown >> onPageChanged: anAnnouncement [
 		[ ^ self ].
 	pageChanged := true.
 	self updateWidget.
-	StringSignal emit: 'set page changed'.
+
 ]
 
 { #category : #private }
