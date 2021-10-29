@@ -1,10 +1,10 @@
 Class {
-	#name : 'LeSnippetInPagePhlowTool',
-	#superclass : 'LeSnippetPhlowTool',
+	#name : #LeSnippetInPagePhlowTool,
+	#superclass : #LeSnippetPhlowTool,
 	#category : 'Lepiter-UI-Phlow Tools'
 }
 
-{ #category : 'api - converting' }
+{ #category : #'api - converting' }
 LeSnippetInPagePhlowTool >> asElementDo: aOneArgBlock [
 	| anElement aPageViewModel |
 

@@ -6,12 +6,12 @@ I am used by {{gtClass:LePageToolContentElement}} in {{gtMethod:LePageToolConten
 
 "
 Class {
-	#name : 'LePageHeaderWithTitleAndInspectButtonBuilder',
-	#superclass : 'LePageHeaderBuilder',
+	#name : #LePageHeaderWithTitleAndInspectButtonBuilder,
+	#superclass : #LePageHeaderBuilder,
 	#category : 'Lepiter-UI-Support - Page Toolbar'
 }
 
-{ #category : 'api - building' }
+{ #category : #'api - building' }
 LePageHeaderWithTitleAndInspectButtonBuilder >> build [
 	self removeAllItems.
 	self addTitle.

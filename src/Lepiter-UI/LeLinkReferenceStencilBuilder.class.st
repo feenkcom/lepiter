@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeLinkReferenceStencilBuilder',
-	#superclass : 'BrStencilBuilder',
+	#name : #LeLinkReferenceStencilBuilder,
+	#superclass : #BrStencilBuilder,
 	#instVars : [
 		'linkReference',
 		'page',
@@ -9,7 +9,7 @@ Class {
 	#category : 'Lepiter-UI-! Link Reference'
 }
 
-{ #category : 'api - instantiation' }
+{ #category : #'api - instantiation' }
 LeLinkReferenceStencilBuilder >> buildDefault [
 	<return: #BrStencil or: #BlElement>
 
@@ -24,37 +24,37 @@ LeLinkReferenceStencilBuilder >> buildDefault [
 		vFitContent
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkReferenceStencilBuilder >> database [
 	^ database
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkReferenceStencilBuilder >> database: anObject [
 	database := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkReferenceStencilBuilder >> linkReference [
 	^ linkReference
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkReferenceStencilBuilder >> linkReference: anObject [
 	linkReference := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkReferenceStencilBuilder >> page [
 	^ page
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkReferenceStencilBuilder >> page: anObject [
 	page := anObject
 ]
 
-{ #category : 'api - instantiation' }
+{ #category : #'api - instantiation' }
 LeLinkReferenceStencilBuilder >> paramsOn: aStencilExecutor [
 	super paramsOn: aStencilExecutor.
 	aStencilExecutor

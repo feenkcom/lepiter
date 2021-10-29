@@ -5,64 +5,64 @@ See my {{gtClass:LeDatabaseElement|expanded|show=#gtSubclassesFor:}} for concret
 
 "
 Class {
-	#name : 'LeDatabaseElement',
-	#superclass : 'LeContentElement',
+	#name : #LeDatabaseElement,
+	#superclass : #LeContentElement,
 	#category : 'Lepiter-UI-! UI - Database'
 }
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabaseElement >> database [
 	<return: #LeDatabase>
 
 	^ self content
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabaseElement >> database: aDatabase [
 	self deprecated: 'Use #databaseUIMoldel: instead'.
 	self halt
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabaseElement >> databaseViewModel [
 	^ self contentUIModel
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabaseElement >> databaseViewModel: aDatabaseUIModel [
 	self contentUIModel: aDatabaseUIModel
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeDatabaseElement >> hasDatabase [
 	<return: #Boolean>
 
 	^ self hasContent
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabaseElement >> pages [
 	<return: #Collection of: #LePage>
 	^ self database pages
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabaseElement >> pagesByDate [
 	<return: #Collection of: #LePage>
 	^ self database pagesByDate
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabaseElement >> pagesByDateToShow [
 	^ self database pagesByDateToShow
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabaseElement >> tableOfContents [
 	^ self database tableOfContents
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabaseElement >> tableOfContentsDo: aBlock [
 	self tableOfContents ifNotNil: aBlock
 ]

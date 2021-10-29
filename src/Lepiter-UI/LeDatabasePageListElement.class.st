@@ -10,8 +10,8 @@ I can also display any subset of pages, e.g., just daily notes:
 
 "
 Class {
-	#name : 'LeDatabasePageListElement',
-	#superclass : 'LeDatabaseElement',
+	#name : #LeDatabasePageListElement,
+	#superclass : #LeDatabaseElement,
 	#instVars : [
 		'filter',
 		'listElement',
@@ -20,31 +20,31 @@ Class {
 	#category : 'Lepiter-UI-! UI - Database'
 }
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 LeDatabasePageListElement >> defaultFilter [
 	^ [ :aDatabase | aDatabase pagesByDateToShow ]
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 LeDatabasePageListElement >> defaultSelection [
 	^ LePage null asContentUIModel
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabasePageListElement >> filter [
 	"Return a block that receives ${class:LeDatabase}$ and returns pages to display"
 
 	^ filter
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabasePageListElement >> filter: aBlock [
 	"Set a block that receives ${class:LeDatabase}$ and returns pages to display"
 	filter := aBlock.
 	self onFilterChanged.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeDatabasePageListElement >> initialize [
 	super initialize.
 
@@ -60,7 +60,7 @@ LeDatabasePageListElement >> initialize [
 		inherit: self listElement).
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeDatabasePageListElement >> initializeListElement [
 	listElement := BrSimpleList new
 		margin: (BlInsets top: 5);
@@ -76,19 +76,19 @@ LeDatabasePageListElement >> initializeListElement [
 		matchParent.
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabasePageListElement >> items [
 	"Return pages to display"
 
 	^ self filter cull: self database
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabasePageListElement >> listElement [
 	^ listElement
 ]
 
-{ #category : 'private - notifying' }
+{ #category : #'private - notifying' }
 LeDatabasePageListElement >> notifyListSelectionChangedTo: aPageUIModel [
 	self selection = aPageUIModel
 		ifTrue: [ ^ self ].
@@ -98,26 +98,26 @@ LeDatabasePageListElement >> notifyListSelectionChangedTo: aPageUIModel [
 	self fireEvent: (LeDatabaseSidebarChangePageWish new pageUIModel: aPageUIModel)
 ]
 
-{ #category : 'hooks - children' }
+{ #category : #'hooks - children' }
 LeDatabasePageListElement >> onAddedToSceneGraph [
 	super onAddedToSceneGraph.
 
 	self updateSelection.
 ]
 
-{ #category : 'api - ui model' }
+{ #category : #'api - ui model' }
 LeDatabasePageListElement >> onContentUIModelChanged [
 	super onContentUIModelChanged.
 
 	self updateListItems
 ]
 
-{ #category : 'private - hooks' }
+{ #category : #'private - hooks' }
 LeDatabasePageListElement >> onFilterChanged [
 	self updateListItems.
 ]
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 LeDatabasePageListElement >> onListSelectionChanged: aBrSelectionChanged [
 	aBrSelectionChanged selectedDo: [ :anInterval | 
 		anInterval do: [ :anIndex | 
@@ -129,31 +129,31 @@ LeDatabasePageListElement >> onListSelectionChanged: aBrSelectionChanged [
 					^ self ] ] ].
 ]
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 LeDatabasePageListElement >> onPageAdded: aLeDatabasePageAdded [
 	self enqueueTask: (BlTaskAction new action: [ 
 		self updateListItems ]).
 ]
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 LeDatabasePageListElement >> onPageRemoved: aLeDatabasePageRemoved [
 	self enqueueTask: (BlTaskAction new action: [ 
 		self updateListItems ]).
 ]
 
-{ #category : 'private - hooks' }
+{ #category : #'private - hooks' }
 LeDatabasePageListElement >> onSelectionChanged [
 	self updateSelection.
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabasePageListElement >> selection [
 	<return: #LePageViewModel>
 
 	^ selection
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabasePageListElement >> selection: aLePageUIModel [
 	"Set selected page"
 	
@@ -167,17 +167,17 @@ LeDatabasePageListElement >> selection: aLePageUIModel [
 	self onSelectionChanged.
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabasePageListElement >> showDailyNotes [
 	self filter: [ :aDatabase | aDatabase dailyNotes  ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabasePageListElement >> showPagesAndDailyNotes [
 	self filter: [ :aDatabase | aDatabase pagesByDateToShow ]
 ]
 
-{ #category : 'private - subscriptions' }
+{ #category : #'private - subscriptions' }
 LeDatabasePageListElement >> subscribeToContent [
 	super subscribeToContent.
 
@@ -193,14 +193,14 @@ LeDatabasePageListElement >> subscribeToContent [
 		to: self
 ]
 
-{ #category : 'private - subscriptions' }
+{ #category : #'private - subscriptions' }
 LeDatabasePageListElement >> unsubscribeFromContent [
 	super unsubscribeFromContent.
 
 	self database unsubscribe: self
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeDatabasePageListElement >> updateListItems [
 	| theFilteredPages |
 	
@@ -212,7 +212,7 @@ LeDatabasePageListElement >> updateListItems [
 	self updateSelection
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeDatabasePageListElement >> updateSelection [
 	| anIndex |
 	

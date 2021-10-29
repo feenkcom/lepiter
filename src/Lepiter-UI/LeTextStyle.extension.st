@@ -1,6 +1,6 @@
-Extension { #name : 'LeTextStyle' }
+Extension { #name : #LeTextStyle }
 
-{ #category : '*Lepiter-UI' }
+{ #category : #'*Lepiter-UI' }
 LeTextStyle >> styleText: aText using: aLeBlockStyler [
 	aLeBlockStyler
 		styleText: aText 

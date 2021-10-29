@@ -4,14 +4,14 @@ I exemplify {{gtClass:LeElement}}.
 
 "
 Class {
-	#name : 'LeUIExamples',
-	#superclass : 'Object',
+	#name : #LeUIExamples,
+	#superclass : #Object,
 	#traits : 'TLeSpaceExamples',
 	#classTraits : 'TLeSpaceExamples classTrait',
 	#category : 'Lepiter-UI-Examples'
 }
 
-{ #category : 'examples - database - tree' }
+{ #category : #'examples - database - tree' }
 LeUIExamples >> basicDatabaseFilteredTreeElement [
 	<gtExample>
 	| anElement |
@@ -21,7 +21,7 @@ LeUIExamples >> basicDatabaseFilteredTreeElement [
 	^ anElement
 ]
 
-{ #category : 'examples - database - header' }
+{ #category : #'examples - database - header' }
 LeUIExamples >> basicDatabaseHeaderElement [
 	<gtExample>
 	| anElement |
@@ -31,7 +31,7 @@ LeUIExamples >> basicDatabaseHeaderElement [
 	^ anElement
 ]
 
-{ #category : 'examples - database - sidebar' }
+{ #category : #'examples - database - sidebar' }
 LeUIExamples >> basicDatabaseSidebarElement [
 	<gtExample>
 	| anElement |
@@ -41,7 +41,7 @@ LeUIExamples >> basicDatabaseSidebarElement [
 	^ anElement
 ]
 
-{ #category : 'examples - database - table of contents' }
+{ #category : #'examples - database - table of contents' }
 LeUIExamples >> basicDatabaseTableOfContentsElement [
 	<gtExample>
 	| anElement |
@@ -51,7 +51,7 @@ LeUIExamples >> basicDatabaseTableOfContentsElement [
 	^ anElement
 ]
 
-{ #category : 'examples - database - tool' }
+{ #category : #'examples - database - tool' }
 LeUIExamples >> basicDatabaseToolElement [
 	<gtExample>
 	| anElement |
@@ -61,7 +61,7 @@ LeUIExamples >> basicDatabaseToolElement [
 	^ anElement
 ]
 
-{ #category : 'examples - database - tree' }
+{ #category : #'examples - database - tree' }
 LeUIExamples >> basicDatabaseTreeElement [
 	<gtExample>
 	| anElement |
@@ -71,7 +71,7 @@ LeUIExamples >> basicDatabaseTreeElement [
 	^ anElement
 ]
 
-{ #category : 'examples - page - block tree' }
+{ #category : #'examples - page - block tree' }
 LeUIExamples >> basicPageBlockTreeElement [
 	<gtExample>
 	| anElement |
@@ -82,7 +82,7 @@ LeUIExamples >> basicPageBlockTreeElement [
 	^ anElement
 ]
 
-{ #category : 'examples - page - title and edit info' }
+{ #category : #'examples - page - title and edit info' }
 LeUIExamples >> basicPageTitleAndEditInfoElement [
 	<gtExample>
 	| anElement |
@@ -91,7 +91,7 @@ LeUIExamples >> basicPageTitleAndEditInfoElement [
 	^ anElement
 ]
 
-{ #category : 'examples - page - tool' }
+{ #category : #'examples - page - tool' }
 LeUIExamples >> basicPageToolContentElement [
 	<gtExample>
 	| anElement |
@@ -100,7 +100,7 @@ LeUIExamples >> basicPageToolContentElement [
 	^ anElement
 ]
 
-{ #category : 'examples - page - tool' }
+{ #category : #'examples - page - tool' }
 LeUIExamples >> basicPageToolElement [
 	<gtExample>
 	| anElement |
@@ -109,7 +109,7 @@ LeUIExamples >> basicPageToolElement [
 	^ anElement
 ]
 
-{ #category : 'examples - toolbar' }
+{ #category : #'examples - toolbar' }
 LeUIExamples >> basicToolbar [
 	<gtExample>
 	| anElement |
@@ -118,7 +118,7 @@ LeUIExamples >> basicToolbar [
 	^ anElement
 ]
 
-{ #category : 'examples - model' }
+{ #category : #'examples - model' }
 LeUIExamples >> blockWithLinkToPage [
 	<gtExample>
 	| aPage aSnippet |
@@ -128,7 +128,7 @@ LeUIExamples >> blockWithLinkToPage [
 	^ aSnippet
 ]
 
-{ #category : 'examples - support' }
+{ #category : #'examples - support' }
 LeUIExamples >> buttonIcon: anIcon tooltip: aTooltip [
 	<gtExample>
 	^ BrButton new
@@ -137,7 +137,7 @@ LeUIExamples >> buttonIcon: anIcon tooltip: aTooltip [
 		label: aTooltip
 ]
 
-{ #category : 'examples - model' }
+{ #category : #'examples - model' }
 LeUIExamples >> database [
 	<gtExample>
 	| database folderReference localStore  |
@@ -151,7 +151,7 @@ LeUIExamples >> database [
 	^ database 
 ]
 
-{ #category : 'examples - database - tree' }
+{ #category : #'examples - database - tree' }
 LeUIExamples >> databaseFilteredTreeElement [
 	<gtExample>
 	| anElement aDatabase |
@@ -162,7 +162,7 @@ LeUIExamples >> databaseFilteredTreeElement [
 	^ anElement
 ]
 
-{ #category : 'examples - database - header' }
+{ #category : #'examples - database - header' }
 LeUIExamples >> databaseHeaderElement [
 	<gtExample>
 	| anElement aDatabase |
@@ -176,7 +176,7 @@ LeUIExamples >> databaseHeaderElement [
 	^ anElement
 ]
 
-{ #category : 'examples - database - sidebar' }
+{ #category : #'examples - database - sidebar' }
 LeUIExamples >> databaseSidebarElement [
 	<gtExample>
 	| anElement aDatabase aValue |
@@ -197,7 +197,7 @@ LeUIExamples >> databaseSidebarElement [
 	^ anElement
 ]
 
-{ #category : 'examples - database - sidebar' }
+{ #category : #'examples - database - sidebar' }
 LeUIExamples >> databaseSidebarElementWithTableOfContents [
 	<gtExample>
 	"should be rewritten to use Scripter"
@@ -221,7 +221,7 @@ LeUIExamples >> databaseSidebarElementWithTableOfContents [
 	^ anElement
 ]
 
-{ #category : 'examples - database - sidebar' }
+{ #category : #'examples - database - sidebar' }
 LeUIExamples >> databaseSidebarElement_AddPage [
 	<gtExample>
 	| anElement aDatabase |
@@ -233,7 +233,7 @@ LeUIExamples >> databaseSidebarElement_AddPage [
 	^ anElement
 ]
 
-{ #category : 'examples - database - table of contents' }
+{ #category : #'examples - database - table of contents' }
 LeUIExamples >> databaseTableOfContentsElement [
 	<gtExample>
 	"Rewrite to use Scripter"
@@ -251,7 +251,7 @@ LeUIExamples >> databaseTableOfContentsElement [
 	^ anElement
 ]
 
-{ #category : 'examples - database - tool' }
+{ #category : #'examples - database - tool' }
 LeUIExamples >> databaseToolElement [
 	<gtExample>
 	| anElement aDatabase |
@@ -262,7 +262,7 @@ LeUIExamples >> databaseToolElement [
 	^ anElement
 ]
 
-{ #category : 'examples - database - tree' }
+{ #category : #'examples - database - tree' }
 LeUIExamples >> databaseTreeElement [
 	<gtExample>
 	| anElement aDatabase |
@@ -273,7 +273,7 @@ LeUIExamples >> databaseTreeElement [
 	^ anElement
 ]
 
-{ #category : 'examples - model' }
+{ #category : #'examples - model' }
 LeUIExamples >> databaseWithLinkedReferencesAmongPages [
 	<gtExample>
 	| aDatabase aPage |
@@ -303,7 +303,7 @@ LeUIExamples >> databaseWithLinkedReferencesAmongPages [
 	^ aDatabase
 ]
 
-{ #category : 'examples - model' }
+{ #category : #'examples - model' }
 LeUIExamples >> databaseWithPageAAndLinkToPageB [
 	<gtExample>
 	| aDatabase |
@@ -314,7 +314,7 @@ LeUIExamples >> databaseWithPageAAndLinkToPageB [
 	^ aDatabase	
 ]
 
-{ #category : 'examples - model' }
+{ #category : #'examples - model' }
 LeUIExamples >> databaseWithTableOfContents [
 	<gtExample>
 	| aDatabase aFile |
@@ -323,7 +323,7 @@ LeUIExamples >> databaseWithTableOfContents [
 	^ aDatabase
 ]
 
-{ #category : 'examples - model' }
+{ #category : #'examples - model' }
 LeUIExamples >> databaseWithTwoPagesAndTwoDailyNotes [
 	<gtExample>
 	| aDatabase |
@@ -334,7 +334,7 @@ LeUIExamples >> databaseWithTwoPagesAndTwoDailyNotes [
 	^ aDatabase
 ]
 
-{ #category : 'examples - model' }
+{ #category : #'examples - model' }
 LeUIExamples >> linkedReferences_PageThree [
 	<gtExample>
 	| aPage aReference |
@@ -345,7 +345,7 @@ LeUIExamples >> linkedReferences_PageThree [
 	^ aReference
 ]
 
-{ #category : 'examples - page - block tree' }
+{ #category : #'examples - page - block tree' }
 LeUIExamples >> pageBlockTreeElement_Hierarchy [
 	<gtExample>
 	| anElement aPage |
@@ -360,7 +360,7 @@ LeUIExamples >> pageBlockTreeElement_Hierarchy [
 	^ anElement
 ]
 
-{ #category : 'examples - page - block tree' }
+{ #category : #'examples - page - block tree' }
 LeUIExamples >> pageBlockTreeElement_NoHierarchy [
 	<gtExample>
 	| anElement aPage |
@@ -375,7 +375,7 @@ LeUIExamples >> pageBlockTreeElement_NoHierarchy [
 	^ anElement
 ]
 
-{ #category : 'examples - model' }
+{ #category : #'examples - model' }
 LeUIExamples >> pageThreeOfDatabaseWithLinkedReferencesAmongPages [
 	<gtExample>
 	| aDatabase aPage |
@@ -384,7 +384,7 @@ LeUIExamples >> pageThreeOfDatabaseWithLinkedReferencesAmongPages [
 	^ aPage
 ]
 
-{ #category : 'examples - page - title and edit info' }
+{ #category : #'examples - page - title and edit info' }
 LeUIExamples >> pageTitleAndEditInfoElement [
 	<gtExample>
 	| anElement aPage aPageViewModel |
@@ -398,7 +398,7 @@ LeUIExamples >> pageTitleAndEditInfoElement [
 	^ anElement
 ]
 
-{ #category : 'examples - page - tool' }
+{ #category : #'examples - page - tool' }
 LeUIExamples >> pageToolContentElement_Hierarchy [
 	<gtExample>
 	| anElement aPage |
@@ -408,7 +408,7 @@ LeUIExamples >> pageToolContentElement_Hierarchy [
 	^ anElement
 ]
 
-{ #category : 'examples - page - tool' }
+{ #category : #'examples - page - tool' }
 LeUIExamples >> pageToolContentElement_NoHierarchy [
 	<gtExample>
 	| anElement aPage |
@@ -418,7 +418,7 @@ LeUIExamples >> pageToolContentElement_NoHierarchy [
 	^ anElement
 ]
 
-{ #category : 'examples - page - tool' }
+{ #category : #'examples - page - tool' }
 LeUIExamples >> pageToolContentElement_RemovePage [
 	<gtExample>
 	| anElement aPreviousPage aSpace aNewPage |
@@ -439,7 +439,7 @@ LeUIExamples >> pageToolContentElement_RemovePage [
 	^ anElement
 ]
 
-{ #category : 'examples - page - toolbar' }
+{ #category : #'examples - page - toolbar' }
 LeUIExamples >> pageToolContentElement_TitleAndAllActionButtons [
 	<gtExample>
 	| anElement anItem |
@@ -450,7 +450,7 @@ LeUIExamples >> pageToolContentElement_TitleAndAllActionButtons [
 	^ anElement
 ]
 
-{ #category : 'examples - page - toolbar' }
+{ #category : #'examples - page - toolbar' }
 LeUIExamples >> pageToolContentElement_TitleAndInspectButton [
 	<gtExample>
 	| anElement anItem |
@@ -461,7 +461,7 @@ LeUIExamples >> pageToolContentElement_TitleAndInspectButton [
 	^ anElement
 ]
 
-{ #category : 'examples - page - toolbar' }
+{ #category : #'examples - page - toolbar' }
 LeUIExamples >> pageToolContentElement_TitleOnly [
 	<gtExample>
 	| anElement anItem |
@@ -472,7 +472,7 @@ LeUIExamples >> pageToolContentElement_TitleOnly [
 	^ anElement
 ]
 
-{ #category : 'examples - page - tool' }
+{ #category : #'examples - page - tool' }
 LeUIExamples >> pageToolElement_Hierarchy [
 	<gtExample>
 	| anElement aPage |
@@ -482,7 +482,7 @@ LeUIExamples >> pageToolElement_Hierarchy [
 	^ anElement
 ]
 
-{ #category : 'examples - page - tool' }
+{ #category : #'examples - page - tool' }
 LeUIExamples >> pageToolElement_Hierarchy_Maximized [
 	<gtExample>
 	| anElement aContainer |
@@ -495,7 +495,7 @@ LeUIExamples >> pageToolElement_Hierarchy_Maximized [
 	^ aContainer
 ]
 
-{ #category : 'examples - page - tool' }
+{ #category : #'examples - page - tool' }
 LeUIExamples >> pageToolElement_Hierarchy_Normal [
 	<gtExample>
 	| anElement aContainer |
@@ -509,7 +509,7 @@ LeUIExamples >> pageToolElement_Hierarchy_Normal [
 	^ aContainer
 ]
 
-{ #category : 'examples - page - tool' }
+{ #category : #'examples - page - tool' }
 LeUIExamples >> pageToolElement_NoHierarchy [
 	<gtExample>
 	| anElement aPage |
@@ -519,13 +519,13 @@ LeUIExamples >> pageToolElement_NoHierarchy [
 	^ anElement
 ]
 
-{ #category : 'examples - model' }
+{ #category : #'examples - model' }
 LeUIExamples >> titledPage [
 	<gtExample>
 	^ self database pageBuilder title: 'one'; add
 ]
 
-{ #category : 'examples - model' }
+{ #category : #'examples - model' }
 LeUIExamples >> titledPageWithBlock [
 	<gtExample>
 	| aPage |
@@ -534,7 +534,7 @@ LeUIExamples >> titledPageWithBlock [
 	^ aPage
 ]
 
-{ #category : 'examples - model' }
+{ #category : #'examples - model' }
 LeUIExamples >> titledPageWithBlockHierachy [
 	<gtExample>
 	| aPage aSnippetOne aSnippetTwo |
@@ -548,7 +548,7 @@ LeUIExamples >> titledPageWithBlockHierachy [
 	^ aPage
 ]
 
-{ #category : 'examples - model' }
+{ #category : #'examples - model' }
 LeUIExamples >> titledPageWithPharoCodeHierarchy [
 	<gtExample>
 	| aPage aSnippetOne otherSnippets |
@@ -558,7 +558,7 @@ LeUIExamples >> titledPageWithPharoCodeHierarchy [
 	^ aPage
 ]
 
-{ #category : 'examples - model' }
+{ #category : #'examples - model' }
 LeUIExamples >> titledPageWithPharoCodeHierarchy_assignments [
 	<gtExample>
 	| aPage aNumber |
@@ -572,7 +572,7 @@ LeUIExamples >> titledPageWithPharoCodeHierarchy_assignments [
 	^ aPage
 ]
 
-{ #category : 'examples - model' }
+{ #category : #'examples - model' }
 LeUIExamples >> titledPageWithPharoCodeHierarchy_numbers [
 	<gtExample>
 	| aPage aNumber |
@@ -584,7 +584,7 @@ LeUIExamples >> titledPageWithPharoCodeHierarchy_numbers [
 	^ aPage
 ]
 
-{ #category : 'examples - model' }
+{ #category : #'examples - model' }
 LeUIExamples >> titledPageWithTextSnippets_numbers [
 	<gtExample>
 	| aPage aNumber |
@@ -596,7 +596,7 @@ LeUIExamples >> titledPageWithTextSnippets_numbers [
 	^ aPage
 ]
 
-{ #category : 'examples - toolbar' }
+{ #category : #'examples - toolbar' }
 LeUIExamples >> toolbarWithButton [
 	<gtExample>
 	| anElement aButton |
@@ -606,7 +606,7 @@ LeUIExamples >> toolbarWithButton [
 	^ anElement
 ]
 
-{ #category : 'examples - toolbar' }
+{ #category : #'examples - toolbar' }
 LeUIExamples >> toolbarWithButtonsFlexibleAndFixedSeparators [
 	<gtExample>
 	| anElement aButton |
@@ -617,7 +617,7 @@ LeUIExamples >> toolbarWithButtonsFlexibleAndFixedSeparators [
 	^ anElement
 ]
 
-{ #category : 'examples - toolbar' }
+{ #category : #'examples - toolbar' }
 LeUIExamples >> toolbarWithTwoButtons [
 	<gtExample>
 	| anElement aButton |
@@ -627,7 +627,7 @@ LeUIExamples >> toolbarWithTwoButtons [
 	^ anElement
 ]
 
-{ #category : 'examples - toolbar' }
+{ #category : #'examples - toolbar' }
 LeUIExamples >> toolbarWithTwoButtonsAndFixedSeparator [
 	<gtExample>
 	| anElement aButton |
@@ -638,7 +638,7 @@ LeUIExamples >> toolbarWithTwoButtonsAndFixedSeparator [
 	^ anElement
 ]
 
-{ #category : 'examples - toolbar' }
+{ #category : #'examples - toolbar' }
 LeUIExamples >> toolbarWithTwoButtonsAndFlexibleSeparator [
 	<gtExample>
 	| anElement aButton |
@@ -649,7 +649,7 @@ LeUIExamples >> toolbarWithTwoButtonsAndFlexibleSeparator [
 	^ anElement
 ]
 
-{ #category : 'examples - model' }
+{ #category : #'examples - model' }
 LeUIExamples >> untitledPage [
 	<gtExample>
 	^ self database pageBuilder addOnlyAfterSettingTitle

@@ -6,8 +6,8 @@ I display a {{gtClass:LeDatabase}} items, including {{gtClass:LePage}} instances
 
 "
 Class {
-	#name : 'LeDatabaseToolElement',
-	#superclass : 'LeDatabaseElement',
+	#name : #LeDatabaseToolElement,
+	#superclass : #LeDatabaseElement,
 	#instVars : [
 		'headerElement',
 		'treeElement'
@@ -15,13 +15,13 @@ Class {
 	#category : 'Lepiter-UI-! UI - Database'
 }
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabaseToolElement >> headerElement [
 	<rerturn: #LeDatabaseHeaderElement>
 	^ headerElement
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeDatabaseToolElement >> initialize [
 	super initialize.
 	self initializeHeaderElement.
@@ -34,17 +34,17 @@ LeDatabaseToolElement >> initialize [
 	self addAptitude: (BrLayoutResizerAptitude inherit)
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeDatabaseToolElement >> initializeHeaderElement [
 	headerElement := LeDatabaseHeaderElement new
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeDatabaseToolElement >> initializeTreeElement [
 	treeElement := LeDatabaseFilteredTreeElement new
 ]
 
-{ #category : 'private - hooks' }
+{ #category : #'private - hooks' }
 LeDatabaseToolElement >> onContentUIModelChanged [
 	super onContentUIModelChanged.
 
@@ -52,7 +52,7 @@ LeDatabaseToolElement >> onContentUIModelChanged [
 	self treeElement databaseViewModel: self databaseViewModel
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabaseToolElement >> treeElement [
 	<rerturn: #LeDatabaseFilteredTreeElement>
 	^ treeElement

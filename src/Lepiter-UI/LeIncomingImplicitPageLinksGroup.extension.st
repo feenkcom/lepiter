@@ -1,6 +1,6 @@
-Extension { #name : 'LeIncomingImplicitPageLinksGroup' }
+Extension { #name : #LeIncomingImplicitPageLinksGroup }
 
-{ #category : '*Lepiter-UI' }
+{ #category : #'*Lepiter-UI' }
 LeIncomingImplicitPageLinksGroup >> contentFilter [
 	"Answer a LeFilter that will match the receiver's references"
 

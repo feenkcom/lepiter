@@ -1,6 +1,6 @@
 Class {
-	#name : 'LePageFooterToolbarElement',
-	#superclass : 'BlElement',
+	#name : #LePageFooterToolbarElement,
+	#superclass : #BlElement,
 	#traits : 'TBrLayoutResizable',
 	#classTraits : 'TBrLayoutResizable classTrait',
 	#instVars : [
@@ -10,12 +10,12 @@ Class {
 	#category : 'Lepiter-UI-! Tool - Page'
 }
 
-{ #category : 'callbacks' }
+{ #category : #callbacks }
 LePageFooterToolbarElement >> actOnPageModelChanged [
 	self updateContent.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePageFooterToolbarElement >> availableDatabases [
 	| logicalDatabase |
 	self currentDatabase logicalDatabase 
@@ -26,12 +26,12 @@ LePageFooterToolbarElement >> availableDatabases [
 	 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePageFooterToolbarElement >> currentDatabase [
 	^ self pageModel database
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LePageFooterToolbarElement >> initialize [
 	super initialize.
 	self layout: BlLinearLayout horizontal.
@@ -47,12 +47,12 @@ LePageFooterToolbarElement >> initialize [
 		vAnyToFitContent).
 ]
 
-{ #category : 'actions' }
+{ #category : #actions }
 LePageFooterToolbarElement >> modePageToDatabase: aNewDatabase [
 	self pageModel moveToDatabase: aNewDatabase
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LePageFooterToolbarElement >> newAvailableDatabasesList [
 	^ BrSimpleList new
 		vFitContentLimited;
@@ -72,7 +72,7 @@ LePageFooterToolbarElement >> newAvailableDatabasesList [
 		items: self availableDatabases
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LePageFooterToolbarElement >> newChangeDatabaseButton [
 	^ BrButton new
 		beTinySize;
@@ -90,18 +90,18 @@ LePageFooterToolbarElement >> newChangeDatabaseButton [
 							self newAvailableDatabasesList ])
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePageFooterToolbarElement >> pageModel [
 	^ pageModel
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePageFooterToolbarElement >> pageModel: anObject [
 	pageModel := anObject.
 	self actOnPageModelChanged.
 ]
 
-{ #category : 'updating' }
+{ #category : #updating }
 LePageFooterToolbarElement >> updateContent [
 	changeDatabaseButton label: self currentDatabase databaseName.
 	changeDatabaseButton enabled: self pageModel canMoveToAnotherDatabase.

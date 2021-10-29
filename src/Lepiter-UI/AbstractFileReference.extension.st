@@ -1,6 +1,6 @@
-Extension { #name : 'AbstractFileReference' }
+Extension { #name : #AbstractFileReference }
 
-{ #category : '*Lepiter-UI' }
+{ #category : #'*Lepiter-UI' }
 AbstractFileReference >> gtInspectLepiterDatabaseFor: aView [
 	<gtView>
 
