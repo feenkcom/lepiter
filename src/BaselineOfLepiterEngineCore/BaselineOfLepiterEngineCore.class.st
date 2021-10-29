@@ -14,41 +14,42 @@ BaselineOfLepiterEngineCore class >> gtDependencyAnalysisPreloadedBaselines [
 BaselineOfLepiterEngineCore >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
-		spec 
+		spec
 			baseline: 'GToolkitInspector' with: [
-				spec repository: 'github://feenkcom/gtoolkit-inspector:main/src' ];
+				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.605/src' ].
+		spec
 			baseline: 'NeoJSON' with: [
 				spec repository: 'github://svenvc/NeoJSON:v17/repository' ].
-		spec 
-			package: 'Lepiter-Parser';
-			package: 'Lepiter-Core' with: [
-				spec requires: #('Lepiter-Parser' ). ];
-			package: 'Lepiter-Utilities' with: [
-				spec requires: #('Lepiter-Core' ). ];
-			package: 'Lepiter-Store' with: [
-				spec requires: #('Lepiter-Core' 'Lepiter-Utilities' 'NeoJSON' ). ];
-			package: 'Lepiter-Translator-Roam' with: [
-				spec requires: #('Lepiter-Store' ). ];
-			package: 'Lepiter-Translator-JupyterNotebook' with: [
-				spec requires: #('Lepiter-Core' ). ];
-			package: 'Lepiter-UI-Core' with: [
-				spec requires: #('Lepiter-Core' 'GToolkitInspector' ). ];
-			package: 'Lepiter-UI-Snippet' with: [
-				spec requires: #('Lepiter-Core' 'Lepiter-UI-Core' 'Lepiter-Parser' ). ];
-			package: 'Lepiter-UI-Page' with: [
-				spec requires: #('Lepiter-Core' 'Lepiter-UI-Core' 'Lepiter-UI-Snippet' ). ];
-			package: 'Lepiter-UI-IncomingReferences' with: [
-				spec requires: #('Lepiter-Core' 'Lepiter-UI-Core' 'Lepiter-UI-Page' 'Lepiter-UI-Snippet' ). ];
-			package: 'Lepiter-UI-Utilities';
-			package: 'Lepiter-UI' with: [
-				spec requires: #('Lepiter-Core' 'Lepiter-Parser' 'Lepiter-UI-Core' 'Lepiter-UI-Snippet' 'Lepiter-UI-Page' 'Lepiter-UI-IncomingReferences' 'Lepiter-UI-Utilities' 'Lepiter-Utilities' 'Lepiter-Store' 'Lepiter-Translator-Roam' ). ];
-			package: 'Lepiter-Snippet-Text' with: [
-				spec requires: #('Lepiter-Core' 'Lepiter-UI' ). ];
-			package: 'Lepiter-HTML' with: [
-				spec requires: #('Lepiter-Core' 'Lepiter-Parser' ). ];
-			package: 'Lepiter-Playground' with: [
-				spec requires: #('Lepiter-Core' 'Lepiter-Store' 'Lepiter-UI' ). ];
-			package: 'Lepiter-Core-Examples' with: [
-				spec requires: #('Lepiter-Core' 'Lepiter-Snippet-Text' ). ]. ].
 
+		spec package: 'Lepiter-Parser'.
+		spec package: 'Lepiter-Core' with: [
+			spec requires: #('Lepiter-Parser') ].
+		spec package: 'Lepiter-Utilities' with: [
+			spec requires: #('Lepiter-Core') ].
+		spec package: 'Lepiter-Store' with: [
+			spec requires: #('Lepiter-Core' 'Lepiter-Utilities' 'NeoJSON') ].
+		spec package: 'Lepiter-Translator-Roam' with: [
+			spec requires: #('Lepiter-Store') ].
+		spec package: 'Lepiter-Translator-JupyterNotebook' with: [
+			spec requires: #('Lepiter-Core') ].
+		spec package: 'Lepiter-UI-Core' with: [
+			spec requires: #('Lepiter-Core' 'GToolkitInspector') ].
+		spec package: 'Lepiter-UI-Snippet' with: [
+			spec requires: #('Lepiter-Core' 'Lepiter-UI-Core' 'Lepiter-Parser') ].
+		spec package: 'Lepiter-UI-Page' with: [
+			spec requires: #('Lepiter-Core' 'Lepiter-UI-Core' 'Lepiter-UI-Snippet') ].
+		spec package: 'Lepiter-UI-IncomingReferences' with: [
+			spec requires: #('Lepiter-Core' 'Lepiter-UI-Core' 'Lepiter-UI-Page' 'Lepiter-UI-Snippet') ].
+		spec package: 'Lepiter-UI-Utilities'.
+		spec package: 'Lepiter-UI' with: [
+			spec requires: #('Lepiter-Core' 'Lepiter-Parser' 'Lepiter-UI-Core' 'Lepiter-UI-Snippet' 'Lepiter-UI-Page' 'Lepiter-UI-IncomingReferences' 'Lepiter-UI-Utilities' 'Lepiter-Utilities' 'Lepiter-Store' 'Lepiter-Translator-Roam') ].
+		spec package: 'Lepiter-Snippet-Text' with: [
+			spec requires: #('Lepiter-Core' 'Lepiter-UI') ].
+		spec package: 'Lepiter-HTML' with: [
+			spec requires: #('Lepiter-Core' 'Lepiter-Parser') ].
+		spec package: 'Lepiter-Playground' with: [
+			spec requires: #('Lepiter-Core' 'Lepiter-Store' 'Lepiter-UI') ].
+		spec package: 'Lepiter-Core-Examples' with: [
+			spec requires: #('Lepiter-Core' 'Lepiter-Snippet-Text') ].
+	]
 ]
