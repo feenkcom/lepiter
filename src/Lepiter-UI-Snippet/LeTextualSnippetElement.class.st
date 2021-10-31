@@ -1,7 +1,6 @@
 "
-I am an abstract class.
-I provide basic {{gtMethod:LeBlockElement>>#block|label=#selector}} accessors.
-See my {{gtClass:LeBlockElement|expanded|show=#gtSubclassesFor:}} for concrete implementations.
+I represent a base element for a textual snippet.
+See my {{gtClass:LeTextualSnippetElement|expanded|show=#gtSubclassesFor:}} for concrete implementations.
 
 KeyboardShortcuts holds a list of named shortcuts used by subclasses.  No keyboard shortcuts should be defined directly in subclasses to allow a different binding to be defined for non-English keyboards (if required / desired).
 
@@ -9,7 +8,7 @@ KeyboardShortcuts holds a list of named shortcuts used by subclasses.  No keyboa
 Class {
 	#name : #LeTextualSnippetElement,
 	#superclass : #LeSnippetElement,
-	#category : 'Lepiter-UI-Snippet-! Views'
+	#category : #'Lepiter-UI-Snippet-! Views'
 }
 
 { #category : #accessing }

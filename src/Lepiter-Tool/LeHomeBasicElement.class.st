@@ -1,6 +1,5 @@
 "
 I am an abstract class.
-One of my subclasses is a main page in {{gtClass:LeWorldElement}}, see {{gtMethod:LeWorldElement>>#defaultHomeElement}}.
 I provide {{gtMethod:LeHomeBasicElement>>#updateContent|label=#selector}}.
 See my {{gtClass:LeHomeBasicElement|expanded|show=#gtSubclassesFor:}} subclasses for concrete implementations:
 
