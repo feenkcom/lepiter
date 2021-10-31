@@ -14,8 +14,11 @@ BaselineOfLepiterEngineCore class >> gtDependencyAnalysisPreloadedBaselines [
 BaselineOfLepiterEngineCore >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
-		spec baseline: 'GToolkitInspector' with: [
-				spec repository: 'github://feenkcom/gtoolkit-inspector:main/src' ].
+		spec 
+			baseline: 'GToolkitInspector' with: [
+				spec repository: 'github://feenkcom/gtoolkit-inspector:main/src' ];
+			baseline: 'NeoJSON' with: [
+				spec repository: 'github://svenvc/NeoJSON:v17/repository' ].
 		spec 
 			package: 'Lepiter-Parser';
 			package: 'Lepiter-Core' with: [
@@ -23,7 +26,7 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 			package: 'Lepiter-Utilities' with: [
 				spec requires: #('Lepiter-Core' ). ];
 			package: 'Lepiter-Store' with: [
-				spec requires: #('Lepiter-Core' 'Lepiter-Utilities' ). ];
+				spec requires: #('Lepiter-Core' 'Lepiter-Utilities' 'NeoJSON' ). ];
 			package: 'Lepiter-Translator-Roam' with: [
 				spec requires: #('Lepiter-Store' ). ];
 			package: 'Lepiter-Translator-JupyterNotebook' with: [
