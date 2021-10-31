@@ -15,8 +15,8 @@ The destinationParent is the parent object of where the content has been moved t
 
 "
 Class {
-	#name : 'LeContentTreeMoved',
-	#superclass : 'LeContentTreeChanged',
+	#name : #LeContentTreeMoved,
+	#superclass : #LeContentTreeChanged,
 	#instVars : [
 		'destinationParent',
 		'destinationIndex'
@@ -24,12 +24,12 @@ Class {
 	#category : 'Lepiter-Core-Announcements'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeContentTreeMoved >> destinationIndex [
 	^ destinationIndex
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeContentTreeMoved >> destinationIndex: aNumber [
 	self
 		assert: [ aNumber > 0 ]
@@ -38,12 +38,12 @@ LeContentTreeMoved >> destinationIndex: aNumber [
 	destinationIndex := aNumber
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeContentTreeMoved >> destinationParent [
 	^ destinationParent
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeContentTreeMoved >> destinationParent: anObject [
 	destinationParent := anObject
 ]

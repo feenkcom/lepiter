@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeDuplicatePageIdError',
-	#superclass : 'Error',
+	#name : #LeDuplicatePageIdError,
+	#superclass : #Error,
 	#instVars : [
 		'page',
 		'file'
@@ -8,29 +8,29 @@ Class {
 	#category : 'Lepiter-Core-Exceptions'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDuplicatePageIdError >> file [
 	^ file
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDuplicatePageIdError >> file: anObject [
 	file := anObject
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeDuplicatePageIdError >> isResumable [
 	"Determine whether an exception is resumable."
 
 	^ true
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDuplicatePageIdError >> page [
 	^ page
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDuplicatePageIdError >> page: anObject [
 	page := anObject
 ]

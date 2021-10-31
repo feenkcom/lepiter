@@ -3,7 +3,7 @@ Is used to announce that the content tree is unspecifically modified and should 
 
 "
 Class {
-	#name : 'LeContentTreeModified',
-	#superclass : 'LeContentTreeChanged',
+	#name : #LeContentTreeModified,
+	#superclass : #LeContentTreeChanged,
 	#category : 'Lepiter-Core-Announcements'
 }

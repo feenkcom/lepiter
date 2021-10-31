@@ -1,10 +1,10 @@
 Class {
-	#name : 'LeNullFilter',
-	#superclass : 'LeFilter',
+	#name : #LeNullFilter,
+	#superclass : #LeFilter,
 	#category : 'Lepiter-Core-Database - Filters'
 }
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeNullFilter >> matches: aLeContent [
 	^ false
 ]

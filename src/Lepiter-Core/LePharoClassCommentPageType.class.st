@@ -7,15 +7,15 @@ This page type should only be used in a LePharoClassDatabase.
 
 "
 Class {
-	#name : 'LePharoClassCommentPageType',
-	#superclass : 'LePageType',
+	#name : #LePharoClassCommentPageType,
+	#superclass : #LePageType,
 	#instVars : [
 		'pharoClassName'
 	],
 	#category : 'Lepiter-Core-Model'
 }
 
-{ #category : 'jsonV3' }
+{ #category : #jsonV3 }
 LePharoClassCommentPageType class >> leJsonV4AttributeMapping [
 
 	^ super leJsonV4AttributeMapping
@@ -24,13 +24,13 @@ LePharoClassCommentPageType class >> leJsonV4AttributeMapping [
 
 ]
 
-{ #category : 'lepiter-store' }
+{ #category : #'lepiter-store' }
 LePharoClassCommentPageType class >> leJsonV4Name [
 
 	^ 'pharoClassCommentPage'
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 LePharoClassCommentPageType class >> pharoClassName: aSymbol page: aLePage [
 
 	^ self new 
@@ -38,7 +38,7 @@ LePharoClassCommentPageType class >> pharoClassName: aSymbol page: aLePage [
 		page: aLePage 
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 LePharoClassCommentPageType >> = anObject [
 	"Answer whether the receiver and anObject represent the same page type."
 
@@ -49,31 +49,31 @@ LePharoClassCommentPageType >> = anObject [
 	^ pharoClassName = anObject pharoClassName
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePharoClassCommentPageType >> databaseKey [
 	"Answer the attribute used to index a page of the receiver's type in the database."
 
 	^ pharoClassName
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 LePharoClassCommentPageType >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
 	^ pharoClassName hash
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePharoClassCommentPageType >> pharoClassName [
 	^ pharoClassName
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePharoClassCommentPageType >> pharoClassName: anObject [
 	pharoClassName := anObject
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 LePharoClassCommentPageType >> printOn: aStream [
 
 	aStream
@@ -81,7 +81,7 @@ LePharoClassCommentPageType >> printOn: aStream [
 		<< (pharoClassName ifNil: [ '<none>' ])
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePharoClassCommentPageType >> title [
 
 	^ pharoClassName, ' Comment'

@@ -1,22 +1,22 @@
 Class {
-	#name : 'LeDailyNoteTitleParser',
-	#superclass : 'Object',
+	#name : #LeDailyNoteTitleParser,
+	#superclass : #Object,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
 	#category : 'Lepiter-Core-Builders'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDailyNoteTitleParser class >> parse [
 ]
 
-{ #category : 'api - parsing' }
+{ #category : #'api - parsing' }
 LeDailyNoteTitleParser class >> parse: aTitle [
 	<return: #Date or: nil>
 	^ self default parse: aTitle
 ]
 
-{ #category : 'rendering' }
+{ #category : #rendering }
 LeDailyNoteTitleParser class >> titleFor: aDate [
 	"Answer the title string used for the supplied date"
 
@@ -29,7 +29,7 @@ LeDailyNoteTitleParser class >> titleFor: aDate [
 			print: aDate year ]
 ]
 
-{ #category : 'api - parsing' }
+{ #category : #'api - parsing' }
 LeDailyNoteTitleParser >> parse: aTitle [
 	<return: #Date or: nil>
 	| aCollection aMonth aDay anYear |

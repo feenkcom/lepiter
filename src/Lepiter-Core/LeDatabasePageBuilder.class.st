@@ -14,15 +14,15 @@ The following example shows a scenario in which a page is added when its title i
 
 "
 Class {
-	#name : 'LeDatabasePageBuilder',
-	#superclass : 'LePageBuilder',
+	#name : #LeDatabasePageBuilder,
+	#superclass : #LePageBuilder,
 	#instVars : [
 		'database'
 	],
 	#category : 'Lepiter-Core-Builders'
 }
 
-{ #category : 'api - building' }
+{ #category : #'api - building' }
 LeDatabasePageBuilder >> add [
 	<return: #LePage>
 	| aPage |
@@ -31,7 +31,7 @@ LeDatabasePageBuilder >> add [
 	^ aPage
 ]
 
-{ #category : 'api - building' }
+{ #category : #'api - building' }
 LeDatabasePageBuilder >> addOnlyAfterSettingTitle [
 	"Add the receiver's page to the database.  
 	If the page title hasn't been set, defer adding until after the title is set.  This is allows an empty page to be added to a UI, but only actually added to the database if the user decides to edit the contents.	"
@@ -44,7 +44,7 @@ LeDatabasePageBuilder >> addOnlyAfterSettingTitle [
 	^ aPage
 ]
 
-{ #category : 'private - building' }
+{ #category : #'private - building' }
 LeDatabasePageBuilder >> addPage: aPage laterTo: aDatabase [
 	"Schedule the page to be added to the database after its title has been set."
 	aPage addedToDatabase: aDatabase.
@@ -54,24 +54,24 @@ LeDatabasePageBuilder >> addPage: aPage laterTo: aDatabase [
 		for: { self. aPage }
 ]
 
-{ #category : 'private - building' }
+{ #category : #'private - building' }
 LeDatabasePageBuilder >> addPage: aPage to: aDatabase [
 	aDatabase addPage: aPage
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabasePageBuilder >> database [
 	^ database
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabasePageBuilder >> database: aDatabase [
 	database = aDatabase ifTrue: [ ^ self ].
 	database := aDatabase.
 	self onDatabaseChanged.
 ]
 
-{ #category : 'api - building' }
+{ #category : #'api - building' }
 LeDatabasePageBuilder >> ensure [
 	<return: #LePage>
 	^ self database 
@@ -79,14 +79,14 @@ LeDatabasePageBuilder >> ensure [
 		ifAbsent: [ self add ]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeDatabasePageBuilder >> initialize [
 	super initialize.
 	database := LeDatabase null.
 	self title: ''.
 ]
 
-{ #category : 'private - instance creation' }
+{ #category : #'private - instance creation' }
 LeDatabasePageBuilder >> newUniqueTitle [
 	| anIndex aTitle |
 	anIndex := 1.
@@ -99,12 +99,12 @@ LeDatabasePageBuilder >> newUniqueTitle [
 	^ aTitle
 ]
 
-{ #category : 'private - hooks' }
+{ #category : #'private - hooks' }
 LeDatabasePageBuilder >> onDatabaseChanged [
 	self createdNowBy: self database userEmail.
 ]
 
-{ #category : 'api - configuration' }
+{ #category : #'api - configuration' }
 LeDatabasePageBuilder >> uniqueTitle [
 	| aTitle |
 	aTitle := self newUniqueTitle.

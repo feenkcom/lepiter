@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeImplicitPageLink',
-	#superclass : 'LeLink',
+	#name : #LeImplicitPageLink,
+	#superclass : #LeLink,
 	#instVars : [
 		'title',
 		'origin',
@@ -10,13 +10,13 @@ Class {
 	#category : 'Lepiter-Core-Links'
 }
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeImplicitPageLink >> database [ 
 
 	^ origin database
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeImplicitPageLink >> editTime [ 
 	"Answer the edit time of the receiver's origin"
 	<return: #LeTime>
@@ -24,13 +24,13 @@ LeImplicitPageLink >> editTime [
 	^ origin editTime
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeImplicitPageLink >> node [
 	<return: #LeContentNode>
 	^ node
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeImplicitPageLink >> node: aNode [
 	self
 		assert: [ node isNil ] 
@@ -38,12 +38,12 @@ LeImplicitPageLink >> node: aNode [
 	node := aNode
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeImplicitPageLink >> origin [
 	^ origin
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeImplicitPageLink >> origin: aLeSnippet [
 
 	self
@@ -53,13 +53,13 @@ LeImplicitPageLink >> origin: aLeSnippet [
 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeImplicitPageLink >> originReference [
 	^ (LeLinkSnippetUidReference forSnippet: self origin)
 			explicitLink: self
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 LeImplicitPageLink >> printOn: aStream [
 	self title ifNil: [ ^ super printOn: aStream ].
 	aStream
@@ -67,12 +67,12 @@ LeImplicitPageLink >> printOn: aStream [
 		nextPutAll: self title asString
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeImplicitPageLink >> target [
 	^ target
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeImplicitPageLink >> target: aContent [
 
 	aContent == target ifTrue: [ ^ self ].
@@ -82,24 +82,24 @@ LeImplicitPageLink >> target: aContent [
 	target := aContent.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeImplicitPageLink >> targetReference [
 	^ (LeLinkPageTextualTitleReference forPage: self target)
 			explicitLink: self
 ]
 
-{ #category : 'api - accepting' }
+{ #category : #'api - accepting' }
 LeImplicitPageLink >> targetUID [
 	<return: #String>
 	^ self title
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeImplicitPageLink >> title [
 	^ title
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeImplicitPageLink >> title: anObject [
 	title := anObject
 ]

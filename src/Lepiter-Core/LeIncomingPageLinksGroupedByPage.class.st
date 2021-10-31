@@ -1,20 +1,20 @@
 Class {
-	#name : 'LeIncomingPageLinksGroupedByPage',
-	#superclass : 'LeIncomingPageLinksGroupedByOrigin',
+	#name : #LeIncomingPageLinksGroupedByPage,
+	#superclass : #LeIncomingPageLinksGroupedByOrigin,
 	#category : 'Lepiter-Core-IncomingReferences'
 }
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeIncomingPageLinksGroupedByPage >> isGroupedByPage [
 	^ true
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeIncomingPageLinksGroupedByPage >> referencingPage [
 	^ self origin
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeIncomingPageLinksGroupedByPage >> referencingPage: aLePage [
 	self origin: aLePage
 ]

@@ -12,8 +12,8 @@ The {{gtMethod:LeNotifier>>#local|label=#selector}} promoter is always executed 
 
 "
 Class {
-	#name : 'LeNotifier',
-	#superclass : 'Object',
+	#name : #LeNotifier,
+	#superclass : #Object,
 	#traits : 'TGtAssert',
 	#classTraits : 'TGtAssert classTrait',
 	#instVars : [
@@ -23,7 +23,7 @@ Class {
 	#category : 'Lepiter-Core-Notifier'
 }
 
-{ #category : 'api - notifying' }
+{ #category : #'api - notifying' }
 LeNotifier >> announce: anAnnouncement [
 	<return: #LeAnnouncement>
 	| theAnnouncement |
@@ -34,7 +34,7 @@ LeNotifier >> announce: anAnnouncement [
 	^ theAnnouncement
 ]
 
-{ #category : 'private - asserting' }
+{ #category : #'private - asserting' }
 LeNotifier >> assertPropagater: aPropagater [ 
 	self 
 		assert: [ aPropagater isNotNil ] 
@@ -48,68 +48,68 @@ LeNotifier >> assertPropagater: aPropagater [
 		description: [ 'Propagater order numbers must be unique' ].
 ]
 
-{ #category : 'private - asserting' }
+{ #category : #'private - asserting' }
 LeNotifier >> assertPropagaters [
 	self 
 		assert: [ self propagaters isNotEmpty ]
 		description: [ 'There must be at least one defined propagator' ]
 ]
 
-{ #category : 'api - configuration' }
+{ #category : #'api - configuration' }
 LeNotifier >> bubble [
 	self propagator: LeAnnouncementPropagater bubbling
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeNotifier >> content [
 	<rerturn: #LePage or: #LeTextSnippet>
 	^ content
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeNotifier >> content: aPageOrBlock [
 	content := aPageOrBlock
 ]
 
-{ #category : 'api - configuration' }
+{ #category : #'api - configuration' }
 LeNotifier >> database [
 	self propagator: LeAnnouncementPropagater database
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 LeNotifier >> defaultPropagaters [
 	^ SortedCollection sortUsing: [ :a :b | a order < b order ]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeNotifier >> initialize [
 	super initialize.
 	propagaters := self defaultPropagaters.
 ]
 
-{ #category : 'api - configuration' }
+{ #category : #'api - configuration' }
 LeNotifier >> local [
 	self propagator: LeAnnouncementPropagater local
 ]
 
-{ #category : 'api - configuration' }
+{ #category : #'api - configuration' }
 LeNotifier >> page [
 	self propagator: LeAnnouncementPropagater page
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeNotifier >> propagaters [
 	<return: #Collection of: #LeAnnouncementPropagater>
 	^ propagaters
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeNotifier >> propagator: aPropagater [
 	self assertPropagater: aPropagater.
 	propagaters add: aPropagater
 ]
 
-{ #category : 'api - configuration' }
+{ #category : #'api - configuration' }
 LeNotifier >> tree [
 	self propagator: LeAnnouncementPropagater tree
 ]

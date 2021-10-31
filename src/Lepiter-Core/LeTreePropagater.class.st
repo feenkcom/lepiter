@@ -10,12 +10,12 @@ I am used for announcements that needs to be propagated to all children. For exa
 
 "
 Class {
-	#name : 'LeTreePropagater',
-	#superclass : 'LeAnnouncementPropagater',
+	#name : #LeTreePropagater,
+	#superclass : #LeAnnouncementPropagater,
 	#category : 'Lepiter-Core-Notifier'
 }
 
-{ #category : 'api - promoting' }
+{ #category : #'api - promoting' }
 LeTreePropagater >> propagate: anAnnouncement in: aLeContent [
 	| theAnnouncement |
 	theAnnouncement := anAnnouncement.
@@ -24,7 +24,7 @@ LeTreePropagater >> propagate: anAnnouncement in: aLeContent [
 	^ theAnnouncement
 ]
 
-{ #category : 'private - enumeration' }
+{ #category : #'private - enumeration' }
 LeTreePropagater >> tree: aLeContent do: aBlock [
 	aBlock cull: aLeContent.
 	aLeContent allChildrenBreadthFirstDo: aBlock

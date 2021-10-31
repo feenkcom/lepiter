@@ -1,7 +1,7 @@
 "
-I display a {{gtClass:LeIncomingReferencesCards}} and {{gtClass:LeIncomingReferences}} label:
+I display an amount of references to a page and their type:
 
-{{gtExample:LeUIExamples>>#incomingReferencesLabelElement|previewExpanded}}
+{{gtExample:LeIncomingPageLinksTypeAndAmountElementExamples>>#linksTypeAndAmountElement|previewExpanded=true}}
 
 "
 Class {

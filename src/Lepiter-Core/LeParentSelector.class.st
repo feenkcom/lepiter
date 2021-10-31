@@ -5,14 +5,14 @@ I select the parent itself as a root item:
 
 "
 Class {
-	#name : 'LeParentSelector',
-	#superclass : 'LeRootItemsSelector',
+	#name : #LeParentSelector,
+	#superclass : #LeRootItemsSelector,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
 	#category : 'Lepiter-Core-Utility'
 }
 
-{ #category : 'api - collect' }
+{ #category : #'api - collect' }
 LeParentSelector >> rootsFor: aPageOrBlock into: aStream [
 	"Collect all root items"
 	aStream nextPut: aPageOrBlock

@@ -1,13 +1,13 @@
 Class {
-	#name : 'LeContentBuilder',
-	#superclass : 'Object',
+	#name : #LeContentBuilder,
+	#superclass : #Object,
 	#instVars : [
 		'content'
 	],
 	#category : 'Lepiter-Core-Builders'
 }
 
-{ #category : 'private - building' }
+{ #category : #'private - building' }
 LeContentBuilder >> buildEmailFrom: anEmail [
 	<return: #LeEmail>
 	^ anEmail isString
@@ -15,13 +15,13 @@ LeContentBuilder >> buildEmailFrom: anEmail [
 		ifFalse: [ anEmail ]
 ]
 
-{ #category : 'private - building' }
+{ #category : #'private - building' }
 LeContentBuilder >> buildPresentTime [
 	<return: #LeTime>
 	^ LeTime now
 ]
 
-{ #category : 'private - building' }
+{ #category : #'private - building' }
 LeContentBuilder >> buildTimeFrom: aTime [
 	<return: #LeTime>
 	^ (aTime isKindOf: LeTime)
@@ -29,27 +29,27 @@ LeContentBuilder >> buildTimeFrom: aTime [
 		ifFalse: [ LeTime new time: aTime asDateAndTime ]
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeContentBuilder >> content [
 	<return: #LeContent>
 	^ content
 ]
 
-{ #category : 'api - configuration' }
+{ #category : #'api - configuration' }
 LeContentBuilder >> createEmail: anEmail [
 	| aLeEmail |
 	aLeEmail := self buildEmailFrom: anEmail.
 	self content createEmail: aLeEmail.
 ]
 
-{ #category : 'api - configuration' }
+{ #category : #'api - configuration' }
 LeContentBuilder >> createTime: aTime [
 	| aLeTime |
 	aLeTime := self buildTimeFrom: aTime.
 	self content createTime: aLeTime.
 ]
 
-{ #category : 'api - configuration' }
+{ #category : #'api - configuration' }
 LeContentBuilder >> createdBy: anEmail [
 	| aLeEmail |
 	aLeEmail := self buildEmailFrom: anEmail.
@@ -57,7 +57,7 @@ LeContentBuilder >> createdBy: anEmail [
 	self editEmail: aLeEmail.
 ]
 
-{ #category : 'api - configuration' }
+{ #category : #'api - configuration' }
 LeContentBuilder >> createdNow [
 	| aTime |
 	aTime := self buildPresentTime.
@@ -65,55 +65,55 @@ LeContentBuilder >> createdNow [
 	self editTime: aTime.
 ]
 
-{ #category : 'api - configuration' }
+{ #category : #'api - configuration' }
 LeContentBuilder >> createdNowBy: anEmail [
 	self 
 		createdNow;
 		createdBy: anEmail
 ]
 
-{ #category : 'defaults' }
+{ #category : #defaults }
 LeContentBuilder >> defaultContent [
 	<return: #LeContent>
 	^ self subclassResponsibility
 ]
 
-{ #category : 'api - configuration' }
+{ #category : #'api - configuration' }
 LeContentBuilder >> editEmail: anEmail [
 	| aLeEmail |
 	aLeEmail := self buildEmailFrom: anEmail.
 	self content editEmail: aLeEmail.
 ]
 
-{ #category : 'api - configuration' }
+{ #category : #'api - configuration' }
 LeContentBuilder >> editTime: aTime [
 	| aLeTime |
 	aLeTime := self buildTimeFrom: aTime.
 	self content editTime: aLeTime.
 ]
 
-{ #category : 'api - configuration' }
+{ #category : #'api - configuration' }
 LeContentBuilder >> editedBy: anEmail [
 	| aLeEmail |
 	aLeEmail := self buildEmailFrom: anEmail.
 	self editEmail: aLeEmail.
 ]
 
-{ #category : 'api - configuration' }
+{ #category : #'api - configuration' }
 LeContentBuilder >> editedNow [
 	| aTime |
 	aTime := self buildPresentTime.
 	self editTime: aTime.
 ]
 
-{ #category : 'api - configuration' }
+{ #category : #'api - configuration' }
 LeContentBuilder >> editedNowBy: anEmail [
 	self 
 		editedNow;
 		editedBy: anEmail
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeContentBuilder >> initialize [
 	super initialize.
 	content := self defaultContent.

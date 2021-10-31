@@ -1,13 +1,13 @@
 Class {
-	#name : 'LePageUnlinkedReferencesFilter',
-	#superclass : 'LePageLinkedReferencesFilter',
+	#name : #LePageUnlinkedReferencesFilter,
+	#superclass : #LePageLinkedReferencesFilter,
 	#instVars : [
 		'page'
 	],
 	#category : 'Lepiter-Core-Database - Filters'
 }
 
-{ #category : 'testing' }
+{ #category : #testing }
 LePageUnlinkedReferencesFilter >> matches: aLeContent [
 	"Answer a boolean indicating whether the supplied content (page or content) references the page with the receiver's title as part of its text (but not an explicit link)."
 
@@ -20,7 +20,7 @@ LePageUnlinkedReferencesFilter >> matches: aLeContent [
 
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 LePageUnlinkedReferencesFilter >> printOn: aStream [
 	aStream
 		nextPutAll: self title;

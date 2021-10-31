@@ -1,5 +1,5 @@
 "
-I display a {{gtClass:LeDatabase}} or {{gtClass:LeLogicalDatabase}} recent pages: {{gtExample:LeUIWorldExamples>>#databaseRecentPageCardsElement|previewExpanded|codeExpanded=false|previewExpanded=true|previewHeight=333}}
+I display a {{gtClass:LeDatabase}} or {{gtClass:LeLogicalDatabase}} recent pages.
 ## Note
 {{gtMethod:LeDatabase>>#isPrimary|label=Primary}} {{gtClass:LeDatabase}} instances and {{gtClass:LeLogicalDatabase}} instances display as a first card a card with a today's title.
 

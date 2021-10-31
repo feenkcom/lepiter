@@ -7,27 +7,27 @@ Note that metadata (timestamps and email addresses) from the unknown snippet are
 
 "
 Class {
-	#name : 'LeUnknownSnippet',
-	#superclass : 'LeTextualSnippet',
+	#name : #LeUnknownSnippet,
+	#superclass : #LeTextualSnippet,
 	#instVars : [
 		'jsonString'
 	],
 	#category : 'Lepiter-Core-Model'
 }
 
-{ #category : 'factory' }
+{ #category : #factory }
 LeUnknownSnippet class >> empty [
 	"Return a block with empty text"
 	^ self new
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 LeUnknownSnippet class >> jsonString: aString [ 
 
 	^ self new jsonString: aString.
 ]
 
-{ #category : 'serializing' }
+{ #category : #serializing }
 LeUnknownSnippet class >> leJsonV3MappingFor: aNeoJSONMapper [
 	"LeUnknownSnippet simply writes its jsonString out"
 
@@ -42,7 +42,7 @@ LeUnknownSnippet class >> leJsonV3MappingFor: aNeoJSONMapper [
 				map neoJsonOn: jsonWriter ] ]
 ]
 
-{ #category : 'serializing' }
+{ #category : #serializing }
 LeUnknownSnippet class >> leJsonV4MappingFor: aNeoJSONMapper [
 	"LeUnknownSnippet simply writes its jsonString out"
 
@@ -57,13 +57,13 @@ LeUnknownSnippet class >> leJsonV4MappingFor: aNeoJSONMapper [
 				map neoJsonOn: jsonWriter ] ]
 ]
 
-{ #category : 'visiting' }
+{ #category : #visiting }
 LeUnknownSnippet >> acceptVisitor: aVisitor [
 
 	^ aVisitor visitUnknownSnippet: self
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeUnknownSnippet >> appendText: aText source: anObject [
 	"Text attributes aren't part of the model, so appending an empty text with attributes is meaningless and can be ignored"
 	aText ifEmpty: [ ^ self ].
@@ -73,14 +73,14 @@ LeUnknownSnippet >> appendText: aText source: anObject [
 		source: anObject.
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeUnknownSnippet >> contentAsString [
 	<return: #String>
 
 	^ jsonString
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 LeUnknownSnippet >> gtStringFor: aView [
 	<gtView>
 
@@ -92,26 +92,26 @@ LeUnknownSnippet >> gtStringFor: aView [
 		text: [ self jsonString ]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeUnknownSnippet >> initialize [
 	super initialize.
 	jsonString = ''.
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeUnknownSnippet >> jsonString [
 	<return: #String>
 
 	^ jsonString
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeUnknownSnippet >> jsonString: aString [
 
 	jsonString := aString
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeUnknownSnippet >> jsonString: aString source: anObject [
 
 	jsonString := aString.
@@ -120,7 +120,7 @@ LeUnknownSnippet >> jsonString: aString source: anObject [
 	self announceTextChangedBy: anObject
 ]
 
-{ #category : 'private - exporting' }
+{ #category : #'private - exporting' }
 LeUnknownSnippet >> markdownOn: stream level: anInteger [
 	"Write the receiver as an HTML string on the supplied stream.
 	This is currently a simplistic implementation which doesn't handle line breaks within the block properly (they need to be indented)"
@@ -138,7 +138,7 @@ LeUnknownSnippet >> markdownOn: stream level: anInteger [
 		child markdownOn: stream level: anInteger + 1 ]
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 LeUnknownSnippet >> printOn: aStream [
 	super printOn: aStream.
 	jsonString ifEmpty: [ ^ self ].
@@ -148,7 +148,7 @@ LeUnknownSnippet >> printOn: aStream [
 		nextPutAll: ')'
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeUnknownSnippet >> reloadFromContent: aLeSnippet [
 	"Reload the receiver from the supplied snippet"
 	| changed index myParent |
@@ -174,14 +174,14 @@ LeUnknownSnippet >> reloadFromContent: aLeSnippet [
 	^ changed
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeUnknownSnippet >> text [ 
 	<return: #BlText>
 
 	^ jsonString asRopedText
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeUnknownSnippet >> text: aBlText [
 
 	jsonString := aBlText asString

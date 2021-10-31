@@ -1,6 +1,6 @@
 Class {
-	#name : 'LePageDatabaseChanged',
-	#superclass : 'LePageAnnouncement',
+	#name : #LePageDatabaseChanged,
+	#superclass : #LePageAnnouncement,
 	#instVars : [
 		'previousDatabase',
 		'currentDatabase'
@@ -8,22 +8,22 @@ Class {
 	#category : 'Lepiter-Core-Announcements'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePageDatabaseChanged >> currentDatabase [
 	^ currentDatabase
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePageDatabaseChanged >> currentDatabase: anObject [
 	currentDatabase := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePageDatabaseChanged >> previousDatabase [
 	^ previousDatabase
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePageDatabaseChanged >> previousDatabase: anObject [
 	previousDatabase := anObject
 ]

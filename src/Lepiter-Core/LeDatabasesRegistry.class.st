@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeDatabasesRegistry',
-	#superclass : 'LeModel',
+	#name : #LeDatabasesRegistry,
+	#superclass : #LeModel,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
 	#instVars : [
@@ -9,73 +9,73 @@ Class {
 	#category : 'Lepiter-Core-Model'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabasesRegistry class >> defaultLogicalDatabase [
 
 	^ self uniqueInstance defaultLogicalDatabase
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabasesRegistry class >> defaultPlaygroundDatabase [
 
 	^ self uniqueInstance defaultPlaygroundDatabase
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabasesRegistry class >> defaultPrimaryDatabase [
 
 	^ self uniqueInstance defaultPrimaryDatabase
 ]
 
-{ #category : 'private - hooks' }
+{ #category : #'private - hooks' }
 LeDatabasesRegistry class >> onRemoveUniqueInstance: anInstance [
 	"Stop any open databases before removing the instance"
 
 	uniqueInstance stopMonitoring
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabasesRegistry >> clearDefaultLogicalDatabase [
 
 	self stopMonitoring.
 	^ defaultLogicalDatabase := nil
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabasesRegistry >> currentLoadedDefaultLogicalDatabase [
 
 	^ defaultLogicalDatabase 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabasesRegistry >> defaultLogicalDatabase [
 
 	^ defaultLogicalDatabase ifNil: [ defaultLogicalDatabase := self loadDefaultLogicalDatabase ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabasesRegistry >> defaultLogicalDatabase: anObject [
 	defaultLogicalDatabase := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabasesRegistry >> defaultPlaygroundDatabase [
 
 	^ self defaultLogicalDatabase playgroundDB
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabasesRegistry >> defaultPrimaryDatabase [
 
 	^ self defaultLogicalDatabase primaryDB
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeDatabasesRegistry >> hasDatabasesLoaded [
 	^ defaultLogicalDatabase notNil
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeDatabasesRegistry >> initializeForGlamorousToolkit [
 	| databaseProperties |
 	self assert: [ defaultLogicalDatabase isNil ].
@@ -84,19 +84,19 @@ LeDatabasesRegistry >> initializeForGlamorousToolkit [
 	
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeDatabasesRegistry >> loadDefaultLogicalDatabase [
 
 	^ LeLogicalDatabaseProperties default logicalDatabase
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeDatabasesRegistry >> setupForGlamorousToolkit [
 	self initializeForGlamorousToolkit.
 	^ self currentLoadedDefaultLogicalDatabase 
 ]
 
-{ #category : 'startup-shutdown' }
+{ #category : #'startup-shutdown' }
 LeDatabasesRegistry >> stopMonitoring [
 
 	defaultLogicalDatabase ifNotNil: 
