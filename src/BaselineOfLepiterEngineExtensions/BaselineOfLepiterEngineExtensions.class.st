@@ -28,7 +28,9 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 			baseline: 'Gt4DebugAdapterProtocol' with: [
 				spec repository: 'github://feenkcom/gtoolkit-debugadapterprotocol:main/src' ];
 			baseline: 'Gt4PharoLink' with: [
-				spec repository: 'github://feenkcom/gtoolkit-remote:main/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-remote:main/src' ];
+			baseline: 'LepiterYoutube' with: [
+				spec repository: 'github://feenkcom/lepiter:main/src' ].
 		spec 
 			package: 'Lepiter-Snippet-Text' with: [
 				spec requires: #('LepiterEngineCore' ). ];
