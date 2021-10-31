@@ -6,7 +6,7 @@ Class {
 	#instVars : [
 		'externalPicturesWriter'
 	],
-	#category : 'Lepiter-HTML-Exporter'
+	#category : #'Lepiter-HTML-Exporter'
 }
 
 { #category : #html }
@@ -56,22 +56,10 @@ LeHtmlExporterAnnotationVisitor >> visitClassAnnotation: aClassAnnotation [
 		ifTrue: [ ^ self writeClassLabel: aClassAnnotation ].
 	classNameArgument := aClassAnnotation nameNode.
 	self
-		putTag: 'pre '
-		with: [ self
-				putTag: 'code'
-				andAttributes: 'class="class_annotation"'
-				with: [ self putString: classNameArgument value source asHTMLString.
-					self
-						putTag: 'code'
-						andAttributes: 'class="class_definition"'
-						with: [
-							| behaviorDefinitionString |
-
-							behaviorDefinitionString := self
-								forPharo8: [ classNameArgument behavior definition ]
-								forPharo9: [ classNameArgument behavior definitionString ].
-
-							self putString: behaviorDefinitionString trimBoth asHTMLString ] ] ]
+		putTag: 'code'
+		andAttributes: 'class="class_annotation"'
+		with: [ 
+			self putString: classNameArgument value source asHTMLString ]
 ]
 
 { #category : #generated }

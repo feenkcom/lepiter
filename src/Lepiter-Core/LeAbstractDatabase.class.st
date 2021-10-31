@@ -2,7 +2,7 @@
 Lepiter supports multiple types of databases:
 
 - The 'normal' database is {{gtClass:LeDatabase}}, which represents a single instance of a database on-disk.
-- {{gtClass:LeLogicalDatabase}} is a collection of databases that can be used in a single UI ({{gtClass:LeWorld}}).
+- {{gtClass:LeLogicalDatabase}} is a collection of databases that can be used in a single UI.
 - {{gtClass:LePharoClassDatabase}} acts as a view on to the class comments in a Pharo image.
 
 "
@@ -15,7 +15,7 @@ Class {
 		'announcer',
 		'parent'
 	],
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #visiting }

@@ -162,7 +162,7 @@ m nodes
 			(each gtViewsFor: GtPhlowEmptyView new) asElementDo: [ :anInspectorElement |
 				aContainer addChild: ((anInspectorElement exact: 400@400) asScalableElement size: 200@200)
 			] ]) showDelay: 100 milliSeconds);
-		geometry: BlCircle new;
+		geometry: BlCircleGeometry new;
 		background: (each isDailyNote ifTrue: [Color blue] ifFalse: [Color red]) ];
 	with: all.
 m edges 

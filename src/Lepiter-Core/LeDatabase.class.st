@@ -32,7 +32,7 @@ Class {
 		'LocalWorkspaceDatabaseLocation',
 		'UserDatabaseLocation'
 	],
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #'api - instance creation' }
@@ -317,7 +317,7 @@ LeDatabase >> gtMapFor: aView [
 			m nodes 
 				stencil: [:each | BlElement new
 					size: 5@5; 
-					geometry: BlCircle new; 
+					geometry: BlCircleGeometry new; 
 					background: (each isDailyNote ifTrue: [Color blue] ifFalse: [Color red])];
 				with: (self pagesByDate select: [:each | 
 					each allChildOutgoingTextualLinks notEmpty or: [each incomingLinks notEmpty]]) .
