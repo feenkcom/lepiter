@@ -33,6 +33,8 @@ LeHtmlFragmentExporterExamples >> classAnnotation [
 	markdown := LeTextSnippet string: '{{gtClass:LeHtmlFragmentExporterExamples}}'.
 	html := String streamContents: [ :stream |
 		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
+	self assert: (html includesSubstring: '<code class="class_annotation">').
+	self assert: (html includesSubstring: 'LeHtmlFragmentExporterExamples').
 	^ html
 ]
 
