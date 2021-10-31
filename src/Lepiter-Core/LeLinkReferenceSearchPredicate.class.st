@@ -1,23 +1,23 @@
 Class {
-	#name : 'LeLinkReferenceSearchPredicate',
-	#superclass : 'Object',
+	#name : #LeLinkReferenceSearchPredicate,
+	#superclass : #Object,
 	#instVars : [
 		'searchBlock'
 	],
 	#category : 'Lepiter-Core-Search'
 }
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeLinkReferenceSearchPredicate >> matches: aLinkReference [
 	^ searchBlock value: aLinkReference
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkReferenceSearchPredicate >> searchBlock [
 	^ searchBlock
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkReferenceSearchPredicate >> searchBlock: anObject [
 	searchBlock := anObject
 ]

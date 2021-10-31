@@ -12,8 +12,8 @@ LeBlock is the common, abstract, superclass of all the content that can be added
 
 "
 Class {
-	#name : 'LeSnippet',
-	#superclass : 'LeContent',
+	#name : #LeSnippet,
+	#superclass : #LeContent,
 	#instVars : [
 		'parent',
 		'uid'
@@ -21,13 +21,13 @@ Class {
 	#category : 'Lepiter-Core-Model'
 }
 
-{ #category : 'visiting' }
+{ #category : #visiting }
 LeSnippet >> acceptVisitor: aVisitor [
 
 	^ aVisitor visitSnippet: self
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeSnippet >> addChildOrSiblingSnippet: aNewSnippet [
 	"Add a new snippet that is either:
 	- a sibling of the receiver if there are no children.
@@ -38,7 +38,7 @@ LeSnippet >> addChildOrSiblingSnippet: aNewSnippet [
 		ifFalse: [ self addSnippetAfterSelf: aNewSnippet ].
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeSnippet >> addChildOrSiblingSnippetOfClass: aNewSnippetClass [ 
 	"Add a new snippet that is either:
 	- a sibling of the receiver if there are no children.
@@ -49,7 +49,7 @@ LeSnippet >> addChildOrSiblingSnippetOfClass: aNewSnippetClass [
 		ifFalse: [ self addSnippetAfterSelfOfClass: aNewSnippetClass ].
 ]
 
-{ #category : 'adding' }
+{ #category : #adding }
 LeSnippet >> addExplicitLinkTo: aTargetReference [
 	self assert: [ self database notNil ].
 	self 
@@ -62,7 +62,7 @@ page is associated to a database. If not the link will be lost.'.
 		targetReference: aTargetReference).
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeSnippet >> addFirstSnippet: aLeSnippet [
 	"Add the supplied block as the first child of the receiver"
 
@@ -72,37 +72,37 @@ LeSnippet >> addFirstSnippet: aLeSnippet [
 	^ aLeSnippet
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeSnippet >> addSnippetAfterSelf [
 	"Add a new snippet after the receiver. Answer the new snippet"
 	^ self parent addSnippetAfter: self.
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeSnippet >> addSnippetAfterSelf: aNewSnippet [
 	"Add a new snippet after the receiver having the given class. Answer the new snippet"
 	^ self parent addSnippet: aNewSnippet after: self
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeSnippet >> addSnippetAfterSelfOfClass: aNewSnippetClass [ 
 	"Add a new snippet after the receiver having the given class. Answer the new snippet"
 	^ self parent addSnippetOfClass: aNewSnippetClass after: self
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeSnippet >> addSnippetBeforeSelf [
 	"Add a new snippet before the receiver. Answer the new snippet"
 	^ self parent addSnippetBefore: self.
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeSnippet >> addSnippetBeforeSelfOfClass: aNewSnippetClass [ 
 	"Add a new snippet before the receiver having the given class. Answer the new snippet"
 	^ self parent addSnippetOfClass: aNewSnippetClass before: self
 ]
 
-{ #category : 'api - notifications' }
+{ #category : #'api - notifications' }
 LeSnippet >> addedToParent: aParent [
 
 	self aboutToAddToDatabase: aParent database.
@@ -110,14 +110,14 @@ LeSnippet >> addedToParent: aParent [
 	self addedToDatabase: aParent database.
 ]
 
-{ #category : 'private - notifications' }
+{ #category : #'private - notifications' }
 LeSnippet >> announceContentChanged [
 	"Notify all dependents that the snippet's content (for example properties) has changed"
 
 	self announceContentChangedBy: nil
 ]
 
-{ #category : 'private - notifications' }
+{ #category : #'private - notifications' }
 LeSnippet >> announceContentChangedBy: aSourceObject [
 	"Notify all dependents that the snippet's content (for example properties) has changed"
 
@@ -126,7 +126,7 @@ LeSnippet >> announceContentChangedBy: aSourceObject [
 		snippet: self)
 ]
 
-{ #category : 'api - attaching / detaching' }
+{ #category : #'api - attaching / detaching' }
 LeSnippet >> attachChildSnippet: aNewSnippet [
 	self assert: [ aNewSnippet notNil ].
 	self assert: [ aNewSnippet parent isNil ].
@@ -136,7 +136,7 @@ LeSnippet >> attachChildSnippet: aNewSnippet [
 	^ aNewSnippet
 ]
 
-{ #category : 'api - attaching / detaching' }
+{ #category : #'api - attaching / detaching' }
 LeSnippet >> attachFirstChildSnippet: aNewSnippet [
 	self assert: [ aNewSnippet notNil ].
 	self assert: [ aNewSnippet parent isNil ].
@@ -146,7 +146,7 @@ LeSnippet >> attachFirstChildSnippet: aNewSnippet [
 	^ aNewSnippet
 ]
 
-{ #category : 'api - attaching / detaching' }
+{ #category : #'api - attaching / detaching' }
 LeSnippet >> attachToParent: aParentSnippet [
 	self assert: [ aParentSnippet notNil ].
 	self 
@@ -156,7 +156,7 @@ LeSnippet >> attachToParent: aParentSnippet [
 	self parent: aParentSnippet
 ]
 
-{ #category : 'api - attaching / detaching' }
+{ #category : #'api - attaching / detaching' }
 LeSnippet >> detachChildSnippet: aLeSnippet [
 	self assert: [ aLeSnippet notNil ].
 	self assert: [ aLeSnippet parent notNil ].
@@ -164,30 +164,30 @@ LeSnippet >> detachChildSnippet: aLeSnippet [
 	self children removeSnippet: aLeSnippet.
 ]
 
-{ #category : 'api - attaching / detaching' }
+{ #category : #'api - attaching / detaching' }
 LeSnippet >> detachFromParent [
 	self parent: nil
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeSnippet >> hasUid: aLeUID [
 
 	^ uid = aLeUID
 ]
 
-{ #category : 't-rotating' }
+{ #category : #'t-rotating' }
 LeSnippet >> heading [
 	^ nil
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeSnippet >> includesSnippetUid: aLeUID [
 	"Answer a boolean indicating whether the supplied uid is present"
 
 	^ (uid = aLeUID) or: [ self children includesSnippetUid: aLeUID ]
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeSnippet >> indent [
 	"Indent the receiver in the receiver's page, i.e. make it a child of the previous snippet.
 	If this is the first snippet at the current level, do nothing"
@@ -195,25 +195,25 @@ LeSnippet >> indent [
 	self parent indentSnippet: self.
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeSnippet >> isCodeSnippet [
 
 	^ false
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeSnippet >> isSnippet [
 
 	^ true
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeSnippet >> isTextSnippet [
 
 	^ false
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeSnippet >> mergeWithNext [
 	"Merge the contents of the receiver with the next block (the next sibling, or the parent's next).
 	Answer the merged block."
@@ -223,7 +223,7 @@ LeSnippet >> mergeWithNext [
 		ifNone: [ self error: 'Can''t merge the last block with a following block' ].
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeSnippet >> mergeWithPrevious [
 	"Merge the contents of the receiver with the previous block (the previous sibling, or the parent itself).
 	Answer the merged block."
@@ -233,7 +233,7 @@ LeSnippet >> mergeWithPrevious [
 		ifNone: [ self error: 'Can''t merge the first block with a previous block' ].
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeSnippet >> moveDown [
 	"Move the receiver down one snippet.
 	If the receiver has a sibling below it, move there, if not and the receiver's parent has a sibling below, move there"
@@ -241,7 +241,7 @@ LeSnippet >> moveDown [
 	self parent moveDownSnippet: self.
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeSnippet >> moveUp [
 	"Move the receiver up one snippet.
 	If the receiver has a sibling below it, move there, if not and the receiver's parent has a sibling below, move there"
@@ -249,7 +249,7 @@ LeSnippet >> moveUp [
 	self parent moveUpSnippet: self.
 ]
 
-{ #category : 'api - enumerating' }
+{ #category : #'api - enumerating' }
 LeSnippet >> nextBlockDo: aBlock ifNone: aNoneBlock [
 	self
 		deprecated: 'Use #nextSnippetDo:ifNone: instead'
@@ -260,7 +260,7 @@ LeSnippet >> nextBlockDo: aBlock ifNone: aNoneBlock [
 	^ self nextSnippetDo: aBlock ifNone: aNoneBlock
 ]
 
-{ #category : 'api - enumerating' }
+{ #category : #'api - enumerating' }
 LeSnippet >> nextSibling [
 	"Answer the next sibling"
 	| myIndex |
@@ -274,7 +274,7 @@ LeSnippet >> nextSibling [
 		ifFalse: [ self parent blocks at: myIndex + 1 ]
 ]
 
-{ #category : 'api - enumerating' }
+{ #category : #'api - enumerating' }
 LeSnippet >> nextSiblingDo: aBlock ifNone: aNoneBlock [
 	"Find a next sibling block in the tree and evaluate aBlock if such block found, aNoneBlock otherwise.
 	The next sibling is considered to be the first found from:
@@ -291,7 +291,7 @@ LeSnippet >> nextSiblingDo: aBlock ifNone: aNoneBlock [
 		ifFalse: [ aBlock value: (self parent children at: myIndex + 1) ]
 ]
 
-{ #category : 'api - enumerating' }
+{ #category : #'api - enumerating' }
 LeSnippet >> nextSnippetDo: aBlock ifNone: aNoneBlock [
 	"Find a next snippet in the tree and evaluate aBlock if such snippet found, aNoneBlock otherwise.
 	The next snippet is considered to be the first found from:
@@ -311,13 +311,13 @@ LeSnippet >> nextSnippetDo: aBlock ifNone: aNoneBlock [
 		ifFalse: [ aBlock value: (self parent children at: myIndex + 1) ]
 ]
 
-{ #category : 'api - notifications' }
+{ #category : #'api - notifications' }
 LeSnippet >> notifier [
 	^ LeNotifier new
 		content: self
 ]
 
-{ #category : 'private - notifications' }
+{ #category : #'private - notifications' }
 LeSnippet >> notifyAnnouncement: anAnnouncement [
 	"Send anAnnouncement to all dependents of the snippet"
 
@@ -326,7 +326,7 @@ LeSnippet >> notifyAnnouncement: anAnnouncement [
 		announce: anAnnouncement
 ]
 
-{ #category : 'private - hooks' }
+{ #category : #'private - hooks' }
 LeSnippet >> onAboutToAddToDatabase: aDatabase [ 
 	"Ensure the receiver has a uid before it is added to a database"
 	super onAboutToAddToDatabase: aDatabase .
@@ -334,7 +334,7 @@ LeSnippet >> onAboutToAddToDatabase: aDatabase [
 	aDatabase registerSnippet: self.
 ]
 
-{ #category : 'private - hooks' }
+{ #category : #'private - hooks' }
 LeSnippet >> onRemovedFromDatabase: aDatabase [
 	super onRemovedFromDatabase: aDatabase.
 	aDatabase unregisterSnippet: self.
@@ -343,30 +343,30 @@ LeSnippet >> onRemovedFromDatabase: aDatabase [
 	aDatabase removeIncomingExplicitLinksForContent: self.
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeSnippet >> outgoingTextualLinks [
 	^ LeExplicitLinks new
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeSnippet >> page [
 	^ self parent
 		ifNil: [ nil ] 
 		ifNotNil: [ self parent page ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeSnippet >> parent [
 	<return: #LeContent>
 	^ parent
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeSnippet >> parent: aParent [ 
 	parent := aParent
 ]
 
-{ #category : 'api - enumerating' }
+{ #category : #'api - enumerating' }
 LeSnippet >> previousBlockDo: aBlock ifNone: aNoneBlock [
 	self
 		deprecated: 'Use #previousSnippetDo:ifNone: instead'
@@ -377,7 +377,7 @@ LeSnippet >> previousBlockDo: aBlock ifNone: aNoneBlock [
 	^ self previousSnippetDo: aBlock ifNone: aNoneBlock
 ]
 
-{ #category : 'api - enumerating' }
+{ #category : #'api - enumerating' }
 LeSnippet >> previousSibling [
 	"Answer the previous sibling"
 
@@ -389,7 +389,7 @@ LeSnippet >> previousSibling [
 		ifFalse: [ self parent children at: myIndex - 1 ]
 ]
 
-{ #category : 'api - enumerating' }
+{ #category : #'api - enumerating' }
 LeSnippet >> previousSnippetDo: aBlock ifNone: aNoneBlock [
 	"Find a previous snippet in the tree and evaluate aBlock if such snippet found, aNoneBlock otherwise.
 	The previous snippet is considered to be the first found from:
@@ -407,7 +407,7 @@ LeSnippet >> previousSnippetDo: aBlock ifNone: aNoneBlock [
 		ifFalse: [ aBlock value: (self parent children at: myIndex - 1) lastChildOrSelf ]
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeSnippet >> reloadAttributesFromContent: aSnippet [
 	| attributesReloader |
 	attributesReloader := LeContentAttributesReloader forContent: self.
@@ -415,7 +415,7 @@ LeSnippet >> reloadAttributesFromContent: aSnippet [
 	^ attributesReloader hasChanges
 ]
 
-{ #category : 'removing' }
+{ #category : #removing }
 LeSnippet >> removeSelf [
 	"Remove the receiver from its parent"
 	
@@ -424,7 +424,7 @@ LeSnippet >> removeSelf [
 	self parent removeSnippet: self
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeSnippet >> requestMergeWithBlock: aBlock [
 	"Request a merge between the receiver and the given block. 
 	As a result of the request depending on the implementation:
@@ -437,14 +437,14 @@ LeSnippet >> requestMergeWithBlock: aBlock [
 	^ self subclassResponsibility
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeSnippet >> topBlock [
 	^ (self parent isNil or: [ self parent isPage ])
 		ifTrue: [ self ] 
 		ifFalse: [ self parent topBlock ]
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeSnippet >> transferChildrenTo: aSnippet [
 	"Transfer the children of the receiver to the supplied snippet."
 
@@ -456,30 +456,30 @@ LeSnippet >> transferChildrenTo: aSnippet [
 			aSnippet addSnippet: each ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeSnippet >> uid [
 	<return: #LeUID>
 	^ uid
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeSnippet >> uid: aLeUID [
 	uid := aLeUID
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeSnippet >> uidString [ 
 
 	^ uid uidString
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSnippet >> uidString: aString64 [
 
 	uid := LeUID new uidString: aString64
 ]
 
-{ #category : 'api - editing' }
+{ #category : #'api - editing' }
 LeSnippet >> unindent [
 	"Unindent the receiver in the receiver's page, i.e. make it follow its parent snippet.
 	If this is a first level snippet, do nothing"
@@ -487,7 +487,7 @@ LeSnippet >> unindent [
 	self parent unindentSnippet: self.
 ]
 
-{ #category : 'installing' }
+{ #category : #installing }
 LeSnippet >> unload [ 
 
 	self notifier

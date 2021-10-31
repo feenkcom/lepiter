@@ -1,17 +1,17 @@
 Class {
-	#name : 'LeDailyNoteTitleBuilder',
-	#superclass : 'Object',
+	#name : #LeDailyNoteTitleBuilder,
+	#superclass : #Object,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
 	#category : 'Lepiter-Core-Builders'
 }
 
-{ #category : 'factory' }
+{ #category : #factory }
 LeDailyNoteTitleBuilder class >> today [
 	^ self new today
 ]
 
-{ #category : 'private - building' }
+{ #category : #'private - building' }
 LeDailyNoteTitleBuilder >> daySuffix: aDay [
 	| aCharacter |
 	(aDay > 10 and: [ aDay < 15 ]) ifTrue: [ ^ 'th' ].
@@ -22,7 +22,7 @@ LeDailyNoteTitleBuilder >> daySuffix: aDay [
 	^ 'th'
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDailyNoteTitleBuilder >> title: aDateAndTime [
 	| aDate aYear aMonth aDay aDaySuffix |
 	aDate := aDateAndTime asDate.
@@ -40,7 +40,7 @@ LeDailyNoteTitleBuilder >> title: aDateAndTime [
 			print: aYear ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDailyNoteTitleBuilder >> today [
 	^ self title: Date today
 ]

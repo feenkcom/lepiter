@@ -1,13 +1,13 @@
 Class {
-	#name : 'LeIncomingPageToPageLink',
-	#superclass : 'LeIncomingPageLink',
+	#name : #LeIncomingPageToPageLink,
+	#superclass : #LeIncomingPageLink,
 	#instVars : [
 		'referencingPage'
 	],
 	#category : 'Lepiter-Core-IncomingReferences'
 }
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeIncomingPageToPageLink >> isFromPage [
 	"Return true if the page link is coming from some page"
 	<reutrn: #Boolean>
@@ -15,7 +15,7 @@ LeIncomingPageToPageLink >> isFromPage [
 	^ true
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeIncomingPageToPageLink >> isFromPage: aLePage [
 	"Return true if the page link is coming from a given page"
 	<reutrn: #Boolean>
@@ -23,12 +23,12 @@ LeIncomingPageToPageLink >> isFromPage: aLePage [
 	^ self referencingPage = aLePage
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeIncomingPageToPageLink >> referencingPage [
 	^ referencingPage
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeIncomingPageToPageLink >> referencingPage: anObject [
 	referencingPage := anObject
 ]

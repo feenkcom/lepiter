@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeLinkSearchPredicate',
-	#superclass : 'Object',
+	#name : #LeLinkSearchPredicate,
+	#superclass : #Object,
 	#instVars : [
 		'originSearchPredicate',
 		'targetSearchPredicate'
@@ -8,7 +8,7 @@ Class {
 	#category : 'Lepiter-Core-Search'
 }
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeLinkSearchPredicate >> initialize [
 	super initialize.
 	self originSearchPredicate: (LeLinkReferenceSearchPredicate new
@@ -17,28 +17,28 @@ LeLinkSearchPredicate >> initialize [
 		searchBlock: [ :aReference | true ])
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeLinkSearchPredicate >> matches: aLink [
 	^ (self originSearchPredicate matches: aLink originReference) and: [ 
 		self targetSearchPredicate matches: aLink targetReference ] 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkSearchPredicate >> originSearchPredicate [
 	^ originSearchPredicate
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkSearchPredicate >> originSearchPredicate: anObject [
 	originSearchPredicate := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkSearchPredicate >> targetSearchPredicate [
 	^ targetSearchPredicate
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkSearchPredicate >> targetSearchPredicate: anObject [
 	targetSearchPredicate := anObject
 ]

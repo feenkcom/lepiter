@@ -1,20 +1,20 @@
 Class {
-	#name : 'LeNullEmail',
-	#superclass : 'LeNullModel',
+	#name : #LeNullEmail,
+	#superclass : #LeNullModel,
 	#category : 'Lepiter-Core-Model'
 }
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeNullEmail >> email [
 	^ ''
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeNullEmail >> email: aString [
 	"ignore"
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 LeNullEmail >> printOn: aStream [
 	aStream nextPutAll: 'Non-existent email'
 ]

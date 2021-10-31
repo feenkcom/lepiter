@@ -1,10 +1,10 @@
 Class {
-	#name : 'LeLink',
-	#superclass : 'LeModel',
+	#name : #LeLink,
+	#superclass : #LeModel,
 	#category : 'Lepiter-Core-Links'
 }
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeLink >> isExplicitLink [
 	^ false
 ]

@@ -1,20 +1,20 @@
 Class {
-	#name : 'LeHeadingStyle',
-	#superclass : 'LeParagraphStyle',
+	#name : #LeHeadingStyle,
+	#superclass : #LeParagraphStyle,
 	#instVars : [
 		'level'
 	],
 	#category : 'Lepiter-Core-Model'
 }
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 LeHeadingStyle >> = anObject [
 
 	^ self class = anObject class and:
 		[ self level = anObject level ]
 ]
 
-{ #category : 'private - asserting' }
+{ #category : #'private - asserting' }
 LeHeadingStyle >> assertLevel: anInteger [
 	self 
 		assert: [ anInteger isNotNil ]
@@ -25,24 +25,24 @@ LeHeadingStyle >> assertLevel: anInteger [
 	
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 LeHeadingStyle >> hash [ 
 
 	^ self class hash bitXor: level hash
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeHeadingStyle >> level [
 	^ level ifNil: 0
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeHeadingStyle >> level: anInteger [
 	self assertLevel: anInteger.
 	level := anInteger
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeHeadingStyle >> printOn: aStream [
 	aStream 
 		nextPutAll: 'Heading ';

@@ -11,15 +11,15 @@ LePharoClassPageType holds the playground for the named class.
 
 "
 Class {
-	#name : 'LePharoClassPageType',
-	#superclass : 'LePageType',
+	#name : #LePharoClassPageType,
+	#superclass : #LePageType,
 	#instVars : [
 		'pageClassName'
 	],
 	#category : 'Lepiter-Core-Model'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 LePharoClassPageType class >> pageClassName: aSymbol page: aLePage [
 
 	^ self new 
@@ -27,7 +27,7 @@ LePharoClassPageType class >> pageClassName: aSymbol page: aLePage [
 		page: aLePage 
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 LePharoClassPageType >> = anObject [
 	"Answer whether the receiver and anObject represent the same page type."
 
@@ -38,26 +38,26 @@ LePharoClassPageType >> = anObject [
 	^ pageClassName = anObject pageClassName
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePharoClassPageType >> databaseKey [
 	"Answer the attribute used to index a page of the receiver's type in the database."
 
 	^ self pageClassName
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 LePharoClassPageType >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
 	^ pageClassName hash
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LePharoClassPageType >> isPharoClassPageType [
 	^ true
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePharoClassPageType >> pageClass [ 
 	^ (pageClassName endsWith: ' class')
 		ifTrue: [
@@ -69,21 +69,21 @@ LePharoClassPageType >> pageClass [
 			self class environment at: pageClassName ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePharoClassPageType >> pageClassName [
 	<return: #Symbol>
 
 	^ pageClassName
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePharoClassPageType >> pageClassName: aSymbolOrString [
 	"Set the receiver's class. The class name is stored as a Symbol or String"
 
 	pageClassName := aSymbolOrString
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 LePharoClassPageType >> printOn: aStream [
 
 	aStream
@@ -91,7 +91,7 @@ LePharoClassPageType >> printOn: aStream [
 		<< (pageClassName ifNil: [ '<none>' ])
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePharoClassPageType >> title [
 
 	^ pageClassName, ' Page'

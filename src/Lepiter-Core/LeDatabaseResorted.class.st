@@ -3,8 +3,8 @@ I am announced by {{gtClass:LeDatabase}}, with the appropriate {{gtClass:LeDatab
 
 "
 Class {
-	#name : 'LeDatabaseResorted',
-	#superclass : 'LeDatabaseAnnouncement',
+	#name : #LeDatabaseResorted,
+	#superclass : #LeDatabaseAnnouncement,
 	#instVars : [
 		'page',
 		'isChangedToNormalPage',
@@ -13,32 +13,32 @@ Class {
 	#category : 'Lepiter-Core-Announcements'
 }
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabaseResorted >> isChangedToDailyNote [
 	^ isChangedToDailyNote
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabaseResorted >> isChangedToDailyNote: anObject [
 	isChangedToDailyNote := anObject
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabaseResorted >> isChangedToNormalPage [
 	^ isChangedToNormalPage
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabaseResorted >> isChangedToNormalPage: anObject [
 	isChangedToNormalPage := anObject
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabaseResorted >> page [
 	^ page
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabaseResorted >> page: anObject [
 	page := anObject
 ]

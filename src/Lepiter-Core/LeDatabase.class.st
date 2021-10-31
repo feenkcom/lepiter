@@ -15,8 +15,8 @@ The database currently holds a single userEmail address, implying that a databas
 
 "
 Class {
-	#name : 'LeDatabase',
-	#superclass : 'LeAbstractDatabase',
+	#name : #LeDatabase,
+	#superclass : #LeAbstractDatabase,
 	#traits : 'TLeExplicitLinksKnowledgeBase',
 	#classTraits : 'TLeExplicitLinksKnowledgeBase classTrait',
 	#instVars : [
@@ -32,15 +32,15 @@ Class {
 		'LocalWorkspaceDatabaseLocation',
 		'UserDatabaseLocation'
 	],
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
-{ #category : 'api - instance creation' }
+{ #category : #'api - instance creation' }
 LeDatabase class >> null [
 	^ LeNullDatabase default
 ]
 
-{ #category : 'api - attachments' }
+{ #category : #'api - attachments' }
 LeDatabase >> addAttachmentByCopy: aFileReference [
 	"Copy the attached file to the receiver's DB and answer the relative path string to the file"
 	<return: #String>
@@ -52,7 +52,7 @@ LeDatabase >> addAttachmentByCopy: aFileReference [
 	^ (attachmentFileReference relativeTo: self localStoreRootDirectory) fullName.
 ]
 
-{ #category : 'api - attachments' }
+{ #category : #'api - attachments' }
 LeDatabase >> addAttachmentByMove: aFileReference [
 	"Move the attached file to the receiver's DB and answer the relative path string to the file"
 	<return: #String>
@@ -65,7 +65,7 @@ LeDatabase >> addAttachmentByMove: aFileReference [
 
 ]
 
-{ #category : 'api - attachments' }
+{ #category : #'api - attachments' }
 LeDatabase >> addAttachmentWithContent: aString named: aName [
 	"Create an attachment to the receiver's DB and answer the relative path string to the file"
 	<return: #String>
@@ -78,7 +78,7 @@ LeDatabase >> addAttachmentWithContent: aString named: aName [
 	^ (attachmentFileReference relativeTo: self localStoreRootDirectory) fullName.
 ]
 
-{ #category : 'api - adding / removing' }
+{ #category : #'api - adding / removing' }
 LeDatabase >> addPage: aLePage [
 	"Add the supplied page.
 	An exception handler may decide to ignore the page and answer nil if the page is a duplicate.
@@ -90,46 +90,46 @@ LeDatabase >> addPage: aLePage [
 	^ page
 ]
 
-{ #category : 'announcer' }
+{ #category : #announcer }
 LeDatabase >> announce: anAnnouncement [
 	"This is a duplicate of the parent's trait, but is required since it is an explicit requirement of TLeExplicitLinksKnowledgeBase"
 
 	^ self announcer announce: anAnnouncement
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> anyOne [
 
 	^ self do: [ :aPage | ^ aPage ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> at: aKey forPageType: aPageType [
 	"Lookup the given key for aPageType, if not present raise an exception"
 
 	^ (pagesByType at: aPageType) at: aKey
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> at: aKey ifAbsent: anAbsentBlock forPageType: aPageType [
 	"Lookup the given key for aPageType, if not present answer the value of anAbsentBlock"
 
 	^ (pagesByType at: aPageType) at: aKey ifAbsent: anAbsentBlock
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> at: aKey ifPresent: aPresentBlock ifAbsent: anAbsentBlock forPageType: aPageType [
 	"Lookup the given key for aPageType, if present answer the value of aPresentBlock, if not, the value of anAbsentBlock"
 
 	^ (pagesByType at: aPageType) at: aKey ifPresent: aPresentBlock ifAbsent: anAbsentBlock
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> attachmentDirectories [
 	^ self monitor attachmentsDirectory directories collect: [:dir | dir]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeDatabase >> attachmentDirectoryAndMetadataFor: aFileReference [
 	"Create the attachment directory and populate the metadata for the supplied file reference.
 	Answer the directory."
@@ -148,7 +148,7 @@ LeDatabase >> attachmentDirectoryAndMetadataFor: aFileReference [
 	^ attachmentDirectory resolve
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabase >> attachmentsDirectory [
 	"Answer the directory where DB attachments are stored"
 	<return: #FileReference>
@@ -161,25 +161,25 @@ LeDatabase >> attachmentsDirectory [
 
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> blockWithUID: aLeUID [
 
 	^ blocksByUID at: aLeUID
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> blockWithUID: aLeUID ifPresent: presentBlock ifAbsent: absentBlock [
 
 	^ blocksByUID at: aLeUID ifPresent: presentBlock ifAbsent: absentBlock
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> children [ 
 
 	^ self pages
 ]
 
-{ #category : 'api - enumerating' }
+{ #category : #'api - enumerating' }
 LeDatabase >> dailyNotes [
 	"Answer the receiver's daily notes sorted by date"
 	<return: #Collection of: #LePage>
@@ -192,33 +192,33 @@ LeDatabase >> dailyNotes [
 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabase >> databaseName [
 	<return: #String or: nil>
 	
 	^ monitor ifNotNil: #databaseName
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabase >> databaseName: aString [
 	"Set the database name. nil to clear the name"
 
 	monitor ifNotNil: [ :aMonitor | aMonitor databaseName: aString ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> databasesDo: aBlock [
 	aBlock cull: self
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabase >> defaultEmail [
 	"Answer the default email address to use"
 
 	^ '<unknown>'
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabase >> defaultFilename [
 	"Answer the default filename.
 	If filename is nil the database doesn't yet havde a name, use lepiterexportXXX.json, where XXX is an auto-incrementing number (this is different from the version number generated in #save)"
@@ -232,7 +232,7 @@ LeDatabase >> defaultFilename [
 	^ fileReference
 ]
 
-{ #category : 'api - adding / removing' }
+{ #category : #'api - adding / removing' }
 LeDatabase >> detachPage: aPage [
 	"I detach the page from the give database. The page could remain deleted or be later added to
 	another database."
@@ -247,14 +247,14 @@ LeDatabase >> detachPage: aPage [
 		page: aPage).
 ]
 
-{ #category : 'api - enumerating' }
+{ #category : #'api - enumerating' }
 LeDatabase >> do: aBlock [ 
 	"Evaluate aBlock for every page in the receiver"
 
 	pagesByType valuesDo: [ :pageType | pageType valuesDo: aBlock ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> ensurePageNamed: aString [ 
 	"Answer the page named aString, creating if necessary"
 
@@ -262,19 +262,19 @@ LeDatabase >> ensurePageNamed: aString [
 			ifAbsent: [ self pageBuilder title: aString; add ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabase >> filename [
 	<return: #FileReference>
 
 	^ filename ifNil: [ filename := self defaultFilename ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabase >> filename: anObject [
 	filename := anObject asFileReference
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabase >> gtAttachmentsFor: aView [
 	<gtView>
 	self monitor ifNil: [ ^ aView empty ].
@@ -285,7 +285,7 @@ LeDatabase >> gtAttachmentsFor: aView [
 		view: #gtAttachmentsFor:
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 LeDatabase >> gtDailyNotesFor: aView [
 	<gtView>
 	self pages ifNil: [ ^ aView empty ].
@@ -308,7 +308,7 @@ LeDatabase >> gtDailyNotesFor: aView [
 				ifFalse: [ aPageOrDailyNote editEmail ] ]
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 LeDatabase >> gtMapFor: aView [
 	<gtView>
 	^ aView mondrian
@@ -317,7 +317,7 @@ LeDatabase >> gtMapFor: aView [
 			m nodes 
 				stencil: [:each | BlElement new
 					size: 5@5; 
-					geometry: BlCircle new; 
+					geometry: BlCircleGeometry new; 
 					background: (each isDailyNote ifTrue: [Color blue] ifFalse: [Color red])];
 				with: (self pagesByDate select: [:each | 
 					each allChildOutgoingTextualLinks notEmpty or: [each incomingLinks notEmpty]]) .
@@ -330,7 +330,7 @@ LeDatabase >> gtMapFor: aView [
 			m ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabase >> gtViewCorruptFilesFor: aView [
 	<gtView>
 	monitor ifNil: [ ^ aView empty ].
@@ -341,7 +341,7 @@ LeDatabase >> gtViewCorruptFilesFor: aView [
 		view: #gtViewCorruptFilesFor:
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabase >> gtViewFilesNameMappingFor: aView [
 	<gtView>
 	monitor ifNil: [ ^ aView empty ].
@@ -352,7 +352,7 @@ LeDatabase >> gtViewFilesNameMappingFor: aView [
 		view: #gtNameMappingFor:
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 LeDatabase >> gtViewPagesByTypeFor: aView [
 	<gtView>
 	^ aView columnedList
@@ -364,7 +364,7 @@ LeDatabase >> gtViewPagesByTypeFor: aView [
 		send: #value
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabase >> gtViewTableOfContentsNodesFor: aView [
 	<gtView>
 	^ aView tree
@@ -374,7 +374,7 @@ LeDatabase >> gtViewTableOfContentsNodesFor: aView [
 		children: #children
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 LeDatabase >> gtViewUnnamedPageFor: aView [
 	<gtView>
 	(pagesByType includesKey: LeUnnamedPageType)
@@ -395,32 +395,32 @@ LeDatabase >> gtViewUnnamedPageFor: aView [
 				ifFalse: [ aPage children first ] ]
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeDatabase >> hasBlockUID: aLeUID [
 
 	^ blocksByUID includesKey: aLeUID
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeDatabase >> hasChildren [ 
 
 	self do: [ :aPage | ^ true ].
 	^ false
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeDatabase >> hasMonitor [
 	^ monitor notNil
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeDatabase >> hasNamedPages [
 	"Answer a boolean indicating if the receiver has named pages"
 
 	^ self pagesByName isNotEmpty
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeDatabase >> hasPageNamed: aTitle [
 	<return: #Boolean>
 	^ self pagesByName  
@@ -429,7 +429,7 @@ LeDatabase >> hasPageNamed: aTitle [
 		ifAbsent: [ false ]
 ]
 
-{ #category : 'private - testing' }
+{ #category : #'private - testing' }
 LeDatabase >> hasPageUID: aUUID [
 	"Answer a boolean indicating whether the receiver includes a page with the supplied UID.
 	This is a slow method and should only be used while adding pages"
@@ -438,7 +438,7 @@ LeDatabase >> hasPageUID: aUUID [
 	^ false
 ]
 
-{ #category : 'api - query' }
+{ #category : #'api - query' }
 LeDatabase >> hasPageWithLinkTo: aTargetReference [
 	^ self 
 		pageWithLinkTo: aTargetReference 
@@ -446,27 +446,27 @@ LeDatabase >> hasPageWithLinkTo: aTargetReference [
 		ifAbsent: [ false ] 
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeDatabase >> hasParentDatabase [
 	^ self parent isNotNil.
 ]
 
-{ #category : 'private - testing' }
+{ #category : #'private - testing' }
 LeDatabase >> hasSortedDailyNotes [
 	^ dailyNotesByDate isNotNil 
 ]
 
-{ #category : 'private - testing' }
+{ #category : #'private - testing' }
 LeDatabase >> hasSortedItems [
 	^ pagesByDate isNotNil 
 ]
 
-{ #category : 'private - testing' }
+{ #category : #'private - testing' }
 LeDatabase >> hasTextualSnippetLinks [
 	^ self textualSnippetsLinksCount > 0
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeDatabase >> initialize [
 	super initialize.
 	pagesByType := IdentityDictionary new.
@@ -483,17 +483,17 @@ LeDatabase >> initialize [
 		to: self.
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeDatabase >> isDatabase [
 	^ true
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeDatabase >> isLogicalDatabase [
 	^ false
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeDatabase >> isPrimary [
 	"Answer true if my parent considers me as a primary database"
 	^ self parent
@@ -501,7 +501,7 @@ LeDatabase >> isPrimary [
 		ifNil: [ true ]
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabase >> linkKeyFor: aLink [
 	"Answer the key used to index the link in the link dictionaries"
 
@@ -510,14 +510,14 @@ LeDatabase >> linkKeyFor: aLink [
 		ifNotNil: [ aLink targetUID ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> linksCount [
 	"Answer the number of links in the receiver"
 
 	^ self explicitLinksCount
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabase >> linksWithMatchingOriginFilter: aReferenceFilter [
 	| linkFilter |
 	linkFilter := LeLinkOriginReferenceSearchFilter new
@@ -525,7 +525,7 @@ LeDatabase >> linksWithMatchingOriginFilter: aReferenceFilter [
 	^ self explicitLinks select: [ :aLink | linkFilter matches: aLink ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabase >> linksWithMatchingTargetFilter: aReferenceFilter [
 	| linkFilter |
 	linkFilter := LeLinkTargetReferenceSearchFilter new
@@ -533,35 +533,35 @@ LeDatabase >> linksWithMatchingTargetFilter: aReferenceFilter [
 	^ self explicitLinks select: [ :aLink | linkFilter matches: aLink ]
 ]
 
-{ #category : 'api - query' }
+{ #category : #'api - query' }
 LeDatabase >> linksWithOriginReferenceMatching: aLinkReference [
 	^ self explicitLinks select: [:aLink | 
 		aLink originReference matches:  aLinkReference ]
 ]
 
-{ #category : 'api - query' }
+{ #category : #'api - query' }
 LeDatabase >> linksWithTargetReferenceMatching: aLinkReference [
 	^ self explicitLinks select: [:aLink | 
 		aLink targetReference matches: aLinkReference ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> localStoreRootDirectory [
 	<return: #FileReference or: nil>
 	^ monitor ifNotNil: #localRoot
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabase >> monitor [
 	^ monitor
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabase >> monitor: anObject [
 	monitor := anObject
 ]
 
-{ #category : 'api - adding / removing' }
+{ #category : #'api - adding / removing' }
 LeDatabase >> movePage: aPage toDatabase: aNewDatabase [
 	"Move the page from the current database to a new database."
 	
@@ -574,7 +574,7 @@ LeDatabase >> movePage: aPage toDatabase: aNewDatabase [
 		page: aPage).
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabase >> name: aString [
 	"Name the receiver.
 	This is currently only used to name the db exports"
@@ -584,7 +584,7 @@ LeDatabase >> name: aString [
 	filename := basename asFileReference
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 LeDatabase >> newUID [
 	"Generate a new UID.
 	Ensure the UID doesn't already exist"
@@ -596,7 +596,7 @@ LeDatabase >> newUID [
 	^ uid
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabase >> newUniqueUuid [
 	"Return a new UUID unique to this database based on the current content"
 	| newUuid |
@@ -610,7 +610,7 @@ LeDatabase >> newUniqueUuid [
 	^ newUuid
 ]
 
-{ #category : 'private - notifying' }
+{ #category : #'private - notifying' }
 LeDatabase >> notifyTableOfContensPageIdChangedFrom: anOldUUID to: aNewUUID [
 
 	| anOldPage |
@@ -625,7 +625,7 @@ LeDatabase >> notifyTableOfContensPageIdChangedFrom: anOldUUID to: aNewUUID [
 		newPage: self tableOfContents)
 ]
 
-{ #category : 'private - hooks' }
+{ #category : #'private - hooks' }
 LeDatabase >> onPageTitleChanged: aLePageTitleChanged [
 	| page |
 
@@ -640,31 +640,31 @@ LeDatabase >> onPageTitleChanged: aLePageTitleChanged [
 		isChangedToNormalPage: aLePageTitleChanged isChangedToNormalPage).
 ]
 
-{ #category : 'api - adding / removing' }
+{ #category : #'api - adding / removing' }
 LeDatabase >> pageBuilder [
 	^ LeDatabasePageBuilder new database: self
 ]
 
-{ #category : 'paging' }
+{ #category : #paging }
 LeDatabase >> pageCount [
 
 	^ pagesByType inject: 0 into: [ :s :v | s + v size ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> pageNamed: aString [
 
 	^ self pagesByName at: aString
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> pageNamed: aString ifAbsent: absentBlock [
 
 	^ self pagesByName at: aString
 		ifAbsent: absentBlock
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> pageNamed: aString ifPresent: presentBlock ifAbsent: absentBlock [
 
 	^ self pagesByName at: aString
@@ -672,7 +672,7 @@ LeDatabase >> pageNamed: aString ifPresent: presentBlock ifAbsent: absentBlock [
 		ifAbsent: absentBlock
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> pageNamed: aString inDatabase: targetDatabaseUID [
 	"Answer the page with the given UID"
 
@@ -681,7 +681,7 @@ LeDatabase >> pageNamed: aString inDatabase: targetDatabaseUID [
 		ifNotNil: [ ^ self parent pageNamed: aString inDatabase: targetDatabaseUID ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> pageNamed: aString inDatabase: targetDatabaseUID ifDbAbsent: dbAbsentBlock [
 	"Answer the page with the given title in the specified database.
 	If the database is absent, answer dbAbsentBlock's value.  If the page is absent, raise an exception."
@@ -692,13 +692,13 @@ LeDatabase >> pageNamed: aString inDatabase: targetDatabaseUID ifDbAbsent: dbAbs
 		[ ^ parent ifNotNil: [ self parent pageNamed: aString inDatabase: targetDatabaseUID ifDbAbsent: dbAbsentBlock ] ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> pageNames [
 
 	^ self pagesByName keys
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> pageWithID: pageId [
 	| uid |
 
@@ -709,7 +709,7 @@ LeDatabase >> pageWithID: pageId [
 	NotFound signalFor: pageId.
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> pageWithID: pageId ifAbsent: absentBlock [
 	| uid |
 
@@ -720,7 +720,7 @@ LeDatabase >> pageWithID: pageId ifAbsent: absentBlock [
 	^ absentBlock value.
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> pageWithID: pageId ifPresent: presentBlock ifAbsent: absentBlock [
 	| uid |
 
@@ -731,7 +731,7 @@ LeDatabase >> pageWithID: pageId ifPresent: presentBlock ifAbsent: absentBlock [
 	^ absentBlock value.
 ]
 
-{ #category : 'api - query' }
+{ #category : #'api - query' }
 LeDatabase >> pageWithLinkTo: aTargetReference ifAbsent: anAbsentBlock [ 
 	^ self 
 		pageWithLinkTo: aTargetReference 
@@ -739,7 +739,7 @@ LeDatabase >> pageWithLinkTo: aTargetReference ifAbsent: anAbsentBlock [
 		ifAbsent: anAbsentBlock 
 ]
 
-{ #category : 'api - query' }
+{ #category : #'api - query' }
 LeDatabase >> pageWithLinkTo: aTargetReference ifPresent: aPresentBlock ifAbsent: anAbsentBlock [ 
 	self pagesDo: [ :aPage |
 		(aPage outgoingExplicitLinks anySatisfy: [ :aLink |
@@ -748,7 +748,7 @@ LeDatabase >> pageWithLinkTo: aTargetReference ifPresent: aPresentBlock ifAbsent
 	^ anAbsentBlock value
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> pages [
 	| pages |
 
@@ -757,7 +757,7 @@ LeDatabase >> pages [
 	^ pages
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> pagesByDate [
 
 	^ pagesByDate ifNil: [ 
@@ -768,13 +768,13 @@ LeDatabase >> pagesByDate [
 			pagesByDate ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> pagesByDateToShow [
 	^ self pagesByDate reject: [ :aPage |
 		aPage type isPharoClassPageType  ]
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabase >> pagesByName [
 	"Answer the pages by name.
 	This is internal structure that may change."
@@ -782,20 +782,20 @@ LeDatabase >> pagesByName [
 	^ pagesByType at: LeNamedPageType
 ]
 
-{ #category : 'api - enumerating' }
+{ #category : #'api - enumerating' }
 LeDatabase >> pagesDo: aBlock [ 
 
 	^ self do: aBlock
 ]
 
-{ #category : 'api - enumerating' }
+{ #category : #'api - enumerating' }
 LeDatabase >> pagesWithNameDo: aBlock [ 
 
 	^ self pagesByName do: [ :assoc |
 		aBlock value: assoc value ]
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 LeDatabase >> printOn: aStream [
 
 	self hasMonitor ifTrue: 
@@ -812,7 +812,7 @@ LeDatabase >> printOn: aStream [
 		nextPutAll: ' links'
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabase >> properties [
 	"Answer the DB properties.
 	For now, this is handled by the monitor"
@@ -820,7 +820,7 @@ LeDatabase >> properties [
 	^ monitor
 ]
 
-{ #category : 'private - adding / removing' }
+{ #category : #'private - adding / removing' }
 LeDatabase >> reSortCollectionsDueTo: aLePageTitleChanged [
 	| aPage |
 	aPage := aLePageTitleChanged page.
@@ -834,7 +834,7 @@ LeDatabase >> reSortCollectionsDueTo: aLePageTitleChanged [
 		ifTrue: [ self dailyNotes reSort ]
 ]
 
-{ #category : 'adding / removing' }
+{ #category : #'adding / removing' }
 LeDatabase >> registerSnippet: aSnippet [
 
 	self
@@ -854,7 +854,7 @@ LeDatabase >> registerSnippet: aSnippet [
 	blocksByUID at: aSnippet uid put: aSnippet
 ]
 
-{ #category : 'api - import and export' }
+{ #category : #'api - import and export' }
 LeDatabase >> reload [
 	"Reload the database.
 	Any changes made during the reload may be lost"
@@ -862,7 +862,7 @@ LeDatabase >> reload [
 	monitor reload
 ]
 
-{ #category : 'private - development' }
+{ #category : #'private - development' }
 LeDatabase >> removeEmptyPages [
 	"Remove empty pages from the receiver.
 	This is just for manual maintenace during development"
@@ -873,13 +873,13 @@ LeDatabase >> removeEmptyPages [
 		self removePage: page ]
 ]
 
-{ #category : 'api - adding / removing' }
+{ #category : #'api - adding / removing' }
 LeDatabase >> removeFromParentDatabase [
 	self parent ifNil: [ ^ self ].
 	self parent removeDB: self.
 ]
 
-{ #category : 'api - adding / removing' }
+{ #category : #'api - adding / removing' }
 LeDatabase >> removePage: aPage [
 	"Remove the supplied page from the receiver.
 	All outgoing links are removed. Incoming links becore unresolved.
@@ -894,7 +894,7 @@ LeDatabase >> removePage: aPage [
 		page: aPage).
 ]
 
-{ #category : 'api - attachments' }
+{ #category : #'api - attachments' }
 LeDatabase >> resolveDbFile: aString [
 	"Resolve the supplied relative path reference against the receiver's database"
 
@@ -903,7 +903,7 @@ LeDatabase >> resolveDbFile: aString [
 	^ monitor resolveDbFile: aString
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> scanForLinksTo: aPage [
 	"Answer the links to the supplied page.
 	
@@ -916,7 +916,7 @@ LeDatabase >> scanForLinksTo: aPage [
 
 ]
 
-{ #category : 'private - adding / removing' }
+{ #category : #'private - adding / removing' }
 LeDatabase >> setPage: aLePage [
 	"Add the supplied page to the receiver without updating links and metadata.
 	This may be used as part of a bulk load to ensure linked pages aren't created prematurely.
@@ -943,7 +943,7 @@ LeDatabase >> setPage: aLePage [
 	^ aLePage
 ]
 
-{ #category : 'api - adding / removing' }
+{ #category : #'api - adding / removing' }
 LeDatabase >> setPageUpdate: aLePage [
 	"Complete the addition of the supplied page, i.e. setting metadata if required, updating links, announcing.
 	Raise an error if a page with the same title exists."
@@ -956,7 +956,7 @@ LeDatabase >> setPageUpdate: aLePage [
 		page: aLePage).
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeDatabase >> setPages: aCollection [
 	"Set the receiver's pages to aCollection.
 	This is used for bulk loading, so assumes the database is empty."
@@ -973,13 +973,13 @@ LeDatabase >> setPages: aCollection [
 			self setPageUpdate: aLePage ].
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> size [ 
 
 	^ self pageCount
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> snippetsCount [
 	"Answer the number of snippets in the database"
 
@@ -987,47 +987,47 @@ LeDatabase >> snippetsCount [
 
 ]
 
-{ #category : 'api - enumerating' }
+{ #category : #'api - enumerating' }
 LeDatabase >> snippetsDo: aBlock [
 	"Evalute aBlock against every snippet in the receiver"
 
 	blocksByUID valuesDo: aBlock
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> sortedPages [
 	^ self pagesByDate
 ]
 
-{ #category : 'startup-shutdown' }
+{ #category : #'startup-shutdown' }
 LeDatabase >> startMonitoring [ 
 	"If the receiver has a db monitor, tell it to start (saving changes to the receiver)"
 
 	monitor ifNotNil: [ monitor startMonitoring ]
 ]
 
-{ #category : 'startup-shutdown' }
+{ #category : #'startup-shutdown' }
 LeDatabase >> stopMonitoring [ 
 	"If the receiver has a db monitor, tell it to stop (saving changes to the receiver)"
 
 	monitor ifNotNil: [ monitor stopMonitoring ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabase >> tableOfContents [ 
 
 	^ self tableOfContentsPageID
 		ifNotNil: [ :pageID | self pageWithID: pageID ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabase >> tableOfContentsPageID [
 	"Answer the page UUID for the Table Of Contents, or nil if not set"
 
 	^ monitor ifNotNil: #tableOfContentsPageID 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabase >> tableOfContentsPageID: aNewUUID [
 	"Set the page UUID for the Table Of Contents.  nil to clear the ToC"
 
@@ -1042,7 +1042,7 @@ LeDatabase >> tableOfContentsPageID: aNewUUID [
 	
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> textualPageLinksCount [
 	"Answer the number of textual page links in the receiver"
 
@@ -1052,7 +1052,7 @@ LeDatabase >> textualPageLinksCount [
 
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> textualSnippetsLinksCount [
 	"Answer the number of textual snippet links in the receiver"
 
@@ -1062,7 +1062,7 @@ LeDatabase >> textualSnippetsLinksCount [
 
 ]
 
-{ #category : 'api - import and export' }
+{ #category : #'api - import and export' }
 LeDatabase >> unload [ 
 	"Announce that the receiver and all its content has been unloaded"
 
@@ -1071,7 +1071,7 @@ LeDatabase >> unload [
 	self announcer announce: (LeDatabaseUnloadAnnouncement new content: self).
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabase >> unnamedPagesByUid [
 	"Answer the unnamed pages by uid.
 	This is internal structure that may change."
@@ -1079,14 +1079,14 @@ LeDatabase >> unnamedPagesByUid [
 	^ pagesByType at: LeUnnamedPageType
 ]
 
-{ #category : 'api - enumerating' }
+{ #category : #'api - enumerating' }
 LeDatabase >> unnamedPagesDo: aBlock [ 
 
 	^ self unnamedPagesByUid do: [ :assoc |
 		aBlock value: assoc value ]
 ]
 
-{ #category : 'adding / removing' }
+{ #category : #'adding / removing' }
 LeDatabase >> unregisterSnippet: aSnippet [
 	self assert: [ aSnippet uid notNil ].
 	self assert: [ aSnippet uid uid notNil ].
@@ -1095,7 +1095,7 @@ LeDatabase >> unregisterSnippet: aSnippet [
 	blocksByUID removeKey: aSnippet uid
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDatabase >> updateAttachmentNamed: aFileName content: anObject [
 	| aFile |
 	aFile := self resolveDbFile: aFileName.
@@ -1104,7 +1104,7 @@ LeDatabase >> updateAttachmentNamed: aFileName content: anObject [
 		aStream nextPutAll: anObject asString ].
 ]
 
-{ #category : 'private - hooks' }
+{ #category : #'private - hooks' }
 LeDatabase >> updateByTypeStorageDueTo: aLePageTitleChanged [
 	| aPage oldTypeClass newTypeClass |
 	aPage := aLePageTitleChanged page.
@@ -1122,7 +1122,7 @@ LeDatabase >> updateByTypeStorageDueTo: aLePageTitleChanged [
 		put: aPage
 ]
 
-{ #category : 'private - adding / removing' }
+{ #category : #'private - adding / removing' }
 LeDatabase >> updateSortedCollectionsDueToAddition: aPage [
 	self hasSortedItems
 		ifTrue: [ self sortedPages add: aPage ].
@@ -1130,7 +1130,7 @@ LeDatabase >> updateSortedCollectionsDueToAddition: aPage [
 		ifTrue: [ self dailyNotes add: aPage ]
 ]
 
-{ #category : 'private - adding / removing' }
+{ #category : #'private - adding / removing' }
 LeDatabase >> updateSortedCollectionsDueToRemoval: aPage [
 	self hasSortedItems
 		ifTrue: [ self sortedPages remove: aPage ].
@@ -1138,7 +1138,7 @@ LeDatabase >> updateSortedCollectionsDueToRemoval: aPage [
 		ifTrue: [ self dailyNotes remove: aPage ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> userEmail [
 	<return: #LeEmail>
 	^ self 
@@ -1146,7 +1146,7 @@ LeDatabase >> userEmail [
 		ifAbsentPut: [ LeEmail new email: self defaultEmail ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> userEmail: anEmail [
 	"Set the user's email address"
 	| email |
@@ -1161,13 +1161,13 @@ LeDatabase >> userEmail: anEmail [
 	monitor ifNotNil: [ monitor userEmail: email email ].
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeDatabase >> userEmailOptionName [
 
 	^ #userEmail
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> uuid [ 
 	"Answer the receiver's UUID"
 	<return: #UUID>
@@ -1177,7 +1177,7 @@ LeDatabase >> uuid [
 		ifNotNil: [ monitor uuid ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDatabase >> uuidString [
 	"Answer the receiver's UUID in string format"
 	<return: #String>

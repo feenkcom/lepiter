@@ -1,24 +1,24 @@
 Class {
-	#name : 'LeExplicitLinksRemovedAnnouncement',
-	#superclass : 'LeExplicitLinksChange',
+	#name : #LeExplicitLinksRemovedAnnouncement,
+	#superclass : #LeExplicitLinksChange,
 	#instVars : [
 		'removedExplicitLinks'
 	],
 	#category : 'Lepiter-Core-Links'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExplicitLinksRemovedAnnouncement >> removedExplicitLinks [
 	^ removedExplicitLinks
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExplicitLinksRemovedAnnouncement >> removedExplicitLinks: aCollectionOfLeExplicitLinks [
 	self assert: [ aCollectionOfLeExplicitLinks notNil ].
 	removedExplicitLinks := aCollectionOfLeExplicitLinks
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeExplicitLinksRemovedAnnouncement >> requiresSavingOfLinks [
 	^ self removedExplicitLinks notNil and: [
 		self removedExplicitLinks anySatisfy: #isAttachedLink ]

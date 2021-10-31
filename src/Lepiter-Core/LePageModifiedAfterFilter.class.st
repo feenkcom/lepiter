@@ -1,6 +1,6 @@
 Class {
-	#name : 'LePageModifiedAfterFilter',
-	#superclass : 'LeFilter',
+	#name : #LePageModifiedAfterFilter,
+	#superclass : #LeFilter,
 	#instVars : [
 		'date',
 		'dateString'
@@ -8,7 +8,7 @@ Class {
 	#category : 'Lepiter-Core-Database - Filters'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePageModifiedAfterFilter class >> filterDescriptorFor: aLeDatabase do: aBlock [
 	| dates |
 	dates := GtPrefixTree new.
@@ -32,7 +32,7 @@ LePageModifiedAfterFilter class >> filterDescriptorFor: aLeDatabase do: aBlock [
 				completion: (GtStringsCompletionStrategy new completions: dates))
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePageModifiedAfterFilter >> date [
 	^ date
 		ifNil: [ date := [ DateAndTime fromString: dateString ]
@@ -40,25 +40,25 @@ LePageModifiedAfterFilter >> date [
 				do: [ :ex | ex return: DateAndTime now ] ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePageModifiedAfterFilter >> dateString [
 	^ dateString
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePageModifiedAfterFilter >> dateString: aString [
 	dateString := aString.
 	date := nil
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LePageModifiedAfterFilter >> matches: aLeContent [
 	^ aLeContent editOrCreateTime
 		ifNil: [ false ]
 		ifNotNil: [ :leTime | leTime time >= self date ]
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 LePageModifiedAfterFilter >> printOn: aStream [
 	aStream
 		nextPutAll: 'Modified After ';
