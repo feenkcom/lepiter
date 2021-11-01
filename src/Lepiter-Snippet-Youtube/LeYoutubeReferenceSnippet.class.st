@@ -46,7 +46,7 @@ LeYoutubeReferenceSnippet >> asSnippetViewModel [
 
 { #category : #accessing }
 LeYoutubeReferenceSnippet >> authorName [
-	^ leRawYoutubeReferenceInfo authorName
+	^ self leRawYoutubeReferenceInfo authorName
 ]
 
 { #category : #accessing }
@@ -62,17 +62,23 @@ LeYoutubeReferenceSnippet >> contentAsString [
 { #category : #accessing }
 LeYoutubeReferenceSnippet >> gtYoutubeReferenceInfoFor: aView [
 	<gtView>
-	^ leRawYoutubeReferenceInfo gtYoutubeReferenceInfoFor: aView.
+	^ self leRawYoutubeReferenceInfo gtYoutubeReferenceInfoFor: aView.
 ]
 
 { #category : #accessing }
 LeYoutubeReferenceSnippet >> html [
-	^ leRawYoutubeReferenceInfo html
+	^ self leRawYoutubeReferenceInfo html
+]
+
+{ #category : #accessing }
+LeYoutubeReferenceSnippet >> leRawYoutubeReferenceInfo [
+	^ leRawYoutubeReferenceInfo ifNil: [
+		leRawYoutubeReferenceInfo := LeRawYoutubeReferenceInfo fromYoutubeStringUrl: urlString]
 ]
 
 { #category : #accessing }
 LeYoutubeReferenceSnippet >> title [
-	^ leRawYoutubeReferenceInfo title
+	^ self leRawYoutubeReferenceInfo title
 ]
 
 { #category : #accessing }
