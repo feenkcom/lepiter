@@ -7,7 +7,7 @@ Class {
 		'styler',
 		'normalFontSize'
 	],
-	#category : 'Lepiter-UI-Snippet-Text styler'
+	#category : #'Lepiter-UI-Snippet-Text styler'
 }
 
 { #category : #styling }
@@ -16,8 +16,8 @@ LeAnnotationStylerVisitor >> applyButtonAttributeFor: aChangesAnnotation [
 		beAppend;
 		stencil:
 			(GtButtonStencilBuilder new
-				label: GtDocumentConstants applyButtonLabel;
-				icon: GtDocumentConstants applyButtonIcon;
+				label: LepiterConstants applyButtonLabel;
+				icon: LepiterConstants applyButtonIcon;
 				action: [ aChangesAnnotation changes applyChanges ])
 ]
 
@@ -34,9 +34,9 @@ LeAnnotationStylerVisitor >> changesFor: aChangesAnnotation [
 				at: fn
 				ifAbsentPut: [ | fileNameWithExtension filename changes |
 					fileNameWithExtension := (fn
-						endsWith: GtDocumentConstants changesFileExtension)
+						endsWith: LepiterConstants changesFileExtension)
 						ifTrue: [ fn ]
-						ifFalse: [ fn , GtDocumentConstants changesFileExtension ].
+						ifFalse: [ fn , LepiterConstants changesFileExtension ].
 					filename := self resolve: fileNameWithExtension.
 					changes := GtEpicea new.
 					changes ombuFile: filename.
@@ -53,8 +53,8 @@ LeAnnotationStylerVisitor >> createButtonAttributeFor: aChangesAnnotation [
 		beAppend;
 		stencil:
 			(GtButtonStencilBuilder new
-				label: GtDocumentConstants createButtonLabel;
-				icon: GtDocumentConstants createButtonIcon;
+				label: LepiterConstants createButtonLabel;
+				icon: LepiterConstants createButtonIcon;
 				action: [ :aButton | aButton phlow spawnObject: aChangesAnnotation changes ])
 ]
 
@@ -315,10 +315,10 @@ LeAnnotationStylerVisitor >> styleExpandingExample: anExampleAnnotation [
 		previewExpanded: anExampleAnnotation previewExpanded;
 		previewShowSelector:
 			(anExampleAnnotation previewShowSelector
-				ifNil: [ GtDocumentConstants defaultShowSelector ]);
+				ifNil: [ LepiterConstants defaultShowSelector ]);
 		previewHeight:
 			(anExampleAnnotation previewHeight
-				ifNil: [ GtDocumentConstants defaultPreviewHeight ]).
+				ifNil: [ LepiterConstants defaultPreviewHeight ]).
 
 	(self text
 		from: anExampleAnnotation parent startPosition
@@ -340,7 +340,7 @@ LeAnnotationStylerVisitor >> styleExpandingObject: aClassAnnotation withDefault:
 				withCache: self elements key: cacheKey;
 				result: aClassAnnotation imageObject;
 				showSelector: (aClassAnnotation showSelector ifNil: [ aSymbol ]);
-				height: (aClassAnnotation height ifNil: [ GtDocumentConstants defaultPreviewHeight ]) ];
+				height: (aClassAnnotation height ifNil: [ LepiterConstants defaultPreviewHeight ]) ];
 		onCachingDo: [ :aBoolean :theAttribute | self expanded at: cacheKey put: aBoolean ].
 
 	self text
@@ -422,7 +422,7 @@ LeAnnotationStylerVisitor >> visitChangesAnnotation: aChangesAnnotation [
 		withTool: [ GtPhlowTool default object: aChangesAnnotation imageObject ].
 	self
 		styleExpandingObject: aChangesAnnotation
-		withDefault: GtDocumentConstants defaultChangesShowSelector.
+		withDefault: LepiterConstants defaultChangesShowSelector.
 	self styleApplyButtonFor: aChangesAnnotation
 ]
 
@@ -441,7 +441,7 @@ LeAnnotationStylerVisitor >> visitClassAnnotation: aClassAnnotation [
 		withTool: [ GtClassCoderTool forClass: aClassAnnotation imageObject ].
 	self
 		styleExpandingObject: aClassAnnotation
-		withDefault: GtDocumentConstants defaultClassShowSelector
+		withDefault: LepiterConstants defaultClassShowSelector
 ]
 
 { #category : #visiting }
@@ -478,7 +478,7 @@ LeAnnotationStylerVisitor >> visitMethodAnnotation: aMethodAnnotation [
 		withTool: [ GtMethodCoderTool compiledMethod: aMethodAnnotation imageObject ].
 	self
 		styleExpandingObject: aMethodAnnotation
-		withDefault: GtDocumentConstants defaultMethodShowSelector
+		withDefault: LepiterConstants defaultMethodShowSelector
 ]
 
 { #category : #generated }
