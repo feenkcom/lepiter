@@ -1,8 +1,8 @@
 Class {
 	#name : #GtEpiceaDiffAttribute,
 	#superclass : #BrTextAdornmentAttribute,
-	#traits : 'TGtDocumentConstants',
-	#classTraits : 'TGtDocumentConstants classTrait',
+	#traits : 'TLepiterConstants',
+	#classTraits : 'TLepiterConstants classTrait',
 	#instVars : [
 		'text'
 	],

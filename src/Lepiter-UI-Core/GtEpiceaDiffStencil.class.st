@@ -1,8 +1,8 @@
 Class {
 	#name : #GtEpiceaDiffStencil,
 	#superclass : #BrStencil,
-	#traits : 'TGtDocumentConstants',
-	#classTraits : 'TGtDocumentConstants classTrait',
+	#traits : 'TLepiterConstants',
+	#classTraits : 'TLepiterConstants classTrait',
 	#instVars : [
 		'from',
 		'to'
