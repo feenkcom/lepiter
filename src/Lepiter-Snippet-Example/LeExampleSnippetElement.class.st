@@ -12,7 +12,7 @@ Class {
 		'runExampleButton',
 		'exportExampleButton'
 	],
-	#category : 'Lepiter-Snippet-Example-Snippet'
+	#category : #'Lepiter-Snippet-Example-Snippet'
 }
 
 { #category : #'private - event handling' }
@@ -165,7 +165,7 @@ LeExampleSnippetElement >> onSnippetViewModelFocused: aBoolean [
 { #category : #'private - event handling' }
 LeExampleSnippetElement >> runExample [
 	self snippetViewModel gtExampleDo: [ :aGtExample |
-		self phlow spawnObject: aGtExample run returnValueOrExampleException ]
+		self phlow spawnObject: aGtExample run returnValue ]
 ]
 
 { #category : #'api - view' }
