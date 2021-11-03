@@ -17,6 +17,8 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 		spec 
 			baseline: 'GToolkitInspector' with: [
 				spec repository: 'github://feenkcom/gtoolkit-inspector:main/src' ];
+			baseline: 'Brick' with: [
+				spec repository: 'github://feenkcom/Brick:main/src' ];
 			baseline: 'NeoJSON' with: [
 				spec repository: 'github://svenvc/NeoJSON:v17/repository' ].
 		spec 
@@ -32,7 +34,7 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 			package: 'Lepiter-Translator-JupyterNotebook' with: [
 				spec requires: #('Lepiter-Core' ). ];
 			package: 'Lepiter-UI-Core' with: [
-				spec requires: #('Lepiter-Core' 'GToolkitInspector' ). ];
+				spec requires: #('Lepiter-Core' 'GToolkitInspector' 'Brick' ). ];
 			package: 'Lepiter-UI-Snippet' with: [
 				spec requires: #('Lepiter-Core' 'Lepiter-UI-Core' 'Lepiter-Parser' ). ];
 			package: 'Lepiter-UI-Page' with: [
