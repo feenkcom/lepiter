@@ -331,9 +331,9 @@ LeChangesSnippetViewModel >> updateChanges [
 		ifTrue: [ ^ self unsetChanges ].
 
 	fileNameWithExtension := (self snippetModel fileName
-		endsWith: LepiterConstants changesFileExtension)
+		endsWith: GtDocumentConstants changesFileExtension)
 		ifTrue: [ self snippetModel fileName ]
-		ifFalse: [ self snippetModel fileName , LepiterConstants changesFileExtension ].
+		ifFalse: [ self snippetModel fileName , GtDocumentConstants changesFileExtension ].
 
 	aFile := self resolveFileName: fileNameWithExtension.
 

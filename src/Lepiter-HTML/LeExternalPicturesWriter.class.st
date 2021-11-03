@@ -6,7 +6,7 @@ Class {
 		'counter',
 		'memoryStore'
 	],
-	#category : #'Lepiter-HTML-Exporter'
+	#category : 'Lepiter-HTML-Exporter'
 }
 
 { #category : #initialization }
@@ -24,7 +24,7 @@ LeExternalPicturesWriter >> allFiles [
 LeExternalPicturesWriter >> exampleResultReferenceFor: anExampleAnnotation [ 
 	<return: #String>
 	| aPath |
-	aPath := (LepiterConstants exportedResultsDirectoryPath / self nextNumber asString) withExtension: LepiterConstants exportedResultsExtension.
+	aPath := (GtDocumentConstants exportedResultsDirectoryPath / self nextNumber asString) withExtension: GtDocumentConstants exportedResultsExtension.
 	self exportExampleResultOf: anExampleAnnotation to: aPath.
 	associatedNames at: anExampleAnnotation put: aPath.
 	^ aPath fullName
@@ -34,15 +34,15 @@ LeExternalPicturesWriter >> exampleResultReferenceFor: anExampleAnnotation [
 LeExternalPicturesWriter >> exampleSnippetResultReferenceFor: aSnippetExample [
 	<return: #String>
 	| aPath |
-	aPath := LepiterConstants exportedResultsDirectoryPath
+	aPath := GtDocumentConstants exportedResultsDirectoryPath
 		/ self nextNumber asString
-		withExtension: LepiterConstants exportedResultsExtension.
+		withExtension: GtDocumentConstants exportedResultsExtension.
 		
 	self
 		exportGtExampleResultOf: aSnippetExample referencedExample compiledMethod gtExample  
 		to: aPath
-		height: LepiterConstants defaultPreviewHeight
-		withPreviewSelector: LepiterConstants defaultShowSelector.
+		height: GtDocumentConstants defaultPreviewHeight
+		withPreviewSelector: GtDocumentConstants defaultShowSelector.
 	associatedNames at: aSnippetExample put: aPath.
 	^ aPath fullName
 ]
@@ -55,17 +55,17 @@ LeExternalPicturesWriter >> exportExampleResultOf: anExampleAnnotation to: aRela
 	
 	container := XdExporterContainerElement new.
 	"recommended size"
-	scaleFactor := LepiterConstants exportFigureScaleFactor.
+	scaleFactor := GtDocumentConstants exportFigureScaleFactor.
 	height := anExampleAnnotation previewHeight ifNil: [ 
-		LepiterConstants defaultPreviewHeight ].
-	container size: LepiterConstants defaultExportFigureWidth @ height.
+		GtDocumentConstants defaultPreviewHeight ].
+	container size: GtDocumentConstants defaultExportFigureWidth @ height.
 
 	BlUseAsyncFeatures disableDuring: [ 
 		| view |
 		view := GtPhlowView empty 
 			on: exampleReturnValue 
 			perform: (anExampleAnnotation previewShowSelector ifNil: [
-				LepiterConstants defaultShowSelector ]).
+				GtDocumentConstants defaultShowSelector ]).
 		view asElementDo: [ :anElement | container addChild: anElement ].
 
 		container forceLayout.
@@ -89,9 +89,9 @@ LeExternalPicturesWriter >> exportGtExampleResultOf: aGtExample to: aRelativePat
 	
 	container := XdExporterContainerElement new.
 	"recommended size"
-	scaleFactor := LepiterConstants exportFigureScaleFactor.
+	scaleFactor := GtDocumentConstants exportFigureScaleFactor.
 	height := aHeight.
-	container size: LepiterConstants defaultExportFigureWidth @ height.
+	container size: GtDocumentConstants defaultExportFigureWidth @ height.
 
 	BlUseAsyncFeatures disableDuring: [ 
 		| view |

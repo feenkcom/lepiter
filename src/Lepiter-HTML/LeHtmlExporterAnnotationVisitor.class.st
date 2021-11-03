@@ -135,7 +135,7 @@ LeHtmlExporterAnnotationVisitor >> writeExampleResultForAnnotation: anExampleAnn
 		
 	stream
 		<< ('<figure class="{1}">' format: { anExampleAnnotation alignment ifNil: [ 
-			LepiterConstants defaultAlignment ] }); 
+			GtDocumentConstants defaultAlignment ] }); 
 		cr.
 		
 	self 
