@@ -11,7 +11,7 @@ Class {
 
 { #category : #accessing }
 GtEpiceaDiffAttribute class >> constants [
-	^ GtDocumentConstants
+	^ LepiterConstants
 ]
 
 { #category : #accessing }
@@ -43,7 +43,7 @@ GtEpiceaDiffAttribute >> asRemove [
 
 { #category : #accessing }
 GtEpiceaDiffAttribute >> constants [
-	^ GtDocumentConstants
+	^ LepiterConstants
 ]
 
 { #category : #initialization }

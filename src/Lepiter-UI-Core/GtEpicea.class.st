@@ -39,7 +39,7 @@ GtEpicea class >> allInSessionStore [
 
 { #category : #accessing }
 GtEpicea class >> constants [
-	^ GtDocumentConstants
+	^ LepiterConstants
 ]
 
 { #category : #modification }
@@ -88,7 +88,7 @@ GtEpicea >> computeImpact [
 
 { #category : #accessing }
 GtEpicea >> constants [
-	^ GtDocumentConstants
+	^ LepiterConstants
 ]
 
 { #category : #accessing }

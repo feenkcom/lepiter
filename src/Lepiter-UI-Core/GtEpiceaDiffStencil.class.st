@@ -12,12 +12,12 @@ Class {
 
 { #category : #accessing }
 GtEpiceaDiffStencil class >> constants [
-	^ GtDocumentConstants
+	^ LepiterConstants
 ]
 
 { #category : #accessing }
 GtEpiceaDiffStencil >> constants [
-	^ GtDocumentConstants
+	^ LepiterConstants
 ]
 
 { #category : #'api - instantiation' }
