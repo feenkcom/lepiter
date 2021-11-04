@@ -87,7 +87,7 @@ LeHtmlExporterTextSnippetVisitor >> visitDocumenterAnnotation: aDocumenterAnnota
 LeHtmlExporterTextSnippetVisitor >> visitExternalImageLink: anExternalImageLink [	
 	| linkLabel |
 	stream
-		<< ('<figure class="{1}">' format: { GtDocumentConstants defaultAlignment }); 
+		<< ('<figure class="{1}">' format: { LepiterConstants defaultAlignment }); 
 		cr.
 		
 	self exportImageTagFor: anExternalImageLink.
