@@ -16,7 +16,7 @@ Class {
 	#instVars : [
 		'coder'
 	],
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #'instance creation' }
@@ -127,10 +127,10 @@ LeCodeSnippet >> printOn: aStream [
 ]
 
 { #category : #'api - accessing' }
-LeCodeSnippet >> text [ 
+LeCodeSnippet >> text [
 	<return: #BlText>
 
-	^ coder sourceText
+	^ coder currentSourceText
 ]
 
 { #category : #'api - editing' }
