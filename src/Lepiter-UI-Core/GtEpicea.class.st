@@ -1,8 +1,8 @@
 Class {
 	#name : #GtEpicea,
 	#superclass : #Object,
-	#traits : 'TBlDebug + TGtDocumentConstants + TGtAnnouncer',
-	#classTraits : 'TBlDebug classTrait + TGtDocumentConstants classTrait + TGtAnnouncer classTrait',
+	#traits : 'TBlDebug + TLepiterConstants + TGtAnnouncer',
+	#classTraits : 'TBlDebug classTrait + TLepiterConstants classTrait + TGtAnnouncer classTrait',
 	#instVars : [
 		'announcer',
 		'epiceaLog',
