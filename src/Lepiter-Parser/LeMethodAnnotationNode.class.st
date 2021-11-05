@@ -1,15 +1,15 @@
 Class {
-	#name : 'LeMethodAnnotationNode',
-	#superclass : 'LeAnnotationNode',
+	#name : #LeMethodAnnotationNode,
+	#superclass : #LeAnnotationNode,
 	#category : 'Lepiter-Parser'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeMethodAnnotationNode >> acceptVisitor: anAnnotationParseVisitor [
 	^ anAnnotationParseVisitor visitMethodAnnotation: self
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeMethodAnnotationNode >> doesReferenceExist [
 	^ self nameNode 
 		ifNil: [ false ]

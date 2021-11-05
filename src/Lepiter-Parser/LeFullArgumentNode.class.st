@@ -1,10 +1,10 @@
 Class {
-	#name : 'LeFullArgumentNode',
-	#superclass : 'LeArgumentNode',
+	#name : #LeFullArgumentNode,
+	#superclass : #LeArgumentNode,
 	#category : 'Lepiter-Parser'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeFullArgumentNode >> acceptVisitor: anAnnotationParseVisitor [
 	^ anAnnotationParseVisitor visitFullArgument: self
 ]

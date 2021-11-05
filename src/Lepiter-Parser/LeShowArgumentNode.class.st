@@ -1,15 +1,15 @@
 Class {
-	#name : 'LeShowArgumentNode',
-	#superclass : 'LeArgumentNode',
+	#name : #LeShowArgumentNode,
+	#superclass : #LeArgumentNode,
 	#category : 'Lepiter-Parser'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeShowArgumentNode >> acceptVisitor: anAnnotationParseVisitor [
 	^ anAnnotationParseVisitor visitShowArgument: self
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeShowArgumentNode >> isShow [
 	^ true
 ]

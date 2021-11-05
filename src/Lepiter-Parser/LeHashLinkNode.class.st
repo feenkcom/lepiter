@@ -1,10 +1,10 @@
 Class {
-	#name : 'LeHashLinkNode',
-	#superclass : 'LePageLinkNode',
+	#name : #LeHashLinkNode,
+	#superclass : #LePageLinkNode,
 	#category : 'Lepiter-Parser'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeHashLinkNode >> acceptVisitor: aContentVisitor [
 	^ aContentVisitor visitHashLink: self
 ]

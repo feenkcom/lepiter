@@ -1,10 +1,10 @@
 Class {
-	#name : 'LeReturnArgumentNode',
-	#superclass : 'LeArgumentNode',
+	#name : #LeReturnArgumentNode,
+	#superclass : #LeArgumentNode,
 	#category : 'Lepiter-Parser'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeReturnArgumentNode >> acceptVisitor: anAnnotationParseVisitor [
 	^ anAnnotationParseVisitor visitReturnArgument: self
 ]

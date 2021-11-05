@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeDoubleBracketLinkNode',
-	#superclass : 'LePageLinkNode',
+	#name : #LeDoubleBracketLinkNode,
+	#superclass : #LePageLinkNode,
 	#instVars : [
 		'left',
 		'right'
@@ -8,38 +8,38 @@ Class {
 	#category : 'Lepiter-Parser'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeDoubleBracketLinkNode >> acceptVisitor: aContentVisitor [
 	^ aContentVisitor visitDoubleBracketLink: self
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeDoubleBracketLinkNode >> left [
 	^ left
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeDoubleBracketLinkNode >> left: aSmaCCToken [
 	left := aSmaCCToken
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeDoubleBracketLinkNode >> linkUID [
 	"Return link name (UID) that represents a referenced page"
 	^ self link source
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeDoubleBracketLinkNode >> right [
 	^ right
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeDoubleBracketLinkNode >> right: aSmaCCToken [
 	right := aSmaCCToken
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeDoubleBracketLinkNode >> tokenVariables [
 	^ #(#left #right #link)
 ]

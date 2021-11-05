@@ -1,15 +1,15 @@
 Class {
-	#name : 'LeExternalImageLinkNode',
-	#superclass : 'LeExternalLinkNode',
+	#name : #LeExternalImageLinkNode,
+	#superclass : #LeExternalLinkNode,
 	#category : 'Lepiter-Parser'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeExternalImageLinkNode >> acceptVisitor: aContentVisitor [
 	^ aContentVisitor visitExternalImageLink: self
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExternalImageLinkNode >> label [ 
 	| linkString endOfLabel |
 
@@ -19,7 +19,7 @@ LeExternalImageLinkNode >> label [
 	^ linkString copyFrom: 3 to: endOfLabel - 1.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExternalImageLinkNode >> url [
 	| linkString endOfLabel |
 
