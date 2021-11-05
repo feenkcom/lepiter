@@ -3,13 +3,12 @@ Class {
 	#superclass : #Object,
 	#traits : 'TBlDevScripterExamples',
 	#classTraits : 'TBlDevScripterExamples classTrait',
-	#category : 'Lepiter-Pharo-Examples'
+	#category : #'Lepiter-Pharo-Examples'
 }
 
 { #category : #'examples - support' }
 LePharoSnippetByScripterExamples >> assertBindingsIn: aStep [
-	<gtExample>
-		
+	
 	aStep check
 		label: 'Check pharo snippet variable values';
 		do: [ :aList :aData | 
@@ -22,7 +21,8 @@ LePharoSnippetByScripterExamples >> assertBindingsIn: aStep [
 				(eachDictionary at: #a) value == aValue ]).
 		];
 		onBreadthFirstChildOfClass: BrSimpleTree;
-		onBreadthFirstChildOfClass: BrInfiniteTreeElement.
+		onBreadthFirstChildOfClass: BrInfiniteTreeElement;
+		play.
 
 	^ aStep
 ]
@@ -50,7 +50,7 @@ LePharoSnippetByScripterExamples >> checkEveryPharoSnippetHasSameVariableValue [
 	
 	self assertBindingsIn: aScripter.
 
-	^ aScripter syncContinue
+	^ aScripter
 ]
 
 { #category : #'examples - support' }
@@ -63,7 +63,8 @@ LePharoSnippetByScripterExamples >> clickOnPharoSnippetAt: anIndex step: aStep [
 		onBreadthFirstChildOfClass: BrInfiniteTreeElement;
 		onChildAt: anIndex;
 		onBreadthFirstChildOfClass: LePharoSnippetElement;
-		onBreadthFirstChildOfClass: BrTextElementWithCursors.
+		onBreadthFirstChildOfClass: BrTextElementWithCursors;
+		play.
 
 	^ aStep
 ]
@@ -76,7 +77,7 @@ LePharoSnippetByScripterExamples >> clickOnTheFirstPharoSnippet [
 	
 	self clickOnPharoSnippetAt: 1 step: aScripter.
 
-	^ aScripter syncContinue
+	^ aScripter
 ]
 
 { #category : #'examples - support' }
@@ -139,7 +140,7 @@ LePharoSnippetByScripterExamples >> executeFirstPharoSnippet [
 	
 	self executePharoSnippetAt: 1 step: aScripter.
 	
-	^ aScripter syncContinue
+	^ aScripter
 ]
 
 { #category : #'examples - support' }
@@ -157,7 +158,8 @@ LePharoSnippetByScripterExamples >> executePharoSnippetAt: anIndex step: aStep [
 			onChildAt: anIndex;
 			onBreadthFirstChildOfClass: LePharoSnippetElement;
 			onBreadthFirstChildOfClass: GtCoderActionsElement;
-			id: GtSourceCoderDoItActionId.
+			id: GtSourceCoderDoItActionId;
+			play.
 			
 		aSubStep do
 			label: 'Store execution result';
@@ -177,8 +179,8 @@ LePharoSnippetByScripterExamples >> executePharoSnippetAt: anIndex step: aStep [
 			onBreadthFirstChildOfClass: BrInfiniteTreeElement;
 			onChildAt: anIndex;
 			onBreadthFirstChildOfClass: LePharoSnippetElement;
-			onBreadthFirstChildOfClass: GtSourceCoderEditorElement
-	].
+			onBreadthFirstChildOfClass: GtSourceCoderEditorElement;
+			play ].
 
 	^ aStep
 ]
@@ -218,7 +220,7 @@ LePharoSnippetByScripterExamples >> pageContentElementWithPharoSnippetsSharingSa
 	aScripter := self 
 		scripterWithModel: [ LeUIExamples new titledPageWithPharoCodeHierarchy ]
 		element: [ :aPage | LePageToolContentTreeElement new pageViewModel: (LePageViewModel new pageModel: aPage) ].
-	^ aScripter syncContinue
+	^ aScripter
 ]
 
 { #category : #'examples - page - pharo snippets' }
