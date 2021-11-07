@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeArgumentNode',
-	#superclass : 'LeAnnotationParseNode',
+	#name : #LeArgumentNode,
+	#superclass : #LeAnnotationParseNode,
 	#instVars : [
 		'name',
 		'equals',
@@ -9,24 +9,24 @@ Class {
 	#category : 'Lepiter-Parser'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeArgumentNode >> acceptVisitor: anAnnotationParseVisitor [
 	^ anAnnotationParseVisitor visitArgument: self
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeArgumentNode >> booleanValue [
 	^ value isNil or: [ value source sameAs: 'true' ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeArgumentNode >> booleanValueWithDefault: aBoolean [
 	^ value isNil
 		ifTrue: [ aBoolean ]
 		ifFalse: [ value source sameAs: 'true' ]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeArgumentNode >> dequote: aString [
 	| input |
 	input := aString readStream.
@@ -38,17 +38,17 @@ LeArgumentNode >> dequote: aString [
 						ifFalse: [ output nextPut: input next ] ] ]
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeArgumentNode >> equals [
 	^ equals
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeArgumentNode >> equals: aSmaCCToken [
 	equals := aSmaCCToken
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeArgumentNode >> hasValidBooleanValue [
 	value isNil
 		ifTrue: [ ^ false ].
@@ -57,83 +57,83 @@ LeArgumentNode >> hasValidBooleanValue [
 		or: [ (value source sameAs: 'false') ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeArgumentNode >> integerValue [
 	^ value notNil
 		ifTrue: [ value source asInteger ]
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeArgumentNode >> isAlignment [
 	^ false
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeArgumentNode >> isCodeExpanded [
 	^ false
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeArgumentNode >> isExpanded [
 	^ false
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeArgumentNode >> isHeight [
 	^ false
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeArgumentNode >> isLabel [
 	^ false
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeArgumentNode >> isName [
 	^ false
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeArgumentNode >> isNoCode [
 	^ false
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeArgumentNode >> isPath [
 	^ false
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeArgumentNode >> isPreviewExpanded [
 	^ false
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeArgumentNode >> isPreviewHeight [
 	^ false
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeArgumentNode >> isPreviewShow [
 	^ false
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeArgumentNode >> isShow [
 	^ false
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeArgumentNode >> name [
 	^ name
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeArgumentNode >> name: aSmaCCToken [
 	name := aSmaCCToken
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeArgumentNode >> selectorFrom: aString [
 	^ (self
 		dequote:
@@ -142,27 +142,27 @@ LeArgumentNode >> selectorFrom: aString [
 				ifFalse: [ aString ])) asSymbol
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeArgumentNode >> selectorValue [
 	^ self selectorFrom: value source
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeArgumentNode >> stringValue [
 	^ value ifNil: [ '' ] ifNotNil: [ value source ]
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeArgumentNode >> tokenVariables [
 	^ #(#name #equals #value)
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeArgumentNode >> value [
 	^ value
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeArgumentNode >> value: aSmaCCToken [
 	value := aSmaCCToken
 ]

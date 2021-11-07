@@ -1,28 +1,28 @@
 Class {
-	#name : 'LePageAnnotationNode',
-	#superclass : 'LeAnnotationNode',
+	#name : #LePageAnnotationNode,
+	#superclass : #LeAnnotationNode,
 	#category : 'Lepiter-Parser'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 LePageAnnotationNode >> acceptVisitor: anAnnotationParseVisitor [
 	^ anAnnotationParseVisitor visitPageAnnotation: self
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LePageAnnotationNode >> dbUuidString [
 
 	items size < 2 ifTrue: [ ^ nil ].
 	^ items second value value
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LePageAnnotationNode >> linkUID [
 
 	^ items first value value
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePageAnnotationNode >> nameNode [
 
 	^ items first

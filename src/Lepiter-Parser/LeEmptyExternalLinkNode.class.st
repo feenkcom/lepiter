@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeEmptyExternalLinkNode',
-	#superclass : 'LeContentNode',
+	#name : #LeEmptyExternalLinkNode,
+	#superclass : #LeContentNode,
 	#instVars : [
 		'leftBracket',
 		'rightBracket',
@@ -10,52 +10,52 @@ Class {
 	#category : 'Lepiter-Parser'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeEmptyExternalLinkNode >> acceptVisitor: aContentVisitor [
 	^ aContentVisitor visitEmptyExternalLink: self
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeEmptyExternalLinkNode >> leftBracket [
 	^ leftBracket
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeEmptyExternalLinkNode >> leftBracket: aSmaCCToken [
 	leftBracket := aSmaCCToken
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeEmptyExternalLinkNode >> leftParenthesis [
 	^ leftParenthesis
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeEmptyExternalLinkNode >> leftParenthesis: aSmaCCToken [
 	leftParenthesis := aSmaCCToken
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeEmptyExternalLinkNode >> rightBracket [
 	^ rightBracket
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeEmptyExternalLinkNode >> rightBracket: aSmaCCToken [
 	rightBracket := aSmaCCToken
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeEmptyExternalLinkNode >> rightParenthesis [
 	^ rightParenthesis
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeEmptyExternalLinkNode >> rightParenthesis: aSmaCCToken [
 	rightParenthesis := aSmaCCToken
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeEmptyExternalLinkNode >> tokenVariables [
 	^ #(#leftBracket #rightBracket #leftParenthesis #rightParenthesis)
 ]

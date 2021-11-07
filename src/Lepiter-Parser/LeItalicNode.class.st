@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeItalicNode',
-	#superclass : 'LeContentNode',
+	#name : #LeItalicNode,
+	#superclass : #LeContentNode,
 	#instVars : [
 		'leftStar',
 		'parts',
@@ -9,55 +9,55 @@ Class {
 	#category : 'Lepiter-Parser'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeItalicNode >> acceptVisitor: aContentVisitor [
 	^ aContentVisitor visitItalic: self
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeItalicNode >> compositeNodeVariables [
 	^ #(#parts)
 ]
 
-{ #category : 'generated-initialize-release' }
+{ #category : #'generated-initialize-release' }
 LeItalicNode >> initialize [
 	super initialize.
 	parts := OrderedCollection new: 2.
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeItalicNode >> leftStar [
 	^ leftStar
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeItalicNode >> leftStar: aSmaCCToken [
 	leftStar := aSmaCCToken
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeItalicNode >> parts [
 	^ parts
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeItalicNode >> parts: anOrderedCollection [
 	self setParents: self parts to: nil.
 	parts := anOrderedCollection.
 	self setParents: self parts to: self
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeItalicNode >> rightStar [
 	^ rightStar
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeItalicNode >> rightStar: aSmaCCToken [
 	rightStar := aSmaCCToken
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeItalicNode >> tokenVariables [
 	^ #(#leftStar #rightStar)
 ]

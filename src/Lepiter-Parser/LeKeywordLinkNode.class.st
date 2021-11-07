@@ -1,34 +1,34 @@
 Class {
-	#name : 'LeKeywordLinkNode',
-	#superclass : 'LePageLinkNode',
+	#name : #LeKeywordLinkNode,
+	#superclass : #LePageLinkNode,
 	#instVars : [
 		'colon'
 	],
 	#category : 'Lepiter-Parser'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeKeywordLinkNode >> acceptVisitor: aContentVisitor [
 	^ aContentVisitor visitKeywordLink: self
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeKeywordLinkNode >> colon [
 	^ colon
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeKeywordLinkNode >> colon: aSmaCCToken [
 	colon := aSmaCCToken
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeKeywordLinkNode >> linkUID [
 	<return: #String>
 	^ self link source
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeKeywordLinkNode >> tokenVariables [
 	^ #(#colon #link)
 ]
