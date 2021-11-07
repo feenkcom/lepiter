@@ -1,15 +1,15 @@
 Class {
-	#name : 'LeExternalUrlLinkNode',
-	#superclass : 'LeExternalLinkNode',
+	#name : #LeExternalUrlLinkNode,
+	#superclass : #LeExternalLinkNode,
 	#category : 'Lepiter-Parser'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeExternalUrlLinkNode >> acceptVisitor: aContentVisitor [
 	^ aContentVisitor visitExternalUrlLink: self
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeExternalUrlLinkNode >> url [ 
 	| linkString |
 

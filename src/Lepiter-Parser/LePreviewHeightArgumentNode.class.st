@@ -1,15 +1,15 @@
 Class {
-	#name : 'LePreviewHeightArgumentNode',
-	#superclass : 'LeArgumentNode',
+	#name : #LePreviewHeightArgumentNode,
+	#superclass : #LeArgumentNode,
 	#category : 'Lepiter-Parser'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 LePreviewHeightArgumentNode >> acceptVisitor: anAnnotationParseVisitor [
 	^ anAnnotationParseVisitor visitPreviewHeightArgument: self
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LePreviewHeightArgumentNode >> isPreviewHeight [
 	^ true
 ]

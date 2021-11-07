@@ -1,18 +1,18 @@
 Class {
-	#name : 'LeClassNameArgumentNode',
-	#superclass : 'LeNameArgumentNode',
+	#name : #LeClassNameArgumentNode,
+	#superclass : #LeNameArgumentNode,
 	#instVars : [
 		'classToken'
 	],
 	#category : 'Lepiter-Parser'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeClassNameArgumentNode >> acceptVisitor: anAnnotationParseVisitor [
 	^ anAnnotationParseVisitor visitClassNameArgument: self
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeClassNameArgumentNode >> behavior [
 	^ Smalltalk
 		at: value source asSymbol
@@ -22,33 +22,33 @@ LeClassNameArgumentNode >> behavior [
 				ifFalse: [ cls class ] ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeClassNameArgumentNode >> className [ 
 	^ self value value
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeClassNameArgumentNode >> classToken [
 	^ classToken
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeClassNameArgumentNode >> classToken: aSmaCCToken [
 	classToken := aSmaCCToken
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeClassNameArgumentNode >> doesReferenceExist [
 	"Return true if a referenced object is defined"
 	^ self imageObject notNil
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeClassNameArgumentNode >> imageObject [
 	^ self behavior
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeClassNameArgumentNode >> tokenVariables [
 	^ #(#classToken #name #equals #value)
 ]

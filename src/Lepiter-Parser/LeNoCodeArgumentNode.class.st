@@ -1,15 +1,15 @@
 Class {
-	#name : 'LeNoCodeArgumentNode',
-	#superclass : 'LeArgumentNode',
+	#name : #LeNoCodeArgumentNode,
+	#superclass : #LeArgumentNode,
 	#category : 'Lepiter-Parser'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeNoCodeArgumentNode >> acceptVisitor: anAnnotationParseVisitor [
 	^ anAnnotationParseVisitor visitNoCodeArgument: self
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeNoCodeArgumentNode >> isNoCode [
 	^ true
 ]

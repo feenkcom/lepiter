@@ -1,13 +1,13 @@
 Class {
-	#name : 'LeParser',
-	#superclass : 'SmaCCGLRParser',
+	#name : #LeParser,
+	#superclass : #SmaCCGLRParser,
 	#classVars : [
 		'AnnotationParsers'
 	],
-	#category : 'Lepiter-Parser'
+	#category : #'Lepiter-Parser'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeParser class >> ambiguousTransitions [
 ^#(
 #[ 0 6 0 9] 
@@ -45,18 +45,18 @@ LeParser class >> ambiguousTransitions [
 	).
 ]
 
-{ #category : 'parsing' }
+{ #category : #parsing }
 LeParser class >> annotationParsers [
 	^ AnnotationParsers
 		ifNil: [ AnnotationParsers := self initialAnnotationParsers ]
 ]
 
-{ #category : 'generated-accessing' }
+{ #category : #'generated-accessing' }
 LeParser class >> cacheId [
 	^'2020-12-04T19:53:06.706247-06:00'
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeParser class >> definitionComment [
 "%glr;
 
@@ -306,7 +306,7 @@ SpecialTextCharacters
 	;"
 ]
 
-{ #category : 'parsing' }
+{ #category : #parsing }
 LeParser class >> initialAnnotationParsers [
 	| parsers |
 	parsers := Dictionary new.
@@ -343,12 +343,12 @@ LeParser class >> initialAnnotationParsers [
 	^ parsers
 ]
 
-{ #category : 'class initialization' }
+{ #category : #'class initialization' }
 LeParser class >> initialize [
 	self maxParallelParses: 100
 ]
 
-{ #category : 'parsing' }
+{ #category : #parsing }
 LeParser class >> parseAnnotation: aString from: aParser [
 	^ (self annotationParsers
 		at: aString
@@ -360,7 +360,7 @@ LeParser class >> parseAnnotation: aString from: aParser [
 				yourself ] ]) value: aParser
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeParser class >> reduceTable [
 ^#(
 	#(37 0 #reduceActionForPartsWithoutStars1: 1721345 false ) 
@@ -453,27 +453,27 @@ LeParser class >> reduceTable [
 	).
 ]
 
-{ #category : 'generated-accessing' }
+{ #category : #'generated-accessing' }
 LeParser class >> scannerClass [
 	^LeScanner
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeParser class >> startingStateForString [
 	^ 1
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeParser class >> symbolNames [
 	^ #('<annotationName>' '<whitespace>' '<text>' '<leftDoubleBracket>' '<hash>' '<rightDoubleBracket>' '<doubleRightParenthesis>' '<doubleLeftParenthesis>' '<doubleColon>' '<rightBracket>' '<url>' '<exclamationMark>' '<labelUrl>' '<imageUrl>' '<colon>' '<doubleLeftBrace>' '<doubleRightBrace>' '<leftBrace>' '<rightBrace>' '<eol>' '<star>' '<linkText>' '<inlineCode>' '<blockCode>' '<backquote>' '<leftParen>' '<rightParen>' 'B e g i n' 'String' 'Lines' 'EOLs' 'EOL ''part'' +' 'EOL' 'Line' 'NonHeaderLine' 'LineParts' 'PartsWithoutStars' 'Header' '<hash> ''numberSign''+' 'StringPart' 'Code' 'CodeBlockSource' 'CodeBlockLanguage' 'InnerStringPart' 'NonHashStringPart' 'Bold' 'InnerBoldStringParts' 'InnerBoldStringPart ''part'' +' 'InnerBoldStringPart ''part''+' 'InnerBoldStringPart' 'ItalicWithoutBold' 'InnerStringPart ''part'' +' 'Italic' 'InnerItalicStringPart ''part'' +' 'InnerItalicStringPart' 'BoldWithoutItalic' 'Stars' 'Star' 'DocumenterAnnotation' 'SwitchToAnnotation' 'SwitchToDefault' 'ParseAnnotation' 'ExternalLink' 'ExternalUrlLink' 'ExternalImageLink' 'ExternalLabelUrlLink' 'KeywordLink' 'BlockLink' 'EmptyDoubleBracketLink' 'DoubleBracketLink' 'SwitchToLinkText' 'Text' 'SpecialTextCharacters' 'E O F' 'error')
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeParser class >> symbolTypes [
-	^ #(#SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #LeStringNode #LeStringNode #OrderedCollection #OrderedCollection #OrderedCollection #LeTextNode #Object #OrderedCollection #OrderedCollection #OrderedCollection #LeHeaderNode #OrderedCollection #LeContentNode #LeContentNode #Object #Object #LeContentNode #LeContentNode #LeBoldNode #OrderedCollection #OrderedCollection #OrderedCollection #LeContentNode #LeItalicNode #OrderedCollection #LeItalicNode #OrderedCollection #LeContentNode #LeBoldNode #OrderedCollection #LeTextNode #LeDocumenterAnnotationNode nil nil #Object #LeExternalLinkNode #LeExternalUrlLinkNode #LeExternalImageLinkNode #LeExternalLabelUrlLinkNode #LeKeywordLinkNode #LeBlockLinkNode #LeEmptyDoubleBracketLinkNode #LeDoubleBracketLinkNode nil #LeTextNode #SmaCCToken #SmaCCToken #SmaCCErrorNode)
+	^ #(#SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #LeStringNode #LeStringNode #OrderedCollection #OrderedCollection #OrderedCollection #LeTextNode #Object #OrderedCollection #OrderedCollection #OrderedCollection #LeHeaderNode #OrderedCollection #LeContentNode #LeContentNode #Object #Object #LeContentNode #LeContentNode #LeBoldNode #OrderedCollection #OrderedCollection #OrderedCollection #LeContentNode #LeItalicNode #OrderedCollection #LeItalicNode #OrderedCollection #LeContentNode #LeBoldNode #OrderedCollection #LeTextNode #LeCustomAnnotationNode nil nil #Object #LeExternalLinkNode #LeExternalUrlLinkNode #LeExternalImageLinkNode #LeExternalLabelUrlLinkNode #LeKeywordLinkNode #LeBlockLinkNode #LeEmptyDoubleBracketLinkNode #LeDoubleBracketLinkNode nil #LeTextNode #SmaCCToken #SmaCCToken #SmaCCErrorNode)
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeParser class >> transitionTable [
 ^#(
 #[1 0 7 0 3 0 6 0 4 0 11 0 5 0 6 0 8 0 6 0 11 0 6 0 12 0 6 0 13 0 6 0 14 0 6 0 15 0 6 0 16 0 6 0 17 0 6 0 18 0 6 0 19 0 6 0 20 0 15 0 21 0 6 0 23 0 6 0 24 0 6 0 25 0 6 0 26 0 6 0 27 0 21 0 29 0 25 0 30 0 29 0 34 0 33 0 35 0 37 0 36 0 41 0 37 0 45 0 38 0 49 0 39 0 53 0 57 0 57 0 58 0 61 0 67 0 6 0 74] 
@@ -596,7 +596,7 @@ LeParser class >> transitionTable [
 	).
 ]
 
-{ #category : 'parsing' }
+{ #category : #parsing }
 LeParser >> handleEmbeddedError: aSmaCCParserError [
 	| errorNode |
 	errorNode := SmaCCErrorNode new
@@ -617,7 +617,7 @@ LeParser >> handleEmbeddedError: aSmaCCParserError [
 	^ errorNode
 ]
 
-{ #category : 'parsing' }
+{ #category : #parsing }
 LeParser >> parseAnnotation [
 	| name node position stream |
 	name := self nodeStack last value.
@@ -633,7 +633,7 @@ LeParser >> parseAnnotation [
 	^ node
 ]
 
-{ #category : 'parsing' }
+{ #category : #parsing }
 LeParser >> parseCodeBlockLanguage [
 	| stream char position outputStream |
 	stream := scanner stream.
@@ -650,7 +650,7 @@ LeParser >> parseCodeBlockLanguage [
 			[ SmaCCToken value: outputStream contents start: position + 1 ids: #() ]
 ]
 
-{ #category : 'parsing' }
+{ #category : #parsing }
 LeParser >> parseCodeBlockSource [
 	| stream source position |
 	stream := scanner stream.
@@ -660,7 +660,7 @@ LeParser >> parseCodeBlockSource [
 	^ SmaCCToken value: source start: position + 1 ids: #()
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForBlockLink1: nodes [
 	| result |
 	result := LeBlockLinkNode new.
@@ -670,7 +670,7 @@ LeParser >> reduceActionForBlockLink1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForBold1: nodes [
 	| result |
 	result := LeBoldNode new.
@@ -682,7 +682,7 @@ LeParser >> reduceActionForBold1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForCode1: nodes [
 	| result |
 	result := LeInlineCodeNode new.
@@ -690,7 +690,7 @@ LeParser >> reduceActionForCode1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForCode2: nodes [
 	| result |
 	result := LeCodeBlockNode new.
@@ -701,20 +701,20 @@ LeParser >> reduceActionForCode2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForCodeBlockLanguage1: nodes [
 	^ self parseCodeBlockLanguage
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForCodeBlockSource1: nodes [
 	^ self parseCodeBlockSource
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForDocumenterAnnotation1: nodes [
 	| result |
-	result := LeDocumenterAnnotationNode new.
+	result := LeCustomAnnotationNode new.
 	result left: (nodes at: 2).
 	result name: (nodes at: 4).
 	result annotation: (nodes at: 5).
@@ -723,7 +723,7 @@ LeParser >> reduceActionForDocumenterAnnotation1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForDoubleBracketLink1: nodes [
 	| result |
 	result := LeDoubleBracketLinkNode new.
@@ -733,7 +733,7 @@ LeParser >> reduceActionForDoubleBracketLink1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForEmptyDoubleBracketLink1: nodes [
 	| result |
 	result := LeEmptyDoubleBracketLinkNode new.
@@ -742,7 +742,7 @@ LeParser >> reduceActionForEmptyDoubleBracketLink1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForExternalImageLink1: nodes [
 	| result |
 	result := LeExternalImageLinkNode new.
@@ -750,7 +750,7 @@ LeParser >> reduceActionForExternalImageLink1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForExternalLabelUrlLink1: nodes [
 	| result |
 	result := LeExternalLabelUrlLinkNode new.
@@ -758,7 +758,7 @@ LeParser >> reduceActionForExternalLabelUrlLink1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForExternalUrlLink1: nodes [
 	| result |
 	result := LeExternalUrlLinkNode new.
@@ -766,7 +766,7 @@ LeParser >> reduceActionForExternalUrlLink1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForHeader1: nodes [
 	| result |
 	result := LeHeaderNode new.
@@ -775,7 +775,7 @@ LeParser >> reduceActionForHeader1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForHeader2: nodes [
 	| result |
 	result := LeHeaderNode new.
@@ -783,7 +783,7 @@ LeParser >> reduceActionForHeader2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForInnerBoldStringParts2: nodes [
 	| result |
 	result := nodes at: 1.
@@ -792,7 +792,7 @@ LeParser >> reduceActionForInnerBoldStringParts2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForItalic1: nodes [
 	| result |
 	result := LeItalicNode new.
@@ -802,7 +802,7 @@ LeParser >> reduceActionForItalic1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForKeywordLink1: nodes [
 	| result |
 	result := LeKeywordLinkNode new.
@@ -811,7 +811,7 @@ LeParser >> reduceActionForKeywordLink1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForLineParts3: nodes [
 	| result |
 	result := nodes at: 1.
@@ -819,14 +819,14 @@ LeParser >> reduceActionForLineParts3: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForLines1: nodes [
 	| result |
 	result := nodes at: 1.
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForLines2: nodes [
 	| result |
 	result := nodes at: 1.
@@ -835,19 +835,19 @@ LeParser >> reduceActionForLines2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForParseAnnotation1: nodes [
 	^ self parseAnnotation
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForPartsWithoutStars1: nodes [
 	| result |
 	result := OrderedCollection new: 2.
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForPartsWithoutStars2: nodes [
 	| result |
 	result := nodes at: 1.
@@ -855,7 +855,7 @@ LeParser >> reduceActionForPartsWithoutStars2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForStar1: nodes [
 	| result |
 	result := LeTextNode new.
@@ -863,7 +863,7 @@ LeParser >> reduceActionForStar1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForStars2: nodes [
 	| result |
 	result := nodes at: 2.
@@ -871,7 +871,7 @@ LeParser >> reduceActionForStars2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForString1: nodes [
 	| result |
 	result := LeStringNode new.
@@ -879,7 +879,7 @@ LeParser >> reduceActionForString1: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForString2: nodes [
 	| result |
 	result := LeStringNode new.
@@ -888,7 +888,7 @@ LeParser >> reduceActionForString2: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForString3: nodes [
 	| result |
 	result := LeStringNode new.
@@ -897,7 +897,7 @@ LeParser >> reduceActionForString3: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForString4: nodes [
 	| result |
 	result := LeStringNode new.
@@ -907,7 +907,7 @@ LeParser >> reduceActionForString4: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForString5: nodes [
 	| result |
 	result := LeStringNode new.
@@ -915,25 +915,25 @@ LeParser >> reduceActionForString5: nodes [
 	^ result
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForSwitchToAnnotation1: nodes [
 	self scope: #annotation.
 	^ nil
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForSwitchToDefault1: nodes [
 	self scope: #default.
 	^ nil
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionForSwitchToLinkText1: nodes [
 	self scope: #linkText.
 	^ nil
 ]
 
-{ #category : 'generated-reduction actions' }
+{ #category : #'generated-reduction actions' }
 LeParser >> reduceActionFor_hash___numberSign__1: nodes [
 	| result |
 	result := OrderedCollection new: 2.
@@ -941,7 +941,7 @@ LeParser >> reduceActionFor_hash___numberSign__1: nodes [
 	^ result
 ]
 
-{ #category : 'parsing' }
+{ #category : #parsing }
 LeParser >> skipToEndAnnotationFor: aNode [
 	| stream position max ch tokens output start |
 	stream := scanner stream.
@@ -980,7 +980,7 @@ LeParser >> skipToEndAnnotationFor: aNode [
 	^ aNode
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeParser >> tryAllTokens [
 	^ true
 ]
