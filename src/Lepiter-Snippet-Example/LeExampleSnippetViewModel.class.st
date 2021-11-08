@@ -166,6 +166,37 @@ LeExampleSnippetViewModel >> gtExampleDo: aBlock [
 ]
 
 { #category : #'private - event handling' }
+LeExampleSnippetViewModel >> handleAnnotationAstChange: anAst [
+
+	| aNewSnippet |
+	anAst
+		allNodesDo: [ :eachNode | eachNode isErrorNode ifTrue: [ ^ self ] ]
+		andTokensDo: [ :eachToken |  ]
+		includeErrors: true.
+
+	aNewSnippet := LeExampleSnippet new.
+
+	"this will modify the properties of a default snippet while making sure that removing properties falls back to default"
+	LeExampleSnippetAnnotationVisitor new
+		exampleSnippet: aNewSnippet;
+		accept: anAst.
+
+	"if properties did not change, do nothing"
+	(self snippetModel similarTo: aNewSnippet) ifTrue: [ ^ self ].
+
+	"it is possible that multiple parameters were changes as part of the ast update.
+	we should queue them up and request annotation update only once at the very end"
+	self optionAt: #doNotUpdateText put: true.
+	[ self snippetModel copyFrom: aNewSnippet ] ensure: [ 
+		self optionAt: #doNotUpdateText put: false ].
+
+	(LeExampleSnippetAnnotationValidator new validate: anAst) ifFalse: [ 
+		^ self ].
+
+	self requestUpdateAnnotationText
+]
+
+{ #category : #'private - event handling' }
 LeExampleSnippetViewModel >> handleSystemClassAnnouncement: aClassAnnouncement [
 	self gtExampleDo: [ :aGtExample |
 		(aClassAnnouncement affectsClass: aGtExample methodClass)
@@ -250,40 +281,6 @@ LeExampleSnippetViewModel >> notifyAnnotationCoderViewModelChanged [
 		annotationCoderViewModel: self annotationCoderViewModel).
 ]
 
-{ #category : #'private - event handling' }
-LeExampleSnippetViewModel >> onAnnotationAstChanged: anAstChangedAnnouncement [
-	| anAst aNewSnippet |
-	
-	anAst := anAstChangedAnnouncement ast.
-	anAst
-		allNodesDo: [ :eachNode | eachNode isErrorNode ifTrue: [ ^ self ] ]
-		andTokensDo: [ :eachToken | ]
-		includeErrors: true.
-	
-	aNewSnippet := LeExampleSnippet new.
-	
-	"this will modify the properties of a default snippet while making sure that removing properties falls back to default"
-	LeExampleSnippetAnnotationVisitor new
-		exampleSnippet: aNewSnippet;
-		accept: anAst.
-	
-	"if properties did not change, do nothing"
-	(self snippetModel similarTo: aNewSnippet)
-		ifTrue: [ ^ self ].
-	
-	"it is possible that multiple parameters were changes as part of the ast update.
-	we should queue them up and request annotation update only once at the very end"
-	self optionAt: #doNotUpdateText put: true.
-	[
-		self snippetModel copyFrom: aNewSnippet
-	] ensure: [ self optionAt: #doNotUpdateText put: false ].
-	
-	(LeExampleSnippetAnnotationValidator new validate: anAst)
-		ifFalse: [ ^ self ].
-	
-	self requestUpdateAnnotationText
-]
-
 { #category : #'api - annotation coder view model' }
 LeExampleSnippetViewModel >> onNewAnnotationCoderViewModelSet: aNewAnnotationCoderViewModel [
 	"Is sent after a new value of the annotationCoderViewModel is assigned"
@@ -291,8 +288,8 @@ LeExampleSnippetViewModel >> onNewAnnotationCoderViewModelSet: aNewAnnotationCod
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#onNewPropertySetHookTemplate'>
 	
 	aNewAnnotationCoderViewModel weak
-		when: GtTextualCoderViewModelAstChanged
-		send: #onAnnotationAstChanged:
+		when: GtTextualCoderViewModelTextChanged
+		send: #onTextualCoderViewModelTextChanged:
 		to: self
 ]
 
@@ -366,6 +363,13 @@ LeExampleSnippetViewModel >> onSnippetPreviewShowSelectorChanged: aLeExampleSnip
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#onPropertyChangedTemplate'>
 	
 	self announce: aLeExampleSnippetPreviewShowSelectorChanged
+]
+
+{ #category : #'private - event handling' }
+LeExampleSnippetViewModel >> onTextualCoderViewModelTextChanged: anAstChangedAnnouncement [
+
+	self annotationCoderViewModel astAsyncDo: [ :anAst | 
+		self handleAnnotationAstChange: anAst ]
 ]
 
 { #category : #'api - preview expanded' }
