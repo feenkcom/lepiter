@@ -396,7 +396,7 @@ LeLocalStoreMonitor >> scheduleNextUpdate [
 				[ BlTktWorkerProvider highUICPUBoundPool schedule: 
 					[ self runTimedUpdate ] asBlTktCommand ] ]
 		at: DateAndTime now + saveDelay
-		entryIdentifier: #lepiterMonitorSave.
+		entryIdentifier: 'lepiterMonitorSave-', self identityHash asString.
 ]
 
 { #category : #'startup-shutdown' }
