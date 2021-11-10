@@ -36,7 +36,7 @@ Class {
 		'NoStartup',
 		'SessionAnnouncer'
 	],
-	#category : 'Lepiter-Store-LocalJSON-Store'
+	#category : #'Lepiter-Store-LocalJSON-Store'
 }
 
 { #category : #'system startup' }
@@ -395,7 +395,8 @@ LeLocalStoreMonitor >> scheduleNextUpdate [
 			[ state = #running ifTrue:
 				[ BlTktWorkerProvider highUICPUBoundPool schedule: 
 					[ self runTimedUpdate ] asBlTktCommand ] ]
-		at: DateAndTime now + saveDelay.
+		at: DateAndTime now + saveDelay
+		entryIdentifier: 'lepiterMonitorSave-', self identityHash asString.
 ]
 
 { #category : #'startup-shutdown' }
