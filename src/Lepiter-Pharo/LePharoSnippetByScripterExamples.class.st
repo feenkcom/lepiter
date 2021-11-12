@@ -96,6 +96,32 @@ LePharoSnippetByScripterExamples >> editEveryVisiblePharoSnippetIn: aStep append
 		onBreadthFirstChildOfClass: BrInfiniteTreeElement
 ]
 
+{ #category : #'examples - rename variable' }
+LePharoSnippetByScripterExamples >> enterNewLocalVariableName [
+
+	<gtExample>
+	| aScripter |
+	aScripter := self startRenameLocalVariable.
+
+	aScripter 
+		substep: 'Enter new name' 
+		do: [ :aStep | 
+			(aStep keyClick: BlKeyboardKey delete) play.
+			(aStep keyClick: BlKeyboardKey backspace) play.
+			(aStep type: 'b') play ].
+
+	aScripter
+		substep: 'Apply rename'
+		do: [ :aStep | (aStep keyClick: BlKeyboardKey return) play ].
+
+	aScripter syncContinue.
+	
+	self assert: aScripter model children items first text asString equals: 'b := Array with: 42'.
+	self assert: (aScripter model children items allButFirst allSatisfy: [:each | each text asString = 'b']).
+	
+	^ aScripter
+]
+
 { #category : #'examples - page' }
 LePharoSnippetByScripterExamples >> executeAndAgainScrollDownPharoSnippets [
 	<gtExample>
@@ -356,5 +382,38 @@ LePharoSnippetByScripterExamples >> scrollUpPharoSnippets [
 					self assert: aBlockIndex equals: 1 ];
 				onBreadthFirstChildOfClass: BrSimpleTree;
 				onBreadthFirstChildOfClass: BrInfiniteTreeElement ].
+	^ aScripter syncContinue
+]
+
+{ #category : #'examples - rename variable' }
+LePharoSnippetByScripterExamples >> startRenameLocalVariable [
+
+	<gtExample>
+	| aScripter |
+	aScripter := self pageContentElementWithPharoSnippetsSharingSameVariable.
+	
+	aScripter click
+		label: 'Click on the coder editor to give it focus';
+		id: #snippetContent;
+		play.
+
+	aScripter do
+		label: 'Move cursor to variable';
+		action: [ :aSourceEditor | aSourceEditor editor moveCursorTo: 0 ];
+		id: #snippetContent;
+		play.
+		
+	aScripter shortcut
+		combination: BlKeyCombination primaryR;
+		id: #snippetContent;
+		play.
+
+	aScripter check
+		label: 'Check rename editor exists';
+		exists;
+		id: #snippetContent;
+		onBreadthFirstChildOfClass: GtRenameEditor;
+		play.
+		
 	^ aScripter syncContinue
 ]
