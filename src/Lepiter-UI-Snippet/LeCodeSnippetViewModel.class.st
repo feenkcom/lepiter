@@ -7,7 +7,7 @@ Class {
 	#category : #'Lepiter-UI-Snippet-! View Models'
 }
 
-{ #category : #accessing }
+{ #category : #'api - accessing' }
 LeCodeSnippetViewModel >> coderViewModel [
 	^ coderViewModel
 ]
@@ -63,4 +63,14 @@ LeCodeSnippetViewModel >> snippetView [
 	^ super snippetView
 		needsContentDecorationBar: true;
 		beFullWidth
+]
+
+{ #category : #'api - accessing' }
+LeCodeSnippetViewModel >> spawnDestination [
+	^ self coderViewModel coderModel spawnDestination
+]
+
+{ #category : #'api - accessing' }
+LeCodeSnippetViewModel >> spawnDestination: aSpawnDesiredDestination [
+	self coderViewModel coderModel spawnDestination: aSpawnDesiredDestination
 ]

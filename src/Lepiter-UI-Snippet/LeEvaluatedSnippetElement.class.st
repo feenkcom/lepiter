@@ -6,14 +6,13 @@ Class {
 	#name : #LeEvaluatedSnippetElement,
 	#superclass : #LeTextualSnippetElement,
 	#instVars : [
-		'spawnDestinationLook',
 		'editorElement',
-		'coderContentModel',
 		'coderToolbar',
 		'arrowElement',
-		'previewContainer'
+		'previewContainer',
+		'spawnDestination'
 	],
-	#category : 'Lepiter-UI-Snippet-! Views'
+	#category : #'Lepiter-UI-Snippet-! Views'
 }
 
 { #category : #testing }
@@ -56,18 +55,10 @@ LeEvaluatedSnippetElement >> editor [
 ]
 
 { #category : #initialization }
-LeEvaluatedSnippetElement >> initialize [
-	super initialize.
-	
-	coderContentModel := GtSourceCoderContentModel new.
-	self addViewModel: coderContentModel
-]
-
-{ #category : #initialization }
 LeEvaluatedSnippetElement >> initializeCoderToolbar [
 	coderToolbar := GtCoderActionsElement new.
-	spawnDestinationLook := GtSourceCoderSpawnDestinationAptitude new.
-	coderToolbar addAptitude: spawnDestinationLook.
+	spawnDestination := self newSpawnDesinationButton.
+	coderToolbar addChild: spawnDestination
 ]
 
 { #category : #initialization }
@@ -124,6 +115,19 @@ LeEvaluatedSnippetElement >> newPreviewElementFor: anObject [
 	^ aView asElementDo: [ :anElement | anElement ]
 ]
 
+{ #category : #'instance creation' }
+LeEvaluatedSnippetElement >> newSpawnDesinationButton [
+	^ BrButton new 
+		aptitude: BrGlamorousButtonWithIconAptitude - BrGlamorousButtonExteriorAptitude;
+		action: [ self switchSpawnDestination ];
+		label: 'Change the place where inspected objects are shown.';
+		constraintsDo: [ :c | 
+			c ignoreByLayout.
+			c ignored horizontal alignRight.
+			c ignored vertical alignBottom ];
+		zIndex: 10
+]
+
 { #category : #'api - snippet view model' }
 LeEvaluatedSnippetElement >> onSnippetViewModelChanged [
 	arrowElement hasParent
@@ -131,12 +135,13 @@ LeEvaluatedSnippetElement >> onSnippetViewModelChanged [
 	previewContainer hasParent
 		ifFalse: [ self addChild: previewContainer ].
 
+	spawnDestination icon: snippetViewModel spawnDestination icon.
+
 	self updateCoderUIModel.
 	self clearPreview.
 
 	"we should assign the coder UI model *before* the focus state"
-	super onSnippetViewModelChanged.
-
+	super onSnippetViewModelChanged
 ]
 
 { #category : #'api - snippet view model' }
@@ -204,9 +209,13 @@ LeEvaluatedSnippetElement >> spawnBelowTool: aTool [
 ]
 
 { #category : #'private - updating' }
+LeEvaluatedSnippetElement >> switchSpawnDestination [
+	snippetViewModel spawnDestination: snippetViewModel spawnDestination followingDestination.
+	spawnDestination icon: snippetViewModel spawnDestination icon
+]
+
+{ #category : #'private - updating' }
 LeEvaluatedSnippetElement >> updateCoderUIModel [
-	coderContentModel sourceCoder: self snippetViewModel coderViewModel.
 	editorElement textualCoderViewModel: self snippetViewModel coderViewModel.
-	spawnDestinationLook onCoderChanged: self snippetViewModel coderViewModel.
 	coderToolbar coderUIModel: self snippetViewModel coderViewModel
 ]
