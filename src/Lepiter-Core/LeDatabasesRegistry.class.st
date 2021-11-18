@@ -6,7 +6,7 @@ Class {
 	#instVars : [
 		'defaultLogicalDatabase'
 	],
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #accessing }
@@ -68,6 +68,15 @@ LeDatabasesRegistry >> defaultPlaygroundDatabase [
 LeDatabasesRegistry >> defaultPrimaryDatabase [
 
 	^ self defaultLogicalDatabase primaryDB
+]
+
+{ #category : #accessing }
+LeDatabasesRegistry >> gtDatabasesFor: aView [
+	<gtView>
+	^ aView list
+		title: 'Databases';
+		priority: 1;
+		items: [ self defaultLogicalDatabase databases ]
 ]
 
 { #category : #testing }
