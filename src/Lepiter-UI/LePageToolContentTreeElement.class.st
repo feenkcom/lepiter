@@ -16,7 +16,7 @@ Class {
 	#classInstVars : [
 		'incomingLinksViewModelClass'
 	],
-	#category : 'Lepiter-UI-! Tool - Page'
+	#category : #'Lepiter-UI-! Tool - Page'
 }
 
 { #category : #'api - incoming links' }
@@ -79,7 +79,7 @@ LePageToolContentTreeElement >> createTreeRowFor: aSnippetElement [
 LePageToolContentTreeElement >> initialize [
 	super initialize.
 	self initializeFontSizeShortcuts.
-	self initializeUpdaterRequester.
+	self initializeElementUpdater.
 	
 	treeElement := self createTreeElement.
 	self addChild: treeElement as: #snippetsTree.
@@ -97,14 +97,14 @@ LePageToolContentTreeElement >> initialize [
 
 { #category : #'api - page view model' }
 LePageToolContentTreeElement >> onPageDatabaseChanged [
-	updateRequester requestUpdate.
+	updater requestUpdate.
 	footerToolbarElement updateContent.
 ]
 
 { #category : #'api - page view model' }
 LePageToolContentTreeElement >> onPageModelReplaced [
 	snippetsViewModel content: self pageViewModel pageModel.
-	updateRequester requestUpdate.
+	updater requestUpdate.
 	
 	footerToolbarElement pageModel: self pageViewModel pageModel.
 ]

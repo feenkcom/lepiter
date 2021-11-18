@@ -7,10 +7,10 @@ Class {
 		'exampleContainer',
 		'exampleEditor',
 		'toolbarContainer',
-		'updateRequester',
 		'browseExampleButton',
 		'runExampleButton',
-		'exportExampleButton'
+		'exportExampleButton',
+		'updater'
 	],
 	#category : #'Lepiter-Snippet-Example-Snippet'
 }
@@ -135,13 +135,13 @@ LeExampleSnippetElement >> initialize [
 			exportExampleButton.
 			runExampleButton }.
 				
-	updateRequester := GtPhlowUpdateRequester new 
+	updater := BrElementUpdater new 
 		element: self selector: #updateExamplePreview.
 ]
 
 { #category : #'private - event handling' }
 LeExampleSnippetElement >> onExampleSnippetContentChanged [
-	updateRequester requestUpdate
+	updater requestUpdate
 ]
 
 { #category : #'api - snippet view model' }

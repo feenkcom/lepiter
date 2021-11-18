@@ -19,7 +19,7 @@ Class {
 		'currentDropdownContent',
 		'listElement',
 		'pageChanged',
-		'updateRequester'
+		'updater'
 	],
 	#category : #'Lepiter-Tool-UI'
 }
@@ -66,7 +66,7 @@ LeWorldStatusDropdown >> initialize [
 	self addInteractiveModelState: BrLayoutVerticalResizerModel fitContent.
 	
 	self initializeDropdownElement.
-	updateRequester := GtPhlowUpdateRequester new
+	updater := BrElementUpdater new
 		element: self selector: #updateContent.
 	
 	self addChild: self dropdownElement as: #dropdown.
@@ -210,7 +210,7 @@ LeWorldStatusDropdown >> registerDatabaseEvents [
 
 { #category : #updating }
 LeWorldStatusDropdown >> requestUpdate [
-	self updateRequester ifNotNil: [ :anUpdateRequester | 
+	self updater ifNotNil: [ :anUpdateRequester | 
 		anUpdateRequester requestUpdate ]
 ]
 
@@ -246,11 +246,6 @@ LeWorldStatusDropdown >> updateContent [
 	currentDropdownContent addChild: self newDropdownContent.
 ]
 
-{ #category : #accessing }
-LeWorldStatusDropdown >> updateRequester [
-	^ updateRequester
-]
-
 { #category : #updating }
 LeWorldStatusDropdown >> updateStatus [
 
@@ -263,4 +258,9 @@ LeWorldStatusDropdown >> updateStatus [
 LeWorldStatusDropdown >> updateWidget [
 	self updateStatus.
 	self requestUpdate.
+]
+
+{ #category : #accessing }
+LeWorldStatusDropdown >> updater [
+	^ updater
 ]
