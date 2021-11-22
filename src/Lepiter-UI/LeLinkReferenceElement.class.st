@@ -8,7 +8,7 @@ Class {
 		'snippetsViewModel',
 		'updateRequester'
 	],
-	#category : 'Lepiter-UI-! Link Reference'
+	#category : #'Lepiter-UI-! Link Reference'
 }
 
 { #category : #'private - tree element' }
@@ -52,7 +52,7 @@ LeLinkReferenceElement >> defaultLayout [
 LeLinkReferenceElement >> initialize [
 	super initialize.
 	self initializeFontSizeShortcuts.
-	self initializeUpdaterRequester.
+	self initializeElementUpdater.
 
 	treeElement := self createTreeElement.
 	self addChild: treeElement as: #snippetsTree.

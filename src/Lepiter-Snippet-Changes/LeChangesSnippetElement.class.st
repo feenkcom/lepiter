@@ -3,11 +3,11 @@ Class {
 	#superclass : #LeSnippetElement,
 	#instVars : [
 		'toolbarContainer',
-		'updateRequester',
 		'changesContainer',
 		'fileNameEditor',
 		'inspectChangesButton',
-		'createChangesFileButton'
+		'createChangesFileButton',
+		'updater'
 	],
 	#category : #'Lepiter-Snippet-Changes-Snippet'
 }
@@ -135,13 +135,13 @@ LeChangesSnippetElement >> initialize [
 			createChangesFileButton.
 			inspectChangesButton }.
 
-	updateRequester := GtPhlowUpdateRequester new 
+	updater := BrElementUpdater new 
 		element: self selector: #updateChangesPreview.
 ]
 
 { #category : #'private - event handling' }
 LeChangesSnippetElement >> onChangesChanged [
-	updateRequester requestUpdate
+	updater requestUpdate
 ]
 
 { #category : #'api - snippet view model' }

@@ -2,10 +2,10 @@ Trait {
 	#name : #TLePageToolContentTreeElement,
 	#instVars : [
 		'treeElement',
-		'updateRequester',
-		'snippetsViewModel'
+		'snippetsViewModel',
+		'updater'
 	],
-	#category : 'Lepiter-UI-! Tool - Page'
+	#category : #'Lepiter-UI-! Tool - Page'
 }
 
 { #category : #asserting }
@@ -88,10 +88,10 @@ TLePageToolContentTreeElement >> createTreeRowFor: aSnippetElement [
 ]
 
 { #category : #initialization }
-TLePageToolContentTreeElement >> initializeUpdaterRequester [
-	updateRequester := GtPhlowUpdateRequester new element: self.
-	updateRequester postponedDuration: 0 seconds.
-	updateRequester action: [ self primitiveUpdateSnippetsAndTree ].
+TLePageToolContentTreeElement >> initializeElementUpdater [
+	updater := BrElementUpdater new element: self.
+	updater postponedDuration: 0 seconds.
+	updater action: [ self primitiveUpdateSnippetsAndTree ].
 	
 ]
 
@@ -106,7 +106,7 @@ TLePageToolContentTreeElement >> onContentTreeScrollTo [
 { #category : #'private - event handling' }
 TLePageToolContentTreeElement >> onSnippetsChanged: anAnnouncement [
 
-	updateRequester requestUpdate
+	updater requestUpdate
 ]
 
 { #category : #'private - tree element' }
