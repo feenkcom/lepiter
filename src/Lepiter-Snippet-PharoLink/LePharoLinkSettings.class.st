@@ -5,7 +5,7 @@ LePharoLinkSettings provides a wrapper around the DB properties to group PythonB
 Class {
 	#name : #LePharoLinkSettings,
 	#superclass : #LeSubSettings,
-	#category : 'Lepiter-Snippet-PharoLink-Settings'
+	#category : #'Lepiter-Snippet-PharoLink-Settings'
 }
 
 { #category : #'accessing - db properties' }
@@ -140,20 +140,9 @@ LePharoLinkSettings >> settingsNames [
 
 { #category : #private }
 LePharoLinkSettings >> socketAddressFrom: aString [
-	"Parse an address in the form <host>:<port> in to a LanguageLinkSocketAddress"
-	| segments port |
 
 	aString ifNil: [ ^ nil ].
-
-	segments := $: split: aString.
-	segments size = 2 ifFalse: 
-		[ self error: aString printString, ' must be formatted <host>:<port>' ].
-	port := segments second.
-	(port allSatisfy: #isDigit) ifFalse: 
-		[ self error: aString printString, ' the port must be a number' ].
-	^ LanguageLinkSocketAddress 
-		ipOrName: segments first 
-		port: port asNumber
+	^ LanguageLinkSocketAddress from: aString
 ]
 
 { #category : #'private - accessing' }
