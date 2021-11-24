@@ -34,7 +34,8 @@ Class {
 	],
 	#classVars : [
 		'NoStartup',
-		'SessionAnnouncer'
+		'SessionAnnouncer',
+		'ShutdownMonitor'
 	],
 	#category : #'Lepiter-Store-LocalJSON-Store'
 }
@@ -88,8 +89,17 @@ LeLocalStoreMonitor class >> setNoStartup [
 { #category : #'system startup' }
 LeLocalStoreMonitor class >> shutDown: quitting [
 	"Announce the shutdown, giving monitors a chance to flush their queues"
+	
+	"If there is a reloading in the process, we will be waiting all the way until reload is complete,
+	then we trigger the shutdown announcement. Since reloading stops the monitor, pausing until
+	reloading is finished allows the monitor to handle the shutdown announcement correctly"
+	self shutdownMonitor critical: [ self sessionAnnouncer announce: LeLocalJSONStoreShutdown new ]
+]
 
-	self sessionAnnouncer announce: LeLocalJSONStoreShutdown new.
+{ #category : #accessing }
+LeLocalStoreMonitor class >> shutdownMonitor [
+
+	^ ShutdownMonitor ifNil: [ ShutdownMonitor := Monitor new ]
 ]
 
 { #category : #'system startup' }
@@ -399,6 +409,11 @@ LeLocalStoreMonitor >> scheduleNextUpdate [
 		entryIdentifier: 'lepiterMonitorSave-', self identityHash asString.
 ]
 
+{ #category : #'system startup' }
+LeLocalStoreMonitor >> shutDown [
+	self updateEntries
+]
+
 { #category : #'startup-shutdown' }
 LeLocalStoreMonitor >> startMonitoring [
 	state = #running ifTrue: [ ^ self ].
@@ -411,7 +426,7 @@ LeLocalStoreMonitor >> startMonitoring [
 	database weak when: LePageTitleChanged send: #processPageTitleChanged: to: self.
 	database weak when: LeExplicitLinksChange send: #processExplicitLinksChanged: to: self.
 	
-	self class sessionAnnouncer weak when: LeLocalJSONStoreShutdown send: #updateEntries to: self.
+	self class sessionAnnouncer weak when: LeLocalJSONStoreShutdown send: #shutDown to: self.
 	self class sessionAnnouncer weak when: LeLocalJSONStoreStartup send: #startUp to: self.
 	self scheduleNextUpdate.
 	self loadCorruptFilenames.
@@ -436,7 +451,9 @@ LeLocalStoreMonitor >> stopMonitoring [
 { #category : #private }
 LeLocalStoreMonitor >> submitReload [
 
-	[ self reload ] asBlTktCommand 
+	[		
+		self class shutdownMonitor critical: [ self reload ].
+	] asBlTktCommand 
 		name: 'Lepiter Database Reload';
 		scheduleInPool: BlTktWorkerProvider highUIExternalResourceBoundPool
 ]
