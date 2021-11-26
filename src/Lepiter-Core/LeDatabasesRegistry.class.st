@@ -75,8 +75,8 @@ LeDatabasesRegistry >> ensureDatabase [
 	"Ensure there is a database configured. If a database already is set do nothing.
 	In case there is no database configure one for GT."
 	
-	defaultLogicalDatabase ifNotNil: [ ^ self ].
-	self setupForGlamorousToolkit
+	defaultLogicalDatabase ifNotNil: [ ^ defaultLogicalDatabase ].
+	^ self setupForGlamorousToolkit
 ]
 
 { #category : #accessing }
