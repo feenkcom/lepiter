@@ -70,6 +70,15 @@ LeDatabasesRegistry >> defaultPrimaryDatabase [
 	^ self defaultLogicalDatabase primaryDB
 ]
 
+{ #category : #private }
+LeDatabasesRegistry >> ensureDatabase [
+	"Ensure there is a database configured. If a database already is set do nothing.
+	In case there is no database configure one for GT."
+	
+	defaultLogicalDatabase ifNotNil: [ ^ defaultLogicalDatabase ].
+	^ self setupForGlamorousToolkit
+]
+
 { #category : #accessing }
 LeDatabasesRegistry >> gtDatabasesFor: aView [
 	<gtView>
