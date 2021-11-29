@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
-	#category : 'Lepiter-Store-JsonV4'
+	#category : #'Lepiter-Store-JsonV4'
 }
 
 { #category : #private }
@@ -65,6 +65,13 @@ LeJsonV4 >> schemaFor: aKey [
 
 	^ LeModel allSubclasses detect: 
 		[ :each | each leJsonV4Name = aKey ].
+]
+
+{ #category : #accessing }
+LeJsonV4 >> serialize: aLeModel [
+
+	^ String streamContents: [ :stream | 
+		  self serialize: aLeModel on: stream prettyPrint: false ]
 ]
 
 { #category : #'api - serializing' }
