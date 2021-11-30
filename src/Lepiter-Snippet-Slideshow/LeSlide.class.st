@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeSlide',
-	#superclass : 'LeContent',
+	#name : #LeSlide,
+	#superclass : #LeContent,
 	#instVars : [
 		'coderUIModel',
 		'code',
@@ -12,10 +12,10 @@ Class {
 		'isSlideSelected',
 		'previewElement'
 	],
-	#category : 'Lepiter-Snippet-Slideshow-Slide'
+	#category : #'Lepiter-Snippet-Slideshow-Slide'
 }
 
-{ #category : 'lepiter-store' }
+{ #category : #'lepiter-store' }
 LeSlide class >> leJsonV3AttributeMapping [
 	^ super leJsonV3AttributeMapping
 		"accessor in the snippet -> key in the json"
@@ -26,12 +26,12 @@ LeSlide class >> leJsonV3AttributeMapping [
 		yourself
 ]
 
-{ #category : 'lepiter-store' }
+{ #category : #'lepiter-store' }
 LeSlide class >> leJsonV3Name [
 	^ 'slide'
 ]
 
-{ #category : 'lepiter-store' }
+{ #category : #'lepiter-store' }
 LeSlide class >> leJsonV4AttributeMapping [
 	^ super leJsonV4AttributeMapping
 		"accessor in the snippet -> key in the json"
@@ -42,12 +42,12 @@ LeSlide class >> leJsonV4AttributeMapping [
 		yourself
 ]
 
-{ #category : 'lepiter-store' }
+{ #category : #'lepiter-store' }
 LeSlide class >> leJsonV4Name [
 	^ 'slide'
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlide >> asCachedElement [
 	"Answer the receiver's cached element.
 	Must be called from the UI process."
@@ -55,7 +55,7 @@ LeSlide >> asCachedElement [
 	^ cachedElement
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlide >> asPreviewElement [
 	"Answer the receiver's preview element.
 	Must be called from the UI process."
@@ -63,38 +63,38 @@ LeSlide >> asPreviewElement [
 	^ previewElement
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlide >> cachedElement [
 	^ cachedElement
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlide >> cachedElement: anObject [
 	cachedElement := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlide >> code [
 	^ code.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlide >> code: aString [
 	code := aString.
 	self updateCoderUIModel.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlide >> coder [
 	^ coderUIModel coder.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlide >> coderUIModel [
 	^ coderUIModel.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeSlide >> generateElements [
 	"Generate the receiver's element and preview"
 	| element formElement |
@@ -123,7 +123,7 @@ LeSlide >> generateElements [
 			addChild: formElement ]).
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeSlide >> initialize [
 	super initialize.
 	code := ''.
@@ -148,17 +148,17 @@ LeSlide >> initialize [
 	self updatePreviewElementAptitude.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlide >> isSlideSelected [
 	^ isSlideSelected.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlide >> isSlideSelected: aBoolean [
 	isSlideSelected := aBoolean.
 ]
 
-{ #category : 'export - json' }
+{ #category : #'export - json' }
 LeSlide >> jsonV1StringContent [
 	"Answer the receiver in Roam export format.
 	Code snippets are converted to fenced code blocks with smalltalk language."
@@ -170,57 +170,53 @@ LeSlide >> jsonV1StringContent [
 			<< '```' ]
 ]
 
-{ #category : 'lepiter-store' }
+{ #category : #'lepiter-store' }
 LeSlide >> leJsonV3Name [
 	^ 'slide'
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeSlide >> needsUpdate [ 
 	^ cachedElement needsUpdate
 ]
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 LeSlide >> onAddedToSceneGraphAction [
 	^ onAddedToSceneGraphAction ifNil: [^[:anElement | ]].
 ]
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 LeSlide >> onEveryAddToSceneGraphDo: aBlock [
 	shouldPerformActionEveryTime := true.
 	onAddedToSceneGraphAction := aBlock.
 ]
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 LeSlide >> onFirstAddToSceneGraphDo: aBlock [
 	shouldPerformActionEveryTime := false.
 	onAddedToSceneGraphAction := aBlock.
 ]
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 LeSlide >> performActionOn: element [
 	self onAddedToSceneGraphAction cull: element.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlide >> previewElement [
 	previewElement hasChildren ifFalse: [ previewElement schedulePreview ].
 	^ previewElement
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlide >> previewElement: anObject [
 	previewElement := anObject
 ]
 
-{ #category : 'async processing' }
+{ #category : #'async processing' }
 LeSlide >> queueAsyncUpdate: aSpace [
 	"Submit a task to cache the receiver's elements"
-	| aCommand aTelemetry |
-	
-	aTelemetry := aSpace
-		ifNil: [ BlNullTelemetry uniqueInstance ]
-		ifNotNil: [ aSpace telemetry ].
+	| aCommand |
 	
 	cachedElement needsUpdate
 		ifFalse: [ ^ self ].
@@ -229,16 +225,16 @@ LeSlide >> queueAsyncUpdate: aSpace [
 
 	BlUseAsyncFeatures
 		ifEnabledDo: [
-			aTelemetry
-				timeSync: [ 'Schedule slide {1} update command in UI pool' format: { self class name } ]
+			BlFrameTelemetry
+				time: [ 'Schedule slide {1} update command in UI pool' format: { self class name } ]
 				during: [ aCommand asBlTktLoggingCommand scheduleInUIPool ]  ] 
 		otherwise: [
-			aTelemetry
-				timeSync: [ 'Execute slide {1} update command directly' format: { self class name } ]
+			BlFrameTelemetry
+				time: [ 'Execute slide {1} update command directly' format: { self class name } ]
 				during: [ aCommand execute ] ]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeSlide >> runSnippetCode [
 	| result |
 	(self code isEmpty)
@@ -252,32 +248,32 @@ LeSlide >> runSnippetCode [
 	^ result.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlide >> shouldPerformActionEveryTime [
 	^ shouldPerformActionEveryTime.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlide >> slideIndex [
 	^ slideIndex
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlide >> slideIndex: anObject [
 	slideIndex := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlide >> slideShow [
 	^ slideShow
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlide >> slideShow: anObject [
 	slideShow := anObject
 ]
 
-{ #category : 'updating' }
+{ #category : #updating }
 LeSlide >> updateCoderUIModel [
 	| aSnippetCoder |
 	
@@ -289,7 +285,7 @@ LeSlide >> updateCoderUIModel [
 	coderUIModel := aSnippetCoder asCoderUIModel.
 ]
 
-{ #category : 'api - updating' }
+{ #category : #'api - updating' }
 LeSlide >> updateElements [
 	| element formElement |
 	element := self runSnippetCode.
@@ -302,7 +298,7 @@ LeSlide >> updateElements [
 		addChild: formElement.
 ]
 
-{ #category : 'updating' }
+{ #category : #updating }
 LeSlide >> updatePreviewElementAptitude [
 	isSlideSelected
 		ifTrue: [
