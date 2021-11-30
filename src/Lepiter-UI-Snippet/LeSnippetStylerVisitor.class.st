@@ -12,7 +12,7 @@ Class {
 	#classVars : [
 		'AdditionalStylers'
 	],
-	#category : 'Lepiter-UI-Snippet-Text styler'
+	#category : #'Lepiter-UI-Snippet-Text styler'
 }
 
 { #category : #accessing }
@@ -79,7 +79,7 @@ LeSnippetStylerVisitor >> acceptNode: aSmaCCParseNode [
 		ifTrue: [ ^ nil ].	
 	
 	^ BlTextStylerTelemetry
-		timeSync: [ 'Visit ', aSmaCCParseNode class name ]
+		time: [ 'Visit ', aSmaCCParseNode class name ]
 		during: [	
 			(self lookupVisitorFor: aSmaCCParseNode)
 				ifNil: [ self visitSmaCCParseNode: aSmaCCParseNode ]

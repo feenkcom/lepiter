@@ -1,13 +1,13 @@
 Class {
-	#name : 'LeSlideSnippetCompletionStrategy',
-	#superclass : 'GtPharoCompletionStrategy',
+	#name : #LeSlideSnippetCompletionStrategy,
+	#superclass : #GtPharoCompletionStrategy,
 	#instVars : [
 		'snippetVariables'
 	],
 	#category : 'Lepiter-Snippet-Slideshow-Slide'
 }
 
-{ #category : 'initialize-release' }
+{ #category : #'initialize-release' }
 LeSlideSnippetCompletionStrategy >> initialize [
 	super initialize.
 	self isMethod: false.
@@ -15,7 +15,7 @@ LeSlideSnippetCompletionStrategy >> initialize [
 	snippetVariables := GtPrefixTree new
 ]
 
-{ #category : 'private-variables' }
+{ #category : #'private-variables' }
 LeSlideSnippetCompletionStrategy >> localVariablesFor: aVariableNode [
 	| vars |
 	vars := super localVariablesFor: aVariableNode.
@@ -25,12 +25,12 @@ LeSlideSnippetCompletionStrategy >> localVariablesFor: aVariableNode [
 	^ vars
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlideSnippetCompletionStrategy >> snippetVariables [
 	^ snippetVariables
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlideSnippetCompletionStrategy >> snippetVariables: anObject [
 	snippetVariables := anObject
 ]

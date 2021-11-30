@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeSlideshowSnippet',
-	#superclass : 'LeCodeSnippet',
+	#name : #LeSlideshowSnippet,
+	#superclass : #LeCodeSnippet,
 	#instVars : [
 		'codeVisible',
 		'codeHeight',
@@ -11,12 +11,12 @@ Class {
 	#category : 'Lepiter-Snippet-Slideshow-Snippet'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 LeSlideshowSnippet class >> code: aString [
 	^ self new code: aString
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 LeSlideshowSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
@@ -25,12 +25,12 @@ LeSlideshowSnippet class >> contextMenuItemSpecification [
 		title: 'Slideshow'
 ]
 
-{ #category : 'factory' }
+{ #category : #factory }
 LeSlideshowSnippet class >> empty [
 	^ self new
 ]
 
-{ #category : 'lepiter-store' }
+{ #category : #'lepiter-store' }
 LeSlideshowSnippet class >> leJsonV3AttributeMapping [
 	^ super leJsonV3AttributeMapping
 		"accessor in the snippet -> key in the json"
@@ -42,12 +42,12 @@ LeSlideshowSnippet class >> leJsonV3AttributeMapping [
 		yourself
 ]
 
-{ #category : 'lepiter-store' }
+{ #category : #'lepiter-store' }
 LeSlideshowSnippet class >> leJsonV3Name [
 	^ 'slideshowSnippet'
 ]
 
-{ #category : 'lepiter-store' }
+{ #category : #'lepiter-store' }
 LeSlideshowSnippet class >> leJsonV4AttributeMapping [
 	^ super leJsonV4AttributeMapping
 		"accessor in the snippet -> key in the json"
@@ -59,17 +59,17 @@ LeSlideshowSnippet class >> leJsonV4AttributeMapping [
 		yourself
 ]
 
-{ #category : 'lepiter-store' }
+{ #category : #'lepiter-store' }
 LeSlideshowSnippet class >> leJsonV4Name [
 	^ 'slideshowSnippet'
 ]
 
-{ #category : 'visiting' }
+{ #category : #visiting }
 LeSlideshowSnippet >> acceptVisitor: aVisitor [
 	^ aVisitor visitSlideshowSnippet: self
 ]
 
-{ #category : 'adding' }
+{ #category : #adding }
 LeSlideshowSnippet >> addEmptySlide [
 	self slides
 		add: ( LeSlide new
@@ -81,13 +81,13 @@ LeSlideshowSnippet >> addEmptySlide [
 			slideIndex: index ].
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlideshowSnippet >> asSnippetViewModel [
 	<return: #LeSnippetViewModel>
 	^ LeSlideshowSnippetViewModel new snippetModel: self
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlideshowSnippet >> changeToSlideWithIndex: anIndex [
 	| slide |
 	slide := self slides at: anIndex.
@@ -95,12 +95,12 @@ LeSlideshowSnippet >> changeToSlideWithIndex: anIndex [
 	^ slide code.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlideshowSnippet >> codeHeight [
 	^ codeHeight
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlideshowSnippet >> codeHeight: aNumber [
 	(codeHeight closeTo: aNumber)
 		ifTrue: [ ^ self ].
@@ -112,12 +112,12 @@ LeSlideshowSnippet >> codeHeight: aNumber [
 		snippet: self)
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlideshowSnippet >> codeVisible [
 	^ codeVisible
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlideshowSnippet >> codeVisible: aBoolean [
 	codeVisible = aBoolean
 		ifTrue: [ ^ self ].
@@ -129,17 +129,17 @@ LeSlideshowSnippet >> codeVisible: aBoolean [
 		snippet: self)
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlideshowSnippet >> currentSlideIndex [
 	^ currentSlideIndex
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlideshowSnippet >> elementHeight [
 	^ elementHeight
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlideshowSnippet >> elementHeight: aNumber [
 	(elementHeight closeTo: aNumber)
 		ifTrue: [ ^ self ].
@@ -151,17 +151,17 @@ LeSlideshowSnippet >> elementHeight: aNumber [
 		snippet: self)
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeSlideshowSnippet >> hasNextSlide [
 	^ self slides last slideIndex ~= currentSlideIndex.
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LeSlideshowSnippet >> hasPreviousSlide [
 	^ self slides first slideIndex ~= currentSlideIndex.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeSlideshowSnippet >> initialize [
 	super initialize.
 
@@ -175,7 +175,7 @@ LeSlideshowSnippet >> initialize [
 	codeVisible := true.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeSlideshowSnippet >> initializeSlides [
 	(self slides size = 0)
 		ifTrue: [ 
@@ -188,12 +188,12 @@ LeSlideshowSnippet >> initializeSlides [
 	currentSlideIndex := 1.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeSlideshowSnippet >> newCoder [
 	^ GtPharoSnippetCoder new
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlideshowSnippet >> nextSlide [
 	currentSlideIndex := currentSlideIndex + 1.
 	(self slides at: currentSlideIndex) isSlideSelected: true.
@@ -201,7 +201,7 @@ LeSlideshowSnippet >> nextSlide [
 	^ self changeToSlideWithIndex: currentSlideIndex.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlideshowSnippet >> previousSlide [
 	currentSlideIndex := currentSlideIndex - 1.
 	(self slides at: currentSlideIndex) isSlideSelected: true.
@@ -209,7 +209,7 @@ LeSlideshowSnippet >> previousSlide [
 	^ self changeToSlideWithIndex: currentSlideIndex.
 ]
 
-{ #category : 'api - updating' }
+{ #category : #'api - updating' }
 LeSlideshowSnippet >> rearrangeSlides [
 	| tempCollection |
 	tempCollection := SortedCollection sortBlock: [ :a :b | a slideIndex < b slideIndex ].
@@ -218,7 +218,7 @@ LeSlideshowSnippet >> rearrangeSlides [
 	self slides addAll: tempCollection.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlideshowSnippet >> removeSlide [
 	| removedSlide |
 	
@@ -246,18 +246,18 @@ LeSlideshowSnippet >> removeSlide [
 			^ self changeToSlideWithIndex: currentSlideIndex ].
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlideshowSnippet >> slides [
 	^ slides
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeSlideshowSnippet >> slides: aCollection [
 	slides := aCollection asOrderedCollection.
 	self initializeSlides.
 ]
 
-{ #category : 'api - updating' }
+{ #category : #'api - updating' }
 LeSlideshowSnippet >> updateCurrentSlide [
 	| slide |
 	slide := self slides at: currentSlideIndex.
@@ -265,7 +265,7 @@ LeSlideshowSnippet >> updateCurrentSlide [
 	slide updateElements.
 ]
 
-{ #category : 'api - updating' }
+{ #category : #'api - updating' }
 LeSlideshowSnippet >> updateSlidePreviewsAptitude [
 	self slides
 		do: [ :eachSlide |
