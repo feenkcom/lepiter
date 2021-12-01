@@ -7,12 +7,12 @@ Class {
 		'strategy',
 		'text',
 		'position',
-		'actionBlock'
+		'addStreamBlock'
 	],
 	#classVars : [
 		'AdditionalCompletionVisitors'
 	],
-	#category : 'Lepiter-UI-Snippet-Text completion'
+	#category : #'Lepiter-UI-Snippet-Text completion'
 }
 
 { #category : #accessing }
@@ -26,70 +26,70 @@ LeContentCompletionVisitor class >> defaultCompletionVisitors [
 	^ OrderedCollection with: LeAnnotationCompletionVisitor
 ]
 
-{ #category : #accessing }
-LeContentCompletionVisitor >> actionBlock: aBlock [
-	actionBlock := aBlock
+{ #category : #actions }
+LeContentCompletionVisitor >> addStream: aStream [
+	addStreamBlock value: aStream
 ]
 
-{ #category : #actions }
-LeContentCompletionVisitor >> addAction: aCompletionAction [
-	actionBlock value: aCompletionAction
+{ #category : #accessing }
+LeContentCompletionVisitor >> addStreamBlock: aBlock [
+	addStreamBlock := aBlock
 ]
 
 { #category : #private }
 LeContentCompletionVisitor >> completeStartAnnotation: aNode startingWith: aString [
 	| trailing source completions |
-	completions := LeParser annotationParsers keys
-		select: [ :each | aString isEmpty or: [ each beginsWith: aString ] ].
-	completions isEmpty
-		ifTrue: [ ^ self ].
+	completions := LeParser annotationParsers keys select: [ :each | aString isEmpty or: [ each beginsWith: aString ] ].
+	completions isEmpty ifTrue: [ ^ self ].
 	trailing := ':}}'.
 	source := aNode completeSource.
 	source size > self position
-		ifTrue: [ (source at: self position + 1) = $}
-				ifTrue: [ trailing := (source size > (self position + 1)
-						and: [ (source at: self position + 2) = $} ])
+		ifTrue:
+			[ (source at: self position + 1) = $}
+				ifTrue:
+					[ trailing := (source size > (self position + 1) and: [ (source at: self position + 2) = $} ])
 						ifTrue: [ ':' ]
 						ifFalse: [ ':}' ] ] ].
-	completions asSortedCollection
-		do: [ :each | 
-			self
-				addAction:
-					(GtInsertTextAndPositionCursorCompletionAction
+	self
+		addStream:
+			(completions asSortedCollection asAsyncStream
+				collect:
+					[ :each | 
+					GtInsertTextAndPositionCursorCompletionAction
 						labeled: each
 						completion: (each allButFirst: aString size) , trailing
 						position: self position
 						from: self position
-						newPosition: self position + each size - aString size + 1) ]
+						newPosition: self position + each size - aString size + 1 ])
 ]
 
 { #category : #private }
 LeContentCompletionVisitor >> hashCompletionActionsWithPrefix: prefix [
-	^ (self strategy pageTitles first: 100 startingWith: prefix)
-		collect: [ :each | 
-			| linkName needsBrackets mainAction |
-			needsBrackets := each anySatisfy: [ :c | c isSeparator ].
-			linkName := needsBrackets
-				ifTrue: [ (prefix isEmpty
-						ifTrue: [ '[[' ]
-						ifFalse: [ '' ]) , each , ']]' ]
-				ifFalse: [ each ].
-			mainAction := GtInsertTextCompletionAction
-				labeled: linkName
-				completion: (linkName allButFirst: prefix size)
-				position: self position
-				from: self position - prefix size.
-			(needsBrackets and: [ prefix notEmpty ])
-				ifTrue: [ mainAction := (GtCompositeCompletionAction labeled: '[[' , linkName)
-						addAction: mainAction;
-						addAction:
-							(GtInsertTextCompletionAction
-								labeled: '[['
-								completion: '[['
-								position: self position - prefix size
-								from: self position - prefix size);
-						yourself ].
-			self addAction: mainAction ]
+	^ self
+		addStream:
+			((self strategy pageTitles asyncStreamStartingWith: prefix)
+				collect:
+					[ :each | 
+					| linkName needsBrackets mainAction |
+					needsBrackets := each anySatisfy: [ :c | c isSeparator ].
+					linkName := needsBrackets ifTrue: [ (prefix isEmpty ifTrue: [ '[[' ] ifFalse: [ '' ]) , each , ']]' ] ifFalse: [ each ].
+					mainAction := GtInsertTextCompletionAction
+						labeled: linkName
+						completion: (linkName allButFirst: prefix size)
+						position: self position
+						from: self position - prefix size.
+					(needsBrackets and: [ prefix notEmpty ])
+						ifTrue:
+							[ mainAction := (GtCompositeCompletionAction labeled: '[[' , linkName)
+								addAction: mainAction;
+								addAction:
+										(GtInsertTextCompletionAction
+												labeled: '[['
+												completion: '[['
+												position: self position - prefix size
+												from: self position - prefix size);
+								yourself ].
+					mainAction ])
 ]
 
 { #category : #initialization }
