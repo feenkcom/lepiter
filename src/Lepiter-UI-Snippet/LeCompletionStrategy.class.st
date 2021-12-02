@@ -7,7 +7,7 @@ Class {
 		'allClasses',
 		'gtViewSelectors'
 	],
-	#category : 'Lepiter-UI-Snippet-Text completion'
+	#category : #'Lepiter-UI-Snippet-Text completion'
 }
 
 { #category : #accessing }
@@ -18,25 +18,21 @@ LeCompletionStrategy >> allClasses [
 ]
 
 { #category : #accessing }
-LeCompletionStrategy >> astCompletionActionsFor: aText at: positionInteger max: maxInteger requested: aBoolean [
-	| ast visitor items |
-	items := OrderedCollection new.
+LeCompletionStrategy >> astCompletionActionStreamFor: aText at: positionInteger requested: aBoolean [
+	| ast visitor stream |
+	stream := #() asAsyncStream.
 	ast := LeParser parseWithErrors: aText asString.
 	visitor := LeContentCompletionVisitor new.
 	visitor strategy: self.
 	visitor text: aText.
 	visitor position: positionInteger.
-	visitor
-		actionBlock: [ :item | 
-			items add: item.
-			items size >= maxInteger
-				ifTrue: [ ^ items ] ].
+	visitor addStreamBlock: [ :s | stream := stream merge: s ].
 	visitor accept: ast.
-	^ items
+	^ stream
 ]
 
 { #category : #accessing }
-LeCompletionStrategy >> bracketCompletionActionsFor: aText at: positionInteger max: maxInteger withPrefix: prefix needsAdditionalBracket: aBoolean [
+LeCompletionStrategy >> bracketCompletionActionStreamFor: aText at: positionInteger withPrefix: prefix needsAdditionalBracket: aBoolean [
 	| rightBracketCount index char rightBracketIndex leftBracket |
 	index := positionInteger + 1.
 	rightBracketCount := 0.
@@ -53,7 +49,7 @@ LeCompletionStrategy >> bracketCompletionActionsFor: aText at: positionInteger m
 	leftBracket := (aBoolean and: [ prefix isEmpty ])
 		ifTrue: [ '[' ]
 		ifFalse: [ '' ].
-	^ (self pageTitles first: maxInteger startingWith: prefix)
+	^ (self pageTitles asyncStreamStartingWith: prefix)
 		collect: [ :each | 
 			| action rightBrackets |
 			action := rightBracketCount > 0
@@ -93,32 +89,30 @@ LeCompletionStrategy >> bracketCompletionActionsFor: aText at: positionInteger m
 ]
 
 { #category : #accessing }
-LeCompletionStrategy >> completionActionsFor: aText at: positionInteger max: maxInteger requested: aBoolean [
-	| seenWhitespace char index actions |
-	actions := self
-		astCompletionActionsFor: aText
+LeCompletionStrategy >> completionActionStreamFor: aText at: positionInteger requested: aBoolean [
+	| seenWhitespace char index stream |
+	stream := self
+		astCompletionActionStreamFor: aText
 		at: positionInteger
-		max: maxInteger
 		requested: aBoolean.
-	actions notEmpty
-		ifTrue: [ ^ actions ].
 	seenWhitespace := false.
 	index := positionInteger.
 	[ index > 0 ]
-		whileTrue: [ char := aText at: index.
-			(char isLineBreak or: [ char = $] ])
-				ifTrue: [ ^ #() ].
-			char isSeparator
-				ifTrue: [ seenWhitespace := true ].
+		whileTrue:
+			[ char := aText at: index.
+			(char isLineBreak or: [ char = $] ]) ifTrue: [ ^ #() ].
+			char isSeparator ifTrue: [ seenWhitespace := true ].
 			char = $[
-				ifTrue: [ ^ self
-						bracketCompletionActionsFor: aText
-						at: positionInteger
-						max: maxInteger
-						withPrefix: (aText copyFrom: index + 1 to: positionInteger) asString
-						needsAdditionalBracket: (index = 1 or: [ (aText at: index - 1) ~= $[ ]) ].
+				ifTrue:
+					[ ^ stream
+						merge:
+							(self
+								bracketCompletionActionStreamFor: aText
+								at: positionInteger
+								withPrefix: (aText copyFrom: index + 1 to: positionInteger) asString
+								needsAdditionalBracket: (index = 1 or: [ (aText at: index - 1) ~= $[ ])) ].
 			index := index - 1 ].
-	^ #()
+	^ stream
 ]
 
 { #category : #accessing }
