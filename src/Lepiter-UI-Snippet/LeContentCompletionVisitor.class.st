@@ -55,12 +55,12 @@ LeContentCompletionVisitor >> completeStartAnnotation: aNode startingWith: aStri
 			(completions asSortedCollection asAsyncStream
 				collect:
 					[ :each | 
-					GtInsertTextAndPositionCursorCompletionAction
+					(GtInsertTextAndPositionCursorCompletionAction
 						labeled: each
 						completion: (each allButFirst: aString size) , trailing
 						position: self position
 						from: self position
-						newPosition: self position + each size - aString size + 1 ])
+						newPosition: self position + each size - aString size + 1) partial: true ])
 ]
 
 { #category : #private }
