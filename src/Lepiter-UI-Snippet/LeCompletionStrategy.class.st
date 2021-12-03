@@ -100,7 +100,7 @@ LeCompletionStrategy >> completionActionStreamFor: aText at: positionInteger req
 	[ index > 0 ]
 		whileTrue:
 			[ char := aText at: index.
-			(char isLineBreak or: [ char = $] ]) ifTrue: [ ^ #() ].
+			(char isLineBreak or: [ char = $] ]) ifTrue: [ ^ #() asAsyncStream ].
 			char isSeparator ifTrue: [ seenWhitespace := true ].
 			char = $[
 				ifTrue:
