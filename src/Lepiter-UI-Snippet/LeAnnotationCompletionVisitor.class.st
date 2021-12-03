@@ -48,6 +48,11 @@ LeAnnotationCompletionVisitor >> completeShowArgument: anArgument [
 ]
 
 { #category : #private }
+LeAnnotationCompletionVisitor >> optionalValues [
+	^ #('expanded' 'full' 'previewExpanded' 'noCode' 'codeExpanded')
+]
+
+{ #category : #private }
 LeAnnotationCompletionVisitor >> optionsFor: annotationType startingWith: aString ignoring: aCollection [
 	| values |
 	values := #().
@@ -61,10 +66,13 @@ LeAnnotationCompletionVisitor >> optionsFor: annotationType startingWith: aStrin
 				filter: [ :each | (aString isEmpty or: [ each beginsWith: aString ]) and: [ (aCollection includes: each asString) not ] ])
 				collect:
 					[ :each | 
-					GtInsertTextCompletionAction
-						labeled: each , '='
-						completion: (each allButFirst: aString size)
-						position: self position ])
+					| name hasOptionalValue |
+					hasOptionalValue := self optionalValues includes: each.
+					name := each , (hasOptionalValue ifTrue: [ '' ] ifFalse: [ '=' ]).
+					(GtInsertTextCompletionAction
+						labeled: name
+						completion: (name allButFirst: aString size)
+						position: self position) partial: hasOptionalValue not ])
 ]
 
 { #category : #accessing }
