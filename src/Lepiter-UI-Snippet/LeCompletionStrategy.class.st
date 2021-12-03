@@ -51,11 +51,12 @@ LeCompletionStrategy >> bracketCompletionActionStreamFor: aText at: positionInte
 		ifFalse: [ '' ].
 	^ (self pageTitles asyncStreamStartingWith: prefix)
 		collect: [ :each | 
-			| action rightBrackets |
+			| action rightBrackets completionString |
 			action := rightBracketCount > 0
 				ifTrue: [ rightBrackets := rightBracketCount = 1
 						ifTrue: [ ']' ]
 						ifFalse: [ '' ].
+					completionString := leftBracket , (each allButFirst: prefix size) , rightBrackets.
 					(GtCompositeCompletionAction labeled: each)
 						addAction:
 							(GtDeleteTextCompletionAction
@@ -63,11 +64,12 @@ LeCompletionStrategy >> bracketCompletionActionStreamFor: aText at: positionInte
 								from: positionInteger + 1
 								to: rightBracketIndex - 1);
 						addAction:
-							(GtInsertTextCompletionAction
+							(GtInsertTextAndPositionCursorCompletionAction
 								labeled: each
-								completion: leftBracket , (each allButFirst: prefix size) , rightBrackets
+								completion: completionString 
 								position: positionInteger
-								from: positionInteger - prefix size) ]
+								from: positionInteger - prefix size
+								newPosition: positionInteger + completionString size + rightBracketCount) ]
 				ifFalse: [ GtInsertTextCompletionAction
 						labeled: each
 						completion: leftBracket , (each allButFirst: prefix size) , ']]'
