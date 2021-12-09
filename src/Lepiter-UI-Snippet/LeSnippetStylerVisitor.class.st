@@ -87,6 +87,11 @@ LeSnippetStylerVisitor >> acceptNode: aSmaCCParseNode [
 ]
 
 { #category : #evaluating }
+LeSnippetStylerVisitor >> beginStyling [
+	visitors do: [ :each | each beginStyling ]
+]
+
+{ #category : #evaluating }
 LeSnippetStylerVisitor >> changes [
 	^ self styler changes
 ]
@@ -181,6 +186,7 @@ LeSnippetStylerVisitor >> findFileUrlPath: pathString in: rootDir [
 
 { #category : #evaluating }
 LeSnippetStylerVisitor >> finished [
+	visitors do: [ :each | each finishStyling ].
 	self
 		executionResults:
 			(self executionResults

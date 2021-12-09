@@ -8,12 +8,12 @@ The following explanation example holds several meanings that you can explore.
 
 "
 Class {
-	#name : 'LeWordMeaning',
-	#superclass : 'LeWordData',
+	#name : #LeWordMeaning,
+	#superclass : #LeWordData,
 	#category : 'Lepiter-Snippet-Words-Model'
 }
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeWordMeaning >> definitions [
 	| definitions |
 	definitions := OrderedCollection new.
@@ -24,7 +24,7 @@ LeWordMeaning >> definitions [
 	^ definitions
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeWordMeaning >> partOfSpeech [
 	^ rawData at: 'partOfSpeech'
 ]

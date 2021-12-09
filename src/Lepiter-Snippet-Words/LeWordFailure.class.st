@@ -4,8 +4,8 @@ I provide an error message when a {{gtClass:LeWordExplanation}} cannot is not ob
 
 "
 Class {
-	#name : 'LeWordFailure',
-	#superclass : 'LeWordResponse',
+	#name : #LeWordFailure,
+	#superclass : #LeWordResponse,
 	#instVars : [
 		'response',
 		'word'
@@ -13,17 +13,17 @@ Class {
 	#category : 'Lepiter-Snippet-Words-Client'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeWordFailure >> response [
 	^ response
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeWordFailure >> response: anObject [
 	response := anObject
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeWordFailure >> userMessage [
 	<return: #BlText or: #String>
 	| aContents aJsonObject |
@@ -37,6 +37,6 @@ LeWordFailure >> userMessage [
 		ifAbsent: [ aContents ]
 ]
 
-{ #category : 'private - communication' }
+{ #category : #'private - communication' }
 LeWordFailure >> word: aWord [ 
 ]

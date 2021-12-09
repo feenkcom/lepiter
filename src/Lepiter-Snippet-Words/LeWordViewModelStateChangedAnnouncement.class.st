@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeWordViewModelStateChangedAnnouncement',
-	#superclass : 'LeWordViewModelChangedAnnouncement',
+	#name : #LeWordViewModelStateChangedAnnouncement,
+	#superclass : #LeWordViewModelChangedAnnouncement,
 	#instVars : [
 		'word',
 		'state'
@@ -8,22 +8,22 @@ Class {
 	#category : 'Lepiter-Snippet-Words-Announcements'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeWordViewModelStateChangedAnnouncement >> state [
 	^ state
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeWordViewModelStateChangedAnnouncement >> state: anObject [
 	state := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeWordViewModelStateChangedAnnouncement >> word [
 	^ word
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeWordViewModelStateChangedAnnouncement >> word: anObject [
 	word := anObject
 ]

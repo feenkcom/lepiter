@@ -1,1 +1,1 @@
-Package { #name : 'Lepiter-Snippet-Words' }
+Package { #name : #'Lepiter-Snippet-Words' }
