@@ -153,8 +153,9 @@ LeDatabase >> attachmentsDirectory [
 	"Answer the directory where DB attachments are stored"
 	<return: #FileReference>
 
-	self assert: monitor isNotNil
-			description: 'Unable to locate attachments'.
+	self 
+		assert: monitor isNotNil
+		description: 'Unable to locate attachments'.
 
 	"The monitor is responsible for ensuring that the attachments directory exists"
 	^ monitor attachmentsDirectory.
@@ -196,7 +197,7 @@ LeDatabase >> dailyNotes [
 LeDatabase >> databaseName [
 	<return: #String or: nil>
 	
-	^ monitor ifNotNil: #databaseName
+	^ monitor ifNotNil: [ :aMonitor | aMonitor databaseName ]
 ]
 
 { #category : #accessing }
@@ -548,7 +549,7 @@ LeDatabase >> linksWithTargetReferenceMatching: aLinkReference [
 { #category : #'api - accessing' }
 LeDatabase >> localStoreRootDirectory [
 	<return: #FileReference or: nil>
-	^ monitor ifNotNil: #localRoot
+	^ monitor ifNotNil: [ :aMonitor | aMonitor localRoot ]
 ]
 
 { #category : #accessing }
@@ -1024,7 +1025,7 @@ LeDatabase >> tableOfContents [
 LeDatabase >> tableOfContentsPageID [
 	"Answer the page UUID for the Table Of Contents, or nil if not set"
 
-	^ monitor ifNotNil: #tableOfContentsPageID 
+	^ monitor ifNotNil: [ :aMonitor | aMonitor tableOfContentsPageID ] 
 ]
 
 { #category : #accessing }
