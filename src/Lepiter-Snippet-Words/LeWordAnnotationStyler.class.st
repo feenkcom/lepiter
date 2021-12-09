@@ -54,6 +54,28 @@ LeWordAnnotationStyler >> snippetViewModel [
 ]
 
 { #category : #private }
+LeWordAnnotationStyler >> styleAnnotation: aWordAnnotation [
+	| aLinkColor |
+	aLinkColor := aWordAnnotation hasWordSpecified
+		ifTrue: [ BrGlamorousColors textMarkupColor ]
+		ifFalse: [ BrGlamorousColors linkWithErrorColor ].
+	(self text from: aWordAnnotation parent startPosition to: aWordAnnotation parent stopPosition) foreground: aLinkColor
+]
+
+{ #category : #private }
+LeWordAnnotationStyler >> styleAutoHidingAnnotation: anAnnotation [
+	| first last range |
+	anAnnotation hasWordSpecified ifFalse: [ ^ self ].
+	first := anAnnotation parent startPosition max: 1.
+	last := anAnnotation parent stopPosition min: self text size.
+	range := first to: last.
+	composite
+		styleAutoHiding: range
+		and: range
+		whenOutside: anAnnotation parent sourceInterval
+]
+
+{ #category : #private }
 LeWordAnnotationStyler >> styleButton: anAnnotation [
 	| attribute |
 	anAnnotation hasWordSpecified ifFalse: [ ^ self ].
@@ -102,6 +124,8 @@ LeWordAnnotationStyler >> text [
 
 { #category : #visiting }
 LeWordAnnotationStyler >> visitWordAnnotation: aWordAnnotation [
+	self styleAnnotation: aWordAnnotation.
+	self styleAutoHidingAnnotation: aWordAnnotation.
 	self styleButton: aWordAnnotation.
 	self styleExpandingObject: aWordAnnotation
 ]
