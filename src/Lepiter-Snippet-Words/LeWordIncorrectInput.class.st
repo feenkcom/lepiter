@@ -4,8 +4,8 @@ I provide an error message when a {{gtClass:LeWordExplanation}} cannot is not ob
 
 "
 Class {
-	#name : 'LeWordIncorrectInput',
-	#superclass : 'LeWordResponse',
+	#name : #LeWordIncorrectInput,
+	#superclass : #LeWordResponse,
 	#instVars : [
 		'word',
 		'message'
@@ -13,34 +13,34 @@ Class {
 	#category : 'Lepiter-Snippet-Words-Client'
 }
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeWordIncorrectInput >> initialize [
 	super initialize.
 	message := String empty.
 	word := String empty.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeWordIncorrectInput >> message [
 	^ message
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeWordIncorrectInput >> message: anObject [
 	message := anObject
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeWordIncorrectInput >> userMessage [
 	^ self message ifEmpty: [ 'Incorrect user input' ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeWordIncorrectInput >> word [
 	^ word
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeWordIncorrectInput >> word: anObject [
 	word := anObject
 ]

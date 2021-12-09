@@ -4,15 +4,15 @@ See {{gtClass:LeWordExplanation}}.
 
 "
 Class {
-	#name : 'LeWordData',
-	#superclass : 'Object',
+	#name : #LeWordData,
+	#superclass : #Object,
 	#instVars : [
 		'rawData'
 	],
 	#category : 'Lepiter-Snippet-Words-Model'
 }
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 LeWordData >> gtRawDataFor: aView [
 	<gtView>
 	self rawData ifNil: [ ^ aView empty ].
@@ -24,12 +24,12 @@ LeWordData >> gtRawDataFor: aView [
 		view: #gtItemsFor:
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeWordData >> rawData [
 	^ rawData
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeWordData >> rawData: anObject [
 	rawData := anObject
 ]

@@ -5,8 +5,8 @@ See {{gtMethod:LeWordSnippetViewModel>>#searchExplanationFrom:|expanded=true}} f
 
 "
 Class {
-	#name : 'LeWordClient',
-	#superclass : 'LeWordBasicClient',
+	#name : #LeWordClient,
+	#superclass : #LeWordBasicClient,
 	#instVars : [
 		'word',
 		'onResponse',
@@ -15,24 +15,24 @@ Class {
 	#category : 'Lepiter-Snippet-Words-Client'
 }
 
-{ #category : 'api - factory' }
+{ #category : #'api - factory' }
 LeWordClient class >> default [
 	^ BlUseAsyncFeatures 
 		ifEnabledDo: [ self taskIt ]
 		otherwise: [ self sync ]
 ]
 
-{ #category : 'api - factory' }
+{ #category : #'api - factory' }
 LeWordClient class >> sync [
 	^ self new
 ]
 
-{ #category : 'api - factory' }
+{ #category : #'api - factory' }
 LeWordClient class >> taskIt [
 	^ LeWordTaskItClient new
 ]
 
-{ #category : 'private - communication' }
+{ #category : #'private - communication' }
 LeWordClient >> downloadDefinition [
 
 	| anUrl |
@@ -47,44 +47,44 @@ LeWordClient >> downloadDefinition [
 		response.
 ]
 
-{ #category : 'private - communication' }
+{ #category : #'private - communication' }
 LeWordClient >> emptyExplanation [
 	self response: (LeWordIncorrectInput new
 		word: '';
 		message: 'Word must be non-empty').
 ]
 
-{ #category : 'api - communication' }
+{ #category : #'api - communication' }
 LeWordClient >> explanation: aWord [
 	self word: aWord.
 	self updateResponse.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeWordClient >> initialize [
 	super initialize.
 	onResponse := OrderedCollection new: 1.
 	word := String empty.
 ]
 
-{ #category : 'private - notifying' }
+{ #category : #'private - notifying' }
 LeWordClient >> notifyResponseReceived [
 	onResponse do: [ :eachResponse | eachResponse cull: self response ]
 ]
 
-{ #category : 'api - communication' }
+{ #category : #'api - communication' }
 LeWordClient >> onResponse: aValuable [
 	"Response callback must be initiliazed before explanation is requested"
 	onResponse add: aValuable
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeWordClient >> response [
 	<return: #LeWordResponse>
 	^ response
 ]
 
-{ #category : 'api - communication' }
+{ #category : #'api - communication' }
 LeWordClient >> response: aResponse [
 	self 
 		assert: [ aResponse isNotNil ] 
@@ -94,7 +94,7 @@ LeWordClient >> response: aResponse [
 	self notifyResponseReceived.
 ]
 
-{ #category : 'private - communication' }
+{ #category : #'private - communication' }
 LeWordClient >> secureRequest: aBlock [
 	aBlock 
 		on: NetworkError, InvalidSocketStatusException
@@ -104,7 +104,7 @@ LeWordClient >> secureRequest: aBlock [
 				word: self word) ]
 ]
 
-{ #category : 'private - communication' }
+{ #category : #'private - communication' }
 LeWordClient >> updateResponse [
 	self word ifEmpty: [ 
 		self emptyExplanation.
@@ -126,12 +126,12 @@ LeWordClient >> updateResponse [
 		self response: aWordResponse ]
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeWordClient >> word [
 	^ word
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeWordClient >> word: anObject [
 	word := anObject
 ]

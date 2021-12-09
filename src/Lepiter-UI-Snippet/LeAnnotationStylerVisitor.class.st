@@ -1,8 +1,8 @@
 Class {
 	#name : #LeAnnotationStylerVisitor,
-	#superclass : #LeAnnotationParseNodeVisitor,
-	#traits : 'TSmaCCComponentVisitor + (TLeAnnotationParseNodeVisitor - {#acceptNode:})',
-	#classTraits : 'TSmaCCComponentVisitor classTrait + TLeAnnotationParseNodeVisitor classTrait',
+	#superclass : #LeComponentStyler,
+	#traits : 'TLeAnnotationParseNodeVisitor - {#acceptNode:}',
+	#classTraits : 'TLeAnnotationParseNodeVisitor classTrait',
 	#instVars : [
 		'styler',
 		'normalFontSize'

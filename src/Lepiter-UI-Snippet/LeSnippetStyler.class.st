@@ -10,7 +10,7 @@ Class {
 		'subscribedMethods',
 		'subscribedToSystemAnnouncer'
 	],
-	#category : 'Lepiter-UI-Snippet-Text styler'
+	#category : #'Lepiter-UI-Snippet-Text styler'
 }
 
 { #category : #'private - asserting' }
@@ -178,6 +178,7 @@ LeSnippetStyler >> style: aText using: aNode [
 	aParagraphStyle styleText: aText using: self.
 	aNode ifNil: [ ^ aText ].
 	visitor := self visitorForText: aText.
+	visitor beginStyling.
 	aNode acceptVisitor: visitor.
 	visitor finished.
 	^ aText
