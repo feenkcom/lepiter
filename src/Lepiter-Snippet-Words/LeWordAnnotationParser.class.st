@@ -53,6 +53,12 @@ LeWordAnnotationParser class >> initialize [
 		put: [ :parser | parser spawnParser: self startingAt: self startingStateForWordAnnotation ]
 ]
 
+{ #category : #initialization }
+LeWordAnnotationParser class >> obsolete [
+	LeParser annotationParsers removeKey: 'gtWordExplanation' ifAbsent: [  ].
+	^ super obsolete
+]
+
 { #category : #generated }
 LeWordAnnotationParser class >> reduceTable [
 ^#(
