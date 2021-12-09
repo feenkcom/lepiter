@@ -11,6 +11,12 @@ LeWordAnnotationStyler class >> initialize [
 	LeSnippetStylerVisitor additionalStylers add: self
 ]
 
+{ #category : #initialization }
+LeWordAnnotationStyler class >> obsolete [
+	LeSnippetStylerVisitor additionalStylers remove: self ifAbsent: [  ].
+	^ super obsolete
+]
+
 { #category : #styling }
 LeWordAnnotationStyler >> beginStyling [
 	self dictionary emptyRequests

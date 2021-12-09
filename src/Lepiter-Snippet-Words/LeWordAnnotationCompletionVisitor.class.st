@@ -11,6 +11,12 @@ LeWordAnnotationCompletionVisitor class >> initialize [
 	LeContentCompletionVisitor additionalCompletionVisitors add: self
 ]
 
+{ #category : #initialization }
+LeWordAnnotationCompletionVisitor class >> obsolete [
+	LeContentCompletionVisitor additionalCompletionVisitors remove: self ifAbsent: [  ].
+	^ super obsolete
+]
+
 { #category : #visiting }
 LeWordAnnotationCompletionVisitor >> addStreamFor: words startingWith: prefix [
 	^ self composite
