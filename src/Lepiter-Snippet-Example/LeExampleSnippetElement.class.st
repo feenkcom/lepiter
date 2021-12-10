@@ -136,6 +136,7 @@ LeExampleSnippetElement >> initialize [
 			runExampleButton }.
 				
 	updater := BrElementUpdater new 
+		postponedDuration: 100 milliSeconds;
 		element: self selector: #updateExamplePreview.
 ]
 

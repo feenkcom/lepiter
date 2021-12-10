@@ -90,9 +90,7 @@ TLePageToolContentTreeElement >> createTreeRowFor: aSnippetElement [
 { #category : #initialization }
 TLePageToolContentTreeElement >> initializeElementUpdater [
 	updater := BrElementUpdater new element: self.
-	updater postponedDuration: 0 seconds.
-	updater action: [ self primitiveUpdateSnippetsAndTree ].
-	
+	updater action: [ self primitiveUpdateSnippetsAndTree ]
 ]
 
 { #category : #'private - event handling' }
