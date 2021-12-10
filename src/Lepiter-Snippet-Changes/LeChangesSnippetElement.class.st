@@ -136,6 +136,7 @@ LeChangesSnippetElement >> initialize [
 			inspectChangesButton }.
 
 	updater := BrElementUpdater new 
+		postponedDuration: 100 milliSeconds;
 		element: self selector: #updateChangesPreview.
 ]
 

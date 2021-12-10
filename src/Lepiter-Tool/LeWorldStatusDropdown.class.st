@@ -67,6 +67,7 @@ LeWorldStatusDropdown >> initialize [
 	
 	self initializeDropdownElement.
 	updater := BrElementUpdater new
+		postponedDuration: 100 milliSeconds;
 		element: self selector: #updateContent.
 	
 	self addChild: self dropdownElement as: #dropdown.
