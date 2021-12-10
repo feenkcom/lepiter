@@ -7,8 +7,8 @@ I am used by {{gtClass:LeWordSnippetElement}}, see {{gtMethod:LeWordSnippetEleme
 
 "
 Class {
-	#name : 'LeWordViewElement',
-	#superclass : 'BlElement',
+	#name : #LeWordViewElement,
+	#superclass : #BlElement,
 	#traits : 'TBrLayoutResizable',
 	#classTraits : 'TBrLayoutResizable classTrait',
 	#instVars : [
@@ -18,35 +18,35 @@ Class {
 	#category : 'Lepiter-Snippet-Words-UI Auxiliar Elements'
 }
 
-{ #category : 'api - editor' }
+{ #category : #'api - editor' }
 LeWordViewElement >> addEditorShortcut: aBrTextEditorInteraction [
 	
 	self editorElement addEditorShortcut: aBrTextEditorInteraction
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeWordViewElement >> defaultLayout [
 	^ BlFrameLayout new
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeWordViewElement >> editorElement [
 	<return: #BrEditor>
 	^ editorElement
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeWordViewElement >> explanation [
 	^ explanation
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeWordViewElement >> explanation: anExplanation [
 	explanation := anExplanation.
 	self onExplanationChanged.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeWordViewElement >> initialize [
 	super initialize.
 	editorElement := self newEditorElement.
@@ -54,7 +54,7 @@ LeWordViewElement >> initialize [
 	self hMatchParent; vFitContent.
 ]
 
-{ #category : 'private - instance creation' }
+{ #category : #'private - instance creation' }
 LeWordViewElement >> newEditorElement [
 	^ BrEditor new
 		aptitude: BrGlamorousEditorAptitude;
@@ -63,12 +63,12 @@ LeWordViewElement >> newEditorElement [
 		hMatchParent.
 ]
 
-{ #category : 'private - hooks' }
+{ #category : #'private - hooks' }
 LeWordViewElement >> onExplanationChanged [
 	self updateEditorText
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeWordViewElement >> updateEditorText [
 	| aText |
 	aText := LeWordExplanationTextBuilder new

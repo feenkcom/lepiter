@@ -7,8 +7,8 @@ I am used by {{gtClass:LeWordSnippetElement}}, see {{gtMethod:LeWordSnippetEleme
 
 "
 Class {
-	#name : 'LeWordInputElement',
-	#superclass : 'BlElement',
+	#name : #LeWordInputElement,
+	#superclass : #BlElement,
 	#traits : 'TBrLayoutResizable',
 	#classTraits : 'TBrLayoutResizable classTrait',
 	#instVars : [
@@ -18,7 +18,7 @@ Class {
 	#category : 'Lepiter-Snippet-Words-UI Auxiliar Elements'
 }
 
-{ #category : 'api - editor' }
+{ #category : #'api - editor' }
 LeWordInputElement >> addEditorShortcut: aBrTextEditorInteraction [
 	
 	editorShortcuts := editorShortcuts copyWith: aBrTextEditorInteraction.
@@ -26,28 +26,28 @@ LeWordInputElement >> addEditorShortcut: aBrTextEditorInteraction [
 	self editor addEditorShortcut: aBrTextEditorInteraction
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeWordInputElement >> defaultLayout [
 	^ BlLinearLayout horizontal
 ]
 
-{ #category : 'api - enablement' }
+{ #category : #'api - enablement' }
 LeWordInputElement >> disable [
 	self editorElement beReadOnlyWithSelection
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeWordInputElement >> editor [
 	^ self editorElement editor
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeWordInputElement >> editorElement [
 	<return: #BrEditor>
 	^ editorElement
 ]
 
-{ #category : 'api - enablement' }
+{ #category : #'api - enablement' }
 LeWordInputElement >> enable [
 	self editorElement beEditable.
 	
@@ -55,7 +55,7 @@ LeWordInputElement >> enable [
 		self editor addEditorShortcut: eachShortcut ]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeWordInputElement >> initialize [
 	super initialize.
 	
@@ -68,7 +68,7 @@ LeWordInputElement >> initialize [
 
 ]
 
-{ #category : 'private - instance creation' }
+{ #category : #'private - instance creation' }
 LeWordInputElement >> newEditorElement [
 	^ BrEditor new
 		aptitude: BrGlamorousEditorAptitude + BrGlamorousInputFieldSpacingAptitude;
@@ -78,7 +78,7 @@ LeWordInputElement >> newEditorElement [
 		hMatchParent.
 ]
 
-{ #category : 'private - instance creation' }
+{ #category : #'private - instance creation' }
 LeWordInputElement >> newLabelElement [
 	^ BrLabel new
 		aptitude: (BrGlamorousLabelAptitude new foreground: Color gray);
@@ -88,12 +88,12 @@ LeWordInputElement >> newLabelElement [
 		fitContent.
 ]
 
-{ #category : 'api - editor' }
+{ #category : #'api - editor' }
 LeWordInputElement >> whenEditor: anEventClass do: anAction [
 	self editor when: anEventClass do: anAction
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeWordInputElement >> word: aWord [
 	self editorElement text: aWord asRopedText
 ]

@@ -17,7 +17,7 @@ Class {
 	#instVars : [
 		'stream'
 	],
-	#category : 'Lepiter-Utilities-Utilities'
+	#category : #'Lepiter-Utilities-Utilities'
 }
 
 { #category : #accessing }
@@ -27,15 +27,9 @@ LeUnlinkedReferenceTextSnippetVisitor >> stream [
 
 { #category : #accessing }
 LeUnlinkedReferenceTextSnippetVisitor >> stream: anObject [
-	stream := anObject
-]
-
-{ #category : #visiting }
-LeUnlinkedReferenceTextSnippetVisitor >> visitDocumenterAnnotation: aDocumenterAnnotation [
-
-	aDocumenterAnnotation annotation acceptVisitor: 
-		(LeUnlinkedReferenceAnnotationVisitor new stream: stream)
-
+	stream := anObject.
+	visitors := nil.
+	self addVisitor: (LeUnlinkedReferenceAnnotationVisitor new stream: stream)
 ]
 
 { #category : #visiting }

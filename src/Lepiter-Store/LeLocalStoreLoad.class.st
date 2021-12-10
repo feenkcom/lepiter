@@ -5,7 +5,7 @@ Class {
 		'duplicates',
 		'corrupted'
 	],
-	#category : 'Lepiter-Store-LocalJSON-Store'
+	#category : #'Lepiter-Store-LocalJSON-Store'
 }
 
 { #category : #accessing }
@@ -164,4 +164,22 @@ LeLocalStoreLoad >> loadPagesIn: aRootFolder [
 					corrupted add: file.
 					ex pass ] ].
 	^ pages reject: #isNil
+]
+
+{ #category : #accessing }
+LeLocalStoreLoad >> onlyLoadFrom: aFileReference [
+	| monitor |
+
+	self localRoot: aFileReference.
+	monitor := LeLocalStoreMonitor new.
+	monitor localRoot: localRoot.
+	monitor storage: storage.
+	
+	database := LeDatabase new.
+	database monitor: monitor.
+	monitor database: database.
+	self loadDatabasePropertiesIn: database.
+	self loadContentInDatabase: database. 
+
+	^ database
 ]

@@ -3,15 +3,15 @@ I am an asynchronous version of the {{gtClass:LeWordClient}}. I use {{gtClass:Bl
 
 "
 Class {
-	#name : 'LeWordTaskItClient',
-	#superclass : 'LeWordBasicClient',
+	#name : #LeWordTaskItClient,
+	#superclass : #LeWordBasicClient,
 	#instVars : [
 		'syncClient'
 	],
 	#category : 'Lepiter-Snippet-Words-Client'
 }
 
-{ #category : 'api - communication' }
+{ #category : #'api - communication' }
 LeWordTaskItClient >> explanation: aWord [
 	"Download a word explanation and execute responses"
 	| aFuture |
@@ -25,20 +25,20 @@ LeWordTaskItClient >> explanation: aWord [
 				word: aWord) ]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeWordTaskItClient >> initialize [
 	super initialize.
 	syncClient := LeWordClient sync.
 ]
 
-{ #category : 'api - communication' }
+{ #category : #'api - communication' }
 LeWordTaskItClient >> onResponse: aValuable [
 	"when a any response is obtained, aValuable is executed.
 	aValuable is a block with one parameter [ :aResponse | ]"
 	^ self syncClient onResponse: aValuable
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeWordTaskItClient >> syncClient [
 	<return: #LeWordClient>
 	^ syncClient

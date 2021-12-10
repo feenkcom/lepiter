@@ -1,8 +1,8 @@
 Class {
 	#name : #LeAnnotationStylerVisitor,
-	#superclass : #LeAnnotationParseNodeVisitor,
-	#traits : 'TSmaCCComponentVisitor + (TLeAnnotationParseNodeVisitor - {#acceptNode:})',
-	#classTraits : 'TSmaCCComponentVisitor classTrait + TLeAnnotationParseNodeVisitor classTrait',
+	#superclass : #LeComponentStyler,
+	#traits : 'TLeAnnotationParseNodeVisitor - {#acceptNode:}',
+	#classTraits : 'TLeAnnotationParseNodeVisitor classTrait',
 	#instVars : [
 		'styler',
 		'normalFontSize'
@@ -405,7 +405,7 @@ LeAnnotationStylerVisitor >> utility [
 LeAnnotationStylerVisitor >> visitAnnotation: anAnnotation [
 	self styleAnnotationWithMarkup: anAnnotation.
 	self styleAutoHidingAnnotation: anAnnotation.
-	super visitAnnotation: anAnnotation
+	self visitAnnotationParse: anAnnotation
 ]
 
 { #category : #visiting }
@@ -414,7 +414,7 @@ LeAnnotationStylerVisitor >> visitChangesAnnotation: aChangesAnnotation [
 		ifNotNil: [ :changes | 
 			aChangesAnnotation changes: changes.
 			self styler subscribeToSystem ].
-	super visitChangesAnnotation: aChangesAnnotation.
+	self visitAnnotation: aChangesAnnotation.
 	self
 		styleButton: aChangesAnnotation
 		for: aChangesAnnotation imageObject
@@ -429,7 +429,7 @@ LeAnnotationStylerVisitor >> visitChangesAnnotation: aChangesAnnotation [
 { #category : #visiting }
 LeAnnotationStylerVisitor >> visitClassAnnotation: aClassAnnotation [
 
-	super visitClassAnnotation: aClassAnnotation.
+	self visitAnnotation: aClassAnnotation.
 	self restyleWhenClassChanged: aClassAnnotation.
 	self
 		styleName: aClassAnnotation
@@ -447,7 +447,7 @@ LeAnnotationStylerVisitor >> visitClassAnnotation: aClassAnnotation [
 { #category : #visiting }
 LeAnnotationStylerVisitor >> visitExampleAnnotation: anExampleAnnotation [
 	| result |
-	super visitExampleAnnotation: anExampleAnnotation.
+	self visitAnnotation: anExampleAnnotation.
 	self restyleWhenMethodChanged: anExampleAnnotation.
 	self
 		styleName: anExampleAnnotation
@@ -467,7 +467,7 @@ LeAnnotationStylerVisitor >> visitExampleAnnotation: anExampleAnnotation [
 
 { #category : #visiting }
 LeAnnotationStylerVisitor >> visitMethodAnnotation: aMethodAnnotation [
-	super visitMethodAnnotation: aMethodAnnotation.
+	self visitAnnotation: aMethodAnnotation.
 	self restyleWhenMethodChanged: aMethodAnnotation.
 	self
 		styleName: aMethodAnnotation
@@ -485,7 +485,7 @@ LeAnnotationStylerVisitor >> visitMethodAnnotation: aMethodAnnotation [
 LeAnnotationStylerVisitor >> visitPageAnnotation: aPageAnnotation [
 	| linkText |
 
-	super visitPageAnnotation: aPageAnnotation.
+	self visitAnnotation: aPageAnnotation.
 	linkText := self text
 		from: aPageAnnotation parent startPosition
 		to: aPageAnnotation parent stopPosition.

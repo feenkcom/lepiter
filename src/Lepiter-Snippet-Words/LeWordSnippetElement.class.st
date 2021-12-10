@@ -9,8 +9,8 @@ I display {{gtClass:LeWordSnippet}} information.
 
 "
 Class {
-	#name : 'LeWordSnippetElement',
-	#superclass : 'LeSnippetElement',
+	#name : #LeWordSnippetElement,
+	#superclass : #LeSnippetElement,
 	#instVars : [
 		'contentElement',
 		'toolbarElement',
@@ -23,43 +23,43 @@ Class {
 	#category : 'Lepiter-Snippet-Words-UI Snippet Element'
 }
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeWordSnippetElement >> acceptButton [
 	<return: #BrButton>
 	^ acceptButton
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeWordSnippetElement >> contentElement [
 	^ contentElement
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeWordSnippetElement >> editButton [
 	<return: #BrButton>
 	^ editButton
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeWordSnippetElement >> errorLabelElement [
 	<return: #BrLabel>
 	^ errorLabelElement
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeWordSnippetElement >> explanationElement [
 	<return: #LeWordViewElement>
 	^ explanationElement
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeWordSnippetElement >> initialize [
 	super initialize.
 	self initializeContentElement.
 	self initializeToolbarElement.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeWordSnippetElement >> initializeContentElement [
 	contentElement := BrFrame new
 		padding: (BlInsets bottom: 5);
@@ -93,7 +93,7 @@ LeWordSnippetElement >> initializeContentElement [
 		loseFocus.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeWordSnippetElement >> initializeToolbarElement [
 	toolbarElement := BrToolbar new
 		aptitude: BrGlamorousToolbarAptitude;
@@ -129,48 +129,48 @@ LeWordSnippetElement >> initializeToolbarElement [
 	toolbarElement addItem: errorLabelElement
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeWordSnippetElement >> inputElement [
 	<return: #LeWordInputElement>
 	^ inputElement
 ]
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 LeWordSnippetElement >> onAcceptAction: aButton [
 	self snippetViewModel searchExplanation.
 ]
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 LeWordSnippetElement >> onEditAction: aButton [
 	self snippetViewModel editStateFrom: nil.
 ]
 
-{ #category : 'api - snippet view model' }
+{ #category : #'api - snippet view model' }
 LeWordSnippetElement >> onSnippetViewModelChanged [ 
 	super onSnippetViewModelChanged.
 	self updateContentElement.
 ]
 
-{ #category : 'api - snippet view model' }
+{ #category : #'api - snippet view model' }
 LeWordSnippetElement >> onSnippetViewModelFocused: aBoolean [
 	"Override me to either request or lose focus when the focused state is changed in the UI Model"
 
 	"ignore for now"
 ]
 
-{ #category : 'private - announcement handling' }
+{ #category : #'private - announcement handling' }
 LeWordSnippetElement >> onViewModelWordChanged: anAnnouncement [
 	anAnnouncement source == self ifTrue: [ ^ self ].
 	self enqueueTask: (BlTaskAction new action: [
 		self updateContentElement ])
 ]
 
-{ #category : 'private - event handling' }
+{ #category : #'private - event handling' }
 LeWordSnippetElement >> onWordInputModified: anEvent [
 	self snippetViewModel word: anEvent text asString source: self
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeWordSnippetElement >> showExplanationElement [
 	self explanationElement explanation: self snippetViewModel explanation.
 	self inputElement visibility: BlVisibility gone.
@@ -180,7 +180,7 @@ LeWordSnippetElement >> showExplanationElement [
 	self editButton visibility: BlVisibility visible.
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeWordSnippetElement >> showInputElement [
 	self inputElement word: self snippetViewModel word.
 	self errorLabelElement text: self snippetViewModel userMessage.
@@ -194,7 +194,7 @@ LeWordSnippetElement >> showInputElement [
 	self inputElement enable.
 ]
 
-{ #category : 'api - view' }
+{ #category : #'api - view' }
 LeWordSnippetElement >> snippetContent [
 	"Return an element that represents a content of the snippet.
 	The embedder is responsible for placing #snippetContent in the right place within snippet element depending on the
@@ -204,7 +204,7 @@ LeWordSnippetElement >> snippetContent [
 	^ self contentElement
 ]
 
-{ #category : 'api - view' }
+{ #category : #'api - view' }
 LeWordSnippetElement >> snippetToolbar [
 	"Return an element that represents a toolbar of the snippet. A toolbar usually appears below the snippet content.
 	The embedder is responsible for placing #snippetToolbar in the right place within snippet element depending on the
@@ -215,7 +215,7 @@ LeWordSnippetElement >> snippetToolbar [
 	^ self toolbarElement
 ]
 
-{ #category : 'api - snippet view model' }
+{ #category : #'api - snippet view model' }
 LeWordSnippetElement >> subscribeToSnippetViewModel [
 	super subscribeToSnippetViewModel.
 	
@@ -225,13 +225,13 @@ LeWordSnippetElement >> subscribeToSnippetViewModel [
 		to: self
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeWordSnippetElement >> toolbarElement [
 	<return: #BrToolbar>
 	^ toolbarElement
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeWordSnippetElement >> updateContentElement [
 
 	self snippetViewModel acceptStateVisitor: self.
@@ -241,12 +241,12 @@ LeWordSnippetElement >> updateContentElement [
 		otherwise: [ self showInputElement ]"
 ]
 
-{ #category : 'visiting' }
+{ #category : #visiting }
 LeWordSnippetElement >> visitLeWordSnippetViewModelEditState: aState [
 	self showInputElement.
 ]
 
-{ #category : 'visiting' }
+{ #category : #visiting }
 LeWordSnippetElement >> visitLeWordSnippetViewModelSearchState: aState [
 	self showInputElement.
 	self acceptButton disable.
@@ -254,7 +254,7 @@ LeWordSnippetElement >> visitLeWordSnippetViewModelSearchState: aState [
 	self errorLabelElement text: 'Searching...'
 ]
 
-{ #category : 'visiting' }
+{ #category : #visiting }
 LeWordSnippetElement >> visitLeWordSnippetViewModelViewState: aState [
 	self showExplanationElement.
 ]

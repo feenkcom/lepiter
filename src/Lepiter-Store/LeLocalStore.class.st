@@ -30,7 +30,7 @@ Class {
 		'dbProperties',
 		'attachmentsDirectory'
 	],
-	#category : 'Lepiter-Store-LocalJSON-Store'
+	#category : #'Lepiter-Store-LocalJSON-Store'
 }
 
 { #category : #'instance creation' }
@@ -235,8 +235,9 @@ LeLocalStore >> gtPropertiesFor: aView [
 LeLocalStore >> loadDatabasePropertiesIn: aDatabase [
 	"Load the lepiter.properties file and update the database"
 
-	self dbProperties at: #userEmail ifPresent:
-		[ :email | database userEmail: email ].
+	self dbProperties 
+		at: #userEmail 
+		ifPresent: [ :email | database userEmail: email ].
 ]
 
 { #category : #'private - db properties' }
