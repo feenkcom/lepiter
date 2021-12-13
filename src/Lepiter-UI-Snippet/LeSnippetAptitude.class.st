@@ -40,7 +40,7 @@ Class {
 		'sidebarContainer',
 		'sidebarContent'
 	],
-	#category : 'Lepiter-UI-Snippet-Looks'
+	#category : #'Lepiter-UI-Snippet-Looks'
 }
 
 { #category : #'private - accessing' }
@@ -87,7 +87,7 @@ LeSnippetAptitude >> initialize [
 	self addChangeAddChildAs: #(content snippetContainer) with: [ snippetContainer ].
 	self addChangeAddChildAs: #(content sidebarContainer) with: [ sidebarContainer ].
 
-	self addChangeAddChildAs: #(snippetContainer snippetContent) with: [ snippetContent ].
+	self addChangeAddChild: #(snippetContainer) with: [ snippetContent ].
 	self addChangeAddChildAs: #(snippetContainer bottomToolbar) with: [ self bottomToolbar ].
 
 	self addChangeAddChildAs: #(sidebarContainer sidebarContent) with: [ sidebarContent ].

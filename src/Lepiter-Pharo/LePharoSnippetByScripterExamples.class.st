@@ -98,7 +98,6 @@ LePharoSnippetByScripterExamples >> editEveryVisiblePharoSnippetIn: aStep append
 
 { #category : #'examples - rename variable' }
 LePharoSnippetByScripterExamples >> enterNewLocalVariableName [
-
 	<gtExample>
 	| aScripter |
 	aScripter := self startRenameLocalVariable.
@@ -113,8 +112,6 @@ LePharoSnippetByScripterExamples >> enterNewLocalVariableName [
 	aScripter
 		substep: 'Apply rename'
 		do: [ :aStep | (aStep keyClick: BlKeyboardKey return) play ].
-
-	aScripter syncContinue.
 	
 	self assert: aScripter model children items first text asString equals: 'b := Array with: 42'.
 	self assert: (aScripter model children items allButFirst allSatisfy: [:each | each text asString = 'b']).
@@ -387,33 +384,32 @@ LePharoSnippetByScripterExamples >> scrollUpPharoSnippets [
 
 { #category : #'examples - rename variable' }
 LePharoSnippetByScripterExamples >> startRenameLocalVariable [
-
 	<gtExample>
 	| aScripter |
 	aScripter := self pageContentElementWithPharoSnippetsSharingSameVariable.
 	
 	aScripter click
 		label: 'Click on the coder editor to give it focus';
-		id: #snippetContent;
+		id: GtSourceCoderEditorId;
 		play.
 
 	aScripter do
 		label: 'Move cursor to variable';
 		action: [ :aSourceEditor | aSourceEditor editor moveCursorTo: 0 ];
-		id: #snippetContent;
+		id: GtSourceCoderEditorId;
 		play.
 		
 	aScripter shortcut
 		combination: BlKeyCombination primaryR;
-		id: #snippetContent;
+		id: GtSourceCoderEditorId;
 		play.
 
 	aScripter check
 		label: 'Check rename editor exists';
 		exists;
-		id: #snippetContent;
+		id: GtSourceCoderEditorId;
 		onBreadthFirstChildOfClass: GtRenameEditor;
 		play.
 		
-	^ aScripter syncContinue
+	^ aScripter
 ]
