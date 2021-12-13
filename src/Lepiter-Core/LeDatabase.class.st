@@ -126,7 +126,10 @@ LeDatabase >> at: aKey ifPresent: aPresentBlock ifAbsent: anAbsentBlock forPageT
 
 { #category : #'api - accessing' }
 LeDatabase >> attachmentDirectories [
-	^ self monitor attachmentsDirectory directories collect: [:dir | dir]
+
+	^ self monitor attachmentsDirectory directories
+		  ifNil: [ #(  ) ]
+		  ifNotNil: [ :directories | directories collect: [ :dir | dir ] ]
 ]
 
 { #category : #private }
