@@ -387,33 +387,32 @@ LePharoSnippetByScripterExamples >> scrollUpPharoSnippets [
 
 { #category : #'examples - rename variable' }
 LePharoSnippetByScripterExamples >> startRenameLocalVariable [
-
 	<gtExample>
 	| aScripter |
 	aScripter := self pageContentElementWithPharoSnippetsSharingSameVariable.
 	
 	aScripter click
 		label: 'Click on the coder editor to give it focus';
-		id: #snippetContent;
+		id: GtSourceCoderEditorId;
 		play.
 
 	aScripter do
 		label: 'Move cursor to variable';
 		action: [ :aSourceEditor | aSourceEditor editor moveCursorTo: 0 ];
-		id: #snippetContent;
+		id: GtSourceCoderEditorId;
 		play.
 		
 	aScripter shortcut
 		combination: BlKeyCombination primaryR;
-		id: #snippetContent;
+		id: GtSourceCoderEditorId;
 		play.
 
 	aScripter check
 		label: 'Check rename editor exists';
 		exists;
-		id: #snippetContent;
+		id: GtSourceCoderEditorId;
 		onBreadthFirstChildOfClass: GtRenameEditor;
 		play.
 		
-	^ aScripter syncContinue
+	^ aScripter
 ]
