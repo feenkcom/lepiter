@@ -98,7 +98,6 @@ LePharoSnippetByScripterExamples >> editEveryVisiblePharoSnippetIn: aStep append
 
 { #category : #'examples - rename variable' }
 LePharoSnippetByScripterExamples >> enterNewLocalVariableName [
-
 	<gtExample>
 	| aScripter |
 	aScripter := self startRenameLocalVariable.
@@ -113,8 +112,6 @@ LePharoSnippetByScripterExamples >> enterNewLocalVariableName [
 	aScripter
 		substep: 'Apply rename'
 		do: [ :aStep | (aStep keyClick: BlKeyboardKey return) play ].
-
-	aScripter syncContinue.
 	
 	self assert: aScripter model children items first text asString equals: 'b := Array with: 42'.
 	self assert: (aScripter model children items allButFirst allSatisfy: [:each | each text asString = 'b']).
