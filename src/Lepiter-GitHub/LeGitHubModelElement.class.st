@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeGitHubModelElement',
-	#superclass : 'BlElement',
+	#name : #LeGitHubModelElement,
+	#superclass : #BlElement,
 	#traits : 'TBrLayoutResizable',
 	#classTraits : 'TBrLayoutResizable classTrait',
 	#instVars : [
@@ -9,19 +9,19 @@ Class {
 	#category : 'Lepiter-GitHub-UI Model Elements'
 }
 
-{ #category : 'private - asserting' }
+{ #category : #'private - asserting' }
 LeGitHubModelElement >> assertModel: aLeGitHubIdentity [
 	self 
 		assert: [ aLeGitHubIdentity isNotNil ] 
 		description: [ 'GitHub Identity model must be non-nil' ].
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeGitHubModelElement >> defaultLayout [
 	^ BlLinearLayout vertical
 ]
 
-{ #category : 'gt-extension' }
+{ #category : #'gt-extension' }
 LeGitHubModelElement >> gtLiveFor: aView [
 	<gtView>
 	^ (super gtLiveFor: aView)
@@ -31,23 +31,23 @@ LeGitHubModelElement >> gtLiveFor: aView [
 			action: [ :aButton | aButton phlow spawnObject: self model ]
 ]
 
-{ #category : 'private - testing' }
+{ #category : #'private - testing' }
 LeGitHubModelElement >> hasErrorResponse [
 	^ self model hasErrorResponse
 ]
 
-{ #category : 'private - testing' }
+{ #category : #'private - testing' }
 LeGitHubModelElement >> hasSuccessResponse [
 	^ self model hasSuccessResponse
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeGitHubModelElement >> model [
 	<return: #LeGitHubModel>
 	^ model
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeGitHubModelElement >> model: aLeGitHubIdentity [
 	self assertModel: aLeGitHubIdentity.
 	model = aLeGitHubIdentity ifTrue: [ ^ self ].
@@ -57,19 +57,19 @@ LeGitHubModelElement >> model: aLeGitHubIdentity [
 	self onModelChanged.
 ]
 
-{ #category : 'private - hooks' }
+{ #category : #'private - hooks' }
 LeGitHubModelElement >> onModelChanged [
 	self updateElement.
 ]
 
-{ #category : 'private - announcement handling' }
+{ #category : #'private - announcement handling' }
 LeGitHubModelElement >> onResponeChanged: anAnnouncement [
 	anAnnouncement source = self ifTrue: [ ^ self ].
 	self enqueueTask: (BlTaskAction new action: [
 		self updateElement ])
 ]
 
-{ #category : 'private - subscriptions' }
+{ #category : #'private - subscriptions' }
 LeGitHubModelElement >> subscribeToModel [
 	self model weak
 		when: LeGitHubModelResponseChangedAnnouncement 
@@ -77,13 +77,13 @@ LeGitHubModelElement >> subscribeToModel [
 		to: self
 ]
 
-{ #category : 'private - subscriptions' }
+{ #category : #'private - subscriptions' }
 LeGitHubModelElement >> unsubscribeFromModel [
 	self model ifNil: [ ^ self ].
 	self model unsubscribe: self.
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeGitHubModelElement >> updateElement [
 	
 ]

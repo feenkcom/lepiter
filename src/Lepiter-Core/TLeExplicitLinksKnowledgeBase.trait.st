@@ -4,11 +4,12 @@ Trait {
 		'explicitLinks',
 		'contentLinksByOrigin'
 	],
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #'adding / removing' }
 TLeExplicitLinksKnowledgeBase >> addExplicitLink: anExplicitLink [
+
 	self assert: [ anExplicitLink notNil ].
 	
 	anExplicitLink onAboutToAddToDatabase: self.
@@ -173,6 +174,7 @@ TLeExplicitLinksKnowledgeBase >> newUniqueUuid [
 { #category : #'adding / removing' }
 TLeExplicitLinksKnowledgeBase >> removeExplicitLinks: leExplicitLinksToRemove [
 	| removedLinks |
+
 	self assert: [ leExplicitLinksToRemove notNil ].
 	leExplicitLinksToRemove ifEmpty: [ ^ self ].
 	
@@ -198,14 +200,17 @@ TLeExplicitLinksKnowledgeBase >> removeExplicitOutgoingLinksForContent: aLeConte
 
 { #category : #'adding / removing' }
 TLeExplicitLinksKnowledgeBase >> removeIncomingExplicitLinksForContent: aLeContent [
+
 	"Go through the links that point to this content, and clear the
 	reference to this content object from the link. This does not
 	remove the link, just makes sure the link is no longer resolved 
 	(points to a concrete content object)."
-	
+
 	| incomingLinks |
+	self assertNotReadOnly.
+
 	incomingLinks := aLeContent incomingLinks.
-	incomingLinks do: [ :anExplicitLink |
+	incomingLinks do: [ :anExplicitLink | 
 		anExplicitLink targetReference clearContent ].
 	incomingLinks removeAll
 ]
