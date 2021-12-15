@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeGitHubAnnouncingModel',
-	#superclass : 'Object',
+	#name : #LeGitHubAnnouncingModel,
+	#superclass : #Object,
 	#traits : 'TGtAnnouncer',
 	#classTraits : 'TGtAnnouncer classTrait',
 	#instVars : [
@@ -9,13 +9,13 @@ Class {
 	#category : 'Lepiter-GitHub-Model'
 }
 
-{ #category : 'announcer' }
+{ #category : #announcer }
 LeGitHubAnnouncingModel >> announcer [
 	<return: #Announcer>
 	^ announcer
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeGitHubAnnouncingModel >> initialize [
 	super initialize.
 	announcer := Announcer new.

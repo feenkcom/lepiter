@@ -10,8 +10,16 @@ The following explanation example holds several meanings that you can explore.
 Class {
 	#name : #LeWordMeaning,
 	#superclass : #LeWordData,
-	#category : 'Lepiter-Snippet-Words-Model'
+	#category : #'Lepiter-Snippet-Words-Model'
 }
+
+{ #category : #accessing }
+LeWordMeaning >> = anObject [
+
+	^ (anObject isKindOf: LeWordMeaning) and: [ 
+		  anObject partOfSpeech == self partOfSpeech and: [ 
+			  anObject definitions = self definitions ] ]
+]
 
 { #category : #generated }
 LeWordMeaning >> definitions [

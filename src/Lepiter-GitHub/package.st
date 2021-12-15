@@ -1,1 +1,1 @@
-Package { #name : 'Lepiter-GitHub' }
+Package { #name : #'Lepiter-GitHub' }

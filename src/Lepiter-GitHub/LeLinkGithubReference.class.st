@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeLinkGithubReference',
-	#superclass : 'LeLinkExternalReference',
+	#name : #LeLinkGithubReference,
+	#superclass : #LeLinkExternalReference,
 	#instVars : [
 		'userName',
 		'projectName',
@@ -9,12 +9,12 @@ Class {
 	#category : 'Lepiter-GitHub-Model'
 }
 
-{ #category : 'communication' }
+{ #category : #communication }
 LeLinkGithubReference >> download [
 	^ Dictionary new
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 LeLinkGithubReference >> gtLiveFor: aView [
 	<gtView>
 	^ aView forward
@@ -28,7 +28,7 @@ LeLinkGithubReference >> gtLiveFor: aView [
 			action: [ :aButton | self visitPage ]
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 LeLinkGithubReference >> printDetailsOn: aStream [
 	aStream 
 		nextPutAll: self userName asString;
@@ -36,7 +36,7 @@ LeLinkGithubReference >> printDetailsOn: aStream [
 		nextPutAll: self projectName asString
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 LeLinkGithubReference >> printOn: aStream [
 	super printOn: aStream.
 	aStream  nextPut: $(.
@@ -44,22 +44,22 @@ LeLinkGithubReference >> printOn: aStream [
 	aStream  nextPut: $)
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkGithubReference >> projectName [
 	^ projectName
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkGithubReference >> projectName: anObject [
 	projectName := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkGithubReference >> rawData [
 	^ rawData ifNil: [ rawData := self download ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkGithubReference >> urlString [
 	^ String streamContents: [ :aStream |
 		aStream 
@@ -69,17 +69,17 @@ LeLinkGithubReference >> urlString [
 			nextPutAll: self projectName asString ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkGithubReference >> userName [
 	^ userName
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkGithubReference >> userName: anObject [
 	userName := anObject
 ]
 
-{ #category : 'communication' }
+{ #category : #communication }
 LeLinkGithubReference >> visitPage [
 	^ WebBrowser openOn: self urlString
 ]

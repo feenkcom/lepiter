@@ -1,13 +1,13 @@
 Class {
-	#name : 'LeLinkGithubTagReference',
-	#superclass : 'LeLinkGithubReference',
+	#name : #LeLinkGithubTagReference,
+	#superclass : #LeLinkGithubReference,
 	#instVars : [
 		'tagName'
 	],
 	#category : 'Lepiter-GitHub-Model'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkGithubTagReference >> description [
 	^ String streamContents: [ :aStream | 
 			aStream 
@@ -15,7 +15,7 @@ LeLinkGithubTagReference >> description [
 			self printDetailsOn: aStream ]
 ]
 
-{ #category : 'communication' }
+{ #category : #communication }
 LeLinkGithubTagReference >> download [
 	| aRawData aCommitInfo |
 	aRawData := IceGitHubAPI new
@@ -36,7 +36,7 @@ LeLinkGithubTagReference >> download [
 	^ aRawData.
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 LeLinkGithubTagReference >> printDetailsOn: aStream [
 	super printDetailsOn: aStream.
 	aStream 
@@ -44,17 +44,17 @@ LeLinkGithubTagReference >> printDetailsOn: aStream [
 		nextPutAll: self tagName asString
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkGithubTagReference >> tagName [
 	^ tagName
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkGithubTagReference >> tagName: anObject [
 	tagName := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeLinkGithubTagReference >> urlString [
 	^ String streamContents: [ :aStream |
 		aStream 

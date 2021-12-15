@@ -1,13 +1,13 @@
 Class {
-	#name : 'LeGitHubIssueCommand',
-	#superclass : 'LeGitHubCommand',
+	#name : #LeGitHubIssueCommand,
+	#superclass : #LeGitHubCommand,
 	#instVars : [
 		'issueNumber'
 	],
 	#category : 'Lepiter-GitHub-Client'
 }
 
-{ #category : 'private - execution' }
+{ #category : #'private - execution' }
 LeGitHubIssueCommand >> download [
 	| aRawData |
 	aRawData := IceGitHubAPI new
@@ -18,12 +18,12 @@ LeGitHubIssueCommand >> download [
 	^ aRawData.
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeGitHubIssueCommand >> issueNumber [
 	^ issueNumber
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeGitHubIssueCommand >> issueNumber: anObject [
 	issueNumber := anObject
 ]

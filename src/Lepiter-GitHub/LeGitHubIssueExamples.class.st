@@ -1,10 +1,10 @@
 Class {
-	#name : 'LeGitHubIssueExamples',
-	#superclass : 'LeGitHubExamples',
+	#name : #LeGitHubIssueExamples,
+	#superclass : #LeGitHubExamples,
 	#category : 'Lepiter-GitHub-Examples'
 }
 
-{ #category : 'examples - ui auxiliar ' }
+{ #category : #'examples - ui auxiliar ' }
 LeGitHubIssueExamples >> basicEditorModelElement [
 	<gtExample>
 	| anElement |
@@ -12,7 +12,7 @@ LeGitHubIssueExamples >> basicEditorModelElement [
 	^ anElement
 ]
 
-{ #category : 'examples - model' }
+{ #category : #'examples - model' }
 LeGitHubIssueExamples >> basicModel [
 	<gtExample>
 	| aModel |
@@ -20,7 +20,7 @@ LeGitHubIssueExamples >> basicModel [
 	^ aModel
 ]
 
-{ #category : 'examples - ui model' }
+{ #category : #'examples - ui model' }
 LeGitHubIssueExamples >> basicModelElement [
 	<gtExample>
 	| anElement |
@@ -28,7 +28,7 @@ LeGitHubIssueExamples >> basicModelElement [
 	^ anElement
 ]
 
-{ #category : 'examples - snippet' }
+{ #category : #'examples - snippet' }
 LeGitHubIssueExamples >> basicSnippet [
 	<gtExample>
 	| aSnippet |
@@ -36,7 +36,7 @@ LeGitHubIssueExamples >> basicSnippet [
 	^ aSnippet
 ]
 
-{ #category : 'examples - ui snippet' }
+{ #category : #'examples - ui snippet' }
 LeGitHubIssueExamples >> basicSnippetElement [
 	<gtExample>
 	| anElement |
@@ -45,7 +45,7 @@ LeGitHubIssueExamples >> basicSnippetElement [
 	^ anElement 
 ]
 
-{ #category : 'examples - ui auxiliar ' }
+{ #category : #'examples - ui auxiliar ' }
 LeGitHubIssueExamples >> basicSummaryModelElement [
 	<gtExample>
 	| anElement |
@@ -53,7 +53,7 @@ LeGitHubIssueExamples >> basicSummaryModelElement [
 	^ anElement
 ]
 
-{ #category : 'examples - ui auxiliar ' }
+{ #category : #'examples - ui auxiliar ' }
 LeGitHubIssueExamples >> editorModelElement [
 	<gtExample>
 	| anElement aModel |
@@ -67,12 +67,12 @@ LeGitHubIssueExamples >> editorModelElement [
 	^ anElement
 ]
 
-{ #category : 'examples - model' }
+{ #category : #'examples - model' }
 LeGitHubIssueExamples >> issueNumber [
 	^ 1772
 ]
 
-{ #category : 'examples - model' }
+{ #category : #'examples - model' }
 LeGitHubIssueExamples >> model [
 	<gtExample>
 	| aModel |
@@ -83,7 +83,7 @@ LeGitHubIssueExamples >> model [
 	^ aModel
 ]
 
-{ #category : 'examples - ui model' }
+{ #category : #'examples - ui model' }
 LeGitHubIssueExamples >> modelElement [
 	<gtExample>
 	| anElement aModel |
@@ -97,7 +97,7 @@ LeGitHubIssueExamples >> modelElement [
 	^ anElement
 ]
 
-{ #category : 'examples - snippet' }
+{ #category : #'examples - snippet' }
 LeGitHubIssueExamples >> snippet [
 	<gtExample>
 	| aSnippet |
@@ -108,7 +108,7 @@ LeGitHubIssueExamples >> snippet [
 	^ aSnippet
 ]
 
-{ #category : 'examples - ui snippet' }
+{ #category : #'examples - ui snippet' }
 LeGitHubIssueExamples >> snippetElement [
 	<gtExample>
 	| anElement aSnippet |
@@ -119,7 +119,7 @@ LeGitHubIssueExamples >> snippetElement [
 	^ anElement 
 ]
 
-{ #category : 'examples - ui snippet' }
+{ #category : #'examples - ui snippet' }
 LeGitHubIssueExamples >> snippetElement_WithResponse [
 	<gtExample>
 	| anElement aSnippet |
@@ -131,7 +131,7 @@ LeGitHubIssueExamples >> snippetElement_WithResponse [
 	^ anElement 
 ]
 
-{ #category : 'examples - ui auxiliar ' }
+{ #category : #'examples - ui auxiliar ' }
 LeGitHubIssueExamples >> summaryModelElement [
 	<gtExample>
 	| anElement aModel |
@@ -146,7 +146,7 @@ LeGitHubIssueExamples >> summaryModelElement [
 	^ anElement
 ]
 
-{ #category : 'examples - ui auxiliar ' }
+{ #category : #'examples - ui auxiliar ' }
 LeGitHubIssueExamples >> summaryModelElement_ResponseAfter [
 	<gtExample>
 	| anElement aModel |
