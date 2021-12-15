@@ -26,7 +26,8 @@ Class {
 		'blocksByUID',
 		'filename',
 		'monitor',
-		'attachmentsByType'
+		'attachmentsByType',
+		'pagesByUuid'
 	],
 	#classVars : [
 		'LocalWorkspaceDatabaseLocation',
@@ -238,17 +239,21 @@ LeDatabase >> defaultFilename [
 
 { #category : #'api - adding / removing' }
 LeDatabase >> detachPage: aPage [
+
 	"I detach the page from the give database. The page could remain deleted or be later added to
 	another database."
-	
-	(pagesByType at: aPage pageTypeClass) removeKey: aPage databaseKey ifAbsent: [ "do nothing" ].
-	
+
+	(pagesByType at: aPage pageTypeClass)
+		removeKey: aPage databaseKey
+		ifAbsent: [ "do nothing" ].
+	pagesByUuid removeKey: aPage uid ifAbsent: [ "do nothing" ].
+
 	aPage removedFromDatabase: self.
 	self updateSortedCollectionsDueToRemoval: aPage.
-	
-	self announce: (LeDatabasePageRemoved new 
-		database: self;
-		page: aPage).
+
+	self announce: (LeDatabasePageRemoved new
+			 database: self;
+			 page: aPage)
 ]
 
 { #category : #'api - enumerating' }
@@ -435,11 +440,9 @@ LeDatabase >> hasPageNamed: aTitle [
 
 { #category : #'private - testing' }
 LeDatabase >> hasPageUID: aUUID [
-	"Answer a boolean indicating whether the receiver includes a page with the supplied UID.
-	This is a slow method and should only be used while adding pages"
+	"Answer a boolean indicating whether the receiver includes a page with the supplied UID"
 
-	self do: [ :each | each uid = aUUID ifTrue: [ ^ true ] ].
-	^ false
+	^ pagesByUuid includesKey: aUUID
 ]
 
 { #category : #'api - query' }
@@ -474,6 +477,7 @@ LeDatabase >> hasTextualSnippetLinks [
 LeDatabase >> initialize [
 	super initialize.
 	pagesByType := IdentityDictionary new.
+	pagesByUuid := Dictionary new.
 	"Populate all the page types"
 	LePageType subclassesDo: [ :pageType |
 		pagesByType
@@ -647,6 +651,11 @@ LeDatabase >> onPageTitleChanged: aLePageTitleChanged [
 { #category : #'api - adding / removing' }
 LeDatabase >> pageBuilder [
 	^ LeDatabasePageBuilder new database: self
+]
+
+{ #category : #accessing }
+LeDatabase >> pageByUuid: aUUID [
+	^ pagesByUuid at: aUUID
 ]
 
 { #category : #paging }
@@ -943,6 +952,7 @@ LeDatabase >> setPage: aLePage [
 
 	aLePage aboutToAddToDatabase: self.
 	pages at: aLePage databaseKey put: aLePage.
+	pagesByUuid at: aLePage uid put: aLePage.
 
 	^ aLePage
 ]
