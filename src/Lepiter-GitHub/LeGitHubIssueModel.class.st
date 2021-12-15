@@ -1,26 +1,26 @@
 Class {
-	#name : 'LeGitHubIssueModel',
-	#superclass : 'LeGitHubModel',
+	#name : #LeGitHubIssueModel,
+	#superclass : #LeGitHubModel,
 	#instVars : [
 		'issueNumber'
 	],
 	#category : 'Lepiter-GitHub-Model'
 }
 
-{ #category : 'api - response' }
+{ #category : #'api - response' }
 LeGitHubIssueModel >> body [
 	<return: #String>
 	^ self responseAtPath: #( body ) ifAbsent: [ '' ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeGitHubIssueModel >> createHtmlUrl [
 
 	^ ('https://github.com' asZnUrl / self ownerName / self projectName
 	   / 'issues' / self issueNumber asString) asString
 ]
 
-{ #category : 'private - execution' }
+{ #category : #'private - execution' }
 LeGitHubIssueModel >> download [
 	^ LeGitHubClient new
 		userName: self ownerName 
@@ -28,7 +28,7 @@ LeGitHubIssueModel >> download [
 		issue: self issueNumber
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeGitHubIssueModel >> htmlUrl [
 
 	self hasResponse ifFalse: [ ^ self createHtmlUrl ].
@@ -38,30 +38,30 @@ LeGitHubIssueModel >> htmlUrl [
 		  ifAbsent: [ self createHtmlUrl ]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeGitHubIssueModel >> initialize [
 	super initialize.
 	issueNumber := String empty .
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeGitHubIssueModel >> issueNumber [
 	^ issueNumber
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeGitHubIssueModel >> issueNumber: aNumber [
 	self issueNumber: aNumber source: nil
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeGitHubIssueModel >> issueNumber: aString source: aSource [
 	self issueNumber = aString ifTrue: [ ^ self ].
 	issueNumber := aString.
 	self announceConfigurationChangedBy: aSource
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeGitHubIssueModel >> longIdentificator [
 
 	"Return an identificator in a form of owner/project#issue."
@@ -75,7 +75,7 @@ LeGitHubIssueModel >> longIdentificator [
 			  nextPutAll: self issueNumber asString ]
 ]
 
-{ #category : 'api - response' }
+{ #category : #'api - response' }
 LeGitHubIssueModel >> title [
 	<return: #String>
 	^ self responseAtPath: #( title ) ifAbsent: [ '' ]

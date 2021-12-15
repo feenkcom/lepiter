@@ -1,13 +1,13 @@
 Class {
-	#name : 'LeGitHubTagCommand',
-	#superclass : 'LeGitHubCommand',
+	#name : #LeGitHubTagCommand,
+	#superclass : #LeGitHubCommand,
 	#instVars : [
 		'tagName'
 	],
 	#category : 'Lepiter-GitHub-Client'
 }
 
-{ #category : 'private - execution' }
+{ #category : #'private - execution' }
 LeGitHubTagCommand >> download [
 	| aRawData aCommitInfo |
 	aRawData := IceGitHubAPI new
@@ -28,12 +28,12 @@ LeGitHubTagCommand >> download [
 	^ aRawData.
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeGitHubTagCommand >> tagName [
 	^ tagName
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeGitHubTagCommand >> tagName: anObject [
 	tagName := anObject
 ]

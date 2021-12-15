@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeGitHubCommand',
-	#superclass : 'Object',
+	#name : #LeGitHubCommand,
+	#superclass : #Object,
 	#traits : 'TBlDebug',
 	#classTraits : 'TBlDebug classTrait',
 	#instVars : [
@@ -10,12 +10,12 @@ Class {
 	#category : 'Lepiter-GitHub-Client'
 }
 
-{ #category : 'communication' }
+{ #category : #communication }
 LeGitHubCommand >> download [
 	^ Dictionary new
 ]
 
-{ #category : 'api - execution' }
+{ #category : #'api - execution' }
 LeGitHubCommand >> execute [
 	<return: #LeGitHubResponse>
 	^ [ 
@@ -24,22 +24,22 @@ LeGitHubCommand >> execute [
 		LeGitHubError new exception: anException ]
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeGitHubCommand >> projectName [
 	^ projectName
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeGitHubCommand >> projectName: anObject [
 	projectName := anObject
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeGitHubCommand >> userName [
 	^ userName
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeGitHubCommand >> userName: anObject [
 	userName := anObject
 ]

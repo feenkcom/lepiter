@@ -1,10 +1,10 @@
 Class {
-	#name : 'LeGitHubSuccess',
-	#superclass : 'LeGitHubResponse',
+	#name : #LeGitHubSuccess,
+	#superclass : #LeGitHubResponse,
 	#category : 'Lepiter-GitHub-Model'
 }
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeGitHubSuccess >> atPath: anArray ifAbsent: anAbsentBlock [
 	| aResult |
 	anArray ifEmpty: [ ^ self rawData ].
@@ -19,7 +19,7 @@ LeGitHubSuccess >> atPath: anArray ifAbsent: anAbsentBlock [
 	^ aResult
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeGitHubSuccess >> isSuccess [
 	^ true
 ]

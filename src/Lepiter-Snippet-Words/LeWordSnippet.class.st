@@ -18,7 +18,7 @@ Class {
 		'explanation',
 		'explanationAttachmentName'
 	],
-	#category : 'Lepiter-Snippet-Words-Snippet'
+	#category : #'Lepiter-Snippet-Words-Snippet'
 }
 
 { #category : #'api - accessing menu' }
@@ -110,17 +110,18 @@ LeWordSnippet >> explanation: anExplanation [
 
 { #category : #'api - accessing' }
 LeWordSnippet >> explanation: anExplanation source: aSource [
-	self 
-		assert: [ anExplanation isNotNil ] 
-		description: [ 'Explanation must be non-nil' ].
 
-	explanation == anExplanation
-		ifTrue: [ ^ self ].
+	self
+		assert: [ anExplanation isNotNil ]
+		description: [ 'Explanation must be non-nil' ].
+	(explanation isNil or: [ explanation = anExplanation ]) ifTrue: [ 
+		explanation := anExplanation.
+		^ self ].
 
 	explanation := anExplanation.
 
 	self updateCachedExplanationBy: aSource.
-	self announceExplanationChangedBy: aSource.
+	self announceExplanationChangedBy: aSource
 ]
 
 { #category : #'api - accessing' }

@@ -1,13 +1,13 @@
 Class {
-	#name : 'LeGitHubInputFieldId',
-	#superclass : 'BlElementId',
+	#name : #LeGitHubInputFieldId,
+	#superclass : #BlElementId,
 	#instVars : [
 		'name'
 	],
 	#category : 'Lepiter-GitHub-UI IDs'
 }
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 LeGitHubInputFieldId >> = anObject [
 	"Answer whether the receiver and anObject represent the same object."
 
@@ -21,12 +21,12 @@ LeGitHubInputFieldId >> = anObject [
 		ifTrue: [ ^ self name = anObject name ].
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 LeGitHubInputFieldId >> asSymbol [
 	^ self name
 ]
 
-{ #category : 'gt-extensions' }
+{ #category : #'gt-extensions' }
 LeGitHubInputFieldId >> gtReferencesFor: aView [
 	<gtView>
 	^ aView explicit
@@ -34,17 +34,17 @@ LeGitHubInputFieldId >> gtReferencesFor: aView [
 		stencil: [ self class gtReferences ]
 ]
 
-{ #category : 'comparing' }
+{ #category : #comparing }
 LeGitHubInputFieldId >> hash [
 	^ self class hash bitXor: self name hash
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeGitHubInputFieldId >> name [
 	^ name
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeGitHubInputFieldId >> name: aSymbol [
 
 	name

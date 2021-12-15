@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeGitHubModelAnnouncement',
-	#superclass : 'Announcement',
+	#name : #LeGitHubModelAnnouncement,
+	#superclass : #Announcement,
 	#instVars : [
 		'source',
 		'model'
@@ -8,22 +8,22 @@ Class {
 	#category : 'Lepiter-GitHub-Announcements'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeGitHubModelAnnouncement >> model [
 	^ model
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeGitHubModelAnnouncement >> model: anObject [
 	model := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeGitHubModelAnnouncement >> source [
 	^ source
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeGitHubModelAnnouncement >> source: anObject [
 	source := anObject
 ]
