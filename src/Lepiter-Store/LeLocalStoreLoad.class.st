@@ -183,3 +183,22 @@ LeLocalStoreLoad >> onlyLoadFrom: aFileReference [
 
 	^ database
 ]
+
+{ #category : #accessing }
+LeLocalStoreLoad >> onlyLoadReadOnlyFrom: aFileReference [
+	| monitor |
+
+	self localRoot: aFileReference.
+	monitor := LeLocalStoreMonitor new.
+	monitor localRoot: localRoot.
+	monitor storage: storage.
+	
+	database := LeDatabase new.
+	database readOnly: true.
+	database monitor: monitor.
+	monitor database: database.
+	self loadDatabasePropertiesIn: database.
+	self loadContentInDatabase: database. 
+
+	^ database
+]

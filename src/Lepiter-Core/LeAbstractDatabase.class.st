@@ -13,7 +13,8 @@ Class {
 	#classTraits : 'TGtAnnouncer classTrait + TLeSpotterChildrenEnumerationSearch classTrait + TLeSpotterPagesSearch classTrait',
 	#instVars : [
 		'announcer',
-		'parent'
+		'parent',
+		'readOnly'
 	],
 	#category : #'Lepiter-Core-Model'
 }
@@ -65,4 +66,14 @@ LeAbstractDatabase >> parent: aLeLogicalDatabase [
 	"Set the parent database of the receiver (a LeLogicalDatabase)"
 
 	parent := aLeLogicalDatabase
+]
+
+{ #category : #accessing }
+LeAbstractDatabase >> readOnly [
+	^ readOnly
+]
+
+{ #category : #accessing }
+LeAbstractDatabase >> readOnly: aBoolean [
+	readOnly := aBoolean
 ]

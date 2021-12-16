@@ -11,8 +11,13 @@ Class {
 	#instVars : [
 		'word'
 	],
-	#category : 'Lepiter-Snippet-Words-Model'
+	#category : #'Lepiter-Snippet-Words-Model'
 }
+
+{ #category : #accessing }
+LeWordExplanation >> = anObject [
+	^ (anObject isKindOf: LeWordExplanation) and: [anObject word = self word and: [anObject meanings = self meanings]]
+]
 
 { #category : #'api - accessing' }
 LeWordExplanation >> definitions [

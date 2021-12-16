@@ -1,19 +1,19 @@
 Class {
-	#name : 'LeGitHubSnippet',
-	#superclass : 'LeSnippet',
+	#name : #LeGitHubSnippet,
+	#superclass : #LeSnippet,
 	#instVars : [
 		'model',
 		'responseCacheName'
 	],
-	#category : 'Lepiter-GitHub-Snippets'
+	#category : #'Lepiter-GitHub-Snippets'
 }
 
-{ #category : 'factory' }
+{ #category : #factory }
 LeGitHubSnippet class >> empty [
 	^ self new
 ]
 
-{ #category : 'jsonV3' }
+{ #category : #jsonV3 }
 LeGitHubSnippet class >> leJsonV3AttributeMapping [
 
 	^ super leJsonV3AttributeMapping
@@ -23,7 +23,7 @@ LeGitHubSnippet class >> leJsonV3AttributeMapping [
 		yourself
 ]
 
-{ #category : 'jsonV3' }
+{ #category : #jsonV3 }
 LeGitHubSnippet class >> leJsonV4AttributeMapping [
 
 	^ super leJsonV4AttributeMapping
@@ -33,19 +33,19 @@ LeGitHubSnippet class >> leJsonV4AttributeMapping [
 		yourself
 ]
 
-{ #category : 'visiting' }
+{ #category : #visiting }
 LeGitHubSnippet >> acceptVisitor: aVisitor [
 
 	^ aVisitor visitGitHubSnippet: self
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeGitHubSnippet >> defaultModel [
 	<return: #LeGitHubModel>
 	^ self subclassResponsibility
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeGitHubSnippet >> initialize [
 	super initialize.
 	model := self defaultModel.
@@ -60,93 +60,95 @@ LeGitHubSnippet >> initialize [
 	
 ]
 
-{ #category : 'api - testing' }
+{ #category : #'api - testing' }
 LeGitHubSnippet >> isEmpty [
 	^ self model isNil
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeGitHubSnippet >> model [
 	<return: #LeGitHubModel>
 	^ model
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeGitHubSnippet >> onAddedToDatabase [
 	super onAddedToDatabase.
 	self responseCacheName ifNil: [ ^ self ].
 	self updateModelResponseSource: nil.
 ]
 
-{ #category : 'private - announcement handling' }
+{ #category : #'private - announcement handling' }
 LeGitHubSnippet >> onModelChanged: anAnnouncement [
 	self onModelConfigurationChanged: anAnnouncement
 ]
 
-{ #category : 'private - announcement handling' }
+{ #category : #'private - announcement handling' }
 LeGitHubSnippet >> onModelConfigurationChanged: anAnnouncement [
 	self announceContentChangedBy: anAnnouncement source
 ]
 
-{ #category : 'private - announcement handling' }
+{ #category : #'private - announcement handling' }
 LeGitHubSnippet >> onModelResponseChanged: anAnnouncement [
+
 	| aDatabase |
 	self model hasSuccessResponse ifFalse: [ ^ self ].
-	
+
 	aDatabase := self database.
 	aDatabase isDatabase ifFalse: [ ^ self ].
 	aDatabase monitor ifNil: [ ^ self ].
-	
+
 	self responseCacheName
 		ifNil: [ 
 			| aFileName |
-			aFileName := aDatabase 
-				addAttachmentWithContent: self responseCacheContent
-				named: 'github-response-cache.json'.
+			aFileName := aDatabase
+				             addAttachmentWithContent: self responseCacheContent
+				             named: 'github-response-cache.json'.
 			self responseCacheName: aFileName source: anAnnouncement source ]
 		ifNotNil: [ 
-			aDatabase 
-				updateAttachmentNamed: self responseCacheName 
-				content: self responseCacheContent ].
+			aDatabase readOnly ifFalse: [ 
+				aDatabase
+					updateAttachmentNamed: self responseCacheName
+					content: self responseCacheContent ] ]
 ]
 
-{ #category : 'api - model' }
+{ #category : #'api - model' }
 LeGitHubSnippet >> ownerName [
 	^ self model ownerName ifNil: [ String empty ]
 ]
 
-{ #category : 'api - model' }
+{ #category : #'api - model' }
 LeGitHubSnippet >> ownerName: aString [
 	self model ownerName: aString
 ]
 
-{ #category : 'api - model' }
+{ #category : #'api - model' }
 LeGitHubSnippet >> projectName [
 	^ self model projectName ifNil: [ String empty ]
 ]
 
-{ #category : 'api - model' }
+{ #category : #'api - model' }
 LeGitHubSnippet >> projectName: aString [
 	self model projectName: aString
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeGitHubSnippet >> responseCacheContent [
 	^ STONJSON toString: self model response rawData
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeGitHubSnippet >> responseCacheName [
 	<return: #String or: nil>
 	^ responseCacheName
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeGitHubSnippet >> responseCacheName: aString [
 	self responseCacheName: aString source: nil
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeGitHubSnippet >> responseCacheName: aString source: aSource [
 	self responseCacheName = aString
 		ifTrue: [ ^ self ].
@@ -155,7 +157,7 @@ LeGitHubSnippet >> responseCacheName: aString source: aSource [
 	self announceContentChangedBy: aSource
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeGitHubSnippet >> updateModelResponseSource: aSource [
 	| aDatabase aFile aContent aRawData aResponse |
 	self model hasResponse ifTrue: [ ^ self ].
@@ -173,12 +175,12 @@ LeGitHubSnippet >> updateModelResponseSource: aSource [
 	self model response: aResponse source: aSource.
 ]
 
-{ #category : 'deprecated' }
+{ #category : #deprecated }
 LeGitHubSnippet >> userName [
 	^ self ownerName
 ]
 
-{ #category : 'deprecated' }
+{ #category : #deprecated }
 LeGitHubSnippet >> userName: aString [ 
 	self ownerName: aString
 ]

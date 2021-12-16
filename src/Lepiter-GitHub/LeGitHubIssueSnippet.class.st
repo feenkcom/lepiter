@@ -1,10 +1,10 @@
 Class {
-	#name : 'LeGitHubIssueSnippet',
-	#superclass : 'LeGitHubSnippet',
+	#name : #LeGitHubIssueSnippet,
+	#superclass : #LeGitHubSnippet,
 	#category : 'Lepiter-GitHub-Snippets'
 }
 
-{ #category : 'api - accessing menu' }
+{ #category : #'api - accessing menu' }
 LeGitHubIssueSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
@@ -12,7 +12,7 @@ LeGitHubIssueSnippet class >> contextMenuItemSpecification [
 		title: 'GitHub issue'
 ]
 
-{ #category : 'jsonV3' }
+{ #category : #jsonV3 }
 LeGitHubIssueSnippet class >> leJsonV3AttributeMapping [
 
 	^ super leJsonV3AttributeMapping
@@ -20,13 +20,13 @@ LeGitHubIssueSnippet class >> leJsonV3AttributeMapping [
 		yourself
 ]
 
-{ #category : 'lepiter-store' }
+{ #category : #'lepiter-store' }
 LeGitHubIssueSnippet class >> leJsonV3Name [
 
 	^ 'githubIssueSnippet'
 ]
 
-{ #category : 'jsonV3' }
+{ #category : #jsonV3 }
 LeGitHubIssueSnippet class >> leJsonV4AttributeMapping [
 
 	^ super leJsonV4AttributeMapping
@@ -34,25 +34,25 @@ LeGitHubIssueSnippet class >> leJsonV4AttributeMapping [
 		yourself
 ]
 
-{ #category : 'lepiter-store' }
+{ #category : #'lepiter-store' }
 LeGitHubIssueSnippet class >> leJsonV4Name [
 
 	^ 'githubIssueSnippet'
 ]
 
-{ #category : 'visiting' }
+{ #category : #visiting }
 LeGitHubIssueSnippet >> acceptVisitor: aVisitor [
 
 	^ aVisitor visitGitHubIssueSnippet: self
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 LeGitHubIssueSnippet >> asSnippetViewModel [
 	<return: #LeSnippetViewModel>
 	^ LeGithubIssueViewModel new snippetModel: self
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeGitHubIssueSnippet >> contentAsString [		
 	^ String streamContents: [ :aStream |
 			aStream
@@ -63,33 +63,33 @@ LeGitHubIssueSnippet >> contentAsString [
 				nextPutAll: (self issueNumber asString ifEmpty: [ '<issue>' ]) ]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeGitHubIssueSnippet >> defaultModel [
 	<return: #LeGitHubModel>
 	^ LeGitHubIssueModel new
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeGitHubIssueSnippet >> htmlUrl [
 	^ self model htmlUrl
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeGitHubIssueSnippet >> issueNumber [
 	^ self model issueNumber
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeGitHubIssueSnippet >> issueNumber: aNumber [
 	self model issueNumber: aNumber
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeGitHubIssueSnippet >> longIdentificator [
 	^ self model longIdentificator
 ]
 
-{ #category : 'api - accessing' }
+{ #category : #'api - accessing' }
 LeGitHubIssueSnippet >> url: anUrl [
 	| aValidator |
 	aValidator := LeGitHubIssueUrlValidator new

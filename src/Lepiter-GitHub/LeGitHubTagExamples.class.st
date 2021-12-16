@@ -1,10 +1,10 @@
 Class {
-	#name : 'LeGitHubTagExamples',
-	#superclass : 'LeGitHubExamples',
+	#name : #LeGitHubTagExamples,
+	#superclass : #LeGitHubExamples,
 	#category : 'Lepiter-GitHub-Examples'
 }
 
-{ #category : 'examples - ui auxiliar' }
+{ #category : #'examples - ui auxiliar' }
 LeGitHubTagExamples >> basicEditorModelElement [
 	<gtExample>
 	| anElement |
@@ -12,7 +12,7 @@ LeGitHubTagExamples >> basicEditorModelElement [
 	^ anElement
 ]
 
-{ #category : 'examples - model' }
+{ #category : #'examples - model' }
 LeGitHubTagExamples >> basicModel [
 	<gtExample>
 	| aModel |
@@ -20,7 +20,7 @@ LeGitHubTagExamples >> basicModel [
 	^ aModel
 ]
 
-{ #category : 'examples - ui model' }
+{ #category : #'examples - ui model' }
 LeGitHubTagExamples >> basicModelElement [
 	<gtExample>
 	| anElement |
@@ -28,7 +28,7 @@ LeGitHubTagExamples >> basicModelElement [
 	^ anElement
 ]
 
-{ #category : 'examples - snippet' }
+{ #category : #'examples - snippet' }
 LeGitHubTagExamples >> basicSnippet [
 	<gtExample>
 	| aSnippet |
@@ -36,7 +36,7 @@ LeGitHubTagExamples >> basicSnippet [
 	^ aSnippet
 ]
 
-{ #category : 'examples - ui snippet' }
+{ #category : #'examples - ui snippet' }
 LeGitHubTagExamples >> basicSnippetElement [
 	<gtExample>
 	| anElement |
@@ -45,7 +45,7 @@ LeGitHubTagExamples >> basicSnippetElement [
 	^ anElement 
 ]
 
-{ #category : 'examples - ui auxiliar' }
+{ #category : #'examples - ui auxiliar' }
 LeGitHubTagExamples >> basicSummaryModelElement [
 	<gtExample>
 	| anElement |
@@ -53,7 +53,7 @@ LeGitHubTagExamples >> basicSummaryModelElement [
 	^ anElement
 ]
 
-{ #category : 'examples - ui auxiliar' }
+{ #category : #'examples - ui auxiliar' }
 LeGitHubTagExamples >> editorModelElement [
 	<gtExample>
 	| anElement aModel |
@@ -67,7 +67,7 @@ LeGitHubTagExamples >> editorModelElement [
 	^ anElement
 ]
 
-{ #category : 'examples - model' }
+{ #category : #'examples - model' }
 LeGitHubTagExamples >> model [
 	<gtExample>
 	| aModel |
@@ -78,7 +78,7 @@ LeGitHubTagExamples >> model [
 	^ aModel
 ]
 
-{ #category : 'examples - ui model' }
+{ #category : #'examples - ui model' }
 LeGitHubTagExamples >> modelElement [
 	<gtExample>
 	| anElement aModel |
@@ -92,7 +92,7 @@ LeGitHubTagExamples >> modelElement [
 	^ anElement
 ]
 
-{ #category : 'examples - snippet' }
+{ #category : #'examples - snippet' }
 LeGitHubTagExamples >> snippet [
 	<gtExample>
 	| aSnippet |
@@ -103,7 +103,7 @@ LeGitHubTagExamples >> snippet [
 	^ aSnippet
 ]
 
-{ #category : 'examples - ui snippet' }
+{ #category : #'examples - ui snippet' }
 LeGitHubTagExamples >> snippetElement [
 	<gtExample>
 	| anElement aSnippet |
@@ -114,7 +114,7 @@ LeGitHubTagExamples >> snippetElement [
 	^ anElement
 ]
 
-{ #category : 'examples - ui snippet' }
+{ #category : #'examples - ui snippet' }
 LeGitHubTagExamples >> snippetElement_WithResponse [
 	<gtExample>
 	| anElement aSnippet |
@@ -126,7 +126,7 @@ LeGitHubTagExamples >> snippetElement_WithResponse [
 	^ anElement
 ]
 
-{ #category : 'examples - ui auxiliar' }
+{ #category : #'examples - ui auxiliar' }
 LeGitHubTagExamples >> summaryModelElement [
 	<gtExample>
 	| anElement aModel |
@@ -140,7 +140,7 @@ LeGitHubTagExamples >> summaryModelElement [
 	^ anElement
 ]
 
-{ #category : 'examples - snippet' }
+{ #category : #'examples - snippet' }
 LeGitHubTagExamples >> tagName [
 	^ 'v0.8.439'
 ]

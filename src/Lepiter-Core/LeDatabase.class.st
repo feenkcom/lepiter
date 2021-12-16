@@ -26,7 +26,8 @@ Class {
 		'blocksByUID',
 		'filename',
 		'monitor',
-		'attachmentsByType'
+		'attachmentsByType',
+		'pagesByUuid'
 	],
 	#classVars : [
 		'LocalWorkspaceDatabaseLocation',
@@ -42,40 +43,60 @@ LeDatabase class >> null [
 
 { #category : #'api - attachments' }
 LeDatabase >> addAttachmentByCopy: aFileReference [
+
 	"Copy the attached file to the receiver's DB and answer the relative path string to the file"
+
 	<return: #String>
 	| attachmentFileReference attachmentDirectory |
+	self assertNotReadOnly.
 
-	attachmentDirectory := self attachmentDirectoryAndMetadataFor: aFileReference.
-	attachmentFileReference := attachmentDirectory / aFileReference basename.
+
+	attachmentDirectory := self attachmentDirectoryAndMetadataFor:
+		                       aFileReference.
+	attachmentFileReference := attachmentDirectory
+	                           / aFileReference basename.
 	aFileReference copyTo: attachmentFileReference.
-	^ (attachmentFileReference relativeTo: self localStoreRootDirectory) fullName.
+	^ (attachmentFileReference relativeTo: self localStoreRootDirectory)
+		  fullName
 ]
 
 { #category : #'api - attachments' }
 LeDatabase >> addAttachmentByMove: aFileReference [
+
 	"Move the attached file to the receiver's DB and answer the relative path string to the file"
+
 	<return: #String>
 	| attachmentFileReference attachmentDirectory |
+	self assertNotReadOnly.
 
-	attachmentDirectory := self attachmentDirectoryAndMetadataFor: aFileReference.
-	attachmentFileReference := attachmentDirectory / aFileReference basename.
+
+	attachmentDirectory := self attachmentDirectoryAndMetadataFor:
+		                       aFileReference.
+	attachmentFileReference := attachmentDirectory
+	                           / aFileReference basename.
 	aFileReference resolve copy moveTo: attachmentFileReference resolve.
-	^ (attachmentFileReference relativeTo: self localStoreRootDirectory) fullName.
-
+	^ (attachmentFileReference relativeTo: self localStoreRootDirectory)
+		  fullName
 ]
 
 { #category : #'api - attachments' }
 LeDatabase >> addAttachmentWithContent: aString named: aName [
+
 	"Create an attachment to the receiver's DB and answer the relative path string to the file"
+
 	<return: #String>
 	| attachmentFileReference attachmentDirectory |
+	self assertNotReadOnly.
 
-	attachmentDirectory := self attachmentDirectoryAndMetadataFor: aName asFileReference.
+
+	attachmentDirectory := self attachmentDirectoryAndMetadataFor:
+		                       aName asFileReference.
 	attachmentFileReference := attachmentDirectory / aName asString.
-	attachmentFileReference writeStreamEncoded: 'utf8' do: [ :aStream |
-		aStream nextPutAll: aString asString ].
-	^ (attachmentFileReference relativeTo: self localStoreRootDirectory) fullName.
+	attachmentFileReference
+		writeStreamEncoded: 'utf8'
+		do: [ :aStream | aStream nextPutAll: aString asString ].
+	^ (attachmentFileReference relativeTo: self localStoreRootDirectory)
+		  fullName
 ]
 
 { #category : #'api - adding / removing' }
@@ -84,6 +105,8 @@ LeDatabase >> addPage: aLePage [
 	An exception handler may decide to ignore the page and answer nil if the page is a duplicate.
 	This is separated out into two operations so that bulk loads can add all new pages to a database before updating links (which may create new pages prematurely)."
 	| page |
+	
+	self assertNotReadOnly.
 
 	page := self setPage: aLePage.
 	page ifNotNil: [ self setPageUpdate: aLePage ].
@@ -101,6 +124,12 @@ LeDatabase >> announce: anAnnouncement [
 LeDatabase >> anyOne [
 
 	^ self do: [ :aPage | ^ aPage ]
+]
+
+{ #category : #'adding / removing' }
+LeDatabase >> assertNotReadOnly [
+
+	self assert: [ self readOnly isNil or: [ self readOnly not ] ]
 ]
 
 { #category : #'api - accessing' }
@@ -127,9 +156,14 @@ LeDatabase >> at: aKey ifPresent: aPresentBlock ifAbsent: anAbsentBlock forPageT
 { #category : #'api - accessing' }
 LeDatabase >> attachmentDirectories [
 
-	^ self monitor attachmentsDirectory directories
-		  ifNil: [ #(  ) ]
-		  ifNotNil: [ :directories | directories collect: [ :dir | dir ] ]
+	| attachmentDirectory |
+	attachmentDirectory := self monitor attachmentsDirectory.
+	^ attachmentDirectory exists
+		  ifTrue: [ 
+			  attachmentDirectory directories
+				  ifNil: [ #(  ) ]
+				  ifNotNil: [ :directories | directories collect: [ :dir | dir ] ] ]
+		  ifFalse: [ #(  ) ]
 ]
 
 { #category : #private }
@@ -238,17 +272,23 @@ LeDatabase >> defaultFilename [
 
 { #category : #'api - adding / removing' }
 LeDatabase >> detachPage: aPage [
+
 	"I detach the page from the give database. The page could remain deleted or be later added to
 	another database."
-	
-	(pagesByType at: aPage pageTypeClass) removeKey: aPage databaseKey ifAbsent: [ "do nothing" ].
-	
+
+	self assertNotReadOnly.
+
+	(pagesByType at: aPage pageTypeClass)
+		removeKey: aPage databaseKey
+		ifAbsent: [ "do nothing" ].
+	pagesByUuid removeKey: aPage uid ifAbsent: [ "do nothing" ].
+
 	aPage removedFromDatabase: self.
 	self updateSortedCollectionsDueToRemoval: aPage.
-	
-	self announce: (LeDatabasePageRemoved new 
-		database: self;
-		page: aPage).
+
+	self announce: (LeDatabasePageRemoved new
+			 database: self;
+			 page: aPage)
 ]
 
 { #category : #'api - enumerating' }
@@ -259,11 +299,15 @@ LeDatabase >> do: aBlock [
 ]
 
 { #category : #'api - accessing' }
-LeDatabase >> ensurePageNamed: aString [ 
+LeDatabase >> ensurePageNamed: aString [
+
 	"Answer the page named aString, creating if necessary"
 
-	^ self pageNamed: aString 
-			ifAbsent: [ self pageBuilder title: aString; add ]
+	^ self pageNamed: aString ifAbsent: [ 
+		  self assertNotReadOnly.
+		  self pageBuilder
+			  title: aString;
+			  add ]
 ]
 
 { #category : #accessing }
@@ -275,6 +319,9 @@ LeDatabase >> filename [
 
 { #category : #accessing }
 LeDatabase >> filename: anObject [
+	
+	self assertNotReadOnly.
+
 	filename := anObject asFileReference
 ]
 
@@ -435,11 +482,9 @@ LeDatabase >> hasPageNamed: aTitle [
 
 { #category : #'private - testing' }
 LeDatabase >> hasPageUID: aUUID [
-	"Answer a boolean indicating whether the receiver includes a page with the supplied UID.
-	This is a slow method and should only be used while adding pages"
+	"Answer a boolean indicating whether the receiver includes a page with the supplied UID"
 
-	self do: [ :each | each uid = aUUID ifTrue: [ ^ true ] ].
-	^ false
+	^ pagesByUuid includesKey: aUUID
 ]
 
 { #category : #'api - query' }
@@ -473,7 +518,9 @@ LeDatabase >> hasTextualSnippetLinks [
 { #category : #initialization }
 LeDatabase >> initialize [
 	super initialize.
+	readOnly := false.
 	pagesByType := IdentityDictionary new.
+	pagesByUuid := Dictionary new.
 	"Populate all the page types"
 	LePageType subclassesDo: [ :pageType |
 		pagesByType
@@ -647,6 +694,11 @@ LeDatabase >> onPageTitleChanged: aLePageTitleChanged [
 { #category : #'api - adding / removing' }
 LeDatabase >> pageBuilder [
 	^ LeDatabasePageBuilder new database: self
+]
+
+{ #category : #accessing }
+LeDatabase >> pageByUuid: aUUID [
+	^ pagesByUuid at: aUUID
 ]
 
 { #category : #paging }
@@ -868,19 +920,24 @@ LeDatabase >> reload [
 
 { #category : #'private - development' }
 LeDatabase >> removeEmptyPages [
+
 	"Remove empty pages from the receiver.
 	This is just for manual maintenace during development"
+
 	| emptyPages |
+	self assertNotReadOnly.
 
 	emptyPages := self pages select: [ :each | each isEmpty ].
-	emptyPages do: [ :page |
-		self removePage: page ]
+	emptyPages do: [ :page | self removePage: page ]
 ]
 
 { #category : #'api - adding / removing' }
 LeDatabase >> removeFromParentDatabase [
+
+	self assertNotReadOnly.
+
 	self parent ifNil: [ ^ self ].
-	self parent removeDB: self.
+	self parent removeDB: self
 ]
 
 { #category : #'api - adding / removing' }
@@ -943,6 +1000,7 @@ LeDatabase >> setPage: aLePage [
 
 	aLePage aboutToAddToDatabase: self.
 	pages at: aLePage databaseKey put: aLePage.
+	pagesByUuid at: aLePage uid put: aLePage.
 
 	^ aLePage
 ]
@@ -1092,10 +1150,13 @@ LeDatabase >> unnamedPagesDo: aBlock [
 
 { #category : #'adding / removing' }
 LeDatabase >> unregisterSnippet: aSnippet [
+
+	self assertNotReadOnly.
 	self assert: [ aSnippet uid notNil ].
 	self assert: [ aSnippet uid uid notNil ].
-	self assert: [ (blocksByUID includesKey: aSnippet uid) ].
-	
+	self assert: [ blocksByUID includesKey: aSnippet uid ].
+
+
 	blocksByUID removeKey: aSnippet uid
 ]
 

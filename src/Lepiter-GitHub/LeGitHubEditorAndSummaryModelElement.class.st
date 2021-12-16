@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeGitHubEditorAndSummaryModelElement',
-	#superclass : 'LeGitHubModelElement',
+	#name : #LeGitHubEditorAndSummaryModelElement,
+	#superclass : #LeGitHubModelElement,
 	#instVars : [
 		'editorElement',
 		'summaryElement'
@@ -8,25 +8,25 @@ Class {
 	#category : 'Lepiter-GitHub-UI Model Elements'
 }
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeGitHubEditorAndSummaryModelElement >> defaultEditorModelElementClass [
 	<return: #LeGitHubEditorModelElement>
 	^ self subclassResponsibility
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeGitHubEditorAndSummaryModelElement >> defaultSummaryModelElementClass [
 	<return: #LeGitHubModelElement>
 	^ self subclassResponsibility
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeGitHubEditorAndSummaryModelElement >> editorElement [
 	<return: #LeGitHubTagEditorModelElement>
 	^ editorElement
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeGitHubEditorAndSummaryModelElement >> initialize [
 	super initialize.
 	self initializeEditorElement.
@@ -38,26 +38,26 @@ LeGitHubEditorAndSummaryModelElement >> initialize [
 	self addAptitude: (BrLayoutResizerAptitude inherit).
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeGitHubEditorAndSummaryModelElement >> initializeEditorElement [
 	editorElement := self defaultEditorModelElementClass new
 		visibility: BlVisibility gone
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeGitHubEditorAndSummaryModelElement >> initializeSummaryElement [
 	summaryElement := self defaultSummaryModelElementClass new
 		visibility: BlVisibility gone
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeGitHubEditorAndSummaryModelElement >> showEditor [
 	self editorElement model: self model.
 	self editorElement visibility: BlVisibility visible.
 	self summaryElement visibility: BlVisibility gone.
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeGitHubEditorAndSummaryModelElement >> showSummary [
 	self summaryElement model: self model.
 	self editorElement visibility: BlVisibility gone.
@@ -65,13 +65,13 @@ LeGitHubEditorAndSummaryModelElement >> showSummary [
 
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LeGitHubEditorAndSummaryModelElement >> summaryElement [
 	<return: #LeGitHubTagSummaryModelElement>
 	^ summaryElement
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LeGitHubEditorAndSummaryModelElement >> updateElement [
 	super updateElement.
 	self hasSuccessResponse 

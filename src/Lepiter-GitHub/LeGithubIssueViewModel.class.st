@@ -1,10 +1,10 @@
 Class {
-	#name : 'LeGithubIssueViewModel',
-	#superclass : 'LeGitHubSnippetViewModel',
+	#name : #LeGithubIssueViewModel,
+	#superclass : #LeGitHubSnippetViewModel,
 	#category : 'Lepiter-GitHub-UI Snippet View Models'
 }
 
-{ #category : 'api - actions' }
+{ #category : #'api - actions' }
 LeGithubIssueViewModel >> browseIssueWebsite [
 
 	| aString |
@@ -13,7 +13,7 @@ LeGithubIssueViewModel >> browseIssueWebsite [
 	^ aString 
 ]
 
-{ #category : 'api - actions' }
+{ #category : #'api - actions' }
 LeGithubIssueViewModel >> copyIssueIdIntoClipboard [
 
 	| aString |
@@ -22,7 +22,7 @@ LeGithubIssueViewModel >> copyIssueIdIntoClipboard [
 	^ aString 
 ]
 
-{ #category : 'gt - extensions' }
+{ #category : #'gt - extensions' }
 LeGithubIssueViewModel >> gtBrowseIssueWebsiteFor: anAction [
 	<gtAction>
 	^ anAction button
@@ -33,7 +33,7 @@ LeGithubIssueViewModel >> gtBrowseIssueWebsiteFor: anAction [
 		action: [ :aButton :aSnippetElement | self browseIssueWebsite ]
 ]
 
-{ #category : 'gt - extensions' }
+{ #category : #'gt - extensions' }
 LeGithubIssueViewModel >> gtCopyIssueIdentificatorIntoClipboardFor: anAction [
 	<gtAction>
 	^ anAction button
@@ -44,7 +44,7 @@ LeGithubIssueViewModel >> gtCopyIssueIdentificatorIntoClipboardFor: anAction [
 		action: [ :aButton :aSnippetElement | self copyIssueIdIntoClipboard ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeGithubIssueViewModel >> snippetElementClass [
 	^ LeGitHubIssueSnippetElement
 ]
