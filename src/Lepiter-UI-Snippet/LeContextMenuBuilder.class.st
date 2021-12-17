@@ -1,25 +1,35 @@
 Class {
 	#name : #LeContextMenuBuilder,
 	#superclass : #Object,
-	#category : 'Lepiter-UI-Snippet-Spotter'
+	#category : #'Lepiter-UI-Snippet-Spotter'
 }
 
 { #category : #building }
 LeContextMenuBuilder >> build [
+
 	| aCollector aCollection |
-	aCollector := (PragmaCollector
-		filter: [ :aPragma | aPragma selector = #leSnippetSpecification ])
-		reset.
-	aCollection := aCollector
-		collect: [ :aPragma |
+	aCollection := OrderedCollection new.
+
+	LeSnippet allSubclassesDo: [ :eachClass | 
+		| aClassPragmas |
+		aClassPragmas := Pragma
+			                 allNamed: #leSnippetSpecification
+			                 in: eachClass class.
+
+		aClassPragmas do: [ :aPragma | 
 			| aMenuItem |
-			aMenuItem := aPragma method valueWithReceiver: aPragma methodClass arguments: #().
+			aMenuItem := aPragma method
+				             valueWithReceiver: aPragma methodClass
+				             arguments: #(  ).
 			aMenuItem definingMethod: aPragma method.
-			aMenuItem ].
-	aCollector release.
-	aCollection sort: [ :a :b | a priority = b priority 
-		ifTrue: [ a title < b title ] 
-		ifFalse: [ a priority < b priority ] ].
+
+			aCollection add: aMenuItem ] ].
+
+	aCollection sort: [ :a :b | 
+		a priority = b priority
+			ifTrue: [ a title < b title ]
+			ifFalse: [ a priority < b priority ] ].
+
 	^ aCollection
 ]
 
