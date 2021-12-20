@@ -12,7 +12,11 @@ LeHomeAddDatabaseElement >> addNewDatabaseInDirectory: aDirectory [
 	| aDatabase aFileLocator |
 	aFileLocator := aDirectory gtWithClosestFileLocatorParent.
 	aDatabase := LeLocalStoreLoad current loadAndMonitorFrom: aFileLocator.
+	
 	self database addDB: aDatabase.
+	
+	LeDatabasesRegistry defaultLogicalDatabase properties 
+		addRegisteredDirectory: aFileLocator.
 ]
 
 { #category : #'private - accessing' }
