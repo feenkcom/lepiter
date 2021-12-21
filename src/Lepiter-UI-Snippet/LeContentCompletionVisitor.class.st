@@ -56,7 +56,7 @@ LeContentCompletionVisitor >> completeStartAnnotation: aNode startingWith: aStri
 				collect:
 					[ :each | 
 					(GtInsertTextAndPositionCursorCompletionAction
-						labeled: each
+						labeled: (self strategy labelFor: each withSearch: aString)
 						completion: (each allButFirst: aString size) , trailing
 						position: self position
 						from: self position
@@ -74,13 +74,13 @@ LeContentCompletionVisitor >> hashCompletionActionsWithPrefix: prefix [
 					needsBrackets := each anySatisfy: [ :c | c isSeparator ].
 					linkName := needsBrackets ifTrue: [ (prefix isEmpty ifTrue: [ '[[' ] ifFalse: [ '' ]) , each , ']]' ] ifFalse: [ each ].
 					mainAction := GtInsertTextCompletionAction
-						labeled: linkName
+						labeled: (self strategy labelFor: linkName withSearch: prefix)
 						completion: (linkName allButFirst: prefix size)
 						position: self position
 						from: self position - prefix size.
 					(needsBrackets and: [ prefix notEmpty ])
 						ifTrue:
-							[ mainAction := (GtCompositeCompletionAction labeled: '[[' , linkName)
+							[ mainAction := (GtCompositeCompletionAction labeled: (self strategy labelFor: '[[' , linkName withSearch: prefix))
 								addAction: mainAction;
 								addAction:
 										(GtInsertTextCompletionAction

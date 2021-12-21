@@ -36,56 +36,53 @@ LeCompletionStrategy >> bracketCompletionActionStreamFor: aText at: positionInte
 	| rightBracketCount index char rightBracketIndex leftBracket |
 	index := positionInteger + 1.
 	rightBracketCount := 0.
-	[ rightBracketCount = 0
-		and: [ index <= aText size
-				and: [ (char := aText at: index) isLineBreak not ] ] ]
-		whileTrue: [ char = $]
-				ifTrue: [ rightBracketIndex := index.
-					rightBracketCount := (index + 1 < aText size
-						and: [ (aText at: index + 1) = $] ])
-						ifTrue: [ 2 ]
-						ifFalse: [ 1 ] ].
+	[ rightBracketCount = 0 and: [ index <= aText size and: [ (char := aText at: index) isLineBreak not ] ] ]
+		whileTrue:
+			[ char = $]
+				ifTrue:
+					[ rightBracketIndex := index.
+					rightBracketCount := (index + 1 < aText size and: [ (aText at: index + 1) = $] ]) ifTrue: [ 2 ] ifFalse: [ 1 ] ].
 			index := index + 1 ].
-	leftBracket := (aBoolean and: [ prefix isEmpty ])
-		ifTrue: [ '[' ]
-		ifFalse: [ '' ].
+	leftBracket := (aBoolean and: [ prefix isEmpty ]) ifTrue: [ '[' ] ifFalse: [ '' ].
 	^ (self pageTitles asyncStreamStartingWith: prefix)
-		collect: [ :each | 
+		collect:
+			[ :each | 
 			| action rightBrackets completionString |
 			action := rightBracketCount > 0
-				ifTrue: [ rightBrackets := rightBracketCount = 1
-						ifTrue: [ ']' ]
-						ifFalse: [ '' ].
+				ifTrue:
+					[ rightBrackets := rightBracketCount = 1 ifTrue: [ ']' ] ifFalse: [ '' ].
 					completionString := leftBracket , (each allButFirst: prefix size) , rightBrackets.
-					(GtCompositeCompletionAction labeled: each)
+					(GtCompositeCompletionAction labeled: (self labelFor: each withSearch: prefix))
 						addAction:
-							(GtDeleteTextCompletionAction
-								labeled: ''
-								from: positionInteger + 1
-								to: rightBracketIndex - 1);
+								(GtDeleteTextCompletionAction
+										labeled: ''
+										from: positionInteger + 1
+										to: rightBracketIndex - 1);
 						addAction:
-							(GtInsertTextAndPositionCursorCompletionAction
-								labeled: each
-								completion: completionString 
-								position: positionInteger
-								from: positionInteger - prefix size
-								newPosition: positionInteger + completionString size + rightBracketCount) ]
-				ifFalse: [ GtInsertTextCompletionAction
-						labeled: each
+								(GtInsertTextAndPositionCursorCompletionAction
+										labeled: each
+										completion: completionString
+										position: positionInteger
+										from: positionInteger - prefix size
+										newPosition: positionInteger + completionString size + rightBracketCount) ]
+				ifFalse:
+					[ GtInsertTextCompletionAction
+						labeled: (self labelFor: each withSearch: prefix)
 						completion: leftBracket , (each allButFirst: prefix size) , ']]'
 						position: positionInteger
 						from: positionInteger - prefix size ].
 			(aBoolean and: [ prefix notEmpty ])
-				ifTrue: [ (action isKindOf: GtCompositeCompletionAction)
-						ifFalse: [ action := (GtCompositeCompletionAction labeled: each)
-								addAction: action ].
+				ifTrue:
+					[ (action isKindOf: GtCompositeCompletionAction)
+						ifFalse:
+							[ action := (GtCompositeCompletionAction labeled: (self labelFor: each withSearch: prefix)) addAction: action ].
 					action
 						addAction:
-							(GtInsertTextCompletionAction
-								labeled: '['
-								completion: '['
-								position: positionInteger - prefix size
-								from: positionInteger - prefix size);
+								(GtInsertTextCompletionAction
+										labeled: '['
+										completion: '['
+										position: positionInteger - prefix size
+										from: positionInteger - prefix size);
 						yourself ].
 			action ]
 ]
