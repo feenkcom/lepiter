@@ -403,6 +403,8 @@ LePharoSnippetByScripterExamples >> startRenameLocalVariable [
 		combination: BlKeyCombination primaryR;
 		id: GtSourceCoderEditorId;
 		play.
+		
+	aScripter syncContinue.
 
 	aScripter check
 		label: 'Check rename editor exists';
@@ -410,6 +412,8 @@ LePharoSnippetByScripterExamples >> startRenameLocalVariable [
 		id: GtSourceCoderEditorId;
 		onBreadthFirstChildOfClass: GtRenameEditor;
 		play.
+		
+	aScripter syncContinue.
 		
 	^ aScripter
 ]
