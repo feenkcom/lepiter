@@ -25,7 +25,7 @@ LeWordAnnotationCompletionVisitor >> addStreamFor: words startingWith: prefix [
 				collect:
 					[ :each | 
 					GtInsertTextCompletionAction
-						labeled: each
+						labeled: (self composite strategy labelFor: each withSearch: prefix)
 						completion: (each allButFirst: prefix size)
 						position: self position ])
 ]

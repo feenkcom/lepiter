@@ -11,7 +11,7 @@ LeAnnotationCompletionVisitor >> addAction: aString prefixLength: anInteger [
 	self composite
 		addAction:
 			(GtInsertTextCompletionAction
-				labeled: aString
+				labeled: (self strategy labelFor: aString withSearch: (aString first: anInteger))
 				completion: (aString allButFirst: anInteger)
 				position: self position)
 ]
@@ -24,7 +24,7 @@ LeAnnotationCompletionVisitor >> classesStartingWith: name [
 				collect:
 					[ :each | 
 					GtInsertTextCompletionAction
-						labeled: each
+						labeled: (self strategy labelFor: each withSearch: name)
 						completion: (each allButFirst: name size)
 						position: self position ])
 ]
@@ -42,7 +42,7 @@ LeAnnotationCompletionVisitor >> completeShowArgument: anArgument [
 						collect:
 							[ :each | 
 							GtInsertTextCompletionAction
-								labeled: each
+								labeled: (self strategy labelFor: each withSearch: selector)
 								completion: (each allButFirst: selector size)
 								position: self position ]) ]
 ]
@@ -70,7 +70,7 @@ LeAnnotationCompletionVisitor >> optionsFor: annotationType startingWith: aStrin
 					hasOptionalValue := self optionalValues includes: each.
 					name := each , (hasOptionalValue ifTrue: [ '' ] ifFalse: [ '=' ]).
 					(GtInsertTextCompletionAction
-						labeled: name
+						labeled: (self strategy labelFor: name withSearch: aString)
 						completion: (name allButFirst: aString size)
 						position: self position) partial: hasOptionalValue not ])
 ]
@@ -109,7 +109,7 @@ LeAnnotationCompletionVisitor >> selectorCompletionsFor: aClass startingWith: aS
 				collect:
 					[ :each | 
 					GtInsertTextCompletionAction
-						labeled: each
+						labeled: (self strategy labelFor: each withSearch: name)
 						completion: (each allButFirst: name size)
 						position: self position ])
 ]
@@ -129,7 +129,7 @@ LeAnnotationCompletionVisitor >> valueForOption: optionName startingWith: aStrin
 						collect:
 							[ :each | 
 							GtInsertTextCompletionAction
-								labeled: each
+								labeled: (self strategy labelFor: each withSearch: aString)
 								completion: (each allButFirst: aString size)
 								position: self position ]) ]
 ]
@@ -216,7 +216,7 @@ LeAnnotationCompletionVisitor >> visitSmaCCError: aSmaCCError [
 					[ ^ self composite
 						addStream:
 							{GtInsertTextCompletionAction
-									labeled: 'class'
+									labeled: (self strategy labelFor: 'class' withSearch: token)
 									completion: ('class' allButFirst: token size)
 									position: self position} asAsyncStream ] ].
 	index = 0
