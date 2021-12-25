@@ -6,15 +6,12 @@ LeLogicalDatabase class >> asHomeDatabaseElementInstance [
 ]
 
 { #category : #'*Lepiter-Tool' }
-LeLogicalDatabase >> databasesToDisplayDo: aBlock [ 
-
-	aBlock cull: self.
+LeLogicalDatabase >> databasesToDisplayDo: aBlock [
 	aBlock cull: primaryDB.
 	registeredDBs do: [ :db |
 		aBlock cull: db ].
 	(playgroundDB notNil and: [ playgroundDB ~= primaryDB ])
-		ifTrue: [ 
-			aBlock cull: playgroundDB ]
+		ifTrue: [ aBlock cull: playgroundDB ]
 ]
 
 { #category : #'*Lepiter-Tool' }
