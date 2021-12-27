@@ -5,7 +5,7 @@ Class {
 		'objects',
 		'typeMap'
 	],
-	#category : 'Lepiter-Store-JsonV4'
+	#category : #'Lepiter-Store-JsonV4'
 }
 
 { #category : #mapping }
@@ -79,6 +79,18 @@ LeJsonV4Reader >> parseMap [
 LeJsonV4Reader >> parseValue [ 
 
 	^ self objectFor: super parseValue
+]
+
+{ #category : #accessing }
+LeJsonV4Reader >> postCopy [
+	super postCopy.
+	mappings := mappings copy.
+	typeMap := typeMap copy.
+	readStream := nil.
+	stringStream := nil.
+	listClass := nil.
+	mapClass := nil.
+	objects := nil
 ]
 
 { #category : #private }
