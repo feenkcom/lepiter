@@ -26,7 +26,7 @@ GtEpiceaDiffAttribute >> affect: aTBrTextEditorTextualPiece in: anEditorElement 
 { #category : #initialization }
 GtEpiceaDiffAttribute >> asInsert [
 	self text: self constants insertLineIdentificator asRopedText.
-	self text foreground: self constants insertLineColor.
+	self text foreground: BrGlamorousColors insertLineColor.
 ]
 
 { #category : #initialization }
@@ -38,7 +38,7 @@ GtEpiceaDiffAttribute >> asMatch [
 { #category : #initialization }
 GtEpiceaDiffAttribute >> asRemove [
 	self text: self constants removeLineIdentificator asRopedText glamorousCodeFontAndSize.
-	self text foreground: self constants removeLineColor.
+	self text foreground: BrGlamorousColors removeLineColor.
 ]
 
 { #category : #accessing }

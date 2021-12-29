@@ -35,7 +35,7 @@ GtEpiceaDiffStencil >> create [
 				attribute: (Gt2EpiceaDiffAttribute new beMatch)."
 			aRopedText insertString: string at: aRopedText size.
 			(aRopedText from: initialPosition to: aRopedText size)
-				foreground: self constants matchLineColor.
+				unstyle.
 			aRopedText insertString: String cr at: aRopedText size. ]
 		ifInsert: [ :string | | initialPosition |
 			initialPosition := aRopedText size max: 1.
@@ -43,7 +43,7 @@ GtEpiceaDiffStencil >> create [
 				attribute: (Gt2EpiceaDiffAttribute new beInsert)."
 			aRopedText insertString: string at: aRopedText size.
 			(aRopedText from: initialPosition to: aRopedText size)
-				foreground: self constants insertLineColor.
+				highlight: BrGlamorousColors insertLineColor.
 			aRopedText insertString: String cr at: aRopedText size. ]
 		ifRemove: [ :string | | initialPosition |
 			initialPosition := aRopedText size max: 1.
@@ -51,7 +51,7 @@ GtEpiceaDiffStencil >> create [
 				attribute: (Gt2EpiceaDiffAttribute new beRemove)."
 			aRopedText insertString: string at: aRopedText size.
 			(aRopedText from: initialPosition to: aRopedText size)
-				foreground: self constants removeLineColor.
+				highlight: BrGlamorousColors removeLineColor.
 			aRopedText insertString: String cr at: aRopedText size. ].
 	aRopedText isEmpty ifFalse: [ aRopedText glamorousCodeFontAndSize ].
 	^ aRopedText
