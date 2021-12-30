@@ -20,7 +20,7 @@ Duration class >> leJsonV4AttributeMapping [
 	Subclasses should override this with their attributes."
 
 	^ { 
-		#seconds -> #basicSeconds.
+		#basicSeconds -> #seconds.
 		#nanos -> #nanos }
 ]
 

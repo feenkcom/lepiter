@@ -4,15 +4,19 @@ Extension { #name : #Object }
 Object class >> leFromJsonV4Dictionary: aDictionary [
 	"Create a new instance of the receiver from the supplied dictionary.
 	Subclasses can override this to provide custom mappings."
-	| anObject |
+	| aLeModel |
 
-	anObject := self new.
-	aDictionary keysAndValuesDo: [ :key :value |
-		(#(__schema __type) includes: key) ifFalse:
-			[ anObject
-				perform: key asSymbol asMutator
-				with: value ] ].
-	^ anObject
+	aLeModel := self new.
+	self leJsonV4AttributeMapping do: [ :attributeMap |
+		aDictionary 
+			at: attributeMap value
+			ifPresent: [ :aValue |
+				aLeModel
+					perform: attributeMap key asMutator
+					with: aValue ]
+			ifAbsent: [ "ignore it" ]
+	].
+	^ aLeModel
 ]
 
 { #category : #'*Lepiter-Store' }
