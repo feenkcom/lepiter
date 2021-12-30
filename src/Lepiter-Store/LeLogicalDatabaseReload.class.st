@@ -55,6 +55,7 @@ LeLogicalDatabaseReload >> reload [
 	4. Reload and start monitoring"
 
 	| existingPrimaryDbDir existingPlaygroundDbDir |
+	LeJsonV4 cleanUp.
 	self reloadProperties.
 	existingDbs := Set new.
 	"1. Stop monitoring all DBs"
