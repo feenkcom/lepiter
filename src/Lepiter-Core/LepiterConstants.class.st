@@ -273,11 +273,6 @@ LepiterConstants class >> inputVariablesParameterName [
 ]
 
 { #category : #'changes diff' }
-LepiterConstants class >> insertLineColor [
-	^ Color green muchDarker
-]
-
-{ #category : #'changes diff' }
 LepiterConstants class >> insertLineIdentificator [
 	^ '+ '
 ]
@@ -395,11 +390,6 @@ LepiterConstants class >> previewShowParameterName [
 { #category : #ui }
 LepiterConstants class >> readingModeIcon [
 	^ BrGlamorousIcons edit
-]
-
-{ #category : #'changes diff' }
-LepiterConstants class >> removeLineColor [
-	^ Color red muchDarker
 ]
 
 { #category : #'changes diff' }

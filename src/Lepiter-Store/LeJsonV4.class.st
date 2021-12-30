@@ -3,6 +3,9 @@ Class {
 	#superclass : #Object,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
+	#instVars : [
+		'newReader'
+	],
 	#category : #'Lepiter-Store-JsonV4'
 }
 
@@ -42,12 +45,10 @@ LeJsonV4 >> deserialize: aStream [
 
 { #category : #initialization }
 LeJsonV4 >> newReader [ 
-	| newReader |
-
-	newReader := LeJsonV4Reader new.
-	self allClassMappingsFor: newReader.
-	^ newReader
-
+	newReader ifNil: [ 
+		newReader := LeJsonV4Reader new.
+		self allClassMappingsFor: newReader ].
+	^ newReader copy
 ]
 
 { #category : #initialization }
