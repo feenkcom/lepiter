@@ -55,6 +55,7 @@ LeLogicalDatabaseReload >> reload [
 	4. Reload and start monitoring"
 
 	| existingPrimaryDbDir existingPlaygroundDbDir |
+	"Ensure that reloading relies on new mappings from code"
 	LeJsonV4 cleanUp.
 	self reloadProperties.
 	existingDbs := Set new.
