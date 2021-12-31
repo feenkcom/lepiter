@@ -33,19 +33,11 @@ Class {
 		'announcer'
 	],
 	#classVars : [
-		'NoStartup',
 		'SessionAnnouncer',
 		'ShutdownMonitor'
 	],
 	#category : #'Lepiter-Store-LocalJSON-Store'
 }
-
-{ #category : #'system startup' }
-LeLocalStoreMonitor class >> clearNoStartup [
-	"Clear the flag to say that Lepiter startup actions should not be ignored"
-
-	NoStartup := false.
-]
 
 { #category : #'api - accessing' }
 LeLocalStoreMonitor class >> database: aLeDatabase root: aFileReference [
@@ -63,27 +55,20 @@ LeLocalStoreMonitor class >> initialize [
 
 	SessionManager default 
 		registerUserClassNamed: self name.
-	NoStartup := false.
+
+]
+
+{ #category : #testing }
+LeLocalStoreMonitor class >> noLepiterReload [
+	"Answer a boolean indicating whether the image has been started with the --noLepiterReload option"
+
+	^ Smalltalk commandLine argumentsInclude: '--noLepiterReload'
 ]
 
 { #category : #accessing }
 LeLocalStoreMonitor class >> sessionAnnouncer [
 
 	^ SessionAnnouncer ifNil: [ SessionAnnouncer := Announcer new ]
-]
-
-{ #category : #'system startup' }
-LeLocalStoreMonitor class >> setEnableStartup [
-	"Set the flag to say that Lepiter startup actions should not be ignored"
-
-	NoStartup := false.
-]
-
-{ #category : #'system startup' }
-LeLocalStoreMonitor class >> setNoStartup [
-	"Set the flag to say that Lepiter startup actions should be ignored"
-
-	NoStartup := true.
 ]
 
 { #category : #'system startup' }
@@ -104,12 +89,10 @@ LeLocalStoreMonitor class >> shutdownMonitor [
 
 { #category : #'system startup' }
 LeLocalStoreMonitor class >> startUp: resuming [
-	| noStartup |
 
-	noStartup := (Smalltalk commandLine argumentsInclude: LeNoStartupCommandline commandName) | NoStartup.
-
-	(resuming and: [ noStartup not ]) ifTrue: 
+	(resuming and: [ self noLepiterReload not ]) ifTrue: 
 		[ self sessionAnnouncer announce: LeLocalJSONStoreStartup new ]
+
 ]
 
 { #category : #accessing }
