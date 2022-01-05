@@ -481,7 +481,7 @@ LeAnnotationStylerVisitor >> visitMethodAnnotation: aMethodAnnotation [
 		withDefault: LepiterConstants defaultMethodShowSelector
 ]
 
-{ #category : #generated }
+{ #category : #visiting }
 LeAnnotationStylerVisitor >> visitPageAnnotation: aPageAnnotation [
 	| linkText |
 
@@ -491,4 +491,33 @@ LeAnnotationStylerVisitor >> visitPageAnnotation: aPageAnnotation [
 		to: aPageAnnotation parent stopPosition.
 	self styleLinkButton: aPageAnnotation text: linkText.
 
+]
+
+{ #category : #visiting }
+LeAnnotationStylerVisitor >> visitTodoAnnotation: aTodoAnnotation [
+	| attribute |
+	self visitAnnotation: aTodoAnnotation.
+	attribute := (BrTextAdornmentDynamicAttribute new)
+		beAppend;
+		stencil:
+				[ | checkbox |
+					checkbox := (BrCheckbox new)
+						aptitude: BrGlamorousCheckboxAptitude;
+						checked: aTodoAnnotation isCompleted;
+						disable.
+					aTodoAnnotation label
+						ifNil: [ checkbox ]
+						ifNotNil:
+							[ :text | 
+							(BrHorizontalPane new)
+								fitContent;
+								addChild: checkbox;
+								addChild:
+										((BrLabel new)
+												aptitude: BrLabelAptitude;
+												text: text) ] ].
+	self text
+		attribute: attribute
+		from: aTodoAnnotation parent startPosition
+		to: aTodoAnnotation parent stopPosition
 ]

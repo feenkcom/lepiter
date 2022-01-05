@@ -60,6 +60,7 @@ LeAnnotationCompletionVisitor >> optionsFor: annotationType startingWith: aStrin
 	annotationType = 'gtMethod' ifTrue: [ values := #(name label expanded show height) ].
 	annotationType = 'gtExample'
 		ifTrue: [ values := #(name label expanded codeExpanded noCode previewHeight previewExpanded alignment return) ].
+	annotationType = 'gtTodo' ifTrue: [ values := #(label due completed) ].
 	self composite
 		addStream:
 			((values asAsyncStream
@@ -141,6 +142,20 @@ LeAnnotationCompletionVisitor >> visitArgument: anArgument [
 		ifTrue:
 			[ self valueForOption: anArgument name source startingWith: '' ].
 	^ self visitAnnotationParse: anArgument
+]
+
+{ #category : #generated }
+LeAnnotationCompletionVisitor >> visitDateArgument: aDateArgument [
+	| first last |
+	first := aDateArgument equals stopPosition.
+	last := (aDateArgument value ifNil: [ aDateArgument equals stopPosition ] ifNotNil: [ aDateArgument value stopPosition ])
+		+ 1.
+	(self position >= first and: [ self position < last ])
+		ifTrue:
+			[ ^ composite
+				completionResult:
+					(GtCalendarCompletionResult forDate: (aDateArgument date ifNil: [ Date today ]) andInterval: (first + 1 to: last)) ].
+	^ self visitArgument: aDateArgument
 ]
 
 { #category : #visiting }

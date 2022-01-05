@@ -6,7 +6,7 @@ Class {
 		'equals',
 		'value'
 	],
-	#category : 'Lepiter-Parser'
+	#category : #'Lepiter-Parser'
 }
 
 { #category : #generated }
@@ -70,6 +70,11 @@ LeArgumentNode >> isAlignment [
 
 { #category : #testing }
 LeArgumentNode >> isCodeExpanded [
+	^ false
+]
+
+{ #category : #testing }
+LeArgumentNode >> isDate [
 	^ false
 ]
 

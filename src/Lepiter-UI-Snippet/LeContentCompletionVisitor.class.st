@@ -7,7 +7,8 @@ Class {
 		'strategy',
 		'text',
 		'position',
-		'addStreamBlock'
+		'stream',
+		'completionResult'
 	],
 	#classVars : [
 		'AdditionalCompletionVisitors'
@@ -28,12 +29,7 @@ LeContentCompletionVisitor class >> defaultCompletionVisitors [
 
 { #category : #actions }
 LeContentCompletionVisitor >> addStream: aStream [
-	addStreamBlock value: aStream
-]
-
-{ #category : #accessing }
-LeContentCompletionVisitor >> addStreamBlock: aBlock [
-	addStreamBlock := aBlock
+	stream := stream merge: aStream
 ]
 
 { #category : #private }
@@ -61,6 +57,21 @@ LeContentCompletionVisitor >> completeStartAnnotation: aNode startingWith: aStri
 						position: self position
 						from: self position
 						newPosition: self position + each size - aString size + 1) partial: true ])
+]
+
+{ #category : #accessing }
+LeContentCompletionVisitor >> completionResult [
+	^ completionResult ifNil: [ GtStreamedCompletionResult onStream: stream ]
+]
+
+{ #category : #accessing }
+LeContentCompletionVisitor >> completionResult: aGtCompletionResult [
+	completionResult := aGtCompletionResult
+]
+
+{ #category : #testing }
+LeContentCompletionVisitor >> hasCompletionResult [
+	^ completionResult notNil
 ]
 
 { #category : #private }
@@ -96,7 +107,8 @@ LeContentCompletionVisitor >> hashCompletionActionsWithPrefix: prefix [
 LeContentCompletionVisitor >> initialize [
 	super initialize.
 	self class additionalCompletionVisitors
-		do: [ :each | self addVisitor: each new ]
+		do: [ :each | self addVisitor: each new ].
+	stream := #() asAsyncStream
 ]
 
 { #category : #accessing }
@@ -117,6 +129,11 @@ LeContentCompletionVisitor >> strategy [
 { #category : #accessing }
 LeContentCompletionVisitor >> strategy: aCompletionStrategy [
 	strategy := aCompletionStrategy
+]
+
+{ #category : #accessing }
+LeContentCompletionVisitor >> stream [
+	^ stream
 ]
 
 { #category : #accessing }

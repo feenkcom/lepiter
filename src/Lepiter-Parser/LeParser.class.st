@@ -340,6 +340,12 @@ LeParser class >> initialAnnotationParsers [
 			parser
 				spawnParser: LeAnnotationParser
 				startingAt: LeAnnotationParser startingStateForPageAnnotation ].
+	parsers
+		at: 'gtTodo'
+		put: [ :parser | 
+			parser
+				spawnParser: LeAnnotationParser
+				startingAt: LeAnnotationParser startingStateForTodoAnnotation ].
 	^ parsers
 ]
 

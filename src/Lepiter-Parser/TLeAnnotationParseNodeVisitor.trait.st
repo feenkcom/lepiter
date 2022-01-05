@@ -2,7 +2,7 @@ Trait {
 	#name : #TLeAnnotationParseNodeVisitor,
 	#traits : 'TSmaCCParseNodeVisitor',
 	#classTraits : 'TSmaCCParseNodeVisitor classTrait',
-	#category : 'Lepiter-Parser'
+	#category : #'Lepiter-Parser'
 }
 
 { #category : #generated }
@@ -43,6 +43,11 @@ TLeAnnotationParseNodeVisitor >> visitClassNameArgument: aClassNameArgument [
 { #category : #generated }
 TLeAnnotationParseNodeVisitor >> visitCodeExpandedArgument: aCodeExpandedArgument [
 	^ self visitArgument: aCodeExpandedArgument
+]
+
+{ #category : #generated }
+TLeAnnotationParseNodeVisitor >> visitDateArgument: aDateArgument [
+	^ self visitArgument: aDateArgument
 ]
 
 { #category : #generated }
@@ -133,4 +138,9 @@ TLeAnnotationParseNodeVisitor >> visitReturnArgument: aReturnArgument [
 { #category : #generated }
 TLeAnnotationParseNodeVisitor >> visitShowArgument: aShowArgument [
 	^ self visitArgument: aShowArgument
+]
+
+{ #category : #generated }
+TLeAnnotationParseNodeVisitor >> visitTodoAnnotation: aTodoAnnotation [
+	^ self visitAnnotation: aTodoAnnotation
 ]

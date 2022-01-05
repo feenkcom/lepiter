@@ -11,6 +11,29 @@ Class {
 }
 
 { #category : #accessing }
+LeCompletionStrategy >> addPageLinkCompletionsFor: aText at: positionInteger to: stream [
+	| char seenWhitespace index |
+	seenWhitespace := false.
+	index := positionInteger.
+	[ index > 0 ]
+		whileTrue:
+			[ char := aText at: index.
+			(char isLineBreak or: [ char = $] ]) ifTrue: [ ^ stream ].
+			char isSeparator ifTrue: [ seenWhitespace := true ].
+			char = $[
+				ifTrue:
+					[ ^ stream
+						merge:
+							(self
+								bracketCompletionActionStreamFor: aText
+								at: positionInteger
+								withPrefix: (aText copyFrom: index + 1 to: positionInteger) asString
+								needsAdditionalBracket: (index = 1 or: [ (aText at: index - 1) ~= $[ ])) ].
+			index := index - 1 ].
+	^ stream
+]
+
+{ #category : #accessing }
 LeCompletionStrategy >> allClasses [
 	^ allClasses
 		ifNil: [ allClasses := GtPrefixTree
@@ -18,17 +41,17 @@ LeCompletionStrategy >> allClasses [
 ]
 
 { #category : #accessing }
-LeCompletionStrategy >> astCompletionActionStreamFor: aText at: positionInteger requested: aBoolean [
-	| ast visitor stream |
-	stream := #() asAsyncStream.
+LeCompletionStrategy >> astCompletionResultFor: aText at: positionInteger onStream: streamBlock [
+	| ast visitor |
 	ast := LeParser parseWithErrors: aText asString.
 	visitor := LeContentCompletionVisitor new.
 	visitor strategy: self.
 	visitor text: aText.
 	visitor position: positionInteger.
-	visitor addStreamBlock: [ :s | stream := stream merge: s ].
 	visitor accept: ast.
-	^ stream
+	^ visitor hasCompletionResult
+		ifTrue: [ visitor completionResult ]
+		ifFalse: [ GtStreamedCompletionResult onStream: (streamBlock value: visitor stream) ]
 ]
 
 { #category : #accessing }
@@ -87,31 +110,17 @@ LeCompletionStrategy >> bracketCompletionActionStreamFor: aText at: positionInte
 			action ]
 ]
 
-{ #category : #accessing }
-LeCompletionStrategy >> completionActionStreamFor: aText at: positionInteger requested: aBoolean [
-	| seenWhitespace char index stream |
-	stream := self
-		astCompletionActionStreamFor: aText
+{ #category : #completing }
+LeCompletionStrategy >> completionResultFor: aText at: positionInteger requested: aBoolean [
+	^ self
+		astCompletionResultFor: aText
 		at: positionInteger
-		requested: aBoolean.
-	seenWhitespace := false.
-	index := positionInteger.
-	[ index > 0 ]
-		whileTrue:
-			[ char := aText at: index.
-			(char isLineBreak or: [ char = $] ]) ifTrue: [ ^ #() asAsyncStream ].
-			char isSeparator ifTrue: [ seenWhitespace := true ].
-			char = $[
-				ifTrue:
-					[ ^ stream
-						merge:
-							(self
-								bracketCompletionActionStreamFor: aText
-								at: positionInteger
-								withPrefix: (aText copyFrom: index + 1 to: positionInteger) asString
-								needsAdditionalBracket: (index = 1 or: [ (aText at: index - 1) ~= $[ ])) ].
-			index := index - 1 ].
-	^ stream
+		onStream:
+			[ :stream | 
+			self
+				addPageLinkCompletionsFor: aText
+				at: positionInteger
+				to: stream ]
 ]
 
 { #category : #accessing }
