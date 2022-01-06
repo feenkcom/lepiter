@@ -100,6 +100,45 @@ LeAnnotationStylerVisitor >> initialize [
 	normalFontSize := 16
 ]
 
+{ #category : #private }
+LeAnnotationStylerVisitor >> markCompleted: aTodoAnnotation [
+	self
+		modifyTodoAnnotation: aTodoAnnotation
+		with:
+			[ :model :source | 
+			| property |
+			property := 'completed=' , Date today iso8601.
+			aTodoAnnotation completed
+				ifNil:
+					[ model
+						insertText: ((aTodoAnnotation items isEmpty ifTrue: [ '' ] ifFalse: [ '|' ]) , property) asRopedText
+						at: aTodoAnnotation stopPosition ]
+				ifNotNil:
+					[ :completed | model updateString: (source first: completed startPosition - 1) , property , (source allButFirst: completed stopPosition) ] ]
+]
+
+{ #category : #private }
+LeAnnotationStylerVisitor >> markUncompleted: aTodoAnnotation [
+	self
+		modifyTodoAnnotation: aTodoAnnotation
+		with:
+			[ :model :source | 
+			aTodoAnnotation completed
+				ifNotNil:
+					[ :completed | model updateString: (source first: completed equals stopPosition) , (source allButFirst: completed stopPosition) ] ]
+]
+
+{ #category : #private }
+LeAnnotationStylerVisitor >> modifyTodoAnnotation: aTodoAnnotation with: aBlock [
+	| model source |
+	model := self styler snippetViewModel snippetModel.
+	source := model string.
+	aTodoAnnotation stopPosition > source size ifTrue: [ ^ self ].
+	(source copyFrom: aTodoAnnotation startPosition to: aTodoAnnotation stopPosition) = aTodoAnnotation source
+		ifFalse: [ ^ self ].
+	aBlock value: model value: source
+]
+
 { #category : #accessing }
 LeAnnotationStylerVisitor >> normalFontSize [
 	^ normalFontSize
@@ -495,29 +534,35 @@ LeAnnotationStylerVisitor >> visitPageAnnotation: aPageAnnotation [
 
 { #category : #visiting }
 LeAnnotationStylerVisitor >> visitTodoAnnotation: aTodoAnnotation [
-	| attribute |
 	self visitAnnotation: aTodoAnnotation.
-	attribute := (BrTextAdornmentDynamicAttribute new)
-		beAppend;
-		stencil:
-				[ | checkbox |
-					checkbox := (BrCheckbox new)
-						aptitude: BrGlamorousCheckboxAptitude;
-						checked: aTodoAnnotation isCompleted;
-						disable.
-					aTodoAnnotation label
-						ifNil: [ checkbox ]
-						ifNotNil:
-							[ :text | 
-							(BrHorizontalPane new)
-								fitContent;
-								addChild: checkbox;
-								addChild:
-										((BrLabel new)
-												aptitude: BrLabelAptitude;
-												text: text) ] ].
-	self text
-		attribute: attribute
-		from: aTodoAnnotation parent startPosition
-		to: aTodoAnnotation parent stopPosition
+	(self text from: aTodoAnnotation parent startPosition to: aTodoAnnotation parent stopPosition)
+		appendingAdornment:
+			[ :aTBrTextEditorTextualPiece :anEditorElement | 
+			| checkbox |
+			checkbox := (BrCheckbox new)
+				aptitude: BrGlamorousCheckboxAptitude;
+				checked: aTodoAnnotation isCompleted;
+				whenCheckedDo: [ self markCompleted: aTodoAnnotation ];
+				whenUncheckedDo: [ self markUncompleted: aTodoAnnotation ].
+			aTodoAnnotation label
+				ifNil: [ checkbox ]
+				ifNotNil:
+					[ :text | 
+					| button |
+					button := BrButton new.
+					button
+						addAptitude:
+								((BrGlamorousButtonLabelAptitude new)
+										defaultColor: BrGlamorousColors textMarkupColor;
+										hoveredColor: BrGlamorousColors textMarkupColor muchDarker);
+						padding: (BlInsets all: 0) + aTBrTextEditorTextualPiece wordPadding;
+						margin: (BlInsets top: -1) + aTBrTextEditorTextualPiece wordMargin;
+						label: text;
+						layout: BlLinearLayout horizontal;
+						fitContent.
+					button action: [ :aButton | checkbox checked: checkbox isChecked not ].
+					(BrHorizontalPane new)
+						fitContent;
+						addChild: checkbox;
+						addChild: button ] ]
 ]
