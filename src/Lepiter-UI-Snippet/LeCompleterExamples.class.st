@@ -140,10 +140,10 @@ LeCompleterExamples >> completer [
 
 { #category : #completion }
 LeCompleterExamples >> completionActionStreamFor: text at: position [
-	^ self completer
-		completionActionStreamFor: text
+	^ (self completer
+		completionResultFor: text
 		at: position
-		requested: true
+		requested: true) stream
 ]
 
 { #category : #completion }
