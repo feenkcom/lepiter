@@ -150,7 +150,9 @@ LeExampleSnippetViewModel >> gtExampleDo: aBlock [
 	self snippetModel hasExampleSelector
 		ifFalse: [ ^ self ].
 	
-	anExampleClass := self class evaluate: self exampleBehaviorName.
+	anExampleClass := self class environment 
+		at: self exampleBehaviorName 
+		ifAbsent: [ nil ].
 	
 	anExampleClass ifNil: [ ^ self ].
 	
