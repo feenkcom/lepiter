@@ -540,10 +540,12 @@ LeAnnotationStylerVisitor >> visitTodoAnnotation: aTodoAnnotation [
 			[ :aTBrTextEditorTextualPiece :anEditorElement | 
 			| checkbox |
 			checkbox := (BrCheckbox new)
+				margin: (BlInsets top: 3 left: 2);
 				aptitude: BrGlamorousCheckboxAptitude;
 				checked: aTodoAnnotation isCompleted;
 				whenCheckedDo: [ self markCompleted: aTodoAnnotation ];
-				whenUncheckedDo: [ self markUncompleted: aTodoAnnotation ].
+				whenUncheckedDo: [ self markUncompleted: aTodoAnnotation ];
+				beSmallSize.
 			aTodoAnnotation label
 				ifNil: [ checkbox ]
 				ifNotNil:
@@ -555,13 +557,14 @@ LeAnnotationStylerVisitor >> visitTodoAnnotation: aTodoAnnotation [
 								((BrGlamorousButtonLabelAptitude new)
 										defaultColor: BrGlamorousColors textMarkupColor;
 										hoveredColor: BrGlamorousColors textMarkupColor muchDarker);
-						padding: (BlInsets all: 0) + aTBrTextEditorTextualPiece wordPadding;
+						padding: aTBrTextEditorTextualPiece wordPadding;
 						margin: (BlInsets top: -1) + aTBrTextEditorTextualPiece wordMargin;
-						label: text;
 						layout: BlLinearLayout horizontal;
-						fitContent.
+						fitContent;
+						label: text.
 					button action: [ :aButton | checkbox checked: checkbox isChecked not ].
 					(BrHorizontalPane new)
+						margin: (BlInsets top: -1);
 						fitContent;
 						addChild: checkbox;
 						addChild: button ] ]
