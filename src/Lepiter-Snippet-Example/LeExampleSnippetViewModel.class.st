@@ -151,7 +151,7 @@ LeExampleSnippetViewModel >> gtExampleDo: aBlock [
 		ifFalse: [ ^ self ].
 	
 	anExampleClass := self class environment 
-		at: self exampleBehaviorName 
+		at: self exampleBehaviorName asSymbol 
 		ifAbsent: [ nil ].
 	
 	anExampleClass ifNil: [ ^ self ].
