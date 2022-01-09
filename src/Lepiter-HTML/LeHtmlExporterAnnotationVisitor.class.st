@@ -78,16 +78,14 @@ LeHtmlExporterAnnotationVisitor >> visitMethodAnnotation: aMethodAnnotation [
 		ifTrue: [ ^ self writeMethodLabel: aMethodAnnotation ].
 	methodNameArgument := aMethodAnnotation nameNode.
 	self
-		putTag: 'pre'
-		with: [ self
-				putTag: 'code'
+				putTag: 'span'
 				andAttributes: 'class="method_annotation"'
 				with: [ self putString: methodNameArgument source asHTMLString.
 					self
 						putTag: 'code'
 						andAttributes: 'class="method_definition"'
 						with: [ self
-								putString: methodNameArgument imageObject sourceCode asHTMLString ] ] ]
+								putString: methodNameArgument imageObject sourceCode asHTMLString ] ]
 ]
 
 { #category : #html }
