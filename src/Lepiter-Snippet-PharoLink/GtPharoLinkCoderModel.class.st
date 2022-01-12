@@ -144,7 +144,7 @@ GtPharoLinkCoderModel >> primitiveEvaluate: aSourceString inContext: aGtSourceCo
 	| result |
 
 	result := self bindAndExecute: aSourceString.
-	result removeKey: '__pharolinkImmediate'.
+	result removeKey: '__pharolinkImmediate' ifAbsent: [].
 	result associationsDo: [ :binding |
 		(pharoBindings bindingOf: binding key asSymbol) value: binding value ].
 
@@ -173,7 +173,7 @@ GtPharoLinkCoderModel >> sourceFrom: trimmedSourceString returnedVarNames: varNa
 				<< '. ' ].
 		"Answer the variable dictionary as an immediate object"
 		stream
-			<< '#__pharolinkImmediate -> true. } asDictionary' ]
+			<< ' } asDictionary' ]
 ]
 
 { #category : #accessing }
