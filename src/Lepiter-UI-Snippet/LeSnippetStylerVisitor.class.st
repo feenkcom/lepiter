@@ -116,7 +116,7 @@ LeSnippetStylerVisitor >> evaluateCodeBlock: aCodeBlock expanded: aBoolean from:
 	source := aCodeBlock code source.
 	
 	aSnippetCoder := GtPharoSnippetCoder forSource: source.
-	aSnippetCoderViewModel := aSnippetCoder asCoderViewModel.
+	aSnippetCoderViewModel := aSnippetCoder asCoderUIModel.
 	aSnippetCoderViewModel selfObject: self evaluationReceiver.
 	aSnippetCoderViewModel sharedBindings: self variableBindings.
 	
