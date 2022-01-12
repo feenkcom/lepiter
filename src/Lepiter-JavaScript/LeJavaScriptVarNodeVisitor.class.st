@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeJavaScriptVarNodeVisitor',
-	#superclass : 'Object',
+	#name : #LeJavaScriptVarNodeVisitor,
+	#superclass : #Object,
 	#traits : 'TJSProgramNodeVisitor',
 	#classTraits : 'TJSProgramNodeVisitor classTrait',
 	#instVars : [
@@ -13,7 +13,7 @@ Class {
 	#category : 'Lepiter-JavaScript'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeJavaScriptVarNodeVisitor >> allNames [
 	"Answer all the variable names"
 
@@ -22,14 +22,14 @@ LeJavaScriptVarNodeVisitor >> allNames [
 		(varNodes collect: [ :node | node name value. ])
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeJavaScriptVarNodeVisitor >> allUndeclaredNames [
 	"Answer the set of variable names that aren't declared (either as var or let)"
 
 	^ self allNames difference: self declaredNames
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeJavaScriptVarNodeVisitor >> declaredNames [
 	"Answer all the declared names"
 
@@ -37,7 +37,7 @@ LeJavaScriptVarNodeVisitor >> declaredNames [
 		node variable name value. ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeJavaScriptVarNodeVisitor >> declaredVarNames [
 	"Answer all the declared variable names"
 
@@ -45,13 +45,13 @@ LeJavaScriptVarNodeVisitor >> declaredVarNames [
 		node variable name value. ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeJavaScriptVarNodeVisitor >> declaredVarNodes [
 
 	^ declaredVarNodes
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeJavaScriptVarNodeVisitor >> initialize [
 
 	super initialize.
@@ -61,25 +61,25 @@ LeJavaScriptVarNodeVisitor >> initialize [
 	letNodes := Set new.
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeJavaScriptVarNodeVisitor >> initializedVarNodes [
 
 	^ initializedVarNodes
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeJavaScriptVarNodeVisitor >> letNodes [
 
 	^ letNodes
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeJavaScriptVarNodeVisitor >> varNodes [
 
 	^ varNodes
 ]
 
-{ #category : 'local' }
+{ #category : #local }
 LeJavaScriptVarNodeVisitor >> visitLexicalDeclaration: aLexicalDeclaration [
 
 	aLexicalDeclaration bindings do: [ :binding|
@@ -87,14 +87,14 @@ LeJavaScriptVarNodeVisitor >> visitLexicalDeclaration: aLexicalDeclaration [
 
 ]
 
-{ #category : 'local' }
+{ #category : #local }
 LeJavaScriptVarNodeVisitor >> visitNameExpression: aNameExpression [
 
 	varNodes add: aNameExpression.
 	^ self visitExpression: aNameExpression
 ]
 
-{ #category : 'local' }
+{ #category : #local }
 LeJavaScriptVarNodeVisitor >> visitVariableStatement: aVariableStatement [
 	"Iterate over all the variables and add to the appropriate set"
 

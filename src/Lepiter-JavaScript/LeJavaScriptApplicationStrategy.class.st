@@ -1,10 +1,10 @@
 Class {
-	#name : 'LeJavaScriptApplicationStrategy',
-	#superclass : 'LeExternalServerStrategy',
+	#name : #LeJavaScriptApplicationStrategy,
+	#superclass : #LeExternalServerStrategy,
 	#category : 'Lepiter-JavaScript'
 }
 
-{ #category : 'private' }
+{ #category : #private }
 LeJavaScriptApplicationStrategy >> newJavaScriptApplicationFor: aLeDatabase [
 
 	^ JSLinkApplication new initializeWith: 
@@ -12,7 +12,7 @@ LeJavaScriptApplicationStrategy >> newJavaScriptApplicationFor: aLeDatabase [
 
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LeJavaScriptApplicationStrategy >> updatedSettings: applicationJsSettings [
 	"Update the supplied settings with the lepiter configuration"
 	| lepiterJsSettings lepiterDatabase jsDir |

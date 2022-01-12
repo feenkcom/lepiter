@@ -19,7 +19,7 @@ GtPharoLinkCoderModel >> applicationStrategy: anObject [
 ]
 
 { #category : #converting }
-GtPharoLinkCoderModel >> asCoderUIModel [
+GtPharoLinkCoderModel >> asCoderViewModel [
 
 	^ GtSourceCoderViewModel new coder: self
 ]

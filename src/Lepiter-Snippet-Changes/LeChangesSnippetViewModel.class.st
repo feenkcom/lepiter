@@ -142,7 +142,7 @@ LeChangesSnippetViewModel >> hasFileNameCoderViewModel [
 LeChangesSnippetViewModel >> initialize [
 	super initialize.
 	
-	self fileNameCoderViewModel: GtTextCoder new asCoderUIModel.
+	self fileNameCoderViewModel: GtTextCoder new asCoderViewModel.
 	
 	self when: LeChangesSnippetFileNameChanged send: #onFileNameChanged to: self
 ]

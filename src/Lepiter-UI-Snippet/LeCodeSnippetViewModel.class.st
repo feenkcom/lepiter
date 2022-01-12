@@ -52,7 +52,7 @@ LeCodeSnippetViewModel >> moveCursorAt: aCursorPosition [
 LeCodeSnippetViewModel >> onSnippetModelChanged [
 	super onSnippetModelChanged.
 
-	coderViewModel := self snippetModel coder asCoderUIModel.
+	coderViewModel := self snippetModel coder asCoderViewModel.
 	self initializeCoderAddOns: coderViewModel
 ]
 

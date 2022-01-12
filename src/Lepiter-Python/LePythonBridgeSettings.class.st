@@ -3,25 +3,25 @@ LePythonBridgeSettings provides a wrapper around the DB properties to group Pyth
 
 "
 Class {
-	#name : 'LePythonBridgeSettings',
-	#superclass : 'Object',
+	#name : #LePythonBridgeSettings,
+	#superclass : #Object,
 	#instVars : [
 		'dbProperties'
 	],
 	#category : 'Lepiter-Python-Settings'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePythonBridgeSettings >> dbProperties [
 	^ dbProperties
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePythonBridgeSettings >> dbProperties: anObject [
 	dbProperties := anObject
 ]
 
-{ #category : 'accessing - db properties' }
+{ #category : #'accessing - db properties' }
 LePythonBridgeSettings >> directory [
 	"Answer the FileReference where PythonBridge should be located for this database"
 	<return: #FileReference or: nil>
@@ -31,7 +31,7 @@ LePythonBridgeSettings >> directory [
 		ifAbsent: [ nil ]
 ]
 
-{ #category : 'accessing - db properties' }
+{ #category : #'accessing - db properties' }
 LePythonBridgeSettings >> directory: aFileReferenceStringOrNil [
 	"Store the directory as a string."
 
@@ -39,7 +39,7 @@ LePythonBridgeSettings >> directory: aFileReferenceStringOrNil [
 		value: (dbProperties fileReferenceString: aFileReferenceStringOrNil)
 ]
 
-{ #category : 'accessing - db properties' }
+{ #category : #'accessing - db properties' }
 LePythonBridgeSettings >> pipenvPath [
 	"Answer the FileReference where pipenv is located"
 	<return: #FileReference or: nil>
@@ -49,14 +49,14 @@ LePythonBridgeSettings >> pipenvPath [
 		ifAbsent: [ nil ]
 ]
 
-{ #category : 'accessing - db properties' }
+{ #category : #'accessing - db properties' }
 LePythonBridgeSettings >> pipenvPath: aFileReferenceStringOrNil [
 
 	self updateProperty: #pipenvPath 
 		value: (dbProperties fileReferenceString: aFileReferenceStringOrNil)
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePythonBridgeSettings >> serverDebugMode [
 	"Answer a boolean indicating whether the server should be started in debug mode"
 	<return: #Boolean>
@@ -66,14 +66,14 @@ LePythonBridgeSettings >> serverDebugMode [
 		ifAbsent: [ false ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePythonBridgeSettings >> serverDebugMode: aBooleanOrNil [
 	"Set a boolean indicating whether the server should be started in debug mode"
 
 	^ self updateProperty: #serverDebugMode value: aBooleanOrNil
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LePythonBridgeSettings >> updateProperty: propertyName value: aJSONObject [
 	| pbDictionary |
 

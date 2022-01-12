@@ -246,7 +246,7 @@ LeExampleSnippetViewModel >> initialize [
 		parser: LeAnnotationParser;
 		parserStartingState: LeAnnotationParser startingStateForExampleAnnotation.
 	
-	self annotationCoderViewModel: (annotationCoder asCoderUIModel addStyler: LeExampleSnippetStyler new).
+	self annotationCoderViewModel: (annotationCoder asCoderViewModel addStyler: LeExampleSnippetStyler new).
 	
 	self weak 
 		when: LeExampleSnippetContentChanged 

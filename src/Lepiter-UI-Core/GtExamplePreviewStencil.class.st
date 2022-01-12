@@ -111,7 +111,7 @@ GtExamplePreviewStencil >> newArrowElement [
 GtExamplePreviewStencil >> newCodeElement [
 	<return: #BlElement>
 	
-	^ (GtPharoMethodCoder forExample: self example) asCoderUIModel
+	^ (GtPharoMethodCoder forExample: self example) asCoderViewModel
 		withHeader;
 		expanded: self codeExpanded;
 		asElement

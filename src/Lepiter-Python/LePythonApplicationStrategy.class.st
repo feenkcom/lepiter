@@ -4,12 +4,12 @@ LePythonApplicationStrategy is responsible for answering the appropriate server 
 
 "
 Class {
-	#name : 'LePythonApplicationStrategy',
-	#superclass : 'LeExternalServerStrategy',
+	#name : #LePythonApplicationStrategy,
+	#superclass : #LeExternalServerStrategy,
 	#category : 'Lepiter-Python-Settings'
 }
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 LePythonApplicationStrategy >> newPbApplicationFor: aLeDatabase [
 	| newApp |
 
@@ -18,7 +18,7 @@ LePythonApplicationStrategy >> newPbApplicationFor: aLeDatabase [
 	^ newApp
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 LePythonApplicationStrategy >> updatedSettings: applicationPbSettings [
 	"Update the supplied settings with the lepiter configuration"
 	| lepiterPbSettings lepiterDatabase pbDir |

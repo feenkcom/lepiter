@@ -23,7 +23,7 @@ LeTextCoderSnippetViewModel >> initialize [
 	textCoder := GtTextCoder new.
 	textCoder parser: LeParser.
 	textCoder completionStrategy: LeCompletionStrategy new.
-	textCoderViewModel := textCoder asCoderUIModel.
+	textCoderViewModel := textCoder asCoderViewModel.
 	textCoderViewModel addStyler: (LeTextCoderStyler new lepiterStyler: (LeSnippetStyler new snippetViewModel: self)).
 
 	self initializeCoderAddOns: textCoderViewModel
