@@ -217,5 +217,5 @@ LeEvaluatedSnippetElement >> switchSpawnDestination [
 { #category : #'private - updating' }
 LeEvaluatedSnippetElement >> updateCoderUIModel [
 	editorElement textualCoderViewModel: self snippetViewModel coderViewModel.
-	coderToolbar coderUIModel: self snippetViewModel coderViewModel
+	coderToolbar coderViewModel: self snippetViewModel coderViewModel
 ]

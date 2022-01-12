@@ -90,7 +90,7 @@ LeSlide >> coder [
 ]
 
 { #category : #accessing }
-LeSlide >> coderUIModel [
+LeSlide >> coderViewModel [
 	^ coderUIModel.
 ]
 
