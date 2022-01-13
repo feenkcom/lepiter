@@ -39,7 +39,8 @@ LePharoSnippetByScripterExamples >> assertPharoSnippetElementContentIn: aStep [
 			aPharoElementCollection do: [ :eachPharoElement |
 				self assert: eachPharoElement editor text asString equals: eachPharoElement snippet code asString ] ];
 		onBreadthFirstChildOfClass: BrSimpleTree;
-		onBreadthFirstChildOfClass: BrInfiniteTreeElement
+		onBreadthFirstChildOfClass: BrInfiniteTreeElement;
+		play
 ]
 
 { #category : #'examples - page' }
@@ -93,7 +94,8 @@ LePharoSnippetByScripterExamples >> editEveryVisiblePharoSnippetIn: aStep append
 				eachPharoElement editor text append: aString asRopedText. 
 				self assert: eachPharoElement editor text asString equals: eachPharoElement snippet code asString ] ];
 		onBreadthFirstChildOfClass: BrSimpleTree;
-		onBreadthFirstChildOfClass: BrInfiniteTreeElement
+		onBreadthFirstChildOfClass: BrInfiniteTreeElement;
+		play
 ]
 
 { #category : #'examples - rename variable' }
@@ -221,7 +223,8 @@ LePharoSnippetByScripterExamples >> moveDownPharoSnippetAt: anIndex step: aStep 
 		onBreadthFirstChildOfClass: BrInfiniteTreeElement;
 		onChildAt: anIndex;
 		onBreadthFirstChildOfClass: LePharoSnippetElement;
-		onBreadthFirstChildOfClass: BrTextElementWithCursors.
+		onBreadthFirstChildOfClass: BrTextElementWithCursors;
+		play.
 
 	^ aStep
 ]
@@ -233,7 +236,7 @@ LePharoSnippetByScripterExamples >> pageContentElementWithEnumeradedPharoSnippet
 	aScripter := self 
 		scripterWithModel: [ LeUIExamples new titledPageWithPharoCodeHierarchy_numbers ]
 		element: [ :aPage | LePageToolContentTreeElement new pageViewModel: (LePageViewModel new pageModel: aPage) ].
-	^ aScripter syncContinue
+	^ aScripter
 ]
 
 { #category : #'examples - page' }
@@ -272,11 +275,11 @@ LePharoSnippetByScripterExamples >> scrollDownEnumeradedPharoSnippets [
 								label: 'Scroll down pharo snippets';
 								downBy: 35;
 								onBreadthFirstChildOfClass: BrSimpleTree;
-								onBreadthFirstChildOfClass: BrInfiniteTreeElement.
-							aStep wait forEmptySpaceTaskQueueTimeout: 1 seconds.
+								onBreadthFirstChildOfClass: BrInfiniteTreeElement;
+								play.
 							
 							self assertPharoSnippetElementContentIn: aStep. ] ] ].
-	^ aScripter syncContinue
+	^ aScripter
 ]
 
 { #category : #'examples - page' }
@@ -298,8 +301,8 @@ LePharoSnippetByScripterExamples >> scrollDownPharoSnippets [
 								label: 'Scroll down pharo snippets';
 								downBy: 25;
 								onBreadthFirstChildOfClass: BrSimpleTree;
-								onBreadthFirstChildOfClass: BrInfiniteTreeElement.
-							aStep wait forEmptySpaceTaskQueueTimeout: 1 seconds.
+								onBreadthFirstChildOfClass: BrInfiniteTreeElement;
+								play.
 							self assertBindingsIn: aStep ] ].
 			aRootStep check
 				label: 'Check that the last block is displayed';
@@ -311,8 +314,9 @@ LePharoSnippetByScripterExamples >> scrollDownPharoSnippets [
 						identityIndexOf: aLastBlock.
 					self assert: aBlockIndex equals: 51 ];
 				onBreadthFirstChildOfClass: BrSimpleTree;
-				onBreadthFirstChildOfClass: BrInfiniteTreeElement ].
-	^ aScripter syncContinue
+				onBreadthFirstChildOfClass: BrInfiniteTreeElement;
+				play ].
+	^ aScripter
 ]
 
 { #category : #'examples - page - pharo snippets' }
@@ -339,11 +343,11 @@ LePharoSnippetByScripterExamples >> scrollUpEnumeradedPharoSnippets [
 								label: 'Scroll down pharo snippets';
 								upBy: 35;
 								onBreadthFirstChildOfClass: BrSimpleTree;
-								onBreadthFirstChildOfClass: BrInfiniteTreeElement.
-							aStep wait forEmptySpaceTaskQueueTimeout: 1 seconds.
+								onBreadthFirstChildOfClass: BrInfiniteTreeElement;
+								play.
 							
 							self assertPharoSnippetElementContentIn: aStep ] ] ].
-	^ aScripter syncContinue
+	^ aScripter
 ]
 
 { #category : #'examples - page' }
@@ -365,8 +369,8 @@ LePharoSnippetByScripterExamples >> scrollUpPharoSnippets [
 								label: 'Scroll up pharo snippets';
 								upBy: 25;
 								onBreadthFirstChildOfClass: BrSimpleTree;
-								onBreadthFirstChildOfClass: BrInfiniteTreeElement.
-							aStep wait forEmptySpaceTaskQueueTimeout: 1 seconds.
+								onBreadthFirstChildOfClass: BrInfiniteTreeElement;
+								play.
 							self assertBindingsIn: aStep ] ].
 			aRootStep check
 				label: 'Check that the first block is displayed';
@@ -378,8 +382,9 @@ LePharoSnippetByScripterExamples >> scrollUpPharoSnippets [
 						identityIndexOf: aLastBlock.
 					self assert: aBlockIndex equals: 1 ];
 				onBreadthFirstChildOfClass: BrSimpleTree;
-				onBreadthFirstChildOfClass: BrInfiniteTreeElement ].
-	^ aScripter syncContinue
+				onBreadthFirstChildOfClass: BrInfiniteTreeElement;
+				play ].
+	^ aScripter
 ]
 
 { #category : #'examples - rename variable' }
