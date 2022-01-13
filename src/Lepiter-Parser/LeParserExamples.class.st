@@ -221,19 +221,18 @@ LeParserExamples >> emptyLabelImageLink [
 { #category : #'examples - annotations' }
 LeParserExamples >> exampleSnippet [
 	<gtExample>
-	<noTest>
-	| aNode found |
-	aNode := self
-		parse: '{{gtExample:LeParserExamples>>exampleAnnotation}}'.
+	
+	| aNode found method |
+	method := thisContext method.
+	aNode := self parse: '{{gtExample:LeParserExamples>>exampleSnippet}}'.
 	found := false.
 	aNode
-		allNodesDo: [ :each | 
-			(each isKindOf: LeExampleAnnotationNode)
-				ifTrue: [ found := true.
-					self
-						assert: each imageObject compiledMethod
-						equals: thisContext method.
-					self assert: each labelNode isNil ] ].
+		allNodesOfType: LeExampleAnnotationNode
+		do:
+			[ :each | 
+			found := true.
+			self assert: each imageObject compiledMethod equals: method.
+			self assert: each labelNode isNil ].
 	self assert: found.
 	^ aNode
 ]
@@ -512,7 +511,7 @@ LeParserExamples >> unknownAnnotation [
 	| aNode annotationNode |
 	aNode := LeParser parseWithErrors: '{{unknownAnnotation:something}}'.
 	annotationNode := aNode parts first.
-	self assert: (annotationNode isKindOf: LeCustomAnnotationNode).
+	self assert: (annotationNode isKindOf: LeDocumenterAnnotationNode).
 	self assert: annotationNode right source equals: '}}'.
 	^ aNode
 ]

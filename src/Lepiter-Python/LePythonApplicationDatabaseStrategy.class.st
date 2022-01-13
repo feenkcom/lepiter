@@ -1,10 +1,10 @@
 Class {
-	#name : 'LePythonApplicationDatabaseStrategy',
-	#superclass : 'LePythonApplicationStrategy',
+	#name : #LePythonApplicationDatabaseStrategy,
+	#superclass : #LePythonApplicationStrategy,
 	#category : 'Lepiter-Python-Settings'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePythonApplicationDatabaseStrategy class >> pbApplicationFor: aLePythonSnippetElement [
 	| newPbApplication |
 
@@ -18,7 +18,7 @@ LePythonApplicationDatabaseStrategy class >> pbApplicationFor: aLePythonSnippetE
 			newPbApplication. ]
 ]
 
-{ #category : 'naming' }
+{ #category : #naming }
 LePythonApplicationDatabaseStrategy class >> strategyName [
 
 	^ #database

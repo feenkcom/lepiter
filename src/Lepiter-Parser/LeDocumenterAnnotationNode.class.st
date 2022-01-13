@@ -1,5 +1,5 @@
 Class {
-	#name : #LeCustomAnnotationNode,
+	#name : #LeDocumenterAnnotationNode,
 	#superclass : #LeContentNode,
 	#instVars : [
 		'left',
@@ -12,68 +12,68 @@ Class {
 }
 
 { #category : #generated }
-LeCustomAnnotationNode >> acceptVisitor: aContentVisitor [
+LeDocumenterAnnotationNode >> acceptVisitor: aContentVisitor [
 	^ aContentVisitor visitDocumenterAnnotation: self
 ]
 
 { #category : #generated }
-LeCustomAnnotationNode >> annotation [
+LeDocumenterAnnotationNode >> annotation [
 	^ annotation
 ]
 
 { #category : #generated }
-LeCustomAnnotationNode >> annotation: anObject [
+LeDocumenterAnnotationNode >> annotation: anObject [
 	self setParent: self annotation to: nil.
 	annotation := anObject.
 	self setParent: self annotation to: self
 ]
 
 { #category : #generated }
-LeCustomAnnotationNode >> colon [
+LeDocumenterAnnotationNode >> colon [
 	^ colon
 ]
 
 { #category : #generated }
-LeCustomAnnotationNode >> colon: aSmaCCToken [
+LeDocumenterAnnotationNode >> colon: aSmaCCToken [
 	colon := aSmaCCToken
 ]
 
 { #category : #generated }
-LeCustomAnnotationNode >> left [
+LeDocumenterAnnotationNode >> left [
 	^ left
 ]
 
 { #category : #generated }
-LeCustomAnnotationNode >> left: aSmaCCToken [
+LeDocumenterAnnotationNode >> left: aSmaCCToken [
 	left := aSmaCCToken
 ]
 
 { #category : #generated }
-LeCustomAnnotationNode >> name [
+LeDocumenterAnnotationNode >> name [
 	^ name
 ]
 
 { #category : #generated }
-LeCustomAnnotationNode >> name: aSmaCCToken [
+LeDocumenterAnnotationNode >> name: aSmaCCToken [
 	name := aSmaCCToken
 ]
 
 { #category : #generated }
-LeCustomAnnotationNode >> otherVariables [
+LeDocumenterAnnotationNode >> otherVariables [
 	^ #(#annotation)
 ]
 
 { #category : #generated }
-LeCustomAnnotationNode >> right [
+LeDocumenterAnnotationNode >> right [
 	^ right
 ]
 
 { #category : #generated }
-LeCustomAnnotationNode >> right: aSmaCCToken [
+LeDocumenterAnnotationNode >> right: aSmaCCToken [
 	right := aSmaCCToken
 ]
 
 { #category : #generated }
-LeCustomAnnotationNode >> tokenVariables [
+LeDocumenterAnnotationNode >> tokenVariables [
 	^ #(#left #name #colon #right)
 ]

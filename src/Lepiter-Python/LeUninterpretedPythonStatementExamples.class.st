@@ -1,10 +1,10 @@
 Class {
-	#name : 'LeUninterpretedPythonStatementExamples',
-	#superclass : 'Object',
+	#name : #LeUninterpretedPythonStatementExamples,
+	#superclass : #Object,
 	#category : 'Lepiter-Python-Examples'
 }
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeUninterpretedPythonStatementExamples >> multiplePythonStatements [
 	<gtExample>
 	"Check converting a string containing multiple python statements"
@@ -17,7 +17,7 @@ LeUninterpretedPythonStatementExamples >> multiplePythonStatements [
 	self assert: statements last string equals: 'os.getcwd()'.
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeUninterpretedPythonStatementExamples >> multiplePythonStatementsWithContinuation [
 	<gtExample>
 	"Check converting a string containing multiple python statements"
@@ -30,7 +30,7 @@ LeUninterpretedPythonStatementExamples >> multiplePythonStatementsWithContinuati
 	self assert: statements last string equals: 'os.getcwd()'.
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeUninterpretedPythonStatementExamples >> multiplePythonStatementsWithContinuationAndEmptyLine [
 	<gtExample>
 	"Check converting a string containing multiple python statements and empty lines"

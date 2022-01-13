@@ -131,37 +131,44 @@ LeExampleSnippetViewModel >> gtActionCreateExampleFor: anAction [
 
 { #category : #'api - accessing' }
 LeExampleSnippetViewModel >> gtExampleDo: aBlock [
+
 	"Try to retrieve a GtExample for an example snippet"
+
 	<return: #GtExample>
-	| anExampleClass anExampleMethod gtExample |
-	
+	| anExampleClass anExampleMethod gtExample anInstanceSideBehaviorName isClassSide |
 	self
 		optionAt: #gtExample
-		ifPresent: [ :aGtExample |
-			aGtExample exists and: [
-				(aGtExample methodClass name = self exampleBehaviorName
-					and: [ aGtExample selector = self exampleSelector ])
-						ifTrue: [ ^ aBlock value: aGtExample ] ] ]
-		ifAbsent: [ ].
-	
-	self snippetModel hasExampleBehaviorName
-		ifFalse: [ ^ self ].
+		ifPresent: [ :aGtExample | 
+			aGtExample exists and: [ 
+				(aGtExample methodClass name = self exampleBehaviorName and: [ 
+					 aGtExample selector = self exampleSelector ]) ifTrue: [ 
+					^ aBlock value: aGtExample ] ] ]
+		ifAbsent: [  ].
 
-	self snippetModel hasExampleSelector
-		ifFalse: [ ^ self ].
-	
-	anExampleClass := self class evaluate: self exampleBehaviorName.
-	
+	self snippetModel hasExampleBehaviorName ifFalse: [ ^ self ].
+
+	self snippetModel hasExampleSelector ifFalse: [ ^ self ].
+
+	anInstanceSideBehaviorName := self exampleBehaviorName trimBoth.
+	isClassSide := anInstanceSideBehaviorName endsWith: ' class'.
+	anInstanceSideBehaviorName := isClassSide
+		ifTrue: [  self exampleBehaviorName allButLast: ' class' size ]
+		ifFalse: [ self exampleBehaviorName ].
+
+	anExampleClass := self class environment
+		                  at: anInstanceSideBehaviorName asSymbol
+		                  ifAbsent: [ nil ].
+
 	anExampleClass ifNil: [ ^ self ].
 	
-	anExampleMethod := (anExampleClass lookupSelector: self exampleSelector asSymbol)
-		ifNil: [ ^ self ].
-	
+	isClassSide ifTrue: [ anExampleClass := anExampleClass classSide ].
+
+	anExampleMethod := (anExampleClass lookupSelector:
+		                    self exampleSelector asSymbol) ifNil: [ ^ self ].
+
 	gtExample := anExampleMethod gtExample.
 	gtExample ifNil: [ ^ self ].
-	self
-		optionAt: #gtExample
-		put: gtExample.
+	self optionAt: #gtExample put: gtExample.
 	aBlock value: gtExample
 ]
 

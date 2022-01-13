@@ -90,7 +90,7 @@ LeSlide >> coder [
 ]
 
 { #category : #accessing }
-LeSlide >> coderUIModel [
+LeSlide >> coderViewModel [
 	^ coderUIModel.
 ]
 
@@ -282,7 +282,7 @@ LeSlide >> updateCoderUIModel [
 	aSnippetCoder completionStrategy: LeSlideSnippetCompletionStrategy new.
 	"self initializeCoderAddOns: aSnippetCoder."
 
-	coderUIModel := aSnippetCoder asCoderUIModel.
+	coderUIModel := aSnippetCoder asCoderViewModel.
 ]
 
 { #category : #'api - updating' }
