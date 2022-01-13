@@ -140,8 +140,8 @@ LePharoSnippetByScripterExamples >> executeAndAgainScrollDownPharoSnippets [
 								label: 'Scroll up pharo snippets';
 								downBy: 25;
 								onBreadthFirstChildOfClass: BrSimpleTree;
-								onBreadthFirstChildOfClass: BrInfiniteTreeElement.
-							aStep wait forEmptySpaceTaskQueueTimeout: 1 seconds.
+								onBreadthFirstChildOfClass: BrInfiniteTreeElement;
+								play.
 							self assertBindingsIn: aStep ] ].
 			aRootStep check
 				label: 'Check that the last block is displayed';
@@ -153,8 +153,9 @@ LePharoSnippetByScripterExamples >> executeAndAgainScrollDownPharoSnippets [
 						identityIndexOf: aLastBlock.
 					self assert: aBlockIndex equals: 51 ];
 				onBreadthFirstChildOfClass: BrSimpleTree;
-				onBreadthFirstChildOfClass: BrInfiniteTreeElement ].
-	^ aScripter syncContinue
+				onBreadthFirstChildOfClass: BrInfiniteTreeElement;
+				play ].
+	^ aScripter
 ]
 
 { #category : #'examples - page' }
