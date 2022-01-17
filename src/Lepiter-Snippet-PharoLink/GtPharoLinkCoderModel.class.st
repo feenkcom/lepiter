@@ -65,6 +65,17 @@ GtPharoLinkCoderModel >> bindAndExecute: sourceString [
 
 ]
 
+{ #category : #private }
+GtPharoLinkCoderModel >> bindingFor: name in: llBindings [
+	"Answer a PharoLinkBinding for the supplied name.
+	If the snippet has a binding, use that, otherwise nil"
+
+	llBindings add: (PharoLinkBinding key: name wrap: ((pharoBindings hasBindingOf: name) 
+		ifTrue: [ (pharoBindings bindingOf: name) value ]
+		ifFalse: [ nil ])).
+
+]
+
 { #category : #'api - ast' }
 GtPharoLinkCoderModel >> computeAst: theSourceString [
 	^ GtPharoParser
@@ -124,13 +135,19 @@ GtPharoLinkCoderModel >> pharoBindings: anObject [
 
 { #category : #'private - execution' }
 GtPharoLinkCoderModel >> pharoBindingsFrom: visitor [
-	"Answer a collection of bindings for variables that aren't declared in the source and are in the snippet's bindings"
+	"Answer a collection of bindings for local variables that aren't declared in the source."
 	| llBindings |
 
 	llBindings := OrderedCollection new.
-	visitor accessedFirstVariableNames do: [ :name |
-		(pharoBindings hasBindingOf: name) ifTrue: 
-			[ llBindings add: (PharoLinkBinding key: name wrap: (pharoBindings bindingOf: name) value) ] ].
+	visitor accessedFirstVariableNames 
+		reject: [ :each | each first isUppercase ]
+		thenDo: [ :name | self bindingFor: name in: llBindings ].
+	visitor undeclaredVariableNames 
+		reject: [ :each | each first isUppercase ]
+		thenDo: [ :name | self bindingFor: name in: llBindings ].
+	llBindings
+		detect: [ :each | each key = #snippetResult ]
+		ifNone: [ llBindings add: (PharoLinkBinding key: #snippetResult wrap: nil) ].
 	^ llBindings
 ]
 
