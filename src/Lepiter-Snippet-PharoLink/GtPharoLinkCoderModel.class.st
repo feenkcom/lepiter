@@ -60,6 +60,7 @@ GtPharoLinkCoderModel >> bindAndExecute: sourceString [
 		commandFactory addBinding: binding ].
 
 	^ commandFactory
+		setByValue;
 		<< llSource;
 		sendAndWait.
 
@@ -161,7 +162,6 @@ GtPharoLinkCoderModel >> primitiveEvaluate: aSourceString inContext: aGtSourceCo
 	| result |
 
 	result := self bindAndExecute: aSourceString.
-	result removeKey: '__pharolinkImmediate' ifAbsent: [].
 	result associationsDo: [ :binding |
 		(pharoBindings bindingOf: binding key asSymbol) value: binding value ].
 
