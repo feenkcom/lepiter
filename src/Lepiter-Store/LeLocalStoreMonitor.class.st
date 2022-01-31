@@ -161,12 +161,17 @@ LeLocalStoreMonitor >> gtViewStatusDetailsFor: aView [
 		title: 'Details';
 		priority: 5;
 		items: [ {
-			'Has pending change' -> self isEmpty not.
-			'Has corrupt files' -> (self corruptFiles size > 0) .
+			'Has pending change' -> self hasChanges.
+			'Has corrupt files' -> self hasCorruptFiles .
 			'Is monitor stopped' -> self isRunning not}];
 		column: 'Name' text: #key;
 		column: 'Value' text: #value;
 		send: #value
+]
+
+{ #category : #testing }
+LeLocalStoreMonitor >> hasChanges [
+	^ self isEmpty not
 ]
 
 { #category : #testing }
@@ -444,7 +449,9 @@ LeLocalStoreMonitor >> submitReload [
 { #category : #private }
 LeLocalStoreMonitor >> updateEntries [
 	"Perform all the queued updates"
-	| oldSaveQueue oldRemoveQueue newSaveQueue newRemoveQueue savePages removePageFiles page |
+	| oldSaveQueue oldRemoveQueue newSaveQueue newRemoveQueue savePages removePageFiles page sendChanged |
+	
+	sendChanged := self hasChanges.
 
 	newSaveQueue := WaitfreeQueue new.
 	newRemoveQueue := WaitfreeQueue new.
@@ -468,7 +475,11 @@ LeLocalStoreMonitor >> updateEntries [
 	removePageFiles do: [ :each |
 		self removePageNowNamed: each ].
 
-	self announce: (LeLocalStoreMonitorSaved new monitor: self)
+	self announce: (LeLocalStoreMonitorSaved new monitor: self).
+	
+	sendChanged ifTrue: [
+		self announce: (LeLocalStoreMonitorSavedChanges new monitor: self)
+	]
 ]
 
 { #category : #accessing }

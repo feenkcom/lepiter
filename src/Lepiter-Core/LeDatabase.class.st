@@ -701,6 +701,12 @@ LeDatabase >> pageByUuid: aUUID [
 	^ pagesByUuid at: aUUID
 ]
 
+{ #category : #accessing }
+LeDatabase >> pageByUuid: aUUID ifAbsent: absentBlock [
+
+	^ pagesByUuid at: aUUID ifAbsent: absentBlock
+]
+
 { #category : #paging }
 LeDatabase >> pageCount [
 
