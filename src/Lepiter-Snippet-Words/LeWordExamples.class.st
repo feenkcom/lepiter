@@ -5,7 +5,7 @@ I provide examples for the word snippet.
 Class {
 	#name : #LeWordExamples,
 	#superclass : #Object,
-	#category : 'Lepiter-Snippet-Words-Examples'
+	#category : #'Lepiter-Snippet-Words-Examples'
 }
 
 { #category : #'accessing - words' }
@@ -203,6 +203,7 @@ LeWordExamples >> inputElement [
 { #category : #'examples - snippet element' }
 LeWordExamples >> searchAnotherWordExplanation [
 	<gtExample>
+	<noTest>
 	| anElement anInputElement |
 	anElement := self editInputEditorText.
 	BlUseAsyncFeatures disableDuring: [ 
