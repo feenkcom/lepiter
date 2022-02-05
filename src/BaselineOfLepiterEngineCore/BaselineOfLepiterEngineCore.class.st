@@ -16,10 +16,10 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'GToolkitInspector' with: [
-				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.707/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.708/src' ].
 		spec
 			baseline: 'Brick' with: [
-				spec repository: 'github://feenkcom/Brick:v0.8.479/src' ].
+				spec repository: 'github://feenkcom/Brick:v0.8.480/src' ].
 		spec
 			baseline: 'NeoJSON' with: [
 				spec repository: 'github://svenvc/NeoJSON:v17/repository' ].
