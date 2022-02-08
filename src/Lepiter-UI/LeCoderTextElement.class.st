@@ -21,7 +21,7 @@ LeCoderTextElement >> initializeForText: aString [
 	snippet := LeTextSnippet builder string: aString; build.
 	viewModel := snippet asSnippetViewModel.
 	viewModel coderViewModel addShortcut: 
-		(BrEditorLineEndingShortcut new combination: (LeSnippetElement keyboardShortcut: #NewLine)).
+		(BrEditorShortcut lineEnding combination: (LeSnippetElement keyboardShortcut: #NewLine)).
 	snippetView := viewModel snippetView.
 	snippetView needsEmbellishments: false.
 	snippetElement := snippetView asElement.

@@ -14,7 +14,7 @@ Class {
 		'languageElement',
 		'contentElement'
 	],
-	#category : 'Lepiter-UI-Snippet-! Views'
+	#category : #'Lepiter-UI-Snippet-! Views'
 }
 
 { #category : #testing }
@@ -76,9 +76,9 @@ LeExternalEvaluatedSnippetElement >> initializeTextEditorShortcuts [
 		"Delete next character, or merge with following snippet"
 		addEditorShortcut: (LeSnippetDeleteNextShortcut new combination: (self keyboardShortcut: #DeleteNext));
 		"New Line in LeSnippet"
-		addEditorShortcut: (BrEditorLineEndingShortcut new combination: (self keyboardShortcut: #NewLine));
+		addEditorShortcut: (BrEditorShortcut lineEnding combination: (self keyboardShortcut: #NewLine));
 		"Lose focus LeSnippet"
-		addEditorShortcut: (BrEditorLoseFocusShortcut new combination: (self keyboardShortcut: #LoseFocus));
+		addEditorShortcut: (BrEditorShortcut loseFocus combination: (self keyboardShortcut: #LoseFocus));
 		"Indent LeSnippet"
 		addEditorShortcut: (LeSnippetIndentSnippetShortcut new combination: (self keyboardShortcut: #IndentSnippet));
 		"Unindent LeSnippet"
