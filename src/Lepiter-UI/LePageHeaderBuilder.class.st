@@ -13,7 +13,7 @@ Class {
 		'toolbarElement',
 		'titleElement'
 	],
-	#category : 'Lepiter-UI-Support - Page Toolbar'
+	#category : #'Lepiter-UI-Support - Page Toolbar'
 }
 
 { #category : #'api - building' }
@@ -91,9 +91,9 @@ LePageHeaderBuilder >> addTableOfContentsToggle [
 			pageElement: self pageElement);
 		addAptitude: (BrToggleAptitude new
 			activated: [ :aState | aState do: [ :aWidget | 
-				aWidget label: 'Withdraw page as Table of Contents' ] ];
+				aWidget label: 'Withdraw page as Table of Contents' ] after: [  ] ];
 			deactivated: [ :aState | aState do: [ :aWidget | 
-				aWidget label: 'Promote page as Table of Contents' ] ]).
+				aWidget label: 'Promote page as Table of Contents' ] after: [  ] ]).
 	
 	"self toolbarElement addItem: (BrToggleGroup new
 		aptitude: BrGlamorousToggleGroupAptitude new;

@@ -12,7 +12,7 @@ Class {
 	#instVars : [
 		'snippetElement'
 	],
-	#category : 'Lepiter-UI-Coder'
+	#category : #'Lepiter-UI-Coder'
 }
 
 { #category : #'api - accessing' }
@@ -30,7 +30,7 @@ LeCoderCommentElement >> initializeForClassName: aSymbol [
 	snippet := page children first.
 	viewModel := snippet asSnippetViewModel.
 	viewModel coderViewModel addShortcut: 
-		(BrEditorLineEndingShortcut new combination: (LeSnippetElement keyboardShortcut: #NewLine)).
+		(BrEditorShortcut lineEnding combination: (LeSnippetElement keyboardShortcut: #NewLine)).
 	snippetView := viewModel snippetView.
 	snippetView needsEmbellishments: false.
 	snippetElement := snippetView asElement.

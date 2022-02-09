@@ -1,7 +1,7 @@
 Class {
 	#name : #LeSnippetDeletePreviousShortcut,
 	#superclass : #LeSnippetEditorShortcut,
-	#category : 'Lepiter-UI-Snippet-Shortcuts'
+	#category : #'Lepiter-UI-Snippet-Shortcuts'
 }
 
 { #category : #accessing }
@@ -19,6 +19,6 @@ LeSnippetDeletePreviousShortcut >> performOnEditor: aBrTextEditor snippet: aLeSn
 	(aBrTextEditor cursors first position isZero and: [ aBrTextEditor hasSelection not ])
 		ifTrue: [ ^ aLeSnippetElement mergeWithPrevious ].
 
-	BrEditorDeleteOneLetterBeforeCursorShortcut new
+	BrEditorShortcut deleteOneLetterBeforeCursor
 		performDueTo: aShortcutEvent
 ]
