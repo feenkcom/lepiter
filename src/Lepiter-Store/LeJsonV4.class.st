@@ -19,13 +19,13 @@ LeJsonV4 >> allClassMappingsFor: aNeoJSONMapper [
 							possibleArguments: #().
 		jsonName ifNotNil: [ method methodClass instanceSide leJsonV4MappingFor: aNeoJSONMapper ] ].
 
-	"LeModel allSubclassesDo: [ :leClass |
-		leClass leJsonV4MappingFor: aNeoJSONMapper ].
-	Date leJsonV4MappingFor: aNeoJSONMapper.
-	DateAndTime leJsonV4MappingFor: aNeoJSONMapper.
-	UUID leJsonV4MappingFor: aNeoJSONMapper.
-	FileReference leJsonV4MappingFor: aNeoJSONMapper."
+]
 
+{ #category : #testing }
+LeJsonV4 >> canSerialize: anObject [
+	"Answer a boolean indicating whether the supplied class can be serialised"
+
+	^ anObject class class includesSelector: #leJsonV4Name
 ]
 
 { #category : #'api - serializing' }
