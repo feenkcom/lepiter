@@ -58,6 +58,11 @@ LeSnippetAptitude >> computeBottomToolbarMargin [
 	^ BlInsets bottom: self bottomToolbarMargin + self internalBorderBottomOffset
 ]
 
+{ #category : #'private - accessing' }
+LeSnippetAptitude >> contentContainer [
+	^ self snippetContainer
+]
+
 { #category : #private }
 LeSnippetAptitude >> hideActions [
 	areActionsVisible := false.
@@ -83,19 +88,22 @@ LeSnippetAptitude >> initialize [
 
 	self addChangeProperty: #(widget margin) with: [ margin ].
 
-	self addChangeAddChildAs: #(content) with: [ widgetContent ].
-	self addChangeAddChildAs: #(content snippetContainer) with: [ snippetContainer ].
-	self addChangeAddChildAs: #(content sidebarContainer) with: [ sidebarContainer ].
-
-	self addChangeAddChild: #(snippetContainer) with: [ snippetContent ].
-	self addChangeAddChildAs: #(snippetContainer bottomToolbar) with: [ self bottomToolbar ].
-
-	self addChangeAddChildAs: #(sidebarContainer sidebarContent) with: [ sidebarContent ].
+	self addChangeAddChildAs: #(content) with: [
+		widgetContent addChild: snippetContainer as: #snippetContainer.
+		widgetContent addChild: sidebarContainer as: #sidebarContainer.
+		
+		self contentContainer addChild: snippetContent.
+		self contentContainer addChild: self bottomToolbar as: #bottomToolbar.
+		
+		sidebarContainer addChild: sidebarContent as: #sidebarContent.
+		
+		widgetContent ].
+	
 	self addChangeProperty: #(snippetContainer padding) with: [ padding ].
 
 	self add: (BrLayoutResizerAptitude new inherit: [ widgetContent ]).
 	widgetContent addAptitude: (BrLayoutResizerAptitude new inherit: [ snippetContainer ]).
-	snippetContainer addAptitude: (BrLayoutResizerAptitude new inherit: [ snippetContent ]).
+	self contentContainer addAptitude: (BrLayoutResizerAptitude new inherit: [ snippetContent ]).
 
 	self add: (BrStyleCommonAptitude new
 		when: BlElementState focused | BlElementState hovered

@@ -11,7 +11,7 @@ Class {
 		'toolbarContainer',
 		'toolbarElement'
 	],
-	#category : 'Lepiter-UI-Snippet-Looks'
+	#category : #'Lepiter-UI-Snippet-Looks'
 }
 
 { #category : #private }
@@ -27,8 +27,14 @@ LeSnippetExpandableAptitude >> initialize [
 	super initialize.
 
 	toolbarElement := BlElement new size: 0@0.
+	
+	self
+		addChange:
+			(BrLookChange new
+				up: [ :e | self contentContainer addChild: toolbarContainer as: #toolbarContainer ];
+				down: [ :e | self contentContainer removeChild: toolbarContainer ];
+				yourself).
 
-	self addChangeAddChildAs: #(snippetContainer toolbarContainer) with: [ toolbarContainer ].
 	self addChangeAddChildAs: #(toolbarContainer toolbar) with: [ toolbarElement ].
 ]
 

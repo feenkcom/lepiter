@@ -1,7 +1,7 @@
 Class {
 	#name : #LeSnippetDeleteNextShortcut,
 	#superclass : #LeSnippetEditorShortcut,
-	#category : 'Lepiter-UI-Snippet-Shortcuts'
+	#category : #'Lepiter-UI-Snippet-Shortcuts'
 }
 
 { #category : #accessing }
@@ -22,6 +22,6 @@ LeSnippetDeleteNextShortcut >> performOnEditor: aBrTextEditor snippet: aLeSnippe
 		and: [ aBrTextEditor hasSelection not ])
 			ifTrue: [ ^ aLeSnippetElement mergeWithNext ].
 
-	BrEditorDeleteOneLetterAfterCursorShortcut new
+	BrEditorShortcut deleteOneLetterAfterCursor
 		performDueTo: aShortcutEvent
 ]

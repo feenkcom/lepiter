@@ -7,35 +7,39 @@ Class {
 	#name : #LeSnippetExpandableWithBarAptitude,
 	#superclass : #LeSnippetExpandableAptitude,
 	#instVars : [
-		'snippetExpander'
+		'snippetExpander',
+		'contentContainer'
 	],
-	#category : 'Lepiter-UI-Snippet-Looks'
+	#category : #'Lepiter-UI-Snippet-Looks'
 }
+
+{ #category : #accessing }
+LeSnippetExpandableWithBarAptitude >> contentContainer [
+	^ contentContainer
+]
 
 { #category : #accessing }
 LeSnippetExpandableWithBarAptitude >> decorationBarWidth: aNumber [
 	snippetExpander width: aNumber
 ]
 
-{ #category : #private }
-LeSnippetExpandableWithBarAptitude >> hideActions [
-	super hideActions.
-	
-	snippetExpander constraintsDo: [ :c | c grid vertical span: 1 ]
-]
-
 { #category : #initialization }
 LeSnippetExpandableWithBarAptitude >> initializeSnippetContainer [
-	snippetContainer := BlElement new
-		layout: (BlGridLayout horizontal columnCount: 2);
-		constraintsDo: [ :c |
-			c horizontal matchParent.
-			c vertical fitContent ];
+	contentContainer := BrVerticalPane new
+		hMatchParent;
 		clipChildren: false;
-		geometry: (BlRoundedRectangleGeometry cornerRadius: 4).
+		vFitContent.
+
+	snippetContainer := BrHorizontalPane new
+		hMatchParent;
+		vFitContent;
+		clipChildren: false;
+		geometry: (BlRoundedRectangleGeometry cornerRadius: 4);
+		addAptitude: (BrLayoutResizerAptitude new inherit: contentContainer).
 	
 	self initializeSnippetExpander.
-	snippetContainer addChild: snippetExpander
+	snippetContainer addChild: snippetExpander.
+	snippetContainer addChild: contentContainer.
 ]
 
 { #category : #initialization }
@@ -46,13 +50,6 @@ LeSnippetExpandableWithBarAptitude >> initializeSnippetExpander [
 			c vertical matchParent ];
 		background: Color veryLightGray;
 		geometry: (BlRoundedRectangleGeometry cornerRadii: (BlCornerRadii new topLeft: 4; topRight: 0; bottomRight: 0; bottomLeft: 4))
-]
-
-{ #category : #private }
-LeSnippetExpandableWithBarAptitude >> showActions [
-	super showActions.
-
-	snippetExpander constraintsDo: [ :c | c grid vertical span: 2 ]
 ]
 
 { #category : #private }

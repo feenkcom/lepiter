@@ -35,7 +35,7 @@ LeTextCoderSnippetViewModel >> initializeCoderAddOns: aTextualCoderViewModel [
 
 	aTextualCoderViewModel
 		"Lose focus LeSnippet"
-		addShortcut: (BrEditorLoseFocusShortcut new combination: (self keyboardShortcut: #LoseFocus));
+		addShortcut: (BrEditorShortcut loseFocus combination: (self keyboardShortcut: #LoseFocus));
 		"Indent LeSnippet"
 		addShortcut: (LeSnippetIndentSnippetShortcut new combination: (self keyboardShortcut: #IndentSnippet));
 		"Unindent LeSnippet"
@@ -49,7 +49,7 @@ LeTextCoderSnippetViewModel >> initializeCoderAddOns: aTextualCoderViewModel [
 		"we also split on new line"
 		addShortcut: (LeSnippetSplitSnippetShortcut new combination: (self keyboardShortcut: #NewLine));
 		"New Line in LeSnippet"
-		addShortcut: (BrEditorLineEndingShortcut new combination: (self keyboardShortcut: #SecondaryNewLine));
+		addShortcut: (BrEditorShortcut lineEnding combination: (self keyboardShortcut: #SecondaryNewLine));
 		"Delete previous character, or merge with previous block"
 		addShortcut: (LeSnippetDeletePreviousShortcut new combination: (self keyboardShortcut: #DeletePrevious));
 		"Delete next character, or merge with following block"
