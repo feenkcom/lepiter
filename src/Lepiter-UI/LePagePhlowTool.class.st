@@ -5,7 +5,7 @@ Class {
 		'page',
 		'shouldFocusFirstSnippet'
 	],
-	#category : 'Lepiter-UI-Phlow Tools'
+	#category : #'Lepiter-UI-Phlow Tools'
 }
 
 { #category : #'api - instance creation' }
@@ -15,16 +15,17 @@ LePagePhlowTool class >> page: aPage [
 
 { #category : #'api - converting' }
 LePagePhlowTool >> asElementDo: aOneArgBlock [
+
 	| aPageViewModel anElement |
-	aPageViewModel := LePageViewModel new
-		pageModel: self page;
-		shouldFocusFirstSnippet: self shouldFocusFirstSnippet.
+	aPageViewModel := self page
+		                  asContentUIModel
+		                  shouldFocusFirstSnippet: self shouldFocusFirstSnippet.
 
 	anElement := LePageToolElement new
-		pageViewModel: aPageViewModel;
-		matchParent.
-	anElement
-		selectionTransformation: [ :aNode | aNode value asPhlowTool ].
+		             pageViewModel: aPageViewModel;
+		             matchParent.
+	anElement selectionTransformation: [ :aNode | 
+		aNode value asPhlowTool ].
 	^ aOneArgBlock cull: anElement
 ]
 

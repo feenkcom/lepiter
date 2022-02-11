@@ -131,11 +131,15 @@ LeTextSnippetByScripterExamples >> moveDownTextSnippetAt: anIndex step: aStep [
 
 { #category : #'examples - page - text snippets' }
 LeTextSnippetByScripterExamples >> pageContentElementWithEnumeradedTextSnippets [
+
 	<gtExample>
 	| aScripter |
-	aScripter := self 
-		scripterWithModel: [ LeUIExamples new titledPageWithTextSnippets_numbers ]
-		element: [ :aPage | LePageToolContentTreeElement new pageViewModel: (LePageViewModel new pageModel: aPage) ].
+	aScripter := self
+		             scripterWithModel: [ 
+		             LeUIExamples new titledPageWithTextSnippets_numbers ]
+		             element: [ :aPage | 
+			             LePageToolContentTreeElement new pageViewModel:
+				             aPage asContentUIModel ].
 	^ aScripter syncContinue
 ]
 

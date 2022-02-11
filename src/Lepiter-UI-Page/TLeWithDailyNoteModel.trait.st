@@ -1,12 +1,12 @@
 Trait {
-	#name : 'TLeWithDailyNoteModel',
+	#name : #TLeWithDailyNoteModel,
 	#instVars : [
 		'dailyNoteModel'
 	],
 	#category : 'Lepiter-UI-Page-! View Models'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 TLeWithDailyNoteModel >> dailyNoteModel [
 	"Return a not-null daily note model model assigned to the receiver view model"
 	self
@@ -16,7 +16,7 @@ TLeWithDailyNoteModel >> dailyNoteModel [
 	^ dailyNoteModel
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 TLeWithDailyNoteModel >> dailyNoteModel: aDailyNoteModel [
 	"Set a not-null daily note domain model assigned to the receiver view model"
 	self
@@ -33,17 +33,17 @@ TLeWithDailyNoteModel >> dailyNoteModel: aDailyNoteModel [
 	self subscribeToDailyNoteModel
 ]
 
-{ #category : 'api - daily note' }
+{ #category : #'api - daily note' }
 TLeWithDailyNoteModel >> onDailyNoteModelChanged [
 	"Is sent when a new daily note model is assigned to the view model"
 	
 	self explicitRequirement
 ]
 
-{ #category : 'api - daily note' }
+{ #category : #'api - daily note' }
 TLeWithDailyNoteModel >> subscribeToDailyNoteModel [
 ]
 
-{ #category : 'api - daily note' }
+{ #category : #'api - daily note' }
 TLeWithDailyNoteModel >> unsubscribeFromDailyNoteModel [
 ]

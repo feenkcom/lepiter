@@ -42,11 +42,12 @@ LePage >> asPhlowTool [
 
 { #category : #'*Lepiter-UI' }
 LePage >> asPreviewElement [
-	^ LePageToolContentTreeElement new 
-		withTitleOnly;
-		rootItemsSelector: LeChildrenSelector default;
-		pageViewModel: (LePageViewModel new pageModel: self);
-		matchParent
+
+	^ LePageToolContentTreeElement new
+		  withTitleOnly;
+		  rootItemsSelector: LeChildrenSelector default;
+		  pageViewModel: self asContentUIModel;
+		  matchParent
 ]
 
 { #category : #'*Lepiter-UI' }
@@ -181,15 +182,16 @@ m ]
 
 { #category : #'*Lepiter-UI' }
 LePage >> gtSpotterDatabaseFor: aStep [
+
 	<gtSearch>
 	self database ifNil: [ ^ self ].
 	aStep listProcessor
 		priority: 20;
 		title: 'Pages';
 		wantsToDisplayOnEmptyQuery: true;
-		previewElement: [ :aLePage |
+		previewElement: [ :aLePage | 
 			| aPageViewModel |
-			aPageViewModel := LePageViewModel new pageModel: aLePage.
+			aPageViewModel := aLePage asContentUIModel.
 			LePageToolElement new pageViewModel: aPageViewModel ];
 		filter: LeSubstringFilter;
 		items: [ self database children ]
