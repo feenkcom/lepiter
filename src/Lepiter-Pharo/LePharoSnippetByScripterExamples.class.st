@@ -232,21 +232,30 @@ LePharoSnippetByScripterExamples >> moveDownPharoSnippetAt: anIndex step: aStep 
 
 { #category : #'examples - page - pharo snippets' }
 LePharoSnippetByScripterExamples >> pageContentElementWithEnumeradedPharoSnippets [
+
 	<gtExample>
 	| aScripter |
-	aScripter := self 
-		scripterWithModel: [ LeUIExamples new titledPageWithPharoCodeHierarchy_numbers ]
-		element: [ :aPage | LePageToolContentTreeElement new pageViewModel: (LePageViewModel new pageModel: aPage) ].
+	aScripter := self
+		             scripterWithModel: [ 
+		             LeUIExamples new
+			             titledPageWithPharoCodeHierarchy_numbers ]
+		             element: [ :aPage | 
+			             LePageToolContentTreeElement new pageViewModel:
+				             aPage asContentUIModel ].
 	^ aScripter
 ]
 
 { #category : #'examples - page' }
 LePharoSnippetByScripterExamples >> pageContentElementWithPharoSnippetsSharingSameVariable [
+
 	<gtExample>
 	| aScripter |
-	aScripter := self 
-		scripterWithModel: [ LeUIExamples new titledPageWithPharoCodeHierarchy ]
-		element: [ :aPage | LePageToolContentTreeElement new pageViewModel: (LePageViewModel new pageModel: aPage) ].
+	aScripter := self
+		             scripterWithModel: [ 
+		             LeUIExamples new titledPageWithPharoCodeHierarchy ]
+		             element: [ :aPage | 
+			             LePageToolContentTreeElement new pageViewModel:
+				             aPage asContentUIModel ].
 	^ aScripter
 ]
 

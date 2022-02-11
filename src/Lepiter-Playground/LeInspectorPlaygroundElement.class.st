@@ -138,8 +138,8 @@ LeInspectorPlaygroundElement >> resizerElement [
 LeInspectorPlaygroundElement >> updatePage [
 
 	page := self locatePageForObject.
-	self pageElement pageViewModel: (LePageViewModel new pageModel: page).
-	self pageElement pageViewModel receiver: self object.
+	self pageElement pageViewModel: page asContentUIModel.
+	self pageElement pageViewModel receiver: self object
 ]
 
 { #category : #'api - updating' }

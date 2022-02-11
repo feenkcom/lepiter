@@ -6,8 +6,8 @@ I display a {{gtClass:LePage}} title:
 
 "
 Class {
-	#name : 'LePageCardElement',
-	#superclass : 'BlElement',
+	#name : #LePageCardElement,
+	#superclass : #BlElement,
 	#traits : 'TLeWithPageViewModel + TBrLayoutResizable',
 	#classTraits : 'TLeWithPageViewModel classTrait + TBrLayoutResizable classTrait',
 	#instVars : [
@@ -18,19 +18,19 @@ Class {
 	#category : 'Lepiter-UI-Page-! Views'
 }
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LePageCardElement >> containerElement [
 	<return: #BrButton>
 	^ containerElement
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LePageCardElement >> headerElement [
 	<return: #BrLabel>
 	^ headerElement
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LePageCardElement >> initialize [
 	super initialize.
 	self initializeContainerElement.
@@ -45,7 +45,7 @@ LePageCardElement >> initialize [
 		inherit: self previewElement)
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LePageCardElement >> initializeContainerElement [
 	containerElement := BrButton new
 		layout: BlLinearLayout vertical;
@@ -55,7 +55,7 @@ LePageCardElement >> initializeContainerElement [
 		action: [ self phlow spawnTool: self pageViewModel asPhlowTool ]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LePageCardElement >> initializePreviewElement [
 	previewElement := BrVerticalPane new
 		beInSingleCompositionLayer;
@@ -63,7 +63,7 @@ LePageCardElement >> initializePreviewElement [
 		preventMeAndChildrenMouseEvents
 ]
 
-{ #category : 'api - page view model' }
+{ #category : #'api - page view model' }
 LePageCardElement >> onPageViewModelChanged [
 	"Is sent when a new page view model is assigned to the element"
 	| summaryElement titleElement summaryText |
@@ -101,18 +101,18 @@ LePageCardElement >> onPageViewModelChanged [
 			text: ('{1}' format: { self pageViewModel pageLatestEditTime ifNil: [ '' ] ifNotNil: [ :aLeTime | aLeTime asDate asString ] })).
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LePageCardElement >> previewElement [
 	<return: #LePageToolContentTreeElement>
 	^ previewElement
 ]
 
-{ #category : 'private - accessing' }
+{ #category : #'private - accessing' }
 LePageCardElement >> spaceGap [
 	^ 10
 ]
 
-{ #category : 'private - updating' }
+{ #category : #'private - updating' }
 LePageCardElement >> updateCard [
 	self containerElement label: self pageViewModel pageTitle
 ]

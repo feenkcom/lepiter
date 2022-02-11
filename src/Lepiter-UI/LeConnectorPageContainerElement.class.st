@@ -10,7 +10,7 @@ Class {
 		'innerContainer',
 		'pageElement'
 	],
-	#category : 'Lepiter-UI-Connector'
+	#category : #'Lepiter-UI-Connector'
 }
 
 { #category : #'as yet unclassified' }
@@ -165,7 +165,8 @@ LeConnectorPageContainerElement >> toggleVolume [
 
 { #category : #updating }
 LeConnectorPageContainerElement >> updateContent [
-	self pageElement pageViewModel: (LePageViewModel new pageModel: self page)
+
+	self pageElement pageViewModel: self page asContentUIModel
 ]
 
 { #category : #'api - zooming' }

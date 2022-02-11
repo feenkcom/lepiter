@@ -15,7 +15,7 @@ Class {
 		'selection',
 		'treeElement'
 	],
-	#category : 'Lepiter-UI-! UI - Database'
+	#category : #'Lepiter-UI-! UI - Database'
 }
 
 { #category : #'api - accessing' }
@@ -38,19 +38,27 @@ LeDatabaseTableOfContentsTreeElement >> initialize [
 
 { #category : #initialization }
 LeDatabaseTableOfContentsTreeElement >> initializeTreeElement [
+
 	treeElement := BrSimpleTree new
-		margin: (BlInsets top: 5);
-		rowStencil: (BrGlamorousSimpleTreeSelectableRowElementStencilBuilder new);
-		nodeType: [ :anItemTypeFactory :aTreeNode :anItemIndex | aTreeNode value page class ];
-		nodeStencil: [ :aNodeType |
-			LePageTitleAndSummaryElement new
-				hMatchParent;
-				vFitContent ];
-		nodeDataBinder: [ :anItemElement :eachLeTableOfContentsNode |
-			anItemElement pageViewModel: (LePageViewModel new pageModel: eachLeTableOfContentsNode page) ];
-		when: BrSelectionChanged
-			do: [ :anEvent | self onTreeSelectionChanged: anEvent ];
-		matchParent.
+		               margin: (BlInsets top: 5);
+		               rowStencil:
+			               BrGlamorousSimpleTreeSelectableRowElementStencilBuilder
+				               new;
+		               nodeType: [ :anItemTypeFactory :aTreeNode :anItemIndex | 
+			               aTreeNode value page class ];
+		               nodeStencil: [ :aNodeType | 
+			               LePageTitleAndSummaryElement new
+				               hMatchParent;
+				               vFitContent ];
+		               nodeDataBinder: [ 
+			               :anItemElement 
+			               :eachLeTableOfContentsNode | 
+			               anItemElement pageViewModel:
+				               eachLeTableOfContentsNode page asContentUIModel ];
+		               when: BrSelectionChanged
+		               do: [ :anEvent | 
+		               self onTreeSelectionChanged: anEvent ];
+		               matchParent
 ]
 
 { #category : #'private - accessing' }

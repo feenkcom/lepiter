@@ -8,7 +8,7 @@ Class {
 	#superclass : #Object,
 	#traits : 'TLeSpaceExamples',
 	#classTraits : 'TLeSpaceExamples classTrait',
-	#category : 'Lepiter-UI-Examples'
+	#category : #'Lepiter-UI-Examples'
 }
 
 { #category : #'examples - database - tree' }
@@ -347,13 +347,13 @@ LeUIExamples >> linkedReferences_PageThree [
 
 { #category : #'examples - page - block tree' }
 LeUIExamples >> pageBlockTreeElement_Hierarchy [
+
 	<gtExample>
 	| anElement aPage |
-
 	aPage := self titledPageWithBlockHierachy.
 
 	anElement := self basicPageBlockTreeElement.
-	anElement pageViewModel: (LePageViewModel new pageModel: aPage).
+	anElement pageViewModel: aPage asContentUIModel.
 
 	self assert: anElement treeElement viewModel itemCount equals: 6.
 
@@ -362,13 +362,13 @@ LeUIExamples >> pageBlockTreeElement_Hierarchy [
 
 { #category : #'examples - page - block tree' }
 LeUIExamples >> pageBlockTreeElement_NoHierarchy [
+
 	<gtExample>
 	| anElement aPage |
-	
 	aPage := self titledPage.
-	
+
 	anElement := self basicPageBlockTreeElement.
-	anElement pageViewModel: (LePageViewModel new pageModel: aPage).
+	anElement pageViewModel: aPage asContentUIModel.
 
 	self assert: anElement treeElement viewModel itemCount equals: 1.
 
@@ -386,11 +386,12 @@ LeUIExamples >> pageThreeOfDatabaseWithLinkedReferencesAmongPages [
 
 { #category : #'examples - page - title and edit info' }
 LeUIExamples >> pageTitleAndEditInfoElement [
+
 	<gtExample>
 	| anElement aPage aPageViewModel |
 	anElement := self basicPageTitleAndEditInfoElement.
 	aPage := self titledPage.
-	aPageViewModel := LePageViewModel new pageModel: aPage.
+	aPageViewModel := aPage asContentUIModel.
 	anElement pageViewModel: aPageViewModel.
 	self assert: anElement titleElement text asString equals: aPage title.
 	"self assert: anElement dateElement text asString equals: aPage editTime asDate asString.
@@ -400,21 +401,23 @@ LeUIExamples >> pageTitleAndEditInfoElement [
 
 { #category : #'examples - page - tool' }
 LeUIExamples >> pageToolContentElement_Hierarchy [
+
 	<gtExample>
 	| anElement aPage |
 	anElement := self basicPageToolContentElement.
 	aPage := self titledPageWithBlockHierachy.
-	anElement pageViewModel: (LePageViewModel new pageModel: aPage).
+	anElement pageViewModel: aPage asContentUIModel.
 	^ anElement
 ]
 
 { #category : #'examples - page - tool' }
 LeUIExamples >> pageToolContentElement_NoHierarchy [
+
 	<gtExample>
 	| anElement aPage |
 	anElement := self basicPageToolContentElement.
 	aPage := self titledPage.
-	anElement pageViewModel: (LePageViewModel new pageModel: aPage).
+	anElement pageViewModel: aPage asContentUIModel.
 	^ anElement
 ]
 
@@ -474,11 +477,12 @@ LeUIExamples >> pageToolContentElement_TitleOnly [
 
 { #category : #'examples - page - tool' }
 LeUIExamples >> pageToolElement_Hierarchy [
+
 	<gtExample>
 	| anElement aPage |
 	anElement := self basicPageToolElement.
 	aPage := self titledPageWithBlockHierachy.
-	anElement pageViewModel: (LePageViewModel new pageModel: aPage).
+	anElement pageViewModel: aPage asContentUIModel.
 	^ anElement
 ]
 
@@ -511,11 +515,12 @@ LeUIExamples >> pageToolElement_Hierarchy_Normal [
 
 { #category : #'examples - page - tool' }
 LeUIExamples >> pageToolElement_NoHierarchy [
+
 	<gtExample>
 	| anElement aPage |
 	anElement := self basicPageToolElement.
 	aPage := self titledPage.
-	anElement pageViewModel: (LePageViewModel new pageModel: aPage).
+	anElement pageViewModel: aPage asContentUIModel.
 	^ anElement
 ]
 

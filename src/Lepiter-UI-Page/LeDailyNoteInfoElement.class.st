@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeDailyNoteInfoElement',
-	#superclass : 'BlElement',
+	#name : #LeDailyNoteInfoElement,
+	#superclass : #BlElement,
 	#traits : 'TLeWithDailyNoteViewModel + TBrLayoutResizable',
 	#classTraits : 'TLeWithDailyNoteViewModel classTrait + TBrLayoutResizable classTrait',
 	#instVars : [
@@ -9,12 +9,12 @@ Class {
 	#category : 'Lepiter-UI-Page-! Views'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDailyNoteInfoElement >> contentViewModel: aDailyNoteViewModel [
 	self dailyNoteViewModel: aDailyNoteViewModel
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeDailyNoteInfoElement >> initialize [
 	super initialize.
 	self initializeTitleElement.
@@ -23,7 +23,7 @@ LeDailyNoteInfoElement >> initialize [
 	self addChild: self titleElement as: #title.
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LeDailyNoteInfoElement >> initializeTitleElement [
 	titleElement := BrLabel new
 		beSmallSize;
@@ -32,19 +32,19 @@ LeDailyNoteInfoElement >> initializeTitleElement [
 		vFitContent
 ]
 
-{ #category : 'api - daily note view model' }
+{ #category : #'api - daily note view model' }
 LeDailyNoteInfoElement >> onDailyNoteViewModelChanged [
 	"Is sent when a new daily note view model is assigned to the element"
 	
 	self updateDailyNoteInfo
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeDailyNoteInfoElement >> titleElement [
 	^ titleElement
 ]
 
-{ #category : 'updating' }
+{ #category : #updating }
 LeDailyNoteInfoElement >> updateDailyNoteInfo [
 	self titleElement 
 		text: self dailyNoteViewModel dailyNoteModel date asString.
