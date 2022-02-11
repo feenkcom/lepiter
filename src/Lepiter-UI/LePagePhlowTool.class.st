@@ -18,9 +18,7 @@ LePagePhlowTool >> asElementDo: aOneArgBlock [
 
 	| aPageViewModel anElement |
 	aPageViewModel := self page
-		                  asContentUIModel;
-		                  shouldFocusFirstSnippet:
-			                  self shouldFocusFirstSnippet.
+		                  asContentUIModel.
 
 	anElement := LePageToolElement new
 		             pageViewModel: aPageViewModel;
