@@ -85,3 +85,10 @@ LeJsonV4 >> serialize: aLeModel on: aStream prettyPrint: aBoolean [
 		nextPut: aLeModel.
 
 ]
+
+{ #category : #accessing }
+LeJsonV4 >> serializePretty: aLeModel [
+
+	^ String streamContents: [ :stream | 
+		  self serialize: aLeModel on: stream prettyPrint: true ]
+]
