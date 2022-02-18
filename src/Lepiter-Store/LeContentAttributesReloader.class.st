@@ -5,7 +5,7 @@ Class {
 		'targetContent',
 		'changedAttributes'
 	],
-	#category : 'Lepiter-Store-Reload'
+	#category : #'Lepiter-Store-Reload'
 }
 
 { #category : #'instance creation' }
@@ -25,7 +25,7 @@ LeContentAttributesReloader >> allContentAttributeMappings [
 ]
 
 { #category : #assertions }
-LeContentAttributesReloader >> assertCanUpdateFomContent: aContent [
+LeContentAttributesReloader >> assertCanUpdateFromContent: aContent [
 	self assert: [ self targetContent notNil ].
 	self assert: [ aContent notNil ].
 	self assert: [ self targetContent class = aContent class ].
@@ -83,7 +83,7 @@ LeContentAttributesReloader >> reloadCommonMetadataFromContent: aContent [
 	"Reload only the common attributes defined inside the mappings.
 	These are the attributes common among all snippets or pages."
 	| attributeMapping |
-	self assertCanUpdateFomContent: aContent.
+	self assertCanUpdateFromContent: aContent.
 	
 	attributeMapping := self commonMetadataAttributeMappings.
 	self 
@@ -95,7 +95,7 @@ LeContentAttributesReloader >> reloadCommonMetadataFromContent: aContent [
 LeContentAttributesReloader >> reloadFromContent: aSnippet [
 	"Reload all the relavant attributes of the content defined inside the mappings."
 	| attributeMapping |
-	self assertCanUpdateFomContent: aSnippet.
+	self assertCanUpdateFromContent: aSnippet.
 	
 	attributeMapping := self relevantAttributeMappings.
 	self 
