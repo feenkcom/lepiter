@@ -5,7 +5,7 @@ Class {
 		'page',
 		'node'
 	],
-	#category : 'Lepiter-Utilities-ToC'
+	#category : #'Lepiter-Utilities-ToC'
 }
 
 { #category : #'api - enumerating' }
@@ -15,9 +15,9 @@ LeRestPage >> allChildrenDepthFirstDo: aBlock [
 
 { #category : #converting }
 LeRestPage >> asContentUIModel [
-	<return: #LeContentViewModel>
 
-	^ LePageViewModel new page: self
+	<return: #LeContentViewModel>
+	^ LePageViewModel new pageModel: self
 ]
 
 { #category : #'private - accessing' }
