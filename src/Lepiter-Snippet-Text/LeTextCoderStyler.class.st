@@ -19,5 +19,5 @@ LeTextCoderStyler >> lepiterStyler: anObject [
 
 { #category : #'api - styling' }
 LeTextCoderStyler >> style: aText ast: theAst [
-	lepiterStyler style: aText using: theAst
+	lepiterStyler style: aText ast: theAst
 ]

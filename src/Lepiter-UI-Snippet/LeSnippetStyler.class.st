@@ -114,7 +114,7 @@ LeSnippetStyler >> privateStyle: aText [
 		on: Error
 		do: [ :anException | anException return ].
 	
-	^ self style: aText using: aNode
+	^ self style: aText ast: aNode
 ]
 
 { #category : #private }
@@ -167,7 +167,7 @@ LeSnippetStyler >> snippetViewModel: anObject [
 ]
 
 { #category : #private }
-LeSnippetStyler >> style: aText using: aNode [
+LeSnippetStyler >> style: aText ast: aNode [
 	<return: #BlText>
 	| visitor aParagraphStyle |
 	
