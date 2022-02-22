@@ -1,7 +1,7 @@
 Class {
 	#name : #LeSnippets,
 	#superclass : #LeCollection,
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #visiting }
@@ -175,4 +175,12 @@ LeSnippets >> removeSnippet: aLeSnippet [
 
 	items remove: aLeSnippet.
 	aLeSnippet detachFromParent
+]
+
+{ #category : #accessing }
+LeSnippets >> swapSnippetAtIndex: aIndex withSnippetWithUid: anotherUid [
+	self items
+		swap: aIndex 
+		with: (self items 
+			detectIndex: [ :aSnippet | aSnippet uid = anotherUid ] ) 
 ]

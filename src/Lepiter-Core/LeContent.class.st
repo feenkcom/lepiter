@@ -12,7 +12,7 @@ Class {
 		'editTime',
 		'database'
 	],
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #factory }
@@ -759,8 +759,7 @@ LeContent >> reloadFromChildren: aCollection [
 	modifiedIDs := existingBlockIDs intersection: replacementBlockIDs.
 	changed := false.
 	
-	aCollection items
-		doWithIndex: [ :child :index | 
+	aCollection withIndexDo: [ :child :index | 
 			(addedIDs includes: child uid)
 				ifTrue: [ 
 					self addSnippet: child beforeIndex: index.
@@ -773,10 +772,12 @@ LeContent >> reloadFromChildren: aCollection [
 							existingSnippetChanged := existingSnippet reloadFromContent: (aCollection at: index).
 							changed := changed |existingSnippetChanged ]
 						ifFalse: [ self error: 'ID integrity check fail' ] ] ].
-	removedIDs
-		do: [ :uid | 
-			self children removeAllSuchThat: [ :each | each uid = uid ] ].
+	removedIDs do: [ :uid | 
+		self children removeAllSuchThat: [ :each | each uid = uid ] ].
 	removedIDs ifNotEmpty: [ changed := true ].
+	
+	self updateChildrenOrderBasedOn: aCollection.
+	
 	^ changed
 ]
 
@@ -872,6 +873,17 @@ LeContent >> unlinkedTarget: aLeContent in: aLeLink [
 LeContent >> unload [ 
 
 	self subclassResponsibility 
+]
+
+{ #category : #'private - updating' }
+LeContent >> updateChildrenOrderBasedOn: aCollection [
+	aCollection withIndexDo: [ :aLoadedSnippet :anIndex | 
+		| existingSnippet |
+		existingSnippet := self children at: anIndex.
+		existingSnippet uid = aLoadedSnippet uid ifFalse: [
+			self children 
+				swapSnippetAtIndex: anIndex
+				withSnippetWithUid: aLoadedSnippet uid ] ]
 ]
 
 { #category : #private }
