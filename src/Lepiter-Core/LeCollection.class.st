@@ -6,7 +6,7 @@ Class {
 	#instVars : [
 		'items'
 	],
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #'api - factory' }
@@ -100,6 +100,12 @@ LeCollection >> fasterDifferencePreservingOrder: aCollection [
 ]
 
 { #category : #'api - accessing' }
+LeCollection >> fifth [
+
+	^ items fifth
+]
+
+{ #category : #'api - accessing' }
 LeCollection >> first [
 
 	^ items first
@@ -108,6 +114,12 @@ LeCollection >> first [
 { #category : #'api - enumerating' }
 LeCollection >> flatCollect: aBlock [
 	^ self items flatCollect: aBlock
+]
+
+{ #category : #'api - accessing' }
+LeCollection >> fourth [
+
+	^ items fourth
 ]
 
 { #category : #'gt-extensions' }
