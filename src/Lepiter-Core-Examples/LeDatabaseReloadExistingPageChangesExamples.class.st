@@ -6,9 +6,22 @@ Class {
 	#category : #'Lepiter-Core-Examples-Database'
 }
 
+{ #category : #asserting }
+LeDatabaseReloadExistingPageChangesExamples >> assertLocalPageStructureChange: aStructureChange inDatabase: aDatabase [
+	<gtExample>
+	| initialPage secondDatabase modifiedPage structureChange |
+	initialPage := aDatabase pageNamed: 'Target Page'.
+
+	secondDatabase := self createDatabaseFromFolder: aDatabase localStoreRootDirectory.
+	modifiedPage := secondDatabase pageNamed: 'Target Page'.
+	
+	structureChange := initialPage changeTypeToPage: modifiedPage.
+	self assert: structureChange equals: aStructureChange.
+]
+
 { #category : #'examples - children snippets order' }
 LeDatabaseReloadExistingPageChangesExamples >> changedChildrenSnippetsOrderInStorage [
-	"The initial page has three snippets:
+	"The initial page has these snippets:
 	  A
 	   A1
 	   A2
@@ -48,7 +61,18 @@ LeDatabaseReloadExistingPageChangesExamples >> changedChildrenSnippetsOrderInSto
 	^ database
 ]
 
-{ #category : #'examples - flat snippet structure' }
+{ #category : #'examples - children snippets order' }
+LeDatabaseReloadExistingPageChangesExamples >> changedChildrenSnippetsOrderInStorage_hasPageStructureChange [
+	<gtExample>
+	| database |
+	
+	database := self changedChildrenSnippetsOrderInStorage.
+	self assertLocalPageStructureChange: LePageComplexStructureChange inDatabase: database.
+	
+	^ database
+]
+
+{ #category : #'examples - flat snippet structure change' }
 LeDatabaseReloadExistingPageChangesExamples >> changedFlatSnippetStructureInStorage [
 	"The initial page has three snippets:
 	  A
@@ -79,7 +103,7 @@ LeDatabaseReloadExistingPageChangesExamples >> changedFlatSnippetStructureInStor
 	^ database
 ]
 
-{ #category : #'examples - flat snippet order' }
+{ #category : #'examples - flat snippet order change' }
 LeDatabaseReloadExistingPageChangesExamples >> changedFlatSnippetsOrderInStorage [
 	"The initial page has three snippets:
 	  A
@@ -111,7 +135,18 @@ LeDatabaseReloadExistingPageChangesExamples >> changedFlatSnippetsOrderInStorage
 	^ database
 ]
 
-{ #category : #'examples - flat snippet order' }
+{ #category : #'examples - flat snippet order change' }
+LeDatabaseReloadExistingPageChangesExamples >> changedFlatSnippetsOrderInStorage_hasPageStructureChange [
+	<gtExample>
+	| database |
+	
+	database := self changedFlatSnippetsOrderInStorage.
+	self assertLocalPageStructureChange: LePageComplexStructureChange inDatabase: database.
+	
+	^ database
+]
+
+{ #category : #'examples - flat snippet order change' }
 LeDatabaseReloadExistingPageChangesExamples >> changedFlatSnippetsOrderWithSnippetAdditionInStorage [
 	"The initial page has three snippets:
 	  A
@@ -155,7 +190,18 @@ LeDatabaseReloadExistingPageChangesExamples >> changedFlatSnippetsOrderWithSnipp
 	^ database
 ]
 
-{ #category : #'examples - flat snippet order' }
+{ #category : #'examples - flat snippet order change' }
+LeDatabaseReloadExistingPageChangesExamples >> changedFlatSnippetsOrderWithSnippetAdditionInStorage_hasPageStructureChange [
+	<gtExample>
+	| database |
+	
+	database := self changedFlatSnippetsOrderWithSnippetAdditionInStorage.
+	self assertLocalPageStructureChange: LePageComplexStructureChange inDatabase: database.
+	
+	^ database
+]
+
+{ #category : #'examples - flat snippet order change' }
 LeDatabaseReloadExistingPageChangesExamples >> changedFlatSnippetsOrderWithSnippetDeletionInStorage [
 	"The initial page has three snippets:
 	  A
@@ -180,6 +226,50 @@ LeDatabaseReloadExistingPageChangesExamples >> changedFlatSnippetsOrderWithSnipp
 	self assert: targetPage children second string equals: 'B'.
 	
 	secondDatabase stopMonitoring.
+	
+	^ database
+]
+
+{ #category : #'examples - flat snippet order change' }
+LeDatabaseReloadExistingPageChangesExamples >> changedFlatSnippetsOrderWithSnippetDeletionInStorage_hasPageStructureChange [
+	<gtExample>
+	| database |
+	
+	database := self changedFlatSnippetsOrderWithSnippetDeletionInStorage.
+	self assertLocalPageStructureChange: LePageComplexStructureChange inDatabase: database.
+	
+	^ database
+]
+
+{ #category : #'examples - no structure change' }
+LeDatabaseReloadExistingPageChangesExamples >> changedSnippetContentInStorage [
+	"The initial page has three snippets:
+	  A
+	  B
+	  C
+	
+	We change this to:
+	  A
+	  BB (same identiy as B)
+	  C"
+	<gtExample>
+	| database secondDatabase targetPage |
+	database := self createDatabaseWithFlatSnippetStructure.
+	
+	secondDatabase := self createDatabaseFromFolder: database localStoreRootDirectory.
+	targetPage := secondDatabase pageNamed: 'Target Page'.
+	targetPage children second updateString: 'BB'.
+	secondDatabase stopMonitoring.
+	
+	^ database
+]
+
+{ #category : #'examples - no structure change' }
+LeDatabaseReloadExistingPageChangesExamples >> changedSnippetContentInStorage_hasNoPageStructureChange [
+	<gtExample>
+	| database |
+	database := self changedSnippetContentInStorage.
+	self assertLocalPageStructureChange: LePageNoStructureChange inDatabase: database.
 	
 	^ database
 ]
@@ -218,7 +308,7 @@ LeDatabaseReloadExistingPageChangesExamples >> createDatabaseWithChildrenSnippet
 	^ database
 ]
 
-{ #category : #'examples - flat snippet structure' }
+{ #category : #'examples - flat snippet structure change' }
 LeDatabaseReloadExistingPageChangesExamples >> createDatabaseWithFlatSnippetStructure [
 	<gtExample>
 	| database page |
@@ -231,6 +321,16 @@ LeDatabaseReloadExistingPageChangesExamples >> createDatabaseWithFlatSnippetStru
 	
 	self assert:  page children size equals: 3.
 	database addPage: page.
+	
+	^ database
+]
+
+{ #category : #'examples - no structure change' }
+LeDatabaseReloadExistingPageChangesExamples >> createDatabaseWithFlatSnippetStructure_hasNoPageStructureChange [
+	<gtExample>
+	| database |
+	database := self createDatabaseWithFlatSnippetStructure.
+	self assertLocalPageStructureChange: LePageNoStructureChange inDatabase: database.
 	
 	^ database
 ]
@@ -293,7 +393,7 @@ LeDatabaseReloadExistingPageChangesExamples >> reloadChangedChildrenSnippetsOrde
 	^ database
 ]
 
-{ #category : #'examples - flat snippet order' }
+{ #category : #'examples - flat snippet order change' }
 LeDatabaseReloadExistingPageChangesExamples >> reloadChangedFlatSnippetsOrderWithSnippetAdditionInStorage [
 	<gtExample>
 	
@@ -314,7 +414,7 @@ LeDatabaseReloadExistingPageChangesExamples >> reloadChangedFlatSnippetsOrderWit
 	^ database
 ]
 
-{ #category : #'examples - flat snippet order' }
+{ #category : #'examples - flat snippet order change' }
 LeDatabaseReloadExistingPageChangesExamples >> reloadChangedFlatSnippetsOrderWithSnippetAdditionInStorage_hasSameIdentity [
 	<gtExample>
 	
@@ -335,7 +435,7 @@ LeDatabaseReloadExistingPageChangesExamples >> reloadChangedFlatSnippetsOrderWit
 	^ database
 ]
 
-{ #category : #'examples - flat snippet order' }
+{ #category : #'examples - flat snippet order change' }
 LeDatabaseReloadExistingPageChangesExamples >> reloadChangedFlatSnippetsOrderWithSnippetDeletionInStorage [
 	<gtExample>
 	
@@ -353,7 +453,7 @@ LeDatabaseReloadExistingPageChangesExamples >> reloadChangedFlatSnippetsOrderWit
 	^ database
 ]
 
-{ #category : #'examples - flat snippet order' }
+{ #category : #'examples - flat snippet order change' }
 LeDatabaseReloadExistingPageChangesExamples >> reloadChangedFlatSnippetsOrderWithSnippetDeletionInStorage_hasSameIdentity [
 	<gtExample>
 	
@@ -372,7 +472,41 @@ LeDatabaseReloadExistingPageChangesExamples >> reloadChangedFlatSnippetsOrderWit
 	^ database
 ]
 
-{ #category : #'examples - flat snippet structure' }
+{ #category : #'examples - no structure change' }
+LeDatabaseReloadExistingPageChangesExamples >> reloadDatabaseWithNoChange [
+	<gtExample>
+	| database targetPage |
+	database := self createDatabaseWithFlatSnippetStructure.
+	
+	targetPage := database pageNamed: 'Target Page'.
+	database reload.
+	
+	self assert: targetPage children size equals: 3.
+	self assert: targetPage children first string equals: 'A'.
+	self assert: targetPage children second string equals: 'B'.
+	self assert: targetPage children third string equals: 'C'.
+	
+	^ database
+]
+
+{ #category : #'examples - no structure change' }
+LeDatabaseReloadExistingPageChangesExamples >> reloadDatabaseWithSnippetContentChange [
+	<gtExample>
+	| database targetPage |
+	database := self changedSnippetContentInStorage.
+	
+	targetPage := database pageNamed: 'Target Page'.
+	database reload.
+	
+	self assert: targetPage children size equals: 3.
+	self assert: targetPage children first string equals: 'A'.
+	self assert: targetPage children second string equals: 'BB'.
+	self assert: targetPage children third string equals: 'C'.
+	
+	^ database
+]
+
+{ #category : #'examples - flat snippet structure change' }
 LeDatabaseReloadExistingPageChangesExamples >> reloadModifiedFlatSnippetStructureFromStorage [
 	<gtExample>
 	<noTest>
@@ -388,7 +522,18 @@ LeDatabaseReloadExistingPageChangesExamples >> reloadModifiedFlatSnippetStructur
 	^ database
 ]
 
-{ #category : #'examples - flat snippet order' }
+{ #category : #'examples - flat snippet structure change' }
+LeDatabaseReloadExistingPageChangesExamples >> reloadModifiedFlatSnippetStructureFromStorage_hasPageStructureChange [
+	<gtExample>
+	| database |
+	
+	database := self changedFlatSnippetStructureInStorage.
+	self assertLocalPageStructureChange: LePageComplexStructureChange inDatabase: database.
+	
+	^ database
+]
+
+{ #category : #'examples - flat snippet order change' }
 LeDatabaseReloadExistingPageChangesExamples >> reloadModifiedFlatSnippetsOrderFromStorage [
 	<gtExample>
 	
@@ -407,7 +552,7 @@ LeDatabaseReloadExistingPageChangesExamples >> reloadModifiedFlatSnippetsOrderFr
 	^ database
 ]
 
-{ #category : #'examples - flat snippet order' }
+{ #category : #'examples - flat snippet order change' }
 LeDatabaseReloadExistingPageChangesExamples >> reloadModifiedFlatSnippetsOrderFromStorage_hasSameIdentity [
 	<gtExample>
 	
