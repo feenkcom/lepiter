@@ -489,7 +489,7 @@ LePage >> reloadFromPage: aLePage [
 	changed := self reloadFromContent: aLePage.
 	latestEditTime := nil.
 	
-	type = aLePage type ifFalse: [ 
+	type = aLePage type ifFalse: [
 		type := aLePage type.
 		changed := true ].
 

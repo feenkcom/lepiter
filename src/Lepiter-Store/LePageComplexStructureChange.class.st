@@ -1,3 +1,6 @@
+"
+At the moment I indicate that there is a change in structure.
+"
 Class {
 	#name : #LePageComplexStructureChange,
 	#superclass : #LePageStructureChange,
