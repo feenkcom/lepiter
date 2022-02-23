@@ -275,6 +275,16 @@ LeContent >> ast [
 	^ nil
 ]
 
+{ #category : #'api - attaching / detaching' }
+LeContent >> attachChildSnippet: aNewSnippet [
+	self assert: [ aNewSnippet notNil ].
+	self assert: [ aNewSnippet parent isNil ].
+	
+	self children addChild: aNewSnippet.
+	aNewSnippet attachToParent: self.
+	^ aNewSnippet
+]
+
 { #category : #'private - editing' }
 LeContent >> basicAddSnippet: newLeSnippet [
 
@@ -399,6 +409,14 @@ LeContent >> defaultChildren [
 { #category : #defaults }
 LeContent >> defaultDatabase [
 	^ LeDatabase null
+]
+
+{ #category : #'api - attaching / detaching' }
+LeContent >> detachChildSnippet: aLeSnippet [
+	self assert: [ aLeSnippet notNil ].
+	self assert: [ aLeSnippet parent notNil ].
+	
+	self children removeSnippet: aLeSnippet.
 ]
 
 { #category : #'api - accessing' }

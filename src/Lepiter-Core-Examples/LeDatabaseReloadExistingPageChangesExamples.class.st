@@ -103,6 +103,31 @@ LeDatabaseReloadExistingPageChangesExamples >> changedFlatSnippetStructureInStor
 	^ database
 ]
 
+{ #category : #'examples - flat snippet structure change' }
+LeDatabaseReloadExistingPageChangesExamples >> changedFlatSnippetStructureInStorage_explicitPageReloadWorks [
+	<gtExample>
+	
+	| database secondDatabase targetPage referencePage pageAsseambler |
+	database := self changedFlatSnippetStructureInStorage.
+	targetPage := database pageNamed: 'Target Page'.
+	
+	secondDatabase := self createDatabaseFromFolder: database localStoreRootDirectory.
+	referencePage := secondDatabase pageNamed: 'Target Page'.
+	
+	pageAsseambler := LePageStructureAsseambler new targetPage: targetPage.
+	pageAsseambler rebuildStructureBasedOnPage: referencePage.
+	
+	self assert: targetPage children size equals: 3.
+	self assert: targetPage children first string equals: 'A'.
+	self assert: targetPage children second string equals: 'B1'.
+	self assert: targetPage children third string equals: 'C'.
+	self 
+		assert: targetPage children second children first string 
+		equals: 'B'.
+	
+	^ database
+]
+
 { #category : #'examples - flat snippet order change' }
 LeDatabaseReloadExistingPageChangesExamples >> changedFlatSnippetsOrderInStorage [
 	"The initial page has three snippets:

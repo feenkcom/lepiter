@@ -1,3 +1,8 @@
+"
+Determines the type of change in structure between two Lepiter pages.
+
+The change in structure is calculated based on snippet ids. 
+"
 Class {
 	#name : #LePageStructureChangeTypeDetector,
 	#superclass : #Object,

@@ -12,7 +12,7 @@ Class {
 	#instVars : [
 		'jsonString'
 	],
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #factory }
@@ -151,12 +151,13 @@ LeUnknownSnippet >> printOn: aStream [
 { #category : #'private - updating' }
 LeUnknownSnippet >> reloadFromContent: aLeSnippet [
 	"Reload the receiver from the supplied snippet"
-	| changed index myParent |
+	| changed |
 
 	"If the snippet is now known, replace myself with the new snippet.
 	Save my current parent since it will be nilled out while removing me."
-	aLeSnippet class = self class ifFalse:
-		[ myParent := parent.
+	aLeSnippet class = self class ifFalse:[ 
+		| myParent index |
+		myParent := parent.
 		index := myParent children indexOf: self.
 		self removeSelf.
 		myParent addSnippet: aLeSnippet beforeIndex: index.
@@ -168,8 +169,8 @@ LeUnknownSnippet >> reloadFromContent: aLeSnippet [
 	self reloadFromChildren: aLeSnippet children.
 	
 	changed := false.
-	jsonString = aLeSnippet jsonString ifFalse: 
-		[ self jsonString: aLeSnippet jsonString.
+	jsonString = aLeSnippet jsonString ifFalse: [ 
+		self jsonString: aLeSnippet jsonString.
 		changed := true ].
 	^ changed
 ]

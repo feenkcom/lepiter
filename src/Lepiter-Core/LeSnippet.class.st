@@ -18,7 +18,7 @@ Class {
 		'parent',
 		'uid'
 	],
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #visiting }
@@ -127,16 +127,6 @@ LeSnippet >> announceContentChangedBy: aSourceObject [
 ]
 
 { #category : #'api - attaching / detaching' }
-LeSnippet >> attachChildSnippet: aNewSnippet [
-	self assert: [ aNewSnippet notNil ].
-	self assert: [ aNewSnippet parent isNil ].
-	
-	self children addChild: aNewSnippet.
-	aNewSnippet attachToParent: self.
-	^ aNewSnippet
-]
-
-{ #category : #'api - attaching / detaching' }
 LeSnippet >> attachFirstChildSnippet: aNewSnippet [
 	self assert: [ aNewSnippet notNil ].
 	self assert: [ aNewSnippet parent isNil ].
@@ -154,14 +144,6 @@ LeSnippet >> attachToParent: aParentSnippet [
 		description: 'To attach a snippet is must have been previously detached.'.
 	
 	self parent: aParentSnippet
-]
-
-{ #category : #'api - attaching / detaching' }
-LeSnippet >> detachChildSnippet: aLeSnippet [
-	self assert: [ aLeSnippet notNil ].
-	self assert: [ aLeSnippet parent notNil ].
-	
-	self children removeSnippet: aLeSnippet.
 ]
 
 { #category : #'api - attaching / detaching' }
