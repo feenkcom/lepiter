@@ -181,6 +181,13 @@ LePage >> canMoveToDatabase: aNewDatabase [
 	^ true
 ]
 
+{ #category : #'private - updating' }
+LePage >> changeTypeToPage: aLePage [
+	^ LePageStructureChangeTypeDetector new
+		detectChangeBetween: self
+		and: aLePage
+]
+
 { #category : #'api - accessing' }
 LePage >> contentAsString [
 	^ self title
