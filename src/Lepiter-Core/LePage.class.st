@@ -181,13 +181,6 @@ LePage >> canMoveToDatabase: aNewDatabase [
 	^ true
 ]
 
-{ #category : #'private - updating' }
-LePage >> changeTypeToPage: aLePage [
-	^ LePageStructureChangeTypeDetector new
-		detectChangeBetween: self
-		and: aLePage
-]
-
 { #category : #'api - accessing' }
 LePage >> contentAsString [
 	^ self title
@@ -198,6 +191,13 @@ LePage >> databaseKey [
 	"Answer the value used to index a page of the receiver's type in the database."
 
 	^ type databaseKey
+]
+
+{ #category : #'private - updating' }
+LePage >> detectStructureChangeTypeToPage: aLePage [
+	^ LePageStructureChangeTypeDetector new
+		detectChangeBetween: self
+		and: aLePage
 ]
 
 { #category : #'api - accessing' }
@@ -437,6 +437,27 @@ LePage >> moveUpSnippet: aLeSnippet [
 		[ self announceContentMoved: aLeSnippet ].
 ]
 
+{ #category : #'private - updating' }
+LePage >> newReloadFromPage: aLePage [
+	"Update the receiver to match the supplied page."
+	| typeOfChange changed |
+	
+	typeOfChange := self detectStructureChangeTypeToPage: aLePage.
+	typeOfChange needsPageRebuild 
+		ifTrue:  [ 
+			self rebuildFromContent: aLePage. 
+			changed := true ]
+		ifFalse: [ 
+			changed := self reloadFromContent: aLePage ].
+	latestEditTime := nil.
+	
+	type = aLePage type ifFalse: [
+		type := aLePage type.
+		changed := true ].
+
+	changed ifTrue: [ self announceTreeChanged: self ]
+]
+
 { #category : #'api - notifications' }
 LePage >> notifier [
 	^ LeNotifier new
@@ -474,6 +495,16 @@ LePage >> printOn: aStream [
 
 	type ifNil: [ ^ super printOn: aStream ].
 	type printOn: aStream.
+]
+
+{ #category : #'private - updating' }
+LePage >> rebuildFromContent: aLePage [
+	"Update the receiver to match the supplied page"
+	| pageAsseambler |
+	
+	pageAsseambler := LePageStructureAsseambler new targetPage: self.
+	pageAsseambler rebuildStructureBasedOnPage: aLePage.
+	^ pageAsseambler
 ]
 
 { #category : #'private - updating' }
@@ -626,7 +657,7 @@ LePage >> updateType [
 	| aDate |
 	aDate := LeDailyNoteTitleParser parse: self title.
 	aDate 
-		ifNotNil: [ self type: (LePageType date: aDate)  ]
+		ifNotNil: [ self type: (LePageType date: aDate) ]
 		ifNil: [ self type: LePageType default ].
 ]
 

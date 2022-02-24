@@ -8,3 +8,8 @@ Class {
 	#superclass : #Object,
 	#category : #'Lepiter-Store-Reload'
 }
+
+{ #category : #testing }
+LePageStructureChange class >> needsPageRebuild [
+	^ false
+]

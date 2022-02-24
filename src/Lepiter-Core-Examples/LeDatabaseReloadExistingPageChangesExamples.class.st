@@ -15,7 +15,7 @@ LeDatabaseReloadExistingPageChangesExamples >> assertLocalPageStructureChange: a
 	secondDatabase := self createDatabaseFromFolder: aDatabase localStoreRootDirectory.
 	modifiedPage := secondDatabase pageNamed: 'Target Page'.
 	
-	structureChange := initialPage changeTypeToPage: modifiedPage.
+	structureChange := initialPage detectStructureChangeTypeToPage: modifiedPage.
 	self assert: structureChange equals: aStructureChange.
 ]
 

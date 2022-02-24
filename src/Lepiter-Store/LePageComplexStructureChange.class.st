@@ -6,3 +6,8 @@ Class {
 	#superclass : #LePageStructureChange,
 	#category : #'Lepiter-Store-Reload'
 }
+
+{ #category : #testing }
+LePageComplexStructureChange class >> needsPageRebuild [
+	^ true
+]
