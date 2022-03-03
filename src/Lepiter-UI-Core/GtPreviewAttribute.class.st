@@ -70,7 +70,7 @@ GtPreviewAttribute >> initializeLazyElement: aBlLazyElement [
 			c textFlow pushLine.
 			c horizontal matchParent.
 			c vertical exact: self height ];
-		postAction: [ :theLazyElement :aResultElement | 
+		postAction: [ :theLazyElement | 
 			theLazyElement constraintsDo: [ :c | c vertical fitContent ] ]
 ]
 

@@ -91,7 +91,7 @@ GtExamplePreviewAttribute >> initializeLazyElement: aBlLazyElement [
 			c horizontal matchParent.
 			c margin: (BlInsets top: 0 left: 20 bottom: 0 right: 20).
 			c vertical exact: self totalHeight ];
-		postAction: [ :theLazyElement :aResultElement | 
+		postAction: [ :theLazyElement | 
 			theLazyElement constraintsDo: [ :c | c vertical fitContent ] ]
 ]
 

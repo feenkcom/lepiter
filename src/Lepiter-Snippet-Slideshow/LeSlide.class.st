@@ -129,14 +129,12 @@ LeSlide >> initialize [
 	code := ''.
 	self updateCoderUIModel.
 	shouldPerformActionEveryTime := true.
-	cachedElement := LeSlideElement new
-		withGlamorousPreview;
+	cachedElement := BrSlideWidget new
 		constraintsDo: [ :c | c horizontal matchParent. c vertical matchParent ];
 		slide: self;
 		yourself.
-	previewElement := BlLazyElement new
-		withGlamorousPreview;
-		neverUpdate; "I will be updated by the cached element"
+	previewElement := BrAsyncWidget new
+		strategy: BrAsyncElementFutureNeverUpdateStrategy new; "I will be updated by the cached element"
 		constraintsDo: [ :c | c vertical exact: 100. c horizontal exact: 150 ];
 		background: Color white;
 		viewModel: (BrInteractiveModel new
