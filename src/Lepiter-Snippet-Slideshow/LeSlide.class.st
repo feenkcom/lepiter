@@ -129,8 +129,7 @@ LeSlide >> initialize [
 	code := ''.
 	self updateCoderUIModel.
 	shouldPerformActionEveryTime := true.
-	cachedElement := LeSlideElement new
-		withGlamorousPreview;
+	cachedElement := BrSlideWidget new
 		constraintsDo: [ :c | c horizontal matchParent. c vertical matchParent ];
 		slide: self;
 		yourself.
