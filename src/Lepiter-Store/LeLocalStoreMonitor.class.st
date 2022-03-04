@@ -386,15 +386,17 @@ LeLocalStoreMonitor >> savePage: aPage [
 
 { #category : #private }
 LeLocalStoreMonitor >> scheduleNextUpdate [
+
 	"Queue the next update to be run after the saveDelay duration"
 
 	saveDelay isZero ifTrue: [ ^ self ].
-	
-	updatePromise ifNotNil: [
-		updatePromise cancelSoft.
-	].
-	
-	updatePromise := ([ self runTimedUpdate ] asAsyncFuture delayed: saveDelay) await
+
+	updatePromise ifNotNil: [ updatePromise cancelSoft ].
+
+	updatePromise := ([ self runTimedUpdate ] asAsyncFuture delayed:
+		                  saveDelay) await:
+		                 (AsyncFutureExecutionConfiguration new 
+			                  customGroup: #Lepiter)
 ]
 
 { #category : #'system startup' }
@@ -439,9 +441,9 @@ LeLocalStoreMonitor >> stopMonitoring [
 { #category : #private }
 LeLocalStoreMonitor >> submitReload [
 
-	[		
-		self class shutdownMonitor critical: [ self reload ].
-	] asAsyncFuture await
+	[ self class shutdownMonitor critical: [ self reload ] ]
+		asAsyncFuture await:
+		(AsyncFutureExecutionConfiguration new customGroup: #Lepiter)
 ]
 
 { #category : #private }
