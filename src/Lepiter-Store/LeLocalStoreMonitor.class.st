@@ -30,7 +30,8 @@ Class {
 		'removeQueue',
 		'state',
 		'corruptFiles',
-		'announcer'
+		'announcer',
+		'updatePromise'
 	],
 	#classVars : [
 		'SessionAnnouncer',
@@ -388,13 +389,12 @@ LeLocalStoreMonitor >> scheduleNextUpdate [
 	"Queue the next update to be run after the saveDelay duration"
 
 	saveDelay isZero ifTrue: [ ^ self ].
-	BlTaskAtQueue default
-		schedule: 
-			[ state = #running ifTrue:
-				[ BlTktWorkerProvider highUICPUBoundPool schedule: 
-					[ self runTimedUpdate ] asBlTktCommand ] ]
-		at: DateAndTime now + saveDelay
-		entryIdentifier: 'lepiterMonitorSave-', self identityHash asString.
+	
+	updatePromise ifNotNil: [
+		updatePromise cancelSoft.
+	].
+	
+	updatePromise := ([ self runTimedUpdate ] asAsyncFuture delayed: saveDelay) await
 ]
 
 { #category : #'system startup' }
@@ -441,9 +441,7 @@ LeLocalStoreMonitor >> submitReload [
 
 	[		
 		self class shutdownMonitor critical: [ self reload ].
-	] asBlTktCommand 
-		name: 'Lepiter Database Reload';
-		scheduleInPool: BlTktWorkerProvider highUIExternalResourceBoundPool
+	] asAsyncFuture await
 ]
 
 { #category : #private }
