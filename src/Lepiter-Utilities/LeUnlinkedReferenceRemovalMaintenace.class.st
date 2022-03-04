@@ -22,7 +22,7 @@ Class {
 		'database',
 		'sourceSnippet'
 	],
-	#category : 'Lepiter-Utilities-Utilities'
+	#category : #'Lepiter-Utilities-Utilities'
 }
 
 { #category : #'instance creation' }
@@ -104,7 +104,6 @@ LeUnlinkedReferenceRemovalMaintenace >> submit [
 	"Submit the receiver for processing in the low priority non-UI single pool"
 
 	BlUseAsyncFeatures 
-		ifEnabledDo: [ BlTktWorkerProvider nonUISinglePool schedule: 
-			([ self run ] asBlTktCommand) ]
+		ifEnabledDo: [ [ self run ] asAsyncFuture await ]
 		otherwise: [ self run ]
 ]

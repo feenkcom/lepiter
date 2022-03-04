@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'rawData'
 	],
-	#category : 'Lepiter-Core-Twitter'
+	#category : #'Lepiter-Core-Twitter'
 }
 
 { #category : #'api - raw data' }
@@ -19,7 +19,7 @@ LeTweetMedia >> gtLiveFor: aView [
 		title: 'Live';
 		priority: 10;
 		stencil: [
-			BlUrlImageElement new
+			BrAsyncFileWidget new
 				url: (self url asZnUrl & ('format' -> 'jpg')) asString;
 				constraintsDo: [ :c |
 					c horizontal matchParent.

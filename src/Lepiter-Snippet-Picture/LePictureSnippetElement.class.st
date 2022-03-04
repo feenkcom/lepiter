@@ -161,7 +161,7 @@ LePictureSnippetElement >> updatePicture [
 	imageElement := gtUrlUtility isValid
 		ifFalse: [ BlElement new size: 0@0 ]
 		ifTrue: 
-			[ (BlUrlImageElement new url: gtUrlUtility urlString)
+			[ (BrAsyncFileWidget new url: gtUrlUtility urlString)
 				constraintsDo: [ :c |
 					c horizontal matchParent.
 					c vertical exact: 300. ] ].

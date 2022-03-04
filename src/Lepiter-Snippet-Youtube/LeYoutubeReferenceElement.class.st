@@ -233,7 +233,7 @@ LeYoutubeReferenceElement >> updatePicture [
 				ifTrue: [ 
 				title label: self snippet title.
 				authorName label: self snippet authorName.
-				(BlUrlImageElement new url: utility urlString)
+				(BrAsyncFileWidget new url: utility urlString)
 						constraintsDo: [ :c | 
 							c horizontal matchParent.
 							c vertical exact: 300 ] ] ].

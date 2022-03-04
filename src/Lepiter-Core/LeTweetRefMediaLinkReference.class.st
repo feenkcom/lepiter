@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'media'
 	],
-	#category : 'Lepiter-Core-Twitter'
+	#category : #'Lepiter-Core-Twitter'
 }
 
 { #category : #jsonV3 }
@@ -37,7 +37,7 @@ LeTweetRefMediaLinkReference class >> leJsonV4Name [
 
 { #category : #converting }
 LeTweetRefMediaLinkReference >> asPreviewElement [
-	^ BlUrlImageElement new
+	^ BrAsyncFileWidget new
 		url: (self url asZnUrl & ('format' -> 'jpg')) asString;
 		constraintsDo: [ :c |
 			c horizontal matchParent.

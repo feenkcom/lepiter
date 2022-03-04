@@ -599,7 +599,7 @@ LeSnippetStylerVisitor >> styleOpenExternalImage: aLink text: aSubText [
 		beAppend;
 		withCache: self elements key: anImageURL;
 		stencil: [
-			(BlUrlImageElement new url: anImageURL)
+			(BrAsyncFileWidget new url: anImageURL)
 				constraintsDo: [ :c |
 					c horizontal matchParent.
 					c vertical matchParent.

@@ -29,9 +29,10 @@ Class {
 		'newLinksByPage',
 		'sourceBlock',
 		'sourceString',
-		'linkedPages'
+		'linkedPages',
+		'runningPromise'
 	],
-	#category : 'Lepiter-Utilities-Utilities'
+	#category : #'Lepiter-Utilities-Utilities'
 }
 
 { #category : #'instance creation' }
@@ -184,14 +185,16 @@ LeUnlinkedReferenceMaintenance >> sourceString [
 ]
 
 { #category : #running }
-LeUnlinkedReferenceMaintenance >> submit [ 
+LeUnlinkedReferenceMaintenance >> submit [
+
 	"Submit the receiver for processing in the low priority non-UI single pool.
 	If BlUseAsyncFeatures are disabled, run immediately"
 
-	BlUseAsyncFeatures 
-		ifEnabledDo: [ BlTktWorkerProvider nonUISinglePool schedule: 
-			([ self run ] asBlTktCommand asBlTktSingleCommand identifier: sourceBlock) ]
-		otherwise: [ self run ].
+	runningPromise ifNotNil: [ runningPromise cancelSoft ].
+
+	BlUseAsyncFeatures
+		ifEnabledDo: [ runningPromise := [ self run ] asAsyncFuture await ]
+		otherwise: [ self run ]
 ]
 
 { #category : #private }

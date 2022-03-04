@@ -63,7 +63,7 @@ LeWordDictionary >> processRequest: aString do: aBlock [
 									{aString.
 										aBlock} ]
 						ifFalse:
-							[ (currentRequest := LeWordClient taskIt)
+							[ (currentRequest := LeWordClient future)
 								onResponse:
 										[ :each | 
 											lock
