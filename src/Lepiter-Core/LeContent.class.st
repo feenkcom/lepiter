@@ -920,6 +920,14 @@ LeContent >> wasEdited [
 	^ self editTime ~= self createTime
 ]
 
+{ #category : #accessing }
+LeContent >> withAllChildrenBreadthFirst [
+	| result |
+	result := OrderedCollection new.
+	self withAllChildrenBreadthFirstDo: [:each | result add: each ].
+	^ result
+]
+
 { #category : #'api - enumerating' }
 LeContent >> withAllChildrenDepthFirstDo: aBlock [ 
 	self allChildrenBreadthFirstDo: aBlock.
