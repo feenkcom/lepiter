@@ -193,7 +193,9 @@ LeUnlinkedReferenceMaintenance >> submit [
 	runningPromise ifNotNil: [ runningPromise cancelSoft ].
 
 	BlUseAsyncFeatures
-		ifEnabledDo: [ runningPromise := [ self run ] asAsyncFuture await ]
+		ifEnabledDo: [
+			runningPromise := [ self run ] asAsyncFuture
+				await: (AsyncFutureExecutionConfiguration new customGroup: #Lepiter) ]
 		otherwise: [ self run ]
 ]
 
