@@ -1,7 +1,7 @@
 Class {
 	#name : #PBImageMetadata,
 	#superclass : #PBProxyObject,
-	#category : 'Lepiter-Python-ProxyObjects'
+	#category : #'Lepiter-Python-ProxyObjects'
 }
 
 { #category : #accessing }
@@ -55,7 +55,7 @@ PBImageMetadata >> gtImageFor: aView [
 	^ aView explicit
 		title: 'Image';
 		priority: 10;
-		stencil: [ (BlFileImageElement file: self sourceFileName)
+		stencil: [ (BrAsyncFileWidget new file: self sourceFileName)
 			constraintsDo: [ :c | 
 					c horizontal matchParent.
 					c vertical matchParent ] ]

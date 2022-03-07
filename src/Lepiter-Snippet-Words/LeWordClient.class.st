@@ -18,18 +18,18 @@ Class {
 { #category : #'api - factory' }
 LeWordClient class >> default [
 	^ BlUseAsyncFeatures 
-		ifEnabledDo: [ self taskIt ]
+		ifEnabledDo: [ self future ]
 		otherwise: [ self sync ]
+]
+
+{ #category : #'api - factory' }
+LeWordClient class >> future [
+	^ LeWordFutureClient new
 ]
 
 { #category : #'api - factory' }
 LeWordClient class >> sync [
 	^ self new
-]
-
-{ #category : #'api - factory' }
-LeWordClient class >> taskIt [
-	^ LeWordTaskItClient new
 ]
 
 { #category : #'private - communication' }
