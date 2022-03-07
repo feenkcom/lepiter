@@ -1,6 +1,5 @@
 "
-I am an asynchronous version of the {{gtClass:LeWordClient}}. I use {{gtClass:BlTktWorkerProvider}} to execute requests.
-
+I am an asynchronous version of the {{gtClass:LeWordClient}}. I use async futures to execute requests.
 "
 Class {
 	#name : #LeWordFutureClient,
