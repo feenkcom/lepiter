@@ -74,6 +74,14 @@ LePageStructureAsseamblerExamples >> snippetBUid [
 ]
 
 { #category : #'examples - snippets' }
+LePageStructureAsseamblerExamples >> snippetBUnknown [
+	<gtExample>
+	^ LeUnknownSnippet new
+		jsonString: (STONJSON toString: {});
+		uid: self snippetBUid
+]
+
+{ #category : #'examples - snippets' }
 LePageStructureAsseamblerExamples >> snippetC [
 	<gtExample>
 	^ LeTextSnippet new
@@ -131,6 +139,20 @@ LePageStructureAsseamblerExamples >> targetPageWithFlatSnippetStructure [
 ]
 
 { #category : #'examples - pages' }
+LePageStructureAsseamblerExamples >> targetPageWithModifiedUnknwonSnippet [
+	<gtExample>
+	| targetPage |
+	targetPage := LePage named: 'Target Page'.
+	targetPage basicUid: self pageUid.
+	
+	targetPage addSnippet: self snippetA.
+	targetPage addSnippet: (self snippetBUnknown
+		jsonString: (STONJSON toString: { 'a' -> 1} asDictionary )).
+	
+	^ targetPage
+]
+
+{ #category : #'examples - pages' }
 LePageStructureAsseamblerExamples >> targetPageWithNestedStructure [
 	<gtExample>
 	| targetPage |
@@ -148,6 +170,113 @@ LePageStructureAsseamblerExamples >> targetPageWithNestedStructure [
 		yourself).
 	
 	^ targetPage
+]
+
+{ #category : #'examples - pages' }
+LePageStructureAsseamblerExamples >> targetPageWithTwoSnippetsAAndB [
+	<gtExample>
+	| targetPage |
+	targetPage := LePage named: 'Target Page'.
+	targetPage basicUid: self pageUid.
+	
+	targetPage addSnippet: self snippetA.
+	targetPage addSnippet: self snippetB.
+	
+	^ targetPage
+]
+
+{ #category : #'examples - pages' }
+LePageStructureAsseamblerExamples >> targetPageWithTwoSnippetsAAndBUnknown [
+	<gtExample>
+	| targetPage |
+	targetPage := LePage named: 'Target Page'.
+	targetPage basicUid: self pageUid.
+	
+	targetPage addSnippet: self snippetA.
+	targetPage addSnippet: self snippetBUnknown.
+	
+	^ targetPage
+]
+
+{ #category : #'examples - pages' }
+LePageStructureAsseamblerExamples >> targetPageWithTwoSnippetsAParentAndBChild [
+	<gtExample>
+	| targetPage |
+	targetPage := LePage named: 'Target Page'.
+	targetPage basicUid: self pageUid.
+	
+	targetPage addSnippet: (self snippetA
+		addSnippet: self snippetB;
+		yourself).
+	
+	^ targetPage
+]
+
+{ #category : #examples }
+LePageStructureAsseamblerExamples >> updateStructureForOneChangedUnknownSnippet [
+	<gtExample>
+	| targetPage modifiedPage asseambler |
+	
+	targetPage := self targetPageWithTwoSnippetsAAndBUnknown.
+	modifiedPage := self targetPageWithModifiedUnknwonSnippet.
+	
+	asseambler := targetPage rebuildFromContent: modifiedPage. 
+	
+	self assert: targetPage children first isTextSnippet.
+	self assert: targetPage children second isUnknownSnippet.
+	self 
+		assert: targetPage children second jsonString 
+		equals: (STONJSON toString: { 'a' -> 1 } asDictionary ).
+	
+	self assert: asseambler modifiedBlocksCount equals: 1.
+	self assert: asseambler movedBlocksCount equals: 0.
+	self assert: asseambler addedBlocksCount equals: 0.
+	self assert: asseambler resolvedBlocksCount equals: 0.
+	
+	^ asseambler
+]
+
+{ #category : #examples }
+LePageStructureAsseamblerExamples >> updateStructureForOneResolvedAndMovedUnknownSnippet [
+	<gtExample>
+	| targetPage modifiedPage asseambler |
+	
+	targetPage := self targetPageWithTwoSnippetsAAndBUnknown.
+	modifiedPage := self targetPageWithTwoSnippetsAParentAndBChild.
+	
+	asseambler := targetPage rebuildFromContent: modifiedPage. 
+	
+	self assert: targetPage children first isTextSnippet.
+	self assert: targetPage children first children first isTextSnippet.
+	
+	self assert: asseambler modifiedBlocksCount equals: 0.
+	self assert: asseambler movedBlocksCount equals: 1.
+	self assert: asseambler addedBlocksCount equals: 0.
+	self assert: asseambler resolvedBlocksCount equals: 1.
+	
+	^ asseambler
+]
+
+{ #category : #examples }
+LePageStructureAsseamblerExamples >> updateStructureForOneResolvedUnknownSnippet [
+	<gtExample>
+	| targetPage modifiedPage asseambler |
+	
+	targetPage := self targetPageWithTwoSnippetsAAndBUnknown.
+	modifiedPage := self targetPageWithTwoSnippetsAAndB.
+	
+	asseambler := targetPage rebuildFromContent: modifiedPage. 
+	
+	self assert: targetPage children first isTextSnippet.
+	self assert: targetPage children second isTextSnippet.
+	self assert: targetPage children second string equals: 'B'.
+	
+	self assert: asseambler modifiedBlocksCount equals: 0.
+	self assert: asseambler movedBlocksCount equals: 0.
+	self assert: asseambler addedBlocksCount equals: 0.
+	self assert: asseambler resolvedBlocksCount equals: 1.
+	
+	^ asseambler
 ]
 
 { #category : #examples }
@@ -172,6 +301,7 @@ LePageStructureAsseamblerExamples >> updateStructureForOneSnippetNesting [
 	self assert: asseambler modifiedBlocksCount equals: 0.
 	self assert: asseambler movedBlocksCount equals: 1.
 	self assert: asseambler addedBlocksCount equals: 0.
+	self assert: asseambler resolvedBlocksCount equals: 0.
 	
 	^ asseambler
 ]
@@ -200,6 +330,7 @@ LePageStructureAsseamblerExamples >> updateStructureForTwoSnippetNestingAndChang
 	self assert: asseambler modifiedBlocksCount equals: 2.
 	self assert: asseambler movedBlocksCount equals: 2.
 	self assert: asseambler addedBlocksCount equals: 1.
+	self assert: asseambler resolvedBlocksCount equals: 0.
 	
 	^ asseambler
 ]

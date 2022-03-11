@@ -37,6 +37,8 @@ LePageStructureBlock >> backgroundColor [
 		ifTrue: [ ^ Color green muchDarker ].
 	self isModified 
 		ifTrue: [ ^ Color red muchDarker ].
+	self isResolved 
+		ifTrue: [ ^ Color blue muchDarker ].
 	^ Color gray
 ]
 
@@ -149,6 +151,11 @@ LePageStructureBlock >> isMoved [
 	^ changeStatuses includes: #moved
 ]
 
+{ #category : #testing }
+LePageStructureBlock >> isResolved [
+	^ changeStatuses includes: #resolved
+]
+
 { #category : #'accessing - status' }
 LePageStructureBlock >> markAsAdded [
 	changeStatuses add: #added
@@ -162,6 +169,11 @@ LePageStructureBlock >> markAsModified [
 { #category : #'accessing - status' }
 LePageStructureBlock >> markAsMoved [
 	changeStatuses add: #moved
+]
+
+{ #category : #'accessing - status' }
+LePageStructureBlock >> markAsResolved [
+	changeStatuses add: #resolved
 ]
 
 { #category : #'accessing - count' }
@@ -198,6 +210,11 @@ LePageStructureBlock >> printOn: aStream [
 		<< '(';
 		<< self typeName;
 		<< ')'
+]
+
+{ #category : #'accessing - count' }
+LePageStructureBlock >> resolvedBlocksCount [
+	^ self countAllNodesMatching: [ :aBlock | aBlock isResolved ]
 ]
 
 { #category : #accessing }

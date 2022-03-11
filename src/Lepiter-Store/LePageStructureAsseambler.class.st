@@ -15,6 +15,16 @@ LePageStructureAsseambler >> addedBlocksCount [
 ]
 
 { #category : #actions }
+LePageStructureAsseambler >> detectParentChangeFor: aStructureBlock inParent: aParentContent [
+	| previousParentUid |
+	(self isNewSnippetWithId: aStructureBlock uid) ifTrue: [ ^ self ].
+	
+	previousParentUid := self previousParentIdForSnippetWithId: aStructureBlock uid.
+	previousParentUid = aParentContent uid ifFalse: [ 
+		aStructureBlock markAsMoved ].
+]
+
+{ #category : #actions }
 LePageStructureAsseambler >> extractSnippetStructureFrom: aPage [
 	| snippetsStructure |
 	snippetsStructure := LePageStructureBlock forContent: aPage.
@@ -79,27 +89,22 @@ LePageStructureAsseambler >> previousParentIdForSnippetWithId: anUid [
 { #category : #actions }
 LePageStructureAsseambler >> rebuildContent: aTargetContent usingStructure: aSnippetStructure [
 	
-	aSnippetStructure blocks do: [ :currentSnippetBlock |
-		| snippetUid targetSnippet referenceSnippet changedStatus |
-		snippetUid := currentSnippetBlock uid.
-		referenceSnippet := self locateReferenceSnippetWithId: snippetUid.
+	aSnippetStructure blocks do: [ :currentStructureBlock |
+		| snippetUid targetSnippet |
+		snippetUid := currentStructureBlock uid.
 		(self isNewSnippetWithId: snippetUid)
 			ifTrue: [ 
-				targetSnippet := referenceSnippet.
-				currentSnippetBlock markAsAdded ]
+				targetSnippet := self locateReferenceSnippetWithId: snippetUid.
+				currentStructureBlock markAsAdded ]
 			ifFalse: [ 
-				targetSnippet := self locateExistingSnippetWithId: snippetUid.
-				changedStatus := targetSnippet reloadAttributesFromContent: referenceSnippet.
-				changedStatus ifTrue: [
-					currentSnippetBlock markAsModified ].
-				
-				(self previousParentIdForSnippetWithId: snippetUid) = aTargetContent uid 
-					ifFalse: [ currentSnippetBlock markAsMoved ] ].
+				targetSnippet := self reloadContentForStructureBlock: currentStructureBlock ].
 		
+		self detectParentChangeFor: currentStructureBlock inParent: aTargetContent.
 		aTargetContent attachChildSnippet: targetSnippet.
+		
 		self 
 			rebuildContent: targetSnippet 
-			usingStructure: currentSnippetBlock ]
+			usingStructure: currentStructureBlock ]
 ]
 
 { #category : #api }
@@ -116,9 +121,55 @@ LePageStructureAsseambler >> rebuildStructureBasedOnPage: aReferencePage [
 		usingStructure: snippetStructure.
 ]
 
+{ #category : #actions }
+LePageStructureAsseambler >> reloadContentForStructureBlock: aStructureBlock [
+	| snippetUid targetSnippet referenceSnippet hasChanges |
+	snippetUid := aStructureBlock uid.
+	targetSnippet := self locateExistingSnippetWithId: snippetUid.
+	referenceSnippet := self locateReferenceSnippetWithId: snippetUid.
+	
+	"We need to explicitly handle here the case of unknows snippets."
+	targetSnippet isUnknownSnippet ifTrue: [
+		^ self 
+			reloadUnknownSnippet: targetSnippet 
+			fromSnippet: referenceSnippet 
+			forStructureBlock: aStructureBlock ].
+	
+	hasChanges := targetSnippet reloadAttributesFromContent: referenceSnippet.
+	hasChanges ifTrue: [
+		aStructureBlock markAsModified ].
+	
+	^ targetSnippet
+]
+
+{ #category : #actions }
+LePageStructureAsseambler >> reloadUnknownSnippet: targetSnippet fromSnippet: referenceSnippet forStructureBlock: aStructureBlock [ 
+	
+	"It's still unknown, update the properties of the existing snippet."
+	referenceSnippet isUnknownSnippet ifTrue: [
+		| hasChanges |
+		hasChanges := targetSnippet reloadAttributesFromContent: referenceSnippet.
+		hasChanges ifTrue: [
+			aStructureBlock markAsModified ].
+		^ targetSnippet ].
+	
+	"If the snippet was resolved we take the new snippet. 
+	Here the identity of the snippet changes. 
+	TODO: Handles the case of links or resources attached to the old snippet."
+	aStructureBlock markAsResolved.
+	^ referenceSnippet
+				
+	
+]
+
 { #category : #accessing }
 LePageStructureAsseambler >> reloaderContext [
 	^ reloaderContext
+]
+
+{ #category : #accessing }
+LePageStructureAsseambler >> resolvedBlocksCount [
+	^ snippetStructure resolvedBlocksCount
 ]
 
 { #category : #accessing }
