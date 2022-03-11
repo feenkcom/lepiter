@@ -502,7 +502,8 @@ LePage >> rebuildFromContent: aLePage [
 	"Update the receiver to match the supplied page"
 	| pageAsseambler |
 	
-	pageAsseambler := LePageStructureAsseambler new targetPage: self.
+	pageAsseambler := LePageStructureAsseambler new 
+		targetPage: self.
 	pageAsseambler rebuildStructureBasedOnPage: aLePage.
 	^ pageAsseambler
 ]

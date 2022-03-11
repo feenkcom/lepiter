@@ -4,6 +4,7 @@ Class {
 	#instVars : [
 		'targetPage',
 		'referencePage',
+		'targetSnippetParentUidByUid',
 		'targetSnippetsByUid',
 		'referenceSnippetsByUid'
 	],
@@ -18,12 +19,14 @@ LePageReloaderContext class >> forPage: aTargetPage basedOnPage: aReferencePage 
 ]
 
 { #category : #actions }
-LePageReloaderContext >> detachPageContent: aPage to: aDictionary [
+LePageReloaderContext >> detachPageContent: aPage to: aDictionary withParents: aParentsDictionary [
 
 	aPage withAllChildrenDepthFirstDo: [ :aContent |
 		aContent children items copy do: [ :aChildSnippet |
 			aContent detachChildSnippet: aChildSnippet.
-			aDictionary at: aChildSnippet uid put: aChildSnippet ] ]
+			aDictionary at: aChildSnippet uid put: aChildSnippet.
+			aParentsDictionary ifNotNil: [ 
+				aParentsDictionary at: aChildSnippet uid put: aContent uid ] ] ]
 ]
 
 { #category : #actions }
@@ -31,10 +34,11 @@ LePageReloaderContext >> detachSnippets [
 	"I am distructive action that takes the detaches all snippets from the 
 	target andf reference pages, adding them to the context."
 	targetSnippetsByUid removeAll.
+	targetSnippetParentUidByUid removeAll.
 	referenceSnippetsByUid removeAll.
 	
-	self detachPageContent: targetPage to: targetSnippetsByUid.
-	self detachPageContent: referencePage to: referenceSnippetsByUid.
+	self detachPageContent: targetPage to: targetSnippetsByUid withParents: targetSnippetParentUidByUid.
+	self detachPageContent: referencePage to: referenceSnippetsByUid withParents: nil.
 	
 ]
 
@@ -62,6 +66,7 @@ LePageReloaderContext >> gtViewTargetSnippetsFor: aView [
 LePageReloaderContext >> initialize [
 	super initialize.
 	targetSnippetsByUid := OrderedDictionary new.
+	targetSnippetParentUidByUid := OrderedDictionary new.
 	referenceSnippetsByUid := OrderedDictionary new.
 ]
 
@@ -79,6 +84,11 @@ LePageReloaderContext >> locateExistingSnippetWithId: anUid [
 { #category : #query }
 LePageReloaderContext >> locateReferenceSnippetWithId: anUid [
 	^ referenceSnippetsByUid at: anUid
+]
+
+{ #category : #query }
+LePageReloaderContext >> previousParentIdForSnippetWithId: anUid [
+	^ targetSnippetParentUidByUid at: anUid
 ]
 
 { #category : #accessing }

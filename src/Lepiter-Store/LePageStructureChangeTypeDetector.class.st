@@ -10,13 +10,13 @@ Class {
 }
 
 { #category : #api }
-LePageStructureChangeTypeDetector >> detectChangeBetween: aContent and: anotherContent [
+LePageStructureChangeTypeDetector >> detectChangeBetween: targetContent and: anotherContent [
 	"Checks if the structure of the two pages is the same, including the order of snippets."
 	
-	aContent children size = anotherContent children size
+	targetContent children size = anotherContent children size
 		ifFalse: [ ^ LePageComplexStructureChange ].
 	
-	aContent children withIndexDo: [ :aSnippet :anIndex |
+	targetContent children withIndexDo: [ :aSnippet :anIndex |
 		| anotherSnippet childChange |
 		anotherSnippet := anotherContent children at: anIndex.
 		aSnippet uid = anotherSnippet uid

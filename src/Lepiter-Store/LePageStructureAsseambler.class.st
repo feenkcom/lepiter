@@ -9,6 +9,11 @@ Class {
 	#category : #'Lepiter-Store-Reload'
 }
 
+{ #category : #accessing }
+LePageStructureAsseambler >> addedBlocksCount [
+	^ snippetStructure addedBlocksCount
+]
+
 { #category : #actions }
 LePageStructureAsseambler >> extractSnippetStructureFrom: aPage [
 	| snippetsStructure |
@@ -31,6 +36,16 @@ LePageStructureAsseambler >> extractSnippetStructureFrom: aContent to: aStructur
 				to: childStructure ] ]
 ]
 
+{ #category : #accessing }
+LePageStructureAsseambler >> gtViewStructureMapFor: aView [
+	<gtView>
+	
+	^ aView forward
+		title: 'Structure Map';
+		object: [ snippetStructure ];
+		view: #gtViewStructureMapFor:
+]
+
 { #category : #testing }
 LePageStructureAsseambler >> isNewSnippetWithId: anUid [
 	^ self reloaderContext isNewSnippetWithId: anUid
@@ -46,30 +61,48 @@ LePageStructureAsseambler >> locateReferenceSnippetWithId: anUid [
 	^ self reloaderContext locateReferenceSnippetWithId: anUid
 ]
 
+{ #category : #accessing }
+LePageStructureAsseambler >> modifiedBlocksCount [
+	^ snippetStructure modifiedBlocksCount
+]
+
+{ #category : #accessing }
+LePageStructureAsseambler >> movedBlocksCount [
+	^ snippetStructure movedBlocksCount
+]
+
+{ #category : #query }
+LePageStructureAsseambler >> previousParentIdForSnippetWithId: anUid [
+	^ self reloaderContext previousParentIdForSnippetWithId: anUid
+]
+
 { #category : #actions }
 LePageStructureAsseambler >> rebuildContent: aTargetContent usingStructure: aSnippetStructure [
 	
-	aSnippetStructure blocks do: [ :aBlock |
+	aSnippetStructure blocks do: [ :currentSnippetBlock |
 		| snippetUid targetSnippet referenceSnippet changedStatus |
-		snippetUid := aBlock uid.
+		snippetUid := currentSnippetBlock uid.
 		referenceSnippet := self locateReferenceSnippetWithId: snippetUid.
 		(self isNewSnippetWithId: snippetUid)
 			ifTrue: [ 
 				targetSnippet := referenceSnippet.
-				aBlock markAsAdded ]
+				currentSnippetBlock markAsAdded ]
 			ifFalse: [ 
 				targetSnippet := self locateExistingSnippetWithId: snippetUid.
 				changedStatus := targetSnippet reloadAttributesFromContent: referenceSnippet.
 				changedStatus ifTrue: [
-					aBlock markAsModified ] ].
+					currentSnippetBlock markAsModified ].
+				
+				(self previousParentIdForSnippetWithId: snippetUid) = aTargetContent uid 
+					ifFalse: [ currentSnippetBlock markAsMoved ] ].
 		
 		aTargetContent attachChildSnippet: targetSnippet.
 		self 
 			rebuildContent: targetSnippet 
-			usingStructure: aBlock ]
+			usingStructure: currentSnippetBlock ]
 ]
 
-{ #category : #actions }
+{ #category : #api }
 LePageStructureAsseambler >> rebuildStructureBasedOnPage: aReferencePage [
 	snippetStructure := self extractSnippetStructureFrom: aReferencePage.
 	reloaderContext := LePageReloaderContext 
