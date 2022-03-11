@@ -47,7 +47,7 @@ LePageReloaderContext >> gtViewReferenceSnippetsFor: aView [
 	<gtView>
 	^ aView forward
 		title: 'Reference Snippets';
-		priority: 10;
+		priority: 11;
 		object: [ referenceSnippetsByUid ];
 		view: #gtItemsFor:
 ]
@@ -57,9 +57,14 @@ LePageReloaderContext >> gtViewTargetSnippetsFor: aView [
 	<gtView>
 	^ aView forward
 		title: 'Target Snippets';
-		priority: 11;
+		priority: 10;
 		object: [ targetSnippetsByUid ];
 		view: #gtItemsFor:
+]
+
+{ #category : #testing }
+LePageReloaderContext >> hasPreviousParentIdForSnippetWithId: anUid [
+	^ targetSnippetParentUidByUid includesKey: anUid
 ]
 
 { #category : #initialization }

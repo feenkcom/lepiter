@@ -23,22 +23,6 @@ LePageStructureAsseamblerExamples >> assertStructure: structureDescription forCo
 
 ]
 
-{ #category : #'examples - pages' }
-LePageStructureAsseamblerExamples >> destinationPageWithOneChildNesting [
-	<gtExample>
-	| targetPage |
-	targetPage := LePage named: 'Target Page'.
-	targetPage basicUid: self pageUid.
-	
-	targetPage addSnippet: self snippetA.
-	targetPage addSnippet: (self snippetB
-		addSnippet: self snippetC;
-		yourself).
-	targetPage addSnippet: self snippetD.
-	
-	^ targetPage
-]
-
 { #category : #accessing }
 LePageStructureAsseamblerExamples >> pageUid [
 	^ LeUID new 
@@ -77,7 +61,7 @@ LePageStructureAsseamblerExamples >> snippetBUid [
 LePageStructureAsseamblerExamples >> snippetBUnknown [
 	<gtExample>
 	^ LeUnknownSnippet new
-		jsonString: (STONJSON toString: {});
+		jsonString: (STONJSON toString: {'B'});
 		uid: self snippetBUid
 ]
 
@@ -110,6 +94,14 @@ LePageStructureAsseamblerExamples >> snippetDUid [
 ]
 
 { #category : #'examples - snippets' }
+LePageStructureAsseamblerExamples >> snippetDUnknown [
+	<gtExample>
+	^ LeUnknownSnippet new
+		jsonString: (STONJSON toString: {'D'});
+		uid: self snippetDUid
+]
+
+{ #category : #'examples - snippets' }
 LePageStructureAsseamblerExamples >> snippetE [
 	<gtExample>
 	^ LeTextSnippet new
@@ -123,37 +115,62 @@ LePageStructureAsseamblerExamples >> snippetEUid [
 		uid: (UUID fromString: '71a301df-84d9-4635-b40d-342e58b6aa6d')
 ]
 
+{ #category : #'examples - snippets' }
+LePageStructureAsseamblerExamples >> snippetF [
+	<gtExample>
+	^ LeTextSnippet new
+		string: 'F';
+		uid: self snippetFUid
+]
+
+{ #category : #'accessing - uid' }
+LePageStructureAsseamblerExamples >> snippetFUid [
+	^ LeUID new 
+		uid: (UUID fromString: 'eb8044a9-1293-4c29-907d-ae8c99b40508')
+]
+
 { #category : #'examples - pages' }
-LePageStructureAsseamblerExamples >> targetPageWithFlatSnippetStructure [
+LePageStructureAsseamblerExamples >> targetPageWithComplexStructureModified [
 	<gtExample>
 	| targetPage |
 	targetPage := LePage named: 'Target Page'.
 	targetPage basicUid: self pageUid.
 	
-	targetPage addSnippet: self snippetA.
-	targetPage addSnippet: self snippetB.
-	targetPage addSnippet: self snippetC.
-	targetPage addSnippet: self snippetD.
+	targetPage addSnippet: (self snippetA
+		string: 'A-M';
+		addSnippet: (self snippetC
+			string: 'C-M');
+		yourself).
+	targetPage addSnippet: (self snippetB
+		addSnippet: (self snippetE
+			addSnippet: self snippetD;
+			yourself);
+		yourself).
+	targetPage addSnippet: self snippetF.
 	
 	^ targetPage
 ]
 
 { #category : #'examples - pages' }
-LePageStructureAsseamblerExamples >> targetPageWithModifiedUnknwonSnippet [
+LePageStructureAsseamblerExamples >> targetPageWithComplexStructureOne [
 	<gtExample>
 	| targetPage |
 	targetPage := LePage named: 'Target Page'.
 	targetPage basicUid: self pageUid.
 	
-	targetPage addSnippet: self snippetA.
+	targetPage addSnippet: (self snippetA
+		addSnippet: self snippetDUnknown;
+		yourself).
 	targetPage addSnippet: (self snippetBUnknown
-		jsonString: (STONJSON toString: { 'a' -> 1} asDictionary )).
+		addSnippet: self snippetC;
+		addSnippet: self snippetF;
+		yourself).
 	
 	^ targetPage
 ]
 
 { #category : #'examples - pages' }
-LePageStructureAsseamblerExamples >> targetPageWithNestedStructure [
+LePageStructureAsseamblerExamples >> targetPageWithFiveSnippetsModifiedNestedStructure [
 	<gtExample>
 	| targetPage |
 	targetPage := LePage named: 'Target Page'.
@@ -173,6 +190,37 @@ LePageStructureAsseamblerExamples >> targetPageWithNestedStructure [
 ]
 
 { #category : #'examples - pages' }
+LePageStructureAsseamblerExamples >> targetPageWithFourFlatSnippetStructure [
+	<gtExample>
+	| targetPage |
+	targetPage := LePage named: 'Target Page'.
+	targetPage basicUid: self pageUid.
+	
+	targetPage addSnippet: self snippetA.
+	targetPage addSnippet: self snippetB.
+	targetPage addSnippet: self snippetC.
+	targetPage addSnippet: self snippetD.
+	
+	^ targetPage
+]
+
+{ #category : #'examples - pages' }
+LePageStructureAsseamblerExamples >> targetPageWithFourSnipetsOneNested [
+	<gtExample>
+	| targetPage |
+	targetPage := LePage named: 'Target Page'.
+	targetPage basicUid: self pageUid.
+	
+	targetPage addSnippet: self snippetA.
+	targetPage addSnippet: (self snippetB
+		addSnippet: self snippetC;
+		yourself).
+	targetPage addSnippet: self snippetD.
+	
+	^ targetPage
+]
+
+{ #category : #'examples - pages' }
 LePageStructureAsseamblerExamples >> targetPageWithTwoSnippetsAAndB [
 	<gtExample>
 	| targetPage |
@@ -186,7 +234,7 @@ LePageStructureAsseamblerExamples >> targetPageWithTwoSnippetsAAndB [
 ]
 
 { #category : #'examples - pages' }
-LePageStructureAsseamblerExamples >> targetPageWithTwoSnippetsAAndBUnknown [
+LePageStructureAsseamblerExamples >> targetPageWithTwoSnippetsAKnownAndBUnknown [
 	<gtExample>
 	| targetPage |
 	targetPage := LePage named: 'Target Page'.
@@ -194,6 +242,20 @@ LePageStructureAsseamblerExamples >> targetPageWithTwoSnippetsAAndBUnknown [
 	
 	targetPage addSnippet: self snippetA.
 	targetPage addSnippet: self snippetBUnknown.
+	
+	^ targetPage
+]
+
+{ #category : #'examples - pages' }
+LePageStructureAsseamblerExamples >> targetPageWithTwoSnippetsAKnownAndBUnknownModified [
+	<gtExample>
+	| targetPage |
+	targetPage := LePage named: 'Target Page'.
+	targetPage basicUid: self pageUid.
+	
+	targetPage addSnippet: self snippetA.
+	targetPage addSnippet: (self snippetBUnknown
+		jsonString: (STONJSON toString: { 'a' -> 1} asDictionary )).
 	
 	^ targetPage
 ]
@@ -213,12 +275,30 @@ LePageStructureAsseamblerExamples >> targetPageWithTwoSnippetsAParentAndBChild [
 ]
 
 { #category : #examples }
+LePageStructureAsseamblerExamples >> updateStructureForComplexStructureModification [
+	<gtExample>
+	| targetPage modifiedPage asseambler |
+	
+	targetPage := self targetPageWithComplexStructureOne.
+	modifiedPage := self targetPageWithComplexStructureModified.
+	
+	asseambler := targetPage rebuildFromContent: modifiedPage. 
+	
+	self assert: asseambler modifiedBlocksCount equals: 2.
+	self assert: asseambler movedBlocksCount equals: 3.
+	self assert: asseambler addedBlocksCount equals: 1.
+	self assert: asseambler resolvedBlocksCount equals: 2.
+	
+	^ asseambler
+]
+
+{ #category : #examples }
 LePageStructureAsseamblerExamples >> updateStructureForOneChangedUnknownSnippet [
 	<gtExample>
 	| targetPage modifiedPage asseambler |
 	
-	targetPage := self targetPageWithTwoSnippetsAAndBUnknown.
-	modifiedPage := self targetPageWithModifiedUnknwonSnippet.
+	targetPage := self targetPageWithTwoSnippetsAKnownAndBUnknown.
+	modifiedPage := self targetPageWithTwoSnippetsAKnownAndBUnknownModified.
 	
 	asseambler := targetPage rebuildFromContent: modifiedPage. 
 	
@@ -241,7 +321,7 @@ LePageStructureAsseamblerExamples >> updateStructureForOneResolvedAndMovedUnknow
 	<gtExample>
 	| targetPage modifiedPage asseambler |
 	
-	targetPage := self targetPageWithTwoSnippetsAAndBUnknown.
+	targetPage := self targetPageWithTwoSnippetsAKnownAndBUnknown.
 	modifiedPage := self targetPageWithTwoSnippetsAParentAndBChild.
 	
 	asseambler := targetPage rebuildFromContent: modifiedPage. 
@@ -262,7 +342,7 @@ LePageStructureAsseamblerExamples >> updateStructureForOneResolvedUnknownSnippet
 	<gtExample>
 	| targetPage modifiedPage asseambler |
 	
-	targetPage := self targetPageWithTwoSnippetsAAndBUnknown.
+	targetPage := self targetPageWithTwoSnippetsAKnownAndBUnknown.
 	modifiedPage := self targetPageWithTwoSnippetsAAndB.
 	
 	asseambler := targetPage rebuildFromContent: modifiedPage. 
@@ -284,8 +364,8 @@ LePageStructureAsseamblerExamples >> updateStructureForOneSnippetNesting [
 	<gtExample>
 	| targetPage modifiedPage asseambler |
 	
-	targetPage := self targetPageWithFlatSnippetStructure.
-	modifiedPage := self destinationPageWithOneChildNesting.
+	targetPage := self targetPageWithFourFlatSnippetStructure.
+	modifiedPage := self targetPageWithFourSnipetsOneNested.
 	
 	asseambler := targetPage rebuildFromContent: modifiedPage. 
 	
@@ -311,8 +391,8 @@ LePageStructureAsseamblerExamples >> updateStructureForTwoSnippetNestingAndChang
 	<gtExample>
 	| targetPage modifiedPage asseambler |
 	
-	targetPage := self targetPageWithFlatSnippetStructure.
-	modifiedPage := self targetPageWithNestedStructure .
+	targetPage := self targetPageWithFourFlatSnippetStructure.
+	modifiedPage := self targetPageWithFiveSnippetsModifiedNestedStructure .
 	
 	asseambler := targetPage rebuildFromContent: modifiedPage. 
 	

@@ -49,6 +49,11 @@ LePageStructureBlock >> blocks [
 ]
 
 { #category : #enumerating }
+LePageStructureBlock >> collectAllNodesMatching: aComputation [
+	^ self withDeep: #blocks select: aComputation collect: [ :aNode | aNode ]
+]
+
+{ #category : #enumerating }
 LePageStructureBlock >> countAllNodesMatching: aComputation [
 	| count |
 	count := 0.
@@ -102,31 +107,7 @@ LePageStructureBlock >> gtViewStructureMapFor: aView [
 		title: 'Structure Map' translated;
 		priority: 20;
 		painting: [ :mondrian |
-			mondrian nodes 
-				shape: [ :aBlock |
-					BrLabel new 
-						text: aBlock typeName; 
-						aptitude: (BrGlamorousLabelAptitude new
-							foreground: aBlock backgroundColor;
-							in: [ :aptitude |
-								aBlock isMoved ifTrue: [ 
-									aptitude underline ].
-								aptitude ]) ];
-				with: (self withDeepCollect: #blocks).
-			mondrian edges
-				stencil: [:class | 
-					BlParabollaArcElement new 
-						zIndex: 0;
-						curvatureFraction: 0.3;
-						border: (BlBorder paint: (Color gray alpha: 0.5) width: 2);
-						toHead: (BlArrowheadSimpleArrow new
-							border: (BlBorder builder paint: (Color gray alpha: 0.5); width: 2; build)) ];
-				fromRightCenter;
-				toLeftCenter;
-				connectToAll: #blocks.
-			mondrian layout  horizontalDominanceTree
-				levelDistance: 100;
-				nodeDistance: 10 ]
+			self paintStructureOn: mondrian ]
 ]
 
 { #category : #initialization }
@@ -181,9 +162,43 @@ LePageStructureBlock >> modifiedBlocksCount [
 	^ self countAllNodesMatching: [ :aBlock | aBlock isModified ]
 ]
 
+{ #category : #enumerating }
+LePageStructureBlock >> movedBlocks [
+	^ self collectAllNodesMatching: [ :aNode | aNode isMoved ]
+]
+
 { #category : #'accessing - count' }
 LePageStructureBlock >> movedBlocksCount [
 	^ self countAllNodesMatching: [ :aBlock | aBlock isMoved ]
+]
+
+{ #category : #'gt - extensions' }
+LePageStructureBlock >> paintStructureOn: mondrian [
+	mondrian nodes 
+		shape: [ :aBlock |
+			BrLabel new 
+				text: aBlock typeName; 
+				aptitude: (BrGlamorousLabelAptitude new
+					foreground: aBlock backgroundColor;
+					in: [ :aptitude |
+						aBlock isMoved ifTrue: [ 
+							aptitude underline ].
+						aptitude ]) ];
+		with: (self withDeepCollect: #blocks).
+	mondrian edges
+		stencil: [:class | 
+			BlParabollaArcElement new 
+				zIndex: 0;
+				curvatureFraction: 0.3;
+				border: (BlBorder paint: (Color gray alpha: 0.5) width: 2);
+				toHead: (BlArrowheadSimpleArrow new
+					border: (BlBorder builder paint: (Color gray alpha: 0.5); width: 2; build)) ];
+		fromRightCenter;
+		toLeftCenter;
+		connectToAll: #blocks.
+	mondrian layout  horizontalDominanceTree
+		levelDistance: 100;
+		nodeDistance: 10
 ]
 
 { #category : #accessing }

@@ -46,14 +46,14 @@ LePageStructureAsseambler >> extractSnippetStructureFrom: aContent to: aStructur
 				to: childStructure ] ]
 ]
 
-{ #category : #accessing }
+{ #category : #'gt - extensions' }
 LePageStructureAsseambler >> gtViewStructureMapFor: aView [
 	<gtView>
-	
-	^ aView forward
-		title: 'Structure Map';
-		object: [ snippetStructure ];
-		view: #gtViewStructureMapFor:
+	^ aView mondrian
+		title: 'Structure Map' translated;
+		priority: 20;
+		painting: [ :mondrian |
+			self paintStructureOn: mondrian ]
 ]
 
 { #category : #testing }
@@ -64,6 +64,18 @@ LePageStructureAsseambler >> isNewSnippetWithId: anUid [
 { #category : #query }
 LePageStructureAsseambler >> locateExistingSnippetWithId: anUid [
 	^ self reloaderContext locateExistingSnippetWithId: anUid
+]
+
+{ #category : #query }
+LePageStructureAsseambler >> locatePreviousParentForNode: aStructureNode [
+	| parentUid |
+	(self reloaderContext hasPreviousParentIdForSnippetWithId: aStructureNode uid)
+		ifFalse: [ ^ nil ].
+		
+	parentUid := self previousParentIdForSnippetWithId: aStructureNode uid.
+	snippetStructure withAllChildrenDo: [ :aNode |
+		aNode uid = parentUid ifTrue: [ ^ aNode ] ].
+	^ nil
 ]
 
 { #category : #query }
@@ -79,6 +91,28 @@ LePageStructureAsseambler >> modifiedBlocksCount [
 { #category : #accessing }
 LePageStructureAsseambler >> movedBlocksCount [
 	^ snippetStructure movedBlocksCount
+]
+
+{ #category : #'gt - extensions' }
+LePageStructureAsseambler >> paintStructureOn: aMondrian [
+	snippetStructure paintStructureOn: aMondrian.
+	
+	aMondrian edges
+		passive;
+		fromNearestBounds;
+		toNearestBounds;
+		stencil: [ :x | 
+			BlSigmoidElement new
+				beAutomatic;
+				border: ((BlBorder paint: (Color gray alpha: 0.5) width: 1) copyWithStyle: BlStrokeStyle dashed);
+				toHead:
+					(BlArrowheadSimpleArrow new
+						border: (BlBorder paint: (Color gray alpha: 0.5) width: 1)) ];
+		connect: (snippetStructure movedBlocks 
+				collect: [ :aStructureNode | 
+					aStructureNode -> (self locatePreviousParentForNode: aStructureNode) ])
+			from: [ :assoc | assoc key ]
+			to: [ :assoc | assoc value ].
 ]
 
 { #category : #query }
