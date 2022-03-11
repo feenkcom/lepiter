@@ -98,6 +98,11 @@ LeUnknownSnippet >> initialize [
 	jsonString = ''.
 ]
 
+{ #category : #testing }
+LeUnknownSnippet >> isUnknownSnippet [ 
+	^ true
+]
+
 { #category : #'api - accessing' }
 LeUnknownSnippet >> jsonString [
 	<return: #String>
@@ -149,13 +154,27 @@ LeUnknownSnippet >> printOn: aStream [
 ]
 
 { #category : #'private - updating' }
+LeUnknownSnippet >> reloadAttributesFromContent: aLeContent [
+	"Update only the jsonString.
+	No other metadata needs to be update for an unknown snippet, as that
+	snippet is created on-the-fly by the importer."
+	| changed |
+	
+	changed := false.
+	jsonString = aLeContent jsonString ifFalse: [ 
+		self jsonString: aLeContent jsonString.
+		changed := true ].
+	
+	^ changed
+]
+
+{ #category : #'private - updating' }
 LeUnknownSnippet >> reloadFromContent: aLeSnippet [
 	"Reload the receiver from the supplied snippet"
-	| changed |
 
 	"If the snippet is now known, replace myself with the new snippet.
 	Save my current parent since it will be nilled out while removing me."
-	aLeSnippet class = self class ifFalse:[ 
+	aLeSnippet class = self class ifFalse: [ 
 		| myParent index |
 		myParent := parent.
 		index := myParent children indexOf: self.
@@ -163,16 +182,8 @@ LeUnknownSnippet >> reloadFromContent: aLeSnippet [
 		myParent addSnippet: aLeSnippet beforeIndex: index.
 		^ true ].
 
-	"It's still unknown, update the children snippets and the jsonString.
-	No other metadata needs to be update for an unknown snippet, as that
-	snippet is created on-the-fly by the importer."
-	self reloadFromChildren: aLeSnippet children.
-	
-	changed := false.
-	jsonString = aLeSnippet jsonString ifFalse: [ 
-		self jsonString: aLeSnippet jsonString.
-		changed := true ].
-	^ changed
+	"It's still unknown, update the children snippets and its properties."
+	^ super reloadFromContent: aLeSnippet
 ]
 
 { #category : #'api - accessing' }
