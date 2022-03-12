@@ -930,6 +930,6 @@ LeContent >> withAllChildrenBreadthFirst [
 
 { #category : #'api - enumerating' }
 LeContent >> withAllChildrenDepthFirstDo: aBlock [ 
-	self allChildrenBreadthFirstDo: aBlock.
+	self allChildrenDepthFirstDo: aBlock.
 	aBlock value: self.
 ]

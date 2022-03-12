@@ -195,6 +195,11 @@ LeSnippet >> isTextSnippet [
 	^ false
 ]
 
+{ #category : #'api - testing' }
+LeSnippet >> isUnknownSnippet [ 
+	^ false
+]
+
 { #category : #'api - editing' }
 LeSnippet >> mergeWithNext [
 	"Merge the contents of the receiver with the next block (the next sibling, or the parent's next).
