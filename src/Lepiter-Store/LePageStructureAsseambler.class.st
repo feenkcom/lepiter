@@ -31,6 +31,12 @@ LePageStructureAsseambler >> addedNodesCount [
 LePageStructureAsseambler >> clearDeletedSnippets [
 	reloaderContext removedSnippets 
 		reverseDo: [ :aRemovedSnippet |
+			"To delete the snippet we attach it back to the page and remove it.
+			Currently we do not have a separate way to remove a detaches snippet.
+			
+			Attaching the snippet to the page is not the ideal solution.
+			Ideally we should reattach all deleted snippets to thir original 
+			parent and then remove them."
 			self targetPage attachChildSnippet: aRemovedSnippet.
 			aRemovedSnippet removeSelf ]
 ]
@@ -206,8 +212,8 @@ LePageStructureAsseambler >> reloadContentForStructure: aStructureNode intoConte
 { #category : #actions }
 LePageStructureAsseambler >> reloadUnknownSnippet: existingSnippet fromSnippet: replacementSnippet intoContent: aParentContent [
 	
-	"If the snippet was resolved we take the new snippet. 
-	Here the identity of the snippet changes. 
+	"If the unknows snippet was revolved we ""replace"" it with the new resolved snippet.
+	The replaced is done for now by removing the existing snippet and adding the new one.
 	TODO: Handles the case of links or resources attached to the old snippet."
 	
 	aParentContent attachChildSnippet: existingSnippet.
