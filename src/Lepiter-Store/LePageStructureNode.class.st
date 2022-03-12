@@ -139,6 +139,11 @@ LePageStructureNode >> isMoved [
 ]
 
 { #category : #testing }
+LePageStructureNode >> isRemoved [
+	^ changeStatuses includes: #removed
+]
+
+{ #category : #testing }
 LePageStructureNode >> isResolved [
 	^ changeStatuses includes: #resolved
 ]
@@ -156,6 +161,11 @@ LePageStructureNode >> markAsModified [
 { #category : #'accessing - status' }
 LePageStructureNode >> markAsMoved [
 	changeStatuses add: #moved
+]
+
+{ #category : #'accessing - status' }
+LePageStructureNode >> markAsRemoved [
+	changeStatuses add: #removed
 ]
 
 { #category : #'accessing - status' }
@@ -189,6 +199,8 @@ LePageStructureNode >> paintStructureOn: mondrian [
 					in: [ :aptitude |
 						aNode isMoved ifTrue: [ 
 							aptitude underline ].
+						aNode isRemoved ifTrue: [ 
+							aptitude decorationDo: [ :d | d lineThrough ] ].
 						aptitude ]) ];
 		with: (self withDeepCollect: #childNodes).
 	mondrian edges

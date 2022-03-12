@@ -373,7 +373,7 @@ LePageStructureAsseamblerExamples >> targetPageWithTwoSnippetsBParentAndAChild [
 	^ targetPage
 ]
 
-{ #category : #examples }
+{ #category : #'examples - changes' }
 LePageStructureAsseamblerExamples >> updateStructureForAndBParentChildReversal [
 	<gtExample>
 	| targetPage modifiedPage asseambler |
@@ -393,11 +393,12 @@ LePageStructureAsseamblerExamples >> updateStructureForAndBParentChildReversal [
 	self assert: asseambler movedNodesCount equals: 2.
 	self assert: asseambler addedNodesCount equals: 0.
 	self assert: asseambler resolvedNodesCount equals: 0.
+	self assert: asseambler removedSnippetsCount equals: 0.
 	
 	^ asseambler
 ]
 
-{ #category : #examples }
+{ #category : #'examples - changes' }
 LePageStructureAsseamblerExamples >> updateStructureForChildMovedBetweenChildrensSnippets [
 	<gtExample>
 	| targetPage modifiedPage asseambler |
@@ -421,11 +422,12 @@ LePageStructureAsseamblerExamples >> updateStructureForChildMovedBetweenChildren
 	self assert: asseambler movedNodesCount equals: 1.
 	self assert: asseambler addedNodesCount equals: 0.
 	self assert: asseambler resolvedNodesCount equals: 0.
+	self assert: asseambler removedSnippetsCount equals: 0.
 	
 	^ asseambler
 ]
 
-{ #category : #examples }
+{ #category : #'examples - changes' }
 LePageStructureAsseamblerExamples >> updateStructureForComplexStructureModification [
 	<gtExample>
 	| targetPage modifiedPage asseambler |
@@ -439,11 +441,12 @@ LePageStructureAsseamblerExamples >> updateStructureForComplexStructureModificat
 	self assert: asseambler movedNodesCount equals: 3.
 	self assert: asseambler addedNodesCount equals: 1.
 	self assert: asseambler resolvedNodesCount equals: 2.
+	self assert: asseambler removedSnippetsCount equals: 0.
 	
 	^ asseambler
 ]
 
-{ #category : #examples }
+{ #category : #'examples - changes' }
 LePageStructureAsseamblerExamples >> updateStructureForMultipleSnippetsDeletion [
 	<gtExample>
 	| targetPage modifiedPage asseambler |
@@ -463,11 +466,12 @@ LePageStructureAsseamblerExamples >> updateStructureForMultipleSnippetsDeletion 
 	self assert: asseambler movedNodesCount equals: 1.
 	self assert: asseambler addedNodesCount equals: 0.
 	self assert: asseambler resolvedNodesCount equals: 0.
+	self assert: asseambler removedSnippetsCount equals: 3.
 	
 	^ asseambler
 ]
 
-{ #category : #examples }
+{ #category : #'examples - changes' }
 LePageStructureAsseamblerExamples >> updateStructureForOneChangedUnknownSnippet [
 	<gtExample>
 	| targetPage modifiedPage asseambler |
@@ -487,11 +491,12 @@ LePageStructureAsseamblerExamples >> updateStructureForOneChangedUnknownSnippet 
 	self assert: asseambler movedNodesCount equals: 0.
 	self assert: asseambler addedNodesCount equals: 0.
 	self assert: asseambler resolvedNodesCount equals: 0.
+	self assert: asseambler removedSnippetsCount equals: 0.
 	
 	^ asseambler
 ]
 
-{ #category : #examples }
+{ #category : #'examples - changes' }
 LePageStructureAsseamblerExamples >> updateStructureForOneResolvedAndMovedUnknownSnippet [
 	<gtExample>
 	| targetPage modifiedPage asseambler |
@@ -508,11 +513,12 @@ LePageStructureAsseamblerExamples >> updateStructureForOneResolvedAndMovedUnknow
 	self assert: asseambler movedNodesCount equals: 1.
 	self assert: asseambler addedNodesCount equals: 0.
 	self assert: asseambler resolvedNodesCount equals: 1.
+	self assert: asseambler removedSnippetsCount equals: 0.
 	
 	^ asseambler
 ]
 
-{ #category : #examples }
+{ #category : #'examples - changes' }
 LePageStructureAsseamblerExamples >> updateStructureForOneResolvedUnknownSnippet [
 	<gtExample>
 	| targetPage modifiedPage asseambler |
@@ -530,11 +536,12 @@ LePageStructureAsseamblerExamples >> updateStructureForOneResolvedUnknownSnippet
 	self assert: asseambler movedNodesCount equals: 0.
 	self assert: asseambler addedNodesCount equals: 0.
 	self assert: asseambler resolvedNodesCount equals: 1.
+	self assert: asseambler removedSnippetsCount equals: 0.
 	
 	^ asseambler
 ]
 
-{ #category : #examples }
+{ #category : #'examples - changes' }
 LePageStructureAsseamblerExamples >> updateStructureForOneSnippetNesting [
 	<gtExample>
 	| targetPage modifiedPage asseambler |
@@ -557,11 +564,12 @@ LePageStructureAsseamblerExamples >> updateStructureForOneSnippetNesting [
 	self assert: asseambler movedNodesCount equals: 1.
 	self assert: asseambler addedNodesCount equals: 0.
 	self assert: asseambler resolvedNodesCount equals: 0.
+	self assert: asseambler removedSnippetsCount equals: 0.
 	
 	^ asseambler
 ]
 
-{ #category : #examples }
+{ #category : #'examples - changes' }
 LePageStructureAsseamblerExamples >> updateStructureForSnippetNestedInNewParent [
 	<gtExample>
 	| targetPage modifiedPage asseambler |
@@ -584,11 +592,12 @@ LePageStructureAsseamblerExamples >> updateStructureForSnippetNestedInNewParent 
 	self assert: asseambler movedNodesCount equals: 1.
 	self assert: asseambler addedNodesCount equals: 1.
 	self assert: asseambler resolvedNodesCount equals: 0.
+	self assert: asseambler removedSnippetsCount equals: 1.
 	
 	^ asseambler
 ]
 
-{ #category : #examples }
+{ #category : #'examples - changes' }
 LePageStructureAsseamblerExamples >> updateStructureForTwoSnippetNestingAndChanges [
 	<gtExample>
 	| targetPage modifiedPage asseambler |
@@ -613,6 +622,7 @@ LePageStructureAsseamblerExamples >> updateStructureForTwoSnippetNestingAndChang
 	self assert: asseambler movedNodesCount equals: 2.
 	self assert: asseambler addedNodesCount equals: 1.
 	self assert: asseambler resolvedNodesCount equals: 0.
+	self assert: asseambler removedSnippetsCount equals: 0.
 	
 	^ asseambler
 ]

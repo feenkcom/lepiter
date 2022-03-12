@@ -29,6 +29,9 @@ LePageStructureAsseambler >> addedNodesCount [
 
 { #category : #actions }
 LePageStructureAsseambler >> clearDeletedSnippets [
+	"We iterate the removed snippets in reverse order only to build a better tree of removed snippets.
+	Since intially the list was obtained using a depth-first traversal, doing a reverse iteration means
+	we can add the parent first and then children"
 	reloaderContext removedSnippets 
 		reverseDo: [ :aRemovedSnippet |
 			"To delete the snippet we attach it back to the page and remove it.
@@ -38,7 +41,9 @@ LePageStructureAsseambler >> clearDeletedSnippets [
 			Ideally we should reattach all deleted snippets to thir original 
 			parent and then remove them."
 			self targetPage attachChildSnippet: aRemovedSnippet.
-			aRemovedSnippet removeSelf ]
+			aRemovedSnippet removeSelf.
+			
+			self ensureStructureNodeForRemovedSnippet: aRemovedSnippet ]
 ]
 
 { #category : #accessing }
@@ -48,6 +53,14 @@ LePageStructureAsseambler >> detectParentChangeFor: aStructureNode inParent: aPa
 	previousParentUid := self previousParentIdForSnippetWithId: aStructureNode uid.
 	previousParentUid = aParentContent uid ifFalse: [ 
 		aStructureNode markAsMoved ].
+]
+
+{ #category : #'gt - extensions' }
+LePageStructureAsseambler >> ensureStructureNodeForRemovedSnippet: aSnippet [
+	| parentNode |
+	parentNode := self locatePreviousParentForSnippetWithUid: aSnippet uid.
+	parentNode addChildNode: (LePageStructureNode forContent: aSnippet)
+		markAsRemoved 
 ]
 
 { #category : #actions }
@@ -93,12 +106,12 @@ LePageStructureAsseambler >> locateExistingSnippetWithId: anUid [
 ]
 
 { #category : #query }
-LePageStructureAsseambler >> locatePreviousParentForNode: aStructureNode [
+LePageStructureAsseambler >> locatePreviousParentForSnippetWithUid: aSnippetUid [
 	| parentUid |
-	(self reloaderContext hasPreviousParentIdForSnippetWithId: aStructureNode uid)
+	(self reloaderContext hasPreviousParentIdForSnippetWithId: aSnippetUid)
 		ifFalse: [ ^ nil ].
-		
-	parentUid := self previousParentIdForSnippetWithId: aStructureNode uid.
+	
+	parentUid := self previousParentIdForSnippetWithId: aSnippetUid.
 	snippetStructure withAllChildrenDo: [ :aNode |
 		aNode uid = parentUid ifTrue: [ ^ aNode ] ].
 	^ nil
@@ -136,7 +149,7 @@ LePageStructureAsseambler >> paintStructureOn: aMondrian [
 						border: (BlBorder paint: (Color gray alpha: 0.5) width: 1)) ];
 		connect: (snippetStructure movedNodes 
 				collect: [ :aStructureNode | 
-					aStructureNode -> (self locatePreviousParentForNode: aStructureNode) ])
+					aStructureNode -> (self locatePreviousParentForSnippetWithUid: aStructureNode uid) ])
 			from: [ :assoc | assoc key ]
 			to: [ :assoc | assoc value ].
 ]
@@ -227,6 +240,12 @@ LePageStructureAsseambler >> reloadUnknownSnippet: existingSnippet fromSnippet: 
 { #category : #accessing }
 LePageStructureAsseambler >> reloaderContext [
 	^ reloaderContext
+]
+
+{ #category : #accessing }
+LePageStructureAsseambler >> removedSnippetsCount [
+	"Here we count explicitly the number of removed snippets"
+	^ reloaderContext removedSnippets size
 ]
 
 { #category : #accessing }
