@@ -239,6 +239,44 @@ LePageStructureAsseamblerExamples >> targetPageWithFourSnipetsOneNested [
 ]
 
 { #category : #'examples - pages' }
+LePageStructureAsseamblerExamples >> targetPageWithTwoLevelNestigForFirstSnippet [
+	<gtExample>
+	| targetPage |
+	targetPage := LePage named: 'Target Page'.
+	targetPage basicUid: self pageUid.
+	
+	targetPage addSnippet: (self snippetA
+		addSnippet: (self snippetB
+			addSnippet: self snippetC;
+			yourself);
+		yourself).
+	targetPage addSnippet: (self snippetD
+		addSnippet: self snippetE;
+		yourself).
+	
+	^ targetPage
+]
+
+{ #category : #'examples - pages' }
+LePageStructureAsseamblerExamples >> targetPageWithTwoLevelNestigForSecondSnippet [
+	<gtExample>
+	| targetPage |
+	targetPage := LePage named: 'Target Page'.
+	targetPage basicUid: self pageUid.
+	
+	targetPage addSnippet: (self snippetA
+		addSnippet: self snippetB;
+		yourself).
+	targetPage addSnippet: (self snippetD
+		addSnippet: (self snippetE
+			addSnippet: self snippetC;
+			yourself);
+		yourself).
+	
+	^ targetPage
+]
+
+{ #category : #'examples - pages' }
 LePageStructureAsseamblerExamples >> targetPageWithTwoSnippetsAAndB [
 	<gtExample>
 	| targetPage |
@@ -303,6 +341,34 @@ LePageStructureAsseamblerExamples >> targetPageWithTwoSnippetsAParentAndBChild [
 		yourself).
 	
 	^ targetPage
+]
+
+{ #category : #examples }
+LePageStructureAsseamblerExamples >> updateStructureForChildMovedBetweenChildrensSnippets [
+	<gtExample>
+	| targetPage modifiedPage asseambler |
+	
+	targetPage := self targetPageWithTwoLevelNestigForFirstSnippet.
+	modifiedPage := self targetPageWithTwoLevelNestigForSecondSnippet.
+	
+	asseambler := targetPage rebuildFromContent: modifiedPage. 
+	
+	self 
+		assertStructure: { 
+			#snippetA -> ('A' -> {
+				#snippetB -> 'B'. 
+				}).
+			#snippetD -> ('D' -> {
+				#snippetE -> ('E' -> {
+					#snippetC -> 'C' }) }) } 
+		forContent: targetPage.
+	
+	self assert: asseambler modifiedNodesCount equals: 0.
+	self assert: asseambler movedNodesCount equals: 1.
+	self assert: asseambler addedNodesCount equals: 0.
+	self assert: asseambler resolvedNodesCount equals: 0.
+	
+	^ asseambler
 ]
 
 { #category : #examples }
