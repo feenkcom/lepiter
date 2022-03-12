@@ -129,6 +129,48 @@ LePageStructureAsseamblerExamples >> snippetFUid [
 		uid: (UUID fromString: 'eb8044a9-1293-4c29-907d-ae8c99b40508')
 ]
 
+{ #category : #'examples - snippets' }
+LePageStructureAsseamblerExamples >> snippetG [
+	<gtExample>
+	^ LeTextSnippet new
+		string: 'G';
+		uid: self snippetGUid
+]
+
+{ #category : #'accessing - uid' }
+LePageStructureAsseamblerExamples >> snippetGUid [
+	^ LeUID new 
+		uid: (UUID fromString: 'bd870096-190f-45ea-a2da-dc784b5dd745')
+]
+
+{ #category : #'examples - snippets' }
+LePageStructureAsseamblerExamples >> snippetH [
+	<gtExample>
+	^ LeTextSnippet new
+		string: 'H';
+		uid: self snippetHUid 
+]
+
+{ #category : #'accessing - uid' }
+LePageStructureAsseamblerExamples >> snippetHUid [
+	^ LeUID new 
+		uid: (UUID fromString: 'af17c7a9-3874-42ab-8e46-5099b26f16a3')
+]
+
+{ #category : #'examples - snippets' }
+LePageStructureAsseamblerExamples >> snippetI [
+	<gtExample>
+	^ LeTextSnippet new
+		string: 'I';
+		uid: self snippetIUid  
+]
+
+{ #category : #'accessing - uid' }
+LePageStructureAsseamblerExamples >> snippetIUid [
+	^ LeUID new 
+		uid: (UUID fromString: '2a443a61-6b12-44d2-bcd6-26959f6ac066')
+]
+
 { #category : #'examples - pages' }
 LePageStructureAsseamblerExamples >> targetPageWithComplexStructureModified [
 	<gtExample>
@@ -162,7 +204,13 @@ LePageStructureAsseamblerExamples >> targetPageWithComplexStructureOne [
 		addSnippet: self snippetDUnknown;
 		yourself).
 	targetPage addSnippet: (self snippetBUnknown
-		addSnippet: self snippetC;
+		addSnippet: (self snippetG
+			addSnippet: (self snippetC
+				addSnippet: (self snippetH
+					addSnippet: self snippetI;
+					yourself);
+				yourself);
+			yourself);
 		addSnippet: self snippetF;
 		yourself).
 	
@@ -441,7 +489,7 @@ LePageStructureAsseamblerExamples >> updateStructureForComplexStructureModificat
 	self assert: asseambler movedNodesCount equals: 3.
 	self assert: asseambler addedNodesCount equals: 1.
 	self assert: asseambler resolvedNodesCount equals: 2.
-	self assert: asseambler removedSnippetsCount equals: 0.
+	self assert: asseambler removedSnippetsCount equals: 3.
 	
 	^ asseambler
 ]
