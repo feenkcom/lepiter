@@ -239,6 +239,22 @@ LePageStructureAsseamblerExamples >> targetPageWithFourSnipetsOneNested [
 ]
 
 { #category : #'examples - pages' }
+LePageStructureAsseamblerExamples >> targetPageWithFourSnipetsOneNestedInNewParent [
+	<gtExample>
+	| targetPage |
+	targetPage := LePage named: 'Target Page'.
+	targetPage basicUid: self pageUid.
+	
+	targetPage addSnippet: self snippetA.
+	targetPage addSnippet: (self snippetE
+		addSnippet: self snippetC;
+		yourself).
+	targetPage addSnippet: self snippetD.
+	
+	^ targetPage
+]
+
+{ #category : #'examples - pages' }
 LePageStructureAsseamblerExamples >> targetPageWithTwoLevelNestigForFirstSnippet [
 	<gtExample>
 	| targetPage |
@@ -502,6 +518,33 @@ LePageStructureAsseamblerExamples >> updateStructureForOneSnippetNesting [
 	self assert: asseambler modifiedNodesCount equals: 0.
 	self assert: asseambler movedNodesCount equals: 1.
 	self assert: asseambler addedNodesCount equals: 0.
+	self assert: asseambler resolvedNodesCount equals: 0.
+	
+	^ asseambler
+]
+
+{ #category : #examples }
+LePageStructureAsseamblerExamples >> updateStructureForSnippetNestedInNewParent [
+	<gtExample>
+	| targetPage modifiedPage asseambler |
+	
+	targetPage := self targetPageWithFourFlatSnippetStructure.
+	modifiedPage := self targetPageWithFourSnipetsOneNestedInNewParent.
+	
+	asseambler := targetPage rebuildFromContent: modifiedPage. 
+	
+	self 
+		assertStructure: { 
+			#snippetA -> 'A'.
+			#snippetB -> ('E' -> {
+				#snippetC -> 'C'. 
+				}).
+			#snippetD -> 'D' } 
+		forContent: targetPage.
+	
+	self assert: asseambler modifiedNodesCount equals: 0.
+	self assert: asseambler movedNodesCount equals: 1.
+	self assert: asseambler addedNodesCount equals: 1.
 	self assert: asseambler resolvedNodesCount equals: 0.
 	
 	^ asseambler
