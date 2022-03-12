@@ -359,6 +359,44 @@ LePageStructureAsseamblerExamples >> targetPageWithTwoSnippetsAParentAndBChild [
 	^ targetPage
 ]
 
+{ #category : #'examples - pages' }
+LePageStructureAsseamblerExamples >> targetPageWithTwoSnippetsBParentAndAChild [
+	<gtExample>
+	| targetPage |
+	targetPage := LePage named: 'Target Page'.
+	targetPage basicUid: self pageUid.
+	
+	targetPage addSnippet: (self snippetB
+		addSnippet: self snippetA;
+		yourself).
+	
+	^ targetPage
+]
+
+{ #category : #examples }
+LePageStructureAsseamblerExamples >> updateStructureForAndBParentChildReversal [
+	<gtExample>
+	| targetPage modifiedPage asseambler |
+	
+	targetPage := self targetPageWithTwoSnippetsAParentAndBChild.
+	modifiedPage := self targetPageWithTwoSnippetsBParentAndAChild.
+	
+	asseambler := targetPage rebuildFromContent: modifiedPage. 
+	
+	self 
+		assertStructure: { 
+			#snippetA -> ('B' -> 
+				{#snippetD -> 'A'}) } 
+		forContent: targetPage.
+	
+	self assert: asseambler modifiedNodesCount equals: 0.
+	self assert: asseambler movedNodesCount equals: 2.
+	self assert: asseambler addedNodesCount equals: 0.
+	self assert: asseambler resolvedNodesCount equals: 0.
+	
+	^ asseambler
+]
+
 { #category : #examples }
 LePageStructureAsseamblerExamples >> updateStructureForChildMovedBetweenChildrensSnippets [
 	<gtExample>
