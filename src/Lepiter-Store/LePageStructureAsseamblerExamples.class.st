@@ -315,10 +315,10 @@ LePageStructureAsseamblerExamples >> updateStructureForComplexStructureModificat
 	
 	asseambler := targetPage rebuildFromContent: modifiedPage. 
 	
-	self assert: asseambler modifiedBlocksCount equals: 2.
-	self assert: asseambler movedBlocksCount equals: 3.
-	self assert: asseambler addedBlocksCount equals: 1.
-	self assert: asseambler resolvedBlocksCount equals: 2.
+	self assert: asseambler modifiedNodesCount equals: 2.
+	self assert: asseambler movedNodesCount equals: 3.
+	self assert: asseambler addedNodesCount equals: 1.
+	self assert: asseambler resolvedNodesCount equals: 2.
 	
 	^ asseambler
 ]
@@ -339,10 +339,10 @@ LePageStructureAsseamblerExamples >> updateStructureForMultipleSnippetsDeletion 
 			#snippetD -> 'C' } 
 		forContent: targetPage.
 	
-	self assert: asseambler modifiedBlocksCount equals: 0.
-	self assert: asseambler movedBlocksCount equals: 1.
-	self assert: asseambler addedBlocksCount equals: 0.
-	self assert: asseambler resolvedBlocksCount equals: 0.
+	self assert: asseambler modifiedNodesCount equals: 0.
+	self assert: asseambler movedNodesCount equals: 1.
+	self assert: asseambler addedNodesCount equals: 0.
+	self assert: asseambler resolvedNodesCount equals: 0.
 	
 	^ asseambler
 ]
@@ -363,10 +363,10 @@ LePageStructureAsseamblerExamples >> updateStructureForOneChangedUnknownSnippet 
 		assert: targetPage children second jsonString 
 		equals: (STONJSON toString: { 'a' -> 1 } asDictionary ).
 	
-	self assert: asseambler modifiedBlocksCount equals: 1.
-	self assert: asseambler movedBlocksCount equals: 0.
-	self assert: asseambler addedBlocksCount equals: 0.
-	self assert: asseambler resolvedBlocksCount equals: 0.
+	self assert: asseambler modifiedNodesCount equals: 1.
+	self assert: asseambler movedNodesCount equals: 0.
+	self assert: asseambler addedNodesCount equals: 0.
+	self assert: asseambler resolvedNodesCount equals: 0.
 	
 	^ asseambler
 ]
@@ -384,10 +384,10 @@ LePageStructureAsseamblerExamples >> updateStructureForOneResolvedAndMovedUnknow
 	self assert: targetPage children first isTextSnippet.
 	self assert: targetPage children first children first isTextSnippet.
 	
-	self assert: asseambler modifiedBlocksCount equals: 0.
-	self assert: asseambler movedBlocksCount equals: 1.
-	self assert: asseambler addedBlocksCount equals: 0.
-	self assert: asseambler resolvedBlocksCount equals: 1.
+	self assert: asseambler modifiedNodesCount equals: 0.
+	self assert: asseambler movedNodesCount equals: 1.
+	self assert: asseambler addedNodesCount equals: 0.
+	self assert: asseambler resolvedNodesCount equals: 1.
 	
 	^ asseambler
 ]
@@ -406,10 +406,10 @@ LePageStructureAsseamblerExamples >> updateStructureForOneResolvedUnknownSnippet
 	self assert: targetPage children second isTextSnippet.
 	self assert: targetPage children second string equals: 'B'.
 	
-	self assert: asseambler modifiedBlocksCount equals: 0.
-	self assert: asseambler movedBlocksCount equals: 0.
-	self assert: asseambler addedBlocksCount equals: 0.
-	self assert: asseambler resolvedBlocksCount equals: 1.
+	self assert: asseambler modifiedNodesCount equals: 0.
+	self assert: asseambler movedNodesCount equals: 0.
+	self assert: asseambler addedNodesCount equals: 0.
+	self assert: asseambler resolvedNodesCount equals: 1.
 	
 	^ asseambler
 ]
@@ -433,10 +433,10 @@ LePageStructureAsseamblerExamples >> updateStructureForOneSnippetNesting [
 			#snippetD -> 'D' } 
 		forContent: targetPage.
 	
-	self assert: asseambler modifiedBlocksCount equals: 0.
-	self assert: asseambler movedBlocksCount equals: 1.
-	self assert: asseambler addedBlocksCount equals: 0.
-	self assert: asseambler resolvedBlocksCount equals: 0.
+	self assert: asseambler modifiedNodesCount equals: 0.
+	self assert: asseambler movedNodesCount equals: 1.
+	self assert: asseambler addedNodesCount equals: 0.
+	self assert: asseambler resolvedNodesCount equals: 0.
 	
 	^ asseambler
 ]
@@ -462,10 +462,10 @@ LePageStructureAsseamblerExamples >> updateStructureForTwoSnippetNestingAndChang
 				}) } 
 		forContent: targetPage.
 	
-	self assert: asseambler modifiedBlocksCount equals: 2.
-	self assert: asseambler movedBlocksCount equals: 2.
-	self assert: asseambler addedBlocksCount equals: 1.
-	self assert: asseambler resolvedBlocksCount equals: 0.
+	self assert: asseambler modifiedNodesCount equals: 2.
+	self assert: asseambler movedNodesCount equals: 2.
+	self assert: asseambler addedNodesCount equals: 1.
+	self assert: asseambler resolvedNodesCount equals: 0.
 	
 	^ asseambler
 ]

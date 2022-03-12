@@ -10,12 +10,12 @@ Class {
 }
 
 { #category : #actions }
-LePageStructureAsseambler >> addContentForStructure: aStructureNode intoContent: aParentContent [
+LePageStructureAsseambler >> addContentForStructure: aChildStructureNode intoContent: aParentContent [
 	| snippetUid replacementSnippet |
-	snippetUid := aStructureNode uid.
+	snippetUid := aChildStructureNode uid.
 
 	replacementSnippet := self locateReferenceSnippetWithId: snippetUid.
-	aStructureNode markAsAdded.
+	aChildStructureNode markAsAdded.
 	
 	aParentContent addSnippet: replacementSnippet.
 	
@@ -23,8 +23,8 @@ LePageStructureAsseambler >> addContentForStructure: aStructureNode intoContent:
 ]
 
 { #category : #accessing }
-LePageStructureAsseambler >> addedBlocksCount [
-	^ snippetStructure addedBlocksCount
+LePageStructureAsseambler >> addedNodesCount [
+	^ snippetStructure addedNodesCount
 ]
 
 { #category : #actions }
@@ -46,24 +46,24 @@ LePageStructureAsseambler >> detectParentChangeFor: aStructureNode inParent: aPa
 
 { #category : #actions }
 LePageStructureAsseambler >> extractSnippetStructureFrom: aPage [
-	| snippetsStructure |
-	snippetsStructure := LePageStructureBlock forContent: aPage.
+	| structureNode |
+	structureNode := LePageStructureNode forContent: aPage.
 	self 
 		extractSnippetStructureFrom: aPage 
-		to: snippetsStructure.
-	^ snippetsStructure
+		to: structureNode.
+	^ structureNode
 ]
 
 { #category : #actions }
-LePageStructureAsseambler >> extractSnippetStructureFrom: aContent to: aStructureStructure [
+LePageStructureAsseambler >> extractSnippetStructureFrom: aContent to: aStructureNode [
 	aContent children do: [ :aChildSnippet |
-		| childStructure | 
-		childStructure := LePageStructureBlock forContent: aChildSnippet.
-		aStructureStructure addChildBlock: childStructure.
+		| childNode | 
+		childNode := LePageStructureNode forContent: aChildSnippet.
+		aStructureNode addChildNode: childNode.
 		aChildSnippet hasChildren ifTrue: [
 			self 
 				extractSnippetStructureFrom: aChildSnippet 
-				to: childStructure ] ]
+				to: childNode ] ]
 ]
 
 { #category : #'gt - extensions' }
@@ -104,13 +104,13 @@ LePageStructureAsseambler >> locateReferenceSnippetWithId: anUid [
 ]
 
 { #category : #accessing }
-LePageStructureAsseambler >> modifiedBlocksCount [
-	^ snippetStructure modifiedBlocksCount
+LePageStructureAsseambler >> modifiedNodesCount [
+	^ snippetStructure modifiedNodesCount
 ]
 
 { #category : #accessing }
-LePageStructureAsseambler >> movedBlocksCount [
-	^ snippetStructure movedBlocksCount
+LePageStructureAsseambler >> movedNodesCount [
+	^ snippetStructure movedNodesCount
 ]
 
 { #category : #'gt - extensions' }
@@ -128,7 +128,7 @@ LePageStructureAsseambler >> paintStructureOn: aMondrian [
 				toHead:
 					(BlArrowheadSimpleArrow new
 						border: (BlBorder paint: (Color gray alpha: 0.5) width: 1)) ];
-		connect: (snippetStructure movedBlocks 
+		connect: (snippetStructure movedNodes 
 				collect: [ :aStructureNode | 
 					aStructureNode -> (self locatePreviousParentForNode: aStructureNode) ])
 			from: [ :assoc | assoc key ]
@@ -143,22 +143,22 @@ LePageStructureAsseambler >> previousParentIdForSnippetWithId: anUid [
 { #category : #actions }
 LePageStructureAsseambler >> rebuildContent: aTargetContent usingStructure: aSnippetStructure [
 	
-	aSnippetStructure blocks do: [ :currentStructureBlock |
+	aSnippetStructure childNodes do: [ :currentStructureNode |
 		| snippetUid targetChildSnippet |
-		snippetUid := currentStructureBlock uid.
+		snippetUid := currentStructureNode uid.
 		targetChildSnippet := (self isNewSnippetWithId: snippetUid)
 			ifTrue: [
 				self 
-					addContentForStructure: currentStructureBlock
+					addContentForStructure: currentStructureNode
 					intoContent: aTargetContent ]
 			ifFalse: [ 
 				self 
-					reloadContentForStructure: currentStructureBlock
+					reloadContentForStructure: currentStructureNode
 					intoContent: aTargetContent ].
 		
 		self 
 			rebuildContent: targetChildSnippet 
-			usingStructure: currentStructureBlock ]
+			usingStructure: currentStructureNode ]
 ]
 
 { #category : #api }
@@ -224,8 +224,8 @@ LePageStructureAsseambler >> reloaderContext [
 ]
 
 { #category : #accessing }
-LePageStructureAsseambler >> resolvedBlocksCount [
-	^ snippetStructure resolvedBlocksCount
+LePageStructureAsseambler >> resolvedNodesCount [
+	^ snippetStructure resolvedNodesCount
 ]
 
 { #category : #accessing }

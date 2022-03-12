@@ -12,10 +12,10 @@ Class {
 }
 
 { #category : #'instance creation' }
-LePageReloaderContext class >> forPage: aTargetPage basedOnPage: aReferencePage [
+LePageReloaderContext class >> forPage: aTargetPage basedOnPage: aReplacementPage [
 	^ self new
 		targetPage: aTargetPage;
-		referencePage: aReferencePage
+		referencePage: aReplacementPage
 ]
 
 { #category : #accessing }
