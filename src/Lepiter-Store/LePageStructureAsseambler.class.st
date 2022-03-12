@@ -14,6 +14,14 @@ LePageStructureAsseambler >> addedBlocksCount [
 	^ snippetStructure addedBlocksCount
 ]
 
+{ #category : #api }
+LePageStructureAsseambler >> clearDeletedSnippets [
+	reloaderContext removedSnippets 
+		reverseDo: [ :aRemovedSnippet |
+			self targetPage attachChildSnippet: aRemovedSnippet.
+			aRemovedSnippet removeSelf ]
+]
+
 { #category : #actions }
 LePageStructureAsseambler >> detectParentChangeFor: aStructureBlock inParent: aParentContent [
 	| previousParentUid |
@@ -142,17 +150,18 @@ LePageStructureAsseambler >> rebuildContent: aTargetContent usingStructure: aSni
 ]
 
 { #category : #api }
-LePageStructureAsseambler >> rebuildStructureBasedOnPage: aReferencePage [
-	snippetStructure := self extractSnippetStructureFrom: aReferencePage.
+LePageStructureAsseambler >> rebuildStructureBasedOnPage: aReplacementPage [
+	snippetStructure := self extractSnippetStructureFrom: aReplacementPage.
 	reloaderContext := LePageReloaderContext 
 		forPage: self targetPage
-		basedOnPage: aReferencePage.
+		basedOnPage: aReplacementPage.
 	reloaderContext detachSnippets.
 	
-	self targetPage reloadAttributesFromContent: aReferencePage.
+	self targetPage reloadAttributesFromContent: aReplacementPage.
 	self 
 		rebuildContent: self targetPage 
 		usingStructure: snippetStructure.
+	self clearDeletedSnippets.
 ]
 
 { #category : #actions }

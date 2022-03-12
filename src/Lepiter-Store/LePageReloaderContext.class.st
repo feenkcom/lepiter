@@ -18,6 +18,12 @@ LePageReloaderContext class >> forPage: aTargetPage basedOnPage: aReferencePage 
 		referencePage: aReferencePage
 ]
 
+{ #category : #accessing }
+LePageReloaderContext >> addedSnippets [
+	^ self replacementSnippets reject: [ :aReplacementSnippet |
+		targetSnippetsByUid includesKey: aReplacementSnippet uid ]
+]
+
 { #category : #actions }
 LePageReloaderContext >> detachPageContent: aPage to: aDictionary withParents: aParentsDictionary [
 
@@ -43,23 +49,47 @@ LePageReloaderContext >> detachSnippets [
 ]
 
 { #category : #'gt-extensions' }
+LePageReloaderContext >> gtViewAddedSnippetsFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Added Snippets';
+		priority: 13;
+		items: [ self addedSnippets ];
+		column: 'Uid' text: [ :aSnippet | aSnippet uid ] width: 250;
+		column: 'Snippet' text: [ :aSnippet | aSnippet gtDisplayString ]
+]
+
+{ #category : #'gt-extensions' }
 LePageReloaderContext >> gtViewReferenceSnippetsFor: aView [
 	<gtView>
-	^ aView forward
-		title: 'Reference Snippets';
+	^ aView columnedList
+		title: 'Replacement Snippets';
 		priority: 11;
-		object: [ referenceSnippetsByUid ];
-		view: #gtItemsFor:
+		items: [ self replacementSnippets ];
+		column: 'Uid' text: [ :aSnippet | aSnippet uid ] width: 250;
+		column: 'Snippet' text: [ :aSnippet | aSnippet gtDisplayString ]
+]
+
+{ #category : #'gt-extensions' }
+LePageReloaderContext >> gtViewRemovedSnippetsFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Removed Snippets';
+		priority: 12;
+		items: [ self removedSnippets ];
+		column: 'Uid' text: [ :aSnippet | aSnippet uid ] width: 250;
+		column: 'Snippet' text: [ :aSnippet | aSnippet gtDisplayString ]
 ]
 
 { #category : #'gt-extensions' }
 LePageReloaderContext >> gtViewTargetSnippetsFor: aView [
 	<gtView>
-	^ aView forward
+	 ^ aView columnedList
 		title: 'Target Snippets';
 		priority: 10;
-		object: [ targetSnippetsByUid ];
-		view: #gtItemsFor:
+		items: [ self targetSnippets ];
+		column: 'Uid' text: [ :aSnippet | aSnippet uid ] width: 250;
+		column: 'Snippet' text: [ :aSnippet | aSnippet gtDisplayString ]
 ]
 
 { #category : #testing }
@@ -109,6 +139,17 @@ LePageReloaderContext >> referencePage: anObject [
 ]
 
 { #category : #accessing }
+LePageReloaderContext >> removedSnippets [
+	^ self targetSnippets reject: [ :anExistingnippet |
+		referenceSnippetsByUid includesKey: anExistingnippet uid ]
+]
+
+{ #category : #accessing }
+LePageReloaderContext >> replacementSnippets [
+	^ referenceSnippetsByUid values
+]
+
+{ #category : #accessing }
 LePageReloaderContext >> targetPage [
 
 	^ targetPage
@@ -118,4 +159,9 @@ LePageReloaderContext >> targetPage [
 LePageReloaderContext >> targetPage: anObject [
 
 	targetPage := anObject
+]
+
+{ #category : #accessing }
+LePageReloaderContext >> targetSnippets [
+	^ targetSnippetsByUid values
 ]

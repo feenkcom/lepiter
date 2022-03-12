@@ -48,6 +48,11 @@ LePageStructureBlock >> blocks [
 	^ blocks
 ]
 
+{ #category : #accessing }
+LePageStructureBlock >> changeStatuses [
+	^ changeStatuses
+]
+
 { #category : #enumerating }
 LePageStructureBlock >> collectAllNodesMatching: aComputation [
 	^ self withDeep: #blocks select: aComputation collect: [ :aNode | aNode ]
@@ -91,13 +96,14 @@ LePageStructureBlock >> gtViewChangesFor: aView [
 LePageStructureBlock >> gtViewStructureFor: aView [
 	<gtView>
 	
-	^ aView tree
+	^ aView columnedTree
 		  title: 'Structure Tree';
 		  priority: 10;
 		  items: [ { self } ];
 		  expandUpTo: 2;
-		  children: [ :aBlock | aBlock blocks ];
-		  itemText: [ :aBlock | aBlock description ]
+		  children: [ :aNode | aNode blocks ];
+		  column: 'Node' text: [ :aNode | aNode  description ];
+		  column: 'Actions' text: [ :aNode | aNode changeStatuses asCommaString ]
 ]
 
 { #category : #'gt - extensions' }

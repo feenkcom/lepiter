@@ -190,6 +190,24 @@ LePageStructureAsseamblerExamples >> targetPageWithFiveSnippetsModifiedNestedStr
 ]
 
 { #category : #'examples - pages' }
+LePageStructureAsseamblerExamples >> targetPageWithFiveSnippetsNestedStructure [
+	<gtExample>
+	| targetPage |
+	targetPage := LePage named: 'Target Page'.
+	targetPage basicUid: self pageUid.
+	
+	targetPage addSnippet: (self snippetA
+		addSnippet: self snippetD;
+		yourself).
+	targetPage addSnippet: (self snippetB
+		addSnippet: self snippetC;
+		addSnippet: self snippetE;
+		yourself).
+	
+	^ targetPage
+]
+
+{ #category : #'examples - pages' }
 LePageStructureAsseamblerExamples >> targetPageWithFourFlatSnippetStructure [
 	<gtExample>
 	| targetPage |
@@ -229,6 +247,19 @@ LePageStructureAsseamblerExamples >> targetPageWithTwoSnippetsAAndB [
 	
 	targetPage addSnippet: self snippetA.
 	targetPage addSnippet: self snippetB.
+	
+	^ targetPage
+]
+
+{ #category : #'examples - pages' }
+LePageStructureAsseamblerExamples >> targetPageWithTwoSnippetsAAndC [
+	<gtExample>
+	| targetPage |
+	targetPage := LePage named: 'Target Page'.
+	targetPage basicUid: self pageUid.
+	
+	targetPage addSnippet: self snippetA.
+	targetPage addSnippet: self snippetC.
 	
 	^ targetPage
 ]
@@ -288,6 +319,30 @@ LePageStructureAsseamblerExamples >> updateStructureForComplexStructureModificat
 	self assert: asseambler movedBlocksCount equals: 3.
 	self assert: asseambler addedBlocksCount equals: 1.
 	self assert: asseambler resolvedBlocksCount equals: 2.
+	
+	^ asseambler
+]
+
+{ #category : #examples }
+LePageStructureAsseamblerExamples >> updateStructureForMultipleSnippetsDeletion [
+	<gtExample>
+	| targetPage modifiedPage asseambler |
+	
+	targetPage := self targetPageWithFiveSnippetsNestedStructure.
+	modifiedPage := self targetPageWithTwoSnippetsAAndC.
+	
+	asseambler := targetPage rebuildFromContent: modifiedPage. 
+	
+	self 
+		assertStructure: { 
+			#snippetA -> 'A'.
+			#snippetD -> 'C' } 
+		forContent: targetPage.
+	
+	self assert: asseambler modifiedBlocksCount equals: 0.
+	self assert: asseambler movedBlocksCount equals: 1.
+	self assert: asseambler addedBlocksCount equals: 0.
+	self assert: asseambler resolvedBlocksCount equals: 0.
 	
 	^ asseambler
 ]
