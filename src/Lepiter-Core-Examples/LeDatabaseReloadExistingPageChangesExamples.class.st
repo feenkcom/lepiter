@@ -6,7 +6,7 @@ Class {
 	#category : #'Lepiter-Core-Examples-Database'
 }
 
-{ #category : #asserting }
+{ #category : #'asserting - structure' }
 LeDatabaseReloadExistingPageChangesExamples >> assertLocalPageStructureChange: aStructureChange inDatabase: aDatabase [
 	<gtExample>
 	| initialPage secondDatabase modifiedPage structureChange |
@@ -68,6 +68,42 @@ LeDatabaseReloadExistingPageChangesExamples >> changedChildrenSnippetsOrderInSto
 	
 	database := self changedChildrenSnippetsOrderInStorage.
 	self assertLocalPageStructureChange: LePageComplexStructureChange inDatabase: database.
+	
+	^ database
+]
+
+{ #category : #'examples - nested snippets' }
+LeDatabaseReloadExistingPageChangesExamples >> changedDatabaseWithFourNestedSnippetToTwoInStorage [
+	"The initial page has three snippets:
+	  A
+	    B
+	      C
+	        D
+	
+	We change this to:
+	  D
+     B"
+	<gtExample>
+	| database secondDatabase targetPage |
+	database := self createDatabaseWithFourNestedSnippetStructure.
+	
+	secondDatabase := self createDatabaseFromFolder: database localStoreRootDirectory.
+	targetPage := secondDatabase pageNamed: 'Target Page'.
+	
+	targetPage children first children first unindent.
+	targetPage children first removeSelf.
+	targetPage children first children first unindent.
+	targetPage children second children first unindent.
+	targetPage children second removeSelf.
+	
+	targetPage children second moveUp.
+	targetPage children second indent.
+
+	self assert: targetPage children size equals: 1.
+	self assert: targetPage children first string equals: 'D'.
+	self assert: targetPage children first children first string equals: 'B'.
+	
+	secondDatabase stopMonitoring.
 	
 	^ database
 ]
@@ -346,6 +382,7 @@ LeDatabaseReloadExistingPageChangesExamples >> createDatabaseWithFlatSnippetStru
 	
 	self assert:  page children size equals: 3.
 	database addPage: page.
+	self assert: database snippetsCount equals: 3.
 	
 	^ database
 ]
@@ -356,6 +393,28 @@ LeDatabaseReloadExistingPageChangesExamples >> createDatabaseWithFlatSnippetStru
 	| database |
 	database := self createDatabaseWithFlatSnippetStructure.
 	self assertLocalPageStructureChange: LePageNoStructureChange inDatabase: database.
+	
+	^ database
+]
+
+{ #category : #'examples - nested snippets' }
+LeDatabaseReloadExistingPageChangesExamples >> createDatabaseWithFourNestedSnippetStructure [
+	<gtExample>
+	| database page |
+	database := self databaseWithMockedStorage.
+	
+	page := LePage named: 'Target Page'.
+	page addSnippet: ((LeTextSnippet string: 'A')
+		addSnippet: ((LeTextSnippet string: 'B')
+			addSnippet: ((LeTextSnippet string: 'C')
+				addSnippet: (LeTextSnippet string: 'D');
+				yourself);
+			yourself);
+		yourself).
+	
+	self assert: page children size equals: 1.
+	database addPage: page.
+	self assert: database snippetsCount equals: 4.
 	
 	^ database
 ]
@@ -414,6 +473,26 @@ LeDatabaseReloadExistingPageChangesExamples >> reloadChangedChildrenSnippetsOrde
 	self assert: targetSnippet children first == snippetThree.
 	self assert: targetSnippet children second == snippetOne.
 	self assert: targetSnippet children third == snippetTwo.
+	
+	^ database
+]
+
+{ #category : #'examples - nested snippets' }
+LeDatabaseReloadExistingPageChangesExamples >> reloadChangedDatabaseWithFourNestedSnippetToTwoInStorage [
+	<gtExample>
+	<noTest>
+	
+	| database targetPage |
+	database := self changedDatabaseWithFourNestedSnippetToTwoInStorage.
+
+	database reload.
+	
+	targetPage := database pageNamed: 'Target Page'.
+
+	self assert: database snippetsCount equals: 2.
+	self assert: targetPage children size equals: 1.
+	self assert: targetPage children first string equals: 'D'.
+	self assert: targetPage children first children first string equals: 'B'.
 	
 	^ database
 ]
@@ -537,12 +616,17 @@ LeDatabaseReloadExistingPageChangesExamples >> reloadModifiedFlatSnippetStructur
 	<noTest>
 	| database targetPage |
 	database := self changedFlatSnippetStructureInStorage.
-
+	
 	database reload.
 	
 	targetPage := database pageNamed: 'Target Page'.
-
+	
+	self assert: database snippetsCount equals: 4.
 	self assert: targetPage children size equals: 3.
+	self assert: targetPage children first string equals: 'A'.
+	self assert: targetPage children second string equals: 'B1'.
+	self assert: targetPage children second children first string equals: 'B'.
+	self assert: targetPage children third string equals: 'C'.
 	
 	^ database
 ]

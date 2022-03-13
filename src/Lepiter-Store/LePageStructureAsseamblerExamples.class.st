@@ -533,7 +533,7 @@ LePageStructureAsseamblerExamples >> updateStructureForOneChangedUnknownSnippet 
 	self assert: targetPage children second isUnknownSnippet.
 	self 
 		assert: targetPage children second jsonString 
-		equals: (STONJSON toString: { 'a' -> 1 } asDictionary ).
+		equals: (STONJSON toString: { 'a' -> 1 } asDictionary).
 	
 	self assert: asseambler modifiedNodesCount equals: 1.
 	self assert: asseambler movedNodesCount equals: 0.
