@@ -1,3 +1,9 @@
+"
+I model a node in the structure of a page. 
+
+I exist becasue the current reload mechanisn flattens the structure of a page.
+I preserve that structure and I am used for recreating the page.
+"
 Class {
 	#name : #LePageStructureNode,
 	#superclass : #Object,
