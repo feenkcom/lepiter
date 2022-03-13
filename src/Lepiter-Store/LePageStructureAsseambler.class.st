@@ -1,3 +1,8 @@
+"
+The main entry point for reloading the structure of a target page based on a replacement page.
+
+The current approach is to flatten structure of snippets of the target page and recreate it based on the replacement page.
+"
 Class {
 	#name : #LePageStructureAsseambler,
 	#superclass : #Object,
