@@ -1,38 +1,38 @@
 Class {
-	#name : #LePageStructureBlock,
+	#name : #LePageStructureNode,
 	#superclass : #Object,
 	#instVars : [
 		'uid',
-		'parentBlock',
+		'parentNode',
+		'childNodes',
 		'typeName',
-		'blocks',
 		'changeStatuses'
 	],
 	#category : #'Lepiter-Store-Reload'
 }
 
 { #category : #'instance creation' }
-LePageStructureBlock class >> forContent: aLeContent [
+LePageStructureNode class >> forContent: aLeContent [
 	^ self new
 		uid: aLeContent uid;
 		typeName: aLeContent className
 ]
 
 { #category : #adding }
-LePageStructureBlock >> addChildBlock: aChildBlock [
-	self assert: [ aChildBlock parentBlock isNil ].
+LePageStructureNode >> addChildNode: aChildNode [
+	self assert: [ aChildNode parentNode isNil ].
 	
-	self blocks add: aChildBlock.
-	aChildBlock parentBlock: self
+	self childNodes add: aChildNode.
+	aChildNode parentNode: self
 ]
 
 { #category : #'accessing - count' }
-LePageStructureBlock >> addedBlocksCount [
-	^ self countAllNodesMatching: [ :aBlock | aBlock isAdded ]
+LePageStructureNode >> addedNodesCount [
+	^ self countAllNodesMatching: [ :aNode | aNode isAdded ]
 ]
 
 { #category : #'gt - extensions' }
-LePageStructureBlock >> backgroundColor [
+LePageStructureNode >> backgroundColor [
 	self isAdded 
 		ifTrue: [ ^ Color green muchDarker ].
 	self isModified 
@@ -43,34 +43,39 @@ LePageStructureBlock >> backgroundColor [
 ]
 
 { #category : #accessing }
-LePageStructureBlock >> blocks [
+LePageStructureNode >> changeStatuses [
+	^ changeStatuses
+]
 
-	^ blocks
+{ #category : #accessing }
+LePageStructureNode >> childNodes [
+
+	^ childNodes
 ]
 
 { #category : #enumerating }
-LePageStructureBlock >> collectAllNodesMatching: aComputation [
-	^ self withDeep: #blocks select: aComputation collect: [ :aNode | aNode ]
+LePageStructureNode >> collectAllNodesMatching: aComputation [
+	^ self withDeep: #childNodes select: aComputation collect: [ :aNode | aNode ]
 ]
 
 { #category : #enumerating }
-LePageStructureBlock >> countAllNodesMatching: aComputation [
+LePageStructureNode >> countAllNodesMatching: aComputation [
 	| count |
 	count := 0.
-	self withAllChildrenDo: [ :each |
-		(aComputation value: each) ifTrue: [
+	self withAllChildrenDo: [ :aNode |
+		(aComputation value: aNode) ifTrue: [
 			count := count + 1 ] ].
 	^ count
 ]
 
 { #category : #printing }
-LePageStructureBlock >> description [
+LePageStructureNode >> description [
 	^ String streamContents: [ :aStream |
 		self descriptionOn: aStream ]
 ]
 
 { #category : #printing }
-LePageStructureBlock >> descriptionOn: aStream [
+LePageStructureNode >> descriptionOn: aStream [
 	aStream 
 		<< self typeName;
 		<< ', ';
@@ -78,7 +83,7 @@ LePageStructureBlock >> descriptionOn: aStream [
 ]
 
 { #category : #'gt - extensions' }
-LePageStructureBlock >> gtViewChangesFor: aView [
+LePageStructureNode >> gtViewChangesFor: aView [
 	<gtView>
 	
 	^ aView list
@@ -88,20 +93,21 @@ LePageStructureBlock >> gtViewChangesFor: aView [
 ]
 
 { #category : #'gt - extensions' }
-LePageStructureBlock >> gtViewStructureFor: aView [
+LePageStructureNode >> gtViewStructureFor: aView [
 	<gtView>
 	
-	^ aView tree
+	^ aView columnedTree
 		  title: 'Structure Tree';
 		  priority: 10;
 		  items: [ { self } ];
 		  expandUpTo: 2;
-		  children: [ :aBlock | aBlock blocks ];
-		  itemText: [ :aBlock | aBlock description ]
+		  children: [ :aNode | aNode childNodes ];
+		  column: 'Node' text: [ :aNode | aNode  description ];
+		  column: 'Actions' text: [ :aNode | aNode changeStatuses asCommaString ]
 ]
 
 { #category : #'gt - extensions' }
-LePageStructureBlock >> gtViewStructureMapFor: aView [
+LePageStructureNode >> gtViewStructureMapFor: aView [
 	<gtView>
 	^ aView mondrian
 		title: 'Structure Map' translated;
@@ -111,80 +117,92 @@ LePageStructureBlock >> gtViewStructureMapFor: aView [
 ]
 
 { #category : #initialization }
-LePageStructureBlock >> initialize [
+LePageStructureNode >> initialize [
 	super initialize.
-	blocks := OrderedCollection new.
+	childNodes := OrderedCollection new.
 	changeStatuses := OrderedCollection new.
 ]
 
 { #category : #testing }
-LePageStructureBlock >> isAdded [
+LePageStructureNode >> isAdded [
 	^ changeStatuses includes: #added
 ]
 
 { #category : #testing }
-LePageStructureBlock >> isModified [
+LePageStructureNode >> isModified [
 	^ changeStatuses includes: #modified
 ]
 
 { #category : #testing }
-LePageStructureBlock >> isMoved [
+LePageStructureNode >> isMoved [
 	^ changeStatuses includes: #moved
 ]
 
 { #category : #testing }
-LePageStructureBlock >> isResolved [
+LePageStructureNode >> isRemoved [
+	^ changeStatuses includes: #removed
+]
+
+{ #category : #testing }
+LePageStructureNode >> isResolved [
 	^ changeStatuses includes: #resolved
 ]
 
 { #category : #'accessing - status' }
-LePageStructureBlock >> markAsAdded [
+LePageStructureNode >> markAsAdded [
 	changeStatuses add: #added
 ]
 
 { #category : #'accessing - status' }
-LePageStructureBlock >> markAsModified [
+LePageStructureNode >> markAsModified [
 	changeStatuses add: #modified
 ]
 
 { #category : #'accessing - status' }
-LePageStructureBlock >> markAsMoved [
+LePageStructureNode >> markAsMoved [
 	changeStatuses add: #moved
 ]
 
 { #category : #'accessing - status' }
-LePageStructureBlock >> markAsResolved [
+LePageStructureNode >> markAsRemoved [
+	changeStatuses add: #removed
+]
+
+{ #category : #'accessing - status' }
+LePageStructureNode >> markAsResolved [
 	changeStatuses add: #resolved
 ]
 
 { #category : #'accessing - count' }
-LePageStructureBlock >> modifiedBlocksCount [
-	^ self countAllNodesMatching: [ :aBlock | aBlock isModified ]
+LePageStructureNode >> modifiedNodesCount [
+	^ self countAllNodesMatching: [ :aNode | aNode isModified ]
 ]
 
 { #category : #enumerating }
-LePageStructureBlock >> movedBlocks [
+LePageStructureNode >> movedNodes [
 	^ self collectAllNodesMatching: [ :aNode | aNode isMoved ]
 ]
 
 { #category : #'accessing - count' }
-LePageStructureBlock >> movedBlocksCount [
-	^ self countAllNodesMatching: [ :aBlock | aBlock isMoved ]
+LePageStructureNode >> movedNodesCount [
+	^ self countAllNodesMatching: [ :aNode | aNode isMoved ]
 ]
 
 { #category : #'gt - extensions' }
-LePageStructureBlock >> paintStructureOn: mondrian [
+LePageStructureNode >> paintStructureOn: mondrian [
 	mondrian nodes 
-		shape: [ :aBlock |
+		shape: [ :aNode |
 			BrLabel new 
-				text: aBlock typeName; 
+				text: aNode typeName; 
 				aptitude: (BrGlamorousLabelAptitude new
-					foreground: aBlock backgroundColor;
+					foreground: aNode backgroundColor;
 					in: [ :aptitude |
-						aBlock isMoved ifTrue: [ 
+						aNode isMoved ifTrue: [ 
 							aptitude underline ].
+						aNode isRemoved ifTrue: [ 
+							aptitude decorationDo: [ :d | d lineThrough ] ].
 						aptitude ]) ];
-		with: (self withDeepCollect: #blocks).
+		with: (self withDeepCollect: #childNodes).
 	mondrian edges
 		stencil: [:class | 
 			BlParabollaArcElement new 
@@ -195,31 +213,31 @@ LePageStructureBlock >> paintStructureOn: mondrian [
 					border: (BlBorder builder paint: (Color gray alpha: 0.5); width: 2; build)) ];
 		fromRightCenter;
 		toLeftCenter;
-		connectToAll: #blocks.
+		connectToAll: #childNodes.
 	mondrian layout  horizontalDominanceTree
 		levelDistance: 100;
 		nodeDistance: 10
 ]
 
 { #category : #accessing }
-LePageStructureBlock >> parentBlock [
+LePageStructureNode >> parentNode [
 
-	^ parentBlock
+	^ parentNode
 ]
 
 { #category : #accessing }
-LePageStructureBlock >> parentBlock: anObject [
+LePageStructureNode >> parentNode: aNode [
 
-	parentBlock := anObject
+	parentNode := aNode
 ]
 
 { #category : #accessing }
-LePageStructureBlock >> parentUid [
-	^ self parentBlock ifNotNil: [ :aBlock | aBlock uid ]
+LePageStructureNode >> parentUid [
+	^ self parentNode ifNotNil: [ :aNode | aNode uid ]
 ]
 
 { #category : #accessing }
-LePageStructureBlock >> printOn: aStream [
+LePageStructureNode >> printOn: aStream [
 	super printOn: aStream.
 	aStream
 		<< '(';
@@ -228,37 +246,37 @@ LePageStructureBlock >> printOn: aStream [
 ]
 
 { #category : #'accessing - count' }
-LePageStructureBlock >> resolvedBlocksCount [
-	^ self countAllNodesMatching: [ :aBlock | aBlock isResolved ]
+LePageStructureNode >> resolvedNodesCount [
+	^ self countAllNodesMatching: [ :aNode | aNode isResolved ]
 ]
 
 { #category : #accessing }
-LePageStructureBlock >> typeName [
+LePageStructureNode >> typeName [
 
 	^ typeName
 ]
 
 { #category : #accessing }
-LePageStructureBlock >> typeName: aString [
+LePageStructureNode >> typeName: aString [
 
 	typeName := aString
 ]
 
 { #category : #accessing }
-LePageStructureBlock >> uid [
+LePageStructureNode >> uid [
 
 	^ uid
 ]
 
 { #category : #accessing }
-LePageStructureBlock >> uid: anObject [
+LePageStructureNode >> uid: anObject [
 
 	uid := anObject
 ]
 
 { #category : #enumerating }
-LePageStructureBlock >> withAllChildrenDo: aComputation [
+LePageStructureNode >> withAllChildrenDo: aComputation [
 	aComputation cull: self.
-	self blocks do: [ :aChild |
-		aChild withAllChildrenDo: aComputation ]
+	self childNodes do: [ :aChildNode |
+		aChildNode withAllChildrenDo: aComputation ]
 ]

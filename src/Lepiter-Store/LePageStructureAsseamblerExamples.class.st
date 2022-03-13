@@ -129,6 +129,48 @@ LePageStructureAsseamblerExamples >> snippetFUid [
 		uid: (UUID fromString: 'eb8044a9-1293-4c29-907d-ae8c99b40508')
 ]
 
+{ #category : #'examples - snippets' }
+LePageStructureAsseamblerExamples >> snippetG [
+	<gtExample>
+	^ LeTextSnippet new
+		string: 'G';
+		uid: self snippetGUid
+]
+
+{ #category : #'accessing - uid' }
+LePageStructureAsseamblerExamples >> snippetGUid [
+	^ LeUID new 
+		uid: (UUID fromString: 'bd870096-190f-45ea-a2da-dc784b5dd745')
+]
+
+{ #category : #'examples - snippets' }
+LePageStructureAsseamblerExamples >> snippetH [
+	<gtExample>
+	^ LeTextSnippet new
+		string: 'H';
+		uid: self snippetHUid 
+]
+
+{ #category : #'accessing - uid' }
+LePageStructureAsseamblerExamples >> snippetHUid [
+	^ LeUID new 
+		uid: (UUID fromString: 'af17c7a9-3874-42ab-8e46-5099b26f16a3')
+]
+
+{ #category : #'examples - snippets' }
+LePageStructureAsseamblerExamples >> snippetI [
+	<gtExample>
+	^ LeTextSnippet new
+		string: 'I';
+		uid: self snippetIUid  
+]
+
+{ #category : #'accessing - uid' }
+LePageStructureAsseamblerExamples >> snippetIUid [
+	^ LeUID new 
+		uid: (UUID fromString: '2a443a61-6b12-44d2-bcd6-26959f6ac066')
+]
+
 { #category : #'examples - pages' }
 LePageStructureAsseamblerExamples >> targetPageWithComplexStructureModified [
 	<gtExample>
@@ -162,7 +204,13 @@ LePageStructureAsseamblerExamples >> targetPageWithComplexStructureOne [
 		addSnippet: self snippetDUnknown;
 		yourself).
 	targetPage addSnippet: (self snippetBUnknown
-		addSnippet: self snippetC;
+		addSnippet: (self snippetG
+			addSnippet: (self snippetC
+				addSnippet: (self snippetH
+					addSnippet: self snippetI;
+					yourself);
+				yourself);
+			yourself);
 		addSnippet: self snippetF;
 		yourself).
 	
@@ -183,6 +231,24 @@ LePageStructureAsseamblerExamples >> targetPageWithFiveSnippetsModifiedNestedStr
 	targetPage addSnippet: (self snippetB
 		addSnippet: (self snippetC
 			string: 'C-M');
+		addSnippet: self snippetE;
+		yourself).
+	
+	^ targetPage
+]
+
+{ #category : #'examples - pages' }
+LePageStructureAsseamblerExamples >> targetPageWithFiveSnippetsNestedStructure [
+	<gtExample>
+	| targetPage |
+	targetPage := LePage named: 'Target Page'.
+	targetPage basicUid: self pageUid.
+	
+	targetPage addSnippet: (self snippetA
+		addSnippet: self snippetD;
+		yourself).
+	targetPage addSnippet: (self snippetB
+		addSnippet: self snippetC;
 		addSnippet: self snippetE;
 		yourself).
 	
@@ -221,6 +287,60 @@ LePageStructureAsseamblerExamples >> targetPageWithFourSnipetsOneNested [
 ]
 
 { #category : #'examples - pages' }
+LePageStructureAsseamblerExamples >> targetPageWithFourSnipetsOneNestedInNewParent [
+	<gtExample>
+	| targetPage |
+	targetPage := LePage named: 'Target Page'.
+	targetPage basicUid: self pageUid.
+	
+	targetPage addSnippet: self snippetA.
+	targetPage addSnippet: (self snippetE
+		addSnippet: self snippetC;
+		yourself).
+	targetPage addSnippet: self snippetD.
+	
+	^ targetPage
+]
+
+{ #category : #'examples - pages' }
+LePageStructureAsseamblerExamples >> targetPageWithTwoLevelNestigForFirstSnippet [
+	<gtExample>
+	| targetPage |
+	targetPage := LePage named: 'Target Page'.
+	targetPage basicUid: self pageUid.
+	
+	targetPage addSnippet: (self snippetA
+		addSnippet: (self snippetB
+			addSnippet: self snippetC;
+			yourself);
+		yourself).
+	targetPage addSnippet: (self snippetD
+		addSnippet: self snippetE;
+		yourself).
+	
+	^ targetPage
+]
+
+{ #category : #'examples - pages' }
+LePageStructureAsseamblerExamples >> targetPageWithTwoLevelNestigForSecondSnippet [
+	<gtExample>
+	| targetPage |
+	targetPage := LePage named: 'Target Page'.
+	targetPage basicUid: self pageUid.
+	
+	targetPage addSnippet: (self snippetA
+		addSnippet: self snippetB;
+		yourself).
+	targetPage addSnippet: (self snippetD
+		addSnippet: (self snippetE
+			addSnippet: self snippetC;
+			yourself);
+		yourself).
+	
+	^ targetPage
+]
+
+{ #category : #'examples - pages' }
 LePageStructureAsseamblerExamples >> targetPageWithTwoSnippetsAAndB [
 	<gtExample>
 	| targetPage |
@@ -229,6 +349,19 @@ LePageStructureAsseamblerExamples >> targetPageWithTwoSnippetsAAndB [
 	
 	targetPage addSnippet: self snippetA.
 	targetPage addSnippet: self snippetB.
+	
+	^ targetPage
+]
+
+{ #category : #'examples - pages' }
+LePageStructureAsseamblerExamples >> targetPageWithTwoSnippetsAAndC [
+	<gtExample>
+	| targetPage |
+	targetPage := LePage named: 'Target Page'.
+	targetPage basicUid: self pageUid.
+	
+	targetPage addSnippet: self snippetA.
+	targetPage addSnippet: self snippetC.
 	
 	^ targetPage
 ]
@@ -274,7 +407,75 @@ LePageStructureAsseamblerExamples >> targetPageWithTwoSnippetsAParentAndBChild [
 	^ targetPage
 ]
 
-{ #category : #examples }
+{ #category : #'examples - pages' }
+LePageStructureAsseamblerExamples >> targetPageWithTwoSnippetsBParentAndAChild [
+	<gtExample>
+	| targetPage |
+	targetPage := LePage named: 'Target Page'.
+	targetPage basicUid: self pageUid.
+	
+	targetPage addSnippet: (self snippetB
+		addSnippet: self snippetA;
+		yourself).
+	
+	^ targetPage
+]
+
+{ #category : #'examples - changes' }
+LePageStructureAsseamblerExamples >> updateStructureForAndBParentChildReversal [
+	<gtExample>
+	| targetPage modifiedPage asseambler |
+	
+	targetPage := self targetPageWithTwoSnippetsAParentAndBChild.
+	modifiedPage := self targetPageWithTwoSnippetsBParentAndAChild.
+	
+	asseambler := targetPage rebuildFromContent: modifiedPage. 
+	
+	self 
+		assertStructure: { 
+			#snippetA -> ('B' -> 
+				{#snippetD -> 'A'}) } 
+		forContent: targetPage.
+	
+	self assert: asseambler modifiedNodesCount equals: 0.
+	self assert: asseambler movedNodesCount equals: 2.
+	self assert: asseambler addedNodesCount equals: 0.
+	self assert: asseambler resolvedNodesCount equals: 0.
+	self assert: asseambler removedSnippetsCount equals: 0.
+	
+	^ asseambler
+]
+
+{ #category : #'examples - changes' }
+LePageStructureAsseamblerExamples >> updateStructureForChildMovedBetweenChildrensSnippets [
+	<gtExample>
+	| targetPage modifiedPage asseambler |
+	
+	targetPage := self targetPageWithTwoLevelNestigForFirstSnippet.
+	modifiedPage := self targetPageWithTwoLevelNestigForSecondSnippet.
+	
+	asseambler := targetPage rebuildFromContent: modifiedPage. 
+	
+	self 
+		assertStructure: { 
+			#snippetA -> ('A' -> {
+				#snippetB -> 'B'. 
+				}).
+			#snippetD -> ('D' -> {
+				#snippetE -> ('E' -> {
+					#snippetC -> 'C' }) }) } 
+		forContent: targetPage.
+	
+	self assert: asseambler modifiedNodesCount equals: 0.
+	self assert: asseambler movedNodesCount equals: 1.
+	self assert: asseambler addedNodesCount equals: 0.
+	self assert: asseambler resolvedNodesCount equals: 0.
+	self assert: asseambler removedSnippetsCount equals: 0.
+	
+	^ asseambler
+]
+
+{ #category : #'examples - changes' }
 LePageStructureAsseamblerExamples >> updateStructureForComplexStructureModification [
 	<gtExample>
 	| targetPage modifiedPage asseambler |
@@ -284,15 +485,41 @@ LePageStructureAsseamblerExamples >> updateStructureForComplexStructureModificat
 	
 	asseambler := targetPage rebuildFromContent: modifiedPage. 
 	
-	self assert: asseambler modifiedBlocksCount equals: 2.
-	self assert: asseambler movedBlocksCount equals: 3.
-	self assert: asseambler addedBlocksCount equals: 1.
-	self assert: asseambler resolvedBlocksCount equals: 2.
+	self assert: asseambler modifiedNodesCount equals: 2.
+	self assert: asseambler movedNodesCount equals: 3.
+	self assert: asseambler addedNodesCount equals: 1.
+	self assert: asseambler resolvedNodesCount equals: 2.
+	self assert: asseambler removedSnippetsCount equals: 3.
 	
 	^ asseambler
 ]
 
-{ #category : #examples }
+{ #category : #'examples - changes' }
+LePageStructureAsseamblerExamples >> updateStructureForMultipleSnippetsDeletion [
+	<gtExample>
+	| targetPage modifiedPage asseambler |
+	
+	targetPage := self targetPageWithFiveSnippetsNestedStructure.
+	modifiedPage := self targetPageWithTwoSnippetsAAndC.
+	
+	asseambler := targetPage rebuildFromContent: modifiedPage. 
+	
+	self 
+		assertStructure: { 
+			#snippetA -> 'A'.
+			#snippetD -> 'C' } 
+		forContent: targetPage.
+	
+	self assert: asseambler modifiedNodesCount equals: 0.
+	self assert: asseambler movedNodesCount equals: 1.
+	self assert: asseambler addedNodesCount equals: 0.
+	self assert: asseambler resolvedNodesCount equals: 0.
+	self assert: asseambler removedSnippetsCount equals: 3.
+	
+	^ asseambler
+]
+
+{ #category : #'examples - changes' }
 LePageStructureAsseamblerExamples >> updateStructureForOneChangedUnknownSnippet [
 	<gtExample>
 	| targetPage modifiedPage asseambler |
@@ -306,17 +533,18 @@ LePageStructureAsseamblerExamples >> updateStructureForOneChangedUnknownSnippet 
 	self assert: targetPage children second isUnknownSnippet.
 	self 
 		assert: targetPage children second jsonString 
-		equals: (STONJSON toString: { 'a' -> 1 } asDictionary ).
+		equals: (STONJSON toString: { 'a' -> 1 } asDictionary).
 	
-	self assert: asseambler modifiedBlocksCount equals: 1.
-	self assert: asseambler movedBlocksCount equals: 0.
-	self assert: asseambler addedBlocksCount equals: 0.
-	self assert: asseambler resolvedBlocksCount equals: 0.
+	self assert: asseambler modifiedNodesCount equals: 1.
+	self assert: asseambler movedNodesCount equals: 0.
+	self assert: asseambler addedNodesCount equals: 0.
+	self assert: asseambler resolvedNodesCount equals: 0.
+	self assert: asseambler removedSnippetsCount equals: 0.
 	
 	^ asseambler
 ]
 
-{ #category : #examples }
+{ #category : #'examples - changes' }
 LePageStructureAsseamblerExamples >> updateStructureForOneResolvedAndMovedUnknownSnippet [
 	<gtExample>
 	| targetPage modifiedPage asseambler |
@@ -329,15 +557,16 @@ LePageStructureAsseamblerExamples >> updateStructureForOneResolvedAndMovedUnknow
 	self assert: targetPage children first isTextSnippet.
 	self assert: targetPage children first children first isTextSnippet.
 	
-	self assert: asseambler modifiedBlocksCount equals: 0.
-	self assert: asseambler movedBlocksCount equals: 1.
-	self assert: asseambler addedBlocksCount equals: 0.
-	self assert: asseambler resolvedBlocksCount equals: 1.
+	self assert: asseambler modifiedNodesCount equals: 0.
+	self assert: asseambler movedNodesCount equals: 1.
+	self assert: asseambler addedNodesCount equals: 0.
+	self assert: asseambler resolvedNodesCount equals: 1.
+	self assert: asseambler removedSnippetsCount equals: 0.
 	
 	^ asseambler
 ]
 
-{ #category : #examples }
+{ #category : #'examples - changes' }
 LePageStructureAsseamblerExamples >> updateStructureForOneResolvedUnknownSnippet [
 	<gtExample>
 	| targetPage modifiedPage asseambler |
@@ -351,15 +580,16 @@ LePageStructureAsseamblerExamples >> updateStructureForOneResolvedUnknownSnippet
 	self assert: targetPage children second isTextSnippet.
 	self assert: targetPage children second string equals: 'B'.
 	
-	self assert: asseambler modifiedBlocksCount equals: 0.
-	self assert: asseambler movedBlocksCount equals: 0.
-	self assert: asseambler addedBlocksCount equals: 0.
-	self assert: asseambler resolvedBlocksCount equals: 1.
+	self assert: asseambler modifiedNodesCount equals: 0.
+	self assert: asseambler movedNodesCount equals: 0.
+	self assert: asseambler addedNodesCount equals: 0.
+	self assert: asseambler resolvedNodesCount equals: 1.
+	self assert: asseambler removedSnippetsCount equals: 0.
 	
 	^ asseambler
 ]
 
-{ #category : #examples }
+{ #category : #'examples - changes' }
 LePageStructureAsseamblerExamples >> updateStructureForOneSnippetNesting [
 	<gtExample>
 	| targetPage modifiedPage asseambler |
@@ -378,15 +608,44 @@ LePageStructureAsseamblerExamples >> updateStructureForOneSnippetNesting [
 			#snippetD -> 'D' } 
 		forContent: targetPage.
 	
-	self assert: asseambler modifiedBlocksCount equals: 0.
-	self assert: asseambler movedBlocksCount equals: 1.
-	self assert: asseambler addedBlocksCount equals: 0.
-	self assert: asseambler resolvedBlocksCount equals: 0.
+	self assert: asseambler modifiedNodesCount equals: 0.
+	self assert: asseambler movedNodesCount equals: 1.
+	self assert: asseambler addedNodesCount equals: 0.
+	self assert: asseambler resolvedNodesCount equals: 0.
+	self assert: asseambler removedSnippetsCount equals: 0.
 	
 	^ asseambler
 ]
 
-{ #category : #examples }
+{ #category : #'examples - changes' }
+LePageStructureAsseamblerExamples >> updateStructureForSnippetNestedInNewParent [
+	<gtExample>
+	| targetPage modifiedPage asseambler |
+	
+	targetPage := self targetPageWithFourFlatSnippetStructure.
+	modifiedPage := self targetPageWithFourSnipetsOneNestedInNewParent.
+	
+	asseambler := targetPage rebuildFromContent: modifiedPage. 
+	
+	self 
+		assertStructure: { 
+			#snippetA -> 'A'.
+			#snippetB -> ('E' -> {
+				#snippetC -> 'C'. 
+				}).
+			#snippetD -> 'D' } 
+		forContent: targetPage.
+	
+	self assert: asseambler modifiedNodesCount equals: 0.
+	self assert: asseambler movedNodesCount equals: 1.
+	self assert: asseambler addedNodesCount equals: 1.
+	self assert: asseambler resolvedNodesCount equals: 0.
+	self assert: asseambler removedSnippetsCount equals: 1.
+	
+	^ asseambler
+]
+
+{ #category : #'examples - changes' }
 LePageStructureAsseamblerExamples >> updateStructureForTwoSnippetNestingAndChanges [
 	<gtExample>
 	| targetPage modifiedPage asseambler |
@@ -407,10 +666,11 @@ LePageStructureAsseamblerExamples >> updateStructureForTwoSnippetNestingAndChang
 				}) } 
 		forContent: targetPage.
 	
-	self assert: asseambler modifiedBlocksCount equals: 2.
-	self assert: asseambler movedBlocksCount equals: 2.
-	self assert: asseambler addedBlocksCount equals: 1.
-	self assert: asseambler resolvedBlocksCount equals: 0.
+	self assert: asseambler modifiedNodesCount equals: 2.
+	self assert: asseambler movedNodesCount equals: 2.
+	self assert: asseambler addedNodesCount equals: 1.
+	self assert: asseambler resolvedNodesCount equals: 0.
+	self assert: asseambler removedSnippetsCount equals: 0.
 	
 	^ asseambler
 ]
