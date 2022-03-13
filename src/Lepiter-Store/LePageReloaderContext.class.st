@@ -1,3 +1,6 @@
+"
+Contains information about the target and replacements pages needed during the reload.
+"
 Class {
 	#name : #LePageReloaderContext,
 	#superclass : #Object,
