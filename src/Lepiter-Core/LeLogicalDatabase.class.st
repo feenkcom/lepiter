@@ -664,20 +664,6 @@ LeLogicalDatabase >> removeDB: aLeDatabase [
 	^ aLeDatabase 
 ]
 
-{ #category : #accessing }
-LeLogicalDatabase >> removeDBUnchecked: aLeDatabase [
-	"Remove the supplied database from the receiver."
-
-	self unsubscribeFromDatabase: aLeDatabase.
-
-	registeredDBs := registeredDBs reject: [ :each | each = aLeDatabase ].
-	aLeDatabase unload.
-
-	self notifyDatabaseRemoved: aLeDatabase.
-	
-	^ aLeDatabase 
-]
-
 { #category : #'private - properties' }
 LeLogicalDatabase >> saveProperties [
 	"Update the properties to reflect the receiver's current state and save to disk"
