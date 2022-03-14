@@ -47,7 +47,7 @@ Class {
 		'properties',
 		'playgroundDB'
 	],
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #'instance creation' }
@@ -653,6 +653,20 @@ LeLogicalDatabase >> removeDB: aLeDatabase [
 	Only registered databases can be removed."
 
 	self assert: [ registeredDBs includes: aLeDatabase ].
+
+	self unsubscribeFromDatabase: aLeDatabase.
+
+	registeredDBs := registeredDBs reject: [ :each | each = aLeDatabase ].
+	aLeDatabase unload.
+
+	self notifyDatabaseRemoved: aLeDatabase.
+	
+	^ aLeDatabase 
+]
+
+{ #category : #accessing }
+LeLogicalDatabase >> removeDBUnchecked: aLeDatabase [
+	"Remove the supplied database from the receiver."
 
 	self unsubscribeFromDatabase: aLeDatabase.
 
