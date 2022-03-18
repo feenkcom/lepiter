@@ -388,7 +388,7 @@ LePageStructureAsseamblerExamples >> targetPageWithTwoSnippetsAKnownAndBUnknownM
 	
 	targetPage addSnippet: self snippetA.
 	targetPage addSnippet: (self snippetBUnknown
-		jsonString: (STONJSON toString: { 'a' -> 1} asDictionary )).
+		jsonString: (STONJSON toString: { 'a' -> 1 } asDictionary )).
 	
 	^ targetPage
 ]
@@ -484,6 +484,17 @@ LePageStructureAsseamblerExamples >> updateStructureForComplexStructureModificat
 	modifiedPage := self targetPageWithComplexStructureModified.
 	
 	asseambler := targetPage rebuildFromContent: modifiedPage. 
+	
+	self 
+		assertStructure: { 
+			#snippetA -> ('A-M' -> {
+				#snippetC -> 'C-M'. 
+				}).
+			#snippetB -> ('B' -> {
+				#snippetE -> ('E' -> {
+					#snippetD -> 'D' }) }).
+			#snippetF -> 'F' } 
+		forContent: targetPage.
 	
 	self assert: asseambler modifiedNodesCount equals: 2.
 	self assert: asseambler movedNodesCount equals: 3.
@@ -590,7 +601,7 @@ LePageStructureAsseamblerExamples >> updateStructureForOneResolvedUnknownSnippet
 ]
 
 { #category : #'examples - changes' }
-LePageStructureAsseamblerExamples >> updateStructureForOneSnippetNesting [
+LePageStructureAsseamblerExamples >> updateStructureForSnippetNestedInExistingParent [
 	<gtExample>
 	| targetPage modifiedPage asseambler |
 	
