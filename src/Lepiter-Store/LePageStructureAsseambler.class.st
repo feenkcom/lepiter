@@ -137,6 +137,15 @@ LePageStructureAsseambler >> movedNodesCount [
 	^ snippetStructure movedNodesCount
 ]
 
+{ #category : #accessing }
+LePageStructureAsseambler >> operationsCount [
+	^ self modifiedNodesCount 
+		+ self movedNodesCount
+		+ self addedNodesCount 
+		+ self resolvedNodesCount
+		+ self removedSnippetsCount
+]
+
 { #category : #'gt - extensions' }
 LePageStructureAsseambler >> paintStructureOn: aMondrian [
 	snippetStructure paintStructureOn: aMondrian.
@@ -162,6 +171,20 @@ LePageStructureAsseambler >> paintStructureOn: aMondrian [
 { #category : #query }
 LePageStructureAsseambler >> previousParentIdForSnippetWithId: anUid [
 	^ self reloaderContext previousParentIdForSnippetWithId: anUid
+]
+
+{ #category : #printing }
+LePageStructureAsseambler >> printOn: aStream [
+	super printOn: aStream.
+	aStream 
+		<< '(';
+		<< self operationsCount asString;
+		<< ' operations'.
+	self targetPage ifNotNil: [ 
+		aStream 
+			<< ', ';
+			<< self targetPage title ].
+	aStream << ')'
 ]
 
 { #category : #actions }

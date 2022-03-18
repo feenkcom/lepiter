@@ -35,7 +35,7 @@ LeDatabaseReloadExistingPageChangesExamples >> changedChildrenSnippetsOrderInSto
 	   A1
 	   A2"
 	<gtExample>
-	| database secondDatabase targetPage  firstSnippet |
+	| database secondDatabase targetPage firstSnippet |
 	database := self createDatabaseWithChildrenSnippetStructure.
 	
 	secondDatabase := self createDatabaseFromFolder: database localStoreRootDirectory.

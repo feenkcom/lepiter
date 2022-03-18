@@ -56,10 +56,6 @@ LeDatabaseReloadWithCreatePagesExamples >> databaseWithMockedStorage [
 ]
 
 { #category : #examples }
-LeDatabaseReloadWithCreatePagesExamples >> databaseWithOnePage [
-]
-
-{ #category : #examples }
 LeDatabaseReloadWithCreatePagesExamples >> reloadPageOneAndThenPageTwo [
 	<gtExample>
 	| database |

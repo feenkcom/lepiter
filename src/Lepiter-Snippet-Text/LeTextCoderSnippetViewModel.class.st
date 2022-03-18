@@ -22,8 +22,8 @@ LeTextCoderSnippetViewModel >> initialize [
 	
 	textCoder := GtTextCoder new.
 	textCoder parser: LeParser.
-	textCoder completionStrategy: LeCompletionStrategy new.
 	textCoderViewModel := textCoder asCoderViewModel.
+	textCoderViewModel completionStrategy: LeCompletionStrategy new.
 	textCoderViewModel addStyler: (LeTextCoderStyler new lepiterStyler: (LeSnippetStyler new snippetViewModel: self)).
 
 	self initializeCoderAddOns: textCoderViewModel
@@ -88,7 +88,7 @@ LeTextCoderSnippetViewModel >> onSnippetModelChanged [
 
 	textCoder
 		sourceCodeSynchronously: (GtCoderExplicitSourceText new text: self snippetModel text copyWithoutExternalReferences).
-	textCoder completionStrategy database: self snippetModel database.
+	self coderViewModel completionStrategy database: self snippetModel database.
 ]
 
 { #category : #'private - event handling' }
