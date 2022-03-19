@@ -18,7 +18,7 @@ LeDatabase >> asPhlowTool [
 LeDatabase >> asToolElement [
 	^ LeDatabaseToolElement new
 		margin: (BlInsets all: 10);
-		database: self;
+		databaseViewModel: self asContentUIModel;
 		matchParent
 ]
 

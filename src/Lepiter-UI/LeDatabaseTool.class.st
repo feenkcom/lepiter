@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'database'
 	],
-	#category : 'Lepiter-UI-Phlow Tools'
+	#category : #'Lepiter-UI-Phlow Tools'
 }
 
 { #category : #'api - instance creation' }
@@ -16,8 +16,6 @@ LeDatabaseTool class >> database: aDatabase [
 LeDatabaseTool >> asElementDo: aOneArgBlock [
 	| anElement |
 	anElement := self database asToolElement.
-	anElement childrenSelectionTransformation: [ :aNode |
-		aNode value asLepiterPagePhlowTool ].
 	^ aOneArgBlock cull: anElement
 ]
 
