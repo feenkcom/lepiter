@@ -171,103 +171,111 @@ GtEpicea >> gtDiffFor: aView [
 
 { #category : #'gt-extension' }
 GtEpicea >> gtDiffsFor: aView [
+
 	<gtView>
 	<gtViewChanges>
+	self hasChanges ifFalse: [ ^ aView empty ].
+
 	^ aView explicit
-		title: 'Diff';
-		priority: 1;
-		updateWhen: GtEpiceaUpdatedAnnouncement in: self;
-		actionUpdateButton;
-		actionButtonIcon: BrGlamorousVectorIcons accept tooltip: 'Apply changes' action: [ self applyChanges ];
-		stencil: [ | element headerElement label diffElement |
-			element := BrVerticalPane new.
-			element matchParent.
-			headerElement := BrHorizontalPane new
-				padding: (BlInsets all: 0);
-				hMatchParent;
-				vFitContent.
-			label := BrLabel new aptitude: BrGlamorousLabelAptitude.
-			label
-				text:
-					('Current:' asRopedText glamorousCodeSmallSize
-						foreground: BrGlamorousColors defaultButtonTextColor).
-			label margin: (BlInsets left: 15).
-			label hMatchParent.
-			headerElement addChild: label.
-			headerElement
-				addChild:
-					(BlElement new
-						height: 0;
-						width: 15;
-						yourself).
-			label := BrLabel new aptitude: BrGlamorousLabelAptitude.
-			label
-				text:
-					('Change:' asRopedText glamorousCodeSmallSize
-						foreground: BrGlamorousColors defaultButtonTextColor).
-			label hMatchParent.
-			headerElement addChild: label.
-			element addChild: headerElement.
-			diffElement := BrVerticalPane new.
-			diffElement hMatchParent.
-			diffElement vFitContent.
-			diffElement addChildren: self diffElements.
-			element addChild: diffElement asScrollableElement.
-			element ]
+		  title: 'Diff';
+		  priority: 1;
+		  updateWhen: GtEpiceaUpdatedAnnouncement in: self;
+		  actionUpdateButton;
+		  actionButtonIcon: BrGlamorousVectorIcons accept
+		  tooltip: 'Apply changes'
+		  action: [ self applyChanges ];
+		  stencil: [ 
+			  | element headerElement label diffElement |
+			  element := BrVerticalPane new.
+			  element matchParent.
+			  headerElement := BrHorizontalPane new
+				                   padding: (BlInsets all: 0);
+				                   hMatchParent;
+				                   vFitContent.
+			  label := BrLabel new aptitude: BrGlamorousLabelAptitude.
+			  label text:
+				  ('Current:' asRopedText glamorousCodeSmallSize foreground:
+					   BrGlamorousColors defaultButtonTextColor).
+			  label margin: (BlInsets left: 15).
+			  label hMatchParent.
+			  headerElement addChild: label.
+			  headerElement addChild: (BlElement new
+					   height: 0;
+					   width: 15;
+					   yourself).
+			  label := BrLabel new aptitude: BrGlamorousLabelAptitude.
+			  label text:
+				  ('Change:' asRopedText glamorousCodeSmallSize foreground:
+					   BrGlamorousColors defaultButtonTextColor).
+			  label hMatchParent.
+			  headerElement addChild: label.
+			  element addChild: headerElement.
+			  diffElement := BrVerticalPane new.
+			  diffElement hMatchParent.
+			  diffElement vFitContent.
+			  diffElement addChildren: self diffElements.
+			  element addChild: diffElement asScrollableElement.
+			  element ]
 ]
 
 { #category : #'gt-extension' }
 GtEpicea >> gtEventsFor: aView [
+
 	<gtView>
+	self hasChanges ifFalse: [ ^ aView empty ].
+
 	^ aView explicit
-		title: 'Change List';
-		priority: 3;
-		stencil: [ | aList |
-			aList := BrColumnedList new items: self events.
-			aList addEventHandler: GtPhlowListToSelectHandler new.
-			aList constraintsDo: [ :c | c padding: (BlInsets top: 10) ].
-			self announcer
-				when: GtEpiceaUpdatedAnnouncement
-				do: [ :anAnnouncement | aList items: self events ].
-			aList column
-				title: 'Icon';
-				width: 16;
-				stencil:
-						[ :anEpEvent :anIndex | (anEpEvent accept: EpIconVisitor new) asElement ].
-			aList column
-				title: 'Description';
-				stencil: [ :anEpEvent :anIndex | 
-					| aRemoveButton aContainer |
-					aRemoveButton := BrButton new.
-					aRemoveButton
-						layout: BlLinearLayout new;
-						aptitude: BrGlamorousButtonWithIconAptitude;
-						icon:
-							(BlElement new
-								layout: BlLinearLayout new;
-								background: Color lightGray;
-								size: 10 @ 3);
-						action: [ self removeEvent: anEpEvent.
-							aRemoveButton
-								enqueueTask:
-									(BlTaskAction new
-										action: [ aRemoveButton visibility: BlVisibility hidden ]) ];
-						visibility: BlVisibility hidden.
-					aContainer := BlElement new
-						layout: BlLinearLayout horizontal;
-						addChildren: (anEpEvent accept: GtEpiceaBrickVisitor new);
-						addChild: aRemoveButton;
-						constraintsDo: [ :c | 
-							c horizontal fitContent.
-							c vertical fitContent ].
-					aContainer
-						when: BlMouseEnterEvent
-						do: [ :anEvent | aRemoveButton visibility: BlVisibility visible ].
-					aContainer
-						when: BlMouseLeaveEvent
-						do: [ :anEvent | aRemoveButton visibility: BlVisibility hidden ].
-					aContainer ].
-			aList ]
+		  title: 'Change List';
+		  priority: 3;
+		  stencil: [ 
+			  | aList |
+			  aList := BrColumnedList new itemsProvider:
+					           (BrListStreamItemsProvider forCollection: self events).
+			  aList addEventHandler: GtPhlowListToSelectHandler new.
+			  aList constraintsDo: [ :c | c padding: (BlInsets top: 10) ].
+			  self announcer
+				  when: GtEpiceaUpdatedAnnouncement
+				  do: [ :anAnnouncement | aList items: self events ].
+			  aList column
+				  title: 'Icon';
+				  width: 16;
+				  stencil: [ :anEpEvent :anIndex | 
+					  (anEpEvent accept: EpIconVisitor new) asElement ].
+			  aList column
+				  title: 'Description';
+				  stencil: [ :anEpEvent :anIndex | 
+					  | aRemoveButton aContainer |
+					  aRemoveButton := BrButton new.
+					  aRemoveButton
+						  layout: BlLinearLayout new;
+						  aptitude: BrGlamorousButtonWithIconAptitude;
+						  icon: (BlElement new
+								   layout: BlLinearLayout new;
+								   background: Color lightGray;
+								   size: 10 @ 3);
+						  action: [ 
+							  self removeEvent: anEpEvent.
+							  aRemoveButton enqueueTask: (BlTaskAction new action: [ 
+									   aRemoveButton visibility: BlVisibility hidden ]) ];
+						  visibility: BlVisibility hidden.
+					  aContainer := BlElement new
+						                layout: BlLinearLayout horizontal;
+						                addChildren:
+							                (anEpEvent accept: GtEpiceaBrickVisitor new);
+						                addChild: aRemoveButton;
+						                constraintsDo: [ :c | 
+							                c horizontal fitContent.
+							                c vertical fitContent ].
+					  aContainer
+						  when: BlMouseEnterEvent
+						  do: [ :anEvent | 
+						  aRemoveButton visibility: BlVisibility visible ].
+					  aContainer
+						  when: BlMouseLeaveEvent
+						  do: [ :anEvent | 
+						  aRemoveButton visibility: BlVisibility hidden ].
+					  aContainer ].
+			  aList ]
 ]
 
 { #category : #'gt-extension' }
@@ -332,16 +340,24 @@ GtEpicea >> gtPreviewFor: aView [
 
 { #category : #'gt-extension' }
 GtEpicea >> gtTutorialFor: aView [
+
 	<gtView>
 	<gtViewChanges>
+	| code |
+	code := self tutorialStateRope.
+
+	code ifEmpty: [ ^ aView empty ].
+
 	^ aView textEditor
-		title: 'Code';
-		priority: 0;
-		aptitude: BrGlamorousCodeEditorAptitude;
-		updateWhen: GtEpiceaUpdatedAnnouncement in: self;
-		actionUpdateButton;
-		actionButtonIcon: BrGlamorousVectorIcons accept tooltip: 'Apply changes' action: [ self applyChanges ];
-		text: [ :anEditor | self tutorialStateRope ]
+		  title: 'Code';
+		  priority: 0;
+		  aptitude: BrGlamorousCodeEditorAptitude;
+		  updateWhen: GtEpiceaUpdatedAnnouncement in: self;
+		  actionUpdateButton;
+		  actionButtonIcon: BrGlamorousVectorIcons accept
+		  tooltip: 'Apply changes'
+		  action: [ self applyChanges ];
+		  text: [ :anEditor | code ]
 ]
 
 { #category : #'announcement handling' }
