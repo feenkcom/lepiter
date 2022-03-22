@@ -82,7 +82,7 @@ LeDatabaseReloadExistingPageChangesExamples >> changedDatabaseWithFourNestedSnip
 	
 	We change this to:
 	  D
-     B"
+       B"
 	<gtExample>
 	| database secondDatabase targetPage |
 	database := self createDatabaseWithFourNestedSnippetStructure.
@@ -480,7 +480,6 @@ LeDatabaseReloadExistingPageChangesExamples >> reloadChangedChildrenSnippetsOrde
 { #category : #'examples - nested snippets' }
 LeDatabaseReloadExistingPageChangesExamples >> reloadChangedDatabaseWithFourNestedSnippetToTwoInStorage [
 	<gtExample>
-	<noTest>
 	
 	| database targetPage |
 	database := self changedDatabaseWithFourNestedSnippetToTwoInStorage.
@@ -493,6 +492,27 @@ LeDatabaseReloadExistingPageChangesExamples >> reloadChangedDatabaseWithFourNest
 	self assert: targetPage children size equals: 1.
 	self assert: targetPage children first string equals: 'D'.
 	self assert: targetPage children first children first string equals: 'B'.
+	
+	^ database
+]
+
+{ #category : #'examples - nested snippets' }
+LeDatabaseReloadExistingPageChangesExamples >> reloadChangedDatabaseWithFourNestedSnippetToTwoInStorage_hasSameIdentity [
+	<gtExample>
+	
+	| database targetPage snippetA snippetB snippetC snippetD |
+	database := self changedDatabaseWithFourNestedSnippetToTwoInStorage.
+	
+	targetPage := database pageNamed: 'Target Page'.
+	snippetA := targetPage children first.
+	snippetB := snippetA children first.
+	snippetC := snippetB children first.
+	snippetD := snippetC children first.
+	
+	database reload.
+
+	self assert: targetPage children first == snippetD.
+	self assert: targetPage children first children first == snippetB.
 	
 	^ database
 ]
@@ -613,7 +633,6 @@ LeDatabaseReloadExistingPageChangesExamples >> reloadDatabaseWithSnippetContentC
 { #category : #'examples - flat snippet structure change' }
 LeDatabaseReloadExistingPageChangesExamples >> reloadModifiedFlatSnippetStructureFromStorage [
 	<gtExample>
-	<noTest>
 	| database targetPage |
 	database := self changedFlatSnippetStructureInStorage.
 	
