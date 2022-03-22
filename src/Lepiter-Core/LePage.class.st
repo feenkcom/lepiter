@@ -517,6 +517,7 @@ LePage >> reloadAttributesFromContent: aLeContent [
 LePage >> reloadFromPage: aLePage [
 	"Update the receiver to match the supplied page"
 	| changed |
+	self deprecated: 'Use #newReloadFromPage:'.
 	
 	changed := self reloadFromContent: aLePage.
 	latestEditTime := nil.

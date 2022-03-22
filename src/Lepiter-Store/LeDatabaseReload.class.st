@@ -269,6 +269,6 @@ LeDatabaseReload >> updateReloadedPages [
 
 	reloadedPages do: [ :page |
 		self database pageWithID: page uid
-			ifPresent: [ :existingPage | existingPage reloadFromPage: page ]
+			ifPresent: [ :existingPage | existingPage newReloadFromPage: page ]
 			ifAbsent: [ self error: 'Unable to find existing page' ] ].
 ]
