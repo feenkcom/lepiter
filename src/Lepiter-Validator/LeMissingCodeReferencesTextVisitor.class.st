@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeMissingCodeReferencesTextVisitor',
-	#superclass : 'Object',
+	#name : #LeMissingCodeReferencesTextVisitor,
+	#superclass : #Object,
 	#traits : 'TSmaCCCompositeVisitor + (TLeContentNodeVisitor - {#acceptNode:})',
 	#classTraits : 'TSmaCCCompositeVisitor classTrait + TLeContentNodeVisitor classTrait',
 	#instVars : [
@@ -9,12 +9,12 @@ Class {
 	#category : 'Lepiter-Validator-Visitors'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeMissingCodeReferencesTextVisitor >> missingReferences [
 	^ missingReferences
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeMissingCodeReferencesTextVisitor >> missingReferences: aMissingReferencesResult [
 	missingReferences := aMissingReferencesResult
 ]

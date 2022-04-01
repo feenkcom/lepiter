@@ -1,10 +1,10 @@
 Class {
-	#name : 'LeMissingCodeReferencesExamples',
-	#superclass : 'Object',
+	#name : #LeMissingCodeReferencesExamples,
+	#superclass : #Object,
 	#category : 'Lepiter-Validator-Examples'
 }
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeMissingCodeReferencesExamples >> emptyMissingReferences [
 	<gtExample>
 	| targetPage visitor missingReferences |
@@ -21,7 +21,7 @@ LeMissingCodeReferencesExamples >> emptyMissingReferences [
 	^ missingReferences
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeMissingCodeReferencesExamples >> missingReferencesResultWithMissingClass [
 	<gtExample>
 	| targetPage visitor missingReferences |
@@ -38,7 +38,7 @@ LeMissingCodeReferencesExamples >> missingReferencesResultWithMissingClass [
 	^ missingReferences
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeMissingCodeReferencesExamples >> missingReferencesResultWithMissingMethod [
 	<gtExample>
 	| targetPage visitor missingReferences |
@@ -55,7 +55,7 @@ LeMissingCodeReferencesExamples >> missingReferencesResultWithMissingMethod [
 	^ missingReferences
 ]
 
-{ #category : 'examples' }
+{ #category : #examples }
 LeMissingCodeReferencesExamples >> missingReferencesResultWithMultipleReferenceTypes [
 	<gtExample>
 	| targetPage visitor missingReferences |
@@ -72,7 +72,7 @@ LeMissingCodeReferencesExamples >> missingReferencesResultWithMultipleReferenceT
 	^ missingReferences
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeMissingCodeReferencesExamples >> pageWithMissingClassReference [
 	| page |
 	page := LePage named: 'Test'.
@@ -89,7 +89,7 @@ LeMissingCodeReferencesExamples >> pageWithMissingClassReference [
 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeMissingCodeReferencesExamples >> pageWithMissingMethodReference [
 	| page |
 	page := LePage named: 'Test'.
@@ -106,7 +106,7 @@ LeMissingCodeReferencesExamples >> pageWithMissingMethodReference [
 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeMissingCodeReferencesExamples >> pageWithNoMissingReferences [
 	| page |
 	page := LePage named: 'Test'.
@@ -123,7 +123,7 @@ LeMissingCodeReferencesExamples >> pageWithNoMissingReferences [
 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LeMissingCodeReferencesExamples >> pagesWithMultipleMissingReferences [
 	| page |
 	page := LePage named: 'Test'.
