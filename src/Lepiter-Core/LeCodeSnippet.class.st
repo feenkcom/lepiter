@@ -31,6 +31,13 @@ LeCodeSnippet class >> empty [
 	^ self new
 ]
 
+{ #category : #comparing }
+LeCodeSnippet >> = anObject [
+	self == anObject ifTrue: [ ^ true ].
+	self class = anObject class ifFalse: [ ^ false ].
+	^ self code = anObject code
+]
+
 { #category : #'api - editing' }
 LeCodeSnippet >> appendText: aText source: anObject [
 
@@ -71,6 +78,11 @@ LeCodeSnippet >> coder [
 { #category : #'api - accessing' }
 LeCodeSnippet >> contentAsString [
 	^ self code
+]
+
+{ #category : #comparing }
+LeCodeSnippet >> hash [
+	^ self code hash
 ]
 
 { #category : #initialization }
@@ -124,6 +136,17 @@ LeCodeSnippet >> printOn: aStream [
 		nextPutAll: (self code 
 			ifNil: [''] ifNotNil: [self code takeFirst: 20]);
 		nextPutAll: ')'
+]
+
+{ #category : #printing }
+LeCodeSnippet >> storeOn: aStream [
+
+	aStream
+		nextPut: $(;
+		nextPutAll: self className;
+		nextPutAll: ' code: ''';
+		nextPutAll: self code;
+		nextPutAll: ''')'
 ]
 
 { #category : #'api - accessing' }

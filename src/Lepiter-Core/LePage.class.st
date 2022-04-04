@@ -77,6 +77,15 @@ LePage class >> unnamedPageWithDefaultTitle: aString [
 	^ newPage
 ]
 
+{ #category : #comparing }
+LePage >> = anObject [
+	self == anObject ifTrue: [ ^ true ].
+	self class = anObject class ifFalse: [ ^ false ].
+	self type = anObject type ifFalse: [ ^ false ].
+	"NB: If LeCollection would implement #=, then we would not have to navigate to its children collection."
+	^ self  children children = anObject children children
+]
+
 { #category : #visiting }
 LePage >> acceptVisitor: aVisitor [
 
@@ -298,6 +307,11 @@ LePage >> hasUncompletedGtTodo [
 		   (child isKindOf: LeTextSnippet) and: [ 
 			   child ast // #LeTodoAnnotationNode anySatisfy: [ :todo | 
 				   todo isCompleted not ] ] ]) notEmpty
+]
+
+{ #category : #comparing }
+LePage >> hash [
+	^ self type hash bitAnd: self children children hash
 ]
 
 { #category : #'api - testing' }
@@ -559,6 +573,22 @@ LePage >> renameTo: aString [
 { #category : #accessing }
 LePage >> shouldAppearInIndexOrDailyNotes [
 	^ self type shouldAppearInIndexOrDailyNotes
+]
+
+{ #category : #printing }
+LePage >> storeOn: aStream [
+
+	aStream
+		nextPut: $(;
+		nextPutAll: self className;
+		nextPutAll: ' unnamedPage '.
+	self childrenDo: [ :snippet | 
+		aStream nextPutAll: 'addSnippet: '.
+		snippet storeOn: aStream.
+		aStream nextPutAll: '; ' ].
+	aStream
+		nextPutAll: ' yourself';
+		nextPut: $)
 ]
 
 { #category : #'api - accessing' }
