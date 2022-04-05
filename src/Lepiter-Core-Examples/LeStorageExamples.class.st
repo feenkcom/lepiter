@@ -10,6 +10,7 @@ Class {
 { #category : #accessing }
 LeStorageExamples >> assertGtBookPagesEqualEvaluatedStoreStrings [
 	<gtExample>
+	<noTest>
 	| gtBook |
 	gtBook := self gtBook.
 	gtBook pagesDo: [ :page | 
@@ -80,6 +81,7 @@ LeStorageExamples >> emptyTextSnippet [
 { #category : #accessing }
 LeStorageExamples >> gtBook [
 	<gtExample>
+	<noTest>
 	^ LeDatabasesRegistry uniqueInstance defaultLogicalDatabase databases 
 		  detect: [ :db | db databaseName = 'Glamorous Toolkit Book' ]
 ]

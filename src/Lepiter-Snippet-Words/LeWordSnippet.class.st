@@ -233,7 +233,6 @@ LeWordSnippet >> readCachedExplanationBy: aSource [
 
 { #category : #accessing }
 LeWordSnippet >> storeOn: aStream [
-
 	aStream
 		nextPut: $(;
 		nextPutAll: self className;
