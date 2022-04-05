@@ -704,6 +704,47 @@ LeExampleSnippet >> snippetSourceFrom: anAST [
 	^ ast formattedCode
 ]
 
+{ #category : #printing }
+LeExampleSnippet >> storeOn: aStream [
+
+	"code adapted from #asAnnotationString method"
+
+	aStream
+		nextPut: $(;
+		nextPutAll: self className;
+		nextPutAll: ' new  exampleBehaviorName: ';
+		nextPutAll: self exampleBehaviorName storeString;
+		nextPutAll: '; exampleSelector: ';
+		nextPutAll: self exampleSelector storeString.
+
+	self noCode = self defaultNoCode ifFalse: [ 
+		aStream
+			nextPutAll: '; noCode: ';
+			nextPutAll: self noCode storeString ].
+
+	self codeExpanded = self defaultCodeExpanded ifFalse: [ 
+		aStream
+			nextPutAll: '; codeExpanded: ';
+			nextPutAll: self codeExpanded storeString ].
+
+	self previewExpanded = self defaultPreviewExpanded ifFalse: [ 
+		aStream
+			nextPutAll: '; previewExpanded: ';
+			nextPutAll: self previewExpanded storeString ].
+
+	self previewShowSelector = self defaultPreviewShowSelector ifFalse: [ 
+		aStream
+			nextPutAll: '; previewShowSelector: ';
+			nextPutAll: self previewShowSelector storeString ].
+
+	self previewHeight = self defaultPreviewHeight ifFalse: [ 
+		aStream
+			nextPutAll: '; previewHeight: ';
+			nextPutAll: self previewHeight storeString ].
+
+	aStream nextPutAll: ')'
+]
+
 { #category : #'api - code expanded' }
 LeExampleSnippet >> unsetCodeExpanded [
 	<propertyUnsetter: #codeExpanded>

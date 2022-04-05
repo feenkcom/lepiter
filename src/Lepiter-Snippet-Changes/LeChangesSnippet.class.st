@@ -194,7 +194,6 @@ LeChangesSnippet >> previewHeight: aNewPreviewHeight [
 
 { #category : #printing }
 LeChangesSnippet >> storeOn: aStream [
-
 	aStream
 		nextPut: $(;
 		nextPutAll: self className;

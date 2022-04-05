@@ -186,6 +186,16 @@ LeUnknownSnippet >> reloadFromContent: aLeSnippet [
 	^ super reloadFromContent: aLeSnippet
 ]
 
+{ #category : #printing }
+LeUnknownSnippet >> storeOn: aStream [
+	aStream
+		nextPut: $(;
+		nextPutAll: self className;
+		nextPutAll: ' jsonString: ';
+		nextPutAll: self jsonString storeString;
+		nextPutAll: ')'
+]
+
 { #category : #'api - accessing' }
 LeUnknownSnippet >> text [ 
 	<return: #BlText>

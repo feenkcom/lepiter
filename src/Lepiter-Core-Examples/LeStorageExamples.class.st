@@ -8,6 +8,16 @@ Class {
 }
 
 { #category : #accessing }
+LeStorageExamples >> assertGtBookPagesEqualEvaluatedStoreStrings [
+	<gtExample>
+	| gtBook |
+	gtBook := self gtBook.
+	gtBook pagesDo: [ :page | 
+		LeStorageExamples new assertPageEqualsEvaluatedStoreString: page ].
+	^ gtBook
+]
+
+{ #category : #accessing }
 LeStorageExamples >> assertPageEqualsEvaluatedStoreString: aPage [
 
 	"Workaround to avoid breaking = for pages."
@@ -50,6 +60,13 @@ LeStorageExamples >> emptyTextSnippet [
 	snippet := LeTextSnippet string: ''.
 	self assertSnippetEqualsEvaluatedStoreString: snippet.
 	^ snippet
+]
+
+{ #category : #accessing }
+LeStorageExamples >> gtBook [
+	<gtExample>
+	^ LeDatabasesRegistry uniqueInstance defaultLogicalDatabase databases 
+		  detect: [ :db | db databaseName = 'Glamorous Toolkit Book' ]
 ]
 
 { #category : #accessing }
