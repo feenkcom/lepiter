@@ -234,16 +234,14 @@ LeWordSnippet >> readCachedExplanationBy: aSource [
 { #category : #accessing }
 LeWordSnippet >> storeOn: aStream [
 
-	"TODO:
-	Need to store the explanation.
-	"
-
 	aStream
 		nextPut: $(;
 		nextPutAll: self className;
-		nextPutAll: ' new word: ';
-		nextPutAll: self word storeString;
-		nextPutAll: ')'
+		nextPutAll: ' new word: '.
+	self word storeOn: aStream.
+	aStream nextPutAll: '; explanation: '.
+	self explanation storeOn: aStream.
+	aStream nextPutAll: ')'
 ]
 
 { #category : #'private - updating' }

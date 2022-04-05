@@ -104,12 +104,13 @@ LePictureSnippet >> pictureFileBytes [
 
 { #category : #printing }
 LePictureSnippet >> storeOn: aStream [
+
 	aStream
 		nextPut: $(;
 		nextPutAll: self className;
-		nextPutAll: ' new urlString: ';
-		nextPutAll: self urlString storeString;
-		nextPutAll: ')'
+		nextPutAll: ' new urlString: '.
+	self urlString storeOn: aStream.
+	aStream nextPutAll: ')'
 ]
 
 { #category : #accessing }

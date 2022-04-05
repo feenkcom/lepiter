@@ -188,12 +188,13 @@ LeUnknownSnippet >> reloadFromContent: aLeSnippet [
 
 { #category : #printing }
 LeUnknownSnippet >> storeOn: aStream [
+
 	aStream
 		nextPut: $(;
 		nextPutAll: self className;
-		nextPutAll: ' jsonString: ';
-		nextPutAll: self jsonString storeString;
-		nextPutAll: ')'
+		nextPutAll: ' jsonString: '.
+	self jsonString storeOn: aStream.
+	aStream nextPut: $)
 ]
 
 { #category : #'api - accessing' }

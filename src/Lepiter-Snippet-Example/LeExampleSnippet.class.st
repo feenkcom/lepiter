@@ -712,35 +712,31 @@ LeExampleSnippet >> storeOn: aStream [
 	aStream
 		nextPut: $(;
 		nextPutAll: self className;
-		nextPutAll: ' new  exampleBehaviorName: ';
-		nextPutAll: self exampleBehaviorName storeString;
-		nextPutAll: '; exampleSelector: ';
-		nextPutAll: self exampleSelector storeString.
+		nextPutAll: ' new  exampleBehaviorName: '.
+	self exampleBehaviorName storeOn: aStream.
+	aStream nextPutAll: '; exampleSelector: '.
+	self exampleSelector storeOn: aStream.
+
 
 	self noCode = self defaultNoCode ifFalse: [ 
-		aStream
-			nextPutAll: '; noCode: ';
-			nextPutAll: self noCode storeString ].
+		aStream nextPutAll: '; noCode: '.
+		self noCode storeOn: aStream ].
 
 	self codeExpanded = self defaultCodeExpanded ifFalse: [ 
-		aStream
-			nextPutAll: '; codeExpanded: ';
-			nextPutAll: self codeExpanded storeString ].
+		aStream nextPutAll: '; codeExpanded: '.
+		self codeExpanded storeOn: aStream ].
 
 	self previewExpanded = self defaultPreviewExpanded ifFalse: [ 
-		aStream
-			nextPutAll: '; previewExpanded: ';
-			nextPutAll: self previewExpanded storeString ].
+		aStream nextPutAll: '; previewExpanded: '.
+		self previewExpanded storeOn: aStream ].
 
 	self previewShowSelector = self defaultPreviewShowSelector ifFalse: [ 
-		aStream
-			nextPutAll: '; previewShowSelector: ';
-			nextPutAll: self previewShowSelector storeString ].
+		aStream nextPutAll: '; previewShowSelector: '.
+		self previewShowSelector storeOn: aStream ].
 
 	self previewHeight = self defaultPreviewHeight ifFalse: [ 
-		aStream
-			nextPutAll: '; previewHeight: ';
-			nextPutAll: self previewHeight storeString ].
+		aStream nextPutAll: '; previewHeight: '.
+		self previewHeight storeOn: aStream ].
 
 	aStream nextPutAll: ')'
 ]

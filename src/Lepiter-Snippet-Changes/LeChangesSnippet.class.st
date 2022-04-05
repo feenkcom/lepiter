@@ -194,12 +194,13 @@ LeChangesSnippet >> previewHeight: aNewPreviewHeight [
 
 { #category : #printing }
 LeChangesSnippet >> storeOn: aStream [
+
 	aStream
 		nextPut: $(;
 		nextPutAll: self className;
-		nextPutAll: ' new fileName: ';
-		nextPutAll: self fileName storeString;
-		nextPutAll: ')'
+		nextPutAll: ' new fileName:'.
+	self fileName storeOn: aStream.
+	aStream nextPut: $)
 ]
 
 { #category : #'api - file name' }

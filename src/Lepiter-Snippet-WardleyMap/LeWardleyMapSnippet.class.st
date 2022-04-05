@@ -171,12 +171,13 @@ LeWardleyMapSnippet >> reloadAttributesFromContent: aSnippet [
 
 { #category : #printing }
 LeWardleyMapSnippet >> storeOn: aStream [
+
 	aStream
 		nextPut: $(;
 		nextPutAll: self className;
-		nextPutAll: ' new wardleyMap: ';
-		nextPutAll: self wardleyMap storeString;
-		nextPutAll: ')'
+		nextPutAll: ' new wardleyMap: '.
+	self wardleyMap storeOn: aStream.
+	aStream nextPutAll: ')'
 ]
 
 { #category : #accessing }
