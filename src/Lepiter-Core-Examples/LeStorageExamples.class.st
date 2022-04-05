@@ -8,61 +8,32 @@ Class {
 }
 
 { #category : #accessing }
+LeStorageExamples >> assertEqualsEvaluatedStoreString: anObject [
+
+	"convenience method"
+
+	self
+		assert: (Smalltalk compiler evaluate: anObject storeString)
+		equals: anObject
+]
+
+{ #category : #accessing }
 LeStorageExamples >> emptyPharoSnippet [
 	<gtExample>
 	|snippet|
 	snippet := LePharoSnippet code: ''.
+	self assertEqualsEvaluatedStoreString: snippet.
 	^ snippet
 ]
 
 { #category : #accessing }
 LeStorageExamples >> emptyTextSnippet [
+
 	<gtExample>
-	|snippet|
+	| snippet |
 	snippet := LeTextSnippet string: ''.
+	self assertEqualsEvaluatedStoreString: snippet.
 	^ snippet
-]
-
-{ #category : #accessing }
-LeStorageExamples >> equalEmptyTextSnippets [
-	"NB: text snippet equality uses equality of the strings, not the roped texts, because BlText doesn't (yet) implement equality."
-	<gtExample>
-	| snippet1 snippet2 |
-	snippet1 := self emptyTextSnippet.
-	snippet2 := self emptyTextSnippet.
-	self assert: snippet1 equals: snippet2.
-	^ snippet1
-]
-
-{ #category : #accessing }
-LeStorageExamples >> equalPages [
-	<gtExample>
-	|page1 page2|
-	page1 := self unnamedPageWithTextAndPharoSnippets.
-	page2 := self unnamedPageWithTextAndPharoSnippets.
-	self assert: page1 equals: page2.
-	^ page1
-]
-
-{ #category : #accessing }
-LeStorageExamples >> equalPharoSnippets [
-	<gtExample>
-	|snippet1 snippet2|
-	snippet1 := self pharoSnippet.
-	snippet2 := self pharoSnippet.
-	self assert: snippet1 equals: snippet2.
-	^ snippet1
-]
-
-{ #category : #accessing }
-LeStorageExamples >> equalTextSnippets [
-	"NB: text snippet equality uses equality of the strings, not the roped texts, because BlText doesn't (yet) implement equality."
-	<gtExample>
-	| snippet1 snippet2 |
-	snippet1 := self textSnippet.
-	snippet2 := self textSnippet.
-	self assert: snippet1 equals: snippet2.
-	^ snippet1
 ]
 
 { #category : #accessing }
@@ -70,47 +41,17 @@ LeStorageExamples >> pharoSnippet [
 	<gtExample>
 	|snippet|
 	snippet := LePharoSnippet code: '3+4'.
+	self assertEqualsEvaluatedStoreString: snippet.
 	^ snippet
 ]
 
 { #category : #accessing }
-LeStorageExamples >> storageEqualitEmptyTextSnippets [
+LeStorageExamples >> pharoSnippetWithQuotes [
 	<gtExample>
-	| snippet1 snippet2 |
-	snippet1 := self textSnippet.
-	snippet2 := Smalltalk compiler evaluate: snippet1 storeString.
-	self assert: snippet1 equals: snippet2.
-	^ snippet1
-]
-
-{ #category : #accessing }
-LeStorageExamples >> storageEqualityPages [
-	<gtExample>
-	| page1 page2 |
-	page1 := self unnamedPageWithTextAndPharoSnippets.
-	page2 := Smalltalk compiler evaluate: page1 storeString.
-	self assert: page1 equals: page2.
-	^ page1
-]
-
-{ #category : #accessing }
-LeStorageExamples >> storageEqualityPharoSnippets [
-	<gtExample>
-	| snippet1 snippet2 |
-	snippet1 := self pharoSnippet.
-	snippet2 := Smalltalk compiler evaluate: snippet1 storeString.
-	self assert: snippet1 equals: snippet2.
-	^ snippet1
-]
-
-{ #category : #accessing }
-LeStorageExamples >> storageEqualityTextSnippets [
-	<gtExample>
-	| snippet1 snippet2 |
-	snippet1 := self textSnippet.
-	snippet2 := Smalltalk compiler evaluate: snippet1 storeString.
-	self assert: snippet1 equals: snippet2.
-	^ snippet1
+	|snippet|
+	snippet := LePharoSnippet code: '''hello world'''.
+	self assertEqualsEvaluatedStoreString: snippet.
+	^ snippet
 ]
 
 { #category : #accessing }
@@ -118,6 +59,16 @@ LeStorageExamples >> textSnippet [
 	<gtExample>
 	|snippet|
 	snippet := LeTextSnippet string: 'Everything is an object.'.
+	self assertEqualsEvaluatedStoreString: snippet.
+	^ snippet
+]
+
+{ #category : #accessing }
+LeStorageExamples >> textSnippetWithQuotes [
+	<gtExample>
+	|snippet|
+	snippet := LeTextSnippet string: '''Everything'' is an ''object''.'.
+	self assertEqualsEvaluatedStoreString: snippet.
 	^ snippet
 ]
 
@@ -128,5 +79,6 @@ LeStorageExamples >> unnamedPageWithTextAndPharoSnippets [
 	page := LePage unnamedPage.
 	page addSnippet: self textSnippet.
 	page addSnippet: self pharoSnippet.
+	self assertEqualsEvaluatedStoreString: page.
 	^ page
 ]

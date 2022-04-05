@@ -144,9 +144,9 @@ LeCodeSnippet >> storeOn: aStream [
 	aStream
 		nextPut: $(;
 		nextPutAll: self className;
-		nextPutAll: ' code: ''';
-		nextPutAll: self code;
-		nextPutAll: ''')'
+		nextPutAll: ' code: ';
+		nextPutAll: self code storeString;
+		nextPutAll: ')'
 ]
 
 { #category : #'api - accessing' }

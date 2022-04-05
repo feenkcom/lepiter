@@ -459,12 +459,14 @@ LeTextSnippet >> spawnLinkTarget: aNode from: aButton [
 { #category : #comparing }
 LeTextSnippet >> storeOn: aStream [
 
+	"Bug in BlRunRopedText>>#storeOn: for empty strings, so use this instead."
+
 	aStream
 		nextPut: $(;
 		nextPutAll: self className;
-		nextPutAll: ' new text: '.
-	self text storeOn: aStream.
-	aStream nextPut: $)
+		nextPutAll: ' string: ';
+		nextPutAll: self string storeString;
+		nextPutAll: ')'
 ]
 
 { #category : #'api - editing' }
