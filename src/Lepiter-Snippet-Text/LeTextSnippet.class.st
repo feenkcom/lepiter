@@ -108,14 +108,6 @@ LeTextSnippet class >> string: aString [
 	^ self new string: aString.
 ]
 
-{ #category : #comparing }
-LeTextSnippet >> = anObject [
-	self == anObject ifTrue: [ ^ true ].
-	self class = anObject class ifFalse: [ ^ false ].
-	"NB: BlText>>#= is not yet implemented"
-	^ self string = anObject string
-]
-
 { #category : #visiting }
 LeTextSnippet >> acceptVisitor: aVisitor [
 
@@ -295,11 +287,6 @@ LeTextSnippet >> hasString [
 		transformWith: '`@receiver hasString' -> '`@receiver hasText'.
 
 	^ self hasText
-]
-
-{ #category : #comparing }
-LeTextSnippet >> hash [
-	^ self text hash
 ]
 
 { #category : #'api - accessing' }

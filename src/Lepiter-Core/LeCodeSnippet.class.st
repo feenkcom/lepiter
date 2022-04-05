@@ -31,13 +31,6 @@ LeCodeSnippet class >> empty [
 	^ self new
 ]
 
-{ #category : #comparing }
-LeCodeSnippet >> = anObject [
-	self == anObject ifTrue: [ ^ true ].
-	self class = anObject class ifFalse: [ ^ false ].
-	^ self code = anObject code
-]
-
 { #category : #'api - editing' }
 LeCodeSnippet >> appendText: aText source: anObject [
 
@@ -78,11 +71,6 @@ LeCodeSnippet >> coder [
 { #category : #'api - accessing' }
 LeCodeSnippet >> contentAsString [
 	^ self code
-]
-
-{ #category : #comparing }
-LeCodeSnippet >> hash [
-	^ self code hash
 ]
 
 { #category : #initialization }
