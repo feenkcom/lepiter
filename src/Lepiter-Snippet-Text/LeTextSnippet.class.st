@@ -445,12 +445,16 @@ LeTextSnippet >> spawnLinkTarget: aNode from: aButton [
 
 { #category : #comparing }
 LeTextSnippet >> storeOn: aStream [
+
 	aStream
 		nextPut: $(;
 		nextPutAll: self className;
-		nextPutAll: ' string: ';
-		nextPutAll: self string storeString;
-		nextPutAll: ')'
+		nextPutAll: ' new string: ';
+		nextPutAll: self string storeString.
+	self childrenDo: [ :snippet | 
+		aStream nextPutAll: '; addSnippet: '.
+		snippet storeOn: aStream ].
+	aStream nextPutAll: '; yourself)'
 ]
 
 { #category : #'api - editing' }

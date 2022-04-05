@@ -26,21 +26,31 @@ LeStorageExamples >> assertPageEqualsEvaluatedStoreString: aPage [
 	pageSnippets := aPage children children.
 	restoredSnippets := (Smalltalk compiler evaluate: aPage storeString)
 		                    children children.
+	self assert: restoredSnippets size equals: pageSnippets size.
 	restoredSnippets withIndexDo: [ :snippet :n | 
-		self
-			assert: snippet contentAsString
-			equals: (pageSnippets at: n) contentAsString ]
+		self assertSnippet: snippet equals: (pageSnippets at: n) ]
+]
+
+{ #category : #accessing }
+LeStorageExamples >> assertSnippet: aSnippet equals: anotherSnippet [
+
+	| children otherChildren |
+	self
+		assert: aSnippet contentAsString
+		equals: anotherSnippet contentAsString.
+	children := aSnippet children children.
+	otherChildren := anotherSnippet children children.
+	self assert: children size equals: otherChildren size.
+	otherChildren withIndexDo: [ :snippet :n | 
+		self assertSnippet: snippet equals: (children at: n) ]
 ]
 
 { #category : #accessing }
 LeStorageExamples >> assertSnippetEqualsEvaluatedStoreString: aSnippet [
 
-	"Workaround to avoid breaking = for snippets."
-
 	self
-		assert:
-		(Smalltalk compiler evaluate: aSnippet storeString) contentAsString
-		equals: aSnippet contentAsString
+		assertSnippet: (Smalltalk compiler evaluate: aSnippet storeString)
+		equals: aSnippet
 ]
 
 { #category : #accessing }
@@ -67,6 +77,17 @@ LeStorageExamples >> gtBook [
 	<gtExample>
 	^ LeDatabasesRegistry uniqueInstance defaultLogicalDatabase databases 
 		  detect: [ :db | db databaseName = 'Glamorous Toolkit Book' ]
+]
+
+{ #category : #accessing }
+LeStorageExamples >> nestedTextSnippet [
+	<gtExample>
+	| snippet |
+	snippet := self textSnippet.
+	snippet addSnippet:
+		(LeTextSnippet string: 'Everything happens by sending messages').
+	self assertSnippetEqualsEvaluatedStoreString: snippet.
+	^ snippet
 ]
 
 { #category : #accessing }
