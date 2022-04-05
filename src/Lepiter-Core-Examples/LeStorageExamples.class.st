@@ -8,13 +8,29 @@ Class {
 }
 
 { #category : #accessing }
-LeStorageExamples >> assertEqualsEvaluatedStoreString: anObject [
+LeStorageExamples >> assertPageEqualsEvaluatedStoreString: aPage [
 
-	"convenience method"
+	"Workaround to avoid breaking = for pages."
+
+	| pageSnippets restoredSnippets |
+	pageSnippets := aPage children children.
+	restoredSnippets := (Smalltalk compiler evaluate: aPage storeString)
+		                    children children.
+	restoredSnippets withIndexDo: [ :snippet :n | 
+		self
+			assert: snippet contentAsString
+			equals: (pageSnippets at: n) contentAsString ]
+]
+
+{ #category : #accessing }
+LeStorageExamples >> assertSnippetEqualsEvaluatedStoreString: aSnippet [
+
+	"Workaround to avoid breaking = for snippets."
 
 	self
-		assert: (Smalltalk compiler evaluate: anObject storeString)
-		equals: anObject
+		assert:
+		(Smalltalk compiler evaluate: aSnippet storeString) contentAsString
+		equals: aSnippet contentAsString
 ]
 
 { #category : #accessing }
@@ -22,7 +38,7 @@ LeStorageExamples >> emptyPharoSnippet [
 	<gtExample>
 	|snippet|
 	snippet := LePharoSnippet code: ''.
-	self assertEqualsEvaluatedStoreString: snippet.
+	self assertSnippetEqualsEvaluatedStoreString: snippet.
 	^ snippet
 ]
 
@@ -32,7 +48,7 @@ LeStorageExamples >> emptyTextSnippet [
 	<gtExample>
 	| snippet |
 	snippet := LeTextSnippet string: ''.
-	self assertEqualsEvaluatedStoreString: snippet.
+	self assertSnippetEqualsEvaluatedStoreString: snippet.
 	^ snippet
 ]
 
@@ -41,7 +57,7 @@ LeStorageExamples >> pharoSnippet [
 	<gtExample>
 	|snippet|
 	snippet := LePharoSnippet code: '3+4'.
-	self assertEqualsEvaluatedStoreString: snippet.
+	self assertSnippetEqualsEvaluatedStoreString: snippet.
 	^ snippet
 ]
 
@@ -50,7 +66,7 @@ LeStorageExamples >> pharoSnippetWithQuotes [
 	<gtExample>
 	|snippet|
 	snippet := LePharoSnippet code: '''hello world'''.
-	self assertEqualsEvaluatedStoreString: snippet.
+	self assertSnippetEqualsEvaluatedStoreString: snippet.
 	^ snippet
 ]
 
@@ -59,7 +75,7 @@ LeStorageExamples >> textSnippet [
 	<gtExample>
 	|snippet|
 	snippet := LeTextSnippet string: 'Everything is an object.'.
-	self assertEqualsEvaluatedStoreString: snippet.
+	self assertSnippetEqualsEvaluatedStoreString: snippet.
 	^ snippet
 ]
 
@@ -68,7 +84,7 @@ LeStorageExamples >> textSnippetWithQuotes [
 	<gtExample>
 	|snippet|
 	snippet := LeTextSnippet string: '''Everything'' is an ''object''.'.
-	self assertEqualsEvaluatedStoreString: snippet.
+	self assertSnippetEqualsEvaluatedStoreString: snippet.
 	^ snippet
 ]
 
@@ -79,6 +95,6 @@ LeStorageExamples >> unnamedPageWithTextAndPharoSnippets [
 	page := LePage unnamedPage.
 	page addSnippet: self textSnippet.
 	page addSnippet: self pharoSnippet.
-	self assertEqualsEvaluatedStoreString: page.
+	self assertPageEqualsEvaluatedStoreString: page.
 	^ page
 ]
