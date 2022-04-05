@@ -102,6 +102,16 @@ LePictureSnippet >> pictureFileBytes [
 	^ self urlString asFileReference binaryReadStream upToEnd.
 ]
 
+{ #category : #printing }
+LePictureSnippet >> storeOn: aStream [
+	aStream
+		nextPut: $(;
+		nextPutAll: self className;
+		nextPutAll: ' new urlString: ';
+		nextPutAll: self urlString storeString;
+		nextPutAll: ')'
+]
+
 { #category : #accessing }
 LePictureSnippet >> urlString [ 
 	<return: #String>
