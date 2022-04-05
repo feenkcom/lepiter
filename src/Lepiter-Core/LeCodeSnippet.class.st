@@ -128,7 +128,6 @@ LeCodeSnippet >> printOn: aStream [
 
 { #category : #printing }
 LeCodeSnippet >> storeOn: aStream [
-
 	aStream
 		nextPut: $(;
 		nextPutAll: self className;

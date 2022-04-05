@@ -22,17 +22,21 @@ LeStorageExamples >> assertPageEqualsEvaluatedStoreString: aPage [
 
 	"Workaround to avoid breaking = for pages."
 
-	| pageSnippets restoredSnippets |
+	| pageSnippets restoredSnippets result |
+	result := Smalltalk compiler evaluate: aPage storeString.
 	pageSnippets := aPage children children.
-	restoredSnippets := (Smalltalk compiler evaluate: aPage storeString)
-		                    children children.
+	restoredSnippets := result children children.
 	self assert: restoredSnippets size equals: pageSnippets size.
 	restoredSnippets withIndexDo: [ :snippet :n | 
-		self assertSnippet: snippet equals: (pageSnippets at: n) ]
+		self assertSnippet: snippet equals: (pageSnippets at: n) ].
+	^ result
 ]
 
 { #category : #accessing }
 LeStorageExamples >> assertSnippet: aSnippet equals: anotherSnippet [
+
+	"NB: This is probably not an adequate test as there is more to a snippet than its contentAsString. 
+	Unfortunately we cannot implement = for LeContent subclasses because that would break the importer."
 
 	| children otherChildren |
 	self
@@ -48,9 +52,10 @@ LeStorageExamples >> assertSnippet: aSnippet equals: anotherSnippet [
 { #category : #accessing }
 LeStorageExamples >> assertSnippetEqualsEvaluatedStoreString: aSnippet [
 
-	self
-		assertSnippet: (Smalltalk compiler evaluate: aSnippet storeString)
-		equals: aSnippet
+	| result |
+	result := Smalltalk compiler evaluate: aSnippet storeString.
+	self assertSnippet: result equals: aSnippet.
+	^ result
 ]
 
 { #category : #accessing }
