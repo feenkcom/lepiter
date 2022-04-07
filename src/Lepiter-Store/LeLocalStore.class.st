@@ -70,6 +70,11 @@ LeLocalStore >> attachmentsDirectory: anObject [
 	attachmentsDirectory := anObject
 ]
 
+{ #category : #private }
+LeLocalStore >> clearDatabaseProperties [
+	dbProperties := nil.
+]
+
 { #category : #accessing }
 LeLocalStore >> database [
 	^ database
@@ -305,7 +310,7 @@ LeLocalStore >> primitiveReload [
 	"Reload the receiver.
 	Flush any data that may have changed on-disk since the last (re)load."
 
-	dbProperties := nil.
+	self clearDatabaseProperties
 ]
 
 { #category : #accessing }

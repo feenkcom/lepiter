@@ -234,6 +234,17 @@ LeLocalStoreMonitor >> primitiveReload [
 		reload
 ]
 
+{ #category : #'startup-shutdown' }
+LeLocalStoreMonitor >> primitiveReloadWithPageDeletion [
+	"Reload the receiver's database."
+
+	self clearDatabaseProperties.
+	LeDatabaseReload new
+		enablePageDeletion;
+		monitor: self;
+		reload
+]
+
 { #category : #'private - announcements' }
 LeLocalStoreMonitor >> processContentTreeChanged: anAnnouncement [
 	| page |
