@@ -563,7 +563,6 @@ LePage >> shouldAppearInIndexOrDailyNotes [
 
 { #category : #printing }
 LePage >> storeOn: aStream [
-
 	aStream
 		nextPut: $(;
 		nextPutAll: self className;

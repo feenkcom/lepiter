@@ -8,13 +8,55 @@ Class {
 }
 
 { #category : #accessing }
-LeStorageExamples >> assertEqualsEvaluatedStoreString: anObject [
+LeStorageExamples >> assertGtBookPagesEqualEvaluatedStoreStrings [
+	<gtExample>
+	<noTest>
+	| gtBook |
+	gtBook := self gtBook.
+	gtBook pagesDo: [ :page | 
+		LeStorageExamples new assertPageEqualsEvaluatedStoreString: page ].
+	^ gtBook
+]
 
-	"convenience method"
+{ #category : #accessing }
+LeStorageExamples >> assertPageEqualsEvaluatedStoreString: aPage [
 
+	"Workaround to avoid breaking = for pages."
+
+	| pageSnippets restoredSnippets result |
+	result := Smalltalk compiler evaluate: aPage storeString.
+	pageSnippets := aPage children children.
+	restoredSnippets := result children children.
+	self assert: restoredSnippets size equals: pageSnippets size.
+	restoredSnippets withIndexDo: [ :snippet :n | 
+		self assertSnippet: snippet equals: (pageSnippets at: n) ].
+	^ result
+]
+
+{ #category : #accessing }
+LeStorageExamples >> assertSnippet: aSnippet equals: anotherSnippet [
+
+	"NB: This is probably not an adequate test as there is more to a snippet than its contentAsString. 
+	Unfortunately we cannot implement = for LeContent subclasses because that would break the importer."
+
+	| children otherChildren |
 	self
-		assert: (Smalltalk compiler evaluate: anObject storeString)
-		equals: anObject
+		assert: aSnippet contentAsString
+		equals: anotherSnippet contentAsString.
+	children := aSnippet children children.
+	otherChildren := anotherSnippet children children.
+	self assert: children size equals: otherChildren size.
+	otherChildren withIndexDo: [ :snippet :n | 
+		self assertSnippet: snippet equals: (children at: n) ]
+]
+
+{ #category : #accessing }
+LeStorageExamples >> assertSnippetEqualsEvaluatedStoreString: aSnippet [
+
+	| result |
+	result := Smalltalk compiler evaluate: aSnippet storeString.
+	self assertSnippet: result equals: aSnippet.
+	^ result
 ]
 
 { #category : #accessing }
@@ -22,7 +64,7 @@ LeStorageExamples >> emptyPharoSnippet [
 	<gtExample>
 	|snippet|
 	snippet := LePharoSnippet code: ''.
-	self assertEqualsEvaluatedStoreString: snippet.
+	self assertSnippetEqualsEvaluatedStoreString: snippet.
 	^ snippet
 ]
 
@@ -32,7 +74,26 @@ LeStorageExamples >> emptyTextSnippet [
 	<gtExample>
 	| snippet |
 	snippet := LeTextSnippet string: ''.
-	self assertEqualsEvaluatedStoreString: snippet.
+	self assertSnippetEqualsEvaluatedStoreString: snippet.
+	^ snippet
+]
+
+{ #category : #accessing }
+LeStorageExamples >> gtBook [
+	<gtExample>
+	<noTest>
+	^ LeDatabasesRegistry uniqueInstance defaultLogicalDatabase databases 
+		  detect: [ :db | db databaseName = 'Glamorous Toolkit Book' ]
+]
+
+{ #category : #accessing }
+LeStorageExamples >> nestedTextSnippet [
+	<gtExample>
+	| snippet |
+	snippet := self textSnippet.
+	snippet addSnippet:
+		(LeTextSnippet string: 'Everything happens by sending messages').
+	self assertSnippetEqualsEvaluatedStoreString: snippet.
 	^ snippet
 ]
 
@@ -41,7 +102,7 @@ LeStorageExamples >> pharoSnippet [
 	<gtExample>
 	|snippet|
 	snippet := LePharoSnippet code: '3+4'.
-	self assertEqualsEvaluatedStoreString: snippet.
+	self assertSnippetEqualsEvaluatedStoreString: snippet.
 	^ snippet
 ]
 
@@ -50,7 +111,7 @@ LeStorageExamples >> pharoSnippetWithQuotes [
 	<gtExample>
 	|snippet|
 	snippet := LePharoSnippet code: '''hello world'''.
-	self assertEqualsEvaluatedStoreString: snippet.
+	self assertSnippetEqualsEvaluatedStoreString: snippet.
 	^ snippet
 ]
 
@@ -59,7 +120,7 @@ LeStorageExamples >> textSnippet [
 	<gtExample>
 	|snippet|
 	snippet := LeTextSnippet string: 'Everything is an object.'.
-	self assertEqualsEvaluatedStoreString: snippet.
+	self assertSnippetEqualsEvaluatedStoreString: snippet.
 	^ snippet
 ]
 
@@ -68,7 +129,7 @@ LeStorageExamples >> textSnippetWithQuotes [
 	<gtExample>
 	|snippet|
 	snippet := LeTextSnippet string: '''Everything'' is an ''object''.'.
-	self assertEqualsEvaluatedStoreString: snippet.
+	self assertSnippetEqualsEvaluatedStoreString: snippet.
 	^ snippet
 ]
 
@@ -79,6 +140,6 @@ LeStorageExamples >> unnamedPageWithTextAndPharoSnippets [
 	page := LePage unnamedPage.
 	page addSnippet: self textSnippet.
 	page addSnippet: self pharoSnippet.
-	self assertEqualsEvaluatedStoreString: page.
+	self assertPageEqualsEvaluatedStoreString: page.
 	^ page
 ]

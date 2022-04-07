@@ -231,6 +231,18 @@ LeWordSnippet >> readCachedExplanationBy: aSource [
 		read
 ]
 
+{ #category : #accessing }
+LeWordSnippet >> storeOn: aStream [
+	aStream
+		nextPut: $(;
+		nextPutAll: self className;
+		nextPutAll: ' new word: '.
+	self word storeOn: aStream.
+	aStream nextPutAll: '; explanation: '.
+	self explanation storeOn: aStream.
+	aStream nextPutAll: ')'
+]
+
 { #category : #'private - updating' }
 LeWordSnippet >> updateCachedExplanationBy: aSource [
 	LeStoreAttachmentWriter new
