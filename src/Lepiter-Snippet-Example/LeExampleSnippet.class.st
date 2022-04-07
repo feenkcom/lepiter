@@ -145,7 +145,7 @@ LeExampleSnippet >> contentAsString [
 LeExampleSnippet >> convertToScript [
 	| newSource ast |
 	ast := self exampleMethodAST.
-	ast isNil ifTrue: [ ^ self ].
+	ast ifNil: [ ^ self ].
 	newSource := self snippetSourceFrom: ast body.
 	self addSnippetAfterSelf: (LePharoSnippet new code: newSource).
 	self removeSelf
@@ -185,6 +185,13 @@ LeExampleSnippet >> defaultPreviewHeight [
 { #category : #initialization }
 LeExampleSnippet >> defaultPreviewShowSelector [
 	^ #gtViewsFor:
+]
+
+{ #category : #'api - testing' }
+LeExampleSnippet >> doesReferenceExist [
+	^ self hasExampleBehaviorName and: [ 
+		self hasExampleSelector and: [ 
+			self exampleMethod notNil ] ]
 ]
 
 { #category : #'api - example behavior name' }
@@ -227,10 +234,19 @@ LeExampleSnippet >> exampleClass [
 ]
 
 { #category : #converting }
+LeExampleSnippet >> exampleMethod [
+	^ self exampleClass 
+		ifNotNil: [ :aClass |
+			aClass
+				compiledMethodAt: exampleSelector asSymbol
+				ifPresent: [ :method | method parseTree ]
+				ifAbsent: [ nil ] ]
+]
+
+{ #category : #converting }
 LeExampleSnippet >> exampleMethodAST [
-	^ (self exampleClass ifNil: [ ^ nil ])
-		  compiledMethodAt: exampleSelector asSymbol
-		  ifPresent: [ :method | method parseTree ]
+	^ self exampleMethod
+		  ifNotNil: [ :method | method parseTree ]
 ]
 
 { #category : #'api - example selector' }
@@ -686,6 +702,43 @@ LeExampleSnippet >> snippetSourceFrom: anAST [
 				replaceNode: ast statements last
 				withNode: ast statements last value ].
 	^ ast formattedCode
+]
+
+{ #category : #printing }
+LeExampleSnippet >> storeOn: aStream [
+
+	"code adapted from #asAnnotationString method"
+
+	aStream
+		nextPut: $(;
+		nextPutAll: self className;
+		nextPutAll: ' new  exampleBehaviorName: '.
+	self exampleBehaviorName storeOn: aStream.
+	aStream nextPutAll: '; exampleSelector: '.
+	self exampleSelector storeOn: aStream.
+
+
+	self noCode = self defaultNoCode ifFalse: [ 
+		aStream nextPutAll: '; noCode: '.
+		self noCode storeOn: aStream ].
+
+	self codeExpanded = self defaultCodeExpanded ifFalse: [ 
+		aStream nextPutAll: '; codeExpanded: '.
+		self codeExpanded storeOn: aStream ].
+
+	self previewExpanded = self defaultPreviewExpanded ifFalse: [ 
+		aStream nextPutAll: '; previewExpanded: '.
+		self previewExpanded storeOn: aStream ].
+
+	self previewShowSelector = self defaultPreviewShowSelector ifFalse: [ 
+		aStream nextPutAll: '; previewShowSelector: '.
+		self previewShowSelector storeOn: aStream ].
+
+	self previewHeight = self defaultPreviewHeight ifFalse: [ 
+		aStream nextPutAll: '; previewHeight: '.
+		self previewHeight storeOn: aStream ].
+
+	aStream nextPutAll: ')'
 ]
 
 { #category : #'api - code expanded' }

@@ -443,6 +443,20 @@ LeTextSnippet >> spawnLinkTarget: aNode from: aButton [
 		ifNone: [ "ignore" ]
 ]
 
+{ #category : #comparing }
+LeTextSnippet >> storeOn: aStream [
+
+	aStream
+		nextPut: $(;
+		nextPutAll: self className;
+		nextPutAll: ' new string: '.
+	self string storeOn: aStream.
+	self childrenDo: [ :snippet | 
+		aStream nextPutAll: '; addSnippet: '.
+		snippet storeOn: aStream ].
+	aStream nextPutAll: '; yourself)'
+]
+
 { #category : #'api - editing' }
 LeTextSnippet >> string [
 	<return: #String>

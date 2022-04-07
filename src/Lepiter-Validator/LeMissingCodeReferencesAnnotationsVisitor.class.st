@@ -1,6 +1,6 @@
 Class {
-	#name : 'LeMissingCodeReferencesAnnotationsVisitor',
-	#superclass : 'LeAnnotationParseNodeVisitor',
+	#name : #LeMissingCodeReferencesAnnotationsVisitor,
+	#superclass : #LeAnnotationParseNodeVisitor,
 	#traits : 'TSmaCCComponentVisitor + (TLeAnnotationParseNodeVisitor - {#acceptNode:})',
 	#classTraits : 'TSmaCCComponentVisitor classTrait + TLeAnnotationParseNodeVisitor classTrait',
 	#instVars : [
@@ -9,7 +9,7 @@ Class {
 	#category : 'Lepiter-Validator-Visitors'
 }
 
-{ #category : 'visiting' }
+{ #category : #visiting }
 LeMissingCodeReferencesAnnotationsVisitor >> visitClassAnnotation: aClassAnnotation [
 	super visitClassAnnotation: aClassAnnotation.
 	aClassAnnotation doesReferenceExist ifFalse: [ 
@@ -17,7 +17,7 @@ LeMissingCodeReferencesAnnotationsVisitor >> visitClassAnnotation: aClassAnnotat
 			addMissingClassAnnotation: aClassAnnotation ] 
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeMissingCodeReferencesAnnotationsVisitor >> visitExampleAnnotation: anExampleAnnotation [
 	super visitExampleAnnotation: anExampleAnnotation.
 	anExampleAnnotation doesReferenceExist ifFalse: [ 
@@ -25,7 +25,7 @@ LeMissingCodeReferencesAnnotationsVisitor >> visitExampleAnnotation: anExampleAn
 			addMissingExampleAnnotation: anExampleAnnotation ]
 ]
 
-{ #category : 'generated' }
+{ #category : #generated }
 LeMissingCodeReferencesAnnotationsVisitor >> visitMethodAnnotation: aMethodAnnotation [
 	super visitMethodAnnotation: aMethodAnnotation.
 	aMethodAnnotation doesReferenceExist ifFalse: [ 
