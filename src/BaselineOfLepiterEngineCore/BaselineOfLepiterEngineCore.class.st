@@ -16,10 +16,10 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'GToolkitInspector' with: [
-				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.792/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.793/src' ].
 		spec
 			baseline: 'Brick' with: [
-				spec repository: 'github://feenkcom/Brick:v0.8.544/src' ].
+				spec repository: 'github://feenkcom/Brick:v0.8.545/src' ].
 		spec
 			baseline: 'NeoJSON' with: [
 				spec repository: 'github://svenvc/NeoJSON:v17/repository' ].
@@ -53,6 +53,6 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 		spec package: 'Lepiter-Playground' with: [
 			spec requires: #('Lepiter-Core' 'Lepiter-Store' 'Lepiter-UI') ].
 		spec package: 'Lepiter-Core-Examples' with: [
-			spec requires: #('Lepiter-Core' 'Lepiter-Snippet-Text') ].
+			spec requires: #('Lepiter-Snippet-Text') ].
 	]
 ]
