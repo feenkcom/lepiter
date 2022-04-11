@@ -9,6 +9,12 @@ Class {
 	#category : #'Lepiter-Store-JsonV4'
 }
 
+{ #category : #loading }
+LeJsonV4 class >> loadFile: aFileReference [
+
+	^ self uniqueInstance loadFile: aFileReference
+]
+
 { #category : #private }
 LeJsonV4 >> allClassMappingsFor: aNeoJSONMapper [ 
 
@@ -41,6 +47,13 @@ LeJsonV4 >> deserialize: aStream [
 		[ object removeKey: #'__schema' ifAbsent: [ ] ].
 
 	^ object
+]
+
+{ #category : #loading }
+LeJsonV4 >> loadFile: aFileReference [
+
+	^ aFileReference asFileReference readStreamDo: [ :stream |
+		self deserialize: stream ]
 ]
 
 { #category : #initialization }
