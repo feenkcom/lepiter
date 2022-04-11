@@ -1,9 +1,9 @@
 Trait {
-	#name : 'TLeInvalidCommentsConstraint',
+	#name : #TLeInvalidCommentsConstraint,
 	#category : 'Lepiter-Validator-Model'
 }
 
-{ #category : 'examples' }
+{ #category : #examples }
 TLeInvalidCommentsConstraint >> issues [
 	| results packages |
 	results := LePageValidatorMissingReferencesGroup new.
@@ -20,12 +20,12 @@ TLeInvalidCommentsConstraint >> issues [
 	^ results
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 TLeInvalidCommentsConstraint >> packagesToAnalyse [
 	self explicitRequirement
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 TLeInvalidCommentsConstraint >> pageForClassCommentOf: aClass [
 	^ (LePage pharoCommentClassName: aClass name)
 			addSnippet: (LeTextSnippet string: aClass organization classComment);

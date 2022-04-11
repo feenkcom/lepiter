@@ -3,7 +3,7 @@ LeDatabaseReload updates a database to match the on-disk storage.
 
 ### Notes
 
-Pages that have been deleted on disk are not removed from the in-memory copy.  This is to prevent pages that are added prior to the reload completing from being incorrectly removed.  Most people move to a new image fairly regularly and the deleted page will be lost at that point.  Keeping the deleted page in memory is considered less of an evil than removing a page that someone has just added (and which hasn't been saved to disk).
+Pages that have been deleted on disk are not removed from the in-memory copy by default.  This is to prevent pages that are added prior to the reload completing from being incorrectly removed.  Most people move to a new image fairly regularly and the deleted page will be lost at that point.  Keeping the deleted page in memory is considered less of an evil than removing a page that someone has just added (and which hasn't been saved to disk).
 
 The intention is to move to implementing all changes as commands and saving a transaction log.  At that point, reloading the database will be a replay of the transaction log, and so will avoid this issue (we well as being much faster).
 
@@ -21,7 +21,8 @@ Class {
 		'loadedLinkIDs',
 		'addedExplicitLinks',
 		'deletedPageIDs',
-		'deletedLinksIDs'
+		'deletedLinksIDs',
+		'shouldDeletePages'
 	],
 	#category : #'Lepiter-Store-Reload'
 }
@@ -30,6 +31,11 @@ Class {
 LeDatabaseReload >> database [ 
 
 	^ monitor database
+]
+
+{ #category : #accessing }
+LeDatabaseReload >> enablePageDeletion [
+	shouldDeletePages := true
 ]
 
 { #category : #accessing }
@@ -95,11 +101,11 @@ LeDatabaseReload >> reload [
 		
 		self updateAddedExplicitLinks.
 
-		"For now, don't remove deleted pages.
+		"Only remove deleted pages if the flag is set.
 		This removes pages that are added (new pages) prior to the reload completing.
-		See the class comments for more information.
-		
-		self removeDeletedPages."
+		See the class comments for more information."
+		self shouldDeletePages ifTrue: [
+			self removeDeletedPages ].
 		self removeDeletedLinks.
 	
 	] ensure:
@@ -216,6 +222,11 @@ LeDatabaseReload >> removeDeletedPages [
 	deletedPageIDs := (self database pages collect: #uid as: Set) difference: loadedPageIDs.
 	deletedPageIDs do: [ :uid |
 		self database removePage: (self database pageWithID: uid) ]
+]
+
+{ #category : #accessing }
+LeDatabaseReload >> shouldDeletePages [
+	^ shouldDeletePages ifNil: [ false ] 
 ]
 
 { #category : #accessing }

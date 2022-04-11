@@ -561,6 +561,21 @@ LePage >> shouldAppearInIndexOrDailyNotes [
 	^ self type shouldAppearInIndexOrDailyNotes
 ]
 
+{ #category : #printing }
+LePage >> storeOn: aStream [
+	aStream
+		nextPut: $(;
+		nextPutAll: self className;
+		nextPutAll: ' unnamedPage '.
+	self childrenDo: [ :snippet | 
+		aStream nextPutAll: 'addSnippet: '.
+		snippet storeOn: aStream.
+		aStream nextPutAll: '; ' ].
+	aStream
+		nextPutAll: ' yourself';
+		nextPut: $)
+]
+
 { #category : #'api - accessing' }
 LePage >> title [
 	"Answer the page's title"

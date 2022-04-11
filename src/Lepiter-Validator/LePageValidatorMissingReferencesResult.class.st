@@ -1,41 +1,47 @@
 Class {
-	#name : 'LePageValidatorMissingReferencesResult',
-	#superclass : 'Object',
+	#name : #LePageValidatorMissingReferencesResult,
+	#superclass : #Object,
 	#instVars : [
 		'targetPage',
+		'snippetsWithMissingReferences',
 		'classAnnotations',
 		'methodAnnotations',
 		'exampleAnnotations'
 	],
-	#category : 'Lepiter-Validator-Model'
+	#category : #'Lepiter-Validator-Model'
 }
 
-{ #category : 'adding' }
+{ #category : #adding }
 LePageValidatorMissingReferencesResult >> addMissingClassAnnotation: aClassAnnotation [
 	classAnnotations add: aClassAnnotation
 ]
 
-{ #category : 'adding' }
+{ #category : #adding }
 LePageValidatorMissingReferencesResult >> addMissingExampleAnnotation: anExampleAnnotation [
 	exampleAnnotations add: anExampleAnnotation
 ]
 
-{ #category : 'adding' }
+{ #category : #adding }
 LePageValidatorMissingReferencesResult >> addMissingMethodAnnotation: aClassAnnotation [
 	methodAnnotations add: aClassAnnotation
 ]
 
-{ #category : 'accessing' }
+{ #category : #adding }
+LePageValidatorMissingReferencesResult >> addSnippetWithMissingReference: aSnippet [
+	snippetsWithMissingReferences add: aSnippet
+]
+
+{ #category : #accessing }
 LePageValidatorMissingReferencesResult >> classAnnotations [
 	^ classAnnotations 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePageValidatorMissingReferencesResult >> exampleAnnotations [
 	^ exampleAnnotations
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 LePageValidatorMissingReferencesResult >> gtDisplayOn: aStream [
 	super gtDisplayOn: aStream.
 	targetPage ifNotNil: [ 
@@ -44,7 +50,7 @@ LePageValidatorMissingReferencesResult >> gtDisplayOn: aStream [
 		aStream nextPut: $) ]
 ]
 
-{ #category : 'ui' }
+{ #category : #ui }
 LePageValidatorMissingReferencesResult >> gtViewMissingClassesListFor: aView [
 	<gtView>
 	^ aView list
@@ -54,7 +60,7 @@ LePageValidatorMissingReferencesResult >> gtViewMissingClassesListFor: aView [
 			  aClassAnnotation referencedClassName ]
 ]
 
-{ #category : 'ui' }
+{ #category : #ui }
 LePageValidatorMissingReferencesResult >> gtViewMissingExamplesListFor: aView [
 
 	<gtView>
@@ -67,7 +73,7 @@ LePageValidatorMissingReferencesResult >> gtViewMissingExamplesListFor: aView [
 			  anExampleAnnotation referencedExample ]
 ]
 
-{ #category : 'ui' }
+{ #category : #ui }
 LePageValidatorMissingReferencesResult >> gtViewMissingMethodsListFor: aView [
 	<gtView>
 	^ aView list
@@ -77,32 +83,34 @@ LePageValidatorMissingReferencesResult >> gtViewMissingMethodsListFor: aView [
 			  aMethodAnnotation nameNode className, '>>',aMethodAnnotation nameNode methodName ]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LePageValidatorMissingReferencesResult >> initialize [
 	super initialize.
 	classAnnotations := OrderedCollection new.
 	methodAnnotations := OrderedCollection new.
 	exampleAnnotations := OrderedCollection new.
+	snippetsWithMissingReferences := OrderedCollection new.
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LePageValidatorMissingReferencesResult >> isNotEmpty [ 
 	^ classAnnotations notEmpty or: [ 
 		methodAnnotations notEmpty or: [ 
-			exampleAnnotations notEmpty ] ]
+			exampleAnnotations notEmpty or: [ 
+				snippetsWithMissingReferences notEmpty ] ] ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePageValidatorMissingReferencesResult >> methodAnnotations [
 	^ methodAnnotations 
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePageValidatorMissingReferencesResult >> targetPage [
 	^ targetPage
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePageValidatorMissingReferencesResult >> targetPage: aPage [
 	targetPage := aPage
 ]

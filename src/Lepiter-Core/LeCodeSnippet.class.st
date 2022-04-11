@@ -126,6 +126,20 @@ LeCodeSnippet >> printOn: aStream [
 		nextPutAll: ')'
 ]
 
+{ #category : #printing }
+LeCodeSnippet >> storeOn: aStream [
+
+	aStream
+		nextPut: $(;
+		nextPutAll: self className;
+		nextPutAll: ' new code: '.
+	self code storeOn: aStream.
+	self childrenDo: [ :snippet | 
+		aStream nextPutAll: '; addSnippet: '.
+		snippet storeOn: aStream ].
+	aStream nextPutAll: '; yourself)'
+]
+
 { #category : #'api - accessing' }
 LeCodeSnippet >> text [
 	<return: #BlText>

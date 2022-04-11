@@ -1,23 +1,23 @@
 Class {
-	#name : 'LePageValidatorMissingReferencesGroup',
-	#superclass : 'Object',
+	#name : #LePageValidatorMissingReferencesGroup,
+	#superclass : #Object,
 	#instVars : [
 		'missingReferences'
 	],
 	#category : 'Lepiter-Validator-Model'
 }
 
-{ #category : 'adding' }
+{ #category : #adding }
 LePageValidatorMissingReferencesGroup >> addMissingReferences: aMissingReferencesResult [
 	missingReferences add: aMissingReferencesResult
 ]
 
-{ #category : 'enumerating' }
+{ #category : #enumerating }
 LePageValidatorMissingReferencesGroup >> collect: aBlock [
 	^ missingReferences collect: aBlock
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePageValidatorMissingReferencesGroup >> gtItemsFor: aView [
 	<gtView>
 	^ aView list
@@ -28,7 +28,7 @@ LePageValidatorMissingReferencesGroup >> gtItemsFor: aView [
 		send: [ :aResult | aResult targetPage ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePageValidatorMissingReferencesGroup >> gtViewReferencesFor: aView [
 	<gtView>
 	^ aView list
@@ -38,18 +38,18 @@ LePageValidatorMissingReferencesGroup >> gtViewReferencesFor: aView [
 		itemText: [ :aResult | aResult targetPage gtDisplayString ]
 ]
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 LePageValidatorMissingReferencesGroup >> initialize [
 	super initialize.
 	missingReferences := OrderedCollection new.
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 LePageValidatorMissingReferencesGroup >> isEmpty [
 	^ missingReferences isEmpty
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 LePageValidatorMissingReferencesGroup >> size [
 	^ missingReferences size
 ]

@@ -51,6 +51,6 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 			package: 'Lepiter-Playground' with: [
 				spec requires: #('Lepiter-Core' 'Lepiter-Store' 'Lepiter-UI' ). ];
 			package: 'Lepiter-Core-Examples' with: [
-				spec requires: #('Lepiter-Core' 'Lepiter-Snippet-Text' ). ]. ].
+				spec requires: #('Lepiter-Snippet-Text' ). ]. ].
 
 ]

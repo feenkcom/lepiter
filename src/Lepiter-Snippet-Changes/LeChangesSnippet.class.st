@@ -192,6 +192,17 @@ LeChangesSnippet >> previewHeight: aNewPreviewHeight [
 	self notifyPreviewHeightChanged
 ]
 
+{ #category : #printing }
+LeChangesSnippet >> storeOn: aStream [
+
+	aStream
+		nextPut: $(;
+		nextPutAll: self className;
+		nextPutAll: ' new fileName:'.
+	self fileName storeOn: aStream.
+	aStream nextPut: $)
+]
+
 { #category : #'api - file name' }
 LeChangesSnippet >> unsetFileName [
 	<propertyUnsetter: #fileName>

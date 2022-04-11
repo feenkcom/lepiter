@@ -32,8 +32,6 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 			baseline: 'LepiterYoutube' with: [
 				spec repository: 'github://feenkcom/lepiter:main/src' ].
 		spec 
-			package: 'Lepiter-Snippet-Text' with: [
-				spec requires: #('LepiterEngineCore' ). ];
 			package: 'Lepiter-Pharo' with: [
 				spec requires: #('LepiterEngineCore' ). ];
 			package: 'Lepiter-Snippet-Element' with: [
