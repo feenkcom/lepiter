@@ -129,21 +129,22 @@ LeSlide >> initialize [
 	code := ''.
 	self updateCoderUIModel.
 	shouldPerformActionEveryTime := true.
-	cachedElement := BrSlideWidget new
-		constraintsDo: [ :c | c horizontal matchParent. c vertical matchParent ];
+
+	cachedElement := GtSlideWidget new
+		matchParent;
 		slide: self;
 		yourself.
+
 	previewElement := BrAsyncWidget new
-		strategy: BrAsyncElementFutureNeverUpdateStrategy new; "I will be updated by the cached element"
-		constraintsDo: [ :c | c vertical exact: 100. c horizontal exact: 150 ];
+		"I will be updated by the cached element"
+		strategy: BrAsyncElementFutureNeverUpdateStrategy new;
+		exact: 150@100;
 		background: Color white;
-		viewModel: (BrInteractiveModel new
-			withHover;
-			yourself);
 		margin: (BlInsets all: 10);
 		yourself.
+
 	self isSlideSelected: false.
-	self updatePreviewElementAptitude.
+	self updatePreviewElementAptitude
 ]
 
 { #category : #accessing }
