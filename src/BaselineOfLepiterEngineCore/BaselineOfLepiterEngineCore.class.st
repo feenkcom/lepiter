@@ -19,7 +19,7 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 				spec repository: 'github://feenkcom/gtoolkit-inspector:main/src' ];
 			baseline: 'Brick' with: [
 				spec repository: 'github://feenkcom/Brick:main/src' ];
-			baseline: 'GtJson' with: [
+			baseline: 'GToolkit4Json' with: [
 				spec repository: 'github://feenkcom/gt4json:main/src' ].
 		spec 
 			package: 'Lepiter-Parser';
