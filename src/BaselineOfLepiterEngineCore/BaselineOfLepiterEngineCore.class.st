@@ -16,13 +16,13 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'GToolkitInspector' with: [
-				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.807/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.808/src' ].
 		spec
 			baseline: 'Brick' with: [
 				spec repository: 'github://feenkcom/Brick:v0.8.555/src' ].
 		spec
-			baseline: 'NeoJSON' with: [
-				spec repository: 'github://svenvc/NeoJSON:v17/repository' ].
+			baseline: 'GToolkit4Json' with: [
+				spec repository: 'github://feenkcom/gt4json:v0.6.0/src' ].
 
 		spec package: 'Lepiter-Parser'.
 		spec package: 'Lepiter-Core' with: [
@@ -30,7 +30,7 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 		spec package: 'Lepiter-Utilities' with: [
 			spec requires: #('Lepiter-Core') ].
 		spec package: 'Lepiter-Store' with: [
-			spec requires: #('Lepiter-Core' 'Lepiter-Utilities' 'NeoJSON') ].
+			spec requires: #('Lepiter-Core' 'Lepiter-Utilities' 'GToolkit4Json') ].
 		spec package: 'Lepiter-Translator-Roam' with: [
 			spec requires: #('Lepiter-Store') ].
 		spec package: 'Lepiter-Translator-JupyterNotebook' with: [
