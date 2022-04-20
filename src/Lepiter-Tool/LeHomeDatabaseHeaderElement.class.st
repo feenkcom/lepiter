@@ -159,10 +159,7 @@ LeHomeDatabaseHeaderElement >> removeButtonElement [
 
 { #category : #'private - actions' }
 LeHomeDatabaseHeaderElement >> removeDatabase [
-	| aParent |
-	aParent := self database parent.
-	self database removeFromParentDatabase.
-	aParent ifNotNil: [ aParent saveProperties ].
+	self database removeFromParentDatabaseUpdatingProperties.
 ]
 
 { #category : #'private - updating' }
