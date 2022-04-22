@@ -176,8 +176,15 @@ LeWorldStatusDropdown >> onDatabaseRemoved: anAnnouncement [
 ]
 
 { #category : #callbacks }
-LeWorldStatusDropdown >> onDbSaved [
+LeWorldStatusDropdown >> onDatabaseSaved [
 
+	pageChanged := self hasPendingChanges.
+	self updateWidget
+]
+
+{ #category : #callbacks }
+LeWorldStatusDropdown >> onLogicalDatabaseReloaded [
+	
 	pageChanged := self hasPendingChanges.
 	self updateWidget
 ]
@@ -185,8 +192,7 @@ LeWorldStatusDropdown >> onDbSaved [
 { #category : #callbacks }
 LeWorldStatusDropdown >> onPageChanged: anAnnouncement [ 
 
-	pageChanged ifTrue: 
-		[ ^ self ].
+	pageChanged ifTrue: [ ^ self ].
 	pageChanged := true.
 	self updateWidget.
 
@@ -200,12 +206,14 @@ LeWorldStatusDropdown >> registerDatabaseEvents [
 		database weak when: LeDatabasePageAdded send: #onPageChanged: to: self.
 		database weak when: LeDatabasePageRemoved send: #onPageChanged: to: self.
 		database weak when: LePageTitleChanged send: #onPageChanged: to: self.
+		
+		database weak when: LeLogicalDatabaseReloaded send: #onLogicalDatabaseReloaded to: self.
 		self databases
 			select: [ :db | db monitor isNotNil ]
 			thenDo: [ :db |
 				db monitor weak
 					when: LeLocalStoreMonitorSaved 
-					send: #onDbSaved 
+					send: #onDatabaseSaved 
 					to: self ] ].
 ]
 
@@ -250,8 +258,8 @@ LeWorldStatusDropdown >> updateContent [
 { #category : #updating }
 LeWorldStatusDropdown >> updateStatus [
 
-	dropdownElement enqueueTask: 
-		(BlTaskAction new action: [ dropdownElement icon: self statusIcon ]).
+	dropdownElement enqueueTask: (BlTaskAction new 
+		action: [ dropdownElement icon: self statusIcon ]).
 
 ]
 

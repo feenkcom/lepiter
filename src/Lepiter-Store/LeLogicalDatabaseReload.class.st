@@ -96,6 +96,8 @@ LeLogicalDatabaseReload >> reload [
 			[ db monitor
 				primitiveReload;
 				startMonitoring ] ].
+	
+	database announce: (LeLogicalDatabaseReloaded new database: self).
 ]
 
 { #category : #private }
