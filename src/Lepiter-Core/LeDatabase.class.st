@@ -947,6 +947,15 @@ LeDatabase >> removeFromParentDatabase [
 ]
 
 { #category : #'api - adding / removing' }
+LeDatabase >> removeFromParentDatabaseUpdatingProperties [
+	| aParent |
+	aParent := self parent.
+	
+	self removeFromParentDatabase.
+	aParent ifNotNil: [ aParent saveProperties ].
+]
+
+{ #category : #'api - adding / removing' }
 LeDatabase >> removePage: aPage [
 	"Remove the supplied page from the receiver.
 	All outgoing links are removed. Incoming links becore unresolved.

@@ -404,10 +404,9 @@ LeLocalStoreMonitor >> scheduleNextUpdate [
 
 	updatePromise ifNotNil: [ updatePromise cancelSoft ].
 
-	updatePromise := ([ self runTimedUpdate ] asAsyncFuture delayed:
-		                  saveDelay) await:
-		                 (AsyncFutureExecutionConfiguration new 
-			                  customGroup: #Lepiter)
+	updatePromise := ([ self runTimedUpdate ] asAsyncFuture 
+		delayed: saveDelay) await: (AsyncFutureExecutionConfiguration new 
+			customGroup: #Lepiter)
 ]
 
 { #category : #'system startup' }
@@ -453,8 +452,7 @@ LeLocalStoreMonitor >> stopMonitoring [
 LeLocalStoreMonitor >> submitReload [
 
 	[ self class shutdownMonitor critical: [ self reload ] ]
-		asAsyncFuture await:
-		(AsyncFutureExecutionConfiguration new customGroup: #Lepiter)
+		asAsyncFuture await: (AsyncFutureExecutionConfiguration new customGroup: #Lepiter)
 ]
 
 { #category : #private }
@@ -489,8 +487,7 @@ LeLocalStoreMonitor >> updateEntries [
 	self announce: (LeLocalStoreMonitorSaved new monitor: self).
 	
 	sendChanged ifTrue: [
-		self announce: (LeLocalStoreMonitorSavedChanges new monitor: self)
-	]
+		self announce: (LeLocalStoreMonitorSavedChanges new monitor: self) ]
 ]
 
 { #category : #accessing }
