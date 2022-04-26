@@ -20,7 +20,7 @@ Class {
 		'content',
 		'propagaters'
 	],
-	#category : 'Lepiter-Core-Notifier'
+	#category : #'Lepiter-Core-Notifier'
 }
 
 { #category : #'api - notifying' }
@@ -79,6 +79,15 @@ LeNotifier >> database [
 { #category : #defaults }
 LeNotifier >> defaultPropagaters [
 	^ SortedCollection sortUsing: [ :a :b | a order < b order ]
+]
+
+{ #category : #accessing }
+LeNotifier >> gtViewPropagatorFor: aView [
+	<gtView>
+	
+	^ aView list 
+		title: 'Propagators';
+		items: [ self propagaters ]
 ]
 
 { #category : #initialization }

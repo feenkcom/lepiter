@@ -12,7 +12,7 @@ I can be used for announcements that a {{gtClass:LeDatabase}} needs to listen to
 Class {
 	#name : #LeDatabasePropagater,
 	#superclass : #LeAnnouncementPropagater,
-	#category : 'Lepiter-Core-Notifier'
+	#category : #'Lepiter-Core-Notifier'
 }
 
 { #category : #'api - accessing' }
@@ -29,5 +29,6 @@ LeDatabasePropagater >> propagate: anAnnouncement in: aLeContent [
 	aLeContent database
 		ifNil: [ ^ anAnnouncement ].
 	
-	^ LeLocalPropagater default propagate: anAnnouncement in: aLeContent database.
+	^ LeLocalPropagater default 
+		propagate: anAnnouncement in: aLeContent database
 ]
