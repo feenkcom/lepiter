@@ -104,10 +104,6 @@ LePageToolContentTreeElement >> onPageViewModelChanged [
 ]
 
 { #category : #'api - accessing' }
-LePageToolContentTreeElement >> rootItemsSelector: aRootItemsSelector [
-]
-
-{ #category : #'api - accessing' }
 LePageToolContentTreeElement >> selectionTransformation: aBlock [
 ]
 

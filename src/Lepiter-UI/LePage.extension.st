@@ -45,7 +45,6 @@ LePage >> asPreviewElement [
 
 	^ LePageToolContentTreeElement new
 		  withTitleOnly;
-		  rootItemsSelector: LeChildrenSelector default;
 		  pageViewModel: self asContentUIModel;
 		  matchParent
 ]

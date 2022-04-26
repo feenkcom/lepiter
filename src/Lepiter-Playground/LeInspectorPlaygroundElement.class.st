@@ -54,7 +54,6 @@ LeInspectorPlaygroundElement >> initialize [
 LeInspectorPlaygroundElement >> initializePageElement [
 	pageElement := LePageToolContentTreeElement new 
 		withEmptyHeader;
-		rootItemsSelector: LeChildrenSelector default;
 		beInSingleCompositionLayer;
 		matchParent
 ]
