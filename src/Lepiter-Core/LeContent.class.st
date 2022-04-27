@@ -228,7 +228,7 @@ LeContent >> announceContentMoved: aLeSnippet [
 		announce: (LeContentTreeMoved new
 			content: aLeSnippet;
 			destinationParent: self;
-			destinationIndex: (children indexOf: aLeSnippet)).
+			destinationIndex: (children indexOf: aLeSnippet))
 ]
 
 { #category : #'private - notifications' }

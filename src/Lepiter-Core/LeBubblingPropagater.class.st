@@ -12,7 +12,7 @@ I am used for announcements that needs to be propagated to all parents. For exam
 Class {
 	#name : #LeBubblingPropagater,
 	#superclass : #LeAnnouncementPropagater,
-	#category : 'Lepiter-Core-Notifier'
+	#category : #'Lepiter-Core-Notifier'
 }
 
 { #category : #'api - accessing' }
@@ -28,7 +28,7 @@ LeBubblingPropagater >> parents: aLeContent do: aBlock [
 	aParent := aLeContent parent.
 	[ aParent isNotNil ] whileTrue: [ 
 		aBlock cull: aParent.
-		aParent := aParent parent ].
+		aParent := aParent parent ]
 ]
 
 { #category : #'api - promoting' }

@@ -44,37 +44,6 @@ LePageToolContentTreeElement class >> showIncomingReferencesInlined [
 	self incomingLinksViewModelClass: LeIncomingLinksInlinedViewModel
 ]
 
-{ #category : #'private - tree element' }
-LePageToolContentTreeElement >> createTreeElement [
-	^ BrSimpleTree new
-		matchParent;
-		padding: (BlInsets top: 10 left: 0 bottom: 5 right: 20);
-		aptitudeDo: [ :aLook | aLook treeElement clipChildren: false ];
-		nodeType: [ :anItemTypeFactory :aTreeNode :aNodeIndex | aTreeNode value snippetView ];
-		nodeId: [ :aTreeNode :aNodeIndex | aTreeNode value uid ];
-		nodeStencil: [ :aSnippetView | aSnippetView asElement ];
-		nodeDataBinder: [ :aSnippetElement :aTreeNode | aSnippetElement snippetViewModel: aTreeNode value ];
-		rowStencil: [ :aNodeType :aNodeElement | self createTreeRowFor: aNodeElement ];
-		rowDataBinder: [ :aRowElement :aTreeNode :aRowIndex | self bindTreeRowData: aTreeNode to: aRowElement at: aRowIndex ]
-]
-
-{ #category : #'private - tree element' }
-LePageToolContentTreeElement >> createTreeRowFor: aSnippetElement [
-	^ BlElement new
-		layout: BlLinearLayout horizontal;
-		clipChildren: false;
-		constraintsDo: [ :c |
-			c horizontal matchParent.
-			c vertical fitContent ];
-		addChild: (BrTriangle new
-			beSmallSize;
-			aptitude: BrGlamorousTriangleInCircleAptitude;
-			toggleAction: [ :aToggleElement :aToggleModel |
-				aToggleModel model toggle.
-				aSnippetElement snippetViewModel expanded: aToggleModel model isExpanded ]) as: #toggle;
-		addChild: aSnippetElement
-]
-
 { #category : #initialization }
 LePageToolContentTreeElement >> initialize [
 	super initialize.
@@ -132,10 +101,6 @@ LePageToolContentTreeElement >> onPageViewModelChanged [
 
 	self pageViewModel shouldFocusFirstSnippet
 		ifTrue: [ pageSnippetsTreeViewModel focusFirstSnippet ]
-]
-
-{ #category : #'api - accessing' }
-LePageToolContentTreeElement >> rootItemsSelector: aRootItemsSelector [
 ]
 
 { #category : #'api - accessing' }

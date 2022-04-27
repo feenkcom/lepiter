@@ -6,7 +6,7 @@ Class {
 	#instVars : [
 		'contentElement'
 	],
-	#category : 'Lepiter-UI-Connector'
+	#category : #'Lepiter-UI-Connector'
 }
 
 { #category : #'private - event handling' }
@@ -41,7 +41,6 @@ LeConnectorPageElement >> initialize [
 LeConnectorPageElement >> initializeContentElement [
 	contentElement := LePageToolContentTreeElement new 
 		withTitleAndInspectButton;
-		rootItemsSelector: LeChildrenSelector default;
 		beInSingleCompositionLayer;
 		matchParent
 ]
