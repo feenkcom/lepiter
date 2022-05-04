@@ -337,6 +337,29 @@ LeDatabase >> gtAttachmentsFor: aView [
 ]
 
 { #category : #'gt-extensions' }
+LeDatabase >> gtDailyNotesFor: aView [
+	<gtView>
+	self pages ifNil: [ ^ aView empty ].
+	^ aView columnedTree
+		title: 'By Day';
+		priority: 10;
+		items: [ self dailyNotesGroup ];
+		children: [ :eachPage | eachPage children ];
+		column: 'Content' text: [ :aPageOrDailyNote |
+			(aPageOrDailyNote isKindOf: LeDailyNote)
+				ifTrue: [ aPageOrDailyNote date  ]
+				ifFalse: [ aPageOrDailyNote contentAsString ] ];
+		column: 'Time' text: [ :aPageOrDailyNote |
+			(aPageOrDailyNote isKindOf: LeDailyNote)
+				ifTrue: [ ''  ]
+				ifFalse: [ aPageOrDailyNote editTime ] ];
+		column: 'Author' text: [ :aPageOrDailyNote |
+			(aPageOrDailyNote isKindOf: LeDailyNote)
+				ifTrue: [ ''  ]
+				ifFalse: [ aPageOrDailyNote editEmail ] ]
+]
+
+{ #category : #'gt-extensions' }
 LeDatabase >> gtMapFor: aView [
 	<gtView>
 	^ aView mondrian

@@ -30,3 +30,14 @@ LeHomePagesElement >> onPageClick: aLePageViewModel [
 		inPagerWith: [ aLePageViewModel asPhlowTool asElementDo: [ :e | e ] ] asStencil
 		from: self"
 ]
+
+{ #category : #'private - accessing' }
+LeHomePagesElement >> todayPage [
+	^ self database 
+		pageNamed: (LeDailyNoteTitleBuilder new 
+			title: Date today)
+		ifAbsent: [ LePage builder 
+			todayNote;
+			createdNowBy: self database userEmail;
+			build ].
+]

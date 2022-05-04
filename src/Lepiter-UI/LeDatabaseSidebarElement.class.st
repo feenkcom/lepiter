@@ -19,7 +19,7 @@ Class {
 		'tableOfContentsTab',
 		'dailyNotesGroupElement'
 	],
-	#category : #'Lepiter-UI-! UI - Database'
+	#category : 'Lepiter-UI-! UI - Database'
 }
 
 { #category : #'private - updating' }
@@ -55,6 +55,12 @@ LeDatabaseSidebarElement >> dailyNotesElement [
 { #category : #'private - accessing' }
 LeDatabaseSidebarElement >> dailyNotesElementDo: aBlock [
 	dailyNotesElement ifNotNil: aBlock
+]
+
+{ #category : #'private - accessing' }
+LeDatabaseSidebarElement >> dailyNotesGroupElement [
+	^ dailyNotesGroupElement ifNil: [ 
+		dailyNotesGroupElement := self newDailyNotesGroupElement ].
 ]
 
 { #category : #'private - accessing' }
@@ -135,7 +141,11 @@ LeDatabaseSidebarElement >> initializeTabGroupElement [
 		addTab: (BrTab new
 			aptitude: BrGlamorousTabAptitude new;
 			label: 'Pages';
-			stencil: [ self pagesElement ]).
+			stencil: [ self pagesElement ]);
+		addTab: (BrTab new
+			aptitude: BrGlamorousTabAptitude new;
+			label: 'By Day';
+			stencil: [ self dailyNotesGroupElement ]).
 			
 	tabGroupElement padding: tabGroupElement padding + (BlInsets right: 3).
 ]
@@ -157,6 +167,21 @@ LeDatabaseSidebarElement >> newDailyNotesElement [
 			newDailyNotesElement
 				databaseViewModel: self databaseViewModel;
 				showDailyNotes ].
+	
+	^ newDailyNotesElement
+]
+
+{ #category : #'private - instance creation' }
+LeDatabaseSidebarElement >> newDailyNotesGroupElement [
+	| newDailyNotesElement |
+
+	newDailyNotesElement := LeDatabaseDailyNotesTreeElement new.
+		
+	self hasDatabase
+		ifTrue: [
+			newDailyNotesElement
+				databaseViewModel: self databaseViewModel;
+				selection: self selection ].
 	
 	^ newDailyNotesElement
 ]

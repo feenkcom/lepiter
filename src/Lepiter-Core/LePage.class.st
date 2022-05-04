@@ -33,6 +33,12 @@ LePage class >> builder [
 	^ LePageBuilder new
 ]
 
+{ #category : #'instance creation' }
+LePage class >> dailyNoteFor: aDate [
+
+	^ self new initializeDailyNote: aDate
+]
+
 { #category : #factory }
 LePage class >> empty [
 	"Return a page or empty title"
@@ -321,6 +327,12 @@ LePage >> initialize [
 	super initialize.
 	type := LeNamedPageType title: '' page: self.
 	self assignNewUID.
+]
+
+{ #category : #initialization }
+LePage >> initializeDailyNote: aDate [
+
+	type := LeDailyNotePageType date: aDate page: self
 ]
 
 { #category : #initialization }
@@ -655,6 +667,15 @@ LePage >> updateTitle: aTitle [
 				newDatabaseKey: self type databaseKey 
 			) ];
 		update.
+]
+
+{ #category : #'private - updating' }
+LePage >> updateType [
+	| aDate |
+	aDate := LeDailyNoteTitleParser parse: self title.
+	aDate 
+		ifNotNil: [ self type: (LePageType date: aDate) ]
+		ifNil: [ self type: LePageType default ].
 ]
 
 { #category : #'api - editing' }
