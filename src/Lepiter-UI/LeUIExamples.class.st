@@ -186,14 +186,13 @@ LeUIExamples >> databaseSidebarElement [
 	anElement databaseViewModel: aDatabase asContentUIModel.
 
 	self assert: anElement database equals: aDatabase.
-	self assert: anElement pagesElement items size equals: 4.
-	self assert: anElement dailyNotesGroupElement items size equals: 1.
+	self assert: anElement pagesElement items size equals: 2.
 	
 	aValue := nil.
 	anElement tableOfContentsElementDo: [ :tocElement | aValue := tocElement ].
 	self assert: aValue isNil.
 	self assert: anElement tableOfContentsTab isNil.
-	self assert: anElement tabGroupElement tabs size equals: 2.
+	self assert: anElement tabGroupElement tabs size equals: 1.
 	^ anElement
 ]
 
@@ -207,8 +206,7 @@ LeUIExamples >> databaseSidebarElementWithTableOfContents [
 	aDatabase := self databaseWithTableOfContents.
 	anElement databaseViewModel: aDatabase asContentUIModel.
 	self assert: anElement database equals: aDatabase.
-	self assert: anElement pagesElement items size equals: 9.
-	self assert: anElement dailyNotesGroupElement items size equals: 1.
+	self assert: anElement pagesElement items size equals: 13.
 	
 	self assert: anElement tableOfContentsTab isNotNil.
 	self assert: anElement tabGroupElement tabs size equals: 3.
@@ -228,8 +226,7 @@ LeUIExamples >> databaseSidebarElement_AddPage [
 	anElement := self databaseSidebarElement.
 	aDatabase := anElement database.
 	aDatabase pageBuilder title: 'newly added'; add.
-	self assert: anElement pagesElement items size equals: 5.
-	self assert: anElement dailyNotesGroupElement items size equals: 1.
+	self assert: anElement pagesElement items size equals: 3.
 	^ anElement
 ]
 
@@ -329,8 +326,6 @@ LeUIExamples >> databaseWithTwoPagesAndTwoDailyNotes [
 	| aDatabase |
 	aDatabase := self titledPageWithBlockHierachy database.
 	aDatabase pageBuilder title: 'two'; add.
-	aDatabase pageBuilder noteOf: Date today; add.
-	aDatabase pageBuilder noteOf: Date yesterday; add.
 	^ aDatabase
 ]
 

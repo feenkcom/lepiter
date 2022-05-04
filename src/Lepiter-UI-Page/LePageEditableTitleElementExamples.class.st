@@ -43,8 +43,6 @@ LePageEditableTitleElementExamples >> databaseWithTwoPagesAndTwoDailyNotes [
 	| aDatabase |
 	aDatabase := self titledPageWithBlockHierachy database.
 	aDatabase pageBuilder title: 'two'; add.
-	aDatabase pageBuilder noteOf: Date today; add.
-	aDatabase pageBuilder noteOf: Date yesterday; add.
 	^ aDatabase
 ]
 
