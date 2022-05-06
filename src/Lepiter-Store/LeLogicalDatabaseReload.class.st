@@ -101,6 +101,28 @@ LeLogicalDatabaseReload >> reload [
 ]
 
 { #category : #private }
+LeLogicalDatabaseReload >> reloadProperties [
+	"Reload the properties file from disk.
+	If no file is specified, use the current in-memory properties.
+	If the file doesn't exist, revert to the default properties."
+	| propertiesFile |
+
+	propertiesFile := database properties localFile.
+	propertiesFile ifNil: [ ^ self ].
+
+	"Ensure the default properties file is at the latest version"
+	propertiesFile = LepiterCoreDefaults logicalDatabasePropertiesFileReference 
+		ifTrue: [ LeJsonV4LogicalPropertiesUpdater updateDefault ].
+
+	propertiesFile exists ifFalse: [ 
+		database properties: LeLogicalDatabaseProperties defaultForGlamorousToolkit.
+		^ self ].
+
+	database properties: (LeLogicalDatabaseProperties new localFile: propertiesFile)
+
+]
+
+{ #category : #private }
 LeLogicalDatabaseReload >> unloadUnusedDatabases [
 	"Unload any unused databases"
 	| currentDatabases toBeRemoved |
