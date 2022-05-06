@@ -31,18 +31,30 @@ LeLocalSyncErrorStatus >> statusIcon [
 
 { #category : #'gt-extensions' }
 LeLocalSyncErrorStatus >> statusWidget [
+
 	| container |
 	container := super statusWidget.
 	container addChild: (BrButton new
-		aptitude: BrGlamorousButtonWithIconAptitude;
-		icon: BrGlamorousIcons inspect;
-		label: 'View status';
-		margin: (BlInsets left: 5);
-		action: [ :aButtonElement |
-			GtWorldUtility 
-				showSpaceWithTitle: self 
-				with: (GtInspector createOn: self) maximized
-				from: aButtonElement.
-			aButtonElement fireEvent: BrDropdownHideWish new ]).
+			 aptitude: BrGlamorousButtonWithIconAptitude;
+			 icon: BrGlamorousIcons inspect;
+			 label: 'View status';
+			 margin: (BlInsets left: 5);
+			 action: [ :aButtonElement | 
+				 GtWorldUtility
+					 showSpaceWithTitle: self
+					 with: (GtInspector createOn: self) maximized
+					 from: aButtonElement.
+				 aButtonElement fireEvent: BrDropdownHideWish new ]).
+	self database monitor isRunning ifFalse: [ 
+		container addChild: (BrButton new
+				 aptitude: BrGlamorousButtonWithIconAptitude;
+				 icon: BrGlamorousIcons play;
+				 label: 'Start Monitoring';
+				 margin: (BlInsets left: 5);
+				 action: [ :aButtonElement | 
+					 aButtonElement disable.
+					 self database startMonitoring.
+					 self database monitor isRunning ifFalse: [ 
+							 aButtonElement enable ] ]) ].
 	^ container
 ]
