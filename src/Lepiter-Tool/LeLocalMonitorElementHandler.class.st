@@ -18,11 +18,11 @@ LeLocalMonitorElementHandler class >> forElement: anElement monitor: aMonitor [
 
 	aMonitor weak
 		when: LeLocalStoreMonitorStarted
-		send: #update
+		send: #onChange
 		to: aHandler.
 	aMonitor weak
 		when: LeLocalStoreMonitorStopped
-		send: #update
+		send: #onChange
 		to: aHandler.
 
 	anElement userData at: self put: aHandler.
@@ -56,7 +56,16 @@ LeLocalMonitorElementHandler >> monitor: anObject [
 	monitor := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #'private - announcement handling' }
+LeLocalMonitorElementHandler >> onChange [
+
+	self element ifNil: [ ^ self ].
+	self monitor ifNil: [ ^ self ].
+
+	self element enqueueTask: (BlTaskAction new action: [ self update ])
+]
+
+{ #category : #updating }
 LeLocalMonitorElementHandler >> update [
 
 	self element ifNil: [ ^ self ].
