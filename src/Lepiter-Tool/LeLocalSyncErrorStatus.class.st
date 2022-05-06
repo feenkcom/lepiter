@@ -45,16 +45,19 @@ LeLocalSyncErrorStatus >> statusWidget [
 					 with: (GtInspector createOn: self) maximized
 					 from: aButtonElement.
 				 aButtonElement fireEvent: BrDropdownHideWish new ]).
-	self database monitor isRunning ifFalse: [ 
-		container addChild: (BrButton new
-				 aptitude: BrGlamorousButtonWithIconAptitude;
-				 icon: BrGlamorousIcons play;
-				 label: 'Start Monitoring';
-				 margin: (BlInsets left: 5);
-				 action: [ :aButtonElement | 
-					 aButtonElement disable.
-					 self database startMonitoring.
-					 self database monitor isRunning ifFalse: [ 
-							 aButtonElement enable ] ]) ].
+
+	container addChild: (BrButton new
+			 aptitude: BrGlamorousButtonWithIconAptitude;
+			 icon: BrGlamorousIcons play;
+			 label: 'Start Monitoring';
+			 margin: (BlInsets left: 5);
+			 in: [ :aButton | 
+				 LeLocalMonitorElementHandler
+					 forElement: aButton
+					 monitor: self database monitor. ];
+			 action: [ :aButton | 
+				 aButton disable.
+				 self database monitor isRunning ifFalse: [ 
+						 self database startMonitoring ] ]).
 	^ container
 ]
