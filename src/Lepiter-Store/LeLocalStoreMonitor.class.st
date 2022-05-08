@@ -419,6 +419,8 @@ LeLocalStoreMonitor >> startMonitoring [
 	state = #running ifTrue: [ ^ self ].
 	state := #running.
 	
+	self announce: (LeLocalStoreMonitorStarted new monitor: self).
+	
 	database weak when: LeSnippetContentChanged send: #processSnippetContentChanged: to: self.
 	database weak when: LeContentTreeChanged send: #processContentTreeChanged: to: self.
 	database weak when: LeDatabasePageAdded send: #processPageAdded: to: self.
@@ -445,7 +447,10 @@ LeLocalStoreMonitor >> stopMonitoring [
 	database unsubscribe: self.
 	self class sessionAnnouncer unsubscribe: self.
 	state := #stopped.
-	self updateEntries.
+
+	self announce: (LeLocalStoreMonitorStopped new monitor: self).
+
+	self updateEntries
 ]
 
 { #category : #private }

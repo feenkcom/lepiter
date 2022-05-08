@@ -119,6 +119,7 @@ LeLogicalDatabaseReload >> reloadProperties [
 		^ self ].
 
 	database properties: (LeLogicalDatabaseProperties new localFile: propertiesFile)
+
 ]
 
 { #category : #private }
