@@ -277,11 +277,9 @@ LeSlide >> updateCoderUIModel [
 	| aSnippetCoder |
 	
 	aSnippetCoder := GtPharoSnippetCoder new.
-	aSnippetCoder sourceCodeSynchronously: (GtCoderExplicitSourceCode new source: self code).
-	aSnippetCoder completionStrategy: LeSlideSnippetCompletionStrategy new.
-	"self initializeCoderAddOns: aSnippetCoder."
-
+	aSnippetCoder sourceCodeSynchronously: (GtCoderExplicitStringSource new source: self code).
 	coderUIModel := aSnippetCoder asCoderViewModel.
+	coderUIModel completionStrategy: LeSlideSnippetCompletionStrategy new.
 ]
 
 { #category : #'api - updating' }
