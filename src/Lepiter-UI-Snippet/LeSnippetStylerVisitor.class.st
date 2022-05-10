@@ -315,50 +315,61 @@ LeSnippetStylerVisitor >> snippetViewModel [
 { #category : #'private - styling' }
 LeSnippetStylerVisitor >> styleAutoHiding: leftRange and: rightRange whenOutside: nodeInterval [
 	| anAttribute marker1 marker2 |
-	self showMarkup
-		ifTrue: [ ^ self ].
+	self showMarkup ifTrue: [ ^ self ].
 	marker1 := BrTextInvisibleMarkerAttribute new.
 	marker2 := BrTextInvisibleMarkerAttribute new.
-	(self text from: leftRange first to: leftRange last)
-		attribute: marker1.
-	(self text from: rightRange first to: rightRange last)
-		attribute: marker2.
-	anAttribute := BrTextAdornmentDynamicAttribute new
+	self text
+		attribute: marker1
+		from: leftRange first
+		to: leftRange last.
+	self text
+		attribute: marker2
+		from: rightRange first
+		to: rightRange last.
+	anAttribute := (BrTextAdornmentDynamicAttribute new)
 		beReplace;
 		stencil: [ :aTBrTextEditorTextualPiece :anEditorElement | #() ].
 	(self isCursorInside: nodeInterval)
-		ifFalse: [ (self text from: leftRange first to: leftRange last)
-				attribute: anAttribute.
-			(self text from: rightRange first to: rightRange last)
-				attribute: anAttribute ].
+		ifFalse:
+			[ self text
+				attribute: anAttribute
+				from: leftRange first
+				to: leftRange last.
+			self text
+				attribute: anAttribute
+				from: rightRange first
+				to: rightRange last ].
 	(self text from: nodeInterval first to: nodeInterval last)
-		onCursorEnter: [ :aTextEditor | 
+		onCursorEnter:
+			[ :aTextEditor | 
 			| left right |
-			aTextEditor text
-				findAttribute: marker1
-				indicesDo: [ :start :end | left := start ].
-			aTextEditor text
-				findAttribute: marker2
-				indicesDo: [ :start :end | right := end ].
+			aTextEditor text findAttribute: marker1 indicesDo: [ :start :end | left := start ].
+			aTextEditor text findAttribute: marker2 indicesDo: [ :start :end | right := end ].
 			(left notNil and: [ right notNil ])
-				ifTrue: [ | cursorIndex |
+				ifTrue:
+					[ | cursorIndex |
 					cursorIndex := aTextEditor cursors first position.
 					(cursorIndex between: left - 2 and: right)
-						ifTrue: [ (aTextEditor text from: left to: right)
-								clearAttributes: [ :eachAttribute | eachAttribute == anAttribute ] ] ] ]
-		leave: [ :aTextEditor | 
+						ifTrue:
+							[ aTextEditor text
+								clearAttributes: left
+								to: right
+								if: [ :eachAttribute | eachAttribute == anAttribute ] ] ] ]
+		leave:
+			[ :aTextEditor | 
 			| left right |
-			aTextEditor text
-				findAttribute: marker1
-				indicesDo: [ :start :end | left := start to: end ].
-			aTextEditor text
-				findAttribute: marker2
-				indicesDo: [ :start :end | right := start to: end ].
+			aTextEditor text findAttribute: marker1 indicesDo: [ :start :end | left := start to: end ].
+			aTextEditor text findAttribute: marker2 indicesDo: [ :start :end | right := start to: end ].
 			(left notNil and: [ right notNil ])
-				ifTrue: [ (aTextEditor text from: left first to: left last)
-						attributes: {anAttribute}.
-					(aTextEditor text from: right first to: right last)
-						attributes: {anAttribute} ] ]
+				ifTrue:
+					[ aTextEditor text
+						attributes: {anAttribute}
+						from: left first
+						to: left last.
+					aTextEditor text
+						attributes: {anAttribute}
+						from: right first
+						to: right last ] ]
 ]
 
 { #category : #'private - styling' }
@@ -391,17 +402,19 @@ LeSnippetStylerVisitor >> styleAutoHiding: anInterval text: aSubText [
 					cursorIndex := aTextEditor cursors first position.
 					"and now that we know valid attribute indices we can work with them"
 					(cursorIndex between: aStart-2 and: anEnd) ifTrue:
-						[ (aTextEditor text
-							from: aStart
-							to: anEnd) clearAttributes: [ :eachAttribute | eachAttribute == anAttribute ] ] ] ]
+						[ aTextEditor text
+							clearAttributes: aStart
+							to: anEnd 
+							if: [ :eachAttribute | eachAttribute == anAttribute ] ] ] ]
 
 		leave: [ :aTextEditor |
 			aTextEditor text
 				findAttribute: aMarkerAttribute
 				indicesDo: [ :aStart :anEnd |
-					(aTextEditor text 
+					aTextEditor text
+						attribute: anAttribute  
 						from: aStart
-						to: anEnd) attribute: anAttribute ] ]
+						to: anEnd ] ]
 ]
 
 { #category : #'private - styling' }

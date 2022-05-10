@@ -49,8 +49,10 @@ GtDocumentUtility class >> convertToBoolean: aStringOrBoolean [
 
 { #category : #'text styling - nearby cursor' }
 GtDocumentUtility class >> cursorNeabyInText: aBlRope forNode: aNode [
-	(aBlRope from: aNode start to: aNode stop)
-		clearAttributes: [ :eachAttribute | eachAttribute = GtHideAttribute uniqueInstance ]
+	aBlRope
+		clearAttributes: aNode start
+		to: aNode stop
+		if: [ :eachAttribute | eachAttribute = GtHideAttribute uniqueInstance ]
 ]
 
 { #category : #'text styling - nearby cursor' }
