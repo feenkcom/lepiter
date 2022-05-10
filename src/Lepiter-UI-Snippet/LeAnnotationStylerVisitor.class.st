@@ -258,17 +258,19 @@ LeAnnotationStylerVisitor >> styleAutoHidingAnnotation: anAnnotation [
 			aTextEditor text
 				findAttribute: aMarkerAttribute
 				indicesDo: [ :aStart :anEnd |
-					(aTextEditor text
-						from: aStart
-						to: anEnd) clearAttributes: [ :eachAttribute | eachAttribute == anAttribute ] ] ]
+					aTextEditor text
+						clearAttributes: aStart
+						to: anEnd 
+						if: [ :eachAttribute | eachAttribute == anAttribute ] ] ]
 
 		leave: [ :aTextEditor |
 			aTextEditor text
 				findAttribute: aMarkerAttribute
 				indicesDo: [ :aStart :anEnd |
-					(aTextEditor text 
+					aTextEditor text 
+						attribute: anAttribute
 						from: aStart
-						to: anEnd) attribute: anAttribute ] ]
+						to: anEnd  ] ]
 ]
 
 { #category : #styling }
