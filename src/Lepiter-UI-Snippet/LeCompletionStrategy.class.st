@@ -12,14 +12,13 @@ Class {
 
 { #category : #accessing }
 LeCompletionStrategy >> addPageLinkCompletionsFor: aText at: positionInteger to: stream [
-	| char seenWhitespace index |
-	seenWhitespace := false.
+	| char index |
+
 	index := positionInteger.
 	[ index > 0 ]
 		whileTrue:
 			[ char := aText at: index.
 			(char isLineBreak or: [ char = $] ]) ifTrue: [ ^ stream ].
-			char isSeparator ifTrue: [ seenWhitespace := true ].
 			char = $[
 				ifTrue:
 					[ ^ stream
@@ -60,7 +59,7 @@ LeCompletionStrategy >> bracketCompletionActionStreamFor: aText at: positionInte
 	positionInteger is the current cursor index.
 	prefix is the portion of the text to be completed.
 	aBoolean indicates whether an additional opening bracket needs to be supplied."
-	| rightBracketCount index char rightBracketIndex leftBracket |
+	| rightBracketCount index char rightBracketIndex leftBracketOffset start end result |
 	index := positionInteger + 1.
 	rightBracketCount := 0.
 	[ rightBracketCount = 0 and: [ index <= aText size and: [ (char := aText at: index) isLineBreak not ] ] ]
@@ -69,41 +68,21 @@ LeCompletionStrategy >> bracketCompletionActionStreamFor: aText at: positionInte
 				[ rightBracketIndex := index.
 				rightBracketCount := (index + 1 < aText size and: [ (aText at: index + 1) = $] ]) ifTrue: [ 2 ] ifFalse: [ 1 ] ].
 			index := index + 1 ].
-	leftBracket := (aBoolean and: [ prefix isEmpty ]) ifTrue: [ '[' ] ifFalse: [ '' ].
-	^ (self pageTitles asyncStreamStartingWith: prefix)
-		collect:
-			[ :each | | action rightBrackets completionString |
-			action := GtCompositeCompletionAction labeled: (self labelFor: each withSearch: prefix).
-			rightBracketCount > 0 ifTrue:
-				[ rightBrackets := rightBracketCount = 1 ifTrue: [ ']' ] ifFalse: [ '' ].
-				completionString := leftBracket , (each allButFirst: prefix size) , rightBrackets.
-				action
-					addAction:
-						(GtDeleteTextCompletionAction
-							labeled: ''
-							from: positionInteger + 1
-							to: rightBracketIndex - 1);
-					addAction:
-						(GtInsertTextAndPositionCursorCompletionAction
-							labeled: each
-							completion: completionString
-							position: positionInteger
-							from: positionInteger - prefix size
-							newPosition: positionInteger + completionString size + rightBracketCount) ]
-			ifFalse:
-				[ action addAction: (GtInsertTextCompletionAction
-					labeled: (self labelFor: each withSearch: prefix)
-					completion: leftBracket , (each allButFirst: prefix size) , ']]'
-					position: positionInteger
-					from: positionInteger - prefix size) ].
-			(aBoolean and: [ prefix notEmpty ]) ifTrue:
-				[ action 	addAction:
-					(GtInsertTextCompletionAction
-						labeled: '['
-						completion: '['
-						position: positionInteger - prefix size
-						from: positionInteger - prefix size) ].
-			action ]
+	end := positionInteger + rightBracketCount.
+	leftBracketOffset := (aBoolean and: [ prefix isEmpty ]) ifTrue: [ 1 ] ifFalse: [ 2 ].
+	start := positionInteger - prefix size - leftBracketOffset.
+	Stdio stdout << 'prefix: '; print: prefix; lf.
+
+	result:= (self pageTitles asyncStreamStartingWith: prefix) collect:
+		[ :each | | action |
+		action := LeReplaceSubtextCompletionAction new
+			database: database;
+			label: (self labelFor: each withSearch: prefix);
+			pageName: each;
+			start: start;
+			end: end.
+		action ].
+	^ result.
 ]
 
 { #category : #completing }
