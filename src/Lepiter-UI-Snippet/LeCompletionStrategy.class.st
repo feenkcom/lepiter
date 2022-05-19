@@ -56,57 +56,53 @@ LeCompletionStrategy >> astCompletionResultFor: aText at: positionInteger onStre
 
 { #category : #accessing }
 LeCompletionStrategy >> bracketCompletionActionStreamFor: aText at: positionInteger withPrefix: prefix needsAdditionalBracket: aBoolean [
+	"Answer a stream of completion actions for the supplied text.
+	positionInteger is the current cursor index.
+	prefix is the portion of the text to be completed.
+	aBoolean indicates whether an additional opening bracket needs to be supplied."
 	| rightBracketCount index char rightBracketIndex leftBracket |
 	index := positionInteger + 1.
 	rightBracketCount := 0.
 	[ rightBracketCount = 0 and: [ index <= aText size and: [ (char := aText at: index) isLineBreak not ] ] ]
 		whileTrue:
-			[ char = $]
-				ifTrue:
-					[ rightBracketIndex := index.
-					rightBracketCount := (index + 1 < aText size and: [ (aText at: index + 1) = $] ]) ifTrue: [ 2 ] ifFalse: [ 1 ] ].
+			[ char = $] 	ifTrue:
+				[ rightBracketIndex := index.
+				rightBracketCount := (index + 1 < aText size and: [ (aText at: index + 1) = $] ]) ifTrue: [ 2 ] ifFalse: [ 1 ] ].
 			index := index + 1 ].
 	leftBracket := (aBoolean and: [ prefix isEmpty ]) ifTrue: [ '[' ] ifFalse: [ '' ].
 	^ (self pageTitles asyncStreamStartingWith: prefix)
 		collect:
-			[ :each | 
-			| action rightBrackets completionString |
-			action := rightBracketCount > 0
-				ifTrue:
-					[ rightBrackets := rightBracketCount = 1 ifTrue: [ ']' ] ifFalse: [ '' ].
-					completionString := leftBracket , (each allButFirst: prefix size) , rightBrackets.
-					(GtCompositeCompletionAction labeled: (self labelFor: each withSearch: prefix))
-						addAction:
-								(GtDeleteTextCompletionAction
-										labeled: ''
-										from: positionInteger + 1
-										to: rightBracketIndex - 1);
-						addAction:
-								(GtInsertTextAndPositionCursorCompletionAction
-										labeled: each
-										completion: completionString
-										position: positionInteger
-										from: positionInteger - prefix size
-										newPosition: positionInteger + completionString size + rightBracketCount) ]
-				ifFalse:
-					[ GtInsertTextCompletionAction
-						labeled: (self labelFor: each withSearch: prefix)
-						completion: leftBracket , (each allButFirst: prefix size) , ']]'
-						position: positionInteger
-						from: positionInteger - prefix size ].
-			(aBoolean and: [ prefix notEmpty ])
-				ifTrue:
-					[ (action isKindOf: GtCompositeCompletionAction)
-						ifFalse:
-							[ action := (GtCompositeCompletionAction labeled: (self labelFor: each withSearch: prefix)) addAction: action ].
-					action
-						addAction:
-								(GtInsertTextCompletionAction
-										labeled: '['
-										completion: '['
-										position: positionInteger - prefix size
-										from: positionInteger - prefix size);
-						yourself ].
+			[ :each | | action rightBrackets completionString |
+			action := GtCompositeCompletionAction labeled: (self labelFor: each withSearch: prefix).
+			rightBracketCount > 0 ifTrue:
+				[ rightBrackets := rightBracketCount = 1 ifTrue: [ ']' ] ifFalse: [ '' ].
+				completionString := leftBracket , (each allButFirst: prefix size) , rightBrackets.
+				action
+					addAction:
+						(GtDeleteTextCompletionAction
+							labeled: ''
+							from: positionInteger + 1
+							to: rightBracketIndex - 1);
+					addAction:
+						(GtInsertTextAndPositionCursorCompletionAction
+							labeled: each
+							completion: completionString
+							position: positionInteger
+							from: positionInteger - prefix size
+							newPosition: positionInteger + completionString size + rightBracketCount) ]
+			ifFalse:
+				[ action addAction: (GtInsertTextCompletionAction
+					labeled: (self labelFor: each withSearch: prefix)
+					completion: leftBracket , (each allButFirst: prefix size) , ']]'
+					position: positionInteger
+					from: positionInteger - prefix size) ].
+			(aBoolean and: [ prefix notEmpty ]) ifTrue:
+				[ action 	addAction:
+					(GtInsertTextCompletionAction
+						labeled: '['
+						completion: '['
+						position: positionInteger - prefix size
+						from: positionInteger - prefix size) ].
 			action ]
 ]
 
