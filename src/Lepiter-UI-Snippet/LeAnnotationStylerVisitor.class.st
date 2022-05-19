@@ -407,7 +407,7 @@ LeAnnotationStylerVisitor >> styleLinkButton: aLink text: aSubText [
 				valid: page isNotNil.
 			button 
 				model: page;
-				label: aLink linkUID;
+				label: aLink linkLabel;
 				action: [ :aButton | self snippetViewModel snippetModel spawnLinkTarget: aLink from: aButton ].
 			button ]
 ]
