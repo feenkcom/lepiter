@@ -81,6 +81,11 @@ TLeAnnotationParseNodeVisitor >> visitHeightArgument: aHeightArgument [
 ]
 
 { #category : #generated }
+TLeAnnotationParseNodeVisitor >> visitIdArgument: anIdArgument [
+	^ self visitArgument: anIdArgument
+]
+
+{ #category : #generated }
 TLeAnnotationParseNodeVisitor >> visitLabelArgument: aLabelArgument [
 	^ self visitArgument: aLabelArgument
 ]
@@ -111,8 +116,8 @@ TLeAnnotationParseNodeVisitor >> visitPageAnnotation: aPageAnnotation [
 ]
 
 { #category : #generated }
-TLeAnnotationParseNodeVisitor >> visitPageArgument: aPageArgument [
-	^ self visitArgument: aPageArgument
+TLeAnnotationParseNodeVisitor >> visitPageNameArgument: aPageNameArgument [
+	^ self visitNameArgument: aPageNameArgument
 ]
 
 { #category : #generated }

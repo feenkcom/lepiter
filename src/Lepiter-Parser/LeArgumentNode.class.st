@@ -79,12 +79,22 @@ LeArgumentNode >> isDate [
 ]
 
 { #category : #testing }
+LeArgumentNode >> isDb [
+	^ false
+]
+
+{ #category : #testing }
 LeArgumentNode >> isExpanded [
 	^ false
 ]
 
 { #category : #testing }
 LeArgumentNode >> isHeight [
+	^ false
+]
+
+{ #category : #testing }
+LeArgumentNode >> isId [
 	^ false
 ]
 
