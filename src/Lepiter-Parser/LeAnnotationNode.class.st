@@ -5,7 +5,7 @@ Class {
 		'separators',
 		'items'
 	],
-	#category : 'Lepiter-Parser'
+	#category : #'Lepiter-Parser'
 }
 
 { #category : #generated }
@@ -21,6 +21,11 @@ LeAnnotationNode >> compositeNodeVariables [
 { #category : #generated }
 LeAnnotationNode >> compositeTokenVariables [
 	^ #(#separators)
+]
+
+{ #category : #accessing }
+LeAnnotationNode >> dbNode [
+	^ self items detect: [ :each | each isDb ] ifNone: [  ]
 ]
 
 { #category : #testing }
@@ -58,6 +63,11 @@ LeAnnotationNode >> height [
 { #category : #accessing }
 LeAnnotationNode >> heightNode [
 	^ self items detect: [ :each | each isHeight ] ifNone: [  ]
+]
+
+{ #category : #accessing }
+LeAnnotationNode >> idNode [
+	^ self items detect: [ :each | each isId ] ifNone: [  ]
 ]
 
 { #category : #accessing }

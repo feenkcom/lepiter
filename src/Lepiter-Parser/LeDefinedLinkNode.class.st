@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'link'
 	],
-	#category : 'Lepiter-Parser'
+	#category : #'Lepiter-Parser'
 }
 
 { #category : #generated }
@@ -20,6 +20,11 @@ LeDefinedLinkNode >> link [
 { #category : #generated }
 LeDefinedLinkNode >> link: aSmaCCToken [
 	link := aSmaCCToken
+]
+
+{ #category : #'api - accessing' }
+LeDefinedLinkNode >> linkLabel [
+	^ self linkUID
 ]
 
 { #category : #'api - accessing' }
