@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'pageUid'
 	],
-	#category : 'Lepiter-Core-Links'
+	#category : #'Lepiter-Core-Links'
 }
 
 { #category : #'instance creation' }
@@ -31,6 +31,11 @@ LeLinkPageUidReference >> description [
 	^ 'Page Uid Reference: ', (self page 
 			ifNil: [ self pageUid asString ] 
 			ifNotNil: [ :aPage | aPage title ])
+]
+
+{ #category : #testing }
+LeLinkPageUidReference >> isExistingPage [
+	^ self explicitLink database hasPageUID: self pageUid.
 ]
 
 { #category : #testing }

@@ -1,3 +1,8 @@
+"
+An implicit link is one where the title of a page is contained in the text of a snippet, but it isn't explicitly marked as a link.
+
+Implicit links have also been called ""unreferenced links"".
+"
 Class {
 	#name : #LeImplicitPageLink,
 	#superclass : #LeLink,
@@ -7,7 +12,7 @@ Class {
 		'target',
 		'node'
 	],
-	#category : 'Lepiter-Core-Links'
+	#category : #'Lepiter-Core-Links'
 }
 
 { #category : #'api - accessing' }

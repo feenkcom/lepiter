@@ -15,8 +15,24 @@ Class {
 		'node',
 		'targetReference'
 	],
-	#category : 'Lepiter-Core-Links'
+	#category : #'Lepiter-Core-Links'
 }
+
+{ #category : #'instance creation' }
+LeTextualLink class >> fromPageAnnotation: aLePageAnnotationNode [
+	"Answer an instance of the appropriate subclass based on the supplied annotation"
+
+	^ aLePageAnnotationNode isLinkByName ifTrue:
+		[ LeTextualPageLink new
+			node: aLePageAnnotationNode;
+			targetPageTitle: aLePageAnnotationNode pageName;
+			targetDatabaseUUID: aLePageAnnotationNode dbUuidString ]
+	ifFalse:
+		[ LeUidPageLink new
+			node: aLePageAnnotationNode;
+			targetPageUidString: aLePageAnnotationNode pageUidString;
+			targetDatabaseUUID: aLePageAnnotationNode dbUuidString ].
+]
 
 { #category : #accessing }
 LeTextualLink >> database [ 
@@ -57,6 +73,9 @@ LeTextualLink >> isTextualLink [
 
 { #category : #'api - testing' }
 LeTextualLink >> isTextualPageLink [
+	"Answer a boolean indicating whether the receiver is a link to a page derived from snippet source"
+	<return: #Boolean>
+
 	^ false
 ]
 
