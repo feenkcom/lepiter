@@ -71,8 +71,6 @@ LeCompletionStrategy >> bracketCompletionActionStreamFor: aText at: positionInte
 	end := positionInteger + rightBracketCount.
 	leftBracketOffset := (aBoolean and: [ prefix isEmpty ]) ifTrue: [ 1 ] ifFalse: [ 2 ].
 	start := positionInteger - prefix size - leftBracketOffset.
-	Stdio stdout << 'prefix: '; print: prefix; lf.
-
 	result:= (self pageTitles asyncStreamStartingWith: prefix) collect:
 		[ :each | | action |
 		action := LeReplaceSubtextCompletionAction new
