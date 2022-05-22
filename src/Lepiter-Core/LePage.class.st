@@ -112,10 +112,11 @@ LePage >> asRemoteLink [
 	^ String streamContents: [ :stream |
 		stream
 			<< '{{gtPage:';
-			<< self title;
+			<< type remoteLinkId;
 			<< '|db=';
 			<< self database uuidString;
-			<< '}}' ]
+			<< '}}' ].
+
 ]
 
 { #category : #'private - asserting' }

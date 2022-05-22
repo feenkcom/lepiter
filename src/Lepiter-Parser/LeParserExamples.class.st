@@ -9,6 +9,42 @@ Class {
 	#category : #'Lepiter-Parser'
 }
 
+{ #category : #'examples - annotations' }
+LeParserExamples >> annotationNameLink [
+	<gtExample>
+	| aNode found |
+	aNode := self parse: '{{gtPage:pageName|db=594qh2fnllvcrdj2nmd623mmg}}'.
+	found := false.
+	aNode
+		allNodesDo: [ :each | 
+			(each isKindOf: LePageAnnotationNode)
+				ifTrue: [ found := true.
+					self
+						assert: each nameNode value value
+						equals: 'pageName'.
+					self assert: each dbUuidString equals: '594qh2fnllvcrdj2nmd623mmg' ] ].
+	self assert: found.
+	^ aNode
+]
+
+{ #category : #'examples - annotations' }
+LeParserExamples >> annotationUidLink [
+	<gtExample>
+	| aNode found |
+	aNode := self parse: '{{gtPage:id=594qh2fnllvcrdj2nmd623mmh|db=594qh2fnllvcrdj2nmd623mmg}}'.
+	found := false.
+	aNode
+		allNodesDo: [ :each | 
+			(each isKindOf: LePageAnnotationNode)
+				ifTrue: [ found := true.
+					self
+						assert: each pageUidString
+						equals: '594qh2fnllvcrdj2nmd623mmh'.
+					self assert: each dbUuidString equals: '594qh2fnllvcrdj2nmd623mmg' ] ].
+	self assert: found.
+	^ aNode
+]
+
 { #category : #'examples - links' }
 LeParserExamples >> blockLink [
 	<gtExample>

@@ -8,7 +8,7 @@ Class {
 	#instVars : [
 		'title'
 	],
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #accessing }
@@ -55,6 +55,14 @@ LeNamedPageType >> printOn: aStream [
 	aStream 
 		nextPutAll: 'Named Page: ';
 		print: title
+]
+
+{ #category : #accessing }
+LeNamedPageType >> remoteLinkId [
+	"Answer the string to be used to identify the page in a remote link annotation ({{gtPage:...}})"
+	<return: #String>
+
+	^ title
 ]
 
 { #category : #'api - testing' }

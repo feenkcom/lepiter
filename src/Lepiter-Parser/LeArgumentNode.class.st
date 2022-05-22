@@ -84,6 +84,12 @@ LeArgumentNode >> isDb [
 ]
 
 { #category : #testing }
+LeArgumentNode >> isDefined [
+
+	^ name isNotNil and: [ value isNotNil ]
+]
+
+{ #category : #testing }
 LeArgumentNode >> isExpanded [
 	^ false
 ]

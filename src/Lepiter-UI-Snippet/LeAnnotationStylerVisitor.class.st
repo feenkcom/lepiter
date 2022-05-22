@@ -396,8 +396,9 @@ LeAnnotationStylerVisitor >> styleLinkButton: aLink text: aSubText [
 
 	aSubText
 		appendingAdornment: [ :aTBrTextEditorTextualPiece :anEditorElement | 
-			| button page |
-			page := self snippetViewModel snippetModel outgoingTextualLinks
+			| button page snippetModel |
+			snippetModel := self snippetViewModel snippetModel.
+			page := snippetModel outgoingTextualLinks
 				detect: [ :eachLink | eachLink node = aLink ]
 				ifFound: [ :theLink | theLink target ]
 				ifNone: [ nil ].
@@ -407,7 +408,7 @@ LeAnnotationStylerVisitor >> styleLinkButton: aLink text: aSubText [
 				valid: page isNotNil.
 			button 
 				model: page;
-				label: aLink linkLabel;
+				label: (aLink linkLabelInDatabase: snippetModel database);
 				action: [ :aButton | self snippetViewModel snippetModel spawnLinkTarget: aLink from: aButton ].
 			button ]
 ]

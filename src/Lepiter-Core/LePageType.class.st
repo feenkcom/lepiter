@@ -10,7 +10,7 @@ Class {
 	#instVars : [
 		'page'
 	],
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #factory }
@@ -81,6 +81,14 @@ LePageType >> pageTypeClass [
 	"Answer the class used to store the pages in ${class:name=LeDatabase}$."
 
 	^ self class pageTypeClass
+]
+
+{ #category : #accessing }
+LePageType >> remoteLinkId [
+	"Answer the string to be used to identify the page in a remote link annotation ({{gtPage:...}})"
+	<return: #String>
+
+	^ 'id=', page uidString
 ]
 
 { #category : #'api - testing' }

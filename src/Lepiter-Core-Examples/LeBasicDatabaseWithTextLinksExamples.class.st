@@ -30,6 +30,7 @@ LeBasicDatabaseWithTextLinksExamples >> basicDatabase [
 	<gtExample>
 	| aDatabase |
 	aDatabase := LeDatabase new.
+	aDatabase monitor: LeVolatileMonitor new.
 	self assert: aDatabase size equals: 0.
 	^ aDatabase
 ]
@@ -374,5 +375,61 @@ LeBasicDatabaseWithTextLinksExamples >> snippetsAreRemovedFromTheDatabaseWhenRem
 	self assert: (database hasBlockUID: snippetOneChildren uid) not.
 	self assert: database snippetsCount equals: 1.
 
+	^ database
+]
+
+{ #category : #'examples - page links' }
+LeBasicDatabaseWithTextLinksExamples >> uidLinksAreAddedToDatabaseWhenSnippetIsAdded [
+	<gtExample>
+	| database pageOne pageTwo targetSnippet |
+
+	database := self basicDatabase.
+	pageOne := LePage unnamedPage.
+	pageOne snippetBuilder string: 'One'; add.
+	database addPage: pageOne.
+	
+	pageTwo := database pageBuilder title: 'Page2'; add.
+	self assert: (database scanForLinksTo: pageOne) size equals: 0.
+
+	targetSnippet := pageTwo snippetBuilder string: 'Link to ', pageOne asRemoteLink; add.
+	
+	self assert: pageOne childrenCount equals: 1.
+	self assert: targetSnippet outgoingExplicitLinks size equals: 1.
+	self assert: targetSnippet outgoingTextualLinks size equals: 1.
+	self assert: (database scanForLinksTo: pageOne) size equals: 1.
+	self assert: pageOne incomingLinks size equals: 1.
+	self assert: database explicitLinksCount equals: 1.
+	self assert: database explicitLinks items first isTextualPageLink.
+	self 
+		assert: targetSnippet outgoingExplicitLinks first 
+		equals: (database scanForLinksTo: pageOne) first.	
+
+	^ database
+]
+
+{ #category : #'examples - page links' }
+LeBasicDatabaseWithTextLinksExamples >> uidLinksAreAddedToTheDatabaseWhenPageAdded [
+	<gtExample>
+	| database pageOne pageTwo targetSnippet |
+	database := self basicDatabase.
+	pageOne := LePage unnamedPage.
+	database addPage: pageOne.
+	pageOne snippetBuilder
+		string: 'One';
+		add.
+	pageTwo := LePage named: 'Page2'.
+	targetSnippet := LeTextSnippet string: 'Link to ', pageOne asRemoteLink.
+	pageTwo addSnippet: targetSnippet.
+	database addPage: pageTwo.
+	self assert: pageOne childrenCount equals: 1.
+	self assert: targetSnippet outgoingExplicitLinks size equals: 1.
+	self assert: targetSnippet outgoingTextualLinks size equals: 1.
+	self assert: (database scanForLinksTo: pageOne) size equals: 1.
+	self assert: pageOne incomingLinks size equals: 1.
+	self assert: database explicitLinksCount equals: 1.
+	self assert: database explicitLinks items first isTextualPageLink.
+	self
+		assert: targetSnippet outgoingExplicitLinks first
+		equals: (database scanForLinksTo: pageOne) first.
 	^ database
 ]
