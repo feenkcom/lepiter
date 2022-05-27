@@ -23,7 +23,7 @@ GtPythonCoderModel >> bindAndExecute: sourceString [
 	ast := PythonParser parseWithErrors: sourceString.
 	"Assign the final statement to snippetResult if it isn't already an assignment"
 	lastStatement := ast statements last.
-	(lastStatement isStatement) ifTrue:
+	(lastStatement isValueStatement) ifTrue:
 		[ trimmedSource 
 			insert: 'snippetResult = ' 
 			at: lastStatement startPosition. ]
