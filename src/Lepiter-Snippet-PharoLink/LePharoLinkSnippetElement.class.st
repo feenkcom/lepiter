@@ -7,7 +7,7 @@ Currently the global uniqueInstance of the {{gtClass:name=PharoLinkApplication}}
 Class {
 	#name : #LePharoLinkSnippetElement,
 	#superclass : #LeExternalEvaluatedSnippetElement,
-	#category : 'Lepiter-Snippet-PharoLink-Snippet'
+	#category : #'Lepiter-Snippet-PharoLink-Snippet'
 }
 
 { #category : #'api - snippet view model' }
@@ -15,16 +15,12 @@ LePharoLinkSnippetElement >> onSnippetViewModelChanged [
 	super onSnippetViewModelChanged.
 
 	self updateLanguageLabel.
-	self coder
-		applicationStrategy: self serverStrategy;
-		pharoBindings: self snippetViewModel snippetBindings.
+	self coder pharoBindings: self snippetViewModel snippetBindings
 ]
 
 { #category : #accessing }
 LePharoLinkSnippetElement >> serverStrategy [
-
-	^ serverStrategy ifNil: 
-		[ serverStrategy := LePharoLinkApplicationGlobalStrategy new content: self ].
+	^ self coder applicationStrategy
 ]
 
 { #category : #private }

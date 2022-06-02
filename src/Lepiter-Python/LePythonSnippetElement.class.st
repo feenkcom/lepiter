@@ -7,7 +7,7 @@ Currently the global uniqueInstance of the {{gtClass:name=PBApplication}} is alw
 Class {
 	#name : #LePythonSnippetElement,
 	#superclass : #LeExternalEvaluatedSnippetElement,
-	#category : 'Lepiter-Python-Snippet'
+	#category : #'Lepiter-Python-Snippet'
 }
 
 { #category : #'api - snippet view model' }
@@ -16,15 +16,12 @@ LePythonSnippetElement >> onSnippetViewModelChanged [
 
 	self updateLanguageLabel.
 	self coder
-		pythonApplicationStrategy: self serverStrategy;
 		pharoBindings: self snippetViewModel snippetBindings.
 ]
 
 { #category : #accessing }
 LePythonSnippetElement >> serverStrategy [
-
-	^ serverStrategy ifNil: 
-		[ serverStrategy := LePythonApplicationGlobalStrategy new content: self ].
+	^ self coder pythonApplicationStrategy
 ]
 
 { #category : #private }

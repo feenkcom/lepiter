@@ -7,7 +7,7 @@ Currently the global uniqueInstance of the {{gtClass:name=JSLinkApplication}} is
 Class {
 	#name : #LeJavaScriptSnippetElement,
 	#superclass : #LeExternalEvaluatedSnippetElement,
-	#category : 'Lepiter-JavaScript-Snippet'
+	#category : #'Lepiter-JavaScript-Snippet'
 }
 
 { #category : #'api - snippet view model' }
@@ -16,15 +16,12 @@ LeJavaScriptSnippetElement >> onSnippetViewModelChanged [
 
 	self updateLanguageLabel.
 	self coder
-		jsLinkApplicationStrategy: self serverStrategy;
 		pharoBindings: self snippetViewModel snippetBindings
 ]
 
 { #category : #'instance creation' }
 LeJavaScriptSnippetElement >> serverStrategy [
-
-	^ serverStrategy ifNil: 
-		[ serverStrategy := LeJavaScriptApplicationGlobalStrategy new content: self ].
+	^ self coder jsLinkApplicationStrategy
 ]
 
 { #category : #private }
