@@ -10,6 +10,11 @@ Class {
 }
 
 { #category : #accessing }
+GtButtonStencilBuilder class >> stencilProperties [
+	^ #(action icon label)
+]
+
+{ #category : #accessing }
 GtButtonStencilBuilder >> action [
 	^ action
 ]
