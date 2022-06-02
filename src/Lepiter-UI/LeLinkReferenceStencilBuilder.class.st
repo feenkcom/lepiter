@@ -6,7 +6,7 @@ Class {
 		'page',
 		'database'
 	],
-	#category : 'Lepiter-UI-! Link Reference'
+	#category : #'Lepiter-UI-! Link Reference'
 }
 
 { #category : #'api - instantiation' }
@@ -61,4 +61,11 @@ LeLinkReferenceStencilBuilder >> paramsOn: aStencilExecutor [
 		push: self linkReference;
 		push: self page;
 		push: self database
+]
+
+{ #category : #accessing }
+LeLinkReferenceStencilBuilder >> reset [
+	linkReference := nil.
+	page := nil.
+	database := nil
 ]

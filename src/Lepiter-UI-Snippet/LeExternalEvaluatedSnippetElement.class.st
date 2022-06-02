@@ -8,7 +8,6 @@ Class {
 	#instVars : [
 		'snippetBindings',
 		'coderModel',
-		'serverStrategy',
 		'server',
 		'serverException',
 		'languageElement',
@@ -107,6 +106,11 @@ LeExternalEvaluatedSnippetElement >> registerSpawnBelowHandler [
 					in: [ :anNewEvent | 
 						anNewEvent propertyAt: #spawnContainer put: self ];
 					yourself) ] ].
+]
+
+{ #category : #accessing }
+LeExternalEvaluatedSnippetElement >> serverStrategy [
+	^ self subclassResponsibility
 ]
 
 { #category : #accessing }

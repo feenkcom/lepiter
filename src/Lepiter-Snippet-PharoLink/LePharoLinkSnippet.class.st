@@ -1,7 +1,7 @@
 Class {
 	#name : #LePharoLinkSnippet,
 	#superclass : #LeCodeSnippet,
-	#category : 'Lepiter-Snippet-PharoLink-Snippet'
+	#category : #'Lepiter-Snippet-PharoLink-Snippet'
 }
 
 { #category : #'api - accessing menu' }
@@ -33,4 +33,5 @@ LePharoLinkSnippet >> asSnippetViewModel [
 { #category : #initialization }
 LePharoLinkSnippet >> newCoder [
 	^ GtPharoLinkCoderModel new
+		applicationStrategy: (LePharoLinkApplicationGlobalStrategy new content: self)
 ]

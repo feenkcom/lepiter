@@ -14,7 +14,7 @@ A LeJavaScriptSnippet is an executable piece of JavaScript code, i.e. a script.
 Class {
 	#name : #LeJavaScriptSnippet,
 	#superclass : #LeCodeSnippet,
-	#category : 'Lepiter-JavaScript-Snippet'
+	#category : #'Lepiter-JavaScript-Snippet'
 }
 
 { #category : #'api - accessing menu' }
@@ -52,4 +52,5 @@ LeJavaScriptSnippet >> asSnippetViewModel [
 { #category : #initialization }
 LeJavaScriptSnippet >> newCoder [
 	^ GtJavaScriptCoderModel new
+		jsLinkApplicationStrategy: (LeJavaScriptApplicationGlobalStrategy new content: self)
 ]

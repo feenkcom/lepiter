@@ -10,7 +10,7 @@ Class {
 	#instVars : [
 		'content'
 	],
-	#category : 'Lepiter-Core-ExternalServer'
+	#category : #'Lepiter-Core-ExternalServer'
 }
 
 { #category : #naming }
@@ -50,5 +50,9 @@ LeExternalServerStrategy >> content [
 
 { #category : #accessing }
 LeExternalServerStrategy >> content: anObject [
+	self
+		assert: [ (anObject isKindOf: BlElement) not ]
+		description: [ 'Content must not be an element!' ].
+
 	content := anObject
 ]

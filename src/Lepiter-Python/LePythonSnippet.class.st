@@ -1,7 +1,7 @@
 Class {
 	#name : #LePythonSnippet,
 	#superclass : #LeCodeSnippet,
-	#category : 'Lepiter-Python-Snippet'
+	#category : #'Lepiter-Python-Snippet'
 }
 
 { #category : #'api - accessing menu' }
@@ -39,4 +39,5 @@ LePythonSnippet >> asSnippetViewModel [
 { #category : #initialization }
 LePythonSnippet >> newCoder [
 	^ GtPythonCoderModel new
+		pythonApplicationStrategy: (LePythonApplicationGlobalStrategy new content: self)
 ]
