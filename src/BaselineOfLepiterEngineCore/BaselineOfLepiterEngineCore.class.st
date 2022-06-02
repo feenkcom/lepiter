@@ -16,7 +16,7 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'GToolkitInspector' with: [
-				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.872/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.873/src' ].
 		spec
 			baseline: 'Brick' with: [
 				spec repository: 'github://feenkcom/Brick:v0.8.587/src' ].
