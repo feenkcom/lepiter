@@ -17,25 +17,31 @@ GtPythonCoderModel >> asCoderViewModel [
 { #category : #'private - execution' }
 GtPythonCoderModel >> bindAndExecute: sourceString [
 	"Answer the source code with all declared variables returned in an immediate dictionary"
-	| statements commandFactory lastStatement pythonBindings application |
+	| trimmedSource ast commandFactory lastStatement pythonBindings application |
 
-	statements := LeUninterpretedPythonStatement statementsFrom: sourceString.
-
+	trimmedSource := SmaCCString on: sourceString.
+	ast := PythonParser parseWithErrors: sourceString.
 	"Assign the final statement to snippetResult if it isn't already an assignment"
-	lastStatement := statements last.
-	lastStatement string: 'snippetResult = ', lastStatement string.
-
+	lastStatement := ast statements last.
+	(lastStatement isValueStatement) ifTrue:
+		[ trimmedSource 
+			insert: 'snippetResult = ' 
+			at: lastStatement startPosition. ]
+	ifFalse:
+		[ trimmedSource
+			append: String cr;
+			append: 'snippetResult = None' ].
 	pythonBindings := self pythonBindings.
-	"Return the bindings passed in and the result"
-	statements := statements, { self returnVariablesExpressionFrom: pythonBindings }.
 
 	application := pythonApplicationStrategy applicationServer.
 	application isRunning ifFalse: [ application start ].
-	commandFactory := application newCommandFactory.
+	commandFactory := application newCommandStringFactory.
 	pythonBindings do: [ :binding |
 		commandFactory addBinding: binding ].
-	statements do: [ :statement |
-		commandFactory << statement ].
+	commandFactory
+		script: trimmedSource asString;
+		resultExpression: (self returnVariablesExpressionFrom: pythonBindings) string.
+
 	^ commandFactory sendAndWait.
 
 ]
