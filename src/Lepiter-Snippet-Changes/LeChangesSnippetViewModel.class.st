@@ -271,8 +271,8 @@ LeChangesSnippetViewModel >> subscribeToSnippetModel [
 	<modelSubscriber: #snippet>
 	<generatedFrom: #'TGtRobocoderWithObjectTraitTemplate>>#subscribeToObjectTemplate'>
 	super subscribeToSnippetModel.
-	self snippetModel when: LeChangesSnippetFileNameChanged send: #onSnippetFileNameChanged: to: self.
-	self snippetModel when: LeChangesSnippetPreviewHeightChanged send: #onSnippetPreviewHeightChanged: to: self.
+	self snippetModel weak when: LeChangesSnippetFileNameChanged send: #onSnippetFileNameChanged: to: self.
+	self snippetModel weak when: LeChangesSnippetPreviewHeightChanged send: #onSnippetPreviewHeightChanged: to: self.
 ]
 
 { #category : #'api - changes' }
