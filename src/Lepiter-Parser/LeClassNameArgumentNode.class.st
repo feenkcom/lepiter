@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'classToken'
 	],
-	#category : 'Lepiter-Parser'
+	#category : #'Lepiter-Parser'
 }
 
 { #category : #generated }
@@ -50,5 +50,5 @@ LeClassNameArgumentNode >> imageObject [
 
 { #category : #generated }
 LeClassNameArgumentNode >> tokenVariables [
-	^ #(#classToken #name #equals #value)
+	^ #(#classToken #value #name #equals)
 ]

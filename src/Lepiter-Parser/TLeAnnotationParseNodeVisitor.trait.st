@@ -111,6 +111,21 @@ TLeAnnotationParseNodeVisitor >> visitNoCodeArgument: aNoCodeArgument [
 ]
 
 { #category : #generated }
+TLeAnnotationParseNodeVisitor >> visitPackageAnnotation: aPackageAnnotation [
+	^ self visitAnnotation: aPackageAnnotation
+]
+
+{ #category : #generated }
+TLeAnnotationParseNodeVisitor >> visitPackageNameArgument: aPackageNameArgument [
+	^ self visitNameArgument: aPackageNameArgument
+]
+
+{ #category : #generated }
+TLeAnnotationParseNodeVisitor >> visitPackageTagArgument: aPackageTagArgument [
+	^ self visitArgument: aPackageTagArgument
+]
+
+{ #category : #generated }
 TLeAnnotationParseNodeVisitor >> visitPageAnnotation: aPageAnnotation [
 	^ self visitAnnotation: aPageAnnotation
 ]
@@ -143,6 +158,11 @@ TLeAnnotationParseNodeVisitor >> visitReturnArgument: aReturnArgument [
 { #category : #generated }
 TLeAnnotationParseNodeVisitor >> visitShowArgument: aShowArgument [
 	^ self visitArgument: aShowArgument
+]
+
+{ #category : #generated }
+TLeAnnotationParseNodeVisitor >> visitTagArgument: aTagArgument [
+	^ self visitArgument: aTagArgument
 ]
 
 { #category : #generated }

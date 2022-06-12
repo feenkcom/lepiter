@@ -5,7 +5,7 @@ Class {
 		'gtGt',
 		'selector'
 	],
-	#category : 'Lepiter-Parser'
+	#category : #'Lepiter-Parser'
 }
 
 { #category : #generated }
@@ -49,5 +49,5 @@ LeMethodNameArgumentNode >> selector: aSmaCCToken [
 
 { #category : #generated }
 LeMethodNameArgumentNode >> tokenVariables [
-	^ #(#gtGt #selector #classToken #name #equals #value)
+	^ #(#gtGt #selector #classToken #value #name #equals)
 ]
