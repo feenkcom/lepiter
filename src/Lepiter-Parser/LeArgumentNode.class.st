@@ -144,6 +144,11 @@ LeArgumentNode >> isShow [
 	^ false
 ]
 
+{ #category : #testing }
+LeArgumentNode >> isTag [
+	^ false
+]
+
 { #category : #generated }
 LeArgumentNode >> name [
 	^ name

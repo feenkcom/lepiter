@@ -57,6 +57,7 @@ LeAnnotationCompletionVisitor >> optionsFor: annotationType startingWith: aStrin
 	| values |
 	values := #().
 	annotationType = 'gtClass' ifTrue: [ values := #(name label full expanded show height) ].
+	annotationType = 'gtPackage' ifTrue: [ values := #(name label tag expanded show height) ].
 	annotationType = 'gtMethod' ifTrue: [ values := #(name label expanded show height) ].
 	annotationType = 'gtExample'
 		ifTrue: [ values := #(name label expanded codeExpanded noCode previewHeight previewExpanded alignment return) ].
@@ -74,6 +75,43 @@ LeAnnotationCompletionVisitor >> optionsFor: annotationType startingWith: aStrin
 						labeled: (self strategy labelFor: name withSearch: aString)
 						completion: (name allButFirst: aString size)
 						position: self position) partial: hasOptionalValue not ])
+]
+
+{ #category : #generated }
+LeAnnotationCompletionVisitor >> packageCompletionsFor: aString [
+	| selectors |
+	selectors := GtPrefixTree new.
+	RPackageOrganizer default packages
+		do: [ :package | 
+			(aString isEmpty or: [ package name beginsWith: aString ])
+				ifTrue: [ selectors add: package name ] ].
+	self composite
+		addStream: ((selectors asyncStreamStartingWith: '')
+				collect: [ :each | 
+					GtInsertTextCompletionAction
+						labeled: (self strategy labelFor: each withSearch: aString)
+						completion: (each allButFirst: aString size)
+						position: self position ])
+]
+
+{ #category : #generated }
+LeAnnotationCompletionVisitor >> packageTagCompletionsFor: aString with: aPackageAnnotation [
+	| selectors |
+	(aPackageAnnotation nameNode isNotNil
+		and: [ aPackageAnnotation nameNode isDefined ]) ifFalse: [ ^ self ].
+
+	selectors := GtPrefixTree new.
+	aPackageAnnotation nameNode imageObject classTags
+		do: [ :aTag | 
+			(aString isEmpty or: [ aTag name beginsWith: aString ])
+				ifTrue: [ selectors add: aTag name ] ].
+	self composite
+		addStream: ((selectors asyncStreamStartingWith: '')
+				collect: [ :each | 
+					GtInsertTextCompletionAction
+						labeled: (self strategy labelFor: each withSearch: aString)
+						completion: (each allButFirst: aString size)
+						position: self position ])
 ]
 
 { #category : #accessing }
@@ -177,6 +215,21 @@ LeAnnotationCompletionVisitor >> visitNameArgument: aNameArgument [
 			name := aNameArgument value source.
 			self classesStartingWith: name ].
 	^ super visitNameArgument: aNameArgument
+]
+
+{ #category : #generated }
+LeAnnotationCompletionVisitor >> visitPackageNameArgument: aPackageNameArgument [
+	aPackageNameArgument value stopPosition = self position
+		ifTrue: [ self
+						packageCompletionsFor: aPackageNameArgument value value] .
+]
+
+{ #category : #generated }
+LeAnnotationCompletionVisitor >> visitPackageTagArgument: aPackageTagArgument [
+	aPackageTagArgument value stopPosition = self position
+		ifTrue: [ self
+				packageTagCompletionsFor: aPackageTagArgument value value
+				with: aPackageTagArgument parent ]
 ]
 
 { #category : #visiting }

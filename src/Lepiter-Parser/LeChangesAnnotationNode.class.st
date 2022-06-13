@@ -1,7 +1,7 @@
 Class {
 	#name : #LeChangesAnnotationNode,
 	#superclass : #LeAnnotationNode,
-	#category : 'Lepiter-Parser'
+	#category : #'Lepiter-Parser'
 }
 
 { #category : #generated }
@@ -26,5 +26,5 @@ LeChangesAnnotationNode >> expandedDefault [
 
 { #category : #accessing }
 LeChangesAnnotationNode >> filename [
-	^ self nameNode ifNotNil: [ :node | node stringValue ]
+	^ self nameNode ifNotNil: [ :node | node value value ]
 ]
