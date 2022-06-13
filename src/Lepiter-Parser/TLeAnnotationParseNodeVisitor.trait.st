@@ -161,11 +161,6 @@ TLeAnnotationParseNodeVisitor >> visitShowArgument: aShowArgument [
 ]
 
 { #category : #generated }
-TLeAnnotationParseNodeVisitor >> visitTagArgument: aTagArgument [
-	^ self visitArgument: aTagArgument
-]
-
-{ #category : #generated }
 TLeAnnotationParseNodeVisitor >> visitTodoAnnotation: aTodoAnnotation [
 	^ self visitAnnotation: aTodoAnnotation
 ]

@@ -1,6 +1,11 @@
 Class {
 	#name : #LeArgumentNode,
 	#superclass : #LeAnnotationParseNode,
+	#instVars : [
+		'name',
+		'equals',
+		'value'
+	],
 	#category : #'Lepiter-Parser'
 }
 
@@ -31,6 +36,16 @@ LeArgumentNode >> dequote: aString [
 				whileFalse: [ output nextPutAll: (input upTo: $\).
 					input atEnd
 						ifFalse: [ output nextPut: input next ] ] ]
+]
+
+{ #category : #generated }
+LeArgumentNode >> equals [
+	^ equals
+]
+
+{ #category : #generated }
+LeArgumentNode >> equals: aSmaCCToken [
+	equals := aSmaCCToken
 ]
 
 { #category : #accessing }
@@ -134,6 +149,16 @@ LeArgumentNode >> isTag [
 	^ false
 ]
 
+{ #category : #generated }
+LeArgumentNode >> name [
+	^ name
+]
+
+{ #category : #generated }
+LeArgumentNode >> name: aSmaCCToken [
+	name := aSmaCCToken
+]
+
 { #category : #accessing }
 LeArgumentNode >> selectorFrom: aString [
 	^ (self
@@ -151,4 +176,19 @@ LeArgumentNode >> selectorValue [
 { #category : #accessing }
 LeArgumentNode >> stringValue [
 	^ value ifNil: [ '' ] ifNotNil: [ value source ]
+]
+
+{ #category : #generated }
+LeArgumentNode >> tokenVariables [
+	^ #(#name #equals #value)
+]
+
+{ #category : #generated }
+LeArgumentNode >> value [
+	^ value
+]
+
+{ #category : #generated }
+LeArgumentNode >> value: aSmaCCToken [
+	value := aSmaCCToken
 ]

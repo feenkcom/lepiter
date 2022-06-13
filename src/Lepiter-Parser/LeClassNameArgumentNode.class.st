@@ -50,5 +50,5 @@ LeClassNameArgumentNode >> imageObject [
 
 { #category : #generated }
 LeClassNameArgumentNode >> tokenVariables [
-	^ #(#classToken #value #name #equals)
+	^ #(#classToken #name #equals #value)
 ]

@@ -49,5 +49,5 @@ LeMethodNameArgumentNode >> selector: aSmaCCToken [
 
 { #category : #generated }
 LeMethodNameArgumentNode >> tokenVariables [
-	^ #(#gtGt #selector #classToken #value #name #equals)
+	^ #(#gtGt #selector #classToken #name #equals #value)
 ]
