@@ -195,13 +195,9 @@ LeDatabaseExamples >> pageWithID [
 	"Demonstrate retrieving pages of various types by ID"
 	<gtExample>
 	<after: #cleanUp>
-	| page dailyNoteUID namedPageUID pharoClassPageUID unnamedPageUID flag |
+	| page namedPageUID pharoClassPageUID unnamedPageUID flag |
 
 	database := LeDatabase new.
-
-	page := LePage dailyNoteFor: Date today.
-	database addPage: page.
-	dailyNoteUID := page uid.
 
 	page := LePage named: #'Named Page'.
 	database addPage: page.
@@ -215,7 +211,7 @@ LeDatabaseExamples >> pageWithID [
 	database addPage: page.
 	unnamedPageUID := page uid.
 
-	{ dailyNoteUID. namedPageUID. pharoClassPageUID. unnamedPageUID. } do: [ :uid |
+	{ namedPageUID. pharoClassPageUID. unnamedPageUID. } do: [ :uid |
 		self 
 			assert: (database pageWithID: uid) uid
 			equals: uid.
@@ -243,5 +239,7 @@ LeDatabaseExamples >> pageWithID [
 		ifPresent: [ :aPage | self error: aPage asString ]
 		ifAbsent: [ flag := true ].
 	self assert: flag.
+	
+	^ database 
 
 ]

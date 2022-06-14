@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#traits : 'TAssertable',
 	#classTraits : 'TAssertable classTrait',
-	#category : 'Lepiter-Utilities-Examples'
+	#category : #'Lepiter-Utilities-Examples'
 }
 
 { #category : #examples }
@@ -61,7 +61,7 @@ LeUnlinkedReferenceMaintenanceExamples >> addSnippetWithIncommingUnlinkedReferen
 { #category : #examples }
 LeUnlinkedReferenceMaintenanceExamples >> crossDatabaseUnlinkedReference [
 	<gtExample>
-	| db1 db2 ldb referencedPage namedPage unnamedPage dailyNote blocks maintainer |
+	| db1 db2 ldb referencedPage namedPage unnamedPage blocks maintainer |
 	db1 := LeDatabase new.
 	db2 := LeDatabase new.
 	ldb := LeLogicalDatabase primaryDB: db1 playgroundDB: db2.
@@ -80,17 +80,13 @@ LeUnlinkedReferenceMaintenanceExamples >> crossDatabaseUnlinkedReference [
 		add:
 			(unnamedPage
 				addSnippet: (LeTextSnippet string: 'UnnamedPage ref to ReferencedPage.')).
-	dailyNote := db2 addPage: (LePage dailyNoteFor: Date today).
-	blocks
-		add:
-			(dailyNote
-				addSnippet: (LeTextSnippet string: 'DailyNote ref to ReferencedPage.')).
+	
 	blocks
 		do: [ :block | 
 			maintainer := LeUnlinkedReferenceMaintenance forBlock: block.
 			maintainer run ].
 		
-	self assert: referencedPage incomingUnlinked size equals: 3.
+	self assert: referencedPage incomingUnlinked size equals: 2.
 	^ ldb
 ]
 
