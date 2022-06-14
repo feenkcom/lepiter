@@ -1,5 +1,5 @@
 "
-Tests the reloading all pages from the Glamorous Toolkit book using {{gtClass:LePageStructureAsseambler}}.
+Tests reloading all pages from the Glamorous Toolkit book using {{gtClass:LePageStructureAsseambler}}.
 "
 Class {
 	#name : #LeGtBookDatabaseExplicitReloadExamples,
