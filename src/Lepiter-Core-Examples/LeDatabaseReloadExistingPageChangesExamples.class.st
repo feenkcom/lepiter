@@ -435,6 +435,22 @@ LeDatabaseReloadExistingPageChangesExamples >> createDatabaseWithNamedPageA [
 	^ database
 ]
 
+{ #category : #'examples - page rename' }
+LeDatabaseReloadExistingPageChangesExamples >> createDatabaseWithUnnamedPage [
+	<gtExample>
+	| database page |
+	database := self databaseWithMockedStorage.
+	
+	page := LePage unnamedPage.
+	page addSnippet: (LeTextSnippet string: 'Snippet A').
+	
+	database addPage: page.
+	self assert: database snippetsCount equals: 1.
+	self assert: database pageCount equals: 1.
+	
+	^ database
+]
+
 { #category : #examples }
 LeDatabaseReloadExistingPageChangesExamples >> databaseWithMockedStorage [
 	<gtExample>
@@ -727,7 +743,22 @@ LeDatabaseReloadExistingPageChangesExamples >> reloadRenamedPageBFromStorage [
 	self assert: (database hasPageNamed: 'Target PageA') not. 
 	
 	targetPage := database pageNamed: 'Target PageB'.
+	self assert: database snippetsCount equals: 1.
+
+	^ database
+]
+
+{ #category : #'examples - page rename' }
+LeDatabaseReloadExistingPageChangesExamples >> reloadUnnamedPageToNamedPageA [
+	<gtExample>
+	| database targetPage |
+	database := self renameUnnamedPageToNamedPageA.
 	
+	database reload.
+	self assert: (database hasPageNamed: 'Target PageA').
+	self assert: database unnamedPagesByUid isEmpty.
+	
+	targetPage := database pageNamed: 'Target PageA'.
 	self assert: database snippetsCount equals: 1.
 
 	^ database
@@ -747,6 +778,25 @@ LeDatabaseReloadExistingPageChangesExamples >> renamePageAToPageB [
 
 	self assert: (secondDatabase hasPageNamed: 'Target PageB').
 	self assert: (secondDatabase hasPageNamed: 'Target PageA') not.
+	secondDatabase stopMonitoring.
+	
+	^ database
+]
+
+{ #category : #'examples - page rename' }
+LeDatabaseReloadExistingPageChangesExamples >> renameUnnamedPageToNamedPageA [
+	"We rename the page in the database"
+	<gtExample>
+	| database secondDatabase targetPage |
+	database := self createDatabaseWithUnnamedPage.
+	
+	secondDatabase := self createDatabaseFromFolder: database localStoreRootDirectory.
+	targetPage := secondDatabase pages first.
+	
+	targetPage updateTitle: 'Target PageA'. 
+
+	self assert: (secondDatabase hasPageNamed: 'Target PageA').
+	self assert: secondDatabase unnamedPagesByUid isEmpty.
 	secondDatabase stopMonitoring.
 	
 	^ database
