@@ -693,11 +693,15 @@ LeContent >> moveSnippet: aLeSnippet below: parentSnippet [
 LeContent >> moveUpSnippet: aLeSnippet [
 	"Try to move the supplied snippet up one item in the receiver's children.
 	If that isn't possible, try to move the snippet down to the receiver's sibling"
-
+	
 	(self children moveUpSnippet: aLeSnippet) ifTrue:
-		[ ^ self announceContentMoved: aLeSnippet ].
+		[ 
+			self page editHistory recordMoveUpForSnippet: aLeSnippet. 
+			^ self announceContentMoved: aLeSnippet ].
 	(self parent moveSnippet: aLeSnippet above: self) ifNotNil:
-		[ :newParent | newParent announceContentMoved: aLeSnippet ].
+		[ :newParent | 
+			self page editHistory recordMoveUpForSnippet: aLeSnippet. 
+			newParent announceContentMoved: aLeSnippet ].
 ]
 
 { #category : #'api - notifications' }

@@ -23,6 +23,7 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 				spec repository: 'github://feenkcom/gt4json:main/src' ].
 		spec 
 			package: 'Lepiter-Parser';
+			package: 'Lepiter-History';
 			package: 'Lepiter-Core' with: [
 				spec requires: #('Lepiter-Parser' ). ];
 			package: 'Lepiter-Utilities' with: [
