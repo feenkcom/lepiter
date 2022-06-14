@@ -23,7 +23,8 @@ Class {
 	#instVars : [
 		'type',
 		'latestEditTime',
-		'uid'
+		'uid',
+		'editHistory'
 	],
 	#category : #'Lepiter-Core-Model'
 }
@@ -195,6 +196,11 @@ LePage >> detectStructureChangeTypeToPage: aLePage [
 		and: aLePage
 ]
 
+{ #category : #accessing }
+LePage >> editHistory [
+	^ editHistory ifNil: [ editHistory := LePageEditHistory new ]
+]
+
 { #category : #'api - accessing' }
 LePage >> editOrCreateTime [
 	<return: #LeTime>
@@ -322,6 +328,7 @@ LePage >> initialize [
 	super initialize.
 	type := LeNamedPageType title: '' page: self.
 	self assignNewUID.
+	editHistory := LePageEditHistory new.
 ]
 
 { #category : #initialization }
@@ -422,8 +429,9 @@ LePage >> moveUpSnippet: aLeSnippet [
 	"Try to move the supplied snippet up one item in the receiver's children.
 	If that isn't possible, do nothing"
 
-	(self children moveUpSnippet: aLeSnippet) ifTrue:
-		[ self announceContentMoved: aLeSnippet ].
+	(self children moveUpSnippet: aLeSnippet) ifTrue: [ 
+		self editHistory recordMoveUpForSnippet: aLeSnippet. 
+		self announceContentMoved: aLeSnippet ].
 ]
 
 { #category : #'private - updating' }
