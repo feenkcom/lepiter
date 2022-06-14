@@ -453,7 +453,13 @@ LePage >> newReloadFromPage: aLePage [
 	latestEditTime := nil.
 	
 	type = aLePage type ifFalse: [
-		type := aLePage type.
+		"Temporary fix to send a notification when the title of a page changed.
+		Should be improved to to use a generic mechanism for changing the type of a page."
+		((type isNamedPageType or: [ type isUnnamedPageType ]) and: [ aLePage type isNamedPageType ])
+			ifTrue: [
+				self updateTitle:  aLePage type title ]
+			ifFalse: [
+				type := aLePage type ].
 		changed := true ].
 
 	changed ifTrue: [ self announceTreeChanged: self ]
