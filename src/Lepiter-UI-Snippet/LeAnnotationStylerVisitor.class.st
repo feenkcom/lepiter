@@ -428,6 +428,25 @@ LeAnnotationStylerVisitor >> styleName: aClassAnnotation spawning: aBlock [
 		foreground: aLinkColor
 ]
 
+{ #category : #styling }
+LeAnnotationStylerVisitor >> styleTag: aPackageAnnotation spawning: aBlock [
+	| nameNode aLinkColor tagNode |
+
+	(nameNode := aPackageAnnotation nameNode)
+		ifNil: [ ^ self ].
+
+	(tagNode := aPackageAnnotation tagNode)
+		ifNil: [ ^ self ].
+
+	aLinkColor := (tagNode isDefinedIn: nameNode imageObject)
+		ifTrue: [ BrGlamorousColors textMarkupColor ]
+		ifFalse: [ BrGlamorousColors linkWithErrorColor ].
+
+	(self text from: tagNode startPosition to: tagNode stopPosition)
+		foreground: aLinkColor.
+		
+]
+
 { #category : #accessing }
 LeAnnotationStylerVisitor >> styler [
 	^ composite styler
@@ -521,6 +540,30 @@ LeAnnotationStylerVisitor >> visitMethodAnnotation: aMethodAnnotation [
 	self
 		styleExpandingObject: aMethodAnnotation
 		withDefault: LepiterConstants defaultMethodShowSelector
+]
+
+{ #category : #visiting }
+LeAnnotationStylerVisitor >> visitPackageAnnotation: aPackageAnnotation [
+	self visitAnnotation: aPackageAnnotation.
+	self
+		styleName: aPackageAnnotation
+		spawning: [ :anEvent | anEvent target phlow spawnTool: aPackageAnnotation imageObject gtSpawnCoder ].
+	self
+		styleTag: aPackageAnnotation
+		spawning: [ :anEvent | anEvent target phlow spawnTool: aPackageAnnotation imageObject gtSpawnCoder ].
+	self
+		styleButton: aPackageAnnotation
+		for: aPackageAnnotation
+		defaultLabel: #packageAndTagName
+		withTool: [ aPackageAnnotation imageObject gtSpawnCoder ].
+	self
+		styleExpandingObject: aPackageAnnotation
+		withDefault: LepiterConstants defaultPackageShowSelector
+]
+
+{ #category : #generated }
+LeAnnotationStylerVisitor >> visitPackageNameArgument: aPackageNameArgument [
+	^ self visitNameArgument: aPackageNameArgument
 ]
 
 { #category : #visiting }

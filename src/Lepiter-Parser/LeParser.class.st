@@ -334,6 +334,12 @@ LeParser class >> initialAnnotationParsers [
 				spawnParser: LeAnnotationParser
 				startingAt: LeAnnotationParser startingStateForClassAnnotation ].
 	parsers
+		at: 'gtPackage'
+		put: [ :parser | 
+			parser
+				spawnParser: LeAnnotationParser
+				startingAt: LeAnnotationParser startingStateForPackageAnnotation ].
+	parsers
 		at: 'gtMethod'
 		put: [ :parser | 
 			parser

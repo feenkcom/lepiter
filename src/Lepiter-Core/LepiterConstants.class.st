@@ -111,6 +111,11 @@ LepiterConstants class >> defaultMethodShowSelector [
 ]
 
 { #category : #'pillar parameter default values' }
+LepiterConstants class >> defaultPackageShowSelector [
+	^ #gtDefinedClassesFor:
+]
+
+{ #category : #'pillar parameter default values' }
 LepiterConstants class >> defaultPreviewExpanded [
 	^ false
 ]

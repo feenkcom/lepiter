@@ -458,6 +458,38 @@ LeParserExamples >> methodAnnotation [
 	^ aNode
 ]
 
+{ #category : #'examples - annotations' }
+LeParserExamples >> packageAnnotation [
+	<gtExample>
+	| aNode found |
+	aNode := self parse: '{{gtPackage:GToolkit-Coder}}'.
+	found := false.
+	aNode
+		allNodesDo: [ :each | 
+			(each isKindOf: LePackageAnnotationNode)
+				ifTrue: [ found := true.
+					self assert: (each imageObject isKindOf: RPackage).
+					self assert: each tag isNil ] ].
+	self assert: found.
+	^ aNode
+]
+
+{ #category : #'examples - annotations' }
+LeParserExamples >> packageTagAnnotation [
+	<gtExample>
+	| aNode found |
+	aNode := self parse: '{{gtPackage:GToolkit-Coder|tag=Ast}}'.
+	found := false.
+	aNode
+		allNodesDo: [ :each | 
+			(each isKindOf: LePackageAnnotationNode)
+				ifTrue: [ found := true.
+					self assert: (each imageObject isKindOf: RPackageTag).
+					self assert: each tag notNil ] ].
+	self assert: found.
+	^ aNode
+]
+
 { #category : #'examples - support' }
 LeParserExamples >> parse: aString [
 	<gtExample>
