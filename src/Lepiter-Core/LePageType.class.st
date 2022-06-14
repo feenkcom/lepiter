@@ -14,14 +14,6 @@ Class {
 }
 
 { #category : #factory }
-LePageType class >> date: aDate page: aLePage [
-
-	^ LeDailyNotePageType new 
-		date: aDate;
-		page: aLePage
-]
-
-{ #category : #factory }
 LePageType class >> default [
 	^ LeNamedPageType new
 ]
