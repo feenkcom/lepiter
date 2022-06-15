@@ -31,6 +31,6 @@ LePageEditHistory >> gtViewCommandsListFor: aView [
 
 { #category : #recording }
 LePageEditHistory >> recordMoveUpForSnippet: aSnippet [
-	self addCommand: (LePageHistoryMoveUpSnippetCommand new
+	self addCommand: (LePageMoveUpSnippetCommand new
 		targetSnippetUid: aSnippet uid)
 ]

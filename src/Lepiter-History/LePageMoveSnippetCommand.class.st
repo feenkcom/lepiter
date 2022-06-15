@@ -1,5 +1,5 @@
 Class {
-	#name : #LePageHistoryMoveSnippetCommand,
+	#name : #LePageMoveSnippetCommand,
 	#superclass : #LePageEditCommand,
 	#instVars : [
 		'targetSnippetUid'
@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #printing }
-LePageHistoryMoveSnippetCommand >> printOn: aStream [
+LePageMoveSnippetCommand >> printOn: aStream [
 	super printOn: aStream.
 	
 	aStream parenthesize:  [ 
@@ -16,13 +16,13 @@ LePageHistoryMoveSnippetCommand >> printOn: aStream [
 ]
 
 { #category : #accessing }
-LePageHistoryMoveSnippetCommand >> targetSnippetUid [
+LePageMoveSnippetCommand >> targetSnippetUid [
 
 	^ targetSnippetUid
 ]
 
 { #category : #accessing }
-LePageHistoryMoveSnippetCommand >> targetSnippetUid: anObject [
+LePageMoveSnippetCommand >> targetSnippetUid: anObject [
 
 	targetSnippetUid := anObject
 ]
