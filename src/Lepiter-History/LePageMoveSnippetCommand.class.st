@@ -7,6 +7,12 @@ Class {
 	#category : #'Lepiter-History'
 }
 
+{ #category : #'instance creation' }
+LePageMoveSnippetCommand class >> forSnippet: aSnippet [ 
+	^ self new
+		targetSnippetUid: aSnippet uid
+]
+
 { #category : #printing }
 LePageMoveSnippetCommand >> printOn: aStream [
 	super printOn: aStream.
