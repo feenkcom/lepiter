@@ -6,5 +6,5 @@ Class {
 
 { #category : #accessing }
 LePageMoveDownSnippetCommand class >> commandDescription [ 
-	^ 'MoveDown'
+	^ 'Move Down Snippet'
 ]

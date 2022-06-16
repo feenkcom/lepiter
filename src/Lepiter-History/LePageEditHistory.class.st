@@ -17,6 +17,21 @@ LePageEditHistory class >> forPage: aPage [
 ]
 
 { #category : #callbacks }
+LePageEditHistory >> actOnPageTitleChangedFor: anAnnouncement [
+	self addCommand: (LePageRenameCommand forPage: anAnnouncement page)
+]
+
+{ #category : #callbacks }
+LePageEditHistory >> actOnSnippetAddedFor: anAnnouncement [
+	self addCommand: (LePageAddSnippetCommand forSnippet: anAnnouncement content)
+]
+
+{ #category : #callbacks }
+LePageEditHistory >> actOnSnippetContentChangedFor: anAnnouncement [
+	self addCommand: (LePageChangeSnippetCommand forSnippet: anAnnouncement snippet)
+]
+
+{ #category : #callbacks }
 LePageEditHistory >> actOnSnippetIndentedFor: anAnnouncement [
 	self addCommand: (LePageIndentSnippetCommand forSnippet: anAnnouncement content)
 ]
@@ -32,6 +47,11 @@ LePageEditHistory >> actOnSnippetMovedUpFor: anAnnouncement [
 ]
 
 { #category : #callbacks }
+LePageEditHistory >> actOnSnippetRemovedFor: anAnnouncement [
+	self addCommand: (LePageRemoveSnippetCommand forSnippet: anAnnouncement content)
+]
+
+{ #category : #callbacks }
 LePageEditHistory >> actOnSnippetUnindentedFor: anAnnouncement [
 	self addCommand: (LePageUnindentSnippetCommand forSnippet: anAnnouncement content)
 ]
@@ -40,7 +60,7 @@ LePageEditHistory >> actOnSnippetUnindentedFor: anAnnouncement [
 LePageEditHistory >> addCommand: anEditCommand [
 	self commandsLog add: anEditCommand.
 	
-	isUndoEnabled
+	self isUndoEnabled
 		ifFalse: [ ^ self ].
 	
 	undoCommands add: anEditCommand.
@@ -55,12 +75,12 @@ LePageEditHistory >> commandsLog [
 
 { #category : #'api - undo/redo' }
 LePageEditHistory >> disableDuring: aBlock [
-	| wasEnabled |
+	| wasUndoEnabled |
 	
-	wasEnabled := isUndoEnabled.
+	wasUndoEnabled := isUndoEnabled.
 	isUndoEnabled := false.
 	
-	aBlock ensure: [ isUndoEnabled := wasEnabled ]
+	aBlock ensure: [ isUndoEnabled := wasUndoEnabled ]
 ]
 
 { #category : #'gt - extensions' }
@@ -70,8 +90,10 @@ LePageEditHistory >> gtViewCommandsListFor: aView [
 	^ aView columnedList 
 		title: 'Log';
 		items: [ self commandsLog ];
-		column: 'Command' text: [ :aCommand | aCommand class commandDescription ];
-		column: 'Target' text: [ :aCommand | aCommand targetSnippetUid ]
+		column: 'Command' 
+			text: [ :aCommand | aCommand class commandDescription ]
+			width: 200;
+		column: 'Description' text: [ :aCommand | aCommand description ]
 ]
 
 { #category : #initialization }
@@ -80,19 +102,28 @@ LePageEditHistory >> initializeForPage: aPage [
 		when: LeContentTreeIndented send: #actOnSnippetIndentedFor: to: self;
 		when: LeContentTreeUnindented send: #actOnSnippetUnindentedFor: to: self;
 		when: LeContentTreeMovedUp send: #actOnSnippetMovedUpFor: to: self;
-		when: LeContentTreeMovedDown send: #actOnSnippetMovedDownFor: to: self
+		when: LeContentTreeMovedDown send: #actOnSnippetMovedDownFor: to: self;
+		when: LeContentTreeRemoved send: #actOnSnippetRemovedFor: to: self;
+		when: LeContentTreeAdded send: #actOnSnippetAddedFor: to: self;
+		when: LeSnippetContentChanged send: #actOnSnippetContentChangedFor: to: self;
+		when: LePageTitleChanged send: #actOnPageTitleChangedFor: to: self
+]
+
+{ #category : #testing }
+LePageEditHistory >> isUndoEnabled [
+	^ isUndoEnabled ifNil: [ false ]
 ]
 
 { #category : #'api - undo/redo' }
-LePageEditHistory >> redoOn: aBrTextEditor [
+LePageEditHistory >> redoOn: aPage [
 	redoCommands ifNotEmpty: [ :currentRedoCommands |
 		self disableDuring: [ undoCommands add: (currentRedoCommands 
-			removeLast redoOn: aBrTextEditor) ] ]
+			removeLast redoOn: aPage) ] ]
 ]
 
 { #category : #'api - undo/redo' }
-LePageEditHistory >> undoOn: aBrTextEditor [
+LePageEditHistory >> undoOn: aPage [
 	undoCommands ifNotEmpty: [ :currentUndoCommands |
 		self disableDuring: [ redoCommands add: (currentUndoCommands 
-			removeLast undoOn: aBrTextEditor) ] ]
+			removeLast undoOn: aPage) ] ]
 ]

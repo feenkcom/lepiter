@@ -6,5 +6,5 @@ Class {
 
 { #category : #accessing }
 LePageIndentSnippetCommand class >> commandDescription [ 
-	^ 'Indent'
+	^ 'Indent Snippet'
 ]

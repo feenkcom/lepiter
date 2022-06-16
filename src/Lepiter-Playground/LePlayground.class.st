@@ -40,9 +40,14 @@ LePlayground class >> defaultIcon [
 ]
 
 { #category : #'window creation' }
+LePlayground class >> newBasicEmptyNotePage [
+	 ^ LePage unnamedPageWithDefaultTitle: 'Note'
+]
+
+{ #category : #'window creation' }
 LePlayground class >> newBasicNotePage [
 	| page |
-	page := LePage unnamedPageWithDefaultTitle: 'Note'.
+	page := self newBasicEmptyNotePage.
 	page addSnippet: LeTextSnippet new.
 	^ page
 ]
@@ -64,8 +69,12 @@ LePlayground class >> newDefaultNotePage [
 { #category : #'window creation' }
 LePlayground class >> newDefaultNotePageInKnowledgeBase: aKnowledgeBase [
 	| page |
-	page := self newBasicNotePage.
+	page := self newBasicEmptyNotePage.
 	aKnowledgeBase primaryDB addPage: page.
+	
+	"Add the initial snippet after the page is added to the database, 
+	so that this is a normal snippet addition."
+	page addSnippet: LeTextSnippet new.
 	^ page
 ]
 

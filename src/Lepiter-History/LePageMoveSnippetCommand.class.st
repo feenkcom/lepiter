@@ -10,7 +10,19 @@ Class {
 { #category : #'instance creation' }
 LePageMoveSnippetCommand class >> forSnippet: aSnippet [ 
 	^ self new
-		targetSnippetUid: aSnippet uid
+		initializeForSnippet: aSnippet
+]
+
+{ #category : #printing }
+LePageMoveSnippetCommand >> descriptionOn: aStream [
+	aStream 
+		<< 'snippetUid: ';
+		print: self targetSnippetUid
+]
+
+{ #category : #initialization }
+LePageMoveSnippetCommand >> initializeForSnippet: aSnippet [ 
+	self targetSnippetUid: aSnippet uid
 ]
 
 { #category : #printing }
