@@ -14,7 +14,7 @@ LeTextCoderSnippetElement >> alignContentLeftBy: aNumber [
 
 { #category : #'private - accessing' }
 LeTextCoderSnippetElement >> editor [
-	<return: #BrTextEditor>
+	<return: #BrTextEditorModel>
 	^ self editorElement editor
 ]
 
