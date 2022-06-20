@@ -1,5 +1,5 @@
 Class {
 	#name : #LeBasicSnippetState,
 	#superclass : #Object,
-	#category : #'Lepiter-History'
+	#category : #'Lepiter-History-State'
 }

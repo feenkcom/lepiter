@@ -1,7 +1,7 @@
 Class {
 	#name : #LeSnippetCommandBuilder,
 	#superclass : #LeCommandBuilder,
-	#category : #'Lepiter-History'
+	#category : #'Lepiter-History-Builders'
 }
 
 { #category : #'build - commands' }

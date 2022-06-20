@@ -1,7 +1,7 @@
 Class {
 	#name : #LePageCommandBuilder,
 	#superclass : #LeCommandBuilder,
-	#category : #'Lepiter-History'
+	#category : #'Lepiter-History-Builders'
 }
 
 { #category : #accessing }

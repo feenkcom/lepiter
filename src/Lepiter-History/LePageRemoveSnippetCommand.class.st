@@ -1,7 +1,7 @@
 Class {
 	#name : #LePageRemoveSnippetCommand,
 	#superclass : #LeSnippetCommand,
-	#category : #'Lepiter-History'
+	#category : #'Lepiter-History-Commands'
 }
 
 { #category : #accessing }

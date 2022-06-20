@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'targetContent'
 	],
-	#category : #'Lepiter-History'
+	#category : #'Lepiter-History-Builders'
 }
 
 { #category : #'instance creation' }

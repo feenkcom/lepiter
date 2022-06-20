@@ -6,7 +6,7 @@ Class {
 		'snippetTypeName',
 		'snippetState'
 	],
-	#category : #'Lepiter-History'
+	#category : #'Lepiter-History-Commands'
 }
 
 { #category : #accessing }

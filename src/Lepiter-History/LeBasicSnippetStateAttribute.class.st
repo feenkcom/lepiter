@@ -1,7 +1,7 @@
 Class {
 	#name : #LeBasicSnippetStateAttribute,
 	#superclass : #Object,
-	#category : #'Lepiter-History'
+	#category : #'Lepiter-History-State'
 }
 
 { #category : #updating }

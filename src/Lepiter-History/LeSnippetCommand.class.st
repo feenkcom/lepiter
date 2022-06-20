@@ -1,7 +1,7 @@
 Class {
 	#name : #LeSnippetCommand,
 	#superclass : #LeContentCommand,
-	#category : #'Lepiter-History'
+	#category : #'Lepiter-History-Commands'
 }
 
 { #category : #'instance creation' }

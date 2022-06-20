@@ -5,7 +5,7 @@ Class {
 		'snippetState',
 		'previousSnippetState'
 	],
-	#category : #'Lepiter-History'
+	#category : #'Lepiter-History-Commands'
 }
 
 { #category : #execution }

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'newTitle'
 	],
-	#category : #'Lepiter-History'
+	#category : #'Lepiter-History-Commands'
 }
 
 { #category : #accessing }

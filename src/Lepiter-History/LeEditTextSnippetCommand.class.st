@@ -1,7 +1,7 @@
 Class {
 	#name : #LeEditTextSnippetCommand,
 	#superclass : #LeBasicEditSnippetCommand,
-	#category : #'Lepiter-History'
+	#category : #'Lepiter-History-Commands'
 }
 
 { #category : #accessing }

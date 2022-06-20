@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'attributesByName'
 	],
-	#category : #'Lepiter-History'
+	#category : #'Lepiter-History-State'
 }
 
 { #category : #adding }

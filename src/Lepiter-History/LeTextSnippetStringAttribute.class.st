@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'string'
 	],
-	#category : #'Lepiter-History'
+	#category : #'Lepiter-History-State'
 }
 
 { #category : #updating }

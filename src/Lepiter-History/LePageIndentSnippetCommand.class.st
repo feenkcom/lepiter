@@ -1,7 +1,7 @@
 Class {
 	#name : #LePageIndentSnippetCommand,
 	#superclass : #LeMoveSnippetCommand,
-	#category : #'Lepiter-History'
+	#category : #'Lepiter-History-Commands'
 }
 
 { #category : #accessing }

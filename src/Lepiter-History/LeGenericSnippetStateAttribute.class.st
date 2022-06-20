@@ -5,7 +5,7 @@ Class {
 		'attributeName',
 		'attributeValue'
 	],
-	#category : #'Lepiter-History'
+	#category : #'Lepiter-History-State'
 }
 
 { #category : #updating }
