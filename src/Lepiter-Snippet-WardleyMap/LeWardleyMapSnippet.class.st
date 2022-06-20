@@ -153,7 +153,7 @@ LeWardleyMapSnippet >> onWardleyMapChanged: anAnnouncement [
 LeWardleyMapSnippet >> reloadAttributesFromContent: aSnippet [
 	"Reload the receiver's attributes from the supplied snippet. We need to handle the 
 	WardleyMap object directly. We cannot just use the setter wardleyMapDictionary:. The 
-	issue with that is that when creating th dictionary UUIDs are exported using the lepiter
+	issue with that is that when creating the dictionary UUIDs are exported using the lepiter
 	format. However, when using the setter we expect UUID object, as that"
 	| changed |
 	

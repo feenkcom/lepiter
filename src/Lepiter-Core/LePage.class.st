@@ -177,6 +177,11 @@ LePage >> canMoveToDatabase: aNewDatabase [
 	^ true
 ]
 
+{ #category : #'api - commands' }
+LePage >> commandBuilder [
+	^ LePageCommandBuilder forContent: self
+]
+
 { #category : #'api - accessing' }
 LePage >> contentAsString [
 	^ self title

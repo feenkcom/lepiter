@@ -146,6 +146,11 @@ LeSnippet >> attachToParent: aParentSnippet [
 	self parent: aParentSnippet
 ]
 
+{ #category : #'api - commands' }
+LeSnippet >> commandBuilder [
+	^ LeSnippetCommandBuilder forContent: self
+]
+
 { #category : #'api - attaching / detaching' }
 LeSnippet >> detachFromParent [
 	self parent: nil

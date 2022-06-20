@@ -1,6 +1,6 @@
 Class {
 	#name : #LePageRemoveSnippetCommand,
-	#superclass : #LePageMoveSnippetCommand,
+	#superclass : #LeSnippetCommand,
 	#category : #'Lepiter-History'
 }
 

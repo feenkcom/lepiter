@@ -18,17 +18,17 @@ LePageEditHistory class >> forPage: aPage [
 
 { #category : #callbacks }
 LePageEditHistory >> actOnPageTitleChangedFor: anAnnouncement [
-	self addCommand: (LePageRenameCommand forPage: anAnnouncement page)
+	self addCommand: (LeRenamePageCommand forPage: anAnnouncement page)
 ]
 
 { #category : #callbacks }
 LePageEditHistory >> actOnSnippetAddedFor: anAnnouncement [
-	self addCommand: (LePageAddSnippetCommand forSnippet: anAnnouncement content)
+	"self addCommand: (LeContentAddSnippetCommand forSnippet: anAnnouncement content)"
 ]
 
 { #category : #callbacks }
 LePageEditHistory >> actOnSnippetContentChangedFor: anAnnouncement [
-	self addCommand: (LePageChangeSnippetCommand forSnippet: anAnnouncement snippet)
+	self addCommand: (LeEditGenericSnippetCommand forSnippet: anAnnouncement snippet)
 ]
 
 { #category : #callbacks }
@@ -98,7 +98,7 @@ LePageEditHistory >> gtViewCommandsListFor: aView [
 
 { #category : #initialization }
 LePageEditHistory >> initializeForPage: aPage [
-	aPage announcer weak 
+	"aPage announcer weak 
 		when: LeContentTreeIndented send: #actOnSnippetIndentedFor: to: self;
 		when: LeContentTreeUnindented send: #actOnSnippetUnindentedFor: to: self;
 		when: LeContentTreeMovedUp send: #actOnSnippetMovedUpFor: to: self;
@@ -106,7 +106,7 @@ LePageEditHistory >> initializeForPage: aPage [
 		when: LeContentTreeRemoved send: #actOnSnippetRemovedFor: to: self;
 		when: LeContentTreeAdded send: #actOnSnippetAddedFor: to: self;
 		when: LeSnippetContentChanged send: #actOnSnippetContentChangedFor: to: self;
-		when: LePageTitleChanged send: #actOnPageTitleChangedFor: to: self
+		when: LePageTitleChanged send: #actOnPageTitleChangedFor: to: self"
 ]
 
 { #category : #testing }

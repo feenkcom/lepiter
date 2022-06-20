@@ -1,6 +1,6 @@
 Class {
-	#name : #LePageRenameCommand,
-	#superclass : #LePageEditCommand,
+	#name : #LeRenamePageCommand,
+	#superclass : #LeContentCommand,
 	#instVars : [
 		'newTitle'
 	],
@@ -8,18 +8,18 @@ Class {
 }
 
 { #category : #accessing }
-LePageRenameCommand class >> commandDescription [ 
+LeRenamePageCommand class >> commandDescription [ 
 	^ 'Page Renamed'
 ]
 
 { #category : #'instance creation' }
-LePageRenameCommand class >> forPage: aPage [
+LeRenamePageCommand class >> forPage: aPage [
 	^ self new
 		initializeForPage: aPage
 ]
 
 { #category : #printing }
-LePageRenameCommand >> descriptionOn: aStream [
+LeRenamePageCommand >> descriptionOn: aStream [
 	aStream 
 		<< 'pageUid: ';
 		print: self targetPageUid;
@@ -28,25 +28,25 @@ LePageRenameCommand >> descriptionOn: aStream [
 ]
 
 { #category : #initialization }
-LePageRenameCommand >> initializeForPage: aPage [
-	self targetPageUid: aPage uid.
+LeRenamePageCommand >> initializeForPage: aPage [
+	
 	self newTitle: aPage title
 ]
 
 { #category : #accessing }
-LePageRenameCommand >> newTitle [
+LeRenamePageCommand >> newTitle [
 
 	^ newTitle
 ]
 
 { #category : #accessing }
-LePageRenameCommand >> newTitle: aPageTitle [
+LeRenamePageCommand >> newTitle: aPageTitle [
 
 	newTitle := aPageTitle
 ]
 
 { #category : #printing }
-LePageRenameCommand >> printOn: aStream [
+LeRenamePageCommand >> printOn: aStream [
 	super printOn: aStream.
 	
 	aStream parenthesize:  [ 
