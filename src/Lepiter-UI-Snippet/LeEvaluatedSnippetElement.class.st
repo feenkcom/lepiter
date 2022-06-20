@@ -49,7 +49,7 @@ LeEvaluatedSnippetElement >> coderViewModel [
 
 { #category : #accessing }
 LeEvaluatedSnippetElement >> editor [
-	<return: #BrTextEditor>
+	<return: #BrTextEditorModel>
 
 	^ editorElement editor
 ]
