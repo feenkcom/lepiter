@@ -16,46 +16,6 @@ LePageEditHistory class >> forPage: aPage [
 		initializeForPage: aPage
 ]
 
-{ #category : #callbacks }
-LePageEditHistory >> actOnPageTitleChangedFor: anAnnouncement [
-	self addCommand: (LeRenamePageCommand forPage: anAnnouncement page)
-]
-
-{ #category : #callbacks }
-LePageEditHistory >> actOnSnippetAddedFor: anAnnouncement [
-	"self addCommand: (LeContentAddSnippetCommand forSnippet: anAnnouncement content)"
-]
-
-{ #category : #callbacks }
-LePageEditHistory >> actOnSnippetContentChangedFor: anAnnouncement [
-	self addCommand: (LeEditGenericSnippetCommand forSnippet: anAnnouncement snippet)
-]
-
-{ #category : #callbacks }
-LePageEditHistory >> actOnSnippetIndentedFor: anAnnouncement [
-	self addCommand: (LePageIndentSnippetCommand forSnippet: anAnnouncement content)
-]
-
-{ #category : #callbacks }
-LePageEditHistory >> actOnSnippetMovedDownFor: anAnnouncement [
-	self addCommand: (LePageMoveDownSnippetCommand forSnippet: anAnnouncement content)
-]
-
-{ #category : #callbacks }
-LePageEditHistory >> actOnSnippetMovedUpFor: anAnnouncement [
-	self addCommand: (LePageMoveUpSnippetCommand forSnippet: anAnnouncement content)
-]
-
-{ #category : #callbacks }
-LePageEditHistory >> actOnSnippetRemovedFor: anAnnouncement [
-	self addCommand: (LePageRemoveSnippetCommand forSnippet: anAnnouncement content)
-]
-
-{ #category : #callbacks }
-LePageEditHistory >> actOnSnippetUnindentedFor: anAnnouncement [
-	self addCommand: (LePageUnindentSnippetCommand forSnippet: anAnnouncement content)
-]
-
 { #category : #adding }
 LePageEditHistory >> addCommand: anEditCommand [
 	self commandsLog add: anEditCommand.
@@ -98,15 +58,6 @@ LePageEditHistory >> gtViewCommandsListFor: aView [
 
 { #category : #initialization }
 LePageEditHistory >> initializeForPage: aPage [
-	"aPage announcer weak 
-		when: LeContentTreeIndented send: #actOnSnippetIndentedFor: to: self;
-		when: LeContentTreeUnindented send: #actOnSnippetUnindentedFor: to: self;
-		when: LeContentTreeMovedUp send: #actOnSnippetMovedUpFor: to: self;
-		when: LeContentTreeMovedDown send: #actOnSnippetMovedDownFor: to: self;
-		when: LeContentTreeRemoved send: #actOnSnippetRemovedFor: to: self;
-		when: LeContentTreeAdded send: #actOnSnippetAddedFor: to: self;
-		when: LeSnippetContentChanged send: #actOnSnippetContentChangedFor: to: self;
-		when: LePageTitleChanged send: #actOnPageTitleChangedFor: to: self"
 ]
 
 { #category : #testing }
