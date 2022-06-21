@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'index'
 	],
-	#category : #'Lepiter-History'
+	#category : #'Lepiter-History-Commands'
 }
 
 { #category : #accessing }
@@ -31,7 +31,7 @@ LeInsertSnippetAtIndexPosition >> insertChildSnippet: aChildSnippet intoParent: 
 		aParentContent addFirstSnippet: aChildSnippet.
 		^ self ].
 	
-	aParentContent 
+	^ aParentContent 
 		addSnippet: aChildSnippet 
 		after: (aParentContent children at: self index - 1)
 ]

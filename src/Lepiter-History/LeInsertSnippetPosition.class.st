@@ -6,10 +6,10 @@ Subclasses model explicit positions.
 Class {
 	#name : #LeInsertSnippetPosition,
 	#superclass : #Object,
-	#category : #'Lepiter-History'
+	#category : #'Lepiter-History-Commands'
 }
 
 { #category : #action }
 LeInsertSnippetPosition >> insertChildSnippet: aChildSnippet intoParent: aContent [
-	self subclassResponsibility
+	^ self subclassResponsibility
 ]

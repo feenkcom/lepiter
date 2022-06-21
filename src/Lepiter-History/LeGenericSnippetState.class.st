@@ -51,6 +51,13 @@ LeGenericSnippetState >> initialize [
 ]
 
 { #category : #accessing }
+LeGenericSnippetState >> uid: anUid [ 
+	self addAttribute: (LeGenericSnippetStateAttribute new
+		attributeName: #uid;
+		attributeValue: anUid)
+]
+
+{ #category : #accessing }
 LeGenericSnippetState >> valueForAttributeNamed: anAttributeName [ 
 	^ (attributesByName at: anAttributeName) attributeValue
 ]

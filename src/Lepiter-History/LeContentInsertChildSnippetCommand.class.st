@@ -14,6 +14,20 @@ LeContentInsertChildSnippetCommand class >> commandDescription [
 	^ 'Insert Child Snippet'
 ]
 
+{ #category : #utils }
+LeContentInsertChildSnippetCommand >> createCommandResult [
+	^ LeInsertChildSnippetCommandExecutionResult forCommand: self
+]
+
+{ #category : #converting }
+LeContentInsertChildSnippetCommand >> createCommandSpecification [
+	^ LeInsertChildCommandSpecification new 
+		contentUid: self targetContent uid;
+		insertPosition: self insertPosition;
+		snippetTypeName: self snippetTypeName; 
+		snippetState: snippetState
+]
+
 { #category : #initialization }
 LeContentInsertChildSnippetCommand >> createInsertAfterSiblingIndexFor: aSnippet [
 	^ LeInsertSnippetAtIndexPosition new
@@ -45,18 +59,26 @@ LeContentInsertChildSnippetCommand >> descriptionOn: aStream [
 
 { #category : #execution }
 LeContentInsertChildSnippetCommand >> execute [ 
+	| newSnipet |
 	self assert: [ self insertPosition notNil ].
 	self assert: [ self snippetTypeName notNil ].
 	
-	^ self insertPosition 
+	newSnipet := insertPosition 
 		insertChildSnippet: self instantiateEmptySnippet
-		intoParent: self targetContent
+		intoParent: self targetContent.
+		
+	^ self createCommandResult
+		insertedSnippet: newSnipet
 ]
 
 { #category : #initialization }
 LeContentInsertChildSnippetCommand >> initialize [
 	super initialize.
 	self insertLast.
+]
+
+{ #category : #initialization }
+LeContentInsertChildSnippetCommand >> initializeFromSpecification: aCommandSpecification [
 ]
 
 { #category : #configuration }
@@ -95,6 +117,11 @@ LeContentInsertChildSnippetCommand >> insertPosition: anObject [
 { #category : #utils }
 LeContentInsertChildSnippetCommand >> instantiateEmptySnippet [
 	^ (self class environment at: snippetTypeName) empty
+]
+
+{ #category : #accessing }
+LeContentInsertChildSnippetCommand >> snippetState [
+	^ snippetState
 ]
 
 { #category : #accessing }

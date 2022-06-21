@@ -2,12 +2,12 @@ Class {
 	#name : #LePageEditHistory,
 	#superclass : #Object,
 	#instVars : [
-		'commandsLog',
+		'eventsLog',
 		'redoCommands',
 		'undoCommands',
 		'isUndoEnabled'
 	],
-	#category : #'Lepiter-History'
+	#category : #'Lepiter-History-Store'
 }
 
 { #category : #'instance creation' }
@@ -17,20 +17,14 @@ LePageEditHistory class >> forPage: aPage [
 ]
 
 { #category : #adding }
-LePageEditHistory >> addCommand: anEditCommand [
-	self commandsLog add: anEditCommand.
+LePageEditHistory >> addTraceEvent: aTraceEvent [
+	self eventsLog add: aTraceEvent.
 	
 	self isUndoEnabled
 		ifFalse: [ ^ self ].
 	
-	undoCommands add: anEditCommand.
+	undoCommands add: aTraceEvent.
 	redoCommands removeAll.
-]
-
-{ #category : #accessing }
-LePageEditHistory >> commandsLog [
-	^ commandsLog ifNil: [ 
-		commandsLog := OrderedCollection new ]
 ]
 
 { #category : #'api - undo/redo' }
@@ -43,17 +37,23 @@ LePageEditHistory >> disableDuring: aBlock [
 	aBlock ensure: [ isUndoEnabled := wasUndoEnabled ]
 ]
 
+{ #category : #accessing }
+LePageEditHistory >> eventsLog [
+	^ eventsLog ifNil: [ 
+		eventsLog := OrderedCollection new ]
+]
+
 { #category : #'gt - extensions' }
-LePageEditHistory >> gtViewCommandsListFor: aView [
+LePageEditHistory >> gtViewTraceEventsListFor: aView [
 	<gtView>
 	
 	^ aView columnedList 
 		title: 'Log';
-		items: [ self commandsLog ];
-		column: 'Command' 
-			text: [ :aCommand | aCommand class commandDescription ]
+		items: [ self eventsLog ];
+		column: 'Event' 
+			text: [ :anEvent | anEvent commandSpecification className ]
 			width: 200;
-		column: 'Description' text: [ :aCommand | aCommand description ]
+		column: 'Description' text: [ :anEvent | anEvent commandSpecification ]
 ]
 
 { #category : #initialization }

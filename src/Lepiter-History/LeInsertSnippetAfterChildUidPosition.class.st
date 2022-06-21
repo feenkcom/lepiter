@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'snippetUid'
 	],
-	#category : #'Lepiter-History'
+	#category : #'Lepiter-History-Commands'
 }
 
 { #category : #action }
@@ -12,7 +12,7 @@ LeInsertSnippetAfterChildUidPosition >> insertChildSnippet: aChildSnippet intoPa
 	| afterSnippet |
 	self assert: [ self snippetUid notNil ].
 	
-	afterSnippet := aParentContent children 
+	^ afterSnippet := aParentContent children 
 		detect: [ :aSnippet | aSnippet uid = self snippetUid ] 
 		ifFound: [ :aSnippet | 
 			aParentContent addSnippet: aChildSnippet after: aSnippet ]  
