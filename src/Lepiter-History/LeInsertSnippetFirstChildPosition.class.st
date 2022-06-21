@@ -6,5 +6,5 @@ Class {
 
 { #category : #action }
 LeInsertSnippetFirstChildPosition >> insertChildSnippet: aChildSnippet intoParent: aContent [
-	^ aContent addFirstSnippet: aChildSnippet
+	aContent addFirstSnippet: aChildSnippet
 ]

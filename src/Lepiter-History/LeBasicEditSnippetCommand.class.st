@@ -15,7 +15,8 @@ LeBasicEditSnippetCommand >> createCommandResult [
 { #category : #converting }
 LeBasicEditSnippetCommand >> createCommandSpecification [
 	^ LeEditSnippetCommandSpecification new 
-		contentUid: self targetContent uid;
+		commandUid: self uid;
+		contentUid: self targetSnippetUid;
 		snippetState: self snippetState
 ]
 

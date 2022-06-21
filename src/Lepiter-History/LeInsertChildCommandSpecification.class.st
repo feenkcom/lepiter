@@ -4,10 +4,22 @@ Class {
 	#instVars : [
 		'insertPosition',
 		'snippetTypeName',
-		'snippetState'
+		'initialSnippetState'
 	],
 	#category : #'Lepiter-History-Commands'
 }
+
+{ #category : #accessing }
+LeInsertChildCommandSpecification >> initialSnippetState [
+
+	^ initialSnippetState
+]
+
+{ #category : #accessing }
+LeInsertChildCommandSpecification >> initialSnippetState: anObject [
+
+	initialSnippetState := anObject
+]
 
 { #category : #accessing }
 LeInsertChildCommandSpecification >> insertPosition [
@@ -19,18 +31,6 @@ LeInsertChildCommandSpecification >> insertPosition [
 LeInsertChildCommandSpecification >> insertPosition: anObject [
 
 	insertPosition := anObject
-]
-
-{ #category : #accessing }
-LeInsertChildCommandSpecification >> snippetState [
-
-	^ snippetState
-]
-
-{ #category : #accessing }
-LeInsertChildCommandSpecification >> snippetState: anObject [
-
-	snippetState := anObject
 ]
 
 { #category : #accessing }

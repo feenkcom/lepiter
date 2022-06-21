@@ -7,6 +7,16 @@ Class {
 	#category : #'Lepiter-History-Commands'
 }
 
+{ #category : #'gt - extensions' }
+LeEditSnippetCommandSpecification >> gtViewStateAttributesFor: aView [ 
+	<gtView>
+	
+	^ aView forward 
+		title: 'State Changes';
+		object: [ snippetState ];
+		view: #gtViewStateAttributesFor:
+]
+
 { #category : #accessing }
 LeEditSnippetCommandSpecification >> snippetState [
 

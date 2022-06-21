@@ -44,11 +44,25 @@ LePageEditHistory >> eventsLog [
 ]
 
 { #category : #'gt - extensions' }
+LePageEditHistory >> gtViewCommandSpecificationsListFor: aView [
+	<gtView>
+	
+	^ aView columnedList 
+		title: 'Command Specifications';
+		items: [ self eventsLog collect: [ :aTraceEvent |
+			aTraceEvent commandSpecification ] ];
+		column: 'Command' 
+			text: [ :aCommand | aCommand className ]
+			width: 200;
+		column: 'Description' text: [ :aCommand | aCommand ]
+]
+
+{ #category : #'gt - extensions' }
 LePageEditHistory >> gtViewTraceEventsListFor: aView [
 	<gtView>
 	
 	^ aView columnedList 
-		title: 'Log';
+		title: 'Events Log';
 		items: [ self eventsLog ];
 		column: 'Event' 
 			text: [ :anEvent | anEvent commandSpecification className ]

@@ -9,10 +9,9 @@ Class {
 
 { #category : #action }
 LeInsertSnippetAfterChildUidPosition >> insertChildSnippet: aChildSnippet intoParent: aParentContent [
-	| afterSnippet |
 	self assert: [ self snippetUid notNil ].
 	
-	^ afterSnippet := aParentContent children 
+	aParentContent children 
 		detect: [ :aSnippet | aSnippet uid = self snippetUid ] 
 		ifFound: [ :aSnippet | 
 			aParentContent addSnippet: aChildSnippet after: aSnippet ]  

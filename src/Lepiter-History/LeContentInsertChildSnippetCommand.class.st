@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'insertPosition',
 		'snippetTypeName',
-		'snippetState'
+		'initialSnippetState'
 	],
 	#category : #'Lepiter-History-Commands'
 }
@@ -22,10 +22,11 @@ LeContentInsertChildSnippetCommand >> createCommandResult [
 { #category : #converting }
 LeContentInsertChildSnippetCommand >> createCommandSpecification [
 	^ LeInsertChildCommandSpecification new 
+		commandUid: self uid;
 		contentUid: self targetContent uid;
 		insertPosition: self insertPosition;
 		snippetTypeName: self snippetTypeName; 
-		snippetState: snippetState
+		initialSnippetState: self initialSnippetState
 ]
 
 { #category : #initialization }
@@ -63,22 +64,37 @@ LeContentInsertChildSnippetCommand >> execute [
 	self assert: [ self insertPosition notNil ].
 	self assert: [ self snippetTypeName notNil ].
 	
-	newSnipet := insertPosition 
-		insertChildSnippet: self instantiateEmptySnippet
+	newSnipet := self instantiateEmptySnippet.
+	self initialSnippetState applyOn: newSnipet.
+	
+	insertPosition 
+		insertChildSnippet: newSnipet
 		intoParent: self targetContent.
 		
 	^ self createCommandResult
 		insertedSnippet: newSnipet
 ]
 
+{ #category : #accessing }
+LeContentInsertChildSnippetCommand >> initialSnippetState [
+	^ initialSnippetState
+]
+
 { #category : #initialization }
 LeContentInsertChildSnippetCommand >> initialize [
 	super initialize.
 	self insertLast.
+	initialSnippetState := LeGenericSnippetState new.
+]
+
+{ #category : #configuration }
+LeContentInsertChildSnippetCommand >> initialize: anAttributeName with: aValue [
+	initialSnippetState attributeNamed: anAttributeName setValue: aValue
 ]
 
 { #category : #initialization }
 LeContentInsertChildSnippetCommand >> initializeFromSpecification: aCommandSpecification [
+	self flag: #TODO
 ]
 
 { #category : #configuration }
@@ -120,11 +136,6 @@ LeContentInsertChildSnippetCommand >> instantiateEmptySnippet [
 ]
 
 { #category : #accessing }
-LeContentInsertChildSnippetCommand >> snippetState [
-	^ snippetState
-]
-
-{ #category : #accessing }
 LeContentInsertChildSnippetCommand >> snippetTypeName [
 
 	^ snippetTypeName
@@ -134,4 +145,11 @@ LeContentInsertChildSnippetCommand >> snippetTypeName [
 LeContentInsertChildSnippetCommand >> snippetTypeName: aTypeName [
 
 	snippetTypeName := aTypeName
+]
+
+{ #category : #configuration }
+LeContentInsertChildSnippetCommand >> uid: anUid [ 
+	self assert: [ anUid notNil ].
+	
+	self initialize: #uid with: anUid
 ]

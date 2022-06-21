@@ -2,10 +2,23 @@ Class {
 	#name : #LeCommandSpecification,
 	#superclass : #Object,
 	#instVars : [
+		'commandUid',
 		'contentUid'
 	],
 	#category : #'Lepiter-History-Commands'
 }
+
+{ #category : #accessing }
+LeCommandSpecification >> commandUid [
+
+	^ commandUid
+]
+
+{ #category : #accessing }
+LeCommandSpecification >> commandUid: anUid [
+
+	commandUid := anUid
+]
 
 { #category : #accessing }
 LeCommandSpecification >> contentUid [
@@ -14,7 +27,7 @@ LeCommandSpecification >> contentUid [
 ]
 
 { #category : #accessing }
-LeCommandSpecification >> contentUid: anObject [
+LeCommandSpecification >> contentUid: anUid [
 
-	contentUid := anObject
+	contentUid := anUid
 ]

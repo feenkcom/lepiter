@@ -2,6 +2,7 @@ Class {
 	#name : #LeContentCommand,
 	#superclass : #Object,
 	#instVars : [
+		'uid',
 		'targetContent'
 	],
 	#category : #'Lepiter-History-Commands'
@@ -23,6 +24,12 @@ LeContentCommand >> execute [
 	self subclassResponsibility
 ]
 
+{ #category : #initialization }
+LeContentCommand >> initialize [ 
+	super initialize.
+	uid := LeUID new uid: UUID new.
+]
+
 { #category : #accessing }
 LeContentCommand >> targetContent [
 
@@ -33,4 +40,9 @@ LeContentCommand >> targetContent [
 LeContentCommand >> targetContent: aLeContent [
 
 	targetContent := aLeContent
+]
+
+{ #category : #accessing }
+LeContentCommand >> uid [ 
+	^ uid
 ]

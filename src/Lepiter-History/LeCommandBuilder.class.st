@@ -16,7 +16,8 @@ LeCommandBuilder class >> forContent: aLeContent [
 { #category : #'build - commands' }
 LeCommandBuilder >> insertChildSnippetCommand [
 	^ LeContentInsertChildSnippetCommand new
-		targetContent: self targetContent
+		targetContent: self targetContent;
+		uid: self newSnippetUid
 ]
 
 { #category : #'build - commands' }
@@ -31,6 +32,13 @@ LeCommandBuilder >> insertChildTextSnippetCommand [
 ]
 
 { #category : #accessing }
+LeCommandBuilder >> newSnippetUid [ 
+	^ self targetDatabase isDatabase 
+		ifFalse:  [ LeUID new uid: UUID new ]
+		ifTrue: [ self targetDatabase newUID ]
+]
+
+{ #category : #accessing }
 LeCommandBuilder >> targetContent [
 
 	^ targetContent
@@ -40,4 +48,9 @@ LeCommandBuilder >> targetContent [
 LeCommandBuilder >> targetContent: aLeContent [
 
 	targetContent := aLeContent
+]
+
+{ #category : #accessing }
+LeCommandBuilder >> targetDatabase [ 
+	^ self targetContent database
 ]
