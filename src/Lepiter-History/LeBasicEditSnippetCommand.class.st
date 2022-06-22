@@ -34,7 +34,7 @@ LeBasicEditSnippetCommand >> execute [
 
 { #category : #'execution - utils' }
 LeBasicEditSnippetCommand >> extractCurrentSnippetState [
-	^ LeGenericSnippetState fromSnippet: self targetSnippet
+	^ LeGenericSnippetState fromSnippet: self targetSnippet basedOn: self snippetState
 ]
 
 { #category : #'gt - extensions' }

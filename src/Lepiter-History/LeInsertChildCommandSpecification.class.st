@@ -9,7 +9,7 @@ Class {
 	#category : #'Lepiter-History-Commands'
 }
 
-{ #category : #accessing }
+{ #category : #'gt - extensions' }
 LeInsertChildCommandSpecification >> gtViewInitialStateAttributesFor: aView [ 
 	<gtView>
 	

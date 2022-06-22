@@ -13,6 +13,13 @@ LeGenericSnippetState class >> fromSnippet: aSnippet [
 		extractFromSnippet: aSnippet
 ]
 
+{ #category : #'instance creation' }
+LeGenericSnippetState class >> fromSnippet: aSnippet basedOn: aTargetState [
+	^ self new 
+		extractFromSnippet: aSnippet
+		basedOn: aTargetState
+]
+
 { #category : #adding }
 LeGenericSnippetState >> addAttribute: aStateAttribute [ 
 	attributesByName 
@@ -24,6 +31,11 @@ LeGenericSnippetState >> addAttribute: aStateAttribute [
 LeGenericSnippetState >> applyOn: aSnippet [ 
 	attributesByName do: [ :anAttribute |
 		anAttribute applyOn: aSnippet ]
+]
+
+{ #category : #accessing }
+LeGenericSnippetState >> attributeNamed: anAttributeName [
+	^ attributesByName at: anAttributeName
 ]
 
 { #category : #adding }
@@ -47,9 +59,22 @@ LeGenericSnippetState >> attributes [
 { #category : #'initialization - utils' }
 LeGenericSnippetState >> extractFromSnippet: aSnippet [ 
 	
+	self 
+		extractFromSnippet: aSnippet 
+		basedOn: self class new
+]
+
+{ #category : #'initialization - utils' }
+LeGenericSnippetState >> extractFromSnippet: aSnippet basedOn: aTargetState [
+	
 	aSnippet class leJsonV4AttributeMapping do: [ :assoc |
-		self addAttribute: (LeGenericSnippetStateAttribute 
-			named: assoc key fromSnippet: aSnippet) ]
+		| attributeName attributeType | 
+		attributeName := assoc key.
+		attributeType := (aTargetState hasAttributeNamed: attributeName)
+			ifTrue: [ (aTargetState attributeNamed: attributeName) class ] 
+			ifFalse: [ LeGenericSnippetStateAttribute ].
+		self addAttribute: (attributeType 
+			named: attributeName fromSnippet: aSnippet) ]
 ]
 
 { #category : #'gt - extensions' }
@@ -62,6 +87,11 @@ LeGenericSnippetState >> gtViewStateAttributesFor: aView [
 		column: 'Attribute' text: [ :anAttribute | anAttribute attributeName ];
 		column: 'Value' text: [ :anAttribute | anAttribute attributeValue ];
 		column: 'Type' text: [ :anAttribute | anAttribute className ]
+]
+
+{ #category : #testing }
+LeGenericSnippetState >> hasAttributeNamed: aName [ 
+	^ attributesByName includesKey: aName
 ]
 
 { #category : #initialization }
