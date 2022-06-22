@@ -64,6 +64,16 @@ LeGenericSnippetState >> initialize [
 	attributesByName := OrderedDictionary new.
 ]
 
+{ #category : #printing }
+LeGenericSnippetState >> printOn: aStream [ 
+	super printOn: aStream .
+	aStream parenthesize: [ 
+		aStream print: attributesByName size. 
+		aStream << (attributesByName size =  1
+			ifTrue: [ ' attribute' ]
+			ifFalse: [ ' attributes' ]) ]
+]
+
 { #category : #accessing }
 LeGenericSnippetState >> uid: anUid [ 
 	self addAttribute: (LeGenericSnippetStateAttribute new

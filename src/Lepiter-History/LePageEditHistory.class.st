@@ -49,12 +49,11 @@ LePageEditHistory >> gtViewCommandSpecificationsListFor: aView [
 	
 	^ aView columnedList 
 		title: 'Command Specifications';
+		priority: 15;
 		items: [ self eventsLog collect: [ :aTraceEvent |
 			aTraceEvent commandSpecification ] ];
-		column: 'Command' 
-			text: [ :aCommand | aCommand className ]
-			width: 200;
-		column: 'Description' text: [ :aCommand | aCommand ]
+		column: 'Index' text: [ :aCommandSpecification :index | index ] width: 150;
+		column: 'Specification' text: [ :aCommandSpecification | aCommandSpecification ]
 ]
 
 { #category : #'gt - extensions' }
@@ -63,11 +62,11 @@ LePageEditHistory >> gtViewTraceEventsListFor: aView [
 	
 	^ aView columnedList 
 		title: 'Events Log';
+		priority: 10;
 		items: [ self eventsLog ];
-		column: 'Event' 
-			text: [ :anEvent | anEvent commandSpecification className ]
-			width: 200;
-		column: 'Description' text: [ :anEvent | anEvent commandSpecification ]
+		column: 'Index' text: [ :aTraceEvent :index | index ] width: 100;
+		column: 'Main Command' text: [ :aTraceEvent | aTraceEvent commandSpecification ];
+		column: 'Undo Command' text: [ :aTraceEvent | aTraceEvent undoSpecification ]
 ]
 
 { #category : #initialization }
