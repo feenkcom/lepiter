@@ -7,16 +7,12 @@ Class {
 	#category : #'Lepiter-History-Commands'
 }
 
-{ #category : #'execution - utils' }
-LeBasicEditSnippetCommand >> createCommandResult [
-	^ LeEditSnippetCommandExecutionResult forCommand: self
-]
-
 { #category : #converting }
 LeBasicEditSnippetCommand >> createCommandSpecification [
 	^ LeEditSnippetCommandSpecification new 
 		commandUid: self uid;
 		contentUid: self targetSnippetUid;
+		commandTypeName: self className;
 		snippetState: self snippetState
 ]
 

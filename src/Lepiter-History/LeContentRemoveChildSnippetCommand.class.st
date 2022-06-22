@@ -44,6 +44,7 @@ LeContentRemoveChildSnippetCommand >> createCommandSpecification [
 	^ LeRemoveChildSnippetCommandSpecification new 
 		commandUid: self uid;
 		contentUid: self targetContent uid;
+		commandTypeName: self className;
 		childUid: self childSnippet uid
 ]
 

@@ -24,6 +24,7 @@ LeContentInsertChildSnippetCommand >> createCommandSpecification [
 	^ LeInsertChildCommandSpecification new 
 		commandUid: self uid;
 		contentUid: self targetContent uid;
+		commandTypeName: self className;
 		insertPosition: self insertPosition;
 		snippetTypeName: self snippetTypeName; 
 		initialSnippetState: self initialSnippetState

@@ -53,7 +53,8 @@ LePageEditHistory >> gtViewCommandSpecificationsListFor: aView [
 		items: [ self eventsLog collect: [ :aTraceEvent |
 			aTraceEvent commandSpecification ] ];
 		column: 'Index' text: [ :aCommandSpecification :index | index ] width: 150;
-		column: 'Specification' text: [ :aCommandSpecification | aCommandSpecification ]
+		column: 'Command Type' text: [ :aCommandSpecification | 
+			aCommandSpecification commandTypeName ]
 ]
 
 { #category : #'gt - extensions' }

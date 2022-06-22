@@ -10,6 +10,16 @@ Class {
 }
 
 { #category : #accessing }
+LeInsertChildCommandSpecification >> gtViewInitialStateAttributesFor: aView [ 
+	<gtView>
+	
+	^ aView forward 
+		title: 'Initial State';
+		object: [ initialSnippetState ];
+		view: #gtViewStateAttributesFor:
+]
+
+{ #category : #accessing }
 LeInsertChildCommandSpecification >> initialSnippetState [
 
 	^ initialSnippetState
