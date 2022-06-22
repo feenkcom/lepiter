@@ -35,7 +35,13 @@ LeGenericSnippetState >> attributeNamed: anAttributeName setValue: aValue [
 
 { #category : #accessing }
 LeGenericSnippetState >> attributeNames [
-	^ attributesByName values collect: [ :anAttribute | anAttribute attributeName ]
+	^ self attributes collect: [ :anAttribute | 
+		anAttribute attributeName ]
+]
+
+{ #category : #accessing }
+LeGenericSnippetState >> attributes [
+	^ attributesByName values
 ]
 
 { #category : #'initialization - utils' }
