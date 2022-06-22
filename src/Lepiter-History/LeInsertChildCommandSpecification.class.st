@@ -9,6 +9,16 @@ Class {
 	#category : #'Lepiter-History-Commands'
 }
 
+{ #category : #'gt - extensions' }
+LeInsertChildCommandSpecification >> gtViewInitialStateAttributesFor: aView [ 
+	<gtView>
+	
+	^ aView forward 
+		title: 'Initial State';
+		object: [ initialSnippetState ];
+		view: #gtViewStateAttributesFor:
+]
+
 { #category : #accessing }
 LeInsertChildCommandSpecification >> initialSnippetState [
 

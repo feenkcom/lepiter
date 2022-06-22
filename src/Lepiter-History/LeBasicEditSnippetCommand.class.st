@@ -7,42 +7,34 @@ Class {
 	#category : #'Lepiter-History-Commands'
 }
 
-{ #category : #utils }
-LeBasicEditSnippetCommand >> createCommandResult [
-	^ LeEditSnippetCommandExecutionResult forCommand: self
-]
-
 { #category : #converting }
 LeBasicEditSnippetCommand >> createCommandSpecification [
 	^ LeEditSnippetCommandSpecification new 
 		commandUid: self uid;
 		contentUid: self targetSnippetUid;
+		commandTypeName: self className;
 		snippetState: self snippetState
+]
+
+{ #category : #'execution - utils' }
+LeBasicEditSnippetCommand >> createUndoCommandSpecification [
+	| undoCommand |
+	undoCommand := self targetContent commandBuilder editSnippetCommand
+		snippetState: self extractCurrentSnippetState.
+		
+	^ undoCommand createCommandSpecification
 ]
 
 { #category : #execution }
 LeBasicEditSnippetCommand >> execute [
-	| previousSnippetState | 
-	previousSnippetState := self extractCurrentSnippetState.
-	
-	self snippetState applyOn: self targetSnippet.
-	
-	^ self createCommandResult
-		previousSnippetState: previousSnippetState
+	^ self withUndoExecute: [ 
+		self snippetState applyOn: self targetSnippet ]
 	
 ]
 
-{ #category : #utils }
+{ #category : #'execution - utils' }
 LeBasicEditSnippetCommand >> extractCurrentSnippetState [
-	| previousSnippetState |
-	previousSnippetState := LeGenericSnippetState new.
-	
-	self snippetState attributeNames do: [ :anAttributeName |
-		previousSnippetState 
-			attributeNamed: anAttributeName 
-			setValue: (self targetSnippet perform: anAttributeName) ].
-	
-	^ previousSnippetState
+	^ LeGenericSnippetState fromSnippet: self targetSnippet basedOn: self snippetState
 ]
 
 { #category : #'gt - extensions' }
@@ -75,6 +67,7 @@ LeBasicEditSnippetCommand >> gtViewNewStateAttributesFor: aView [
 { #category : #initialization }
 LeBasicEditSnippetCommand >> initialize [ 
 	super initialize.
+	
 	snippetState := LeGenericSnippetState new.
 ]
 
@@ -82,4 +75,10 @@ LeBasicEditSnippetCommand >> initialize [
 LeBasicEditSnippetCommand >> snippetState [
 
 	^ snippetState
+]
+
+{ #category : #accessing }
+LeBasicEditSnippetCommand >> snippetState: aSnippetState [
+
+	snippetState := aSnippetState
 ]

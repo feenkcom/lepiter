@@ -7,6 +7,17 @@ Class {
 	#category : #'Lepiter-History-State'
 }
 
+{ #category : #'instance creation' }
+LeTextSnippetStringAttribute class >> named: anAttributeName fromSnippet: aSnippet [ 
+	"Temporary solution to make #extractFromSnippet:basedOn: work."
+	self flag: #TO_REMOVE.
+	
+	self assert: [ anAttributeName = #string ].
+	
+	^ self new 
+		string: aSnippet string
+]
+
 { #category : #updating }
 LeTextSnippetStringAttribute >> applyOn: aTextSnippet [ 
 	aTextSnippet updateString: self string

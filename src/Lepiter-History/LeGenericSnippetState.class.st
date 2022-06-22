@@ -7,6 +7,19 @@ Class {
 	#category : #'Lepiter-History-State'
 }
 
+{ #category : #'instance creation' }
+LeGenericSnippetState class >> fromSnippet: aSnippet [ 
+	^ self new 
+		extractFromSnippet: aSnippet
+]
+
+{ #category : #'instance creation' }
+LeGenericSnippetState class >> fromSnippet: aSnippet basedOn: aTargetState [
+	^ self new 
+		extractFromSnippet: aSnippet
+		basedOn: aTargetState
+]
+
 { #category : #adding }
 LeGenericSnippetState >> addAttribute: aStateAttribute [ 
 	attributesByName 
@@ -20,6 +33,11 @@ LeGenericSnippetState >> applyOn: aSnippet [
 		anAttribute applyOn: aSnippet ]
 ]
 
+{ #category : #accessing }
+LeGenericSnippetState >> attributeNamed: anAttributeName [
+	^ attributesByName at: anAttributeName
+]
+
 { #category : #adding }
 LeGenericSnippetState >> attributeNamed: anAttributeName setValue: aValue [
 	self addAttribute: (LeGenericSnippetStateAttribute new
@@ -29,7 +47,34 @@ LeGenericSnippetState >> attributeNamed: anAttributeName setValue: aValue [
 
 { #category : #accessing }
 LeGenericSnippetState >> attributeNames [
-	^ attributesByName values collect: [ :anAttribute | anAttribute attributeName ]
+	^ self attributes collect: [ :anAttribute | 
+		anAttribute attributeName ]
+]
+
+{ #category : #accessing }
+LeGenericSnippetState >> attributes [
+	^ attributesByName values
+]
+
+{ #category : #'initialization - utils' }
+LeGenericSnippetState >> extractFromSnippet: aSnippet [ 
+	
+	self 
+		extractFromSnippet: aSnippet 
+		basedOn: self class new
+]
+
+{ #category : #'initialization - utils' }
+LeGenericSnippetState >> extractFromSnippet: aSnippet basedOn: aTargetState [
+	
+	aSnippet class leJsonV4AttributeMapping do: [ :assoc |
+		| attributeName attributeType | 
+		attributeName := assoc key.
+		attributeType := (aTargetState hasAttributeNamed: attributeName)
+			ifTrue: [ (aTargetState attributeNamed: attributeName) class ] 
+			ifFalse: [ LeGenericSnippetStateAttribute ].
+		self addAttribute: (attributeType 
+			named: attributeName fromSnippet: aSnippet) ]
 ]
 
 { #category : #'gt - extensions' }
@@ -44,10 +89,25 @@ LeGenericSnippetState >> gtViewStateAttributesFor: aView [
 		column: 'Type' text: [ :anAttribute | anAttribute className ]
 ]
 
+{ #category : #testing }
+LeGenericSnippetState >> hasAttributeNamed: aName [ 
+	^ attributesByName includesKey: aName
+]
+
 { #category : #initialization }
 LeGenericSnippetState >> initialize [ 
 	super initialize.
 	attributesByName := OrderedDictionary new.
+]
+
+{ #category : #printing }
+LeGenericSnippetState >> printOn: aStream [ 
+	super printOn: aStream .
+	aStream parenthesize: [ 
+		aStream print: attributesByName size. 
+		aStream << (attributesByName size =  1
+			ifTrue: [ ' attribute' ]
+			ifFalse: [ ' attributes' ]) ]
 ]
 
 { #category : #accessing }
