@@ -9,7 +9,13 @@ LePageUnindentSnippetCommand class >> commandDescription [
 	^ 'Unindent'
 ]
 
+{ #category : #'execution - utils' }
+LePageUnindentSnippetCommand >> createUndoCommand [
+	^ self targetContent commandBuilder indentSnippetCommand
+]
+
 { #category : #execution }
 LePageUnindentSnippetCommand >> execute [ 
-	self targetSnippet unindent
+	^ self withUndoExecute: [ 
+		self targetSnippet unindent ]
 ]

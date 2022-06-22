@@ -5,21 +5,6 @@ Class {
 }
 
 { #category : #'build - commands' }
-LeSnippetCommandBuilder >> createIndentCommand [ 
-	^ LePageIndentSnippetCommand forSnippet: self
-]
-
-{ #category : #'build - commands' }
-LeSnippetCommandBuilder >> createRemoveCommand [ 
-	^ LePageRemoveSnippetCommand forSnippet: self
-]
-
-{ #category : #'build - commands' }
-LeSnippetCommandBuilder >> createUnindentCommand [ 
-	^ LePageUnindentSnippetCommand forSnippet: self
-]
-
-{ #category : #'build - commands' }
 LeSnippetCommandBuilder >> editSnippetCommand [ 
 	self flag: 'Deletate though the snippet'.
 	
@@ -31,7 +16,27 @@ LeSnippetCommandBuilder >> editSnippetCommand [
 		targetContent: self targetContent
 ]
 
+{ #category : #'build - commands' }
+LeSnippetCommandBuilder >> indentSnippetCommand [ 
+	^ LePageIndentSnippetCommand forSnippet: self
+]
+
+{ #category : #'build - commands' }
+LeSnippetCommandBuilder >> moveDownSnippetCommand [ 
+	^ LePageMoveDownSnippetCommand forSnippet: self
+]
+
+{ #category : #'build - commands' }
+LeSnippetCommandBuilder >> moveUpSnippetCommand [ 
+	^ LePageMoveUpSnippetCommand forSnippet: self
+]
+
 { #category : #accessing }
 LeSnippetCommandBuilder >> targetSnippet [
 	^ self targetContent
+]
+
+{ #category : #'build - commands' }
+LeSnippetCommandBuilder >> unindentSnippetCommand [ 
+	^ LePageUnindentSnippetCommand forSnippet: self
 ]
