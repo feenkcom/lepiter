@@ -15,7 +15,7 @@ LeDockerSnippetElement >> contentElement [
 
 { #category : #accessing }
 LeDockerSnippetElement >> createFormElement [
-	| jenkinsAccount formElement |
+	| formElement |
 	formElement := BlElement new.
 	formElement
 		constraintsDo: [ :c | 
@@ -33,7 +33,7 @@ LeDockerSnippetElement >> createFormElement [
 
 { #category : #accessing }
 LeDockerSnippetElement >> createInspectButtonToolbar [
-	| playInspectButton result |
+	| playInspectButton |
 	playInspectButton := BrButton new.
 	playInspectButton
 		beSmallSize;
@@ -42,7 +42,7 @@ LeDockerSnippetElement >> createInspectButtonToolbar [
 		icon: BrGlamorousVectorIcons playinspect;
 		constraintsDo: [ :c | 
 			c grid vertical alignCenter ];
-		action: [ | client username tokenString urlString |
+		action: [ | urlString |
 			urlString := urlInputElement editor text asString.
 			playInspectButton phlow 
 						spawnObject: (GtDeAPIClient new baseUrl: urlString)].
@@ -52,7 +52,7 @@ LeDockerSnippetElement >> createInspectButtonToolbar [
 
 { #category : #accessing }
 LeDockerSnippetElement >> initialize [
-	| snippetContainer playBlueInspectButton anExpanderElement jenkinsAccount formElement |
+	| formElement |
 	super initialize.
 	contentElement := BrVerticalPane new.
 	formElement := self createFormElement.
@@ -68,7 +68,7 @@ LeDockerSnippetElement >> initialize [
 
 { #category : #accessing }
 LeDockerSnippetElement >> inputElementNamed: aString in: formElement [
-	| labelElement inputElement text |
+	| labelElement inputElement |
 	labelElement := BrLabel new text: aString, ':'; aptitude: BrGlamorousLabelAptitude.
 	labelElement constraintsDo: [ :c | 
 		c vertical fitContent.
