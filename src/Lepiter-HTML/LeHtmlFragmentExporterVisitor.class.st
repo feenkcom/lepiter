@@ -66,7 +66,6 @@ LeHtmlFragmentExporterVisitor >> visitContent: aLeContent [
 
 { #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitExampleSnippet: aLeExampleSnippet [
-	| linkHref |
 	self
 		putTag: 'div'
 		with: [ aLeExampleSnippet noCode

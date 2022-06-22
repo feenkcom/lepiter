@@ -7,7 +7,7 @@ Class {
 { #category : #building }
 LeContextMenuBuilder >> build [
 
-	| aCollector aCollection |
+	| aCollection |
 	aCollection := OrderedCollection new.
 
 	LeSnippet allSubclassesDo: [ :eachClass | 
