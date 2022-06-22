@@ -7,6 +7,12 @@ Class {
 	#category : #'Lepiter-History-State'
 }
 
+{ #category : #'instance creation' }
+LeGenericSnippetState class >> fromSnippet: aSnippet [ 
+	^ self new 
+		extractFromSnippet: aSnippet
+]
+
 { #category : #adding }
 LeGenericSnippetState >> addAttribute: aStateAttribute [ 
 	attributesByName 
@@ -30,6 +36,14 @@ LeGenericSnippetState >> attributeNamed: anAttributeName setValue: aValue [
 { #category : #accessing }
 LeGenericSnippetState >> attributeNames [
 	^ attributesByName values collect: [ :anAttribute | anAttribute attributeName ]
+]
+
+{ #category : #'initialization - utils' }
+LeGenericSnippetState >> extractFromSnippet: aSnippet [ 
+	
+	aSnippet class leJsonV4AttributeMapping do: [ :assoc |
+		self addAttribute: (LeGenericSnippetStateAttribute 
+			named: assoc key fromSnippet: aSnippet) ]
 ]
 
 { #category : #'gt - extensions' }

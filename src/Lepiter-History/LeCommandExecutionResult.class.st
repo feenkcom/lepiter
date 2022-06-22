@@ -2,7 +2,8 @@ Class {
 	#name : #LeCommandExecutionResult,
 	#superclass : #Object,
 	#instVars : [
-		'command'
+		'command',
+		'undoSpecification'
 	],
 	#category : #'Lepiter-History-Commands'
 }
@@ -40,5 +41,11 @@ LeCommandExecutionResult >> traceEvent [
 { #category : #accessing }
 LeCommandExecutionResult >> undoSpecification [
 
-	^ nil
+	^ undoSpecification
+]
+
+{ #category : #accessing }
+LeCommandExecutionResult >> undoSpecification: aCommandSpecification [
+
+	undoSpecification := aCommandSpecification
 ]

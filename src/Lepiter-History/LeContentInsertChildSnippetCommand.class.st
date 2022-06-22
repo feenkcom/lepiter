@@ -14,7 +14,7 @@ LeContentInsertChildSnippetCommand class >> commandDescription [
 	^ 'Insert Child Snippet'
 ]
 
-{ #category : #utils }
+{ #category : #'execution - utils' }
 LeContentInsertChildSnippetCommand >> createCommandResult [
 	^ LeInsertChildSnippetCommandExecutionResult forCommand: self
 ]
@@ -72,12 +72,19 @@ LeContentInsertChildSnippetCommand >> execute [
 		intoParent: self targetContent.
 		
 	^ self createCommandResult
-		insertedSnippet: newSnipet
+		insertedSnippet: newSnipet;
+		undoSpecification: (self targetContent commandBuilder
+			removeChildSnippetCommandFor: newSnipet) createCommandSpecification
 ]
 
 { #category : #accessing }
 LeContentInsertChildSnippetCommand >> initialSnippetState [
 	^ initialSnippetState
+]
+
+{ #category : #configuration }
+LeContentInsertChildSnippetCommand >> initialSnippetState: aSnippetState [
+	initialSnippetState := aSnippetState
 ]
 
 { #category : #initialization }
@@ -130,7 +137,7 @@ LeContentInsertChildSnippetCommand >> insertPosition: anObject [
 	insertPosition := anObject
 ]
 
-{ #category : #utils }
+{ #category : #'execution - utils' }
 LeContentInsertChildSnippetCommand >> instantiateEmptySnippet [
 	^ (self class environment at: snippetTypeName) empty
 ]

@@ -38,6 +38,18 @@ LeCommandBuilder >> newSnippetUid [
 		ifTrue: [ self targetDatabase newUID ]
 ]
 
+{ #category : #'build - commands' }
+LeCommandBuilder >> removeChildSnippetCommand [
+	^ LeContentRemoveChildSnippetCommand new
+		targetContent: self targetContent
+]
+
+{ #category : #'build - commands' }
+LeCommandBuilder >> removeChildSnippetCommandFor: aChildSnippet [
+	^ self removeChildSnippetCommand
+		childSnippet: aChildSnippet
+]
+
 { #category : #accessing }
 LeCommandBuilder >> targetContent [
 
