@@ -66,8 +66,10 @@ LePageEditHistory >> gtViewTraceEventsListFor: aView [
 		priority: 10;
 		items: [ self eventsLog ];
 		column: 'Index' text: [ :aTraceEvent :index | index ] width: 100;
-		column: 'Main Command' text: [ :aTraceEvent | aTraceEvent commandSpecification ];
-		column: 'Undo Command' text: [ :aTraceEvent | aTraceEvent undoSpecification ]
+		column: 'Main Command' text: [ :aTraceEvent | 
+			aTraceEvent commandSpecification commandTypeName ];
+		column: 'Undo Command' text: [ :aTraceEvent | 
+			aTraceEvent undoSpecification commandTypeName ]
 ]
 
 { #category : #initialization }

@@ -10,25 +10,25 @@ LeSnippetCommandBuilder >> editSnippetCommand [
 	
 	self targetContent isTextSnippet ifTrue: [ 
 		^ LeEditTextSnippetCommand new
-			targetContent: self targetContent ].
+			targetContent: self targetSnippet ].
 		
 	^ LeEditGenericSnippetCommand new
-		targetContent: self targetContent
+		targetContent: self targetSnippet
 ]
 
 { #category : #'build - commands' }
 LeSnippetCommandBuilder >> indentSnippetCommand [ 
-	^ LePageIndentSnippetCommand forSnippet: self
+	^ LePageIndentSnippetCommand forSnippet: self targetSnippet
 ]
 
 { #category : #'build - commands' }
 LeSnippetCommandBuilder >> moveDownSnippetCommand [ 
-	^ LePageMoveDownSnippetCommand forSnippet: self
+	^ LePageMoveDownSnippetCommand forSnippet: self targetSnippet
 ]
 
 { #category : #'build - commands' }
 LeSnippetCommandBuilder >> moveUpSnippetCommand [ 
-	^ LePageMoveUpSnippetCommand forSnippet: self
+	^ LePageMoveUpSnippetCommand forSnippet: self targetSnippet
 ]
 
 { #category : #accessing }
@@ -38,5 +38,5 @@ LeSnippetCommandBuilder >> targetSnippet [
 
 { #category : #'build - commands' }
 LeSnippetCommandBuilder >> unindentSnippetCommand [ 
-	^ LePageUnindentSnippetCommand forSnippet: self
+	^ LePageUnindentSnippetCommand forSnippet: self targetSnippet
 ]
