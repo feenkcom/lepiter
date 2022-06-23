@@ -177,6 +177,11 @@ LePage >> canMoveToDatabase: aNewDatabase [
 	^ true
 ]
 
+{ #category : #'api - commands' }
+LePage >> commandBuilder [
+	^ LePageCommandBuilder forContent: self
+]
+
 { #category : #'api - accessing' }
 LePage >> contentAsString [
 	^ self title
@@ -198,7 +203,7 @@ LePage >> detectStructureChangeTypeToPage: aLePage [
 
 { #category : #accessing }
 LePage >> editHistory [
-	^ editHistory ifNil: [ editHistory := LePageEditHistory new ]
+	^ editHistory
 ]
 
 { #category : #'api - accessing' }
@@ -328,7 +333,7 @@ LePage >> initialize [
 	super initialize.
 	type := LeNamedPageType title: '' page: self.
 	self assignNewUID.
-	editHistory := LePageEditHistory new.
+	editHistory := LePageEditHistory forPage: self.
 ]
 
 { #category : #initialization }
@@ -408,8 +413,8 @@ LePage >> moveDownSnippet: aLeSnippet [
 	"Try to move the supplied snippet down one item in the receiver's children.
 	If that isn't possible, do nothing"
 
-	(self children moveDownSnippet: aLeSnippet) ifTrue:
-		[ self announceContentMoved: aLeSnippet ].
+	(self children moveDownSnippet: aLeSnippet) ifTrue: [ 
+		self announceContentMovedDownFor: aLeSnippet ]
 ]
 
 { #category : #'api - editing' }
@@ -430,8 +435,7 @@ LePage >> moveUpSnippet: aLeSnippet [
 	If that isn't possible, do nothing"
 
 	(self children moveUpSnippet: aLeSnippet) ifTrue: [ 
-		self editHistory recordMoveUpForSnippet: aLeSnippet. 
-		self announceContentMoved: aLeSnippet ].
+		self announceContentMovedUpFor: aLeSnippet ]
 ]
 
 { #category : #'private - updating' }

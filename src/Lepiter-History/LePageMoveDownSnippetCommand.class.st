@@ -1,10 +1,21 @@
 Class {
 	#name : #LePageMoveDownSnippetCommand,
-	#superclass : #LePageMoveSnippetCommand,
-	#category : #'Lepiter-History'
+	#superclass : #LeMoveSnippetCommand,
+	#category : #'Lepiter-History-Commands'
 }
 
 { #category : #accessing }
 LePageMoveDownSnippetCommand class >> commandDescription [ 
-	^ 'MoveDown'
+	^ 'Move Down Snippet'
+]
+
+{ #category : #'execution - utils' }
+LePageMoveDownSnippetCommand >> createUndoCommand [
+	^ self targetContent commandBuilder moveUpSnippetCommand
+]
+
+{ #category : #execution }
+LePageMoveDownSnippetCommand >> execute [ 
+	^ self withUndoExecute: [ 
+		self targetSnippet moveDown ]
 ]

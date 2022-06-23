@@ -68,7 +68,7 @@ LeLinkReferenceElement >> initialize [
 { #category : #'api - link reference view model' }
 LeLinkReferenceElement >> onLinkReferenceViewModelChanged [
 	"Is sent when a new linkReference view model is assigned to the element"
-	| linkReferenceSnippetViewModel pageSnippetsTreeViewModel pageIncomingLinksViewModel |
+	| linkReferenceSnippetViewModel pageSnippetsTreeViewModel |
 
 	self page ensureOneSnippet.
 	

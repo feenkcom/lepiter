@@ -25,7 +25,7 @@ Class {
 		'snippetResizer',
 		'slidePreviewEventHandler'
 	],
-	#category : 'Lepiter-Snippet-Slideshow-Snippet'
+	#category : #'Lepiter-Snippet-Slideshow-Snippet'
 }
 
 { #category : #private }
@@ -559,7 +559,7 @@ LeSlideshowSnippetElement >> reorderSlides [
 	slides := self collectSlides.
 	currentSlideIndex := self snippetViewModel currentSlideIndex.
 	slidesPreviewsContainer childrenDo: [ :each | 
-		| slide methodString newSlideMethod |
+		| slide |
 		slide := slides detect: [ :sl | sl previewElement = each ].
 		slide slideIndex = slideNr
 			ifFalse: [

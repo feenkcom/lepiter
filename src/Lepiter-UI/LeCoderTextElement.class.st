@@ -16,7 +16,7 @@ LeCoderTextElement class >> coderElementFor: aString [
 
 { #category : #initialization }
 LeCoderTextElement >> initializeForText: aString [
-	| page snippet viewModel snippetView |
+	| snippet viewModel snippetView |
 
 	snippet := LeTextSnippet builder string: aString; build.
 	viewModel := snippet asSnippetViewModel.

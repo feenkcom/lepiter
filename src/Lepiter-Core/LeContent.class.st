@@ -220,15 +220,36 @@ LeContent >> announceContentAdded: aLeSnippet [
 ]
 
 { #category : #'private - notifications' }
-LeContent >> announceContentMoved: aLeSnippet [
+LeContent >> announceContentIndentedFor: aLeSnippet [
+	"Announce that the receiver has indented a snippet in the tree"
+
+	self announceContentMoveOfType: LeContentTreeIndented for: aLeSnippet
+]
+
+{ #category : #'private - notifications' }
+LeContent >> announceContentMoveOfType: anAnnouncentType for: aLeSnippet [
 	"Announce that the receiver has moved a snippet in the tree"
 
 	self notifier 
 		bubble; database;
-		announce: (LeContentTreeMoved new
+		announce: (anAnnouncentType new
 			content: aLeSnippet;
 			destinationParent: self;
 			destinationIndex: (children indexOf: aLeSnippet))
+]
+
+{ #category : #'private - notifications' }
+LeContent >> announceContentMovedDownFor: aLeSnippet [
+	"Announce that the receiver has moved down a snippet in the tree"
+
+	self announceContentMoveOfType: LeContentTreeMovedDown for: aLeSnippet
+]
+
+{ #category : #'private - notifications' }
+LeContent >> announceContentMovedUpFor: aLeSnippet [
+	"Announce that the receiver has moved up a snippet in the tree"
+
+	self announceContentMoveOfType: LeContentTreeMovedUp for: aLeSnippet
 ]
 
 { #category : #'private - notifications' }
@@ -241,6 +262,13 @@ LeContent >> announceContentRemoved: aLeSnippet from: aLePage in: aLeDatabase [
 			page: aLePage;
 			database: aLeDatabase;
 			content: aLeSnippet).
+]
+
+{ #category : #'private - notifications' }
+LeContent >> announceContentUnindentedFor: aLeSnippet [
+	"Announce that the receiver has unindented a snippet in the tree"
+
+	self announceContentMoveOfType: LeContentTreeUnindented for: aLeSnippet
 ]
 
 { #category : #'private - notifications' }
@@ -569,8 +597,9 @@ LeContent >> indentSnippet: aLeSnippet [
 	"Indent the receiver in the receiver, i.e. make it a child of the previous snippet.
 	If this is the first snippet at the current level, do nothing"
 
-	(self children indentSnippet: aLeSnippet) ifNotNil:
-		[ :newParent | newParent announceContentMoved: aLeSnippet ].
+	(self children indentSnippet: aLeSnippet) 
+		ifNotNil: [ :newParent | 
+			newParent announceContentIndentedFor: aLeSnippet ]
 ]
 
 { #category : #initialization }
@@ -661,10 +690,11 @@ LeContent >> moveDownSnippet: aLeSnippet [
 	"Try to move the supplied snippet down one item in the receiver's children.
 	If that isn't possible, try to move the snippet down as the receiver's sibling"
 
-	(self children moveDownSnippet: aLeSnippet) ifTrue:
-		[ ^ self announceContentMoved: aLeSnippet ].
-	(self parent moveSnippet: aLeSnippet below: self) ifNotNil:
-		[ :newParent | newParent announceContentMoved: aLeSnippet ].
+	(self children moveDownSnippet: aLeSnippet) ifTrue: [ 
+		^ self announceContentMovedDownFor: aLeSnippet ].
+	(self parent moveSnippet: aLeSnippet below: self) 
+		ifNotNil: [ :newParent | 
+			newParent announceContentMovedDownFor: aLeSnippet ]
 ]
 
 { #category : #'api - editing' }
@@ -694,14 +724,11 @@ LeContent >> moveUpSnippet: aLeSnippet [
 	"Try to move the supplied snippet up one item in the receiver's children.
 	If that isn't possible, try to move the snippet down to the receiver's sibling"
 	
-	(self children moveUpSnippet: aLeSnippet) ifTrue:
-		[ 
-			self page editHistory recordMoveUpForSnippet: aLeSnippet. 
-			^ self announceContentMoved: aLeSnippet ].
-	(self parent moveSnippet: aLeSnippet above: self) ifNotNil:
-		[ :newParent | 
-			self page editHistory recordMoveUpForSnippet: aLeSnippet. 
-			newParent announceContentMoved: aLeSnippet ].
+	(self children moveUpSnippet: aLeSnippet) ifTrue: [ 
+		^ self announceContentMovedUpFor: aLeSnippet ].
+	(self parent moveSnippet: aLeSnippet above: self) 
+		ifNotNil: [ :newParent | 
+			newParent announceContentMovedUpFor: aLeSnippet ]
 ]
 
 { #category : #'api - notifications' }
@@ -878,7 +905,7 @@ LeContent >> unindentSnippet: aLeSnippet [
 
 	self children removeSnippet: aLeSnippet.
 	self parent basicAddSnippet: aLeSnippet after: self.
-	self parent announceContentMoved: aLeSnippet.
+	self parent announceContentUnindentedFor: aLeSnippet.
 ]
 
 { #category : #'api - updating' }

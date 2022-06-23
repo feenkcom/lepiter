@@ -145,6 +145,11 @@ LeCollection >> ifEmpty: aBlock [
 	^ self items ifEmpty: aBlock
 ]
 
+{ #category : #testing }
+LeCollection >> includes: anObject [ 
+	^ self items includes: anObject
+]
+
 { #category : #accessing }
 LeCollection >> indexOf: anItem [
 
