@@ -9,6 +9,14 @@ LeMoveSnippetCommand class >> isAbstract [
 	^ self name = #LeMoveSnippetCommand
 ]
 
+{ #category : #converting }
+LeMoveSnippetCommand >> createCommandSpecification [
+	^ LeGenericCommandSpecification new
+		commandUid: self uid;
+		contentUid: self targetSnippetUid;
+		commandTypeName: self className
+]
+
 { #category : #'execution - utils' }
 LeMoveSnippetCommand >> createUndoCommand [ 
 	^ self subclassResponsibility

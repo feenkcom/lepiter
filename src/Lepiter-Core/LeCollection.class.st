@@ -89,6 +89,11 @@ LeCollection >> detect: aBlock [
 	^ items detect: aBlock
 ]
 
+{ #category : #enumerating }
+LeCollection >> detect: aBlock ifFound: foundBlock ifNone: exceptionBlock [
+	^ self items detect: aBlock ifFound: foundBlock ifNone: exceptionBlock
+]
+
 { #category : #'api - enumerating' }
 LeCollection >> do: aBlock [
 	self items do: aBlock

@@ -17,5 +17,5 @@ LePageMoveUpSnippetCommand >> createUndoCommand [
 { #category : #execution }
 LePageMoveUpSnippetCommand >> execute [ 
 	^ self withUndoExecute: [ 
-		self targetSnippet moveDown ]
+		self targetSnippet moveUp ]
 ]
