@@ -31,6 +31,7 @@ LeSnippetCommand >> initializeForSnippet: aSnippet [
 LeSnippetCommand >> printOn: aStream [
 	super printOn: aStream.
 	
+	self targetSnippet ifNil: [ ^ self ].
 	aStream parenthesize:  [ 
 		aStream print: self targetSnippetUid ]
 ]

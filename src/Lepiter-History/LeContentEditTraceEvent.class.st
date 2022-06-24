@@ -20,6 +20,11 @@ LeContentEditTraceEvent >> commandSpecification: anObject [
 	commandSpecification := anObject
 ]
 
+{ #category : #accessing }
+LeContentEditTraceEvent >> commandTypeName [
+	^ self commandSpecification commandTypeName
+]
+
 { #category : #'gt - extensions' }
 LeContentEditTraceEvent >> gtViewCommandSpecificationFor: aView [
 	<gtView>
@@ -40,6 +45,13 @@ LeContentEditTraceEvent >> gtViewUndoSpecificationFor: aView [
 		priority: 15;
 		object: [ self undoSpecification ];
 		view: #gtViewSpecificationAttributesFor:
+]
+
+{ #category : #printing }
+LeContentEditTraceEvent >> printOn: aStream [ 
+	super printOn: aStream.
+	aStream parenthesize: [ 
+		aStream << self commandTypeName ]
 ]
 
 { #category : #accessing }

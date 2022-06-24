@@ -76,3 +76,11 @@ LeContentRemoveChildSnippetCommand >> execute [
 LeContentRemoveChildSnippetCommand >> extractChildState [
 	^ LeGenericSnippetState fromSnippet: self childSnippet
 ]
+
+{ #category : #initialization }
+LeContentRemoveChildSnippetCommand >> initializeFromSpecification: aCommandSpecification withBuilder: aBuilder [
+	super initializeFromSpecification: aCommandSpecification withBuilder: aBuilder.
+	
+	self childSnippet: (aBuilder 
+		locateContentWithUid: aCommandSpecification childUid)
+]
