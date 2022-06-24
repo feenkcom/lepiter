@@ -207,22 +207,22 @@ LeSnippet >> isUnknownSnippet [
 
 { #category : #'api - editing' }
 LeSnippet >> mergeWithNext [
-	"Merge the contents of the receiver with the next block (the next sibling, or the parent's next).
-	Answer the merged block."
+	"Merge the contents of the receiver with the next snippet (the next sibling, or the parent's next).
+	Answer the merged snippet."
 
 	^ self 
-		nextSnippetDo: [ :nextBlock | self requestMergeWithBlock: nextBlock ] 
-		ifNone: [ self error: 'Can''t merge the last block with a following block' ].
+		nextSnippetDo: [ :nextSnippet | self requestMergeWithSnippet: nextSnippet ] 
+		ifNone: [ self error: 'Can''t merge the last snippet with a following snippet' ].
 ]
 
 { #category : #'api - editing' }
 LeSnippet >> mergeWithPrevious [
-	"Merge the contents of the receiver with the previous block (the previous sibling, or the parent itself).
-	Answer the merged block."
+	"Merge the contents of the receiver with the previous snippet (the previous sibling, or the parent itself).
+	Answer the merged snippet."
 
 	^ self 
-		previousSnippetDo: [ :previousBlock | previousBlock requestMergeWithBlock: self ] 
-		ifNone: [ self error: 'Can''t merge the first block with a previous block' ].
+		previousSnippetDo: [ :previousSnippet | previousSnippet requestMergeWithSnippet: self ] 
+		ifNone: [ self error: 'Can''t merge the first snippet with a previous snippet' ].
 ]
 
 { #category : #'api - editing' }
@@ -417,14 +417,14 @@ LeSnippet >> removeSelf [
 ]
 
 { #category : #'api - editing' }
-LeSnippet >> requestMergeWithBlock: aBlock [
-	"Request a merge between the receiver and the given block. 
+LeSnippet >> requestMergeWithSnippet: aSnippet [
+	"Request a merge between the receiver and the given snippet. 
 	As a result of the request depending on the implementation:
 	- nothing can happen if the merge is not accepted;
-	- the receiver is deleted and its content is added to the given block
-	- the given block is deleted amd its content is added to the receiver.
+	- the receiver is deleted and its content is added to the given snippet
+	- the given snippet is deleted amd its content is added to the receiver.
 	
-	One of the two blocks is returned to the caller."
+	One of the two snippets is returned to the caller."
 	
 	^ self subclassResponsibility
 ]

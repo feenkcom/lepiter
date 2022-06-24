@@ -3,7 +3,7 @@ Class {
 	#superclass : #LeSnippet,
 	#traits : 'TLeUnlinkedReferencesUpdate',
 	#classTraits : 'TLeUnlinkedReferencesUpdate classTrait',
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #visiting }
@@ -77,7 +77,7 @@ LeTextualSnippet >> markdownOn: stream level: anInteger [
 ]
 
 { #category : #'api - editing' }
-LeTextualSnippet >> mergeAndRemoveSelfOrBlock: aBlock [
+LeTextualSnippet >> mergeAndRemoveSelfOrSnippet: aSnippet [
 	"Merge the receiver block with the supplied block appending the text of the supplied block to my text.
 	Remove one of the two blocks and merges the content of the other into the remaining one.
 	Which block is remove depends on their content. Callers should assume either one of the two blocks can 
@@ -87,14 +87,14 @@ LeTextualSnippet >> mergeAndRemoveSelfOrBlock: aBlock [
 	as it is faster than removing aBlock."
 	(self hasChildren not and: [ self hasText not]) ifTrue: [ 
 		self removeSelf.
-		^ aBlock ].
+		^ aSnippet ].
 	
 	"Append aBlock's text to the end of the receiver and aBlock's children 
 	to the end of the receiver's children"
-	self appendText: aBlock text.
+	self appendText: aSnippet text.
 
-	aBlock transferChildrenTo: self.
-	aBlock removeSelf.
+	aSnippet transferChildrenTo: self.
+	aSnippet removeSelf.
 
 	self updateEditTimeAndEmail.
 
@@ -116,10 +116,10 @@ LeTextualSnippet >> onRemovedFromDatabase: aDatabase [
 ]
 
 { #category : #'api - editing' }
-LeTextualSnippet >> requestMergeWithBlock: aBlock [
-	^ aBlock class = self class 
+LeTextualSnippet >> requestMergeWithSnippet: aSnippet [
+	^ aSnippet class = self class 
 		ifFalse: [ self ]
-		ifTrue: [ self mergeAndRemoveSelfOrBlock: aBlock ]
+		ifTrue: [ self mergeAndRemoveSelfOrSnippet: aSnippet ]
 ]
 
 { #category : #accessing }

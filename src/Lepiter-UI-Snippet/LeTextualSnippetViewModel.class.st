@@ -7,7 +7,7 @@ Textual snippets support merging, splitting and seamless cursor navigation betwe
 Class {
 	#name : #LeTextualSnippetViewModel,
 	#superclass : #LeSnippetViewModel,
-	#category : 'Lepiter-UI-Snippet-! View Models'
+	#category : #'Lepiter-UI-Snippet-! View Models'
 }
 
 { #category : #'api - snippet' }
@@ -38,7 +38,7 @@ LeTextualSnippetViewModel >> mergeWithNext [
 						
 						aThisSnippetTextSize := self snippetModel text size.
 						
-						newSnippet := self snippetModel requestMergeWithBlock: nextSnippet.
+						newSnippet := self snippetModel requestMergeWithSnippet: nextSnippet.
 						newSnippetViewModel := aSnippetsCollection findOrCreateSnippetViewModel: newSnippet.
 						newSnippetViewModel focused: true.
 						newSnippetViewModel moveCursorAt: aThisSnippetTextSize ] ] 
@@ -59,7 +59,7 @@ LeTextualSnippetViewModel >> mergeWithPrevious [
 						
 						aPreviousSnippetTextSize := previousSnippet text size.
 						
-						newSnippet := previousSnippet requestMergeWithBlock: self snippetModel.
+						newSnippet := previousSnippet requestMergeWithSnippet: self snippetModel.
 						newSnippetViewModel := aSnippetsCollection findOrCreateSnippetViewModel: newSnippet.
 						newSnippetViewModel focused: true.
 						newSnippetViewModel moveCursorAt: aPreviousSnippetTextSize ] ] 
