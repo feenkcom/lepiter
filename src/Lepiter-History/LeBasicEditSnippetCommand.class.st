@@ -17,19 +17,20 @@ LeBasicEditSnippetCommand >> createCommandSpecification [
 ]
 
 { #category : #'execution - utils' }
+LeBasicEditSnippetCommand >> createUndoCommand [
+	^ self targetContent commandBuilder editSnippetCommand
+		snippetState: self extractCurrentSnippetState
+]
+
+{ #category : #'execution - utils' }
 LeBasicEditSnippetCommand >> createUndoCommandSpecification [
-	| undoCommand |
-	undoCommand := self targetContent commandBuilder editSnippetCommand
-		snippetState: self extractCurrentSnippetState.
-		
-	^ undoCommand createCommandSpecification
+	^ self createUndoCommand createCommandSpecification
 ]
 
 { #category : #execution }
 LeBasicEditSnippetCommand >> execute [
 	^ self withUndoExecute: [ 
 		self snippetState applyOn: self targetSnippet ]
-	
 ]
 
 { #category : #'execution - utils' }

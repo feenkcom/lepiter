@@ -37,6 +37,17 @@ LeSnippetCommandBuilder >> targetSnippet [
 ]
 
 { #category : #'build - commands' }
+LeSnippetCommandBuilder >> transferChildrenCommand [
+	^ LeTransferSnippetChildrenCommand forSnippet: self targetSnippet
+]
+
+{ #category : #'build - commands' }
+LeSnippetCommandBuilder >> transferChildrenCommandFrom: anotherSnippet [
+	^ self transferChildrenCommand
+		sourceSnippet: anotherSnippet
+]
+
+{ #category : #'build - commands' }
 LeSnippetCommandBuilder >> unindentSnippetCommand [ 
 	^ LePageUnindentSnippetCommand forSnippet: self targetSnippet
 ]
