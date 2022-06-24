@@ -635,17 +635,22 @@ LeParser class >> transitionTable [
 
 { #category : #parsing }
 LeParser >> handleEmbeddedError: aSmaCCParserError [
-	| errorNode |
+	| errorNode embeddedParser nodeClass visitorTrait |
+	embeddedParser := aSmaCCParserError parser.
+	nodeClass := SmaCCParseNode subclasses
+			detect: [ :e | e parserClass = embeddedParser class ]
+			ifNone: [  ].
+	visitorTrait := nodeClass
+			ifNil: [ TLeAnnotationParseNodeVisitor ]
+			ifNotNil: [ nodeClass visitorTrait ].
 	errorNode := SmaCCErrorNode new
-		stackContents: aSmaCCParserError parser nodeStack copy;
-		dismissedTokens: #();
-		visitorTrait: TLeAnnotationParseNodeVisitor.
+			stackContents: aSmaCCParserError parser nodeStack copy;
+			dismissedTokens: #();
+			visitorTrait: visitorTrait.
 	(aSmaCCParserError parser currentToken value beginsWith: '}')
-		ifTrue: [ self
-				position: aSmaCCParserError parser currentToken startPosition - 1.
+		ifTrue: [ self position: aSmaCCParserError parser currentToken startPosition - 1.
 			errorNode
-				errorToken:
-					(SmaCCToken
+				errorToken: (SmaCCToken
 						value: ''
 						start: aSmaCCParserError parser currentToken startPosition
 						ids: #()) ]
