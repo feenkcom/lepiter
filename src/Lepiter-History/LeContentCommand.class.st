@@ -13,6 +13,11 @@ LeContentCommand >> createCommandResult [
 	^ LeCommandExecutionResult forCommand: self
 ]
 
+{ #category : #converting }
+LeContentCommand >> createCommandSpecification [
+	self subclassResponsibility
+]
+
 { #category : #'execution - utils' }
 LeContentCommand >> createUndoCommandSpecification [
 	^ nil
