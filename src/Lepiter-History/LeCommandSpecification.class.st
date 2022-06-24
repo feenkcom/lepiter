@@ -10,6 +10,13 @@ Class {
 }
 
 { #category : #accessing }
+LeCommandSpecification >> commandType [
+	self assert: [ self commandTypeName notNil ].
+	
+	^ self class environment at: self commandTypeName asSymbol
+]
+
+{ #category : #accessing }
 LeCommandSpecification >> commandTypeName [
 
 	^ commandTypeName
@@ -43,6 +50,13 @@ LeCommandSpecification >> contentUid [
 LeCommandSpecification >> contentUid: anUid [
 
 	contentUid := anUid
+]
+
+{ #category : #'command creation' }
+LeCommandSpecification >> createCommandForPage: aPage [
+	^ (LeCommandFromSpecificationBuilder new 
+		commandSpecification: self;
+		targetPage: aPage) createCommand
 ]
 
 { #category : #'gt - extensions' }

@@ -101,8 +101,12 @@ LeContentInsertChildSnippetCommand >> initialize: anAttributeName with: aValue [
 ]
 
 { #category : #initialization }
-LeContentInsertChildSnippetCommand >> initializeFromSpecification: aCommandSpecification [
-	self flag: #TODO
+LeContentInsertChildSnippetCommand >> initializeFromSpecification: aCommandSpecification withBuilder: aBuilder [
+	super initializeFromSpecification: aCommandSpecification withBuilder: aBuilder.
+	
+	self insertPosition: aCommandSpecification insertPosition.
+	self snippetTypeName: aCommandSpecification snippetTypeName.
+	self initialSnippetState: aCommandSpecification initialSnippetState.
 ]
 
 { #category : #configuration }
@@ -140,7 +144,7 @@ LeContentInsertChildSnippetCommand >> insertPosition: anObject [
 
 { #category : #'execution - utils' }
 LeContentInsertChildSnippetCommand >> instantiateEmptySnippet [
-	^ (self class environment at: snippetTypeName) empty
+	^ (self class environment at: snippetTypeName asSymbol) empty
 ]
 
 { #category : #accessing }

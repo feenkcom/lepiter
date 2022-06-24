@@ -40,6 +40,12 @@ LeContentCommand >> initialize [
 	uid := LeUID new uid: UUID new.
 ]
 
+{ #category : #initialization }
+LeContentCommand >> initializeFromSpecification: aCommandSpecification withBuilder: aBuilder [
+	self assert: [ aCommandSpecification notNil ].
+	self assert: [ aCommandSpecification commandTypeName = self className ].
+]
+
 { #category : #accessing }
 LeContentCommand >> targetContent [
 

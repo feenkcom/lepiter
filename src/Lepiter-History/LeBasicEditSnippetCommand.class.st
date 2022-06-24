@@ -71,6 +71,13 @@ LeBasicEditSnippetCommand >> initialize [
 	snippetState := LeGenericSnippetState new.
 ]
 
+{ #category : #initialization }
+LeBasicEditSnippetCommand >> initializeFromSpecification: aCommandSpecification withBuilder: aBuilder [
+	super initializeFromSpecification: aCommandSpecification withBuilder: aBuilder.
+	
+	self snippetState: aCommandSpecification snippetState
+]
+
 { #category : #accessing }
 LeBasicEditSnippetCommand >> snippetState [
 
