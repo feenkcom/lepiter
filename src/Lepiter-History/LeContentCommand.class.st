@@ -3,10 +3,20 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'uid',
-		'targetContent'
+		'targetContent',
+		'subcommands',
+		'parentCommand'
 	],
 	#category : #'Lepiter-History-Commands'
 }
+
+{ #category : #adding }
+LeContentCommand >> addSubcommand: aCommand [
+	self assert: [ aCommand parentCommand isNil ].
+	
+	self subcommands add: aCommand.
+	aCommand parentCommand: self.
+]
 
 { #category : #'execution - utils' }
 LeContentCommand >> createCommandResult [
@@ -43,12 +53,30 @@ LeContentCommand >> execute [
 LeContentCommand >> initialize [ 
 	super initialize.
 	uid := LeUID new uid: UUID new.
+	subcommands := OrderedCollection new.
 ]
 
 { #category : #initialization }
 LeContentCommand >> initializeFromSpecification: aCommandSpecification withBuilder: aBuilder [
 	self assert: [ aCommandSpecification notNil ].
 	self assert: [ aCommandSpecification commandTypeName = self className ].
+]
+
+{ #category : #accessing }
+LeContentCommand >> parentCommand [
+	^ parentCommand
+]
+
+{ #category : #accessing }
+LeContentCommand >> parentCommand: aCommand [ 
+	self assert: [ self parentCommand isNil ].
+	
+	parentCommand := aCommand
+]
+
+{ #category : #accessing }
+LeContentCommand >> subcommands [
+	^ subcommands
 ]
 
 { #category : #accessing }

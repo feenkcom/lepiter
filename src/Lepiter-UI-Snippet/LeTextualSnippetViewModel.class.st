@@ -108,30 +108,44 @@ LeTextualSnippetViewModel >> splitAt: aCursorPosition [
 	- deleting the text before the cursor in the receiver's block"
 
 	self snippetsCollectionDo: [ :aSnippetsCollection | 
-		| aCurrentSnippetText newSnippet newSnippetViewModel thisText |
-		aCurrentSnippetText := self snippetModel text copy.
-		(aCursorPosition isZero and: [ aCurrentSnippetText isNotEmpty ])
+		| currentSnippetText |
+		currentSnippetText := self snippetModel text copy.
+		
+		(aCursorPosition isZero and: [ currentSnippetText isNotEmpty ])
 			ifTrue: [ ^ self splitAtStart ].
-		aCursorPosition = aCurrentSnippetText size
+		aCursorPosition = currentSnippetText size
 			ifTrue: [ ^ self splitAtEnd ].
+		self splitAtCursorPosition: aCursorPosition ]
+]
+
+{ #category : #'api - snippet' }
+LeTextualSnippetViewModel >> splitAtCursorPosition: aCursorPosition [
+
+	self snippetsCollectionDo: [ :aSnippetsCollection | 
+		| newSnippet currentSnippetText newSnippetViewModel thisText |
+		currentSnippetText := self snippetModel text copy.
+		
 		newSnippet := self snippetModel
 			addSnippetBeforeSelfOfClass: self snippetModel class.
 		newSnippet
-			updateText: (aCurrentSnippetText copyFrom: 1 to: aCursorPosition)
+			updateText: (currentSnippetText copyFrom: 1 to: aCursorPosition)
 			source: self.
+		
+		thisText := currentSnippetText
+				copyFrom: aCursorPosition + 1
+				to: currentSnippetText size.
+		thisText trimmer
+			leftLineBreaks;
+			trim.
+		self snippetModel updateText: thisText source: self.
+		
 		newSnippetViewModel := aSnippetsCollection
 			findOrCreateSnippetViewModel: newSnippet.
-			newSnippetViewModel focused: false.
-			thisText := aCurrentSnippetText
-				copyFrom: aCursorPosition + 1
-				to: aCurrentSnippetText size.
-			thisText trimmer
-				leftLineBreaks;
-				trim.
-			self snippetModel updateText: thisText source: self.
-			self focused: true.
-			self moveCursorAtStart.
-			aSnippetsCollection scrollToViewModel: self ]
+		newSnippetViewModel focused: false.
+		
+		self focused: true.
+		self moveCursorAtStart.
+		aSnippetsCollection scrollToViewModel: self ]
 ]
 
 { #category : #'api - snippet' }
@@ -145,6 +159,7 @@ LeTextualSnippetViewModel >> splitAtEnd [
 		| newSnippet newSnippetViewModel |
 		
 		newSnippet := self snippetModel addChildOrSiblingSnippetOfClass: self snippetModel class.
+		
 		newSnippetViewModel := aSnippetsCollection findOrCreateSnippetViewModel: newSnippet.
 		newSnippetViewModel focused: true.
 		newSnippetViewModel moveCursorAtStart.
@@ -159,6 +174,7 @@ LeTextualSnippetViewModel >> splitAtStart [
 		| newSnippet newSnippetViewModel |
 		
 		newSnippet := self snippetModel addSnippetBeforeSelf.
+		
 		newSnippetViewModel := aSnippetsCollection findOrCreateSnippetViewModel: newSnippet.
 		newSnippetViewModel focused: true.
 		newSnippetViewModel moveCursorAtStart ]
