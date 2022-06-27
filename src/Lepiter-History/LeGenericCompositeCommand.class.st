@@ -7,6 +7,11 @@ Class {
 	#category : #'Lepiter-History-Commands'
 }
 
+{ #category : #execution }
+LeGenericCompositeCommand >> basicExecute [ 
+	self executeSubcommands
+]
+
 { #category : #converting }
 LeGenericCompositeCommand >> createCommandSpecification [
 	| specification | 
@@ -26,11 +31,6 @@ LeGenericCompositeCommand >> createCommandSpecification [
 LeGenericCompositeCommand >> descriptionOn: aStream [
 	aStream 
 		<< self label
-]
-
-{ #category : #execution }
-LeGenericCompositeCommand >> execute [ 
-	self subcommands do: [ :aSubcommand | aSubcommand execute ]
 ]
 
 { #category : #accessing }

@@ -18,6 +18,21 @@ LeContentCommand >> addSubcommand: aCommand [
 	aCommand parentCommand: self.
 ]
 
+{ #category : #notifying }
+LeContentCommand >> announceCommandExecutedWithResult: aResult [
+
+	self targetContent notifier 
+		bubble; database;
+		announce: (LeContentCommandExecutedAnnouncement new 
+			command: self;
+			result: aResult).
+]
+
+{ #category : #execution }
+LeContentCommand >> basicExecute [
+	self subclassResponsibility
+]
+
 { #category : #'execution - utils' }
 LeContentCommand >> createCommandResult [
 	^ LeCommandExecutionResult forCommand: self
@@ -46,7 +61,19 @@ LeContentCommand >> descriptionOn: aStream [
 
 { #category : #execution }
 LeContentCommand >> execute [
-	self subclassResponsibility
+	| executionResult |
+	executionResult := self basicExecute.
+	
+	"Only announce the execution of root commands."
+	self parentCommand ifNil: [ 
+		self announceCommandExecutedWithResult: executionResult ].
+	
+	^ executionResult
+]
+
+{ #category : #execution }
+LeContentCommand >> executeSubcommands [
+	self subcommands do: [ :aSubcommand | aSubcommand execute ]
 ]
 
 { #category : #initialization }

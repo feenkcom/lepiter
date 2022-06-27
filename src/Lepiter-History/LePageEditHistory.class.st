@@ -8,13 +8,18 @@ Class {
 		'undoEvents',
 		'isUndoEnabled'
 	],
-	#category : #'Lepiter-History-Store'
+	#category : #'Lepiter-History-Storage'
 }
 
 { #category : #'instance creation' }
 LePageEditHistory class >> forPage: aPage [
 	^ self new
 		initializeForPage: aPage
+]
+
+{ #category : #callbacks }
+LePageEditHistory >> actOnCommandExecutedFor: anEvent [
+	self addTraceEvent: anEvent result traceEvent
 ]
 
 { #category : #adding }
@@ -99,6 +104,8 @@ LePageEditHistory >> initializeForPage: aPage [
 	undoEvents := OrderedCollection new.
 	redoEvents := OrderedCollection new.
 	self enableUndo.
+	
+	self registerEvents.
 ]
 
 { #category : #testing }
@@ -116,6 +123,14 @@ LePageEditHistory >> redoOn: aPage [
 	redoEvents ifNotEmpty: [ :currentRedoEvents |
 		self disableDuring: [ redoEvents add: (currentRedoEvents 
 			removeLast redoOn: aPage) ] ]
+]
+
+{ #category : #initialization }
+LePageEditHistory >> registerEvents [
+	targetPage 
+		when: LeContentCommandExecutedAnnouncement 
+		send: #actOnCommandExecutedFor:
+		to: self
 ]
 
 { #category : #'api - undo/redo' }

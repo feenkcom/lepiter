@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'events'
 	],
-	#category : #'Lepiter-History-Store'
+	#category : #'Lepiter-History-Storage'
 }
 
 { #category : #adding }

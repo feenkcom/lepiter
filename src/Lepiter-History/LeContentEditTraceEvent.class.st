@@ -6,7 +6,7 @@ Class {
 		'commandSpecification',
 		'undoSpecification'
 	],
-	#category : #'Lepiter-History-Store'
+	#category : #'Lepiter-History-Storage'
 }
 
 { #category : #accessing }

@@ -7,6 +7,12 @@ Class {
 	#category : #'Lepiter-History-Commands'
 }
 
+{ #category : #execution }
+LeTransferSnippetChildrenCommand >> basicExecute [
+	^ self withUndoExecute: [ 
+		self sourceSnippet transferChildrenTo: self targetSnippet ]
+]
+
 { #category : #converting }
 LeTransferSnippetChildrenCommand >> createCommandSpecification [
 	^ LeTransferSnippetChildrenCommandSpecification new 
@@ -25,12 +31,6 @@ LeTransferSnippetChildrenCommand >> createUndoCommand [
 { #category : #'execution - utils' }
 LeTransferSnippetChildrenCommand >> createUndoCommandSpecification [
 	^ self createUndoCommand createCommandSpecification
-]
-
-{ #category : #execution }
-LeTransferSnippetChildrenCommand >> execute [
-	^ self withUndoExecute: [ 
-		self sourceSnippet transferChildrenTo: self targetSnippet ]
 ]
 
 { #category : #accessing }

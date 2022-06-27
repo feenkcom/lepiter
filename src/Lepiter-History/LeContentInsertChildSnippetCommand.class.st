@@ -14,6 +14,25 @@ LeContentInsertChildSnippetCommand class >> commandDescription [
 	^ 'Insert Child Snippet'
 ]
 
+{ #category : #execution }
+LeContentInsertChildSnippetCommand >> basicExecute [ 
+	| newSnipet |
+	self assert: [ self insertPosition notNil ].
+	self assert: [ self snippetTypeName notNil ].
+	
+	newSnipet := self instantiateEmptySnippet.
+	self initialSnippetState applyOn: newSnipet.
+	
+	insertPosition 
+		insertChildSnippet: newSnipet
+		intoParent: self targetContent.
+		
+	^ self createCommandResult
+		insertedSnippet: newSnipet;
+		undoSpecification: (self targetContent commandBuilder
+			removeChildSnippetCommandFor: newSnipet) createCommandSpecification
+]
+
 { #category : #'execution - utils' }
 LeContentInsertChildSnippetCommand >> createCommandResult [
 	^ LeInsertChildSnippetCommandExecutionResult forCommand: self
@@ -57,25 +76,6 @@ LeContentInsertChildSnippetCommand >> descriptionOn: aStream [
 	aStream 
 		<< 'snippetType: ';
 		print: self snippetTypeName
-]
-
-{ #category : #execution }
-LeContentInsertChildSnippetCommand >> execute [ 
-	| newSnipet |
-	self assert: [ self insertPosition notNil ].
-	self assert: [ self snippetTypeName notNil ].
-	
-	newSnipet := self instantiateEmptySnippet.
-	self initialSnippetState applyOn: newSnipet.
-	
-	insertPosition 
-		insertChildSnippet: newSnipet
-		intoParent: self targetContent.
-		
-	^ self createCommandResult
-		insertedSnippet: newSnipet;
-		undoSpecification: (self targetContent commandBuilder
-			removeChildSnippetCommandFor: newSnipet) createCommandSpecification
 ]
 
 { #category : #accessing }
