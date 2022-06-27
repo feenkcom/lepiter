@@ -44,6 +44,13 @@ LeGenericCompositeCommand >> gtViewSubcommandsFor: aView [
 		expandAll
 ]
 
+{ #category : #initialization }
+LeGenericCompositeCommand >> initializeFromSpecification: aCommandSpecification withBuilder: aBuilder [
+	super initializeFromSpecification: aCommandSpecification withBuilder: aBuilder.
+	
+	self label: aCommandSpecification label
+]
+
 { #category : #accessing }
 LeGenericCompositeCommand >> label [
 
@@ -54,4 +61,12 @@ LeGenericCompositeCommand >> label [
 LeGenericCompositeCommand >> label: aString [
 
 	label := aString
+]
+
+{ #category : #printing }
+LeGenericCompositeCommand >> printOn: aStream [
+	super printOn: aStream.
+	
+	aStream parenthesize: [ 
+		self descriptionOn: aStream ]
 ]

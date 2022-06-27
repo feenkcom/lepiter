@@ -28,7 +28,19 @@ LeCommandFromSpecificationBuilder >> createCommand [
 	newCommand 
 		initializeFromSpecification: self commandSpecification 
 		withBuilder: self.
+	
+	self createSubcommandsFor: newCommand.
+	
 	^ newCommand
+]
+
+{ #category : #accessing }
+LeCommandFromSpecificationBuilder >> createSubcommandsFor: aCommand [
+	self commandSpecification subcommandSpecifications 
+		do: [ :aSubcommandSpecification |
+			| subcommand |
+			subcommand := aSubcommandSpecification createCommandForPage: self targetPage.
+			aCommand addSubcommand: subcommand ]. 
 ]
 
 { #category : #'as yet unclassified' }
