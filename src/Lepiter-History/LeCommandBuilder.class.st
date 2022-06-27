@@ -14,6 +14,12 @@ LeCommandBuilder class >> forContent: aLeContent [
 ]
 
 { #category : #'build - commands' }
+LeCommandBuilder >> compositeCommand [
+	^ LeGenericCompositeCommand new 
+		targetContent: self targetContent
+]
+
+{ #category : #'build - commands' }
 LeCommandBuilder >> insertChildSnippetCommand [
 	^ LeContentInsertChildSnippetCommand new
 		targetContent: self targetContent;

@@ -22,6 +22,18 @@ LeSnippetCommandBuilder >> indentSnippetCommand [
 ]
 
 { #category : #'build - commands' }
+LeSnippetCommandBuilder >> mergeSnippetCommandWith: aNextSnippet [
+	self assert: [ self targetContent class = aNextSnippet class ].
+	
+	^ LeMergeSnippetCommand merge: self targetContent with: aNextSnippet
+]
+
+{ #category : #'build - commands' }
+LeSnippetCommandBuilder >> mergeSnippetContentCommand [ 
+	^ LeAppendSnippetContentCommand forSnippet: self targetSnippet
+]
+
+{ #category : #'build - commands' }
 LeSnippetCommandBuilder >> moveDownSnippetCommand [ 
 	^ LePageMoveDownSnippetCommand forSnippet: self targetSnippet
 ]
