@@ -63,30 +63,33 @@ LeContentRemoveChildSnippetCommand >> createInsertChildStructureCommandFor: aChi
 	
 	aChildSnippet hasChildren ifFalse: [
 		^ self 
-			createInsertChildStructureCommandFor: aChildSnippet
+			createInsertChildSnippetCommandFor: aChildSnippet
 			inParent: aParentSnippet ].
 	
-	^ self createInsertChildStructureCompositeCommandFor: aChildSnippet inParent: aParentSnippet 
+	^ self 
+		createInsertChildStructureCompositeCommandFor: aChildSnippet 
+		inParent: aParentSnippet 
 	
 ]
 
 { #category : #'execution - utils' }
 LeContentRemoveChildSnippetCommand >> createInsertChildStructureCompositeCommandFor: aChildSnippet inParent: aParentSnippet [ 
-	| addSnippetCommand |
+	| addSnippetCommand addChildrenCommand |
 	
 	addSnippetCommand := aParentSnippet commandBuilder compositeCommand
 		label: 'Insert snippet ', aChildSnippet uid printString.
 	addSnippetCommand addSubcommand: (self 
 		createInsertChildSnippetCommandFor: aChildSnippet
 		inParent: aParentSnippet).
-		
-	aChildSnippet childrenDo: [ :anotherChildSnippet | 
-		| addChildrenCommand |
-		addChildrenCommand := aChildSnippet commandBuilder compositeCommand
+	
+	addChildrenCommand := aChildSnippet commandBuilder compositeCommand
 			label: 'Insert children for snippet ', aChildSnippet uid printString.
+	aChildSnippet childrenDo: [ :anotherChildSnippet | 
 		addChildrenCommand addSubcommand: (self 
-			createInsertChildSnippetCommandFor: anotherChildSnippet
+			createInsertChildStructureCommandFor: anotherChildSnippet
 			inParent: anotherChildSnippet parent) ].
+	addSnippetCommand addSubcommand: addChildrenCommand.
+	
 	^ addSnippetCommand
 	
 ]
