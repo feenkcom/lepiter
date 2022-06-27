@@ -991,8 +991,7 @@ LeParser >> skipToEndAnnotationFor: aNode [
 	max := 100.
 	[ max > 0
 		and: [ stream atEnd not
-				and:
-					[ ('{}' includes: (ch := stream next)) not and: [ ch isLineBreak not ] ] ] ]
+				and: [ ('{}' includes: (ch := stream next)) not and: [ ch isLineBreak not ] ] ] ]
 		whileTrue: [ max := max - 1 ].
 	stream position: position.
 	ch = $}
@@ -1004,21 +1003,30 @@ LeParser >> skipToEndAnnotationFor: aNode [
 					[ (ch := stream next) isSeparator or: [ '}|=' includes: ch ] ]
 						whileFalse: [ output nextPut: ch ].
 					output contents
-						ifNotEmpty:
-							[ :str | tokens add: (SmaCCToken value: str start: start + 1 ids: #()) ].
+						ifNotEmpty: [ :str | 
+							tokens
+								add: (SmaCCToken
+										value: str
+										start: start + 1
+										ids: #()) ].
 					('|=' includes: ch)
 						ifTrue: [ tokens
-								add: (SmaCCToken value: (String with: ch) start: stream position ids: #()) ].
-					ch = $}
-						ifTrue: [ stream position: stream position - 1 ] ].
+								add: (SmaCCToken
+										value: (String with: ch)
+										start: stream position
+										ids: #()) ].
+					ch = $} ifTrue: [ stream position: stream position - 1 ] ].
 			self position: stream position.
 			aNode isErrorNode
 				ifTrue: [ aNode dismissedTokens: aNode dismissedTokens , tokens ]
 				ifFalse: [ ^ SmaCCErrorNode new
 						stackContents: {aNode};
 						dismissedTokens: tokens;
-						visitorTrait: TLeAnnotationParseNodeVisitor;
-						errorToken: (SmaCCToken value: '' start: stream position + 1 ids: #()) ] ].
+						visitorTrait: aNode visitorTrait;
+						errorToken: (SmaCCToken
+								value: ''
+								start: stream position + 1
+								ids: #()) ] ].
 	^ aNode
 ]
 
