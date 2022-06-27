@@ -2,6 +2,7 @@ Class {
 	#name : #LeContentEditTraceEvent,
 	#superclass : #Object,
 	#instVars : [
+		'uid',
 		'commandSpecification',
 		'undoSpecification'
 	],
@@ -23,6 +24,13 @@ LeContentEditTraceEvent >> commandSpecification: anObject [
 { #category : #accessing }
 LeContentEditTraceEvent >> commandTypeName [
 	^ self commandSpecification commandTypeName
+]
+
+{ #category : #'execution - utils' }
+LeContentEditTraceEvent >> executeCommandForSpecification: aSpecification on: aPage [
+	| undoCommand |
+	undoCommand := aSpecification createCommandForPage: aPage.
+	^ undoCommand execute
 ]
 
 { #category : #'gt - extensions' }
@@ -52,6 +60,20 @@ LeContentEditTraceEvent >> printOn: aStream [
 	super printOn: aStream.
 	aStream parenthesize: [ 
 		aStream << self commandTypeName ]
+]
+
+{ #category : #'api - undo/redo' }
+LeContentEditTraceEvent >> redoOn: aPage [
+	self 
+		executeCommandForSpecification: self commandSpecification
+		on: aPage
+]
+
+{ #category : #'api - undo/redo' }
+LeContentEditTraceEvent >> undoOn: aPage [
+	self 
+		executeCommandForSpecification: self undoSpecification 
+		on: aPage
 ]
 
 { #category : #accessing }
