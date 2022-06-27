@@ -7,6 +7,12 @@ Class {
 	#category : #'Lepiter-History-Commands'
 }
 
+{ #category : #execution }
+LeBasicEditSnippetCommand >> basicExecute [
+	^ self withUndoExecute: [ 
+		self snippetState applyOn: self targetSnippet ]
+]
+
 { #category : #converting }
 LeBasicEditSnippetCommand >> createCommandSpecification [
 	^ LeEditSnippetCommandSpecification new 
@@ -25,12 +31,6 @@ LeBasicEditSnippetCommand >> createUndoCommand [
 { #category : #'execution - utils' }
 LeBasicEditSnippetCommand >> createUndoCommandSpecification [
 	^ self createUndoCommand createCommandSpecification
-]
-
-{ #category : #execution }
-LeBasicEditSnippetCommand >> execute [
-	^ self withUndoExecute: [ 
-		self snippetState applyOn: self targetSnippet ]
 ]
 
 { #category : #'execution - utils' }

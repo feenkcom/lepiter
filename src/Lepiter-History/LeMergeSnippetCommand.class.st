@@ -35,8 +35,8 @@ LeMergeSnippetCommand >> addMoveChildrenCommandFor: aSourceSnippet [
 ]
 
 { #category : #execution }
-LeMergeSnippetCommand >> execute [ 
-	self subcommands do: [ :aSubcommand | aSubcommand execute ] 
+LeMergeSnippetCommand >> basicExecute [ 
+	self executeSubcommands
 ]
 
 { #category : #initialization }

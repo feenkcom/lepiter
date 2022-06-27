@@ -12,6 +12,12 @@ LeContentRemoveChildSnippetCommand class >> commandDescription [
 	^ 'Remove Child Snippet'
 ]
 
+{ #category : #execution }
+LeContentRemoveChildSnippetCommand >> basicExecute [ 
+	^ self withUndoExecute: [ 
+		self targetContent removeSnippet: self childSnippet ]
+]
+
 { #category : #accessing }
 LeContentRemoveChildSnippetCommand >> childSnippet [
 
@@ -111,12 +117,6 @@ LeContentRemoveChildSnippetCommand >> descriptionOn: aStream [
 	aStream 
 		<< 'childSnippet: ';
 		print: self childSnippet uid
-]
-
-{ #category : #execution }
-LeContentRemoveChildSnippetCommand >> execute [ 
-	^ self withUndoExecute: [ 
-		self targetContent removeSnippet: self childSnippet ]
 ]
 
 { #category : #'execution - utils' }

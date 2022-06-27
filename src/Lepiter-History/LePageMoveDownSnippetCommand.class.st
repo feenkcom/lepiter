@@ -9,13 +9,13 @@ LePageMoveDownSnippetCommand class >> commandDescription [
 	^ 'Move Down Snippet'
 ]
 
+{ #category : #execution }
+LePageMoveDownSnippetCommand >> basicExecute [ 
+	^ self withUndoExecute: [ 
+		self targetSnippet moveDown ]
+]
+
 { #category : #'execution - utils' }
 LePageMoveDownSnippetCommand >> createUndoCommand [
 	^ self targetContent commandBuilder moveUpSnippetCommand
-]
-
-{ #category : #execution }
-LePageMoveDownSnippetCommand >> execute [ 
-	^ self withUndoExecute: [ 
-		self targetSnippet moveDown ]
 ]
