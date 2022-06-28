@@ -66,15 +66,19 @@ LeGenericSnippetState >> extractFromSnippet: aSnippet [
 
 { #category : #'initialization - utils' }
 LeGenericSnippetState >> extractFromSnippet: aSnippet basedOn: aTargetState [
+	| ignoredAttributes |
+	ignoredAttributes := #(children).
 	
-	aSnippet class leJsonV4AttributeMapping do: [ :assoc |
-		| attributeName attributeType | 
-		attributeName := assoc key.
-		attributeType := (aTargetState hasAttributeNamed: attributeName)
-			ifTrue: [ (aTargetState attributeNamed: attributeName) class ] 
-			ifFalse: [ LeGenericSnippetStateAttribute ].
-		self addAttribute: (attributeType 
-			named: attributeName fromSnippet: aSnippet) ]
+	aSnippet class leJsonV4AttributeMapping 
+		reject: [ :assoc | ignoredAttributes includes: assoc key ]
+		thenDo: [ :assoc |
+			| attributeName attributeType | 
+			attributeName := assoc key.
+			attributeType := (aTargetState hasAttributeNamed: attributeName)
+				ifTrue: [ (aTargetState attributeNamed: attributeName) class ] 
+				ifFalse: [ LeGenericSnippetStateAttribute ].
+			self addAttribute: (attributeType 
+				named: attributeName fromSnippet: aSnippet) ]
 ]
 
 { #category : #'gt - extensions' }

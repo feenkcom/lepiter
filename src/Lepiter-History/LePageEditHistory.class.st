@@ -121,7 +121,7 @@ LePageEditHistory >> redoCurrent [
 { #category : #'api - undo/redo' }
 LePageEditHistory >> redoOn: aPage [
 	redoEvents ifNotEmpty: [ :currentRedoEvents |
-		self disableDuring: [ redoEvents add: (currentRedoEvents 
+		self disableDuring: [ undoEvents add: (currentRedoEvents 
 			removeLast redoOn: aPage) ] ]
 ]
 
@@ -141,6 +141,6 @@ LePageEditHistory >> undoCurrent [
 { #category : #'api - undo/redo' }
 LePageEditHistory >> undoOn: aPage [
 	undoEvents ifNotEmpty: [ :currentUndoEvents |
-		self disableDuring: [ undoEvents add: (currentUndoEvents
+		self disableDuring: [ redoEvents add: (currentUndoEvents
 			removeLast undoOn: aPage) ] ]
 ]

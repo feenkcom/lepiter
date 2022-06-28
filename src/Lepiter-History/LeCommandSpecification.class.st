@@ -86,6 +86,8 @@ LeCommandSpecification >> gtViewSpecificationAttributesFor: aView [
 LeCommandSpecification >> gtViewSubcommandsFor: aView [ 
 	<gtView>
 	
+	self subcommandSpecifications ifEmpty: [ ^ aView empty ].
+	
 	^ aView tree
 		title: 'Subcommands';
 		priority: 15;
