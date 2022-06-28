@@ -16,7 +16,7 @@ GtCachedTextExpandButtonAttribute >> initialize [
 { #category : #accessing }
 GtCachedTextExpandButtonAttribute >> isExpanded: aBoolean [
 	super isExpanded: aBoolean.
-	onCachingAction glamourValueWithArgs: { aBoolean. self }
+	onCachingAction gtValueWithArgs: { aBoolean. self }
 ]
 
 { #category : #accessing }
