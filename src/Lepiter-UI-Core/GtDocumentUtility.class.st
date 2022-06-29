@@ -84,11 +84,6 @@ GtDocumentUtility class >> cursorNearbyStopDistanceInText: aBlRope forNode: aNod
 		ifFalse: [ aSeparatorPosition - 1 ]
 ]
 
-{ #category : #'text markups' }
-GtDocumentUtility class >> endMarkupFor: aNode [
-	^ PRPillarGrammar endMarkups at: aNode class
-]
-
 { #category : #'text styling - hide attribute' }
 GtDocumentUtility class >> hideAllButLinkInText: aBlRope forAnnotation: aNode [
 	"Return true if hiding action happens"
@@ -240,11 +235,6 @@ GtDocumentUtility class >> shouldHideMarkupsInText: aBlRope forNode: aNode [
 { #category : #'text styling' }
 GtDocumentUtility class >> shouldOpenReference: anEvent [
 	^ anEvent modifiers isShift not
-]
-
-{ #category : #'text markups' }
-GtDocumentUtility class >> startMarkupFor: aNode [
-	^ PRPillarGrammar markups at: (aNode isClass ifTrue: [ aNode ] ifFalse: [ aNode class ])
 ]
 
 { #category : #'text styling' }
