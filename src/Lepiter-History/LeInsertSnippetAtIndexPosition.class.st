@@ -7,6 +7,13 @@ Class {
 	#category : #'Lepiter-History-Commands'
 }
 
+{ #category : #printing }
+LeInsertSnippetAtIndexPosition >> descriptionOn: aStream [
+	aStream 
+		<< 'At index: ';
+		print: self index
+]
+
 { #category : #accessing }
 LeInsertSnippetAtIndexPosition >> index [
 
@@ -34,4 +41,13 @@ LeInsertSnippetAtIndexPosition >> insertChildSnippet: aChildSnippet intoParent: 
 	aParentContent 
 		addSnippet: aChildSnippet 
 		after: (aParentContent children at: self index - 1)
+]
+
+{ #category : #printing }
+LeInsertSnippetAtIndexPosition >> printOn: aStream [
+	super printOn: aStream.
+	aStream parenthesize: [ 
+		aStream  
+			<< 'index: ';
+			print: self index ]
 ]

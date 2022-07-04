@@ -2,7 +2,7 @@ Class {
 	#name : #LeContentInsertChildSnippetCommand,
 	#superclass : #LeContentCommand,
 	#instVars : [
-		'insertPosition',
+		'insertPath',
 		'snippetTypeName',
 		'initialSnippetState'
 	],
@@ -17,13 +17,13 @@ LeContentInsertChildSnippetCommand class >> commandDescription [
 { #category : #execution }
 LeContentInsertChildSnippetCommand >> basicExecute [ 
 	| newSnipet |
-	self assert: [ self insertPosition notNil ].
+	self assert: [ self insertPath notNil ].
 	self assert: [ self snippetTypeName notNil ].
 	
 	newSnipet := self instantiateEmptySnippet.
 	self initialSnippetState applyOn: newSnipet.
 	
-	insertPosition 
+	insertPath 
 		insertChildSnippet: newSnipet
 		intoParent: self targetContent.
 		
@@ -44,7 +44,7 @@ LeContentInsertChildSnippetCommand >> createCommandSpecification [
 		commandUid: self uid;
 		contentUid: self targetContent uid;
 		commandTypeName: self className;
-		insertPosition: self insertPosition;
+		insertPath: self insertPath;
 		snippetTypeName: self snippetTypeName; 
 		initialSnippetState: self initialSnippetState
 ]
@@ -104,7 +104,7 @@ LeContentInsertChildSnippetCommand >> initialize: anAttributeName with: aValue [
 LeContentInsertChildSnippetCommand >> initializeFromSpecification: aCommandSpecification withBuilder: aBuilder [
 	super initializeFromSpecification: aCommandSpecification withBuilder: aBuilder.
 	
-	self insertPosition: aCommandSpecification insertPosition.
+	self insertPath: aCommandSpecification insertPath.
 	self snippetTypeName: aCommandSpecification snippetTypeName.
 	self initialSnippetState: aCommandSpecification initialSnippetState.
 ]
@@ -115,31 +115,31 @@ LeContentInsertChildSnippetCommand >> insertAfter: aSiblingSnippet [
 	
 	aSiblingSnippet uid 
 		ifNil: [
-			self insertPosition: (self createInsertAfterSiblingIndexFor: aSiblingSnippet) ]
+			self insertPath: (self createInsertAfterSiblingIndexFor: aSiblingSnippet) asPath ]
 		ifNotNil: [
-			self insertPosition: (self createInsertAfterSiblingUidFor: aSiblingSnippet) ]
+			self insertPath: (self createInsertAfterSiblingUidFor: aSiblingSnippet) asPath ]
 ]
 
 { #category : #configuration }
 LeContentInsertChildSnippetCommand >> insertFirst [
-	self insertPosition: self createInsertAsFirstChildPosition
+	self insertPath: self createInsertAsFirstChildPosition asPath
 ]
 
 { #category : #configuration }
 LeContentInsertChildSnippetCommand >> insertLast [ 
-	self insertPosition: self createInsertAsLastChildPosition
+	self insertPath: self createInsertAsLastChildPosition asPath
 ]
 
 { #category : #accessing }
-LeContentInsertChildSnippetCommand >> insertPosition [
+LeContentInsertChildSnippetCommand >> insertPath [
 
-	^ insertPosition
+	^ insertPath
 ]
 
 { #category : #accessing }
-LeContentInsertChildSnippetCommand >> insertPosition: anObject [
+LeContentInsertChildSnippetCommand >> insertPath: aSnippetPath [
 
-	insertPosition := anObject
+	insertPath := aSnippetPath
 ]
 
 { #category : #'execution - utils' }
