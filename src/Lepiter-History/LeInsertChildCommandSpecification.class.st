@@ -2,7 +2,7 @@ Class {
 	#name : #LeInsertChildCommandSpecification,
 	#superclass : #LeCommandSpecification,
 	#instVars : [
-		'insertPosition',
+		'insertPath',
 		'snippetTypeName',
 		'initialSnippetState'
 	],
@@ -32,15 +32,15 @@ LeInsertChildCommandSpecification >> initialSnippetState: anObject [
 ]
 
 { #category : #accessing }
-LeInsertChildCommandSpecification >> insertPosition [
+LeInsertChildCommandSpecification >> insertPath [
 
-	^ insertPosition
+	^ insertPath
 ]
 
 { #category : #accessing }
-LeInsertChildCommandSpecification >> insertPosition: anObject [
+LeInsertChildCommandSpecification >> insertPath: aSnippetPath [
 
-	insertPosition := anObject
+	insertPath := aSnippetPath
 ]
 
 { #category : #accessing }

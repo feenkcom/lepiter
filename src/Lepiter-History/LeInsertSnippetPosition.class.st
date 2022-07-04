@@ -9,6 +9,23 @@ Class {
 	#category : #'Lepiter-History-Commands'
 }
 
+{ #category : #converting }
+LeInsertSnippetPosition >> asPath [ 
+	^ LeInsertSnippetPath new
+		insertPosition: self
+]
+
+{ #category : #description }
+LeInsertSnippetPosition >> description [
+	^ String streamContents: [ :aStream |
+		self descriptionOn: aStream ]
+]
+
+{ #category : #description }
+LeInsertSnippetPosition >> descriptionOn: aStream [
+	aStream << self className
+]
+
 { #category : #action }
 LeInsertSnippetPosition >> insertChildSnippet: aChildSnippet intoParent: aContent [
 	^ self subclassResponsibility
