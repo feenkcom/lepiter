@@ -78,7 +78,7 @@ LeContentRemoveChildSnippetCommand >> createCommandSpecification [
 
 { #category : #'execution - utils' }
 LeContentRemoveChildSnippetCommand >> createInsertChildSnippetCommandFor: aChildSnippet inParent: aParentSnippet forRoot: aRootContent [
-	^ aParentSnippet commandBuilder insertChildSnippetCommand
+	^ aRootContent commandBuilder insertChildSnippetCommand
 		snippetTypeName: aChildSnippet className;
 		insertPath: (self 
 			computeChildPathFor: aChildSnippet 
@@ -107,14 +107,14 @@ LeContentRemoveChildSnippetCommand >> createInsertChildStructureCommandFor: aChi
 LeContentRemoveChildSnippetCommand >> createInsertChildStructureCompositeCommandFor: aChildSnippet inParent: aParentSnippet forRoot: aRootContent [
 	| addSnippetCommand addChildrenCommand |
 	
-	addSnippetCommand := aParentSnippet commandBuilder compositeCommand
+	addSnippetCommand := aRootContent commandBuilder compositeCommand
 		label: 'Insert snippet ', aChildSnippet uid printString.
 	addSnippetCommand addSubcommand: (self 
 		createInsertChildSnippetCommandFor: aChildSnippet
 		inParent: aParentSnippet
 		forRoot: aRootContent).
 	
-	addChildrenCommand := aChildSnippet commandBuilder compositeCommand
+	addChildrenCommand := aRootContent commandBuilder compositeCommand
 			label: 'Insert children for snippet ', aChildSnippet uid printString.
 	aChildSnippet childrenDo: [ :anotherChildSnippet | 
 		addChildrenCommand addSubcommand: (self 

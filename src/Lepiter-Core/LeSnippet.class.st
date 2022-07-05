@@ -63,16 +63,6 @@ page is associated to a database. If not the link will be lost.'.
 ]
 
 { #category : #'api - editing' }
-LeSnippet >> addFirstSnippet: aLeSnippet [
-	"Add the supplied block as the first child of the receiver"
-
-	self children addFirstChild: aLeSnippet.
-	aLeSnippet addedToParent: self.
-	self announceContentAdded: aLeSnippet.
-	^ aLeSnippet
-]
-
-{ #category : #'api - editing' }
 LeSnippet >> addSnippetAfterSelf [
 	"Add a new snippet after the receiver. Answer the new snippet"
 	^ self parent addSnippetAfter: self.

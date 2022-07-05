@@ -51,6 +51,16 @@ LeContent >> acceptVisitor: aVisitor [
 ]
 
 { #category : #'api - editing' }
+LeContent >> addFirstSnippet: aLeSnippet [
+	"Add the supplied block as the first child of the receiver"
+
+	self children addFirstChild: aLeSnippet.
+	aLeSnippet addedToParent: self.
+	self announceContentAdded: aLeSnippet.
+	^ aLeSnippet
+]
+
+{ #category : #'api - editing' }
 LeContent >> addSnippet: newSnippet [
 
 	self basicAddSnippet: newSnippet.
