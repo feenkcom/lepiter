@@ -4,8 +4,8 @@ Class {
 	#instVars : [
 		'targetPage',
 		'eventStore',
-		'redoEvents',
-		'undoEvents',
+		'undoActions',
+		'redoActions',
 		'isUndoEnabled'
 	],
 	#category : #'Lepiter-History-Storage'
@@ -22,6 +22,13 @@ LePageEditHistory >> actOnCommandExecutedFor: anEvent [
 	self addTraceEvent: anEvent result traceEvent
 ]
 
+{ #category : #'api - undo/redo' }
+LePageEditHistory >> addRedoActionForEvent: aTraceEvent [
+	redoActions add: (LePageEditHistoryRedoAction new 
+		pageHistory: self; 
+		editEvent: aTraceEvent)
+]
+
 { #category : #adding }
 LePageEditHistory >> addTraceEvent: aTraceEvent [
 	self eventStore addTraceEvent: aTraceEvent.
@@ -29,8 +36,15 @@ LePageEditHistory >> addTraceEvent: aTraceEvent [
 	self isUndoEnabled
 		ifFalse: [ ^ self ].
 	
-	undoEvents add: aTraceEvent.
-	redoEvents removeAll.
+	self addUndoActionForEvent: aTraceEvent.
+	redoActions removeAll.
+]
+
+{ #category : #'api - undo/redo' }
+LePageEditHistory >> addUndoActionForEvent: aTraceEvent [
+	undoActions add: (LePageEditHistoryUndoAction new 
+		pageHistory: self; 
+		editEvent: aTraceEvent)
 ]
 
 { #category : #'api - undo/redo' }
@@ -76,18 +90,9 @@ LePageEditHistory >> gtViewUndoRedoHistoryFor: aView [
 	^ aView columnedList
 		title: 'Undo/Redo History';
 		priority: 1;
-		items: [
-			(redoEvents reversed collect: [ :eachCommand | eachCommand -> #Redo ]),
-			(undoEvents reversed collect: [ :eachCommand | eachCommand -> #Undo ]) ];
-		column: 'Type' text: [ :eachCommandAndType |
-			eachCommandAndType value = #Redo
-				ifTrue: [ eachCommandAndType value gtDisplayText foreground: Color gray ]
-				ifFalse: [ eachCommandAndType value gtDisplayText ] ] width: 100;
-		column: 'Command' text: [ :eachCommandAndType |
-			eachCommandAndType value = #Redo
-				ifTrue: [ eachCommandAndType key gtDisplayText foreground: Color gray ]
-				ifFalse: [ eachCommandAndType key gtDisplayText ] ];
-		send: [ :eachCommandAndType | eachCommandAndType key ]
+		items: [ redoActions reversed, undoActions reversed ];
+		column: 'Type' text: [ :historyAction | historyAction labelText ] width: 100;
+		column: 'Event' text: [ :historyAction | historyAction eventDescriptionText ]
 ]
 
 { #category : #initialization }
@@ -101,8 +106,8 @@ LePageEditHistory >> initialize [
 LePageEditHistory >> initializeForPage: aPage [
 	targetPage := aPage.
 	
-	undoEvents := OrderedCollection new.
-	redoEvents := OrderedCollection new.
+	undoActions := OrderedCollection new.
+	redoActions := OrderedCollection new.
 	self enableUndo.
 	
 	self registerEvents.
@@ -120,9 +125,9 @@ LePageEditHistory >> redoCurrent [
 
 { #category : #'api - undo/redo' }
 LePageEditHistory >> redoOn: aPage [
-	redoEvents ifNotEmpty: [ :currentRedoEvents |
-		self disableDuring: [ undoEvents add: (currentRedoEvents 
-			removeLast redoOn: aPage) ] ]
+	redoActions ifNotEmpty: [ :currentRedoActions |
+		self disableDuring: [ "undoActions add: ("
+			currentRedoActions removeLast applyOn: aPage ] ]
 ]
 
 { #category : #initialization }
@@ -140,7 +145,7 @@ LePageEditHistory >> undoCurrent [
 
 { #category : #'api - undo/redo' }
 LePageEditHistory >> undoOn: aPage [
-	undoEvents ifNotEmpty: [ :currentUndoEvents |
-		self disableDuring: [ redoEvents add: (currentUndoEvents
-			removeLast undoOn: aPage) ] ]
+	undoActions ifNotEmpty: [ :currentUndoActions |
+		self disableDuring: [ "redoActions add: ("
+			currentUndoActions removeLast applyOn: aPage ] ]
 ]
