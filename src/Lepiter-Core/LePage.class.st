@@ -333,7 +333,7 @@ LePage >> initialize [
 	super initialize.
 	type := LeNamedPageType title: '' page: self.
 	self assignNewUID.
-	editHistory := LePageEditHistory forPage: self.
+	"editHistory := LePageEditHistory forPage: self."
 ]
 
 { #category : #initialization }
