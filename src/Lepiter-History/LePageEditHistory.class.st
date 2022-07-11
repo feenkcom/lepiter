@@ -132,7 +132,7 @@ LePageEditHistory >> redoOn: aPage [
 
 { #category : #initialization }
 LePageEditHistory >> registerEvents [
-	targetPage 
+	targetPage announcer weak
 		when: LeContentCommandExecutedAnnouncement 
 		send: #actOnCommandExecutedFor:
 		to: self
