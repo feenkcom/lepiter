@@ -16,7 +16,7 @@ Class {
 	#instVars : [
 		'pageClassName'
 	],
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #'instance creation' }
@@ -66,7 +66,7 @@ LePharoClassPageType >> pageClass [
 			instanceClassName := self class environment at: instanceClassName.
 			instanceClassName classSide ]
 		ifFalse: [ 
-			self class environment at: pageClassName ]
+			self class environment at: pageClassName asSymbol ]
 ]
 
 { #category : #accessing }
