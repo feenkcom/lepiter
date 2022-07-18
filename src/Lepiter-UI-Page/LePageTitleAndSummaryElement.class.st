@@ -17,7 +17,7 @@ Class {
 		'dateAndEmailElement',
 		'summaryElement'
 	],
-	#category : 'Lepiter-UI-Page-! Views'
+	#category : #'Lepiter-UI-Page-! Views'
 }
 
 { #category : #accessing }
@@ -105,10 +105,9 @@ LePageTitleAndSummaryElement >> initializeSummaryElement [
 { #category : #initialization }
 LePageTitleAndSummaryElement >> initializeTitleElement [
 	titleElement := BrLabel new
-		beSmallSize;
-		aptitude: (BrGlamorousLabelAptitude new);
-		hFitContent;
-		vFitContent
+			beSmallSize;
+			hFitContent;
+			vFitContent
 ]
 
 { #category : #'private - event handling' }

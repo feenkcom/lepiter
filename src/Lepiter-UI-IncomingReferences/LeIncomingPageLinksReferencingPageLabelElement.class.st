@@ -30,31 +30,31 @@ LeIncomingPageLinksReferencingPageLabelElement >> createPageSpawnButton [
 { #category : #initialization }
 LeIncomingPageLinksReferencingPageLabelElement >> initialize [
 	super initialize.
-	
+
 	self fitContent.
 	self alignCenterLeft.
-	
+
 	pageSpawnButton := self createPageSpawnButton.
 	pageSpawnButton margin: (BlInsets left: 2 right: 2).
-	pageSpawnButton action: [ self phlow spawnTool: self incomingPageLinksReferencingPageLabelViewModel asLepiterPagePhlowTool ].
+	pageSpawnButton
+		action: [ self phlow
+				spawnTool: self incomingPageLinksReferencingPageLabelViewModel asLepiterPagePhlowTool ].
 
 	latestDateLabel := self createLatestDateLabel.
-	
-	self addChild: (BrLabel new
-		aptitude: BrGlamorousLabelAptitude;
-		text: 'Links from').
+
+	self addChild: (BrLabel new text: 'Links from').
 	self addChild: pageSpawnButton.
-	self addChild: (BrLabel new
-		aptitude: BrGlamorousLabelAptitude;
-		text: 'page:').
-	self addChild: (BrLabel new
-		aptitude: BrGlamorousLabelAptitude new light;
-		margin: (BlInsets left: 5);
-		text: '(').
+	self addChild: (BrLabel new text: 'page:').
+	self
+		addChild: (BrLabel new
+				aptitude: BrGlamorousLabelAptitude new light;
+				margin: (BlInsets left: 5);
+				text: '(').
 	self addChild: latestDateLabel.
-	self addChild: (BrLabel new
-		aptitude: BrGlamorousLabelAptitude new light;
-		text: ')').
+	self
+		addChild: (BrLabel new
+				aptitude: BrGlamorousLabelAptitude new light;
+				text: ')')
 ]
 
 { #category : #'api - incoming page links referencing page label view model' }
