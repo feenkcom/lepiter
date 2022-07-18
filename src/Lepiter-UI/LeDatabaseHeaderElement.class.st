@@ -11,7 +11,7 @@ Class {
 	#instVars : [
 		'toolbarElement'
 	],
-	#category : #'Lepiter-UI-! UI - Database'
+	#category : 'Lepiter-UI-! UI - Database'
 }
 
 { #category : #'private - adding / removing' }
@@ -37,12 +37,13 @@ LeDatabaseHeaderElement >> initialize [
 { #category : #initialization }
 LeDatabaseHeaderElement >> initializeLabelToolbarItem [
 	| aLabel |
-	aLabel := BrLabel new
-			text: 'Lepiter Database';
-			beHugeSize;
-			hMatchParent;
-			vFitContent.
-	self addItem: aLabel
+	aLabel := BrLabel new 
+		aptitude: BrGlamorousLabelAptitude;
+		text: 'Lepiter Database';
+		beHugeSize;
+		hMatchParent;
+		vFitContent. 
+	self addItem: aLabel.
 ]
 
 { #category : #initialization }

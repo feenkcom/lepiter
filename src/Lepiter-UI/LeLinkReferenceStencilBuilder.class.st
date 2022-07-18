@@ -12,12 +12,14 @@ Class {
 { #category : #'api - instantiation' }
 LeLinkReferenceStencilBuilder >> buildDefault [
 	<return: #BrStencil or: #BlElement>
+
 	^ BrFrame new
 		addChild: (BrLabel new
-				text: self linkReference gtDisplayText;
-				constraintsDo: [ :c | 
-					c frame horizontal alignCenter.
-					c frame vertical alignCenter ]);
+			aptitude: BrGlamorousLabelAptitude;
+			text: self linkReference gtDisplayText;
+			constraintsDo: [ :c | 
+				c frame horizontal alignCenter.
+				c frame vertical alignCenter ]);
 		hMatchParent;
 		vFitContent
 ]

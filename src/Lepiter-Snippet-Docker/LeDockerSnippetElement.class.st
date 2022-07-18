@@ -69,19 +69,18 @@ LeDockerSnippetElement >> initialize [
 { #category : #accessing }
 LeDockerSnippetElement >> inputElementNamed: aString in: formElement [
 	| labelElement inputElement |
-	labelElement := BrLabel new text: aString , ':'.
-	labelElement
-		constraintsDo: [ :c | 
-			c vertical fitContent.
-			c horizontal fitContent.
-			c grid vertical alignCenter ].
-
+	labelElement := BrLabel new text: aString, ':'; aptitude: BrGlamorousLabelAptitude.
+	labelElement constraintsDo: [ :c | 
+		c vertical fitContent.
+		c horizontal fitContent.
+		c grid vertical alignCenter ].
+	
 	inputElement := BrEditor new
-			hMatchParent;
-			vFitContentLimited;
-			aptitude: BrGlamorousInputFieldSpacingAptitude new + BrGlamorousRegularEditorAptitude new;
-			text: 'http://localhost:2375'.
-
+				hMatchParent;
+				vFitContentLimited;
+				aptitude: BrGlamorousInputFieldSpacingAptitude new + BrGlamorousRegularEditorAptitude new;
+				text: 'http://localhost:2375'.
+	
 	formElement addChild: labelElement.
 	formElement addChild: inputElement.
 	^ inputElement
