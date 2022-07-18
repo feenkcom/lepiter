@@ -13,7 +13,7 @@ Class {
 		'selectionTransformationHandler',
 		'rootItemsSelector'
 	],
-	#category : 'Lepiter-UI-! UI - Database'
+	#category : #'Lepiter-UI-! UI - Database'
 }
 
 { #category : #defaults }
@@ -44,20 +44,18 @@ LeDatabaseTreeElement >> initialize [
 LeDatabaseTreeElement >> initializeTreeColumns [
 	self treeElement column
 		title: 'Title';
-		cellStencil: [ :aNodeType | BrLabel new aptitude: BrGlamorousLabelAptitude ];
+		cellStencil: [ :aNodeType | BrLabel new ];
 		dataBinder: [ :anItemElement :anItem | anItemElement text: anItem contentAsString ];
 		weight: 2.
 	self treeElement column
 		title: 'Edit Time';
-		cellStencil: [ :aNodeType | BrLabel new aptitude: BrGlamorousLabelAptitude ];
-		dataBinder:
-				[ :anItemElement :anItem | anItemElement text: anItem latestEditTime asDate asString ];
+		cellStencil: [ :aNodeType | BrLabel new ];
+		dataBinder: [ :anItemElement :anItem | anItemElement text: anItem latestEditTime asDate asString ];
 		weight: 1.
 	self treeElement column
 		title: 'Edit Author';
-		cellStencil: [ :aNodeType | BrLabel new aptitude: BrGlamorousLabelAptitude ];
-		dataBinder:
-				[ :anItemElement :anItem | anItemElement text: anItem editOrCreateEmail asString ];
+		cellStencil: [ :aNodeType | BrLabel new ];
+		dataBinder: [ :anItemElement :anItem | anItemElement text: anItem editOrCreateEmail asString ];
 		weight: 1
 ]
 
