@@ -6,7 +6,7 @@ Class {
 	#instVars : [
 		'titleElement'
 	],
-	#category : #'Lepiter-UI-Page-! Views'
+	#category : 'Lepiter-UI-Page-! Views'
 }
 
 { #category : #accessing }
@@ -26,9 +26,10 @@ LeDailyNoteInfoElement >> initialize [
 { #category : #initialization }
 LeDailyNoteInfoElement >> initializeTitleElement [
 	titleElement := BrLabel new
-			beSmallSize;
-			hMatchParent;
-			vFitContent
+		beSmallSize;
+		aptitude: (BrGlamorousLabelAptitude new);
+		hMatchParent;
+		vFitContent
 ]
 
 { #category : #'api - daily note view model' }

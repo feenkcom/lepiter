@@ -27,19 +27,19 @@ LePictureSnippetElement >> initialize [
 { #category : #initialization }
 LePictureSnippetElement >> initializeEditor [
 	| okButton fileStencil fileSelector |
+
 	snippetToolbar := BrHorizontalPane new
-			hMatchParent;
-			padding: (BlInsets top: 4 bottom: 4);
-			alignCenterLeft;
-			cellSpacing: 5;
-			vFitContent.
+		hMatchParent;
+		padding: (BlInsets top: 4 bottom: 4);
+		alignCenterLeft;
+		cellSpacing: 5;
+		vFitContent.
 
 	editorElement := BrEditor new
-			aptitude: BrGlamorousRegularEditorAptitude new glamorousRegularSmallSize
-					+ BrGlamorousInputFieldSpacingAptitude new;
-			vFitContent;
-			hFitContentLimited;
-			constraintsDo: [ :c | c minWidth: 100 ].
+		aptitude: BrGlamorousRegularEditorAptitude new glamorousRegularSmallSize + BrGlamorousInputFieldSpacingAptitude new;
+		vFitContent;
+		hFitContentLimited;
+		constraintsDo: [ :c | c minWidth: 100 ].
 
 	editorElement editor
 		when: BrTextEditorModifiedEvent
@@ -50,15 +50,16 @@ LePictureSnippetElement >> initializeEditor [
 	fileSelector beSmallSize.
 
 	okButton := BrButton new
-			aptitude: BrGlamorousButtonWithIconAptitude;
-			icon: BrGlamorousVectorIcons accept;
-			beSmallSize;
-			action: [ :aButton | self updatePicture ].
+		aptitude: BrGlamorousButtonWithIconAptitude;
+		icon: BrGlamorousVectorIcons accept;
+		beSmallSize;
+		action: [ :aButton | self updatePicture ].
 
 	snippetToolbar
 		addChild: (BrLabel new
-				beSmallSize;
-				text: 'URL:');
+			aptitude: BrGlamorousLabelAptitude;
+			beSmallSize;
+			text: 'URL:');
 		addChild: editorElement;
 		addChild: fileSelector;
 		addChild: okButton
