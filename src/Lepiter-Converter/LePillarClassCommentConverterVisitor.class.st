@@ -46,7 +46,7 @@ LePillarClassCommentConverterVisitor >> classesToConvert [
 	<return: #Array>
 	| selected |
 
-	selected := Object withAllSubclasses select: classFilterBlock.
+	selected := SystemNavigation default allClassesAndTraits select: classFilterBlock.
 	self assert: selected size equals: selected asSet size.
 	^ selected.
 ]
@@ -89,8 +89,11 @@ LePillarClassCommentConverterVisitor >> convert: aClass [
 
 	aClass isMeta ifTrue: [ ^ self ].
 	(ignoredClasses includes: aClass) ifTrue: [ ^ self ].
+	aClass hasComment ifFalse: [ ^ self ].
 	(self isAlreadyLepiter: aClass comment) ifTrue: 
-		[ ^ self halt: 'Already converted?' ].
+		[ ^ self "halt: 'Already converted?'" ].
+	(self isPillar: aClass comment) ifFalse: 
+		[ ^ self ].
 	lepiterComment := LePillarClassCommentConverter convert: aClass dryRun: dryRun.
 	convertedClasses at: aClass put: lepiterComment.
 	^ lepiterComment
@@ -138,6 +141,18 @@ LePillarClassCommentConverterVisitor >> isAlreadyLepiter: pillarComment [
 
 	^ pillarComment lines 
 		detect: [ :each | each trimLeft beginsWith: '#' ]
+		ifFound: [ :x | true ]
+		ifNone: [ false ]
+]
+
+{ #category : #testing }
+LePillarClassCommentConverterVisitor >> isPillar: pillarComment [
+	"Answer a boolean answering true if the supplied string looks like a Pillar class comment"
+
+	('\$\{' asRegexIgnoringCase search: pillarComment) ifTrue: [ ^ true ].
+
+	^ pillarComment lines 
+		detect: [ :each | each trimLeft beginsWith: '!' ]
 		ifFound: [ :x | true ]
 		ifNone: [ false ]
 ]
