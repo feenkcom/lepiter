@@ -1,9 +1,10 @@
 "
-I proved common API for ${class:LeDatabasePageUpdater}$ and ${class:LeDatabaseSnippetUpdater}$.
+I proved common API for {{gtClass:LeDatabasePageUpdater}} and {{gtClass:LeDatabaseSnippetUpdater}}.
+
 "
 Trait {
 	#name : #TLeContentUpdater,
-	#category : 'Lepiter-Core-Builders'
+	#category : #'Lepiter-Core-Builders'
 }
 
 { #category : #'private - testing' }
