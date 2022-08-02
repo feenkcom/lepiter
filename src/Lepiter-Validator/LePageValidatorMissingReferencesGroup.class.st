@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'missingReferences'
 	],
-	#category : 'Lepiter-Validator-Model'
+	#category : #'Lepiter-Validator-Model'
 }
 
 { #category : #adding }
@@ -25,7 +25,7 @@ LePageValidatorMissingReferencesGroup >> gtItemsFor: aView [
 		priority: 10;
 		items: [ missingReferences ];
 		itemText: [ :aResult | aResult targetPage gtDisplayString ];
-		send: [ :aResult | aResult targetPage ]
+		sendTool: [ :aResult | aResult asPageValidatorPhlowTool ]
 ]
 
 { #category : #accessing }
