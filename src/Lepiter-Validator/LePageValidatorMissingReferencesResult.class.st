@@ -32,6 +32,12 @@ LePageValidatorMissingReferencesResult >> addSnippetWithMissingReference: aSnipp
 ]
 
 { #category : #accessing }
+LePageValidatorMissingReferencesResult >> asPageValidatorPhlowTool [
+	<return: #GtPhlowTool>
+	^ self targetPage asPageValidatorPhlowTool
+]
+
+{ #category : #accessing }
 LePageValidatorMissingReferencesResult >> classAnnotations [
 	^ classAnnotations 
 ]

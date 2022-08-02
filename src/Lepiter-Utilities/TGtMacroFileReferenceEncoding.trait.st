@@ -1,9 +1,10 @@
 "
-TGtMacroStringEncoding provides convenience methods to convert FileReferences to and from strings, allowing ${method:name=FileLocator class>>#supportedOrigins}$ as macro names encoded with curly-braces. 
+TGtMacroStringEncoding provides convenience methods to convert FileReferences to and from strings, allowing {{gtMethod:name=FileLocator class>>#supportedOrigins}} as macro names encoded with curly-braces. 
+
 "
 Trait {
 	#name : #TGtMacroFileReferenceEncoding,
-	#category : 'Lepiter-Utilities'
+	#category : #'Lepiter-Utilities'
 }
 
 { #category : #accessing }

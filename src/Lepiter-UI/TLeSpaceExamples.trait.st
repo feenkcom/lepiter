@@ -1,9 +1,10 @@
 "
-I provide examples to easily show ${class:BlElement}$ instances in a ${class:BlSpace}$.
+I provide examples to easily show {{gtClass:BlElement}} instances in a {{gtClass:BlSpace}}.
+
 "
 Trait {
 	#name : #TLeSpaceExamples,
-	#category : 'Lepiter-UI-Examples'
+	#category : #'Lepiter-UI-Examples'
 }
 
 { #category : #'examples - support' }
