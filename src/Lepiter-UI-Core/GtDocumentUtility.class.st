@@ -238,17 +238,6 @@ GtDocumentUtility class >> shouldOpenReference: anEvent [
 ]
 
 { #category : #'text styling' }
-GtDocumentUtility class >> styleExpandingPreviewInText: aBlRope forNode: aNode [
-	| anAttribute |
-	aNode isPreviewDefined ifFalse: [ ^ self ].
-	anAttribute := GtCachedTextExpandButtonAttribute new
-		isExpanded: aNode cachedIsExpanded;
-		attributesCreatingBlock: [ aNode previewAttributes ];
-		onCachingDo: [ :aBoolean :theAttribute | aNode cachedIsExpanded: aBoolean ].
-	(aBlRope from: aNode start to: aNode stop) attribute: anAttribute
-]
-
-{ #category : #'text styling' }
 GtDocumentUtility class >> styleLinkInText: aBlRope forAnnotationNode: aNode [
 	| aNodeToStyle |
 	aNodeToStyle := self linkNodeForAnnotation: aNode.
