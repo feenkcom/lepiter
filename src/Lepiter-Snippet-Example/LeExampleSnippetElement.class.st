@@ -170,10 +170,9 @@ LeExampleSnippetElement >> initializeAsyncFuture [
 	self
 		withAsyncFutureDo: [ :anElementFuture | 
 			anElementFuture
-				whenPending: [ :theContainer | self updateExamplePreviewWithRendingElement  ];
-				whenError: [ :theContainer :anError |  ];
-				whenSuccess: [ :theContainer :aComputedExamplePreview | 
-					self updateExamplePreviewWith: aComputedExamplePreview ] ]
+				whenPending: [ :theContainer | self updateExamplePreviewWithRendingElement ];
+				whenError: [ :theContainer :anError | self updateExamplePreviewWithError: anError ];
+				whenSuccess: [ :theContainer :aComputedExamplePreview | self updateExamplePreviewWithPreview: aComputedExamplePreview ] ]
 ]
 
 { #category : #'private - event handling' }
@@ -201,10 +200,6 @@ LeExampleSnippetElement >> onSnippetViewModelFocused: aBoolean [
 { #category : #'private - updating' }
 LeExampleSnippetElement >> requestExamplePreviewUpdate [
 	"I must be executed in a UI process."
-
-	browseExampleButton disable.
-	runExampleButton disable.
-	exportExampleButton disable.
 
 	self
 		withAsyncFutureDo: [ :anElementFuture | anElementFuture future: [ self computeExamplePreviewElement ] ]
@@ -248,7 +243,17 @@ LeExampleSnippetElement >> subscribeToSnippetViewModel [
 ]
 
 { #category : #'private - updating' }
-LeExampleSnippetElement >> updateExamplePreviewWith: aComputedExamplePreview [
+LeExampleSnippetElement >> updateExamplePreviewWithError: anError [
+	"I must be executed in a UI process."
+
+	exportExampleButton disable.
+
+	exampleContainer removeChildNamed: #example.
+	exampleContainer addChild: anError asDebuggableElement as: #example
+]
+
+{ #category : #'private - updating' }
+LeExampleSnippetElement >> updateExamplePreviewWithPreview: aComputedExamplePreview [
 	"I must be executed in a UI process."
 
 	exampleEditor
@@ -266,9 +271,21 @@ LeExampleSnippetElement >> updateExamplePreviewWith: aComputedExamplePreview [
 	exampleContainer addChild: aComputedExamplePreview element as: #example
 ]
 
-{ #category : #initialization }
+{ #category : #'private - updating' }
 LeExampleSnippetElement >> updateExamplePreviewWithRendingElement [
 	| anElement |
+	browseExampleButton disable.
+	runExampleButton disable.
+	exportExampleButton disable.
+
+	self snippetViewModel
+		gtExampleDo: [ :aGtExample | 
+			browseExampleButton enable.
+			runExampleButton enable ].
+
+	exampleEditor
+		textualCoderViewModel: self snippetViewModel annotationCoderViewModel.
+
 	anElement := BrHorizontalPane new
 			hMatchParent;
 			vExact: self snippetViewModel previewHeight;
