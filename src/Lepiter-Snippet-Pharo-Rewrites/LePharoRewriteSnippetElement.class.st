@@ -7,12 +7,23 @@ Class {
 	#category : #'Lepiter-Snippet-Pharo-Rewrites-Element'
 }
 
+{ #category : #initialization }
+LePharoRewriteSnippetElement >> createLabel: aString [
+	^ BrLabel new
+		text: aString asRopedText;
+		aptitude: (BrGlamorousLabelAptitude new glamorousRegularFontAndSize
+				foreground: Color gray;
+				fontSize: 12);
+		yourself
+]
+
 { #category : #private }
 LePharoRewriteSnippetElement >> createSourceEditor: anUpdateSymbol [
 	| element completionStrategy completionController |
 	element := BrEditor new.
 	element vFitContent.
 	element hMatchParent.
+	element padding: (BlInsets all: 10).
 	element
 		aptitude: BrGlamorousCodeEditorAptitude + BrGlamorousEditableLabelAptitude.
 	element editor
@@ -39,11 +50,7 @@ LePharoRewriteSnippetElement >> initialize [
 	rewriteElement padding: (BlInsets all: 5).
 	rewriteElement vFitContent.
 	rewriteElement hMatchParent.
-	rewriteElement
-		addChild: (BrLabel new
-				text: 'Search:' asRopedText;
-				aptitude: (BrGlamorousLabelAptitude new foreground: Color darkGray);
-				yourself).
+	rewriteElement addChild: (self createLabel: 'Search:').
 	searchEditor := self createSourceEditor: #updateSearch.
 	searchEditor userData
 		at: #completionStrategy
@@ -52,18 +59,14 @@ LePharoRewriteSnippetElement >> initialize [
 	rewriteElement addChild: searchEditor as: #searchEditor.
 	rewriteElement
 		addChild: (BrButton new
-				margin: (BlInsets top: 3 bottom: 3);
+				margin: (BlInsets top: 3 bottom: 10);
 				beSmallSize;
 				aptitude: BrGlamorousButtonWithIconAptitude;
 				icon: BrGlamorousIcons playinspect asElement;
 				label: 'Search' asString;
 				action: [ rewriteElement phlow spawnObject: self snippet executeSearch ])
 		as: #searchButton.
-	rewriteElement
-		addChild: (BrLabel new
-				text: 'Replace:' asRopedText;
-				aptitude: (BrGlamorousLabelAptitude new foreground: Color darkGray);
-				yourself).
+	rewriteElement addChild: (self createLabel: 'Replace:').
 	replaceEditor := self createSourceEditor: #updateReplace.
 	rewriteElement addChild: replaceEditor as: #replaceEditor.
 	rewriteElement

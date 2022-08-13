@@ -8,3 +8,9 @@ Class {
 LePharoRewriteSnippetViewModel >> snippetElementClass [
 	^ LePharoRewriteSnippetElement
 ]
+
+{ #category : #accessing }
+LePharoRewriteSnippetViewModel >> snippetView [
+	<return: #LeSnippetView>
+	^ super snippetView needsContentDecorationBar: true
+]
