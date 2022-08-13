@@ -27,11 +27,13 @@ LePharoRewriteSnippetElement >> createSourceEditor: anUpdateSymbol [
 			on: element
 			strategy: completionStrategy.
 	completionController install.
+	element userData at: #completionStrategy put: completionStrategy.
 	^ element
 ]
 
 { #category : #initialization }
 LePharoRewriteSnippetElement >> initialize [
+	| searchEditor replaceEditor |
 	super initialize.
 	rewriteElement := BrVerticalPane new.
 	rewriteElement padding: (BlInsets all: 5).
@@ -40,11 +42,14 @@ LePharoRewriteSnippetElement >> initialize [
 	rewriteElement
 		addChild: (BrLabel new
 				text: 'Search:' asRopedText;
-				aptitude: BrGlamorousLabelAptitude;
+				aptitude: (BrGlamorousLabelAptitude new foreground: Color darkGray);
 				yourself).
-	rewriteElement
-		addChild: (self createSourceEditor: #updateSearch)
-		as: #searchEditor.
+	searchEditor := self createSourceEditor: #updateSearch.
+	searchEditor userData
+		at: #completionStrategy
+		ifPresent: [ :strategy | strategy hasImplicitVariables: true ].
+	searchEditor when: BlBlurEvent do: [ :event | self updateReplaceVariables ].
+	rewriteElement addChild: searchEditor as: #searchEditor.
 	rewriteElement
 		addChild: (BrButton new
 				margin: (BlInsets top: 3 bottom: 3);
@@ -57,11 +62,10 @@ LePharoRewriteSnippetElement >> initialize [
 	rewriteElement
 		addChild: (BrLabel new
 				text: 'Replace:' asRopedText;
-				aptitude: BrGlamorousLabelAptitude;
+				aptitude: (BrGlamorousLabelAptitude new foreground: Color darkGray);
 				yourself).
-	rewriteElement
-		addChild: (self createSourceEditor: #updateReplace)
-		as: #replaceEditor.
+	replaceEditor := self createSourceEditor: #updateReplace.
+	rewriteElement addChild: replaceEditor as: #replaceEditor.
 	rewriteElement
 		addChild: (BrButton new
 				margin: (BlInsets top: 3 bottom: 3);
@@ -85,7 +89,8 @@ LePharoRewriteSnippetElement >> onSnippetViewModelChanged [
 		childNamed: #replaceEditor
 		ifFound: [ :editor | 
 			editor editor text asString ~= self snippet replace
-				ifTrue: [ editor editor text: self snippet replace asRopedText ] ]
+				ifTrue: [ editor editor text: self snippet replace asRopedText ] ].
+	self updateReplaceVariables
 ]
 
 { #category : #private }
@@ -125,6 +130,23 @@ LePharoRewriteSnippetElement >> updateReplace [
 			replaceString := editor editor text asString.
 			replaceString ~= self snippet replace
 				ifTrue: [ self snippet replace: replaceString ] ]
+]
+
+{ #category : #private }
+LePharoRewriteSnippetElement >> updateReplaceVariables [
+	| ast vars |
+	ast := GtPharoPatternParser
+			parseWithErrors: self snippet search
+			startingAt: GtPharoParser startingStateForMethodSequence.
+	vars := GtPrefixTree new.
+	ast
+		withAllNodesOfType: GtPharoVariableNode
+		do: [ :node | (node name source beginsWith: '`') ifTrue: [ vars add: node name source ] ].
+	self
+		replaceEditorDo: [ :editor | 
+			editor userData
+				at: #completionStrategy
+				ifPresent: [ :strategy | strategy patternVariables: vars ] ]
 ]
 
 { #category : #private }
