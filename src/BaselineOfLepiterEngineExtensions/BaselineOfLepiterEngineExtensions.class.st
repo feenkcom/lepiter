@@ -59,7 +59,9 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 			package: 'Lepiter-Python' with: [
 				spec requires: #('LepiterEngineCore' 'Gt4PythonBridge' ). ];
 			package: 'Lepiter-Snippet-PharoLink' with: [
-				spec requires: #('LepiterEngineCore' 'Gt4PharoLink' ). ]. ].
+				spec requires: #('LepiterEngineCore' 'Gt4PharoLink' ). ];
+			package: 'Lepiter-Snippet-Pharo-Rewrites' with: [
+				spec requires: #('LepiterEngineCore' ) ]. ].
 
 ]
 
