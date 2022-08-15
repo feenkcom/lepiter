@@ -4,6 +4,8 @@ I hold a {{gtClass:GtExampleWithResult}} and an {{gtClass:BlElement}} that repre
 Class {
 	#name : #LeExampleSnippetComputedPreview,
 	#superclass : #Object,
+	#traits : 'TLeExampleSnippetPreview',
+	#classTraits : 'TLeExampleSnippetPreview classTrait',
 	#instVars : [
 		'example',
 		'element'
@@ -36,8 +38,18 @@ LeExampleSnippetComputedPreview >> example: anObject [
 ]
 
 { #category : #testing }
-LeExampleSnippetComputedPreview >> hasExamplePreview [
-	"If example is nil, then the element displays an information, not an example preview"
+LeExampleSnippetComputedPreview >> hasElement [
+	^ self element isNotNil
+]
 
+{ #category : #testing }
+LeExampleSnippetComputedPreview >> hasExample [
 	^ self example isNotNil
+]
+
+{ #category : #testing }
+LeExampleSnippetComputedPreview >> hasExamplePreview [
+	"Return true if if holds and example preview element (and not another element)."
+
+	^ self hasElement and: [ self hasExample ]
 ]

@@ -23,29 +23,40 @@ LeExampleSnippetElement >> browseExample [
 { #category : #'private - updating' }
 LeExampleSnippetElement >> computeExamplePreviewElement [
 	<return: #BlElement>
+	| anElement |
+	self snippetViewModel
+		cachedExamplePreviewDo: [ :aCachedComputedPreview | 
+			self
+				assert: [ aCachedComputedPreview element isNotNil ]
+				description: [ 'Cached example preview element must be non-nil.' ].
+
+			^ aCachedComputedPreview ].
+
 	self snippetViewModel
 		gtExampleDo: [ :aGtExample | 
-			^ LeExampleSnippetComputedPreview new
-				example: aGtExample;
-				element: (GtExamplePreviewStencil new
-						example: aGtExample;
-						codeExpanded: self snippetViewModel codeExpanded;
-						noCode: self snippetViewModel noCode;
-						previewExpanded: self snippetViewModel previewExpanded;
-						previewShowSelector: self snippetViewModel previewShowSelector;
-						previewHeight: self snippetViewModel previewHeight;
-						asElement) ].
+			anElement := LeExampleSnippetComputedPreview new
+					example: aGtExample;
+					element: (GtExamplePreviewStencil new
+							example: aGtExample;
+							codeExpanded: self snippetViewModel codeExpanded;
+							noCode: self snippetViewModel noCode;
+							previewExpanded: self snippetViewModel previewExpanded;
+							previewShowSelector: self snippetViewModel previewShowSelector;
+							previewHeight: self snippetViewModel previewHeight;
+							asElement) ]
+		ifAbsent: [ anElement := LeExampleSnippetNoPreview new
+					element: (BrHorizontalPane new
+							hMatchParent;
+							vExact: self snippetViewModel previewHeight;
+							geometry: (BlRoundedRectangleGeometry cornerRadius: 4);
+							alignCenter;
+							background: self theme default backdropColor;
+							addChild: (BrLabel new
+									aptitude: (BrGlamorousLabelAptitude new light foreground: Color veryDarkGray);
+									text: 'Example not found')) ].
 
-	^ LeExampleSnippetComputedPreview new
-		element: (BrHorizontalPane new
-				hMatchParent;
-				vExact: self snippetViewModel previewHeight;
-				geometry: (BlRoundedRectangleGeometry cornerRadius: 4);
-				alignCenter;
-				background: self theme default backdropColor;
-				addChild: (BrLabel new
-						aptitude: (BrGlamorousLabelAptitude new light foreground: Color veryDarkGray);
-						text: 'Example not found'))
+	self snippetViewModel cacheExamplePreview: anElement.
+	^ anElement
 ]
 
 { #category : #'private - event handling' }
@@ -246,6 +257,7 @@ LeExampleSnippetElement >> subscribeToSnippetViewModel [
 LeExampleSnippetElement >> updateExamplePreviewWithError: anError [
 	"I must be executed in a UI process."
 
+	self snippetViewModel clearCachedExamplePreview.
 	exportExampleButton disable.
 
 	exampleContainer removeChildNamed: #example.
@@ -256,32 +268,53 @@ LeExampleSnippetElement >> updateExamplePreviewWithError: anError [
 LeExampleSnippetElement >> updateExamplePreviewWithPreview: aComputedExamplePreview [
 	"I must be executed in a UI process."
 
+	self snippetViewModel
+		gtExampleDo: [ :aGtExample | 
+			(aComputedExamplePreview hasExample
+				and: [ aComputedExamplePreview example = aGtExample ]) ifFalse: [ ^ self ] ]
+		ifAbsent: [ aComputedExamplePreview hasExample ifTrue: [ ^ self ] ].
+
 	exampleEditor
 		textualCoderViewModel: self snippetViewModel annotationCoderViewModel.
 
 	aComputedExamplePreview hasExamplePreview
+		ifTrue: [ exportExampleButton enable ]
+		ifFalse: [ exportExampleButton disable ].
+
+	aComputedExamplePreview hasExample
 		ifTrue: [ browseExampleButton enable.
-			runExampleButton enable.
-			exportExampleButton enable ]
+			runExampleButton enable ]
 		ifFalse: [ browseExampleButton disable.
-			runExampleButton disable.
-			exportExampleButton disable ].
+			runExampleButton disable ].
+
+	(aComputedExamplePreview hasElement
+		and: [ aComputedExamplePreview element parent = exampleContainer ])
+		ifTrue: [ ^ self ].
 
 	exampleContainer removeChildNamed: #example.
-	exampleContainer addChild: aComputedExamplePreview element as: #example
+	aComputedExamplePreview hasElement
+		ifTrue: [ self
+				assert: [ aComputedExamplePreview element isAttachedToSceneGraph not ]
+				description: [ 'Cached example preview element must be detached from a scene graph.' ].
+
+			aComputedExamplePreview element removeFromParent.
+			exampleContainer addChild: aComputedExamplePreview element as: #example ]
 ]
 
 { #category : #'private - updating' }
 LeExampleSnippetElement >> updateExamplePreviewWithRendingElement [
 	| anElement |
-	browseExampleButton disable.
-	runExampleButton disable.
+	self snippetViewModel
+		cachedExamplePreviewDo: [ :aCachedComputedPreview | ^ self ].
+
 	exportExampleButton disable.
 
 	self snippetViewModel
 		gtExampleDo: [ :aGtExample | 
 			browseExampleButton enable.
-			runExampleButton enable ].
+			runExampleButton enable ]
+		ifAbsent: [ browseExampleButton disable.
+			runExampleButton disable ].
 
 	exampleEditor
 		textualCoderViewModel: self snippetViewModel annotationCoderViewModel.
