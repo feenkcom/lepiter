@@ -37,6 +37,30 @@ LeExampleSnippetViewModel >> annotationCoderViewModel: aNewAnnotationCoderViewMo
 	self notifyAnnotationCoderViewModelChanged
 ]
 
+{ #category : #'api - cache' }
+LeExampleSnippetViewModel >> cacheExamplePreview: anElement [
+	self optionAt: self cachedExamplePreviewKey put: anElement
+]
+
+{ #category : #'api - cache' }
+LeExampleSnippetViewModel >> cachedExamplePreviewDo: aBlock [
+	"Block receives a {{gtClass:LeExampleSnippetComputedPreview}} object."
+	self
+		optionAt: self cachedExamplePreviewKey
+		ifPresent: aBlock
+		ifAbsent: [ "ignore" ]
+]
+
+{ #category : #'api - cache' }
+LeExampleSnippetViewModel >> cachedExamplePreviewKey [
+	^ #cachedExamplePreview
+]
+
+{ #category : #'api - cache' }
+LeExampleSnippetViewModel >> clearCachedExamplePreview [
+	self clearOption: self cachedExamplePreviewKey ifAbsent: [ "ignore" ]
+]
+
 { #category : #'api - code expanded' }
 LeExampleSnippetViewModel >> codeExpanded [
 	<return: #Boolean>
@@ -131,6 +155,11 @@ LeExampleSnippetViewModel >> gtActionCreateExampleFor: anAction [
 
 { #category : #'api - accessing' }
 LeExampleSnippetViewModel >> gtExampleDo: aBlock [
+	self gtExampleDo: aBlock ifAbsent: [  "do nothing" ]
+]
+
+{ #category : #'api - accessing' }
+LeExampleSnippetViewModel >> gtExampleDo: aBlock ifAbsent: absentBlock [
 
 	"Try to retrieve a GtExample for an example snippet"
 
@@ -145,29 +174,29 @@ LeExampleSnippetViewModel >> gtExampleDo: aBlock [
 					^ aBlock value: aGtExample ] ] ]
 		ifAbsent: [  ].
 
-	self snippetModel hasExampleBehaviorName ifFalse: [ ^ self ].
+	self snippetModel hasExampleBehaviorName ifFalse: [ absentBlock value. ^ self ].
 
-	self snippetModel hasExampleSelector ifFalse: [ ^ self ].
+	self snippetModel hasExampleSelector ifFalse: [ absentBlock value. ^ self ].
 
 	anInstanceSideBehaviorName := self exampleBehaviorName trimBoth.
 	isClassSide := anInstanceSideBehaviorName endsWith: ' class'.
 	anInstanceSideBehaviorName := isClassSide
-		ifTrue: [  self exampleBehaviorName allButLast: ' class' size ]
+		ifTrue: [ self exampleBehaviorName allButLast: ' class' size ]
 		ifFalse: [ self exampleBehaviorName ].
 
 	anExampleClass := self class environment
 		                  at: anInstanceSideBehaviorName asSymbol
 		                  ifAbsent: [ nil ].
 
-	anExampleClass ifNil: [ ^ self ].
+	anExampleClass ifNil: [ absentBlock value. ^ self ].
 	
 	isClassSide ifTrue: [ anExampleClass := anExampleClass classSide ].
 
 	anExampleMethod := (anExampleClass lookupSelector:
-		                    self exampleSelector asSymbol) ifNil: [ ^ self ].
+		                    self exampleSelector asSymbol) ifNil: [ absentBlock value. ^ self ].
 
 	gtExample := anExampleMethod gtExample.
-	gtExample ifNil: [ ^ self ].
+	gtExample ifNil: [ absentBlock value. ^ self ].
 	self optionAt: #gtExample put: gtExample.
 	aBlock value: gtExample
 ]
@@ -314,6 +343,7 @@ LeExampleSnippetViewModel >> onSnippetCodeExpandedChanged: aLeExampleSnippetCode
 	<modelEventHandler: #snippet event: #LeExampleSnippetCodeExpandedChanged>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#onPropertyChangedTemplate'>
 	
+	self clearCachedExamplePreview.
 	self announce: aLeExampleSnippetCodeExpandedChanged
 ]
 
@@ -322,6 +352,7 @@ LeExampleSnippetViewModel >> onSnippetExampleBehaviorNameChanged: aLeExampleSnip
 	<modelEventHandler: #snippet event: #LeExampleSnippetExampleBehaviorNameChanged>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#onPropertyChangedTemplate'>
 	
+	self clearCachedExamplePreview.
 	self announce: aLeExampleSnippetExampleBehaviorNameChanged
 ]
 
@@ -330,6 +361,7 @@ LeExampleSnippetViewModel >> onSnippetExampleSelectorChanged: aLeExampleSnippetE
 	<modelEventHandler: #snippet event: #LeExampleSnippetExampleSelectorChanged>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#onPropertyChangedTemplate'>
 
+	self clearCachedExamplePreview.
 	self announce: aLeExampleSnippetExampleSelectorChanged
 ]
 
@@ -337,7 +369,8 @@ LeExampleSnippetViewModel >> onSnippetExampleSelectorChanged: aLeExampleSnippetE
 LeExampleSnippetViewModel >> onSnippetModelChanged [
 	super onSnippetModelChanged.
 	
-	self updateAnnotationText
+	self clearCachedExamplePreview.
+	self updateAnnotationText.
 ]
 
 { #category : #'api - no code' }
@@ -345,6 +378,7 @@ LeExampleSnippetViewModel >> onSnippetNoCodeChanged: aLeExampleSnippetNoCodeChan
 	<modelEventHandler: #snippet event: #LeExampleSnippetNoCodeChanged>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#onPropertyChangedTemplate'>
 	
+	self clearCachedExamplePreview.
 	self announce: aLeExampleSnippetNoCodeChanged
 ]
 
@@ -353,6 +387,7 @@ LeExampleSnippetViewModel >> onSnippetPreviewExpandedChanged: aLeExampleSnippetP
 	<modelEventHandler: #snippet event: #LeExampleSnippetPreviewExpandedChanged>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#onPropertyChangedTemplate'>
 	
+	self clearCachedExamplePreview.
 	self announce: aLeExampleSnippetPreviewExpandedChanged
 ]
 
@@ -361,6 +396,7 @@ LeExampleSnippetViewModel >> onSnippetPreviewHeightChanged: aLeExampleSnippetPre
 	<modelEventHandler: #snippet event: #LeExampleSnippetPreviewHeightChanged>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#onPropertyChangedTemplate'>
 	
+	self clearCachedExamplePreview.
 	self announce: aLeExampleSnippetPreviewHeightChanged
 ]
 
@@ -369,6 +405,7 @@ LeExampleSnippetViewModel >> onSnippetPreviewShowSelectorChanged: aLeExampleSnip
 	<modelEventHandler: #snippet event: #LeExampleSnippetPreviewShowSelectorChanged>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#onPropertyChangedTemplate'>
 	
+	self clearCachedExamplePreview.
 	self announce: aLeExampleSnippetPreviewShowSelectorChanged
 ]
 
