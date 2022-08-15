@@ -7,6 +7,179 @@ Class {
 	#category : #'Lepiter-Snippet-Pharo-Rewrites-Element'
 }
 
+{ #category : #private }
+LePharoRewriteSnippetElement >> computeDuplicatesIn: anAst [
+	| duplicates |
+	duplicates := Dictionary new.
+	anAst
+		withAllNodesDo: [ :each | 
+			each
+				attributeNamed: #ocurrences
+				put: ((duplicates at: each ifAbsentPut: [ OrderedCollection new ])
+						add: each;
+						yourself) ]
+]
+
+{ #category : #actions }
+LePharoRewriteSnippetElement >> convertAllToAny: aNode [
+	| source name |
+	source := self searchSource.
+	name := self safePatternVariableIn: aNode basedOn: '``@any'.
+	(aNode attributeNamed: #ocurrences)
+		do: [ :each | 
+			source
+				replaceFrom: each startPosition
+				to: each stopPosition
+				with: name ].
+	self searchEditorDo: [ :each | each editor text: source asString asRopedText ]
+]
+
+{ #category : #actions }
+LePharoRewriteSnippetElement >> convertAllToLiteral: aNode [
+	| source name |
+	source := self searchSource.
+	name := self safePatternVariableIn: aNode basedOn: '``#literal'.
+	(aNode attributeNamed: #ocurrences)
+		do: [ :each | 
+			source
+				replaceFrom: each startPosition
+				to: each stopPosition
+				with: name ].
+	self searchEditorDo: [ :each | each editor text: source asString asRopedText ]
+]
+
+{ #category : #actions }
+LePharoRewriteSnippetElement >> convertAllToVariable: aNode [
+	| source name |
+	source := self searchSource.
+	name := self safePatternVariableIn: aNode basedOn: '`var'.
+	(aNode attributeNamed: #ocurrences)
+		do: [ :each | 
+			source
+				replaceFrom: each startPosition
+				to: each stopPosition
+				with: name ].
+	self searchEditorDo: [ :each | each editor text: source asString asRopedText ]
+]
+
+{ #category : #actions }
+LePharoRewriteSnippetElement >> convertToAny: aNode [
+	| source |
+	source := self searchSource.
+	source
+		replaceFrom: aNode startPosition
+		to: aNode stopPosition
+		with: (self safePatternVariableIn: aNode basedOn: '``@any').
+	self searchEditorDo: [ :each | each editor text: source asString asRopedText ]
+]
+
+{ #category : #actions }
+LePharoRewriteSnippetElement >> convertToAnyMessage: aNode [
+	| source needsParens |
+	source := self searchSource.
+	needsParens := aNode parent parent notNil
+			and: [ aNode parent parent isMessage
+					or: [ aNode parent parent isMessageSend or: [ aNode parent parent isCascade ] ] ].
+	needsParens ifTrue: [ source insert: '(' at: aNode parent startPosition ].
+	source
+		replaceFrom: aNode startPosition
+		to: aNode stopPosition
+		with: (self safePatternSelectorIn: aNode basedOn: '`@msg:') , ' '
+				, (self safePatternVariableIn: aNode basedOn: '``@args')
+				, (needsParens ifTrue: [ ')' ] ifFalse: [ '' ]).
+	self searchEditorDo: [ :each | each editor text: source asString asRopedText ]
+]
+
+{ #category : #actions }
+LePharoRewriteSnippetElement >> convertToLiteral: aNode [
+	| source |
+	source := self searchSource.
+	source
+		replaceFrom: aNode startPosition
+		to: aNode stopPosition
+		with: (self safePatternVariableIn: aNode basedOn: '``#literal').
+	self searchEditorDo: [ :each | each editor text: source asString asRopedText ]
+]
+
+{ #category : #actions }
+LePharoRewriteSnippetElement >> convertToLiteralOfType: aNode [
+	| source |
+	source := self searchSource.
+	source
+		replaceFrom: aNode startPosition
+		to: aNode stopPosition
+		with: (self safePatternVariableIn: aNode basedOn: '``#literal')
+				, ' `{:node | node value class = ' , aNode literalValue class name , '}'.
+	self searchEditorDo: [ :each | each editor text: source asString asRopedText ]
+]
+
+{ #category : #actions }
+LePharoRewriteSnippetElement >> convertToMessage: aNode [
+	| source selector pattern |
+	source := self searchSource.
+	pattern := aNode isBinary
+			ifTrue: [ '`msg:' ]
+			ifFalse: [ aNode selectorParts inject: '' into: [ :sum :each | sum , '`' , each source ] ].
+	selector := self safePatternSelectorIn: aNode basedOn: pattern.
+	aNode isUnary
+		ifTrue: [ source
+				replaceFrom: aNode startPosition
+				to: aNode stopPosition
+				with: selector ]
+		ifFalse: [ aNode selectorParts
+				with: (selector findTokens: #($:))
+				do: [ :kw :each | 
+					source
+						replaceFrom: kw startPosition
+						to: kw stopPosition
+						with: each , ':' ] ].
+	self searchEditorDo: [ :each | each editor text: source asString asRopedText ]
+]
+
+{ #category : #actions }
+LePharoRewriteSnippetElement >> convertToStatement: aNode [
+	| source vars stmts1 stmts2 |
+	source := self searchSource.
+	vars := self safePatternVariableIn: aNode basedOn: '`@temps'.
+	stmts1 := self safePatternVariableIn: aNode basedOn: '``@.Before'.
+	stmts2 := self safePatternVariableIn: aNode basedOn: '``@.After'.
+	source insert: '| ' , vars , ' |' , String cr , stmts1 , '.' , String cr at: 1.
+	aNode isReturn ifFalse: [ source append: '.' , String cr , stmts2 ].
+	self searchEditorDo: [ :each | each editor text: source asString asRopedText ]
+]
+
+{ #category : #actions }
+LePharoRewriteSnippetElement >> convertToVariable: aNode [
+	| source |
+	source := self searchSource.
+	source
+		replaceFrom: aNode startPosition
+		to: aNode stopPosition
+		with: (self safePatternVariableIn: aNode basedOn: '`var').
+	self searchEditorDo: [ :each | each editor text: source asString asRopedText ]
+]
+
+{ #category : #private }
+LePharoRewriteSnippetElement >> createContextMenuContentFor: anElement [
+	| menu source position |
+	menu := BrGroupedList new.
+	menu padding: (BlInsets top: 2 left: 10 bottom: 12 right: 10).
+	menu fitContent.
+	menu stream: #() asAsyncStream.
+	menu
+		headerElementStencil: [ BrLabel new
+				margin: (BlInsets top: 10);
+				aptitude: (BrGlamorousLabelAptitude new foreground: Color gray) ].
+	menu
+		headerDataBinder: [ :label :each | label text: (self descriptionFor: each domainObject) asRopedText ].
+	source := anElement text asString.
+	position := 0.
+	anElement cursors do: [ :cursor | position := cursor position ].
+	[ self menuGroupsFor: source at: position ] asAsyncPromise
+		then: [ :items | menu enqueueTask: (BlTaskAction new action: [ menu stream: items ]) ].
+	^ menu
+]
+
 { #category : #initialization }
 LePharoRewriteSnippetElement >> createLabel: aString [
 	^ BrLabel new
@@ -42,6 +215,17 @@ LePharoRewriteSnippetElement >> createSourceEditor: anUpdateSymbol [
 	^ element
 ]
 
+{ #category : #private }
+LePharoRewriteSnippetElement >> descriptionFor: aNode [
+	| description |
+	description := aNode source asString.
+	description size > 40
+		ifTrue: [ description := (description first: 40) , '...' ].
+	^ ((description copyReplaceAll: String cr with: ' ')
+		copyReplaceAll: String lf
+		with: ' ') copyReplaceAll: '	' with: ' '
+]
+
 { #category : #initialization }
 LePharoRewriteSnippetElement >> initialize [
 	| searchEditor replaceEditor |
@@ -56,6 +240,9 @@ LePharoRewriteSnippetElement >> initialize [
 		at: #completionStrategy
 		ifPresent: [ :strategy | strategy hasImplicitVariables: true ].
 	searchEditor when: BlBlurEvent do: [ :event | self updateReplaceVariables ].
+	searchEditor
+		addAptitude: (BrGlamorousWithContextMenuAptitude
+				content: [ self createContextMenuContentFor: searchEditor ]).
 	rewriteElement addChild: searchEditor as: #searchEditor.
 	rewriteElement
 		addChild: (BrButton new
@@ -80,19 +267,173 @@ LePharoRewriteSnippetElement >> initialize [
 		as: #replaceButton
 ]
 
+{ #category : #private }
+LePharoRewriteSnippetElement >> menuGroupsFor: aString at: anInteger [
+	| ast node |
+	ast := GtPharoPatternParser
+			parseWithErrors: aString
+			startingAt: GtPharoParser startingStateForMethodSequence.
+	self computeDuplicatesIn: ast.
+	node := ast.
+	ast
+		allNodesDo: [ :each | (each sourceInterval includes: anInteger) ifTrue: [ node := each ] ].
+	^ ({node} , node allParents) asAsyncStream
+		collect: [ :each | 
+			BrGroup new
+				stream: (self menuItemsFor: each) asAsyncStream;
+				domainObject: each;
+				itemStencil: [ | label |
+					label := BrLabel new.
+					label margin: (BlInsets left: 15).
+					label hMatchParent.
+					label vFitContent.
+					label
+						aptitude: BrGlamorousLabelAptitude
+								+ (BrStyleCommonAptitude new
+										hovered: [ :aStyle | aStyle background: self theme item selectedColor ]).
+					label
+						when: BlClickEvent
+						do: [ :event | 
+							event consumed: true.
+							label
+								withAllParentsDetect: [ :e | e isKindOf: BrGroupedList ]
+								ifFound: [ :menu | 
+									menu fireEvent: BrDropdownHideWish new.
+									menu fireEvent: BrContextMenuHideWish new ]
+								ifNone: [  ].
+							label userData
+								at: #menuItem
+								ifPresent: [ :item | self searchEditorDo: [ :element | item action cull: element cull: event ] ] ].
+					label
+						when: BlMouseEnterEvent
+						do: [ :anEvent | 
+							label userData
+								at: #menuItem
+								ifPresent: [ :item | 
+									item hoverAction
+										ifNotNil: [ :hover | self searchEditorDo: [ :element | hover cull: element cull: anEvent ] ] ] ].
+					label
+						when: BlMouseLeaveEvent
+						do: [ :anEvent | 
+							label userData
+								at: #menuItem
+								ifPresent: [ :item | 
+									item leaveAction
+										ifNotNil: [ :leave | self searchEditorDo: [ :element | leave cull: element cull: anEvent ] ] ] ].
+					label ];
+				itemDataBinder: [ :label :item | 
+					label text: item title asRopedText.
+					label userData at: #menuItem put: item.
+					label ];
+				shouldShowWithoutItems: false ]
+]
+
+{ #category : #private }
+LePharoRewriteSnippetElement >> menuItem: aString for: aNode action: aBlock [
+	^ GtCoderContextMenuAction new
+		title: aString asRopedText;
+		action: aBlock;
+		hoverAction: [ :element | 
+			(element editor text from: aNode startPosition to: aNode stopPosition)
+				attributes: {GtPharoSourceCoder nodeHighlight} ];
+		leaveAction: [ :element | element editor text removeAttribute: GtPharoSourceCoder nodeHighlight ];
+		yourself
+]
+
+{ #category : #private }
+LePharoRewriteSnippetElement >> menuItemsFor: aNode [
+	| items |
+	items := OrderedCollection new.
+	(aNode isVariable and: [ aNode variableName beginsWith: '`' ])
+		ifTrue: [ ^ items ].
+	(aNode isMessage
+		and: [ aNode selectorParts anySatisfy: [ :each | each source beginsWith: '`' ] ])
+		ifTrue: [ ^ items ].
+	(aNode isValueNode or: [ aNode isReturn ])
+		ifTrue: [ self menuItemsForValue: aNode into: items ].
+	aNode isLiteral ifTrue: [ self menuItemsForLiteral: aNode into: items ].
+	aNode isVariable ifTrue: [ self menuItemsForVariable: aNode into: items ].
+	aNode isMessageSend
+		ifTrue: [ self menuItemsForMessage: aNode message into: items ].
+	^ items
+]
+
+{ #category : #private }
+LePharoRewriteSnippetElement >> menuItemsForLiteral: aNode into: items [
+	items
+		add: (self
+				menuItem: 'Match literal'
+				for: aNode
+				action: [ self convertToLiteral: aNode ]).
+	(aNode attributeNamed: #ocurrences ifAbsent: [ #() ]) size > 1
+		ifTrue: [ items
+				add: (self
+						menuItem: 'Match all occurrences as literal'
+						for: aNode
+						action: [ self convertAllToLiteral: aNode ]) ].
+	items
+		add: (self
+				menuItem: 'Match literal of type ' , aNode literalValue class name
+				for: aNode
+				action: [ self convertToLiteralOfType: aNode ])
+]
+
+{ #category : #private }
+LePharoRewriteSnippetElement >> menuItemsForMessage: aNode into: items [
+	items
+		add: (self
+				menuItem: 'Match any message'
+				for: aNode
+				action: [ self convertToAnyMessage: aNode ]).
+	items
+		add: (self
+				menuItem: 'Match ' , aNode arguments size printString , ' argument message'
+				for: aNode
+				action: [ self convertToMessage: aNode ])
+]
+
+{ #category : #private }
+LePharoRewriteSnippetElement >> menuItemsForValue: aNode into: items [
+	(aNode parent notNil
+		and: [ aNode parent isSequence and: [ aNode parent parent isNil ] ])
+		ifTrue: [ items
+				add: (self
+						menuItem: 'Match as statement'
+						for: aNode
+						action: [ self convertToStatement: aNode ]) ]
+		ifFalse: [ items
+				add: (self
+						menuItem: 'Match anything'
+						for: aNode
+						action: [ self convertToAny: aNode ]).
+			(aNode attributeNamed: #ocurrences ifAbsent: [ #() ]) size > 1
+				ifTrue: [ items
+						add: (self
+								menuItem: 'Match all occurrences as anything'
+								for: aNode
+								action: [ self convertAllToAny: aNode ]) ] ]
+]
+
+{ #category : #private }
+LePharoRewriteSnippetElement >> menuItemsForVariable: aNode into: items [
+	items
+		add: (self
+				menuItem: 'Match variable'
+				for: aNode
+				action: [ self convertToVariable: aNode ]).
+	(aNode attributeNamed: #ocurrences ifAbsent: [ #() ]) size > 1
+		ifTrue: [ items
+				add: (self
+						menuItem: 'Match all occurrences as variable'
+						for: aNode
+						action: [ self convertAllToVariable: aNode ]) ]
+]
+
 { #category : #'api - snippet view model' }
 LePharoRewriteSnippetElement >> onSnippetViewModelChanged [
 	super onSnippetViewModelChanged.
-	rewriteElement
-		childNamed: #searchEditor
-		ifFound: [ :editor | 
-			editor editor text asString ~= self snippet search
-				ifTrue: [ editor editor text: self snippet search asRopedText ] ].
-	rewriteElement
-		childNamed: #replaceEditor
-		ifFound: [ :editor | 
-			editor editor text asString ~= self snippet replace
-				ifTrue: [ editor editor text: self snippet replace asRopedText ] ].
+	self updateSearchEditor.
+	self updateReplaceEditor.
 	self updateReplaceVariables
 ]
 
@@ -101,9 +442,48 @@ LePharoRewriteSnippetElement >> replaceEditorDo: block [
 	rewriteElement childNamed: #replaceEditor ifFound: block
 ]
 
+{ #category : #actions }
+LePharoRewriteSnippetElement >> safePatternSelectorIn: aNode basedOn: aString [
+	| selectors current index |
+	selectors := Set new.
+	aNode topParent
+		withAllNodesDo: [ :each | 
+			each isMessage
+				ifTrue: [ selectors
+						add: (each selectorParts inject: '' into: [ :sum :kw | sum , kw source ]) ] ].
+	current := aString.
+	index := 1.
+	[ selectors includes: current ]
+		whileTrue: [ current := aString last = $:
+					ifTrue: [ aString allButLast , index printString , ':' ]
+					ifFalse: [ aString , index printString ].
+			index := index + 1 ].
+	^ current
+]
+
+{ #category : #actions }
+LePharoRewriteSnippetElement >> safePatternVariableIn: aNode basedOn: aString [
+	| vars current index |
+	vars := Set new.
+	aNode topParent
+		withAllNodesDo: [ :each | (each isKindOf: GtPharoVariableNode) ifTrue: [ vars add: each variableName ] ].
+	current := aString.
+	index := 1.
+	[ vars includes: current ]
+		whileTrue: [ current := aString , index printString.
+			index := index + 1 ].
+	^ current
+]
+
 { #category : #private }
 LePharoRewriteSnippetElement >> searchEditorDo: block [
 	rewriteElement childNamed: #searchEditor ifFound: block
+]
+
+{ #category : #actions }
+LePharoRewriteSnippetElement >> searchSource [
+	self searchEditorDo: [ :each | ^ SmaCCString on: each editor text asString ].
+	^ SmaCCString new
 ]
 
 { #category : #'api - view' }
@@ -125,6 +505,25 @@ LePharoRewriteSnippetElement >> styler [
 	^ styler
 ]
 
+{ #category : #accessing }
+LePharoRewriteSnippetElement >> subscribeToSnippetViewModel [
+	super subscribeToSnippetViewModel.
+	self snippetViewModel weak
+		when: LePharoRewriteSnippetSearchChanged
+		send: #updateSearchEditor
+		to: self.
+	self snippetViewModel weak
+		when: LePharoRewriteSnippetReplaceChanged
+		send: #updateReplaceEditor
+		to: self
+]
+
+{ #category : #accessing }
+LePharoRewriteSnippetElement >> unsubscribeFromSnippetViewModel [
+	super unsubscribeFromSnippetViewModel.
+	self snippetViewModel unsubscribe: self
+]
+
 { #category : #private }
 LePharoRewriteSnippetElement >> updateReplace [
 	self
@@ -133,6 +532,15 @@ LePharoRewriteSnippetElement >> updateReplace [
 			replaceString := editor editor text asString.
 			replaceString ~= self snippet replace
 				ifTrue: [ self snippet replace: replaceString ] ]
+]
+
+{ #category : #'api - snippet view model' }
+LePharoRewriteSnippetElement >> updateReplaceEditor [
+	rewriteElement
+		childNamed: #replaceEditor
+		ifFound: [ :editor | 
+			editor editor text asString ~= self snippet replace
+				ifTrue: [ editor editor text: self snippet replace asRopedText ] ]
 ]
 
 { #category : #private }
@@ -160,4 +568,13 @@ LePharoRewriteSnippetElement >> updateSearch [
 			searchString := editor editor text asString.
 			searchString ~= self snippet search
 				ifTrue: [ self snippet search: searchString ] ]
+]
+
+{ #category : #'api - snippet view model' }
+LePharoRewriteSnippetElement >> updateSearchEditor [
+	rewriteElement
+		childNamed: #searchEditor
+		ifFound: [ :editor | 
+			editor editor text asString ~= self snippet search
+				ifTrue: [ editor editor text: self snippet search asRopedText ] ]
 ]
