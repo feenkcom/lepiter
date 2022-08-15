@@ -31,7 +31,7 @@ LePharoRewriteSnippetElement >> convertAllToAny: aNode [
 				replaceFrom: each startPosition
 				to: each stopPosition
 				with: name ].
-	self searchEditorDo: [ :each | each editor text: source asString asRopedText ]
+	self snippet search: source asString
 ]
 
 { #category : #actions }
@@ -45,7 +45,7 @@ LePharoRewriteSnippetElement >> convertAllToLiteral: aNode [
 				replaceFrom: each startPosition
 				to: each stopPosition
 				with: name ].
-	self searchEditorDo: [ :each | each editor text: source asString asRopedText ]
+	self snippet search: source asString
 ]
 
 { #category : #actions }
@@ -59,7 +59,7 @@ LePharoRewriteSnippetElement >> convertAllToVariable: aNode [
 				replaceFrom: each startPosition
 				to: each stopPosition
 				with: name ].
-	self searchEditorDo: [ :each | each editor text: source asString asRopedText ]
+	self snippet search: source asString
 ]
 
 { #category : #actions }
@@ -70,7 +70,7 @@ LePharoRewriteSnippetElement >> convertToAny: aNode [
 		replaceFrom: aNode startPosition
 		to: aNode stopPosition
 		with: (self safePatternVariableIn: aNode basedOn: '``@any').
-	self searchEditorDo: [ :each | each editor text: source asString asRopedText ]
+	self snippet search: source asString
 ]
 
 { #category : #actions }
@@ -87,7 +87,7 @@ LePharoRewriteSnippetElement >> convertToAnyMessage: aNode [
 		with: (self safePatternSelectorIn: aNode basedOn: '`@msg:') , ' '
 				, (self safePatternVariableIn: aNode basedOn: '``@args')
 				, (needsParens ifTrue: [ ')' ] ifFalse: [ '' ]).
-	self searchEditorDo: [ :each | each editor text: source asString asRopedText ]
+	self snippet search: source asString
 ]
 
 { #category : #actions }
@@ -98,7 +98,7 @@ LePharoRewriteSnippetElement >> convertToLiteral: aNode [
 		replaceFrom: aNode startPosition
 		to: aNode stopPosition
 		with: (self safePatternVariableIn: aNode basedOn: '``#literal').
-	self searchEditorDo: [ :each | each editor text: source asString asRopedText ]
+	self snippet search: source asString
 ]
 
 { #category : #actions }
@@ -110,7 +110,7 @@ LePharoRewriteSnippetElement >> convertToLiteralOfType: aNode [
 		to: aNode stopPosition
 		with: (self safePatternVariableIn: aNode basedOn: '``#literal')
 				, ' `{:node | node value class = ' , aNode literalValue class name , '}'.
-	self searchEditorDo: [ :each | each editor text: source asString asRopedText ]
+	self snippet search: source asString
 ]
 
 { #category : #actions }
@@ -133,7 +133,7 @@ LePharoRewriteSnippetElement >> convertToMessage: aNode [
 						replaceFrom: kw startPosition
 						to: kw stopPosition
 						with: each , ':' ] ].
-	self searchEditorDo: [ :each | each editor text: source asString asRopedText ]
+	self snippet search: source asString
 ]
 
 { #category : #actions }
@@ -145,7 +145,7 @@ LePharoRewriteSnippetElement >> convertToStatement: aNode [
 	stmts2 := self safePatternVariableIn: aNode basedOn: '``@.After'.
 	source insert: '| ' , vars , ' |' , String cr , stmts1 , '.' , String cr at: 1.
 	aNode isReturn ifFalse: [ source append: '.' , String cr , stmts2 ].
-	self searchEditorDo: [ :each | each editor text: source asString asRopedText ]
+	self snippet search: source asString
 ]
 
 { #category : #actions }
@@ -156,7 +156,7 @@ LePharoRewriteSnippetElement >> convertToVariable: aNode [
 		replaceFrom: aNode startPosition
 		to: aNode stopPosition
 		with: (self safePatternVariableIn: aNode basedOn: '`var').
-	self searchEditorDo: [ :each | each editor text: source asString asRopedText ]
+	self snippet search: source asString
 ]
 
 { #category : #private }
@@ -576,5 +576,6 @@ LePharoRewriteSnippetElement >> updateSearchEditor [
 		childNamed: #searchEditor
 		ifFound: [ :editor | 
 			editor editor text asString ~= self snippet search
-				ifTrue: [ editor editor text: self snippet search asRopedText ] ]
+				ifTrue: [ editor editor text: self snippet search asRopedText.
+					self updateReplaceVariables ] ]
 ]
