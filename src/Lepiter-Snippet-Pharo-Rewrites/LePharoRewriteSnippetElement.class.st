@@ -22,49 +22,43 @@ LePharoRewriteSnippetElement >> computeDuplicatesIn: anAst [
 
 { #category : #actions }
 LePharoRewriteSnippetElement >> convertAllToAny: aNode [
-	| source name |
-	source := self searchSource.
+	| name |
 	name := self safePatternVariableIn: aNode basedOn: '``@any'.
-	(aNode attributeNamed: #ocurrences)
-		do: [ :each | 
-			source
-				replaceFrom: each startPosition
-				to: each stopPosition
-				with: name ].
-	self snippet search: source asString
+	self replaceAll: aNode with: name
 ]
 
 { #category : #actions }
 LePharoRewriteSnippetElement >> convertAllToLiteral: aNode [
-	| source name |
-	source := self searchSource.
+	| name |
 	name := self safePatternVariableIn: aNode basedOn: '``#literal'.
-	(aNode attributeNamed: #ocurrences)
-		do: [ :each | 
-			source
-				replaceFrom: each startPosition
-				to: each stopPosition
-				with: name ].
-	self snippet search: source asString
+	self replaceAll: aNode with: name
 ]
 
 { #category : #actions }
 LePharoRewriteSnippetElement >> convertAllToVariable: aNode [
-	| source name |
-	source := self searchSource.
+	| name |
 	name := self safePatternVariableIn: aNode basedOn: '`var'.
-	(aNode attributeNamed: #ocurrences)
-		do: [ :each | 
-			source
-				replaceFrom: each startPosition
-				to: each stopPosition
-				with: name ].
+	self replaceAll: aNode with: name
+]
+
+{ #category : #private }
+LePharoRewriteSnippetElement >> convertBlockArgs: aNode [
+	| source args |
+	source := self searchSource.
+	args := self safePatternVariableIn: aNode basedOn: '`@args'.
+	aNode bar isNil
+		ifTrue: [ source insert: ':' , args , ' | ' at: aNode leftBracket stopPosition + 1 ]
+		ifFalse: [ source
+				replaceFrom: aNode variables first startPosition
+				to: aNode variables last stopPosition
+				with: args ].
 	self snippet search: source asString
 ]
 
 { #category : #actions }
 LePharoRewriteSnippetElement >> convertToAny: aNode [
 	| source |
+	(self isRepeated: aNode) ifFalse: [ ^ self convertAllToAny: aNode ].
 	source := self searchSource.
 	source
 		replaceFrom: aNode startPosition
@@ -93,6 +87,7 @@ LePharoRewriteSnippetElement >> convertToAnyMessage: aNode [
 { #category : #actions }
 LePharoRewriteSnippetElement >> convertToLiteral: aNode [
 	| source |
+	(self isRepeated: aNode) ifFalse: [ ^ self convertAllToLiteral: aNode ].
 	source := self searchSource.
 	source
 		replaceFrom: aNode startPosition
@@ -151,6 +146,7 @@ LePharoRewriteSnippetElement >> convertToStatement: aNode [
 { #category : #actions }
 LePharoRewriteSnippetElement >> convertToVariable: aNode [
 	| source |
+	(self isRepeated: aNode) ifFalse: [ ^ self convertAllToVariable: aNode ].
 	source := self searchSource.
 	source
 		replaceFrom: aNode startPosition
@@ -267,12 +263,15 @@ LePharoRewriteSnippetElement >> initialize [
 		as: #replaceButton
 ]
 
+{ #category : #testing }
+LePharoRewriteSnippetElement >> isRepeated: aNode [
+	^ (aNode attributeNamed: #ocurrences ifAbsent: [ #() ]) size > 1
+]
+
 { #category : #private }
 LePharoRewriteSnippetElement >> menuGroupsFor: aString at: anInteger [
 	| ast node |
-	ast := GtPharoPatternParser
-			parseWithErrors: aString
-			startingAt: GtPharoParser startingStateForMethodSequence.
+	ast := self parseExpression: aString.
 	self computeDuplicatesIn: ast.
 	node := ast.
 	ast
@@ -355,7 +354,17 @@ LePharoRewriteSnippetElement >> menuItemsFor: aNode [
 	aNode isVariable ifTrue: [ self menuItemsForVariable: aNode into: items ].
 	aNode isMessageSend
 		ifTrue: [ self menuItemsForMessage: aNode message into: items ].
+	aNode isBlock ifTrue: [ self menuItemsForBlock: aNode into: items ].
 	^ items
+]
+
+{ #category : #private }
+LePharoRewriteSnippetElement >> menuItemsForBlock: aNode into: items [ 
+	items
+		add: (self
+				menuItem: 'Match block with any arguments'
+				for: aNode
+				action: [ self convertBlockArgs: aNode ]).
 ]
 
 { #category : #private }
@@ -365,7 +374,7 @@ LePharoRewriteSnippetElement >> menuItemsForLiteral: aNode into: items [
 				menuItem: 'Match literal'
 				for: aNode
 				action: [ self convertToLiteral: aNode ]).
-	(aNode attributeNamed: #ocurrences ifAbsent: [ #() ]) size > 1
+	(self isRepeated: aNode)
 		ifTrue: [ items
 				add: (self
 						menuItem: 'Match all occurrences as literal'
@@ -406,7 +415,7 @@ LePharoRewriteSnippetElement >> menuItemsForValue: aNode into: items [
 						menuItem: 'Match anything'
 						for: aNode
 						action: [ self convertToAny: aNode ]).
-			(aNode attributeNamed: #ocurrences ifAbsent: [ #() ]) size > 1
+			(self isRepeated: aNode)
 				ifTrue: [ items
 						add: (self
 								menuItem: 'Match all occurrences as anything'
@@ -421,7 +430,7 @@ LePharoRewriteSnippetElement >> menuItemsForVariable: aNode into: items [
 				menuItem: 'Match variable'
 				for: aNode
 				action: [ self convertToVariable: aNode ]).
-	(aNode attributeNamed: #ocurrences ifAbsent: [ #() ]) size > 1
+	(self isRepeated: aNode)
 		ifTrue: [ items
 				add: (self
 						menuItem: 'Match all occurrences as variable'
@@ -435,6 +444,27 @@ LePharoRewriteSnippetElement >> onSnippetViewModelChanged [
 	self updateSearchEditor.
 	self updateReplaceEditor.
 	self updateReplaceVariables
+]
+
+{ #category : #private }
+LePharoRewriteSnippetElement >> parseExpression: aString [
+	^ GtPharoPatternParser
+		parseWithErrors: aString
+		startingAt: GtPharoParser startingStateForMethodSequence
+]
+
+{ #category : #actions }
+LePharoRewriteSnippetElement >> replaceAll: aNode with: name [
+	| source |
+	source := self searchSource.
+	(aNode attributeNamed: #ocurrences)
+		do: [ :each | 
+			source
+				replaceFrom: each startPosition
+				to: each stopPosition
+				with: name ].
+	self snippet search: source asString.
+	self updateReplaceExpressionMatching: aNode with: name
 ]
 
 { #category : #private }
@@ -541,6 +571,22 @@ LePharoRewriteSnippetElement >> updateReplaceEditor [
 		ifFound: [ :editor | 
 			editor editor text asString ~= self snippet replace
 				ifTrue: [ editor editor text: self snippet replace asRopedText ] ]
+]
+
+{ #category : #actions }
+LePharoRewriteSnippetElement >> updateReplaceExpressionMatching: aNode with: aString [
+	| ast source originalSource |
+	originalSource := self snippet replace.
+	ast := self parseExpression: originalSource.
+	source := SmaCCString on: originalSource.
+	ast
+		withAllNodesDo: [ :each | 
+			each = aNode
+				ifTrue: [ source
+						replaceFrom: each startPosition
+						to: each stopPosition
+						with: aString ] ].
+	self snippet replace: source asString
 ]
 
 { #category : #private }
