@@ -2,7 +2,8 @@ Class {
 	#name : #LeExampleSnippetViewModel,
 	#superclass : #LeSnippetViewModel,
 	#instVars : [
-		'annotationCoderViewModel'
+		'annotationCoderViewModel',
+		'mutex'
 	],
 	#category : #'Lepiter-Snippet-Example-Snippet'
 }
@@ -39,16 +40,25 @@ LeExampleSnippetViewModel >> annotationCoderViewModel: aNewAnnotationCoderViewMo
 
 { #category : #'api - cache' }
 LeExampleSnippetViewModel >> cacheExamplePreview: anElement [
-	self optionAt: self cachedExamplePreviewKey put: anElement
+	mutex critical: [ self optionAt: self cachedExamplePreviewKey put: anElement ]
 ]
 
 { #category : #'api - cache' }
 LeExampleSnippetViewModel >> cachedExamplePreviewDo: aBlock [
 	"Block receives a {{gtClass:LeExampleSnippetComputedPreview}} object."
-	self
-		optionAt: self cachedExamplePreviewKey
-		ifPresent: aBlock
-		ifAbsent: [ "ignore" ]
+
+	self cachedExamplePreviewDo: aBlock ifAbsent: [  "ignore" ]
+]
+
+{ #category : #'api - cache' }
+LeExampleSnippetViewModel >> cachedExamplePreviewDo: aBlock ifAbsent: absentBlock [
+	"Block receives a {{gtClass:LeExampleSnippetComputedPreview}} object."
+
+	mutex
+		critical: [ self
+				optionAt: self cachedExamplePreviewKey
+				ifPresent: aBlock
+				ifAbsent: absentBlock ]
 ]
 
 { #category : #'api - cache' }
@@ -58,7 +68,8 @@ LeExampleSnippetViewModel >> cachedExamplePreviewKey [
 
 { #category : #'api - cache' }
 LeExampleSnippetViewModel >> clearCachedExamplePreview [
-	self clearOption: self cachedExamplePreviewKey ifAbsent: [ "ignore" ]
+	mutex
+		critical: [ self clearOption: self cachedExamplePreviewKey ifAbsent: [  "ignore" ] ]
 ]
 
 { #category : #'api - code expanded' }
@@ -270,6 +281,8 @@ LeExampleSnippetViewModel >> hasAnnotationCoderViewModel [
 LeExampleSnippetViewModel >> initialize [
 	| annotationCoder |
 	super initialize.
+	
+	mutex := Mutex new.
 	
 	annotationCoder := GtTextCoder new
 		parser: LeAnnotationParser;
