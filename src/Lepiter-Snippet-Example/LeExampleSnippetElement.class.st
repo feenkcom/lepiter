@@ -9,7 +9,8 @@ Class {
 		'toolbarContainer',
 		'browseExampleButton',
 		'runExampleButton',
-		'exportExampleButton'
+		'exportExampleButton',
+		'mutexPreviewComputation'
 	],
 	#category : #'Lepiter-Snippet-Example-Snippet'
 }
@@ -59,6 +60,12 @@ LeExampleSnippetElement >> computeExamplePreviewElement [
 	^ anElement
 ]
 
+{ #category : #'private - updating' }
+LeExampleSnippetElement >> criticalComputeExamplePreviewElement [
+	<return: #BlElement>
+	^ mutexPreviewComputation critical: [ self computeExamplePreviewElement ]
+]
+
 { #category : #'private - event handling' }
 LeExampleSnippetElement >> exportExample [
 
@@ -104,6 +111,8 @@ LeExampleSnippetElement >> exportExample [
 { #category : #initialization }
 LeExampleSnippetElement >> initialize [
 	super initialize.
+	
+	mutexPreviewComputation := Mutex new.
 	
 	exampleContainer := BlElement new
 		constraintsDo: [ :c | 
@@ -213,7 +222,7 @@ LeExampleSnippetElement >> requestExamplePreviewUpdate [
 	"I must be executed in a UI process."
 
 	self
-		withAsyncFutureDo: [ :anElementFuture | anElementFuture future: [ self computeExamplePreviewElement ] ]
+		withAsyncFutureDo: [ :anElementFuture | anElementFuture future: [ self criticalComputeExamplePreviewElement ] ]
 ]
 
 { #category : #'private - event handling' }
@@ -269,10 +278,8 @@ LeExampleSnippetElement >> updateExamplePreviewWithPreview: aComputedExamplePrev
 	"I must be executed in a UI process."
 
 	self snippetViewModel
-		gtExampleDo: [ :aGtExample | 
-			(aComputedExamplePreview hasExample
-				and: [ aComputedExamplePreview example = aGtExample ]) ifFalse: [ ^ self ] ]
-		ifAbsent: [ aComputedExamplePreview hasExample ifTrue: [ ^ self ] ].
+		cachedExamplePreviewDo: [ :aCachedComputedPreview | aCachedComputedPreview == aComputedExamplePreview ifFalse: [ ^ self ] ]
+		ifAbsent: [ ^ self ].
 
 	exampleEditor
 		textualCoderViewModel: self snippetViewModel annotationCoderViewModel.
@@ -293,9 +300,9 @@ LeExampleSnippetElement >> updateExamplePreviewWithPreview: aComputedExamplePrev
 
 	exampleContainer removeChildNamed: #example.
 	aComputedExamplePreview hasElement
-		ifTrue: [ self
+		ifTrue: [ "self
 				assert: [ aComputedExamplePreview element isAttachedToSceneGraph not ]
-				description: [ 'Cached example preview element must be detached from a scene graph.' ].
+				description: [ 'Cached example preview element must be detached from a scene graph.' ]."
 
 			aComputedExamplePreview element removeFromParent.
 			exampleContainer addChild: aComputedExamplePreview element as: #example ]
