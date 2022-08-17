@@ -9,15 +9,22 @@ Class {
 
 { #category : #private }
 LePharoRewriteSnippetElement >> computeDuplicatesIn: anAst [
-	| duplicates |
+	| duplicates senders |
 	duplicates := Dictionary new.
+	senders := Dictionary new.
 	anAst
 		withAllNodesDo: [ :each | 
 			each
 				attributeNamed: #ocurrences
 				put: ((duplicates at: each ifAbsentPut: [ OrderedCollection new ])
 						add: each;
-						yourself) ]
+						yourself).
+			each isMessage
+				ifTrue: [ each
+						attributeNamed: #senders
+						put: ((senders at: each ifAbsentPut: [ OrderedCollection new ])
+								add: each;
+								yourself) ] ]
 ]
 
 { #category : #actions }
@@ -28,10 +35,56 @@ LePharoRewriteSnippetElement >> convertAllToAny: aNode [
 ]
 
 { #category : #actions }
+LePharoRewriteSnippetElement >> convertAllToAnyMessage: aNode [
+	| source messageAndArgs |
+	source := self searchSource.
+	messageAndArgs := (self safePatternSelectorIn: aNode basedOn: '`@msg:') , ' '
+			, (self safePatternVariableIn: aNode basedOn: '``@args').
+	(aNode attributeNamed: #senders ifAbsent: [ #() ])
+		do: [ :each | 
+			self
+				convertMessage: each
+				to: messageAndArgs
+				in: source ].
+	self snippet search: source asString.
+	self
+		convertReplacementSendsOf: aNode selector
+		using: [ :each :s | 
+			self
+				convertMessage: each
+				to: messageAndArgs
+				in: s ]
+]
+
+{ #category : #actions }
 LePharoRewriteSnippetElement >> convertAllToLiteral: aNode [
 	| name |
 	name := self safePatternVariableIn: aNode basedOn: '``#literal'.
 	self replaceAll: aNode with: name
+]
+
+{ #category : #actions }
+LePharoRewriteSnippetElement >> convertAllToMessage: aNode [
+	| source newSelector pattern |
+	source := self searchSource.
+	pattern := aNode isBinary
+			ifTrue: [ '`msg:' ]
+			ifFalse: [ aNode selectorParts inject: '' into: [ :sum :each | sum , '`' , each source ] ].
+	newSelector := self safePatternSelectorIn: aNode basedOn: pattern.
+	(aNode attributeNamed: #senders ifAbsent: [ #() ])
+		do: [ :each | 
+			self
+				convertMessage: each
+				toSelector: newSelector
+				in: source ].
+	self snippet search: source asString.
+	self
+		convertReplacementSendsOf: aNode selector
+		using: [ :each :s | 
+			self
+				convertMessage: each
+				toSelector: newSelector
+				in: s ]
 ]
 
 { #category : #actions }
@@ -56,6 +109,47 @@ LePharoRewriteSnippetElement >> convertBlockArgs: aNode [
 ]
 
 { #category : #actions }
+LePharoRewriteSnippetElement >> convertMessage: aNode to: messageAndArgs in: source [
+	| needsParens |
+	needsParens := aNode parent parent notNil
+			and: [ aNode parent parent isMessage
+					or: [ aNode parent parent isMessageSend or: [ aNode parent parent isCascade ] ] ].
+	needsParens ifTrue: [ source insert: '(' at: aNode parent startPosition ].
+	source
+		replaceFrom: aNode startPosition
+		to: aNode stopPosition
+		with: messageAndArgs , (needsParens ifTrue: [ ')' ] ifFalse: [ '' ])
+]
+
+{ #category : #actions }
+LePharoRewriteSnippetElement >> convertMessage: aNode toSelector: selector in: source [
+	aNode isUnary
+		ifTrue: [ source
+				replaceFrom: aNode startPosition
+				to: aNode stopPosition
+				with: selector ]
+		ifFalse: [ aNode selectorParts
+				with: (selector findTokens: #($:))
+				do: [ :kw :each | 
+					source
+						replaceFrom: kw startPosition
+						to: kw stopPosition
+						with: each , ':' ] ]
+]
+
+{ #category : #actions }
+LePharoRewriteSnippetElement >> convertReplacementSendsOf: selector using: aBlock [
+	| source ast originalSource |
+	originalSource := self snippet replace.
+	ast := self parseExpression: originalSource.
+	source := SmaCCString on: originalSource.
+	ast
+		withAllNodesOfType: GtPharoMessageNode
+		do: [ :each | each selector = selector ifTrue: [ aBlock value: each value: source ] ].
+	self snippet replace: source asString
+]
+
+{ #category : #actions }
 LePharoRewriteSnippetElement >> convertToAny: aNode [
 	| source |
 	(self isRepeated: aNode) ifFalse: [ ^ self convertAllToAny: aNode ].
@@ -69,18 +163,16 @@ LePharoRewriteSnippetElement >> convertToAny: aNode [
 
 { #category : #actions }
 LePharoRewriteSnippetElement >> convertToAnyMessage: aNode [
-	| source needsParens |
+	| source messageAndArgs |
+	(aNode attributeNamed: #senders ifAbsent: [ #() ]) size = 1
+		ifTrue: [ ^ self convertAllToAnyMessage: aNode ].
 	source := self searchSource.
-	needsParens := aNode parent parent notNil
-			and: [ aNode parent parent isMessage
-					or: [ aNode parent parent isMessageSend or: [ aNode parent parent isCascade ] ] ].
-	needsParens ifTrue: [ source insert: '(' at: aNode parent startPosition ].
-	source
-		replaceFrom: aNode startPosition
-		to: aNode stopPosition
-		with: (self safePatternSelectorIn: aNode basedOn: '`@msg:') , ' '
-				, (self safePatternVariableIn: aNode basedOn: '``@args')
-				, (needsParens ifTrue: [ ')' ] ifFalse: [ '' ]).
+	messageAndArgs := (self safePatternSelectorIn: aNode basedOn: '`@msg:') , ' '
+			, (self safePatternVariableIn: aNode basedOn: '``@args').
+	self
+		convertMessage: aNode
+		to: messageAndArgs
+		in: source.
 	self snippet search: source asString
 ]
 
@@ -111,23 +203,17 @@ LePharoRewriteSnippetElement >> convertToLiteralOfType: aNode [
 { #category : #actions }
 LePharoRewriteSnippetElement >> convertToMessage: aNode [
 	| source selector pattern |
+	(aNode attributeNamed: #senders ifAbsent: [ #() ]) size = 1
+		ifTrue: [ ^ self convertAllToMessage: aNode ].
 	source := self searchSource.
 	pattern := aNode isBinary
 			ifTrue: [ '`msg:' ]
 			ifFalse: [ aNode selectorParts inject: '' into: [ :sum :each | sum , '`' , each source ] ].
 	selector := self safePatternSelectorIn: aNode basedOn: pattern.
-	aNode isUnary
-		ifTrue: [ source
-				replaceFrom: aNode startPosition
-				to: aNode stopPosition
-				with: selector ]
-		ifFalse: [ aNode selectorParts
-				with: (selector findTokens: #($:))
-				do: [ :kw :each | 
-					source
-						replaceFrom: kw startPosition
-						to: kw stopPosition
-						with: each , ':' ] ].
+	self
+		convertMessage: aNode
+		toSelector: selector
+		in: source.
 	self snippet search: source asString
 ]
 
@@ -354,6 +440,8 @@ LePharoRewriteSnippetElement >> menuItemsFor: aNode [
 	aNode isVariable ifTrue: [ self menuItemsForVariable: aNode into: items ].
 	aNode isMessageSend
 		ifTrue: [ self menuItemsForMessage: aNode message into: items ].
+	(aNode isMessage and: [ aNode parent isCascade ])
+		ifTrue: [ self menuItemsForMessage: aNode into: items ].
 	aNode isBlock ifTrue: [ self menuItemsForBlock: aNode into: items ].
 	^ items
 ]
@@ -389,16 +477,31 @@ LePharoRewriteSnippetElement >> menuItemsForLiteral: aNode into: items [
 
 { #category : #private }
 LePharoRewriteSnippetElement >> menuItemsForMessage: aNode into: items [
+	| hasMultiple |
+	hasMultiple := (aNode attributeNamed: #senders ifAbsent: [ #() ]) size > 1.
 	items
 		add: (self
 				menuItem: 'Match any message'
 				for: aNode
 				action: [ self convertToAnyMessage: aNode ]).
+	hasMultiple
+		ifTrue: [ items
+				add: (self
+						menuItem: 'Match any message for all senders'
+						for: aNode
+						action: [ self convertAllToAnyMessage: aNode ]) ].
 	items
 		add: (self
 				menuItem: 'Match ' , aNode arguments size printString , ' argument message'
 				for: aNode
-				action: [ self convertToMessage: aNode ])
+				action: [ self convertToMessage: aNode ]).
+	hasMultiple
+		ifTrue: [ items
+				add: (self
+						menuItem: 'Match ' , aNode arguments size printString
+								, ' argument message for all senders'
+						for: aNode
+						action: [ self convertAllToMessage: aNode ]) ]
 ]
 
 { #category : #private }
