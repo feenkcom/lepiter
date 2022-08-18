@@ -429,8 +429,13 @@ LePharoRewriteSnippetElement >> menuItem: aString for: aNode action: aBlock [
 LePharoRewriteSnippetElement >> menuItemsFor: aNode [
 	| items |
 	items := OrderedCollection new.
-	(aNode isVariable and: [ aNode variableName beginsWith: '`' ])
-		ifTrue: [ ^ items ].
+	aNode isVariable
+		ifTrue: [ items
+				add: (self
+						menuItem: 'Rename variable'
+						for: aNode
+						action: [ self renameVariable: aNode ]).
+			(aNode variableName beginsWith: '`') ifTrue: [ ^ items ] ].
 	(aNode isMessage
 		and: [ aNode selectorParts anySatisfy: [ :each | each source beginsWith: '`' ] ])
 		ifTrue: [ ^ items ].
@@ -554,6 +559,27 @@ LePharoRewriteSnippetElement >> parseExpression: aString [
 	^ GtPharoPatternParser
 		parseWithErrors: aString
 		startingAt: GtPharoParser startingStateForMethodSequence
+]
+
+{ #category : #private }
+LePharoRewriteSnippetElement >> renameVariable: aNode [
+	self
+		searchEditorDo: [ :searchElement | 
+			self
+				replaceEditorDo: [ :replaceElement | 
+					| action searchIntervals replaceIntervals |
+					searchIntervals := OrderedCollection with: aNode sourceInterval.
+					(aNode attributeNamed: #ocurrences)
+						do: [ :each | each == aNode ifFalse: [ searchIntervals add: each sourceInterval ] ].
+					action := GtCompositeRenameAction
+							locations: searchIntervals
+							element: searchElement.
+					replaceIntervals := OrderedCollection new.
+					(self parseExpression: replaceElement editor text)
+						allNodesOfType: GtPharoVariableNode
+						do: [ :each | each = aNode ifTrue: [ replaceIntervals add: each sourceInterval ] ].
+					action addLocations: replaceIntervals to: replaceElement editor.
+					action install ] ]
 ]
 
 { #category : #actions }
