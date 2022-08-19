@@ -38,7 +38,8 @@ LeWardleyMapNodeEditorElement >> createNodeLinkEditor [
 	linkEditor := BrEditableLabel new
 		aptitude: BrGlamorousEditableLabelAptitude new;
 		text: '';
-		fitContent.
+		hExact: 100;
+		vFitContent.
 	
 	linkEditorCompletionStrategy := LeCompletionStrategy new.
 
@@ -78,7 +79,8 @@ LeWardleyMapNodeEditorElement >> createPropertyEditorElements [
 		
 		BrHorizontalPane new
 			cellSpacing: 5;
-			hMatchParent;
+			vFitContent;
+			hFitContentLimited;
 			margin: (BlInsets top: 5 left: 0 bottom: 2 right: 0);
 			alignCenterLeft;
 			addChildren: {
