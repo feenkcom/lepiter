@@ -192,6 +192,24 @@ LeContent >> allChildrenDepthFirstDo: aBlock [
 	self childrenDo: [ :each | each withAllChildrenDepthFirstDo: aBlock ]
 ]
 
+{ #category : #'api - enumerating' }
+LeContent >> allChildrenSnippetsMatching: aBlock [
+	| matchingSnippets |
+	matchingSnippets := OrderedCollection new.
+	
+	self allChildrenBreadthFirstDo: [ :aSnippet | 
+		(aBlock value: aSnippet)
+			ifTrue: [ matchingSnippets add: aSnippet ] ].
+	
+	^ matchingSnippets 
+]
+
+{ #category : #'api - enumerating' }
+LeContent >> allChildrenTextSnippets [
+	^ self allChildrenSnippetsMatching: [ :aSnippet |
+		aSnippet isTextSnippet ]
+]
+
 { #category : #'private - accessing' }
 LeContent >> allOutgoingExplicitLinks [
 	| all |

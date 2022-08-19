@@ -482,6 +482,11 @@ LeTextSnippet >> text: aBlText [
 	self updateUnlinkedReferences.
 ]
 
+{ #category : #accessing }
+LeTextSnippet >> todoAnnotations [
+	^ self ast // #LeTodoAnnotationNode
+]
+
 { #category : #'api - updating' }
 LeTextSnippet >> unlinkedTarget: aLeContent in: aLeLink [
 	super unlinkedTarget: aLeContent in: aLeLink.
