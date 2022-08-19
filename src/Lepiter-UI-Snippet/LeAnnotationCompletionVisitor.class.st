@@ -60,7 +60,7 @@ LeAnnotationCompletionVisitor >> optionsFor: annotationType startingWith: aStrin
 	annotationType = 'gtPackage' ifTrue: [ values := #(name label tag expanded show height) ].
 	annotationType = 'gtMethod' ifTrue: [ values := #(name label expanded show height) ].
 	annotationType = 'gtExample'
-		ifTrue: [ values := #(name label expanded codeExpanded noCode previewHeight previewExpanded alignment return) ].
+		ifTrue: [ values := #(name label expanded codeExpanded noCode previewHeight previewExpanded previewShow alignment return) ].
 	annotationType = 'gtTodo' ifTrue: [ values := #(label due completed) ].
 	self composite
 		addStream:
