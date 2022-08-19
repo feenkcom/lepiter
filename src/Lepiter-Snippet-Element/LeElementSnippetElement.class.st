@@ -19,7 +19,8 @@ Class {
 		'snippetResizer',
 		'coderResizer',
 		'showCoderToggle',
-		'maximizerLook'
+		'maximizerLook',
+		'coderSlideActionsToolbar'
 	],
 	#category : #'Lepiter-Snippet-Element-Snippet'
 }
@@ -27,7 +28,7 @@ Class {
 { #category : #initialization }
 LeElementSnippetElement >> createCoderContainer [
 	^ BlElement new
-		layout: (BlGridLayout horizontal columnCount: 2);
+		layout: (BlGridLayout horizontal columnCount: 3);
 		padding: (BlInsets all: 5);
 		constraintsDo: [ :c |
 			c horizontal matchParent.
@@ -52,6 +53,17 @@ LeElementSnippetElement >> createCoderElement [
 		hMatchParent
 ]
 
+{ #category : #'private - coder' }
+LeElementSnippetElement >> createCoderSlideActionsToolbar [
+	^ BrToolbar new
+		constraintsDo: [ :c |
+			c frame horizontal alignRight.
+			c frame vertical alignTop ];
+		margin: (BlInsets top: 0 right: 0 bottom: 5 left: 5);
+		aptitude: BrGlamorousToolbarAptitude;
+		addItem: self createRefreshContentButton
+]
+
 { #category : #initialization }
 LeElementSnippetElement >> createCoderToolbar [
 	^ GtCoderActionsElement new
@@ -64,6 +76,21 @@ LeElementSnippetElement >> createElementContainer [
 		hMatchParent;
 		vExact: 100;
 		padding: (BlInsets all: 5)
+]
+
+{ #category : #'private - coder' }
+LeElementSnippetElement >> createRefreshContentButton [
+	^ BrButton new
+		beSmallSize;
+		margin: (BlInsets top: 0 right: 0 bottom: 10 left: 10);
+		padding: (BlInsets all: 10);
+		zIndex: 10;
+		aptitude: BrGlamorousButtonWithIconAptitude + BrGlamorousToggleBackgroundAptitude;
+		icon: BrGlamorousIcons refresh asElement;
+		label: 'Refresh' asString;
+		action: [
+			self generateDisplayElement];
+		yourself
 ]
 
 { #category : #initialization }
@@ -122,11 +149,13 @@ LeElementSnippetElement >> ensureCoderCreated [
 	coderElement editor addEventHandler: (LeEditorReachedBorderEventHandler new snippetElement: self).
 	coderDecorationBar := self createCoderDecorationBar.
 	coderToolbar := self createCoderToolbar.
+	coderSlideActionsToolbar := self createCoderSlideActionsToolbar.
 
 	coderContainer := self createCoderContainer.
 	coderContainer
 		addChild: coderDecorationBar;
 		addChild: coderElement;
+		addChild: coderSlideActionsToolbar;
 		addChild: coderToolbar
 ]
 
