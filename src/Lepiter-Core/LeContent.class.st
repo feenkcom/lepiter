@@ -235,6 +235,13 @@ LeContent >> allOutgoingTextualLinks [
 	^ self allOutgoingLinks select: [ :each | each isTextualLink ]
 ]
 
+{ #category : #'api - enumerating' }
+LeContent >> allTextSnippetsWithAnnotation: anAnnotationType [
+	^ self allChildrenTextSnippets select: [ :aTextSnippet |
+		
+		(aTextSnippet ast // anAnnotationType name) notEmpty ]
+]
+
 { #category : #'private - notifications' }
 LeContent >> announceContentAdded: aLeSnippet [
 	"Announce that the receiver has added a snippet to the tree"
