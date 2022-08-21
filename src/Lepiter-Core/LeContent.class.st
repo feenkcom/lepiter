@@ -673,6 +673,13 @@ LeContent >> isSnippet [
 	^ false
 ]
 
+{ #category : #accessing }
+LeContent >> knowledgeBase [
+	<return: #LeDatabase>
+	
+	^ database
+]
+
 { #category : #'api - accessing' }
 LeContent >> lastChildOrSelf [
 	"Answer the last child or self, i.e. descend through child nodes until there are no more"
