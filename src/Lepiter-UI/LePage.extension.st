@@ -51,6 +51,7 @@ LePage >> asPreviewElement [
 
 { #category : #'*Lepiter-UI' }
 LePage >> gtConnectionsFor: aView [
+	<gtView>
 	^ aView explicit
 		title: 'Connections';
 		stencil: [	
