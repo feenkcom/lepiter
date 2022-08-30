@@ -28,7 +28,9 @@ LeLogicalDatabaseReload >> dbFor: aFileReference [
 	If it is an existing DB, use that instance.  If it is a new DB, load it."
 	| newDb |
 
-	existingDbs detect: [ :db | db localStoreRootDirectory = aFileReference ]
+	existingDbs 
+		detect: [ :db | 
+			db localStoreRootDirectory resolve = aFileReference resolve ]
 		ifFound: [ :db | ^ db ].
 
 	newDb := LeLocalStoreLoad current loadAndMonitorFrom: aFileReference.

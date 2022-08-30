@@ -3,6 +3,9 @@ Class {
 	#superclass : #Object,
 	#traits : 'TAssertable',
 	#classTraits : 'TAssertable classTrait',
+	#instVars : [
+		'theFileSystem'
+	],
 	#category : #'Lepiter-Core-Examples-Database'
 }
 
@@ -253,12 +256,18 @@ LeLogicalDatabaseExamples >> crossDatabaseLinkLoadRegistered [
 
 ]
 
+{ #category : #private }
+LeLogicalDatabaseExamples >> currentFileSystem [
+	^ theFileSystem ifNil: [
+		theFileSystem := FileSystem memory ]
+]
+
 { #category : #'examples - directories' }
 LeLogicalDatabaseExamples >> databaseDirectoryNamed: aName [
 	<gtExample>
-	| aStore aFile |
-	aStore := FileSystem memory.
-	aFile := aStore workingDirectory / 'lepiterdbs' / aName asString.
+	| currentFileSystem aFile |
+	currentFileSystem := self currentFileSystem.
+	aFile := currentFileSystem workingDirectory / 'lepiterdbs' / aName asString.
 	aFile ensureCreateDirectory.
 	^ aFile.
 ]
