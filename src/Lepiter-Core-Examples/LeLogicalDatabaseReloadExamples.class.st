@@ -225,6 +225,63 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadUnloadRegistered [
 ]
 
 { #category : #'examples - Logical DB' }
+LeLogicalDatabaseReloadExamples >> logicalDatabaseWithFileLocatorRootReload [
+	"This tests the basic scenario of reloading the primary database and a registered databases when the individual databases use a file locator. This should not create a new instance for any of the existing databases on reload. This example exists as we had bug where were using both file references and file locators to the same folder that we causing databses to be recreated instead of being updated."
+	<gtExample>
+	<after: #deleteTemporaryDirectory>
+	| logicalDB primaryDB registeredDB announcements |
+
+	"Store all the received announcements"
+	announcements := OrderedCollection new.
+	
+	primaryDB := self createDatabaseOnDiskWithFileLocatorRoot.
+	primaryDB databaseName: #primary.
+
+	registeredDB := self newDb: 'registered' root: temporaryDirectory.
+	registeredDB databaseName: #registered.
+	self populate: registeredDB.
+	
+	logicalDB := LeLogicalDatabase new.
+	logicalDB when: LeDatabaseAnnouncement do: [ :announcement | announcements add: announcement ].
+	logicalDB
+		primaryDB: primaryDB.
+	logicalDB addDB: registeredDB.
+	logicalDB properties: (LeLogicalDatabaseProperties new 
+		localFile: temporaryDirectory / LepiterCoreDefaults logicalDatabasePropertiesBasename;
+		primaryDatabaseDirectory: primaryDB localStoreRootDirectory;
+		addRegisteredDirectory: registeredDB localStoreRootDirectory).
+
+	"Confirm that each DB is in the expected state"
+	{ primaryDB. registeredDB. } do: [ :db |
+		self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].
+
+	"Reload the logical database in place without any changes"
+	logicalDB primaryDB reload.
+
+	"Confirm that each DB has been reloaded correctly"
+	{ primaryDB. registeredDB. } do: [ :db |
+		"Confirm that each DB has the same page"
+		self assert: (db pageNamed: #Page1) children first string equals: #Snippet1.
+		"Confirm that each DB has the logical DB as its parent"
+		self assert: db parent equals: logicalDB. ].
+
+	self assert: announcements size equals: 2.
+	self assert: (announcements collect: #database as: Array) equals:
+		{ primaryDB. registeredDB. }.
+		
+	"Ensure that after reload the identity of individual databases did not changed.
+	The update should just reload them."
+	self 
+		assert: logicalDB primaryDB == primaryDB
+		description: 'The logical database should preserve identity'.
+	self 
+		assert: logicalDB registeredDBs first == registeredDB
+		description: 'The registered database should preserve identity'.
+
+	^ logicalDB
+]
+
+{ #category : #'examples - Logical DB' }
 LeLogicalDatabaseReloadExamples >> logicalPrimaryDatabaseReset [
 	"This simulates the scenario where the lepiter app is distributed with a primary DB assumed, but is run for the first time on a new machine"
 	<gtExample>

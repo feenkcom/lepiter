@@ -27,8 +27,20 @@ LeBasicDatabaseReloadExamples >> createDatabaseOnDisk [
 	temporaryDirectory := FileReference newTempFilePrefix: self class name, '-' suffix: '-testDbs'.
 	db := self newDb: 'db1' root: temporaryDirectory.
 	self populate: db.
+	
 	^ db
+]
 
+{ #category : #private }
+LeBasicDatabaseReloadExamples >> createDatabaseOnDiskWithFileLocatorRoot [
+	| db |
+
+	temporaryDirectory := FileReference 
+		gtNewTempFileLocatorPrefix: self class name, '-' suffix: '-testDbs'.
+	db := self newDb: 'db1' root: temporaryDirectory.
+	self populate: db.
+	
+	^ db
 ]
 
 { #category : #private }
