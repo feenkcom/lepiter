@@ -8,7 +8,7 @@ Class {
 	#superclass : #Object,
 	#traits : 'TAssertable',
 	#classTraits : 'TAssertable classTrait',
-	#category : 'Lepiter-Store-Local-Examples'
+	#category : #'Lepiter-Store-Local-Examples'
 }
 
 { #category : #private }
@@ -271,13 +271,11 @@ LeJsonV4Examples >> textWithPharoCode [
 	codeObject := textObject children first.
 	self assert: codeObject uid equals: (LeUID new uidString: 'codeuid0').
 	self assert: codeObject code equals: '4 + 3'.
-	self
-		assert: textObject createEmail
-		identicalTo: codeObject createEmail.
+	self assert: textObject createEmail equals: codeObject createEmail.
 		
-	self assert: textObject editEmail identicalTo: codeObject editEmail.
-	self assert: textObject createTime identicalTo: codeObject createTime.
-	self assert: textObject editTime identicalTo: codeObject editTime.
+	self assert: textObject editEmail equals: codeObject editEmail.
+	self assert: textObject createTime equals: codeObject createTime.
+	self assert: textObject editTime equals: codeObject editTime.
 	^ textObject
 ]
 

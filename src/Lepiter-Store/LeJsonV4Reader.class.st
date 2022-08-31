@@ -52,9 +52,11 @@ LeJsonV4Reader >> object: type from: map [
 
 { #category : #private }
 LeJsonV4Reader >> objectFor: anObject [
-	"Answer the single instance of anObject."
+	"Minimise memory usage by making Strings and ByteArrays singular."
 
-	^ objects at: anObject ifAbsentPut: [ anObject ]
+	^ (anObject isString or: [ anObject class = ByteArray ])
+		ifTrue: [ objects at: anObject ifAbsentPut: [ anObject ] ]
+		ifFalse: [ anObject ].
 ]
 
 { #category : #'initialize-release' }
