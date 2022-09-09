@@ -28,7 +28,7 @@ FileLocator class >> leJsonV4MappingFor: aNeoJSONMapper [
 			setter: [ :um | self error: 'Objects should not be read here' ].
 		mapping 
 			mapProperty: #filename
-			getter: [ :object | object printString ]
+			getter: [ :object | object halt gtDisplayString ]
 			setter: [ :fileString | self halt. fileString asFileReference ] ].
 
 ]
