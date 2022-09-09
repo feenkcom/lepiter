@@ -30,7 +30,6 @@ LeJsonV4SerialisationExamples >> deSerializeAllImplementors [
 		FileReference. 
 		GtPackageExampleGroup. 
 		GtDynamicExampleGroup. 
-		LwRrPersistentTimeTaskGrouper. 
 		Ephemeron. 
 		STONFileReference. 
 		LeDailyNote. 
