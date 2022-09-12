@@ -8,7 +8,7 @@ Class {
 	#instVars : [
 		'database'
 	],
-	#category : 'Lepiter-UI-Snippet-Spotter'
+	#category : #'Lepiter-UI-Snippet-Spotter'
 }
 
 { #category : #accessing }
@@ -24,6 +24,19 @@ LeContextMenuSpotterStart >> database: anObject [
 { #category : #printing }
 LeContextMenuSpotterStart >> gtDisplayString [
 	^ 'New snippet'
+]
+
+{ #category : #searching }
+LeContextMenuSpotterStart >> gtNewSnippetFor: aSearch [
+	<gtSpotterSearch>
+
+	^ aSearch list
+		priority: 1;
+		items: [ LeContextMenuBuilder new build ];
+		title: 'Snippet type';
+		itemName: #title;
+		filter: GtSpotterSubstringFilter;
+		wantsToDisplayOnEmptyQuery: true
 ]
 
 { #category : #searching }
