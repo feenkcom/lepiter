@@ -31,11 +31,11 @@ LeContextMenuSpotterStart >> gtNewSnippetFor: aSearch [
 	<gtSpotterSearch>
 
 	^ aSearch list
+		title: 'Snippet type';
 		priority: 1;
 		items: [ LeContextMenuBuilder new build ];
-		title: 'Snippet type';
 		itemName: #title;
-		filter: GtSpotterSubstringFilter;
+		filter: GtSpotterSubstringFilter new;
 		wantsToDisplayOnEmptyQuery: true
 ]
 
