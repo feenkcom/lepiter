@@ -4,7 +4,8 @@ Class {
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
 	#instVars : [
-		'newReader'
+		'newReader',
+		'newWriter'
 	],
 	#category : #'Lepiter-Store-JsonV4'
 }
@@ -66,11 +67,11 @@ LeJsonV4 >> newReader [
 
 { #category : #initialization }
 LeJsonV4 >> newWriter [ 
-	| newWriter |
 
-	newWriter := LeJsonV4Writer new.
-	self allClassMappingsFor: newWriter.
-	^ newWriter 
+	newWriter ifNil: 
+		[ newWriter := LeJsonV4Writer new.
+		self allClassMappingsFor: newWriter ].
+	^ newWriter copy
 ]
 
 { #category : #private }

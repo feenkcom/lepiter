@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'firstMappedObject'
 	],
-	#category : 'Lepiter-Store-JsonV4'
+	#category : #'Lepiter-Store-JsonV4'
 }
 
 { #category : #'initialize-release' }
@@ -12,6 +12,15 @@ LeJsonV4Writer >> on: aStream [
 
 	super on: aStream.
 	firstMappedObject := true.
+]
+
+{ #category : #copying }
+LeJsonV4Writer >> postCopy [
+
+	super postCopy.
+	writeStream := nil.
+	level := 0.
+	firstMappedObject := nil.
 ]
 
 { #category : #writing }
