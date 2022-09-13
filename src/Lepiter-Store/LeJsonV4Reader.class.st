@@ -83,11 +83,9 @@ LeJsonV4Reader >> parseValue [
 	^ self objectFor: super parseValue
 ]
 
-{ #category : #accessing }
+{ #category : #copying }
 LeJsonV4Reader >> postCopy [
 	super postCopy.
-	mappings := mappings copy.
-	typeMap := typeMap copy.
 	readStream := nil.
 	stringStream := nil.
 	listClass := nil.
