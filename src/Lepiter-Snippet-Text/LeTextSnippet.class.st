@@ -503,7 +503,6 @@ LeTextSnippet >> updateOutgoingTextualLinks [
 	aNode := LeParser parseWithErrors: self string.
 	self ast: aNode.
 	aVisitor := LeBlockLinksVisitor new.
-	aVisitor addVisitor: LePageLinkAnnotationVisitor new.
 	aNode acceptVisitor: aVisitor.
 	self addToDatabaseOrCacheTextualLinks: aVisitor links.
 

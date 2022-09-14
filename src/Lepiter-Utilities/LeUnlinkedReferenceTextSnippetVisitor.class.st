@@ -12,13 +12,18 @@ Explicitly excluded are internal links (double bracket links).
 Class {
 	#name : #LeUnlinkedReferenceTextSnippetVisitor,
 	#superclass : #Object,
-	#traits : 'TSmaCCCompositeVisitor + (TLeContentNodeVisitor - {#acceptNode:})',
-	#classTraits : 'TSmaCCCompositeVisitor classTrait + TLeContentNodeVisitor classTrait',
+	#traits : 'TLeExtensibleContentNodeVisitor',
+	#classTraits : 'TLeExtensibleContentNodeVisitor classTrait',
 	#instVars : [
 		'stream'
 	],
 	#category : #'Lepiter-Utilities-Utilities'
 }
+
+{ #category : #accessing }
+LeUnlinkedReferenceTextSnippetVisitor class >> defaultComponentVisitorClasses [
+	^ {LeUnlinkedReferenceAnnotationVisitor}
+]
 
 { #category : #accessing }
 LeUnlinkedReferenceTextSnippetVisitor >> stream [
@@ -29,7 +34,8 @@ LeUnlinkedReferenceTextSnippetVisitor >> stream [
 LeUnlinkedReferenceTextSnippetVisitor >> stream: anObject [
 	stream := anObject.
 	visitors := nil.
-	self addVisitor: (LeUnlinkedReferenceAnnotationVisitor new stream: stream)
+	self initializeComponentVisitors.
+	visitors do: [ :each | each stream: stream ]
 ]
 
 { #category : #visiting }

@@ -1,39 +1,35 @@
 Class {
 	#name : #LeSnippetStylerVisitor,
 	#superclass : #LeContentNodeVisitor,
-	#traits : 'TSmaCCCompositeVisitor + (TLeContentNodeVisitor - {#acceptNode:})',
-	#classTraits : 'TSmaCCCompositeVisitor classTrait + TLeContentNodeVisitor classTrait',
+	#traits : 'TLeExtensibleContentNodeVisitor',
+	#classTraits : 'TLeExtensibleContentNodeVisitor classTrait',
 	#instVars : [
 		'styler',
 		'text',
 		'referencedPage',
 		'results'
 	],
-	#classVars : [
-		'AdditionalStylers'
-	],
 	#category : #'Lepiter-UI-Snippet-Text styler'
 }
 
 { #category : #accessing }
 LeSnippetStylerVisitor class >> addStyler: aVisitorClass [
-	self additionalStylers add: aVisitorClass
+	self addComponentVisitorClass: aVisitorClass
 ]
 
 { #category : #accessing }
 LeSnippetStylerVisitor class >> additionalStylers [
-	^ AdditionalStylers
-		ifNil: [ AdditionalStylers := self defaultStylers ]
+	^ self componentVisitorClasses
 ]
 
 { #category : #accessing }
-LeSnippetStylerVisitor class >> defaultStylers [
+LeSnippetStylerVisitor class >> defaultComponentVisitorClasses [
 	^ OrderedCollection with: LeAnnotationStylerVisitor
 ]
 
 { #category : #accessing }
 LeSnippetStylerVisitor class >> removeStyler: aVisitorClass [
-	self additionalStylers remove: aVisitorClass ifAbsent: [  ]
+	self removeComponentVisitorClass: aVisitorClass
 ]
 
 { #category : #widgets }
@@ -218,8 +214,6 @@ LeSnippetStylerVisitor >> fontSizeForHeadingLevel: aHeadingLevel [
 { #category : #initialization }
 LeSnippetStylerVisitor >> initialize [
 	super initialize.
-	self class additionalStylers
-		do: [ :each | self addVisitor: each new ].
 	results := IdentitySet new
 ]
 

@@ -1,12 +1,12 @@
 Class {
 	#name : #LePageLinkVisitor,
 	#superclass : #LeContentNodeVisitor,
-	#traits : 'TSmaCCCompositeVisitor + (TLeContentNodeVisitor - {#acceptNode:})',
-	#classTraits : 'TSmaCCCompositeVisitor classTrait + TLeContentNodeVisitor classTrait',
+	#traits : 'TLeExtensibleContentNodeVisitor',
+	#classTraits : 'TLeExtensibleContentNodeVisitor classTrait',
 	#instVars : [
 		'linkedPages'
 	],
-	#category : 'Lepiter-Utilities-Utilities'
+	#category : #'Lepiter-Utilities-Utilities'
 }
 
 { #category : #initialization }

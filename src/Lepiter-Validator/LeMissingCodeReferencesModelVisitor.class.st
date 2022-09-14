@@ -38,7 +38,6 @@ LeMissingCodeReferencesModelVisitor >> visitTextSnippet: aLeTextSnippet [
 	| snippetVisitor |
 	snippetVisitor := LeMissingCodeReferencesTextVisitor new.
 	snippetVisitor missingReferences: self missingReferences.
-	snippetVisitor addVisitor: LeMissingCodeReferencesAnnotationsVisitor new.
 	snippetVisitor acceptNode: aLeTextSnippet ast.
 
 	^ self visitTextualSnippet: aLeTextSnippet
