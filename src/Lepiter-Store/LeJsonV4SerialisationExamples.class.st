@@ -10,7 +10,7 @@ Class {
 LeJsonV4SerialisationExamples >> deSerializeAllImplementors [
 	"Perform a basic check on all implementors of #leJsonV4Name that the basic serialisation / deserialisation doesn't raise an error and looks sensible"
 	<gtExample>
-	| allImplementors allClasses leJsonV4 instance deserialisedInstance clsCount testedCount excludedClasses notYetWorking|
+	| allImplementors allClasses leJsonV4 instance deserialisedInstance clsCount testedCount excludedClasses |
 
 	LeJsonV4 cleanUp.
 	allImplementors := SystemNavigation default allImplementorsOf: #leJsonV4Name.
@@ -23,19 +23,10 @@ LeJsonV4SerialisationExamples >> deSerializeAllImplementors [
 	"excludedClasses is a set of classes that can't serialise the default instance due to its implementation"
 	excludedClasses := {
 		FileLocator.
+		FileReference.
+		GtPackageExampleGroup.
 		}.
-	"This examples is still a work-in-progress.
-	These are the classes that are yet to be fixed."
-	notYetWorking := {
-		FileReference. 
-		GtPackageExampleGroup. 
-		GtDynamicExampleGroup. 
-		Ephemeron. 
-		STONFileReference. 
-		LeDailyNote. 
-		LeUID } asSet.
 	allClasses removeAll: excludedClasses.
-	allClasses removeAll: notYetWorking.
 	allClasses do: [ :cls |
 		(cls perform: #leJsonV4Name) ifNotNil:
 			[ [ instance := cls new ]

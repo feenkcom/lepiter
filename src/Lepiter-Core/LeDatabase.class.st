@@ -641,7 +641,7 @@ LeDatabase >> newUID [
 	Ensure the UID doesn't already exist"
 	| uid |
 
-	[ uid := LeUID new uid: UUID new.
+	[ uid := LeUID new.
 	blocksByUID includesKey: uid ] whileTrue.
 
 	^ uid

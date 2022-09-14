@@ -14,6 +14,13 @@ LeDailyNote class >> forDate: aDate [
 ]
 
 { #category : #accessing }
+LeDailyNote class >> leJsonV4Name [
+	"Daily notes are deprecated and shouldn't be stored"
+
+	^ nil
+]
+
+{ #category : #accessing }
 LeDailyNote >> date [
 	^ date
 ]

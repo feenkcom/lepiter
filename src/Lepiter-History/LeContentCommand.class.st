@@ -79,7 +79,7 @@ LeContentCommand >> executeSubcommands [
 { #category : #initialization }
 LeContentCommand >> initialize [ 
 	super initialize.
-	uid := LeUID new uid: UUID new.
+	uid := LeUID new.
 	subcommands := OrderedCollection new.
 ]
 

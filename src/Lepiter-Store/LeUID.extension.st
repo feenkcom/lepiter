@@ -25,5 +25,5 @@ LeUID class >> leJsonV4AttributeMapping [
 { #category : #'*Lepiter-Store' }
 LeUID class >> leJsonV4Name [
 
-	^ 'uid'
+	^ #uid
 ]

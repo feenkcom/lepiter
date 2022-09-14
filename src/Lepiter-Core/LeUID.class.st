@@ -1,10 +1,15 @@
+"
+LeUID is the model for Lepiter's model IDs.
+
+LeUID initialises a UUID on creation, however this may be overwritten, mostly for controlled examples.
+"
 Class {
 	#name : #LeUID,
 	#superclass : #LeModel,
 	#instVars : [
 		'uid'
 	],
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #comparing }
@@ -30,6 +35,13 @@ LeUID >> hash [
 	"Answer an integer value that is related to the identity of the receiver."
 
 	^ uid hash
+]
+
+{ #category : #accessing }
+LeUID >> initialize [
+
+	super initialize.
+	uid := UUID new.
 ]
 
 { #category : #printing }
