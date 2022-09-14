@@ -40,7 +40,7 @@ LeCommandBuilder >> insertChildTextSnippetCommand [
 { #category : #accessing }
 LeCommandBuilder >> newSnippetUid [ 
 	^ self targetDatabase isDatabase 
-		ifFalse:  [ LeUID new uid: UUID new ]
+		ifFalse:  [ LeUID new ]
 		ifTrue: [ self targetDatabase newUID ]
 ]
 
