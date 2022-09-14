@@ -1,12 +1,12 @@
 Class {
 	#name : #LeTextSnippetResourcesVisitor,
 	#superclass : #LeResourcesVisitor,
-	#traits : 'TSmaCCCompositeVisitor + (TLeContentNodeVisitor - {#acceptNode:})',
-	#classTraits : 'TSmaCCCompositeVisitor classTrait + TLeContentNodeVisitor classTrait',
+	#traits : 'TLeExtensibleContentNodeVisitor + TSmaCCCompositeVisitor + (TLeContentNodeVisitor - {#acceptNode:})',
+	#classTraits : 'TLeExtensibleContentNodeVisitor classTrait + TSmaCCCompositeVisitor classTrait + TLeContentNodeVisitor classTrait',
 	#instVars : [
 		'textSnippet'
 	],
-	#category : 'Lepiter-HTML-Exporter'
+	#category : #'Lepiter-HTML-Exporter'
 }
 
 { #category : #building }

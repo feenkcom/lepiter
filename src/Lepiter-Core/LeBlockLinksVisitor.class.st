@@ -1,13 +1,18 @@
 Class {
 	#name : #LeBlockLinksVisitor,
 	#superclass : #LeContentNodeVisitor,
-	#traits : 'TSmaCCCompositeVisitor + (TLeContentNodeVisitor - {#acceptNode:})',
-	#classTraits : 'TSmaCCCompositeVisitor classTrait + TLeContentNodeVisitor classTrait',
+	#traits : 'TLeExtensibleContentNodeVisitor + TSmaCCCompositeVisitor + (TLeContentNodeVisitor - {#acceptNode:})',
+	#classTraits : 'TLeExtensibleContentNodeVisitor classTrait + TSmaCCCompositeVisitor classTrait + TLeContentNodeVisitor classTrait',
 	#instVars : [
 		'links'
 	],
-	#category : 'Lepiter-Core-Utility'
+	#category : #'Lepiter-Core-Utility'
 }
+
+{ #category : #accessing }
+LeBlockLinksVisitor class >> defaultComponentVisitorClasses [
+	^ {LePageLinkAnnotationVisitor}
+]
 
 { #category : #defaults }
 LeBlockLinksVisitor >> defaultLinks [

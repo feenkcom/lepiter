@@ -1,8 +1,8 @@
 Class {
 	#name : #LeContentCompletionVisitor,
 	#superclass : #LeContentNodeVisitor,
-	#traits : 'TSmaCCCompositeVisitor + (TLeContentNodeVisitor - {#acceptNode:})',
-	#classTraits : 'TSmaCCCompositeVisitor classTrait + TLeContentNodeVisitor classTrait',
+	#traits : 'TLeExtensibleContentNodeVisitor + TSmaCCCompositeVisitor + (TLeContentNodeVisitor - {#acceptNode:})',
+	#classTraits : 'TLeExtensibleContentNodeVisitor classTrait + TSmaCCCompositeVisitor classTrait + TLeContentNodeVisitor classTrait',
 	#instVars : [
 		'strategy',
 		'text',
@@ -10,20 +10,16 @@ Class {
 		'stream',
 		'completionResult'
 	],
-	#classVars : [
-		'AdditionalCompletionVisitors'
-	],
 	#category : #'Lepiter-UI-Snippet-Text completion'
 }
 
 { #category : #accessing }
 LeContentCompletionVisitor class >> additionalCompletionVisitors [
-	^ AdditionalCompletionVisitors
-		ifNil: [ AdditionalCompletionVisitors := self defaultCompletionVisitors ]
+	^ self componentVisitorClasses
 ]
 
 { #category : #accessing }
-LeContentCompletionVisitor class >> defaultCompletionVisitors [
+LeContentCompletionVisitor class >> defaultComponentVisitorClasses [
 	^ OrderedCollection with: LeAnnotationCompletionVisitor
 ]
 
@@ -106,8 +102,6 @@ LeContentCompletionVisitor >> hashCompletionActionsWithPrefix: prefix [
 { #category : #initialization }
 LeContentCompletionVisitor >> initialize [
 	super initialize.
-	self class additionalCompletionVisitors
-		do: [ :each | self addVisitor: each new ].
 	stream := #() asAsyncStream
 ]
 
