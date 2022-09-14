@@ -1,8 +1,8 @@
 Class {
 	#name : #LeMissingCodeReferencesTextVisitor,
 	#superclass : #Object,
-	#traits : 'TLeExtensibleContentNodeVisitor',
-	#classTraits : 'TLeExtensibleContentNodeVisitor classTrait',
+	#traits : 'TLeExtensibleContentNodeVisitor + TSmaCCCompositeVisitor + (TLeContentNodeVisitor - {#acceptNode:})',
+	#classTraits : 'TLeExtensibleContentNodeVisitor classTrait + TSmaCCCompositeVisitor classTrait + TLeContentNodeVisitor classTrait',
 	#instVars : [
 		'missingReferences'
 	],

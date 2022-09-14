@@ -1,8 +1,8 @@
 Class {
 	#name : #LeHtmlExporterTextSnippetVisitor,
 	#superclass : #Object,
-	#traits : 'TLeExtensibleContentNodeVisitor + TIndentWriter',
-	#classTraits : 'TLeExtensibleContentNodeVisitor classTrait + TIndentWriter classTrait',
+	#traits : 'TLeExtensibleContentNodeVisitor + TSmaCCCompositeVisitor + (TLeContentNodeVisitor - {#acceptNode:}) + TIndentWriter',
+	#classTraits : 'TLeExtensibleContentNodeVisitor classTrait + TSmaCCCompositeVisitor classTrait + TLeContentNodeVisitor classTrait + TIndentWriter classTrait',
 	#instVars : [
 		'externalPicturesWriter'
 	],

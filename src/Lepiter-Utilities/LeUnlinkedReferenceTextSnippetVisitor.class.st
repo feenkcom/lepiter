@@ -12,8 +12,8 @@ Explicitly excluded are internal links (double bracket links).
 Class {
 	#name : #LeUnlinkedReferenceTextSnippetVisitor,
 	#superclass : #Object,
-	#traits : 'TLeExtensibleContentNodeVisitor',
-	#classTraits : 'TLeExtensibleContentNodeVisitor classTrait',
+	#traits : 'TLeExtensibleContentNodeVisitor + TSmaCCCompositeVisitor + (TLeContentNodeVisitor - {#acceptNode:})',
+	#classTraits : 'TLeExtensibleContentNodeVisitor classTrait + TSmaCCCompositeVisitor classTrait + TLeContentNodeVisitor classTrait',
 	#instVars : [
 		'stream'
 	],

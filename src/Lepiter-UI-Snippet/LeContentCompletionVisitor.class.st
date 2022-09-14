@@ -1,8 +1,8 @@
 Class {
 	#name : #LeContentCompletionVisitor,
 	#superclass : #LeContentNodeVisitor,
-	#traits : 'TLeExtensibleContentNodeVisitor',
-	#classTraits : 'TLeExtensibleContentNodeVisitor classTrait',
+	#traits : 'TLeExtensibleContentNodeVisitor + TSmaCCCompositeVisitor + (TLeContentNodeVisitor - {#acceptNode:})',
+	#classTraits : 'TLeExtensibleContentNodeVisitor classTrait + TSmaCCCompositeVisitor classTrait + TLeContentNodeVisitor classTrait',
 	#instVars : [
 		'strategy',
 		'text',

@@ -3,8 +3,6 @@ Trait {
 	#classInstVars : [
 		'componentVisitorClasses'
 	],
-	#traits : 'TSmaCCCompositeVisitor + (TLeContentNodeVisitor - {#acceptNode:})',
-	#classTraits : 'TSmaCCCompositeVisitor classTrait + TLeContentNodeVisitor classTrait',
 	#category : #'Lepiter-Core-Visitor'
 }
 
