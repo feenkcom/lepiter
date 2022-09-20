@@ -25,6 +25,7 @@ LeJsonV4SerialisationExamples >> deSerializeAllImplementors [
 		FileLocator.
 		FileReference.
 		GtPackageExampleGroup.
+		ScaledDecimal.
 		}.
 	allClasses removeAll: excludedClasses.
 	allClasses do: [ :cls |
@@ -57,4 +58,17 @@ LeJsonV4SerialisationExamples >> durationSerialisation [
 
 	^ reconstructed
 
+]
+
+{ #category : #accessing }
+LeJsonV4SerialisationExamples >> scaledDecimal [
+	<gtExample>
+	| original deserialized |
+
+	original := 1.2345s4.
+	deserialized := LeJsonV4 uniqueInstance deserialize:
+		(LeJsonV4 uniqueInstance serialize: original) readStream.
+	self assert: deserialized class equals: ScaledDecimal.
+	self assert: original equals: deserialized.
+	self assert: deserialized scale equals: 4.
 ]
