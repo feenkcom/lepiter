@@ -22,6 +22,7 @@ LePharoRewriteSnippet class >> empty [
 	^ self new
 		search: '';
 		replace: '';
+		scope: nil;
 		yourself
 ]
 
@@ -30,6 +31,7 @@ LePharoRewriteSnippet class >> leJsonV3AttributeMapping [
 	^ super leJsonV3AttributeMapping
 		add: #search -> #search;
 		add: #replace -> #replace;
+		add: #scope -> #scope;
 		yourself
 ]
 
@@ -43,6 +45,7 @@ LePharoRewriteSnippet class >> leJsonV4AttributeMapping [
 	^ super leJsonV4AttributeMapping
 		add: #search -> #search;
 		add: #replace -> #replace;
+		add: #scope -> #scope;
 		yourself
 ]
 
