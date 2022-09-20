@@ -4,6 +4,18 @@ Class {
 	#category : #'Lepiter-Snippet-Pharo-Rewrites-Styler'
 }
 
+{ #category : #accessing }
+GtPharoPatternStyler >> visitMessage: aMessage [
+	(aMessage selectorParts anySatisfy: [ :each | each source first = $` ])
+		ifTrue: [ aMessage selectorParts
+				do: [ :each | 
+					self
+						attributes: {BlTextForegroundAttribute color: Color blue darker}
+						from: each startPosition
+						to: each stopPosition ] ].
+	^ super visitMessage: aMessage
+]
+
 { #category : #visiting }
 GtPharoPatternStyler >> visitNamedVariable: aNamedVariable [
 	| isDeclaredVariable |

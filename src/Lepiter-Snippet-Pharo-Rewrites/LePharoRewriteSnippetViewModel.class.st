@@ -25,6 +25,10 @@ LePharoRewriteSnippetViewModel >> subscribeToSnippetModel [
 	self snippetModel weak
 		when: LePharoRewriteSnippetReplaceChanged
 		send: #announce:
+		to: self.
+	self snippetModel weak
+		when: LePharoRewriteSnippetScopeChanged
+		send: #announce:
 		to: self
 ]
 

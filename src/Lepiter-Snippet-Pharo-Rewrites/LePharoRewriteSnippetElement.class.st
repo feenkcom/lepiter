@@ -326,13 +326,51 @@ LePharoRewriteSnippetElement >> descriptionFor: aNode [
 
 { #category : #initialization }
 LePharoRewriteSnippetElement >> initialize [
-	| searchEditor replaceEditor |
+	| searchEditor replaceEditor scopeElement scopeButton |
 	super initialize.
 	rewriteElement := BrVerticalPane new.
 	rewriteElement padding: (BlInsets all: 5).
 	rewriteElement vFitContent.
 	rewriteElement hMatchParent.
-	rewriteElement addChild: (self createLabel: 'Search:').
+	scopeElement := BrHorizontalPane new.
+	scopeElement hMatchParent.
+	scopeElement vFitContent.
+	scopeElement margin: (BlInsets bottom: 2).
+	scopeElement addChild: (self createLabel: 'Search in').
+	scopeButton := BrButton new
+			aptitude: BrGlamorousButtonWithLabelAptitude
+					+ (BrGlamorousWithDropdownAptitude
+							handle: [ BrButton new
+									aptitude: BrGlamorousButtonWithLabelAptitude - BrGlamorousButtonExteriorAptitude;
+									beSmallSize;
+									fitContent;
+									label: self scopeLabel;
+									yourself ]
+							content: [ BrSimpleList new
+									padding: (BlInsets all: 5);
+									vFitContentLimited;
+									hFitContent;
+									items: self scopeVariables;
+									itemStencil: [ :each :index | 
+										BrButton new
+											beSmallSize;
+											aptitude: BrGlamorousButtonRectangularAptitude + BrGlamorousButtonLabelAptitude;
+											action: [ :aButton | 
+												aButton fireEvent: BrDropdownHideWish new.
+												self snippet scope: (aButton userData at: #variable) ] ];
+									itemDataBinder: [ :button :variable | 
+										button userData at: #variable put: variable.
+										button
+											label: ((variable isNil or: [ variable trim isEmpty ])
+													ifTrue: [ 'All methods' ]
+													ifFalse: [ variable ]) asRopedText ] ]);
+			beSmallSize;
+			fitContent;
+			margin: (BlInsets left: 5);
+			label: self scopeLabel.
+	scopeElement addChild: scopeButton as: #scopeButton.
+	scopeElement addChild: (self createLabel: ':').
+	rewriteElement addChild: scopeElement.
 	searchEditor := self createSourceEditor: #updateSearch.
 	searchEditor userData
 		at: #completionStrategy
@@ -354,9 +392,10 @@ LePharoRewriteSnippetElement >> initialize [
 				aptitude: BrGlamorousButtonWithIconAptitude;
 				icon: BrGlamorousIcons playinspect asElement;
 				label: 'Search' asString;
-				action: [ rewriteElement phlow spawnObject: self snippet executeSearch ])
+				action: [ rewriteElement phlow
+						spawnObject: (self snippet executeSearchUsing: self variableBindings) ])
 		as: #searchButton.
-	rewriteElement addChild: (self createLabel: 'Replace:').
+	rewriteElement addChild: (self createLabel: 'Replace with:').
 	replaceEditor := self createSourceEditor: #updateReplace.
 	replaceEditor
 		addAptitude: (BrGlamorousWithContextMenuAptitude
@@ -374,7 +413,9 @@ LePharoRewriteSnippetElement >> initialize [
 				aptitude: BrGlamorousButtonWithIconAptitude;
 				icon: BrGlamorousIcons playinspect asElement;
 				label: 'Replace' asString;
-				action: [ rewriteElement phlow spawnObject: self snippet executeRewrite ])
+				action: [ ((self snippet executeRewriteUsing: self variableBindings)
+						then: [ :obj | rewriteElement inUIProcessDo: [ rewriteElement phlow spawnObject: obj ] ])
+						wait ])
 		as: #replaceButton
 ]
 
@@ -482,6 +523,7 @@ LePharoRewriteSnippetElement >> onSnippetViewModelChanged [
 	super onSnippetViewModelChanged.
 	self updateSearchEditor.
 	self updateReplaceEditor.
+	self updateScope.
 	self updateReplaceVariables
 ]
 
@@ -758,6 +800,20 @@ LePharoRewriteSnippetElement >> safePatternVariableIn: aNode basedOn: aString [
 	^ current
 ]
 
+{ #category : #accessing }
+LePharoRewriteSnippetElement >> scopeLabel [
+	^ ((snippetViewModel ifNotNil: [ self snippet ])
+		ifNotNil: [ :snippet | snippet scope ifNotNil: [ :scope | scope trim ifEmpty: [ nil ] ] ])
+		ifNil: [ 'All methods' ]
+]
+
+{ #category : #initialization }
+LePharoRewriteSnippetElement >> scopeVariables [
+	^ #(nil)
+		, (self snippet potentialScopeVariablesUsing: self variableBindings)
+				asSortedCollection
+]
+
 { #category : #private }
 LePharoRewriteSnippetElement >> searchEditorDo: block [
 	rewriteElement childNamed: #searchEditor ifFound: block
@@ -947,6 +1003,10 @@ LePharoRewriteSnippetElement >> subscribeToSnippetViewModel [
 	self snippetViewModel weak
 		when: LePharoRewriteSnippetReplaceChanged
 		send: #updateReplaceEditor
+		to: self.
+	self snippetViewModel weak
+		when: LePharoRewriteSnippetScopeChanged
+		send: #updateScope
 		to: self
 ]
 
@@ -1008,6 +1068,13 @@ LePharoRewriteSnippetElement >> updateReplaceVariables [
 				ifPresent: [ :strategy | strategy patternVariables: vars ] ]
 ]
 
+{ #category : #accessing }
+LePharoRewriteSnippetElement >> updateScope [
+	rewriteElement
+		childNamed: #scopeButton 
+		ifFound: [ :button | button label: self scopeLabel asRopedText ]
+]
+
 { #category : #private }
 LePharoRewriteSnippetElement >> updateSearch [
 	self
@@ -1026,4 +1093,11 @@ LePharoRewriteSnippetElement >> updateSearchEditor [
 			editor editor text asString ~= self snippet search
 				ifTrue: [ editor editor text: self snippet search asRopedText.
 					self updateReplaceVariables ] ]
+]
+
+{ #category : #initialization }
+LePharoRewriteSnippetElement >> variableBindings [
+	snippetViewModel
+		snippetsCollectionDo: [ :each | ^ each sharedSnippetContext sharedBindings ].
+	^ nil
 ]
