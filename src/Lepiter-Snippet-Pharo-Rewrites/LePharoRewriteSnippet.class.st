@@ -127,19 +127,8 @@ LePharoRewriteSnippet >> potentialMethodsUsing: snippetContext [
 		ifNotNil: [ filter asAsyncStream ]
 ]
 
-{ #category : #accessing }
-LePharoRewriteSnippet >> potentialScopeVariables [
-	| variables |
-	variables := Set new.
-	self page
-		allChildrenDepthFirstDo: [ :each | 
-			each isCodeSnippet
-				ifTrue: [ variables addAll: each coder implicitVariableNames ] ].
-	^ variables
-]
-
 { #category : #private }
-LePharoRewriteSnippet >> potentialScopeVariablesUsing: snippetContext [
+LePharoRewriteSnippet >> potentialScopeExpressionsUsing: snippetContext [
 	| variableBindings variables |
 	variableBindings := snippetContext sharedBindings.
 	variables := self potentialScopeVariables
@@ -148,6 +137,22 @@ LePharoRewriteSnippet >> potentialScopeVariablesUsing: snippetContext [
 					or: [ (variableBindings bindingOf: each asSymbol) value isKindOf: GtSearchFilter ] ].
 	(snippetContext selfObject isKindOf: GtSearchFilter)
 		ifTrue: [ variables add: 'self' ].
+	(Pragma allNamed: 'gtSearchFilter')
+		do: [ :each | 
+			(each method methodClass isClassSide and: [ each method numArgs = 0 ])
+				ifTrue: [ variables
+						add: each method methodClass instanceSide name asString , ' ' , each method selector ] ].
+	^ variables
+]
+
+{ #category : #accessing }
+LePharoRewriteSnippet >> potentialScopeVariables [
+	| variables |
+	variables := Set new.
+	self page
+		allChildrenDepthFirstDo: [ :each | 
+			each isCodeSnippet
+				ifTrue: [ variables addAll: each coder implicitVariableNames ] ].
 	^ variables
 ]
 
@@ -182,20 +187,63 @@ LePharoRewriteSnippet >> scope: aString [
 ]
 
 { #category : #private }
-LePharoRewriteSnippet >> scopeFilterUsing: snippetContext [
+LePharoRewriteSnippet >> scopeFilterFor: aString using: snippetContext showNotifications: aBoolean [
 	| filter variableBindings |
 	variableBindings := snippetContext sharedBindings.
-	(scope isNil or: [ scope trim isEmpty ]) ifTrue: [ ^ nil ].
-	filter := scope = 'self'
-			ifTrue: [ snippetContext selfObject ]
-			ifFalse: [ (variableBindings hasBindingOf: scope asSymbol)
-					ifFalse: [ self inform: scope , ' has no value. Have you evaluated it yet?'.
-						^ nil ].
-				(variableBindings bindingOf: scope) value ].
+	(aString isNil or: [ aString trim isEmpty ]) ifTrue: [ ^ nil ].
+	aString = 'self'
+		ifTrue: [ filter := snippetContext selfObject ]
+		ifFalse: [ (aString includes: $ )
+				ifTrue: [ | items class selector |
+					items := $  split: aString.
+					items size ~= 2
+						ifTrue: [ aBoolean ifTrue: [ self inform: aString , ' isn''t a valid method name' ].
+							^ nil ].
+					class := self class environment
+							at: items first asSymbol
+							ifAbsent: [ aBoolean ifTrue: [ self inform: items first , ' isn''t a class' ].
+								^ nil ].
+					selector := items last asSymbol.
+					(class respondsTo: selector)
+						ifFalse: [ aBoolean ifTrue: [ self inform: aString , ' isn''t a method' ].
+							^ nil ].
+					filter := [ class perform: selector ]
+							on: Error
+							do: [ :ex | 
+								aBoolean
+									ifTrue: [ self inform: aString , ' threw an error (' , ex message , ')' ].
+								^ nil ] ]
+				ifFalse: [ (variableBindings hasBindingOf: scope asSymbol)
+						ifFalse: [ aBoolean
+								ifTrue: [ self inform: aString , ' has no value. Have you evaluated it yet?' ].
+							^ nil ].
+					filter := (variableBindings bindingOf: aString) value ] ].
 	(filter isKindOf: GtSearchFilter)
-		ifFalse: [ self inform: scope , ' isn''t a search filter -- using all methods instead.'.
+		ifFalse: [ aBoolean
+				ifTrue: [ self inform: aString , ' isn''t a search filter -- using all methods instead.' ].
 			^ nil ].
-	^ filter select: [ :each | each isFromTrait not ]
+	^ filter
+]
+
+{ #category : #private }
+LePharoRewriteSnippet >> scopeFilterUsing: snippetContext [
+	^ (self
+		scopeFilterFor: scope
+		using: snippetContext
+		showNotifications: true)
+		ifNotNil: [ :filter | filter select: [ :each | each isFromTrait not ] ]
+]
+
+{ #category : #accessing }
+LePharoRewriteSnippet >> scopeLabelFor: aString using: snippetContext [
+	^ (self
+		scopeFilterFor: aString
+		using: snippetContext
+		showNotifications: false)
+		ifNil: [ (aString isNil or: [ aString trim isEmpty ])
+				ifTrue: [ 'All methods' ]
+				ifFalse: [ aString ] ]
+		ifNotNil: [ :filter | filter filterLabel ifNil: [ aString ] ]
 ]
 
 { #category : #accessing }
