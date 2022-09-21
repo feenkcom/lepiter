@@ -181,11 +181,10 @@ m ]
 ]
 
 { #category : #'*Lepiter-UI' }
-LePage >> gtSpotterDatabaseFor: aStep [
-
+LePage >> gtSpotterDatabaseFor: aSearch [
 	<gtSearch>
-	self database ifNil: [ ^ self ].
-	aStep listProcessor
+	self database ifNil: [ ^ aSearch empty ].
+	^ aSearch list
 		priority: 20;
 		title: 'Pages';
 		wantsToDisplayOnEmptyQuery: true;
