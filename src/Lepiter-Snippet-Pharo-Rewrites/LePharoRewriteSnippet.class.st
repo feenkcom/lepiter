@@ -84,7 +84,7 @@ LePharoRewriteSnippet >> executeRewriteUsing: snippetContext [
 		do: [ :each | 
 			(rewriter executeTree: each ast copy)
 				ifTrue: [ (model classFor: each methodClass) compileTree: rewriter tree ] ])
-		then: [ :done | model ]
+		await then: [ :value | model ] otherwise: [ :error | error ]
 ]
 
 { #category : #actions }
