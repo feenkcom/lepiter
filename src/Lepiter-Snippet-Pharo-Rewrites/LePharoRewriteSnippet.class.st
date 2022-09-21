@@ -74,12 +74,12 @@ LePharoRewriteSnippet >> contentAsString [
 ]
 
 { #category : #actions }
-LePharoRewriteSnippet >> executeRewriteUsing: variableBindings [
+LePharoRewriteSnippet >> executeRewriteUsing: snippetContext [
 	| model rewriter potentialMethods |
 	model := RBNamespace new.
 	rewriter := RBParseTreeRewriter new.
 	rewriter replace: self search with: self replace.
-	potentialMethods := self potentialMethodsUsing: variableBindings.
+	potentialMethods := self potentialMethodsUsing: snippetContext.
 	^ (potentialMethods
 		do: [ :each | 
 			(rewriter executeTree: each ast copy)
@@ -88,10 +88,10 @@ LePharoRewriteSnippet >> executeRewriteUsing: variableBindings [
 ]
 
 { #category : #actions }
-LePharoRewriteSnippet >> executeSearchUsing: variableBindings [
+LePharoRewriteSnippet >> executeSearchUsing: snippetContext [
 	| astSearchFilter |
 	astSearchFilter := self search gtASTMatches.
-	^ (self scopeFilterUsing: variableBindings)
+	^ (self scopeFilterUsing: snippetContext)
 		ifNil: [ astSearchFilter ]
 		ifNotNil: [ :scopeFilter | scopeFilter & astSearchFilter ]
 ]
@@ -102,9 +102,9 @@ LePharoRewriteSnippet >> isEmpty [
 ]
 
 { #category : #private }
-LePharoRewriteSnippet >> potentialMethodsUsing: variableBindings [
+LePharoRewriteSnippet >> potentialMethodsUsing: snippetContext [
 	| ast literals filter |
-	filter := self scopeFilterUsing: variableBindings.
+	filter := self scopeFilterUsing: snippetContext.
 	ast := self searchAST.
 	literals := Set withAll: ast sentMessages.
 	literals isEmpty
@@ -139,11 +139,16 @@ LePharoRewriteSnippet >> potentialScopeVariables [
 ]
 
 { #category : #private }
-LePharoRewriteSnippet >> potentialScopeVariablesUsing: variableBindings [
-	^ self potentialScopeVariables
-		select: [ :each | 
-			(variableBindings hasBindingOf: each asSymbol) not
-				or: [ (variableBindings bindingOf: each asSymbol) value isKindOf: GtSearchFilter ] ]
+LePharoRewriteSnippet >> potentialScopeVariablesUsing: snippetContext [
+	| variableBindings variables |
+	variableBindings := snippetContext sharedBindings.
+	variables := self potentialScopeVariables
+			select: [ :each | 
+				(variableBindings hasBindingOf: each asSymbol) not
+					or: [ (variableBindings bindingOf: each asSymbol) value isKindOf: GtSearchFilter ] ].
+	(snippetContext selfObject isKindOf: GtSearchFilter)
+		ifTrue: [ variables add: 'self' ].
+	^ variables
 ]
 
 { #category : #accessing }
@@ -176,14 +181,17 @@ LePharoRewriteSnippet >> scope: aString [
 				scope: aString)
 ]
 
-{ #category : #actions }
-LePharoRewriteSnippet >> scopeFilterUsing: variableBindings [
-	| filter |
+{ #category : #private }
+LePharoRewriteSnippet >> scopeFilterUsing: snippetContext [
+	| filter variableBindings |
+	variableBindings := snippetContext sharedBindings.
 	(scope isNil or: [ scope trim isEmpty ]) ifTrue: [ ^ nil ].
-	(variableBindings hasBindingOf: scope asSymbol)
-		ifFalse: [ self inform: scope , ' has no value. Have you evaluated it yet?'.
-			^ nil ].
-	filter := (variableBindings bindingOf: scope) value.
+	filter := scope = 'self'
+			ifTrue: [ snippetContext selfObject ]
+			ifFalse: [ (variableBindings hasBindingOf: scope asSymbol)
+					ifFalse: [ self inform: scope , ' has no value. Have you evaluated it yet?'.
+						^ nil ].
+				(variableBindings bindingOf: scope) value ].
 	(filter isKindOf: GtSearchFilter)
 		ifFalse: [ self inform: scope , ' isn''t a search filter -- using all methods instead.'.
 			^ nil ].

@@ -393,7 +393,7 @@ LePharoRewriteSnippetElement >> initialize [
 				icon: BrGlamorousIcons playinspect asElement;
 				label: 'Search' asString;
 				action: [ rewriteElement phlow
-						spawnObject: (self snippet executeSearchUsing: self variableBindings) ])
+						spawnObject: (self snippet executeSearchUsing: self snippetContext) ])
 		as: #searchButton.
 	rewriteElement addChild: (self createLabel: 'Replace with:').
 	replaceEditor := self createSourceEditor: #updateReplace.
@@ -413,7 +413,7 @@ LePharoRewriteSnippetElement >> initialize [
 				aptitude: BrGlamorousButtonWithIconAptitude;
 				icon: BrGlamorousIcons playinspect asElement;
 				label: 'Replace' asString;
-				action: [ ((self snippet executeRewriteUsing: self variableBindings)
+				action: [ ((self snippet executeRewriteUsing: self snippetContext)
 						then: [ :obj | rewriteElement inUIProcessDo: [ rewriteElement phlow spawnObject: obj ] ])
 						wait ])
 		as: #replaceButton
@@ -810,7 +810,7 @@ LePharoRewriteSnippetElement >> scopeLabel [
 { #category : #initialization }
 LePharoRewriteSnippetElement >> scopeVariables [
 	^ #(nil)
-		, (self snippet potentialScopeVariablesUsing: self variableBindings)
+		, (self snippet potentialScopeVariablesUsing: self snippetContext)
 				asSortedCollection
 ]
 
@@ -979,6 +979,12 @@ LePharoRewriteSnippetElement >> snippetContent [
 	^ rewriteElement
 ]
 
+{ #category : #initialization }
+LePharoRewriteSnippetElement >> snippetContext [
+	snippetViewModel snippetsCollectionDo: [ :each | ^ each sharedSnippetContext ].
+	^ nil
+]
+
 { #category : #'api - view' }
 LePharoRewriteSnippetElement >> snippetToolbar [
 	^ nil
@@ -1093,11 +1099,4 @@ LePharoRewriteSnippetElement >> updateSearchEditor [
 			editor editor text asString ~= self snippet search
 				ifTrue: [ editor editor text: self snippet search asRopedText.
 					self updateReplaceVariables ] ]
-]
-
-{ #category : #initialization }
-LePharoRewriteSnippetElement >> variableBindings [
-	snippetViewModel
-		snippetsCollectionDo: [ :each | ^ each sharedSnippetContext sharedBindings ].
-	^ nil
 ]
