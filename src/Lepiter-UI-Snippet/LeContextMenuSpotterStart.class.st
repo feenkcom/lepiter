@@ -28,7 +28,7 @@ LeContextMenuSpotterStart >> gtDisplayString [
 
 { #category : #searching }
 LeContextMenuSpotterStart >> gtNewSnippetFor: aSearch [
-	<gtSpotterSearch>
+	<gtSearch>
 
 	^ aSearch list
 		title: 'Snippet type';
