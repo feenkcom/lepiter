@@ -36,6 +36,8 @@ LeContextMenuSpotterStart >> gtNewSnippetFor: aSearch [
 		items: [ LeContextMenuBuilder new build ];
 		itemName: #title;
 		filter: GtSpotterSubstringFilter new;
+		withoutCategoryAction;
+		withoutItemsLimit;
 		wantsToDisplayOnEmptyQuery: true
 ]
 
