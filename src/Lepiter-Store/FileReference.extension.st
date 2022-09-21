@@ -37,6 +37,14 @@ FileReference class >> leJsonV3Name [
 ]
 
 { #category : #'*Lepiter-Store' }
+FileReference >> leJsonV4Document [
+	"Answer the contents of the receiver assuming it is a LeJsonV4 document"
+
+	^ self readStreamDo: [ :stream |
+		LeJsonV4 uniqueInstance deserialize: stream ]
+]
+
+{ #category : #'*Lepiter-Store' }
 FileReference class >> leJsonV4MappingFor: aNeoJSONMapper [
 	"Dates are encoded as their type and a single string in default Date format"
 
