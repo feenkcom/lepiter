@@ -55,16 +55,15 @@ LePharoSnippet >> acceptVisitor: aVisitor [
 { #category : #converting }
 LePharoSnippet >> asExampleMethodStringFor: aSelector [
 	| newAST variables |
-	newAST := RBParser parseMethod:
-		          aSelector , String cr , coder sourceText.
+	newAST := RBParser parseMethod: aSelector , String cr , coder currentSourceText.
 	variables := Set new.
-	coder astAwait allNodesOfType: GtPharoVariableNode do: [ :node | 
-		(node whoDefines notNil or: [ 
-			 Smalltalk globals includesKey: node variableName ]) ifFalse: [ 
-			variables add: node variableName ] ].
+	coder astAwait
+		allNodesOfType: GtPharoVariableNode
+		do: [ :node | 
+			(node whoDefines notNil or: [ Smalltalk globals includesKey: node variableName ])
+				ifFalse: [ variables add: node variableName ] ].
 	newAST body addTemporariesNamed: variables.
-	newAST addPragma:
-		(RBPragmaNode selector: #gtExample arguments: #(  )).
+	newAST addPragma: (RBPragmaNode selector: #gtExample arguments: #()).
 	newAST addReturn.
 	^ newAST formattedCode
 ]
