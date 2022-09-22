@@ -324,6 +324,19 @@ LePharoRewriteSnippetElement >> descriptionFor: aNode [
 		with: ' ') copyReplaceAll: '	' with: ' '
 ]
 
+{ #category : #accessing }
+LePharoRewriteSnippetElement >> filterLabelFor: aString [
+	^ ((snippetViewModel ifNotNil: [ self snippet ])
+		ifNotNil: [ :snippet | snippet scopeLabelFor: aString using: self snippetContext ])
+		ifNil: [ '' ]
+]
+
+{ #category : #initialization }
+LePharoRewriteSnippetElement >> filterNames [
+	^ (self snippet potentialScopeExpressionsUsing: self snippetContext)
+		asSortedCollection
+]
+
 { #category : #initialization }
 LePharoRewriteSnippetElement >> initialize [
 	| searchEditor replaceEditor scopeElement scopeButton |
@@ -344,13 +357,13 @@ LePharoRewriteSnippetElement >> initialize [
 									aptitude: BrGlamorousButtonWithLabelAptitude - BrGlamorousButtonExteriorAptitude;
 									beSmallSize;
 									fitContent;
-									label: self scopeLabel;
+									label: (self filterLabelFor: self scope);
 									yourself ]
 							content: [ BrSimpleList new
 									padding: (BlInsets all: 5);
 									vFitContentLimited;
 									hFitContent;
-									items: self scopeVariables;
+									items: self filterNames;
 									itemStencil: [ :each :index | 
 										BrButton new
 											beSmallSize;
@@ -358,16 +371,13 @@ LePharoRewriteSnippetElement >> initialize [
 											action: [ :aButton | 
 												aButton fireEvent: BrDropdownHideWish new.
 												self snippet scope: (aButton userData at: #variable) ] ];
-									itemDataBinder: [ :button :variable | 
-										button userData at: #variable put: variable.
-										button
-											label: ((variable isNil or: [ variable trim isEmpty ])
-													ifTrue: [ 'All methods' ]
-													ifFalse: [ variable ]) asRopedText ] ]);
+									itemDataBinder: [ :button :filterName | 
+										button userData at: #variable put: filterName.
+										button label: (self filterLabelFor: filterName) asRopedText ] ]);
 			beSmallSize;
 			fitContent;
 			margin: (BlInsets left: 5);
-			label: self scopeLabel.
+			label: (self filterLabelFor: self scope).
 	scopeElement addChild: scopeButton as: #scopeButton.
 	scopeElement addChild: (self createLabel: ':').
 	rewriteElement addChild: scopeElement.
@@ -413,9 +423,8 @@ LePharoRewriteSnippetElement >> initialize [
 				aptitude: BrGlamorousButtonWithIconAptitude;
 				icon: BrGlamorousIcons playinspect asElement;
 				label: 'Replace' asString;
-				action: [ ((self snippet executeRewriteUsing: self snippetContext)
-						then: [ :obj | rewriteElement inUIProcessDo: [ rewriteElement phlow spawnObject: obj ] ])
-						wait ])
+				action: [ (self snippet executeRewriteUsing: self snippetContext)
+						then: [ :obj | rewriteElement inUIProcessDo: [ rewriteElement phlow spawnObject: obj ] ] ])
 		as: #replaceButton
 ]
 
@@ -801,17 +810,16 @@ LePharoRewriteSnippetElement >> safePatternVariableIn: aNode basedOn: aString [
 ]
 
 { #category : #accessing }
+LePharoRewriteSnippetElement >> scope [
+	^ (snippetViewModel ifNotNil: [ self snippet ])
+		ifNotNil: [ :snippet | snippet scope ]
+]
+
+{ #category : #accessing }
 LePharoRewriteSnippetElement >> scopeLabel [
 	^ ((snippetViewModel ifNotNil: [ self snippet ])
 		ifNotNil: [ :snippet | snippet scope ifNotNil: [ :scope | scope trim ifEmpty: [ nil ] ] ])
 		ifNil: [ 'All methods' ]
-]
-
-{ #category : #initialization }
-LePharoRewriteSnippetElement >> scopeVariables [
-	^ #(nil)
-		, (self snippet potentialScopeVariablesUsing: self snippetContext)
-				asSortedCollection
 ]
 
 { #category : #private }
@@ -1077,8 +1085,8 @@ LePharoRewriteSnippetElement >> updateReplaceVariables [
 { #category : #accessing }
 LePharoRewriteSnippetElement >> updateScope [
 	rewriteElement
-		childNamed: #scopeButton 
-		ifFound: [ :button | button label: self scopeLabel asRopedText ]
+		childNamed: #scopeButton
+		ifFound: [ :button | button label: (self filterLabelFor: self scope) asRopedText ]
 ]
 
 { #category : #private }

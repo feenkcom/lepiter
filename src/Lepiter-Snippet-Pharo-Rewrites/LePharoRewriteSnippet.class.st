@@ -73,6 +73,11 @@ LePharoRewriteSnippet >> contentAsString [
 				print: (scope ifNil: [ '' ]) ]
 ]
 
+{ #category : #accessing }
+LePharoRewriteSnippet >> defaultScope [
+	^ 'GtSearchImageMethodsFilter allMethods'
+]
+
 { #category : #actions }
 LePharoRewriteSnippet >> executeRewriteUsing: snippetContext [
 	| model rewriter potentialMethods |
@@ -84,7 +89,7 @@ LePharoRewriteSnippet >> executeRewriteUsing: snippetContext [
 		do: [ :each | 
 			(rewriter executeTree: each ast copy)
 				ifTrue: [ (model classFor: each methodClass) compileTree: rewriter tree ] ])
-		then: [ :done | model ]
+		await then: [ :value | model ] otherwise: [ :error | error ]
 ]
 
 { #category : #actions }
@@ -127,19 +132,8 @@ LePharoRewriteSnippet >> potentialMethodsUsing: snippetContext [
 		ifNotNil: [ filter asAsyncStream ]
 ]
 
-{ #category : #accessing }
-LePharoRewriteSnippet >> potentialScopeVariables [
-	| variables |
-	variables := Set new.
-	self page
-		allChildrenDepthFirstDo: [ :each | 
-			each isCodeSnippet
-				ifTrue: [ variables addAll: each coder implicitVariableNames ] ].
-	^ variables
-]
-
 { #category : #private }
-LePharoRewriteSnippet >> potentialScopeVariablesUsing: snippetContext [
+LePharoRewriteSnippet >> potentialScopeExpressionsUsing: snippetContext [
 	| variableBindings variables |
 	variableBindings := snippetContext sharedBindings.
 	variables := self potentialScopeVariables
@@ -148,6 +142,22 @@ LePharoRewriteSnippet >> potentialScopeVariablesUsing: snippetContext [
 					or: [ (variableBindings bindingOf: each asSymbol) value isKindOf: GtSearchFilter ] ].
 	(snippetContext selfObject isKindOf: GtSearchFilter)
 		ifTrue: [ variables add: 'self' ].
+	(Pragma allNamed: 'gtSearchFilter')
+		do: [ :each | 
+			(each method methodClass isClassSide and: [ each method numArgs = 0 ])
+				ifTrue: [ variables
+						add: each method methodClass instanceSide name asString , ' ' , each method selector ] ].
+	^ variables
+]
+
+{ #category : #accessing }
+LePharoRewriteSnippet >> potentialScopeVariables [
+	| variables |
+	variables := Set new.
+	self page
+		allChildrenDepthFirstDo: [ :each | 
+			each isCodeSnippet
+				ifTrue: [ variables addAll: each coder implicitVariableNames ] ].
 	^ variables
 ]
 
@@ -168,7 +178,9 @@ LePharoRewriteSnippet >> replace: aString [
 
 { #category : #accessing }
 LePharoRewriteSnippet >> scope [
-	^ scope
+	^ (scope isNil or: [ scope isEmpty ])
+		ifTrue: [ self defaultScope ]
+		ifFalse: [ scope ]
 ]
 
 { #category : #accessing }
@@ -182,20 +194,50 @@ LePharoRewriteSnippet >> scope: aString [
 ]
 
 { #category : #private }
-LePharoRewriteSnippet >> scopeFilterUsing: snippetContext [
-	| filter variableBindings |
+LePharoRewriteSnippet >> scopeFilterFor: aString using: snippetContext [
+	| filter variableBindings name |
 	variableBindings := snippetContext sharedBindings.
-	(scope isNil or: [ scope trim isEmpty ]) ifTrue: [ ^ nil ].
-	filter := scope = 'self'
-			ifTrue: [ snippetContext selfObject ]
-			ifFalse: [ (variableBindings hasBindingOf: scope asSymbol)
-					ifFalse: [ self inform: scope , ' has no value. Have you evaluated it yet?'.
-						^ nil ].
-				(variableBindings bindingOf: scope) value ].
-	(filter isKindOf: GtSearchFilter)
-		ifFalse: [ self inform: scope , ' isn''t a search filter -- using all methods instead.'.
-			^ nil ].
+	name := (aString isNil or: [ aString isEmpty ])
+			ifTrue: [ self defaultScope ]
+			ifFalse: [ aString ].
+	name = 'self'
+		ifTrue: [ filter := snippetContext selfObject ]
+		ifFalse: [ (name includes: $ )
+				ifTrue: [ | items class selector |
+					items := $  split: name.
+					items size ~= 2 ifTrue: [ ^ nil ].
+					class := self class environment
+							at: items first asSymbol
+							ifAbsent: [ ^ nil ].
+					selector := items last asSymbol.
+					(class respondsTo: selector) ifFalse: [ ^ nil ].
+					filter := class perform: selector ]
+				ifFalse: [ (variableBindings hasBindingOf: name asSymbol) ifFalse: [ ^ nil ].
+					filter := (variableBindings bindingOf: name) value ] ].
+	(filter isKindOf: GtSearchFilter) ifFalse: [ ^ nil ].
+	^ filter
+]
+
+{ #category : #private }
+LePharoRewriteSnippet >> scopeFilterUsing: snippetContext [
+	| filter |
+	filter := ([ self scopeFilterFor: self scope using: snippetContext ]
+			on: Error
+			do: [ :ex | 
+				self inform: self scope , ' threw an error (' , ex message , ')'.
+				ex return: nil ])
+			ifNil: [ self
+					inform: self scope , ' doesn''t evaluate to a search filter. Using all methods instead.'.
+				GtSearchImageMethodsFilter allMethods ].
 	^ filter select: [ :each | each isFromTrait not ]
+]
+
+{ #category : #accessing }
+LePharoRewriteSnippet >> scopeLabelFor: aString using: snippetContext [
+	^ (([ self scopeFilterFor: aString using: snippetContext ]
+		on: Error
+		do: [ :ex | ex return ]) ifNotNil: [ :filter | filter filterLabel ])
+		ifNil: [ aString ]
 ]
 
 { #category : #accessing }
