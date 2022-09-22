@@ -2,7 +2,7 @@ Extension { #name : #LeContextMenuSpotterStart }
 
 { #category : #'*Lepiter-GitHub' }
 LeContextMenuSpotterStart >> gtSpotterForGitHubIssueUrlFor: aStep [
-	<gtSearch>
+	"<gtSearch>"
 	aStep listProcessor
 		priority: 1;
 		title: 'Add GitHub issue snippet';

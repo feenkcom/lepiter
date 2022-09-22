@@ -39,15 +39,3 @@ LeContextMenuSpotterStart >> gtNewSnippetFor: aSearch [
 		withoutItemsLimit;
 		wantsToDisplayOnEmptyQuery: true
 ]
-
-{ #category : #searching }
-LeContextMenuSpotterStart >> gtSpotterForNewSnippetFor: aSearch [
-	<gtSearch>
-	^ aSearch list
-		priority: 1;
-		items: [ LeContextMenuBuilder new build ];
-		title: 'Snippet type';
-		itemName: #title;
-		filterBySubstring;
-		wantsToDisplayOnEmptyQuery: true
-]
