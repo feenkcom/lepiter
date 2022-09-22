@@ -424,9 +424,8 @@ LePharoRewriteSnippetElement >> initialize [
 				aptitude: BrGlamorousButtonWithIconAptitude;
 				icon: BrGlamorousIcons playinspect asElement;
 				label: 'Replace' asString;
-				action: [ ((self snippet executeRewriteUsing: self snippetContext)
-						then: [ :obj | rewriteElement inUIProcessDo: [ rewriteElement phlow spawnObject: obj ] ])
-						wait ])
+				action: [ (self snippet executeRewriteUsing: self snippetContext)
+						then: [ :obj | rewriteElement inUIProcessDo: [ rewriteElement phlow spawnObject: obj ] ] ])
 		as: #replaceButton
 ]
 
