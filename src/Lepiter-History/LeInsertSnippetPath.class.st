@@ -14,11 +14,26 @@ LeInsertSnippetPath >> diveInSnippet: aSnippety [
 ]
 
 { #category : #'gt - extensions' }
+LeInsertSnippetPath >> gtViewPathFor: aView [ 
+	<gtView>
+	
+	^ aView list
+		title: 'Path';
+		priority: 10;
+		items: [ { self insertPosition } , self uidSegments ];
+		itemText: [ :anItem | 
+			(anItem isKindOf: LeInsertSnippetPosition)
+				ifTrue: [ anItem description ]
+				ifFalse: [ anItem ] ]
+]
+
+{ #category : #'gt - extensions' }
 LeInsertSnippetPath >> gtViewUidSegmentsFor: aView [ 
 	<gtView>
 	
 	^ aView list
 		title: 'Uid Segments';
+		priority: 15;
 		items: [ self uidSegments ]
 ]
 
@@ -53,6 +68,11 @@ LeInsertSnippetPath >> insertPosition [
 LeInsertSnippetPath >> insertPosition: anObject [
 
 	insertPosition := anObject
+]
+
+{ #category : #testing }
+LeInsertSnippetPath >> isAtLastChildPosition [
+	^ self insertPosition isLastChildPosition
 ]
 
 { #category : #utils }

@@ -53,3 +53,13 @@ LePageEventStore >> initialize [
 	
 	events := OrderedCollection new.
 ]
+
+{ #category : #testing }
+LePageEventStore >> isEmpty [
+	^ self events isEmpty
+]
+
+{ #category : #accessing }
+LePageEventStore >> size [
+	^ self events size
+]

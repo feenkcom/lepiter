@@ -14,3 +14,8 @@ LeInsertSnippetLastChildPosition >> descriptionOn: aStream [
 LeInsertSnippetLastChildPosition >> insertChildSnippet: aChildSnippet intoParent: aContent [
 	aContent addSnippet: aChildSnippet
 ]
+
+{ #category : #testing }
+LeInsertSnippetLastChildPosition >> isLastChildPosition [
+	^ true
+]
