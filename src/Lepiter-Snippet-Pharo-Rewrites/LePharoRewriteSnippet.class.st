@@ -73,6 +73,11 @@ LePharoRewriteSnippet >> contentAsString [
 				print: (scope ifNil: [ '' ]) ]
 ]
 
+{ #category : #accessing }
+LePharoRewriteSnippet >> defaultScope [
+	^ 'GtSearchImageMethodsFilter allMethods'
+]
+
 { #category : #actions }
 LePharoRewriteSnippet >> executeRewriteUsing: snippetContext [
 	| model rewriter potentialMethods |
@@ -173,7 +178,9 @@ LePharoRewriteSnippet >> replace: aString [
 
 { #category : #accessing }
 LePharoRewriteSnippet >> scope [
-	^ scope
+	^ (scope isNil or: [ scope isEmpty ])
+		ifTrue: [ self defaultScope ]
+		ifFalse: [ scope ]
 ]
 
 { #category : #accessing }
@@ -187,63 +194,50 @@ LePharoRewriteSnippet >> scope: aString [
 ]
 
 { #category : #private }
-LePharoRewriteSnippet >> scopeFilterFor: aString using: snippetContext showNotifications: aBoolean [
-	| filter variableBindings |
+LePharoRewriteSnippet >> scopeFilterFor: aString using: snippetContext [
+	| filter variableBindings name |
 	variableBindings := snippetContext sharedBindings.
-	(aString isNil or: [ aString trim isEmpty ]) ifTrue: [ ^ nil ].
-	aString = 'self'
+	name := (aString isNil or: [ aString isEmpty ])
+			ifTrue: [ self defaultScope ]
+			ifFalse: [ aString ].
+	name = 'self'
 		ifTrue: [ filter := snippetContext selfObject ]
-		ifFalse: [ (aString includes: $ )
+		ifFalse: [ (name includes: $ )
 				ifTrue: [ | items class selector |
-					items := $  split: aString.
-					items size ~= 2
-						ifTrue: [ aBoolean ifTrue: [ self inform: aString , ' isn''t a valid method name' ].
-							^ nil ].
+					items := $  split: name.
+					items size ~= 2 ifTrue: [ ^ nil ].
 					class := self class environment
 							at: items first asSymbol
-							ifAbsent: [ aBoolean ifTrue: [ self inform: items first , ' isn''t a class' ].
-								^ nil ].
+							ifAbsent: [ ^ nil ].
 					selector := items last asSymbol.
-					(class respondsTo: selector)
-						ifFalse: [ aBoolean ifTrue: [ self inform: aString , ' isn''t a method' ].
-							^ nil ].
-					filter := [ class perform: selector ]
-							on: Error
-							do: [ :ex | 
-								aBoolean
-									ifTrue: [ self inform: aString , ' threw an error (' , ex message , ')' ].
-								^ nil ] ]
-				ifFalse: [ (variableBindings hasBindingOf: scope asSymbol)
-						ifFalse: [ aBoolean
-								ifTrue: [ self inform: aString , ' has no value. Have you evaluated it yet?' ].
-							^ nil ].
-					filter := (variableBindings bindingOf: aString) value ] ].
-	(filter isKindOf: GtSearchFilter)
-		ifFalse: [ aBoolean
-				ifTrue: [ self inform: aString , ' isn''t a search filter -- using all methods instead.' ].
-			^ nil ].
+					(class respondsTo: selector) ifFalse: [ ^ nil ].
+					filter := class perform: selector ]
+				ifFalse: [ (variableBindings hasBindingOf: name asSymbol) ifFalse: [ ^ nil ].
+					filter := (variableBindings bindingOf: name) value ] ].
+	(filter isKindOf: GtSearchFilter) ifFalse: [ ^ nil ].
 	^ filter
 ]
 
 { #category : #private }
 LePharoRewriteSnippet >> scopeFilterUsing: snippetContext [
-	^ (self
-		scopeFilterFor: scope
-		using: snippetContext
-		showNotifications: true)
-		ifNotNil: [ :filter | filter select: [ :each | each isFromTrait not ] ]
+	| filter |
+	filter := ([ self scopeFilterFor: self scope using: snippetContext ]
+			on: Error
+			do: [ :ex | 
+				self inform: self scope , ' threw an error (' , ex message , ')'.
+				ex return: nil ])
+			ifNil: [ self
+					inform: self scope , ' doesn''t evaluate to a search filter. Using all methods instead.'.
+				GtSearchImageMethodsFilter allMethods ].
+	^ filter select: [ :each | each isFromTrait not ]
 ]
 
 { #category : #accessing }
 LePharoRewriteSnippet >> scopeLabelFor: aString using: snippetContext [
-	^ (self
-		scopeFilterFor: aString
-		using: snippetContext
-		showNotifications: false)
-		ifNil: [ (aString isNil or: [ aString trim isEmpty ])
-				ifTrue: [ 'All methods' ]
-				ifFalse: [ aString ] ]
-		ifNotNil: [ :filter | filter filterLabel ifNil: [ aString ] ]
+	^ (([ self scopeFilterFor: aString using: snippetContext ]
+		on: Error
+		do: [ :ex | ex return ]) ifNotNil: [ :filter | filter filterLabel ])
+		ifNil: [ aString ]
 ]
 
 { #category : #accessing }

@@ -328,14 +328,13 @@ LePharoRewriteSnippetElement >> descriptionFor: aNode [
 LePharoRewriteSnippetElement >> filterLabelFor: aString [
 	^ ((snippetViewModel ifNotNil: [ self snippet ])
 		ifNotNil: [ :snippet | snippet scopeLabelFor: aString using: self snippetContext ])
-		ifNil: [ 'All methods' ]
+		ifNil: [ '' ]
 ]
 
 { #category : #initialization }
 LePharoRewriteSnippetElement >> filterNames [
-	^ #(nil)
-		, (self snippet potentialScopeExpressionsUsing: self snippetContext)
-				asSortedCollection
+	^ (self snippet potentialScopeExpressionsUsing: self snippetContext)
+		asSortedCollection
 ]
 
 { #category : #initialization }
