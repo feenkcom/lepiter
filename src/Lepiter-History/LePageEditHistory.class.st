@@ -90,7 +90,7 @@ LePageEditHistory >> gtViewUndoRedoHistoryFor: aView [
 	^ aView columnedList
 		title: 'Undo/Redo History';
 		priority: 1;
-		items: [ redoActions reversed, undoActions reversed ];
+		items: [ self redoUndoActions ];
 		column: 'Type' text: [ :historyAction | historyAction labelText ] width: 100;
 		column: 'Event' text: [ :historyAction | historyAction eventDescriptionText ]
 ]
@@ -128,6 +128,11 @@ LePageEditHistory >> redoOn: aPage [
 	redoActions ifNotEmpty: [ :currentRedoActions |
 		self disableDuring: [ "undoActions add: ("
 			currentRedoActions removeLast applyOn: aPage ] ]
+]
+
+{ #category : #accessing }
+LePageEditHistory >> redoUndoActions [
+	^ redoActions reversed, undoActions reversed
 ]
 
 { #category : #initialization }

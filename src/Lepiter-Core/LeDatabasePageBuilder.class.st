@@ -19,7 +19,7 @@ Class {
 	#instVars : [
 		'database'
 	],
-	#category : 'Lepiter-Core-Builders'
+	#category : #'Lepiter-Core-Builders'
 }
 
 { #category : #'api - building' }
@@ -48,10 +48,11 @@ LeDatabasePageBuilder >> addOnlyAfterSettingTitle [
 LeDatabasePageBuilder >> addPage: aPage laterTo: aDatabase [
 	"Schedule the page to be added to the database after its title has been set."
 	aPage addedToDatabase: aDatabase.
-	aPage 
+	
+	aPage announcer weak
 		when: LePageTitleChanged 
-		doOnce: [ :anAnnouncement | self addPage: aPage to: aDatabase ]
-		for: { self. aPage }
+		send: #completeAddPageLaterFor:
+		to: aDatabase
 ]
 
 { #category : #'private - building' }

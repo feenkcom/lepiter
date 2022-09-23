@@ -16,21 +16,21 @@ LeContentInsertChildSnippetCommand class >> commandDescription [
 
 { #category : #execution }
 LeContentInsertChildSnippetCommand >> basicExecute [ 
-	| newSnipet |
+	| newSnippet |
 	self assert: [ self insertPath notNil ].
 	self assert: [ self snippetTypeName notNil ].
 	
-	newSnipet := self instantiateEmptySnippet.
-	self initialSnippetState applyOn: newSnipet.
+	newSnippet := self instantiateEmptySnippet.
+	self initialSnippetState applyOn: newSnippet.
 	
 	insertPath 
-		insertChildSnippet: newSnipet
+		insertChildSnippet: newSnippet
 		intoParent: self targetContent.
 		
 	^ self createCommandResult
-		insertedSnippet: newSnipet;
+		insertedSnippet: newSnippet;
 		undoSpecification: (self targetContent commandBuilder
-			removeChildSnippetCommandFor: newSnipet) createCommandSpecification
+			removeChildSnippetCommandFor: newSnippet) createCommandSpecification
 ]
 
 { #category : #'execution - utils' }
@@ -78,6 +78,28 @@ LeContentInsertChildSnippetCommand >> descriptionOn: aStream [
 		print: self snippetTypeName
 ]
 
+{ #category : #'gt - extensions' }
+LeContentInsertChildSnippetCommand >> gtViewInitialStateAttributesFor: aView [ 
+	<gtView>
+	
+	^ aView forward 
+		title: 'Initial State';
+		priority: 10;
+		object: [ self initialSnippetState ];
+		view: #gtViewStateAttributesFor:
+]
+
+{ #category : #'gt - extensions' }
+LeContentInsertChildSnippetCommand >> gtViewInsertPathFor: aView [ 
+	<gtView>
+	
+	^ aView forward 
+		title: 'Insert Path';
+		priority: 20;
+		object: [ self insertPath ];
+		view: #gtViewPathFor:
+]
+
 { #category : #accessing }
 LeContentInsertChildSnippetCommand >> initialSnippetState [
 	^ initialSnippetState
@@ -91,6 +113,7 @@ LeContentInsertChildSnippetCommand >> initialSnippetState: aSnippetState [
 { #category : #initialization }
 LeContentInsertChildSnippetCommand >> initialize [
 	super initialize.
+	
 	self insertLast.
 	initialSnippetState := LeGenericSnippetState new.
 ]

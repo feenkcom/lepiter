@@ -30,3 +30,8 @@ LeInsertSnippetPosition >> descriptionOn: aStream [
 LeInsertSnippetPosition >> insertChildSnippet: aChildSnippet intoParent: aContent [
 	^ self subclassResponsibility
 ]
+
+{ #category : #testing }
+LeInsertSnippetPosition >> isLastChildPosition [
+	^ false
+]

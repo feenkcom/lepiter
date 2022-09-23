@@ -720,14 +720,6 @@ LeContent >> mergeSnippet: mergeLeSnippet after: afterLeSnippet [
 ]
 
 { #category : #'api - editing' }
-LeContent >> mergeWithSuccessor: aBlock [ 
-	"Merge the supplied block with the receiver's successor.
-	Answer the merged block"
-
-	self parent mergeSnippet: aBlock after: self
-]
-
-{ #category : #'api - editing' }
 LeContent >> moveDownSnippet: aLeSnippet [
 	"Try to move the supplied snippet down one item in the receiver's children.
 	If that isn't possible, try to move the snippet down as the receiver's sibling"

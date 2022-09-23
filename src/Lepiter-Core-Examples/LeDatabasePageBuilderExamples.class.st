@@ -86,13 +86,16 @@ LeDatabasePageBuilderExamples >> addLaterEmptyPage_GarbageNotAddedPage [
 	"Demonstrate creating a page, since it is not added, it should be garbage collected."
 	<gtExample>
 	| aDatabase aWeakPage |
+	
 	aDatabase := self basicDatabase.
 	aWeakPage := aDatabase pageBuilder addOnlyAfterSettingTitle asWeakReference.
 	self assert: aDatabase size equals: 0.
 
 	1 timesRepeat: [ Smalltalk garbageCollect ].
 	
-	self assert: (aWeakPage at: 1) isNil description: 'Not added page must be garbage collected'.
+	self 
+		assert: (aWeakPage at: 1) isNil 
+		description: 'Not added page must be garbage collected'.
 
 	^ aWeakPage
 ]

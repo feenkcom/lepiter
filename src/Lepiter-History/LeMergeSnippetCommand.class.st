@@ -16,14 +16,14 @@ LeMergeSnippetCommand class >> merge: aSnippet with: anotherSnippet [
 { #category : #initialization }
 LeMergeSnippetCommand >> addDeleteSnippetCommandFor: aSourceSnippet [ 
 
-	self addSubcommand: (aSourceSnippet commandBuilder 
+	self addSubcommand: (self targetSnippet commandBuilder 
 		removeChildSnippetCommandFor: aSourceSnippet)
 ]
 
 { #category : #initialization }
 LeMergeSnippetCommand >> addEditContentCommandFor: aSourceSnippet [ 
 	
-	self addSubcommand: (aSourceSnippet commandBuilder mergeSnippetContentCommand
+	self addSubcommand: (self targetSnippet commandBuilder mergeSnippetContentCommand
 		sourceSnippet: aSourceSnippet)
 ]
 
@@ -37,6 +37,15 @@ LeMergeSnippetCommand >> addMoveChildrenCommandFor: aSourceSnippet [
 { #category : #execution }
 LeMergeSnippetCommand >> basicExecute [ 
 	self executeSubcommands
+]
+
+{ #category : #'gt - extensions' }
+LeMergeSnippetCommand >> gtViewSubcommandsFor: aView [ 
+	<gtView>
+	
+	^ aView list 
+		title: 'Subcommands';
+		items: [ self subcommands ]
 ]
 
 { #category : #initialization }
