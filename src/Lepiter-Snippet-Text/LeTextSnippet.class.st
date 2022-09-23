@@ -242,10 +242,10 @@ LeTextSnippet >> fromStonMapKey: key value: value [
 ]
 
 { #category : #'gt-extensions' }
-LeTextSnippet >> gtSpotterContainingSubPartsFor: aStep [
+LeTextSnippet >> gtSpotterContainingSubPartsFor: aSearch [
 	<gtSearch>
-	self hasChildren ifNil: [ ^ self ].
-	aStep listProcessor
+	self hasChildren ifNil: [ ^ aSearch empty ].
+	^ aSearch list
 		priority: 23;
 		title: 'Children Tree Content';
 		wantsToDisplayOnEmptyQuery: false;

@@ -1,6 +1,6 @@
 Trait {
 	#name : #TLeSpotterPagesSearch,
-	#category : 'Lepiter-Core-Utility'
+	#category : #'Lepiter-Core-Utility'
 }
 
 { #category : #'api - accessing' }
@@ -10,10 +10,10 @@ TLeSpotterPagesSearch >> children [
 ]
 
 { #category : #'gt-extensions' }
-TLeSpotterPagesSearch >> gtSpotterContainingSubPartsFor: aStep [
+TLeSpotterPagesSearch >> gtSpotterContainingSubPartsFor: aSearch [
 	<gtSearch>
-	self hasChildren ifNil: [ ^ self ].
-	aStep listProcessor
+	self hasChildren ifNil: [ ^ aSearch empty ].
+	^ aSearch list
 		priority: 23;
 		title: 'Children Tree Content';
 		wantsToDisplayOnEmptyQuery: false;
@@ -22,16 +22,16 @@ TLeSpotterPagesSearch >> gtSpotterContainingSubPartsFor: aStep [
 ]
 
 { #category : #'gt-extensions' }
-TLeSpotterPagesSearch >> gtSpotterContentFor: aStep [
+TLeSpotterPagesSearch >> gtSpotterContentFor: aSearch [
 	<gtSearch>
-	self hasChildren ifFalse: [ ^ self ].
-	aStep listProcessor
+	self hasChildren ifFalse: [ ^ aSearch empty ].
+	^ aSearch list
 		title: 'Direct Children Content';
 		priority: 21;
 		items: [ self children ];
 		itemFilterName: #content;
 		wantsToDisplayOnEmptyQuery: true;
-		filter: GtFilterSubstring
+		filterBySubstring
 ]
 
 { #category : #'gt-extensions' }

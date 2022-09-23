@@ -1,21 +1,21 @@
 Extension { #name : #LeContextMenuSpotterStart }
 
 { #category : #'*Lepiter-Snippet-Picture' }
-LeContextMenuSpotterStart >> gtSpotterForPictureFor: aStep [
+LeContextMenuSpotterStart >> gtSpotterForPictureFor: aSearch [
 	<gtSearch>
-	aStep listProcessor
-		priority: 2;
+
+	^ aSearch explicit
 		title: 'Add picture snippet';
+		priority: 2;
 		itemName: #title;
-		filter: GtNullFilter
-			item: [ :filter :context | | pictureString |
-				pictureString := self spotterPictureFileStringFor: context textTrimmed.
-				StringSignal emit: 'P: ', pictureString asString, ' from: ', context textTrimmed asString.
-				pictureString ifNotNil:
-					[ filter value: (LeContextMenuItemValuableSpecification new
-						valuable: [ LePictureSnippet new urlString: pictureString ];
-						title: pictureString) ] ];
-		wantsToDisplayOnEmptyQuery: false
+		search: [ :aContext |
+			((aContext searchQuery asAsyncFuture asAsyncStream
+				collect: [ :aQuery | self spotterPictureFileStringFor: aQuery trimBoth ])
+				select: #notNil)
+				collect: [ :aPicturePath |
+					LeContextMenuItemValuableSpecification new
+						valuable: [ LePictureSnippet new urlString: aPicturePath ];
+						title: aPicturePath ] ]
 ]
 
 { #category : #'*Lepiter-Snippet-Picture' }

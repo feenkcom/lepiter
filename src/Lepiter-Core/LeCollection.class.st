@@ -128,10 +128,10 @@ LeCollection >> fourth [
 ]
 
 { #category : #'gt-extensions' }
-LeCollection >> gtSpotterContainingSubPartsFor: aStep [
+LeCollection >> gtSpotterContainingSubPartsFor: aSearch [
 	<gtSearch>
-	self hasChildren ifNil: [ ^ self ].
-	aStep listProcessor
+	self hasChildren ifNil: [ ^ aSearch empty ].
+	^ aSearch list
 		priority: 23;
 		title: 'Children Tree Content';
 		wantsToDisplayOnEmptyQuery: false;
