@@ -142,11 +142,8 @@ LePharoRewriteSnippet >> potentialScopeExpressionsUsing: snippetContext [
 					or: [ (variableBindings bindingOf: each asSymbol) value isKindOf: GtSearchFilter ] ].
 	(snippetContext selfObject isKindOf: GtSearchFilter)
 		ifTrue: [ variables add: 'self' ].
-	(Pragma allNamed: 'gtSearchFilter')
-		do: [ :each | 
-			(each method methodClass isClassSide and: [ each method numArgs = 0 ])
-				ifTrue: [ variables
-						add: each method methodClass instanceSide name asString , ' ' , each method selector ] ].
+	GtSearchFilter allSearchFilterMethods
+		do: [ :each | variables add: each methodClass instanceSide name asString , ' ' , each selector ].
 	^ variables
 ]
 
