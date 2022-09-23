@@ -217,6 +217,16 @@ LeDatabase >> children [
 	^ self pages
 ]
 
+{ #category : #callbacks }
+LeDatabase >> completeAddPageLaterFor: aTitleChangesAnnoucement [ 
+	"This is a callback for adding a page to a database only when the title changed.
+	This is added here so that registration for the announcement can be done using a
+	weak announcement."
+	
+	aTitleChangesAnnoucement page unsubscribe:  self.
+	self addPage: aTitleChangesAnnoucement page
+]
+
 { #category : #'api - enumerating' }
 LeDatabase >> dailyNotes [
 	"Answer the receiver's daily notes sorted by date"
