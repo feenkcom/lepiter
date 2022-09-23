@@ -59,6 +59,19 @@ LePageEventStore >> isEmpty [
 	^ self events isEmpty
 ]
 
+{ #category : #printing }
+LePageEventStore >> printOn: aStream [ 
+	super printOn: aStream.
+	aStream 
+		<< ' [';
+		print: self size;
+		<< ' ';
+		<< (self size = 1 
+			ifTrue: [ 'item' ]
+			ifFalse: [ 'items' ]);
+		<< ']'
+]
+
 { #category : #accessing }
 LePageEventStore >> size [
 	^ self events size
