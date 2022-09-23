@@ -88,9 +88,8 @@ LeTextualSnippet >> mergeAndRemoveSelfOrSnippet: aSnippet [
 	
 	"Append aSnippet's text to the end of the receiver and aSnippet's children 
 	to the end of the receiver's children"
+	
 	self appendText: aSnippet text.
-	self updateEditTimeAndEmail.
-
 	aSnippet transferChildrenTo: self.
 	aSnippet removeSelf.
 
