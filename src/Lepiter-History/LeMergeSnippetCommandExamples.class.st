@@ -23,6 +23,28 @@ LeMergeSnippetCommandExamples >> createMergeSnippetsWithNoChildrenCommand [
 ]
 
 { #category : #accessing }
+LeMergeSnippetCommandExamples >> executeMergeSnippetsWithNoChildrenCommand [
+	<gtExample>
+	| command page firstSnippet result |
+	
+	command := self createMergeSnippetsWithNoChildrenCommand.
+	page := self targetPage.
+	firstSnippet := page children first.
+	
+	result := command execute.
+	
+	self assert: page children size equals: 1.
+	self assert: page editHistory eventStore size equals: 1.
+	self assert: page children first string equals: 'AB'.
+	
+	self 
+		assert: page children first identityHash 
+		equals: firstSnippet identityHash.
+
+	^ page
+]
+
+{ #category : #accessing }
 LeMergeSnippetCommandExamples >> pageWithTwoSnippets [
 	<gtExample>
 	| page |

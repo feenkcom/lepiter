@@ -35,7 +35,9 @@ LeBasicEditSnippetCommand >> createUndoCommandSpecification [
 
 { #category : #'execution - utils' }
 LeBasicEditSnippetCommand >> extractCurrentSnippetState [
-	^ LeGenericSnippetState fromSnippet: self targetSnippet basedOn: self snippetState
+	^ LeGenericSnippetState 
+		fromSnippet: self targetSnippet 
+		basedOn: self snippetState
 ]
 
 { #category : #'gt - extensions' }

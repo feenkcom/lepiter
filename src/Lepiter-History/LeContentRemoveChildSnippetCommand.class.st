@@ -15,7 +15,8 @@ LeContentRemoveChildSnippetCommand class >> commandDescription [
 { #category : #execution }
 LeContentRemoveChildSnippetCommand >> basicExecute [ 
 	^ self withUndoExecute: [ 
-		self targetContent removeSnippet: self childSnippet ]
+		self targetContent 
+			removeSnippet: self childSnippet ]
 ]
 
 { #category : #accessing }

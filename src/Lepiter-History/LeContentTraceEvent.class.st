@@ -39,6 +39,13 @@ LeContentTraceEvent >> gtViewUndoSpecificationFor: aView [
 		view: #gtViewSpecificationAttributesFor:
 ]
 
+{ #category : #initialization }
+LeContentTraceEvent >> initialize [
+	super initialize.
+	
+	uid := LeUID new.
+]
+
 { #category : #accessing }
 LeContentTraceEvent >> label [
 	self subclassResponsibility
