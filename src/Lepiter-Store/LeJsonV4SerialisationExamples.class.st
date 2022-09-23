@@ -28,6 +28,9 @@ LeJsonV4SerialisationExamples >> deSerializeAllImplementors [
 		ScaledDecimal.
 		}.
 	allClasses removeAll: excludedClasses.
+	"Give developers the chance to exclude classes that are not part of core Gt"
+	(self class methods select: [ :method | method hasPragmaNamed: #leJsonV4ExcludedClasses ])
+		do: [ :method | allClasses removeAll: (self perform: method selector) ].
 	allClasses do: [ :cls |
 		(cls perform: #leJsonV4Name) ifNotNil:
 			[ [ instance := cls new ]

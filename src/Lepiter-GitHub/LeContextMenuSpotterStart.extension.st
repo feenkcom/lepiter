@@ -1,17 +1,19 @@
 Extension { #name : #LeContextMenuSpotterStart }
 
 { #category : #'*Lepiter-GitHub' }
-LeContextMenuSpotterStart >> gtSpotterForGitHubIssueUrlFor: aStep [
+LeContextMenuSpotterStart >> gtSpotterForGitHubIssueUrlFor: aSearch [
 	<gtSearch>
-	aStep listProcessor
+	
+	^ aSearch explicit
 		priority: 1;
 		title: 'Add GitHub issue snippet';
 		itemName: #title;
-		filter: GtNullFilter
-			item: [ :filter :context | 
-				(LeGitHubUtility isValidGitHubIssueUrl: context textTrimmed)
-					ifTrue: [ filter value: (LeContextMenuItemValuableSpecification new
-						valuable: [ LeGitHubIssueSnippet new url: context textTrimmed ];
-						title: [ LeGitHubUtility shortGitHubIssueNameFromUrl: context textTrimmed asString ]) ] ];
-		wantsToDisplayOnEmptyQuery: false
+		search: [ :aContext |
+			((aContext searchQuery asAsyncFuture asAsyncStream
+				collect: #trimBoth)
+				select: [ :aQuery | LeGitHubUtility isValidGitHubIssueUrl: aQuery ])
+				collect: [ :aQuery |
+					(LeContextMenuItemValuableSpecification new
+						valuable: [ LeGitHubIssueSnippet new url: aQuery ];
+						title: [ LeGitHubUtility shortGitHubIssueNameFromUrl: aQuery ]) ] ]
 ]
