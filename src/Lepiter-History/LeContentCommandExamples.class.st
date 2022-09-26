@@ -15,14 +15,21 @@ LeContentCommandExamples >> assertEmptyPageHistoryForPage: aPage [
 ]
 
 { #category : #accessing }
+LeContentCommandExamples >> createTargetPage [
+	<gtExample>
+	
+	| newPage|
+	newPage := LePage named: 'TestPage'.
+		
+	self assertEmptyPageHistoryForPage: newPage.
+	
+	^ newPage
+]
+
+{ #category : #accessing }
 LeContentCommandExamples >> targetPage [
 	<gtExample>
 	
 	^ thePage ifNil: [
-		| newPage|
-		newPage := LePage named: 'TestPage'.
-		
-		self assertEmptyPageHistoryForPage: newPage.
-		
-		thePage := newPage ]
+		thePage := self createTargetPage ]
 ]
