@@ -18,9 +18,7 @@ LePageStructureAsseamblerExamples >> assertStructure: structureDescription forCo
 		assoc value isAssociation ifTrue: [
 			self 
 				assertStructure: assoc value value
-				forContent: currentSnippet  ] ] 
-	
-
+				forContent: currentSnippet  ] ]
 ]
 
 { #category : #accessing }
