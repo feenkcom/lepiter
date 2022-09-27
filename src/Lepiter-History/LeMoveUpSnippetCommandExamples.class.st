@@ -1,21 +1,21 @@
 Class {
-	#name : #LeMoveDownSnippetCommandExamples,
+	#name : #LeMoveUpSnippetCommandExamples,
 	#superclass : #LeContentCommandExamples,
 	#category : #'Lepiter-History-Examples'
 }
 
 { #category : #testing }
-LeMoveDownSnippetCommandExamples class >> isAbstract [ 
-	^ self name = #LeMoveDownSnippetCommandExamples
+LeMoveUpSnippetCommandExamples class >> isAbstract [ 
+	^ self name = #LeMoveUpSnippetCommandExamples
 ]
 
 { #category : #accessing }
-LeMoveDownSnippetCommandExamples >> createMoveDownSnippetCommand [
+LeMoveUpSnippetCommandExamples >> createMoveUpSnippetCommand [
 	<gtExample>
 	| targetSnippet command |
 	
 	targetSnippet := self targetSnippet.
-	command := targetSnippet commandBuilder moveDownSnippetCommand.
+	command := targetSnippet commandBuilder moveUpSnippetCommand.
 	
 	self assert: command uid notNil.
 	self assert: command targetContent equals: targetSnippet.
@@ -24,11 +24,11 @@ LeMoveDownSnippetCommandExamples >> createMoveDownSnippetCommand [
 ]
 
 { #category : #accessing }
-LeMoveDownSnippetCommandExamples >> executeMoveDownSnippetCommand [
+LeMoveUpSnippetCommandExamples >> executeMoveUpSnippetCommand [
 	<gtExample>
 	| command page initialTargetSnippet result |
 	
-	command := self createMoveDownSnippetCommand.
+	command := self createMoveUpSnippetCommand.
 	page := self targetPage.
 	initialTargetSnippet := self targetSnippet.
 
@@ -37,22 +37,22 @@ LeMoveDownSnippetCommandExamples >> executeMoveDownSnippetCommand [
 	self assert: page children size equals: 2.
 	self assert: page editHistory eventStore size equals: 1.
 	
-	self assert: self targetSnippet == initialTargetSnippet.
+	self assert:  self targetSnippet == initialTargetSnippet.
 	
 	self 
-		assertStructure: self modifiedPageStructure
+		assertStructure: self modifiedPageStructure 
 		forContent: page.
 
 	^ page
 ]
 
 { #category : #accessing }
-LeMoveDownSnippetCommandExamples >> modifiedPageStructure [
-	self subclassResponsibility
+LeMoveUpSnippetCommandExamples >> modifiedPageStructure [
+	^ self subclassResponsibility
 ]
 
 { #category : #accessing }
-LeMoveDownSnippetCommandExamples >> targetSnippet [
+LeMoveUpSnippetCommandExamples >> targetSnippet [
 	<gtExample>
 	self targetPage allChildrenBreadthFirstDo: [ :aSnippet |
 		aSnippet string = 'Target' ifTrue: [ ^ aSnippet ] ].
