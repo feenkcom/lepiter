@@ -8,6 +8,12 @@ Class {
 }
 
 { #category : #asserting }
+LeContentCommandExamples >> assertCommand: aCommand forSnippet: aTargetSnippet [ 
+	self assert: aCommand uid notNil.
+	self assert: aCommand targetContent equals: aTargetSnippet.
+]
+
+{ #category : #asserting }
 LeContentCommandExamples >> assertEmptyPageHistoryForPage: aPage [
 	self assert: aPage editHistory eventStore isEmpty. 
 	self assert: aPage editHistory redoUndoActions isEmpty. 
@@ -31,7 +37,7 @@ LeContentCommandExamples >> assertStructure: structureDescription forContent: aL
 				forContent: currentSnippet  ] ]
 ]
 
-{ #category : #accessing }
+{ #category : #'examples - setup' }
 LeContentCommandExamples >> createTargetPage [
 	<gtExample>
 	
@@ -43,7 +49,7 @@ LeContentCommandExamples >> createTargetPage [
 	^ newPage
 ]
 
-{ #category : #accessing }
+{ #category : #'examples - setup' }
 LeContentCommandExamples >> targetPage [
 	<gtExample>
 	

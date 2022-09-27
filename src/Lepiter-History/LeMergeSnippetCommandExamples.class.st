@@ -4,7 +4,7 @@ Class {
 	#category : #'Lepiter-History-Examples'
 }
 
-{ #category : #accessing }
+{ #category : #'examples - commands' }
 LeMergeSnippetCommandExamples >> createMergeSnippetsWithNoChildrenCommand [
 	<gtExample>
 	| page firstSnippet secondSnippet command |
@@ -22,7 +22,7 @@ LeMergeSnippetCommandExamples >> createMergeSnippetsWithNoChildrenCommand [
 	^ command
 ]
 
-{ #category : #accessing }
+{ #category : #'examples - execution' }
 LeMergeSnippetCommandExamples >> executeMergeSnippetsWithNoChildrenCommand [
 	<gtExample>
 	| command page firstSnippet result |
@@ -44,7 +44,7 @@ LeMergeSnippetCommandExamples >> executeMergeSnippetsWithNoChildrenCommand [
 	^ page
 ]
 
-{ #category : #accessing }
+{ #category : #'examples - setup' }
 LeMergeSnippetCommandExamples >> pageWithTwoSnippets [
 	<gtExample>
 	| page |

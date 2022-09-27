@@ -9,7 +9,7 @@ LeMoveUpSnippetCommandExamples class >> isAbstract [
 	^ self name = #LeMoveUpSnippetCommandExamples
 ]
 
-{ #category : #accessing }
+{ #category : #'examples - commands' }
 LeMoveUpSnippetCommandExamples >> createMoveUpSnippetCommand [
 	<gtExample>
 	| targetSnippet command |
@@ -17,13 +17,12 @@ LeMoveUpSnippetCommandExamples >> createMoveUpSnippetCommand [
 	targetSnippet := self targetSnippet.
 	command := targetSnippet commandBuilder moveUpSnippetCommand.
 	
-	self assert: command uid notNil.
-	self assert: command targetContent equals: targetSnippet.
+	self assertCommand: command forSnippet: targetSnippet.
 	
 	^ command
 ]
 
-{ #category : #accessing }
+{ #category : #'examples - execution' }
 LeMoveUpSnippetCommandExamples >> executeMoveUpSnippetCommand [
 	<gtExample>
 	| command page initialTargetSnippet result |
@@ -51,7 +50,7 @@ LeMoveUpSnippetCommandExamples >> modifiedPageStructure [
 	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : #'examples - setup' }
 LeMoveUpSnippetCommandExamples >> targetSnippet [
 	<gtExample>
 	self targetPage allChildrenBreadthFirstDo: [ :aSnippet |

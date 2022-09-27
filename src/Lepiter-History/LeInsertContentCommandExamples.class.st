@@ -4,7 +4,7 @@ Class {
 	#category : #'Lepiter-History-Examples'
 }
 
-{ #category : #accessing }
+{ #category : #'examples - setup' }
 LeInsertContentCommandExamples >> createInsertEmptyFirstSnippetInPageCommand [
 	<gtExample>
 	| command |
@@ -22,7 +22,7 @@ LeInsertContentCommandExamples >> createInsertEmptyFirstSnippetInPageCommand [
 	^ command
 ]
 
-{ #category : #accessing }
+{ #category : #'examples - execution' }
 LeInsertContentCommandExamples >> executeInsertEmptyFirstSnippetInPageCommand [
 	<gtExample>
 	| command result |

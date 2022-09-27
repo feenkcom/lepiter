@@ -4,7 +4,7 @@ Class {
 	#category : #'Lepiter-History-Examples'
 }
 
-{ #category : #accessing }
+{ #category : #'examples - setup' }
 LeMoveUpSnippetInAnotherParentCommandExamples >> createTargetPage [
 	<gtExample>
 	| page secondSnippet |

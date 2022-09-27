@@ -1,0 +1,66 @@
+Class {
+	#name : #LeIndentSnippetCommandExamples,
+	#superclass : #LeContentCommandExamples,
+	#category : #'Lepiter-History-Examples'
+}
+
+{ #category : #'examples - commands' }
+LeIndentSnippetCommandExamples >> createIndentSnippetCommand [
+	<gtExample>
+	| targetSnippet command |
+	
+	targetSnippet := self targetPage children second.
+	command := targetSnippet commandBuilder indentSnippetCommand.
+	
+	self assertCommand: command forSnippet: targetSnippet.
+	
+	^ command
+]
+
+{ #category : #'examples - setup' }
+LeIndentSnippetCommandExamples >> createTargetPage [
+	<gtExample>
+	| page |
+	
+	page := super createTargetPage.
+	
+	page addSnippet: ((LeTextSnippet string: 'A')
+		uid: LeUID new). 
+	
+	page addSnippet: ((LeTextSnippet string: 'Target')
+		uid: LeUID new). 
+		
+	self assertEmptyPageHistoryForPage: page.
+	
+	^ page
+]
+
+{ #category : #'examples - execution' }
+LeIndentSnippetCommandExamples >> executeIndentSnippetCommand [
+	<gtExample>
+	| command page initialTargetSnippet result |
+	
+	command := self createIndentSnippetCommand.
+	page := self targetPage.
+	initialTargetSnippet := page children second.
+
+	result := command execute.
+	
+	self assert: page children size equals: 1.
+	self assert: page editHistory eventStore size equals: 1.
+	
+	self assert: page children first children first == initialTargetSnippet.
+	
+	self 
+		assertStructure: self modifiedPageStructure
+		forContent: page.
+
+	^ page
+]
+
+{ #category : #accessing }
+LeIndentSnippetCommandExamples >> modifiedPageStructure [
+	^ { 
+		#snippetA -> ('A' -> 
+			 {#snippetT -> 'Target'})}
+]
