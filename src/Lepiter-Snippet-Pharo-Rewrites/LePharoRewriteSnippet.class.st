@@ -225,7 +225,7 @@ LePharoRewriteSnippet >> scopeFilterUsing: snippetContext [
 				ex return: nil ])
 			ifNil: [ self
 					inform: self scope , ' doesn''t evaluate to a search filter. Using all methods instead.'.
-				GtSearchImageMethodsFilter allMethods ].
+				GtSearchImageMethodsFilter forAllMethods ].
 	^ filter select: [ :each | each isFromTrait not ]
 ]
 
