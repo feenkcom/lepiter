@@ -75,7 +75,7 @@ LePharoRewriteSnippet >> contentAsString [
 
 { #category : #accessing }
 LePharoRewriteSnippet >> defaultScope [
-	^ 'GtSearchImageMethodsFilter allMethods'
+	^ 'GtSearchImageMethodsFilter forAllMethods'
 ]
 
 { #category : #actions }
