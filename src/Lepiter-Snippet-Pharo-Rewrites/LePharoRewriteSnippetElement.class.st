@@ -325,21 +325,14 @@ LePharoRewriteSnippetElement >> descriptionFor: aNode [
 ]
 
 { #category : #accessing }
-LePharoRewriteSnippetElement >> filterLabelFor: aString [
-	^ ((snippetViewModel ifNotNil: [ self snippet ])
-		ifNotNil: [ :snippet | snippet scopeLabelFor: aString using: self snippetContext ])
-		ifNil: [ '' ]
-]
-
-{ #category : #initialization }
-LePharoRewriteSnippetElement >> filterNames [
-	^ (self snippet potentialScopeExpressionsUsing: self snippetContext)
-		asSortedCollection
+LePharoRewriteSnippetElement >> filterDescriptors [
+	snippetViewModel ifNil: [ ^ GtSearchFilter globalFilterDescriptors ].
+	^ self snippet filterDescriptorsUsing: self snippetContext
 ]
 
 { #category : #initialization }
 LePharoRewriteSnippetElement >> initialize [
-	| searchEditor replaceEditor scopeElement scopeButton |
+	| searchEditor replaceEditor scopeElement filtersElement |
 	super initialize.
 	rewriteElement := BrVerticalPane new.
 	rewriteElement padding: (BlInsets all: 5).
@@ -349,37 +342,12 @@ LePharoRewriteSnippetElement >> initialize [
 	scopeElement hMatchParent.
 	scopeElement vFitContent.
 	scopeElement margin: (BlInsets bottom: 2).
-	scopeElement addChild: (self createLabel: 'Search in').
-	scopeButton := BrButton new
-			aptitude: BrGlamorousButtonWithLabelAptitude
-					+ (BrGlamorousWithDropdownAptitude
-							handle: [ BrButton new
-									aptitude: BrGlamorousButtonWithLabelAptitude - BrGlamorousButtonExteriorAptitude;
-									beSmallSize;
-									fitContent;
-									label: (self filterLabelFor: self scope);
-									yourself ]
-							content: [ BrSimpleList new
-									padding: (BlInsets all: 5);
-									vFitContentLimited;
-									hFitContent;
-									items: self filterNames;
-									itemStencil: [ :each :index | 
-										BrButton new
-											beSmallSize;
-											aptitude: BrGlamorousButtonRectangularAptitude + BrGlamorousButtonLabelAptitude;
-											action: [ :aButton | 
-												aButton fireEvent: BrDropdownHideWish new.
-												self snippet scope: (aButton userData at: #variable) ] ];
-									itemDataBinder: [ :button :filterName | 
-										button userData at: #variable put: filterName.
-										button label: (self filterLabelFor: filterName) asRopedText ] ]);
-			beSmallSize;
-			fitContent;
-			margin: (BlInsets left: 5);
-			label: (self filterLabelFor: self scope).
-	scopeElement addChild: scopeButton as: #scopeButton.
-	scopeElement addChild: (self createLabel: ':').
+	scopeElement
+		addChild: ((self createLabel: 'Search in:') margin: (BlInsets top: 5)).
+	filtersElement := GtFiltersElement new.
+	filtersElement descriptors: [ self filterDescriptors ].
+	filtersElement when: GtFiltersChangedEvent do: [ :event | self saveScope ].
+	scopeElement addChild: filtersElement as: #filtersElement.
 	rewriteElement addChild: scopeElement.
 	searchEditor := self createSourceEditor: #updateSearch.
 	searchEditor userData
@@ -403,7 +371,7 @@ LePharoRewriteSnippetElement >> initialize [
 				icon: BrGlamorousIcons playinspect asElement;
 				label: 'Search' asString;
 				action: [ rewriteElement phlow
-						spawnObject: (self snippet executeSearchUsing: self snippetContext) ])
+						spawnObject: (self snippet executeSearchInFilter: self searchFilter) ])
 		as: #searchButton.
 	rewriteElement addChild: (self createLabel: 'Replace with:').
 	replaceEditor := self createSourceEditor: #updateReplace.
@@ -423,7 +391,7 @@ LePharoRewriteSnippetElement >> initialize [
 				aptitude: BrGlamorousButtonWithIconAptitude;
 				icon: BrGlamorousIcons playinspect asElement;
 				label: 'Replace' asString;
-				action: [ (self snippet executeRewriteUsing: self snippetContext)
+				action: [ (self snippet executeRewriteInFilter: self searchFilter)
 						then: [ :obj | rewriteElement inUIProcessDo: [ rewriteElement phlow spawnObject: obj ] ] ])
 		as: #replaceButton
 ]
@@ -809,6 +777,30 @@ LePharoRewriteSnippetElement >> safePatternVariableIn: aNode basedOn: aString [
 	^ current
 ]
 
+{ #category : #initialization }
+LePharoRewriteSnippetElement >> saveScope [
+	rewriteElement
+		childNamed: #filtersElement
+		ifFound: [ :filtersElement | 
+			self snippet
+				scope: (String
+						streamContents: [ :stream | 
+							stream nextPutAll: '#('.
+							filtersElement
+								filtersDo: [ :descriptor :value | 
+									value
+										ifNil: [ stream store: descriptor name ]
+										ifNotNil: [ stream
+												nextPutAll: '#(';
+												store: descriptor name;
+												space;
+												store: value;
+												nextPut: $) ].
+									stream space ].
+
+							stream nextPut: $) ]) ]
+]
+
 { #category : #accessing }
 LePharoRewriteSnippetElement >> scope [
 	^ (snippetViewModel ifNotNil: [ self snippet ])
@@ -825,6 +817,18 @@ LePharoRewriteSnippetElement >> scopeLabel [
 { #category : #private }
 LePharoRewriteSnippetElement >> searchEditorDo: block [
 	rewriteElement childNamed: #searchEditor ifFound: block
+]
+
+{ #category : #initialization }
+LePharoRewriteSnippetElement >> searchFilter [
+	| filters |
+	filters := OrderedCollection new.
+	rewriteElement
+		childNamed: #filtersElement
+		ifFound: [ :filtersElement | 
+			filtersElement
+				filtersDo: [ :descriptor :value | filters add: (descriptor newFilterWithValue: value) ] ].
+	^ filters ifEmpty: [ nil ] ifNotEmpty: [ filters reduce: [ :a :b | a | b ] ]
 ]
 
 { #category : #private }
@@ -1085,8 +1089,15 @@ LePharoRewriteSnippetElement >> updateReplaceVariables [
 { #category : #accessing }
 LePharoRewriteSnippetElement >> updateScope [
 	rewriteElement
-		childNamed: #scopeButton
-		ifFound: [ :button | button label: (self filterLabelFor: self scope) asRopedText ]
+		childNamed: #filtersElement
+		ifFound: [ :filtersElement | 
+			| descriptors |
+			descriptors := self filterDescriptors.
+			filtersElement clearFilters.
+			self snippet
+				filterDescriptorNamesAndValuesDo: [ :name :value | 
+					(descriptors detect: [ :each | each name = name ] ifNone: [  ])
+						ifNotNil: [ :descriptor | filtersElement addFilterForDescriptor: descriptor andValue: value ] ] ]
 ]
 
 { #category : #private }
