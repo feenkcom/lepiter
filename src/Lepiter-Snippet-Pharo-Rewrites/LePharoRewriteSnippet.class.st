@@ -73,18 +73,13 @@ LePharoRewriteSnippet >> contentAsString [
 				print: (scope ifNil: [ '' ]) ]
 ]
 
-{ #category : #accessing }
-LePharoRewriteSnippet >> defaultScope [
-	^ 'GtSearchImageMethodsFilter forAllMethods'
-]
-
 { #category : #actions }
-LePharoRewriteSnippet >> executeRewriteUsing: snippetContext [
+LePharoRewriteSnippet >> executeRewriteInFilter: aFilter [
 	| model rewriter potentialMethods |
 	model := RBNamespace new.
 	rewriter := RBParseTreeRewriter new.
 	rewriter replace: self search with: self replace.
-	potentialMethods := self potentialMethodsUsing: snippetContext.
+	potentialMethods := self potentialMethodsInFilter: aFilter.
 	^ (potentialMethods
 		do: [ :each | 
 			(rewriter executeTree: each ast copy)
@@ -93,12 +88,52 @@ LePharoRewriteSnippet >> executeRewriteUsing: snippetContext [
 ]
 
 { #category : #actions }
-LePharoRewriteSnippet >> executeSearchUsing: snippetContext [
+LePharoRewriteSnippet >> executeSearchInFilter: aFilter [
 	| astSearchFilter |
 	astSearchFilter := self search gtASTMatches.
-	^ (self scopeFilterUsing: snippetContext)
-		ifNil: [ astSearchFilter ]
-		ifNotNil: [ :scopeFilter | scopeFilter & astSearchFilter ]
+	^ aFilter ifNil: [ astSearchFilter ] ifNotNil: [ aFilter & astSearchFilter ]
+]
+
+{ #category : #accessing }
+LePharoRewriteSnippet >> filterDescriptorNamesAndValuesDo: aBlock [
+	(scope isNil or: [ scope isEmpty ]) ifTrue: [ ^ self ].
+	scope first = $# ifFalse: [ ^ aBlock cull: scope cull: ''	"old format" ].
+	^ (RBParser parseExpression: scope) value
+		do: [ :each | 
+			each isString
+				ifTrue: [ aBlock cull: each cull: nil ]
+				ifFalse: [ aBlock cull: each first cull: each second ] ]
+]
+
+{ #category : #private }
+LePharoRewriteSnippet >> filterDescriptorsUsing: snippetContext [
+	| variableBindings descriptors variables |
+	descriptors := GtSearchFilter globalFilterDescriptors.
+	variableBindings := snippetContext sharedBindings.
+	variables := self potentialScopeVariables
+			select: [ :each | 
+				(variableBindings hasBindingOf: each asSymbol) not
+					or: [ (variableBindings bindingOf: each asSymbol) value isKindOf: GtSearchFilter ] ].
+	variables asSortedCollection
+		reverseDo: [ :each | 
+			descriptors
+				addFirst: (GtFilterDescriptor new
+						valueNotRequired;
+						creator: [ :value | 
+							((variableBindings bindingOf: each asSymbol) value
+								ifNotNil: [ :obj | (obj isKindOf: GtSearchFilter) ifTrue: [ obj ] ])
+								ifNil: [ self inform: each , ' is not a search filter. Using all methods instead.'.
+									GtSearchImageMethodsFilter forAllMethods ] ];
+						named: each;
+						order: 0) ].
+	(snippetContext selfObject isKindOf: GtSearchFilter)
+		ifTrue: [ descriptors
+				addFirst: (GtFilterDescriptor new
+						valueNotRequired;
+						creator: [ :value | snippetContext selfObject ];
+						named: 'self';
+						order: 0) ].
+	^ descriptors
 ]
 
 { #category : #accessing }
@@ -107,9 +142,10 @@ LePharoRewriteSnippet >> isEmpty [
 ]
 
 { #category : #private }
-LePharoRewriteSnippet >> potentialMethodsUsing: snippetContext [
+LePharoRewriteSnippet >> potentialMethodsInFilter: aFilter [
 	| ast literals filter |
-	filter := self scopeFilterUsing: snippetContext.
+	filter := (aFilter ifNil: [ GtSearchImageMethodsFilter forAllMethods ])
+			select: [ :each | each isFromTrait not ].
 	ast := self searchAST.
 	literals := Set withAll: ast sentMessages.
 	literals isEmpty
@@ -125,26 +161,9 @@ LePharoRewriteSnippet >> potentialMethodsUsing: snippetContext [
 			astFilter := (literals
 					collect: [ :each | GtSearchReferencesFilter literal: each ])
 					reduce: [ :a :b | a & b ].
-			filter ifNotNil: [ astFilter := astFilter & filter ].
+			astFilter := astFilter & filter.
 			^ astFilter asAsyncStream ].
-	^ filter
-		ifNil: [ AsyncImageMethodsStream new ]
-		ifNotNil: [ filter asAsyncStream ]
-]
-
-{ #category : #private }
-LePharoRewriteSnippet >> potentialScopeExpressionsUsing: snippetContext [
-	| variableBindings variables |
-	variableBindings := snippetContext sharedBindings.
-	variables := self potentialScopeVariables
-			select: [ :each | 
-				(variableBindings hasBindingOf: each asSymbol) not
-					or: [ (variableBindings bindingOf: each asSymbol) value isKindOf: GtSearchFilter ] ].
-	(snippetContext selfObject isKindOf: GtSearchFilter)
-		ifTrue: [ variables add: 'self' ].
-	GtSearchFilter allSearchFilterMethods
-		do: [ :each | variables add: each methodClass instanceSide name asString , ' ' , each selector ].
-	^ variables
+	^ filter asAsyncStream
 ]
 
 { #category : #accessing }
@@ -175,9 +194,7 @@ LePharoRewriteSnippet >> replace: aString [
 
 { #category : #accessing }
 LePharoRewriteSnippet >> scope [
-	^ (scope isNil or: [ scope isEmpty ])
-		ifTrue: [ self defaultScope ]
-		ifFalse: [ scope ]
+	^ scope
 ]
 
 { #category : #accessing }
@@ -188,53 +205,6 @@ LePharoRewriteSnippet >> scope: aString [
 				source: self;
 				snippet: self;
 				scope: aString)
-]
-
-{ #category : #private }
-LePharoRewriteSnippet >> scopeFilterFor: aString using: snippetContext [
-	| filter variableBindings name |
-	variableBindings := snippetContext sharedBindings.
-	name := (aString isNil or: [ aString isEmpty ])
-			ifTrue: [ self defaultScope ]
-			ifFalse: [ aString ].
-	name = 'self'
-		ifTrue: [ filter := snippetContext selfObject ]
-		ifFalse: [ (name includes: $ )
-				ifTrue: [ | items class selector |
-					items := $  split: name.
-					items size ~= 2 ifTrue: [ ^ nil ].
-					class := self class environment
-							at: items first asSymbol
-							ifAbsent: [ ^ nil ].
-					selector := items last asSymbol.
-					(class respondsTo: selector) ifFalse: [ ^ nil ].
-					filter := class perform: selector ]
-				ifFalse: [ (variableBindings hasBindingOf: name asSymbol) ifFalse: [ ^ nil ].
-					filter := (variableBindings bindingOf: name) value ] ].
-	(filter isKindOf: GtSearchFilter) ifFalse: [ ^ nil ].
-	^ filter
-]
-
-{ #category : #private }
-LePharoRewriteSnippet >> scopeFilterUsing: snippetContext [
-	| filter |
-	filter := ([ self scopeFilterFor: self scope using: snippetContext ]
-			on: Error
-			do: [ :ex | 
-				self inform: self scope , ' threw an error (' , ex message , ')'.
-				ex return: nil ])
-			ifNil: [ self
-					inform: self scope , ' doesn''t evaluate to a search filter. Using all methods instead.'.
-				GtSearchImageMethodsFilter forAllMethods ].
-	^ filter select: [ :each | each isFromTrait not ]
-]
-
-{ #category : #accessing }
-LePharoRewriteSnippet >> scopeLabelFor: aString using: snippetContext [
-	^ (([ self scopeFilterFor: aString using: snippetContext ]
-		on: Error
-		do: [ :ex | ex return ]) ifNotNil: [ :filter | filter filterLabel ])
-		ifNil: [ aString ]
 ]
 
 { #category : #accessing }
