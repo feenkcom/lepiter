@@ -565,13 +565,13 @@ LeContentExamples >> removePageWithExistingTextualLink [
 	"Remove a page for which there exist textual links in other pages"
 
 	<gtExample>
-	| database page1 snippet page2 |
-	database := LeDatabase new.
-	page1 := database pageBuilder
+	| localDatabase page1 snippet page2 |
+	localDatabase := LeDatabase new.
+	page1 := localDatabase pageBuilder
 		title: 'Page1';
 		add.
 	page1 addSnippet: (LeTextSnippet string: 'Page1 isn''t empty').
-	page2 := database pageBuilder
+	page2 := localDatabase pageBuilder
 		title: 'Page2';
 		add.
 	page2 addSnippet: (LeTextSnippet string: 'Page2 isn''t empty').
@@ -589,7 +589,7 @@ LeContentExamples >> removePageWithExistingTextualLink [
 	self assert: page2 allOutgoingExplicitLinks size equals: 1.
 	self assert: page2 allChildOutgoingLinks size equals: 1.
 	self deny: page1 hasIncomingLinks.
-	^ database
+	^ localDatabase
 ]
 
 { #category : #removing }
@@ -597,13 +597,13 @@ LeContentExamples >> removeSnippetWithLink [
 	"Remove a snippet with a link to another page and ensure that the incoming links for the target page are updated"
 
 	<gtExample>
-	| database page1 snippet page2 |
-	database := LeDatabase new.
-	page1 := database pageBuilder
+	| localDatabase page1 snippet page2 |
+	localDatabase := LeDatabase new.
+	page1 := localDatabase pageBuilder
 		title: 'Page1';
 		add.
 	page1 addSnippet: (LeTextSnippet string: 'Page1 isn''t empty').
-	page2 := database pageBuilder
+	page2 := localDatabase pageBuilder
 		title: 'Page2';
 		add.
 	page2 addSnippet: (LeTextSnippet string: 'Page2 isn''t empty').
@@ -621,7 +621,7 @@ LeContentExamples >> removeSnippetWithLink [
 	self assert: page2 allOutgoingExplicitLinks isEmpty.
 	self assert: page2 allChildOutgoingLinks isEmpty.
 	self deny: page1 hasIncomingLinks.
-	^ database
+	^ localDatabase
 ]
 
 { #category : #'examples - text changes' }
