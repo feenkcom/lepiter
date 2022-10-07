@@ -151,5 +151,5 @@ LeSnippetViewModel >> unindent [
 	"Unindent the receiver in the receiver's page, i.e. make it follow its parent snippet.
 	If this is a first level snippet, do nothing"
 
-	self snippetModel unindent
+	self snippetModel unindentThroughCommand
 ]
