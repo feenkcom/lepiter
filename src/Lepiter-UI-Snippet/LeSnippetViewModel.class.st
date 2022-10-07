@@ -5,7 +5,7 @@
 Class {
 	#name : #LeSnippetViewModel,
 	#superclass : #LeAbstractSnippetViewModel,
-	#category : 'Lepiter-UI-Snippet-! View Models'
+	#category : #'Lepiter-UI-Snippet-! View Models'
 }
 
 { #category : #'gt - extensions' }
@@ -85,7 +85,7 @@ LeSnippetViewModel >> indent [
 	"Indent the receiver in the receiver's page, i.e. make it a child of the previous snippet.
 	If this is the first snippet at the current level, do nothing"
 
-	self snippetModel indent
+	self snippetModel indentThroughCommand
 ]
 
 { #category : #'api - actions' }
