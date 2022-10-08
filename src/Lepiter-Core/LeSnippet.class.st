@@ -172,6 +172,18 @@ LeSnippet >> indent [
 	self parent indentSnippet: self.
 ]
 
+{ #category : #'api - command building' }
+LeSnippet >> indentCommand [
+	"Create a command for indenting the snippet"
+	
+	^ self commandBuilder indentSnippetCommand
+]
+
+{ #category : #'api - command operations' }
+LeSnippet >> indentThroughCommand [
+	^ self indentCommand execute
+]
+
 { #category : #'api - testing' }
 LeSnippet >> isCodeSnippet [
 
@@ -467,6 +479,16 @@ LeSnippet >> unindent [
 	If this is a first level snippet, do nothing"
 
 	self parent unindentSnippet: self.
+]
+
+{ #category : #'api - command building' }
+LeSnippet >> unindentCommand [
+	^ self commandBuilder unindentSnippetCommand
+]
+
+{ #category : #'api - command operations' }
+LeSnippet >> unindentThroughCommand [
+	^ self unindentCommand execute
 ]
 
 { #category : #installing }

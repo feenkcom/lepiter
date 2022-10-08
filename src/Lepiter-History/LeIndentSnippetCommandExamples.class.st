@@ -1,3 +1,14 @@
+"
+Examples for the ident command
+
+We start from this page:
+
+{{gtExample:name=LeIndentSnippetCommandExamples>>createTargetPage|noCode=true|previewShow=#gtLiveFor:|previewHeight=180}}
+
+Identing the Target snippet results in:
+
+{{gtExample:name=LeIndentSnippetCommandExamples>>executeIndentSnippetCommand|noCode=true|previewShow=#gtLiveFor:|previewHeight=180}}
+"
 Class {
 	#name : #LeIndentSnippetCommandExamples,
 	#superclass : #LeContentCommandExamples,

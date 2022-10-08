@@ -1,3 +1,14 @@
+"
+Examples for the unident command
+
+We start from this page:
+
+{{gtExample:name=LeUnindentSnippetCommandExamples>>createTargetPage|noCode=true|previewShow=#gtLiveFor:|previewHeight=180}}
+
+Unidenting the Target snippet results in:
+
+{{gtExample:name=LeUnindentSnippetCommandExamples>>executeUnindentSnippetCommand|noCode=true|previewShow=#gtLiveFor:|previewHeight=180}}
+"
 Class {
 	#name : #LeUnindentSnippetCommandExamples,
 	#superclass : #LeContentCommandExamples,

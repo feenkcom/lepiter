@@ -44,7 +44,8 @@ LePageEventStore >> gtViewTraceEventsListFor: aView [
 		column: 'Main Command' text: [ :aTraceEvent | 
 			aTraceEvent commandSpecification commandTypeName ];
 		column: 'Undo Command' text: [ :aTraceEvent | 
-			aTraceEvent undoSpecification commandTypeName ]
+			aTraceEvent undoSpecification commandTypeName ];
+		actionUpdateButton
 ]
 
 { #category : #initialization }
