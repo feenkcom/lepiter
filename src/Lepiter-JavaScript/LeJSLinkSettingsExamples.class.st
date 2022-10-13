@@ -1,7 +1,7 @@
 Class {
 	#name : #LeJSLinkSettingsExamples,
 	#superclass : #LePropertiesExamples,
-	#category : 'Lepiter-JavaScript-Examples'
+	#category : #'Lepiter-JavaScript-Examples'
 }
 
 { #category : #examples }
@@ -118,7 +118,7 @@ LeJSLinkSettingsExamples >> setRelativeDirectory [
 
 { #category : #examples }
 LeJSLinkSettingsExamples >> setRelativeNodeJSPath [
-	"Set the NodeJS path to an absolute file reference"
+	"Set the NodeJS path to a relative file reference"
 	<gtExample>
 	| fileString settings propertiesObject |
 

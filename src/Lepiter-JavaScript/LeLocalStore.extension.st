@@ -20,7 +20,7 @@ LeLocalStore >> jsLink: aDictionaryOrNil [
 
 { #category : #'*Lepiter-JavaScript' }
 LeLocalStore >> jsLinkSettings [
-	"Answer the initialised LePythonBridgeSettings for this database"
+	"Answer the initialised LeJSLinkSettings for this database"
 	<return: #LeJSLinkSettings>
 
 	^ LeJSLinkSettings new dbProperties: self
