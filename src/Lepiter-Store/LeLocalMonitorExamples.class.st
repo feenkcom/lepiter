@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'monitor'
 	],
-	#category : 'Lepiter-Store-Local-Examples'
+	#category : #'Lepiter-Store-Local-Examples'
 }
 
 { #category : #private }
@@ -288,19 +288,29 @@ LeLocalMonitorExamples >> monitorPharoClassPageEmptied [
 LeLocalMonitorExamples >> monitorSaveDelay [
 	"Do a check that multiple updates are queued and processed."
 	<gtExample>
-	| page3 page3FromFile |
+	| page3 page3FromFile count |
 
 	self monitorWithDuration: 0.1 seconds.
 	page3 := database pageNamed: 'Page 3'.
 	self assert: page3 children size equals: 1.
 
 	page3 snippetBuilder string: 'Page 3 Added Paragraph 1'; add.
-	1 second wait.
+	count := 0.
+	[ monitor hasChanges and: [ count < 600 ] ] whileTrue: 
+		[ 0.1 seconds wait.
+		count := count + 1 ].
+	monitor hasChanges ifTrue:
+		[ self error: 'Monitor failed to write changes' ].
 	page3FromFile := monitor reloadPage: page3.
 	self assert: page3FromFile children size equals: 2.
 
 	page3 snippetBuilder string: 'Page 3 Added Paragraph 2'; add.
-	1 second wait.
+	count := 0.
+	[ monitor hasChanges and: [ count < 600 ] ] whileTrue: 
+		[ 0.1 seconds wait.
+		count := count + 1 ].
+	monitor hasChanges ifTrue:
+		[ self error: 'Monitor failed to write changes' ].
 	page3FromFile := monitor reloadPage: page3.
 	self assert: page3FromFile children size equals: 3.
 
