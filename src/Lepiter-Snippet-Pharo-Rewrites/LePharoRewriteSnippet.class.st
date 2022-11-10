@@ -110,7 +110,7 @@ LePharoRewriteSnippet >> filterDescriptorsUsing: snippetContext [
 	| variableBindings descriptors variables |
 	descriptors := GtSearchFilter globalFilterDescriptors.
 	variableBindings := snippetContext sharedBindings.
-	variables := self potentialScopeVariables
+	variables := self allSnippetVariables
 			select: [ :each | 
 				(variableBindings hasBindingOf: each asSymbol) not
 					or: [ (variableBindings bindingOf: each asSymbol) value isKindOf: GtSearchFilter ] ].
@@ -164,17 +164,6 @@ LePharoRewriteSnippet >> potentialMethodsInFilter: aFilter [
 			astFilter := astFilter & filter.
 			^ astFilter asAsyncStream ].
 	^ filter asAsyncStream
-]
-
-{ #category : #accessing }
-LePharoRewriteSnippet >> potentialScopeVariables [
-	| variables |
-	variables := Set new.
-	self page
-		allChildrenDepthFirstDo: [ :each | 
-			each isCodeSnippet
-				ifTrue: [ variables addAll: each coder implicitVariableNames ] ].
-	^ variables
 ]
 
 { #category : #accessing }
