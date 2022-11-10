@@ -100,6 +100,17 @@ LeSnippet >> addedToParent: aParent [
 	self addedToDatabase: aParent database.
 ]
 
+{ #category : #accessing }
+LeSnippet >> allSnippetVariables [
+	| variables |
+	variables := Set new.
+	self page
+		allChildrenDepthFirstDo: [ :each | 
+			each isCodeSnippet
+				ifTrue: [ variables addAll: each coder implicitVariableNames ] ].
+	^ variables
+]
+
 { #category : #'private - notifications' }
 LeSnippet >> announceContentChanged [
 	"Notify all dependents that the snippet's content (for example properties) has changed"
