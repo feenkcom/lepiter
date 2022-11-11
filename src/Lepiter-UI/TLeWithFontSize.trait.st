@@ -3,7 +3,7 @@ Trait {
 	#instVars : [
 		'fontSize'
 	],
-	#category : 'Lepiter-UI-Basic - Support'
+	#category : #'Lepiter-UI-Basic - Support'
 }
 
 { #category : #'private - event handling' }
@@ -26,10 +26,12 @@ TLeWithFontSize >> increaseFontSize [
 { #category : #initialization }
 TLeWithFontSize >> initializeFontSizeShortcuts [
 	self addShortcut: (BlShortcutWithAction new
+		name: 'Increase font size';
 		combination: BlKeyCombination builder primary equal build;
 		action: [ self increaseFontSize ]).
 		
 	self addShortcut: (BlShortcutWithAction new
+		name: 'Decrease font size';
 		combination: BlKeyCombination builder primary minus build;
 		action: [ self decreaseFontSize ]).
 ]
