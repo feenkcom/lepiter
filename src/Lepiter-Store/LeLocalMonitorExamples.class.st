@@ -300,7 +300,7 @@ LeLocalMonitorExamples >> monitorSaveDelay [
 		[ 0.1 seconds wait.
 		count := count + 1 ].
 	monitor hasChanges ifTrue:
-		[ self error: 'Monitor failed to write changes' ].
+		[ self error: 'Monitor failed to write changes, saveDelay: ', monitor saveDelay, ' updatePromise: ', monitor updatePromise printString. ].
 	page3FromFile := monitor reloadPage: page3.
 	self assert: page3FromFile children size equals: 2.
 
