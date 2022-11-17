@@ -57,7 +57,7 @@ LeSnippetStylerVisitor class >> textLinkButtonPadding: additionalPadding margin:
 		addAptitude: (BrGlamorousButtonLabelAptitude new 
 			defaultColor: color;
 			hoveredColor: color muchDarker);
-		padding: (BlInsets top: 0 left: 0 bottom: 0 right: 0) + additionalPadding;
+		padding: (BlInsets top: -2 left: 0 bottom: 0 right: 0) + additionalPadding;
 		margin: (BlInsets top: -1 left: 0 bottom: 0 right: 0) + additionalMargin;
 		icon: BrGlamorousVectorIcons inspect;
 		beNoneSize;
