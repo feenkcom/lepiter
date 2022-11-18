@@ -85,7 +85,7 @@ LeLocalStoreMonitor class >> shutDown: quitting [
 { #category : #accessing }
 LeLocalStoreMonitor class >> shutdownMonitor [
 
-	^ ShutdownMonitor ifNil: [ ShutdownMonitor := Monitor new ]
+	^ ShutdownMonitor ifNil: [ ShutdownMonitor := Mutex new ]
 ]
 
 { #category : #'system startup' }
@@ -493,6 +493,14 @@ LeLocalStoreMonitor >> updateEntries [
 	
 	sendChanged ifTrue: [
 		self announce: (LeLocalStoreMonitorSavedChanges new monitor: self) ]
+]
+
+{ #category : #'private - accessing' }
+LeLocalStoreMonitor >> updatePromise [
+	"Answer the promise that saves queued changes.
+	This is internal state, for debugging only."
+
+	^ updatePromise
 ]
 
 { #category : #accessing }
