@@ -287,30 +287,34 @@ LeLocalMonitorExamples >> monitorPharoClassPageEmptied [
 { #category : #'examples - monitor' }
 LeLocalMonitorExamples >> monitorSaveDelay [
 	"Do a check that multiple updates are queued and processed."
+
 	<gtExample>
 	| page3 page3FromFile count |
-
 	self monitorWithDuration: 0.1 seconds.
 	page3 := database pageNamed: 'Page 3'.
 	self assert: page3 children size equals: 1.
 
-	page3 snippetBuilder string: 'Page 3 Added Paragraph 1'; add.
+	page3 snippetBuilder
+		string: 'Page 3 Added Paragraph 1';
+		add.
 	count := 0.
-	[ monitor hasChanges and: [ count < 600 ] ] whileTrue: 
-		[ 0.1 seconds wait.
-		count := count + 1 ].
-	monitor hasChanges ifTrue:
-		[ self error: 'Monitor failed to write changes, saveDelay: ', monitor saveDelay printString, ' updatePromise: ', monitor updatePromise printString. ].
+	[ monitor hasChanges and: [ count < 600 ] ]
+		whileTrue: [ 0.1 seconds wait.
+			count := count + 1 ].
+	monitor hasChanges ifTrue: 
+		[ self reportMonitorSaveDelayError: 'Paragraph 1' count: count ].
 	page3FromFile := monitor reloadPage: page3.
 	self assert: page3FromFile children size equals: 2.
 
-	page3 snippetBuilder string: 'Page 3 Added Paragraph 2'; add.
+	page3 snippetBuilder
+		string: 'Page 3 Added Paragraph 2';
+		add.
 	count := 0.
-	[ monitor hasChanges and: [ count < 600 ] ] whileTrue: 
-		[ 0.1 seconds wait.
-		count := count + 1 ].
-	monitor hasChanges ifTrue:
-		[ self error: 'Monitor failed to write changes' ].
+	[ monitor hasChanges and: [ count < 600 ] ]
+		whileTrue: [ 0.1 seconds wait.
+			count := count + 1 ].
+	monitor hasChanges ifTrue: 
+		[ self reportMonitorSaveDelayError: 'Paragraph 2' count: count ].
 	page3FromFile := monitor reloadPage: page3.
 	self assert: page3FromFile children size equals: 3.
 
@@ -325,6 +329,22 @@ LeLocalMonitorExamples >> monitorWithDuration: aDuration [
 	database := LeLocalStoreLoad current loadAndMonitorFrom: memStore saveDelay: aDuration.
 	monitor := database monitor.
 	^ monitor
+]
+
+{ #category : #private }
+LeLocalMonitorExamples >> reportMonitorSaveDelayError: title count: count [
+	| errorMessage |
+
+	errorMessage := String streamContents: [ :stream |
+		stream
+			<< title; cr;
+			<< 'SaveDelay: ';
+				print: monitor saveDelay; cr;
+			<< 'UpdatePromise: ';
+				print: monitor updatePromise; cr;
+			<< 'Count: ';
+				print: count ].
+	self error: errorMessage.
 ]
 
 { #category : #private }
