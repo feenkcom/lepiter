@@ -29,7 +29,7 @@ LeSnippetViewModel >> gtActionInspectSnippetFor: anAction [
 		icon: BrGlamorousVectorIcons inspect;
 		target: LeSnippetContextMenuActionTarget uniqueInstance;
 		priority: 5;
-		action: [ :aButton :aSnippetElement | aSnippetElement phlow spawnObject: aSnippetElement snippet ]
+		action: [ :aButton :aSnippetElement | aSnippetElement phlow spawnObject: aSnippetElement ]
 ]
 
 { #category : #'gt - extensions' }
