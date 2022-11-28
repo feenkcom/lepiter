@@ -42,7 +42,7 @@ LeExternalPicturesWriter >> exampleSnippetResultReferenceFor: aSnippetExample [
 		exportGtExampleResultOf: aSnippetExample referencedExample compiledMethod gtExample  
 		to: aPath
 		height: LepiterConstants defaultPreviewHeight
-		withPreviewSelector: LepiterConstants defaultShowSelector.
+		withPreviewSelector: aSnippetExample previewShowSelector.
 	associatedNames at: aSnippetExample put: aPath.
 	^ aPath fullName
 ]
@@ -97,7 +97,7 @@ LeExternalPicturesWriter >> exportGtExampleResultOf: aGtExample to: aRelativePat
 		| view |
 		view := GtPhlowView empty 
 			on: exampleReturnValue 
-			perform: aPreviewSelector.
+			perform: aPreviewSelector asSymbol.
 		view asElementDo: [ :anElement | container addChild: anElement ].
 
 		container forceLayout.

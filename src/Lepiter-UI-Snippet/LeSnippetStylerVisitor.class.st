@@ -599,21 +599,40 @@ LeSnippetStylerVisitor >> styleLinkText: aSubText valid: hasValidTarget [
 
 { #category : #'private - styling' }
 LeSnippetStylerVisitor >> styleOpenExternalImage: aLink text: aSubText [
-	| anImageURL attribute |
-	
+	| anImageURL attribute pictureContainer widget |
 	anImageURL := (self resolveUrl: aLink url) url asString.
 
 	attribute := BrTextAdornmentDynamicAttribute new
-		beAppend;
-		withCache: self elements key: anImageURL;
-		stencil: [
-			(BrAsyncFileWidget new url: anImageURL)
-				constraintsDo: [ :c |
-					c horizontal matchParent.
-					c vertical matchParent.
-					c maxHeight: 300. ];
-				margin: (BlInsets right: 20) ].
-	
+			beAppend;
+			withCache: self elements key: anImageURL;
+			stencil: [ pictureContainer := BlElement new
+						constraintsDo: [ :c | 
+							c horizontal matchParent.
+							c vertical fitContent ];
+						layout: BlLinearLayout vertical;
+						padding: (BlInsets
+								top: 5
+								left: 7
+								bottom: 5
+								right: 5);
+						yourself.
+
+				widget := (BrAsyncFileWidget new url: anImageURL)
+						constraintsDo: [ :c | 
+							c horizontal matchParent.
+							c vertical exact: 300 ].
+				pictureContainer addChild: widget as: #imageElement.
+				pictureContainer
+					addAptitude: (BrGlamorousWithVerticalResizerAptitude new beBottom
+							resizerDo: [ :theResizer | 
+								theResizer
+									when: BlResizerResizedEvent
+									do: [ :anEvent | 
+										pictureContainer
+											childWithId: #imageElement
+											ifFound: [ :anImageElement | (BrResizerElementLength exact: anEvent extent y) adjustHeightFor: anImageElement ]
+											ifNone: [  ] ] ]) ].
+
 	aSubText attribute: attribute
 ]
 
