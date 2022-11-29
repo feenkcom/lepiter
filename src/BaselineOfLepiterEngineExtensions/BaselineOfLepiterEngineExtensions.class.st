@@ -29,6 +29,8 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 				spec repository: 'github://feenkcom/gtoolkit-debugadapterprotocol:main/src' ];
 			baseline: 'Gt4PharoLink' with: [
 				spec repository: 'github://feenkcom/gtoolkit-remote:main/src' ];
+			baseline: 'GToolkitVisualizer' with: [
+				spec repository: 'github://feenkcom/gtoolkit-visualizer:main/src' ];
 			baseline: 'LepiterYoutube' with: [
 				spec repository: 'github://feenkcom/lepiter:main/src' ].
 		spec 
@@ -45,7 +47,7 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 			package: 'Lepiter-GitHub' with: [
 				spec requires: #('LepiterEngineCore' ). ];
 			package: 'Lepiter-Snippet-WardleyMap' with: [
-				spec requires: #('LepiterEngineCore' ). ];
+				spec requires: #('LepiterEngineCore' 'GToolkitVisualizer' ). ];
 			package: 'Lepiter-Snippet-Example' with: [
 				spec requires: #('LepiterEngineCore' ). ];
 			package: 'Lepiter-Snippet-Changes' with: [
