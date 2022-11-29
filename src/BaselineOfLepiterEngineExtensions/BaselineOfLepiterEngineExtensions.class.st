@@ -16,7 +16,7 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'LepiterEngineCore' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.1063/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.6.1064/src' ].
 		spec
 			baseline: 'GToolkit4DockerEngine' with: [
 				spec repository: 'github://feenkcom/gt4dockerengine:v0.5.131/src' ].
@@ -36,8 +36,11 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 			baseline: 'Gt4PharoLink' with: [
 				spec repository: 'github://feenkcom/gtoolkit-remote:v0.8.1048/src' ].
 		spec
+			baseline: 'GToolkitVisualizer' with: [
+				spec repository: 'github://feenkcom/gtoolkit-visualizer:v0.8.893/src' ].
+		spec
 			baseline: 'LepiterYoutube' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.1063/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.6.1064/src' ].
 
 		spec package: 'Lepiter-Pharo' with: [
 			spec requires: #('LepiterEngineCore') ].
@@ -52,7 +55,7 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 		spec package: 'Lepiter-GitHub' with: [
 			spec requires: #('LepiterEngineCore') ].
 		spec package: 'Lepiter-Snippet-WardleyMap' with: [
-			spec requires: #('LepiterEngineCore') ].
+			spec requires: #('LepiterEngineCore' 'GToolkitVisualizer') ].
 		spec package: 'Lepiter-Snippet-Example' with: [
 			spec requires: #('LepiterEngineCore') ].
 		spec package: 'Lepiter-Snippet-Changes' with: [
