@@ -3,7 +3,7 @@ Class {
 	#superclass : #LeNullModel,
 	#traits : 'TGtAnnouncer',
 	#classTraits : 'TGtAnnouncer classTrait',
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #announcer }
@@ -173,4 +173,9 @@ LeNullDatabase >> userEmail [
 LeNullDatabase >> uuid [
 
 	^ UUID nilUUID
+]
+
+{ #category : #accessing }
+LeNullDatabase >> uuidString [
+	^ ''
 ]
