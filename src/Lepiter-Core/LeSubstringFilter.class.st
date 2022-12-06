@@ -1,8 +1,24 @@
 Class {
 	#name : #LeSubstringFilter,
-	#superclass : #GtUnorderedFilter,
-	#category : 'Lepiter-Core-Utility'
+	#superclass : #Object,
+	#instVars : [
+		'query',
+		'caseSensitive'
+	],
+	#category : #'Lepiter-Core-Utility'
 }
+
+{ #category : #accessing }
+LeSubstringFilter >> caseSensitive [
+
+	^ caseSensitive
+]
+
+{ #category : #accessing }
+LeSubstringFilter >> caseSensitive: anObject [
+
+	caseSensitive := anObject
+]
 
 { #category : #private }
 LeSubstringFilter >> ifMatchedString: aString do: aBlock [
@@ -24,4 +40,16 @@ LeSubstringFilter >> isMatchedItem: aPage [
 				ifMatchedString: eachChild contentAsString 
 				do: [ ^ true ] ].
 	^ false
+]
+
+{ #category : #accessing }
+LeSubstringFilter >> query [
+
+	^ query
+]
+
+{ #category : #accessing }
+LeSubstringFilter >> query: anObject [
+
+	query := anObject
 ]

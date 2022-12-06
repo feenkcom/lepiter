@@ -130,13 +130,16 @@ LeCollection >> fourth [
 { #category : #'gt-extensions' }
 LeCollection >> gtSpotterContainingSubPartsFor: aSearch [
 	<gtSearch>
-	self hasChildren ifNil: [ ^ aSearch empty ].
+	
+	self hasChildren 
+		ifNil: [ ^ aSearch empty ].
+
 	^ aSearch list
 		priority: 23;
 		title: 'Children Tree Content';
 		wantsToDisplayOnEmptyQuery: false;
-		filter: LeSubstringFilter;
 		items: [ self children ]
+		filterBySubstring
 ]
 
 { #category : #'api - testing' }

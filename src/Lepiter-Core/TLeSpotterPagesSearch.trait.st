@@ -17,7 +17,7 @@ TLeSpotterPagesSearch >> gtSpotterContainingSubPartsFor: aSearch [
 		priority: 23;
 		title: 'Children Tree Content';
 		wantsToDisplayOnEmptyQuery: false;
-		filter: LeSubstringFilter;
+		filterBySubstring;
 		items: [ self children ]
 ]
 
@@ -42,9 +42,7 @@ TLeSpotterPagesSearch >> gtSpotterSubPartsFor: aStep [
 		priority: 24;
 		title: 'Navigate To Children';
 		wantsToDisplayOnEmptyQuery: false;
-		filter: GtFilterSubstring
-			item: [ :filter :context | 
-				self allChildrenBreadthFirstDo: filter ]
+		filterBySubstring
 ]
 
 { #category : #'api - testing' }
