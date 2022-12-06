@@ -287,9 +287,10 @@ LeLocalMonitorExamples >> monitorPharoClassPageEmptied [
 { #category : #'examples - monitor' }
 LeLocalMonitorExamples >> monitorSaveDelay [
 	"Do a check that multiple updates are queued and processed."
-
 	<gtExample>
+	<noTest>
 	| page3 page3FromFile count |
+
 	self monitorWithDuration: 0.1 seconds.
 	page3 := database pageNamed: 'Page 3'.
 	self assert: page3 children size equals: 1.
@@ -319,7 +320,7 @@ LeLocalMonitorExamples >> monitorSaveDelay [
 	self assert: page3FromFile children size equals: 3.
 
 	monitor stopMonitoring.
-	^ monitor
+	^ monitor.
 ]
 
 { #category : #private }
