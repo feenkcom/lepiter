@@ -192,21 +192,8 @@ LePage >> gtSpotterDatabaseFor: aSearch [
 			| aPageViewModel |
 			aPageViewModel := aLePage asContentUIModel.
 			LePageToolElement new pageViewModel: aPageViewModel ];
-		filter: LeSubstringFilter;
+		filterBySubstring;
 		items: [ self database children ]
-]
-
-{ #category : #'*Lepiter-UI' }
-LePage >> gtSpotterSubPartsFor: aStep [
-	<gtSearch>
-	self hasChildren ifFalse: [ ^ self ].
-	aStep listProcessor
-		priority: 24;
-		title: 'Page Content';
-		wantsToDisplayOnEmptyQuery: false;
-		filter: GtFilterSubstring
-			item: [ :filter :context | 
-				self allChildrenBreadthFirstDo: filter ]
 ]
 
 { #category : #'*Lepiter-UI' }

@@ -249,7 +249,7 @@ LeTextSnippet >> gtSpotterContainingSubPartsFor: aSearch [
 		priority: 23;
 		title: 'Children Tree Content';
 		wantsToDisplayOnEmptyQuery: false;
-		filter: LeSubstringFilter;
+		filterBySubstring;
 		items: [ self children ]
 ]
 
