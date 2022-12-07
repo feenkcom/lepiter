@@ -99,11 +99,6 @@ LeCollection >> do: aBlock [
 	self items do: aBlock
 ]
 
-{ #category : #'gt-extensions' }
-LeCollection >> fasterDifferencePreservingOrder: aCollection [
-	^ self items fasterDifferencePreservingOrder: aCollection
-]
-
 { #category : #'api - accessing' }
 LeCollection >> fifth [
 
