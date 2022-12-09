@@ -74,11 +74,6 @@ LePictureSnippet >> initialize [
 	urlString := ''
 ]
 
-{ #category : #'api - testing' }
-LePictureSnippet >> isEmpty [
-	^ super isEmpty and: [ urlString isEmpty ]
-]
-
 { #category : #'private - exporting' }
 LePictureSnippet >> markdownOn: stream level: anInteger [
 	"Write the receiver as an HTML string on the supplied stream.

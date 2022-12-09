@@ -35,28 +35,19 @@ LeTextualSnippet >> appendText: aText source: anObject [
 	self subclassResponsibility
 ]
 
+{ #category : #'api - testing' }
+LeTextualSnippet >> hasContent [
+	"Answer a boolean indicating whether the receiver is considered without content.
+	For textual snippets, this is whether the snippet has no text.
+	Non-textual snippets will have different criteria."
+
+	^ self hasText not
+]
+
 { #category : #testing }
 LeTextualSnippet >> hasText [
 	<return: #Boolean>
 	^ self text isNotNil and: [ self text isNotEmpty ]
-]
-
-{ #category : #'api - testing' }
-LeTextualSnippet >> isEmpty [
-	"Answer a boolean indicating whether the receiver is considered empty.
-	For textual snippets, this is whether the snippet has no text and no children with text.
-	Non-textual snippets will have different criteria."
-
-	^ super isEmpty and: [ self hasText not ]
-]
-
-{ #category : #'api - testing' }
-LeTextualSnippet >> isNotEmpty [
-	"Answer a boolean indicating whether the receiver is considered empty.
-	For textual snippets, this is whether the snippet has no text and no children with text.
-	Non-textual snippets will have different criteria."
-
-	^ super isNotEmpty or: [ self hasText ]
 ]
 
 { #category : #'private - exporting' }

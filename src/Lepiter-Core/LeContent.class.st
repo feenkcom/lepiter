@@ -595,6 +595,18 @@ LeContent >> hasChildren [
 	^ self children isNotEmpty
 ]
 
+{ #category : #'api - testing' }
+LeContent >> hasContent [
+	"Return true if a content instance (a snippet) has values initialized, e.g., non-empty text.
+	By default all instances return true.
+	
+	Currently, we use this logic in {{gtMethod: LeSnippets >> #neoJsonOn:}}. The reason is that we do not want to serialize page children that are added automatically. We add a text snippet to a page when users create and display an empty page. It is the only way users can start to type and add new snippets.
+	
+	We do not suggest to depend on this behavior in other cases as the described logic may be removed in a future."
+
+	^ true
+]
+
 { #category : #'private - testing' }
 LeContent >> hasIncomingLinks [
 	^ self
@@ -650,8 +662,9 @@ LeContent >> isEmpty [
 	"Answer a boolean indicating if the receiver is empty, i.e.
 	has no children, or the only child is empty"
 
-	^ self hasChildren not
-		or: [ self childrenCount = 1 and: [ self children first isEmpty ] ]
+	^ self hasContent not
+		and: [ self hasChildren not
+				or: [ self childrenCount = 1 and: [ self children first isEmpty ] ] ]
 ]
 
 { #category : #'api - testing' }
