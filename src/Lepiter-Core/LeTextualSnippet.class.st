@@ -41,7 +41,7 @@ LeTextualSnippet >> hasContent [
 	For textual snippets, this is whether the snippet has no text.
 	Non-textual snippets will have different criteria."
 
-	^ self hasText not
+	^ self hasText
 ]
 
 { #category : #testing }
