@@ -248,6 +248,14 @@ LePage >> gtSpotterActDefaultFrom: aSpotterElement [
 		from: aSpotterElement) maximized
 ]
 
+{ #category : #testing }
+LePage >> hasContent [
+	"Page itself has no other content, only snippets. 
+	See {{gtMethod:LeContent>>#hasContent}} for more details."
+
+	^ false
+]
+
 { #category : #querying }
 LePage >> hasGtTodo [
 

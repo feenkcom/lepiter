@@ -595,10 +595,12 @@ LeContent >> hasChildren [
 	^ self children isNotEmpty
 ]
 
-{ #category : #'api - testing' }
+{ #category : #'private - testing' }
 LeContent >> hasContent [
 	"Return true if a content instance (a snippet) has values initialized, e.g., non-empty text.
-	By default all instances return true.
+	{{gtMethod:LeContent>>#children}} are excluded from this consideration since children are taken into account in {{gtMethod:LeContent>>#isEmpty}}. By default all instances return true.
+	
+	I am a private method!
 	
 	Currently, we use this logic in {{gtMethod: LeSnippets >> #neoJsonOn:}}. The reason is that we do not want to serialize page children that are added automatically. We add a text snippet to a page when users create and display an empty page. It is the only way users can start to type and add new snippets.
 	

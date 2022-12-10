@@ -35,11 +35,13 @@ LeTextualSnippet >> appendText: aText source: anObject [
 	self subclassResponsibility
 ]
 
-{ #category : #'api - testing' }
+{ #category : #'private - testing' }
 LeTextualSnippet >> hasContent [
 	"Answer a boolean indicating whether the receiver is considered without content.
 	For textual snippets, this is whether the snippet has no text.
-	Non-textual snippets will have different criteria."
+	Non-textual snippets will have different criteria.
+	
+	See {{gtMethod:LeContent>>#hasContent}} for more details."
 
 	^ self hasText
 ]
