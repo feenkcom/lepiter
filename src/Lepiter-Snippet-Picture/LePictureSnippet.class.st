@@ -67,6 +67,11 @@ LePictureSnippet >> contentAsString [
 	^ urlString
 ]
 
+{ #category : #accessing }
+LePictureSnippet >> hasContent [
+	^ self urlString isNotEmpty
+]
+
 { #category : #initialization }
 LePictureSnippet >> initialize [
 	super initialize.
