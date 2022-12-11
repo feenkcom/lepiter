@@ -192,13 +192,6 @@ LeWordSnippet >> initialize [
 	word := ''.
 ]
 
-{ #category : #'api - testing' }
-LeWordSnippet >> isEmpty [
-	^ super isEmpty and: [ 
-		word isNil and: [ 
-			explanation isNil ] ]
-]
-
 { #category : #'api - accessing' }
 LeWordSnippet >> onAddedToDatabase [
 	super onAddedToDatabase.

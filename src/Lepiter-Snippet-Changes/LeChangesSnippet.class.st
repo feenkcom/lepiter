@@ -107,11 +107,6 @@ LeChangesSnippet >> initialize [
 	previewHeight := 200
 ]
 
-{ #category : #'api - testing' }
-LeChangesSnippet >> isEmpty [
-	^ self fileName isNil
-]
-
 { #category : #'api - file name' }
 LeChangesSnippet >> notifyFileNameChanged [
 	"Override this notify method to announce changes to the property"

@@ -136,11 +136,6 @@ LePharoRewriteSnippet >> filterDescriptorsUsing: snippetContext [
 	^ descriptors
 ]
 
-{ #category : #accessing }
-LePharoRewriteSnippet >> isEmpty [
-	^ search isNil and: [ replace isNil ]
-]
-
 { #category : #private }
 LePharoRewriteSnippet >> potentialMethodsInFilter: aFilter [
 	| ast literals filter |

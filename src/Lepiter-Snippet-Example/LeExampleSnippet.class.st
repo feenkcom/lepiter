@@ -360,11 +360,6 @@ LeExampleSnippet >> instanceClassName [
 			   ifAbsent: [ exampleBehaviorName size + 1 ]) - 1
 ]
 
-{ #category : #'api - testing' }
-LeExampleSnippet >> isEmpty [ 
-	^ self exampleBehaviorName isNil
-]
-
 { #category : #converting }
 LeExampleSnippet >> isForMetaclass [
 

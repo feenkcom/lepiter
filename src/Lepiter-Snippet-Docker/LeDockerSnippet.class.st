@@ -58,11 +58,6 @@ LeDockerSnippet >> contentAsString [
 				nextPutAll: (self url ifEmpty: [ '<dockerUrl>' ])]
 ]
 
-{ #category : #'api - testing' }
-LeDockerSnippet >> isEmpty [ 
-	^ self url isNil
-]
-
 { #category : #notifications }
 LeDockerSnippet >> notifyUrlChanged [
 	self notifyAnnouncement: (LeDockerSnippetUrlChanged new

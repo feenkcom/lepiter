@@ -67,16 +67,16 @@ LePictureSnippet >> contentAsString [
 	^ urlString
 ]
 
+{ #category : #accessing }
+LePictureSnippet >> hasContent [
+	^ self urlString isNotEmpty
+]
+
 { #category : #initialization }
 LePictureSnippet >> initialize [
 	super initialize.
 
 	urlString := ''
-]
-
-{ #category : #'api - testing' }
-LePictureSnippet >> isEmpty [
-	^ super isEmpty and: [ urlString isEmpty ]
 ]
 
 { #category : #'private - exporting' }
