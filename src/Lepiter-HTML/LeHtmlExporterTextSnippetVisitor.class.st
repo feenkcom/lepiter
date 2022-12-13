@@ -11,7 +11,7 @@ Class {
 
 { #category : #utils }
 LeHtmlExporterTextSnippetVisitor >> convertLocalAttachmentToRelativeUrl: anUrlLink [
-	^ anUrlLink removePrefix: 'file://'
+	^ anUrlLink withoutPrefix: 'file://'
 ]
 
 { #category : #utils }
