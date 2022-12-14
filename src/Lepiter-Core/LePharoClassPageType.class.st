@@ -62,7 +62,7 @@ LePharoClassPageType >> pageClass [
 	^ (pageClassName endsWith: ' class')
 		ifTrue: [
 			| instanceClassName | 
-			instanceClassName := (pageClassName removeSuffix: ' class') asSymbol.
+			instanceClassName := (pageClassName withoutSuffix: ' class') asSymbol.
 			instanceClassName := self class environment at: instanceClassName.
 			instanceClassName classSide ]
 		ifFalse: [ 

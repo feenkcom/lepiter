@@ -14,7 +14,7 @@ Class {
 	#instVars : [
 		'database'
 	],
-	#category : 'Lepiter-Core-Builders'
+	#category : #'Lepiter-Core-Builders'
 }
 
 { #category : #'api - accessing' }
@@ -39,7 +39,7 @@ LeDatabaseSnippetUpdater >> database: aDatabase [
 { #category : #'private - testing' }
 LeDatabaseSnippetUpdater >> hasContent [
 	<return: #Boolean>
-	^ self snippet hasText
+	^ self snippet hasContent
 ]
 
 { #category : #'private - testing' }

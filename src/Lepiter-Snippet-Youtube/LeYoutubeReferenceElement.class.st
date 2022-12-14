@@ -17,10 +17,15 @@ Class {
 
 { #category : #accessing }
 LeYoutubeReferenceElement >> computeImageUrl: aStringUrl [
-	| videoId |
-	videoId:=aStringUrl asZnUrl query at:'v' ifAbsent:[''].
-	^ 'http://img.youtube.com/vi/',videoId,'/0.jpg'
-	
+	| videoId aUrl |
+	aUrl := aStringUrl asZnUrl.
+	"if there is a query, look for the 'v' query parameter; 
+	 if there is none, try the last  URL segment. this should work
+	 with youtube.com, youtu.be and youtube.com shorts"
+	videoId := aUrl hasQuery
+			ifTrue: [ aUrl query at: 'v' ifAbsent: [ aUrl segments last ] ]
+			ifFalse: [ aUrl segments last ].
+	^ 'http://img.youtube.com/vi/' , videoId , '/0.jpg'
 ]
 
 { #category : #accessing }

@@ -60,11 +60,6 @@ LeGitHubSnippet >> initialize [
 	
 ]
 
-{ #category : #'api - testing' }
-LeGitHubSnippet >> isEmpty [
-	^ self model isNil
-]
-
 { #category : #'api - accessing' }
 LeGitHubSnippet >> model [
 	<return: #LeGitHubModel>

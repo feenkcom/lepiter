@@ -21,5 +21,5 @@ LeDatabase >> tableOfContentsNodes [
 	| page |
 	page := self tableOfContents.
 	page ifNil: [ ^ #() ].
-	^ (LeTableOfContentsVisitor tocForPage: page) asCollection.
+	^ (LeTableOfContentsVisitor tocForPage: page) asOrderedCollection.
 ]

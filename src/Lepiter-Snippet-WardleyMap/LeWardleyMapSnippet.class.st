@@ -112,11 +112,6 @@ LeWardleyMapSnippet >> initialize [
 	wardleyMap := GtWardleyMapModel new
 ]
 
-{ #category : #'api - testing' }
-LeWardleyMapSnippet >> isEmpty [
-	^ super isEmpty and: [ wardleyMap isNil ]
-]
-
 { #category : #'api - links' }
 LeWardleyMapSnippet >> linkForNode: aWardleyMapNodeModel ifFound: aFoundBlock [
 	| theLinks |
