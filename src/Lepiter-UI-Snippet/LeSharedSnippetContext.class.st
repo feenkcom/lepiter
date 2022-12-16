@@ -4,16 +4,18 @@ Class {
 	#instVars : [
 		'announcer',
 		'sharedBindings',
-		'selfObject'
+		'selfObject',
+		'variablePreviewToggle'
 	],
-	#category : 'Lepiter-UI-Snippet-! View Models'
+	#category : #'Lepiter-UI-Snippet-! View Models'
 }
 
 { #category : #initialization }
 LeSharedSnippetContext >> initialize [
 	super initialize.
 	
-	sharedBindings := GtSharedVariablesBindings new
+	sharedBindings := GtSharedVariablesBindings new.
+	variablePreviewToggle := BrToggleModel new.
 ]
 
 { #category : #accessing }
@@ -44,6 +46,11 @@ LeSharedSnippetContext >> sharedBindings: anObject [
 { #category : #'announcer - subscription' }
 LeSharedSnippetContext >> unsubscribe: anObject [
 	announcer ifNotNil: [ :anAnnouncer | anAnnouncer unsubscribe: anObject ]
+]
+
+{ #category : #initialization }
+LeSharedSnippetContext >> variablePreviewToggle [
+	^variablePreviewToggle
 ]
 
 { #category : #'announcer - subscription' }
