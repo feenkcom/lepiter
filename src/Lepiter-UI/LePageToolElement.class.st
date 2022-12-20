@@ -19,7 +19,7 @@ Class {
 		'contentElement',
 		'titleNotifier'
 	],
-	#category : 'Lepiter-UI-! Tool - Page'
+	#category : #'Lepiter-UI-! Tool - Page'
 }
 
 { #category : #'private - accessing' }
@@ -42,7 +42,9 @@ LePageToolElement >> initialize [
 	self addAptitude: (GtPhlowToolDetailAptitude new
 		normal: [ self onNormalVolume ];
 		detailed: [ self onDetailedVolume ]).
-	self addEventHandlerOn: BlClickEvent do: [ :anEvent | self requestFocus ].
+
+	self beFocusable.
+	self when: BlClickEvent do: [ :anEvent | self requestFocus ]
 ]
 
 { #category : #initialization }

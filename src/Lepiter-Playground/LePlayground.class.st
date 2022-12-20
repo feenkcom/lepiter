@@ -128,6 +128,7 @@ LePlayground >> initialize [
 			c horizontal matchParent.
 			c vertical matchParent ].
 	
+	self beFocusable.
 	self when: BlClickEvent do: [ self requestFocus ].
 ]
 
