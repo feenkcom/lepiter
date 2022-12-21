@@ -6,7 +6,7 @@ Class {
 	#classVars : [
 		'KeyboardShortcuts'
 	],
-	#category : 'Lepiter-UI-Snippet-! Views'
+	#category : #'Lepiter-UI-Snippet-! Views'
 }
 
 { #category : #'gt-extensions' }
@@ -139,6 +139,7 @@ LeSnippetElement >> initialize [
 	
 	self hMatchParent.
 	self vFitContent.
+	self beFocusable.
 
 	self registerFocusEventHandlers.
 
