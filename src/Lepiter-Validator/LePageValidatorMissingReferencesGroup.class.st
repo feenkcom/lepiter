@@ -12,6 +12,16 @@ LePageValidatorMissingReferencesGroup >> addMissingReferences: aMissingReference
 	missingReferences add: aMissingReferencesResult
 ]
 
+{ #category : #converting }
+LePageValidatorMissingReferencesGroup >> asBrItemsProvider [
+	^ BrSequenceableCollectionItemsProvider forCollection: self
+]
+
+{ #category : #accessing }
+LePageValidatorMissingReferencesGroup >> at: anIndex [
+	^ missingReferences at: anIndex
+]
+
 { #category : #enumerating }
 LePageValidatorMissingReferencesGroup >> collect: aBlock [
 	^ missingReferences collect: aBlock

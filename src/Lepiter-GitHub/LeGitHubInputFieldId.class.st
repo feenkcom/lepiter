@@ -4,21 +4,18 @@ Class {
 	#instVars : [
 		'name'
 	],
-	#category : 'Lepiter-GitHub-UI IDs'
+	#category : #'Lepiter-GitHub-UI IDs'
 }
 
 { #category : #comparing }
 LeGitHubInputFieldId >> = anObject [
 	"Answer whether the receiver and anObject represent the same object."
 
-	self == anObject
-		ifTrue: [ ^ true ].
-	
-	(self class = anObject class)
-		ifFalse: [ ^ false ].
-	
-	self class = anObject class
-		ifTrue: [ ^ self name = anObject name ].
+	self == anObject ifTrue: [ ^ true ].
+
+	self class = anObject class ifFalse: [ ^ false ].
+
+	^ self name = anObject name
 ]
 
 { #category : #converting }
