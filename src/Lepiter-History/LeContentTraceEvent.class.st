@@ -35,7 +35,7 @@ LeContentTraceEvent >> gtViewUndoSpecificationFor: aView [
 	^ aView forward 
 		title: 'Undo Command';
 		priority: 15;
-		object: [ self undoSpecification ];
+		object: [ self undoCommandSpecification ];
 		view: #gtViewSpecificationAttributesFor:
 ]
 
