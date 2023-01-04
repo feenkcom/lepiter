@@ -71,7 +71,7 @@ LeContentTraceEvent >> printOn: aStream [
 	super printOn: aStream.
 	
 	aStream parenthesize: [ 
-		aStream << self mainCommandTypeName ]
+		aStream << self mainCommandLabel]
 ]
 
 { #category : #'api - undo/redo' }
