@@ -22,7 +22,7 @@ LeUndoContentCommand >> descriptionOn: aStream [
 LeUndoContentCommand >> initializeForTraceEvent: anEvent inPage: aPage [
 	super initializeForTraceEvent: anEvent inPage: aPage.
 	
-	targetCommand := anEvent undoSpecification createCommandForPage: aPage.
+	targetCommand := anEvent undoCommandSpecification createCommandForPage: aPage.
 	targetCommand parentCommand: self.
 ]
 

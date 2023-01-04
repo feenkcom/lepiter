@@ -5,16 +5,16 @@ Class {
 }
 
 { #category : #accessing }
-LeContentRedoTraceEvent >> commandSpecification [
-	^ self targetEvent commandSpecification
-]
-
-{ #category : #accessing }
 LeContentRedoTraceEvent >> label [
 	^ 'Redo'
 ]
 
 { #category : #accessing }
-LeContentRedoTraceEvent >> undoSpecification [
-	^ self targetEvent undoSpecification
+LeContentRedoTraceEvent >> mainCommandSpecification [
+	^ self targetEvent mainCommandSpecification
+]
+
+{ #category : #accessing }
+LeContentRedoTraceEvent >> undoCommandSpecification [
+	^ self targetEvent undoCommandSpecification
 ]

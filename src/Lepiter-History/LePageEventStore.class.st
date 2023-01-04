@@ -25,7 +25,7 @@ LePageEventStore >> gtViewCommandSpecificationsListFor: aView [
 		title: 'Command Specifications';
 		priority: 15;
 		items: [ self events collect: [ :aTraceEvent |
-			aTraceEvent commandSpecification ] ];
+			aTraceEvent mainCommandSpecification ] ];
 		column: 'Index' text: [ :aCommandSpecification :index | index ] width: 150;
 		column: 'Command Type' text: [ :aCommandSpecification | 
 			aCommandSpecification commandTypeName ]

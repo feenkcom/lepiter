@@ -7,16 +7,6 @@ Class {
 	#category : #'Lepiter-History-Storage'
 }
 
-{ #category : #accessing }
-LeContentTraceEvent >> commandSpecification [
-	self subclassResponsibility
-]
-
-{ #category : #accessing }
-LeContentTraceEvent >> commandTypeName [
-	^ self commandSpecification commandTypeName
-]
-
 { #category : #utils }
 LeContentTraceEvent >> formatCommandTypeName: aCommandName [
 	^ String streamContents: [ :aStream  |
@@ -32,9 +22,9 @@ LeContentTraceEvent >> gtViewCommandSpecificationFor: aView [
 	<gtView>
 	
 	^ aView forward 
-		title: 'Command Specification';
+		title: 'Main Command';
 		priority: 10;
-		object: [ self commandSpecification ];
+		object: [ self mainCommandSpecification ];
 		view: #gtViewSpecificationAttributesFor:
 ]
 
@@ -43,7 +33,7 @@ LeContentTraceEvent >> gtViewUndoSpecificationFor: aView [
 	<gtView>
 	
 	^ aView forward 
-		title: 'Undo Specification';
+		title: 'Undo Command';
 		priority: 15;
 		object: [ self undoSpecification ];
 		view: #gtViewSpecificationAttributesFor:
@@ -63,7 +53,17 @@ LeContentTraceEvent >> label [
 
 { #category : #utils }
 LeContentTraceEvent >> mainCommandLabel [
-	^ self formatCommandTypeName: self commandTypeName
+	^ self formatCommandTypeName: self mainCommandTypeName
+]
+
+{ #category : #accessing }
+LeContentTraceEvent >> mainCommandSpecification [
+	self subclassResponsibility
+]
+
+{ #category : #accessing }
+LeContentTraceEvent >> mainCommandTypeName [
+	^ self mainCommandSpecification commandTypeName
 ]
 
 { #category : #printing }
@@ -71,7 +71,7 @@ LeContentTraceEvent >> printOn: aStream [
 	super printOn: aStream.
 	
 	aStream parenthesize: [ 
-		aStream << self commandTypeName ]
+		aStream << self mainCommandTypeName ]
 ]
 
 { #category : #'api - undo/redo' }
@@ -88,8 +88,13 @@ LeContentTraceEvent >> undoCommandLabel [
 ]
 
 { #category : #accessing }
+LeContentTraceEvent >> undoCommandSpecification [
+	self subclassResponsibility
+]
+
+{ #category : #accessing }
 LeContentTraceEvent >> undoCommandTypeName [
-	^ self undoSpecification commandTypeName
+	^ self undoCommandSpecification commandTypeName
 ]
 
 { #category : #'api - undo/redo' }
@@ -98,9 +103,4 @@ LeContentTraceEvent >> undoOn: aPage [
 	(LeUndoContentCommand 
 		forTraceEvent: self
 		inPage: aPage) execute
-]
-
-{ #category : #accessing }
-LeContentTraceEvent >> undoSpecification [
-	self subclassResponsibility
 ]

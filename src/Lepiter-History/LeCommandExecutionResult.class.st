@@ -34,8 +34,8 @@ LeCommandExecutionResult >> commandSpecification [
 { #category : #accessing }
 LeCommandExecutionResult >> traceEvent [
 	^ LeContentEditTraceEvent new 
-		commandSpecification: self commandSpecification;
-		undoSpecification: self undoSpecification
+		mainCommandSpecification: self commandSpecification;
+		undoCommandSpecification: self undoSpecification
 ]
 
 { #category : #accessing }
