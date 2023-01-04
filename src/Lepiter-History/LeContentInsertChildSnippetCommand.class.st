@@ -17,6 +17,7 @@ LeContentInsertChildSnippetCommand class >> commandDescription [
 { #category : #execution }
 LeContentInsertChildSnippetCommand >> basicExecute [ 
 	| newSnippet |
+	
 	self assert: [ self insertPath notNil ].
 	self assert: [ self snippetTypeName notNil ].
 	

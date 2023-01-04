@@ -1,7 +1,7 @@
 Class {
 	#name : #LeContextMenuBuilderExamples,
 	#superclass : #Object,
-	#category : 'Lepiter-UI-Snippet-Spotter'
+	#category : #'Lepiter-UI-Snippet-Spotter'
 }
 
 { #category : #'examples - builder' }
@@ -16,6 +16,7 @@ LeContextMenuBuilderExamples >> basicBuilder [
 LeContextMenuBuilderExamples >> realBuilder [
 	<gtExample>
 	| aBuilder aCollection |
+	
 	aBuilder := LeContextMenuBuilder new.
 	aCollection := aBuilder build.
 	self assert: aCollection isNotNil.
@@ -25,8 +26,7 @@ LeContextMenuBuilderExamples >> realBuilder [
 		self assert: eachMenuItem snippetClass isInstanceSide.
 		self assert: eachMenuItem title isString.
 		self assert: eachMenuItem title isNotEmpty.
-		self assert: eachMenuItem priority isNumber.	
-	].
+		self assert: eachMenuItem priority isNumber ].
 	
 	^ aBuilder
 ]

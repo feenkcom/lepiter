@@ -100,9 +100,9 @@ LeSnippetViewModel >> insertNewSnippet: aLeSnippet [
 	
 		newSnippet := self snippetModel
 			addChildOrSiblingSnippet: aLeSnippet.
+		
 		newSnippetUIModel := aSnippetsCollection
 			findOrCreateSnippetViewModel: newSnippet.
-	
 		newSnippetUIModel focusAfterCreation.
 		aSnippetsCollection scrollToViewModel: newSnippetUIModel ]
 ]
@@ -117,8 +117,11 @@ LeSnippetViewModel >> insertNewSnippetOfType: aLeSnippetClass [
 	self snippetsCollectionDo: [ :aSnippetsCollection |
 		| newSnippet newSnippetUIModel |
 		
-		newSnippet := self snippetModel addChildOrSiblingSnippetOfClass: aLeSnippetClass.
-		newSnippetUIModel := aSnippetsCollection findOrCreateSnippetViewModel: newSnippet.
+		newSnippet := self snippetModel 
+			addChildOrSiblingSnippetOfClass: aLeSnippetClass.
+		
+		newSnippetUIModel := aSnippetsCollection 
+			findOrCreateSnippetViewModel: newSnippet.
 		newSnippetUIModel focusAfterCreation.
 		aSnippetsCollection scrollToViewModel: newSnippetUIModel ]
 ]

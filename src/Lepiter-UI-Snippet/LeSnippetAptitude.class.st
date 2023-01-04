@@ -207,8 +207,8 @@ LeSnippetAptitude >> mayHideActions [
 { #category : #'instance creation' }
 LeSnippetAptitude >> newAddSnippetDropdown [
 	<return: #BlElement>
-	
 	| aButton |
+	
 	aButton := self newPlusElement.
 	aButton
 		addAptitude: (BrGlamorousWithDropdownAptitude
@@ -218,15 +218,15 @@ LeSnippetAptitude >> newAddSnippetDropdown [
 					background: BrGlamorousColors secondaryHeaderBackgroundColor ]
 			content: [
 				GtSpotterDropdownButtonStencil new
-					valuable: (LeContextMenuSpotterStart new database: widget database);
+					valuable: (LeContextMenuSpotterStart new 
+						database: widget database);
 					extent: [ 300 @ 400 ];
 					spotterModelDo: [ :aSpotter |
 						aSpotter hidePreview.
 						aSpotter announcer
 							when: GtSpotterExitAnnouncement
 							do: [ :anAnnouncement | self widgetDo: [ :aWidget | 
-									aWidget snippetViewModel focused: true from: nil ] ]
-						 ];
+								aWidget snippetViewModel focused: true from: nil ] ] ];
 					actOn: [ :anActOnEvent :aMenuItem :theButton | 
 						self snippetBelowRequested: aMenuItem asSnippet.
 						anActOnEvent beActed ];
