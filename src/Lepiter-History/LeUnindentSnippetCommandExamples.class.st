@@ -1,5 +1,5 @@
 "
-Examples for the unident command
+Examples for the unident command.
 
 We start from this page:
 

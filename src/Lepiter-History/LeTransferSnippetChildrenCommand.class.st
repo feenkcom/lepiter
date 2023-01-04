@@ -34,6 +34,11 @@ LeTransferSnippetChildrenCommand >> createUndoCommandSpecification [
 ]
 
 { #category : #accessing }
+LeTransferSnippetChildrenCommand >> label [
+	^ 'Transfer Children'
+]
+
+{ #category : #accessing }
 LeTransferSnippetChildrenCommand >> sourceSnippet [
 
 	^ sourceSnippet

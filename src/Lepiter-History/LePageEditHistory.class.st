@@ -91,8 +91,8 @@ LePageEditHistory >> gtViewUndoRedoHistoryFor: aView [
 		title: 'Undo/Redo Actions';
 		priority: 1;
 		items: [ self redoUndoActions ];
-		column: 'Index' text: [ :historyAction :anIndex | anIndex ] width: 100;
-		column: 'Type' text: [ :historyAction | historyAction labelText ] width: 100;
+		column: 'Index' text: [ :historyAction :anIndex | anIndex ] width: 50;
+		column: 'Type' text: [ :historyAction | historyAction labelText ] width: 75;
 		column: 'Event' text: [ :historyAction | historyAction eventDescriptionText ];
 		actionUpdateButton
 ]

@@ -127,14 +127,14 @@ LeSnippetViewModel >> insertNewSnippetOfType: aLeSnippetClass [
 LeSnippetViewModel >> moveDown [
 	"Move snippet down swapping it with a next sibling if it exists"
 
-	self snippetModel moveDown
+	self snippetModel moveDownThroughCommand
 ]
 
 { #category : #'api - actions' }
 LeSnippetViewModel >> moveUp [
 	"Move snippet up swapping it with a previous sibling if it exists"
 
-	self snippetModel moveUp
+	self snippetModel moveUpThroughCommand
 ]
 
 { #category : #accessing }

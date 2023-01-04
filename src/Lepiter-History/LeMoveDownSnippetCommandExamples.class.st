@@ -36,7 +36,9 @@ LeMoveDownSnippetCommandExamples >> executeMoveDownSnippetCommand [
 	self assert: page children size equals: 2.
 	self assert: page editHistory eventStore size equals: 1.
 	
-	self assert: self targetSnippet == initialTargetSnippet.
+	self 
+		assert: self targetSnippet == initialTargetSnippet
+		description: 'Snippet identity should be preserved'.
 	
 	self 
 		assertStructure: self modifiedPageStructure

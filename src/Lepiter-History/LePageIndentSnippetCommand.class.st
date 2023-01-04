@@ -28,3 +28,8 @@ LePageIndentSnippetCommand >> basicExecute [
 LePageIndentSnippetCommand >> createUndoCommand [
 	^ self targetContent commandBuilder unindentSnippetCommand
 ]
+
+{ #category : #accessing }
+LePageIndentSnippetCommand >> label [
+	^ 'Indent Snippet'
+]

@@ -246,12 +246,36 @@ LeSnippet >> moveDown [
 	self parent moveDownSnippet: self.
 ]
 
+{ #category : #'api - command building' }
+LeSnippet >> moveDownCommand [
+	"Create a command for moving up the snippet"
+	
+	^ self commandBuilder moveDownSnippetCommand
+]
+
+{ #category : #'api - command operations' }
+LeSnippet >> moveDownThroughCommand [
+	^ self moveDownCommand execute
+]
+
 { #category : #'api - editing' }
 LeSnippet >> moveUp [
 	"Move the receiver up one snippet.
 	If the receiver has a sibling below it, move there, if not and the receiver's parent has a sibling below, move there"
 
 	self parent moveUpSnippet: self.
+]
+
+{ #category : #'api - command building' }
+LeSnippet >> moveUpCommand [
+	"Create a command for moving up the snippet"
+	
+	^ self commandBuilder moveUpSnippetCommand
+]
+
+{ #category : #'api - command operations' }
+LeSnippet >> moveUpThroughCommand [
+	^ self moveUpCommand execute
 ]
 
 { #category : #'api - enumerating' }

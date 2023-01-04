@@ -17,6 +17,16 @@ LeContentTraceEvent >> commandTypeName [
 	^ self commandSpecification commandTypeName
 ]
 
+{ #category : #utils }
+LeContentTraceEvent >> formatCommandTypeName: aCommandName [
+	^ String streamContents: [ :aStream  |
+		(((aCommandName 
+			withoutPrefix:  'Le')
+			withoutPrefix: 'Page')
+			withoutSuffix: 'Command')
+				splitCamelCase asStringOn: aStream delimiter: ' ' ]
+]
+
 { #category : #'gt - extensions' }
 LeContentTraceEvent >> gtViewCommandSpecificationFor: aView [
 	<gtView>
@@ -51,6 +61,11 @@ LeContentTraceEvent >> label [
 	self subclassResponsibility
 ]
 
+{ #category : #utils }
+LeContentTraceEvent >> mainCommandLabel [
+	^ self formatCommandTypeName: self commandTypeName
+]
+
 { #category : #printing }
 LeContentTraceEvent >> printOn: aStream [ 
 	super printOn: aStream.
@@ -65,6 +80,16 @@ LeContentTraceEvent >> redoOn: aPage [
 	(LeRedoContentCommand 
 		forTraceEvent: self
 		inPage: aPage) execute
+]
+
+{ #category : #utils }
+LeContentTraceEvent >> undoCommandLabel [
+	^ self formatCommandTypeName: self undoCommandTypeName
+]
+
+{ #category : #accessing }
+LeContentTraceEvent >> undoCommandTypeName [
+	^ self undoSpecification commandTypeName
 ]
 
 { #category : #'api - undo/redo' }

@@ -1,5 +1,5 @@
 "
-Examples for the ident command
+Examples for the ident command.
 
 We start from this page:
 
@@ -21,7 +21,7 @@ LeIndentSnippetCommandExamples >> createIndentSnippetCommand [
 	| targetSnippet command |
 	
 	targetSnippet := self targetPage children second.
-	command := targetSnippet commandBuilder indentSnippetCommand.
+	command := targetSnippet indentCommand.
 	
 	self assertCommand: command forSnippet: targetSnippet.
 	

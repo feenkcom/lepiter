@@ -171,6 +171,11 @@ LeContentInsertChildSnippetCommand >> instantiateEmptySnippet [
 ]
 
 { #category : #accessing }
+LeContentInsertChildSnippetCommand >> label [
+	^ 'Insert Child Snippet'
+]
+
+{ #category : #accessing }
 LeContentInsertChildSnippetCommand >> snippetTypeName [
 
 	^ snippetTypeName

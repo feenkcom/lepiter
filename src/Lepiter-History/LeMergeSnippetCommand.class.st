@@ -75,6 +75,11 @@ LeMergeSnippetCommand >> gtViewSubcommandsFor: aView [
 		items: [ self subcommands ]
 ]
 
+{ #category : #accessing }
+LeMergeSnippetCommand >> label [
+	^ 'Merge Snippet'
+]
+
 { #category : #initialization }
 LeMergeSnippetCommand >> mergeContentOf: aSourceSnippet [
 	self assert: [ subcommands isEmpty ].
