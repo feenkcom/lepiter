@@ -27,7 +27,7 @@ LePageEditHistoryAction >> editEvent: anObject [
 
 { #category : #accessing }
 LePageEditHistoryAction >> eventDescriptionText [
-	^ self editEvent gtDisplayText gtDisplayText
+	^ self editEvent gtDisplayText
 ]
 
 { #category : #accessing }

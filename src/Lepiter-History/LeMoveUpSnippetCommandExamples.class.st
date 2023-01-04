@@ -36,7 +36,9 @@ LeMoveUpSnippetCommandExamples >> executeMoveUpSnippetCommand [
 	self assert: page children size equals: 2.
 	self assert: page editHistory eventStore size equals: 1.
 	
-	self assert:  self targetSnippet == initialTargetSnippet.
+	self 
+		assert:  self targetSnippet == initialTargetSnippet
+		description: 'Snippet identity should be preserved'..
 	
 	self 
 		assertStructure: self modifiedPageStructure 
@@ -53,6 +55,7 @@ LeMoveUpSnippetCommandExamples >> modifiedPageStructure [
 { #category : #'examples - setup' }
 LeMoveUpSnippetCommandExamples >> targetSnippet [
 	<gtExample>
+	
 	self targetPage allChildrenBreadthFirstDo: [ :aSnippet |
 		aSnippet string = 'Target' ifTrue: [ ^ aSnippet ] ].
 	

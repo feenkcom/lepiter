@@ -39,12 +39,12 @@ LePageEventStore >> gtViewTraceEventsListFor: aView [
 		title: 'Events Log';
 		priority: 10;
 		items: [ self events ];
-		column: 'Index' text: [ :aTraceEvent :index | index ] width: 100;
-		column: 'Source' text: [ :aTraceEvent | aTraceEvent label ] width: 100;
+		column: 'Index' text: [ :aTraceEvent :index | index ] width: 50;
+		column: 'Source' text: [ :aTraceEvent | aTraceEvent label ] width: 75;
 		column: 'Main Command' text: [ :aTraceEvent | 
-			aTraceEvent commandSpecification commandTypeName ];
+			aTraceEvent mainCommandLabel ];
 		column: 'Undo Command' text: [ :aTraceEvent | 
-			aTraceEvent undoSpecification commandTypeName ];
+			aTraceEvent undoCommandLabel ];
 		actionUpdateButton
 ]
 

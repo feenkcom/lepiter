@@ -40,6 +40,11 @@ LeAppendSnippetContentCommand >> extractCurrentSnippetState [
 ]
 
 { #category : #accessing }
+LeAppendSnippetContentCommand >> label [
+	^ 'Append Snippet Content'
+]
+
+{ #category : #accessing }
 LeAppendSnippetContentCommand >> sourceSnippet [
 
 	^ sourceSnippet

@@ -27,6 +27,11 @@ LeRedoContentCommand >> initializeForTraceEvent: anEvent inPage: aPage [
 ]
 
 { #category : #accessing }
+LeRedoContentCommand >> label [
+	^ 'Undo'
+]
+
+{ #category : #accessing }
 LeRedoContentCommand >> traceEventTypeForRecording [
 	^ LeContentRedoTraceEvent
 ]

@@ -19,3 +19,8 @@ LePageMoveDownSnippetCommand >> basicExecute [
 LePageMoveDownSnippetCommand >> createUndoCommand [
 	^ self targetContent commandBuilder moveUpSnippetCommand
 ]
+
+{ #category : #accessing }
+LePageMoveDownSnippetCommand >> label [
+	^ 'Move Down Snippet'
+]

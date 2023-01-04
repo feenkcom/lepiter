@@ -160,3 +160,8 @@ LeContentRemoveChildSnippetCommand >> initializeFromSpecification: aCommandSpeci
 	self childSnippet: (aBuilder 
 		locateContentWithUid: aCommandSpecification childUid)
 ]
+
+{ #category : #accessing }
+LeContentRemoveChildSnippetCommand >> label [
+	^ 'Remove Child Snippet'
+]

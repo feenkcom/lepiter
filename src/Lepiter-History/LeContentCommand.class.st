@@ -90,6 +90,11 @@ LeContentCommand >> initializeFromSpecification: aCommandSpecification withBuild
 ]
 
 { #category : #accessing }
+LeContentCommand >> label [
+	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
 LeContentCommand >> parentCommand [
 	^ parentCommand
 ]

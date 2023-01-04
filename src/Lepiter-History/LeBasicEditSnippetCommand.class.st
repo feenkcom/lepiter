@@ -82,6 +82,11 @@ LeBasicEditSnippetCommand >> initializeFromSpecification: aCommandSpecification 
 ]
 
 { #category : #accessing }
+LeBasicEditSnippetCommand >> label [
+	^ 'Edit Snippet'
+]
+
+{ #category : #accessing }
 LeBasicEditSnippetCommand >> snippetState [
 
 	^ snippetState
