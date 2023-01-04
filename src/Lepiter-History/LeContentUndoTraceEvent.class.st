@@ -5,16 +5,16 @@ Class {
 }
 
 { #category : #accessing }
-LeContentUndoTraceEvent >> commandSpecification [
-	^ self targetEvent undoSpecification
-]
-
-{ #category : #accessing }
 LeContentUndoTraceEvent >> label [
 	^ 'Undo'
 ]
 
 { #category : #accessing }
-LeContentUndoTraceEvent >> undoSpecification [
-	^ self targetEvent commandSpecification
+LeContentUndoTraceEvent >> mainCommandSpecification [
+	^ self targetEvent undoCommandSpecification
+]
+
+{ #category : #accessing }
+LeContentUndoTraceEvent >> undoCommandSpecification [
+	^ self targetEvent mainCommandSpecification
 ]

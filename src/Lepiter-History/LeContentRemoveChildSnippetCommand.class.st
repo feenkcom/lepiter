@@ -101,7 +101,6 @@ LeContentRemoveChildSnippetCommand >> createInsertChildStructureCommandFor: aChi
 		createInsertChildStructureCompositeCommandFor: aChildSnippet 
 		inParent: aParentSnippet 
 		forRoot: aRootContent
-	
 ]
 
 { #category : #'execution - utils' }
@@ -125,7 +124,6 @@ LeContentRemoveChildSnippetCommand >> createInsertChildStructureCompositeCommand
 	addSnippetCommand addSubcommand: addChildrenCommand.
 	
 	^ addSnippetCommand
-	
 ]
 
 { #category : #'execution - utils' }

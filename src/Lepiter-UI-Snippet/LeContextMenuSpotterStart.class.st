@@ -29,10 +29,12 @@ LeContextMenuSpotterStart >> gtDisplayString [
 { #category : #searching }
 LeContextMenuSpotterStart >> gtNewSnippetFor: aSearch [
 	<gtSearch>
+	
 	^ aSearch list
 		title: 'Snippet type';
 		priority: 1;
-		items: [ LeContextMenuBuilder new build ];
+		items: [ LeContextMenuSnippetItemsCollector new 
+			collectMenuItems ];
 		itemName: #title;
 		filterBySubstring;
 		withoutCategoryAction;

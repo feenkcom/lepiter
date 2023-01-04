@@ -2,23 +2,11 @@ Class {
 	#name : #LeContentEditTraceEvent,
 	#superclass : #LeContentTraceEvent,
 	#instVars : [
-		'commandSpecification',
-		'undoSpecification'
+		'mainCommandSpecification',
+		'undoCommandSpecification'
 	],
 	#category : #'Lepiter-History-Storage'
 }
-
-{ #category : #accessing }
-LeContentEditTraceEvent >> commandSpecification [
-
-	^ commandSpecification
-]
-
-{ #category : #accessing }
-LeContentEditTraceEvent >> commandSpecification: anObject [
-
-	commandSpecification := anObject
-]
 
 { #category : #accessing }
 LeContentEditTraceEvent >> label [
@@ -26,13 +14,25 @@ LeContentEditTraceEvent >> label [
 ]
 
 { #category : #accessing }
-LeContentEditTraceEvent >> undoSpecification [
+LeContentEditTraceEvent >> mainCommandSpecification [
 
-	^ undoSpecification
+	^ mainCommandSpecification
 ]
 
 { #category : #accessing }
-LeContentEditTraceEvent >> undoSpecification: anObject [
+LeContentEditTraceEvent >> mainCommandSpecification: aCommandSpecification [
 
-	undoSpecification := anObject
+	mainCommandSpecification := aCommandSpecification
+]
+
+{ #category : #accessing }
+LeContentEditTraceEvent >> undoCommandSpecification [
+
+	^ undoCommandSpecification
+]
+
+{ #category : #accessing }
+LeContentEditTraceEvent >> undoCommandSpecification: aCommandSpecification [
+
+	undoCommandSpecification := aCommandSpecification
 ]
