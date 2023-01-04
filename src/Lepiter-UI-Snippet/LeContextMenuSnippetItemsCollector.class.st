@@ -1,26 +1,26 @@
 Class {
-	#name : #LeContextMenuBuilder,
+	#name : #LeContextMenuSnippetItemsCollector,
 	#superclass : #Object,
 	#category : #'Lepiter-UI-Snippet-Spotter'
 }
 
 { #category : #building }
-LeContextMenuBuilder >> build [
-
+LeContextMenuSnippetItemsCollector >> collectMenuItems [
 	| aCollection |
+	
 	aCollection := OrderedCollection new.
 
 	LeSnippet allSubclassesDo: [ :eachClass | 
 		| aClassPragmas |
 		aClassPragmas := Pragma
-			                 allNamed: #leSnippetSpecification
-			                 in: eachClass class.
+			allNamed: #leSnippetSpecification
+			in: eachClass class.
 
 		aClassPragmas do: [ :aPragma | 
 			| aMenuItem |
 			aMenuItem := aPragma method
-				             valueWithReceiver: aPragma methodClass
-				             arguments: #(  ).
+				valueWithReceiver: aPragma methodClass
+				arguments: #(  ).
 			aMenuItem definingMethod: aPragma method.
 
 			aCollection add: aMenuItem ] ].
@@ -33,16 +33,20 @@ LeContextMenuBuilder >> build [
 	^ aCollection
 ]
 
-{ #category : #accessing }
-LeContextMenuBuilder >> gtMenuItemsFor: aView [
+{ #category : #'gt - extensions' }
+LeContextMenuSnippetItemsCollector >> gtMenuItemsFor: aView [
 	<gtView>
+	
 	^ aView columnedList 
 		title: 'Menu Items';
-		items: [ self build ];
+		items: [ self collectMenuItems ];
 		column: 'Title' text: #title;
 		column: 'Snippet' text: #snippetClass;
 		column: 'Priority' text: [ :aMenuItem | 
 			aMenuItem isDefaultPriority
-				ifTrue: [ aMenuItem priority asRopedText foreground: BrGlamorousColors disabledButtonTextColor ] 
-				ifFalse: [ aMenuItem priority asRopedText ] ]
+				ifTrue: [ 
+					aMenuItem priority asRopedText 
+						foreground: BrGlamorousColors disabledButtonTextColor ] 
+				ifFalse: [ 
+					aMenuItem priority asRopedText ] ]
 ]

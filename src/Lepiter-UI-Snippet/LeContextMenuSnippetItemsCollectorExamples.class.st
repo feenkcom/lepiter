@@ -1,24 +1,25 @@
 Class {
-	#name : #LeContextMenuBuilderExamples,
+	#name : #LeContextMenuSnippetItemsCollectorExamples,
 	#superclass : #Object,
 	#category : #'Lepiter-UI-Snippet-Spotter'
 }
 
 { #category : #'examples - builder' }
-LeContextMenuBuilderExamples >> basicBuilder [
+LeContextMenuSnippetItemsCollectorExamples >> basicBuilder [
 	<gtExample>
 	| aBuilder |
-	aBuilder := LeContextMenuBuilder new.
+	aBuilder := LeContextMenuSnippetItemsCollector new.
 	^ aBuilder
 ]
 
 { #category : #'examples - builder' }
-LeContextMenuBuilderExamples >> realBuilder [
+LeContextMenuSnippetItemsCollectorExamples >> realBuilder [
 	<gtExample>
 	| aBuilder aCollection |
 	
-	aBuilder := LeContextMenuBuilder new.
-	aCollection := aBuilder build.
+	aBuilder := self basicBuilder.
+	
+	aCollection := aBuilder collectMenuItems.
 	self assert: aCollection isNotNil.
 	self assert: aCollection isNotEmpty.
 	
