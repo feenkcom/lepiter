@@ -10,9 +10,10 @@ Class {
 { #category : #utils }
 LeContentTraceEvent >> formatCommandTypeName: aCommandName [
 	^ String streamContents: [ :aStream  |
-		(((aCommandName 
+		((((aCommandName 
 			withoutPrefix:  'Le')
 			withoutPrefix: 'Page')
+			withoutPrefix: 'Content')
 			withoutSuffix: 'Command')
 				splitCamelCase asStringOn: aStream delimiter: ' ' ]
 ]

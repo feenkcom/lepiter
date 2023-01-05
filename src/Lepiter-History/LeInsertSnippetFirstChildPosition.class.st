@@ -14,3 +14,8 @@ LeInsertSnippetFirstChildPosition >> descriptionOn: aStream [
 LeInsertSnippetFirstChildPosition >> insertChildSnippet: aChildSnippet intoParent: aContent [
 	aContent addFirstSnippet: aChildSnippet
 ]
+
+{ #category : #testing }
+LeInsertSnippetFirstChildPosition >> isFirstChildPosition [
+	^ true
+]

@@ -32,6 +32,16 @@ LeInsertSnippetPosition >> insertChildSnippet: aChildSnippet intoParent: aConten
 ]
 
 { #category : #testing }
+LeInsertSnippetPosition >> isAfterChildUidPosition [
+	^ false
+]
+
+{ #category : #testing }
+LeInsertSnippetPosition >> isFirstChildPosition [
+	^ false
+]
+
+{ #category : #testing }
 LeInsertSnippetPosition >> isLastChildPosition [
 	^ false
 ]

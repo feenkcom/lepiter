@@ -28,17 +28,6 @@ LeSnippet >> acceptVisitor: aVisitor [
 ]
 
 { #category : #'api - editing' }
-LeSnippet >> addChildOrSiblingSnippet: aNewSnippet [
-	"Add a new snippet that is either:
-	- a sibling of the receiver if there are no children.
-	- the first child of the receiver."
-	
-	^ self hasChildren
-		ifTrue: [ self addFirstSnippet: aNewSnippet ]
-		ifFalse: [ self addSnippetAfterSelf: aNewSnippet ].
-]
-
-{ #category : #'api - editing' }
 LeSnippet >> addChildOrSiblingSnippetOfClass: aNewSnippetClass [ 
 	"Add a new snippet that is either:
 	- a sibling of the receiver if there are no children.
@@ -359,6 +348,7 @@ LeSnippet >> notifyAnnouncement: anAnnouncement [
 LeSnippet >> onAboutToAddToDatabase: aDatabase [ 
 	"Ensure the receiver has a uid before it is added to a database"
 	super onAboutToAddToDatabase: aDatabase .
+	
 	uid ifNil: [ uid := aDatabase newUID ].
 	aDatabase registerSnippet: self.
 ]
@@ -451,6 +441,16 @@ LeSnippet >> removeSelf [
 	self parent
 		ifNil: [ ^ self ].
 	self parent removeSnippet: self
+]
+
+{ #category : #'api - command building' }
+LeSnippet >> removeSelfCommand [
+	^ self parent removeChildCommandFor: self 
+]
+
+{ #category : #'api - command operations' }
+LeSnippet >> removeSelfThroughCommand [
+	^ self removeSelfCommand execute
 ]
 
 { #category : #'api - editing' }

@@ -7,7 +7,7 @@ Class {
 		'needsContentDecorationBar',
 		'desiredSnippetWidth'
 	],
-	#category : 'Lepiter-UI-Snippet-! Views'
+	#category : #'Lepiter-UI-Snippet-! Views'
 }
 
 { #category : #accessing }
@@ -106,7 +106,7 @@ LeSnippetView >> createSidebarContainerFor: aSnippetElement [
 						thickness: 1;
 						radius: 4;
 						asElement);
-				action: [ aSnippetElement snippetViewModel snippetModel removeSelf ];
+				action: [ aSnippetElement snippetViewModel removeSelf ];
 				elevation: (BlRelativeElevation elevation: 20);
 				constraintsDo: [ :c | c frame vertical alignCenterAt: 0 ]);
 		addChild:

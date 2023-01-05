@@ -51,12 +51,3 @@ LeMoveDownSnippetCommandExamples >> executeMoveDownSnippetCommand [
 LeMoveDownSnippetCommandExamples >> modifiedPageStructure [
 	self subclassResponsibility
 ]
-
-{ #category : #'examples - setup' }
-LeMoveDownSnippetCommandExamples >> targetSnippet [
-	<gtExample>
-	self targetPage allChildrenBreadthFirstDo: [ :aSnippet |
-		aSnippet string = 'Target' ifTrue: [ ^ aSnippet ] ].
-	
-	NotFound signal.
-]

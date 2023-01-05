@@ -25,6 +25,11 @@ LeInsertSnippetAfterChildUidPosition >> insertChildSnippet: aChildSnippet intoPa
 		ifNone: [ Error signal: 'After snippet not found.' ]
 ]
 
+{ #category : #testing }
+LeInsertSnippetAfterChildUidPosition >> isAfterChildUidPosition [
+	^ true
+]
+
 { #category : #printing }
 LeInsertSnippetAfterChildUidPosition >> printOn: aStream [
 	super printOn: aStream.

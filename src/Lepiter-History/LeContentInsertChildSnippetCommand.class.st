@@ -27,7 +27,7 @@ LeContentInsertChildSnippetCommand >> basicExecute [
 	insertPath 
 		insertChildSnippet: newSnippet
 		intoParent: self targetContent.
-		
+	
 	^ self createCommandResult
 		insertedSnippet: newSnippet;
 		undoSpecification: (self targetContent commandBuilder
@@ -139,9 +139,11 @@ LeContentInsertChildSnippetCommand >> insertAfter: aSiblingSnippet [
 	
 	aSiblingSnippet uid 
 		ifNil: [
-			self insertPath: (self createInsertAfterSiblingIndexFor: aSiblingSnippet) asPath ]
+			self insertPath: (self 
+				createInsertAfterSiblingIndexFor: aSiblingSnippet) asPath ]
 		ifNotNil: [
-			self insertPath: (self createInsertAfterSiblingUidFor: aSiblingSnippet) asPath ]
+			self insertPath: (self 
+				createInsertAfterSiblingUidFor: aSiblingSnippet) asPath ]
 ]
 
 { #category : #configuration }

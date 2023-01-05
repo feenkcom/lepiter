@@ -1,36 +1,70 @@
+"
+{{gtClass:LeContextMenuSnippetItemsCollector}} gathers the lists of menu items for creating new snippets in a Lepiter page.
+
+A new menu action is added to the list by creating on the class side of a snipppet a method having the pragma `leSnippetSpecification` that returns the menu item.
+
+The method {{gtMethod:LeContextMenuSnippetItemsCollector>>collectMenuItems}} is the main API method for getting the menu items.
+```
+LeContextMenuSnippetItemsCollector new collectMenuItems
+```
+
+The current list of menu items for creating  snippets:
+
+{{gtExample:LeContextMenuSnippetItemsCollectorExamples>>basicBuilder|noCode=true|previewShow=#gtMenuItemsFor:}}
+
+"
 Class {
 	#name : #LeContextMenuSnippetItemsCollector,
 	#superclass : #Object,
 	#category : #'Lepiter-UI-Snippet-Spotter'
 }
 
+{ #category : #'gt - extensions' }
+LeContextMenuSnippetItemsCollector class >> gtClassViewMenuItemsFor: aView [
+	<gtView>
+	<gtClassView>
+	
+	^ aView forward
+		title: 'Menu Items';
+		object: [ self new ];
+		view: #gtMenuItemsFor:
+]
+
 { #category : #building }
 LeContextMenuSnippetItemsCollector >> collectMenuItems [
-	| aCollection |
+	| menuItems |
 	
-	aCollection := OrderedCollection new.
+	menuItems := OrderedCollection new.
 
-	LeSnippet allSubclassesDo: [ :eachClass | 
-		| aClassPragmas |
-		aClassPragmas := Pragma
-			allNamed: #leSnippetSpecification
-			in: eachClass class.
+	LeSnippet allSubclasses do: [ :eachClass | 
+		| targetPragmas |
+		targetPragmas := self collectPragmasInClass: eachClass.
 
-		aClassPragmas do: [ :aPragma | 
-			| aMenuItem |
-			aMenuItem := aPragma method
-				valueWithReceiver: aPragma methodClass
-				arguments: #(  ).
-			aMenuItem definingMethod: aPragma method.
+		targetPragmas do: [ :aPragma | 
+			| newMenuItem |
+			newMenuItem := self createMenuItemFromPragma: aPragma.
+			menuItems add: newMenuItem ] ].
 
-			aCollection add: aMenuItem ] ].
+	self sortMenuItems: menuItems.
 
-	aCollection sort: [ :a :b | 
-		a priority = b priority
-			ifTrue: [ a title < b title ]
-			ifFalse: [ a priority < b priority ] ].
+	^ menuItems
+]
 
-	^ aCollection
+{ #category : #building }
+LeContextMenuSnippetItemsCollector >> collectPragmasInClass: aClass [ 
+	^ Pragma
+		allNamed: #leSnippetSpecification
+		in: aClass class
+]
+
+{ #category : #building }
+LeContextMenuSnippetItemsCollector >> createMenuItemFromPragma: aPragma [ 
+	| menuItem |
+	menuItem := aPragma method
+			valueWithReceiver: aPragma methodClass
+			arguments: #(  ).
+	menuItem definingMethod: aPragma method.
+	^ menuItem
 ]
 
 { #category : #'gt - extensions' }
@@ -49,4 +83,12 @@ LeContextMenuSnippetItemsCollector >> gtMenuItemsFor: aView [
 						foreground: BrGlamorousColors disabledButtonTextColor ] 
 				ifFalse: [ 
 					aMenuItem priority asRopedText ] ]
+]
+
+{ #category : #building }
+LeContextMenuSnippetItemsCollector >> sortMenuItems: aCollectionOfMenuItems [
+	aCollectionOfMenuItems sort: [ :a :b | 
+		a priority = b priority
+			ifTrue: [ a title < b title ]
+			ifFalse: [ a priority < b priority ] ] 
 ]
