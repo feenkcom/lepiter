@@ -406,6 +406,11 @@ LeContent >> clearDatabase [
 	self database: self defaultDatabase
 ]
 
+{ #category : #'api - commands' }
+LeContent >> commandBuilder [
+	^ self subclassResponsibility
+]
+
 { #category : #'api - accessing' }
 LeContent >> content [
 	self
