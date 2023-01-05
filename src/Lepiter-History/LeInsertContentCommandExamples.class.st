@@ -11,6 +11,13 @@ LeInsertContentCommandExamples >> assertInsertAtFirstChildPositionFor: aCommand 
 ]
 
 { #category : #asserting }
+LeInsertContentCommandExamples >> assertInsertNewSnipperAfterChildUidCommandFor: aCommand [ 
+	self assertValidCommandFor: aCommand.
+	self assertInsertStateOnlyHasUidFor: aCommand. 
+	self assert: aCommand insertPath isAfterChildUidPosition.
+]
+
+{ #category : #asserting }
 LeInsertContentCommandExamples >> assertInsertNewSnipperAfterFirstCommandFor: aCommand [ 
 	self assertValidCommandFor: aCommand.
 	self assertInsertStateOnlyHasUidFor: aCommand. 
@@ -38,10 +45,8 @@ LeInsertContentCommandExamples >> createInsertEmptyChildSnippetInParentBetweenSn
 	command := self targetSnippet commandBuilder insertChildSnippetCommand
 		snippetTypeName: LeTextSnippet name;
 		insertAfter: self targetSnippet children first.
-	
-	self assertValidCommandFor: command.
-	self assertInsertStateOnlyHasUidFor: command. 
-	self assert: command insertPath isAfterChildUidPosition.
+		
+	self assertInsertNewSnipperAfterChildUidCommandFor: command.
 	
 	^ command
 ]
@@ -101,9 +106,7 @@ LeInsertContentCommandExamples >> createInsertEmptySnippetBetweenSnippetsInPageC
 		snippetTypeName: LeTextSnippet name;
 		insertAfter:  self targetSnippet.
 	
-	self assertValidCommandFor: command.
-	self assertInsertStateOnlyHasUidFor: command. 
-	self assert: command insertPath isAfterChildUidPosition.
+	self assertInsertNewSnipperAfterChildUidCommandFor: command.
 	
 	^ command
 ]
