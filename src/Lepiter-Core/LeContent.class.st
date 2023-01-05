@@ -933,6 +933,14 @@ LeContent >> reloadFromContent: aLeContent [
 	^ changed
 ]
 
+{ #category : #'api - command building' }
+LeContent >> removeChildCommandFor: aChildSnippet [
+	self assert: [ self children includes: aChildSnippet ].
+	
+	^ self commandBuilder 
+		removeChildSnippetCommandFor: aChildSnippet
+]
+
 { #category : #'api - editing' }
 LeContent >> removeSnippet: aLeSnippet [
 	"Remove the supplied snippet from the receiver"

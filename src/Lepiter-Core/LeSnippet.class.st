@@ -443,6 +443,16 @@ LeSnippet >> removeSelf [
 	self parent removeSnippet: self
 ]
 
+{ #category : #'api - command building' }
+LeSnippet >> removeSelfCommand [
+	^ self parent removeChildCommandFor: self 
+]
+
+{ #category : #'api - command operations' }
+LeSnippet >> removeSelfThroughCommand [
+	^ self removeSelfCommand execute
+]
+
 { #category : #'api - editing' }
 LeSnippet >> requestMergeWithSnippet: aSnippet [
 	"Request a merge between the receiver and the given snippet. 

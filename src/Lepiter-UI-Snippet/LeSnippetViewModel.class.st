@@ -148,6 +148,11 @@ LeSnippetViewModel >> moveUp [
 	self snippetModel moveUpThroughCommand
 ]
 
+{ #category : #'api - actions' }
+LeSnippetViewModel >> removeSelf [
+	self snippetModel removeSelfThroughCommand
+]
+
 { #category : #accessing }
 LeSnippetViewModel >> uid [
 	"Each snippet view model displayed in the snippets element should have a uid.
