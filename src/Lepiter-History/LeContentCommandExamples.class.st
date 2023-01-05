@@ -37,6 +37,11 @@ LeContentCommandExamples >> assertStructure: structureDescription forContent: aL
 				forContent: currentSnippet  ] ]
 ]
 
+{ #category : #asserting }
+LeContentCommandExamples >> assertValidCommandFor: aCommand [ 
+	self assert: aCommand uid notNil
+]
+
 { #category : #'examples - setup' }
 LeContentCommandExamples >> createTargetPage [
 	<gtExample>

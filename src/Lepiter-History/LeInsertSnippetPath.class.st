@@ -71,6 +71,16 @@ LeInsertSnippetPath >> insertPosition: anObject [
 ]
 
 { #category : #testing }
+LeInsertSnippetPath >> isAfterChildUidPosition [
+	^ self insertPosition isAfterChildUidPosition
+]
+
+{ #category : #testing }
+LeInsertSnippetPath >> isAtFirstChildPosition [
+	^ self insertPosition isFirstChildPosition
+]
+
+{ #category : #testing }
 LeInsertSnippetPath >> isAtLastChildPosition [
 	^ self insertPosition isLastChildPosition
 ]
