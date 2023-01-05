@@ -1,3 +1,8 @@
+"
+{{gtClass:LeContextMenuSnippetItemsCollector}} gathers the lists of menu items for creating new snippets in a Lepiter page.
+
+A new menu action is added to the list by creating on the class side of a snipppet a method having the pragma `leSnippetSpecification` that returns the menu item.
+"
 Class {
 	#name : #LeContextMenuSnippetItemsCollector,
 	#superclass : #Object,

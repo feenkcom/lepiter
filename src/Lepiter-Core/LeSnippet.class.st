@@ -28,17 +28,6 @@ LeSnippet >> acceptVisitor: aVisitor [
 ]
 
 { #category : #'api - editing' }
-LeSnippet >> addChildOrSiblingSnippet: aNewSnippet [
-	"Add a new snippet that is either:
-	- a sibling of the receiver if there are no children.
-	- the first child of the receiver."
-	
-	^ self hasChildren
-		ifTrue: [ self addFirstSnippet: aNewSnippet ]
-		ifFalse: [ self addSnippetAfterSelf: aNewSnippet ].
-]
-
-{ #category : #'api - editing' }
 LeSnippet >> addChildOrSiblingSnippetOfClass: aNewSnippetClass [ 
 	"Add a new snippet that is either:
 	- a sibling of the receiver if there are no children.
@@ -193,6 +182,41 @@ LeSnippet >> indentCommand [
 { #category : #'api - command operations' }
 LeSnippet >> indentThroughCommand [
 	^ self indentCommand execute
+]
+
+{ #category : #'api - command building' }
+LeSnippet >> insertAsFirstChildCommandFor: aNewSnippet [
+	^ (self insertChildCommandFor: aNewSnippet) 
+		insertFirst;
+		yourself
+]
+
+{ #category : #'api - command building' }
+LeSnippet >> insertChildCommandAfterSnippet: aChildSnippet for: aNewSnippet [
+	^ (self insertChildCommandFor: aNewSnippet) 
+		insertAfter: aChildSnippet;
+		yourself
+]
+
+{ #category : #'api - command building' }
+LeSnippet >> insertChildCommandFor: aNewSnippet [
+	^ (self commandBuilder 
+		insertChildSnippetOfTypeCommandForType: aNewSnippet class) 
+			initialSnippetState: (LeGenericSnippetState fromSnippet: aNewSnippet)
+			yourself
+]
+
+{ #category : #'api - command building' }
+LeSnippet >> insertChildOrSiblingSnippetCommandFor: aNewSnippet [
+	"Create a command for adding a new snippet that is either:
+	- a sibling of the receiver if there are no children.
+	- the first child of the receiver."
+	
+	^ self hasChildren
+		ifTrue: [ self insertAsFirstChildCommandFor: aNewSnippet  ]
+		ifFalse: [ self parent 
+			insertChildCommandAfterSnippet:  self 
+			for: aNewSnippet ].
 ]
 
 { #category : #'api - testing' }
@@ -359,6 +383,7 @@ LeSnippet >> notifyAnnouncement: anAnnouncement [
 LeSnippet >> onAboutToAddToDatabase: aDatabase [ 
 	"Ensure the receiver has a uid before it is added to a database"
 	super onAboutToAddToDatabase: aDatabase .
+	
 	uid ifNil: [ uid := aDatabase newUID ].
 	aDatabase registerSnippet: self.
 ]

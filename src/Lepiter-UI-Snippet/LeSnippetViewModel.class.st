@@ -8,6 +8,15 @@ Class {
 	#category : #'Lepiter-UI-Snippet-! View Models'
 }
 
+{ #category : #'actions - utils' }
+LeSnippetViewModel >> addChildOrSiblingSnippet: aNewSnippet [
+	| insertCommand|
+	insertCommand := self snippetModel 
+		insertAsFirstChildCommandFor: aNewSnippet.
+		
+	^ insertCommand execute insertedSnippet.
+]
+
 { #category : #'gt - extensions' }
 LeSnippetViewModel >> gtActionIndentFor: anAction [
 	<gtAction>
@@ -98,8 +107,7 @@ LeSnippetViewModel >> insertNewSnippet: aLeSnippet [
 	self snippetsCollectionDo: [ :aSnippetsCollection | 
 		| newSnippet newSnippetUIModel |
 	
-		newSnippet := self snippetModel
-			addChildOrSiblingSnippet: aLeSnippet.
+		newSnippet := self addChildOrSiblingSnippet: aLeSnippet.
 		
 		newSnippetUIModel := aSnippetsCollection
 			findOrCreateSnippetViewModel: newSnippet.
