@@ -31,11 +31,6 @@ LeInsertContentCommandExamples >> assertInsertStateOnlyHasUidFor: aCommand [
 		equals: #(uid). 
 ]
 
-{ #category : #asserting }
-LeInsertContentCommandExamples >> assertOneEventInPageHistory [
-	self assert: self targetPage editHistory eventStore size equals: 1.
-]
-
 { #category : #'examples - setup' }
 LeInsertContentCommandExamples >> createInsertEmptyChildSnippetInParentBetweenSnippetsCommand [
 	<gtExample>
@@ -101,7 +96,7 @@ LeInsertContentCommandExamples >> createInsertEmptySnippetBetweenSnippetsInPageC
 	<gtExample>
 	| command |
 	
-	self ensureTargetPageWithTwoSnippets.
+	self ensureTargetPageWithTwoBasicSnippetsAndFirstTarget.
 	command := self targetPage commandBuilder insertChildSnippetCommand
 		snippetTypeName: LeTextSnippet name;
 		insertAfter:  self targetSnippet.
@@ -118,18 +113,6 @@ LeInsertContentCommandExamples >> ensureTargetPageWithOneSnippet [
 	
 	targetPage := self targetPage.
 	targetPage addSnippet: (self textSnippetWithString: 'Target').
-	
-	^ targetPage
-]
-
-{ #category : #'examples - setup  pages' }
-LeInsertContentCommandExamples >> ensureTargetPageWithTwoSnippets [
-	<gtExample>
-	| targetPage |
-	
-	targetPage := self targetPage.
-	targetPage addSnippet: (self textSnippetWithString: 'Target').
-	targetPage addSnippet: (self textSnippetWithString: 'A').
 	
 	^ targetPage
 ]
@@ -256,19 +239,4 @@ LeInsertContentCommandExamples >> executeInsertEmptySnippetBetweenSnippetsInPage
 		forContent: self targetPage.
 
 	^ self targetPage
-]
-
-{ #category : #'examples - setup  pages' }
-LeInsertContentCommandExamples >> targetSnippet [
-	self targetPage allChildrenBreadthFirstDo: [ :aSnippet |
-		aSnippet string = 'Target' ifTrue: [ ^ aSnippet ] ].
-	
-	NotFound signal.
-]
-
-{ #category : #utils }
-LeInsertContentCommandExamples >> textSnippetWithString: aString [ 
-	^ (LeTextSnippet string: aString)
-		uid: LeUID new;
-		yourself
 ]

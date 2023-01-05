@@ -21,6 +21,11 @@ LeContentCommandExamples >> assertEmptyPageHistoryForPage: aPage [
 ]
 
 { #category : #asserting }
+LeContentCommandExamples >> assertOneEventInPageHistory [
+	self assert: self targetPage editHistory eventStore size equals: 1.
+]
+
+{ #category : #asserting }
 LeContentCommandExamples >> assertStructure: structureDescription forContent: aLepiterContent [
 
 	self assert: structureDescription size equals: aLepiterContent children size.
@@ -54,10 +59,37 @@ LeContentCommandExamples >> createTargetPage [
 	^ newPage
 ]
 
+{ #category : #'examples - setup  pages' }
+LeContentCommandExamples >> ensureTargetPageWithTwoBasicSnippetsAndFirstTarget [
+	<gtExample>
+	| targetPage |
+	
+	targetPage := self targetPage.
+	targetPage addSnippet: (self textSnippetWithString: 'Target').
+	targetPage addSnippet: (self textSnippetWithString: 'A').
+	
+	^ targetPage
+]
+
 { #category : #'examples - setup' }
 LeContentCommandExamples >> targetPage [
 	<gtExample>
 	
 	^ thePage ifNil: [
 		thePage := self createTargetPage ]
+]
+
+{ #category : #'examples - setup' }
+LeContentCommandExamples >> targetSnippet [
+	self targetPage allChildrenBreadthFirstDo: [ :aSnippet |
+		aSnippet string = 'Target' ifTrue: [ ^ aSnippet ] ].
+	
+	NotFound signal.
+]
+
+{ #category : #utils }
+LeContentCommandExamples >> textSnippetWithString: aString [ 
+	^ (LeTextSnippet string: aString)
+		uid: LeUID new;
+		yourself
 ]
