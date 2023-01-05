@@ -659,6 +659,41 @@ LeContent >> initialize [
 	announcer := Announcer new.
 ]
 
+{ #category : #'api - command building' }
+LeContent >> insertAsFirstChildCommandFor: aNewSnippet [
+	^ (self insertChildCommandFor: aNewSnippet) 
+		insertFirst;
+		yourself
+]
+
+{ #category : #'api - command building' }
+LeContent >> insertChildCommandAfterSnippet: aChildSnippet for: aNewSnippet [
+	^ (self insertChildCommandFor: aNewSnippet) 
+		insertAfter: aChildSnippet;
+		yourself
+]
+
+{ #category : #'api - command building' }
+LeContent >> insertChildCommandFor: aNewSnippet [
+	^ (self commandBuilder 
+		insertChildSnippetOfTypeCommandForType: aNewSnippet class) 
+			initialSnippetState: (LeGenericSnippetState fromSnippet: aNewSnippet)
+			yourself
+]
+
+{ #category : #'api - command building' }
+LeContent >> insertChildOrSiblingSnippetCommandFor: aNewSnippet [
+	"Create a command for adding a new snippet that is either:
+	- a sibling of the receiver if there are no children.
+	- the first child of the receiver."
+	
+	^ self hasChildren
+		ifTrue: [ self insertAsFirstChildCommandFor: aNewSnippet  ]
+		ifFalse: [ self parent 
+			insertChildCommandAfterSnippet:  self 
+			for: aNewSnippet ].
+]
+
 { #category : #'api - testing' }
 LeContent >> isEmpty [
 	"Answer a boolean indicating if the receiver is empty, i.e.
