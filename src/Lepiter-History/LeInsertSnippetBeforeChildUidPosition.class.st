@@ -1,5 +1,5 @@
 Class {
-	#name : #LeInsertSnippetAfterChildUidPosition,
+	#name : #LeInsertSnippetBeforeChildUidPosition,
 	#superclass : #LeInsertSnippetPosition,
 	#instVars : [
 		'snippetUid'
@@ -8,30 +8,25 @@ Class {
 }
 
 { #category : #printing }
-LeInsertSnippetAfterChildUidPosition >> descriptionOn: aStream [
+LeInsertSnippetBeforeChildUidPosition >> descriptionOn: aStream [
 	aStream 
-		<< 'After child uid: ';
+		<< 'Before child uid: ';
 		print: self snippetUid
 ]
 
 { #category : #action }
-LeInsertSnippetAfterChildUidPosition >> insertChildSnippet: aChildSnippet intoParent: aParentContent [
+LeInsertSnippetBeforeChildUidPosition >> insertChildSnippet: aChildSnippet intoParent: aParentContent [
 	self assert: [ self snippetUid notNil ].
 	
 	aParentContent children 
 		detect: [ :aSnippet | aSnippet uid = self snippetUid ] 
 		ifFound: [ :aSnippet | 
-			aParentContent addSnippet: aChildSnippet after: aSnippet ]  
+			aParentContent addSnippet: aChildSnippet before: aSnippet ]  
 		ifNone: [ Error signal: 'After snippet not found.' ]
 ]
 
-{ #category : #testing }
-LeInsertSnippetAfterChildUidPosition >> isAfterChildUidPosition [
-	^ true
-]
-
 { #category : #printing }
-LeInsertSnippetAfterChildUidPosition >> printOn: aStream [
+LeInsertSnippetBeforeChildUidPosition >> printOn: aStream [
 	super printOn: aStream.
 	
 	aStream parenthesize: [ 
@@ -41,13 +36,11 @@ LeInsertSnippetAfterChildUidPosition >> printOn: aStream [
 ]
 
 { #category : #accessing }
-LeInsertSnippetAfterChildUidPosition >> snippetUid [
-
+LeInsertSnippetBeforeChildUidPosition >> snippetUid [
 	^ snippetUid
 ]
 
 { #category : #accessing }
-LeInsertSnippetAfterChildUidPosition >> snippetUid: anUid [
-
+LeInsertSnippetBeforeChildUidPosition >> snippetUid: anUid [
 	snippetUid := anUid
 ]

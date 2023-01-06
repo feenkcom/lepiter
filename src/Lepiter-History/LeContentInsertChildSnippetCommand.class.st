@@ -147,6 +147,15 @@ LeContentInsertChildSnippetCommand >> insertAfter: aSiblingSnippet [
 ]
 
 { #category : #configuration }
+LeContentInsertChildSnippetCommand >> insertBefore: aSiblingSnippet [
+	self assert: [ self targetContent children includes: aSiblingSnippet ].
+	self assert: [ aSiblingSnippet uid notNil ].
+	
+	self insertPath: (self 
+		createInsertBeforeSiblingUidFor: aSiblingSnippet) asPath 
+]
+
+{ #category : #configuration }
 LeContentInsertChildSnippetCommand >> insertFirst [
 	self insertPath: self createInsertAsFirstChildPosition asPath
 ]
