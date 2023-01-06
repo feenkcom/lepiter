@@ -1,11 +1,11 @@
 Class {
-	#name : #LeEditTextSnippetCommand,
+	#name : #LeTextualEditSnippetCommand,
 	#superclass : #LeBasicEditSnippetCommand,
 	#category : #'Lepiter-History-Commands'
 }
 
 { #category : #accessing }
-LeEditTextSnippetCommand >> string: aString [ 
+LeTextualEditSnippetCommand >> string: aString [ 
 	self snippetState 
 		addAttribute: (LeTextSnippetStringAttribute new
 			string: aString)

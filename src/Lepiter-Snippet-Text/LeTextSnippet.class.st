@@ -458,12 +458,6 @@ LeTextSnippet >> storeOn: aStream [
 ]
 
 { #category : #'api - editing' }
-LeTextSnippet >> string [
-	<return: #String>
-	^ self text asString
-]
-
-{ #category : #'api - editing' }
 LeTextSnippet >> string: aString [
 	self text: aString asRopedText
 ]
@@ -509,19 +503,13 @@ LeTextSnippet >> updateOutgoingTextualLinks [
 ]
 
 { #category : #'api - editing' }
-LeTextSnippet >> updateString: aString [
-	self 
-		assert: [ aString isString ] 
-		description: [ 'aBlock>>#updateString: aString parameter must be a string' ].
-	self updateText: aString asRopedText
-]
-
-{ #category : #'api - editing' }
 LeTextSnippet >> updateText: aText source: anObject [
 	self assertText: aText.
+	
 	self text characters = aText characters
 		ifTrue: [ ^ self ].
 	self updater string: aText.
+	
 	self announceTextChangedBy: anObject
 ]
 

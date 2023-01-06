@@ -72,6 +72,12 @@ LeContentInsertChildSnippetCommand >> createInsertAsLastChildPosition [
 	^ LeInsertSnippetLastChildPosition new
 ]
 
+{ #category : #initialization }
+LeContentInsertChildSnippetCommand >> createInsertBeforeSiblingUidFor: aSnippet [
+	^ LeInsertSnippetBeforeChildUidPosition new
+		snippetUid: aSnippet uid
+]
+
 { #category : #printing }
 LeContentInsertChildSnippetCommand >> descriptionOn: aStream [
 	aStream 
