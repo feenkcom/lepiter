@@ -7,7 +7,7 @@ Class {
 	#category : #'Lepiter-History-Commands'
 }
 
-{ #category : #private }
+{ #category : #'instance creation' }
 LeMergeSnippetCommand class >> merge: aSnippet with: anotherSnippet [
 	^ (self forSnippet: aSnippet)
 		mergeContentOf: anotherSnippet
@@ -91,7 +91,6 @@ LeMergeSnippetCommand >> mergeContentOf: aSourceSnippet [
 	aSourceSnippet hasChildren 
 		ifTrue: [ self addMoveChildrenCommandFor: aSourceSnippet ].
 	self addDeleteSnippetCommandFor: aSourceSnippet.
-	
 ]
 
 { #category : #accessing }

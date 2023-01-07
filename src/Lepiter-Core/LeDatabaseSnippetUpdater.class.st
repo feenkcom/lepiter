@@ -2,7 +2,7 @@
 I update {{gtClass:LeSnippet}} instances.
 I properly update {{gtMethod:LeTextSnippet>>#text}}, and {{gtMethod:LeContent>>#editTime|label=#selector}} and {{gtMethod:LeContent>>#editEmail|label=#selector}} values.
 Use me by calling {{gtMethod:LeTextSnippet>>#updateText:source:}} {{gtExample:LeDatabaseSnippetUpdaterExamples>>#updateSnippetOneToTwo_Simplified_Text}} 
-You can also use {{gtMethod:LeTextSnippet>>#updateString:}} {{gtExample:LeDatabaseSnippetUpdaterExamples>>#updateSnippetOneToTwo_Simplified_String}} 
+You can also use {{gtMethod:LeTextualSnippet>>#updateString:}} {{gtExample:LeDatabaseSnippetUpdaterExamples>>#updateSnippetOneToTwo_Simplified_String}} 
 
 
 "

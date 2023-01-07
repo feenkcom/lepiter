@@ -52,6 +52,12 @@ LeTextualSnippet >> hasText [
 	^ self text isNotNil and: [ self text isNotEmpty ]
 ]
 
+{ #category : #'api - testing' }
+LeTextualSnippet >> isTextualSnippet [
+
+	^ true
+]
+
 { #category : #'private - exporting' }
 LeTextualSnippet >> markdownOn: stream level: anInteger [
 	"Write the receiver as an HTML string on the supplied stream.
@@ -111,10 +117,26 @@ LeTextualSnippet >> requestMergeWithSnippet: aSnippet [
 ]
 
 { #category : #accessing }
+LeTextualSnippet >> string [
+	<return: #String>
+	
+	^ self text asString
+]
+
+{ #category : #accessing }
 LeTextualSnippet >> text [
 	<return: #BlText>
 
 	^ self subclassResponsibility
+]
+
+{ #category : #'api - editing' }
+LeTextualSnippet >> updateString: aString [
+	self 
+		assert: [ aString isString ] 
+		description: [ 'aBlock>>#updateString: aString parameter must be a string' ].
+	
+	self updateText: aString asRopedText
 ]
 
 { #category : #'api - editing' }

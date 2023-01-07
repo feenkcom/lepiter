@@ -8,8 +8,8 @@ Class {
 LeSnippetCommandBuilder >> editSnippetCommand [ 
 	self flag: 'Deletate though the snippet'.
 	
-	self targetContent isTextSnippet ifTrue: [ 
-		^ LeEditTextSnippetCommand new
+	self targetContent isTextualSnippet ifTrue: [ 
+		^ LeTextualEditSnippetCommand new
 			targetContent: self targetSnippet ].
 		
 	^ LeEditGenericSnippetCommand new
@@ -41,6 +41,13 @@ LeSnippetCommandBuilder >> moveDownSnippetCommand [
 { #category : #'build - commands' }
 LeSnippetCommandBuilder >> moveUpSnippetCommand [ 
 	^ LePageMoveUpSnippetCommand forSnippet: self targetSnippet
+]
+
+{ #category : #'build - commands' }
+LeSnippetCommandBuilder >> splitSnippetCommandAtPosition: aCursorPosition [
+	^ LeSplitSnippetCommand 
+		splitSnippet: self targetSnippet
+		atCursorPosition: aCursorPosition
 ]
 
 { #category : #accessing }

@@ -72,6 +72,12 @@ LeContentInsertChildSnippetCommand >> createInsertAsLastChildPosition [
 	^ LeInsertSnippetLastChildPosition new
 ]
 
+{ #category : #initialization }
+LeContentInsertChildSnippetCommand >> createInsertBeforeSiblingUidFor: aSnippet [
+	^ LeInsertSnippetBeforeChildUidPosition new
+		snippetUid: aSnippet uid
+]
+
 { #category : #printing }
 LeContentInsertChildSnippetCommand >> descriptionOn: aStream [
 	aStream 
@@ -144,6 +150,15 @@ LeContentInsertChildSnippetCommand >> insertAfter: aSiblingSnippet [
 		ifNotNil: [
 			self insertPath: (self 
 				createInsertAfterSiblingUidFor: aSiblingSnippet) asPath ]
+]
+
+{ #category : #configuration }
+LeContentInsertChildSnippetCommand >> insertBefore: aSiblingSnippet [
+	self assert: [ self targetContent children includes: aSiblingSnippet ].
+	self assert: [ aSiblingSnippet uid notNil ].
+	
+	self insertPath: (self 
+		createInsertBeforeSiblingUidFor: aSiblingSnippet) asPath 
 ]
 
 { #category : #configuration }

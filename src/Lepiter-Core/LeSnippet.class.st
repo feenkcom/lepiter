@@ -190,7 +190,7 @@ LeSnippet >> isCodeSnippet [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : #'api - testing' }
 LeSnippet >> isSnippet [
 
 	^ true
@@ -198,6 +198,12 @@ LeSnippet >> isSnippet [
 
 { #category : #'api - testing' }
 LeSnippet >> isTextSnippet [
+
+	^ false
+]
+
+{ #category : #'api - testing' }
+LeSnippet >> isTextualSnippet [
 
 	^ false
 ]
