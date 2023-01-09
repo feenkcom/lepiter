@@ -116,6 +116,11 @@ LeTextualSnippet >> requestMergeWithSnippet: aSnippet [
 		ifTrue: [ self mergeAndRemoveSelfOrSnippet: aSnippet ]
 ]
 
+{ #category : #'api - command building' }
+LeTextualSnippet >> splitSnippetCommandAtPosition: aCursorPosition [
+	^ self commandBuilder splitSnippetCommandAtPosition: aCursorPosition
+]
+
 { #category : #accessing }
 LeTextualSnippet >> string [
 	<return: #String>

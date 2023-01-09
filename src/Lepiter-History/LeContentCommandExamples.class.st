@@ -71,6 +71,13 @@ LeContentCommandExamples >> ensureTargetPageWithTwoBasicSnippetsAndFirstTarget [
 	^ targetPage
 ]
 
+{ #category : #utils }
+LeContentCommandExamples >> pharoCodeSnippetWithString: aString [ 
+	^ (LePharoSnippet code: aString)
+		uid: LeUID new;
+		yourself
+]
+
 { #category : #'examples - setup' }
 LeContentCommandExamples >> targetPage [
 	<gtExample>
