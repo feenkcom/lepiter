@@ -122,25 +122,14 @@ LeTextualSnippetViewModel >> splitAt: aCursorPosition [
 LeTextualSnippetViewModel >> splitAtCursorPosition: aCursorPosition [
 
 	self snippetsCollectionDo: [ :aSnippetsCollection | 
-		| newSnippet currentSnippetText newSnippetViewModel thisText |
-		currentSnippetText := self snippetModel text copy.
+		| splitCommand splitResult newSnippetViewModel |
 		
-		newSnippet := self snippetModel
-			addSnippetBeforeSelfOfClass: self snippetModel class.
-		newSnippet
-			updateText: (currentSnippetText copyFrom: 1 to: aCursorPosition)
-			source: self.
-		
-		thisText := currentSnippetText
-				copyFrom: aCursorPosition + 1
-				to: currentSnippetText size.
-		thisText trimmer
-			leftLineBreaks;
-			trim.
-		self snippetModel updateText: thisText source: self.
+		splitCommand := self snippetModel 
+			splitSnippetCommandAtPosition:  aCursorPosition.
+		splitResult := splitCommand execute.
 		
 		newSnippetViewModel := aSnippetsCollection
-			findOrCreateSnippetViewModel: newSnippet.
+			findOrCreateSnippetViewModel: splitResult insertedSnippet.
 		newSnippetViewModel focused: false.
 		
 		self focused: true.
