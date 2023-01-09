@@ -34,14 +34,15 @@ LeTextualSnippetViewModel >> mergeWithNext [
 			nextSnippetDo: [ :nextSnippet |
 				self snippetModel class = nextSnippet class
 					ifTrue: [
-						| newSnippet newSnippetViewModel aThisSnippetTextSize |
-						
-						aThisSnippetTextSize := self snippetModel text size.
-						
-						newSnippet := self snippetModel requestMergeWithSnippet: nextSnippet.
-						newSnippetViewModel := aSnippetsCollection findOrCreateSnippetViewModel: newSnippet.
+						| mergedSnippet newSnippetViewModel thisSnippetTextSize |
+					
+						thisSnippetTextSize := self snippetModel text size.
+						mergedSnippet := self snippetModel 
+							mergeAndRemoveSelfOrSnippetThroughCommandFor: nextSnippet.
+					
+						newSnippetViewModel := aSnippetsCollection findOrCreateSnippetViewModel: mergedSnippet.
 						newSnippetViewModel focused: true.
-						newSnippetViewModel moveCursorAt: aThisSnippetTextSize ] ] 
+						newSnippetViewModel moveCursorAt: thisSnippetTextSize ] ] 
 			ifNone: [ ] ]
 ]
 
@@ -55,14 +56,15 @@ LeTextualSnippetViewModel >> mergeWithPrevious [
 			previousSnippetDo: [ :previousSnippet |
 				self snippetModel class = previousSnippet class
 					ifTrue: [
-						| newSnippet newSnippetViewModel aPreviousSnippetTextSize |
+						| mergedSnippet newSnippetViewModel previousSnippetTextSize |
 						
-						aPreviousSnippetTextSize := previousSnippet text size.
+						previousSnippetTextSize := previousSnippet text size.
+						mergedSnippet := previousSnippet 
+							mergeAndRemoveSelfOrSnippetThroughCommandFor: self snippetModel.
 						
-						newSnippet := previousSnippet requestMergeWithSnippet: self snippetModel.
-						newSnippetViewModel := aSnippetsCollection findOrCreateSnippetViewModel: newSnippet.
+						newSnippetViewModel := aSnippetsCollection findOrCreateSnippetViewModel: mergedSnippet.
 						newSnippetViewModel focused: true.
-						newSnippetViewModel moveCursorAt: aPreviousSnippetTextSize ] ] 
+						newSnippetViewModel moveCursorAt: previousSnippetTextSize ] ] 
 			ifNone: [ ] ]
 ]
 
@@ -147,7 +149,8 @@ LeTextualSnippetViewModel >> splitAtEnd [
 	self snippetsCollectionDo: [ :aSnippetsCollection |
 		| newSnippet newSnippetViewModel |
 		
-		newSnippet := self snippetModel addChildOrSiblingSnippetOfClass: self snippetModel class.
+		newSnippet := self 
+			addChildOrSiblingSnippetOfType: self snippetModel class.
 		
 		newSnippetViewModel := aSnippetsCollection findOrCreateSnippetViewModel: newSnippet.
 		newSnippetViewModel focused: true.
@@ -162,7 +165,8 @@ LeTextualSnippetViewModel >> splitAtStart [
 	self snippetsCollectionDo: [ :aSnippetsCollection |
 		| newSnippet newSnippetViewModel |
 		
-		newSnippet := self snippetModel addSnippetBeforeSelf.
+		newSnippet := self 
+			addSnippetBeforeSelfOfType: self snippetModel class.
 		
 		newSnippetViewModel := aSnippetsCollection findOrCreateSnippetViewModel: newSnippet.
 		newSnippetViewModel focused: true.

@@ -15,12 +15,10 @@ LeSplitSnippetCommand class >> splitSnippet: aTargetSnippet atCursorPosition: aC
 
 { #category : #'initialization - commands' }
 LeSplitSnippetCommand >> addInsertNewSnippetAboveCommandWithText: aSnippetText [
-	| builder command |
+	| command |
 	
-	builder := self targetSnippet parent commandBuilder.
-	command := builder 
-		insertChildSnippetOfTypeCommandForType: self targetSnippet class.
-	command insertBefore: self targetSnippet. 
+	command := self targetSnippet 
+		insertSnippetBeforeSelfCommandOfType: self targetSnippet class.
 	command initialSnippetState
 		addAttribute: (LeTextSnippetStringAttribute new
 			string: aSnippetText asString).

@@ -184,6 +184,15 @@ LeSnippet >> indentThroughCommand [
 	^ self indentCommand execute
 ]
 
+{ #category : #'api - command building' }
+LeSnippet >> insertSnippetBeforeSelfCommandOfType: aNewSnippetClass [
+	"Create a command for adding new snippet of the given type before the receiver. "
+	
+	^ self parent 
+		insertChildCommandBeforeSnippet: self 
+		ofType: aNewSnippetClass
+]
+
 { #category : #'api - testing' }
 LeSnippet >> isCodeSnippet [
 
@@ -219,8 +228,10 @@ LeSnippet >> mergeWithNext [
 	Answer the merged snippet."
 
 	^ self 
-		nextSnippetDo: [ :nextSnippet | self requestMergeWithSnippet: nextSnippet ] 
-		ifNone: [ self error: 'Can''t merge the last snippet with a following snippet' ].
+		nextSnippetDo: [ :nextSnippet | 
+			self requestMergeWithSnippet: nextSnippet ] 
+		ifNone: [ 
+			self error: 'Can''t merge the last snippet with a following snippet' ].
 ]
 
 { #category : #'api - editing' }
@@ -229,8 +240,10 @@ LeSnippet >> mergeWithPrevious [
 	Answer the merged snippet."
 
 	^ self 
-		previousSnippetDo: [ :previousSnippet | previousSnippet requestMergeWithSnippet: self ] 
-		ifNone: [ self error: 'Can''t merge the first snippet with a previous snippet' ].
+		previousSnippetDo: [ :previousSnippet | 
+			previousSnippet requestMergeWithSnippet: self ] 
+		ifNone: [ 
+			self error: 'Can''t merge the first snippet with a previous snippet' ].
 ]
 
 { #category : #'api - editing' }

@@ -10,9 +10,30 @@ Class {
 
 { #category : #'actions - utils' }
 LeSnippetViewModel >> addChildOrSiblingSnippet: aNewSnippet [
-	| insertCommand|
+	| insertCommand |
+	
 	insertCommand := self snippetModel 
 		insertChildOrSiblingSnippetCommandFor: aNewSnippet.
+		
+	^ insertCommand execute insertedSnippet.
+]
+
+{ #category : #'actions - utils' }
+LeSnippetViewModel >> addChildOrSiblingSnippetOfType: aSnippetType [
+	| insertCommand |
+	
+	insertCommand := self snippetModel 
+		insertChildOrSiblingSnippetCommandOfType: aSnippetType.
+		
+	^ insertCommand execute insertedSnippet.
+]
+
+{ #category : #'actions - utils' }
+LeSnippetViewModel >> addSnippetBeforeSelfOfType: aSnippetType [
+	| insertCommand |
+	
+	insertCommand := self snippetModel 
+		insertSnippetBeforeSelfCommandOfType: aSnippetType.
 		
 	^ insertCommand execute insertedSnippet.
 ]
