@@ -114,7 +114,10 @@ LeSplitSnippetCommand >> label [
 { #category : #initialization }
 LeSplitSnippetCommand >> splitAtCursorPosition: aCursorPosition [
 	| currentSnippetText newSnippetText existingSnippetNewText |
+	
 	self assert: [ subcommands isEmpty ].
+	self assert: [ aCursorPosition isZero not ].
+	self assert: [ aCursorPosition ~= self targetSnippet text size ].
 	
 	currentSnippetText := self targetSnippet text copy.
 	newSnippetText := currentSnippetText copyFrom: 1 to: aCursorPosition.
