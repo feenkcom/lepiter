@@ -147,7 +147,8 @@ LeTextualSnippetViewModel >> splitAtEnd [
 	self snippetsCollectionDo: [ :aSnippetsCollection |
 		| newSnippet newSnippetViewModel |
 		
-		newSnippet := self snippetModel addChildOrSiblingSnippetOfClass: self snippetModel class.
+		newSnippet := self 
+			addChildOrSiblingSnippetOfType: self snippetModel class.
 		
 		newSnippetViewModel := aSnippetsCollection findOrCreateSnippetViewModel: newSnippet.
 		newSnippetViewModel focused: true.
@@ -162,7 +163,8 @@ LeTextualSnippetViewModel >> splitAtStart [
 	self snippetsCollectionDo: [ :aSnippetsCollection |
 		| newSnippet newSnippetViewModel |
 		
-		newSnippet := self snippetModel addSnippetBeforeSelf.
+		newSnippet := self 
+			addSnippetBeforeSelfOfType: self snippetModel class.
 		
 		newSnippetViewModel := aSnippetsCollection findOrCreateSnippetViewModel: newSnippet.
 		newSnippetViewModel focused: true.

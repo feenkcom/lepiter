@@ -672,6 +672,13 @@ LeContent >> insertAsFirstChildCommandFor: aNewSnippet [
 ]
 
 { #category : #'api - command building' }
+LeContent >> insertAsFirstChildCommandOfType: aNewSnippetClass [
+	^ (self insertChildCommandOfType: aNewSnippetClass) 
+		insertFirst;
+		yourself
+]
+
+{ #category : #'api - command building' }
 LeContent >> insertChildCommandAfterSnippet: aChildSnippet for: aNewSnippet [
 	^ (self insertChildCommandFor: aNewSnippet) 
 		insertAfter: aChildSnippet;
@@ -679,11 +686,30 @@ LeContent >> insertChildCommandAfterSnippet: aChildSnippet for: aNewSnippet [
 ]
 
 { #category : #'api - command building' }
+LeContent >> insertChildCommandAfterSnippet: aChildSnippet ofType: aNewSnippetClass [
+	^ (self insertChildCommandOfType: aNewSnippetClass) 
+		insertAfter: aChildSnippet;
+		yourself
+]
+
+{ #category : #'api - command building' }
+LeContent >> insertChildCommandBeforeSnippet: aChildSnippet ofType: aNewSnippetClass [
+	^ (self insertChildCommandOfType: aNewSnippetClass) 
+		insertBefore: aChildSnippet;
+		yourself
+]
+
+{ #category : #'api - command building' }
 LeContent >> insertChildCommandFor: aNewSnippet [
-	^ (self commandBuilder 
-		insertChildSnippetOfTypeCommandForType: aNewSnippet class) 
-			initialSnippetState: (LeGenericSnippetState fromSnippet: aNewSnippet)
-			yourself
+	^ (self insertChildCommandOfType: aNewSnippet class) 
+		initialSnippetState: (LeGenericSnippetState fromSnippet: aNewSnippet)
+		yourself
+]
+
+{ #category : #'api - command building' }
+LeContent >> insertChildCommandOfType: aNewSnippetClass [
+	^ self commandBuilder 
+		insertChildSnippetOfTypeCommandForType: aNewSnippetClass
 ]
 
 { #category : #'api - command building' }
@@ -697,6 +723,19 @@ LeContent >> insertChildOrSiblingSnippetCommandFor: aNewSnippet [
 		ifFalse: [ self parent 
 			insertChildCommandAfterSnippet:  self 
 			for: aNewSnippet ].
+]
+
+{ #category : #'api - command building' }
+LeContent >> insertChildOrSiblingSnippetCommandOfType: aNewSnippetClass [
+	"Create a command for adding a new snippet that is either:
+	- a sibling of the receiver if there are no children.
+	- the first child of the receiver"
+	
+	^ self hasChildren
+		ifTrue: [ self insertAsFirstChildCommandOfType: aNewSnippetClass  ]
+		ifFalse: [ self parent 
+			insertChildCommandAfterSnippet:  self 
+			ofType: aNewSnippetClass ].
 ]
 
 { #category : #'api - testing' }
