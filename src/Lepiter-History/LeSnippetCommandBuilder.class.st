@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #'build - commands' }
+LeSnippetCommandBuilder >> appendSnippetContentCommand [ 
+	^ LeAppendSnippetContentCommand forSnippet: self targetSnippet
+]
+
+{ #category : #'build - commands' }
 LeSnippetCommandBuilder >> editSnippetCommand [ 
 	self flag: 'Deletate though the snippet'.
 	
@@ -26,11 +31,6 @@ LeSnippetCommandBuilder >> mergeSnippetCommandWith: aNextSnippet [
 	self assert: [ self targetContent class = aNextSnippet class ].
 	
 	^ LeMergeSnippetCommand merge: self targetContent with: aNextSnippet
-]
-
-{ #category : #'build - commands' }
-LeSnippetCommandBuilder >> mergeSnippetContentCommand [ 
-	^ LeAppendSnippetContentCommand forSnippet: self targetSnippet
 ]
 
 { #category : #'build - commands' }

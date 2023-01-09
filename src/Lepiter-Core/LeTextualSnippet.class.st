@@ -95,6 +95,36 @@ LeTextualSnippet >> mergeAndRemoveSelfOrSnippet: aSnippet [
 	^ self
 ]
 
+{ #category : #'api - command operations' }
+LeTextualSnippet >> mergeAndRemoveSelfOrSnippetThroughCommandFor: aSnippet [
+	"Merge the receiver snippet with the supplied snippet appending the text of the supplied snippet to my text. Remove one of the two snippets and merges the content of the other into the remaining one.
+	Which snippet is remove depends on their content. Callers should assume either one of the two snippets can be removed. Return the snippet into which the content was merged."
+
+	"If the receiver is empty and has no children, simply remove the receiver, as it is faster than removing aSnippet."
+	
+	(self hasChildren not and: [ self hasText not]) ifTrue: [ 
+		self removeSelfThroughCommand.
+		^ aSnippet ].
+	
+	"Append aSnippet's text to the end of the receiver and aSnippet's children 
+	to the end of the receiver's children"
+	
+	self mergeSnippetThroughCommandWith: aSnippet.
+
+	^ self
+]
+
+{ #category : #'api - command building' }
+LeTextualSnippet >> mergeSnippetCommandWith: aNextSnippet [
+	^ self commandBuilder 
+		mergeSnippetCommandWith: aNextSnippet
+]
+
+{ #category : #'api - command operations' }
+LeTextualSnippet >> mergeSnippetThroughCommandWith: aSnippet [
+	^ (self mergeSnippetCommandWith: aSnippet) execute
+]
+
 { #category : #'private - hooks' }
 LeTextualSnippet >> onAddedToDatabase [ 
 	super onAddedToDatabase.

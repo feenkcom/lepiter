@@ -228,8 +228,10 @@ LeSnippet >> mergeWithNext [
 	Answer the merged snippet."
 
 	^ self 
-		nextSnippetDo: [ :nextSnippet | self requestMergeWithSnippet: nextSnippet ] 
-		ifNone: [ self error: 'Can''t merge the last snippet with a following snippet' ].
+		nextSnippetDo: [ :nextSnippet | 
+			self requestMergeWithSnippet: nextSnippet ] 
+		ifNone: [ 
+			self error: 'Can''t merge the last snippet with a following snippet' ].
 ]
 
 { #category : #'api - editing' }
@@ -238,8 +240,10 @@ LeSnippet >> mergeWithPrevious [
 	Answer the merged snippet."
 
 	^ self 
-		previousSnippetDo: [ :previousSnippet | previousSnippet requestMergeWithSnippet: self ] 
-		ifNone: [ self error: 'Can''t merge the first snippet with a previous snippet' ].
+		previousSnippetDo: [ :previousSnippet | 
+			previousSnippet requestMergeWithSnippet: self ] 
+		ifNone: [ 
+			self error: 'Can''t merge the first snippet with a previous snippet' ].
 ]
 
 { #category : #'api - editing' }

@@ -23,7 +23,7 @@ LeMergeSnippetCommand >> addDeleteSnippetCommandFor: aSourceSnippet [
 { #category : #initialization }
 LeMergeSnippetCommand >> addEditContentCommandFor: aSourceSnippet [ 
 	
-	self addSubcommand: (self targetSnippet commandBuilder mergeSnippetContentCommand
+	self addSubcommand: (self targetSnippet commandBuilder appendSnippetContentCommand
 		sourceSnippet: aSourceSnippet)
 ]
 
