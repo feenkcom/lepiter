@@ -29,7 +29,7 @@ LeSplitSnippetCommand >> addInsertNewSnippetAboveCommandWithText: aSnippetText [
 ]
 
 { #category : #initialization }
-LeSplitSnippetCommand >> addUpdateSnippetCommandWithtext: aSnippetText [ 
+LeSplitSnippetCommand >> addUpdateSnippetCommandWithText: aSnippetText [ 
 	| editCommand |
 	editCommand := self targetSnippet commandBuilder editSnippetCommand.
 	editCommand string: aSnippetText asString.
@@ -39,8 +39,14 @@ LeSplitSnippetCommand >> addUpdateSnippetCommandWithtext: aSnippetText [
 
 { #category : #execution }
 LeSplitSnippetCommand >> basicExecute [ 
-	^ self withUndoExecute: [ 
-		self executeSubcommands ]
+	| undoSpecification subcommandsResults |
+	undoSpecification := self createUndoCommandSpecification.
+	
+	subcommandsResults := self executeSubcommands.
+	
+	^ self createCommandResult 
+		undoSpecification: undoSpecification;
+		insertedSnippet: subcommandsResults first insertedSnippet.
 ]
 
 { #category : #utils }
@@ -53,6 +59,11 @@ LeSplitSnippetCommand >> computeCurrentSnippetTextFrom: aText atPosition: aCurso
 		leftLineBreaks;
 		trim.
 	^ snippetText
+]
+
+{ #category : #'execution - utils' }
+LeSplitSnippetCommand >> createCommandResult [
+	^ LeSplitSnippetCommandResult forCommand: self
 ]
 
 { #category : #'execution - utils' }
@@ -112,5 +123,5 @@ LeSplitSnippetCommand >> splitAtCursorPosition: aCursorPosition [
 	existingSnippetNewText := self 
 		computeCurrentSnippetTextFrom: currentSnippetText 
 		atPosition: aCursorPosition.
-	self addUpdateSnippetCommandWithtext: existingSnippetNewText.
+	self addUpdateSnippetCommandWithText: existingSnippetNewText.
 ]

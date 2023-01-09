@@ -73,7 +73,8 @@ LeContentCommand >> execute [
 
 { #category : #execution }
 LeContentCommand >> executeSubcommands [
-	self subcommands do: [ :aSubcommand | aSubcommand execute ]
+	^ self subcommands collect: [ :aSubcommand | 
+		aSubcommand execute ]
 ]
 
 { #category : #initialization }
