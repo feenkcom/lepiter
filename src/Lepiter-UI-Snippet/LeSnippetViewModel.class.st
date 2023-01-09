@@ -12,7 +12,7 @@ Class {
 LeSnippetViewModel >> addChildOrSiblingSnippet: aNewSnippet [
 	| insertCommand|
 	insertCommand := self snippetModel 
-		insertAsFirstChildCommandFor: aNewSnippet.
+		insertChildOrSiblingSnippetCommandFor: aNewSnippet.
 		
 	^ insertCommand execute insertedSnippet.
 ]
