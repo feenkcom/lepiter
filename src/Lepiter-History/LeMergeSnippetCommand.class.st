@@ -56,7 +56,7 @@ LeMergeSnippetCommand >> createUndoCommandSpecification [
 	specification := LeCompositeCommandSpecification new 
 		commandUid: self uid;
 		contentUid: self targetContent uid;
-		commandTypeName: self className;
+		commandTypeName: LeGenericCompositeCommand name;
 		label: 'Undo Merge'.
 	
 	self subcommands do: [ :aSubcommand |
