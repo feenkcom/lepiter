@@ -334,7 +334,7 @@ LeSnippetStylerVisitor >> styleAutoHiding: leftRange and: rightRange whenOutside
 				attribute: anAttribute
 				from: rightRange first
 				to: rightRange last ].
-	(self text from: nodeInterval first to: nodeInterval last)
+	(self text from: nodeInterval first-1 to: nodeInterval last)
 		onCursorEnter:
 			[ :aTextEditor | 
 			| left right |
