@@ -14,7 +14,7 @@ LeStorageExamples >> assertGtBookPagesEqualEvaluatedStoreStrings [
 	| gtBook |
 	gtBook := self gtBook.
 	gtBook pagesDo: [ :page | 
-		LeStorageExamples new assertPageEqualsEvaluatedStoreString: page ].
+		self assertPageEqualsEvaluatedStoreString: page ].
 	^ gtBook
 ]
 

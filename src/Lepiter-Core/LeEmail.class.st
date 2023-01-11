@@ -13,11 +13,6 @@ LeEmail class >> address: aString [
 	^ self new email: aString
 ]
 
-{ #category : #factory }
-LeEmail class >> null [
-	^ LeNullEmail default
-]
-
 { #category : #comparing }
 LeEmail >> = anObject [
 	^ self class = anObject class and: [ 
@@ -56,11 +51,6 @@ LeEmail >> isEmail [
 	"Answer a boolean indicating if this is an email address"
 
 	^ true
-]
-
-{ #category : #testing }
-LeEmail >> isNullObject [
-	^ false
 ]
 
 { #category : #printing }

@@ -105,7 +105,7 @@ LeSplitSnippetCommandExamples >> ensureTargetPageOneTextSnippetWithChildren [
 	 	yourself
 ]
 
-{ #category : #accessing }
+{ #category : #'examples - execution' }
 LeSplitSnippetCommandExamples >> executeSplitChildTextSnippetCommand [
 	<gtExample>
 	| command result initialSnippet |
@@ -121,13 +121,17 @@ LeSplitSnippetCommandExamples >> executeSplitChildTextSnippetCommand [
 				#snippetB -> 'b'.
 				#snippetC -> 'c' })} 
 		forContent: self targetPage.
+	self assertTargePageIsSerialisable.
+	self assertOnlyTimeMetadataSetForSnippet:  result insertedSnippet.
+	self assert:  command targetSnippet editTime notNil.
+	
 	self 
 		assert: self targetPage children first children second == initialSnippet.
-
+	
 	^ self targetPage
 ]
 
-{ #category : #accessing }
+{ #category : #'examples - execution' }
 LeSplitSnippetCommandExamples >> executeSplitSinglePharoSnippetInPageCommand [
 	<gtExample>
 	| command result |
@@ -141,11 +145,14 @@ LeSplitSnippetCommandExamples >> executeSplitSinglePharoSnippetInPageCommand [
 			#snippetA -> '1'.
 			#snippetB -> '2'} 
 		forContent: self targetPage.
+	self assertOnlyTimeMetadataSetForSnippet:  result insertedSnippet.
+	self assert:  command targetContent createTime isNil.
+	self assert:  command targetContent editTime isNil.
 
 	^ self targetPage
 ]
 
-{ #category : #accessing }
+{ #category : #'examples - execution' }
 LeSplitSnippetCommandExamples >> executeSplitSingleTextSnippetInPageCommand [
 	<gtExample>
 	| command result |
@@ -159,11 +166,13 @@ LeSplitSnippetCommandExamples >> executeSplitSingleTextSnippetInPageCommand [
 			#snippetA -> 'a'.
 			#snippetB -> 'b'} 
 		forContent: self targetPage.
+	self assertOnlyTimeMetadataSetForSnippet:  result insertedSnippet.
+	self assert:  command targetSnippet editTime notNil.
 
 	^ self targetPage
 ]
 
-{ #category : #accessing }
+{ #category : #'examples - execution' }
 LeSplitSnippetCommandExamples >> executeSplitSingleTextSnippetInPageCommand_identityPreserved [
 	<gtExample>
 	| initialSnippet command result |
@@ -179,7 +188,7 @@ LeSplitSnippetCommandExamples >> executeSplitSingleTextSnippetInPageCommand_iden
 	^ self targetPage
 ]
 
-{ #category : #accessing }
+{ #category : #'examples - execution' }
 LeSplitSnippetCommandExamples >> executeSplitTextSnippetWithChildrenInPageCommand [
 	<gtExample>
 	| command result |
@@ -195,6 +204,8 @@ LeSplitSnippetCommandExamples >> executeSplitTextSnippetWithChildrenInPageComman
 				#snippetC -> 'C'.
 				#snippetD -> 'D' })} 
 		forContent: self targetPage.
+	self assertOnlyTimeMetadataSetForSnippet:  result insertedSnippet.
+	self assert:  command targetSnippet editTime notNil.
 
 	^ self targetPage
 ]

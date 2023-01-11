@@ -166,7 +166,11 @@ LeNullDatabase >> updateUnresolvedReferencesForPage: aPage [
 
 { #category : #'api - accessing' }
 LeNullDatabase >> userEmail [
-	^ LeEmail null
+	"We use here nil explicitly insteaf of a null object.
+	This is used when adding snippets to a database. 
+	In those cases we live the email to be nil."
+	
+	^ nil
 ]
 
 { #category : #accessing }

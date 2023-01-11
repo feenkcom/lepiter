@@ -567,13 +567,13 @@ LeContent >> gtIncomingLinksFor: aView [
 { #category : #'gt-extensions' }
 LeContent >> gtSerializationFor: aView [
 	<gtView>
+	
 	^ aView textEditor
 		title: 'Serialization';
 		priority: 80;
 		aptitude: BrGlamorousCodeEditorAptitude;
 		styler: JSONParser gtStyler;
-		text: [String streamContents: [ :s | 
-				LeJsonV4 uniqueInstance serialize: self on: s prettyPrint: true ]]
+		text: [ LeJsonV4 uniqueInstance serializePretty: self ]
 ]
 
 { #category : #'gt-extensions' }
@@ -778,8 +778,7 @@ LeContent >> insertChildOrSiblingSnippetCommandOfType: aNewSnippetClass [
 LeContent >> isEmailSetFor: anEmailObject [
 	"Checks if the given email is an email object containing a value instead of a null email."
 	
-	^ anEmailObject notNil and: [
-		anEmailObject isNullObject not ] 
+	^ anEmailObject notNil
 ]
 
 { #category : #'api - testing' }
@@ -1103,8 +1102,8 @@ LeContent >> updateChildrenOrderBasedOn: aCollection [
 
 { #category : #private }
 LeContent >> updateEditTimeAndEmail [
-
 	database isDatabase ifFalse: [ ^ self ].
+	
 	editTime := LeTime now.
 	editEmail := self database userEmail.
 ]

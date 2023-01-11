@@ -24,6 +24,11 @@ LeContentInsertChildSnippetCommand >> basicExecute [
 	newSnippet := self instantiateEmptySnippet.
 	self initialSnippetState applyOn: newSnippet.
 	
+	"Make sure we have create/edit metadata in all cases
+	(even in the case when the page being edited is not inside a database)".
+	newSnippet
+		ensureCreateTimeAndEmailUsingDatabase:  self targetContent database.
+	
 	insertPath 
 		insertChildSnippet: newSnippet
 		intoParent: self targetContent.
