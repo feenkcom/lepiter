@@ -521,6 +521,24 @@ LeContent >> editTime: aLeTime [
 	editTime := aLeTime
 ]
 
+{ #category : #private }
+LeContent >> ensureCreateTimeAndEmailUsingDatabase: aDatabase [
+	"Ensure the receiver's email and time metadata are set"
+	
+	"This allows the metadata to be set beforhand, in case users 
+	want to have specific values for it, however this is only 
+	allowed if the complete metadata is set correctly."
+	self hasCreateAndEditMetadata ifTrue: [ ^ self ].
+
+	createTime ifNil: [
+		createTime := LeTime now ].
+	editTime := createTime.
+	
+	(self isEmailSetFor: createEmail) ifFalse: [ 
+		createEmail := aDatabase userEmail ].
+	editEmail := createEmail.
+]
+
 { #category : #'private - calculating' }
 LeContent >> getLatestEditTime [
 	"Determine the latest edit time, i.e. the most recent edit time in the receiver and its children"
@@ -612,6 +630,24 @@ LeContent >> hasContent [
 	We do not suggest to depend on this behavior in other cases as the described logic may be removed in a future."
 
 	^ true
+]
+
+{ #category : #'api - testing' }
+LeContent >> hasCreateAndEditMetadata [
+	^ self hasCreateMetadata and: [
+		self hasEditMetadata ]
+]
+
+{ #category : #'api - testing' }
+LeContent >> hasCreateMetadata [
+	^ self createTime notNil and: [
+		self isEmailSetFor: self createEmail ]
+]
+
+{ #category : #'api - testing' }
+LeContent >> hasEditMetadata [
+	^ self editTime notNil and: [
+		self isEmailSetFor: self editEmail ]
 ]
 
 { #category : #'private - testing' }
@@ -736,6 +772,14 @@ LeContent >> insertChildOrSiblingSnippetCommandOfType: aNewSnippetClass [
 		ifFalse: [ self parent 
 			insertChildCommandAfterSnippet:  self 
 			ofType: aNewSnippetClass ].
+]
+
+{ #category : #testing }
+LeContent >> isEmailSetFor: anEmailObject [
+	"Checks if the given email is an email object containing a value instead of a null email."
+	
+	^ anEmailObject notNil and: [
+		anEmailObject isNullObject not ] 
 ]
 
 { #category : #'api - testing' }
@@ -867,12 +911,11 @@ LeContent >> notifier [
 
 { #category : #'private - hooks' }
 LeContent >> onAboutToAddToDatabase: aDatabase [
-	"Set the receiver's email and time metadata needed 
+	"Ensure the receiver's email and time metadata needed 
 	before the content is added to the database.
 	Subclasses may perform additional actions."
 
-	self setCreateTimeAndEmailUsingDatabase: aDatabase.
-
+	self ensureCreateTimeAndEmailUsingDatabase: aDatabase
 ]
 
 { #category : #'private - hooks' }
@@ -1000,19 +1043,6 @@ LeContent >> removedFromDatabase: aDatabase [
 	self children do: [ :eachChild | 
 		eachChild removedFromDatabase: aDatabase ].
 	self onRemovedFromDatabase: aDatabase.
-]
-
-{ #category : #private }
-LeContent >> setCreateTimeAndEmailUsingDatabase: aDatabase [
-	"Set the receiver's email and time metadata"
-
-	"This should only be called for uninitialised content, but just in case..."
-	createTime ifNotNil: [ ^ self ].
-
-	createTime := LeTime now.
-	editTime := createTime.
-	createEmail := aDatabase userEmail.
-	editEmail := createEmail.
 ]
 
 { #category : #initialization }

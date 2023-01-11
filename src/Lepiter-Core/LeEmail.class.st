@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'email'
 	],
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #accessing }
@@ -56,6 +56,11 @@ LeEmail >> isEmail [
 	"Answer a boolean indicating if this is an email address"
 
 	^ true
+]
+
+{ #category : #testing }
+LeEmail >> isNullObject [
+	^ false
 ]
 
 { #category : #printing }

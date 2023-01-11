@@ -16,7 +16,7 @@ LeSnippetExamples >> basicDatabase [
 ]
 
 { #category : #'examples - basic' }
-LeSnippetExamples >> examplePage [
+LeSnippetExamples >> exampleMergingPage [
 	"Answer a page with blocks that will be used to demonstrate and test merging"
 	<gtExample>
 	| db page |
@@ -35,12 +35,26 @@ LeSnippetExamples >> examplePage [
 ]
 
 { #category : #'examples - basic' }
+LeSnippetExamples >> exampleSplittingPage [
+	"Answer a page with blocks that will be used to demonstrate and test merging"
+	<gtExample>
+	| db page |
+
+	db := self basicDatabase.
+	page := db pageBuilder title: 'Splitting'; add.
+	page snippetBuilder string: 'OneTwoThree'; add.
+	self assert: page childrenCount equals: 1.
+	^ page
+
+]
+
+{ #category : #'examples - basic' }
 LeSnippetExamples >> indentedPage [
 	"Answer a page with blocks three and four indented"
 	<gtExample>
 	| page snippetTwo snippetThree snippetFour snippetFive snippetSix |
 
-	page := self examplePage.
+	page := self exampleMergingPage.
 	self assert: page childrenCount equals: 6.
 	self assert: (page children at: 2) childrenCount equals: 0.
 	snippetTwo := page children at: 2.
@@ -64,7 +78,7 @@ LeSnippetExamples >> indentedPage_doesNotTriggerAddAndRemoveAnnouncement [
 	<gtExample>
 	| page snippetFour addAnnouncements removeAnnouncements |
 
-	page := self examplePage.
+	page := self exampleMergingPage.
 
 	addAnnouncements := OrderedCollection new.
 	removeAnnouncements := OrderedCollection new.
@@ -87,7 +101,7 @@ LeSnippetExamples >> indentedPage_triggersMoveAnnouncement [
 	<gtExample>
 	| page snippetFour moveAnnouncements |
 
-	page := self examplePage.
+	page := self exampleMergingPage.
 
 	moveAnnouncements := OrderedCollection new.
 	page database when: LeContentTreeMoved do: [ :aMoveAnnouncement | 
@@ -107,7 +121,7 @@ LeSnippetExamples >> mergeNextInChildren [
 	<gtExample>
 	| page snippetTwo snippetThree snippetFour |
 
-	page := self examplePage.
+	page := self exampleMergingPage.
 	self assert: page childrenCount equals: 6.
 	snippetTwo := page children at: 2.
 	self assert: snippetTwo childrenCount equals: 0.
@@ -127,7 +141,7 @@ LeSnippetExamples >> mergeNextInSelf [
 	<gtExample>
 	| page snippetTwo snippetThree snippetFour |
 
-	page := self examplePage.
+	page := self exampleMergingPage.
 	self assert: page childrenCount equals: 6.
 	self assert: (page children at: 2) childrenCount equals: 0.
 	snippetTwo := page children at: 2.
@@ -148,7 +162,7 @@ LeSnippetExamples >> mergePreviousInChildren [
 	<gtExample>
 	| page snippetTwo snippetThree snippetFour |
 
-	page := self examplePage.
+	page := self exampleMergingPage.
 	self assert: page childrenCount equals: 6.
 	snippetTwo := page children at: 2.
 	self assert: snippetTwo childrenCount equals: 0.
@@ -160,6 +174,7 @@ LeSnippetExamples >> mergePreviousInChildren [
 	self assert: snippetTwo childrenCount equals: 1.
 	self assert: snippetTwo string equals: 'TwoThree'.
 	self assert: snippetTwo children first string equals: 'Four'.
+	^ page
 ]
 
 { #category : #'examples - merging' }
@@ -168,7 +183,7 @@ LeSnippetExamples >> mergePreviousInSelf [
 	<gtExample>
 	| page snippetTwo snippetThree snippetFour |
 
-	page := self examplePage.
+	page := self exampleMergingPage.
 	self assert: page childrenCount equals: 6.
 	self assert: (page children at: 2) childrenCount equals: 0.
 	snippetTwo := page children at: 2.
@@ -232,7 +247,7 @@ LeSnippetExamples >> moveSnippetDownInPage_doesNotTriggerAddAndRemoveAnnouncemen
 	<gtExample>
 	| page snippetTwo addAnnouncements removeAnnouncements |
 
-	page := self examplePage.
+	page := self exampleMergingPage.
 
 	addAnnouncements := OrderedCollection new.
 	removeAnnouncements := OrderedCollection new.
@@ -255,7 +270,7 @@ LeSnippetExamples >> moveSnippetDownInPage_triggersMoveAnnouncement [
 	<gtExample>
 	| page snippetTwo moveAnnouncements |
 
-	page := self examplePage.
+	page := self exampleMergingPage.
 
 	moveAnnouncements := OrderedCollection new.
 	page database when: LeContentTreeMoved do: [ :aMoveAnnouncement | 
@@ -318,7 +333,7 @@ LeSnippetExamples >> moveSnippetUpInPage_doesNotTriggerAddAndRemoveAnnouncement 
 	<gtExample>
 	| page snippetTwo addAnnouncements removeAnnouncements |
 
-	page := self examplePage.
+	page := self exampleMergingPage.
 
 	addAnnouncements := OrderedCollection new.
 	removeAnnouncements := OrderedCollection new.
@@ -341,7 +356,7 @@ LeSnippetExamples >> moveSnippetUpInPage_triggersMoveAnnouncement [
 	<gtExample>
 	| page snippetTwo moveAnnouncements |
 
-	page := self examplePage.
+	page := self exampleMergingPage.
 
 	moveAnnouncements := OrderedCollection new.
 	page database when: LeContentTreeMoved do: [ :aMoveAnnouncement | 
@@ -578,6 +593,28 @@ LeSnippetExamples >> snippetTwoPrevious [
 	self assert: previousSnippet isNotNil.
 	self assert: previousSnippet string equals: 'One'.
 	^ previousSnippet
+]
+
+{ #category : #'examples - merging' }
+LeSnippetExamples >> splitFirstSnippet [
+	<gtExample>
+	| page snippetOne snippetTwo splitCommand splitResult |
+
+	page := self exampleSplittingPage.
+	snippetOne := page children at: 1.
+	self assert: snippetOne childrenCount equals: 0.
+	splitCommand := snippetOne
+			splitSnippetCommandAtPosition: 3.
+	splitResult := splitCommand execute.
+	self assert: page childrenCount equals: 2.
+	snippetOne := page children at: 1.
+	snippetTwo := page children at: 2.
+	self assert: snippetOne string equals: 'One'.
+	self assert: snippetTwo string equals: 'TwoThree'.
+
+	self assert: (snippetOne createEmail isKindOf: LeNullEmail) not.
+	self assert: (snippetTwo createEmail isKindOf: LeNullEmail) not.
+	^ page
 ]
 
 { #category : #'examples - announcements' }
