@@ -3,8 +3,13 @@ Class {
 	#superclass : #LeModel,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
+
+{ #category : #testing }
+LeNullModel >> isNullObject [
+	^ true
+]
 
 { #category : #'announcer - subscription' }
 LeNullModel >> unsubscribe: anObject [
