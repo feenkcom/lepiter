@@ -375,7 +375,7 @@ LeSnippetStylerVisitor >> styleAutoHiding: leftRange and: rightRange whenOutside
 
 { #category : #'private - styling' }
 LeSnippetStylerVisitor >> styleAutoHiding: anInterval text: aSubText [
-	| anAttribute aMarkerAttribute |
+	| anAttribute aMarkerAttribute cursorAttribute |
 	self showMarkup
 		ifTrue: [ ^ self ].
 		
@@ -394,8 +394,8 @@ LeSnippetStylerVisitor >> styleAutoHiding: anInterval text: aSubText [
 	(self isCursorInside: anInterval)
 		ifFalse: [ aSubText attribute: anAttribute ].
 
-	aSubText
-		onCursorEnter: [ :aTextEditor |
+	cursorAttribute := BrTextCursorAttribute new
+			enterAction: [ :aTextEditor | 
 			"we have a reference to the attribute instance. find its interval dynamically"
 			aTextEditor text
 				findAttribute: aMarkerAttribute
@@ -406,16 +406,20 @@ LeSnippetStylerVisitor >> styleAutoHiding: anInterval text: aSubText [
 						[ aTextEditor text
 							clearAttributes: aStart
 							to: anEnd 
-							if: [ :eachAttribute | eachAttribute == anAttribute ] ] ] ]
+							if: [ :eachAttribute | eachAttribute == anAttribute ] ] ] ];
 
-		leave: [ :aTextEditor |
+		leaveAction: [ :aTextEditor |
 			aTextEditor text
 				findAttribute: aMarkerAttribute
 				indicesDo: [ :aStart :anEnd |
 					aTextEditor text
 						attribute: anAttribute  
 						from: aStart
-						to: anEnd ] ]
+						to: anEnd ] ].
+	self text
+		attribute: cursorAttribute
+		from: anInterval first - 1
+		to: anInterval last
 ]
 
 { #category : #'private - styling' }
