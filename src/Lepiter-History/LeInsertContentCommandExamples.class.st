@@ -50,6 +50,16 @@ LeInsertContentCommandExamples >> assertOnlyTimeMetadataSetForSnippetsIn: aPage 
 ]
 
 { #category : #asserting }
+LeInsertContentCommandExamples >> assertStructure: aPageStructure forInsertCommandResult: result [ 
+	self assertOnlyTimeMetadataSetForSnippet: result insertedSnippet.
+	self assertOneEventInPageHistory.
+	self 
+		assertStructure: aPageStructure 
+		forContent: self targetPage.
+	self assertTargePageIsSerialisable.
+]
+
+{ #category : #asserting }
 LeInsertContentCommandExamples >> assertTargePageIsSerialisable [
 	| jsonString|
 	jsonString := LeJsonV4 uniqueInstance 
@@ -190,8 +200,6 @@ LeInsertContentCommandExamples >> executeInsertEmptyChildSnippetInParentBetweenS
 	command := self createInsertEmptyChildSnippetInParentBetweenSnippetsCommand.
 	result := command execute.
 	
-	self assertOnlyTimeMetadataSetForSnippet: result insertedSnippet.
-	self assertOneEventInPageHistory.
 	self 
 		assertStructure: { 
 			#snippetT -> ('Target' -> 
@@ -199,8 +207,7 @@ LeInsertContentCommandExamples >> executeInsertEmptyChildSnippetInParentBetweenS
 					#snippetA -> 'ChildA'.
 					#snippetNew -> ''.
 					#snippetB -> 'ChildB'})} 
-		forContent: self targetPage.
-	self assertTargePageIsSerialisable.
+		forInsertCommandResult: result.
 
 	^ self targetPage
 ]
@@ -213,16 +220,13 @@ LeInsertContentCommandExamples >> executeInsertEmptyFirstChildSnippetInParentWit
 	command := self createInsertEmptyFirstChildSnippetInParentWithSnippetsCommand.
 	result := command execute.
 	
-	self assertOnlyTimeMetadataSetForSnippet: result insertedSnippet.
-	self assertOneEventInPageHistory.
 	self 
 		assertStructure: { 
 			#snippetT -> ('Target' -> 
 				{
 					#snippetNew -> ''.
 					#snippetA -> 'ChildA'})} 
-		forContent: self targetPage.
-	self assertTargePageIsSerialisable.
+		forInsertCommandResult: result.
 
 	^ self targetPage
 ]
@@ -235,14 +239,11 @@ LeInsertContentCommandExamples >> executeInsertEmptyFirstChildSnippetInParentWit
 	command := self createInsertEmptyFirstChildSnippetInParentWithoutSnippetsCommand.
 	result := command execute.
 	
-	self assertOnlyTimeMetadataSetForSnippet: result insertedSnippet.
-	self assertOneEventInPageHistory.
 	self 
 		assertStructure: { 
 			#snippetT -> ('Target' -> 
 				{#snippetNew -> ''})} 
-		forContent: self targetPage.
-	self assertTargePageIsSerialisable.
+		forInsertCommandResult: result.
 
 	^ self targetPage
 ]
@@ -255,13 +256,10 @@ LeInsertContentCommandExamples >> executeInsertEmptyFirstSnippetInPageCommand [
 	command := self createInsertEmptyFirstSnippetInPageCommand.
 	result := command execute.
 	
-	self assertOnlyTimeMetadataSetForSnippet: result insertedSnippet.
-	self assertOneEventInPageHistory.
 	self 
-		assertStructure: { 
-			#snippetNew -> ''} 
-		forContent: self targetPage.
-	self assertTargePageIsSerialisable.
+		assertStructure:  { 
+			#snippetNew -> ''}
+		forInsertCommandResult: result.
 
 	^ self targetPage
 ]
@@ -274,15 +272,12 @@ LeInsertContentCommandExamples >> executeInsertEmptySnippetBetweenSnippetsInPage
 	command := self createInsertEmptySnippetBetweenSnippetsInPageCommand.
 	result := command execute.
 	
-	self assertOnlyTimeMetadataSetForSnippet: result insertedSnippet.
-	self assertOneEventInPageHistory.
 	self 
 		assertStructure: { 
 			#snippetT -> 'Target'.
 			#snippetNew -> ''.
 			#snippetA -> 'A'} 
-		forContent: self targetPage.
-	self assertTargePageIsSerialisable.
+		forInsertCommandResult: result.
 
 	^ self targetPage
 ]
