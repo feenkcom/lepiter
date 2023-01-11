@@ -7,6 +7,11 @@ Class {
 	#category : #'Lepiter-History-Examples'
 }
 
+{ #category : #testing }
+LeContentCommandExamples class >> isAbstract [ 
+	^ self name = #LeContentCommandExamples
+]
+
 { #category : #asserting }
 LeContentCommandExamples >> assertCommand: aCommand forSnippet: aTargetSnippet [ 
 	self assert: aCommand uid notNil.
@@ -18,6 +23,12 @@ LeContentCommandExamples >> assertEmptyPageHistoryForPage: aPage [
 	self assert: aPage editHistory eventStore isEmpty. 
 	self assert: aPage editHistory redoUndoActions isEmpty. 
 	self assert: aPage editHistory isUndoEnabled.  
+]
+
+{ #category : #asserting }
+LeContentCommandExamples >> assertExecutionResultFor: aCommandResult [
+	self assert: aCommandResult command notNil.
+	self assert: aCommandResult undoSpecification notNil.
 ]
 
 { #category : #asserting }

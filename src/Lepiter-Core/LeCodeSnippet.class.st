@@ -112,6 +112,7 @@ LeCodeSnippet >> onCoderSourceModified: aGtCoderSourceCodeChanged [
 	"Is announced by the Coder model when its source code changes"
 
 	self updateEditTimeAndEmail.
+	
 	self updateUnlinkedReferences.
 	self announceTextChangedBy: aGtCoderSourceCodeChanged source
 ]

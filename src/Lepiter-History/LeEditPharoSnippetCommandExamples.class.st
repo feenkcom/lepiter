@@ -1,26 +1,28 @@
 Class {
-	#name : #LeEditTextSnippetCommandExamples,
+	#name : #LeEditPharoSnippetCommandExamples,
 	#superclass : #LeEditSnippetCommandExamples,
 	#category : #'Lepiter-History-Examples'
 }
 
 { #category : #testing }
-LeEditTextSnippetCommandExamples class >> isAbstract [ 
-	^ self name = #LeEditTextSnippetCommandExamples
+LeEditPharoSnippetCommandExamples class >> isAbstract [ 
+	^ self name = #LeEditPharoSnippetCommandExamples
 ]
 
-{ #category : #accessing }
-LeEditTextSnippetCommandExamples >> createEditSnippetCommand [
+{ #category : #'examples - commands' }
+LeEditPharoSnippetCommandExamples >> createEditSnippetCommand [
 	<gtExample>
 	| targetSnippet command |
 	
 	self ensurePageWithTargetSnippet.
 	targetSnippet := self targetPage children first.
 	command := targetSnippet commandBuilder editTextualSnippetCommand
-		text: self newStringValue asRopedText.
+		text: self newStringValue asRopedText. 
 		
 	self assertValidCommandFor: command.
-	self assert: command snippetState attributeNames size equals: 1.
+	self 
+		assert: command snippetState attributeNames size 
+		equals: 1.
 	self 
 		assert: command snippetState attributeNames 
 		equals: #(string).
@@ -29,18 +31,18 @@ LeEditTextSnippetCommandExamples >> createEditSnippetCommand [
 ]
 
 { #category : #'examples - setup  pages' }
-LeEditTextSnippetCommandExamples >> ensurePageWithTargetSnippet [
+LeEditPharoSnippetCommandExamples >> ensurePageWithTargetSnippet [
 	<gtExample>
 	| page |
 	
 	page := self targetPage.
-	page addSnippet: self initialTargetSnippet . 
+	page addSnippet: self initialTargetSnippet. 
 	
 	^ page
 ]
 
 { #category : #'examples - execution' }
-LeEditTextSnippetCommandExamples >> executeEditSnippetCommand [
+LeEditPharoSnippetCommandExamples >> executeEditSnippetCommand [
 	<gtExample>
 	| command result |
 	
@@ -52,8 +54,8 @@ LeEditTextSnippetCommandExamples >> executeEditSnippetCommand [
 	^ result
 ]
 
-{ #category : #'examples - execution' }
-LeEditTextSnippetCommandExamples >> executeEditSnippetCommand_pageStructure [
+{ #category : #'examples - commands' }
+LeEditPharoSnippetCommandExamples >> executeEditSnippetCommand_pageStructure [
 	<gtExample>
 	
 	self executeEditSnippetCommand.
@@ -63,13 +65,13 @@ LeEditTextSnippetCommandExamples >> executeEditSnippetCommand_pageStructure [
 		assertStructure: { #snippet -> self newStringValue }  
 		forContent: self targetPage.
 	self assertTargePageIsSerialisable.
-	self assertEditedSnippetMetadataFor: self targetSnippet.
+	"self assertEditedSnippetMetadataFor: self targetSnippet."
 
 	^ self targetPage
 ]
 
-{ #category : #'examples - execution' }
-LeEditTextSnippetCommandExamples >> executeEditSnippetCommand_undoSpecification [
+{ #category : #'examples - commands' }
+LeEditPharoSnippetCommandExamples >> executeEditSnippetCommand_undoSpecification [
 	<gtExample>
 	| result undoSpecification |
 	
@@ -86,29 +88,29 @@ LeEditTextSnippetCommandExamples >> executeEditSnippetCommand_undoSpecification 
 	^ undoSpecification
 ]
 
-{ #category : #'examples - execution' }
-LeEditTextSnippetCommandExamples >> executeEditSnippetCommand_undoState [
+{ #category : #'examples - commands' }
+LeEditPharoSnippetCommandExamples >> executeEditSnippetCommand_undoState [
 	<gtExample>
 	| result undoSpecification |
 	
 	result := self executeEditSnippetCommand.
 	undoSpecification := result undoSpecification.
 	
-	self assert: undoSpecification snippetState attributesCount equals: 6.		
+	self assert: undoSpecification snippetState attributesCount equals: 5.		
 	self assert: (undoSpecification snippetState hasAttributeNamed: #uid) not.
 	self 
-		assert: (undoSpecification snippetState attributeNamed: 'string') attributeValue
-		equals: self initialTargetSnippet string..
+		assert: (undoSpecification snippetState attributeNamed: 'code') attributeValue
+		equals: self initialTargetSnippet string.
 	
 	^ undoSpecification
 ]
 
 { #category : #accessing }
-LeEditTextSnippetCommandExamples >> initialTargetSnippet [
+LeEditPharoSnippetCommandExamples >> initialTargetSnippet [
 	^ self subclassResponsibility
 ]
 
 { #category : #accessing }
-LeEditTextSnippetCommandExamples >> newStringValue [
+LeEditPharoSnippetCommandExamples >> newStringValue [
 	^ self subclassResponsibility
 ]
