@@ -524,16 +524,18 @@ LeContent >> editTime: aLeTime [
 { #category : #private }
 LeContent >> ensureCreateTimeAndEmailUsingDatabase: aDatabase [
 	"Ensure the receiver's email and time metadata are set"
-
+	
 	"This allows the metadata to be set beforhand, in case users 
 	want to have specific values for it, however this is only 
 	allowed if the complete metadata is set correctly."
 	self hasCreateAndEditMetadata ifTrue: [ ^ self ].
 
-	createTime := LeTime now.
+	createTime ifNil: [
+		createTime := LeTime now ].
 	editTime := createTime.
 	
-	createEmail := aDatabase userEmail.
+	(self isEmailSetFor: createEmail) ifFalse: [ 
+		createEmail := aDatabase userEmail ].
 	editEmail := createEmail.
 ]
 
