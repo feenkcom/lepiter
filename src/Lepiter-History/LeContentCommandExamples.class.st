@@ -21,6 +21,14 @@ LeContentCommandExamples >> assertEmptyPageHistoryForPage: aPage [
 ]
 
 { #category : #asserting }
+LeContentCommandExamples >> assertFullMetadataSetForSnippet: aSnippet [ 
+	self assert: aSnippet hasCreateAndEditMetadata.
+	
+	self assert: aSnippet createTime equals: aSnippet editTime.
+	self assert: aSnippet createEmail equals: aSnippet editEmail.
+]
+
+{ #category : #asserting }
 LeContentCommandExamples >> assertOneEventInPageHistory [
 	self assert: self targetPage editHistory eventStore size equals: 1.
 ]
@@ -30,6 +38,7 @@ LeContentCommandExamples >> assertOnlyTimeMetadataSetForSnippet: aSnippet [
 	self assert: aSnippet createTime notNil.
 	self assert: aSnippet editTime notNil.
 	self assert: aSnippet createTime equals: aSnippet editTime.
+	
 	self assert: aSnippet createEmail isNil.
 	self assert: aSnippet editEmail isNil.
 ]

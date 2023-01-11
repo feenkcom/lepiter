@@ -53,11 +53,6 @@ LeEmail >> isEmail [
 	^ true
 ]
 
-{ #category : #testing }
-LeEmail >> isNullObject [
-	^ false
-]
-
 { #category : #printing }
 LeEmail >> printOn: aStream [
 	self email ifNil: [ ^ super printOn: aStream ].

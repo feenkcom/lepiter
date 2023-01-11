@@ -778,8 +778,7 @@ LeContent >> insertChildOrSiblingSnippetCommandOfType: aNewSnippetClass [
 LeContent >> isEmailSetFor: anEmailObject [
 	"Checks if the given email is an email object containing a value instead of a null email."
 	
-	^ anEmailObject notNil and: [
-		anEmailObject isNullObject not ] 
+	^ anEmailObject notNil
 ]
 
 { #category : #'api - testing' }
