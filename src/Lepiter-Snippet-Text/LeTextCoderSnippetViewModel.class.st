@@ -67,12 +67,14 @@ LeTextCoderSnippetViewModel >> moveCursorAt: aCursorPosition [
 
 { #category : #'private - event handling' }
 LeTextCoderSnippetViewModel >> onCoderSourceModified: aGtCoderSourceCodeChanged [
-
+	| editCommand|
 	aGtCoderSourceCodeChanged source = self ifTrue: [ ^ self ].
-
-	self snippetModel
-		updateText: aGtCoderSourceCodeChanged coder currentSourceText
-		source: self -> aGtCoderSourceCodeChanged isSynchronous
+	
+	editCommand := (self snippetModel commandBuilder editTextualSnippetCommand
+		text: aGtCoderSourceCodeChanged coder currentSourceText
+		withSource: self -> aGtCoderSourceCodeChanged isSynchronous).
+		
+	editCommand execute
 ]
 
 { #category : #'api - focus' }

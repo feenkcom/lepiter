@@ -73,10 +73,11 @@ LeContentCommandExamples >> assertTargePageIsSerialisable [
 
 { #category : #asserting }
 LeContentCommandExamples >> assertValidCommandFor: aCommand [ 
-	self assert: aCommand uid notNil
+	self assert: aCommand uid notNil.
+	self assert: aCommand targetContent notNil.
 ]
 
-{ #category : #'examples - setup' }
+{ #category : #'examples - setup  pages' }
 LeContentCommandExamples >> createTargetPage [
 	<gtExample>
 	
@@ -107,7 +108,7 @@ LeContentCommandExamples >> pharoCodeSnippetWithString: aString [
 		yourself
 ]
 
-{ #category : #'examples - setup' }
+{ #category : #'examples - setup  pages' }
 LeContentCommandExamples >> targetPage [
 	<gtExample>
 	
@@ -115,7 +116,7 @@ LeContentCommandExamples >> targetPage [
 		thePage := self createTargetPage ]
 ]
 
-{ #category : #'examples - setup' }
+{ #category : #'examples - setup  pages' }
 LeContentCommandExamples >> targetSnippet [
 	self targetPage allChildrenBreadthFirstDo: [ :aSnippet |
 		aSnippet string = 'Target' ifTrue: [ ^ aSnippet ] ].

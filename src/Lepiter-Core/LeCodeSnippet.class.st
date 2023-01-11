@@ -153,5 +153,6 @@ LeCodeSnippet >> updateText: aText source: anObject [
 
 	coder
 		currentSourceText: aText
-		with: (GtCoderUpdateStrategy new source: anObject)
+		with: (GtCoderUpdateStrategy new 
+			source: anObject)
 ]

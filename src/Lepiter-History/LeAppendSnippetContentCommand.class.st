@@ -25,8 +25,8 @@ LeAppendSnippetContentCommand >> createCommandSpecification [
 
 { #category : #'execution - utils' }
 LeAppendSnippetContentCommand >> createUndoCommand [
-	^ self targetContent commandBuilder editSnippetCommand
-		snippetState: self extractCurrentSnippetState
+	^ self targetContent commandBuilder editSnippetStateCommand
+		snippetState: self extractCurrentSnippetStateForUndo
 ]
 
 { #category : #'execution - utils' }
@@ -35,7 +35,7 @@ LeAppendSnippetContentCommand >> createUndoCommandSpecification [
 ]
 
 { #category : #accessing }
-LeAppendSnippetContentCommand >> extractCurrentSnippetState [
+LeAppendSnippetContentCommand >> extractCurrentSnippetStateForUndo [
 	^ LeGenericSnippetState fromSnippet: self targetSnippet
 ]
 
