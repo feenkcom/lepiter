@@ -121,9 +121,13 @@ LeSplitSnippetCommandExamples >> executeSplitChildTextSnippetCommand [
 				#snippetB -> 'b'.
 				#snippetC -> 'c' })} 
 		forContent: self targetPage.
+	self assertTargePageIsSerialisable.
+	self assertOnlyTimeMetadataSetForSnippet:  result insertedSnippet.
+	self assert:  command targetSnippet editTime notNil.
+	
 	self 
 		assert: self targetPage children first children second == initialSnippet.
-
+	
 	^ self targetPage
 ]
 
@@ -141,6 +145,8 @@ LeSplitSnippetCommandExamples >> executeSplitSinglePharoSnippetInPageCommand [
 			#snippetA -> '1'.
 			#snippetB -> '2'} 
 		forContent: self targetPage.
+	self assertOnlyTimeMetadataSetForSnippet:  result insertedSnippet.
+	self assert:  command targetSnippet editTime notNil.
 
 	^ self targetPage
 ]
@@ -159,6 +165,8 @@ LeSplitSnippetCommandExamples >> executeSplitSingleTextSnippetInPageCommand [
 			#snippetA -> 'a'.
 			#snippetB -> 'b'} 
 		forContent: self targetPage.
+	self assertOnlyTimeMetadataSetForSnippet:  result insertedSnippet.
+	self assert:  command targetSnippet editTime notNil.
 
 	^ self targetPage
 ]
@@ -195,6 +203,8 @@ LeSplitSnippetCommandExamples >> executeSplitTextSnippetWithChildrenInPageComman
 				#snippetC -> 'C'.
 				#snippetD -> 'D' })} 
 		forContent: self targetPage.
+	self assertOnlyTimeMetadataSetForSnippet:  result insertedSnippet.
+	self assert:  command targetSnippet editTime notNil.
 
 	^ self targetPage
 ]

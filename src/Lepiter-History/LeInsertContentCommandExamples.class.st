@@ -32,15 +32,6 @@ LeInsertContentCommandExamples >> assertInsertStateOnlyHasUidFor: aCommand [
 ]
 
 { #category : #asserting }
-LeInsertContentCommandExamples >> assertOnlyTimeMetadataSetForSnippet: aSnippet [ 
-	self assert: aSnippet createTime notNil.
-	self assert: aSnippet editTime notNil.
-	self assert: aSnippet createTime equals: aSnippet editTime.
-	self assert: aSnippet createEmail isNil.
-	self assert: aSnippet editEmail isNil.
-]
-
-{ #category : #asserting }
 LeInsertContentCommandExamples >> assertOnlyTimeMetadataSetForSnippetsIn: aPage [
 	"Check that there are snippets in the page, otherwise this assert has no effect."
 	self assert: aPage children size > 0.
@@ -57,17 +48,6 @@ LeInsertContentCommandExamples >> assertStructure: aPageStructure forInsertComma
 		assertStructure: aPageStructure 
 		forContent: self targetPage.
 	self assertTargePageIsSerialisable.
-]
-
-{ #category : #asserting }
-LeInsertContentCommandExamples >> assertTargePageIsSerialisable [
-	| jsonString|
-	jsonString := LeJsonV4 uniqueInstance 
-		serializePretty: self targetPage.
-	self assert: jsonString notNil.
-	
-	LeJsonV4 uniqueInstance 
-		deserialize: jsonString readStream
 ]
 
 { #category : #asserting }
