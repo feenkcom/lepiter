@@ -28,7 +28,7 @@ LeIndentSnippetCommandExamples >> createIndentSnippetCommand [
 	^ command
 ]
 
-{ #category : #'examples - setup' }
+{ #category : #'examples - setup  pages' }
 LeIndentSnippetCommandExamples >> createTargetPage [
 	<gtExample>
 	| page |

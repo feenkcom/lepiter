@@ -105,7 +105,7 @@ LeSplitSnippetCommandExamples >> ensureTargetPageOneTextSnippetWithChildren [
 	 	yourself
 ]
 
-{ #category : #accessing }
+{ #category : #'examples - execution' }
 LeSplitSnippetCommandExamples >> executeSplitChildTextSnippetCommand [
 	<gtExample>
 	| command result initialSnippet |
@@ -131,7 +131,7 @@ LeSplitSnippetCommandExamples >> executeSplitChildTextSnippetCommand [
 	^ self targetPage
 ]
 
-{ #category : #accessing }
+{ #category : #'examples - execution' }
 LeSplitSnippetCommandExamples >> executeSplitSinglePharoSnippetInPageCommand [
 	<gtExample>
 	| command result |
@@ -151,7 +151,7 @@ LeSplitSnippetCommandExamples >> executeSplitSinglePharoSnippetInPageCommand [
 	^ self targetPage
 ]
 
-{ #category : #accessing }
+{ #category : #'examples - execution' }
 LeSplitSnippetCommandExamples >> executeSplitSingleTextSnippetInPageCommand [
 	<gtExample>
 	| command result |
@@ -171,7 +171,7 @@ LeSplitSnippetCommandExamples >> executeSplitSingleTextSnippetInPageCommand [
 	^ self targetPage
 ]
 
-{ #category : #accessing }
+{ #category : #'examples - execution' }
 LeSplitSnippetCommandExamples >> executeSplitSingleTextSnippetInPageCommand_identityPreserved [
 	<gtExample>
 	| initialSnippet command result |
@@ -187,7 +187,7 @@ LeSplitSnippetCommandExamples >> executeSplitSingleTextSnippetInPageCommand_iden
 	^ self targetPage
 ]
 
-{ #category : #accessing }
+{ #category : #'examples - execution' }
 LeSplitSnippetCommandExamples >> executeSplitTextSnippetWithChildrenInPageCommand [
 	<gtExample>
 	| command result |

@@ -17,7 +17,7 @@ LeInsertContentCommandExamples >> assertStructure: aPageStructure forInsertComma
 	self assertTargePageIsSerialisable.
 ]
 
-{ #category : #accessing }
+{ #category : #'examples - setup  pages' }
 LeInsertContentCommandExamples >> targetDatabase [
 	<gtExample>
 	
@@ -25,7 +25,7 @@ LeInsertContentCommandExamples >> targetDatabase [
 		theDatabase := LeDatabase new. ]
 ]
 
-{ #category : #accessing }
+{ #category : #'examples - setup  pages' }
 LeInsertContentCommandExamples >> targetPage [
 	<gtExample>
 	

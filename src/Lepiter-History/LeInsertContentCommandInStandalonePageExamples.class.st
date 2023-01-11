@@ -57,7 +57,7 @@ LeInsertContentCommandInStandalonePageExamples >> assertTargetPageStateAfterChan
 	self assertOnlyTimeMetadataSetForSnippetsIn: self targetPage.
 ]
 
-{ #category : #'examples - setup' }
+{ #category : #'examples - commands' }
 LeInsertContentCommandInStandalonePageExamples >> createInsertEmptyChildSnippetInParentBetweenSnippetsCommand [
 	<gtExample>
 	| command |
@@ -72,7 +72,7 @@ LeInsertContentCommandInStandalonePageExamples >> createInsertEmptyChildSnippetI
 	^ command
 ]
 
-{ #category : #'examples - setup' }
+{ #category : #'examples - commands' }
 LeInsertContentCommandInStandalonePageExamples >> createInsertEmptyFirstChildSnippetInParentWithSnippetsCommand [
 	<gtExample>
 	| command |
@@ -87,7 +87,7 @@ LeInsertContentCommandInStandalonePageExamples >> createInsertEmptyFirstChildSni
 	^ command
 ]
 
-{ #category : #'examples - setup' }
+{ #category : #'examples - commands' }
 LeInsertContentCommandInStandalonePageExamples >> createInsertEmptyFirstChildSnippetInParentWithoutSnippetsCommand [
 	<gtExample>
 	| command |
@@ -102,7 +102,7 @@ LeInsertContentCommandInStandalonePageExamples >> createInsertEmptyFirstChildSni
 	^ command
 ]
 
-{ #category : #'examples - setup' }
+{ #category : #'examples - commands' }
 LeInsertContentCommandInStandalonePageExamples >> createInsertEmptyFirstSnippetInPageCommand [
 	<gtExample>
 	| command |
@@ -117,7 +117,7 @@ LeInsertContentCommandInStandalonePageExamples >> createInsertEmptyFirstSnippetI
 	^ command
 ]
 
-{ #category : #'examples - setup' }
+{ #category : #'examples - commands' }
 LeInsertContentCommandInStandalonePageExamples >> createInsertEmptySnippetBetweenSnippetsInPageCommand [
 	<gtExample>
 	| command |
