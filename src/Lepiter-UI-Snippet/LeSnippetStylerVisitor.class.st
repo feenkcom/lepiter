@@ -309,7 +309,7 @@ LeSnippetStylerVisitor >> snippetViewModel [
 
 { #category : #'private - styling' }
 LeSnippetStylerVisitor >> styleAutoHiding: leftRange and: rightRange whenOutside: nodeInterval [
-	| anAttribute marker1 marker2 |
+	| anAttribute marker1 marker2 cursorAttribute |
 	self showMarkup ifTrue: [ ^ self ].
 	marker1 := BrTextInvisibleMarkerAttribute new.
 	marker2 := BrTextInvisibleMarkerAttribute new.
@@ -321,12 +321,11 @@ LeSnippetStylerVisitor >> styleAutoHiding: leftRange and: rightRange whenOutside
 		attribute: marker2
 		from: rightRange first
 		to: rightRange last.
-	anAttribute := (BrTextAdornmentDynamicAttribute new)
-		beReplace;
-		stencil: [ :aTBrTextEditorTextualPiece :anEditorElement | #() ].
+	anAttribute := BrTextAdornmentDynamicAttribute new
+			beReplace;
+			stencil: [ :aTBrTextEditorTextualPiece :anEditorElement | #() ].
 	(self isCursorInside: nodeInterval)
-		ifFalse:
-			[ self text
+		ifFalse: [ self text
 				attribute: anAttribute
 				from: leftRange first
 				to: leftRange last.
@@ -334,37 +333,44 @@ LeSnippetStylerVisitor >> styleAutoHiding: leftRange and: rightRange whenOutside
 				attribute: anAttribute
 				from: rightRange first
 				to: rightRange last ].
-	(self text from: nodeInterval first to: nodeInterval last)
-		onCursorEnter:
-			[ :aTextEditor | 
-			| left right |
-			aTextEditor text findAttribute: marker1 indicesDo: [ :start :end | left := start ].
-			aTextEditor text findAttribute: marker2 indicesDo: [ :start :end | right := end ].
-			(left notNil and: [ right notNil ])
-				ifTrue:
-					[ | cursorIndex |
-					cursorIndex := aTextEditor cursors first position.
-					(cursorIndex between: left - 2 and: right)
-						ifTrue:
-							[ aTextEditor text
-								clearAttributes: left
-								to: right
-								if: [ :eachAttribute | eachAttribute == anAttribute ] ] ] ]
-		leave:
-			[ :aTextEditor | 
-			| left right |
-			aTextEditor text findAttribute: marker1 indicesDo: [ :start :end | left := start to: end ].
-			aTextEditor text findAttribute: marker2 indicesDo: [ :start :end | right := start to: end ].
-			(left notNil and: [ right notNil ])
-				ifTrue:
-					[ aTextEditor text
-						attributes: {anAttribute}
-						from: left first
-						to: left last.
-					aTextEditor text
-						attributes: {anAttribute}
-						from: right first
-						to: right last ] ]
+	cursorAttribute := BrTextCursorAttribute new
+			enterAction: [ :aTextEditor | 
+				| left right |
+				aTextEditor text
+					findAttribute: marker1
+					indicesDo: [ :start :end | left := start ].
+				aTextEditor text
+					findAttribute: marker2
+					indicesDo: [ :start :end | right := end ].
+				(left notNil and: [ right notNil ])
+					ifTrue: [ | cursorIndex |
+						cursorIndex := aTextEditor cursors first position.
+						(cursorIndex between: left - 2 and: right)
+							ifTrue: [ aTextEditor text
+									clearAttributes: left
+									to: right
+									if: [ :eachAttribute | eachAttribute == anAttribute ] ] ] ];
+			leaveAction: [ :aTextEditor | 
+				| left right |
+				aTextEditor text
+					findAttribute: marker1
+					indicesDo: [ :start :end | left := start to: end ].
+				aTextEditor text
+					findAttribute: marker2
+					indicesDo: [ :start :end | right := start to: end ].
+				(left notNil and: [ right notNil ])
+					ifTrue: [ aTextEditor text
+							attributes: {anAttribute}
+							from: left first
+							to: left last.
+						aTextEditor text
+							attributes: {anAttribute}
+							from: right first
+							to: right last ] ].
+	self text
+		attribute: cursorAttribute
+		from: nodeInterval first - 1
+		to: nodeInterval last
 ]
 
 { #category : #'private - styling' }
