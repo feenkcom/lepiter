@@ -1102,10 +1102,10 @@ LeContent >> updateChildrenOrderBasedOn: aCollection [
 
 { #category : #private }
 LeContent >> updateEditTimeAndEmail [
+	database isDatabase ifFalse: [ ^ self ].
+	
 	editTime := LeTime now.
-	editEmail := self database 
-		ifNotNil: [ :aDatabase |
-			aDatabase userEmail ]
+	editEmail := self database userEmail.
 ]
 
 { #category : #'api - testing' }

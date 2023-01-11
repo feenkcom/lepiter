@@ -146,7 +146,8 @@ LeSplitSnippetCommandExamples >> executeSplitSinglePharoSnippetInPageCommand [
 			#snippetB -> '2'} 
 		forContent: self targetPage.
 	self assertOnlyTimeMetadataSetForSnippet:  result insertedSnippet.
-	self assert:  command targetSnippet editTime notNil.
+	self assert:  command targetContent createTime isNil.
+	self assert:  command targetContent editTime isNil.
 
 	^ self targetPage
 ]
