@@ -567,13 +567,13 @@ LeContent >> gtIncomingLinksFor: aView [
 { #category : #'gt-extensions' }
 LeContent >> gtSerializationFor: aView [
 	<gtView>
+	
 	^ aView textEditor
 		title: 'Serialization';
 		priority: 80;
 		aptitude: BrGlamorousCodeEditorAptitude;
 		styler: JSONParser gtStyler;
-		text: [String streamContents: [ :s | 
-				LeJsonV4 uniqueInstance serialize: self on: s prettyPrint: true ]]
+		text: [ LeJsonV4 uniqueInstance serializePretty: self ]
 ]
 
 { #category : #'gt-extensions' }

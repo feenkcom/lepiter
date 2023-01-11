@@ -13,11 +13,6 @@ LeEmail class >> address: aString [
 	^ self new email: aString
 ]
 
-{ #category : #factory }
-LeEmail class >> null [
-	^ LeNullEmail default
-]
-
 { #category : #comparing }
 LeEmail >> = anObject [
 	^ self class = anObject class and: [ 

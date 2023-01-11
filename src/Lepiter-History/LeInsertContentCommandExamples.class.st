@@ -31,6 +31,42 @@ LeInsertContentCommandExamples >> assertInsertStateOnlyHasUidFor: aCommand [
 		equals: #(uid). 
 ]
 
+{ #category : #asserting }
+LeInsertContentCommandExamples >> assertOnlyTimeMetadataSetForSnippet: aSnippet [ 
+	self assert: aSnippet createTime notNil.
+	self assert: aSnippet editTime notNil.
+	self assert: aSnippet createTime equals: aSnippet editTime.
+	self assert: aSnippet createEmail isNil.
+	self assert: aSnippet editEmail isNil.
+]
+
+{ #category : #asserting }
+LeInsertContentCommandExamples >> assertOnlyTimeMetadataSetForSnippetsIn: aPage [
+	"Check that there are snippets in the page, otherwise this assert has no effect."
+	self assert: aPage children size > 0.
+	
+	aPage allChildrenBreadthFirstDo:  [ :aSnippet |
+		self assertOnlyTimeMetadataSetForSnippet: aSnippet ].
+]
+
+{ #category : #asserting }
+LeInsertContentCommandExamples >> assertTargePageIsSerialisable [
+	| jsonString|
+	jsonString := LeJsonV4 uniqueInstance 
+		serializePretty: self targetPage.
+	self assert: jsonString notNil.
+	
+	LeJsonV4 uniqueInstance 
+		deserialize: jsonString readStream
+]
+
+{ #category : #asserting }
+LeInsertContentCommandExamples >> assertTargetPageStateAfterChange [
+	self assertOneEventInPageHistory.
+	self assertTargePageIsSerialisable.
+	self assertOnlyTimeMetadataSetForSnippetsIn: self targetPage.
+]
+
 { #category : #'examples - setup' }
 LeInsertContentCommandExamples >> createInsertEmptyChildSnippetInParentBetweenSnippetsCommand [
 	<gtExample>
@@ -154,6 +190,7 @@ LeInsertContentCommandExamples >> executeInsertEmptyChildSnippetInParentBetweenS
 	command := self createInsertEmptyChildSnippetInParentBetweenSnippetsCommand.
 	result := command execute.
 	
+	self assertOnlyTimeMetadataSetForSnippet: result insertedSnippet.
 	self assertOneEventInPageHistory.
 	self 
 		assertStructure: { 
@@ -163,6 +200,7 @@ LeInsertContentCommandExamples >> executeInsertEmptyChildSnippetInParentBetweenS
 					#snippetNew -> ''.
 					#snippetB -> 'ChildB'})} 
 		forContent: self targetPage.
+	self assertTargePageIsSerialisable.
 
 	^ self targetPage
 ]
@@ -175,6 +213,7 @@ LeInsertContentCommandExamples >> executeInsertEmptyFirstChildSnippetInParentWit
 	command := self createInsertEmptyFirstChildSnippetInParentWithSnippetsCommand.
 	result := command execute.
 	
+	self assertOnlyTimeMetadataSetForSnippet: result insertedSnippet.
 	self assertOneEventInPageHistory.
 	self 
 		assertStructure: { 
@@ -183,6 +222,7 @@ LeInsertContentCommandExamples >> executeInsertEmptyFirstChildSnippetInParentWit
 					#snippetNew -> ''.
 					#snippetA -> 'ChildA'})} 
 		forContent: self targetPage.
+	self assertTargePageIsSerialisable.
 
 	^ self targetPage
 ]
@@ -195,12 +235,14 @@ LeInsertContentCommandExamples >> executeInsertEmptyFirstChildSnippetInParentWit
 	command := self createInsertEmptyFirstChildSnippetInParentWithoutSnippetsCommand.
 	result := command execute.
 	
+	self assertOnlyTimeMetadataSetForSnippet: result insertedSnippet.
 	self assertOneEventInPageHistory.
 	self 
 		assertStructure: { 
 			#snippetT -> ('Target' -> 
 				{#snippetNew -> ''})} 
 		forContent: self targetPage.
+	self assertTargePageIsSerialisable.
 
 	^ self targetPage
 ]
@@ -213,11 +255,13 @@ LeInsertContentCommandExamples >> executeInsertEmptyFirstSnippetInPageCommand [
 	command := self createInsertEmptyFirstSnippetInPageCommand.
 	result := command execute.
 	
+	self assertOnlyTimeMetadataSetForSnippet: result insertedSnippet.
 	self assertOneEventInPageHistory.
 	self 
 		assertStructure: { 
 			#snippetNew -> ''} 
 		forContent: self targetPage.
+	self assertTargePageIsSerialisable.
 
 	^ self targetPage
 ]
@@ -230,6 +274,7 @@ LeInsertContentCommandExamples >> executeInsertEmptySnippetBetweenSnippetsInPage
 	command := self createInsertEmptySnippetBetweenSnippetsInPageCommand.
 	result := command execute.
 	
+	self assertOnlyTimeMetadataSetForSnippet: result insertedSnippet.
 	self assertOneEventInPageHistory.
 	self 
 		assertStructure: { 
@@ -237,6 +282,7 @@ LeInsertContentCommandExamples >> executeInsertEmptySnippetBetweenSnippetsInPage
 			#snippetNew -> ''.
 			#snippetA -> 'A'} 
 		forContent: self targetPage.
+	self assertTargePageIsSerialisable.
 
 	^ self targetPage
 ]

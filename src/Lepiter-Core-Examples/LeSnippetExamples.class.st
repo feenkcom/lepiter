@@ -612,8 +612,8 @@ LeSnippetExamples >> splitFirstSnippet [
 	self assert: snippetOne string equals: 'One'.
 	self assert: snippetTwo string equals: 'TwoThree'.
 
-	self assert: (snippetOne createEmail isKindOf: LeNullEmail) not.
-	self assert: (snippetTwo createEmail isKindOf: LeNullEmail) not.
+	self assert: (snippetOne createEmail isKindOf: LeEmail).
+	self assert: (snippetTwo createEmail isKindOf: LeEmail).
 	^ page
 ]
 
