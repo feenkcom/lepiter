@@ -60,6 +60,24 @@ LeEditSnippetCommandExamples >> executeEditSnippetCommand [
 	^ result
 ]
 
+{ #category : #'examples - execution' }
+LeEditSnippetCommandExamples >> executeEditSnippetCommand_undoSpecification [
+	<gtExample>
+	| result undoSpecification |
+	
+	result := self executeEditSnippetCommand.
+	undoSpecification := result undoSpecification.
+	
+	self 
+		assert: undoSpecification contentUid 
+		equals: self targetSnippet uid.
+	self 
+		assert: undoSpecification commandTypeName 
+		equals: LeEditGenericSnippetCommand name.
+	
+	^ undoSpecification
+]
+
 { #category : #accessing }
 LeEditSnippetCommandExamples >> initialTargetSnippet [
 	^ self subclassResponsibility

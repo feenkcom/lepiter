@@ -4,6 +4,16 @@ Class {
 	#category : #'Lepiter-History-State'
 }
 
+{ #category : #comparing }
+LeBasicSnippetStateAttribute >> = anObject [
+
+	self == anObject ifTrue: [ ^ true ].
+	self class = anObject class ifFalse: [ ^ false ].
+	
+	^ self attributeName = anObject attributeName and: [
+		self attributeValue = anObject attributeValue ]
+]
+
 { #category : #updating }
 LeBasicSnippetStateAttribute >> applyOn: aSnippet [ 
 	self subclassResponsibility
@@ -19,4 +29,9 @@ LeBasicSnippetStateAttribute >> attributeName [
 LeBasicSnippetStateAttribute >> attributeValue [
 
 	^ self subclassResponsibility 
+]
+
+{ #category : #comparing }
+LeBasicSnippetStateAttribute >> hash [
+	^ self attributeName hash bitXor: self attributeValue hash
 ]
