@@ -17,7 +17,6 @@ LeSnippetCommandBuilder >> editSnippetStateCommand [
 
 { #category : #'build - commands' }
 LeSnippetCommandBuilder >> editTextualSnippetCommand [ 
-	
 	^ LeTextualEditSnippetCommand new
 		targetContent: self targetSnippet
 ]
@@ -67,7 +66,22 @@ LeSnippetCommandBuilder >> transferChildrenCommandFrom: anotherSnippet [
 		sourceSnippet: anotherSnippet
 ]
 
+{ #category : #accessing }
+LeSnippetCommandBuilder >> undoSnippetStateCommand [
+	^ self editSnippetStateCommand
+		snippetState: self targetSnippet extractUpdatableState
+]
+
 { #category : #'build - commands' }
 LeSnippetCommandBuilder >> unindentSnippetCommand [ 
 	^ LePageUnindentSnippetCommand forSnippet: self targetSnippet
+]
+
+{ #category : #accessing }
+LeSnippetCommandBuilder >> updateSnippetStateCommandBasedOn: aNewSnippet [
+	self assert: [ aNewSnippet  notNil ].
+	self assert: [ self targetContent class = aNewSnippet class ].
+	
+	^ self editSnippetStateCommand
+		snippetState: aNewSnippet extractSpecificState
 ]

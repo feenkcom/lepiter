@@ -7,19 +7,6 @@ Class {
 	#category : #'Lepiter-History-State'
 }
 
-{ #category : #'instance creation' }
-LeGenericSnippetState class >> fromSnippet: aSnippet [ 
-	^ self new 
-		extractFromSnippet: aSnippet
-]
-
-{ #category : #'instance creation' }
-LeGenericSnippetState class >> fromSnippet: aSnippet basedOn: aTargetState [
-	^ self new 
-		extractFromSnippet: aSnippet
-		basedOn: aTargetState
-]
-
 { #category : #adding }
 LeGenericSnippetState >> addAttribute: aStateAttribute [ 
 	attributesByName 
@@ -59,31 +46,6 @@ LeGenericSnippetState >> attributes [
 { #category : #accessing }
 LeGenericSnippetState >> attributesCount [
 	^ attributesByName size
-]
-
-{ #category : #'initialization - utils' }
-LeGenericSnippetState >> extractFromSnippet: aSnippet [ 
-	
-	self 
-		extractFromSnippet: aSnippet 
-		basedOn: self class new
-]
-
-{ #category : #'initialization - utils' }
-LeGenericSnippetState >> extractFromSnippet: aSnippet basedOn: aTargetState [
-	| ignoredAttributes |
-	ignoredAttributes := #(uid children).
-	
-	aSnippet class leJsonV4AttributeMapping 
-		reject: [ :assoc | ignoredAttributes includes: assoc key ]
-		thenDo: [ :assoc |
-			| attributeName attributeType | 
-			attributeName := assoc key.
-			attributeType := (aTargetState hasAttributeNamed: attributeName)
-				ifTrue: [ (aTargetState attributeNamed: attributeName) class ] 
-				ifFalse: [ LeGenericSnippetStateAttribute ].
-			self addAttribute: (attributeType 
-				named: attributeName fromSnippet: aSnippet) ]
 ]
 
 { #category : #'gt - extensions' }

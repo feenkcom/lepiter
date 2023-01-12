@@ -146,6 +146,16 @@ LeSnippet >> detachFromParent [
 	self parent: nil
 ]
 
+{ #category : #history }
+LeSnippet >> extractSpecificState [
+	^ LeSpecificSnippetStateExtractor fromSnippet: self
+]
+
+{ #category : #history }
+LeSnippet >> extractUpdatableState [
+	^ LeUpdatableSnippetStateExtractor fromSnippet: self
+]
+
 { #category : #'api - testing' }
 LeSnippet >> hasUid: aLeUID [
 

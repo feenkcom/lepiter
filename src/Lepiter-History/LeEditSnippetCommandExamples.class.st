@@ -23,6 +23,53 @@ LeEditSnippetCommandExamples >> assertOnlyEditTimestampMetadataFor: aSnippet [
 	self assert: aSnippet editEmail isNil.
 ]
 
+{ #category : #'examples - commands' }
+LeEditSnippetCommandExamples >> createEditSnippetCommand [
+	<gtExample>
+	| command |
+	
+	self ensurePageWithTargetSnippet.
+	command := self instantiateEditSnippetCommand.
+		
+	self assertValidCommandFor: command.
+	
+	^ command
+]
+
+{ #category : #'examples - setup  pages' }
+LeEditSnippetCommandExamples >> ensurePageWithTargetSnippet [
+	<gtExample>
+	| page |
+	
+	page := self targetPage.
+	page addSnippet: self initialTargetSnippet. 
+	
+	^ page
+]
+
+{ #category : #'examples - execution' }
+LeEditSnippetCommandExamples >> executeEditSnippetCommand [
+	<gtExample>
+	| command result |
+	
+	command := self createEditSnippetCommand.
+	result := command execute.
+	
+	self assertExecutionResultFor: result.
+	
+	^ result
+]
+
+{ #category : #accessing }
+LeEditSnippetCommandExamples >> initialTargetSnippet [
+	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
+LeEditSnippetCommandExamples >> instantiateEditSnippetCommand [
+	self subclassResponsibility
+]
+
 { #category : #accessing }
 LeEditSnippetCommandExamples >> targetSnippet [
 	^ self targetPage children first

@@ -12,44 +12,16 @@ LeEditTextSnippetCommandExamples class >> isAbstract [
 { #category : #accessing }
 LeEditTextSnippetCommandExamples >> createEditSnippetCommand [
 	<gtExample>
-	| targetSnippet command |
-	
-	self ensurePageWithTargetSnippet.
-	targetSnippet := self targetPage children first.
-	command := targetSnippet commandBuilder editTextualSnippetCommand
-		text: self newStringValue asRopedText.
+	| command |
+
+	command := super createEditSnippetCommand.
 		
-	self assertValidCommandFor: command.
 	self assert: command snippetState attributeNames size equals: 1.
 	self 
 		assert: command snippetState attributeNames 
 		equals: #(string).
 	
 	^ command
-]
-
-{ #category : #'examples - setup  pages' }
-LeEditTextSnippetCommandExamples >> ensurePageWithTargetSnippet [
-	<gtExample>
-	| page |
-	
-	page := self targetPage.
-	page addSnippet: self initialTargetSnippet . 
-	
-	^ page
-]
-
-{ #category : #'examples - execution' }
-LeEditTextSnippetCommandExamples >> executeEditSnippetCommand [
-	<gtExample>
-	| command result |
-	
-	command := self createEditSnippetCommand.
-	result := command execute.
-	
-	self assertExecutionResultFor: result.
-	
-	^ result
 ]
 
 { #category : #'examples - execution' }
@@ -98,7 +70,7 @@ LeEditTextSnippetCommandExamples >> executeEditSnippetCommand_undoState [
 	self assert: (undoSpecification snippetState hasAttributeNamed: #uid) not.
 	self 
 		assert: (undoSpecification snippetState attributeNamed: 'string') attributeValue
-		equals: self initialTargetSnippet string..
+		equals: self initialTargetSnippet string.
 	
 	^ undoSpecification
 ]
@@ -106,6 +78,12 @@ LeEditTextSnippetCommandExamples >> executeEditSnippetCommand_undoState [
 { #category : #accessing }
 LeEditTextSnippetCommandExamples >> initialTargetSnippet [
 	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
+LeEditTextSnippetCommandExamples >> instantiateEditSnippetCommand [
+	^ self targetSnippet commandBuilder editTextualSnippetCommand
+		text: self newStringValue asRopedText
 ]
 
 { #category : #accessing }
