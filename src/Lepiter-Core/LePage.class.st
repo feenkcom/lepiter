@@ -201,7 +201,7 @@ LePage >> detectStructureChangeTypeToPage: aLePage [
 		and: aLePage
 ]
 
-{ #category : #accessing }
+{ #category : #history }
 LePage >> editHistory [
 	^ editHistory
 ]
