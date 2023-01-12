@@ -7,6 +7,15 @@ Class {
 	#category : #'Lepiter-History-State'
 }
 
+{ #category : #comparing }
+LeGenericSnippetState >> = anObject [
+
+	self == anObject ifTrue: [ ^ true ].
+	self class = anObject class ifFalse: [ ^ false ].
+	
+	^ attributesByName = anObject attributesByName
+]
+
 { #category : #adding }
 LeGenericSnippetState >> addAttribute: aStateAttribute [ 
 	attributesByName 
@@ -44,6 +53,11 @@ LeGenericSnippetState >> attributes [
 ]
 
 { #category : #accessing }
+LeGenericSnippetState >> attributesByName [
+	^ attributesByName
+]
+
+{ #category : #accessing }
 LeGenericSnippetState >> attributesCount [
 	^ attributesByName size
 ]
@@ -63,6 +77,12 @@ LeGenericSnippetState >> gtViewStateAttributesFor: aView [
 { #category : #testing }
 LeGenericSnippetState >> hasAttributeNamed: aName [ 
 	^ attributesByName includesKey: aName
+]
+
+{ #category : #comparing }
+LeGenericSnippetState >> hash [ 
+	
+	^ attributesByName hash
 ]
 
 { #category : #initialization }

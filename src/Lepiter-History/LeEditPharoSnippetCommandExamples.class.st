@@ -43,24 +43,6 @@ LeEditPharoSnippetCommandExamples >> executeEditSnippetCommand_pageStructure [
 ]
 
 { #category : #'examples - execution' }
-LeEditPharoSnippetCommandExamples >> executeEditSnippetCommand_undoSpecification [
-	<gtExample>
-	| result undoSpecification |
-	
-	result := self executeEditSnippetCommand.
-	undoSpecification := result undoSpecification.
-	
-	self 
-		assert: undoSpecification contentUid 
-		equals: self targetSnippet uid.
-	self 
-		assert: undoSpecification commandTypeName 
-		equals: LeEditGenericSnippetCommand name.
-	
-	^ undoSpecification
-]
-
-{ #category : #'examples - execution' }
 LeEditPharoSnippetCommandExamples >> executeEditSnippetCommand_undoState [
 	<gtExample>
 	| result undoSpecification |
