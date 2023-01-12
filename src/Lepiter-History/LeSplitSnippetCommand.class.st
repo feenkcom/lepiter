@@ -20,7 +20,7 @@ LeSplitSnippetCommand >> addInsertNewSnippetAboveCommandWithText: aSnippetText [
 	command := self targetSnippet 
 		insertSnippetBeforeSelfCommandOfType: self targetSnippet class.
 	command initialSnippetState
-		addAttribute: (LeTextSnippetStringAttribute new
+		addAttribute: (LeTextualSnippetTextAttribute new
 			string: aSnippetText asString).
 	
 	self addSubcommand: command 
@@ -29,8 +29,8 @@ LeSplitSnippetCommand >> addInsertNewSnippetAboveCommandWithText: aSnippetText [
 { #category : #initialization }
 LeSplitSnippetCommand >> addUpdateSnippetCommandWithText: aSnippetText [ 
 	| editCommand |
-	editCommand := self targetSnippet commandBuilder editSnippetCommand.
-	editCommand string: aSnippetText asString.
+	editCommand := self targetSnippet commandBuilder editTextualSnippetCommand.
+	editCommand text: aSnippetText.
 	
 	self addSubcommand: editCommand.
 ]

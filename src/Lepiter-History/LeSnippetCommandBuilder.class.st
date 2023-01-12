@@ -10,14 +10,15 @@ LeSnippetCommandBuilder >> appendSnippetContentCommand [
 ]
 
 { #category : #'build - commands' }
-LeSnippetCommandBuilder >> editSnippetCommand [ 
-	self flag: 'Deletate though the snippet'.
-	
-	self targetContent isTextualSnippet ifTrue: [ 
-		^ LeTextualEditSnippetCommand new
-			targetContent: self targetSnippet ].
-		
+LeSnippetCommandBuilder >> editSnippetStateCommand [ 
 	^ LeEditGenericSnippetCommand new
+		targetContent: self targetSnippet
+]
+
+{ #category : #'build - commands' }
+LeSnippetCommandBuilder >> editTextualSnippetCommand [ 
+	
+	^ LeTextualEditSnippetCommand new
 		targetContent: self targetSnippet
 ]
 

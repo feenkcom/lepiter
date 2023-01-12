@@ -24,8 +24,8 @@ LeBasicEditSnippetCommand >> createCommandSpecification [
 
 { #category : #'execution - utils' }
 LeBasicEditSnippetCommand >> createUndoCommand [
-	^ self targetContent commandBuilder editSnippetCommand
-		snippetState: self extractCurrentSnippetState
+	^ self targetSnippet commandBuilder editSnippetStateCommand
+		snippetState: self extractCurrentSnippetStateForUndo
 ]
 
 { #category : #'execution - utils' }
@@ -34,10 +34,8 @@ LeBasicEditSnippetCommand >> createUndoCommandSpecification [
 ]
 
 { #category : #'execution - utils' }
-LeBasicEditSnippetCommand >> extractCurrentSnippetState [
-	^ LeGenericSnippetState 
-		fromSnippet: self targetSnippet 
-		basedOn: self snippetState
+LeBasicEditSnippetCommand >> extractCurrentSnippetStateForUndo [
+	^ LeGenericSnippetState fromSnippet: self targetSnippet 
 ]
 
 { #category : #'gt - extensions' }

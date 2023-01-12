@@ -10,6 +10,7 @@ Class {
 { #category : #asserting }
 LeInsertContentCommandExamples >> assertStructure: aPageStructure forInsertCommandResult: result [ 
 	self assertFullMetadataSetForSnippet: result insertedSnippet.
+	self assertEqualCreateEditMetadataSetForSnippet: result insertedSnippet.
 	self assertOneEventInPageHistory.
 	self 
 		assertStructure: aPageStructure 

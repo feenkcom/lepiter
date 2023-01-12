@@ -56,6 +56,11 @@ LeGenericSnippetState >> attributes [
 	^ attributesByName values
 ]
 
+{ #category : #accessing }
+LeGenericSnippetState >> attributesCount [
+	^ attributesByName size
+]
+
 { #category : #'initialization - utils' }
 LeGenericSnippetState >> extractFromSnippet: aSnippet [ 
 	
@@ -67,7 +72,7 @@ LeGenericSnippetState >> extractFromSnippet: aSnippet [
 { #category : #'initialization - utils' }
 LeGenericSnippetState >> extractFromSnippet: aSnippet basedOn: aTargetState [
 	| ignoredAttributes |
-	ignoredAttributes := #(children).
+	ignoredAttributes := #(uid children).
 	
 	aSnippet class leJsonV4AttributeMapping 
 		reject: [ :assoc | ignoredAttributes includes: assoc key ]

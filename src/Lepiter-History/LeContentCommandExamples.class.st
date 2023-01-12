@@ -7,6 +7,11 @@ Class {
 	#category : #'Lepiter-History-Examples'
 }
 
+{ #category : #testing }
+LeContentCommandExamples class >> isAbstract [ 
+	^ self name = #LeContentCommandExamples
+]
+
 { #category : #asserting }
 LeContentCommandExamples >> assertCommand: aCommand forSnippet: aTargetSnippet [ 
 	self assert: aCommand uid notNil.
@@ -21,11 +26,20 @@ LeContentCommandExamples >> assertEmptyPageHistoryForPage: aPage [
 ]
 
 { #category : #asserting }
-LeContentCommandExamples >> assertFullMetadataSetForSnippet: aSnippet [ 
-	self assert: aSnippet hasCreateAndEditMetadata.
-	
+LeContentCommandExamples >> assertEqualCreateEditMetadataSetForSnippet: aSnippet [ 
 	self assert: aSnippet createTime equals: aSnippet editTime.
 	self assert: aSnippet createEmail equals: aSnippet editEmail.
+]
+
+{ #category : #asserting }
+LeContentCommandExamples >> assertExecutionResultFor: aCommandResult [
+	self assert: aCommandResult command notNil.
+	self assert: aCommandResult undoSpecification notNil.
+]
+
+{ #category : #asserting }
+LeContentCommandExamples >> assertFullMetadataSetForSnippet: aSnippet [ 
+	self assert: aSnippet hasCreateAndEditMetadata.
 ]
 
 { #category : #asserting }
@@ -73,10 +87,11 @@ LeContentCommandExamples >> assertTargePageIsSerialisable [
 
 { #category : #asserting }
 LeContentCommandExamples >> assertValidCommandFor: aCommand [ 
-	self assert: aCommand uid notNil
+	self assert: aCommand uid notNil.
+	self assert: aCommand targetContent notNil.
 ]
 
-{ #category : #'examples - setup' }
+{ #category : #'examples - setup  pages' }
 LeContentCommandExamples >> createTargetPage [
 	<gtExample>
 	
@@ -107,7 +122,7 @@ LeContentCommandExamples >> pharoCodeSnippetWithString: aString [
 		yourself
 ]
 
-{ #category : #'examples - setup' }
+{ #category : #'examples - setup  pages' }
 LeContentCommandExamples >> targetPage [
 	<gtExample>
 	
@@ -115,7 +130,7 @@ LeContentCommandExamples >> targetPage [
 		thePage := self createTargetPage ]
 ]
 
-{ #category : #'examples - setup' }
+{ #category : #'examples - setup  pages' }
 LeContentCommandExamples >> targetSnippet [
 	self targetPage allChildrenBreadthFirstDo: [ :aSnippet |
 		aSnippet string = 'Target' ifTrue: [ ^ aSnippet ] ].
@@ -128,4 +143,14 @@ LeContentCommandExamples >> textSnippetWithString: aString [
 	^ (LeTextSnippet string: aString)
 		uid: LeUID new;
 		yourself
+]
+
+{ #category : #accessing }
+LeContentCommandExamples >> thePage [
+	^ thePage
+]
+
+{ #category : #accessing }
+LeContentCommandExamples >> thePage: aPage [
+	^ thePage := aPage
 ]
