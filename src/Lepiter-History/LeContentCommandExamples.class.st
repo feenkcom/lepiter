@@ -26,6 +26,12 @@ LeContentCommandExamples >> assertEmptyPageHistoryForPage: aPage [
 ]
 
 { #category : #asserting }
+LeContentCommandExamples >> assertEqualCreateEditMetadataSetForSnippet: aSnippet [ 
+	self assert: aSnippet createTime equals: aSnippet editTime.
+	self assert: aSnippet createEmail equals: aSnippet editEmail.
+]
+
+{ #category : #asserting }
 LeContentCommandExamples >> assertExecutionResultFor: aCommandResult [
 	self assert: aCommandResult command notNil.
 	self assert: aCommandResult undoSpecification notNil.
@@ -34,9 +40,6 @@ LeContentCommandExamples >> assertExecutionResultFor: aCommandResult [
 { #category : #asserting }
 LeContentCommandExamples >> assertFullMetadataSetForSnippet: aSnippet [ 
 	self assert: aSnippet hasCreateAndEditMetadata.
-	
-	self assert: aSnippet createTime equals: aSnippet editTime.
-	self assert: aSnippet createEmail equals: aSnippet editEmail.
 ]
 
 { #category : #asserting }
@@ -140,4 +143,14 @@ LeContentCommandExamples >> textSnippetWithString: aString [
 	^ (LeTextSnippet string: aString)
 		uid: LeUID new;
 		yourself
+]
+
+{ #category : #accessing }
+LeContentCommandExamples >> thePage [
+	^ thePage
+]
+
+{ #category : #accessing }
+LeContentCommandExamples >> thePage: aPage [
+	^ thePage := aPage
 ]

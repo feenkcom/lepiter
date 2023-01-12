@@ -4,6 +4,11 @@ Class {
 	#category : #'Lepiter-History-Examples'
 }
 
+{ #category : #asserting }
+LeEditTextSnippetWithContentCommandInStandalonePageExamples >> assertEditedSnippetMetadataFor: aSnippet [ 
+	self assertOnlyEditTimestampMetadataFor: aSnippet 
+]
+
 { #category : #accessing }
 LeEditTextSnippetWithContentCommandInStandalonePageExamples >> initialTargetSnippet [
 	^ self textSnippetWithString: 'a'

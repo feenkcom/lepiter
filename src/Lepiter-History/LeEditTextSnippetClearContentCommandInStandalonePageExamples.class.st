@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #accessing }
+LeEditTextSnippetClearContentCommandInStandalonePageExamples >> assertEditedSnippetMetadataFor: aSnippet [ 
+	self assertOnlyEditTimestampMetadataFor: aSnippet 
+]
+
+{ #category : #accessing }
 LeEditTextSnippetClearContentCommandInStandalonePageExamples >> initialTargetSnippet [
 	^ self textSnippetWithString: 'a'
 ]
