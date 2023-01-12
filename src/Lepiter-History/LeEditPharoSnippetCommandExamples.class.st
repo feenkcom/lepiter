@@ -12,14 +12,10 @@ LeEditPharoSnippetCommandExamples class >> isAbstract [
 { #category : #'examples - commands' }
 LeEditPharoSnippetCommandExamples >> createEditSnippetCommand [
 	<gtExample>
-	| targetSnippet command |
+	| command |
 	
-	self ensurePageWithTargetSnippet.
-	targetSnippet := self targetPage children first.
-	command := targetSnippet commandBuilder editTextualSnippetCommand
-		text: self newStringValue asRopedText. 
+	command := super createEditSnippetCommand. 
 		
-	self assertValidCommandFor: command.
 	self 
 		assert: command snippetState attributeNames size 
 		equals: 1.
@@ -30,31 +26,7 @@ LeEditPharoSnippetCommandExamples >> createEditSnippetCommand [
 	^ command
 ]
 
-{ #category : #'examples - setup  pages' }
-LeEditPharoSnippetCommandExamples >> ensurePageWithTargetSnippet [
-	<gtExample>
-	| page |
-	
-	page := self targetPage.
-	page addSnippet: self initialTargetSnippet. 
-	
-	^ page
-]
-
 { #category : #'examples - execution' }
-LeEditPharoSnippetCommandExamples >> executeEditSnippetCommand [
-	<gtExample>
-	| command result |
-	
-	command := self createEditSnippetCommand.
-	result := command execute.
-	
-	self assertExecutionResultFor: result.
-	
-	^ result
-]
-
-{ #category : #'examples - commands' }
 LeEditPharoSnippetCommandExamples >> executeEditSnippetCommand_pageStructure [
 	<gtExample>
 	
@@ -70,7 +42,7 @@ LeEditPharoSnippetCommandExamples >> executeEditSnippetCommand_pageStructure [
 	^ self targetPage
 ]
 
-{ #category : #'examples - commands' }
+{ #category : #'examples - execution' }
 LeEditPharoSnippetCommandExamples >> executeEditSnippetCommand_undoSpecification [
 	<gtExample>
 	| result undoSpecification |
@@ -88,7 +60,7 @@ LeEditPharoSnippetCommandExamples >> executeEditSnippetCommand_undoSpecification
 	^ undoSpecification
 ]
 
-{ #category : #'examples - commands' }
+{ #category : #'examples - execution' }
 LeEditPharoSnippetCommandExamples >> executeEditSnippetCommand_undoState [
 	<gtExample>
 	| result undoSpecification |
@@ -106,8 +78,9 @@ LeEditPharoSnippetCommandExamples >> executeEditSnippetCommand_undoState [
 ]
 
 { #category : #accessing }
-LeEditPharoSnippetCommandExamples >> initialTargetSnippet [
-	^ self subclassResponsibility
+LeEditPharoSnippetCommandExamples >> instantiateEditSnippetCommand [
+	^ self targetSnippet commandBuilder editTextualSnippetCommand
+		text: self newStringValue asRopedText
 ]
 
 { #category : #accessing }

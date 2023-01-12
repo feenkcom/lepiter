@@ -85,7 +85,7 @@ LeContentRemoveChildSnippetCommand >> createInsertChildSnippetCommandFor: aChild
 			computeChildPathFor: aChildSnippet 
 			inParent: aParentSnippet
 			forRoot: aRootContent); 
-		initialSnippetState: (self extractSnippetStateFor: aChildSnippet)
+		initialSnippetState: aChildSnippet extractUpdatableState
 ]
 
 { #category : #'execution - utils' }
@@ -144,11 +144,6 @@ LeContentRemoveChildSnippetCommand >> descriptionOn: aStream [
 	aStream 
 		<< 'childSnippet: ';
 		print: self childSnippet uid
-]
-
-{ #category : #'execution - utils' }
-LeContentRemoveChildSnippetCommand >> extractSnippetStateFor: aSnippet [
-	^ LeGenericSnippetState fromSnippet: aSnippet
 ]
 
 { #category : #initialization }

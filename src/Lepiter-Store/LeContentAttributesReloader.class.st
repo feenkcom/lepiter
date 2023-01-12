@@ -147,6 +147,6 @@ LeContentAttributesReloader >> updateStatusForAttributeNamed: anAttributeName [
 	(self ignoredAttributes includes:  anAttributeName) 
 		ifTrue: [ ^ 'Ignored' asRopedText foreground: Color gray ].
 	(self changedAttributes includes:  anAttributeName) 
-		ifTrue: [ ^ 'Changed' asRopedText foreground: Color blue muchDarker ].
+		ifTrue: [ ^ 'Changed' asRopedText foreground: Color red muchDarker ].
 	^ 'Equal' asRopedText foreground: Color green muchDarker
 ]

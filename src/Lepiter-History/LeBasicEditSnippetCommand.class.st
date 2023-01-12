@@ -13,6 +13,13 @@ LeBasicEditSnippetCommand >> basicExecute [
 		self snippetState applyOn: self targetSnippet ]
 ]
 
+{ #category : #'gt - extensions' }
+LeBasicEditSnippetCommand >> colorForAttributeChange: anArray [
+	^ anArray second = anArray third 
+		ifTrue: [ Color green muchDarker ]
+		ifFalse: [ Color red muchDarker ]
+]
+
 { #category : #converting }
 LeBasicEditSnippetCommand >> createCommandSpecification [
 	^ LeEditSnippetCommandSpecification new 
@@ -24,18 +31,12 @@ LeBasicEditSnippetCommand >> createCommandSpecification [
 
 { #category : #'execution - utils' }
 LeBasicEditSnippetCommand >> createUndoCommand [
-	^ self targetSnippet commandBuilder editSnippetStateCommand
-		snippetState: self extractCurrentSnippetStateForUndo
+	^ self targetSnippet commandBuilder undoSnippetStateCommand
 ]
 
 { #category : #'execution - utils' }
 LeBasicEditSnippetCommand >> createUndoCommandSpecification [
 	^ self createUndoCommand createCommandSpecification
-]
-
-{ #category : #'execution - utils' }
-LeBasicEditSnippetCommand >> extractCurrentSnippetStateForUndo [
-	^ LeGenericSnippetState fromSnippet: self targetSnippet 
 ]
 
 { #category : #'gt - extensions' }
@@ -44,13 +45,15 @@ LeBasicEditSnippetCommand >> gtViewLiveDiffFor: aView [
 	
 	^ aView columnedList 
 		title: 'Current State Diff';
-		items: [ self snippetState attributeNames
+		items: [ self snippetState attributes
 			collect: [ :anAttribute |
 				{ 
 					anAttribute . 
-					self snippetState valueForAttributeNamed: anAttribute.
-					self targetContent perform: anAttribute } ] ];
-		column: 'Attribute' text: [ :array | array first ];
+					anAttribute attributeValue.
+					anAttribute extractValueFromSnippet: self targetContent } ] ];
+		column: 'Attribute' text: [ :array | 
+			array first attributeName asRopedText
+				foreground: (self colorForAttributeChange: array) ];
 		column: 'New Value' text: [ :array | array second ];
 		column: 'Previous Value' text: [ :array | array third ]
 ]

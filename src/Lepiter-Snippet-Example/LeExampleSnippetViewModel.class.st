@@ -234,7 +234,7 @@ LeExampleSnippetViewModel >> handleAnnotationAstChange: anAst [
 	"it is possible that multiple parameters were changes as part of the ast update.
 	we should queue them up and request annotation update only once at the very end"
 	self optionAt: #doNotUpdateText put: true.
-	[ self snippetModel copyFrom: aNewSnippet ] ensure: [ 
+	[ self updateSnippetStateBasedOn: aNewSnippet ] ensure: [ 
 		self optionAt: #doNotUpdateText put: false ].
 
 	(LeExampleSnippetAnnotationValidator new validate: anAst) ifFalse: [ 
@@ -288,7 +288,8 @@ LeExampleSnippetViewModel >> initialize [
 		parser: LeAnnotationParser;
 		parserStartingState: LeAnnotationParser startingStateForExampleAnnotation.
 	
-	self annotationCoderViewModel: (annotationCoder asCoderViewModel addStyler: LeExampleSnippetStyler new).
+	self annotationCoderViewModel: (annotationCoder asCoderViewModel 
+		addStyler: LeExampleSnippetStyler new).
 	
 	self weak 
 		when: LeExampleSnippetContentChanged 
@@ -556,4 +557,9 @@ LeExampleSnippetViewModel >> updateAnnotationText [
 		sourceText: self snippetModel asAnnotationString asRopedText
 		from: self
 		synchronously: false
+]
+
+{ #category : #'private - event handling' }
+LeExampleSnippetViewModel >> updateSnippetStateBasedOn: aNewSnippet [ 
+	self snippetModel copyFrom: aNewSnippet
 ]
