@@ -10,11 +10,11 @@ LeEditTextSnippetClearContentCommandInStandalonePageExamples >> assertEditedSnip
 ]
 
 { #category : #accessing }
-LeEditTextSnippetClearContentCommandInStandalonePageExamples >> initialTargetSnippet [
-	^ self textSnippetWithString: 'a'
+LeEditTextSnippetClearContentCommandInStandalonePageExamples >> initialStringValue [
+	^ 'a'
 ]
 
 { #category : #accessing }
-LeEditTextSnippetClearContentCommandInStandalonePageExamples >> newStringValue [
+LeEditTextSnippetClearContentCommandInStandalonePageExamples >> modifiedStringValue [
 	^ ''
 ]

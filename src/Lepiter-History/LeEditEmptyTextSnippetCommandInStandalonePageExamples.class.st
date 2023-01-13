@@ -8,11 +8,11 @@ Class {
 }
 
 { #category : #accessing }
-LeEditEmptyTextSnippetCommandInStandalonePageExamples >> initialTargetSnippet [
-	^ self textSnippetWithString: ''
+LeEditEmptyTextSnippetCommandInStandalonePageExamples >> initialStringValue [
+	^ ''
 ]
 
 { #category : #accessing }
-LeEditEmptyTextSnippetCommandInStandalonePageExamples >> newStringValue [
+LeEditEmptyTextSnippetCommandInStandalonePageExamples >> modifiedStringValue [
 	^ 'a'
 ]

@@ -10,11 +10,11 @@ LeEditTextSnippetWithContentCommandInStandalonePageExamples >> assertEditedSnipp
 ]
 
 { #category : #accessing }
-LeEditTextSnippetWithContentCommandInStandalonePageExamples >> initialTargetSnippet [
-	^ self textSnippetWithString: 'a'
+LeEditTextSnippetWithContentCommandInStandalonePageExamples >> initialStringValue [
+	^ 'a'
 ]
 
 { #category : #accessing }
-LeEditTextSnippetWithContentCommandInStandalonePageExamples >> newStringValue [
+LeEditTextSnippetWithContentCommandInStandalonePageExamples >> modifiedStringValue [
 	^ 'cd'
 ]

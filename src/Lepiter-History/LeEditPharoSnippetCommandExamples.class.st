@@ -34,7 +34,7 @@ LeEditPharoSnippetCommandExamples >> executeEditSnippetCommand_pageStructure [
 	
 	self assertOneEventInPageHistory.
 	self 
-		assertStructure: { #snippet -> self newStringValue }  
+		assertStructure: { #snippet -> self modifiedStringValue }  
 		forContent: self targetPage.
 	self assertTargePageIsSerialisable.
 	"self assertEditedSnippetMetadataFor: self targetSnippet."
@@ -54,18 +54,28 @@ LeEditPharoSnippetCommandExamples >> executeEditSnippetCommand_undoState [
 	self assert: (undoSpecification snippetState hasAttributeNamed: #uid) not.
 	self 
 		assert: (undoSpecification snippetState attributeNamed: 'code') attributeValue
-		equals: self initialTargetSnippet string.
+		equals: self initialStringValue.
 	
 	^ undoSpecification
 ]
 
 { #category : #accessing }
-LeEditPharoSnippetCommandExamples >> instantiateEditSnippetCommand [
-	^ self targetSnippet commandBuilder editTextualSnippetCommand
-		text: self newStringValue asRopedText
+LeEditPharoSnippetCommandExamples >> initialStringValue [
+	^ self subclassResponsibility
 ]
 
 { #category : #accessing }
-LeEditPharoSnippetCommandExamples >> newStringValue [
+LeEditPharoSnippetCommandExamples >> initialTargetSnippet [
+	^ self pharoCodeSnippetWithString: self initialStringValue
+]
+
+{ #category : #accessing }
+LeEditPharoSnippetCommandExamples >> instantiateEditSnippetCommand [
+	^ self targetSnippet commandBuilder editTextualSnippetCommand
+		text: self modifiedStringValue asRopedText
+]
+
+{ #category : #accessing }
+LeEditPharoSnippetCommandExamples >> modifiedStringValue [
 	^ self subclassResponsibility
 ]
