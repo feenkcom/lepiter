@@ -120,6 +120,11 @@ LePageEditHistory >> isUndoEnabled [
 	^ isUndoEnabled ifNil: [ false ]
 ]
 
+{ #category : #accessing }
+LePageEditHistory >> redoActions [
+	^ redoActions reversed
+]
+
 { #category : #'api - undo/redo' }
 LePageEditHistory >> redoCurrent [
 	self redoOn: targetPage
@@ -145,6 +150,11 @@ LePageEditHistory >> registerEvents [
 		to: self
 ]
 
+{ #category : #accessing }
+LePageEditHistory >> undoActions [
+	^ undoActions reversed 
+]
+
 { #category : #'api - undo/redo' }
 LePageEditHistory >> undoCurrent [
 	self undoOn: targetPage
@@ -153,6 +163,7 @@ LePageEditHistory >> undoCurrent [
 { #category : #'api - undo/redo' }
 LePageEditHistory >> undoOn: aPage [
 	undoActions ifNotEmpty: [ :currentUndoActions |
-		self disableDuring: [ "redoActions add: ("
-			currentUndoActions removeLast applyOn: aPage ] ]
+		self disableDuring: [ 
+			currentUndoActions removeLast 
+				applyOn: aPage ] ]
 ]

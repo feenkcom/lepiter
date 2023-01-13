@@ -37,9 +37,9 @@ LeEditExampleSnippetCommandExamples >> executeEditSnippetCommand_undoState [
 	| command initialSnippetState result undoSpecification |
 	
 	command := self createEditSnippetCommand.
-	
 	initialSnippetState := self targetSnippet extractUpdatableState.
 	result := command execute.
+	
 	undoSpecification := result undoSpecification.
 			
 	self assert: (undoSpecification snippetState hasAttributeNamed: #uid) not.

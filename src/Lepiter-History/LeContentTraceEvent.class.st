@@ -90,6 +90,11 @@ LeContentTraceEvent >> timestamp [
 	^ timestamp
 ]
 
+{ #category : #accessing }
+LeContentTraceEvent >> uid [
+	^ uid
+]
+
 { #category : #utils }
 LeContentTraceEvent >> undoCommandLabel [
 	^ self formatCommandTypeName: self undoCommandTypeName

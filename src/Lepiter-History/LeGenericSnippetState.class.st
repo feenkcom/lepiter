@@ -24,9 +24,36 @@ LeGenericSnippetState >> addAttribute: aStateAttribute [
 ]
 
 { #category : #updating }
+LeGenericSnippetState >> applyAttributes: aCollectionOfAttributeNames on: aSnippet [
+	aCollectionOfAttributeNames do: [ :anAttributeName |
+		(attributesByName at: anAttributeName) applyOn:  aSnippet ]
+]
+
+{ #category : #updating }
+LeGenericSnippetState >> applyCommonMetadataOn: aSnippet [ 
+	self 
+		applyAttributes: self commonMetadataAttributeNamesInState 
+		on: aSnippet
+]
+
+{ #category : #updating }
 LeGenericSnippetState >> applyOn: aSnippet [ 
-	attributesByName do: [ :anAttribute |
-		anAttribute applyOn: aSnippet ]
+	"When applying the state of a snippet we apply first the 
+	specific attributes, and afterwards the common metadata. 
+	Ideally the order should not mater, however some snippets
+	update metadata when specific attributes are set. On restoring
+	the full state of a snippet we should then restore metadata 
+	as the last action."
+	
+	self applySpecificAttributesOn: aSnippet.
+	self applyCommonMetadataOn: aSnippet.
+]
+
+{ #category : #updating }
+LeGenericSnippetState >> applySpecificAttributesOn: aSnippet [ 
+	self 
+		applyAttributes: self specificAttributeNamesInState 
+		on: aSnippet
 ]
 
 { #category : #accessing }
@@ -60,6 +87,18 @@ LeGenericSnippetState >> attributesByName [
 { #category : #accessing }
 LeGenericSnippetState >> attributesCount [
 	^ attributesByName size
+]
+
+{ #category : #accessing }
+LeGenericSnippetState >> commonAttributeNames [
+	^ LeContent leJsonV4AttributeMapping 
+		collect: [ :aMapping |
+			aMapping key ]
+]
+
+{ #category : #accessing }
+LeGenericSnippetState >> commonMetadataAttributeNamesInState [
+	^ self attributeNames intersection: self commonAttributeNames
 ]
 
 { #category : #'gt - extensions' }
@@ -99,6 +138,11 @@ LeGenericSnippetState >> printOn: aStream [
 		aStream << (attributesByName size =  1
 			ifTrue: [ ' attribute' ]
 			ifFalse: [ ' attributes' ]) ]
+]
+
+{ #category : #accessing }
+LeGenericSnippetState >> specificAttributeNamesInState [
+	^ self attributeNames copyWithoutAll: self commonAttributeNames
 ]
 
 { #category : #accessing }
