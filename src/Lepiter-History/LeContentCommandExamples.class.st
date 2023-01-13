@@ -2,7 +2,8 @@ Class {
 	#name : #LeContentCommandExamples,
 	#superclass : #Object,
 	#instVars : [
-		'thePage'
+		'thePage',
+		'theDatabase'
 	],
 	#category : #'Lepiter-History-Examples'
 }
@@ -91,6 +92,11 @@ LeContentCommandExamples >> assertValidCommandFor: aCommand [
 	self assert: aCommand targetContent notNil.
 ]
 
+{ #category : #'setup  pages' }
+LeContentCommandExamples >> createTargetDatabase [
+	^ LeDatabase null
+]
+
 { #category : #'examples - setup  pages' }
 LeContentCommandExamples >> createTargetPage [
 	<gtExample>
@@ -123,11 +129,22 @@ LeContentCommandExamples >> pharoCodeSnippetWithString: aString [
 ]
 
 { #category : #'examples - setup  pages' }
+LeContentCommandExamples >> targetDatabase [
+	<gtExample>
+	
+	^ theDatabase ifNil: [
+		theDatabase := self createTargetDatabase  ]
+]
+
+{ #category : #'examples - setup  pages' }
 LeContentCommandExamples >> targetPage [
 	<gtExample>
 	
-	^ thePage ifNil: [
-		thePage := self createTargetPage ]
+	^ self thePage ifNil: [
+		self thePage: self createTargetPage.
+		self targetDatabase isDatabase ifTrue: [ 
+			self targetDatabase addPage: self thePage ].
+		self thePage ]
 ]
 
 { #category : #'examples - setup  pages' }

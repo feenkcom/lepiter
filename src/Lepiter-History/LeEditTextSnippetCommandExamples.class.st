@@ -9,6 +9,13 @@ LeEditTextSnippetCommandExamples class >> isAbstract [
 	^ self name = #LeEditTextSnippetCommandExamples
 ]
 
+{ #category : #asserting }
+LeEditTextSnippetCommandExamples >> assertTargetSnippetContentChanged [
+	self 
+		assertStructure: { #snippet -> self modifiedStringValue }  
+		forContent: self targetPage.
+]
+
 { #category : #accessing }
 LeEditTextSnippetCommandExamples >> createEditSnippetCommand [
 	<gtExample>
@@ -25,22 +32,6 @@ LeEditTextSnippetCommandExamples >> createEditSnippetCommand [
 ]
 
 { #category : #'examples - execution' }
-LeEditTextSnippetCommandExamples >> executeEditSnippetCommand_pageStructure [
-	<gtExample>
-	
-	self executeEditSnippetCommand.
-	
-	self assertOneEventInPageHistory.
-	self 
-		assertStructure: { #snippet -> self newStringValue }  
-		forContent: self targetPage.
-	self assertTargePageIsSerialisable.
-	self assertEditedSnippetMetadataFor: self targetSnippet.
-
-	^ self targetPage
-]
-
-{ #category : #'examples - execution' }
 LeEditTextSnippetCommandExamples >> executeEditSnippetCommand_undoState [
 	<gtExample>
 	| result undoSpecification |
@@ -52,23 +43,28 @@ LeEditTextSnippetCommandExamples >> executeEditSnippetCommand_undoState [
 	self assert: (undoSpecification snippetState hasAttributeNamed: #uid) not.
 	self 
 		assert: (undoSpecification snippetState attributeNamed: 'string') attributeValue
-		equals: self initialTargetSnippet string.
+		equals: self initialStringValue.
 	
 	^ undoSpecification
 ]
 
 { #category : #accessing }
-LeEditTextSnippetCommandExamples >> initialTargetSnippet [
+LeEditTextSnippetCommandExamples >> initialStringValue [
 	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
+LeEditTextSnippetCommandExamples >> initialTargetSnippet [
+	^ self textSnippetWithString: self initialStringValue
 ]
 
 { #category : #accessing }
 LeEditTextSnippetCommandExamples >> instantiateEditSnippetCommand [
 	^ self targetSnippet commandBuilder editTextualSnippetCommand
-		text: self newStringValue asRopedText
+		text: self modifiedStringValue asRopedText
 ]
 
 { #category : #accessing }
-LeEditTextSnippetCommandExamples >> newStringValue [
+LeEditTextSnippetCommandExamples >> modifiedStringValue [
 	^ self subclassResponsibility
 ]

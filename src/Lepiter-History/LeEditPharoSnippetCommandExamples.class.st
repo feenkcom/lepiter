@@ -9,6 +9,13 @@ LeEditPharoSnippetCommandExamples class >> isAbstract [
 	^ self name = #LeEditPharoSnippetCommandExamples
 ]
 
+{ #category : #asserting }
+LeEditPharoSnippetCommandExamples >> assertTargetSnippetContentChanged [
+	self 
+		assertStructure: { #snippet -> self modifiedStringValue }  
+		forContent: self targetPage.
+]
+
 { #category : #'examples - commands' }
 LeEditPharoSnippetCommandExamples >> createEditSnippetCommand [
 	<gtExample>
@@ -27,22 +34,6 @@ LeEditPharoSnippetCommandExamples >> createEditSnippetCommand [
 ]
 
 { #category : #'examples - execution' }
-LeEditPharoSnippetCommandExamples >> executeEditSnippetCommand_pageStructure [
-	<gtExample>
-	
-	self executeEditSnippetCommand.
-	
-	self assertOneEventInPageHistory.
-	self 
-		assertStructure: { #snippet -> self newStringValue }  
-		forContent: self targetPage.
-	self assertTargePageIsSerialisable.
-	"self assertEditedSnippetMetadataFor: self targetSnippet."
-
-	^ self targetPage
-]
-
-{ #category : #'examples - execution' }
 LeEditPharoSnippetCommandExamples >> executeEditSnippetCommand_undoState [
 	<gtExample>
 	| result undoSpecification |
@@ -54,18 +45,28 @@ LeEditPharoSnippetCommandExamples >> executeEditSnippetCommand_undoState [
 	self assert: (undoSpecification snippetState hasAttributeNamed: #uid) not.
 	self 
 		assert: (undoSpecification snippetState attributeNamed: 'code') attributeValue
-		equals: self initialTargetSnippet string.
+		equals: self initialStringValue.
 	
 	^ undoSpecification
 ]
 
 { #category : #accessing }
-LeEditPharoSnippetCommandExamples >> instantiateEditSnippetCommand [
-	^ self targetSnippet commandBuilder editTextualSnippetCommand
-		text: self newStringValue asRopedText
+LeEditPharoSnippetCommandExamples >> initialStringValue [
+	^ self subclassResponsibility
 ]
 
 { #category : #accessing }
-LeEditPharoSnippetCommandExamples >> newStringValue [
+LeEditPharoSnippetCommandExamples >> initialTargetSnippet [
+	^ self pharoCodeSnippetWithString: self initialStringValue
+]
+
+{ #category : #accessing }
+LeEditPharoSnippetCommandExamples >> instantiateEditSnippetCommand [
+	^ self targetSnippet commandBuilder editTextualSnippetCommand
+		text: self modifiedStringValue asRopedText
+]
+
+{ #category : #accessing }
+LeEditPharoSnippetCommandExamples >> modifiedStringValue [
 	^ self subclassResponsibility
 ]

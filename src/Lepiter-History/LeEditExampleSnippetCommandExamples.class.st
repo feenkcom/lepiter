@@ -10,21 +10,6 @@ LeEditExampleSnippetCommandExamples class >> isAbstract [
 ]
 
 { #category : #asserting }
-LeEditExampleSnippetCommandExamples >> assertEditedTargetSnippetMetadata [
-	self assertEditedSnippetMetadataFor: self targetSnippet.
-]
-
-{ #category : #asserting }
-LeEditExampleSnippetCommandExamples >> assertTargetPageContentChanged [
-	self assert: self targetPage children size equals: 1.
-	self 
-		assert: self targetPage children first children size 
-		equals: 0.
-	
-	self assertTargetSnippetContentChanged.
-]
-
-{ #category : #asserting }
 LeEditExampleSnippetCommandExamples >> assertTargetSnippetContentChanged [
 	self assert: (self targetSnippet similarTo: self initialModifiedSnippet)
 ]
@@ -44,20 +29,6 @@ LeEditExampleSnippetCommandExamples >> createEditSnippetCommand [
 		equals: #(codeExpanded exampleBehaviorName exampleSelector noCode previewExpanded previewHeight previewShowSelector).
 	
 	^ command
-]
-
-{ #category : #'examples - execution' }
-LeEditExampleSnippetCommandExamples >> executeEditSnippetCommand_pageStructure [
-	<gtExample>
-	
-	self executeEditSnippetCommand.
-	
-	self assertOneEventInPageHistory.
-	self assertTargetPageContentChanged.
-	self assertTargePageIsSerialisable.
-	"self assertEditedTargetSnippetMetadata."
-
-	^ self targetPage
 ]
 
 { #category : #'examples - execution' }

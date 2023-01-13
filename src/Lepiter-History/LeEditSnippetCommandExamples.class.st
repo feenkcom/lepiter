@@ -11,7 +11,12 @@ LeEditSnippetCommandExamples class >> isAbstract [
 
 { #category : #asserting }
 LeEditSnippetCommandExamples >> assertEditedSnippetMetadataFor: aSnippet [ 
-	self assertOnlyTimeMetadataSetForSnippet: aSnippet
+	self assertFullMetadataSetForSnippet: aSnippet.
+]
+
+{ #category : #asserting }
+LeEditSnippetCommandExamples >> assertEditedTargetSnippetMetadata [
+	self assertEditedSnippetMetadataFor: self targetSnippet.
 ]
 
 { #category : #asserting }
@@ -21,6 +26,21 @@ LeEditSnippetCommandExamples >> assertOnlyEditTimestampMetadataFor: aSnippet [
 	
 	self assert: aSnippet createEmail isNil.
 	self assert: aSnippet editEmail isNil.
+]
+
+{ #category : #asserting }
+LeEditSnippetCommandExamples >> assertTargetPageContentChanged [
+	self assert: self targetPage children size equals: 1.
+	self 
+		assert: self targetPage children first children size 
+		equals: 0.
+	
+	self assertTargetSnippetContentChanged.
+]
+
+{ #category : #asserting }
+LeEditSnippetCommandExamples >> assertTargetSnippetContentChanged [
+	self subclassResponsibility
 ]
 
 { #category : #'examples - commands' }
@@ -34,6 +54,11 @@ LeEditSnippetCommandExamples >> createEditSnippetCommand [
 	self assertValidCommandFor: command.
 	
 	^ command
+]
+
+{ #category : #'setup  pages' }
+LeEditSnippetCommandExamples >> createTargetDatabase [
+	^ LeDatabase new 
 ]
 
 { #category : #'examples - setup  pages' }
@@ -58,6 +83,20 @@ LeEditSnippetCommandExamples >> executeEditSnippetCommand [
 	self assertExecutionResultFor: result.
 	
 	^ result
+]
+
+{ #category : #'examples - execution' }
+LeEditSnippetCommandExamples >> executeEditSnippetCommand_pageStructure [
+	<gtExample>
+	
+	self executeEditSnippetCommand.
+	
+	self assertOneEventInPageHistory.
+	self assertTargetPageContentChanged.
+	self assertTargePageIsSerialisable.
+	self assertEditedTargetSnippetMetadata.
+
+	^ self targetPage
 ]
 
 { #category : #'examples - execution' }

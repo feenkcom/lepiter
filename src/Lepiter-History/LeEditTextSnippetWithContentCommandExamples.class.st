@@ -1,7 +1,15 @@
 Class {
 	#name : #LeEditTextSnippetWithContentCommandExamples,
-	#superclass : #LeEditTextSnippetWithContentCommandInStandalonePageExamples,
-	#traits : 'TContentCommandInStandalonePageExamples',
-	#classTraits : 'TContentCommandInStandalonePageExamples classTrait',
+	#superclass : #LeEditTextSnippetCommandExamples,
 	#category : #'Lepiter-History-Examples'
 }
+
+{ #category : #accessing }
+LeEditTextSnippetWithContentCommandExamples >> initialStringValue [
+	^ 'a'
+]
+
+{ #category : #accessing }
+LeEditTextSnippetWithContentCommandExamples >> modifiedStringValue [
+	^ 'cd'
+]

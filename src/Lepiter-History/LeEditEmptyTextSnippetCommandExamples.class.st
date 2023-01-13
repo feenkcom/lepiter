@@ -3,8 +3,16 @@
 "
 Class {
 	#name : #LeEditEmptyTextSnippetCommandExamples,
-	#superclass : #LeEditEmptyTextSnippetCommandInStandalonePageExamples,
-	#traits : 'TContentCommandInStandalonePageExamples',
-	#classTraits : 'TContentCommandInStandalonePageExamples classTrait',
+	#superclass : #LeEditTextSnippetCommandExamples,
 	#category : #'Lepiter-History-Examples'
 }
+
+{ #category : #accessing }
+LeEditEmptyTextSnippetCommandExamples >> initialStringValue [
+	^ ''
+]
+
+{ #category : #accessing }
+LeEditEmptyTextSnippetCommandExamples >> modifiedStringValue [
+	^ 'a'
+]

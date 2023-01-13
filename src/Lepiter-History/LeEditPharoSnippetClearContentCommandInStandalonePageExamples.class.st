@@ -5,11 +5,11 @@ Class {
 }
 
 { #category : #accessing }
-LeEditPharoSnippetClearContentCommandInStandalonePageExamples >> initialTargetSnippet [
-	^ self pharoCodeSnippetWithString: '1+1'
+LeEditPharoSnippetClearContentCommandInStandalonePageExamples >> initialStringValue [
+	^  '1+1'
 ]
 
 { #category : #accessing }
-LeEditPharoSnippetClearContentCommandInStandalonePageExamples >> newStringValue [
+LeEditPharoSnippetClearContentCommandInStandalonePageExamples >> modifiedStringValue [
 	^ ''
 ]
