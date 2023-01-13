@@ -10,6 +10,16 @@ Class {
 	#category : #'Lepiter-UI-Snippet-! View Models'
 }
 
+{ #category : #'gt - extensions' }
+LeSharedSnippetContext >> gtViewSharedBindingsFor: aView [ 
+	<gtView>
+	
+	^ aView forward 
+		title: 'Shared Bindings';
+		object: [ self sharedBindings ];
+		view: #gtBindingsFor:
+]
+
 { #category : #initialization }
 LeSharedSnippetContext >> initialize [
 	super initialize.

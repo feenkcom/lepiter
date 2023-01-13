@@ -7,7 +7,7 @@ Class {
 		'viewModelToScrollTo',
 		'sharedSnippetContext'
 	],
-	#category : 'Lepiter-UI-Snippet-! View Models'
+	#category : #'Lepiter-UI-Snippet-! View Models'
 }
 
 { #category : #testing }
@@ -55,6 +55,17 @@ LeSnippetsCollectionViewModel >> focusSnippetUIModel: aSnippetUIModel [
 			focusedSnippetUIModel := nil ].
 	focusedSnippetUIModel := aSnippetUIModel.
 	focusedSnippetUIModel focused: true
+]
+
+{ #category : #'gt - extensions' }
+LeSnippetsCollectionViewModel >> gtViewSnippetsMapFor: aView [
+	<gtView>
+	
+	^ aView forward 
+		title: 'Snippets Map';
+		priority: 10;
+		object: [ snippetsMap ];
+		view: #gtItemsFor:
 ]
 
 { #category : #private }
