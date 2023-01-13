@@ -32,6 +32,15 @@ LeCompositeContentCollectionViewModel >> content: aLeContent [
 		do: [ :eachCollection | eachCollection content: aLeContent ]
 ]
 
+{ #category : #'gt - extensions' }
+LeCompositeContentCollectionViewModel >> gtViewModelsFor: aView [
+	<gtView>
+	
+	^ aView list 
+		title: 'View Models';
+		items: [ viewModelCollections ]
+]
+
 { #category : #initialization }
 LeCompositeContentCollectionViewModel >> initialize [
 	super initialize.

@@ -52,6 +52,16 @@ LeContentCollectionViewModel >> content: aLeContent [
 	content := aLeContent
 ]
 
+{ #category : #'gt - extensions' }
+LeContentCollectionViewModel >> gtViewChildrenFor: aView [ 
+	<gtView>
+	
+	^ aView list
+		title: 'Children';
+		priority: 25;
+		items: [ self children ]
+]
+
 { #category : #initialization }
 LeContentCollectionViewModel >> initialize [
 	super initialize.
