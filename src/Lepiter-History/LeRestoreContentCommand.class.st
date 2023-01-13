@@ -28,7 +28,6 @@ LeRestoreContentCommand >> createCommandResult [
 { #category : #converting }
 LeRestoreContentCommand >> createCommandSpecification [
 	^ LeGenericCommandSpecification new
-		commandUid: self uid;
 		contentUid: self targetPage uid;
 		commandTypeName: self className;
 		attributeAt: #traceEvent put: self traceEvent

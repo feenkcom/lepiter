@@ -12,7 +12,6 @@ LeMoveSnippetCommand class >> isAbstract [
 { #category : #converting }
 LeMoveSnippetCommand >> createCommandSpecification [
 	^ LeGenericCommandSpecification new
-		commandUid: self uid;
 		contentUid: self targetSnippetUid;
 		commandTypeName: self className
 ]

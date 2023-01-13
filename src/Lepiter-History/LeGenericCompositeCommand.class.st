@@ -16,7 +16,6 @@ LeGenericCompositeCommand >> basicExecute [
 LeGenericCompositeCommand >> createCommandSpecification [
 	| specification | 
 	specification := LeCompositeCommandSpecification new 
-		commandUid: self uid;
 		contentUid: self targetContent uid;
 		commandTypeName: self className;
 		label: self label.

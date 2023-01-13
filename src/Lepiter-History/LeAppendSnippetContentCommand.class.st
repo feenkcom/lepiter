@@ -17,7 +17,6 @@ LeAppendSnippetContentCommand >> basicExecute [
 { #category : #converting }
 LeAppendSnippetContentCommand >> createCommandSpecification [
 	^ LeGenericCommandSpecification new
-		commandUid: self uid;
 		contentUid: self targetSnippetUid;
 		commandTypeName: self className;
 		attributeAt: #sourceSnippetUid put: self sourceSnippet uid

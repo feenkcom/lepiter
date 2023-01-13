@@ -47,7 +47,6 @@ LeContentInsertChildSnippetCommand >> createCommandResult [
 { #category : #converting }
 LeContentInsertChildSnippetCommand >> createCommandSpecification [
 	^ LeInsertChildCommandSpecification new 
-		commandUid: self uid;
 		contentUid: self targetContent uid;
 		commandTypeName: self className;
 		insertPath: self insertPath;

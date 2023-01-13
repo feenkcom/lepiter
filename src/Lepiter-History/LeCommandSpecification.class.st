@@ -2,7 +2,6 @@ Class {
 	#name : #LeCommandSpecification,
 	#superclass : #Object,
 	#instVars : [
-		'commandUid',
 		'contentUid',
 		'commandTypeName',
 		'subcommandSpecifications'
@@ -32,18 +31,6 @@ LeCommandSpecification >> commandTypeName [
 LeCommandSpecification >> commandTypeName: aTypeName [
 
 	commandTypeName := aTypeName
-]
-
-{ #category : #accessing }
-LeCommandSpecification >> commandUid [
-
-	^ commandUid
-]
-
-{ #category : #accessing }
-LeCommandSpecification >> commandUid: anUid [
-
-	commandUid := anUid
 ]
 
 { #category : #accessing }

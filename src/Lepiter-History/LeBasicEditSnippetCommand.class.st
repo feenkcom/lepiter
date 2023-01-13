@@ -23,7 +23,6 @@ LeBasicEditSnippetCommand >> colorForAttributeChange: anArray [
 { #category : #converting }
 LeBasicEditSnippetCommand >> createCommandSpecification [
 	^ LeEditSnippetCommandSpecification new 
-		commandUid: self uid;
 		contentUid: self targetSnippetUid;
 		commandTypeName: self className;
 		snippetState: self snippetState

@@ -43,7 +43,6 @@ LeMergeSnippetCommand >> basicExecute [
 { #category : #'execution - utils' }
 LeMergeSnippetCommand >> createCommandSpecification [
 	^ LeGenericCommandSpecification new 
-		commandUid: self uid;
 		contentUid: self targetContent uid;
 		commandTypeName: self className;
 		attributeAt: #sourceSnippetUid put: self sourceSnippet uid;
@@ -54,7 +53,6 @@ LeMergeSnippetCommand >> createCommandSpecification [
 LeMergeSnippetCommand >> createUndoCommandSpecification [
 	| specification | 
 	specification := LeCompositeCommandSpecification new 
-		commandUid: self uid;
 		contentUid: self targetContent uid;
 		commandTypeName: LeGenericCompositeCommand name;
 		label: 'Undo Merge'.

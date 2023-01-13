@@ -2,7 +2,8 @@ Class {
 	#name : #LeContentTraceEvent,
 	#superclass : #Object,
 	#instVars : [
-		'uid'
+		'uid',
+		'timestamp'
 	],
 	#category : #'Lepiter-History-Storage'
 }
@@ -45,6 +46,7 @@ LeContentTraceEvent >> initialize [
 	super initialize.
 	
 	uid := LeUID new.
+	timestamp := DateAndTime now.
 ]
 
 { #category : #accessing }
@@ -81,6 +83,11 @@ LeContentTraceEvent >> redoOn: aPage [
 	(LeRedoContentCommand 
 		forTraceEvent: self
 		inPage: aPage) execute
+]
+
+{ #category : #accessing }
+LeContentTraceEvent >> timestamp [
+	^ timestamp
 ]
 
 { #category : #utils }
