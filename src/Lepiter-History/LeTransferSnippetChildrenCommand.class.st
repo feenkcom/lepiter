@@ -16,7 +16,6 @@ LeTransferSnippetChildrenCommand >> basicExecute [
 { #category : #converting }
 LeTransferSnippetChildrenCommand >> createCommandSpecification [
 	^ LeTransferSnippetChildrenCommandSpecification new 
-		commandUid: self uid;
 		contentUid: self targetSnippetUid;
 		commandTypeName: self className;
 		sourceSnippet: self sourceSnippet

@@ -67,7 +67,6 @@ LeSplitSnippetCommand >> createCommandResult [
 { #category : #'execution - utils' }
 LeSplitSnippetCommand >> createCommandSpecification [
 	^ LeGenericCommandSpecification new 
-		commandUid: self uid;
 		contentUid: self targetContent uid;
 		commandTypeName: self className;
 		attributeAt: #cursorPosition put: self cursorPosition;
@@ -78,7 +77,6 @@ LeSplitSnippetCommand >> createCommandSpecification [
 LeSplitSnippetCommand >> createUndoCommandSpecification [
 	| specification | 
 	specification := LeCompositeCommandSpecification new 
-		commandUid: self uid;
 		contentUid: self targetContent uid;
 		commandTypeName: LeGenericCompositeCommand name;
 		label: 'Undo Split'.
