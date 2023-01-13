@@ -37,6 +37,11 @@ LeTextualSnippetTextAttribute >> attributeValue [
 ]
 
 { #category : #accessing }
+LeTextualSnippetTextAttribute >> extractValueFromSnippet: aSnippet [
+	^ aSnippet text
+]
+
+{ #category : #accessing }
 LeTextualSnippetTextAttribute >> source [
 	^ source
 ]

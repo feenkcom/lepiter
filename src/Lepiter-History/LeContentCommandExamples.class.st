@@ -45,7 +45,13 @@ LeContentCommandExamples >> assertFullMetadataSetForSnippet: aSnippet [
 
 { #category : #asserting }
 LeContentCommandExamples >> assertOneEventInPageHistory [
-	self assert: self targetPage editHistory eventStore size equals: 1.
+	| editHistory |
+	editHistory := self targetPage editHistory.
+	
+	self assert: editHistory eventStore size equals: 1.
+	
+	self assert:  editHistory undoActions size equals: 1.
+	self assert:  editHistory redoActions size equals: 0.
 ]
 
 { #category : #asserting }

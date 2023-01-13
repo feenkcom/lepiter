@@ -72,6 +72,29 @@ LeEditSnippetCommandExamples >> ensurePageWithTargetSnippet [
 	^ page
 ]
 
+{ #category : #'examples - execution undo/redo' }
+LeEditSnippetCommandExamples >> executeCommand_executeUndoCommand [
+	<gtExample>
+	| command initialSnippetState editHistory |
+	
+	command := self createEditSnippetCommand.
+	initialSnippetState := self targetSnippet extractUpdatableState.
+	
+	command execute.
+	self targetPage editHistory undoCurrent.
+	
+	editHistory := self targetPage editHistory.
+	self assert:  editHistory eventStore events size equals: 2.
+	self assert:  editHistory undoActions size equals: 0.
+	self assert:  editHistory redoActions size equals: 1.
+	
+	self 
+		assert: self targetSnippet  extractUpdatableState
+		equals: initialSnippetState.
+	
+	^ self targetPage 
+]
+
 { #category : #'examples - execution' }
 LeEditSnippetCommandExamples >> executeEditSnippetCommand [
 	<gtExample>
@@ -97,6 +120,26 @@ LeEditSnippetCommandExamples >> executeEditSnippetCommand_pageStructure [
 	self assertEditedTargetSnippetMetadata.
 
 	^ self targetPage
+]
+
+{ #category : #'examples - execution' }
+LeEditSnippetCommandExamples >> executeEditSnippetCommand_traceEvent [
+	<gtExample>
+	| result traceEvent |
+	
+	result := self executeEditSnippetCommand.
+	traceEvent := result traceEvent.
+	
+	self assert: traceEvent uid notNil.
+	self assert: traceEvent timestamp notNil.
+	self assert: traceEvent mainCommandSpecification notNil.
+	self assert: traceEvent undoCommandSpecification notNil.
+	
+	self 
+		assert: traceEvent undoCommandSpecification identityHash
+		equals: result undoSpecification identityHash.
+	
+	^ traceEvent
 ]
 
 { #category : #'examples - execution' }
