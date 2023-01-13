@@ -9,6 +9,13 @@ LeEditPharoSnippetCommandExamples class >> isAbstract [
 	^ self name = #LeEditPharoSnippetCommandExamples
 ]
 
+{ #category : #asserting }
+LeEditPharoSnippetCommandExamples >> assertTargetSnippetContentChanged [
+	self 
+		assertStructure: { #snippet -> self modifiedStringValue }  
+		forContent: self targetPage.
+]
+
 { #category : #'examples - commands' }
 LeEditPharoSnippetCommandExamples >> createEditSnippetCommand [
 	<gtExample>
@@ -24,22 +31,6 @@ LeEditPharoSnippetCommandExamples >> createEditSnippetCommand [
 		equals: #(string).
 	
 	^ command
-]
-
-{ #category : #'examples - execution' }
-LeEditPharoSnippetCommandExamples >> executeEditSnippetCommand_pageStructure [
-	<gtExample>
-	
-	self executeEditSnippetCommand.
-	
-	self assertOneEventInPageHistory.
-	self 
-		assertStructure: { #snippet -> self modifiedStringValue }  
-		forContent: self targetPage.
-	self assertTargePageIsSerialisable.
-	"self assertEditedSnippetMetadataFor: self targetSnippet."
-
-	^ self targetPage
 ]
 
 { #category : #'examples - execution' }

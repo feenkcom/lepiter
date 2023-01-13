@@ -9,6 +9,13 @@ LeEditTextSnippetCommandExamples class >> isAbstract [
 	^ self name = #LeEditTextSnippetCommandExamples
 ]
 
+{ #category : #asserting }
+LeEditTextSnippetCommandExamples >> assertTargetSnippetContentChanged [
+	self 
+		assertStructure: { #snippet -> self modifiedStringValue }  
+		forContent: self targetPage.
+]
+
 { #category : #accessing }
 LeEditTextSnippetCommandExamples >> createEditSnippetCommand [
 	<gtExample>
@@ -22,22 +29,6 @@ LeEditTextSnippetCommandExamples >> createEditSnippetCommand [
 		equals: #(string).
 	
 	^ command
-]
-
-{ #category : #'examples - execution' }
-LeEditTextSnippetCommandExamples >> executeEditSnippetCommand_pageStructure [
-	<gtExample>
-	
-	self executeEditSnippetCommand.
-	
-	self assertOneEventInPageHistory.
-	self 
-		assertStructure: { #snippet -> self modifiedStringValue }  
-		forContent: self targetPage.
-	self assertTargePageIsSerialisable.
-	self assertEditedSnippetMetadataFor: self targetSnippet.
-
-	^ self targetPage
 ]
 
 { #category : #'examples - execution' }

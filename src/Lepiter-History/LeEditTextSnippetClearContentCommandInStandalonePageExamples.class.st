@@ -1,20 +1,12 @@
 Class {
 	#name : #LeEditTextSnippetClearContentCommandInStandalonePageExamples,
-	#superclass : #LeEditTextSnippetCommandExamples,
+	#superclass : #LeEditTextSnippetClearContentCommandExamples,
+	#traits : 'TLeContentCommandInStandalonePageExamples',
+	#classTraits : 'TLeContentCommandInStandalonePageExamples classTrait',
 	#category : #'Lepiter-History-Examples'
 }
 
 { #category : #accessing }
 LeEditTextSnippetClearContentCommandInStandalonePageExamples >> assertEditedSnippetMetadataFor: aSnippet [ 
 	self assertOnlyEditTimestampMetadataFor: aSnippet 
-]
-
-{ #category : #accessing }
-LeEditTextSnippetClearContentCommandInStandalonePageExamples >> initialStringValue [
-	^ 'a'
-]
-
-{ #category : #accessing }
-LeEditTextSnippetClearContentCommandInStandalonePageExamples >> modifiedStringValue [
-	^ ''
 ]
