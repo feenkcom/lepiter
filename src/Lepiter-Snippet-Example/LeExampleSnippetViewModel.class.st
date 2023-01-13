@@ -561,5 +561,10 @@ LeExampleSnippetViewModel >> updateAnnotationText [
 
 { #category : #'private - event handling' }
 LeExampleSnippetViewModel >> updateSnippetStateBasedOn: aNewSnippet [ 
-	self snippetModel copyFrom: aNewSnippet
+	| updateCommand |
+	
+	updateCommand := self snippetModel  commandBuilder 
+		updateSnippetStateCommandBasedOn:  aNewSnippet.
+		
+	updateCommand execute.
 ]
