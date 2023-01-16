@@ -157,13 +157,18 @@ LePageEditHistory >> undoActions [
 
 { #category : #'api - undo/redo' }
 LePageEditHistory >> undoCurrent [
-	self undoOn: targetPage
+	^ self undoOn: targetPage
 ]
 
 { #category : #'api - undo/redo' }
 LePageEditHistory >> undoOn: aPage [
+	| undoResult |
+	undoResult := nil.
+	
 	undoActions ifNotEmpty: [ :currentUndoActions |
 		self disableDuring: [ 
-			currentUndoActions removeLast 
-				applyOn: aPage ] ]
+			undoResult := currentUndoActions removeLast 
+				applyOn: aPage ] ].
+				
+	^ undoResult
 ]

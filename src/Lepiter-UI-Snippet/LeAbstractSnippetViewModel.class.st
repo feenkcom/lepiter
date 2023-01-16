@@ -21,7 +21,7 @@ Class {
 		'expanded',
 		'sharedContext'
 	],
-	#category : 'Lepiter-UI-Snippet-! View Models'
+	#category : #'Lepiter-UI-Snippet-! View Models'
 }
 
 { #category : #testing }
@@ -146,7 +146,9 @@ LeAbstractSnippetViewModel >> focusPreviousSnippet [
 		^ self snippetModel
 			previousSnippetDo: [ :previousSnippet |
 				| snippetViewModelToFocus |
-				snippetViewModelToFocus := aSnippetsCollection findOrCreateSnippetViewModel: previousSnippet.
+				
+				snippetViewModelToFocus := aSnippetsCollection 
+					findOrCreateSnippetViewModel: previousSnippet.
 				snippetViewModelToFocus focusDueToNavigationUp.
 				aSnippetsCollection scrollToViewModel: snippetViewModelToFocus.
 				true ] 

@@ -129,6 +129,12 @@ LeContentCommand >> uid [
 	^ uid
 ]
 
+{ #category : #'updating - view model' }
+LeContentCommand >> updateSnippetsViewModelFor: aSnippetsViewModel withResult: aCommandResult [
+	"A hook method used to update the state of a view model 
+	based on the result of executing a command."
+]
+
 { #category : #execution }
 LeContentCommand >> withUndoExecute: aBlock [
 	"An utility method that creates an undo specification after a command was executed.

@@ -6,9 +6,13 @@ Class {
 
 { #category : #actions }
 LePageEditHistoryUndoAction >> applyOn: aPage [
-	self editEvent undoOn: aPage.
+	| undoResult |
+	undoResult := self editEvent undoOn: aPage.
+	
 	self pageHistory 
-		addRedoActionForEvent: self editEvent
+		addRedoActionForEvent: self editEvent.
+		
+	^ undoResult
 ]
 
 { #category : #accessing }

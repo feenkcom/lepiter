@@ -17,7 +17,13 @@ LeRestoreContentCommand class >> forTraceEvent: anEvent inPage: aPage [
 
 { #category : #executing }
 LeRestoreContentCommand >> basicExecute [
-	^ self withUndoExecute: [  self targetCommand execute ]
+	| currentResult targetCommandResult | 
+	currentResult := self withUndoExecute: [  
+		targetCommandResult := self targetCommand execute ].
+	
+	^ currentResult 
+		targetCommandResult: targetCommandResult;
+		yourself
 ]
 
 { #category : #'execution - utils' }
