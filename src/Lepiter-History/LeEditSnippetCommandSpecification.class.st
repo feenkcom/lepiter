@@ -7,6 +7,26 @@ Class {
 	#category : #'Lepiter-History-Commands'
 }
 
+{ #category : #transformation }
+LeEditSnippetCommandSpecification >> asSpecificationForLogStorage [
+	"In case the state stored in the specification should be transformed,
+	create a new specification with the transformed state."
+	
+	^ self snippetState shouldTransformForLogStorage
+		ifTrue: [ self copyWithTransformedState]
+		ifFalse: [ super asSpecificationForLogStorage ]
+]
+
+{ #category : #copying }
+LeEditSnippetCommandSpecification >> copyWithTransformedState [
+	| transformedState |
+	
+	transformedState := self snippetState asStateForLogStorage.
+	^ self copy
+		snippetState: transformedState;
+		yourself
+]
+
 { #category : #'gt - extensions' }
 LeEditSnippetCommandSpecification >> gtViewStateAttributesFor: aView [ 
 	<gtView>

@@ -56,6 +56,17 @@ LeGenericSnippetState >> applySpecificAttributesOn: aSnippet [
 		on: aSnippet
 ]
 
+{ #category : #transformation }
+LeGenericSnippetState >> asStateForLogStorage [
+	| newState |
+	
+	newState := self species new.
+	attributesByName valuesDo: [ :anAttribute |
+		newState addAttribute: anAttribute asAttributeForLogStorage ].
+	
+	^ newState
+]
+
 { #category : #accessing }
 LeGenericSnippetState >> attributeNamed: anAttributeName [
 	^ attributesByName at: anAttributeName
@@ -138,6 +149,12 @@ LeGenericSnippetState >> printOn: aStream [
 		aStream << (attributesByName size =  1
 			ifTrue: [ ' attribute' ]
 			ifFalse: [ ' attributes' ]) ]
+]
+
+{ #category : #'testing - transformation' }
+LeGenericSnippetState >> shouldTransformForLogStorage [
+	^ self attributes anySatisfy: [ :anAttribute |
+		anAttribute shouldTransformForLogStorage]
 ]
 
 { #category : #accessing }

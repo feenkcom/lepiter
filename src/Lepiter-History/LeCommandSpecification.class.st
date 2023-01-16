@@ -14,6 +14,14 @@ LeCommandSpecification >> addSubcommandSpecification: aCommandSpecification [
 	self subcommandSpecifications add: aCommandSpecification
 ]
 
+{ #category : #transformation }
+LeCommandSpecification >> asSpecificationForLogStorage [
+	"Hook method to return a version of the specification for storing in the edit log.
+	By default we return the current specification."
+	
+	^ self
+]
+
 { #category : #accessing }
 LeCommandSpecification >> commandType [
 	self assert: [ self commandTypeName notNil ].

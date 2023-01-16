@@ -15,6 +15,13 @@ LeTextualSnippetAttribute >> applyOn: aTextSnippet [
 		source: self source
 ]
 
+{ #category : #transformation }
+LeTextualSnippetAttribute >> asAttributeForLogStorage [
+	^ LeTextualSnippetStringAttribute new 
+		attributeName: self rawAttributeName;
+		string: self string.
+]
+
 { #category : #accessing }
 LeTextualSnippetAttribute >> attributeName [
 	self flag: 'To Fix'.
@@ -28,6 +35,22 @@ LeTextualSnippetAttribute >> attributeName: anObject [
 ]
 
 { #category : #accessing }
+LeTextualSnippetAttribute >> rawAttributeName [
+	self flag: 'To Fix'.
+	
+	^ attributeName
+]
+
+{ #category : #accessing }
+LeTextualSnippetAttribute >> shouldTransformForLogStorage [
+	"In case a source is present we should not store it in the log.
+	This is used to pass temporary information from the view model,
+	to avoid redundannt updates and infinite loops when updating."
+	
+	^ self source notNil
+]
+
+{ #category : #accessing }
 LeTextualSnippetAttribute >> source [
 	^ source
 ]
@@ -35,6 +58,11 @@ LeTextualSnippetAttribute >> source [
 { #category : #accessing }
 LeTextualSnippetAttribute >> source: anObject [
 	source := anObject
+]
+
+{ #category : #accessing }
+LeTextualSnippetAttribute >> string [	
+	self subclassResponsibility
 ]
 
 { #category : #accessing }
