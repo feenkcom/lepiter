@@ -34,6 +34,17 @@ LeTextualSnippetAttribute >> attributeName: anObject [
 	attributeName := anObject
 ]
 
+{ #category : #printing }
+LeTextualSnippetAttribute >> printOn: aStream [
+	super printOn: aStream.
+	
+	aStream parenthesize: [
+		aStream 
+			<< self attributeName;
+			<< '=';
+			print: self attributeValue ]
+]
+
 { #category : #accessing }
 LeTextualSnippetAttribute >> rawAttributeName [
 	self flag: 'To Fix'.
