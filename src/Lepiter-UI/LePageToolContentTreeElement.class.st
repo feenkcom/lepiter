@@ -11,7 +11,8 @@ Class {
 	#traits : 'TLePageToolContentTreeElement + TLeWithFontSize + TBlAssertUIProcess',
 	#classTraits : 'TLePageToolContentTreeElement classTrait + TLeWithFontSize classTrait + TBlAssertUIProcess classTrait',
 	#instVars : [
-		'footerToolbarElement'
+		'footerToolbarElement',
+		'upShortcut'
 	],
 	#classInstVars : [
 		'incomingLinksViewModelClass'
@@ -44,11 +45,63 @@ LePageToolContentTreeElement class >> showIncomingReferencesInlined [
 	self incomingLinksViewModelClass: LeIncomingLinksInlinedViewModel
 ]
 
+{ #category : #'private - tree element' }
+LePageToolContentTreeElement >> bindTreeRowData: aTreeNode to: aTreeRowElement at: aRowIndex [
+	| theLines |
+	aTreeRowElement
+		childNamed: #toggle
+		ifFound: [ :aToggleElement | 
+			aToggleElement viewModel model: aTreeNode.
+			aToggleElement
+				hide: aTreeNode canBeExpanded not;
+				expanded: aTreeNode isExpanded;
+				disabled: aTreeNode canBeExpanded not.
+			aToggleElement
+				margin: ((aToggleElement margin withLeft: aTreeNode depth * 15)
+						withTop: (aTreeNode canBeExpanded ifTrue: [ 6 ] ifFalse: [ 0 ])) ].
+
+	theLines := aTreeRowElement children
+			select: [ :eachChild | eachChild userData at: #leTreeLine ifAbsent: [ false ] ].
+	aTreeRowElement removeChildren: theLines.
+
+	theLines := Array
+			streamContents: [ :aStream | 
+				1
+					to: aTreeNode depth + aTreeNode isExpanded asBit
+					do: [ :eachDepthLevel | 
+						| eachLine |
+						eachLine := BlElement new
+								constraintsDo: [ :c | 
+									c ignoreByLayout.
+									c ignored vertical alignTop.
+									c horizontal exact: 7.
+									c vertical matchParent ];
+								layout: BlFrameLayout new;
+								relocate: (eachDepthLevel * 15 - 10.5) @ 0;
+								padding: (BlInsets top: (aTreeNode depth < eachDepthLevel ifTrue: [ 15 ] ifFalse: [ 0 ]));
+								addChild: (BlElement new
+										background: BrGlamorousColors lightBorderColor;
+										constraintsDo: [ :c | 
+											c horizontal exact: 1.
+											c vertical matchParent.
+											c frame horizontal alignCenter ]).
+						eachLine userData at: #leTreeLine put: true.
+						eachLine zIndex: -10.
+						aStream nextPut: eachLine ] ].
+
+	aTreeRowElement addChildren: theLines.
+
+	aRowIndex = 1
+		ifTrue: [ self selectOnEnter: aTreeRowElement.
+			aTreeRowElement addShortcut: upShortcut ]
+		ifFalse: [ aTreeRowElement removeShortcut: upShortcut ]
+]
+
 { #category : #initialization }
 LePageToolContentTreeElement >> initialize [
 	super initialize.
 	self initializeFontSizeShortcuts.
-	"self initializeUndoShortcuts."
+	self initializeElementShorcuts.
 	self initializeElementUpdater.
 	
 	treeElement := self createTreeElement.
@@ -63,6 +116,16 @@ LePageToolContentTreeElement >> initialize [
 		hInherit: self headerElement;
 		vAnyToFitContent: self headerElement;
 		inherit: treeElement)
+]
+
+{ #category : #initialization }
+LePageToolContentTreeElement >> initializeElementShorcuts [
+
+	upShortcut := BlShortcutWithAction new
+			overrideChildren: true;
+			combination: BlKeyCombination arrowUp;
+			action: [ :anEvent | anEvent target loseFocus.
+				self selectTitle ].
 ]
 
 { #category : #initialization }
@@ -125,6 +188,11 @@ LePageToolContentTreeElement >> redoCurrent [
 		redoCurrentUpdatingSnippetsViewModelFor: (self snippetsViewModel
 			viewModelCollections detect: [ :aViewModel |
 				aViewModel class = LeSnippetsTreeViewModel ]) 
+]
+
+{ #category : #'private - selection' }
+LePageToolContentTreeElement >> selectOnEnter: anElement [ 
+	self titleElement selectOnExit: anElement
 ]
 
 { #category : #'api - accessing' }
