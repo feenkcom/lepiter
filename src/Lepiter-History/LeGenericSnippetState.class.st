@@ -1,6 +1,6 @@
 Class {
 	#name : #LeGenericSnippetState,
-	#superclass : #LeBasicSnippetState,
+	#superclass : #Object,
 	#instVars : [
 		'attributesByName'
 	],
