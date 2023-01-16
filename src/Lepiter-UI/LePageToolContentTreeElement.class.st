@@ -48,6 +48,7 @@ LePageToolContentTreeElement class >> showIncomingReferencesInlined [
 LePageToolContentTreeElement >> initialize [
 	super initialize.
 	self initializeFontSizeShortcuts.
+	"self initializeUndoShortcuts."
 	self initializeElementUpdater.
 	
 	treeElement := self createTreeElement.
@@ -62,6 +63,21 @@ LePageToolContentTreeElement >> initialize [
 		hInherit: self headerElement;
 		vAnyToFitContent: self headerElement;
 		inherit: treeElement)
+]
+
+{ #category : #initialization }
+LePageToolContentTreeElement >> initializeUndoShortcuts [
+	self addShortcut: (BlShortcutWithAction new
+		name: 'Undo';
+		combination: (BlKeyCombination builder primary 
+			key:  BlKeyboardKey y) build;
+		action: [ self pageViewModel undoCurrent ]).
+		
+	self addShortcut: (BlShortcutWithAction new
+		name: 'Redo';
+		combination: (BlKeyCombination builder primary  shift
+			key:  BlKeyboardKey y) build;
+		action: [ self pageViewModel redoCurrent ]).
 ]
 
 { #category : #'api - page view model' }

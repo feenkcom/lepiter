@@ -71,7 +71,7 @@ LeTextCoderSnippetViewModel >> onCoderSourceModified: aGtCoderSourceCodeChanged 
 	aGtCoderSourceCodeChanged source = self ifTrue: [ ^ self ].
 	
 	editCommand := (self snippetModel commandBuilder editTextualSnippetCommand
-		text: aGtCoderSourceCodeChanged coder currentSourceText
+		string: aGtCoderSourceCodeChanged coder currentSourceText asString
 		withSource: self -> aGtCoderSourceCodeChanged isSynchronous).
 		
 	editCommand execute

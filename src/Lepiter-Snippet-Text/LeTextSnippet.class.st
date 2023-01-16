@@ -102,6 +102,14 @@ LeTextSnippet class >> leJsonV4Name [
 	^ 'textSnippet'
 ]
 
+{ #category : #accessing }
+LeTextSnippet class >> stateAttributes [
+	^ self leJsonV4AttributeMapping collect: [ :aMapping |
+		aMapping key = #string
+			ifTrue: [ LeTextualSnippetStringAttribute named: aMapping key ]
+			ifFalse: [ LeGenericSnippetStateAttribute named: aMapping key ] ]
+]
+
 { #category : #'instance creation' }
 LeTextSnippet class >> string: aString [ 
 

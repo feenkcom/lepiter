@@ -9,7 +9,7 @@ Class {
 		'shouldFocusFirstSnippet',
 		'sharedSnippetContext'
 	],
-	#category : 'Lepiter-UI-Page-! View Models'
+	#category : #'Lepiter-UI-Page-! View Models'
 }
 
 { #category : #announcer }
@@ -267,6 +267,10 @@ LePageViewModel >> receiver: anObject [
 	sharedSnippetContext selfObject: anObject
 ]
 
+{ #category : #'api - undo/redo' }
+LePageViewModel >> redoCurrent [
+]
+
 { #category : #'api - page' }
 LePageViewModel >> removePage [
 	self pageModel removeSelf
@@ -310,6 +314,11 @@ LePageViewModel >> subscribeToPageModel [
 		when: LePageRemovedFromDatabase send: #onPageRemoved: to: self;
 		when: LePageUnloadAnnouncement send: #onPageRemoved: to: self;
 		when: LePageDatabaseChanged send: #onPageMoved: to: self.
+]
+
+{ #category : #'api - undo/redo' }
+LePageViewModel >> undoCurrent [
+	self pageModel editHistory undoCurrent
 ]
 
 { #category : #'api - page model' }

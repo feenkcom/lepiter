@@ -4,6 +4,12 @@ Class {
 	#category : #'Lepiter-History-State'
 }
 
+{ #category : #'instance creation' }
+LeBasicSnippetStateAttribute class >> named: anAttributeName [ 
+	^ self new 
+		attributeName: anAttributeName 
+]
+
 { #category : #comparing }
 LeBasicSnippetStateAttribute >> = anObject [
 
@@ -29,6 +35,11 @@ LeBasicSnippetStateAttribute >> attributeName [
 LeBasicSnippetStateAttribute >> attributeValue [
 
 	^ self subclassResponsibility 
+]
+
+{ #category : #initialization }
+LeBasicSnippetStateAttribute >> extractValueFromSnippet: aSnippet [
+	^ aSnippet perform: self attributeName
 ]
 
 { #category : #comparing }
