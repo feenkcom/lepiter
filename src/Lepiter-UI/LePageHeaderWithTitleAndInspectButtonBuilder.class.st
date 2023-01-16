@@ -8,14 +8,13 @@ I am used by {{gtClass:LePageToolContentElement}} in {{gtMethod:LePageToolConten
 Class {
 	#name : #LePageHeaderWithTitleAndInspectButtonBuilder,
 	#superclass : #LePageHeaderBuilder,
-	#category : 'Lepiter-UI-Support - Page Toolbar'
+	#category : #'Lepiter-UI-Support - Page Toolbar'
 }
 
 { #category : #'api - building' }
 LePageHeaderWithTitleAndInspectButtonBuilder >> build [
 	self removeAllItems.
 	self addTitle.
-	self addFlexibleSeparator.
 	self addRemoteLinkToClipboardButton.
 	self addInspectButton.
 ]

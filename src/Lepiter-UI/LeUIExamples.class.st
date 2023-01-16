@@ -612,17 +612,6 @@ LeUIExamples >> toolbarWithButton [
 ]
 
 { #category : #'examples - toolbar' }
-LeUIExamples >> toolbarWithButtonsFlexibleAndFixedSeparators [
-	<gtExample>
-	| anElement aButton |
-	anElement := self toolbarWithTwoButtonsAndFixedSeparator.
-	anElement addFlexibleSeparator.
-	aButton := self buttonIcon: BrGlamorousIcons add tooltip: 'Insert'.
-	anElement addItem: aButton.
-	^ anElement
-]
-
-{ #category : #'examples - toolbar' }
 LeUIExamples >> toolbarWithTwoButtons [
 	<gtExample>
 	| anElement aButton |
@@ -638,17 +627,6 @@ LeUIExamples >> toolbarWithTwoButtonsAndFixedSeparator [
 	| anElement aButton |
 	anElement := self toolbarWithButton.
 	anElement addFixedSeparator.
-	aButton := self buttonIcon: BrGlamorousIcons browse tooltip: 'Browse'.
-	anElement addItem: aButton.
-	^ anElement
-]
-
-{ #category : #'examples - toolbar' }
-LeUIExamples >> toolbarWithTwoButtonsAndFlexibleSeparator [
-	<gtExample>
-	| anElement aButton |
-	anElement := self toolbarWithButton.
-	anElement addFlexibleSeparator.
 	aButton := self buttonIcon: BrGlamorousIcons browse tooltip: 'Browse'.
 	anElement addItem: aButton.
 	^ anElement
