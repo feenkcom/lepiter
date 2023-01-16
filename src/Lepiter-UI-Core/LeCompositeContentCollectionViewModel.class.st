@@ -63,3 +63,8 @@ LeCompositeContentCollectionViewModel >> updateChildren [
 	
 	viewModelCollections do: [ :eachCollection | eachCollection updateChildren ]
 ]
+
+{ #category : #accessing }
+LeCompositeContentCollectionViewModel >> viewModelCollections [
+	^ viewModelCollections
+]

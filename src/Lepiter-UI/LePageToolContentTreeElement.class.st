@@ -71,13 +71,13 @@ LePageToolContentTreeElement >> initializeUndoShortcuts [
 		name: 'Undo';
 		combination: (BlKeyCombination builder primary 
 			key:  BlKeyboardKey y) build;
-		action: [ self pageViewModel undoCurrent ]).
+		action: [ self undoCurrent ]).
 		
 	self addShortcut: (BlShortcutWithAction new
 		name: 'Redo';
 		combination: (BlKeyCombination builder primary  shift
 			key:  BlKeyboardKey y) build;
-		action: [ self pageViewModel redoCurrent ]).
+		action: [ self redoCurrent ]).
 ]
 
 { #category : #'api - page view model' }
@@ -119,6 +119,14 @@ LePageToolContentTreeElement >> onPageViewModelChanged [
 		ifTrue: [ pageSnippetsTreeViewModel focusFirstSnippet ]
 ]
 
+{ #category : #'api - undo/redo' }
+LePageToolContentTreeElement >> redoCurrent [
+	self pageViewModel 
+		redoCurrentUpdatingSnippetsViewModelFor: (self snippetsViewModel
+			viewModelCollections detect: [ :aViewModel |
+				aViewModel class = LeSnippetsTreeViewModel ]) 
+]
+
 { #category : #'api - accessing' }
 LePageToolContentTreeElement >> selectionTransformation: aBlock [
 ]
@@ -134,6 +142,14 @@ LePageToolContentTreeElement >> subscribeToPageViewModel [
 		
 	snippetsViewModel weak
 		when: LeSnippetCollectionScrollToChanged send: #onContentTreeScrollTo to: self
+]
+
+{ #category : #'api - undo/redo' }
+LePageToolContentTreeElement >> undoCurrent [
+	self pageViewModel 
+		undoCurrentUpdatingSnippetsViewModelFor: (self snippetsViewModel
+			viewModelCollections detect: [ :aViewModel |
+				aViewModel class = LeSnippetsTreeViewModel ]) 
 ]
 
 { #category : #'api - page view model' }

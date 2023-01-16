@@ -37,6 +37,12 @@ LeSnippetsCollectionViewModel >> findOrCreateSnippetViewModel: aLeSnippet [
 		ifAbsentPut: [ self createSnippetUIModelFor: aLeSnippet ]
 ]
 
+{ #category : #'api - snippets' }
+LeSnippetsCollectionViewModel >> findSnippetViewModel: aLeSnippet [
+	^ snippetsMap
+		at: aLeSnippet
+]
+
 { #category : #'api - focus' }
 LeSnippetsCollectionViewModel >> focusFirstSnippet [
 	(focusedSnippetUIModel notNil and: [ self includesContentUIModel: focusedSnippetUIModel ])
@@ -75,6 +81,12 @@ LeSnippetsCollectionViewModel >> includesContentUIModel: aContentUIModel [
 			ifTrue: [ ^ true ] ].
 
 	^ false
+]
+
+{ #category : #'api - testing' }
+LeSnippetsCollectionViewModel >> includesSnippetViewModelForSnippet: aLeSnippet [
+	^ snippetsMap
+		includesKey: aLeSnippet
 ]
 
 { #category : #initialization }

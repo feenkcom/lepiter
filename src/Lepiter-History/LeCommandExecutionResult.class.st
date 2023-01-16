@@ -49,3 +49,10 @@ LeCommandExecutionResult >> undoSpecification: aCommandSpecification [
 
 	undoSpecification := aCommandSpecification
 ]
+
+{ #category : #'updating - view model' }
+LeCommandExecutionResult >> updateSnippetsViewModelFor: aSnippetsViewModel [
+	self command 
+		updateSnippetsViewModelFor: aSnippetsViewModel
+		withResult: self
+]
