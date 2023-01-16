@@ -79,8 +79,7 @@ LeContentTraceEvent >> printOn: aStream [
 
 { #category : #'api - undo/redo' }
 LeContentTraceEvent >> redoOn: aPage [
-	
-	(LeRedoContentCommand 
+	^ (LeRedoContentCommand 
 		forTraceEvent: self
 		inPage: aPage) execute
 ]

@@ -269,6 +269,25 @@ LePageViewModel >> receiver: anObject [
 
 { #category : #'api - undo/redo' }
 LePageViewModel >> redoCurrent [
+	^ self pageModel editHistory redoCurrent
+]
+
+{ #category : #'api - undo/redo' }
+LePageViewModel >> redoCurrentUpdatingSnippetsViewModelFor: aSnippetsViewModel [
+	self redoCurrentWithResultAction: [ :aCommandResult |
+		aCommandResult targetCommandResult 
+				updateSnippetsViewModelFor: aSnippetsViewModel ]
+]
+
+{ #category : #'api - undo/redo' }
+LePageViewModel >> redoCurrentWithResultAction: aResultActionBlock [
+	| redoResult |
+	redoResult := self redoCurrent.
+	redoResult ifNil: [ 
+		"No need to do any update if no undo was executed."
+		^ self ].
+		
+	aResultActionBlock cull: redoResult
 ]
 
 { #category : #'api - page' }

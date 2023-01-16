@@ -127,14 +127,19 @@ LePageEditHistory >> redoActions [
 
 { #category : #'api - undo/redo' }
 LePageEditHistory >> redoCurrent [
-	self redoOn: targetPage
+	^ self redoOn: targetPage
 ]
 
 { #category : #'api - undo/redo' }
 LePageEditHistory >> redoOn: aPage [
+	| redoResult |
+	redoResult := nil.
+	
 	redoActions ifNotEmpty: [ :currentRedoActions |
-		self disableDuring: [ "undoActions add: ("
-			currentRedoActions removeLast applyOn: aPage ] ]
+		self disableDuring: [
+			redoResult := currentRedoActions removeLast applyOn: aPage ] ].
+	
+	^ redoResult
 ]
 
 { #category : #accessing }

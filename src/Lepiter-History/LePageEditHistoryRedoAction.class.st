@@ -6,9 +6,13 @@ Class {
 
 { #category : #hook }
 LePageEditHistoryRedoAction >> applyOn: aPage [
-	self editEvent redoOn: aPage.
+	| redoResult |
+	redoResult := self editEvent redoOn: aPage.
+	
 	self pageHistory 
-		addUndoActionForEvent: self editEvent
+		addUndoActionForEvent: self editEvent.
+		
+	^ redoResult
 ]
 
 { #category : #accessing }

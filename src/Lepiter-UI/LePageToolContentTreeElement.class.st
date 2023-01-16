@@ -77,7 +77,7 @@ LePageToolContentTreeElement >> initializeUndoShortcuts [
 		name: 'Redo';
 		combination: (BlKeyCombination builder primary  shift
 			key:  BlKeyboardKey y) build;
-		action: [ self pageViewModel redoCurrent ]).
+		action: [ self redoCurrent ]).
 ]
 
 { #category : #'api - page view model' }
@@ -117,6 +117,14 @@ LePageToolContentTreeElement >> onPageViewModelChanged [
 
 	self pageViewModel shouldFocusFirstSnippet
 		ifTrue: [ pageSnippetsTreeViewModel focusFirstSnippet ]
+]
+
+{ #category : #'api - undo/redo' }
+LePageToolContentTreeElement >> redoCurrent [
+	self pageViewModel 
+		redoCurrentUpdatingSnippetsViewModelFor: (self snippetsViewModel
+			viewModelCollections detect: [ :aViewModel |
+				aViewModel class = LeSnippetsTreeViewModel ]) 
 ]
 
 { #category : #'api - accessing' }
