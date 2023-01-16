@@ -61,7 +61,7 @@ LeEditTextSnippetCommandExamples >> initialTargetSnippet [
 { #category : #accessing }
 LeEditTextSnippetCommandExamples >> instantiateEditSnippetCommand [
 	^ self targetSnippet commandBuilder editTextualSnippetCommand
-		text: self modifiedStringValue asRopedText
+		string: self modifiedStringValue
 ]
 
 { #category : #accessing }

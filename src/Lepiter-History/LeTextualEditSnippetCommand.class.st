@@ -14,22 +14,18 @@ LeTextualEditSnippetCommand >> string: aString [
 
 { #category : #accessing }
 LeTextualEditSnippetCommand >> string: aString withSource: aSource [
-	self 
-		text: aString asRopedText 
-		withSource: aSource
+	self snippetState 
+		addAttribute: (LeTextualSnippetStringAttribute new
+			string: aString;
+			source: aSource)
 ]
 
 { #category : #accessing }
 LeTextualEditSnippetCommand >> text: aText [ 
-	self 
-		text: aText 
-		withSource: nil
+	self notYetImplemented 
 ]
 
 { #category : #accessing }
 LeTextualEditSnippetCommand >> text: aText withSource: aSource [
-	self snippetState 
-		addAttribute: (LeTextualSnippetTextAttribute new
-			text: aText;
-			source: aSource)
+	self notYetImplemented 
 ]

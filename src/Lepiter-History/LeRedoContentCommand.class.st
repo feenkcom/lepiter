@@ -22,7 +22,8 @@ LeRedoContentCommand >> descriptionOn: aStream [
 LeRedoContentCommand >> initializeForTraceEvent: anEvent inPage: aPage [
 	super initializeForTraceEvent: anEvent inPage: aPage.
 	
-	targetCommand := anEvent mainCommandSpecification createCommandForPage: aPage.
+	targetCommand := anEvent mainCommandSpecification 
+		createCommandForPage: aPage.
 	targetCommand parentCommand: self.
 ]
 

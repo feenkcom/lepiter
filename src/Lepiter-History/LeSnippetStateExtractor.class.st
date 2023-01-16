@@ -24,11 +24,9 @@ LeSnippetStateExtractor >> extractState [
 	| state |
 	state := LeGenericSnippetState new.
 	
-	self selectedAttributeNames do: [ :attributeName |
-		| attributeType | 
-		attributeType := LeGenericSnippetStateAttribute.
-		state addAttribute: (attributeType 
-			named: attributeName fromSnippet: self targetSnippet) ].
+	self selectedAttributes do: [ :anAttribute |
+		anAttribute initializeValueFromSnippet:  self targetSnippet.
+		state addAttribute: anAttribute ].
 			
 	^  state
 ]
@@ -79,6 +77,15 @@ LeSnippetStateExtractor >> selectedAttributeNames [
 	^ (self targetSnippet class leJsonV4AttributeMapping
 		collect: [ :assoc | assoc key ])
 		copyWithoutAll: self ignoredAttributeNames 
+]
+
+{ #category : #selecting }
+LeSnippetStateExtractor >> selectedAttributes [
+	| ignoredAttributeNames |
+	ignoredAttributeNames := self ignoredAttributeNames.
+	^ self targetSnippet class stateAttributes	
+		reject: [ :anAttribute |
+			ignoredAttributeNames includes:  anAttribute attributeName ]
 ]
 
 { #category : #accessing }

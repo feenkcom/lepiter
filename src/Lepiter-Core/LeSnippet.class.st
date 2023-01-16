@@ -21,6 +21,12 @@ Class {
 	#category : #'Lepiter-Core-Model'
 }
 
+{ #category : #accessing }
+LeSnippet class >> stateAttributes [
+	^ self leJsonV4AttributeMapping collect: [ :aMapping |
+		LeGenericSnippetStateAttribute named: aMapping key ]
+]
+
 { #category : #visiting }
 LeSnippet >> acceptVisitor: aVisitor [
 
