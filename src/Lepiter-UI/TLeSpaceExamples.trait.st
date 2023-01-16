@@ -59,9 +59,10 @@ TLeSpaceExamples >> showInSpace: aBlElement [
 { #category : #'examples - support' }
 TLeSpaceExamples >> waitTaskExecutionIn: anElement [
 	| aSemaphore isExpired |
+
 	aSemaphore := Semaphore new.
 	anElement enqueueTask: (BlTaskAction new action: [ 
 		aSemaphore signal ]).
 	isExpired := aSemaphore waitTimeoutSeconds: 10.
-	self assert: isExpired not description: 'Task execution semaphore expired'.
+	self assert: isExpired not description: [ 'Task execution semaphore expired, queue=', anElement taskQueue printString ].
 ]
