@@ -67,11 +67,19 @@ LeTextCoderSnippetViewModel >> moveCursorAt: aCursorPosition [
 
 { #category : #'private - event handling' }
 LeTextCoderSnippetViewModel >> onCoderSourceModified: aGtCoderSourceCodeChanged [
-	| editCommand|
+	| changedText editCommand|
 	aGtCoderSourceCodeChanged source = self ifTrue: [ ^ self ].
 	
+	changedText := aGtCoderSourceCodeChanged coder currentSourceText.
+	self snippetModel text characters = changedText characters ifTrue: [ 
+		"In case the content is identical we issue no command. 
+		This can happen if multiple view models are opened on the same
+		snippet model. When the second view model updates it should not
+		trigger any new command."
+		^ self ].
+	
 	editCommand := (self snippetModel commandBuilder editTextualSnippetCommand
-		string: aGtCoderSourceCodeChanged coder currentSourceText asString
+		string: changedText asString
 		withSource: self -> aGtCoderSourceCodeChanged isSynchronous).
 		
 	editCommand execute
