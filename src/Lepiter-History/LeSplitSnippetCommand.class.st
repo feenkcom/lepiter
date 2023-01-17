@@ -115,6 +115,8 @@ LeSplitSnippetCommand >> splitAtCursorPosition: aCursorPosition [
 	self assert: [ aCursorPosition isZero not ].
 	self assert: [ aCursorPosition ~= self targetSnippet text size ].
 	
+	cursorPosition := aCursorPosition.
+	
 	currentSnippetText := self targetSnippet text copy.
 	newSnippetText := currentSnippetText copyFrom: 1 to: aCursorPosition.
 	self addInsertNewSnippetAboveCommandWithText: newSnippetText.
