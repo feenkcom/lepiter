@@ -450,26 +450,25 @@ LePage >> moveUpSnippet: aLeSnippet [
 { #category : #'private - updating' }
 LePage >> newReloadFromPage: aLePage [
 	"Update the receiver to match the supplied page."
+
 	| typeOfChange changed |
-	
 	typeOfChange := self detectStructureChangeTypeToPage: aLePage.
-	typeOfChange needsPageRebuild 
-		ifTrue:  [ 
-			self rebuildFromContent: aLePage. 
+	typeOfChange needsPageRebuild
+		ifTrue: [ self rebuildFromContent: aLePage.
 			changed := true ]
-		ifFalse: [ 
-			changed := self reloadFromContent: aLePage ].
+		ifFalse: [ changed := self reloadFromContent: aLePage ].
 	latestEditTime := nil.
-	
-	type = aLePage type ifFalse: [
-		"Temporary fix to send a notification when the title of a page changed.
-		Should be improved to to use a generic mechanism for changing the type of a page."
-		((type isNamedPageType or: [ type isUnnamedPageType ]) and: [ aLePage type isNamedPageType ])
-			ifTrue: [
-				self updateTitle:  aLePage type title ]
-			ifFalse: [
-				type := aLePage type ].
-		changed := true ].
+
+	type = aLePage type
+		ifFalse: [  "Temporary fix to send a notification when the title of a page changed.
+		Should be improved to to use a generic mechanism for changing the type of a page."((type
+				isNamedPageType or: [ type isUnnamedPageType ])
+				and: [ aLePage type isNamedPageType ])
+				ifTrue: [ self updateTitle: aLePage type title ]
+				ifFalse: [ (type isNamedPageType and: [ aLePage type isUnnamedPageType ])
+						ifTrue: [ self updateTitle: '' ]
+						ifFalse: [ type := aLePage type ] ].
+			changed := true ].
 
 	changed ifTrue: [ self announceTreeChanged: self ]
 ]
@@ -606,8 +605,7 @@ LePage >> title: aString [
 	As the title can currently change the page type, also update the type.
 	To update title, use ${method:LePage>>#updateTitle:}$."
 
-	type := type title: aString.
-
+	^ type := type title: aString.
 ]
 
 { #category : #'private - accessing' }
