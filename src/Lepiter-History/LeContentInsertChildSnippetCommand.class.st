@@ -4,8 +4,7 @@ Class {
 	#instVars : [
 		'insertPath',
 		'snippetTypeName',
-		'initialSnippetState',
-		'newSnippetUIModel'
+		'initialSnippetState'
 	],
 	#category : #'Lepiter-History-Commands'
 }
@@ -210,6 +209,11 @@ LeContentInsertChildSnippetCommand >> label [
 ]
 
 { #category : #accessing }
+LeContentInsertChildSnippetCommand >> newSnippetUid [
+	^ (initialSnippetState attributeNamed: #uid) attributeValue
+]
+
+{ #category : #accessing }
 LeContentInsertChildSnippetCommand >> snippetTypeName [
 
 	^ snippetTypeName
@@ -222,7 +226,8 @@ LeContentInsertChildSnippetCommand >> snippetTypeName: aTypeName [
 ]
 
 { #category : #'updating - view model' }
-LeContentInsertChildSnippetCommand >> updateSnippetsViewModelFor: aSnippetsViewModel withResult: aCommandResult [		
+LeContentInsertChildSnippetCommand >> updateSnippetsViewModelFor: aSnippetsViewModel withResult: aCommandResult [
+	| newSnippetUIModel |		
 	newSnippetUIModel := aSnippetsViewModel
 		findOrCreateSnippetViewModel: aCommandResult insertedSnippet.
 	newSnippetUIModel focusAfterCreation.

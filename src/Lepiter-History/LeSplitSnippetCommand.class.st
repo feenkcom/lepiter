@@ -2,7 +2,9 @@ Class {
 	#name : #LeSplitSnippetCommand,
 	#superclass : #LeSnippetCommand,
 	#instVars : [
-		'cursorPosition'
+		'cursorPosition',
+		'newSnippetUid',
+		'insertSnippetCommand'
 	],
 	#category : #'Lepiter-History-Commands'
 }
@@ -14,7 +16,7 @@ LeSplitSnippetCommand class >> splitSnippet: aTargetSnippet atCursorPosition: aC
 ]
 
 { #category : #'initialization - commands' }
-LeSplitSnippetCommand >> addInsertNewSnippetAboveCommandWithText: aSnippetText [
+LeSplitSnippetCommand >> addInsertNewSnippetAboveCommandWithText: aSnippetText andUid: aNewSnippetUid [
 	| command |
 	
 	command := self targetSnippet 
@@ -22,8 +24,12 @@ LeSplitSnippetCommand >> addInsertNewSnippetAboveCommandWithText: aSnippetText [
 	command initialSnippetState
 		addAttribute: (LeTextualSnippetTextAttribute new
 			text: aSnippetText).
+			
+	aNewSnippetUid ifNotNil: [
+		command useSnippetUid: aNewSnippetUid ].
 	
-	self addSubcommand: command 
+	insertSnippetCommand := command.
+	self addSubcommand: insertSnippetCommand 
 ]
 
 { #category : #initialization }
@@ -71,6 +77,8 @@ LeSplitSnippetCommand >> createCommandSpecification [
 		contentUid: self targetContent uid;
 		commandTypeName: self className;
 		attributeAt: #cursorPosition put: self cursorPosition;
+		attributeAt: #newSnippetUid 
+			put: insertSnippetCommand  newSnippetUid ;
 		yourself
 ]
 
@@ -107,8 +115,11 @@ LeSplitSnippetCommand >> gtViewSubcommandsFor: aView [
 LeSplitSnippetCommand >> initializeFromSpecification: aCommandSpecification withBuilder: aBuilder [
 	super initializeFromSpecification: aCommandSpecification withBuilder: aBuilder.
 	
-	self splitAtCursorPosition: (aCommandSpecification 
-		attributeAt: #cursorPosition)
+	self 
+		splitAtCursorPosition: (aCommandSpecification 
+			attributeAt: #cursorPosition)
+		withNewUid: (aCommandSpecification 
+			attributeAt: #newSnippetUid)
 ]
 
 { #category : #accessing }
@@ -116,8 +127,18 @@ LeSplitSnippetCommand >> label [
 	^ 'Split Snippet'
 ]
 
+{ #category : #accessing }
+LeSplitSnippetCommand >> newSnippetUid [
+	^ newSnippetUid
+]
+
 { #category : #initialization }
 LeSplitSnippetCommand >> splitAtCursorPosition: aCursorPosition [
+	self splitAtCursorPosition: aCursorPosition withNewUid: nil
+]
+
+{ #category : #initialization }
+LeSplitSnippetCommand >> splitAtCursorPosition: aCursorPosition withNewUid: aNewSnippetUid [
 	| currentSnippetText newSnippetText existingSnippetNewText |
 	
 	self assert: [ subcommands isEmpty ].
@@ -125,10 +146,13 @@ LeSplitSnippetCommand >> splitAtCursorPosition: aCursorPosition [
 	self assert: [ aCursorPosition ~= self targetSnippet text size ].
 	
 	cursorPosition := aCursorPosition.
+	newSnippetUid := aNewSnippetUid.
 	
 	currentSnippetText := self targetSnippet text copy.
 	newSnippetText := currentSnippetText copyFrom: 1 to: aCursorPosition.
-	self addInsertNewSnippetAboveCommandWithText: newSnippetText.
+	self 
+		addInsertNewSnippetAboveCommandWithText: newSnippetText
+		andUid: aNewSnippetUid.
 		
 	existingSnippetNewText := self 
 		computeCurrentSnippetTextFrom: currentSnippetText 
