@@ -8,6 +8,23 @@ Class {
 }
 
 { #category : #accessing }
+LeEditEmptyTextSnippetCommandExamples >> executeCommand_executeUndo_executeRedoCommand [
+	<gtExample>
+	| command initialSnippetState result |
+	
+	command := self createEditSnippetCommand.
+	initialSnippetState := self targetSnippet extractUpdatableState.
+	
+	command execute.
+	self targetPage editHistory undoCurrent.
+	result := self targetPage editHistory redoCurrent.
+	
+	self assertExecutionResultFor: result.
+	
+	^ result
+]
+
+{ #category : #accessing }
 LeEditEmptyTextSnippetCommandExamples >> initialStringValue [
 	^ ''
 ]
