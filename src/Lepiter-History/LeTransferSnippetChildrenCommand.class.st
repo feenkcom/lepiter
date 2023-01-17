@@ -23,7 +23,7 @@ LeTransferSnippetChildrenCommand >> createCommandSpecification [
 
 { #category : #'execution - utils' }
 LeTransferSnippetChildrenCommand >> createUndoCommand [
-	^ self targetContent commandBuilder transferChildrenCommand
+	^ self sourceSnippet commandBuilder transferChildrenCommand
 		sourceSnippet: self targetSnippet
 ]
 

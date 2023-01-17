@@ -127,6 +127,14 @@ LeContentRemoveChildSnippetCommand >> createInsertChildStructureCompositeCommand
 ]
 
 { #category : #'execution - utils' }
+LeContentRemoveChildSnippetCommand >> createUndoAsLeafCommand [
+	^ self 
+		createInsertChildSnippetCommandFor: self childSnippet 
+		inParent: self targetContent
+		forRoot: self targetContent
+]
+
+{ #category : #'execution - utils' }
 LeContentRemoveChildSnippetCommand >> createUndoCommand [
 	^ self 
 		createInsertChildStructureCommandFor: self childSnippet 

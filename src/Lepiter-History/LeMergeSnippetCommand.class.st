@@ -2,7 +2,8 @@ Class {
 	#name : #LeMergeSnippetCommand,
 	#superclass : #LeSnippetCommand,
 	#instVars : [
-		'sourceSnippet'
+		'sourceSnippet',
+		'deleteSnippetCommand'
 	],
 	#category : #'Lepiter-History-Commands'
 }
@@ -15,9 +16,10 @@ LeMergeSnippetCommand class >> merge: aSnippet with: anotherSnippet [
 
 { #category : #initialization }
 LeMergeSnippetCommand >> addDeleteSnippetCommandFor: aSourceSnippet [ 
-
-	self addSubcommand: (aSourceSnippet parent commandBuilder 
-		removeChildSnippetCommandFor: aSourceSnippet)
+	deleteSnippetCommand := aSourceSnippet parent commandBuilder 
+		removeChildSnippetCommandFor: aSourceSnippet.
+	
+	self addSubcommand: deleteSnippetCommand
 ]
 
 { #category : #initialization }
@@ -52,14 +54,21 @@ LeMergeSnippetCommand >> createCommandSpecification [
 { #category : #'execution - utils' }
 LeMergeSnippetCommand >> createUndoCommandSpecification [
 	| specification | 
+	
 	specification := LeCompositeCommandSpecification new 
 		contentUid: self targetContent uid;
 		commandTypeName: LeGenericCompositeCommand name;
 		label: 'Undo Merge'.
 	
-	self subcommands do: [ :aSubcommand |
-		 specification 
-		 	addSubcommandSpecification: aSubcommand createUndoCommandSpecification ].
+	specification 
+		addSubcommandSpecification: deleteSnippetCommand 
+			createUndoAsLeafCommand createCommandSpecification.
+	
+	(self subcommands copyWithout: deleteSnippetCommand) reversed 
+		do: [ :aSubcommand |
+			 specification 
+		 		addSubcommandSpecification: aSubcommand 
+		 			createUndoCommandSpecification ].
 	
 	^ specification
 ]
@@ -71,6 +80,15 @@ LeMergeSnippetCommand >> gtViewSubcommandsFor: aView [
 	^ aView list 
 		title: 'Subcommands';
 		items: [ self subcommands ]
+]
+
+{ #category : #initialization }
+LeMergeSnippetCommand >> initializeFromSpecification: aCommandSpecification withBuilder: aBuilder [
+	super initializeFromSpecification: aCommandSpecification withBuilder: aBuilder.
+	
+	self mergeContentOf: (aBuilder 
+		locateContentWithUid: (aCommandSpecification 
+			attributeAt: #sourceSnippetUid))
 ]
 
 { #category : #accessing }
