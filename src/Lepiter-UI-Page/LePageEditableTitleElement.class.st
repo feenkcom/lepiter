@@ -17,6 +17,11 @@ Class {
 }
 
 { #category : #initialization }
+LePageEditableTitleElement >> acceptPageTitle [
+	self pageViewModel pageTitle: titleElement text asString
+]
+
+{ #category : #initialization }
 LePageEditableTitleElement >> createAddButton [
 	| aButton |
 	^ aButton := self plusButton
@@ -73,6 +78,13 @@ LePageEditableTitleElement >> createTitleElement [
 			vFitContent;
 			when: BrEditorAcceptWish do: [ :aWish | self onAcceptTitleWish: aWish ];
 			addShortcut: (BlShortcutWithAction new
+					combination: BlKeyCombination enter;
+					action: [ :aShortcutEvent | 
+						self acceptPageTitle.
+						self pageViewModel pageModel
+							addSnippet: (LeTextSnippet string: '')
+							beforeIndex: 1 ]);
+			addShortcut: (BlShortcutWithAction new
 					combination: BlKeyCombination primaryG;
 					action: [ :aShortcutEvent | 
 						self hasPage
@@ -93,7 +105,7 @@ LePageEditableTitleElement >> createTitleElement [
 
 	anEditor editor
 		when: BrTextEditorModifiedEvent
-		do: [ :anEvent | pageViewModel pageTitle: anEvent text asString ].
+		do: [ :anEvent | self acceptPageTitl ].
 
 	^ anEditor
 ]
