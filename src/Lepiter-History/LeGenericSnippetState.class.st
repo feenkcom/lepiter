@@ -17,10 +17,20 @@ LeGenericSnippetState >> = anObject [
 ]
 
 { #category : #adding }
-LeGenericSnippetState >> addAttribute: aStateAttribute [ 
-	attributesByName 
-		at: aStateAttribute attributeName 
-		put: aStateAttribute
+LeGenericSnippetState >> addAttribute: aStateAttribute [
+	self assert: [ aStateAttribute notNil ].
+	self assert: [ 
+		(attributesByName  includesKey: aStateAttribute attributeName) not ].
+	 
+	self setAttribute: aStateAttribute.
+]
+
+{ #category : #adding }
+LeGenericSnippetState >> appendState: aSnippetState [
+	self assert: [ aSnippetState notNil ].
+	
+	aSnippetState attributesDo: [ :anAttribute |
+		self addAttribute:  anAttribute ].
 ]
 
 { #category : #updating }
@@ -74,7 +84,7 @@ LeGenericSnippetState >> attributeNamed: anAttributeName [
 
 { #category : #adding }
 LeGenericSnippetState >> attributeNamed: anAttributeName setValue: aValue [
-	self addAttribute: (LeGenericSnippetStateAttribute new
+	self setAttribute: (LeGenericSnippetStateAttribute new
 		attributeName: anAttributeName;
 		attributeValue: aValue)
 ]
@@ -98,6 +108,11 @@ LeGenericSnippetState >> attributesByName [
 { #category : #accessing }
 LeGenericSnippetState >> attributesCount [
 	^ attributesByName size
+]
+
+{ #category : #enumerating }
+LeGenericSnippetState >> attributesDo: aBlock [
+	attributesByName valuesDo: aBlock
 ]
 
 { #category : #accessing }
@@ -129,6 +144,11 @@ LeGenericSnippetState >> hasAttributeNamed: aName [
 	^ attributesByName includesKey: aName
 ]
 
+{ #category : #testing }
+LeGenericSnippetState >> hasAttributes [
+	^ attributesByName notEmpty
+]
+
 { #category : #comparing }
 LeGenericSnippetState >> hash [ 
 	
@@ -149,6 +169,15 @@ LeGenericSnippetState >> printOn: aStream [
 		aStream << (attributesByName size =  1
 			ifTrue: [ ' attribute' ]
 			ifFalse: [ ' attributes' ]) ]
+]
+
+{ #category : #adding }
+LeGenericSnippetState >> setAttribute: aStateAttribute [
+	self assert: [ aStateAttribute notNil ].
+	 
+	attributesByName 
+		at: aStateAttribute attributeName 
+		put: aStateAttribute
 ]
 
 { #category : #'testing - transformation' }

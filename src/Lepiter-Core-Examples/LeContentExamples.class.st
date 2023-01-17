@@ -625,6 +625,23 @@ LeContentExamples >> removeSnippetWithLink [
 ]
 
 { #category : #'examples - text changes' }
+LeContentExamples >> renameDatabasePageToUnnamed_PageTitleChanged_ReceivedByDatabase [
+	<gtExample>
+	| aDatabase aPage aCollection |
+	aDatabase := self renameDatabasePage_PageTitleChanged_ReceivedByDatabase.
+	aCollection := OrderedCollection new.
+	aDatabase 
+		when: LePageTitleChanged
+		do: [ :anAnnouncement | aCollection add: anAnnouncement ].
+	aPage := aDatabase anyOne.
+	aPage updateTitle: ''.
+	self assert: aDatabase size equals: 1.
+	self assert: aCollection size equals: 1.
+	self assert: aCollection first page equals: aPage.
+	^ aDatabase
+]
+
+{ #category : #'examples - text changes' }
 LeContentExamples >> renameDatabasePage_DatabaseResorted_AnnouncedByDatabase [
 	<gtExample>
 	| aDatabase aPage aCollection |

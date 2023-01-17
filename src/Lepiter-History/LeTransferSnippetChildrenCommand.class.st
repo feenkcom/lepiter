@@ -18,12 +18,12 @@ LeTransferSnippetChildrenCommand >> createCommandSpecification [
 	^ LeTransferSnippetChildrenCommandSpecification new 
 		contentUid: self targetSnippetUid;
 		commandTypeName: self className;
-		sourceSnippet: self sourceSnippet
+		sourceSnippetUid: self sourceSnippet uid
 ]
 
 { #category : #'execution - utils' }
 LeTransferSnippetChildrenCommand >> createUndoCommand [
-	^ self targetContent commandBuilder transferChildrenCommand
+	^ self sourceSnippet commandBuilder transferChildrenCommand
 		sourceSnippet: self targetSnippet
 ]
 

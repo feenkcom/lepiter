@@ -9,7 +9,18 @@ Class {
 
 { #category : #execution }
 LeGenericCompositeCommand >> basicExecute [ 
-	self executeSubcommands
+	| subcommandResults |
+	
+	subcommandResults := self executeSubcommands.
+	
+	^ self createCommandResult
+		subcommandResults: subcommandResults;
+		yourself
+]
+
+{ #category : #'execution - utils' }
+LeGenericCompositeCommand >> createCommandResult [
+	^ LeCompositeCommandExecutionResult forCommand: self
 ]
 
 { #category : #converting }

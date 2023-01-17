@@ -84,7 +84,8 @@ LeContentRemoveChildSnippetCommand >> createInsertChildSnippetCommandFor: aChild
 			computeChildPathFor: aChildSnippet 
 			inParent: aParentSnippet
 			forRoot: aRootContent); 
-		initialSnippetState: aChildSnippet extractUpdatableState
+		useSnippetUid: aChildSnippet uid;
+		appendSnippetState: aChildSnippet extractUpdatableState
 ]
 
 { #category : #'execution - utils' }
@@ -123,6 +124,14 @@ LeContentRemoveChildSnippetCommand >> createInsertChildStructureCompositeCommand
 	addSnippetCommand addSubcommand: addChildrenCommand.
 	
 	^ addSnippetCommand
+]
+
+{ #category : #'execution - utils' }
+LeContentRemoveChildSnippetCommand >> createUndoAsLeafCommand [
+	^ self 
+		createInsertChildSnippetCommandFor: self childSnippet 
+		inParent: self targetContent
+		forRoot: self targetContent
 ]
 
 { #category : #'execution - utils' }

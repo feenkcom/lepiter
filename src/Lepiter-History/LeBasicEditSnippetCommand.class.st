@@ -99,11 +99,7 @@ LeBasicEditSnippetCommand >> snippetState: aSnippetState [
 ]
 
 { #category : #'updating - view model' }
-LeBasicEditSnippetCommand >> updateSnippetsViewModelFor: aSnippetsViewModel withResult: aCommandResult [	
-	super 
-		updateSnippetsViewModelFor: aSnippetsViewModel 
-		withResult: aCommandResult.
-	
+LeBasicEditSnippetCommand >> updateSnippetsViewModelFor: aSnippetsViewModel withResult: aCommandResult [		
 	(aSnippetsViewModel findSnippetViewModel: self targetContent)
 		focused: true
 ]

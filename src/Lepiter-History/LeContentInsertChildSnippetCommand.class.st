@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'insertPath',
 		'snippetTypeName',
-		'initialSnippetState'
+		'initialSnippetState',
+		'newSnippetUIModel'
 	],
 	#category : #'Lepiter-History-Commands'
 }
@@ -12,6 +13,17 @@ Class {
 { #category : #accessing }
 LeContentInsertChildSnippetCommand class >> commandDescription [ 
 	^ 'Insert Child Snippet'
+]
+
+{ #category : #configuration }
+LeContentInsertChildSnippetCommand >> appendSnippetState: aSnippetState [
+	initialSnippetState hasAttributes
+		ifFalse: [ 
+			"In case the current state is empty we use the give one"
+			initialSnippetState := aSnippetState.
+			^ self].
+	
+	initialSnippetState appendState: aSnippetState.
 ]
 
 { #category : #execution }
@@ -209,8 +221,17 @@ LeContentInsertChildSnippetCommand >> snippetTypeName: aTypeName [
 	snippetTypeName := aTypeName
 ]
 
+{ #category : #'updating - view model' }
+LeContentInsertChildSnippetCommand >> updateSnippetsViewModelFor: aSnippetsViewModel withResult: aCommandResult [		
+	newSnippetUIModel := aSnippetsViewModel
+		findOrCreateSnippetViewModel: aCommandResult insertedSnippet.
+	newSnippetUIModel focusAfterCreation.
+	
+	aSnippetsViewModel scrollToViewModel: newSnippetUIModel
+]
+
 { #category : #configuration }
-LeContentInsertChildSnippetCommand >> uid: anUid [ 
+LeContentInsertChildSnippetCommand >> useSnippetUid: anUid [ 
 	self assert: [ anUid notNil ].
 	
 	self initialize: #uid with: anUid
