@@ -14,6 +14,17 @@ LeContentInsertChildSnippetCommand class >> commandDescription [
 	^ 'Insert Child Snippet'
 ]
 
+{ #category : #configuration }
+LeContentInsertChildSnippetCommand >> appendSnippetState: aSnippetState [
+	initialSnippetState hasAttributes
+		ifFalse: [ 
+			"In case the current state is empty we use the give one"
+			initialSnippetState := aSnippetState.
+			^ self].
+	
+	initialSnippetState appendState: aSnippetState.
+]
+
 { #category : #execution }
 LeContentInsertChildSnippetCommand >> basicExecute [ 
 	| newSnippet |

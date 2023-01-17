@@ -34,6 +34,21 @@ LeInsertContentCommandExamples >> assertInsertStateOnlyHasUidFor: aCommand [
 	self 
 		assert: aCommand initialSnippetState attributeNames
 		equals: #(uid). 
+	self 
+		assert: (aCommand initialSnippetState 
+			attributeNamed: #uid) attributeValue notNil
+]
+
+{ #category : #asserting }
+LeInsertContentCommandExamples >> assertInsertedSnippetUidInResult: aResult [ 
+	self 
+		assert: aResult insertedSnippet uid
+		equals: (aResult command initialSnippetState 
+			attributeNamed: #uid) attributeValue.
+]
+
+{ #category : #'examples - execution' }
+LeInsertContentCommandExamples >> assertInsertedSnippetUidInResult: result forCommand: command [ 
 ]
 
 { #category : #asserting }
@@ -104,6 +119,23 @@ LeInsertContentCommandExamples >> createInsertEmptyFirstChildSnippetInParentWith
 		insertFirst.
 	
 	self assertInsertNewSnipperAfterFirstCommandFor: command.
+	
+	^ command
+]
+
+{ #category : #'examples - commands' }
+LeInsertContentCommandExamples >> createInsertEmptyFirstSnippetInPageByTemplateCommand [
+	<gtExample>
+	| command |
+	
+	command := self targetPage 
+		insertChildCommandFor: LeTextSnippet empty.
+	
+	self assertValidCommandFor: command.
+	self assert: command initialSnippetState attributesCount equals: 3.
+	self assert: (command initialSnippetState attributeNames 
+		includes: #uid). 
+	self assert: command insertPath isAtLastChildPosition.
 	
 	^ command
 ]
@@ -199,6 +231,7 @@ LeInsertContentCommandExamples >> executeInsertEmptyChildSnippetInParentBetweenS
 					#snippetNew -> ''.
 					#snippetB -> 'ChildB'})} 
 		forInsertCommandResult: result.
+	self assertInsertedSnippetUidInResult: result.
 
 	^ self targetPage
 ]
@@ -218,6 +251,7 @@ LeInsertContentCommandExamples >> executeInsertEmptyFirstChildSnippetInParentWit
 					#snippetNew -> ''.
 					#snippetA -> 'ChildA'})} 
 		forInsertCommandResult: result.
+	self assertInsertedSnippetUidInResult: result.
 
 	^ self targetPage
 ]
@@ -235,6 +269,24 @@ LeInsertContentCommandExamples >> executeInsertEmptyFirstChildSnippetInParentWit
 			#snippetT -> ('Target' -> 
 				{#snippetNew -> ''})} 
 		forInsertCommandResult: result.
+	self assertInsertedSnippetUidInResult: result.
+
+	^ self targetPage
+]
+
+{ #category : #'examples - execution' }
+LeInsertContentCommandExamples >> executeInsertEmptyFirstSnippetInPageByTemplateCommand [
+	<gtExample>
+	| command result |
+	
+	command := self createInsertEmptyFirstSnippetInPageByTemplateCommand.
+	result := command execute.
+	
+	self 
+		assertStructure:  { 
+			#snippetNew -> ''}
+		forInsertCommandResult: result.
+	self assertInsertedSnippetUidInResult: result.
 
 	^ self targetPage
 ]
@@ -251,6 +303,7 @@ LeInsertContentCommandExamples >> executeInsertEmptyFirstSnippetInPageCommand [
 		assertStructure:  { 
 			#snippetNew -> ''}
 		forInsertCommandResult: result.
+	self assertInsertedSnippetUidInResult: result.
 
 	^ self targetPage
 ]
@@ -269,6 +322,7 @@ LeInsertContentCommandExamples >> executeInsertEmptySnippetBetweenSnippetsInPage
 			#snippetNew -> ''.
 			#snippetA -> 'A'} 
 		forInsertCommandResult: result.
+	self assertInsertedSnippetUidInResult: result.
 
 	^ self targetPage
 ]
