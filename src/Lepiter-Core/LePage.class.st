@@ -297,7 +297,8 @@ LePage >> hasLinkNamed: aString [
 
 { #category : #'api - testing' }
 LePage >> hasTitle [
-	^ self title isNotNil and: [ self title isNotEmpty ]
+	^ self type isUnnamedPageType not
+		and: [ self title isNotNil and: [ self title isNotEmpty ] ]
 ]
 
 { #category : #querying }

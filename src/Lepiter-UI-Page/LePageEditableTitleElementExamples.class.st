@@ -138,7 +138,7 @@ LePageEditableTitleElementExamples >> pageEditableTitleElement_UntitledPage [
 	anElement := self basicPageEditableTitleElement.
 	aPage := self untitledPage.
 	anElement pageViewModel: aPage asContentUIModel.
-	self assert: anElement titleElement text asString equals: aPage title.
+	self assert: anElement titleElement text asString equals: ''.
 	^ anElement
 ]
 
