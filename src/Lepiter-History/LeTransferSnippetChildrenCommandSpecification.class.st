@@ -2,19 +2,19 @@ Class {
 	#name : #LeTransferSnippetChildrenCommandSpecification,
 	#superclass : #LeCommandSpecification,
 	#instVars : [
-		'sourceSnippet'
+		'sourceSnippetUid'
 	],
 	#category : #'Lepiter-History-Commands'
 }
 
 { #category : #accessing }
-LeTransferSnippetChildrenCommandSpecification >> sourceSnippet [
+LeTransferSnippetChildrenCommandSpecification >> sourceSnippetUid [
 
-	^ sourceSnippet
+	^ sourceSnippetUid
 ]
 
 { #category : #accessing }
-LeTransferSnippetChildrenCommandSpecification >> sourceSnippet: anObject [
+LeTransferSnippetChildrenCommandSpecification >> sourceSnippetUid: anUid [
 
-	sourceSnippet := anObject
+	sourceSnippetUid := anUid
 ]
