@@ -19,7 +19,7 @@ LeScanner >> scan1 [
 	self step.
 	currentCharacter == Character lf ifTrue: [ ^ self recordAndReportMatch: #(20) ].
 	currentCharacter == Character cr ifTrue: [ ^ self scan1X13 ].
-	currentCharacter == $! ifTrue: [ ^ self scan1X2 ].
+	currentCharacter == $! ifTrue: [ ^ self scan1X6 ].
 	currentCharacter == $# ifTrue: [ ^ self recordAndReportMatch: #(5) ].
 	currentCharacter == $( ifTrue: [ ^ self scan1X12 ].
 	currentCharacter == $) ifTrue: [ ^ self scan1X11 ].
@@ -91,15 +91,15 @@ LeScanner >> scan1X13 [
 LeScanner >> scan1X14 [
 	currentCharacter == $* ifTrue: [ ^ self recordAndReportMatch: #(21) ].
 	currentCharacter == $: ifTrue: [ ^ self scan1X10 ].
-	currentCharacter == $< ifTrue: [ ^ self scan1X4 ].
+	currentCharacter == $< ifTrue: [ ^ self scan1X3 ].
 	currentCharacter == $> ifTrue: [ ^ self recordAndReportMatch: #(29) ].
-	currentCharacter == $[ ifTrue: [ ^ self scan1X6 ].
+	currentCharacter == $[ ifTrue: [ ^ self scan1X5 ].
 	currentCharacter == $] ifTrue: [ ^ self scan1X9 ].
-	currentCharacter == $` ifTrue: [ ^ self scan1X5 ].
+	currentCharacter == $` ifTrue: [ ^ self scan1X4 ].
 	currentCharacter == ${ ifTrue: [ ^ self scan1X8 ].
 	currentCharacter == $} ifTrue: [ ^ self scan1X7 ].
 	currentCharacter = (Character value: 133) ifTrue: [ ^ self scan1X1 ].
-	true ifTrue: [ self scan1X3 ].
+	true ifTrue: [ self scan1X2 ].
 	^ self reportLastMatch
 ]
 
@@ -133,35 +133,6 @@ LeScanner >> scan1X1X1 [
 
 { #category : #generated }
 LeScanner >> scan1X2 [
-	self recordMatch: #(12).
-	self step.
-	currentCharacter == $[
-		ifTrue: [ [ self step.
-			currentCharacter == $] ifTrue: [ ^ self scan1X2X1 ].
-			currentCharacter <= $Z or: [ currentCharacter >= $\ ] ] whileTrue ].
-	^ self reportLastMatch
-]
-
-{ #category : #generated }
-LeScanner >> scan1X2X1 [
-	self step.
-	currentCharacter == $(
-		ifTrue: [ [ self step.
-			currentCharacter == $) ifTrue: [ ^ self recordAndReportMatch: #(14) ].
-			currentCharacter isAlphaNumeric
-				or: [ (currentCharacter between: Character space and: $!)
-						or: [ (currentCharacter between: $# and: $')
-								or: [ (currentCharacter between: $* and: $/)
-										or: [ (currentCharacter between: $: and: $;)
-												or: [ currentCharacter == $=
-														or: [ (currentCharacter between: $? and: $@)
-																or: [ '[]_~' includes: currentCharacter ] ] ] ] ] ] ] ]
-				whileTrue ].
-	^ self reportLastMatch
-]
-
-{ #category : #generated }
-LeScanner >> scan1X3 [
 	[ self recordMatch: #(3).
 	self step.
 	currentCharacter <= Character tab
@@ -180,7 +151,7 @@ LeScanner >> scan1X3 [
 ]
 
 { #category : #generated }
-LeScanner >> scan1X4 [
+LeScanner >> scan1X3 [
 	self recordMatch: #(30).
 	self step.
 	(currentCharacter isAlphaNumeric
@@ -202,7 +173,7 @@ LeScanner >> scan1X4 [
 ]
 
 { #category : #generated }
-LeScanner >> scan1X5 [
+LeScanner >> scan1X4 [
 	self recordMatch: #(25).
 	self step.
 	currentCharacter == $`
@@ -213,12 +184,12 @@ LeScanner >> scan1X5 [
 					(currentCharacter <= Character tab
 						or: [ (currentCharacter between: Character pageUp and: Character newPage)
 								or: [ (currentCharacter between: (Character value: 14) and: $_)
-										or: [ currentCharacter >= $a ] ] ]) ifTrue: [ ^ self scan3 ].
+										or: [ currentCharacter >= $a ] ] ]) ifTrue: [ ^ self scan5 ].
 					^ self reportLastMatch ].
 			(currentCharacter <= Character tab
 				or: [ (currentCharacter between: Character pageUp and: Character newPage)
 						or: [ currentCharacter >= (Character value: 14) ] ])
-				ifTrue: [ ^ self scan3 ].
+				ifTrue: [ ^ self scan5 ].
 			^ self reportLastMatch ].
 	(currentCharacter <= Character tab
 		or: [ (currentCharacter between: Character pageUp and: Character newPage)
@@ -232,14 +203,28 @@ LeScanner >> scan1X5 [
 ]
 
 { #category : #generated }
-LeScanner >> scan1X6 [
+LeScanner >> scan1X5 [
 	self recordMatch: #(28).
 	self step.
 	currentCharacter == $[ ifTrue: [ ^ self recordAndReportMatch: #(4) ].
-	currentCharacter == $] ifTrue: [ ^ self scan2 ].
+	currentCharacter == $] ifTrue: [ ^ self scan3 ].
 	true
 		ifTrue: [ [ self step.
-			currentCharacter == $] ifTrue: [ ^ self scan2 ].
+			currentCharacter == $] ifTrue: [ ^ self scan3 ].
+			currentCharacter <= $Z or: [ currentCharacter >= $\ ] ] whileTrue ].
+	^ self reportLastMatch
+]
+
+{ #category : #generated }
+LeScanner >> scan1X6 [
+	self recordMatch: #(12).
+	self step.
+	currentCharacter == $[
+		ifTrue: [ [ self step.
+			currentCharacter == $]
+				ifTrue: [ self step.
+					currentCharacter == $( ifTrue: [ ^ self scan2 ].
+					^ self reportLastMatch ].
 			currentCharacter <= $Z or: [ currentCharacter >= $\ ] ] whileTrue ].
 	^ self reportLastMatch
 ]
@@ -270,10 +255,10 @@ LeScanner >> scan1X9 [
 
 { #category : #generated }
 LeScanner >> scan2 [
-	self step.
+	[ self step.
 	currentCharacter == $(
 		ifTrue: [ [ self step.
-			currentCharacter == $) ifTrue: [ ^ self recordAndReportMatch: #(13) ].
+			currentCharacter == $) ifTrue: [ ^ self scan2 ].
 			currentCharacter isAlphaNumeric
 				or: [ (currentCharacter between: Character space and: $!)
 						or: [ (currentCharacter between: $# and: $')
@@ -282,12 +267,55 @@ LeScanner >> scan2 [
 												or: [ currentCharacter == $=
 														or: [ (currentCharacter between: $? and: $@)
 																or: [ '[]_~' includes: currentCharacter ] ] ] ] ] ] ] ]
-				whileTrue ].
+				whileTrue.
+			^ self reportLastMatch ].
+	currentCharacter == $) ifTrue: [ ^ self recordAndReportMatch: #(14) ].
+	currentCharacter isAlphaNumeric
+		or: [ (currentCharacter between: Character space and: $!)
+				or: [ (currentCharacter between: $# and: $/)
+						or: [ (currentCharacter between: $: and: $;)
+								or: [ currentCharacter == $=
+										or: [ (currentCharacter between: $? and: $@)
+												or: [ '[]_~' includes: currentCharacter ] ] ] ] ] ] ] whileTrue.
 	^ self reportLastMatch
 ]
 
 { #category : #generated }
 LeScanner >> scan3 [
+	self step.
+	currentCharacter == $( ifTrue: [ ^ self scan4 ].
+	^ self reportLastMatch
+]
+
+{ #category : #generated }
+LeScanner >> scan4 [
+	[ self step.
+	currentCharacter == $(
+		ifTrue: [ [ self step.
+			currentCharacter == $) ifTrue: [ ^ self scan4 ].
+			currentCharacter isAlphaNumeric
+				or: [ (currentCharacter between: Character space and: $!)
+						or: [ (currentCharacter between: $# and: $')
+								or: [ (currentCharacter between: $* and: $/)
+										or: [ (currentCharacter between: $: and: $;)
+												or: [ currentCharacter == $=
+														or: [ (currentCharacter between: $? and: $@)
+																or: [ '[]_~' includes: currentCharacter ] ] ] ] ] ] ] ]
+				whileTrue.
+			^ self reportLastMatch ].
+	currentCharacter == $) ifTrue: [ ^ self recordAndReportMatch: #(13) ].
+	currentCharacter isAlphaNumeric
+		or: [ (currentCharacter between: Character space and: $!)
+				or: [ (currentCharacter between: $# and: $/)
+						or: [ (currentCharacter between: $: and: $;)
+								or: [ currentCharacter == $=
+										or: [ (currentCharacter between: $? and: $@)
+												or: [ '[]_~' includes: currentCharacter ] ] ] ] ] ] ] whileTrue.
+	^ self reportLastMatch
+]
+
+{ #category : #generated }
+LeScanner >> scan5 [
 	[ self step.
 	currentCharacter == $`
 		ifTrue: [ self step.
@@ -295,7 +323,7 @@ LeScanner >> scan3 [
 			(currentCharacter <= Character tab
 				or: [ (currentCharacter between: Character pageUp and: Character newPage)
 						or: [ currentCharacter >= (Character value: 14) ] ])
-				ifTrue: [ ^ self scan3 ].
+				ifTrue: [ ^ self scan5 ].
 			^ self reportLastMatch ].
 	currentCharacter <= Character tab
 		or: [ (currentCharacter between: Character pageUp and: Character newPage)
@@ -304,25 +332,27 @@ LeScanner >> scan3 [
 ]
 
 { #category : #generated }
-LeScanner >> scan4 [
+LeScanner >> scan6 [
 	[ self recordMatch: #(22).
 	self step.
-	currentCharacter == $[ ifTrue: [ ^ self scan5 ].
-	currentCharacter == $] ifTrue: [ ^ self scan6 ].
+	currentCharacter == $[ ifTrue: [ ^ self scan7 ].
+	currentCharacter == $] ifTrue: [ ^ self scan8 ].
 	true ] whileTrue
 ]
 
 { #category : #generated }
-LeScanner >> scan5 [
+LeScanner >> scan7 [
 	self step.
-	(currentCharacter <= $Z or: [ currentCharacter == $\ or: [ currentCharacter >= $^ ] ]) ifTrue: [ ^ self scan4 ].
+	(currentCharacter <= $Z
+		or: [ currentCharacter == $\ or: [ currentCharacter >= $^ ] ])
+		ifTrue: [ ^ self scan6 ].
 	^ self reportLastMatch
 ]
 
 { #category : #generated }
-LeScanner >> scan6 [
+LeScanner >> scan8 [
 	self step.
-	currentCharacter ~~ $] ifTrue: [ ^ self scan4 ].
+	currentCharacter ~~ $] ifTrue: [ ^ self scan6 ].
 	^ self reportLastMatch
 ]
 
@@ -330,24 +360,21 @@ LeScanner >> scan6 [
 LeScanner >> scanForToken [
 	scope == #default ifTrue: [ ^ self scan1 ].
 	scope == #linkText
-		ifTrue:
-			[ self step.
-			currentCharacter == $[ ifTrue: [ ^ self scan5 ].
-			currentCharacter == $] ifTrue: [ ^ self scan6 ].
-			^ self scan4 ].
+		ifTrue: [ self step.
+			currentCharacter == $[ ifTrue: [ ^ self scan7 ].
+			currentCharacter == $] ifTrue: [ ^ self scan8 ].
+			^ self scan6 ].
 	scope == #annotation
-		ifTrue:
-			[ self step.
+		ifTrue: [ self step.
 			currentCharacter == $: ifTrue: [ ^ self recordAndReportMatch: #(15) ].
 			(currentCharacter isSeparator or: [ currentCharacter == Character pageUp ])
-				ifTrue:
-					[ [ self recordMatch: #(2).
+				ifTrue: [ [ self recordMatch: #(2).
 					self step.
-					currentCharacter isSeparator or: [ currentCharacter == Character pageUp ] ] whileTrue.
+					currentCharacter isSeparator or: [ currentCharacter == Character pageUp ] ]
+						whileTrue.
 					^ self reportLastMatch ].
 			currentCharacter isLetter
-				ifTrue:
-					[ [ self recordMatch: #(1).
+				ifTrue: [ [ self recordMatch: #(1).
 					self step.
 					currentCharacter isAlphaNumeric ] whileTrue ] ].
 	^ self reportLastMatch

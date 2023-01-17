@@ -59,7 +59,7 @@ LeParser class >> annotationParsers [
 
 { #category : #'generated-accessing' }
 LeParser class >> cacheId [
-	^'2023-01-12T10:56:45.391263-06:00'
+	^'2023-01-17T10:06:30.398696-06:00'
 ]
 
 { #category : #generated }
@@ -124,7 +124,7 @@ annotation <whitespace>
 	: \!
 	;
 <labelUrl>
-	: \[ [^\[\]]* \]\( <urlCharacterWithoutParen>* \)
+	: \[ [^\[\]]* \]\( (<urlCharacterWithoutParen> |  (\( <urlCharacterWithoutParen>* \)) )* \)
 	;
 <imageUrl>
 	: <exclamationMark> <labelUrl>
@@ -401,98 +401,98 @@ LeParser class >> parseAnnotation: aString from: aParser [
 { #category : #generated }
 LeParser class >> reduceTable [
 ^#(
-	#(40 0 #reduceActionForPartsWithoutStars1: 1948673 false) 
-	#(42 1 #reduceActionFor_hash___numberSign__1: 2024449 false) 
-	#(61 1 #reduceActionForStar1: 3424257 false) 
-	#(32 1 #reduceActionForString1: 1592321 false) 
-	#(33 1 #reduceActionForLines1: 1690625 false) 
-	#(37 1 #reduceActionForLines1: 1784834 false) 
-	#(38 1 #reduceActionForLines1: 1827841 false) 
-	#(74 0 #reduceActionForSwitchToLinkText1: 4585473 true) 
-	#(63 0 #reduceActionForSwitchToAnnotation1: 3672065 true) 
-	#(39 1 #reduceActionForLines1: 1858561 false) 
-	#(46 0 #reduceActionForCodeBlockLanguage1: 2406401 true) 
-	#(37 1 #reduceActionFor_hash___numberSign__1: 1784833 false) 
-	#(41 1 #reduceActionForHeader2: 2014210 false) 
-	#(60 1 #reduceActionFor_hash___numberSign__1: 3377153 false) 
-	#(32 1 #reduceActionForString5: 1592325 false) 
-	#(70 2 #reduceActionForKeywordLink1: 4048897 false) 
-	#(36 1 #reduceActionForStar1: 1752065 false) 
-	#(32 2 #reduceActionForString2: 1592322 false) 
-	#(34 1 #reduceActionForLines1: 1727489 false) 
-	#(35 1 #reduceActionFor_hash___numberSign__1: 1735681 false) 
-	#(75 1 #reduceActionForStar1: 4638721 false) 
-	#(76 1 #liftFirstValue: 4714502 false) 
-	#(76 1 #liftFirstValue: 4714506 false) 
-	#(67 1 #reduceActionForExternalUrlLink1: 3908609 false) 
-	#(76 1 #liftFirstValue: 4714497 false) 
-	#(69 1 #reduceActionForExternalLabelUrlLink1: 3997697 false) 
-	#(68 1 #reduceActionForExternalImageLink1: 3949569 false) 
-	#(76 1 #liftFirstValue: 4714498 false) 
-	#(76 1 #liftFirstValue: 4714501 false) 
-	#(76 1 #liftFirstValue: 4714499 false) 
-	#(76 1 #liftFirstValue: 4714500 false) 
-	#(48 1 #reduceActionForNonHashStringPart7: 2502663 false) 
-	#(44 1 #reduceActionForNonHashStringPart7: 2198529 false) 
-	#(43 1 #reduceActionForStar1: 2106373 false) 
-	#(76 1 #liftFirstValue: 4714503 false) 
-	#(76 1 #liftFirstValue: 4714504 false) 
-	#(76 1 #liftFirstValue: 4714505 false) 
-	#(76 1 #liftFirstValue: 4714508 false) 
-	#(76 1 #liftFirstValue: 4714507 false) 
-	#(40 2 #reduceActionForPartsWithoutStars2: 1948674 false) 
-	#(43 1 #liftFirstValue: 2106372 false) 
-	#(45 0 #reduceActionForCodeBlockSource1: 2355201 true) 
-	#(43 1 #liftFirstValue: 2106369 false) 
-	#(47 1 #liftFirstValue: 2461697 false) 
-	#(43 1 #liftFirstValue: 2106370 false) 
-	#(43 1 #liftFirstValue: 2106371 false) 
-	#(48 1 #liftFirstValue: 2502662 false) 
-	#(48 1 #liftFirstValue: 2502659 false) 
-	#(66 1 #liftFirstValue: 3826690 false) 
-	#(66 1 #liftFirstValue: 3826691 false) 
-	#(66 1 #liftFirstValue: 3826689 false) 
-	#(48 1 #liftFirstValue: 2502661 false) 
-	#(48 1 #liftFirstValue: 2502660 false) 
-	#(48 1 #liftFirstValue: 2502658 false) 
-	#(48 1 #liftFirstValue: 2502657 false) 
-	#(75 1 #reduceActionForStar1: 4638722 false) 
-	#(42 2 #reduceActionForPartsWithoutStars2: 2024450 false) 
-	#(41 2 #reduceActionForHeader1: 2014209 false) 
-	#(39 2 #reduceActionForLineParts3: 1858563 false) 
-	#(60 2 #reduceActionForStars2: 3377154 false) 
-	#(32 2 #reduceActionForString3: 1592323 false) 
-	#(32 2 #reduceActionForString3: 1592326 false) 
-	#(33 3 #reduceActionForLines2: 1690626 false) 
-	#(35 2 #reduceActionForPartsWithoutStars2: 1735682 false) 
-	#(72 2 #reduceActionForEmptyDoubleBracketLink1: 4231169 false) 
-	#(72 2 #reduceActionForEmptyDoubleBracketLink1: 4231170 false) 
-	#(58 1 #liftFirstValue: 3175425 false) 
-	#(57 1 #reduceActionFor_hash___numberSign__1: 3109889 false) 
-	#(58 1 #liftFirstValue: 3175426 false) 
-	#(39 3 #reduceActionForLines2: 1858562 false) 
-	#(64 0 #reduceActionForSwitchToDefault1: 3729409 true) 
-	#(32 3 #reduceActionForString4: 1592324 false) 
-	#(71 3 #reduceActionForBlockLink1: 4120577 false) 
-	#(53 1 #liftFirstValue: 2917377 false) 
-	#(50 1 #reduceActionForLines1: 2791425 false) 
-	#(51 1 #reduceActionFor_hash___numberSign__1: 2816001 false) 
-	#(53 1 #liftFirstValue: 2917378 false) 
-	#(56 3 #reduceActionForItalic1: 3081217 false) 
-	#(57 2 #reduceActionForPartsWithoutStars2: 3109890 false) 
-	#(55 1 #reduceActionFor_hash___numberSign__1: 3021825 false) 
-	#(51 2 #reduceActionForPartsWithoutStars2: 2816002 false) 
-	#(44 4 #reduceActionForCode2: 2198530 false) 
-	#(65 0 #reduceActionForParseAnnotation1: 3780609 true) 
-	#(54 3 #reduceActionForItalic1: 2981889 false) 
-	#(55 2 #reduceActionForPartsWithoutStars2: 3021826 false) 
-	#(49 5 #reduceActionForBold1: 2673665 false) 
-	#(50 3 #reduceActionForInnerBoldStringParts2: 2791426 false) 
-	#(52 1 #reduceActionFor_hash___numberSign__1: 2859009 false) 
-	#(73 5 #reduceActionForDoubleBracketLink1: 4428801 false) 
-	#(59 5 #reduceActionForBold1: 3241985 false) 
-	#(52 2 #reduceActionForPartsWithoutStars2: 2859010 false) 
-	#(62 7 #reduceActionForDocumenterAnnotation1: 3459073 false)
+	#(40 0 #reduceActionForPartsWithoutStars1: 1991681 false) 
+	#(42 1 #reduceActionFor_hash___numberSign__1: 2067457 false) 
+	#(61 1 #reduceActionForStar1: 3467265 false) 
+	#(32 1 #reduceActionForString1: 1635329 false) 
+	#(33 1 #reduceActionForLines1: 1733633 false) 
+	#(37 1 #reduceActionForLines1: 1827842 false) 
+	#(38 1 #reduceActionForLines1: 1870849 false) 
+	#(74 0 #reduceActionForSwitchToLinkText1: 4628481 true) 
+	#(63 0 #reduceActionForSwitchToAnnotation1: 3715073 true) 
+	#(39 1 #reduceActionForLines1: 1901569 false) 
+	#(46 0 #reduceActionForCodeBlockLanguage1: 2449409 true) 
+	#(37 1 #reduceActionFor_hash___numberSign__1: 1827841 false) 
+	#(41 1 #reduceActionForHeader2: 2057218 false) 
+	#(60 1 #reduceActionFor_hash___numberSign__1: 3420161 false) 
+	#(32 1 #reduceActionForString5: 1635333 false) 
+	#(70 2 #reduceActionForKeywordLink1: 4091905 false) 
+	#(36 1 #reduceActionForStar1: 1795073 false) 
+	#(32 2 #reduceActionForString2: 1635330 false) 
+	#(34 1 #reduceActionForLines1: 1770497 false) 
+	#(35 1 #reduceActionFor_hash___numberSign__1: 1778689 false) 
+	#(75 1 #reduceActionForStar1: 4681729 false) 
+	#(76 1 #liftFirstValue: 4757510 false) 
+	#(76 1 #liftFirstValue: 4757514 false) 
+	#(67 1 #reduceActionForExternalUrlLink1: 3951617 false) 
+	#(76 1 #liftFirstValue: 4757505 false) 
+	#(69 1 #reduceActionForExternalLabelUrlLink1: 4040705 false) 
+	#(68 1 #reduceActionForExternalImageLink1: 3992577 false) 
+	#(76 1 #liftFirstValue: 4757506 false) 
+	#(76 1 #liftFirstValue: 4757509 false) 
+	#(76 1 #liftFirstValue: 4757507 false) 
+	#(76 1 #liftFirstValue: 4757508 false) 
+	#(44 1 #reduceActionForCode1: 2241537 false) 
+	#(48 1 #reduceActionForCode1: 2545671 false) 
+	#(43 1 #reduceActionForStar1: 2149381 false) 
+	#(76 1 #liftFirstValue: 4757511 false) 
+	#(76 1 #liftFirstValue: 4757512 false) 
+	#(76 1 #liftFirstValue: 4757513 false) 
+	#(76 1 #liftFirstValue: 4757516 false) 
+	#(76 1 #liftFirstValue: 4757515 false) 
+	#(40 2 #reduceActionForPartsWithoutStars2: 1991682 false) 
+	#(43 1 #liftFirstValue: 2149380 false) 
+	#(45 0 #reduceActionForCodeBlockSource1: 2398209 true) 
+	#(43 1 #liftFirstValue: 2149377 false) 
+	#(47 1 #liftFirstValue: 2504705 false) 
+	#(43 1 #liftFirstValue: 2149378 false) 
+	#(43 1 #liftFirstValue: 2149379 false) 
+	#(48 1 #liftFirstValue: 2545670 false) 
+	#(48 1 #liftFirstValue: 2545667 false) 
+	#(66 1 #liftFirstValue: 3869698 false) 
+	#(66 1 #liftFirstValue: 3869699 false) 
+	#(66 1 #liftFirstValue: 3869697 false) 
+	#(48 1 #liftFirstValue: 2545669 false) 
+	#(48 1 #liftFirstValue: 2545668 false) 
+	#(48 1 #liftFirstValue: 2545666 false) 
+	#(48 1 #liftFirstValue: 2545665 false) 
+	#(75 1 #reduceActionForStar1: 4681730 false) 
+	#(42 2 #reduceActionForPartsWithoutStars2: 2067458 false) 
+	#(41 2 #reduceActionForHeader1: 2057217 false) 
+	#(39 2 #reduceActionForLineParts3: 1901571 false) 
+	#(60 2 #reduceActionForStars2: 3420162 false) 
+	#(32 2 #reduceActionForString3: 1635331 false) 
+	#(32 2 #reduceActionForString3: 1635334 false) 
+	#(33 3 #reduceActionForLines2: 1733634 false) 
+	#(35 2 #reduceActionForPartsWithoutStars2: 1778690 false) 
+	#(72 2 #reduceActionForEmptyDoubleBracketLink1: 4274177 false) 
+	#(72 2 #reduceActionForEmptyDoubleBracketLink1: 4274178 false) 
+	#(58 1 #liftFirstValue: 3218433 false) 
+	#(57 1 #reduceActionFor_hash___numberSign__1: 3152897 false) 
+	#(58 1 #liftFirstValue: 3218434 false) 
+	#(39 3 #reduceActionForLines2: 1901570 false) 
+	#(64 0 #reduceActionForSwitchToDefault1: 3772417 true) 
+	#(32 3 #reduceActionForString4: 1635332 false) 
+	#(71 3 #reduceActionForBlockLink1: 4163585 false) 
+	#(53 1 #liftFirstValue: 2960385 false) 
+	#(50 1 #reduceActionForLines1: 2834433 false) 
+	#(51 1 #reduceActionFor_hash___numberSign__1: 2859009 false) 
+	#(53 1 #liftFirstValue: 2960386 false) 
+	#(56 3 #reduceActionForItalic1: 3124225 false) 
+	#(57 2 #reduceActionForPartsWithoutStars2: 3152898 false) 
+	#(55 1 #reduceActionFor_hash___numberSign__1: 3064833 false) 
+	#(51 2 #reduceActionForPartsWithoutStars2: 2859010 false) 
+	#(44 4 #reduceActionForCode2: 2241538 false) 
+	#(65 0 #reduceActionForParseAnnotation1: 3823617 true) 
+	#(54 3 #reduceActionForItalic1: 3024897 false) 
+	#(55 2 #reduceActionForPartsWithoutStars2: 3064834 false) 
+	#(49 5 #reduceActionForBold1: 2716673 false) 
+	#(50 3 #reduceActionForInnerBoldStringParts2: 2834434 false) 
+	#(52 1 #reduceActionFor_hash___numberSign__1: 2902017 false) 
+	#(73 5 #reduceActionForDoubleBracketLink1: 4471809 false) 
+	#(59 5 #reduceActionForBold1: 3284993 false) 
+	#(52 2 #reduceActionForPartsWithoutStars2: 2902018 false) 
+	#(62 7 #reduceActionForDocumenterAnnotation1: 3502081 false)
 	).
 ]
 
@@ -592,7 +592,7 @@ LeParser class >> transitionTable [
 #[0 1 10 0 3 0 4 0 5 0 8 0 10 0 11 0 12 0 13 0 14 0 15 0 16 0 17 0 18 0 19 0 20 0 21 0 23 0 24 0 25 0 26 0 27 0 28 0 29 0 30 0 77] 
 #[0 1 85 0 7] 
 #[1 0 85 0 3 0 19 0 4 0 245 0 5 0 97 0 8 0 245 0 10 0 105 0 11 0 245 0 12 0 113 0 13 0 117 0 14 0 245 0 15 0 38 0 16 0 245 0 17 0 245 0 18 0 245 0 19 1 89 0 21 1 41 0 23 0 245 0 26 0 245 0 27 0 245 0 28 0 245 0 29 0 245 0 30 1 105 0 47 1 105 0 48 1 97 0 50 1 101 0 51 1 105 0 53 1 105 0 54 1 105 0 62 0 205 0 63 1 105 0 66 1 105 0 67 1 105 0 68 1 105 0 69 1 105 0 71 1 105 0 72 1 105 0 73 0 237 0 74 1 105 0 75 0 245 0 76] 
-#[0 0 130 0 3 0 4 0 5 0 8 0 10 0 11 0 12 0 13 0 14 0 15 0 16 0 17 0 18 0 19 0 21 0 23 0 26 0 27 0 28 0 29 0 30] 
+#[0 0 134 0 3 0 4 0 5 0 8 0 10 0 11 0 12 0 13 0 14 0 15 0 16 0 17 0 18 0 19 0 21 0 23 0 26 0 27 0 28 0 29 0 30] 
 #[0 1 14 0 3 0 4 0 5 0 8 0 10 0 11 0 12 0 13 0 14 0 15 0 16 0 17 0 18 0 19 0 21 0 23 0 26 0 27 0 28 0 29 0 30] 
 #[1 0 85 0 3 0 19 0 4 0 245 0 5 0 97 0 8 0 245 0 10 0 105 0 11 0 245 0 12 0 113 0 13 0 117 0 14 0 245 0 15 0 38 0 16 0 245 0 17 0 245 0 18 0 245 0 19 1 113 0 21 1 41 0 23 0 245 0 26 0 245 0 27 0 245 0 28 0 245 0 29 0 245 0 30 1 117 0 47 1 117 0 48 1 117 0 58 1 117 0 59 1 117 0 62 0 205 0 63 1 117 0 66 1 117 0 67 1 117 0 68 1 117 0 69 1 117 0 71 1 117 0 72 1 117 0 73 0 237 0 74 1 117 0 75 0 245 0 76] 
 #[0 1 18 0 3 0 4 0 5 0 8 0 10 0 11 0 12 0 13 0 14 0 15 0 16 0 17 0 18 0 19 0 21 0 23 0 26 0 27 0 28 0 29 0 30] 
@@ -732,6 +732,14 @@ LeParser >> reduceActionForBold1: nodes [
 	result addNodes: (nodes at: 3) to: result parts.
 	result addToken: (nodes at: 4) to: result rightStars.
 	result addToken: (nodes at: 5) to: result rightStars.
+	^ result
+]
+
+{ #category : #'generated-reduction actions' }
+LeParser >> reduceActionForCode1: nodes [
+	| result |
+	result := LeInlineCodeNode new.
+	result code: (nodes at: 1).
 	^ result
 ]
 
@@ -877,14 +885,6 @@ LeParser >> reduceActionForLines2: nodes [
 	result := nodes at: 1.
 	self addAll: (nodes at: 2) to: result.
 	self addAll: (nodes at: 3) to: result.
-	^ result
-]
-
-{ #category : #'generated-reduction actions' }
-LeParser >> reduceActionForNonHashStringPart7: nodes [
-	| result |
-	result := LeInlineCodeNode new.
-	result code: (nodes at: 1).
 	^ result
 ]
 
