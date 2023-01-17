@@ -15,6 +15,7 @@ LeSplitSnippetCommandExamples >> createSplitChildTextSnippetCommand [
 	command := targetSnippet splitSnippetCommandAtPosition: 1.
 	
 	self assertCommand: command forSnippet: targetSnippet.
+	self assert: command cursorPosition equals: 1.
 	
 	^ command
 ]
@@ -30,6 +31,7 @@ LeSplitSnippetCommandExamples >> createSplitSinglePharoSnippetInPageCommand [
 	command := targetSnippet splitSnippetCommandAtPosition: 1.
 	
 	self assertCommand: command forSnippet: targetSnippet.
+	self assert: command cursorPosition equals: 1.
 	
 	^ command
 ]
@@ -45,6 +47,7 @@ LeSplitSnippetCommandExamples >> createSplitSingleTextSnippetInPageCommand [
 	command := targetSnippet splitSnippetCommandAtPosition: 1.
 	
 	self assertCommand: command forSnippet: targetSnippet.
+	self assert: command cursorPosition equals: 1.
 	
 	^ command
 ]
@@ -60,6 +63,7 @@ LeSplitSnippetCommandExamples >> createSplitTextSnippetWithChildrenInPageCommand
 	command := targetSnippet splitSnippetCommandAtPosition: 1.
 	
 	self assertCommand: command forSnippet: targetSnippet.
+	self assert: command cursorPosition equals: 1.
 	
 	^ command
 ]
