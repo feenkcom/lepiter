@@ -221,13 +221,6 @@ LeContentInsertChildSnippetCommand >> snippetTypeName: aTypeName [
 	snippetTypeName := aTypeName
 ]
 
-{ #category : #configuration }
-LeContentInsertChildSnippetCommand >> uid: anUid [ 
-	self assert: [ anUid notNil ].
-	
-	self initialize: #uid with: anUid
-]
-
 { #category : #'updating - view model' }
 LeContentInsertChildSnippetCommand >> updateSnippetsViewModelFor: aSnippetsViewModel withResult: aCommandResult [		
 	newSnippetUIModel := aSnippetsViewModel
@@ -235,4 +228,11 @@ LeContentInsertChildSnippetCommand >> updateSnippetsViewModelFor: aSnippetsViewM
 	newSnippetUIModel focusAfterCreation.
 	
 	aSnippetsViewModel scrollToViewModel: newSnippetUIModel
+]
+
+{ #category : #configuration }
+LeContentInsertChildSnippetCommand >> useSnippetUid: anUid [ 
+	self assert: [ anUid notNil ].
+	
+	self initialize: #uid with: anUid
 ]

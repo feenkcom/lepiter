@@ -84,7 +84,7 @@ LeGenericSnippetState >> attributeNamed: anAttributeName [
 
 { #category : #adding }
 LeGenericSnippetState >> attributeNamed: anAttributeName setValue: aValue [
-	self addAttribute: (LeGenericSnippetStateAttribute new
+	self setAttribute: (LeGenericSnippetStateAttribute new
 		attributeName: anAttributeName;
 		attributeValue: aValue)
 ]
