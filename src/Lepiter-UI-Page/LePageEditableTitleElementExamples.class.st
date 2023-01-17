@@ -50,19 +50,16 @@ LePageEditableTitleElementExamples >> databaseWithTwoPagesAndTwoDailyNotes [
 
 { #category : #'examples - page - editable title' }
 LePageEditableTitleElementExamples >> pageEditableTitleElement_ApprovedTitleRename [
-
 	<gtExample>
 	| anElement aPage aDatabase |
 	anElement := self basicPageEditableTitleElement.
 	aDatabase := self databaseWithTwoPagesAndTwoDailyNotes.
 	aPage := aDatabase pageBuilder
-		         title: 'one';
-		         ensure.
+			title: 'one';
+			ensure.
 	anElement pageViewModel: aPage asContentUIModel.
-	anElement titleElement
-		switchToEditor;
-		text: 'three';
-		acceptEdition.
+	anElement titleElement text: 'three'.
+	anElement acceptPageTitle.
 	self assert: anElement titleElement text asString equals: aPage title.
 	self assert: anElement titleElement text asString equals: 'three'.
 	^ anElement
@@ -70,21 +67,18 @@ LePageEditableTitleElementExamples >> pageEditableTitleElement_ApprovedTitleRena
 
 { #category : #'examples - page - editable title' }
 LePageEditableTitleElementExamples >> pageEditableTitleElement_DisapprovedTitleRename [
-
 	<gtExample>
 	| anElement aPage aDatabase |
 	anElement := self basicPageEditableTitleElement.
 	aDatabase := self databaseWithTwoPagesAndTwoDailyNotes.
 	aPage := aDatabase pageBuilder
-		         title: 'one';
-		         ensure.
+			title: 'one';
+			ensure.
 	anElement pageViewModel: aPage asContentUIModel.
-	anElement titleElement
-		switchToEditor;
-		text: 'two';
-		acceptEdition.
-	self assert: anElement titleElement text asString equals: aPage title.
-	self assert: anElement titleElement text asString equals: 'one'.
+	anElement titleElement text: 'two'.
+	anElement acceptPageTitle.
+	self assert: anElement titleElement text asString equals: 'two'.
+	self assert: aPage title equals: 'one'.
 	^ anElement
 ]
 
@@ -116,9 +110,8 @@ LePageEditableTitleElementExamples >> pageEditableTitleElement_RenamePageBToC [
 
 	anElement pageViewModel: aPage asContentUIModel.
 	anElement titleElement
-		switchToEditor;
-		text: 'c';
-		acceptEdition.
+		text: 'c'.
+	anElement acceptPageTitle.
 	self assert: aPage database equals: aDatabase.
 	self assert: anElement titleElement text asString equals: aPage title.
 	self assert: anElement titleElement text asString equals: 'c'.

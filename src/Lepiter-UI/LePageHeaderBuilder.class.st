@@ -32,11 +32,6 @@ LePageHeaderBuilder >> addFixedSeparator [
 ]
 
 { #category : #'private - building' }
-LePageHeaderBuilder >> addFlexibleSeparator [
-	self toolbarElement addFlexibleSeparator
-]
-
-{ #category : #'private - building' }
 LePageHeaderBuilder >> addInspectButton [
 	| anInspectButton |
 	anInspectButton := BrButton new 

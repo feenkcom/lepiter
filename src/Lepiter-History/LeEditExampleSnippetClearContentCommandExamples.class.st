@@ -1,7 +1,7 @@
 Class {
 	#name : #LeEditExampleSnippetClearContentCommandExamples,
 	#superclass : #LeEditExampleSnippetCommandExamples,
-	#category : #'Lepiter-History-Examples'
+	#category : #'Lepiter-History-Examples - Commands'
 }
 
 { #category : #accessing }

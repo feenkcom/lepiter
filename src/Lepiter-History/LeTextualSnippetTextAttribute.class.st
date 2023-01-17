@@ -13,6 +13,14 @@ LeTextualSnippetTextAttribute >> attributeValue [
 ]
 
 { #category : #accessing }
+LeTextualSnippetTextAttribute >> shouldTransformForLogStorage [
+	"This snippet should allways be transformed as it stores texts,
+	and we only want to store strings."
+	
+	^ true
+]
+
+{ #category : #accessing }
 LeTextualSnippetTextAttribute >> string [
 
 	^ self text asString

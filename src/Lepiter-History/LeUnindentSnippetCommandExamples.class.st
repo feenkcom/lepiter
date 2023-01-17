@@ -12,7 +12,7 @@ Unidenting the Target snippet results in:
 Class {
 	#name : #LeUnindentSnippetCommandExamples,
 	#superclass : #LeContentCommandExamples,
-	#category : #'Lepiter-History-Examples'
+	#category : #'Lepiter-History-Examples - Commands'
 }
 
 { #category : #'examples - setup  pages' }

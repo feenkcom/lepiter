@@ -1,7 +1,7 @@
 Class {
 	#name : #LeInsertContentCommandExamples,
 	#superclass : #LeContentCommandExamples,
-	#category : #'Lepiter-History-Examples'
+	#category : #'Lepiter-History-Examples - Commands'
 }
 
 { #category : #asserting }

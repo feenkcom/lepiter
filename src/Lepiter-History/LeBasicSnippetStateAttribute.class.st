@@ -25,6 +25,11 @@ LeBasicSnippetStateAttribute >> applyOn: aSnippet [
 	self subclassResponsibility
 ]
 
+{ #category : #transformation }
+LeBasicSnippetStateAttribute >> asAttributeForLogStorage [
+	^ self
+]
+
 { #category : #accessing }
 LeBasicSnippetStateAttribute >> attributeName [
 
@@ -45,4 +50,9 @@ LeBasicSnippetStateAttribute >> extractValueFromSnippet: aSnippet [
 { #category : #comparing }
 LeBasicSnippetStateAttribute >> hash [
 	^ self attributeName hash bitXor: self attributeValue hash
+]
+
+{ #category : #'testing - transformation' }
+LeBasicSnippetStateAttribute >> shouldTransformForLogStorage [
+	^ false
 ]

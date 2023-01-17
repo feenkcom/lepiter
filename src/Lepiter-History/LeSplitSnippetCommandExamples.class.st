@@ -1,7 +1,7 @@
 Class {
 	#name : #LeSplitSnippetCommandExamples,
 	#superclass : #LeContentCommandExamples,
-	#category : #'Lepiter-History-Examples'
+	#category : #'Lepiter-History-Examples - Commands'
 }
 
 { #category : #'examples - commands' }

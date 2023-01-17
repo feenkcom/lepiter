@@ -1,5 +1,5 @@
 "
-I display a {{gtClass:BrToolbar}} that I extend with {{gtMethod:LeToolbarElement>>#addFixedSeparator|label=fixed}} and {{gtMethod:LeToolbarElement>>#addFlexibleSeparator|label=flexible}} separators: {{gtExample:LeUIExamples>>#toolbarWithButtonsFlexibleAndFixedSeparators|previewExpanded|previewHeight=150}}
+I display a {{gtClass:BrToolbar}} that I extend with {{gtMethod:LeToolbarElement>>#addFixedSeparator|label=fixed}} separators: {{gtExample:LeUIExamples>>#toolbarWithTwoButtonsAndFixedSeparator|previewExpanded|previewHeight=150}}
 
 
 "
@@ -9,17 +9,12 @@ Class {
 	#instVars : [
 		'toolbarElement'
 	],
-	#category : 'Lepiter-UI-! Content Elements'
+	#category : #'Lepiter-UI-! Content Elements'
 }
 
 { #category : #'api - adding / removing' }
 LeToolbarElement >> addFixedSeparator [
 	self addItem: self newFixedSeparator
-]
-
-{ #category : #'api - adding / removing' }
-LeToolbarElement >> addFlexibleSeparator [
-	self addItem: self newFlexibleSeparator
 ]
 
 { #category : #'api - adding / removing' }
@@ -61,15 +56,6 @@ LeToolbarElement >> newFixedSeparator [
 		aptitude: BrLabelAptitude;
 		text: '';
 		hExact: 21;
-		vFitContent
-]
-
-{ #category : #'private - instance creation' }
-LeToolbarElement >> newFlexibleSeparator [
-	^ BrLabel new
-		aptitude: BrLabelAptitude;
-		text: '';
-		hMatchParent;
 		vFitContent
 ]
 

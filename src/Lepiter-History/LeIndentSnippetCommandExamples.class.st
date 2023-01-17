@@ -12,7 +12,7 @@ Identing the Target snippet results in:
 Class {
 	#name : #LeIndentSnippetCommandExamples,
 	#superclass : #LeContentCommandExamples,
-	#category : #'Lepiter-History-Examples'
+	#category : #'Lepiter-History-Examples - Commands'
 }
 
 { #category : #'examples - commands' }

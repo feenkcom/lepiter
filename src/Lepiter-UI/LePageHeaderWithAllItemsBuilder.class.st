@@ -8,7 +8,7 @@ I am used by {{gtClass:LePageToolContentElement}} in {{gtMethod:LePageToolConten
 Class {
 	#name : #LePageHeaderWithAllItemsBuilder,
 	#superclass : #LePageHeaderBuilder,
-	#category : 'Lepiter-UI-Support - Page Toolbar'
+	#category : #'Lepiter-UI-Support - Page Toolbar'
 }
 
 { #category : #'api - building' }
@@ -16,7 +16,6 @@ LePageHeaderWithAllItemsBuilder >> build [
 	self removeAllItems.
 	self addTitle.
 	self addRemovePageButton.
-	self addFlexibleSeparator.
 	self addRemoteLinkToClipboardButton.
 	self addInspectButton.
 ]

@@ -9,60 +9,152 @@ Class {
 	#traits : 'TLeWithPageViewModel + TBrLayoutResizable',
 	#classTraits : 'TLeWithPageViewModel classTrait + TBrLayoutResizable classTrait',
 	#instVars : [
-		'titleElement'
+		'titleElement',
+		'selectOnExit',
+		'addButton'
 	],
-	#category : 'Lepiter-UI-Page-! Views'
+	#category : #'Lepiter-UI-Page-! Views'
 }
 
 { #category : #initialization }
+LePageEditableTitleElement >> acceptPageTitle [
+	self pageViewModel pageTitle: titleElement text asString
+]
+
+{ #category : #initialization }
+LePageEditableTitleElement >> createAddButton [
+	| aButton |
+	^ aButton := self plusButton
+		elevation: (BlRelativeElevation elevation: 20);
+		constraintsDo: [ :c | 
+			c ignoreByLayout.
+			c ignored horizontal alignCenter.
+			c ignored vertical alignBottom ];
+		visibility: BlVisibility hidden;
+		addAptitude: (BrGlamorousWithDropdownAptitude
+				handle: [ self plusButton
+						aptitude: BrIconAptitude;
+						background: BrGlamorousColors secondaryHeaderBackgroundColor ]
+				content: [ GtSpotterDropdownButtonStencil new
+						valuable: (LeContextMenuSpotterStart new database: pageViewModel database);
+						extent: [ 300 @ 400 ];
+						spotterModelDo: [ :aSpotter | 
+							aSpotter hidePreview.
+							aSpotter announcer
+								when: GtSpotterExitAnnouncement
+								do: [ :anAnnouncement | self titleElement requestFocus ] ];
+						actOn: [ :anActOnEvent :aMenuItem :theButton | 
+							self pageViewModel pageModel addSnippet: aMenuItem asSnippet beforeIndex: 1.
+							self titleElement requestFocus.	"ideally the new snippet would gain focus here"
+							anActOnEvent beActed ];
+						spotterElementFor: aButton ]
+				aptitudeDo: [ :anAnchoredLook | anAnchoredLook background: BrGlamorousColors secondaryHeaderBackgroundColor ])
+				doNotHideWidget
+]
+
+{ #category : #initialization }
 LePageEditableTitleElement >> createTitleElement [
-	^ BrEditableLabel new
-		aptitude: (BrGlamorousEditableLabelAptitude new
-			defaultBackground: Color transparent; 
-			glamorousRegularFont);
-		margin: (BlInsets top: 5 left: LeSnippetView contentPaddingLeft bottom: 5 right: 0);
-		padding: (BlInsets top: 5 left: 10 bottom: 5 right: 15);
-		hFitContentLimited;
-		vFitContent;
-		when: BrEditorAcceptWish do: [ :aWish | 
-			self onAcceptTitleWish: aWish ];
-		whenKey: BlKeyCombination primaryG
-			labelDo: [ :aShortcutEvent | 
-				self hasPage
-					ifTrue: [ aShortcutEvent currentTarget phlow
-							spawnTool: self pageViewModel asPhlowTool ] ];
-		whenKey: BlKeyCombination primaryB
-			labelDo: [ :aShortcutEvent | 
-				self hasPage
-					ifTrue: [ aShortcutEvent currentTarget phlow
-							spawnTool: self pageViewModel asPhlowTool ] ];
-		whenKey: BlKeyCombination primaryR
-			labelDo: [ :aShortcutEvent | aShortcutEvent currentTarget switchToEditor ];
-		whenKey: BlKeyCombination primaryC
-			labelDo: [ :aShortcutEvent | 
-				self hasPage
-					ifTrue: [ Clipboard clipboardText: self pageViewModel pageTitle asString ] ]
+	| anEditor |
+	anEditor := BrEditor new
+			aptitude: ((BrGlamorousEditableLabelAptitude basicNew
+					setDefaultBorderColor: Color transparent;
+					setFocusedBorderColor: Color transparent;
+					initialize)
+					fontSize: 25;
+					defaultBackground: Color transparent;
+					glamorousRegularFont;
+					bold);
+			margin: (BlInsets
+					top: 5
+					left: LeSnippetView contentPaddingLeft + 3
+					bottom: 5
+					right: 0);
+			padding: (BlInsets
+					top: 5
+					left: 5
+					bottom: 5
+					right: 5);
+			hMatchParent;
+			vFitContent;
+			when: BrEditorAcceptWish do: [ :aWish | self onAcceptTitleWish: aWish ];
+			addShortcut: (BlShortcutWithAction new
+					combination: BlKeyCombination enter;
+					action: [ :aShortcutEvent | 
+						self acceptPageTitle.
+						self pageViewModel pageModel
+							addSnippet: (LeTextSnippet string: '')
+							beforeIndex: 1 ]);
+			addShortcut: (BlShortcutWithAction new
+					combination: BlKeyCombination primaryG;
+					action: [ :aShortcutEvent | 
+						self hasPage
+							ifTrue: [ aShortcutEvent currentTarget phlow spawnTool: self pageViewModel asPhlowTool ] ]);
+			addShortcut: (BlShortcutWithAction new
+					combination: BlKeyCombination primaryB;
+					action: [ :aShortcutEvent | 
+						self hasPage
+							ifTrue: [ aShortcutEvent currentTarget phlow spawnTool: self pageViewModel asPhlowTool ] ]);
+			addShortcut: (BlShortcutWithAction new
+					combination: BlKeyCombination primaryR;
+					action: [ :aShortcutEvent | aShortcutEvent currentTarget switchToEditor ]);
+			addShortcut: (BlShortcutWithAction new
+					combination: BlKeyCombination primaryR;
+					action: [ :aShortcutEvent | 
+						self hasPage
+							ifTrue: [ Clipboard clipboardText: self pageViewModel pageTitle asString ] ]).
+
+	anEditor editor
+		when: BrTextEditorModifiedEvent
+		do: [ :anEvent | self acceptPageTitl ].
+
+	^ anEditor
+]
+
+{ #category : #private }
+LePageEditableTitleElement >> hideAddButton [
+	addButton visibility: BlVisibility hidden
 ]
 
 { #category : #initialization }
 LePageEditableTitleElement >> initialize [
 	super initialize.
 
-	self layout: BlLinearLayout horizontal.
-	
-	"we can not add elements without widget models to toolbar. To be fixed"
+	self layout: BlLinearLayout vertical.	"we can not add elements without widget models to toolbar. To be fixed"
 	self addViewModel: BrWidgetModel new.
-
-	self 
-		hFitContentLimited;
-		vFitContent.
 
 	titleElement := self createTitleElement.
 	self addChild: titleElement as: #title.
-	
-	self addAptitude: (BrLayoutResizerAptitude new
-		hFitContentLimitedToFitContentLimited: self titleElement;
-		vAnyToFitContent: self titleElement).
+
+	addButton := self createAddButton.
+	self addChild: addButton as: #addButton.
+
+	self
+		addAptitude: (BrStyleCommonAptitude new
+				when: BlElementState focused | BlElementState hovered
+					style: [ :aStyle | aStyle do: [ self showAddButton ] after: [ self hideAddButton ] ];
+				when: BlElementState focused & BlElementState hovered
+					style: [ :aStyle | aStyle do: [ self visuallyFocus ] after: [ self visuallyUnfocusAndUnhover ] ];
+				when: BlElementState focused & BlElementState hovered not
+					style: [ :aStyle | aStyle do: [ self visuallyFocus ] after: [ self visuallyUnfocusAndUnhover ] ];
+				when: BlElementState hovered & BlElementState focused not
+					style: [ :aStyle | aStyle do: [ self visuallyHover ] after: [ self visuallyUnfocusAndUnhover ] ]).
+
+	self
+		vFitContent;
+		constraintsDo: [ :c | c maxWidth: 600 ];
+		hMatchParent.
+
+	self initializeShortcuts
+]
+
+{ #category : #initialization }
+LePageEditableTitleElement >> initializeShortcuts [
+	self
+		addShortcut: (BlShortcutWithAction new
+				combination: BlKeyCombination arrowDown;
+				overrideChildren: true;
+				action: [ self loseFocus.
+					selectOnExit ifNotNil: [ ((selectOnExit childAt: 2) childAt: 1) snippetViewModel focused: true ] ])
 ]
 
 { #category : #'private - event handling' }
@@ -81,8 +173,33 @@ LePageEditableTitleElement >> onPageTitleChanged [
 { #category : #'api - page view model' }
 LePageEditableTitleElement >> onPageViewModelChanged [
 	"Is sent when a new page view model is assigned to the element"
-	
+	self titleElement
+		styler: (LePageTitleStyler new pageViewModel: self pageViewModel).
 	self updatePageTitle
+]
+
+{ #category : #initialization }
+LePageEditableTitleElement >> plusButton [
+	^ GtInspectorRoundButtonStencil small asElement
+		icon: (GtInspectorPlusIconStencil add
+				thickness: 1;
+				radius: 4;
+				asElement)
+]
+
+{ #category : #focus }
+LePageEditableTitleElement >> requestFocus [
+	titleElement requestFocus
+]
+
+{ #category : #focus }
+LePageEditableTitleElement >> selectOnExit: anElement [
+	selectOnExit := anElement
+]
+
+{ #category : #private }
+LePageEditableTitleElement >> showAddButton [
+	addButton visibility: BlVisibility visible
 ]
 
 { #category : #'api - page view model' }
@@ -111,18 +228,34 @@ LePageEditableTitleElement >> unsubscribeFromPageViewModel [
 LePageEditableTitleElement >> updatePageTitle [
 	| page |
 	"I must be called from a UI process."
-	
 	page := self pageViewModel pageModel.
-	page isUnnamedPage 
-		ifTrue: [ 
-			self titleElement aptitude
-				defaultForeground: Color lightGray;
-				fontSize: 14 ]
-		ifFalse: [ 
-			self titleElement aptitude
-				defaultForeground: Color black;
-				fontSize: 25; 
-				bold ].
-	
-	self titleElement text: self pageViewModel pageTitle.
+	page isUnnamedPage
+		ifTrue: [ self titleElement
+				text: ('' asRopedText
+						attribute: (BrGhostTextAttribute
+								for: ('Playground' asRopedText glamorousRegularFontAndSize
+										foreground: Color lightGray))) ]
+		ifFalse: [ self titleElement text: self pageViewModel pageTitle ]
+]
+
+{ #category : #initialization }
+LePageEditableTitleElement >> visuallyFocus [
+	titleElement effect: (BlGaussianShadowEffect
+		color: (BrGlamorousColors primaryBorderColor alpha: 0.5)
+		width: 2
+		offset: 0 @ 1)
+]
+
+{ #category : #initialization }
+LePageEditableTitleElement >> visuallyHover [
+	titleElement
+		effect: (BlGaussianShadowEffect
+				color: BrGlamorousColors defaultShadowColor
+				width: 2
+				offset: 0 @ 1)
+]
+
+{ #category : #initialization }
+LePageEditableTitleElement >> visuallyUnfocusAndUnhover [
+	titleElement effect: BlNullEffect new
 ]

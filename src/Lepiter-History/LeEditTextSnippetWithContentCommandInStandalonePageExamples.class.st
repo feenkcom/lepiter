@@ -3,7 +3,7 @@ Class {
 	#superclass : #LeEditTextSnippetWithContentCommandExamples,
 	#traits : 'TLeContentCommandInStandalonePageExamples',
 	#classTraits : 'TLeContentCommandInStandalonePageExamples classTrait',
-	#category : #'Lepiter-History-Examples'
+	#category : #'Lepiter-History-Examples - Commands'
 }
 
 { #category : #asserting }

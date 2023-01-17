@@ -4,8 +4,25 @@
 Class {
 	#name : #LeEditEmptyTextSnippetCommandExamples,
 	#superclass : #LeEditTextSnippetCommandExamples,
-	#category : #'Lepiter-History-Examples'
+	#category : #'Lepiter-History-Examples - Commands'
 }
+
+{ #category : #accessing }
+LeEditEmptyTextSnippetCommandExamples >> executeCommand_executeUndo_executeRedoCommand [
+	<gtExample>
+	| command initialSnippetState result |
+	
+	command := self createEditSnippetCommand.
+	initialSnippetState := self targetSnippet extractUpdatableState.
+	
+	command execute.
+	self targetPage editHistory undoCurrent.
+	result := self targetPage editHistory redoCurrent.
+	
+	self assertExecutionResultFor: result.
+	
+	^ result
+]
 
 { #category : #accessing }
 LeEditEmptyTextSnippetCommandExamples >> initialStringValue [

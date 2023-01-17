@@ -1,7 +1,7 @@
 Class {
 	#name : #LeEditSnippetCommandExamples,
 	#superclass : #LeContentCommandExamples,
-	#category : #'Lepiter-History-Examples'
+	#category : #'Lepiter-History-Examples - Commands'
 }
 
 { #category : #testing }
@@ -75,24 +75,80 @@ LeEditSnippetCommandExamples >> ensurePageWithTargetSnippet [
 { #category : #'examples - execution undo/redo' }
 LeEditSnippetCommandExamples >> executeCommand_executeUndoCommand [
 	<gtExample>
-	| command initialSnippetState editHistory |
+	| command initialSnippetState result |
 	
 	command := self createEditSnippetCommand.
 	initialSnippetState := self targetSnippet extractUpdatableState.
 	
 	command execute.
-	self targetPage editHistory undoCurrent.
+	result := self targetPage editHistory undoCurrent.
+	
+	self 
+		assert: self targetSnippet  extractUpdatableState
+		equals: initialSnippetState.
+		
+	self assertExecutionResultFor: result.
+	self assertExecutionResultFor: result targetCommandResult.
+	self assert: result targetCommandResult undoSpecification 
+		snippetState shouldTransformForLogStorage not.
+	
+	^ result
+]
+
+{ #category : #'examples - execution undo/redo' }
+LeEditSnippetCommandExamples >> executeCommand_executeUndoCommand_editHistory [
+	<gtExample>
+	| editHistory |
+	
+	self executeCommand_executeUndoCommand.
 	
 	editHistory := self targetPage editHistory.
 	self assert:  editHistory eventStore events size equals: 2.
 	self assert:  editHistory undoActions size equals: 0.
 	self assert:  editHistory redoActions size equals: 1.
 	
-	self 
-		assert: self targetSnippet  extractUpdatableState
-		equals: initialSnippetState.
+	^ self targetPage 
+]
+
+{ #category : #'examples - execution undo/redo' }
+LeEditSnippetCommandExamples >> executeCommand_executeUndo_executeRedoCommand [
+	<gtExample>
+	| result |
+	
+	self executeCommand_executeUndoCommand.
+	
+	result := self targetPage editHistory redoCurrent.
+	
+	self assertExecutionResultFor: result.
+	
+	^ result
+]
+
+{ #category : #'examples - execution undo/redo' }
+LeEditSnippetCommandExamples >> executeCommand_executeUndo_executeRedoCommand_editHistory [
+	<gtExample>
+	| editHistory |
+	
+	self executeCommand_executeUndo_executeRedoCommand.
+	
+	editHistory := self targetPage editHistory.
+	self assert:  editHistory eventStore events size equals: 3.
+	self assert:  editHistory undoActions size equals: 1.
+	self assert:  editHistory redoActions size equals: 0.
 	
 	^ self targetPage 
+]
+
+{ #category : #'examples - execution undo/redo' }
+LeEditSnippetCommandExamples >> executeCommand_executeUndo_executeRedoCommand_pageStructure [
+	<gtExample>
+	
+	self executeCommand_executeUndo_executeRedoCommand.
+	
+	self assertTargetPageContentChanged.
+	self assertTargePageIsSerialisable.
+	
+	^ self targetPage
 ]
 
 { #category : #'examples - execution' }

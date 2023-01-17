@@ -1,7 +1,7 @@
 Class {
 	#name : #LeMoveDownSnippetInSameParentCommandExamples,
 	#superclass : #LeMoveDownSnippetCommandExamples,
-	#category : #'Lepiter-History-Examples'
+	#category : #'Lepiter-History-Examples - Commands'
 }
 
 { #category : #'examples - setup  pages' }

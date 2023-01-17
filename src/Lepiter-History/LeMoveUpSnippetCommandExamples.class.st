@@ -1,7 +1,7 @@
 Class {
 	#name : #LeMoveUpSnippetCommandExamples,
 	#superclass : #LeContentCommandExamples,
-	#category : #'Lepiter-History-Examples'
+	#category : #'Lepiter-History-Examples - Commands'
 }
 
 { #category : #testing }

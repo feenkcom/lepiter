@@ -1,7 +1,7 @@
 Class {
 	#name : #LeEditTextSnippetCommandExamples,
 	#superclass : #LeEditSnippetCommandExamples,
-	#category : #'Lepiter-History-Examples'
+	#category : #'Lepiter-History-Examples - Commands'
 }
 
 { #category : #testing }

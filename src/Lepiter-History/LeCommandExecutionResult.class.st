@@ -34,8 +34,10 @@ LeCommandExecutionResult >> commandSpecification [
 { #category : #accessing }
 LeCommandExecutionResult >> traceEvent [
 	^ LeContentEditTraceEvent new 
-		mainCommandSpecification: self commandSpecification;
-		undoCommandSpecification: self undoSpecification
+		mainCommandSpecification: self commandSpecification 
+			asSpecificationForLogStorage;
+		undoCommandSpecification: self undoSpecification 
+			asSpecificationForLogStorage
 ]
 
 { #category : #accessing }

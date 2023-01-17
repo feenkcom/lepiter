@@ -1,7 +1,7 @@
 Class {
 	#name : #LeEditEmptyPharoSnippetCommandInStandalonePageExamples,
 	#superclass : #LeEditPharoSnippetCommandExamples,
-	#category : #'Lepiter-History-Examples'
+	#category : #'Lepiter-History-Examples - Commands'
 }
 
 { #category : #accessing }

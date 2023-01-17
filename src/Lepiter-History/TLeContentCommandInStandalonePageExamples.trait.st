@@ -1,6 +1,6 @@
 Trait {
 	#name : #TLeContentCommandInStandalonePageExamples,
-	#category : #'Lepiter-History-Examples'
+	#category : #'Lepiter-History-Examples - Commands'
 }
 
 { #category : #asserting }

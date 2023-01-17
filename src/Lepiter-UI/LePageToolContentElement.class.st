@@ -7,7 +7,7 @@ Class {
 		'titleElement',
 		'headerElement'
 	],
-	#category : 'Lepiter-UI-! Tool - Page'
+	#category : #'Lepiter-UI-! Tool - Page'
 }
 
 { #category : #'private - accessing' }
@@ -80,6 +80,11 @@ LePageToolContentElement >> registerSpawnBelowHandler [
 				aSpawnEvent consumed: true. 
 				(aSpawnEvent propertyAt: #spawnContainer)
 					spawnBelowTool: aSpawnEvent tool ] ]
+]
+
+{ #category : #'selection - handling' }
+LePageToolContentElement >> selectTitle [
+	titleElement requestFocus
 ]
 
 { #category : #'api - accessing' }
