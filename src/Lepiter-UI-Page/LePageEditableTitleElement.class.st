@@ -10,8 +10,8 @@ Class {
 	#classTraits : 'TLeWithPageViewModel classTrait + TBrLayoutResizable classTrait',
 	#instVars : [
 		'titleElement',
-		'selectOnExit',
-		'addButton'
+		'addButton',
+		'onSelection'
 	],
 	#category : #'Lepiter-UI-Page-! Views'
 }
@@ -50,7 +50,8 @@ LePageEditableTitleElement >> createAddButton [
 								do: [ :anAnnouncement | self titleElement requestFocus ] ];
 						actOn: [ :anActOnEvent :aMenuItem :theButton | 
 							self pageViewModel pageModel addSnippet: aMenuItem asSnippet beforeIndex: 1.
-							self titleElement requestFocus.	"ideally the new snippet would gain focus here"
+							self loseFocus.
+							self selectFirst.
 							anActOnEvent beActed ];
 						spotterElementFor: aButton ]
 				aptitudeDo: [ :anAnchoredLook | anAnchoredLook background: BrGlamorousColors secondaryHeaderBackgroundColor ])
@@ -159,7 +160,7 @@ LePageEditableTitleElement >> initializeShortcuts [
 				combination: BlKeyCombination arrowDown;
 				overrideChildren: true;
 				action: [ self loseFocus.
-					selectOnExit ifNotNil: [ ((selectOnExit childAt: 2) childAt: 1) snippetViewModel focused: true ] ])
+					self selectFirst ])
 ]
 
 { #category : #'private - event handling' }
@@ -183,6 +184,11 @@ LePageEditableTitleElement >> onPageViewModelChanged [
 	self updatePageTitle
 ]
 
+{ #category : #focus }
+LePageEditableTitleElement >> onSelection: aBlock [
+	onSelection := aBlock
+]
+
 { #category : #initialization }
 LePageEditableTitleElement >> plusButton [
 	^ GtInspectorRoundButtonStencil small asElement
@@ -198,8 +204,8 @@ LePageEditableTitleElement >> requestFocus [
 ]
 
 { #category : #focus }
-LePageEditableTitleElement >> selectOnExit: anElement [
-	selectOnExit := anElement
+LePageEditableTitleElement >> selectFirst [
+	onSelection value
 ]
 
 { #category : #private }
