@@ -733,6 +733,22 @@ LeDatabaseReloadExistingPageChangesExamples >> reloadModifiedFlatSnippetsOrderFr
 ]
 
 { #category : #'examples - page rename' }
+LeDatabaseReloadExistingPageChangesExamples >> reloadNamedPageAToUnnamedPage [
+	<gtExample>
+	| database targetPage |
+	database := self renameNamedPageAToUnnamedPage.
+	
+	database reload.
+	self assert: (database hasPageNamed: 'Target PageA') not.
+	self assert: database unnamedPagesByUid isNotEmpty.
+	
+	targetPage := database unnamedPagesByUid anyOne.
+	self assert: database snippetsCount equals: 1.
+
+	^ database
+]
+
+{ #category : #'examples - page rename' }
 LeDatabaseReloadExistingPageChangesExamples >> reloadRenamedPageBFromStorage [
 	<gtExample>
 	| database targetPage |
@@ -761,6 +777,25 @@ LeDatabaseReloadExistingPageChangesExamples >> reloadUnnamedPageToNamedPageA [
 	targetPage := database pageNamed: 'Target PageA'.
 	self assert: database snippetsCount equals: 1.
 
+	^ database
+]
+
+{ #category : #'examples - page rename' }
+LeDatabaseReloadExistingPageChangesExamples >> renameNamedPageAToUnnamedPage [
+	"We rename the page in the database to unnamed"
+	<gtExample>
+	| database secondDatabase targetPage |
+	database := self createDatabaseWithNamedPageA.
+	
+	secondDatabase := self createDatabaseFromFolder: database localStoreRootDirectory.
+	targetPage := secondDatabase pages first.
+	
+	targetPage updateTitle: ''. 
+
+	self assert: secondDatabase unnamedPagesByUid isNotEmpty.
+	self assert: secondDatabase pagesByName isEmpty.
+	secondDatabase stopMonitoring.
+	
 	^ database
 ]
 

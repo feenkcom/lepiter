@@ -18,7 +18,12 @@ Class {
 
 { #category : #initialization }
 LePageEditableTitleElement >> acceptPageTitle [
-	self pageViewModel pageTitle: titleElement text asString
+	self acceptPageTitleWith: titleElement text asString
+]
+
+{ #category : #initialization }
+LePageEditableTitleElement >> acceptPageTitleWith: aString [
+	self pageViewModel pageTitle: aString
 ]
 
 { #category : #initialization }
@@ -105,7 +110,7 @@ LePageEditableTitleElement >> createTitleElement [
 
 	anEditor editor
 		when: BrTextEditorModifiedEvent
-		do: [ :anEvent | self acceptPageTitl ].
+		do: [ :anEvent | self acceptPageTitleWith: anEvent text asString ].
 
 	^ anEditor
 ]

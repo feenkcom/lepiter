@@ -1200,7 +1200,6 @@ LeDatabase >> updateByTypeStorageDueTo: aLePageTitleChanged [
 	aPage := aLePageTitleChanged page.
 	oldTypeClass := aLePageTitleChanged oldType class pageTypeClass.
 	newTypeClass := aLePageTitleChanged newType class pageTypeClass.
-	
 	self 
 		at: aLePageTitleChanged oldDatabaseKey 
 		ifPresent: [ 

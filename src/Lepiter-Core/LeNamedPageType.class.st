@@ -87,5 +87,6 @@ LeNamedPageType >> title [
 { #category : #accessing }
 LeNamedPageType >> title: aString [
 	"Set the receiver's title"
+	aString isEmptyOrNil ifTrue: [ ^ LeUnnamedPageType page: self page ].
 	title := aString.
 ]
