@@ -738,7 +738,7 @@ LeContent >> insertChildCommandBeforeSnippet: aChildSnippet ofType: aNewSnippetC
 { #category : #'api - command building' }
 LeContent >> insertChildCommandFor: aNewSnippet [
 	^ (self insertChildCommandOfType: aNewSnippet class) 
-		initialSnippetState: aNewSnippet extractSpecificState
+		appendSnippetState: aNewSnippet extractSpecificState
 		yourself
 ]
 
