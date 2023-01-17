@@ -37,14 +37,15 @@ LeSplitSnippetCommand >> addUpdateSnippetCommandWithText: aSnippetText [
 
 { #category : #execution }
 LeSplitSnippetCommand >> basicExecute [ 
-	| undoSpecification subcommandsResults |
-	undoSpecification := self createUndoCommandSpecification.
+	| undoSpecification subcommandResults |
 	
-	subcommandsResults := self executeSubcommands.
+	subcommandResults := self executeSubcommands.
+	undoSpecification := self 
+		createUndoCommandSpecificationFromResults: subcommandResults.
 	
 	^ self createCommandResult 
 		undoSpecification: undoSpecification;
-		insertedSnippet: subcommandsResults first insertedSnippet.
+		insertedSnippet: subcommandResults first insertedSnippet.
 ]
 
 { #category : #utils }
@@ -74,16 +75,16 @@ LeSplitSnippetCommand >> createCommandSpecification [
 ]
 
 { #category : #'execution - utils' }
-LeSplitSnippetCommand >> createUndoCommandSpecification [
+LeSplitSnippetCommand >> createUndoCommandSpecificationFromResults: subcommandResults [
 	| specification | 
 	specification := LeCompositeCommandSpecification new 
 		contentUid: self targetContent uid;
 		commandTypeName: LeGenericCompositeCommand name;
 		label: 'Undo Split'.
 	
-	self subcommands do: [ :aSubcommand |
+	subcommandResults do: [ :aSubcommandResult |
 		 specification 
-		 	addSubcommandSpecification: aSubcommand createUndoCommandSpecification ].
+		 	addSubcommandSpecification: aSubcommandResult undoSpecification ].
 	
 	^ specification
 ]
@@ -100,6 +101,14 @@ LeSplitSnippetCommand >> gtViewSubcommandsFor: aView [
 	^ aView list 
 		title: 'Subcommands';
 		items: [ self subcommands ]
+]
+
+{ #category : #initialization }
+LeSplitSnippetCommand >> initializeFromSpecification: aCommandSpecification withBuilder: aBuilder [
+	super initializeFromSpecification: aCommandSpecification withBuilder: aBuilder.
+	
+	self splitAtCursorPosition: (aCommandSpecification 
+		attributeAt: #cursorPosition)
 ]
 
 { #category : #accessing }
