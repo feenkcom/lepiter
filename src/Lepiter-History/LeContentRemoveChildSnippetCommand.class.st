@@ -84,7 +84,8 @@ LeContentRemoveChildSnippetCommand >> createInsertChildSnippetCommandFor: aChild
 			computeChildPathFor: aChildSnippet 
 			inParent: aParentSnippet
 			forRoot: aRootContent); 
-		initialSnippetState: aChildSnippet extractUpdatableState
+		useSnippetUid: aChildSnippet uid;
+		appendSnippetState: aChildSnippet extractUpdatableState
 ]
 
 { #category : #'execution - utils' }

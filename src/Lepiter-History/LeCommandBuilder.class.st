@@ -23,7 +23,7 @@ LeCommandBuilder >> compositeCommand [
 LeCommandBuilder >> insertChildSnippetCommand [
 	^ LeContentInsertChildSnippetCommand new
 		targetContent: self targetContent;
-		uid: self newSnippetUid
+		useSnippetUid: self newSnippetUid
 ]
 
 { #category : #'build - commands' }

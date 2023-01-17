@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'insertPath',
 		'snippetTypeName',
-		'initialSnippetState'
+		'initialSnippetState',
+		'newSnippetUIModel'
 	],
 	#category : #'Lepiter-History-Commands'
 }
@@ -220,8 +221,17 @@ LeContentInsertChildSnippetCommand >> snippetTypeName: aTypeName [
 	snippetTypeName := aTypeName
 ]
 
+{ #category : #'updating - view model' }
+LeContentInsertChildSnippetCommand >> updateSnippetsViewModelFor: aSnippetsViewModel withResult: aCommandResult [		
+	newSnippetUIModel := aSnippetsViewModel
+		findOrCreateSnippetViewModel: aCommandResult insertedSnippet.
+	newSnippetUIModel focusAfterCreation.
+	
+	aSnippetsViewModel scrollToViewModel: newSnippetUIModel
+]
+
 { #category : #configuration }
-LeContentInsertChildSnippetCommand >> uid: anUid [ 
+LeContentInsertChildSnippetCommand >> useSnippetUid: anUid [ 
 	self assert: [ anUid notNil ].
 	
 	self initialize: #uid with: anUid
