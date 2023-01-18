@@ -32,8 +32,9 @@ LeMergeSnippetCommand >> addEditContentCommandFor: aSourceSnippet [
 { #category : #initialization }
 LeMergeSnippetCommand >> addMoveChildrenCommandFor: aSourceSnippet [ 
 	
-	self addSubcommand: (self targetContent commandBuilder 
-		transferChildrenCommandFrom: aSourceSnippet)
+	self addSubcommand: (self targetContent 
+		commandBuilder transferChildrenFromSnippetCommand
+			sourceSnippetUid: aSourceSnippet uid)
 ]
 
 { #category : #execution }
