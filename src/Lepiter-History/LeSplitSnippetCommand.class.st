@@ -159,3 +159,15 @@ LeSplitSnippetCommand >> splitAtCursorPosition: aCursorPosition withNewUid: aNew
 		atPosition: aCursorPosition.
 	self addUpdateSnippetCommandWithText: existingSnippetNewText.
 ]
+
+{ #category : #'updating - view model' }
+LeSplitSnippetCommand >> updateSnippetsViewModelFor: aSnippetsViewModel withResult: aCommandResult [
+	| newSnippetUIModel |		
+	newSnippetUIModel := aSnippetsViewModel
+		findOrCreateSnippetViewModel: self targetSnippet.
+	newSnippetUIModel 
+		focused: true;
+		moveCursorAtStart.
+	
+	aSnippetsViewModel scrollToViewModel: newSnippetUIModel
+]
