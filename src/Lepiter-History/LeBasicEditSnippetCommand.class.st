@@ -2,7 +2,8 @@ Class {
 	#name : #LeBasicEditSnippetCommand,
 	#superclass : #LeSnippetCommand,
 	#instVars : [
-		'snippetState'
+		'snippetState',
+		'viewState'
 	],
 	#category : #'Lepiter-History-Commands'
 }
@@ -22,10 +23,11 @@ LeBasicEditSnippetCommand >> colorForAttributeChange: anArray [
 
 { #category : #converting }
 LeBasicEditSnippetCommand >> createCommandSpecification [
-	^ LeEditSnippetCommandSpecification new 
+	^ LeEditSnippetCommandSpecification new
 		contentUid: self targetSnippetUid;
 		commandTypeName: self className;
-		snippetState: self snippetState
+		snippetState: self snippetState;
+		viewState: self viewState
 ]
 
 { #category : #'execution - utils' }
@@ -78,7 +80,8 @@ LeBasicEditSnippetCommand >> initialize [
 LeBasicEditSnippetCommand >> initializeFromSpecification: aCommandSpecification withBuilder: aBuilder [
 	super initializeFromSpecification: aCommandSpecification withBuilder: aBuilder.
 	
-	self snippetState: aCommandSpecification snippetState
+	self snippetState: aCommandSpecification snippetState.
+	self viewState: aCommandSpecification viewState.
 ]
 
 { #category : #accessing }
@@ -100,6 +103,20 @@ LeBasicEditSnippetCommand >> snippetState: aSnippetState [
 
 { #category : #'updating - view model' }
 LeBasicEditSnippetCommand >> updateSnippetsViewModelFor: aSnippetsViewModel withResult: aCommandResult [		
-	(aSnippetsViewModel findSnippetViewModel: self targetContent)
-		focused: true
+	| snippetUIModel |		
+	snippetUIModel := aSnippetsViewModel findSnippetViewModel: self targetContent.
+	snippetUIModel focused: true.
+	
+	self viewState ifNotNil: [ :aViewState |
+		aViewState updateSnippetViewModelFor: snippetUIModel ].
+]
+
+{ #category : #accessing }
+LeBasicEditSnippetCommand >> viewState [
+	^ viewState
+]
+
+{ #category : #accessing }
+LeBasicEditSnippetCommand >> viewState: aSnippetViewState [
+	viewState := aSnippetViewState
 ]
