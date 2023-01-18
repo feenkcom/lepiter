@@ -119,3 +119,15 @@ LeMergeSnippetCommand >> sourceSnippet [
 LeMergeSnippetCommand >> sourceSnippet: aSnippet [
 	sourceSnippet := aSnippet
 ]
+
+{ #category : #'updating - view model' }
+LeMergeSnippetCommand >> updateSnippetsViewModelFor: aSnippetsViewModel withResult: aCommandResult [
+	| newSnippetUIModel |		
+	newSnippetUIModel := aSnippetsViewModel
+		findOrCreateSnippetViewModel: self targetSnippet.
+	newSnippetUIModel 
+		focused: true;
+		moveCursorAt: self sourceSnippet text size.
+	
+	aSnippetsViewModel scrollToViewModel: newSnippetUIModel
+]
