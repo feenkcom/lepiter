@@ -56,14 +56,13 @@ LeSnippetCommandBuilder >> targetSnippet [
 ]
 
 { #category : #'build - commands' }
-LeSnippetCommandBuilder >> transferChildrenCommand [
-	^ LeTransferSnippetChildrenCommand forSnippet: self targetSnippet
+LeSnippetCommandBuilder >> transferChildrenFromSnippetCommand [
+	^ LeTransferChildrenFromSnippetCommand forSnippet: self targetSnippet
 ]
 
 { #category : #'build - commands' }
-LeSnippetCommandBuilder >> transferChildrenCommandFrom: anotherSnippet [
-	^ self transferChildrenCommand
-		sourceSnippet: anotherSnippet
+LeSnippetCommandBuilder >> transferChildrenToSnippetCommand [
+	^ LeTransferChildrenToSnippetCommand forSnippet: self targetSnippet
 ]
 
 { #category : #accessing }
