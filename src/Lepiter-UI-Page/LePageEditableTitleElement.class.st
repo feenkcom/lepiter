@@ -238,7 +238,7 @@ LePageEditableTitleElement >> updatePageTitle [
 		ifTrue: [ self titleElement
 				text: ('' asRopedText
 						attribute: (BrGhostTextAttribute
-								for: ('Playground' asRopedText glamorousRegularFontAndSize
+								for: (page type defaultTitle asRopedText glamorousRegularFontAndSize
 										foreground: Color lightGray))) ]
 		ifFalse: [ self titleElement text: self pageViewModel pageTitle ]
 ]
