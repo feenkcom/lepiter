@@ -2,29 +2,23 @@ Class {
 	#name : #LeTransferSnippetChildrenCommand,
 	#superclass : #LeSnippetCommand,
 	#instVars : [
-		'sourceSnippet'
+		'sourceSnippet',
+		'sourceSnippetUid'
 	],
 	#category : #'Lepiter-History-Commands'
 }
-
-{ #category : #execution }
-LeTransferSnippetChildrenCommand >> basicExecute [
-	^ self withUndoExecute: [ 
-		self sourceSnippet transferChildrenTo: self targetSnippet ]
-]
 
 { #category : #converting }
 LeTransferSnippetChildrenCommand >> createCommandSpecification [
 	^ LeTransferSnippetChildrenCommandSpecification new 
 		contentUid: self targetSnippetUid;
 		commandTypeName: self className;
-		sourceSnippetUid: self sourceSnippet uid
+		sourceSnippetUid: self sourceSnippetUid
 ]
 
 { #category : #'execution - utils' }
 LeTransferSnippetChildrenCommand >> createUndoCommand [
-	^ self sourceSnippet commandBuilder transferChildrenCommand
-		sourceSnippet: self targetSnippet
+	self subclassResponsibility
 ]
 
 { #category : #'execution - utils' }
@@ -32,19 +26,28 @@ LeTransferSnippetChildrenCommand >> createUndoCommandSpecification [
 	^ self createUndoCommand createCommandSpecification
 ]
 
-{ #category : #accessing }
-LeTransferSnippetChildrenCommand >> label [
-	^ 'Transfer Children'
+{ #category : #initialization }
+LeTransferSnippetChildrenCommand >> initializeFromSpecification: aCommandSpecification withBuilder: aBuilder [
+	super initializeFromSpecification: aCommandSpecification withBuilder: aBuilder.
+	
+	self sourceSnippetUid: aCommandSpecification sourceSnippetUid
 ]
 
 { #category : #accessing }
 LeTransferSnippetChildrenCommand >> sourceSnippet [
 
-	^ sourceSnippet
+	self targetSnippet page  withAllChildrenBreadthFirstDo: [ :aContent |
+		aContent uid = self sourceSnippetUid ifTrue: [ ^ aContent ] ].
+	
+	Error signal: 'Could not find content with uid ', self sourceSnippetUid printString.
 ]
 
 { #category : #accessing }
-LeTransferSnippetChildrenCommand >> sourceSnippet: anObject [
+LeTransferSnippetChildrenCommand >> sourceSnippetUid [
+	^ sourceSnippetUid
+]
 
-	sourceSnippet := anObject
+{ #category : #accessing }
+LeTransferSnippetChildrenCommand >> sourceSnippetUid: anUid [
+	sourceSnippetUid := anUid
 ]
