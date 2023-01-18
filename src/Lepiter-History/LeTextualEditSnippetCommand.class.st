@@ -1,9 +1,6 @@
 Class {
 	#name : #LeTextualEditSnippetCommand,
 	#superclass : #LeBasicEditSnippetCommand,
-	#instVars : [
-		'source'
-	],
 	#category : #'Lepiter-History-Commands'
 }
 

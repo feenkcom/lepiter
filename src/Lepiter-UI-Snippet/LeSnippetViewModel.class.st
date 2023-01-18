@@ -171,7 +171,22 @@ LeSnippetViewModel >> moveUp [
 
 { #category : #'api - actions' }
 LeSnippetViewModel >> removeSelf [
-	self snippetModel removeSelfThroughCommand
+	| nextFocusedSnippet |
+	
+	nextFocusedSnippet := nil.
+	self snippetsCollectionDo: [ :aSnippetsCollection |
+		self snippetModel 
+			previousSnippetDo: [ :aSnippet | nextFocusedSnippet := aSnippet ] 
+			ifNone: [
+				self snippetModel 
+					nextSnippetDo: [ :aSnippet | nextFocusedSnippet := aSnippet ] 
+					ifNone: [ ] ] ].
+			
+	self snippetModel removeSelfThroughCommand.
+	
+	nextFocusedSnippet ifNil: [ ^ self].
+	self snippetsCollectionDo: [ :aSnippetsCollection | 
+		(aSnippetsCollection findSnippetViewModel: nextFocusedSnippet) focused: true ]
 ]
 
 { #category : #accessing }

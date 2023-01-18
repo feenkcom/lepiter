@@ -93,6 +93,10 @@ LeSplitSnippetCommand >> createUndoCommandSpecificationFromResults: subcommandRe
 	subcommandResults reversed do: [ :aSubcommandResult |
 		 specification 
 		 	addSubcommandSpecification: aSubcommandResult undoSpecification ].
+		 	
+	specification subcommandSpecifications first 
+		viewState: (LeTextualSnippetViewState new 
+			cursorPosition: self cursorPosition).
 	
 	^ specification
 ]

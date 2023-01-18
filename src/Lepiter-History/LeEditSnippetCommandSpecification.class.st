@@ -2,7 +2,8 @@ Class {
 	#name : #LeEditSnippetCommandSpecification,
 	#superclass : #LeCommandSpecification,
 	#instVars : [
-		'snippetState'
+		'snippetState',
+		'viewState'
 	],
 	#category : #'Lepiter-History-Commands'
 }
@@ -48,4 +49,14 @@ LeEditSnippetCommandSpecification >> snippetState [
 LeEditSnippetCommandSpecification >> snippetState: aSnippetState [
 
 	snippetState := aSnippetState
+]
+
+{ #category : #accessing }
+LeEditSnippetCommandSpecification >> viewState [
+	^ viewState
+]
+
+{ #category : #accessing }
+LeEditSnippetCommandSpecification >> viewState: anObject [
+	viewState := anObject
 ]
