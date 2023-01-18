@@ -8,6 +8,11 @@ Class {
 	#category : #'Lepiter-History-Storage'
 }
 
+{ #category : #accessing }
+LeContentTraceEvent >> contentUid [
+	^ self mainCommandSpecification contentUid
+]
+
 { #category : #utils }
 LeContentTraceEvent >> formatCommandTypeName: aCommandName [
 	^ String streamContents: [ :aStream  |
