@@ -31,6 +31,14 @@ LeCodeSnippet class >> empty [
 	^ self new
 ]
 
+{ #category : #accesing }
+LeCodeSnippet class >> stateAttributes [
+	^ self leJsonV4AttributeMapping collect: [ :aMapping |
+		aMapping key = #code
+			ifTrue: [ LeTextualSnippetStringAttribute named: aMapping key ]
+			ifFalse: [ LeGenericSnippetStateAttribute named: aMapping key ] ]
+]
+
 { #category : #'api - editing' }
 LeCodeSnippet >> appendText: aText source: anObject [
 
@@ -82,9 +90,9 @@ LeCodeSnippet >> executeWithLoggingAction: aBlock afterChange: aGtCoderSourceCod
 		string: aGtCoderSourceCodeChanged newText asString.
 	
 	undoSpecification := fakeCommand createUndoCommandSpecification.
-	undoSpecification snippetState 
-		attributeNamed: 'code' 
-		setValue: aGtCoderSourceCodeChanged previousText asString.
+	(undoSpecification snippetState 
+		attributeNamed: 'code' )
+			string: aGtCoderSourceCodeChanged previousText asString.
 	
 	traceEvent := LeContentEditTraceEvent new
 		mainCommandSpecification: fakeCommand createCommandSpecification
@@ -206,7 +214,8 @@ LeCodeSnippet >> updateFromCommandText: aText source: anObject [
 		currentSourceText: aText
 		with: (GtCoderUpdateStrategy new 
 			source: anObject;
-			propertyNamed: #isFromEditCommand put: true)
+			propertyNamed: #isFromEditCommand put: true;
+			yourself)
 ]
 
 { #category : #'api - editing' }
