@@ -307,6 +307,14 @@ LeContent >> announceContentUnindentedFor: aLeSnippet [
 ]
 
 { #category : #'private - notifications' }
+LeContent >> announceTraceableChangeExecutedFor: aTraceEvent [
+	self notifier 
+		bubble; database;
+		announce: (LeContentTraceableChangeExecutedAnnouncement new 
+			traceEvent: aTraceEvent).
+]
+
+{ #category : #'private - notifications' }
 LeContent >> announceTreeChanged: aLeContent [
 	"Announce that the receiver's page has changed'"
 

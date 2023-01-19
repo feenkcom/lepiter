@@ -498,6 +498,13 @@ LeTextSnippet >> unlinkedTarget: aLeContent in: aLeLink [
 		target: aLeContent)
 ]
 
+{ #category : #'api - editing' }
+LeTextSnippet >> updateFromCommandText: aText source: anObject [
+	"Text snippets do not need this. It exists now only because they should be polymorphic with code snipets for the state update to work."
+	
+	self updateText: aText source: anObject
+]
+
 { #category : #'private - updating' }
 LeTextSnippet >> updateOutgoingTextualLinks [
 	| aNode aVisitor |

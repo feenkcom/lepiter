@@ -73,6 +73,30 @@ LeCodeSnippet >> contentAsString [
 	^ self code
 ]
 
+{ #category : #'private - event handling' }
+LeCodeSnippet >> executeWithLoggingAction: aBlock afterChange: aGtCoderSourceCodeChanged [ 
+	"Execute the given block by creating a trace event 
+	for the given coder change."
+	| fakeCommand undoSpecification traceEvent |
+	fakeCommand := self commandBuilder editTextualSnippetCommand
+		string: aGtCoderSourceCodeChanged newText asString.
+	
+	undoSpecification := fakeCommand createUndoCommandSpecification.
+	undoSpecification snippetState 
+		attributeNamed: 'code' 
+		setValue: aGtCoderSourceCodeChanged previousText asString.
+	
+	traceEvent := LeContentEditTraceEvent new
+		mainCommandSpecification: fakeCommand createCommandSpecification
+			asSpecificationForLogStorage;
+		undoCommandSpecification: undoSpecification 
+			asSpecificationForLogStorage.
+	
+	aBlock value.
+	
+	self announceTraceableChangeExecutedFor: traceEvent
+]
+
 { #category : #initialization }
 LeCodeSnippet >> initialize [ 
 	super initialize.
@@ -110,11 +134,16 @@ LeCodeSnippet >> onCoderRenameTemporaryRequested: aGtCoderRenameTemporaryRequest
 { #category : #'private - event handling' }
 LeCodeSnippet >> onCoderSourceModified: aGtCoderSourceCodeChanged [
 	"Is announced by the Coder model when its source code changes"
-
-	self updateEditTimeAndEmail.
 	
-	self updateUnlinkedReferences.
-	self announceTextChangedBy: aGtCoderSourceCodeChanged source
+	"In case the source of the event is a command, 
+	do not log another trace of the change."
+	(self shouldAddTraceEventForChange: aGtCoderSourceCodeChanged) 
+		ifFalse: [ ^ self updateAfterChange: aGtCoderSourceCodeChanged ].
+	
+	self 
+		executeWithLoggingAction: [ 
+			self updateAfterChange: aGtCoderSourceCodeChanged ]  
+		afterChange: aGtCoderSourceCodeChanged
 ]
 
 { #category : #printing }
@@ -125,6 +154,17 @@ LeCodeSnippet >> printOn: aStream [
 		nextPutAll: (self code 
 			ifNil: [''] ifNotNil: [self code takeFirst: 20]);
 		nextPutAll: ')'
+]
+
+{ #category : #'private - event handling' }
+LeCodeSnippet >> shouldAddTraceEventForChange: aGtCoderSourceCodeChanged [ 
+	"We only add a trace event if we have the previous text, 
+	and the change was not the result of another command."
+	
+	^ aGtCoderSourceCodeChanged previousText notNil and: [
+		 aGtCoderSourceCodeChanged updateStrategy notNil and: [
+			(aGtCoderSourceCodeChanged updateStrategy 
+				propertyNamed: #isFromEditCommand ifAbsent: [ false ]) not ]]
 ]
 
 { #category : #printing }
@@ -146,6 +186,27 @@ LeCodeSnippet >> text [
 	<return: #BlText>
 
 	^ coder currentSourceText
+]
+
+{ #category : #'private - event handling' }
+LeCodeSnippet >> updateAfterChange: aGtCoderSourceCodeChanged [ 
+	"The snippet stores the entire coder model, so after a change 
+	in coder, we do not need to modify the code in the snippet.
+	We only update metadata and links."
+	
+	self updateEditTimeAndEmail.
+	
+	self updateUnlinkedReferences.
+	self announceTextChangedBy: aGtCoderSourceCodeChanged source
+]
+
+{ #category : #'api - editing' }
+LeCodeSnippet >> updateFromCommandText: aText source: anObject [
+	coder
+		currentSourceText: aText
+		with: (GtCoderUpdateStrategy new 
+			source: anObject;
+			propertyNamed: #isFromEditCommand put: true)
 ]
 
 { #category : #'api - editing' }

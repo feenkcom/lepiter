@@ -18,8 +18,13 @@ LePageEditHistory class >> forPage: aPage [
 ]
 
 { #category : #callbacks }
-LePageEditHistory >> actOnCommandExecutedFor: anEvent [
-	self addTraceEvent: anEvent result traceEvent
+LePageEditHistory >> actOnCommandExecutedFor: anAnnouncement [
+	self addTraceEvent: anAnnouncement result traceEvent
+]
+
+{ #category : #callbacks }
+LePageEditHistory >> actOnTraceableChangeFor: anAnnouncement [
+	self addTraceEvent: anAnnouncement traceEvent
 ]
 
 { #category : #'api - undo/redo' }
@@ -151,8 +156,11 @@ LePageEditHistory >> redoUndoActions [
 LePageEditHistory >> registerEvents [
 	targetPage announcer weak
 		when: LeContentCommandExecutedAnnouncement 
-		send: #actOnCommandExecutedFor:
-		to: self
+			send: #actOnCommandExecutedFor:
+			to: self;
+		when: LeContentTraceableChangeExecutedAnnouncement
+			send: #actOnTraceableChangeFor:
+			to: self
 ]
 
 { #category : #accessing }

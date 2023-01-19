@@ -11,7 +11,7 @@ Class {
 { #category : #updating }
 LeTextualSnippetAttribute >> applyOn: aTextSnippet [ 
 	aTextSnippet 
-		updateText: self text
+		updateFromCommandText: self text
 		source: self source
 ]
 
