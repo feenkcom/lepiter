@@ -1,6 +1,6 @@
 "
 I am the model for a single text snippet. 
-The following example display one {{gtClass:LePage|label=page}} with three blocks in a tree structure: {{gtExample:LeContentExamples>>#pageOneWithTwoBlocksAndWithBlockChild|noCode}} 
+The following example display one {{gtClass:LePage|label=page}} with three blocks in a tree structure: {{gtExample:LeContentExamples>>#pageOneWithTwoSnippetsAndWithSnippetChild|noCode}} 
 ## Properties
 Common properties that can be accessed from a LeSnippet include:
 - {{gtMethod:LeTextSnippet>>#text|label=#selector}} is a  [Markdown](https://en.wikipedia.org/wiki/Markdown) text as a {{gtClass:BlText}} instance,
@@ -11,11 +11,11 @@ Common properties that can be accessed from a LeSnippet include:
 Additional properties can be found in `api - accessing`.
 ## Initialization
 The {{gtMethod:LeTextSnippet>>#text|label=#selector}} is **initialized** either using {{gtMethod:LeTextSnippet>>#text:|label=#selector}} or {{gtMethod:LeTextSnippet>>#string:|label=#selector}}.  The former one is useful particularly for the json reader and writer.
-From a UI, new {{gtClass:LeSnippet}} can be created (added as my children) using {{gtMethod:LeContent>>#blockBuilder|label=#selector}}: {{gtExample:LeContentExamples>>#textBlockInPageAndDatabase}} 
+From a UI, new {{gtClass:LeSnippet}} can be created (added as my children) using {{gtMethod:LeContent>>#blockBuilder|label=#selector}}: {{gtExample:LeContentExamples>>#textSnippetInPageAndDatabase}} 
 ## Updates
-A number of methods for **updating** text are provided (mirroring the protocol for {{{gtClass:BlRopedText}}:
+A number of methods for **updating** text are provided (mirroring the protocol for {{gtClass:BlText}}:
 - {{gtMethod:LeTextSnippet>>#updateText:source:|label=#selector}}
-- {{gtMethod:LeTextSnippet>>#updateString:|label=#selector}}
+- {{gtMethod:LeTextualSnippet>>#updateString:|label=#selector}}
 - {{gtMethod:LeTextSnippet>>#appendText:source:|label=#selector}}
 - {{gtMethod:name=LeTextSnippet>>#insertText:at:|label=#selector}}
 
@@ -23,7 +23,7 @@ A number of methods for **updating** text are provided (mirroring the protocol f
  
 
 Text editors are responsible for using a copy of {{gtMethod:LeTextSnippet>>#text|label=#selector}} since sharing {{gtClass:BlTextAttribute|label=text attributes}}  may produces undesired (and undefinied) behavior. {{gtClass:BlText}} is not thread safe, it therefore cannot be edited simultaneously in several editors.
-The text is stored as a {{gtClass:BlRopedText}} (rather than a {{gtClass:String}}) since converting text to strings is expensive, and this would be done on every keystroke while editing in the UI.
+The text is stored as a {{gtClass:BlText}} (rather than a {{gtClass:String}}) since converting text to strings is expensive, and this would be done on every keystroke while editing in the UI.
 ## Navigation
 A number of methods for navigating betwee blocks are provided, including:
 
