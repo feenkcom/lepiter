@@ -47,7 +47,7 @@ LeSnippetViewModel >> gtActionIndentFor: anAction [
 		icon: BrGlamorousVectorIcons right;
 		target: LeSnippetContextMenuActionTarget uniqueInstance;
 		priority: 4;
-		action: [ :aButton :aSnippetElement | self indent ]
+		action: [ :aButton :aSnippetElement | self requestIndent ]
 ]
 
 { #category : #'gt - extensions' }
@@ -107,15 +107,7 @@ LeSnippetViewModel >> gtActionUnindentFor: anAction [
 		icon: BrGlamorousVectorIcons left;
 		target: LeSnippetContextMenuActionTarget uniqueInstance;
 		priority: 3;
-		action: [ :aButton :aSnippetElement | self unindent ]
-]
-
-{ #category : #'api - actions' }
-LeSnippetViewModel >> indent [
-	"Indent the receiver in the receiver's page, i.e. make it a child of the previous snippet.
-	If this is the first snippet at the current level, do nothing"
-
-	self snippetModel indentThroughCommand
+		action: [ :aButton :aSnippetElement | self requestUnindent ]
 ]
 
 { #category : #'api - actions' }
@@ -176,6 +168,17 @@ LeSnippetViewModel >> removeSelf [
 ]
 
 { #category : #'api - actions' }
+LeSnippetViewModel >> requestIndent [
+	"Indent the receiver in the receiver's page, 
+	i.e. make it a child of the previous snippet.
+	If this is the first snippet at the current level, 
+	do not execute any command."
+
+	self snippetModel canBeIndented ifTrue: [
+		self snippetModel indentThroughCommand ]
+]
+
+{ #category : #'api - actions' }
 LeSnippetViewModel >> requestMoveDown [
 	"Move snippet down swapping it with a next sibling if it exists.
 	Do not execute any command if not possible"
@@ -193,6 +196,17 @@ LeSnippetViewModel >> requestMoveUp [
 		self snippetModel moveUpThroughCommand ]
 ]
 
+{ #category : #'api - actions' }
+LeSnippetViewModel >> requestUnindent [
+	"Unindent the receiver in the receiver's page, 
+	i.e. make it follow its parent snippet.
+	If this is a first level snippet, 
+	do not execute any command."
+
+	self snippetModel canBeUnindented ifTrue: [
+		self snippetModel unindentThroughCommand ]
+]
+
 { #category : #accessing }
 LeSnippetViewModel >> uid [
 	"Each snippet view model displayed in the snippets element should have a uid.
@@ -200,12 +214,4 @@ LeSnippetViewModel >> uid [
 	<return: #LeUID>
 
 	^ self snippetModel uid
-]
-
-{ #category : #'api - actions' }
-LeSnippetViewModel >> unindent [
-	"Unindent the receiver in the receiver's page, i.e. make it follow its parent snippet.
-	If this is a first level snippet, do nothing"
-
-	self snippetModel unindentThroughCommand
 ]

@@ -1,7 +1,7 @@
 Class {
 	#name : #LeSnippetUnindentSnippetShortcut,
 	#superclass : #LeSnippetEditorShortcut,
-	#category : 'Lepiter-UI-Snippet-Shortcuts'
+	#category : #'Lepiter-UI-Snippet-Shortcuts'
 }
 
 { #category : #accessing }
@@ -16,5 +16,5 @@ LeSnippetUnindentSnippetShortcut >> name [
 
 { #category : #evaluation }
 LeSnippetUnindentSnippetShortcut >> performOnEditor: aBrTextEditor snippet: aLeSnippetElement dueTo: aShortcutEvent [
-	aLeSnippetElement snippetViewModel unindent
+	aLeSnippetElement snippetViewModel requestUnindent
 ]

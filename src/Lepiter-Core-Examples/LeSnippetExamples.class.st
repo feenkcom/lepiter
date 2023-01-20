@@ -48,7 +48,62 @@ LeSnippetExamples >> exampleSplittingPage [
 
 ]
 
-{ #category : #'examples - basic' }
+{ #category : #'examples - indent' }
+LeSnippetExamples >> indentSnippetInPage [
+	<gtExample>
+	| database page firstSnippet secondSnippet |
+
+	database := self basicDatabase.
+	page := LePage named: #Page1.
+	database addPage: page.
+	
+	firstSnippet := LeTextSnippet string: #Snippet1.
+	page addSnippet: firstSnippet.
+	secondSnippet := LeTextSnippet string: #Snippet2.
+	page addSnippet: secondSnippet.
+	
+	self assert: firstSnippet canBeIndented not.
+	self assert: secondSnippet canBeIndented.
+	self assert: page childrenCount equals: 2.
+	
+	secondSnippet indent.
+	self assert: firstSnippet canBeIndented not.
+	self assert: secondSnippet canBeIndented not.
+	self assert: firstSnippet childrenCount equals: 1.
+	self assert: page childrenCount equals: 1.
+
+	^ page
+]
+
+{ #category : #'examples - indent' }
+LeSnippetExamples >> indentSnippetWithinParentWithChild [
+	<gtExample>
+	| database page firstSnippet secondSnippet |
+
+	database := self basicDatabase.
+	page := LePage named: #Page1.
+	database addPage: page.
+	
+	firstSnippet := LeTextSnippet string: #Snippet1.
+	firstSnippet addSnippet: (LeTextSnippet string: #SnippetC).
+	page addSnippet: firstSnippet.
+	secondSnippet := LeTextSnippet string: #Snippet3.
+	page addSnippet: secondSnippet.
+	
+	self assert: firstSnippet canBeIndented not.
+	self assert: secondSnippet canBeIndented.
+	self assert: page childrenCount equals: 2.
+	
+	secondSnippet indent.
+	self assert: firstSnippet canBeIndented not.
+	self assert: secondSnippet canBeIndented.
+	self assert: firstSnippet childrenCount equals: 2.
+	self assert: page childrenCount equals: 1.
+
+	^ page
+]
+
+{ #category : #'examples - indent' }
 LeSnippetExamples >> indentedPage [
 	"Answer a page with blocks three and four indented"
 	<gtExample>
@@ -201,7 +256,7 @@ LeSnippetExamples >> mergePreviousInSelf [
 	self assert: snippetTwo children first string equals: 'Four'.
 ]
 
-{ #category : #'examples - moveUp' }
+{ #category : #'examples - moveDown' }
 LeSnippetExamples >> moveDownSnippetInPage [
 	<gtExample>
 	| database page firstSnippet secondSnippet moveResult |
@@ -227,7 +282,7 @@ LeSnippetExamples >> moveDownSnippetInPage [
 	^ page
 ]
 
-{ #category : #'examples - moveUp' }
+{ #category : #'examples - moveDown' }
 LeSnippetExamples >> moveDownSnippetInPage_moveDownAgain [
 	<gtExample>
 	| page targetSnippet |
@@ -240,7 +295,7 @@ LeSnippetExamples >> moveDownSnippetInPage_moveDownAgain [
 	^ page
 ]
 
-{ #category : #'examples - moveUp' }
+{ #category : #'examples - moveDown' }
 LeSnippetExamples >> moveDownSnippetInSnippetChildren [
 	<gtExample>
 	| database page targetSnippet firstSnippet secondSnippet moveResult |
@@ -271,7 +326,7 @@ LeSnippetExamples >> moveDownSnippetInSnippetChildren [
 	^ page
 ]
 
-{ #category : #'examples - moveUp' }
+{ #category : #'examples - moveDown' }
 LeSnippetExamples >> moveDownSnippetToDifferentParentWithChildren [
 	<gtExample>
 	| database page childSnippet firstSnippet secondSnippet moveResult |
@@ -885,6 +940,35 @@ LeSnippetExamples >> splitFirstSnippet [
 
 	self assert: (snippetOne createEmail isKindOf: LeEmail).
 	self assert: (snippetTwo createEmail isKindOf: LeEmail).
+	^ page
+]
+
+{ #category : #'examples - unindent' }
+LeSnippetExamples >> unindentChildSnippet [
+	<gtExample>
+	| database page firstSnippet secondSnippet |
+
+	database := self basicDatabase.
+	page := LePage named: #Page1.
+	database addPage: page.
+	
+	firstSnippet := LeTextSnippet string: #Snippet1.
+	page addSnippet: firstSnippet.
+	secondSnippet := LeTextSnippet string: #Snippet2.
+	firstSnippet addSnippet: secondSnippet.
+	
+	self assert: firstSnippet canBeUnindented not.
+	self assert: secondSnippet canBeUnindented.
+	self assert: page childrenCount equals: 1.
+	
+	secondSnippet unindent.
+	self assert: firstSnippet canBeUnindented not.
+	self assert: secondSnippet canBeUnindented not.
+	self assert: firstSnippet childrenCount equals: 0.
+	self assert: page childrenCount equals: 2.
+	
+	self assert: secondSnippet parent == page.
+
 	^ page
 ]
 

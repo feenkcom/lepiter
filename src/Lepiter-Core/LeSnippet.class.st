@@ -143,6 +143,14 @@ LeSnippet >> attachToParent: aParentSnippet [
 ]
 
 { #category : #'api - testing' }
+LeSnippet >> canBeIndented [
+	"A snippet can be indented as long as it is not the first child.
+	Indenting adds it as a child of the previous sibling"
+	
+	^ self isFirstChild not
+]
+
+{ #category : #'api - testing' }
 LeSnippet >> canBeMovedDown [
 	"A snippet can me moved down if there are children below it,
 	or its parent has siblings below it."
@@ -160,6 +168,14 @@ LeSnippet >> canBeMovedUp [
 	^ self isFirstChild not or: [
 		self parent isSnippet and: [
 			self parent isFirstChild not ] ].
+]
+
+{ #category : #'api - testing' }
+LeSnippet >> canBeUnindented [
+	"A snippet can be unintented as long as its parent is another snippet.
+	Unindenting adds it as a sibling of the parent sibling"
+	
+	^ self parent isSnippet
 ]
 
 { #category : #'api - commands' }
