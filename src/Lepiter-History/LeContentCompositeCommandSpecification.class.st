@@ -1,5 +1,5 @@
 Class {
-	#name : #LeCompositeCommandSpecification,
+	#name : #LeContentCompositeCommandSpecification,
 	#superclass : #LeCommandSpecification,
 	#instVars : [
 		'label'
@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #printing }
-LeCompositeCommandSpecification >> descriptionOn: aStream [ 
+LeContentCompositeCommandSpecification >> descriptionOn: aStream [ 
 	aStream 
 		<< self label;
 		<< ', '.
@@ -16,13 +16,13 @@ LeCompositeCommandSpecification >> descriptionOn: aStream [
 ]
 
 { #category : #accessing }
-LeCompositeCommandSpecification >> label [
+LeContentCompositeCommandSpecification >> label [
 
 	^ label
 ]
 
 { #category : #accessing }
-LeCompositeCommandSpecification >> label: anObject [
+LeContentCompositeCommandSpecification >> label: anObject [
 
 	label := anObject
 ]

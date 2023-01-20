@@ -1,5 +1,5 @@
 Class {
-	#name : #LeGenericCompositeCommand,
+	#name : #LeContentCompositeCommand,
 	#superclass : #LeContentCommand,
 	#instVars : [
 		'label'
@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #execution }
-LeGenericCompositeCommand >> basicExecute [ 
+LeContentCompositeCommand >> basicExecute [ 
 	| subcommandResults |
 	
 	subcommandResults := self executeSubcommands.
@@ -19,14 +19,14 @@ LeGenericCompositeCommand >> basicExecute [
 ]
 
 { #category : #'execution - utils' }
-LeGenericCompositeCommand >> createCommandResult [
-	^ LeCompositeCommandExecutionResult forCommand: self
+LeContentCompositeCommand >> createCommandResult [
+	^ LeContentCompositeCommandExecutionResult forCommand: self
 ]
 
 { #category : #converting }
-LeGenericCompositeCommand >> createCommandSpecification [
+LeContentCompositeCommand >> createCommandSpecification [
 	| specification | 
-	specification := LeCompositeCommandSpecification new 
+	specification := LeContentCompositeCommandSpecification new 
 		contentUid: self targetContent uid;
 		commandTypeName: self className;
 		label: self label.
@@ -38,13 +38,13 @@ LeGenericCompositeCommand >> createCommandSpecification [
 ]
 
 { #category : #printing }
-LeGenericCompositeCommand >> descriptionOn: aStream [
+LeContentCompositeCommand >> descriptionOn: aStream [
 	aStream 
 		<< self label
 ]
 
 { #category : #accessing }
-LeGenericCompositeCommand >> gtViewSubcommandsFor: aView [ 
+LeContentCompositeCommand >> gtViewSubcommandsFor: aView [ 
 	<gtView>
 	
 	^ aView tree
@@ -55,26 +55,26 @@ LeGenericCompositeCommand >> gtViewSubcommandsFor: aView [
 ]
 
 { #category : #initialization }
-LeGenericCompositeCommand >> initializeFromSpecification: aCommandSpecification withBuilder: aBuilder [
+LeContentCompositeCommand >> initializeFromSpecification: aCommandSpecification withBuilder: aBuilder [
 	super initializeFromSpecification: aCommandSpecification withBuilder: aBuilder.
 	
 	self label: aCommandSpecification label
 ]
 
 { #category : #accessing }
-LeGenericCompositeCommand >> label [
+LeContentCompositeCommand >> label [
 
 	^ label
 ]
 
 { #category : #accessing }
-LeGenericCompositeCommand >> label: aString [
+LeContentCompositeCommand >> label: aString [
 
 	label := aString
 ]
 
 { #category : #printing }
-LeGenericCompositeCommand >> printOn: aStream [
+LeContentCompositeCommand >> printOn: aStream [
 	super printOn: aStream.
 	
 	aStream parenthesize: [ 
