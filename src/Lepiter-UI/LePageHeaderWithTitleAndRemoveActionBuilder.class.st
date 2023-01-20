@@ -10,6 +10,7 @@ LePageHeaderWithTitleAndRemoveActionBuilder >> build [
 	self addTitle.
 	self addRemoteLinkToClipboardButton.
 	self addRemovePageButton.
+	self addOpenInNewTabButton.
 	self addTableOfContentsToggle.
 	self addExtensionButtons.
 ]

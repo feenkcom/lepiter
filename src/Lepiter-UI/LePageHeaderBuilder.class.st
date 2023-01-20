@@ -43,6 +43,19 @@ LePageHeaderBuilder >> addInspectButton [
 	self toolbarElement addItem: anInspectButton.
 ]
 
+{ #category : #accessing }
+LePageHeaderBuilder >> addOpenInNewTabButton [
+	"Add a button to open this page in a new world tab."
+
+	| newButton |
+	newButton := BrButton new
+			aptitude: BrGlamorousButtonWithIconAptitude;
+			label: 'Open page in a new world tab';
+			icon: BrGlamorousIcons spawn;
+			action: [ :aButton | ((LePagePhlowTool page: self page) asElement openInPagerFrom: aButton) maximized ].
+	self toolbarElement addItem: newButton
+]
+
 { #category : #'private - building' }
 LePageHeaderBuilder >> addRemoteLinkToClipboardButton [
 	"Add a button the copies the markdown to reference the receiver as a remote page"
