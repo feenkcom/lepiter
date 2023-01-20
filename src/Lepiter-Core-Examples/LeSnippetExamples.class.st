@@ -57,6 +57,7 @@ LeSnippetExamples >> indentedPage [
 	page := self exampleMergingPage.
 	self assert: page childrenCount equals: 6.
 	self assert: (page children at: 2) childrenCount equals: 0.
+	
 	snippetTwo := page children at: 2.
 	snippetThree := page children at: 3.
 	snippetFour := page children at: 4.
@@ -65,6 +66,7 @@ LeSnippetExamples >> indentedPage [
 	snippetFour indent.
 	snippetThree indent.
 	snippetSix indent.
+	
 	self assert: page childrenCount equals: 3.
 	self assert: snippetTwo childrenCount equals: 1.
 	self assert: snippetTwo children first string equals: 'Three'.
@@ -150,6 +152,7 @@ LeSnippetExamples >> mergeNextInSelf [
 	snippetFour indent.
 	snippetThree indent.
 	snippetTwo mergeWithNext.
+	
 	self assert: page childrenCount equals: 4.
 	self assert: snippetTwo childrenCount equals: 1.
 	self assert: snippetTwo string equals: 'TwoThree'.
@@ -196,6 +199,147 @@ LeSnippetExamples >> mergePreviousInSelf [
 	self assert: snippetTwo childrenCount equals: 1.
 	self assert: snippetTwo string equals: 'TwoThree'.
 	self assert: snippetTwo children first string equals: 'Four'.
+]
+
+{ #category : #'examples - moveUp' }
+LeSnippetExamples >> moveDownSnippetInPage [
+	<gtExample>
+	| database page firstSnippet secondSnippet moveResult |
+
+	database := self basicDatabase.
+	page := LePage named: #Page1.
+	database addPage: page.
+	
+	firstSnippet := LeTextSnippet string: #Snippet1.
+	page addSnippet: firstSnippet.
+	secondSnippet := LeTextSnippet string: #Snippet2.
+	page addSnippet: secondSnippet.
+	
+	self assert: firstSnippet canBeMovedDown .
+	self assert: secondSnippet canBeMovedDown not.
+	self assert: page childrenCount equals: 2.
+	
+	moveResult := firstSnippet moveDown.
+	self assert: moveResult.
+	self assert: secondSnippet isFirstChild.
+	self assert: firstSnippet isLastChild.
+
+	^ page
+]
+
+{ #category : #'examples - moveUp' }
+LeSnippetExamples >> moveDownSnippetInPage_moveDownAgain [
+	<gtExample>
+	| page targetSnippet |
+
+	page := self moveDownSnippetInPage.
+	targetSnippet := page children last.
+	
+	self assert: targetSnippet moveDown not.
+
+	^ page
+]
+
+{ #category : #'examples - moveUp' }
+LeSnippetExamples >> moveDownSnippetInSnippetChildren [
+	<gtExample>
+	| database page targetSnippet firstSnippet secondSnippet moveResult |
+
+	database := self basicDatabase.
+	page := LePage named: #Page1.
+	database addPage: page.
+	
+	targetSnippet := LeTextSnippet string: #Snippet1.
+	page addSnippet: targetSnippet.
+	
+	firstSnippet := LeTextSnippet string: #SnippetA.
+	targetSnippet addSnippet: firstSnippet.
+	secondSnippet := LeTextSnippet string: #SnippetB.
+	targetSnippet addSnippet: secondSnippet.
+	
+	self assert: firstSnippet canBeMovedDown.
+	self assert: secondSnippet canBeMovedDown not.
+	self assert: targetSnippet childrenCount equals: 2.
+	
+	moveResult := firstSnippet moveDown.
+	self assert: moveResult.
+	self assert: secondSnippet isFirstChild.
+	self assert: firstSnippet isLastChild.
+	self assert: secondSnippet canBeMovedDown.
+	self assert: firstSnippet canBeMovedDown not .
+
+	^ page
+]
+
+{ #category : #'examples - moveUp' }
+LeSnippetExamples >> moveDownSnippetToDifferentParentWithChildren [
+	<gtExample>
+	| database page childSnippet firstSnippet secondSnippet moveResult |
+
+	database := self basicDatabase.
+	page := LePage named: #Page1.
+	database addPage: page.
+	
+	firstSnippet := LeTextSnippet string: #Snippet1.
+	page addSnippet: firstSnippet.
+	
+	secondSnippet := LeTextSnippet string: #Snippet3.
+	secondSnippet addSnippet: (LeTextSnippet string: #Snippet4).
+	page addSnippet: secondSnippet.
+	
+	childSnippet := LeTextSnippet string: #Snippet2.
+	firstSnippet addSnippet: childSnippet.
+	
+	self assert: childSnippet canBeMovedDown.
+	self assert: childSnippet isFirstChild.
+	self assert: firstSnippet childrenCount equals: 1.
+	self assert: secondSnippet childrenCount equals: 1.
+	
+	moveResult := childSnippet moveDown.
+	self assert: moveResult.
+	self assert: childSnippet canBeMovedDown.
+	self assert: childSnippet isFirstChild.
+	self assert: childSnippet isLastChild not.
+	self assert: firstSnippet childrenCount equals: 0.
+	self assert: secondSnippet childrenCount equals: 2.
+	
+	self assert: childSnippet parent == secondSnippet.
+
+	^ page
+]
+
+{ #category : #'examples - moveUp' }
+LeSnippetExamples >> moveDownSnippetToDifferentParentWithoutChildren [
+	<gtExample>
+	| database page childSnippet firstSnippet secondSnippet moveResult |
+
+	database := self basicDatabase.
+	page := LePage named: #Page1.
+	database addPage: page.
+	
+	firstSnippet := LeTextSnippet string: #Snippet1.
+	page addSnippet: firstSnippet.
+	secondSnippet := LeTextSnippet string: #Snippet3.
+	page addSnippet: secondSnippet.
+	
+	childSnippet := LeTextSnippet string: #Snippet2.
+	firstSnippet addSnippet: childSnippet.
+	
+	self assert: childSnippet canBeMovedDown.
+	self assert: childSnippet isLastChild.
+	self assert: firstSnippet childrenCount equals: 1.
+	self assert: secondSnippet childrenCount equals: 0.
+	
+	moveResult := childSnippet moveDown.
+	self assert: moveResult.
+	self assert: childSnippet canBeMovedDown not.
+	self assert: childSnippet isLastChild.
+	self assert: firstSnippet childrenCount equals: 0.
+	self assert: secondSnippet childrenCount equals: 1.
+	
+	self assert: childSnippet parent == secondSnippet.
+
+	^ page
 ]
 
 { #category : #'examples - announcements' }
@@ -398,6 +542,133 @@ LeSnippetExamples >> moveSnippetWithChildren [
 	self assert: snippet childrenCount equals: 1.
 
 	^ db1
+]
+
+{ #category : #'examples - moveUp' }
+LeSnippetExamples >> moveUpSnippetInPage [
+	"Demonstrate that moving a snippet between pages keeps the snippet's children"
+	<gtExample>
+	| database page firstSnippet secondSnippet moveResult |
+
+	database := self basicDatabase.
+	page := LePage named: #Page1.
+	database addPage: page.
+	
+	firstSnippet := LeTextSnippet string: #Snippet1.
+	page addSnippet: firstSnippet.
+	secondSnippet := LeTextSnippet string: #Snippet2.
+	page addSnippet: secondSnippet.
+	
+	self assert: firstSnippet canBeMovedUp not.
+	self assert: secondSnippet canBeMovedUp.
+	self assert: page childrenCount equals: 2.
+	
+	moveResult := secondSnippet moveUp.
+	self assert: moveResult.
+	self assert: secondSnippet isFirstChild.
+	self assert: firstSnippet isFirstChild not.
+
+	^ page
+]
+
+{ #category : #'examples - moveUp' }
+LeSnippetExamples >> moveUpSnippetInSnippetChildren [
+	<gtExample>
+	| database page targetSnippet firstSnippet secondSnippet moveResult |
+
+	database := self basicDatabase.
+	page := LePage named: #Page1.
+	database addPage: page.
+	
+	targetSnippet := LeTextSnippet string: #Snippet1.
+	page addSnippet: targetSnippet.
+	
+	firstSnippet := LeTextSnippet string: #SnippetA.
+	targetSnippet addSnippet: firstSnippet.
+	secondSnippet := LeTextSnippet string: #SnippetB.
+	targetSnippet addSnippet: secondSnippet.
+	
+	self assert: firstSnippet canBeMovedUp not.
+	self assert: secondSnippet canBeMovedUp.
+	self assert: targetSnippet childrenCount equals: 2.
+	
+	moveResult := secondSnippet moveUp.
+	self assert: moveResult.
+	self assert: secondSnippet isFirstChild.
+	self assert: firstSnippet isFirstChild not.
+	self assert: firstSnippet canBeMovedUp.
+	self assert: secondSnippet canBeMovedUp not.
+
+	^ page
+]
+
+{ #category : #'examples - moveUp' }
+LeSnippetExamples >> moveUpSnippetToDifferentParentWithChildren [
+	<gtExample>
+	| database page childSnippet firstSnippet secondSnippet moveResult |
+
+	database := self basicDatabase.
+	page := LePage named: #Page1.
+	database addPage: page.
+	
+	firstSnippet := LeTextSnippet string: #Snippet1.
+	firstSnippet addSnippet: (LeTextSnippet string: #Snippet2).
+	page addSnippet: firstSnippet.
+	secondSnippet := LeTextSnippet string: #Snippet3.
+	page addSnippet: secondSnippet.
+	
+	childSnippet := LeTextSnippet string: #Snippet4.
+	secondSnippet addSnippet: childSnippet.
+	
+	self assert: childSnippet canBeMovedUp.
+	self assert: childSnippet isFirstChild.
+	self assert: firstSnippet childrenCount equals: 1.
+	self assert: secondSnippet childrenCount equals: 1.
+	
+	moveResult := childSnippet moveUp.
+	self assert: moveResult.
+	self assert: childSnippet canBeMovedUp.
+	self assert: childSnippet isFirstChild not.
+	self assert: firstSnippet childrenCount equals: 2.
+	self assert: secondSnippet childrenCount equals: 0.
+	
+	self assert: childSnippet parent == firstSnippet.
+
+	^ page
+]
+
+{ #category : #'examples - moveUp' }
+LeSnippetExamples >> moveUpSnippetToDifferentParentWithoutChildren [
+	<gtExample>
+	| database page childSnippet firstSnippet secondSnippet moveResult |
+
+	database := self basicDatabase.
+	page := LePage named: #Page1.
+	database addPage: page.
+	
+	firstSnippet := LeTextSnippet string: #Snippet1.
+	page addSnippet: firstSnippet.
+	secondSnippet := LeTextSnippet string: #Snippet2.
+	page addSnippet: secondSnippet.
+	
+	childSnippet := LeTextSnippet string: #Snippet3.
+	secondSnippet addSnippet: childSnippet.
+	
+	self assert: childSnippet canBeMovedUp.
+	self assert: childSnippet isFirstChild.
+	self assert: firstSnippet childrenCount equals: 0.
+	self assert: secondSnippet childrenCount equals: 1.
+	
+	moveResult := childSnippet moveUp.
+	self assert: moveResult.
+	self assert: childSnippet canBeMovedUp not.
+	self assert: childSnippet isFirstChild.
+	self assert: firstSnippet childrenCount equals: 1.
+	self assert: secondSnippet childrenCount equals: 0.
+	
+	self assert: childSnippet parent == firstSnippet.
+
+	^ page
 ]
 
 { #category : #'examples - basic' }

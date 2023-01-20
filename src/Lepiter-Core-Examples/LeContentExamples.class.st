@@ -30,67 +30,6 @@ LeContentExamples >> addPageToDatabase [
 	^ aDatabase
 ]
 
-{ #category : #'examples - model basic' }
-LeContentExamples >> basicBlock [
-	<gtExample>
-	| aTextSnippet |
-	aTextSnippet := LeTextSnippet new.
-	self assert: aTextSnippet isTextSnippet.
-	^ aTextSnippet
-]
-
-{ #category : #'examples - model basic' }
-LeContentExamples >> basicBlock_hasNoIncomingExplicitLinks [
-	<gtExample>
-	| aTextSnippet |
-	aTextSnippet := self basicBlock.
-	self assert: aTextSnippet incomingLinks isEmpty.
-	
-	^ aTextSnippet
-]
-
-{ #category : #'examples - model basic' }
-LeContentExamples >> basicBlock_hasNoOutgoingExplicitLinks [
-	<gtExample>
-	| aTextSnippet |
-	aTextSnippet := self basicBlock.
-	self assert: aTextSnippet outgoingExplicitLinks isEmpty.
-	self assert: aTextSnippet outgoingTextualLinks isEmpty.
-	self assert: aTextSnippet hasOutgoingTextualLinks not.
-	self assert: aTextSnippet allChildOutgoingLinks size equals: 0.
-	
-	^ aTextSnippet
-]
-
-{ #category : #'examples - model basic' }
-LeContentExamples >> basicBlock_hasUninitializedCachedLinks [
-	<gtExample>
-	| aTextSnippet |
-	aTextSnippet := self basicBlock.
-	self assert: aTextSnippet cachedTextualLinks isNil.
-	
-	^ aTextSnippet
-]
-
-{ #category : #'examples - model basic' }
-LeContentExamples >> basicBlocks [
-	<gtExample>
-	| theParts |
-	theParts := LeSnippets new.
-	self assert: theParts size equals: 0.
-	^ theParts
-]
-
-{ #category : #'examples - model basic' }
-LeContentExamples >> basicBlocksWithAll: anArray [
-	<gtExample>
-	| theParts |
-	theParts := self basicBlocks.
-	theParts items: anArray.
-	self assert: theParts size equals: anArray size.
-	^ theParts
-]
-
 { #category : #'examples - basic' }
 LeContentExamples >> basicDatabase [
 	<gtExample>
@@ -132,6 +71,67 @@ LeContentExamples >> basicPage [
 ]
 
 { #category : #'examples - model basic' }
+LeContentExamples >> basicSnippet [
+	<gtExample>
+	| aTextSnippet |
+	aTextSnippet := LeTextSnippet new.
+	self assert: aTextSnippet isTextSnippet.
+	^ aTextSnippet
+]
+
+{ #category : #'examples - model basic' }
+LeContentExamples >> basicSnippet_hasNoIncomingExplicitLinks [
+	<gtExample>
+	| aTextSnippet |
+	aTextSnippet := self basicSnippet.
+	self assert: aTextSnippet incomingLinks isEmpty.
+	
+	^ aTextSnippet
+]
+
+{ #category : #'examples - model basic' }
+LeContentExamples >> basicSnippet_hasNoOutgoingExplicitLinks [
+	<gtExample>
+	| aTextSnippet |
+	aTextSnippet := self basicSnippet.
+	self assert: aTextSnippet outgoingExplicitLinks isEmpty.
+	self assert: aTextSnippet outgoingTextualLinks isEmpty.
+	self assert: aTextSnippet hasOutgoingTextualLinks not.
+	self assert: aTextSnippet allChildOutgoingLinks size equals: 0.
+	
+	^ aTextSnippet
+]
+
+{ #category : #'examples - model basic' }
+LeContentExamples >> basicSnippet_hasUninitializedCachedLinks [
+	<gtExample>
+	| aTextSnippet |
+	aTextSnippet := self basicSnippet.
+	self assert: aTextSnippet cachedTextualLinks isNil.
+	
+	^ aTextSnippet
+]
+
+{ #category : #'examples - model basic' }
+LeContentExamples >> basicSnippets [
+	<gtExample>
+	| theParts |
+	theParts := LeSnippets new.
+	self assert: theParts size equals: 0.
+	^ theParts
+]
+
+{ #category : #'examples - model basic' }
+LeContentExamples >> basicSnippetsWithAll: anArray [
+	<gtExample>
+	| theParts |
+	theParts := self basicSnippets.
+	theParts items: anArray.
+	self assert: theParts size equals: anArray size.
+	^ theParts
+]
+
+{ #category : #'examples - model basic' }
 LeContentExamples >> basicTime [
 	<gtExample>
 	| aTime |
@@ -141,110 +141,16 @@ LeContentExamples >> basicTime [
 	^ aTime
 ]
 
-{ #category : #'examples - block changes' }
-LeContentExamples >> blockChangeText [
-	<gtExample>
-	| aBlock aCreateTime aCreateEmail anEditTime anEditEmail aNewUserEmail aNewText |
-	aBlock := self textBlockInPageAndDatabase.
-	aCreateTime := aBlock createTime.
-	aCreateEmail := aBlock createEmail.
-	anEditTime := aBlock editTime.
-	anEditEmail := aBlock editEmail.
-	aNewUserEmail := 'connie@dogs.com'.
-	aBlock database userEmail: aNewUserEmail.
-	aNewText := 'new block text' asRopedText.
-	aBlock updateText: aNewText.
-	self assert: aBlock text characters equals: aNewText characters.
-	self assert: aBlock string equals: aNewText asString.
-	self assert: aBlock createTime == aCreateTime.
-	self assert: aBlock createEmail == aCreateEmail.
-	self assert: (aBlock editTime == anEditTime) not.
-	self assert: (aBlock editEmail == anEditEmail) not.
-	self assert: aBlock editEmail equals: aBlock database userEmail.
-	self assert: aBlock editEmail email equals: aNewUserEmail.
-	self assert: aBlock text equals: aNewText.
-	^ aBlock
-]
-
-{ #category : #'examples - model' }
-LeContentExamples >> blockOne [
-	<gtExample>
-	| aBlock |
-	aBlock := self basicBlock.
-	aBlock string: self blockOneString.
-	aBlock editTime: self editTimeOne.
-	aBlock editEmail: self editorOne.
-	self assert: aBlock string equals: self blockOneString.
-	self assert: aBlock editTime equals: self editTimeOne.
-	self assert: aBlock editEmail equals: self editorOne.
-	^ aBlock
-]
-
 { #category : #accessing }
-LeContentExamples >> blockOneString [
-	^ 'block one content'
-]
-
-{ #category : #'examples - model' }
-LeContentExamples >> blockOne_hasNoCachedLinks [
-	<gtExample>
-	| aBlock |
-	aBlock := self blockOne.
-	
-	self assert: aBlock cachedTextualLinks notNil.
-	self assert: aBlock cachedTextualLinks isEmpty.
-	
-	^ aBlock
-]
-
-{ #category : #'examples - model' }
-LeContentExamples >> blockThree [
-	<gtExample>
-	| aBlock |
-	aBlock := self basicBlock.
-	aBlock string: self blockThreeString.
-	aBlock editTime: self editTimeOne.
-	aBlock editEmail: self editorOne.
-	self assert: aBlock string equals: self blockThreeString.
-	self assert: aBlock editTime equals: self editTimeOne.
-	self assert: aBlock editEmail equals: self editorOne.
-	^ aBlock
-]
-
-{ #category : #accessing }
-LeContentExamples >> blockThreeString [
-	^ 'block three content'
-]
-
-{ #category : #'examples - model' }
-LeContentExamples >> blockTwo [
-	<gtExample>
-	| aBlock |
-	aBlock := self basicBlock.
-	aBlock string: self blockTwoString.
-	aBlock editTime: self editTimeOne.
-	aBlock editEmail: self editorOne.
-	self assert: aBlock string equals: self blockTwoString.
-	self assert: aBlock editTime equals: self editTimeOne.
-	self assert: aBlock editEmail equals: self editorOne.
-	^ aBlock
-]
-
-{ #category : #accessing }
-LeContentExamples >> blockTwoString [
-	^ 'block two content'
-]
-
-{ #category : #accessing }
-LeContentExamples >> breadthFirstForPageOneWithTwoBlocksAndWithBlockChild [
+LeContentExamples >> breadthFirstForPageOneWithTwoSnippetsAndWithSnippetChild [
 	<gtExample>
 	| page allChildren |
-	page := self pageOneWithTwoBlocksAndWithBlockChild.
+	page := self pageOneWithTwoSnippetsAndWithSnippetChild.
 	allChildren := page allChildrenBreadthFirst.
 	self assert: allChildren size = 3.
-	self assert: allChildren first contentAsString = self blockOneString.
-	self assert: allChildren second contentAsString = self blockThreeString.
-	self assert: allChildren third contentAsString = self blockTwoString.
+	self assert: allChildren first contentAsString = self snippetOneString.
+	self assert: allChildren second contentAsString = self snippetThreeString.
+	self assert: allChildren third contentAsString = self snippetTwoString.
 	^ page
 ]
 
@@ -317,7 +223,7 @@ LeContentExamples >> editorOne [
 ]
 
 { #category : #'examples - model' }
-LeContentExamples >> onePageWithOneBlockAndLinkToNotExistingPage [
+LeContentExamples >> onePageWithOneSnippetAndLinkToNotExistingPage [
 	<gtExample>
 	| aDatabase aPageOne aSnippetOne |
 	aDatabase := self basicDatabaseWithMonitor.
@@ -339,10 +245,10 @@ LeContentExamples >> onePageWithOneBlockAndLinkToNotExistingPage [
 ]
 
 { #category : #'examples - model' }
-LeContentExamples >> onePageWithOneBlockAndLinkToNotExistingPage_AddPageTwo [
+LeContentExamples >> onePageWithOneSnippetAndLinkToNotExistingPage_AddPageTwo [
 	<gtExample>
 	| aDatabase aPageTwo |
-	aDatabase := self onePageWithOneBlockAndLinkToNotExistingPage.
+	aDatabase := self onePageWithOneSnippetAndLinkToNotExistingPage.
 	
 	aPageTwo := aDatabase pageBuilder title: 'two'; add.
 	
@@ -355,10 +261,10 @@ LeContentExamples >> onePageWithOneBlockAndLinkToNotExistingPage_AddPageTwo [
 ]
 
 { #category : #'examples - model' }
-LeContentExamples >> onePageWithOneBlockAndLinkToNotExistingPage_AddPageTwo_AddPageThree [
+LeContentExamples >> onePageWithOneSnippetAndLinkToNotExistingPage_AddPageTwo_AddPageThree [
 	<gtExample>
 	| aDatabase aPageOne aBlockOne aPageTwo |
-	aDatabase := self onePageWithOneBlockAndLinkToNotExistingPage_AddPageTwo.
+	aDatabase := self onePageWithOneSnippetAndLinkToNotExistingPage_AddPageTwo.
 	aPageOne := aDatabase pageNamed: 'one'.
 	aBlockOne := aPageOne children first.
 	aPageTwo := aDatabase pageBuilder
@@ -374,11 +280,11 @@ LeContentExamples >> onePageWithOneBlockAndLinkToNotExistingPage_AddPageTwo_AddP
 ]
 
 { #category : #'examples - model' }
-LeContentExamples >> onePageWithOneBlockAndLinkToNotExistingPage_AddPageTwo_AddPageThree_RenameToTwo [
+LeContentExamples >> onePageWithOneSnippetAndLinkToNotExistingPage_AddPageTwo_AddPageThree_RenameToTwo [
 	<gtExample>
 	| aDatabase aPageOne aBlockOne aPageTwo |
 	aDatabase := self
-		onePageWithOneBlockAndLinkToNotExistingPage_AddPageTwo_AddPageThree.
+		onePageWithOneSnippetAndLinkToNotExistingPage_AddPageTwo_AddPageThree.
 	aPageOne := aDatabase pageNamed: 'one'.
 	aPageTwo := aDatabase pageNamed: 'two'.
 	aBlockOne := aPageOne children first.
@@ -395,11 +301,11 @@ LeContentExamples >> onePageWithOneBlockAndLinkToNotExistingPage_AddPageTwo_AddP
 ]
 
 { #category : #'examples - model' }
-LeContentExamples >> onePageWithOneBlockAndLinkToNotExistingPage_AddPageTwo_AddPageThree_RenameToTwo_RenameToThree [
+LeContentExamples >> onePageWithOneSnippetAndLinkToNotExistingPage_AddPageTwo_AddPageThree_RenameToTwo_RenameToThree [
 	<gtExample>
 	| aDatabase aPageOne aBlockOne aPageTwo |
 	aDatabase := self
-		onePageWithOneBlockAndLinkToNotExistingPage_AddPageTwo_AddPageThree.
+		onePageWithOneSnippetAndLinkToNotExistingPage_AddPageTwo_AddPageThree.
 	aPageOne := aDatabase pageNamed: 'one'.
 	aPageTwo := aDatabase pageNamed: 'two'.
 	aBlockOne := aPageOne children first.
@@ -440,12 +346,12 @@ LeContentExamples >> pageOneTitle [
 ]
 
 { #category : #'examples - model' }
-LeContentExamples >> pageOneWithOneBlock [
+LeContentExamples >> pageOneWithOneSnippet [
 	<gtExample>
 	| aPage aPart |
 	aPage := self pageOne.
-	aPart := self blockOne.
-	aPage children: (self basicBlocksWithAll: { aPart }).
+	aPart := self snippetOne.
+	aPage children: (self basicSnippetsWithAll: { aPart }).
 	self assert: aPage hasChildren.
 	self assert: aPage childrenCount equals: 1.
 	self assert: aPage children items first equals: aPart.
@@ -453,12 +359,12 @@ LeContentExamples >> pageOneWithOneBlock [
 ]
 
 { #category : #'examples - model' }
-LeContentExamples >> pageOneWithOneBlockWithChild [
+LeContentExamples >> pageOneWithOneSnippetWithChild [
 	<gtExample>
 	| aPage aSnippet |
 	aPage := self pageOne.
 	aSnippet := self snippetOneWithOneChild.
-	aPage children: (self basicBlocksWithAll: { aSnippet }).
+	aPage children: (self basicSnippetsWithAll: { aSnippet }).
 	self assert: aPage hasChildren.
 	self assert: aPage childrenCount equals: 1.
 	self assert: aPage children items first equals: aSnippet.
@@ -466,12 +372,12 @@ LeContentExamples >> pageOneWithOneBlockWithChild [
 ]
 
 { #category : #'examples - model' }
-LeContentExamples >> pageOneWithTwoBlocks [
+LeContentExamples >> pageOneWithTwoSnippets [
 	<gtExample>
 	| aPage aPart |
-	aPage := self pageOneWithOneBlock.
-	aPart := self blockTwo.
-	aPage children: (self basicBlocksWithAll: (aPage children items copyWith: aPart)).
+	aPage := self pageOneWithOneSnippet.
+	aPart := self snippetTwo.
+	aPage children: (self basicSnippetsWithAll: (aPage children items copyWith: aPart)).
 	self assert: aPage hasChildren.
 	self assert: aPage childrenCount equals: 2.
 	self assert: aPage children items second equals: aPart.
@@ -479,31 +385,16 @@ LeContentExamples >> pageOneWithTwoBlocks [
 ]
 
 { #category : #'examples - model' }
-LeContentExamples >> pageOneWithTwoBlocksAndWithBlockChild [
+LeContentExamples >> pageOneWithTwoSnippetsAndWithSnippetChild [
 	<gtExample>
 	| aPage aPart |
-	aPage := self pageOneWithOneBlockWithChild.
-	aPart := self blockTwo.
-	aPage children: (self basicBlocksWithAll: (aPage children items copyWith: aPart)).
+	aPage := self pageOneWithOneSnippetWithChild.
+	aPart := self snippetTwo.
+	aPage children: (self basicSnippetsWithAll: (aPage children items copyWith: aPart)).
 	self assert: aPage hasChildren.
 	self assert: aPage childrenCount equals: 2.
 	self assert: aPage children items second equals: aPart.
 	^ aPage
-]
-
-{ #category : #'examples - model' }
-LeContentExamples >> removeBlockFromParent [
-	<gtExample>
-	| aSnippet aChild |
-	aSnippet := self blockOne.
-	aChild := self blockTwo.
-	aSnippet addSnippet: aChild.
-	self assert: aChild parent equals: aSnippet.
-	self assert: aSnippet hasChildren.
-	aSnippet removeSnippet: aChild.
-	self assert: aChild parent equals: nil.
-	self assert: aSnippet hasChildren not.
-	^ aSnippet
 ]
 
 { #category : #'examples - text changes' }
@@ -590,6 +481,21 @@ LeContentExamples >> removePageWithExistingTextualLink [
 	self assert: page2 allChildOutgoingLinks size equals: 1.
 	self deny: page1 hasIncomingLinks.
 	^ localDatabase
+]
+
+{ #category : #'examples - model' }
+LeContentExamples >> removeSnippetFromParent [
+	<gtExample>
+	| aSnippet aChild |
+	aSnippet := self snippetOne.
+	aChild := self snippetTwo.
+	aSnippet addSnippet: aChild.
+	self assert: aChild parent equals: aSnippet.
+	self assert: aSnippet hasChildren.
+	aSnippet removeSnippet: aChild.
+	self assert: aChild parent equals: nil.
+	self assert: aSnippet hasChildren not.
+	^ aSnippet
 ]
 
 { #category : #removing }
@@ -692,18 +598,112 @@ LeContentExamples >> renameDatabasePage_PageTitleChanged_ReceivedByDatabase [
 	^ aDatabase
 ]
 
+{ #category : #'examples - block changes' }
+LeContentExamples >> snippetChangeText [
+	<gtExample>
+	| aSnippet aCreateTime aCreateEmail anEditTime anEditEmail aNewUserEmail aNewText |
+	aSnippet := self textSnippetInPageAndDatabase.
+	aCreateTime := aSnippet createTime.
+	aCreateEmail := aSnippet createEmail.
+	anEditTime := aSnippet editTime.
+	anEditEmail := aSnippet editEmail.
+	aNewUserEmail := 'connie@dogs.com'.
+	aSnippet database userEmail: aNewUserEmail.
+	aNewText := 'new block text' asRopedText.
+	aSnippet updateText: aNewText.
+	self assert: aSnippet text characters equals: aNewText characters.
+	self assert: aSnippet string equals: aNewText asString.
+	self assert: aSnippet createTime == aCreateTime.
+	self assert: aSnippet createEmail == aCreateEmail.
+	self assert: (aSnippet editTime == anEditTime) not.
+	self assert: (aSnippet editEmail == anEditEmail) not.
+	self assert: aSnippet editEmail equals: aSnippet database userEmail.
+	self assert: aSnippet editEmail email equals: aNewUserEmail.
+	self assert: aSnippet text equals: aNewText.
+	^ aSnippet
+]
+
+{ #category : #'examples - model' }
+LeContentExamples >> snippetOne [
+	<gtExample>
+	| aSnippet |
+	aSnippet := self basicSnippet.
+	aSnippet string: self snippetOneString.
+	aSnippet editTime: self editTimeOne.
+	aSnippet editEmail: self editorOne.
+	self assert: aSnippet string equals: self snippetOneString.
+	self assert: aSnippet editTime equals: self editTimeOne.
+	self assert: aSnippet editEmail equals: self editorOne.
+	^ aSnippet
+]
+
+{ #category : #accessing }
+LeContentExamples >> snippetOneString [
+	^ 'block one content'
+]
+
 { #category : #'examples - model' }
 LeContentExamples >> snippetOneWithOneChild [
 	<gtExample>
 	| aSnippet aChild |
-	aSnippet := self blockOne.
-	aChild := self blockThree.
-	aSnippet children: (self basicBlocksWithAll: { aChild }).
+	aSnippet := self snippetOne.
+	aChild := self snippetThree.
+	aSnippet children: (self basicSnippetsWithAll: { aChild }).
 	self assert: aChild parent equals: aSnippet.
 	self assert: aSnippet hasChildren.
 	self assert: aSnippet childrenCount equals: 1.
 	self assert: aSnippet children items first equals: aChild.
 	^ aSnippet
+]
+
+{ #category : #'examples - model' }
+LeContentExamples >> snippetOne_hasNoCachedLinks [
+	<gtExample>
+	| aSnippet |
+	aSnippet := self snippetOne.
+	
+	self assert: aSnippet cachedTextualLinks notNil.
+	self assert: aSnippet cachedTextualLinks isEmpty.
+	
+	^ aSnippet
+]
+
+{ #category : #'examples - model' }
+LeContentExamples >> snippetThree [
+	<gtExample>
+	| aSnippet |
+	aSnippet := self basicSnippet.
+	aSnippet string: self snippetThreeString.
+	aSnippet editTime: self editTimeOne.
+	aSnippet editEmail: self editorOne.
+	self assert: aSnippet string equals: self snippetThreeString.
+	self assert: aSnippet editTime equals: self editTimeOne.
+	self assert: aSnippet editEmail equals: self editorOne.
+	^ aSnippet
+]
+
+{ #category : #accessing }
+LeContentExamples >> snippetThreeString [
+	^ 'block three content'
+]
+
+{ #category : #'examples - model' }
+LeContentExamples >> snippetTwo [
+	<gtExample>
+	| aSnippet |
+	aSnippet := self basicSnippet.
+	aSnippet string: self snippetTwoString.
+	aSnippet editTime: self editTimeOne.
+	aSnippet editEmail: self editorOne.
+	self assert: aSnippet string equals: self snippetTwoString.
+	self assert: aSnippet editTime equals: self editTimeOne.
+	self assert: aSnippet editEmail equals: self editorOne.
+	^ aSnippet
+]
+
+{ #category : #accessing }
+LeContentExamples >> snippetTwoString [
+	^ 'block two content'
 ]
 
 { #category : #'examples - model' }
@@ -779,7 +779,7 @@ LeContentExamples >> stopDatabaseMonitor [
 ]
 
 { #category : #'examples - model' }
-LeContentExamples >> textBlockInPageAndDatabase [
+LeContentExamples >> textSnippetInPageAndDatabase [
 	<gtExample>
 	| aDatabase aPage aSnippet |
 	aDatabase := self basicDatabase.
@@ -797,7 +797,7 @@ LeContentExamples >> textBlockInPageAndDatabase [
 ]
 
 { #category : #'examples - model' }
-LeContentExamples >> twoPagesWithOneBlockEachAndLinksToTheFirstPage [
+LeContentExamples >> twoPagesWithOneSnippetEachAndLinksToTheFirstPage [
 	<gtExample>
 	| aDatabase aPageOne aPageTwo aSnippetOne aSnippetTwo |
 	aDatabase := self basicDatabase.
@@ -818,10 +818,10 @@ LeContentExamples >> twoPagesWithOneBlockEachAndLinksToTheFirstPage [
 ]
 
 { #category : #'examples - model' }
-LeContentExamples >> twoPagesWithOneBlockEachAndLinksToTheFirstPage_DeleteOneLink [
+LeContentExamples >> twoPagesWithOneSnippetEachAndLinksToTheFirstPage_DeleteOneLink [
 	<gtExample>
 	| aDatabase aPageOne aPageTwo aBlockOne aBlockTwo |
-	aDatabase := self twoPagesWithOneBlockEachAndLinksToTheFirstPage.
+	aDatabase := self twoPagesWithOneSnippetEachAndLinksToTheFirstPage.
 	aPageOne := aDatabase pageNamed: 'one'.
 	aPageTwo := aDatabase pageNamed: 'two'.
 	aBlockOne := aPageOne children first.
@@ -840,10 +840,10 @@ LeContentExamples >> twoPagesWithOneBlockEachAndLinksToTheFirstPage_DeleteOneLin
 ]
 
 { #category : #'examples - model' }
-LeContentExamples >> twoPagesWithOneBlockEachAndLinksToTheFirstPage_RenamePageOnce [
+LeContentExamples >> twoPagesWithOneSnippetEachAndLinksToTheFirstPage_RenamePageOnce [
 	<gtExample>
 	| aDatabase aPageOne aPageTwo aBlockOne aBlockTwo |
-	aDatabase := self twoPagesWithOneBlockEachAndLinksToTheFirstPage.
+	aDatabase := self twoPagesWithOneSnippetEachAndLinksToTheFirstPage.
 	aPageOne := aDatabase pageNamed: 'one'.
 	aPageTwo := aDatabase pageNamed: 'two'.
 	aBlockOne := aPageOne children first.

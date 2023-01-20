@@ -423,8 +423,11 @@ LePage >> moveDownSnippet: aLeSnippet [
 	"Try to move the supplied snippet down one item in the receiver's children.
 	If that isn't possible, do nothing"
 
-	(self children moveDownSnippet: aLeSnippet) ifTrue: [ 
-		self announceContentMovedDownFor: aLeSnippet ]
+	^ (self children moveDownSnippet: aLeSnippet) 
+		ifTrue: [ 
+			self announceContentMovedDownFor: aLeSnippet.
+			true ]
+		ifFalse: [ false ]
 ]
 
 { #category : #'api - editing' }
@@ -444,8 +447,9 @@ LePage >> moveUpSnippet: aLeSnippet [
 	"Try to move the supplied snippet up one item in the receiver's children.
 	If that isn't possible, do nothing"
 
-	(self children moveUpSnippet: aLeSnippet) ifTrue: [ 
-		self announceContentMovedUpFor: aLeSnippet ]
+	^ (self children moveUpSnippet: aLeSnippet) ifTrue: [ 
+		self announceContentMovedUpFor: aLeSnippet.
+		true ]
 ]
 
 { #category : #'private - updating' }

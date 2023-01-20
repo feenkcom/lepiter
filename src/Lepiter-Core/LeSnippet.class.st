@@ -142,6 +142,26 @@ LeSnippet >> attachToParent: aParentSnippet [
 	self parent: aParentSnippet
 ]
 
+{ #category : #'api - testing' }
+LeSnippet >> canBeMovedDown [
+	"A snippet can me moved down if there are children below it,
+	or its parent has siblings below it."
+	
+	^ self isLastChild not or: [
+		self parent isSnippet and: [
+			self parent isLastChild not ] ].
+]
+
+{ #category : #'api - testing' }
+LeSnippet >> canBeMovedUp [
+	"A snippet can me moved up if there are children above it,
+	or its parent has siblings above it."
+	
+	^ self isFirstChild not or: [
+		self parent isSnippet and: [
+			self parent isFirstChild not ] ].
+]
+
 { #category : #'api - commands' }
 LeSnippet >> commandBuilder [
 	^ LeSnippetCommandBuilder forContent: self
@@ -216,6 +236,16 @@ LeSnippet >> isCodeSnippet [
 ]
 
 { #category : #'api - testing' }
+LeSnippet >> isFirstChild [
+	^ self parent isChildAtFirstPositionFor: self
+]
+
+{ #category : #'api - testing' }
+LeSnippet >> isLastChild [
+	^ self parent isChildAtLastPositionFor: self
+]
+
+{ #category : #'api - testing' }
 LeSnippet >> isSnippet [
 
 	^ true
@@ -267,7 +297,7 @@ LeSnippet >> moveDown [
 	"Move the receiver down one snippet.
 	If the receiver has a sibling below it, move there, if not and the receiver's parent has a sibling below, move there"
 
-	self parent moveDownSnippet: self.
+	^ self parent moveDownSnippet: self.
 ]
 
 { #category : #'api - command building' }
@@ -287,7 +317,7 @@ LeSnippet >> moveUp [
 	"Move the receiver up one snippet.
 	If the receiver has a sibling below it, move there, if not and the receiver's parent has a sibling below, move there"
 
-	self parent moveUpSnippet: self.
+	^ self parent moveUpSnippet: self.
 ]
 
 { #category : #'api - command building' }

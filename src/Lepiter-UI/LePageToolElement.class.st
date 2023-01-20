@@ -12,8 +12,8 @@ When maximized, I display a sidebar:
 Class {
 	#name : #LePageToolElement,
 	#superclass : #BlElement,
-	#traits : 'TGtPhlowToolDetailAdjustable + TLeWithPageViewModel + TBrLayoutResizable',
-	#classTraits : 'TGtPhlowToolDetailAdjustable classTrait + TLeWithPageViewModel classTrait + TBrLayoutResizable classTrait',
+	#traits : 'TGtPhlowToolDetailAdjustable + TLeWithPageViewModel + TBrLayoutResizable + TGtPagerPageInstantiator',
+	#classTraits : 'TGtPhlowToolDetailAdjustable classTrait + TLeWithPageViewModel classTrait + TBrLayoutResizable classTrait + TGtPagerPageInstantiator classTrait',
 	#instVars : [
 		'sidebarElement',
 		'contentElement',

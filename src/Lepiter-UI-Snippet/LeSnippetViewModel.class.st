@@ -83,7 +83,7 @@ LeSnippetViewModel >> gtActionMoveDownFor: anAction [
 		icon: BrGlamorousVectorIcons down;
 		target: LeSnippetContextMenuActionTarget uniqueInstance;
 		priority: 2;
-		action: [ :aButton :aSnippetElement | self moveDown ]
+		action: [ :aButton :aSnippetElement | self requestMoveDown ]
 ]
 
 { #category : #'gt - extensions' }
@@ -95,7 +95,7 @@ LeSnippetViewModel >> gtActionMoveUpFor: anAction [
 		icon: BrGlamorousVectorIcons up;
 		target: LeSnippetContextMenuActionTarget uniqueInstance;
 		priority: 1;
-		action: [ :aButton :aSnippetElement | self moveUp ]
+		action: [ :aButton :aSnippetElement | self requestMoveUp ]
 ]
 
 { #category : #'gt - extensions' }
@@ -156,20 +156,6 @@ LeSnippetViewModel >> insertNewSnippetOfType: aLeSnippetClass [
 ]
 
 { #category : #'api - actions' }
-LeSnippetViewModel >> moveDown [
-	"Move snippet down swapping it with a next sibling if it exists"
-
-	self snippetModel moveDownThroughCommand
-]
-
-{ #category : #'api - actions' }
-LeSnippetViewModel >> moveUp [
-	"Move snippet up swapping it with a previous sibling if it exists"
-
-	self snippetModel moveUpThroughCommand
-]
-
-{ #category : #'api - actions' }
 LeSnippetViewModel >> removeSelf [
 	| nextFocusedSnippet |
 	
@@ -187,6 +173,24 @@ LeSnippetViewModel >> removeSelf [
 	nextFocusedSnippet ifNil: [ ^ self].
 	self snippetsCollectionDo: [ :aSnippetsCollection | 
 		(aSnippetsCollection findSnippetViewModel: nextFocusedSnippet) focused: true ]
+]
+
+{ #category : #'api - actions' }
+LeSnippetViewModel >> requestMoveDown [
+	"Move snippet down swapping it with a next sibling if it exists.
+	Do not execute any command if not possible"
+
+	self snippetModel canBeMovedDown ifTrue: [
+		self snippetModel moveDownThroughCommand ]
+]
+
+{ #category : #'api - actions' }
+LeSnippetViewModel >> requestMoveUp [
+	"Move the snippet up swapping it with a previous sibling if possible.
+	Do not execute any command if not possible."
+
+	self snippetModel canBeMovedUp ifTrue: [
+		self snippetModel moveUpThroughCommand ]
 ]
 
 { #category : #accessing }

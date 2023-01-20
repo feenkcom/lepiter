@@ -49,7 +49,8 @@ LeSnippets >> gtSnippetsFor: aView [
 			text: [ :aSnippet | aSnippet contentAsString truncateTo: 200 ]
 			width: 200;
 		column: 'Edit Time' text: #editOrCreateTime;
-		column: 'Author' text: #editOrCreateEmail
+		column: 'Author' text: #editOrCreateEmail;
+		actionUpdateButton
 ]
 
 { #category : #testing }
@@ -77,6 +78,32 @@ LeSnippets >> indentSnippet: aLeSnippet [
 	newParent attachChildSnippet: targetSnippet.
 	items removeAt: index.
 	^ newParent.
+]
+
+{ #category : #testing }
+LeSnippets >> isChildAtFirstPositionFor: aLeSnippet [
+	"Check if the given snippet is at first position.
+	Throw an error if the snippet is not found."
+	| index |
+
+	index := items indexOf: aLeSnippet.
+	index < 1 ifTrue: [ 
+		self error: 'Couldn''t find snippet: ', aLeSnippet asString ].
+	
+	^ index = 1 
+]
+
+{ #category : #testing }
+LeSnippets >> isChildAtLastPositionFor: aLeSnippet [
+	"Check if the given snippet is at last position.
+	Throw an error if the snippet is not found."
+	| index |
+
+	index := items indexOf: aLeSnippet.
+	index < 1 ifTrue: [ 
+		self error: 'Couldn''t find snippet: ', aLeSnippet asString ].
+	
+	^ index = items size
 ]
 
 { #category : #'api - editing' }
