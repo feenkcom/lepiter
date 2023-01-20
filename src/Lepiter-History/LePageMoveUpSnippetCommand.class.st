@@ -16,7 +16,10 @@ LePageMoveUpSnippetCommand >> basicExecute [
 	^ self withUndoExecute: [ 
 		| moveResult |
 		moveResult := self targetSnippet moveUp.
-		self assert: moveResult. ]
+		
+		self 
+			assert: moveResult
+			description: 'Moving up should have an effect'. ]
 ]
 
 { #category : #'execution - utils' }

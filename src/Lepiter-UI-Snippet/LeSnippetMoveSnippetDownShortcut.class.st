@@ -1,7 +1,7 @@
 Class {
 	#name : #LeSnippetMoveSnippetDownShortcut,
 	#superclass : #LeSnippetEditorShortcut,
-	#category : 'Lepiter-UI-Snippet-Shortcuts'
+	#category : #'Lepiter-UI-Snippet-Shortcuts'
 }
 
 { #category : #accessing }
@@ -16,5 +16,5 @@ LeSnippetMoveSnippetDownShortcut >> name [
 
 { #category : #evaluation }
 LeSnippetMoveSnippetDownShortcut >> performOnEditor: aBrTextEditor snippet: aLeSnippetElement dueTo: aShortcutEvent [
-	aLeSnippetElement snippetViewModel moveDown
+	aLeSnippetElement snippetViewModel requestMoveDown
 ]

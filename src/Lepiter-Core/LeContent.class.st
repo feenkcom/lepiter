@@ -787,6 +787,11 @@ LeContent >> isChildAtFirstPositionFor: aSnippet [
 	^ self children isChildAtFirstPositionFor: aSnippet
 ]
 
+{ #category : #'api - attaching / detaching' }
+LeContent >> isChildAtLastPositionFor: aSnippet [
+	^ self children isChildAtLastPositionFor: aSnippet
+]
+
 { #category : #testing }
 LeContent >> isEmailSetFor: anEmailObject [
 	"Checks if the given email is an email object containing a value instead of a null email."
@@ -875,10 +880,13 @@ LeContent >> moveDownSnippet: aLeSnippet [
 	If that isn't possible, try to move the snippet down as the receiver's sibling"
 
 	(self children moveDownSnippet: aLeSnippet) ifTrue: [ 
-		^ self announceContentMovedDownFor: aLeSnippet ].
-	(self parent moveSnippet: aLeSnippet below: self) 
+		self announceContentMovedDownFor: aLeSnippet.
+		^ true ].
+	^ (self parent moveSnippet: aLeSnippet below: self)
+		ifNil: [ false ] 
 		ifNotNil: [ :newParent | 
-			newParent announceContentMovedDownFor: aLeSnippet ]
+			newParent announceContentMovedDownFor: aLeSnippet.
+			true ]
 ]
 
 { #category : #'api - editing' }
