@@ -20,8 +20,14 @@ LePageUnindentSnippetCommand class >> commandDescription [
 
 { #category : #execution }
 LePageUnindentSnippetCommand >> basicExecute [ 
+	self assert: [ self targetSnippet canBeUnindented ].
+	
 	^ self withUndoExecute: [ 
-		self targetSnippet unindent ]
+		| oldParent |
+		oldParent := self targetSnippet parent.
+		self targetSnippet unindent.
+		
+		self assert: oldParent ~= self targetSnippet parent ]
 ]
 
 { #category : #'execution - utils' }

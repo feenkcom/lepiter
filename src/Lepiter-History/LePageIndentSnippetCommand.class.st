@@ -20,8 +20,14 @@ LePageIndentSnippetCommand class >> commandDescription [
 
 { #category : #execution }
 LePageIndentSnippetCommand >> basicExecute [ 
+	self assert: [ self targetSnippet canBeIndented ].
+	
 	^ self withUndoExecute: [  
-		self targetSnippet indent ]
+		| oldParent |
+		oldParent := self targetSnippet parent.
+		self targetSnippet indent.
+		
+		self assert: oldParent ~= self targetSnippet parent ]
 ]
 
 { #category : #'execution - utils' }
