@@ -5,21 +5,21 @@ Class {
 }
 
 { #category : #'examples - basic' }
-LeSnippetBuilderExamples >> basicBlock [
+LeSnippetBuilderExamples >> basicBuilder [
+	<gtExample>
+	| aBuilder |
+	aBuilder := LeTextSnippet builder.
+	^ aBuilder
+]
+
+{ #category : #'examples - basic' }
+LeSnippetBuilderExamples >> basicSnippet [
 	<gtExample>
 	| aBuilder aPage |
 	aBuilder := self basicBuilder.
 	aPage := aBuilder build.
 	self assert: aPage class equals: LeSnippet null class.
 	^ aPage
-]
-
-{ #category : #'examples - basic' }
-LeSnippetBuilderExamples >> basicBuilder [
-	<gtExample>
-	| aBuilder |
-	aBuilder := LeTextSnippet builder.
-	^ aBuilder
 ]
 
 { #category : #'examples - blocks' }
@@ -54,7 +54,7 @@ LeSnippetBuilderExamples >> pharoBlockInPageAndDatabase [
 ]
 
 { #category : #'examples - blocks' }
-LeSnippetBuilderExamples >> textBlockInPageAndDatabase [
+LeSnippetBuilderExamples >> textSnippetInPageAndDatabase [
 	<gtExample>
 	| aDatabase aPage aSnippet |
 	aPage := self pageInDatabase.

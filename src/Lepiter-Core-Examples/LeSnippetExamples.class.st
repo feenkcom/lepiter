@@ -57,6 +57,7 @@ LeSnippetExamples >> indentedPage [
 	page := self exampleMergingPage.
 	self assert: page childrenCount equals: 6.
 	self assert: (page children at: 2) childrenCount equals: 0.
+	
 	snippetTwo := page children at: 2.
 	snippetThree := page children at: 3.
 	snippetFour := page children at: 4.
@@ -65,6 +66,7 @@ LeSnippetExamples >> indentedPage [
 	snippetFour indent.
 	snippetThree indent.
 	snippetSix indent.
+	
 	self assert: page childrenCount equals: 3.
 	self assert: snippetTwo childrenCount equals: 1.
 	self assert: snippetTwo children first string equals: 'Three'.
@@ -150,6 +152,7 @@ LeSnippetExamples >> mergeNextInSelf [
 	snippetFour indent.
 	snippetThree indent.
 	snippetTwo mergeWithNext.
+	
 	self assert: page childrenCount equals: 4.
 	self assert: snippetTwo childrenCount equals: 1.
 	self assert: snippetTwo string equals: 'TwoThree'.
