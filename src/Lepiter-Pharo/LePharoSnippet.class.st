@@ -48,7 +48,7 @@ LePharoSnippet class >> leJsonV4Name [
 
 { #category : #visiting }
 LePharoSnippet >> acceptVisitor: aVisitor [
-
+ 
 	^ aVisitor visitPharoSnippet: self
 ]
 
