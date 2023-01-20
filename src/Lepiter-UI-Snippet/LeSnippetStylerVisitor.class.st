@@ -530,21 +530,18 @@ LeSnippetStylerVisitor >> styleFileSelection: aLink text: aSubText [
 
 { #category : #'private - styling' }
 LeSnippetStylerVisitor >> styleHeader: aHeaderNode [
+	aHeaderNode parts isEmpty ifTrue: [ ^ self ].
 
-	aHeaderNode parts isEmpty
-		ifTrue: [ ^ self ].
-
-	(self text
-		from: aHeaderNode startPosition
-		to: aHeaderNode stopPosition)
-			bold;
-			fontSize: (self fontSizeForHeadingLevel: aHeaderNode headerLevel). 
+	(self text from: aHeaderNode startPosition to: aHeaderNode stopPosition)
+		bold;
+		fontSize: (self fontSizeForHeadingLevel: aHeaderNode headerLevel).
 
 	self
-		styleAutoHiding: aHeaderNode sourceInterval
+		styleAutoHiding: (aHeaderNode startPosition
+				to: (aHeaderNode numberSigns last stopPosition min: aHeaderNode stopPosition))
 		text: (self text
-			from: aHeaderNode startPosition
-			to: (aHeaderNode numberSigns last stopPosition min: aHeaderNode stopPosition))
+				from: aHeaderNode startPosition
+				to: (aHeaderNode numberSigns last stopPosition min: aHeaderNode stopPosition))
 ]
 
 { #category : #'private - styling' }
