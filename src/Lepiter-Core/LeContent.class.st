@@ -782,6 +782,11 @@ LeContent >> insertChildOrSiblingSnippetCommandOfType: aNewSnippetClass [
 			ofType: aNewSnippetClass ].
 ]
 
+{ #category : #'api - attaching / detaching' }
+LeContent >> isChildAtFirstPositionFor: aSnippet [
+	^ self children isChildAtFirstPositionFor: aSnippet
+]
+
 { #category : #testing }
 LeContent >> isEmailSetFor: anEmailObject [
 	"Checks if the given email is an email object containing a value instead of a null email."
@@ -901,13 +906,16 @@ LeContent >> moveSnippet: aLeSnippet below: parentSnippet [
 { #category : #'api - editing' }
 LeContent >> moveUpSnippet: aLeSnippet [
 	"Try to move the supplied snippet up one item in the receiver's children.
-	If that isn't possible, try to move the snippet down to the receiver's sibling"
+	If that isn't possible, try to move the snippet up to the receiver's sibling"
 	
 	(self children moveUpSnippet: aLeSnippet) ifTrue: [ 
-		^ self announceContentMovedUpFor: aLeSnippet ].
-	(self parent moveSnippet: aLeSnippet above: self) 
+		self announceContentMovedUpFor: aLeSnippet.
+		^ true ].
+	^ (self parent moveSnippet: aLeSnippet above: self) 
+		ifNil: [ false ]
 		ifNotNil: [ :newParent | 
-			newParent announceContentMovedUpFor: aLeSnippet ]
+			newParent announceContentMovedUpFor: aLeSnippet.
+			true ]
 ]
 
 { #category : #'api - notifications' }
@@ -941,7 +949,7 @@ LeContent >> onRemovedFromDatabase: aDatabase [
 	"Subclasses may react to the change"
 ]
 
-{ #category : #accessing }
+{ #category : #'api - testing' }
 LeContent >> outgoingExplicitLinks [
 	^ self database cachedLinksForContent: self.
 	

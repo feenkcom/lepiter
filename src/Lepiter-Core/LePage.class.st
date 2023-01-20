@@ -444,8 +444,9 @@ LePage >> moveUpSnippet: aLeSnippet [
 	"Try to move the supplied snippet up one item in the receiver's children.
 	If that isn't possible, do nothing"
 
-	(self children moveUpSnippet: aLeSnippet) ifTrue: [ 
-		self announceContentMovedUpFor: aLeSnippet ]
+	^ (self children moveUpSnippet: aLeSnippet) ifTrue: [ 
+		self announceContentMovedUpFor: aLeSnippet.
+		true ]
 ]
 
 { #category : #'private - updating' }
