@@ -46,13 +46,17 @@ LePageHeaderBuilder >> addInspectButton [
 { #category : #accessing }
 LePageHeaderBuilder >> addOpenInNewTabButton [
 	"Add a button to open this page in a new world tab."
-
 	| newButton |
 	newButton := BrButton new
 			aptitude: BrGlamorousButtonWithIconAptitude;
 			label: 'Open page in a new world tab';
 			icon: BrGlamorousIcons spawn;
-			action: [ :aButton | ((LePagePhlowTool page: self page) asElement openInPagerFrom: aButton) maximized ].
+			action: [ :aButton | 
+				GtWorldUtility
+					showSpaceWithTitle: self page title
+					inPagerWith: [ self page asLepiterPagePhlowTool asElementDo: [ :e | e ] ]
+							asStencil
+					from: aButton ].
 	self toolbarElement addItem: newButton
 ]
 
