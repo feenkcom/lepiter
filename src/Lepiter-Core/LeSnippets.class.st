@@ -93,6 +93,19 @@ LeSnippets >> isChildAtFirstPositionFor: aLeSnippet [
 	^ index = 1 
 ]
 
+{ #category : #testing }
+LeSnippets >> isChildAtLastPositionFor: aLeSnippet [
+	"Check if the given snippet is at last position.
+	Throw an error if the snippet is not found."
+	| index |
+
+	index := items indexOf: aLeSnippet.
+	index < 1 ifTrue: [ 
+		self error: 'Couldn''t find snippet: ', aLeSnippet asString ].
+	
+	^ index = items size
+]
+
 { #category : #'api - editing' }
 LeSnippets >> mergeSnippet: mergeLeSnippet after: afterLeSnippet [
 	"Merge the supplied snippet with the after afterLeSnippet.

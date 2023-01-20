@@ -143,6 +143,16 @@ LeSnippet >> attachToParent: aParentSnippet [
 ]
 
 { #category : #'api - testing' }
+LeSnippet >> canBeMovedDown [
+	"A snippet can me moved down if there are children below it,
+	or its parent has siblings below it."
+	
+	^ self isLastChild not or: [
+		self parent isSnippet and: [
+			self parent isLastChild not ] ].
+]
+
+{ #category : #'api - testing' }
 LeSnippet >> canBeMovedUp [
 	"A snippet can me moved up if there are children above it,
 	or its parent has siblings above it."
@@ -231,6 +241,11 @@ LeSnippet >> isFirstChild [
 ]
 
 { #category : #'api - testing' }
+LeSnippet >> isLastChild [
+	^ self parent isChildAtLastPositionFor: self
+]
+
+{ #category : #'api - testing' }
 LeSnippet >> isSnippet [
 
 	^ true
@@ -282,7 +297,7 @@ LeSnippet >> moveDown [
 	"Move the receiver down one snippet.
 	If the receiver has a sibling below it, move there, if not and the receiver's parent has a sibling below, move there"
 
-	self parent moveDownSnippet: self.
+	^ self parent moveDownSnippet: self.
 ]
 
 { #category : #'api - command building' }
