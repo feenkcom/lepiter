@@ -102,7 +102,7 @@ LePageToolContentTreeElement >> initialize [
 	super initialize.
 	self initializeFontSizeShortcuts.
 	self initializeElementShorcuts.
-	"self initializeUndoShortcuts."
+	self initializeUndoShortcuts.
 	self initializeElementUpdater.
 	
 	treeElement := self createTreeElement.
