@@ -60,6 +60,15 @@ LeCommandSpecification >> createCommandForPage: aPage [
 		targetPage: aPage) createCommand
 ]
 
+{ #category : #printing }
+LeCommandSpecification >> descriptionOn: aStream [ 
+	
+	aStream 
+		<< self commandTypeName;
+		<< ', ';
+		print: self contentUid 
+]
+
 { #category : #'gt - extensions' }
 LeCommandSpecification >> gtViewSpecificationAttributesFor: aView [
 	<gtView>
@@ -89,6 +98,14 @@ LeCommandSpecification >> gtViewSubcommandsFor: aView [
 		items: [ { self } ];
 		children: [ :aCommand | aCommand subcommandSpecifications ];
 		expandAll
+]
+
+{ #category : #printing }
+LeCommandSpecification >> printOn: aStream [ 
+	super printOn: aStream .
+	
+	aStream parenthesize: [
+		self descriptionOn:  aStream ]
 ]
 
 { #category : #accessing }

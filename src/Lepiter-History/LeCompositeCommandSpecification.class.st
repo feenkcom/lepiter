@@ -7,6 +7,14 @@ Class {
 	#category : #'Lepiter-History-Commands'
 }
 
+{ #category : #printing }
+LeCompositeCommandSpecification >> descriptionOn: aStream [ 
+	aStream 
+		<< self label;
+		<< ', '.
+	super descriptionOn: aStream.
+]
+
 { #category : #accessing }
 LeCompositeCommandSpecification >> label [
 
@@ -17,11 +25,4 @@ LeCompositeCommandSpecification >> label [
 LeCompositeCommandSpecification >> label: anObject [
 
 	label := anObject
-]
-
-{ #category : #printing }
-LeCompositeCommandSpecification >> printOn: aStream [ 
-	super printOn: aStream.
-	aStream parenthesize: [ 
-		aStream << self label ]
 ]
