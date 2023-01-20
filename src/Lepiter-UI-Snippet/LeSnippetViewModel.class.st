@@ -95,7 +95,7 @@ LeSnippetViewModel >> gtActionMoveUpFor: anAction [
 		icon: BrGlamorousVectorIcons up;
 		target: LeSnippetContextMenuActionTarget uniqueInstance;
 		priority: 1;
-		action: [ :aButton :aSnippetElement | self moveUp ]
+		action: [ :aButton :aSnippetElement | self requestMoveUp ]
 ]
 
 { #category : #'gt - extensions' }
@@ -163,13 +163,6 @@ LeSnippetViewModel >> moveDown [
 ]
 
 { #category : #'api - actions' }
-LeSnippetViewModel >> moveUp [
-	"Move snippet up swapping it with a previous sibling if it exists"
-
-	self snippetModel moveUpThroughCommand
-]
-
-{ #category : #'api - actions' }
 LeSnippetViewModel >> removeSelf [
 	| nextFocusedSnippet |
 	
@@ -187,6 +180,15 @@ LeSnippetViewModel >> removeSelf [
 	nextFocusedSnippet ifNil: [ ^ self].
 	self snippetsCollectionDo: [ :aSnippetsCollection | 
 		(aSnippetsCollection findSnippetViewModel: nextFocusedSnippet) focused: true ]
+]
+
+{ #category : #'api - actions' }
+LeSnippetViewModel >> requestMoveUp [
+	"Move the snippet up swapping it with a previous sibling if possible.
+	Do not execute any command if not possible."
+
+	self snippetModel canBeMovedUp ifTrue: [
+		self snippetModel moveUpThroughCommand ]
 ]
 
 { #category : #accessing }

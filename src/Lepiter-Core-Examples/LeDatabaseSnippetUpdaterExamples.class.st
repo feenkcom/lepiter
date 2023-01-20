@@ -12,7 +12,7 @@ Class {
 LeDatabaseSnippetUpdaterExamples >> updateSnippetOneToTwo [
 	<gtExample>
 	| aSnippet aCreateTime aCreateEmail anEditTime anEditEmail aNewUserEmail aNewText |
-	aSnippet := self textBlockInPageAndDatabase.
+	aSnippet := self textSnippetInPageAndDatabase.
 	aCreateTime := aSnippet createTime.
 	aCreateEmail := aSnippet createEmail.
 	anEditTime := aSnippet editTime.
@@ -37,7 +37,7 @@ LeDatabaseSnippetUpdaterExamples >> updateSnippetOneToTwo [
 LeDatabaseSnippetUpdaterExamples >> updateSnippetOneToTwo_Simplified_String [
 	<gtExample>
 	| aSnippet |
-	aSnippet := self textBlockInPageAndDatabase.
+	aSnippet := self textSnippetInPageAndDatabase.
 	aSnippet updateString: 'one > two'.
 	self assert: aSnippet text characters equals: 'one > two'.
 	^ aSnippet
@@ -47,7 +47,7 @@ LeDatabaseSnippetUpdaterExamples >> updateSnippetOneToTwo_Simplified_String [
 LeDatabaseSnippetUpdaterExamples >> updateSnippetOneToTwo_Simplified_Text [
 	<gtExample>
 	| aSnippet |
-	aSnippet := self textBlockInPageAndDatabase.
+	aSnippet := self textSnippetInPageAndDatabase.
 	aSnippet updateText: 'one > two' asRopedText.
 	self assert: aSnippet text characters equals: 'one > two'.
 	^ aSnippet
