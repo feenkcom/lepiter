@@ -181,6 +181,25 @@ m ]
 ]
 
 { #category : #'*Lepiter-UI' }
+LePage >> gtOpenInNewTabActionFor: anAction [
+	<gtAction>
+	
+	self database ifNil: [ ^ anAction noAction ].
+	self database isDatabase ifFalse: [ ^ anAction noAction ].
+	
+	^ anAction button
+		tooltip: 'Open page in new tab';
+		priority: 100;
+		icon: BrGlamorousIcons spawn;
+		action: [ :aButton |
+			GtWorldUtility
+					showSpaceWithTitle: self page title
+					inPagerWith: [ self page asLepiterPagePhlowTool asElementDo: [ :e | e ] ]
+							asStencil
+					from: aButton ]
+]
+
+{ #category : #'*Lepiter-UI' }
 LePage >> gtSpotterDatabaseFor: aSearch [
 	<gtSearch>
 	self database ifNil: [ ^ aSearch empty ].
