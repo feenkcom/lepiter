@@ -8,6 +8,43 @@ Class {
 }
 
 { #category : #private }
+LePharoRewriteSnippetElement >> addStatementAfter: aNode [
+	| stmt |
+	stmt := self safePatternVariableIn: aNode basedOn: '``.Stmt'.
+	self insertCodeInSearch: '.' , String cr , stmt at: aNode stopPosition + 1
+]
+
+{ #category : #private }
+LePharoRewriteSnippetElement >> addStatementBefore: aNode [
+	| stmt |
+	stmt := self safePatternVariableIn: aNode basedOn: '``.Stmt'.
+	self insertCodeInSearch: stmt , '.' , String cr at: aNode startPosition
+]
+
+{ #category : #private }
+LePharoRewriteSnippetElement >> addStatementsAfter: aNode [
+	| stmt |
+	stmt := self safePatternVariableIn: aNode basedOn: '``@.Stmts'.
+	self insertCodeInSearch: '.' , String cr , stmt at: aNode stopPosition + 1
+]
+
+{ #category : #private }
+LePharoRewriteSnippetElement >> addStatementsBefore: aNode [
+	| stmts |
+	stmts := self safePatternVariableIn: aNode basedOn: '``@.Stmts'.
+	self insertCodeInSearch: stmts , '.' , String cr at: aNode startPosition
+]
+
+{ #category : #private }
+LePharoRewriteSnippetElement >> addTemporaryVariables: aNode [
+	| vars code position |
+	vars := self safePatternVariableIn: aNode basedOn: '`@temps'.
+	code := '| ' , vars , ' |' , String cr.
+	position := 1.
+	self insertCodeInSearch: code at: position
+]
+
+{ #category : #private }
 LePharoRewriteSnippetElement >> computeDuplicatesIn: anAst [
 	| duplicates senders |
 	duplicates := Dictionary new.
@@ -396,6 +433,14 @@ LePharoRewriteSnippetElement >> initialize [
 		as: #replaceButton
 ]
 
+{ #category : #private }
+LePharoRewriteSnippetElement >> insertCodeInSearch: code at: position [
+	| source |
+	source := self searchSource.
+	source insert: code at: position.
+	self snippet search: source asString
+]
+
 { #category : #testing }
 LePharoRewriteSnippetElement >> isRepeated: aNode [
 	^ (aNode attributeNamed: #ocurrences ifAbsent: [ #() ]) size > 1
@@ -411,11 +456,12 @@ LePharoRewriteSnippetElement >> menuGroupsFor: aString at: anInteger isSearch: a
 	node := ast.
 	ast
 		allNodesDo: [ :each | (each sourceInterval includes: anInteger) ifTrue: [ node := each ] ].
+	node ifNil: [ ast := node ].
 	^ (({node} , node allParents) asAsyncStream
 		collect: [ :each | 
 			| items |
 			items := aBoolean
-					ifTrue: [ self searchMenuItemsFor: each ]
+					ifTrue: [ self searchMenuItemsFor: each at: anInteger ]
 					ifFalse: [ self replaceMenuItemsFor: each ].
 			items isEmpty
 				ifTrue: [ nil ]
@@ -832,7 +878,7 @@ LePharoRewriteSnippetElement >> searchFilter [
 ]
 
 { #category : #private }
-LePharoRewriteSnippetElement >> searchMenuItemsFor: aNode [
+LePharoRewriteSnippetElement >> searchMenuItemsFor: aNode at: anInteger [
 	| items position |
 	items := OrderedCollection new.
 	aNode isErrorNode ifTrue: [ ^ items ].
@@ -861,6 +907,11 @@ LePharoRewriteSnippetElement >> searchMenuItemsFor: aNode [
 	(aNode isMessage and: [ aNode parent isCascade ])
 		ifTrue: [ self searchMenuItemsForMessage: aNode into: items ].
 	aNode isBlock ifTrue: [ self searchMenuItemsForBlock: aNode into: items ].
+	aNode isSequence
+		ifTrue: [ self
+				searchMenuItemsForSequence: aNode
+				at: anInteger
+				into: items ].
 	^ items
 ]
 
@@ -923,12 +974,62 @@ LePharoRewriteSnippetElement >> searchMenuItemsForMessage: aNode into: items [
 ]
 
 { #category : #private }
-LePharoRewriteSnippetElement >> searchMenuItemsForValue: aNode into: items [
-	(aNode parent notNil
-		and: [ aNode parent isSequence and: [ aNode parent parent isNil ] ])
+LePharoRewriteSnippetElement >> searchMenuItemsForSequence: aNode at: anInteger into: items [
+	| position previousWasList |
+	(anInteger < aNode startPosition and: [ aNode variables isEmpty ])
 		ifTrue: [ items
 				add: (self
-						menuItem: 'Match as statement'
+						menuItem: 'Add temporary variables'
+						for: aNode
+						action: [ self addTemporaryVariables: aNode ]) ].
+	position := aNode leftBar
+			ifNil: [ -1 ]
+			ifNotNil: [ aNode rightBar stopPosition ].
+	previousWasList := false.
+	aNode statements
+		doWithIndex: [ :each :i | 
+			| isStatementList |
+			isStatementList := each isErrorNode not
+					and: [ each isVariable and: [ each isStatementListPattern ] ].
+			(anInteger > position and: [ anInteger < each startPosition ])
+				ifTrue: [ items
+						add: (self
+								menuItem: 'Add statement'
+								for: aNode
+								action: [ self addStatementBefore: each ]).
+					(previousWasList or: [ isStatementList ])
+						ifFalse: [ items
+								add: (self
+										menuItem: 'Add statements'
+										for: aNode
+										action: [ self addStatementsBefore: each ]) ] ].
+			previousWasList := isStatementList.
+			position := each stopPosition ].
+	(aNode stopPosition <= anInteger
+		and: [ aNode statements notEmpty
+				and: [ aNode statements last isErrorNode or: [ aNode statements last isReturn not ] ] ])
+		ifTrue: [ items
+				add: (self
+						menuItem: 'Add statement'
+						for: aNode
+						action: [ self addStatementAfter: aNode ]).
+			previousWasList
+				ifFalse: [ items
+						add: (self
+								menuItem: 'Add statements'
+								for: aNode
+								action: [ self addStatementsAfter: aNode ]) ] ]
+]
+
+{ #category : #private }
+LePharoRewriteSnippetElement >> searchMenuItemsForValue: aNode into: items [
+	(aNode parent notNil
+		and: [ aNode parent isSequence
+				and: [ aNode parent parent isNil
+						and: [ aNode parent statements size = 1 and: [ aNode parent variables isEmpty ] ] ] ])
+		ifTrue: [ items
+				add: (self
+						menuItem: 'Match in sequence node'
 						for: aNode
 						action: [ self convertToStatement: aNode ]) ]
 		ifFalse: [ items
