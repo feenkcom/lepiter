@@ -35,26 +35,18 @@ LePageEventStore >> gtViewCommandSpecificationsListFor: aView [
 LePageEventStore >> gtViewTraceEventsListFor: aView [
 	<gtView>
 	
-	^ aView columnedList 
+	^ aView forward 
 		title: 'Events Log';
 		priority: 10;
-		items: [ self events ];
-		column: 'Index' text: [ :aTraceEvent :index | index ] width: 50;
-		column: 'Timestamp' text: [ :aTraceEvent |
-			aTraceEvent timestamp printToSeconds ] width: 125;
-		column: 'Source' text: [ :aTraceEvent | aTraceEvent label ] width: 75;
-		column: 'Main Command' text: [ :aTraceEvent | 
-			aTraceEvent mainCommandLabel ];
-		column: 'Undo Command' text: [ :aTraceEvent | 
-			aTraceEvent undoCommandLabel ];
-		actionUpdateButton
+		object: [ self events ];
+		view: #gtItemsFor:
 ]
 
 { #category : #initialization }
 LePageEventStore >> initialize [ 
 	super initialize.
 	
-	events := OrderedCollection new.
+	events := LeContentTraceEventsGroup new.
 ]
 
 { #category : #testing }

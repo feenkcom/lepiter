@@ -1,5 +1,5 @@
 Class {
-	#name : #LeCompositeCommandExecutionResult,
+	#name : #LeContentCompositeCommandExecutionResult,
 	#superclass : #LeCommandExecutionResult,
 	#instVars : [
 		'subcommandResults'
@@ -8,17 +8,17 @@ Class {
 }
 
 { #category : #accessing }
-LeCompositeCommandExecutionResult >> subcommandResults [
+LeContentCompositeCommandExecutionResult >> subcommandResults [
 	^ subcommandResults
 ]
 
 { #category : #accessing }
-LeCompositeCommandExecutionResult >> subcommandResults: aCollectionOfResults [
+LeContentCompositeCommandExecutionResult >> subcommandResults: aCollectionOfResults [
 	subcommandResults := aCollectionOfResults
 ]
 
 { #category : #'updating - view model' }
-LeCompositeCommandExecutionResult >> updateSnippetsViewModelFor: aSnippetsViewModel [
+LeContentCompositeCommandExecutionResult >> updateSnippetsViewModelFor: aSnippetsViewModel [
 	self subcommandResults first 
 		updateSnippetsViewModelFor: aSnippetsViewModel
 ]
