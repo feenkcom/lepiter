@@ -15,7 +15,7 @@ LeCommandBuilder class >> forContent: aLeContent [
 
 { #category : #'build - commands' }
 LeCommandBuilder >> compositeCommand [
-	^ LeGenericCompositeCommand new 
+	^ LeContentCompositeCommand new 
 		targetContent: self targetContent
 ]
 

@@ -27,10 +27,3 @@ LeGenericCommandSpecification >> initialize [
 	super initialize.
 	attributesByName := OrderedDictionary new.
 ]
-
-{ #category : #printing }
-LeGenericCommandSpecification >> printOn: aStream [ 
-	super printOn: aStream.
-	aStream parenthesize: [ 
-		aStream << self commandTypeName ]
-]

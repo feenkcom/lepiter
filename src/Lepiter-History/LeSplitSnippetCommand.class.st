@@ -85,9 +85,9 @@ LeSplitSnippetCommand >> createCommandSpecification [
 { #category : #'execution - utils' }
 LeSplitSnippetCommand >> createUndoCommandSpecificationFromResults: subcommandResults [
 	| specification | 
-	specification := LeCompositeCommandSpecification new 
+	specification := LeContentCompositeCommandSpecification new 
 		contentUid: self targetContent uid;
-		commandTypeName: LeGenericCompositeCommand name;
+		commandTypeName: LeContentCompositeCommand name;
 		label: 'Undo Split'.
 	
 	subcommandResults reversed do: [ :aSubcommandResult |

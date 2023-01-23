@@ -15,13 +15,7 @@ LeContentTraceEvent >> contentUid [
 
 { #category : #utils }
 LeContentTraceEvent >> formatCommandTypeName: aCommandName [
-	^ String streamContents: [ :aStream  |
-		((((aCommandName 
-			withoutPrefix:  'Le')
-			withoutPrefix: 'Page')
-			withoutPrefix: 'Content')
-			withoutSuffix: 'Command')
-				splitCamelCase asStringOn: aStream delimiter: ' ' ]
+	^ LeContentCommand formatTypeName: aCommandName
 ]
 
 { #category : #'gt - extensions' }
