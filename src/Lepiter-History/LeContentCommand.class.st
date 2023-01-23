@@ -10,6 +10,17 @@ Class {
 	#category : #'Lepiter-History-Commands'
 }
 
+{ #category : #utils }
+LeContentCommand class >> formatTypeName: aCommandName [
+	^ String streamContents: [ :aStream  |
+		((((aCommandName 
+			withoutPrefix:  'Le')
+			withoutPrefix: 'Page')
+			withoutPrefix: 'Content')
+			withoutSuffix: 'Command')
+				splitCamelCase asStringOn: aStream delimiter: ' ' ]
+]
+
 { #category : #adding }
 LeContentCommand >> addSubcommand: aCommand [
 	self assert: [ aCommand parentCommand isNil ].

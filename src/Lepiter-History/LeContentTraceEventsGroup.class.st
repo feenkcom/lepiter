@@ -7,6 +7,12 @@ Class {
 }
 
 { #category : #'accessing - grouping' }
+LeContentTraceEventsGroup >> groupedByCommandType [
+	^ self groupedBy: [ :aTraceEvent |
+		aTraceEvent mainCommandTypeName ]
+]
+
+{ #category : #'accessing - grouping' }
 LeContentTraceEventsGroup >> groupedByContentUid [
 	^ self groupedBy: [ :aTraceEvent |
 		aTraceEvent contentUid ]
@@ -30,6 +36,20 @@ LeContentTraceEventsGroup >> gtItemsFor: aView [
 		"column: 'Undo Command' text: [ :aTraceEvent | 
 			aTraceEvent undoCommandLabel ];"
 		actionUpdateButton
+]
+
+{ #category : #accessing }
+LeContentTraceEventsGroup >> gtViewEventsGroupedByCommandTypeFor: aView [
+	<gtView>
+	
+	^ aView columnedList
+		title: 'By Command Type';
+		priority: 35;
+		items: [ self groupedByCommandType associations
+			sorted: [ :each | each value size] descending ];
+		column: 'Command Type' text: [ :assoc | assoc key ];
+		column: 'Trace Events' text: [ :assoc | assoc value size ];
+		send: [ :assoc | assoc value ]
 ]
 
 { #category : #accessing }
