@@ -32,6 +32,28 @@ LePageEventStore >> gtViewCommandSpecificationsListFor: aView [
 ]
 
 { #category : #'gt - extensions' }
+LePageEventStore >> gtViewEventsGroupedByCommandTypeFor: aView [
+	<gtView>
+	
+	^ aView forward 
+		title: 'By Command Type';
+		priority: 35;
+		object: [ self events ];
+		view: #gtViewEventsGroupedByCommandTypeFor:
+]
+
+{ #category : #'gt - extensions' }
+LePageEventStore >> gtViewEventsGroupedByContentUidFor: aView [
+	<gtView>
+	
+	^ aView forward 
+		title: 'By Content Uid';
+		priority: 30;
+		object: [ self events ];
+		view: #gtViewEventsGroupedByContentUidFor:
+]
+
+{ #category : #'gt - extensions' }
 LePageEventStore >> gtViewTraceEventsListFor: aView [
 	<gtView>
 	

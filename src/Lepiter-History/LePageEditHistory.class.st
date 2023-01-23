@@ -78,6 +78,28 @@ LePageEditHistory >> eventStore [
 ]
 
 { #category : #'gt - extensions' }
+LePageEditHistory >> gtViewTraceEventsGroupedByCommandTypeFor: aView [
+	<gtView>
+	
+	^ aView forward 
+		title: 'Events by Command Type';
+		priority: 35;
+		object: [ self eventStore ];
+		view: #gtViewEventsGroupedByCommandTypeFor:
+]
+
+{ #category : #'gt - extensions' }
+LePageEditHistory >> gtViewTraceEventsGroupedByContentUidFor: aView [
+	<gtView>
+	
+	^ aView forward 
+		title: 'Events by Content Uid';
+		priority: 30;
+		object: [ self eventStore ];
+		view: #gtViewEventsGroupedByContentUidFor:
+]
+
+{ #category : #'gt - extensions' }
 LePageEditHistory >> gtViewTraceEventsListFor: aView [
 	<gtView>
 	
@@ -98,7 +120,10 @@ LePageEditHistory >> gtViewUndoRedoHistoryFor: aView [
 		items: [ self redoUndoActions ];
 		column: 'Index' text: [ :historyAction :anIndex | anIndex ] width: 50;
 		column: 'Type' text: [ :historyAction | historyAction labelText ] width: 75;
-		column: 'Edit Event' text: [ :historyAction | historyAction eventDescriptionText ];
+		column: 'Content Uid' text: [ :historyAction | 
+			historyAction editEvent contentUid ];
+		column: 'Edit Event' text: [ :historyAction | 
+			historyAction eventDescriptionText ];
 		actionUpdateButton
 ]
 
