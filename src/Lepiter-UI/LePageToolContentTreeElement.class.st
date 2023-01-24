@@ -93,7 +93,12 @@ LePageToolContentTreeElement >> bindTreeRowData: aTreeNode to: aTreeRowElement a
 
 	aRowIndex = 1
 		ifTrue: [ self selectOnEnter: aTreeRowElement.
-			aTreeRowElement addShortcut: upShortcut ]
+			upShortcut := ((aTreeRowElement childAt: 2) childAt: 1) editorElement editor
+					when: BrTextEditorCursorReachedBoundaryEvent
+					do: [ :anEvent | 
+						anEvent isTop
+							ifTrue: [ aTreeRowElement loseFocus.
+								self selectTitle ] ] ]
 		ifFalse: [ aTreeRowElement removeShortcut: upShortcut ]
 ]
 
@@ -101,7 +106,6 @@ LePageToolContentTreeElement >> bindTreeRowData: aTreeNode to: aTreeRowElement a
 LePageToolContentTreeElement >> initialize [
 	super initialize.
 	self initializeFontSizeShortcuts.
-	self initializeElementShorcuts.
 	self initializeUndoShortcuts.
 	self initializeElementUpdater.
 	
@@ -117,16 +121,6 @@ LePageToolContentTreeElement >> initialize [
 		hInherit: self headerElement;
 		vAnyToFitContent: self headerElement;
 		inherit: treeElement)
-]
-
-{ #category : #initialization }
-LePageToolContentTreeElement >> initializeElementShorcuts [
-
-	upShortcut := BlShortcutWithAction new
-			overrideChildren: true;
-			combination: BlKeyCombination arrowUp;
-			action: [ :anEvent | anEvent target loseFocus.
-				self selectTitle ].
 ]
 
 { #category : #initialization }
