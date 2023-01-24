@@ -11,7 +11,9 @@ Class {
 	#instVars : [
 		'titleElement',
 		'selectOnExit',
-		'addButton'
+		'addButton',
+		'acceptButton',
+		'cancelButton'
 	],
 	#category : #'Lepiter-UI-Page-! Views'
 }
@@ -24,6 +26,16 @@ LePageEditableTitleElement >> acceptPageTitle [
 { #category : #initialization }
 LePageEditableTitleElement >> acceptPageTitleWith: aString [
 	self pageViewModel pageTitle: aString
+]
+
+{ #category : #initialization }
+LePageEditableTitleElement >> createAcceptButton [
+	^ BrButton new
+		aptitude: BrGlamorousButtonWithIconAptitude;
+		icon: BrGlamorousVectorIcons accept;
+		enabled: false;
+		action: [ self acceptPageTitleWith: titleElement text asString ];
+		margin: (BlInsets left: 5)
 ]
 
 { #category : #initialization }
@@ -58,6 +70,16 @@ LePageEditableTitleElement >> createAddButton [
 ]
 
 { #category : #initialization }
+LePageEditableTitleElement >> createCancelButton [
+	^ BrButton new
+		aptitude: BrGlamorousButtonWithIconAptitude;
+		icon: BrGlamorousVectorIcons cancel;
+		enabled: false;
+		action: [ self updatePageTitle ];
+		margin: (BlInsets left: 5)
+]
+
+{ #category : #initialization }
 LePageEditableTitleElement >> createTitleElement [
 	| anEditor |
 	anEditor := BrEditor new
@@ -70,9 +92,9 @@ LePageEditableTitleElement >> createTitleElement [
 					glamorousRegularFont;
 					bold);
 			margin: (BlInsets
-					top: 5
+					top: 8
 					left: LeSnippetView contentPaddingLeft + 3
-					bottom: 5
+					bottom: 8
 					right: 0);
 			padding: (BlInsets
 					top: 5
@@ -110,9 +132,27 @@ LePageEditableTitleElement >> createTitleElement [
 
 	anEditor editor
 		when: BrTextEditorModifiedEvent
-		do: [ :anEvent | self acceptPageTitleWith: anEvent text asString ].
+		do: [ :anEvent | 
+			(anEvent text asString = self pageViewModel pageTitle
+				or: [ self pageViewModel pageModel hasTitle not and: [ anEvent text asString = '' ] ])
+				ifTrue: [ self disableButtons ]
+				ifFalse: [ self enableButtons ].
+			(pageViewModel database hasPageNamed: anEvent text asString)
+				ifTrue: [ acceptButton enabled: false ] ].
 
 	^ anEditor
+]
+
+{ #category : #initialization }
+LePageEditableTitleElement >> disableButtons [
+	acceptButton enabled: false.
+	cancelButton enabled: false
+]
+
+{ #category : #initialization }
+LePageEditableTitleElement >> enableButtons [
+	acceptButton enabled: true.
+	cancelButton enabled: true
 ]
 
 { #category : #private }
@@ -124,7 +164,7 @@ LePageEditableTitleElement >> hideAddButton [
 LePageEditableTitleElement >> initialize [
 	super initialize.
 
-	self layout: BlLinearLayout vertical.	"we can not add elements without widget models to toolbar. To be fixed"
+	self layout: BlLinearLayout horizontal alignCenter.	"we can not add elements without widget models to toolbar. To be fixed"
 	self addViewModel: BrWidgetModel new.
 
 	titleElement := self createTitleElement.
@@ -132,6 +172,12 @@ LePageEditableTitleElement >> initialize [
 
 	addButton := self createAddButton.
 	self addChild: addButton as: #addButton.
+
+	acceptButton := self createAcceptButton.
+	self addChild: acceptButton as: #acceptButton.
+
+	cancelButton := self createCancelButton.
+	self addChild: cancelButton as: #cancelButton.
 
 	self
 		addAptitude: (BrStyleCommonAptitude new

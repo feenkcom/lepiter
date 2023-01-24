@@ -19,7 +19,8 @@ LePageTitleStyler >> pageViewModel: anObject [
 
 { #category : #accessing }
 LePageTitleStyler >> privateStyle: aText [
-	aText asString = pageViewModel pageTitle
-		ifTrue: [ ^ aText ]
-		ifFalse: [ ^ aText highlight: (BrGlamorousColors errorBackgroundColor alpha: 0.5) ]
+	((pageViewModel database hasPageNamed: aText asString)
+		and: [ (pageViewModel pageTitle = aText asString) not ])
+		ifTrue: [ ^ aText highlight: (BrGlamorousColors errorBackgroundColor alpha: 0.5) ]
+		ifFalse: [ ^ aText ]
 ]
