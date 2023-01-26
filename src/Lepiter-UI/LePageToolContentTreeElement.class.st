@@ -11,8 +11,7 @@ Class {
 	#traits : 'TLePageToolContentTreeElement + TLeWithFontSize + TBlAssertUIProcess',
 	#classTraits : 'TLePageToolContentTreeElement classTrait + TLeWithFontSize classTrait + TBlAssertUIProcess classTrait',
 	#instVars : [
-		'footerToolbarElement',
-		'upShortcut'
+		'footerToolbarElement'
 	],
 	#classInstVars : [
 		'incomingLinksViewModelClass'
@@ -93,13 +92,19 @@ LePageToolContentTreeElement >> bindTreeRowData: aTreeNode to: aTreeRowElement a
 
 	aRowIndex = 1
 		ifTrue: [ self selectOnEnter: aTreeRowElement.
-			upShortcut := ((aTreeRowElement childAt: 2) childAt: 1) editorElement editor
-					when: BrTextEditorCursorReachedBoundaryEvent
-					do: [ :anEvent | 
-						anEvent isTop
-							ifTrue: [ aTreeRowElement loseFocus.
-								self selectTitle ] ] ]
-		ifFalse: [ aTreeRowElement removeShortcut: upShortcut ]
+
+			((aTreeRowElement childAt: 2) childAt: 1) editorElement editor
+				addEventHandler: (BlEventHandler
+						on: BrTextEditorCursorReachedBoundaryEvent
+						do: [ :anEvent | 
+							anEvent isTop
+								ifTrue: [ aTreeRowElement loseFocus.
+									self selectTitle ] ]) ]
+		ifFalse: [ ((aTreeRowElement childAt: 2) childAt: 1) editorElement editor
+				eventDispatcher
+				removeEventHandlersSuchThat: [ :eachEventHandler | 
+					(eachEventHandler isKindOf: BlEventHandler)
+						and: [ eachEventHandler eventClass = BrTextEditorCursorReachedBoundaryEvent ] ] ]
 ]
 
 { #category : #initialization }
