@@ -88,23 +88,7 @@ LePageToolContentTreeElement >> bindTreeRowData: aTreeNode to: aTreeRowElement a
 						eachLine zIndex: -10.
 						aStream nextPut: eachLine ] ].
 
-	aTreeRowElement addChildren: theLines.
-
-	aRowIndex = 1
-		ifTrue: [ self selectOnEnter: aTreeRowElement.
-
-			((aTreeRowElement childAt: 2) childAt: 1) editorElement editor
-				addEventHandler: (BlEventHandler
-						on: BrTextEditorCursorReachedBoundaryEvent
-						do: [ :anEvent | 
-							anEvent isTop
-								ifTrue: [ aTreeRowElement loseFocus.
-									self selectTitle ] ]) ]
-		ifFalse: [ ((aTreeRowElement childAt: 2) childAt: 1) editorElement editor
-				eventDispatcher
-				removeEventHandlersSuchThat: [ :eachEventHandler | 
-					(eachEventHandler isKindOf: BlEventHandler)
-						and: [ eachEventHandler eventClass = BrTextEditorCursorReachedBoundaryEvent ] ] ]
+	aTreeRowElement addChildren: theLines
 ]
 
 { #category : #initialization }
