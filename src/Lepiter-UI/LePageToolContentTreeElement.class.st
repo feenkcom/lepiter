@@ -11,8 +11,7 @@ Class {
 	#traits : 'TLePageToolContentTreeElement + TLeWithFontSize + TBlAssertUIProcess',
 	#classTraits : 'TLePageToolContentTreeElement classTrait + TLeWithFontSize classTrait + TBlAssertUIProcess classTrait',
 	#instVars : [
-		'footerToolbarElement',
-		'upShortcut'
+		'footerToolbarElement'
 	],
 	#classInstVars : [
 		'incomingLinksViewModelClass'
