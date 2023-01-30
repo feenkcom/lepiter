@@ -5,7 +5,7 @@ Class {
 		'page',
 		'file'
 	],
-	#category : 'Lepiter-Core-Exceptions'
+	#category : #'Lepiter-Core-Exceptions'
 }
 
 { #category : #accessing }
@@ -23,6 +23,19 @@ LeDuplicatePageIdError >> isResumable [
 	"Determine whether an exception is resumable."
 
 	^ true
+]
+
+{ #category : #accessing }
+LeDuplicatePageIdError >> messageText [
+
+	^ messageText 
+		ifNil: [ self page
+			ifNil: [ 'DuplicatePageIdError for unknown page.']
+			ifNotNil: [ :aPage |
+				'DuplicatePageIdError for page "{1}" with uid {2}' 
+					format: {
+						page gtDisplayString.
+						page uidString} ] ]
 ]
 
 { #category : #accessing }
