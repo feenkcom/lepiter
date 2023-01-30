@@ -13,9 +13,14 @@ Class {
 }
 
 { #category : #enumerating }
-LeContentCollectionViewModel >> allChildrenBreadthFirstDo: aBlock [ 
-	self children do: aBlock.
-	self children do: [ :each | each allChildrenBreadthFirstDo: aBlock ]
+LeContentCollectionViewModel >> allChildrenBreadthFirstDo: aBlock [
+	| queue |
+	queue := LinkedList withAll: self children.
+	[ queue notEmpty ]
+		whileTrue: [ | child |
+			child := queue removeFirst.
+			aBlock value: child.
+			queue addAll: child children ]
 ]
 
 { #category : #announcer }
