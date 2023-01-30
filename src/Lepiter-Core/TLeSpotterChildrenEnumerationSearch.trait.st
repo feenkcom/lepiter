@@ -1,12 +1,17 @@
 Trait {
 	#name : #TLeSpotterChildrenEnumerationSearch,
-	#category : 'Lepiter-Core-Utility'
+	#category : #'Lepiter-Core-Utility'
 }
 
 { #category : #'api - enumerating' }
-TLeSpotterChildrenEnumerationSearch >> allChildrenBreadthFirstDo: aBlock [ 
-	self childrenDo: aBlock.
-	self childrenDo: [ :each | each allChildrenBreadthFirstDo: aBlock ]
+TLeSpotterChildrenEnumerationSearch >> allChildrenBreadthFirstDo: aBlock [
+	| queue |
+	queue := LinkedList withAll: self children.
+	[ queue notEmpty ]
+		whileTrue: [ | child |
+			child := queue removeFirst.
+			aBlock value: child.
+			queue addAll: child children ]
 ]
 
 { #category : #'api - enumerating' }
