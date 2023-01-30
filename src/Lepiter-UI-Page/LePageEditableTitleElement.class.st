@@ -130,16 +130,6 @@ LePageEditableTitleElement >> createTitleElement [
 						self hasPage
 							ifTrue: [ Clipboard clipboardText: self pageViewModel pageTitle asString ] ]).
 
-	anEditor editor
-		when: BrTextEditorModifiedEvent
-		do: [ :anEvent | 
-			(anEvent text asString = self pageViewModel pageTitle
-				or: [ self pageViewModel pageModel hasTitle not and: [ anEvent text asString = '' ] ])
-				ifTrue: [ self disableButtons ]
-				ifFalse: [ self enableButtons ].
-			(pageViewModel database hasPageNamed: anEvent text asString)
-				ifTrue: [ acceptButton enabled: false ] ].
-
 	^ anEditor
 ]
 
@@ -172,12 +162,6 @@ LePageEditableTitleElement >> initialize [
 
 	addButton := self createAddButton.
 	self addChild: addButton as: #addButton.
-
-	acceptButton := self createAcceptButton.
-	self addChild: acceptButton as: #acceptButton.
-
-	cancelButton := self createCancelButton.
-	self addChild: cancelButton as: #cancelButton.
 
 	self
 		addAptitude: (BrStyleCommonAptitude new
