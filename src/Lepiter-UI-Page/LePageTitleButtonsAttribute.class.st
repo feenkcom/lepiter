@@ -5,21 +5,10 @@ Class {
 	#classTraits : 'TBlEventTarget classTrait',
 	#instVars : [
 		'eventDispatcher',
-		'pageViewModel',
-		'createdAttributes'
+		'pageViewModel'
 	],
 	#category : #'Lepiter-UI-Page'
 }
-
-{ #category : #accessing }
-LePageTitleButtonsAttribute >> createdAttributes [
-	^ createdAttributes
-]
-
-{ #category : #accessing }
-LePageTitleButtonsAttribute >> createdAttributes: anObject [
-	createdAttributes := anObject
-]
 
 { #category : #initialization }
 LePageTitleButtonsAttribute >> doAffect: aTBrTextEditorTextualPiece in: anEditorElement [
