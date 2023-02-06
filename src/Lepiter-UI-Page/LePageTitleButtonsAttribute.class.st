@@ -54,6 +54,7 @@ LePageTitleButtonsAttribute >> makeButtonsFor: anEditorElement [
 		or: [ self pageViewModel pageModel hasTitle not and: [ text = '' ] ])
 		ifTrue: [ ^ frame ].
 	acceptButton := BrButton new
+			label: 'Accept Title';
 			beTinySize;
 			margin: (BlInsets left: 2 right: 4);
 			aptitude: BrGlamorousButtonWithIconAptitude;
@@ -61,6 +62,7 @@ LePageTitleButtonsAttribute >> makeButtonsFor: anEditorElement [
 			icon: BrGlamorousVectorIcons accept;
 			action: [ :anEvent | self pageViewModel pageTitle: anEditorElement text ].
 	cancelButton := BrButton new
+			label: 'Cancel';
 			beTinySize;
 			aptitude: BrGlamorousButtonWithIconAptitude;
 			icon: BrGlamorousVectorIcons cancel;
