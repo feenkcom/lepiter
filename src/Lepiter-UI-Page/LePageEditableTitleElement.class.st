@@ -29,16 +29,6 @@ LePageEditableTitleElement >> acceptPageTitleWith: aString [
 ]
 
 { #category : #initialization }
-LePageEditableTitleElement >> createAcceptButton [
-	^ BrButton new
-		aptitude: BrGlamorousButtonWithIconAptitude;
-		icon: BrGlamorousVectorIcons accept;
-		enabled: false;
-		action: [ self acceptPageTitleWith: titleElement text asString ];
-		margin: (BlInsets left: 5)
-]
-
-{ #category : #initialization }
 LePageEditableTitleElement >> createAddButton [
 	| aButton |
 	^ aButton := self plusButton
@@ -70,16 +60,6 @@ LePageEditableTitleElement >> createAddButton [
 ]
 
 { #category : #initialization }
-LePageEditableTitleElement >> createCancelButton [
-	^ BrButton new
-		aptitude: BrGlamorousButtonWithIconAptitude;
-		icon: BrGlamorousVectorIcons cancel;
-		enabled: false;
-		action: [ self updatePageTitle ];
-		margin: (BlInsets left: 5)
-]
-
-{ #category : #initialization }
 LePageEditableTitleElement >> createTitleElement [
 	| anEditor |
 	anEditor := BrEditor new
@@ -104,6 +84,7 @@ LePageEditableTitleElement >> createTitleElement [
 			hMatchParent;
 			vFitContent;
 			when: BrEditorAcceptWish do: [ :aWish | self onAcceptTitleWish: aWish ];
+			when: BlFocusOutEvent do: [ :anEvent | self acceptPageTitle ];
 			addShortcut: (BlShortcutWithAction new
 					combination: BlKeyCombination enter;
 					action: [ :aShortcutEvent | 
@@ -131,18 +112,6 @@ LePageEditableTitleElement >> createTitleElement [
 							ifTrue: [ Clipboard clipboardText: self pageViewModel pageTitle asString ] ]).
 
 	^ anEditor
-]
-
-{ #category : #initialization }
-LePageEditableTitleElement >> disableButtons [
-	acceptButton enabled: false.
-	cancelButton enabled: false
-]
-
-{ #category : #initialization }
-LePageEditableTitleElement >> enableButtons [
-	acceptButton enabled: true.
-	cancelButton enabled: true
 ]
 
 { #category : #private }
