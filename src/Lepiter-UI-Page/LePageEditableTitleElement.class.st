@@ -158,7 +158,8 @@ LePageEditableTitleElement >> initializeShortcuts [
 				combination: BlKeyCombination arrowDown;
 				overrideChildren: true;
 				action: [ self loseFocus.
-					selectOnExit ifNotNil: [ ((selectOnExit childAt: 2) childAt: 1) snippetViewModel focused: true ] ])
+					self selectOnExit
+						ifNotNil: [ ((self selectOnExit childAt: 2) childAt: 1) snippetViewModel focused: true ] ])
 ]
 
 { #category : #'private - event handling' }
@@ -194,6 +195,11 @@ LePageEditableTitleElement >> plusButton [
 { #category : #focus }
 LePageEditableTitleElement >> requestFocus [
 	titleElement requestFocus
+]
+
+{ #category : #focus }
+LePageEditableTitleElement >> selectOnExit [
+	^ selectOnExit
 ]
 
 { #category : #focus }
