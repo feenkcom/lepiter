@@ -88,7 +88,33 @@ LePageToolContentTreeElement >> bindTreeRowData: aTreeNode to: aTreeRowElement a
 						eachLine zIndex: -10.
 						aStream nextPut: eachLine ] ].
 
-	aTreeRowElement addChildren: theLines
+	aTreeRowElement addChildren: theLines.
+
+	aRowIndex = 1 ifTrue: [ self selectOnEnter: aTreeRowElement ]
+]
+
+{ #category : #'private - tree element' }
+LePageToolContentTreeElement >> createTreeElement [
+	^ BrSimpleTree new
+		matchParent;
+		padding: (BlInsets
+				top: 10
+				left: 0
+				bottom: 5
+				right: 20);
+		aptitudeDo: [ :aLook | aLook treeElement clipChildren: false ];
+		nodeType: [ :anItemTypeFactory :aTreeNode :aNodeIndex | aTreeNode value snippetView ];
+		nodeId: [ :aTreeNode :aNodeIndex | aTreeNode value uid ];
+		nodeStencil: [ :aSnippetView | aSnippetView asElement ];
+		nodeDataBinder: [ :aSnippetElement :aTreeNode | 
+			aSnippetElement
+				snippetViewModel: (aTreeNode value titleElement: self titleElement) ];
+		rowStencil: [ :aNodeType :aNodeElement | self createTreeRowFor: aNodeElement ];
+		rowDataBinder: [ :aRowElement :aTreeNode :aRowIndex | 
+			self
+				bindTreeRowData: aTreeNode
+				to: aRowElement
+				at: aRowIndex ]
 ]
 
 { #category : #initialization }
