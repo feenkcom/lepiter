@@ -458,7 +458,7 @@ LeUIExamples >> pageToolContentElement_TitleAndInspectButton [
 	<gtExample>
 	| anElement anItem |
 	anElement := self pageToolContentElement_Hierarchy.
-	anElement withTitleAndInspectButton.
+	anElement withTitleAndButtons.
 	anItem := anElement headerElement toolbarElement itemAt: 1.
 	self assert: anItem widget equals: anElement titleElement.
 	^ anElement
@@ -514,6 +514,16 @@ LeUIExamples >> pageToolElement_Hierarchy_Normal [
 ]
 
 { #category : #'examples - page - tool' }
+LeUIExamples >> pageToolElement_Hierarchy_TitleFocused [
+
+	<gtExample>
+	| anElement |
+	anElement := self pageToolElement_Hierarchy.
+	anElement contentElement selectTitle.
+	^ anElement
+]
+
+{ #category : #'examples - page - tool' }
 LeUIExamples >> pageToolElement_NoHierarchy [
 
 	<gtExample>
@@ -522,6 +532,43 @@ LeUIExamples >> pageToolElement_NoHierarchy [
 	aPage := self titledPage.
 	anElement pageViewModel: aPage asContentUIModel.
 	^ anElement
+]
+
+{ #category : #'examples - page - tool' }
+LeUIExamples >> scripterOnPageToolElementMoveFocusToSnippet [
+
+	<gtExample>
+	| scripter |
+	scripter := self scripterOnPageToolElementWithTitleFocused.
+	
+	scripter keyClick
+		label: 'Move into snippet';
+		key: BlKeyboardKey arrowDown;
+		play.
+		
+	scripter check
+		label: 'Check title element is focused';
+		satisfies: [ :element | element contentElement treeElement halt ];
+		play.
+
+	^ scripter
+]
+
+{ #category : #'examples - page - tool' }
+LeUIExamples >> scripterOnPageToolElementWithTitleFocused [
+
+	<gtExample>
+	| scripter anElement |
+	scripter := BlScripter new.
+	anElement := self pageToolElement_Hierarchy_TitleFocused.
+	scripter element: anElement.
+	
+	scripter check
+		label: 'Check title element is focused';
+		satisfies: [ :element | element contentElement titleElement hasFocus ];
+		play.
+
+	^ scripter
 ]
 
 { #category : #'examples - model' }

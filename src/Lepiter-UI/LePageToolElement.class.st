@@ -50,11 +50,7 @@ LePageToolElement >> initialize [
 { #category : #initialization }
 LePageToolElement >> initializeContentElement [
 	contentElement := LePageToolContentTreeElement new
-		withTitleAndRemoveAction;
-		padding: (BlInsets top: 0 right: 10 bottom: 0 left: 10).
-	"contentElement := LePageToolContentCanvasElement new
-		withTitleAndRemoveAction;
-		padding: (BlInsets top: 0 right: 10 bottom: 0 left: 10)."
+		padding: (BlInsets top: 0 right: 10 bottom: 0 left: 10)
 ]
 
 { #category : #initialization }

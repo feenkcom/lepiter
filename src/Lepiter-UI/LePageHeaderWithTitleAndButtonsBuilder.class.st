@@ -6,15 +6,15 @@ I am used by {{gtClass:LePageToolContentElement}} in {{gtMethod:LePageToolConten
 
 "
 Class {
-	#name : #LePageHeaderWithTitleAndInspectButtonBuilder,
+	#name : #LePageHeaderWithTitleAndButtonsBuilder,
 	#superclass : #LePageHeaderBuilder,
 	#category : #'Lepiter-UI-Support - Page Toolbar'
 }
 
 { #category : #'api - building' }
-LePageHeaderWithTitleAndInspectButtonBuilder >> build [
+LePageHeaderWithTitleAndButtonsBuilder >> build [
 	self removeAllItems.
 	self addTitle.
-	self addRemoteLinkToClipboardButton.
-	self addInspectButton.
+	self addToolbarToFrame.
+	self addExtensionButtons.
 ]
