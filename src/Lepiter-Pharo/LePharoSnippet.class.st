@@ -100,6 +100,28 @@ LePharoSnippet >> convertToExample: aSelector in: aClass classified: aSymbol [
 	self removeSelf
 ]
 
+{ #category : #accessing }
+LePharoSnippet >> moveFollowingSnippetsToPage: pageName [
+	"Use this to split a lepiter page by evaluating or inspecting this in a code snippet at the split point.
+
+		thisSnippet moveFollowingSnippetsToPage: 'A page name'
+	"
+
+	| sourcePage targetPage snippets start stop |
+	sourcePage := self page.
+	targetPage := self page database ensurePageNamed: pageName.
+	snippets := self page children asArray.
+	start := snippets indexOf: self.
+	stop := snippets size.
+	snippets
+		from: start + 1
+		to: stop
+		do: [ :each | 
+			sourcePage removeSnippet: each.
+			targetPage addSnippet: each ].
+	^ targetPage
+]
+
 { #category : #initialization }
 LePharoSnippet >> newCoder [
 	^ GtPharoSnippetCoder new
