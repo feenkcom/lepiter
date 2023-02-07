@@ -8,6 +8,17 @@ Class {
 	#category : #'Lepiter-Snippet-WardleyMap-Snippet'
 }
 
+{ #category : #accessing }
+LeWardleyMapSnippetElement >> gtWardleyScriptFor: aView [
+	<gtView>
+	
+	^ aView forward
+		title: 'Wardley Script';
+		priority: 0.5;
+		object: [ self snippetViewModel ];
+		view: #gtWardleyScriptFor:
+]
+
 { #category : #initialization }
 LeWardleyMapSnippetElement >> initialize [
 	super initialize.
