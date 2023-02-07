@@ -5,6 +5,17 @@ Class {
 }
 
 { #category : #accessing }
+LeWardleyMapSnippetViewModel >> gtWardleyScriptFor: aView [
+	<gtView>
+	
+	^ aView forward
+		title: 'Wardley Script';
+		priority: 9;
+		object: [ self snippetModel ];
+		view: #gtWardleyScriptFor:
+]
+
+{ #category : #accessing }
 LeWardleyMapSnippetViewModel >> snippetElementClass [
 	^ LeWardleyMapSnippetElement
 ]

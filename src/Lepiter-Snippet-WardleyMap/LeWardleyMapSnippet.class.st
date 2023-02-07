@@ -104,6 +104,17 @@ LeWardleyMapSnippet >> detachWardleyMap [
 		aWardleyMap unsubscribe: self ]
 ]
 
+{ #category : #accessing }
+LeWardleyMapSnippet >> gtWardleyScriptFor: aView [
+	<gtView>
+	
+	^ aView forward
+		title: 'Wardley Script';
+		priority: 9;
+		object: [ self wardleyMap ];
+		view: #gtWardleyScriptFor:
+]
+
 { #category : #initialization }
 LeWardleyMapSnippet >> initialize [
 	super initialize.
