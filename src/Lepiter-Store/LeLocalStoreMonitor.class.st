@@ -456,8 +456,15 @@ LeLocalStoreMonitor >> stopMonitoring [
 { #category : #private }
 LeLocalStoreMonitor >> submitReload [
 
-	[ self class shutdownMonitor critical: [ self reload ] ]
-		asAsyncFuture await: (AsyncFutureExecutionConfiguration new customGroup: #Lepiter)
+	([ self class shutdownMonitor 
+		critical: [ self reload ] ]
+			asAsyncFuture await: (AsyncFutureExecutionConfiguration new 
+				customGroup: #Lepiter))
+					then: [ ]
+					otherwise: [ :exception |
+						self inform: 'Error during Lepiter reload: ' 
+							, exception messageText
+							, '. Do a manual reload to reproduce the error.']
 ]
 
 { #category : #private }
