@@ -159,7 +159,14 @@ LePageEditableTitleElement >> initializeShortcuts [
 				overrideChildren: true;
 				action: [ self loseFocus.
 					self selectOnExit
-						ifNotNil: [ ((self selectOnExit childAt: 2) childAt: 1) snippetViewModel focused: true ] ])
+						ifNotNil: [ ((self selectOnExit childAt: 2) childAt: 1) snippetViewModel focused: true ] ]);
+		addShortcut: (BlShortcutWithAction new
+				combination: (BlKeyCombination builder
+						shift;
+						primary;
+						key: BlKeyboardKey return;
+						build);
+				action: [ :anEvent :aShortcut | addButton dispatchEvent: BrDropdownShowWish new ])
 ]
 
 { #category : #'private - event handling' }
