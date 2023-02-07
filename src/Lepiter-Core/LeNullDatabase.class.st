@@ -58,6 +58,12 @@ LeNullDatabase >> hasChildren [
 ]
 
 { #category : #'api - testing' }
+LeNullDatabase >> hasPageNamed: aString [
+
+	^ false.
+]
+
+{ #category : #'api - testing' }
 LeNullDatabase >> isDatabase [
 	^ false
 ]
