@@ -448,8 +448,8 @@ LeUIExamples >> pageToolContentElement_TitleAndAllActionButtons [
 	| anElement anItem |
 	anElement := self pageToolContentElement_Hierarchy.
 	anElement withTitleOnly.
-	anItem := anElement headerElement toolbarElement itemAt: 1.
-	self assert: anItem widget equals: anElement titleElement.
+	anItem := anElement headerElement childAt: 1.
+	self assert: anItem equals: anElement titleElement.
 	^ anElement
 ]
 
