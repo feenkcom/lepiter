@@ -1,20 +1,20 @@
 "
 I add a title and an inspect button to a header.
-I am used by {{gtClass:LePageToolContentElement}} in {{gtMethod:LePageToolContentElement>>#withTitleAndInspectButton|label=#selector}}.
+I am used by {{gtClass:LePageToolContentElement}} in {{gtMethod:LePageToolContentElement>>#withTitleAndButtons|label=#selector}}.
 ## Example
 {{gtExample:LeUIExamples>>#pageToolContentElement_TitleAndInspectButton|previewExpanded|codeExpanded=false}}
 
 "
 Class {
-	#name : #LePageHeaderWithTitleAndInspectButtonBuilder,
+	#name : #LePageHeaderWithTitleAndButtonsBuilder,
 	#superclass : #LePageHeaderBuilder,
 	#category : #'Lepiter-UI-Support - Page Toolbar'
 }
 
 { #category : #'api - building' }
-LePageHeaderWithTitleAndInspectButtonBuilder >> build [
+LePageHeaderWithTitleAndButtonsBuilder >> build [
 	self removeAllItems.
 	self addTitle.
-	self addRemoteLinkToClipboardButton.
-	self addInspectButton.
+	self addToolbarToFrame.
+	self addExtensionButtons.
 ]

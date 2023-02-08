@@ -40,7 +40,7 @@ LeConnectorPageElement >> initialize [
 { #category : #initialization }
 LeConnectorPageElement >> initializeContentElement [
 	contentElement := LePageToolContentTreeElement new 
-		withTitleAndInspectButton;
+		withTitleAndButtons;
 		beInSingleCompositionLayer;
 		matchParent
 ]

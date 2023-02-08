@@ -83,6 +83,7 @@ LePageEditableTitleElement >> createTitleElement [
 					right: 5);
 			hMatchParent;
 			vFitContent;
+			background: Color white;
 			when: BrEditorAcceptWish do: [ :aWish | self onAcceptTitleWish: aWish ];
 			when: BlFocusOutEvent do: [ :anEvent | self acceptPageTitle ];
 			addShortcut: (BlShortcutWithAction new
@@ -145,8 +146,10 @@ LePageEditableTitleElement >> initialize [
 
 	self
 		vFitContent;
-		constraintsDo: [ :c | c maxWidth: 600 ];
 		hMatchParent.
+
+	self padding: (BlInsets right: 10).
+	self clipChildren: false.
 
 	self initializeShortcuts
 ]
@@ -269,7 +272,7 @@ LePageEditableTitleElement >> visuallyHover [
 		effect: (BlGaussianShadowEffect
 				color: BrGlamorousColors defaultShadowColor
 				width: 2
-				offset: 0 @ 1)
+				offset: 0 @ 1).
 ]
 
 { #category : #initialization }
