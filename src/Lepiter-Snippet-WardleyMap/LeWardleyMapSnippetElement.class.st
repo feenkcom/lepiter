@@ -69,6 +69,12 @@ LeWardleyMapSnippetElement >> onSnippetViewModelFocused: aBoolean [
 		ifFalse: [ self loseFocus ]
 ]
 
+{ #category : #'api - snippet view model' }
+LeWardleyMapSnippetElement >> onSnippetWardleyMapChanged [
+	wardleyMapElement wardleyMapViewModel: (GtWardleyMapViewModel new 
+		wardleyMapModel: self snippet wardleyMap)
+]
+
 { #category : #'api - view' }
 LeWardleyMapSnippetElement >> snippetContent [
 	"Return an element that represents a content of the snippet.
@@ -97,6 +103,11 @@ LeWardleyMapSnippetElement >> subscribeToSnippetViewModel [
 	self snippet weak
 		when: LeSnippetHeightChanged
 		send: #onSnippetHeightChanged
+		to: self.
+		
+	self snippet weak 
+		when: LeSnippetWardleyMapChanged
+		send: #onSnippetWardleyMapChanged
 		to: self
 ]
 

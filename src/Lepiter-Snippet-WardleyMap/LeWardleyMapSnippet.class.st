@@ -108,11 +108,27 @@ LeWardleyMapSnippet >> detachWardleyMap [
 LeWardleyMapSnippet >> gtWardleyScriptFor: aView [
 	<gtView>
 	
-	^ aView forward
+	^ (aView textEditor)
 		title: 'Wardley Script';
 		priority: 9;
-		object: [ self wardleyMap ];
-		view: #gtWardleyScriptFor:
+		aptitude: [ BrGlamorousCodeEditorAptitude ];
+		styler: [ GtWardleyMapParser gtStyler ];
+		text: [ self wardleyMap asWardleyMapScript ];
+		actionUpdateButtonTooltip: 'Update Script';
+		actionButtonLabel: 'Import' 
+			tooltip: 'Create a new Wardley script model' 
+			action: [ :aButton | 
+				| aText aWardleyMap |
+				aButton phlow firstParentWithView phlow firstChildWithView 
+						allChildrenBreadthFirstDetect: [ :each | 
+							each isKindOf: BrEditorElement ] 
+						ifFound: [ :editorElement | 
+							aText := editorElement editor text.
+							aWardleyMap := GtWardleyMapScriptImporter forString: aText asString.
+							self wardleyMap: aWardleyMap ] ];
+		actionButtonLabel: 'Copy' 
+			action: [ Clipboard clipboardText: 
+				self wardleyMap asWardleyMapScript ]
 ]
 
 { #category : #initialization }
@@ -199,7 +215,8 @@ LeWardleyMapSnippet >> wardleyMap: aNewWardleyMap [
 	wardleyMap weak
 		when: GtWardleyMapAnnouncement
 		send: #onWardleyMapChanged:
-		to: self
+		to: self.
+	self announceWardleyMapChangedBy: nil
 ]
 
 { #category : #'private - export / import' }
