@@ -70,6 +70,15 @@ LeCommandSpecification >> descriptionOn: aStream [
 ]
 
 { #category : #'gt - extensions' }
+LeCommandSpecification >> gtCommonAttributes [
+	| variableNodes |
+	variableNodes := OrderedCollection new.
+	self  gtInspectorVariableNodesIn: variableNodes.
+	^ variableNodes collect: [ :aNode |
+		aNode label -> aNode rawValue ]
+]
+
+{ #category : #'gt - extensions' }
 LeCommandSpecification >> gtViewSpecificationAttributesFor: aView [
 	<gtView>
 	
@@ -77,12 +86,9 @@ LeCommandSpecification >> gtViewSpecificationAttributesFor: aView [
 		title: 'Command Attributes';
 		priority: 10;
 		items: [ 
-			| variableNodes |
-			variableNodes := OrderedCollection new.
-			self  gtInspectorVariableNodesIn: variableNodes.
-			variableNodes ];
-		column: 'Variable' text: [ :aNode | aNode label ];
-		column: 'Value' text: [ :aNode | aNode rawValue ];
+			self gtCommonAttributes ];
+		column: 'Variable' text: [ :assoc | assoc key ];
+		column: 'Value' text: [ :assoc | assoc value ];
 		send: #value
 ]
 

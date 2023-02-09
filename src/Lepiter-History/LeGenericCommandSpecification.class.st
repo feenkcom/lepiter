@@ -22,6 +22,11 @@ LeGenericCommandSpecification >> attributes [
 	^ attributesByName values
 ]
 
+{ #category : #accessing }
+LeGenericCommandSpecification >> gtCommonAttributes [
+	^ super gtCommonAttributes , attributesByName associations
+]
+
 { #category : #initialization }
 LeGenericCommandSpecification >> initialize [ 
 	super initialize.

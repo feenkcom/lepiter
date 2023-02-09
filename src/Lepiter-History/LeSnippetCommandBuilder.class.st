@@ -16,6 +16,12 @@ LeSnippetCommandBuilder >> editSnippetStateCommand [
 ]
 
 { #category : #'build - commands' }
+LeSnippetCommandBuilder >> editTextValueSnippetCommand [ 
+	^ LeEditTextValueSnippetCommand new
+		targetContent: self targetSnippet
+]
+
+{ #category : #'build - commands' }
 LeSnippetCommandBuilder >> editTextualSnippetCommand [ 
 	^ LeTextualEditSnippetCommand new
 		targetContent: self targetSnippet
