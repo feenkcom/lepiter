@@ -122,15 +122,6 @@ LeSnippet >> announceContentChangedBy: aSourceObject [
 		snippet: self)
 ]
 
-{ #category : #'private - notifications' }
-LeSnippet >> announceWardleyMapChangedBy: aSourceObject [
-	"Notify all dependents that the snippet's Wardley map has changed"
-
-	self notifyAnnouncement: (LeSnippetWardleyMapChanged new
-		source: aSourceObject;
-		snippet: self)
-]
-
 { #category : #'api - attaching / detaching' }
 LeSnippet >> attachFirstChildSnippet: aNewSnippet [
 	self assert: [ aNewSnippet notNil ].
