@@ -67,7 +67,7 @@ LeTextCoderSnippetViewModel >> moveCursorAt: aCursorPosition [
 
 { #category : #'private - event handling' }
 LeTextCoderSnippetViewModel >> onCoderSourceModified: aGtCoderSourceCodeChanged [
-	| changedText editCommand|
+	| changedText editCommand |
 	aGtCoderSourceCodeChanged source = self ifTrue: [ ^ self ].
 	
 	changedText := aGtCoderSourceCodeChanged coder currentSourceText.
@@ -77,11 +77,22 @@ LeTextCoderSnippetViewModel >> onCoderSourceModified: aGtCoderSourceCodeChanged 
 		snippet model. When the second view model updates it should not
 		trigger any new command."
 		^ self ].
-	
+		
+
 	editCommand := (self snippetModel commandBuilder editTextualSnippetCommand
 		string: changedText asString
 		withSource: self -> aGtCoderSourceCodeChanged isSynchronous).
 		
+	"editCommand := aGtCoderSourceCodeChanged textEditCommand 
+		ifNil: [
+			(self snippetModel commandBuilder editTextualSnippetCommand
+				string: changedText asString
+				withSource: self -> aGtCoderSourceCodeChanged isSynchronous) ]
+		ifNotNil: [
+			self snippetModel commandBuilder editTextValueSnippetCommand
+				textEditCommand: aGtCoderSourceCodeChanged textEditCommand;
+				source: self -> aGtCoderSourceCodeChanged isSynchronous ]."
+	
 	editCommand execute
 ]
 
