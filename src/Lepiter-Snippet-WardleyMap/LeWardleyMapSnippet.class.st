@@ -104,6 +104,27 @@ LeWardleyMapSnippet >> detachWardleyMap [
 		aWardleyMap unsubscribe: self ]
 ]
 
+{ #category : #accessing }
+LeWardleyMapSnippet >> gtWardleyScriptFor: aView [
+	<gtView>
+	^ aView textEditor
+		title: 'Wardley Script';
+		priority: 9;
+		aptitude: [ BrGlamorousCodeEditorAptitude ];
+		styler: [ GtWardleyMapParser gtStyler ];
+		text: [ self wardleyMap asWardleyMapScript ];
+		actionUpdateButtonTooltip: 'Update Script';
+		actionButtonLabel: 'Import'
+			tooltip: 'Create a new Wardley script model'
+			action: [ :aButton | 
+				| aWardleyMap |
+				aWardleyMap := GtWardleyMapScriptImporter
+						forString: aButton phlow viewContent textViewContent asString.
+				self wardleyMap: aWardleyMap ];
+		actionButtonLabel: 'Copy'
+			action: [ Clipboard clipboardText: self wardleyMap asWardleyMapScript ]
+]
+
 { #category : #initialization }
 LeWardleyMapSnippet >> initialize [
 	super initialize.
@@ -188,7 +209,8 @@ LeWardleyMapSnippet >> wardleyMap: aNewWardleyMap [
 	wardleyMap weak
 		when: GtWardleyMapAnnouncement
 		send: #onWardleyMapChanged:
-		to: self
+		to: self.
+	self announceWardleyMapChangedBy: nil
 ]
 
 { #category : #'private - export / import' }

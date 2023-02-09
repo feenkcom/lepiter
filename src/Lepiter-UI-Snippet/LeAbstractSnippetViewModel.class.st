@@ -19,7 +19,8 @@ Class {
 		'snippetChildren',
 		'focused',
 		'expanded',
-		'sharedContext'
+		'sharedContext',
+		'titleElement'
 	],
 	#category : #'Lepiter-UI-Snippet-! View Models'
 }
@@ -139,21 +140,30 @@ LeAbstractSnippetViewModel >> focusPreviousSnippet [
 	"Try to give focus to the snippet before me that is either:
 	- a parent of the snippet if this is the first child
 	- a previous sibling if this is not the first child.
-	Return true if there was a previous snippet and focus transfer was succesful, false otherwise"
-	<return: #Boolean>
-	
-	self snippetsCollectionDo: [ :aSnippetsCollection |
-		^ self snippetModel
-			previousSnippetDo: [ :previousSnippet |
-				| snippetViewModelToFocus |
-				
-				snippetViewModelToFocus := aSnippetsCollection 
-					findOrCreateSnippetViewModel: previousSnippet.
-				snippetViewModelToFocus focusDueToNavigationUp.
-				aSnippetsCollection scrollToViewModel: snippetViewModelToFocus.
-				true ] 
-			ifNone: [ false ] ].
-	^ false
+	- the title if this is the first snippet.
+	Returns true if any of those are found."
+
+	| isFound |
+	isFound := false.
+
+	self
+		snippetsCollectionDo: [ :aSnippetsCollection | 
+			isFound := self snippetModel
+					previousSnippetDo: [ :previousSnippet | 
+						| snippetViewModelToFocus |
+						snippetViewModelToFocus := aSnippetsCollection
+								findOrCreateSnippetViewModel: previousSnippet.
+						snippetViewModelToFocus focusDueToNavigationUp.
+						aSnippetsCollection scrollToViewModel: snippetViewModelToFocus.
+						true ]
+					ifNone: [ false ] ].
+
+	isFound
+		ifFalse: [ self titleElement
+				ifNotNil: [ self titleElement requestFocus.
+					isFound := true ] ].
+
+	^ isFound
 ]
 
 { #category : #'api - focus' }
@@ -364,6 +374,16 @@ LeAbstractSnippetViewModel >> snippetsCollectionDo: aBlock [
 	"Evaluate aBlock with the current snippets collection as an arguments if it is assigned"
 	
 	snippetsCollection ifNotNil: aBlock
+]
+
+{ #category : #accessing }
+LeAbstractSnippetViewModel >> titleElement [
+	^ titleElement
+]
+
+{ #category : #accessing }
+LeAbstractSnippetViewModel >> titleElement: anObject [
+	titleElement := anObject
 ]
 
 { #category : #'api - accessing' }

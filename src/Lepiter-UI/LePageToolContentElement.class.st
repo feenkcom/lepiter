@@ -5,14 +5,23 @@ Class {
 	#classTraits : 'TLeWithPageViewModel classTrait + TBrLayoutResizable classTrait',
 	#instVars : [
 		'titleElement',
-		'headerElement'
+		'headerElement',
+		'toolbarBuilder'
 	],
 	#category : #'Lepiter-UI-! Tool - Page'
 }
 
+{ #category : #initialization }
+LePageToolContentElement >> buildToolbar [
+	toolbarBuilder
+		pageElement: self;
+		frame: self headerElement;
+		titleElement: self titleElement;
+		build
+]
+
 { #category : #'private - accessing' }
 LePageToolContentElement >> headerElement [
-	<return: #LeToolbarElement>
 	^ headerElement
 ]
 
@@ -30,13 +39,20 @@ LePageToolContentElement >> initialize [
 	
 	self addChild: self headerElement as: #header.
 
-	self withTitleAndInspectButton
+	self withTitleAndButtons.
+	self buildToolbar
 ]
 
 { #category : #initialization }
 LePageToolContentElement >> initializeHeaderElement [
-	headerElement := LeToolbarElement new.
-	headerElement margin: (BlInsets left: 3)
+	headerElement := BrHorizontalPane new alignCenter.
+	headerElement
+		clipChildren: false;
+		margin: (BlInsets
+				top: 5
+				left: 8
+				bottom: 10
+				right: 0)
 ]
 
 { #category : #initialization }
@@ -59,6 +75,7 @@ LePageToolContentElement >> onPageViewModelChanged [
 	"Is sent when a new page view model is assigned to the element"
 	
 	self titleElement pageViewModel: self pageViewModel.
+	self buildToolbar.
 	self notifyContentChanged
 ]
 
@@ -99,50 +116,17 @@ LePageToolContentElement >> titleElement [
 { #category : #'api - initialization' }
 LePageToolContentElement >> withEmptyHeader [
 	"Do not display any toolbar neither the title."
-	(LePageEmptyHeaderBuilder new
-		pageElement: self;
-		toolbarElement: self headerElement;
-		titleElement: self titleElement;
-		build)
+	toolbarBuilder := LePageEmptyHeaderBuilder new
 ]
 
 { #category : #'api - initialization' }
-LePageToolContentElement >> withTitleAndAllActionButtons [
-	"Install all toolbar items (including the title)"
-	(LePageHeaderWithAllItemsBuilder new
-		pageElement: self;
-		toolbarElement: self headerElement;
-		titleElement: self titleElement;
-		build)
-]
-
-{ #category : #'api - initialization' }
-LePageToolContentElement >> withTitleAndInspectButton [
-	(LePageHeaderWithTitleAndInspectButtonBuilder new
-		pageElement: self;
-		toolbarElement: self headerElement;
-		titleElement: self titleElement;
-		build)
-]
-
-{ #category : #'api - initialization' }
-LePageToolContentElement >> withTitleAndRemoveAction [
-	"Do not display other toolbar items, e.g., buttons.
-	Display only a page title."
-	(LePageHeaderWithTitleAndRemoveActionBuilder new
-		pageElement: self;
-		toolbarElement: self headerElement;
-		titleElement: self titleElement;
-		build)
+LePageToolContentElement >> withTitleAndButtons [
+	toolbarBuilder := LePageHeaderWithTitleAndButtonsBuilder new
 ]
 
 { #category : #'api - initialization' }
 LePageToolContentElement >> withTitleOnly [
 	"Do not display other toolbar items, e.g., buttons.
 	Display only a page title."
-	(LePageHeaderWithTitleOnlyBuilder new
-		pageElement: self;
-		toolbarElement: self headerElement;
-		titleElement: self titleElement;
-		build)
+	toolbarBuilder := LePageHeaderWithTitleOnlyBuilder new
 ]

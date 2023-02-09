@@ -227,6 +227,16 @@ LePage >> ensureOneSnippet [
 ]
 
 { #category : #accessing }
+LePage >> gtCopyActionFor: anAction [
+	<lePageAction>
+
+	^ anAction button 
+		tooltip: 'Copy as Remote Reference to the clipboard';
+		icon: BrGlamorousVectorIcons clipboard;
+		action: [ :aButton | Clipboard clipboardText: self asRemoteLink ]
+]
+
+{ #category : #accessing }
 LePage >> gtMarkAsTableOfContentsFor: anAction [
 	<gtAction>
 	^ anAction button
@@ -234,6 +244,32 @@ LePage >> gtMarkAsTableOfContentsFor: anAction [
 		label: 'ToC';
 		tooltip: 'Mark as Table of Contents';
 		action: [ :aButton | self database tableOfContentsPageID: self uid  ]
+]
+
+{ #category : #accessing }
+LePage >> gtOpenInNewTabActionFor: anAction [
+	<lePageAction>
+	^ anAction button
+		tooltip: 'Open page in a new world tab';
+		icon: BrGlamorousIcons spawn;
+		action: [ :aButton | 
+			GtWorldUtility
+				showSpaceWithTitle: self title
+				inPagerWith: [ self asLepiterPagePhlowTool asElementDo: [ :e | e ] ]
+						asStencil
+				from: aButton ]
+]
+
+{ #category : #accessing }
+LePage >> gtRemoveActionFor: anAction [
+	<lePageAction>
+
+	^ anAction dropdown 
+		tooltip: 'Remove Page';
+		icon: BrGlamorousVectorIcons remove;
+		content: [:aButton | (LePageRemoveDropdownContentStencil new
+						page: self;
+						anchor: aButton)]
 ]
 
 { #category : #'gt-extensions' }

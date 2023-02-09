@@ -8,6 +8,17 @@ Class {
 	#category : #'Lepiter-Snippet-WardleyMap-Snippet'
 }
 
+{ #category : #accessing }
+LeWardleyMapSnippetElement >> gtWardleyScriptFor: aView [
+	<gtView>
+	
+	^ aView forward
+		title: 'Wardley Script';
+		priority: 0.5;
+		object: [ self snippetViewModel ];
+		view: #gtWardleyScriptFor:
+]
+
 { #category : #initialization }
 LeWardleyMapSnippetElement >> initialize [
 	super initialize.
@@ -58,6 +69,12 @@ LeWardleyMapSnippetElement >> onSnippetViewModelFocused: aBoolean [
 		ifFalse: [ self loseFocus ]
 ]
 
+{ #category : #'api - snippet view model' }
+LeWardleyMapSnippetElement >> onSnippetWardleyMapChanged [
+	wardleyMapElement wardleyMapViewModel: (GtWardleyMapViewModel new 
+		wardleyMapModel: self snippet wardleyMap)
+]
+
 { #category : #'api - view' }
 LeWardleyMapSnippetElement >> snippetContent [
 	"Return an element that represents a content of the snippet.
@@ -86,6 +103,11 @@ LeWardleyMapSnippetElement >> subscribeToSnippetViewModel [
 	self snippet weak
 		when: LeSnippetHeightChanged
 		send: #onSnippetHeightChanged
+		to: self.
+		
+	self snippet weak 
+		when: LeSnippetWardleyMapChanged
+		send: #onSnippetWardleyMapChanged
 		to: self
 ]
 
