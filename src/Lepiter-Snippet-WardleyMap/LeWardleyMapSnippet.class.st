@@ -59,6 +59,15 @@ LeWardleyMapSnippet class >> leJsonV4Name [
 	^ 'wardleyMap'
 ]
 
+{ #category : #'private - notifications' }
+LeWardleyMapSnippet >> announceWardleyMapChangedBy: aSourceObject [
+	"Notify all dependents that the snippet's Wardley map has changed"
+
+	self notifyAnnouncement: (LeSnippetWardleyMapChanged new
+		source: aSourceObject;
+		snippet: self)
+]
+
 { #category : #accessing }
 LeWardleyMapSnippet >> asSnippetViewModel [
 	<return: #LeSnippetViewModel>
