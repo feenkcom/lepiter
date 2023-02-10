@@ -16,10 +16,9 @@ LeWardleyMapSnippetViewModel >> gtWardleyScriptFor: aView [
 		actionUpdateButtonTooltip: 'Update Script';
 		actionButtonLabel: 'Import'
 			tooltip: 'Create a new Wardley script model'
-			action: [ :aButton | 
+			action: [ :aButton :aTab | 
 				| aText aWardleyMap |
-				aButton phlow firstParentWithView phlow firstChildWithView
-					viewContentElement
+				aTab viewContentElement
 					allChildrenBreadthFirstDetect: [ :each | each isKindOf: BrEditorElement ]
 					ifFound: [ :editorElement | 
 						aText := editorElement editor text.
