@@ -26,7 +26,7 @@ LeWardleyMapSnippetViewModel >> gtWardleyScriptFor: aView [
 						self snippetModel wardleyMap: aWardleyMap ]
 					ifNone: [ self inform: 'Cannot find text editor with Wardley script' ] ];
 		actionButtonLabel: 'Copy'
-			action: [ Clipboard clipboardText: self snippet wardleyMap asWardleyMapScript ];
+			action: [ Clipboard clipboardText: (self snippetModel wardleyMap asWardleyMapScript copyReplaceAll: String cr with: String lf)];
 		actionButtonIcon: BrGlamorousVectorIcons inspect
 			label: 'Model'
 			tooltip: 'Inspect Wardley Map model'
