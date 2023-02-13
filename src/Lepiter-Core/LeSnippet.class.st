@@ -1,5 +1,5 @@
 "
-LeBlock is the common, abstract, superclass of all the content that can be added to a Lepiter Page.
+LeSnippet is the common, abstract, superclass of all the content that can be added to a Lepiter Page.
 
  
 ## Internal Representation and Key Implementation Points.

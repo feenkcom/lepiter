@@ -1,3 +1,6 @@
+"
+The Python Snippet uses the PythonBridge library to communicate with a Python server via [msgpack](https://github.com/msgpack/msgpack-smalltalk) or HTTP over TCP/IP.
+"
 Class {
 	#name : #LePythonSnippet,
 	#superclass : #LeCodeSnippet,
