@@ -1,3 +1,6 @@
+"
+An example is like a test that returns an object. Beside the utility for testing, examples can also be used for documentation purposes through an exmaple snippet.
+"
 Class {
 	#name : #LeExampleSnippet,
 	#superclass : #LeSnippet,
