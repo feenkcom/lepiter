@@ -18,14 +18,12 @@ LeWardleyMapSnippetViewModel >> gtWardleyScriptFor: aView [
 			tooltip: 'Create a new Wardley script model'
 			action: [ :aButton | 
 				| aText aWardleyMap |
-				aButton phlow firstParentWithView phlow firstChildWithView
-					viewContentElement
-					allChildrenBreadthFirstDetect: [ :each | each isKindOf: BrEditorElement ]
-					ifFound: [ :editorElement | 
-						aText := editorElement editor text.
+				aText := aButton phlow textViewContent.
+				aText 
+					ifNotNil: [
 						aWardleyMap := GtWardleyMapScriptImporter forString: aText asString.
 						self snippetModel wardleyMap: aWardleyMap ]
-					ifNone: [ self inform: 'Cannot find text editor with Wardley script' ] ];
+					ifNil: [ self inform: 'Cannot find text editor with Wardley script' ] ];
 		actionButtonLabel: 'Copy'
 			action: [ Clipboard clipboardText: self snippet wardleyMap asWardleyMapScript ];
 		actionButtonIcon: BrGlamorousVectorIcons inspect

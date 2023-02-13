@@ -11,12 +11,29 @@ Class {
 { #category : #accessing }
 LeWardleyMapSnippetElement >> gtWardleyScriptFor: aView [
 	<gtView>
-	
-	^ aView forward
+	^ aView textEditor
 		title: 'Wardley Script';
 		priority: 0.5;
-		object: [ self snippetViewModel ];
-		view: #gtWardleyScriptFor:
+		aptitude: [ BrGlamorousCodeEditorAptitude ];
+		styler: [ GtWardleyMapParser gtStyler ];
+		text: [ self snippet wardleyMap asWardleyMapScript ];
+		actionUpdateButtonTooltip: 'Update Script';
+		actionButtonLabel: 'Import'
+			tooltip: 'Create a new Wardley script model'
+			action: [ :aButton | 
+				| aText aWardleyMap |
+				aText := aButton phlow textViewContent.
+				aText 
+					ifNotNil: [
+						aWardleyMap := GtWardleyMapScriptImporter forString: aText asString.
+						self snippet wardleyMap: aWardleyMap ]
+					ifNil: [ self inform: 'Cannot find text editor with Wardley script' ] ];
+		actionButtonLabel: 'Copy'
+			action: [ Clipboard clipboardText: self snippet wardleyMap asWardleyMapScript ];
+		actionButtonIcon: BrGlamorousVectorIcons inspect
+			label: 'Model'
+			tooltip: 'Inspect Wardley Map model'
+			action: [ :aButton | aButton phlow spawnObject: self snippet wardleyMap ]
 ]
 
 { #category : #initialization }
