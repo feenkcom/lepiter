@@ -1,3 +1,6 @@
+"
+The PharoLink snippet allows you to write, execute and inspect Pharo code in a remote image.  On Mac and Linux the remote image can be managed automatically, on Windows the image must be started manually.
+"
 Class {
 	#name : #LePharoLinkSnippet,
 	#superclass : #LeCodeSnippet,

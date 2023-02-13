@@ -1,3 +1,10 @@
+"
+#Text snippet
+I am a textual snippet.
+
+I understand basic markdown and can be extended with new snippet types and annotations.
+
+"
 Class {
 	#name : #LeTextualSnippet,
 	#superclass : #LeSnippet,

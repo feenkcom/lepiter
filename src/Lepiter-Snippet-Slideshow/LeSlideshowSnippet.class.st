@@ -1,3 +1,6 @@
+"
+I represent an embedded slideshow within a Lepiter page.
+"
 Class {
 	#name : #LeSlideshowSnippet,
 	#superclass : #LeCodeSnippet,
@@ -8,7 +11,7 @@ Class {
 		'currentSlideIndex',
 		'slides'
 	],
-	#category : 'Lepiter-Snippet-Slideshow-Snippet'
+	#category : #'Lepiter-Snippet-Slideshow-Snippet'
 }
 
 { #category : #'instance creation' }
