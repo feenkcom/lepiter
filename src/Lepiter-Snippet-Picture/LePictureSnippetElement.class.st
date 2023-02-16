@@ -4,8 +4,6 @@ Class {
 	#traits : 'TBlElementError',
 	#classTraits : 'TBlElementError classTrait',
 	#instVars : [
-		'sceneHeightStrategy',
-		'sceneResizer',
 		'pictureContainer',
 		'gtUrlUtility',
 		'snippetToolbar',
@@ -77,16 +75,12 @@ LePictureSnippetElement >> initializePictureContainer [
 
 { #category : #initialization }
 LePictureSnippetElement >> initializeSceneResizer [
-	pictureContainer addAptitude: (BrGlamorousWithVerticalResizerAptitude new beBottom
-		resizerDo: [ :theResizer |
-			theResizer
-				id: LePictureImageResizerElementId;
-				when: BlResizerResizedEvent
-				do: [:anEvent |
-					pictureContainer
-						childWithId: #imageElement
-						ifFound: [ :anImageElement | (BrResizerElementLength exact: anEvent extent y) adjustHeightFor: anImageElement ]
-						ifNone: [ ] ] ])
+	pictureContainer
+		addAptitude: (BrGlamorousWithVerticalResizerAptitude new beBottom
+				resizerDo: [ :theResizer | 
+					theResizer
+						when: BlResizerResizedEvent
+						do: [ :anEvent | self onResizerResized: anEvent ] ])
 ]
 
 { #category : #initialization }
@@ -160,6 +154,24 @@ LePictureSnippetElement >> onCaptionModifiedEvent: anEvent [
 	titleString := captionEditorElement text asString.
 	captionLabel text: titleString.
 	self snippet caption: titleString source: self
+]
+
+{ #category : #'private - event handling' }
+LePictureSnippetElement >> onResizerResized: anEvent [
+	"Since pictureContainer is (must be) with #vFitContent,
+	we set the #imageElement exact height. The pictureContainer also have
+	as a child captionLabel. For that reason we have to subtract some vertical values
+	as expressed in the code."
+
+	pictureContainer
+		childWithId: #imageElement
+		ifFound: [ :anImageElement | 
+			| aLabelVerticalSpace anImageHeight |
+			aLabelVerticalSpace := captionLabel height + captionLabel padding height
+					+ captionLabel margin height + pictureContainer padding height.
+			anImageHeight := (anEvent extent y - aLabelVerticalSpace) max: 0.
+			(BrResizerElementLength exact: anImageHeight) adjustHeightFor: anImageElement ]
+		ifNone: [  ]
 ]
 
 { #category : #'api - snippet view model' }
