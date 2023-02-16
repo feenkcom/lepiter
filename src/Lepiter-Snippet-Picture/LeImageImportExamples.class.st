@@ -20,7 +20,7 @@ LeImageImportExamples >> importImages [
 	database monitor savePersonalInformation: true.
 	page := LePage named: #Page1.
 	textSnippet := LeTextSnippet
-		string: '![](https://feenk.com/assets/pictures/feenk.png)'.
+		string: '![Feenk](https://feenk.com/assets/pictures/feenk.png)'.
 	page addSnippet: textSnippet.
 	pictureSnippet := LePictureSnippet new
 		urlString: 'https://feenk.com/assets/pictures/casestudy-connections.png'.

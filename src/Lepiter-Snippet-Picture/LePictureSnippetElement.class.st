@@ -170,6 +170,7 @@ LePictureSnippetElement >> onResizerResized: anEvent [
 			aLabelVerticalSpace := captionLabel height + captionLabel padding height
 					+ captionLabel margin height + pictureContainer padding height.
 			anImageHeight := (anEvent extent y - aLabelVerticalSpace) max: 0.
+			self snippet previewHeight: anImageHeight.
 			(BrResizerElementLength exact: anImageHeight) adjustHeightFor: anImageElement ]
 		ifNone: [  ]
 ]
@@ -244,17 +245,19 @@ LePictureSnippetElement >> snippetToolbar [
 { #category : #private }
 LePictureSnippetElement >> updatePicture [
 	| imageElement |
-
 	imageElement := gtUrlUtility isValid
-		ifFalse: [ BlElement new size: 0@0 ]
-		ifTrue: 
-			[ (BrAsyncFileWidget new url: gtUrlUtility urlString)
-				constraintsDo: [ :c |
-					c horizontal matchParent.
-					c vertical exact: 300. ] ].
+			ifFalse: [ BlElement new size: 0 @ 0 ]
+			ifTrue: [ | aPreviewHeight |
+				aPreviewHeight := self snippet previewHeight.
+				aPreviewHeight isZero
+					ifTrue: [ self snippet previewHeight: (aPreviewHeight := 300) ].
+				(BrAsyncFileWidget new url: gtUrlUtility urlString)
+					constraintsDo: [ :c | 
+						c horizontal matchParent.
+						c vertical exact: aPreviewHeight ] ].
 
 	pictureContainer removeChildNamed: #imageElement.
-	pictureContainer addChildFirst: imageElement as: #imageElement.
+	pictureContainer addChildFirst: imageElement as: #imageElement
 ]
 
 { #category : #accessing }
