@@ -1,10 +1,10 @@
 "
-I exemplify lepiter using {{gtClass:BlDevScripter}}.
+I exemplify lepiter using {{gtClass:BlScripter}}.
 I provide basic setups and support methods to simplify {{gtClass:LePageToolElement}} and {{gtClass:LeSnippetElement}} (sub-)instances.
 #Add Snippet Support
-The following method adds a snippet of a given name: {{gtMethod:LeUIByScripterExamples >> #addSnippetNamed:step: | label=#selector}}.
+The following method adds a snippet of a given name: {{gtMethod:LeUIByScripterExamples>>#addSnippetNamed:step: | label=#selector}}.
 #Initial Page
-The following example displays a default (empty) page: {{gtExample:LeUIByScripterExamples >> #emptyPageElement}}
+The following example displays a default (empty) page: {{gtExample:LeUIByScripterExamples>>#emptyPageElement}}
 
 "
 Class {

@@ -3,10 +3,10 @@ I display a {{gtClass:LePage}} list of a {{gtClass:LeDatabase}}.
 
 I can display all pages and daily notes:
 
-{{gtExample:LeUIByScripterExamples>>#databasePageListElement_Pages|previewExpanded}}
+{{gtExample:LePageListByScripterExamples>>#databasePageListElement_Pages|previewExpanded}}
 
 I can also display any subset of pages, e.g., just daily notes:
-{{gtExample:LeUIByScripterExamples>>#databasePageListElement_DailyNotes|previewExpanded}}
+{{gtExample:LePageListByScripterExamples>>#databasePageListElement_DailyNotes|previewExpanded}}
 
 "
 Class {
@@ -17,7 +17,7 @@ Class {
 		'listElement',
 		'selection'
 	],
-	#category : 'Lepiter-UI-! UI - Database'
+	#category : #'Lepiter-UI-! UI - Database'
 }
 
 { #category : #defaults }
