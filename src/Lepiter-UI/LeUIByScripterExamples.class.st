@@ -1,119 +1,167 @@
+"
+I exemplify lepiter using {{gtClass:BlDevScripter}}.
+I provide basic setups and support methods to simplify {{gtClass:LePageToolElement}} and {{gtClass:LeSnippetElement}} (sub-)instances.
+#Add Snippet Support
+The following method adds a snippet of a given name: {{gtMethod:LeUIByScripterExamples >> #addSnippetNamed:step: | label=#selector}}.
+#Initial Page
+The following example displays a default (empty) page: {{gtExample:LeUIByScripterExamples >> #emptyPageElement}}
+
+"
 Class {
 	#name : #LeUIByScripterExamples,
 	#superclass : #Object,
 	#traits : 'TBlDevScripterExamples',
 	#classTraits : 'TBlDevScripterExamples classTrait',
-	#category : 'Lepiter-UI-Examples'
+	#category : #'Lepiter-UI-Examples'
 }
 
-{ #category : #'examples - database - page list' }
-LeUIByScripterExamples >> basicDatabasePageListElement [
+{ #category : #'examples - support' }
+LeUIByScripterExamples >> addNewSnippetShortcut [
 	<gtExample>
-	| anElement |
-
-	anElement := LeDatabasePageListElement new.
-
-	self assert: anElement hasDatabase not.
-	self assert: anElement selection content equals: LePage null.
-
-	^ anElement
+	^ BlKeyCombination builder
+		shift;
+		primary;
+		key: BlKeyboardKey return;
+		build
 ]
 
-{ #category : #'examples - database - page list' }
-LeUIByScripterExamples >> databasePageListElement_DailyNotes [
+{ #category : #'examples - support' }
+LeUIByScripterExamples >> addSnippetNamed: aSnippetName step: aParentStep [ 
+	"I add a new snippet to a page as a second page child.
+	I assume that the there is a {{gtClass:LePageToolElement}} instance.
+	I assume that the lepiter database has at least one snippet.
+	I assume that the first page snippet is a text snippet."
+	<gtExample>
+	
+	| aSnippetsCount |
+	aParentStep substeps: ('Add new {1} snippet' format: { aSnippetName }) do: [ :aStep |
+	
+		aStep do
+			label: 'Find out the number of snippets';
+			block: [ :aPageElement | aSnippetsCount := aPageElement pageViewModel pageModel children size ];
+			onBreadthFirstChildOfClass: LePageToolElement;
+			play.
+			
+		aStep shortcut
+			label: 'Open add snippet spotter';
+			combination: self addNewSnippetShortcut;
+			in: [ :theStep | self targetPageInfiniteElement: theStep ];
+			onChildAt: 1;
+			id: GtSourceCoderEditorId;
+			play.
+			
+		aStep type 
+			text: aSnippetName;
+			onSpaceRoot;
+			onBreadthFirstChildOfClass: GtStreamingSpotterSearchField;
+			play.
+			
+		aStep keyClick 
+			label: ('Insert {1} snippet' format: { aSnippetName });
+			key: BlKeyboardKey return;
+			play.
+			
+		aStep assert 
+			label: 'Page has two snippets';
+			value: [ :aPageElement | aPageElement pageViewModel pageModel children size ] 
+				equals: [ aSnippetsCount + 1 ];
+			onBreadthFirstChildOfClass: LePageToolElement;
+			play.
+		
+		aStep assert
+			label: 'Assert picture widget is inserted';
+			value: [ :anInfiniteElement | anInfiniteElement childrenCount  ] equals: [ 2 ];
+			in: [ :theStep | self targetPageInfiniteElement: theStep ];
+			play.
+	]
+]
+
+{ #category : #'examples - database' }
+LeUIByScripterExamples >> databaseWithEmptyPage [
+	<gtExample>
+	| database page |
+	database := self emptyDatabase.
+	
+	page := database pageBuilder title: self pageOneTitle; add.
+	
+	self assert: database pages size equals: 1.
+	self assert: database explicitLinks size equals: 0.
+	
+	self assert: (database pageNamed: self pageOneTitle) == page.
+	
+	^ database 
+]
+
+{ #category : #'examples - database' }
+LeUIByScripterExamples >> emptyDatabase [
+	<gtExample>
+	| database folderReference localStore  |
+	folderReference := FileSystem memory / 'storage-main'.
+	folderReference ensureCreateDirectory.
+	
+	localStore := LeLocalStoreLoad current.
+	localStore localRoot: folderReference.
+	database := localStore loadAndMonitorFrom: folderReference.
+	self assert: database explicitLinks size equals: 0.
+	^ database 
+]
+
+{ #category : #'examples - ui' }
+LeUIByScripterExamples >> emptyPageElement [
 	<gtExample>
 	| aScripter |
-	
-	aScripter := self 
-		scripterWithModel: [ LeUIExamples new databaseWithTwoPagesAndTwoDailyNotes ]
-		element: [ :aDatabase | self basicDatabasePageListElement showDailyNotes databaseViewModel: aDatabase asContentUIModel ].
+	aScripter := self scripter.
 
-	aScripter wait forEmptySpaceTaskQueue.
-	
-	aScripter check
-		value: [ :anElement | anElement listElement items size ] equals: [ :anElement | anElement database dailyNotes size ].
+
+	aScripter
+		substeps: 'Prepare database'
+		do: [ :aStep | 
+			self
+				scripter: aStep
+				withModel: [ self databaseWithEmptyPage ]
+				element: [ :aDatabase | 
+					(self pageOneIn: aDatabase) asLepiterPagePhlowTool
+						asElementDo: [ :anElement | anElement ] ].
+
+			aStep assert
+				label: self pageOneTitle , ' element has one snippet widget';
+				value: [ :anInfiniteElement | anInfiniteElement children size ]
+					equals: [ 1 ];
+				in: [ :theStep | self targetPageInfiniteElement: theStep ];
+				play.
+
+			aStep assert
+				label: self pageOneTitle , ' has one snippet';
+				value: [ :aDatabase | (self pageOneIn: aDatabase) children size ]
+					equals: [ 1 ];
+				onModel;
+				play ].
 
 	^ aScripter
 ]
 
-{ #category : #'examples - database - page list' }
-LeUIByScripterExamples >> databasePageListElement_Pages [
+{ #category : #'examples - support' }
+LeUIByScripterExamples >> pageOneIn: aDatabase [
 	<gtExample>
-	| aScripter |
-	
-	aScripter := self 
-		scripterWithModel: [ LeUIExamples new databaseWithTwoPagesAndTwoDailyNotes ]
-		element: [ :aDatabase | self basicDatabasePageListElement databaseViewModel: aDatabase asContentUIModel ].
+	| aPage |
+	aPage := aDatabase pageNamed: self pageOneTitle.
 
-	aScripter wait forEmptySpaceTaskQueue.
-	
-	aScripter check
-		value: [ :anElement | anElement listElement items size ] equals: [ :anElement | anElement database pages size ].
+	self assert: aPage isNotNil.
+	self assert: aPage title equals: self pageOneTitle.
 
-	^ aScripter syncContinue
+	^ aPage
 ]
 
-{ #category : #'examples - database - page list' }
-LeUIByScripterExamples >> databasePageListElement_Pages_AddNewPage [
-	<gtExample>
-	| aScripter aPage |
-
-	aScripter := self databasePageListElement_Pages.
-	
-	aScripter do
-		action: [ :aDatabase | aPage := aDatabase pageBuilder title: 'newly added'; add. ];
-		onModel.
-
-	aScripter wait forEmptySpaceTaskQueue.
-	
-	aScripter check
-		value: [ :anElement | anElement listElement items size ] equals: [ :anElement | anElement database pages size ].
-		
-	aScripter check
-		value: [ :anElement | anElement listElement items first pageModel ] equals: [ aPage ].
-
-	^ aScripter syncContinue
+{ #category : #'examples - support' }
+LeUIByScripterExamples >> pageOneTitle [
+	^ 'Page One'
 ]
 
-{ #category : #'examples - database - page list' }
-LeUIByScripterExamples >> databasePageListElement_Pages_RemovePageTwo [
-	<gtExample>
-	| aScripter aPage anInitialPageCount |
-
-	aScripter := self databasePageListElement_Pages.
-	
-	aScripter do
-		action: [ :aDatabase | anInitialPageCount := aDatabase pages size ];
-		onModel.
-	
-	aScripter do
-		action: [ :aDatabase |
-			aPage := aDatabase pageNamed: 'two'.
-			aDatabase removePage: aPage ];
-		onModel.
-
-	aScripter wait forEmptySpaceTaskQueue.
-	
-	aScripter check
-		value: [ :anElement | anElement listElement items size ] equals: [ :anElement | anElement database pages size ];
-		value: [ :anElement | anElement listElement items size ] equals: [ anInitialPageCount - 1 ].
-		
-	aScripter check
-		value: [ :anElement | anElement listElement items first pageModel ] equals: [ :anElement | anElement database sortedPages first].
-
-	^ aScripter syncContinue
-]
-
-{ #category : #'examples - database - page list' }
-LeUIByScripterExamples >> databasePageListElement_Pages_Selection [
-	<gtExample>
-	<noTest>
-	| anElement |
-	
-	anElement := self databasePageListElement_Pages.
-	anElement selection: anElement database sortedPages second.
-
-	self assert: anElement listElement selectedIndices first equals: 2.
-
-	^ anElement
+{ #category : #'examples - support' }
+LeUIByScripterExamples >> targetPageInfiniteElement: aStep [
+	aStep
+		onBreadthFirstChildOfClass: LePageToolElement;
+		id: #content;
+		id: #snippetsTree;
+		id: #scrollable
 ]

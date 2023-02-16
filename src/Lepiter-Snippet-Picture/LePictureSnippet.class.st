@@ -2,7 +2,9 @@ Class {
 	#name : #LePictureSnippet,
 	#superclass : #LeSnippet,
 	#instVars : [
-		'urlString'
+		'urlString',
+		'altText',
+		'caption'
 	],
 	#category : #'Lepiter-Snippet-Picture-Snippet'
 }
@@ -27,6 +29,7 @@ LePictureSnippet class >> leJsonV3AttributeMapping [
 
 	^ super leJsonV3AttributeMapping
 		add: (#urlString -> #url);
+		add: (#caption -> #caption);
 		yourself
 ]
 
@@ -41,6 +44,7 @@ LePictureSnippet class >> leJsonV4AttributeMapping [
 
 	^ super leJsonV4AttributeMapping
 		add: (#urlString -> #url);
+		add: (#caption -> #caption);
 		yourself
 ]
 
@@ -62,6 +66,34 @@ LePictureSnippet >> asSnippetViewModel [
 	^ LePictureSnippetViewModel new snippetModel: self
 ]
 
+{ #category : #accessing }
+LePictureSnippet >> caption [ 
+	<return: #String>
+
+	^ caption
+]
+
+{ #category : #accessing }
+LePictureSnippet >> caption: aString [
+
+	^ self caption: aString source: self
+]
+
+{ #category : #accessing }
+LePictureSnippet >> caption: aString source: aSource [
+	"Change the picture caption."
+	self
+		assert: [ aString notNil ]
+		description: [ 'Title must be non-nil' ].
+
+	self caption = aString
+		ifTrue: [ ^ self ].
+
+	caption := aString.
+	self updateEditTimeAndEmail.
+	self announceContentChangedBy: aSource
+]
+
 { #category : #'api - accessing' }
 LePictureSnippet >> contentAsString [
 	^ urlString
@@ -76,7 +108,8 @@ LePictureSnippet >> hasContent [
 LePictureSnippet >> initialize [
 	super initialize.
 
-	urlString := ''
+	urlString := ''.
+	caption := ''.
 ]
 
 { #category : #'private - exporting' }
@@ -110,6 +143,8 @@ LePictureSnippet >> storeOn: aStream [
 		nextPutAll: self className;
 		nextPutAll: ' new urlString: '.
 	self urlString storeOn: aStream.
+	aStream nextPutAll: '; caption: '.
+	self caption storeOn: aStream.
 	aStream nextPutAll: ')'
 ]
 

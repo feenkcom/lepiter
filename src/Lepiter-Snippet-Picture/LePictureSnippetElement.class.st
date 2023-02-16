@@ -7,9 +7,11 @@ Class {
 		'sceneHeightStrategy',
 		'sceneResizer',
 		'pictureContainer',
-		'editorElement',
 		'gtUrlUtility',
-		'snippetToolbar'
+		'snippetToolbar',
+		'urlEditorElement',
+		'captionEditorElement',
+		'captionLabel'
 	],
 	#category : #'Lepiter-Snippet-Picture-Snippet'
 }
@@ -18,62 +20,59 @@ Class {
 LePictureSnippetElement >> initialize [ 
 	super initialize.
 
-	self initializeEditor.
+	self initializeToolbar.
 	self initializePictureContainer.
 
 	self initializeSceneResizer
 ]
 
 { #category : #initialization }
-LePictureSnippetElement >> initializeEditor [
-	| okButton fileStencil fileSelector |
+LePictureSnippetElement >> initializeCaptionEditor [
+	captionEditorElement := BrEditor new
+			id: LePictureSnippetCaptionEditorElementId;
+			aptitude: BrGlamorousRegularEditorAptitude new glamorousRegularSmallSize
+					+ BrGlamorousInputFieldSpacingAptitude new;
+			vFitContent;
+			hMatchParent;
+			constraintsDo: [ :c | 
+				c minWidth: 100.
+				c grid vertical alignCenter ].
 
-	snippetToolbar := BrHorizontalPane new
-		hMatchParent;
-		padding: (BlInsets top: 4 bottom: 4);
-		alignCenterLeft;
-		cellSpacing: 5;
-		vFitContent.
-
-	editorElement := BrEditor new
-		aptitude: BrGlamorousRegularEditorAptitude new glamorousRegularSmallSize + BrGlamorousInputFieldSpacingAptitude new;
-		vFitContent;
-		hFitContentLimited;
-		constraintsDo: [ :c | c minWidth: 100 ].
-
-	editorElement editor
+	captionEditorElement editor
 		when: BrTextEditorModifiedEvent
-		do: [ :anEvent | self onURLModifiedEvent: anEvent ].
-
-	fileStencil := LePictureImportStencil new pictureElement: self.
-	fileSelector := fileStencil asElement.
-	fileSelector beSmallSize.
-
-	okButton := BrButton new
-		aptitude: BrGlamorousButtonWithIconAptitude;
-		icon: BrGlamorousVectorIcons accept;
-		beSmallSize;
-		action: [ :aButton | self updatePicture ].
+		do: [ :anEvent | self onCaptionModifiedEvent: anEvent ].
 
 	snippetToolbar
 		addChild: (BrLabel new
-			aptitude: BrGlamorousLabelAptitude;
-			beSmallSize;
-			text: 'URL:');
-		addChild: editorElement;
-		addChild: fileSelector;
-		addChild: okButton
+				aptitude: (BrGlamorousLabelAptitude new foreground: BrGlamorousColors disabledButtonTextColor);
+				beSmallSize;
+				text: 'Caption:';
+				constraintsDo: [ :c | 
+					c grid vertical alignCenter ]);
+		addChild: captionEditorElement
 ]
 
 { #category : #initialization }
 LePictureSnippetElement >> initializePictureContainer [
 	pictureContainer := BlElement new
+		id: LePictureSnippetImageContainerElementId;
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical fitContent ];
 		layout: BlLinearLayout vertical;
 		padding: (BlInsets top: 5 left: 7 bottom: 5 right: 5);
-		yourself
+		yourself.
+		
+	captionLabel := BrLabel new 
+		id: LePictureSnippetCaptionLabelElementId;
+		hFitContentLimited;
+		vFitContent;
+		aptitude: (BrGlamorousLabelAptitude new foreground: BrGlamorousColors disabledButtonTextColor);
+		text: '';
+		constraintsDo: [ :c | 
+			c linear horizontal alignCenter ].
+			
+	pictureContainer addChild: captionLabel
 ]
 
 { #category : #initialization }
@@ -81,12 +80,86 @@ LePictureSnippetElement >> initializeSceneResizer [
 	pictureContainer addAptitude: (BrGlamorousWithVerticalResizerAptitude new beBottom
 		resizerDo: [ :theResizer |
 			theResizer
+				id: LePictureImageResizerElementId;
 				when: BlResizerResizedEvent
 				do: [:anEvent |
 					pictureContainer
 						childWithId: #imageElement
 						ifFound: [ :anImageElement | (BrResizerElementLength exact: anEvent extent y) adjustHeightFor: anImageElement ]
 						ifNone: [ ] ] ])
+]
+
+{ #category : #initialization }
+LePictureSnippetElement >> initializeToolbar [
+	snippetToolbar := BrHorizontalGrid new
+		padding: (BlInsets top: 4 bottom: 4);
+		alignCenterLeft;
+		columnCount: 2;
+		cellSpacing: 5;
+		hMatchParent;
+		vFitContent.
+
+	self initializeUrlEditor.
+	self initializeCaptionEditor.
+]
+
+{ #category : #initialization }
+LePictureSnippetElement >> initializeUrlEditor [
+	| okButton fileStencil fileSelector urlContainer |
+
+	urlContainer := BrHorizontalPane new
+		hMatchParent;
+		alignCenterLeft;
+		vFitContent;
+		constraintsDo: [ :c | 
+			c grid vertical alignCenter ].
+
+	urlEditorElement := BrEditor new
+		id: LePictureSnippetUrlEditorElementId;
+		aptitude: BrGlamorousRegularEditorAptitude new glamorousRegularSmallSize + BrGlamorousInputFieldSpacingAptitude new;
+		vFitContent;
+		hMatchParent;
+		margin: (BlInsets right: 3);
+		constraintsDo: [ :c | c minWidth: 100 ].
+
+	urlEditorElement editor
+		when: BrTextEditorModifiedEvent
+		do: [ :anEvent | self onURLModifiedEvent: anEvent ].
+
+	fileStencil := LePictureImportStencil new pictureElement: self.
+	fileSelector := fileStencil asElement.
+	fileSelector beSmallSize.
+	fileSelector margin: (BlInsets right: 3).
+
+	okButton := BrButton new
+		id: LePictureSnippetAcceptUrlElementId;
+		aptitude: BrGlamorousButtonWithIconAptitude;
+		icon: BrGlamorousVectorIcons accept;
+		beSmallSize;
+		action: [ :aButton | self updatePicture ].
+
+	urlContainer
+		addChild: urlEditorElement;
+		addChild: fileSelector;
+		addChild: okButton.
+		
+	snippetToolbar 
+		addChild: (BrLabel new
+			aptitude: (BrGlamorousLabelAptitude new foreground: BrGlamorousColors disabledButtonTextColor);
+			beSmallSize;
+			text: 'URL:';
+			constraintsDo: [ :c | 
+				c grid vertical alignCenter ]);
+		addChild: urlContainer
+]
+
+{ #category : #'private - event handling' }
+LePictureSnippetElement >> onCaptionModifiedEvent: anEvent [
+	| titleString |
+
+	titleString := captionEditorElement text asString.
+	captionLabel text: titleString.
+	self snippet caption: titleString source: self
 ]
 
 { #category : #'api - snippet view model' }
@@ -104,27 +177,29 @@ LePictureSnippetElement >> onSnippetViewModelChanged [
 	gtUrlUtility := GtUrlStringUtility new 
 		rootDirectory: rootDir;
 		urlString: urlString.
-	editorElement text: urlString asRopedText.
+	urlEditorElement text: urlString asRopedText.
+	captionEditorElement text: self snippet caption.
+	captionLabel text: self snippet caption.
 	self updatePicture
 ]
 
 { #category : #'private - event handling' }
 LePictureSnippetElement >> onSnippetViewModelFocused: aBoolean [
 	aBoolean
-		ifTrue: [ editorElement requestFocus ]
-		ifFalse: [ editorElement loseFocus ]
+		ifTrue: [ urlEditorElement requestFocus ]
+		ifFalse: [ urlEditorElement loseFocus ]
 ]
 
 { #category : #'private - event handling' }
 LePictureSnippetElement >> onURLModifiedEvent: anEvent [
 	| urlString colour |
 
-	urlString := editorElement text asString.
+	urlString := urlEditorElement text asString.
 	gtUrlUtility urlString: urlString.
 	colour := gtUrlUtility isValid 
 		ifTrue: [ Color black ]
 		ifFalse: [ Color red ].
-	editorElement text foreground: colour.
+	urlEditorElement text foreground: colour.
 	self snippet urlString: urlString source: self
 ]
 
@@ -167,7 +242,7 @@ LePictureSnippetElement >> updatePicture [
 					c vertical exact: 300. ] ].
 
 	pictureContainer removeChildNamed: #imageElement.
-	pictureContainer addChild: imageElement as: #imageElement
+	pictureContainer addChildFirst: imageElement as: #imageElement.
 ]
 
 { #category : #accessing }
@@ -180,7 +255,7 @@ LePictureSnippetElement >> urlString: urlString [
 	"Set the editor and receiver's snippet URL.
 	This is only used by the file selector"
 
-	editorElement text: urlString asRopedText.
+	urlEditorElement text: urlString asRopedText.
 	gtUrlUtility urlString: urlString.
 	self snippet urlString: urlString source: self.
 	self updatePicture
