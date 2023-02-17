@@ -89,9 +89,10 @@ LeSnippetElement class >> keyboardShortcuts [
 
 { #category : #'class initialization' }
 LeSnippetElement class >> startUp: resuming [
+	"Let's not to initialize the keyboard shortcuts on every startup.
+	https://github.com/feenkcom/gtoolkit/issues/3086"
 
-	resuming ifTrue: [ self initializeKeyboardShortcuts ].
-
+	resuming ifTrue: [ "self initializeKeyboardShortcuts" ]
 ]
 
 { #category : #'api - snippet view model' }
