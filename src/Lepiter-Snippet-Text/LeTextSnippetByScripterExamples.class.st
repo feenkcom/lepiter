@@ -111,6 +111,170 @@ LeTextSnippetByScripterExamples >> editEveryVisibleTextSnippetIn: aStep appendin
 		onBreadthFirstChildOfClass: BrInfiniteTreeElement
 ]
 
+{ #category : #'examples - two databases' }
+LeTextSnippetByScripterExamples >> insertPageRemoteLink [
+	"Add a Page Two remote linke into a Page One text snippet.
+	Each page is in a different database.
+	Both databases and pages exists."
+	<gtExample>
+	| aScripter |
+	aScripter := LeUIByScripterExamples new logicalDatabasePageOneElementInPager.
+
+	aScripter
+		substeps: 'Link Page Two in Page One'
+		do: [ :aStep | 
+			aStep do
+				label: 'Add Page Two';
+				block: [ :aLogicalDatabase :aUserData | 
+					LeUIByScripterExamples
+						inExample: [ :anExample | 
+							| aPageTwo |
+							aPageTwo := anExample
+									addEmptyPageTwoInto: (anExample databaseTwoIn: aLogicalDatabase).
+							aUserData at: #pageTwoRemoteLink put: aPageTwo asRemoteLink ] ];
+				onModel;
+				play.
+
+			aStep assert
+				label: 'Assert remote link';
+				satisfies: [ :theScripter | (theScripter userData at: #pageTwoRemoteLink) isNotNil ];
+				onScripter;
+				play.
+
+			aStep requestFocus
+				in: [ :theStep | LeUIByScripterExamples new targetPageInfiniteElement: theStep ];
+				onChildAt: 1;
+				id: GtSourceCoderEditorId;
+				play.
+
+			aStep type
+				label: 'Type Page Two link';
+				valuable: [ :anElement :theScripter | (theScripter userData at: #pageTwoRemoteLink) , '  ' ];
+				play.
+
+			aStep assert
+				label: 'Page Two link is valid';
+				value: [ :aText | 
+						aText iterator
+							detectAttribute: [ :each | each class = BlTextForegroundAttribute ]
+							ifFound: [ :that | that paint ]
+							ifNone: [ nil ] ]
+					equals: [ BrGlamorousColors linkColor ];
+				in: [ :theStep | LeUIByScripterExamples new targetPageInfiniteElement: theStep ];
+				onChildAt: 1;
+				id: GtSourceCoderEditorId;
+				onBreadthFirstChildOfClass: BrButton;
+				/ #label;
+				onChildFromMessage: #text;
+				play ].
+
+	^ aScripter
+]
+
+{ #category : #'examples - two databases' }
+LeTextSnippetByScripterExamples >> linkPageOneAndPageTwoOfDisconnectedDatabases [
+	"Create a Database One with Page Two.
+	Create a Database Two with Page Two.
+	Keep both databases separate.
+	Add Page One remote link into Page Two.
+	Add Database One into a logical database.
+	Add Database Two into a logical database.
+	Display Page Two (According to https://github.com/feenkcom/gtoolkit/issues/3081 the link should be red)."
+
+	<gtExample>
+	| aDatabaseOne aDatabaseTwo aPageOne aPageTwo aPageOneRemoteLink aSnippet |
+	aDatabaseOne := LeUIByScripterExamples new databaseWithPageOne.
+	aDatabaseOne databaseName: LeUIByScripterExamples new databaseOneName.
+	aDatabaseTwo := LeUIByScripterExamples new databaseWithPageTwo.
+	aDatabaseTwo databaseName: LeUIByScripterExamples new databaseTwoName.
+
+	aPageOne := LeUIByScripterExamples new pageOneIn: aDatabaseOne.
+	aPageTwo := LeUIByScripterExamples new pageTwoIn: aDatabaseTwo.
+
+	aPageOneRemoteLink := aPageOne asRemoteLink.
+	aSnippet := aPageTwo snippetBuilder
+			string: aPageOneRemoteLink , '  ';
+			add.
+			
+	self assert: aDatabaseTwo explicitLinks size equals: 1.
+	self assert: aDatabaseTwo explicitLinks first isExistingPage not.
+
+	^ LeTextSnippetExampleResult new
+		databaseOne: aDatabaseOne;
+		databaseTwo: aDatabaseTwo;
+		pageOne: aPageOne;
+		pageTwo: aPageTwo;
+		pageTwoSnippet: aSnippet
+]
+
+{ #category : #'examples - two databases' }
+LeTextSnippetByScripterExamples >> linkPageOneAndPageTwoOfDisconnectedDatabases_connectDatabases [
+	"Create a Database One with Page Two.
+	Create a Database Two with Page Two.
+	Keep both databases separate.
+	Add Page One remote link into Page Two.
+	Add Database One into a logical database.
+	Add Database Two into a logical database.
+	Display Page Two (According to https://github.com/feenkcom/gtoolkit/issues/3081 the link should be red)."
+
+	<gtExample>
+	| aResult aDatabaseOne aDatabaseTwo aLogicalDatabase |
+	aResult := self linkPageOneAndPageTwoOfDisconnectedDatabases.
+	aDatabaseOne := aResult databaseOne.
+	aDatabaseTwo := aResult databaseTwo.
+
+	aLogicalDatabase := LeLogicalDatabase primaryDB: aDatabaseOne.
+	
+	self assert: aDatabaseTwo explicitLinks size equals: 1.
+	self assert: aDatabaseTwo explicitLinks first targetReference isResolved not.
+	
+	aLogicalDatabase addDB: aDatabaseTwo.
+
+	self assert: aDatabaseTwo explicitLinks size equals: 1.
+	self assert: aDatabaseTwo explicitLinks first targetReference isResolved.
+
+	^ LeTextSnippetExampleResult new
+		databaseOne: aDatabaseOne;
+		databaseTwo: aDatabaseTwo;
+		pageOne: aResult pageOne;
+		pageTwo: aResult pageTwo;
+		pageTwoSnippet: aResult pageTwoSnippet
+]
+
+{ #category : #'examples - two databases' }
+LeTextSnippetByScripterExamples >> linkPageOneAndPageTwoOfDisconnectedDatabases_connectDatabases_databaseTwoFirst [
+	"Create a Database One with Page Two.
+	Create a Database Two with Page Two.
+	Keep both databases separate.
+	Add Page One remote link into Page Two.
+	Add Database Two into a logical database.
+	Add Database One into a logical database.
+	Display Page Two (According to https://github.com/feenkcom/gtoolkit/issues/3081 the link should be red)."
+
+	<gtExample>
+	| aResult aDatabaseOne aDatabaseTwo aLogicalDatabase |
+	aResult := self linkPageOneAndPageTwoOfDisconnectedDatabases.
+	aDatabaseOne := aResult databaseOne.
+	aDatabaseTwo := aResult databaseTwo.
+
+	aLogicalDatabase := LeLogicalDatabase primaryDB: aDatabaseTwo.
+	
+	self assert: aDatabaseTwo explicitLinks size equals: 1.
+	self assert: aDatabaseTwo explicitLinks first targetReference isResolved not.
+	
+	aLogicalDatabase addDB: aDatabaseOne.
+
+	self assert: aDatabaseTwo explicitLinks size equals: 1.
+	self assert: aDatabaseTwo explicitLinks first targetReference isResolved.
+
+	^ LeTextSnippetExampleResult new
+		databaseOne: aDatabaseOne;
+		databaseTwo: aDatabaseTwo;
+		pageOne: aResult pageOne;
+		pageTwo: aResult pageTwo;
+		pageTwoSnippet: aResult pageTwoSnippet
+]
+
 { #category : #'examples - support' }
 LeTextSnippetByScripterExamples >> moveDownTextSnippetAt: anIndex step: aStep [
 	<gtExample>

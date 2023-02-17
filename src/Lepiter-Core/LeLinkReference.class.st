@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'explicitLink'
 	],
-	#category : 'Lepiter-Core-Links'
+	#category : #'Lepiter-Core-Links'
 }
 
 { #category : #accessing }
@@ -135,6 +135,11 @@ LeLinkReference >> resolveAndLinkReference [
 
 { #category : #actions }
 LeLinkReference >> resolveReference [
+]
+
+{ #category : #accessing }
+LeLinkReference >> status [
+	^ LeLinkReferenceStatus indecisive
 ]
 
 { #category : #actions }

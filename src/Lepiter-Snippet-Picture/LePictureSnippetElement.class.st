@@ -39,6 +39,12 @@ LePictureSnippetElement >> initializeCaptionEditor [
 	captionEditorElement editor
 		when: BrTextEditorModifiedEvent
 		do: [ :anEvent | self onCaptionModifiedEvent: anEvent ].
+		
+	LeSnippetEditorElementShortcuter new
+		editor: captionEditorElement;
+		indent;
+		moveUpAndDown;
+		loseFocus.
 
 	snippetToolbar
 		addChild: (BrLabel new
@@ -119,6 +125,12 @@ LePictureSnippetElement >> initializeUrlEditor [
 	urlEditorElement editor
 		when: BrTextEditorModifiedEvent
 		do: [ :anEvent | self onURLModifiedEvent: anEvent ].
+		
+	LeSnippetEditorElementShortcuter new
+		editor: urlEditorElement;
+		indent;
+		moveUpAndDown;
+		loseFocus.
 
 	fileStencil := LePictureImportStencil new pictureElement: self.
 	fileSelector := fileStencil asElement.

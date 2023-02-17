@@ -5,7 +5,7 @@ Class {
 		'content',
 		'targetDatabaseUUID'
 	],
-	#category : 'Lepiter-Core-Links'
+	#category : #'Lepiter-Core-Links'
 }
 
 { #category : #'instance creation' }
@@ -125,6 +125,13 @@ LeLinkContentReference >> resolveReference [
 		^ self ].
 	self targetDatabaseDo: [ :aTargetDatabase |
 		self resolveInDatabase: aTargetDatabase ]
+]
+
+{ #category : #accessing }
+LeLinkContentReference >> status [
+	^ self isResolved
+		ifTrue: [ LeLinkReferenceStatus exists ]
+		ifFalse: [ LeLinkReferenceStatus notFound ]
 ]
 
 { #category : #accessing }

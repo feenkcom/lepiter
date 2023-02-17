@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'pageTitle'
 	],
-	#category : 'Lepiter-Core-Links'
+	#category : #'Lepiter-Core-Links'
 }
 
 { #category : #'instance creation' }
@@ -69,6 +69,15 @@ LeLinkPageTextualTitleReference >> resolveInDatabase: aDatabase [
 			"Ignore the fast the the page is not found.
 			The link will remain unresolved. " ].
 	
+]
+
+{ #category : #accessing }
+LeLinkPageTextualTitleReference >> status [
+	self isResolved ifTrue: [ ^ LeLinkReferenceStatus exists ].
+
+	^ self isExistingPage
+		ifTrue: [ LeLinkReferenceStatus exists ]
+		ifFalse: [ LeLinkReferenceStatus notFound ]
 ]
 
 { #category : #accessing }
