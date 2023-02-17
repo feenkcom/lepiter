@@ -2,7 +2,10 @@ Class {
 	#name : #LePictureSnippet,
 	#superclass : #LeSnippet,
 	#instVars : [
-		'urlString'
+		'urlString',
+		'altText',
+		'caption',
+		'previewHeight'
 	],
 	#category : #'Lepiter-Snippet-Picture-Snippet'
 }
@@ -27,6 +30,8 @@ LePictureSnippet class >> leJsonV3AttributeMapping [
 
 	^ super leJsonV3AttributeMapping
 		add: (#urlString -> #url);
+		add: (#caption -> #caption);
+		add: (#previewHeight -> #previewHeight);
 		yourself
 ]
 
@@ -41,6 +46,8 @@ LePictureSnippet class >> leJsonV4AttributeMapping [
 
 	^ super leJsonV4AttributeMapping
 		add: (#urlString -> #url);
+		add: (#caption -> #caption);
+		add: (#previewHeight -> #previewHeight);
 		yourself
 ]
 
@@ -62,6 +69,34 @@ LePictureSnippet >> asSnippetViewModel [
 	^ LePictureSnippetViewModel new snippetModel: self
 ]
 
+{ #category : #accessing }
+LePictureSnippet >> caption [ 
+	<return: #String>
+
+	^ caption
+]
+
+{ #category : #accessing }
+LePictureSnippet >> caption: aString [
+
+	^ self caption: aString source: self
+]
+
+{ #category : #accessing }
+LePictureSnippet >> caption: aString source: aSource [
+	"Change the picture caption."
+	self
+		assert: [ aString notNil ]
+		description: [ 'Caption must be non-nil' ].
+
+	self caption = aString
+		ifTrue: [ ^ self ].
+
+	caption := aString.
+	self updateEditTimeAndEmail.
+	self announceContentChangedBy: aSource
+]
+
 { #category : #'api - accessing' }
 LePictureSnippet >> contentAsString [
 	^ urlString
@@ -69,14 +104,16 @@ LePictureSnippet >> contentAsString [
 
 { #category : #accessing }
 LePictureSnippet >> hasContent [
-	^ self urlString isNotEmpty
+	^ self urlString isNotEmpty or: [ self caption isNotEmpty ]
 ]
 
 { #category : #initialization }
 LePictureSnippet >> initialize [
 	super initialize.
 
-	urlString := ''
+	urlString := ''.
+	caption := ''.
+	previewHeight := 0
 ]
 
 { #category : #'private - exporting' }
@@ -102,6 +139,37 @@ LePictureSnippet >> pictureFileBytes [
 	^ self urlString asFileReference binaryReadStream upToEnd.
 ]
 
+{ #category : #accessing }
+LePictureSnippet >> previewHeight [ 
+	<return: #Number>
+
+	^ previewHeight ifNil: [ 0 ]
+]
+
+{ #category : #accessing }
+LePictureSnippet >> previewHeight: aString [
+
+	^ self previewHeight: aString source: self
+]
+
+{ #category : #accessing }
+LePictureSnippet >> previewHeight: aNumber source: aSource [
+	"Change the picture preview height."
+	self
+		assert: [ aNumber notNil ]
+		description: [ 'Preview height must be non-nil' ].
+	self
+		assert: [ aNumber >= 0 ]
+		description: [ 'Preview height must be equal or greater than 0' ].
+	
+	(self previewHeight closeTo: aNumber precision: 0.1)
+		ifTrue: [ ^ self ].
+
+	previewHeight := aNumber.
+	self updateEditTimeAndEmail.
+	self announceContentChangedBy: aSource
+]
+
 { #category : #printing }
 LePictureSnippet >> storeOn: aStream [
 
@@ -110,6 +178,10 @@ LePictureSnippet >> storeOn: aStream [
 		nextPutAll: self className;
 		nextPutAll: ' new urlString: '.
 	self urlString storeOn: aStream.
+	aStream nextPutAll: '; caption: '.
+	self caption storeOn: aStream.
+	aStream nextPutAll: '; previewHeight: '.
+	self previewHeight storeOn: aStream.
 	aStream nextPutAll: ')'
 ]
 

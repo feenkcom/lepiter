@@ -25,10 +25,10 @@ LePictureSnippetAttributeReloadedExamples >> correctMappingsForPictureSnippet [
 	attributesReloader := self attributesReloaderForPictureSnippet.
 	attributeMappings := attributesReloader relevantAttributeMappings.
 	
-	self assert: attributeMappings size equals: 5.
+	self assert: attributeMappings size equals: 7.
 	self 
 		assert: (attributeMappings collect: #key) sorted asArray 
-		equals: #(createEmail createTime editEmail editTime urlString).
+		equals: #(caption createEmail createTime editEmail editTime previewHeight urlString).
 	
 	^ attributesReloader
 ]

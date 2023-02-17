@@ -12,6 +12,7 @@ LePictureSnippetExamples >> defaultPictureSnippet [
 	pictureSnippet := LePictureSnippet new.
 	self assert: pictureSnippet isEmpty.
 	self assert: pictureSnippet urlString equals: ''.
+	self assert: pictureSnippet caption equals: ''.
 	self assert: pictureSnippet contentAsString equals: ''.
 
 	^ pictureSnippet
@@ -61,6 +62,54 @@ LePictureSnippetExamples >> pictureSnippetWithURL [
 	self assert: pictureSnippet isEmpty not.
 	self assert: pictureSnippet urlString equals: urlString.
 	self assert: pictureSnippet contentAsString equals: urlString.
+
+	^ pictureSnippet
+]
+
+{ #category : #'examples - domain model' }
+LePictureSnippetExamples >> pictureSnippetWithURLAndCaption [
+	<gtExample>
+	| urlString pictureSnippet caption |
+	
+	urlString := 'https://domain.com/picture.jpg'.
+	caption := 'Caption'.
+	
+	pictureSnippet := self defaultPictureSnippet.
+	pictureSnippet urlString: urlString.
+	pictureSnippet caption: caption.
+	
+	self assert: pictureSnippet isEmpty not.
+	self assert: pictureSnippet urlString equals: urlString.
+	self assert: pictureSnippet caption equals: caption.
+	self assert: pictureSnippet contentAsString equals: urlString.
+
+	^ pictureSnippet
+]
+
+{ #category : #'examples - domain model' }
+LePictureSnippetExamples >> pictureSnippetWithURLCaptionAndPreviewHeight [
+	<gtExample>
+	| urlString pictureSnippet caption |
+	
+	urlString := 'https://domain.com/picture.jpg'.
+	caption := 'Caption'.
+	
+	pictureSnippet := self defaultPictureSnippet.
+	pictureSnippet urlString: urlString.
+	pictureSnippet caption: caption.
+	pictureSnippet previewHeight: 555.
+	
+	self assert: pictureSnippet isEmpty not.
+	self assert: pictureSnippet urlString equals: urlString.
+	self assert: pictureSnippet caption equals: caption.
+	self assert: pictureSnippet previewHeight equals: 555.
+	self assert: pictureSnippet contentAsString equals: urlString.
+
+	pictureSnippet previewHeight: 556.
+	self assert: pictureSnippet previewHeight equals: 556.
+
+	pictureSnippet previewHeight: 555.
+	self assert: pictureSnippet previewHeight equals: 555.
 
 	^ pictureSnippet
 ]
