@@ -75,6 +75,13 @@ LeLinkPageUidReference >> resolveInDatabase: aDatabase [
 ]
 
 { #category : #accessing }
+LeLinkPageUidReference >> status [
+	^ self isExistingPage
+		ifTrue: [ LeLinkReferenceStatus exists ]
+		ifFalse: [ LeLinkReferenceStatus notFound ]
+]
+
+{ #category : #accessing }
 LeLinkPageUidReference >> targetId [
 	^ self pageUid
 ]

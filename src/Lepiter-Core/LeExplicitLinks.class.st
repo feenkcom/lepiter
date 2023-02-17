@@ -5,7 +5,7 @@ Class {
 		'uid',
 		'externalLinksByUuid'
 	],
-	#category : 'Lepiter-Core-Links'
+	#category : #'Lepiter-Core-Links'
 }
 
 { #category : #adding }
@@ -96,12 +96,18 @@ LeExplicitLinks >> gtViewExplicitLinksFor: aView [
 		title: 'Explicit links';
 		items: [ self items ];
 		priority: 10;
-		column: 'Type' text: [ :anExplicitLink | 
-			anExplicitLink class ] weight: 0.5;
-		column: 'Origin' text: [ :anExplicitLink | 
-			anExplicitLink originReference description ];
-		column: 'Target' text: [ :anExplicitLink | 
-			anExplicitLink targetReference description ]
+		column: 'Type'
+			text: [ :anExplicitLink | anExplicitLink class ]
+			weight: 0.5;
+		column: 'Origin'
+			text: [ :anExplicitLink | anExplicitLink originReference description ];
+		column: 'Target'
+			text: [ :anExplicitLink | anExplicitLink targetReference description ];
+		column: 'Status'
+			text: [ :anExplicitLink | 
+				anExplicitLink targetReference status
+					in: [ :aStatus | aStatus label asRopedText foreground: aStatus color ] ]
+			width: 100
 ]
 
 { #category : #testing }

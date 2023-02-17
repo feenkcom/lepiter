@@ -151,12 +151,23 @@ LeUIByScripterExamples >> databaseTwoName [
 ]
 
 { #category : #'examples - database' }
-LeUIByScripterExamples >> databaseWithEmptyPage [
+LeUIByScripterExamples >> databaseWithPageOne [
 	<gtExample>
 	| database |
 	database := self emptyDatabase.
 
 	self addEmptyPageOneInto: database.
+
+	^ database
+]
+
+{ #category : #'examples - database' }
+LeUIByScripterExamples >> databaseWithPageTwo [
+	<gtExample>
+	| database |
+	database := self emptyDatabase.
+
+	self addEmptyPageTwoInto: database.
 
 	^ database
 ]
@@ -180,7 +191,7 @@ LeUIByScripterExamples >> emptyPageElement [
 	<gtExample>
 	| aScripter |
 	aScripter := self
-			pageOneElementUsingDatabaseModel: [ self databaseWithEmptyPage ]
+			pageOneElementUsingDatabaseModel: [ self databaseWithPageOne ]
 			extra: [ :anElement | anElement ].
 
 	^ aScripter
@@ -191,7 +202,7 @@ LeUIByScripterExamples >> emptyPageElementInPager [
 	<gtExample>
 	| aScripter |
 	aScripter := self
-			pageOneElementUsingDatabaseModel: [ self databaseWithEmptyPage ]
+			pageOneElementUsingDatabaseModel: [ self databaseWithPageOne ]
 			extra: [ :anElement | GtPager createWrappedOn: anElement ].
 
 	^ aScripter
@@ -202,7 +213,7 @@ LeUIByScripterExamples >> emptyPageElementInPagerMaximized [
 	<gtExample>
 	| aScripter |
 	aScripter := self
-			pageOneElementUsingDatabaseModel: [ self databaseWithEmptyPage ]
+			pageOneElementUsingDatabaseModel: [ self databaseWithPageOne ]
 			extra: [ :anElement | (GtPager createWrappedOn: anElement) maximized ].
 
 	^ aScripter
