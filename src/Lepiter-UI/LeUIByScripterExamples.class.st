@@ -15,6 +15,42 @@ Class {
 	#category : #'Lepiter-UI-Examples'
 }
 
+{ #category : #utilities }
+LeUIByScripterExamples class >> inExample: aBlock [
+	^ aBlock cull: self new
+]
+
+{ #category : #'examples - support' }
+LeUIByScripterExamples >> addEmptyPageNamed: aPageTitle into: aDatabase [
+	<gtExample>
+	| aPage aPageCount aLinkCount |
+	aPageCount := aDatabase pages size.
+	aLinkCount := aDatabase explicitLinks size.
+
+	aPage := aDatabase pageBuilder
+			title: aPageTitle;
+			add.
+
+	self assert: aDatabase pages size equals: 1 + aPageCount.
+	self assert: aDatabase explicitLinks size equals: aLinkCount.
+
+	self assert: (aDatabase pageNamed: aPageTitle) == aPage.
+
+	^ aPage
+]
+
+{ #category : #'examples - support' }
+LeUIByScripterExamples >> addEmptyPageOneInto: database [
+	<gtExample>
+	^ self addEmptyPageNamed: self pageOneTitle into: database
+]
+
+{ #category : #'examples - support' }
+LeUIByScripterExamples >> addEmptyPageTwoInto: database [
+	<gtExample>
+	^ self addEmptyPageNamed: self pageTwoTitle into: database
+]
+
 { #category : #'examples - support' }
 LeUIByScripterExamples >> addNewSnippetShortcut [
 	<gtExample>
@@ -76,20 +112,53 @@ LeUIByScripterExamples >> addSnippetNamed: aSnippetName step: aParentStep [
 	]
 ]
 
+{ #category : #'examples - support' }
+LeUIByScripterExamples >> databaseOneIn: aLogicalDatabase [
+	"Find Database One"
+
+	<gtExample>
+	| aDatabase |
+	aDatabase := aLogicalDatabase databaseNamed: self databaseOneName.
+
+	self assert: aDatabase isNotNil.
+	self assert: aDatabase databaseName equals: self databaseOneName.
+
+	^ aDatabase
+]
+
+{ #category : #'examples - database' }
+LeUIByScripterExamples >> databaseOneName [
+	^ 'Database One'
+]
+
+{ #category : #'examples - support' }
+LeUIByScripterExamples >> databaseTwoIn: aLogicalDatabase [
+	"Find Database Two"
+
+	<gtExample>
+	| aDatabase |
+	aDatabase := aLogicalDatabase databaseNamed: self databaseTwoName.
+
+	self assert: aDatabase isNotNil.
+	self assert: aDatabase databaseName equals: self databaseTwoName.
+
+	^ aDatabase
+]
+
+{ #category : #'examples - database' }
+LeUIByScripterExamples >> databaseTwoName [
+	^ 'Database Two'
+]
+
 { #category : #'examples - database' }
 LeUIByScripterExamples >> databaseWithEmptyPage [
 	<gtExample>
-	| database page |
+	| database |
 	database := self emptyDatabase.
-	
-	page := database pageBuilder title: self pageOneTitle; add.
-	
-	self assert: database pages size equals: 1.
-	self assert: database explicitLinks size equals: 0.
-	
-	self assert: (database pageNamed: self pageOneTitle) == page.
-	
-	^ database 
+
+	self addEmptyPageOneInto: database.
+
+	^ database
 ]
 
 { #category : #'examples - database' }
@@ -110,18 +179,106 @@ LeUIByScripterExamples >> emptyDatabase [
 LeUIByScripterExamples >> emptyPageElement [
 	<gtExample>
 	| aScripter |
-	aScripter := self scripter.
+	aScripter := self
+			pageOneElementUsingDatabaseModel: [ self databaseWithEmptyPage ]
+			extra: [ :anElement | anElement ].
 
+	^ aScripter
+]
+
+{ #category : #'examples - ui' }
+LeUIByScripterExamples >> emptyPageElementInPager [
+	<gtExample>
+	| aScripter |
+	aScripter := self
+			pageOneElementUsingDatabaseModel: [ self databaseWithEmptyPage ]
+			extra: [ :anElement | GtPager createWrappedOn: anElement ].
+
+	^ aScripter
+]
+
+{ #category : #'examples - ui' }
+LeUIByScripterExamples >> emptyPageElementInPagerMaximized [
+	<gtExample>
+	| aScripter |
+	aScripter := self
+			pageOneElementUsingDatabaseModel: [ self databaseWithEmptyPage ]
+			extra: [ :anElement | (GtPager createWrappedOn: anElement) maximized ].
+
+	^ aScripter
+]
+
+{ #category : #'examples - ui' }
+LeUIByScripterExamples >> logicalDatabasePageOneElementInPager [
+	<gtExample>
+	| aScripter |
+	aScripter := self
+			pageOneElementUsingDatabaseModel: [ self logicalDatabaseWithEmptyPage ]
+			extra: [ :anElement | GtPager createWrappedOn: anElement ].
+
+	^ aScripter
+]
+
+{ #category : #'examples - database' }
+LeUIByScripterExamples >> logicalDatabaseWithEmptyPage [
+	<gtExample>
+	| database |
+	database := self logicalDatabaseWithTwoEmptyDatabases.
+
+	self addEmptyPageOneInto: database primaryDB.
+	self assert: database pages size equals: 1.
+	self
+		assert: (database pageNamed: self pageOneTitle)
+				== (database primaryDB pageNamed: self pageOneTitle).
+
+	^ database
+]
+
+{ #category : #'examples - database' }
+LeUIByScripterExamples >> logicalDatabaseWithTwoEmptyDatabases [
+	<gtExample>
+	| databaseOne databaseTwo database |
+	databaseOne := self emptyDatabase.
+	databaseTwo := self emptyDatabase.
+
+	databaseOne databaseName: self databaseOneName.
+	databaseTwo databaseName: self databaseTwoName.
+
+	self assert: databaseOne databaseName equals: self databaseOneName.
+	self assert: databaseTwo databaseName equals: self databaseTwoName.
+	self assert: databaseOne uuidString isNotNil.
+	self assert: databaseOne uuidString isNotEmpty.
+	self assert: databaseTwo uuidString isNotNil.
+	self assert: databaseTwo uuidString isNotEmpty.
+
+	database := LeLogicalDatabase primaryDB: databaseOne.
+	database addDB: databaseTwo.
+	
+	self assert: database databases size equals: 2.
+	self assert: database pages size equals: 0.
+
+	^ database
+]
+
+{ #category : #'examples - support' }
+LeUIByScripterExamples >> pageOneElementUsingDatabaseModel: aModelBlock extra: anElementBlock [
+	"I open a page element using #asLepiterPagePhlowTool
+	aModelBlock is evaluated to get a database instance (that includes Pate One).
+	anElementBlock is evaluated to, for example, wrap the page element into a pager."
+
+	<gtExample>
+	| aScripter |
+	aScripter := self scripter.
 
 	aScripter
 		substeps: 'Prepare database'
 		do: [ :aStep | 
 			self
 				scripter: aStep
-				withModel: [ self databaseWithEmptyPage ]
+				withModel: aModelBlock
 				element: [ :aDatabase | 
 					(self pageOneIn: aDatabase) asLepiterPagePhlowTool
-						asElementDo: [ :anElement | anElement ] ].
+						asElementDo: (anElementBlock ifNil: [ [ :anElement | anElement ] ]) ].
 
 			aStep assert
 				label: self pageOneTitle , ' element has one snippet widget';
@@ -142,6 +299,8 @@ LeUIByScripterExamples >> emptyPageElement [
 
 { #category : #'examples - support' }
 LeUIByScripterExamples >> pageOneIn: aDatabase [
+	"Find Page One"
+
 	<gtExample>
 	| aPage |
 	aPage := aDatabase pageNamed: self pageOneTitle.
@@ -155,6 +314,25 @@ LeUIByScripterExamples >> pageOneIn: aDatabase [
 { #category : #'examples - support' }
 LeUIByScripterExamples >> pageOneTitle [
 	^ 'Page One'
+]
+
+{ #category : #'examples - support' }
+LeUIByScripterExamples >> pageTwoIn: aDatabase [
+	"Find Page Two"
+
+	<gtExample>
+	| aPage |
+	aPage := aDatabase pageNamed: self pageTwoTitle.
+
+	self assert: aPage isNotNil.
+	self assert: aPage title equals: self pageTwoTitle.
+
+	^ aPage
+]
+
+{ #category : #'examples - support' }
+LeUIByScripterExamples >> pageTwoTitle [
+	^ 'Page Two'
 ]
 
 { #category : #'examples - support' }

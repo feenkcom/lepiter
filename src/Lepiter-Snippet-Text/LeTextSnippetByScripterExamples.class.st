@@ -111,6 +111,63 @@ LeTextSnippetByScripterExamples >> editEveryVisibleTextSnippetIn: aStep appendin
 		onBreadthFirstChildOfClass: BrInfiniteTreeElement
 ]
 
+{ #category : #'examples - two databases' }
+LeTextSnippetByScripterExamples >> insertPageRemoteLink [
+	<gtExample>
+	| aScripter |
+	aScripter := LeUIByScripterExamples new logicalDatabasePageOneElementInPager.
+
+	aScripter
+		substeps: 'Link Page Two in Page One'
+		do: [ :aStep | 
+			aStep do
+				label: 'Add Page Two';
+				block: [ :aLogicalDatabase :aUserData | 
+					LeUIByScripterExamples
+						inExample: [ :anExample | 
+							| aPageTwo |
+							aPageTwo := anExample
+									addEmptyPageTwoInto: (anExample databaseTwoIn: aLogicalDatabase).
+							aUserData at: #pageTwoRemoteLink put: aPageTwo asRemoteLink ] ];
+				onModel;
+				play.
+
+			aStep assert
+				label: 'Assert remote link';
+				satisfies: [ :theScripter | (theScripter userData at: #pageTwoRemoteLink) isNotNil ];
+				onScripter;
+				play.
+
+			aStep requestFocus
+				in: [ :theStep | LeUIByScripterExamples new targetPageInfiniteElement: theStep ];
+				onChildAt: 1;
+				id: GtSourceCoderEditorId;
+				play.
+
+			aStep type
+				label: 'Type Page Two link';
+				valuable: [ :anElement :theScripter | (theScripter userData at: #pageTwoRemoteLink) , '  ' ];
+				play.
+
+			aStep assert
+				label: 'Page Two link is valid';
+				value: [ :aText | 
+						aText iterator
+							detectAttribute: [ :each | each class = BlTextForegroundAttribute ]
+							ifFound: [ :that | that paint ]
+							ifNone: [ nil ] ]
+					equals: [ BrGlamorousColors linkColor ];
+				in: [ :theStep | LeUIByScripterExamples new targetPageInfiniteElement: theStep ];
+				onChildAt: 1;
+				id: GtSourceCoderEditorId;
+				onBreadthFirstChildOfClass: BrButton;
+				/ #label;
+				onChildFromMessage: #text;
+				play ].
+
+	^ aScripter
+]
+
 { #category : #'examples - support' }
 LeTextSnippetByScripterExamples >> moveDownTextSnippetAt: anIndex step: aStep [
 	<gtExample>
