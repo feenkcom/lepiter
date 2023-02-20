@@ -83,7 +83,7 @@ LeLogicalDatabase >> addDB: aLeDatabase [
 	self assert: [ primaryDB ~= aLeDatabase and: [ playgroundDB ~= aLeDatabase ] ].
 	self assert: aLeDatabase isDatabase.
 
-	registeredDBs := registeredDBs copyWith: aLeDatabase.
+	self basicAddDB: aLeDatabase.
 	^ self setupAddedDB: aLeDatabase
 ]
 
@@ -142,6 +142,14 @@ LeLogicalDatabase >> at: aKey ifPresent: aPresentBlock ifAbsent: anAbsentBlock f
 ]
 
 { #category : #'private - accessing' }
+LeLogicalDatabase >> basicAddDB: aLeDatabase [
+	"Add a DB without any processing."
+
+	self assert: [ aLeDatabase isNotNil ].
+	registeredDBs := registeredDBs copyWith: aLeDatabase.
+]
+
+{ #category : #'private - accessing' }
 LeLogicalDatabase >> basicPlaygroundDB: aLeDatabase [
 	"Set the primary DB without any processing."
 
@@ -155,6 +163,14 @@ LeLogicalDatabase >> basicPrimaryDB: aLeDatabase [
 
 	self assert: [ aLeDatabase isNotNil ].
 	primaryDB := aLeDatabase.
+]
+
+{ #category : #'private - accessing' }
+LeLogicalDatabase >> basicRemoveDB: aLeDatabase [
+	"Remove a DB without any processing."
+
+	self assert: [ aLeDatabase isNotNil ].
+	registeredDBs := registeredDBs reject: [ :each | each = aLeDatabase ].
 ]
 
 { #category : #'api - accessing' }
@@ -558,28 +574,43 @@ LeLogicalDatabase >> playgroundDB [
 
 { #category : #accessing }
 LeLogicalDatabase >> playgroundDB: aLeDatabase [
-
+	| anOldPlayground shouldUnsubscribe |
 	self assert: [ aLeDatabase isNotNil ].
 	
+	anOldPlayground := playgroundDB.
+	
+	aLeDatabase = anOldPlayground ifTrue: [ ^ self ].
+	
 	"Ensure the same instance is used if the primary and playground DBs are the same"
-	(aLeDatabase hasMonitor and: [ primaryDB hasMonitor
-	and: [ aLeDatabase localStoreRootDirectory = primaryDB localStoreRootDirectory ] ]) ifTrue: 
-		[ playgroundDB := primaryDB.
-		^ self ].
+	(aLeDatabase hasMonitor
+		and: [ primaryDB hasMonitor
+				and: [ aLeDatabase localStoreRootDirectory = primaryDB localStoreRootDirectory ] ])
+					ifTrue: [ (anOldPlayground isNotNil and: [ anOldPlayground ~= primaryDB ])
+							ifTrue: [
+								self unsubscribeFromDatabase: anOldPlayground.
+								playgroundDB := primaryDB.
+								self notifyDatabaseRemoved: anOldPlayground ].
+						
+						playgroundDB := primaryDB.
+						^ self ].
+						
+	shouldUnsubscribe := anOldPlayground isNotNil and: [ anOldPlayground ~= primaryDB ].
 
-	(playgroundDB isNotNil and: [ playgroundDB ~= primaryDB ]) ifTrue: 
-		[ self unsubscribeFromDatabase: playgroundDB.
-		self notifyDatabaseRemoved: playgroundDB ].
-	playgroundDB := aLeDatabase.
+	self basicPlaygroundDB: aLeDatabase.
 	playgroundDB parent: self.
-	self subscribeToDatabase: aLeDatabase.
-	self notifyDatabaseAdded: aLeDatabase.
 
+	shouldUnsubscribe ifTrue: [
+		self unsubscribeFromDatabase: anOldPlayground.
+		self notifyDatabaseRemoved: anOldPlayground ].
+	
+	aLeDatabase = primaryDB ifFalse: [
+		self subscribeToDatabase: aLeDatabase.
+		self notifyDatabaseAdded: aLeDatabase ].
+	
 	"Cross-database links are updated by the target page.
 	Update links from existing databases that reference the newly loaded database."
-	self pagesDo: [ :page | page onAddedToDatabase ].
-
-
+	aLeDatabase = primaryDB ifFalse: [
+		self pagesDo: [ :page | page onAddedToDatabase ] ]
 ]
 
 { #category : #accessing }
@@ -656,7 +687,7 @@ LeLogicalDatabase >> removeDB: aLeDatabase [
 
 	self unsubscribeFromDatabase: aLeDatabase.
 
-	registeredDBs := registeredDBs reject: [ :each | each = aLeDatabase ].
+	self basicRemoveDB: aLeDatabase.
 	aLeDatabase unload.
 
 	self notifyDatabaseRemoved: aLeDatabase.

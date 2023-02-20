@@ -7,7 +7,7 @@ Class {
 		'localFile',
 		'properties'
 	],
-	#category : 'Lepiter-Store-LocalJSON-Store'
+	#category : #'Lepiter-Store-LocalJSON-Store'
 }
 
 { #category : #accessing }
@@ -245,10 +245,11 @@ LeLogicalDatabaseProperties >> migrateStonPropertiesIn: dictionary [
 
 	changed := false.
 	dictionary associationsDo: [ :assoc |
-		changed := changed | (assoc value first = $[ ifFalse: 
-				[ self migrateStonString: assoc ]
-			ifTrue:
-				[ self migrateStonCollection: assoc ]) ].
+		(assoc value isCollection and: [ assoc value isNotEmpty ]) ifTrue: [
+			changed := changed |  (assoc value first = $[ ifFalse: 
+					[ self migrateStonString: assoc ]
+				ifTrue:
+					[ self migrateStonCollection: assoc ]) ] ].
 	changed ifTrue: [ self saveDictionary: dictionary ].
 ]
 
