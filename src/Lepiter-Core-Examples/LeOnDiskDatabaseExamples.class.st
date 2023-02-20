@@ -366,6 +366,108 @@ LeOnDiskDatabaseExamples >> logicalDatabaseWithPageLinks_DbOneIsPrimaryAndTwoIsP
 ]
 
 { #category : #'examples - database' }
+LeOnDiskDatabaseExamples >> logicalDatabaseWithPageLinks_DbOneIsPrimaryAndTwoIsPlaygroundFromProperties_ShuffleOneAsRegisteredDBAndReload [
+	<gtExample>
+	<after: #cleanUp>
+	| aResult aDatabaseOne aDatabaseTwo aProperties aLogicalDatabase aNewDatabaseOne aNewDatabaseTwo aDirOne aDirTwo |
+	aResult := self
+			logicalDatabaseWithPageLinks_DbOneIsPrimaryAndTwoIsPlaygroundFromProperties.
+
+	aLogicalDatabase := aResult logicalDatabase.
+	aDatabaseOne := aResult databaseOne.
+	aDatabaseTwo := aResult databaseTwo.
+	aDirOne := aDatabaseOne monitor localRoot.
+	aDirTwo := aDatabaseTwo monitor localRoot.
+
+	aProperties := aLogicalDatabase properties
+			primaryDatabaseDirectory: aDirTwo;
+			playgroundDatabaseDirectory: aDirTwo;
+			registeredDatabaseDirectories: { aDirOne };
+			save.
+
+	aLogicalDatabase reload.
+
+	self assert: aLogicalDatabase databases size equals: 2.
+
+	aNewDatabaseOne := aLogicalDatabase databaseWithID: aDatabaseOne uuidString.
+	aNewDatabaseTwo := aLogicalDatabase databaseWithID: aDatabaseTwo uuidString.
+
+	self assert: aNewDatabaseOne == aDatabaseOne.
+	self assert: aNewDatabaseTwo == aDatabaseTwo.
+	self assert: aLogicalDatabase primaryDB equals: aDatabaseTwo.
+	self assert: aLogicalDatabase playgroundDB equals: aDatabaseTwo.
+	self assert: aLogicalDatabase registeredDBs size equals: 1.
+	self assert: aLogicalDatabase registeredDBs first equals: aDatabaseOne.
+		
+	self assert: aDatabaseOne monitor isRunning.
+	self assert: aDatabaseTwo monitor isRunning.
+
+	self assert: aNewDatabaseOne explicitLinks size equals: 0.
+	self assert: aNewDatabaseTwo explicitLinks size equals: 1.
+	self assert: aNewDatabaseTwo explicitLinks first targetReference isResolved.
+
+	^ LeTwoDatabasesExampleResult new
+		previousResult: aResult;
+		databaseOne: aDatabaseOne;
+		databaseTwo: aDatabaseTwo;
+		pageOne: aResult pageOne;
+		pageTwo: aResult pageTwo;
+		pageTwoSnippet: aResult pageTwoSnippet;
+		logicalDatabase: aLogicalDatabase
+]
+
+{ #category : #'examples - database' }
+LeOnDiskDatabaseExamples >> logicalDatabaseWithPageLinks_DbOneIsPrimaryAndTwoIsPlaygroundFromProperties_ShuffleTwoAsRegisteredDBAndReload [
+	<gtExample>
+	<after: #cleanUp>
+	| aResult aDatabaseOne aDatabaseTwo aProperties aLogicalDatabase aNewDatabaseOne aNewDatabaseTwo aDirOne aDirTwo |
+	aResult := self
+			logicalDatabaseWithPageLinks_DbOneIsPrimaryAndTwoIsPlaygroundFromProperties.
+
+	aLogicalDatabase := aResult logicalDatabase.
+	aDatabaseOne := aResult databaseOne.
+	aDatabaseTwo := aResult databaseTwo.
+	aDirOne := aDatabaseOne monitor localRoot.
+	aDirTwo := aDatabaseTwo monitor localRoot.
+
+	aProperties := aLogicalDatabase properties
+			primaryDatabaseDirectory: aDirOne;
+			playgroundDatabaseDirectory: aDirOne;
+			registeredDatabaseDirectories: { aDirTwo };
+			save.
+
+	aLogicalDatabase reload.
+
+	self assert: aLogicalDatabase databases size equals: 2.
+
+	aNewDatabaseOne := aLogicalDatabase databaseWithID: aDatabaseOne uuidString.
+	aNewDatabaseTwo := aLogicalDatabase databaseWithID: aDatabaseTwo uuidString.
+
+	self assert: aNewDatabaseOne == aDatabaseOne.
+	self assert: aNewDatabaseTwo == aDatabaseTwo.
+	self assert: aLogicalDatabase primaryDB equals: aDatabaseOne.
+	self assert: aLogicalDatabase playgroundDB equals: aDatabaseOne.
+	self assert: aLogicalDatabase registeredDBs size equals: 1.
+	self assert: aLogicalDatabase registeredDBs first equals: aDatabaseTwo.
+		
+	self assert: aDatabaseOne monitor isRunning.
+	self assert: aDatabaseTwo monitor isRunning.
+
+	self assert: aNewDatabaseOne explicitLinks size equals: 0.
+	self assert: aNewDatabaseTwo explicitLinks size equals: 1.
+	self assert: aNewDatabaseTwo explicitLinks first targetReference isResolved.
+
+	^ LeTwoDatabasesExampleResult new
+		previousResult: aResult;
+		databaseOne: aDatabaseOne;
+		databaseTwo: aDatabaseTwo;
+		pageOne: aResult pageOne;
+		pageTwo: aResult pageTwo;
+		pageTwoSnippet: aResult pageTwoSnippet;
+		logicalDatabase: aLogicalDatabase
+]
+
+{ #category : #'examples - database' }
 LeOnDiskDatabaseExamples >> logicalDatabaseWithPageLinks_DbTwoAndOneFromProperties [
 	<gtExample>
 	<after: #cleanUp>
