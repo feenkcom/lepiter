@@ -34,9 +34,14 @@ LeAbstractSnippetViewModel class >> isAbstract [
 ]
 
 { #category : #'api - children' }
-LeAbstractSnippetViewModel >> allSnippetChildrenBreadthFirstDo: aBlock [ 
-	self snippetChildren do: aBlock.
-	self snippetChildren do: [ :each | each allSnippetChildrenBreadthFirstDo: aBlock ]
+LeAbstractSnippetViewModel >> allSnippetChildrenBreadthFirstDo: aBlock [
+	| queue next |
+	queue := LinkedList new.
+	queue addAll: self snippetChildren.
+	[ queue notEmpty ]
+		whileTrue: [ next := queue removeFirst.
+			aBlock value: next.
+			queue addAll: next snippetChildren ]
 ]
 
 { #category : #announcer }
