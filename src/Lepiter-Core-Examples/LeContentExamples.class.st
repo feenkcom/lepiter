@@ -149,8 +149,8 @@ LeContentExamples >> breadthFirstForPageOneWithTwoSnippetsAndWithSnippetChild [
 	allChildren := page allChildrenBreadthFirst.
 	self assert: allChildren size = 3.
 	self assert: allChildren first contentAsString = self snippetOneString.
-	self assert: allChildren second contentAsString = self snippetThreeString.
-	self assert: allChildren third contentAsString = self snippetTwoString.
+	self assert: allChildren second contentAsString = self snippetTwoString.
+	self assert: allChildren third contentAsString = self snippetThreeString.
 	^ page
 ]
 

@@ -175,8 +175,14 @@ LeContent >> allChildrenBreadthFirst [
 ]
 
 { #category : #'api - enumerating' }
-LeContent >> allChildrenBreadthFirstDo: aBlock [ 
-	self childrenDo: [ :each | each withAllChildrenBreadthFirstDo: aBlock ]
+LeContent >> allChildrenBreadthFirstDo: aBlock [
+	| queue next |
+	queue := LinkedList new.
+	queue addAll: self children.
+	[ queue notEmpty ]
+		whileTrue: [ next := queue removeFirst.
+			aBlock value: next.
+			queue addAll: next children ]
 ]
 
 { #category : #'api - enumerating' }
