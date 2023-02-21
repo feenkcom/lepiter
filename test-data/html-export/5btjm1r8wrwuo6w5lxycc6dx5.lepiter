@@ -583,13 +583,13 @@
 							},
 							"editEmail" : {
 								"__type" : "email",
-								"emailString" : "chisvasileandrei@gmail.com"
+								"emailString" : "<unknown>"
 							},
 							"editTime" : {
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2020-12-17T13:48:59.316037+01:00"
+									"dateAndTimeString" : "2023-02-21T17:39:17.500248-03:00"
 								}
 							},
 							"uid" : {
@@ -599,7 +599,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Attached image displayed in place:\n ![gt-logo.png](file://attachments/5wtlpb8wiu9ccm5wh7ldrl3zf/gt-logo.png)"
+							"string" : "Attached image displayed in place:\n ![gt-logo.png](file:///attachments/5wtlpb8wiu9ccm5wh7ldrl3zf/gt-logo.png)"
 						},
 						{
 							"__type" : "textSnippet",
