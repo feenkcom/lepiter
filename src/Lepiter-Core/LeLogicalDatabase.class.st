@@ -92,6 +92,7 @@ LeLogicalDatabase >> addKnowledgebaseFromDirectory: aFileReference [
 	"Create a new database instance and add as registered DB"
 
 	self assert: [ aFileReference isNotNil ].
+	self assert: [ aFileReference exists ].
 
 	"Do not add same database twice"
 	self databasesDo: [ :eachDB | 
