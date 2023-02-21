@@ -57,7 +57,8 @@ LeLogicalDatabaseReload >> dbFor: aFileReference [
 LeLogicalDatabaseReload >> executeUpdateCommands [
 	"Steps:
 	1. remove unused databases
-	2. reload and start monitoring of reused databases
+	2. reload and start monitoring of reused databases 
+		(new databases are already reloaded with running monitors)
 	3. add new databases (or shuffle reused databases)"
 
 	updateCommands do: [ :each | each removeIn: database ].
@@ -75,18 +76,16 @@ LeLogicalDatabaseReload >> properties [
 LeLogicalDatabaseReload >> reload [ 
 	"Reload the receiver's database.
 	This may involve adding, moving or removing concrete databases.
-	Stop the monitors early to provide visual feedback to the user that something is happening.
 	The reload is done in four phases:
-	1. Stop monitoring all DBs
-	2. Prepare commands to shuffle and load databases based on the properties file.
-	3. Prepare commands to unload the unused databases.
+	1. Stop monitoring all DBs:
+		- to provide visual feedback to users that something is happening.
+		- to make sure that users will not change anything while reloading.
+	2. Reload properties
+	3. Prepare commands to shuffle and load databases based on the properties file.
+	4. Prepare commands to unload the unused databases.
 		This notifies the UI that any windows related to the DB should be closed.
-	4. Execute commands + reload and start monitoring"
+	5. Execute commands + reload and start monitoring"
 
-	"Ensure that reloading relies on new mappings from code"
-	LeJsonV4 cleanUp.
-	self reloadProperties.
-	
 	existingDbs := Set new.
 	updateCommands := OrderedCollection new.
 	
@@ -94,15 +93,20 @@ LeLogicalDatabaseReload >> reload [
 	database databasesDo: [ :db | 
 		db stopMonitoring.
 		existingDbs add: db ].
+		
+	"2. Reload properties
+	Ensure that reloading relies on new mappings from code"
+	LeJsonV4 cleanUp.
+	self reloadProperties.
 
-	"2. Prepare commands to shuffle and load databases"
+	"3. Prepare commands to shuffle and load databases"
 	self updatePrimaryAndPlaygroundDatabases.
 	self updateRegisteredDatabasesAndSpaces.
 
-	"3. Prepare commands to unload unused databases"
+	"4. Prepare commands to unload unused databases"
 	self unloadUnusedDatabases.
 	
-	"4. Execute commands + reload and start monitoring"
+	"5. Execute commands + reload and start monitoring"
 	self executeUpdateCommands.
 	
 	database announce: (LeLogicalDatabaseReloaded new database: self).
