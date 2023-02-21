@@ -1,0 +1,39 @@
+Class {
+	#name : #LeLogicalDatabaseReloadUpdateExistingPrimary,
+	#superclass : #LeLogicalDatabaseReloadCommand,
+	#instVars : [
+		'primaryDB'
+	],
+	#category : #'Lepiter-Store-Reload'
+}
+
+{ #category : #updating }
+LeLogicalDatabaseReloadUpdateExistingPrimary >> addIn: aLogicalDatabase [
+	
+]
+
+{ #category : #accessing }
+LeLogicalDatabaseReloadUpdateExistingPrimary >> primaryDB [
+	^ primaryDB
+]
+
+{ #category : #accessing }
+LeLogicalDatabaseReloadUpdateExistingPrimary >> primaryDB: anObject [
+	primaryDB := anObject
+]
+
+{ #category : #accessing }
+LeLogicalDatabaseReloadUpdateExistingPrimary >> reloadAndStartMonitoringIn: aLogicalDatabase [
+	"Existing (reused) databases should be reloaded and monitoring started"
+
+	self primaryDB monitor
+		primitiveReload;
+		startMonitoring
+]
+
+{ #category : #evaluating }
+LeLogicalDatabaseReloadUpdateExistingPrimary >> toBeUsedDatabasesDo: aBlock [
+	"Execute the command on all used databases"
+
+	aBlock value: self primaryDB
+]
