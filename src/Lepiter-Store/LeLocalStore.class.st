@@ -228,6 +228,8 @@ LeLocalStore >> gtNameMappingFor: aView [
 LeLocalStore >> gtPropertiesFor: aView [
 	"Provide a simple view of the current properties"
 	<gtView>
+	
+	dbProperties ifNil: [ ^ aView empty ].
 
 	^ aView forward 
 		title: 'Properties';
