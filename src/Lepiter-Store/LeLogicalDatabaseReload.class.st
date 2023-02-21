@@ -31,7 +31,8 @@ LeLogicalDatabaseReload >> database: anObject [
 { #category : #private }
 LeLogicalDatabaseReload >> dbFor: aFileReference [
 	"Answer the concrete database for the supplied file reference.
-	If it is an existing DB, use that instance.  If it is a new DB, load it."
+	If it is an existing DB, use that instance.  If it is a new DB, load it.
+	Notice, that new DBs are instantiated with running monitor."
 
 	<return: #LeLogicalDatabaseReloadDatabase>
 	| newDb |
@@ -54,6 +55,11 @@ LeLogicalDatabaseReload >> dbFor: aFileReference [
 
 { #category : #private }
 LeLogicalDatabaseReload >> executeUpdateCommands [
+	"Steps:
+	1. remove unused databases
+	2. reload and start monitoring of reused databases
+	3. add new databases (or shuffle reused databases)"
+
 	updateCommands do: [ :each | each removeIn: database ].
 	updateCommands do: [ :each | each reloadAndStartMonitoringIn: database ].
 	updateCommands do: [ :each | each addIn: database ]
@@ -72,14 +78,15 @@ LeLogicalDatabaseReload >> reload [
 	Stop the monitors early to provide visual feedback to the user that something is happening.
 	The reload is done in four phases:
 	1. Stop monitoring all DBs
-	2. Shuffle and load the databases based on the properties file.
-	3. Unload the unused databases.
+	2. Prepare commands to shuffle and load databases based on the properties file.
+	3. Prepare commands to unload the unused databases.
 		This notifies the UI that any windows related to the DB should be closed.
-	4. Reload and start monitoring"
+	4. Execute commands + reload and start monitoring"
 
 	"Ensure that reloading relies on new mappings from code"
 	LeJsonV4 cleanUp.
 	self reloadProperties.
+	
 	existingDbs := Set new.
 	updateCommands := OrderedCollection new.
 	
@@ -88,14 +95,14 @@ LeLogicalDatabaseReload >> reload [
 		db stopMonitoring.
 		existingDbs add: db ].
 
-	"2. Shuffle and load databases"
+	"2. Prepare commands to shuffle and load databases"
 	self updatePrimaryAndPlaygroundDatabases.
 	self updateRegisteredDatabasesAndSpaces.
 
-	"3. Unload unused databases"
+	"3. Prepare commands to unload unused databases"
 	self unloadUnusedDatabases.
 	
-	"execute commands from the steps 2 and 3"
+	"4. Execute commands + reload and start monitoring"
 	self executeUpdateCommands.
 	
 	database announce: (LeLogicalDatabaseReloaded new database: self).
@@ -140,17 +147,23 @@ LeLogicalDatabaseReload >> unloadUnusedDatabases [
 
 { #category : #private }
 LeLogicalDatabaseReload >> updatePrimaryAndPlaygroundDatabases [
+	"The primary and playground databases should be re-created if they don't exist
+	(allowing the Lepiter App to be started on a new machine)."
+
 	| existingPrimaryDbDir existingPlaygroundDbDir primaryDirectoryResolved playgroundDirectoryResolved primaryCommand playgroundCommand |
+	
+	"1. Read primary and playground directories from properties"
 	primaryDirectory := self properties primaryDatabaseDirectory.
 	playgroundDirectory := self properties playgroundDatabaseDirectory.
 	primaryDirectoryResolved := primaryDirectory resolve.
-	playgroundDirectoryResolved := playgroundDirectory resolve.	
-	
-	"The primary and playground databases should be re-created if they don't exist
-	(allowing the Lepiter App to be started on a new machine)."
-	primaryDirectory ensureCreateDirectory.
+	playgroundDirectoryResolved := playgroundDirectory resolve.
 	existingPrimaryDbDir := database primaryDB localStoreRootDirectory
 			ifNotNil: [ :dir | dir resolve ].
+	existingPlaygroundDbDir := database playgroundDB localStoreRootDirectory
+			ifNotNil: [ :dir | dir resolve ].
+
+	"2. Prepare command for primary database"
+	primaryDirectory ensureCreateDirectory.
 	primaryDirectoryResolved = existingPrimaryDbDir
 		ifTrue: [ (self dbFor: primaryDirectory)
 				ifExisting: [ :aDb | 
@@ -161,27 +174,27 @@ LeLogicalDatabaseReload >> updatePrimaryAndPlaygroundDatabases [
 				ifExisting: [ :aDb | 
 					primaryCommand := LeLogicalDatabaseReloadUpdateShuffledPrimary new
 							primaryDB: aDb ]
-				ifNew: [ :aDb | primaryCommand := LeLogicalDatabaseReloadUpdatePrimary new primaryDB: aDb ] ].
-
+				ifNew: [ :aDb | primaryCommand := LeLogicalDatabaseReloadUpdatePrimary new primaryDB: aDb ] ].	
+				
+	"3. Prepare command for playground database"
 	playgroundDirectory ensureCreateDirectory.
-	existingPlaygroundDbDir := database playgroundDB localStoreRootDirectory
-			ifNotNil: [ :dir | dir resolve ].
 	playgroundDirectoryResolved = existingPlaygroundDbDir
 		ifTrue: [ (self dbFor: playgroundDirectory)
 				ifExisting: [ :aDb | 
 					playgroundCommand := LeLogicalDatabaseReloadUpdateExistingPlayground new
 							playgroundDB: aDb;
-							isAlsoPrimaryDB: (primaryCommand primaryDB = aDb) ]
+							isAlsoPrimaryDB: primaryCommand primaryDB = aDb ]
 				ifNew: [ :aDb | self shouldNotImplement ] ]
 		ifFalse: [ (self dbFor: playgroundDirectory)
 				ifExisting: [ :aDb | 
 					playgroundCommand := LeLogicalDatabaseReloadUpdateShuffledPlayground new
 							playgroundDB: aDb;
-							isAlsoPrimaryDB: (primaryCommand primaryDB = aDb)  ]
+							isAlsoPrimaryDB: primaryCommand primaryDB = aDb ]
 				ifNew: [ :aDb | 
 					playgroundCommand := LeLogicalDatabaseReloadUpdatePlayground new
 							playgroundDB: aDb ] ].
 
+	"4. Add commnads to a queue"
 	self addCommand: primaryCommand.
 	self addCommand: playgroundCommand
 ]

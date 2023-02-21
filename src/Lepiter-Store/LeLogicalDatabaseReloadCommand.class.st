@@ -1,3 +1,9 @@
+"
+I am an abstract class.
+My subclasses are commands are (will be) executed to reload a {{gtClass: LeLogicalDatabase}} instance.
+I am used by {{gtClass: LeLogicalDatabaseReload}}. 
+
+"
 Class {
 	#name : #LeLogicalDatabaseReloadCommand,
 	#superclass : #Object,

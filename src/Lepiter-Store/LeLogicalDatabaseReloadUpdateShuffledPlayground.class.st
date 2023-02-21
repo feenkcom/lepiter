@@ -10,12 +10,21 @@ Class {
 
 { #category : #updating }
 LeLogicalDatabaseReloadUpdateShuffledPlayground >> addIn: aLogicalDatabase [
+	"The new playground database is already registered in the logical database.
+	We therefore only move it from registered to playground place.
+	In case the new playground database was previously primary, the effect is same: 
+		The #basicRemoveDB: method will not remove anything, 
+		and #basicPlaygroundDB: assigns the new playground database."
+
 	aLogicalDatabase basicRemoveDB: self playgroundDB.
 	aLogicalDatabase basicPlaygroundDB: self playgroundDB.
 ]
 
 { #category : #accessing }
 LeLogicalDatabaseReloadUpdateShuffledPlayground >> isAlsoPrimaryDB [
+	"Return true if the playground database is same as the primary database, false otherwise"
+
+	<return: #Boolean>
 	^ isAlsoPrimaryDB
 ]
 

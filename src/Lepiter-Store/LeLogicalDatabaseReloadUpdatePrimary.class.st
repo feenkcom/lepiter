@@ -9,6 +9,9 @@ Class {
 
 { #category : #updating }
 LeLogicalDatabaseReloadUpdatePrimary >> addIn: aLogicalDatabase [
+	"Newly created databases are already reloaded and with running monitor.
+	We (just) register the new primary database."
+
 	aLogicalDatabase primaryDB: self primaryDB
 ]
 
