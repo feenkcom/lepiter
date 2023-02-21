@@ -9,6 +9,8 @@ Class {
 
 { #category : #updating }
 LeLogicalDatabaseReloadUpdateExistingPrimary >> addIn: aLogicalDatabase [
+	"do nothing - the playground database is not changed"
+
 	
 ]
 

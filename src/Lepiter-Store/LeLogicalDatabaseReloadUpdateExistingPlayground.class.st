@@ -10,11 +10,16 @@ Class {
 
 { #category : #updating }
 LeLogicalDatabaseReloadUpdateExistingPlayground >> addIn: aLogicalDatabase [
-	"do nothing"
+	"do nothing - playground database is not changed"
+
+	
 ]
 
 { #category : #accessing }
 LeLogicalDatabaseReloadUpdateExistingPlayground >> isAlsoPrimaryDB [
+	"Return true if the playground database is same as the primary database, false otherwise"
+
+	<return: #Boolean>
 	^ isAlsoPrimaryDB
 ]
 
