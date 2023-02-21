@@ -87,6 +87,25 @@ LeLogicalDatabase >> addDB: aLeDatabase [
 	^ self setupAddedDB: aLeDatabase
 ]
 
+{ #category : #'api - convenience' }
+LeLogicalDatabase >> addKnowledgebaseFromDirectory: aFileReference [
+	"Create a new database instance and add as registered DB"
+
+	self assert: [ aFileReference isNotNil ].
+
+	"Do not add same database twice"
+	self databasesDo: [ :eachDB | 
+		(eachDB hasMonitor
+			and: [ eachDB localStoreRootDirectory resolved = aFileReference resolved ])
+			ifTrue: [ ^ self ] ].
+
+	self properties
+		addRegisteredDirectory: aFileReference;
+		save.
+
+	self reload
+]
+
 { #category : #'api - adding / removing' }
 LeLogicalDatabase >> addPage: aLePage [
 	"Add the supplied page to the receiver's primary DB"
