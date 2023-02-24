@@ -37,22 +37,14 @@ LeEditTextValueSnippetCommand >> createUndoCommandSpecification [
 
 { #category : #execution }
 LeEditTextValueSnippetCommand >> executeMainEdit [
-	self targetSnippet text 
-		insertStrings: self textEditCommand strings
-		atAll: self textEditCommand redoIndices.
+	self textEditCommand 
+		redoTextChangeOn:  self targetSnippet text
 ]
 
 { #category : #execution }
 LeEditTextValueSnippetCommand >> executeUndoEdit [
-	| toDeleteIntervals |
-	
-	toDeleteIntervals := self textEditCommand strings 
-		with: self textEditCommand undoIndices 
-		collect: [ :eachString :eachIndex | 
-			eachIndex + 1
-				to: eachIndex + eachString size ].
-		
-	self targetSnippet text deleteAll: toDeleteIntervals
+	self textEditCommand 
+		undoTextChangeOn: self targetSnippet text 
 ]
 
 { #category : #initialization }
