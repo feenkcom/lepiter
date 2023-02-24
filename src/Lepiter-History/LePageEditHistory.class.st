@@ -167,7 +167,8 @@ LePageEditHistory >> redoOn: aPage [
 	
 	redoActions ifNotEmpty: [ :currentRedoActions |
 		self disableDuring: [
-			redoResult := currentRedoActions removeLast applyOn: aPage ] ].
+			redoResult := currentRedoActions removeLast 
+				applyOn: aPage ] ].
 	
 	^ redoResult
 ]
@@ -186,6 +187,11 @@ LePageEditHistory >> registerEvents [
 		when: LeContentTraceableChangeExecutedAnnouncement
 			send: #actOnTraceableChangeFor:
 			to: self
+]
+
+{ #category : #accessing }
+LePageEditHistory >> targetPage [
+	^ targetPage
 ]
 
 { #category : #accessing }
