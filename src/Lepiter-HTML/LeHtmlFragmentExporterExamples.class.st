@@ -100,9 +100,9 @@ LeHtmlFragmentExporterExamples >> methodAnnotation [
 	markdown := LeTextSnippet string: '{{gtMethod:LeHtmlFragmentExporterExamples>>#basicMarkdown}}'.
 	html := String streamContents: [ :stream |
 		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
-	self assert: (html includesSubstring: 'method_annotation').
+	self assert: (html includesSubstring: 'method_annotation expandable_annotation_label').
 	self assert: (html includesSubstring: 'LeHtmlFragmentExporterExamples&gt;&gt;#basicMarkdown').
-	self assert: (html includesSubstring: 'method_definition').
+	self assert: (html includesSubstring: 'textual-snippet code-snippet pharo-snippet expandable_annotation_body hidden_annotation').
 	^ html
 ]
 
