@@ -15,7 +15,7 @@ Class {
 		'internalStyles',
 		'shouldGenerateHeader'
 	],
-	#category : 'Lepiter-HTML-Exporter'
+	#category : #'Lepiter-HTML-Exporter'
 }
 
 { #category : #accessing }
@@ -43,7 +43,7 @@ LeHtmlPageExporterVisitor class >> hideAndShowScript [
 
 ]
 
-{ #category : #private }
+{ #category : #initialization }
 LeHtmlPageExporterVisitor >> addHideAndShowScript [
 	"Add the annotation hide and show scripts to the receiver, along with the jQuery dependency"
 
@@ -93,7 +93,6 @@ LeHtmlPageExporterVisitor >> initialize [
 	links := OrderedCollection new.
 	internalStyles := OrderedCollection new.
 	shouldGenerateHeader := false.
-	self addHideAndShowScript.
 ]
 
 { #category : #accessing }
@@ -114,6 +113,8 @@ LeHtmlPageExporterVisitor >> visitPage: aLePage [
 		self writeHeadFor: aLePage.
 		stream << '<body>'; cr.
 		
+		stream << '<div class="container">'; cr.
+		
 		stream
 			<< '<h1>';
 			<< aLePage title asHTMLString;
@@ -123,11 +124,17 @@ LeHtmlPageExporterVisitor >> visitPage: aLePage [
 	super visitPage: aLePage.
 	
 	self shouldGenerateHeader ifTrue: [
-		stream << '</body>'; cr ]
+		stream << '</div>'; cr.
+	].
+	
+	self shouldGenerateHeader ifTrue: [
+		self writeScriptsFor: aLePage.
+		stream << '</body>'; cr.
+		stream << '</html>'; cr ]
 ]
 
 { #category : #private }
-LeHtmlPageExporterVisitor >> writeAttributes: attributes [.
+LeHtmlPageExporterVisitor >> writeAttributes: attributes [
 
 	attributes do: [ :attribute |
 		stream
@@ -148,12 +155,12 @@ LeHtmlPageExporterVisitor >> writeDocType [
 LeHtmlPageExporterVisitor >> writeHeadFor: aLePage [
 
 	stream
+		<< '<html>'; cr;
 		<< '<head>'; cr;
 		<< '<title>';
 		<< aLePage title;
 		<< '</title>'; cr.
 	self writeMetaTagsFor: aLePage.
-	self writeScriptsFor: aLePage.
 	self writeLinksFor: aLePage.
 	self writeInternalStylesFor: aLePage.
 	stream
@@ -174,7 +181,7 @@ LeHtmlPageExporterVisitor >> writeInternalStylesFor: aLePage [
 { #category : #private }
 LeHtmlPageExporterVisitor >> writeLinksFor: aLePage [
 
-	metaTags do: [ :attributes |
+	links do: [ :attributes |
 		stream << '<link '.
 		self writeAttributes: attributes.
 		stream << '/>'; cr ]

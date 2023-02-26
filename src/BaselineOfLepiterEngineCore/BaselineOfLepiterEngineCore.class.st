@@ -20,7 +20,10 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 			baseline: 'Brick' with: [
 				spec repository: 'github://feenkcom/Brick:main/src' ];
 			baseline: 'GToolkit4Json' with: [
-				spec repository: 'github://feenkcom/gt4json:main/src' ].
+				spec repository: 'github://feenkcom/gt4json:main/src' ];
+			baseline: 'LepiterXDoc' with: [
+				spec repository: 'github://feenkcom/lepiter:main/src' ].
+				
 		spec 
 			package: 'Lepiter-Parser';
 			package: 'Lepiter-History';
@@ -45,10 +48,12 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 			package: 'Lepiter-UI-Utilities';
 			package: 'Lepiter-UI' with: [
 				spec requires: #('Lepiter-Core' 'Lepiter-Parser' 'Lepiter-UI-Core' 'Lepiter-UI-Snippet' 'Lepiter-UI-Page' 'Lepiter-UI-IncomingReferences' 'Lepiter-UI-Utilities' 'Lepiter-Utilities' 'Lepiter-Store' 'Lepiter-Translator-Roam' ). ];
+			package: 'Lepiter-Extensions' with: [
+				spec requires: #( 'LepiterXDoc' ) ];
 			package: 'Lepiter-Snippet-Text' with: [
 				spec requires: #('Lepiter-Core' 'Lepiter-UI' ). ];
 			package: 'Lepiter-HTML' with: [
-				spec requires: #('Lepiter-Core' 'Lepiter-Parser' ). ];
+				spec requires: #('Lepiter-Core' 'Lepiter-Parser' 'LepiterXDoc' ). ];
 			package: 'Lepiter-Playground' with: [
 				spec requires: #('Lepiter-Core' 'Lepiter-Store' 'Lepiter-UI' ). ];
 			package: 'Lepiter-Core-Examples' with: [

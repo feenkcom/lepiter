@@ -74,18 +74,25 @@ LeHtmlExporterAnnotationVisitor >> visitExampleAnnotation: anExampleAnnotation [
 { #category : #generated }
 LeHtmlExporterAnnotationVisitor >> visitMethodAnnotation: aMethodAnnotation [
 	| methodNameArgument |
-	aMethodAnnotation hasLabel
-		ifTrue: [ ^ self writeMethodLabel: aMethodAnnotation ].
 	methodNameArgument := aMethodAnnotation nameNode.
+
 	self
-				putTag: 'span'
-				andAttributes: 'class="method_annotation"'
-				with: [ self putString: methodNameArgument source asHTMLString.
-					self
-						putTag: 'code'
-						andAttributes: 'class="method_definition"'
-						with: [ self
-								putString: methodNameArgument imageObject sourceCode asHTMLString ] ]
+		putTag: 'span'
+		andAttributes: 'class="method_annotation expandable_annotation_label"'
+		with: [ aMethodAnnotation hasLabel
+				ifTrue: [ self putString: aMethodAnnotation label asHTMLString ]
+				ifFalse: [ self putString: methodNameArgument source asHTMLString ] ].
+
+	self
+		putTag: 'div'
+		andAttributes: ('class="textual-snippet code-snippet pharo-snippet expandable_annotation_body {1}"'
+				format: {aMethodAnnotation isExpanded
+							ifTrue: [ 'visible_annotation' ]
+							ifFalse: [ 'hidden_annotation' ]})
+		with: [ self
+				putTag: 'pre'
+				andAttributes: 'class="no_bottom_margin"'
+				with: [ self putPre: methodNameArgument imageObject sourceCode asHTMLString ] ]
 ]
 
 { #category : #html }
@@ -168,11 +175,4 @@ LeHtmlExporterAnnotationVisitor >> writeExampleViewOrCodeFor: exampleAnnotation 
 		<< '</div>';
 		<< '</div>'; cr.
 
-]
-
-{ #category : #html }
-LeHtmlExporterAnnotationVisitor >> writeMethodLabel: anAnnotation [
-	self putTag: 'code' andAttributes: 'class="method_label"' with: [
-		self putString: anAnnotation label
-	]
 ]
