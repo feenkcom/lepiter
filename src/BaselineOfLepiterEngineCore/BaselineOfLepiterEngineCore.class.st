@@ -22,7 +22,7 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 			baseline: 'GToolkit4Json' with: [
 				spec repository: 'github://feenkcom/gt4json:main/src' ];
 			baseline: 'LepiterXDoc' with: [
-				spec repository: 'github://feenkcom/lepiter-app:main/src' ].
+				spec repository: 'github://feenkcom/lepiter:main/src' ].
 				
 		spec 
 			package: 'Lepiter-Parser';
