@@ -48,6 +48,8 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 			package: 'Lepiter-UI-Utilities';
 			package: 'Lepiter-UI' with: [
 				spec requires: #('Lepiter-Core' 'Lepiter-Parser' 'Lepiter-UI-Core' 'Lepiter-UI-Snippet' 'Lepiter-UI-Page' 'Lepiter-UI-IncomingReferences' 'Lepiter-UI-Utilities' 'Lepiter-Utilities' 'Lepiter-Store' 'Lepiter-Translator-Roam' ). ];
+			package: 'Lepiter-Extensions' with: [
+				spec requires: #( 'LepiterXDoc' ) ];
 			package: 'Lepiter-Snippet-Text' with: [
 				spec requires: #('Lepiter-Core' 'Lepiter-UI' ). ];
 			package: 'Lepiter-HTML' with: [
