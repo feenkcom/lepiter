@@ -35,7 +35,7 @@ LeHTMLPageDecorator >> remoteLinks [
 
 	^ {'https://lepiter.io/assets/v1/src/css/bootstrap.css'.
 		'https://lepiter.io/assets/v1/src/css/single.css'.
-		'https://lepiter.io/assets/v2/src/css/snippets.css'.
+		'https://lepiter.io/assets/v3/src/css/snippets.css'.
 		'https://lepiter.io/assets/v1/src/css/vs.css'}
 ]
 
@@ -49,7 +49,7 @@ LeHTMLPageDecorator >> remoteScripts [
 		'https://lepiter.io/assets/v1/src/js/highlight.pack.js'.
 		'https://lepiter.io/assets/v1/src/js/common.js'.
 		'https://lepiter.io/assets/v1/src/js/single.js'.
-		'https://lepiter.io/assets/v2/src/js/snippets.js'}
+		'https://lepiter.io/assets/v3/src/js/snippets.js'}
 ]
 
 { #category : #'api - writing' }
