@@ -101,7 +101,26 @@ LeHtmlFragmentExporterVisitor >> visitPharoSnippet: aLePharoSnippet [
 
 { #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitPictureSnippet: aLePictureSnippet [
-	self putTag: 'img' andAttributes: 'class="snippet picture-snippet paragraphWidth" src="./',aLePictureSnippet urlString, '"' 
+	self
+		putTag: 'figure'
+		andAttributes: 'class="snippet picture-snippet paragraphWidth"'
+		with: [ | anImgSrc |
+			anImgSrc := (aLePictureSnippet urlString
+					beginsWith: 'https://'
+					caseSensitive: false)
+					ifTrue: [ aLePictureSnippet urlString ]
+					ifFalse: [ './' , aLePictureSnippet urlString ].
+
+			self
+				putTag: 'img'
+				andAttributes: 'class="picture-snippet-image" src="' , anImgSrc , '"'.
+
+			(aLePictureSnippet caption isNotNil
+				and: [ aLePictureSnippet caption trimBoth isNotEmpty ])
+				ifTrue: [ self
+						putTag: 'figcaption'
+						andAttributes: 'class="picture-snippet-caption"'
+						with: [ self putString: aLePictureSnippet caption asString asHTMLString ] ] ]
 ]
 
 { #category : #visiting }
