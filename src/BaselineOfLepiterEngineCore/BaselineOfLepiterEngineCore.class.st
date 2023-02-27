@@ -16,16 +16,16 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'GToolkitInspector' with: [
-				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.1504/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.1505/src' ].
 		spec
 			baseline: 'Brick' with: [
-				spec repository: 'github://feenkcom/Brick:v0.8.875/src' ].
+				spec repository: 'github://feenkcom/Brick:v0.8.876/src' ].
 		spec
 			baseline: 'GToolkit4Json' with: [
-				spec repository: 'github://feenkcom/gt4json:v0.6.230/src' ].
+				spec repository: 'github://feenkcom/gt4json:v0.6.231/src' ].
 		spec
 			baseline: 'LepiterXDoc' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.1335/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.6.1336/src' ].
 
 		spec package: 'Lepiter-Parser'.
 		spec package: 'Lepiter-History'.
