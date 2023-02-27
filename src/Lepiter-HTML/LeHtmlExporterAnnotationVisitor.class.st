@@ -88,7 +88,7 @@ LeHtmlExporterAnnotationVisitor >> visitMethodAnnotation: aMethodAnnotation [
 
 	self
 		putTag: 'div'
-		andAttributes: ('class="textual-snippet code-snippet pharo-snippet expandable_annotation_body {1}"'
+		andAttributes: ('class="textual-snippet code-snippet pharo-method-snippet expandable_annotation_body {1}"'
 				format: {aMethodAnnotation isExpanded
 							ifTrue: [ 'visible_annotation' ]
 							ifFalse: [ 'hidden_annotation' ]})

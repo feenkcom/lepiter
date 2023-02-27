@@ -92,3 +92,28 @@ LeEditTextValueSnippetCommand >> textEditCommand [
 LeEditTextValueSnippetCommand >> textEditCommand: anObject [
 	textEditCommand := anObject
 ]
+
+{ #category : #'updating - view model' }
+LeEditTextValueSnippetCommand >> updateCursorForMainEditInSnippetViewModel: aSnippetUIModel [
+	aSnippetUIModel coderViewModel
+		cursors: self textEditCommand cursorForRedoEdit
+]
+
+{ #category : #'updating - view model' }
+LeEditTextValueSnippetCommand >> updateCursorForUndoEditInSnippetViewModel: aSnippetUIModel [
+	aSnippetUIModel coderViewModel
+		cursors: self textEditCommand cursorForUndoEdit
+]
+
+{ #category : #'updating - view model' }
+LeEditTextValueSnippetCommand >> updateSnippetsViewModelFor: aSnippetsViewModel withResult: aCommandResult [		
+	| snippetUIModel |		
+	
+	snippetUIModel := aSnippetsViewModel findSnippetViewModel: self targetContent.
+	snippetUIModel focused: true.
+	snippetUIModel coderViewModel selectNone.
+	
+	self shouldApplyUndo 
+		ifTrue: [ self updateCursorForUndoEditInSnippetViewModel: snippetUIModel ] 
+		ifFalse: [ self updateCursorForMainEditInSnippetViewModel: snippetUIModel ].
+]
