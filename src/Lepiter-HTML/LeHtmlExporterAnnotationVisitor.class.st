@@ -78,7 +78,10 @@ LeHtmlExporterAnnotationVisitor >> visitMethodAnnotation: aMethodAnnotation [
 
 	self
 		putTag: 'span'
-		andAttributes: 'class="method_annotation expandable_annotation_label"'
+		andAttributes: ('class="method_annotation expandable_annotation_label {1}"'
+				format: {aMethodAnnotation isExpanded
+							ifTrue: [ 'expanded_annotation_body' ]
+							ifFalse: [ 'collapsed_annotation_body' ]})
 		with: [ aMethodAnnotation hasLabel
 				ifTrue: [ self putString: aMethodAnnotation label asHTMLString ]
 				ifFalse: [ self putString: methodNameArgument source asHTMLString ] ].
