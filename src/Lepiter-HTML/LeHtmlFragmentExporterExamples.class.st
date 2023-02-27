@@ -102,7 +102,7 @@ LeHtmlFragmentExporterExamples >> methodAnnotation [
 		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
 	self assert: (html includesSubstring: 'method_annotation expandable_annotation_label').
 	self assert: (html includesSubstring: 'LeHtmlFragmentExporterExamples&gt;&gt;#basicMarkdown').
-	self assert: (html includesSubstring: 'textual-snippet code-snippet pharo-snippet expandable_annotation_body hidden_annotation').
+	self assert: (html includesSubstring: 'textual-snippet code-snippet pharo-method-snippet expandable_annotation_body hidden_annotation').
 	^ html
 ]
 
@@ -140,7 +140,7 @@ LeHtmlFragmentExporterExamples >> pictureSnippet [
 	markdown := LePictureSnippet new urlString: self pictureFile.
 	html := String streamContents: [ :stream |
 		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
-	self assert: (html beginsWith: '<img class="snippet picture-snippet paragraphWidth" src=').
+	self assert: (html beginsWith: '<figure class="snippet picture-snippet paragraphWidth"').
 	self assert: (html includesSubstring: 'feenkcom/gtoolkit-demos/data/faceapi/1280px-Einstein-with-habicht-and-solovine.jpg"/>').
 	^ html
 ]
