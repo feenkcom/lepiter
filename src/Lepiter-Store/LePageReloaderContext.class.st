@@ -30,7 +30,7 @@ LePageReloaderContext >> addedSnippets [
 { #category : #actions }
 LePageReloaderContext >> detachPageContent: aPage to: aDictionary withParents: aParentsDictionary [
 
-	aPage withAllChildrenDepthFirstDo: [ :aContent |
+	aPage withAllChildrenPostorderDo: [ :aContent |
 		aContent children items copy do: [ :aChildSnippet |
 			aContent detachChildSnippet: aChildSnippet.
 			aDictionary at: aChildSnippet uid put: aChildSnippet.

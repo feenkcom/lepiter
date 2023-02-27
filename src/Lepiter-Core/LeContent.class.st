@@ -199,6 +199,11 @@ LeContent >> allChildrenDepthFirstDo: aBlock [
 ]
 
 { #category : #'api - enumerating' }
+LeContent >> allChildrenPostorderDo: aBlock [ 
+	self childrenDo: [ :each | each withAllChildrenPostorderDo: aBlock ]
+]
+
+{ #category : #'api - enumerating' }
 LeContent >> allChildrenSnippetsMatching: aBlock [
 	"NB: To get all snippets in order, the search must be depth-first, not breadth-first."
 
@@ -1155,10 +1160,32 @@ LeContent >> withAllChildrenBreadthFirst [
 	^ result
 ]
 
+{ #category : #accessing }
+LeContent >> withAllChildrenDepthFirst [
+	| result |
+	result := OrderedCollection new.
+	self withAllChildrenDepthFirstDo: [:each | result add: each ].
+	^ result
+]
+
 { #category : #'api - enumerating' }
 LeContent >> withAllChildrenDepthFirstDo: aBlock [
 	"NB: To get all nodes in the correct order, the parent node must be handled before the children."
 
 	aBlock value: self.
 	self allChildrenDepthFirstDo: aBlock
+]
+
+{ #category : #accessing }
+LeContent >> withAllChildrenPostorder [
+	| result |
+	result := OrderedCollection new.
+	self withAllChildrenPostorderDo: [:each | result add: each ].
+	^ result
+]
+
+{ #category : #'api - enumerating' }
+LeContent >> withAllChildrenPostorderDo: aBlock [
+	self allChildrenPostorderDo: aBlock.
+	aBlock value: self.
 ]
