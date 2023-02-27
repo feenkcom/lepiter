@@ -6,7 +6,7 @@ Class {
 	#instVars : [
 		'page'
 	],
-	#category : 'Lepiter-HTML-Exporter'
+	#category : #'Lepiter-HTML-Exporter'
 }
 
 { #category : #building }
@@ -32,13 +32,21 @@ LesPageResourceVisitor >> visitExampleSnippet: aLeSnippet [
 
 { #category : #visiting }
 LesPageResourceVisitor >> visitPictureSnippet: aLePictureSnippet [
-	| fileName |
+	| fileName fileReference |
 	fileName := aLePictureSnippet urlString.
-	self addResource: (LeLocalAttachmentResource new
-		source: aLePictureSnippet;
-		name: fileName;
-		fileReference: aLePictureSnippet 
-			database monitor localRoot asFileReference / fileName)
+
+	(fileName beginsWith: 'https://' caseSensitive: false) ifTrue: [ ^ self ].
+
+	fileReference := aLePictureSnippet database monitor localRoot asFileReference
+			/ fileName.
+
+	fileReference exists ifFalse: [ ^ self ].
+
+	self
+		addResource: (LeLocalAttachmentResource new
+				source: aLePictureSnippet;
+				name: fileName;
+				fileReference: fileReference)
 ]
 
 { #category : #visiting }
