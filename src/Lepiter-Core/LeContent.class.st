@@ -203,7 +203,7 @@ LeContent >> allChildrenSnippetsMatching: aBlock [
 	| matchingSnippets |
 	matchingSnippets := OrderedCollection new.
 	
-	self allChildrenBreadthFirstDo: [ :aSnippet | 
+	self allChildrenDepthFirstDo: [ :aSnippet | 
 		(aBlock value: aSnippet)
 			ifTrue: [ matchingSnippets add: aSnippet ] ].
 	
