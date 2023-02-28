@@ -97,7 +97,7 @@ LeLogicalDatabase >> addKnowledgebaseFromDirectory: aFileReference [
 	"Do not add same database twice"
 	self databasesDo: [ :eachDB | 
 		(eachDB hasMonitor
-			and: [ eachDB localStoreRootDirectory resolved = aFileReference resolved ])
+			and: [ eachDB localStoreRootDirectory resolve = aFileReference resolve ])
 			ifTrue: [ ^ self ] ].
 
 	self properties
