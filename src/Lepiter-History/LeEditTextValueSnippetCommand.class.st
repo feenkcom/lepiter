@@ -12,9 +12,11 @@ Class {
 { #category : #execution }
 LeEditTextValueSnippetCommand >> basicExecute [
 	^ self withUndoExecute: [ 
+	
 		self shouldApplyUndo 
 			ifTrue: [ self executeUndoEdit ] 
 			ifFalse: [ self executeMainEdit ].
+		self targetContent updateEditTimeAndEmail.
 		
 		self targetContent announceTextChangedBy: self source ]
 ]
@@ -30,9 +32,15 @@ LeEditTextValueSnippetCommand >> createCommandSpecification [
 
 { #category : #accessing }
 LeEditTextValueSnippetCommand >> createUndoCommandSpecification [
-	^ (self targetSnippet commandBuilder editTextValueSnippetCommand
-		textEditCommand: self textEditCommand;
-		reverseEditDirection) createCommandSpecification
+	^ (self targetSnippet commandBuilder compositeCommand
+		label: 'Undo Text Edit';
+		addSubcommand: (self targetSnippet commandBuilder 
+			editTextValueSnippetCommand
+				textEditCommand: self textEditCommand;
+				reverseEditDirection);
+		addSubcommand: (self targetSnippet commandBuilder  
+			editSnippetStateCommand
+				snippetState: self targetSnippet extractCommonState)) createCommandSpecification
 ]
 
 { #category : #execution }

@@ -189,6 +189,11 @@ LeSnippet >> detachFromParent [
 ]
 
 { #category : #history }
+LeSnippet >> extractCommonState [
+	^ LeCommonSnippetStateExtractor fromSnippet: self
+]
+
+{ #category : #history }
 LeSnippet >> extractSpecificState [
 	^ LeSpecificSnippetStateExtractor fromSnippet: self
 ]

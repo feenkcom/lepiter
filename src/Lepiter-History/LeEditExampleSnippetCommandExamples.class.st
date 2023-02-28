@@ -1,6 +1,6 @@
 Class {
 	#name : #LeEditExampleSnippetCommandExamples,
-	#superclass : #LeEditSnippetCommandExamples,
+	#superclass : #LeEditSnippetStateCommandExamples,
 	#category : #'Lepiter-History-Examples - Commands'
 }
 

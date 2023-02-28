@@ -19,6 +19,23 @@ LeSnippetStateExtractor class >> fromSnippet: aSnippet [
 		extractState
 ]
 
+{ #category : #accessing }
+LeSnippetStateExtractor >> commonMetadataAttributeMappings [
+	| fixedAttributes |
+	
+	fixedAttributes := self fixedAttributeNames.
+	^ LeContent leJsonV4AttributeMapping 
+		reject: [ :aMapping |
+			fixedAttributes includes: aMapping key ]
+]
+
+{ #category : #accessing }
+LeSnippetStateExtractor >> commonMetadataAttributeNames [
+	^ self commonMetadataAttributeMappings 
+		collect: [ :aMapping |
+			aMapping key ]
+]
+
 { #category : #actions }
 LeSnippetStateExtractor >> extractState [
 	| state |
@@ -64,19 +81,12 @@ LeSnippetStateExtractor >> gtViewSelectedAttributesFor: aView [
 	^ aView list 
 		title: 'Selected Attributes';
 		priority: 40;
-		items: [ self selectedAttributeNames ]
+		items: [ self selectedAttributes ]
 ]
 
 { #category : #accessing }
 LeSnippetStateExtractor >> ignoredAttributeNames [
 	^ self subclassResponsibility
-]
-
-{ #category : #selecting }
-LeSnippetStateExtractor >> selectedAttributeNames [
-	^ (self targetSnippet class leJsonV4AttributeMapping
-		collect: [ :assoc | assoc key ])
-		copyWithoutAll: self ignoredAttributeNames 
 ]
 
 { #category : #selecting }

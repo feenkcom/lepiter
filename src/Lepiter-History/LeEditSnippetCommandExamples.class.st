@@ -88,9 +88,6 @@ LeEditSnippetCommandExamples >> executeCommand_executeUndoCommand [
 		equals: initialSnippetState.
 		
 	self assertExecutionResultFor: result.
-	self assertExecutionResultFor: result targetCommandResult.
-	self assert: result targetCommandResult undoSpecification 
-		snippetState shouldTransformForLogStorage not.
 	
 	^ result
 ]
@@ -209,9 +206,6 @@ LeEditSnippetCommandExamples >> executeEditSnippetCommand_undoSpecification [
 	self 
 		assert: undoSpecification contentUid 
 		equals: self targetSnippet uid.
-	self 
-		assert: undoSpecification commandTypeName 
-		equals: LeEditGenericSnippetCommand name.
 	
 	^ undoSpecification
 ]
