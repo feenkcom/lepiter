@@ -797,6 +797,47 @@ LeContentExamples >> textSnippetInPageAndDatabase [
 ]
 
 { #category : #'examples - model' }
+LeContentExamples >> treeSnippetsInOrder [
+	"This example verifies that a tree of text snippets can be extracted in the right order using allChildrenTextSnippets"
+
+	<gtExample>
+	| treeSnippetPage |
+	treeSnippetPage := LePage unnamedPage
+			addSnippet: (LeTextSnippet new
+					string: 'A';
+					addSnippet: (LeTextSnippet new
+							string: 'B';
+							yourself);
+					addSnippet: (LeTextSnippet new
+							string: 'C';
+							addSnippet: (LeTextSnippet new
+									string: 'D';
+									yourself);
+							addSnippet: (LeTextSnippet new
+									string: 'E';
+									yourself);
+							yourself);
+					addSnippet: (LeTextSnippet new
+							string: 'F';
+							addSnippet: (LeTextSnippet new
+									string: 'G';
+									yourself);
+							yourself);
+					yourself);
+			addSnippet: (LeTextSnippet new
+					string: 'H';
+					addSnippet: (LeTextSnippet new
+							string: 'I';
+							yourself);
+					yourself);
+			yourself.
+	self
+		assert: ('' join: (treeSnippetPage allChildrenTextSnippets collect: #string))
+		equals: 'ABCDEFGHI'.
+	^ treeSnippetPage
+]
+
+{ #category : #'examples - model' }
 LeContentExamples >> twoPagesWithOneSnippetEachAndLinksToTheFirstPage [
 	<gtExample>
 	| aDatabase aPageOne aPageTwo aSnippetOne aSnippetTwo |
