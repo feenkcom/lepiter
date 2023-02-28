@@ -1,0 +1,25 @@
+Class {
+	#name : #LeDeleteSingleCharacterEditTextValueSnippetCommandExamples,
+	#superclass : #LeEditTextValueSnippetCommandExamples,
+	#category : #'Lepiter-History-Examples - Commands'
+}
+
+{ #category : #accessing }
+LeDeleteSingleCharacterEditTextValueSnippetCommandExamples >> initialStringValue [
+	^ 'abc'
+]
+
+{ #category : #accessing }
+LeDeleteSingleCharacterEditTextValueSnippetCommandExamples >> instantiateBasicTextEditCommand [
+	<gtExample>
+	
+	^ BrTextEditorHistoryDeletionCommand new 
+		texts: { 'b' asRopedText };
+		undoIndices: #(2);
+		redoIndices: #(2)
+]
+
+{ #category : #accessing }
+LeDeleteSingleCharacterEditTextValueSnippetCommandExamples >> modifiedStringValue [
+	^ 'ac'
+]

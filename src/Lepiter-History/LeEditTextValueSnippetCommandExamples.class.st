@@ -34,6 +34,24 @@ LeEditTextValueSnippetCommandExamples >> executeCommand_executeUndoCommand [
 ]
 
 { #category : #'examples - execution' }
+LeEditTextValueSnippetCommandExamples >> executeCommand_executeUndoCommand_textIdentity [
+	<gtExample>
+	| command initialText result |
+	
+	command := self createEditSnippetCommand.
+	initialText := self targetSnippet text.
+	
+	command execute.
+	result := self targetPage editHistory undoCurrent.
+	
+	self 
+		assert: initialText identityHash
+		equals: self targetSnippet text identityHash.
+	
+	^ result
+]
+
+{ #category : #'examples - execution' }
 LeEditTextValueSnippetCommandExamples >> executeEditSnippetCommand_textIdentity [
 	<gtExample>
 	| command initialText result |

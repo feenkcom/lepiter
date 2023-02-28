@@ -1,0 +1,25 @@
+Class {
+	#name : #LeInsertMultipleCharactersEditTextValueSnippetCommandExamples,
+	#superclass : #LeEditTextValueSnippetCommandExamples,
+	#category : #'Lepiter-History-Examples - Commands'
+}
+
+{ #category : #accessing }
+LeInsertMultipleCharactersEditTextValueSnippetCommandExamples >> initialStringValue [
+	^ 'abcde'
+]
+
+{ #category : #accessing }
+LeInsertMultipleCharactersEditTextValueSnippetCommandExamples >> instantiateBasicTextEditCommand [
+	<gtExample>
+	
+	^ BrTextEditorHistoryInsertionCommand new 
+		strings: { '1' . '1' };
+		undoIndices: #(1 4);
+		redoIndices: #(1 3)
+]
+
+{ #category : #accessing }
+LeInsertMultipleCharactersEditTextValueSnippetCommandExamples >> modifiedStringValue [
+	^ 'a1bc1de'
+]
