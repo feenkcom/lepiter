@@ -4,6 +4,11 @@ Class {
 	#category : #'Lepiter-History-Examples - Commands'
 }
 
+{ #category : #testing }
+LeEditSnippetStateCommandExamples class >> isAbstract [ 
+	^ self name = #LeEditSnippetStateCommandExamples
+]
+
 { #category : #'examples - execution undo/redo' }
 LeEditSnippetStateCommandExamples >> executeCommand_executeUndoCommand [
 	<gtExample>
