@@ -86,13 +86,20 @@ LeCodeSnippet >> executeWithLoggingAction: aBlock afterChange: aGtCoderSourceCod
 	"Execute the given block by creating a trace event 
 	for the given coder change."
 	| fakeCommand undoSpecification traceEvent |
-	fakeCommand := self commandBuilder editTextualSnippetCommand
-		string: aGtCoderSourceCodeChanged newText asString.
 	
-	undoSpecification := fakeCommand createUndoCommandSpecification.
-	(undoSpecification snippetState 
-		attributeNamed: 'code' )
-			string: aGtCoderSourceCodeChanged previousText asString.
+	aGtCoderSourceCodeChanged textEditCommand 
+		ifNil: [
+			fakeCommand := self commandBuilder editTextualSnippetCommand
+				string: aGtCoderSourceCodeChanged newText asString.
+	
+			undoSpecification := fakeCommand createUndoCommandSpecification.
+			(undoSpecification snippetState 
+				attributeNamed: 'code' )
+					string: aGtCoderSourceCodeChanged previousText asString ]
+		ifNotNil: [
+			fakeCommand := self commandBuilder editTextValueSnippetCommand
+				textEditCommand: aGtCoderSourceCodeChanged textEditCommand.
+			undoSpecification := fakeCommand createUndoCommandSpecification ].
 	
 	traceEvent := LeContentEditTraceEvent new
 		mainCommandSpecification: fakeCommand createCommandSpecification
@@ -166,13 +173,15 @@ LeCodeSnippet >> printOn: aStream [
 
 { #category : #'private - event handling' }
 LeCodeSnippet >> shouldAddTraceEventForChange: aGtCoderSourceCodeChanged [ 
-	"We only add a trace event if we have the previous text, 
-	and the change was not the result of another command."
+	"We only add a trace event if we either have the previous text
+	or the basic text edit command, and the change was not the 
+	result of another command."
 	
-	^ aGtCoderSourceCodeChanged previousText notNil and: [
-		 aGtCoderSourceCodeChanged updateStrategy notNil and: [
-			(aGtCoderSourceCodeChanged updateStrategy 
-				propertyNamed: #isFromEditCommand ifAbsent: [ false ]) not ]]
+	^ (aGtCoderSourceCodeChanged previousText notNil or: [
+		aGtCoderSourceCodeChanged textEditCommand  notNil]) and: [
+			aGtCoderSourceCodeChanged updateStrategy notNil and: [
+				(aGtCoderSourceCodeChanged updateStrategy 
+					propertyNamed: #isFromEditCommand ifAbsent: [ false ]) not ]]
 ]
 
 { #category : #printing }
