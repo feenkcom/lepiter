@@ -219,6 +219,11 @@ LeCodeSnippet >> updateFromCommandText: aText source: anObject [
 ]
 
 { #category : #'api - editing' }
+LeCodeSnippet >> updateFromEditValueCommandText: aText source: anObject [
+	self updateFromCommandText: aText source: anObject
+]
+
+{ #category : #'api - editing' }
 LeCodeSnippet >> updateText: aText source: anObject [
 	"Change the text of the textual snippet to a given one. A source object represent an object that requested a text change"
 

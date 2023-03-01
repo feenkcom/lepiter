@@ -34,41 +34,6 @@ LeEditTextValueSnippetCommandExamples >> executeCommand_executeUndoCommand [
 ]
 
 { #category : #'examples - execution' }
-LeEditTextValueSnippetCommandExamples >> executeCommand_executeUndoCommand_textIdentity [
-	<gtExample>
-	| command initialText result |
-	
-	command := self createEditSnippetCommand.
-	initialText := self targetSnippet text.
-	
-	command execute.
-	result := self targetPage editHistory undoCurrent.
-	
-	self 
-		assert: initialText identityHash
-		equals: self targetSnippet text identityHash.
-	
-	^ result
-]
-
-{ #category : #'examples - execution' }
-LeEditTextValueSnippetCommandExamples >> executeEditSnippetCommand_textIdentity [
-	<gtExample>
-	| command initialText result |
-	
-	command := self createEditSnippetCommand.
-	initialText := self targetSnippet text.
-	
-	result := command execute.
-
-	self 
-		assert: initialText identityHash
-		equals: self targetSnippet text identityHash.
-	
-	^ result
-]
-
-{ #category : #'examples - execution' }
 LeEditTextValueSnippetCommandExamples >> executeEditSnippetCommand_undoSpecification [
 	<gtExample>
 	| undoSpecification |
@@ -91,11 +56,6 @@ LeEditTextValueSnippetCommandExamples >> executeEditSnippetCommand_undoSpecifica
 { #category : #accessing }
 LeEditTextValueSnippetCommandExamples >> initialStringValue [
 	self subclassResponsibility
-]
-
-{ #category : #accessing }
-LeEditTextValueSnippetCommandExamples >> initialTargetSnippet [
-	^ self textSnippetWithString: self initialStringValue
 ]
 
 { #category : #accessing }

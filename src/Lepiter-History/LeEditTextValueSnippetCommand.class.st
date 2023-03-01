@@ -12,13 +12,13 @@ Class {
 { #category : #execution }
 LeEditTextValueSnippetCommand >> basicExecute [
 	^ self withUndoExecute: [ 
-	
-		self shouldApplyUndo 
-			ifTrue: [ self executeUndoEdit ] 
-			ifFalse: [ self executeMainEdit ].
-		self targetContent updateEditTimeAndEmail.
+		| targetText|
+		targetText := self targetSnippet text.
+		self executeEditFor: targetText.
 		
-		self targetContent announceTextChangedBy: self source ]
+		self targetSnippet
+			updateFromEditValueCommandText: targetText 
+			source: self source ]
 ]
 
 { #category : #converting }
@@ -44,15 +44,34 @@ LeEditTextValueSnippetCommand >> createUndoCommandSpecification [
 ]
 
 { #category : #execution }
+LeEditTextValueSnippetCommand >> executeEditFor: aText [ 
+	self shouldApplyUndo 
+		ifTrue: [ self executeUndoEditFor:  aText ] 
+		ifFalse: [ self executeMainEditFor: aText ].
+]
+
+{ #category : #execution }
 LeEditTextValueSnippetCommand >> executeMainEdit [
-	self textEditCommand 
+	^ self textEditCommand 
 		redoTextChangeOn:  self targetSnippet text
+]
+
+{ #category : #execution }
+LeEditTextValueSnippetCommand >> executeMainEditFor: aText [
+	^ self textEditCommand 
+		redoTextChangeOn:  aText
 ]
 
 { #category : #execution }
 LeEditTextValueSnippetCommand >> executeUndoEdit [
 	self textEditCommand 
 		undoTextChangeOn: self targetSnippet text 
+]
+
+{ #category : #execution }
+LeEditTextValueSnippetCommand >> executeUndoEditFor: aText [
+	self textEditCommand 
+		undoTextChangeOn: aText
 ]
 
 { #category : #initialization }

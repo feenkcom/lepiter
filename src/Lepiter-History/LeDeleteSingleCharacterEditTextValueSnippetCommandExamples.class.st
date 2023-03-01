@@ -4,6 +4,11 @@ Class {
 	#category : #'Lepiter-History-Examples - Commands'
 }
 
+{ #category : #testing }
+LeDeleteSingleCharacterEditTextValueSnippetCommandExamples class >> isAbstract [ 
+	^ self name = #LeDeleteSingleCharacterEditTextValueSnippetCommandExamples
+]
+
 { #category : #accessing }
 LeDeleteSingleCharacterEditTextValueSnippetCommandExamples >> initialStringValue [
 	^ 'abc'
