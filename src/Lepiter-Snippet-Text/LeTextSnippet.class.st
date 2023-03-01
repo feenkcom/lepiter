@@ -505,6 +505,12 @@ LeTextSnippet >> updateFromCommandText: aText source: anObject [
 	self updateText: aText source: anObject
 ]
 
+{ #category : #'api - editing' }
+LeTextSnippet >> updateFromEditValueCommandText: aText source: anObject [	
+	self updateEditTimeAndEmail.
+	self announceTextChangedBy: anObject
+]
+
 { #category : #'private - updating' }
 LeTextSnippet >> updateOutgoingTextualLinks [
 	| aNode aVisitor |

@@ -4,6 +4,11 @@ Class {
 	#category : #'Lepiter-History-Examples - Commands'
 }
 
+{ #category : #testing }
+LeEditTextValueSnippetClearContentCommandExamples class >> isAbstract [ 
+	^ self name = #LeEditTextValueSnippetClearContentCommandExamples
+]
+
 { #category : #accessing }
 LeEditTextValueSnippetClearContentCommandExamples >> initialStringValue [
 	^ 'a'
