@@ -507,7 +507,10 @@ LeTextSnippet >> updateFromCommandText: aText source: anObject [
 
 { #category : #'api - editing' }
 LeTextSnippet >> updateFromEditValueCommandText: aText source: anObject [	
-	self updateEditTimeAndEmail.
+	"The edit text command modifies the same instance of the text object, so we should not check that characters are the same." 
+	self assertText: aText.
+	
+	self updater text: aText.
 	self announceTextChangedBy: anObject
 ]
 
