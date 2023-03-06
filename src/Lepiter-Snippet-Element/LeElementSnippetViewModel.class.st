@@ -96,13 +96,16 @@ LeElementSnippetViewModel >> resizeElementHeightTo: aNewHeight [
 	"should decrease code height first"
 	newCodeHeight := (self codeHeight - aDelta) max: 0.
 	
-	self snippetModel elementHeight: self elementHeight + (self codeHeight - newCodeHeight).
-	self snippetModel codeHeight: newCodeHeight
+	self snippetModel 
+		elementHeight: self elementHeight 
+			+ (self codeHeight - newCodeHeight);
+		codeHeight: newCodeHeight
 ]
 
 { #category : #'api - snippet' }
 LeElementSnippetViewModel >> setElementHeightTo: aNewHeight [
-	self snippetModel elementHeight: aNewHeight
+	self snippetModel 
+		elementHeight: aNewHeight
 ]
 
 { #category : #'api - snippet' }

@@ -209,8 +209,10 @@ LeElementSnippetElement >> initialize [
 	sceneContainer addChild: elementContainer as: #elementContainer.
 	sceneContainer addChild: (snippetResizer := self createVerticalResizer
 		target: elementContainer;
-		when: BlResizerResizedEvent do: [ :anEvent |
-			self snippetViewModel setElementHeightTo: anEvent extent y ]).
+		when: BlResizerResizeEndedEvent do: [ :anEvent |
+			anEvent hasVerticalChange ifTrue: [ 
+				self snippetViewModel 
+					setElementHeightTo: anEvent modifiedExtent y ] ]).
 
 	showCoderToggle := self createShowCodeToggleButton.
 	sceneContainer addChild: showCoderToggle.
@@ -357,8 +359,10 @@ LeElementSnippetElement >> showCoder [
 	
 	elementContainer addChild: (coderResizer := self createVerticalResizer
 		target: elementContainer;
-		when: BlResizerResizedEvent do: [ :anEvent |
-			self snippetViewModel resizeElementHeightTo: anEvent extent y ]).
+		when: BlResizerResizeEndedEvent do: [ :anEvent |
+			anEvent hasVerticalChange ifTrue: [
+				self snippetViewModel 
+					resizeElementHeightTo: anEvent modifiedExtent y ] ]).
 
 	self updateCoderWhenFocused: self snippetViewModel focused.
 	self updateCoderHeight.
