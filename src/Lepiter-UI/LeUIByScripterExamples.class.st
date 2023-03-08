@@ -92,7 +92,7 @@ LeUIByScripterExamples >> addSnippetNamed: aSnippetName step: aParentStep [
 			onBreadthFirstChildOfClass: GtStreamingSpotterSearchField;
 			play.
 			
-		aStep keyClick 
+		aStep keyPress 
 			label: ('Insert {1} snippet' format: { aSnippetName });
 			key: BlKeyboardKey return;
 			play.
