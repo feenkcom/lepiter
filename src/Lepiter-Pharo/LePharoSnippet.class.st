@@ -102,22 +102,24 @@ LePharoSnippet >> convertToExample: aSelector in: aClass classified: aSymbol [
 
 { #category : #accessing }
 LePharoSnippet >> moveFollowingSnippetsToPage: pageName [
-	"Use this to split a lepiter page by evaluating or inspecting this in a code snippet at the split point.
-
+	"Use this to split a lepiter snippet by evaluating or inspecting this in a code
+	snippet at the split point.
 		thisSnippet moveFollowingSnippetsToPage: 'A page name'
+	NB: If used in a top-level code snippet, it will move all following snippets
+	of the page. If used within a nested snippet, it will only move the following
+	children of that snippet in the tree.
 	"
 
-	| sourcePage targetPage snippets start stop |
-	sourcePage := self page.
+	|  targetPage snippets start stop |
 	targetPage := self page database ensurePageNamed: pageName.
-	snippets := self page children asArray.
+	snippets := self parent children asArray.
 	start := snippets indexOf: self.
 	stop := snippets size.
 	snippets
 		from: start + 1
 		to: stop
 		do: [ :each | 
-			sourcePage removeSnippet: each.
+			self parent removeSnippet: each.
 			targetPage addSnippet: each ].
 	^ targetPage
 ]

@@ -11,7 +11,7 @@ LePharoSnippetByScripterExamples >> applyNewNameWithScripter: aScripter [
 	<gtExample>
 	aScripter
 		substep: 'Apply rename'
-		do: [ :aStep | (aStep keyClick: BlKeyboardKey return) play ]
+		do: [ :aStep | (aStep keyPress: BlKeyboardKey return) play ]
 ]
 
 { #category : #'examples - support' }
@@ -132,8 +132,8 @@ LePharoSnippetByScripterExamples >> enterNewNameWithScripter: aScripter [
 	aScripter
 		substep: 'Enter new name'
 		do: [ :aStep | 
-			(aStep keyClick: BlKeyboardKey delete) play.
-			(aStep keyClick: BlKeyboardKey backspace) play.
+			(aStep keyPress: BlKeyboardKey delete) play.
+			(aStep keyPress: BlKeyboardKey backspace) play.
 			(aStep type: 'b') play ]
 ]
 
