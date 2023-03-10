@@ -205,20 +205,18 @@ LeElementSnippetElement >> initialize [
 	
 	sceneContainer := self createSceneContainer.
 	elementContainer := self createElementContainer.
-
+	snippetResizer := self createVerticalResizer
+		target: elementContainer.
+	self registerSnippetResizeEventsFor: snippetResizer.
+		
 	sceneContainer addChild: elementContainer as: #elementContainer.
-	sceneContainer addChild: (snippetResizer := self createVerticalResizer
-		target: elementContainer;
-		when: BlResizerResizeEndedEvent do: [ :anEvent |
-			anEvent hasVerticalChange ifTrue: [ 
-				self snippetViewModel 
-					setElementHeightTo: anEvent modifiedExtent y ] ]).
+	sceneContainer addChild: snippetResizer.
 
 	showCoderToggle := self createShowCodeToggleButton.
 	sceneContainer addChild: showCoderToggle.
 	sceneContainer addAptitude: (maximizerLook := BrGlamorousWithMaximizerAptitude new
-			// #displayElement;
-			preferredBackground: BrGlamorousColors backdropColor).
+		// #displayElement;
+		preferredBackground: BrGlamorousColors backdropColor).
 
 	self onSnippetViewModelFocused: false
 ]
@@ -321,6 +319,18 @@ LeElementSnippetElement >> onSnippetViewModelFocused: aBoolean [
 	self updateCoderWhenFocused: aBoolean
 ]
 
+{ #category : #'private - coder' }
+LeElementSnippetElement >> registerCoderResizeEventsFor: aResizer [ 
+	aResizer
+		when: BlResizerResizedEvent do: [ :anEvent |
+			self snippetViewModel
+				basicResizeElementHeightTo: anEvent extent y ];
+		when: BlResizerResizeEndedEvent do: [ :anEvent |
+			anEvent hasVerticalChange ifTrue: [
+				self snippetViewModel 
+					resizeElementHeightTo: anEvent modifiedExtent y ] ]
+]
+
 { #category : #initialization }
 LeElementSnippetElement >> registerEventsForCoder: aCoder [
 
@@ -328,6 +338,21 @@ LeElementSnippetElement >> registerEventsForCoder: aCoder [
 		when: GtCoderEvaluationAnnouncement
 		send: #onCodeEvaluated:
 		to: self
+]
+
+{ #category : #initialization }
+LeElementSnippetElement >> registerSnippetResizeEventsFor: aResizer [
+	"We update the size of the snipper in the model as the size changes,
+	but only issue a command at the very end."
+	
+	aResizer 
+		when: BlResizerResizedEvent do: [ :anEvent |
+			self snippetViewModel
+				basicSetElementHeightTo: anEvent extent y ];
+		when: BlResizerResizeEndedEvent do: [ :anEvent |
+			anEvent hasVerticalChange ifTrue: [ 
+				self snippetViewModel 
+					setElementHeightTo: anEvent modifiedExtent y ] ]
 ]
 
 { #category : #private }
@@ -357,12 +382,11 @@ LeElementSnippetElement >> showCoder [
 		
 	sceneContainer addChild: coderContainer.
 	
-	elementContainer addChild: (coderResizer := self createVerticalResizer
-		target: elementContainer;
-		when: BlResizerResizeEndedEvent do: [ :anEvent |
-			anEvent hasVerticalChange ifTrue: [
-				self snippetViewModel 
-					resizeElementHeightTo: anEvent modifiedExtent y ] ]).
+	coderResizer := self createVerticalResizer
+		target: elementContainer.
+	self registerCoderResizeEventsFor: coderResizer.
+	
+	elementContainer addChild: coderResizer.
 
 	self updateCoderWhenFocused: self snippetViewModel focused.
 	self updateCoderHeight.
