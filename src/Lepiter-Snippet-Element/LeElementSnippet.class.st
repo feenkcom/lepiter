@@ -143,3 +143,27 @@ LeElementSnippet >> initialize [
 LeElementSnippet >> newCoder [
 	^ GtPharoSnippetCoder new
 ]
+
+{ #category : #updating }
+LeElementSnippet >> updateIfRequiredElementHeight: anElementHeight [ 
+	self 
+		updateIfRequiredElementHeight: anElementHeight 
+		codeHeight: self codeHeight
+]
+
+{ #category : #updating }
+LeElementSnippet >> updateIfRequiredElementHeight: anElementHeight codeHeight: aCodeHeight [
+	| command |
+	command := self commandBuilder editSnippetStateCommand.
+	
+	(self elementHeight closeTo: anElementHeight) ifFalse: [
+		command snippetState
+			attributeNamed: #elementHeight setValue: anElementHeight ].
+	
+	(self codeHeight closeTo: aCodeHeight) ifFalse: [
+		command snippetState
+			attributeNamed: #codeHeight setValue: aCodeHeight ].
+
+	command snippetState hasAttributes ifTrue: [
+		command execute ]
+]

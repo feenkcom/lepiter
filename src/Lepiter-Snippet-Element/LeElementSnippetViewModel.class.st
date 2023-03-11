@@ -15,8 +15,36 @@ Class {
 }
 
 { #category : #'api - snippet' }
+LeElementSnippetViewModel >> basicResizeElementHeightTo: aNewHeight [
+	| newCodeHeight |
+	
+	newCodeHeight := self computeCodeHeightForElementHeight: aNewHeight.
+	self snippetModel 
+		elementHeight: self elementHeight 
+			+ (self codeHeight - newCodeHeight);
+		codeHeight: newCodeHeight
+]
+
+{ #category : #'api - snippet' }
+LeElementSnippetViewModel >> basicSetElementHeightTo: aNewHeight [
+	self snippetModel 
+		elementHeight: aNewHeight
+]
+
+{ #category : #'api - snippet' }
 LeElementSnippetViewModel >> codeHeight [
 	^ self snippetModel codeHeight
+]
+
+{ #category : #utils }
+LeElementSnippetViewModel >> computeCodeHeightForElementHeight: anElementHeight [
+	| aDelta |
+	
+	"is positive when increasing element height"
+	aDelta := anElementHeight - self elementHeight.
+	
+	"should decrease code height first"
+	^ (self codeHeight - aDelta) max: 0.
 ]
 
 { #category : #accessing }
@@ -88,24 +116,19 @@ LeElementSnippetViewModel >> onElementHeightChanged [
 
 { #category : #'api - snippet' }
 LeElementSnippetViewModel >> resizeElementHeightTo: aNewHeight [
-	| aDelta newCodeHeight |
+	| newCodeHeight |
 	
-	"is positive when increasing element height"
-	aDelta := aNewHeight - self elementHeight.
-	
-	"should decrease code height first"
-	newCodeHeight := (self codeHeight - aDelta) max: 0.
-	
+	newCodeHeight := self computeCodeHeightForElementHeight: aNewHeight.
 	self snippetModel 
-		elementHeight: self elementHeight 
-			+ (self codeHeight - newCodeHeight);
+		updateIfRequiredElementHeight: self elementHeight 
+			+ (self codeHeight - newCodeHeight)
 		codeHeight: newCodeHeight
 ]
 
 { #category : #'api - snippet' }
 LeElementSnippetViewModel >> setElementHeightTo: aNewHeight [
 	self snippetModel 
-		elementHeight: aNewHeight
+		updateIfRequiredElementHeight: aNewHeight
 ]
 
 { #category : #'api - snippet' }
