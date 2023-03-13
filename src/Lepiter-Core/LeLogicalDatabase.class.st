@@ -126,6 +126,15 @@ LeLogicalDatabase >> anyOne [
 	^ primaryDB anyOne
 ]
 
+{ #category : #accessing }
+LeLogicalDatabase >> asyncPagesForWord: aString [
+	| results |
+	results := #() asAsyncStream.
+	self
+		databasesDo: [ :each | results := results merge: (each asyncPagesForWord: aString) ].
+	^ results
+]
+
 { #category : #'api - accessing' }
 LeLogicalDatabase >> at: aKey forPageType: aPageType [
 	"Lookup the given key for aPageType, if not present raise an exception"
