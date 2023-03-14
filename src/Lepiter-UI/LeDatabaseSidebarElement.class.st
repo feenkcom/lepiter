@@ -177,13 +177,7 @@ LeDatabaseSidebarElement >> navigationModel: anObject [
 LeDatabaseSidebarElement >> newDailyNotesElement [
 	| newDailyNotesElement |
 
-	newDailyNotesElement := LeDatabasePageListElement new.
-		
-	self hasDatabase
-		ifTrue: [
-			newDailyNotesElement
-				databaseViewModel: self databaseViewModel;
-				showDailyNotes ].
+	newDailyNotesElement := LeDatabaseSidebarListElement new navigationModel: self navigationModel.
 	
 	^ newDailyNotesElement
 ]
@@ -191,26 +185,25 @@ LeDatabaseSidebarElement >> newDailyNotesElement [
 { #category : #'private - instance creation' }
 LeDatabaseSidebarElement >> newDailyNotesGroupElement [
 	| newDailyNotesElement |
+	newDailyNotesElement := LeDatabaseSidebarListElement new
+			navigationModel: self navigationModel;
+			selectionBlock: [ :aNavigationModel | 
+				aNavigationModel database dailyNotesGroup
+					collect: [ :aDailyNote | LeDailyNoteTreeNodeModel forDailyNote: aDailyNote ] ].
 
-	newDailyNotesElement := LeDatabaseDailyNotesTreeElement new navigationModel: self navigationModel.
-		
-	self hasDatabase
-		ifTrue: [
-			newDailyNotesElement
-				databaseViewModel: self databaseViewModel;
-				selection: self selection ].
-	
 	^ newDailyNotesElement
 ]
 
 { #category : #'private - instance creation' }
 LeDatabaseSidebarElement >> newPagesElement [
 	| newPagesElement |
-	newPagesElement := LeDatabasePageListElement new
-			navigationModel: self navigationModel.
-	self hasDatabase
-		ifTrue: [ newPagesElement database: self database.
-			newPagesElement selection: self selection ].
+	newPagesElement := LeDatabaseSidebarListElement new
+			navigationModel: self navigationModel;
+			selectionBlock: [ :aNavigationModel | 
+				aNavigationModel hasDatabase
+					ifTrue: [ aNavigationModel database pagesByDateToShow
+							collect: [ :aPage | LePageTreeNodeModel forPage: aPage ] ]
+					ifFalse: [ {} ] ].
 
 	^ newPagesElement
 ]

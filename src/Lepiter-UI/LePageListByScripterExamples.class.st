@@ -9,10 +9,14 @@ LePageListByScripterExamples >> basicDatabasePageListElement [
 	<gtExample>
 	| anElement |
 
-	anElement := LeDatabasePageListElement new.
+	anElement := LeDatabaseSidebarListElement new selectionBlock: [:aNavigationModel | 
+				aNavigationModel hasDatabase
+					ifTrue: [ aNavigationModel database pagesByDateToShow
+							collect: [ :aPage | LePageTreeNodeModel forPage: aPage ] ]
+					ifFalse: [ {} ]].
 
 	self assert: anElement hasDatabase not.
-	self assert: anElement selection equals: nil.
+	self assert: anElement hasSelection not.
 
 	^ anElement
 ]
@@ -24,12 +28,12 @@ LePageListByScripterExamples >> databasePageListElement_DailyNotes [
 	
 	aScripter := self 
 		scripterWithModel: [ LeUIExamples new databaseWithTwoPagesAndTwoDailyNotes ]
-		element: [ :aDatabase | self basicDatabasePageListElement showDailyNotes databaseViewModel: aDatabase asContentUIModel ].
+		element: [ :aDatabase | self basicDatabasePageListElement navigationModel: (self simpleNavigationModelWith: aDatabase); selectionBlock: [:aNavigationModel | aNavigationModel database dailyNotes  ]  ].
 
 	aScripter wait forEmptySpaceTaskQueue; play.
 	
 	aScripter assert
-		value: [ :anElement | anElement listElement items size ] 
+		value: [ :anElement | anElement treeElement viewModel itemCount ] 
 			equals: [ :anElement | anElement database dailyNotes size ];
 		play.
 
@@ -43,12 +47,12 @@ LePageListByScripterExamples >> databasePageListElement_Pages [
 	
 	aScripter := self 
 		scripterWithModel: [ LeUIExamples new databaseWithTwoPagesAndTwoDailyNotes ]
-		element: [ :aDatabase | self basicDatabasePageListElement databaseViewModel: aDatabase asContentUIModel ].
+		element: [ :aDatabase | self basicDatabasePageListElement navigationModel: (self simpleNavigationModelWith: aDatabase) ].
 
 	aScripter wait forEmptySpaceTaskQueue; play.
 	
 	aScripter assert
-		value: [ :anElement | anElement listElement items size ] 
+		value: [ :anElement | anElement treeElement viewModel itemCount ] 
 			equals: [ :anElement | anElement database pages size ];
 		play.
 
@@ -59,23 +63,27 @@ LePageListByScripterExamples >> databasePageListElement_Pages [
 LePageListByScripterExamples >> databasePageListElement_Pages_AddNewPage [
 	<gtExample>
 	| aScripter aPage |
-
 	aScripter := self databasePageListElement_Pages.
-	
+
 	aScripter do
-		action: [ :aDatabase | aPage := aDatabase pageBuilder title: 'newly added'; add. ];
+		action: [ :aDatabase | 
+			aPage := aDatabase pageBuilder
+					title: 'newly added';
+					add ];
 		onModel;
 		play.
 
-	aScripter wait forEmptySpaceTaskQueue; play.
-	
+	aScripter wait
+		forEmptySpaceTaskQueue;
+		play.
+
 	aScripter assert
-		value: [ :anElement | anElement listElement items size ] 
+		value: [ :anElement | anElement treeElement viewModel itemCount ]
 			equals: [ :anElement | anElement database pages size ];
 		play.
-		
+
 	aScripter assert
-		value: [ :anElement | anElement listElement items first pageModel ] 
+		value: [ :anElement | anElement treeElement viewModel root childrenValues first page ]
 			equals: [ aPage ];
 		play.
 
@@ -104,17 +112,17 @@ LePageListByScripterExamples >> databasePageListElement_Pages_RemovePageTwo [
 	aScripter wait forEmptySpaceTaskQueue; play.
 	
 	aScripter assert
-		value: [ :anElement | anElement listElement items size ] 
+		value: [ :anElement | anElement treeElement viewModel itemCount ] 
 			equals: [ :anElement | anElement database pages size ];
 		play.
 	
 	aScripter assert
-		value: [ :anElement | anElement listElement items size ] 
+		value: [ :anElement | anElement treeElement viewModel itemCount ] 
 			equals: [ anInitialPageCount - 1 ];
 		play.
 		
 	aScripter assert
-		value: [ :anElement | anElement listElement items first pageModel ] 
+		value: [ :anElement | anElement treeElement viewModel root childrenValues first page ] 
 			equals: [ :anElement | anElement database sortedPages first];
 		play.
 
@@ -133,4 +141,9 @@ LePageListByScripterExamples >> databasePageListElement_Pages_Selection [
 	self assert: anElement listElement selectedIndices first equals: 2.
 
 	^ anElement
+]
+
+{ #category : #'examples - database - page list' }
+LePageListByScripterExamples >> simpleNavigationModelWith: aDatabase [ 
+	^ LeDatabaseNavigationModel new database: aDatabase
 ]

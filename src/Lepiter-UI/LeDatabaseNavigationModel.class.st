@@ -23,7 +23,26 @@ LeDatabaseNavigationModel >> database [
 
 { #category : #accessing }
 LeDatabaseNavigationModel >> database: anObject [
-	database := anObject
+	database := anObject.
+	self database weak
+		when: LeDatabasePageAdded
+			send: #onDatabaseChanged:
+			to: self;
+		when: LeDatabasePageRemoved
+			send: #onDatabaseChanged:
+			to: self;
+		when: LePageUnloadAnnouncement 
+			send: #onDatabaseChanged:
+			to: self;
+		when: LeDatabaseTableOfContentsUUIDChanged
+			send: #onDatabaseChanged:
+			to: self.
+	self onDatabaseChanged: anObject
+]
+
+{ #category : #testing }
+LeDatabaseNavigationModel >> hasDatabase [
+	^ database notNil
 ]
 
 { #category : #testing }
@@ -39,6 +58,11 @@ LeDatabaseNavigationModel >> initialize [
 		when: LeUIPageSelectionRequest
 		send: #onSelection:
 		to: self
+]
+
+{ #category : #accessing }
+LeDatabaseNavigationModel >> onDatabaseChanged: anAnnouncement [
+	self announce: LeUIDatabaseNavigationModelChanged new
 ]
 
 { #category : #accessing }
