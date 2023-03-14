@@ -12,7 +12,7 @@ LePageListByScripterExamples >> basicDatabasePageListElement [
 	anElement := LeDatabasePageListElement new.
 
 	self assert: anElement hasDatabase not.
-	self assert: anElement selection content equals: LePage null.
+	self assert: anElement selection equals: nil.
 
 	^ anElement
 ]

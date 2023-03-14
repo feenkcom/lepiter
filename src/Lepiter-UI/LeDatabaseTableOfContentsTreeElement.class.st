@@ -12,7 +12,6 @@ Class {
 	#name : #LeDatabaseTableOfContentsTreeElement,
 	#superclass : #LeDatabaseElement,
 	#instVars : [
-		'selection',
 		'treeElement',
 		'navigationModel'
 	],
@@ -21,14 +20,12 @@ Class {
 
 { #category : #'api - accessing' }
 LeDatabaseTableOfContentsTreeElement >> hasSelection [
-	^ selection notNil
+	^ navigationModel notNil
 ]
 
 { #category : #initialization }
 LeDatabaseTableOfContentsTreeElement >> initialize [
 	super initialize.
-	
-	selection := nil.
 	
 	self initializeTreeElement.
 	self layout: BlLinearLayout vertical.

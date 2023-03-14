@@ -2,7 +2,6 @@ Class {
 	#name : #LeDatabaseDailyNotesTreeElement,
 	#superclass : #LeDatabaseElement,
 	#instVars : [
-		'selection',
 		'treeElement',
 		'navigationModel'
 	],
@@ -18,14 +17,12 @@ LeDatabaseDailyNotesTreeElement >> dailyNoteNodes [
 
 { #category : #testing }
 LeDatabaseDailyNotesTreeElement >> hasSelection [
-	^ selection notNil
+	^ navigationModel notNil
 ]
 
 { #category : #initialization }
 LeDatabaseDailyNotesTreeElement >> initialize [
 	super initialize.
-	
-	selection := nil.
 	
 	self initializeTreeElement.
 	self layout: BlLinearLayout vertical.

@@ -15,7 +15,6 @@ Class {
 	#instVars : [
 		'filter',
 		'listElement',
-		'selection',
 		'navigationModel'
 	],
 	#category : #'Lepiter-UI-! UI - Database'
@@ -50,7 +49,6 @@ LeDatabasePageListElement >> initialize [
 	super initialize.
 
 	filter := self defaultFilter.
-	selection := self defaultSelection.
 
 	self layout: BlLinearLayout vertical.
 	
@@ -165,7 +163,7 @@ LeDatabasePageListElement >> onSelectionChanged [
 LeDatabasePageListElement >> selection [
 	<return: #LePageViewModel>
 
-	^ navigationModel page
+	^ navigationModel ifNil: [ nil ] ifNotNil: #page
 ]
 
 { #category : #'api - accessing' }
