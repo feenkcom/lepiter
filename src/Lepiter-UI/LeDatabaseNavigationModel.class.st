@@ -26,6 +26,11 @@ LeDatabaseNavigationModel >> database: anObject [
 	database := anObject
 ]
 
+{ #category : #testing }
+LeDatabaseNavigationModel >> hasPage [
+	^ page notNil
+]
+
 { #category : #accessing }
 LeDatabaseNavigationModel >> initialize [
 	super initialize.

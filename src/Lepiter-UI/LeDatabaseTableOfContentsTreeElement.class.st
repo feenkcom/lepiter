@@ -20,7 +20,7 @@ Class {
 
 { #category : #'api - accessing' }
 LeDatabaseTableOfContentsTreeElement >> hasSelection [
-	^ navigationModel notNil
+	^ navigationModel notNil and: [ navigationModel hasPage ]
 ]
 
 { #category : #initialization }
