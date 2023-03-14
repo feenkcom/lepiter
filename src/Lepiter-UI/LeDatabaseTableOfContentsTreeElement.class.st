@@ -13,7 +13,8 @@ Class {
 	#superclass : #LeDatabaseElement,
 	#instVars : [
 		'selection',
-		'treeElement'
+		'treeElement',
+		'navigationModel'
 	],
 	#category : #'Lepiter-UI-! UI - Database'
 }
@@ -65,6 +66,20 @@ LeDatabaseTableOfContentsTreeElement >> initializeTreeElement [
 LeDatabaseTableOfContentsTreeElement >> items [
 	"Return pages to display"
 	^ self database tableOfContentsNodes
+]
+
+{ #category : #accessing }
+LeDatabaseTableOfContentsTreeElement >> navigationModel [
+	^ navigationModel
+]
+
+{ #category : #accessing }
+LeDatabaseTableOfContentsTreeElement >> navigationModel: anObject [
+	navigationModel := anObject.
+	navigationModel
+		when: LeUIPageSelected
+		send: #onSelectionChanged
+		to: self
 ]
 
 { #category : #'private - notifying' }
@@ -147,20 +162,14 @@ LeDatabaseTableOfContentsTreeElement >> onTreeSelectionChanged: aBrSelectionChan
 LeDatabaseTableOfContentsTreeElement >> selection [
 	<return: #LePageViewModel>
 
-	self
-		assert: [ selection notNil ]
-		description: [ 'Can not access selection that does not exist' ].
-
-	^ selection
+	^ navigationModel page
 ]
 
 { #category : #'api - accessing' }
 LeDatabaseTableOfContentsTreeElement >> selection: aPageViewModel [
 	"Set selected page view model"
-	selection = aPageViewModel
-		ifTrue: [ ^ self ].
-	selection := aPageViewModel.
-	self onSelectionChanged
+
+	navigationModel announce: (LeUIPageSelectionRequest new page: aPageViewModel)
 ]
 
 { #category : #'private - subscriptions' }

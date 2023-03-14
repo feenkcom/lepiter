@@ -15,7 +15,8 @@ Class {
 	#instVars : [
 		'filter',
 		'listElement',
-		'selection'
+		'selection',
+		'navigationModel'
 	],
 	#category : #'Lepiter-UI-! UI - Database'
 }
@@ -88,6 +89,20 @@ LeDatabasePageListElement >> listElement [
 	^ listElement
 ]
 
+{ #category : #accessing }
+LeDatabasePageListElement >> navigationModel [
+	^ navigationModel
+]
+
+{ #category : #accessing }
+LeDatabasePageListElement >> navigationModel: anObject [
+	navigationModel := anObject.
+	navigationModel
+		when: LeUIPageSelected
+		send: #onSelectionChanged
+		to: self
+]
+
 { #category : #'private - notifying' }
 LeDatabasePageListElement >> notifyListSelectionChangedTo: aPageUIModel [
 	self selection = aPageUIModel
@@ -150,21 +165,14 @@ LeDatabasePageListElement >> onSelectionChanged [
 LeDatabasePageListElement >> selection [
 	<return: #LePageViewModel>
 
-	^ selection
+	^ navigationModel page
 ]
 
 { #category : #'api - accessing' }
 LeDatabasePageListElement >> selection: aLePageUIModel [
 	"Set selected page"
-	
-	self
-		assert: [ aLePageUIModel isKindOf: LePageViewModel ]
-		description: [ 'Must be a UI model' ].
-	
-	selection = aLePageUIModel
-		ifTrue: [ ^ self ].
-	selection := aLePageUIModel.
-	self onSelectionChanged.
+
+	navigationModel announce: (LeUIPageSelectionRequest new page: aLePageUIModel)
 ]
 
 { #category : #'api - accessing' }

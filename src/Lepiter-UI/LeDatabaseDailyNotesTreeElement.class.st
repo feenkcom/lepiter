@@ -3,9 +3,10 @@ Class {
 	#superclass : #LeDatabaseElement,
 	#instVars : [
 		'selection',
-		'treeElement'
+		'treeElement',
+		'navigationModel'
 	],
-	#category : 'Lepiter-UI-! UI - Database'
+	#category : #'Lepiter-UI-! UI - Database'
 }
 
 { #category : #accessing }
@@ -55,6 +56,20 @@ LeDatabaseDailyNotesTreeElement >> items [
 	^ self dailyNoteNodes 
 ]
 
+{ #category : #accessing }
+LeDatabaseDailyNotesTreeElement >> navigationModel [
+	^ navigationModel
+]
+
+{ #category : #accessing }
+LeDatabaseDailyNotesTreeElement >> navigationModel: anObject [
+	navigationModel := anObject.
+	navigationModel
+		when: LeUIPageSelected
+		send: #onSelectionChanged
+		to: self
+]
+
 { #category : #'private - notifying' }
 LeDatabaseDailyNotesTreeElement >> notifyListSelectionChangedTo: aTreeNode [
 	| aPageUIModel |
@@ -101,20 +116,14 @@ LeDatabaseDailyNotesTreeElement >> onTreeSelectionChanged: aBrSelectionChanged [
 
 { #category : #accessing }
 LeDatabaseDailyNotesTreeElement >> selection [
-	self
-		assert: [ selection notNil ]
-		description: [ 'Can not access selection that does not exist' ].
-
-	^ selection
+	^ navigationModel page
 ]
 
 { #category : #accessing }
 LeDatabaseDailyNotesTreeElement >> selection: aViewModel [
 	"Set selected page"
-	selection = aViewModel
-		ifTrue: [ ^ self ].
-	selection := aViewModel.
-	self onSelectionChanged
+
+	navigationModel announce: (LeUIPageSelectionRequest new page: aViewModel)
 ]
 
 { #category : #'private - subscriptions' }
