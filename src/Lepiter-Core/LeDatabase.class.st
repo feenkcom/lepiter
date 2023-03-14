@@ -27,7 +27,8 @@ Class {
 		'filename',
 		'monitor',
 		'attachmentsByType',
-		'pagesByUuid'
+		'pagesByUuid',
+		'index'
 	],
 	#classVars : [
 		'LocalWorkspaceDatabaseLocation',
@@ -130,6 +131,12 @@ LeDatabase >> anyOne [
 LeDatabase >> assertNotReadOnly [
 
 	self assert: [ self readOnly isNil or: [ self readOnly not ] ]
+]
+
+{ #category : #accessing }
+LeDatabase >> asyncPagesForWord: aString [
+	^ ((self index asyncTitlesForWord: aString)
+		collect: [ :each | self pageNamed: each ifAbsent: [  ] ]) select: #notNil
 ]
 
 { #category : #'api - accessing' }
@@ -523,6 +530,11 @@ LeDatabase >> hasSortedItems [
 { #category : #'private - testing' }
 LeDatabase >> hasTextualSnippetLinks [
 	^ self textualSnippetsLinksCount > 0
+]
+
+{ #category : #accessing }
+LeDatabase >> index [
+	^ index ifNil: [ index := LeDatabaseIndex new database: self ]
 ]
 
 { #category : #initialization }
