@@ -11,7 +11,7 @@ Class {
 LeDatabaseSpotterStart >> gtSpotterForPagesByContentFor: aSearch [
 	<gtSearch>
 	^ aSearch list
-		priority: 20;
+		priority: 2;
 		items: [ self navigationModel pages ];
 		title: 'Page Content';
 		itemName: [ :page | page title ];
@@ -27,17 +27,12 @@ LeDatabaseSpotterStart >> gtSpotterForPagesByContentFor: aSearch [
 { #category : #searching }
 LeDatabaseSpotterStart >> gtSpotterForPagesFor: aSearch [
 	<gtSearch>
-	^ aSearch list
-		priority: 20;
-		items: [ self navigationModel pages ];
-		title: 'Pages';
-		itemName: [ :page | page title ];
-		previewElement: [ :aLePage | 
-			| aPageViewModel |
-			aPageViewModel := aLePage asContentUIModel.
-			LePageToolElement new pageViewModel: aPageViewModel ];
-		filterBySubstring;
-		wantsToDisplayOnEmptyQuery: self navigationModel hasPage not
+	^ aSearch explicit
+		title: 'Named pages';
+		priority: 1;
+		search: [ :aContext | self navigationModel database asyncPagesForWord: aContext searchQuery ];
+		itemName: #title;
+		wantsToDisplayOnEmptyQuery: false
 ]
 
 { #category : #accessing }
