@@ -77,18 +77,9 @@ LeDatabaseNavigationModel >> gtSearchPageFor: anAction [
 				valuable: (LeDatabaseSpotterStart new navigationModel: self);
 				tooltip: 'Search Code';
 				actOn: [ :anActOnEvent :anItem :theButton | 
-					| acted |
-					acted := false.
-					(anItem isKindOf: RPackage)
-						ifTrue: [ self navigationModel selectPackage: anItem.
-							acted := true ].
-					(anItem isKindOf: ClassDescription)
-						ifTrue: [ self navigationModel selectClass: anItem.
-							acted := true ].
-					(anItem isKindOf: CompiledMethod)
-						ifTrue: [ self navigationModel selectMethod: anItem.
-							acted := true ].
-					acted ifTrue: [ anActOnEvent beActed ] ];
+					self page: anItem asContentUIModel.
+					anActOnEvent beActed.
+					theButton fireEvent: BrDropdownHideWish new ];
 				asElement ]
 ]
 
