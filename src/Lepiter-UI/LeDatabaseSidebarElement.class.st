@@ -350,9 +350,7 @@ LeDatabaseSidebarElement >> updateContent [
 	self updateTableOfContentTab.
 	navigationModel database: self database.
 	self tableOfContentsElementDo: [ :anElement | anElement databaseViewModel: self databaseViewModel ].
-	"self dailyNotesElementDo: [ :anElement | anElement databaseViewModel: self databaseViewModel ]."
-	self dailyNotesGroupElementDo: [ :anElement | anElement databaseViewModel: self databaseViewModel ].
-	self pagesElementDo: [ :anElement | anElement databaseViewModel: self databaseViewModel ].
+	self navigationModel databaseViewModel: self databaseViewModel
 ]
 
 { #category : #'private - updating' }

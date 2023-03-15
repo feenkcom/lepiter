@@ -15,6 +15,11 @@ LeDatabaseSidebarListElement >> database [
 ]
 
 { #category : #accessing }
+LeDatabaseSidebarListElement >> databaseViewModel [
+	^ self navigationModel databaseViewModel
+]
+
+{ #category : #accessing }
 LeDatabaseSidebarListElement >> hasNavigationModel [
 	^ self navigationModel notNil
 ]

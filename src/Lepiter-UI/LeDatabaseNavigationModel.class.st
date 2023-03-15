@@ -6,7 +6,8 @@ Class {
 	#instVars : [
 		'announcer',
 		'page',
-		'database'
+		'database',
+		'databaseViewModel'
 	],
 	#category : #'Lepiter-UI-! UI - Database'
 }
@@ -40,6 +41,17 @@ LeDatabaseNavigationModel >> database: anObject [
 	self onDatabaseChanged: anObject
 ]
 
+{ #category : #accessing }
+LeDatabaseNavigationModel >> databaseViewModel [
+	^ databaseViewModel
+]
+
+{ #category : #accessing }
+LeDatabaseNavigationModel >> databaseViewModel: anObject [
+	databaseViewModel := anObject.
+	self onDatabaseViewModelChanged
+]
+
 { #category : #testing }
 LeDatabaseNavigationModel >> hasDatabase [
 	^ database notNil
@@ -62,6 +74,16 @@ LeDatabaseNavigationModel >> initialize [
 
 { #category : #accessing }
 LeDatabaseNavigationModel >> onDatabaseChanged: anAnnouncement [
+	self onNavigationModelChanged
+]
+
+{ #category : #accessing }
+LeDatabaseNavigationModel >> onDatabaseViewModelChanged [
+	self onNavigationModelChanged
+]
+
+{ #category : #accessing }
+LeDatabaseNavigationModel >> onNavigationModelChanged [
 	self announce: LeUIDatabaseNavigationModelChanged new
 ]
 
