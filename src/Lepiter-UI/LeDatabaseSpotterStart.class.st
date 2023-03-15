@@ -19,7 +19,8 @@ LeDatabaseSpotterStart >> gtSpotterForPagesByContentFor: aSearch [
 			| aPageViewModel |
 			aPageViewModel := aLePage asContentUIModel.
 			LePageToolElement new pageViewModel: aPageViewModel ];
-		filter: (GtSpotterSubstringFilter new itemString: #asHTMLContent);
+		filter: (GtSpotterSubstringFilter new
+				itemString: [ :aPage | aPage printPageSummaryLimitedTo: Float infinity ]);
 		wantsToDisplayOnEmptyQuery: self navigationModel hasPage not
 ]
 
