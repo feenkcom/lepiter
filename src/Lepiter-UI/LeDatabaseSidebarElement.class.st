@@ -138,23 +138,24 @@ LeDatabaseSidebarElement >> initializeListeners [
 
 { #category : #initialization }
 LeDatabaseSidebarElement >> initializeNavigationModel [
-	navigationModel := LeDatabaseNavigationModel new
+	navigationModel := LeDatabaseNavigationModel new.
+	navigationModel when: LeUIPageSelected send: #onPageSelection: to: self
 ]
 
 { #category : #initialization }
 LeDatabaseSidebarElement >> initializeTabGroupElement [
 	tabGroupElement := BrTabGroup new
-		aptitude: BrGlamorousTabGroupAptitude;
-		addTab: (BrTab new
-			aptitude: BrGlamorousTabAptitude new;
-			label: 'Pages';
-			stencil: [ self pagesElement ]);
-		addTab: (BrTab new
-			aptitude: BrGlamorousTabAptitude new;
-			label: 'By Day';
-			stencil: [ self dailyNotesGroupElement ]).
-			
-	tabGroupElement padding: tabGroupElement padding + (BlInsets right: 3).
+			aptitude: BrGlamorousTabGroupAptitude;
+			addTab: (BrTab new
+					aptitude: BrGlamorousTabAptitude new;
+					label: 'Pages';
+					stencil: [ self pagesElement ]);
+			addTab: (BrTab new
+					aptitude: BrGlamorousTabAptitude new;
+					label: 'By Day';
+					stencil: [ self dailyNotesGroupElement ]).
+
+	tabGroupElement padding: tabGroupElement padding + (BlInsets right: 3)
 ]
 
 { #category : #'private - testing' }
@@ -236,6 +237,12 @@ LeDatabaseSidebarElement >> onDetailedVolume [
 { #category : #'private - event handling' }
 LeDatabaseSidebarElement >> onNormalVolume [
 	self hide
+]
+
+{ #category : #initialization }
+LeDatabaseSidebarElement >> onPageSelection: anAnnouncement [
+	self
+		fireEvent: (LeDatabaseSidebarChangePageWish new pageUIModel: anAnnouncement page)
 ]
 
 { #category : #'private - event handling' }
@@ -349,7 +356,22 @@ LeDatabaseSidebarElement >> unsubscribeFromContent [
 LeDatabaseSidebarElement >> updateContent [
 	self updateTableOfContentTab.
 	navigationModel database: self database.
-	self tableOfContentsElementDo: [ :anElement | anElement databaseViewModel: self databaseViewModel ].
+	self tabGroupElement
+		actionbarStencil: [ | anActionBar |
+			anActionBar := BrToolbar new aptitude: BrGlamorousToolbarAptitude new.
+
+			(GtPhlowActionsCollector new
+				pragmaName: #leNavigationAction;
+				fromObject: self navigationModel;
+				collect)
+				do: [ :each | 
+					each
+						asElement: [ :actionElement | anActionBar addItem: actionElement ]
+						withHostElement: self ].
+
+			anActionBar ].
+	self
+		tableOfContentsElementDo: [ :anElement | anElement databaseViewModel: self databaseViewModel ].
 	self navigationModel databaseViewModel: self databaseViewModel
 ]
 

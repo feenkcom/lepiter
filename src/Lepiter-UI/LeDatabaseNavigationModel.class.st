@@ -52,6 +52,46 @@ LeDatabaseNavigationModel >> databaseViewModel: anObject [
 	self onDatabaseViewModelChanged
 ]
 
+{ #category : #accessing }
+LeDatabaseNavigationModel >> gtAddPageFor: anAction [
+	<leNavigationAction>
+	self hasDatabase ifFalse: [ ^ anAction noAction ].
+
+	^ anAction button
+		icon: BrGlamorousVectorIcons add;
+		tooltip: 'Add Page';
+		action: [ | aPage |
+			aPage := LePage unnamedPage.
+			self database addPage: aPage.
+			self page: aPage asContentUIModel ]
+]
+
+{ #category : #accessing }
+LeDatabaseNavigationModel >> gtSearchPageFor: anAction [
+	<leNavigationAction>
+	self hasDatabase ifFalse: [ ^ anAction noAction ].
+
+	^ anAction explicit
+		stencil: [
+			GtSpotterDropdownButtonStencil new
+				valuable: (LeDatabaseSpotterStart new navigationModel: self);
+				tooltip: 'Search Code';
+				actOn: [ :anActOnEvent :anItem :theButton | 
+					| acted |
+					acted := false.
+					(anItem isKindOf: RPackage)
+						ifTrue: [ self navigationModel selectPackage: anItem.
+							acted := true ].
+					(anItem isKindOf: ClassDescription)
+						ifTrue: [ self navigationModel selectClass: anItem.
+							acted := true ].
+					(anItem isKindOf: CompiledMethod)
+						ifTrue: [ self navigationModel selectMethod: anItem.
+							acted := true ].
+					acted ifTrue: [ anActOnEvent beActed ] ];
+				asElement ]
+]
+
 { #category : #testing }
 LeDatabaseNavigationModel >> hasDatabase [
 	^ database notNil
@@ -95,9 +135,7 @@ LeDatabaseNavigationModel >> onSelection: anAnnouncement [
 
 	page = anAnnouncement page ifTrue: [ ^ self ].
 
-	page := anAnnouncement page.
-	
-	self announce: (LeUIPageSelected new page: page)
+	self page: anAnnouncement page
 ]
 
 { #category : #accessing }
@@ -107,5 +145,12 @@ LeDatabaseNavigationModel >> page [
 
 { #category : #accessing }
 LeDatabaseNavigationModel >> page: anObject [
-	page := anObject
+	page := anObject.
+	
+	self announce: (LeUIPageSelected new page: page)
+]
+
+{ #category : #accessing }
+LeDatabaseNavigationModel >> pages [
+	^ self database pages
 ]

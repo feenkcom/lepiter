@@ -83,20 +83,23 @@ LeDatabaseSidebarListElement >> navigationModel: anObject [
 		when: LeUIDatabaseNavigationModelChanged
 		send: #onNavigationModelChanged:
 		to: self.
+	navigationModel
+		when: LeUIPageSelected
+		send: #onSelectionChanged
+		to: self.
+
 	self updateTreeItems
 ]
 
 { #category : #accessing }
 LeDatabaseSidebarListElement >> notifyListSelectionChangedTo: aTreeNode [
 	| aPageUIModel |
-	
 	aTreeNode isForPage ifFalse: [ ^ self ].
-	
-	aPageUIModel := self databaseViewModel pageUIModelFor: aTreeNode page.
-	self selection = aPageUIModel
-		ifTrue: [ ^ self ].
 
-	self fireEvent: (LeDatabaseSidebarChangePageWish new pageUIModel: aPageUIModel)
+	aPageUIModel := self databaseViewModel pageUIModelFor: aTreeNode page.
+	self selection = aPageUIModel ifTrue: [ ^ self ].
+
+	self navigationModel announce: (LeUIPageSelectionRequest new page: aPageUIModel)
 ]
 
 { #category : #accessing }
