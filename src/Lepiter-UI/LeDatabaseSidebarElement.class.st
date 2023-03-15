@@ -17,9 +17,10 @@ Class {
 		'selection',
 		'tableOfContentsElement',
 		'tableOfContentsTab',
-		'dailyNotesGroupElement'
+		'dailyNotesGroupElement',
+		'navigationModel'
 	],
-	#category : 'Lepiter-UI-! UI - Database'
+	#category : #'Lepiter-UI-! UI - Database'
 }
 
 { #category : #'private - updating' }
@@ -94,6 +95,7 @@ LeDatabaseSidebarElement >> initialize [
 	super initialize.
 	selection := self defaultSelection.
 	widthStrategy := BrResizerElementLength weight: 0.5.
+	self initializeNavigationModel.
 	self initializeTabGroupElement.
 	self initializeElement.
 
@@ -135,6 +137,11 @@ LeDatabaseSidebarElement >> initializeListeners [
 ]
 
 { #category : #initialization }
+LeDatabaseSidebarElement >> initializeNavigationModel [
+	navigationModel := LeDatabaseNavigationModel new
+]
+
+{ #category : #initialization }
 LeDatabaseSidebarElement >> initializeTabGroupElement [
 	tabGroupElement := BrTabGroup new
 		aptitude: BrGlamorousTabGroupAptitude;
@@ -156,17 +163,21 @@ LeDatabaseSidebarElement >> isCollapsed [
 	^ self width <= self resizerElement width
 ]
 
+{ #category : #accessing }
+LeDatabaseSidebarElement >> navigationModel [
+	^ navigationModel
+]
+
+{ #category : #accessing }
+LeDatabaseSidebarElement >> navigationModel: anObject [
+	navigationModel := anObject
+]
+
 { #category : #'private - instance creation' }
 LeDatabaseSidebarElement >> newDailyNotesElement [
 	| newDailyNotesElement |
 
-	newDailyNotesElement := LeDatabasePageListElement new.
-		
-	self hasDatabase
-		ifTrue: [
-			newDailyNotesElement
-				databaseViewModel: self databaseViewModel;
-				showDailyNotes ].
+	newDailyNotesElement := LeDatabaseSidebarListElement new navigationModel: self navigationModel.
 	
 	^ newDailyNotesElement
 ]
@@ -174,27 +185,26 @@ LeDatabaseSidebarElement >> newDailyNotesElement [
 { #category : #'private - instance creation' }
 LeDatabaseSidebarElement >> newDailyNotesGroupElement [
 	| newDailyNotesElement |
+	newDailyNotesElement := LeDatabaseSidebarListElement new
+			navigationModel: self navigationModel;
+			selectionBlock: [ :aNavigationModel | 
+				aNavigationModel database dailyNotesGroup
+					collect: [ :aDailyNote | LeDailyNoteTreeNodeModel forDailyNote: aDailyNote ] ].
 
-	newDailyNotesElement := LeDatabaseDailyNotesTreeElement new.
-		
-	self hasDatabase
-		ifTrue: [
-			newDailyNotesElement
-				databaseViewModel: self databaseViewModel;
-				selection: self selection ].
-	
 	^ newDailyNotesElement
 ]
 
 { #category : #'private - instance creation' }
 LeDatabaseSidebarElement >> newPagesElement [
 	| newPagesElement |
-	
-	newPagesElement := LeDatabasePageListElement new.
-	self hasDatabase ifTrue: [
-		newPagesElement database: self database.
-		newPagesElement selection: self selection ].
-	
+	newPagesElement := LeDatabaseSidebarListElement new
+			navigationModel: self navigationModel;
+			selectionBlock: [ :aNavigationModel | 
+				aNavigationModel hasDatabase
+					ifTrue: [ aNavigationModel database pagesByDateToShow
+							collect: [ :aPage | LePageTreeNodeModel forPage: aPage ] ]
+					ifFalse: [ {} ] ].
+
 	^ newPagesElement
 ]
 
@@ -202,7 +212,8 @@ LeDatabaseSidebarElement >> newPagesElement [
 LeDatabaseSidebarElement >> newTableOfContentsElement [
 	| newTableOfContentsElement |
 
-	newTableOfContentsElement := LeDatabaseTableOfContentsTreeElement new.
+	newTableOfContentsElement := LeDatabaseTableOfContentsTreeElement new
+			navigationModel: self navigationModel.
 	
 	self hasDatabase
 		ifTrue: [ newTableOfContentsElement databaseViewModel: self databaseViewModel ].
@@ -337,10 +348,9 @@ LeDatabaseSidebarElement >> unsubscribeFromContent [
 { #category : #'private - updating' }
 LeDatabaseSidebarElement >> updateContent [
 	self updateTableOfContentTab.
+	navigationModel database: self database.
 	self tableOfContentsElementDo: [ :anElement | anElement databaseViewModel: self databaseViewModel ].
-	"self dailyNotesElementDo: [ :anElement | anElement databaseViewModel: self databaseViewModel ]."
-	self dailyNotesGroupElementDo: [ :anElement | anElement databaseViewModel: self databaseViewModel ].
-	self pagesElementDo: [ :anElement | anElement databaseViewModel: self databaseViewModel ].
+	self navigationModel databaseViewModel: self databaseViewModel
 ]
 
 { #category : #'private - updating' }
