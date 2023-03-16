@@ -369,7 +369,7 @@ LePharoRewriteSnippetElement >> filterDescriptors [
 
 { #category : #initialization }
 LePharoRewriteSnippetElement >> initialize [
-	| searchEditor replaceEditor scopeElement filtersElement |
+	| searchEditor replaceEditor scopeElement filtersElement isMethodToggle |
 	super initialize.
 	rewriteElement := BrVerticalPane new.
 	rewriteElement padding: (BlInsets all: 5).
@@ -382,9 +382,24 @@ LePharoRewriteSnippetElement >> initialize [
 	scopeElement
 		addChild: ((self createLabel: 'Search in:') margin: (BlInsets top: 5)).
 	filtersElement := GtFiltersElement new.
+	filtersElement hFitContent.
 	filtersElement descriptors: [ self filterDescriptors ].
 	filtersElement when: GtFiltersChangedEvent do: [ :event | self saveScope ].
 	scopeElement addChild: filtersElement as: #filtersElement.
+	scopeElement addChild: ((self createLabel: 'for:') margin: (BlInsets top: 5)).
+	isMethodToggle := BrToggle new
+			aptitude: BrGlamorousButtonExteriorAptitude + BrGlamorousButtonRectangularAptitude
+					+ (BrGlamorousButtonLabelAptitude new defaultColor: Color black)
+					+ BrGlamorousToggleBackgroundAptitude;
+			fitContent;
+			beSmallSize;
+			margin: (BlInsets top: 5);
+			label: 'Full methods';
+			when: BrToggleActivatedEvent
+				do: [ :anEvent | self snippet isMethodPattern: true ];
+			when: BrToggleDeactivatedEvent
+				do: [ :anEvent | self snippet isMethodPattern: false ].
+	scopeElement addChild: isMethodToggle as: #methodToggle.
 	rewriteElement addChild: scopeElement.
 	searchEditor := self createSourceEditor: #updateSearch.
 	searchEditor userData
@@ -547,7 +562,8 @@ LePharoRewriteSnippetElement >> onSnippetViewModelChanged [
 	self updateSearchEditor.
 	self updateReplaceEditor.
 	self updateScope.
-	self updateReplaceVariables
+	self updateReplaceVariables.
+	self updateMethodToggle
 ]
 
 { #category : #private }
@@ -555,7 +571,7 @@ LePharoRewriteSnippetElement >> parseExpression: aString [
 	| ast |
 	ast := GtPharoPatternParser
 			parseWithErrors: aString
-			startingAt: GtPharoParser startingStateForMethodSequence.
+			startingAt: self startingStateForParser.
 	self computeDuplicatesIn: ast.
 	^ ast
 ]
@@ -1103,6 +1119,13 @@ LePharoRewriteSnippetElement >> snippetToolbar [
 	^ nil
 ]
 
+{ #category : #'api - snippet view model' }
+LePharoRewriteSnippetElement >> startingStateForParser [
+	^ self snippet isMethodPattern
+		ifTrue: [ GtPharoParser startingStateForMethod ]
+		ifFalse: [ GtPharoParser startingStateForMethodSequence ]
+]
+
 { #category : #private }
 LePharoRewriteSnippetElement >> styler [
 	| styler |
@@ -1117,22 +1140,49 @@ LePharoRewriteSnippetElement >> subscribeToSnippetViewModel [
 	super subscribeToSnippetViewModel.
 	self snippetViewModel weak
 		when: LePharoRewriteSnippetSearchChanged
-		send: #updateSearchEditor
-		to: self.
-	self snippetViewModel weak
+			send: #updateSearchEditor
+			to: self;
 		when: LePharoRewriteSnippetReplaceChanged
-		send: #updateReplaceEditor
-		to: self.
-	self snippetViewModel weak
+			send: #updateReplaceEditor
+			to: self;
 		when: LePharoRewriteSnippetScopeChanged
-		send: #updateScope
-		to: self
+			send: #updateScope
+			to: self;
+		when: LePharoRewriteSnippetIsMethodPatternChanged
+			send: #updateMethodToggle
+			to: self
 ]
 
 { #category : #accessing }
 LePharoRewriteSnippetElement >> unsubscribeFromSnippetViewModel [
 	super unsubscribeFromSnippetViewModel.
 	self snippetViewModel unsubscribe: self
+]
+
+{ #category : #'api - snippet view model' }
+LePharoRewriteSnippetElement >> updateMethodToggle [
+	| isMethod startingState |
+	isMethod := self snippet isMethodPattern.
+	rewriteElement
+		childNamed: #methodToggle
+		ifFound: [ :toggle | 
+			toggle isActivated = isMethod
+				ifFalse: [ toggle activated: self snippet isMethodPattern ] ].
+	startingState := self startingStateForParser.
+	self
+		searchEditorDo: [ :editor | 
+			editor editor styler startingState: startingState.
+			editor editor styleText.
+			editor userData
+				at: #completionStrategy
+				ifPresent: [ :strategy | strategy isMethod: isMethod ] ].
+	self
+		replaceEditorDo: [ :editor | 
+			editor editor styler startingState: startingState.
+			editor editor styleText.
+			editor userData
+				at: #completionStrategy
+				ifPresent: [ :strategy | strategy isMethod: isMethod ] ]
 ]
 
 { #category : #private }
@@ -1175,7 +1225,7 @@ LePharoRewriteSnippetElement >> updateReplaceVariables [
 	| ast vars |
 	ast := GtPharoPatternParser
 			parseWithErrors: self snippet search
-			startingAt: GtPharoParser startingStateForMethodSequence.
+			startingAt: self startingStateForParser.
 	vars := GtPrefixTree new.
 	ast
 		withAllNodesOfType: GtPharoVariableNode
