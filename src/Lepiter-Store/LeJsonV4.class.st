@@ -22,7 +22,7 @@ LeJsonV4 >> allClassMappingsFor: aNeoJSONMapper [
 	(SystemNavigation default allImplementorsOf: #leJsonV4Name) do: [ :method |
 		| jsonName |
 		jsonName := method 
-							gtValueWithReceiver: method methodClass basicNew 
+							gtValueWithReceiver: method methodClass soleInstance 
 							possibleArguments: #().
 		jsonName ifNotNil: [ method methodClass instanceSide leJsonV4MappingFor: aNeoJSONMapper ] ].
 
