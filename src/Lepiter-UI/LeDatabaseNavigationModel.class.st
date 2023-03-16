@@ -115,21 +115,12 @@ LeDatabaseNavigationModel >> gtViewToCFor: aView [
 	(self hasDatabase not or: [ self database tableOfContents isNil ])
 		ifTrue: [ ^ aView empty ].
 
-	^ aView tree
+	^ aView explicit
 		title: 'ToC';
 		priority: 1;
-		items: [ self database tableOfContentsNodes ];
-		children: #children;
-		itemType: [ :anItemTypeFactory :aTreeNode :anItemIndex | aTreeNode value page class ];
-		itemStencil: [ :aNodeType | 
-			LePageTitleAndSummaryElement new
-				hMatchParent;
-				vFitContent ];
-		itemDataBinder: [ :anItemElement :eachLeTableOfContentsNode | anItemElement pageViewModel: eachLeTableOfContentsNode page asContentUIModel ];
-		expandSuchThat: [ :eachNode | eachNode value isToCNode ];
-		send: [ :aTableOfContentsNode | 
-			self
-				announce: (LeUIPageSelected new page: aTableOfContentsNode page asContentUIModel) ]
+		stencil: [ LeDatabaseSidebarListElement new
+				selectionBlock: [ self database tableOfContentsNodes ];
+				expandSuchThat: [ :eachNode | eachNode value isToCNode ] ]
 ]
 
 { #category : #testing }

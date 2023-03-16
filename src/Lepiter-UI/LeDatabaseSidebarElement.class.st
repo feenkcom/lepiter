@@ -12,9 +12,12 @@ Class {
 		'resizerElement',
 		'widthStrategy',
 		'tabGroupElement',
+		'pagesElement',
+		'dailyNotesElement',
 		'selection',
 		'tableOfContentsElement',
 		'tableOfContentsTab',
+		'dailyNotesGroupElement',
 		'navigationModel'
 	],
 	#category : #'Lepiter-UI-! UI - Database'
@@ -28,6 +31,27 @@ LeDatabaseSidebarElement >> beExact: aNumber [
 { #category : #'private - visibility' }
 LeDatabaseSidebarElement >> collapse [
 	self width: self resizerElement width
+]
+
+{ #category : #'private - accessing' }
+LeDatabaseSidebarElement >> dailyNotesElement [
+	^ dailyNotesElement ifNil: [ dailyNotesElement := self newDailyNotesElement ].
+]
+
+{ #category : #'private - accessing' }
+LeDatabaseSidebarElement >> dailyNotesElementDo: aBlock [
+	dailyNotesElement ifNotNil: aBlock
+]
+
+{ #category : #'private - accessing' }
+LeDatabaseSidebarElement >> dailyNotesGroupElement [
+	^ dailyNotesGroupElement ifNil: [ 
+		dailyNotesGroupElement := self newDailyNotesGroupElement ].
+]
+
+{ #category : #'private - accessing' }
+LeDatabaseSidebarElement >> dailyNotesGroupElementDo: aBlock [
+	dailyNotesGroupElement ifNotNil: aBlock
 ]
 
 { #category : #defaults }
@@ -124,6 +148,41 @@ LeDatabaseSidebarElement >> navigationModel: anObject [
 ]
 
 { #category : #'private - instance creation' }
+LeDatabaseSidebarElement >> newDailyNotesElement [
+	| newDailyNotesElement |
+
+	newDailyNotesElement := LeDatabaseSidebarListElement new navigationModel: self navigationModel.
+	
+	^ newDailyNotesElement
+]
+
+{ #category : #'private - instance creation' }
+LeDatabaseSidebarElement >> newDailyNotesGroupElement [
+	| newDailyNotesElement |
+	newDailyNotesElement := LeDatabaseSidebarListElement new
+			navigationModel: self navigationModel;
+			selectionBlock: [ :aNavigationModel | 
+				aNavigationModel database dailyNotesGroup
+					collect: [ :aDailyNote | LeDailyNoteTreeNodeModel forDailyNote: aDailyNote ] ].
+
+	^ newDailyNotesElement
+]
+
+{ #category : #'private - instance creation' }
+LeDatabaseSidebarElement >> newPagesElement [
+	| newPagesElement |
+	newPagesElement := LeDatabaseSidebarListElement new
+			navigationModel: self navigationModel;
+			selectionBlock: [ :aNavigationModel | 
+				aNavigationModel hasDatabase
+					ifTrue: [ aNavigationModel database pagesByDateToShow
+							collect: [ :aPage | LePageTreeNodeModel forPage: aPage ] ]
+					ifFalse: [ {} ] ].
+
+	^ newPagesElement
+]
+
+{ #category : #'private - instance creation' }
 LeDatabaseSidebarElement >> newTableOfContentsElement [
 	| newTableOfContentsElement |
 
@@ -174,7 +233,16 @@ LeDatabaseSidebarElement >> onResizerResized: anEvent [
 
 { #category : #'private - hooks' }
 LeDatabaseSidebarElement >> onSelectionChanged [
-	self updateSelection.
+]
+
+{ #category : #'private - accessing' }
+LeDatabaseSidebarElement >> pagesElement [
+	^ pagesElement ifNil: [ pagesElement := self newPagesElement ]
+]
+
+{ #category : #'private - accessing' }
+LeDatabaseSidebarElement >> pagesElementDo: aBlock [
+	pagesElement ifNotNil: aBlock
 ]
 
 { #category : #'private - accessing' }
@@ -239,6 +307,10 @@ LeDatabaseSidebarElement >> updateContent [
 
 { #category : #'private - updating' }
 LeDatabaseSidebarElement >> updateSelection [
+	self tableOfContentsElementDo: [ :anElement | anElement selection: self selection ].
+	self pagesElementDo: [ :anElement | anElement selection: self selection ].
+	"self dailyNotesElementDo: [ :anElement | anElement selection: self selection ]."
+	self dailyNotesGroupElementDo: [ :anElement | anElement selection: self selection ].
 ]
 
 { #category : #'private - updating' }
