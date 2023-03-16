@@ -12,12 +12,9 @@ Class {
 		'resizerElement',
 		'widthStrategy',
 		'tabGroupElement',
-		'pagesElement',
-		'dailyNotesElement',
 		'selection',
 		'tableOfContentsElement',
 		'tableOfContentsTab',
-		'dailyNotesGroupElement',
 		'navigationModel'
 	],
 	#category : #'Lepiter-UI-! UI - Database'
@@ -46,27 +43,6 @@ LeDatabaseSidebarElement >> beExact: aNumber [
 { #category : #'private - visibility' }
 LeDatabaseSidebarElement >> collapse [
 	self width: self resizerElement width
-]
-
-{ #category : #'private - accessing' }
-LeDatabaseSidebarElement >> dailyNotesElement [
-	^ dailyNotesElement ifNil: [ dailyNotesElement := self newDailyNotesElement ].
-]
-
-{ #category : #'private - accessing' }
-LeDatabaseSidebarElement >> dailyNotesElementDo: aBlock [
-	dailyNotesElement ifNotNil: aBlock
-]
-
-{ #category : #'private - accessing' }
-LeDatabaseSidebarElement >> dailyNotesGroupElement [
-	^ dailyNotesGroupElement ifNil: [ 
-		dailyNotesGroupElement := self newDailyNotesGroupElement ].
-]
-
-{ #category : #'private - accessing' }
-LeDatabaseSidebarElement >> dailyNotesGroupElementDo: aBlock [
-	dailyNotesGroupElement ifNotNil: aBlock
 ]
 
 { #category : #defaults }
@@ -138,23 +114,18 @@ LeDatabaseSidebarElement >> initializeListeners [
 
 { #category : #initialization }
 LeDatabaseSidebarElement >> initializeNavigationModel [
-	navigationModel := LeDatabaseNavigationModel new
+	navigationModel := LeDatabaseNavigationModel new.
+	navigationModel when: LeUIPageSelected send: #onPageSelection: to: self
 ]
 
 { #category : #initialization }
 LeDatabaseSidebarElement >> initializeTabGroupElement [
-	tabGroupElement := BrTabGroup new
-		aptitude: BrGlamorousTabGroupAptitude;
-		addTab: (BrTab new
-			aptitude: BrGlamorousTabAptitude new;
-			label: 'Pages';
-			stencil: [ self pagesElement ]);
-		addTab: (BrTab new
-			aptitude: BrGlamorousTabAptitude new;
-			label: 'By Day';
-			stencil: [ self dailyNotesGroupElement ]).
-			
-	tabGroupElement padding: tabGroupElement padding + (BlInsets right: 3).
+	tabGroupElement := GtPhlowCompositeView new
+			views: (GtPhlowViewsCollector new
+					fromObject: navigationModel;
+					pragmaName: #leDatabaseView;
+					collect);
+			asElementDo: [ :aTabGroup | aTabGroup padding: aTabGroup padding + (BlInsets right: 3) ]
 ]
 
 { #category : #'private - testing' }
@@ -171,41 +142,6 @@ LeDatabaseSidebarElement >> navigationModel [
 { #category : #accessing }
 LeDatabaseSidebarElement >> navigationModel: anObject [
 	navigationModel := anObject
-]
-
-{ #category : #'private - instance creation' }
-LeDatabaseSidebarElement >> newDailyNotesElement [
-	| newDailyNotesElement |
-
-	newDailyNotesElement := LeDatabaseSidebarListElement new navigationModel: self navigationModel.
-	
-	^ newDailyNotesElement
-]
-
-{ #category : #'private - instance creation' }
-LeDatabaseSidebarElement >> newDailyNotesGroupElement [
-	| newDailyNotesElement |
-	newDailyNotesElement := LeDatabaseSidebarListElement new
-			navigationModel: self navigationModel;
-			selectionBlock: [ :aNavigationModel | 
-				aNavigationModel database dailyNotesGroup
-					collect: [ :aDailyNote | LeDailyNoteTreeNodeModel forDailyNote: aDailyNote ] ].
-
-	^ newDailyNotesElement
-]
-
-{ #category : #'private - instance creation' }
-LeDatabaseSidebarElement >> newPagesElement [
-	| newPagesElement |
-	newPagesElement := LeDatabaseSidebarListElement new
-			navigationModel: self navigationModel;
-			selectionBlock: [ :aNavigationModel | 
-				aNavigationModel hasDatabase
-					ifTrue: [ aNavigationModel database pagesByDateToShow
-							collect: [ :aPage | LePageTreeNodeModel forPage: aPage ] ]
-					ifFalse: [ {} ] ].
-
-	^ newPagesElement
 ]
 
 { #category : #'private - instance creation' }
@@ -238,6 +174,12 @@ LeDatabaseSidebarElement >> onNormalVolume [
 	self hide
 ]
 
+{ #category : #initialization }
+LeDatabaseSidebarElement >> onPageSelection: anAnnouncement [
+	self
+		fireEvent: (LeDatabaseSidebarChangePageWish new pageUIModel: anAnnouncement page)
+]
+
 { #category : #'private - event handling' }
 LeDatabaseSidebarElement >> onResizerDoubleClick: anEvent [
 	anEvent consumed: true.
@@ -260,16 +202,6 @@ LeDatabaseSidebarElement >> onSelectionChanged [
 LeDatabaseSidebarElement >> onTableOfContentsUUIDChanged: anAnnouncement [
 	self enqueueTask: (BlTaskAction new action: [
 		self updateTableOfContentTab ]).
-]
-
-{ #category : #'private - accessing' }
-LeDatabaseSidebarElement >> pagesElement [
-	^ pagesElement ifNil: [ pagesElement := self newPagesElement ]
-]
-
-{ #category : #'private - accessing' }
-LeDatabaseSidebarElement >> pagesElementDo: aBlock [
-	pagesElement ifNotNil: aBlock
 ]
 
 { #category : #'private - updating' }
@@ -349,16 +281,29 @@ LeDatabaseSidebarElement >> unsubscribeFromContent [
 LeDatabaseSidebarElement >> updateContent [
 	self updateTableOfContentTab.
 	navigationModel database: self database.
-	self tableOfContentsElementDo: [ :anElement | anElement databaseViewModel: self databaseViewModel ].
+	self tabGroupElement
+		actionbarStencil: [ | anActionBar |
+			anActionBar := BrToolbar new aptitude: BrGlamorousToolbarAptitude new.
+
+			(GtPhlowActionsCollector new
+				pragmaName: #leNavigationAction;
+				fromObject: self navigationModel;
+				collect)
+				do: [ :each | 
+					each
+						asElement: [ :actionElement | anActionBar addItem: actionElement ]
+						withHostElement: self ].
+
+			anActionBar ].
+	self
+		tableOfContentsElementDo: [ :anElement | anElement databaseViewModel: self databaseViewModel ].
 	self navigationModel databaseViewModel: self databaseViewModel
 ]
 
 { #category : #'private - updating' }
 LeDatabaseSidebarElement >> updateSelection [
 	self tableOfContentsElementDo: [ :anElement | anElement selection: self selection ].
-	self pagesElementDo: [ :anElement | anElement selection: self selection ].
 	"self dailyNotesElementDo: [ :anElement | anElement selection: self selection ]."
-	self dailyNotesGroupElementDo: [ :anElement | anElement selection: self selection ].
 ]
 
 { #category : #'private - updating' }

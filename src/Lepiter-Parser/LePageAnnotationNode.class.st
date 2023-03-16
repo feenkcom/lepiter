@@ -22,11 +22,21 @@ LePageAnnotationNode >> isDefined [
 ]
 
 { #category : #'api - accessing' }
+LePageAnnotationNode >> isLinkByLabel [
+	^ self labelNode notNil
+]
+
+{ #category : #'api - accessing' }
 LePageAnnotationNode >> isLinkByName [
 	"Answer a boolean indicating whether the receiver references the target page by name.
 	Or by UID if false."
 
 	^ self nameNode isNotNil
+]
+
+{ #category : #'api - accessing' }
+LePageAnnotationNode >> labelName [
+	^ self labelNode value source
 ]
 
 { #category : #'api - accessing' }
@@ -38,14 +48,14 @@ LePageAnnotationNode >> linkLabel [
 
 { #category : #'api - accessing' }
 LePageAnnotationNode >> linkLabelInDatabase: aLeDatabase [
-
-	self isLinkByName ifTrue: [ self pageName ].
-
-	^ aLeDatabase 
+	"If there is an alternative label to the gtPage annotation, use that instead."
+	self isLinkByLabel ifTrue: [ ^ self labelName ].
+	self isLinkByName ifTrue: [ ^ self pageName ].
+	"Else for unnamed pages:"
+	^ aLeDatabase
 		pageWithID: self pageUidString
 		ifPresent: [ :thePage | thePage title ]
 		ifAbsent: [ self linkUID ]
-
 ]
 
 { #category : #'api - accessing' }

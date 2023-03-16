@@ -52,6 +52,76 @@ LeDatabaseNavigationModel >> databaseViewModel: anObject [
 	self onDatabaseViewModelChanged
 ]
 
+{ #category : #accessing }
+LeDatabaseNavigationModel >> gtAddPageFor: anAction [
+	<leNavigationAction>
+	self hasDatabase ifFalse: [ ^ anAction noAction ].
+
+	^ anAction button
+		icon: BrGlamorousVectorIcons add;
+		tooltip: 'Add Page';
+		action: [ | aPage |
+			aPage := LePage unnamedPage.
+			self database addPage: aPage.
+			self page: aPage asContentUIModel ]
+]
+
+{ #category : #accessing }
+LeDatabaseNavigationModel >> gtSearchPageFor: anAction [
+	<leNavigationAction>
+	self hasDatabase ifFalse: [ ^ anAction noAction ].
+
+	^ anAction explicit
+		stencil: [
+			GtSpotterDropdownButtonStencil new
+				valuable: (LeDatabaseSpotterStart new navigationModel: self);
+				tooltip: 'Search Code';
+				actOn: [ :anActOnEvent :anItem :theButton | 
+					self page: anItem asContentUIModel.
+					anActOnEvent beActed.
+					theButton fireEvent: BrDropdownHideWish new ];
+				asElement ]
+]
+
+{ #category : #accessing }
+LeDatabaseNavigationModel >> gtViewPagesByDayFor: aView [
+	<gtView>
+	<leDatabaseView>
+	^ aView tree
+		title: 'By Day';
+		priority: 2;
+		children: #childPageNodes;
+		itemDataBinder: [ :anItemElement :aTreeNode | 
+			anItemElement
+				removeChildren;
+				addChild: (aTreeNode value class treeNodeInfoElementClass new hMatchParent vFitContent
+						contentViewModel: aTreeNode asNodeViewModel) ];
+		items: [ self database dailyNotesGroup
+				collect: [ :aDailyNote | LeDailyNoteTreeNodeModel forDailyNote: aDailyNote ] ];
+		send: [ :aPageNode | 
+			aPageNode isForPage
+				ifTrue: [ self announce: (LeUIPageSelected new page: aPageNode page asContentUIModel) ] ]
+]
+
+{ #category : #accessing }
+LeDatabaseNavigationModel >> gtViewPagesFor: aView [
+	<gtView>
+	<leDatabaseView>
+	^ aView tree
+		title: 'Pages';
+		priority: 1;
+		itemStencil: [ :aNodeType | 
+			LePageTitleAndSummaryElement new
+				hMatchParent;
+				vFitContent ];
+		itemDataBinder: [ :anItemElement :aTreeNode | anItemElement contentViewModel: aTreeNode asNodeViewModel ];
+		items: [ self hasDatabase
+				ifTrue: [ self database pagesByDateToShow
+						collect: [ :aPage | LePageTreeNodeModel forPage: aPage ] ]
+				ifFalse: [ {} ] ];
+		send: [ :aPageNode | self announce: (LeUIPageSelected new page: aPageNode page asContentUIModel) ]
+]
+
 { #category : #testing }
 LeDatabaseNavigationModel >> hasDatabase [
 	^ database notNil
@@ -95,9 +165,7 @@ LeDatabaseNavigationModel >> onSelection: anAnnouncement [
 
 	page = anAnnouncement page ifTrue: [ ^ self ].
 
-	page := anAnnouncement page.
-	
-	self announce: (LeUIPageSelected new page: page)
+	self page: anAnnouncement page
 ]
 
 { #category : #accessing }
@@ -107,5 +175,12 @@ LeDatabaseNavigationModel >> page [
 
 { #category : #accessing }
 LeDatabaseNavigationModel >> page: anObject [
-	page := anObject
+	page := anObject.
+	
+	self announce: (LeUIPageSelected new page: page)
+]
+
+{ #category : #accessing }
+LeDatabaseNavigationModel >> pages [
+	^ self database pages
 ]
