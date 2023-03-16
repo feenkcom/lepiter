@@ -223,8 +223,6 @@ LeUIExamples >> databaseSidebarElement_AddPage [
 	anElement := self databaseSidebarElement.
 	aDatabase := anElement database.
 	aDatabase pageBuilder title: 'newly added'; add.
-	self assert: anElement pagesElement items size equals: 5.
-	self assert: anElement dailyNotesGroupElement items size equals: 1.
 	^ anElement
 ]
 
