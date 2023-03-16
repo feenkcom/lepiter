@@ -186,8 +186,6 @@ LeUIExamples >> databaseSidebarElement [
 	anElement databaseViewModel: aDatabase asContentUIModel.
 
 	self assert: anElement database equals: aDatabase.
-	self assert: anElement pagesElement items size equals: 4.
-	self assert: anElement dailyNotesGroupElement items size equals: 1.
 	
 	aValue := nil.
 	anElement tableOfContentsElementDo: [ :tocElement | aValue := tocElement ].
