@@ -10,34 +10,37 @@ Class {
 { #category : #searching }
 LeDatabaseSpotterStart >> gtSpotterForPagesByContentFor: aSearch [
 	<gtSearch>
-	^ aSearch list
-		priority: 20;
-		items: [ self navigationModel pages ];
-		title: 'Page Content';
-		itemName: [ :page | page title ];
-		previewElement: [ :aLePage | 
-			| aPageViewModel |
-			aPageViewModel := aLePage asContentUIModel.
-			LePageToolElement new pageViewModel: aPageViewModel ];
-		filter: (GtSpotterSubstringFilter new
-				itemString: [ :aPage | aPage printPageSummaryLimitedTo: Float infinity ]);
-		wantsToDisplayOnEmptyQuery: self navigationModel hasPage not
+	^ aSearch explicit
+		priority: 23;
+		title: 'Page contents';
+		search: [ :aContext |
+			[
+			| filter results |
+			results := OrderedCollection new.
+			filter := LeSubstringFilter new
+				caseSensitive: false;
+				query: aContext searchQuery.
+			self navigationModel database pagesWithNameDo: [ :eachPage |
+				(filter isMatchedItem: eachPage)
+					ifTrue: [ results add: eachPage ] ].
+			self navigationModel database unnamedPagesDo: [ :eachPage |
+				(filter isMatchedItem: eachPage)
+					ifTrue: [ results add: eachPage ] ].
+			results asAsyncStream
+			] asAsyncFuture asAsyncStream flatten
+		];
+		itemName: #spotterItemName
 ]
 
 { #category : #searching }
 LeDatabaseSpotterStart >> gtSpotterForPagesFor: aSearch [
 	<gtSearch>
-	^ aSearch list
-		priority: 20;
-		items: [ self navigationModel pages ];
-		title: 'Pages';
-		itemName: [ :page | page title ];
-		previewElement: [ :aLePage | 
-			| aPageViewModel |
-			aPageViewModel := aLePage asContentUIModel.
-			LePageToolElement new pageViewModel: aPageViewModel ];
-		filterBySubstring;
-		wantsToDisplayOnEmptyQuery: self navigationModel hasPage not
+	^ aSearch explicit
+		title: 'Named pages';
+		priority: 1;
+		search: [ :aContext | self navigationModel database asyncPagesForWord: aContext searchQuery ];
+		itemName: #title;
+		wantsToDisplayOnEmptyQuery: false
 ]
 
 { #category : #accessing }
