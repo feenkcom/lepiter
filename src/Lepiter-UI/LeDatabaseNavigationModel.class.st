@@ -83,6 +83,45 @@ LeDatabaseNavigationModel >> gtSearchPageFor: anAction [
 				asElement ]
 ]
 
+{ #category : #accessing }
+LeDatabaseNavigationModel >> gtViewPagesByDayFor: aView [
+	<gtView>
+	<leDatabaseView>
+	^ aView tree
+		title: 'By Day';
+		priority: 2;
+		children: #childPageNodes;
+		itemDataBinder: [ :anItemElement :aTreeNode | 
+			anItemElement
+				removeChildren;
+				addChild: (aTreeNode value class treeNodeInfoElementClass new hMatchParent vFitContent
+						contentViewModel: aTreeNode asNodeViewModel) ];
+		items: [ self database dailyNotesGroup
+				collect: [ :aDailyNote | LeDailyNoteTreeNodeModel forDailyNote: aDailyNote ] ];
+		send: [ :aPageNode | 
+			aPageNode isForPage
+				ifTrue: [ self announce: (LeUIPageSelected new page: aPageNode page asContentUIModel) ] ]
+]
+
+{ #category : #accessing }
+LeDatabaseNavigationModel >> gtViewPagesFor: aView [
+	<gtView>
+	<leDatabaseView>
+	^ aView tree
+		title: 'Pages';
+		priority: 1;
+		itemStencil: [ :aNodeType | 
+			LePageTitleAndSummaryElement new
+				hMatchParent;
+				vFitContent ];
+		itemDataBinder: [ :anItemElement :aTreeNode | anItemElement contentViewModel: aTreeNode asNodeViewModel ];
+		items: [ self hasDatabase
+				ifTrue: [ self database pagesByDateToShow
+						collect: [ :aPage | LePageTreeNodeModel forPage: aPage ] ]
+				ifFalse: [ {} ] ];
+		send: [ :aPageNode | self announce: (LeUIPageSelected new page: aPageNode page asContentUIModel) ]
+]
+
 { #category : #testing }
 LeDatabaseNavigationModel >> hasDatabase [
 	^ database notNil
