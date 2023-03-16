@@ -188,10 +188,7 @@ LeUIExamples >> databaseSidebarElement [
 	self assert: anElement database equals: aDatabase.
 	
 	aValue := nil.
-	anElement tableOfContentsElementDo: [ :tocElement | aValue := tocElement ].
-	self assert: aValue isNil.
-	self assert: anElement tableOfContentsTab isNil.
-	self assert: anElement tabGroupElement tabs size equals: 2.
+	self assert: anElement tabGroupElement tabs size equals: 1.
 	^ anElement
 ]
 

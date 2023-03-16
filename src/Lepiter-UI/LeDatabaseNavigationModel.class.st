@@ -84,42 +84,52 @@ LeDatabaseNavigationModel >> gtSearchPageFor: anAction [
 ]
 
 { #category : #accessing }
-LeDatabaseNavigationModel >> gtViewPagesByDayFor: aView [
-	<gtView>
-	<leDatabaseView>
-	^ aView tree
-		title: 'By Day';
-		priority: 2;
-		children: #childPageNodes;
-		itemDataBinder: [ :anItemElement :aTreeNode | 
-			anItemElement
-				removeChildren;
-				addChild: (aTreeNode value class treeNodeInfoElementClass new hMatchParent vFitContent
-						contentViewModel: aTreeNode asNodeViewModel) ];
-		items: [ self database dailyNotesGroup
-				collect: [ :aDailyNote | LeDailyNoteTreeNodeModel forDailyNote: aDailyNote ] ];
-		send: [ :aPageNode | 
-			aPageNode isForPage
-				ifTrue: [ self announce: (LeUIPageSelected new page: aPageNode page asContentUIModel) ] ]
-]
-
-{ #category : #accessing }
 LeDatabaseNavigationModel >> gtViewPagesFor: aView [
 	<gtView>
 	<leDatabaseView>
-	^ aView tree
+	^ aView groupedList
 		title: 'Pages';
-		priority: 1;
+		priority: 2;
 		itemStencil: [ :aNodeType | 
 			LePageTitleAndSummaryElement new
 				hMatchParent;
 				vFitContent ];
-		itemDataBinder: [ :anItemElement :aTreeNode | anItemElement contentViewModel: aTreeNode asNodeViewModel ];
-		items: [ self hasDatabase
-				ifTrue: [ self database pagesByDateToShow
-						collect: [ :aPage | LePageTreeNodeModel forPage: aPage ] ]
-				ifFalse: [ {} ] ];
-		send: [ :aPageNode | self announce: (LeUIPageSelected new page: aPageNode page asContentUIModel) ]
+		itemDataBinder: [ :anItemElement :aPage | anItemElement contentViewModel: aPage asContentUIModel ];
+		groupHeaderStencil: [ BrLabel new
+				beSmallSize;
+				aptitude: (BrGlamorousLabelAptitude new foreground: Color gray);
+				hMatchParent;
+				vFitContent;
+				margin: (BlInsets top: 10 left: 9) ];
+		groupHeaderDataBinder: [ :aLabelElement :aGroup | aLabelElement text: aGroup domainObject asString ];
+		groupedItems: [ self database dailyNotesGroup
+				collect: [ :aDailyNote | aDailyNote date -> aDailyNote children ] ];
+		send: [ :aGroupedListItem | 
+			self announce: (LeUIPageSelected new page: aGroupedListItem itemObject asContentUIModel) ]
+]
+
+{ #category : #accessing }
+LeDatabaseNavigationModel >> gtViewToCFor: aView [
+	<gtView>
+	<leDatabaseView>
+	(self hasDatabase not or: [ self database tableOfContents isNil ])
+		ifTrue: [ ^ aView empty ].
+
+	^ aView tree
+		title: 'ToC';
+		priority: 1;
+		items: [ self database tableOfContentsNodes ];
+		children: #children;
+		itemType: [ :anItemTypeFactory :aTreeNode :anItemIndex | aTreeNode value page class ];
+		itemStencil: [ :aNodeType | 
+			LePageTitleAndSummaryElement new
+				hMatchParent;
+				vFitContent ];
+		itemDataBinder: [ :anItemElement :eachLeTableOfContentsNode | anItemElement pageViewModel: eachLeTableOfContentsNode page asContentUIModel ];
+		expandSuchThat: [ :eachNode | eachNode value isToCNode ];
+		send: [ :aTableOfContentsNode | 
+			self
+				announce: (LeUIPageSelected new page: aTableOfContentsNode page asContentUIModel) ]
 ]
 
 { #category : #testing }

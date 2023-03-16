@@ -20,21 +20,6 @@ Class {
 	#category : #'Lepiter-UI-! UI - Database'
 }
 
-{ #category : #'private - updating' }
-LeDatabaseSidebarElement >> addTableOfContentsTab [
-
-	self tableOfContentsTab ifNil: [ 
-		tableOfContentsElement := nil.
-		tableOfContentsTab := BrTab new
-			aptitude: BrGlamorousTabAptitude new;
-			select;
-			label: 'ToC';
-			stencil: [ self tableOfContentsElement ] ].
-	
-	(tabGroupElement hasTab: self tableOfContentsTab) ifFalse: [ 	
-		tabGroupElement addTab: self tableOfContentsTab at: 1 ].
-]
-
 { #category : #'private - visibility' }
 LeDatabaseSidebarElement >> beExact: aNumber [
 	widthStrategy := BrResizerElementLength exact: aNumber
@@ -53,12 +38,6 @@ LeDatabaseSidebarElement >> defaultSelection [
 { #category : #'private - visibility' }
 LeDatabaseSidebarElement >> expand [
 	widthStrategy adjustWidthFor: self.
-]
-
-{ #category : #'private - testing' }
-LeDatabaseSidebarElement >> hasTableOfContents [
-	<return: #Boolean>
-	^ self database tableOfContents isNotNil.
 ]
 
 { #category : #'private - visibility' }
@@ -198,21 +177,6 @@ LeDatabaseSidebarElement >> onSelectionChanged [
 	self updateSelection.
 ]
 
-{ #category : #'private - announcement handling' }
-LeDatabaseSidebarElement >> onTableOfContentsUUIDChanged: anAnnouncement [
-	self enqueueTask: (BlTaskAction new action: [
-		self updateTableOfContentTab ]).
-]
-
-{ #category : #'private - updating' }
-LeDatabaseSidebarElement >> removeTableOfContentsTab [
-	self tableOfContentsTab ifNil: [ ^ self ].
-	(tabGroupElement hasTab: self tableOfContentsTab)
-		ifTrue: [ tabGroupElement removeTab: self tableOfContentsTab ].
-	tableOfContentsElement := nil.
-	tableOfContentsTab := nil.
-]
-
 { #category : #'private - accessing' }
 LeDatabaseSidebarElement >> resizerElement [
 	^ resizerElement
@@ -240,34 +204,9 @@ LeDatabaseSidebarElement >> show [
 	self visibility: BlVisibility visible
 ]
 
-{ #category : #'private - subscriptions' }
-LeDatabaseSidebarElement >> subscribeToContent [
-	super subscribeToContent.
-	self database weak
-		when: LeDatabaseTableOfContentsUUIDChanged
-		send: #onTableOfContentsUUIDChanged:
-		to: self.
-]
-
 { #category : #'private - accessing' }
 LeDatabaseSidebarElement >> tabGroupElement [
 	^ tabGroupElement
-]
-
-{ #category : #'private - accessing' }
-LeDatabaseSidebarElement >> tableOfContentsElement [
-	^ tableOfContentsElement ifNil: [ tableOfContentsElement := self newTableOfContentsElement ].
-]
-
-{ #category : #'private - accessing' }
-LeDatabaseSidebarElement >> tableOfContentsElementDo: aBlock [
-	tableOfContentsElement ifNotNil: aBlock
-]
-
-{ #category : #'private - accessing' }
-LeDatabaseSidebarElement >> tableOfContentsTab [
-	<return: #BrTab>
-	^ tableOfContentsTab
 ]
 
 { #category : #'private - subscriptions' }
@@ -279,8 +218,9 @@ LeDatabaseSidebarElement >> unsubscribeFromContent [
 
 { #category : #'private - updating' }
 LeDatabaseSidebarElement >> updateContent [
-	self updateTableOfContentTab.
+	self database = navigationModel database ifTrue: [ ^ self ].
 	navigationModel database: self database.
+	self updateTabGroupElement.
 	self tabGroupElement
 		actionbarStencil: [ | anActionBar |
 			anActionBar := BrToolbar new aptitude: BrGlamorousToolbarAptitude new.
@@ -294,21 +234,17 @@ LeDatabaseSidebarElement >> updateContent [
 						asElement: [ :actionElement | anActionBar addItem: actionElement ]
 						withHostElement: self ].
 
-			anActionBar ].
-	self
-		tableOfContentsElementDo: [ :anElement | anElement databaseViewModel: self databaseViewModel ].
-	self navigationModel databaseViewModel: self databaseViewModel
+			anActionBar ]
 ]
 
 { #category : #'private - updating' }
 LeDatabaseSidebarElement >> updateSelection [
-	self tableOfContentsElementDo: [ :anElement | anElement selection: self selection ].
-	"self dailyNotesElementDo: [ :anElement | anElement selection: self selection ]."
 ]
 
 { #category : #'private - updating' }
-LeDatabaseSidebarElement >> updateTableOfContentTab [
-	self hasTableOfContents 
-		ifFalse: [ self removeTableOfContentsTab ]
-		ifTrue: [ self addTableOfContentsTab ].
+LeDatabaseSidebarElement >> updateTabGroupElement [
+	self removeChildNamed: #content.
+	tabGroupElement := nil.
+	self initializeTabGroupElement.
+	self addChild: self tabGroupElement as: #content
 ]
