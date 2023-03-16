@@ -6,6 +6,19 @@ Class {
 	#category : #'Lepiter-Store-Examples'
 }
 
+{ #category : #accessing }
+LeJsonV4SerialisationExamples >> byteArray [
+	<gtExample>
+	| original deserialized |
+
+	LeJsonV4 cleanUp.
+	original := #[3 1 4 1 5].
+	deserialized := LeJsonV4 uniqueInstance deserialize:
+		(LeJsonV4 uniqueInstance serialize: original) readStream.
+	self assert: deserialized class equals: ByteArray.
+	self assert: original equals: deserialized.
+]
+
 { #category : #examples }
 LeJsonV4SerialisationExamples >> deSerializeAllImplementors [
 	"Perform a basic check on all implementors of #leJsonV4Name that the basic serialisation / deserialisation doesn't raise an error and looks sensible"
