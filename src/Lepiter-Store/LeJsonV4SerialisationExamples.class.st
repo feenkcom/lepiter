@@ -7,10 +7,33 @@ Class {
 }
 
 { #category : #examples }
+LeJsonV4SerialisationExamples >> byteArray [
+	<gtExample>
+	| original deserialized |
+
+	LeJsonV4 cleanUp.
+	original := #[3 1 4 1 5].
+	deserialized := LeJsonV4 uniqueInstance deserialize:
+		(LeJsonV4 uniqueInstance serialize: original) readStream.
+	self assert: deserialized class equals: ByteArray.
+	self assert: original equals: deserialized.
+]
+
+{ #category : #private }
+LeJsonV4SerialisationExamples >> checkInstance: instance [
+	"Check that the supplied object is the same after serialisation and deserialisation"
+	| leJsonV4 deserialisedInstance |
+
+	leJsonV4 := LeJsonV4 uniqueInstance.
+	deserialisedInstance := leJsonV4 deserialize: (leJsonV4 serialize: instance) readStream.
+	self assert: instance class identicalTo: deserialisedInstance class.
+]
+
+{ #category : #examples }
 LeJsonV4SerialisationExamples >> deSerializeAllImplementors [
 	"Perform a basic check on all implementors of #leJsonV4Name that the basic serialisation / deserialisation doesn't raise an error and looks sensible"
 	<gtExample>
-	| allImplementors allClasses leJsonV4 instance deserialisedInstance clsCount testedCount excludedClasses |
+	| allImplementors allClasses leJsonV4 clsCount testedCount excludedClasses |
 
 	LeJsonV4 cleanUp.
 	allImplementors := SystemNavigation default allImplementorsOf: #leJsonV4Name.
@@ -25,6 +48,7 @@ LeJsonV4SerialisationExamples >> deSerializeAllImplementors [
 		FileLocator.
 		FileReference.
 		GtPackageExampleGroup.
+		Point.
 		ScaledDecimal.
 		}.
 	allClasses removeAll: excludedClasses.
@@ -33,12 +57,8 @@ LeJsonV4SerialisationExamples >> deSerializeAllImplementors [
 		do: [ :method | allClasses removeAll: (self perform: method selector) ].
 	allClasses do: [ :cls |
 		(cls perform: #leJsonV4Name) ifNotNil:
-			[ [ instance := cls new ]
-				on: Error
-				do: [ :ex | "Skip this class" ].
-			instance ifNotNil:
-				[ deserialisedInstance := leJsonV4 deserialize: (leJsonV4 serialize: instance) readStream ].
-			self assert: instance class identicalTo: deserialisedInstance class ].
+			[ cls deSerializeAllImplementorsInstances do: [ :instance |
+				self checkInstance: instance ] ].
 		testedCount := testedCount + 1 ].
 ]
 
@@ -63,7 +83,40 @@ LeJsonV4SerialisationExamples >> durationSerialisation [
 
 ]
 
-{ #category : #accessing }
+{ #category : #examples }
+LeJsonV4SerialisationExamples >> form [
+	<gtExample>
+	| original deserialized |
+
+	LeJsonV4 cleanUp.
+	original := Form extent: 100@100 depth: 32.
+	original getCanvas fillRectangle: (0@0 corner: 30@30)  color: (Color red).
+	original getCanvas fillRectangle: (10@10 corner: 40@40)  color: (Color green).
+	original getCanvas fillRectangle: (20@20 corner: 50@50)  color: (Color blue).
+	deserialized := LeJsonV4 uniqueInstance deserialize:
+		(LeJsonV4 uniqueInstance serialize: original) readStream.
+	self assert: deserialized class equals: Form.
+	self assert: deserialized width equals: original width.
+	self assert: deserialized height equals: original height.
+	self assert: deserialized depth equals: original depth.
+	self assert: deserialized offset equals: original offset.
+	self assert: deserialized bits equals: original bits.
+]
+
+{ #category : #examples }
+LeJsonV4SerialisationExamples >> point [
+	<gtExample>
+	| original deserialized |
+
+	LeJsonV4 cleanUp.
+	original := 4@2.
+	deserialized := LeJsonV4 uniqueInstance deserialize:
+		(LeJsonV4 uniqueInstance serialize: original) readStream.
+	self assert: deserialized class equals: Point.
+	self assert: original equals: deserialized.
+]
+
+{ #category : #examples }
 LeJsonV4SerialisationExamples >> scaledDecimal [
 	<gtExample>
 	| original deserialized |

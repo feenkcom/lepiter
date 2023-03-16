@@ -620,14 +620,24 @@ LePage >> shouldAppearInIndexOrDailyNotes [
 
 { #category : #printing }
 LePage >> storeOn: aStream [
-	aStream
-		nextPut: $(;
-		nextPutAll: self className;
-		nextPutAll: ' unnamedPage '.
-	self childrenDo: [ :snippet | 
-		aStream nextPutAll: 'addSnippet: '.
-		snippet storeOn: aStream.
-		aStream nextPutAll: '; ' ].
+	"If type can be nil, then we need to adapt the logic below."
+	self assert: self type notNil.
+	aStream nextPut: $(.
+	self type isUnnamedPageType
+		ifTrue: [ aStream
+				nextPutAll: self className;
+				nextPutAll: ' unnamedPage ' ]
+		ifFalse: [ aStream
+				nextPut: $(;
+				nextPutAll: self className;
+				nextPutAll: ' named: ';
+				print: self title;
+				nextPut: $) ].
+	self
+		childrenDo: [ :snippet | 
+			aStream nextPutAll: 'addSnippet: '.
+			snippet storeOn: aStream.
+			aStream nextPutAll: '; ' ].
 	aStream
 		nextPutAll: ' yourself';
 		nextPut: $)

@@ -20,16 +20,17 @@ LePharoRewriteSnippetViewModel >> subscribeToSnippetModel [
 	super subscribeToSnippetModel.
 	self snippetModel weak
 		when: LePharoRewriteSnippetSearchChanged
-		send: #announce:
-		to: self.
-	self snippetModel weak
+			send: #announce:
+			to: self;
 		when: LePharoRewriteSnippetReplaceChanged
-		send: #announce:
-		to: self.
-	self snippetModel weak
+			send: #announce:
+			to: self;
 		when: LePharoRewriteSnippetScopeChanged
-		send: #announce:
-		to: self
+			send: #announce:
+			to: self;
+		when: LePharoRewriteSnippetIsMethodPatternChanged
+			send: #announce:
+			to: self
 ]
 
 { #category : #accessing }
