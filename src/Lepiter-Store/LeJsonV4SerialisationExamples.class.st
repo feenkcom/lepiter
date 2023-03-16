@@ -84,6 +84,26 @@ LeJsonV4SerialisationExamples >> durationSerialisation [
 ]
 
 { #category : #examples }
+LeJsonV4SerialisationExamples >> form [
+	<gtExample>
+	| original deserialized |
+
+	LeJsonV4 cleanUp.
+	original := Form extent: 100@100 depth: 32.
+	original getCanvas fillRectangle: (0@0 corner: 30@30)  color: (Color red).
+	original getCanvas fillRectangle: (10@10 corner: 40@40)  color: (Color green).
+	original getCanvas fillRectangle: (20@20 corner: 50@50)  color: (Color blue).
+	deserialized := LeJsonV4 uniqueInstance deserialize:
+		(LeJsonV4 uniqueInstance serialize: original) readStream.
+	self assert: deserialized class equals: Form.
+	self assert: deserialized width equals: original width.
+	self assert: deserialized height equals: original height.
+	self assert: deserialized depth equals: original depth.
+	self assert: deserialized offset equals: original offset.
+	self assert: deserialized bits equals: original bits.
+]
+
+{ #category : #examples }
 LeJsonV4SerialisationExamples >> point [
 	<gtExample>
 	| original deserialized |
