@@ -6,7 +6,7 @@ Class {
 	#category : #'Lepiter-Store-Examples'
 }
 
-{ #category : #accessing }
+{ #category : #examples }
 LeJsonV4SerialisationExamples >> byteArray [
 	<gtExample>
 	| original deserialized |
@@ -19,11 +19,21 @@ LeJsonV4SerialisationExamples >> byteArray [
 	self assert: original equals: deserialized.
 ]
 
+{ #category : #private }
+LeJsonV4SerialisationExamples >> checkInstance: instance [
+	"Check that the supplied object is the same after serialisation and deserialisation"
+	| leJsonV4 deserialisedInstance |
+
+	leJsonV4 := LeJsonV4 uniqueInstance.
+	deserialisedInstance := leJsonV4 deserialize: (leJsonV4 serialize: instance) readStream.
+	self assert: instance class identicalTo: deserialisedInstance class.
+]
+
 { #category : #examples }
 LeJsonV4SerialisationExamples >> deSerializeAllImplementors [
 	"Perform a basic check on all implementors of #leJsonV4Name that the basic serialisation / deserialisation doesn't raise an error and looks sensible"
 	<gtExample>
-	| allImplementors allClasses leJsonV4 instance deserialisedInstance clsCount testedCount excludedClasses |
+	| allImplementors allClasses leJsonV4 clsCount testedCount excludedClasses |
 
 	LeJsonV4 cleanUp.
 	allImplementors := SystemNavigation default allImplementorsOf: #leJsonV4Name.
@@ -38,6 +48,7 @@ LeJsonV4SerialisationExamples >> deSerializeAllImplementors [
 		FileLocator.
 		FileReference.
 		GtPackageExampleGroup.
+		Point.
 		ScaledDecimal.
 		}.
 	allClasses removeAll: excludedClasses.
@@ -46,12 +57,8 @@ LeJsonV4SerialisationExamples >> deSerializeAllImplementors [
 		do: [ :method | allClasses removeAll: (self perform: method selector) ].
 	allClasses do: [ :cls |
 		(cls perform: #leJsonV4Name) ifNotNil:
-			[ [ instance := cls new ]
-				on: Error
-				do: [ :ex | "Skip this class" ].
-			instance ifNotNil:
-				[ deserialisedInstance := leJsonV4 deserialize: (leJsonV4 serialize: instance) readStream ].
-			self assert: instance class identicalTo: deserialisedInstance class ].
+			[ cls deSerializeAllImplementorsInstances do: [ :instance |
+				self checkInstance: instance ] ].
 		testedCount := testedCount + 1 ].
 ]
 
@@ -76,7 +83,20 @@ LeJsonV4SerialisationExamples >> durationSerialisation [
 
 ]
 
-{ #category : #accessing }
+{ #category : #examples }
+LeJsonV4SerialisationExamples >> point [
+	<gtExample>
+	| original deserialized |
+
+	LeJsonV4 cleanUp.
+	original := 4@2.
+	deserialized := LeJsonV4 uniqueInstance deserialize:
+		(LeJsonV4 uniqueInstance serialize: original) readStream.
+	self assert: deserialized class equals: Point.
+	self assert: original equals: deserialized.
+]
+
+{ #category : #examples }
 LeJsonV4SerialisationExamples >> scaledDecimal [
 	<gtExample>
 	| original deserialized |

@@ -8,8 +8,8 @@ Point class >> leFromJsonV4Dictionary: aDictionary [
 	pointString := aDictionary at: #pointString.
 	splitString := $@ split: pointString.
 	^ self
-		x: splitString first
-		y: splitString second.
+		x: splitString first asNumber
+		y: splitString second asNumber.
 ]
 
 { #category : #'*Lepiter-Store' }
@@ -24,11 +24,7 @@ Point class >> leJsonV4MappingFor: aNeoJSONMapper [
 		mapping 
 			mapProperty: #pointString
 			getter: [ :object | object x asString, '@', object y asString ]
-			setter: [ :pointString | | splitString |
-				splitString := $@ split: pointString.
-				self
-					x: splitString first
-					y: splitString second ] ].
+			setter: [ :um | self error: 'Objects should not be read here' ] ].
 
 ]
 
