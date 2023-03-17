@@ -32,6 +32,9 @@ LeDatabaseNavigationModel >> database: anObject [
 		when: LeDatabasePageRemoved
 			send: #onDatabaseChanged:
 			to: self;
+		when: LeDatabaseResorted
+			send: #onDatabaseChanged:
+			to: self;
 		when: LePageUnloadAnnouncement 
 			send: #onDatabaseChanged:
 			to: self;
