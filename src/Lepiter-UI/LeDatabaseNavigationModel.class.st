@@ -38,6 +38,7 @@ LeDatabaseNavigationModel >> database: anObject [
 		when: LeDatabaseTableOfContentsUUIDChanged
 			send: #onDatabaseChanged:
 			to: self.
+	self subscribeToTableOfContentsPage.
 	self onDatabaseChanged: anObject
 ]
 
@@ -185,4 +186,12 @@ LeDatabaseNavigationModel >> page: anObject [
 { #category : #accessing }
 LeDatabaseNavigationModel >> pages [
 	^ self database pages
+]
+
+{ #category : #accessing }
+LeDatabaseNavigationModel >> subscribeToTableOfContentsPage [
+	self database tableOfContents ifNotNil: [ :aPage |
+		aPage weak
+			when: LeContentTreeChanged send: #onDatabaseChanged: to: self;
+			when: LeSnippetTextChanged send: #onDatabaseChanged: to: self ]
 ]
