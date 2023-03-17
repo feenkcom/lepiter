@@ -32,6 +32,9 @@ LeDatabaseNavigationModel >> database: anObject [
 		when: LeDatabasePageRemoved
 			send: #onDatabaseChanged:
 			to: self;
+		when: LeDatabaseResorted
+			send: #onDatabaseChanged:
+			to: self;
 		when: LePageUnloadAnnouncement 
 			send: #onDatabaseChanged:
 			to: self;
@@ -88,41 +91,15 @@ LeDatabaseNavigationModel >> gtSearchPageFor: anAction [
 LeDatabaseNavigationModel >> gtViewPagesFor: aView [
 	<gtView>
 	<leDatabaseView>
-	^ aView groupedList
-		title: 'Pages';
-		priority: 2;
-		itemStencil: [ :aNodeType | 
-			LePageTitleAndSummaryElement new
-				hMatchParent;
-				vFitContent ];
-		itemDataBinder: [ :anItemElement :aPage | anItemElement contentViewModel: aPage asContentUIModel ];
-		groupHeaderStencil: [ BrLabel new
-				beSmallSize;
-				aptitude: (BrGlamorousLabelAptitude new foreground: Color gray);
-				hMatchParent;
-				vFitContent;
-				margin: (BlInsets top: 10 left: 9) ];
-		groupHeaderDataBinder: [ :aLabelElement :aGroup | aLabelElement text: aGroup domainObject asString ];
-		groupedItems: [ self database dailyNotesGroup
-				collect: [ :aDailyNote | aDailyNote date -> aDailyNote children ] ];
-		send: [ :aGroupedListItem | 
-			self announce: (LeUIPageSelected new page: aGroupedListItem itemObject asContentUIModel) ]
-]
-
-{ #category : #accessing }
-LeDatabaseNavigationModel >> gtViewToCFor: aView [
-	<gtView>
-	<leDatabaseView>
-	(self hasDatabase not or: [ self database tableOfContents isNil ])
-		ifTrue: [ ^ aView empty ].
+	self hasDatabase ifFalse: [ ^ aView empty ].
 
 	^ aView explicit
-		title: 'ToC';
-		priority: 1;
-		stencil: [ LeDatabaseSidebarListElement new
+		title: 'Pages';
+		priority: 3;
+		stencil: [ LeDatabaseSidebarGroupedListElement new
 				navigationModel: self;
-				selectionBlock: [ self database tableOfContentsNodes ];
-				expandSuchThat: [ :eachNode | eachNode value isToCNode ] ]
+				groupedItems: (self database dailyNotesGroup
+						collect: [ :aDailyNote | aDailyNote date -> aDailyNote children ]) ]
 ]
 
 { #category : #testing }

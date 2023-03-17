@@ -11,7 +11,7 @@ Class {
 		'contentChangedHandler',
 		'ignoreToggleEvents'
 	],
-	#category : 'Lepiter-UI-Support - Page Toolbar'
+	#category : #'Lepiter-ToC-Support - Page Toolbar'
 }
 
 { #category : #'api - accessing' }

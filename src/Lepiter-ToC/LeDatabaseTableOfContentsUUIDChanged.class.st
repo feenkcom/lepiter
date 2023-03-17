@@ -11,7 +11,7 @@ Class {
 		'newId',
 		'newPage'
 	],
-	#category : 'Lepiter-Core-Announcements'
+	#category : #'Lepiter-ToC-Announcements'
 }
 
 { #category : #'api - accessing' }

@@ -432,16 +432,6 @@ LeDatabase >> gtViewPagesByTypeFor: aView [
 		send: #value
 ]
 
-{ #category : #accessing }
-LeDatabase >> gtViewTableOfContentsNodesFor: aView [
-	<gtView>
-	^ aView tree
-		title: 'Table of Content Nodes';
-		priority: 50;
-		items: [ self tableOfContentsNodes  ];
-		children: #children
-]
-
 { #category : #'gt-extensions' }
 LeDatabase >> gtViewUnnamedPageFor: aView [
 	<gtView>
@@ -681,21 +671,6 @@ LeDatabase >> newUniqueUuid [
 		[ newUuid := UUID new ].
 	
 	^ newUuid
-]
-
-{ #category : #'private - notifying' }
-LeDatabase >> notifyTableOfContensPageIdChangedFrom: anOldUUID to: aNewUUID [
-
-	| anOldPage |
-	anOldPage := anOldUUID ifNotNil: [
-		self pageWithID: anOldUUID ifAbsent: [ nil ] ].
-
-	self announce: (LeDatabaseTableOfContentsUUIDChanged new
-		database: self;
-		oldId: anOldUUID;
-		oldPage: anOldPage;
-		newId: aNewUUID;
-		newPage: self tableOfContents)
 ]
 
 { #category : #'private - hooks' }
@@ -1110,35 +1085,6 @@ LeDatabase >> stopMonitoring [
 	"If the receiver has a db monitor, tell it to stop (saving changes to the receiver)"
 
 	monitor ifNotNil: [ monitor stopMonitoring ]
-]
-
-{ #category : #accessing }
-LeDatabase >> tableOfContents [ 
-
-	^ self tableOfContentsPageID
-		ifNotNil: [ :pageID | self pageWithID: pageID ]
-]
-
-{ #category : #accessing }
-LeDatabase >> tableOfContentsPageID [
-	"Answer the page UUID for the Table Of Contents, or nil if not set"
-
-	^ monitor ifNotNil: [ :aMonitor | aMonitor tableOfContentsPageID ] 
-]
-
-{ #category : #accessing }
-LeDatabase >> tableOfContentsPageID: aNewUUID [
-	"Set the page UUID for the Table Of Contents.  nil to clear the ToC"
-
-	| anOldUUID |
-	anOldUUID := self tableOfContentsPageID.
-
-	(anOldUUID = aNewUUID) ifTrue: [ ^ self ].
-
-	monitor tableOfContentsPageID: aNewUUID.
-	
-	self notifyTableOfContensPageIdChangedFrom: anOldUUID to: aNewUUID.
-	
 ]
 
 { #category : #'api - accessing' }
