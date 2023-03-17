@@ -9,7 +9,7 @@ While the database currently only supports a single specified ToC, there is noth
 "
 Class {
 	#name : #LeTableOfContentsNode,
-	#superclass : #Object,
+	#superclass : #LeAbstractTableOfContentsNode,
 	#traits : 'TLeSpotterChildrenEnumerationSearch',
 	#classTraits : 'TLeSpotterChildrenEnumerationSearch classTrait',
 	#instVars : [
@@ -20,17 +20,6 @@ Class {
 	#category : #'Lepiter-Utilities-ToC'
 }
 
-{ #category : #accessing }
-LeTableOfContentsNode class >> treeNodeInfoElementClass [
-	^ LePageTitleAndSummaryElement 
-]
-
-{ #category : #comparing }
-LeTableOfContentsNode >> = anObject [
-	^ self class = anObject class and: [ 
-		self page = anObject page ]
-]
-
 { #category : #adding }
 LeTableOfContentsNode >> addChild: aLeTableOfContentsNode [
 	"Add the supplied node to the receiver's children"
@@ -39,47 +28,14 @@ LeTableOfContentsNode >> addChild: aLeTableOfContentsNode [
 ]
 
 { #category : #accessing }
-LeTableOfContentsNode >> asNodeViewModel [
-	^ self page asContentUIModel
-]
-
-{ #category : #accessing }
 LeTableOfContentsNode >> children [
 	^ children
 ]
 
-{ #category : #ui }
-LeTableOfContentsNode >> gtChildrenFor: aView [
-	<gtView>
-
-	^ aView tree
-		title: 'Children';
-		priority: 50;
-		items: [ children ];
-		children: #children
-]
-
 { #category : #accessing }
-LeTableOfContentsNode >> gtLiveFor: aView [
-	<gtView>
-	self page ifNil: [ ^ aView empty ].
-	^ aView forward
-		title: 'Live';
-		priority: 1;
-		object: [ self page ];
-		view: #gtLiveFor:
-]
-
-{ #category : #'api - testing' }
 LeTableOfContentsNode >> hasChildren [
 	<return: #Boolean>
 	^ self children isNotEmpty
-]
-
-{ #category : #comparing }
-LeTableOfContentsNode >> hash [
-	^ self class hash bitXor: [ 
-		self page hash ]
 ]
 
 { #category : #initialization }
@@ -88,16 +44,6 @@ LeTableOfContentsNode >> initialize [
 	super initialize.
 	"children are an Array of LeTableOfContentsNode"
 	children := #().
-]
-
-{ #category : #accessing }
-LeTableOfContentsNode >> isForPage [
-	^ true
-]
-
-{ #category : #testing }
-LeTableOfContentsNode >> isToCNode [
-	^ true
 ]
 
 { #category : #accessing }
@@ -124,7 +70,7 @@ LeTableOfContentsNode >> page: anObject [
 	page := anObject
 ]
 
-{ #category : #printing }
+{ #category : #accessing }
 LeTableOfContentsNode >> printOn: aStream [
 	| pageTitle |
 
@@ -139,12 +85,7 @@ LeTableOfContentsNode >> printOn: aStream [
 	aStream
 		space;
 		nextPut: $(;
-		print: children size;
+		print: self children size;
 		nextPutAll: ' links';
 		nextPut: $).
-]
-
-{ #category : #enumerating }
-LeTableOfContentsNode >> selectedPageDo: aBlock [
-	aBlock cull: self page
 ]

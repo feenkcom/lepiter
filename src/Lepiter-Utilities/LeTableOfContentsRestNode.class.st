@@ -1,6 +1,6 @@
 Class {
 	#name : #LeTableOfContentsRestNode,
-	#superclass : #Object,
+	#superclass : #LeAbstractTableOfContentsNode,
 	#instVars : [
 		'page',
 		'rootNode',
@@ -10,16 +10,6 @@ Class {
 }
 
 { #category : #accessing }
-LeTableOfContentsRestNode class >> treeNodeInfoElementClass [
-	^ LePageTitleAndSummaryElement 
-]
-
-{ #category : #accessing }
-LeTableOfContentsRestNode >> asNodeViewModel [
-	^ self page asContentUIModel
-]
-
-{ #category : #accessing }
 LeTableOfContentsRestNode >> children [
 	^ children
 ]
@@ -27,28 +17,6 @@ LeTableOfContentsRestNode >> children [
 { #category : #accessing }
 LeTableOfContentsRestNode >> children: anObject [
 	children := anObject
-]
-
-{ #category : #'gt-extension' }
-LeTableOfContentsRestNode >> gtChildrenFor: aView [
-	<gtView>
-
-	^ aView tree
-		title: 'Children';
-		priority: 50;
-		items: [ self children ];
-		children: #children
-]
-
-{ #category : #'gt-extension' }
-LeTableOfContentsRestNode >> gtLiveFor: aView [
-	<gtView>
-	self page ifNil: [ ^ aView empty ].
-	^ aView forward
-		title: 'Live';
-		priority: 1;
-		object: [ self page ];
-		view: #gtLiveFor:
 ]
 
 { #category : #initialization }
@@ -76,18 +44,6 @@ LeTableOfContentsRestNode >> page [
 { #category : #accessing }
 LeTableOfContentsRestNode >> page: aPage [
 	page := LeRestPage new page: aPage; node: self
-]
-
-{ #category : #printing }
-LeTableOfContentsRestNode >> printOn: aStream [
-
-	aStream
-		nextPutAll: 'ToC: Other pages';
-		space;
-		nextPut: $(;
-		print: children size;
-		nextPutAll: ' pages';
-		nextPut: $).
 ]
 
 { #category : #accessing }

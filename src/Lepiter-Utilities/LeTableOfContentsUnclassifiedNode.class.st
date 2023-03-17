@@ -1,6 +1,6 @@
 Class {
 	#name : #LeTableOfContentsUnclassifiedNode,
-	#superclass : #Object,
+	#superclass : #LeAbstractTableOfContentsNode,
 	#instVars : [
 		'page'
 	],
@@ -8,29 +8,8 @@ Class {
 }
 
 { #category : #accessing }
-LeTableOfContentsUnclassifiedNode class >> treeNodeInfoElementClass [
-	^ LePageTitleAndSummaryElement 
-]
-
-{ #category : #accessing }
-LeTableOfContentsUnclassifiedNode >> asNodeViewModel [
-	^ self page asContentUIModel
-]
-
-{ #category : #accessing }
 LeTableOfContentsUnclassifiedNode >> children [
 	^ #()
-]
-
-{ #category : #'gt-extension' }
-LeTableOfContentsUnclassifiedNode >> gtLiveFor: aView [
-	<gtView>
-	self page ifNil: [ ^ aView empty ].
-	^ aView forward
-		title: 'Live';
-		priority: 1;
-		object: [ self page ];
-		view: #gtLiveFor:
 ]
 
 { #category : #accessing }
@@ -63,9 +42,4 @@ LeTableOfContentsUnclassifiedNode >> printOn: aStream [
 	aStream
 		nextPutAll: 'Unclassified: ';
 		nextPutAll: pageTitle.
-]
-
-{ #category : #enumerating }
-LeTableOfContentsUnclassifiedNode >> selectedPageDo: aBlock [
-	aBlock cull: self page
 ]
