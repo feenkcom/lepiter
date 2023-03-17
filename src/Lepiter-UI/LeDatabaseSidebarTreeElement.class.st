@@ -1,5 +1,5 @@
 Class {
-	#name : #LeDatabaseSidebarListElement,
+	#name : #LeDatabaseSidebarTreeElement,
 	#superclass : #LeDatabaseElement,
 	#instVars : [
 		'selectionBlock',
@@ -12,54 +12,54 @@ Class {
 }
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> applyExpandSuchThat [
+LeDatabaseSidebarTreeElement >> applyExpandSuchThat [
 	self expandSuchThat
 		ifNotNil: [ :aBlock | self treeElement expandSuchThat: aBlock ]
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> childrenBlock [
+LeDatabaseSidebarTreeElement >> childrenBlock [
 	^ childrenBlock
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> childrenBlock: anObject [
+LeDatabaseSidebarTreeElement >> childrenBlock: anObject [
 	childrenBlock := anObject
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> database [
+LeDatabaseSidebarTreeElement >> database [
 	^ self navigationModel database
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> databaseViewModel [
+LeDatabaseSidebarTreeElement >> databaseViewModel [
 	^ self navigationModel databaseViewModel
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> expandSuchThat [
+LeDatabaseSidebarTreeElement >> expandSuchThat [
 	^ expandSuchThat
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> expandSuchThat: aBlock [
+LeDatabaseSidebarTreeElement >> expandSuchThat: aBlock [
 	expandSuchThat := aBlock.
 	self applyExpandSuchThat
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> hasSelection [
+LeDatabaseSidebarTreeElement >> hasSelection [
 	^ navigationModel notNil and: [ navigationModel hasPage ]
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> hasSelectionBlock [
+LeDatabaseSidebarTreeElement >> hasSelectionBlock [
 	^ self selectionBlock notNil
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> initialize [
+LeDatabaseSidebarTreeElement >> initialize [
 	super initialize.
 	
 	selectionBlock := [:_ | {}].
@@ -73,7 +73,7 @@ LeDatabaseSidebarListElement >> initialize [
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> initializeTreeElement [
+LeDatabaseSidebarTreeElement >> initializeTreeElement [
 	treeElement := BrSimpleTree new
 		margin: (BlInsets top: 5);
 		rowStencil: BrGlamorousSimpleTreeSelectableRowElementStencilBuilder new;
@@ -90,23 +90,23 @@ LeDatabaseSidebarListElement >> initializeTreeElement [
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> items [
+LeDatabaseSidebarTreeElement >> items [
 	^ self hasSelectionBlock ifTrue: [ self selectionBlock value ] ifFalse: [ {} ]
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> navigationModel [
+LeDatabaseSidebarTreeElement >> navigationModel [
 	^ navigationModel
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> navigationModel: anObject [
+LeDatabaseSidebarTreeElement >> navigationModel: anObject [
 	navigationModel := anObject.
 	navigationModel when: LeUIDatabaseNavigationModelChanged send: #onNavigationModelChanged to: self
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> notifyListSelectionChangedTo: aTreeNode [
+LeDatabaseSidebarTreeElement >> notifyListSelectionChangedTo: aTreeNode [
 	| aPageUIModel |
 	aPageUIModel := aTreeNode page asContentUIModel.
 	self selection = aPageUIModel ifTrue: [ ^ self ].
@@ -117,83 +117,82 @@ LeDatabaseSidebarListElement >> notifyListSelectionChangedTo: aTreeNode [
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> onAddedToSceneGraph [
+LeDatabaseSidebarTreeElement >> onAddedToSceneGraph [
 	super onAddedToSceneGraph.
 	self updateSelection.
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> onContentUIModelChanged [
+LeDatabaseSidebarTreeElement >> onContentUIModelChanged [
 	super onContentUIModelChanged.
 
 	self updateTreeItems.
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> onNavigationModelChanged [
+LeDatabaseSidebarTreeElement >> onNavigationModelChanged [
 	self updateTreeItems.
 	self updateSelection
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> onSelectionChanged [
+LeDatabaseSidebarTreeElement >> onSelectionChanged [
 	self updateSelection.
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> onTreeSelectionChanged: aBrSelectionChanged [
+LeDatabaseSidebarTreeElement >> onTreeSelectionChanged: aBrSelectionChanged [
 	aBrSelectionChanged selectedDo: [ :anInterval | 
 		self treeElement selectedNodeDo: [ :aNode | 
 			self notifyListSelectionChangedTo: aNode value ] ]
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> selection [
+LeDatabaseSidebarTreeElement >> selection [
 	^ navigationModel page
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> selection: aViewModel [
+LeDatabaseSidebarTreeElement >> selection: aViewModel [
 	"Set selected page"
 
 	navigationModel announce: (LeUIPageSelectionRequest new page: aViewModel)
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> selectionBlock [
+LeDatabaseSidebarTreeElement >> selectionBlock [
 	^ selectionBlock
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> selectionBlock: anObject [
+LeDatabaseSidebarTreeElement >> selectionBlock: anObject [
 	selectionBlock := anObject.
 	self updateTreeItems
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> treeElement [
+LeDatabaseSidebarTreeElement >> treeElement [
 	^ treeElement
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> treeElement: anObject [
+LeDatabaseSidebarTreeElement >> treeElement: anObject [
 	treeElement := anObject
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> updateSelection [
+LeDatabaseSidebarTreeElement >> updateSelection [
 	| pageTreeNode |
 	self hasSelection ifFalse: [ ^ self ].
 
 	self selection class = LeContentViewModel ifTrue: [ ^ self ].
 
-	self hasSelection
-		ifTrue: [ pageTreeNode := LePageTreeNodeModel forPage: self selection pageModel.
-			self treeElement selectAndScrollTo: pageTreeNode ]
+	pageTreeNode := LeTableOfContentsNode new page: self selection pageModel.
+	self treeElement selectAndScrollTo: pageTreeNode
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> updateTreeItems [
+LeDatabaseSidebarTreeElement >> updateTreeItems [
 	self treeElement
 		items: self items
 		immediate: [ :aTreeNode | 

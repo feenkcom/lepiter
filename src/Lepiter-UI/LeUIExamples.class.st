@@ -41,16 +41,6 @@ LeUIExamples >> basicDatabaseSidebarElement [
 	^ anElement
 ]
 
-{ #category : #'examples - database - table of contents' }
-LeUIExamples >> basicDatabaseTableOfContentsElement [
-	<gtExample>
-	| anElement |
-	anElement := LeDatabaseTableOfContentsTreeElement new.
-	self assert: anElement hasDatabase not.
-	self assert: anElement hasSelection not.
-	^ anElement
-]
-
 { #category : #'examples - database - tool' }
 LeUIExamples >> basicDatabaseToolElement [
 	<gtExample>
@@ -223,23 +213,6 @@ LeUIExamples >> databaseSidebarElement_AddPage [
 	anElement := self databaseSidebarElement.
 	aDatabase := anElement database.
 	aDatabase pageBuilder title: 'newly added'; add.
-	^ anElement
-]
-
-{ #category : #'examples - database - table of contents' }
-LeUIExamples >> databaseTableOfContentsElement [
-	<gtExample>
-	"Rewrite to use Scripter"
-	<noTest>
-	| anElement aDatabase |
-	anElement := self basicDatabaseTableOfContentsElement.
-	aDatabase := self databaseWithTableOfContents.
-	anElement databaseViewModel: aDatabase asContentUIModel.
-	self assert: anElement database equals: aDatabase.
-	
-	"Check number of Table of Contents items"
-	anElement treeElement expandAll.
-
 	^ anElement
 ]
 

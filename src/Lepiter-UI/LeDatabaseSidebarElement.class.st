@@ -151,7 +151,7 @@ LeDatabaseSidebarElement >> navigationModel: anObject [
 LeDatabaseSidebarElement >> newDailyNotesElement [
 	| newDailyNotesElement |
 
-	newDailyNotesElement := LeDatabaseSidebarListElement new navigationModel: self navigationModel.
+	newDailyNotesElement := LeDatabaseSidebarTreeElement new navigationModel: self navigationModel.
 	
 	^ newDailyNotesElement
 ]
@@ -159,7 +159,7 @@ LeDatabaseSidebarElement >> newDailyNotesElement [
 { #category : #'private - instance creation' }
 LeDatabaseSidebarElement >> newDailyNotesGroupElement [
 	| newDailyNotesElement |
-	newDailyNotesElement := LeDatabaseSidebarListElement new
+	newDailyNotesElement := LeDatabaseSidebarTreeElement new
 			navigationModel: self navigationModel;
 			selectionBlock: [ :aNavigationModel | 
 				aNavigationModel database dailyNotesGroup
@@ -171,7 +171,7 @@ LeDatabaseSidebarElement >> newDailyNotesGroupElement [
 { #category : #'private - instance creation' }
 LeDatabaseSidebarElement >> newPagesElement [
 	| newPagesElement |
-	newPagesElement := LeDatabaseSidebarListElement new
+	newPagesElement := LeDatabaseSidebarTreeElement new
 			navigationModel: self navigationModel;
 			selectionBlock: [ :aNavigationModel | 
 				aNavigationModel hasDatabase
@@ -180,19 +180,6 @@ LeDatabaseSidebarElement >> newPagesElement [
 					ifFalse: [ {} ] ].
 
 	^ newPagesElement
-]
-
-{ #category : #'private - instance creation' }
-LeDatabaseSidebarElement >> newTableOfContentsElement [
-	| newTableOfContentsElement |
-
-	newTableOfContentsElement := LeDatabaseTableOfContentsTreeElement new
-			navigationModel: self navigationModel.
-	
-	self hasDatabase
-		ifTrue: [ newTableOfContentsElement databaseViewModel: self databaseViewModel ].
-
-	^ newTableOfContentsElement
 ]
 
 { #category : #'private - hooks' }
