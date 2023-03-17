@@ -97,6 +97,53 @@ LeDatabaseByScripterExamples >> scripterWithToCNavigated [
 ]
 
 { #category : #accessing }
+LeDatabaseByScripterExamples >> scripterWithToCNavigatedAndOtherTabClicked [
+	<gtExample>
+	| scripter check |
+	scripter := self scripterWithToCNavigated.
+
+	scripter click
+		label: 'Select other tab';
+		id: #sidebar;
+		id: #content;
+		id: #header;
+		id: #tabbar;
+		onChildAt: 2;
+		play.	"somehow the selection is only picked up on re-render"
+	scripter click
+		label: 'Select first tab';
+		id: #sidebar;
+		id: #content;
+		id: #header;
+		id: #tabbar;
+		onChildAt: 1;
+		play.
+
+	scripter click
+		label: 'Select other tab again';
+		id: #sidebar;
+		id: #content;
+		id: #header;
+		id: #tabbar;
+		onChildAt: 2;
+		play.
+
+	scripter check
+		label: 'Check that element is selected';
+		id: #sidebar;
+		id: #content;
+		id: #content;
+		id: #list;
+		satisfies: [ :aList | 
+			aList
+				selectedEntityDo: [ :aGroup | check := aGroup itemObject title = scripter model tableOfContents title ].
+			check ];
+		play.
+
+	^ scripter
+]
+
+{ #category : #accessing }
 LeDatabaseByScripterExamples >> toolFor: aDatabase [
 	^ LePagePhlowTool new page: aDatabase pages last
 ]
