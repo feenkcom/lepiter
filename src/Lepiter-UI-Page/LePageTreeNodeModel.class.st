@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'page'
 	],
-	#category : 'Lepiter-UI-Page-Tree-Nodes'
+	#category : #'Lepiter-UI-Page-Tree-Nodes'
 }
 
 { #category : #'instance creation' }
@@ -39,11 +39,6 @@ LePageTreeNodeModel >> childPageNodes [
 LePageTreeNodeModel >> hash [
 	^ self class hash bitXor: [ 
 		self page hash ]
-]
-
-{ #category : #testing }
-LePageTreeNodeModel >> isForPage [
-	^ true
 ]
 
 { #category : #accessing }
