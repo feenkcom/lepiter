@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'search',
 		'replace',
-		'scope'
+		'scope',
+		'isMethodPattern'
 	],
 	#category : #'Lepiter-Snippet-Pharo-Rewrites-Model'
 }
@@ -32,6 +33,7 @@ LePharoRewriteSnippet class >> leJsonV3AttributeMapping [
 		add: #search -> #search;
 		add: #replace -> #replace;
 		add: #scope -> #scope;
+		add: #isMethodPattern -> #isMethodPattern;
 		yourself
 ]
 
@@ -46,6 +48,7 @@ LePharoRewriteSnippet class >> leJsonV4AttributeMapping [
 		add: #search -> #search;
 		add: #replace -> #replace;
 		add: #scope -> #scope;
+		add: #isMethodPattern -> #isMethodPattern;
 		yourself
 ]
 
@@ -78,7 +81,9 @@ LePharoRewriteSnippet >> executeRewriteInFilter: aFilter [
 	| model rewriter potentialMethods |
 	model := RBNamespace new.
 	rewriter := RBParseTreeRewriter new.
-	rewriter replace: self search with: self replace.
+	self isMethodPattern
+		ifTrue: [ rewriter replaceMethod: self search with: self replace ]
+		ifFalse: [ rewriter replace: self search with: self replace ].
 	potentialMethods := self potentialMethodsInFilter: aFilter.
 	^ (potentialMethods
 		do: [ :each | 
@@ -90,7 +95,9 @@ LePharoRewriteSnippet >> executeRewriteInFilter: aFilter [
 { #category : #actions }
 LePharoRewriteSnippet >> executeSearchInFilter: aFilter [
 	| astSearchFilter |
-	astSearchFilter := self search gtASTMatches.
+	astSearchFilter := self isMethodPattern
+			ifTrue: [ self search gtASTMethodMatches ]
+			ifFalse: [ self search gtASTMatches ].
 	^ aFilter ifNil: [ astSearchFilter ] ifNotNil: [ aFilter & astSearchFilter ]
 ]
 
@@ -134,6 +141,21 @@ LePharoRewriteSnippet >> filterDescriptorsUsing: snippetContext [
 						named: 'self';
 						order: 0) ].
 	^ descriptors
+]
+
+{ #category : #accessing }
+LePharoRewriteSnippet >> isMethodPattern [
+	^ isMethodPattern ifNil: [ false ]
+]
+
+{ #category : #accessing }
+LePharoRewriteSnippet >> isMethodPattern: aBoolean [
+	isMethodPattern := aBoolean.
+	self
+		notifyAnnouncement: (LePharoRewriteSnippetIsMethodPatternChanged new
+				source: self;
+				snippet: self;
+				isMethodPattern: aBoolean)
 ]
 
 { #category : #private }
@@ -208,5 +230,7 @@ LePharoRewriteSnippet >> search: aString [
 
 { #category : #accessing }
 LePharoRewriteSnippet >> searchAST [
-	^ RBParser parseRewriteExpression: self search
+	^ self isMethodPattern
+		ifTrue: [ RBParser parseRewriteMethod: self search ]
+		ifFalse: [ RBParser parseRewriteExpression: self search ]
 ]

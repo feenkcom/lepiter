@@ -1,6 +1,13 @@
 Extension { #name : #Object }
 
 { #category : #'*Lepiter-Store' }
+Object class >> deSerializeAllImplementorsInstances [
+	"Answer a collection of instances to be tested for serialisation / deserialisation"
+
+	^ { self new }
+]
+
+{ #category : #'*Lepiter-Store' }
 Object class >> leFromJsonV4Dictionary: aDictionary [
 	"Create a new instance of the receiver from the supplied dictionary.
 	Subclasses can override this to provide custom mappings."

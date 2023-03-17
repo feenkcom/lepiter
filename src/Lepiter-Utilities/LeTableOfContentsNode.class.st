@@ -17,8 +17,13 @@ Class {
 		'link',
 		'children'
 	],
-	#category : 'Lepiter-Utilities-ToC'
+	#category : #'Lepiter-Utilities-ToC'
 }
+
+{ #category : #accessing }
+LeTableOfContentsNode class >> treeNodeInfoElementClass [
+	^ LePageTitleAndSummaryElement 
+]
 
 { #category : #comparing }
 LeTableOfContentsNode >> = anObject [
@@ -31,6 +36,11 @@ LeTableOfContentsNode >> addChild: aLeTableOfContentsNode [
 	"Add the supplied node to the receiver's children"
 
 	children := children copyWith: aLeTableOfContentsNode
+]
+
+{ #category : #accessing }
+LeTableOfContentsNode >> asNodeViewModel [
+	^ self page asContentUIModel
 ]
 
 { #category : #accessing }

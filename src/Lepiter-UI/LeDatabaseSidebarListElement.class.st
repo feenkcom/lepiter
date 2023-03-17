@@ -2,12 +2,22 @@ Class {
 	#name : #LeDatabaseSidebarListElement,
 	#superclass : #LeDatabaseElement,
 	#instVars : [
-		'navigationModel',
 		'selectionBlock',
-		'treeElement'
+		'treeElement',
+		'childrenBlock'
 	],
 	#category : #'Lepiter-UI-! UI - Database'
 }
+
+{ #category : #accessing }
+LeDatabaseSidebarListElement >> childrenBlock [
+	^ childrenBlock
+]
+
+{ #category : #accessing }
+LeDatabaseSidebarListElement >> childrenBlock: anObject [
+	childrenBlock := anObject
+]
 
 { #category : #accessing }
 LeDatabaseSidebarListElement >> database [
@@ -20,8 +30,8 @@ LeDatabaseSidebarListElement >> databaseViewModel [
 ]
 
 { #category : #accessing }
-LeDatabaseSidebarListElement >> hasNavigationModel [
-	^ self navigationModel notNil
+LeDatabaseSidebarListElement >> expandSuchThat: aBlock [
+	self treeElement expandSuchThat: aBlock
 ]
 
 { #category : #accessing }
@@ -39,6 +49,7 @@ LeDatabaseSidebarListElement >> initialize [
 	super initialize.
 	
 	selectionBlock := [:_ | {}].
+	childrenBlock := #children.
 	
 	self initializeTreeElement.
 	self layout: BlLinearLayout vertical.
@@ -66,29 +77,7 @@ LeDatabaseSidebarListElement >> initializeTreeElement [
 
 { #category : #accessing }
 LeDatabaseSidebarListElement >> items [
-	^ (self hasSelectionBlock and: [ self hasNavigationModel ])
-		ifTrue: [ self selectionBlock value: self navigationModel ]
-		ifFalse: [ {} ]
-]
-
-{ #category : #accessing }
-LeDatabaseSidebarListElement >> navigationModel [
-	^ navigationModel
-]
-
-{ #category : #accessing }
-LeDatabaseSidebarListElement >> navigationModel: anObject [
-	navigationModel := anObject.
-	navigationModel
-		when: LeUIDatabaseNavigationModelChanged
-		send: #onNavigationModelChanged:
-		to: self.
-	navigationModel
-		when: LeUIPageSelected
-		send: #onSelectionChanged
-		to: self.
-
-	self updateTreeItems
+	^ self hasSelectionBlock ifTrue: [ self selectionBlock value ] ifFalse: [ {} ]
 ]
 
 { #category : #accessing }
@@ -107,11 +96,6 @@ LeDatabaseSidebarListElement >> onContentUIModelChanged [
 	super onContentUIModelChanged.
 
 	self updateTreeItems.
-]
-
-{ #category : #accessing }
-LeDatabaseSidebarListElement >> onNavigationModelChanged: anAnnouncement [
-	self updateTreeItems
 ]
 
 { #category : #accessing }
@@ -176,6 +160,6 @@ LeDatabaseSidebarListElement >> updateTreeItems [
 	self treeElement
 		items: self items
 		immediate: [ :aTreeNode | 
-			aTreeNode childPageNodes ].
+			self childrenBlock value: aTreeNode ].
 	self updateSelection
 ]
