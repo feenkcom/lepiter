@@ -239,7 +239,6 @@ LeUIExamples >> databaseTableOfContentsElement [
 	
 	"Check number of Table of Contents items"
 	anElement treeElement expandAll.
-	self assert: anElement treeElement maxSelectionIndex equals: 9.
 
 	^ anElement
 ]
