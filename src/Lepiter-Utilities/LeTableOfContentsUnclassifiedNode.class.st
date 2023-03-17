@@ -4,8 +4,18 @@ Class {
 	#instVars : [
 		'page'
 	],
-	#category : 'Lepiter-Utilities-ToC'
+	#category : #'Lepiter-Utilities-ToC'
 }
+
+{ #category : #accessing }
+LeTableOfContentsUnclassifiedNode class >> treeNodeInfoElementClass [
+	^ LePageTitleAndSummaryElement 
+]
+
+{ #category : #accessing }
+LeTableOfContentsUnclassifiedNode >> asNodeViewModel [
+	^ self page asContentUIModel
+]
 
 { #category : #accessing }
 LeTableOfContentsUnclassifiedNode >> children [
