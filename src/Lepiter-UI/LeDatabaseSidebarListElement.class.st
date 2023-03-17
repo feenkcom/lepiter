@@ -94,12 +94,12 @@ LeDatabaseSidebarListElement >> navigationModel: anObject [
 { #category : #accessing }
 LeDatabaseSidebarListElement >> notifyListSelectionChangedTo: aTreeNode [
 	| aPageUIModel |
-	aTreeNode isForPage ifFalse: [ ^ self ].
-
 	aPageUIModel := aTreeNode page asContentUIModel.
 	self selection = aPageUIModel ifTrue: [ ^ self ].
 
-	self navigationModel announce: (LeUIPageSelectionRequest new page: aPageUIModel)
+	aTreeNode isForPage
+		ifTrue: [ self navigationModel
+				announce: (LeUIPageSelectionRequest new page: aPageUIModel) ]
 ]
 
 { #category : #accessing }

@@ -57,6 +57,11 @@ LeTableOfContentsRestNode >> initialize [
 	children := #().
 ]
 
+{ #category : #accessing }
+LeTableOfContentsRestNode >> isForPage [
+	^ false
+]
+
 { #category : #testing }
 LeTableOfContentsRestNode >> isToCNode [
 	^ false

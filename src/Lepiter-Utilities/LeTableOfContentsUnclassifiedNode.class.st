@@ -33,6 +33,11 @@ LeTableOfContentsUnclassifiedNode >> gtLiveFor: aView [
 		view: #gtLiveFor:
 ]
 
+{ #category : #accessing }
+LeTableOfContentsUnclassifiedNode >> isForPage [
+	^ true
+]
+
 { #category : #testing }
 LeTableOfContentsUnclassifiedNode >> isToCNode [
 	^ false
