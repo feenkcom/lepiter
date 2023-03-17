@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'selectionBlock',
 		'treeElement',
-		'childrenBlock'
+		'childrenBlock',
+		'navigationModel'
 	],
 	#category : #'Lepiter-UI-! UI - Database'
 }
@@ -81,11 +82,21 @@ LeDatabaseSidebarListElement >> items [
 ]
 
 { #category : #accessing }
+LeDatabaseSidebarListElement >> navigationModel [
+	^ navigationModel
+]
+
+{ #category : #accessing }
+LeDatabaseSidebarListElement >> navigationModel: anObject [
+	navigationModel := anObject
+]
+
+{ #category : #accessing }
 LeDatabaseSidebarListElement >> notifyListSelectionChangedTo: aTreeNode [
 	| aPageUIModel |
 	aTreeNode isForPage ifFalse: [ ^ self ].
 
-	aPageUIModel := self databaseViewModel pageUIModelFor: aTreeNode page.
+	aPageUIModel := aTreeNode page asContentUIModel.
 	self selection = aPageUIModel ifTrue: [ ^ self ].
 
 	self navigationModel announce: (LeUIPageSelectionRequest new page: aPageUIModel)
