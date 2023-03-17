@@ -16,16 +16,16 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'GToolkitInspector' with: [
-				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.1537/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.1538/src' ].
 		spec
 			baseline: 'Brick' with: [
-				spec repository: 'github://feenkcom/Brick:v0.8.890/src' ].
+				spec repository: 'github://feenkcom/Brick:v0.8.891/src' ].
 		spec
 			baseline: 'GToolkit4Json' with: [
-				spec repository: 'github://feenkcom/gt4json:v0.6.263/src' ].
+				spec repository: 'github://feenkcom/gt4json:v0.6.264/src' ].
 		spec
 			baseline: 'LepiterXDoc' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.1376/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.6.1377/src' ].
 
 		spec package: 'Lepiter-Parser'.
 		spec package: 'Lepiter-History'.
@@ -53,6 +53,8 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 		spec package: 'Lepiter-Extensions' with: [
 			spec requires: #('LepiterXDoc') ].
 		spec package: 'Lepiter-Snippet-Text' with: [
+			spec requires: #('Lepiter-Core' 'Lepiter-UI') ].
+		spec package: 'Lepiter-ToC' with: [
 			spec requires: #('Lepiter-Core' 'Lepiter-UI') ].
 		spec package: 'Lepiter-HTML' with: [
 			spec requires: #('Lepiter-Core' 'Lepiter-Parser' 'LepiterXDoc') ].
