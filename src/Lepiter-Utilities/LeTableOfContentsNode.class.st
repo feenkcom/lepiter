@@ -90,6 +90,11 @@ LeTableOfContentsNode >> initialize [
 	children := #().
 ]
 
+{ #category : #accessing }
+LeTableOfContentsNode >> isForPage [
+	^ true
+]
+
 { #category : #testing }
 LeTableOfContentsNode >> isToCNode [
 	^ true

@@ -6,8 +6,18 @@ Class {
 		'rootNode',
 		'children'
 	],
-	#category : 'Lepiter-Utilities-ToC'
+	#category : #'Lepiter-Utilities-ToC'
 }
+
+{ #category : #accessing }
+LeTableOfContentsRestNode class >> treeNodeInfoElementClass [
+	^ LePageTitleAndSummaryElement 
+]
+
+{ #category : #accessing }
+LeTableOfContentsRestNode >> asNodeViewModel [
+	^ self page asContentUIModel
+]
 
 { #category : #accessing }
 LeTableOfContentsRestNode >> children [
@@ -45,6 +55,11 @@ LeTableOfContentsRestNode >> gtLiveFor: aView [
 LeTableOfContentsRestNode >> initialize [
 	super initialize.
 	children := #().
+]
+
+{ #category : #accessing }
+LeTableOfContentsRestNode >> isForPage [
+	^ false
 ]
 
 { #category : #testing }
