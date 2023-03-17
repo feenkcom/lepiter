@@ -5,7 +5,7 @@ Class {
 		'dailyNote',
 		'pageTreeNodeModels'
 	],
-	#category : #'Lepiter-UI-Page-Tree-Nodes'
+	#category : 'Lepiter-UI-Page-Tree-Nodes'
 }
 
 { #category : #'instance creation' }
@@ -51,6 +51,11 @@ LeDailyNoteTreeNodeModel >> dailyNote: anObject [
 LeDailyNoteTreeNodeModel >> hash [
 	^ self class hash bitXor: [ 
 		self dailyNote hash ]
+]
+
+{ #category : #testing }
+LeDailyNoteTreeNodeModel >> isForPage [
+	^ false
 ]
 
 { #category : #accessing }
