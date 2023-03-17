@@ -113,7 +113,8 @@ LeDatabaseSidebarGroupedListElement >> navigationModel [
 { #category : #accessing }
 LeDatabaseSidebarGroupedListElement >> navigationModel: anObject [
 	navigationModel := anObject.
-	navigationModel when: LeUIDatabaseNavigationModelChanged send: #onNavigationModelChanged to: self
+	navigationModel when: LeUIDatabaseNavigationModelChanged send: #onNavigationModelChanged to: self.
+	navigationModel when: LeUIPageSelected send: #updateSelection to: self
 ]
 
 { #category : #accessing }

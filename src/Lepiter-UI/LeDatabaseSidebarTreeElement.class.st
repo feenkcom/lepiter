@@ -102,7 +102,8 @@ LeDatabaseSidebarTreeElement >> navigationModel [
 { #category : #accessing }
 LeDatabaseSidebarTreeElement >> navigationModel: anObject [
 	navigationModel := anObject.
-	navigationModel when: LeUIDatabaseNavigationModelChanged send: #onNavigationModelChanged to: self
+	navigationModel when: LeUIDatabaseNavigationModelChanged send: #onNavigationModelChanged to: self.
+	navigationModel when: LeUIPageSelected send: #updateSelection to: self
 ]
 
 { #category : #accessing }
