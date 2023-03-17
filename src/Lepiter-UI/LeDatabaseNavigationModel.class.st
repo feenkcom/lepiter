@@ -119,6 +119,7 @@ LeDatabaseNavigationModel >> gtViewToCFor: aView [
 		title: 'ToC';
 		priority: 1;
 		stencil: [ LeDatabaseSidebarListElement new
+				navigationModel: self;
 				selectionBlock: [ self database tableOfContentsNodes ];
 				expandSuchThat: [ :eachNode | eachNode value isToCNode ] ]
 ]
