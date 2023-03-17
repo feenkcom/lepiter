@@ -91,6 +91,8 @@ LeDatabaseNavigationModel >> gtSearchPageFor: anAction [
 LeDatabaseNavigationModel >> gtViewPagesFor: aView [
 	<gtView>
 	<leDatabaseView>
+	self hasDatabase ifFalse: [ ^ aView empty ].
+
 	^ aView explicit
 		title: 'Pages';
 		priority: 3;

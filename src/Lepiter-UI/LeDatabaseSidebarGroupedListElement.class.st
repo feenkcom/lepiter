@@ -42,7 +42,7 @@ LeDatabaseSidebarGroupedListElement >> groupedItems [
 { #category : #accessing }
 LeDatabaseSidebarGroupedListElement >> groupedItems: anObject [
 	groupedItems := anObject.
-	self updateListItems.
+	self updateListItems
 ]
 
 { #category : #accessing }
@@ -53,6 +53,8 @@ LeDatabaseSidebarGroupedListElement >> hasSelection [
 { #category : #accessing }
 LeDatabaseSidebarGroupedListElement >> initialize [
 	super initialize.
+	
+	groupedItems := {}.
 	
 	self initializeListElement.
 	self layout: BlLinearLayout vertical.
@@ -80,6 +82,8 @@ LeDatabaseSidebarGroupedListElement >> initializeListElement [
 
 { #category : #accessing }
 LeDatabaseSidebarGroupedListElement >> items [
+	self groupedItems ifNil: [ ^ {} asAsyncStream ].
+
 	^ (self groupedItems
 		collect: [ :aPair | 
 			BrGroup new
