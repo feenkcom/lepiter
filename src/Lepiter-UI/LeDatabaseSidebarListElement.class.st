@@ -5,10 +5,17 @@ Class {
 		'selectionBlock',
 		'treeElement',
 		'childrenBlock',
-		'navigationModel'
+		'navigationModel',
+		'expandSuchThat'
 	],
 	#category : #'Lepiter-UI-! UI - Database'
 }
+
+{ #category : #accessing }
+LeDatabaseSidebarListElement >> applyExpandSuchThat [
+	self expandSuchThat
+		ifNotNil: [ :aBlock | self treeElement expandSuchThat: aBlock ]
+]
 
 { #category : #accessing }
 LeDatabaseSidebarListElement >> childrenBlock [
@@ -31,8 +38,14 @@ LeDatabaseSidebarListElement >> databaseViewModel [
 ]
 
 { #category : #accessing }
+LeDatabaseSidebarListElement >> expandSuchThat [
+	^ expandSuchThat
+]
+
+{ #category : #accessing }
 LeDatabaseSidebarListElement >> expandSuchThat: aBlock [
-	self treeElement expandSuchThat: aBlock
+	expandSuchThat := aBlock.
+	self applyExpandSuchThat
 ]
 
 { #category : #accessing }
@@ -88,7 +101,8 @@ LeDatabaseSidebarListElement >> navigationModel [
 
 { #category : #accessing }
 LeDatabaseSidebarListElement >> navigationModel: anObject [
-	navigationModel := anObject
+	navigationModel := anObject.
+	navigationModel when: LeUIDatabaseNavigationModelChanged send: #onNavigationModelChanged to: self
 ]
 
 { #category : #accessing }
@@ -103,10 +117,22 @@ LeDatabaseSidebarListElement >> notifyListSelectionChangedTo: aTreeNode [
 ]
 
 { #category : #accessing }
+LeDatabaseSidebarListElement >> onAddedToSceneGraph [
+	super onAddedToSceneGraph.
+	self updateSelection.
+]
+
+{ #category : #accessing }
 LeDatabaseSidebarListElement >> onContentUIModelChanged [
 	super onContentUIModelChanged.
 
 	self updateTreeItems.
+]
+
+{ #category : #accessing }
+LeDatabaseSidebarListElement >> onNavigationModelChanged [
+	self updateTreeItems.
+	self updateSelection
 ]
 
 { #category : #accessing }
@@ -172,5 +198,6 @@ LeDatabaseSidebarListElement >> updateTreeItems [
 		items: self items
 		immediate: [ :aTreeNode | 
 			self childrenBlock value: aTreeNode ].
-	self updateSelection
+	self applyExpandSuchThat.
+	self updateSelection.
 ]
