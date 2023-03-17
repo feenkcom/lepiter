@@ -59,7 +59,7 @@ LeDatabaseSidebarGroupedListElement >> initialize [
 	self initializeListElement.
 	self layout: BlLinearLayout vertical.
 
-	self addChild: self listElement as: #lsit.
+	self addChild: self listElement as: #list.
 	self addAptitude: (BrLayoutResizerAptitude inherit inherit: self listElement).
 ]
 
