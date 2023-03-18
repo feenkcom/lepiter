@@ -79,7 +79,7 @@ LeDatabaseNavigationModel >> gtSearchPageFor: anAction [
 		stencil: [
 			GtSpotterDropdownButtonStencil new
 				valuable: (LeDatabaseSpotterStart new navigationModel: self);
-				tooltip: 'Search Code';
+				tooltip: 'Search Pages';
 				actOn: [ :anActOnEvent :anItem :theButton | 
 					self page: anItem asContentUIModel.
 					anActOnEvent beActed.
