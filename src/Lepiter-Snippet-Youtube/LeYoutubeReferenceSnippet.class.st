@@ -76,6 +76,13 @@ LeYoutubeReferenceSnippet >> leRawYoutubeReferenceInfo [
 		leRawYoutubeReferenceInfo := LeRawYoutubeReferenceInfo fromYoutubeStringUrl: urlString]
 ]
 
+{ #category : #printing }
+LeYoutubeReferenceSnippet >> storeOn: aStream [
+	aStream nextPutAll: '(LeYoutubeReferenceSnippet new urlString: '.
+	self urlString storeOn: aStream.
+	aStream nextPutAll: '; yourself)'
+]
+
 { #category : #accessing }
 LeYoutubeReferenceSnippet >> title [
 	^ self leRawYoutubeReferenceInfo title
