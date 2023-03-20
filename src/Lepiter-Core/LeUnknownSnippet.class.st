@@ -42,13 +42,6 @@ LeUnknownSnippet class >> leJsonV3MappingFor: aNeoJSONMapper [
 				map neoJsonOn: jsonWriter ] ]
 ]
 
-{ #category : #accessing }
-LeUnknownSnippet class >> leJsonV4AttributeMapping [
-	^ super leJsonV4AttributeMapping
-		add: #jsonString -> #jsonString;
-		yourself
-]
-
 { #category : #serializing }
 LeUnknownSnippet class >> leJsonV4MappingFor: aNeoJSONMapper [
 	"LeUnknownSnippet simply writes its jsonString out"
@@ -62,11 +55,6 @@ LeUnknownSnippet class >> leJsonV4MappingFor: aNeoJSONMapper [
 				map := STONJSON fromString: leUnknownSnippet jsonString.
 				map at: #children put: leUnknownSnippet children.
 				map neoJsonOn: jsonWriter ] ]
-]
-
-{ #category : #accessing }
-LeUnknownSnippet class >> leJsonV4Name [
-	^ 'unknownSnippet'
 ]
 
 { #category : #visiting }
