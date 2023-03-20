@@ -234,3 +234,12 @@ LePharoRewriteSnippet >> searchAST [
 		ifTrue: [ RBParser parseRewriteMethod: self search ]
 		ifFalse: [ RBParser parseRewriteExpression: self search ]
 ]
+
+{ #category : #printing }
+LePharoRewriteSnippet >> storeOn: aStream [
+	aStream nextPutAll: '(LePharoRewriteSnippet new search: '.
+	self search storeOn: aStream.
+	aStream nextPutAll: '; replace: '.
+	self replace storeOn: aStream.
+	aStream nextPutAll: '; yourself)'
+]
