@@ -5,6 +5,19 @@ Class {
 }
 
 { #category : #accessing }
+LeTextualEditSnippetCommand >> code: aString [ 
+	self code: aString withSource: nil
+]
+
+{ #category : #accessing }
+LeTextualEditSnippetCommand >> code: aString withSource: aSource [
+	self snippetState 
+		addAttribute: ((LeTextualSnippetStringAttribute named: #code)
+			string: aString;
+			source: aSource)
+]
+
+{ #category : #accessing }
 LeTextualEditSnippetCommand >> string: aString [ 
 	self string: aString withSource: nil
 ]
@@ -12,7 +25,7 @@ LeTextualEditSnippetCommand >> string: aString [
 { #category : #accessing }
 LeTextualEditSnippetCommand >> string: aString withSource: aSource [
 	self snippetState 
-		addAttribute: (LeTextualSnippetStringAttribute new
+		addAttribute: ((LeTextualSnippetStringAttribute named: #string)
 			string: aString;
 			source: aSource)
 ]

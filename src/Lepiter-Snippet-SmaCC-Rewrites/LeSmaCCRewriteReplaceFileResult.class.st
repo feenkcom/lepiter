@@ -12,17 +12,39 @@ Class {
 
 { #category : #views }
 LeSmaCCRewriteReplaceFileResult >> asElement [
-	| change styler |
+	| change styler pane diffElement applyButton |
 	change := GtDiffBuilder
 			computeDifferencesFrom: self originalSource
 			to: self newSource
 			using: (GtSmaCCDiffSplitter new scannerClass: self parserClass scannerClass).
 	styler := self parserClass gtStyler.
-	^ (GtDiffElementWithLabelStencil new
-		fromLabelText: 'Original';
-		toLabelText: 'New';
-		change: change;
-		styler: styler) create
+	diffElement := (GtDiffElementWithLabelStencil new
+			fromLabelText: 'Original';
+			toLabelText: 'New';
+			change: change;
+			styler: styler) create.
+	pane := BrVerticalPane new matchParent.
+	pane addChild: diffElement as: #diff.
+	applyButton := BrButton new
+			icon: BrGlamorousVectorIcons accept;
+			beSmallSize;
+			aptitude: BrGlamorousButtonWithIconAptitude new;
+			label: 'Save';
+			margin: (BlInsets
+					top: 0
+					left: 10
+					bottom: 10
+					right: 0);
+			action: [ self saveChanges ];
+			yourself.
+	^ BrVerticalPane new
+		vFitContentLimited;
+		hMatchParent;
+		addChild: (BrLabel new
+				aptitude: BrGlamorousLabelAptitude;
+				text: self file gtDisplayString);
+		addChild: (pane padding: (BlInsets top: 5));
+		addChild: applyButton
 ]
 
 { #category : #views }
@@ -33,13 +55,7 @@ LeSmaCCRewriteReplaceFileResult >> asElementWithExpander [
 		header: [ BrLabel new
 				aptitude: BrGlamorousLabelAptitude;
 				text: self file gtDisplayString ];
-		content: [ BrVerticalPane new
-				vFitContentLimited;
-				hMatchParent;
-				addChild: (BrLabel new
-						aptitude: BrGlamorousLabelAptitude;
-						text: self file gtDisplayString);
-				addChild: (self asElement padding: (BlInsets top: 5)) ]
+		content: [ self asElement ]
 ]
 
 { #category : #accessing }
@@ -57,7 +73,7 @@ LeSmaCCRewriteReplaceFileResult >> gtDiffFor: aView [
 	<gtView>
 	^ aView explicit
 		title: 'Diff';
-		stencil: [ self asElement ]
+		stencil: [ self asElement padding: (BlInsets all: 10) ]
 ]
 
 { #category : #testing }
@@ -93,4 +109,12 @@ LeSmaCCRewriteReplaceFileResult >> parserClass [
 { #category : #accessing }
 LeSmaCCRewriteReplaceFileResult >> parserClass: aSmaCCParserClass [
 	parserClass := aSmaCCParserClass
+]
+
+{ #category : #actions }
+LeSmaCCRewriteReplaceFileResult >> saveChanges [
+	self hasChanges ifFalse: [ ^ self ].
+	self file
+		ensureDelete;
+		writeStreamDo: [ :stream | stream nextPutAll: newSource ]
 ]

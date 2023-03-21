@@ -75,8 +75,7 @@ LeSmaCCRewriteSearchResult >> gtResultsView: aView [
 									label
 										text: (String
 												streamContents: [ :stream | stream nextPutAll: node source ]
-												limitedTo: 100) ];
-								shouldShowWithoutItems: true ]).
+												limitedTo: 100) ] ]).
 			BrHorizontalPane new
 				matchParent;
 				addChild: list;

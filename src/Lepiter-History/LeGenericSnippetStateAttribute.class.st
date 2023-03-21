@@ -8,6 +8,12 @@ Class {
 	#category : #'Lepiter-History-State'
 }
 
+{ #category : #'instance creation' }
+LeGenericSnippetStateAttribute class >> named: anAttributeName [ 
+	^ self new 
+		attributeName: anAttributeName 
+]
+
 { #category : #updating }
 LeGenericSnippetStateAttribute >> applyOn: aSnippet [
 	aSnippet 
@@ -37,6 +43,18 @@ LeGenericSnippetStateAttribute >> attributeValue [
 LeGenericSnippetStateAttribute >> attributeValue: anObject [
 
 	attributeValue := anObject
+]
+
+{ #category : #printing }
+LeGenericSnippetStateAttribute >> gtDisplayOn: aStream [
+	super gtDisplayOn: aStream.
+	
+	aStream parenthesize: [ 
+		aStream 
+			<< 'name=';
+			<< self attributeName;
+			<< ', value=';
+			print: self attributeValue]
 ]
 
 { #category : #initialization }
