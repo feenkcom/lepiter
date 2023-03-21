@@ -77,6 +77,13 @@ LeSnippetCommandBuilder >> undoSnippetStateCommand [
 		snippetState: self targetSnippet extractUpdatableState
 ]
 
+{ #category : #'as yet unclassified' }
+LeSnippetCommandBuilder >> undoSnippetStateCommandBasedOnState: aSnippetState [ 
+	^ self editSnippetStateCommand
+		snippetState: (self targetSnippet 
+			extractUpdatableStateBasedOnState: aSnippetState )
+]
+
 { #category : #'build - commands' }
 LeSnippetCommandBuilder >> unindentSnippetCommand [ 
 	^ LePageUnindentSnippetCommand forSnippet: self targetSnippet

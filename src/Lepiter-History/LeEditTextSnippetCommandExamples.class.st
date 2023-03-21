@@ -39,7 +39,7 @@ LeEditTextSnippetCommandExamples >> executeEditSnippetCommand_undoState [
 	result := self executeEditSnippetCommand.
 	undoSpecification := result undoSpecification.
 	
-	self assert: undoSpecification snippetState attributesCount equals: 6.		
+	self assert: undoSpecification snippetState attributesCount equals: 5.		
 	self assert: (undoSpecification snippetState hasAttributeNamed: #uid) not.
 	self 
 		assert: (undoSpecification snippetState attributeNamed: 'string') attributeValue

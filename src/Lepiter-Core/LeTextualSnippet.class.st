@@ -13,6 +13,11 @@ Class {
 	#category : #'Lepiter-Core-Model'
 }
 
+{ #category : #testing }
+LeTextualSnippet class >> isAbstract [
+	^ self name = #LeTextualSnippet
+]
+
 { #category : #visiting }
 LeTextualSnippet >> acceptVisitor: aVisitor [
 

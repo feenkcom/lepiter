@@ -8,6 +8,12 @@ Class {
 	#category : #'Lepiter-History-State'
 }
 
+{ #category : #'instance creation' }
+LeTextualSnippetAttribute class >> named: anAttributeName [ 
+	^ self new 
+		attributeName: anAttributeName 
+]
+
 { #category : #updating }
 LeTextualSnippetAttribute >> applyOn: aTextSnippet [ 
 	aTextSnippet 
@@ -24,9 +30,7 @@ LeTextualSnippetAttribute >> asAttributeForLogStorage [
 
 { #category : #accessing }
 LeTextualSnippetAttribute >> attributeName [
-	self flag: 'To Fix'.
-	
-	^ attributeName ifNil: [ #string ]
+	^ attributeName
 ]
 
 { #category : #accessing }

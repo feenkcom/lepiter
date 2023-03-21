@@ -28,7 +28,7 @@ LeEditPharoSnippetCommandExamples >> createEditSnippetCommand [
 		equals: 1.
 	self 
 		assert: command snippetState attributeNames 
-		equals: #(string).
+		equals: #(code).
 	
 	^ command
 ]
@@ -63,7 +63,7 @@ LeEditPharoSnippetCommandExamples >> initialTargetSnippet [
 { #category : #accessing }
 LeEditPharoSnippetCommandExamples >> instantiateEditSnippetCommand [
 	^ self targetSnippet commandBuilder editTextualSnippetCommand
-		string: self modifiedStringValue
+		code: self modifiedStringValue
 ]
 
 { #category : #accessing }
