@@ -31,6 +31,11 @@ LeCodeSnippet class >> empty [
 	^ self new
 ]
 
+{ #category : #testing }
+LeCodeSnippet class >> isAbstract [
+	^ self name = #LeCodeSnippet
+]
+
 { #category : #accesing }
 LeCodeSnippet class >> stateAttributes [
 	^ self leJsonV4AttributeMapping collect: [ :aMapping |
@@ -90,11 +95,11 @@ LeCodeSnippet >> executeWithLoggingAction: aBlock afterChange: aGtCoderSourceCod
 	aGtCoderSourceCodeChanged textEditCommand 
 		ifNil: [
 			fakeCommand := self commandBuilder editTextualSnippetCommand
-				string: aGtCoderSourceCodeChanged newText asString.
+				code: aGtCoderSourceCodeChanged newText asString.
 	
 			undoSpecification := fakeCommand createUndoCommandSpecification.
 			(undoSpecification snippetState 
-				attributeNamed: 'code' )
+				attributeNamed: 'code')
 					string: aGtCoderSourceCodeChanged previousText asString ]
 		ifNotNil: [
 			fakeCommand := self commandBuilder editTextValueSnippetCommand

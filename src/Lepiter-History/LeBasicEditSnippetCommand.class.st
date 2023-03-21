@@ -32,7 +32,8 @@ LeBasicEditSnippetCommand >> createCommandSpecification [
 
 { #category : #'execution - utils' }
 LeBasicEditSnippetCommand >> createUndoCommand [
-	^ self targetSnippet commandBuilder undoSnippetStateCommand
+	^ self targetSnippet commandBuilder
+		undoSnippetStateCommandBasedOnState: self snippetState
 ]
 
 { #category : #'execution - utils' }

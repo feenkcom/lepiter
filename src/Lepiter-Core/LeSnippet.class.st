@@ -199,8 +199,23 @@ LeSnippet >> extractSpecificState [
 ]
 
 { #category : #history }
+LeSnippet >> extractSpecificStateBasedOnState: aSnippetState [ 
+	^ (LeSpecificSnippetStateExtractor forSnippet: self)
+		targetState: aSnippetState;
+		extractState
+]
+
+{ #category : #history }
 LeSnippet >> extractUpdatableState [
 	^ LeUpdatableSnippetStateExtractor fromSnippet: self
+]
+
+{ #category : #history }
+LeSnippet >> extractUpdatableStateBasedOnState: aSnippetState [ 
+	^ self extractCommonState
+		appendState: (self 
+			extractSpecificStateBasedOnState: aSnippetState);
+		yourself
 ]
 
 { #category : #'api - testing' }
