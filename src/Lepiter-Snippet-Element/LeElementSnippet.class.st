@@ -145,6 +145,20 @@ LeElementSnippet >> newCoder [
 ]
 
 { #category : #updating }
+LeElementSnippet >> updateIfRequiredCodeVisibility: aBoolean [
+	| command |
+	codeVisible = aBoolean
+		ifTrue: [ ^ self ].
+	
+	command := self commandBuilder editSnippetStateCommand.
+	command snippetState
+		attributeNamed: #codeVisible 
+		setValue: aBoolean.
+	
+	command execute 
+]
+
+{ #category : #updating }
 LeElementSnippet >> updateIfRequiredElementHeight: anElementHeight [ 
 	self 
 		updateIfRequiredElementHeight: anElementHeight 

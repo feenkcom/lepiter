@@ -271,6 +271,13 @@ LeElementSnippetElement >> onHeightChanged [
 ]
 
 { #category : #'private - event handling' }
+LeElementSnippetElement >> onHeightTemporaryChangedFor: anAnnouncement [
+	elementContainer vExact: anAnnouncement elementHeight.
+	anAnnouncement codeHeight ifNotNil: [ :aHeight |
+		self updateCoderHeightTo:  aHeight ]
+]
+
+{ #category : #'private - event handling' }
 LeElementSnippetElement >> onPageChildEvaluated: aLeUIPageChildEvaluationAnnouncement [
 	snippetViewModel ifNotNil: [ self snippetViewModel coderViewModel coder requestStyleSourceText ]
 ]
@@ -324,7 +331,7 @@ LeElementSnippetElement >> registerCoderResizeEventsFor: aResizer [
 	aResizer
 		when: BlResizerResizedEvent do: [ :anEvent |
 			self snippetViewModel
-				basicResizeElementHeightTo: anEvent extent y ];
+				temporaryResizeElementHeightTo: anEvent extent y ];
 		when: BlResizerResizeEndedEvent do: [ :anEvent |
 			anEvent hasVerticalChange ifTrue: [
 				self snippetViewModel 
@@ -348,7 +355,7 @@ LeElementSnippetElement >> registerSnippetResizeEventsFor: aResizer [
 	aResizer 
 		when: BlResizerResizedEvent do: [ :anEvent |
 			self snippetViewModel
-				basicSetElementHeightTo: anEvent extent y ];
+				temporarySetElementHeightTo: anEvent extent y ];
 		when: BlResizerResizeEndedEvent do: [ :anEvent |
 			anEvent hasVerticalChange ifTrue: [ 
 				self snippetViewModel 
@@ -433,6 +440,11 @@ LeElementSnippetElement >> subscribeToSnippetViewModel [
 		send: #onCodeVisibilityChanged
 		to: self.
 		
+	self snippetViewModel weak
+		when: LeElementSnippetViewModelTemporaryHeightChanged
+		send: #onHeightTemporaryChangedFor:
+		to: self.
+		
 	self snippetViewModel coderViewModel coder weak
 		when: GtCoderEvaluationAnnouncement
 		send: #onCodeEvaluated:
@@ -459,10 +471,15 @@ LeElementSnippetElement >> updateCoderElementViewModel [
 
 { #category : #'private - coder' }
 LeElementSnippetElement >> updateCoderHeight [
+	self updateCoderHeightTo: self snippetViewModel codeHeight
+]
+
+{ #category : #'private - coder' }
+LeElementSnippetElement >> updateCoderHeightTo: aHeight [
 	self isCoderCreated
 		ifFalse: [ ^ self ].
 
-	coderElement vExact: self snippetViewModel codeHeight
+	coderElement vExact: aHeight 
 ]
 
 { #category : #'private - coder' }
