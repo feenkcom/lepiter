@@ -146,7 +146,8 @@ LeElementSnippetElement >> ensureCoderCreated [
 		ifTrue: [ ^ self ].
 
 	coderElement := self createCoderElement.
-	coderElement editor addEventHandler: (LeEditorReachedBorderEventHandler new snippetElement: self).
+	coderElement editor addEventHandler: (LeEditorReachedBorderEventHandler new 
+		snippetElement: self).
 	coderDecorationBar := self createCoderDecorationBar.
 	coderToolbar := self createCoderToolbar.
 	coderSlideActionsToolbar := self createCoderSlideActionsToolbar.

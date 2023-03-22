@@ -113,6 +113,16 @@ LeElementSnippet >> codeVisible: aBoolean [
 		snippet: self)
 ]
 
+{ #category : #updating }
+LeElementSnippet >> createEditVisibilityCommandTo: aBoolean [ 
+	| command |
+	command := self commandBuilder editSnippetStateCommand.
+	command snippetState
+		attributeNamed: #codeVisible 
+		setValue: aBoolean.
+	^ command
+]
+
 { #category : #accessing }
 LeElementSnippet >> elementHeight [
 	^ elementHeight
@@ -144,17 +154,21 @@ LeElementSnippet >> newCoder [
 	^ GtPharoSnippetCoder new
 ]
 
+{ #category : #testing }
+LeElementSnippet >> similarTo: anotherExampleSnippet [
+	^ self code = anotherExampleSnippet code
+		and: [ self codeHeight = anotherExampleSnippet codeHeight
+			and: [ self elementHeight = anotherExampleSnippet elementHeight
+				and: [ self codeVisible = anotherExampleSnippet codeVisible ] ] ]
+]
+
 { #category : #updating }
 LeElementSnippet >> updateIfRequiredCodeVisibility: aBoolean [
 	| command |
 	codeVisible = aBoolean
 		ifTrue: [ ^ self ].
 	
-	command := self commandBuilder editSnippetStateCommand.
-	command snippetState
-		attributeNamed: #codeVisible 
-		setValue: aBoolean.
-	
+	command := self createEditVisibilityCommandTo: aBoolean.
 	command execute 
 ]
 
