@@ -304,6 +304,18 @@ LeSnippet >> isUnknownSnippet [
 	^ false
 ]
 
+{ #category : #'api - enumerating' }
+LeSnippet >> locateNextFocusedSnippetAfterRemove [
+	"Return the snippet that should get the focus after this snippet is removed, or nil if there are no more snippets."
+	
+	^ self  
+		previousSnippetDo: [ :aSnippet |  aSnippet ] 
+		ifNone: [
+			self  
+				nextSnippetDo: [ :aSnippet | aSnippet ] 
+				ifNone: [ nil ] ] 
+]
+
 { #category : #'api - editing' }
 LeSnippet >> mergeWithNext [
 	"Merge the contents of the receiver with the next snippet (the next sibling, or the parent's next).
