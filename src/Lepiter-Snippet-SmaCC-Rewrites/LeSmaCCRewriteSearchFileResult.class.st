@@ -19,6 +19,15 @@ LeSmaCCRewriteSearchFileResult >> file: aFileReference [
 ]
 
 { #category : #accessing }
+LeSmaCCRewriteSearchFileResult >> gtNodesFor: aView [
+	<gtView>
+	^ aView list
+		title: 'Nodes';
+		items: [ self nodes ];
+		itemText: [ :each | each source ]
+]
+
+{ #category : #accessing }
 LeSmaCCRewriteSearchFileResult >> nodes [
 	^ nodes asyncSimilarCopy
 ]

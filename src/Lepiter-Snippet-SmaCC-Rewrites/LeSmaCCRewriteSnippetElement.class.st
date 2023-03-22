@@ -14,7 +14,7 @@ LeSmaCCRewriteSnippetElement >> createDropDownButton: aString [
 	button
 		aptitude: BrTextLabelAptitude new glamorousRegularFont glamorousCodeSmallSize
 				+ BrGlamorousButtonIconAptitude + BrGlamorousButtonLayoutAptitude
-				+ BrGlamorousButtonExteriorAptitude + BrGlamorousButtonRectangularAptitude.
+				+ BrGlamorousButtonRectangularAptitude.
 	button vExact: 20.
 	button padding: (BlInsets left: 4 right: 2).
 	button label: aString.
@@ -37,6 +37,7 @@ LeSmaCCRewriteSnippetElement >> createLabel: aString [
 LeSmaCCRewriteSnippetElement >> createParserDropDown [
 	| button dropDownLook |
 	button := self createDropDownButton: self parserLabel.
+	button background: BrGlamorousColors neutralBackgroundColor.
 	dropDownLook := BrGlamorousWithDropdownAptitude
 			handle: [ self createDropDownButton: self parserLabel ]
 			content: [ BrSimpleList new
@@ -54,7 +55,7 @@ LeSmaCCRewriteSnippetElement >> createParserDropDown [
 					yourself ].
 	dropDownLook doNotHideWidget.
 	button addAptitude: dropDownLook.
-	button margin: (BlInsets top: 5).
+	button margin: (BlInsets top: 3).
 	^ button
 ]
 
@@ -99,6 +100,7 @@ LeSmaCCRewriteSnippetElement >> initialize [
 	filtersElement hFitContent.
 	filtersElement descriptors: [ self filterDescriptors ].
 	filtersElement when: GtFiltersChangedEvent do: [ :event | self saveScope ].
+	filtersElement padding: (BlInsets top: 1).
 	scopeElement addChild: filtersElement as: #filtersElement.
 	scopeElement addChild: ((self createLabel: 'using:') margin: (BlInsets top: 5)).
 	scopeElement addChild: self createParserDropDown as: #parserButton.
@@ -139,6 +141,11 @@ LeSmaCCRewriteSnippetElement >> onSnippetViewModelChanged [
 	self updateScope.
 	self updateParser.
 	self updateStartingState
+]
+
+{ #category : #initialization }
+LeSmaCCRewriteSnippetElement >> parserClass [
+	^ snippetViewModel ifNotNil: [ snippetViewModel snippetModel parserClass ]
 ]
 
 { #category : #initialization }
@@ -212,6 +219,13 @@ LeSmaCCRewriteSnippetElement >> snippetToolbar [
 ]
 
 { #category : #initialization }
+LeSmaCCRewriteSnippetElement >> startingStateIndex [
+	^ (snippetViewModel
+		ifNil: [ 1 ]
+		ifNotNil: [ snippetViewModel snippetModel startingStateIndex ]) max: 1
+]
+
+{ #category : #initialization }
 LeSmaCCRewriteSnippetElement >> startingStateLabel [
 	^ (snippetViewModel ifNotNil: [ snippetViewModel snippetModel startingState ])
 		ifNil: [ '*any*' ]
@@ -242,7 +256,8 @@ LeSmaCCRewriteSnippetElement >> subscribeToSnippetViewModel [
 LeSmaCCRewriteSnippetElement >> updateParser [
 	rewriteElement
 		childNamed: #parserButton
-		ifFound: [ :each | each label: self parserLabel ]
+		ifFound: [ :each | each label: self parserLabel ].
+	self updateStyler
 ]
 
 { #category : #private }
@@ -308,6 +323,7 @@ LeSmaCCRewriteSnippetElement >> updateStartingState [
 				ifNotNil: [ :cls | 
 					pane addChild: ((self createLabel: 'as:') margin: (BlInsets top: 5)).
 					button := self createDropDownButton: self startingStateLabel.
+					button background: BrGlamorousColors neutralBackgroundColor.
 					dropDownLook := BrGlamorousWithDropdownAptitude
 							handle: [ self createDropDownButton: self startingStateLabel ]
 							content: [ BrSimpleList new
@@ -325,6 +341,15 @@ LeSmaCCRewriteSnippetElement >> updateStartingState [
 									yourself ].
 					dropDownLook doNotHideWidget.
 					button addAptitude: dropDownLook.
-					button margin: (BlInsets top: 5).
-					pane addChild: button ] ]
+					button margin: (BlInsets top: 3).
+					pane addChild: button ] ].
+	self updateStyler
+]
+
+{ #category : #initialization }
+LeSmaCCRewriteSnippetElement >> updateStyler [
+	self parserClass
+		ifNotNil: [ :cls | 
+			self
+				searchEditorDo: [ :editor | editor editor styler: (cls gtStyler startingState: self startingStateIndex) ] ]
 ]
