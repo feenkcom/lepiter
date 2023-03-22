@@ -505,5 +505,9 @@ LeElementSnippetElement >> updateCoderWhenFocused: isFocused [
 			coderToolbar visibility: BlVisibility visible ]
 		ifFalse: [
 			coderToolbar constraintsDo: [ :c | c grid horizontal span: 2 ].
-			coderToolbar visibility: BlVisibility hidden ]
+			coderToolbar visibility: BlVisibility hidden ].
+	
+	isFocused
+		ifTrue: [ coderElement requestFocus ]
+		ifFalse: [ coderElement loseFocus ]
 ]
