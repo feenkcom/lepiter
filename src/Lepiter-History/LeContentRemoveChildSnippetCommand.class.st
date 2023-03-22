@@ -14,7 +14,7 @@ LeContentRemoveChildSnippetCommand class >> commandDescription [
 
 { #category : #execution }
 LeContentRemoveChildSnippetCommand >> basicExecute [ 
-	| nextFocusedSnippet|
+	| nextFocusedSnippet |
 	nextFocusedSnippet := self childSnippet locateNextFocusedSnippetAfterRemove.
 	
 	^ (self withUndoExecute: [ 
