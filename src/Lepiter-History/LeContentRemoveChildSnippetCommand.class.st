@@ -14,9 +14,13 @@ LeContentRemoveChildSnippetCommand class >> commandDescription [
 
 { #category : #execution }
 LeContentRemoveChildSnippetCommand >> basicExecute [ 
-	^ self withUndoExecute: [ 
+	| nextFocusedSnippet|
+	nextFocusedSnippet := self childSnippet locateNextFocusedSnippetAfterRemove.
+	
+	^ (self withUndoExecute: [ 
 		self targetContent 
-			removeSnippet: self childSnippet ]
+			removeSnippet: self childSnippet ])
+				nextFocusedSnippet: nextFocusedSnippet
 ]
 
 { #category : #accessing }
@@ -66,6 +70,11 @@ LeContentRemoveChildSnippetCommand >> computeChildPositionFor: aChildSnippet inP
 	^ LeInsertSnippetAfterChildUidPosition new
 		snippetUid: beforeSnippet uid
 	
+]
+
+{ #category : #accessing }
+LeContentRemoveChildSnippetCommand >> createCommandResult [
+	^ LeRemoveChildSnippetCommandExecutionResult forCommand: self
 ]
 
 { #category : #converting }
@@ -165,4 +174,14 @@ LeContentRemoveChildSnippetCommand >> initializeFromSpecification: aCommandSpeci
 { #category : #accessing }
 LeContentRemoveChildSnippetCommand >> label [
 	^ 'Remove Child Snippet'
+]
+
+{ #category : #'updating - view model' }
+LeContentRemoveChildSnippetCommand >> updateSnippetsViewModelFor: aSnippetsViewModel withResult: aCommandResult [
+	
+	aCommandResult nextFocusedSnippet ifNotNil: [ :aSnippet | 
+		| newSnippetUIModel |		
+		newSnippetUIModel := aSnippetsViewModel
+			findOrCreateSnippetViewModel: aSnippet.
+		newSnippetUIModel focused: true ]
 ]

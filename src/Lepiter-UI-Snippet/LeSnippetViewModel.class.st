@@ -153,12 +153,7 @@ LeSnippetViewModel >> removeSelf [
 	
 	nextFocusedSnippet := nil.
 	self snippetsCollectionDo: [ :aSnippetsCollection |
-		self snippetModel 
-			previousSnippetDo: [ :aSnippet | nextFocusedSnippet := aSnippet ] 
-			ifNone: [
-				self snippetModel 
-					nextSnippetDo: [ :aSnippet | nextFocusedSnippet := aSnippet ] 
-					ifNone: [ ] ] ].
+		nextFocusedSnippet := self snippetModel locateNextFocusedSnippetAfterRemove ].
 			
 	self snippetModel removeSelfThroughCommand.
 	
