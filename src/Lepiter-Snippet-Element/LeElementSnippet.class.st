@@ -113,6 +113,39 @@ LeElementSnippet >> codeVisible: aBoolean [
 		snippet: self)
 ]
 
+{ #category : #updating }
+LeElementSnippet >> createEditCommandForElementHeight: anElementHeight [
+	^ self 
+		createEditCommandForElementHeight: anElementHeight 
+		codeHeight: self codeHeight
+]
+
+{ #category : #updating }
+LeElementSnippet >> createEditCommandForElementHeight: anElementHeight codeHeight: aCodeHeight [
+	| command |
+	command := self commandBuilder editSnippetStateCommand.
+	
+	(self elementHeight closeTo: anElementHeight) ifFalse: [
+		command snippetState
+			attributeNamed: #elementHeight setValue: anElementHeight ].
+	
+	(self codeHeight closeTo: aCodeHeight) ifFalse: [
+		command snippetState
+			attributeNamed: #codeHeight setValue: aCodeHeight ].
+
+	^ command
+]
+
+{ #category : #updating }
+LeElementSnippet >> createEditVisibilityCommandTo: aBoolean [ 
+	| command |
+	command := self commandBuilder editSnippetStateCommand.
+	command snippetState
+		attributeNamed: #codeVisible 
+		setValue: aBoolean.
+	^ command
+]
+
 { #category : #accessing }
 LeElementSnippet >> elementHeight [
 	^ elementHeight
@@ -144,6 +177,24 @@ LeElementSnippet >> newCoder [
 	^ GtPharoSnippetCoder new
 ]
 
+{ #category : #testing }
+LeElementSnippet >> similarTo: anotherExampleSnippet [
+	^ self code = anotherExampleSnippet code
+		and: [ self codeHeight = anotherExampleSnippet codeHeight
+			and: [ self elementHeight = anotherExampleSnippet elementHeight
+				and: [ self codeVisible = anotherExampleSnippet codeVisible ] ] ]
+]
+
+{ #category : #updating }
+LeElementSnippet >> updateIfRequiredCodeVisibility: aBoolean [
+	| command |
+	codeVisible = aBoolean
+		ifTrue: [ ^ self ].
+	
+	command := self createEditVisibilityCommandTo: aBoolean.
+	command execute 
+]
+
 { #category : #updating }
 LeElementSnippet >> updateIfRequiredElementHeight: anElementHeight [ 
 	self 
@@ -154,15 +205,9 @@ LeElementSnippet >> updateIfRequiredElementHeight: anElementHeight [
 { #category : #updating }
 LeElementSnippet >> updateIfRequiredElementHeight: anElementHeight codeHeight: aCodeHeight [
 	| command |
-	command := self commandBuilder editSnippetStateCommand.
-	
-	(self elementHeight closeTo: anElementHeight) ifFalse: [
-		command snippetState
-			attributeNamed: #elementHeight setValue: anElementHeight ].
-	
-	(self codeHeight closeTo: aCodeHeight) ifFalse: [
-		command snippetState
-			attributeNamed: #codeHeight setValue: aCodeHeight ].
+	command := self 
+		createEditCommandForElementHeight: anElementHeight 
+		codeHeight: aCodeHeight.
 
 	command snippetState hasAttributes ifTrue: [
 		command execute ]

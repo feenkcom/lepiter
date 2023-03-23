@@ -17,30 +17,17 @@ LeEditTextSnippetCommandExamples >> assertTargetSnippetContentChanged [
 ]
 
 { #category : #accessing }
-LeEditTextSnippetCommandExamples >> createEditSnippetCommand [
-	<gtExample>
-	| command |
-
-	command := super createEditSnippetCommand.
-		
-	self assert: command snippetState attributeNames size equals: 1.
-	self 
-		assert: command snippetState attributeNames 
-		equals: #(string).
-	
-	^ command
+LeEditTextSnippetCommandExamples >> changedStateAttributes [
+	^ #(string)
 ]
 
 { #category : #'examples - execution' }
 LeEditTextSnippetCommandExamples >> executeEditSnippetCommand_undoState [
 	<gtExample>
-	| result undoSpecification |
+	| undoSpecification |
 	
-	result := self executeEditSnippetCommand.
-	undoSpecification := result undoSpecification.
+	undoSpecification := super executeEditSnippetCommand_undoState.
 	
-	self assert: undoSpecification snippetState attributesCount equals: 6.		
-	self assert: (undoSpecification snippetState hasAttributeNamed: #uid) not.
 	self 
 		assert: (undoSpecification snippetState attributeNamed: 'string') attributeValue
 		equals: self initialStringValue.

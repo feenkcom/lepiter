@@ -199,8 +199,23 @@ LeSnippet >> extractSpecificState [
 ]
 
 { #category : #history }
+LeSnippet >> extractSpecificStateBasedOnState: aSnippetState [ 
+	^ (LeSpecificSnippetStateExtractor forSnippet: self)
+		targetState: aSnippetState;
+		extractState
+]
+
+{ #category : #history }
 LeSnippet >> extractUpdatableState [
 	^ LeUpdatableSnippetStateExtractor fromSnippet: self
+]
+
+{ #category : #history }
+LeSnippet >> extractUpdatableStateBasedOnState: aSnippetState [ 
+	^ self extractCommonState
+		appendState: (self 
+			extractSpecificStateBasedOnState: aSnippetState);
+		yourself
 ]
 
 { #category : #'api - testing' }
@@ -287,6 +302,18 @@ LeSnippet >> isTextualSnippet [
 { #category : #'api - testing' }
 LeSnippet >> isUnknownSnippet [ 
 	^ false
+]
+
+{ #category : #'api - enumerating' }
+LeSnippet >> locateNextFocusedSnippetAfterRemove [
+	"Return the snippet that should get the focus after this snippet is removed, or nil if there are no more snippets."
+	
+	^ self  
+		previousSnippetDo: [ :aSnippet |  aSnippet ] 
+		ifNone: [
+			self  
+				nextSnippetDo: [ :aSnippet | aSnippet ] 
+				ifNone: [ nil ] ] 
 ]
 
 { #category : #'api - editing' }

@@ -4,12 +4,6 @@ Class {
 	#category : #'Lepiter-History-State'
 }
 
-{ #category : #'instance creation' }
-LeBasicSnippetStateAttribute class >> named: anAttributeName [ 
-	^ self new 
-		attributeName: anAttributeName 
-]
-
 { #category : #comparing }
 LeBasicSnippetStateAttribute >> = anObject [
 

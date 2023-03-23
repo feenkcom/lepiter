@@ -13,6 +13,11 @@ LeGitHubSnippet class >> empty [
 	^ self new
 ]
 
+{ #category : #testing }
+LeGitHubSnippet class >> isAbstract [
+	^ self name = #LeGitHubSnippet
+]
+
 { #category : #jsonV3 }
 LeGitHubSnippet class >> leJsonV3AttributeMapping [
 

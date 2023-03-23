@@ -15,23 +15,6 @@ Class {
 }
 
 { #category : #'api - snippet' }
-LeElementSnippetViewModel >> basicResizeElementHeightTo: aNewHeight [
-	| newCodeHeight |
-	
-	newCodeHeight := self computeCodeHeightForElementHeight: aNewHeight.
-	self snippetModel 
-		elementHeight: self elementHeight 
-			+ (self codeHeight - newCodeHeight);
-		codeHeight: newCodeHeight
-]
-
-{ #category : #'api - snippet' }
-LeElementSnippetViewModel >> basicSetElementHeightTo: aNewHeight [
-	self snippetModel 
-		elementHeight: aNewHeight
-]
-
-{ #category : #'api - snippet' }
 LeElementSnippetViewModel >> codeHeight [
 	^ self snippetModel codeHeight
 ]
@@ -78,7 +61,8 @@ LeElementSnippetViewModel >> hideCode [
 
 	wasFocused := self focused.
 	self coderViewModel focused: false.
-	self snippetModel codeVisible: false.
+	self snippetModel 
+		updateIfRequiredCodeVisibility: false.
 	self focused: wasFocused
 ]
 
@@ -138,7 +122,8 @@ LeElementSnippetViewModel >> shouldShowCode [
 
 { #category : #'api - snippet' }
 LeElementSnippetViewModel >> showCode [
-	self snippetModel codeVisible: true
+	self snippetModel 
+		updateIfRequiredCodeVisibility: true.
 ]
 
 { #category : #accessing }
@@ -168,6 +153,24 @@ LeElementSnippetViewModel >> subscribeToSnippetModel [
 	self snippetModel weak when: LeElementSnippetCodeVisibilityChanged
 		send: #onCodeVisibilityChanged
 		to: self
+]
+
+{ #category : #'api - snippet' }
+LeElementSnippetViewModel >> temporaryResizeElementHeightTo: aNewHeight [
+	| newCodeHeight |
+	
+	newCodeHeight := self computeCodeHeightForElementHeight: aNewHeight.
+	
+	self announce: (LeElementSnippetViewModelTemporaryHeightChanged new
+		elementHeight: self elementHeight 
+			+ (self codeHeight - newCodeHeight);
+		codeHeight: newCodeHeight)
+]
+
+{ #category : #'api - snippet' }
+LeElementSnippetViewModel >> temporarySetElementHeightTo: aNewHeight [
+	self announce: (LeElementSnippetViewModelTemporaryHeightChanged new
+		elementHeight: aNewHeight)
 ]
 
 { #category : #'api - snippet model' }

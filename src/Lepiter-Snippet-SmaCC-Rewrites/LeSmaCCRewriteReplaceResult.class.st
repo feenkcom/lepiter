@@ -18,7 +18,7 @@ LeSmaCCRewriteReplaceResult >> fileResultsStream: anAsyncStream [
 ]
 
 { #category : #accessing }
-LeSmaCCRewriteReplaceResult >> gtResultListFor: aView [
+LeSmaCCRewriteReplaceResult >> gtFilesListFor: aView [
 	<gtView>
 	^ aView columnedList
 		title: 'Files';
@@ -32,16 +32,42 @@ LeSmaCCRewriteReplaceResult >> gtResultListFor: aView [
 { #category : #accessing }
 LeSmaCCRewriteReplaceResult >> gtResultsFor: aView [
 	<gtView>
-	^ aView list
+	^ aView explicit
+		priority: 10;
 		title: 'Changes';
-		items: [ self fileResultsStream select: [ :each | each hasChanges ] ];
-		itemStencil: [ BrVerticalPane new
-				vFitContentLimited;
-				hMatchParent;
-				margin: (BlInsets all: 1);
-				background: Color white ];
-		itemDataBinder: [ :pane :each :i | 
-			pane
-				removeChildren;
-				addChild: each asElementWithExpander ]
+		stencil: [ | pane applyButton changes |
+			pane := BrVerticalPane new.
+			pane matchParent.
+			pane padding: (BlInsets all: 10).
+			changes := GtPhlowView empty list
+					items: [ self fileResultsStream select: [ :each | each hasChanges ] ];
+					itemStencil: [ BrVerticalPane new
+							vFitContentLimited;
+							hMatchParent;
+							margin: (BlInsets all: 1);
+							background: Color white ];
+					itemDataBinder: [ :element :each :i | 
+						element
+							removeChildren;
+							addChild: each asElementWithExpander ].
+			changes asElementDo: [ :element | pane addChild: element ].
+			applyButton := BrButton new
+					icon: BrGlamorousVectorIcons accept;
+					beSmallSize;
+					aptitude: BrGlamorousButtonWithIconAptitude new;
+					label: 'Save';
+					margin: (BlInsets
+							top: 0
+							left: 10
+							bottom: 10
+							right: 0);
+					action: [ applyButton disable.
+						(self fileResultsStream do: [ :each | each saveChanges ]) await
+							then: [ :ignore | pane enqueueTask: [ applyButton enable ] asBlTask ]
+							otherwise: [ :ex | 
+								self inform: ex gtDisplayString.
+								pane enqueueTask: [ applyButton enable ] asBlTask ] ];
+					yourself.
+			pane addChild: applyButton.
+			pane ]
 ]

@@ -146,7 +146,10 @@ LeUnknownSnippet >> markdownOn: stream level: anInteger [
 { #category : #printing }
 LeUnknownSnippet >> printOn: aStream [
 	super printOn: aStream.
+	
+	jsonString ifNil: [ ^ self ].
 	jsonString ifEmpty: [ ^ self ].
+	
 	aStream 
 		nextPutAll: '(';
 		nextPutAll: jsonString;

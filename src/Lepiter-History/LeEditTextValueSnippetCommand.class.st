@@ -12,7 +12,7 @@ Class {
 { #category : #execution }
 LeEditTextValueSnippetCommand >> basicExecute [
 	^ self withUndoExecute: [ 
-		| targetText|
+		| targetText |
 		targetText := self targetSnippet text.
 		self executeEditFor: targetText.
 		
