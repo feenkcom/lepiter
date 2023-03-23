@@ -114,6 +114,29 @@ LeElementSnippet >> codeVisible: aBoolean [
 ]
 
 { #category : #updating }
+LeElementSnippet >> createEditCommandForElementHeight: anElementHeight [
+	^ self 
+		createEditCommandForElementHeight: anElementHeight 
+		codeHeight: self codeHeight
+]
+
+{ #category : #updating }
+LeElementSnippet >> createEditCommandForElementHeight: anElementHeight codeHeight: aCodeHeight [
+	| command |
+	command := self commandBuilder editSnippetStateCommand.
+	
+	(self elementHeight closeTo: anElementHeight) ifFalse: [
+		command snippetState
+			attributeNamed: #elementHeight setValue: anElementHeight ].
+	
+	(self codeHeight closeTo: aCodeHeight) ifFalse: [
+		command snippetState
+			attributeNamed: #codeHeight setValue: aCodeHeight ].
+
+	^ command
+]
+
+{ #category : #updating }
 LeElementSnippet >> createEditVisibilityCommandTo: aBoolean [ 
 	| command |
 	command := self commandBuilder editSnippetStateCommand.
@@ -182,15 +205,9 @@ LeElementSnippet >> updateIfRequiredElementHeight: anElementHeight [
 { #category : #updating }
 LeElementSnippet >> updateIfRequiredElementHeight: anElementHeight codeHeight: aCodeHeight [
 	| command |
-	command := self commandBuilder editSnippetStateCommand.
-	
-	(self elementHeight closeTo: anElementHeight) ifFalse: [
-		command snippetState
-			attributeNamed: #elementHeight setValue: anElementHeight ].
-	
-	(self codeHeight closeTo: aCodeHeight) ifFalse: [
-		command snippetState
-			attributeNamed: #codeHeight setValue: aCodeHeight ].
+	command := self 
+		createEditCommandForElementHeight: anElementHeight 
+		codeHeight: aCodeHeight.
 
 	command snippetState hasAttributes ifTrue: [
 		command execute ]
