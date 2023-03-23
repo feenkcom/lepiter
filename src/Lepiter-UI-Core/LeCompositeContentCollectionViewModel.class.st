@@ -49,11 +49,12 @@ LeCompositeContentCollectionViewModel >> initialize [
 ]
 
 { #category : #'api - scrolling' }
-LeCompositeContentCollectionViewModel >> takeViewModelToScrollTo [
+LeCompositeContentCollectionViewModel >> takeViewModelToScrollToIf: aBlock [
+	"Evaluate a given block with a pending view model to scroll to
+	and if aBlock returns true, forget that view model and consider scrolling request to be fulfilled"
+	
 	viewModelCollections do: [ :eachViewModel |
-		eachViewModel takeViewModelToScrollTo
-			ifNotNil: [ :aViewModel | ^ aViewModel ] ].
-	^ nil
+		eachViewModel takeViewModelToScrollToIf: aBlock ]
 ]
 
 { #category : #private }

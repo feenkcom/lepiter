@@ -97,8 +97,7 @@ TLePageToolContentTreeElement >> initializeElementUpdater [
 TLePageToolContentTreeElement >> onContentTreeScrollTo [
 	self assertUIProcess.
 	
-	snippetsViewModel takeViewModelToScrollTo
-		ifNotNil: [ :aViewModelToScrollTo | self treeElement scrollToItem: aViewModelToScrollTo ]
+	snippetsViewModel takeViewModelToScrollToIf: [ :aViewModelToScrollTo | self treeElement scrollToItem: aViewModelToScrollTo ]
 ]
 
 { #category : #'private - event handling' }
@@ -117,8 +116,8 @@ TLePageToolContentTreeElement >> primitiveUpdateSnippetsAndTree [
 
 	self primitiveUpdateTree.
 
-	self snippetsViewModel takeViewModelToScrollTo
-		ifNotNil: [ :aViewModelToScrollTo | self treeElement scrollToItem: aViewModelToScrollTo ]
+	self snippetsViewModel takeViewModelToScrollToIf: [ :aViewModelToScrollTo |
+		self treeElement scrollToItem: aViewModelToScrollTo ]
 ]
 
 { #category : #'private - tree element' }

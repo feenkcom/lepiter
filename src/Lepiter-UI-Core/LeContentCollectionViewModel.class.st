@@ -92,8 +92,9 @@ LeContentCollectionViewModel >> postCopy [
 ]
 
 { #category : #'api - scrolling' }
-LeContentCollectionViewModel >> takeViewModelToScrollTo [
-	^ nil
+LeContentCollectionViewModel >> takeViewModelToScrollToIf: aBlock [
+	"Evaluate a given block with a pending view model to scroll to
+	and if aBlock returns true, forget that view model and consider scrolling request to be fulfilled"
 ]
 
 { #category : #private }
