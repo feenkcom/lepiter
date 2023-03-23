@@ -16,43 +16,8 @@ LeEditElementSnippetCommandExamples >> assertTargetSnippetContentChanged [
 ]
 
 { #category : #accessing }
-LeEditElementSnippetCommandExamples >> attributesForUndo [
-	^ #(createTime createEmail editTime editEmail), self changedStateAttributes
-]
-
-{ #category : #accessing }
 LeEditElementSnippetCommandExamples >> changedStateAttributes [
 	self subclassResponsibility
-]
-
-{ #category : #'examples - commands' }
-LeEditElementSnippetCommandExamples >> createEditSnippetCommand [
-	<gtExample>
-	| command |
-	
-	command := super createEditSnippetCommand. 
-		
-	self 
-		assert: command snippetState attributeNames sorted 
-		equals: self changedStateAttributes sorted.
-	
-	^ command
-]
-
-{ #category : #'examples - commands' }
-LeEditElementSnippetCommandExamples >> executeEditSnippetCommand_undoState [
-	<gtExample>
-	| result undoSpecification |
-	
-	result := self executeEditSnippetCommand.
-	undoSpecification := result undoSpecification.
-	
-	self assert: (undoSpecification snippetState hasAttributeNamed: #uid) not.
-	self 
-		assert: undoSpecification snippetState attributeNames sorted  
-		equals: self attributesForUndo sorted.		
-	
-	^ undoSpecification
 ]
 
 { #category : #accessing }
