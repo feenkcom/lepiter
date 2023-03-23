@@ -6,7 +6,7 @@ Class {
 
 { #category : #accessing }
 LeEditEmptyPharoSnippetCommandInStandalonePageExamples >> initialStringValue [
-	^ '1+1'
+	^ ''
 ]
 
 { #category : #accessing }
