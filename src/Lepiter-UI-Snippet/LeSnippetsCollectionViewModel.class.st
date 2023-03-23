@@ -24,7 +24,7 @@ LeSnippetsCollectionViewModel >> content: aLeContent [
 ]
 
 { #category : #'private - instance creation' }
-LeSnippetsCollectionViewModel >> createSnippetUIModelFor: aLeSnippet [
+LeSnippetsCollectionViewModel >> createSnippetViewModelFor: aLeSnippet [
 	^ aLeSnippet asSnippetViewModel
 		snippetsCollection: self;
 		sharedSnippetContext: self sharedSnippetContext
@@ -34,7 +34,7 @@ LeSnippetsCollectionViewModel >> createSnippetUIModelFor: aLeSnippet [
 LeSnippetsCollectionViewModel >> findOrCreateSnippetViewModel: aLeSnippet [
 	^ snippetsMap
 		at: aLeSnippet
-		ifAbsentPut: [ self createSnippetUIModelFor: aLeSnippet ]
+		ifAbsentPut: [ self createSnippetViewModelFor: aLeSnippet ]
 ]
 
 { #category : #'api - snippets' }
@@ -129,12 +129,12 @@ LeSnippetsCollectionViewModel >> sharedSnippetContext: aLeSharedSnippetContext [
 ]
 
 { #category : #'api - scrolling' }
-LeSnippetsCollectionViewModel >> takeViewModelToScrollTo [
-	| aViewModelToScrollTo |
+LeSnippetsCollectionViewModel >> takeViewModelToScrollToIf: aBlock [
+	"Evaluate a given block with a pending view model to scroll to
+	and if aBlock returns true, forget that view model and consider scrolling request to be fulfilled"
 
-	aViewModelToScrollTo := viewModelToScrollTo.
-	viewModelToScrollTo := nil.
-	^ aViewModelToScrollTo
+	(aBlock value: viewModelToScrollTo)
+		ifTrue: [ viewModelToScrollTo := nil ]
 ]
 
 { #category : #'api - focus' }
