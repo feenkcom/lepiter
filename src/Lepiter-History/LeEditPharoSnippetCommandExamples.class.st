@@ -16,33 +16,18 @@ LeEditPharoSnippetCommandExamples >> assertTargetSnippetContentChanged [
 		forContent: self targetPage.
 ]
 
-{ #category : #'examples - commands' }
-LeEditPharoSnippetCommandExamples >> createEditSnippetCommand [
-	<gtExample>
-	| command |
-	
-	command := super createEditSnippetCommand. 
-		
-	self 
-		assert: command snippetState attributeNames size 
-		equals: 1.
-	self 
-		assert: command snippetState attributeNames 
-		equals: #(code).
-	
-	^ command
+{ #category : #accessing }
+LeEditPharoSnippetCommandExamples >> changedStateAttributes [
+	^ #(code)
 ]
 
 { #category : #'examples - execution' }
 LeEditPharoSnippetCommandExamples >> executeEditSnippetCommand_undoState [
 	<gtExample>
-	| result undoSpecification |
+	| undoSpecification |
 	
-	result := self executeEditSnippetCommand.
-	undoSpecification := result undoSpecification.
+	undoSpecification := super executeEditSnippetCommand_undoState.
 	
-	self assert: undoSpecification snippetState attributesCount equals: 5.		
-	self assert: (undoSpecification snippetState hasAttributeNamed: #uid) not.
 	self 
 		assert: (undoSpecification snippetState attributeNamed: 'code') attributeValue
 		equals: self initialStringValue.
