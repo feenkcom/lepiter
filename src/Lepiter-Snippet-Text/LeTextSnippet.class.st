@@ -516,15 +516,6 @@ LeTextSnippet >> updateFromCommandText: aText source: anObject [
 ]
 
 { #category : #'api - editing' }
-LeTextSnippet >> updateFromEditValueCommandText: aText source: anObject [	
-	"The edit text command modifies the same instance of the text object, so we should not check that characters are the same. This is why we need a new method apart from #updateText:source:" 
-	self assertText: aText.
-	
-	self updater text: aText.
-	self announceTextChangedBy: anObject
-]
-
-{ #category : #'api - editing' }
 LeTextSnippet >> updateFromTextEditCommand: aCommand source: anObject [	
 	"Update the contet of the snippet using the given command."
 	| targetText|
