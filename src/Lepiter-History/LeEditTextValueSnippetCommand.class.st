@@ -12,12 +12,14 @@ Class {
 { #category : #execution }
 LeEditTextValueSnippetCommand >> basicExecute [
 	^ self withUndoExecute: [ 
-		| targetText |
-		targetText := self targetSnippet text.
-		self executeEditFor: targetText.
+		| wrappedTextEditCommand |
+		wrappedTextEditCommand := BrTextEditorWrappedHistoryCommand 
+			forCommand: self textEditCommand.
+		self shouldApplyUndo ifTrue: [
+			wrappedTextEditCommand markForUndo ].
 		
 		self targetSnippet
-			updateFromEditValueCommandText: targetText 
+			updateFromTextEditCommand: wrappedTextEditCommand 
 			source: self source ]
 ]
 
@@ -138,8 +140,8 @@ LeEditTextValueSnippetCommand >> updateSnippetsViewModelFor: aSnippetsViewModel 
 	
 	snippetUIModel := aSnippetsViewModel findSnippetViewModel: self targetContent.
 	snippetUIModel focused: true.
-	snippetUIModel coderViewModel selectNone.
 	
+	snippetUIModel coderViewModel selectNone.
 	self shouldApplyUndo 
 		ifTrue: [ self updateCursorForUndoEditInSnippetViewModel: snippetUIModel ] 
 		ifFalse: [ self updateCursorForMainEditInSnippetViewModel: snippetUIModel ].

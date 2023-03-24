@@ -233,8 +233,26 @@ LeCodeSnippet >> updateFromCommandText: aText source: anObject [
 ]
 
 { #category : #'api - editing' }
-LeCodeSnippet >> updateFromEditValueCommandText: aText source: anObject [
-	self updateFromCommandText: aText source: anObject
+LeCodeSnippet >> updateFromTextEditCommand: aCommand source: anObject [
+	| targetText |
+	targetText := self text.
+	aCommand applyTextChangeOn: targetText.
+	
+	self 
+		updateFromTextEditCommand: aCommand
+		withText: targetText
+		source: anObject
+]
+
+{ #category : #'api - editing' }
+LeCodeSnippet >> updateFromTextEditCommand: aCommand withText: aModifiedText source: anObject [
+	coder
+		currentSourceText: aModifiedText
+		with: (GtCoderUpdateStrategy new 
+			source: anObject;
+			propertyNamed: #isFromEditCommand put: true;
+			textEditCommand: aCommand;
+			yourself)
 ]
 
 { #category : #'api - editing' }

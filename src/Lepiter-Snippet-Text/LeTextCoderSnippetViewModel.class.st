@@ -120,10 +120,21 @@ LeTextCoderSnippetViewModel >> onSnippetTextChanged: aLeSnippetTextChanged [
 	
 	"#value can be anything, we are therefore explicitly checking for true"
 	aLeSnippetTextChanged source value == true
-		ifTrue: [ self coderViewModel coder 
-			currentSourceTextSynchronously: self snippetModel text ]
-		ifFalse: [ self coderViewModel coder 
-			currentSourceText: self snippetModel text ]
+		ifTrue: [ 
+			self coderViewModel coder 
+				currentSourceTextSynchronously: self snippetModel text ]
+		ifFalse: [ 
+			self coderViewModel coder 
+				currentSourceText: self snippetModel text
+				withEditCommand: aLeSnippetTextChanged textEditCommand
+			
+			"aLeSnippetTextChanged textEditCommand
+				ifNil: [	
+					self coderViewModel coder 
+						currentSourceText: self snippetModel text ]
+				ifNotNil: [ :aTextEditCommand | 
+					self coderViewModel 
+						applyTextEditCommand: aTextEditCommand ]" ]
 ]
 
 { #category : #accessing }
