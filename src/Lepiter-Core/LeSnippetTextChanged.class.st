@@ -5,5 +5,18 @@
 Class {
 	#name : #LeSnippetTextChanged,
 	#superclass : #LeSnippetContentChanged,
-	#category : 'Lepiter-Core-Announcements'
+	#instVars : [
+		'textEditCommand'
+	],
+	#category : #'Lepiter-Core-Announcements'
 }
+
+{ #category : #accessing }
+LeSnippetTextChanged >> textEditCommand [
+	^ textEditCommand
+]
+
+{ #category : #accessing }
+LeSnippetTextChanged >> textEditCommand: aTextEditCommand [
+	textEditCommand := aTextEditCommand
+]

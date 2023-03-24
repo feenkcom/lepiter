@@ -145,6 +145,16 @@ LeTextSnippet >> addToDatabaseOrCacheTextualLinks: aCollection [
 	self databaseDo: [ :aDatabase | aDatabase removeExplicitLinks: oldTextualLinks ].
 ]
 
+{ #category : #'api - editing' }
+LeTextSnippet >> announceTextChangedBy: anObject withTextEditCommand: aTextEditCommand [ 
+	"Notify all dependents that the receiver's text has changed"
+
+	self notifyAnnouncement: (LeSnippetTextChanged new
+		source: anObject;
+		snippet: self;
+		textEditCommand: aTextEditCommand)
+]
+
 { #category : #'private - accessing' }
 LeTextSnippet >> appendNewLineSilently [
 	self text insertString: String cr at: self text size.
@@ -506,12 +516,16 @@ LeTextSnippet >> updateFromCommandText: aText source: anObject [
 ]
 
 { #category : #'api - editing' }
-LeTextSnippet >> updateFromEditValueCommandText: aText source: anObject [	
-	"The edit text command modifies the same instance of the text object, so we should not check that characters are the same." 
-	self assertText: aText.
-	
-	self updater text: aText.
-	self announceTextChangedBy: anObject
+LeTextSnippet >> updateFromTextEditCommand: aCommand source: anObject [	
+	"Update the contet of the snippet using the given command."
+	| targetText|
+	targetText := self text.
+	aCommand applyTextChangeOn:  targetText.
+		
+	self updater text: targetText.
+	self 
+		announceTextChangedBy: anObject 
+		withTextEditCommand: aCommand.
 ]
 
 { #category : #'private - updating' }
