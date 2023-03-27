@@ -135,7 +135,10 @@ LeExampleSnippetElement >> initialize [
 		moveUpAndDown;
 		loseFocus.
 	
-	exampleEditor editor addEventHandler: (LeEditorReachedBorderEventHandler new snippetElement: self).
+	exampleEditor editor 
+		addEventHandler: (LeEditorReachedBorderEventHandler new 
+			snippetElement: self);
+		ensureNoUndoRedoShortcuts.
 	
 	browseExampleButton := BrButton new
 		beSmallSize;

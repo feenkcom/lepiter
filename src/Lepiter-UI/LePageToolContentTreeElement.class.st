@@ -142,14 +142,12 @@ LePageToolContentTreeElement >> initialize [
 LePageToolContentTreeElement >> initializeUndoShortcuts [
 	self addShortcut: (BlShortcutWithAction new
 		name: 'Undo';
-		combination: (BlKeyCombination builder primary 
-			key:  BlKeyboardKey y) build;
+		combination: BlKeyCombination primaryZ;
 		action: [ self undoCurrent ]).
 		
 	self addShortcut: (BlShortcutWithAction new
 		name: 'Redo';
-		combination: (BlKeyCombination builder primary  shift
-			key:  BlKeyboardKey y) build;
+		combination: BlKeyCombination primaryShiftZ;
 		action: [ self redoCurrent ]).
 ]
 

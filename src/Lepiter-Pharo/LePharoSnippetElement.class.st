@@ -1,7 +1,7 @@
 Class {
 	#name : #LePharoSnippetElement,
 	#superclass : #LeEvaluatedSnippetElement,
-	#category : 'Lepiter-Pharo-Snippet'
+	#category : #'Lepiter-Pharo-Snippet'
 }
 
 { #category : #'private - accessing' }
@@ -26,7 +26,10 @@ LePharoSnippetElement >> initialize [
 	editorElement := GtSourceCoderEditorElement new.
 	editorElement padding: (BlInsets top: 5 left: 7 bottom: 5 right: 0).
 	editorElement margin: BlInsets empty.
-	editorElement editor addEventHandler: (LeEditorReachedBorderEventHandler new snippetElement: self).
+	editorElement editor 
+		addEventHandler: (LeEditorReachedBorderEventHandler new 
+			snippetElement: self);
+		ensureNoUndoRedoShortcuts.
 	
 	self registerSpawnBelowHandler.
 	self initializeSpawnDownElements
