@@ -157,6 +157,43 @@ LeSplitSnippetCommandExamples >> executeSplitSinglePharoSnippetInPageCommand [
 ]
 
 { #category : #'examples - execution' }
+LeSplitSnippetCommandExamples >> executeSplitSinglePharoSnippetInPageCommand_undoCommand [
+	<gtExample>
+	| result |
+	
+	self executeSplitSinglePharoSnippetInPageCommand.
+	
+	result := self targetPage editHistory undoCurrent.
+	
+	self assertPageHistoryCountsAfterUndo.
+	self 
+		assertStructure: { 
+			#snippetA -> '12'} 
+		forContent: self targetPage.
+
+	^ self targetPage
+]
+
+{ #category : #'examples - execution' }
+LeSplitSnippetCommandExamples >> executeSplitSinglePharoSnippetInPageCommand_undoCommand_redoCommand [
+	<gtExample>
+	| result |
+	
+	self executeSplitSinglePharoSnippetInPageCommand_undoCommand.
+	
+	result := self targetPage editHistory redoCurrent.
+	
+	self assertPageHistoryCountsAfterRedo.
+	self 
+		assertStructure: { 
+			#snippetA -> '1'.
+			#snippetB -> '2'}
+		forContent: self targetPage.
+
+	^ self targetPage
+]
+
+{ #category : #'examples - execution' }
 LeSplitSnippetCommandExamples >> executeSplitSingleTextSnippetInPageCommand [
 	<gtExample>
 	| command result |
