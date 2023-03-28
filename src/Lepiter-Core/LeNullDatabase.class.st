@@ -33,6 +33,11 @@ LeNullDatabase >> dailyNotes [
 ]
 
 { #category : #'api - accessing' }
+LeNullDatabase >> dailyNotesGroup [
+	^ #()
+]
+
+{ #category : #'api - accessing' }
 LeNullDatabase >> databaseName [
 	^ ''
 ]
