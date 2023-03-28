@@ -13,6 +13,12 @@ Class {
 	#category : #'Lepiter-Core-Model'
 }
 
+{ #category : #utils }
+LeTextualSnippet class >> createTextAttributeWithValue: aSnippetText [
+	^ LeTextualSnippetTextAttribute new
+		text: aSnippetText 
+]
+
 { #category : #testing }
 LeTextualSnippet class >> isAbstract [
 	^ self name = #LeTextualSnippet
