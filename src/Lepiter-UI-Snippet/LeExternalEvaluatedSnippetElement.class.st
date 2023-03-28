@@ -60,7 +60,10 @@ LeExternalEvaluatedSnippetElement >> initializeTextEditor [
 	editorElement := GtSourceCoderEditorElement new 
 		padding: (BlInsets top: 5 left: 5 bottom: 5 right: 0).
 
-	editorElement editor addEventHandler: (LeEditorReachedBorderEventHandler new snippetElement: self)
+	editorElement editor 
+		addEventHandler: (LeEditorReachedBorderEventHandler new 
+			snippetElement: self);
+		ensureNoUndoRedoShortcuts
 ]
 
 { #category : #initialization }
