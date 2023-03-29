@@ -251,6 +251,7 @@ LeDatabaseSidebarElement >> selection: aLePageUIModel [
 	selection = aLePageUIModel
 		ifTrue: [ ^ self ].
 	selection := aLePageUIModel.
+	navigationModel page: aLePageUIModel.
 	self onSelectionChanged
 ]
 
