@@ -64,6 +64,12 @@ LeTextSnippet class >> contextMenuItemSpecification [
 		title: 'Text'
 ]
 
+{ #category : #utils }
+LeTextSnippet class >> createTextAttributeWithValue: aSnippetText [
+	^ (super createTextAttributeWithValue: aSnippetText)
+		attributeName: #string
+]
+
 { #category : #factory }
 LeTextSnippet class >> empty [
 	"Return a block with empty text"

@@ -65,6 +65,28 @@ LeContentCommandExamples >> assertOnlyTimeMetadataSetForSnippet: aSnippet [
 ]
 
 { #category : #asserting }
+LeContentCommandExamples >> assertPageHistoryCountsAfterRedo [
+	| editHistory |
+	editHistory := self targetPage editHistory.
+	
+	self assert: editHistory eventStore size equals: 3.
+
+	self assert:  editHistory undoActions size equals: 1.
+	self assert:  editHistory redoActions size equals: 0.
+]
+
+{ #category : #asserting }
+LeContentCommandExamples >> assertPageHistoryCountsAfterUndo [
+	| editHistory |
+	editHistory := self targetPage editHistory.
+	
+	self assert: editHistory eventStore size equals: 2.
+
+	self assert:  editHistory undoActions size equals: 0.
+	self assert:  editHistory redoActions size equals: 1.
+]
+
+{ #category : #asserting }
 LeContentCommandExamples >> assertStructure: structureDescription forContent: aLepiterContent [
 
 	self assert: structureDescription size equals: aLepiterContent children size.

@@ -25,6 +25,12 @@ LeCodeSnippet class >> code: aString [
 	^ self new code: aString
 ]
 
+{ #category : #utils }
+LeCodeSnippet class >> createTextAttributeWithValue: aSnippetText [
+	^ (super createTextAttributeWithValue: aSnippetText)
+		attributeName: #code
+]
+
 { #category : #factory }
 LeCodeSnippet class >> empty [ 
 
