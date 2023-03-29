@@ -12,7 +12,7 @@ The database is a directory containing a page per file, with `db.properties` con
 Class {
 	#name : #LeLocalStorage,
 	#superclass : #Object,
-	#category : 'Lepiter-Store-LocalJSON-Store'
+	#category : #'Lepiter-Store-LocalJSON-Store'
 }
 
 { #category : #accessing }
@@ -134,8 +134,8 @@ LeLocalStorage >> write: jsonObject toJsonFile: aFileReference [
 	"Write the supplied JSON object to the given file."
 
 	aFileReference writeStreamDo: [ :stream |
-		(NeoJSONWriter new on: (ZnNewLineWriterStream on: stream)) 
+		(NeoJSONWriter on: (ZnNewLineWriterStream on: stream)) 
+			newLine: Character cr asString;
 			prettyPrint: true;
 			nextPut: jsonObject ].
-
 ]
