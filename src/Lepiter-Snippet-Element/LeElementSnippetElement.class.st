@@ -398,9 +398,10 @@ LeElementSnippetElement >> showCoder [
 	
 	elementContainer addChild: coderResizer.
 
+	self updateCoderElementViewModel.
+	
 	self updateCoderWhenFocused: self snippetViewModel focused.
 	self updateCoderHeight.
-	self updateCoderElementViewModel
 ]
 
 { #category : #'api - view' }
