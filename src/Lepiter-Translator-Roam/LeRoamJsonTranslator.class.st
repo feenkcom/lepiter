@@ -293,6 +293,7 @@ LeRoamJsonTranslator >> write: anObject as: schema mappedTo: mappingSymbol prett
 	<return: #String>
 	^ String streamContents: [ :stream | | writer |
 		writer := (NeoJSONWriter on: stream)
+			newLine: Character cr asString;
 			prettyPrint: aBoolean;
 			yourself.
 		self perform: mappingSymbol with: writer.
@@ -311,6 +312,7 @@ LeRoamJsonTranslator >> write: anObject mappedTo: mappingSymbol prettyPrint: aBo
 	<return: #String>
 	^ String streamContents: [ :stream | | writer |
 		writer := (NeoJSONWriter on: stream)
+			newLine: Character cr asString;
 			prettyPrint: aBoolean;
 			yourself.
 		self perform: mappingSymbol with: writer.
@@ -334,6 +336,7 @@ LeRoamJsonTranslator >> write: anObject stream: aWriteStream as: schema withMapp
 	| writer |
 
 	writer := (NeoJSONWriter on: aWriteStream)
+			newLine: Character cr asString;
 			prettyPrint: aBoolean;
 			yourself.
 	self perform: mappingSymbol with: writer.
