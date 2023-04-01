@@ -71,7 +71,7 @@ LeAnnotationStylerVisitor >> exampleFor: aMethodDefinition [
 			aMethodDefinition compiledMethod 
 				ifNotNil: [ :aMethod |
 					aMethod gtExample 
-						ifNotNil: #asCachedExampleWithResult ] ]
+						ifNotNil: #asExampleWithResult ] ]
 ]
 
 { #category : #accessing }
