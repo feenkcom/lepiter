@@ -38,7 +38,7 @@ LeExampleSnippetElement >> computeExamplePreviewElement [
 			anElement := LeExampleSnippetComputedPreview new
 					example: aGtExample;
 					element: (GtExamplePreviewStencil new
-							example: aGtExample;
+							example: aGtExample asCachedExampleWithResult;
 							codeExpanded: self snippetViewModel codeExpanded;
 							noCode: self snippetViewModel noCode;
 							previewExpanded: self snippetViewModel previewExpanded;

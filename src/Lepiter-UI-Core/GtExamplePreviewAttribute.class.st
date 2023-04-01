@@ -98,7 +98,7 @@ GtExamplePreviewAttribute >> initializeLazyElement: aBlLazyElement [
 { #category : #'instance creation' }
 GtExamplePreviewAttribute >> newExamplePreviewStencil [
 	^ self examplePreviewStencilClass new
-		example: self example;
+		example: self example asCachedExampleWithResult;
 		codeExpanded: self codeExpanded;
 		noCode: self noCode;
 		previewExpanded: self previewExpanded;

@@ -67,13 +67,11 @@ LeAnnotationStylerVisitor >> elements [
 LeAnnotationStylerVisitor >> exampleFor: aMethodDefinition [
 	^ self examples
 		at: aMethodDefinition
-		ifAbsentPut: [ [ | example |
-			example := aMethodDefinition compiledMethod gtExample
-				asExampleWithResult.
-			example run.
-			example ]
-				on: Error
-				do: [ :ex | ex return: nil ] ]
+		ifAbsentPut: [
+			aMethodDefinition compiledMethod 
+				ifNotNil: [ :aMethod |
+					aMethod gtExample 
+						ifNotNil: #asCachedExampleWithResult ] ]
 ]
 
 { #category : #accessing }
@@ -318,6 +316,68 @@ LeAnnotationStylerVisitor >> styleButton: anAnnotation for: object withTool: aBl
 ]
 
 { #category : #styling }
+LeAnnotationStylerVisitor >> styleButton: anAnnotation forValuable: aValuable defaultLabel: aLabelBlock withTool: aBlock [
+	"Style the buttons for gtClass and gtMethod annotations"
+	| attribute |
+
+	anAnnotation isDefined
+		ifFalse: [ ^ self ].
+		
+	attribute := GtButtonAttribute new
+		beAppend;
+		stencil: [
+			| button |
+			button := LeSnippetStylerVisitor 
+				textLinkButtonPadding: (BlInsets top: 2) 
+				margin: BlInsets empty.
+			button aptitude glamorousCodeFont.
+			button
+				beSmallSize;
+				label: '?';
+				enabled: false.
+				
+			button withAsyncFutureDo: [ :anElementFuture | 
+				anElementFuture
+					whenPending: [ :theButton |
+						button 
+							label: '?';
+							enabled: false ];
+					whenError: [ :theButton :anError |
+						| aLabel |
+						aLabel := (anError messageText ifEmpty: [ anError printString ]) asRopedText.
+						aLabel foreground: BrGlamorousColors errorBackgroundColor.
+						theButton label: aLabel.
+						theButton action: [ :aButton | aButton phlow spawnObject: anError ].
+						theButton enabled: true.
+					];
+					whenSuccess: [ :theButton :anObject | 
+						| aLabel |
+						aLabel := anObject
+							ifNil: [ anAnnotation nameNode
+									ifNil: [ '' ]
+									ifNotNil: [ :aName | (aName value ifNil: [ aName ]) source ] ]
+							ifNotNil: [ :theObject | 
+								anAnnotation labelNode
+									ifNil: [ aLabelBlock value: theObject ]
+									ifNotNil: [ :node | node labelFor: theObject ] ].
+						theButton label: aLabel.
+						
+						theButton action: [ :aButton | aButton phlow spawnTool: (aBlock cull: aButton) ].
+						theButton enabled: true
+					].
+					
+					anElementFuture future: aValuable asAsyncFuture flatten.
+				].
+				
+			button ].
+
+	self text
+		attribute: attribute
+		from: anAnnotation parent startPosition
+		to: anAnnotation parent stopPosition.
+]
+
+{ #category : #styling }
 LeAnnotationStylerVisitor >> styleButton: anAnnotation withTool: aBlock [
 	self
 		styleButton: anAnnotation
@@ -342,15 +402,22 @@ LeAnnotationStylerVisitor >> styleCreateButtonFor: aChangesAnnotation [
 
 { #category : #styling }
 LeAnnotationStylerVisitor >> styleExpandingExample: anExampleAnnotation [
-	| attribute |
+	| attribute anExample |
 
 	anExampleAnnotation isDefined
 		ifFalse: [ ^ self ].
+		
+	anExample := anExampleAnnotation imageObject 
+		ifNotNil: [ :aMethodDefinition | 
+			aMethodDefinition compiledMethod 
+				ifNotNil: [ :aCompiledMethod | 
+					aCompiledMethod gtExample 
+						ifNotNil: #asCachedExampleWithResult ] ].
 
 	attribute := GtExamplePreviewAttribute new
 		withCache: self elements key: anExampleAnnotation source;
 		beAppend;
-		example: anExampleAnnotation imageObject compiledMethod gtExample asExampleWithResult;
+		example: anExample;
 		codeExpanded: anExampleAnnotation codeExpanded;
 		noCode: anExampleAnnotation noCode;
 		previewExpanded: anExampleAnnotation previewExpanded;
@@ -507,22 +574,29 @@ LeAnnotationStylerVisitor >> visitClassAnnotation: aClassAnnotation [
 
 { #category : #visiting }
 LeAnnotationStylerVisitor >> visitExampleAnnotation: anExampleAnnotation [
-	| result |
+	| anExample |
 	self visitAnnotation: anExampleAnnotation.
 	self restyleWhenMethodChanged: anExampleAnnotation.
 	self
 		styleName: anExampleAnnotation
 		spawning:
 			[ :anEvent | anEvent target phlow spawnObject: anExampleAnnotation imageObject ].
-	result := (self exampleFor: anExampleAnnotation imageObject)
-		ifNotNil: [ :example | 
-			example hasResult
-				ifTrue: [ example result returnValue ] ].
+			
+	anExample := (self exampleFor: anExampleAnnotation imageObject).
+	anExample ifNil: [ ^ self ].
+	
 	anExampleAnnotation hasLabel
-		ifTrue: [ self
+		ifTrue: [ 
+			self
 				styleButton: anExampleAnnotation
-				for: result
-				withTool: [ GtPhlowTool default object: result ] ]
+				forValuable: (MessageSend 
+					receiver: anExample
+					selector: #returnValue)
+				defaultLabel: #printString
+				withTool: [ GtInspectorTool new 
+					valuable: (MessageSend 
+						receiver: anExample 
+						selector: #returnValue) ] ]
 		ifFalse: [ self styleExpandingExample: anExampleAnnotation ]
 ]
 
