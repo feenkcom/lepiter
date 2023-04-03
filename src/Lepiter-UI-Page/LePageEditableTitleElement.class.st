@@ -188,9 +188,10 @@ LePageEditableTitleElement >> onPageTitleChanged [
 { #category : #'api - page view model' }
 LePageEditableTitleElement >> onPageViewModelChanged [
 	"Is sent when a new page view model is assigned to the element"
+
 	self titleElement
 		styler: (LePageTitleStyler new pageViewModel: self pageViewModel).
-	self updatePageTitle
+	self inUIProcessDo: [ self updatePageTitle ]
 ]
 
 { #category : #initialization }
