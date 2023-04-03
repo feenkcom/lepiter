@@ -1,6 +1,8 @@
 Class {
 	#name : #LeDatabaseByScripterExamples,
 	#superclass : #Object,
+	#traits : 'TBlDevScripterExamples',
+	#classTraits : 'TBlDevScripterExamples classTrait',
 	#category : #'Lepiter-UI-Examples'
 }
 
@@ -10,8 +12,8 @@ LeDatabaseByScripterExamples >> databaseWithTwoPages [
 	| database |
 	database := LeUIByScripterExamples new emptyDatabase.
 
-	self addEmptyPageOneInto: database.
-	self addEmptyPageTwoInto: database.
+	LeUIByScripterExamples new addEmptyPageOneInto: database.
+	LeUIByScripterExamples new addEmptyPageTwoInto: database.
 
 	^ database
 ]
