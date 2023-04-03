@@ -160,7 +160,7 @@ LeTextSnippetByScripterExamples >> insertPageRemoteLink [
 							ifFound: [ :that | that paint ]
 							ifNone: [ nil ] ]
 					equals: [ BrGlamorousColors linkColor ];
-				in: [ :theStep | LeUIByScripterExamples new targetPageInfiniteElement: theStep ];
+				in: [ :theStep | LeUIByScripterExamples targetPageInfiniteElement: theStep ];
 				onChildAt: 1;
 				id: GtSourceCoderEditorId;
 				onBreadthFirstChildOfClass: BrButton;
