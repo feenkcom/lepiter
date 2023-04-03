@@ -170,6 +170,58 @@ LeUIStylingPageByScripterExamples >> pageOneWithText [
 	^ aPage
 ]
 
+{ #category : #accessing }
+LeUIStylingPageByScripterExamples >> pageSecondTimeInWorldTab [
+	<gtExample>
+	| aScripter |
+
+	aScripter := self pageIntoWorldTab.	
+	
+	aScripter substep: 'Add page into a world tab' do: [ :aStep |
+		aStep click
+			// LeOpenPageInNewWorldTabElementId;
+			play.
+			
+		aStep assert
+			label: 'Assert page in a new tab';
+			value: [ :anElement | anElement tabs tabs size ] equals: 3;
+			play.
+			
+		aStep assert 
+			label: 'Assert page tab label';
+			value: [ :anElement | 
+					anElement tabs tabs third widget label asString ]
+				equals: 'Page One';
+			play.
+
+		aStep assert 
+			label: 'Assert page tab selection';
+			satisfies: [ :anElement | anElement tabs tabs third isSelected ]
+				description: [ 'Page tab must be selected' ];
+			play ].
+			
+	self 
+		assertStep: aScripter
+		snippetIndex: 1
+		attributeId: (LeTextSnippetAttributeLabelElementId indexed: 1)
+		labelValue: LeUIDummyExamples new number asString.
+		
+	self
+		assertStep: aScripter
+		snippetIndex: 1
+		elementIdExists: (LeTextSnippetAttributeExampleElementId indexed: 2).
+	
+	self 
+		assertStep: aScripter 
+		label: 'Assert the second example annotation is hidden'
+		snippetIndex: 1
+		annotationFrom: 153
+		to: 227 
+		isHidden: true.
+
+	^ aScripter
+]
+
 { #category : #'examples - support' }
 LeUIStylingPageByScripterExamples >> step: aRootStep label: aStepLabel snippetIndex: aSnippetIndex annotationFrom: aStartIndex to: aStopIndex isHidden: isHidden [
 	<gtExample>

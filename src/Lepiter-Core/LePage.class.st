@@ -236,44 +236,6 @@ LePage >> gtCopyActionFor: anAction [
 		action: [ :aButton | Clipboard clipboardText: self asRemoteLink ]
 ]
 
-{ #category : #accessing }
-LePage >> gtOpenInNewTabActionFor: anAction [
-	<lePageAction>
-	^ anAction button
-		tooltip: 'Open page in a new world tab';
-		icon: BrGlamorousIcons spawn;
-		action: [ :aButton | 
-			GtWorldUtility
-				showSpaceWithTitle: self title
-				inPagerWith: [ self asLepiterPagePhlowTool asElementDo: [ :e | e ] ]
-						asStencil
-				from: aButton ]
-]
-
-{ #category : #accessing }
-LePage >> gtRemoveActionFor: anAction [
-	<lePageAction>
-
-	^ anAction dropdown 
-		tooltip: 'Remove Page';
-		icon: BrGlamorousVectorIcons remove;
-		content: [:aButton | (LePageRemoveDropdownContentStencil new
-						page: self;
-						anchor: aButton)]
-]
-
-{ #category : #'gt-extensions' }
-LePage >> gtSpotterActDefaultFrom: aSpotterElement [
-	| pageTool toolElement |
-
-	pageTool := self asLepiterPagePhlowTool.
-	toolElement := pageTool asElementDo: [ :e | e ].
-	(GtPager 
-		openWrappedOn: toolElement 
-		title: self tabLabel 
-		from: aSpotterElement) maximized
-]
-
 { #category : #testing }
 LePage >> hasContent [
 	"Page itself has no other content, only snippets. 
