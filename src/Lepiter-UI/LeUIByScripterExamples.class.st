@@ -15,44 +15,8 @@ Class {
 	#category : #'Lepiter-UI-Examples'
 }
 
-{ #category : #utilities }
-LeUIByScripterExamples class >> inExample: aBlock [
-	^ aBlock cull: self new
-]
-
 { #category : #'examples - support' }
-LeUIByScripterExamples >> addEmptyPageNamed: aPageTitle into: aDatabase [
-	<gtExample>
-	| aPage aPageCount aLinkCount |
-	aPageCount := aDatabase pages size.
-	aLinkCount := aDatabase explicitLinks size.
-
-	aPage := aDatabase pageBuilder
-			title: aPageTitle;
-			add.
-
-	self assert: aDatabase pages size equals: 1 + aPageCount.
-	self assert: aDatabase explicitLinks size equals: aLinkCount.
-
-	self assert: (aDatabase pageNamed: aPageTitle) == aPage.
-
-	^ aPage
-]
-
-{ #category : #'examples - support' }
-LeUIByScripterExamples >> addEmptyPageOneInto: database [
-	<gtExample>
-	^ self addEmptyPageNamed: self pageOneTitle into: database
-]
-
-{ #category : #'examples - support' }
-LeUIByScripterExamples >> addEmptyPageTwoInto: database [
-	<gtExample>
-	^ self addEmptyPageNamed: self pageTwoTitle into: database
-]
-
-{ #category : #'examples - support' }
-LeUIByScripterExamples >> addNewSnippetShortcut [
+LeUIByScripterExamples class >> addNewSnippetShortcut [
 	<gtExample>
 	^ BlKeyCombination builder
 		shift;
@@ -62,7 +26,7 @@ LeUIByScripterExamples >> addNewSnippetShortcut [
 ]
 
 { #category : #'examples - support' }
-LeUIByScripterExamples >> addSnippetNamed: aSnippetName step: aParentStep [ 
+LeUIByScripterExamples class >> addSnippetNamed: aSnippetName step: aParentStep [ 
 	"I add a new snippet to a page as a second page child.
 	I assume that the there is a {{gtClass:LePageToolElement}} instance.
 	I assume that the lepiter database has at least one snippet.
@@ -110,6 +74,51 @@ LeUIByScripterExamples >> addSnippetNamed: aSnippetName step: aParentStep [
 			in: [ :theStep | self targetPageInfiniteElement: theStep ];
 			play.
 	]
+]
+
+{ #category : #utilities }
+LeUIByScripterExamples class >> inExample: aBlock [
+	^ aBlock cull: self new
+]
+
+{ #category : #'examples - support' }
+LeUIByScripterExamples class >> targetPageInfiniteElement: aStep [
+	aStep
+		onBreadthFirstChildOfClass: LePageToolElement;
+		id: #content;
+		id: LePageSnippetsTreeElementId;
+		id: #scrollable
+]
+
+{ #category : #'examples - support' }
+LeUIByScripterExamples >> addEmptyPageNamed: aPageTitle into: aDatabase [
+	<gtExample>
+	| aPage aPageCount aLinkCount |
+	aPageCount := aDatabase pages size.
+	aLinkCount := aDatabase explicitLinks size.
+
+	aPage := aDatabase pageBuilder
+			title: aPageTitle;
+			add.
+
+	self assert: aDatabase pages size equals: 1 + aPageCount.
+	self assert: aDatabase explicitLinks size equals: aLinkCount.
+
+	self assert: (aDatabase pageNamed: aPageTitle) == aPage.
+
+	^ aPage
+]
+
+{ #category : #'examples - support' }
+LeUIByScripterExamples >> addEmptyPageOneInto: database [
+	<gtExample>
+	^ self addEmptyPageNamed: self pageOneTitle into: database
+]
+
+{ #category : #'examples - support' }
+LeUIByScripterExamples >> addEmptyPageTwoInto: database [
+	<gtExample>
+	^ self addEmptyPageNamed: self pageTwoTitle into: database
 ]
 
 { #category : #'examples - support' }
@@ -327,7 +336,7 @@ LeUIByScripterExamples >> pageOneElementUsingDatabaseModel: aModelBlock extra: a
 				label: self pageOneTitle , ' element has one snippet widget';
 				value: [ :anInfiniteElement | anInfiniteElement children size ]
 					equals: [ 1 ];
-				in: [ :theStep | self targetPageInfiniteElement: theStep ];
+				in: [ :theStep | self class targetPageInfiniteElement: theStep ];
 				play.
 
 			aStep assert
@@ -376,13 +385,4 @@ LeUIByScripterExamples >> pageTwoIn: aDatabase [
 { #category : #'examples - support' }
 LeUIByScripterExamples >> pageTwoTitle [
 	^ 'Page Two'
-]
-
-{ #category : #'examples - support' }
-LeUIByScripterExamples >> targetPageInfiniteElement: aStep [
-	aStep
-		onBreadthFirstChildOfClass: LePageToolElement;
-		id: #content;
-		id: LePageSnippetsTreeElementId;
-		id: #scrollable
 ]

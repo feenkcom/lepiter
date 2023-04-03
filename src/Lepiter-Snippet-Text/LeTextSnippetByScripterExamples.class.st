@@ -142,7 +142,7 @@ LeTextSnippetByScripterExamples >> insertPageRemoteLink [
 				play.
 
 			aStep requestFocus
-				in: [ :theStep | LeUIByScripterExamples new targetPageInfiniteElement: theStep ];
+				in: [ :theStep | LeUIByScripterExamples targetPageInfiniteElement: theStep ];
 				onChildAt: 1;
 				id: GtSourceCoderEditorId;
 				play.

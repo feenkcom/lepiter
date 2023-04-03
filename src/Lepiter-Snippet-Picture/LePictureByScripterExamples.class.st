@@ -25,7 +25,7 @@ LePictureByScripterExamples >> addPictureSnippetAfterTheFirstSnippet [
 	
 	aScripter := LeUIByScripterExamples new emptyPageElement.
 
-	self addSnippetNamed: 'Picture' step: aScripter.
+	LeUIByScripterExamples addSnippetNamed: 'Picture' step: aScripter.
 	
 	^ aScripter
 ]
