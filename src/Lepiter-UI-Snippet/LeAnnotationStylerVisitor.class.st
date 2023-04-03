@@ -1,11 +1,12 @@
 Class {
 	#name : #LeAnnotationStylerVisitor,
 	#superclass : #LeComponentStyler,
-	#traits : 'TLeAnnotationParseNodeVisitor - {#acceptNode:}',
+	#traits : 'TLeAnnotationParseNodeVisitor',
 	#classTraits : 'TLeAnnotationParseNodeVisitor classTrait',
 	#instVars : [
 		'styler',
-		'normalFontSize'
+		'normalFontSize',
+		'lastUniqueId'
 	],
 	#category : #'Lepiter-UI-Snippet-Text styler'
 }
@@ -95,7 +96,8 @@ LeAnnotationStylerVisitor >> hasCursorInside: start to: end [
 LeAnnotationStylerVisitor >> initialize [
 	super initialize.
 
-	normalFontSize := 16
+	normalFontSize := 16.
+	lastUniqueId := 0.
 ]
 
 { #category : #private }
@@ -135,6 +137,12 @@ LeAnnotationStylerVisitor >> modifyTodoAnnotation: aTodoAnnotation with: aBlock 
 	(source copyFrom: aTodoAnnotation startPosition to: aTodoAnnotation stopPosition) = aTodoAnnotation source
 		ifFalse: [ ^ self ].
 	aBlock value: model value: source
+]
+
+{ #category : #accessing }
+LeAnnotationStylerVisitor >> nextUniqueId [
+	lastUniqueId := lastUniqueId + 1.
+	^ lastUniqueId
 ]
 
 { #category : #accessing }
@@ -229,7 +237,7 @@ LeAnnotationStylerVisitor >> styleAutoHidingAnnotation: anAnnotation [
 		ifFalse: [ ^ self ].
 		
 	aStartPositionToHide := anAnnotation parent startPosition max: 1.
-	aStopPositionToHide := anAnnotation parent stopPosition min: self text size.
+	aStopPositionToHide := anAnnotation parent stopPosition min: (self text size).
 	aStartPositionToReactToCursor := (aStartPositionToHide - 2) max: 1.
 	aStopPositionToReactToCursor := (aStopPositionToHide + 1) min: self text size.
 
@@ -274,10 +282,12 @@ LeAnnotationStylerVisitor >> styleAutoHidingAnnotation: anAnnotation [
 { #category : #styling }
 LeAnnotationStylerVisitor >> styleButton: anAnnotation for: object defaultLabel: aLabelBlock withTool: aBlock [
 	"Style the buttons for gtClass and gtMethod annotations"
-	| attribute |
+	| attribute anId |
 
 	anAnnotation isDefined
 		ifFalse: [ ^ self ].
+		
+	anId := LeTextSnippetAttributeLabelElementId indexed: self nextUniqueId. 
 		
 	attribute := GtButtonAttribute new
 		beAppend;
@@ -295,6 +305,7 @@ LeAnnotationStylerVisitor >> styleButton: anAnnotation for: object defaultLabel:
 			button := LeSnippetStylerVisitor textLinkButtonPadding: (BlInsets top: 2) margin: BlInsets empty.
 			button aptitude glamorousCodeFont.
 			button
+				id: anId;
 				beSmallSize;
 				label: label;
 				action: [ :aButton | aButton phlow spawnTool: (aBlock cull: aButton) ].
@@ -318,10 +329,12 @@ LeAnnotationStylerVisitor >> styleButton: anAnnotation for: object withTool: aBl
 { #category : #styling }
 LeAnnotationStylerVisitor >> styleButton: anAnnotation forValuable: aValuable defaultLabel: aLabelBlock withTool: aBlock [
 	"Style the buttons for gtClass and gtMethod annotations"
-	| attribute |
+	| attribute anId |
 
 	anAnnotation isDefined
 		ifFalse: [ ^ self ].
+		
+	anId := LeTextSnippetAttributeLabelElementId indexed: self nextUniqueId. 
 		
 	attribute := GtButtonAttribute new
 		beAppend;
@@ -332,6 +345,7 @@ LeAnnotationStylerVisitor >> styleButton: anAnnotation forValuable: aValuable de
 				margin: BlInsets empty.
 			button aptitude glamorousCodeFont.
 			button
+				id: anId;
 				beSmallSize;
 				label: '?';
 				enabled: false.
@@ -402,7 +416,7 @@ LeAnnotationStylerVisitor >> styleCreateButtonFor: aChangesAnnotation [
 
 { #category : #styling }
 LeAnnotationStylerVisitor >> styleExpandingExample: anExampleAnnotation [
-	| attribute anExample |
+	| attribute anExample anId |
 
 	anExampleAnnotation isDefined
 		ifFalse: [ ^ self ].
@@ -413,10 +427,13 @@ LeAnnotationStylerVisitor >> styleExpandingExample: anExampleAnnotation [
 				ifNotNil: [ :aCompiledMethod | 
 					aCompiledMethod gtExample 
 						ifNotNil: #asCachedExampleWithResult ] ].
+						
+	anId := LeTextSnippetAttributeExampleElementId indexed: self nextUniqueId.
 
 	attribute := GtExamplePreviewAttribute new
 		withCache: self elements key: anExampleAnnotation source;
 		beAppend;
+		elementId: anId;
 		example: anExample;
 		codeExpanded: anExampleAnnotation codeExpanded;
 		noCode: anExampleAnnotation noCode;

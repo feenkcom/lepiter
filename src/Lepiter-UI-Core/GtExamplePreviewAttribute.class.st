@@ -11,7 +11,8 @@ Class {
 		'previewHeight',
 		'previewShowSelector',
 		'resultVariableName',
-		'document'
+		'document',
+		'elementId'
 	],
 	#category : #'Lepiter-UI-Core-Text - Attributes'
 }
@@ -50,6 +51,16 @@ GtExamplePreviewAttribute >> document [
 GtExamplePreviewAttribute >> document: anObject [
 	self traceCr.
 	document := anObject
+]
+
+{ #category : #accessing }
+GtExamplePreviewAttribute >> elementId [
+	^ elementId
+]
+
+{ #category : #accessing }
+GtExamplePreviewAttribute >> elementId: anObject [
+	elementId := anObject
 ]
 
 { #category : #accessing }
@@ -103,7 +114,8 @@ GtExamplePreviewAttribute >> newExamplePreviewStencil [
 		noCode: self noCode;
 		previewExpanded: self previewExpanded;
 		previewShowSelector: self previewShowSelector;
-		previewHeight: self previewHeight
+		previewHeight: self previewHeight;
+		elementId: self elementId
 ]
 
 { #category : #accessing }

@@ -1,6 +1,6 @@
 Class {
 	#name : #LeDatabaseByScripterExamples,
-	#superclass : #LeUIByScripterExamples,
+	#superclass : #Object,
 	#category : #'Lepiter-UI-Examples'
 }
 
@@ -8,7 +8,7 @@ Class {
 LeDatabaseByScripterExamples >> databaseWithTwoPages [
 	<gtExample>
 	| database |
-	database := self emptyDatabase.
+	database := LeUIByScripterExamples new emptyDatabase.
 
 	self addEmptyPageOneInto: database.
 	self addEmptyPageTwoInto: database.

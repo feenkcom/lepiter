@@ -125,7 +125,7 @@ LePageToolContentTreeElement >> initialize [
 	self initializeElementUpdater.
 	
 	treeElement := self createTreeElement.
-	self addChild: treeElement as: #snippetsTree.
+	self addChild: treeElement as: LePageSnippetsTreeElementId.
 	"it will be initialized when #page is assigned"
 	snippetsViewModel := nil.
 

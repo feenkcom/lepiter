@@ -271,6 +271,38 @@ LeUIByScripterExamples >> logicalDatabaseWithTwoEmptyDatabases [
 	^ database
 ]
 
+{ #category : #'examples - elements' }
+LeUIByScripterExamples >> pageInPager: aPage [
+	<gtExample>
+	| aPageElement |
+	aPageElement := aPage asLepiterPagePhlowTool 
+		asElementDo: [ :anElement | 
+			GtPager createWrappedOn: anElement ].
+
+	^ aPageElement
+]
+
+{ #category : #'examples - database' }
+LeUIByScripterExamples >> pageOne [
+	<gtExample>
+	| aDatabase aPageOne |
+	aDatabase := self databaseWithPageOne.
+	aPageOne := self pageOneIn: aDatabase.
+
+	^ aPageOne
+]
+
+{ #category : #'examples - elements' }
+LeUIByScripterExamples >> pageOneElementInPager [
+	<gtExample>
+	| aDatabase aPageOne aPageElement |
+	aDatabase := self databaseWithPageOne.
+	aPageOne := self pageOneIn: aDatabase.
+	aPageElement := self pageInPager: aPageOne.
+
+	^ aPageElement
+]
+
 { #category : #'examples - support' }
 LeUIByScripterExamples >> pageOneElementUsingDatabaseModel: aModelBlock extra: anElementBlock [
 	"I open a page element using #asLepiterPagePhlowTool
@@ -351,6 +383,6 @@ LeUIByScripterExamples >> targetPageInfiniteElement: aStep [
 	aStep
 		onBreadthFirstChildOfClass: LePageToolElement;
 		id: #content;
-		id: #snippetsTree;
+		id: LePageSnippetsTreeElementId;
 		id: #scrollable
 ]

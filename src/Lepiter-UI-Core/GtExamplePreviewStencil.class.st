@@ -10,7 +10,8 @@ Class {
 		'previewExpanded',
 		'previewHeight',
 		'previewShowSelector',
-		'resultVariableName'
+		'resultVariableName',
+		'elementId'
 	],
 	#category : #'Lepiter-UI-Core-Brick - Stencils'
 }
@@ -46,6 +47,10 @@ GtExamplePreviewStencil >> create [
 			c textFlow pushLine.
 			c horizontal matchParent.
 			c vertical fitContent ].
+	
+	self elementId ifNotNil: [ :anId | 
+		aContainer id: anId ].
+			
 	aPreviewContainerElement := self newContainerWithHeight: self previewHeight.
 	
 	self noCode ifFalse: [ 
@@ -67,6 +72,16 @@ GtExamplePreviewStencil >> create [
 				receiver: self example 
 				selector: #returnValue)  ].
 	^ aContainer
+]
+
+{ #category : #accessing }
+GtExamplePreviewStencil >> elementId [
+	^ elementId
+]
+
+{ #category : #accessing }
+GtExamplePreviewStencil >> elementId: anObject [
+	elementId := anObject
 ]
 
 { #category : #accessing }
