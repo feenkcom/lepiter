@@ -101,10 +101,10 @@ LePageToolElement >> onPageTitleChanged [
 LePageToolElement >> onPageViewModelChanged [
 	"Is sent when a new page view model is assigned to the element"
 
-	self
-		inUIProcessDo: [ self contentElement pageViewModel: self pageViewModel.
+	self contentElement pageViewModel: self pageViewModel.
 
-			self sidebarElement
+	self
+		inUIProcessDo: [ self sidebarElement
 				databaseViewModel: self pageViewModel databaseViewModel;
 				selection: self pageViewModel.
 
