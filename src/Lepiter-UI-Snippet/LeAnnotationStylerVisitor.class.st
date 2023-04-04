@@ -1,11 +1,12 @@
 Class {
 	#name : #LeAnnotationStylerVisitor,
 	#superclass : #LeComponentStyler,
-	#traits : 'TLeAnnotationParseNodeVisitor - {#acceptNode:}',
+	#traits : 'TLeAnnotationParseNodeVisitor',
 	#classTraits : 'TLeAnnotationParseNodeVisitor classTrait',
 	#instVars : [
 		'styler',
-		'normalFontSize'
+		'normalFontSize',
+		'lastUniqueId'
 	],
 	#category : #'Lepiter-UI-Snippet-Text styler'
 }
@@ -67,13 +68,11 @@ LeAnnotationStylerVisitor >> elements [
 LeAnnotationStylerVisitor >> exampleFor: aMethodDefinition [
 	^ self examples
 		at: aMethodDefinition
-		ifAbsentPut: [ [ | example |
-			example := aMethodDefinition compiledMethod gtExample
-				asExampleWithResult.
-			example run.
-			example ]
-				on: Error
-				do: [ :ex | ex return: nil ] ]
+		ifAbsentPut: [
+			aMethodDefinition compiledMethod 
+				ifNotNil: [ :aMethod |
+					aMethod gtExample 
+						ifNotNil: #asExampleWithResult ] ]
 ]
 
 { #category : #accessing }
@@ -97,7 +96,8 @@ LeAnnotationStylerVisitor >> hasCursorInside: start to: end [
 LeAnnotationStylerVisitor >> initialize [
 	super initialize.
 
-	normalFontSize := 16
+	normalFontSize := 16.
+	lastUniqueId := 0.
 ]
 
 { #category : #private }
@@ -137,6 +137,12 @@ LeAnnotationStylerVisitor >> modifyTodoAnnotation: aTodoAnnotation with: aBlock 
 	(source copyFrom: aTodoAnnotation startPosition to: aTodoAnnotation stopPosition) = aTodoAnnotation source
 		ifFalse: [ ^ self ].
 	aBlock value: model value: source
+]
+
+{ #category : #accessing }
+LeAnnotationStylerVisitor >> nextUniqueId [
+	lastUniqueId := lastUniqueId + 1.
+	^ lastUniqueId
 ]
 
 { #category : #accessing }
@@ -231,7 +237,7 @@ LeAnnotationStylerVisitor >> styleAutoHidingAnnotation: anAnnotation [
 		ifFalse: [ ^ self ].
 		
 	aStartPositionToHide := anAnnotation parent startPosition max: 1.
-	aStopPositionToHide := anAnnotation parent stopPosition min: self text size.
+	aStopPositionToHide := anAnnotation parent stopPosition min: (self text size).
 	aStartPositionToReactToCursor := (aStartPositionToHide - 2) max: 1.
 	aStopPositionToReactToCursor := (aStopPositionToHide + 1) min: self text size.
 
@@ -276,10 +282,12 @@ LeAnnotationStylerVisitor >> styleAutoHidingAnnotation: anAnnotation [
 { #category : #styling }
 LeAnnotationStylerVisitor >> styleButton: anAnnotation for: object defaultLabel: aLabelBlock withTool: aBlock [
 	"Style the buttons for gtClass and gtMethod annotations"
-	| attribute |
+	| attribute anId |
 
 	anAnnotation isDefined
 		ifFalse: [ ^ self ].
+		
+	anId := LeTextSnippetAttributeLabelElementId indexed: self nextUniqueId. 
 		
 	attribute := GtButtonAttribute new
 		beAppend;
@@ -297,6 +305,7 @@ LeAnnotationStylerVisitor >> styleButton: anAnnotation for: object defaultLabel:
 			button := LeSnippetStylerVisitor textLinkButtonPadding: (BlInsets top: 2) margin: BlInsets empty.
 			button aptitude glamorousCodeFont.
 			button
+				id: anId;
 				beSmallSize;
 				label: label;
 				action: [ :aButton | aButton phlow spawnTool: (aBlock cull: aButton) ].
@@ -315,6 +324,71 @@ LeAnnotationStylerVisitor >> styleButton: anAnnotation for: object withTool: aBl
 		for: object
 		defaultLabel: #printString
 		withTool: aBlock
+]
+
+{ #category : #styling }
+LeAnnotationStylerVisitor >> styleButton: anAnnotation forValuable: aValuable defaultLabel: aLabelBlock withTool: aBlock [
+	"Style the buttons for gtClass and gtMethod annotations"
+	| attribute anId |
+
+	anAnnotation isDefined
+		ifFalse: [ ^ self ].
+		
+	anId := LeTextSnippetAttributeLabelElementId indexed: self nextUniqueId. 
+		
+	attribute := GtButtonAttribute new
+		beAppend;
+		stencil: [
+			| button |
+			button := LeSnippetStylerVisitor 
+				textLinkButtonPadding: (BlInsets top: 2) 
+				margin: BlInsets empty.
+			button aptitude glamorousCodeFont.
+			button
+				id: anId;
+				beSmallSize;
+				label: '?';
+				enabled: false.
+				
+			button withAsyncFutureDo: [ :anElementFuture | 
+				anElementFuture
+					whenPending: [ :theButton |
+						button 
+							label: '?';
+							enabled: false ];
+					whenError: [ :theButton :anError |
+						| aLabel |
+						aLabel := (anError messageText ifEmpty: [ anError printString ]) asRopedText.
+						aLabel foreground: BrGlamorousColors errorBackgroundColor.
+						theButton label: aLabel.
+						theButton action: [ :aButton | aButton phlow spawnObject: anError ].
+						theButton enabled: true.
+					];
+					whenSuccess: [ :theButton :anObject | 
+						| aLabel |
+						aLabel := anObject
+							ifNil: [ anAnnotation nameNode
+									ifNil: [ '' ]
+									ifNotNil: [ :aName | (aName value ifNil: [ aName ]) source ] ]
+							ifNotNil: [ :theObject | 
+								anAnnotation labelNode
+									ifNil: [ aLabelBlock value: theObject ]
+									ifNotNil: [ :node | node labelFor: theObject ] ].
+						theButton label: aLabel.
+						
+						theButton action: [ :aButton | aButton phlow spawnTool: (aBlock cull: aButton) ].
+						theButton enabled: true
+					].
+					
+					anElementFuture future: aValuable asAsyncFuture flatten.
+				].
+				
+			button ].
+
+	self text
+		attribute: attribute
+		from: anAnnotation parent startPosition
+		to: anAnnotation parent stopPosition.
 ]
 
 { #category : #styling }
@@ -342,15 +416,25 @@ LeAnnotationStylerVisitor >> styleCreateButtonFor: aChangesAnnotation [
 
 { #category : #styling }
 LeAnnotationStylerVisitor >> styleExpandingExample: anExampleAnnotation [
-	| attribute |
+	| attribute anExample anId |
 
 	anExampleAnnotation isDefined
 		ifFalse: [ ^ self ].
+		
+	anExample := anExampleAnnotation imageObject 
+		ifNotNil: [ :aMethodDefinition | 
+			aMethodDefinition compiledMethod 
+				ifNotNil: [ :aCompiledMethod | 
+					aCompiledMethod gtExample 
+						ifNotNil: #asCachedExampleWithResult ] ].
+						
+	anId := LeTextSnippetAttributeExampleElementId indexed: self nextUniqueId.
 
 	attribute := GtExamplePreviewAttribute new
 		withCache: self elements key: anExampleAnnotation source;
 		beAppend;
-		example: anExampleAnnotation imageObject compiledMethod gtExample asExampleWithResult;
+		elementId: anId;
+		example: anExample;
 		codeExpanded: anExampleAnnotation codeExpanded;
 		noCode: anExampleAnnotation noCode;
 		previewExpanded: anExampleAnnotation previewExpanded;
@@ -507,22 +591,29 @@ LeAnnotationStylerVisitor >> visitClassAnnotation: aClassAnnotation [
 
 { #category : #visiting }
 LeAnnotationStylerVisitor >> visitExampleAnnotation: anExampleAnnotation [
-	| result |
+	| anExample |
 	self visitAnnotation: anExampleAnnotation.
 	self restyleWhenMethodChanged: anExampleAnnotation.
 	self
 		styleName: anExampleAnnotation
 		spawning:
 			[ :anEvent | anEvent target phlow spawnObject: anExampleAnnotation imageObject ].
-	result := (self exampleFor: anExampleAnnotation imageObject)
-		ifNotNil: [ :example | 
-			example hasResult
-				ifTrue: [ example result returnValue ] ].
+			
+	anExample := (self exampleFor: anExampleAnnotation imageObject).
+	anExample ifNil: [ ^ self ].
+	
 	anExampleAnnotation hasLabel
-		ifTrue: [ self
+		ifTrue: [ 
+			self
 				styleButton: anExampleAnnotation
-				for: result
-				withTool: [ GtPhlowTool default object: result ] ]
+				forValuable: (MessageSend 
+					receiver: anExample
+					selector: #returnValue)
+				defaultLabel: #printString
+				withTool: [ GtInspectorTool new 
+					valuable: (MessageSend 
+						receiver: anExample 
+						selector: #returnValue) ] ]
 		ifFalse: [ self styleExpandingExample: anExampleAnnotation ]
 ]
 

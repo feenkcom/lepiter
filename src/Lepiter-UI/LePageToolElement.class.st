@@ -100,14 +100,15 @@ LePageToolElement >> onPageTitleChanged [
 { #category : #'api - page view model' }
 LePageToolElement >> onPageViewModelChanged [
 	"Is sent when a new page view model is assigned to the element"
-	
+
 	self contentElement pageViewModel: self pageViewModel.
 
-	self sidebarElement
-		databaseViewModel: self pageViewModel databaseViewModel;
-		selection: self pageViewModel.
+	self
+		inUIProcessDo: [ self sidebarElement
+				databaseViewModel: self pageViewModel databaseViewModel;
+				selection: self pageViewModel.
 
-	self updateWorldTitle
+			self updateWorldTitle ]
 ]
 
 { #category : #'private - event handling' }

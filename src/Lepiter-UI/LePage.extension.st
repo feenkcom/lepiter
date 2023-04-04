@@ -181,6 +181,45 @@ m ]
 ]
 
 { #category : #'*Lepiter-UI' }
+LePage >> gtOpenInNewTabActionFor: anAction [
+	<lePageAction>
+	^ anAction button
+		id: LeOpenPageInNewWorldTabElementId;
+		tooltip: 'Open page in a new world tab';
+		icon: BrGlamorousIcons spawn;
+		action: [ :aButton | 
+			GtWorldUtility
+				showSpaceWithTitle: self title
+				inPagerWith: [ self asLepiterPagePhlowTool asElementDo: [ :e | e ] ]
+						asStencil
+				from: aButton ]
+]
+
+{ #category : #'*Lepiter-UI' }
+LePage >> gtRemoveActionFor: anAction [
+	<lePageAction>
+
+	^ anAction dropdown 
+		tooltip: 'Remove Page';
+		icon: BrGlamorousVectorIcons remove;
+		content: [:aButton | (LePageRemoveDropdownContentStencil new
+						page: self;
+						anchor: aButton)]
+]
+
+{ #category : #'*Lepiter-UI' }
+LePage >> gtSpotterActDefaultFrom: aSpotterElement [
+	| pageTool toolElement |
+
+	pageTool := self asLepiterPagePhlowTool.
+	toolElement := pageTool asElementDo: [ :e | e ].
+	(GtPager 
+		openWrappedOn: toolElement 
+		title: self tabLabel 
+		from: aSpotterElement) maximized
+]
+
+{ #category : #'*Lepiter-UI' }
 LePage >> gtSpotterDatabaseFor: aSearch [
 	<gtSearch>
 	self database ifNil: [ ^ aSearch empty ].

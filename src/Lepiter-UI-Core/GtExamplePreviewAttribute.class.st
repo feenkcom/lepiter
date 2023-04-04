@@ -11,7 +11,8 @@ Class {
 		'previewHeight',
 		'previewShowSelector',
 		'resultVariableName',
-		'document'
+		'document',
+		'elementId'
 	],
 	#category : #'Lepiter-UI-Core-Text - Attributes'
 }
@@ -50,6 +51,16 @@ GtExamplePreviewAttribute >> document [
 GtExamplePreviewAttribute >> document: anObject [
 	self traceCr.
 	document := anObject
+]
+
+{ #category : #accessing }
+GtExamplePreviewAttribute >> elementId [
+	^ elementId
+]
+
+{ #category : #accessing }
+GtExamplePreviewAttribute >> elementId: anObject [
+	elementId := anObject
 ]
 
 { #category : #accessing }
@@ -98,12 +109,13 @@ GtExamplePreviewAttribute >> initializeLazyElement: aBlLazyElement [
 { #category : #'instance creation' }
 GtExamplePreviewAttribute >> newExamplePreviewStencil [
 	^ self examplePreviewStencilClass new
-		example: self example;
+		example: self example asCachedExampleWithResult;
 		codeExpanded: self codeExpanded;
 		noCode: self noCode;
 		previewExpanded: self previewExpanded;
 		previewShowSelector: self previewShowSelector;
-		previewHeight: self previewHeight
+		previewHeight: self previewHeight;
+		elementId: self elementId
 ]
 
 { #category : #accessing }

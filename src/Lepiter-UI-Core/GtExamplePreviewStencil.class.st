@@ -5,13 +5,13 @@ Class {
 	#classTraits : 'TLepiterConstants classTrait',
 	#instVars : [
 		'example',
-		'exampleWithResult',
 		'codeExpanded',
 		'noCode',
 		'previewExpanded',
 		'previewHeight',
 		'previewShowSelector',
-		'resultVariableName'
+		'resultVariableName',
+		'elementId'
 	],
 	#category : #'Lepiter-UI-Core-Brick - Stencils'
 }
@@ -47,32 +47,55 @@ GtExamplePreviewStencil >> create [
 			c textFlow pushLine.
 			c horizontal matchParent.
 			c vertical fitContent ].
+	
+	self elementId ifNotNil: [ :anId | 
+		aContainer id: anId ].
+			
 	aPreviewContainerElement := self newContainerWithHeight: self previewHeight.
+	
 	self noCode ifFalse: [ 
 		| aCodeElement |
 		aCodeElement := self newCodeElement.
 		aCodeElement when: GtPhlowObjectToSpawn do: [ :anEvent | 
 			anEvent consumed: true.
-			self updatePreviewElement: aPreviewContainerElement in: aContainer with: anEvent object ].
+			self 
+				updatePreviewElement: aPreviewContainerElement 
+				in: aContainer 
+				with: anEvent object ].
 		aContainer addChild: aCodeElement ].
+	
 	self isPreviewExpected ifTrue: [ 
-		self updatePreviewElement: aPreviewContainerElement in: aContainer with: self result ].
+		self 
+			updatePreviewElement: aPreviewContainerElement 
+			in: aContainer 
+			with: (MessageSend 
+				receiver: self example 
+				selector: #returnValue)  ].
 	^ aContainer
 ]
 
 { #category : #accessing }
+GtExamplePreviewStencil >> elementId [
+	^ elementId
+]
+
+{ #category : #accessing }
+GtExamplePreviewStencil >> elementId: anObject [
+	elementId := anObject
+]
+
+{ #category : #accessing }
 GtExamplePreviewStencil >> example [
+	<return: #GtExampleWithResult>
 	^ example
 ]
 
 { #category : #accessing }
 GtExamplePreviewStencil >> example: aGtExample [
-	example := aGtExample
-]
+	"It is recommended to provide a cached example with result
+	using #asCachedExampleWithResult"
 
-{ #category : #accessing }
-GtExamplePreviewStencil >> exampleWithResult [
-	^ exampleWithResult ifNil: [ exampleWithResult := self example run ]
+	example := aGtExample asExampleWithResult
 ]
 
 { #category : #initialization }
@@ -186,18 +209,30 @@ GtExamplePreviewStencil >> previewShowSelector: anObject [
 	previewShowSelector := anObject
 ]
 
-{ #category : #accessing }
-GtExamplePreviewStencil >> result [
-	^ self exampleWithResult returnValue
-]
-
 { #category : #private }
-GtExamplePreviewStencil >> updatePreviewElement: aPreviewContainerElement in: aWholeContainer with: anObject [
-	| aNewPreview |
-	aNewPreview := self newPreviewElementFor: anObject.
-	aPreviewContainerElement removeChildNamed: #preview.
-	aPreviewContainerElement addChild: aNewPreview at: 1 as: #preview.
-
+GtExamplePreviewStencil >> updatePreviewElement: aPreviewContainerElement in: aWholeContainer with: aValuable [
+	aPreviewContainerElement withAsyncFutureDo: [ :anAsyncElementFuture |
+		anAsyncElementFuture
+			whenPending: [ :theContainer | 
+				theContainer 
+					removeChildNamed: #preview ];
+			whenError: [ :theContainer :anError | 
+				theContainer 
+					removeChildNamed: #preview;
+					addChild: anError asDebuggableElement at: 1 as: #preview
+			];
+			whenSuccess: [ :theContainer :aNewPreview |
+				theContainer 
+					removeChildNamed: #preview;
+					addChild: aNewPreview at: 1 as: #preview
+			].
+			
+		anAsyncElementFuture future: (aValuable asAsyncFuture
+			map: (MessageSend 
+				receiver: self
+				selector: #newPreviewElementFor:)).
+	].
+	
 	self noCode ifFalse: [ 
 		aWholeContainer removeChildNamed: #arrow.
 		aWholeContainer addChild: self newArrowElement at: 2 as: #arrow ].

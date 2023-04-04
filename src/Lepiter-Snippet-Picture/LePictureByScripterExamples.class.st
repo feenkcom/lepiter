@@ -3,7 +3,7 @@ I exemplify {{gtPackage:Lepiter-Snippet-Picture}} using {{gtClass:BlDevScripter}
 "
 Class {
 	#name : #LePictureByScripterExamples,
-	#superclass : #LeUIByScripterExamples,
+	#superclass : #Object,
 	#category : #'Lepiter-Snippet-Picture-Examples'
 }
 
@@ -23,9 +23,9 @@ LePictureByScripterExamples >> addPictureSnippetAfterTheFirstSnippet [
 	<gtExample>
 	| aScripter |
 	
-	aScripter := self emptyPageElement.
+	aScripter := LeUIByScripterExamples new emptyPageElement.
 
-	self addSnippetNamed: 'Picture' step: aScripter.
+	LeUIByScripterExamples addSnippetNamed: 'Picture' step: aScripter.
 	
 	^ aScripter
 ]

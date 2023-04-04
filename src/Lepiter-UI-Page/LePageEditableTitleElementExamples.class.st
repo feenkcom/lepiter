@@ -84,16 +84,23 @@ LePageEditableTitleElementExamples >> pageEditableTitleElement_DisapprovedTitleR
 
 { #category : #'examples - page - editable title' }
 LePageEditableTitleElementExamples >> pageEditableTitleElement_LongTitle [
-
 	<gtExample>
-	| anElement aPage |
+	| anElement aPage aScripter |
 	anElement := self basicPageEditableTitleElement.
 	aPage := self titledPage.
+	aScripter := BlScripter new element: anElement.
+	
 	aPage updateTitle: (String loremIpsum: 108).
 
-	anElement pageViewModel: aPage asContentUIModel.
+	aScripter do
+		label: 'Reset page view model';
+		block: [ anElement pageViewModel: aPage asContentUIModel ];
+		play.
 
-	self assert: anElement titleElement text asString equals: aPage title.
+	aScripter check
+		label: 'Check that page title changes';
+		satisfies: [ :element | element titleElement text asString = aPage title ];
+		play.
 	^ anElement
 ]
 
@@ -120,13 +127,21 @@ LePageEditableTitleElementExamples >> pageEditableTitleElement_RenamePageBToC [
 
 { #category : #'examples - page - editable title' }
 LePageEditableTitleElementExamples >> pageEditableTitleElement_TitledPage [
-
 	<gtExample>
-	| anElement aPage |
+	| anElement aPage aScripter |
 	anElement := self basicPageEditableTitleElement.
 	aPage := self titledPage.
-	anElement pageViewModel: aPage asContentUIModel.
-	self assert: anElement titleElement text asString equals: aPage title.
+	aScripter := BlScripter new element: anElement.
+
+	aScripter do
+		label: 'Reset page view model';
+		block: [ anElement pageViewModel: aPage asContentUIModel ];
+		play.
+
+	aScripter check
+		label: 'Check that page title changes';
+		satisfies: [ :element | element titleElement text asString = aPage title ];
+		play.
 	^ anElement
 ]
 
