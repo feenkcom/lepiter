@@ -585,6 +585,16 @@ LeContent >> gtIncomingLinksFor: aView [
 ]
 
 { #category : #'gt-extensions' }
+LeContent >> gtMarkdownPageFor: aView [
+	<gtView>
+	^ aView textEditor
+		title: 'Markdown';
+		priority: 50;
+		aptitude: BrGlamorousCodeEditorAptitude;
+		text: [ self asMarkdownPage ]
+]
+
+{ #category : #'gt-extensions' }
 LeContent >> gtSerializationFor: aView [
 	<gtView>
 	
@@ -877,6 +887,11 @@ LeContent >> linkedTarget: aLeContent in: aLeLink [
 LeContent >> markdownOn: stream [
 
 	^ self markdownOn: stream level: 0
+]
+
+{ #category : #'private - exporting' }
+LeContent >> markdownOn: stream level: anInteger [
+	self subclassResponsibility
 ]
 
 { #category : #'api - editing' }
