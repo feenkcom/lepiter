@@ -94,33 +94,45 @@ LeUIStylingPageByScripterExamples >> assertStep: aStep snippetIndex: aSnippetInd
 ]
 
 { #category : #accessing }
+LeUIStylingPageByScripterExamples >> newMemoryLogger [
+	^ MemoryLogger new
+		startFor: 
+			BrTextStylerAsyncStrategySignal ,
+			BrAsyncElementFutureSignal,
+			BrElementUpdaterSignal
+]
+
+{ #category : #accessing }
 LeUIStylingPageByScripterExamples >> pageClickOnTheFirstPageWorldTab [
 	<gtExample>
-	| aScripter |
+	| aScripter aLogger |
+	aScripter := self pageSecondTimeInWorldTab.
 
-	aScripter := self pageSecondTimeInWorldTab.	
-	
-	aScripter substep: 'Display the first page tab' do: [ :aStep |
-		aStep click
-			label: 'Click on the second world tab';
-			// GtWorldTabGroupId;
-			/ #header;
-			// #tabbar;
-			onChildFromBlock: [ :aTabbar | aTabbar children second ];
-			play.
-			
-		aStep assert
-			label: 'Assert page in a new tab';
-			value: [ :anElement | anElement tabs tabs size ] equals: 3;
-			play.
+	aLogger := self newMemoryLogger
+		name: '02 Display the page again'.
+	aScripter userData at: #pageClickOnTheFirstPageWorldTab put: aLogger.
 
-		aStep assert 
-			label: 'Assert page tab selection';
-			satisfies: [ :anElement | anElement tabs tabs second isSelected ]
-				description: [ 'Page tab must be selected' ];
-			play ].
-			
-	"self 
+	[ aScripter
+		substep: 'Display the first page tab'
+		do: [ :aStep | 
+			aStep click
+				label: 'Click on the second world tab';
+				// GtWorldTabGroupId;
+				/ #header;
+				// #tabbar;
+				onChildFromBlock: [ :aTabbar | aTabbar children second ];
+				play.
+
+			aStep assert
+				label: 'Assert page in a new tab';
+				value: [ :anElement | anElement tabs tabs size ] equals: 3;
+				play.
+
+			aStep assert
+				label: 'Assert page tab selection';
+				satisfies: [ :anElement | anElement tabs tabs second isSelected ]
+					description: [ 'Page tab must be selected' ];
+				play ] ] ensure: [ aLogger stop ].	"self 
 		assertStep: aScripter
 		snippetIndex: 1
 		attributeId: (LeTextSnippetAttributeLabelElementId indexed: 1)
@@ -129,9 +141,7 @@ LeUIStylingPageByScripterExamples >> pageClickOnTheFirstPageWorldTab [
 	self
 		assertStep: aScripter
 		snippetIndex: 1
-		elementIdExists: (LeTextSnippetAttributeExampleElementId indexed: 2)."
-	
-	"self 
+		elementIdExists: (LeTextSnippetAttributeExampleElementId indexed: 2)."	"self 
 		assertStep: aScripter 
 		label: 'Assert the second example annotation is hidden'
 		snippetIndex: 1
@@ -145,9 +155,15 @@ LeUIStylingPageByScripterExamples >> pageClickOnTheFirstPageWorldTab [
 { #category : #accessing }
 LeUIStylingPageByScripterExamples >> pageIntoWorldTab [
 	<gtExample>
-	| aScripter |
+	| aScripter aLogger |
 
 	aScripter := GtWorldByScripterExamples new tabElementInScripter.	
+	
+	aLogger := self newMemoryLogger
+		name: '01 Display page'.
+	aScripter userData at: #pageIntoWorldTab put: aLogger.
+	
+	[
 	
 	aScripter substep: 'Add page into a world tab' do: [ :aStep |
 		aStep do
@@ -183,6 +199,8 @@ LeUIStylingPageByScripterExamples >> pageIntoWorldTab [
 			satisfies: [ :anElement | anElement tabs tabs second isSelected ]
 				description: [ 'Page tab must be selected' ];
 			play ].
+			
+	] ensure: [ aLogger stop ].
 			
 	self 
 		assertStep: aScripter
@@ -267,6 +285,54 @@ LeUIStylingPageByScripterExamples >> pageSecondTimeInWorldTab [
 		annotationFrom: 153
 		to: 227 
 		isHidden: true.
+
+	^ aScripter
+]
+
+{ #category : #accessing }
+LeUIStylingPageByScripterExamples >> pageSwitchToTheFirstWorldTabThenBackToTheSecondWorldTab [
+	<gtExample>
+	| aScripter aLogger |
+	aScripter := self pageIntoWorldTab.
+
+	aScripter
+		substep: 'Display the first tab'
+		do: [ :aStep | 
+			aStep click
+				label: 'Click on the first world tab';
+				// GtWorldTabGroupId;
+				/ #header;
+				// #tabbar;
+				onChildFromBlock: [ :aTabbar | aTabbar children first ];
+				play.
+
+			aStep assert
+				label: 'Assert page tab selection';
+				satisfies: [ :anElement | anElement tabs tabs first isSelected ]
+					description: [ 'Page tab must be selected' ];
+				play ].
+	
+	aLogger := self newMemoryLogger
+		name: '02 Display the page again'.
+	aScripter userData at: #pageSwitchToTheFirstWorldTabThenBackToTheSecondWorldTab put: aLogger.
+
+	[ aScripter
+		substep: 'Display the second tab'
+		do: [ :aStep | 
+			aStep click
+				label: 'Click on the second world tab';
+				// GtWorldTabGroupId;
+				/ #header;
+				// #tabbar;
+				onChildFromBlock: [ :aTabbar | aTabbar children second ];
+				play.
+
+			aStep assert
+				label: 'Assert page tab selection';
+				satisfies: [ :anElement | anElement tabs tabs second isSelected ]
+					description: [ 'Page tab must be selected' ];
+				play ] 
+	] ensure: [ aLogger stop ].
 
 	^ aScripter
 ]

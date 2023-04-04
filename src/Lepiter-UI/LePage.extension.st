@@ -181,6 +181,17 @@ m ]
 ]
 
 { #category : #'*Lepiter-UI' }
+LePage >> gtMarkdownPageFor: aView [
+	<gtView>
+	^ aView textEditor
+		title: 'Markdown';
+		priority: 50;
+		aptitude: BrGlamorousCodeEditorAptitude;
+		text: [ self asMarkdownPage ];
+		actionUpdateButton
+]
+
+{ #category : #'*Lepiter-UI' }
 LePage >> gtOpenInNewTabActionFor: anAction [
 	<lePageAction>
 	^ anAction button
