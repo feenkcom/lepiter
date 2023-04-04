@@ -585,6 +585,16 @@ LeContent >> gtIncomingLinksFor: aView [
 ]
 
 { #category : #'gt-extensions' }
+LeContent >> gtMarkdownPageFor: aView [
+	<gtView>
+	^ aView textEditor
+		title: 'Markdown';
+		priority: 50;
+		aptitude: BrGlamorousCodeEditorAptitude;
+		text: [ self asMarkdownPage ]
+]
+
+{ #category : #'gt-extensions' }
 LeContent >> gtSerializationFor: aView [
 	<gtView>
 	

@@ -100,6 +100,23 @@ page is associated to a database. If not the link will be lost.'.
 		targetReference: aTargetReference).
 ]
 
+{ #category : #accessing }
+LePage >> asMarkdownPage [
+	"Produce a markdown page with a YAML header suitable for use with GitHub pages, Pico, or other markdown-based websites."
+
+	^ String
+		streamContents: [ :stream | 
+			stream
+				<< '---';
+				cr;
+				<< 'Title: ';
+				<< self title;
+				cr;
+				<< '---';
+				cr.
+			self markdownOn: stream ]
+]
+
 { #category : #'api - converting' }
 LePage >> asRemoteLink [
 	"Answer the string representing a remote link to the receiver"
