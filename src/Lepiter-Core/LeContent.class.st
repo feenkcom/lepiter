@@ -879,6 +879,11 @@ LeContent >> markdownOn: stream [
 	^ self markdownOn: stream level: 0
 ]
 
+{ #category : #'private - exporting' }
+LeContent >> markdownOn: stream level: anInteger [
+	self subclassResponsibility
+]
+
 { #category : #'api - editing' }
 LeContent >> mergeSnippet: mergeLeSnippet after: afterLeSnippet [
 

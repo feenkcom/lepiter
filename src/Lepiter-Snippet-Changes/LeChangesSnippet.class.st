@@ -107,6 +107,24 @@ LeChangesSnippet >> initialize [
 	previewHeight := 200
 ]
 
+{ #category : #'private - exporting' }
+LeChangesSnippet >> markdownOn: stream level: anInteger [
+	"Here we should inline the ombu file."
+
+	anInteger * 4 timesRepeat: [ stream nextPut: Character space ].
+	stream
+		cr;
+		<< '```';
+		cr;
+		<< self contentAsString trimBoth;
+		<< '```';
+		cr.
+	self
+		childrenDo: [ :child | 
+			stream cr.
+			child markdownOn: stream level: anInteger + 1 ]
+]
+
 { #category : #'api - file name' }
 LeChangesSnippet >> notifyFileNameChanged [
 	"Override this notify method to announce changes to the property"

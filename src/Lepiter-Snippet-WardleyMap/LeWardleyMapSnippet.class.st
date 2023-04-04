@@ -157,6 +157,24 @@ LeWardleyMapSnippet >> linkForNode: aWardleyMapNodeModel ifFound: aFoundBlock [
 	aFoundBlock value: theLinks first
 ]
 
+{ #category : #'private - exporting' }
+LeWardleyMapSnippet >> markdownOn: stream level: anInteger [
+	"This is just a placeholder that only prints 'wardleymap'"
+	anInteger * 4 timesRepeat: [ stream nextPut: Character space ].
+	stream
+		cr;
+		<< '```';
+		cr;
+		<< self contentAsString trimBoth;
+		cr;
+		<< '```';
+		cr.
+	self
+		childrenDo: [ :child | 
+			stream cr.
+			child markdownOn: stream level: anInteger + 1 ]
+]
+
 { #category : #'private - hooks' }
 LeWardleyMapSnippet >> onRemovedFromDatabase: aDatabase [
 	super onRemovedFromDatabase: aDatabase.

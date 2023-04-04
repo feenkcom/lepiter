@@ -358,6 +358,25 @@ LeExampleSnippet >> isForMetaclass [
 	^ exampleBehaviorName endsWith: ' class'
 ]
 
+{ #category : #'private - exporting' }
+LeExampleSnippet >> markdownOn: stream level: anInteger [
+	"Placeholder. What should we do here?"
+
+	anInteger * 4 timesRepeat: [ stream nextPut: Character space ].
+	stream
+		cr;
+		<< '```';
+		cr;
+		<< self contentAsString trimBoth;
+		cr;
+		<< '```';
+		cr.
+	self
+		childrenDo: [ :child | 
+			stream cr.
+			child markdownOn: stream level: anInteger + 1 ]
+]
+
 { #category : #'api - no code' }
 LeExampleSnippet >> noCode [
 	<return: #Boolean>
