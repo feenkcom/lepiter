@@ -1,3 +1,8 @@
+"
+I exemplify {{gtClass:LePage}} styling.
+I particularly exemplify {{gtClass:LeTextSnippet}} styling. For example the [feenkcom/gtoolkit#3212](https://github.com/feenkcom/gtoolkit/issues/3212) issue is exemplified using:
+ {{gtExample: LeUIStylingPageByScripterExamples >> #pageClickOnTheFirstPageWorldTab | codeExpanded=false}}
+"
 Class {
 	#name : #LeUIStylingPageByScripterExamples,
 	#superclass : #Object,
