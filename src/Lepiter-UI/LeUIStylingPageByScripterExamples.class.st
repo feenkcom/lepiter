@@ -144,7 +144,9 @@ LeUIStylingPageByScripterExamples >> pageClickOnTheFirstPageWorldTab [
 	self
 		assertStep: aScripter
 		snippetIndex: 1
-		elementIdExists: (LeTextSnippetAttributeExampleElementId indexed: 2)."	"self 
+		elementIdExists: (LeTextSnippetAttributeExampleElementId indexed: 2).
+		
+	self 
 		assertStep: aScripter 
 		label: 'Assert the second example annotation is hidden'
 		snippetIndex: 1
@@ -336,6 +338,25 @@ LeUIStylingPageByScripterExamples >> pageSwitchToTheFirstWorldTabThenBackToTheSe
 					description: [ 'Page tab must be selected' ];
 				play ] 
 	] ensure: [ aLogger stop ].
+	
+	self 
+		assertStep: aScripter
+		snippetIndex: 1
+		attributeId: (LeTextSnippetAttributeLabelElementId indexed: 1)
+		labelValue: LeUIDummyExamples new number asString.
+		
+	self
+		assertStep: aScripter
+		snippetIndex: 1
+		elementIdExists: (LeTextSnippetAttributeExampleElementId indexed: 2).
+	
+	self 
+		assertStep: aScripter 
+		label: 'Assert the second example annotation is hidden'
+		snippetIndex: 1
+		annotationFrom: 153
+		to: 227 
+		isHidden: true.
 
 	^ aScripter
 ]
