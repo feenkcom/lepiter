@@ -99,7 +99,8 @@ LeUIStylingPageByScripterExamples >> newMemoryLogger [
 		startFor: 
 			BrTextStylerAsyncStrategySignal ,
 			BrAsyncElementFutureSignal,
-			BrElementUpdaterSignal
+			BrElementUpdaterSignal,
+			GtTextualCoderEditorElementSignal
 ]
 
 { #category : #accessing }
@@ -132,7 +133,9 @@ LeUIStylingPageByScripterExamples >> pageClickOnTheFirstPageWorldTab [
 				label: 'Assert page tab selection';
 				satisfies: [ :anElement | anElement tabs tabs second isSelected ]
 					description: [ 'Page tab must be selected' ];
-				play ] ] ensure: [ aLogger stop ].	"self 
+				play ] ] ensure: [ aLogger stop ].
+	
+	self 
 		assertStep: aScripter
 		snippetIndex: 1
 		attributeId: (LeTextSnippetAttributeLabelElementId indexed: 1)
@@ -147,7 +150,7 @@ LeUIStylingPageByScripterExamples >> pageClickOnTheFirstPageWorldTab [
 		snippetIndex: 1
 		annotationFrom: 153
 		to: 227 
-		isHidden: true."
+		isHidden: true.
 
 	^ aScripter
 ]
