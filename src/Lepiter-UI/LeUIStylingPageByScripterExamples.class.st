@@ -1,3 +1,8 @@
+"
+I exemplify {{gtClass:LePage}} styling.
+I particularly exemplify {{gtClass:LeTextSnippet}} styling. For example the [feenkcom/gtoolkit#3212](https://github.com/feenkcom/gtoolkit/issues/3212) issue is exemplified using:
+ {{gtExample: LeUIStylingPageByScripterExamples >> #pageClickOnTheFirstPageWorldTab | codeExpanded=false}}
+"
 Class {
 	#name : #LeUIStylingPageByScripterExamples,
 	#superclass : #Object,
@@ -99,7 +104,8 @@ LeUIStylingPageByScripterExamples >> newMemoryLogger [
 		startFor: 
 			BrTextStylerAsyncStrategySignal ,
 			BrAsyncElementFutureSignal,
-			BrElementUpdaterSignal
+			BrElementUpdaterSignal,
+			GtTextualCoderEditorElementSignal
 ]
 
 { #category : #accessing }
@@ -132,7 +138,9 @@ LeUIStylingPageByScripterExamples >> pageClickOnTheFirstPageWorldTab [
 				label: 'Assert page tab selection';
 				satisfies: [ :anElement | anElement tabs tabs second isSelected ]
 					description: [ 'Page tab must be selected' ];
-				play ] ] ensure: [ aLogger stop ].	"self 
+				play ] ] ensure: [ aLogger stop ].
+	
+	self 
 		assertStep: aScripter
 		snippetIndex: 1
 		attributeId: (LeTextSnippetAttributeLabelElementId indexed: 1)
@@ -141,13 +149,15 @@ LeUIStylingPageByScripterExamples >> pageClickOnTheFirstPageWorldTab [
 	self
 		assertStep: aScripter
 		snippetIndex: 1
-		elementIdExists: (LeTextSnippetAttributeExampleElementId indexed: 2)."	"self 
+		elementIdExists: (LeTextSnippetAttributeExampleElementId indexed: 2).
+		
+	self 
 		assertStep: aScripter 
 		label: 'Assert the second example annotation is hidden'
 		snippetIndex: 1
 		annotationFrom: 153
 		to: 227 
-		isHidden: true."
+		isHidden: true.
 
 	^ aScripter
 ]
@@ -333,6 +343,25 @@ LeUIStylingPageByScripterExamples >> pageSwitchToTheFirstWorldTabThenBackToTheSe
 					description: [ 'Page tab must be selected' ];
 				play ] 
 	] ensure: [ aLogger stop ].
+	
+	self 
+		assertStep: aScripter
+		snippetIndex: 1
+		attributeId: (LeTextSnippetAttributeLabelElementId indexed: 1)
+		labelValue: LeUIDummyExamples new number asString.
+		
+	self
+		assertStep: aScripter
+		snippetIndex: 1
+		elementIdExists: (LeTextSnippetAttributeExampleElementId indexed: 2).
+	
+	self 
+		assertStep: aScripter 
+		label: 'Assert the second example annotation is hidden'
+		snippetIndex: 1
+		annotationFrom: 153
+		to: 227 
+		isHidden: true.
 
 	^ aScripter
 ]
