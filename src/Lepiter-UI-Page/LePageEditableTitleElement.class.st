@@ -31,7 +31,7 @@ LePageEditableTitleElement >> acceptPageTitleWith: aString [
 { #category : #initialization }
 LePageEditableTitleElement >> createAddButton [
 	| aButton |
-	^ aButton := self plusButton
+	aButton := self plusButton
 		elevation: (BlRelativeElevation elevation: 20);
 		constraintsDo: [ :c | 
 			c ignoreByLayout.
@@ -47,16 +47,19 @@ LePageEditableTitleElement >> createAddButton [
 						extent: [ 300 @ 400 ];
 						spotterModelDo: [ :aSpotter | 
 							aSpotter hidePreview.
-							aSpotter announcer
+							aSpotter announcer weak
 								when: GtSpotterExitAnnouncement
-								do: [ :anAnnouncement | self titleElement requestFocus ] ];
+								send: #onSpotterExitAnnouncement:
+								to: self ];
 						actOn: [ :anActOnEvent :aMenuItem :theButton | 
 							self pageViewModel pageModel addSnippet: aMenuItem asSnippet beforeIndex: 1.
 							self titleElement requestFocus.	"ideally the new snippet would gain focus here"
 							anActOnEvent beActed ];
 						spotterElementFor: aButton ]
 				aptitudeDo: [ :anAnchoredLook | anAnchoredLook background: BrGlamorousColors secondaryHeaderBackgroundColor ])
-				doNotHideWidget
+				doNotHideWidget.
+				
+	^ aButton
 ]
 
 { #category : #initialization }
@@ -192,6 +195,11 @@ LePageEditableTitleElement >> onPageViewModelChanged [
 	self titleElement
 		styler: (LePageTitleStyler new pageViewModel: self pageViewModel).
 	self inUIProcessDo: [ self updatePageTitle ]
+]
+
+{ #category : #'private - event handling' }
+LePageEditableTitleElement >> onSpotterExitAnnouncement: anAnnouncement [
+	self titleElement requestFocus
 ]
 
 { #category : #initialization }
