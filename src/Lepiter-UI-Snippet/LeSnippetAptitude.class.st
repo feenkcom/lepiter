@@ -223,10 +223,10 @@ LeSnippetAptitude >> newAddSnippetDropdown [
 					extent: [ 300 @ 400 ];
 					spotterModelDo: [ :aSpotter |
 						aSpotter hidePreview.
-						aSpotter announcer
+						aSpotter announcer weak
 							when: GtSpotterExitAnnouncement
-							do: [ :anAnnouncement | self widgetDo: [ :aWidget | 
-								aWidget snippetViewModel focused: true from: nil ] ] ];
+							send: #onSpotterExitAnnouncement:
+							to: self ];
 					actOn: [ :anActOnEvent :aMenuItem :theButton | 
 						self snippetBelowRequested: aMenuItem asSnippet.
 						anActOnEvent beActed ];
@@ -243,6 +243,11 @@ LeSnippetAptitude >> newPlusElement [
 	^ GtInspectorRoundButtonStencil small asElement
 		icon: (GtInspectorPlusIconStencil add thickness: 1; radius: 4; asElement);
 		yourself
+]
+
+{ #category : #'private - event management' }
+LeSnippetAptitude >> onSpotterExitAnnouncement: anAnnouncement [
+	self widgetDo: [ :aWidget | aWidget snippetViewModel focused: true from: nil ]
 ]
 
 { #category : #'api - accessing' }
