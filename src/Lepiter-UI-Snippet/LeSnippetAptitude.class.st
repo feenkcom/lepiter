@@ -37,23 +37,17 @@ Class {
 		'snippetContent',
 		'snippetContainer',
 		'widgetContent',
-		'sidebarContainer',
-		'sidebarContent'
+		'sidebarContainer'
 	],
 	#category : #'Lepiter-UI-Snippet-Looks'
 }
 
-{ #category : #'private - accessing' }
-LeSnippetAptitude >> bottomToolbar [
-	^ bottomToolbar
-]
-
-{ #category : #'private - layout' }
+{ #category : #'private - bottom toolbar' }
 LeSnippetAptitude >> bottomToolbarMargin [
 	^ -8
 ]
 
-{ #category : #'private - layout' }
+{ #category : #'private - bottom toolbar' }
 LeSnippetAptitude >> computeBottomToolbarMargin [
 	^ BlInsets bottom: self bottomToolbarMargin + self internalBorderBottomOffset
 ]
@@ -63,12 +57,41 @@ LeSnippetAptitude >> contentContainer [
 	^ self snippetContainer
 ]
 
+{ #category : #'private - bottom toolbar' }
+LeSnippetAptitude >> createBottomToolbar [
+	^ self newAddSnippetDropdown
+		elevation: (BlRelativeElevation elevation: 20);
+		constraintsDo: [ :c | 
+			c ignoreByLayout.
+			c ignored horizontal alignCenter.
+			c ignored vertical alignBottom ]
+]
+
+{ #category : #'private - bottom toolbar' }
+LeSnippetAptitude >> ensureBottomToolbar [
+	"Make sure that the bottom toolbar is initialized and added to the snippet content container.
+	We initialize the bottom toolbar lazily the first time it appears"
+
+	bottomToolbar ifNil: [ bottomToolbar := self createBottomToolbar ].
+
+	(self contentContainer hasChild: bottomToolbar)
+		ifTrue: [ ^ self ]. 
+
+	self contentContainer addChild: bottomToolbar as: #bottomToolbar
+]
+
 { #category : #private }
 LeSnippetAptitude >> hideActions [
 	areActionsVisible := false.
 
-	self bottomToolbar visibility: BlVisibility hidden.
 	self sidebarContainer visibility: BlVisibility hidden.
+	self hideBottomToolbar
+]
+
+{ #category : #'private - bottom toolbar' }
+LeSnippetAptitude >> hideBottomToolbar [
+	bottomToolbar ifNil: [ ^ self ].
+	bottomToolbar visibility: BlVisibility hidden.
 	self updateBottomToolbarMargin
 ]
 
@@ -84,7 +107,6 @@ LeSnippetAptitude >> initialize [
 	self initializeElements.
 	
 	snippetContent := BlElement new size: 0@0.
-	sidebarContent := BlElement new size: 0@0.
 
 	self addChangeProperty: #(widget margin) with: [ margin ].
 
@@ -93,10 +115,7 @@ LeSnippetAptitude >> initialize [
 		widgetContent addChild: sidebarContainer as: #sidebarContainer.
 		
 		self contentContainer addChild: snippetContent.
-		self contentContainer addChild: self bottomToolbar as: #bottomToolbar.
-		
-		sidebarContainer addChild: sidebarContent as: #sidebarContent.
-		
+
 		widgetContent ].
 	
 	self addChangeProperty: #(snippetContainer padding) with: [ padding ].
@@ -129,25 +148,13 @@ LeSnippetAptitude >> initialize [
 
 	snippetContainer addShortcut: (BlShortcutWithAction new
 		combination: (BlKeyCombination builder shift; primary; key: BlKeyboardKey return; build);
-		action: [ :anEvent :aShortcut | 
-			bottomToolbar dispatchEvent: BrDropdownShowWish new ]).
+		action: [ :anEvent :aShortcut | self showBottomToolbarDropdown ]).
 
 	self hideActions
 ]
 
 { #category : #initialization }
-LeSnippetAptitude >> initializeBottomToolbar [
-	bottomToolbar := self newAddSnippetDropdown
-		elevation: (BlRelativeElevation elevation: 20);
-		constraintsDo: [ :c | 
-			c ignoreByLayout.
-			c ignored horizontal alignCenter.
-			c ignored vertical alignBottom ]
-]
-
-{ #category : #initialization }
 LeSnippetAptitude >> initializeElements [
-	self initializeBottomToolbar.
 	self initializeWidgetContent.
 	self initializeSnippetContainer.
 	self initializeSidebarContainer
@@ -261,9 +268,21 @@ LeSnippetAptitude >> padding: aBlInsets [
 LeSnippetAptitude >> showActions [
 	areActionsVisible := true.
 
-	self bottomToolbar visibility: BlVisibility visible.
 	self sidebarContainer visibility: BlVisibility visible.
+	self showBottomToolbar.
+]
+
+{ #category : #'private - bottom toolbar' }
+LeSnippetAptitude >> showBottomToolbar [
+	self ensureBottomToolbar.
+	bottomToolbar visibility: BlVisibility visible.
 	self updateBottomToolbarMargin
+]
+
+{ #category : #'private - bottom toolbar' }
+LeSnippetAptitude >> showBottomToolbarDropdown [
+	self ensureBottomToolbar.
+	bottomToolbar dispatchEvent: BrDropdownShowWish new
 ]
 
 { #category : #'private - accessing' }
@@ -277,11 +296,6 @@ LeSnippetAptitude >> sidebarContainer: anElement [
 	sidebarContainer visibility: (areActionsVisible
 		ifTrue: [ BlVisibility visible ]
 		ifFalse: [ BlVisibility hidden ] )
-]
-
-{ #category : #'api - accessing' }
-LeSnippetAptitude >> sidebarContent: anElement [
-	sidebarContent := anElement
 ]
 
 { #category : #private }
@@ -302,8 +316,9 @@ LeSnippetAptitude >> snippetContent: aSnippetContent [
 	snippetContent := aSnippetContent
 ]
 
-{ #category : #'private - layout' }
+{ #category : #'private - bottom toolbar' }
 LeSnippetAptitude >> updateBottomToolbarMargin [
+	bottomToolbar ifNil: [ ^ self ].
 	bottomToolbar margin: self computeBottomToolbarMargin
 ]
 
