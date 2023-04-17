@@ -69,85 +69,22 @@ LeSnippetView >> create [
 	aSnippetLook margin: (BlInsets top: 3 left: anExtraLeftMargin bottom: 3 right: 0).
 
 	aSnippetLook snippetContent: aSnippetElement snippetContent.
-	
+
 	self needsContentDecorationBar
 		ifFalse: [ aSnippetElement alignContentLeftBy: self contentPaddingLeft ].
 
 	aSnippetElement clipChildren: false.
 	aSnippetLook snippetToolbar: aSnippetElement snippetToolbar.
-	aSnippetLook sidebarContainer: (self createSidebarContainerFor: aSnippetElement).
+	aSnippetLook sidebarStencil: (LeSnippetSidebarStencil new snippetElement: aSnippetElement).
 
 	aSnippetElement addAptitude: aSnippetLook.
 	aSnippetElement id: LeSnippetElementId.
-	
+
 	aSnippetElementContainer := LeSnippetContainerElement new.
 	aSnippetElementContainer snippetElement: aSnippetElement.
 	aSnippetElementContainer snippetMaxWidth: self desiredSnippetWidth maxWidth.
 
 	^ aSnippetElementContainer
-]
-
-{ #category : #'api - instantiation' }
-LeSnippetView >> createSidebarContainerFor: aSnippetElement [
-	^ BlElement new
-		layout: BlFrameLayout new;
-		constraintsDo: [ :c | 
-			c horizontal fitContent.
-			c vertical matchParent.
-			c ignoreByLayout.
-			c ignored horizontal alignCenterAt: 1.
-			c ignored vertical alignCenter ];
-		clipChildren: false;
-		preventMouseEvents;
-		addChild:
-			(GtInspectorRoundButtonStencil small asElement
-				icon:
-					(GtInspectorPlusIconStencil close
-						thickness: 1;
-						radius: 4;
-						asElement);
-				action: [ aSnippetElement snippetViewModel removeSelf ];
-				elevation: (BlRelativeElevation elevation: 20);
-				constraintsDo: [ :c | c frame vertical alignCenterAt: 0 ]);
-		addChild:
-			(GtInspectorRoundButtonStencil small asElement
-				constraintsDo: [ :c | c frame vertical alignCenterAt: 1 ];
-				addAptitude:
-					(BrGlamorousWithDropdownAptitude
-						handle: [ GtInspectorRoundButtonStencil small asElement
-								aptitude: BrIconAptitude;
-								icon:
-									[ BrGlamorousVectorIcons hamburger asElement asScalableElement
-										size: 12 @ 12 ] asStencil ]
-						content: [ self createSidebarMenuFor: aSnippetElement ]);
-				icon:
-					[ (BrGlamorousVectorIcons hamburger asElement
-						background: Color darkGray) asScalableElement size: 12 @ 12 ]
-						asStencil)
-]
-
-{ #category : #'api - instantiation' }
-LeSnippetView >> createSidebarMenuFor: aSnippetElement [
-	| theActionElements |
-
-	theActionElements := Array streamContents: [ :aStream |
-		aSnippetElement snippetViewModel gtActions
-			select: [ :eachAction | eachAction target = LeSnippetContextMenuActionTarget uniqueInstance ]
-			thenDo: [ :eachSnippetContentAction |
-				eachSnippetContentAction 
-					asElement: [ :anActionElement |
-						aStream nextPut: anActionElement beSmallSize ]
-					withHostElement: aSnippetElement ] ].
-
-	^ BlElement new
-		layout:
-			(BlGridLayout horizontal
-				columnCount: 2;
-				cellSpacing: 5);
-		constraintsDo: [ :c | 
-			c horizontal fitContent.
-			c vertical fitContent ];
-		addChildren: theActionElements
 ]
 
 { #category : #'private - accessing' }
@@ -206,6 +143,16 @@ LeSnippetView >> newSnippetElementLook [
 	^ self needsContentDecorationBar
 		ifFalse: [ LeSnippetExpandableAptitude new ]
 		ifTrue: [ LeSnippetExpandableWithBarAptitude new decorationBarWidth: self decorationBarWidth ]
+]
+
+{ #category : #printing }
+LeSnippetView >> printOn: aStream [
+	"Append a sequence of characters to aStream that identify the receiver."
+
+	super printOn: aStream.
+	aStream
+		nextPutAll: ' snippetElementClass: ';
+		print: snippetElementClass
 ]
 
 { #category : #accessing }
