@@ -37,7 +37,8 @@ Class {
 		'snippetContent',
 		'snippetContainer',
 		'widgetContent',
-		'sidebarContainer'
+		'sidebarStencil',
+		'sidebar'
 	],
 	#category : #'Lepiter-UI-Snippet-Looks'
 }
@@ -67,6 +68,11 @@ LeSnippetAptitude >> createBottomToolbar [
 			c ignored vertical alignBottom ]
 ]
 
+{ #category : #'private - sidebar' }
+LeSnippetAptitude >> createSidebar [
+	^ sidebarStencil asElement
+]
+
 { #category : #'private - bottom toolbar' }
 LeSnippetAptitude >> ensureBottomToolbar [
 	"Make sure that the bottom toolbar is initialized and added to the snippet content container.
@@ -75,16 +81,29 @@ LeSnippetAptitude >> ensureBottomToolbar [
 	bottomToolbar ifNil: [ bottomToolbar := self createBottomToolbar ].
 
 	(self contentContainer hasChild: bottomToolbar)
-		ifTrue: [ ^ self ]. 
+		ifTrue: [ ^ self ].
 
 	self contentContainer addChild: bottomToolbar as: #bottomToolbar
+]
+
+{ #category : #'private - sidebar' }
+LeSnippetAptitude >> ensureSidebar [
+	"Make sure that the sidebar is initialized and added to the snippet content container.
+	We initialize the sidebar lazily the first time it appears"
+
+	sidebar ifNil: [ sidebar := self createSidebar ].
+
+	(widgetContent hasChild: sidebar)
+		ifTrue: [ ^ self ].
+
+	widgetContent addChild: sidebar as: #sidebarContainer
 ]
 
 { #category : #private }
 LeSnippetAptitude >> hideActions [
 	areActionsVisible := false.
 
-	self sidebarContainer visibility: BlVisibility hidden.
+	self hideSidebar.
 	self hideBottomToolbar
 ]
 
@@ -93,6 +112,12 @@ LeSnippetAptitude >> hideBottomToolbar [
 	bottomToolbar ifNil: [ ^ self ].
 	bottomToolbar visibility: BlVisibility hidden.
 	self updateBottomToolbarMargin
+]
+
+{ #category : #'private - sidebar' }
+LeSnippetAptitude >> hideSidebar [
+	sidebar ifNil: [ ^ self ].
+	sidebar visibility: BlVisibility hidden
 ]
 
 { #category : #initialization }
@@ -105,14 +130,19 @@ LeSnippetAptitude >> initialize [
 	areActionsVisible := false.
 
 	self initializeElements.
-	
+
 	snippetContent := BlElement new size: 0@0.
+	sidebarStencil := [ BlElement new
+		layout: BlLinearLayout vertical;
+		preventMouseEvents;
+		constraintsDo: [ :c |
+			c horizontal fitContent.
+			c vertical matchParent ] ] asStencil.
 
 	self addChangeProperty: #(widget margin) with: [ margin ].
 
 	self addChangeAddChildAs: #(content) with: [
 		widgetContent addChild: snippetContainer as: #snippetContainer.
-		widgetContent addChild: sidebarContainer as: #sidebarContainer.
 		
 		self contentContainer addChild: snippetContent.
 
@@ -156,18 +186,7 @@ LeSnippetAptitude >> initialize [
 { #category : #initialization }
 LeSnippetAptitude >> initializeElements [
 	self initializeWidgetContent.
-	self initializeSnippetContainer.
-	self initializeSidebarContainer
-]
-
-{ #category : #initialization }
-LeSnippetAptitude >> initializeSidebarContainer [
-	sidebarContainer := BlElement new
-		layout: BlLinearLayout vertical;
-		preventMouseEvents;
-		constraintsDo: [ :c |
-			c horizontal fitContent.
-			c vertical matchParent ]
+	self initializeSnippetContainer
 ]
 
 { #category : #initialization }
@@ -273,8 +292,8 @@ LeSnippetAptitude >> padding: aBlInsets [
 LeSnippetAptitude >> showActions [
 	areActionsVisible := true.
 
-	self sidebarContainer visibility: BlVisibility visible.
-	self showBottomToolbar.
+	self showSidebar.
+	self showBottomToolbar
 ]
 
 { #category : #'private - bottom toolbar' }
@@ -290,17 +309,15 @@ LeSnippetAptitude >> showBottomToolbarDropdown [
 	bottomToolbar dispatchEvent: BrDropdownShowWish new
 ]
 
-{ #category : #'private - accessing' }
-LeSnippetAptitude >> sidebarContainer [
-	^ sidebarContainer
+{ #category : #'private - sidebar' }
+LeSnippetAptitude >> showSidebar [
+	self ensureSidebar.
+	sidebar visibility: BlVisibility visible
 ]
 
 { #category : #'api - accessing' }
-LeSnippetAptitude >> sidebarContainer: anElement [
-	sidebarContainer := anElement.
-	sidebarContainer visibility: (areActionsVisible
-		ifTrue: [ BlVisibility visible ]
-		ifFalse: [ BlVisibility hidden ] )
+LeSnippetAptitude >> sidebarStencil: aStencil [
+	sidebarStencil := aStencil asStencil
 ]
 
 { #category : #private }
