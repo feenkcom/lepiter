@@ -125,7 +125,10 @@ LeDatabaseSidebarGroupedListElement >> navigationModel: anObject [
 LeDatabaseSidebarGroupedListElement >> notifyListSelectionChangedTo: aPage [
 	| aPageUIModel |
 	aPageUIModel := aPage asContentUIModel.
+	
 	self selection = aPageUIModel ifTrue: [ ^ self ].
+	(self selection notNil and: [ self selection pageModel = aPage ])
+		ifTrue: [ ^ self ].
 
 	self navigationModel
 		announce: (LeUIPageSelectionRequest new page: aPageUIModel)

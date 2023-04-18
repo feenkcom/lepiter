@@ -137,6 +137,44 @@ LePharoSnippetByScripterExamples >> enterNewNameWithScripter: aScripter [
 			(aStep type: 'b') play ]
 ]
 
+{ #category : #'examples - scripter' }
+LePharoSnippetByScripterExamples >> evaluateWhenMaximized [
+	<gtExample>
+	| anElement aPager aScripter page examples aSnippetOne |
+	examples := LeUIExamples new.
+	page := examples database pageBuilder
+			title: 'Shared variable a';
+			add.
+	aSnippetOne := page snippetBuilder
+			pharo: 'a := 42';
+			add.
+	page snippetBuilder
+		pharo: 'a odd';
+		add.
+	anElement := page asPhlowTool asElementDo: [ :e | e ].
+	aPager := GtPager createWrappedOn: anElement.
+	aPager maximized.
+	aPager asElement.
+	aScripter := self
+			scripterWithModel: [ page ]
+			element: [ :aPage | aPager asElement ].
+	aScripter
+		substeps: 'Execute and Inspect '
+		do: [ :aSubStep | 
+			self clickOnPharoSnippetAt: 1 step: aSubStep.
+			aSubStep click
+				label: 'Execute pharo snippet';
+				onBreadthFirstChildOfClass: BrSimpleTree;
+				onBreadthFirstChildOfClass: BrInfiniteTreeElement;
+				onChildAt: 1;
+				onBreadthFirstChildOfClass: LePharoSnippetElement;
+				onBreadthFirstChildOfClass: GtCoderActionsElement;
+				id: GtSourceCoderDoItAndGoActionId;
+				play ].
+	self executePharoSnippetAt: 2 step: aScripter.
+	^ aScripter
+]
+
 { #category : #'examples - page' }
 LePharoSnippetByScripterExamples >> executeAndAgainScrollDownPharoSnippets [
 	<gtExample>
