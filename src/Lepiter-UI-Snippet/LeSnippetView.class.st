@@ -151,7 +151,7 @@ LeSnippetView >> printOn: aStream [
 
 	super printOn: aStream.
 	aStream
-		nextPutAll: ' snippetElementClass: ';
+		nextPutAll: ' of: ';
 		print: snippetElementClass
 ]
 
