@@ -76,5 +76,5 @@ XdWriter >> lepiterIndexPage: aLePage decorator: anExportDecorator [
 XdWriter >> lepiterIndexPage: aLePage withLocalAssets: aBoolean [
 	self
 		lepiterIndexPage: aLePage
-		decorator: (LeHTMLPageDecorator withLocalAssets: aBoolean)
+		decorator: (LeHtmlPageDecorator withLocalAssets: aBoolean)
 ]

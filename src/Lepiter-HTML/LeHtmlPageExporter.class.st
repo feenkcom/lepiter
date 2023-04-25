@@ -22,7 +22,7 @@ LeHtmlPageExporter >> content [
 
 { #category : #accessing }
 LeHtmlPageExporter >> decorator [
-	<return: #LeHTMLPageDecorator>
+	<return: #LeHtmlPageDecorator>
 	^ decorator
 ]
 
@@ -57,8 +57,8 @@ LeHtmlPageExporter >> export [
 			content: content;
 			pageLink: pageLink).
 			
-		"decorator ifNotNil: [ 
-			decorator addResourcesInto: resourcesExporter ]" ]
+		decorator ifNotNil: [ 
+			decorator addResourcesInto: resourcesExporter ] ]
 ]
 
 { #category : #accessing }
@@ -133,5 +133,5 @@ LeHtmlPageExporter >> shouldGenerateHeader: anObject [
 
 { #category : #'api - initialization' }
 LeHtmlPageExporter >> withLocalAssets: aBoolean [
-	self decorator: (LeHTMLPageDecorator withLocalAssets: aBoolean)
+	self decorator: (LeHtmlPageDecorator withLocalAssets: aBoolean)
 ]

@@ -5,39 +5,41 @@ I am used in {{gtMethod: XdWriter>>#lepiterIndexPage:withLocalAssets:}}.
 
 "
 Class {
-	#name : #LeHTMLPageDecorator,
+	#name : #LeHtmlPageDecorator,
 	#superclass : #Object,
+	#traits : 'TLeHtmlPageDecorator',
+	#classTraits : 'TLeHtmlPageDecorator classTrait',
 	#category : #'Lepiter-HTML-Helpers'
 }
 
 { #category : #testing }
-LeHTMLPageDecorator class >> isAbstract [
-	^ self name = #LeHTMLPageDecorator
+LeHtmlPageDecorator class >> isAbstract [
+	^ self name = #LeHtmlPageDecorator
 ]
 
 { #category : #'instance creation' }
-LeHTMLPageDecorator class >> withLocalAssets: aBoolean [
+LeHtmlPageDecorator class >> withLocalAssets: aBoolean [
 	^ aBoolean
-		ifTrue: [ LeHTMLPageLocalAssetsDecorator new ]
-		ifFalse: [ LeHTMLPageRemoteAssetsDecorator new ]
+		ifTrue: [ LeHtmlPageLocalAssetsDecorator new ]
+		ifFalse: [ LeHtmlPageRemoteAssetsDecorator new ]
 ]
 
 { #category : #'api - writing' }
-LeHTMLPageDecorator >> addResourcesInto: aResourcesExporter [
+LeHtmlPageDecorator >> addResourcesInto: aResourcesExporter [
 	"Add extra (asset) files to a page HTML export."
 
 	
 ]
 
 { #category : #'api - initialization' }
-LeHTMLPageDecorator >> initializeHTMLPageExporter: anExporter [
+LeHtmlPageDecorator >> initializeHTMLPageExporter: anExporter [
 	"Configure a {{gtClass:LeHtmlPageExporterVisitor}} instance before a page export"
 
 	
 ]
 
 { #category : #accessing }
-LeHTMLPageDecorator >> remoteLinks [
+LeHtmlPageDecorator >> remoteLinks [
 	"https://lepiter.io CSS links used for styling page HTML files"
 
 	^ {'https://lepiter.io/assets/v1/src/css/bootstrap.css'.
@@ -47,7 +49,7 @@ LeHTMLPageDecorator >> remoteLinks [
 ]
 
 { #category : #accessing }
-LeHTMLPageDecorator >> remoteScripts [
+LeHtmlPageDecorator >> remoteScripts [
 	"https://lepiter.io JavaScript files used in page HTML files"
 
 	^ {'https://lepiter.io/assets/v1/src/js/datefns.min.js'.
@@ -60,7 +62,7 @@ LeHTMLPageDecorator >> remoteScripts [
 ]
 
 { #category : #'api - writing' }
-LeHTMLPageDecorator >> writeAssetFilesUsing: aXdWriter [
+LeHtmlPageDecorator >> writeAssetFilesUsing: aXdWriter [
 	"Write extra (asset) files to a page HTML export."
 
 	

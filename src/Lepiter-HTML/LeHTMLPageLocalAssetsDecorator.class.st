@@ -5,13 +5,13 @@ I add a remote CSS and JavaScript links to a {{gtClass:LePage}} HTML output.
 I download [](https://lepiter.io) CSS and JavaScript files and store them next to a {{gtClass:LePage}} HTML output.
 "
 Class {
-	#name : #LeHTMLPageLocalAssetsDecorator,
-	#superclass : #LeHTMLPageDecorator,
+	#name : #LeHtmlPageLocalAssetsDecorator,
+	#superclass : #LeHtmlPageDecorator,
 	#category : #'Lepiter-HTML-Helpers'
 }
 
 { #category : #private }
-LeHTMLPageLocalAssetsDecorator >> addAssetResourceFromUrl: aRemoteUrl into: aResourcesExporter [
+LeHtmlPageLocalAssetsDecorator >> addAssetResourceFromUrl: aRemoteUrl into: aResourcesExporter [
 	"I download a file available at a remote URL and 
 	store its content next into the resources exporter."
 
@@ -48,7 +48,7 @@ LeHTMLPageLocalAssetsDecorator >> addAssetResourceFromUrl: aRemoteUrl into: aRes
 ]
 
 { #category : #'api - writing' }
-LeHTMLPageLocalAssetsDecorator >> addResourcesInto: aResourcesExporter [
+LeHtmlPageLocalAssetsDecorator >> addResourcesInto: aResourcesExporter [
 	"Add extra (asset) resources to a page HTML export.
 	I download https://lepiter.io CSS and JavaScript files and 
 	include them to a {{gtClass:LePage}} HTML output."
@@ -68,7 +68,7 @@ LeHTMLPageLocalAssetsDecorator >> addResourcesInto: aResourcesExporter [
 ]
 
 { #category : #private }
-LeHTMLPageLocalAssetsDecorator >> convertRemoteUrl: aRemoteUrl [
+LeHtmlPageLocalAssetsDecorator >> convertRemoteUrl: aRemoteUrl [
 	"Convert an absolute (remote) URL into a relative URL"
 
 	(aRemoteUrl beginsWith: self lepiterUrl caseSensitive: false)
@@ -79,7 +79,7 @@ LeHTMLPageLocalAssetsDecorator >> convertRemoteUrl: aRemoteUrl [
 ]
 
 { #category : #accessing }
-LeHTMLPageLocalAssetsDecorator >> defineTypeFor: anUrl [
+LeHtmlPageLocalAssetsDecorator >> defineTypeFor: anUrl [
 	| anIndex aSegment aName |
 	aSegment := anUrl asZnUrl lastPathSegment.
 	anIndex := aSegment indexOf: $..
@@ -92,7 +92,7 @@ LeHTMLPageLocalAssetsDecorator >> defineTypeFor: anUrl [
 ]
 
 { #category : #'api - initialization' }
-LeHTMLPageLocalAssetsDecorator >> initializeHTMLPageExporter: anExporter [
+LeHtmlPageLocalAssetsDecorator >> initializeHTMLPageExporter: anExporter [
 	"Configure a {{gtClass:LeHtmlPageExporterVisitor}} instance before a page export.
 	I add a local CSS and JavaScript links to a {{gtClass:LePage}} HTML output."
 
@@ -113,27 +113,27 @@ LeHTMLPageLocalAssetsDecorator >> initializeHTMLPageExporter: anExporter [
 ]
 
 { #category : #accessing }
-LeHTMLPageLocalAssetsDecorator >> lepiterUrl [
+LeHtmlPageLocalAssetsDecorator >> lepiterUrl [
 	^ 'https://lepiter.io/'
 ]
 
 { #category : #accessing }
-LeHTMLPageLocalAssetsDecorator >> localLinks [
+LeHtmlPageLocalAssetsDecorator >> localLinks [
 	^ self remoteLinks collect: [ :eachUrl | self convertRemoteUrl: eachUrl ]
 ]
 
 { #category : #accessing }
-LeHTMLPageLocalAssetsDecorator >> localScripts [
+LeHtmlPageLocalAssetsDecorator >> localScripts [
 	^ self remoteScripts collect: [ :eachUrl | self convertRemoteUrl: eachUrl ]
 ]
 
 { #category : #accessing }
-LeHTMLPageLocalAssetsDecorator >> remoteExtraLinks [
+LeHtmlPageLocalAssetsDecorator >> remoteExtraLinks [
 	^ {'https://lepiter.io/assets/v1/src/css/bootstrap.css.map'}
 ]
 
 { #category : #private }
-LeHTMLPageLocalAssetsDecorator >> writeAssetFileFromUrl: aRemoteUrl type: anXdType using: aXdWriter [
+LeHtmlPageLocalAssetsDecorator >> writeAssetFileFromUrl: aRemoteUrl type: anXdType using: aXdWriter [
 	"I download a file available at a remote URL and 
 	store its content next to a {{gtClass:LePage}} HTML output."
 
@@ -161,7 +161,7 @@ LeHTMLPageLocalAssetsDecorator >> writeAssetFileFromUrl: aRemoteUrl type: anXdTy
 ]
 
 { #category : #'api - writing' }
-LeHTMLPageLocalAssetsDecorator >> writeAssetFilesUsing: aXdWriter [
+LeHtmlPageLocalAssetsDecorator >> writeAssetFilesUsing: aXdWriter [
 	"Write extra (asset) files to a page HTML export.
 	I download https://lepiter.io CSS and JavaScript files and 
 	store them next to a {{gtClass:LePage}} HTML output."

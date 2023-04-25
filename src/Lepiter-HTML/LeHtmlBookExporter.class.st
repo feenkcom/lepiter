@@ -23,7 +23,7 @@ LeHtmlBookExporter >> database: anObject [
 
 { #category : #accessing }
 LeHtmlBookExporter >> decorator [
-	<return: #LeHTMLPageDecorator>
+	<return: #LeHtmlPageDecorator>
 	^ decorator
 ]
 
@@ -61,7 +61,7 @@ LeHtmlBookExporter >> exportPageLink: aPageLink [
 		pageLink: aPageLink;
 		pageLinks: pageLinks;
 		resourcesExporter: resourcesExporter;
-		decorator: decorator;
+		decorator: (LeHtmlBookDecorator new pageDecorator: decorator);
 		shouldGenerateHeader: true;
 		export
 ]
@@ -124,7 +124,7 @@ LeHtmlBookExporter >> withLocalAssets [
 
 { #category : #'api - initialization' }
 LeHtmlBookExporter >> withLocalAssets: aBoolean [
-	self decorator: (LeHTMLPageDecorator withLocalAssets: aBoolean)
+	self decorator: (LeHtmlPageDecorator withLocalAssets: aBoolean)
 ]
 
 { #category : #'api - initialization' }
