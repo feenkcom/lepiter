@@ -1,54 +1,82 @@
 Class {
-	#name : #LeExternalPicturesWriter,
+	#name : #LeResourcesExporter,
 	#superclass : #Object,
 	#instVars : [
-		'associatedNames',
 		'counter',
-		'memoryStore'
+		'memoryStore',
+		'resources'
 	],
 	#category : #'Lepiter-HTML-Exporter'
 }
 
 { #category : #initialization }
-LeExternalPicturesWriter class >> initialCounterValue [
+LeResourcesExporter class >> initialCounterValue [
+	"The first used value will be 1000"
+
 	^ 999
 ]
 
+{ #category : #'api - exporting' }
+LeResourcesExporter >> addResource: aResource [
+	resources add: aResource
+]
+
 { #category : #enumerating }
-LeExternalPicturesWriter >> allFiles [
+LeResourcesExporter >> allFiles [
 	<return: #Array of: #FileReference>
 	^ self rootDirectory allFiles
 ]
 
-{ #category : #accessing }
-LeExternalPicturesWriter >> exampleResultReferenceFor: anExampleAnnotation [ 
+{ #category : #enumerating }
+LeResourcesExporter >> detectResource: aDetectBlock ifFound: aFoundBlock ifNone: aNoneBlock [
+	^ resources
+		detect: aDetectBlock
+		ifFound: aFoundBlock
+		ifNone: aNoneBlock
+]
+
+{ #category : #enumerating }
+LeResourcesExporter >> do: aDoBlock [
+	resources do: aDoBlock
+]
+
+{ #category : #'api - exporting' }
+LeResourcesExporter >> exampleResultReferenceFor: anExampleAnnotation [ 
 	<return: #String>
-	| aPath |
+	| aPath fileReference |
 	aPath := (LepiterConstants exportedResultsDirectoryPath / self nextNumber asString) withExtension: LepiterConstants exportedResultsExtension.
-	self exportExampleResultOf: anExampleAnnotation to: aPath.
-	associatedNames at: anExampleAnnotation put: aPath.
+	fileReference := self 
+		exportExampleResultOf: anExampleAnnotation 
+		to: aPath.
+	resources add: (LeExportedAnnotationResource new 
+		annotation: anExampleAnnotation;
+		path: aPath;
+		reference: fileReference).
 	^ aPath fullName
 ]
 
-{ #category : #accessing }
-LeExternalPicturesWriter >> exampleSnippetResultReferenceFor: aSnippetExample [
+{ #category : #'api - exporting' }
+LeResourcesExporter >> exampleSnippetResultReferenceFor: aSnippetExample [
 	<return: #String>
-	| aPath |
+	| aPath fileReference |
 	aPath := LepiterConstants exportedResultsDirectoryPath
 		/ self nextNumber asString
 		withExtension: LepiterConstants exportedResultsExtension.
 		
-	self
+	fileReference := self
 		exportGtExampleResultOf: aSnippetExample referencedExample compiledMethod gtExample  
 		to: aPath
 		height: LepiterConstants defaultPreviewHeight
 		withPreviewSelector: aSnippetExample previewShowSelector.
-	associatedNames at: aSnippetExample put: aPath.
+	resources add: (LeExportedSnippetResource new 
+		snippet: aSnippetExample;
+		path: aPath;
+		reference: fileReference).
 	^ aPath fullName
 ]
 
 { #category : #private }
-LeExternalPicturesWriter >> exportExampleResultOf: anExampleAnnotation to: aRelativePath [ 
+LeResourcesExporter >> exportExampleResultOf: anExampleAnnotation to: aRelativePath [ 
 	| fileReference exampleReturnValue container scaleFactor height |
 	fileReference := memoryStore referenceTo: aRelativePath.
 	exampleReturnValue := anExampleAnnotation imageObject compiledMethod gtExample returnValue.
@@ -79,13 +107,15 @@ LeExternalPicturesWriter >> exportExampleResultOf: anExampleAnnotation to: aRela
 			element: container; 
 			fileName: fileReference; 
 			export ].
+			
+	^ fileReference
 ]
 
 { #category : #private }
-LeExternalPicturesWriter >> exportGtExampleResultOf: aGtExample to: aRelativePath height: aHeight withPreviewSelector: aPreviewSelector [
+LeResourcesExporter >> exportGtExampleResultOf: aGtExample to: aRelativePath height: aHeight withPreviewSelector: aPreviewSelector [
 	| fileReference exampleReturnValue container scaleFactor height |
 	fileReference := memoryStore referenceTo: aRelativePath.
-	exampleReturnValue := aGtExample  returnValue.
+	exampleReturnValue := aGtExample returnValue.
 	
 	container := XdExporterContainerElement new.
 	"recommended size"
@@ -111,35 +141,56 @@ LeExternalPicturesWriter >> exportGtExampleResultOf: aGtExample to: aRelativePat
 			element: container; 
 			fileName: fileReference; 
 			export ].
+			
+	^ fileReference
 ]
 
 { #category : #'gt - extensions' }
-LeExternalPicturesWriter >> gtDirectoryFor: aView [
+LeResourcesExporter >> gtDirectoryFor: aView [
 	<gtView>
 	memoryStore ifNil: [ ^ aView empty ].
 	^ aView forward
 		title: 'Directory';
-		priority: 1;
+		priority: 5;
 		object: [ self rootDirectory ];
 		view: #gtTreeFor:
 ]
 
+{ #category : #'gt - extensions' }
+LeResourcesExporter >> gtResourcesFor: aView [
+	<gtView>
+	resources ifNil: [ ^ aView empty ].
+	^ aView columnedList
+		title: 'Resources';
+		priority: 1;
+		items: [ resources ifNil: [ #() ] ];
+		column: 'Index'
+			text: [ :_ :anIndex | anIndex ]
+			width: 60;
+		column: 'Source' text: [ :aResource | aResource source ];
+		column: 'Path' text: [ :aResource | aResource path fullName ]
+]
+
 { #category : #initialization }
-LeExternalPicturesWriter >> initialize [
+LeResourcesExporter >> initialize [
 	super initialize.
-	associatedNames := Dictionary new.
+	resources := OrderedCollection new.
 	counter := self class initialCounterValue.
 	memoryStore := FileSystem memory
 ]
 
 { #category : #private }
-LeExternalPicturesWriter >> nextNumber [
+LeResourcesExporter >> nextNumber [
 	counter := counter + 1.
 	^ counter
 ]
 
 { #category : #accessing }
-LeExternalPicturesWriter >> rootDirectory [
+LeResourcesExporter >> rootDirectory [
 	<return: #FileReference>
 	^ memoryStore root
+]
+
+{ #category : #accessing }
+LeResourcesExporter >> saveAllToDirectory: aDirectory [ 
 ]

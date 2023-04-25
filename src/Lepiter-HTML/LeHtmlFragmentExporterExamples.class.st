@@ -72,7 +72,7 @@ LeHtmlFragmentExporterExamples >> exampleSnippet [
 		exampleSelector: 'pictureSnippet'.
 	html := String streamContents: [ :stream |
 		markdown acceptVisitor: ((LeHtmlFragmentExporterVisitor new 
-		externalPicturesWriter: LeExternalPicturesWriter new)
+		externalPicturesWriter: LeResourcesExporter new)
 		stream: stream) ].
 	self assert: (html includesSubstring:'<div>
 	<div class="snippet textual-snippet code-snippet pharo-snippet documentWidth">

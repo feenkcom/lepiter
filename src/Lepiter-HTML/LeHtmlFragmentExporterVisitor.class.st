@@ -15,7 +15,8 @@ Class {
 	#classTraits : 'TLeModelVisitor classTrait + TIndentWriter classTrait',
 	#instVars : [
 		'level',
-		'externalPicturesWriter'
+		'externalPicturesWriter',
+		'pageLinks'
 	],
 	#category : #'Lepiter-HTML-Exporter'
 }
@@ -35,6 +36,16 @@ LeHtmlFragmentExporterVisitor >> initialize [
 	super initialize.
 	level := 1.
 	self nestingLevel:0.
+]
+
+{ #category : #accessing }
+LeHtmlFragmentExporterVisitor >> pageLinks [
+	^ pageLinks
+]
+
+{ #category : #accessing }
+LeHtmlFragmentExporterVisitor >> pageLinks: anObject [
+	pageLinks := anObject
 ]
 
 { #category : #visiting }
@@ -76,7 +87,7 @@ LeHtmlFragmentExporterVisitor >> visitExampleSnippet: aLeExampleSnippet [
 								putPre: 'pre'
 								andAttributes: 'class="no_bottom_margin"'
 								with:
-									[ self putPre: aLeExampleSnippet referencedExample sourceCode ] ] ].
+									[ self putPre: aLeExampleSnippet referencedExample sourceCode asString ] ] ].
 			self writeExampleResult: aLeExampleSnippet ]
 ]
 
@@ -129,7 +140,8 @@ LeHtmlFragmentExporterVisitor >> visitTextSnippet: aLeTextSnippet [
 		aLeTextSnippet ast acceptVisitor: (LeHtmlExporterTextSnippetVisitor new 
 			stream: stream;
 			nestingLevel: nestingLevel;
-			externalPicturesWriter: self externalPicturesWriter).
+			externalPicturesWriter: self externalPicturesWriter;
+			pageLinks: pageLinks).
 	self visitTextualSnippet: aLeTextSnippet.]
 ]
 
@@ -167,12 +179,17 @@ LeHtmlFragmentExporterVisitor >> visitYoutubeReferenceSnippet: aLeYoutubeReferen
 
 { #category : #accessing }
 LeHtmlFragmentExporterVisitor >> writeExampleResult: aLeExampleSnippet [ 
-	|  aFigureReference |
-	aFigureReference := self externalPicturesWriter  exampleSnippetResultReferenceFor: aLeExampleSnippet.
+	| aMethod aFigureReference |
+	aMethod := aLeExampleSnippet referencedExample compiledMethod.
+	
+	aMethod ifNotNil: [
+		aFigureReference := self externalPicturesWriter  
+			exampleSnippetResultReferenceFor: aLeExampleSnippet ].
 
 	self putTag: 'div' andAttributes: 'class="height-one-em"' with:[].
 	self putTag: 'figure' andAttributes: 'class="documentWidth"' with: [
-		self putTag: 'img' andAttributes: 'src="', aFigureReference, '"' with: [
-		]
+		aMethod ifNotNil: [
+			self putTag: 'img' andAttributes: 'src="', aFigureReference, '"' with: [
+			] ]
 	]
 ]

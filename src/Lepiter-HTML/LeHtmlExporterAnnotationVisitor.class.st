@@ -73,13 +73,15 @@ LeHtmlExporterAnnotationVisitor >> visitExampleAnnotation: anExampleAnnotation [
 
 { #category : #generated }
 LeHtmlExporterAnnotationVisitor >> visitMethodAnnotation: aMethodAnnotation [
-	| methodNameArgument |
+	| methodNameArgument method methodExists |
 	methodNameArgument := aMethodAnnotation nameNode.
+	method := methodNameArgument imageObject.
+	methodExists := method isNotNil.
 
 	self
 		putTag: 'code'
 		andAttributes: ('class="method_annotation expandable_annotation_label {1}"'
-				format: {aMethodAnnotation isExpanded
+				format: {(aMethodAnnotation isExpanded and: [ methodExists ])
 							ifTrue: [ 'expanded_annotation_body' ]
 							ifFalse: [ 'collapsed_annotation_body' ]})
 		with: [ aMethodAnnotation hasLabel
@@ -89,13 +91,20 @@ LeHtmlExporterAnnotationVisitor >> visitMethodAnnotation: aMethodAnnotation [
 	self
 		putTag: 'div'
 		andAttributes: ('class="textual-snippet code-snippet pharo-method-snippet expandable_annotation_body {1}"'
-				format: {aMethodAnnotation isExpanded
+				format: {(aMethodAnnotation isExpanded and: [ methodExists ])
 							ifTrue: [ 'visible_annotation' ]
 							ifFalse: [ 'hidden_annotation' ]})
 		with: [ self
 				putTag: 'pre'
 				andAttributes: 'class="no_bottom_margin"'
-				with: [ self putPre: methodNameArgument imageObject sourceCode asHTMLString ] ]
+				with: [ 
+					methodExists ifTrue: [
+						self putPre: method sourceCode asHTMLString ] ] ]
+]
+
+{ #category : #'as yet unclassified' }
+LeHtmlExporterAnnotationVisitor >> visitWordAnnotation: aLeWordAnnotationNode [
+	self flag: #todo
 ]
 
 { #category : #html }

@@ -22,6 +22,13 @@ LeHTMLPageDecorator class >> withLocalAssets: aBoolean [
 		ifFalse: [ LeHTMLPageRemoteAssetsDecorator new ]
 ]
 
+{ #category : #'api - writing' }
+LeHTMLPageDecorator >> addResourcesInto: aResourcesExporter [
+	"Add extra (asset) files to a page HTML export."
+
+	
+]
+
 { #category : #'api - initialization' }
 LeHTMLPageDecorator >> initializeHTMLPageExporter: anExporter [
 	"Configure a {{gtClass:LeHtmlPageExporterVisitor}} instance before a page export"
