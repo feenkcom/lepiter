@@ -7,7 +7,8 @@ Class {
 		'fileNameEditor',
 		'inspectChangesButton',
 		'createChangesFileButton',
-		'updater'
+		'updater',
+		'lastSelection'
 	],
 	#category : #'Lepiter-Snippet-Changes-Snippet'
 }
@@ -35,31 +36,29 @@ LeChangesSnippetElement >> createChangesFileButton [
 { #category : #initialization }
 LeChangesSnippetElement >> createChangesFilePicker [
 	| aButton |
-
 	aButton := BrButton new.
 	aButton
 		icon: BrGlamorousIcons loadfromdisk;
 		label: 'Select .ombu file';
 		aptitude: BrGlamorousButtonWithIconAptitude;
-		addAptitude: ((BrGlamorousWithDropdownAptitude
-			handle: [
-				BrButton new
-					icon: BrGlamorousIcons folder;
-					aptitude: 	BrGlamorousButtonWithIconAptitude 
-						- BrGlamorousButtonWithLabelTooltipAptitude
-						- BrGlamorousButtonExteriorAptitude ]
-			content: [ | stencil |
-				stencil := LeImportFileSelector new.
-				stencil
-					folder: FileLocator home;
-					okAction: [ :file :button | 
-						file isFile ifTrue: 
-							[ aButton dispatchEvent: (BrDropdownHideWish new anchor: aButton).
-							self importFromFile: file type: stencil currentType ] ];
-					buttonLabel: 'Import';
-					exact: self extent;
-					padding: (BlInsets all: 20) ])).
-				
+		addAptitude: (BrGlamorousWithDropdownAptitude
+				handle: [ BrButton new
+						icon: BrGlamorousIcons folder;
+						aptitude: BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude
+								- BrGlamorousButtonExteriorAptitude ]
+				content: [ | stencil |
+					stencil := LeImportFileSelector new.
+					stencil
+						folder: self lastSelection;
+						okAction: [ :file :button | 
+							file isFile
+								ifTrue: [ aButton dispatchEvent: (BrDropdownHideWish new anchor: aButton).
+									self lastSelection: file parent.
+									self importFromFile: file type: stencil currentType ] ];
+						buttonLabel: 'Import';
+						exact: self extent;
+						padding: (BlInsets all: 20) ]).
+
 	^ aButton
 ]
 
@@ -138,6 +137,16 @@ LeChangesSnippetElement >> initialize [
 	updater := BrElementUpdater new 
 		postponedDuration: 100 milliSeconds;
 		element: self selector: #updateChangesPreview.
+]
+
+{ #category : #accessing }
+LeChangesSnippetElement >> lastSelection [
+	^ lastSelection ifNil: [ Smalltalk imageDirectory ]
+]
+
+{ #category : #accessing }
+LeChangesSnippetElement >> lastSelection: anObject [
+	lastSelection := anObject
 ]
 
 { #category : #'private - event handling' }
