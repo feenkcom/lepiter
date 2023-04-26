@@ -46,7 +46,7 @@ XdWriter >> lepiterIndexPage: aLePage decorator: anExportDecorator [
 					on: s 
 					prettyPrint: true ]).
 				
-	picturesWriter := LeExternalPicturesWriter new.
+	picturesWriter := LeResourcesExporter new.
 	exportVisitor := LeHtmlPageExporterVisitor new 
 		shouldGenerateHeader: false;
 		externalPicturesWriter: picturesWriter.
@@ -76,5 +76,5 @@ XdWriter >> lepiterIndexPage: aLePage decorator: anExportDecorator [
 XdWriter >> lepiterIndexPage: aLePage withLocalAssets: aBoolean [
 	self
 		lepiterIndexPage: aLePage
-		decorator: (LeHTMLPageDecorator withLocalAssets: aBoolean)
+		decorator: (LeHtmlPageDecorator withLocalAssets: aBoolean)
 ]

@@ -4,7 +4,11 @@ Class {
 	#traits : 'TLeExtensibleContentNodeVisitor + TSmaCCCompositeVisitor + (TLeContentNodeVisitor - {#acceptNode:}) + TIndentWriter',
 	#classTraits : 'TLeExtensibleContentNodeVisitor classTrait + TSmaCCCompositeVisitor classTrait + TLeContentNodeVisitor classTrait + TIndentWriter classTrait',
 	#instVars : [
-		'externalPicturesWriter'
+		'externalPicturesWriter',
+		'pageLinks'
+	],
+	#classInstVars : [
+		'componentVisitorClasses'
 	],
 	#category : #'Lepiter-HTML-Exporter'
 }
@@ -52,6 +56,16 @@ LeHtmlExporterTextSnippetVisitor >> isLocalAttachmentUrl: aUrlLink [
 ]
 
 { #category : #accessing }
+LeHtmlExporterTextSnippetVisitor >> pageLinks [
+	^ pageLinks
+]
+
+{ #category : #accessing }
+LeHtmlExporterTextSnippetVisitor >> pageLinks: anObject [
+	pageLinks := anObject
+]
+
+{ #category : #accessing }
 LeHtmlExporterTextSnippetVisitor >> putPre: aString [
 	stream
 		nextPutAll: aString;
@@ -81,6 +95,25 @@ LeHtmlExporterTextSnippetVisitor >> visitDocumenterAnnotation: aDocumenterAnnota
 		stream: stream;
 		nestingLevel: nestingLevel;
 		externalPicturesWriter: self externalPicturesWriter)
+]
+
+{ #category : #generated }
+LeHtmlExporterTextSnippetVisitor >> visitDoubleBracketLink: aDoubleBracketLink [
+	pageLinks ifNil: [ ^ aDoubleBracketLink ].
+
+	pageLinks
+		linkTitled: aDoubleBracketLink linkUID
+		ifFound: [ :aLink | 
+			self
+				putTagInline: 'a'
+				andAttributes: 'href="', aLink fileName, '"'
+				with: [ self putStringInline: aDoubleBracketLink linkUID ] ]
+		ifNone: [ self
+				putTagInline: 'div'
+				andAttributes: ''
+				with: [ self putStringInline: aDoubleBracketLink linkUID ] ].
+
+	^ aDoubleBracketLink
 ]
 
 { #category : #generated }

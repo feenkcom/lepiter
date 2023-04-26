@@ -1,16 +1,16 @@
 "
-I am a {{gtClass:LeHTMLPageDecorator}}. 
-I am responsible for {{gtMethod: LeHTMLPageRemoteAssetsDecorator>>#initializeHTMLPageExporter: | label=configuring}} asset files used for {{gtClass:LePage}} HTML exports.
+I am a {{gtClass:LeHtmlPageDecorator}}. 
+I am responsible for {{gtMethod: LeHtmlPageRemoteAssetsDecorator>>#initializeHTMLPageExporter: | label=configuring}} asset files used for {{gtClass:LePage}} HTML exports.
 I add a remote CSS and JavaScript links to a {{gtClass:LePage}} HTML output.
 "
 Class {
-	#name : #LeHTMLPageRemoteAssetsDecorator,
-	#superclass : #LeHTMLPageDecorator,
+	#name : #LeHtmlPageRemoteAssetsDecorator,
+	#superclass : #LeHtmlPageDecorator,
 	#category : #'Lepiter-HTML-Helpers'
 }
 
 { #category : #'api - initialization' }
-LeHTMLPageRemoteAssetsDecorator >> initializeHTMLPageExporter: anExporter [
+LeHtmlPageRemoteAssetsDecorator >> initializeHTMLPageExporter: anExporter [
 	"Configure a {{gtClass:LeHtmlPageExporterVisitor}} instance before a page export.
 	I add a remote CSS and JavaScript links to a {{gtClass:LePage}} HTML output."
 

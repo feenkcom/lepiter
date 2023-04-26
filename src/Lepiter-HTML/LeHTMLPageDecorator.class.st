@@ -1,36 +1,45 @@
 "
 I am an abstract class. 
-My subclasses are responsible for {{gtMethod: LeHTMLPageDecorator>>#initializeHTMLPageExporter: | label=configuring}} and {{gtMethod: LeHTMLPageDecorator>>#initializeHTMLPageExporter: | label=adding}} additional asset files used for {{gtClass:LePage}} HTML exports.
+My subclasses are responsible for {{gtMethod: LeHtmlPageDecorator>>#initializeHTMLPageExporter: | label=configuring}} and {{gtMethod: LeHtmlPageDecorator>>#initializeHTMLPageExporter: | label=adding}} additional asset files used for {{gtClass:LePage}} HTML exports.
 I am used in {{gtMethod: XdWriter>>#lepiterIndexPage:withLocalAssets:}}. 
 
 "
 Class {
-	#name : #LeHTMLPageDecorator,
+	#name : #LeHtmlPageDecorator,
 	#superclass : #Object,
+	#traits : 'TLeHtmlPageDecorator',
+	#classTraits : 'TLeHtmlPageDecorator classTrait',
 	#category : #'Lepiter-HTML-Helpers'
 }
 
 { #category : #testing }
-LeHTMLPageDecorator class >> isAbstract [
-	^ self name = #LeHTMLPageDecorator
+LeHtmlPageDecorator class >> isAbstract [
+	^ self name = #LeHtmlPageDecorator
 ]
 
 { #category : #'instance creation' }
-LeHTMLPageDecorator class >> withLocalAssets: aBoolean [
+LeHtmlPageDecorator class >> withLocalAssets: aBoolean [
 	^ aBoolean
-		ifTrue: [ LeHTMLPageLocalAssetsDecorator new ]
-		ifFalse: [ LeHTMLPageRemoteAssetsDecorator new ]
+		ifTrue: [ LeHtmlPageLocalAssetsDecorator new ]
+		ifFalse: [ LeHtmlPageRemoteAssetsDecorator new ]
+]
+
+{ #category : #'api - writing' }
+LeHtmlPageDecorator >> addResourcesInto: aResourcesExporter [
+	"Add extra (asset) files to a page HTML export."
+
+	
 ]
 
 { #category : #'api - initialization' }
-LeHTMLPageDecorator >> initializeHTMLPageExporter: anExporter [
+LeHtmlPageDecorator >> initializeHTMLPageExporter: anExporter [
 	"Configure a {{gtClass:LeHtmlPageExporterVisitor}} instance before a page export"
 
 	
 ]
 
 { #category : #accessing }
-LeHTMLPageDecorator >> remoteLinks [
+LeHtmlPageDecorator >> remoteLinks [
 	"https://lepiter.io CSS links used for styling page HTML files"
 
 	^ {'https://lepiter.io/assets/v1/src/css/bootstrap.css'.
@@ -40,7 +49,7 @@ LeHTMLPageDecorator >> remoteLinks [
 ]
 
 { #category : #accessing }
-LeHTMLPageDecorator >> remoteScripts [
+LeHtmlPageDecorator >> remoteScripts [
 	"https://lepiter.io JavaScript files used in page HTML files"
 
 	^ {'https://lepiter.io/assets/v1/src/js/datefns.min.js'.
@@ -53,7 +62,7 @@ LeHTMLPageDecorator >> remoteScripts [
 ]
 
 { #category : #'api - writing' }
-LeHTMLPageDecorator >> writeAssetFilesUsing: aXdWriter [
+LeHtmlPageDecorator >> writeAssetFilesUsing: aXdWriter [
 	"Write extra (asset) files to a page HTML export."
 
 	

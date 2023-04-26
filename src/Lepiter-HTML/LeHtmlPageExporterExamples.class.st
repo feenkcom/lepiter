@@ -81,10 +81,23 @@ LeHtmlPageExporterExamples >> sampleDatabaseLocation [
 LeHtmlPageExporterExamples >> samplePage [
 	"Answer the html of a sample page"
 	<gtExample>
-	| database visitor html page |
+	| database page |
 
 	database := self sampleDatabase.
 	page := database pageNamed: 'HTML Export Sample Page'.
+
+	self assert: page isNotNil.
+
+	^ page
+]
+
+{ #category : #examples }
+LeHtmlPageExporterExamples >> samplePageExport [
+	"Answer the html of a sample page"
+	<gtExample>
+	| visitor html page |
+
+	page := self samplePage.
 
 	html := String streamContents: [ :stream |
 		visitor := LeHtmlPageExporterVisitor new stream: stream.
@@ -102,10 +115,23 @@ LeHtmlPageExporterExamples >> samplePage [
 LeHtmlPageExporterExamples >> sampleSnippetsPage [
 	"Answer the html of a sample page"
 	<gtExample>
-	| database visitor html page |
+	| database page |
 
 	database := self sampleDatabase.
 	page := database pageNamed: 'SnippetsToHTML'.
+	
+	self assert: page isNotNil.
+
+	^ page
+]
+
+{ #category : #examples }
+LeHtmlPageExporterExamples >> sampleSnippetsPageExport [
+	"Answer the html of a sample page"
+	<gtExample>
+	| visitor html page |
+
+	page := self sampleSnippetsPage.
 
 	html := String streamContents: [ :stream |
 		visitor := LeHtmlPageExporterVisitor new stream: stream.
