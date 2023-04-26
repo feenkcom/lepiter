@@ -454,17 +454,34 @@ LeTextSnippet >> roamJsonStringContent: aString [
 ]
 
 { #category : #'api - links' }
-LeTextSnippet >> spawnLinkTarget: aNode from: aButton [
+LeTextSnippet >> spawnLinkTarget: aNode from: aButton inNewTab: aBoolean [
 	self hasOutgoingTextualLinks ifFalse: [ ^ self ].
-	self outgoingTextualLinks 
-		detect: [ :eachLink | eachLink node = aNode ] 
-		ifFound: [ :aLink |
-			aLink hasTarget ifFalse: [ 
-				(aLink isTextualPageLink and: [ aLink isLocalLink ]) ifTrue: [ 
-					self database pageBuilder title: aLink targetUID; add ] ].
-			aLink hasTarget ifTrue: [ 
-				aButton phlow spawnTool: aLink target asPhlowTool ] ]
-		ifNone: [ "ignore" ]
+	self outgoingTextualLinks
+		detect: [ :eachLink | eachLink node = aNode ]
+		ifFound: [ :aLink | 
+			aLink hasTarget
+				ifFalse: [ (aLink isTextualPageLink and: [ aLink isLocalLink ])
+						ifTrue: [ self database pageBuilder
+								title: aLink targetUID;
+								add ] ].
+			aLink hasTarget
+				ifTrue: [ aBoolean
+						ifTrue: [ | aTool aSpace |
+							aTool := aLink target asPhlowTool.
+							aSpace := BlSpace new.
+							aSpace title: self gtDisplayString.
+							aSpace icon: aTool icon.
+							aSpace extent: 1200 @ 600.
+							aSpace root background: Color transparent.
+							aSpace
+								addChild: (GtPager
+										createOn: (GtPagerWrapperElement new
+												tool: aTool;
+												embellisher: (GtPagerPageEmbellisher new extension: GtPagerPageEmbellisherExtension null))).
+							aSpace withHalos.
+							aButton showSpace: aSpace ]
+						ifFalse: [ aButton phlow spawnTool: aLink target asPhlowTool ] ] ]
+		ifNone: [  "ignore" ]
 ]
 
 { #category : #comparing }

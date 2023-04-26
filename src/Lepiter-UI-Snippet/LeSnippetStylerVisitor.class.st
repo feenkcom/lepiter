@@ -564,32 +564,53 @@ LeSnippetStylerVisitor >> styleLinkButton: aLink text: aSubText [
 	aSubText
 		appendingAdornment: [ :aTBrTextEditorTextualPiece :anEditorElement | 
 			| button page highlight |
-
 			page := self snippetViewModel snippetModel outgoingTextualLinks
-				detect: [ :eachLink | eachLink node = aLink ]
-				ifFound: [ :theLink | theLink target ]
-				ifNone: [ nil ].
+					detect: [ :eachLink | eachLink node = aLink ]
+					ifFound: [ :theLink | theLink target ]
+					ifNone: [ nil ].
 
 			highlight := referencedPage notNil and: [ page == referencedPage ].
 
 			button := self class
-				textLinkButtonPadding: aTBrTextEditorTextualPiece wordPadding 
-				margin: aTBrTextEditorTextualPiece wordMargin
-				valid: page isNotNil.
+					textLinkButtonPadding: aTBrTextEditorTextualPiece wordPadding
+					margin: aTBrTextEditorTextualPiece wordMargin
+					valid: page isNotNil.
 
 			button model: page.
-	
-			highlight ifTrue: [
-				button
-					aptitude: (BrGlamorousLinkButtonLabelAptitude new
-						labelDo: [ :aLabelElement | aLabelElement padding: (BlInsets all: 0) ]);
-					addAptitude: (BrGlamorousLinkButtonExteriorInnerAptitude new
-						backgroundPaint: (BrGlamorousColors textHighlightColor alpha: 0.5));
-					geometry: (BlRoundedRectangleGeometry cornerRadius: 4) ].
-	
+
+			highlight
+				ifTrue: [ button
+						aptitude: (BrGlamorousLinkButtonLabelAptitude new
+								labelDo: [ :aLabelElement | aLabelElement padding: (BlInsets all: 0) ]);
+						addAptitude: (BrGlamorousLinkButtonExteriorInnerAptitude new
+								backgroundPaint: (BrGlamorousColors textHighlightColor alpha: 0.5));
+						geometry: (BlRoundedRectangleGeometry cornerRadius: 4) ].
+
 			button
 				label: aLink linkUID;
-				action: [ :aButton | self snippetViewModel snippetModel spawnLinkTarget: aLink from: aButton ].
+				action: [ :aButton | 
+					self snippetViewModel snippetModel
+						spawnLinkTarget: aLink
+						from: aButton
+						inNewTab: false ].
+
+			button viewModel
+				when: BlClickEvent
+				do: [ :anEvent | 
+					anEvent modifiers isPrimaryModifier
+						ifTrue: [ self snippetViewModel snippetModel
+								spawnLinkTarget: aLink
+								from: button
+								inNewTab: true ] ].
+			button viewModel
+				when: BlMouseEnterEvent
+				do: [ :anEvent | 
+					anEvent consumed: true.
+					anEvent modifiers isPrimaryModifier
+						ifTrue: [ anEvent target mouseCursor: BlCopyCursor new ]
+						ifFalse: [ anEvent target mouseCursor: nil ].
+					anEvent target requestFocus ].
+
 			button ]
 ]
 
