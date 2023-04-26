@@ -289,6 +289,18 @@ LeUIExamples >> databaseWithTableOfContents [
 ]
 
 { #category : #'examples - model' }
+LeUIExamples >> databaseWithTableOfContentsDuplicatePage [
+	<gtExample>
+	| aDatabase aFile |
+	aFile := GtResourceReference path: Path * 'feenkcom/lepiter/test-data/toc'.
+	aDatabase := LeLocalStoreLoad current loadAndMonitorFrom: aFile fileReference.
+	aDatabase stopMonitoring.
+	aDatabase tableOfContents
+		addSnippet: (LeTextSnippet string: aDatabase tableOfContents children last text).
+	^ aDatabase
+]
+
+{ #category : #'examples - model' }
 LeUIExamples >> databaseWithTwoPagesAndTwoDailyNotes [
 	<gtExample>
 	| aDatabase |

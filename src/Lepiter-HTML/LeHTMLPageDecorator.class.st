@@ -1,6 +1,6 @@
 "
 I am an abstract class. 
-My subclasses are responsible for {{gtMethod: LeHTMLPageDecorator>>#initializeHTMLPageExporter: | label=configuring}} and {{gtMethod: LeHTMLPageDecorator>>#initializeHTMLPageExporter: | label=adding}} additional asset files used for {{gtClass:LePage}} HTML exports.
+My subclasses are responsible for {{gtMethod: LeHtmlPageDecorator>>#initializeHTMLPageExporter: | label=configuring}} and {{gtMethod: LeHtmlPageDecorator>>#initializeHTMLPageExporter: | label=adding}} additional asset files used for {{gtClass:LePage}} HTML exports.
 I am used in {{gtMethod: XdWriter>>#lepiterIndexPage:withLocalAssets:}}. 
 
 "

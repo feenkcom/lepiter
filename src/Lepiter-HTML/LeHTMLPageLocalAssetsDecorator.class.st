@@ -1,6 +1,6 @@
 "
-I am a {{gtClass:LeHTMLPageDecorator}}. 
-I am responsible for {{gtMethod: LeHTMLPageLocalAssetsDecorator >> #initializeHTMLPageExporter: | label=configuring}}  and {{gtMethod: LeHTMLPageLocalAssetsDecorator >> #writeAssetFilesUsing: | label=adding}} additional  asset files used for {{gtClass:LePage}} HTML exports.
+I am a {{gtClass:LeHtmlPageDecorator}}. 
+I am responsible for {{gtMethod: LeHtmlPageLocalAssetsDecorator >> #initializeHTMLPageExporter: | label=configuring}}  and {{gtMethod: LeHtmlPageLocalAssetsDecorator >> #writeAssetFilesUsing: | label=adding}} additional  asset files used for {{gtClass:LePage}} HTML exports.
 I add a remote CSS and JavaScript links to a {{gtClass:LePage}} HTML output.
 I download [](https://lepiter.io) CSS and JavaScript files and store them next to a {{gtClass:LePage}} HTML output.
 "

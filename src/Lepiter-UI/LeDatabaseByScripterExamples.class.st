@@ -39,6 +39,16 @@ LeDatabaseByScripterExamples >> scripterOnDatabaseToolWithToC [
 ]
 
 { #category : #accessing }
+LeDatabaseByScripterExamples >> scripterOnDatabaseToolWithToCDuplicatePage [
+	<gtExample>
+	| scripter |
+	scripter := self
+			scripterWithModel: [ :aTarget :theScripter | LeUIExamples new databaseWithTableOfContentsDuplicatePage ]
+			element: [ :aDatabase | (self toolFor: aDatabase) asElement createInPager maximized ].
+	^ scripter
+]
+
+{ #category : #accessing }
 LeDatabaseByScripterExamples >> scripterWithOtherPageNavigated [
 	<gtExample>
 	| scripter |
@@ -63,6 +73,37 @@ LeDatabaseByScripterExamples >> scripterWithOtherPageNavigated [
 		id: #content;
 		id: #title;
 		value: [ :anElement | anElement text asString ] equals: 'Page Two';
+		play.
+
+	^ scripter
+]
+
+{ #category : #accessing }
+LeDatabaseByScripterExamples >> scripterWithToCDuplicateNavigated [
+	<gtExample>
+	| scripter |
+	scripter := self scripterOnDatabaseToolWithToCDuplicatePage.
+
+	scripter check
+		label: 'Ensure page is correct';
+		id: #content;
+		id: #title;
+		value: [ :anElement | anElement text asString ] equals: scripter model pages last title;
+		play.
+
+	scripter click
+		label: 'Select other page';
+		id: #sidebar;
+		id: #content;
+		id: #scrollable;
+		onChildAt: scripter model pages size;
+		play.
+
+	scripter check
+		label: 'Ensure page has changed';
+		id: #content;
+		id: #title;
+		value: [ :anElement | anElement text asString ] equals: 'Summary';
 		play.
 
 	^ scripter

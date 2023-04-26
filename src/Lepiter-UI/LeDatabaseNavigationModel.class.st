@@ -5,9 +5,9 @@ Class {
 	#classTraits : 'TGtAnnouncer classTrait',
 	#instVars : [
 		'announcer',
-		'page',
 		'database',
-		'databaseViewModel'
+		'databaseViewModel',
+		'pageViewModel'
 	],
 	#category : #'Lepiter-UI-! UI - Database'
 }
@@ -109,7 +109,7 @@ LeDatabaseNavigationModel >> hasDatabase [
 
 { #category : #testing }
 LeDatabaseNavigationModel >> hasPage [
-	^ page notNil
+	^ pageViewModel notNil
 ]
 
 { #category : #accessing }
@@ -143,21 +143,21 @@ LeDatabaseNavigationModel >> onSelection: anAnnouncement [
 		assert: [ anAnnouncement page isKindOf: LePageViewModel ]
 		description: [ 'Must be a UI model' ].
 
-	page = anAnnouncement page ifTrue: [ ^ self ].
+	pageViewModel pageModel = anAnnouncement page pageModel ifTrue: [ ^ self ].
 
 	self page: anAnnouncement page
 ]
 
 { #category : #accessing }
 LeDatabaseNavigationModel >> page [
-	^ page
+	^ pageViewModel
 ]
 
 { #category : #accessing }
 LeDatabaseNavigationModel >> page: anObject [
-	page := anObject.
+	pageViewModel := anObject.
 	
-	self announce: (LeUIPageSelected new page: page)
+	self announce: (LeUIPageSelected new page: pageViewModel)
 ]
 
 { #category : #accessing }
