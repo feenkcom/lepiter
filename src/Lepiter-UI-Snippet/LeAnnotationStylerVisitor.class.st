@@ -282,34 +282,60 @@ LeAnnotationStylerVisitor >> styleAutoHidingAnnotation: anAnnotation [
 { #category : #styling }
 LeAnnotationStylerVisitor >> styleButton: anAnnotation for: object defaultLabel: aLabelBlock withTool: aBlock [
 	"Style the buttons for gtClass and gtMethod annotations"
-	| attribute anId |
 
-	anAnnotation isDefined
-		ifFalse: [ ^ self ].
-		
-	anId := LeTextSnippetAttributeLabelElementId indexed: self nextUniqueId. 
-		
+	| attribute anId |
+	anAnnotation isDefined ifFalse: [ ^ self ].
+
+	anId := LeTextSnippetAttributeLabelElementId indexed: self nextUniqueId.
+
 	attribute := GtButtonAttribute new
-		beAppend;
-		stencil: [
-			| button label |
-			
-			label := object
-				ifNil: [ anAnnotation nameNode
-						ifNil: [ '' ]
-						ifNotNil: [ :name | (name value ifNil: [ name ]) source ] ]
-				ifNotNil: [ :obj | 
-					anAnnotation labelNode
-						ifNil: [ aLabelBlock value: obj ]
-						ifNotNil: [ :node | node labelFor: obj ] ].
-			button := LeSnippetStylerVisitor textLinkButtonPadding: (BlInsets top: 2) margin: BlInsets empty.
-			button aptitude glamorousCodeFont.
-			button
-				id: anId;
-				beSmallSize;
-				label: label;
-				action: [ :aButton | aButton phlow spawnTool: (aBlock cull: aButton) ].
-			button ].
+			beAppend;
+			stencil: [ | button label |
+				label := object
+						ifNil: [ anAnnotation nameNode
+								ifNil: [ '' ]
+								ifNotNil: [ :name | (name value ifNil: [ name ]) source ] ]
+						ifNotNil: [ :obj | 
+							anAnnotation labelNode
+								ifNil: [ aLabelBlock value: obj ]
+								ifNotNil: [ :node | node labelFor: obj ] ].
+				button := LeSnippetStylerVisitor
+						textLinkButtonPadding: (BlInsets top: 2)
+						margin: BlInsets empty.
+				button aptitude glamorousCodeFont.
+				button
+					id: anId;
+					beSmallSize;
+					label: label;
+					action: [ :aButton | aButton phlow spawnTool: (aBlock cull: aButton) ].
+
+				button viewModel
+					when: BlClickEvent
+					do: [ :anEvent | 
+						anEvent modifiers isPrimaryModifier
+							ifTrue: [ | aTool aSpace |
+								aTool := aBlock cull: button.
+								aSpace := BlSpace new.
+								aSpace title: self gtDisplayString.
+								aSpace icon: aTool icon.
+								aSpace extent: 1200 @ 600.
+								aSpace root background: Color transparent.
+								aSpace
+									addChild: (GtPager
+											createOn: (GtPagerWrapperElement new
+													tool: aTool;
+													embellisher: (GtPagerPageEmbellisher new extension: GtPagerPageEmbellisherExtension null))).
+								aSpace withHalos.
+								button showSpace: aSpace ] ].
+				button viewModel
+					when: BlMouseEnterEvent
+					do: [ :anEvent | 
+						anEvent consumed: true.
+						anEvent modifiers isPrimaryModifier
+							ifTrue: [ anEvent target mouseCursor: BlCopyCursor new ]
+							ifFalse: [ anEvent target mouseCursor: nil ].
+						anEvent target requestFocus ].
+				button ].
 
 	self text
 		attribute: attribute

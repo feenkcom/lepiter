@@ -81,7 +81,7 @@ LepiterConstants class >> defaultChangesShowSelector [
 
 { #category : #'pillar parameter default values' }
 LepiterConstants class >> defaultClassShowSelector [
-	^ #gtDefinitionFor:
+	^ #gtMetaFor:
 ]
 
 { #category : #'pillar parameter default values' }
@@ -112,7 +112,7 @@ LepiterConstants class >> defaultMethodShowSelector [
 
 { #category : #'pillar parameter default values' }
 LepiterConstants class >> defaultPackageShowSelector [
-	^ #gtDefinedClassesFor:
+	^ #gtPackageCoderFor:
 ]
 
 { #category : #'pillar parameter default values' }
