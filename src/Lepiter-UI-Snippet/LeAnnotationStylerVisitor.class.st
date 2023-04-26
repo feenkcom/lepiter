@@ -493,7 +493,7 @@ LeAnnotationStylerVisitor >> styleLinkButton: aLink text: aSubText [
 			button 
 				model: page;
 				label: (aLink linkLabelInDatabase: snippetModel database);
-				action: [ :aButton | self snippetViewModel snippetModel spawnLinkTarget: aLink from: aButton ].
+				action: [ :aButton | self snippetViewModel snippetModel spawnLinkTarget: aLink from: aButton inNewTab: false ].
 			button ]
 ]
 
