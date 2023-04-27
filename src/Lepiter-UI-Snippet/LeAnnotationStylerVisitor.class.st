@@ -324,7 +324,7 @@ LeAnnotationStylerVisitor >> styleButton: anAnnotation for: object defaultLabel:
 									addChild: (GtPager
 											createOn: (GtPagerWrapperElement new
 													tool: aTool;
-													embellisher: (GtPagerPageEmbellisher new extension: GtPagerPageEmbellisherExtension null))).
+													embellisher: (GtPagerPageEmbellisher new extension: GtPagerPageEmbellisherExtension null))) maximized.
 								aSpace withHalos.
 								button showSpace: aSpace ] ].
 				button viewModel

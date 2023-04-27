@@ -477,7 +477,7 @@ LeTextSnippet >> spawnLinkTarget: aNode from: aButton inNewTab: aBoolean [
 								addChild: (GtPager
 										createOn: (GtPagerWrapperElement new
 												tool: aTool;
-												embellisher: (GtPagerPageEmbellisher new extension: GtPagerPageEmbellisherExtension null))).
+												embellisher: (GtPagerPageEmbellisher new extension: GtPagerPageEmbellisherExtension null))) maximized.
 							aSpace withHalos.
 							aButton showSpace: aSpace ]
 						ifFalse: [ aButton phlow spawnTool: aLink target asPhlowTool ] ] ]
