@@ -32,9 +32,21 @@ LeDatabaseByScripterExamples >> scripterOnDatabaseTool [
 LeDatabaseByScripterExamples >> scripterOnDatabaseToolWithToC [
 	<gtExample>
 	| scripter |
-	scripter := self
-			scripterWithModel: [ :aTarget :theScripter | LeUIExamples new databaseWithTableOfContents ]
-			element: [ :aDatabase | (self toolFor: aDatabase) asElement createInPager maximized ].
+	scripter := GtWorldByScripterExamples new tabElementInScripter.
+
+	scripter do
+		label: 'Show Coder space';
+		block: [ :aTabElement | 
+			| aStencil |
+			aStencil := [ (self toolFor: LeUIExamples new databaseWithTableOfContents)
+					asElement createInPager maximized ] asStencil.
+
+			GtWorldUtility
+				showSpaceWithIcon: BrGlamorousVectorIcons transparent
+				title: 'Lepiter Page'
+				with: aStencil
+				from: aTabElement ];
+		play.
 	^ scripter
 ]
 
@@ -45,6 +57,66 @@ LeDatabaseByScripterExamples >> scripterOnDatabaseToolWithToCDuplicatePage [
 	scripter := self
 			scripterWithModel: [ :aTarget :theScripter | LeUIExamples new databaseWithTableOfContentsDuplicatePage ]
 			element: [ :aDatabase | (self toolFor: aDatabase) asElement createInPager maximized ].
+	^ scripter
+]
+
+{ #category : #accessing }
+LeDatabaseByScripterExamples >> scripterWithLinkClicked [
+	<gtExample>
+	| scripter |
+	scripter := self scripterWithToCNavigated.
+
+	scripter click
+		label: 'Click link container';
+		id: #content;
+		id: #scrollable;
+		onChildAt: 1;
+		play.
+
+	scripter click
+		label: 'Click link';
+		id: #content;
+		id: #scrollable;
+		onChildAt: 1;
+		play.
+
+	scripter check
+		label: 'Check that page was spawned';
+		id: #content;
+		onChildAt: 1;
+		onChildAt: 1;
+		satisfies: [ :aPager | aPager pages size = 2 ];
+		play.
+
+	^ scripter
+]
+
+{ #category : #accessing }
+LeDatabaseByScripterExamples >> scripterWithLinkPrimaryClicked [
+	<gtExample>
+	| scripter |
+	scripter := self scripterWithToCNavigated.
+
+	scripter click
+		label: 'Click link container';
+		id: #content;
+		id: #scrollable;
+		onChildAt: 1;
+		play.
+
+	scripter click
+		label: 'Click link';
+		modifiers: BlKeyModifiers primary;
+		id: #content;
+		id: #scrollable;
+		onChildAt: 1;
+		play.
+
+	scripter check
+		label: 'Check that tab was spawned';
+		satisfies: [ :aWorld | aWorld tabs tabs size = 3 ];
+		play.
+
 	^ scripter
 ]
 
@@ -119,7 +191,7 @@ LeDatabaseByScripterExamples >> scripterWithToCNavigated [
 		label: 'Ensure page is correct';
 		id: #content;
 		id: #title;
-		value: [ :anElement | anElement text asString ] equals: scripter model pages last title;
+		value: [ :anElement | anElement text asString ] equals: 'Charts';
 		play.
 
 	scripter click
@@ -133,7 +205,7 @@ LeDatabaseByScripterExamples >> scripterWithToCNavigated [
 		label: 'Ensure page has changed';
 		id: #content;
 		id: #title;
-		value: [ :anElement | anElement text asString ] equals: scripter model tableOfContents title;
+		value: [ :anElement | anElement text asString ] equals: 'Visualizing with Glamorous Toolkit';
 		play.
 
 	^ scripter
@@ -179,7 +251,7 @@ LeDatabaseByScripterExamples >> scripterWithToCNavigatedAndOtherTabClicked [
 		id: #list;
 		satisfies: [ :aList | 
 			aList
-				selectedEntityDo: [ :aGroup | check := aGroup itemObject title = scripter model tableOfContents title ].
+				selectedEntityDo: [ :aGroup | check := aGroup itemObject title = 'Visualizing with Glamorous Toolkit' ].
 			check ];
 		play.
 
