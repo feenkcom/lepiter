@@ -49,6 +49,34 @@ LeDatabaseByScripterExamples >> scripterOnDatabaseToolWithToCDuplicatePage [
 ]
 
 { #category : #accessing }
+LeDatabaseByScripterExamples >> scripterWithLinkClicked [
+	<gtExample>
+	| scripter |
+	scripter := self scripterWithToCNavigated.
+
+	scripter click
+		label: 'Click link container';
+		id: #content;
+		id: #scrollable;
+		onChildAt: 1;
+		play.
+
+	scripter click
+		label: 'Click link';
+		id: #content;
+		id: #scrollable;
+		onChildAt: 1;
+		play.
+
+	scripter check
+		label: 'Check that page was spawned';
+		satisfies: [ :aPager | aPager pages size = 2 ];
+		play.
+
+	^ scripter
+]
+
+{ #category : #accessing }
 LeDatabaseByScripterExamples >> scripterWithOtherPageNavigated [
 	<gtExample>
 	| scripter |
@@ -119,7 +147,7 @@ LeDatabaseByScripterExamples >> scripterWithToCNavigated [
 		label: 'Ensure page is correct';
 		id: #content;
 		id: #title;
-		value: [ :anElement | anElement text asString ] equals: scripter model pages last title;
+		value: [ :anElement | anElement text asString ] equals: 'Charts';
 		play.
 
 	scripter click
@@ -133,7 +161,7 @@ LeDatabaseByScripterExamples >> scripterWithToCNavigated [
 		label: 'Ensure page has changed';
 		id: #content;
 		id: #title;
-		value: [ :anElement | anElement text asString ] equals: scripter model tableOfContents title;
+		value: [ :anElement | anElement text asString ] equals: 'Visualizing with Glamorous Toolkit';
 		play.
 
 	^ scripter
