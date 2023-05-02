@@ -13,6 +13,7 @@ Class {
 LeSplitSnippetCommand class >> splitSnippet: aTargetSnippet atCursorPosition: aCursorPosition [
 	^ (self forSnippet: aTargetSnippet)
 		splitAtCursorPosition: aCursorPosition
+		additionalState: aTargetSnippet additionalStateForCopying.
 ]
 
 { #category : #'initialization - commands' }
@@ -24,6 +25,24 @@ LeSplitSnippetCommand >> addInsertNewSnippetAboveCommandWithText: aSnippetText a
 	command initialSnippetState
 		addAttribute: (self targetSnippet class 
 			createTextAttributeWithValue: aSnippetText).
+			
+	aNewSnippetUid ifNotNil: [
+		command useSnippetUid: aNewSnippetUid ].
+	
+	insertSnippetCommand := command.
+	self addSubcommand: insertSnippetCommand 
+]
+
+{ #category : #'initialization - commands' }
+LeSplitSnippetCommand >> addInsertNewSnippetAboveCommandWithText: aSnippetText andUid: aNewSnippetUid additionalState: aSnippetState [
+	| command |
+	
+	command := self targetSnippet 
+		insertSnippetBeforeSelfCommandOfType: self targetSnippet class.
+	command initialSnippetState
+		addAttribute: (self targetSnippet class 
+			createTextAttributeWithValue: aSnippetText);
+		appendState: aSnippetState.
 			
 	aNewSnippetUid ifNotNil: [
 		command useSnippetUid: aNewSnippetUid ].
@@ -82,6 +101,7 @@ LeSplitSnippetCommand >> createCommandSpecification [
 		attributeAt: #cursorPosition put: self cursorPosition;
 		attributeAt: #newSnippetUid 
 			put: insertSnippetCommand  newSnippetUid ;
+		attributeAt: #additionalState put: self targetContent additionalStateForCopying;
 		yourself
 ]
 
@@ -127,6 +147,8 @@ LeSplitSnippetCommand >> initializeFromSpecification: aCommandSpecification with
 			attributeAt: #cursorPosition)
 		withNewUid: (aCommandSpecification 
 			attributeAt: #newSnippetUid)
+		additionalState: (aCommandSpecification
+			attributeAt: #additionalState)
 ]
 
 { #category : #accessing }
@@ -145,6 +167,11 @@ LeSplitSnippetCommand >> splitAtCursorPosition: aCursorPosition [
 ]
 
 { #category : #initialization }
+LeSplitSnippetCommand >> splitAtCursorPosition: aCursorPosition additionalState: aSnippetState [
+	self splitAtCursorPosition: aCursorPosition withNewUid: nil additionalState: aSnippetState
+]
+
+{ #category : #initialization }
 LeSplitSnippetCommand >> splitAtCursorPosition: aCursorPosition withNewUid: aNewSnippetUid [
 	| currentSnippetText newSnippetText existingSnippetNewText |
 	
@@ -160,6 +187,30 @@ LeSplitSnippetCommand >> splitAtCursorPosition: aCursorPosition withNewUid: aNew
 	self 
 		addInsertNewSnippetAboveCommandWithText: newSnippetText
 		andUid: aNewSnippetUid.
+		
+	existingSnippetNewText := self 
+		computeCurrentSnippetTextFrom: currentSnippetText 
+		atPosition: aCursorPosition.
+	self addUpdateSnippetCommandWithText: existingSnippetNewText.
+]
+
+{ #category : #initialization }
+LeSplitSnippetCommand >> splitAtCursorPosition: aCursorPosition withNewUid: aNewSnippetUid additionalState: aSnippetState [
+	| currentSnippetText newSnippetText existingSnippetNewText |
+	
+	self assert: [ subcommands isEmpty ].
+	self assert: [ aCursorPosition isZero not ].
+	self assert: [ aCursorPosition ~= self targetSnippet text size ].
+	
+	cursorPosition := aCursorPosition.
+	newSnippetUid := aNewSnippetUid.
+	
+	currentSnippetText := self targetSnippet text copy.
+	newSnippetText := currentSnippetText copyFrom: 1 to: aCursorPosition.
+	self 
+		addInsertNewSnippetAboveCommandWithText: newSnippetText
+		andUid: aNewSnippetUid
+		additionalState: aSnippetState.
 		
 	existingSnippetNewText := self 
 		computeCurrentSnippetTextFrom: currentSnippetText 
