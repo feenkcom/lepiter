@@ -34,7 +34,7 @@ LeSnippetViewModel >> addSnippetBeforeSelfBasedOn: aSnippet [
 	| insertCommand |
 	
 	insertCommand := self snippetModel 
-		insertSnippetBeforeSelfCommandOfType: aSnippet.
+		insertSnippetBeforeSelfCommandOfType: aSnippet class.
 	insertCommand appendSnippetState: aSnippet additionalStateForCopying.
 
 	^ insertCommand execute insertedSnippet.
