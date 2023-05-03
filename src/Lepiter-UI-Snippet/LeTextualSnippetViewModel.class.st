@@ -150,7 +150,7 @@ LeTextualSnippetViewModel >> splitAtEnd [
 		| newSnippet newSnippetViewModel |
 		
 		newSnippet := self 
-			addChildOrSiblingSnippetBasedOn: self snippetModel "class".
+			addChildOrSiblingSnippetBasedOn: self snippetModel.
 		
 		newSnippetViewModel := aSnippetsCollection findOrCreateSnippetViewModel: newSnippet.
 		newSnippetViewModel focused: true.
@@ -166,7 +166,7 @@ LeTextualSnippetViewModel >> splitAtStart [
 		| newSnippet newSnippetViewModel |
 		
 		newSnippet := self 
-			addSnippetBeforeSelfBasedOn: self snippetModel class.
+			addSnippetBeforeSelfBasedOn: self snippetModel.
 		
 		newSnippetViewModel := aSnippetsCollection findOrCreateSnippetViewModel: newSnippet.
 		newSnippetViewModel focused: true.
