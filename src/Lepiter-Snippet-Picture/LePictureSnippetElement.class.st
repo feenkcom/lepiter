@@ -93,7 +93,6 @@ LePictureSnippetElement >> initializeSceneResizer [
 LePictureSnippetElement >> initializeToolbar [
 	snippetToolbar := BrHorizontalGrid new
 		padding: (BlInsets top: 4 bottom: 4);
-		alignCenterLeft;
 		columnCount: 2;
 		cellSpacing: 5;
 		hMatchParent;
