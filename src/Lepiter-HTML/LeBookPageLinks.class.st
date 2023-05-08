@@ -39,6 +39,14 @@ LeBookPageLinks >> initializeLinks: anArray [
 ]
 
 { #category : #enumerating }
+LeBookPageLinks >> linkForPage: aPage ifFound: aFoundBlock ifNone: aNoneBlock [
+	^ self links
+		detect: [ :eachLink | eachLink page = aPage ]
+		ifFound: aFoundBlock
+		ifNone: aNoneBlock
+]
+
+{ #category : #enumerating }
 LeBookPageLinks >> linkTitled: aPageTitle ifFound: aFoundBlock ifNone: aNoneBlock [
 	^ self links
 		detect: [ :eachLink | eachLink pageTitle = aPageTitle ]

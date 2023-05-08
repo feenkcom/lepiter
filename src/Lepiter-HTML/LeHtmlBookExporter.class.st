@@ -62,6 +62,7 @@ LeHtmlBookExporter >> exportPageLink: aPageLink [
 		pageLinks: pageLinks;
 		resourcesExporter: resourcesExporter;
 		decorator: (LeHtmlBookDecorator new pageDecorator: decorator);
+		withBookNavigation: database pageLinks: pageLinks;
 		shouldGenerateHeader: true;
 		export
 ]
@@ -112,9 +113,23 @@ LeHtmlBookExporter >> resourcesExporter: anObject [
 	resourcesExporter := anObject
 ]
 
+{ #category : #convenience }
+LeHtmlBookExporter >> saveToRootDirectory: aDirectory [
+	LeResourcesDirectorySaver new
+		resources: resourcesExporter;
+		rootDirectory: aDirectory;
+		save
+]
+
 { #category : #'api - initialization' }
 LeHtmlBookExporter >> uuidGenerator [
 	self idGenerator: XdUUIDGenerator new
+]
+
+{ #category : #'api - initialization' }
+LeHtmlBookExporter >> withFileAssets: aRootDirectory [
+	self
+		decorator: (LeHtmlPageDirectoryAssetsDecorator new rootDiretory: aRootDirectory)
 ]
 
 { #category : #'api - initialization' }
