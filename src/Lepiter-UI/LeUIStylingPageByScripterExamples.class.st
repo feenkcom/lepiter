@@ -248,6 +248,19 @@ LeUIStylingPageByScripterExamples >> pageOneWithClass [
 ]
 
 { #category : #'examples - model' }
+LeUIStylingPageByScripterExamples >> pageOneWithPackage [
+	<gtExample>
+	| aPage |
+	aPage := LeUIByScripterExamples new pageOne.
+	
+	aPage snippetBuilder 
+		string: '{{gtPackage:Kernel}}';
+		add.
+	
+	^ aPage
+]
+
+{ #category : #'examples - model' }
 LeUIStylingPageByScripterExamples >> pageOneWithText [
 	<gtExample>
 	| aPage |
@@ -456,6 +469,107 @@ LeUIStylingPageByScripterExamples >> pageWithClassPrimaryClicked [
 	<gtExample>
 	| aScripter |
 	aScripter := self pageWithClassIntoWorldTab.
+
+	aScripter click
+		label: 'Click link container';
+		id: #content;
+		id: #scrollable;
+		onChildAt: 1;
+		play.
+
+	aScripter click
+		label: 'Click link';
+		modifiers: BlKeyModifiers primary;
+		id: #content;
+		id: #scrollable;
+		onChildAt: 1;
+		play.
+
+	aScripter check
+		label: 'Check that tab was spawned';
+		satisfies: [ :aWorld | aWorld tabs tabs size = 3 ];
+		play.
+
+	^ aScripter
+]
+
+{ #category : #accessing }
+LeUIStylingPageByScripterExamples >> pageWithPackageClicked [
+	<gtExample>
+	| aScripter |
+	aScripter := self pageWithPackageIntoWorldTab.
+
+	aScripter click
+		label: 'Click link container';
+		id: #content;
+		id: #scrollable;
+		onChildAt: 1;
+		play.
+
+	aScripter click
+		label: 'Click link';
+		id: #content;
+		id: #scrollable;
+		onChildAt: 1;
+		play.
+
+	aScripter check
+		label: 'Check that page was spawned';
+		id: #content;
+		onChildAt: 1;
+		onChildAt: 1;
+		satisfies: [ :aPager | aPager pages size = 2 ];
+		play.
+
+	^ aScripter
+]
+
+{ #category : #accessing }
+LeUIStylingPageByScripterExamples >> pageWithPackageIntoWorldTab [
+	<gtExample>
+	| aScripter |
+	aScripter := GtWorldByScripterExamples new tabElementInScripter.
+
+	aScripter do
+		label: 'Show Coder space';
+		block: [ :aTabElement | 
+			| aStencil |
+			aStencil := [ | aPage |
+				aPage := self pageOneWithClass.
+				LeUIByScripterExamples new pageInPager: aPage ] asStencil.
+
+			GtWorldUtility
+				showSpaceWithIcon: BrGlamorousVectorIcons transparent
+				title: 'Lepiter Page'
+				with: aStencil
+				from: aTabElement ];
+		play.
+
+	aScripter assert
+		label: 'Assert page in a new tab';
+		value: [ :anElement | anElement tabs tabs size ] equals: 2;
+		play.
+
+	aScripter assert
+		label: 'Assert page tab label';
+		value: [ :anElement | anElement tabs tabs second widget label asString ]
+			equals: 'Page One';
+		play.
+
+	aScripter assert
+		label: 'Assert page tab selection';
+		satisfies: [ :anElement | anElement tabs tabs second isSelected ]
+			description: [ 'Page tab must be selected' ];
+		play.
+
+	^ aScripter
+]
+
+{ #category : #accessing }
+LeUIStylingPageByScripterExamples >> pageWithPackagePrimaryClicked [
+	<gtExample>
+	| aScripter |
+	aScripter := self pageWithPackageIntoWorldTab.
 
 	aScripter click
 		label: 'Click link container';

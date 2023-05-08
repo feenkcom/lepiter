@@ -19,22 +19,24 @@ LeSnippetViewModel >> addChildOrSiblingSnippet: aNewSnippet [
 ]
 
 { #category : #'actions - utils' }
-LeSnippetViewModel >> addChildOrSiblingSnippetOfType: aSnippetType [
+LeSnippetViewModel >> addChildOrSiblingSnippetBasedOn: aSnippet [
 	| insertCommand |
 	
 	insertCommand := self snippetModel 
-		insertChildOrSiblingSnippetCommandOfType: aSnippetType.
+		insertChildOrSiblingSnippetCommandOfType: aSnippet class.
+	insertCommand appendSnippetState: aSnippet additionalStateForCopying.
 		
 	^ insertCommand execute insertedSnippet.
 ]
 
 { #category : #'actions - utils' }
-LeSnippetViewModel >> addSnippetBeforeSelfOfType: aSnippetType [
+LeSnippetViewModel >> addSnippetBeforeSelfBasedOn: aSnippet [
 	| insertCommand |
 	
 	insertCommand := self snippetModel 
-		insertSnippetBeforeSelfCommandOfType: aSnippetType.
-		
+		insertSnippetBeforeSelfCommandOfType: aSnippet class.
+	insertCommand appendSnippetState: aSnippet additionalStateForCopying.
+
 	^ insertCommand execute insertedSnippet.
 ]
 

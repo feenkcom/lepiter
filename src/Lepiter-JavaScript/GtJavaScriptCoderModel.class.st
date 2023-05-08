@@ -81,9 +81,7 @@ GtJavaScriptCoderModel >> bindAndExecute: sourceString [
 
 { #category : #'api - ast' }
 GtJavaScriptCoderModel >> computeAst: theSourceString [
-	^ JSParser
-		parseWithErrors: theSourceString
-		startingAt: JSParser startingStateForExpression
+	^ JSParser parseWithErrors: theSourceString
 ]
 
 { #category : #'api - ast' }

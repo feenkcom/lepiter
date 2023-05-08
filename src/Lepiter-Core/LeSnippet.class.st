@@ -96,6 +96,12 @@ LeSnippet >> addedToParent: aParent [
 ]
 
 { #category : #accessing }
+LeSnippet >> additionalStateForCopying [
+
+	^ LeGenericSnippetState new
+]
+
+{ #category : #accessing }
 LeSnippet >> allSnippetVariables [
 	| variables |
 	variables := Set new.
