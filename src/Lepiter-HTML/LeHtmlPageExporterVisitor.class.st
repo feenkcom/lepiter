@@ -13,7 +13,8 @@ Class {
 		'metaTags',
 		'links',
 		'internalStyles',
-		'shouldGenerateHeader'
+		'shouldGenerateHeader',
+		'exportPart'
 	],
 	#category : #'Lepiter-HTML-Exporter'
 }
@@ -84,6 +85,11 @@ LeHtmlPageExporterVisitor >> addScript: aLeHtmlScriptDefinition [
 	^ scripts add: aLeHtmlScriptDefinition.
 ]
 
+{ #category : #accessing }
+LeHtmlPageExporterVisitor >> exportPart: aTLeHtmlPageExportPart [
+	exportPart := aTLeHtmlPageExportPart
+]
+
 { #category : #initialization }
 LeHtmlPageExporterVisitor >> initialize [ 
 
@@ -93,6 +99,7 @@ LeHtmlPageExporterVisitor >> initialize [
 	links := OrderedCollection new.
 	internalStyles := OrderedCollection new.
 	shouldGenerateHeader := false.
+	exportPart := LeHtmlNoPageExportPart uniqueInstance
 ]
 
 { #category : #accessing }
@@ -111,21 +118,26 @@ LeHtmlPageExporterVisitor >> visitPage: aLePage [
 	self shouldGenerateHeader ifTrue: [
 		self writeDocType.
 		self writeHeadFor: aLePage.
-		stream << '<body>'; cr.
+		stream << '<body>'; cr. ].
+	
+	stream << '<div class="le-body-content">'; cr.
 		
-		stream << '<div class="container">'; cr.
-		
-		stream
-			<< '<h1>';
-			<< aLePage title asHTMLString;
-			<< '</h1>';
-			cr	].
+	exportPart exportBodyContentPrecedingPart: (
+		LeHtmlPageExportPartContext new 
+			stream: stream;
+			page: aLePage).
+	
+	stream << '<main><div class="container">'; cr.
+	
+	stream
+		<< '<h1>';
+		<< aLePage title asHTMLString;
+		<< '</h1>';
+		cr.
 	
 	super visitPage: aLePage.
 	
-	self shouldGenerateHeader ifTrue: [
-		stream << '</div>'; cr.
-	].
+	stream << '</div></main></div>'; cr.
 	
 	self shouldGenerateHeader ifTrue: [
 		self writeScriptsFor: aLePage.
