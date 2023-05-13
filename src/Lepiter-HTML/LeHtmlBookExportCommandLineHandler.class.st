@@ -16,7 +16,7 @@ LeHtmlBookExportCommandLineHandler class >> description [
 
 { #category : #activation }
 LeHtmlBookExportCommandLineHandler >> activate [
-	| aBookExporter aGtBook targetDirName targetDir |
+	| aBookExporter aGtBook targetDirName targetDir theWorkflowBuilder |
 	self activateHelp ifTrue: [ ^ self ].
 
 	aGtBook := LeDatabasesRegistry defaultLogicalDatabase
@@ -41,20 +41,34 @@ LeHtmlBookExportCommandLineHandler >> activate [
 		assert: [ targetDir exists ]
 		description: [ 'Target directory must exist: `{1}`' format: {targetDir fullName} ].
 
-	NonInteractiveTranscript stdout
-		show: 'Exporting Glamorous Toolkit book into ';
-		print: targetDir fullName;
-		show: ' directory: '.
-
-	aBookExporter := LeHtmlBookExporter new
+	theWorkflowBuilder := [ 
+		NonInteractiveTranscript stdout
+			show: 'Exporting Glamorous Toolkit book into ';
+			print: targetDir fullName;
+			show: ' directory: '.
+	
+		aBookExporter := LeHtmlBookExporter new
 			database: aGtBook;
 			resourcesExporter: LeResourcesExporter new;
 			integerGenerator;
 			withFileAssets: FileLocator gtResource / 'feenkcom/lepiter/doc/gtbook/assets';
 			export;
 			saveToRootDirectory: targetDir.
-
-	NonInteractiveTranscript stdout
+			
+		NonInteractiveTranscript stdout
 		show: 'DONE.';
-		cr
+		cr. ].
+		
+	(self hasOption: 'verbose')
+		ifTrue: [ TranscriptLogger runDuring: theWorkflowBuilder ]
+		ifFalse: theWorkflowBuilder.
+
+	(self hasOption: 'save')
+		ifTrue: [ 
+			^ Smalltalk 
+				snapshot: true 
+				andQuit: (self hasOption: 'no-quit') not ].
+
+	(self hasOption: 'no-quit')
+		ifFalse: [ self quit ]
 ]
