@@ -28,12 +28,15 @@ LeHtmlBookExportCommandLineHandler >> activate [
 
 	targetDirName := self
 			optionAt: 'target-dir'
-			ifPresent: [ :aDir | aDir trimBoth ]
+			ifPresent: [ :aDir | 
+				| aName |
+				aName := aDir trimBoth.
+				self
+					assert: [ aName isNotEmpty ]
+					description: [ 'Target directory name must not be empty: `{1}`' 
+						format: {aName} ].
+				aName ]
 			ifAbsent: [ './' ].
-
-	self
-		assert: [ targetDirName isNotEmpty ]
-		description: [ 'Target directory name must not be empty: `{1}`' format: {targetDirName} ].
 
 	targetDir := targetDirName asFileReference.
 
