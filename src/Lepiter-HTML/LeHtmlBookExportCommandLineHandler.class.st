@@ -16,7 +16,7 @@ LeHtmlBookExportCommandLineHandler class >> description [
 
 { #category : #activation }
 LeHtmlBookExportCommandLineHandler >> activate [
-	| aBookExporter aGtBook targetDirName targetDir theWorkflowBuilder |
+	| aBookExporter aGtBook targetDirName targetDir theWorkflowBuilder aMainPage |
 	self activateHelp ifTrue: [ ^ self ].
 
 	aGtBook := LeDatabasesRegistry defaultLogicalDatabase
@@ -25,7 +25,13 @@ LeHtmlBookExportCommandLineHandler >> activate [
 	self
 		assert: [ aGtBook isNotNil ]
 		description: [ 'Glamorous Toolkit Book not found' ].
+		
+	aMainPage := aGtBook pageNamed: 'Glamorous Toolkit'.
 
+	self
+		assert: [ aGtBook isNotNil ]
+		description: [ 'Glamorous Toolkit main page not found' ].
+		
 	targetDirName := self
 			optionAt: 'target-dir'
 			ifPresent: [ :aDir | 
@@ -52,9 +58,10 @@ LeHtmlBookExportCommandLineHandler >> activate [
 	
 		aBookExporter := LeHtmlBookExporter new
 			database: aGtBook;
+			mainPage: aMainPage;
 			resourcesExporter: LeResourcesExporter new;
-			integerGenerator;
-			withFileAssets: FileLocator gtResource / 'feenkcom/lepiter/doc/gtbook/assets';
+			uuidGenerator;
+			withGtBookAssets;
 			export;
 			saveToRootDirectory: targetDir.
 			

@@ -1,5 +1,5 @@
 Class {
-	#name : #LeHtmlBookToCPageLink,
+	#name : #LeHtmlBookMainPageLink,
 	#superclass : #Object,
 	#traits : 'TLeHtmlBookPageLink',
 	#classTraits : 'TLeHtmlBookPageLink classTrait',
@@ -11,28 +11,28 @@ Class {
 }
 
 { #category : #accessing }
-LeHtmlBookToCPageLink >> fileName [
+LeHtmlBookMainPageLink >> fileName [
 	<return: #String>
 	^ fileName
 ]
 
 { #category : #accessing }
-LeHtmlBookToCPageLink >> fileName: aString [
+LeHtmlBookMainPageLink >> fileName: aString [
 	fileName := aString
 ]
 
 { #category : #testing }
-LeHtmlBookToCPageLink >> isToC [
+LeHtmlBookMainPageLink >> isMainPage [
 	^ true
 ]
 
 { #category : #accessing }
-LeHtmlBookToCPageLink >> page [
+LeHtmlBookMainPageLink >> page [
 	<return: #LePage>
 	^ page
 ]
 
 { #category : #accessing }
-LeHtmlBookToCPageLink >> page: aLePage [
+LeHtmlBookMainPageLink >> page: aLePage [
 	page := aLePage
 ]
