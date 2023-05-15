@@ -72,7 +72,7 @@ LePageSummaryCardElement >> initialize [
 	"self addChild: self emailElement as: #email.
 	self addChild: self dateElement as: #date."
 	
-	self addAptitude: (BrLayoutResizerAptitude inherit
+	self addAptitude: (BrLayoutResizerAptitude new
 		hInherit: self titleElement;
 		vAnyToFitContent: self titleElement;
 		inherit: self summaryElement";

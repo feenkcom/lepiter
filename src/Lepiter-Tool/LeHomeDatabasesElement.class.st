@@ -19,7 +19,7 @@ LeHomeDatabasesElement >> initialize [
 	
 	self addChildFirst: self listElement as: #list.
 	
-	self addAptitude: (BrLayoutResizerAptitude inherit
+	self addAptitude: (BrLayoutResizerAptitude new
 		inherit: self listElement)
 ]
 

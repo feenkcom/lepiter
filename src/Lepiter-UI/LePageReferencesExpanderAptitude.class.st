@@ -6,7 +6,7 @@ Class {
 		'toggle',
 		'container'
 	],
-	#category : 'Lepiter-UI-Basic - Support'
+	#category : #'Lepiter-UI-Basic - Support'
 }
 
 { #category : #initialization }
@@ -43,7 +43,6 @@ LePageReferencesExpanderAptitude >> initialize [
 		with: [ BlRoundedRectangleGeometry cornerRadius: 3 ].
 
 	container addAptitude: (BrLayoutResizerAptitude new
-		inherit; "for myself"
 		matchParentToMatchParent: [ :aBlock | self resizableElementsDo: aBlock ];
 		exactToMatchParent: [ :aBlock | self resizableElementsDo: aBlock ];
 		fitContentToFitContent: [ :aBlock | self resizableElementsDo: aBlock ];

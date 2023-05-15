@@ -49,7 +49,7 @@ LeHomeAddDatabaseElement >> initialize [
 	
 	self addChildFirst: self buttonElement as: #list.
 	
-	self addAptitude: (BrLayoutResizerAptitude inherit
+	self addAptitude: (BrLayoutResizerAptitude new
 		anyToFitContent: self buttonElement)
 ]
 

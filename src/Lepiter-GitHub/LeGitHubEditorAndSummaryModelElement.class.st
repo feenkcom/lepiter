@@ -5,7 +5,7 @@ Class {
 		'editorElement',
 		'summaryElement'
 	],
-	#category : 'Lepiter-GitHub-UI Model Elements'
+	#category : #'Lepiter-GitHub-UI Model Elements'
 }
 
 { #category : #initialization }
@@ -33,9 +33,7 @@ LeGitHubEditorAndSummaryModelElement >> initialize [
 	self initializeSummaryElement.
 	
 	self addChild: self editorElement as: #editor.
-	self addChild: self summaryElement as: #summary.
-	
-	self addAptitude: (BrLayoutResizerAptitude inherit).
+	self addChild: self summaryElement as: #summary
 ]
 
 { #category : #initialization }

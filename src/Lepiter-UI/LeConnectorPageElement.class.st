@@ -28,7 +28,6 @@ LeConnectorPageElement >> initialize [
 	self layout: BlLinearLayout horizontal.
 	self addInteractiveModelState: GtPhlowToolDetailModel new.
 	
-	self addAptitude: BrLayoutResizerAptitude inherit.
 	self addAptitude: (GtPhlowToolDetailAptitude new
 		normal: [ self actOnNormalVolume ];
 		detailed: [ self actOnDetailedVolume ]).

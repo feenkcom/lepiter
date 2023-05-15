@@ -69,7 +69,7 @@ LeDatabaseSidebarTreeElement >> initialize [
 	self layout: BlLinearLayout vertical.
 
 	self addChild: self treeElement as: #tree.
-	self addAptitude: (BrLayoutResizerAptitude inherit inherit: self treeElement).
+	self addAptitude: (BrLayoutResizerAptitude new inherit: self treeElement).
 ]
 
 { #category : #accessing }

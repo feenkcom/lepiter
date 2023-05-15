@@ -9,7 +9,7 @@ Class {
 		'appliedFilter',
 		'filters'
 	],
-	#category : 'Lepiter-UI-! UI - Database'
+	#category : #'Lepiter-UI-! UI - Database'
 }
 
 { #category : #accessing }
@@ -62,7 +62,7 @@ LeDatabaseFilteredCardElement >> initialize [
 	self addChild: self filtersElement as: #filters.	
 	self addChild: self cardsElement as: #cards.
 	
-	self addAptitude: (BrLayoutResizerAptitude inherit inherit: self cardsElement)
+	self addAptitude: (BrLayoutResizerAptitude new inherit: self cardsElement)
 ]
 
 { #category : #initialization }

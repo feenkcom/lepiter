@@ -13,7 +13,7 @@ Class {
 		'filtersElement',
 		'filters'
 	],
-	#category : 'Lepiter-UI-! UI - Database'
+	#category : #'Lepiter-UI-! UI - Database'
 }
 
 { #category : #'private - event handling' }
@@ -47,7 +47,7 @@ LeDatabaseFilteredTreeElement >> initialize [
 	self addChild: self filtersElement as: #filters.	
 	self addChild: self treeElement as: #tree.
 	
-	self addAptitude: (BrLayoutResizerAptitude inherit inherit: self treeElement)
+	self addAptitude: (BrLayoutResizerAptitude new inherit: self treeElement)
 ]
 
 { #category : #initialization }

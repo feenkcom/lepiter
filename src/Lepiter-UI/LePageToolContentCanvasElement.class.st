@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'canvasElement'
 	],
-	#category : 'Lepiter-UI-! Tool - Page'
+	#category : #'Lepiter-UI-! Tool - Page'
 }
 
 { #category : #accessing }
@@ -20,7 +20,7 @@ LePageToolContentCanvasElement >> initialize [
 
 	self addChild: self canvasElement as: #canvas.
 	
-	self addAptitude: (BrLayoutResizerAptitude inherit
+	self addAptitude: (BrLayoutResizerAptitude new
 		hInherit: self headerElement;
 		vAnyToFitContent: self headerElement;
 		inherit: self canvasElement)

@@ -5,7 +5,7 @@ Class {
 		'messageElement',
 		'titleElement'
 	],
-	#category : 'Lepiter-GitHub-UI Model Elements'
+	#category : #'Lepiter-GitHub-UI Model Elements'
 }
 
 { #category : #initialization }
@@ -18,7 +18,7 @@ LeGitHubTagSummaryModelElement >> initialize [
 	self addChild: self titleElement as: #title.
 	self addChild: self messageElement as: #message.
 	
-	self addAptitude: (BrLayoutResizerAptitude inherit 
+	self addAptitude: (BrLayoutResizerAptitude new 
 		anyToFitContent: self titleElement;
 		hInherit: self messageElement;
 		vAnyToFitContent: self messageElement).

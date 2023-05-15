@@ -12,7 +12,7 @@ Class {
 		'headerElement',
 		'treeElement'
 	],
-	#category : 'Lepiter-UI-! UI - Database'
+	#category : #'Lepiter-UI-! UI - Database'
 }
 
 { #category : #'private - accessing' }
@@ -30,8 +30,6 @@ LeDatabaseToolElement >> initialize [
 	
 	self addChild: self headerElement as: #header.
 	self addChild: self treeElement as: #tree.
-
-	self addAptitude: (BrLayoutResizerAptitude inherit)
 ]
 
 { #category : #initialization }

@@ -13,7 +13,7 @@ Class {
 		'selectionTransformationHandler',
 		'rootItemsSelector'
 	],
-	#category : 'Lepiter-UI-! UI - Database'
+	#category : #'Lepiter-UI-! UI - Database'
 }
 
 { #category : #defaults }
@@ -36,7 +36,7 @@ LeDatabaseTreeElement >> initialize [
 	
 	self addChild: self treeElement as: #tree.
 	
-	self addAptitude: (BrLayoutResizerAptitude inherit 
+	self addAptitude: (BrLayoutResizerAptitude new 
 		inherit: self treeElement)
 ]
 

@@ -203,7 +203,7 @@ LeSlideshowSnippetElement >> createNextArrow [
 		when: BlClickEvent do: [:e |
 			self nextSlide ];
 		addChild: nextArrow;
-		addAptitude: (BrStyleCommonAptitude new
+		addAptitude: (BrLazyStyleCommonAptitude new
 			@ nextArrow;
 			default: [ :aStyle | aStyle background: (BrGlamorousColors defaultButtonBorderColor) ];
 			hovered: [ :aStyle | aStyle background: (BrGlamorousColors hoveredButtonBorderColor) ]).
@@ -221,7 +221,7 @@ LeSlideshowSnippetElement >> createPreviousArrow [
 		when: BlClickEvent do: [:e |
 			self previousSlide ];
 		addChild: previousArrow;
-		addAptitude: (BrStyleCommonAptitude new
+		addAptitude: (BrLazyStyleCommonAptitude new
 			@ previousArrow;
 			default: [ :aStyle | aStyle background: (BrGlamorousColors defaultButtonBorderColor) ];
 			hovered: [ :aStyle | aStyle background: (BrGlamorousColors hoveredButtonBorderColor) ]).

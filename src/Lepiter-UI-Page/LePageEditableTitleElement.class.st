@@ -137,7 +137,7 @@ LePageEditableTitleElement >> initialize [
 	self addChild: addButton as: #addButton.
 
 	self
-		addAptitude: (BrStyleCommonAptitude new
+		addAptitude: (BrLazyStyleCommonAptitude new
 				when: BlElementState focused | BlElementState hovered
 					style: [ :aStyle | aStyle do: [ self showAddButton ] after: [ self hideAddButton ] ];
 				when: BlElementState focused & BlElementState hovered
