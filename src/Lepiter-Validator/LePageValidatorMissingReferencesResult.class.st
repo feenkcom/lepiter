@@ -56,6 +56,15 @@ LePageValidatorMissingReferencesResult >> gtDisplayOn: aStream [
 		aStream nextPut: $) ]
 ]
 
+{ #category : #accessing }
+LePageValidatorMissingReferencesResult >> gtLiveFor: aView [ 
+	<gtView>
+	^ aView forward
+		title: 'Page';
+		object: [ targetPage ];
+		view: #gtLiveFor:
+]
+
 { #category : #ui }
 LePageValidatorMissingReferencesResult >> gtViewMissingClassesListFor: aView [
 	<gtView>
