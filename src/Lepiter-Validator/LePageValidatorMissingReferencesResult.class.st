@@ -56,11 +56,21 @@ LePageValidatorMissingReferencesResult >> gtDisplayOn: aStream [
 		aStream nextPut: $) ]
 ]
 
+{ #category : #accessing }
+LePageValidatorMissingReferencesResult >> gtLiveFor: aView [ 
+	<gtView>
+	^ aView forward
+		title: 'Page';
+		object: [ targetPage ];
+		view: #gtLiveFor:
+]
+
 { #category : #ui }
 LePageValidatorMissingReferencesResult >> gtViewMissingClassesListFor: aView [
 	<gtView>
 	^ aView list
-		  title: 'Classes';
+		  title: 'Class Annotations';
+		  priority: 16;
 		  items: [ classAnnotations ];
 		  itemText: [ :aClassAnnotation | 
 			  aClassAnnotation referencedClassName ]
@@ -71,7 +81,8 @@ LePageValidatorMissingReferencesResult >> gtViewMissingExamplesListFor: aView [
 
 	<gtView>
 	^ aView list
-		  title: 'Examples';
+		  title: 'Example Annotations';
+		  priority: 14;
 		  items: [ exampleAnnotations ];
 		  itemText: [ :anExampleAnnotation | 
 			  anExampleAnnotation referencedExample gtDisplayString ];
@@ -84,9 +95,40 @@ LePageValidatorMissingReferencesResult >> gtViewMissingMethodsListFor: aView [
 	<gtView>
 	^ aView list
 		  title: 'Methods';
+		  priority: 12;
 		  items: [ methodAnnotations ];
 		  itemText: [ :aMethodAnnotation | 
 			  aMethodAnnotation nameNode className, '>>',aMethodAnnotation nameNode methodName ]
+]
+
+{ #category : #ui }
+LePageValidatorMissingReferencesResult >> gtViewMissingReferencesInSnippetsFor: aView [
+
+	<gtView>
+	^ aView columnedList
+		title: 'Snippets';
+		priority: 30;
+		items: [ snippetsWithMissingReferences ];
+		column: 'Type' text: [ :aSnippet | aSnippet class ] width: 200;
+		column: 'Content'
+			text: [ :aSnippet | aSnippet contentAsString truncateTo: 200 ]
+			width: 200
+]
+
+{ #category : #ui }
+LePageValidatorMissingReferencesResult >> gtViewOverviewFor: aView [
+	<gtView>
+	^ aView columnedList
+		  title: 'Overview';
+		  priority: 5;
+		  items: [ { 
+		  	 'Method Annotations' -> methodAnnotations.
+		  	 'Example Annotations' -> classAnnotations.
+		  	 'Class Annotations' -> classAnnotations.
+		  	 'Other Snippets' -> snippetsWithMissingReferences } ];
+		 column: 'Reference type' text: [ :assoc | assoc key ];
+		 column: 'Number of missing code references' text: [ :assoc | assoc value size ];
+		 send: [ :assoc | assoc value ]
 ]
 
 { #category : #initialization }
