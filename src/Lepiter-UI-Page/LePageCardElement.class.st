@@ -15,7 +15,7 @@ Class {
 		'containerElement',
 		'previewElement'
 	],
-	#category : 'Lepiter-UI-Page-! Views'
+	#category : #'Lepiter-UI-Page-! Views'
 }
 
 { #category : #'private - accessing' }
@@ -40,7 +40,7 @@ LePageCardElement >> initialize [
 	self containerElement addChild: self previewElement as: #preview.
 	
 	self addChild: self containerElement as: #card.
-	self addAptitude: (BrLayoutResizerAptitude new inherit
+	self addAptitude: (BrLayoutResizerAptitude new
 		inherit: self containerElement;
 		inherit: self previewElement)
 ]

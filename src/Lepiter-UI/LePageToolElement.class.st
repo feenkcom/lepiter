@@ -38,7 +38,6 @@ LePageToolElement >> initialize [
 	
 	self addChild: self sidebarElement as: #sidebar.
 	self addChild: self contentElement as: #content.
-	self addAptitude: BrLayoutResizerAptitude inherit.
 	self addAptitude: (GtPhlowToolDetailAptitude new
 		normal: [ self onNormalVolume ];
 		detailed: [ self onDetailedVolume ]).

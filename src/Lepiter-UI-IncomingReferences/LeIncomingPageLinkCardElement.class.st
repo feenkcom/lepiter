@@ -49,7 +49,7 @@ LeIncomingPageLinkCardElement >> initialize [
 	
 	self addViewModel: BrButtonModel new.
 
-	self addAptitude: (BrStyleCommonAptitude new
+	self addAptitude: (BrLazyStyleCommonAptitude new
 		default: [ :s | s border: BlBorder empty ];
 		hovered: [ :s | s border: (BlBorder paint: BrGlamorousColors hoveredButtonBorderColor width: 1) ]).
 	self addAptitude: BrShadowAptitude new.

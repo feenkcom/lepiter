@@ -5,7 +5,7 @@ Class {
 		'titleElement',
 		'bodyElement'
 	],
-	#category : 'Lepiter-GitHub-UI Model Elements'
+	#category : #'Lepiter-GitHub-UI Model Elements'
 }
 
 { #category : #'private - accessing' }
@@ -38,7 +38,7 @@ LeGitHubIssueSummaryModelElement >> initialize [
 	self addChild: self titleElement as: #title.
 	self addChild: self bodyElement as: #body.
 	
-	self addAptitude: (BrLayoutResizerAptitude inherit 
+	self addAptitude: (BrLayoutResizerAptitude new 
 		anyToFitContent: self titleElement;
 		hInherit: self bodyElement;
 		vAnyToFitContent: self bodyElement).

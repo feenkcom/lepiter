@@ -47,7 +47,6 @@ LeInspectorPlaygroundElement >> initialize [
 		background: self theme default contentBackgroundColor;
 		aptitude: BrShadowAptitude;
 		addChild: self pageElement as: #page).
-	self addAptitude: BrLayoutResizerAptitude new hInherit.
 ]
 
 { #category : #initialization }

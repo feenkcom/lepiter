@@ -154,7 +154,7 @@ LeSnippetAptitude >> initialize [
 	widgetContent addAptitude: (BrLayoutResizerAptitude new inherit: [ snippetContainer ]).
 	self contentContainer addAptitude: (BrLayoutResizerAptitude new inherit: [ snippetContent ]).
 
-	self add: (BrStyleCommonAptitude new
+	self add: (BrLazyStyleCommonAptitude new
 		when: BlElementState focused | BlElementState hovered
 			style: [ :aStyle |
 				aStyle

@@ -59,7 +59,7 @@ LeLinkReferenceElement >> initialize [
 	"it will be initialized when #page is assigned"
 	snippetsViewModel := nil.
 
-	self addAptitude: (BrLayoutResizerAptitude inherit
+	self addAptitude: (BrLayoutResizerAptitude new
 		inherit: treeElement).
 
 	self matchParent.
