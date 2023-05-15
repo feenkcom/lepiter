@@ -63,6 +63,6 @@ LeBookPageLinks >> links [
 LeBookPageLinks >> sortedLinks [
 	^ sortedLinks ifNil: [ sortedLinks := self links 
 			sorted: [ :a :b | 
-				a isToC asBit > b isToC asBit
-					or: [ a isToC = b isToC and: [ a pageTitle < b pageTitle ] ] ] ]
+				a isMainPage asBit > b isMainPage asBit
+					or: [ a isMainPage = b isMainPage and: [ a pageTitle < b pageTitle ] ] ] ]
 ]

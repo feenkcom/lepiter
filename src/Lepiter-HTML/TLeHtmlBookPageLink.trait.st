@@ -24,7 +24,7 @@ TLeHtmlBookPageLink >> gtLiveFor: aView [
 ]
 
 { #category : #testing }
-TLeHtmlBookPageLink >> isToC [
+TLeHtmlBookPageLink >> isMainPage [
 	^ false
 ]
 

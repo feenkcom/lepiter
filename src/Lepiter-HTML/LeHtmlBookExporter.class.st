@@ -6,7 +6,8 @@ Class {
 		'pageLinks',
 		'resourcesExporter',
 		'idGenerator',
-		'decorator'
+		'decorator',
+		'mainPage'
 	],
 	#category : #'Lepiter-HTML-Page Exporter'
 }
@@ -38,6 +39,7 @@ LeHtmlBookExporter >> ensurePageLinks [
 
 	pageLinks := LeBookPageLinksBuilder new
 			database: database;
+			mainPage: mainPage;
 			html;
 			idGenerator: idGenerator;
 			build;
@@ -94,6 +96,23 @@ LeHtmlBookExporter >> integerGenerator [
 ]
 
 { #category : #accessing }
+LeHtmlBookExporter >> mainPage [
+	"Return a {{gtClass:LePage}} instance that should be displayed 
+	by default, e.g., as `index.html` in case of the HTML export."
+
+	<return: #LePage>
+	^ mainPage
+]
+
+{ #category : #accessing }
+LeHtmlBookExporter >> mainPage: aLePage [
+	"Set a {{gtClass:LePage}} instance that should be displayed 
+	by default, e.g., as `index.html` in case of the HTML export."
+
+	mainPage := aLePage
+]
+
+{ #category : #accessing }
 LeHtmlBookExporter >> pageLinks [
 	^ pageLinks
 ]
@@ -130,6 +149,12 @@ LeHtmlBookExporter >> uuidGenerator [
 LeHtmlBookExporter >> withFileAssets: aRootDirectory [
 	self
 		decorator: (LeHtmlPageDirectoryAssetsDecorator new rootDiretory: aRootDirectory)
+]
+
+{ #category : #'api - initialization' }
+LeHtmlBookExporter >> withGtBookAssets [
+	self withFileAssets: FileLocator gtResource 
+		/ 'feenkcom/lepiter/doc/gtbook/assets'
 ]
 
 { #category : #'api - initialization' }

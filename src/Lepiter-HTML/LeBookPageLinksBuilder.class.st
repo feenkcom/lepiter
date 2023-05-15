@@ -7,8 +7,9 @@ Class {
 		'pages',
 		'idGenerator',
 		'fileExtension',
-		'tocFileName',
-		'links'
+		'links',
+		'mainPage',
+		'mainFileName'
 	],
 	#category : #'Lepiter-HTML-Book Helpers'
 }
@@ -24,11 +25,11 @@ LeBookPageLinksBuilder >> build [
 { #category : #'api - building' }
 LeBookPageLinksBuilder >> buildPageLink: aPage [
 	| aTitle anId aFileName aResult |
-	aPage == self tocPage
-		ifTrue: [ ^ LeHtmlBookToCPageLink new 
-			page: aPage;
-			fileName: self tocFileName ].
-	
+	aPage == self mainPage
+		ifTrue: [ ^ LeHtmlBookMainPageLink new
+				page: aPage;
+				fileName: self mainFileName ].
+
 	aTitle := GtFileUtility
 			secureFileName: aPage title asString
 			extension: nil
@@ -47,12 +48,12 @@ LeBookPageLinksBuilder >> buildPageLink: aPage [
 						aStream
 							nextPut: $.;
 							nextPutAll: anExtension ] ].
-							
-	aResult := LeHtmlBookPageLink new 
-		page: aPage;
-		fileName: aFileName;
-		id: anId.
-		
+
+	aResult := LeHtmlBookPageLink new
+			page: aPage;
+			fileName: aFileName;
+			id: anId.
+
 	^ aResult
 ]
 
@@ -69,7 +70,7 @@ LeBookPageLinksBuilder >> defaultIdGenerator [
 ]
 
 { #category : #accessing }
-LeBookPageLinksBuilder >> defaultTocFileName [
+LeBookPageLinksBuilder >> defaultMainFileName [
 	^ 'index.html'
 ]
 
@@ -112,7 +113,7 @@ LeBookPageLinksBuilder >> gtViewTableOfContentsNodesFor: aView [
 { #category : #'api - initialization' }
 LeBookPageLinksBuilder >> html [
 	self fileExtension: 'html'.
-	self tocFileName: 'index.html'
+	self mainFileName: 'index.html'
 ]
 
 { #category : #accessing }
@@ -132,6 +133,33 @@ LeBookPageLinksBuilder >> links [
 ]
 
 { #category : #accessing }
+LeBookPageLinksBuilder >> mainFileName [
+	^ mainFileName ifNil: [ mainFileName := self defaultMainFileName ]
+]
+
+{ #category : #accessing }
+LeBookPageLinksBuilder >> mainFileName: anObject [
+	mainFileName := anObject
+]
+
+{ #category : #accessing }
+LeBookPageLinksBuilder >> mainPage [
+	"Return a {{gtClass:LePage}} instance that should be displayed 
+	by default, e.g., as `index.html` in case of the HTML export."
+
+	<return: #LePage>
+	^ mainPage ifNil: [ mainPage := self tocPage ]
+]
+
+{ #category : #accessing }
+LeBookPageLinksBuilder >> mainPage: aLePage [
+	"Set a {{gtClass:LePage}} instance that should be displayed 
+	by default, e.g., as `index.html` in case of the HTML export."
+
+	mainPage := aLePage
+]
+
+{ #category : #accessing }
 LeBookPageLinksBuilder >> pages [
 	^ pages
 ]
@@ -144,16 +172,6 @@ LeBookPageLinksBuilder >> pages: anObject [
 { #category : #accessing }
 LeBookPageLinksBuilder >> sortedLinks [
 	^ links sortedLinks
-]
-
-{ #category : #accessing }
-LeBookPageLinksBuilder >> tocFileName [
-	^ tocFileName ifNil: [ tocFileName := self defaultTocFileName ]
-]
-
-{ #category : #accessing }
-LeBookPageLinksBuilder >> tocFileName: anObject [
-	tocFileName := anObject
 ]
 
 { #category : #accessing }
