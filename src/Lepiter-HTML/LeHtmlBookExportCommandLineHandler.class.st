@@ -53,7 +53,7 @@ LeHtmlBookExportCommandLineHandler >> activate [
 		aBookExporter := LeHtmlBookExporter new
 			database: aGtBook;
 			resourcesExporter: LeResourcesExporter new;
-			integerGenerator;
+			uuidGenerator;
 			withFileAssets: FileLocator gtResource / 'feenkcom/lepiter/doc/gtbook/assets';
 			export;
 			saveToRootDirectory: targetDir.

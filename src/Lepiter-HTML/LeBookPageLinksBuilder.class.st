@@ -33,7 +33,7 @@ LeBookPageLinksBuilder >> buildPageLink: aPage [
 			secureFileName: aPage title asString
 			extension: nil
 			maxLenght: XdConstants xdocFileNameMaxLenght.
-	anId := self idGenerator nextId.
+	anId := self idGenerator nextIdFromPage: aPage.
 
 	aFileName := String
 			streamContents: [ :aStream | 
