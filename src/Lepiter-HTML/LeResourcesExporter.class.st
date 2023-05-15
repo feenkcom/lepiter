@@ -27,6 +27,11 @@ LeResourcesExporter >> allFiles [
 	^ self rootDirectory allFiles
 ]
 
+{ #category : #converting }
+LeResourcesExporter >> asArray [
+	^ resources asArray
+]
+
 { #category : #enumerating }
 LeResourcesExporter >> detectResource: aDetectBlock ifFound: aFoundBlock ifNone: aNoneBlock [
 	^ resources

@@ -1,0 +1,180 @@
+/*
+    CODE introduced in version 3
+ */
+
+.hidden_annotation_v3 {
+    display: none;
+}
+
+.visible_annotation_v3 {
+    display: block;
+}
+
+.expandable_annotation_label {
+    /* background-color: #F0F0F0; */
+}
+
+.collapsed_annotation_body::after {
+
+}
+
+.expanded_annotation_body::after {
+
+}
+
+.expandable_annotation_body {
+
+}
+
+.method_annotation_v3 {
+
+}
+
+.pharo-method-snippet {
+
+}
+
+.pharo-method-snippet::after {
+    content: "Pharo method";
+    color: #aaa;
+    font-size: 0.8rem;
+}
+
+/*
+    PREVIOUS CODE (of version 2) that is active (used)
+ */
+
+.class_annotation {
+    font-family: "Source Code Pro", monospace;
+    background-color: #F0F0F0;
+}
+
+.hidden_annotation .class_definition {
+    display: none;
+}
+
+.visible_annotation .class_definition {
+    display: block;
+}
+
+.class_definition {
+    white-space: pre;
+    background-color: #F8F8F8;
+}
+
+.example_annotation {
+    /* background-color: #F0F0F0; */
+}
+
+.example_definition {
+    font-family: "Source Code Pro", monospace;
+    white-space: pre;
+    margin-top: 10pt;
+    margin-left: 20pt;
+    background-color: #F8F8F8;
+}
+
+.example_result {
+    font-family: "Source Code Pro", monospace;
+    white-space: pre;
+    margin-top: 10pt;
+    margin-left: 20pt;
+    background-color: #F8F8F8;
+}
+
+.code_block {
+    font-family: "Source Code Pro", monospace;
+    /* white-space: pre; */
+}
+
+.snippet {
+    margin-top: 10pt;
+}
+.textual-snippet {
+
+}
+
+.code-snippet {
+    font-family: "Source Code Pro", monospace;
+    border-left: 10px solid #eee;
+    padding-left: 10px;
+    border-radius: 5px;
+}
+
+.pharo-snippet {
+
+}
+
+.pharo-snippet::after {
+    content: "Pharo";
+    color: #aaa;
+    font-size: 0.8rem;
+}
+
+.text-snippet {
+
+}
+
+.picture-snippet {
+
+}
+
+.tweet-reference-snippet {
+
+}
+
+.youtube-reference-snippet {
+    position: relative;
+    padding-bottom: 56.25%;
+    /* 16:9 */
+    padding-top: 25px;
+    height: 0;
+}
+
+.youtube-reference-snippet iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.height-one-em {
+    height: 1rem;
+}
+
+.no_bottom_margin {
+    margin-bottom: 0;
+}
+
+
+/*
+    LEGACY CODE for a backward compatibility reasons
+ */
+
+.method_annotation {
+    font-family: "Source Code Pro", monospace;
+    background-color: #F0F0F0;
+}
+
+.hidden_annotation .method_definition {
+    display: none;
+}
+
+.visible_annotation .method_definition {
+    display: block;
+}
+
+.method_definition {
+    font-family: "Source Code Pro", monospace;
+    white-space: pre;
+    background-color: #F8F8F8;
+}
+
+.hidden_annotation>.method_definition {
+    display: none;
+}
+
+.visible_annotation>.method_definition {
+    display: block;
+}

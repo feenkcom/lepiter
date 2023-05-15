@@ -1,0 +1,70 @@
+/*
+    NAVIGATION INDEX
+ */
+
+.le-body-content {
+    display: flex;
+    flex-basis: 0%;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-direction: row;
+    height: 100vh;
+}
+
+body {
+    height: 100vh;
+}
+
+main {
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.le-navigation-scrollable {
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    border-right-width: 1px;
+    border-right-color: rgb(227, 232, 237);
+    border-right-style: solid;
+}
+
+.le-navigation-content {
+    border-right-width: 5px;
+    border-right-color: #00b0e8;
+    margin: 10px;
+}
+
+.le-navigation-children {
+    margin-left: 1em;
+}
+
+.le-navigation-item {
+    margin-bottom: 0.5em;
+}
+
+.le-navigation-selected {
+    color: rgb(52, 109, 219);
+}
+
+.le-navigation-unselected {
+    color: rgb(136, 153, 168);
+}
+
+.le-navigation-link {
+    text-decoration: none;
+}
+
+.le-navigation-node.le-navigation-level-1 {
+    margin-bottom: 1.5em;
+}
+
+.le-navigation-item.le-navigation-level-1 {
+    text-transform: uppercase;
+    font-weight: bold;
+}

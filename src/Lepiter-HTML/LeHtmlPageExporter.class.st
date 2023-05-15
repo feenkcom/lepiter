@@ -7,7 +7,9 @@ Class {
 		'decorator',
 		'pageLinks',
 		'pageLink',
-		'shouldGenerateHeader'
+		'shouldGenerateHeader',
+		'exportParts',
+		'exportPart'
 	],
 	#category : #'Lepiter-HTML-Page Exporter'
 }
@@ -31,7 +33,7 @@ LeHtmlPageExporter >> decorator: aLeHTMLPageDecorator [
 	decorator := aLeHTMLPageDecorator
 ]
 
-{ #category : #'api - exporting' }
+{ #category : #convenience }
 LeHtmlPageExporter >> export [
 	| exportVisitor |
 	exportVisitor := LeHtmlPageExporterVisitor new.
@@ -44,6 +46,8 @@ LeHtmlPageExporter >> export [
 		
 	pageLinks ifNotNil: [ :aPageLinks | 
 		exportVisitor pageLinks: aPageLinks ].
+		
+	exportVisitor exportPart: exportPart.
 	
 	decorator ifNotNil: [ 
 		decorator initializeHTMLPageExporter: exportVisitor ].
@@ -81,6 +85,13 @@ LeHtmlPageExporter >> gtResourcesFor: aView [
 		priority: 10;
 		object: [ resourcesExporter ];
 		view: #gtResourcesFor:
+]
+
+{ #category : #initialization }
+LeHtmlPageExporter >> initialize [
+	super initialize.
+
+	exportPart := LeHtmlNoPageExportPart uniqueInstance
 ]
 
 { #category : #accessing }
@@ -121,6 +132,14 @@ LeHtmlPageExporter >> resourcesExporter: aLeResourcesExporter [
 	resourcesExporter := aLeResourcesExporter
 ]
 
+{ #category : #convenience }
+LeHtmlPageExporter >> saveToRootDirectory: aDirectory [
+	LeResourcesDirectorySaver new
+		resources: resourcesExporter;
+		rootDirectory: aDirectory;
+		save
+]
+
 { #category : #accessing }
 LeHtmlPageExporter >> shouldGenerateHeader [
 	^ shouldGenerateHeader
@@ -129,6 +148,22 @@ LeHtmlPageExporter >> shouldGenerateHeader [
 { #category : #accessing }
 LeHtmlPageExporter >> shouldGenerateHeader: anObject [
 	shouldGenerateHeader := anObject
+]
+
+{ #category : #'api - initialization' }
+LeHtmlPageExporter >> withBookNavigation: aGtBook pageLinks: thePageLinks [
+	| aPart |
+	aPart := LeHtmlBookNavigationExportPart new
+			database: aGtBook;
+			pageLinks: thePageLinks.
+
+	exportPart := exportPart withPageExportPart: aPart
+]
+
+{ #category : #'api - initialization' }
+LeHtmlPageExporter >> withFileAssets: aRootDirectory [
+	self
+		decorator: (LeHtmlPageDirectoryAssetsDecorator new rootDiretory: aRootDirectory)
 ]
 
 { #category : #'api - initialization' }
