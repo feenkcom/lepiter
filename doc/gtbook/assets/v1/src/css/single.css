@@ -80,7 +80,6 @@ figcaption {
 .container {
   width: 80%;
   padding: var(--spacing-5) 0;
-  max-width: var(--container-width);
   flex: 1 0 auto;
 }
 
@@ -89,8 +88,8 @@ figcaption {
 }
 
 .container .documentWidth {
-  width: 120%;
-  margin-left: -10%;
+  width: 106%;
+  margin-left: -3%;
 }
 
 .navbar {
@@ -101,24 +100,12 @@ figcaption {
   text-decoration: none;
 }
 
-@media (max-width: 1040px) {
+/*@media (max-width: 1040px) {
   .container .documentWidth {
     width: 110%;
     margin-left: -5%;
   }
-}
-
-.container .fullWidth {
-  width: 100vw;
-  /** (page size + container width) / 2 */
-  margin-left: calc((-100vw + var(--container-width)) / 2);
-}
-
-@media (max-width: 1040px) {
-  .container .fullWidth {
-    margin-left: calc((-100vw + 100%) / 2);
-  }
-}
+}*/
 
 /** Button */
 .fixed-bottom {

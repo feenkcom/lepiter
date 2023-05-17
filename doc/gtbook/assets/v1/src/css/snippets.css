@@ -19,11 +19,8 @@ a.active {
     background-color: lightgray;
 }
 
-img {
+figure > img {
     max-width: 100%;
-}
-
-img.shadow {
     background-color: white;
     box-shadow: 0 0 5px 5px lightgray;
 }
