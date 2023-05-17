@@ -61,6 +61,14 @@ main {
     text-decoration: none;
 }
 
+.le-navigation-link:hover {
+    text-decoration: none;
+    background-color: #ddd;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: black;
+}
+
 .le-navigation-node.le-navigation-level-1 {
     margin-bottom: 1.5em;
 }
