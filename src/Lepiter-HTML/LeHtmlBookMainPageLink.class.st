@@ -36,3 +36,15 @@ LeHtmlBookMainPageLink >> page [
 LeHtmlBookMainPageLink >> page: aLePage [
 	page := aLePage
 ]
+
+{ #category : #printing }
+LeHtmlBookMainPageLink >> printOn: aStream [
+	super printOn: aStream.
+
+	self page ifNil: [ ^ self ].
+
+	aStream
+		nextPut: $(;
+		nextPutAll: self pageTitle asString;
+		nextPut: $)
+]
