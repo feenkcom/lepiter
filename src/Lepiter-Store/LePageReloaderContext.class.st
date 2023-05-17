@@ -55,7 +55,7 @@ LePageReloaderContext >> detachSnippets [
 LePageReloaderContext >> gtViewAddedSnippetsFor: aView [
 	<gtView>
 	^ aView columnedList
-		title: 'Added Snippets';
+		title: 'Added snippets';
 		priority: 13;
 		items: [ self addedSnippets ];
 		column: 'Uid' text: [ :aSnippet | aSnippet uid ] width: 250;
@@ -66,7 +66,7 @@ LePageReloaderContext >> gtViewAddedSnippetsFor: aView [
 LePageReloaderContext >> gtViewReferenceSnippetsFor: aView [
 	<gtView>
 	^ aView columnedList
-		title: 'Replacement Snippets';
+		title: 'Replacement snippets';
 		priority: 11;
 		items: [ self replacementSnippets ];
 		column: 'Uid' text: [ :aSnippet | aSnippet uid ] width: 250;
@@ -77,7 +77,7 @@ LePageReloaderContext >> gtViewReferenceSnippetsFor: aView [
 LePageReloaderContext >> gtViewRemovedSnippetsFor: aView [
 	<gtView>
 	^ aView columnedList
-		title: 'Removed Snippets';
+		title: 'Removed snippets';
 		priority: 12;
 		items: [ self removedSnippets ];
 		column: 'Uid' text: [ :aSnippet | aSnippet uid ] width: 250;
@@ -88,7 +88,7 @@ LePageReloaderContext >> gtViewRemovedSnippetsFor: aView [
 LePageReloaderContext >> gtViewTargetSnippetsFor: aView [
 	<gtView>
 	 ^ aView columnedList
-		title: 'Target Snippets';
+		title: 'Target snippets';
 		priority: 10;
 		items: [ self targetSnippets ];
 		column: 'Uid' text: [ :aSnippet | aSnippet uid ] width: 250;

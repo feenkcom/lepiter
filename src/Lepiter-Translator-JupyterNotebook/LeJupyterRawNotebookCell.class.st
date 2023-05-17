@@ -27,7 +27,7 @@ LeJupyterRawNotebookCell >> createTextSnippet [
 LeJupyterRawNotebookCell >> gtViewLepiterSnippetFor: aView [
 	<gtView>
 	^ aView forward 
-		title: 'Lepiter Snippet';
+		title: 'Lepiter snippet';
 		priority: 20;
 		object: [ self createLepiterSnippet ];
 		view: #gtLiveFor:

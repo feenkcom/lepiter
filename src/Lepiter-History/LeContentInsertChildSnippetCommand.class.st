@@ -105,7 +105,7 @@ LeContentInsertChildSnippetCommand >> gtViewInitialStateAttributesFor: aView [
 	<gtView>
 	
 	^ aView forward 
-		title: 'Initial State';
+		title: 'Initial state';
 		priority: 10;
 		object: [ self initialSnippetState ];
 		view: #gtViewStateAttributesFor:
@@ -116,7 +116,7 @@ LeContentInsertChildSnippetCommand >> gtViewInsertPathFor: aView [
 	<gtView>
 	
 	^ aView forward 
-		title: 'Insert Path';
+		title: 'Insert path';
 		priority: 20;
 		object: [ self insertPath ];
 		view: #gtViewPathFor:

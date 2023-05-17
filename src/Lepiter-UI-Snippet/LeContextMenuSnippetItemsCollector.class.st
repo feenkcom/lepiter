@@ -25,7 +25,7 @@ LeContextMenuSnippetItemsCollector class >> gtClassViewMenuItemsFor: aView [
 	<gtClassView>
 	
 	^ aView forward
-		title: 'Menu Items';
+		title: 'Menu items';
 		object: [ self new ];
 		view: #gtMenuItemsFor:
 ]
@@ -72,7 +72,7 @@ LeContextMenuSnippetItemsCollector >> gtMenuItemsFor: aView [
 	<gtView>
 	
 	^ aView columnedList 
-		title: 'Menu Items';
+		title: 'Menu items';
 		items: [ self collectMenuItems ];
 		column: 'Title' text: #title;
 		column: 'Snippet' text: #snippetClass;

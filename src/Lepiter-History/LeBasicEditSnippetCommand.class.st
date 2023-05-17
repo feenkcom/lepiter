@@ -46,7 +46,7 @@ LeBasicEditSnippetCommand >> gtViewLiveDiffFor: aView [
 	<gtView>
 	
 	^ aView columnedList 
-		title: 'Current State Diff';
+		title: 'Current state diff';
 		items: [ self snippetState attributes
 			collect: [ :anAttribute |
 				{ 
@@ -65,7 +65,7 @@ LeBasicEditSnippetCommand >> gtViewNewStateAttributesFor: aView [
 	<gtView>
 	
 	^ aView forward 
-		title: 'New State';
+		title: 'New state';
 		object: [ snippetState ];
 		view: #gtViewStateAttributesFor:
 ]

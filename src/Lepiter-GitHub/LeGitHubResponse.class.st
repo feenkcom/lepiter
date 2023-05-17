@@ -6,7 +6,7 @@ Class {
 	#instVars : [
 		'rawData'
 	],
-	#category : 'Lepiter-GitHub-Model'
+	#category : #'Lepiter-GitHub-Model'
 }
 
 { #category : #'api - accessing' }
@@ -19,7 +19,7 @@ LeGitHubResponse >> gtRawDataFor: aView [
 	<gtView>
 	self rawData ifNil: [ ^ aView empty ].
 	^ aView forward
-		title: 'Raw Data';
+		title: 'Raw data';
 		priority: 20;
 		object: [ self rawData ];
 		view: #gtItemsFor:

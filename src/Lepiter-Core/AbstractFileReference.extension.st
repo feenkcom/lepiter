@@ -6,7 +6,7 @@ AbstractFileReference >> gtLepiterPageFor: aView [
 
 	(self isFile and: [ self extension = #lepiter ]) ifFalse: [ ^ aView empty ].
 	^ aView forward 
-		title: 'Lepiter Page';
+		title: 'Lepiter page';
 		priority: 10;
 		object: [ LeLocalStoreLoad current loadPageFrom: self ];
 		view: #gtLiveFor:

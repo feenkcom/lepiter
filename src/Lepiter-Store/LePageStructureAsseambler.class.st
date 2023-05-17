@@ -94,7 +94,7 @@ LePageStructureAsseambler >> extractSnippetStructureFrom: aContent to: aStructur
 LePageStructureAsseambler >> gtViewStructureMapFor: aView [
 	<gtView>
 	^ aView mondrian
-		title: 'Structure Map' translated;
+		title: 'Structure map' translated;
 		priority: 20;
 		painting: [ :mondrian |
 			self paintStructureOn: mondrian ]

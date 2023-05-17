@@ -86,7 +86,7 @@ LeUnknownSnippet >> gtStringFor: aView [
 
 	jsonString ifNil: [ ^ aView empty ].
 	^ aView textEditor
-		title: 'JSON String';
+		title: 'JSON string';
 		priority: 10;
 		aptitude: BrGlamorousRegularEditorAptitude;
 		text: [ self jsonString ]

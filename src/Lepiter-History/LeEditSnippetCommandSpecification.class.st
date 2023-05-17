@@ -33,7 +33,7 @@ LeEditSnippetCommandSpecification >> gtViewStateAttributesFor: aView [
 	<gtView>
 	
 	^ aView forward 
-		title: 'State Changes';
+		title: 'State changes';
 		priority: 5;
 		object: [ snippetState ];
 		view: #gtViewStateAttributesFor:

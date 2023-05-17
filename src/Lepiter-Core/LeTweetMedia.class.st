@@ -32,7 +32,7 @@ LeTweetMedia >> gtRawDataFor: aView [
 	<gtView>
 	self hasRawData ifFalse: [ ^ aView empty ].
 	^ aView forward
-		title: 'Raw Data';
+		title: 'Raw data';
 		priority: 25;
 		object: [ self rawData ];
 		view: #gtItemsFor:

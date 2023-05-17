@@ -103,7 +103,7 @@ LePageStructureNode >> gtViewStructureFor: aView [
 	<gtView>
 	
 	^ aView columnedTree
-		  title: 'Structure Tree';
+		  title: 'Structure tree';
 		  priority: 10;
 		  items: [ { self } ];
 		  expandUpTo: 2;
@@ -116,7 +116,7 @@ LePageStructureNode >> gtViewStructureFor: aView [
 LePageStructureNode >> gtViewStructureMapFor: aView [
 	<gtView>
 	^ aView mondrian
-		title: 'Structure Map' translated;
+		title: 'Structure map' translated;
 		priority: 20;
 		painting: [ :mondrian |
 			self paintStructureOn: mondrian ]

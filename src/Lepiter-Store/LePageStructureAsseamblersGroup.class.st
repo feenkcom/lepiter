@@ -24,7 +24,7 @@ LePageStructureAsseamblersGroup >> add: anAsseambler [
 LePageStructureAsseamblersGroup >> gtItemsFor: aView [
 	<gtView>
 	^ aView columnedList
-		title: 'Page Reloads';
+		title: 'Page reloads';
 		items: [ self items ];
 		column: 'Page' text: [ :asseambler | 
 			asseambler targetPage ifNotNil: [ :aPage | aPage title ] ];
