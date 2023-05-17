@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'rawData'
 	],
-	#category : 'Lepiter-Snippet-Words-Model'
+	#category : #'Lepiter-Snippet-Words-Model'
 }
 
 { #category : #'gt-extensions' }
@@ -18,7 +18,7 @@ LeWordData >> gtRawDataFor: aView [
 	self rawData ifNil: [ ^ aView empty ].
 	
 	^ aView forward
-		title: 'Raw Data';
+		title: 'Raw data';
 		priority: 20;
 		object: [ self rawData ];
 		view: #gtItemsFor:

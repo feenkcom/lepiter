@@ -118,36 +118,16 @@ LeResourcesExporter >> exportExampleResultOf: anExampleAnnotation to: aRelativeP
 
 { #category : #private }
 LeResourcesExporter >> exportGtExampleResultOf: aGtExample to: aRelativePath height: aHeight withPreviewSelector: aPreviewSelector [
-	| fileReference exampleReturnValue container scaleFactor height |
+	| fileReference |
 	fileReference := memoryStore referenceTo: aRelativePath.
-	exampleReturnValue := aGtExample returnValue.
 	
-	container := XdExporterContainerElement new.
-	"recommended size"
-	scaleFactor := LepiterConstants exportFigureScaleFactor.
-	height := aHeight.
-	container size: LepiterConstants defaultExportFigureWidth @ height.
-
-	BlUseAsyncFeatures disableDuring: [ 
-		| view |
-		view := GtPhlowView empty 
-			on: exampleReturnValue 
-			perform: aPreviewSelector asSymbol.
-		view asElementDo: [ :anElement | container addChild: anElement ].
-
-		container forceLayout.
-
-		fileReference ensureDelete.
-		fileReference parent ensureCreateDirectory.
-		
-		BlExporter png 
-			scaled: scaleFactor;
-			background: Color white;
-			element: container; 
-			fileName: fileReference; 
-			export ].
-			
-	^ fileReference
+	^ LeExampleToPngExporter new
+		fileReference: fileReference;
+		example: aGtExample;
+		height: aHeight;
+		previewSelector: aPreviewSelector;
+		export;
+		fileReference
 ]
 
 { #category : #'gt - extensions' }

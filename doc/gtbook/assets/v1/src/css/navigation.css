@@ -4,7 +4,7 @@
 
 .le-body-content {
     display: flex;
-    flex-basis: 0%;
+    flex-basis: 0;
     flex-grow: 1;
     flex-shrink: 1;
     flex-direction: row;
@@ -32,6 +32,7 @@ main {
     border-right-width: 1px;
     border-right-color: rgb(227, 232, 237);
     border-right-style: solid;
+    font-size: 12px;
 }
 
 .le-navigation-content {
@@ -60,11 +61,18 @@ main {
     text-decoration: none;
 }
 
+.le-navigation-link:hover {
+    text-decoration: none;
+    background-color: #ddd;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: black;
+}
+
 .le-navigation-node.le-navigation-level-1 {
     margin-bottom: 1.5em;
 }
 
 .le-navigation-item.le-navigation-level-1 {
-    text-transform: uppercase;
     font-weight: bold;
 }

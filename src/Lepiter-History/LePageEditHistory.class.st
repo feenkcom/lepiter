@@ -82,7 +82,7 @@ LePageEditHistory >> gtViewTraceEventsGroupedByCommandTypeFor: aView [
 	<gtView>
 	
 	^ aView forward 
-		title: 'Events by Command Type';
+		title: 'Events by command type';
 		priority: 35;
 		object: [ self eventStore ];
 		view: #gtViewEventsGroupedByCommandTypeFor:
@@ -93,7 +93,7 @@ LePageEditHistory >> gtViewTraceEventsGroupedByContentUidFor: aView [
 	<gtView>
 	
 	^ aView forward 
-		title: 'Events by Content Uid';
+		title: 'Events by content uid';
 		priority: 30;
 		object: [ self eventStore ];
 		view: #gtViewEventsGroupedByContentUidFor:
@@ -104,7 +104,7 @@ LePageEditHistory >> gtViewTraceEventsListFor: aView [
 	<gtView>
 	
 	^ aView forward 
-		title: 'Events Log';
+		title: 'Events log';
 		priority: 10;
 		object: [ self eventStore ];
 		view: #gtViewTraceEventsListFor:
@@ -115,7 +115,7 @@ LePageEditHistory >> gtViewUndoRedoHistoryFor: aView [
 	<gtView>
 	
 	^ aView columnedList
-		title: 'Undo/Redo Actions';
+		title: 'Undo/Redo actions';
 		priority: 1;
 		items: [ self redoUndoActions ];
 		column: 'Index' text: [ :historyAction :anIndex | anIndex ] width: 50;

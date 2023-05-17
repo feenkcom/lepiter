@@ -178,7 +178,7 @@ LeWordSnippet >> gtViewExplanationRawDataFor: aView [
 	<gtView>
 	explanation ifNil: [ ^ aView empty ].
 	^ (explanation gtRawDataFor: aView)
-		title: 'Explanation Raw Data' 
+		title: 'Explanation raw data' 
 ]
 
 { #category : #testing }

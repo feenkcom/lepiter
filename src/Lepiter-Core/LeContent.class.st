@@ -576,7 +576,7 @@ LeContent >> gtIncomingLinksFor: aView [
 	<gtView>
 	self hasIncomingLinks ifFalse: [ ^ aView empty ].
 	^ aView columnedList
-		title: 'Incoming Links';
+		title: 'Incoming links';
 		priority: 15;
 		items: [ self incomingLinks ];
 		column: 'Type' text: #class;
@@ -621,7 +621,7 @@ LeContent >> gtSnippetsFor: aView [
 LeContent >> gtViewAllOutgoingExplicitLinksFor: aView [
 	<gtView>
 	^ aView forward
-		title: 'All Outgoing Explicit Links';
+		title: 'All outgoing explicit links';
 		object: [ self allOutgoingExplicitLinks ];
 		view: #gtViewExplicitLinksFor:
 ]
@@ -631,7 +631,7 @@ LeContent >> gtViewDirectOutgoingExplicitLinksFor: aView [
 	<gtView>
 	self hasOutgoingLinks ifFalse: [ ^ aView empty ].
 	^ aView forward
-		title: 'Direct Outgoing Explicit Links';
+		title: 'Direct outgoing explicit links';
 		object: [ self outgoingExplicitLinks ];
 		view: #gtViewExplicitLinksFor:
 ]

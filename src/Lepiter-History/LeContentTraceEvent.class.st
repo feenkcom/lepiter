@@ -23,7 +23,7 @@ LeContentTraceEvent >> gtViewCommandSpecificationFor: aView [
 	<gtView>
 	
 	^ aView forward 
-		title: 'Main Command';
+		title: 'Main command';
 		priority: 10;
 		object: [ self mainCommandSpecification ];
 		view: #gtViewSpecificationAttributesFor:
@@ -34,7 +34,7 @@ LeContentTraceEvent >> gtViewUndoSpecificationFor: aView [
 	<gtView>
 	
 	^ aView forward 
-		title: 'Undo Command';
+		title: 'Undo command';
 		priority: 15;
 		object: [ self undoCommandSpecification ];
 		view: #gtViewSpecificationAttributesFor:

@@ -24,7 +24,7 @@ LeBookPageLinks >> gtLinksFor: aView [
 	self links ifNil: [ ^ aView empty ].
 
 	^ aView columnedList
-		title: 'Sorted Links';
+		title: 'Sorted links';
 		priority: 10;
 		items: [ self sortedLinks ];
 		column: 'Index' text: [ :_ :anIndex | anIndex ] width: 40;

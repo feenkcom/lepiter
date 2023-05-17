@@ -12,7 +12,7 @@ Class {
 LeWardleyMapSnippetElement >> gtWardleyScriptFor: aView [
 	<gtView>
 	^ aView textEditor
-		title: 'Wardley Script';
+		title: 'Wardley script';
 		priority: 0.5;
 		aptitude: [ BrGlamorousCodeEditorAptitude ];
 		styler: [ GtWardleyMapParser gtStyler ];

@@ -44,7 +44,7 @@ LeHtmlPageDirectoryAssetsDecorator >> gtAllResourcesFor: aView [
 	rootDiretory ifNil: [ ^ aView empty ].
 
 	^ aView columnedList
-		title: 'All Resources';
+		title: 'All resources';
 		priority: 15;
 		items: [ self allResources ];
 		column: 'Name' text: [ :aResource | aResource path pathString ]
@@ -56,7 +56,7 @@ LeHtmlPageDirectoryAssetsDecorator >> gtLinkFilesFor: aView [
 	rootDiretory ifNil: [ ^ aView empty ].
 
 	^ aView columnedList
-		title: 'Link Files (CSS)';
+		title: 'Link files (css)';
 		priority: 10;
 		items: [ self linkFiles ];
 		column: 'Name' text: [ :aFile | (self convertFile: aFile) pathString ]
@@ -68,7 +68,7 @@ LeHtmlPageDirectoryAssetsDecorator >> gtScriptFilesFor: aView [
 	rootDiretory ifNil: [ ^ aView empty ].
 
 	^ aView columnedList
-		title: 'Script Files (JS)';
+		title: 'Script files (js)';
 		priority: 12;
 		items: [ self scriptFiles ];
 		column: 'Name' text: [ :aFile | (self convertFile: aFile) pathString ]

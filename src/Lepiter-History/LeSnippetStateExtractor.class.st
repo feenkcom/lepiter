@@ -58,7 +58,7 @@ LeSnippetStateExtractor >> gtViewExtractedStateFor: aView [
 	<gtView>
 	
 	^ aView forward 
-		title: 'Extracted State';
+		title: 'Extracted state';
 		priority: 10;
 		object: [ self extractState ];
 		view: #gtViewStateAttributesFor:
@@ -69,7 +69,7 @@ LeSnippetStateExtractor >> gtViewIgnoredAttributesFor: aView [
 	<gtView>
 	
 	^ aView list 
-		title: 'Ignored Attributes';
+		title: 'Ignored attributes';
 		priority: 50;
 		items: [ self ignoredAttributeNames ]
 ]
@@ -79,7 +79,7 @@ LeSnippetStateExtractor >> gtViewSelectedAttributesFor: aView [
 	<gtView>
 	
 	^ aView list 
-		title: 'Selected Attributes';
+		title: 'Selected attributes';
 		priority: 40;
 		items: [ self selectedAttributes ]
 ]

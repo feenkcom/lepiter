@@ -22,7 +22,7 @@ LePageEventStore >> gtViewCommandSpecificationsListFor: aView [
 	<gtView>
 	
 	^ aView columnedList 
-		title: 'Command Specifications';
+		title: 'Command specifications';
 		priority: 15;
 		items: [ self events collect: [ :aTraceEvent |
 			aTraceEvent mainCommandSpecification ] ];
@@ -36,7 +36,7 @@ LePageEventStore >> gtViewEventsGroupedByCommandTypeFor: aView [
 	<gtView>
 	
 	^ aView forward 
-		title: 'By Command Type';
+		title: 'By command type';
 		priority: 35;
 		object: [ self events ];
 		view: #gtViewEventsGroupedByCommandTypeFor:
@@ -47,7 +47,7 @@ LePageEventStore >> gtViewEventsGroupedByContentUidFor: aView [
 	<gtView>
 	
 	^ aView forward 
-		title: 'By Content Uid';
+		title: 'By content uid';
 		priority: 30;
 		object: [ self events ];
 		view: #gtViewEventsGroupedByContentUidFor:
@@ -58,7 +58,7 @@ LePageEventStore >> gtViewTraceEventsListFor: aView [
 	<gtView>
 	
 	^ aView forward 
-		title: 'Events Log';
+		title: 'Events log';
 		priority: 10;
 		object: [ self events ];
 		view: #gtItemsFor:

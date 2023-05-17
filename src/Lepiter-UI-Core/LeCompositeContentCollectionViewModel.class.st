@@ -37,7 +37,7 @@ LeCompositeContentCollectionViewModel >> gtViewModelsFor: aView [
 	<gtView>
 	
 	^ aView list 
-		title: 'View Models';
+		title: 'View models';
 		items: [ viewModelCollections ]
 ]
 

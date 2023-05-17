@@ -117,7 +117,7 @@ LeWardleyMapSnippet >> detachWardleyMap [
 LeWardleyMapSnippet >> gtWardleyScriptFor: aView [
 	<gtView>
 	^ aView textEditor
-		title: 'Wardley Script';
+		title: 'Wardley script';
 		priority: 9;
 		aptitude: [ BrGlamorousCodeEditorAptitude ];
 		styler: [ GtWardleyMapParser gtStyler ];

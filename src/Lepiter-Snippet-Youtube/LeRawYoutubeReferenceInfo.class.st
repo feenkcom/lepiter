@@ -33,7 +33,7 @@ LeRawYoutubeReferenceInfo >> gtYoutubeReferenceInfoFor: aView [
 	<gtView>
 	| view |
 	view := self rawData gtTreeFor: aView.
-	view title: 'Video Info'.
+	view title: 'Video info'.
 	^ view
 ]
 

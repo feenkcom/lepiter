@@ -358,7 +358,7 @@ LeDatabase >> gtDailyNotesFor: aView [
 	<gtView>
 	self pages ifNil: [ ^ aView empty ].
 	^ aView columnedTree
-		title: 'By Day';
+		title: 'By day';
 		priority: 10;
 		items: [ self dailyNotesGroup ];
 		children: [ :eachPage | eachPage children ];
@@ -414,7 +414,7 @@ LeDatabase >> gtViewFilesNameMappingFor: aView [
 	<gtView>
 	monitor ifNil: [ ^ aView empty ].
 	^ aView forward
-		title: 'Page File Mappings';
+		title: 'Page file mappings';
 		priority: 66;
 		object: [ self monitor ];
 		view: #gtNameMappingFor:
@@ -438,7 +438,7 @@ LeDatabase >> gtViewUnnamedPageFor: aView [
 	(pagesByType includesKey: LeUnnamedPageType)
 		ifFalse: [ ^ aView empty ].
 	^ aView columnedList
-		title: 'Unnamed Pages';
+		title: 'Unnamed pages';
 		priority: 55;
 		items: [ (pagesByType at: LeUnnamedPageType) values ];
 		column: 'Created time' text: [ :aPage | aPage createTime ];

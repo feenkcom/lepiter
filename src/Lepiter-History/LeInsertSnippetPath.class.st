@@ -32,7 +32,7 @@ LeInsertSnippetPath >> gtViewUidSegmentsFor: aView [
 	<gtView>
 	
 	^ aView list
-		title: 'Uid Segments';
+		title: 'Uid segments';
 		priority: 15;
 		items: [ self uidSegments ]
 ]
