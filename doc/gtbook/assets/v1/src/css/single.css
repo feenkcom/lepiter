@@ -138,7 +138,7 @@ figcaption {
   resize: vertical;
   overflow: auto;
   border: none;
-  border-radius: 0px;
+  border-radius: 0;
   box-shadow: -2px 5px 20px #ccc;
   margin-bottom: 20px;
   padding: 10px;
