@@ -43,7 +43,7 @@ LeContentTraceEventsGroup >> gtViewEventsGroupedByCommandTypeFor: aView [
 	<gtView>
 	
 	^ aView columnedList
-		title: 'By Command Type';
+		title: 'By command type';
 		priority: 35;
 		items: [ self groupedByCommandType associations
 			sorted: [ :each | each value size] descending ];
@@ -57,7 +57,7 @@ LeContentTraceEventsGroup >> gtViewEventsGroupedByContentUidFor: aView [
 	<gtView>
 	
 	^ aView columnedList
-		title: 'By Content Uid';
+		title: 'By content uid';
 		priority: 30;
 		items: [ self groupedByContentUid associations ];
 		column: 'Content Uid' text: [ :assoc | assoc key ];

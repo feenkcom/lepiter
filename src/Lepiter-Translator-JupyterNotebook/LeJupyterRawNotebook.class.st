@@ -39,7 +39,7 @@ LeJupyterRawNotebook >> createLepiterPageWithUuids [
 LeJupyterRawNotebook >> gtViewLepiterPageFor: aView [
 	<gtView>
 	^ aView forward 
-		title: 'Lepiter Page';
+		title: 'Lepiter page';
 		priority: 20;
 		object: [ self createLepiterPageWithUuids ];
 		view: #gtLiveFor:

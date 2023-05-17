@@ -139,7 +139,7 @@ LePage >> gtCopyPageFilePathActionFor: anAction [
 LePage >> gtDependenciesMapFor: aView [
 	<gtView>
 	^ aView mondrian 
-		title: 'Dependencies Map';
+		title: 'Dependencies map';
 		painting: [:m |
 		| all |
 all := {self} asSet, (self incomingLinks collect: [:x | x origin ifNotNil: #page]), (self allChildOutgoingTextualLinks collect: [:x | x target ifNotNil: #page]) reject: #isNil.

@@ -68,7 +68,7 @@ LeSnippetsCollectionViewModel >> gtViewSnippetsMapFor: aView [
 	<gtView>
 	
 	^ aView forward 
-		title: 'Snippets Map';
+		title: 'Snippets map';
 		priority: 10;
 		object: [ snippetsMap ];
 		view: #gtItemsFor:

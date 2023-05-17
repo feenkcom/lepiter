@@ -104,7 +104,7 @@ LeBookPageLinksBuilder >> gtViewTableOfContentsNodesFor: aView [
 	tocNodes ifNil: [ ^ aView empty ].
 	
 	^ aView tree
-		title: 'Table of Content Nodes';
+		title: 'Table of content nodes';
 		priority: 50;
 		items: [ tocNodes ifNil: [ #() ] ];
 		children: #children

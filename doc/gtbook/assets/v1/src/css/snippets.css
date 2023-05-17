@@ -1,4 +1,31 @@
 /*
+Introduced on 2023-05-17
+ */
+
+a {
+    text-decoration: underline;
+    color: black;
+}
+
+a:hover {
+    text-decoration: none;
+    background-color: darkgray;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: black;
+}
+
+a.active {
+    background-color: lightgray;
+}
+
+figure > img {
+    max-width: 100%;
+    background-color: white;
+    box-shadow: 0 0 5px 5px lightgray;
+}
+
+/*
     CODE introduced in version 3
  */
 

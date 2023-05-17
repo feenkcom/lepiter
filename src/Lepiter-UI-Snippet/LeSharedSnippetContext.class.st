@@ -15,7 +15,7 @@ LeSharedSnippetContext >> gtViewSharedBindingsFor: aView [
 	<gtView>
 	
 	^ aView forward 
-		title: 'Shared Bindings';
+		title: 'Shared bindings';
 		object: [ self sharedBindings ];
 		view: #gtBindingsFor:
 ]

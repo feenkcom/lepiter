@@ -69,7 +69,7 @@ LePageValidatorMissingReferencesResult >> gtLiveFor: aView [
 LePageValidatorMissingReferencesResult >> gtViewMissingClassesListFor: aView [
 	<gtView>
 	^ aView list
-		  title: 'Class Annotations';
+		  title: 'Class annotations';
 		  priority: 16;
 		  items: [ classAnnotations ];
 		  itemText: [ :aClassAnnotation | 
@@ -81,7 +81,7 @@ LePageValidatorMissingReferencesResult >> gtViewMissingExamplesListFor: aView [
 
 	<gtView>
 	^ aView list
-		  title: 'Example Annotations';
+		  title: 'Example annotations';
 		  priority: 14;
 		  items: [ exampleAnnotations ];
 		  itemText: [ :anExampleAnnotation | 

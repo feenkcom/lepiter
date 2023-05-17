@@ -4,7 +4,7 @@ Extension { #name : #LeDatabase }
 LeDatabase >> gtViewTableOfContentsNodesFor: aView [
 	<gtView>
 	^ aView tree
-		title: 'Table of Content Nodes';
+		title: 'Table of content nodes';
 		priority: 50;
 		items: [ self tableOfContentsNodes  ];
 		children: #children

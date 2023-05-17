@@ -35,7 +35,7 @@ Class {
 		'pageChanged',
 		'downloadDirectory'
 	],
-	#category : 'Lepiter-Utilities-ImageImport'
+	#category : #'Lepiter-Utilities-ImageImport'
 }
 
 { #category : #accessing }
@@ -110,7 +110,7 @@ LeImageImportVisitor >> gtAddedImagesFor: aView [
 
 	addedImages ifEmpty: [ ^ aView empty ].
 	^ aView list 
-		title: 'Added Images';
+		title: 'Added images';
 		priority: 10;
 		items: [ addedImages associations ];
 		itemText: [ :item | item key ];
@@ -123,7 +123,7 @@ LeImageImportVisitor >> gtFailedImagesFor: aView [
 
 	addedImages ifEmpty: [ ^ aView empty ].
 	^ aView list 
-		title: 'Failed Images';
+		title: 'Failed images';
 		priority: 11;
 		items: [ failedImages associations ];
 		itemText: [ :item | item key ];

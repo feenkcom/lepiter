@@ -83,7 +83,7 @@ LeCommandSpecification >> gtViewSpecificationAttributesFor: aView [
 	<gtView>
 	
 	^ aView columnedList 
-		title: 'Command Attributes';
+		title: 'Command attributes';
 		priority: 10;
 		items: [ 
 			self gtCommonAttributes ];

@@ -14,7 +14,7 @@ LeInsertChildCommandSpecification >> gtViewInitialStateAttributesFor: aView [
 	<gtView>
 	
 	^ aView forward 
-		title: 'Initial State';
+		title: 'Initial state';
 		object: [ initialSnippetState ];
 		view: #gtViewStateAttributesFor:
 ]

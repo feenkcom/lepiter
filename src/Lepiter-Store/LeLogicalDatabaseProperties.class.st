@@ -108,7 +108,7 @@ LeLogicalDatabaseProperties >> gtFilePathFor: aView [
 	<gtView>
 	self localFile ifNil: [ ^ aView empty ].
 	^ aView forward
-		title: 'File Path';
+		title: 'File path';
 		priority: 10;
 		object: [ self localFile ];
 		view: #gtPathFor:
