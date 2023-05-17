@@ -32,6 +32,7 @@ main {
     border-right-width: 1px;
     border-right-color: rgb(227, 232, 237);
     border-right-style: solid;
+    font-size: 12px;
 }
 
 .le-navigation-content {
@@ -65,6 +66,5 @@ main {
 }
 
 .le-navigation-item.le-navigation-level-1 {
-    text-transform: uppercase;
     font-weight: bold;
 }
