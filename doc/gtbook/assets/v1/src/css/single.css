@@ -89,8 +89,8 @@ figcaption {
 }
 
 .container .documentWidth {
-  width: 150%;
-  margin-left: -25%;
+  width: 120%;
+  margin-left: -10%;
 }
 
 .navbar {
@@ -103,8 +103,8 @@ figcaption {
 
 @media (max-width: 1040px) {
   .container .documentWidth {
-    width: 120%;
-    margin-left: -10%;
+    width: 110%;
+    margin-left: -5%;
   }
 }
 
