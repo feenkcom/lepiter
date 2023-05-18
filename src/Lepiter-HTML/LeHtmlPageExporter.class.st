@@ -38,6 +38,8 @@ LeHtmlPageExporter >> export [
 	| exportVisitor |
 	exportVisitor := LeHtmlPageExporterVisitor new.
 	
+	exportVisitor addMetaTag: { #charset -> 'utf-8' }.
+	
 	shouldGenerateHeader ifNotNil: [ :aBoolean | 
 		exportVisitor shouldGenerateHeader: aBoolean ].
 	
@@ -52,7 +54,7 @@ LeHtmlPageExporter >> export [
 	decorator ifNotNil: [ 
 		decorator initializeHTMLPageExporter: exportVisitor ].
 		
-	content := String streamContents: [ :aStream |
+	content := LeHtmlOutputPrettyStream streamContents: [ :aStream |
 		exportVisitor stream: aStream.
 		self page acceptVisitor: exportVisitor ].
 		

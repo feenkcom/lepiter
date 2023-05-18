@@ -47,26 +47,35 @@ main {
 
 .le-navigation-item {
     margin-bottom: 0.5em;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.le-navigation-item.le-navigation-unselected:hover {
+    text-decoration: none;
+    background-color: #ddd;
 }
 
 .le-navigation-selected {
-    color: rgb(52, 109, 219);
+    background-color: rgb(238, 238, 238);
 }
 
 .le-navigation-unselected {
-    color: rgb(136, 153, 168);
+    color: black;
 }
 
 .le-navigation-link {
+    display: block;
     text-decoration: none;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .le-navigation-link:hover {
     text-decoration: none;
-    background-color: #ddd;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    color: black;
+    background-color: inherit;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .le-navigation-node.le-navigation-level-1 {

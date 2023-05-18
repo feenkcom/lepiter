@@ -20,7 +20,8 @@ LeHtmlFragmentExporterExamples >> basicMarkdown [
 		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
 	self assert: html trimBoth
 		equals: '<div class="snippet textual-snippet text-snippet">
-<i>italic</i> <b>bold</b> <code>mono</code></div>'.
+<i>italic</i> <b>bold</b> <code>mono</code>
+</div>'.
 	^ html
 ]
 
@@ -50,13 +51,13 @@ LeHtmlFragmentExporterExamples >> codeBlock [
 		
 	self assert: html trimBoth
 		equals: '<div class="snippet textual-snippet text-snippet">
-	<div class="code_block">
-		<pre>
-			<code class="smalltalk">
+  <div class="code_block">
+    <pre>
+      <code class="smalltalk">
 answer:=42.
-			</code>
-		</pre>
-	</div>
+      </code>
+    </pre>
+  </div>
 </div>'.
 	^ html
 ]
@@ -75,18 +76,18 @@ LeHtmlFragmentExporterExamples >> exampleSnippet [
 		externalPicturesWriter: LeResourcesExporter new)
 		stream: stream) ].
 	self assert: (html includesSubstring:'<div>
-	<div class="snippet textual-snippet code-snippet pharo-snippet documentWidth">
-		<pre class="no_bottom_margin">
+  <div class="snippet textual-snippet code-snippet pharo-snippet documentWidth">
+    <pre class="no_bottom_margin">
 pictureSnippet
 	<gtExample>').
-	self assert: (html includesSubstring:'</pre>
-	</div>
-	<div class="height-one-em">
-	</div>
-	<figure class="documentWidth">
-		<img src="gt-figures/1000.png">
-		</img>
-	</figure>
+	self assert: (html includesSubstring:'  <div class="height-one-em">
+
+  </div>').
+	self assert: (html includesSubstring:'<figure class="documentWidth">
+    <img src="gt-figures/1000.png">
+
+    </img>
+  </figure>
 </div>').
 	^ html
 ]
@@ -115,9 +116,9 @@ LeHtmlFragmentExporterExamples >> pharoSnippet [
 		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
 	self assert: html trimBoth
 		equals: '<div class="snippet textual-snippet code-snippet pharo-snippet">
-	<pre class="no_bottom_margin">
+  <pre class="no_bottom_margin">
 answer := 41.
-</pre>
+  </pre>
 </div>'.
 	^ html
 

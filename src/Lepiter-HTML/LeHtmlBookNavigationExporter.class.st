@@ -79,7 +79,7 @@ LeHtmlBookNavigationExporter >> exportNode: aNode [
 					anUrl := pageLinks
 							linkForPage: aNode page
 							ifFound: [ :anUrlLink | anUrlLink fileName ]
-							ifNone: [ '404.html' ].
+							ifNone: [ '/404.html' ].
 							
 					selectedPage 
 						ifNotNil: [ :aPage | 
