@@ -25,7 +25,7 @@ LeHtmlPageExportPartContext >> stream [
 
 { #category : #accessing }
 LeHtmlPageExportPartContext >> stream: aStream [
-	(aStream isKindOf: ZnHtmlOutputStream)
+	(aStream isKindOf: LeHtmlOutputPrettyStream)
 		ifTrue: [ stream := aStream ]
-		ifFalse: [ stream := ZnHtmlOutputStream on: aStream ]
+		ifFalse: [ stream := LeHtmlOutputPrettyStream on: aStream ]
 ]

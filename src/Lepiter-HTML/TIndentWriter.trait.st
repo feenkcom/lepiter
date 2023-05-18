@@ -4,7 +4,7 @@ Trait {
 		'nestingLevel',
 		'stream'
 	],
-	#category : 'Lepiter-HTML-Exporter'
+	#category : #'Lepiter-HTML-Exporter'
 }
 
 { #category : #accessing }
@@ -22,16 +22,22 @@ TIndentWriter >> nestingLevel: aNestingLevel [
 { #category : #accessing }
 TIndentWriter >> putPre: aString [
 	stream
-		nextPutAll: aString;
-		cr
+		newLine;
+		escape: aString;
+		newLine
+]
+
+{ #category : #accessing }
+TIndentWriter >> putPre: aTag andAttributes: attributesString with: aBlock [
+	stream
+		tag: aTag
+		attributes: attributesString
+		do: aBlock
 ]
 
 { #category : #accessing }
 TIndentWriter >> putString: aString [
-	stream
-		tab: nestingLevel;
-		nextPutAll: aString;
-		cr
+	stream escape: aString
 ]
 
 { #category : #accessing }
@@ -40,27 +46,34 @@ TIndentWriter >> putStringInline: aString [
 ]
 
 { #category : #accessing }
-TIndentWriter >> putTag: aTag andAttributes: attributesString with: aBlock [
-	self putString: '<',aTag, (attributesString ifNotEmpty: [' ',attributesString]), '>'.
-	self indent:aBlock.
-	self putString: '</',aTag,'>'.
+TIndentWriter >> putTag: aTag andAttributes: attributesPair [ 
+	stream tag: aTag attributes: attributesPair.
+]
+
+{ #category : #accessing }
+TIndentWriter >> putTag: aTag andAttributes: attributesPair with: aBlock [
+	stream
+		tag: aTag
+		attributes: attributesPair
+		do: aBlock
 ]
 
 { #category : #accessing }
 TIndentWriter >> putTag: aTag with: aBlock [
-	self putTag: aTag andAttributes: '' with: aBlock
+	self putTag: aTag andAttributes: #() with: aBlock
 ]
 
 { #category : #accessing }
-TIndentWriter >> putTagInline: aTag andAttributes: attributesString with: aBlock [
-	self putStringInline: '<',aTag, (attributesString ifNotEmpty: [' ',attributesString]), '>'.
-	aBlock value.
-	self putStringInline: '</',aTag,'>'.
+TIndentWriter >> putTagInline: aTag andAttributes: attributesPair with: aBlock [
+	stream
+		tag: aTag
+		attributes: attributesPair
+		do: aBlock
 ]
 
 { #category : #accessing }
 TIndentWriter >> putTagInline: aTag with: aBlock [
-	self putTagInline: aTag andAttributes: '' with: aBlock
+	self putTagInline: aTag andAttributes: #() with: aBlock
 ]
 
 { #category : #accessing }
@@ -69,6 +82,8 @@ TIndentWriter >> stream [
 ]
 
 { #category : #accessing }
-TIndentWriter >> stream: anObject [
-	stream := anObject
+TIndentWriter >> stream: aStream [
+	(aStream isKindOf: LeHtmlOutputPrettyStream)
+		ifTrue: [ stream := aStream ]
+		ifFalse: [ stream := LeHtmlOutputPrettyStream on: aStream ]
 ]

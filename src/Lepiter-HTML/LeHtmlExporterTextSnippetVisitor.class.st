@@ -79,9 +79,9 @@ LeHtmlExporterTextSnippetVisitor >> visitBold: aBold [
 
 { #category : #generated }
 LeHtmlExporterTextSnippetVisitor >> visitCodeBlock: aCodeBlock [
-	self putTag: 'div' andAttributes: 'class="code_block"' with: [
+	self putTag: 'div' andAttributes: #('class' 'code_block') with: [
 		self putTag: 'pre' with: [
-			self putTag: 'code' andAttributes: 'class="smalltalk"' with: [
+			self putTag: 'code' andAttributes: #('class' 'smalltalk') with: [
 				self putStringInline: aCodeBlock code value asString trimBoth asHTMLString.
 				stream cr.
 			]
@@ -106,11 +106,11 @@ LeHtmlExporterTextSnippetVisitor >> visitDoubleBracketLink: aDoubleBracketLink [
 		ifFound: [ :aLink | 
 			self
 				putTagInline: 'a'
-				andAttributes: 'href="', aLink fileName, '"'
+				andAttributes: { 'href'. aLink fileName asString }
 				with: [ self putStringInline: aDoubleBracketLink linkUID ] ]
 		ifNone: [ self
 				putTagInline: 'div'
-				andAttributes: ''
+				andAttributes: #()
 				with: [ self putStringInline: aDoubleBracketLink linkUID ] ].
 
 	^ aDoubleBracketLink

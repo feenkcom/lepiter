@@ -57,7 +57,7 @@ LeHtmlExporterAnnotationVisitor >> visitClassAnnotation: aClassAnnotation [
 	classNameArgument := aClassAnnotation nameNode.
 	self
 		putTag: 'code'
-		andAttributes: 'class="class_annotation"'
+		andAttributes: #('class' 'class_annotation')
 		with: [ 
 			self putString: classNameArgument value source asHTMLString ]
 ]
@@ -80,23 +80,23 @@ LeHtmlExporterAnnotationVisitor >> visitMethodAnnotation: aMethodAnnotation [
 
 	self
 		putTag: 'code'
-		andAttributes: ('class="method_annotation expandable_annotation_label {1}"'
+		andAttributes: {'class'. 'method_annotation expandable_annotation_label {1}'
 				format: {(aMethodAnnotation isExpanded and: [ methodExists ])
 							ifTrue: [ 'expanded_annotation_body' ]
-							ifFalse: [ 'collapsed_annotation_body' ]})
+							ifFalse: [ 'collapsed_annotation_body' ]}}
 		with: [ aMethodAnnotation hasLabel
 				ifTrue: [ self putString: aMethodAnnotation label asHTMLString ]
 				ifFalse: [ self putString: methodNameArgument source asHTMLString ] ].
 
 	self
 		putTag: 'div'
-		andAttributes: ('class="textual-snippet code-snippet pharo-method-snippet expandable_annotation_body {1}"'
+		andAttributes: {'class'. 'textual-snippet code-snippet pharo-method-snippet expandable_annotation_body {1}'
 				format: {(aMethodAnnotation isExpanded and: [ methodExists ])
 							ifTrue: [ 'visible_annotation' ]
-							ifFalse: [ 'hidden_annotation' ]})
+							ifFalse: [ 'hidden_annotation' ]}}
 		with: [ self
 				putTag: 'pre'
-				andAttributes: 'class="no_bottom_margin"'
+				andAttributes: #('class' 'no_bottom_margin')
 				with: [ 
 					methodExists ifTrue: [
 						self putPre: method sourceCode asHTMLString ] ] ]
@@ -109,7 +109,7 @@ LeHtmlExporterAnnotationVisitor >> visitWordAnnotation: aLeWordAnnotationNode [
 
 { #category : #html }
 LeHtmlExporterAnnotationVisitor >> writeClassLabel: anAnnotation [
-	self putTag: 'code' andAttributes: 'class="class_label"' with: [
+	self putTag: 'code' andAttributes: #('class' 'class_label') with: [
 		self putString: anAnnotation label
 	]
 ]
