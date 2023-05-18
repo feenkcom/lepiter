@@ -2,7 +2,8 @@ Class {
 	#name : #LeHtmlOutputPrettyStream,
 	#superclass : #ZnHtmlOutputStream,
 	#instVars : [
-		'indent'
+		'indent',
+		'allowIndent'
 	],
 	#category : #'Lepiter-HTML-Streams'
 }
@@ -37,6 +38,7 @@ LeHtmlOutputPrettyStream >> increaseIndent [
 
 { #category : #'private - indent' }
 LeHtmlOutputPrettyStream >> indent [
+	allowIndent ifFalse: [ ^ self ].
 	indent timesRepeat: [ self doOneIndent ]
 ]
 
@@ -44,12 +46,23 @@ LeHtmlOutputPrettyStream >> indent [
 LeHtmlOutputPrettyStream >> initialize [
 	super initialize.
 
-	indent := 0
+	indent := 0.
+	allowIndent := true.
 ]
 
 { #category : #'private - html' }
 LeHtmlOutputPrettyStream >> newLine [
+	allowIndent ifFalse: [ ^ self ].
 	stream cr
+]
+
+{ #category : #'html tags' }
+LeHtmlOutputPrettyStream >> noIndentDo: aBlock [
+	| previousIndent |
+	previousIndent := allowIndent.
+	allowIndent := false.
+	aBlock cull: self.
+	allowIndent := previousIndent.
 ]
 
 { #category : #'private - html' }

@@ -83,7 +83,6 @@ LeHtmlExporterTextSnippetVisitor >> visitCodeBlock: aCodeBlock [
 		self putTag: 'pre' with: [
 			self putTag: 'code' andAttributes: #('class' 'smalltalk') with: [
 				self putStringInline: aCodeBlock code value asString trimBoth asHTMLString.
-				stream cr.
 			]
 		]
 	]

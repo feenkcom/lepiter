@@ -21,10 +21,12 @@ TIndentWriter >> nestingLevel: aNestingLevel [
 
 { #category : #accessing }
 TIndentWriter >> putPre: aString [
-	stream
-		newLine;
-		escape: aString;
-		newLine
+	"It is expected that the string is already properly escaped,
+	e.g., $< characters converted to '&lt;' strings.
+	The #asHTMLString method can be used for this purpose.
+	The string may also be a HTML code."
+
+	stream nextPutAll: aString
 ]
 
 { #category : #accessing }
@@ -37,11 +39,21 @@ TIndentWriter >> putPre: aTag andAttributes: attributesString with: aBlock [
 
 { #category : #accessing }
 TIndentWriter >> putString: aString [
-	stream escape: aString
+	"It is expected that the string is already properly escaped,
+	e.g., $< characters converted to '&lt;' strings.
+	The #asHTMLString method can be used for this purpose.
+	The string may also be a HTML code."
+
+	stream nextPutAll: aString
 ]
 
 { #category : #accessing }
 TIndentWriter >> putStringInline: aString [
+	"It is expected that the string is already properly escaped,
+	e.g., $< characters converted to '&lt;' strings.
+	The #asHTMLString method can be used for this purpose.
+	The string may also be a HTML code."
+
 	stream nextPutAll: aString
 ]
 
@@ -65,10 +77,11 @@ TIndentWriter >> putTag: aTag with: aBlock [
 
 { #category : #accessing }
 TIndentWriter >> putTagInline: aTag andAttributes: attributesPair with: aBlock [
-	stream
-		tag: aTag
-		attributes: attributesPair
-		do: aBlock
+	stream noIndentDo: [
+		stream
+			tag: aTag
+			attributes: attributesPair
+			do: aBlock ]
 ]
 
 { #category : #accessing }
