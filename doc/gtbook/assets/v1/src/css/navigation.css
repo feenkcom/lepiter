@@ -11,18 +11,6 @@
     height: 100vh;
 }
 
-body {
-    height: 100vh;
-}
-
-main {
-    overflow-y: auto;
-    overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-}
-
 .le-navigation-scrollable {
     overflow-y: auto;
     overflow-x: hidden;
