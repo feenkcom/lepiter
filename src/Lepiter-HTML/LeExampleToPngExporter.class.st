@@ -12,7 +12,9 @@ Class {
 		'height',
 		'previewSelector',
 		'scaleFactor',
-		'width'
+		'width',
+		'useScripter',
+		'scripter'
 	],
 	#category : #'Lepiter-HTML-Exporter'
 }
@@ -40,6 +42,68 @@ LeExampleToPngExporter >> example: aGtExampleWithResult [
 
 { #category : #accessing }
 LeExampleToPngExporter >> export [
+	useScripter
+		ifTrue: [ self exportWithScripter ]
+		ifFalse: [ self exportWithoutScripter ]
+]
+
+{ #category : #accessing }
+LeExampleToPngExporter >> exportWithScripter [
+	| exampleReturnValue container |
+	self assertInitialization.
+
+	scripter := BlScripter new.
+	scripter space title: example gtDisplayString.
+	
+	scripter substep: 'Initialize example and element' do: [ :aStep | 
+		aStep set 
+			label: 'Run example';
+			model: [ 
+				exampleReturnValue := example returnValue.
+				(exampleReturnValue isKindOf: BlElement)
+					ifTrue: [ exampleReturnValue removeFromParent ].
+				exampleReturnValue ];
+			play.
+		aStep set 
+			label: 'Create export container';
+			element: [ 
+				container := XdExporterContainerElement new.	
+				
+				"recommended size"
+				container size: width @ height.
+				container ];
+			onModel;
+			play ].
+	
+	scripter substep: 'Export example return value' do: [ :aStep | 
+		aStep do
+			label: 'Create phlow view element';
+			block: [ 
+				BlUseAsyncFeatures disableDuring: [ | view |
+					view := GtPhlowView empty
+						on: exampleReturnValue
+						perform: previewSelector asSymbol.
+					view asElementDo: [ :anElement | 
+						container addChild: anElement ] ] ];
+			play.
+		
+		aStep do
+			label: 'Execute PNG exporter';
+			block: [ 
+				fileReference ensureDelete.
+				fileReference parent ensureCreateDirectory.
+			
+				BlExporter png
+					scaled: scaleFactor;
+					background: Color white;
+					element: container;
+					fileName: fileReference;
+					export ];
+			play ].
+]
+
+{ #category : #accessing }
+LeExampleToPngExporter >> exportWithoutScripter [
 	| exampleReturnValue container |
 	self assertInitialization.
 
@@ -94,6 +158,22 @@ LeExampleToPngExporter >> gtFigureFor: aView [
 		view: #gtFigureFor:
 ]
 
+{ #category : #'gt - extensions' }
+LeExampleToPngExporter >> gtScripterPreviewFor: aView [
+	<gtView>
+	scripter ifNil: [ ^ aView empty ].
+
+	^ aView forward
+		title: 'Scripter Preview';
+		priority: 15;
+		object: [ scripter ];
+		view: #gtSpaceFor:;
+		actionButtonIcon: BrGlamorousVectorIcons inspect
+			label: 'Scripter'
+			tooltip: 'Inspect scripter'
+			action: [ :aButton | aButton phlow spawnObject: scripter ]
+]
+
 { #category : #accessing }
 LeExampleToPngExporter >> height [
 	<return: #Integer>
@@ -109,6 +189,7 @@ LeExampleToPngExporter >> height: anInteger [
 LeExampleToPngExporter >> initialize [
 	super initialize.
 
+	useScripter := true.
 	scaleFactor := LepiterConstants exportFigureScaleFactor.
 	width := LepiterConstants defaultExportFigureWidth.
 	height := LepiterConstants defaultPreviewHeight.
@@ -144,4 +225,14 @@ LeExampleToPngExporter >> width [
 { #category : #accessing }
 LeExampleToPngExporter >> width: anObject [
 	width := anObject
+]
+
+{ #category : #'api - initialization' }
+LeExampleToPngExporter >> withScripter [
+	useScripter := true
+]
+
+{ #category : #'api - initialization' }
+LeExampleToPngExporter >> withoutScripter [
+	useScripter := false
 ]

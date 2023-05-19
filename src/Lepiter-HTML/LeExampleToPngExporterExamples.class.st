@@ -8,6 +8,28 @@ Class {
 }
 
 { #category : #examples }
+LeExampleToPngExporterExamples >> exportGtFilter [
+	<gtExample>
+	| anExample aFileReference anExporter |
+	anExample := (GtSearchClassFilterExamples >> #classesInCurrentPackageFilter) gtExample.
+	aFileReference := FileSystem memory workingDirectory / 'picture.png'.
+
+	anExporter := LeExampleToPngExporter new
+			example: anExample;
+			fileReference: aFileReference;
+			export.
+
+	self
+		assert: aFileReference exists
+		description: [ 'File must exist: {1}' format: {aFileReference} ].
+	self
+		assert: aFileReference size isZero not
+		description: [ 'File must not be empty: {1}' format: {aFileReference} ].
+
+	^ anExporter
+]
+
+{ #category : #examples }
 LeExampleToPngExporterExamples >> exportGtHistory [
 	<gtExample>
 	| anExample aFileReference anExporter |
