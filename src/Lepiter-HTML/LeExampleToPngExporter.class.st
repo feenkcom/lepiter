@@ -14,7 +14,9 @@ Class {
 		'scaleFactor',
 		'width',
 		'useScripter',
-		'scripter'
+		'scripter',
+		'container',
+		'exampleReturnValue'
 	],
 	#category : #'Lepiter-HTML-Exporter'
 }
@@ -29,32 +31,8 @@ LeExampleToPngExporter >> assertInitialization [
 		description: [ 'File reference must not be nil' ]
 ]
 
-{ #category : #accessing }
-LeExampleToPngExporter >> example [
-	<return: #GtExampleWithResult>
-	^ example
-]
-
-{ #category : #accessing }
-LeExampleToPngExporter >> example: aGtExampleWithResult [
-	example := aGtExampleWithResult asExampleWithResult
-]
-
-{ #category : #accessing }
-LeExampleToPngExporter >> export [
-	useScripter
-		ifTrue: [ self exportWithScripter ]
-		ifFalse: [ self exportWithoutScripter ]
-]
-
-{ #category : #accessing }
-LeExampleToPngExporter >> exportWithScripter [
-	| exampleReturnValue container |
-	self assertInitialization.
-
-	scripter := BlScripter new.
-	scripter space title: example gtDisplayString.
-	
+{ #category : #'private - exporting' }
+LeExampleToPngExporter >> createContainer [
 	scripter substep: 'Initialize example and element' do: [ :aStep | 
 		aStep set 
 			label: 'Run example';
@@ -74,37 +52,69 @@ LeExampleToPngExporter >> exportWithScripter [
 				container ];
 			onModel;
 			play ].
+]
+
+{ #category : #accessing }
+LeExampleToPngExporter >> example [
+	<return: #GtExampleWithResult>
+	^ example
+]
+
+{ #category : #accessing }
+LeExampleToPngExporter >> example: aGtExampleWithResult [
+	example := aGtExampleWithResult asExampleWithResult
+]
+
+{ #category : #'api - exporting' }
+LeExampleToPngExporter >> export [
+	useScripter
+		ifTrue: [ self exportWithScripter ]
+		ifFalse: [ self exportWithoutScripter ]
+]
+
+{ #category : #accessing }
+LeExampleToPngExporter >> exportWithScripter [
+	self assertInitialization.
+
+	scripter := BlScripter new.
+	scripter space title: example gtDisplayString.
 	
-	scripter substep: 'Export example return value' do: [ :aStep | 
-		aStep do
+	self createContainer.
+	
+	[
+		scripter do
 			label: 'Create phlow view element';
 			block: [ 
 				BlUseAsyncFeatures disableDuring: [ | view |
 					view := GtPhlowView empty
-						on: exampleReturnValue
+						on: scripter model
 						perform: previewSelector asSymbol.
 					view asElementDo: [ :anElement | 
 						container addChild: anElement ] ] ];
-			play.
+			play
+	] 
+		on: BlDevScripterPulseTimeoutError
+		do: [ :anException | 
+			NonInteractiveTranscript stderr
+				show: 'ERROR: Scripter have not finished on time.'; cr;
+				show: '       '; show: example gtDisplayString; cr;
+				show: '       '; show: anException; cr;
+				show: '       The issue is ignored, proceeding to the PNG export.'; cr.
+		 ].
 		
-		aStep do
-			label: 'Execute PNG exporter';
-			block: [ 
-				fileReference ensureDelete.
-				fileReference parent ensureCreateDirectory.
-			
-				BlExporter png
-					scaled: scaleFactor;
-					background: Color white;
-					element: container;
-					fileName: fileReference;
-					export ];
-			play ].
+	fileReference ensureDelete.
+	fileReference parent ensureCreateDirectory.
+
+	BlExporter png
+		scaled: scaleFactor;
+		background: Color white;
+		element: container;
+		fileName: fileReference;
+		export
 ]
 
 { #category : #accessing }
 LeExampleToPngExporter >> exportWithoutScripter [
-	| exampleReturnValue container |
 	self assertInitialization.
 
 	exampleReturnValue := example returnValue.
@@ -112,7 +122,9 @@ LeExampleToPngExporter >> exportWithoutScripter [
 	(exampleReturnValue isKindOf: BlElement)
 		ifTrue: [ exampleReturnValue removeFromParent ].
 
-	container := XdExporterContainerElement new.	"recommended size"
+	container := XdExporterContainerElement new.
+	
+	"recommended size"
 	container size: width @ height.
 
 	BlUseAsyncFeatures
@@ -189,7 +201,7 @@ LeExampleToPngExporter >> height: anInteger [
 LeExampleToPngExporter >> initialize [
 	super initialize.
 
-	useScripter := true.
+	useScripter := false.
 	scaleFactor := LepiterConstants exportFigureScaleFactor.
 	width := LepiterConstants defaultExportFigureWidth.
 	height := LepiterConstants defaultPreviewHeight.
