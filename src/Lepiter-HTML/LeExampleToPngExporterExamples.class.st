@@ -17,6 +17,30 @@ LeExampleToPngExporterExamples >> exportGtFilter [
 	anExporter := LeExampleToPngExporter new
 			example: anExample;
 			fileReference: aFileReference;
+			withoutScripter;
+			export.
+
+	self
+		assert: aFileReference exists
+		description: [ 'File must exist: {1}' format: {aFileReference} ].
+	self
+		assert: aFileReference size isZero not
+		description: [ 'File must not be empty: {1}' format: {aFileReference} ].
+
+	^ anExporter
+]
+
+{ #category : #examples }
+LeExampleToPngExporterExamples >> exportGtFilter_Scripter [
+	<gtExample>
+	| anExample aFileReference anExporter |
+	anExample := (GtSearchClassFilterExamples >> #classesInCurrentPackageFilter) gtExample.
+	aFileReference := FileSystem memory workingDirectory / 'picture.png'.
+
+	anExporter := LeExampleToPngExporter new
+			example: anExample;
+			fileReference: aFileReference;
+			withScripter;
 			export.
 
 	self
@@ -40,6 +64,79 @@ LeExampleToPngExporterExamples >> exportGtHistory [
 			example: anExample;
 			fileReference: aFileReference;
 			previewSelector: #gtLiveFor:;
+			withoutScripter;
+			export.
+
+	self
+		assert: aFileReference exists
+		description: [ 'File must exist: {1}' format: {aFileReference} ].
+	self
+		assert: aFileReference size isZero not
+		description: [ 'File must not be empty: {1}' format: {aFileReference} ].
+
+	^ anExporter
+]
+
+{ #category : #examples }
+LeExampleToPngExporterExamples >> exportGtHistory_Scripter [
+	<gtExample>
+	| anExample aFileReference anExporter |
+	anExample := (GtTour >> #timelineElement) gtExample.
+	aFileReference := FileSystem memory workingDirectory / 'picture.png'.
+
+	anExporter := LeExampleToPngExporter new
+			example: anExample;
+			fileReference: aFileReference;
+			previewSelector: #gtLiveFor:;
+			withScripter;
+			export.
+
+	self
+		assert: aFileReference exists
+		description: [ 'File must exist: {1}' format: {aFileReference} ].
+	self
+		assert: aFileReference size isZero not
+		description: [ 'File must not be empty: {1}' format: {aFileReference} ].
+
+	^ anExporter
+]
+
+{ #category : #examples }
+LeExampleToPngExporterExamples >> exportMethodCoder [
+	<gtExample>
+	| anExample aFileReference anExporter |
+	anExample := (GtPharoMethodCoderExamples >> #forThisMethodCoder) gtExample.
+	aFileReference := FileSystem memory workingDirectory / 'picture.png'.
+
+	anExporter := LeExampleToPngExporter new
+			example: anExample;
+			fileReference: aFileReference;
+			previewSelector: #gtLiveFor:;
+			withoutScripter;
+			export.
+
+	self
+		assert: aFileReference exists
+		description: [ 'File must exist: {1}' format: {aFileReference} ].
+	self
+		assert: aFileReference size isZero not
+		description: [ 'File must not be empty: {1}' format: {aFileReference} ].
+
+	^ anExporter
+]
+
+{ #category : #examples }
+LeExampleToPngExporterExamples >> exportMethodCoder_Scripter [
+	<gtExample>
+	| anExample aFileReference anExporter |
+	anExample := (GtPharoMethodCoderExamples >> #forThisMethodCoder) gtExample.
+	aFileReference := FileSystem memory workingDirectory / 'picture.png'.
+
+	anExporter := LeExampleToPngExporter new
+			example: anExample;
+			fileReference: aFileReference;
+			previewSelector: #gtLiveFor:;
+			withScripter;
 			export.
 
 	self

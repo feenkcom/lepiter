@@ -13,7 +13,8 @@ LeHtmlOutputPrettyStream >> closeTag: tag [
 	self decreaseIndent.
 	self newLine.
 	self indent.
-	super closeTag: tag
+	super closeTag: tag.
+	self newLine.
 ]
 
 { #category : #streaming }
@@ -53,7 +54,9 @@ LeHtmlOutputPrettyStream >> initialize [
 { #category : #'private - html' }
 LeHtmlOutputPrettyStream >> newLine [
 	allowIndent ifFalse: [ ^ self ].
-	stream cr
+	(stream respondsTo: #ensureCr)
+		ifTrue: [ stream ensureCr ]
+		ifFalse: [ stream cr ]
 ]
 
 { #category : #'html tags' }

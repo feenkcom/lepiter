@@ -112,25 +112,49 @@ LeHtmlBookPageExporterVisitor >> visitPage: aLePage [
 		self writeDocType.
 		self writeHeadFor: aLePage.
 		stream << '<body>'; cr. ].
-	
-	stream << '<div class="le-body-content">'; cr.
+
+	stream 
+		tag: #div
+		class: 'content'
+		do: [ 
 		
-	exportPart exportBodyContentPrecedingPart: (
-		LeHtmlPageExportPartContext new 
-			stream: stream;
-			page: aLePage).
-	
-	stream << '<main><div class="container">'; cr.
-	
-	stream
-		<< '<h1>';
-		<< aLePage title asHTMLString;
-		<< '</h1>';
-		cr.
-	
-	super visitPage: aLePage.
-	
-	stream << '</div></main></div>'; cr.
+			"header"
+
+			"main content with navigation"
+			stream 
+				tag: #div
+				class: 'container'
+				do: [
+				
+					stream 
+						tag: #div
+						class: 'row'
+						do: [
+				
+							exportPart exportBodyContentPrecedingPart: (
+								LeHtmlPageExportPartContext new 
+									stream: stream;
+									page: aLePage).
+							
+							stream 
+								tag: #div
+								class: 'col-lg-8 min-height'
+								do: [
+							
+									stream 
+										tag: #main
+										do: [
+					
+											stream
+												tag: #h1
+												with: aLePage title asHTMLString.
+					
+											super visitPage: aLePage.
+										]
+								]
+						]
+				].
+		].
 	
 	self shouldGenerateHeader ifTrue: [
 		self writeScriptsFor: aLePage.

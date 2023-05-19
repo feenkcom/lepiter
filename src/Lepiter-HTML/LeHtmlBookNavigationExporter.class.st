@@ -33,86 +33,76 @@ LeHtmlBookNavigationExporter >> export [
 	externalStream
 		ifNil: [ content := String
 					streamContents: [ :aStream | 
-						internalStream := ZnHtmlOutputStream on: aStream.
+						internalStream := LeHtmlOutputPrettyStream on: aStream.
 
 						self exportNavigation ] ]
 		ifNotNil: [ :aStream | 
-			internalStream := ZnHtmlOutputStream on: aStream.
+			(aStream isKindOf: LeHtmlOutputPrettyStream)
+				ifTrue: [ internalStream := aStream ]
+				ifFalse: [ internalStream := LeHtmlOutputPrettyStream on: aStream ].
 
 			self exportNavigation ]
 ]
 
 { #category : #'api - export' }
 LeHtmlBookNavigationExporter >> exportChildren: aCollection [
-	level := level + 1.
-	aCollection do: [ :aNode | 
-		self exportNode: aNode ].
-	level := level - 1.
+
+	internalStream 
+		tag: #ul
+		class: 'nav flex-column'
+		do: [
+			level := level + 1.
+			aCollection do: [ :aNode | 
+				self exportNode: aNode ].
+			level := level - 1 ]
 ]
 
 { #category : #'api - export' }
 LeHtmlBookNavigationExporter >> exportNavigation [
 	internalStream
 		tag: #div
-		class: 'le-navigation-scrollable'
+		class: 'col-lg-3'
 		do: [
 			internalStream
-				tag: #nav
-				class: 'le-navigation-content'
-				do: [  
-					"We export only the first node since it is the actual table of contents node.
-					If we want to export also uncategorized pages, we need to change this logic."
-					
-					tocNodes ifNotEmpty: [ 
-						self exportChildren: tocNodes first children ] ] ]
+				tag: #div
+				class: 'side-menu sticky-top le-nav-scrollable pb-5'
+				do: [
+					internalStream
+						tag: #nav
+						do: [  
+							"We export only the first node since it is the actual table of contents node.
+							If we want to export also uncategorized pages, we need to change this logic."
+							
+							tocNodes ifNotEmpty: [ 
+								self exportChildren: tocNodes first children ] ] ] ]
 ]
 
 { #category : #'api - export' }
 LeHtmlBookNavigationExporter >> exportNode: aNode [
 	internalStream 
-		tag: #div
-		class: 'le-navigation-node le-navigation-level-' , level asString
+		tag: #li
+		class: 'nav-item'
 		do: [
-			aNode link
-				ifNotNil: [ :aNodeLink | 
-					| anUrl aSelectionClass |
-					anUrl := pageLinks
-							linkForPage: aNode page
-							ifFound: [ :anUrlLink | anUrlLink fileName ]
-							ifNone: [ '/404.html' ].
-							
-					selectedPage 
-						ifNotNil: [ :aPage | 
-							(aNode page == aPage) 
-								ifTrue: [ aSelectionClass := ' le-navigation-selected' ]
-								ifFalse: [ aSelectionClass := ' le-navigation-unselected' ] ] 
-						ifNil: [ aSelectionClass := '' ].
+			| anUrl activeLink |
+			anUrl := pageLinks
+				linkForPage: aNode page
+				ifFound: [ :anUrlLink | anUrlLink fileName ]
+				ifNone: [ '/404.html' ].
+					
+			selectedPage 
+				ifNotNil: [ :aPage | 
+					(aNode page == aPage) 
+						ifTrue: [ activeLink := ' active' ]
+						ifFalse: [ activeLink := '' ] ] 
+				ifNil: [ activeLink := '' ].
 		
-					internalStream 
-						tag: #div 
-						class: 'le-navigation-item'
-							, aSelectionClass
-							, ' le-navigation-level-', level asString
-						do: [
-							selectedPage 
-								ifNotNil: [ :aPage | 
-									(aNode page == aPage) 
-										ifTrue: [
-											internalStream escape: aNode page title ]
-										ifFalse: [ 
-											internalStream
-												tag: #a
-												attributes: {#class.
-														'le-navigation-link', aSelectionClass.
-														#href.
-														anUrl}
-												with: aNode page title ] ] ] ].
-		
+			internalStream 
+				tag: #a
+				attributes: { 'class'. 'nav-link pt-2 pb-2', activeLink. 'href'. anUrl } 
+				with: aNode page title.
+				
 			aNode children ifNotEmpty: [ :aCollection | 
-				internalStream
-					tag: #div
-					class: 'le-navigation-children le-navigation-level-' , level asString
-					do: [ self exportChildren: aCollection ] ] ]
+				self exportChildren: aCollection ] ].
 ]
 
 { #category : #'gt - extensions' }
