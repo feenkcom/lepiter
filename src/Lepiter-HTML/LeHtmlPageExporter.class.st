@@ -36,7 +36,7 @@ LeHtmlPageExporter >> decorator: aLeHTMLPageDecorator [
 { #category : #convenience }
 LeHtmlPageExporter >> export [
 	| exportVisitor |
-	exportVisitor := LeHtmlPageExporterVisitor new.
+	exportVisitor := LeHtmlBookPageExporterVisitor new.
 	
 	exportVisitor addMetaTag: { #charset -> 'utf-8' }.
 	
