@@ -78,6 +78,7 @@ LeExampleToPngExporter >> exportWithScripter [
 
 	scripter := BlScripter new.
 	scripter space title: example gtDisplayString.
+	scripter maxPulseElapsedTime: 60 seconds.
 	
 	self createContainer.
 	
