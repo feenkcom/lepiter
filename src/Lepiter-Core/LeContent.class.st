@@ -586,7 +586,8 @@ LeContent >> gtIncomingLinksFor: aView [
 
 { #category : #'gt-extensions' }
 LeContent >> gtMarkdownPageFor: aView [
-	<gtView>
+	"This shouldn't be implemented here, but only in LePage.
+	<gtView>"
 	^ aView textEditor
 		title: 'Markdown';
 		priority: 50;
