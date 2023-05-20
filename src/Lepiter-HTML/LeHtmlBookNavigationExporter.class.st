@@ -49,7 +49,7 @@ LeHtmlBookNavigationExporter >> exportChildren: aCollection [
 
 	internalStream 
 		tag: #ul
-		class: 'nav flex-column'
+		class: 'nav flex-column le-nav le-nav-level-', level asString
 		do: [
 			level := level + 1.
 			aCollection do: [ :aNode | 
@@ -65,10 +65,11 @@ LeHtmlBookNavigationExporter >> exportNavigation [
 		do: [
 			internalStream
 				tag: #div
-				class: 'side-menu sticky-top le-nav-scrollable pb-5'
+				class: 'side-menu sticky-top pb-5 le-nav-scrollable'
 				do: [
 					internalStream
 						tag: #nav
+						class: 'le-nav-root'
 						do: [  
 							"We export only the first node since it is the actual table of contents node.
 							If we want to export also uncategorized pages, we need to change this logic."
@@ -81,7 +82,7 @@ LeHtmlBookNavigationExporter >> exportNavigation [
 LeHtmlBookNavigationExporter >> exportNode: aNode [
 	internalStream 
 		tag: #li
-		class: 'nav-item'
+		class: 'nav-item le-nav-item le-nav-level-', level asString
 		do: [
 			| anUrl activeLink |
 			anUrl := pageLinks
@@ -98,7 +99,7 @@ LeHtmlBookNavigationExporter >> exportNode: aNode [
 		
 			internalStream 
 				tag: #a
-				attributes: { 'class'. 'nav-link pt-2 pb-2', activeLink. 'href'. anUrl } 
+				attributes: { 'class'. 'nav-link pt-2 pb-2 le-nav-link le-nav-level-', level asString, activeLink. 'href'. anUrl } 
 				with: aNode page title.
 				
 			aNode children ifNotEmpty: [ :aCollection | 
