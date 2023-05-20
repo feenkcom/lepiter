@@ -202,7 +202,7 @@ LeExampleToPngExporter >> height: anInteger [
 LeExampleToPngExporter >> initialize [
 	super initialize.
 
-	useScripter := false.
+	useScripter := true.
 	scaleFactor := LepiterConstants exportFigureScaleFactor.
 	width := LepiterConstants defaultExportFigureWidth.
 	height := LepiterConstants defaultPreviewHeight.
