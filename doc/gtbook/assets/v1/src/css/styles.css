@@ -1,0 +1,43 @@
+a {
+    text-decoration: none;
+    color: black
+}
+
+a:hover {
+    text-decoration: none;
+    background-color: #ddd;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: black
+}
+
+a.active {
+    background-color: #eee
+}
+
+/*
+    Navigation index
+*/
+
+a.nav-item {
+    text-decoration: none
+}
+
+a.nav-item:hover {
+    text-decoration: none;
+    background-color: #ddd;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color:black
+}
+
+li > ul.nav {
+    padding-left: 10px;
+}
+
+.le-nav-scrollable {
+    height: 100vh;
+    top: 0;
+    bottom: 0;
+    overflow-y: auto;
+}

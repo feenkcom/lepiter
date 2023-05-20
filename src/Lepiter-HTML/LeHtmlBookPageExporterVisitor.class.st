@@ -1,12 +1,5 @@
-"
-Write the supplied LeModel on to the stream as an HTML page.
-
-
-To export a fragment to the supplied stream see {{gtMethod:name=LePage>>#asHTMLDocument}}.
-
-"
 Class {
-	#name : #LeHtmlPageExporterVisitor,
+	#name : #LeHtmlBookPageExporterVisitor,
 	#superclass : #LeHtmlFragmentExporterVisitor,
 	#instVars : [
 		'scripts',
@@ -20,7 +13,7 @@ Class {
 }
 
 { #category : #accessing }
-LeHtmlPageExporterVisitor class >> hideAndShowScript [
+LeHtmlBookPageExporterVisitor class >> hideAndShowScript [
 	"Answer the script to be used to hide and show expandable annotations"
 
 	^ String streamContents: [ :stream |
@@ -45,7 +38,7 @@ LeHtmlPageExporterVisitor class >> hideAndShowScript [
 ]
 
 { #category : #initialization }
-LeHtmlPageExporterVisitor >> addHideAndShowScript [
+LeHtmlBookPageExporterVisitor >> addHideAndShowScript [
 	"Add the annotation hide and show scripts to the receiver, along with the jQuery dependency"
 
 	self addScript: (LeHtmlScriptDefinition
@@ -58,40 +51,40 @@ LeHtmlPageExporterVisitor >> addHideAndShowScript [
 ]
 
 { #category : #adding }
-LeHtmlPageExporterVisitor >> addInternalStyle: aString [
+LeHtmlBookPageExporterVisitor >> addInternalStyle: aString [
 	"Add the supplied string as an internal style for the receiver"
 
 	^ internalStyles add: aString.
 ]
 
 { #category : #adding }
-LeHtmlPageExporterVisitor >> addLink: aCollection [
+LeHtmlBookPageExporterVisitor >> addLink: aCollection [
 	"Add the link with the supplied collection of attributes (Association key: attributeName value: attributeValue"
 
 	^ links add: aCollection.
 ]
 
 { #category : #adding }
-LeHtmlPageExporterVisitor >> addMetaTag: aCollection [
+LeHtmlBookPageExporterVisitor >> addMetaTag: aCollection [
 	"Add the meta tag with the supplied collection of attributes (Association key: attributeName value: attributeValue"
 
 	^ metaTags add: aCollection.
 ]
 
 { #category : #adding }
-LeHtmlPageExporterVisitor >> addScript: aLeHtmlScriptDefinition [
+LeHtmlBookPageExporterVisitor >> addScript: aLeHtmlScriptDefinition [
 	"Add the supplied script definition to the receiver"
 
 	^ scripts add: aLeHtmlScriptDefinition.
 ]
 
 { #category : #accessing }
-LeHtmlPageExporterVisitor >> exportPart: aTLeHtmlPageExportPart [
+LeHtmlBookPageExporterVisitor >> exportPart: aTLeHtmlPageExportPart [
 	exportPart := aTLeHtmlPageExportPart
 ]
 
 { #category : #initialization }
-LeHtmlPageExporterVisitor >> initialize [ 
+LeHtmlBookPageExporterVisitor >> initialize [ 
 
 	super initialize.
 	scripts := OrderedCollection new.
@@ -103,37 +96,74 @@ LeHtmlPageExporterVisitor >> initialize [
 ]
 
 { #category : #accessing }
-LeHtmlPageExporterVisitor >> shouldGenerateHeader [
+LeHtmlBookPageExporterVisitor >> shouldGenerateHeader [
 	^ shouldGenerateHeader ifNil: [ false ]
 ]
 
 { #category : #accessing }
-LeHtmlPageExporterVisitor >> shouldGenerateHeader: aBoolean [
+LeHtmlBookPageExporterVisitor >> shouldGenerateHeader: aBoolean [
 	shouldGenerateHeader := aBoolean
 ]
 
 { #category : #visiting }
-LeHtmlPageExporterVisitor >> visitPage: aLePage [
+LeHtmlBookPageExporterVisitor >> visitPage: aLePage [
 
 	self shouldGenerateHeader ifTrue: [
 		self writeDocType.
 		self writeHeadFor: aLePage.
-		stream << '<body>'; cr.
+		stream << '<body>'; cr. ].
+
+	stream 
+		tag: #div
+		class: 'content'
+		do: [ 
 		
-		stream
-			<< '<h1>';
-			<< aLePage title asHTMLString;
-			<< '</h1>';
-			cr	].
-	
-	super visitPage: aLePage.
+			"header"
+
+			"main content with navigation"
+			stream 
+				tag: #div
+				class: 'container'
+				do: [
+				
+					stream 
+						tag: #div
+						class: 'row'
+						do: [
+				
+							exportPart exportBodyContentPrecedingPart: (
+								LeHtmlPageExportPartContext new 
+									stream: stream;
+									page: aLePage).
+							
+							stream 
+								tag: #div
+								class: 'col-lg-8 min-height'
+								do: [
+							
+									stream 
+										tag: #main
+										do: [
+					
+											stream
+												tag: #h1
+												with: aLePage title asHTMLString.
+					
+											super visitPage: aLePage.
+										]
+								]
+						]
+				].
+		].
 	
 	self shouldGenerateHeader ifTrue: [
-		stream << '</body>'; cr ]
+		self writeScriptsFor: aLePage.
+		stream << '</body>'; cr.
+		stream << '</html>'; cr ]
 ]
 
 { #category : #private }
-LeHtmlPageExporterVisitor >> writeAttributes: attributes [
+LeHtmlBookPageExporterVisitor >> writeAttributes: attributes [
 
 	attributes do: [ :attribute |
 		stream
@@ -145,13 +175,13 @@ LeHtmlPageExporterVisitor >> writeAttributes: attributes [
 ]
 
 { #category : #private }
-LeHtmlPageExporterVisitor >> writeDocType [
+LeHtmlBookPageExporterVisitor >> writeDocType [
 
 	stream << '<!DOCTYPE html>'; cr.
 ]
 
 { #category : #private }
-LeHtmlPageExporterVisitor >> writeHeadFor: aLePage [
+LeHtmlBookPageExporterVisitor >> writeHeadFor: aLePage [
 
 	stream
 		<< '<html>'; cr;
@@ -167,7 +197,7 @@ LeHtmlPageExporterVisitor >> writeHeadFor: aLePage [
 ]
 
 { #category : #private }
-LeHtmlPageExporterVisitor >> writeInternalStylesFor: aLePage [
+LeHtmlBookPageExporterVisitor >> writeInternalStylesFor: aLePage [
 
 	internalStyles do: [ :style |
 		stream 
@@ -178,7 +208,7 @@ LeHtmlPageExporterVisitor >> writeInternalStylesFor: aLePage [
 ]
 
 { #category : #private }
-LeHtmlPageExporterVisitor >> writeLinksFor: aLePage [
+LeHtmlBookPageExporterVisitor >> writeLinksFor: aLePage [
 
 	links do: [ :attributes |
 		stream << '<link '.
@@ -188,7 +218,7 @@ LeHtmlPageExporterVisitor >> writeLinksFor: aLePage [
 ]
 
 { #category : #private }
-LeHtmlPageExporterVisitor >> writeMetaTagsFor: aLePage [
+LeHtmlBookPageExporterVisitor >> writeMetaTagsFor: aLePage [
 
 	metaTags do: [ :attributes |
 		stream << '<meta '.
@@ -198,7 +228,7 @@ LeHtmlPageExporterVisitor >> writeMetaTagsFor: aLePage [
 ]
 
 { #category : #private }
-LeHtmlPageExporterVisitor >> writeScriptsFor: aLePage [
+LeHtmlBookPageExporterVisitor >> writeScriptsFor: aLePage [
 
 	scripts do: [ :script |
 		script storeOn: stream ]
