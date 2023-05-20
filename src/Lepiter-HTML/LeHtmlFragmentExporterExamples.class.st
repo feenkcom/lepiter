@@ -81,11 +81,9 @@ LeHtmlFragmentExporterExamples >> exampleSnippet [
 pictureSnippet
 	<gtExample>').
 	self assert: (html includesSubstring:'  <div class="height-one-em">
-
   </div>').
 	self assert: (html includesSubstring:'<figure class="documentWidth">
     <img src="gt-figures/1000.png">
-
     </img>
   </figure>
 </div>').
