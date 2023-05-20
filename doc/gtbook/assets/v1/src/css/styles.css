@@ -1,3 +1,7 @@
+/*
+    Common styling
+ */
+
 a {
     text-decoration: none;
     color: black
@@ -40,4 +44,14 @@ li > ul.nav {
     top: 0;
     bottom: 0;
     overflow-y: auto;
+    font-size: 12px;
+    border-right: solid #eee thin;
+}
+
+.le-nav-item.le-nav-level-1 {
+    padding-bottom: 1em;
+}
+
+.le-nav-link.le-nav-level-1 {
+    font-weight: bold;
 }
