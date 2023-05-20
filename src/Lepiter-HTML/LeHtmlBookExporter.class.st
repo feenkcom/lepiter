@@ -7,7 +7,8 @@ Class {
 		'resourcesExporter',
 		'idGenerator',
 		'decorator',
-		'mainPage'
+		'mainPage',
+		'exportTime'
 	],
 	#category : #'Lepiter-HTML-Page Exporter'
 }
@@ -48,13 +49,17 @@ LeHtmlBookExporter >> ensurePageLinks [
 
 { #category : #'api - exporting' }
 LeHtmlBookExporter >> export [
-	self ensurePageLinks.
-	
-	pageLinks do: [ :aPageLink | 
-		self exportPageLink: aPageLink ].
-	
-	decorator ifNotNil: [ 
-		decorator addResourcesInto: resourcesExporter ]
+	exportTime := [
+
+		self ensurePageLinks.
+		
+		pageLinks do: [ :aPageLink | 
+			self exportPageLink: aPageLink ].
+		
+		decorator ifNotNil: [ 
+			decorator addResourcesInto: resourcesExporter ]
+		
+	 ] timeToRun.
 ]
 
 { #category : #'api - exporting' }
