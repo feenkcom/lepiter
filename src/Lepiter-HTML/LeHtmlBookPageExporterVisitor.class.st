@@ -123,7 +123,7 @@ LeHtmlBookPageExporterVisitor >> visitPage: aLePage [
 			"main content with navigation"
 			stream 
 				tag: #div
-				class: 'container'
+				class: ''
 				do: [
 				
 					stream 
@@ -138,7 +138,7 @@ LeHtmlBookPageExporterVisitor >> visitPage: aLePage [
 							
 							stream 
 								tag: #div
-								class: 'col-lg-8 min-height'
+								class: 'container col-lg-8 min-height'
 								do: [
 							
 									stream 
