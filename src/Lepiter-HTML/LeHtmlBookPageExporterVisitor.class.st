@@ -117,43 +117,55 @@ LeHtmlBookPageExporterVisitor >> visitPage: aLePage [
 		tag: #div
 		class: 'content'
 		do: [ 
-		
-			"header"
-
-			"main content with navigation"
+				
 			stream 
 				tag: #div
-				class: ''
+				class: 'row'
 				do: [
-				
+		
+					exportPart exportBodyContentPrecedingPart: (
+						LeHtmlPageExportPartContext new 
+							stream: stream;
+							page: aLePage).
+					
 					stream 
 						tag: #div
-						class: 'row'
+						class: 'container col-lg-8 min-height py-5 le-main-container'
 						do: [
-				
-							exportPart exportBodyContentPrecedingPart: (
-								LeHtmlPageExportPartContext new 
-									stream: stream;
-									page: aLePage).
-							
+					
 							stream 
-								tag: #div
-								class: 'container col-lg-8 min-height'
+								tag: #main
 								do: [
-							
-									stream 
-										tag: #main
-										do: [
-					
-											stream
-												tag: #h1
-												with: aLePage title asHTMLString.
-					
-											super visitPage: aLePage.
-										]
+			
+									stream
+										tag: #h1
+										with: aLePage title asHTMLString.
+			
+									super visitPage: aLePage.
 								]
 						]
-				].
+				]
+		].
+		
+	stream 
+		tag: #footer
+		class: 'text-center py-5 le-footer'
+		do: [ 
+			stream 
+				tag: #p
+				class: 'le-footer-credits'
+				do: [
+					stream escape: 'Powered by '.
+					stream 
+						inlineTag: #a
+						attributes: #( 'class' 'le-footer-link' 'href' 'https://lepiter.com' )
+						with: 'Lepiter'.
+					stream << ' | '.
+					stream 
+						inlineTag: #a
+						attributes: #( 'class' 'le-footer-link' 'href' 'https://feenk.com/privacy' )
+						with: 'Privacy Policy'
+				]
 		].
 	
 	self shouldGenerateHeader ifTrue: [
