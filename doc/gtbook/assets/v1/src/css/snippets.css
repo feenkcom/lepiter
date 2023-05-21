@@ -2,28 +2,18 @@
 Introduced on 2023-05-17
  */
 
-a {
-    text-decoration: underline;
-    color: black;
+/* Add space at the top and bottom of figures */
+main figure {
+    padding-block: 1rem;
 }
 
-a:hover {
-    text-decoration: none;
-    background-color: darkgray;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    color: black;
-}
-
-a.active {
-    background-color: lightgray;
-}
-
-figure > img {
+/* Add shadow around figures */
+main figure > img {
     max-width: 100%;
     background-color: white;
     box-shadow: 0 0 5px 5px lightgray;
 }
+
 
 /*
     CODE introduced in version 3
