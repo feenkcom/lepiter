@@ -68,6 +68,34 @@ LeHtmlBookNavigationExporter >> exportNavigation [
 				class: 'side-menu sticky-top pb-5 le-nav-scrollable'
 				do: [
 					internalStream
+						tag: #header
+						class: 'navbar navbar-light navbar-expand-lg bg-white sticky-top le-nav-footer'
+						do: [
+							internalStream
+								tag: #p
+								class: 'le-logo'
+								do: [
+									internalStream 
+										inlineTag: #span
+										class: 'le-logo-g'
+										with: 'glamorous'.
+									internalStream 
+										inlineTag: #span
+										class: 'le-logo-t'
+										with: 'toolkit'.
+									internalStream << ' '.
+									internalStream 
+										inlineTag: #span
+										class: 'le-logo-book'
+										with: 'book'.
+									internalStream << ' '.
+									internalStream 
+										inlineTag: #span
+										class: 'le-logo-version'
+										with: GtImage  version  versionString ] ].
+				
+				
+					internalStream
 						tag: #nav
 						class: 'le-nav-root'
 						do: [  
