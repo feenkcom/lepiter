@@ -2,56 +2,84 @@
     Common styling
  */
 
+:root {
+    --active-color: #eee;
+    --hovered-color: #ddd;
+    --text-color: black;
+    --link-text-color: var(--text-color);
+    --link-indent: 1rem;
+}
+
+/* Link styling */
 a {
     text-decoration: none;
-    color: black
+    color: var(--link-text-color);
 }
 
 a:hover {
     text-decoration: none;
-    background-color: #ddd;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    color: black
+    color: var(--link-text-color);
+    background-color: var(--hovered-color);
 }
 
 a.active {
-    background-color: #eee
+    background-color: var(--active-color)
 }
 
 /*
     Navigation index
 */
 
-a.nav-item {
-    text-decoration: none
-}
-
-a.nav-item:hover {
-    text-decoration: none;
-    background-color: #ddd;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    color:black
-}
-
-li > ul.nav {
-    padding-left: 10px;
-}
-
+/* Make the navigation list scrollable */
 .le-nav-scrollable {
-    height: 100vh;
+    max-height: 100vh;
     top: 0;
     bottom: 0;
     overflow-y: auto;
-    font-size: 12px;
-    border-right: solid #eee thin;
+    font-size: 0.7rem;
+    color: var(--text-color);
+    border-right: solid var(--active-color) thin;
 }
 
+/* The root index items are separated */
 .le-nav-item.le-nav-level-1 {
     padding-bottom: 1em;
 }
 
+/* The root index items are bold */
 .le-nav-link.le-nav-level-1 {
     font-weight: bold;
+}
+
+/* Indent inner-navigation index links */
+.le-nav-link.le-nav-level-2  {
+    padding-left: calc(2 * var(--link-indent));
+}
+
+.le-nav-link.le-nav-level-3  {
+    padding-left: calc(3 * var(--link-indent));
+}
+
+.le-nav-link.le-nav-level-4  {
+    padding-left: calc(4 * var(--link-indent));
+}
+
+.le-nav-link.le-nav-level-5  {
+    padding-left: calc(5 * var(--link-indent));
+}
+
+.le-nav-link.le-nav-level-6  {
+    padding-left: calc(6 * var(--link-indent));
+}
+
+.le-nav-link.le-nav-level-7  {
+    padding-left: calc(7 * var(--link-indent));
+}
+
+.le-nav-link.le-nav-level-8  {
+    padding-left: calc(8 * var(--link-indent));
+}
+
+.le-nav-link.le-nav-level-9  {
+    padding-left: calc(9 * var(--link-indent));
 }
