@@ -12,7 +12,7 @@
 
 /* Link styling */
 a {
-    text-decoration: none;
+    text-decoration: underline;
     color: var(--link-text-color);
 }
 
@@ -31,6 +31,9 @@ a.active {
 */
 
 /* Header */
+.le-logo {
+    margin-block: 0.5rem;
+}
 .le-logo-g {
     font-weight: lighter;
 }
@@ -50,9 +53,14 @@ a.active {
     top: 0;
     bottom: 0;
     overflow-y: auto;
-    font-size: 0.7rem;
+    font-size: 0.88rem;
     color: var(--text-color);
     border-right: solid var(--active-color) thin;
+}
+
+/* navigation links */
+a {
+    text-decoration: none;
 }
 
 /* The root index items are separated */
@@ -96,4 +104,26 @@ a.active {
 
 .le-nav-link.le-nav-level-9  {
     padding-left: calc(9 * var(--link-indent));
+}
+
+/*
+    Footer
+*/
+
+.le-footer {
+    background-color: black;
+    color: white;
+}
+
+.le-footer a {
+    text-decoration: underline;
+    color: inherit;
+}
+
+/*
+    Content
+*/
+
+.le-main-title {
+    font-weight: bold;
 }

@@ -61,7 +61,7 @@ LeHtmlBookNavigationExporter >> exportChildren: aCollection [
 LeHtmlBookNavigationExporter >> exportNavigation [
 	internalStream
 		tag: #div
-		class: 'col-lg-3'
+		class: 'col-lg-3 le-nav-container'
 		do: [
 			internalStream
 				tag: #div
