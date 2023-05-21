@@ -103,7 +103,7 @@ LeHtmlPageDirectoryAssetsDecorator >> linkFiles [
 	aDictionary := OrderedDictionary new.
 	allCssFiles do: [ :aFile | aDictionary at: aFile basename put: aFile ].
 	
-	^ aDictionary values
+	^ aDictionary values sorted: [ :a :b | a basename < b basename ]
 ]
 
 { #category : #accessing }
