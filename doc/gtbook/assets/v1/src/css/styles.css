@@ -30,6 +30,20 @@ a.active {
     Navigation index
 */
 
+/* Header */
+.le-logo-g {
+    font-weight: lighter;
+}
+.le-logo-t {
+    font-weight: bold;
+}
+.le-logo-book {
+    font-weight: bold;
+}
+.le-logo-version {
+    font-weight: lighter;
+}
+
 /* Make the navigation list scrollable */
 .le-nav-scrollable {
     max-height: 100vh;
