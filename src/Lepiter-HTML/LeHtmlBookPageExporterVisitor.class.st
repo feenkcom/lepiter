@@ -138,7 +138,8 @@ LeHtmlBookPageExporterVisitor >> visitPage: aLePage [
 								do: [
 			
 									stream
-										tag: #h1
+										inlineTag: #h1
+										class: 'le-main-title'
 										with: aLePage title asHTMLString.
 			
 									super visitPage: aLePage.
