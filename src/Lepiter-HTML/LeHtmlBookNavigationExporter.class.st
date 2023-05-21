@@ -80,26 +80,32 @@ LeHtmlBookNavigationExporter >> exportNavigation [
 
 { #category : #'api - export' }
 LeHtmlBookNavigationExporter >> exportNode: aNode [
+	| activeLink |
+	selectedPage 
+		ifNotNil: [ :aPage | 
+			(aNode page == aPage) 
+				ifTrue: [ activeLink := ' active' ]
+				ifFalse: [ activeLink := '' ] ] 
+		ifNil: [ activeLink := '' ].
+
 	internalStream 
 		tag: #li
-		class: 'nav-item le-nav-item le-nav-level-', level asString
+		class: 'nav-item ', activeLink, 
+			' le-nav-item le-nav-level-', level asString
 		do: [
-			| anUrl activeLink |
+			| anUrl |
 			anUrl := pageLinks
 				linkForPage: aNode page
 				ifFound: [ :anUrlLink | anUrlLink fileName ]
 				ifNone: [ '/404.html' ].
-					
-			selectedPage 
-				ifNotNil: [ :aPage | 
-					(aNode page == aPage) 
-						ifTrue: [ activeLink := ' active' ]
-						ifFalse: [ activeLink := '' ] ] 
-				ifNil: [ activeLink := '' ].
+			
 		
 			internalStream 
 				tag: #a
-				attributes: { 'class'. 'nav-link pt-2 pb-2 le-nav-link le-nav-level-', level asString, activeLink. 'href'. anUrl } 
+				attributes: { 'class'. 
+					'nav-link le-nav-link le-nav-level-', 
+						level asString, activeLink. 
+					'href'. anUrl } 
 				with: aNode page title.
 				
 			aNode children ifNotEmpty: [ :aCollection | 
