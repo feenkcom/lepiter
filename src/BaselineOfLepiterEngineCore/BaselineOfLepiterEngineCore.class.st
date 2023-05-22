@@ -25,7 +25,7 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 				spec repository: 'github://feenkcom/gt4json:v0.6.366/src' ].
 		spec
 			baseline: 'LepiterXDoc' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.1512/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.6.1513/src' ].
 
 		spec package: 'Lepiter-Parser'.
 		spec package: 'Lepiter-History'.
