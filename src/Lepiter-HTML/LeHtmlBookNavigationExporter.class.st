@@ -58,6 +58,31 @@ LeHtmlBookNavigationExporter >> exportChildren: aCollection [
 ]
 
 { #category : #'api - export' }
+LeHtmlBookNavigationExporter >> exportLogo [
+	internalStream
+		tag: #p
+		class: 'le-logo'
+		do: [ internalStream
+				inlineTag: #span
+				class: 'le-logo-g'
+				with: 'glamorous'.
+			internalStream
+				inlineTag: #span
+				class: 'le-logo-t'
+				with: 'toolkit'.
+			internalStream << ' '.
+			internalStream
+				inlineTag: #span
+				class: 'le-logo-book'
+				with: 'book'.
+			internalStream << ' '.
+			internalStream
+				inlineTag: #span
+				class: 'le-logo-version'
+				with: GtImage version versionString ]
+]
+
+{ #category : #'api - export' }
 LeHtmlBookNavigationExporter >> exportNavigation [
 	internalStream
 		tag: #div
@@ -65,45 +90,48 @@ LeHtmlBookNavigationExporter >> exportNavigation [
 		do: [
 			internalStream
 				tag: #div
-				class: 'side-menu sticky-top pb-5 le-nav-scrollable'
+				class: 'side-menu sticky-top pb-5 navbar-expand-lg le-nav-scrollable'
 				do: [
 					internalStream
 						tag: #header
-						class: 'navbar navbar-light navbar-expand-lg bg-white sticky-top le-nav-footer'
+						class: 'navbar navbar-light bg-white sticky-top le-nav-footer'
 						do: [
-							internalStream
-								tag: #p
-								class: 'le-logo'
-								do: [
-									internalStream 
-										inlineTag: #span
-										class: 'le-logo-g'
-										with: 'glamorous'.
-									internalStream 
-										inlineTag: #span
-										class: 'le-logo-t'
-										with: 'toolkit'.
-									internalStream << ' '.
-									internalStream 
-										inlineTag: #span
-										class: 'le-logo-book'
-										with: 'book'.
-									internalStream << ' '.
-									internalStream 
-										inlineTag: #span
-										class: 'le-logo-version'
-										with: GtImage  version  versionString ] ].
+							self exportNavigationToggler.
+							self exportLogo. ].
 				
 				
 					internalStream
 						tag: #nav
-						class: 'le-nav-root'
+						attributes: #(
+							'id' 'le-nav-collapsable'
+							'class' 'navbar-collapse collapse le-nav-root' )
 						do: [  
 							"We export only the first node since it is the actual table of contents node.
 							If we want to export also uncategorized pages, we need to change this logic."
 							
 							tocNodes ifNotEmpty: [ 
 								self exportChildren: tocNodes first children ] ] ] ]
+]
+
+{ #category : #'api - export' }
+LeHtmlBookNavigationExporter >> exportNavigationToggler [	
+	internalStream 
+		tag: #button
+		attributes: #(
+			'class' 'navbar-toggler' 
+			'type' 'button'
+			'data-toggle' 'collapse'
+			'data-target' '#le-nav-collapsable'
+			'arial-controls' 'le-nav-collapsable'
+			'arial-expanded' 'false'
+			'arial-label' 'Toggle navigation' )
+		do: [
+			internalStream
+				tag: #i
+				class: 'fas fa-bars'
+				with: ''
+		]
+
 ]
 
 { #category : #'api - export' }
