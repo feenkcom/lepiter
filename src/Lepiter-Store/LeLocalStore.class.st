@@ -22,12 +22,9 @@ The store is responsible for ensuring that an attachments directory exists in th
 "
 Class {
 	#name : #LeLocalStore,
-	#superclass : #Object,
+	#superclass : #LeDatabaseStore,
 	#instVars : [
 		'localRoot',
-		'storage',
-		'database',
-		'dbProperties',
 		'attachmentsDirectory'
 	],
 	#category : #'Lepiter-Store-LocalJSON-Store'
@@ -70,42 +67,14 @@ LeLocalStore >> attachmentsDirectory: anObject [
 	attachmentsDirectory := anObject
 ]
 
-{ #category : #private }
-LeLocalStore >> clearDatabaseProperties [
-	dbProperties := nil.
-]
-
 { #category : #accessing }
-LeLocalStore >> database [
-	^ database
-]
-
-{ #category : #accessing }
-LeLocalStore >> database: anObject [
-	database := anObject
+LeLocalStore >> dbPropertiesFile [
+	^ localRoot / self propertiesBasename
 ]
 
 { #category : #'accessing - db properties' }
-LeLocalStore >> databaseName [
-	<return: #String or: nil>
-
-	^ self dbProperties at: #databaseName 
-		ifPresent: [ :anArray | anArray ]
-		ifAbsent: [ self databaseNameFromLocalRoot ]
-]
-
-{ #category : #'accessing - db properties' }
-LeLocalStore >> databaseName: aString [
-	"Store the database name"
-
-	aString ifNil: [ 
-		self dbProperties removeKey: #databaseName ifAbsent: [ ].
-		^ self savePropertiesDictionary: dbProperties ].
-	self updateProperty: #databaseName value: aString asString 
-]
-
-{ #category : #'accessing - db properties' }
-LeLocalStore >> databaseNameFromLocalRoot [
+LeLocalStore >> defaultDatabaseName [
+	"Answer the name to be used if one hasn't been explicitly set"
 	<return: #String>
 
 	| theSegments reversedSegments usedSegments |
@@ -127,41 +96,6 @@ LeLocalStore >> databaseNameFromLocalRoot [
 		usedSegments 
 			do: [ :eachSegment | aStream nextPutAll: eachSegment asString ]
 			separatedBy: [ aStream nextPut: DiskStore delimiter ] ]
-]
-
-{ #category : #accessing }
-LeLocalStore >> dbProperties [
-
-	^ dbProperties ifNil: 
-		[ dbProperties := self loadPropertiesDictionary.
-		dbProperties
-			at: #schema
-			ifAbsent: [ self dbSchema: 'V3' ].
-		dbProperties
-			at: #uuid 
-			ifAbsent: 
-				[ dbProperties at: #uuid put: UUID new asString.
-				self savePropertiesDictionary: dbProperties ].
-		dbProperties ]
-]
-
-{ #category : #accessing }
-LeLocalStore >> dbPropertiesFile [
-	^ localRoot / self propertiesBasename
-]
-
-{ #category : #accessing }
-LeLocalStore >> dbSchema [
-
-	^ LeDbVersion fromString: (self dbProperties at: #schema)
-]
-
-{ #category : #'private - accessing' }
-LeLocalStore >> dbSchema: aLeDbVersion [ 
-
-
-	self dbProperties at: #schema put: aLeDbVersion asString.
-	self savePropertiesDictionary: dbProperties
 ]
 
 { #category : #accessing }
@@ -224,29 +158,6 @@ LeLocalStore >> gtNameMappingFor: aView [
 		send: [ :each | each value ]
 ]
 
-{ #category : #ui }
-LeLocalStore >> gtPropertiesFor: aView [
-	"Provide a simple view of the current properties"
-	<gtView>
-	
-	dbProperties ifNil: [ ^ aView empty ].
-
-	^ aView forward 
-		title: 'Properties';
-		priority: 15;
-		object: [ self dbProperties ];
-		view: #gtItemsFor:
-]
-
-{ #category : #'private - db properties' }
-LeLocalStore >> loadDatabasePropertiesIn: aDatabase [
-	"Load the lepiter.properties file and update the database"
-
-	self dbProperties 
-		at: #userEmail 
-		ifPresent: [ :email | database userEmail: email ].
-]
-
 { #category : #'private - db properties' }
 LeLocalStore >> loadPropertiesDictionary [
 	"Answer the leptier.properties file contents"
@@ -307,42 +218,11 @@ LeLocalStore >> preloadScript: aFileReferenceOrNil [
 		value: (self fileReferenceString: aFileReferenceOrNil)
 ]
 
-{ #category : #private }
-LeLocalStore >> primitiveReload [
-	"Reload the receiver.
-	Flush any data that may have changed on-disk since the last (re)load."
-
-	self clearDatabaseProperties
-]
-
 { #category : #accessing }
 LeLocalStore >> propertiesBasename [
 	"Answer the basename of the receiver's database properties file"
 
 	^ LepiterCoreDefaults databasePropertiesBasename
-]
-
-{ #category : #'accessing - db properties' }
-LeLocalStore >> propertyAt: aSymbol [
-	<return: #String or: #Dictionary>
-
-	^ self dbProperties at: aSymbol
-]
-
-{ #category : #'accessing - db properties' }
-LeLocalStore >> propertyAt: aSymbol ifAbsent: absentBlock [
-	<return: #String or: #Dictionary>
-
-	^ self dbProperties at: aSymbol ifAbsent: absentBlock
-]
-
-{ #category : #'accessing - db properties' }
-LeLocalStore >> propertyAt: aSymbol ifPresent: presentBlock ifAbsent: absentBlock [
-
-	^ self dbProperties 
-		at: aSymbol 
-		ifPresent: presentBlock
-		ifAbsent: absentBlock
 ]
 
 { #category : #loading }
@@ -379,23 +259,6 @@ LeLocalStore >> savePageNow: aPage [
 		ifFalse: [ storage savePage: aPage in: localRoot ]
 ]
 
-{ #category : #'accessing - db properties' }
-LeLocalStore >> savePersonalInformation [
-	<return: #Boolean>
-
-	^ self dbProperties at: #savePersonalInformation 
-		ifPresent: [ :aBoolean | aBoolean ]
-		ifAbsent: [ false ]
-]
-
-{ #category : #'accessing - db properties' }
-LeLocalStore >> savePersonalInformation: aBooleanOrNil [
-	"Update the flag on whether to store personal information in the database.
-	nil = default, which is false (see #savePersonalInformaation)"
-
-	self updateProperty: #savePersonalInformation value: aBooleanOrNil 
-]
-
 { #category : #'private - db properties' }
 LeLocalStore >> savePropertiesDictionary: properties [
 	"Save the lepiter.properties file contents"
@@ -410,62 +273,7 @@ LeLocalStore >> savePropertiesDictionary: properties [
 ]
 
 { #category : #accessing }
-LeLocalStore >> storage [
-	^ storage
-]
-
-{ #category : #accessing }
-LeLocalStore >> storage: anObject [
-	storage := anObject
-]
-
-{ #category : #'accessing - db properties' }
-LeLocalStore >> tableOfContentsPageID [
-	"Answer the page UUID for the Table Of Contents, or nil if not set"
-
-	^ self dbProperties at: #tableOfContents 
-		ifPresent: [ :uuidString | UUID fromString36: uuidString ]
-		ifAbsent: [ nil ]
-]
-
-{ #category : #'accessing - db properties' }
-LeLocalStore >> tableOfContentsPageID: aUUID [
-	"Store the page to be used as a Table of Contents"
-
-	self updateProperty: #tableOfContents value: (aUUID ifNotNil: #asString36) 
-]
-
-{ #category : #accessing }
 LeLocalStore >> titleFilename: aString [
 
 	^ storage titleFilename: aString
-]
-
-{ #category : #'private - db properties' }
-LeLocalStore >> updateProperty: propertyName value: aJSONObject [
-	| properties |
-
-	properties := self dbProperties.
-	aJSONObject ifNil: 
-		[ properties removeKey: propertyName ifAbsent: [ ].
-		^ self savePropertiesDictionary: properties ].
-	(properties at: propertyName ifAbsent: [nil]) = aJSONObject ifTrue: [ ^ self ].
-	properties at: propertyName put: aJSONObject.
-	self savePropertiesDictionary: properties.
-]
-
-{ #category : #'accessing - db properties' }
-LeLocalStore >> uuid [ 
-	"Answer the UUID of the receiver's DB"
-	<return: #UUID>
-
-	^ UUID fromString: (self dbProperties at: #uuid)
-]
-
-{ #category : #'accessing - db properties' }
-LeLocalStore >> uuidString [
-	"Answer the UUID of the receiver's DB in String36 format"
-	<return: #String>
-
-	^ self uuid asString36
 ]
