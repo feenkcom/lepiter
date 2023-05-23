@@ -26,6 +26,19 @@ a.active {
     background-color: var(--active-color)
 }
 
+/* Content row with navigation and main content column. */
+/* Without this, we have an issue with viewport width overlap.
+ As a consequence, there is a horizontal scrollbar. */
+.le-row {
+    margin-inline: 0;
+}
+/* Keep the navigatin index at the viewport start.
+It means that the navigation item highlight will start at the
+ beginning of the viewport. */
+.le-nav-column {
+    padding-inline-start: 0;
+}
+
 /*
     Navigation index
 */
@@ -59,7 +72,7 @@ a.active {
 }
 
 /* navigation links */
-a {
+.le-nav-container a {
     text-decoration: none;
 }
 
@@ -126,4 +139,21 @@ a {
 
 .le-main-title {
     font-weight: bold;
+}
+
+.le-main-container h1,
+.le-main-container h2,
+.le-main-container h3,
+.le-main-container h4,
+.le-main-container h5,
+.le-main-container h6,
+.le-main-container .h1,
+.le-main-container .h2,
+.le-main-container .h3,
+.le-main-container .h4,
+.le-main-container .h5,
+.le-main-container .h6  {
+    font-weight: bold;
+    margin-block-start: 25pt;
+    margin-block-end: 25pt;
 }

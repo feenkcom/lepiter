@@ -62,19 +62,22 @@ LeHtmlBookNavigationExporter >> exportLogo [
 	internalStream
 		tag: #p
 		class: 'le-logo'
-		do: [ internalStream
-				inlineTag: #span
-				class: 'le-logo-g'
-				with: 'glamorous'.
+		do: [ 
 			internalStream
-				inlineTag: #span
-				class: 'le-logo-t'
-				with: 'toolkit'.
-			internalStream << ' '.
-			internalStream
-				inlineTag: #span
-				class: 'le-logo-book'
-				with: 'book'.
+				inlineTag: #a 
+				attributes: #( 
+					'class' 'le-logo-link' 
+					'href' 'https://gtoolkit.com'
+					'alt' 'Glamorous Toolkit' )
+				do: [
+					internalStream
+						inlineTag: #span
+						class: 'le-logo-g'
+						with: 'glamorous'.
+					internalStream
+						inlineTag: #span
+						class: 'le-logo-t'
+						with: 'toolkit' ].
 			internalStream << ' '.
 			internalStream
 				inlineTag: #span
@@ -86,11 +89,11 @@ LeHtmlBookNavigationExporter >> exportLogo [
 LeHtmlBookNavigationExporter >> exportNavigation [
 	internalStream
 		tag: #div
-		class: 'col-lg-3 le-nav-container'
+		class: 'col-lg-3 le-nav-column'
 		do: [
 			internalStream
 				tag: #div
-				class: 'side-menu sticky-top pb-5 navbar-expand-lg le-nav-scrollable'
+				class: 'side-menu sticky-top pb-5 navbar-expand-lg le-nav-scrollable le-nav-container'
 				do: [
 					internalStream
 						tag: #header

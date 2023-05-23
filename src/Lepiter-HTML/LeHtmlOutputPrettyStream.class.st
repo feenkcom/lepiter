@@ -52,6 +52,20 @@ LeHtmlOutputPrettyStream >> initialize [
 ]
 
 { #category : #'html tags' }
+LeHtmlOutputPrettyStream >> inlineTag: tag attributes: attributePairs do: block [
+	"Write an HTML tag with attributes, a collection of alternating keys and values, executing block to generate enclosed content"
+
+	"<tag attr1=""value1"" ... attrN=""valueN""> ... </tag>"
+
+	self noIndentDo: [ 
+		self 
+			tag: tag 
+			attributes: attributePairs 
+			do: block
+	]
+]
+
+{ #category : #'html tags' }
 LeHtmlOutputPrettyStream >> inlineTag: tag attributes: attributePairs with: string [
 	"Write an HTML tag with attributes, a collection of alternating keys and values, using the escaped string as content"
 
@@ -62,6 +76,20 @@ LeHtmlOutputPrettyStream >> inlineTag: tag attributes: attributePairs with: stri
 			tag: tag 
 			attributes: attributePairs 
 			with: string
+	]
+]
+
+{ #category : #'html tags' }
+LeHtmlOutputPrettyStream >> inlineTag: tag class: cssClass do: block [
+	"Write an HTML tag with class cssClass, executing block to generate enclosed content"
+
+	"<tag class=""cssClass""> ... </tag>"
+
+	self noIndentDo: [ 
+		self 
+			tag: tag 
+			class: cssClass 
+			do: block
 	]
 ]
 

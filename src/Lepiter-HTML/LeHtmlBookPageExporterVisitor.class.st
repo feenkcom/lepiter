@@ -120,7 +120,7 @@ LeHtmlBookPageExporterVisitor >> visitPage: aLePage [
 				
 			stream 
 				tag: #div
-				class: 'row'
+				class: 'row le-row'
 				do: [
 		
 					exportPart exportBodyContentPrecedingPart: (
@@ -130,19 +130,25 @@ LeHtmlBookPageExporterVisitor >> visitPage: aLePage [
 					
 					stream 
 						tag: #div
-						class: 'container col-lg-8 min-height py-5 le-main-container'
+						class: 'col-lg-9 le-main-col'
 						do: [
-					
+						
 							stream 
-								tag: #main
+								tag: #div
+								class: 'container min-height py-5 le-main-container'
 								do: [
-			
-									stream
-										inlineTag: #h1
-										class: 'le-main-title'
-										with: aLePage title asHTMLString.
-			
-									super visitPage: aLePage.
+					
+									stream 
+										tag: #main
+										do: [
+					
+											stream
+												inlineTag: #h1
+												class: 'le-main-title'
+												with: aLePage title asHTMLString.
+					
+											super visitPage: aLePage.
+										]
 								]
 						]
 				]
