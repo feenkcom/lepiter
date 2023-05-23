@@ -191,6 +191,21 @@ LeHtmlExporterTextSnippetVisitor >> visitPageLink: aPageLink [
 ]
 
 { #category : #generated }
+LeHtmlExporterTextSnippetVisitor >> visitString: aString [
+
+	aString parts ifNotEmpty: [ 
+		aString parts first isHeaderNode ifFalse: [ 
+			self putTag: #p with: [
+				self visitContent: aString
+			].
+			^ aString
+		]
+	].
+
+	^ self visitContent: aString
+]
+
+{ #category : #generated }
 LeHtmlExporterTextSnippetVisitor >> visitText: aText [
 	self putStringInline: aText content asHTMLString
 ]
