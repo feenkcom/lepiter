@@ -5,7 +5,7 @@ Class {
 		'numberSigns',
 		'parts'
 	],
-	#category : 'Lepiter-Parser'
+	#category : #'Lepiter-Parser'
 }
 
 { #category : #generated }
@@ -33,6 +33,11 @@ LeHeaderNode >> initialize [
 	super initialize.
 	numberSigns := OrderedCollection new: 2.
 	parts := OrderedCollection new: 2.
+]
+
+{ #category : #testing }
+LeHeaderNode >> isHeaderNode [
+	^ true
 ]
 
 { #category : #generated }

@@ -1,6 +1,13 @@
 /*
-Introduced on 2023-05-17
+    Common rules
  */
+
+:root {
+    /* --min-column-width does not work in media queries.
+     It is here for documentation purposes only. */
+    --min-column-width: 992px;
+    --max-text-snippet-p-width: 608px;
+}
 
 /* Add space at the top and bottom of figures */
 main figure {
@@ -14,9 +21,37 @@ main figure > img {
     box-shadow: 0 0 5px 5px lightgray;
 }
 
+/*
+    Snippet children
+ */
+
+/* Indent snippet children. Do not indent the top-snippet children. */
+.snippet-children .snippet-children {
+    padding-inline-start: 0.5rem;
+}
+
+/* Make the snippet children indent more apparent on large screens. */
+@media (min-width: 992px) {
+    .snippet-children .snippet-children {
+        padding-inline-start: 1rem;
+    }
+}
 
 /*
-    CODE introduced in version 3
+    Text snippet
+ */
+
+/* Limit regular text snippet content width on large screens.
+ It does not limit headings. */
+@media (min-width: 992px) {
+    .text-snippet > p {
+        max-width: var(--max-text-snippet-p-width);
+    }
+}
+
+
+/*
+    Other rules
  */
 
 .hidden_annotation_v3 {
@@ -80,7 +115,6 @@ main figure > img {
 }
 
 .example_annotation {
-    /* background-color: #F0F0F0; */
 }
 
 .example_definition {
@@ -195,3 +229,7 @@ main figure > img {
 .visible_annotation>.method_definition {
     display: block;
 }
+
+/*
+    End of LEGACY CODE
+ */
