@@ -20,7 +20,9 @@ LeHtmlFragmentExporterExamples >> basicMarkdown [
 		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
 	self assert: html trimBoth
 		equals: '<div class="snippet textual-snippet text-snippet">
+  <p>
 <i>italic</i> <b>bold</b> <code>mono</code>
+  </p>
 </div>'.
 	^ html
 ]
@@ -51,13 +53,15 @@ LeHtmlFragmentExporterExamples >> codeBlock [
 		
 	self assert: html trimBoth
 		equals: '<div class="snippet textual-snippet text-snippet">
-  <div class="code_block">
-    <pre>
-      <code class="smalltalk">
+  <p>
+    <div class="code_block">
+      <pre>
+        <code class="smalltalk">
 answer:=42.
-      </code>
-    </pre>
-  </div>
+        </code>
+      </pre>
+    </div>
+  </p>
 </div>'.
 	^ html
 ]
