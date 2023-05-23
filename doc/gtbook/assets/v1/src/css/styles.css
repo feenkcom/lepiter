@@ -59,7 +59,7 @@ a.active {
 }
 
 /* navigation links */
-a {
+.le-nav-container a {
     text-decoration: none;
 }
 
@@ -126,4 +126,21 @@ a {
 
 .le-main-title {
     font-weight: bold;
+}
+
+.le-main-container h1,
+.le-main-container h2,
+.le-main-container h3,
+.le-main-container h4,
+.le-main-container h5,
+.le-main-container h6,
+.le-main-container .h1,
+.le-main-container .h2,
+.le-main-container .h3,
+.le-main-container .h4,
+.le-main-container .h5,
+.le-main-container .h6  {
+    font-weight: bold;
+    margin-block-start: 25pt;
+    margin-block-end: 25pt;
 }
