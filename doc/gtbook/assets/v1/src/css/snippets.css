@@ -22,20 +22,21 @@ main figure > img {
 }
 
 /*
-    Snippet children
+    Snippet children.
+    Disable the indent. We need to implement collapsable widget first.
  */
 
 /* Indent snippet children. Do not indent the top-snippet children. */
-.snippet-children .snippet-children {
+/*.snippet-children .snippet-children {
     padding-inline-start: 0.5rem;
-}
+}*/
 
 /* Make the snippet children indent more apparent on large screens. */
-@media (min-width: 992px) {
+/*@media (min-width: 992px) {
     .snippet-children .snippet-children {
         padding-inline-start: 1rem;
     }
-}
+}*/
 
 /*
     Text snippet
