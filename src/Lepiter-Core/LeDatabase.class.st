@@ -44,60 +44,38 @@ LeDatabase class >> null [
 
 { #category : #'api - attachments' }
 LeDatabase >> addAttachmentByCopy: aFileReference [
-
 	"Copy the attached file to the receiver's DB and answer the relative path string to the file"
-
 	<return: #String>
-	| attachmentFileReference attachmentDirectory |
-	self assertNotReadOnly.
 
+	self 
+		assert: monitor isNotNil
+		description: 'Unable to add attachment, monitor not configured'.
 
-	attachmentDirectory := self attachmentDirectoryAndMetadataFor:
-		                       aFileReference.
-	attachmentFileReference := attachmentDirectory
-	                           / aFileReference basename.
-	aFileReference copyTo: attachmentFileReference.
-	^ (attachmentFileReference relativeTo: self localStoreRootDirectory)
-		  fullName
+	^ monitor addAttachmentByCopy: aFileReference
 ]
 
 { #category : #'api - attachments' }
 LeDatabase >> addAttachmentByMove: aFileReference [
-
 	"Move the attached file to the receiver's DB and answer the relative path string to the file"
-
 	<return: #String>
-	| attachmentFileReference attachmentDirectory |
-	self assertNotReadOnly.
 
+	self 
+		assert: monitor isNotNil
+		description: 'Unable to add attachment, monitor not configured'.
 
-	attachmentDirectory := self attachmentDirectoryAndMetadataFor:
-		                       aFileReference.
-	attachmentFileReference := attachmentDirectory
-	                           / aFileReference basename.
-	aFileReference resolve copy moveTo: attachmentFileReference resolve.
-	^ (attachmentFileReference relativeTo: self localStoreRootDirectory)
-		  fullName
+	^ monitor addAttachmentByMove: aFileReference
 ]
 
 { #category : #'api - attachments' }
 LeDatabase >> addAttachmentWithContent: aString named: aName [
-
 	"Create an attachment to the receiver's DB and answer the relative path string to the file"
-
 	<return: #String>
-	| attachmentFileReference attachmentDirectory |
-	self assertNotReadOnly.
 
+	self 
+		assert: monitor isNotNil
+		description: 'Unable to add attachment, monitor not configured'.
 
-	attachmentDirectory := self attachmentDirectoryAndMetadataFor:
-		                       aName asFileReference.
-	attachmentFileReference := attachmentDirectory / aName asString.
-	attachmentFileReference
-		writeStreamEncoded: 'utf8'
-		do: [ :aStream | aStream nextPutAll: aString asString ].
-	^ (attachmentFileReference relativeTo: self localStoreRootDirectory)
-		  fullName
+	^ monitor addAttachmentWithContent: aString named: aName
 ]
 
 { #category : #'api - adding / removing' }
@@ -163,33 +141,24 @@ LeDatabase >> at: aKey ifPresent: aPresentBlock ifAbsent: anAbsentBlock forPageT
 { #category : #'api - accessing' }
 LeDatabase >> attachmentDirectories [
 
-	| attachmentDirectory |
-	attachmentDirectory := self monitor attachmentsDirectory.
-	^ attachmentDirectory exists
-		  ifTrue: [ 
-			  attachmentDirectory directories
-				  ifNil: [ #(  ) ]
-				  ifNotNil: [ :directories | directories collect: [ :dir | dir ] ] ]
-		  ifFalse: [ #(  ) ]
+	self 
+		assert: monitor isNotNil
+		description: 'Unable to get attachmentDirectories, monitor not configured'.
+
+	^ monitor attachmentDirectories
 ]
 
 { #category : #private }
 LeDatabase >> attachmentDirectoryAndMetadataFor: aFileReference [
 	"Create the attachment directory and populate the metadata for the supplied file reference.
 	Answer the directory."
-	| fileUID attachmentDirectory attachment |
+	<return: #FileReference>
 
-	self assert: [ aFileReference basename ~= 'lepiter_attachment.properties' ].
-	fileUID := UUID new asString36.
-	attachmentDirectory := self attachmentsDirectory / fileUID.
-	self assert: attachmentDirectory exists not.
-	attachmentDirectory ensureCreateDirectory.
-	attachment := LeAttachment new
-		originalReference: aFileReference asFileReference;
-		uploadDate: DateAndTime now;
-		uploadedBy: self userEmail.
-	attachment saveTo: attachmentDirectory for: self.
-	^ attachmentDirectory resolve
+	self 
+		assert: monitor isNotNil
+		description: 'Unable to add attachment, monitor not configured'.
+
+	^ monitor attachmentDirectoryAndMetadataFor: aFileReference
 ]
 
 { #category : #'private - accessing' }

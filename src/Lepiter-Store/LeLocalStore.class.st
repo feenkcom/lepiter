@@ -50,6 +50,83 @@ LeLocalStore class >> forJsonV4 [
 	^ self new storage: LeLocalJsonV4Storage new
 ]
 
+{ #category : #attachments }
+LeLocalStore >> addAttachmentByCopy: aFileReference [
+	"Copy the attached file to the receiver's DB and answer the relative path string to the file"
+	<return: #String>
+	| attachmentFileReference attachmentDirectory |
+
+	database assertNotReadOnly.
+
+	attachmentDirectory := self attachmentDirectoryAndMetadataFor:
+		                       aFileReference.
+	attachmentFileReference := attachmentDirectory
+	                           / aFileReference basename.
+	aFileReference copyTo: attachmentFileReference.
+	^ (attachmentFileReference relativeTo: localRoot) fullName
+]
+
+{ #category : #attachments }
+LeLocalStore >> addAttachmentByMove: aFileReference [
+	"Move the attached file to the receiver's DB and answer the relative path string to the file"
+	<return: #String>
+	| attachmentFileReference attachmentDirectory |
+
+	database assertNotReadOnly.
+
+	attachmentDirectory := self attachmentDirectoryAndMetadataFor:
+		                       aFileReference.
+	attachmentFileReference := attachmentDirectory
+	                           / aFileReference basename.
+	aFileReference resolve copy moveTo: attachmentFileReference resolve.
+	^ (attachmentFileReference relativeTo: localRoot) fullName
+]
+
+{ #category : #attachments }
+LeLocalStore >> addAttachmentWithContent: aString named: aName [
+	"Create an attachment to the receiver's DB and answer the relative path string to the file"
+	<return: #String>
+	| attachmentFileReference attachmentDirectory |
+
+	database assertNotReadOnly.
+
+	attachmentDirectory := self attachmentDirectoryAndMetadataFor:
+		                       aName asFileReference.
+	attachmentFileReference := attachmentDirectory / aName asString.
+	attachmentFileReference
+		writeStreamEncoded: 'utf8'
+		do: [ :aStream | aStream nextPutAll: aString asString ].
+	^ (attachmentFileReference relativeTo: localRoot)
+		  fullName
+]
+
+{ #category : #attachments }
+LeLocalStore >> attachmentDirectories [
+
+	^ attachmentsDirectory exists
+		  ifTrue: [ attachmentsDirectory directories ]
+		  ifFalse: [ #(  ) ]
+]
+
+{ #category : #attachments }
+LeLocalStore >> attachmentDirectoryAndMetadataFor: aFileReference [
+	"Create the attachment directory and populate the metadata for the supplied file reference.
+	Answer the directory."
+	| fileUID attachmentDirectory attachment |
+
+	self assert: [ aFileReference basename ~= 'lepiter_attachment.properties' ].
+	fileUID := UUID new asString36.
+	attachmentDirectory := attachmentsDirectory / fileUID.
+	self assert: attachmentDirectory exists not.
+	attachmentDirectory ensureCreateDirectory.
+	attachment := LeAttachment new
+		originalReference: aFileReference asFileReference;
+		uploadDate: DateAndTime now;
+		uploadedBy: self userEmail.
+	attachment saveTo: attachmentDirectory for: database.
+	^ attachmentDirectory resolve
+]
+
 { #category : #accessing }
 LeLocalStore >> attachmentsDirectory [
 	^ attachmentsDirectory
