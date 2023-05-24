@@ -1,12 +1,17 @@
 Class {
 	#name : #LeContentNode,
 	#superclass : #SmaCCParseNode,
-	#category : 'Lepiter-Parser'
+	#category : #'Lepiter-Parser'
 }
 
 { #category : #generated }
 LeContentNode >> acceptVisitor: aContentVisitor [
 	^ aContentVisitor visitContent: self
+]
+
+{ #category : #testing }
+LeContentNode >> isHeaderNode [
+	^ false
 ]
 
 { #category : #'ston persistence' }

@@ -51,7 +51,7 @@ LeHtmlFragmentExporterVisitor >> pageLinks: anObject [
 { #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitContent: aLeContent [
 	aLeContent hasChildren ifFalse: [ ^ self ].
-	self putTag: 'div' andAttributes: #('class' 'content_children') with: [
+	self putTag: 'div' andAttributes: #('class' 'snippet-children') with: [
 		aLeContent children acceptVisitor: self.
 	]
 ]
@@ -119,11 +119,11 @@ LeHtmlFragmentExporterVisitor >> visitPictureSnippet: aLePictureSnippet [
 LeHtmlFragmentExporterVisitor >> visitTextSnippet: aLeTextSnippet [
 	self putTag: 'div' andAttributes: #('class' 'snippet textual-snippet text-snippet') with: [
 		aLeTextSnippet ast acceptVisitor: (LeHtmlExporterTextSnippetVisitor new 
-			stream: stream;
-			nestingLevel: nestingLevel;
-			externalPicturesWriter: self externalPicturesWriter;
-			pageLinks: pageLinks).
-	self visitTextualSnippet: aLeTextSnippet.]
+				stream: stream;
+				nestingLevel: nestingLevel;
+				externalPicturesWriter: self externalPicturesWriter;
+				pageLinks: pageLinks).
+		self visitTextualSnippet: aLeTextSnippet. ]
 ]
 
 { #category : #visiting }

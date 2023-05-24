@@ -113,6 +113,18 @@ LeWardleyMapSnippet >> detachWardleyMap [
 		aWardleyMap unsubscribe: self ]
 ]
 
+{ #category : #view }
+LeWardleyMapSnippet >> gtJSONFor: aView [
+	<gtView>
+	
+	^ aView textEditor
+		title: 'JSON';
+		priority: 81;
+		aptitude: BrGlamorousCodeEditorAptitude;
+		styler: JSONParser gtStyler;
+		text: [ self wardleyMap asJSONForExport ]
+]
+
 { #category : #accessing }
 LeWardleyMapSnippet >> gtWardleyScriptFor: aView [
 	<gtView>

@@ -10,6 +10,29 @@
     --link-indent: 1rem;
 }
 
+body {
+    /*
+        The body contains a main content and a footer.
+        We want the footer to be below the content and stick in
+        the bottom of viewport if the content height is smaller than
+        a viewport height (excluding the footer height).
+    */
+    display: flex;
+    flex-direction: column;
+
+    /* fallback height */
+    min-height: 100vh;
+
+    /* new small viewport height for modern browsers */
+    min-height: 100svh;
+}
+
+/* If the main content height is smaller than the viewport height,
+the margin will occupy the spare area. */
+body footer {
+    margin-top: auto;
+}
+
 /* Link styling */
 a {
     text-decoration: underline;
