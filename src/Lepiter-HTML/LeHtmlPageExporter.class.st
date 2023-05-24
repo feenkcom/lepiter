@@ -39,6 +39,7 @@ LeHtmlPageExporter >> export [
 	exportVisitor := LeHtmlBookPageExporterVisitor new.
 	
 	exportVisitor addMetaTag: { #charset -> 'utf-8' }.
+	exportVisitor addMetaTag: { #name -> 'viewport'. #content -> 'width=device-width, initial-scale=1' }.
 	
 	shouldGenerateHeader ifNotNil: [ :aBoolean | 
 		exportVisitor shouldGenerateHeader: aBoolean ].
