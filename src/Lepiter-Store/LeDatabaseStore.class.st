@@ -9,6 +9,13 @@ Class {
 	#category : #'Lepiter-Store-Model'
 }
 
+{ #category : #'instance creation' }
+LeDatabaseStore class >> current [
+	"Answer an instance of the receiver with the current storage format"
+
+	^ self forJsonV4
+]
+
 { #category : #private }
 LeDatabaseStore >> clearDatabaseProperties [
 	dbProperties := nil.

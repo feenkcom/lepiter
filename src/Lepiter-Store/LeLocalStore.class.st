@@ -30,13 +30,6 @@ Class {
 	#category : #'Lepiter-Store-LocalJSON-Store'
 }
 
-{ #category : #'instance creation' }
-LeLocalStore class >> current [
-	"Answer an instance of the receiver with the current storage format"
-
-	^ self forJsonV4
-]
-
 { #category : #accessing }
 LeLocalStore class >> currentStorageClass [
 
