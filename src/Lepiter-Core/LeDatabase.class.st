@@ -373,7 +373,8 @@ LeDatabase >> gtDailyNotesFor: aView [
 		column: 'Author' text: [ :aPageOrDailyNote |
 			(aPageOrDailyNote isKindOf: LeDailyNote)
 				ifTrue: [ ''  ]
-				ifFalse: [ aPageOrDailyNote editEmail ] ]
+				ifFalse: [ aPageOrDailyNote editEmail ] ];
+		actionUpdateButton
 ]
 
 { #category : #'gt-extensions' }
