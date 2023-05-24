@@ -212,6 +212,12 @@ LeDatabaseStore >> updateProperty: propertyName value: aJSONObject [
 	self savePropertiesDictionary: properties.
 ]
 
+{ #category : #accessing }
+LeDatabaseStore >> userEmail [
+
+	^ database userEmail
+]
+
 { #category : #'accessing - db properties' }
 LeDatabaseStore >> uuid [ 
 	"Answer the UUID of the receiver's DB"
