@@ -46,6 +46,46 @@ LeResourcesExporter >> do: aDoBlock [
 ]
 
 { #category : #'api - exporting' }
+LeResourcesExporter >> elementSnippetReferenceFor: aLeElementSnippet [
+	<return: #String>
+	| aPath aFileReference anExporter aViewModel aSnippetElement aHeight |
+	
+	"Prepare element"
+	aViewModel := aLeElementSnippet asSnippetViewModel.
+	aSnippetElement := aViewModel snippetView asElement.
+	aSnippetElement snippetViewModel: aViewModel.
+	aSnippetElement padding: (BlInsets all: 10).
+	
+	"Compute height"
+	aHeight := aLeElementSnippet elementHeight.
+	aLeElementSnippet codeVisible ifTrue: [
+		aHeight := aHeight + aLeElementSnippet codeHeight
+	].
+	
+	"Prepare file"
+	aPath := LepiterConstants exportedResultsDirectoryPath
+		/ self nextNumber asString
+		withExtension: LepiterConstants exportedResultsExtension.
+	aFileReference := memoryStore referenceTo: aPath.
+	
+	"Export"
+	anExporter := LeElementToPngExporter new
+		element: aSnippetElement;
+		fileReference: aFileReference;
+		height: aHeight;
+		export.
+		
+	"Store the resource"
+	resources add: (LeExportedSnippetResource new 
+		snippet: aLeElementSnippet;
+		path: aPath;
+		reference: aFileReference).
+	
+	"Return relative path"
+	^ aPath fullName
+]
+
+{ #category : #'api - exporting' }
 LeResourcesExporter >> exampleResultReferenceFor: anExampleAnnotation [ 
 	<return: #String>
 	| aPath fileReference |

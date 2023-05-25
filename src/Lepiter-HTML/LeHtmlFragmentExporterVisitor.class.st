@@ -57,6 +57,30 @@ LeHtmlFragmentExporterVisitor >> visitContent: aLeContent [
 ]
 
 { #category : #visiting }
+LeHtmlFragmentExporterVisitor >> visitElementSnippet: aLeElementSnippet [
+	| aFileName |
+	
+	aFileName := self externalPicturesWriter  
+			elementSnippetReferenceFor: aLeElementSnippet.
+
+	self
+		putTag: 'figure'
+		andAttributes: #('class' 'snippet picture-snippet paragraphWidth')
+		with: [
+
+			self
+				putTag: 'img'
+				andAttributes: {'class'. 'picture-snippet-image'. 'src'. aFileName }.
+
+			(aLeElementSnippet caption isNotNil
+				and: [ aLeElementSnippet title trimBoth isNotEmpty ])
+				ifTrue: [ self
+						putTag: 'figcaption'
+						andAttributes: #('class' 'picture-snippet-caption')
+						with: [ self putString: aLeElementSnippet caption trimBoth asString asHTMLString ] ] ]
+]
+
+{ #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitExampleSnippet: aLeExampleSnippet [
 	self
 		putTag: 'div'
