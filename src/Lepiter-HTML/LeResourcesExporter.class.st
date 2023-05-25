@@ -211,6 +211,32 @@ LeResourcesExporter >> nextNumber [
 	^ counter
 ]
 
+{ #category : #'api - exporting' }
+LeResourcesExporter >> pictureSnippetReferenceFor: aLePictureSnippet [
+	<return: #String>
+	| aPath anAttachmentFile anExtension anUrlUtility |
+	
+	anUrlUtility := aLePictureSnippet urlStringUtility.
+	anUrlUtility isFile ifFalse: [ 
+		^ aLePictureSnippet urlString ].
+			
+	"Prepare file"
+	anAttachmentFile := anUrlUtility asFileReference.
+	anExtension := anAttachmentFile extension.
+	aPath := LepiterConstants exportedResultsDirectoryPath
+		/ self nextNumber asString
+		withExtension: anExtension.
+		
+	"Store the resource"
+	resources add: (LeExportedSnippetResource new 
+		snippet: aLePictureSnippet;
+		path: aPath;
+		reference: anAttachmentFile).
+	
+	"Return relative path"
+	^ aPath fullName
+]
+
 { #category : #accessing }
 LeResourcesExporter >> rootDirectory [
 	<return: #FileReference>

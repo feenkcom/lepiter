@@ -213,3 +213,18 @@ LePictureSnippet >> urlString: aString source: anObject [
 	self updateEditTimeAndEmail.
 	self announceContentChangedBy: anObject
 ]
+
+{ #category : #'api - utility' }
+LePictureSnippet >> urlStringUtility [
+	<return: #GtUrlStringUtility>
+	| db rootDir |
+	db := self database.
+
+	rootDir := (db isDatabase not or: [ db monitor isNil ])
+			ifTrue: [ FileLocator workingDirectory resolve ]
+			ifFalse: [ db monitor localRoot ].
+
+	^ GtUrlStringUtility new
+		rootDirectory: rootDir;
+		urlString: self urlString
+]
