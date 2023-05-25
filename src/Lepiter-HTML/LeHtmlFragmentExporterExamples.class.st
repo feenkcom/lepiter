@@ -185,3 +185,25 @@ LeHtmlFragmentExporterExamples >> pictureSnippet [
 	self assert: (html includesSubstring: 'feenkcom/gtoolkit-demos/data/faceapi/1280px-Einstein-with-habicht-and-solovine.jpg"/>').
 	^ html
 ]
+
+{ #category : #examples }
+LeHtmlFragmentExporterExamples >> wardleySnippet [
+	<gtExample>
+	| wardleyMap snippet html aResources |
+
+	wardleyMap := GtWardleyMapJsonExporterImporterExamples  new importWardleyMapWithPipelineInnerNodesFromDictionary.
+	snippet := LeWardleyMapSnippet new wardleyMap: wardleyMap.
+	html := String streamContents: [ :stream |
+		snippet acceptVisitor: (LeHtmlFragmentExporterVisitor new 
+			externalPicturesWriter: (aResources := LeResourcesExporter new);
+			stream: stream) ].
+	
+	self 
+		assert: html isNotEmpty 
+		description: [ 'HTML output must be non-empty'].
+	
+	self assert: (html includesSubstring: '<figure class="snippet picture-snippet').
+	self assert: (html includesSubstring: '<img class="picture-snippet-image" src="gt-figures/1000.png"/>').
+	
+	^ html
+]

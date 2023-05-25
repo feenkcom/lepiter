@@ -180,3 +180,37 @@ LeResourcesExporter >> rootDirectory [
 { #category : #accessing }
 LeResourcesExporter >> saveAllToDirectory: aDirectory [ 
 ]
+
+{ #category : #'api - exporting' }
+LeResourcesExporter >> wardleyMapSnippetReferenceFor: aLeWardleyMapSnippet [
+	<return: #String>
+	| aPath aFileReference anExporter aViewModel aSnippetElement |
+	
+	"Prepare element"
+	aViewModel := aLeWardleyMapSnippet asSnippetViewModel.
+	aSnippetElement := aViewModel snippetView asElement.
+	aSnippetElement snippetViewModel: aViewModel.
+	aSnippetElement padding: (BlInsets all: 10).
+	
+	"Prepare file"
+	aPath := LepiterConstants exportedResultsDirectoryPath
+		/ self nextNumber asString
+		withExtension: LepiterConstants exportedResultsExtension.
+	aFileReference := memoryStore referenceTo: aPath.
+	
+	"Export"
+	anExporter := LeElementToPngExporter new
+		element: aSnippetElement;
+		fileReference: aFileReference;
+		height: aLeWardleyMapSnippet height;
+		export.
+		
+	"Store the resource"
+	resources add: (LeExportedSnippetResource new 
+		snippet: aLeWardleyMapSnippet;
+		path: aPath;
+		reference: aFileReference).
+	
+	"Return relative path"
+	^ aPath fullName
+]

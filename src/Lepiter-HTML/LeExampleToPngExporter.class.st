@@ -72,7 +72,7 @@ LeExampleToPngExporter >> export [
 		ifFalse: [ self exportWithoutScripter ]
 ]
 
-{ #category : #accessing }
+{ #category : #'api - exporting' }
 LeExampleToPngExporter >> exportWithScripter [
 	self assertInitialization.
 

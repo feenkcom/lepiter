@@ -1,6 +1,6 @@
 Trait {
 	#name : #TLeModelVisitor,
-	#category : 'Lepiter-Core-Visitor'
+	#category : #'Lepiter-Core-Visitor'
 }
 
 { #category : #visiting }
@@ -125,4 +125,10 @@ TLeModelVisitor >> visitTextualSnippet: aLeTextualSnippet [
 TLeModelVisitor >> visitUnknownSnippet: aLeTextSnippet [
 
 	^ self visitTextualSnippet: aLeTextSnippet
+]
+
+{ #category : #visiting }
+TLeModelVisitor >> visitWardleyMapSnippet: aLePictureSnippet [
+
+	^ self visitSnippet: aLePictureSnippet 
 ]
