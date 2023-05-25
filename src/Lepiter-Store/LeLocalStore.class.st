@@ -101,6 +101,16 @@ LeLocalStore >> addAttachmentWithContent: aString named: aName [
 ]
 
 { #category : #attachments }
+LeLocalStore >> attachmentBinaryStream: attachmentPath do: aBlock [
+	"Answer a stream on the binary contents of the supplied attachment path"
+	| attachmentFileReference |
+
+	attachmentFileReference := database resolveDbFile: attachmentPath.
+	self assert: attachmentFileReference exists.
+	^ attachmentFileReference binaryReadStreamDo: aBlock
+]
+
+{ #category : #attachments }
 LeLocalStore >> attachmentDirectories [
 
 	^ attachmentsDirectory exists
@@ -125,6 +135,26 @@ LeLocalStore >> attachmentDirectoryAndMetadataFor: aFileReference [
 		uploadedBy: self userEmail.
 	attachment saveTo: attachmentDirectory for: database.
 	^ attachmentDirectory resolve
+]
+
+{ #category : #attachments }
+LeLocalStore >> attachmentProperties: attachmentPath [
+	"Answer a stream on the binary contents of the supplied attachment path"
+	| attachmentFileReference |
+
+	attachmentFileReference := database resolveDbFile: attachmentPath.
+	self assert: attachmentFileReference exists.
+	^ LeAttachment loadFrom: attachmentFileReference parent / 'lepiter_attachment.properties'
+]
+
+{ #category : #attachments }
+LeLocalStore >> attachmentUtf8Stream: attachmentPath do: aBlock [
+	"Answer a stream on the binary contents of the supplied attachment path"
+	| attachmentFileReference |
+
+	attachmentFileReference := database resolveDbFile: attachmentPath.
+	self assert: attachmentFileReference exists.
+	^ attachmentFileReference readStreamDo: aBlock
 ]
 
 { #category : #accessing }
