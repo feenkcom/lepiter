@@ -28,7 +28,7 @@ LeDatabaseClassStorage >> hasPageStored: aPage inClass: dbClass [
 LeDatabaseClassStorage >> loadAttachmentFromMethod: aCompiledMethod [
 	"Answer the object encoded in the supplied method"
 
-	^ (aCompiledMethod comments at: 2) base64Decoded
+	^ (aCompiledMethod parseTree comments at: 2) contents base64Decoded
 ]
 
 { #category : #accessing }
@@ -36,7 +36,7 @@ LeDatabaseClassStorage >> loadFromMethod: aCompiledMethod [
 	"Answer the object encoded in the supplied method"
 	| jsonString |
 
-	jsonString := (aCompiledMethod comments at: 2)
+	jsonString := (aCompiledMethod parseTree comments at: 2) contents
 		copyReplaceAll: '""' with: '"'.
 	^ [ LeJsonV4 uniqueInstance deserialize: jsonString readStream ]
 		on: NeoJSONParseError 
@@ -55,8 +55,9 @@ LeDatabaseClassStorage >> loadJsonFromMethod: aCompiledMethod [
 	"Load the JSON object from the supplied method without any interpretation of the contents, but keeping the attribute order"
 	| jsonString |
 
-	jsonString := (aCompiledMethod comments at: 2)
+	jsonString := (aCompiledMethod parseTree comments at: 2) contents
 		copyReplaceAll: '""' with: '"'.
+	ASTCache default removeKey: aCompiledMethod.
 	^ (NeoJSONReader new on: jsonString readStream)
 			mapClass: OrderedDictionary;
 			next

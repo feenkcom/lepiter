@@ -77,16 +77,6 @@ LeDatabaseClassStoreLoad >> loadExplicitLinks [
 ]
 
 { #category : #private }
-LeDatabaseClassStoreLoad >> loadExplicitLinksIn: aRootFolder [	
-	
-	storage withExplicitLinksFileIn: aRootFolder do: [ :aFile |
-		[ ^ storage loadFromFile: aFile ] 
-			on: LeDBLoadError 
-			fork: [ :ex | ex pass ] ].
-	^ nil
-]
-
-{ #category : #private }
 LeDatabaseClassStoreLoad >> loadFrom: aSymbol package: aString [
 	"Answer a LeDirectory with its pages loaded from the specified class.
 	This is only used for testing as it answers a LeDatabase without a monitor, which means that any functionality that relies on properties, attachments, saving, etc. will fail."
@@ -122,13 +112,6 @@ LeDatabaseClassStoreLoad >> loadFrom: aSymbol package: aString saveDelay: aDurat
 	^ database
 ]
 
-{ #category : #loading }
-LeDatabaseClassStoreLoad >> loadPageFrom: aFileReference [
-	"Load a single page from the supplied file"
-
-	^ storage loadFromFile: aFileReference
-]
-
 { #category : #private }
 LeDatabaseClassStoreLoad >> loadPages [
 	"Load all the pages from the receiver's class.
@@ -150,64 +133,4 @@ LeDatabaseClassStoreLoad >> loadPages [
 					corrupted add: file.
 					ex pass ] ].
 	^ pages reject: #isNil
-]
-
-{ #category : #private }
-LeDatabaseClassStoreLoad >> loadPagesIn: aRootFolder [
-	"Load all the pages from the supplied directory.
-	If a duplicate uid is found, raise a signal.  The exception handler can take action and decide whether to continue"
-	| pages page pageIds |
-
-	pageIds := Set new.
-	pages := OrderedCollection new.
-	(storage dbFilesIn: aRootFolder) do: [ :file |
-		[ page := storage loadFromFile: file.
-		(pageIds includes: page uid) ifTrue: 
-			[ file renameTo: (file withExtension: 'duplicate') basename.
-			duplicates add: file ]
-		ifFalse:
-			[ pageIds add: page uid.
-			pages add: page ] ]
-				on: LeDBLoadError 
-				fork: [ :ex | 
-					corrupted add: file.
-					ex pass ] ].
-	^ pages reject: #isNil
-]
-
-{ #category : #accessing }
-LeDatabaseClassStoreLoad >> onlyLoadFrom: aFileReference [
-	| monitor |
-
-	self localRoot: aFileReference.
-	monitor := LeLocalStoreMonitor new.
-	monitor localRoot: localRoot.
-	monitor storage: storage.
-	
-	database := LeDatabase new.
-	database monitor: monitor.
-	monitor database: database.
-	self loadDatabasePropertiesIn: database.
-	self loadContentInDatabase: database. 
-
-	^ database
-]
-
-{ #category : #accessing }
-LeDatabaseClassStoreLoad >> onlyLoadReadOnlyFrom: aFileReference [
-	| monitor |
-
-	self localRoot: aFileReference.
-	monitor := LeLocalStoreMonitor new.
-	monitor localRoot: localRoot.
-	monitor storage: storage.
-	
-	database := LeDatabase new.
-	database readOnly: true.
-	database monitor: monitor.
-	monitor database: database.
-	self loadDatabasePropertiesIn: database.
-	self loadContentInDatabase: database. 
-
-	^ database
 ]

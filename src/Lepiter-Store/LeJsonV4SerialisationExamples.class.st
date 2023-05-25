@@ -50,6 +50,7 @@ LeJsonV4SerialisationExamples >> deSerializeAllImplementors [
 		GtPackageExampleGroup.
 		Point.
 		ScaledDecimal.
+		LeUnknownSnippet.
 		}.
 	allClasses removeAll: excludedClasses.
 	"Give developers the chance to exclude classes that are not part of core Gt"
