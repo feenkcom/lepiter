@@ -197,7 +197,7 @@ LePage >> gtOpenInNewTabActionFor: anAction [
 	^ anAction button
 		id: LeOpenPageInNewWorldTabElementId;
 		tooltip: 'Open page in a new world tab';
-		icon: BrGlamorousIcons spawn;
+		icon: BrGlamorousVectorIcons spawn;
 		action: [ :aButton | 
 			GtWorldUtility
 				showSpaceWithTitle: self title
