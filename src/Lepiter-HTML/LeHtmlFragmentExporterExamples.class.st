@@ -109,6 +109,44 @@ LeHtmlFragmentExporterExamples >> methodAnnotation [
 	^ html
 ]
 
+{ #category : #examples }
+LeHtmlFragmentExporterExamples >> methodAnnotation_withInexistentClassAndNameParameter [
+	"Confirm that basic markup is converted"
+	<gtExample>
+	| markdown html |
+
+	markdown := LeTextSnippet string: '{{gtMethod:name=LeHtmlInexistentClass>>#inexistentMethod}}'.
+	html := String streamContents: [ :stream |
+		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
+
+	self 
+		assert: (html includesSubstring: 'name=LeHtmlInexistentClass>>#inexistentMethod') not 
+		description: [ 'The `name=` part must not be included' ].
+	self assert: (html includesSubstring: 'method_annotation expandable_annotation_label').
+	self assert: (html includesSubstring: 'LeHtmlInexistentClass&gt;&gt;#inexistentMethod').
+	self assert: (html includesSubstring: 'textual-snippet code-snippet pharo-method-snippet expandable_annotation_body hidden_annotation').
+	^ html
+]
+
+{ #category : #examples }
+LeHtmlFragmentExporterExamples >> methodAnnotation_withNameParameter [
+	"Confirm that basic markup is converted"
+	<gtExample>
+	| markdown html |
+
+	markdown := LeTextSnippet string: '{{gtMethod:name=LeHtmlFragmentExporterExamples>>#basicMarkdown}}'.
+	html := String streamContents: [ :stream |
+		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
+
+	self 
+		assert: (html includesSubstring: 'name=LeHtmlFragmentExporterExamples') not 
+		description: [ 'The `name=` part must not be included' ].
+	self assert: (html includesSubstring: 'method_annotation expandable_annotation_label').
+	self assert: (html includesSubstring: 'LeHtmlFragmentExporterExamples&gt;&gt;#basicMarkdown').
+	self assert: (html includesSubstring: 'textual-snippet code-snippet pharo-method-snippet expandable_annotation_body hidden_annotation').
+	^ html
+]
+
 { #category : #accessing }
 LeHtmlFragmentExporterExamples >> pharoSnippet [
 	<gtExample>
