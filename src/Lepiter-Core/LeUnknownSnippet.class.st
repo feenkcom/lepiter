@@ -57,6 +57,12 @@ LeUnknownSnippet class >> leJsonV4MappingFor: aNeoJSONMapper [
 				map neoJsonOn: jsonWriter ] ]
 ]
 
+{ #category : #serializing }
+LeUnknownSnippet class >> leJsonV4Name [
+
+	^ #unknownSnippet
+]
+
 { #category : #visiting }
 LeUnknownSnippet >> acceptVisitor: aVisitor [
 
