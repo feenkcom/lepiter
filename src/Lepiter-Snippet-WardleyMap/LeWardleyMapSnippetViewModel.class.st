@@ -19,9 +19,8 @@ LeWardleyMapSnippetViewModel >> gtWardleyScriptFor: aView [
 			action: [ :aButton | 
 				| aText aWardleyMap |
 				aText := aButton phlow textViewContent.
-				aText 
-					ifNotNil: [
-						aWardleyMap := GtWardleyMapScriptImporter forString: aText asString.
+				aText
+					ifNotNil: [ aWardleyMap := GtWardleyMapScriptImporter forString: aText asString.
 						self snippetModel wardleyMap: aWardleyMap ]
 					ifNil: [ self inform: 'Cannot find text editor with Wardley script' ] ];
 		actionButtonLabel: 'Copy'
@@ -29,7 +28,7 @@ LeWardleyMapSnippetViewModel >> gtWardleyScriptFor: aView [
 		actionButtonIcon: BrGlamorousVectorIcons inspect
 			label: 'Model'
 			tooltip: 'Inspect Wardley Map model'
-			action: [ :aButton | aButton phlow spawnObject: self snippet wardleyMap ]
+			action: [ :aButton | aButton phlow spawnObject: self snippetModel wardleyMap ]
 ]
 
 { #category : #accessing }
