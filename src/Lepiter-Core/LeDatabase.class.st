@@ -339,7 +339,8 @@ LeDatabase >> gtAttachmentsFor: aView [
 		title: 'Attachments';
 		priority: 70;
 		object: [self monitor ];
-		view: #gtAttachmentsFor:
+		view: #gtAttachmentsFor:;
+		actionUpdateButton
 ]
 
 { #category : #'gt-extensions' }

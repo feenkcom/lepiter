@@ -9,7 +9,7 @@ LeDatabaseClassStorage >> attachmentIdsFor: dbClass [
 
 	^ dbClass class selectors 
 		select: [ :selector | selector beginsWith: 'attachment_' ]
-		thenCollect: [ :selector | selector copyFrom: 11 to: selector size ]
+		thenCollect: [ :selector | selector copyFrom: 12 to: selector size ]
 ]
 
 { #category : #accessing }

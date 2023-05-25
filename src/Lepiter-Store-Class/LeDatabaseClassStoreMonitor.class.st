@@ -120,21 +120,19 @@ LeDatabaseClassStoreMonitor >> forceSchemaUpgradeFrom: aString [
 { #category : #'gt-extensions' }
 LeDatabaseClassStoreMonitor >> gtAttachmentsFor: aView [
 	<gtView>
-	nil ifNil: [ ^ aView empty ].
-	
+
 	^ aView columnedList
 		title: 'Attachments';
 		priority: 15;
-		items: [ self attachmentsDirectory directories ];
-		column: 'ID' text: #basename;
-		column: 'Name' text: [ :aDirectory | 
-			| allFiles |
-			allFiles := aDirectory files select: [ :aFile | 
-				aFile basename ~= LeAttachment basename ].
-			allFiles size = 1
-				ifTrue: [ allFiles first basename ]
-				ifFalse: [ allFiles size asString, ' attachments' ] ]
-	
+		items: [ self attachmentIds ];
+		column: 'ID' text: #yourself;
+		column: 'Name' text: [ :id | | selector properties |
+			selector := storage attachmentSelectorFor: id.
+			properties := dbClass perform: selector.
+			properties originalReference 
+				ifNil: [ '<none>' ]
+				ifNotNil: #basename ];
+		actionUpdateButton
 ]
 
 { #category : #'gt-extensions' }
