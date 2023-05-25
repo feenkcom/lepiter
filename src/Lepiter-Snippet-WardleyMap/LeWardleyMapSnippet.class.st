@@ -59,6 +59,12 @@ LeWardleyMapSnippet class >> leJsonV4Name [
 	^ 'wardleyMap'
 ]
 
+{ #category : #accessing }
+LeWardleyMapSnippet >> acceptVisitor: aVisitor [
+
+	^ aVisitor visitWardleyMapSnippet: self
+]
+
 { #category : #'private - notifications' }
 LeWardleyMapSnippet >> announceWardleyMapChangedBy: aSourceObject [
 	"Notify all dependents that the snippet's Wardley map has changed"
@@ -233,6 +239,11 @@ LeWardleyMapSnippet >> storeOn: aStream [
 		nextPutAll: ' new wardleyMap: '.
 	self wardleyMap storeOn: aStream.
 	aStream nextPutAll: ')'
+]
+
+{ #category : #accessing }
+LeWardleyMapSnippet >> title [
+	^ self wardleyMap title
 ]
 
 { #category : #accessing }
