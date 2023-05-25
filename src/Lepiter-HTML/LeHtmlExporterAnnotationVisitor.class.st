@@ -86,7 +86,7 @@ LeHtmlExporterAnnotationVisitor >> visitMethodAnnotation: aMethodAnnotation [
 							ifFalse: [ 'collapsed_annotation_body' ]}}
 		with: [ aMethodAnnotation hasLabel
 				ifTrue: [ self putString: aMethodAnnotation label asHTMLString ]
-				ifFalse: [ self putString: methodNameArgument source asHTMLString ] ].
+				ifFalse: [ self putString: methodNameArgument fullName asHTMLString ] ].
 
 	self
 		putTag: 'div'
