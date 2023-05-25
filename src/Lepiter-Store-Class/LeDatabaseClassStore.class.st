@@ -11,7 +11,78 @@ Class {
 LeDatabaseClassStore class >> forJsonV4 [
 	"Answer an instance of the receiver with JSON V4 storage format"
 
-	^ self new storage: LeClassJsonV4Storage new
+	^ self new storage: LeDatabaseClassJsonV4Storage new
+]
+
+{ #category : #attachments }
+LeDatabaseClassStore >> addAttachmentByCopy: aFileReference [
+	"Copy the attached file to the receiver's DB and answer the string identifying the attachment"
+	<return: #String>
+	| attachmentUUID metadata |
+
+	attachmentUUID := UUID new asString36.
+	metadata := LeAttachment new uploadDate: DateAndTime now.
+	self savePersonalInformation ifTrue:
+		[ metadata
+			originalReference: aFileReference asFileReference;
+			uploadedBy: self userEmail ].
+	storage
+		saveAttachment: aFileReference binaryContents 
+		inClass: dbClass 
+		selector: ('attachment_', attachmentUUID) asSymbol
+		title: aFileReference basename
+		classified: 'attachments'
+		metadata: metadata.
+	^ attachmentUUID
+]
+
+{ #category : #attachments }
+LeDatabaseClassStore >> addAttachmentByMove: aFileReference [
+	"Move the attached file to the receiver's DB and answer a string identifying the attachment"
+
+	self error: 'LeDatabaseClassStore is unable to reference external files'
+]
+
+{ #category : #attachments }
+LeDatabaseClassStore >> addAttachmentWithContent: aString named: aName [
+	"Copy the attached file to the receiver's DB and answer the string identifying the attachment"
+	<return: #String>
+	| attachmentUUID metadata |
+
+	attachmentUUID := UUID new asString36.
+	metadata := LeAttachment new uploadDate: DateAndTime now.
+	self savePersonalInformation ifTrue:
+		[ metadata
+			originalReference: aName asFileReference;
+			uploadedBy: self userEmail ].
+	storage
+		saveAttachment: aString utf8Encoded
+		inClass: dbClass 
+		selector: ('attachment_', attachmentUUID) asSymbol
+		title: aName
+		classified: 'attachments'
+		metadata: metadata.
+	^ attachmentUUID
+]
+
+{ #category : #attachments }
+LeDatabaseClassStore >> attachmentBinaryStream: attachmentId do: aBlock [
+	"Answer a stream on the binary contents of the supplied attachment path"
+
+	^ aBlock value: (storage loadAttachmentFromMethod: (dbClass class >> (storage attachmentSelectorFor: attachmentId))) readStream
+]
+
+{ #category : #accessing }
+LeDatabaseClassStore >> attachmentIds [
+
+	^ storage attachmentIdsFor: dbClass
+]
+
+{ #category : #attachments }
+LeDatabaseClassStore >> attachmentUtf8Stream: attachmentId do: aBlock [
+	"Answer a stream on the binary contents of the supplied attachment path"
+
+	^ aBlock value: (ZnCharacterReadStream on: (storage loadAttachmentFromMethod: (dbClass class >> (storage attachmentSelectorFor: attachmentId))) readStream encoding: 'utf-8')
 ]
 
 { #category : #accessing }

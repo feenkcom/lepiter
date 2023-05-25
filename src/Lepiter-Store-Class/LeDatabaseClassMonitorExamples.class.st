@@ -1,51 +1,11 @@
 Class {
-	#name : #LeClassDatabaseMonitorExamples,
-	#superclass : #LeClassDatabaseExamples,
-	#instVars : [
-		'monitor'
-	],
+	#name : #LeDatabaseClassMonitorExamples,
+	#superclass : #LeDatabaseClassExamples,
 	#category : #'Lepiter-Store-Class-Examples'
 }
 
-{ #category : #private }
-LeClassDatabaseMonitorExamples >> createDatabase [
-	"Reset the receiver and create a sample database"
-	| page1 page2 page3 page4 |
-
-	database := LeDatabase new.
-	page1 := database pageBuilder
-		title: 'Page 1';
-		add.
-	page1 snippetBuilder
-		string: 'Page 1 Paragraph 1';
-		add.
-	page2 := database pageBuilder
-		title: 'Page 2';
-		add.
-	page2 snippetBuilder
-		string: 'Page 2 Paragraph 1';
-		add.
-	page2 snippetBuilder
-		string: 'Page 2 link to [[Page 1]]';
-		add.
-	page3 := database pageBuilder
-		title: 'Page 3';
-		add.
-	page3 snippetBuilder
-		string: 'Page 3 Paragraph 1';
-		add.
-	page4 := database pageBuilder
-		title: 'Page 4';
-		add.
-	page4 snippetBuilder
-		string: 'Pharo snippet follows';
-		add.
-	page4 addSnippet: (LePharoSnippet new code: '42 inspect').
-	^ database
-]
-
 { #category : #'examples - monitor' }
-LeClassDatabaseMonitorExamples >> databaseRoundTrip [
+LeDatabaseClassMonitorExamples >> databaseRoundTrip [
 	<gtExample>
 	| page1 page2 page4 snippet imported link links |
 
@@ -70,45 +30,8 @@ LeClassDatabaseMonitorExamples >> databaseRoundTrip [
 	^ database
 ]
 
-{ #category : #private }
-LeClassDatabaseMonitorExamples >> dbClassName [
-
-	^ #LeClassDatabaseMonitorExamplesDb
-]
-
-{ #category : #private }
-LeClassDatabaseMonitorExamples >> dbPackageName [
-
-	^ 'LepiterExamples-Temporary'
-]
-
-{ #category : #private }
-LeClassDatabaseMonitorExamples >> exportedDatabase [
-	"Create and export the database"
-
-	self class environment
-		at: self dbClassName
-		ifPresent: [ :aClass | aClass removeFromSystem ].
-	self createDatabase.
-	EpMonitor disableDuring:
-		[ LeDatabaseClassStoreExport current 
-			database: database;
-			dbClassName: self dbClassName package: self dbPackageName;
-			export ].
-	^ database
-]
-
-{ #category : #private }
-LeClassDatabaseMonitorExamples >> importedDatabase [
-	"Answer the sample database as imported"
-
-	self exportedDatabase.
-	database := nil.
-	^ database := LeDatabaseClassStoreLoad current loadFrom: self dbClassName package: self dbPackageName
-]
-
 { #category : #'examples - monitor' }
-LeClassDatabaseMonitorExamples >> monitorBlockAdded [
+LeDatabaseClassMonitorExamples >> monitorBlockAdded [
 	<gtExample>
 	| page3 page3FromFile |
 
@@ -125,7 +48,7 @@ LeClassDatabaseMonitorExamples >> monitorBlockAdded [
 ]
 
 { #category : #'examples - monitor' }
-LeClassDatabaseMonitorExamples >> monitorBlockModified [
+LeDatabaseClassMonitorExamples >> monitorBlockModified [
 	<gtExample>
 	| page3 page3FromFile block31 |
 
@@ -143,7 +66,7 @@ LeClassDatabaseMonitorExamples >> monitorBlockModified [
 ]
 
 { #category : #'examples - monitor' }
-LeClassDatabaseMonitorExamples >> monitorBlockRemoved [
+LeDatabaseClassMonitorExamples >> monitorBlockRemoved [
 	<gtExample>
 	| page2 page2FromFile block21 |
 
@@ -162,7 +85,7 @@ LeClassDatabaseMonitorExamples >> monitorBlockRemoved [
 ]
 
 { #category : #'examples - monitor' }
-LeClassDatabaseMonitorExamples >> monitorExplicitLinkBetweenPagesAdded [
+LeDatabaseClassMonitorExamples >> monitorExplicitLinkBetweenPagesAdded [
 	<gtExample>
 	| page1 page2 explicitLink explicitLinks explicitLinksReloaded |
 	
@@ -188,7 +111,7 @@ LeClassDatabaseMonitorExamples >> monitorExplicitLinkBetweenPagesAdded [
 ]
 
 { #category : #'examples - monitor' }
-LeClassDatabaseMonitorExamples >> monitorExplicitLinkBetweenPagesRemoved [
+LeDatabaseClassMonitorExamples >> monitorExplicitLinkBetweenPagesRemoved [
 	<gtExample>
 	| explicitLink explicitLinksFile explicitLinksFromFile |
 	
@@ -211,7 +134,7 @@ LeClassDatabaseMonitorExamples >> monitorExplicitLinkBetweenPagesRemoved [
 ]
 
 { #category : #'examples - monitor' }
-LeClassDatabaseMonitorExamples >> monitorNamedPageEmptied [
+LeDatabaseClassMonitorExamples >> monitorNamedPageEmptied [
 	"Removing all content from a named page should leave it on disk (with no content)"
 	<gtExample>
 	| page1 |
@@ -226,7 +149,7 @@ LeClassDatabaseMonitorExamples >> monitorNamedPageEmptied [
 ]
 
 { #category : #'examples - monitor' }
-LeClassDatabaseMonitorExamples >> monitorPageAdded [
+LeDatabaseClassMonitorExamples >> monitorPageAdded [
 	<gtExample>
 	| page title mpaReloaded |
 
@@ -243,7 +166,7 @@ LeClassDatabaseMonitorExamples >> monitorPageAdded [
 ]
 
 { #category : #'examples - monitor' }
-LeClassDatabaseMonitorExamples >> monitorPageRemoved [
+LeDatabaseClassMonitorExamples >> monitorPageRemoved [
 	<gtExample>
 	| page3 |
 
@@ -257,7 +180,7 @@ LeClassDatabaseMonitorExamples >> monitorPageRemoved [
 ]
 
 { #category : #'examples - monitor' }
-LeClassDatabaseMonitorExamples >> monitorPageTitleChanged [
+LeDatabaseClassMonitorExamples >> monitorPageTitleChanged [
 	<gtExample>
 	| page3 newPage3 |
 
@@ -273,7 +196,7 @@ LeClassDatabaseMonitorExamples >> monitorPageTitleChanged [
 ]
 
 { #category : #'examples - monitor' }
-LeClassDatabaseMonitorExamples >> monitorPharoClassPageEmptied [
+LeDatabaseClassMonitorExamples >> monitorPharoClassPageEmptied [
 	"Removing all content from a pharo class page should remove it from disk"
 	<gtExample>
 	| classPage |
@@ -294,7 +217,7 @@ LeClassDatabaseMonitorExamples >> monitorPharoClassPageEmptied [
 ]
 
 { #category : #'examples - monitor' }
-LeClassDatabaseMonitorExamples >> monitorSaveDelay [
+LeDatabaseClassMonitorExamples >> monitorSaveDelay [
 	"Do a check that multiple updates are queued and processed."
 	<gtExample>
 	<noTest>
@@ -333,19 +256,7 @@ LeClassDatabaseMonitorExamples >> monitorSaveDelay [
 ]
 
 { #category : #private }
-LeClassDatabaseMonitorExamples >> monitorWithDuration: aDuration [
-	self exportedDatabase.
-	database := nil.
-	database := LeDatabaseClassStoreLoad current 
-		loadFrom: self dbClassName 
-		package: self dbPackageName
-		saveDelay: aDuration.
-	monitor := database monitor.
-	^ monitor
-]
-
-{ #category : #private }
-LeClassDatabaseMonitorExamples >> reportMonitorSaveDelayError: title count: count [
+LeDatabaseClassMonitorExamples >> reportMonitorSaveDelayError: title count: count [
 	| errorMessage |
 
 	errorMessage := String streamContents: [ :stream |
@@ -361,7 +272,7 @@ LeClassDatabaseMonitorExamples >> reportMonitorSaveDelayError: title count: coun
 ]
 
 { #category : #private }
-LeClassDatabaseMonitorExamples >> reset [ 
+LeDatabaseClassMonitorExamples >> reset [ 
 
 	memStore := nil.
 	database := nil.

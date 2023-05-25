@@ -15,14 +15,15 @@ LeDatabaseExamples >> addAttachmentByCopy [
 	"Demonstrate attaching a file to a database by copy"
 	<gtExample>
 	<after: #cleanUp>
-	| db attachmentSource attachment userEmail now propertiesFileReference properties |
+	| db attachmentId attachmentSource attachment userEmail now propertiesFileReference properties |
 
 	memStore := FileSystem memory root.
 	db := memStore / 'db'.
 	db ensureCreateDirectory.
 
 	attachmentSource := memStore / 'attachment.txt'.
-	attachmentSource ensureCreateFile.
+	attachmentSource writeStreamDo: [ :stream |
+		stream << 'Hello, World' ].
 
 	userEmail := 'attached@email.com'.
 	database := LeLocalStoreLoad current loadAndMonitorFrom: db.
@@ -32,18 +33,26 @@ LeDatabaseExamples >> addAttachmentByCopy [
 
 	self deny: ((db allChildren collect: #basename) includes: 'attachment.txt').
 
-	attachment := database resolveDbFile: (database addAttachmentByCopy: attachmentSource).
+	attachmentId := database addAttachmentByCopy: attachmentSource.
+	attachment := database resolveDbFile: attachmentId.
 
 	self assert: attachmentSource exists.
 	self assert: attachment exists.
 	propertiesFileReference := attachment parent / 'lepiter_attachment.properties'.
 	self assert: propertiesFileReference exists.
 
-	properties := LeAttachment loadFrom: propertiesFileReference.
+	properties := database attachmentProperties: attachmentId.
 	self assert: properties uploadedBy email equals: userEmail.
 	"It isn't actually possible to directly reference the original, since it is a memory file system.  Just check that the path is correct."
 	self assert: properties originalReference path equals: attachmentSource path.
 	self assert: (properties uploadDate - now) < 1 hour.
+	self assert: (database attachmentUtf8Stream: attachmentId do: [ :stream | 
+			stream contents ])
+		equals: 'Hello, World'.
+	self assert: (database attachmentBinaryStream: attachmentId do: [ :stream | 
+			stream contents ])
+		equals: 'Hello, World' utf8Encoded.
+	^ attachmentId
 ]
 
 { #category : #examples }

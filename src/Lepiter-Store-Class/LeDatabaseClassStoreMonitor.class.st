@@ -81,6 +81,13 @@ LeDatabaseClassStoreMonitor >> announcer [
 	^ announcer
 ]
 
+{ #category : #attachments }
+LeDatabaseClassStoreMonitor >> attachmentProperties: attachmentPath [
+	"Answer the properties of the specified attachment"
+
+	^ dbClass perform: ('attachment_', attachmentPath) asSymbol.
+]
+
 { #category : #accessing }
 LeDatabaseClassStoreMonitor >> corruptSelectors [
 	"Answer the receiver's collection of corrupt selectors"
