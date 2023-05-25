@@ -129,12 +129,13 @@ LeHtmlPageExporterExamples >> sampleSnippetsPage [
 LeHtmlPageExporterExamples >> sampleSnippetsPageExport [
 	"Answer the html of a sample page"
 	<gtExample>
-	| visitor html page |
+	| visitor html page aResources |
 
 	page := self sampleSnippetsPage.
 
 	html := String streamContents: [ :stream |
 		visitor := LeHtmlPageExporterVisitor new stream: stream.
+		visitor externalPicturesWriter: (aResources := LeResourcesExporter new).
 		visitor addInternalStyle: self sampleCssFile contents.
 		page acceptVisitor: visitor ].
 
