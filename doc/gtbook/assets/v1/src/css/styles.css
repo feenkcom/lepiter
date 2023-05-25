@@ -3,11 +3,16 @@
  */
 
 :root {
+    /* colors */
     --active-color: #eee;
     --hovered-color: #ddd;
     --text-color: black;
     --link-text-color: var(--text-color);
     --link-indent: 1rem;
+
+    /* --min-column-width does not work in media queries.
+     It is here for documentation purposes only. */
+    --min-column-width: 992px;
 }
 
 body {
@@ -83,15 +88,32 @@ It means that the navigation item highlight will start at the
     font-weight: lighter;
 }
 
-/* Make the navigation list scrollable */
+/* Scrollable navigation list */
 .le-nav-scrollable {
+    /* Make the navigation list scrollable */
+    /* fallback height */
     max-height: 100vh;
+    /* new small viewport height for modern browsers */
+    max-height: 100svh;
     top: 0;
     bottom: 0;
     overflow-y: auto;
+
+    /* smaller font */
     font-size: 0.88rem;
     color: var(--text-color);
-    border-right: solid var(--active-color) thin;
+}
+
+/* Expanded navigation list */
+@media (min-width: 992px) {
+    .le-nav-scrollable {
+        /* border that splits navigation list from the main content */
+        border-inline-end: solid var(--active-color) thin;
+
+        /* same space between navigation list and footer
+         as between main content and the footer */
+        padding-block-end: 3rem;
+    }
 }
 
 /* navigation links */
