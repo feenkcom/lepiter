@@ -67,6 +67,30 @@ answer:=42.
 ]
 
 { #category : #examples }
+LeHtmlFragmentExporterExamples >> elementSnippet [
+	<gtExample>
+	| snippet html aResources |
+
+	snippet := LeElementSnippet 
+		code: BrExamplesShowroom name, ' new ', #glamorousBreadcrumb asString.
+	html := String streamContents: [ :stream |
+		snippet acceptVisitor: (LeHtmlFragmentExporterVisitor new 
+			externalPicturesWriter: (aResources := LeResourcesExporter new);
+			stream: stream) ].
+			
+	self 
+		assert: html isNotEmpty 
+		description: [ 'HTML output must be non-empty'].
+	
+	self assert: (html includesSubstring: '<figure class="snippet picture-snippet').
+	self assert: (html includesSubstring: '<img class="picture-snippet-image" src="gt-figures/1000.png"/>').
+	
+	self assert: aResources asArray size equals: 1.
+	
+	^ html
+]
+
+{ #category : #examples }
 LeHtmlFragmentExporterExamples >> exampleSnippet [
 	"Confirm that basic markup is converted"
 	<gtExample>
@@ -204,6 +228,8 @@ LeHtmlFragmentExporterExamples >> wardleySnippet [
 	
 	self assert: (html includesSubstring: '<figure class="snippet picture-snippet').
 	self assert: (html includesSubstring: '<img class="picture-snippet-image" src="gt-figures/1000.png"/>').
+	
+	self assert: aResources asArray size equals: 1.
 	
 	^ html
 ]
