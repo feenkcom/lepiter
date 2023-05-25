@@ -203,7 +203,7 @@ LeHtmlBookPageExporterVisitor >> writeDocType [
 LeHtmlBookPageExporterVisitor >> writeHeadFor: aLePage [
 
 	stream
-		<< '<html>'; cr;
+		<< '<html land="en">'; cr;
 		<< '<head>'; cr;
 		<< '<title>';
 		<< aLePage title;

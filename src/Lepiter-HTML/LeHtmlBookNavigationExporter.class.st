@@ -93,7 +93,7 @@ LeHtmlBookNavigationExporter >> exportNavigation [
 		do: [
 			internalStream
 				tag: #div
-				class: 'side-menu sticky-top pb-5 navbar-expand-lg le-nav-scrollable le-nav-container'
+				class: 'side-menu sticky-top navbar-expand-lg le-nav-scrollable le-nav-container'
 				do: [
 					internalStream
 						tag: #header

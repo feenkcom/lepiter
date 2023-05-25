@@ -28,7 +28,7 @@ LePage >> gtHTMLLocalExportActionFor: anAction [
 		label: 'HTML';
 		tooltip: 'Export the page into an HTML format and store locally';
 		priority: 10;
-		icon: BrGlamorousIcons spawn;
+		icon: BrGlamorousVectorIcons spawn;
 		action: [ :aButton | 
 			| xdocFile |
 			xdocFile := XdWriter new
