@@ -6,11 +6,13 @@ Class {
 
 { #category : #'api - exporting' }
 LeDatabaseClassStoreExport >> export [
-	"Export all the pages in the receiver's database to the receiver's dbClass"
+	"Export all the pages in the receiver's database to the receiver's dbClass.
+	#exportAttachments assumes that the source database is disk based."
 
 	database pages do: [ :page |
 		self exportPage: page ].
-	self exportAttachments.
+	database hasMonitor ifTrue:
+		[ self exportAttachments ].
 	self updateProperty: #schema value: storage class currentVersionString.
 ]
 
