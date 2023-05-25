@@ -138,6 +138,13 @@ LeDatabase >> at: aKey ifPresent: aPresentBlock ifAbsent: anAbsentBlock forPageT
 	^ (pagesByType at: aPageType) at: aKey ifPresent: aPresentBlock ifAbsent: anAbsentBlock
 ]
 
+{ #category : #'api - attachments' }
+LeDatabase >> attachmentBinaryStream: attachmentPath do: aBlock [
+	"Answer a stream on the binary contents of the supplied attachment path"
+
+	^ monitor attachmentBinaryStream: attachmentPath do: aBlock
+]
+
 { #category : #'api - accessing' }
 LeDatabase >> attachmentDirectories [
 
@@ -159,6 +166,19 @@ LeDatabase >> attachmentDirectoryAndMetadataFor: aFileReference [
 		description: 'Unable to add attachment, monitor not configured'.
 
 	^ monitor attachmentDirectoryAndMetadataFor: aFileReference
+]
+
+{ #category : #'api - attachments' }
+LeDatabase >> attachmentProperties: attachmentPath [
+
+	^ monitor attachmentProperties: attachmentPath
+]
+
+{ #category : #'api - attachments' }
+LeDatabase >> attachmentUtf8Stream: attachmentPath do: aBlock [
+	"Answer a stream on the binary contents of the supplied attachment path"
+
+	^ monitor attachmentUtf8Stream: attachmentPath do: aBlock
 ]
 
 { #category : #'private - accessing' }
@@ -319,7 +339,8 @@ LeDatabase >> gtAttachmentsFor: aView [
 		title: 'Attachments';
 		priority: 70;
 		object: [self monitor ];
-		view: #gtAttachmentsFor:
+		view: #gtAttachmentsFor:;
+		actionUpdateButton
 ]
 
 { #category : #'gt-extensions' }

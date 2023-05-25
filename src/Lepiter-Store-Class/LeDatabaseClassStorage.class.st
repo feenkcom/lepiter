@@ -1,17 +1,38 @@
 Class {
-	#name : #LeClassStorage,
+	#name : #LeDatabaseClassStorage,
 	#superclass : #Object,
 	#category : #'Lepiter-Store-Class-Model'
 }
 
+{ #category : #accessing }
+LeDatabaseClassStorage >> attachmentIdsFor: dbClass [
+
+	^ dbClass class selectors 
+		select: [ :selector | selector beginsWith: 'attachment_' ]
+		thenCollect: [ :selector | selector copyFrom: 12 to: selector size ]
+]
+
+{ #category : #accessing }
+LeDatabaseClassStorage >> attachmentSelectorFor: attachmentId [
+
+	^ ('attachment_', attachmentId) asSymbol
+]
+
 { #category : #testing }
-LeClassStorage >> hasPageStored: aPage inClass: dbClass [
+LeDatabaseClassStorage >> hasPageStored: aPage inClass: dbClass [
 
 	^ dbClass respondsTo: (self pageSelectorFor: aPage)
 ]
 
 { #category : #accessing }
-LeClassStorage >> loadFromMethod: aCompiledMethod [
+LeDatabaseClassStorage >> loadAttachmentFromMethod: aCompiledMethod [
+	"Answer the object encoded in the supplied method"
+
+	^ (aCompiledMethod comments at: 2) base64Decoded
+]
+
+{ #category : #accessing }
+LeDatabaseClassStorage >> loadFromMethod: aCompiledMethod [
 	"Answer the object encoded in the supplied method"
 	| jsonString |
 
@@ -30,7 +51,7 @@ LeClassStorage >> loadFromMethod: aCompiledMethod [
 ]
 
 { #category : #accessing }
-LeClassStorage >> loadJsonFromMethod: aCompiledMethod [
+LeDatabaseClassStorage >> loadJsonFromMethod: aCompiledMethod [
 	"Load the JSON object from the supplied method without any interpretation of the contents, but keeping the attribute order"
 	| jsonString |
 
@@ -42,7 +63,7 @@ LeClassStorage >> loadJsonFromMethod: aCompiledMethod [
 ]
 
 { #category : #accessing }
-LeClassStorage >> pageProtocolFor: aPage [
+LeDatabaseClassStorage >> pageProtocolFor: aPage [
 	"Answer the protocol where aPage is stored"
 
 	^ (aPage isKindOf: LeExplicitLinks)
@@ -51,7 +72,7 @@ LeClassStorage >> pageProtocolFor: aPage [
 ]
 
 { #category : #accessing }
-LeClassStorage >> pageSelectorFor: aPage [
+LeDatabaseClassStorage >> pageSelectorFor: aPage [
 	"Answer the method name where aPage is stored"
 
 	^ (aPage isKindOf: LeExplicitLinks)
@@ -60,14 +81,14 @@ LeClassStorage >> pageSelectorFor: aPage [
 ]
 
 { #category : #accessing }
-LeClassStorage >> pageSelectorForUid: aPageUid [
+LeDatabaseClassStorage >> pageSelectorForUid: aPageUid [
 	"Answer the method name where the page with the given id is stored"
 
 	^ ('page_', aPageUid asString36) asSymbol
 ]
 
 { #category : #accessing }
-LeClassStorage >> pageSelectorsIn: aClass [
+LeDatabaseClassStorage >> pageSelectorsIn: aClass [
 	"Answer the selectors storing pages in aClass"
 
 	^ aClass class selectors select: [ :each |
@@ -75,7 +96,7 @@ LeClassStorage >> pageSelectorsIn: aClass [
 ]
 
 { #category : #saving }
-LeClassStorage >> save: anObject inClass: aClass selector: aSymbol title: aString classified: protocol [
+LeDatabaseClassStorage >> save: anObject inClass: aClass selector: aSymbol title: aString classified: protocol [
 	"Write the supplied page back to the specified class.
 	Note that unlike the file store, no backup of the page is made.  Code versioning is assumed to take care of this."
 	| jsonString sourceCode |
@@ -94,7 +115,7 @@ LeClassStorage >> save: anObject inClass: aClass selector: aSymbol title: aStrin
 	sourceCode := String streamContents: [ :stream |
 		stream
 			<< aSymbol; cr;
-			<< '"Automatically generated, do not edit'; cr;
+			<< '"Automatically generated'; cr;
 			<< aString;
 			nextPut: $"; cr;
 			nextPut: $";
@@ -107,7 +128,33 @@ LeClassStorage >> save: anObject inClass: aClass selector: aSymbol title: aStrin
 ]
 
 { #category : #saving }
-LeClassStorage >> savePage: aPage inClass: aClass [
+LeDatabaseClassStorage >> saveAttachment: aByteArray inClass: aClass selector: aSymbol title: aString classified: protocol metadata: aLeAttachment [
+	"Write the supplied ByteArray to the specified class"
+	| sourceCode |
+
+	sourceCode := String 
+		new: (aByteArray size * 4 / 3 + aSymbol size + aString size + 100) rounded
+		streamContents: [ :stream |
+			stream
+				<< aSymbol; cr;
+				<< '"Automatically generated'; cr;
+				<< aString;
+				nextPut: $"; cr;
+				nextPut: $".
+			ZnBase64Encoder new encode: aByteArray readStream to: stream.
+			stream 
+				nextPut: $"; cr;
+				cr; tab;
+				<< '^ LeJsonV4 uniqueInstance deserialize: '''.
+			LeJsonV4 uniqueInstance serialize: aLeAttachment on: stream prettyPrint: false.
+			stream << ''' readStream' ].
+	aClass class
+		compile: sourceCode
+		classified: protocol.
+]
+
+{ #category : #saving }
+LeDatabaseClassStorage >> savePage: aPage inClass: aClass [
 	"Write the supplied page back to the specified class.
 	Note that unlike the file store, no backup of the page is made.  Code versioning is assumed to take care of this."
 
@@ -124,13 +171,13 @@ LeClassStorage >> savePage: aPage inClass: aClass [
 ]
 
 { #category : #saving }
-LeClassStorage >> serialize: aPage on: aStream prettyPrint: aBoolean [
+LeDatabaseClassStorage >> serialize: aPage on: aStream prettyPrint: aBoolean [
 
 	self subclassResponsibility 
 ]
 
 { #category : #'schema updating' }
-LeClassStorage >> updateDbStore: store [
+LeDatabaseClassStorage >> updateDbStore: store [
 	"Update the store to the latest minor version.
 	Subclasses should overwrite with the appropriate action."
 ]
