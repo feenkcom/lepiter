@@ -201,12 +201,18 @@ LeHtmlFragmentExporterExamples >> pictureFile [
 { #category : #accessing }
 LeHtmlFragmentExporterExamples >> pictureSnippet [
 	<gtExample>
-	| markdown html |
+	| markdown html aResources |
 	markdown := LePictureSnippet new urlString: self pictureFile.
 	html := String streamContents: [ :stream |
-		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
+		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new 
+			externalPicturesWriter: (aResources := LeResourcesExporter new);
+			stream: stream) ].
+	
 	self assert: (html beginsWith: '<figure class="snippet picture-snippet paragraphWidth"').
-	self assert: (html includesSubstring: 'feenkcom/gtoolkit-demos/data/faceapi/1280px-Einstein-with-habicht-and-solovine.jpg"/>').
+	self assert: (html includesSubstring: '<img class="picture-snippet-image" src="gt-figures/1000.jpg"/>').
+	
+	self assert: aResources asArray size equals: 1.
+	
 	^ html
 ]
 

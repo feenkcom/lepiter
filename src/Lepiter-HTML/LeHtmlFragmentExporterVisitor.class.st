@@ -117,15 +117,14 @@ LeHtmlFragmentExporterVisitor >> visitPharoSnippet: aLePharoSnippet [
 
 { #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitPictureSnippet: aLePictureSnippet [
+	| anImgSrc |
+	anImgSrc := self externalPicturesWriter 
+		pictureSnippetReferenceFor: aLePictureSnippet.
+			
 	self
 		putTag: 'figure'
 		andAttributes: #('class' 'snippet picture-snippet paragraphWidth')
-		with: [ | anImgSrc |
-			anImgSrc := (aLePictureSnippet urlString
-					beginsWith: 'https://'
-					caseSensitive: false)
-					ifTrue: [ aLePictureSnippet urlString ]
-					ifFalse: [ './' , aLePictureSnippet urlString ].
+		with: [
 
 			self
 				putTag: 'img'
