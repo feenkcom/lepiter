@@ -11,7 +11,7 @@ Class {
 		'database',
 		'searchQuery'
 	],
-	#category : #'Lepiter-HTML'
+	#category : #'Lepiter-HTML-Helpers'
 }
 
 { #category : #accessing }
