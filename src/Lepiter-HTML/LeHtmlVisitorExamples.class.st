@@ -4,6 +4,36 @@ Class {
 	#category : #'Lepiter-HTML-! New - Examples'
 }
 
+{ #category : #'examples - incoplete visitor' }
+LeHtmlVisitorExamples >> elementSnippet_IncompleteVisitor [
+	<gtExample>
+	| snippet html resources context visitor |
+	snippet := LeElementSnippet
+			code: BrExamplesShowroom name , ' new ' , #glamorousBreadcrumb asString.
+	html := String
+			streamContents: [ :stream | 
+				snippet
+					acceptVisitor: (visitor := LeHtmlIncopleteVisitor new
+								context: (context := LeHtmlContext new
+											resources: (resources := LeExportResources new);
+											stream: stream)) ].
+											
+	self 
+		assert: html isEmpty 
+		description: [ 'HTML output must be empty'].
+	self 
+		assert: resources asArray isEmpty
+		description: [ 'Resources must be empty.' ].
+	self 
+		assert: context log asArray size = 1
+		description: [ 'Log must NOT be empty.' ].
+	self 
+		assert: context log asArray first isProblemLog
+		description: [ 'Log item must be a problem.' ].
+
+	^ visitor
+]
+
 { #category : #'examples - element snippet' }
 LeHtmlVisitorExamples >> elementSnippet_InexistentMethod [
 	<gtExample>
