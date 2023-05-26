@@ -52,6 +52,19 @@ LeHtmlOutputPrettyStream >> initialize [
 ]
 
 { #category : #'html tags' }
+LeHtmlOutputPrettyStream >> inlineTag: tag attributes: attributePairs [
+	"Write a standalone, self closing HTML tag with attributes, a collection of alternating keys and values"
+
+	"<tag attr1=""value1"" ... attrN=""valueN""/>"
+
+	self noIndentDo: [ 
+		self 
+			tag: tag 
+			attributes: attributePairs 
+	]
+]
+
+{ #category : #'html tags' }
 LeHtmlOutputPrettyStream >> inlineTag: tag attributes: attributePairs do: block [
 	"Write an HTML tag with attributes, a collection of alternating keys and values, executing block to generate enclosed content"
 
