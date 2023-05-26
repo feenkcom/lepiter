@@ -1,6 +1,8 @@
 Class {
 	#name : #LeResourcesDirectorySaver,
 	#superclass : #Object,
+	#traits : 'TExportResourceVisitor',
+	#classTraits : 'TExportResourceVisitor classTrait',
 	#instVars : [
 		'resources',
 		'rootDirectory'
