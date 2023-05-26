@@ -6,7 +6,8 @@ Class {
 		'resources',
 		'htmlStream',
 		'sequencer',
-		'fileStore'
+		'fileStore',
+		'log'
 	],
 	#category : #'Lepiter-HTML-! New - Exporter'
 }
@@ -19,6 +20,11 @@ LeHtmlContext >> assembler [
 { #category : #initialization }
 LeHtmlContext >> defaultFileStore [
 	^ LeExportMemoryStore new
+]
+
+{ #category : #initialization }
+LeHtmlContext >> defaultLog [
+	^ LeExportLog new
 ]
 
 { #category : #initialization }
@@ -61,6 +67,17 @@ LeHtmlContext >> gtFilesFor: aView [
 ]
 
 { #category : #'gt - extensions' }
+LeHtmlContext >> gtLogFor: aView [
+	<gtView>
+	log ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Log';
+		priority: 20;
+		object: [ log ];
+		view: #gtLogItemsFor:
+]
+
+{ #category : #'gt - extensions' }
 LeHtmlContext >> gtResourcesFor: aView [
 	<gtView>
 	resources ifNil: [ ^ aView empty ].
@@ -97,6 +114,17 @@ LeHtmlContext >> html [
 		ifNil: [ (stream isKindOf: ZnHtmlOutputStream)
 				ifTrue: [ htmlStream := stream ]
 				ifFalse: [ htmlStream := LeHtmlOutputPrettyStream on: stream ] ]
+]
+
+{ #category : #'api - accessing' }
+LeHtmlContext >> log [
+	<return: #TLeExportLog>
+	^ log ifNil: [ log := self defaultLog ]
+]
+
+{ #category : #'api - builders' }
+LeHtmlContext >> logger [
+	^ LeExportLogger new context: self
 ]
 
 { #category : #'api - builders' }

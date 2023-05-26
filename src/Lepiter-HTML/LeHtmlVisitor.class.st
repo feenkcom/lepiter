@@ -39,6 +39,17 @@ LeHtmlVisitor >> gtFilesFor: aView [
 ]
 
 { #category : #'gt - extensions' }
+LeHtmlVisitor >> gtLogFor: aView [
+	<gtView>
+	context ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Log';
+		priority: 20;
+		object: [ context ];
+		view: #gtLogFor:
+]
+
+{ #category : #'gt - extensions' }
 LeHtmlVisitor >> gtResourcesFor: aView [
 	<gtView>
 	context ifNil: [ ^ aView empty ].
@@ -66,6 +77,11 @@ LeHtmlVisitor >> html [
 	^ self context html
 ]
 
+{ #category : #'private - logging' }
+LeHtmlVisitor >> logUnsupportedSnippet: aLeSnippet [ 
+	context logger unsupportedSnippet: aLeSnippet
+]
+
 { #category : #exporting }
 LeHtmlVisitor >> resourceFor: aLeSnippet [
 	<return: #LeExportResourcerResult>
@@ -82,6 +98,8 @@ LeHtmlVisitor >> visitElementSnippet: aLeElementSnippet [
 	self 
 		writeFigureImgSrc: aFileName 
 		caption: aLeElementSnippet caption.
+		
+	self visitContent: aLeElementSnippet
 ]
 
 { #category : #visiting }
@@ -94,6 +112,18 @@ LeHtmlVisitor >> visitPictureSnippet: aLePictureSnippet [
 	self 
 		writeFigureImgSrc: anImgSrc 
 		caption: aLePictureSnippet caption.
+		
+	self visitContent: aLePictureSnippet
+]
+
+{ #category : #visiting }
+LeHtmlVisitor >> visitSnippet: aLeSnippet [
+	"The #visitSnippet: method should be called only when a snippet is not handled.
+	To handle snippet children, call #visitContent:."
+	
+	self logUnsupportedSnippet: aLeSnippet.
+
+	^ self visitContent: aLeSnippet
 ]
 
 { #category : #'private - writing' }
