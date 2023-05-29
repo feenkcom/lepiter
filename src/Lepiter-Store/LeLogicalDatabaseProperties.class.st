@@ -90,11 +90,21 @@ LeLogicalDatabaseProperties class >> withDefaultValues [
 { #category : #adding }
 LeLogicalDatabaseProperties >> addRegisteredDirectory: aFileReference [ 
 	"Add the supplied directories to the receiver's list of registered directories.
-	Quietly ignore duplicates."
+	Quietly ignore duplicates.
+	This method is deprecated as lepiter databases now support multiple data stores and use a URL to identify the store type and location."
 
 	((self registeredDatabaseDirectories collect: #resolve) includes: aFileReference asFileReference resolve) ifTrue: [ ^ self ].
 	self registeredDatabaseDirectories: (self registeredDatabaseDirectories copyWith: 
 		(self encodeFileReferenceToString: aFileReference))
+]
+
+{ #category : #adding }
+LeLogicalDatabaseProperties >> addRegisteredUrl: aZnUrl [
+	"Add the supplied directories to the receiver's list of registered directories.
+	Quietly ignore duplicates."
+
+	(self registeredDatabaseUrls includes: aZnUrl) ifTrue: [ ^ self ].
+	self registeredDatabaseUrls: (self registeredDatabaseUrls copyWith: aZnUrl)
 ]
 
 { #category : #'api - testing' }
@@ -143,20 +153,20 @@ LeLogicalDatabaseProperties >> gtPropertiesFor: aView [
 ]
 
 { #category : #'gt-extensions' }
-LeLogicalDatabaseProperties >> gtRegisteredDirectoriesFor: aView [
+LeLogicalDatabaseProperties >> gtRegisteredUrlsFor: aView [
 
 	<gtView>
 	properties ifNil: [ ^ aView empty ].
 	^ aView columnedList
-		  title: 'Directories';
+		  title: 'URLs';
 		  priority: 5;
 		  items: [ 
 			  Array streamContents: [ :aStream | 
-					  | aDir |
-					  aStream nextPut: (aDir := self primaryDatabaseDirectory).
-					  self playgroundDatabaseDirectory = aDir ifFalse: [ 
-							  aStream nextPut: self playgroundDatabaseDirectory ].
-					  aStream nextPutAll: self registeredDatabaseDirectories ] ];
+					  | aUrl |
+					  aStream nextPut: (aUrl := self primaryDatabaseUrl).
+					  self playgroundDatabaseUrl = aUrl ifFalse: [ 
+							  aStream nextPut: self playgroundDatabaseUrl ].
+					  aStream nextPutAll: self registeredDatabaseUrls ] ];
 		  column: 'Name' text: #yourself
 ]
 
@@ -170,18 +180,16 @@ LeLogicalDatabaseProperties >> hasLocalFile [
 LeLogicalDatabaseProperties >> integrityCheck: dictionary [
 	"Check the supplied properties dictionary.
 	The list of registered databases shouldn't contain duplicates."
-	| registeredDirectories |
+	| registeredUrls |
 
-	registeredDirectories := (dictionary at: #registeredDatabaseDirectories ifAbsent: [ #() ])
-		collect: [ :each | (self decodeFileReferenceString: each) resolve ].
-	registeredDirectories asBag doWithOccurrences:
-		[ :directory :count | count > 1 ifTrue: 
-			[ self error: 'Duplicate Registered Database: ', directory fullName ] ].
-	(registeredDirectories includes: (dictionary at: #primaryDatabaseDirectory ifAbsent: [])) ifTrue: 
+	registeredUrls := dictionary at: #registeredDatabaseUrls ifAbsent: [ #() ].
+	registeredUrls asBag doWithOccurrences:
+		[ :url :count | count > 1 ifTrue: 
+			[ self error: 'Duplicate Registered Database: ', url printString ] ].
+	(registeredUrls includes: (dictionary at: #primaryDatabaseUrl ifAbsent: [])) ifTrue: 
 		[ self error: 'Primary Database is also Registered' ].
-	(registeredDirectories includes: (dictionary at: #playgroundDatabaseDirectory ifAbsent: [])) ifTrue: 
+	(registeredUrls includes: (dictionary at: #playgroundDatabaseUrl ifAbsent: [])) ifTrue: 
 		[ self error: 'Playground Database is also Registered' ].
-
 ]
 
 { #category : #'api - testing' }
@@ -199,6 +207,7 @@ LeLogicalDatabaseProperties >> load [
 		readStreamEncoded: #utf8 
 		do: [ :aStream | STONJSON fromStream: aStream ].
 	self migrateStonPropertiesIn: dictionary.
+	self migrateDirectoryStringsIn: dictionary.
 	self integrityCheck: dictionary.
 	properties := dictionary.
 	^ dictionary
@@ -222,6 +231,40 @@ LeLogicalDatabaseProperties >> logicalDatabase [
 	"Answer a logical database with the receiver's properties"
 
 	^ LeLogicalDatabase withProperties: self
+]
+
+{ #category : #private }
+LeLogicalDatabaseProperties >> migrateDirectoryStringsIn: dictionary [
+	"Migrate the old string format to URLs"
+	| changed |
+
+	changed := false.
+	(dictionary includesKey: #primaryDatabaseDirectory) ifTrue:
+		[ dictionary at: #primaryDatabaseUrl put: (dictionary at: #primaryDatabaseDirectory).
+		dictionary removeKey: #primaryDatabaseDirectory.
+		changed := true ].
+	(dictionary includesKey: #playgroundDatabaseDirectory) ifTrue:
+		[ dictionary at: #playgroundDatabaseUrl put: (dictionary at: #playgroundDatabaseDirectory).
+		dictionary removeKey: #playgroundDatabaseDirectory.
+		changed := true ].
+	(dictionary includesKey: #registeredDatabaseDirectories) ifTrue:
+		[ dictionary at: #registeredDatabaseUrls put: (dictionary at: #registeredDatabaseDirectories).
+		dictionary removeKey: #registeredDatabaseDirectories.
+		changed := true ].
+	dictionary associationsDo: [ :assoc |
+		(assoc value isString and: [ (assoc value indexOfSubCollection: '://') = 0 ]) ifTrue:
+			[ assoc value: (self urlFromDirectoryString: assoc value).
+			changed := true ].
+		assoc value isArray ifTrue: 
+			[ | collection |
+			collection := assoc value.
+			1 to: collection size do: [ :i |
+				| value |
+				value := collection at: i.
+				(value indexOfSubCollection: '://') = 0 ifTrue:
+					[ collection at: i put: (self urlFromDirectoryString: value) ].
+				changed := true ] ] ].
+	changed ifTrue: [ self saveDictionary: dictionary ].
 ]
 
 { #category : #private }
@@ -267,43 +310,85 @@ LeLogicalDatabaseProperties >> migrateStonString: association [
 
 { #category : #'api - accessing' }
 LeLogicalDatabaseProperties >> playgroundDatabase [ 
+	| url |
 
-	self primaryDatabaseDirectory = self playgroundDatabaseDirectory ifTrue: 
+	url := self playgroundDatabaseUrl.
+	self primaryDatabaseUrl = url ifTrue: 
 		[ ^ self primaryDatabase ].
-	^ LeLocalStoreLoad current loadAndMonitorFrom: self playgroundDatabaseDirectory
+	^ (LeDatabaseStore loaderFor: url) current 
+		loadAndMonitorFrom: url
 ]
 
 { #category : #'api - accessing' }
 LeLogicalDatabaseProperties >> playgroundDatabaseDirectory [
+	"This method is deprecated as lepiter databases now support multiple data stores and use a URL to identify the store type and location."
+	| url |
 
-	^ self decodeFileReferenceString: (self properties 
-		at: #playgroundDatabaseDirectory ifAbsent: [ self properties at: #primaryDatabaseDirectory ])
+	url := self playgroundDatabaseUrl.
+	self assert: url isFile.
+	^ self decodeFileReferenceString: url path
 ]
 
 { #category : #'api - accessing' }
 LeLogicalDatabaseProperties >> playgroundDatabaseDirectory: aFileReference [
+	"This method is deprecated as lepiter databases now support multiple data stores and use a URL to identify the store type and location."
 
-	^ self updateProperty: #playgroundDatabaseDirectory 
-		value: (self encodeFileReferenceToString: aFileReference)
+	^ self updateProperty: #playgroundDatabaseUrl
+		value: (self urlFromDirectoryString: (self encodeFileReferenceToString: aFileReference))
+]
+
+{ #category : #'api - accessing' }
+LeLogicalDatabaseProperties >> playgroundDatabaseUrl [
+
+	^ (self properties 
+		at: #playgroundDatabaseUrl
+		ifAbsent: [ self properties at: #primaryDatabaseUrl ]) asZnUrl.
+]
+
+{ #category : #'api - accessing' }
+LeLogicalDatabaseProperties >> playgroundDatabaseUrl: aZnUrl [
+
+	^ self updateProperty: #playgroundDatabaseUrl
+		value: aZnUrl printString
 ]
 
 { #category : #'api - accessing' }
 LeLogicalDatabaseProperties >> primaryDatabase [ 
+	| url |
 
-	^ LeLocalStoreLoad current loadAndMonitorFrom: self primaryDatabaseDirectory
+	url := self primaryDatabaseUrl.
+	^ (LeDatabaseStore loaderFor: url) current 
+		loadAndMonitorFrom: url
 ]
 
 { #category : #'api - accessing' }
 LeLogicalDatabaseProperties >> primaryDatabaseDirectory [
+	"This method is deprecated as lepiter databases now support multiple data stores and use a URL to identify the store type and location."
+	| url |
 
-	^ self decodeFileReferenceString: (self properties at: #primaryDatabaseDirectory)
+	url := self primaryDatabaseUrl.
+	self assert: url isFile.
+	^ self decodeFileReferenceString: url path
 ]
 
 { #category : #'api - accessing' }
 LeLogicalDatabaseProperties >> primaryDatabaseDirectory: aFileReference [
 
-	^ self updateProperty: #primaryDatabaseDirectory 
-		value: (self encodeFileReferenceToString: aFileReference)
+	^ self updateProperty: #primaryDatabaseUrl
+		value: (self urlFromDirectoryString: (self encodeFileReferenceToString: aFileReference))
+]
+
+{ #category : #'api - accessing' }
+LeLogicalDatabaseProperties >> primaryDatabaseUrl [
+
+	^ (self properties at: #primaryDatabaseUrl) asZnUrl
+]
+
+{ #category : #'api - accessing' }
+LeLogicalDatabaseProperties >> primaryDatabaseUrl: aZnUrl [
+
+	^ self updateProperty: #primaryDatabaseUrl
+		value: aZnUrl printString
 ]
 
 { #category : #'private - accessing' }
@@ -322,23 +407,39 @@ LeLogicalDatabaseProperties >> propertyAt: propertyName ifPresent: aPresentBlock
 
 { #category : #'api - accessing' }
 LeLogicalDatabaseProperties >> registeredDatabaseDirectories [
+	"This method is deprecated as lepiter databases now support multiple data stores and use a URL to identify the store type and location."
 
-	^ (self properties at: #registeredDatabaseDirectories ifAbsent: [ #() ])
-		collect: [ :each | self decodeFileReferenceString: each ]
+	^ self registeredDatabaseUrls collect: [ :each | 
+		self assert: each isFile.
+		self decodeFileReferenceString: each path ]
 ]
 
 { #category : #'api - accessing' }
 LeLogicalDatabaseProperties >> registeredDatabaseDirectories: aCollection [
 
-	^ self updateProperty: #registeredDatabaseDirectories 
-		value: (aCollection collect: [ :each | self encodeFileReferenceToString: each ])
+	^ self updateProperty: #registeredDatabaseUrls
+		value: (aCollection collect: [ :each | 
+			self urlFromDirectoryString: (self encodeFileReferenceToString: each) ])
+]
+
+{ #category : #'api - accessing' }
+LeLogicalDatabaseProperties >> registeredDatabaseUrls [
+
+	^ (self properties at: #registeredDatabaseUrls ifAbsent: [ #() ]) collect: #asZnUrl
+]
+
+{ #category : #'api - accessing' }
+LeLogicalDatabaseProperties >> registeredDatabaseUrls: aCollection [
+
+	^ self updateProperty: #registeredDatabaseUrls value: (aCollection collect: #printString)
 ]
 
 { #category : #'api - accessing' }
 LeLogicalDatabaseProperties >> registeredDatabases [
 
-	^ self registeredDatabaseDirectories collect: [ :each |
-		LeLocalStoreLoad current loadAndMonitorFrom: each ]
+	^ self registeredDatabaseUrls collect: [ :each |
+		(LeDatabaseStore loaderFor: each) current 
+			loadAndMonitorFrom: each ]
 ]
 
 { #category : #'api - storage' }
@@ -377,4 +478,12 @@ LeLogicalDatabaseProperties >> updateProperty: propertyName value: aString [
 		at: propertyName 
 		put: aString.
 	self save.
+]
+
+{ #category : #private }
+LeLogicalDatabaseProperties >> urlFromDirectoryString: aString [ 
+
+	^ 'file://',
+		(aString first = $/ ifTrue: [ '' ] ifFalse: [ '/' ]),
+		aString
 ]

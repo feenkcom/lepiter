@@ -95,12 +95,6 @@ LeDatabaseClassStoreMonitor >> corruptSelectors [
 	^ corruptSelectors
 ]
 
-{ #category : #'private - accessing' }
-LeDatabaseClassStoreMonitor >> defaultDelay [
-
-	^ 30 seconds
-]
-
 { #category : #accessing }
 LeDatabaseClassStoreMonitor >> explicitLinksOrNil [
 
@@ -157,7 +151,7 @@ LeDatabaseClassStoreMonitor >> gtViewStatusDetailsFor: aView [
 		priority: 5;
 		items: [ {
 			'Has pending change' -> self hasChanges.
-			'Has corrupt files' -> self hasCorruptSelectors .
+			'Has corrupt files' -> self hasCorruptPages .
 			'Is monitor stopped' -> self isRunning not}];
 		column: 'Name' text: #key;
 		column: 'Value' text: #value;
@@ -170,7 +164,7 @@ LeDatabaseClassStoreMonitor >> hasChanges [
 ]
 
 { #category : #testing }
-LeDatabaseClassStoreMonitor >> hasCorruptSelectors [
+LeDatabaseClassStoreMonitor >> hasCorruptPages [
 	"Answer a boolean indicating whether the receiver is aware of any corrupt pages"
 
 	^ corruptSelectors isNotEmpty 
@@ -214,11 +208,11 @@ LeDatabaseClassStoreMonitor >> isRunning [
 LeDatabaseClassStoreMonitor >> isRunningCleanly [
 	"Answer a boolean indicating whether the receiver is running without any known issues"
 
-	^ state = #running and: [ self hasCorruptSelectors not ]
+	^ state = #running and: [ self hasCorruptPages not ]
 ]
 
 { #category : #private }
-LeDatabaseClassStoreMonitor >> loadCorruptFilenames [
+LeDatabaseClassStoreMonitor >> loadCorruptPages [
 	"Load the list of corrupt files (which should of course be empty)"
 
 	corruptSelectors := dbClass selectors select: [ :selector |
@@ -433,7 +427,7 @@ LeDatabaseClassStoreMonitor >> startMonitoring [
 	self class sessionAnnouncer weak when: LeLocalJSONStoreShutdown send: #shutDown to: self.
 	self class sessionAnnouncer weak when: LeLocalJSONStoreStartup send: #startUp to: self.
 	self scheduleNextUpdate.
-	self loadCorruptFilenames.
+	self loadCorruptPages.
 ]
 
 { #category : #'system startup' }

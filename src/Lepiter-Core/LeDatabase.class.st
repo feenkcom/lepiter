@@ -601,7 +601,10 @@ LeDatabase >> linksWithTargetReferenceMatching: aLinkReference [
 
 { #category : #'api - accessing' }
 LeDatabase >> localStoreRootDirectory [
+	"Answer the directory where the receiver's data is stored.
+	This should no longer be used as non-disk based stores are being added, use #storeLocation as a more general comparison of whether databases have the same data store."
 	<return: #FileReference or: nil>
+
 	^ monitor ifNotNil: [ :aMonitor | aMonitor localRoot ]
 ]
 
@@ -1076,6 +1079,18 @@ LeDatabase >> stopMonitoring [
 	"If the receiver has a db monitor, tell it to stop (saving changes to the receiver)"
 
 	monitor ifNotNil: [ monitor stopMonitoring ]
+]
+
+{ #category : #'api - accessing' }
+LeDatabase >> storeLocation [
+	"Answer the location of the receiver's data store.
+	E.g. for a disk based store it is the directory, for a class based store it is the class.
+	If the database doesn't have a store, answer itself since two databases without stores can be considered the same."
+	<return: #Object>
+
+	^ monitor 
+		ifNil: [ self ]
+		ifNotNil: [ :aMonitor | aMonitor storeLocation ]
 ]
 
 { #category : #'api - accessing' }

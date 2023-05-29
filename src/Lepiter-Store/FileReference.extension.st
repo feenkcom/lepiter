@@ -65,3 +65,10 @@ FileReference class >> leJsonV4Name [
 
 	^ #file
 ]
+
+{ #category : #'*Lepiter-Store' }
+FileReference >> lepiterDbUrlEqualsZnUrl: aZnUrl [
+
+	aZnUrl isFile ifFalse: [ ^ false ].
+	^ self = aZnUrl asLepiterFileReference resolve
+]

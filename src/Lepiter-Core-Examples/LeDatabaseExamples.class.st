@@ -123,12 +123,12 @@ LeDatabaseExamples >> corruptionInvalidJSON [
 	pageFile := database monitor pageFileReference: page.
 		"db / (page uid asString36 , '.json')".
 	self assert: pageFile exists.
-	self deny: database monitor hasCorruptFiles.
+	self deny: database monitor hasCorruptPages.
 	corruptFile := db / 'truncated.lepiter'.
 	corruptFile
 		writeStreamDo: [ :stream | stream << (pageFile contents copyFrom: 1 to: 100) ].
 	self should: [ database monitor reload ] raise: LeDBLoadError.
-	self assert: database monitor hasCorruptFiles.
+	self assert: database monitor hasCorruptPages.
 	self deny: corruptFile exists.
 	self assert: (corruptFile withExtension: 'corrupt') exists
 ]
@@ -152,7 +152,7 @@ LeDatabaseExamples >> corruptionLoadDuplicatePage [
 	database addPage: page.
 	pageFile := database monitor pageFileReference: page.
 	self assert: pageFile exists.
-	self deny: database monitor hasCorruptFiles.
+	self deny: database monitor hasCorruptPages.
 	database monitor stopMonitoring.
 	duplicateFile := db / 'duplicate.lepiter'.
 	pageFile copyTo: duplicateFile.
@@ -160,7 +160,7 @@ LeDatabaseExamples >> corruptionLoadDuplicatePage [
 	database := loader loadAndMonitorFrom: db saveDelay: Duration zero.
 	self assert: loader hasDuplicateFiles.
 	self deny: loader hasCorruptedFiles.
-	self assert: database monitor hasCorruptFiles.
+	self assert: database monitor hasCorruptPages.
 	"Which of the two files is marked corrupt is non-deterministic (depends on file name or inode number), simply check for the correct number of files"
 	jsonFiles := db childrenMatching: '*.lepiter'.
 	duplicateFiles := db childrenMatching: '*.duplicate'.
@@ -187,11 +187,11 @@ LeDatabaseExamples >> corruptionReloadDuplicatePage [
 	database addPage: page.
 	pageFile := database monitor pageFileReference: page.
 	self assert: pageFile exists.
-	self deny: database monitor hasCorruptFiles.
+	self deny: database monitor hasCorruptPages.
 	corruptFile := db / 'duplicate.lepiter'.
 	pageFile copyTo: corruptFile.
 	self should: [ database monitor reload ] raise: LeDBLoadError.
-	self assert: database monitor hasCorruptFiles.
+	self assert: database monitor hasCorruptPages.
 	"Which of the two files is marked corrupt is non-deterministic (depends on file name or inode number), simply check for the correct number of files"
 	jsonFiles := db childrenMatching: '*.lepiter'.
 	corruptFiles := db childrenMatching: '*.corrupt'.

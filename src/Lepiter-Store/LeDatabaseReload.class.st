@@ -80,24 +80,24 @@ LeDatabaseReload >> reload [
 	self properties preloadScript ifNotNil: 
 		[ :script | script fileIn ].
 
-	[ 
-		self updateExplicitLinksContainer.
+	[ | explicitLinks |
+		explicitLinks := monitor loadExplicitLinks.
+		self updateExplicitLinksContainer: explicitLinks.
 	
-		(self storage dbFilesIn: self localRoot) do: [ :file |
+		monitor pagesFromStore do: [ :page |
 			"Errors while loading the page will be signalled as LeDBLoadError.
 			Give callers a chance to handle errors first by catching UnhandledError.
 			If there is no handler, fork the exception so the load can continue."
-			[ self reloadFile: file ]
+			[ self reloadPage: page ]
 				on: UnhandledError 
 				fork: [ :ex | ex pass ] ].
 
 		self updateReloadedPages.
 		self updateAddedPages.
 
-		self storage withExplicitLinksFileIn: self localRoot do: [ :file |
-			[ self reloadExplicitLinksFile: file ] 
+		[ self reloadExplicitLinks: explicitLinks ] 
 				on: UnhandledError 
-				fork: [ :ex | ex pass ] ].
+				fork: [ :ex | ex pass ].
 		
 		self updateAddedExplicitLinks.
 
@@ -111,7 +111,7 @@ LeDatabaseReload >> reload [
 	] ensure:
 			[ monitorIsRunning 
 				ifTrue: [ monitor startMonitoring ]
-				ifFalse: [ monitor loadCorruptFilenames ] ].
+				ifFalse: [ monitor loadCorruptPages ] ].
 ]
 
 { #category : #private }
@@ -123,16 +123,17 @@ LeDatabaseReload >> reloadDatabaseProperties [
 ]
 
 { #category : #private }
-LeDatabaseReload >> reloadExplicitLink: anExplicitLink fromFile: aFile [
-	| corruptFileReference |
+LeDatabaseReload >> reloadExplicitLink: anExplicitLink [
+	| loadError |
 
 	(loadedLinkIDs includes: anExplicitLink linkUuid) 
 		ifTrue: [ 
-			corruptFileReference := (aFile withExtension: 'corrupt') nextVersion.
-			UIManager default inform: 'Lepiter: Unable to load: ', corruptFileReference basename, ' in ', corruptFileReference parent fullName, ' due to a duplicate link ID'.
-			aFile resolve renameTo: corruptFileReference basename.
-			LeDBLoadError new 
-				fileReference: corruptFileReference;
+			UIManager default inform: 'Lepiter: Unable to load explicitLinks due to a duplicate link ID: ', anExplicitLink linkUuid printString.
+			loadError := LeDBLoadError new.
+			loadError properties at: #explicitLink put: anExplicitLink.
+			loadError
+				pageTitle: '<Explicit Links>';
+				pageUid: anExplicitLink linkUuid;
 				reason: 'Duplicate link ID';
 				originalException: nil;
 				signal ]
@@ -149,35 +150,11 @@ LeDatabaseReload >> reloadExplicitLink: anExplicitLink fromFile: aFile [
 ]
 
 { #category : #private }
-LeDatabaseReload >> reloadExplicitLinksFile: aFile [ 
-	| explicitLinks  |
-	explicitLinks := self storage loadFromFile: aFile.
+LeDatabaseReload >> reloadExplicitLinks: explicitLinks [
+
+	explicitLinks ifNil: [ ^ self ].
 	explicitLinks do: [ :anExplicitLink |
-		self reloadExplicitLink: anExplicitLink fromFile: aFile ].
-]
-
-{ #category : #private }
-LeDatabaseReload >> reloadFile: file [
-	| page corruptFileReference |
-
-	page := self storage loadFromFile: file.
-	(loadedPageIDs includes: page uid) ifTrue: 
-		[ corruptFileReference := (file withExtension: 'corrupt') nextVersion.
-		UIManager default inform: 'Lepiter: Unable to load: ', corruptFileReference basename, ' in ', corruptFileReference parent fullName, ' due to a duplicate page ID'.
-		file resolve renameTo: corruptFileReference basename.
-		LeDBLoadError new 
-			fileReference: corruptFileReference;
-			reason: 'Duplicate page ID';
-			originalException: nil;
-			signal ]
-	ifFalse:
-		[ self database pageWithID: page uid
-			ifPresent: [ :existingPage | reloadedPages add: page
-				"existingPage reloadFromPage: page" ]
-			ifAbsent: 
-				[ self database setPage: page.
-				addedPages add: page ].
-		loadedPageIDs add: page uid ]
+		self reloadExplicitLink: anExplicitLink ].
 ]
 
 { #category : #actions }
@@ -191,21 +168,38 @@ LeDatabaseReload >> reloadOnlyLinks [
 	addedExplicitLinks := Set new.
 	deletedLinksIDs := Set new.
 
-	[ 
-		self updateExplicitLinksContainer.
+	[ | explicitLinks |
+	explicitLinks := monitor loadExplicitLinks.
+	self updateExplicitLinksContainer: explicitLinks.
 
-		self storage withExplicitLinksFileIn: self localRoot do: [ :file |
-			[ self reloadExplicitLinksFile: file ] 
-				on: UnhandledError 
-				fork: [ :ex | ex pass ] ].
-		
-		self updateAddedExplicitLinks.
-		self removeDeletedLinks.
-	
+	[ self reloadExplicitLinks: explicitLinks ] 
+		on: UnhandledError 
+		fork: [ :ex | ex pass ].
+
+	self updateAddedExplicitLinks.
+	self removeDeletedLinks.
+
 	] ensure:
 			[ monitorIsRunning 
 				ifTrue: [ monitor startMonitoring ]
-				ifFalse: [ monitor loadCorruptFilenames ] ].
+				ifFalse: [ monitor loadCorruptPages ] ].
+]
+
+{ #category : #private }
+LeDatabaseReload >> reloadPage: page [
+
+	(loadedPageIDs includes: page uid) ifTrue: 
+		[ monitor signalCorruptPage: page 
+			reason: 'Duplicate page ID' 
+			originalException: nil]
+	ifFalse:
+		[ self database pageWithID: page uid
+			ifPresent: [ :existingPage | reloadedPages add: page
+				"existingPage reloadFromPage: page" ]
+			ifAbsent: 
+				[ self database setPage: page.
+				addedPages add: page ].
+		loadedPageIDs add: page uid ]
 ]
 
 { #category : #private }
@@ -251,26 +245,21 @@ LeDatabaseReload >> updateAddedPages [
 ]
 
 { #category : #private }
-LeDatabaseReload >> updateExplicitLinksContainer [
+LeDatabaseReload >> updateExplicitLinksContainer: explicitLinks [
 	"When reloading a database ensure that the uid of the container storing
 	explicit links is not changed. If it changes than a new file will be created, 
 	which we want to avoid."
-	
-	self storage withExplicitLinksFileIn: self localRoot do: [ :aFile |
-		[ 
-			| explicitLinks |
-			explicitLinks := self storage loadFromFile: aFile.
-			
-			self database explicitLinks uid
-				ifNil: [ 
-					self database explicitLinks uid: explicitLinks uid ]
-				ifNotNil: [
-					self 
-						assert: [ self database explicitLinks uid = explicitLinks uid ]
-						description: 'The uid of the explicit links container should not change.'  ].
-		 ] 
-				on: UnhandledError 
-				fork: [ :ex | ex pass ] ].
+
+	explicitLinks ifNil: [ ^ self ].
+	[ self database explicitLinks uid
+		ifNil: [ 
+			self database explicitLinks uid: explicitLinks uid ]
+		ifNotNil: [
+			self 
+				assert: [ self database explicitLinks uid = explicitLinks uid ]
+				description: 'The uid of the explicit links container should not change.'  ] ] 
+			on: UnhandledError 
+			fork: [ :ex | ex pass ].
 ]
 
 { #category : #private }

@@ -9,6 +9,13 @@ Class {
 }
 
 { #category : #accessing }
+LeDatabaseClassStoreLoad class >> loadsDatabaseUrl: aDatabaseZnUrl [
+	"Answer a boolean indicating whether the receiver can load the supplied URL"
+
+	^ aDatabaseZnUrl scheme = #class
+]
+
+{ #category : #accessing }
 LeDatabaseClassStoreLoad >> corrupted [
 	^ corrupted
 ]
@@ -42,6 +49,22 @@ LeDatabaseClassStoreLoad >> initialize [
 	corrupted := OrderedCollection new.
 ]
 
+{ #category : #loading }
+LeDatabaseClassStoreLoad >> loadAndMonitorFrom: aZnUrl [
+	"Answer a LeLocalJSONStoreMonitor with its database loaded from the page files in aFileReference (directory)"
+	| path |
+
+	self assert: [ aZnUrl scheme = #class ]
+		description: 'LeDatabaseClassStoreLoad expects a URL with scheme class'.
+	path := aZnUrl segments.
+	self assert: [ path size = 2 ]
+		description: 'The path must be <package>/<class>'.
+	^ self
+		loadFrom: path second
+		package: path first
+		saveDelay: self defaultDelay.
+]
+
 { #category : #private }
 LeDatabaseClassStoreLoad >> loadContentInDatabase: aDatabase [
 	| pages explicitLinks |
@@ -61,19 +84,6 @@ LeDatabaseClassStoreLoad >> loadContentInDatabase: aDatabase [
 	aDatabase setPages: pages.
 	explicitLinks ifNotNil: [ 
 		aDatabase setExplicitLinks: explicitLinks ].
-]
-
-{ #category : #private }
-LeDatabaseClassStoreLoad >> loadExplicitLinks [
-	"Load all the explicit links from the receiver's class"
-	| method |
-
-	method := dbClass class methodDict
-		at: #links
-		ifAbsent: [ ^ nil ].
-	^ [ storage loadFromMethod: method ]
-		on: LeDBLoadError 
-		fork: [ :ex | ex pass ].
 ]
 
 { #category : #private }

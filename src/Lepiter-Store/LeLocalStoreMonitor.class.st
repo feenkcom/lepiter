@@ -109,12 +109,6 @@ LeLocalStoreMonitor >> corruptFiles [
 	^ corruptFiles
 ]
 
-{ #category : #'private - accessing' }
-LeLocalStoreMonitor >> defaultDelay [
-
-	^ 30 seconds
-]
-
 { #category : #'schema updating' }
 LeLocalStoreMonitor >> forceSchemaUpgradeFrom: aString [ 
 	"Run the receiver's db files through an update from the supplied version number, e.g. '3.0'"
@@ -163,7 +157,7 @@ LeLocalStoreMonitor >> gtViewStatusDetailsFor: aView [
 		priority: 5;
 		items: [ {
 			'Has pending change' -> self hasChanges.
-			'Has corrupt files' -> self hasCorruptFiles .
+			'Has corrupt files' -> self hasCorruptPages .
 			'Is monitor stopped' -> self isRunning not}];
 		column: 'Name' text: #key;
 		column: 'Value' text: #value;
@@ -176,7 +170,7 @@ LeLocalStoreMonitor >> hasChanges [
 ]
 
 { #category : #testing }
-LeLocalStoreMonitor >> hasCorruptFiles [
+LeLocalStoreMonitor >> hasCorruptPages [
 	"Answer a boolean indicating whether the receiver is aware of any corrupt files"
 
 	^ corruptFiles isNotEmpty 
@@ -213,11 +207,11 @@ LeLocalStoreMonitor >> isRunning [
 LeLocalStoreMonitor >> isRunningCleanly [
 	"Answer a boolean indicating whether the receiver is running without any known issues"
 
-	^ state = #running and: [ self hasCorruptFiles not ]
+	^ state = #running and: [ self hasCorruptPages not ]
 ]
 
 { #category : #private }
-LeLocalStoreMonitor >> loadCorruptFilenames [
+LeLocalStoreMonitor >> loadCorruptPages [
 	"Load the list of corrupt files (which should of course be empty)"
 
 	corruptFiles := #('*.corrupt' '*.duplicate') flatCollect: [ :pattern |
@@ -431,7 +425,7 @@ LeLocalStoreMonitor >> startMonitoring [
 	self class sessionAnnouncer weak when: LeLocalJSONStoreShutdown send: #shutDown to: self.
 	self class sessionAnnouncer weak when: LeLocalJSONStoreStartup send: #startUp to: self.
 	self scheduleNextUpdate.
-	self loadCorruptFilenames.
+	self loadCorruptPages.
 ]
 
 { #category : #'system startup' }

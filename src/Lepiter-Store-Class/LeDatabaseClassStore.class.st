@@ -2,7 +2,8 @@ Class {
 	#name : #LeDatabaseClassStore,
 	#superclass : #LeDatabaseStore,
 	#instVars : [
-		'dbClass'
+		'dbClass',
+		'dbPackage'
 	],
 	#category : #'Lepiter-Store-Class-Model'
 }
@@ -91,8 +92,10 @@ LeDatabaseClassStore >> dbClass [
 ]
 
 { #category : #accessing }
-LeDatabaseClassStore >> dbClass: anObject [
-	dbClass := anObject
+LeDatabaseClassStore >> dbClass: aClass [
+
+	dbClass := aClass.
+	dbPackage := aClass package name.
 ]
 
 { #category : #accessing }
@@ -114,7 +117,18 @@ LeDatabaseClassStore >> dbClassName: aSymbol package: packageName [
 			[ Object subclass: aSymbol
 				instanceVariableNames: '' 
 				classVariableNames: ''
-				package: packageName ]
+				package: packageName ].
+	dbPackage := packageName.
+]
+
+{ #category : #accessing }
+LeDatabaseClassStore >> dbPackage [
+	^ dbPackage
+]
+
+{ #category : #accessing }
+LeDatabaseClassStore >> dbPackage: aString [
+	dbPackage := aString
 ]
 
 { #category : #'accessing - db properties' }
@@ -125,6 +139,19 @@ LeDatabaseClassStore >> defaultDatabaseName [
 	^ self dbClassName
 ]
 
+{ #category : #private }
+LeDatabaseClassStore >> loadExplicitLinks [
+	"Load all the explicit links from the receiver's class"
+	| method |
+
+	method := dbClass class methodDict
+		at: #links
+		ifAbsent: [ ^ nil ].
+	^ [ storage loadFromMethod: method ]
+		on: LeDBLoadError 
+		fork: [ :ex | ex pass ].
+]
+
 { #category : #'accessing - db properties' }
 LeDatabaseClassStore >> loadPropertiesDictionary [
 	"Answer the lepiter properties dictionary"
@@ -132,6 +159,14 @@ LeDatabaseClassStore >> loadPropertiesDictionary [
 	^ [ storage loadFromMethod: dbClass class >> #databaseProperties ]
 		on: KeyNotFound
 		do: [ :ex | Dictionary new ]
+]
+
+{ #category : #accessing }
+LeDatabaseClassStore >> pagesFromStore [
+	"Answer a collection of all pages loaded from the store"
+
+	^ (storage pageSelectorsIn: dbClass) collect: [ :selector |
+		storage loadFromClass: dbClass selector: selector ]
 ]
 
 { #category : #'accessing - db properties' }
@@ -167,4 +202,33 @@ LeDatabaseClassStore >> savePropertiesDictionary: propertiesDictionary [
 		selector: #databaseProperties
 		title: 'Database Properties'
 		classified: 'properties'
+]
+
+{ #category : #accessing }
+LeDatabaseClassStore >> signalCorruptPage: aPage reason: aString originalException: originalException [
+	| error |
+
+	UIManager default inform: 'Lepiter: Unable to load: ', aPage title, ' in ', dbClass name, ' due to a duplicate page ID'.
+	storage renameAsCorruptPageUid: aPage uid class: dbClass.
+	error := LeDBLoadError new.
+	error properties 
+		at: #class put: dbClass;
+		at: #selector put: (storage pageSelectorFor: aPage).
+	error
+		pageTitle: aPage title;
+		pageUid: aPage uid;
+		reason: aString;
+		originalException: nil;
+		signal
+]
+
+{ #category : #accessing }
+LeDatabaseClassStore >> storeLocation [
+	"Answer the receiver's DB location."
+
+	dbClass ifNil: [ ^ nil ].
+
+	^ ZnUrl new
+		scheme: #class;
+		segments: (OrderedCollection with: dbPackage with: dbClass name)
 ]

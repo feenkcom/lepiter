@@ -23,6 +23,8 @@ The store is responsible for ensuring that an attachments directory exists in th
 Class {
 	#name : #LeLocalStore,
 	#superclass : #LeDatabaseStore,
+	#traits : 'TGtMacroFileReferenceEncoding',
+	#classTraits : 'TGtMacroFileReferenceEncoding classTrait',
 	#instVars : [
 		'localRoot',
 		'attachmentsDirectory'
@@ -203,6 +205,13 @@ LeLocalStore >> explicitLinksFileReference [
 	^ self storage explicitLinksFileOrNilIn: self localRoot
 ]
 
+{ #category : #accessing }
+LeLocalStore >> explicitLinksOrNil [
+
+	^ self explicitLinksFileReference ifNotNil:
+		[ :file | storage loadPageFrom: file ].
+]
+
 { #category : #'private - db properties' }
 LeLocalStore >> fileReferenceFrom: aString [
 	"Answer a FileReference or FileLocator from the supplied string.
@@ -258,6 +267,16 @@ LeLocalStore >> gtNameMappingFor: aView [
 		send: [ :each | each value ]
 ]
 
+{ #category : #private }
+LeLocalStore >> loadExplicitLinks [
+	
+	storage withExplicitLinksFileIn: localRoot do: [ :aFile |
+		[ ^ storage loadFromFile: aFile ] 
+			on: LeDBLoadError 
+			fork: [ :ex | ex pass ] ].
+	^ nil
+]
+
 { #category : #'private - db properties' }
 LeLocalStore >> loadPropertiesDictionary [
 	"Answer the leptier.properties file contents"
@@ -299,6 +318,14 @@ LeLocalStore >> pageFilename: aLePage [
 LeLocalStore >> pageFilenameForId: aLePage [
 
 	^ storage pageFilenameForUid: aLePage
+]
+
+{ #category : #accessing }
+LeLocalStore >> pagesFromStore [
+	"Answer a collection of all pages loaded from the store"
+
+	^ (storage dbFilesIn: self localRoot)
+		collect: [ :file | storage loadFromFile: file ]
 ]
 
 { #category : #'accessing - db properties' }
@@ -370,6 +397,32 @@ LeLocalStore >> savePropertiesDictionary: properties [
 	^ propertiesFile writeStreamDo: [ :stream |
 		STONJSON put: properties onStreamPretty: (ZnNewLineWriterStream on: stream) ].
 
+]
+
+{ #category : #accessing }
+LeLocalStore >> signalCorruptPage: aPage reason: aString originalException: originalException [
+	| file corruptFileReference error |
+
+	file := storage pageFilename: aPage.
+	corruptFileReference := (file withExtension: 'corrupt') nextVersion.
+	UIManager default inform: 'Lepiter: Unable to load: ', corruptFileReference basename, ' in ', corruptFileReference parent fullName, ' due to a duplicate page ID'.
+	file resolve renameTo: corruptFileReference basename.
+	error := LeDBLoadError new.
+	error properties at: #fileReference put: corruptFileReference.
+	error
+		pageTitle: aPage title;
+		pageUid: aPage uid;
+		reason: aString;
+		originalException: nil;
+		signal
+]
+
+{ #category : #accessing }
+LeLocalStore >> storeLocation [
+	"Answer the receiver's directory.  This is used to compare whether two databases can be considered the same, i.e. have the same underlying store.  If no directory is configured, answer self so the comparison is false."
+
+	localRoot ifNil: [ ^ self ].
+	^ (self encodeFileReferenceToString: localRoot) asZnUrl scheme: #file
 ]
 
 { #category : #accessing }

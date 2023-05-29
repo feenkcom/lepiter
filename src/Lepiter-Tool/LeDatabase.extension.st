@@ -18,7 +18,7 @@ LeDatabase >> localSyncMonitorStatus [
 	currentMonitor ifNil: [ ^ LeLocalSyncMissingMonitorStatus forDatabase: self ].
 	currentMonitor isRunning 
 		ifFalse: [ ^ LeLocalSyncMonitorStoppedStatus forDatabase: self ].
-	currentMonitor hasCorruptFiles 
+	currentMonitor hasCorruptPages 
 		ifTrue: [ ^ LeLocalSyncCorruptedFilesStatus forDatabase: self ].
 	currentMonitor isEmpty 
 		ifFalse: [ ^ LeLocalSyncPendingChangesStatus forDatabase: self ] .
