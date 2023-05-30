@@ -215,10 +215,10 @@ LeDatabaseClassStoreMonitor >> isRunningCleanly [
 LeDatabaseClassStoreMonitor >> loadCorruptPages [
 	"Load the list of corrupt files (which should of course be empty)"
 
-	corruptSelectors := dbClass selectors select: [ :selector |
-		(selector beginsWith: 'corrupt_') or:
+	corruptSelectors := dbClass class selectors select: [ :selector |
+		(selector beginsWith: 'corrupted_') or:
 		[ selector beginsWith: 'duplicate_' ] ].
-	^ corruptSelectors
+	^ corruptSelectors.
 ]
 
 { #category : #'startup-shutdown' }

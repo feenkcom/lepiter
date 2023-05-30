@@ -15,6 +15,33 @@ LeDatabaseClassStore class >> forJsonV4 [
 	^ self new storage: LeDatabaseClassJsonV4Storage new
 ]
 
+{ #category : #'instance creation' }
+LeDatabaseClassStore class >> newDbOnClass: classSymbol package: packageSymbol [
+	"Answer a new LeDatabase with the supplied class details"
+
+	^ self newDbOnClass: classSymbol package: packageSymbol saveDelay: 30 seconds
+]
+
+{ #category : #'instance creation' }
+LeDatabaseClassStore class >> newDbOnClass: classSymbol package: packageSymbol saveDelay: aDuration [
+	"Answer a new LeDatabase with the supplied class details"
+	| db |
+
+	self environment at: classSymbol
+		ifPresent: [ :cls | self error: 'Class already exists: ', classSymbol ].
+
+	LeDatabaseClassStoreExport forJsonV4
+		database: LeDatabase new;
+		dbClassName: classSymbol package: packageSymbol;
+		export.
+	db := LeDatabaseClassStoreLoad forJsonV4
+		loadFrom: classSymbol
+		package: packageSymbol
+		saveDelay: aDuration.
+	db properties savePersonalInformation: true.
+	^ db.
+]
+
 { #category : #attachments }
 LeDatabaseClassStore >> addAttachmentByCopy: aFileReference [
 	"Copy the attached file to the receiver's DB and answer the string identifying the attachment"
@@ -205,11 +232,11 @@ LeDatabaseClassStore >> savePropertiesDictionary: propertiesDictionary [
 ]
 
 { #category : #accessing }
-LeDatabaseClassStore >> signalCorruptPage: aPage reason: aString originalException: originalException [
+LeDatabaseClassStore >> signalDuplicatePage: aPage reason: aString originalException: originalException [
 	| error |
 
 	UIManager default inform: 'Lepiter: Unable to load: ', aPage title, ' in ', dbClass name, ' due to a duplicate page ID'.
-	storage renameAsCorruptPageUid: aPage uid class: dbClass.
+	storage renameTo: 'duplicate' pageUid: aPage uid class: dbClass.
 	error := LeDBLoadError new.
 	error properties 
 		at: #class put: dbClass;

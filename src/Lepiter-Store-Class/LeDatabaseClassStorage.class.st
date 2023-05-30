@@ -43,7 +43,7 @@ LeDatabaseClassStorage >> loadAttachmentFromMethod: aCompiledMethod [
 { #category : #accessing }
 LeDatabaseClassStorage >> loadFromClass: aClass selector: aSymbol [
 
-	^ self loadFromMethod: aClass >> aSymbol.
+	^ self loadFromMethod: aClass class >> aSymbol.
 ]
 
 { #category : #accessing }
@@ -57,15 +57,15 @@ LeDatabaseClassStorage >> loadFromMethod: aCompiledMethod [
 		on: NeoJSONParseError 
 		do: [ :ex | | loadError |
 			UIManager default inform: 'Lepiter: Unable to load: ', aCompiledMethod printString, ' due to a JSON parser error'.
-			self renameToCorrupt: aCompiledMethod.
+			self renameTo: 'corrupted' method: aCompiledMethod.
 			loadError := LeDBLoadError new.
-			loadError
+			loadError properties
 				at: #class put: aCompiledMethod methodClass;
 				at: #selector put: aCompiledMethod selector.
 			loadError
 				reason: 'JSON Parse Error';
 				originalException: ex.
-			loadError signal ]
+			loadError signal ].
 ]
 
 { #category : #accessing }
@@ -115,28 +115,22 @@ LeDatabaseClassStorage >> pageSelectorsIn: aClass [
 ]
 
 { #category : #accessing }
-LeDatabaseClassStorage >> renameAsCorruptPageUid: aPageUid class: aClass [
-	| method pageSource newSource |
-self halt.
-	method := aClass >> (self pageSelectorForUid: aPageUid).
-	self assert: method parseTree comments size equals: 2.
-	pageSource := method sourceCode.
-	newSource := 'corrupted_', (pageSource copyFrom: 7 to: pageSource size).
-	aClass class
+LeDatabaseClassStorage >> renameTo: prefixString method: aCompiledMethod [
+	| pageSource newSource |
+
+	self assert: aCompiledMethod parseTree comments size equals: 2.
+	pageSource := aCompiledMethod sourceCode.
+	newSource := prefixString, '_', (pageSource copyFrom: 6 to: pageSource size).
+	aCompiledMethod methodClass
 		compile: newSource
-		classified: 'corrupted'.
+		classified: prefixString.
+	aCompiledMethod removeFromSystem. 
 ]
 
 { #category : #accessing }
-LeDatabaseClassStorage >> renameToCorrupt: aCompiledMethod [
-	| pageSource newSource |
-self halt.
-	self assert: aCompiledMethod parseTree comments size equals: 2.
-	pageSource := aCompiledMethod sourceCode.
-	newSource := 'corrupted_', (pageSource copyFrom: 7 to: pageSource size).
-	aCompiledMethod methodClass
-		compile: newSource
-		classified: 'corrupted'.
+LeDatabaseClassStorage >> renameTo: prefixString pageUid: aPageUid class: aClass [
+
+	self renameTo: prefixString method: (aClass class >> (self pageSelectorForUid: aPageUid)).
 ]
 
 { #category : #saving }

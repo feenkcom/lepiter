@@ -104,7 +104,40 @@ LeDatabaseExamples >> cleanUp [
 ]
 
 { #category : #examples }
-LeDatabaseExamples >> corruptionInvalidJSON [
+LeDatabaseExamples >> corruptionInvalidJsonFromClassStore [
+	"Check that pages with invalid JSON are signalled and renamed"
+	<gtExample>
+	<after: #cleanUp>
+	| page snippet corruptSource |
+
+	EpMonitor disableDuring:
+		[ [ database := LeDatabaseClassStoreLoad 
+			newDbOnClass: self dbClassName 
+			package: self dbPackageName
+			saveDelay: Duration zero.
+		page := LePage named: #Page1.
+		snippet := LeTextSnippet string: #Snippet1.
+		page addSnippet: snippet.
+		database addPage: page.
+		self assert: (database hasPageNamed: #Page1).
+		self deny: database monitor hasCorruptPages.
+		corruptSource := 'page_123
+			"Corrupt source example"
+			"{ ""pageType"" : {"'.
+		database monitor dbClass class
+			compile: corruptSource
+			classified: 'test duplicate'.
+		self should: [ database monitor reload ] raise: LeDBLoadError.
+		self assert: database monitor hasCorruptPages.
+		self assert: database pages size equals: 1.
+		self assert: database monitor corruptSelectors size equals: 1 ]
+			ensure:
+				[ self class environment at: self dbClassName
+					ifPresent: [ :cls | cls removeFromSystem ] ] ]
+]
+
+{ #category : #examples }
+LeDatabaseExamples >> corruptionInvalidJsonFromLocalStore [
 	"Check that pages with invalid JSON are signalled and renamed"
 
 	<gtExample>
@@ -134,7 +167,42 @@ LeDatabaseExamples >> corruptionInvalidJSON [
 ]
 
 { #category : #examples }
-LeDatabaseExamples >> corruptionLoadDuplicatePage [
+LeDatabaseExamples >> corruptionLoadDuplicatePageFromClass [
+	"Check that pages with duplicate names are signalled and renamed"
+	<gtExample>
+	<after: #cleanUp>
+	| page snippet loader pageSource |
+
+	EpMonitor disableDuring:
+		[ [ database := LeDatabaseClassStoreLoad 
+			newDbOnClass: self dbClassName 
+			package: self dbPackageName
+			saveDelay: Duration zero.
+		page := LePage named: #Page1.
+		snippet := LeTextSnippet string: #Snippet1.
+		page addSnippet: snippet.
+		database addPage: page.
+		self assert: (database hasPageNamed: #Page1).
+		self deny: database monitor hasCorruptPages.
+		database monitor stopMonitoring.
+		pageSource := (database monitor dbClass class >> (database monitor storage pageSelectorFor: page)) sourceCode.
+		pageSource := 'page_Dup', (pageSource copyFrom: 6 to: pageSource size).
+		database monitor dbClass class
+			compile: pageSource
+			classified: 'test duplicate'.
+		loader := LeDatabaseClassStoreLoad current.
+		database := loader loadFrom: self dbClassName package: self dbPackageName saveDelay: Duration zero.
+		self assert: loader hasDuplicatePages.
+		self deny: loader hasCorruptedPages.
+		self assert: database monitor hasCorruptPages.
+		self assert: database monitor corruptSelectors size equals: 1 ]
+			ensure:
+				[ self class environment at: self dbClassName
+					ifPresent: [ :cls | cls removeFromSystem ] ] ]
+]
+
+{ #category : #examples }
+LeDatabaseExamples >> corruptionLoadDuplicatePageFromLocal [
 	"Check that pages with duplicate names are signalled and renamed"
 
 	<gtExample>
@@ -158,8 +226,8 @@ LeDatabaseExamples >> corruptionLoadDuplicatePage [
 	pageFile copyTo: duplicateFile.
 	loader := LeLocalStoreLoad current.
 	database := loader loadAndMonitorFrom: db saveDelay: Duration zero.
-	self assert: loader hasDuplicateFiles.
-	self deny: loader hasCorruptedFiles.
+	self assert: loader hasDuplicatePages.
+	self deny: loader hasCorruptedPages.
 	self assert: database monitor hasCorruptPages.
 	"Which of the two files is marked corrupt is non-deterministic (depends on file name or inode number), simply check for the correct number of files"
 	jsonFiles := db childrenMatching: '*.lepiter'.
@@ -169,7 +237,39 @@ LeDatabaseExamples >> corruptionLoadDuplicatePage [
 ]
 
 { #category : #examples }
-LeDatabaseExamples >> corruptionReloadDuplicatePage [
+LeDatabaseExamples >> corruptionReloadDuplicatePageFromClass [
+	"Check that pages with duplicate names are signalled and renamed"
+	<gtExample>
+	<after: #cleanUp>
+	| page snippet pageSource |
+
+	EpMonitor disableDuring:
+		[ [ database := LeDatabaseClassStoreLoad 
+			newDbOnClass: self dbClassName 
+			package: self dbPackageName
+			saveDelay: Duration zero.
+		page := LePage named: #Page1.
+		snippet := LeTextSnippet string: #Snippet1.
+		page addSnippet: snippet.
+		database addPage: page.
+		self assert: (database hasPageNamed: #Page1).
+		self deny: database monitor hasCorruptPages.
+		pageSource := (database monitor dbClass class >> (database monitor storage pageSelectorFor: page)) sourceCode.
+		pageSource := 'page_Dup', (pageSource copyFrom: 6 to: pageSource size).
+		database monitor dbClass class
+			compile: pageSource
+			classified: 'test duplicate'.
+		self should: [ database monitor reload ] raise: LeDBLoadError.
+		self assert: database monitor hasCorruptPages.
+		self assert: database pages size equals: 1.
+		self assert: database monitor corruptSelectors size equals: 1 ]
+			ensure:
+				[ self class environment at: self dbClassName
+					ifPresent: [ :cls | cls removeFromSystem ] ] ].
+]
+
+{ #category : #examples }
+LeDatabaseExamples >> corruptionReloadDuplicatePageFromLocal [
 	"Check that pages with duplicate names are signalled and renamed"
 
 	<gtExample>
@@ -197,6 +297,18 @@ LeDatabaseExamples >> corruptionReloadDuplicatePage [
 	corruptFiles := db childrenMatching: '*.corrupt'.
 	self assert: jsonFiles size equals: 1.
 	self assert: corruptFiles size equals: 1
+]
+
+{ #category : #private }
+LeDatabaseExamples >> dbClassName [
+
+	^ #LeDatabaseExamplesClassStore
+]
+
+{ #category : #private }
+LeDatabaseExamples >> dbPackageName [
+
+	^ #LeDatabaseExamplesClassStore
 ]
 
 { #category : #examples }

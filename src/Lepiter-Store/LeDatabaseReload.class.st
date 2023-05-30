@@ -189,7 +189,7 @@ LeDatabaseReload >> reloadOnlyLinks [
 LeDatabaseReload >> reloadPage: page [
 
 	(loadedPageIDs includes: page uid) ifTrue: 
-		[ monitor signalCorruptPage: page 
+		[ monitor signalDuplicatePage: page 
 			reason: 'Duplicate page ID' 
 			originalException: nil]
 	ifFalse:

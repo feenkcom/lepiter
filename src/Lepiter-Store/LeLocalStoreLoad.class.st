@@ -28,7 +28,7 @@ LeLocalStoreLoad >> duplicates [
 ]
 
 { #category : #testing }
-LeLocalStoreLoad >> hasCorruptedFiles [
+LeLocalStoreLoad >> hasCorruptedPages [
 	"Answer a boolean indicating whether any corrupted files were found.
 	Only valid after loading the DB."
 
@@ -36,7 +36,7 @@ LeLocalStoreLoad >> hasCorruptedFiles [
 ]
 
 { #category : #testing }
-LeLocalStoreLoad >> hasDuplicateFiles [
+LeLocalStoreLoad >> hasDuplicatePages [
 	"Answer a boolean indicating whether any duplicate files were found.
 	Only valid after loading the DB."
 

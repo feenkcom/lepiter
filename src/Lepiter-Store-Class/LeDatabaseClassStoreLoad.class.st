@@ -26,7 +26,7 @@ LeDatabaseClassStoreLoad >> duplicates [
 ]
 
 { #category : #testing }
-LeDatabaseClassStoreLoad >> hasCorruptedFiles [
+LeDatabaseClassStoreLoad >> hasCorruptedPages [
 	"Answer a boolean indicating whether any corrupted files were found.
 	Only valid after loading the DB."
 
@@ -34,7 +34,7 @@ LeDatabaseClassStoreLoad >> hasCorruptedFiles [
 ]
 
 { #category : #testing }
-LeDatabaseClassStoreLoad >> hasDuplicateFiles [
+LeDatabaseClassStoreLoad >> hasDuplicatePages [
 	"Answer a boolean indicating whether any duplicate files were found.
 	Only valid after loading the DB."
 
@@ -133,7 +133,7 @@ LeDatabaseClassStoreLoad >> loadPages [
 	(storage pageSelectorsIn: dbClass) do: [ :selector |
 		[ page := storage loadFromMethod: (dbClass class methodDict at: selector).
 		(pageIds includes: page uid) ifTrue: 
-			[ storage renameAsDuplicate: selector in: dbClass.
+			[ storage renameTo: 'duplicate' pageUid: page uid class: dbClass.
 			duplicates add: selector ]
 		ifFalse:
 			[ pageIds add: page uid.
@@ -142,5 +142,5 @@ LeDatabaseClassStoreLoad >> loadPages [
 				fork: [ :ex | 
 					corrupted add: file.
 					ex pass ] ].
-	^ pages reject: #isNil
+	^ pages reject: #isNil.
 ]

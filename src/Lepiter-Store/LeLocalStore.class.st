@@ -400,10 +400,10 @@ LeLocalStore >> savePropertiesDictionary: properties [
 ]
 
 { #category : #accessing }
-LeLocalStore >> signalCorruptPage: aPage reason: aString originalException: originalException [
+LeLocalStore >> signalDuplicatePage: aPage reason: aString originalException: originalException [
 	| file corruptFileReference error |
 
-	file := storage pageFilename: aPage.
+	file := localRoot / (storage pageFilename: aPage).
 	corruptFileReference := (file withExtension: 'corrupt') nextVersion.
 	UIManager default inform: 'Lepiter: Unable to load: ', corruptFileReference basename, ' in ', corruptFileReference parent fullName, ' due to a duplicate page ID'.
 	file resolve renameTo: corruptFileReference basename.
