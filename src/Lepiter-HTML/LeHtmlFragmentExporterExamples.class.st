@@ -67,6 +67,30 @@ answer:=42.
 ]
 
 { #category : #examples }
+LeHtmlFragmentExporterExamples >> elementSnippet [
+	<gtExample>
+	| snippet html aResources |
+
+	snippet := LeElementSnippet 
+		code: BrExamplesShowroom name, ' new ', #glamorousBreadcrumb asString.
+	html := String streamContents: [ :stream |
+		snippet acceptVisitor: (LeHtmlFragmentExporterVisitor new 
+			externalPicturesWriter: (aResources := LeResourcesExporter new);
+			stream: stream) ].
+			
+	self 
+		assert: html isNotEmpty 
+		description: [ 'HTML output must be non-empty'].
+	
+	self assert: (html includesSubstring: '<figure class="snippet picture-snippet').
+	self assert: (html includesSubstring: '<img class="picture-snippet-image" src="gt-figures/1000.png"/>').
+	
+	self assert: aResources asArray size equals: 1.
+	
+	^ html
+]
+
+{ #category : #examples }
 LeHtmlFragmentExporterExamples >> exampleSnippet [
 	"Confirm that basic markup is converted"
 	<gtExample>
@@ -109,6 +133,44 @@ LeHtmlFragmentExporterExamples >> methodAnnotation [
 	^ html
 ]
 
+{ #category : #examples }
+LeHtmlFragmentExporterExamples >> methodAnnotation_withInexistentClassAndNameParameter [
+	"Confirm that basic markup is converted"
+	<gtExample>
+	| markdown html |
+
+	markdown := LeTextSnippet string: '{{gtMethod:name=LeHtmlInexistentClass>>#inexistentMethod}}'.
+	html := String streamContents: [ :stream |
+		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
+
+	self 
+		assert: (html includesSubstring: 'name=LeHtmlInexistentClass>>#inexistentMethod') not 
+		description: [ 'The `name=` part must not be included' ].
+	self assert: (html includesSubstring: 'method_annotation expandable_annotation_label').
+	self assert: (html includesSubstring: 'LeHtmlInexistentClass&gt;&gt;#inexistentMethod').
+	self assert: (html includesSubstring: 'textual-snippet code-snippet pharo-method-snippet expandable_annotation_body hidden_annotation').
+	^ html
+]
+
+{ #category : #examples }
+LeHtmlFragmentExporterExamples >> methodAnnotation_withNameParameter [
+	"Confirm that basic markup is converted"
+	<gtExample>
+	| markdown html |
+
+	markdown := LeTextSnippet string: '{{gtMethod:name=LeHtmlFragmentExporterExamples>>#basicMarkdown}}'.
+	html := String streamContents: [ :stream |
+		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
+
+	self 
+		assert: (html includesSubstring: 'name=LeHtmlFragmentExporterExamples') not 
+		description: [ 'The `name=` part must not be included' ].
+	self assert: (html includesSubstring: 'method_annotation expandable_annotation_label').
+	self assert: (html includesSubstring: 'LeHtmlFragmentExporterExamples&gt;&gt;#basicMarkdown').
+	self assert: (html includesSubstring: 'textual-snippet code-snippet pharo-method-snippet expandable_annotation_body hidden_annotation').
+	^ html
+]
+
 { #category : #accessing }
 LeHtmlFragmentExporterExamples >> pharoSnippet [
 	<gtExample>
@@ -139,11 +201,41 @@ LeHtmlFragmentExporterExamples >> pictureFile [
 { #category : #accessing }
 LeHtmlFragmentExporterExamples >> pictureSnippet [
 	<gtExample>
-	| markdown html |
+	| markdown html aResources |
 	markdown := LePictureSnippet new urlString: self pictureFile.
 	html := String streamContents: [ :stream |
-		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
+		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new 
+			externalPicturesWriter: (aResources := LeResourcesExporter new);
+			stream: stream) ].
+	
 	self assert: (html beginsWith: '<figure class="snippet picture-snippet paragraphWidth"').
-	self assert: (html includesSubstring: 'feenkcom/gtoolkit-demos/data/faceapi/1280px-Einstein-with-habicht-and-solovine.jpg"/>').
+	self assert: (html includesSubstring: '<img class="picture-snippet-image" src="gt-figures/1000.jpg"/>').
+	
+	self assert: aResources asArray size equals: 1.
+	
+	^ html
+]
+
+{ #category : #examples }
+LeHtmlFragmentExporterExamples >> wardleySnippet [
+	<gtExample>
+	| wardleyMap snippet html aResources |
+
+	wardleyMap := GtWardleyMapJsonExporterImporterExamples  new importWardleyMapWithPipelineInnerNodesFromDictionary.
+	snippet := LeWardleyMapSnippet new wardleyMap: wardleyMap.
+	html := String streamContents: [ :stream |
+		snippet acceptVisitor: (LeHtmlFragmentExporterVisitor new 
+			externalPicturesWriter: (aResources := LeResourcesExporter new);
+			stream: stream) ].
+	
+	self 
+		assert: html isNotEmpty 
+		description: [ 'HTML output must be non-empty'].
+	
+	self assert: (html includesSubstring: '<figure class="snippet picture-snippet').
+	self assert: (html includesSubstring: '<img class="picture-snippet-image" src="gt-figures/1000.png"/>').
+	
+	self assert: aResources asArray size equals: 1.
+	
 	^ html
 ]

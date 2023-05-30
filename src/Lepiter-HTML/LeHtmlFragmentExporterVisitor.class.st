@@ -57,6 +57,30 @@ LeHtmlFragmentExporterVisitor >> visitContent: aLeContent [
 ]
 
 { #category : #visiting }
+LeHtmlFragmentExporterVisitor >> visitElementSnippet: aLeElementSnippet [
+	| aFileName |
+	
+	aFileName := self externalPicturesWriter  
+			elementSnippetReferenceFor: aLeElementSnippet.
+
+	self
+		putTag: 'figure'
+		andAttributes: #('class' 'snippet picture-snippet paragraphWidth')
+		with: [
+
+			self
+				putTag: 'img'
+				andAttributes: {'class'. 'picture-snippet-image'. 'src'. aFileName }.
+
+			(aLeElementSnippet caption isNotNil
+				and: [ aLeElementSnippet title trimBoth isNotEmpty ])
+				ifTrue: [ self
+						putTag: 'figcaption'
+						andAttributes: #('class' 'picture-snippet-caption')
+						with: [ self putString: aLeElementSnippet caption trimBoth asString asHTMLString ] ] ]
+]
+
+{ #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitExampleSnippet: aLeExampleSnippet [
 	self
 		putTag: 'div'
@@ -93,15 +117,14 @@ LeHtmlFragmentExporterVisitor >> visitPharoSnippet: aLePharoSnippet [
 
 { #category : #visiting }
 LeHtmlFragmentExporterVisitor >> visitPictureSnippet: aLePictureSnippet [
+	| anImgSrc |
+	anImgSrc := self externalPicturesWriter 
+		pictureSnippetReferenceFor: aLePictureSnippet.
+			
 	self
 		putTag: 'figure'
 		andAttributes: #('class' 'snippet picture-snippet paragraphWidth')
-		with: [ | anImgSrc |
-			anImgSrc := (aLePictureSnippet urlString
-					beginsWith: 'https://'
-					caseSensitive: false)
-					ifTrue: [ aLePictureSnippet urlString ]
-					ifFalse: [ './' , aLePictureSnippet urlString ].
+		with: [
 
 			self
 				putTag: 'img'
@@ -150,6 +173,30 @@ LeHtmlFragmentExporterVisitor >> visitTweetReferenceSnippet: aLeTweetReferenceSn
 						with: [ self putString: aLeTweetReferenceSnippet tweet createdAt asString ] ] ].
 	self
 		putString: '<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>'
+]
+
+{ #category : #visiting }
+LeHtmlFragmentExporterVisitor >> visitWardleyMapSnippet: aLeWardleyMapSnippet [
+	| aFileName |
+
+	aFileName := self externalPicturesWriter  
+			wardleyMapSnippetReferenceFor: aLeWardleyMapSnippet.
+
+	self
+		putTag: 'figure'
+		andAttributes: #('class' 'snippet picture-snippet paragraphWidth')
+		with: [
+
+			self
+				putTag: 'img'
+				andAttributes: {'class'. 'picture-snippet-image'. 'src'. aFileName }.
+
+			(aLeWardleyMapSnippet title isNotNil
+				and: [ aLeWardleyMapSnippet title trimBoth isNotEmpty ])
+				ifTrue: [ self
+						putTag: 'figcaption'
+						andAttributes: #('class' 'picture-snippet-caption')
+						with: [ self putString: aLeWardleyMapSnippet title trimBoth asString asHTMLString ] ] ]
 ]
 
 { #category : #visiting }

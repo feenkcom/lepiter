@@ -80,6 +80,12 @@ LeElementSnippet >> asSnippetViewModel [
 ]
 
 { #category : #accessing }
+LeElementSnippet >> caption [
+	"A future implementation of caption"
+	^ nil
+]
+
+{ #category : #accessing }
 LeElementSnippet >> codeHeight [
 	^ codeHeight
 ]

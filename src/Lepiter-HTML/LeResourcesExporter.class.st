@@ -46,6 +46,46 @@ LeResourcesExporter >> do: aDoBlock [
 ]
 
 { #category : #'api - exporting' }
+LeResourcesExporter >> elementSnippetReferenceFor: aLeElementSnippet [
+	<return: #String>
+	| aPath aFileReference anExporter aViewModel aSnippetElement aHeight |
+	
+	"Prepare element"
+	aViewModel := aLeElementSnippet asSnippetViewModel.
+	aSnippetElement := aViewModel snippetView asElement.
+	aSnippetElement snippetViewModel: aViewModel.
+	aSnippetElement padding: (BlInsets all: 10).
+	
+	"Compute height"
+	aHeight := aLeElementSnippet elementHeight.
+	aLeElementSnippet codeVisible ifTrue: [
+		aHeight := aHeight + aLeElementSnippet codeHeight
+	].
+	
+	"Prepare file"
+	aPath := LepiterConstants exportedResultsDirectoryPath
+		/ self nextNumber asString
+		withExtension: LepiterConstants exportedResultsExtension.
+	aFileReference := memoryStore referenceTo: aPath.
+	
+	"Export"
+	anExporter := LeElementToPngExporter new
+		element: aSnippetElement;
+		fileReference: aFileReference;
+		height: aHeight;
+		export.
+		
+	"Store the resource"
+	resources add: (LeExportedSnippetResource new 
+		snippet: aLeElementSnippet;
+		path: aPath;
+		reference: aFileReference).
+	
+	"Return relative path"
+	^ aPath fullName
+]
+
+{ #category : #'api - exporting' }
 LeResourcesExporter >> exampleResultReferenceFor: anExampleAnnotation [ 
 	<return: #String>
 	| aPath fileReference |
@@ -171,6 +211,32 @@ LeResourcesExporter >> nextNumber [
 	^ counter
 ]
 
+{ #category : #'api - exporting' }
+LeResourcesExporter >> pictureSnippetReferenceFor: aLePictureSnippet [
+	<return: #String>
+	| aPath anAttachmentFile anExtension anUrlUtility |
+	
+	anUrlUtility := aLePictureSnippet urlStringUtility.
+	anUrlUtility isFile ifFalse: [ 
+		^ aLePictureSnippet urlString ].
+			
+	"Prepare file"
+	anAttachmentFile := anUrlUtility asFileReference.
+	anExtension := anAttachmentFile extension.
+	aPath := LepiterConstants exportedResultsDirectoryPath
+		/ self nextNumber asString
+		withExtension: anExtension.
+		
+	"Store the resource"
+	resources add: (LeExportedSnippetResource new 
+		snippet: aLePictureSnippet;
+		path: aPath;
+		reference: anAttachmentFile).
+	
+	"Return relative path"
+	^ aPath fullName
+]
+
 { #category : #accessing }
 LeResourcesExporter >> rootDirectory [
 	<return: #FileReference>
@@ -179,4 +245,38 @@ LeResourcesExporter >> rootDirectory [
 
 { #category : #accessing }
 LeResourcesExporter >> saveAllToDirectory: aDirectory [ 
+]
+
+{ #category : #'api - exporting' }
+LeResourcesExporter >> wardleyMapSnippetReferenceFor: aLeWardleyMapSnippet [
+	<return: #String>
+	| aPath aFileReference anExporter aViewModel aSnippetElement |
+	
+	"Prepare element"
+	aViewModel := aLeWardleyMapSnippet asSnippetViewModel.
+	aSnippetElement := aViewModel snippetView asElement.
+	aSnippetElement snippetViewModel: aViewModel.
+	aSnippetElement padding: (BlInsets all: 10).
+	
+	"Prepare file"
+	aPath := LepiterConstants exportedResultsDirectoryPath
+		/ self nextNumber asString
+		withExtension: LepiterConstants exportedResultsExtension.
+	aFileReference := memoryStore referenceTo: aPath.
+	
+	"Export"
+	anExporter := LeElementToPngExporter new
+		element: aSnippetElement;
+		fileReference: aFileReference;
+		height: aLeWardleyMapSnippet height;
+		export.
+		
+	"Store the resource"
+	resources add: (LeExportedSnippetResource new 
+		snippet: aLeWardleyMapSnippet;
+		path: aPath;
+		reference: aFileReference).
+	
+	"Return relative path"
+	^ aPath fullName
 ]

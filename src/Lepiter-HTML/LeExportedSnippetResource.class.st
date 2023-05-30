@@ -12,8 +12,14 @@ Class {
 }
 
 { #category : #visiting }
-LeExportedSnippetResource >> accept: aVisitor [
+LeExportedSnippetResource >> acceptVisitor: aVisitor [
 	^ aVisitor visitExportedSnippetResource: self
+]
+
+{ #category : #initialization }
+LeExportedSnippetResource >> defaultState [
+	<return: #LeExportResourceState>
+	^ LeExportResourceState ready
 ]
 
 { #category : #'gt - extensions' }
@@ -64,4 +70,11 @@ LeExportedSnippetResource >> source [
 	"Return a source of the export"
 
 	^ self snippet
+]
+
+{ #category : #'api - state' }
+LeExportedSnippetResource >> state: aState [
+	"Set resource state, indicating whether the resource is ready for export."
+
+	state := aState
 ]

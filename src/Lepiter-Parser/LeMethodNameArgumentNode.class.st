@@ -5,12 +5,17 @@ Class {
 		'gtGt',
 		'selector'
 	],
-	#category : 'Lepiter-Parser'
+	#category : #'Lepiter-Parser'
 }
 
 { #category : #generated }
 LeMethodNameArgumentNode >> acceptVisitor: anAnnotationParseVisitor [
 	^ anAnnotationParseVisitor visitMethodNameArgument: self
+]
+
+{ #category : #accessing }
+LeMethodNameArgumentNode >> fullName [
+	^ self className asString , '>>#' , self methodName asString
 ]
 
 { #category : #generated }
