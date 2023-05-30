@@ -7,6 +7,12 @@ AbstractFileReference >> asLepiterFileReference [
 ]
 
 { #category : #'*Lepiter-Store' }
+AbstractFileReference >> asLepiterZnUrl [
+
+	^ self subclassResponsibility
+]
+
+{ #category : #'*Lepiter-Store' }
 AbstractFileReference >> isLepiterDatabaseFolder [
 	| propertiesFile |
 	self isDirectory ifFalse: [ ^ false ].

@@ -149,16 +149,6 @@ LeLocalStore >> attachmentProperties: attachmentPath [
 	^ LeAttachment loadFrom: attachmentFileReference parent / 'lepiter_attachment.properties'
 ]
 
-{ #category : #attachments }
-LeLocalStore >> attachmentUtf8Stream: attachmentPath do: aBlock [
-	"Answer a stream on the binary contents of the supplied attachment path"
-	| attachmentFileReference |
-
-	attachmentFileReference := database resolveDbFile: attachmentPath.
-	self assert: attachmentFileReference exists.
-	^ attachmentFileReference readStreamDo: aBlock
-]
-
 { #category : #accessing }
 LeLocalStore >> attachmentsDirectory [
 	^ attachmentsDirectory
@@ -167,6 +157,16 @@ LeLocalStore >> attachmentsDirectory [
 { #category : #accessing }
 LeLocalStore >> attachmentsDirectory: anObject [
 	attachmentsDirectory := anObject
+]
+
+{ #category : #attachments }
+LeLocalStore >> attachmentUtf8Stream: attachmentPath do: aBlock [
+	"Answer a stream on the binary contents of the supplied attachment path"
+	| attachmentFileReference |
+
+	attachmentFileReference := database resolveDbFile: attachmentPath.
+	self assert: attachmentFileReference exists.
+	^ attachmentFileReference readStreamDo: aBlock
 ]
 
 { #category : #accessing }
@@ -303,12 +303,6 @@ LeLocalStore >> localRoot: aFileReference [
 ]
 
 { #category : #accessing }
-LeLocalStore >> pageFileReference: aLePage [
-
-	^ localRoot / (self pageFilename: aLePage)
-]
-
-{ #category : #accessing }
 LeLocalStore >> pageFilename: aLePage [
 
 	^ storage pageFilename: aLePage
@@ -318,6 +312,12 @@ LeLocalStore >> pageFilename: aLePage [
 LeLocalStore >> pageFilenameForId: aLePage [
 
 	^ storage pageFilenameForUid: aLePage
+]
+
+{ #category : #accessing }
+LeLocalStore >> pageFileReference: aLePage [
+
+	^ localRoot / (self pageFilename: aLePage)
 ]
 
 { #category : #accessing }
@@ -422,7 +422,7 @@ LeLocalStore >> storeLocation [
 	"Answer the receiver's directory.  This is used to compare whether two databases can be considered the same, i.e. have the same underlying store.  If no directory is configured, answer self so the comparison is false."
 
 	localRoot ifNil: [ ^ self ].
-	^ (self encodeFileReferenceToString: localRoot) asZnUrl scheme: #file
+	^ localRoot asLepiterZnUrl.
 ]
 
 { #category : #accessing }

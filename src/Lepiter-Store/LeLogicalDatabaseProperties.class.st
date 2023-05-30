@@ -92,10 +92,12 @@ LeLogicalDatabaseProperties >> addRegisteredDirectory: aFileReference [
 	"Add the supplied directories to the receiver's list of registered directories.
 	Quietly ignore duplicates.
 	This method is deprecated as lepiter databases now support multiple data stores and use a URL to identify the store type and location."
+	| fileUrl |
 
-	((self registeredDatabaseDirectories collect: #resolve) includes: aFileReference asFileReference resolve) ifTrue: [ ^ self ].
-	self registeredDatabaseDirectories: (self registeredDatabaseDirectories copyWith: 
-		(self encodeFileReferenceToString: aFileReference))
+	fileUrl := aFileReference asLepiterZnUrl.
+	(self registeredDatabaseUrls includes: fileUrl) ifTrue: [ ^ self ].
+	self registeredDatabaseUrls: 
+		(self registeredDatabaseUrls copyWith: fileUrl)
 ]
 
 { #category : #adding }
@@ -334,11 +336,12 @@ LeLogicalDatabaseProperties >> playgroundDatabaseDirectory: aFileReference [
 	"This method is deprecated as lepiter databases now support multiple data stores and use a URL to identify the store type and location."
 
 	^ self updateProperty: #playgroundDatabaseUrl
-		value: (self urlFromDirectoryString: (self encodeFileReferenceToString: aFileReference))
+		value: aFileReference asLepiterZnUrl asString
 ]
 
 { #category : #'api - accessing' }
 LeLogicalDatabaseProperties >> playgroundDatabaseUrl [
+	<return: #ZnUrl>
 
 	^ (self properties 
 		at: #playgroundDatabaseUrl
@@ -375,11 +378,12 @@ LeLogicalDatabaseProperties >> primaryDatabaseDirectory [
 LeLogicalDatabaseProperties >> primaryDatabaseDirectory: aFileReference [
 
 	^ self updateProperty: #primaryDatabaseUrl
-		value: (self urlFromDirectoryString: (self encodeFileReferenceToString: aFileReference))
+		value: aFileReference asLepiterZnUrl asString
 ]
 
 { #category : #'api - accessing' }
 LeLogicalDatabaseProperties >> primaryDatabaseUrl [
+	<return: #ZnUrl>
 
 	^ (self properties at: #primaryDatabaseUrl) asZnUrl
 ]
@@ -423,23 +427,23 @@ LeLogicalDatabaseProperties >> registeredDatabaseDirectories: aCollection [
 ]
 
 { #category : #'api - accessing' }
+LeLogicalDatabaseProperties >> registeredDatabases [
+
+	^ self registeredDatabaseUrls collect: [ :each |
+		(LeDatabaseStore loaderFor: each) current 
+			loadAndMonitorFrom: each ]
+]
+
+{ #category : #'api - accessing' }
 LeLogicalDatabaseProperties >> registeredDatabaseUrls [
 
 	^ (self properties at: #registeredDatabaseUrls ifAbsent: [ #() ]) collect: #asZnUrl
 ]
 
 { #category : #'api - accessing' }
-LeLogicalDatabaseProperties >> registeredDatabaseUrls: aCollection [
+LeLogicalDatabaseProperties >> registeredDatabaseUrls: aCollectionOfZnUrl [
 
-	^ self updateProperty: #registeredDatabaseUrls value: (aCollection collect: #printString)
-]
-
-{ #category : #'api - accessing' }
-LeLogicalDatabaseProperties >> registeredDatabases [
-
-	^ self registeredDatabaseUrls collect: [ :each |
-		(LeDatabaseStore loaderFor: each) current 
-			loadAndMonitorFrom: each ]
+	^ self updateProperty: #registeredDatabaseUrls value: (aCollectionOfZnUrl collect: #asString)
 ]
 
 { #category : #'api - storage' }

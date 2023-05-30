@@ -1,6 +1,19 @@
 Extension { #name : #FileLocator }
 
 { #category : #'*Lepiter-Store' }
+FileLocator >> asLepiterZnUrl [
+	| segments |
+
+	segments := OrderedCollection new.
+	segments add: '{', self origin, '}'.
+	segments addAll: path segments.
+	^ ZnUrl new
+		scheme: #file;
+		segments: segments.
+
+]
+
+{ #category : #'*Lepiter-Store' }
 FileLocator class >> leFromJsonV4Dictionary: aDictionary [
 	"Create a new instance of the receiver from the supplied dictionary."
 	| src regex originName path |

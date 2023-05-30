@@ -33,9 +33,9 @@ LeLogicalDatabaseReload >> dbFor: dbZnUrl [
 	"Answer the concrete database for the supplied file reference.
 	If it is an existing DB, use that instance.  If it is a new DB, load it.
 	Notice, that new DBs are instantiated with running monitor."
-
 	<return: #LeLogicalDatabaseReloadDatabase>
 	| newDb |
+
 	existingDbs
 		detect: [ :db | db storeLocation lepiterDbUrlEquals: dbZnUrl ]
 		ifFound: [ :db | 

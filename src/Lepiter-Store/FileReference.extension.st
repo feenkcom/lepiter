@@ -1,6 +1,15 @@
 Extension { #name : #FileReference }
 
 { #category : #'*Lepiter-Store' }
+FileReference >> asLepiterZnUrl [
+
+	^ ZnUrl new
+		scheme: #file;
+		segments: path segments asOrderedCollection.
+
+]
+
+{ #category : #'*Lepiter-Store' }
 FileReference class >> leFromJsonV3Dictionary: aDictionary [
 	"Create a new instance of the receiver from the supplied dictionary."
 
