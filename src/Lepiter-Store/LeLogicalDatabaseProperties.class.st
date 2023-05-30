@@ -486,7 +486,5 @@ LeLogicalDatabaseProperties >> updateProperty: propertyName value: aString [
 { #category : #private }
 LeLogicalDatabaseProperties >> urlFromDirectoryString: aString [ 
 
-	^ 'file://',
-		(aString first = $/ ifTrue: [ '' ] ifFalse: [ '/' ]),
-		aString
+	^ (self decodeFileReferenceString: aString) asLepiterZnUrl asString
 ]
