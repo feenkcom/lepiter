@@ -1,7 +1,7 @@
 Class {
 	#name : #LeLocalJsonV4Storage,
 	#superclass : #LeLocalStorage,
-	#category : 'Lepiter-Store-LocalJSON-Store'
+	#category : #'Lepiter-Store-LocalJSON-Store'
 }
 
 { #category : #versions }
@@ -52,8 +52,9 @@ LeLocalJsonV4Storage >> loadFromFile: aFileReference [
 					corruptFileReference := (aFileReference withExtension: 'corrupt') nextVersion.
 					UIManager default inform: 'Lepiter: Unable to load: ', aFileReference basename, ' in ', aFileReference parent fullName, ' due to a JSON parser error'.
 					aFileReference resolve renameTo: corruptFileReference basename.
-					loadError := LeDBLoadError new 
-						fileReference: corruptFileReference;
+					loadError := LeDBLoadError new.
+					loadError properties at: #fileReference put: corruptFileReference.
+					loadError
 						reason: 'JSON Parse Error';
 						originalException: ex.
 					loadError signal ]

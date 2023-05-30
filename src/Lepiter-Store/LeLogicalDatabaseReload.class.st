@@ -29,15 +29,15 @@ LeLogicalDatabaseReload >> database: anObject [
 ]
 
 { #category : #private }
-LeLogicalDatabaseReload >> dbFor: aFileReference [
+LeLogicalDatabaseReload >> dbFor: dbZnUrl [
 	"Answer the concrete database for the supplied file reference.
 	If it is an existing DB, use that instance.  If it is a new DB, load it.
 	Notice, that new DBs are instantiated with running monitor."
-
 	<return: #LeLogicalDatabaseReloadDatabase>
 	| newDb |
+
 	existingDbs
-		detect: [ :db | db localStoreRootDirectory resolve = aFileReference resolve ]
+		detect: [ :db | db storeLocation lepiterDbUrlEquals: dbZnUrl ]
 		ifFound: [ :db | 
 			^ LeLogicalDatabaseReloadDatabase new
 				database: db;
@@ -45,7 +45,8 @@ LeLogicalDatabaseReload >> dbFor: aFileReference [
 				isPlaygroundDB: (database playgroundDB = db);
 				isExisting: true ].
 
-	newDb := LeLocalStoreLoad current loadAndMonitorFrom: aFileReference.
+	newDb := (LeDatabaseStore loaderFor: dbZnUrl) current 
+		loadAndMonitorFrom: dbZnUrl.
 	^ LeLogicalDatabaseReloadDatabase new
 		database: newDb;
 		isPrimaryDB: false;
@@ -154,21 +155,17 @@ LeLogicalDatabaseReload >> updatePrimaryAndPlaygroundDatabases [
 	"The primary and playground databases should be re-created if they don't exist
 	(allowing the Lepiter App to be started on a new machine)."
 
-	| existingPrimaryDbDir existingPlaygroundDbDir primaryDirectoryResolved playgroundDirectoryResolved primaryCommand playgroundCommand |
+	| existingPrimaryUrl existingPlaygroundUrl primaryCommand playgroundCommand |
 	
 	"1. Read primary and playground directories from properties"
-	primaryDirectory := self properties primaryDatabaseDirectory.
-	playgroundDirectory := self properties playgroundDatabaseDirectory.
-	primaryDirectoryResolved := primaryDirectory resolve.
-	playgroundDirectoryResolved := playgroundDirectory resolve.
-	existingPrimaryDbDir := database primaryDB localStoreRootDirectory
-			ifNotNil: [ :dir | dir resolve ].
-	existingPlaygroundDbDir := database playgroundDB localStoreRootDirectory
-			ifNotNil: [ :dir | dir resolve ].
+	primaryDirectory := self properties primaryDatabaseUrl asZnUrl.
+	playgroundDirectory := self properties playgroundDatabaseUrl asZnUrl.
+	existingPrimaryUrl := database primaryDB storeLocation.
+	existingPlaygroundUrl := database playgroundDB storeLocation.
 
 	"2. Prepare command for primary database"
-	primaryDirectory ensureCreateDirectory.
-	primaryDirectoryResolved = existingPrimaryDbDir
+	"primaryDirectory ensureCreateDirectory."
+	(primaryDirectory lepiterDbUrlEquals: existingPrimaryUrl)
 		ifTrue: [ (self dbFor: primaryDirectory)
 				ifExisting: [ :aDb | 
 					primaryCommand := LeLogicalDatabaseReloadUpdateExistingPrimary new
@@ -181,8 +178,8 @@ LeLogicalDatabaseReload >> updatePrimaryAndPlaygroundDatabases [
 				ifNew: [ :aDb | primaryCommand := LeLogicalDatabaseReloadUpdatePrimary new primaryDB: aDb ] ].	
 				
 	"3. Prepare command for playground database"
-	playgroundDirectory ensureCreateDirectory.
-	playgroundDirectoryResolved = existingPlaygroundDbDir
+	"playgroundDirectory ensureCreateDirectory."
+	(playgroundDirectory lepiterDbUrlEquals: existingPlaygroundUrl)
 		ifTrue: [ (self dbFor: playgroundDirectory)
 				ifExisting: [ :aDb | 
 					playgroundCommand := LeLogicalDatabaseReloadUpdateExistingPlayground new
@@ -208,10 +205,10 @@ LeLogicalDatabaseReload >> updateRegisteredDatabasesAndSpaces [
 	"Replace the existing registered DBs with the updated collection.
 	This will resort the array in to that specified by the properties file."
 
-	registeredDirectories := self properties registeredDatabaseDirectories.
+	registeredDirectories := self properties registeredDatabaseUrls.
 	registeredDatabases := registeredDirectories
-			collect: [ :fileReference | 
-				(self dbFor: fileReference)
+			collect: [ :znUrl | 
+				(self dbFor: znUrl)
 					ifExisting: [ :aDb :isPrimaryDB :isPlaygroundDB | 
 						isPrimaryDB | isPlaygroundDB
 							ifTrue: [ self addCommand: (LeLogicalDatabaseReloadUpdateShuffledDb new database: aDb) ]
