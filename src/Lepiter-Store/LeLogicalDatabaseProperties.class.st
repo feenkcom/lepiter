@@ -422,8 +422,7 @@ LeLogicalDatabaseProperties >> registeredDatabaseDirectories [
 LeLogicalDatabaseProperties >> registeredDatabaseDirectories: aCollection [
 
 	^ self updateProperty: #registeredDatabaseUrls
-		value: (aCollection collect: [ :each | 
-			self urlFromDirectoryString: (self encodeFileReferenceToString: each) ])
+		value: (aCollection collect: [ :each | each asLepiterZnUrl asString ])
 ]
 
 { #category : #'api - accessing' }
