@@ -9,6 +9,13 @@ Class {
 }
 
 { #category : #accessing }
+LeDatabaseClassStoreLoad class >> loadsDatabaseUrl: aDatabaseZnUrl [
+	"Answer a boolean indicating whether the receiver can load the supplied URL"
+
+	^ aDatabaseZnUrl scheme = #class
+]
+
+{ #category : #accessing }
 LeDatabaseClassStoreLoad >> corrupted [
 	^ corrupted
 ]
@@ -19,7 +26,7 @@ LeDatabaseClassStoreLoad >> duplicates [
 ]
 
 { #category : #testing }
-LeDatabaseClassStoreLoad >> hasCorruptedFiles [
+LeDatabaseClassStoreLoad >> hasCorruptedPages [
 	"Answer a boolean indicating whether any corrupted files were found.
 	Only valid after loading the DB."
 
@@ -27,7 +34,7 @@ LeDatabaseClassStoreLoad >> hasCorruptedFiles [
 ]
 
 { #category : #testing }
-LeDatabaseClassStoreLoad >> hasDuplicateFiles [
+LeDatabaseClassStoreLoad >> hasDuplicatePages [
 	"Answer a boolean indicating whether any duplicate files were found.
 	Only valid after loading the DB."
 
@@ -40,6 +47,22 @@ LeDatabaseClassStoreLoad >> initialize [
 	super initialize.
 	duplicates := OrderedCollection new.
 	corrupted := OrderedCollection new.
+]
+
+{ #category : #loading }
+LeDatabaseClassStoreLoad >> loadAndMonitorFrom: aZnUrl [
+	"Answer a LeLocalJSONStoreMonitor with its database loaded from the page files in aFileReference (directory)"
+	| path |
+
+	self assert: [ aZnUrl scheme = #class ]
+		description: 'LeDatabaseClassStoreLoad expects a URL with scheme class'.
+	path := aZnUrl segments.
+	self assert: [ path size = 2 ]
+		description: 'The path must be <package>/<class>'.
+	^ self
+		loadFrom: path second
+		package: path first
+		saveDelay: self defaultDelay.
 ]
 
 { #category : #private }
@@ -61,19 +84,6 @@ LeDatabaseClassStoreLoad >> loadContentInDatabase: aDatabase [
 	aDatabase setPages: pages.
 	explicitLinks ifNotNil: [ 
 		aDatabase setExplicitLinks: explicitLinks ].
-]
-
-{ #category : #private }
-LeDatabaseClassStoreLoad >> loadExplicitLinks [
-	"Load all the explicit links from the receiver's class"
-	| method |
-
-	method := dbClass class methodDict
-		at: #links
-		ifAbsent: [ ^ nil ].
-	^ [ storage loadFromMethod: method ]
-		on: LeDBLoadError 
-		fork: [ :ex | ex pass ].
 ]
 
 { #category : #private }
@@ -123,7 +133,7 @@ LeDatabaseClassStoreLoad >> loadPages [
 	(storage pageSelectorsIn: dbClass) do: [ :selector |
 		[ page := storage loadFromMethod: (dbClass class methodDict at: selector).
 		(pageIds includes: page uid) ifTrue: 
-			[ storage renameAsDuplicate: selector in: dbClass.
+			[ storage renameTo: 'duplicate' pageUid: page uid class: dbClass.
 			duplicates add: selector ]
 		ifFalse:
 			[ pageIds add: page uid.
@@ -132,5 +142,5 @@ LeDatabaseClassStoreLoad >> loadPages [
 				fork: [ :ex | 
 					corrupted add: file.
 					ex pass ] ].
-	^ pages reject: #isNil
+	^ pages reject: #isNil.
 ]

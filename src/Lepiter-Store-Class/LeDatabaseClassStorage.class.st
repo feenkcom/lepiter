@@ -18,6 +18,15 @@ LeDatabaseClassStorage >> attachmentSelectorFor: attachmentId [
 	^ ('attachment_', attachmentId) asSymbol
 ]
 
+{ #category : #enumerating }
+LeDatabaseClassStorage >> explicitLinksOrNilFor: dbClass [
+
+	^ (dbClass respondsTo: #explicitLinks) ifTrue:
+		[ self loadFromMethod: (dbClass class >> #explicitLinks) ]
+	ifFalse:
+		[ nil ]
+]
+
 { #category : #testing }
 LeDatabaseClassStorage >> hasPageStored: aPage inClass: dbClass [
 
@@ -32,6 +41,12 @@ LeDatabaseClassStorage >> loadAttachmentFromMethod: aCompiledMethod [
 ]
 
 { #category : #accessing }
+LeDatabaseClassStorage >> loadFromClass: aClass selector: aSymbol [
+
+	^ self loadFromMethod: aClass class >> aSymbol.
+]
+
+{ #category : #accessing }
 LeDatabaseClassStorage >> loadFromMethod: aCompiledMethod [
 	"Answer the object encoded in the supplied method"
 	| jsonString |
@@ -42,12 +57,15 @@ LeDatabaseClassStorage >> loadFromMethod: aCompiledMethod [
 		on: NeoJSONParseError 
 		do: [ :ex | | loadError |
 			UIManager default inform: 'Lepiter: Unable to load: ', aCompiledMethod printString, ' due to a JSON parser error'.
-			self renameToCorrupt: aCompiledMethod.
-			loadError := LeDBLoadError new 
-				fileReference: nil;
+			self renameTo: 'corrupted' method: aCompiledMethod.
+			loadError := LeDBLoadError new.
+			loadError properties
+				at: #class put: aCompiledMethod methodClass;
+				at: #selector put: aCompiledMethod selector.
+			loadError
 				reason: 'JSON Parse Error';
 				originalException: ex.
-			loadError signal ]
+			loadError signal ].
 ]
 
 { #category : #accessing }
@@ -94,6 +112,25 @@ LeDatabaseClassStorage >> pageSelectorsIn: aClass [
 
 	^ aClass class selectors select: [ :each |
 		each beginsWith: 'page_' ]
+]
+
+{ #category : #accessing }
+LeDatabaseClassStorage >> renameTo: prefixString method: aCompiledMethod [
+	| pageSource newSource |
+
+	self assert: aCompiledMethod parseTree comments size equals: 2.
+	pageSource := aCompiledMethod sourceCode.
+	newSource := prefixString, '_', (pageSource copyFrom: 6 to: pageSource size).
+	aCompiledMethod methodClass
+		compile: newSource
+		classified: prefixString.
+	aCompiledMethod removeFromSystem. 
+]
+
+{ #category : #accessing }
+LeDatabaseClassStorage >> renameTo: prefixString pageUid: aPageUid class: aClass [
+
+	self renameTo: prefixString method: (aClass class >> (self pageSelectorForUid: aPageUid)).
 ]
 
 { #category : #saving }

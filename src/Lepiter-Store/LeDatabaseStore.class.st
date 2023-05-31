@@ -16,6 +16,20 @@ LeDatabaseStore class >> current [
 	^ self forJsonV4
 ]
 
+{ #category : #accessing }
+LeDatabaseStore class >> loaderFor: aDatabaseUrl [
+
+	^ self allSubclasses detect: [ :each |
+		each loadsDatabaseUrl: aDatabaseUrl ]
+]
+
+{ #category : #testing }
+LeDatabaseStore class >> loadsDatabaseUrl: aDatabaseZnUrl [
+	"Answer a boolean indicating whether the receiver can load the supplied URL"
+
+	^ false
+]
+
 { #category : #private }
 LeDatabaseStore >> clearDatabaseProperties [
 	dbProperties := nil.
@@ -86,6 +100,12 @@ LeDatabaseStore >> defaultDatabaseName [
 	<return: #String>
 
 	^ self subclassResponsibility
+]
+
+{ #category : #'private - accessing' }
+LeDatabaseStore >> defaultDelay [
+
+	^ 30 seconds
 ]
 
 { #category : #ui }
