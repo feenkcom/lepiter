@@ -1,15 +1,8 @@
 "
-Write the supplied LeModel on to the stream as an HTML fragment that uses DIVs to reflect the document structure and annotations.
-
-This is a HTML fragment in that it doesn't contain metadata. body tag, etc.
-
-To export a page as a complete HTML document see {{gtClass:name=LeHtmlPageExporterVisitor}}.
-
-To export a fragment to the supplied stream see {{gtMethod:name=LeContent>>#asHTMLFragment}}.
-
+I am used by {{gtClass:LeHtmlBookExporter}} for [](https://book.gtoolkit.com) exports.
 "
 Class {
-	#name : #LeHtmlFragmentExporterVisitor,
+	#name : #LeHtmlBookFragmentExporterVisitor,
 	#superclass : #Object,
 	#traits : 'TLeModelVisitor + TIndentWriter',
 	#classTraits : 'TLeModelVisitor classTrait + TIndentWriter classTrait',
@@ -22,34 +15,34 @@ Class {
 }
 
 { #category : #accessing }
-LeHtmlFragmentExporterVisitor >> externalPicturesWriter [
+LeHtmlBookFragmentExporterVisitor >> externalPicturesWriter [
 	^ externalPicturesWriter
 ]
 
 { #category : #accessing }
-LeHtmlFragmentExporterVisitor >> externalPicturesWriter: aDataWriter [
+LeHtmlBookFragmentExporterVisitor >> externalPicturesWriter: aDataWriter [
 	externalPicturesWriter := aDataWriter
 ]
 
 { #category : #initialization }
-LeHtmlFragmentExporterVisitor >> initialize [
+LeHtmlBookFragmentExporterVisitor >> initialize [
 	super initialize.
 	level := 1.
 	self nestingLevel:0.
 ]
 
 { #category : #accessing }
-LeHtmlFragmentExporterVisitor >> pageLinks [
+LeHtmlBookFragmentExporterVisitor >> pageLinks [
 	^ pageLinks
 ]
 
 { #category : #accessing }
-LeHtmlFragmentExporterVisitor >> pageLinks: anObject [
+LeHtmlBookFragmentExporterVisitor >> pageLinks: anObject [
 	pageLinks := anObject
 ]
 
 { #category : #visiting }
-LeHtmlFragmentExporterVisitor >> visitContent: aLeContent [
+LeHtmlBookFragmentExporterVisitor >> visitContent: aLeContent [
 	aLeContent hasChildren ifFalse: [ ^ self ].
 	self putTag: 'div' andAttributes: #('class' 'snippet-children') with: [
 		aLeContent children acceptVisitor: self.
@@ -57,7 +50,7 @@ LeHtmlFragmentExporterVisitor >> visitContent: aLeContent [
 ]
 
 { #category : #visiting }
-LeHtmlFragmentExporterVisitor >> visitElementSnippet: aLeElementSnippet [
+LeHtmlBookFragmentExporterVisitor >> visitElementSnippet: aLeElementSnippet [
 	| aFileName |
 	
 	aFileName := self externalPicturesWriter  
@@ -81,7 +74,7 @@ LeHtmlFragmentExporterVisitor >> visitElementSnippet: aLeElementSnippet [
 ]
 
 { #category : #visiting }
-LeHtmlFragmentExporterVisitor >> visitExampleSnippet: aLeExampleSnippet [
+LeHtmlBookFragmentExporterVisitor >> visitExampleSnippet: aLeExampleSnippet [
 	self
 		putTag: 'div'
 		with: [ aLeExampleSnippet noCode
@@ -97,7 +90,7 @@ LeHtmlFragmentExporterVisitor >> visitExampleSnippet: aLeExampleSnippet [
 ]
 
 { #category : #visiting }
-LeHtmlFragmentExporterVisitor >> visitPage: aLePage [
+LeHtmlBookFragmentExporterVisitor >> visitPage: aLePage [
 
 	"Iterate over children, but don't mark as child content"
 	aLePage children acceptVisitor: self.
@@ -105,7 +98,7 @@ LeHtmlFragmentExporterVisitor >> visitPage: aLePage [
 ]
 
 { #category : #visiting }
-LeHtmlFragmentExporterVisitor >> visitPharoSnippet: aLePharoSnippet [
+LeHtmlBookFragmentExporterVisitor >> visitPharoSnippet: aLePharoSnippet [
 	self
 		putTag: 'div'
 		andAttributes: #('class' 'snippet textual-snippet code-snippet pharo-snippet')
@@ -116,16 +109,15 @@ LeHtmlFragmentExporterVisitor >> visitPharoSnippet: aLePharoSnippet [
 ]
 
 { #category : #visiting }
-LeHtmlFragmentExporterVisitor >> visitPictureSnippet: aLePictureSnippet [
+LeHtmlBookFragmentExporterVisitor >> visitPictureSnippet: aLePictureSnippet [
+	| anImgSrc |
+	anImgSrc := self externalPicturesWriter 
+		pictureSnippetReferenceFor: aLePictureSnippet.
+			
 	self
 		putTag: 'figure'
 		andAttributes: #('class' 'snippet picture-snippet paragraphWidth')
-		with: [ | anImgSrc |
-			anImgSrc := (aLePictureSnippet urlString
-					beginsWith: 'https://'
-					caseSensitive: false)
-					ifTrue: [ aLePictureSnippet urlString ]
-					ifFalse: [ './' , aLePictureSnippet urlString ].
+		with: [
 
 			self
 				putTag: 'img'
@@ -140,7 +132,7 @@ LeHtmlFragmentExporterVisitor >> visitPictureSnippet: aLePictureSnippet [
 ]
 
 { #category : #visiting }
-LeHtmlFragmentExporterVisitor >> visitTextSnippet: aLeTextSnippet [
+LeHtmlBookFragmentExporterVisitor >> visitTextSnippet: aLeTextSnippet [
 	self putTag: 'div' andAttributes: #('class' 'snippet textual-snippet text-snippet') with: [
 		aLeTextSnippet ast acceptVisitor: (LeHtmlExporterTextSnippetVisitor new 
 				stream: stream;
@@ -151,7 +143,7 @@ LeHtmlFragmentExporterVisitor >> visitTextSnippet: aLeTextSnippet [
 ]
 
 { #category : #visiting }
-LeHtmlFragmentExporterVisitor >> visitTweetReferenceSnippet: aLeTweetReferenceSnippet [
+LeHtmlBookFragmentExporterVisitor >> visitTweetReferenceSnippet: aLeTweetReferenceSnippet [
 	| linkHref |
 	self
 		putTag: 'div'
@@ -177,7 +169,7 @@ LeHtmlFragmentExporterVisitor >> visitTweetReferenceSnippet: aLeTweetReferenceSn
 ]
 
 { #category : #visiting }
-LeHtmlFragmentExporterVisitor >> visitWardleyMapSnippet: aLeWardleyMapSnippet [
+LeHtmlBookFragmentExporterVisitor >> visitWardleyMapSnippet: aLeWardleyMapSnippet [
 	| aFileName |
 
 	aFileName := self externalPicturesWriter  
@@ -201,13 +193,13 @@ LeHtmlFragmentExporterVisitor >> visitWardleyMapSnippet: aLeWardleyMapSnippet [
 ]
 
 { #category : #visiting }
-LeHtmlFragmentExporterVisitor >> visitYoutubeReferenceSnippet: aLeYoutubeReferenceSnippet [
+LeHtmlBookFragmentExporterVisitor >> visitYoutubeReferenceSnippet: aLeYoutubeReferenceSnippet [
 	self putTag: 'div' andAttributes: #('class' 'snippet youtube-reference-snippet') with: [
 		self putString: aLeYoutubeReferenceSnippet html]
 ]
 
 { #category : #accessing }
-LeHtmlFragmentExporterVisitor >> writeExampleResult: aLeExampleSnippet [ 
+LeHtmlBookFragmentExporterVisitor >> writeExampleResult: aLeExampleSnippet [ 
 	| aMethod aFigureReference |
 	aMethod := aLeExampleSnippet referencedExample compiledMethod.
 	

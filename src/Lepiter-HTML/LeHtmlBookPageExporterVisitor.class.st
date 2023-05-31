@@ -1,6 +1,6 @@
 Class {
 	#name : #LeHtmlBookPageExporterVisitor,
-	#superclass : #LeHtmlFragmentExporterVisitor,
+	#superclass : #LeHtmlBookFragmentExporterVisitor,
 	#instVars : [
 		'scripts',
 		'metaTags',
