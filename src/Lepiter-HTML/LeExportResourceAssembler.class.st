@@ -28,6 +28,17 @@ LeExportResourceAssembler >> context: aLeHtmlContext [
 	context := aLeHtmlContext
 ]
 
+{ #category : #'gt - extensions' }
+LeExportResourceAssembler >> gtResourcesFor: aView [
+	<gtView>
+	context ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Resources';
+		priority: 15;
+		object: [ context ];
+		view: #gtResourcesFor:
+]
+
 { #category : #'private - building' }
 LeExportResourceAssembler >> newSnippetElementFor: aSnippet [
 	"Prepare snippet element"
