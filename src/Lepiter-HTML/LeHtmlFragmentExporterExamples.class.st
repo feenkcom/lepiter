@@ -209,9 +209,10 @@ LeHtmlFragmentExporterExamples >> pictureSnippet [
 			stream: stream) ].
 	
 	self assert: (html beginsWith: '<figure class="snippet picture-snippet paragraphWidth"').
-	self assert: (html includesSubstring: '<img class="picture-snippet-image" src="gt-figures/1000.jpg"/>').
+	self assert: (html includesSubstring: '<img class="picture-snippet-image" src=').
+	self assert: (html includesSubstring: 'feenkcom/gtoolkit-demos/data/faceapi/1280px-Einstein-with-habicht-and-solovine.jpg"/>').
 	
-	self assert: aResources asArray size equals: 1.
+	self assert: aResources asArray size equals: 0.
 	
 	^ html
 ]
