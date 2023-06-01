@@ -1,23 +1,17 @@
-"
-Demonstrate the operation of {{gtClass:name=LeHtmlFragmentExporterVisitor}}.
-
-Since there is no page or database present at this level, links to other pages, etc. can't be resolved and page related tags such as body, metadata, etc. are not included.  See {{gtClass:name=LeHtmlPageExporterVisitor}}.
-
-"
 Class {
-	#name : #LeHtmlFragmentExporterExamples,
+	#name : #LeHtmlBookFragmentExporterExamples,
 	#superclass : #Object,
 	#category : #'Lepiter-HTML-Examples'
 }
 
 { #category : #examples }
-LeHtmlFragmentExporterExamples >> basicMarkdown [
+LeHtmlBookFragmentExporterExamples >> basicMarkdown [
 	"Confirm that basic markup is converted"
 	<gtExample>
 	| markdown html |
 	markdown := LeTextSnippet string: '*italic* **bold** `mono`'.
 	html := String streamContents: [ :stream |
-		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
+		markdown acceptVisitor: (LeHtmlBookFragmentExporterVisitor new stream: stream) ].
 	self assert: html trimBoth
 		equals: '<div class="snippet textual-snippet text-snippet">
   <p>
@@ -28,28 +22,28 @@ LeHtmlFragmentExporterExamples >> basicMarkdown [
 ]
 
 { #category : #examples }
-LeHtmlFragmentExporterExamples >> classAnnotation [
+LeHtmlBookFragmentExporterExamples >> classAnnotation [
 	"Confirm that basic markup is converted"
 	<gtExample>
 	| markdown html |
 
 	markdown := LeTextSnippet string: '{{gtClass:LeHtmlFragmentExporterExamples}}'.
 	html := String streamContents: [ :stream |
-		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
+		markdown acceptVisitor: (LeHtmlBookFragmentExporterVisitor new stream: stream) ].
 	self assert: (html includesSubstring: '<code class="class_annotation">').
 	self assert: (html includesSubstring: 'LeHtmlFragmentExporterExamples').
 	^ html
 ]
 
 { #category : #examples }
-LeHtmlFragmentExporterExamples >> codeBlock [
+LeHtmlBookFragmentExporterExamples >> codeBlock [
 	"Confirm that a code block is converted"
 	<gtExample>
 	| markdown html |
 
 	markdown := LeTextSnippet string: '```\answer:=42.\```' withCRs.
 	html := String streamContents: [ :stream |
-		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
+		markdown acceptVisitor: (LeHtmlBookFragmentExporterVisitor new stream: stream) ].
 		
 	self assert: html trimBoth
 		equals: '<div class="snippet textual-snippet text-snippet">
@@ -67,14 +61,14 @@ answer:=42.
 ]
 
 { #category : #examples }
-LeHtmlFragmentExporterExamples >> elementSnippet [
+LeHtmlBookFragmentExporterExamples >> elementSnippet [
 	<gtExample>
 	| snippet html aResources |
 
 	snippet := LeElementSnippet 
 		code: BrExamplesShowroom name, ' new ', #glamorousBreadcrumb asString.
 	html := String streamContents: [ :stream |
-		snippet acceptVisitor: (LeHtmlFragmentExporterVisitor new 
+		snippet acceptVisitor: (LeHtmlBookFragmentExporterVisitor new 
 			externalPicturesWriter: (aResources := LeResourcesExporter new);
 			stream: stream) ].
 			
@@ -91,7 +85,7 @@ LeHtmlFragmentExporterExamples >> elementSnippet [
 ]
 
 { #category : #examples }
-LeHtmlFragmentExporterExamples >> exampleSnippet [
+LeHtmlBookFragmentExporterExamples >> exampleSnippet [
 	"Confirm that basic markup is converted"
 	<gtExample>
 	| markdown html |
@@ -100,7 +94,7 @@ LeHtmlFragmentExporterExamples >> exampleSnippet [
 		exampleBehaviorName: 'LeHtmlFragmentExporterExamples';
 		exampleSelector: 'pictureSnippet'.
 	html := String streamContents: [ :stream |
-		markdown acceptVisitor: ((LeHtmlFragmentExporterVisitor new 
+		markdown acceptVisitor: ((LeHtmlBookFragmentExporterVisitor new 
 		externalPicturesWriter: LeResourcesExporter new)
 		stream: stream) ].
 	self assert: (html includesSubstring:'<div>
@@ -119,14 +113,14 @@ pictureSnippet
 ]
 
 { #category : #examples }
-LeHtmlFragmentExporterExamples >> methodAnnotation [
+LeHtmlBookFragmentExporterExamples >> methodAnnotation [
 	"Confirm that basic markup is converted"
 	<gtExample>
 	| markdown html |
 
 	markdown := LeTextSnippet string: '{{gtMethod:LeHtmlFragmentExporterExamples>>#basicMarkdown}}'.
 	html := String streamContents: [ :stream |
-		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
+		markdown acceptVisitor: (LeHtmlBookFragmentExporterVisitor new stream: stream) ].
 	self assert: (html includesSubstring: 'method_annotation expandable_annotation_label').
 	self assert: (html includesSubstring: 'LeHtmlFragmentExporterExamples&gt;&gt;#basicMarkdown').
 	self assert: (html includesSubstring: 'textual-snippet code-snippet pharo-method-snippet expandable_annotation_body hidden_annotation').
@@ -134,14 +128,14 @@ LeHtmlFragmentExporterExamples >> methodAnnotation [
 ]
 
 { #category : #examples }
-LeHtmlFragmentExporterExamples >> methodAnnotation_withInexistentClassAndNameParameter [
+LeHtmlBookFragmentExporterExamples >> methodAnnotation_withInexistentClassAndNameParameter [
 	"Confirm that basic markup is converted"
 	<gtExample>
 	| markdown html |
 
 	markdown := LeTextSnippet string: '{{gtMethod:name=LeHtmlInexistentClass>>#inexistentMethod}}'.
 	html := String streamContents: [ :stream |
-		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
+		markdown acceptVisitor: (LeHtmlBookFragmentExporterVisitor new stream: stream) ].
 
 	self 
 		assert: (html includesSubstring: 'name=LeHtmlInexistentClass>>#inexistentMethod') not 
@@ -153,14 +147,14 @@ LeHtmlFragmentExporterExamples >> methodAnnotation_withInexistentClassAndNamePar
 ]
 
 { #category : #examples }
-LeHtmlFragmentExporterExamples >> methodAnnotation_withNameParameter [
+LeHtmlBookFragmentExporterExamples >> methodAnnotation_withNameParameter [
 	"Confirm that basic markup is converted"
 	<gtExample>
 	| markdown html |
 
 	markdown := LeTextSnippet string: '{{gtMethod:name=LeHtmlFragmentExporterExamples>>#basicMarkdown}}'.
 	html := String streamContents: [ :stream |
-		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
+		markdown acceptVisitor: (LeHtmlBookFragmentExporterVisitor new stream: stream) ].
 
 	self 
 		assert: (html includesSubstring: 'name=LeHtmlFragmentExporterExamples') not 
@@ -172,12 +166,12 @@ LeHtmlFragmentExporterExamples >> methodAnnotation_withNameParameter [
 ]
 
 { #category : #accessing }
-LeHtmlFragmentExporterExamples >> pharoSnippet [
+LeHtmlBookFragmentExporterExamples >> pharoSnippet [
 	<gtExample>
 	| markdown html |
 	markdown := LePharoSnippet code: 'answer := 41.'.
 	html := String streamContents: [ :stream |
-		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new stream: stream) ].
+		markdown acceptVisitor: (LeHtmlBookFragmentExporterVisitor new stream: stream) ].
 	self assert: html trimBoth
 		equals: '<div class="snippet textual-snippet code-snippet pharo-snippet">
   <pre class="no_bottom_margin">
@@ -189,7 +183,7 @@ answer := 41.
 ]
 
 { #category : #accessing }
-LeHtmlFragmentExporterExamples >> pictureFile [
+LeHtmlBookFragmentExporterExamples >> pictureFile [
 	^ (GtResourcesUtility resourceAtPath: Path 
 		* 'feenkcom'
 		/ 'gtoolkit-demos' 
@@ -199,33 +193,32 @@ LeHtmlFragmentExporterExamples >> pictureFile [
 ]
 
 { #category : #accessing }
-LeHtmlFragmentExporterExamples >> pictureSnippet [
+LeHtmlBookFragmentExporterExamples >> pictureSnippet [
 	<gtExample>
 	| markdown html aResources |
 	markdown := LePictureSnippet new urlString: self pictureFile.
 	html := String streamContents: [ :stream |
-		markdown acceptVisitor: (LeHtmlFragmentExporterVisitor new 
+		markdown acceptVisitor: (LeHtmlBookFragmentExporterVisitor new 
 			externalPicturesWriter: (aResources := LeResourcesExporter new);
 			stream: stream) ].
 	
 	self assert: (html beginsWith: '<figure class="snippet picture-snippet paragraphWidth"').
-	self assert: (html includesSubstring: '<img class="picture-snippet-image" src=').
-	self assert: (html includesSubstring: 'feenkcom/gtoolkit-demos/data/faceapi/1280px-Einstein-with-habicht-and-solovine.jpg"/>').
+	self assert: (html includesSubstring: '<img class="picture-snippet-image" src="gt-figures/1000.jpg"/>').
 	
-	self assert: aResources asArray size equals: 0.
+	self assert: aResources asArray size equals: 1.
 	
 	^ html
 ]
 
 { #category : #examples }
-LeHtmlFragmentExporterExamples >> wardleySnippet [
+LeHtmlBookFragmentExporterExamples >> wardleySnippet [
 	<gtExample>
 	| wardleyMap snippet html aResources |
 
 	wardleyMap := GtWardleyMapJsonExporterImporterExamples  new importWardleyMapWithPipelineInnerNodesFromDictionary.
 	snippet := LeWardleyMapSnippet new wardleyMap: wardleyMap.
 	html := String streamContents: [ :stream |
-		snippet acceptVisitor: (LeHtmlFragmentExporterVisitor new 
+		snippet acceptVisitor: (LeHtmlBookFragmentExporterVisitor new 
 			externalPicturesWriter: (aResources := LeResourcesExporter new);
 			stream: stream) ].
 	
