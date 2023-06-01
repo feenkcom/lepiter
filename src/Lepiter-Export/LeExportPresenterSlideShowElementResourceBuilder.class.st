@@ -77,13 +77,9 @@ LeExportPresenterSlideShowElementResourceBuilder >> visitElementSnippet: aLeElem
 	self setSlides.
 	
 	"Compute height"
-	elementHeight := aLeElementSnippet elementHeight.
-	aLeElementSnippet codeVisible ifTrue: [
-		elementHeight := elementHeight + aLeElementSnippet codeHeight
-	].
+	elementHeight := LeExportUtility elementSnippetHeightFor: aLeElementSnippet.
 	
 	self buildSlides.
 
-	self visitContent: aLeElementSnippet.
-	^ aLeElementSnippet
+	^ self visitContent: aLeElementSnippet.
 ]

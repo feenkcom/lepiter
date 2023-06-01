@@ -27,12 +27,13 @@ LeExportObjectSpecificationBuilderExamples >> elementSpecification [
 ]
 
 { #category : #accessing }
-LeExportObjectSpecificationBuilderExamples >> presenterSlideShowSpecification [
+LeExportObjectSpecificationBuilderExamples >> presenterSlideshowSpecification [
 	<gtExample>
 	
-	| specifications finder element elementClass |
+	| specifications finder element elementClass holder |
 	specifications := LeExportSpecificationsExamples new snippetSpecifications.
-	element := (GtPresenterSlideShow create: GtTour new) asElement.
+	holder := LeExportSnippetExamples new snippetElementWithSlideshow.
+	element := holder slideshow asElement.
 	
 	elementClass := element class.
 	
@@ -54,11 +55,11 @@ LeExportObjectSpecificationBuilderExamples >> presenterSlideShowSpecification [
 LeExportObjectSpecificationBuilderExamples >> snippetElementWithSlideshowSpecification [
 	<gtExample>
 	
-	| specifications finder element elementClass snippet |
+	| specifications finder element elementClass snippet holder |
 	specifications := LeExportSpecificationsExamples new snippetSpecifications.
-	snippet := LeElementSnippet 
-		code: GtPresenterSlideShow name, ' ', #create: asString, ' ', GtTour name, ' new'.
 	
+	holder := LeExportSnippetExamples new snippetElementWithSlideshow.
+	snippet := holder snippet.
 	element := LeExportUtility newSnippetElementFor: snippet.
 	elementClass := element class.
 	
@@ -74,6 +75,36 @@ LeExportObjectSpecificationBuilderExamples >> snippetElementWithSlideshowSpecifi
 	self assert: finder objectSpecification specification classKind equals: elementClass.
 	self assert: finder objectSpecification priority equals: 0.
 	self assert: finder objectSpecification allObjectSpecifications size equals: 3.
+
+	^ finder
+]
+
+{ #category : #accessing }
+LeExportObjectSpecificationBuilderExamples >> snippetElementWithZeroSlidesSpecification [
+	<gtExample>
+	
+	| specifications finder element elementClass snippet holder |
+	specifications := LeExportSpecificationsExamples new snippetSpecifications.
+	
+	holder := LeExportSnippetExamples new snippetElementWithZeroSlides.
+	snippet := holder snippet.
+	element := LeExportUtility newSnippetElementFor: snippet.
+	elementClass := element class.
+	
+	finder := LeExportObjectSpecificationBuilder new 
+		specifications: specifications;
+		object: element;
+		find.
+		
+	self assert: finder specifications equals: specifications.
+	self assert: finder object equals: element.
+	
+	self assert: finder objectSpecification isNotNil.
+	self 
+		assert: finder objectSpecification specification classKind = BlElement
+		description: [ 'Unexpected specification: {1}' 
+			format: { finder objectSpecification specification } ].
+	self assert: finder objectSpecification priority equals: 1.
 
 	^ finder
 ]

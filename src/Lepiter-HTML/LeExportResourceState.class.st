@@ -15,6 +15,11 @@ LeExportResourceState class >> assemblingException: anException [
 ]
 
 { #category : #'instance creation' }
+LeExportResourceState class >> assemblingInadequateOutput: anException [
+	^ LeExportAssemblingInadequateOutputResourceState new exception: anException
+]
+
+{ #category : #'instance creation' }
 LeExportResourceState class >> problemMessage: aMessage [
 	^ LeExportProblemResourceState new message: aMessage
 ]

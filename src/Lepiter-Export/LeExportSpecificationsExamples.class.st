@@ -12,17 +12,20 @@ LeExportSpecificationsExamples >> snippetSpecifications [
 	
 	specifications
 		addSpecification: (LeExportClassKindSpecification new
-				classKind: BlElement).
+				classKind: BlElement;
+				resourcerClass: LeExportElementResourceBuilder).
 
 	specifications
 		addSpecification: (LeExportForwardSpecification new
 				classKind: LeSnippetContainerElement;
-				forwardTo: #snippetElement).
+				forwardTo: #snippetElement;
+				condition: #isNotNil).
 
 	specifications
 		addSpecification: (LeExportForwardSpecification new
 				classKind: LeElementSnippetElement;
-				forwardTo: #displayElement).
+				forwardTo: #displayElement;
+				condition: #isNotNil).
 				
 	specifications
 		addSpecification: (LeExportClassKindSpecification new

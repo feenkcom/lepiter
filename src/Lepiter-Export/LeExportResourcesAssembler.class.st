@@ -42,6 +42,43 @@ LeExportResourcesAssembler >> resources: aLeExportResources [
 ]
 
 { #category : #visiting }
+LeExportResourcesAssembler >> visitExportElementSnippetResource: aResource [
+	| aSnippetElement anExporter |
+	
+	aResource reference exists ifTrue: [
+		"Do not compute twice"
+		aResource beReadyState.
+		^ self
+	].
+	
+	aResource beAssemblingState.
+	
+	"Prepare element"
+	aSnippetElement := LeExportUtility newSnippetElementFor: aResource snippet.
+	
+	"Export"
+	anExporter := LeElementToPngExporter new
+		element: aSnippetElement;
+		fileReference: aResource reference;
+		height: aResource height;
+		export.
+		
+	aSnippetElement snippetElement exception ifNotNil: [ :anException | 
+		aResource reference exists
+			ifFalse: [ aResource beAssemblingException: anException ]
+			ifTrue: [ aResource beAssemblingInadequateOutput: anException ].
+		^ self ].
+		
+	aResource reference exists ifTrue: [
+		aResource beReadyState.
+		^ self
+	].
+	
+	"Export failure"
+	aResource beProblemMessage: 'Problem during export'
+]
+
+{ #category : #visiting }
 LeExportResourcesAssembler >> visitExportSlideResource: aResource [
 	| anElement anExporter |
 	aResource reference exists ifTrue: [

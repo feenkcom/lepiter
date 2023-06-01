@@ -40,6 +40,8 @@ LeExportSnippetWithSlideshowHolder >> gtAllSlidesFor: aView [
 LeExportSnippetWithSlideshowHolder >> gtSlideshowFor: aView [
 	<gtView>
 	slideshow ifNil: [ ^ aView empty ].
+	allSlides ifNil: [ ^ aView empty ].
+	allSlides ifEmpty: [ ^ aView empty ].
 
 	^ aView forward
 		title: 'Slideshow';

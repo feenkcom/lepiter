@@ -7,7 +7,7 @@ Class {
 { #category : #accessing }
 LeExportVisitorExamples >> snippetElementWithSlideshowSpecification [
 	<gtExample>
-	| specifications snippet context visitor result resources allSlides slidesHolder |
+	| specifications snippet context visitor resources allSlides slidesHolder |
 	slidesHolder := LeExportSnippetExamples new snippetElementWithSlideshow.
 	snippet := slidesHolder snippet.
 	allSlides := slidesHolder allSlides.
@@ -21,7 +21,7 @@ LeExportVisitorExamples >> snippetElementWithSlideshowSpecification [
 
 	visitor := LeExportVisitor new context: context.
 
-	result := snippet acceptVisitor: visitor.
+	snippet acceptVisitor: visitor.
 
 	self assert: resources asArray size equals: allSlides size.
 	self 
@@ -47,6 +47,60 @@ LeExportVisitorExamples >> snippetElementWithSlideshowSpecification_PrepareResou
 	self 
 		assert: (resources asArray allSatisfy: [ :each | each state isReady ])
 		description: [ 'Resource must be ready.' ].
+
+	^ visitor
+]
+
+{ #category : #accessing }
+LeExportVisitorExamples >> snippetElementWithZeroSlides [
+	<gtExample>
+	| specifications snippet context visitor resources allSlides slidesHolder |
+	slidesHolder := LeExportSnippetExamples new snippetElementWithZeroSlides.
+	snippet := slidesHolder snippet.
+	allSlides := slidesHolder allSlides.
+	
+	self 
+		assert: allSlides isEmpty 
+		description: [ 'All slides must be empty' ].
+
+	specifications := LeExportSpecificationsExamples new snippetSpecifications.
+	resources := LeExportResources new.
+
+	context := LeExportContext new.
+	context specifications: specifications.
+	context resources: resources.
+
+	visitor := LeExportVisitor new context: context.
+
+	snippet acceptVisitor: visitor.
+
+	self assert: resources asArray size equals: 1.
+	self 
+		assert: (resources asArray allSatisfy: [ :each | each state isReady not ])
+		description: [ 'Resource must NOT be ready.' ].
+
+	^ visitor
+]
+
+{ #category : #accessing }
+LeExportVisitorExamples >> snippetElementWithZeroSlides_PrepareResources [
+	<gtExample>
+	| resources visitor context |
+	visitor := self snippetElementWithZeroSlides.
+	context := visitor context.
+	resources := context resources.
+	
+	context assembler assemble.
+
+	self 
+		assert: resources asArray size
+		equals: 1.
+	self 
+		assert: (resources asArray allSatisfy: [ :each | each state isReady ])
+		description: [ 'Resource must be ready.' ].
+	self 
+		assert: resources asArray first state isFailure 
+		description: [ 'Resource must have inadequate output (an exception)' ].
 
 	^ visitor
 ]

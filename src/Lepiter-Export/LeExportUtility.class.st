@@ -5,6 +5,16 @@ Class {
 }
 
 { #category : #accessing }
+LeExportUtility class >> elementSnippetHeightFor: aLeElementSnippet [
+	| elementHeight |
+	elementHeight := aLeElementSnippet elementHeight.
+	aLeElementSnippet codeVisible ifTrue: [ 
+		elementHeight := elementHeight + aLeElementSnippet codeHeight ].
+		
+	^ elementHeight
+]
+
+{ #category : #accessing }
 LeExportUtility class >> newSnippetElementFor: aSnippet [
 	"Prepare snippet element"
 

@@ -96,10 +96,7 @@ LeExportResourceBuilder2 >> visitElementSnippet: aLeElementSnippet [
 	| aResource aHeight aPath aFileReference |
 	
 	"Compute height"
-	aHeight := aLeElementSnippet elementHeight.
-	aLeElementSnippet codeVisible ifTrue: [
-		aHeight := aHeight + aLeElementSnippet codeHeight
-	].
+	aHeight := LeExportUtility elementSnippetHeightFor: aLeElementSnippet.
 	
 	"Prepare file"
 	aPath := self nextPath.

@@ -22,6 +22,11 @@ TLeExportResource >> beAssemblingException: anException [
 ]
 
 { #category : #'api - state' }
+TLeExportResource >> beAssemblingInadequateOutput: anException [
+	self state: (LeExportResourceState assemblingInadequateOutput: anException)
+]
+
+{ #category : #'api - state' }
 TLeExportResource >> beAssemblingState [
 	self state: LeExportResourceState assembling
 ]
