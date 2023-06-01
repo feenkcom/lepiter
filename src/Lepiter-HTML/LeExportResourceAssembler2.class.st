@@ -1,8 +1,8 @@
 Class {
-	#name : #LeExportResourceAssembler,
+	#name : #LeExportResourceAssembler2,
 	#superclass : #Object,
-	#traits : 'TExportResourceVisitor',
-	#classTraits : 'TExportResourceVisitor classTrait',
+	#traits : 'TLeExportResourceVisitor',
+	#classTraits : 'TLeExportResourceVisitor classTrait',
 	#instVars : [
 		'context'
 	],
@@ -10,14 +10,14 @@ Class {
 }
 
 { #category : #'api - building' }
-LeExportResourceAssembler >> assemble [
+LeExportResourceAssembler2 >> assemble [
 	context resources do: [ :each | 
 		each state isReady ifFalse: [ 
 			each acceptVisitor: self ] ]
 ]
 
 { #category : #'api - initialization' }
-LeExportResourceAssembler >> context: aLeHtmlContext [
+LeExportResourceAssembler2 >> context: aLeHtmlContext [
 	self
 		assert: [ aLeHtmlContext isNotNil ]
 		description: [ 'Context must be non-nil' ].
@@ -29,7 +29,7 @@ LeExportResourceAssembler >> context: aLeHtmlContext [
 ]
 
 { #category : #'gt - extensions' }
-LeExportResourceAssembler >> gtResourcesFor: aView [
+LeExportResourceAssembler2 >> gtResourcesFor: aView [
 	<gtView>
 	context ifNil: [ ^ aView empty ].
 	^ aView forward
@@ -40,7 +40,7 @@ LeExportResourceAssembler >> gtResourcesFor: aView [
 ]
 
 { #category : #'private - building' }
-LeExportResourceAssembler >> newSnippetElementFor: aSnippet [
+LeExportResourceAssembler2 >> newSnippetElementFor: aSnippet [
 	"Prepare snippet element"
 
 	| aViewModel aSnippetElement |
@@ -52,7 +52,7 @@ LeExportResourceAssembler >> newSnippetElementFor: aSnippet [
 ]
 
 { #category : #visiting }
-LeExportResourceAssembler >> visitExportElementSnippetResource: aResource [
+LeExportResourceAssembler2 >> visitExportElementSnippetResource: aResource [
 	| aSnippetElement anExporter |
 	
 	aResource reference exists ifTrue: [

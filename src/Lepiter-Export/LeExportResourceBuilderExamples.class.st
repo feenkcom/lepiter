@@ -4,12 +4,12 @@ Class {
 	#category : #'Lepiter-Export-Resources - Examples'
 }
 
-{ #category : #accessing }
-LeExportResourceBuilderExamples >> snippetElementWithSlideShowsSpecification [
+{ #category : #examples }
+LeExportResourceBuilderExamples >> snippetElementWithSlideshowSpecification [
 	<gtExample>
 	| finder element snippet resourcer objectSpecification resources sequencer fileStore createdResources |
 	finder := LeExportObjectSpecificationBuilderExamples new
-			snippetElementWithSlideShowsSpecification.
+			snippetElementWithSlideshowSpecification.
 
 	objectSpecification := finder objectSpecification.
 	element := objectSpecification object.

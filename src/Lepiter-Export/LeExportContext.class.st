@@ -12,6 +12,15 @@ Class {
 	#category : #'Lepiter-Export-! Core'
 }
 
+{ #category : #accessing }
+LeExportContext >> assembler [
+	"Return resources assembler that exports resources"
+
+	<return: #TLeExportResourcesAssembler>
+	^ LeExportResourcesAssembler new
+		resources: self resources
+]
+
 { #category : #initialization }
 LeExportContext >> defaultFileStore [
 	^ LeExportMemoryStore new

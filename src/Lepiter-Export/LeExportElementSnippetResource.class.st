@@ -2,7 +2,8 @@ Class {
 	#name : #LeExportElementSnippetResource,
 	#superclass : #LeExportSnippetResource,
 	#instVars : [
-		'height'
+		'height',
+		'element'
 	],
 	#category : #'Lepiter-Export-Resources - Model'
 }
@@ -17,6 +18,21 @@ LeExportElementSnippetResource >> defaultState [
 	^ (self reference isNotNil and: [ self reference exists ])
 		ifTrue: [ LeExportResourceState ready ]
 		ifFalse: [ LeExportResourceState uninitialized ]
+]
+
+{ #category : #accessing }
+LeExportElementSnippetResource >> element [
+	<return: #BlElement>
+	^ element
+]
+
+{ #category : #'private - building' }
+LeExportElementSnippetResource >> element: anElement [
+	self
+		assert: [ anElement isKindOf: BlElement ]
+		description: [ 'Element must be kind of ' , BlElement name , ': ' format: {anElement} ].
+
+	element := anElement
 ]
 
 { #category : #accessing }

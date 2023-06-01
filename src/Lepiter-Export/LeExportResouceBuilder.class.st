@@ -100,6 +100,12 @@ LeExportResouceBuilder >> objectSpecification: aLeExportObjectSpecification [
 	objectSpecification := aLeExportObjectSpecification
 ]
 
+{ #category : #accessing }
+LeExportResouceBuilder >> resources [
+	<return: #TLeExportResources>
+	^ resources
+]
+
 { #category : #'api - initialization' }
 LeExportResouceBuilder >> resources: aLeExportResources [
 	"Set resources collection to which new resources are added."

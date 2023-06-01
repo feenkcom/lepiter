@@ -1,8 +1,8 @@
 Class {
 	#name : #LeResourcesDirectorySaver,
 	#superclass : #Object,
-	#traits : 'TExportResourceVisitor',
-	#classTraits : 'TExportResourceVisitor classTrait',
+	#traits : 'TLeExportResourceVisitor',
+	#classTraits : 'TLeExportResourceVisitor classTrait',
 	#instVars : [
 		'resources',
 		'rootDirectory'
@@ -132,6 +132,13 @@ LeResourcesDirectorySaver >> visitByteArrayAssetResource: aResource [
 ]
 
 { #category : #visiting }
+LeResourcesDirectorySaver >> visitExportSnippetResource: aResource [
+	self 
+		copyContentOfFile: aResource reference 
+		intoPath: aResource path
+]
+
+{ #category : #visiting }
 LeResourcesDirectorySaver >> visitExportedAnnotationResource: aResource [ 
 	self 
 		copyContentOfFile: aResource reference 
@@ -142,13 +149,6 @@ LeResourcesDirectorySaver >> visitExportedAnnotationResource: aResource [
 LeResourcesDirectorySaver >> visitExportedHtmlResource: aResource [
 	self
 		saveString: aResource content
-		intoPath: aResource path
-]
-
-{ #category : #visiting }
-LeResourcesDirectorySaver >> visitExportedSnippetResource: aResource [
-	self 
-		copyContentOfFile: aResource reference 
 		intoPath: aResource path
 ]
 

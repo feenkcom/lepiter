@@ -8,6 +8,11 @@ Class {
 	#category : #'Lepiter-Export-Resources - Model'
 }
 
+{ #category : #visiting }
+LeExportSlideResource >> acceptVisitor: aVisitor [
+	^ aVisitor visitExportSlideResource: self
+]
+
 { #category : #initialization }
 LeExportSlideResource >> defaultState [
 	^ (self reference isNotNil and: [ self reference exists ])

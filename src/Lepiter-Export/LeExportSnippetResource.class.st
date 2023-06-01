@@ -13,7 +13,7 @@ Class {
 
 { #category : #visiting }
 LeExportSnippetResource >> acceptVisitor: aVisitor [
-	^ aVisitor visitExportedSnippetResource: self
+	^ aVisitor visitExportSnippetResource: self
 ]
 
 { #category : #initialization }

@@ -14,7 +14,7 @@ Class {
 
 { #category : #'api - builders' }
 LeHtmlContext >> assembler [
-	^ LeExportResourceAssembler new context: self
+	^ LeExportResourceAssembler2 new context: self
 ]
 
 { #category : #initialization }

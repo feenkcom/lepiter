@@ -51,7 +51,7 @@ LeExportObjectSpecificationBuilderExamples >> presenterSlideShowSpecification [
 ]
 
 { #category : #accessing }
-LeExportObjectSpecificationBuilderExamples >> snippetElementWithSlideShowsSpecification [
+LeExportObjectSpecificationBuilderExamples >> snippetElementWithSlideshowSpecification [
 	<gtExample>
 	
 	| specifications finder element elementClass snippet |

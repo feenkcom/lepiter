@@ -4,6 +4,14 @@ Trait {
 }
 
 { #category : #accessing }
+TLeExportContext >> assembler [
+	"Return resources assembler that exports resources"
+
+	<return: #TLeExportResourcesAssembler>
+	^ self explicitRequirement
+]
+
+{ #category : #accessing }
 TLeExportContext >> fileStore [
 	"Return file store that is used to store resource files"
 

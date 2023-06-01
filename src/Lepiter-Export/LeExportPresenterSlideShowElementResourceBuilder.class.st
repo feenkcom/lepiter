@@ -56,6 +56,7 @@ LeExportPresenterSlideShowElementResourceBuilder >> exportSnippetElement [
 
 	aResource := LeExportElementSnippetResource new
 			snippet: snippet;
+			element: objectSpecification object;
 			path: aPath;
 			height: elementHeight;
 			reference: aFileReference.
