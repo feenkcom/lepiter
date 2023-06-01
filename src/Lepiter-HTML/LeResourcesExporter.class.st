@@ -76,7 +76,7 @@ LeResourcesExporter >> elementSnippetReferenceFor: aLeElementSnippet [
 		export.
 		
 	"Store the resource"
-	resources add: (LeExportedSnippetResource new 
+	resources add: (LeExportSnippetResource new 
 		snippet: aLeElementSnippet;
 		path: aPath;
 		reference: aFileReference).
@@ -113,7 +113,7 @@ LeResourcesExporter >> exampleSnippetResultReferenceFor: aSnippetExample [
 		to: aPath
 		height: LepiterConstants defaultPreviewHeight
 		withPreviewSelector: aSnippetExample previewShowSelector.
-	resources add: (LeExportedSnippetResource new 
+	resources add: (LeExportSnippetResource new 
 		snippet: aSnippetExample;
 		path: aPath;
 		reference: fileReference).
@@ -228,7 +228,7 @@ LeResourcesExporter >> pictureSnippetReferenceFor: aLePictureSnippet [
 		withExtension: anExtension.
 		
 	"Store the resource"
-	resources add: (LeExportedSnippetResource new 
+	resources add: (LeExportSnippetResource new 
 		snippet: aLePictureSnippet;
 		path: aPath;
 		reference: anAttachmentFile).
@@ -272,7 +272,7 @@ LeResourcesExporter >> wardleyMapSnippetReferenceFor: aLeWardleyMapSnippet [
 		export.
 		
 	"Store the resource"
-	resources add: (LeExportedSnippetResource new 
+	resources add: (LeExportSnippetResource new 
 		snippet: aLeWardleyMapSnippet;
 		path: aPath;
 		reference: aFileReference).

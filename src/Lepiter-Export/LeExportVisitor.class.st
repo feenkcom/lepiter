@@ -20,20 +20,48 @@ LeExportVisitor >> context: aContext [
 	context := aContext
 ]
 
+{ #category : #'gt - extensions' }
+LeExportVisitor >> gtFilesFor: aView [
+	<gtView>
+	context ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Files';
+		priority: 20;
+		object: [ context ];
+		view: #gtFilesFor:
+]
+
+{ #category : #'gt - extensions' }
+LeExportVisitor >> gtResourcesFor: aView [
+	<gtView>
+	context ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Resources';
+		priority: 15;
+		object: [ context ];
+		view: #gtResourcesFor:
+]
+
 { #category : #'private - exporting' }
-LeExportVisitor >> specificationFor: anObject [
+LeExportVisitor >> objectSpecificationFor: anObject [
 	<return: #TLeObjectExportSpecification>
-	^ context specificationFor: anObject
+	^ context objectSpecificationFor: anObject
 ]
 
 { #category : #visiting }
 LeExportVisitor >> visitElementSnippet: aLeElementSnippet [
 
-	| element specification |
+	| element objectSpecification |
 	element := LeExportUtility newSnippetElementFor: aLeElementSnippet.
-	specification := self specificationFor: element.
+	objectSpecification := self objectSpecificationFor: element.
 	
-	"specification buildResource."
+	objectSpecification resourcer
+		resources: context resources;
+		sequencer: context sequencer;
+		fileStore: context fileStore;
+		snippet: aLeElementSnippet;
+		build;
+		createdResources.
 
-	^ self visitTextualSnippet: aLeElementSnippet
+	^ self visitContent: aLeElementSnippet
 ]

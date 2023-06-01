@@ -1,10 +1,12 @@
 Class {
 	#name : #LeExportResources,
 	#superclass : #Object,
+	#traits : 'TLeExportResources',
+	#classTraits : 'TLeExportResources classTrait',
 	#instVars : [
 		'resources'
 	],
-	#category : #'Lepiter-HTML-! New - Resources'
+	#category : #'Lepiter-Export-Resources - Model'
 }
 
 { #category : #'add / remove' }

@@ -14,7 +14,7 @@ LeExportSnippetToObjectSpecificationVisitor >> visitElementSnippet: aLeElementSn
 	| element finder |
 	element := LeExportUtility newSnippetElementFor: aLeElementSnippet.
 	
-	finder := LeExportObjectSpecificationFinder new 
+	finder := LeExportObjectSpecificationBuilder new 
 		specifications: context specifications;
 		object: element;
 		find.

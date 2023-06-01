@@ -62,9 +62,23 @@ LeExportObjectForwardSpecification >> objectSpecificationsDo: aBlock [
 ]
 
 { #category : #accessing }
+LeExportObjectForwardSpecification >> pickedObject [
+	"Return object that was used to determine picked specification"
+
+	^ forwardedTo pickedObject
+]
+
+{ #category : #accessing }
 LeExportObjectForwardSpecification >> priority [
 	<return: #Number>
 	^ forwardedTo priority
+]
+
+{ #category : #'api - building' }
+LeExportObjectForwardSpecification >> resourcer [
+	<return: #TLeExportResourceBuilder>
+	^ forwardedTo resourcer
+		objectSpecification: self
 ]
 
 { #category : #accessing }

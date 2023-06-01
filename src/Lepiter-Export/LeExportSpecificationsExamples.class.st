@@ -26,7 +26,8 @@ LeExportSpecificationsExamples >> snippetSpecifications [
 				
 	specifications
 		addSpecification: (LeExportClassKindSpecification new
-				classKind: GtPresenterSlideShowElement).
+				classKind: GtPresenterSlideShowElement;
+				resourcerClass: LeExportPresenterSlideShowElementResourceBuilder).
 
 	^ specifications
 ]

@@ -1,6 +1,6 @@
 Trait {
 	#name : #TLeExportFileStore,
-	#category : #'Lepiter-HTML-! New - Support'
+	#category : #'Lepiter-Export-File Store'
 }
 
 { #category : #'api - storing' }

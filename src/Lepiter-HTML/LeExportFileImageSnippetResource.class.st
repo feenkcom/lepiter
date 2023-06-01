@@ -1,6 +1,6 @@
 Class {
 	#name : #LeExportFileImageSnippetResource,
-	#superclass : #LeExportedSnippetResource,
+	#superclass : #LeExportSnippetResource,
 	#category : #'Lepiter-HTML-! New - Model'
 }
 

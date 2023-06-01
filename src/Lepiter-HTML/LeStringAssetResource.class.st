@@ -1,8 +1,8 @@
 Class {
 	#name : #LeStringAssetResource,
 	#superclass : #Object,
-	#traits : 'TLeExportedResource',
-	#classTraits : 'TLeExportedResource classTrait',
+	#traits : 'TLeExportResource',
+	#classTraits : 'TLeExportResource classTrait',
 	#instVars : [
 		'content',
 		'remoteUrl',

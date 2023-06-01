@@ -1,54 +1,54 @@
 Trait {
-	#name : #TLeExportedResource,
+	#name : #TLeExportResource,
 	#instVars : [
 		'state'
 	],
-	#category : #'Lepiter-HTML-Model'
+	#category : #'Lepiter-Export-Resources - Model'
 }
 
 { #category : #visiting }
-TLeExportedResource >> accept: aVisitor [
+TLeExportResource >> accept: aVisitor [
 	^ self acceptVisitor: aVisitor
 ]
 
 { #category : #visiting }
-TLeExportedResource >> acceptVisitor: aVisitor [
+TLeExportResource >> acceptVisitor: aVisitor [
 	^ self explicitRequirement
 ]
 
 { #category : #'api - state' }
-TLeExportedResource >> beAssemblingException: anException [
+TLeExportResource >> beAssemblingException: anException [
 	self state: (LeExportResourceState assemblingException: anException)
 ]
 
 { #category : #'api - state' }
-TLeExportedResource >> beAssemblingState [
+TLeExportResource >> beAssemblingState [
 	self state: LeExportResourceState assembling
 ]
 
 { #category : #'api - state' }
-TLeExportedResource >> beProblemMessage: aMessage [
+TLeExportResource >> beProblemMessage: aMessage [
 	self state: (LeExportResourceState problemMessage: aMessage)
 ]
 
 { #category : #'api - state' }
-TLeExportedResource >> beReadyState [
+TLeExportResource >> beReadyState [
 	self state: LeExportResourceState ready
 ]
 
 { #category : #initialization }
-TLeExportedResource >> defaultState [
+TLeExportResource >> defaultState [
 	<return: #LeExportResourceState>
 	^ self explicitRequirement
 ]
 
 { #category : #testing }
-TLeExportedResource >> isAssetResource [
+TLeExportResource >> isAssetResource [
 	^ false
 ]
 
 { #category : #accessing }
-TLeExportedResource >> path [
+TLeExportResource >> path [
 	"Return a path of the export"
 
 	<return: #RelativePath>
@@ -56,7 +56,7 @@ TLeExportedResource >> path [
 ]
 
 { #category : #accessing }
-TLeExportedResource >> pathName [
+TLeExportResource >> pathName [
 	"Return a full name of the export"
 
 	<return: #String>
@@ -64,14 +64,14 @@ TLeExportedResource >> pathName [
 ]
 
 { #category : #accessing }
-TLeExportedResource >> source [
+TLeExportResource >> source [
 	"Return a source of the export"
 
 	^ self explicitRequirement
 ]
 
 { #category : #'api - state' }
-TLeExportedResource >> state [
+TLeExportResource >> state [
 	"Return resource state, indicating whether the resource is ready for export."
 
 	<return: #LeExportResourceState>
@@ -79,7 +79,7 @@ TLeExportedResource >> state [
 ]
 
 { #category : #'api - state' }
-TLeExportedResource >> state: aState [
+TLeExportResource >> state: aState [
 	"Set resource state, indicating whether the resource is ready for export."
 
 	self explicitRequirement

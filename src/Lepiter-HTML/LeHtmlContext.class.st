@@ -29,12 +29,12 @@ LeHtmlContext >> defaultLog [
 
 { #category : #initialization }
 LeHtmlContext >> defaultResources [
-	^ LeExportResources new
+	^ LeExportResources2 new
 ]
 
 { #category : #initialization }
 LeHtmlContext >> defaultSequencer [
-	^ LeIntegerSequencer new
+	^ LeExportIntegerSequencer new
 ]
 
 { #category : #'api - accessing' }
@@ -141,12 +141,12 @@ LeHtmlContext >> nextSequenceId [
 
 { #category : #'api - builders' }
 LeHtmlContext >> resourcer [
-	^ LeExportResourceBuilder new context: self
+	^ LeExportResourceBuilder2 new context: self
 ]
 
 { #category : #'api - accessing' }
 LeHtmlContext >> resources [
-	<return: #LeExportResources>
+	<return: #LeExportResources2>
 	^ resources ifNil: [ resources := self defaultResources ]
 ]
 
@@ -164,7 +164,7 @@ LeHtmlContext >> resources: aLeExportResources [
 
 { #category : #'api - accessing' }
 LeHtmlContext >> sequencer [
-	<return: #TLeSequencer>
+	<return: #TLeExportSequencer>
 	^ sequencer ifNil: [ sequencer := self defaultSequencer ]
 ]
 

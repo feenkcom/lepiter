@@ -1,10 +1,10 @@
 Class {
 	#name : #LeExportElementSnippetResource,
-	#superclass : #LeExportedSnippetResource,
+	#superclass : #LeExportSnippetResource,
 	#instVars : [
 		'height'
 	],
-	#category : #'Lepiter-HTML-! New - Model'
+	#category : #'Lepiter-Export-Resources - Model'
 }
 
 { #category : #accessing }

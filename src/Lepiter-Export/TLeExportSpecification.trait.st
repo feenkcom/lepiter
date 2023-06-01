@@ -10,3 +10,11 @@ TLeExportSpecification >> objectSpecificationFor: objectContext [
 	<return: #TLeExportSpecification or: nil>
 	^ self explicitRequirement
 ]
+
+{ #category : #'api - building' }
+TLeExportSpecification >> resourcerClass [
+	"Return a resource builder class that is used to build export resources."
+
+	<return: #'TLeExportResourceBuilder class'>
+	^ self explicitRequirement
+]

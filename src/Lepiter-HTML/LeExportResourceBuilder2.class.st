@@ -1,5 +1,5 @@
 Class {
-	#name : #LeExportResourceBuilder,
+	#name : #LeExportResourceBuilder2,
 	#superclass : #Object,
 	#traits : 'TLeModelVisitor',
 	#classTraits : 'TLeModelVisitor classTrait',
@@ -11,18 +11,18 @@ Class {
 }
 
 { #category : #'private - building' }
-LeExportResourceBuilder >> addLocalResource: aResource [
+LeExportResourceBuilder2 >> addLocalResource: aResource [
 	localResources add: aResource
 ]
 
 { #category : #'private - building' }
-LeExportResourceBuilder >> addResource: aResource [
+LeExportResourceBuilder2 >> addResource: aResource [
 	context resources addResource: aResource.
 	self addLocalResource: aResource
 ]
 
 { #category : #'api - initialization' }
-LeExportResourceBuilder >> context: aLeHtmlContext [
+LeExportResourceBuilder2 >> context: aLeHtmlContext [
 	self
 		assert: [ aLeHtmlContext isNotNil ]
 		description: [ 'Context must be non-nil' ].
@@ -34,7 +34,7 @@ LeExportResourceBuilder >> context: aLeHtmlContext [
 ]
 
 { #category : #'gt - extensions' }
-LeExportResourceBuilder >> gtResourcesFor: aView [
+LeExportResourceBuilder2 >> gtResourcesFor: aView [
 	<gtView>
 	localResources ifNil: [ ^ aView empty ].
 	^ aView columnedList
@@ -50,26 +50,26 @@ LeExportResourceBuilder >> gtResourcesFor: aView [
 ]
 
 { #category : #accessing }
-LeExportResourceBuilder >> initialize [
+LeExportResourceBuilder2 >> initialize [
 	super initialize.
 
 	localResources := OrderedCollection new
 ]
 
 { #category : #'private - building' }
-LeExportResourceBuilder >> nextFileReferenceTo: aRelativePath [
+LeExportResourceBuilder2 >> nextFileReferenceTo: aRelativePath [
 	<return: #FileReference>
 	^ context nextFileReferenceTo: aRelativePath
 ]
 
 { #category : #'private - building' }
-LeExportResourceBuilder >> nextPath [
+LeExportResourceBuilder2 >> nextPath [
 	<return: #RelativePath>
 	^ self nextPathWithExtension: LepiterConstants exportedResultsExtension
 ]
 
 { #category : #'private - building' }
-LeExportResourceBuilder >> nextPathWithExtension: anExtension [
+LeExportResourceBuilder2 >> nextPathWithExtension: anExtension [
 	<return: #RelativePath>
 	^ LepiterConstants exportedResultsDirectoryPath
 		/ self nextSequenceId asString
@@ -77,13 +77,13 @@ LeExportResourceBuilder >> nextPathWithExtension: anExtension [
 ]
 
 { #category : #'private - building' }
-LeExportResourceBuilder >> nextSequenceId [
+LeExportResourceBuilder2 >> nextSequenceId [
 	<return: #String>
 	^ context nextSequenceId
 ]
 
 { #category : #'api - building' }
-LeExportResourceBuilder >> resourceFor: aLeSnippet [
+LeExportResourceBuilder2 >> resourceFor: aLeSnippet [
 	<return: #LeExportResourcerResult>
 	aLeSnippet acceptVisitor: self.
 	^ LeExportResourcerResult new 
@@ -91,7 +91,7 @@ LeExportResourceBuilder >> resourceFor: aLeSnippet [
 ]
 
 { #category : #visiting }
-LeExportResourceBuilder >> visitElementSnippet: aLeElementSnippet [
+LeExportResourceBuilder2 >> visitElementSnippet: aLeElementSnippet [
 
 	| aResource aHeight aPath aFileReference |
 	
@@ -115,7 +115,7 @@ LeExportResourceBuilder >> visitElementSnippet: aLeElementSnippet [
 ]
 
 { #category : #visiting }
-LeExportResourceBuilder >> visitPictureSnippet: aLePictureSnippet [
+LeExportResourceBuilder2 >> visitPictureSnippet: aLePictureSnippet [
 
 	| anUrlUtility anAttachmentFile aPath aResourceState |
 	anUrlUtility := aLePictureSnippet urlStringUtility.

@@ -1,6 +1,6 @@
 Class {
 	#name : #LeExportExternalImageSnippetResource,
-	#superclass : #LeExportedSnippetResource,
+	#superclass : #LeExportSnippetResource,
 	#instVars : [
 		'imgSrc'
 	],

@@ -1,6 +1,6 @@
 Class {
 	#name : #LeExportObjectSpecificationForwardFinder,
-	#superclass : #LeExportObjectSpecificationFinder,
+	#superclass : #LeExportObjectSpecificationBuilder,
 	#instVars : [
 		'previousObjectContext'
 	],

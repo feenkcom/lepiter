@@ -1,31 +1,33 @@
 Class {
-	#name : #LeExportedSnippetResource,
+	#name : #LeExportSnippetResource,
 	#superclass : #Object,
-	#traits : 'TLeExportedResource',
-	#classTraits : 'TLeExportedResource classTrait',
+	#traits : 'TLeExportResource',
+	#classTraits : 'TLeExportResource classTrait',
 	#instVars : [
 		'path',
 		'snippet',
 		'reference'
 	],
-	#category : #'Lepiter-HTML-Model'
+	#category : #'Lepiter-Export-Resources - Model'
 }
 
 { #category : #visiting }
-LeExportedSnippetResource >> acceptVisitor: aVisitor [
+LeExportSnippetResource >> acceptVisitor: aVisitor [
 	^ aVisitor visitExportedSnippetResource: self
 ]
 
 { #category : #initialization }
-LeExportedSnippetResource >> defaultState [
+LeExportSnippetResource >> defaultState [
 	<return: #LeExportResourceState>
 	^ LeExportResourceState ready
 ]
 
 { #category : #'gt - extensions' }
-LeExportedSnippetResource >> gtFigureFor: aView [
+LeExportSnippetResource >> gtFigureFor: aView [
 	<gtView>
 	reference ifNil: [ ^ aView empty ].
+	reference exists ifFalse: [ ^ aView empty ].
+	
 	^ aView forward
 		title: 'Picture';
 		priority: 10;
@@ -33,47 +35,59 @@ LeExportedSnippetResource >> gtFigureFor: aView [
 		view: #gtFigureFor:
 ]
 
+{ #category : #'gt - extensions' }
+LeExportSnippetResource >> gtSnippetFor: aView [
+	<gtView>
+	snippet ifNil: [ ^ aView empty ].
+	
+	^ aView forward
+		title: 'Snippet';
+		priority: 20;
+		object: [ snippet ];
+		view: #gtLiveFor:
+]
+
 { #category : #accessing }
-LeExportedSnippetResource >> path [
+LeExportSnippetResource >> path [
 	<return: #RelativePath>
 	^ path
 ]
 
 { #category : #accessing }
-LeExportedSnippetResource >> path: aRelativePath [
+LeExportSnippetResource >> path: aRelativePath [
 	path := aRelativePath
 ]
 
 { #category : #accessing }
-LeExportedSnippetResource >> reference [
+LeExportSnippetResource >> reference [
 	<return: #FileReference>
 	^ reference
 ]
 
 { #category : #accessing }
-LeExportedSnippetResource >> reference: aFileReference [
+LeExportSnippetResource >> reference: aFileReference [
 	reference := aFileReference
 ]
 
 { #category : #accessing }
-LeExportedSnippetResource >> snippet [
+LeExportSnippetResource >> snippet [
 	^ snippet
 ]
 
 { #category : #accessing }
-LeExportedSnippetResource >> snippet: anObject [
+LeExportSnippetResource >> snippet: anObject [
 	snippet := anObject
 ]
 
 { #category : #accessing }
-LeExportedSnippetResource >> source [
+LeExportSnippetResource >> source [
 	"Return a source of the export"
 
 	^ self snippet
 ]
 
 { #category : #'api - state' }
-LeExportedSnippetResource >> state: aState [
+LeExportSnippetResource >> state: aState [
 	"Set resource state, indicating whether the resource is ready for export."
 
 	state := aState

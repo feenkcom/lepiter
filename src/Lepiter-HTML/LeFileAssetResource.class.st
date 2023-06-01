@@ -5,8 +5,8 @@ A {{gtMethod:LeFileAssetResource >> #sourceFile | label=source file}} content ca
 Class {
 	#name : #LeFileAssetResource,
 	#superclass : #Object,
-	#traits : 'TLeExportedResource',
-	#classTraits : 'TLeExportedResource classTrait',
+	#traits : 'TLeExportResource',
+	#classTraits : 'TLeExportResource classTrait',
 	#instVars : [
 		'sourceFile',
 		'path'

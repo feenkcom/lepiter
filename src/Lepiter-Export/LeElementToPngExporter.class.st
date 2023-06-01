@@ -9,7 +9,7 @@ Class {
 		'element',
 		'scaleFactor'
 	],
-	#category : #'Lepiter-HTML-Exporter'
+	#category : #'Lepiter-Export-Resources - Exporters'
 }
 
 { #category : #asserting }

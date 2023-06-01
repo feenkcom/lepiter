@@ -44,7 +44,7 @@ LeExportResourcerResult >> gtResourcesFor: aView [
 
 { #category : #accessing }
 LeExportResourcerResult >> resource [
-	<return: #TLeExportedResource>
+	<return: #TLeExportResource>
 	self assertOneResource.
 
 	^ createdResources anyOne
@@ -52,7 +52,7 @@ LeExportResourcerResult >> resource [
 
 { #category : #accessing }
 LeExportResourcerResult >> resources [
-	<return: #Array of: #TLeExportedResource>
+	<return: #Array of: #TLeExportResource>
 	^ createdResources
 ]
 

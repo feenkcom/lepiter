@@ -1,23 +1,23 @@
 Class {
-	#name : #LeIntegerSequencer,
+	#name : #LeExportIntegerSequencer,
 	#superclass : #Object,
-	#traits : 'TLeSequencer',
-	#classTraits : 'TLeSequencer classTrait',
+	#traits : 'TLeExportSequencer',
+	#classTraits : 'TLeExportSequencer classTrait',
 	#instVars : [
 		'counter'
 	],
-	#category : #'Lepiter-HTML-! New - Support'
+	#category : #'Lepiter-Export-Sequencers'
 }
 
 { #category : #constants }
-LeIntegerSequencer class >> initialCounterValue [
+LeExportIntegerSequencer class >> initialCounterValue [
 	"The first used value will be 1000"
 
 	^ 999
 ]
 
 { #category : #'gt - extensions' }
-LeIntegerSequencer >> gtNextIdsFor: aView [
+LeExportIntegerSequencer >> gtNextIdsFor: aView [
 	<gtView>
 	counter ifNil: [ ^ aView empty ].
 
@@ -30,13 +30,13 @@ LeIntegerSequencer >> gtNextIdsFor: aView [
 ]
 
 { #category : #initialization }
-LeIntegerSequencer >> initialize [
+LeExportIntegerSequencer >> initialize [
 	super initialize.
 	counter := self class initialCounterValue
 ]
 
 { #category : #accessing }
-LeIntegerSequencer >> nextId [
+LeExportIntegerSequencer >> nextId [
 	<return: #String>
 	counter := counter + 1.
 	^ counter asString

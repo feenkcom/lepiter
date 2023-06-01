@@ -4,7 +4,8 @@ Class {
 	#traits : 'TLeExportSpecification',
 	#classTraits : 'TLeExportSpecification classTrait',
 	#instVars : [
-		'classKind'
+		'classKind',
+		'resourcerClass'
 	],
 	#category : #'Lepiter-Export-Specification - Model'
 }
@@ -46,4 +47,15 @@ LeExportClassKindSpecification >> printOn: aStream [
 		nextPut: $(;
 		print: classKind;
 		nextPut: $)
+]
+
+{ #category : #'api - building' }
+LeExportClassKindSpecification >> resourcerClass [
+	<return: #'TLeExportResourceBuilder class'>
+	^ resourcerClass
+]
+
+{ #category : #accessing }
+LeExportClassKindSpecification >> resourcerClass: anObject [
+	resourcerClass := anObject
 ]

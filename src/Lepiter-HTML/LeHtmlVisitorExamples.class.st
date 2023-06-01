@@ -15,7 +15,7 @@ LeHtmlVisitorExamples >> elementSnippet_IncompleteVisitor [
 				snippet
 					acceptVisitor: (visitor := LeHtmlIncopleteVisitor new
 								context: (context := LeHtmlContext new
-											resources: (resources := LeExportResources new);
+											resources: (resources := LeExportResources2 new);
 											stream: stream)) ].
 											
 	self 
@@ -43,7 +43,7 @@ LeHtmlVisitorExamples >> elementSnippet_InexistentMethod [
 	html := String streamContents: [ :stream | 
 		snippet acceptVisitor: (visitor := LeHtmlVisitor new
 			context: (context := LeHtmlContext new
-				resources: (resources := LeExportResources new);
+				resources: (resources := LeExportResources2 new);
 				stream: stream)) ].
 	
 	self 
@@ -87,7 +87,7 @@ LeHtmlVisitorExamples >> elementSnippet_PresenterSlideShow [
 	html := String streamContents: [ :stream | 
 		snippet acceptVisitor: (visitor := LeHtmlVisitor new
 			context: (context := LeHtmlContext new
-				resources: (resources := LeExportResources new);
+				resources: (resources := LeExportResources2 new);
 				stream: stream)) ].
 	
 
@@ -103,7 +103,7 @@ LeHtmlVisitorExamples >> elementSnippet_Successful [
 	html := String streamContents: [ :stream | 
 		snippet acceptVisitor: (visitor := LeHtmlVisitor new
 			context: (context := LeHtmlContext new
-				resources: (resources := LeExportResources new);
+				resources: (resources := LeExportResources2 new);
 				stream: stream)) ].
 	
 	self 
@@ -165,7 +165,7 @@ LeHtmlVisitorExamples >> pictureSnippet_SuccessfulWithFileReference [
 	html := String streamContents: [ :stream | 
 		snippet acceptVisitor: (visitor := LeHtmlVisitor new
 			context: (context := LeHtmlContext new
-				resources: (resources := LeExportResources new);
+				resources: (resources := LeExportResources2 new);
 				stream: stream)) ].
 				
 	self assert: (html beginsWith: '<figure class="snippet picture-snippet paragraphWidth"').
@@ -187,7 +187,7 @@ LeHtmlVisitorExamples >> pictureSnippet_SuccessfulWithHttp [
 	html := String streamContents: [ :stream | 
 		snippet acceptVisitor: (visitor := LeHtmlVisitor new
 			context: (context := LeHtmlContext new
-				resources: (resources := LeExportResources new);
+				resources: (resources := LeExportResources2 new);
 				stream: stream)) ].
 				
 	self assert: (html beginsWith: '<figure class="snippet picture-snippet paragraphWidth"').
@@ -206,7 +206,7 @@ LeHtmlVisitorExamples >> pictureSnippet_SuccessfulWithMissingFileReference [
 	html := String streamContents: [ :stream | 
 		snippet acceptVisitor: (visitor := LeHtmlVisitor new
 			context: (context := LeHtmlContext new
-				resources: (resources := LeExportResources new);
+				resources: (resources := LeExportResources2 new);
 				stream: stream)) ].
 				
 	self assert: (html beginsWith: '<figure class="snippet picture-snippet paragraphWidth"').

@@ -6,7 +6,7 @@ Class {
 	#instVars : [
 		'memoryStore'
 	],
-	#category : #'Lepiter-HTML-! New - Support'
+	#category : #'Lepiter-Export-File Store'
 }
 
 { #category : #'gt - extensions' }
