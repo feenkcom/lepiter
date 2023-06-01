@@ -79,6 +79,22 @@ LeHtmlVisitorExamples >> elementSnippet_InexistentMethod_PrepareResources [
 ]
 
 { #category : #'examples - element snippet' }
+LeHtmlVisitorExamples >> elementSnippet_PresenterSlideShow [
+	<gtExample>
+	| snippet html resources context visitor |
+	snippet := LeElementSnippet 
+		code: GtPresenterSlideShow name, ' ', #create: asString, ' ', GtTour name, ' new'.
+	html := String streamContents: [ :stream | 
+		snippet acceptVisitor: (visitor := LeHtmlVisitor new
+			context: (context := LeHtmlContext new
+				resources: (resources := LeExportResources new);
+				stream: stream)) ].
+	
+
+	^ visitor
+]
+
+{ #category : #'examples - element snippet' }
 LeHtmlVisitorExamples >> elementSnippet_Successful [
 	<gtExample>
 	| snippet html resources context visitor |

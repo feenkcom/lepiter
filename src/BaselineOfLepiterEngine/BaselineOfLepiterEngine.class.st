@@ -1,21 +1,25 @@
 Class {
-	#name : 'BaselineOfLepiterEngine',
-	#superclass : 'BaselineOf',
-	#category : 'BaselineOfLepiterEngine'
+	#name : #BaselineOfLepiterEngine,
+	#superclass : #BaselineOf,
+	#category : #BaselineOfLepiterEngine
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 BaselineOfLepiterEngine class >> gtDependencyAnalysisPreloadedBaselines [
 	^ super gtDependencyAnalysisPreloadedBaselines
 		copyWith: BaselineOfGToolkit
 ]
 
-{ #category : 'baseline' }
+{ #category : #baseline }
 BaselineOfLepiterEngine >> baseline: spec [
 	<baseline>
 	spec for: #'common' do: [
 		spec baseline: 'LepiterEngineExtensions' with: [
 				spec repository: 'github://feenkcom/lepiter:main/src' ].
+		spec package: 'Lepiter-Export' with: [ 
+				spec requires: #('LepiterEngineExtensions') ].
+		spec package: 'Lepiter-HTML' with: [ 
+				spec requires: #('LepiterEngineExtensions' 'Lepiter-Export') ].
 		spec package: 'Lepiter-Validator' with: [
 				spec requires: #('LepiterEngineExtensions' ). ].
 		spec package: 'Lepiter-Tool' with: [
@@ -23,7 +27,7 @@ BaselineOfLepiterEngine >> baseline: spec [
 
 ]
 
-{ #category : 'converting' }
+{ #category : #converting }
 BaselineOfLepiterEngine >> gtExamples [
 	<gtExample>
 	^ ('Lepiter' gtPackageMatches & #gtExample gtReferences

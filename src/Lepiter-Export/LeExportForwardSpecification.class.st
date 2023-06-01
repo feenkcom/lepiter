@@ -7,7 +7,7 @@ Class {
 		'forwardTo',
 		'classKind'
 	],
-	#category : #'Lepiter-HTML-! New - Specifications'
+	#category : #'Lepiter-Export-Specification - Model'
 }
 
 { #category : #accessing }
@@ -37,6 +37,32 @@ LeExportForwardSpecification >> isForObject: anObject [
 
 	<return: #Boolean>
 	^ anObject isKindOf: classKind
+]
+
+{ #category : #'api - building' }
+LeExportForwardSpecification >> objectSpecificationFor: objectContext [
+	"Return specification that represents given object."
+
+	<return: #TLeExportObjectSpecification or: nil>
+	| anotherObject finder objectSpecification |
+	(objectContext object isKindOf: classKind) ifFalse: [ ^ nil ].
+	
+	anotherObject := forwardTo cull: objectContext object.
+	
+	objectSpecification := LeExportObjectForwardSpecification new
+		object: objectContext object;
+		specification: self.
+	
+	finder := LeExportObjectSpecificationForwardFinder new
+		specifications: objectContext specifications;
+		object: anotherObject;
+		previousObjectContext: objectContext;
+		find.
+		
+	objectSpecification
+		forwardedTo: finder objectSpecification.
+	
+	^ objectSpecification
 ]
 
 { #category : #accessing }
