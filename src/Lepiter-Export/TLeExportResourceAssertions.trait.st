@@ -4,6 +4,18 @@ Trait {
 }
 
 { #category : #asserting }
+TLeExportResourceAssertions >> assertFailedResources: resources [
+	| array |
+	array := resources asArray.
+
+	self assert: array isNotEmpty description: [ 'Resources must be non-empty' ].
+
+	self
+		assert: (array allSatisfy: [ :each | each state isFailure ])
+		description: [ 'All resources must have a failure state' ]
+]
+
+{ #category : #asserting }
 TLeExportResourceAssertions >> assertNotReadyResources: resources [
 	| array |
 	array := resources asArray.

@@ -22,6 +22,14 @@ LeExportSpecificationsStart >> elementSpecification [
 ]
 
 { #category : #specifications }
+LeExportSpecificationsStart >> pictureSnippetSpecification [
+	<leExportSpecification>
+	^ LeExportClassKindSpecification new
+		classKind: LePictureSnippet;
+		resourcerClass: LeExportPictureResourceBuilder
+]
+
+{ #category : #specifications }
 LeExportSpecificationsStart >> presenterSlideShowElementSpecification [
 	<leExportSpecification>
 	^ LeExportClassKindSpecification new

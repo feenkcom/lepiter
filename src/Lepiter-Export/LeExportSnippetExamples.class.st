@@ -63,3 +63,49 @@ LeExportSnippetExamples >> elementSnippetWithZeroSlides [
 		slideshow: slideshow;
 		allSlides: allSlides
 ]
+
+{ #category : #support }
+LeExportSnippetExamples >> pictureFile_ExistingOne [
+	^ (GtResourcesUtility resourceAtPath: Path 
+		* 'feenkcom'
+		/ 'gtoolkit-demos' 
+		/ 'data' 
+		/ 'faceapi' 
+		/ '1280px-Einstein-with-habicht-and-solovine.jpg') asUrl asString
+]
+
+{ #category : #support }
+LeExportSnippetExamples >> pictureFile_MissingOne [
+	^ (GtResourcesUtility resourceAtPath: Path 
+		* 'feenkcom'
+		/ 'gtoolkit' 
+		/ 'data' 
+		/ 'inexistent-image-file.jpg') asUrl asString
+]
+
+{ #category : #examples }
+LeExportSnippetExamples >> pictureSnippetWithExistingFileReference [
+	<gtExample>
+	| snippet |
+	snippet := LePictureSnippet new urlString: self pictureFile_ExistingOne.
+
+	^ snippet
+]
+
+{ #category : #examples }
+LeExportSnippetExamples >> pictureSnippetWithHttps [
+	<gtExample>
+	| snippet |
+	snippet := LePictureSnippet new urlString: 'https://gtoolkit.com/assets/pictures/use-case-rest-api.png'.
+
+	^ snippet
+]
+
+{ #category : #examples }
+LeExportSnippetExamples >> pictureSnippetWithMissingFileReference [
+	<gtExample>
+	| snippet |
+	snippet := LePictureSnippet new urlString: self pictureFile_MissingOne.
+
+	^ snippet
+]

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'imgSrc'
 	],
-	#category : #'Lepiter-HTML-Old-! New - Model'
+	#category : #'Lepiter-Export-Resources - Model'
 }
 
 { #category : #accessing }

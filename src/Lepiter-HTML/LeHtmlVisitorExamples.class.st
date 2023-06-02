@@ -63,3 +63,66 @@ LeHtmlVisitorExamples >> elementSnippet_Successful_PrepareResources [
 
 	^ visitor
 ]
+
+{ #category : #'examples - picture snippet' }
+LeHtmlVisitorExamples >> pictureSnippet_SuccessfulWithFileReference [
+	<gtExample>
+	| snippet html resources context visitor |
+	snippet := LeExportSnippetExamples new pictureSnippetWithExistingFileReference.
+	
+	visitor := LeHtmlVisitor new
+			context: (context := LeHtmlContext new
+				resources: (resources := LeExportResources new)).
+	
+	html := visitor contentsFor: snippet.
+	
+	self assertResources: resources size: 1.
+	self assertReadyResources: resources.
+	
+	self assertHtml: html beginsWith: '<figure class="snippet picture-snippet paragraphWidth"'.
+	self assertHtml: html includes: '<img class="picture-snippet-image" src="gt-figures/1000.jpg"/>'.
+	
+	^ visitor
+]
+
+{ #category : #'examples - picture snippet' }
+LeHtmlVisitorExamples >> pictureSnippet_SuccessfulWithHttp [
+	<gtExample>
+	| snippet html resources context visitor |
+	snippet := LeExportSnippetExamples new pictureSnippetWithHttps.
+	
+	visitor := LeHtmlVisitor new
+			context: (context := LeHtmlContext new
+				resources: (resources := LeExportResources new)).
+	
+	html := visitor contentsFor: snippet.
+
+	self assertResources: resources size: 0.
+	
+	self assertHtml: html beginsWith: '<figure class="snippet picture-snippet paragraphWidth"'.
+	self assertHtml: html includes: '<img class="picture-snippet-image" src="https://gtoolkit.com/assets/pictures/use-case-rest-api.png"/>'.
+	
+	^ visitor
+]
+
+{ #category : #'examples - picture snippet' }
+LeHtmlVisitorExamples >> pictureSnippet_SuccessfulWithMissingFileReference [
+	<gtExample>
+	| snippet html resources context visitor |
+	snippet := LeExportSnippetExamples new pictureSnippetWithMissingFileReference.
+	
+	visitor := LeHtmlVisitor new
+			context: (context := LeHtmlContext new
+				resources: (resources := LeExportResources new)).
+	
+	html := visitor contentsFor: snippet.
+	
+	self assertResources: resources size: 1.
+	self assertNotReadyResources: resources.
+	self assertFailedResources: resources.
+	
+	self assertHtml: html beginsWith: '<figure class="snippet picture-snippet paragraphWidth"'.
+	self assertHtml: html includes: '<img class="picture-snippet-image" src="gt-figures/1000.jpg"/>'.
+	
+	^ visitor
+]

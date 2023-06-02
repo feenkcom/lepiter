@@ -10,6 +10,15 @@ TLeHtmlContentAssertions >> assertHtml: html [
 ]
 
 { #category : #asserting }
+TLeHtmlContentAssertions >> assertHtml: html beginsWith: subString [
+	self assertNotEmptyHtml: html.
+
+	self
+		assert: (html beginsWith: subString)
+		description: [ 'HTML must begin with {1}' format: {subString} ]
+]
+
+{ #category : #asserting }
 TLeHtmlContentAssertions >> assertHtml: html includes: subString [
 	self assertNotEmptyHtml: html.
 

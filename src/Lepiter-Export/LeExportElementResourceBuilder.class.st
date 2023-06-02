@@ -27,5 +27,5 @@ LeExportElementResourceBuilder >> visitElementSnippet: aLeElementSnippet [
 			
 	self addResource: aResource.
 
-	^ self visitContent: aLeElementSnippet.
+	^ aLeElementSnippet
 ]

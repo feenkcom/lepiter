@@ -26,7 +26,7 @@ LeExportResourceBuilderExamples >> snippetElementWithSlideshowSpecification [
 			snippet: snippet;
 			build.
 
-	createdResources := resourcer createdResources.
+	createdResources := resourcer createdResources resources.
 
 	self
 		assert: resourcer allSlides isNotNil

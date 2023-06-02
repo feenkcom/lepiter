@@ -16,7 +16,7 @@ Class {
 
 { #category : #'private - building' }
 LeExportResouceBuilder >> addLocalResource: aResource [
-	createdResources add: aResource
+	createdResources addResource: aResource
 ]
 
 { #category : #'private - building' }
@@ -34,8 +34,9 @@ LeExportResouceBuilder >> build [
 
 { #category : #accessing }
 LeExportResouceBuilder >> createdResources [
-	<return: #Array of: #TLeExportResource>
-	^ createdResources asArray
+	<return: #LeExportSnippetResources>
+	^ LeExportSnippetResources new
+		resources:createdResources asArray
 ]
 
 { #category : #'api - initialization' }
@@ -52,7 +53,7 @@ LeExportResouceBuilder >> gtResourcesFor: aView [
 	^ aView columnedList
 		title: 'Local resources';
 		priority: 1;
-		items: [ createdResources ifNil: [ #() ] ];
+		items: [ createdResources ifNil: [ #() ] ifNotNil: #asArray ];
 		column: 'Index'
 			text: [ :_ :anIndex | anIndex ]
 			width: 60;
@@ -65,7 +66,7 @@ LeExportResouceBuilder >> gtResourcesFor: aView [
 LeExportResouceBuilder >> initialize [
 	super initialize.
 
-	createdResources := OrderedCollection new
+	createdResources := LeExportResources new
 ]
 
 { #category : #convenience }
@@ -125,4 +126,18 @@ LeExportResouceBuilder >> snippet: aSnippet [
 	"Set a snippet instance where resources come from."
 
 	snippet := aSnippet
+]
+
+{ #category : #visiting }
+LeExportResouceBuilder >> visitContent: aLeContent [
+	"We do not want to iterate snippet children"
+
+	
+]
+
+{ #category : #visiting }
+LeExportResouceBuilder >> visitSnippet: aLeSnippet [
+	"We do not want to iterate snippet children"
+
+	^ aLeSnippet
 ]

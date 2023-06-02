@@ -81,5 +81,5 @@ LeExportPresenterSlideShowElementResourceBuilder >> visitElementSnippet: aLeElem
 	
 	self buildSlides.
 
-	^ self visitContent: aLeElementSnippet.
+	^ aLeElementSnippet.
 ]

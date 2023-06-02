@@ -1,6 +1,8 @@
 Class {
 	#name : #LeExportVisitorExamples,
 	#superclass : #Object,
+	#traits : 'TLeExportResourceAssertions',
+	#classTraits : 'TLeExportResourceAssertions classTrait',
 	#category : #'Lepiter-Export-Examples'
 }
 
@@ -32,6 +34,59 @@ LeExportVisitorExamples >> elementSnippetWithZeroSlides [
 		assert: (resources asArray allSatisfy: [ :each | each state isReady not ])
 		description: [ 'Resource must NOT be ready.' ].
 
+	^ visitor
+]
+
+{ #category : #accessing }
+LeExportVisitorExamples >> pictureSnippetWithExistingFileReference [
+	<gtExample>
+	| snippet resources context visitor |
+	snippet := LeExportSnippetExamples new pictureSnippetWithExistingFileReference.
+	
+	visitor := LeExportVisitor new
+			context: (context := LeExportContext new
+				resources: (resources := LeExportResources new)).
+	
+	snippet acceptVisitor: visitor.
+	
+	self assertResources: resources size: 1.
+	self assertReadyResources: resources.
+	
+	^ visitor
+]
+
+{ #category : #accessing }
+LeExportVisitorExamples >> pictureSnippetWithHttps [
+	<gtExample>
+	| snippet resources context visitor |
+	snippet := LeExportSnippetExamples new pictureSnippetWithHttps.
+	
+	visitor := LeExportVisitor new
+			context: (context := LeExportContext new
+				resources: (resources := LeExportResources new)).
+	
+	snippet acceptVisitor: visitor.
+	
+	self assertResources: resources size: 0.
+
+	^ visitor
+]
+
+{ #category : #accessing }
+LeExportVisitorExamples >> pictureSnippetWithMissingFileReference [
+	<gtExample>
+	| snippet resources context visitor |
+	snippet := LeExportSnippetExamples new pictureSnippetWithMissingFileReference.
+	
+	visitor := LeExportVisitor new
+			context: (context := LeExportContext new
+				resources: (resources := LeExportResources new)).
+	
+	snippet acceptVisitor: visitor.
+	
+	self assertResources: resources size: 1.
+	self assertFailedResources: resources.
+	
 	^ visitor
 ]
 
