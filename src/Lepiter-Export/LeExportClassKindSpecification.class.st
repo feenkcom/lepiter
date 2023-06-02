@@ -21,6 +21,12 @@ LeExportClassKindSpecification >> classKind: aClass [
 	classKind := aClass
 ]
 
+{ #category : #accessing }
+LeExportClassKindSpecification >> label [
+	<return: #BlRope or: #String>
+	^ '{1} kind' format: { classKind }
+]
+
 { #category : #'api - building' }
 LeExportClassKindSpecification >> objectSpecificationFor: objectContext [
 	"Return specification that represents given object."

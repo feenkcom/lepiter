@@ -1,11 +1,11 @@
 Class {
-	#name : #LeHtmlVisitorExamples,
+	#name : #LeHtmlVisitorOldExamples,
 	#superclass : #Object,
 	#category : #'Lepiter-HTML-Old-! New - Examples'
 }
 
 { #category : #'examples - incoplete visitor' }
-LeHtmlVisitorExamples >> elementSnippet_IncompleteVisitor [
+LeHtmlVisitorOldExamples >> elementSnippet_IncompleteVisitor [
 	<gtExample>
 	| snippet html resources context visitor |
 	snippet := LeElementSnippet
@@ -35,13 +35,13 @@ LeHtmlVisitorExamples >> elementSnippet_IncompleteVisitor [
 ]
 
 { #category : #'examples - element snippet' }
-LeHtmlVisitorExamples >> elementSnippet_InexistentMethod [
+LeHtmlVisitorOldExamples >> elementSnippet_InexistentMethod [
 	<gtExample>
 	| snippet html resources context visitor |
 	snippet := LeElementSnippet 
-		code: LeHtmlVisitorExamples name, ' new inexistentMethod'.
+		code: LeHtmlVisitorOldExamples name, ' new inexistentMethod'.
 	html := String streamContents: [ :stream | 
-		snippet acceptVisitor: (visitor := LeHtmlVisitor new
+		snippet acceptVisitor: (visitor := LeHtmlVisitorOld new
 			context: (context := LeHtmlContextOld new
 				resources: (resources := LeExportResources2 new);
 				stream: stream)) ].
@@ -62,7 +62,7 @@ LeHtmlVisitorExamples >> elementSnippet_InexistentMethod [
 ]
 
 { #category : #'examples - element snippet' }
-LeHtmlVisitorExamples >> elementSnippet_InexistentMethod_PrepareResources [
+LeHtmlVisitorOldExamples >> elementSnippet_InexistentMethod_PrepareResources [
 	<gtExample>
 	| resources visitor context |
 	visitor := self elementSnippet_InexistentMethod.
@@ -79,13 +79,13 @@ LeHtmlVisitorExamples >> elementSnippet_InexistentMethod_PrepareResources [
 ]
 
 { #category : #'examples - element snippet' }
-LeHtmlVisitorExamples >> elementSnippet_PresenterSlideShow [
+LeHtmlVisitorOldExamples >> elementSnippet_PresenterSlideShow [
 	<gtExample>
 	| snippet html resources context visitor |
 	snippet := LeElementSnippet 
 		code: GtPresenterSlideShow name, ' ', #create: asString, ' ', GtTour name, ' new'.
 	html := String streamContents: [ :stream | 
-		snippet acceptVisitor: (visitor := LeHtmlVisitor new
+		snippet acceptVisitor: (visitor := LeHtmlVisitorOld new
 			context: (context := LeHtmlContextOld new
 				resources: (resources := LeExportResources2 new);
 				stream: stream)) ].
@@ -95,13 +95,13 @@ LeHtmlVisitorExamples >> elementSnippet_PresenterSlideShow [
 ]
 
 { #category : #'examples - element snippet' }
-LeHtmlVisitorExamples >> elementSnippet_Successful [
+LeHtmlVisitorOldExamples >> elementSnippet_Successful [
 	<gtExample>
 	| snippet html resources context visitor |
 	snippet := LeElementSnippet 
 		code: BrExamplesShowroom name, ' new ', #glamorousBreadcrumb asString.
 	html := String streamContents: [ :stream | 
-		snippet acceptVisitor: (visitor := LeHtmlVisitor new
+		snippet acceptVisitor: (visitor := LeHtmlVisitorOld new
 			context: (context := LeHtmlContextOld new
 				resources: (resources := LeExportResources2 new);
 				stream: stream)) ].
@@ -122,7 +122,7 @@ LeHtmlVisitorExamples >> elementSnippet_Successful [
 ]
 
 { #category : #'examples - element snippet' }
-LeHtmlVisitorExamples >> elementSnippet_Successful_PrepareResources [
+LeHtmlVisitorOldExamples >> elementSnippet_Successful_PrepareResources [
 	<gtExample>
 	| resources visitor context |
 	visitor := self elementSnippet_Successful.
@@ -139,7 +139,7 @@ LeHtmlVisitorExamples >> elementSnippet_Successful_PrepareResources [
 ]
 
 { #category : #'examples - picture snippet' }
-LeHtmlVisitorExamples >> pictureFile_ExistingOne [
+LeHtmlVisitorOldExamples >> pictureFile_ExistingOne [
 	^ (GtResourcesUtility resourceAtPath: Path 
 		* 'feenkcom'
 		/ 'gtoolkit-demos' 
@@ -149,7 +149,7 @@ LeHtmlVisitorExamples >> pictureFile_ExistingOne [
 ]
 
 { #category : #'examples - picture snippet' }
-LeHtmlVisitorExamples >> pictureFile_MissingOne [
+LeHtmlVisitorOldExamples >> pictureFile_MissingOne [
 	^ (GtResourcesUtility resourceAtPath: Path 
 		* 'feenkcom'
 		/ 'gtoolkit' 
@@ -158,12 +158,12 @@ LeHtmlVisitorExamples >> pictureFile_MissingOne [
 ]
 
 { #category : #'examples - picture snippet' }
-LeHtmlVisitorExamples >> pictureSnippet_SuccessfulWithFileReference [
+LeHtmlVisitorOldExamples >> pictureSnippet_SuccessfulWithFileReference [
 	<gtExample>
 	| snippet html resources context visitor |
 	snippet := LePictureSnippet new urlString: self pictureFile_ExistingOne.
 	html := String streamContents: [ :stream | 
-		snippet acceptVisitor: (visitor := LeHtmlVisitor new
+		snippet acceptVisitor: (visitor := LeHtmlVisitorOld new
 			context: (context := LeHtmlContextOld new
 				resources: (resources := LeExportResources2 new);
 				stream: stream)) ].
@@ -180,12 +180,12 @@ LeHtmlVisitorExamples >> pictureSnippet_SuccessfulWithFileReference [
 ]
 
 { #category : #'examples - picture snippet' }
-LeHtmlVisitorExamples >> pictureSnippet_SuccessfulWithHttp [
+LeHtmlVisitorOldExamples >> pictureSnippet_SuccessfulWithHttp [
 	<gtExample>
 	| snippet html resources context visitor |
 	snippet := LePictureSnippet new urlString: 'https://gtoolkit.com/assets/pictures/use-case-rest-api.png'.
 	html := String streamContents: [ :stream | 
-		snippet acceptVisitor: (visitor := LeHtmlVisitor new
+		snippet acceptVisitor: (visitor := LeHtmlVisitorOld new
 			context: (context := LeHtmlContextOld new
 				resources: (resources := LeExportResources2 new);
 				stream: stream)) ].
@@ -199,12 +199,12 @@ LeHtmlVisitorExamples >> pictureSnippet_SuccessfulWithHttp [
 ]
 
 { #category : #'examples - picture snippet' }
-LeHtmlVisitorExamples >> pictureSnippet_SuccessfulWithMissingFileReference [
+LeHtmlVisitorOldExamples >> pictureSnippet_SuccessfulWithMissingFileReference [
 	<gtExample>
 	| snippet html resources context visitor |
 	snippet := LePictureSnippet new urlString: self pictureFile_MissingOne.
 	html := String streamContents: [ :stream | 
-		snippet acceptVisitor: (visitor := LeHtmlVisitor new
+		snippet acceptVisitor: (visitor := LeHtmlVisitorOld new
 			context: (context := LeHtmlContextOld new
 				resources: (resources := LeExportResources2 new);
 				stream: stream)) ].

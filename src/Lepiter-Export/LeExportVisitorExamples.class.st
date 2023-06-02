@@ -5,10 +5,41 @@ Class {
 }
 
 { #category : #accessing }
+LeExportVisitorExamples >> elementSnippetWithZeroSlides [
+	<gtExample>
+	| specifications snippet context visitor resources allSlides slidesHolder |
+	slidesHolder := LeExportSnippetExamples new elementSnippetWithZeroSlides.
+	snippet := slidesHolder snippet.
+	allSlides := slidesHolder allSlides.
+	
+	self 
+		assert: allSlides isEmpty 
+		description: [ 'All slides must be empty' ].
+
+	specifications := LeExportSpecificationsExamples new snippetSpecifications.
+	resources := LeExportResources new.
+
+	context := LeExportContext new.
+	context specifications: specifications.
+	context resources: resources.
+
+	visitor := LeExportVisitor new context: context.
+
+	snippet acceptVisitor: visitor.
+
+	self assert: resources asArray size equals: 1.
+	self 
+		assert: (resources asArray allSatisfy: [ :each | each state isReady not ])
+		description: [ 'Resource must NOT be ready.' ].
+
+	^ visitor
+]
+
+{ #category : #accessing }
 LeExportVisitorExamples >> snippetElementWithSlideshowSpecification [
 	<gtExample>
 	| specifications snippet context visitor resources allSlides slidesHolder |
-	slidesHolder := LeExportSnippetExamples new snippetElementWithSlideshow.
+	slidesHolder := LeExportSnippetExamples new elementSnippetWithSlideshow.
 	snippet := slidesHolder snippet.
 	allSlides := slidesHolder allSlides.
 
@@ -52,41 +83,10 @@ LeExportVisitorExamples >> snippetElementWithSlideshowSpecification_PrepareResou
 ]
 
 { #category : #accessing }
-LeExportVisitorExamples >> snippetElementWithZeroSlides [
-	<gtExample>
-	| specifications snippet context visitor resources allSlides slidesHolder |
-	slidesHolder := LeExportSnippetExamples new snippetElementWithZeroSlides.
-	snippet := slidesHolder snippet.
-	allSlides := slidesHolder allSlides.
-	
-	self 
-		assert: allSlides isEmpty 
-		description: [ 'All slides must be empty' ].
-
-	specifications := LeExportSpecificationsExamples new snippetSpecifications.
-	resources := LeExportResources new.
-
-	context := LeExportContext new.
-	context specifications: specifications.
-	context resources: resources.
-
-	visitor := LeExportVisitor new context: context.
-
-	snippet acceptVisitor: visitor.
-
-	self assert: resources asArray size equals: 1.
-	self 
-		assert: (resources asArray allSatisfy: [ :each | each state isReady not ])
-		description: [ 'Resource must NOT be ready.' ].
-
-	^ visitor
-]
-
-{ #category : #accessing }
 LeExportVisitorExamples >> snippetElementWithZeroSlides_PrepareResources [
 	<gtExample>
 	| resources visitor context |
-	visitor := self snippetElementWithZeroSlides.
+	visitor := self elementSnippetWithZeroSlides.
 	context := visitor context.
 	resources := context resources.
 	

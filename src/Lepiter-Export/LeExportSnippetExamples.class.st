@@ -5,7 +5,25 @@ Class {
 }
 
 { #category : #examples }
-LeExportSnippetExamples >> snippetElementWithSlideshow [
+LeExportSnippetExamples >> elementSnippetWithGlamorousBreadcrumb [
+	<gtExample>
+	| element snippet |
+	element := BrExamplesShowroom new glamorousBreadcrumb.
+
+	self
+		assert: (element isKindOf: BlElement)
+		description: [ 'Element must be of BlElement kind' ].
+
+	snippet := LeElementSnippet
+			code: BrExamplesShowroom name , ' new ' , #glamorousBreadcrumb asString.
+
+	^ LeExportSnippetWithElementHolder new
+		snippet: snippet;
+		element: element
+]
+
+{ #category : #examples }
+LeExportSnippetExamples >> elementSnippetWithSlideshow [
 	<gtExample>
 
 	| slideshow allSlides snippet |
@@ -26,7 +44,7 @@ LeExportSnippetExamples >> snippetElementWithSlideshow [
 ]
 
 { #category : #examples }
-LeExportSnippetExamples >> snippetElementWithZeroSlides [
+LeExportSnippetExamples >> elementSnippetWithZeroSlides [
 	<gtExample>
 
 	| slideshow allSlides snippet |

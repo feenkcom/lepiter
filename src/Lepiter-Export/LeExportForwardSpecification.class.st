@@ -52,12 +52,10 @@ LeExportForwardSpecification >> initialize [
 	condition := [ :forwardObject | true ]
 ]
 
-{ #category : #'api - testing' }
-LeExportForwardSpecification >> isForObject: anObject [
-	"Return true if the specification covers given object"
-
-	<return: #Boolean>
-	^ anObject isKindOf: classKind
+{ #category : #accessing }
+LeExportForwardSpecification >> label [
+	<return: #BlRope or: #String>
+	^ 'Forward {1} kind to {2}' format: {classKind. forwardTo}
 ]
 
 { #category : #'api - building' }

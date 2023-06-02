@@ -3,6 +3,12 @@ Trait {
 	#category : #'Lepiter-Export-Specification - Model'
 }
 
+{ #category : #accessing }
+TLeExportSpecification >> label [
+	<return: #BlRope or: #String>
+	^ self gtDisplayString
+]
+
 { #category : #'api - building' }
 TLeExportSpecification >> objectSpecificationFor: objectContext [
 	"Return specification that represents given object."

@@ -1,6 +1,6 @@
 Class {
 	#name : #LeHtmlIncopleteVisitor,
-	#superclass : #LeHtmlVisitor,
+	#superclass : #LeHtmlVisitorOld,
 	#category : #'Lepiter-HTML-Old-! New - Examples'
 }
 

@@ -48,6 +48,16 @@ LeExportVisitor >> objectSpecificationFor: anObject [
 	^ context objectSpecificationFor: anObject
 ]
 
+{ #category : #'private - exporting' }
+LeExportVisitor >> resourcesFor: aLeSnippet [
+	| snippetResources |
+	snippetResources := context resources select: [ :eachResource | 
+		eachResource source == aLeSnippet ].
+	
+	^ LeExportSnippetResources new
+		resources: snippetResources
+]
+
 { #category : #visiting }
 LeExportVisitor >> visitElementSnippet: aLeElementSnippet [
 
@@ -60,8 +70,7 @@ LeExportVisitor >> visitElementSnippet: aLeElementSnippet [
 		sequencer: context sequencer;
 		fileStore: context fileStore;
 		snippet: aLeElementSnippet;
-		build;
-		createdResources.
+		build.
 
 	^ self visitContent: aLeElementSnippet
 ]

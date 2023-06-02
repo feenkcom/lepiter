@@ -1,5 +1,5 @@
 Class {
-	#name : #LeHtmlVisitor,
+	#name : #LeHtmlVisitorOld,
 	#superclass : #Object,
 	#traits : 'TLeModelVisitor',
 	#classTraits : 'TLeModelVisitor classTrait',
@@ -10,13 +10,13 @@ Class {
 }
 
 { #category : #accessing }
-LeHtmlVisitor >> context [
+LeHtmlVisitorOld >> context [
 	<return: #LeHtmlContextOld>
 	^ context
 ]
 
 { #category : #'api - initialization' }
-LeHtmlVisitor >> context: aLeHtmlContext [
+LeHtmlVisitorOld >> context: aLeHtmlContext [
 	self
 		assert: [ aLeHtmlContext isNotNil ]
 		description: [ 'Context must be non-nil' ].
@@ -28,7 +28,7 @@ LeHtmlVisitor >> context: aLeHtmlContext [
 ]
 
 { #category : #'gt - extensions' }
-LeHtmlVisitor >> gtFilesFor: aView [
+LeHtmlVisitorOld >> gtFilesFor: aView [
 	<gtView>
 	context ifNil: [ ^ aView empty ].
 	^ aView forward
@@ -39,7 +39,7 @@ LeHtmlVisitor >> gtFilesFor: aView [
 ]
 
 { #category : #'gt - extensions' }
-LeHtmlVisitor >> gtLogFor: aView [
+LeHtmlVisitorOld >> gtLogFor: aView [
 	<gtView>
 	context ifNil: [ ^ aView empty ].
 	^ aView forward
@@ -50,7 +50,7 @@ LeHtmlVisitor >> gtLogFor: aView [
 ]
 
 { #category : #'gt - extensions' }
-LeHtmlVisitor >> gtResourcesFor: aView [
+LeHtmlVisitorOld >> gtResourcesFor: aView [
 	<gtView>
 	context ifNil: [ ^ aView empty ].
 	^ aView forward
@@ -61,7 +61,7 @@ LeHtmlVisitor >> gtResourcesFor: aView [
 ]
 
 { #category : #'gt - extensions' }
-LeHtmlVisitor >> gtStreamStateFor: aView [
+LeHtmlVisitorOld >> gtStreamStateFor: aView [
 	<gtView>
 	context ifNil: [ ^ aView empty ].
 	^ aView forward
@@ -72,24 +72,24 @@ LeHtmlVisitor >> gtStreamStateFor: aView [
 ]
 
 { #category : #exporting }
-LeHtmlVisitor >> html [
+LeHtmlVisitorOld >> html [
 	<return: #ZnHtmlOutputStream>
 	^ self context html
 ]
 
 { #category : #'private - logging' }
-LeHtmlVisitor >> logUnsupportedSnippet: aLeSnippet [ 
+LeHtmlVisitorOld >> logUnsupportedSnippet: aLeSnippet [ 
 	context logger unsupportedSnippet: aLeSnippet
 ]
 
 { #category : #exporting }
-LeHtmlVisitor >> resourceFor: aLeSnippet [
+LeHtmlVisitorOld >> resourceFor: aLeSnippet [
 	<return: #LeExportResourcerResult>
 	^ self context resourcer resourceFor: aLeSnippet
 ]
 
 { #category : #visiting }
-LeHtmlVisitor >> visitElementSnippet: aLeElementSnippet [
+LeHtmlVisitorOld >> visitElementSnippet: aLeElementSnippet [
 
 	| aResult aFileName |
 	aResult := self resourceFor: aLeElementSnippet.
@@ -103,7 +103,7 @@ LeHtmlVisitor >> visitElementSnippet: aLeElementSnippet [
 ]
 
 { #category : #visiting }
-LeHtmlVisitor >> visitPictureSnippet: aLePictureSnippet [
+LeHtmlVisitorOld >> visitPictureSnippet: aLePictureSnippet [
 
 	| aResult anImgSrc |
 	aResult := self resourceFor: aLePictureSnippet.
@@ -117,7 +117,7 @@ LeHtmlVisitor >> visitPictureSnippet: aLePictureSnippet [
 ]
 
 { #category : #visiting }
-LeHtmlVisitor >> visitSnippet: aLeSnippet [
+LeHtmlVisitorOld >> visitSnippet: aLeSnippet [
 	"The #visitSnippet: method should be called only when a snippet is not handled.
 	To handle snippet children, call #visitContent:."
 	
@@ -127,7 +127,7 @@ LeHtmlVisitor >> visitSnippet: aLeSnippet [
 ]
 
 { #category : #'private - writing' }
-LeHtmlVisitor >> writeFigureImgSrc: anImgSrc caption: aCaption [ 
+LeHtmlVisitorOld >> writeFigureImgSrc: anImgSrc caption: aCaption [ 
 
 	self html
 		tag: #figure

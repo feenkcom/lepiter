@@ -36,6 +36,19 @@ LeExportContext >> defaultSequencer [
 	^ LeExportIntegerSequencer new
 ]
 
+{ #category : #initialization }
+LeExportContext >> defaultSpecifications [
+	^ LeSpecificationBuilder new
+		start: self defaultSpecificationsStart;
+		find;
+		specifications
+]
+
+{ #category : #initialization }
+LeExportContext >> defaultSpecificationsStart [
+	^ LeExportSpecificationsStart new
+]
+
 { #category : #accessing }
 LeExportContext >> fileStore [
 	"Return file store that is used to store resource files"
@@ -81,7 +94,7 @@ LeExportContext >> gtResourcesFor: aView [
 { #category : #'api - builders' }
 LeExportContext >> objectSpecificationBuilder [
 	^ LeExportObjectSpecificationBuilder new
-		specifications: specifications;
+		specifications: self specifications;
 		find
 ]
 
@@ -104,7 +117,7 @@ LeExportContext >> resources [
 	^ resources ifNil: [ resources := self defaultResources ]
 ]
 
-{ #category : #accessing }
+{ #category : #'api - initialization' }
 LeExportContext >> resources: aLeExportResources [
 	self
 		assert: [ aLeExportResources isNotNil ]
@@ -139,7 +152,7 @@ LeExportContext >> sequencer: aLeSequencer [
 { #category : #accessing }
 LeExportContext >> specifications [
 	<return: #TLeExportSpecifications>
-	^ specifications
+	^ specifications ifNil: [ specifications := self defaultSpecifications ]
 ]
 
 { #category : #accessing }

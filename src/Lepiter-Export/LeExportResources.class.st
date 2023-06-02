@@ -46,6 +46,11 @@ LeExportResources >> initialize [
 	resources := OrderedCollection new
 ]
 
+{ #category : #enumerating }
+LeExportResources >> select: aBlock [
+	^ resources select: aBlock
+]
+
 { #category : #accessing }
 LeExportResources >> size [
 	^ resources size

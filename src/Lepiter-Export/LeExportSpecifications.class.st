@@ -50,7 +50,7 @@ LeExportSpecifications >> gtSpecificationsFor: aView [
 		column: 'Index'
 			text: [ :_ :anIndex | anIndex ]
 			width: 40;
-		column: 'Name' text: #yourself
+		column: 'Name' text: #label
 ]
 
 { #category : #initialization }

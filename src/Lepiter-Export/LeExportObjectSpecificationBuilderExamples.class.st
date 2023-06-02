@@ -32,7 +32,7 @@ LeExportObjectSpecificationBuilderExamples >> presenterSlideshowSpecification [
 	
 	| specifications finder element elementClass holder |
 	specifications := LeExportSpecificationsExamples new snippetSpecifications.
-	holder := LeExportSnippetExamples new snippetElementWithSlideshow.
+	holder := LeExportSnippetExamples new elementSnippetWithSlideshow.
 	element := holder slideshow asElement.
 	
 	elementClass := element class.
@@ -58,7 +58,7 @@ LeExportObjectSpecificationBuilderExamples >> snippetElementWithSlideshowSpecifi
 	| specifications finder element elementClass snippet holder |
 	specifications := LeExportSpecificationsExamples new snippetSpecifications.
 	
-	holder := LeExportSnippetExamples new snippetElementWithSlideshow.
+	holder := LeExportSnippetExamples new elementSnippetWithSlideshow.
 	snippet := holder snippet.
 	element := LeExportUtility newSnippetElementFor: snippet.
 	elementClass := element class.
@@ -86,7 +86,7 @@ LeExportObjectSpecificationBuilderExamples >> snippetElementWithZeroSlidesSpecif
 	| specifications finder element elementClass snippet holder |
 	specifications := LeExportSpecificationsExamples new snippetSpecifications.
 	
-	holder := LeExportSnippetExamples new snippetElementWithZeroSlides.
+	holder := LeExportSnippetExamples new elementSnippetWithZeroSlides.
 	snippet := holder snippet.
 	element := LeExportUtility newSnippetElementFor: snippet.
 	elementClass := element class.
