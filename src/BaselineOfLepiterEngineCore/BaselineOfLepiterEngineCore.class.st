@@ -56,6 +56,10 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 					with: [ spec requires: #('Lepiter-Core' 'Lepiter-UI') ];
 				package: 'Lepiter-ToC'
 					with: [ spec requires: #('Lepiter-Core' 'Lepiter-UI') ];
+				package: 'Lepiter-Export' 
+					with: [ spec requires: #( 'Lepiter-Core' ) ];
+				package: 'Lepiter-HTML'
+					with: [ spec requires: #('Lepiter-Core' 'Lepiter-Parser' 'Lepiter-Export' 'LepiterXDoc') ];
 				package: 'Lepiter-Playground'
 					with: [ spec requires: #('Lepiter-Core' 'Lepiter-Store' 'Lepiter-UI') ];
 				package: 'Lepiter-Core-Examples'

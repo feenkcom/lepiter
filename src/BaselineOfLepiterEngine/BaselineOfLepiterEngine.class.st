@@ -16,15 +16,10 @@ BaselineOfLepiterEngine >> baseline: spec [
 	spec for: #'common' do: [
 		spec baseline: 'LepiterEngineExtensions' with: [
 				spec repository: 'github://feenkcom/lepiter:main/src' ].
-		spec package: 'Lepiter-Export' with: [ 
-				spec requires: #('LepiterEngineExtensions') ].
-		spec package: 'Lepiter-HTML' with: [ 
-				spec requires: #('LepiterEngineExtensions' 'Lepiter-Export') ].
 		spec package: 'Lepiter-Validator' with: [
 				spec requires: #('LepiterEngineExtensions' ). ].
 		spec package: 'Lepiter-Tool' with: [
 				spec requires: #('LepiterEngineExtensions' ). ]. ].
-
 ]
 
 { #category : #converting }
