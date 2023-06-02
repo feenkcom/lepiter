@@ -1,0 +1,33 @@
+Trait {
+	#name : #TExportResourceState,
+	#category : #'Lepiter-HTML-Old-! New - Model - Resource State'
+}
+
+{ #category : #accessing }
+TExportResourceState >> color [
+	^ Color black
+]
+
+{ #category : #testing }
+TExportResourceState >> isFailure [
+	"Return true if a resource could not be assembled"
+
+	^ self explicitRequirement
+]
+
+{ #category : #testing }
+TExportResourceState >> isReady [
+	"Return true if the resource is ready, e.g., an element screenshot is stored in the resource file"
+
+	^ self explicitRequirement
+]
+
+{ #category : #accessing }
+TExportResourceState >> label [
+	^ self name asRopedText foreground: self color
+]
+
+{ #category : #accessing }
+TExportResourceState >> name [
+	^ self className
+]
