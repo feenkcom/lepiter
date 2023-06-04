@@ -4,6 +4,12 @@ Trait {
 }
 
 { #category : #asserting }
+TLeHtmlContentAssertions >> assertEmptyHtml: html [
+	self assertHtml: html.
+	self assert: html isEmpty description: [ 'HTML output must be empty' ]
+]
+
+{ #category : #asserting }
 TLeHtmlContentAssertions >> assertHtml: html [
 	self assert: html isNotNil description: [ 'HTML output must be non-nil' ].
 	self assert: html isString description: [ 'HTML output must be a string' ]

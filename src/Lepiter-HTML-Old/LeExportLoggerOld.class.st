@@ -1,5 +1,5 @@
 Class {
-	#name : #LeExportLogger,
+	#name : #LeExportLoggerOld,
 	#superclass : #Object,
 	#traits : 'TLeExportLogger',
 	#classTraits : 'TLeExportLogger classTrait',
@@ -10,7 +10,7 @@ Class {
 }
 
 { #category : #'api - initialization' }
-LeExportLogger >> context: aLeHtmlContext [
+LeExportLoggerOld >> context: aLeHtmlContext [
 	self
 		assert: [ aLeHtmlContext isNotNil ]
 		description: [ 'Context must be non-nil' ].
@@ -22,12 +22,12 @@ LeExportLogger >> context: aLeHtmlContext [
 ]
 
 { #category : #accessing }
-LeExportLogger >> log [
+LeExportLoggerOld >> log [
 	^ context log
 ]
 
 { #category : #'api - logging' }
-LeExportLogger >> unsupportedSnippet: aLeSnippet [
+LeExportLoggerOld >> unsupportedSnippet: aLeSnippet [
 	self log addItem: (LeExportUnsupportedSnippetLogItem new 
 		snippet: aLeSnippet)
 ]

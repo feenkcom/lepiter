@@ -124,7 +124,7 @@ LeHtmlContextOld >> log [
 
 { #category : #'api - builders' }
 LeHtmlContextOld >> logger [
-	^ LeExportLogger new context: self
+	^ LeExportLoggerOld new context: self
 ]
 
 { #category : #'api - builders' }

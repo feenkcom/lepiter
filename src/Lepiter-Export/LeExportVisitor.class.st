@@ -32,6 +32,17 @@ LeExportVisitor >> gtFilesFor: aView [
 ]
 
 { #category : #'gt - extensions' }
+LeExportVisitor >> gtLogFor: aView [
+	<gtView>
+	context ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Log';
+		priority: 20;
+		object: [ context ];
+		view: #gtLogFor:
+]
+
+{ #category : #'gt - extensions' }
 LeExportVisitor >> gtResourcesFor: aView [
 	<gtView>
 	context ifNil: [ ^ aView empty ].
@@ -40,6 +51,11 @@ LeExportVisitor >> gtResourcesFor: aView [
 		priority: 15;
 		object: [ context ];
 		view: #gtResourcesFor:
+]
+
+{ #category : #'private - logging' }
+LeExportVisitor >> logUnsupportedSnippet: aLeSnippet [ 
+	context logger unsupportedSnippet: aLeSnippet
 ]
 
 { #category : #'private - exporting' }
@@ -86,4 +102,14 @@ LeExportVisitor >> visitPictureSnippet: aLePictureSnippet [
 		build.
 	
 	^ self visitContent: aLePictureSnippet
+]
+
+{ #category : #visiting }
+LeExportVisitor >> visitSnippet: aLeSnippet [
+	"The #visitSnippet: method should be called only when a snippet is not handled.
+	To handle snippet children, call #visitContent:."
+	
+	self logUnsupportedSnippet: aLeSnippet.
+
+	^ self visitContent: aLeSnippet
 ]

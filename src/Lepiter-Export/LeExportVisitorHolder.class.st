@@ -30,6 +30,17 @@ LeExportVisitorHolder >> gtFilesFor: aView [
 ]
 
 { #category : #'gt - extensions' }
+LeExportVisitorHolder >> gtLogFor: aView [
+	<gtView>
+	visitor ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Log';
+		priority: 20;
+		object: [ visitor ];
+		view: #gtLogFor:
+]
+
+{ #category : #'gt - extensions' }
 LeExportVisitorHolder >> gtResourcesFor: aView [
 	<gtView>
 	visitor ifNil: [ ^ aView empty ].
@@ -49,6 +60,11 @@ LeExportVisitorHolder >> gtSnippetFor: aView [
 		priority: 30;
 		object: [ snippet ];
 		view: #gtLiveFor:
+]
+
+{ #category : #accessing }
+LeExportVisitorHolder >> log [
+	^ visitor context log
 ]
 
 { #category : #accessing }

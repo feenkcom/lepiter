@@ -1,8 +1,8 @@
 Class {
 	#name : #LeExportVisitorExamples,
 	#superclass : #Object,
-	#traits : 'TLeExportResourceAssertions + TLeExportFileStoreAssertions',
-	#classTraits : 'TLeExportResourceAssertions classTrait + TLeExportFileStoreAssertions classTrait',
+	#traits : 'TLeExportResourceAssertions + TLeExportFileStoreAssertions + TLeExportLogAssertions',
+	#classTraits : 'TLeExportResourceAssertions classTrait + TLeExportFileStoreAssertions classTrait + TLeExportLogAssertions classTrait',
 	#category : #'Lepiter-Export-Examples'
 }
 
@@ -255,4 +255,27 @@ LeExportVisitorExamples >> snippetElementWithZeroSlides_PrepareResources [
 		description: [ 'Resource must have inadequate output (an exception)' ].
 
 	^ visitor
+]
+
+{ #category : #'examples - unsupported snippet' }
+LeExportVisitorExamples >> unsupportedSnippet [
+	<gtExample>
+	| snippet resources visitor holder fileStore log |
+	holder := LeExportSnippetExamples new elementSnippetWithGlamorousBreadcrumb.
+	snippet := holder snippet.
+	visitor := LeExportIncompleteVisitor new
+			context: (LeExportContext new 
+				resources: (resources := LeExportResources new);
+				fileStore: (fileStore := LeExportMemoryStore new);
+				log: (log := LeExportLog new)).
+
+	snippet acceptVisitor: visitor.
+
+	self assertResources: resources size: 0.
+	self assertFileStoreIsEmpty: fileStore.
+	self assertLog: log size: 1.
+
+	^ LeExportVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
 ]

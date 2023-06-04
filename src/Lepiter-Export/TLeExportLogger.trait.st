@@ -1,6 +1,6 @@
 Trait {
 	#name : #TLeExportLogger,
-	#category : #'Lepiter-HTML-Old-! New - Log'
+	#category : #'Lepiter-Export-Log - Builders'
 }
 
 { #category : #'api - logging' }

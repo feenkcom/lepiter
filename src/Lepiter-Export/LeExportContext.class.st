@@ -7,7 +7,8 @@ Class {
 		'specifications',
 		'resources',
 		'sequencer',
-		'fileStore'
+		'fileStore',
+		'log'
 	],
 	#category : #'Lepiter-Export-! Core'
 }
@@ -24,6 +25,11 @@ LeExportContext >> assembler [
 { #category : #initialization }
 LeExportContext >> defaultFileStore [
 	^ LeExportMemoryStore new
+]
+
+{ #category : #initialization }
+LeExportContext >> defaultLog [
+	^ LeExportLog new
 ]
 
 { #category : #initialization }
@@ -81,6 +87,17 @@ LeExportContext >> gtFilesFor: aView [
 ]
 
 { #category : #'gt - extensions' }
+LeExportContext >> gtLogFor: aView [
+	<gtView>
+	log ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Log';
+		priority: 20;
+		object: [ log ];
+		view: #gtLogItemsFor:
+]
+
+{ #category : #'gt - extensions' }
 LeExportContext >> gtResourcesFor: aView [
 	<gtView>
 	resources ifNil: [ ^ aView empty ].
@@ -89,6 +106,33 @@ LeExportContext >> gtResourcesFor: aView [
 		priority: 15;
 		object: [ resources ];
 		view: #gtResourcesFor:
+]
+
+{ #category : #accessing }
+LeExportContext >> log [
+	<return: #TLeExportLog>
+	^ log ifNil: [ log := self defaultLog ]
+]
+
+{ #category : #accessing }
+LeExportContext >> log: aLog [
+	self
+		assert: [ aLog isNotNil ]
+		description: [ 'Log must be non-nil' ].
+	self
+		assert: [ log isNil ]
+		description: [ 'Log must be initialized only once' ].
+	
+	log := aLog
+]
+
+{ #category : #accessing }
+LeExportContext >> logger [
+	"Return resources assembler that exports resources"
+
+	<return: #TLeExportLogger>
+	^ LeExportLogger new
+		log: self log
 ]
 
 { #category : #'api - builders' }

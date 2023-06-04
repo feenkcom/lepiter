@@ -1,8 +1,8 @@
 Class {
 	#name : #LeHtmlVisitorExamples,
 	#superclass : #Object,
-	#traits : 'TLeExportResourceAssertions + TLeHtmlContentAssertions',
-	#classTraits : 'TLeExportResourceAssertions classTrait + TLeHtmlContentAssertions classTrait',
+	#traits : 'TLeExportResourceAssertions + TLeHtmlContentAssertions + TLeExportLogAssertions',
+	#classTraits : 'TLeExportResourceAssertions classTrait + TLeHtmlContentAssertions classTrait + TLeExportLogAssertions classTrait',
 	#category : #'Lepiter-HTML-Examples'
 }
 
@@ -133,6 +133,28 @@ LeHtmlVisitorExamples >> pictureSnippetWithMissingFileReference [
 	self assertHtml: html beginsWith: '<figure class="snippet picture-snippet paragraphWidth"'.
 	self assertHtml: html includes: '<img class="picture-snippet-image" src="gt-figures/1000.jpg"/>'.
 	
+	^ LeHtmlVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - element snippet' }
+LeHtmlVisitorExamples >> unsupportedSnippet [
+	<gtExample>
+	| snippet html resources visitor holder log |
+	holder := LeExportVisitorExamples new unsupportedSnippet.
+	snippet := holder snippet.
+	resources := holder resources.
+	visitor := LeHtmlIncompleteVisitor new
+			context: (LeHtmlContext new 
+				resources: resources;
+				log: (log := LeExportLog new)).
+
+	html := visitor contentsFor: snippet.
+
+	self assertEmptyHtml: html.
+	self assertLog: log size: 1.
+
 	^ LeHtmlVisitorHolder new
 		visitor: visitor;
 		snippet: snippet

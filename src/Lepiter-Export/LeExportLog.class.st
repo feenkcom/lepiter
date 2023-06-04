@@ -6,7 +6,7 @@ Class {
 	#instVars : [
 		'items'
 	],
-	#category : #'Lepiter-HTML-Old-! New - Log'
+	#category : #'Lepiter-Export-Log - Model'
 }
 
 { #category : #'add / remove' }

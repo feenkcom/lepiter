@@ -6,7 +6,7 @@ Class {
 	#instVars : [
 		'snippet'
 	],
-	#category : #'Lepiter-HTML-Old-! New - Log'
+	#category : #'Lepiter-Export-Log - Model'
 }
 
 { #category : #accessing }

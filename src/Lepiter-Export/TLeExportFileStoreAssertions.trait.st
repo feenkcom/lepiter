@@ -5,7 +5,7 @@ Trait {
 
 { #category : #asserting }
 TLeExportFileStoreAssertions >> assertFileStoreIsEmpty: fileStore [
-	self assertFileStoreIsInitializer: fileStore.
+	self assertFileStoreIsInitialized: fileStore.
 
 	self
 		assert: fileStore hasChildren not
@@ -13,13 +13,13 @@ TLeExportFileStoreAssertions >> assertFileStoreIsEmpty: fileStore [
 ]
 
 { #category : #asserting }
-TLeExportFileStoreAssertions >> assertFileStoreIsInitializer: fileStore [
+TLeExportFileStoreAssertions >> assertFileStoreIsInitialized: fileStore [
 	self assert: fileStore isNotNil description: [ 'File store must be non-nil' ]
 ]
 
 { #category : #asserting }
 TLeExportFileStoreAssertions >> assertFileStoreIsNotEmpty: fileStore [
-	self assertFileStoreIsInitializer: fileStore.
+	self assertFileStoreIsInitialized: fileStore.
 
 	self
 		assert: fileStore hasChildren
