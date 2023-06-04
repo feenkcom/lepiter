@@ -1,7 +1,7 @@
 Class {
 	#name : #LeExportResourceState,
 	#superclass : #Object,
-	#category : #'Lepiter-HTML-Old-! New - Model - Resource State'
+	#category : #'Lepiter-Export-Resources - State'
 }
 
 { #category : #'instance creation' }

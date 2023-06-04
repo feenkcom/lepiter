@@ -6,7 +6,7 @@ Class {
 	#instVars : [
 		'exception'
 	],
-	#category : #'Lepiter-HTML-Old-! New - Model - Resource State'
+	#category : #'Lepiter-Export-Resources - State'
 }
 
 { #category : #accessing }
