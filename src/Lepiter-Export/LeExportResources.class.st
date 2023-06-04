@@ -46,6 +46,20 @@ LeExportResources >> initialize [
 	resources := OrderedCollection new
 ]
 
+{ #category : #printing }
+LeExportResources >> printOn: aStream [
+	super printOn: aStream.
+
+	resources ifNil: [ ^ self ].
+
+	aStream
+		space;
+		nextPut: $[;
+		print: self size;
+		nextPutAll: (' item' asPluralBasedOn: self size);
+		nextPut: $]
+]
+
 { #category : #enumerating }
 LeExportResources >> select: aBlock [
 	^ resources select: aBlock

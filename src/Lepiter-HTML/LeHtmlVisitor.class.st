@@ -1,6 +1,11 @@
 Class {
 	#name : #LeHtmlVisitor,
-	#superclass : #LeExportVisitor,
+	#superclass : #Object,
+	#traits : 'TLeModelVisitor',
+	#classTraits : 'TLeModelVisitor classTrait',
+	#instVars : [
+		'context'
+	],
 	#category : #'Lepiter-HTML-! Core'
 }
 
@@ -10,6 +15,39 @@ LeHtmlVisitor >> contentsFor: snippet [
 		streamContents: [ :stream | 
 			self context stream: stream.
 			snippet acceptVisitor: self ]
+]
+
+{ #category : #accessing }
+LeHtmlVisitor >> context [
+	<return: #TLeHtmlContext>
+	^ context
+]
+
+{ #category : #accessing }
+LeHtmlVisitor >> context: aContext [
+	context := aContext
+]
+
+{ #category : #'gt - extensions' }
+LeHtmlVisitor >> gtFilesFor: aView [
+	<gtView>
+	context ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Files';
+		priority: 20;
+		object: [ context ];
+		view: #gtFilesFor:
+]
+
+{ #category : #'gt - extensions' }
+LeHtmlVisitor >> gtResourcesFor: aView [
+	<gtView>
+	context ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Resources';
+		priority: 15;
+		object: [ context ];
+		view: #gtResourcesFor:
 ]
 
 { #category : #'gt - extensions' }
@@ -24,10 +62,27 @@ LeHtmlVisitor >> gtStreamStateFor: aView [
 ]
 
 { #category : #'private - writing' }
-LeHtmlVisitor >> writeElementSnippet: aLeElementSnippet [
-	| snippetResources |
-	snippetResources := super writeElementSnippet: aLeElementSnippet.
+LeHtmlVisitor >> html [
+	^ context html
+]
 
+{ #category : #convenience }
+LeHtmlVisitor >> resourcesFor: aLeSnippet [
+	<return: #Collection of: #TLeExportResource>
+	| snippetResources |
+	snippetResources := context resources select: [ :eachResource | 
+		eachResource source == aLeSnippet ].
+		
+	^ LeExportSnippetResources new
+		resources: snippetResources
+]
+
+{ #category : #visiting }
+LeHtmlVisitor >> visitElementSnippet: aLeElementSnippet [
+	| snippetResources |
+	
+	snippetResources := self resourcesFor: aLeElementSnippet.
+	
 	snippetResources 
 		ifEmpty: [ "ignore" ]
 		ifOne: [ :aResource |
@@ -44,14 +99,15 @@ LeHtmlVisitor >> writeElementSnippet: aLeElementSnippet [
 				sequencer: context sequencer;
 				resources: aCollection;
 				write ].
-				
-	^ snippetResources
+
+	^ self visitContent: aLeElementSnippet
 ]
 
-{ #category : #'private - writing' }
-LeHtmlVisitor >> writePictureSnippet: aLePictureSnippet [ 
+{ #category : #visiting }
+LeHtmlVisitor >> visitPictureSnippet: aLePictureSnippet [
+
 	| snippetResources |
-	snippetResources := super writePictureSnippet: aLePictureSnippet.
+	snippetResources := self resourcesFor: aLePictureSnippet.
 	
 	snippetResources 
 		ifEmpty: [ "ignore" ]
@@ -62,6 +118,6 @@ LeHtmlVisitor >> writePictureSnippet: aLePictureSnippet [
 				caption: aLePictureSnippet caption;
 				write ]
 		ifMore: [ :aCollection | "ignore" ].
-				
-	^ snippetResources
+
+	^ self visitContent: aLePictureSnippet 
 ]

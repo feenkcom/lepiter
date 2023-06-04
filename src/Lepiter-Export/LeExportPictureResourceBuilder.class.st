@@ -11,7 +11,7 @@ LeExportPictureResourceBuilder >> visitPictureSnippet: aLePictureSnippet [
 	"Prepare image src"
 	anUrlUtility := aLePictureSnippet urlStringUtility.
 	anUrlUtility isFile ifFalse: [ 
-		self addLocalResource: (LeExportExternalImageSnippetResource new
+		self addResource: (LeExportExternalImageSnippetResource new
 			snippet: aLePictureSnippet;
 			imgSrc: aLePictureSnippet urlString).
 		^ aLePictureSnippet ].

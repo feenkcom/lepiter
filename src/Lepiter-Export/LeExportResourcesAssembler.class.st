@@ -54,7 +54,7 @@ LeExportResourcesAssembler >> visitExportElementSnippetResource: aResource [
 	aResource beAssemblingState.
 	
 	"Prepare element"
-	aSnippetElement := LeExportUtility newSnippetElementFor: aResource snippet.
+	aSnippetElement := aResource element.
 	
 	"Export"
 	anExporter := LeElementToPngExporter new

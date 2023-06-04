@@ -60,41 +60,30 @@ LeExportVisitor >> resourcesFor: aLeSnippet [
 
 { #category : #visiting }
 LeExportVisitor >> visitElementSnippet: aLeElementSnippet [
-	self writeElementSnippet: aLeElementSnippet.
-	^ self visitContent: aLeElementSnippet
-]
-
-{ #category : #visiting }
-LeExportVisitor >> visitPictureSnippet: aLePictureSnippet [
-	self writePictureSnippet: aLePictureSnippet.
-	^ self visitContent: aLePictureSnippet
-]
-
-{ #category : #'private - writing' }
-LeExportVisitor >> writeElementSnippet: aLeElementSnippet [
 	| element objectSpecification |
 	element := LeExportUtility newSnippetElementFor: aLeElementSnippet.
 	objectSpecification := self objectSpecificationFor: element.
 	
-	^ objectSpecification resourcer
+	objectSpecification resourcer
 		resources: context resources;
 		sequencer: context sequencer;
 		fileStore: context fileStore;
 		snippet: aLeElementSnippet;
 		build;
 		createdResources.
+	
+	^ self visitContent: aLeElementSnippet
 ]
 
-{ #category : #'private - writing' }
-LeExportVisitor >> writePictureSnippet: aLePictureSnippet [ 
-	| objectSpecification |
-	objectSpecification := self objectSpecificationFor: aLePictureSnippet.
-	
-	^ objectSpecification resourcer
+{ #category : #visiting }
+LeExportVisitor >> visitPictureSnippet: aLePictureSnippet [
+
+	LeExportPictureResourceBuilder new
 		resources: context resources;
 		sequencer: context sequencer;
 		fileStore: context fileStore;
 		snippet: aLePictureSnippet;
-		build;
-		createdResources.
+		build.
+	
+	^ self visitContent: aLePictureSnippet
 ]

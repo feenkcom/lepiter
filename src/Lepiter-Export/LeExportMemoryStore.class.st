@@ -20,6 +20,14 @@ LeExportMemoryStore >> gtFilesFor: aView [
 		view: #gtTreeFor:
 ]
 
+{ #category : #'api - storing' }
+LeExportMemoryStore >> hasChildren [
+	"Return true if the file store has children (files or directories)"
+
+	<return: #Boolean>
+	^ memoryStore hasChildren: memoryStore root
+]
+
 { #category : #initialization }
 LeExportMemoryStore >> initialize [
 	super initialize.

@@ -1,12 +1,93 @@
 Class {
 	#name : #LeExportVisitorExamples,
 	#superclass : #Object,
-	#traits : 'TLeExportResourceAssertions',
-	#classTraits : 'TLeExportResourceAssertions classTrait',
+	#traits : 'TLeExportResourceAssertions + TLeExportFileStoreAssertions',
+	#classTraits : 'TLeExportResourceAssertions classTrait + TLeExportFileStoreAssertions classTrait',
 	#category : #'Lepiter-Export-Examples'
 }
 
-{ #category : #accessing }
+{ #category : #'examples - element snippet' }
+LeExportVisitorExamples >> elementSnippetWithGlamorousBreadcrumb [
+	<gtExample>
+	| snippet resources visitor holder fileStore |
+	holder := LeExportSnippetExamples new elementSnippetWithGlamorousBreadcrumb.
+	snippet := holder snippet.
+	visitor := LeExportVisitor new
+			context: (LeExportContext new 
+				resources: (resources := LeExportResources new);
+				fileStore: (fileStore := LeExportMemoryStore new)).
+
+	snippet acceptVisitor: visitor.
+
+	self assertResources: resources size: 1.
+	self assertNotReadyResources: resources.
+	
+	self assertFileStoreIsEmpty: fileStore.
+
+	^ LeExportVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - element snippet' }
+LeExportVisitorExamples >> elementSnippetWithGlamorousBreadcrumb_AssembleResources [
+	<gtExample>
+	| resources holder context |
+	holder := self elementSnippetWithGlamorousBreadcrumb.
+	context := holder context.
+	resources := holder resources.
+	
+	context assembler assemble.
+	
+	self assertReadyResources: resources.
+	self assertFileStoreIsNotEmpty: holder fileStore.
+
+	^ holder
+]
+
+{ #category : #'examples - element snippet' }
+LeExportVisitorExamples >> elementSnippetWithSlideshow [
+	<gtExample>
+	| specifications snippet context visitor resources allSlides slidesHolder |
+	slidesHolder := LeExportSnippetExamples new elementSnippetWithSlideshow.
+	snippet := slidesHolder snippet.
+	allSlides := slidesHolder allSlides.
+
+	specifications := LeExportSpecificationsExamples new snippetSpecifications.
+	resources := LeExportResources new.
+
+	context := LeExportContext new.
+	context specifications: specifications.
+	context resources: resources.
+
+	visitor := LeExportVisitor new context: context.
+
+	snippet acceptVisitor: visitor.
+
+	self assertResources: resources size: allSlides size.
+	self assertNotReadyResources: resources.
+
+	^ LeExportVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - element snippet' }
+LeExportVisitorExamples >> elementSnippetWithSlideshow_PrepareResources [
+	<gtExample>
+	| resources context holder |
+	holder := self elementSnippetWithSlideshow.
+	context := holder context.
+	resources := context resources.
+	
+	context assembler assemble.
+
+	self assertReadyResources: resources.
+
+	^ holder
+]
+
+{ #category : #'examples - element snippet' }
 LeExportVisitorExamples >> elementSnippetWithZeroSlides [
 	<gtExample>
 	| specifications snippet context visitor resources allSlides slidesHolder |
@@ -34,10 +115,12 @@ LeExportVisitorExamples >> elementSnippetWithZeroSlides [
 		assert: (resources asArray allSatisfy: [ :each | each state isReady not ])
 		description: [ 'Resource must NOT be ready.' ].
 
-	^ visitor
+	^ LeExportVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
 ]
 
-{ #category : #accessing }
+{ #category : #'examples - picture snippet' }
 LeExportVisitorExamples >> pictureSnippetWithExistingFileReference [
 	<gtExample>
 	| snippet resources context visitor |
@@ -52,10 +135,12 @@ LeExportVisitorExamples >> pictureSnippetWithExistingFileReference [
 	self assertResources: resources size: 1.
 	self assertReadyResources: resources.
 	
-	^ visitor
+	^ LeExportVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
 ]
 
-{ #category : #accessing }
+{ #category : #'examples - picture snippet' }
 LeExportVisitorExamples >> pictureSnippetWithHttps [
 	<gtExample>
 	| snippet resources context visitor |
@@ -67,12 +152,15 @@ LeExportVisitorExamples >> pictureSnippetWithHttps [
 	
 	snippet acceptVisitor: visitor.
 	
-	self assertResources: resources size: 0.
+	self assertResources: resources size: 1.
+	self assertReadyResources: resources.
 
-	^ visitor
+	^ LeExportVisitorHolder new 
+		visitor: visitor;
+		snippet: snippet
 ]
 
-{ #category : #accessing }
+{ #category : #'examples - picture snippet' }
 LeExportVisitorExamples >> pictureSnippetWithMissingFileReference [
 	<gtExample>
 	| snippet resources context visitor |
@@ -85,59 +173,30 @@ LeExportVisitorExamples >> pictureSnippetWithMissingFileReference [
 	snippet acceptVisitor: visitor.
 	
 	self assertResources: resources size: 1.
+	self assertNotReadyResources: resources.
 	self assertFailedResources: resources.
 	
-	^ visitor
+	^ LeExportVisitorHolder new 
+		visitor: visitor;
+		snippet: snippet
 ]
 
-{ #category : #accessing }
-LeExportVisitorExamples >> snippetElementWithSlideshowSpecification [
+{ #category : #'examples - picture snippet' }
+LeExportVisitorExamples >> pictureSnippetWithMissingFileReference_PrepareResources [
 	<gtExample>
-	| specifications snippet context visitor resources allSlides slidesHolder |
-	slidesHolder := LeExportSnippetExamples new elementSnippetWithSlideshow.
-	snippet := slidesHolder snippet.
-	allSlides := slidesHolder allSlides.
-
-	specifications := LeExportSpecificationsExamples new snippetSpecifications.
-	resources := LeExportResources new.
-
-	context := LeExportContext new.
-	context specifications: specifications.
-	context resources: resources.
-
-	visitor := LeExportVisitor new context: context.
-
-	snippet acceptVisitor: visitor.
-
-	self assert: resources asArray size equals: allSlides size.
-	self 
-		assert: (resources asArray allSatisfy: [ :each | each state isReady not ])
-		description: [ 'Resource must NOT be ready.' ].
-
-	^ visitor
-]
-
-{ #category : #accessing }
-LeExportVisitorExamples >> snippetElementWithSlideshowSpecification_PrepareResources [
-	<gtExample>
-	| resources visitor context |
-	visitor := self snippetElementWithSlideshowSpecification.
-	context := visitor context.
+	| resources context holder |
+	holder := self pictureSnippetWithMissingFileReference.
+	context := holder context.
 	resources := context resources.
 	
 	context assembler assemble.
 
-	self 
-		assert: resources asArray size > 1
-		description: [ 'Slide show must have more than one slide' ].
-	self 
-		assert: (resources asArray allSatisfy: [ :each | each state isReady ])
-		description: [ 'Resource must be ready.' ].
+	self assertNotReadyResources: resources.
 
-	^ visitor
+	^ holder
 ]
 
-{ #category : #accessing }
+{ #category : #'examples - element snippet' }
 LeExportVisitorExamples >> snippetElementWithZeroSlides_PrepareResources [
 	<gtExample>
 	| resources visitor context |
