@@ -29,6 +29,28 @@ LeHtmlVisitorExamples >> elementSnippetWithGlamorousBreadcrumb [
 ]
 
 { #category : #'examples - element snippet' }
+LeHtmlVisitorExamples >> elementSnippetWithInexistentMethod [
+	<gtExample>
+	| snippet html resources visitor holder |
+	holder := LeExportVisitorExamples new elementSnippetWithInexistentMethod.
+	snippet := holder snippet.
+	resources := holder resources.
+	visitor := LeHtmlVisitor new
+			context: (LeHtmlContext new resources: resources).
+
+	html := visitor contentsFor: snippet.
+
+	self assertHtml: html includes: '<figure class="snippet picture-snippet'.
+	self
+		assertHtml: html
+		includes: '<img class="picture-snippet-image" src="gt-figures/1000.png"/>'.
+
+	^ LeHtmlVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - element snippet' }
 LeHtmlVisitorExamples >> elementSnippetWithSlideshow [
 	<gtExample>
 	| snippet html resources context visitor holder |

@@ -23,6 +23,17 @@ LeExportSnippetExamples >> elementSnippetWithGlamorousBreadcrumb [
 ]
 
 { #category : #examples }
+LeExportSnippetExamples >> elementSnippetWithInexistentMethod [
+	<gtExample>
+	| snippet |
+
+	snippet := LeElementSnippet
+			code: LeExportSnippetExamples name , ' new inexistentMethod'.
+
+	^ snippet
+]
+
+{ #category : #examples }
 LeExportSnippetExamples >> elementSnippetWithSlideshow [
 	<gtExample>
 

@@ -46,6 +46,44 @@ LeExportVisitorExamples >> elementSnippetWithGlamorousBreadcrumb_AssembleResourc
 ]
 
 { #category : #'examples - element snippet' }
+LeExportVisitorExamples >> elementSnippetWithInexistentMethod [
+	<gtExample>
+	| snippet resources visitor fileStore |
+	snippet := LeExportSnippetExamples new elementSnippetWithInexistentMethod.
+	visitor := LeExportVisitor new
+			context: (LeExportContext new 
+				resources: (resources := LeExportResources new);
+				fileStore: (fileStore := LeExportMemoryStore new)).
+
+	snippet acceptVisitor: visitor.
+
+	self assertResources: resources size: 1.
+	self assertNotReadyResources: resources.
+	
+	self assertFileStoreIsEmpty: fileStore.
+
+	^ LeExportVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - element snippet' }
+LeExportVisitorExamples >> elementSnippetWithInexistentMethod_AssembleResources [
+	<gtExample>
+	| resources holder context |
+	holder := self elementSnippetWithInexistentMethod.
+	context := holder context.
+	resources := holder resources.
+	
+	context assembler assemble.
+	
+	self assertReadyResources: resources.
+	self assertFileStoreIsNotEmpty: holder fileStore.
+
+	^ holder
+]
+
+{ #category : #'examples - element snippet' }
 LeExportVisitorExamples >> elementSnippetWithSlideshow [
 	<gtExample>
 	| specifications snippet context visitor resources allSlides slidesHolder |
