@@ -1,6 +1,6 @@
 "
 Given a {{gtMethod:LeHtmlPageDirectoryAssetsDecorator >> #rootDiretory | label=root directory}}, I create {{gtClass:LeFileAssetResource | label=HTML asset resource}} instances. 
-I am useful in use cases, when HTML assets, e.g., CSS and JavaScript are under development. In this case, a {{gtClass:LeDatabase}} can be exported into HTML with those HTML assets using {{gtMethod:LeHtmlBookExporter>>#withFileAssets:}}. Similarly, {{gtClass:LePage}}  can be exported using {{gtMethod:LeHtmlPageExporter >> #withFileAssets:}}. 
+I am useful in use cases, when HTML assets, e.g., CSS and JavaScript are under development. In this case, a {{gtClass:LeDatabase}} can be exported into HTML with those HTML assets using {{gtMethod:LeHtmlBookExporter>>#withFileAssets:}}. Similarly, {{gtClass:LePage}}  can be exported using {{gtMethod:LeHtmlPageExporterOld >> #withFileAssets:}}. 
 "
 Class {
 	#name : #LeHtmlPageDirectoryAssetsDecorator,
