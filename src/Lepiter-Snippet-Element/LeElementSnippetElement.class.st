@@ -132,6 +132,16 @@ LeElementSnippetElement >> createVerticalResizer [
 ]
 
 { #category : #accessing }
+LeElementSnippetElement >> displayElement [
+	"Get the element that is created by the element snippet code."
+
+	^ elementContainer
+		childWithId: #displayElement
+		ifFound: #yourself
+		ifNone: [ nil ]
+]
+
+{ #category : #accessing }
 LeElementSnippetElement >> editor [ 
 	"Answer the current editor element"
 

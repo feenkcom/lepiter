@@ -21,7 +21,7 @@ TLeModelVisitor >> visitContent: aLeContent [
 
 	aLeContent children do: [ :child |
 		child acceptVisitor: self ].
-
+	^ aLeContent
 ]
 
 { #category : #visiting }

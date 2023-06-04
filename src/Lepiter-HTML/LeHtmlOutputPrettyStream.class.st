@@ -120,6 +120,17 @@ LeHtmlOutputPrettyStream >> inlineTag: tag class: cssClass with: string [
 	]
 ]
 
+{ #category : #'html tags' }
+LeHtmlOutputPrettyStream >> inlineTag: tag with: string [
+	"Write an HTML tag using the escaped string as content"
+
+	"<tag>string</tag>"
+
+	self noIndentDo: [ 
+		self tag: tag with: string
+	]
+]
+
 { #category : #'private - html' }
 LeHtmlOutputPrettyStream >> newLine [
 	allowIndent ifFalse: [ ^ self ].

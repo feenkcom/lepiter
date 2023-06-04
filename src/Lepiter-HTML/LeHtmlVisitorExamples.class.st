@@ -1,208 +1,161 @@
 Class {
 	#name : #LeHtmlVisitorExamples,
 	#superclass : #Object,
-	#category : #'Lepiter-HTML-! New - Examples'
+	#traits : 'TLeExportResourceAssertions + TLeHtmlContentAssertions + TLeExportLogAssertions',
+	#classTraits : 'TLeExportResourceAssertions classTrait + TLeHtmlContentAssertions classTrait + TLeExportLogAssertions classTrait',
+	#category : #'Lepiter-HTML-Examples'
 }
 
-{ #category : #'examples - incoplete visitor' }
-LeHtmlVisitorExamples >> elementSnippet_IncompleteVisitor [
+{ #category : #'examples - element snippet' }
+LeHtmlVisitorExamples >> elementSnippetWithGlamorousBreadcrumb [
 	<gtExample>
-	| snippet html resources context visitor |
-	snippet := LeElementSnippet
-			code: BrExamplesShowroom name , ' new ' , #glamorousBreadcrumb asString.
-	html := String
-			streamContents: [ :stream | 
-				snippet
-					acceptVisitor: (visitor := LeHtmlIncopleteVisitor new
-								context: (context := LeHtmlContext new
-											resources: (resources := LeExportResources new);
-											stream: stream)) ].
-											
-	self 
-		assert: html isEmpty 
-		description: [ 'HTML output must be empty'].
-	self 
-		assert: resources asArray isEmpty
-		description: [ 'Resources must be empty.' ].
-	self 
-		assert: context log asArray size = 1
-		description: [ 'Log must NOT be empty.' ].
-	self 
-		assert: context log asArray first isProblemLog
-		description: [ 'Log item must be a problem.' ].
+	| snippet html resources visitor holder |
+	holder := LeExportVisitorExamples new elementSnippetWithGlamorousBreadcrumb.
+	snippet := holder snippet.
+	resources := holder resources.
+	visitor := LeHtmlVisitor new
+			context: (LeHtmlContext new resources: resources).
 
-	^ visitor
+	html := visitor contentsFor: snippet.
+
+	self assertHtml: html includes: '<figure class="snippet picture-snippet'.
+	self
+		assertHtml: html
+		includes: '<img class="picture-snippet-image" src="gt-figures/1000.png"/>'.
+
+	^ LeHtmlVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
 ]
 
 { #category : #'examples - element snippet' }
-LeHtmlVisitorExamples >> elementSnippet_InexistentMethod [
+LeHtmlVisitorExamples >> elementSnippetWithInexistentMethod [
 	<gtExample>
-	| snippet html resources context visitor |
-	snippet := LeElementSnippet 
-		code: LeHtmlVisitorExamples name, ' new inexistentMethod'.
-	html := String streamContents: [ :stream | 
-		snippet acceptVisitor: (visitor := LeHtmlVisitor new
-			context: (context := LeHtmlContext new
-				resources: (resources := LeExportResources new);
-				stream: stream)) ].
-	
-	self 
-		assert: html isNotEmpty 
-		description: [ 'HTML output must be non-empty'].
-	
-	self assert: (html includesSubstring: '<figure class="snippet picture-snippet').
-	self assert: (html includesSubstring: '<img class="picture-snippet-image" src="gt-figures/1000.png"/>').
-	
-	self assert: resources asArray size equals: 1.
-	self 
-		assert: resources asArray first state isReady not
-		description: [ 'Resource must NOT be ready.' ].
+	| snippet html resources visitor holder |
+	holder := LeExportVisitorExamples new elementSnippetWithInexistentMethod.
+	snippet := holder snippet.
+	resources := holder resources.
+	visitor := LeHtmlVisitor new
+			context: (LeHtmlContext new resources: resources).
 
-	^ visitor
+	html := visitor contentsFor: snippet.
+
+	self assertHtml: html includes: '<figure class="snippet picture-snippet'.
+	self
+		assertHtml: html
+		includes: '<img class="picture-snippet-image" src="gt-figures/1000.png"/>'.
+
+	^ LeHtmlVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
 ]
 
 { #category : #'examples - element snippet' }
-LeHtmlVisitorExamples >> elementSnippet_InexistentMethod_PrepareResources [
+LeHtmlVisitorExamples >> elementSnippetWithSlideshow [
 	<gtExample>
-	| resources visitor context |
-	visitor := self elementSnippet_InexistentMethod.
-	context := visitor context.
-	resources := context resources.
-	context assembler assemble.
-	
-	self assert: resources asArray size equals: 1.
-	self 
-		assert: resources asArray first state isReady not
-		description: [ 'Resource must be ready.' ].
+	| snippet html resources context visitor holder |
+	holder := LeExportVisitorExamples new elementSnippetWithSlideshow.
+	snippet := holder snippet.
+	resources := holder resources.
 
-	^ visitor
+	visitor := LeHtmlVisitor new
+			context: (context := LeHtmlContext new
+						resources: resources).
+
+	html := visitor contentsFor: snippet.
+	
+	self assertHtml: html includes: '<img src="gt-figures/1000.png" class="d-block w-100" alt="Slide 1"/>'.
+	self assertHtml: html includes: '<img src="gt-figures/1001.png" class="d-block w-100" alt="Slide 2"/>'.
+	
+	^ LeHtmlVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - picture snippet' }
+LeHtmlVisitorExamples >> pictureSnippetWithExistingFileReference [
+	<gtExample>
+	| snippet html resources context visitor holder |
+	holder := LeExportVisitorExamples new pictureSnippetWithExistingFileReference.
+	snippet := holder snippet.
+	resources := holder resources.
+	
+	visitor := LeHtmlVisitor new
+			context: (context := LeHtmlContext new
+				resources: resources).
+	
+	html := visitor contentsFor: snippet.
+	
+	self assertHtml: html beginsWith: '<figure class="snippet picture-snippet paragraphWidth"'.
+	self assertHtml: html includes: '<img class="picture-snippet-image" src="gt-figures/1000.jpg"/>'.
+	
+	^ LeHtmlVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - picture snippet' }
+LeHtmlVisitorExamples >> pictureSnippetWithHttps [
+	<gtExample>
+	| snippet html resources context visitor holder |
+	holder := LeExportVisitorExamples new pictureSnippetWithHttps.
+	snippet := holder snippet.
+	resources := holder resources.
+	
+	visitor := LeHtmlVisitor new
+			context: (context := LeHtmlContext new
+				resources: resources).
+	
+	html := visitor contentsFor: snippet.
+
+	self assertHtml: html beginsWith: '<figure class="snippet picture-snippet paragraphWidth"'.
+	self assertHtml: html includes: '<img class="picture-snippet-image" src="https://gtoolkit.com/assets/pictures/use-case-rest-api.png"/>'.
+	
+	^ LeHtmlVisitorHolder new 
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - picture snippet' }
+LeHtmlVisitorExamples >> pictureSnippetWithMissingFileReference [
+	<gtExample>
+	| snippet html resources context visitor holder |
+	holder := LeExportVisitorExamples new pictureSnippetWithMissingFileReference.
+	snippet := holder snippet.
+	resources := holder resources.
+	
+	visitor := LeHtmlVisitor new
+			context: (context := LeHtmlContext new
+				resources: resources).
+	
+	html := visitor contentsFor: snippet.
+	
+	self assertHtml: html beginsWith: '<figure class="snippet picture-snippet paragraphWidth"'.
+	self assertHtml: html includes: '<img class="picture-snippet-image" src="gt-figures/1000.jpg"/>'.
+	
+	^ LeHtmlVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
 ]
 
 { #category : #'examples - element snippet' }
-LeHtmlVisitorExamples >> elementSnippet_Successful [
+LeHtmlVisitorExamples >> unsupportedSnippet [
 	<gtExample>
-	| snippet html resources context visitor |
-	snippet := LeElementSnippet 
-		code: BrExamplesShowroom name, ' new ', #glamorousBreadcrumb asString.
-	html := String streamContents: [ :stream | 
-		snippet acceptVisitor: (visitor := LeHtmlVisitor new
-			context: (context := LeHtmlContext new
-				resources: (resources := LeExportResources new);
-				stream: stream)) ].
-	
-	self 
-		assert: html isNotEmpty 
-		description: [ 'HTML output must be non-empty'].
-	
-	self assert: (html includesSubstring: '<figure class="snippet picture-snippet').
-	self assert: (html includesSubstring: '<img class="picture-snippet-image" src="gt-figures/1000.png"/>').
-	
-	self assert: resources asArray size equals: 1.
-	self 
-		assert: resources asArray first state isReady not
-		description: [ 'Resource must NOT be ready.' ].
+	| snippet html resources visitor holder log |
+	holder := LeExportVisitorExamples new unsupportedSnippet.
+	snippet := holder snippet.
+	resources := holder resources.
+	visitor := LeHtmlIncompleteVisitor new
+			context: (LeHtmlContext new 
+				resources: resources;
+				log: (log := LeExportLog new)).
 
-	^ visitor
-]
+	html := visitor contentsFor: snippet.
 
-{ #category : #'examples - element snippet' }
-LeHtmlVisitorExamples >> elementSnippet_Successful_PrepareResources [
-	<gtExample>
-	| resources visitor context |
-	visitor := self elementSnippet_Successful.
-	context := visitor context.
-	resources := context resources.
-	context assembler assemble.
-	
-	self assert: resources asArray size equals: 1.
-	self 
-		assert: resources asArray first state isReady
-		description: [ 'Resource must be ready.' ].
+	self assertEmptyHtml: html.
+	self assertLog: log size: 1.
 
-	^ visitor
-]
-
-{ #category : #'examples - picture snippet' }
-LeHtmlVisitorExamples >> pictureFile_ExistingOne [
-	^ (GtResourcesUtility resourceAtPath: Path 
-		* 'feenkcom'
-		/ 'gtoolkit-demos' 
-		/ 'data' 
-		/ 'faceapi' 
-		/ '1280px-Einstein-with-habicht-and-solovine.jpg') asUrl asString
-]
-
-{ #category : #'examples - picture snippet' }
-LeHtmlVisitorExamples >> pictureFile_MissingOne [
-	^ (GtResourcesUtility resourceAtPath: Path 
-		* 'feenkcom'
-		/ 'gtoolkit' 
-		/ 'data' 
-		/ 'inexistent-image-file.jpg') asUrl asString
-]
-
-{ #category : #'examples - picture snippet' }
-LeHtmlVisitorExamples >> pictureSnippet_SuccessfulWithFileReference [
-	<gtExample>
-	| snippet html resources context visitor |
-	snippet := LePictureSnippet new urlString: self pictureFile_ExistingOne.
-	html := String streamContents: [ :stream | 
-		snippet acceptVisitor: (visitor := LeHtmlVisitor new
-			context: (context := LeHtmlContext new
-				resources: (resources := LeExportResources new);
-				stream: stream)) ].
-				
-	self assert: (html beginsWith: '<figure class="snippet picture-snippet paragraphWidth"').
-	self assert: (html includesSubstring: '<img class="picture-snippet-image" src="gt-figures/1000.jpg"/>').
-	
-	self assert: resources asArray size equals: 1.
-	self 
-		assert: resources asArray first state isReady
-		description: [ 'Resource must be ready.' ].
-
-	^ visitor
-]
-
-{ #category : #'examples - picture snippet' }
-LeHtmlVisitorExamples >> pictureSnippet_SuccessfulWithHttp [
-	<gtExample>
-	| snippet html resources context visitor |
-	snippet := LePictureSnippet new urlString: 'https://gtoolkit.com/assets/pictures/use-case-rest-api.png'.
-	html := String streamContents: [ :stream | 
-		snippet acceptVisitor: (visitor := LeHtmlVisitor new
-			context: (context := LeHtmlContext new
-				resources: (resources := LeExportResources new);
-				stream: stream)) ].
-				
-	self assert: (html beginsWith: '<figure class="snippet picture-snippet paragraphWidth"').
-	self assert: (html includesSubstring: '<img class="picture-snippet-image" src="https://gtoolkit.com/assets/pictures/use-case-rest-api.png"/>').
-	
-	self assert: resources asArray size equals: 0.
-
-	^ visitor
-]
-
-{ #category : #'examples - picture snippet' }
-LeHtmlVisitorExamples >> pictureSnippet_SuccessfulWithMissingFileReference [
-	<gtExample>
-	| snippet html resources context visitor |
-	snippet := LePictureSnippet new urlString: self pictureFile_MissingOne.
-	html := String streamContents: [ :stream | 
-		snippet acceptVisitor: (visitor := LeHtmlVisitor new
-			context: (context := LeHtmlContext new
-				resources: (resources := LeExportResources new);
-				stream: stream)) ].
-				
-	self assert: (html beginsWith: '<figure class="snippet picture-snippet paragraphWidth"').
-	self assert: (html includesSubstring: '<img class="picture-snippet-image" src="gt-figures/1000.jpg"/>').
-	
-	self assert: resources asArray size equals: 1.
-	self 
-		assert: resources asArray first state isReady not
-		description: [ 'Resource must NOT be ready.' ].
-	self 
-		assert: resources asArray first state isFailure
-		description: [ 'Resource must be a failure.' ].
-
-	^ visitor
+	^ LeHtmlVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
 ]

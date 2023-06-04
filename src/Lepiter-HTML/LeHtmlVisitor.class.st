@@ -6,8 +6,16 @@ Class {
 	#instVars : [
 		'context'
 	],
-	#category : #'Lepiter-HTML-! New - Exporter'
+	#category : #'Lepiter-HTML-! Core'
 }
+
+{ #category : #convenience }
+LeHtmlVisitor >> contentsFor: snippet [
+	^ String
+		streamContents: [ :stream | 
+			self context stream: stream.
+			snippet acceptVisitor: self ]
+]
 
 { #category : #accessing }
 LeHtmlVisitor >> context [
@@ -15,16 +23,9 @@ LeHtmlVisitor >> context [
 	^ context
 ]
 
-{ #category : #'api - initialization' }
-LeHtmlVisitor >> context: aLeHtmlContext [
-	self
-		assert: [ aLeHtmlContext isNotNil ]
-		description: [ 'Context must be non-nil' ].
-	self
-		assert: [ context isNil ]
-		description: [ 'Context must be initialized only once' ].
-	
-	context := aLeHtmlContext
+{ #category : #accessing }
+LeHtmlVisitor >> context: aContext [
+	context := aContext
 ]
 
 { #category : #'gt - extensions' }
@@ -71,10 +72,9 @@ LeHtmlVisitor >> gtStreamStateFor: aView [
 		view: #gtStreamStateFor:
 ]
 
-{ #category : #exporting }
+{ #category : #'private - writing' }
 LeHtmlVisitor >> html [
-	<return: #ZnHtmlOutputStream>
-	^ self context html
+	^ context html
 ]
 
 { #category : #'private - logging' }
@@ -82,38 +82,60 @@ LeHtmlVisitor >> logUnsupportedSnippet: aLeSnippet [
 	context logger unsupportedSnippet: aLeSnippet
 ]
 
-{ #category : #exporting }
-LeHtmlVisitor >> resourceFor: aLeSnippet [
-	<return: #LeExportResourcerResult>
-	^ self context resourcer resourceFor: aLeSnippet
+{ #category : #convenience }
+LeHtmlVisitor >> resourcesFor: aLeSnippet [
+	<return: #Collection of: #TLeExportResource>
+	| snippetResources |
+	snippetResources := context resources select: [ :eachResource | 
+		eachResource source == aLeSnippet ].
+		
+	^ LeExportSnippetResources new
+		resources: snippetResources
 ]
 
 { #category : #visiting }
 LeHtmlVisitor >> visitElementSnippet: aLeElementSnippet [
-
-	| aResult aFileName |
-	aResult := self resourceFor: aLeElementSnippet.
-	aFileName := aResult resource pathName.
+	| snippetResources |
 	
-	self 
-		writeFigureImgSrc: aFileName 
-		caption: aLeElementSnippet caption.
-		
-	self visitContent: aLeElementSnippet
+	snippetResources := self resourcesFor: aLeElementSnippet.
+	
+	snippetResources 
+		ifEmpty: [ "ignore" ]
+		ifOne: [ :aResource |
+			| aFileName |
+			aFileName := aResource pathName.
+			LeHtmlFigureImageWriter new
+				html: context html;
+				imageSrc: aFileName;
+				caption: aLeElementSnippet caption;
+				write ]
+		ifMore: [ :aCollection |
+			LeHtmlCarouselWriter new
+				html: context html;
+				sequencer: context sequencer;
+				resources: aCollection;
+				write ].
+
+	^ self visitContent: aLeElementSnippet
 ]
 
 { #category : #visiting }
 LeHtmlVisitor >> visitPictureSnippet: aLePictureSnippet [
 
-	| aResult anImgSrc |
-	aResult := self resourceFor: aLePictureSnippet.
-	anImgSrc := aResult resource imgSrc.
+	| snippetResources |
+	snippetResources := self resourcesFor: aLePictureSnippet.
 	
-	self 
-		writeFigureImgSrc: anImgSrc 
-		caption: aLePictureSnippet caption.
-		
-	self visitContent: aLePictureSnippet
+	snippetResources 
+		ifEmpty: [ "ignore" ]
+		ifOne: [ :aResource |
+			LeHtmlFigureImageWriter new
+				html: context html;
+				imageSrc: aResource imgSrc;
+				caption: aLePictureSnippet caption;
+				write ]
+		ifMore: [ :aCollection | "ignore" ].
+
+	^ self visitContent: aLePictureSnippet 
 ]
 
 { #category : #visiting }
@@ -124,25 +146,4 @@ LeHtmlVisitor >> visitSnippet: aLeSnippet [
 	self logUnsupportedSnippet: aLeSnippet.
 
 	^ self visitContent: aLeSnippet
-]
-
-{ #category : #'private - writing' }
-LeHtmlVisitor >> writeFigureImgSrc: anImgSrc caption: aCaption [ 
-
-	self html
-		tag: #figure
-		attributes: #('class' 'snippet picture-snippet paragraphWidth')
-		do: [
-
-			self html
-				inlineTag: 'img'
-				attributes: {'class'. 'picture-snippet-image'. 'src'. anImgSrc }.
-
-			(aCaption isNotNil
-				and: [ aCaption trimBoth isNotEmpty ])
-				ifTrue: [ 
-					self html
-						inlineTag: 'figcaption'
-						attributes: #('class' 'picture-snippet-caption')
-						with: aCaption asString ] ]
 ]

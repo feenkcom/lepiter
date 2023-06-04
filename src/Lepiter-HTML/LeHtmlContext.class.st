@@ -1,92 +1,12 @@
 Class {
 	#name : #LeHtmlContext,
-	#superclass : #Object,
+	#superclass : #LeExportContext,
 	#instVars : [
 		'stream',
-		'resources',
-		'htmlStream',
-		'sequencer',
-		'fileStore',
-		'log'
+		'htmlStream'
 	],
-	#category : #'Lepiter-HTML-! New - Exporter'
+	#category : #'Lepiter-HTML-! Core'
 }
-
-{ #category : #'api - builders' }
-LeHtmlContext >> assembler [
-	^ LeExportResourceAssembler new context: self
-]
-
-{ #category : #initialization }
-LeHtmlContext >> defaultFileStore [
-	^ LeExportMemoryStore new
-]
-
-{ #category : #initialization }
-LeHtmlContext >> defaultLog [
-	^ LeExportLog new
-]
-
-{ #category : #initialization }
-LeHtmlContext >> defaultResources [
-	^ LeExportResources new
-]
-
-{ #category : #initialization }
-LeHtmlContext >> defaultSequencer [
-	^ LeIntegerSequencer new
-]
-
-{ #category : #'api - accessing' }
-LeHtmlContext >> fileStore [
-	<return: #TLeExportFileStore>
-	^ fileStore ifNil: [ fileStore := self defaultFileStore ]
-]
-
-{ #category : #'api - initialization' }
-LeHtmlContext >> fileStore: aLeExportFileStore [
-	self
-		assert: [ aLeExportFileStore isNotNil ]
-		description: [ 'File store must be non-nil' ].
-	self
-		assert: [ sequencer isNil ]
-		description: [ 'File store must be initialized only once' ].
-	
-	fileStore := aLeExportFileStore
-]
-
-{ #category : #'gt - extensions' }
-LeHtmlContext >> gtFilesFor: aView [
-	<gtView>
-	fileStore ifNil: [ ^ aView empty ].
-	^ aView forward
-		title: 'Files';
-		priority: 20;
-		object: [ fileStore ];
-		view: #gtFilesFor:
-]
-
-{ #category : #'gt - extensions' }
-LeHtmlContext >> gtLogFor: aView [
-	<gtView>
-	log ifNil: [ ^ aView empty ].
-	^ aView forward
-		title: 'Log';
-		priority: 20;
-		object: [ log ];
-		view: #gtLogItemsFor:
-]
-
-{ #category : #'gt - extensions' }
-LeHtmlContext >> gtResourcesFor: aView [
-	<gtView>
-	resources ifNil: [ ^ aView empty ].
-	^ aView forward
-		title: 'Resources';
-		priority: 15;
-		object: [ resources ];
-		view: #gtResourcesFor:
-]
 
 { #category : #'gt - extensions' }
 LeHtmlContext >> gtStreamStateFor: aView [
@@ -114,70 +34,6 @@ LeHtmlContext >> html [
 		ifNil: [ (stream isKindOf: ZnHtmlOutputStream)
 				ifTrue: [ htmlStream := stream ]
 				ifFalse: [ htmlStream := LeHtmlOutputPrettyStream on: stream ] ]
-]
-
-{ #category : #'api - accessing' }
-LeHtmlContext >> log [
-	<return: #TLeExportLog>
-	^ log ifNil: [ log := self defaultLog ]
-]
-
-{ #category : #'api - builders' }
-LeHtmlContext >> logger [
-	^ LeExportLogger new context: self
-]
-
-{ #category : #'api - builders' }
-LeHtmlContext >> nextFileReferenceTo: aRelativePath [
-	<return: #FileReference>
-	^ self fileStore nextFileReferenceTo: aRelativePath
-]
-
-{ #category : #'api - builders' }
-LeHtmlContext >> nextSequenceId [
-	<return: #String>
-	^ self sequencer nextId
-]
-
-{ #category : #'api - builders' }
-LeHtmlContext >> resourcer [
-	^ LeExportResourceBuilder new context: self
-]
-
-{ #category : #'api - accessing' }
-LeHtmlContext >> resources [
-	<return: #LeExportResources>
-	^ resources ifNil: [ resources := self defaultResources ]
-]
-
-{ #category : #'api - initialization' }
-LeHtmlContext >> resources: aLeExportResources [
-	self
-		assert: [ aLeExportResources isNotNil ]
-		description: [ 'Resources must be non-nil' ].
-	self
-		assert: [ resources isNil ]
-		description: [ 'Resources must be initialized only once' ].
-	
-	resources := aLeExportResources
-]
-
-{ #category : #'api - accessing' }
-LeHtmlContext >> sequencer [
-	<return: #TLeSequencer>
-	^ sequencer ifNil: [ sequencer := self defaultSequencer ]
-]
-
-{ #category : #'api - initialization' }
-LeHtmlContext >> sequencer: aLeSequencer [
-	self
-		assert: [ aLeSequencer isNotNil ]
-		description: [ 'Sequencer must be non-nil' ].
-	self
-		assert: [ sequencer isNil ]
-		description: [ 'Sequencer must be initialized only once' ].
-	
-	sequencer := aLeSequencer
 ]
 
 { #category : #'api - initialization' }
