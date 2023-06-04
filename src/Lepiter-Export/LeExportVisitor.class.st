@@ -60,7 +60,7 @@ LeExportVisitor >> logUnsupportedSnippet: aLeSnippet [
 
 { #category : #'private - exporting' }
 LeExportVisitor >> objectSpecificationFor: anObject [
-	<return: #TLeObjectExportSpecification>
+	<return: #TLeExportObjectSpecification>
 	^ context objectSpecificationFor: anObject
 ]
 

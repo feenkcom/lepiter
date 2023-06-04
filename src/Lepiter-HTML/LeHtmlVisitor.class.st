@@ -19,7 +19,7 @@ LeHtmlVisitor >> contentsFor: snippet [
 
 { #category : #accessing }
 LeHtmlVisitor >> context [
-	<return: #TLeHtmlContext>
+	<return: #LeHtmlContext>
 	^ context
 ]
 

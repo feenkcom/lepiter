@@ -64,7 +64,7 @@ LeHtmlBookExporter >> export [
 
 { #category : #'api - exporting' }
 LeHtmlBookExporter >> exportPageLink: aPageLink [
-	LeHtmlPageExporter new
+	LeHtmlPageExporterOld new
 		pageLink: aPageLink;
 		pageLinks: pageLinks;
 		resourcesExporter: resourcesExporter;

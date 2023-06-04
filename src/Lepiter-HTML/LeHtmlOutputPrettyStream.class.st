@@ -5,7 +5,7 @@ Class {
 		'indent',
 		'allowIndent'
 	],
-	#category : #'Lepiter-HTML-Old-Streams'
+	#category : #'Lepiter-HTML-Streams'
 }
 
 { #category : #'private - html' }
@@ -117,6 +117,17 @@ LeHtmlOutputPrettyStream >> inlineTag: tag class: cssClass with: string [
 			tag: tag 
 			class: cssClass 
 			with: string
+	]
+]
+
+{ #category : #'html tags' }
+LeHtmlOutputPrettyStream >> inlineTag: tag with: string [
+	"Write an HTML tag using the escaped string as content"
+
+	"<tag>string</tag>"
+
+	self noIndentDo: [ 
+		self tag: tag with: string
 	]
 ]
 

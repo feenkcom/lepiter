@@ -5,7 +5,7 @@ Since there is no database present at this level, links to other pages, etc. can
 
 "
 Class {
-	#name : #LeHtmlPageExporterExamples,
+	#name : #LeHtmlPageExporterExamplesOld,
 	#superclass : #Object,
 	#instVars : [
 		'databases'
@@ -14,7 +14,7 @@ Class {
 }
 
 { #category : #after }
-LeHtmlPageExporterExamples >> addDatabase: aDatabase [
+LeHtmlPageExporterExamplesOld >> addDatabase: aDatabase [
 	databases
 		ifNil: [ databases := Array with: aDatabase.
 			^ self ].
@@ -23,7 +23,7 @@ LeHtmlPageExporterExamples >> addDatabase: aDatabase [
 ]
 
 { #category : #after }
-LeHtmlPageExporterExamples >> cleanUp [
+LeHtmlPageExporterExamplesOld >> cleanUp [
 	"We do not remove database root directories as we use predefined samples."
 
 	databases
@@ -33,7 +33,7 @@ LeHtmlPageExporterExamples >> cleanUp [
 ]
 
 { #category : #private }
-LeHtmlPageExporterExamples >> sampleCssFile [
+LeHtmlPageExporterExamplesOld >> sampleCssFile [
 	"Answer the sample css file included in the test data"
 
 	<gtExample>
@@ -47,7 +47,7 @@ LeHtmlPageExporterExamples >> sampleCssFile [
 ]
 
 { #category : #private }
-LeHtmlPageExporterExamples >> sampleDatabase [
+LeHtmlPageExporterExamplesOld >> sampleDatabase [
 	"Answer the sample database to be used.
 	The database is opened without a monitor, so no changes will be saved"
 
@@ -66,7 +66,7 @@ LeHtmlPageExporterExamples >> sampleDatabase [
 ]
 
 { #category : #private }
-LeHtmlPageExporterExamples >> sampleDatabaseLocation [
+LeHtmlPageExporterExamplesOld >> sampleDatabaseLocation [
 	"Answer the sample database for the examples"
 
 	<gtExample>
@@ -78,7 +78,7 @@ LeHtmlPageExporterExamples >> sampleDatabaseLocation [
 ]
 
 { #category : #examples }
-LeHtmlPageExporterExamples >> samplePage [
+LeHtmlPageExporterExamplesOld >> samplePage [
 	"Answer the html of a sample page"
 	<gtExample>
 	| database page |
@@ -92,7 +92,7 @@ LeHtmlPageExporterExamples >> samplePage [
 ]
 
 { #category : #examples }
-LeHtmlPageExporterExamples >> samplePageExport [
+LeHtmlPageExporterExamplesOld >> samplePageExport [
 	"Answer the html of a sample page"
 	<gtExample>
 	| visitor html page |
@@ -112,7 +112,7 @@ LeHtmlPageExporterExamples >> samplePageExport [
 ]
 
 { #category : #examples }
-LeHtmlPageExporterExamples >> sampleSnippetsPage [
+LeHtmlPageExporterExamplesOld >> sampleSnippetsPage [
 	"Answer the html of a sample page"
 	<gtExample>
 	| database page |
@@ -126,7 +126,7 @@ LeHtmlPageExporterExamples >> sampleSnippetsPage [
 ]
 
 { #category : #examples }
-LeHtmlPageExporterExamples >> sampleSnippetsPageExport [
+LeHtmlPageExporterExamplesOld >> sampleSnippetsPageExport [
 	"Answer the html of a sample page"
 	<gtExample>
 	| visitor html page aResources |
@@ -149,7 +149,7 @@ LeHtmlPageExporterExamples >> sampleSnippetsPageExport [
 ]
 
 { #category : #tests }
-LeHtmlPageExporterExamples >> testDataLocation [
+LeHtmlPageExporterExamplesOld >> testDataLocation [
 	"Answer the location of the test data based on the git repository"
 
 	<gtExample>

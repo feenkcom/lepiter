@@ -146,7 +146,7 @@ LeExportContext >> objectSpecificationBuilder [
 LeExportContext >> objectSpecificationFor: anObject [
 	"Return object specification for a given object"
 
-	<return: #TLeObjectExportSpecification>
+	<return: #TLeExportObjectSpecification>
 	^ self objectSpecificationBuilder
 		object: anObject;
 		find;

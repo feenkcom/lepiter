@@ -125,7 +125,7 @@ LeExportObjectSpecificationBuilder >> object: anObject [
 
 { #category : #accessing }
 LeExportObjectSpecificationBuilder >> objectSpecification [
-	<return: #TLeObjectExportSpecification>
+	<return: #TLeExportObjectSpecification>
 	^ objectSpecification
 ]
 

@@ -1,5 +1,5 @@
 Class {
-	#name : #LeHtmlPageExporter,
+	#name : #LeHtmlPageExporterOld,
 	#superclass : #Object,
 	#instVars : [
 		'resourcesExporter',
@@ -15,7 +15,7 @@ Class {
 }
 
 { #category : #accessing }
-LeHtmlPageExporter >> content [
+LeHtmlPageExporterOld >> content [
 	"Return an exported HTML content."
 
 	<return: #String>
@@ -23,18 +23,18 @@ LeHtmlPageExporter >> content [
 ]
 
 { #category : #accessing }
-LeHtmlPageExporter >> decorator [
+LeHtmlPageExporterOld >> decorator [
 	<return: #LeHtmlPageDecorator>
 	^ decorator
 ]
 
 { #category : #accessing }
-LeHtmlPageExporter >> decorator: aLeHTMLPageDecorator [
+LeHtmlPageExporterOld >> decorator: aLeHTMLPageDecorator [
 	decorator := aLeHTMLPageDecorator
 ]
 
 { #category : #convenience }
-LeHtmlPageExporter >> export [
+LeHtmlPageExporterOld >> export [
 	| exportVisitor |
 	exportVisitor := LeHtmlBookPageExporterVisitor new.
 	
@@ -69,7 +69,7 @@ LeHtmlPageExporter >> export [
 ]
 
 { #category : #accessing }
-LeHtmlPageExporter >> gtContentFor: aView [
+LeHtmlPageExporterOld >> gtContentFor: aView [
 	<gtView>
 	^ aView textEditor
 		title: 'HTML';
@@ -80,7 +80,7 @@ LeHtmlPageExporter >> gtContentFor: aView [
 ]
 
 { #category : #'gt - extensions' }
-LeHtmlPageExporter >> gtResourcesFor: aView [
+LeHtmlPageExporterOld >> gtResourcesFor: aView [
 	<gtView>
 	resourcesExporter ifNil: [ ^ aView empty ].
 	^ aView forward
@@ -91,52 +91,52 @@ LeHtmlPageExporter >> gtResourcesFor: aView [
 ]
 
 { #category : #initialization }
-LeHtmlPageExporter >> initialize [
+LeHtmlPageExporterOld >> initialize [
 	super initialize.
 
 	exportPart := LeHtmlNoPageExportPart uniqueInstance
 ]
 
 { #category : #accessing }
-LeHtmlPageExporter >> page [
+LeHtmlPageExporterOld >> page [
 	<return: #LePage>
 	^ self pageLink page
 ]
 
 { #category : #accessing }
-LeHtmlPageExporter >> pageLink [
+LeHtmlPageExporterOld >> pageLink [
 	<return: #TLeHtmlBookPageLink>
 	^ pageLink
 ]
 
 { #category : #accessing }
-LeHtmlPageExporter >> pageLink: aPageLink [
+LeHtmlPageExporterOld >> pageLink: aPageLink [
 	pageLink := aPageLink
 ]
 
 { #category : #accessing }
-LeHtmlPageExporter >> pageLinks [
+LeHtmlPageExporterOld >> pageLinks [
 	^ pageLinks
 ]
 
 { #category : #accessing }
-LeHtmlPageExporter >> pageLinks: anObject [
+LeHtmlPageExporterOld >> pageLinks: anObject [
 	pageLinks := anObject
 ]
 
 { #category : #accessing }
-LeHtmlPageExporter >> resourcesExporter [
+LeHtmlPageExporterOld >> resourcesExporter [
 	<return: #LeResourcesExporter>
 	^ resourcesExporter
 ]
 
 { #category : #accessing }
-LeHtmlPageExporter >> resourcesExporter: aLeResourcesExporter [
+LeHtmlPageExporterOld >> resourcesExporter: aLeResourcesExporter [
 	resourcesExporter := aLeResourcesExporter
 ]
 
 { #category : #convenience }
-LeHtmlPageExporter >> saveToRootDirectory: aDirectory [
+LeHtmlPageExporterOld >> saveToRootDirectory: aDirectory [
 	LeResourcesDirectorySaver new
 		resources: resourcesExporter;
 		rootDirectory: aDirectory;
@@ -144,17 +144,17 @@ LeHtmlPageExporter >> saveToRootDirectory: aDirectory [
 ]
 
 { #category : #accessing }
-LeHtmlPageExporter >> shouldGenerateHeader [
+LeHtmlPageExporterOld >> shouldGenerateHeader [
 	^ shouldGenerateHeader
 ]
 
 { #category : #accessing }
-LeHtmlPageExporter >> shouldGenerateHeader: anObject [
+LeHtmlPageExporterOld >> shouldGenerateHeader: anObject [
 	shouldGenerateHeader := anObject
 ]
 
 { #category : #'api - initialization' }
-LeHtmlPageExporter >> withBookNavigation: aGtBook pageLinks: thePageLinks [
+LeHtmlPageExporterOld >> withBookNavigation: aGtBook pageLinks: thePageLinks [
 	| aPart |
 	aPart := LeHtmlBookNavigationExportPart new
 			database: aGtBook;
@@ -164,12 +164,12 @@ LeHtmlPageExporter >> withBookNavigation: aGtBook pageLinks: thePageLinks [
 ]
 
 { #category : #'api - initialization' }
-LeHtmlPageExporter >> withFileAssets: aRootDirectory [
+LeHtmlPageExporterOld >> withFileAssets: aRootDirectory [
 	self
 		decorator: (LeHtmlPageDirectoryAssetsDecorator new rootDiretory: aRootDirectory)
 ]
 
 { #category : #'api - initialization' }
-LeHtmlPageExporter >> withLocalAssets: aBoolean [
+LeHtmlPageExporterOld >> withLocalAssets: aBoolean [
 	self decorator: (LeHtmlPageDecorator withLocalAssets: aBoolean)
 ]
