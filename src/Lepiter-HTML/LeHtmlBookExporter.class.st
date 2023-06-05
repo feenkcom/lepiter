@@ -110,6 +110,7 @@ LeHtmlBookExporter >> exportPageLink: aPageLink [
 		pageLinks: self pageLinks;
 		resources: self resources;
 		database: self database;
+		sequencer: self sequencer;
 		log: self log.
 
 	anHtml := LeHtmlPageExporter new

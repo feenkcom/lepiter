@@ -15,15 +15,7 @@ LeExportResourcesDirectorySaver >> copyContentOfFile: aSourceFile intoPath: aRel
 	| aFile |
 	aFile := self resolveRelativePath: aRelativePath.
 
-	aFile exists ifTrue: [ 
-		aSourceFile size = aFile size 
-			ifTrue: [ 
-				"Assuming that it is the same file content."
-				^ self ]
-			ifFalse: [ 
-				"Assuming that the file content changed."
-				aFile ensureDelete.
-			] ].
+	aFile ensureDelete.
 
 	aSourceFile copyTo: aFile
 ]
@@ -118,6 +110,8 @@ LeExportResourcesDirectorySaver >> saveBytes: aByteArray intoPath: aRelativePath
 
 { #category : #'api - saving' }
 LeExportResourcesDirectorySaver >> saveResource: aResource [
+	aResource state isReady ifFalse: [ ^ self ].
+
 	aResource accept: self
 ]
 
