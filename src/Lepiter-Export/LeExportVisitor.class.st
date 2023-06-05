@@ -1,0 +1,115 @@
+Class {
+	#name : #LeExportVisitor,
+	#superclass : #Object,
+	#traits : 'TLeModelVisitor',
+	#classTraits : 'TLeModelVisitor classTrait',
+	#instVars : [
+		'context'
+	],
+	#category : #'Lepiter-Export-! Core'
+}
+
+{ #category : #accessing }
+LeExportVisitor >> context [
+	<return: #TLeExportContext>
+	^ context
+]
+
+{ #category : #accessing }
+LeExportVisitor >> context: aContext [
+	context := aContext
+]
+
+{ #category : #'gt - extensions' }
+LeExportVisitor >> gtFilesFor: aView [
+	<gtView>
+	context ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Files';
+		priority: 20;
+		object: [ context ];
+		view: #gtFilesFor:
+]
+
+{ #category : #'gt - extensions' }
+LeExportVisitor >> gtLogFor: aView [
+	<gtView>
+	context ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Log';
+		priority: 20;
+		object: [ context ];
+		view: #gtLogFor:
+]
+
+{ #category : #'gt - extensions' }
+LeExportVisitor >> gtResourcesFor: aView [
+	<gtView>
+	context ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Resources';
+		priority: 15;
+		object: [ context ];
+		view: #gtResourcesFor:
+]
+
+{ #category : #'private - logging' }
+LeExportVisitor >> logUnsupportedSnippet: aLeSnippet [ 
+	context logger unsupportedSnippet: aLeSnippet
+]
+
+{ #category : #'private - exporting' }
+LeExportVisitor >> objectSpecificationFor: anObject [
+	<return: #TLeExportObjectSpecification>
+	^ context objectSpecificationFor: anObject
+]
+
+{ #category : #'private - exporting' }
+LeExportVisitor >> resourcesFor: aLeSnippet [
+	| snippetResources |
+	snippetResources := context resources select: [ :eachResource | 
+		eachResource source == aLeSnippet ].
+	
+	^ LeExportSnippetResources new
+		resources: snippetResources
+]
+
+{ #category : #visiting }
+LeExportVisitor >> visitElementSnippet: aLeElementSnippet [
+	| element objectSpecification |
+	element := LeExportUtility newSnippetElementFor: aLeElementSnippet.
+	objectSpecification := self objectSpecificationFor: element.
+	
+	objectSpecification resourcer
+		resources: context resources;
+		sequencer: context sequencer;
+		fileStore: context fileStore;
+		snippet: aLeElementSnippet;
+		build;
+		createdResources.
+	
+	^ self visitContent: aLeElementSnippet
+]
+
+{ #category : #visiting }
+LeExportVisitor >> visitPictureSnippet: aLePictureSnippet [
+
+	LeExportPictureResourceBuilder new
+		resources: context resources;
+		sequencer: context sequencer;
+		fileStore: context fileStore;
+		snippet: aLePictureSnippet;
+		build.
+	
+	^ self visitContent: aLePictureSnippet
+]
+
+{ #category : #visiting }
+LeExportVisitor >> visitSnippet: aLeSnippet [
+	"The #visitSnippet: method should be called only when a snippet is not handled.
+	To handle snippet children, call #visitContent:."
+	
+	self logUnsupportedSnippet: aLeSnippet.
+
+	^ self visitContent: aLeSnippet
+]

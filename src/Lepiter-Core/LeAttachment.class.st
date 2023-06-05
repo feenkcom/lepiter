@@ -6,7 +6,7 @@ Class {
 		'uploadedBy',
 		'uploadDate'
 	],
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #accessing }
@@ -68,6 +68,29 @@ LeAttachment >> saveTo: aFileReference for: aLeDatabase [
 			serialize: saveVersion
 			on: (ZnNewLineWriterStream on: stream) 
 			prettyPrint: false ].
+
+]
+
+{ #category : #printing }
+LeAttachment >> storeOn: aStream [
+
+	aStream
+		nextPut: $(;
+		<< self class name;
+		<< ' new';
+		<< ' instVarNamed: ''options'' put: ';
+			<< (self instVarNamed: 'options') storeString;
+			<< ';';
+		<< ' instVarNamed: ''originalReference'' put: ';
+			<< (self instVarNamed: 'originalReference') storeString;
+			<< ';';
+		<< ' instVarNamed: ''uploadDate'' put: ';
+			<< (self instVarNamed: 'uploadDate') storeString;
+			<< ';';
+		<< ' instVarNamed: ''uploadedBy'' put: ';
+			<< (self instVarNamed: 'uploadedBy') storeString;
+			<< ';';
+		<< ' yourself)'
 
 ]
 

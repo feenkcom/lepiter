@@ -58,3 +58,16 @@ LeEmail >> printOn: aStream [
 	self email ifNil: [ ^ super printOn: aStream ].
 	aStream nextPutAll: self email asString.
 ]
+
+{ #category : #printing }
+LeEmail >> storeOn: aStream [
+
+	aStream
+		nextPut: $(;
+		<< self class name;
+		<< ' new';
+		<< ' instVarNamed: ''email'' put: ';
+			<< (self instVarNamed: 'email') storeString;
+			<< ';';
+		<< ' yourself)'
+]

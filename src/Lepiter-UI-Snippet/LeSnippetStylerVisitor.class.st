@@ -535,13 +535,19 @@ LeSnippetStylerVisitor >> styleHeader: aHeaderNode [
 	(self text from: aHeaderNode startPosition to: aHeaderNode stopPosition)
 		bold;
 		fontSize: (self fontSizeForHeadingLevel: aHeaderNode headerLevel).
-
 	self
 		styleAutoHiding: (aHeaderNode startPosition
 				to: (aHeaderNode numberSigns last stopPosition min: aHeaderNode stopPosition))
 		text: (self text
 				from: aHeaderNode startPosition
-				to: (aHeaderNode numberSigns last stopPosition min: aHeaderNode stopPosition))
+				to: (aHeaderNode numberSigns last stopPosition min: aHeaderNode stopPosition)).
+	aHeaderNode startPosition > 1
+		ifTrue: [ (self text from: aHeaderNode startPosition to: aHeaderNode stopPosition)
+				paragraphMargin: (BlInsets
+						top: (5 - aHeaderNode numberSigns size max: 1) * 10
+						left: 0
+						bottom: 5
+						right: 0) ]
 ]
 
 { #category : #'private - styling' }

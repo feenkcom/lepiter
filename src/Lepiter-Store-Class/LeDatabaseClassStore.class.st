@@ -2,7 +2,8 @@ Class {
 	#name : #LeDatabaseClassStore,
 	#superclass : #LeDatabaseStore,
 	#instVars : [
-		'dbClass'
+		'dbClass',
+		'dbPackage'
 	],
 	#category : #'Lepiter-Store-Class-Model'
 }
@@ -11,7 +12,105 @@ Class {
 LeDatabaseClassStore class >> forJsonV4 [
 	"Answer an instance of the receiver with JSON V4 storage format"
 
-	^ self new storage: LeClassJsonV4Storage new
+	^ self new storage: LeDatabaseClassJsonV4Storage new
+]
+
+{ #category : #'instance creation' }
+LeDatabaseClassStore class >> newDbOnClass: classSymbol package: packageSymbol [
+	"Answer a new LeDatabase with the supplied class details"
+
+	^ self newDbOnClass: classSymbol package: packageSymbol saveDelay: 30 seconds
+]
+
+{ #category : #'instance creation' }
+LeDatabaseClassStore class >> newDbOnClass: classSymbol package: packageSymbol saveDelay: aDuration [
+	"Answer a new LeDatabase with the supplied class details"
+	| db |
+
+	self environment at: classSymbol
+		ifPresent: [ :cls | self error: 'Class already exists: ', classSymbol ].
+
+	LeDatabaseClassStoreExport forJsonV4
+		database: LeDatabase new;
+		dbClassName: classSymbol package: packageSymbol;
+		export.
+	db := LeDatabaseClassStoreLoad forJsonV4
+		loadFrom: classSymbol
+		package: packageSymbol
+		saveDelay: aDuration.
+	db properties savePersonalInformation: true.
+	^ db.
+]
+
+{ #category : #attachments }
+LeDatabaseClassStore >> addAttachmentByCopy: aFileReference [
+	"Copy the attached file to the receiver's DB and answer the string identifying the attachment"
+	<return: #String>
+	| attachmentUUID metadata |
+
+	attachmentUUID := UUID new asString36.
+	metadata := LeAttachment new uploadDate: DateAndTime now.
+	self savePersonalInformation ifTrue:
+		[ metadata
+			originalReference: aFileReference asFileReference;
+			uploadedBy: self userEmail ].
+	storage
+		saveAttachment: aFileReference binaryContents 
+		inClass: dbClass 
+		selector: ('attachment_', attachmentUUID) asSymbol
+		title: aFileReference basename
+		classified: 'attachments'
+		metadata: metadata.
+	^ attachmentUUID
+]
+
+{ #category : #attachments }
+LeDatabaseClassStore >> addAttachmentByMove: aFileReference [
+	"Move the attached file to the receiver's DB and answer a string identifying the attachment"
+
+	self error: 'LeDatabaseClassStore is unable to reference external files'
+]
+
+{ #category : #attachments }
+LeDatabaseClassStore >> addAttachmentWithContent: aString named: aName [
+	"Copy the attached file to the receiver's DB and answer the string identifying the attachment"
+	<return: #String>
+	| attachmentUUID metadata |
+
+	attachmentUUID := UUID new asString36.
+	metadata := LeAttachment new uploadDate: DateAndTime now.
+	self savePersonalInformation ifTrue:
+		[ metadata
+			originalReference: aName asFileReference;
+			uploadedBy: self userEmail ].
+	storage
+		saveAttachment: aString utf8Encoded
+		inClass: dbClass 
+		selector: ('attachment_', attachmentUUID) asSymbol
+		title: aName
+		classified: 'attachments'
+		metadata: metadata.
+	^ attachmentUUID
+]
+
+{ #category : #attachments }
+LeDatabaseClassStore >> attachmentBinaryStream: attachmentId do: aBlock [
+	"Answer a stream on the binary contents of the supplied attachment path"
+
+	^ aBlock value: (storage loadAttachmentFromMethod: (dbClass class >> (storage attachmentSelectorFor: attachmentId))) readStream
+]
+
+{ #category : #accessing }
+LeDatabaseClassStore >> attachmentIds [
+
+	^ storage attachmentIdsFor: dbClass
+]
+
+{ #category : #attachments }
+LeDatabaseClassStore >> attachmentUtf8Stream: attachmentId do: aBlock [
+	"Answer a stream on the binary contents of the supplied attachment path"
+
+	^ aBlock value: (ZnCharacterReadStream on: (storage loadAttachmentFromMethod: (dbClass class >> (storage attachmentSelectorFor: attachmentId))) readStream encoding: 'utf-8')
 ]
 
 { #category : #accessing }
@@ -20,8 +119,10 @@ LeDatabaseClassStore >> dbClass [
 ]
 
 { #category : #accessing }
-LeDatabaseClassStore >> dbClass: anObject [
-	dbClass := anObject
+LeDatabaseClassStore >> dbClass: aClass [
+
+	dbClass := aClass.
+	dbPackage := aClass package name.
 ]
 
 { #category : #accessing }
@@ -43,7 +144,18 @@ LeDatabaseClassStore >> dbClassName: aSymbol package: packageName [
 			[ Object subclass: aSymbol
 				instanceVariableNames: '' 
 				classVariableNames: ''
-				package: packageName ]
+				package: packageName ].
+	dbPackage := packageName.
+]
+
+{ #category : #accessing }
+LeDatabaseClassStore >> dbPackage [
+	^ dbPackage
+]
+
+{ #category : #accessing }
+LeDatabaseClassStore >> dbPackage: aString [
+	dbPackage := aString
 ]
 
 { #category : #'accessing - db properties' }
@@ -54,6 +166,19 @@ LeDatabaseClassStore >> defaultDatabaseName [
 	^ self dbClassName
 ]
 
+{ #category : #private }
+LeDatabaseClassStore >> loadExplicitLinks [
+	"Load all the explicit links from the receiver's class"
+	| method |
+
+	method := dbClass class methodDict
+		at: #links
+		ifAbsent: [ ^ nil ].
+	^ [ storage loadFromMethod: method ]
+		on: LeDBLoadError 
+		fork: [ :ex | ex pass ].
+]
+
 { #category : #'accessing - db properties' }
 LeDatabaseClassStore >> loadPropertiesDictionary [
 	"Answer the lepiter properties dictionary"
@@ -61,6 +186,14 @@ LeDatabaseClassStore >> loadPropertiesDictionary [
 	^ [ storage loadFromMethod: dbClass class >> #databaseProperties ]
 		on: KeyNotFound
 		do: [ :ex | Dictionary new ]
+]
+
+{ #category : #accessing }
+LeDatabaseClassStore >> pagesFromStore [
+	"Answer a collection of all pages loaded from the store"
+
+	^ (storage pageSelectorsIn: dbClass) collect: [ :selector |
+		storage loadFromClass: dbClass selector: selector ]
 ]
 
 { #category : #'accessing - db properties' }
@@ -96,4 +229,33 @@ LeDatabaseClassStore >> savePropertiesDictionary: propertiesDictionary [
 		selector: #databaseProperties
 		title: 'Database Properties'
 		classified: 'properties'
+]
+
+{ #category : #accessing }
+LeDatabaseClassStore >> signalDuplicatePage: aPage reason: aString originalException: originalException [
+	| error |
+
+	UIManager default inform: 'Lepiter: Unable to load: ', aPage title, ' in ', dbClass name, ' due to a duplicate page ID'.
+	storage renameTo: 'duplicate' pageUid: aPage uid class: dbClass.
+	error := LeDBLoadError new.
+	error properties 
+		at: #class put: dbClass;
+		at: #selector put: (storage pageSelectorFor: aPage).
+	error
+		pageTitle: aPage title;
+		pageUid: aPage uid;
+		reason: aString;
+		originalException: nil;
+		signal
+]
+
+{ #category : #accessing }
+LeDatabaseClassStore >> storeLocation [
+	"Answer the receiver's DB location."
+
+	dbClass ifNil: [ ^ nil ].
+
+	^ ZnUrl new
+		scheme: #class;
+		segments: (OrderedCollection with: dbPackage with: dbClass name)
 ]

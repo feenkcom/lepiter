@@ -81,17 +81,18 @@ LeDatabaseClassStoreMonitor >> announcer [
 	^ announcer
 ]
 
+{ #category : #attachments }
+LeDatabaseClassStoreMonitor >> attachmentProperties: attachmentPath [
+	"Answer the properties of the specified attachment"
+
+	^ dbClass perform: ('attachment_', attachmentPath) asSymbol.
+]
+
 { #category : #accessing }
 LeDatabaseClassStoreMonitor >> corruptSelectors [
 	"Answer the receiver's collection of corrupt selectors"
 
 	^ corruptSelectors
-]
-
-{ #category : #'private - accessing' }
-LeDatabaseClassStoreMonitor >> defaultDelay [
-
-	^ 30 seconds
 ]
 
 { #category : #accessing }
@@ -113,21 +114,19 @@ LeDatabaseClassStoreMonitor >> forceSchemaUpgradeFrom: aString [
 { #category : #'gt-extensions' }
 LeDatabaseClassStoreMonitor >> gtAttachmentsFor: aView [
 	<gtView>
-	nil ifNil: [ ^ aView empty ].
-	
+
 	^ aView columnedList
 		title: 'Attachments';
 		priority: 15;
-		items: [ self attachmentsDirectory directories ];
-		column: 'ID' text: #basename;
-		column: 'Name' text: [ :aDirectory | 
-			| allFiles |
-			allFiles := aDirectory files select: [ :aFile | 
-				aFile basename ~= LeAttachment basename ].
-			allFiles size = 1
-				ifTrue: [ allFiles first basename ]
-				ifFalse: [ allFiles size asString, ' attachments' ] ]
-	
+		items: [ self attachmentIds ];
+		column: 'ID' text: #yourself;
+		column: 'Name' text: [ :id | | selector properties |
+			selector := storage attachmentSelectorFor: id.
+			properties := dbClass perform: selector.
+			properties originalReference 
+				ifNil: [ '<none>' ]
+				ifNotNil: #basename ];
+		actionUpdateButton
 ]
 
 { #category : #'gt-extensions' }
@@ -152,7 +151,7 @@ LeDatabaseClassStoreMonitor >> gtViewStatusDetailsFor: aView [
 		priority: 5;
 		items: [ {
 			'Has pending change' -> self hasChanges.
-			'Has corrupt files' -> self hasCorruptSelectors .
+			'Has corrupt files' -> self hasCorruptPages .
 			'Is monitor stopped' -> self isRunning not}];
 		column: 'Name' text: #key;
 		column: 'Value' text: #value;
@@ -165,7 +164,7 @@ LeDatabaseClassStoreMonitor >> hasChanges [
 ]
 
 { #category : #testing }
-LeDatabaseClassStoreMonitor >> hasCorruptSelectors [
+LeDatabaseClassStoreMonitor >> hasCorruptPages [
 	"Answer a boolean indicating whether the receiver is aware of any corrupt pages"
 
 	^ corruptSelectors isNotEmpty 
@@ -209,17 +208,17 @@ LeDatabaseClassStoreMonitor >> isRunning [
 LeDatabaseClassStoreMonitor >> isRunningCleanly [
 	"Answer a boolean indicating whether the receiver is running without any known issues"
 
-	^ state = #running and: [ self hasCorruptSelectors not ]
+	^ state = #running and: [ self hasCorruptPages not ]
 ]
 
 { #category : #private }
-LeDatabaseClassStoreMonitor >> loadCorruptFilenames [
+LeDatabaseClassStoreMonitor >> loadCorruptPages [
 	"Load the list of corrupt files (which should of course be empty)"
 
-	corruptSelectors := dbClass selectors select: [ :selector |
-		(selector beginsWith: 'corrupt_') or:
+	corruptSelectors := dbClass class selectors select: [ :selector |
+		(selector beginsWith: 'corrupted_') or:
 		[ selector beginsWith: 'duplicate_' ] ].
-	^ corruptSelectors
+	^ corruptSelectors.
 ]
 
 { #category : #'startup-shutdown' }
@@ -428,7 +427,7 @@ LeDatabaseClassStoreMonitor >> startMonitoring [
 	self class sessionAnnouncer weak when: LeLocalJSONStoreShutdown send: #shutDown to: self.
 	self class sessionAnnouncer weak when: LeLocalJSONStoreStartup send: #startUp to: self.
 	self scheduleNextUpdate.
-	self loadCorruptFilenames.
+	self loadCorruptPages.
 ]
 
 { #category : #'system startup' }

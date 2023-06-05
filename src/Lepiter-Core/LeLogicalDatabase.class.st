@@ -436,7 +436,7 @@ LeLogicalDatabase >> loadFromProperties [
 
 	self primaryDB: properties primaryDatabase.
 	
-	properties playgroundDatabaseDirectory = self primaryDB localStoreRootDirectory
+	properties playgroundDatabaseUrl = self primaryDB storeLocation
 		ifFalse: [ self playgroundDB: properties playgroundDatabase ]
 		ifTrue: [ self playgroundDB: self primaryDB ].
 	
@@ -611,17 +611,14 @@ LeLogicalDatabase >> playgroundDB: aLeDatabase [
 	aLeDatabase = anOldPlayground ifTrue: [ ^ self ].
 	
 	"Ensure the same instance is used if the primary and playground DBs are the same"
-	(aLeDatabase hasMonitor
-		and: [ primaryDB hasMonitor
-				and: [ aLeDatabase localStoreRootDirectory = primaryDB localStoreRootDirectory ] ])
-					ifTrue: [ (anOldPlayground isNotNil and: [ anOldPlayground ~= primaryDB ])
-							ifTrue: [
-								self unsubscribeFromDatabase: anOldPlayground.
-								playgroundDB := primaryDB.
-								self notifyDatabaseRemoved: anOldPlayground ].
-						
-						playgroundDB := primaryDB.
-						^ self ].
+	aLeDatabase storeLocation = primaryDB storeLocation ifTrue: 
+		[ (anOldPlayground isNotNil and: [ anOldPlayground ~= primaryDB ]) ifTrue: 
+			[ self unsubscribeFromDatabase: anOldPlayground.
+			playgroundDB := primaryDB.
+			self notifyDatabaseRemoved: anOldPlayground ].
+
+		playgroundDB := primaryDB.
+		^ self ].
 						
 	shouldUnsubscribe := anOldPlayground isNotNil and: [ anOldPlayground ~= primaryDB ].
 
@@ -709,10 +706,11 @@ LeLogicalDatabase >> reloadRequestFrom: aLeDatabase [
 
 { #category : #accessing }
 LeLogicalDatabase >> removeDB: aLeDatabase [
-	"Remove the supplied database from the receiver.
-	Only registered databases can be removed."
+	"Remove the supplied database from the receiver"
 
-	self assert: [ registeredDBs includes: aLeDatabase ].
+	self assert: [ (registeredDBs includes: aLeDatabase) or: [
+		aLeDatabase = primaryDB or: [
+		aLeDatabase = playgroundDB ] ] ].
 
 	self unsubscribeFromDatabase: aLeDatabase.
 
@@ -730,10 +728,10 @@ LeLogicalDatabase >> saveProperties [
 
 	properties isNull ifTrue: [ ^ self ].
 	properties 
-		primaryDatabaseDirectory: primaryDB localStoreRootDirectory;
-		playgroundDatabaseDirectory: playgroundDB localStoreRootDirectory;
-		registeredDatabaseDirectories: (registeredDBs collect:
-			[ :each | each localStoreRootDirectory ]).
+		primaryDatabaseUrl: primaryDB storeLocation;
+		playgroundDatabaseUrl: playgroundDB storeLocation;
+		registeredDatabaseUrls: (registeredDBs collect:
+			[ :each | each storeLocation ]).
 
 ]
 

@@ -1,7 +1,7 @@
 Class {
 	#name : #LeLogicalDatabasePropertiesExamples,
 	#superclass : #Object,
-	#category : 'Lepiter-Store-Examples'
+	#category : #'Lepiter-Store-Examples'
 }
 
 { #category : #private }
@@ -66,12 +66,12 @@ LeLogicalDatabasePropertiesExamples >> migrateStonProperties [
 			stream << self stonDictionaryString ].
 	properties := LeLogicalDatabaseProperties new localFile: propertiesFile.
 
-	self assert: (properties properties at: #primaryDatabaseDirectory)
-			equals: (FileLocator preferences / 'pharo' / 'lepiterdbs' / 'v3' / 'default') printString.
-	self assert: (properties properties at: #playgroundDatabaseDirectory)
-			equals: (FileLocator localDirectory / 'lepiterdbs' / 'v3' / 'playground') printString.
-	self assert: (properties properties at: #registeredDatabaseDirectories) first
-			equals: '{image}', FileSystem disk delimiter asString, 'registered'.
+	self assert: (properties properties at: #primaryDatabaseUrl)
+			equals: 'file:///%7Bpreferences%7D/pharo/lepiterdbs/v3/default'.
+	self assert: (properties properties at: #playgroundDatabaseUrl)
+			equals: 'file:///%7BlocalDirectory%7D/lepiterdbs/v3/playground'.
+	self assert: (properties properties at: #registeredDatabaseUrls) first
+			equals: 'file:///%7Bimage%7D/registered'.
 
 	^ propertiesFile
 ]
@@ -100,10 +100,10 @@ LeLogicalDatabasePropertiesExamples >> setAbsolutePlaygroundDirectory [
 	fileReference := FileLocator home resolve asAbsolute.
 	properties playgroundDatabaseDirectory: fileReference.
 
-	self assert: (properties properties at: #primaryDatabaseDirectory)
-			equals: LepiterCoreDefaults primaryDatabaseDirectory printString.
-	self assert: (properties properties at: #playgroundDatabaseDirectory)
-			equals: fileReference fullName.
+	self assert: (properties properties at: #primaryDatabaseUrl) asLepiterFileReference
+			equals: LepiterCoreDefaults primaryDatabaseDirectory.
+	self assert: (properties properties at: #playgroundDatabaseUrl) asLepiterFileReference
+			equals: fileReference.
 
 	^ fileReference
 ]
@@ -118,7 +118,7 @@ LeLogicalDatabasePropertiesExamples >> setAbsolutePrimaryDirectory [
 	fileReference := FileLocator image resolve asAbsolute.
 	properties primaryDatabaseDirectory: fileReference.
 
-	self assert: (properties properties at: #primaryDatabaseDirectory)
+	self assert: (properties properties at: #primaryDatabaseUrl) asLepiterFileReference fullName
 			equals: fileReference fullName.
 
 	^ fileReference
@@ -134,12 +134,12 @@ LeLogicalDatabasePropertiesExamples >> setAbsoluteRegisteredDirectory [
 	fileReference := FileLocator home resolve asAbsolute.
 	properties addRegisteredDirectory: fileReference.
 
-	self assert: (properties properties at: #primaryDatabaseDirectory)
-			equals: LepiterCoreDefaults primaryDatabaseDirectory printString.
-	self assert: (properties properties at: #playgroundDatabaseDirectory)
-			equals: LepiterCoreDefaults playgroundDatabaseDirectory printString.
-	self assert: (properties properties at: #registeredDatabaseDirectories) first
-			equals: fileReference fullName.
+	self assert: (properties properties at: #primaryDatabaseUrl) asLepiterFileReference
+			equals: LepiterCoreDefaults primaryDatabaseDirectory.
+	self assert: (properties properties at: #playgroundDatabaseUrl) asLepiterFileReference
+			equals: LepiterCoreDefaults playgroundDatabaseDirectory.
+	self assert: (properties properties at: #registeredDatabaseUrls) first asLepiterFileReference
+			equals: fileReference.
 
 	^ fileReference
 ]
@@ -154,10 +154,10 @@ LeLogicalDatabasePropertiesExamples >> setLocatorPlaygroundDirectory [
 	fileReference := FileLocator home / 'path'.
 	properties playgroundDatabaseDirectory: fileReference.
 
-	self assert: (properties properties at: #primaryDatabaseDirectory)
-			equals: LepiterCoreDefaults primaryDatabaseDirectory printString.
-	self assert: (properties properties at: #playgroundDatabaseDirectory)
-			equals: fileReference printString.
+	self assert: (properties properties at: #primaryDatabaseUrl) asLepiterFileReference
+			equals: LepiterCoreDefaults primaryDatabaseDirectory.
+	self assert: (properties properties at: #playgroundDatabaseUrl) asLepiterFileReference
+			equals: fileReference.
 
 	^ fileReference
 ]
@@ -172,8 +172,8 @@ LeLogicalDatabasePropertiesExamples >> setLocatorPrimaryDirectory [
 	fileReference := FileLocator home / 'path'.
 	properties primaryDatabaseDirectory: fileReference.
 
-	self assert: (properties properties at: #primaryDatabaseDirectory)
-			equals: '{home}', FileSystem disk delimiter asString, 'path'.
+	self assert: (properties properties at: #primaryDatabaseUrl)
+			equals: 'file:///%7Bhome%7D/path'.
 
 	^ fileReference
 ]
@@ -188,12 +188,12 @@ LeLogicalDatabasePropertiesExamples >> setLocatorRegisteredDirectory [
 	fileReference := FileLocator home / 'path'.
 	properties addRegisteredDirectory: fileReference.
 
-	self assert: (properties properties at: #primaryDatabaseDirectory)
-			equals: LepiterCoreDefaults primaryDatabaseDirectory printString.
-	self assert: (properties properties at: #playgroundDatabaseDirectory)
-			equals: LepiterCoreDefaults playgroundDatabaseDirectory printString.
-	self assert: (properties properties at: #registeredDatabaseDirectories) first
-			equals: fileReference printString.
+	self assert: (properties properties at: #primaryDatabaseUrl) asLepiterFileReference
+			equals: LepiterCoreDefaults primaryDatabaseDirectory.
+	self assert: (properties properties at: #playgroundDatabaseUrl) asLepiterFileReference
+			equals: LepiterCoreDefaults playgroundDatabaseDirectory.
+	self assert: (properties properties at: #registeredDatabaseUrls) first asLepiterFileReference
+			equals: fileReference.
 
 	^ fileReference
 ]

@@ -138,6 +138,13 @@ LeDatabase >> at: aKey ifPresent: aPresentBlock ifAbsent: anAbsentBlock forPageT
 	^ (pagesByType at: aPageType) at: aKey ifPresent: aPresentBlock ifAbsent: anAbsentBlock
 ]
 
+{ #category : #'api - attachments' }
+LeDatabase >> attachmentBinaryStream: attachmentPath do: aBlock [
+	"Answer a stream on the binary contents of the supplied attachment path"
+
+	^ monitor attachmentBinaryStream: attachmentPath do: aBlock
+]
+
 { #category : #'api - accessing' }
 LeDatabase >> attachmentDirectories [
 
@@ -159,6 +166,19 @@ LeDatabase >> attachmentDirectoryAndMetadataFor: aFileReference [
 		description: 'Unable to add attachment, monitor not configured'.
 
 	^ monitor attachmentDirectoryAndMetadataFor: aFileReference
+]
+
+{ #category : #'api - attachments' }
+LeDatabase >> attachmentProperties: attachmentPath [
+
+	^ monitor attachmentProperties: attachmentPath
+]
+
+{ #category : #'api - attachments' }
+LeDatabase >> attachmentUtf8Stream: attachmentPath do: aBlock [
+	"Answer a stream on the binary contents of the supplied attachment path"
+
+	^ monitor attachmentUtf8Stream: attachmentPath do: aBlock
 ]
 
 { #category : #'private - accessing' }
@@ -319,7 +339,8 @@ LeDatabase >> gtAttachmentsFor: aView [
 		title: 'Attachments';
 		priority: 70;
 		object: [self monitor ];
-		view: #gtAttachmentsFor:
+		view: #gtAttachmentsFor:;
+		actionUpdateButton
 ]
 
 { #category : #'gt-extensions' }
@@ -580,7 +601,10 @@ LeDatabase >> linksWithTargetReferenceMatching: aLinkReference [
 
 { #category : #'api - accessing' }
 LeDatabase >> localStoreRootDirectory [
+	"Answer the directory where the receiver's data is stored.
+	This should no longer be used as non-disk based stores are being added, use #storeLocation as a more general comparison of whether databases have the same data store."
 	<return: #FileReference or: nil>
+
 	^ monitor ifNotNil: [ :aMonitor | aMonitor localRoot ]
 ]
 
@@ -1055,6 +1079,18 @@ LeDatabase >> stopMonitoring [
 	"If the receiver has a db monitor, tell it to stop (saving changes to the receiver)"
 
 	monitor ifNotNil: [ monitor stopMonitoring ]
+]
+
+{ #category : #'api - accessing' }
+LeDatabase >> storeLocation [
+	"Answer the location of the receiver's data store.
+	E.g. for a disk based store it is the directory, for a class based store it is the class.
+	If the database doesn't have a store, answer itself since two databases without stores can be considered the same."
+	<return: #Object>
+
+	^ monitor 
+		ifNil: [ self ]
+		ifNotNil: [ :aMonitor | aMonitor storeLocation ]
 ]
 
 { #category : #'api - accessing' }

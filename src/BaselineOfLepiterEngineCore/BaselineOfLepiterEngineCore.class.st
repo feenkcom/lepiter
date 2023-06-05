@@ -32,6 +32,8 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 				package: 'Lepiter-Utilities' with: [ spec requires: #('Lepiter-Core') ];
 				package: 'Lepiter-Store'
 					with: [ spec requires: #('Lepiter-Core' 'Lepiter-Utilities' 'GToolkit4Json') ];
+				package: 'Lepiter-Store-Class'
+					with: [ spec requires: #('Lepiter-Store') ];
 				package: 'Lepiter-Translator-Roam'
 					with: [ spec requires: #('Lepiter-Store') ];
 				package: 'Lepiter-Translator-JupyterNotebook'
@@ -54,8 +56,12 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 					with: [ spec requires: #('Lepiter-Core' 'Lepiter-UI') ];
 				package: 'Lepiter-ToC'
 					with: [ spec requires: #('Lepiter-Core' 'Lepiter-UI') ];
+				package: 'Lepiter-Export' 
+					with: [ spec requires: #( 'Lepiter-Core' ) ];
 				package: 'Lepiter-HTML'
-					with: [ spec requires: #('Lepiter-Core' 'Lepiter-Parser' 'LepiterXDoc') ];
+					with: [ spec requires: #('Lepiter-Core' 'Lepiter-Parser' 'Lepiter-Export' 'LepiterXDoc') ];
+				package: 'Lepiter-HTML-Old'
+					with: [ spec requires: #('Lepiter-Core' 'Lepiter-Parser' 'Lepiter-Export' 'Lepiter-HTML' 'LepiterXDoc') ];
 				package: 'Lepiter-Playground'
 					with: [ spec requires: #('Lepiter-Core' 'Lepiter-Store' 'Lepiter-UI') ];
 				package: 'Lepiter-Core-Examples'
