@@ -4,6 +4,11 @@ Trait {
 }
 
 { #category : #visiting }
+TLeExportResourceVisitor >> visitExportAnnotationResource: aResource [
+	^ self visitResource: aResource
+]
+
+{ #category : #visiting }
 TLeExportResourceVisitor >> visitExportElementSnippetResource: aResource [
 	^ self visitExportSnippetResource: aResource
 ]
@@ -15,4 +20,15 @@ TLeExportResourceVisitor >> visitExportSlideResource: aResource [
 
 { #category : #visiting }
 TLeExportResourceVisitor >> visitExportSnippetResource: aResource [
+	^ self visitResource: aResource
+]
+
+{ #category : #visiting }
+TLeExportResourceVisitor >> visitLeExportPageOutputResource: aResource [
+	^ self visitResource: aResource
+]
+
+{ #category : #visiting }
+TLeExportResourceVisitor >> visitResource: aResource [
+	
 ]

@@ -1,5 +1,5 @@
 Class {
-	#name : #LeHtmlBookExporter,
+	#name : #LeHtmlBookExporterOld,
 	#superclass : #Object,
 	#instVars : [
 		'database',
@@ -14,41 +14,41 @@ Class {
 }
 
 { #category : #accessing }
-LeHtmlBookExporter >> database [
+LeHtmlBookExporterOld >> database [
 	^ database
 ]
 
 { #category : #accessing }
-LeHtmlBookExporter >> database: anObject [
+LeHtmlBookExporterOld >> database: anObject [
 	database := anObject
 ]
 
 { #category : #accessing }
-LeHtmlBookExporter >> decorator [
+LeHtmlBookExporterOld >> decorator [
 	<return: #LeHtmlPageDecorator>
 	^ decorator
 ]
 
 { #category : #'api - exporting' }
-LeHtmlBookExporter >> decorator: aDecorator [
+LeHtmlBookExporterOld >> decorator: aDecorator [
 	decorator := aDecorator
 ]
 
 { #category : #accessing }
-LeHtmlBookExporter >> ensurePageLinks [
+LeHtmlBookExporterOld >> ensurePageLinks [
 	pageLinks ifNotNil: [ ^ self ].
 
-	pageLinks := LeBookPageLinksBuilder new
+	pageLinks := LeExportPageLinksBuilder new
 			database: database;
 			mainPage: mainPage;
 			html;
-			idGenerator: idGenerator;
+			sequencer: idGenerator;
 			build;
 			links
 ]
 
 { #category : #'api - exporting' }
-LeHtmlBookExporter >> export [
+LeHtmlBookExporterOld >> export [
 	exportTime := [
 
 		self ensurePageLinks.
@@ -63,7 +63,7 @@ LeHtmlBookExporter >> export [
 ]
 
 { #category : #'api - exporting' }
-LeHtmlBookExporter >> exportPageLink: aPageLink [
+LeHtmlBookExporterOld >> exportPageLink: aPageLink [
 	LeHtmlPageExporterOld new
 		pageLink: aPageLink;
 		pageLinks: pageLinks;
@@ -75,7 +75,7 @@ LeHtmlBookExporter >> exportPageLink: aPageLink [
 ]
 
 { #category : #'gt - extensions' }
-LeHtmlBookExporter >> gtResourcesFor: aView [
+LeHtmlBookExporterOld >> gtResourcesFor: aView [
 	<gtView>
 	resourcesExporter ifNil: [ ^ aView empty ].
 	^ aView forward
@@ -85,23 +85,13 @@ LeHtmlBookExporter >> gtResourcesFor: aView [
 		view: #gtResourcesFor:
 ]
 
-{ #category : #accessing }
-LeHtmlBookExporter >> idGenerator [
-	^ idGenerator
-]
-
-{ #category : #accessing }
-LeHtmlBookExporter >> idGenerator: anObject [
-	idGenerator := anObject
-]
-
 { #category : #'api - initialization' }
-LeHtmlBookExporter >> integerGenerator [
-	self idGenerator: XdSequenceNumberGenerator new
+LeHtmlBookExporterOld >> integerGenerator [
+	self sequencer: XdSequenceNumberGenerator new
 ]
 
 { #category : #accessing }
-LeHtmlBookExporter >> mainPage [
+LeHtmlBookExporterOld >> mainPage [
 	"Return a {{gtClass:LePage}} instance that should be displayed 
 	by default, e.g., as `index.html` in case of the HTML export."
 
@@ -110,7 +100,7 @@ LeHtmlBookExporter >> mainPage [
 ]
 
 { #category : #accessing }
-LeHtmlBookExporter >> mainPage: aLePage [
+LeHtmlBookExporterOld >> mainPage: aLePage [
 	"Set a {{gtClass:LePage}} instance that should be displayed 
 	by default, e.g., as `index.html` in case of the HTML export."
 
@@ -118,61 +108,71 @@ LeHtmlBookExporter >> mainPage: aLePage [
 ]
 
 { #category : #accessing }
-LeHtmlBookExporter >> pageLinks [
+LeHtmlBookExporterOld >> pageLinks [
 	^ pageLinks
 ]
 
 { #category : #accessing }
-LeHtmlBookExporter >> pageLinks: anObject [
+LeHtmlBookExporterOld >> pageLinks: anObject [
 	pageLinks := anObject
 ]
 
 { #category : #accessing }
-LeHtmlBookExporter >> resourcesExporter [
+LeHtmlBookExporterOld >> resourcesExporter [
 	^ resourcesExporter
 ]
 
 { #category : #accessing }
-LeHtmlBookExporter >> resourcesExporter: anObject [
+LeHtmlBookExporterOld >> resourcesExporter: anObject [
 	resourcesExporter := anObject
 ]
 
 { #category : #convenience }
-LeHtmlBookExporter >> saveToRootDirectory: aDirectory [
-	LeResourcesDirectorySaver new
+LeHtmlBookExporterOld >> saveToRootDirectory: aDirectory [
+	LeExportResourcesDirectorySaver new
 		resources: resourcesExporter;
 		rootDirectory: aDirectory;
 		save
 ]
 
-{ #category : #'api - initialization' }
-LeHtmlBookExporter >> uuidGenerator [
-	self idGenerator: XdUUIDGenerator new
+{ #category : #accessing }
+LeHtmlBookExporterOld >> sequencer [
+	^ idGenerator
+]
+
+{ #category : #accessing }
+LeHtmlBookExporterOld >> sequencer: anObject [
+	idGenerator := anObject
 ]
 
 { #category : #'api - initialization' }
-LeHtmlBookExporter >> withFileAssets: aRootDirectory [
+LeHtmlBookExporterOld >> uuidSequencer [
+	self sequencer: XdUUIDGenerator new
+]
+
+{ #category : #'api - initialization' }
+LeHtmlBookExporterOld >> withFileAssets: aRootDirectory [
 	self
 		decorator: (LeHtmlPageDirectoryAssetsDecorator new rootDiretory: aRootDirectory)
 ]
 
 { #category : #'api - initialization' }
-LeHtmlBookExporter >> withGtBookAssets [
+LeHtmlBookExporterOld >> withGtBookAssets [
 	self withFileAssets: FileLocator gtResource 
 		/ 'feenkcom/lepiter/doc/gtbook/assets'
 ]
 
 { #category : #'api - initialization' }
-LeHtmlBookExporter >> withLocalAssets [
+LeHtmlBookExporterOld >> withLocalAssets [
 	self withLocalAssets: true
 ]
 
 { #category : #'api - initialization' }
-LeHtmlBookExporter >> withLocalAssets: aBoolean [
+LeHtmlBookExporterOld >> withLocalAssets: aBoolean [
 	self decorator: (LeHtmlPageDecorator withLocalAssets: aBoolean)
 ]
 
 { #category : #'api - initialization' }
-LeHtmlBookExporter >> withRemoteAssets [
+LeHtmlBookExporterOld >> withRemoteAssets [
 	self withLocalAssets: false
 ]

@@ -25,12 +25,20 @@ LeHtmlPageExporter >> contents [
 		self export. ]
 ]
 
-{ #category : #accessing }
-LeHtmlPageExporter >> context [
-	^ context
+{ #category : #convenience }
+LeHtmlPageExporter >> contentsDo: aBlock [
+	<return: #String>
+	^ String streamContents: [ :aStream |
+		context stream: aStream.
+		aBlock cull: self cull: aStream. ]
 ]
 
 { #category : #accessing }
+LeHtmlPageExporter >> context [
+	^ context ifNil: [ context := LeHtmlContext new ]
+]
+
+{ #category : #'api - initialization' }
 LeHtmlPageExporter >> context: anObject [
 	context := anObject
 ]
@@ -101,13 +109,18 @@ LeHtmlPageExporter >> gtStreamStateFor: aView [
 		view: #gtStreamStateFor:
 ]
 
+{ #category : #'api - initialization' }
+LeHtmlPageExporter >> page: aLePage [
+	self context page: aLePage
+]
+
 { #category : #accessing }
 LeHtmlPageExporter >> piece [
 	<return: #TLeHtmlPiece>
 	^ piece ifNil: [ piece := LeHtmlPagePiece new ]
 ]
 
-{ #category : #accessing }
+{ #category : #'api - initialization' }
 LeHtmlPageExporter >> piece: aTLeHtmlPiece [
 	piece := aTLeHtmlPiece
 ]

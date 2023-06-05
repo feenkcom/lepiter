@@ -3,6 +3,11 @@ Trait {
 	#category : #'Lepiter-HTML-Piece - Model'
 }
 
+{ #category : #'instance creation' }
+TLeHtmlPiece classSide >> asLeHtmlFormatPiece [
+	^ self new
+]
+
 { #category : #converting }
 TLeHtmlPiece >> asLeHtmlFormatPiece [
 	^ self

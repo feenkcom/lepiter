@@ -9,12 +9,11 @@ Class {
 { #category : #examples }
 LeHtmlPageExporterExamples >> exportSamplePage [
 	<gtExample>
-	| page exporter context html |
+	| page exporter html |
 	page := LeExportSampleData new samplePage.
-	context := LeHtmlContext new page: page.
-	
+
 	exporter := LeHtmlPageExporter new.
-	exporter context: context.
+	exporter page: page.
 
 	html := exporter contents.
 
@@ -26,15 +25,14 @@ LeHtmlPageExporterExamples >> exportSamplePage [
 { #category : #examples }
 LeHtmlPageExporterExamples >> exportSamplePageFullHtml [
 	<gtExample>
-	| page exporter context html piece |
+	| page exporter html piece |
 	page := LeExportSampleData new samplePage.
 	piece := LeHtmlPieceExamples new formatPiece.
 	piece at: #content put: LeHtmlPagePiece new.
 	piece at: #title put: LeHtmlPageTitlePiece new.
-	context := LeHtmlContext new page: page.
 	
 	exporter := LeHtmlPageExporter new
-		context: context;
+		page: page;
 		piece: piece.
 
 	html := exporter contents.

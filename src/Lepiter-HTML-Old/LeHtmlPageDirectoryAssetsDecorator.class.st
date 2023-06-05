@@ -26,7 +26,7 @@ LeHtmlPageDirectoryAssetsDecorator >> allResources [
 		collect: [ :aFile | 
 			| aResource |
 			(aFile basename beginsWith: '.')
-				ifFalse: [ aResource := LeFileAssetResource new
+				ifFalse: [ aResource := LeHtmlFileAssetResource new
 							sourceFile: aFile;
 							path: (self convertFile: aFile) ]
 				ifTrue: [ nil ] ]

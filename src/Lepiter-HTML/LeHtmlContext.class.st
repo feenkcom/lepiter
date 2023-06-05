@@ -6,10 +6,23 @@ Class {
 	#instVars : [
 		'stream',
 		'htmlStream',
-		'page'
+		'page',
+		'pageLinks',
+		'database'
 	],
 	#category : #'Lepiter-HTML-! Core'
 }
+
+{ #category : #'api - accessing' }
+LeHtmlContext >> database [
+	<return: #LeDatabase>
+	^ database
+]
+
+{ #category : #'api - accessing' }
+LeHtmlContext >> database: aDatabase [
+	database := aDatabase
+]
 
 { #category : #'gt - extensions' }
 LeHtmlContext >> gtPageFor: aView [
@@ -66,6 +79,26 @@ LeHtmlContext >> page: aLePage [
 		description: [ 'Page can be initialized only once' ].
 
 	page := aLePage
+]
+
+{ #category : #accessing }
+LeHtmlContext >> pageLink [
+	^ pageLinks
+		linkForPage: page
+		ifFound: [ :aPage | aPage ]
+		ifNone: [ LeExportBookPageLink new
+				page: page;
+				fileName: 'index.html' ]
+]
+
+{ #category : #accessing }
+LeHtmlContext >> pageLinks [
+	^ pageLinks
+]
+
+{ #category : #accessing }
+LeHtmlContext >> pageLinks: anObject [
+	pageLinks := anObject
 ]
 
 { #category : #'api - initialization' }

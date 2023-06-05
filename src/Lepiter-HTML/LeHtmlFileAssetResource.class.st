@@ -3,7 +3,7 @@ I am a HTML export resource, e.g., CSS and JavaScript file.
 A {{gtMethod:LeFileAssetResource >> #sourceFile | label=source file}} content can be copied to an appropriate {{gtMethod:LeFileAssetResource >> #path | label=path}}. 
 "
 Class {
-	#name : #LeFileAssetResource,
+	#name : #LeHtmlFileAssetResource,
 	#superclass : #Object,
 	#traits : 'TLeExportResource',
 	#classTraits : 'TLeExportResource classTrait',
@@ -11,16 +11,22 @@ Class {
 		'sourceFile',
 		'path'
 	],
-	#category : #'Lepiter-HTML-Old-Model'
+	#category : #'Lepiter-HTML-Resources - Model'
 }
 
 { #category : #visiting }
-LeFileAssetResource >> accept: aVisitor [
+LeHtmlFileAssetResource >> accept: aVisitor [
 	^ aVisitor visitFileAssetResource: self
 ]
 
+{ #category : #initialization }
+LeHtmlFileAssetResource >> defaultState [
+	<return: #LeExportResourceState>
+	^ LeExportResourceState ready
+]
+
 { #category : #accessing }
-LeFileAssetResource >> path [
+LeHtmlFileAssetResource >> path [
 	"Return a path of the export"
 
 	<return: #RelativePath>
@@ -28,24 +34,24 @@ LeFileAssetResource >> path [
 ]
 
 { #category : #accessing }
-LeFileAssetResource >> path: anObject [
+LeHtmlFileAssetResource >> path: anObject [
 	path := anObject
 ]
 
 { #category : #accessing }
-LeFileAssetResource >> source [
+LeHtmlFileAssetResource >> source [
 	"Return a source of the export"
 
 	^ sourceFile
 ]
 
 { #category : #accessing }
-LeFileAssetResource >> sourceFile [
+LeHtmlFileAssetResource >> sourceFile [
 	<return: #FileReference>
 	^ sourceFile
 ]
 
 { #category : #accessing }
-LeFileAssetResource >> sourceFile: anObject [
+LeHtmlFileAssetResource >> sourceFile: anObject [
 	sourceFile := anObject
 ]
