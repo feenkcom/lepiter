@@ -1,5 +1,5 @@
 Class {
-	#name : #LeHtmlHelloWorldPiece,
+	#name : #LeHtmlPageTitlePiece,
 	#superclass : #Object,
 	#traits : 'TLeHtmlPiece',
 	#classTraits : 'TLeHtmlPiece classTrait',
@@ -7,6 +7,7 @@ Class {
 }
 
 { #category : #'api - writing' }
-LeHtmlHelloWorldPiece >> writeWithContext: aContext [
-	aContext html inlineTag: #h1 with: 'Hello World'
+LeHtmlPageTitlePiece >> writeWithContext: aContext [
+	aContext page ifNotNil: [ :aPage | 
+		aContext html escape: aPage title ]
 ]

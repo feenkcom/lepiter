@@ -1,12 +1,26 @@
 Class {
 	#name : #LeHtmlContext,
 	#superclass : #LeExportContext,
+	#traits : 'TLeHtmlContext',
+	#classTraits : 'TLeHtmlContext classTrait',
 	#instVars : [
 		'stream',
-		'htmlStream'
+		'htmlStream',
+		'page'
 	],
 	#category : #'Lepiter-HTML-! Core'
 }
+
+{ #category : #'gt - extensions' }
+LeHtmlContext >> gtPageFor: aView [
+	<gtView>
+	page ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Page';
+		priority: 30;
+		object: [ page ];
+		view: #gtLiveFor:
+]
 
 { #category : #'gt - extensions' }
 LeHtmlContext >> gtStreamStateFor: aView [
@@ -34,6 +48,24 @@ LeHtmlContext >> html [
 		ifNil: [ (stream isKindOf: ZnHtmlOutputStream)
 				ifTrue: [ htmlStream := stream ]
 				ifFalse: [ htmlStream := LeHtmlOutputPrettyStream on: stream ] ]
+]
+
+{ #category : #'api - accessing' }
+LeHtmlContext >> page [
+	<return: #LePage>
+	^ page
+]
+
+{ #category : #'api - initialization' }
+LeHtmlContext >> page: aLePage [
+	self 
+		assert: [ aLePage isNotNil ] 
+		description: [ 'Page must be non-nil' ].
+	self
+		assert: [ page isNil ]
+		description: [ 'Page can be initialized only once' ].
+
+	page := aLePage
 ]
 
 { #category : #'api - initialization' }
