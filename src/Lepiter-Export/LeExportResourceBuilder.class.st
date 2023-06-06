@@ -1,5 +1,5 @@
 Class {
-	#name : #LeExportResouceBuilder,
+	#name : #LeExportResourceBuilder,
 	#superclass : #Object,
 	#traits : 'TLeExportResourceBuilder + TLeModelVisitor',
 	#classTraits : 'TLeExportResourceBuilder classTrait + TLeModelVisitor classTrait',
@@ -15,39 +15,39 @@ Class {
 }
 
 { #category : #'private - building' }
-LeExportResouceBuilder >> addLocalResource: aResource [
+LeExportResourceBuilder >> addLocalResource: aResource [
 	createdResources addResource: aResource
 ]
 
 { #category : #'private - building' }
-LeExportResouceBuilder >> addResource: aResource [
+LeExportResourceBuilder >> addResource: aResource [
 	resources addResource: aResource.
 	self addLocalResource: aResource
 ]
 
 { #category : #'api - building' }
-LeExportResouceBuilder >> build [
+LeExportResourceBuilder >> build [
 	"Build resources"
 
 	snippet acceptVisitor: self
 ]
 
 { #category : #accessing }
-LeExportResouceBuilder >> createdResources [
+LeExportResourceBuilder >> createdResources [
 	<return: #LeExportSnippetResources>
 	^ LeExportSnippetResources new
 		resources:createdResources asArray
 ]
 
 { #category : #'api - initialization' }
-LeExportResouceBuilder >> fileStore: aFileStore [
+LeExportResourceBuilder >> fileStore: aFileStore [
 	"Set a file store that is used to store some resources as files."
 
 	fileStore := aFileStore
 ]
 
 { #category : #'gt - extensions' }
-LeExportResouceBuilder >> gtResourcesFor: aView [
+LeExportResourceBuilder >> gtResourcesFor: aView [
 	<gtView>
 	createdResources ifNil: [ ^ aView empty ].
 	^ aView columnedList
@@ -63,80 +63,80 @@ LeExportResouceBuilder >> gtResourcesFor: aView [
 ]
 
 { #category : #initialization }
-LeExportResouceBuilder >> initialize [
+LeExportResourceBuilder >> initialize [
 	super initialize.
 
 	createdResources := LeExportResources new
 ]
 
 { #category : #convenience }
-LeExportResouceBuilder >> nextFileReferenceTo: aRelativePath [
+LeExportResourceBuilder >> nextFileReferenceTo: aRelativePath [
 	<return: #FileReference>
 	^ fileStore nextFileReferenceTo: aRelativePath
 ]
 
 { #category : #convenience }
-LeExportResouceBuilder >> nextPath [
+LeExportResourceBuilder >> nextPath [
 	<return: #RelativePath>
 	^ self nextPathWithExtension: LepiterConstants exportedResultsExtension
 ]
 
 { #category : #convenience }
-LeExportResouceBuilder >> nextPathWithExtension: anExtension [
+LeExportResourceBuilder >> nextPathWithExtension: anExtension [
 	<return: #RelativePath>
 	^ LepiterConstants exportedResultsDirectoryPath / self nextSequence asString
 		withExtension: anExtension
 ]
 
 { #category : #convenience }
-LeExportResouceBuilder >> nextSequence [
+LeExportResourceBuilder >> nextSequence [
 	<return: #String>
 	^ sequencer nextId
 ]
 
 { #category : #'api - initialization' }
-LeExportResouceBuilder >> objectSpecification: aLeExportObjectSpecification [
+LeExportResourceBuilder >> objectSpecification: aLeExportObjectSpecification [
 	"Set object specification for which resources are built."
 
 	objectSpecification := aLeExportObjectSpecification
 ]
 
 { #category : #accessing }
-LeExportResouceBuilder >> resources [
+LeExportResourceBuilder >> resources [
 	<return: #TLeExportResources>
 	^ resources
 ]
 
 { #category : #'api - initialization' }
-LeExportResouceBuilder >> resources: aLeExportResources [
+LeExportResourceBuilder >> resources: aLeExportResources [
 	"Set resources collection to which new resources are added."
 
 	resources := aLeExportResources
 ]
 
 { #category : #'api - initialization' }
-LeExportResouceBuilder >> sequencer: aSequencer [
+LeExportResourceBuilder >> sequencer: aSequencer [
 	"Set a sequencer that generates unique IDs."
 
 	sequencer := aSequencer
 ]
 
 { #category : #'api - initialization' }
-LeExportResouceBuilder >> snippet: aSnippet [
+LeExportResourceBuilder >> snippet: aSnippet [
 	"Set a snippet instance where resources come from."
 
 	snippet := aSnippet
 ]
 
 { #category : #visiting }
-LeExportResouceBuilder >> visitContent: aLeContent [
+LeExportResourceBuilder >> visitContent: aLeContent [
 	"We do not want to iterate snippet children"
 
 	
 ]
 
 { #category : #visiting }
-LeExportResouceBuilder >> visitSnippet: aLeSnippet [
+LeExportResourceBuilder >> visitSnippet: aLeSnippet [
 	"We do not want to iterate snippet children"
 
 	^ aLeSnippet

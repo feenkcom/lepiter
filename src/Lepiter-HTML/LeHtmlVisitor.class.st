@@ -120,6 +120,33 @@ LeHtmlVisitor >> visitElementSnippet: aLeElementSnippet [
 ]
 
 { #category : #visiting }
+LeHtmlVisitor >> visitJavaScriptSnippet: aLeJavaScriptSnippet [
+
+	context html
+		tag: #div
+		attributes: #('class' 'snippet textual-snippet code-snippet javascript-snippet')
+		do: [
+			context html
+				tag: #pre
+				attributes: #('class' 'no_bottom_margin')
+				with: aLeJavaScriptSnippet code ].
+	^ self visitContent: aLeJavaScriptSnippet
+]
+
+{ #category : #visiting }
+LeHtmlVisitor >> visitPharoSnippet: aLePharoSnippet [
+	context html
+		tag: #div
+		attributes: #('class' 'snippet textual-snippet code-snippet pharo-snippet')
+		do: [
+			context html
+				tag: #pre
+				attributes: #('class' 'no_bottom_margin')
+				with: aLePharoSnippet code ].
+	^ self visitContent: aLePharoSnippet
+]
+
+{ #category : #visiting }
 LeHtmlVisitor >> visitPictureSnippet: aLePictureSnippet [
 
 	| snippetResources |
@@ -139,6 +166,20 @@ LeHtmlVisitor >> visitPictureSnippet: aLePictureSnippet [
 ]
 
 { #category : #visiting }
+LeHtmlVisitor >> visitPythonSnippet: aLePythonSnippet [
+
+	context html
+		tag: #div
+		attributes: #('class' 'snippet textual-snippet code-snippet python-snippet')
+		do: [
+			context html
+				tag: #pre
+				attributes: #('class' 'no_bottom_margin')
+				with: aLePythonSnippet code ].
+	^ self visitContent: aLePythonSnippet
+]
+
+{ #category : #visiting }
 LeHtmlVisitor >> visitSnippet: aLeSnippet [
 	"The #visitSnippet: method should be called only when a snippet is not handled.
 	To handle snippet children, call #visitContent:."
@@ -146,4 +187,25 @@ LeHtmlVisitor >> visitSnippet: aLeSnippet [
 	self logUnsupportedSnippet: aLeSnippet.
 
 	^ self visitContent: aLeSnippet
+]
+
+{ #category : #visiting }
+LeHtmlVisitor >> visitWardleyMapSnippet: aLeWardleySnippet [
+
+	| snippetResources caption |
+	snippetResources := self resourcesFor: aLeWardleySnippet.
+	caption := aLeWardleySnippet title 
+		ifNotNil: [ :aString | aString trimBoth asString ].
+		
+	snippetResources 
+		ifEmpty: [ "ignore" ]
+		ifOne: [ :aResource |
+			LeHtmlFigureImageWriter new
+				html: context html;
+				imageSrc: aResource pathName;
+				caption: caption;
+				write ]
+		ifMore: [ :aCollection | "ignore" ].
+
+	^ self visitContent: aLeWardleySnippet 
 ]

@@ -9,9 +9,11 @@ Class {
 	#category : #'Lepiter-Export-File Store'
 }
 
-{ #category : #'private - storing' }
-LeExportTempDirectoryStore >> ensureTempDirectory [
-	tempDirectory ensureCreateDirectory
+{ #category : #finalization }
+LeExportTempDirectoryStore >> finalize [
+	super finalize.
+
+	tempDirectory ensureDeleteAll
 ]
 
 { #category : #'gt - extensions' }
@@ -39,13 +41,16 @@ LeExportTempDirectoryStore >> initialize [
 
 	tempDirectory := FileReference
 			newTempFilePrefix: 'lepiter-export-store-'
-			suffix: '-directory'
+			suffix: '-directory'.
+	
+	tempDirectory ensureCreateDirectory.
+	
+	"Remove the directory when the object is not used."
+	self class finalizationRegistry add: self
 ]
 
 { #category : #'api - storing' }
 LeExportTempDirectoryStore >> nextFileReferenceTo: aRelativePath [
 	<return: #FileReference>
-	self ensureTempDirectory.
-	
 	^ tempDirectory resolve: aRelativePath
 ]

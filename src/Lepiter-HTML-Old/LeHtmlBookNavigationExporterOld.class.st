@@ -97,7 +97,7 @@ LeHtmlBookNavigationExporterOld >> exportNavigation [
 				do: [
 					internalStream
 						tag: #header
-						class: 'navbar navbar-light bg-white sticky-top le-nav-footer'
+						class: 'navbar navbar-light bg-white sticky-top px-3 le-nav-footer'
 						do: [
 							self exportNavigationToggler.
 							self exportLogo. ].
