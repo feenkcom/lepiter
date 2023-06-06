@@ -163,6 +163,30 @@ main figure > img {
     font-size: 0.8rem;
 }
 
+.pharolink-snippet::after {
+    content: "PharoLink";
+    color: #aaa;
+    font-size: 0.8rem;
+}
+
+.python-snippet::after {
+    content: "Python";
+    color: #aaa;
+    font-size: 0.8rem;
+}
+
+.javascript-snippet::after {
+    content: "JavaScript";
+    color: #aaa;
+    font-size: 0.8rem;
+}
+
+.gemstone-snippet::after {
+    content: "GemStone";
+    color: #aaa;
+    font-size: 0.8rem;
+}
+
 .text-snippet {
 
 }
