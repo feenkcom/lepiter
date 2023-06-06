@@ -26,6 +26,14 @@ LeExportAnnotationResource >> annotation: anObject [
 	annotation := anObject
 ]
 
+{ #category : #initialization }
+LeExportAnnotationResource >> defaultState [
+	<return: #LeExportResourceState>
+	^ (self reference isNotNil and: [ self reference exists ])
+		ifTrue: [ LeExportResourceState ready ]
+		ifFalse: [ LeExportResourceState uninitialized ]
+]
+
 { #category : #'gt - extensions' }
 LeExportAnnotationResource >> gtFigureFor: aView [
 	<gtView>
