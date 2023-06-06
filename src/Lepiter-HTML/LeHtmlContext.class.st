@@ -1,12 +1,39 @@
 Class {
 	#name : #LeHtmlContext,
 	#superclass : #LeExportContext,
+	#traits : 'TLeHtmlContext',
+	#classTraits : 'TLeHtmlContext classTrait',
 	#instVars : [
 		'stream',
-		'htmlStream'
+		'htmlStream',
+		'page',
+		'pageLinks',
+		'database'
 	],
 	#category : #'Lepiter-HTML-! Core'
 }
+
+{ #category : #'api - accessing' }
+LeHtmlContext >> database [
+	<return: #LeDatabase>
+	^ database
+]
+
+{ #category : #'api - accessing' }
+LeHtmlContext >> database: aDatabase [
+	database := aDatabase
+]
+
+{ #category : #'gt - extensions' }
+LeHtmlContext >> gtPageFor: aView [
+	<gtView>
+	page ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Page';
+		priority: 30;
+		object: [ page ];
+		view: #gtLiveFor:
+]
 
 { #category : #'gt - extensions' }
 LeHtmlContext >> gtStreamStateFor: aView [
@@ -34,6 +61,44 @@ LeHtmlContext >> html [
 		ifNil: [ (stream isKindOf: ZnHtmlOutputStream)
 				ifTrue: [ htmlStream := stream ]
 				ifFalse: [ htmlStream := LeHtmlOutputPrettyStream on: stream ] ]
+]
+
+{ #category : #'api - accessing' }
+LeHtmlContext >> page [
+	<return: #LePage>
+	^ page
+]
+
+{ #category : #'api - initialization' }
+LeHtmlContext >> page: aLePage [
+	self 
+		assert: [ aLePage isNotNil ] 
+		description: [ 'Page must be non-nil' ].
+	self
+		assert: [ page isNil ]
+		description: [ 'Page can be initialized only once' ].
+
+	page := aLePage
+]
+
+{ #category : #accessing }
+LeHtmlContext >> pageLink [
+	^ pageLinks
+		linkForPage: page
+		ifFound: [ :aPage | aPage ]
+		ifNone: [ LeExportBookPageLink new
+				page: page;
+				fileName: 'index.html' ]
+]
+
+{ #category : #accessing }
+LeHtmlContext >> pageLinks [
+	^ pageLinks
+]
+
+{ #category : #accessing }
+LeHtmlContext >> pageLinks: anObject [
+	pageLinks := anObject
 ]
 
 { #category : #'api - initialization' }

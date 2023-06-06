@@ -79,6 +79,51 @@ LeExportResourcesAssembler >> visitExportElementSnippetResource: aResource [
 ]
 
 { #category : #visiting }
+LeExportResourcesAssembler >> visitExportExampleSnippetResource: aResource [
+	| aMethod anExample anExporter |
+	aResource reference exists ifTrue: [
+		"Do not compute twice"
+		aResource beReadyState.
+		^ self
+	].
+	
+	aResource beAssemblingState.
+	
+	aMethod := aResource snippet referencedExample compiledMethod.
+	
+	aMethod ifNil: [ 
+		aResource beProblemMessage: ('Compiled method does not exist {1}'
+			format: { aResource snippet referencedExample }).
+		^ self
+	].
+	
+	anExample := aMethod gtExample.
+	
+	anExample ifNil: [ 
+		aResource beProblemMessage: ('Compiled method is not an example {1}'
+			format: { aResource snippet referencedExample }).
+		^ self
+	].
+	
+	"Export"
+	anExporter := LeExampleToPngExporter new
+		fileReference: aResource reference;
+		example: anExample ;
+		height: aResource height;
+		previewSelector: aResource previewShowSelector;
+		withScripter;
+		export.
+		
+	aResource reference exists ifTrue: [
+		aResource beReadyState.
+		^ self
+	].
+	
+	"Export failure"
+	aResource beProblemMessage: 'Problem during export'
+]
+
+{ #category : #visiting }
 LeExportResourcesAssembler >> visitExportSlideResource: aResource [
 	| anElement anExporter |
 	aResource reference exists ifTrue: [

@@ -60,7 +60,7 @@ LeHtmlPageExporterOld >> export [
 		self page acceptVisitor: exportVisitor ].
 		
 	resourcesExporter ifNotNil: [ :aWriter | 
-		aWriter addResource: (LeExportedHtmlResource new
+		aWriter addResource: (LeExportPageOutputResource new
 			content: content;
 			pageLink: pageLink).
 			
@@ -105,7 +105,7 @@ LeHtmlPageExporterOld >> page [
 
 { #category : #accessing }
 LeHtmlPageExporterOld >> pageLink [
-	<return: #TLeHtmlBookPageLink>
+	<return: #TLeExportBookPageLink>
 	^ pageLink
 ]
 
@@ -137,7 +137,7 @@ LeHtmlPageExporterOld >> resourcesExporter: aLeResourcesExporter [
 
 { #category : #convenience }
 LeHtmlPageExporterOld >> saveToRootDirectory: aDirectory [
-	LeResourcesDirectorySaver new
+	LeExportResourcesDirectorySaver new
 		resources: resourcesExporter;
 		rootDirectory: aDirectory;
 		save

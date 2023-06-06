@@ -1,49 +1,49 @@
 Class {
-	#name : #LeHtmlBookPageLink,
+	#name : #LeExportBookPageLink,
 	#superclass : #Object,
-	#traits : 'TLeHtmlBookPageLink',
-	#classTraits : 'TLeHtmlBookPageLink classTrait',
+	#traits : 'TLeExportBookPageLink',
+	#classTraits : 'TLeExportBookPageLink classTrait',
 	#instVars : [
 		'fileName',
 		'id',
 		'page'
 	],
-	#category : #'Lepiter-HTML-Old-Book Helpers'
+	#category : #'Lepiter-Export-Page Links - Model'
 }
 
 { #category : #accessing }
-LeHtmlBookPageLink >> fileName [
+LeExportBookPageLink >> fileName [
 	^ fileName
 ]
 
 { #category : #accessing }
-LeHtmlBookPageLink >> fileName: aString [
+LeExportBookPageLink >> fileName: aString [
 	fileName := aString
 ]
 
 { #category : #accessing }
-LeHtmlBookPageLink >> id [
+LeExportBookPageLink >> id [
 	^ id
 ]
 
 { #category : #accessing }
-LeHtmlBookPageLink >> id: anObject [
+LeExportBookPageLink >> id: anObject [
 	id := anObject
 ]
 
 { #category : #accessing }
-LeHtmlBookPageLink >> page [
+LeExportBookPageLink >> page [
 	<return: #LePage>
 	^ page
 ]
 
 { #category : #accessing }
-LeHtmlBookPageLink >> page: aLePage [
+LeExportBookPageLink >> page: aLePage [
 	page := aLePage
 ]
 
 { #category : #printing }
-LeHtmlBookPageLink >> printOn: aStream [
+LeExportBookPageLink >> printOn: aStream [
 	super printOn: aStream.
 
 	self page ifNil: [ ^ self ].

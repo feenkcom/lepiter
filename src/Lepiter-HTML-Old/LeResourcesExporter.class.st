@@ -93,7 +93,7 @@ LeResourcesExporter >> exampleResultReferenceFor: anExampleAnnotation [
 	fileReference := self 
 		exportExampleResultOf: anExampleAnnotation 
 		to: aPath.
-	resources add: (LeExportedAnnotationResource new 
+	resources add: (LeExportAnnotationResource new 
 		annotation: anExampleAnnotation;
 		path: aPath;
 		reference: fileReference).
@@ -166,8 +166,8 @@ LeResourcesExporter >> exportGtExampleResultOf: aGtExample to: aRelativePath hei
 		example: aGtExample;
 		height: aHeight;
 		previewSelector: aPreviewSelector;
-		export;
 		withScripter;
+		export;
 		fileReference
 ]
 

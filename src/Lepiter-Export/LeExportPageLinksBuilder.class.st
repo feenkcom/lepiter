@@ -1,32 +1,32 @@
 Class {
-	#name : #LeBookPageLinksBuilder,
+	#name : #LeExportPageLinksBuilder,
 	#superclass : #Object,
 	#instVars : [
 		'tocPage',
 		'tocNodes',
 		'pages',
-		'idGenerator',
 		'fileExtension',
 		'links',
 		'mainPage',
-		'mainFileName'
+		'mainFileName',
+		'sequencer'
 	],
-	#category : #'Lepiter-HTML-Old-Book Helpers'
+	#category : #'Lepiter-Export-Page Links - Builders'
 }
 
 { #category : #'api - building' }
-LeBookPageLinksBuilder >> build [
+LeExportPageLinksBuilder >> build [
 	self pages ifNil: [ ^ self ].
 
-	links := LeBookPageLinks withAll: (self pages 
+	links := LeExportPageLinks withAll: (self pages 
 		collect: [ :aPage | self buildPageLink: aPage ])
 ]
 
 { #category : #'api - building' }
-LeBookPageLinksBuilder >> buildPageLink: aPage [
+LeExportPageLinksBuilder >> buildPageLink: aPage [
 	| aTitle anId aFileName aResult |
 	aPage == self mainPage
-		ifTrue: [ ^ LeHtmlBookMainPageLink new
+		ifTrue: [ ^ LeExportBookMainPageLink new
 				page: aPage;
 				fileName: self mainFileName ].
 
@@ -34,7 +34,7 @@ LeBookPageLinksBuilder >> buildPageLink: aPage [
 			secureFileName: aPage title asString
 			extension: nil
 			maxLenght: XdConstants xdocFileNameMaxLenght.
-	anId := self idGenerator nextIdFromPage: aPage.
+	anId := self sequencer nextIdFromPage: aPage.
 
 	aFileName := String
 			streamContents: [ :aStream | 
@@ -49,7 +49,7 @@ LeBookPageLinksBuilder >> buildPageLink: aPage [
 							nextPut: $.;
 							nextPutAll: anExtension ] ].
 
-	aResult := LeHtmlBookPageLink new
+	aResult := LeExportBookPageLink new
 			page: aPage;
 			fileName: aFileName;
 			id: anId.
@@ -58,34 +58,34 @@ LeBookPageLinksBuilder >> buildPageLink: aPage [
 ]
 
 { #category : #'api - initialization' }
-LeBookPageLinksBuilder >> database: aLeDatabase [
+LeExportPageLinksBuilder >> database: aLeDatabase [
 	self tocPage: aLeDatabase  tableOfContents.
 	self tocNodes: aLeDatabase tableOfContentsNodes.
 	self pages: aLeDatabase pages.
 ]
 
 { #category : #accessing }
-LeBookPageLinksBuilder >> defaultIdGenerator [
-	^ XdUUIDGenerator new
-]
-
-{ #category : #accessing }
-LeBookPageLinksBuilder >> defaultMainFileName [
+LeExportPageLinksBuilder >> defaultMainFileName [
 	^ 'index.html'
 ]
 
 { #category : #accessing }
-LeBookPageLinksBuilder >> fileExtension [
+LeExportPageLinksBuilder >> defaultSequencer [
+	^ LeExportUUIDSequencer new
+]
+
+{ #category : #accessing }
+LeExportPageLinksBuilder >> fileExtension [
 	^ fileExtension
 ]
 
 { #category : #accessing }
-LeBookPageLinksBuilder >> fileExtension: anObject [
+LeExportPageLinksBuilder >> fileExtension: anObject [
 	fileExtension := anObject
 ]
 
 { #category : #'gt - extensions' }
-LeBookPageLinksBuilder >> gtLinksFor: aView [
+LeExportPageLinksBuilder >> gtLinksFor: aView [
 	<gtView>
 	links ifNil: [ ^ aView empty ].
 
@@ -99,7 +99,7 @@ LeBookPageLinksBuilder >> gtLinksFor: aView [
 ]
 
 { #category : #'gt - extensions' }
-LeBookPageLinksBuilder >> gtViewTableOfContentsNodesFor: aView [
+LeExportPageLinksBuilder >> gtViewTableOfContentsNodesFor: aView [
 	<gtView>
 	tocNodes ifNil: [ ^ aView empty ].
 	
@@ -111,39 +111,34 @@ LeBookPageLinksBuilder >> gtViewTableOfContentsNodesFor: aView [
 ]
 
 { #category : #'api - initialization' }
-LeBookPageLinksBuilder >> html [
+LeExportPageLinksBuilder >> html [
 	self fileExtension: 'html'.
 	self mainFileName: 'index.html'
 ]
 
-{ #category : #accessing }
-LeBookPageLinksBuilder >> idGenerator [
-	^ idGenerator ifNil: [ idGenerator := self defaultIdGenerator ]
+{ #category : #'api - initialization' }
+LeExportPageLinksBuilder >> integerSequencer [
+	self sequencer: LeExportIntegerSequencer new
 ]
 
 { #category : #accessing }
-LeBookPageLinksBuilder >> idGenerator: anObject [
-	idGenerator := anObject
-]
-
-{ #category : #accessing }
-LeBookPageLinksBuilder >> links [
-	<return: #LeBookPageLinks or: nil>
+LeExportPageLinksBuilder >> links [
+	<return: #LeExportPageLinks or: nil>
 	^ links
 ]
 
 { #category : #accessing }
-LeBookPageLinksBuilder >> mainFileName [
+LeExportPageLinksBuilder >> mainFileName [
 	^ mainFileName ifNil: [ mainFileName := self defaultMainFileName ]
 ]
 
 { #category : #accessing }
-LeBookPageLinksBuilder >> mainFileName: anObject [
+LeExportPageLinksBuilder >> mainFileName: anObject [
 	mainFileName := anObject
 ]
 
 { #category : #accessing }
-LeBookPageLinksBuilder >> mainPage [
+LeExportPageLinksBuilder >> mainPage [
 	"Return a {{gtClass:LePage}} instance that should be displayed 
 	by default, e.g., as `index.html` in case of the HTML export."
 
@@ -152,7 +147,7 @@ LeBookPageLinksBuilder >> mainPage [
 ]
 
 { #category : #accessing }
-LeBookPageLinksBuilder >> mainPage: aLePage [
+LeExportPageLinksBuilder >> mainPage: aLePage [
 	"Set a {{gtClass:LePage}} instance that should be displayed 
 	by default, e.g., as `index.html` in case of the HTML export."
 
@@ -160,41 +155,51 @@ LeBookPageLinksBuilder >> mainPage: aLePage [
 ]
 
 { #category : #accessing }
-LeBookPageLinksBuilder >> pages [
+LeExportPageLinksBuilder >> pages [
 	^ pages
 ]
 
 { #category : #accessing }
-LeBookPageLinksBuilder >> pages: anObject [
+LeExportPageLinksBuilder >> pages: anObject [
 	pages := anObject
 ]
 
 { #category : #accessing }
-LeBookPageLinksBuilder >> sortedLinks [
+LeExportPageLinksBuilder >> sequencer [
+	^ sequencer ifNil: [ sequencer := self defaultSequencer ]
+]
+
+{ #category : #accessing }
+LeExportPageLinksBuilder >> sequencer: anObject [
+	sequencer := anObject
+]
+
+{ #category : #accessing }
+LeExportPageLinksBuilder >> sortedLinks [
 	^ links sortedLinks
 ]
 
 { #category : #accessing }
-LeBookPageLinksBuilder >> tocNodes [
+LeExportPageLinksBuilder >> tocNodes [
 	^ tocNodes
 ]
 
 { #category : #accessing }
-LeBookPageLinksBuilder >> tocNodes: anObject [
+LeExportPageLinksBuilder >> tocNodes: anObject [
 	tocNodes := anObject
 ]
 
 { #category : #accessing }
-LeBookPageLinksBuilder >> tocPage [
+LeExportPageLinksBuilder >> tocPage [
 	^ tocPage
 ]
 
 { #category : #accessing }
-LeBookPageLinksBuilder >> tocPage: aPage [
+LeExportPageLinksBuilder >> tocPage: aPage [
 	tocPage := aPage.
 ]
 
 { #category : #'api - initialization' }
-LeBookPageLinksBuilder >> uuidGenerator [
-	self idGenerator: XdUUIDGenerator new
+LeExportPageLinksBuilder >> uuidSequencer [
+	self sequencer: LeExportUUIDSequencer new
 ]

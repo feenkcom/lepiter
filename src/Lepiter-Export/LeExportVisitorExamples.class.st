@@ -273,7 +273,10 @@ LeExportVisitorExamples >> unsupportedSnippet [
 
 	self assertResources: resources size: 0.
 	self assertFileStoreIsEmpty: fileStore.
-	self assertLog: log size: 1.
+	
+	"Export visitor do not care about unsupported snippets.
+	It is expected that most snippets do not generate resources."
+	self assertLog: log size: 0.
 
 	^ LeExportVisitorHolder new
 		visitor: visitor;

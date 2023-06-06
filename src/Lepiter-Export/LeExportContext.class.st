@@ -69,7 +69,7 @@ LeExportContext >> fileStore: aLeExportFileStore [
 		assert: [ aLeExportFileStore isNotNil ]
 		description: [ 'File store must be non-nil' ].
 	self
-		assert: [ sequencer isNil ]
+		assert: [ fileStore isNil ]
 		description: [ 'File store must be initialized only once' ].
 	
 	fileStore := aLeExportFileStore

@@ -1,25 +1,25 @@
 Class {
-	#name : #LeBookPageLinks,
+	#name : #LeExportPageLinks,
 	#superclass : #Object,
 	#instVars : [
 		'links',
 		'sortedLinks'
 	],
-	#category : #'Lepiter-HTML-Old-Model'
+	#category : #'Lepiter-Export-Page Links - Model'
 }
 
 { #category : #'instance creation' }
-LeBookPageLinks class >> withAll: aCollection [
+LeExportPageLinks class >> withAll: aCollection [
 	^ self new initializeLinks: aCollection asArray
 ]
 
 { #category : #enumerating }
-LeBookPageLinks >> do: aBlock [
+LeExportPageLinks >> do: aBlock [
 	self links do: aBlock
 ]
 
 { #category : #accessing }
-LeBookPageLinks >> gtLinksFor: aView [
+LeExportPageLinks >> gtLinksFor: aView [
 	<gtView>
 	self links ifNil: [ ^ aView empty ].
 
@@ -33,13 +33,13 @@ LeBookPageLinks >> gtLinksFor: aView [
 ]
 
 { #category : #initialization }
-LeBookPageLinks >> initializeLinks: anArray [
+LeExportPageLinks >> initializeLinks: anArray [
 	links := anArray asArray.
 	sortedLinks := nil.
 ]
 
 { #category : #enumerating }
-LeBookPageLinks >> linkForPage: aPage ifFound: aFoundBlock ifNone: aNoneBlock [
+LeExportPageLinks >> linkForPage: aPage ifFound: aFoundBlock ifNone: aNoneBlock [
 	^ self links
 		detect: [ :eachLink | eachLink page = aPage ]
 		ifFound: aFoundBlock
@@ -47,7 +47,7 @@ LeBookPageLinks >> linkForPage: aPage ifFound: aFoundBlock ifNone: aNoneBlock [
 ]
 
 { #category : #enumerating }
-LeBookPageLinks >> linkTitled: aPageTitle ifFound: aFoundBlock ifNone: aNoneBlock [
+LeExportPageLinks >> linkTitled: aPageTitle ifFound: aFoundBlock ifNone: aNoneBlock [
 	^ self links
 		detect: [ :eachLink | eachLink pageTitle = aPageTitle ]
 		ifFound: aFoundBlock
@@ -55,12 +55,12 @@ LeBookPageLinks >> linkTitled: aPageTitle ifFound: aFoundBlock ifNone: aNoneBloc
 ]
 
 { #category : #accessing }
-LeBookPageLinks >> links [
+LeExportPageLinks >> links [
 	^ links
 ]
 
 { #category : #accessing }
-LeBookPageLinks >> sortedLinks [
+LeExportPageLinks >> sortedLinks [
 	^ sortedLinks ifNil: [ sortedLinks := self links 
 			sorted: [ :a :b | 
 				a isMainPage asBit > b isMainPage asBit

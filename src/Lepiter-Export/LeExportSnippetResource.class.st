@@ -36,6 +36,18 @@ LeExportSnippetResource >> gtFigureFor: aView [
 ]
 
 { #category : #'gt - extensions' }
+LeExportSnippetResource >> gtPageFor: aView [
+	<gtView>
+	snippet ifNil: [ ^ aView empty ].
+	
+	^ aView forward
+		title: 'Page';
+		priority: 30;
+		object: [ snippet page ];
+		view: #gtLiveFor:
+]
+
+{ #category : #'gt - extensions' }
 LeExportSnippetResource >> gtSnippetFor: aView [
 	<gtView>
 	snippet ifNil: [ ^ aView empty ].
