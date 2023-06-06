@@ -1,5 +1,5 @@
 Class {
-	#name : #LeExportedAnnotationResource,
+	#name : #LeExportAnnotationResource,
 	#superclass : #Object,
 	#traits : 'TLeExportResource',
 	#classTraits : 'TLeExportResource classTrait',
@@ -8,26 +8,26 @@ Class {
 		'path',
 		'reference'
 	],
-	#category : #'Lepiter-HTML-Old-Model'
+	#category : #'Lepiter-Export-Resources - Model'
 }
 
 { #category : #visiting }
-LeExportedAnnotationResource >> accept: aVisitor [
-	^ aVisitor visitExportedAnnotationResource: self
+LeExportAnnotationResource >> acceptVisitor: aVisitor [
+	^ aVisitor visitExportAnnotationResource: self
 ]
 
 { #category : #accessing }
-LeExportedAnnotationResource >> annotation [
+LeExportAnnotationResource >> annotation [
 	^ annotation
 ]
 
 { #category : #accessing }
-LeExportedAnnotationResource >> annotation: anObject [
+LeExportAnnotationResource >> annotation: anObject [
 	annotation := anObject
 ]
 
 { #category : #'gt - extensions' }
-LeExportedAnnotationResource >> gtFigureFor: aView [
+LeExportAnnotationResource >> gtFigureFor: aView [
 	<gtView>
 	reference ifNil: [ ^ aView empty ].
 	^ aView forward
@@ -38,29 +38,29 @@ LeExportedAnnotationResource >> gtFigureFor: aView [
 ]
 
 { #category : #accessing }
-LeExportedAnnotationResource >> path [
+LeExportAnnotationResource >> path [
 	<return: #RelativePath>
 	^ path
 ]
 
 { #category : #accessing }
-LeExportedAnnotationResource >> path: anObject [
+LeExportAnnotationResource >> path: anObject [
 	path := anObject
 ]
 
 { #category : #accessing }
-LeExportedAnnotationResource >> reference [
+LeExportAnnotationResource >> reference [
 	<return: #FileReference>
 	^ reference
 ]
 
 { #category : #accessing }
-LeExportedAnnotationResource >> reference: aFileReference [
+LeExportAnnotationResource >> reference: aFileReference [
 	reference := aFileReference
 ]
 
 { #category : #accessing }
-LeExportedAnnotationResource >> source [
+LeExportAnnotationResource >> source [
 	"Return a source of the export"
 
 	^ self annotation

@@ -20,10 +20,10 @@ LeHtmlFormatPiece >> arguments: anObject [
 	arguments := anObject
 ]
 
-{ #category : #'api - initialization' }
+{ #category : #'private - writing' }
 LeHtmlFormatPiece >> at: index [
 	<return: #TLeHtmlPiece>
-	^ arguments at: index
+	^ arguments at: index ifAbsent: [ LeHtmlEmptyPiece uniqueInstance ]
 ]
 
 { #category : #'api - initialization' }
@@ -85,7 +85,7 @@ LeHtmlFormatPiece >> writeWithContext: aContext [
 				index := Integer 
 					readFrom: expression 
 					ifFail: [ expression ].
-				piece := self at: index.
+				piece := self  at: index.
 				piece writeWithContext: aContext. ]
 			ifFalse: [
 				currentChar == $\

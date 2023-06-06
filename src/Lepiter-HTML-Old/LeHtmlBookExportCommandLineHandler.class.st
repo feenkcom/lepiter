@@ -56,11 +56,11 @@ LeHtmlBookExportCommandLineHandler >> activate [
 			print: targetDir fullName;
 			show: ' directory: '.
 	
-		aBookExporter := LeHtmlBookExporter new
+		aBookExporter := LeHtmlBookExporterOld new
 			database: aGtBook;
 			mainPage: aMainPage;
 			resourcesExporter: LeResourcesExporter new;
-			uuidGenerator;
+			uuidSequencer;
 			withGtBookAssets;
 			export;
 			saveToRootDirectory: targetDir.

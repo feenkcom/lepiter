@@ -46,7 +46,10 @@ LeHtmlCarouselWriter >> write [
 
 	html 
 		tag: #div
-		attributes: { #id. carouselId. #class. 'carousel slide' } 
+		attributes: { 
+			#id. carouselId. 
+			#class. 'carousel slide'.
+			'data-bs-theme'. 'dark' } 
 		do: [
 			html 
 				tag: #div
@@ -67,16 +70,22 @@ LeHtmlCarouselWriter >> write [
 
 { #category : #'private - writing' }
 LeHtmlCarouselWriter >> writeIndicator: resource index: index [ 
-
+	| attributes |
+	attributes := OrderedCollection withAll: { 
+		#type. #button. 
+		'data-bs-target'. '#', carouselId.
+		'data-bs-slide-to'. index. }.
+		
+	index = 1 ifTrue: [ 
+		attributes add: #class; add: 'active'.
+		attributes add: 'aria-current'; add: 'true' ].
+			
+	attributes addAll: {
+		'aria-label'. 'Slide {1}' format: { index } }.
+	
 	html 
 		tag: #button
-		attributes: { 
-			#type. #button. 
-			'data-bs-target'. '#', carouselId.
-			'data-bs-slide-to'. index,
-			#class. index isZero ifTrue: [ 'active' ] ifFalse: [ '' ].
-			'aria-current'. index isZero ifTrue: [ 'true' ] ifFalse: [ 'false' ].
-			'aria-label'. 'Slide {1}' format: { index } }
+		attributes: attributes
 ]
 
 { #category : #'private - writing' }
@@ -137,21 +146,16 @@ LeHtmlCarouselWriter >> writePreviousButton [
 { #category : #'private - writing' }
 LeHtmlCarouselWriter >> writeSlide: resource index: index [ 
 
-	html 
+	html
 		tag: #div
-		class: 'carousel-inner'
-		do: [ 
-			html
-				tag: #div
-				class: 'carousel-item', (index isZero ifTrue: [ ' active' ] ifFalse: [ '' ])
-				do: [
-					html 
-						tag: #img
-						attributes: { 
-							'src'. resource pathName. 
-							'class'. 'd-block w-100'.
-							'alt'. 'Slide {1}' format: { index } }
-				]
+		class: 'carousel-item', (index = 1 ifTrue: [ ' active' ] ifFalse: [ '' ])
+		do: [
+			html 
+				tag: #img
+				attributes: { 
+					'src'. resource pathName. 
+					'class'. 'd-block w-100'.
+					'alt'. 'Slide {1}' format: { index } }
 		]
 ]
 

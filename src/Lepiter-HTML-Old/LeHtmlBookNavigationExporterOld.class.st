@@ -2,7 +2,7 @@
 I export a {{gtClass:LeDatabase}}'s {{gtMethod:LeDatabase >> #tableOfContentsNodes | label=table of contents}} as HTML.
 "
 Class {
-	#name : #LeHtmlBookNavigationExporter,
+	#name : #LeHtmlBookNavigationExporterOld,
 	#superclass : #Object,
 	#instVars : [
 		'tocNodes',
@@ -17,17 +17,17 @@ Class {
 }
 
 { #category : #accessing }
-LeHtmlBookNavigationExporter >> content [
+LeHtmlBookNavigationExporterOld >> content [
 	^ content
 ]
 
 { #category : #accessing }
-LeHtmlBookNavigationExporter >> database: aDatabase [
+LeHtmlBookNavigationExporterOld >> database: aDatabase [
 	self tocNodes: aDatabase tableOfContentsNodes
 ]
 
 { #category : #'api - export' }
-LeHtmlBookNavigationExporter >> export [
+LeHtmlBookNavigationExporterOld >> export [
 	level := 0.
 
 	externalStream
@@ -45,7 +45,7 @@ LeHtmlBookNavigationExporter >> export [
 ]
 
 { #category : #'api - export' }
-LeHtmlBookNavigationExporter >> exportChildren: aCollection [
+LeHtmlBookNavigationExporterOld >> exportChildren: aCollection [
 
 	internalStream 
 		tag: #ul
@@ -58,7 +58,7 @@ LeHtmlBookNavigationExporter >> exportChildren: aCollection [
 ]
 
 { #category : #'api - export' }
-LeHtmlBookNavigationExporter >> exportLogo [
+LeHtmlBookNavigationExporterOld >> exportLogo [
 	internalStream
 		tag: #p
 		class: 'le-logo'
@@ -86,7 +86,7 @@ LeHtmlBookNavigationExporter >> exportLogo [
 ]
 
 { #category : #'api - export' }
-LeHtmlBookNavigationExporter >> exportNavigation [
+LeHtmlBookNavigationExporterOld >> exportNavigation [
 	internalStream
 		tag: #div
 		class: 'col-lg-3 le-nav-column'
@@ -117,7 +117,7 @@ LeHtmlBookNavigationExporter >> exportNavigation [
 ]
 
 { #category : #'api - export' }
-LeHtmlBookNavigationExporter >> exportNavigationToggler [	
+LeHtmlBookNavigationExporterOld >> exportNavigationToggler [	
 	internalStream 
 		tag: #button
 		attributes: #(
@@ -138,7 +138,7 @@ LeHtmlBookNavigationExporter >> exportNavigationToggler [
 ]
 
 { #category : #'api - export' }
-LeHtmlBookNavigationExporter >> exportNode: aNode [
+LeHtmlBookNavigationExporterOld >> exportNode: aNode [
 	| activeLink |
 	selectedPage 
 		ifNotNil: [ :aPage | 
@@ -172,7 +172,7 @@ LeHtmlBookNavigationExporter >> exportNode: aNode [
 ]
 
 { #category : #'gt - extensions' }
-LeHtmlBookNavigationExporter >> gtContentFor: aView [
+LeHtmlBookNavigationExporterOld >> gtContentFor: aView [
 	<gtView>
 	^ aView textEditor
 		title: 'HTML';
@@ -183,37 +183,37 @@ LeHtmlBookNavigationExporter >> gtContentFor: aView [
 ]
 
 { #category : #accessing }
-LeHtmlBookNavigationExporter >> pageLinks [
+LeHtmlBookNavigationExporterOld >> pageLinks [
 	^ pageLinks
 ]
 
 { #category : #accessing }
-LeHtmlBookNavigationExporter >> pageLinks: anObject [
+LeHtmlBookNavigationExporterOld >> pageLinks: anObject [
 	pageLinks := anObject
 ]
 
 { #category : #accessing }
-LeHtmlBookNavigationExporter >> selectedPage [
+LeHtmlBookNavigationExporterOld >> selectedPage [
 	<return: #LePage>
 	^ selectedPage
 ]
 
 { #category : #accessing }
-LeHtmlBookNavigationExporter >> selectedPage: aLePage [
+LeHtmlBookNavigationExporterOld >> selectedPage: aLePage [
 	selectedPage := aLePage
 ]
 
 { #category : #accessing }
-LeHtmlBookNavigationExporter >> tocNodes [
+LeHtmlBookNavigationExporterOld >> tocNodes [
 	^ tocNodes
 ]
 
 { #category : #accessing }
-LeHtmlBookNavigationExporter >> tocNodes: anObject [
+LeHtmlBookNavigationExporterOld >> tocNodes: anObject [
 	tocNodes := anObject
 ]
 
 { #category : #'api - initialization' }
-LeHtmlBookNavigationExporter >> writeStream: aStream [
+LeHtmlBookNavigationExporterOld >> writeStream: aStream [
 	externalStream := aStream
 ]

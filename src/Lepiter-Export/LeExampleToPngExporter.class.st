@@ -18,7 +18,7 @@ Class {
 		'container',
 		'exampleReturnValue'
 	],
-	#category : #'Lepiter-HTML-Old-Exporter'
+	#category : #'Lepiter-Export-Resources - Exporters'
 }
 
 { #category : #asserting }
@@ -62,6 +62,10 @@ LeExampleToPngExporter >> example [
 
 { #category : #accessing }
 LeExampleToPngExporter >> example: aGtExampleWithResult [
+	self
+		assert: [ aGtExampleWithResult isNotNil ]
+		description: [ 'Example must be non-nil' ].
+
 	example := aGtExampleWithResult asExampleWithResult
 ]
 
@@ -195,6 +199,8 @@ LeExampleToPngExporter >> height [
 
 { #category : #accessing }
 LeExampleToPngExporter >> height: anInteger [
+	self assert: [ anInteger isNotNil ] description: [ 'Height must be non-nil' ].
+
 	height := anInteger
 ]
 
@@ -217,6 +223,10 @@ LeExampleToPngExporter >> previewSelector [
 
 { #category : #accessing }
 LeExampleToPngExporter >> previewSelector: aSymbol [
+	self
+		assert: [ aSymbol isNotNil ]
+		description: [ 'Preview selector must be non-nil' ].
+
 	previewSelector := aSymbol asSymbol
 ]
 
@@ -226,8 +236,12 @@ LeExampleToPngExporter >> scaleFactor [
 ]
 
 { #category : #accessing }
-LeExampleToPngExporter >> scaleFactor: anObject [
-	scaleFactor := anObject
+LeExampleToPngExporter >> scaleFactor: anInteger [
+	self
+		assert: [ anInteger isNotNil ]
+		description: [ 'Scale factor must be non-nil' ].
+
+	scaleFactor := anInteger
 ]
 
 { #category : #accessing }
@@ -236,8 +250,10 @@ LeExampleToPngExporter >> width [
 ]
 
 { #category : #accessing }
-LeExampleToPngExporter >> width: anObject [
-	width := anObject
+LeExampleToPngExporter >> width: anInteger [
+	self assert: [ anInteger isNotNil ] description: [ 'Width must be non-nil' ].
+
+	width := anInteger
 ]
 
 { #category : #'api - initialization' }

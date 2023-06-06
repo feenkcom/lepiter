@@ -1,5 +1,5 @@
 Class {
-	#name : #LeExportedHtmlResource,
+	#name : #LeExportPageOutputResource,
 	#superclass : #Object,
 	#traits : 'TLeExportResource',
 	#classTraits : 'TLeExportResource classTrait',
@@ -7,27 +7,33 @@ Class {
 		'content',
 		'pageLink'
 	],
-	#category : #'Lepiter-HTML-Old-Model'
+	#category : #'Lepiter-Export-Resources - Model'
 }
 
 { #category : #visiting }
-LeExportedHtmlResource >> accept: aVisitor [
-	^ aVisitor visitExportedHtmlResource: self
+LeExportPageOutputResource >> acceptVisitor: aVisitor [
+	^ aVisitor visitLeExportPageOutputResource: self
 ]
 
 { #category : #accessing }
-LeExportedHtmlResource >> content [
+LeExportPageOutputResource >> content [
 	<return: #String>
 	^ content
 ]
 
 { #category : #accessing }
-LeExportedHtmlResource >> content: aString [
+LeExportPageOutputResource >> content: aString [
 	content := aString
 ]
 
+{ #category : #initialization }
+LeExportPageOutputResource >> defaultState [
+	<return: #LeExportResourceState>
+	^ LeExportResourceState  ready
+]
+
 { #category : #'gt - extensions' }
-LeExportedHtmlResource >> gtContentFor: aView [
+LeExportPageOutputResource >> gtContentFor: aView [
 	<gtView>
 	^ aView textEditor
 		title: 'HTML';
@@ -38,7 +44,7 @@ LeExportedHtmlResource >> gtContentFor: aView [
 ]
 
 { #category : #'gt - extensions' }
-LeExportedHtmlResource >> gtLiveFor: aView [
+LeExportPageOutputResource >> gtLiveFor: aView [
 	<gtView>
 	self pageLink ifNil: [ ^ aView empty ].
 
@@ -50,18 +56,18 @@ LeExportedHtmlResource >> gtLiveFor: aView [
 ]
 
 { #category : #accessing }
-LeExportedHtmlResource >> pageLink [
-	<return: #TLeHtmlBookPageLink>
+LeExportPageOutputResource >> pageLink [
+	<return: #TLeExportBookPageLink>
 	^ pageLink
 ]
 
 { #category : #accessing }
-LeExportedHtmlResource >> pageLink: aTLeHtmlBookPageLink [
+LeExportPageOutputResource >> pageLink: aTLeHtmlBookPageLink [
 	pageLink := aTLeHtmlBookPageLink
 ]
 
 { #category : #accessing }
-LeExportedHtmlResource >> path [
+LeExportPageOutputResource >> path [
 	"Return a path of the export"
 
 	<return: #RelativePath>
@@ -69,7 +75,7 @@ LeExportedHtmlResource >> path [
 ]
 
 { #category : #accessing }
-LeExportedHtmlResource >> source [
+LeExportPageOutputResource >> source [
 	"Return a source of the export"
 
 	^ self pageLink page

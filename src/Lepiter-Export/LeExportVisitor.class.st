@@ -53,11 +53,6 @@ LeExportVisitor >> gtResourcesFor: aView [
 		view: #gtResourcesFor:
 ]
 
-{ #category : #'private - logging' }
-LeExportVisitor >> logUnsupportedSnippet: aLeSnippet [ 
-	context logger unsupportedSnippet: aLeSnippet
-]
-
 { #category : #'private - exporting' }
 LeExportVisitor >> objectSpecificationFor: anObject [
 	<return: #TLeExportObjectSpecification>
@@ -88,7 +83,7 @@ LeExportVisitor >> visitElementSnippet: aLeElementSnippet [
 		build;
 		createdResources.
 	
-	^ self visitContent: aLeElementSnippet
+	^ self visitSnippet: aLeElementSnippet
 ]
 
 { #category : #visiting }
@@ -101,15 +96,5 @@ LeExportVisitor >> visitPictureSnippet: aLePictureSnippet [
 		snippet: aLePictureSnippet;
 		build.
 	
-	^ self visitContent: aLePictureSnippet
-]
-
-{ #category : #visiting }
-LeExportVisitor >> visitSnippet: aLeSnippet [
-	"The #visitSnippet: method should be called only when a snippet is not handled.
-	To handle snippet children, call #visitContent:."
-	
-	self logUnsupportedSnippet: aLeSnippet.
-
-	^ self visitContent: aLeSnippet
+	^ self visitSnippet: aLePictureSnippet
 ]

@@ -87,5 +87,5 @@ TLeExportResource >> state [
 TLeExportResource >> state: aState [
 	"Set resource state, indicating whether the resource is ready for export."
 
-	self explicitRequirement
+	state := aState
 ]

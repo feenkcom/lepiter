@@ -25,7 +25,7 @@ LeHtmlBookNavigationExportPart >> exportBodyContentPrecedingPart: aContext [
 	"Export a content that is part of a HTML <body> tag 
 	and precedes the main content (the page export)."
 
-	LeHtmlBookNavigationExporter new
+	LeHtmlBookNavigationExporterOld new
 		database: database;
 		pageLinks: pageLinks;
 		selectedPage: aContext page;

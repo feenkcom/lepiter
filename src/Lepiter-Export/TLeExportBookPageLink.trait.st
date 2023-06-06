@@ -1,10 +1,10 @@
 Trait {
-	#name : #TLeHtmlBookPageLink,
-	#category : #'Lepiter-HTML-Old-Book Helpers'
+	#name : #TLeExportBookPageLink,
+	#category : #'Lepiter-Export-Page Links - Model'
 }
 
 { #category : #accessing }
-TLeHtmlBookPageLink >> fileName [
+TLeExportBookPageLink >> fileName [
 	"Return a unique file name"
 
 	<return: #String>
@@ -12,7 +12,7 @@ TLeHtmlBookPageLink >> fileName [
 ]
 
 { #category : #'gt - extensions' }
-TLeHtmlBookPageLink >> gtLiveFor: aView [
+TLeExportBookPageLink >> gtLiveFor: aView [
 	<gtView>
 	self page ifNil: [ ^ aView empty ].
 
@@ -24,17 +24,17 @@ TLeHtmlBookPageLink >> gtLiveFor: aView [
 ]
 
 { #category : #testing }
-TLeHtmlBookPageLink >> isMainPage [
+TLeExportBookPageLink >> isMainPage [
 	^ false
 ]
 
 { #category : #accessing }
-TLeHtmlBookPageLink >> page [
+TLeExportBookPageLink >> page [
 	<return: #LePage>
 	^ self explicitRequirement
 ]
 
 { #category : #accessing }
-TLeHtmlBookPageLink >> pageTitle [
+TLeExportBookPageLink >> pageTitle [
 	^ self page title
 ]
