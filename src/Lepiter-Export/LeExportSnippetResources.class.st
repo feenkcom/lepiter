@@ -16,6 +16,20 @@ LeExportSnippetResources >> ifEmpty: emptyBlock ifOne: oneBlock ifMore: moreBloc
 		ifFalse: [ moreBlock cull: resources ]
 ]
 
+{ #category : #printing }
+LeExportSnippetResources >> printOn: aStream [
+	super printOn: aStream.
+
+	resources ifNil: [ ^ self ].
+
+	aStream
+		space;
+		nextPut: $[;
+		print: resources size;
+		nextPutAll: (' item' asPluralBasedOn: resources size);
+		nextPut: $]
+]
+
 { #category : #accessing }
 LeExportSnippetResources >> resource [
 	self

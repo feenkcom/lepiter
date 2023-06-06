@@ -1,6 +1,6 @@
 Class {
 	#name : #LeExportPresenterSlideShowElementResourceBuilder,
-	#superclass : #LeExportResouceBuilder,
+	#superclass : #LeExportResourceBuilder,
 	#instVars : [
 		'allSlides',
 		'elementHeight'

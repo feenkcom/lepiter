@@ -35,6 +35,20 @@ LeHtmlBookExporter >> addGtBookAssets [
 ]
 
 { #category : #'api - exporting' }
+LeHtmlBookExporter >> assembleNewResources: aDirectory [
+	"If a resource is found in the output directory, do not assemble it."
+
+	resourceTime := [ 
+	
+		LeExportResourcesAssembler new
+			resources: self resources;
+			condition: (LeExportNewResourceCondition new rootDirectory: aDirectory);
+			assemble 
+			
+	] timeToRun
+]
+
+{ #category : #'api - exporting' }
 LeHtmlBookExporter >> assembleResources [
 	resourceTime := [ 
 	

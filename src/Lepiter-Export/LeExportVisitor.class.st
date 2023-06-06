@@ -9,6 +9,11 @@ Class {
 	#category : #'Lepiter-Export-! Core'
 }
 
+{ #category : #'private - exporting' }
+LeExportVisitor >> addResource: aResource [
+	context resources addResource: aResource
+]
+
 { #category : #accessing }
 LeExportVisitor >> context [
 	<return: #TLeExportContext>
@@ -51,6 +56,31 @@ LeExportVisitor >> gtResourcesFor: aView [
 		priority: 15;
 		object: [ context ];
 		view: #gtResourcesFor:
+]
+
+{ #category : #'private - exporting' }
+LeExportVisitor >> nextFileReferenceTo: aRelativePath [
+	<return: #FileReference>
+	^ context fileStore nextFileReferenceTo: aRelativePath
+]
+
+{ #category : #'private - exporting' }
+LeExportVisitor >> nextPath [
+	<return: #RelativePath>
+	^ self nextPathWithExtension: LepiterConstants exportedResultsExtension
+]
+
+{ #category : #'private - exporting' }
+LeExportVisitor >> nextPathWithExtension: anExtension [
+	<return: #RelativePath>
+	^ LepiterConstants exportedResultsDirectoryPath / self nextSequence asString
+		withExtension: anExtension
+]
+
+{ #category : #'private - exporting' }
+LeExportVisitor >> nextSequence [
+	<return: #String>
+	^ context sequencer nextId
 ]
 
 { #category : #'private - exporting' }
@@ -97,4 +127,19 @@ LeExportVisitor >> visitPictureSnippet: aLePictureSnippet [
 		build.
 	
 	^ self visitSnippet: aLePictureSnippet
+]
+
+{ #category : #visiting }
+LeExportVisitor >> visitWardleyMapSnippet: aLeWardleySnippet [
+	| aResource |
+	aResource := LeExportSnippetElementResource new.
+	
+	aResource height: aLeWardleySnippet height.
+	aResource path: self nextPath.
+	aResource reference: (self nextFileReferenceTo: aResource path).
+	aResource snippet: aLeWardleySnippet.
+	
+	self addResource: aResource.
+
+	^ self visitSnippet: aLeWardleySnippet
 ]

@@ -4,7 +4,8 @@ Class {
 	#traits : 'TLeExportResourcesAssembler + TLeExportResourceVisitor',
 	#classTraits : 'TLeExportResourcesAssembler classTrait + TLeExportResourceVisitor classTrait',
 	#instVars : [
-		'resources'
+		'resources',
+		'condition'
 	],
 	#category : #'Lepiter-Export-Resources - Builders'
 }
@@ -14,8 +15,17 @@ LeExportResourcesAssembler >> assemble [
 	"Assemble all non-ready resources"
 
 	resources do: [ :each | 
-		each state isReady ifFalse: [ 
+		(condition canAssemble: each) ifTrue: [ 
 			each acceptVisitor: self ] ]
+]
+
+{ #category : #'api - initialization' }
+LeExportResourcesAssembler >> condition: aTLeExportAssembleResourceCondition [
+	self
+		assert: [ aTLeExportAssembleResourceCondition isNotNil ]
+		description: [ 'Resource condition must be non-nil' ].
+
+	condition := aTLeExportAssembleResourceCondition
 ]
 
 { #category : #'gt - extensions' }
@@ -29,7 +39,14 @@ LeExportResourcesAssembler >> gtResourcesFor: aView [
 		view: #gtResourcesFor:
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
+LeExportResourcesAssembler >> initialize [
+	super initialize.
+	
+	condition := LeExportResourceReadyCondition new.
+]
+
+{ #category : #'api - initialization' }
 LeExportResourcesAssembler >> resources: aLeExportResources [
 	self
 		assert: [ aLeExportResources isNotNil ]
@@ -149,6 +166,36 @@ LeExportResourcesAssembler >> visitExportSlideResource: aResource [
 		height: aResource height;
 		export.
 	
+	aResource reference exists ifTrue: [
+		aResource beReadyState.
+		^ self
+	].
+	
+	"Export failure"
+	aResource beProblemMessage: 'Problem during export'
+]
+
+{ #category : #visiting }
+LeExportResourcesAssembler >> visitExportSnippetElementResource: aResource [
+	| aSnippetElement anExporter |
+	aResource reference exists ifTrue: [
+		"Do not compute twice"
+		aResource beReadyState.
+		^ self
+	].
+	
+	aResource beAssemblingState.
+	
+	"Prepare element"
+	aSnippetElement := aResource element.
+	
+	"Export"
+	anExporter := LeElementToPngExporter new
+		element: aSnippetElement;
+		fileReference: aResource reference;
+		height: aResource height;
+		export.
+		
 	aResource reference exists ifTrue: [
 		aResource beReadyState.
 		^ self
