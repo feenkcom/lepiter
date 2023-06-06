@@ -1,6 +1,6 @@
 "
 I am a HTML export resource, e.g., CSS and JavaScript file.
-A {{gtMethod:LeFileAssetResource >> #sourceFile | label=source file}} content can be copied to an appropriate {{gtMethod:LeFileAssetResource >> #path | label=path}}. 
+A {{gtMethod:LeHtmlFileAssetResource >> #sourceFile | label=source file}} content can be copied to an appropriate {{gtMethod:LeHtmlFileAssetResource >> #path | label=path}}. 
 "
 Class {
 	#name : #LeHtmlFileAssetResource,

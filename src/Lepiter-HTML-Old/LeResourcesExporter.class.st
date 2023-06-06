@@ -166,8 +166,8 @@ LeResourcesExporter >> exportGtExampleResultOf: aGtExample to: aRelativePath hei
 		example: aGtExample;
 		height: aHeight;
 		previewSelector: aPreviewSelector;
-		export;
 		withScripter;
+		export;
 		fileReference
 ]
 

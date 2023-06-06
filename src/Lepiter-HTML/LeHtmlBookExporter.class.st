@@ -10,7 +10,8 @@ Class {
 		'log',
 		'piece',
 		'resourceTime',
-		'htmlTime'
+		'htmlTime',
+		'fileStore'
 	],
 	#category : #'Lepiter-HTML-! Core'
 }
@@ -54,6 +55,11 @@ LeHtmlBookExporter >> database: anObject [
 	database := anObject
 ]
 
+{ #category : #initialization }
+LeHtmlBookExporter >> defaultFileStore [
+	^ LeExportTempDirectoryStore new
+]
+
 { #category : #accessing }
 LeHtmlBookExporter >> defaultLog [
 	^ LeExportLog new
@@ -66,7 +72,7 @@ LeHtmlBookExporter >> defaultResources [
 
 { #category : #initialization }
 LeHtmlBookExporter >> defaultSequencer [
-	^ LeExportUUIDSequencer new
+	^ LeExportIntegerSequencer new
 ]
 
 { #category : #'private - exporting' }
@@ -111,6 +117,7 @@ LeHtmlBookExporter >> exportPageLink: aPageLink [
 		resources: self resources;
 		database: self database;
 		sequencer: self sequencer;
+		fileStore: self fileStore;
 		log: self log.
 
 	anHtml := LeHtmlPageExporter new
@@ -121,6 +128,16 @@ LeHtmlBookExporter >> exportPageLink: aPageLink [
 	resources addResource: (LeExportPageOutputResource new 
 		content: anHtml;
 		pageLink: aPageLink)
+]
+
+{ #category : #accessing }
+LeHtmlBookExporter >> fileStore [
+	^ fileStore ifNil: [ fileStore := self defaultFileStore ]
+]
+
+{ #category : #accessing }
+LeHtmlBookExporter >> fileStore: aFileStore [
+	fileStore := aFileStore
 ]
 
 { #category : #'gt - extensions' }

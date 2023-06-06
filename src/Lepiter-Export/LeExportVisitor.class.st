@@ -83,7 +83,7 @@ LeExportVisitor >> visitElementSnippet: aLeElementSnippet [
 		build;
 		createdResources.
 	
-	^ self visitContent: aLeElementSnippet
+	^ self visitSnippet: aLeElementSnippet
 ]
 
 { #category : #visiting }
@@ -96,5 +96,5 @@ LeExportVisitor >> visitPictureSnippet: aLePictureSnippet [
 		snippet: aLePictureSnippet;
 		build.
 	
-	^ self visitContent: aLePictureSnippet
+	^ self visitSnippet: aLePictureSnippet
 ]
