@@ -59,6 +59,20 @@ LeExportPageLinks >> links [
 	^ links
 ]
 
+{ #category : #printing }
+LeExportPageLinks >> printOn: aStream [
+	super printOn: aStream.
+
+	links ifNil: [ ^ self ].
+
+	aStream
+		space;
+		nextPut: $[;
+		print: links size;
+		nextPutAll: (' item' asPluralBasedOn: links size);
+		nextPut: $]
+]
+
 { #category : #accessing }
 LeExportPageLinks >> sortedLinks [
 	^ sortedLinks ifNil: [ sortedLinks := self links 

@@ -1,6 +1,6 @@
 Class {
 	#name : #LeExportPictureResourceBuilder,
-	#superclass : #LeExportResouceBuilder,
+	#superclass : #LeExportResourceBuilder,
 	#category : #'Lepiter-Export-Resources - Builders'
 }
 

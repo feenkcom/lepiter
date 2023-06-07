@@ -8,7 +8,7 @@ Class {
 	#category : #'Lepiter-Export-Resources - Model'
 }
 
-{ #category : #accessing }
+{ #category : #visiting }
 LeExportElementSnippetResource >> acceptVisitor: aVisitor [
 	^ aVisitor visitExportElementSnippetResource: self
 ]

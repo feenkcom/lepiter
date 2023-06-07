@@ -8,6 +8,8 @@
     --hovered-color: #ddd;
     --text-color: black;
     --link-text-color: var(--text-color);
+
+    /* space */
     --link-indent: 1rem;
 
     /* --min-column-width does not work in media queries.
@@ -117,6 +119,10 @@ It means that the navigation item highlight will start at the
 }
 
 /* navigation links */
+.le-nav-link {
+    color: var(--link-text-color);
+}
+
 .le-nav-container a {
     text-decoration: none;
 }

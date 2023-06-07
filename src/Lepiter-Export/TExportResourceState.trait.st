@@ -9,6 +9,13 @@ TExportResourceState >> color [
 ]
 
 { #category : #testing }
+TExportResourceState >> isAssembledState [
+	"Return true if the resource was assembled (and therefore it nows the assembling duration)"
+
+	^ false
+]
+
+{ #category : #testing }
 TExportResourceState >> isFailure [
 	"Return true if a resource could not be assembled"
 

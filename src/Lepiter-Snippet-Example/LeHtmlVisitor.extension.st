@@ -15,9 +15,9 @@ LeHtmlVisitor >> visitExampleSnippet: aLeExampleSnippet [
 				snippetResources
 					ifEmpty: [ "ignore" ]
 					ifOne: [ :aResource | 
-						self writeExamplesourceCode: aLeExampleSnippet. ]
+						self writeExampleSourceCode: aLeExampleSnippet. ]
 					ifMore: [ :aCollection |
-						self writeExamplesourceCode: aLeExampleSnippet. ] ].
+						self writeExampleSourceCode: aLeExampleSnippet. ] ].
 	
 			snippetResources 
 				ifEmpty: [ "ignore" ]
@@ -42,7 +42,7 @@ LeHtmlVisitor >> visitExampleSnippet: aLeExampleSnippet [
 ]
 
 { #category : #'*Lepiter-Snippet-Example' }
-LeHtmlVisitor >> writeExamplesourceCode: aLeExampleSnippet [
+LeHtmlVisitor >> writeExampleSourceCode: aLeExampleSnippet [
 
 	context html 
 		tag: #div

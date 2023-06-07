@@ -1,6 +1,6 @@
 Class {
 	#name : #LeExportElementResourceBuilder,
-	#superclass : #LeExportResouceBuilder,
+	#superclass : #LeExportResourceBuilder,
 	#instVars : [
 		'elementHeight'
 	],
