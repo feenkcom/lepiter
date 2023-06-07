@@ -173,7 +173,7 @@ LeHtmlBookExporter >> gtLogFor: aView [
 		title: 'Log';
 		priority: 20;
 		object: [ log ];
-		view: #gtLogItemsFor:
+		view: #gtLogItemsGroupedBySourceTypeFor:
 ]
 
 { #category : #'gt - extensions' }

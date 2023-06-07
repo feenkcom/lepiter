@@ -27,3 +27,10 @@ TLeExportLogItem >> label [
 TLeExportLogItem >> name [
 	^ self explicitRequirement
 ]
+
+{ #category : #accessing }
+TLeExportLogItem >> sourceType [
+	"Return an object,e.g., a class, that represents the source type"
+
+	^ self explicitRequirement
+]

@@ -37,6 +37,24 @@ LeExportLog >> gtLogItemsFor: aView [
 			weight: 3
 ]
 
+{ #category : #'gt - extensions' }
+LeExportLog >> gtLogItemsGroupedBySourceTypeFor: aView [
+	<gtView>
+	items ifNil: [ ^ aView empty ].
+
+	^ aView columnedTree
+		title: 'Log by types';
+		priority: 9;
+		items: [ LeExportGroupedLog
+			log: self groupedBy: #sourceType ];
+		children: #children;
+		column: 'Name' text: #label;
+		column: 'Description'
+			text: #description
+			weight: 2;
+		send: #object
+]
+
 { #category : #initialization }
 LeExportLog >> initialize [
 	super initialize.
