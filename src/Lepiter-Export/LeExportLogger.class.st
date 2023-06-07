@@ -20,6 +20,12 @@ LeExportLogger >> log: anObject [
 ]
 
 { #category : #'api - logging' }
+LeExportLogger >> missingChangesSnippetFile: aLeSnippetViewModel [
+	self log addItem: (LeExportMissingChangesSnippetFileLogItem new 
+		snippetViewModel: aLeSnippetViewModel)
+]
+
+{ #category : #'api - logging' }
 LeExportLogger >> unsupportedSnippet: aLeSnippet [
 	self log addItem: (LeExportUnsupportedSnippetLogItem new 
 		snippet: aLeSnippet)

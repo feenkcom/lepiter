@@ -10,6 +10,12 @@ TLeModelVisitor >> visitAttachment: aLeAttachment [
 ]
 
 { #category : #visiting }
+TLeModelVisitor >> visitChangesSnippet: aLeChangesSnippet [
+
+	^ self visitSnippet: aLeChangesSnippet
+]
+
+{ #category : #visiting }
 TLeModelVisitor >> visitCollection: aLeCollection [
 
 	aLeCollection do: [ :child |
