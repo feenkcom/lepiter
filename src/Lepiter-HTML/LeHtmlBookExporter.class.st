@@ -184,7 +184,11 @@ LeHtmlBookExporter >> gtResourcesFor: aView [
 		title: 'Resources';
 		priority: 15;
 		object: [ resources ];
-		view: #gtResourcesGroupedBySourceTypeFor:
+		view: #gtResourcesGroupedBySourceTypeFor:;
+		actionButtonIcon: BrGlamorousVectorIcons inspect
+			label: 'Details'
+			tooltip: 'Inspect resources'
+			action: [ :aButton | aButton phlow spawnObject: resources ]
 ]
 
 { #category : #'api - initialization' }

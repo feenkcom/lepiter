@@ -11,7 +11,7 @@ Class {
 
 { #category : #accessing }
 LeExportAssemblingResourceState >> color [
-	^ BrGlamorousColors successBackgroundColor
+	^ BrGlamorousColors failureBackgroundColor
 ]
 
 { #category : #'api - duration' }
@@ -46,5 +46,5 @@ LeExportAssemblingResourceState >> minutes [
 
 { #category : #accessing }
 LeExportAssemblingResourceState >> name [
-	^ 'assembling ({1} minutes)' format: { self minutes asInteger }
+	^ 'assembling ({1})' format: { self duration gtShortPrintString }
 ]

@@ -82,17 +82,17 @@ LeExportResourcesAssembler >> visitExportElementSnippetResource: aResource [
 		
 	aSnippetElement snippetElement exception ifNotNil: [ :anException | 
 		aResource reference exists
-			ifFalse: [ aResource beAssemblingException: anException ]
-			ifTrue: [ aResource beAssemblingInadequateOutput: anException ].
+			ifFalse: [ aResource beAssembledException: anException ]
+			ifTrue: [ aResource beAssembledInadequateOutput: anException ].
 		^ self ].
 		
 	aResource reference exists ifTrue: [
-		aResource beReadyState.
+		aResource beAssembledState.
 		^ self
 	].
 	
 	"Export failure"
-	aResource beProblemMessage: 'Problem during export'
+	aResource beAssembledProblemMessage: 'Problem during export'
 ]
 
 { #category : #visiting }
@@ -109,7 +109,7 @@ LeExportResourcesAssembler >> visitExportExampleSnippetResource: aResource [
 	aMethod := aResource snippet referencedExample compiledMethod.
 	
 	aMethod ifNil: [ 
-		aResource beProblemMessage: ('Compiled method does not exist {1}'
+		aResource beAssembledProblemMessage: ('Compiled method does not exist {1}'
 			format: { aResource snippet referencedExample }).
 		^ self
 	].
@@ -117,7 +117,7 @@ LeExportResourcesAssembler >> visitExportExampleSnippetResource: aResource [
 	anExample := aMethod gtExample.
 	
 	anExample ifNil: [ 
-		aResource beProblemMessage: ('Compiled method is not an example {1}'
+		aResource beAssembledProblemMessage: ('Compiled method is not an example {1}'
 			format: { aResource snippet referencedExample }).
 		^ self
 	].
@@ -132,12 +132,12 @@ LeExportResourcesAssembler >> visitExportExampleSnippetResource: aResource [
 		export.
 		
 	aResource reference exists ifTrue: [
-		aResource beReadyState.
+		aResource beAssembledState.
 		^ self
 	].
 	
 	"Export failure"
-	aResource beProblemMessage: 'Problem during export'
+	aResource beAssembledProblemMessage: 'Problem during export'
 ]
 
 { #category : #visiting }
@@ -155,7 +155,7 @@ LeExportResourcesAssembler >> visitExportSlideResource: aResource [
 	[
 		anElement := aResource slide asElement
 	] on: Error do: [ :anException | 
-		aResource beAssemblingException: anException.
+		aResource beAssembledException: anException.
 		^ self
 	].
 	
@@ -167,12 +167,12 @@ LeExportResourcesAssembler >> visitExportSlideResource: aResource [
 		export.
 	
 	aResource reference exists ifTrue: [
-		aResource beReadyState.
+		aResource beAssembledState.
 		^ self
 	].
 	
 	"Export failure"
-	aResource beProblemMessage: 'Problem during export'
+	aResource beAssembledProblemMessage: 'Problem during export'
 ]
 
 { #category : #visiting }
@@ -197,10 +197,10 @@ LeExportResourcesAssembler >> visitExportSnippetElementResource: aResource [
 		export.
 		
 	aResource reference exists ifTrue: [
-		aResource beReadyState.
+		aResource beAssembledState.
 		^ self
 	].
 	
 	"Export failure"
-	aResource beProblemMessage: 'Problem during export'
+	aResource beAssembledProblemMessage: 'Problem during export'
 ]
