@@ -185,12 +185,6 @@ LeHtmlExporterTextSnippetVisitor >> visitItalic: anItalic [
 ]
 
 { #category : #generated }
-LeHtmlExporterTextSnippetVisitor >> visitPageLink: aPageLink [
-
-	^ self visitDefinedLink: aPageLink
-]
-
-{ #category : #generated }
 LeHtmlExporterTextSnippetVisitor >> visitString: aString [
 
 	aString parts ifNotEmpty: [ 

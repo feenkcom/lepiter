@@ -190,6 +190,24 @@ LeHtmlVisitor >> visitSnippet: aLeSnippet [
 ]
 
 { #category : #visiting }
+LeHtmlVisitor >> visitTextSnippet: aLeTextSnippet [
+
+	context html 
+		tag: #div
+		attributes: #('class' 'snippet textual-snippet text-snippet')
+		do: [
+			| visitor |
+			visitor := LeHtmlTextSnippetVisitor new
+				context: context;
+				snippet: aLeTextSnippet.
+				
+			aLeTextSnippet ast acceptVisitor: visitor.
+		].
+		
+	self visitContent: aLeTextSnippet
+]
+
+{ #category : #visiting }
 LeHtmlVisitor >> visitWardleyMapSnippet: aLeWardleySnippet [
 
 	| snippetResources caption |

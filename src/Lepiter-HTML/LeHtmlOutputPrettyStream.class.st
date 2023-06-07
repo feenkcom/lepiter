@@ -121,6 +121,19 @@ LeHtmlOutputPrettyStream >> inlineTag: tag class: cssClass with: string [
 ]
 
 { #category : #'html tags' }
+LeHtmlOutputPrettyStream >> inlineTag: tag do: block [
+	"Write an HTML tag, executing block to generate enclosed content"
+
+	"<tag>...</tag>"
+
+	self noIndentDo: [ 
+		self 
+			tag: tag 
+			do: block
+	]
+]
+
+{ #category : #'html tags' }
 LeHtmlOutputPrettyStream >> inlineTag: tag with: string [
 	"Write an HTML tag using the escaped string as content"
 
