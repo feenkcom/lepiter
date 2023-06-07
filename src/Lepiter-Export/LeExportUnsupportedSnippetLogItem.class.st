@@ -29,6 +29,10 @@ LeExportUnsupportedSnippetLogItem >> gtLiveFor: aView [
 		object: [ snippet ];
 		view: #gtLiveFor:;
 		actionButtonIcon: BrGlamorousVectorIcons inspect
+			label: 'Snippet'
+			tooltip: 'Inspect snippet'
+			action: [ :aButton | aButton phlow spawnObject: snippet ];
+		actionButtonIcon: BrGlamorousVectorIcons inspect
 			label: 'Page'
 			tooltip: 'Inspect page'
 			action: [ :aButton | aButton phlow spawnObject: snippet page ]
