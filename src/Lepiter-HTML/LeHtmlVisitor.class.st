@@ -190,22 +190,19 @@ LeHtmlVisitor >> visitSnippet: aLeSnippet [
 ]
 
 { #category : #visiting }
-LeHtmlVisitor >> visitWardleyMapSnippet: aLeWardleySnippet [
+LeHtmlVisitor >> visitTextSnippet: aLeTextSnippet [
 
-	| snippetResources caption |
-	snippetResources := self resourcesFor: aLeWardleySnippet.
-	caption := aLeWardleySnippet title 
-		ifNotNil: [ :aString | aString trimBoth asString ].
+	context html 
+		tag: #div
+		attributes: #('class' 'snippet textual-snippet text-snippet')
+		do: [
+			| visitor |
+			visitor := LeHtmlTextSnippetVisitor new
+				context: context;
+				snippet: aLeTextSnippet.
+				
+			aLeTextSnippet ast acceptVisitor: visitor.
+		].
 		
-	snippetResources 
-		ifEmpty: [ "ignore" ]
-		ifOne: [ :aResource |
-			LeHtmlFigureImageWriter new
-				html: context html;
-				imageSrc: aResource pathName;
-				caption: caption;
-				write ]
-		ifMore: [ :aCollection | "ignore" ].
-
-	^ self visitContent: aLeWardleySnippet 
+	self visitContent: aLeTextSnippet
 ]

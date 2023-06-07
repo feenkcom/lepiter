@@ -1,26 +1,27 @@
 Class {
-	#name : #LeExportUnsupportedSnippetLogItem,
+	#name : #LeExportMissingChangesSnippetFileLogItem,
 	#superclass : #Object,
 	#traits : 'TLeExportLogItem',
 	#classTraits : 'TLeExportLogItem classTrait',
 	#instVars : [
-		'snippet'
+		'snippet',
+		'snippetViewModel'
 	],
 	#category : #'Lepiter-Export-Log - Model'
 }
 
 { #category : #accessing }
-LeExportUnsupportedSnippetLogItem >> color [
+LeExportMissingChangesSnippetFileLogItem >> color [
 	^ BrGlamorousColors errorBackgroundColor
 ]
 
 { #category : #accessing }
-LeExportUnsupportedSnippetLogItem >> description [
+LeExportMissingChangesSnippetFileLogItem >> description [
 	^ self snippet gtDisplayText
 ]
 
 { #category : #'gt - extensions' }
-LeExportUnsupportedSnippetLogItem >> gtLiveFor: aView [
+LeExportMissingChangesSnippetFileLogItem >> gtLiveFor: aView [
 	<gtView>
 	snippet ifNil: [ ^ aView empty ].
 	^ aView forward
@@ -35,27 +36,38 @@ LeExportUnsupportedSnippetLogItem >> gtLiveFor: aView [
 ]
 
 { #category : #testing }
-LeExportUnsupportedSnippetLogItem >> isProblemLog [
+LeExportMissingChangesSnippetFileLogItem >> isProblemLog [
 	^ true
 ]
 
 { #category : #accessing }
-LeExportUnsupportedSnippetLogItem >> name [
-	^ 'unsupported snippet'
+LeExportMissingChangesSnippetFileLogItem >> name [
+	^ 'missing changes file'
 ]
 
 { #category : #accessing }
-LeExportUnsupportedSnippetLogItem >> snippet [
+LeExportMissingChangesSnippetFileLogItem >> snippet [
 	^ snippet
 ]
 
 { #category : #accessing }
-LeExportUnsupportedSnippetLogItem >> snippet: anObject [
+LeExportMissingChangesSnippetFileLogItem >> snippet: anObject [
 	snippet := anObject
 ]
 
 { #category : #accessing }
-LeExportUnsupportedSnippetLogItem >> sourceType [
+LeExportMissingChangesSnippetFileLogItem >> snippetViewModel [
+	^ snippetViewModel
+]
+
+{ #category : #accessing }
+LeExportMissingChangesSnippetFileLogItem >> snippetViewModel: aViewModel [
+	snippetViewModel := aViewModel.
+	snippet := aViewModel snippetModel.
+]
+
+{ #category : #accessing }
+LeExportMissingChangesSnippetFileLogItem >> sourceType [
 	"Return an object,e.g., a class, that represents the source type.
 	I can be used for grouping logs by this type."
 

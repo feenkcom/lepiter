@@ -38,6 +38,12 @@ LeChangesSnippet class >> leJsonV4Name [
 	^ 'changesSnippet'
 ]
 
+{ #category : #visiting }
+LeChangesSnippet >> acceptVisitor: aVisitor [
+
+	^ aVisitor visitChangesSnippet: self
+]
+
 { #category : #converting }
 LeChangesSnippet >> asSnippetViewModel [
 	<return: #LeSnippetViewModel>

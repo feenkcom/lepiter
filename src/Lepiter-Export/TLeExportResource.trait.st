@@ -17,13 +17,35 @@ TLeExportResource >> acceptVisitor: aVisitor [
 ]
 
 { #category : #'api - state' }
-TLeExportResource >> beAssemblingException: anException [
-	self state: (LeExportResourceState assemblingException: anException)
+TLeExportResource >> beAssembledException: anException [
+	"Note, that #beAssemblingState must be the active state."
+
+	self state: (LeExportResourceState
+		assembledException: anException
+		duration: self state duration)
 ]
 
 { #category : #'api - state' }
-TLeExportResource >> beAssemblingInadequateOutput: anException [
-	self state: (LeExportResourceState assemblingInadequateOutput: anException)
+TLeExportResource >> beAssembledInadequateOutput: anException [
+	"Note, that #beAssemblingState must be the active state."
+	self state: (LeExportResourceState 
+		assembledInadequateOutput: anException
+		duration: self state duration)
+]
+
+{ #category : #'api - state' }
+TLeExportResource >> beAssembledProblemMessage: aMessage [
+	"Note, that #beAssemblingState must be the active state."
+	
+	self state: (LeExportResourceState 
+		assembledProblemMessage: aMessage
+		duration: self state duration)
+]
+
+{ #category : #'api - state' }
+TLeExportResource >> beAssembledState [
+	"Note, that #beAssemblingState must be the active state."
+	self state: (LeExportResourceState assembledDuration: self state duration)
 ]
 
 { #category : #'api - state' }
@@ -31,7 +53,7 @@ TLeExportResource >> beAssemblingState [
 	self state: LeExportResourceState assembling
 ]
 
-{ #category : #'api - state' }
+{ #category : #accessing }
 TLeExportResource >> beProblemMessage: aMessage [
 	self state: (LeExportResourceState problemMessage: aMessage)
 ]
@@ -71,6 +93,14 @@ TLeExportResource >> pathName [
 { #category : #accessing }
 TLeExportResource >> source [
 	"Return a source of the export"
+
+	^ self explicitRequirement
+]
+
+{ #category : #accessing }
+TLeExportResource >> sourceType [
+	"Return an object,e.g., a class, that represents the source type.
+	I can be used for grouping resources by this type."
 
 	^ self explicitRequirement
 ]

@@ -94,7 +94,7 @@ LeExportContext >> gtLogFor: aView [
 		title: 'Log';
 		priority: 20;
 		object: [ log ];
-		view: #gtLogItemsFor:
+		view: #gtLogItemsGroupedBySourceTypeFor:
 ]
 
 { #category : #'gt - extensions' }
@@ -105,7 +105,7 @@ LeExportContext >> gtResourcesFor: aView [
 		title: 'Resources';
 		priority: 15;
 		object: [ resources ];
-		view: #gtResourcesFor:
+		view: #gtResourcesGroupedBySourceTypeFor:
 ]
 
 { #category : #accessing }
