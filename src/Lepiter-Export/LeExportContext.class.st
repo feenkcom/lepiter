@@ -105,7 +105,7 @@ LeExportContext >> gtResourcesFor: aView [
 		title: 'Resources';
 		priority: 15;
 		object: [ resources ];
-		view: #gtResourcesFor:
+		view: #gtResourcesGroupedBySourceTypeFor:
 ]
 
 { #category : #accessing }

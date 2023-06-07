@@ -40,6 +40,23 @@ LeExportResources >> gtResourcesFor: aView [
 		column: 'State' text: [ :aResource | aResource state label ]
 ]
 
+{ #category : #'gt - extensions' }
+LeExportResources >> gtResourcesGroupedBySourceTypeFor: aView [
+	<gtView>
+	resources ifNil: [ ^ aView empty ].
+	^ aView columnedTree
+		title: 'Resources by types';
+		priority: 9;
+		items: [ LeExportGroupedResource 
+			resources: self 
+			groupedBy: #sourceType ];
+		children: #children;
+		column: 'Source' text: [ :aResource | aResource source ];
+		column: 'Path' text: [ :aResource | aResource pathName ];
+		column: 'State' text: [ :aResource | aResource state label ]";
+		send: #object"
+]
+
 { #category : #accessing }
 LeExportResources >> initialize [
 	super initialize.

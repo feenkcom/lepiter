@@ -75,6 +75,14 @@ TLeExportResource >> source [
 	^ self explicitRequirement
 ]
 
+{ #category : #accessing }
+TLeExportResource >> sourceType [
+	"Return an object,e.g., a class, that represents the source type.
+	I can be used for grouping resources by this type."
+
+	^ self explicitRequirement
+]
+
 { #category : #'api - state' }
 TLeExportResource >> state [
 	"Return resource state, indicating whether the resource is ready for export."

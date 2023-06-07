@@ -60,3 +60,17 @@ LeExportLog >> initialize [
 	super initialize.
 	items := OrderedCollection new
 ]
+
+{ #category : #printing }
+LeExportLog >> printOn: aStream [
+	super printOn: aStream.
+
+	items ifNil: [ ^ self ].
+
+	aStream
+		space;
+		nextPut: $[;
+		print: items size;
+		nextPutAll: (' item' asPluralBasedOn: items size);
+		nextPut: $]
+]

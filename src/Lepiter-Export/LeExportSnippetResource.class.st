@@ -98,6 +98,14 @@ LeExportSnippetResource >> source [
 	^ self snippet
 ]
 
+{ #category : #accessing }
+LeExportSnippetResource >> sourceType [
+	"Return an object,e.g., a class, that represents the source type.
+	I can be used for grouping resources by this type."
+
+	^ self snippet page
+]
+
 { #category : #'api - state' }
 LeExportSnippetResource >> state: aState [
 	"Set resource state, indicating whether the resource is ready for export."

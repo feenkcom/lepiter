@@ -41,3 +41,16 @@ LeExportIntegerSequencer >> nextId [
 	counter := counter + 1.
 	^ counter asString
 ]
+
+{ #category : #printing }
+LeExportIntegerSequencer >> printOn: aStream [
+	super printOn: aStream.
+
+	counter ifNil: [ ^ self ].
+
+	aStream
+		nextPut: $(;
+		nextPutAll: 'next number is ';
+		print: counter + 1;
+		nextPut: $)
+]

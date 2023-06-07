@@ -30,7 +30,8 @@ TLeExportLogItem >> name [
 
 { #category : #accessing }
 TLeExportLogItem >> sourceType [
-	"Return an object,e.g., a class, that represents the source type"
+	"Return an object,e.g., a class, that represents the source type.
+	I can be used for grouping logs by this type."
 
 	^ self explicitRequirement
 ]
