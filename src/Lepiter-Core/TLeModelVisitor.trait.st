@@ -45,6 +45,12 @@ TLeModelVisitor >> visitElementSnippet: aLeElementSnippet [
 ]
 
 { #category : #visiting }
+TLeModelVisitor >> visitGQLSnippet: aLeGQLSnippet [
+
+	^ self visitSnippet: aLeGQLSnippet 
+]
+
+{ #category : #visiting }
 TLeModelVisitor >> visitJavaScriptSnippet: aLeJavaScriptSnippet [
 
 	^ self visitTextualSnippet: aLeJavaScriptSnippet
