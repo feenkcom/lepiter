@@ -94,29 +94,6 @@ LeHtmlVisitor >> resourcesFor: aLeSnippet [
 ]
 
 { #category : #visiting }
-LeHtmlVisitor >> visitChangesSnippet: aLeChangesSnippet [
-
-	| aViewModel aCode |
-	aViewModel := aLeChangesSnippet asSnippetViewModel.
-	aViewModel hasChangesFile ifFalse: [ 
-		context logger missingChangesSnippetFile: aViewModel.
-		^ self
-	].
-	
-	aCode := aViewModel changes tutorialState.
-
-	context html
-		tag: #div
-		attributes: #('class' 'snippet textual-snippet code-snippet changes-snippet')
-		do: [
-			context html
-				tag: #pre
-				attributes: #('class' 'no_bottom_margin')
-				with: aCode ].
-	^ self visitContent: aLeChangesSnippet
-]
-
-{ #category : #visiting }
 LeHtmlVisitor >> visitElementSnippet: aLeElementSnippet [
 	| snippetResources |
 	
@@ -140,36 +117,6 @@ LeHtmlVisitor >> visitElementSnippet: aLeElementSnippet [
 				write ].
 
 	^ self visitContent: aLeElementSnippet
-]
-
-{ #category : #visiting }
-LeHtmlVisitor >> visitGQLSnippet: aLeGQLSnippet [
-
-	context html
-		tag: #div
-		attributes: #('class' 'snippet textual-snippet code-snippet graphql-snippet')
-		do: [
-			context html
-				tag: #pre
-				attributes: #('class' 'no_bottom_margin')
-				with: aLeGQLSnippet operation. ].
-				
-	aLeGQLSnippet input trimBoth ifNotEmpty: [ 
-		context html
-			tag: #div
-			attributes: #('class' 'snippet textual-snippet code-snippet graphqlinput-snippet')
-			do: [
-				context html
-					tag: #pre
-					attributes: #('class' 'no_bottom_margin')
-					with: aLeGQLSnippet operation.
-				
-				context html
-					tag: #pre
-					attributes: #('class' 'no_bottom_margin')
-					with: aLeGQLSnippet input  ] ].
-	
-	^ self visitContent: aLeGQLSnippet
 ]
 
 { #category : #visiting }
@@ -258,25 +205,4 @@ LeHtmlVisitor >> visitTextSnippet: aLeTextSnippet [
 		].
 		
 	self visitContent: aLeTextSnippet
-]
-
-{ #category : #visiting }
-LeHtmlVisitor >> visitWardleyMapSnippet: aLeWardleySnippet [
-
-	| snippetResources caption |
-	snippetResources := self resourcesFor: aLeWardleySnippet.
-	caption := aLeWardleySnippet title 
-		ifNotNil: [ :aString | aString trimBoth asString ].
-		
-	snippetResources 
-		ifEmpty: [ "ignore" ]
-		ifOne: [ :aResource |
-			LeHtmlFigureImageWriter new
-				html: context html;
-				imageSrc: aResource pathName;
-				caption: caption;
-				write ]
-		ifMore: [ :aCollection | "ignore" ].
-
-	^ self visitContent: aLeWardleySnippet 
 ]

@@ -10,12 +10,6 @@ TLeModelVisitor >> visitAttachment: aLeAttachment [
 ]
 
 { #category : #visiting }
-TLeModelVisitor >> visitChangesSnippet: aLeChangesSnippet [
-
-	^ self visitSnippet: aLeChangesSnippet
-]
-
-{ #category : #visiting }
 TLeModelVisitor >> visitCollection: aLeCollection [
 
 	aLeCollection do: [ :child |
@@ -42,12 +36,6 @@ TLeModelVisitor >> visitDatabase: aLeDatabase [
 TLeModelVisitor >> visitElementSnippet: aLeElementSnippet [
 
 	^ self visitTextualSnippet: aLeElementSnippet
-]
-
-{ #category : #visiting }
-TLeModelVisitor >> visitGQLSnippet: aLeGQLSnippet [
-
-	^ self visitSnippet: aLeGQLSnippet 
 ]
 
 { #category : #visiting }
@@ -137,10 +125,4 @@ TLeModelVisitor >> visitTextualSnippet: aLeTextualSnippet [
 TLeModelVisitor >> visitUnknownSnippet: aLeTextSnippet [
 
 	^ self visitTextualSnippet: aLeTextSnippet
-]
-
-{ #category : #visiting }
-TLeModelVisitor >> visitWardleyMapSnippet: aLeWardleySnippet [
-
-	^ self visitSnippet: aLeWardleySnippet 
 ]
