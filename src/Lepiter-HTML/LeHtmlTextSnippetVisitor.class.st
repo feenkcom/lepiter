@@ -5,7 +5,8 @@ Class {
 	#classTraits : 'TLeExtensibleContentNodeVisitor classTrait + TSmaCCCompositeVisitor classTrait + TLeContentNodeVisitor classTrait',
 	#instVars : [
 		'context',
-		'snippet'
+		'snippet',
+		'exportedNodes'
 	],
 	#classInstVars : [
 		'componentVisitorClasses'
@@ -33,6 +34,14 @@ LeHtmlTextSnippetVisitor >> convertToLocalOrAbsoluteUrl: linkUrl [
 		asString
 ]
 
+{ #category : #initialization }
+LeHtmlTextSnippetVisitor >> initialize [ 
+	super initialize.
+	
+	"I am used to identify nodes that are not exported."
+	exportedNodes := OrderedCollection new.
+]
+
 { #category : #accessing }
 LeHtmlTextSnippetVisitor >> snippet [
 	^ snippet
@@ -45,6 +54,8 @@ LeHtmlTextSnippetVisitor >> snippet: anObject [
 
 { #category : #generated }
 LeHtmlTextSnippetVisitor >> visitBold: aBold [
+	exportedNodes add: aBold.
+	
 	context html inlineTag: 'b' do: [ self visitContent: aBold ]
 ]
 
@@ -63,6 +74,20 @@ LeHtmlTextSnippetVisitor >> visitCodeBlock: aCodeBlock [
 						with: aCodeBlock code value asString trimBoth.
 				]
 		]
+]
+
+{ #category : #generated }
+LeHtmlTextSnippetVisitor >> visitContent: aContent [
+
+	exportedNodes 
+		detect: [ :eachNode | eachNode == aContent ] 
+		ifFound: [ :aNode | "ignore" ] 
+		ifNone: [ 
+			context log addItem: (LeExportUnsupportedTextSnippetNodeLogItem new 
+				snippet: snippet;
+				node: aContent) ].
+
+	^ self visitSmaCCParseNode: aContent
 ]
 
 { #category : #generated }
@@ -123,6 +148,8 @@ LeHtmlTextSnippetVisitor >> visitExternalUrlLink: anExternalUrlLink [
 
 { #category : #generated }
 LeHtmlTextSnippetVisitor >> visitHeader: aHeader [
+	exportedNodes add: aHeader.
+	
 	context html
 		tag: 'h' , (aHeader headerLevel + 1) asString
 		do: [ self visitContent: aHeader ]
@@ -138,15 +165,19 @@ LeHtmlTextSnippetVisitor >> visitInlineCode: anInlineCode [
 
 { #category : #generated }
 LeHtmlTextSnippetVisitor >> visitItalic: anItalic [
+	exportedNodes add: anItalic.
+
 	context html
 		tag: #i
 		do: [ context html noIndentDo: [ self visitContent: anItalic ] ].
-
+		
 	^ anItalic
 ]
 
 { #category : #generated }
 LeHtmlTextSnippetVisitor >> visitString: aString [
+	exportedNodes add: aString.
+	
 	aString parts ifNotEmpty: [ 
 		aString parts first isHeaderNode ifFalse: [ 
 			context html
@@ -161,5 +192,7 @@ LeHtmlTextSnippetVisitor >> visitString: aString [
 
 { #category : #generated }
 LeHtmlTextSnippetVisitor >> visitText: aText [
-	context html escape: aText content
+	context html escape: aText content.
+	
+	exportedNodes add: aText
 ]
