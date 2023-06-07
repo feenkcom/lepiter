@@ -217,6 +217,12 @@ main figure > img {
     font-size: 0.8rem;
 }
 
+.robocodermetamodel-snippet::after {
+    content: "Robocoder metamodel";
+    color: #aaa;
+    font-size: 0.8rem;
+}
+
 .text-snippet {
 
 }
@@ -244,7 +250,7 @@ main figure > img {
 }
 
 .explanation-example {
-    color: var(--hovered-color);
+    color: #aaa;
     margin-inline-start: 1rem;
 }
 
