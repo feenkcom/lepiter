@@ -61,7 +61,7 @@ LeExportGroupedResource >> gtResourcesFor: aView [
 
 { #category : #accessing }
 LeExportGroupedResource >> object [
-	^ self
+	^ children size = 1 ifTrue: [ children anyOne object ] ifFalse: [ self ]
 ]
 
 { #category : #accessing }

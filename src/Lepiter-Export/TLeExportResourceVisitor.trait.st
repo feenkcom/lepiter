@@ -34,6 +34,11 @@ TLeExportResourceVisitor >> visitExportSnippetResource: aResource [
 ]
 
 { #category : #visiting }
+TLeExportResourceVisitor >> visitExportTextSnippetExampleAnnotationResource: aResource [
+	^ self visitExportSnippetResource: aResource
+]
+
+{ #category : #visiting }
 TLeExportResourceVisitor >> visitLeExportPageOutputResource: aResource [
 	^ self visitResource: aResource
 ]

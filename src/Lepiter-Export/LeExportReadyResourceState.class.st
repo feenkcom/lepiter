@@ -1,8 +1,8 @@
 Class {
 	#name : #LeExportReadyResourceState,
 	#superclass : #Object,
-	#traits : 'TGtUniqueInstance + TExportResourceState',
-	#classTraits : 'TGtUniqueInstance classTrait + TExportResourceState classTrait',
+	#traits : 'TGtUniqueInstance + TLeExportResourceState',
+	#classTraits : 'TGtUniqueInstance classTrait + TLeExportResourceState classTrait',
 	#classInstVars : [
 		'uniqueInstance'
 	],

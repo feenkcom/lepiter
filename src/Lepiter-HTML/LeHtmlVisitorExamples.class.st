@@ -138,6 +138,75 @@ LeHtmlVisitorExamples >> pictureSnippetWithMissingFileReference [
 		snippet: snippet
 ]
 
+{ #category : #'examples - picture snippet' }
+LeHtmlVisitorExamples >> textSnippetWithExampleAnnotation [
+	<gtExample>
+	| snippet html resources context visitor holder |
+	holder := LeExportVisitorExamples new textSnippetWithExampleAnnotation.
+	snippet := holder snippet.
+	resources := holder resources.
+	
+	visitor := LeHtmlVisitor new
+			context: (context := LeHtmlContext new
+				resources: resources).
+	
+	html := visitor contentsFor: snippet.
+	
+	self assertHtml: html includes: '<code class="hljs smalltalk">'.
+	self assertHtml: html includes: 'glamorousLargeButton'.
+	self assertHtml: html includes: BrExamplesShowroom name.
+	
+	^ LeHtmlVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - picture snippet' }
+LeHtmlVisitorExamples >> textSnippetWithExampleAnnotationWithLabel [
+	<gtExample>
+	| snippet html resources context visitor holder |
+	holder := LeExportVisitorExamples new textSnippetWithExampleAnnotationWithLabel.
+	snippet := holder snippet.
+	resources := holder resources.
+	
+	visitor := LeHtmlVisitor new
+			context: (context := LeHtmlContext new
+				resources: resources).
+	
+	html := visitor contentsFor: snippet.
+
+	self assertHtml: html includes: '<div class="snippet textual-snippet text-snippet">'.
+	self assertHtml: html includes: '<code class="example_inlined">'.
+	
+	^ LeHtmlVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - picture snippet' }
+LeHtmlVisitorExamples >> textSnippetWithExampleAnnotationWithPreviewExpanded [
+	<gtExample>
+	| snippet html resources context visitor holder |
+	holder := LeExportVisitorExamples new textSnippetWithExampleAnnotationWithPreviewExpanded.
+	snippet := holder snippet.
+	resources := holder resources.
+	
+	visitor := LeHtmlVisitor new
+			context: (context := LeHtmlContext new
+				resources: resources).
+	
+	html := visitor contentsFor: snippet.
+	
+	self assertHtml: html includes: '<code class="hljs smalltalk">'.
+	self assertHtml: html includes: 'glamorousLargeButton'.
+	self assertHtml: html includes: BrExamplesShowroom name.
+	self assertHtml: html includes: 'src="gt-figures/1000.png"'.
+	
+	^ LeHtmlVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
 { #category : #'examples - element snippet' }
 LeHtmlVisitorExamples >> unsupportedSnippet [
 	<gtExample>

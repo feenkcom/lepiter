@@ -128,3 +128,15 @@ LeExportVisitor >> visitPictureSnippet: aLePictureSnippet [
 	
 	^ self visitSnippet: aLePictureSnippet
 ]
+
+{ #category : #visiting }
+LeExportVisitor >> visitTextSnippet: aLeTextSnippet [
+	| visitor |
+	visitor := LeExportTextSnippetVisitor new
+		context: context;
+		snippet: aLeTextSnippet.
+	
+	aLeTextSnippet ast acceptVisitor: visitor.
+
+	^ self visitTextualSnippet: aLeTextSnippet
+]
