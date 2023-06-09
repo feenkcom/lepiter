@@ -1,7 +1,7 @@
 Class {
 	#name : #LeGitHubIssueSnippet,
 	#superclass : #LeGitHubSnippet,
-	#category : 'Lepiter-GitHub-Snippets'
+	#category : #'Lepiter-GitHub-Snippets'
 }
 
 { #category : #'api - accessing menu' }
@@ -76,6 +76,7 @@ LeGitHubIssueSnippet >> htmlUrl [
 
 { #category : #'api - accessing' }
 LeGitHubIssueSnippet >> issueNumber [
+	<return: #Number>
 	^ self model issueNumber
 ]
 
