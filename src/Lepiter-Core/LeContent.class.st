@@ -403,6 +403,7 @@ LeContent >> blocks [
 
 { #category : #'api - accessing' }
 LeContent >> children [
+	<return: #LeCollection>
 	^ children
 ]
 
@@ -459,6 +460,7 @@ LeContent >> createEmail: aLeEmail [
 
 { #category : #'api - accessing' }
 LeContent >> createTime [
+	<return: #DateAndTime>
 	^ createTime
 ]
 
