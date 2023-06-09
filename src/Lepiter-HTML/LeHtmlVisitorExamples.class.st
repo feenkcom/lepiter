@@ -207,6 +207,25 @@ LeHtmlVisitorExamples >> textSnippetWithExampleAnnotationWithPreviewExpanded [
 		snippet: snippet
 ]
 
+{ #category : #'examples - picture snippet' }
+LeHtmlVisitorExamples >> textSnippetWithWordAnnotation [
+	<gtExample>
+	| snippet html resources context visitor holder |
+	holder := LeExportVisitorExamples new textSnippetWithWordAnnotation.
+	snippet := holder snippet.
+	resources := holder resources.
+	
+	visitor := LeHtmlVisitor new
+			context: (context := LeHtmlContext new
+				resources: resources).
+	
+	html := visitor contentsFor: snippet.
+	
+	^ LeHtmlVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
 { #category : #'examples - element snippet' }
 LeHtmlVisitorExamples >> unsupportedSnippet [
 	<gtExample>

@@ -347,6 +347,27 @@ LeExportVisitorExamples >> textSnippetWithExampleAnnotationWithPreviewExpanded [
 		snippet: snippet
 ]
 
+{ #category : #'examples - text snippet' }
+LeExportVisitorExamples >> textSnippetWithWordAnnotation [
+	<gtExample>
+	| snippet resources visitor fileStore |
+	snippet := LeExportSnippetExamples new textSnippetWithWordAnnotation.
+	visitor := LeExportVisitor new
+			context: (LeExportContext new 
+				resources: (resources := LeExportResources new);
+				fileStore: (fileStore := LeExportMemoryStore new)).
+
+	snippet acceptVisitor: visitor.
+
+	self assertResources: resources size: 0.
+	
+	self assertFileStoreIsEmpty: fileStore.
+	
+	^ LeExportVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
 { #category : #'examples - unsupported snippet' }
 LeExportVisitorExamples >> unsupportedSnippet [
 	<gtExample>
