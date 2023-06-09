@@ -164,9 +164,3 @@ TLeAnnotationParseNodeVisitor >> visitShowArgument: aShowArgument [
 TLeAnnotationParseNodeVisitor >> visitTodoAnnotation: aTodoAnnotation [
 	^ self visitAnnotation: aTodoAnnotation
 ]
-
-{ #category : #visiting }
-TLeAnnotationParseNodeVisitor >> visitWordAnnotation: aLeWordAnnotationNode [
-	"Do nothing, neither call `#visitAnnotation:` because it produces a
-	`does not understand` error while iterating child nodes."
-]
