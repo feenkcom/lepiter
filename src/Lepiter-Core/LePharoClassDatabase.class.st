@@ -14,7 +14,7 @@ Class {
 	#instVars : [
 		'pagesByName'
 	],
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #initialization }
@@ -35,16 +35,6 @@ LePharoClassDatabase >> onClassCommentChanged: aClassCommentedAnnouncement [
 	snippet string = newComment ifTrue: [ ^ self ].
 
 	snippet updateString: newComment.
-]
-
-{ #category : #'api - accessing' }
-LePharoClassDatabase >> pageNamed: aSymbol [
-
-	^ pagesByName at: aSymbol ifAbsentPut:
-		[ (LePage pharoCommentClassName: aSymbol)
-			addSnippet: (LeTextSnippet string: (self class 
-				environment at: aSymbol) instanceSide organization classComment);
-			yourself ]
 ]
 
 { #category : #private }

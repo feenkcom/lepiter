@@ -211,13 +211,6 @@ LePage >> databaseKey [
 	^ type databaseKey
 ]
 
-{ #category : #'private - updating' }
-LePage >> detectStructureChangeTypeToPage: aLePage [
-	^ LePageStructureChangeTypeDetector new
-		detectChangeBetween: self
-		and: aLePage
-]
-
 { #category : #history }
 LePage >> editHistory [
 	^ editHistory
@@ -261,19 +254,6 @@ LePage >> hasContent [
 	^ false
 ]
 
-{ #category : #querying }
-LePage >> hasGtTodo [
-
-	"Report whether this page has a todo.
-	Useful for finding all todos in a lepiter database:
-		thisSnippet database pages  select: #hasGtTodo
-	"
-
-	^ (self deep: #children select: [ :child | 
-		   (child isKindOf: LeTextSnippet) and: [ 
-			   (child ast // #LeTodoAnnotationNode) notEmpty ] ]) notEmpty
-]
-
 { #category : #'api - unlinked' }
 LePage >> hasIncomingUnlinked [
 	"Answer a boolean indicating whether the receiver has incoming unlinked references"
@@ -284,40 +264,10 @@ LePage >> hasIncomingUnlinked [
 		ifAbsent: [ false ]
 ]
 
-{ #category : #querying }
-LePage >> hasLinkNamed: aString [
-
-	"Report whether this page contains a link with the given name.
-	Useful to find all pages with a given link:
-		thisSnippet database pages select: [ :each | each hasLinkNamed: 'todo' ]
-	"
-
-	^ (self deep: #children select: [ :child | 
-		   (child isKindOf: LeTextSnippet) and: [ 
-			   child ast // #LeDoubleBracketLinkNode anySatisfy: [ :link | 
-				   link linkUID = aString ] ] ]) isNotEmpty
-
-
-]
-
 { #category : #'api - testing' }
 LePage >> hasTitle [
 	^ self type isUnnamedPageType not
 		and: [ self title isNotNil and: [ self title isNotEmpty ] ]
-]
-
-{ #category : #querying }
-LePage >> hasUncompletedGtTodo [
-
-	"Report whether this page has a todo.
-	Useful for finding all uncompleted todos in a lepiter database:
-		thisSnippet database pages  select: #hasUncompletedGtTodo
-	"
-
-	^ (self deep: #children select: [ :child | 
-		   (child isKindOf: LeTextSnippet) and: [ 
-			   child ast // #LeTodoAnnotationNode anySatisfy: [ :todo | 
-				   todo isCompleted not ] ] ]) notEmpty
 ]
 
 { #category : #'api - testing' }
@@ -457,32 +407,6 @@ LePage >> moveUpSnippet: aLeSnippet [
 		true ]
 ]
 
-{ #category : #'private - updating' }
-LePage >> newReloadFromPage: aLePage [
-	"Update the receiver to match the supplied page."
-
-	| typeOfChange changed |
-	typeOfChange := self detectStructureChangeTypeToPage: aLePage.
-	typeOfChange needsPageRebuild
-		ifTrue: [ self rebuildFromContent: aLePage.
-			changed := true ]
-		ifFalse: [ changed := self reloadFromContent: aLePage ].
-	latestEditTime := nil.
-
-	type = aLePage type
-		ifFalse: [  "Temporary fix to send a notification when the title of a page changed.
-		Should be improved to to use a generic mechanism for changing the type of a page."((type
-				isNamedPageType or: [ type isUnnamedPageType ])
-				and: [ aLePage type isNamedPageType ])
-				ifTrue: [ self updateTitle: aLePage type title ]
-				ifFalse: [ (type isNamedPageType and: [ aLePage type isUnnamedPageType ])
-						ifTrue: [ self updateTitle: '' ]
-						ifFalse: [ type := aLePage type ] ].
-			changed := true ].
-
-	changed ifTrue: [ self announceTreeChanged: self ]
-]
-
 { #category : #'api - notifications' }
 LePage >> notifier [
 	^ LeNotifier new
@@ -520,17 +444,6 @@ LePage >> printOn: aStream [
 
 	type ifNil: [ ^ super printOn: aStream ].
 	type printOn: aStream.
-]
-
-{ #category : #'private - updating' }
-LePage >> rebuildFromContent: aLePage [
-	"Update the receiver to match the supplied page"
-	| pageAsseambler |
-	
-	pageAsseambler := LePageStructureAsseambler new 
-		targetPage: self.
-	pageAsseambler rebuildStructureBasedOnPage: aLePage.
-	^ pageAsseambler
 ]
 
 { #category : #'private - updating' }

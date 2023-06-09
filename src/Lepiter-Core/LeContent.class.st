@@ -596,18 +596,6 @@ LeContent >> gtMarkdownPageFor: aView [
 ]
 
 { #category : #'gt-extensions' }
-LeContent >> gtSerializationFor: aView [
-	<gtView>
-	
-	^ aView textEditor
-		title: 'Serialization';
-		priority: 80;
-		aptitude: BrGlamorousCodeEditorAptitude;
-		styler: JSONParser gtStyler;
-		text: [ LeJsonV4 uniqueInstance serializePretty: self ]
-]
-
-{ #category : #'gt-extensions' }
 LeContent >> gtSnippetsFor: aView [
 	<gtView>
 	self children ifNil: [ ^ aView empty ].
@@ -1008,14 +996,6 @@ LeContent >> parent [
 { #category : #'private - updating' }
 LeContent >> reloadAttributesFromContent: aLeContent [
 	^ self subclassResponsibility
-]
-
-{ #category : #'private - updating' }
-LeContent >> reloadCommonMetadataFromContent: aLeContent [
-	| attributesReloader |
-	attributesReloader := LeContentAttributesReloader forContent: self.
-	attributesReloader reloadCommonMetadataFromContent: aLeContent.
-	^ attributesReloader hasChanges
 ]
 
 { #category : #'private - updating' }

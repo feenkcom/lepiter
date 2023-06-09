@@ -18,6 +18,18 @@ LeContent >> fromStonMapKey: key value: value [
 ]
 
 { #category : #'*Lepiter-Store' }
+LeContent >> gtSerializationFor: aView [
+	<gtView>
+	
+	^ aView textEditor
+		title: 'Serialization';
+		priority: 80;
+		aptitude: BrGlamorousCodeEditorAptitude;
+		styler: JSONParser gtStyler;
+		text: [ LeJsonV4 uniqueInstance serializePretty: self ]
+]
+
+{ #category : #'*Lepiter-Store' }
 LeContent class >> leJsonV3AttributeMapping [
 
 	^ super leJsonV3AttributeMapping
@@ -39,6 +51,14 @@ LeContent class >> leJsonV4AttributeMapping [
 		add: (#editEmail -> #editEmail);
 		add: (#editTime -> #editTime);
 		yourself
+]
+
+{ #category : #'*Lepiter-Store' }
+LeContent >> reloadCommonMetadataFromContent: aLeContent [
+	| attributesReloader |
+	attributesReloader := LeContentAttributesReloader forContent: self.
+	attributesReloader reloadCommonMetadataFromContent: aLeContent.
+	^ attributesReloader hasChanges
 ]
 
 { #category : #'*Lepiter-Store' }

@@ -8,7 +8,7 @@ Class {
 		'createEmail',
 		'createTime'
 	],
-	#category : 'Lepiter-Core-Links'
+	#category : #'Lepiter-Core-Links'
 }
 
 { #category : #accessing }
@@ -63,16 +63,6 @@ LeAttachedLink >> editEmail [
 LeAttachedLink >> editTime [
 	"Attached links cannot be currently edited."
 	^ self createTime
-]
-
-{ #category : #'gt - extensions' }
-LeAttachedLink >> gtSerializationFor: aView [
-	<gtView>
-	^ aView textEditor
-		title: 'Serialization';
-		priority: 80;
-		text: [String streamContents: [ :s | 
-				LeJsonV4 uniqueInstance serialize: self on: s prettyPrint: true ]]
 ]
 
 { #category : #testing }

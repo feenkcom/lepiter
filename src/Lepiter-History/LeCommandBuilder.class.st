@@ -32,11 +32,6 @@ LeCommandBuilder >> insertChildSnippetOfTypeCommandForType: aSnippetType [
 		snippetTypeName: aSnippetType name
 ]
 
-{ #category : #'build - commands' }
-LeCommandBuilder >> insertChildTextSnippetCommand [
-	^ self insertChildSnippetOfTypeCommandForType: LeTextSnippet
-]
-
 { #category : #accessing }
 LeCommandBuilder >> newSnippetUid [ 
 	^ self targetDatabase isDatabase 

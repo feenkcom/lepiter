@@ -20,7 +20,7 @@ Class {
 		'errorLabelElement',
 		'editButton'
 	],
-	#category : 'Lepiter-Snippet-Words-UI Snippet Element'
+	#category : #'Lepiter-Snippet-Words-UI Snippet Element'
 }
 
 { #category : #'private - accessing' }
@@ -120,7 +120,7 @@ LeWordSnippetElement >> initializeToolbarElement [
 	toolbarElement addItem: editButton.
 	
 	errorLabelElement := BrLabel new
-		id: LeGitHubErrorMessageElementId;
+		id: LeWordErrorMessageElementId;
 		aptitude: (BrGlamorousLabelAptitude new foreground: BrGlamorousColors errorBackgroundColor);
 		text: '';
 		vFitContentLimited;
