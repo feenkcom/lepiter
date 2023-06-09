@@ -57,6 +57,12 @@ LePharoRewriteSnippet class >> leJsonV4Name [
 	^ 'pharoRewrite'
 ]
 
+{ #category : #visiting }
+LePharoRewriteSnippet >> acceptVisitor: aVisitor [
+
+	^ aVisitor visitPharoRewriteSnippet: self
+]
+
 { #category : #accessing }
 LePharoRewriteSnippet >> asSnippetViewModel [
 	^ LePharoRewriteSnippetViewModel new snippetModel: self

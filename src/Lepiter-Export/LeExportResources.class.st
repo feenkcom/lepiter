@@ -20,8 +20,56 @@ LeExportResources >> asArray [
 ]
 
 { #category : #enumerating }
+LeExportResources >> assembledResources [
+	| assembled |
+	assembled := resources select: [ :each | each state isAssembledState ].
+	assembled sort: [ :a :b | a state duration > b state duration ].
+	^ assembled
+]
+
+{ #category : #enumerating }
 LeExportResources >> do: aBlock [
 	resources do: aBlock
+]
+
+{ #category : #enumerating }
+LeExportResources >> failedResources [
+	^ resources select: [ :each | each state isFailure ].
+]
+
+{ #category : #'gt - extensions' }
+LeExportResources >> gtAssembledResourcesFor: aView [
+	<gtView>
+	resources ifNil: [ ^ aView empty ].
+	^ aView columnedList
+		title: 'Assembled';
+		priority: 20;
+		items: [ self assembledResources ];
+		column: 'Index'
+			text: [ :_ :anIndex | anIndex ]
+			width: 60;
+		column: 'Duration'
+			text: [ :aResource | aResource state duration gtShortPrintString ]
+			width: 70;
+		column: 'Source' text: [ :aResource | aResource source ];
+		column: 'Path' text: [ :aResource | aResource pathName ];
+		column: 'State' text: [ :aResource | aResource state label ]
+]
+
+{ #category : #'gt - extensions' }
+LeExportResources >> gtFailedResourcesFor: aView [
+	<gtView>
+	resources ifNil: [ ^ aView empty ].
+	^ aView columnedList
+		title: 'Failures';
+		priority: 15;
+		items: [ self failedResources ];
+		column: 'Index'
+			text: [ :_ :anIndex | anIndex ]
+			width: 60;
+		column: 'Source' text: [ :aResource | aResource source ];
+		column: 'Path' text: [ :aResource | aResource pathName ];
+		column: 'State' text: [ :aResource | aResource state label ]
 ]
 
 { #category : #'gt - extensions' }
@@ -53,8 +101,8 @@ LeExportResources >> gtResourcesGroupedBySourceTypeFor: aView [
 		children: #children;
 		column: 'Source' text: [ :aResource | aResource source ];
 		column: 'Path' text: [ :aResource | aResource pathName ];
-		column: 'State' text: [ :aResource | aResource state label ]";
-		send: #object"
+		column: 'State' text: [ :aResource | aResource state label ];
+		send: #object
 ]
 
 { #category : #accessing }

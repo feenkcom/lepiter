@@ -91,6 +91,14 @@ LeHtmlTextSnippetVisitor >> visitContent: aContent [
 ]
 
 { #category : #generated }
+LeHtmlTextSnippetVisitor >> visitDocumenterAnnotation: aDocumenterAnnotation [
+	aDocumenterAnnotation annotation
+		acceptVisitor: (LeHtmlTextSnippetAnnotationVisitor new 
+			context: context;
+			snippet: snippet)
+]
+
+{ #category : #generated }
 LeHtmlTextSnippetVisitor >> visitDoubleBracketLink: aDoubleBracketLink [
 	context pageLinks ifNil: [ ^ aDoubleBracketLink ].
 

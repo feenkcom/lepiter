@@ -82,17 +82,17 @@ LeExportResourcesAssembler >> visitExportElementSnippetResource: aResource [
 		
 	aSnippetElement snippetElement exception ifNotNil: [ :anException | 
 		aResource reference exists
-			ifFalse: [ aResource beAssemblingException: anException ]
-			ifTrue: [ aResource beAssemblingInadequateOutput: anException ].
+			ifFalse: [ aResource beAssembledException: anException ]
+			ifTrue: [ aResource beAssembledInadequateOutput: anException ].
 		^ self ].
 		
 	aResource reference exists ifTrue: [
-		aResource beReadyState.
+		aResource beAssembledState.
 		^ self
 	].
 	
 	"Export failure"
-	aResource beProblemMessage: 'Problem during export'
+	aResource beAssembledProblemMessage: 'Problem during export'
 ]
 
 { #category : #visiting }
@@ -109,7 +109,7 @@ LeExportResourcesAssembler >> visitExportExampleSnippetResource: aResource [
 	aMethod := aResource snippet referencedExample compiledMethod.
 	
 	aMethod ifNil: [ 
-		aResource beProblemMessage: ('Compiled method does not exist {1}'
+		aResource beAssembledProblemMessage: ('Compiled method does not exist {1}'
 			format: { aResource snippet referencedExample }).
 		^ self
 	].
@@ -117,7 +117,7 @@ LeExportResourcesAssembler >> visitExportExampleSnippetResource: aResource [
 	anExample := aMethod gtExample.
 	
 	anExample ifNil: [ 
-		aResource beProblemMessage: ('Compiled method is not an example {1}'
+		aResource beAssembledProblemMessage: ('Compiled method is not an example {1}'
 			format: { aResource snippet referencedExample }).
 		^ self
 	].
@@ -125,19 +125,19 @@ LeExportResourcesAssembler >> visitExportExampleSnippetResource: aResource [
 	"Export"
 	anExporter := LeExampleToPngExporter new
 		fileReference: aResource reference;
-		example: anExample ;
+		example: anExample;
 		height: aResource height;
 		previewSelector: aResource previewShowSelector;
 		withScripter;
 		export.
 		
 	aResource reference exists ifTrue: [
-		aResource beReadyState.
+		aResource beAssembledState.
 		^ self
 	].
 	
 	"Export failure"
-	aResource beProblemMessage: 'Problem during export'
+	aResource beAssembledProblemMessage: 'Problem during export'
 ]
 
 { #category : #visiting }
@@ -155,7 +155,7 @@ LeExportResourcesAssembler >> visitExportSlideResource: aResource [
 	[
 		anElement := aResource slide asElement
 	] on: Error do: [ :anException | 
-		aResource beAssemblingException: anException.
+		aResource beAssembledException: anException.
 		^ self
 	].
 	
@@ -167,12 +167,12 @@ LeExportResourcesAssembler >> visitExportSlideResource: aResource [
 		export.
 	
 	aResource reference exists ifTrue: [
-		aResource beReadyState.
+		aResource beAssembledState.
 		^ self
 	].
 	
 	"Export failure"
-	aResource beProblemMessage: 'Problem during export'
+	aResource beAssembledProblemMessage: 'Problem during export'
 ]
 
 { #category : #visiting }
@@ -197,10 +197,48 @@ LeExportResourcesAssembler >> visitExportSnippetElementResource: aResource [
 		export.
 		
 	aResource reference exists ifTrue: [
-		aResource beReadyState.
+		aResource beAssembledState.
 		^ self
 	].
 	
 	"Export failure"
-	aResource beProblemMessage: 'Problem during export'
+	aResource beAssembledProblemMessage: 'Problem during export'
+]
+
+{ #category : #visiting }
+LeExportResourcesAssembler >> visitExportTextSnippetExampleAnnotationResource: aResource [
+	| anExample anExporter |
+	aResource reference exists ifTrue: [
+		"Do not compute twice"
+		aResource beReadyState.
+		^ self
+	].
+	
+	aResource beAssemblingState.
+	
+	aResource canExampleBeExecuted ifFalse: [ 
+		aResource state isFailure ifTrue: [ ^ self ].
+		aResource beAssembledProblemMessage: ('Example cannot be executed {1}'
+			format: { aResource annotation printString }).
+		^ self
+	].
+	
+	anExample := aResource example.
+	
+	"Export"
+	anExporter := LeExampleToPngExporter new
+		fileReference: aResource reference;
+		example: anExample;
+		height: aResource height;
+		previewSelector: aResource previewShowSelector;
+		withScripter;
+		export.
+		
+	aResource reference exists ifTrue: [
+		aResource beAssembledState.
+		^ self
+	].
+	
+	"Export failure"
+	aResource beAssembledProblemMessage: 'Problem during export'
 ]

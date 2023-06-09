@@ -64,6 +64,12 @@ LeWordSnippet class >> leJsonV4Name [
 	^ 'wordSnippet'
 ]
 
+{ #category : #visiting }
+LeWordSnippet >> acceptVisitor: aVisitor [
+
+	^ aVisitor visitWordSnippet: self
+]
+
 { #category : #'private - announcing' }
 LeWordSnippet >> announceExplanationChangedBy: aSource [
 	self notifyAnnouncement: (LeWordSnippetExplanationChangedAnnouncement new

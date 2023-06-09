@@ -130,16 +130,13 @@ LeExportVisitor >> visitPictureSnippet: aLePictureSnippet [
 ]
 
 { #category : #visiting }
-LeExportVisitor >> visitWardleyMapSnippet: aLeWardleySnippet [
-	| aResource |
-	aResource := LeExportSnippetElementResource new.
+LeExportVisitor >> visitTextSnippet: aLeTextSnippet [
+	| visitor |
+	visitor := LeExportTextSnippetVisitor new
+		context: context;
+		snippet: aLeTextSnippet.
 	
-	aResource height: aLeWardleySnippet height.
-	aResource path: self nextPath.
-	aResource reference: (self nextFileReferenceTo: aResource path).
-	aResource snippet: aLeWardleySnippet.
-	
-	self addResource: aResource.
+	aLeTextSnippet ast acceptVisitor: visitor.
 
-	^ self visitSnippet: aLeWardleySnippet
+	^ self visitTextualSnippet: aLeTextSnippet
 ]

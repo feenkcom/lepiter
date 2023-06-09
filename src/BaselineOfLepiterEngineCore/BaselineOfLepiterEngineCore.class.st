@@ -4,12 +4,6 @@ Class {
 	#category : #BaselineOfLepiterEngineCore
 }
 
-{ #category : #accessing }
-BaselineOfLepiterEngineCore class >> gtDependencyAnalysisPreloadedBaselines [
-	^ super gtDependencyAnalysisPreloadedBaselines
-		copyWith: BaselineOfGToolkit
-]
-
 { #category : #baseline }
 BaselineOfLepiterEngineCore >> baseline: spec [
 	<baseline>
@@ -22,8 +16,12 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 					with: [ spec repository: 'github://feenkcom/Brick:main/src' ];
 				baseline: 'GToolkit4Json'
 					with: [ spec repository: 'github://feenkcom/gt4json:main/src' ];
+				baseline: 'GToolkitReleaser'
+					with: [ spec repository: 'github://feenkcom/gtoolkit-releaser:main/src' ];
 				baseline: 'LepiterXDoc'
-					with: [ spec repository: 'github://feenkcom/lepiter:main/src' ].
+					with: [ spec repository: 'github://feenkcom/lepiter:main/src' ];
+				baseline: 'SmaCCRuntime'
+					with: [ spec repository: 'github://j-brant/SmaCC' ].
 
 			spec
 				package: 'Lepiter-Parser';
@@ -57,9 +55,9 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 				package: 'Lepiter-ToC'
 					with: [ spec requires: #('Lepiter-Core' 'Lepiter-UI') ];
 				package: 'Lepiter-Export' 
-					with: [ spec requires: #( 'Lepiter-Core' ) ];
+					with: [ spec requires: #( 'Brick' 'Lepiter-Core' 'LepiterXDoc' 'SmaCCRuntime' 'Lepiter-UI-Snippet' 'Lepiter-Store' 'Lepiter-Snippet-Text' ) ];
 				package: 'Lepiter-HTML'
-					with: [ spec requires: #('Lepiter-Core' 'Lepiter-Parser' 'Lepiter-Export' 'LepiterXDoc') ];
+					with: [ spec requires: #('Lepiter-Core' 'Lepiter-Parser' 'Lepiter-Export' 'LepiterXDoc' 'GToolkitReleaser') ];
 				package: 'Lepiter-HTML-Old'
 					with: [ spec requires: #('Lepiter-Core' 'Lepiter-Parser' 'Lepiter-Export' 'Lepiter-HTML' 'LepiterXDoc') ];
 				package: 'Lepiter-Playground'
