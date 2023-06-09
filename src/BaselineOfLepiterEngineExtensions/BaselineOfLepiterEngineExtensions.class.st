@@ -10,7 +10,7 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'LepiterEngineCore' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.1575/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.6.1576/src' ].
 		spec
 			baseline: 'GToolkit4DockerEngine' with: [
 				spec repository: 'github://feenkcom/gt4dockerengine:v0.5.132/src' ].
@@ -28,19 +28,19 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 				spec repository: 'github://feenkcom/gtoolkit-debugadapterprotocol:v0.5.203/src' ].
 		spec
 			baseline: 'Gt4PharoLink' with: [
-				spec repository: 'github://feenkcom/gtoolkit-remote:v0.8.1267/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-remote:v0.8.1268/src' ].
 		spec
 			baseline: 'GToolkitVisualizer' with: [
-				spec repository: 'github://feenkcom/gtoolkit-visualizer:v0.8.1198/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-visualizer:v0.8.1199/src' ].
 		spec
 			baseline: 'LepiterYoutube' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.1575/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.6.1576/src' ].
 
 		spec package: 'Lepiter-Pharo' with: [
 			spec requires: #('LepiterEngineCore') ].
-		spec package: 'Lepiter-Snippet-Element' with: [
+		spec package: 'Lepiter-Snippet-Example' with: [
 			spec requires: #('LepiterEngineCore' 'Lepiter-Pharo') ].
-		spec package: 'Lepiter-Snippet-Slideshow' with: [
+		spec package: 'Lepiter-Snippet-Element' with: [
 			spec requires: #('LepiterEngineCore' 'Lepiter-Pharo') ].
 		spec package: 'Lepiter-Snippet-Picture' with: [
 			spec requires: #('LepiterEngineCore') ].
@@ -50,8 +50,6 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 			spec requires: #('LepiterEngineCore') ].
 		spec package: 'Lepiter-Snippet-WardleyMap' with: [
 			spec requires: #('LepiterEngineCore' 'GToolkitVisualizer') ].
-		spec package: 'Lepiter-Snippet-Example' with: [
-			spec requires: #('LepiterEngineCore') ].
 		spec package: 'Lepiter-Snippet-Changes' with: [
 			spec requires: #('LepiterEngineCore') ].
 		spec package: 'Lepiter-Snippet-Jenkins' with: [
