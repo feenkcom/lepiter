@@ -1,7 +1,7 @@
 Class {
 	#name : #LeExportSlides,
 	#superclass : #Object,
-	#category : #'Lepiter-Export-Examples'
+	#category : #'Lepiter-Snippet-Element-Examples'
 }
 
 { #category : #accessing }

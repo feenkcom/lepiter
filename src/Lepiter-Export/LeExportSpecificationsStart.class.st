@@ -5,28 +5,11 @@ Class {
 }
 
 { #category : #specifications }
-LeExportSpecificationsStart >> elementSnippetElementSpecification [
-	<leExportSpecification>
-	^ LeExportForwardSpecification new
-		classKind: LeElementSnippetElement;
-		forwardTo: #displayElement;
-		condition: #isNotNil
-]
-
-{ #category : #specifications }
 LeExportSpecificationsStart >> elementSpecification [
 	<leExportSpecification>
 	^ LeExportClassKindSpecification new
 		classKind: BlElement;
 		resourcerClass: LeExportElementResourceBuilder
-]
-
-{ #category : #specifications }
-LeExportSpecificationsStart >> presenterSlideShowElementSpecification [
-	<leExportSpecification>
-	^ LeExportClassKindSpecification new
-		classKind: GtPresenterSlideShowElement;
-		resourcerClass: LeExportPresenterSlideShowElementResourceBuilder
 ]
 
 { #category : #specifications }
