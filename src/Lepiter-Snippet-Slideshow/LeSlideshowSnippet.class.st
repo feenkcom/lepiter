@@ -100,6 +100,7 @@ LeSlideshowSnippet >> changeToSlideWithIndex: anIndex [
 
 { #category : #accessing }
 LeSlideshowSnippet >> codeHeight [
+	<return: #Number>
 	^ codeHeight
 ]
 
@@ -117,6 +118,7 @@ LeSlideshowSnippet >> codeHeight: aNumber [
 
 { #category : #accessing }
 LeSlideshowSnippet >> codeVisible [
+	<return: #Boolean>
 	^ codeVisible
 ]
 
@@ -139,6 +141,7 @@ LeSlideshowSnippet >> currentSlideIndex [
 
 { #category : #accessing }
 LeSlideshowSnippet >> elementHeight [
+	<return: #Number>
 	^ elementHeight
 ]
 

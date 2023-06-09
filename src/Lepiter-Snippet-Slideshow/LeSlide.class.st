@@ -149,6 +149,7 @@ LeSlide >> initialize [
 
 { #category : #accessing }
 LeSlide >> isSlideSelected [
+	<return: #Boolean>
 	^ isSlideSelected.
 ]
 
@@ -254,6 +255,7 @@ LeSlide >> shouldPerformActionEveryTime [
 
 { #category : #accessing }
 LeSlide >> slideIndex [
+	<return: #Number>
 	^ slideIndex
 ]
 

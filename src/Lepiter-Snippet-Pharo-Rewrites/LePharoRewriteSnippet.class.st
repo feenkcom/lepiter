@@ -151,6 +151,7 @@ LePharoRewriteSnippet >> filterDescriptorsUsing: snippetContext [
 
 { #category : #accessing }
 LePharoRewriteSnippet >> isMethodPattern [
+	<return: #Boolean>
 	^ isMethodPattern ifNil: [ false ]
 ]
 
