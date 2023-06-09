@@ -164,8 +164,3 @@ TLeAnnotationParseNodeVisitor >> visitShowArgument: aShowArgument [
 TLeAnnotationParseNodeVisitor >> visitTodoAnnotation: aTodoAnnotation [
 	^ self visitAnnotation: aTodoAnnotation
 ]
-
-{ #category : #visiting }
-TLeAnnotationParseNodeVisitor >> visitWordAnnotation: aLeWordAnnotationNode [
-	^ self visitAnnotation: aLeWordAnnotationNode
-]

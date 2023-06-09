@@ -24,6 +24,14 @@ LeSnippet class >> leJsonV4AttributeMapping [
 ]
 
 { #category : #'*Lepiter-Store' }
+LeSnippet >> reloadAttributesFromContent: aSnippet [
+	| attributesReloader |
+	attributesReloader := LeContentAttributesReloader forContent: self.
+	attributesReloader reloadFromContent: aSnippet.
+	^ attributesReloader hasChanges
+]
+
+{ #category : #'*Lepiter-Store' }
 LeSnippet >> stonProcessSubObjects: block [
 
 	super stonProcessSubObjects: block.

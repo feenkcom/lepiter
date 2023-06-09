@@ -125,7 +125,7 @@ LeExportResourcesAssembler >> visitExportExampleSnippetResource: aResource [
 	"Export"
 	anExporter := LeExampleToPngExporter new
 		fileReference: aResource reference;
-		example: anExample ;
+		example: anExample;
 		height: aResource height;
 		previewSelector: aResource previewShowSelector;
 		withScripter;
@@ -194,6 +194,44 @@ LeExportResourcesAssembler >> visitExportSnippetElementResource: aResource [
 		element: aSnippetElement;
 		fileReference: aResource reference;
 		height: aResource height;
+		export.
+		
+	aResource reference exists ifTrue: [
+		aResource beAssembledState.
+		^ self
+	].
+	
+	"Export failure"
+	aResource beAssembledProblemMessage: 'Problem during export'
+]
+
+{ #category : #visiting }
+LeExportResourcesAssembler >> visitExportTextSnippetExampleAnnotationResource: aResource [
+	| anExample anExporter |
+	aResource reference exists ifTrue: [
+		"Do not compute twice"
+		aResource beReadyState.
+		^ self
+	].
+	
+	aResource beAssemblingState.
+	
+	aResource canExampleBeExecuted ifFalse: [ 
+		aResource state isFailure ifTrue: [ ^ self ].
+		aResource beAssembledProblemMessage: ('Example cannot be executed {1}'
+			format: { aResource annotation printString }).
+		^ self
+	].
+	
+	anExample := aResource example.
+	
+	"Export"
+	anExporter := LeExampleToPngExporter new
+		fileReference: aResource reference;
+		example: anExample;
+		height: aResource height;
+		previewSelector: aResource previewShowSelector;
+		withScripter;
 		export.
 		
 	aResource reference exists ifTrue: [

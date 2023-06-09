@@ -4,12 +4,6 @@ Class {
 	#category : #BaselineOfLepiterEngineCore
 }
 
-{ #category : #accessing }
-BaselineOfLepiterEngineCore class >> gtDependencyAnalysisPreloadedBaselines [
-	^ super gtDependencyAnalysisPreloadedBaselines
-		copyWith: BaselineOfGToolkit
-]
-
 { #category : #baseline }
 BaselineOfLepiterEngineCore >> baseline: spec [
 	<baseline>

@@ -1,8 +1,8 @@
 Class {
 	#name : #LeExportAssembledInadequateOutputResourceState,
 	#superclass : #Object,
-	#traits : 'TExportResourceState',
-	#classTraits : 'TExportResourceState classTrait',
+	#traits : 'TLeExportResourceState',
+	#classTraits : 'TLeExportResourceState classTrait',
 	#instVars : [
 		'exception',
 		'duration'

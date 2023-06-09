@@ -13,6 +13,18 @@ AbstractFileReference >> asLepiterZnUrl [
 ]
 
 { #category : #'*Lepiter-Store' }
+AbstractFileReference >> gtLepiterPageFor: aView [
+	<gtView>
+
+	(self isFile and: [ self extension = #lepiter ]) ifFalse: [ ^ aView empty ].
+	^ aView forward 
+		title: 'Lepiter page';
+		priority: 10;
+		object: [ LeLocalStoreLoad current loadPageFrom: self ];
+		view: #gtLiveFor:
+]
+
+{ #category : #'*Lepiter-Store' }
 AbstractFileReference >> isLepiterDatabaseFolder [
 	| propertiesFile |
 	self isDirectory ifFalse: [ ^ false ].

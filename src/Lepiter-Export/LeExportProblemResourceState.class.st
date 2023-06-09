@@ -1,8 +1,8 @@
 Class {
 	#name : #LeExportProblemResourceState,
 	#superclass : #Object,
-	#traits : 'TExportResourceState',
-	#classTraits : 'TExportResourceState classTrait',
+	#traits : 'TLeExportResourceState',
+	#classTraits : 'TLeExportResourceState classTrait',
 	#instVars : [
 		'message',
 		'duration'

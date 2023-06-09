@@ -60,15 +60,6 @@ LeStorageExamples >> assertSnippetEqualsEvaluatedStoreString: aSnippet [
 ]
 
 { #category : #accessing }
-LeStorageExamples >> emptyPharoSnippet [
-	<gtExample>
-	|snippet|
-	snippet := LePharoSnippet code: ''.
-	self assertSnippetEqualsEvaluatedStoreString: snippet.
-	^ snippet
-]
-
-{ #category : #accessing }
 LeStorageExamples >> emptyTextSnippet [
 
 	<gtExample>
@@ -93,24 +84,6 @@ LeStorageExamples >> nestedTextSnippet [
 	snippet := self textSnippet.
 	snippet addSnippet:
 		(LeTextSnippet string: 'Everything happens by sending messages').
-	self assertSnippetEqualsEvaluatedStoreString: snippet.
-	^ snippet
-]
-
-{ #category : #accessing }
-LeStorageExamples >> pharoSnippet [
-	<gtExample>
-	|snippet|
-	snippet := LePharoSnippet code: '3+4'.
-	self assertSnippetEqualsEvaluatedStoreString: snippet.
-	^ snippet
-]
-
-{ #category : #accessing }
-LeStorageExamples >> pharoSnippetWithQuotes [
-	<gtExample>
-	|snippet|
-	snippet := LePharoSnippet code: '''hello world'''.
 	self assertSnippetEqualsEvaluatedStoreString: snippet.
 	^ snippet
 ]

@@ -1,21 +1,8 @@
 Class {
 	#name : #LeContentAttributesReloadExamples,
 	#superclass : #Object,
-	#category : 'Lepiter-Store-Examples'
+	#category : #'Lepiter-Store-Examples'
 }
-
-{ #category : #examples }
-LeContentAttributesReloadExamples >> attributeReloadedForTextSnippet [
-	<gtExample>
-	| textSnippet attributesReloader |
-	textSnippet := LeTextSnippet string: 'some text'.
-	attributesReloader := LeContentAttributesReloader forContent: textSnippet.
-	
-	self assert: attributesReloader hasChanges not.
-	
-	^ attributesReloader
-	
-]
 
 { #category : #examples }
 LeContentAttributesReloadExamples >> correctMappingsForTextSnippet [

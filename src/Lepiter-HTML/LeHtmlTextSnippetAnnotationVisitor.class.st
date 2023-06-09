@@ -1,8 +1,8 @@
 Class {
 	#name : #LeHtmlTextSnippetAnnotationVisitor,
 	#superclass : #Object,
-	#traits : 'TLeAnnotationParseNodeVisitor',
-	#classTraits : 'TLeAnnotationParseNodeVisitor classTrait',
+	#traits : 'TLeAnnotationParseNodeVisitor + TLeExportResourceHelpers',
+	#classTraits : 'TLeAnnotationParseNodeVisitor classTrait + TLeExportResourceHelpers classTrait',
 	#instVars : [
 		'context',
 		'exportedNodes',
@@ -50,7 +50,7 @@ LeHtmlTextSnippetAnnotationVisitor >> snippet: anObject [
 LeHtmlTextSnippetAnnotationVisitor >> visitAnnotation: anAnnotation [
 	exportedNodes
 		detect: [ :eachNode | eachNode == anAnnotation ]
-		ifFound: [  "ignore":aNode |  ]
+		ifFound: [ :aNode | "ignore" ]
 		ifNone: [ self logUnsupportedAnnotation: anAnnotation ].
 
 	^ self visitAnnotationParse: anAnnotation
@@ -71,6 +71,42 @@ LeHtmlTextSnippetAnnotationVisitor >> visitClassAnnotation: aClassAnnotation [
 		inlineTag: 'code'
 		attributes: #('class' 'class_annotation')
 		with: classNameArgument value source
+]
+
+{ #category : #generated }
+LeHtmlTextSnippetAnnotationVisitor >> visitExampleAnnotation: anExampleAnnotation [
+	| someResources resource |
+	someResources := self resourcesFor: anExampleAnnotation.
+
+	"Check available resources"
+	someResources
+		ifEmpty: [ context logger 
+			withoutResourcesAnnotation: anExampleAnnotation 
+			snippet: snippet.
+			^ self ]
+		ifOne: [ :aResource | 
+			resource := aResource ]
+		ifMore: [ :aCollection | 
+			context logger 
+				tooManyResources: aCollection
+				annotation: anExampleAnnotation 
+				snippet: snippet.
+				^ self ].
+	
+	"Write label"
+	resource wantsLabelOutput ifTrue: [
+		LeHtmlExampleLabelWriter new 
+			context: context;
+			resource: resource;
+			write.
+		^ self ].
+	
+	"Write example code and output preview"
+	LeHtmlExampleWriter new 
+		html: context html;
+		sequencer: context sequencer;
+		resource: resource;
+		write
 ]
 
 { #category : #generated }
@@ -128,10 +164,4 @@ LeHtmlTextSnippetAnnotationVisitor >> visitPageAnnotation: aPageAnnotation [
 		inlineTag: #span
 		attributes: #('page-annotation')
 		with: aPageAnnotation pageName
-]
-
-{ #category : #visiting }
-LeHtmlTextSnippetAnnotationVisitor >> visitWordAnnotation: aLeWordAnnotationNode [
-	self logUnsupportedAnnotation: aLeWordAnnotationNode.
-	^ aLeWordAnnotationNode
 ]
