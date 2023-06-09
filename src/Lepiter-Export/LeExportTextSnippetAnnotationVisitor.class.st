@@ -1,8 +1,8 @@
 Class {
 	#name : #LeExportTextSnippetAnnotationVisitor,
 	#superclass : #Object,
-	#traits : 'TLeAnnotationParseNodeVisitor - {#visitWordAnnotation:} + TLeExportResourceHelpers + TLeWordParseNodeVisitor',
-	#classTraits : 'TLeAnnotationParseNodeVisitor classTrait + TLeExportResourceHelpers classTrait + TLeWordParseNodeVisitor classTrait',
+	#traits : 'TLeAnnotationParseNodeVisitor + TLeExportResourceHelpers',
+	#classTraits : 'TLeAnnotationParseNodeVisitor classTrait + TLeExportResourceHelpers classTrait',
 	#instVars : [
 		'context',
 		'snippet'

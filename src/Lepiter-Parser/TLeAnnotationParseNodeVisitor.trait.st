@@ -167,5 +167,6 @@ TLeAnnotationParseNodeVisitor >> visitTodoAnnotation: aTodoAnnotation [
 
 { #category : #visiting }
 TLeAnnotationParseNodeVisitor >> visitWordAnnotation: aLeWordAnnotationNode [
-	^ self visitAnnotation: aLeWordAnnotationNode
+	"Do nothing, neither call `#visitAnnotation:` because it produces a
+	`does not understand` error while iterating child nodes."
 ]
