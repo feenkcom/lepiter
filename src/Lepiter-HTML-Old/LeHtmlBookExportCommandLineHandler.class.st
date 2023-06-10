@@ -60,7 +60,7 @@ LeHtmlBookExportCommandLineHandler >> activate [
 			database: aGtBook;
 			mainPage: aMainPage;
 			piece: LeHtmlGtBookPiece gtBook;
-			uuidSequencer;
+			integerSequencer;
 			addGtBookAssets;
 			export;
 			saveToRootDirectory: targetDir.
