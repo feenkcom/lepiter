@@ -5,7 +5,8 @@ Class {
 		'page',
 		'pageElement',
 		'resizerElement',
-		'widthStrategy'
+		'widthStrategy',
+		'playgroundPageStrategy'
 	],
 	#category : #'Lepiter-Playground'
 }
@@ -18,6 +19,12 @@ LeInspectorPlaygroundElement >> beExact: aNumber [
 { #category : #'api - visibility' }
 LeInspectorPlaygroundElement >> collapse [
 	self height: self minimumHeight.
+]
+
+{ #category : #'private - accessing' }
+LeInspectorPlaygroundElement >> currentPlaygroundPageStrategy [
+	^ playgroundPageStrategy ifNil: [
+		self object gtPlaygroundPageStrategy ]
 ]
 
 { #category : #'api - visibility' }
@@ -76,18 +83,18 @@ LeInspectorPlaygroundElement >> isCollapsed [
 ]
 
 { #category : #'private - accessing' }
+LeInspectorPlaygroundElement >> locateDefaultPlaygroundDatabase [
+	^ LeDatabasesRegistry uniqueInstance currentLoadedDefaultLogicalDatabase playgroundDB
+]
+
+{ #category : #'private - accessing' }
 LeInspectorPlaygroundElement >> locatePageForObject [
-	| database currentPage |
-	database := LeDatabasesRegistry uniqueInstance currentLoadedDefaultLogicalDatabase
-		playgroundDB.
-	currentPage := database
-		at: self object class name
-		ifPresent: [ :aPage | aPage ]
-		ifAbsent: [ page := LePage pharoClassName: self object class name.
-			page addSnippet: LePharoSnippet new.
-			database addPage: page.
-			page ]
-		forPageType: LePharoClassPageType.
+	| currentPage |
+	
+	currentPage := self currentPlaygroundPageStrategy
+		ensurePlaygroundPageInDatabase: self locateDefaultPlaygroundDatabase
+		forObject: self object.
+	
 	^ currentPage
 ]
 
@@ -125,6 +132,11 @@ LeInspectorPlaygroundElement >> page [
 LeInspectorPlaygroundElement >> pageElement [
 	<return: #LePageToolContentTreeElement>
 	^ pageElement
+]
+
+{ #category : #accessing }
+LeInspectorPlaygroundElement >> playgroundPageStrategy: aPlaygroundPageStrategy [
+	playgroundPageStrategy := aPlaygroundPageStrategy
 ]
 
 { #category : #'private - accessing' }
