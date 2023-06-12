@@ -56,11 +56,6 @@ LeEditSnippetCommandExamples >> createEditSnippetCommand [
 	^ command
 ]
 
-{ #category : #'setup  pages' }
-LeEditSnippetCommandExamples >> createTargetDatabase [
-	^ LeDatabase new 
-]
-
 { #category : #'examples - setup  pages' }
 LeEditSnippetCommandExamples >> ensurePageWithTargetSnippet [
 	<gtExample>

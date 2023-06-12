@@ -27,7 +27,15 @@ LeExportUnsupportedSnippetLogItem >> gtLiveFor: aView [
 		title: 'Snippet';
 		priority: 1;
 		object: [ snippet ];
-		view: #gtLiveFor:
+		view: #gtLiveFor:;
+		actionButtonIcon: BrGlamorousVectorIcons inspect
+			label: 'Snippet'
+			tooltip: 'Inspect snippet'
+			action: [ :aButton | aButton phlow spawnObject: snippet ];
+		actionButtonIcon: BrGlamorousVectorIcons inspect
+			label: 'Page'
+			tooltip: 'Inspect page'
+			action: [ :aButton | aButton phlow spawnObject: snippet page ]
 ]
 
 { #category : #testing }
@@ -48,4 +56,12 @@ LeExportUnsupportedSnippetLogItem >> snippet [
 { #category : #accessing }
 LeExportUnsupportedSnippetLogItem >> snippet: anObject [
 	snippet := anObject
+]
+
+{ #category : #accessing }
+LeExportUnsupportedSnippetLogItem >> sourceType [
+	"Return an object,e.g., a class, that represents the source type.
+	I can be used for grouping logs by this type."
+
+	^ self snippet class
 ]

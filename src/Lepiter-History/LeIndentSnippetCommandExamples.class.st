@@ -28,24 +28,6 @@ LeIndentSnippetCommandExamples >> createIndentSnippetCommand [
 	^ command
 ]
 
-{ #category : #'examples - setup  pages' }
-LeIndentSnippetCommandExamples >> createTargetPage [
-	<gtExample>
-	| page |
-	
-	page := super createTargetPage.
-	
-	page addSnippet: ((LeTextSnippet string: 'A')
-		uid: LeUID new). 
-	
-	page addSnippet: ((LeTextSnippet string: 'Target')
-		uid: LeUID new). 
-		
-	self assertEmptyPageHistoryForPage: page.
-	
-	^ page
-]
-
 { #category : #'examples - execution' }
 LeIndentSnippetCommandExamples >> executeIndentSnippetCommand [
 	<gtExample>

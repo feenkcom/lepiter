@@ -4,12 +4,6 @@ Class {
 	#category : #BaselineOfLepiterEngineExtensions
 }
 
-{ #category : #accessing }
-BaselineOfLepiterEngineExtensions class >> gtDependencyAnalysisPreloadedBaselines [
-	^ super gtDependencyAnalysisPreloadedBaselines
-		copyWith: BaselineOfGToolkit
-]
-
 { #category : #baseline }
 BaselineOfLepiterEngineExtensions >> baseline: spec [
 	<baseline>
@@ -36,9 +30,9 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 		spec 
 			package: 'Lepiter-Pharo' with: [
 				spec requires: #('LepiterEngineCore' ). ];
-			package: 'Lepiter-Snippet-Element' with: [
+			package: 'Lepiter-Snippet-Example' with: [
 				spec requires: #('LepiterEngineCore' 'Lepiter-Pharo' ). ];
-			package: 'Lepiter-Snippet-Slideshow' with: [
+			package: 'Lepiter-Snippet-Element' with: [
 				spec requires: #('LepiterEngineCore' 'Lepiter-Pharo' ). ];
 			package: 'Lepiter-Snippet-Picture' with: [
 				spec requires: #('LepiterEngineCore' ). ];
@@ -48,8 +42,6 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 				spec requires: #('LepiterEngineCore' ). ];
 			package: 'Lepiter-Snippet-WardleyMap' with: [
 				spec requires: #('LepiterEngineCore' 'GToolkitVisualizer' ). ];
-			package: 'Lepiter-Snippet-Example' with: [
-				spec requires: #('LepiterEngineCore' ). ];
 			package: 'Lepiter-Snippet-Changes' with: [
 				spec requires: #('LepiterEngineCore' ). ];
 			package: 'Lepiter-Snippet-Jenkins' with: [

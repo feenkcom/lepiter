@@ -163,12 +163,95 @@ main figure > img {
     font-size: 0.8rem;
 }
 
+.pharolink-snippet::after {
+    content: "PharoLink";
+    color: #aaa;
+    font-size: 0.8rem;
+}
+
+.python-snippet::after {
+    content: "Python";
+    color: #aaa;
+    font-size: 0.8rem;
+}
+
+.javascript-snippet::after {
+    content: "JavaScript";
+    color: #aaa;
+    font-size: 0.8rem;
+}
+
+.gemstone-snippet::after {
+    content: "GemStone";
+    color: #aaa;
+    font-size: 0.8rem;
+}
+
+.changes-snippet::after {
+    content: "Pharo changes";
+    color: #aaa;
+    font-size: 0.8rem;
+}
+
+.graphql-snippet::after {
+    content: "GraphQL";
+    color: #aaa;
+    font-size: 0.8rem;
+}
+
+.graphqlinput-snippet::after {
+    content: "GraphQL input";
+    color: #aaa;
+    font-size: 0.8rem;
+}
+
+.pharorewrite-snippet::after {
+    content: "Pharo rewrite";
+    color: #aaa;
+    font-size: 0.8rem;
+}
+
+.pharoreplace-snippet::after {
+    content: "Pharo replace";
+    color: #aaa;
+    font-size: 0.8rem;
+}
+
+.robocodermetamodel-snippet::after {
+    content: "Robocoder metamodel";
+    color: #aaa;
+    font-size: 0.8rem;
+}
+
 .text-snippet {
 
 }
 
 .picture-snippet {
 
+}
+
+/* Word snippet */
+
+.explanation-word {
+    font-weight: bold;
+    margin-block-end: 0;
+}
+
+.explanation-meaning {
+    font-style: italic;
+    margin-block-end: 0;
+}
+
+.explanation-definition {
+    font-style: italic;
+    margin-block-end: 0;
+    margin-inline-start: 1rem;
+}
+
+.explanation-example {
+    color: #aaa;
+    margin-inline-start: 1rem;
 }
 
 .tweet-reference-snippet {

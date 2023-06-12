@@ -102,11 +102,6 @@ LeHtmlExporterAnnotationVisitor >> visitMethodAnnotation: aMethodAnnotation [
 						self putPre: method sourceCode asHTMLString ] ] ]
 ]
 
-{ #category : #'as yet unclassified' }
-LeHtmlExporterAnnotationVisitor >> visitWordAnnotation: aLeWordAnnotationNode [
-	self flag: #todo
-]
-
 { #category : #html }
 LeHtmlExporterAnnotationVisitor >> writeClassLabel: anAnnotation [
 	self putTag: 'code' andAttributes: #('class' 'class_label') with: [

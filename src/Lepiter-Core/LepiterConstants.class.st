@@ -9,11 +9,6 @@ LepiterConstants class >> alignmentParameterName [
 	^ #alignment
 ]
 
-{ #category : #'pillar parameter default values' }
-LepiterConstants class >> alignmentTypes [
-	^ AlignmentStrategy allSubclasses collect: #strategyName
-]
-
 { #category : #ui }
 LepiterConstants class >> applyButtonIcon [
 	^ BrGlamorousVectorIcons accept
@@ -67,11 +62,6 @@ LepiterConstants class >> createButtonLabel [
 { #category : #text }
 LepiterConstants class >> cursorNearbyDistance [
 	^ 0
-]
-
-{ #category : #'pillar parameter default values' }
-LepiterConstants class >> defaultAlignment [
-	^ ParagraphWidthAlignmentStrategy strategyName.
 ]
 
 { #category : #'pillar parameter default values' }

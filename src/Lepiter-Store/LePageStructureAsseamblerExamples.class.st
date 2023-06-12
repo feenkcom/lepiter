@@ -27,26 +27,10 @@ LePageStructureAsseamblerExamples >> pageUid [
 		uid: (UUID fromString: '7da384ea-e510-4913-9694-12fc22c1b8bd')
 ]
 
-{ #category : #'examples - snippets' }
-LePageStructureAsseamblerExamples >> snippetA [
-	<gtExample>
-	^ LeTextSnippet new
-		string: 'A';
-		uid: self snippetAUid
-]
-
 { #category : #'accessing - uid' }
 LePageStructureAsseamblerExamples >> snippetAUid [
 	^ LeUID new 
 		uid: (UUID fromString: '509980c4-c780-45e1-ab5f-9ae86cd2d1cf')
-]
-
-{ #category : #'examples - snippets' }
-LePageStructureAsseamblerExamples >> snippetB [
-	<gtExample>
-	^ LeTextSnippet new
-		string: 'B';
-		uid: self snippetBUid
 ]
 
 { #category : #'accessing - uid' }
@@ -63,26 +47,10 @@ LePageStructureAsseamblerExamples >> snippetBUnknown [
 		uid: self snippetBUid
 ]
 
-{ #category : #'examples - snippets' }
-LePageStructureAsseamblerExamples >> snippetC [
-	<gtExample>
-	^ LeTextSnippet new
-		string: 'C';
-		uid: self snippetCUid
-]
-
 { #category : #'accessing - uid' }
 LePageStructureAsseamblerExamples >> snippetCUid [
 	^ LeUID new 
 		uid: (UUID fromString: 'c475afc8-3b13-4e87-ac16-06056b32ab48')
-]
-
-{ #category : #'examples - snippets' }
-LePageStructureAsseamblerExamples >> snippetD [
-	<gtExample>
-	^ LeTextSnippet new
-		string: 'D';
-		uid: self snippetDUid
 ]
 
 { #category : #'accessing - uid' }
@@ -99,26 +67,10 @@ LePageStructureAsseamblerExamples >> snippetDUnknown [
 		uid: self snippetDUid
 ]
 
-{ #category : #'examples - snippets' }
-LePageStructureAsseamblerExamples >> snippetE [
-	<gtExample>
-	^ LeTextSnippet new
-		string: 'E';
-		uid: self snippetEUid
-]
-
 { #category : #'accessing - uid' }
 LePageStructureAsseamblerExamples >> snippetEUid [
 	^ LeUID new 
 		uid: (UUID fromString: '71a301df-84d9-4635-b40d-342e58b6aa6d')
-]
-
-{ #category : #'examples - snippets' }
-LePageStructureAsseamblerExamples >> snippetF [
-	<gtExample>
-	^ LeTextSnippet new
-		string: 'F';
-		uid: self snippetFUid
 ]
 
 { #category : #'accessing - uid' }
@@ -127,40 +79,16 @@ LePageStructureAsseamblerExamples >> snippetFUid [
 		uid: (UUID fromString: 'eb8044a9-1293-4c29-907d-ae8c99b40508')
 ]
 
-{ #category : #'examples - snippets' }
-LePageStructureAsseamblerExamples >> snippetG [
-	<gtExample>
-	^ LeTextSnippet new
-		string: 'G';
-		uid: self snippetGUid
-]
-
 { #category : #'accessing - uid' }
 LePageStructureAsseamblerExamples >> snippetGUid [
 	^ LeUID new 
 		uid: (UUID fromString: 'bd870096-190f-45ea-a2da-dc784b5dd745')
 ]
 
-{ #category : #'examples - snippets' }
-LePageStructureAsseamblerExamples >> snippetH [
-	<gtExample>
-	^ LeTextSnippet new
-		string: 'H';
-		uid: self snippetHUid 
-]
-
 { #category : #'accessing - uid' }
 LePageStructureAsseamblerExamples >> snippetHUid [
 	^ LeUID new 
 		uid: (UUID fromString: 'af17c7a9-3874-42ab-8e46-5099b26f16a3')
-]
-
-{ #category : #'examples - snippets' }
-LePageStructureAsseamblerExamples >> snippetI [
-	<gtExample>
-	^ LeTextSnippet new
-		string: 'I';
-		uid: self snippetIUid  
 ]
 
 { #category : #'accessing - uid' }

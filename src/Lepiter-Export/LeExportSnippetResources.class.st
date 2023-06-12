@@ -7,6 +7,22 @@ Class {
 	#category : #'Lepiter-Export-Resources - Model'
 }
 
+{ #category : #'gt - extensions' }
+LeExportSnippetResources >> gtResourcesFor: aView [
+	<gtView>
+	resources ifNil: [ ^ aView empty ].
+	^ aView columnedList
+		title: 'Resources';
+		priority: 1;
+		items: [ resources ifNil: [ #() ] ];
+		column: 'Index'
+			text: [ :_ :anIndex | anIndex ]
+			width: 60;
+		column: 'Source' text: [ :aResource | aResource source ];
+		column: 'Path' text: [ :aResource | aResource pathName ];
+		column: 'State' text: [ :aResource | aResource state label ]
+]
+
 { #category : #testing }
 LeExportSnippetResources >> ifEmpty: emptyBlock ifOne: oneBlock ifMore: moreBlock [
 
@@ -14,6 +30,20 @@ LeExportSnippetResources >> ifEmpty: emptyBlock ifOne: oneBlock ifMore: moreBloc
 	^ resources size = 1
 		ifTrue: [ oneBlock cull: resources anyOne ]
 		ifFalse: [ moreBlock cull: resources ]
+]
+
+{ #category : #printing }
+LeExportSnippetResources >> printOn: aStream [
+	super printOn: aStream.
+
+	resources ifNil: [ ^ self ].
+
+	aStream
+		space;
+		nextPut: $[;
+		print: resources size;
+		nextPutAll: (' item' asPluralBasedOn: resources size);
+		nextPut: $]
 ]
 
 { #category : #accessing }

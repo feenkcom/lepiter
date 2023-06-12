@@ -265,6 +265,7 @@ LeWardleyMapSnippet >> wardleyMap: aNewWardleyMap [
 
 { #category : #'private - export / import' }
 LeWardleyMapSnippet >> wardleyMapDictionary [
+	<return: #Dictionary>
 	^ wardleyMap accept: LeWardleyMapExporter new
 ]
 

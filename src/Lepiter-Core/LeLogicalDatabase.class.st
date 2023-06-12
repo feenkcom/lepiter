@@ -689,14 +689,6 @@ LeLogicalDatabase >> registeredDBs: anArray [
 ]
 
 { #category : #'startup-shutdown' }
-LeLogicalDatabase >> reload [ 
-
-	LeLogicalDatabaseReload new 
-		database: self;
-		reload
-]
-
-{ #category : #'startup-shutdown' }
 LeLogicalDatabase >> reloadRequestFrom: aLeDatabase [
 	"All concrete databases will be requested to reload at Pharo session startup.
 	Only reload the receiver once - when the primary DB requests it."

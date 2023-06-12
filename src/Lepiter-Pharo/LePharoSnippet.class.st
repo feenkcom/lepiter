@@ -86,20 +86,6 @@ LePharoSnippet >> compileExampleMethod: aSelector in: aClass classified: aSymbol
 	GtPharoCodeModifier current performRefactoryChange: change
 ]
 
-{ #category : #converting }
-LePharoSnippet >> convertToExample: aSelector in: aClass classified: aSymbol [
-	self
-		compileExampleMethod: aSelector
-		in: aClass
-		classified: aSymbol.
-	self
-		addSnippetAfterSelf:
-			((LeExampleSnippet new)
-				exampleBehaviorName: aClass name;
-				exampleSelector: aSelector).
-	self removeSelf
-]
-
 { #category : #accessing }
 LePharoSnippet >> moveFollowingSnippetsToPage: pageName [
 	"Use this to split a lepiter snippet by evaluating or inspecting this in a code
