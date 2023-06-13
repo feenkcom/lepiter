@@ -35,6 +35,7 @@ LeInspectorPlaygroundElement >> defaultPlaygroundHeight [
 { #category : #'api - visibility' }
 LeInspectorPlaygroundElement >> expand [
 	widthStrategy adjustHeightFor: self.
+	self tryToFocusFirstSnippet
 ]
 
 { #category : #initialization }
@@ -155,6 +156,14 @@ LeInspectorPlaygroundElement >> playgroundPageStrategy: aPlaygroundPageStrategy 
 { #category : #'private - accessing' }
 LeInspectorPlaygroundElement >> resizerElement [
 	^ resizerElement
+]
+
+{ #category : #'private - updating' }
+LeInspectorPlaygroundElement >> tryToFocusFirstSnippet [
+	self pageElement snippetsViewModel
+		allChildrenBreadthFirstDo: [ :c | 
+			c focused: true.
+			^ self ]
 ]
 
 { #category : #'private - updating' }
