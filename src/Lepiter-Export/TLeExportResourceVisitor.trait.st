@@ -24,8 +24,18 @@ TLeExportResourceVisitor >> visitExportSlideResource: aResource [
 ]
 
 { #category : #visiting }
+TLeExportResourceVisitor >> visitExportSnippetElementResource: aResource [
+	^ self visitExportSnippetResource: aResource
+]
+
+{ #category : #visiting }
 TLeExportResourceVisitor >> visitExportSnippetResource: aResource [
 	^ self visitResource: aResource
+]
+
+{ #category : #visiting }
+TLeExportResourceVisitor >> visitExportTextSnippetExampleAnnotationResource: aResource [
+	^ self visitExportSnippetResource: aResource
 ]
 
 { #category : #visiting }

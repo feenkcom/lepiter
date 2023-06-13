@@ -104,37 +104,9 @@ LeContentCommandExamples >> assertStructure: structureDescription forContent: aL
 ]
 
 { #category : #asserting }
-LeContentCommandExamples >> assertTargePageIsSerialisable [
-	| jsonString|
-	jsonString := LeJsonV4 uniqueInstance 
-		serializePretty: self targetPage.
-	self assert: jsonString notNil.
-	
-	LeJsonV4 uniqueInstance 
-		deserialize: jsonString readStream
-]
-
-{ #category : #asserting }
 LeContentCommandExamples >> assertValidCommandFor: aCommand [ 
 	self assert: aCommand uid notNil.
 	self assert: aCommand targetContent notNil.
-]
-
-{ #category : #'setup  pages' }
-LeContentCommandExamples >> createTargetDatabase [
-	^ LeDatabase null
-]
-
-{ #category : #'examples - setup  pages' }
-LeContentCommandExamples >> createTargetPage [
-	<gtExample>
-	
-	| newPage|
-	newPage := LePage named: 'TestPage'.
-		
-	self assertEmptyPageHistoryForPage: newPage.
-	
-	^ newPage
 ]
 
 { #category : #'examples - setup  pages' }
@@ -147,13 +119,6 @@ LeContentCommandExamples >> ensureTargetPageWithTwoBasicSnippetsAndFirstTarget [
 	targetPage addSnippet: (self textSnippetWithString: 'A').
 	
 	^ targetPage
-]
-
-{ #category : #utils }
-LeContentCommandExamples >> pharoCodeSnippetWithString: aString [ 
-	^ (LePharoSnippet code: aString)
-		uid: LeUID new;
-		yourself
 ]
 
 { #category : #'examples - setup  pages' }
@@ -181,13 +146,6 @@ LeContentCommandExamples >> targetSnippet [
 		aSnippet string = 'Target' ifTrue: [ ^ aSnippet ] ].
 	
 	NotFound signal.
-]
-
-{ #category : #utils }
-LeContentCommandExamples >> textSnippetWithString: aString [ 
-	^ (LeTextSnippet string: aString)
-		uid: LeUID new;
-		yourself
 ]
 
 { #category : #accessing }

@@ -80,3 +80,11 @@ LeExportPageOutputResource >> source [
 
 	^ self pageLink page
 ]
+
+{ #category : #accessing }
+LeExportPageOutputResource >> sourceType [
+	"Return an object,e.g., a class, that represents the source type.
+	I can be used for grouping resources by this type."
+
+	^ self pageLink page
+]

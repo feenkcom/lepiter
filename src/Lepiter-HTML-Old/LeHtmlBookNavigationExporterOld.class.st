@@ -97,7 +97,7 @@ LeHtmlBookNavigationExporterOld >> exportNavigation [
 				do: [
 					internalStream
 						tag: #header
-						class: 'navbar navbar-light bg-white sticky-top le-nav-footer'
+						class: 'navbar navbar-light bg-white sticky-top px-3 le-nav-footer'
 						do: [
 							self exportNavigationToggler.
 							self exportLogo. ].
@@ -123,8 +123,8 @@ LeHtmlBookNavigationExporterOld >> exportNavigationToggler [
 		attributes: #(
 			'class' 'navbar-toggler' 
 			'type' 'button'
-			'data-toggle' 'collapse'
-			'data-target' '#le-nav-collapsable'
+			'data-bs-toggle' 'collapse'
+			'data-bs-target' '#le-nav-collapsable'
 			'arial-controls' 'le-nav-collapsable'
 			'arial-expanded' 'false'
 			'arial-label' 'Toggle navigation' )

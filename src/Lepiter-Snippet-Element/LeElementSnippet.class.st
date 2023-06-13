@@ -87,6 +87,7 @@ LeElementSnippet >> caption [
 
 { #category : #accessing }
 LeElementSnippet >> codeHeight [
+	<return: #Number>
 	^ codeHeight
 ]
 
@@ -104,6 +105,7 @@ LeElementSnippet >> codeHeight: aNumber [
 
 { #category : #accessing }
 LeElementSnippet >> codeVisible [
+	<return: #Boolean>
 	^ codeVisible
 ]
 
@@ -154,6 +156,7 @@ LeElementSnippet >> createEditVisibilityCommandTo: aBoolean [
 
 { #category : #accessing }
 LeElementSnippet >> elementHeight [
+	<return: #Number>
 	^ elementHeight
 ]
 

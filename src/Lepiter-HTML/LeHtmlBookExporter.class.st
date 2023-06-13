@@ -35,6 +35,20 @@ LeHtmlBookExporter >> addGtBookAssets [
 ]
 
 { #category : #'api - exporting' }
+LeHtmlBookExporter >> assembleNewResources: aDirectory [
+	"If a resource is found in the output directory, do not assemble it."
+
+	resourceTime := [ 
+	
+		LeExportResourcesAssembler new
+			resources: self resources;
+			condition: (LeExportNewResourceCondition new rootDirectory: aDirectory);
+			assemble 
+			
+	] timeToRun
+]
+
+{ #category : #'api - exporting' }
 LeHtmlBookExporter >> assembleResources [
 	resourceTime := [ 
 	
@@ -159,7 +173,7 @@ LeHtmlBookExporter >> gtLogFor: aView [
 		title: 'Log';
 		priority: 20;
 		object: [ log ];
-		view: #gtLogItemsFor:
+		view: #gtLogItemsGroupedBySourceTypeFor:
 ]
 
 { #category : #'gt - extensions' }
@@ -170,7 +184,11 @@ LeHtmlBookExporter >> gtResourcesFor: aView [
 		title: 'Resources';
 		priority: 15;
 		object: [ resources ];
-		view: #gtResourcesFor:
+		view: #gtResourcesGroupedBySourceTypeFor:;
+		actionButtonIcon: BrGlamorousVectorIcons inspect
+			label: 'Details'
+			tooltip: 'Inspect resources'
+			action: [ :aButton | aButton phlow spawnObject: resources ]
 ]
 
 { #category : #'api - initialization' }

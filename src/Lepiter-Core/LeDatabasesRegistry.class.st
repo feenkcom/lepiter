@@ -103,12 +103,6 @@ LeDatabasesRegistry >> initializeForGlamorousToolkit [
 ]
 
 { #category : #private }
-LeDatabasesRegistry >> loadDefaultLogicalDatabase [
-
-	^ LeLogicalDatabaseProperties default logicalDatabase
-]
-
-{ #category : #private }
 LeDatabasesRegistry >> setupForGlamorousToolkit [
 	self initializeForGlamorousToolkit.
 	^ self currentLoadedDefaultLogicalDatabase 

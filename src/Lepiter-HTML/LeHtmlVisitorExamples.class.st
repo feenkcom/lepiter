@@ -6,77 +6,11 @@ Class {
 	#category : #'Lepiter-HTML-Examples'
 }
 
-{ #category : #'examples - element snippet' }
-LeHtmlVisitorExamples >> elementSnippetWithGlamorousBreadcrumb [
-	<gtExample>
-	| snippet html resources visitor holder |
-	holder := LeExportVisitorExamples new elementSnippetWithGlamorousBreadcrumb.
-	snippet := holder snippet.
-	resources := holder resources.
-	visitor := LeHtmlVisitor new
-			context: (LeHtmlContext new resources: resources).
-
-	html := visitor contentsFor: snippet.
-
-	self assertHtml: html includes: '<figure class="snippet picture-snippet'.
-	self
-		assertHtml: html
-		includes: '<img class="picture-snippet-image" src="gt-figures/1000.png"/>'.
-
-	^ LeHtmlVisitorHolder new
-		visitor: visitor;
-		snippet: snippet
-]
-
-{ #category : #'examples - element snippet' }
-LeHtmlVisitorExamples >> elementSnippetWithInexistentMethod [
-	<gtExample>
-	| snippet html resources visitor holder |
-	holder := LeExportVisitorExamples new elementSnippetWithInexistentMethod.
-	snippet := holder snippet.
-	resources := holder resources.
-	visitor := LeHtmlVisitor new
-			context: (LeHtmlContext new resources: resources).
-
-	html := visitor contentsFor: snippet.
-
-	self assertHtml: html includes: '<figure class="snippet picture-snippet'.
-	self
-		assertHtml: html
-		includes: '<img class="picture-snippet-image" src="gt-figures/1000.png"/>'.
-
-	^ LeHtmlVisitorHolder new
-		visitor: visitor;
-		snippet: snippet
-]
-
-{ #category : #'examples - element snippet' }
-LeHtmlVisitorExamples >> elementSnippetWithSlideshow [
-	<gtExample>
-	| snippet html resources context visitor holder |
-	holder := LeExportVisitorExamples new elementSnippetWithSlideshow.
-	snippet := holder snippet.
-	resources := holder resources.
-
-	visitor := LeHtmlVisitor new
-			context: (context := LeHtmlContext new
-						resources: resources).
-
-	html := visitor contentsFor: snippet.
-	
-	self assertHtml: html includes: '<img src="gt-figures/1000.png" class="d-block w-100" alt="Slide 1"/>'.
-	self assertHtml: html includes: '<img src="gt-figures/1001.png" class="d-block w-100" alt="Slide 2"/>'.
-	
-	^ LeHtmlVisitorHolder new
-		visitor: visitor;
-		snippet: snippet
-]
-
 { #category : #'examples - picture snippet' }
-LeHtmlVisitorExamples >> pictureSnippetWithExistingFileReference [
+LeHtmlVisitorExamples >> textSnippetWithExampleAnnotation [
 	<gtExample>
 	| snippet html resources context visitor holder |
-	holder := LeExportVisitorExamples new pictureSnippetWithExistingFileReference.
+	holder := LeExportVisitorExamples new textSnippetWithExampleAnnotation.
 	snippet := holder snippet.
 	resources := holder resources.
 	
@@ -86,8 +20,9 @@ LeHtmlVisitorExamples >> pictureSnippetWithExistingFileReference [
 	
 	html := visitor contentsFor: snippet.
 	
-	self assertHtml: html beginsWith: '<figure class="snippet picture-snippet paragraphWidth"'.
-	self assertHtml: html includes: '<img class="picture-snippet-image" src="gt-figures/1000.jpg"/>'.
+	self assertHtml: html includes: '<code class="hljs smalltalk">'.
+	self assertHtml: html includes: 'glamorousLargeButton'.
+	self assertHtml: html includes: BrExamplesShowroom name.
 	
 	^ LeHtmlVisitorHolder new
 		visitor: visitor;
@@ -95,10 +30,10 @@ LeHtmlVisitorExamples >> pictureSnippetWithExistingFileReference [
 ]
 
 { #category : #'examples - picture snippet' }
-LeHtmlVisitorExamples >> pictureSnippetWithHttps [
+LeHtmlVisitorExamples >> textSnippetWithExampleAnnotationWithLabel [
 	<gtExample>
 	| snippet html resources context visitor holder |
-	holder := LeExportVisitorExamples new pictureSnippetWithHttps.
+	holder := LeExportVisitorExamples new textSnippetWithExampleAnnotationWithLabel.
 	snippet := holder snippet.
 	resources := holder resources.
 	
@@ -108,19 +43,19 @@ LeHtmlVisitorExamples >> pictureSnippetWithHttps [
 	
 	html := visitor contentsFor: snippet.
 
-	self assertHtml: html beginsWith: '<figure class="snippet picture-snippet paragraphWidth"'.
-	self assertHtml: html includes: '<img class="picture-snippet-image" src="https://gtoolkit.com/assets/pictures/use-case-rest-api.png"/>'.
+	self assertHtml: html includes: '<div class="snippet textual-snippet text-snippet">'.
+	self assertHtml: html includes: '<code class="example_inlined">'.
 	
-	^ LeHtmlVisitorHolder new 
+	^ LeHtmlVisitorHolder new
 		visitor: visitor;
 		snippet: snippet
 ]
 
 { #category : #'examples - picture snippet' }
-LeHtmlVisitorExamples >> pictureSnippetWithMissingFileReference [
+LeHtmlVisitorExamples >> textSnippetWithExampleAnnotationWithPreviewExpanded [
 	<gtExample>
 	| snippet html resources context visitor holder |
-	holder := LeExportVisitorExamples new pictureSnippetWithMissingFileReference.
+	holder := LeExportVisitorExamples new textSnippetWithExampleAnnotationWithPreviewExpanded.
 	snippet := holder snippet.
 	resources := holder resources.
 	
@@ -130,31 +65,30 @@ LeHtmlVisitorExamples >> pictureSnippetWithMissingFileReference [
 	
 	html := visitor contentsFor: snippet.
 	
-	self assertHtml: html beginsWith: '<figure class="snippet picture-snippet paragraphWidth"'.
-	self assertHtml: html includes: '<img class="picture-snippet-image" src="gt-figures/1000.jpg"/>'.
+	self assertHtml: html includes: '<code class="hljs smalltalk">'.
+	self assertHtml: html includes: 'glamorousLargeButton'.
+	self assertHtml: html includes: BrExamplesShowroom name.
+	self assertHtml: html includes: 'src="gt-figures/1000.png"'.
 	
 	^ LeHtmlVisitorHolder new
 		visitor: visitor;
 		snippet: snippet
 ]
 
-{ #category : #'examples - element snippet' }
-LeHtmlVisitorExamples >> unsupportedSnippet [
+{ #category : #'examples - picture snippet' }
+LeHtmlVisitorExamples >> textSnippetWithWordAnnotation [
 	<gtExample>
-	| snippet html resources visitor holder log |
-	holder := LeExportVisitorExamples new unsupportedSnippet.
+	| snippet html resources context visitor holder |
+	holder := LeExportVisitorExamples new textSnippetWithWordAnnotation.
 	snippet := holder snippet.
 	resources := holder resources.
-	visitor := LeHtmlIncompleteVisitor new
-			context: (LeHtmlContext new 
-				resources: resources;
-				log: (log := LeExportLog new)).
-
+	
+	visitor := LeHtmlVisitor new
+			context: (context := LeHtmlContext new
+				resources: resources).
+	
 	html := visitor contentsFor: snippet.
-
-	self assertEmptyHtml: html.
-	self assertLog: log size: 1.
-
+	
 	^ LeHtmlVisitorHolder new
 		visitor: visitor;
 		snippet: snippet

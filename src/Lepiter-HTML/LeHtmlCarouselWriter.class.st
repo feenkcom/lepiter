@@ -74,7 +74,7 @@ LeHtmlCarouselWriter >> writeIndicator: resource index: index [
 	attributes := OrderedCollection withAll: { 
 		#type. #button. 
 		'data-bs-target'. '#', carouselId.
-		'data-bs-slide-to'. index. }.
+		'data-bs-slide-to'. index - 1. }.
 		
 	index = 1 ifTrue: [ 
 		attributes add: #class; add: 'active'.

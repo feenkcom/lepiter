@@ -7,8 +7,3 @@ Trait {
 TLeContentCommandInStandalonePageExamples >> assertEditedSnippetMetadataFor: aSnippet [ 
 	self assertOnlyTimeMetadataSetForSnippet: aSnippet 
 ]
-
-{ #category : #accessing }
-TLeContentCommandInStandalonePageExamples >> createTargetDatabase [
-	^ LeDatabase null
-]

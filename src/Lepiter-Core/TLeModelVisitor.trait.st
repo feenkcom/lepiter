@@ -126,9 +126,3 @@ TLeModelVisitor >> visitUnknownSnippet: aLeTextSnippet [
 
 	^ self visitTextualSnippet: aLeTextSnippet
 ]
-
-{ #category : #visiting }
-TLeModelVisitor >> visitWardleyMapSnippet: aLePictureSnippet [
-
-	^ self visitSnippet: aLePictureSnippet 
-]
