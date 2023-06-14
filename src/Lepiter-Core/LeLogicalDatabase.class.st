@@ -245,6 +245,16 @@ LeLogicalDatabase >> databaseNamed: aDatabaseName [
 ]
 
 { #category : #accessing }
+LeLogicalDatabase >> databaseNamed: aDatabaseName ifNone: noneBlock [
+	"Answer the database with the supplied name"
+
+	<return: #LeDatabase>
+	^ self databases
+		detect: [ :db | db databaseName = aDatabaseName ]
+		ifNone: noneBlock
+]
+
+{ #category : #accessing }
 LeLogicalDatabase >> databaseWithID: aUUIDString [
 	"Answer the database with the supplied id"
 	<return: #LeDatabase>
@@ -521,6 +531,39 @@ LeLogicalDatabase >> pageNames [
 	self databasesDo: [ :db |
 		pageNames addAll: db pageNames ].
 	^ pageNames
+]
+
+{ #category : #accessing }
+LeLogicalDatabase >> pageWithID: pageId [
+	| uid |
+
+	uid := pageId isString 
+		ifTrue: [ UUID fromString36: pageId ]
+		ifFalse: [ pageId ].
+	self pagesDo: [ :page | page uid = uid ifTrue: [ ^ page ] ].
+	NotFound signalFor: pageId.
+]
+
+{ #category : #accessing }
+LeLogicalDatabase >> pageWithID: pageId ifAbsent: absentBlock [
+	| uid |
+
+	uid := pageId isString 
+		ifTrue: [ UUID fromString36: pageId ]
+		ifFalse: [ pageId ].
+	self pagesDo: [ :page | page uid = uid ifTrue: [ ^ page ] ].
+	^ absentBlock value.
+]
+
+{ #category : #accessing }
+LeLogicalDatabase >> pageWithID: pageId ifPresent: presentBlock ifAbsent: absentBlock [
+	| uid |
+
+	uid := pageId isString 
+		ifTrue: [ UUID fromString36: pageId ]
+		ifFalse: [ pageId ].
+	self pagesDo: [ :page | page uid = uid ifTrue: [ ^ presentBlock value: page ] ].
+	^ absentBlock value.
 ]
 
 { #category : #'api - query' }

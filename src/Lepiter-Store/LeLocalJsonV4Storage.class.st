@@ -44,20 +44,26 @@ LeLocalJsonV4Storage >> explicitLinksFileOrNilIn: aDirectory [
 
 { #category : #loading }
 LeLocalJsonV4Storage >> loadFromFile: aFileReference [
+	| originalException result |
 
-	^ [ aFileReference readStreamDo: [ :stream |
+	result := [ aFileReference readStreamDo: [ :stream |
 			LeJsonV4 uniqueInstance deserialize: stream ] ]
 				on: NeoJSONParseError 
-				do: [ :ex | | corruptFileReference loadError |
-					corruptFileReference := (aFileReference withExtension: 'corrupt') nextVersion.
-					UIManager default inform: 'Lepiter: Unable to load: ', aFileReference basename, ' in ', aFileReference parent fullName, ' due to a JSON parser error'.
-					aFileReference resolve renameTo: corruptFileReference basename.
-					loadError := LeDBLoadError new.
-					loadError properties at: #fileReference put: corruptFileReference.
-					loadError
-						reason: 'JSON Parse Error';
-						originalException: ex.
-					loadError signal ]
+				do: [ :ex |
+					originalException := ex.
+					nil ].
+	originalException ifNotNil:
+		[ | corruptFileReference loadError |
+		corruptFileReference := (aFileReference withExtension: 'corrupt') nextVersion.
+		UIManager default inform: 'Lepiter: Unable to load: ', aFileReference basename, ' in ', aFileReference parent fullName, ' due to a JSON parser error'.
+		aFileReference resolve renameTo: corruptFileReference basename.
+		loadError := LeDBLoadError new.
+			loadError properties at: #fileReference put: corruptFileReference.
+			loadError
+				reason: 'JSON Parse Error';
+				originalException: originalException.
+		loadError signal ].
+	^ result
 ]
 
 { #category : #saving }

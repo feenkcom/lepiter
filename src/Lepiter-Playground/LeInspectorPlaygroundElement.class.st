@@ -39,15 +39,22 @@ LeInspectorPlaygroundElement >> databasesRegistry: aDatabasesRegistry [
 	databasesRegistry := aDatabasesRegistry
 ]
 
+{ #category : #initialization }
+LeInspectorPlaygroundElement >> defaultPlaygroundHeight [
+	^ 200
+]
+
 { #category : #'api - visibility' }
 LeInspectorPlaygroundElement >> expand [
 	widthStrategy adjustHeightFor: self.
+	self tryToFocusFirstSnippet
 ]
 
 { #category : #initialization }
 LeInspectorPlaygroundElement >> initialize [
 	super initialize.
-	widthStrategy := BrResizerElementLength exact: self minimumHeight.
+
+	widthStrategy := BrResizerElementLength exact: self defaultPlaygroundHeight.
 	
 	self initializePageElement.
 	
@@ -55,6 +62,7 @@ LeInspectorPlaygroundElement >> initialize [
 	self constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical fitContent ].
+	self clipChildren: false.
 
 	"resizer is added in this method"
 	self initializeResizerElement.
@@ -78,9 +86,15 @@ LeInspectorPlaygroundElement >> initializePageElement [
 
 { #category : #initialization }
 LeInspectorPlaygroundElement >> initializeResizerElement [
-	self
-		addAptitude: (BrGlamorousWithVerticalResizerAptitude new beTop
-		resizerDo: [ :theResizer | resizerElement := theResizer ]).
+	resizerElement := BrResizer new
+		aptitude: BrGlamorousHandleBarResizerAptitude;
+		elevation: (BlRelativeElevation elevation: 1000);
+		constraintsDo: [ :c | c ignoreByLayout ];
+		beTop;
+		target: self.
+
+	self addChild: resizerElement.
+
 	self resizerElement
 		when: BlResizerResizedEvent
 			do: [ :anEvent | self onResizerResized: anEvent ];
@@ -112,7 +126,7 @@ LeInspectorPlaygroundElement >> locatePageForObject [
 
 { #category : #'private - accessing' }
 LeInspectorPlaygroundElement >> minimumHeight [
-	^ 5
+	^ 8
 ]
 
 { #category : #'private - hooks' }
@@ -155,6 +169,14 @@ LeInspectorPlaygroundElement >> playgroundPageStrategy: aPlaygroundPageStrategy 
 { #category : #'private - accessing' }
 LeInspectorPlaygroundElement >> resizerElement [
 	^ resizerElement
+]
+
+{ #category : #'private - updating' }
+LeInspectorPlaygroundElement >> tryToFocusFirstSnippet [
+	self pageElement snippetsViewModel
+		allChildrenBreadthFirstDo: [ :c | 
+			c focused: true.
+			^ self ]
 ]
 
 { #category : #'private - updating' }
