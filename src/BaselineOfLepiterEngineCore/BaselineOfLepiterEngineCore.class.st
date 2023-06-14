@@ -16,7 +16,7 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 				spec repository: 'github://feenkcom/gtoolkit-utility:v0.8.204/src' ].
 		spec
 			baseline: 'GToolkitInspector' with: [
-				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.1674/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.1675/src' ].
 		spec
 			baseline: 'GToolkitCoder' with: [
 				spec repository: 'github://feenkcom/gtoolkit-coder:v0.8.1299/src' ].
@@ -25,19 +25,28 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 				spec repository: 'github://feenkcom/gt4pharo:v0.6.1201/src' ].
 		spec
 			baseline: 'GToolkit4Json' with: [
-				spec repository: 'github://feenkcom/gt4json:v0.6.400/src' ].
+				spec repository: 'github://feenkcom/gt4json:v0.6.401/src' ].
 		spec
 			baseline: 'GToolkitReleaser' with: [
 				spec repository: 'github://feenkcom/gtoolkit-releaser:v0.8.179/src' ].
 		spec
 			baseline: 'LepiterXDoc' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.1584/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.6.1585/src' ].
 		spec
 			baseline: 'SmaCCRuntime' with: [
 				spec repository: 'github://j-brant/SmaCC:v3.0.17' ].
 		spec
 			baseline: 'JSONParser' with: [
 				spec repository: 'github://j-brant/SmaCC:v3.0.17' ].
+		spec
+			baseline: 'Beacon' with: [
+				spec repository: 'github://feenkcom/pharo-beacon:140c846eef357e9e94939567bad33d12abfab1bc/repository' ].
+		spec
+			baseline: 'JSONWebToken' with: [
+				spec repository: 'github://feenkcom/JSONWebToken:v0.5.128/source' ].
+		spec
+			baseline: 'ZincHTTPComponentsRest' with: [
+				spec repository: 'github://feenkcom/zinc:v3.0.17/repository' ].
 
 		spec package: 'Lepiter-Parser' with: [
 			spec requires: #('SmaCCRuntime') ].
@@ -82,5 +91,7 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 			spec requires: #('Lepiter-Core' 'Lepiter-Store' 'Lepiter-UI') ].
 		spec package: 'Lepiter-Core-Examples' with: [
 			spec requires: #('Lepiter-Snippet-Text' 'Lepiter-Store-Class' 'Lepiter-Utilities') ].
+		spec package: 'Lepiter-BasicServer' with: [
+			spec requires: #('Beacon' 'JSONWebToken' 'ZincHTTPComponentsRest') ].
 	]
 ]
