@@ -6,7 +6,8 @@ Class {
 		'pageElement',
 		'resizerElement',
 		'widthStrategy',
-		'playgroundPageStrategy'
+		'playgroundPageStrategy',
+		'databasesRegistry'
 	],
 	#category : #'Lepiter-Playground'
 }
@@ -25,6 +26,17 @@ LeInspectorPlaygroundElement >> collapse [
 LeInspectorPlaygroundElement >> currentPlaygroundPageStrategy [
 	^ playgroundPageStrategy ifNil: [
 		self object gtPlaygroundPageStrategy ]
+]
+
+{ #category : #'private - accessing' }
+LeInspectorPlaygroundElement >> databasesRegistry [
+	^ databasesRegistry ifNil: [
+			LeDatabasesRegistry default ]
+]
+
+{ #category : #accessing }
+LeInspectorPlaygroundElement >> databasesRegistry: aDatabasesRegistry [
+	databasesRegistry := aDatabasesRegistry
 ]
 
 { #category : #'api - visibility' }
@@ -84,7 +96,7 @@ LeInspectorPlaygroundElement >> isCollapsed [
 
 { #category : #'private - accessing' }
 LeInspectorPlaygroundElement >> locateDefaultPlaygroundDatabase [
-	^ LeDatabasesRegistry uniqueInstance currentLoadedDefaultLogicalDatabase playgroundDB
+	^ self databasesRegistry currentLoadedDefaultLogicalDatabase playgroundDB
 ]
 
 { #category : #'private - accessing' }
@@ -106,6 +118,7 @@ LeInspectorPlaygroundElement >> minimumHeight [
 { #category : #'private - hooks' }
 LeInspectorPlaygroundElement >> onObjectHolderChanged [
 	super onObjectHolderChanged.
+	
 	self updatePage.
 ]
 
