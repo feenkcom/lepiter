@@ -44,6 +44,14 @@ LeSnippet >> addChildOrSiblingSnippetOfClass: aNewSnippetClass [
 		ifFalse: [ self addSnippetAfterSelfOfClass: aNewSnippetClass ].
 ]
 
+{ #category : #'api - notifications' }
+LeSnippet >> addedToParent: aParent [
+
+	self aboutToAddToDatabase: aParent database.
+	self parent: aParent.
+	self addedToDatabase: aParent database.
+]
+
 { #category : #adding }
 LeSnippet >> addExplicitLinkTo: aTargetReference [
 	self assert: [ self database notNil ].
@@ -55,6 +63,12 @@ page is associated to a database. If not the link will be lost.'.
 	self database addExplicitLink: (LeAttachedLink new
 		originReference: (LeLinkSnippetUidReference forSnippet: self);
 		targetReference: aTargetReference).
+]
+
+{ #category : #accessing }
+LeSnippet >> additionalStateForCopying [
+
+	^ LeGenericSnippetState new
 ]
 
 { #category : #'api - editing' }
@@ -85,20 +99,6 @@ LeSnippet >> addSnippetBeforeSelf [
 LeSnippet >> addSnippetBeforeSelfOfClass: aNewSnippetClass [ 
 	"Add a new snippet before the receiver having the given class. Answer the new snippet"
 	^ self parent addSnippetOfClass: aNewSnippetClass before: self
-]
-
-{ #category : #'api - notifications' }
-LeSnippet >> addedToParent: aParent [
-
-	self aboutToAddToDatabase: aParent database.
-	self parent: aParent.
-	self addedToDatabase: aParent database.
-]
-
-{ #category : #accessing }
-LeSnippet >> additionalStateForCopying [
-
-	^ LeGenericSnippetState new
 ]
 
 { #category : #accessing }

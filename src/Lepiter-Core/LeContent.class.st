@@ -50,6 +50,19 @@ LeContent >> acceptVisitor: aVisitor [
 	^ aVisitor visitContent: self
 ]
 
+{ #category : #'api - notifications' }
+LeContent >> addedToDatabase: aDatabase [
+	"Set the receiver's database and update metadata if required.
+	This is called when adding content in a running system."
+
+	database == aDatabase ifTrue: [ ^ self ].
+	self database: aDatabase.
+	
+	self onAddedToDatabase.
+	self children do: [ :eachChild | 
+		eachChild addedToDatabase: aDatabase ].
+]
+
 { #category : #'api - editing' }
 LeContent >> addFirstSnippet: aLeSnippet [
 	"Add the supplied block as the first child of the receiver"
@@ -133,19 +146,6 @@ LeContent >> addSnippetOfClass: aNewSnippetClass before: aLeSnippet [
 	newLeSnippet := aNewSnippetClass empty.
 	self addSnippet: newLeSnippet before: aLeSnippet.
 	^ newLeSnippet
-]
-
-{ #category : #'api - notifications' }
-LeContent >> addedToDatabase: aDatabase [
-	"Set the receiver's database and update metadata if required.
-	This is called when adding content in a running system."
-
-	database == aDatabase ifTrue: [ ^ self ].
-	self database: aDatabase.
-	
-	self onAddedToDatabase.
-	self children do: [ :eachChild | 
-		eachChild addedToDatabase: aDatabase ].
 ]
 
 { #category : #'api - accessing' }
@@ -274,18 +274,6 @@ LeContent >> announceContentIndentedFor: aLeSnippet [
 ]
 
 { #category : #'private - notifications' }
-LeContent >> announceContentMoveOfType: anAnnouncentType for: aLeSnippet [
-	"Announce that the receiver has moved a snippet in the tree"
-
-	self notifier 
-		bubble; database;
-		announce: (anAnnouncentType new
-			content: aLeSnippet;
-			destinationParent: self;
-			destinationIndex: (children indexOf: aLeSnippet))
-]
-
-{ #category : #'private - notifications' }
 LeContent >> announceContentMovedDownFor: aLeSnippet [
 	"Announce that the receiver has moved down a snippet in the tree"
 
@@ -297,6 +285,18 @@ LeContent >> announceContentMovedUpFor: aLeSnippet [
 	"Announce that the receiver has moved up a snippet in the tree"
 
 	self announceContentMoveOfType: LeContentTreeMovedUp for: aLeSnippet
+]
+
+{ #category : #'private - notifications' }
+LeContent >> announceContentMoveOfType: anAnnouncentType for: aLeSnippet [
+	"Announce that the receiver has moved a snippet in the tree"
+
+	self notifier 
+		bubble; database;
+		announce: (anAnnouncentType new
+			content: aLeSnippet;
+			destinationParent: self;
+			destinationIndex: (children indexOf: aLeSnippet))
 ]
 
 { #category : #'private - notifications' }
@@ -318,6 +318,13 @@ LeContent >> announceContentUnindentedFor: aLeSnippet [
 	self announceContentMoveOfType: LeContentTreeUnindented for: aLeSnippet
 ]
 
+{ #category : #announcer }
+LeContent >> announcer [
+	<return: #Announcer>
+
+	^ announcer
+]
+
 { #category : #'private - notifications' }
 LeContent >> announceTraceableChangeExecutedFor: aTraceEvent [
 	self notifier 
@@ -333,13 +340,6 @@ LeContent >> announceTreeChanged: aLeContent [
 	self notifier 
 		bubble; database;
 		announce: (LeContentTreeChanged new content: aLeContent).
-]
-
-{ #category : #announcer }
-LeContent >> announcer [
-	<return: #Announcer>
-
-	^ announcer
 ]
 
 { #category : #converting }
@@ -1056,6 +1056,16 @@ LeContent >> removeChildCommandFor: aChildSnippet [
 		removeChildSnippetCommandFor: aChildSnippet
 ]
 
+{ #category : #'api - notifications' }
+LeContent >> removedFromDatabase: aDatabase [
+
+	self assert: aDatabase equals: self database.
+	self clearDatabase.
+	self children do: [ :eachChild | 
+		eachChild removedFromDatabase: aDatabase ].
+	self onRemovedFromDatabase: aDatabase.
+]
+
 { #category : #'api - editing' }
 LeContent >> removeSnippet: aLeSnippet [
 	"Remove the supplied snippet from the receiver"
@@ -1066,16 +1076,6 @@ LeContent >> removeSnippet: aLeSnippet [
 	self children removeSnippet: aLeSnippet.
 	aLeSnippet removedFromDatabase: self database.
 	self announceContentRemoved: aLeSnippet from: self page in: self database.
-]
-
-{ #category : #'api - notifications' }
-LeContent >> removedFromDatabase: aDatabase [
-
-	self assert: aDatabase equals: self database.
-	self clearDatabase.
-	self children do: [ :eachChild | 
-		eachChild removedFromDatabase: aDatabase ].
-	self onRemovedFromDatabase: aDatabase.
 ]
 
 { #category : #initialization }

@@ -245,6 +245,42 @@ LeLogicalDatabase >> databaseNamed: aDatabaseName [
 ]
 
 { #category : #accessing }
+LeLogicalDatabase >> databaseNamed: aDatabaseName ifNone: noneBlock [
+	"Answer the database with the supplied name"
+
+	<return: #LeDatabase>
+	^ self databases
+		detect: [ :db | db databaseName = aDatabaseName ]
+		ifNone: noneBlock
+]
+
+{ #category : #accessing }
+LeLogicalDatabase >> databases [
+	"Answer the receiver's databases in evaluation order, without duplicates"
+
+	^ Array new: registeredDBs size + 2 streamContents: [ :stream |
+		stream nextPut: primaryDB.
+		playgroundDB == primaryDB ifFalse:
+			[ stream nextPut: playgroundDB ].
+		registeredDBs do: [ :db |
+			stream nextPut: db ] ] .
+]
+
+{ #category : #'api - accessing' }
+LeLogicalDatabase >> databasesDo: aBlock [
+	"Evaluate aBlock for each of the receiver's DBS in the following order:
+	1. primaryDB
+	2. workspaceDB (if different from primaryDB)
+	3. registeredDBs (in the order added)"
+
+	aBlock cull: primaryDB.
+	playgroundDB == primaryDB ifFalse:
+		[ aBlock cull: playgroundDB ].
+	registeredDBs do: [ :db |
+		aBlock cull: db ].
+]
+
+{ #category : #accessing }
 LeLogicalDatabase >> databaseWithID: aUUIDString [
 	"Answer the database with the supplied id"
 	<return: #LeDatabase>
@@ -273,32 +309,6 @@ LeLogicalDatabase >> databaseWithID: aUUIDString ifNone: noneBlock [
 	^ self databases 
 		detect: [ :db | db uuidString = aUUIDString ]
 		ifNone: noneBlock
-]
-
-{ #category : #accessing }
-LeLogicalDatabase >> databases [
-	"Answer the receiver's databases in evaluation order, without duplicates"
-
-	^ Array new: registeredDBs size + 2 streamContents: [ :stream |
-		stream nextPut: primaryDB.
-		playgroundDB == primaryDB ifFalse:
-			[ stream nextPut: playgroundDB ].
-		registeredDBs do: [ :db |
-			stream nextPut: db ] ] .
-]
-
-{ #category : #'api - accessing' }
-LeLogicalDatabase >> databasesDo: aBlock [
-	"Evaluate aBlock for each of the receiver's DBS in the following order:
-	1. primaryDB
-	2. workspaceDB (if different from primaryDB)
-	3. registeredDBs (in the order added)"
-
-	aBlock cull: primaryDB.
-	playgroundDB == primaryDB ifFalse:
-		[ aBlock cull: playgroundDB ].
-	registeredDBs do: [ :db |
-		aBlock cull: db ].
 ]
 
 { #category : #'api - accessing' }
@@ -523,24 +533,6 @@ LeLogicalDatabase >> pageNames [
 	^ pageNames
 ]
 
-{ #category : #'api - query' }
-LeLogicalDatabase >> pageWithLinkTo: aTargetReference ifAbsent: anAbsentBlock [ 
-	^ self 
-		pageWithLinkTo: aTargetReference 
-		ifPresent: [ :aPage | aPage ]
-		ifAbsent: anAbsentBlock 
-]
-
-{ #category : #'api - query' }
-LeLogicalDatabase >> pageWithLinkTo: aTargetReference ifPresent: aPresentBlock ifAbsent: anAbsentBlock [ 
-	self databasesDo: [ :aLeDatabase |
-		aLeDatabase 
-			pageWithLinkTo: aTargetReference 
-			ifPresent: [ :value | ^ aPresentBlock value: value ]
-			ifAbsent: [ ] ].
-	^ anAbsentBlock value
-]
-
 { #category : #'api - accessing' }
 LeLogicalDatabase >> pages [
 	"Answer the collection of all the pages in the receiver's DBs"
@@ -594,6 +586,57 @@ LeLogicalDatabase >> pagesWithNameDo: aBlock [
 
 	self databasesDo: [ :db | db pagesWithNameDo: aBlock ]
 
+]
+
+{ #category : #accessing }
+LeLogicalDatabase >> pageWithID: pageId [
+	| uid |
+
+	uid := pageId isString 
+		ifTrue: [ UUID fromString36: pageId ]
+		ifFalse: [ pageId ].
+	self pagesDo: [ :page | page uid = uid ifTrue: [ ^ page ] ].
+	NotFound signalFor: pageId.
+]
+
+{ #category : #accessing }
+LeLogicalDatabase >> pageWithID: pageId ifAbsent: absentBlock [
+	| uid |
+
+	uid := pageId isString 
+		ifTrue: [ UUID fromString36: pageId ]
+		ifFalse: [ pageId ].
+	self pagesDo: [ :page | page uid = uid ifTrue: [ ^ page ] ].
+	^ absentBlock value.
+]
+
+{ #category : #accessing }
+LeLogicalDatabase >> pageWithID: pageId ifPresent: presentBlock ifAbsent: absentBlock [
+	| uid |
+
+	uid := pageId isString 
+		ifTrue: [ UUID fromString36: pageId ]
+		ifFalse: [ pageId ].
+	self pagesDo: [ :page | page uid = uid ifTrue: [ ^ presentBlock value: page ] ].
+	^ absentBlock value.
+]
+
+{ #category : #'api - query' }
+LeLogicalDatabase >> pageWithLinkTo: aTargetReference ifAbsent: anAbsentBlock [ 
+	^ self 
+		pageWithLinkTo: aTargetReference 
+		ifPresent: [ :aPage | aPage ]
+		ifAbsent: anAbsentBlock 
+]
+
+{ #category : #'api - query' }
+LeLogicalDatabase >> pageWithLinkTo: aTargetReference ifPresent: aPresentBlock ifAbsent: anAbsentBlock [ 
+	self databasesDo: [ :aLeDatabase |
+		aLeDatabase 
+			pageWithLinkTo: aTargetReference 
+			ifPresent: [ :value | ^ aPresentBlock value: value ]
+			ifAbsent: [ ] ].
+	^ anAbsentBlock value
 ]
 
 { #category : #accessing }
