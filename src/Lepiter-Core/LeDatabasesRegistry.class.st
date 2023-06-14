@@ -1,12 +1,9 @@
 Class {
 	#name : #LeDatabasesRegistry,
-	#superclass : #LeModel,
+	#superclass : #LeBasicDatabasesRegistry,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
-	#instVars : [
-		'defaultLogicalDatabase'
-	],
-	#category : #'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Registry'
 }
 
 { #category : #accessing }
@@ -35,39 +32,9 @@ LeDatabasesRegistry class >> onRemoveUniqueInstance: anInstance [
 ]
 
 { #category : #accessing }
-LeDatabasesRegistry >> clearDefaultLogicalDatabase [
-
-	self stopMonitoring.
-	^ defaultLogicalDatabase := nil
-]
-
-{ #category : #accessing }
-LeDatabasesRegistry >> currentLoadedDefaultLogicalDatabase [
-
-	^ defaultLogicalDatabase 
-]
-
-{ #category : #accessing }
 LeDatabasesRegistry >> defaultLogicalDatabase [
 
 	^ defaultLogicalDatabase ifNil: [ defaultLogicalDatabase := self loadDefaultLogicalDatabase ]
-]
-
-{ #category : #accessing }
-LeDatabasesRegistry >> defaultLogicalDatabase: anObject [
-	defaultLogicalDatabase := anObject
-]
-
-{ #category : #accessing }
-LeDatabasesRegistry >> defaultPlaygroundDatabase [
-
-	^ self defaultLogicalDatabase playgroundDB
-]
-
-{ #category : #accessing }
-LeDatabasesRegistry >> defaultPrimaryDatabase [
-
-	^ self defaultLogicalDatabase primaryDB
 ]
 
 { #category : #private }
@@ -79,24 +46,11 @@ LeDatabasesRegistry >> ensureDatabase [
 	^ self setupForGlamorousToolkit
 ]
 
-{ #category : #accessing }
-LeDatabasesRegistry >> gtDatabasesFor: aView [
-	<gtView>
-	^ aView list
-		title: 'Databases';
-		priority: 1;
-		items: [ self defaultLogicalDatabase databases ]
-]
-
-{ #category : #testing }
-LeDatabasesRegistry >> hasDatabasesLoaded [
-	^ defaultLogicalDatabase notNil
-]
-
 { #category : #private }
 LeDatabasesRegistry >> initializeForGlamorousToolkit [
 	| databaseProperties |
 	self assert: [ defaultLogicalDatabase isNil ].
+	
 	databaseProperties := LeLogicalDatabaseProperties defaultForGlamorousToolkit.
 	self defaultLogicalDatabase: databaseProperties logicalDatabase
 	
@@ -106,11 +60,4 @@ LeDatabasesRegistry >> initializeForGlamorousToolkit [
 LeDatabasesRegistry >> setupForGlamorousToolkit [
 	self initializeForGlamorousToolkit.
 	^ self currentLoadedDefaultLogicalDatabase 
-]
-
-{ #category : #'startup-shutdown' }
-LeDatabasesRegistry >> stopMonitoring [
-
-	defaultLogicalDatabase ifNotNil: 
-		[ defaultLogicalDatabase stopMonitoring ]
 ]
