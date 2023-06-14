@@ -32,7 +32,9 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 				baseline: 'Beacon'
 					with: [ spec repository: 'github://feenkcom/pharo-beacon/repository' ];
 				baseline: 'JSONWebToken'
-					with: [ spec repository: 'github://feenkcom/JSONWebToken/source' ].
+					with: [ spec repository: 'github://feenkcom/JSONWebToken/source' ];
+				baseline: 'ZincHTTPComponentsRest'
+					with: [ spec repository: 'github://feenkcom/zinc/repository' ].
 
 			spec
 				package: 'Lepiter-Parser' with: [ spec requires: #('SmaCCRuntime') ];
@@ -84,5 +86,5 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 					with: [ spec
 							requires: #('Lepiter-Snippet-Text' 'Lepiter-Store-Class' 'Lepiter-Utilities') ];
 				package: 'Lepiter-BasicServer'
-					with: [ spec requires: #(Beacon JSONWebToken) ] ]
+					with: [ spec requires: #(Beacon JSONWebToken ZincHTTPComponentsRest) ] ]
 ]
