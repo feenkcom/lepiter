@@ -247,6 +247,19 @@ LePage >> gtSpotterDatabaseFor: aSearch [
 ]
 
 { #category : #'*Lepiter-UI' }
+LePage >> gtStoreStringFor: aView [
+	^ aView explicit
+		title: 'StoreString';
+		priority: 120;
+		stencil: [ (GtPharoSnippetCoder new
+				forSource: self storeString;
+				format;
+				subscribeToSystem;
+				asExpandedOnlyElement) vFitContentLimited ];
+		actionUpdateButton
+]
+
+{ #category : #'*Lepiter-UI' }
 LePage >> tabLabel [
 	"Return a short title that first nicely in ${class:LeWorldElement}$'s tab label"
 	<return: #String>
