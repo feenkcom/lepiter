@@ -248,6 +248,7 @@ LePage >> gtSpotterDatabaseFor: aSearch [
 
 { #category : #'*Lepiter-UI' }
 LePage >> gtStoreStringFor: aView [
+	<gtView>
 	^ aView explicit
 		title: 'StoreString';
 		priority: 120;
