@@ -1,6 +1,6 @@
-Extension { #name : #Object }
+Extension { #name : #ProtoObject }
 
 { #category : #'*Lepiter-Playground' }
-Object >> gtPlaygroundPageStrategy [
+ProtoObject >> gtPlaygroundPageStrategy [
 	^ LeInspectorPlaygroundLocalClassPageStrategy new 
 ]
