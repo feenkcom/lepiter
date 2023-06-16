@@ -22,8 +22,8 @@ LeContextMenuSpotterStart >> database: anObject [
 ]
 
 { #category : #printing }
-LeContextMenuSpotterStart >> gtDisplayString [
-	^ 'New snippet'
+LeContextMenuSpotterStart >> gtDisplayOn: aStream [
+	aStream nextPutAll: 'New snippet'
 ]
 
 { #category : #searching }
