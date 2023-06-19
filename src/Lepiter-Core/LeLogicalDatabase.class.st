@@ -255,6 +255,32 @@ LeLogicalDatabase >> databaseNamed: aDatabaseName ifNone: noneBlock [
 ]
 
 { #category : #accessing }
+LeLogicalDatabase >> databases [
+	"Answer the receiver's databases in evaluation order, without duplicates"
+
+	^ Array new: registeredDBs size + 2 streamContents: [ :stream |
+		stream nextPut: primaryDB.
+		playgroundDB == primaryDB ifFalse:
+			[ stream nextPut: playgroundDB ].
+		registeredDBs do: [ :db |
+			stream nextPut: db ] ] .
+]
+
+{ #category : #'api - accessing' }
+LeLogicalDatabase >> databasesDo: aBlock [
+	"Evaluate aBlock for each of the receiver's DBS in the following order:
+	1. primaryDB
+	2. workspaceDB (if different from primaryDB)
+	3. registeredDBs (in the order added)"
+
+	aBlock cull: primaryDB.
+	playgroundDB == primaryDB ifFalse:
+		[ aBlock cull: playgroundDB ].
+	registeredDBs do: [ :db |
+		aBlock cull: db ].
+]
+
+{ #category : #accessing }
 LeLogicalDatabase >> databaseWithID: aUUIDString [
 	"Answer the database with the supplied id"
 	<return: #LeDatabase>
@@ -283,32 +309,6 @@ LeLogicalDatabase >> databaseWithID: aUUIDString ifNone: noneBlock [
 	^ self databases 
 		detect: [ :db | db uuidString = aUUIDString ]
 		ifNone: noneBlock
-]
-
-{ #category : #accessing }
-LeLogicalDatabase >> databases [
-	"Answer the receiver's databases in evaluation order, without duplicates"
-
-	^ Array new: registeredDBs size + 2 streamContents: [ :stream |
-		stream nextPut: primaryDB.
-		playgroundDB == primaryDB ifFalse:
-			[ stream nextPut: playgroundDB ].
-		registeredDBs do: [ :db |
-			stream nextPut: db ] ] .
-]
-
-{ #category : #'api - accessing' }
-LeLogicalDatabase >> databasesDo: aBlock [
-	"Evaluate aBlock for each of the receiver's DBS in the following order:
-	1. primaryDB
-	2. workspaceDB (if different from primaryDB)
-	3. registeredDBs (in the order added)"
-
-	aBlock cull: primaryDB.
-	playgroundDB == primaryDB ifFalse:
-		[ aBlock cull: playgroundDB ].
-	registeredDBs do: [ :db |
-		aBlock cull: db ].
 ]
 
 { #category : #'api - accessing' }
@@ -533,6 +533,62 @@ LeLogicalDatabase >> pageNames [
 	^ pageNames
 ]
 
+{ #category : #'api - accessing' }
+LeLogicalDatabase >> pages [
+	"Answer the collection of all the pages in the receiver's DBs"
+	| pages |
+
+	pages := OrderedCollection new.
+	self databasesDo: [ :db |
+		pages addAll: db pages ].
+	^ pages
+]
+
+{ #category : #'api - accessing' }
+LeLogicalDatabase >> pagesByDate [
+	"Answer the collection of all the pages in the receiver's DBs sorted by latestEditTime.
+	This currently rebuilds the list each time it is requested.  Performance to be revisited."
+	| sortedPages |
+
+	sortedPages := SortedCollection new 
+			sortBlock: [ :a :b | a latestEditTime > b latestEditTime ].
+	sortedPages addAll: self pages.
+	^ sortedPages
+]
+
+{ #category : #'api - accessing' }
+LeLogicalDatabase >> pagesByDateToShow [
+	^ self pagesByDate reject: [ :aPage |
+		aPage type isPharoClassPageType or: [
+		aPage type isProxyClassPageType ] ]
+]
+
+{ #category : #'private - accessing' }
+LeLogicalDatabase >> pagesByName [
+	"Answer a single dictionary of all the pages by name.
+	This is private, and very inefficient, and shouldn't be used."
+	| pagesByName |
+
+	pagesByName := Dictionary new.
+	self databases reversed do: [ :db | 
+		db pagesByName keysAndValuesDo: [ :key :value |
+			pagesByName at: key put: value ] ].
+	^ pagesByName
+]
+
+{ #category : #enumerating }
+LeLogicalDatabase >> pagesDo: aBlock [ 
+
+	self databasesDo: [ :db | db pagesDo: aBlock ]
+]
+
+{ #category : #'api - enumerating' }
+LeLogicalDatabase >> pagesWithNameDo: aBlock [ 
+
+	self databasesDo: [ :db | db pagesWithNameDo: aBlock ]
+
+]
+
 { #category : #accessing }
 LeLogicalDatabase >> pageWithID: pageId [
 	| uid |
@@ -582,61 +638,6 @@ LeLogicalDatabase >> pageWithLinkTo: aTargetReference ifPresent: aPresentBlock i
 			ifPresent: [ :value | ^ aPresentBlock value: value ]
 			ifAbsent: [ ] ].
 	^ anAbsentBlock value
-]
-
-{ #category : #'api - accessing' }
-LeLogicalDatabase >> pages [
-	"Answer the collection of all the pages in the receiver's DBs"
-	| pages |
-
-	pages := OrderedCollection new.
-	self databasesDo: [ :db |
-		pages addAll: db pages ].
-	^ pages
-]
-
-{ #category : #'api - accessing' }
-LeLogicalDatabase >> pagesByDate [
-	"Answer the collection of all the pages in the receiver's DBs sorted by latestEditTime.
-	This currently rebuilds the list each time it is requested.  Performance to be revisited."
-	| sortedPages |
-
-	sortedPages := SortedCollection new 
-			sortBlock: [ :a :b | a latestEditTime > b latestEditTime ].
-	sortedPages addAll: self pages.
-	^ sortedPages
-]
-
-{ #category : #'api - accessing' }
-LeLogicalDatabase >> pagesByDateToShow [
-	^ self pagesByDate reject: [ :aPage |
-		aPage type isPharoClassPageType  ]
-]
-
-{ #category : #'private - accessing' }
-LeLogicalDatabase >> pagesByName [
-	"Answer a single dictionary of all the pages by name.
-	This is private, and very inefficient, and shouldn't be used."
-	| pagesByName |
-
-	pagesByName := Dictionary new.
-	self databases reversed do: [ :db | 
-		db pagesByName keysAndValuesDo: [ :key :value |
-			pagesByName at: key put: value ] ].
-	^ pagesByName
-]
-
-{ #category : #enumerating }
-LeLogicalDatabase >> pagesDo: aBlock [ 
-
-	self databasesDo: [ :db | db pagesDo: aBlock ]
-]
-
-{ #category : #'api - enumerating' }
-LeLogicalDatabase >> pagesWithNameDo: aBlock [ 
-
-	self databasesDo: [ :db | db pagesWithNameDo: aBlock ]
-
 ]
 
 { #category : #accessing }

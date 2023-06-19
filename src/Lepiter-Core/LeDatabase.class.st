@@ -174,13 +174,6 @@ LeDatabase >> attachmentProperties: attachmentPath [
 	^ monitor attachmentProperties: attachmentPath
 ]
 
-{ #category : #'api - attachments' }
-LeDatabase >> attachmentUtf8Stream: attachmentPath do: aBlock [
-	"Answer a stream on the binary contents of the supplied attachment path"
-
-	^ monitor attachmentUtf8Stream: attachmentPath do: aBlock
-]
-
 { #category : #'private - accessing' }
 LeDatabase >> attachmentsDirectory [
 	"Answer the directory where DB attachments are stored"
@@ -193,6 +186,13 @@ LeDatabase >> attachmentsDirectory [
 	"The monitor is responsible for ensuring that the attachments directory exists"
 	^ monitor attachmentsDirectory.
 
+]
+
+{ #category : #'api - attachments' }
+LeDatabase >> attachmentUtf8Stream: attachmentPath do: aBlock [
+	"Answer a stream on the binary contents of the supplied attachment path"
+
+	^ monitor attachmentUtf8Stream: attachmentPath do: aBlock
 ]
 
 { #category : #'api - accessing' }
@@ -752,6 +752,54 @@ LeDatabase >> pageNames [
 ]
 
 { #category : #'api - accessing' }
+LeDatabase >> pages [
+	| pages |
+
+	pages := OrderedCollection new.
+	pagesByType do: [ :each | pages addAll: each values ].
+	^ pages
+]
+
+{ #category : #'api - accessing' }
+LeDatabase >> pagesByDate [
+
+	^ pagesByDate ifNil: [ 
+			pagesByDate := SortedCollection new 
+				sortBlock: [ :a :b | a latestEditTime > b latestEditTime ].
+			pagesByType valuesDo: [ :aCollectionOfPages |
+				pagesByDate addAll: aCollectionOfPages ].
+			pagesByDate ]
+]
+
+{ #category : #'api - accessing' }
+LeDatabase >> pagesByDateToShow [
+	^ self pagesByDate reject: [ :aPage |
+		aPage type isPharoClassPageType or: [
+		aPage type isProxyClassPageType ] ]
+]
+
+{ #category : #'private - accessing' }
+LeDatabase >> pagesByName [
+	"Answer the pages by name.
+	This is internal structure that may change."
+
+	^ pagesByType at: LeNamedPageType
+]
+
+{ #category : #'api - enumerating' }
+LeDatabase >> pagesDo: aBlock [ 
+
+	^ self do: aBlock
+]
+
+{ #category : #'api - enumerating' }
+LeDatabase >> pagesWithNameDo: aBlock [ 
+
+	^ self pagesByName do: [ :assoc |
+		aBlock value: assoc value ]
+]
+
+{ #category : #'api - accessing' }
 LeDatabase >> pageWithID: pageId [
 	| uid |
 
@@ -801,53 +849,6 @@ LeDatabase >> pageWithLinkTo: aTargetReference ifPresent: aPresentBlock ifAbsent
 	^ anAbsentBlock value
 ]
 
-{ #category : #'api - accessing' }
-LeDatabase >> pages [
-	| pages |
-
-	pages := OrderedCollection new.
-	pagesByType do: [ :each | pages addAll: each values ].
-	^ pages
-]
-
-{ #category : #'api - accessing' }
-LeDatabase >> pagesByDate [
-
-	^ pagesByDate ifNil: [ 
-			pagesByDate := SortedCollection new 
-				sortBlock: [ :a :b | a latestEditTime > b latestEditTime ].
-			pagesByType valuesDo: [ :aCollectionOfPages |
-				pagesByDate addAll: aCollectionOfPages ].
-			pagesByDate ]
-]
-
-{ #category : #'api - accessing' }
-LeDatabase >> pagesByDateToShow [
-	^ self pagesByDate reject: [ :aPage |
-		aPage type isPharoClassPageType  ]
-]
-
-{ #category : #'private - accessing' }
-LeDatabase >> pagesByName [
-	"Answer the pages by name.
-	This is internal structure that may change."
-
-	^ pagesByType at: LeNamedPageType
-]
-
-{ #category : #'api - enumerating' }
-LeDatabase >> pagesDo: aBlock [ 
-
-	^ self do: aBlock
-]
-
-{ #category : #'api - enumerating' }
-LeDatabase >> pagesWithNameDo: aBlock [ 
-
-	^ self pagesByName do: [ :assoc |
-		aBlock value: assoc value ]
-]
-
 { #category : #printing }
 LeDatabase >> printOn: aStream [
 
@@ -871,20 +872,6 @@ LeDatabase >> properties [
 	For now, this is handled by the monitor"
 
 	^ monitor
-]
-
-{ #category : #'private - adding / removing' }
-LeDatabase >> reSortCollectionsDueTo: aLePageTitleChanged [
-	| aPage |
-	aPage := aLePageTitleChanged page.
-	self hasSortedItems
-		ifTrue: [ self sortedPages reSort ].
-	(self hasSortedDailyNotes and: [ aLePageTitleChanged isChangedToNormalPage ])
-		ifTrue: [ self dailyNotes remove: aPage ].
-	(self hasSortedDailyNotes and: [ aLePageTitleChanged isChangedToDailyNote ])
-		ifTrue: [ self dailyNotes add: aPage ].
-	(self hasSortedDailyNotes and: [ aPage isDailyNote ])
-		ifTrue: [ self dailyNotes reSort ]
 ]
 
 { #category : #'adding / removing' }
@@ -970,6 +957,20 @@ LeDatabase >> resolveDbFile: aString [
 	^ monitor resolveDbFile: aString
 ]
 
+{ #category : #'private - adding / removing' }
+LeDatabase >> reSortCollectionsDueTo: aLePageTitleChanged [
+	| aPage |
+	aPage := aLePageTitleChanged page.
+	self hasSortedItems
+		ifTrue: [ self sortedPages reSort ].
+	(self hasSortedDailyNotes and: [ aLePageTitleChanged isChangedToNormalPage ])
+		ifTrue: [ self dailyNotes remove: aPage ].
+	(self hasSortedDailyNotes and: [ aLePageTitleChanged isChangedToDailyNote ])
+		ifTrue: [ self dailyNotes add: aPage ].
+	(self hasSortedDailyNotes and: [ aPage isDailyNote ])
+		ifTrue: [ self dailyNotes reSort ]
+]
+
 { #category : #'api - accessing' }
 LeDatabase >> scanForLinksTo: aPage [
 	"Answer the links to the supplied page.
@@ -1011,19 +1012,6 @@ LeDatabase >> setPage: aLePage [
 	^ aLePage
 ]
 
-{ #category : #'api - adding / removing' }
-LeDatabase >> setPageUpdate: aLePage [
-	"Complete the addition of the supplied page, i.e. setting metadata if required, updating links, announcing.
-	Raise an error if a page with the same title exists."
-
-	aLePage addedToDatabase: self.
-	self updateSortedCollectionsDueToAddition: aLePage.
-	
-	self announce: (LeDatabasePageAdded new 
-		database: self;
-		page: aLePage).
-]
-
 { #category : #initialization }
 LeDatabase >> setPages: aCollection [
 	"Set the receiver's pages to aCollection.
@@ -1039,6 +1027,19 @@ LeDatabase >> setPages: aCollection [
 		select: #isNotNil
 		thenDo: [ :aLePage |
 			self setPageUpdate: aLePage ].
+]
+
+{ #category : #'api - adding / removing' }
+LeDatabase >> setPageUpdate: aLePage [
+	"Complete the addition of the supplied page, i.e. setting metadata if required, updating links, announcing.
+	Raise an error if a page with the same title exists."
+
+	aLePage addedToDatabase: self.
+	self updateSortedCollectionsDueToAddition: aLePage.
+	
+	self announce: (LeDatabasePageAdded new 
+		database: self;
+		page: aLePage).
 ]
 
 { #category : #'api - accessing' }

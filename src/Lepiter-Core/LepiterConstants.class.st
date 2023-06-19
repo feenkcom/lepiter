@@ -165,12 +165,6 @@ LepiterConstants class >> explanationAnnotationName [
 	^ #explanation
 ]
 
-{ #category : #'file export' }
-LepiterConstants class >> exportFigureScaleFactor [
-	"Scale factor that is used then exporting to PNG (non-vector) format"
-	^ 2
-]
-
 { #category : #files }
 LepiterConstants class >> exportedResultsDirectoryName [
 	<return: #String>
@@ -187,6 +181,12 @@ LepiterConstants class >> exportedResultsDirectoryPath [
 LepiterConstants class >> exportedResultsExtension [
 	<return: #String>
 	^ 'png'
+]
+
+{ #category : #'file export' }
+LepiterConstants class >> exportFigureScaleFactor [
+	"Scale factor that is used then exporting to PNG (non-vector) format"
+	^ 2
 ]
 
 { #category : #'pillar parameter names' }
