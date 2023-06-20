@@ -7,7 +7,8 @@ Class {
 		'resizerElement',
 		'widthStrategy',
 		'playgroundPageStrategy',
-		'databasesRegistry'
+		'databasesRegistry',
+		'externalSnippetContext'
 	],
 	#category : #'Lepiter-Playground'
 }
@@ -48,6 +49,16 @@ LeInspectorPlaygroundElement >> defaultPlaygroundHeight [
 LeInspectorPlaygroundElement >> expand [
 	widthStrategy adjustHeightFor: self.
 	self tryToFocusFirstSnippet
+]
+
+{ #category : #accessing }
+LeInspectorPlaygroundElement >> externalSnippetContext [
+	^ externalSnippetContext
+]
+
+{ #category : #accessing }
+LeInspectorPlaygroundElement >> externalSnippetContext: anExternalSnippetContext [
+	externalSnippetContext := anExternalSnippetContext
 ]
 
 { #category : #initialization }
@@ -183,7 +194,8 @@ LeInspectorPlaygroundElement >> tryToFocusFirstSnippet [
 LeInspectorPlaygroundElement >> updatePage [
 
 	page := self locatePageForObject.
-	self pageElement pageViewModel: page asContentUIModel.
+	self pageElement pageViewModel: (page asContentUIModel
+		externalSnippetContext: self externalSnippetContext).
 	self pageElement pageViewModel receiver: self object
 ]
 

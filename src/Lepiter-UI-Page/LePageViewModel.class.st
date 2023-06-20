@@ -66,6 +66,11 @@ LePageViewModel >> ensurePageHasAtLeastOneSnippet [
 	self pageModel ensureOneSnippet
 ]
 
+{ #category : #accessing }
+LePageViewModel >> externalSnippetContext: anExternalSnippetContext [
+	sharedSnippetContext externalSnippetContext: anExternalSnippetContext
+]
+
 { #category : #initialization }
 LePageViewModel >> initialize [
 	super initialize.
