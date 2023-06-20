@@ -824,7 +824,8 @@ LeDatabase >> pagesByDate [
 { #category : #'api - accessing' }
 LeDatabase >> pagesByDateToShow [
 	^ self pagesByDate reject: [ :aPage |
-		aPage type isPharoClassPageType  ]
+		aPage type isPharoClassPageType or: [
+		aPage type isProxyClassPageType ] ]
 ]
 
 { #category : #'private - accessing' }
