@@ -165,6 +165,23 @@ LePharoRewriteSnippet >> isMethodPattern: aBoolean [
 				isMethodPattern: aBoolean)
 ]
 
+{ #category : #'private - exporting' }
+LePharoRewriteSnippet >> markdownOn: stream level: anInteger [
+	anInteger * 4 timesRepeat: [ stream nextPut: Character space ].
+	stream
+		cr;
+		<< '```';
+		cr;
+		<< self contentAsString trimBoth;
+		cr;
+		<< '```';
+		cr.
+	self
+		childrenDo: [ :child | 
+			stream cr.
+			child markdownOn: stream level: anInteger + 1 ]
+]
+
 { #category : #private }
 LePharoRewriteSnippet >> potentialMethodsInFilter: aFilter [
 	| ast literals filter |

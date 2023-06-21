@@ -198,6 +198,18 @@ LeWordSnippet >> initialize [
 	word := ''.
 ]
 
+{ #category : #'private - exporting' }
+LeWordSnippet >> markdownOn: stream level: anInteger [
+	anInteger * 4 timesRepeat: [ stream nextPut: Character space ].
+	stream
+		<< '- ';
+		<< self contentAsString trimBoth.
+	self
+		childrenDo: [ :child | 
+			stream cr.
+			child markdownOn: stream level: anInteger + 1 ]
+]
+
 { #category : #'api - accessing' }
 LeWordSnippet >> onAddedToDatabase [
 	super onAddedToDatabase.
