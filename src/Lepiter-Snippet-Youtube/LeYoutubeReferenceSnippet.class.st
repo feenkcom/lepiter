@@ -76,6 +76,15 @@ LeYoutubeReferenceSnippet >> leRawYoutubeReferenceInfo [
 		leRawYoutubeReferenceInfo := LeRawYoutubeReferenceInfo fromYoutubeStringUrl: urlString]
 ]
 
+{ #category : #'private - exporting' }
+LeYoutubeReferenceSnippet >> markdownOn: stream level: anInteger [
+	anInteger * 4 timesRepeat: [ stream nextPut: Character space ].
+	stream
+		cr;
+		<< '['; << self title; <<  ']('; << (self youtubeUrl); << ')';
+		cr
+]
+
 { #category : #printing }
 LeYoutubeReferenceSnippet >> storeOn: aStream [
 	aStream nextPutAll: '(LeYoutubeReferenceSnippet new urlString: '.
