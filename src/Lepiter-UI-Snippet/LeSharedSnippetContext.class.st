@@ -5,10 +5,24 @@ Class {
 		'announcer',
 		'sharedBindings',
 		'selfObject',
-		'variablePreviewToggle'
+		'variablePreviewToggle',
+		'externalSnippetContext'
 	],
 	#category : #'Lepiter-UI-Snippet-! View Models'
 }
+
+{ #category : #accessing }
+LeSharedSnippetContext >> externalSnippetContext [
+	^ externalSnippetContext ifNil: [
+		externalSnippetContext := LeExternalSnippetContext new ]
+]
+
+{ #category : #accessing }
+LeSharedSnippetContext >> externalSnippetContext: anExternalSnippetContext [
+	self assert: [ externalSnippetContext isNil ].
+	
+	externalSnippetContext := anExternalSnippetContext
+]
 
 { #category : #'gt - extensions' }
 LeSharedSnippetContext >> gtViewSharedBindingsFor: aView [ 
