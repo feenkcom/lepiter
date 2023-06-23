@@ -257,18 +257,14 @@ LeDatabaseClassStoreMonitor >> onMethodAdded: anAnnouncement [
 { #category : #'system announcements' }
 LeDatabaseClassStoreMonitor >> onMethodModified: anAnnouncement [
 
-	anAnnouncement methodClass = dbClass class ifFalse: [ ^ self ].
-	(currentEntry isNotNil and: [ anAnnouncement selector = currentEntry pageSelector ]) ifTrue:
-		[ ^ self ].
+	(self shouldProcessMethodAnnouncement: anAnnouncement) ifFalse: [ ^ self ].
 	self reloadPageSelector: anAnnouncement selector.
 ]
 
 { #category : #'system announcements' }
 LeDatabaseClassStoreMonitor >> onMethodRemoved: anAnnouncement [
 
-	anAnnouncement methodClass = dbClass class ifFalse: [ ^ self ].
-	(currentEntry isNotNil and: [ anAnnouncement selector = currentEntry pageSelector ]) ifTrue:
-		[ ^ self ].
+	(self shouldProcessMethodAnnouncement: anAnnouncement) ifFalse: [ ^ self ].
 	self removePageSelector: anAnnouncement method selector.
 ]
 
@@ -399,7 +395,11 @@ LeDatabaseClassStoreMonitor >> reloadPageSelectorNow: aSymbol [
 	"Reload the supplied page file named aString from the local store"
 	| page reloader |
 
-	page := storage loadFromClass: dbClass selector: aSymbol.
+	page := [ storage loadFromClass: dbClass selector: aSymbol ]
+		on: LeDBLoadError
+		do: [ :ex |
+			corruptSelectors := corruptSelectors copyWith: aSymbol.
+			ex pass ].
 	reloader := LeDatabaseReload new.
 	reloader monitor: self.
 	page isExplicitLinks 
@@ -495,6 +495,17 @@ LeDatabaseClassStoreMonitor >> scheduleNextUpdate [
 			await: (AsyncFutureExecutionConfiguration new 
 				customGroup: #Lepiter;
 				errorHandler: AsyncPassExceptionHandler new)
+]
+
+{ #category : #'system announcements' }
+LeDatabaseClassStoreMonitor >> shouldProcessMethodAnnouncement: anAnnouncement [ 
+	| selector |
+	
+	anAnnouncement methodClass = dbClass class ifFalse: [ ^ false ].
+	selector := anAnnouncement selector.
+	(currentEntry isNotNil and: [ selector = currentEntry pageSelector ]) ifTrue:
+		[ ^ false ].
+	^ (selector beginsWith: 'page_') or: [ selector = #explicitLinks ]
 ]
 
 { #category : #'system startup' }
