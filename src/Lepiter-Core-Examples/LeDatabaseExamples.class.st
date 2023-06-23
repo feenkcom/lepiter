@@ -111,7 +111,11 @@ LeDatabaseExamples >> corruptionInvalidJsonFromClassStore [
 	| page snippet corruptSource |
 
 	EpMonitor disableDuring:
-		[ [ database := LeDatabaseClassStoreLoad 
+		[ [ 
+		self class environment
+			at: self dbClassName
+			ifPresent: [ :cls | cls removeFromSystem ].
+		database := LeDatabaseClassStoreLoad 
 			newDbOnClass: self dbClassName 
 			package: self dbPackageName
 			saveDelay: Duration zero.
@@ -124,10 +128,9 @@ LeDatabaseExamples >> corruptionInvalidJsonFromClassStore [
 		corruptSource := 'page_123
 			"Corrupt source example"
 			"{ ""pageType"" : {"'.
-		database monitor dbClass class
+		self should: [ database monitor dbClass class
 			compile: corruptSource
-			classified: 'test duplicate'.
-		self should: [ database monitor reload ] raise: LeDBLoadError.
+			classified: 'test duplicate' ] raise: LeDBLoadError.
 		self assert: database monitor hasCorruptPages.
 		self assert: database pages size equals: 1.
 		self assert: database monitor corruptSelectors size equals: 1 ]

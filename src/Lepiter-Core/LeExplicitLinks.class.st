@@ -132,9 +132,19 @@ LeExplicitLinks >> isEmpty [
 	^ externalLinksByUuid isEmpty
 ]
 
+{ #category : #'api - testing' }
+LeExplicitLinks >> isExplicitLinks [
+	^ true
+]
+
 { #category : #testing }
 LeExplicitLinks >> isNotEmpty [
 	^ externalLinksByUuid isNotEmpty
+]
+
+{ #category : #'api - testing' }
+LeExplicitLinks >> isPage [
+	^ false
 ]
 
 { #category : #accessing }

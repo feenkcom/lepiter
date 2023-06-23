@@ -115,6 +115,12 @@ LeDatabaseClassStorage >> pageSelectorsIn: aClass [
 ]
 
 { #category : #accessing }
+LeDatabaseClassStorage >> pageUidForSelector: aSymbol [
+
+	^ UUID fromString36: (aSymbol copyFrom: 6 to: aSymbol size)
+]
+
+{ #category : #accessing }
 LeDatabaseClassStorage >> renameTo: prefixString method: aCompiledMethod [
 	| pageSource newSource |
 

@@ -823,6 +823,11 @@ LeContent >> isEmpty [
 ]
 
 { #category : #'api - testing' }
+LeContent >> isExplicitLinks [
+	^ false
+]
+
+{ #category : #'api - testing' }
 LeContent >> isNotEmpty [
 	"Answer a boolean indicating if the receiver is empty, i.e.
 	has no children, or the only child is empty"

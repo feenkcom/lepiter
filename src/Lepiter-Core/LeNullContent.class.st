@@ -3,7 +3,7 @@ Class {
 	#superclass : #LeNullModel,
 	#traits : 'TGtAnnouncer',
 	#classTraits : 'TGtAnnouncer classTrait',
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #announcer }
@@ -68,6 +68,11 @@ LeNullContent >> incomingLinks [
 	<return: #Collection of: #LeTextualLink>
 
 	^ #()
+]
+
+{ #category : #'api - testing' }
+LeNullContent >> isExplicitLinks [
+	^ false
 ]
 
 { #category : #'api - testing' }
