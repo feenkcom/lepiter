@@ -56,7 +56,7 @@ LeSnippetExpandableWithBarAptitude >> initializeSnippetExpander [
 LeSnippetExpandableWithBarAptitude >> visuallyFocus [
 	super visuallyFocus.
 
-	snippetExpander background: (BrGlamorousColors primaryBorderColor alpha: 0.4) gtOpaqueColorOnWhite
+	snippetExpander background: (BrGlamorousColors primaryBorderColor ) gtOpaqueColorOnWhite
 ]
 
 { #category : #private }
