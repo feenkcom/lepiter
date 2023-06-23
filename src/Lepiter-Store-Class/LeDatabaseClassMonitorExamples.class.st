@@ -85,6 +85,20 @@ LeDatabaseClassMonitorExamples >> monitorBlockRemoved [
 ]
 
 { #category : #'examples - monitor' }
+LeDatabaseClassMonitorExamples >> monitorClassRemoved [
+	<gtExample>
+
+	self monitorPageMethodAdded.
+	monitor startMonitoring.
+	self assert: (monitor database hasPageNamed: 'Monitor Method Added').
+	monitor dbClass removeFromSystem.
+	self deny: (monitor database hasPageNamed: 'Monitor Method Added').
+	self deny: monitor isRunning.
+
+	^ monitor
+]
+
+{ #category : #'examples - monitor' }
 LeDatabaseClassMonitorExamples >> monitorExplicitLinkBetweenPagesAdded [
 	<gtExample>
 	| page1 page2 explicitLink explicitLinks explicitLinksReloaded |
@@ -161,6 +175,55 @@ LeDatabaseClassMonitorExamples >> monitorPageAdded [
 	database addPage: page.
 	mpaReloaded := monitor reloadPage: page.
 	self assert: mpaReloaded title equals: page title.
+	monitor stopMonitoring.
+	^ monitor
+]
+
+{ #category : #'examples - monitor' }
+LeDatabaseClassMonitorExamples >> monitorPageMethodAdded [
+	<gtExample>
+
+	self monitorWithDuration: Duration zero.
+	self deny: (monitor database hasPageNamed: 'Monitor Method Added').
+	monitor dbClass class
+		compile: (self class >> #page_f07q3szi3e0xhvi91t359q49q) sourceCode
+		classified: #pages.
+	self assert: (monitor database hasPageNamed: 'Monitor Method Added').
+	monitor stopMonitoring.
+	^ monitor
+]
+
+{ #category : #'examples - monitor' }
+LeDatabaseClassMonitorExamples >> monitorPageMethodModified [
+	<gtExample>
+	| source |
+
+	self monitorPageMethodAdded.
+	monitor startMonitoring.
+	self assert: (monitor database pageNamed: 'Monitor Method Added') children first contentAsString
+		equals: 'abcdef'.
+	source := (self class >> #page_f07q3szi3e0xhvi91t359q49q) sourceCode.
+	source :=source copyReplaceAll: 'abcdef' with: 'abc123def'.
+
+	monitor dbClass class
+		compile: source
+		classified: #pages.
+	self assert: (monitor database pageNamed: 'Monitor Method Added') children first contentAsString
+		equals: 'abc123def'.
+	monitor stopMonitoring.
+	^ monitor
+]
+
+{ #category : #'examples - monitor' }
+LeDatabaseClassMonitorExamples >> monitorPageMethodRemoved [
+	<gtExample>
+
+	self monitorPageMethodAdded.
+	monitor startMonitoring.
+	self assert: (monitor database hasPageNamed: 'Monitor Method Added').
+	(monitor dbClass class >> #page_f07q3szi3e0xhvi91t359q49q) removeFromSystem.
+	self deny: (monitor database hasPageNamed: 'Monitor Method Added').
+
 	monitor stopMonitoring.
 	^ monitor
 ]
@@ -253,6 +316,88 @@ LeDatabaseClassMonitorExamples >> monitorSaveDelay [
 
 	monitor stopMonitoring.
 	^ monitor.
+]
+
+{ #category : #accessing }
+LeDatabaseClassMonitorExamples >> page_f07q3szi3e0xhvi91t359q49q [
+"Automatically generated
+Monitor Method Added"
+"{
+	""__schema"" : ""4.1"",
+	""__type"" : ""page"",
+	""children"" : {
+		""__type"" : ""snippets"",
+		""items"" : [
+			{
+				""__type"" : ""textSnippet"",
+				""children"" : {
+					""__type"" : ""snippets"",
+					""items"" : [ ]
+				},
+				""createEmail"" : {
+					""__type"" : ""email"",
+					""emailString"" : ""<unknown>""
+				},
+				""createTime"" : {
+					""__type"" : ""time"",
+					""time"" : {
+						""__type"" : ""dateAndTime"",
+						""dateAndTimeString"" : ""2023-06-22T08:00:42.852796+02:00""
+					}
+				},
+				""editEmail"" : {
+					""__type"" : ""email"",
+					""emailString"" : ""<unknown>""
+				},
+				""editTime"" : {
+					""__type"" : ""time"",
+					""time"" : {
+						""__type"" : ""dateAndTime"",
+						""dateAndTimeString"" : ""2023-06-22T08:00:42.852796+02:00""
+					}
+				},
+				""uid"" : {
+					""__type"" : ""uid"",
+					""uidString"" : ""lzpuVxO7DQCkeVs3CP13/Q==""
+				},
+				""paragraphStyle"" : {
+					""__type"" : ""textStyle""
+				},
+				""string"" : ""abcdef""
+			}
+		]
+	},
+	""createEmail"" : {
+		""__type"" : ""email"",
+		""emailString"" : ""<unknown>""
+	},
+	""createTime"" : {
+		""__type"" : ""time"",
+		""time"" : {
+			""__type"" : ""dateAndTime"",
+			""dateAndTimeString"" : ""2023-06-22T08:00:42.852547+02:00""
+		}
+	},
+	""editEmail"" : {
+		""__type"" : ""email"",
+		""emailString"" : ""<unknown>""
+	},
+	""editTime"" : {
+		""__type"" : ""time"",
+		""time"" : {
+			""__type"" : ""dateAndTime"",
+			""dateAndTimeString"" : ""2023-06-22T08:00:42.852547+02:00""
+		}
+	},
+	""pageType"" : {
+		""__type"" : ""namedPage"",
+		""title"" : ""Monitor Method Added""
+	},
+	""uid"" : {
+		""__type"" : ""uuid"",
+		""uuid"" : ""1ee5cd56-13bb-0d00-a478-643a08fd77fd""
+	}
+}"
 ]
 
 { #category : #private }

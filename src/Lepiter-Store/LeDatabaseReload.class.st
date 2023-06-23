@@ -39,6 +39,17 @@ LeDatabaseReload >> enablePageDeletion [
 ]
 
 { #category : #accessing }
+LeDatabaseReload >> initialize [
+
+	super initialize.
+	loadedPageIDs := Set new.
+	loadedLinkIDs := Set new.
+	reloadedPages := Set new.
+	addedPages := Set new.
+	addedExplicitLinks := Set new.
+]
+
+{ #category : #accessing }
 LeDatabaseReload >> localRoot [ 
 
 	^ monitor localRoot

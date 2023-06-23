@@ -215,9 +215,10 @@ LeDatabaseClassStore >> reloadPage: aLePage [
 { #category : #private }
 LeDatabaseClassStore >> savePageNow: aLePage [
 
-	storage
-		savePage: aLePage
-		inClass: dbClass
+	LeDatabaseClassStoreQueueStorePageEntry new
+		monitor: self;
+		page: aLePage;
+		apply.
 ]
 
 { #category : #'accessing - db properties' }

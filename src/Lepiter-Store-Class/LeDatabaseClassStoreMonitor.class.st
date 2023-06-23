@@ -1,3 +1,6 @@
+"
+This version uses a single queue for page saves and removes, and adds a reload operation.  The intention is that it will listen to system notifications about the store class and reload when a page is changed externally, e.g. by updating from the code repository, e.g. git, or manual changes through Coder (even though that shouldn't normally be done).
+"
 Class {
 	#name : #LeDatabaseClassStoreMonitor,
 	#superclass : #LeDatabaseClassStore,
@@ -5,12 +8,12 @@ Class {
 	#classTraits : 'TGtAnnouncer classTrait',
 	#instVars : [
 		'saveDelay',
-		'saveQueue',
-		'removeQueue',
+		'queue',
 		'state',
 		'announcer',
 		'updatePromise',
-		'corruptSelectors'
+		'corruptSelectors',
+		'currentEntry'
 	],
 	#classVars : [
 		'SessionAnnouncer',
@@ -36,13 +39,6 @@ LeDatabaseClassStoreMonitor class >> initialize [
 	SessionManager default 
 		registerUserClassNamed: self name.
 
-]
-
-{ #category : #testing }
-LeDatabaseClassStoreMonitor class >> noLepiterReload [
-	"Answer a boolean indicating whether the image has been started with the --noLepiterReload option"
-
-	^ Smalltalk commandLine argumentsInclude: '--noLepiterReload'
 ]
 
 { #category : #accessing }
@@ -105,7 +101,7 @@ LeDatabaseClassStoreMonitor >> explicitLinksOrNil [
 LeDatabaseClassStoreMonitor >> forceSchemaUpgradeFrom: aString [ 
 	"Run the receiver's db files through an update from the supplied version number, e.g. '3.0'"
 
-	self halt: 'Not yet migrated'.
+	self error: 'Not yet migrated'.
 	self dbSchema: (LeDbVersion fromString: aString).
 	storage updateDbStore: self.
 	self reload.
@@ -158,6 +154,16 @@ LeDatabaseClassStoreMonitor >> gtViewStatusDetailsFor: aView [
 		send: #value
 ]
 
+{ #category : #private }
+LeDatabaseClassStoreMonitor >> handleDbClassRemoved [
+	"Handle the dbClass being removed.
+	Empty the database and stop monitoring."
+
+	self stopMonitoring.
+	database pages do: [ :page |
+		database removePage: page ].
+]
+
 { #category : #testing }
 LeDatabaseClassStoreMonitor >> hasChanges [
 	^ self isEmpty not
@@ -184,17 +190,16 @@ LeDatabaseClassStoreMonitor >> initialize [
 	announcer := Announcer new.
 	state := #stopped.
 	saveDelay := self defaultDelay.
-	saveQueue := WaitfreeQueue new.
-	removeQueue := WaitfreeQueue new.
+	queue := WaitfreeQueue new.
 	corruptSelectors := #().
 ]
 
 { #category : #testing }
 LeDatabaseClassStoreMonitor >> isEmpty [ 
-	"Answer a boolean indicating if the receiver's queues are empty.
+	"Answer a boolean indicating if the receiver's queue is empty.
 	This is approximate as it uses a non-locking test"
 	
-	^ saveQueue isEmpty and: [ removeQueue isEmpty ]
+	^ queue isEmpty
 ]
 
 { #category : #testing }
@@ -219,6 +224,52 @@ LeDatabaseClassStoreMonitor >> loadCorruptPages [
 		(selector beginsWith: 'corrupted_') or:
 		[ selector beginsWith: 'duplicate_' ] ].
 	^ corruptSelectors.
+]
+
+{ #category : #'system announcements' }
+LeDatabaseClassStoreMonitor >> onClassCommented: anAnnouncement [
+	"No action required"
+]
+
+{ #category : #'system announcements' }
+LeDatabaseClassStoreMonitor >> onClassRemoved: anAnnouncement [
+
+	({ dbClass name. 'AnObsolete', dbClass name. } includes: anAnnouncement classRemoved name) ifFalse: [ ^ self ].
+	saveDelay isZero ifTrue: [ self stopMonitoring ].
+]
+
+{ #category : #'system announcements' }
+LeDatabaseClassStoreMonitor >> onClassRenamed: anAnnouncement [
+	"If you want to rename the class:
+	1. Stop the DB and monitor.
+	2. Rename the class.
+	3. Start the DB and monitor."
+
+	self error: 'Database class renamed'.
+]
+
+{ #category : #'system announcements' }
+LeDatabaseClassStoreMonitor >> onMethodAdded: anAnnouncement [
+
+	self onMethodModified: anAnnouncement
+]
+
+{ #category : #'system announcements' }
+LeDatabaseClassStoreMonitor >> onMethodModified: anAnnouncement [
+
+	anAnnouncement methodClass = dbClass class ifFalse: [ ^ self ].
+	(currentEntry isNotNil and: [ anAnnouncement selector = currentEntry pageSelector ]) ifTrue:
+		[ ^ self ].
+	self reloadPageSelector: anAnnouncement selector.
+]
+
+{ #category : #'system announcements' }
+LeDatabaseClassStoreMonitor >> onMethodRemoved: anAnnouncement [
+
+	anAnnouncement methodClass = dbClass class ifFalse: [ ^ self ].
+	(currentEntry isNotNil and: [ anAnnouncement selector = currentEntry pageSelector ]) ifTrue:
+		[ ^ self ].
+	self removePageSelector: anAnnouncement method selector.
 ]
 
 { #category : #'startup-shutdown' }
@@ -292,29 +343,37 @@ LeDatabaseClassStoreMonitor >> processPageTitleChanged: anAnnouncement [
 { #category : #'private - announcements' }
 LeDatabaseClassStoreMonitor >> processSnippetContentChanged: anAnnouncement [
 
+	anAnnouncement snippet page ifNil: [ ^ self ].
 	self savePage: anAnnouncement snippet page
+]
+
+{ #category : #private }
+LeDatabaseClassStoreMonitor >> queueReload: aSymbol [
+	"Add the supplied page selector to the queue of pages to be reloaded"
+
+	queue nextPut: (LeDatabaseClassStoreQueueReloadPageEntry new
+		monitor: self;
+		pageSelector: aSymbol)
+
 ]
 
 { #category : #private }
 LeDatabaseClassStoreMonitor >> queueRemove: aSymbol [
 	"Add the supplied page selector to the queue of pages to be removed"
 
-	removeQueue nextPut: aSymbol.
-	"LeLocalJSONStoreSignal new
-		pageTitle: aString;
-		operation: #queueRemove;
-		emit."
+	queue nextPut: (LeDatabaseClassStoreQueueRemovePageEntry new
+		monitor: self;
+		pageSelector: aSymbol)
+
 ]
 
 { #category : #private }
 LeDatabaseClassStoreMonitor >> queueSave: aPage [
 	"Add the supplied page to the queue of pages to be saved"
 
-	saveQueue nextPut: aPage.
-	"LeLocalJSONStoreSignal new
-		pageTitle: aPage title;
-		operation: #queueSave;
-		emit."
+	queue nextPut: (LeDatabaseClassStoreQueueStorePageEntry new
+		monitor: self;
+		page: aPage)
 ]
 
 { #category : #'startup-shutdown' }
@@ -325,6 +384,35 @@ LeDatabaseClassStoreMonitor >> reload [
 	(database hasParentDatabase and: [ database parent hasProperties ]) ifTrue: 
 		[ ^ database parent reloadRequestFrom: database ].
 	self primitiveReload.
+]
+
+{ #category : #private }
+LeDatabaseClassStoreMonitor >> reloadPageSelector: aSymbol [ 
+
+	saveDelay isZero
+		ifTrue: [ self reloadPageSelectorNow: aSymbol ]
+		ifFalse: [ self queueReload: aSymbol ]
+]
+
+{ #category : #private }
+LeDatabaseClassStoreMonitor >> reloadPageSelectorNow: aSymbol [
+	"Reload the supplied page file named aString from the local store"
+	| page reloader |
+
+	page := storage loadFromClass: dbClass selector: aSymbol.
+	reloader := LeDatabaseReload new.
+	reloader monitor: self.
+	page isExplicitLinks 
+		ifTrue: [ reloader reloadExplicitLinks: page ]
+		ifFalse: [ reloader reloadPage: page ].
+	reloader
+		updateReloadedPages;
+		updateAddedPages;
+		updateAddedExplicitLinks.
+	LeLocalStoreSignal new
+		pageTitle: aSymbol;
+		operation: #remove;
+		emit.
 ]
 
 { #category : #private }
@@ -341,7 +429,6 @@ LeDatabaseClassStoreMonitor >> removePageSelector: aSymbol [
 	saveDelay isZero
 		ifTrue: [ self removePageSelectorNow: aSymbol ]
 		ifFalse: [ self queueRemove: aSymbol ]
-
 ]
 
 { #category : #private }
@@ -351,6 +438,9 @@ LeDatabaseClassStoreMonitor >> removePageSelectorNow: aSymbol [
 	dbClass class methodDict
 		at: aSymbol
 		ifPresent: [ :method | method removeFromSystem ].
+	database
+		pageByUuid: (storage pageUidForSelector: aSymbol)
+		ifPresent: [ :page | database removePage: page ].
 	LeLocalStoreSignal new
 		pageTitle: aSymbol;
 		operation: #remove;
@@ -401,8 +491,10 @@ LeDatabaseClassStoreMonitor >> scheduleNextUpdate [
 	updatePromise ifNotNil: [ updatePromise cancelSoft ].
 
 	updatePromise := ([ self runTimedUpdate ] asAsyncFuture 
-		delayed: saveDelay) await: (AsyncFutureExecutionConfiguration new 
-			customGroup: #Lepiter)
+		delayed: saveDelay) 
+			await: (AsyncFutureExecutionConfiguration new 
+				customGroup: #Lepiter;
+				errorHandler: AsyncPassExceptionHandler new)
 ]
 
 { #category : #'system startup' }
@@ -426,6 +518,7 @@ LeDatabaseClassStoreMonitor >> startMonitoring [
 	
 	self class sessionAnnouncer weak when: LeLocalJSONStoreShutdown send: #shutDown to: self.
 	self class sessionAnnouncer weak when: LeLocalJSONStoreStartup send: #startUp to: self.
+	self subscribeToSystemAnnouncer.
 	self scheduleNextUpdate.
 	self loadCorruptPages.
 ]
@@ -440,13 +533,14 @@ LeDatabaseClassStoreMonitor >> startUp [
 { #category : #'startup-shutdown' }
 LeDatabaseClassStoreMonitor >> stopMonitoring [
 
+	state = #stopped ifTrue: [ ^ self ].
 	database unsubscribe: self.
 	self class sessionAnnouncer unsubscribe: self.
+	SystemAnnouncer uniqueInstance unsubscribe: self.
 	state := #stopped.
+	self updateEntries.
 
 	self announce: (LeLocalStoreMonitorStopped new monitor: self).
-
-	self updateEntries
 ]
 
 { #category : #private }
@@ -463,34 +557,46 @@ LeDatabaseClassStoreMonitor >> submitReload [
 							, '. Do a manual reload to reproduce the error.']
 ]
 
+{ #category : #'system announcements' }
+LeDatabaseClassStoreMonitor >> subscribeToSystemAnnouncer [
+
+	{   ClassRemoved->#onClassRemoved:.
+		MethodAdded -> #onMethodAdded:.
+		MethodRemoved -> #onMethodRemoved:.
+		MethodModified -> #onMethodModified:.
+		ClassRenamed -> #onClassRenamed:.
+		ClassCommented -> #onClassCommented:.
+	} do: [ :pair |
+		SystemAnnouncer uniqueInstance weak
+			when: pair key 
+			send: pair value 
+			to: self ].
+]
+
 { #category : #private }
 LeDatabaseClassStoreMonitor >> updateEntries [
 	"Perform all the queued updates"
-	| oldSaveQueue oldRemoveQueue newSaveQueue newRemoveQueue savePages removePageFiles page sendChanged |
-	
+	| oldQueue newQueue entries entry sendChanged |
+
 	sendChanged := self hasChanges.
 
-	newSaveQueue := WaitfreeQueue new.
-	newRemoveQueue := WaitfreeQueue new.
+	newQueue := WaitfreeQueue new.
 
 	"Save the old queues and insert the new queues.
 	Assignment operations can't be interrupted, so this is atomic and thread safe"
-	oldSaveQueue := saveQueue.
-	oldRemoveQueue := removeQueue.
-	saveQueue := newSaveQueue.
-	removeQueue := newRemoveQueue.
+	oldQueue := queue.
+	queue := newQueue.
 
-	savePages := Set new.
-	[ (page := oldSaveQueue nextOrNil) isNotNil ] whileTrue:
-		[ savePages add: page ].
-	savePages do: [ :each |
-		self savePageNow: each ].
+	"If the receiver's dbClass is obsolete shut down."
+	dbClass isObsolete ifTrue: [ ^ self handleDbClassRemoved ].
 
-	removePageFiles := Set new.
-	[ (page := oldRemoveQueue nextOrNil) isNotNil ] whileTrue:
-		[ removePageFiles add: page ].
-	removePageFiles do: [ :each |
-		self removePageSelectorNow: each ].
+	entries := OrderedCollection new.
+	[ (entry := oldQueue nextOrNil) isNotNil ] whileTrue:
+		[ entries add: entry ].
+	entries do: [ :each | 
+		currentEntry := each.
+		each apply ].
+	currentEntry := nil.
 
 	self announce: (LeLocalStoreMonitorSaved new monitor: self).
 	

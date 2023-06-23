@@ -30,6 +30,13 @@ LeDatabaseStore class >> loadsDatabaseUrl: aDatabaseZnUrl [
 	^ false
 ]
 
+{ #category : #testing }
+LeDatabaseStore class >> noLepiterReload [
+	"Answer a boolean indicating whether the image has been started with the --noLepiterReload option"
+
+	^ Smalltalk commandLine argumentsInclude: '--noLepiterReload'
+]
+
 { #category : #private }
 LeDatabaseStore >> clearDatabaseProperties [
 	dbProperties := nil.
