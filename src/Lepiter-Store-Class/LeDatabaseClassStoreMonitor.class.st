@@ -349,8 +349,8 @@ LeDatabaseClassStoreMonitor >> queueReload: aSymbol [
 
 	queue nextPut: (LeDatabaseClassStoreQueueReloadPageEntry new
 		monitor: self;
-		pageSelector: aSymbol)
-
+		pageSelector: aSymbol).
+	self announce: (LeLocalStoreMonitorEntryQueued new monitor: self).
 ]
 
 { #category : #private }
@@ -359,8 +359,8 @@ LeDatabaseClassStoreMonitor >> queueRemove: aSymbol [
 
 	queue nextPut: (LeDatabaseClassStoreQueueRemovePageEntry new
 		monitor: self;
-		pageSelector: aSymbol)
-
+		pageSelector: aSymbol).
+	self announce: (LeLocalStoreMonitorEntryQueued new monitor: self).
 ]
 
 { #category : #private }
@@ -369,7 +369,8 @@ LeDatabaseClassStoreMonitor >> queueSave: aPage [
 
 	queue nextPut: (LeDatabaseClassStoreQueueStorePageEntry new
 		monitor: self;
-		page: aPage)
+		page: aPage).
+	self announce: (LeLocalStoreMonitorEntryQueued new monitor: self).
 ]
 
 { #category : #'startup-shutdown' }
