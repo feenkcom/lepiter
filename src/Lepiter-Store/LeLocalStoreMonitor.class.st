@@ -484,10 +484,10 @@ LeLocalStoreMonitor >> updateEntries [
 	removePageFiles do: [ :each |
 		self removePageNowNamed: each ].
 
-	self announce: (LeLocalStoreMonitorSaved new monitor: self).
+	self announce: (LeStoreMonitorSaved new monitor: self).
 	
 	sendChanged ifTrue: [
-		self announce: (LeLocalStoreMonitorSavedChanges new monitor: self) ]
+		self announce: (LeStoreMonitorSavedChanges new monitor: self) ]
 ]
 
 { #category : #'private - accessing' }
