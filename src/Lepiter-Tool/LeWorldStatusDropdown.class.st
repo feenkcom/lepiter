@@ -166,6 +166,13 @@ LeWorldStatusDropdown >> onDatabaseChanged [
 ]
 
 { #category : #callbacks }
+LeWorldStatusDropdown >> onDatabaseMonitorUpdate [
+
+	pageChanged := self hasPendingChanges.
+	self updateWidget
+]
+
+{ #category : #callbacks }
 LeWorldStatusDropdown >> onDatabaseRemoved: anAnnouncement [ 
 	anAnnouncement database ifNotNil: [ :aKnowledgeBase |
 		aKnowledgeBase unsubscribe: self.
@@ -175,11 +182,11 @@ LeWorldStatusDropdown >> onDatabaseRemoved: anAnnouncement [
 				db monitor unsubscribe: self ] ]
 ]
 
-{ #category : #callbacks }
+{ #category : #accessing }
 LeWorldStatusDropdown >> onDatabaseSaved [
+	"Deprecated: Allow existing dropdown instances to continue operating"
 
-	pageChanged := self hasPendingChanges.
-	self updateWidget
+	^ self onDatabaseMonitorUpdate
 ]
 
 { #category : #callbacks }
@@ -212,8 +219,8 @@ LeWorldStatusDropdown >> registerDatabaseEvents [
 			select: [ :db | db monitor isNotNil ]
 			thenDo: [ :db |
 				db monitor weak
-					when: LeLocalStoreMonitorSaved 
-					send: #onDatabaseSaved 
+					when: LeStoreMonitorAnnouncement
+					send: #onDatabaseMonitorUpdate 
 					to: self ] ].
 ]
 

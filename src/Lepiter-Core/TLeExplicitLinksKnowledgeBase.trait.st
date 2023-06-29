@@ -115,16 +115,6 @@ TLeExplicitLinksKnowledgeBase >> ensureExplicitLinksStorageUid [
 ]
 
 { #category : #accessing }
-TLeExplicitLinksKnowledgeBase >> explicitLinks [
-	^ explicitLinks
-]
-
-{ #category : #accessing }
-TLeExplicitLinksKnowledgeBase >> explicitLinksCount [
-	^ self explicitLinks size
-]
-
-{ #category : #accessing }
 TLeExplicitLinksKnowledgeBase >> explicitLinkWithUuid: anUuid [
 	^ explicitLinks linkWithUuid: anUuid
 ]
@@ -138,6 +128,16 @@ TLeExplicitLinksKnowledgeBase >> explicitLinkWithUuid: anUuid ifPresent: aPresen
 ]
 
 { #category : #accessing }
+TLeExplicitLinksKnowledgeBase >> explicitLinks [
+	^ explicitLinks
+]
+
+{ #category : #accessing }
+TLeExplicitLinksKnowledgeBase >> explicitLinksCount [
+	^ self explicitLinks size
+]
+
+{ #category : #accessing }
 TLeExplicitLinksKnowledgeBase >> gtViewExplicitLinksFor: aView [
 	<gtView>
 	explicitLinks ifNil: [ aView empty ].
@@ -148,15 +148,15 @@ TLeExplicitLinksKnowledgeBase >> gtViewExplicitLinksFor: aView [
 ]
 
 { #category : #testing }
-TLeExplicitLinksKnowledgeBase >> hasExplicitLinks [
-	^ explicitLinks notNil and: [ explicitLinks notEmpty ]
-]
-
-{ #category : #testing }
 TLeExplicitLinksKnowledgeBase >> hasExplicitLinkUID: aUUID [
 	^ explicitLinks 
 		ifNil: [ false ] 
 		ifNotNil: [ explicitLinks hasExplicitLinkUID: aUUID ]
+]
+
+{ #category : #testing }
+TLeExplicitLinksKnowledgeBase >> hasExplicitLinks [
+	^ explicitLinks notNil and: [ explicitLinks notEmpty ]
 ]
 
 { #category : #testing }

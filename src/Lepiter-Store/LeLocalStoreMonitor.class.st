@@ -59,13 +59,6 @@ LeLocalStoreMonitor class >> initialize [
 
 ]
 
-{ #category : #testing }
-LeLocalStoreMonitor class >> noLepiterReload [
-	"Answer a boolean indicating whether the image has been started with the --noLepiterReload option"
-
-	^ Smalltalk commandLine argumentsInclude: '--noLepiterReload'
-]
-
 { #category : #accessing }
 LeLocalStoreMonitor class >> sessionAnnouncer [
 
@@ -400,7 +393,8 @@ LeLocalStoreMonitor >> scheduleNextUpdate [
 
 	updatePromise := ([ self runTimedUpdate ] asAsyncFuture 
 		delayed: saveDelay) await: (AsyncFutureExecutionConfiguration new 
-			customGroup: #Lepiter)
+			customGroup: #Lepiter;
+			errorHandler: AsyncPassExceptionHandler new)
 ]
 
 { #category : #'system startup' }
@@ -490,10 +484,10 @@ LeLocalStoreMonitor >> updateEntries [
 	removePageFiles do: [ :each |
 		self removePageNowNamed: each ].
 
-	self announce: (LeLocalStoreMonitorSaved new monitor: self).
+	self announce: (LeStoreMonitorSaved new monitor: self).
 	
 	sendChanged ifTrue: [
-		self announce: (LeLocalStoreMonitorSavedChanges new monitor: self) ]
+		self announce: (LeStoreMonitorSavedChanges new monitor: self) ]
 ]
 
 { #category : #'private - accessing' }

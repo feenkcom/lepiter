@@ -141,7 +141,7 @@ LeDatabaseClassStore >> dbClassName: aSymbol package: packageName [
 		at: aSymbol
 		ifPresent: [ :aClass | aClass ]
 		ifAbsent: 
-			[ Object subclass: aSymbol
+			[ GtAbstractLepiterDb subclass: aSymbol
 				instanceVariableNames: '' 
 				classVariableNames: ''
 				package: packageName ].
@@ -215,9 +215,10 @@ LeDatabaseClassStore >> reloadPage: aLePage [
 { #category : #private }
 LeDatabaseClassStore >> savePageNow: aLePage [
 
-	storage
-		savePage: aLePage
-		inClass: dbClass
+	LeDatabaseClassStoreQueueStorePageEntry new
+		monitor: self;
+		page: aLePage;
+		apply.
 ]
 
 { #category : #'accessing - db properties' }
@@ -228,6 +229,7 @@ LeDatabaseClassStore >> savePropertiesDictionary: propertiesDictionary [
 		inClass: dbClass
 		selector: #databaseProperties
 		title: 'Database Properties'
+		pragma: '<lepiterDatabasePropertiesStore>'
 		classified: 'properties'
 ]
 

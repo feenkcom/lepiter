@@ -21,13 +21,6 @@ LeUID >> = anObject [
 	^ uid = anObject uid
 ]
 
-{ #category : #comparing }
-LeUID >> hash [
-	"Answer an integer value that is related to the identity of the receiver."
-
-	^ uid hash
-]
-
 { #category : #'api - testing' }
 LeUID >> hasUidString: aString64 [
 
@@ -35,6 +28,13 @@ LeUID >> hasUidString: aString64 [
 
 	^ uid isNotNil and: [
 		 aString64 = uid base64Encoded ]
+]
+
+{ #category : #comparing }
+LeUID >> hash [
+	"Answer an integer value that is related to the identity of the receiver."
+
+	^ uid hash
 ]
 
 { #category : #accessing }

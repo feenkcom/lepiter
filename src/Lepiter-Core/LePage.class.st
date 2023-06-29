@@ -592,13 +592,6 @@ LePage >> unload [
 ]
 
 { #category : #'api - editing' }
-LePage >> updater [
-	^ LeDatabasePageUpdater new
-		page: self;
-		database: self database.
-]
-
-{ #category : #'api - editing' }
 LePage >> updateTitle: aTitle [
 	"Update a page title if allowed.
 	Notice that it is allowed only if a page of the same title does not exist in a database."
@@ -621,4 +614,11 @@ LePage >> updateTitle: aTitle [
 				newDatabaseKey: self type databaseKey 
 			) ];
 		update.
+]
+
+{ #category : #'api - editing' }
+LePage >> updater [
+	^ LeDatabasePageUpdater new
+		page: self;
+		database: self database.
 ]

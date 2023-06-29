@@ -36,6 +36,20 @@ LeContentBuilder >> content [
 ]
 
 { #category : #'api - configuration' }
+LeContentBuilder >> createEmail: anEmail [
+	| aLeEmail |
+	aLeEmail := self buildEmailFrom: anEmail.
+	self content createEmail: aLeEmail.
+]
+
+{ #category : #'api - configuration' }
+LeContentBuilder >> createTime: aTime [
+	| aLeTime |
+	aLeTime := self buildTimeFrom: aTime.
+	self content createTime: aLeTime.
+]
+
+{ #category : #'api - configuration' }
 LeContentBuilder >> createdBy: anEmail [
 	| aLeEmail |
 	aLeEmail := self buildEmailFrom: anEmail.
@@ -58,24 +72,24 @@ LeContentBuilder >> createdNowBy: anEmail [
 		createdBy: anEmail
 ]
 
-{ #category : #'api - configuration' }
-LeContentBuilder >> createEmail: anEmail [
-	| aLeEmail |
-	aLeEmail := self buildEmailFrom: anEmail.
-	self content createEmail: aLeEmail.
-]
-
-{ #category : #'api - configuration' }
-LeContentBuilder >> createTime: aTime [
-	| aLeTime |
-	aLeTime := self buildTimeFrom: aTime.
-	self content createTime: aLeTime.
-]
-
 { #category : #defaults }
 LeContentBuilder >> defaultContent [
 	<return: #LeContent>
 	^ self subclassResponsibility
+]
+
+{ #category : #'api - configuration' }
+LeContentBuilder >> editEmail: anEmail [
+	| aLeEmail |
+	aLeEmail := self buildEmailFrom: anEmail.
+	self content editEmail: aLeEmail.
+]
+
+{ #category : #'api - configuration' }
+LeContentBuilder >> editTime: aTime [
+	| aLeTime |
+	aLeTime := self buildTimeFrom: aTime.
+	self content editTime: aLeTime.
 ]
 
 { #category : #'api - configuration' }
@@ -97,20 +111,6 @@ LeContentBuilder >> editedNowBy: anEmail [
 	self 
 		editedNow;
 		editedBy: anEmail
-]
-
-{ #category : #'api - configuration' }
-LeContentBuilder >> editEmail: anEmail [
-	| aLeEmail |
-	aLeEmail := self buildEmailFrom: anEmail.
-	self content editEmail: aLeEmail.
-]
-
-{ #category : #'api - configuration' }
-LeContentBuilder >> editTime: aTime [
-	| aLeTime |
-	aLeTime := self buildTimeFrom: aTime.
-	self content editTime: aLeTime.
 ]
 
 { #category : #initialization }
