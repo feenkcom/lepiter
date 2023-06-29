@@ -86,7 +86,7 @@ LeSnippetExpandableAptitude >> visuallyFocus [
 	super visuallyFocus.
 
 	snippetContainer effect: (BlGaussianShadowEffect
-		color: (BrGlamorousColors primaryBorderColor alpha: 0.5)
+		color: (BrGlamorousColors primaryBorderColor)
 		width: 2
 		offset: 0 @ 1).
 	snippetContainer background: Color white
