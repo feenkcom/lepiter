@@ -141,7 +141,7 @@ LeDatabaseClassStore >> dbClassName: aSymbol package: packageName [
 		at: aSymbol
 		ifPresent: [ :aClass | aClass ]
 		ifAbsent: 
-			[ Object subclass: aSymbol
+			[ GtAbstractLepiterDb subclass: aSymbol
 				instanceVariableNames: '' 
 				classVariableNames: ''
 				package: packageName ].
@@ -229,6 +229,7 @@ LeDatabaseClassStore >> savePropertiesDictionary: propertiesDictionary [
 		inClass: dbClass
 		selector: #databaseProperties
 		title: 'Database Properties'
+		pragma: '<lepiterDatabasePropertiesStore>'
 		classified: 'properties'
 ]
 
