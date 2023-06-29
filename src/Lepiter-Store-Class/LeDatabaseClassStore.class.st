@@ -141,7 +141,7 @@ LeDatabaseClassStore >> dbClassName: aSymbol package: packageName [
 		at: aSymbol
 		ifPresent: [ :aClass | aClass ]
 		ifAbsent: 
-			[ Object subclass: aSymbol
+			[ GtAbstractLepiterDb subclass: aSymbol
 				instanceVariableNames: '' 
 				classVariableNames: ''
 				package: packageName ].
