@@ -82,6 +82,15 @@ LeDatabaseClassStorage >> loadJsonFromMethod: aCompiledMethod [
 ]
 
 { #category : #accessing }
+LeDatabaseClassStorage >> pagePragmaFor: aPage [
+	"Answer the pragma describing aPage"
+
+	^ (aPage isKindOf: LeExplicitLinks)
+		ifTrue: [ '<lepiterExplicitLinksStore>' ]
+		ifFalse: [ '<lepiterPageStore>' ]
+]
+
+{ #category : #accessing }
 LeDatabaseClassStorage >> pageProtocolFor: aPage [
 	"Answer the protocol where aPage is stored"
 
@@ -140,7 +149,7 @@ LeDatabaseClassStorage >> renameTo: prefixString pageUid: aPageUid class: aClass
 ]
 
 { #category : #saving }
-LeDatabaseClassStorage >> save: anObject inClass: aClass selector: aSymbol title: aString classified: protocol [
+LeDatabaseClassStorage >> save: anObject inClass: aClass selector: aSymbol title: aString pragma: pragmaString classified: protocol [
 	"Write the supplied page back to the specified class.
 	Note that unlike the file store, no backup of the page is made.  Code versioning is assumed to take care of this."
 	| jsonString sourceCode |
@@ -161,7 +170,13 @@ LeDatabaseClassStorage >> save: anObject inClass: aClass selector: aSymbol title
 			<< aSymbol; cr;
 			<< '"Automatically generated'; cr;
 			<< aString;
-			nextPut: $"; cr;
+			nextPut: $"; cr.
+		pragmaString ifNotNil:
+			[ stream
+				tab;
+				<< pragmaString;
+				cr ].
+		stream
 			nextPut: $";
 			<< jsonString;
 			nextPut: $" ].
@@ -184,6 +199,9 @@ LeDatabaseClassStorage >> saveAttachment: aByteArray inClass: aClass selector: a
 				<< '"Automatically generated'; cr;
 				<< aString;
 				nextPut: $"; cr;
+				tab;
+				<< '<lepiterAttachmentStore>';
+				cr;
 				nextPut: $".
 			ZnBase64Encoder new encode: aByteArray readStream to: stream.
 			stream 
@@ -207,6 +225,7 @@ LeDatabaseClassStorage >> savePage: aPage inClass: aClass [
 		inClass: aClass 
 		selector: (self pageSelectorFor: aPage) 
 		title: aPage title
+		pragma: (self pagePragmaFor: aPage)
 		classified: (self pageProtocolFor: aPage).
 	LeLocalStoreSignal new
 		pageTitle: aPage title;
