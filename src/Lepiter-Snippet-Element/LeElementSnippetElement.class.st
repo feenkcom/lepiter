@@ -508,7 +508,7 @@ LeElementSnippetElement >> updateCoderWhenFocused: isFocused [
 	isFocused
 		ifTrue: [
 			coderDecorationBar constraintsDo: [ :c | c grid vertical span: 2 ].
-			coderDecorationBar background: (BrGlamorousColors primaryBorderColor alpha: 0.4) gtOpaqueColorOnWhite ]
+			coderDecorationBar background: BrGlamorousColors primaryBorderColor ]
 		ifFalse: [
 			coderDecorationBar constraintsDo: [ :c | c grid vertical span: 1 ].
 			coderDecorationBar background: BrGlamorousColors lightBorderColor ].

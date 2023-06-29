@@ -270,7 +270,7 @@ LePageEditableTitleElement >> updatePageTitle [
 { #category : #initialization }
 LePageEditableTitleElement >> visuallyFocus [
 	titleElement effect: (BlGaussianShadowEffect
-		color: (BrGlamorousColors primaryBorderColor alpha: 0.5)
+		color: (BrGlamorousColors primaryBorderColor)
 		width: 2
 		offset: 0 @ 1)
 ]
