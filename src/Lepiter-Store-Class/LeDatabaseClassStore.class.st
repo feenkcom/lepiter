@@ -229,6 +229,7 @@ LeDatabaseClassStore >> savePropertiesDictionary: propertiesDictionary [
 		inClass: dbClass
 		selector: #databaseProperties
 		title: 'Database Properties'
+		pragma: '<lepiterDatabasePropertiesStore>'
 		classified: 'properties'
 ]
 
