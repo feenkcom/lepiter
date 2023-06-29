@@ -836,6 +836,15 @@ LeLogicalDatabase >> tableOfContents [
 	^ primaryDB tableOfContents
 ]
 
+{ #category : #accessing }
+LeLogicalDatabase >> tableOfContentsNodes [
+	<return: #Collection of: #LeTableOfContentsNode>
+	| page |
+	page := self tableOfContents.
+	page ifNil: [ ^ #() ].
+	^ (LeTableOfContentsVisitor tocForPage: page) asOrderedCollection.
+]
+
 { #category : #'api - accessing' }
 LeLogicalDatabase >> textualPageLinksCount [
 	"Answer the number of textual page links in the receiver"
