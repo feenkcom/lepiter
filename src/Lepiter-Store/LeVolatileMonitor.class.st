@@ -31,6 +31,13 @@ LeVolatileMonitor >> initialize [
 ]
 
 { #category : #accessing }
+LeVolatileMonitor >> tableOfContentsPageID [
+	"Answer the page UUID for the Table Of Contents, or nil if not set"
+
+	^ nil
+]
+
+{ #category : #accessing }
 LeVolatileMonitor >> uuid [
 
 	^ uuid
