@@ -4,6 +4,12 @@ Class {
 	#category : #'Lepiter-Core-Links'
 }
 
+{ #category : #visiting }
+LeUidPageLink >> acceptVisitor: aVisitor [
+
+	^ aVisitor visitModel: self
+]
+
 { #category : #'api - testing' }
 LeUidPageLink >> isExistingPage [
 	^ self targetReference isExistingPage

@@ -118,6 +118,8 @@ TLeModelVisitor >> visitTextSnippet: aLeTextSnippet [
 { #category : #visiting }
 TLeModelVisitor >> visitTextualSnippet: aLeTextualSnippet [
 
+	aLeTextualSnippet allOutgoingLinks do: [ :link | 
+		link acceptVisitor: self ].
 	^ self visitSnippet: aLeTextualSnippet
 ]
 
