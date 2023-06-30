@@ -33,6 +33,10 @@ TLeModelVisitor >> visitDatabase: aLeDatabase [
 ]
 
 { #category : #visiting }
+TLeModelVisitor >> visitDoubleBracketLink: aDoubleBracketLink [
+]
+
+{ #category : #visiting }
 TLeModelVisitor >> visitElementSnippet: aLeElementSnippet [
 
 	^ self visitTextualSnippet: aLeElementSnippet
@@ -54,6 +58,10 @@ TLeModelVisitor >> visitModel: aLeModel [
 TLeModelVisitor >> visitPage: aLePage [
 
 	^ self visitContent: aLePage
+]
+
+{ #category : #visiting }
+TLeModelVisitor >> visitPageAnnotation: aDoubleBracketLink [
 ]
 
 { #category : #visiting }
@@ -116,8 +124,14 @@ TLeModelVisitor >> visitTextSnippet: aLeTextSnippet [
 ]
 
 { #category : #visiting }
+TLeModelVisitor >> visitTextualLink: aDoubleBracketLink [
+]
+
+{ #category : #visiting }
 TLeModelVisitor >> visitTextualSnippet: aLeTextualSnippet [
 
+	aLeTextualSnippet allOutgoingLinks do: [ :link | 
+		link acceptVisitor: self ].
 	^ self visitSnippet: aLeTextualSnippet
 ]
 

@@ -35,6 +35,13 @@ LeTextualLink class >> fromPageAnnotation: aLePageAnnotationNode [
 ]
 
 { #category : #accessing }
+LeTextualLink >> acceptVisitor: aVisitor [
+
+	node acceptVisitor: aVisitor.
+	aVisitor visitTextualLink: self.
+]
+
+{ #category : #accessing }
 LeTextualLink >> database [ 
 	^ self origin database
 ]
