@@ -237,6 +237,18 @@ LePage >> ensureOneSnippet [
 ]
 
 { #category : #accessing }
+LePage >> explicitReferences [
+	"This is meant to mimic the result of the 'explicit references' button at the bottom of each page with incoming references."
+
+	^ (self database pages
+		select: [ :page | 
+			page allOutgoingExplicitLinks items
+				detect: [ :link | link targetPageTitle = self title ]
+				ifFound: [ true ]
+				ifNone: [ false ] ]) sort: [ :a :b | a title < b title ]
+]
+
+{ #category : #accessing }
 LePage >> gtCopyActionFor: anAction [
 	<lePageAction>
 
