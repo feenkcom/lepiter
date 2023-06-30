@@ -123,6 +123,24 @@ LeDatabaseClassStoreLoad >> loadFrom: aSymbol package: aString saveDelay: aDurat
 ]
 
 { #category : #private }
+LeDatabaseClassStoreLoad >> loadFromClass: aDbClass [
+	"Answer a LeDatabase with its pages loaded from the specified class.
+	This is only used for testing as it answers a LeDatabase without a monitor, which means that any functionality that relies on properties, attachments, saving, etc. will fail."
+
+	dbClass := aDbClass.
+	dbPackage := dbClass package name.
+	storage updateDbStore: self.
+	self preloadScript ifNotNil: 
+		[ :script | script fileIn ].
+
+	database := LeDatabase new.
+	self loadDatabasePropertiesIn: database.
+	self loadContentInDatabase: database.
+
+	^ database
+]
+
+{ #category : #private }
 LeDatabaseClassStoreLoad >> loadPages [
 	"Load all the pages from the receiver's class.
 	If a duplicate uid is found, raise a signal.  The exception handler can take action and decide whether to continue"

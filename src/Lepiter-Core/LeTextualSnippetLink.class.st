@@ -1,8 +1,14 @@
 Class {
 	#name : #LeTextualSnippetLink,
 	#superclass : #LeTextualLink,
-	#category : 'Lepiter-Core-Links'
+	#category : #'Lepiter-Core-Links'
 }
+
+{ #category : #visiting }
+LeTextualSnippetLink >> acceptVisitor: aVisitor [
+
+	^ aVisitor visitModel: self
+]
 
 { #category : #'api - testing' }
 LeTextualSnippetLink >> isTextualSnippetLink [
