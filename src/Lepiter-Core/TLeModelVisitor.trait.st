@@ -33,6 +33,10 @@ TLeModelVisitor >> visitDatabase: aLeDatabase [
 ]
 
 { #category : #visiting }
+TLeModelVisitor >> visitDoubleBracketLink: aDoubleBracketLink [
+]
+
+{ #category : #visiting }
 TLeModelVisitor >> visitElementSnippet: aLeElementSnippet [
 
 	^ self visitTextualSnippet: aLeElementSnippet
@@ -54,6 +58,10 @@ TLeModelVisitor >> visitModel: aLeModel [
 TLeModelVisitor >> visitPage: aLePage [
 
 	^ self visitContent: aLePage
+]
+
+{ #category : #visiting }
+TLeModelVisitor >> visitPageAnnotation: aDoubleBracketLink [
 ]
 
 { #category : #visiting }
@@ -113,6 +121,10 @@ TLeModelVisitor >> visitSparqlSnippet: aLeJavaScriptSnippet [
 TLeModelVisitor >> visitTextSnippet: aLeTextSnippet [
 
 	^ self visitTextualSnippet: aLeTextSnippet
+]
+
+{ #category : #visiting }
+TLeModelVisitor >> visitTextualLink: aDoubleBracketLink [
 ]
 
 { #category : #visiting }
