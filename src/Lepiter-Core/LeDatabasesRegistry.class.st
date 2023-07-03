@@ -46,6 +46,12 @@ LeDatabasesRegistry >> ensureDatabase [
 	^ self setupForGlamorousToolkit
 ]
 
+{ #category : #testing }
+LeDatabasesRegistry >> hasDefaultLogicalDatabase [
+
+	^ defaultLogicalDatabase isNotNil
+]
+
 { #category : #private }
 LeDatabasesRegistry >> initializeForGlamorousToolkit [
 	| databaseProperties |
