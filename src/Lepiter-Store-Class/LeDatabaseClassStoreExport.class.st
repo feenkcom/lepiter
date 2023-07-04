@@ -12,7 +12,8 @@ LeDatabaseClassStoreExport >> export [
 	database pages do: [ :page |
 		self exportPage: page ].
 	database hasMonitor ifTrue:
-		[ self exportAttachments ].
+		[ self exportAttachments.
+		self exportProperties ].
 	self updateProperty: #schema value: storage class currentVersionString.
 ]
 
@@ -38,4 +39,10 @@ LeDatabaseClassStoreExport >> exportAttachments [
 LeDatabaseClassStoreExport >> exportPage: aLePage [
 
 	storage savePage: aLePage inClass: dbClass
+]
+
+{ #category : #private }
+LeDatabaseClassStoreExport >> exportProperties [
+
+	self savePropertiesDictionary: database properties dbProperties.
 ]
