@@ -1,7 +1,7 @@
-Extension { #name : #LeLocalStore }
+Extension { #name : #LeDatabaseStore }
 
 { #category : #'*Lepiter-JavaScript' }
-LeLocalStore >> jsLink [
+LeDatabaseStore >> jsLink [
 	"Answer the Dictionary containing the JSLink settings for this database"
 	<return: #Dictionary>
 
@@ -11,7 +11,7 @@ LeLocalStore >> jsLink [
 ]
 
 { #category : #'*Lepiter-JavaScript' }
-LeLocalStore >> jsLink: aDictionaryOrNil [
+LeDatabaseStore >> jsLink: aDictionaryOrNil [
 
 	self 
 		updateProperty: #jsLink
@@ -19,7 +19,7 @@ LeLocalStore >> jsLink: aDictionaryOrNil [
 ]
 
 { #category : #'*Lepiter-JavaScript' }
-LeLocalStore >> jsLinkSettings [
+LeDatabaseStore >> jsLinkSettings [
 	"Answer the initialised LeJSLinkSettings for this database"
 	<return: #LeJSLinkSettings>
 
