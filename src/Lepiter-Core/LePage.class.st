@@ -258,6 +258,21 @@ LePage >> gtCopyActionFor: anAction [
 		action: [ :aButton | Clipboard clipboardText: self asRemoteLink ]
 ]
 
+{ #category : #search }
+LePage >> gtSpotterForSnippetsFor: aSearch [
+	"NB: We only search in text snippets."
+
+	<gtSearch>
+	^ aSearch list
+		priority: 10;
+		items: [ self allChildrenTextSnippets ];
+		title: 'Text Snippets';
+		itemsLimit: Float infinity;
+		itemName: #text;
+		filterBySubstring;
+		wantsToDisplayOnEmptyQuery: true
+]
+
 { #category : #testing }
 LePage >> hasContent [
 	"Page itself has no other content, only snippets. 
