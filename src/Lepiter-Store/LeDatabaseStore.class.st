@@ -112,6 +112,29 @@ LeDatabaseStore >> defaultDelay [
 	^ 30 seconds
 ]
 
+{ #category : #'private - db properties' }
+LeDatabaseStore >> fileReferenceFrom: aString [
+	"Answer a FileReference or FileLocator from the supplied string.
+	FileLocator origins + 'dbParentDirectory' are available as formatted strings, e.g.
+		{home}/lepiter
+	is the equivalent of
+		FileLocator home / 'lepiter'"
+	| namedDirectories regex name path |
+
+	namedDirectories := (FileLocator supportedOrigins collect: [ :origin | 
+		origin -> (FileLocator origin: origin) ]) asDictionary.
+	namedDirectories at: #dbParentDirectory put: self localRoot parent.
+	regex := '\{([a-zA-Z]+)\}(.*)' asRegex.
+	^ (regex matches: aString) ifTrue: 
+		[ name := regex subexpression: 2.
+		path := regex subexpression: 3.
+		namedDirectories at: name
+			ifPresent: [ :locator | locator resolve: path allButFirst ]
+			ifAbsent: [ self error: 'Unknown directory: ', name printString ] ]
+	ifFalse:
+	 	[ aString asFileReference ].
+]
+
 { #category : #ui }
 LeDatabaseStore >> gtPropertiesFor: aView [
 	"Provide a simple view of the current properties"
@@ -140,6 +163,14 @@ LeDatabaseStore >> loadPropertiesDictionary [
 	"Answer the lepiter properties dictionary"
 
 	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
+LeDatabaseStore >> localRoot [
+	"Answer the 'localRoot'.
+	For stores that aren't disk based, answer the default lepiter directory."
+
+	^ LepiterCoreDefaults defaultLocalDirectory
 ]
 
 { #category : #private }
