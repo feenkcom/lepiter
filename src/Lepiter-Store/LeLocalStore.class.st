@@ -213,29 +213,6 @@ LeLocalStore >> explicitLinksOrNil [
 ]
 
 { #category : #'private - db properties' }
-LeLocalStore >> fileReferenceFrom: aString [
-	"Answer a FileReference or FileLocator from the supplied string.
-	FileLocator origins + 'dbParentDirectory' are available as formatted strings, e.g.
-		{home}/lepiter
-	is the equivalent of
-		FileLocator home / 'lepiter'"
-	| namedDirectories regex name path |
-
-	namedDirectories := (FileLocator supportedOrigins collect: [ :origin | 
-		origin -> (FileLocator origin: origin) ]) asDictionary.
-	namedDirectories at: #dbParentDirectory put: localRoot parent.
-	regex := '\{([a-zA-Z]+)\}(.*)' asRegex.
-	^ (regex matches: aString) ifTrue: 
-		[ name := regex subexpression: 2.
-		path := regex subexpression: 3.
-		namedDirectories at: name
-			ifPresent: [ :locator | locator resolve: path allButFirst ]
-			ifAbsent: [ self error: 'Unknown directory: ', name printString ] ]
-	ifFalse:
-	 	[ aString asFileReference ].
-]
-
-{ #category : #'private - db properties' }
 LeLocalStore >> fileReferenceString: aFileReferenceStringOrNil [
 	"Answer the string form of the supplied reference"
 
