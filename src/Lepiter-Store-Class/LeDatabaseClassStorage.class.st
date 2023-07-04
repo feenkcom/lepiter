@@ -169,7 +169,7 @@ LeDatabaseClassStorage >> save: anObject inClass: aClass selector: aSymbol title
 		stream
 			<< aSymbol; cr;
 			<< '"Automatically generated'; cr;
-			<< aString;
+			<< (aString copyReplaceAll: '"' with: '""');
 			nextPut: $"; cr.
 		pragmaString ifNotNil:
 			[ stream
