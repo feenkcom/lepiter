@@ -149,16 +149,6 @@ LeLocalStore >> attachmentProperties: attachmentPath [
 	^ LeAttachment loadFrom: attachmentFileReference parent / 'lepiter_attachment.properties'
 ]
 
-{ #category : #attachments }
-LeLocalStore >> attachmentUtf8Stream: attachmentPath do: aBlock [
-	"Answer a stream on the binary contents of the supplied attachment path"
-	| attachmentFileReference |
-
-	attachmentFileReference := database resolveDbFile: attachmentPath.
-	self assert: attachmentFileReference exists.
-	^ attachmentFileReference readStreamDo: aBlock
-]
-
 { #category : #accessing }
 LeLocalStore >> attachmentsDirectory [
 	^ attachmentsDirectory
@@ -167,6 +157,16 @@ LeLocalStore >> attachmentsDirectory [
 { #category : #accessing }
 LeLocalStore >> attachmentsDirectory: anObject [
 	attachmentsDirectory := anObject
+]
+
+{ #category : #attachments }
+LeLocalStore >> attachmentUtf8Stream: attachmentPath do: aBlock [
+	"Answer a stream on the binary contents of the supplied attachment path"
+	| attachmentFileReference |
+
+	attachmentFileReference := database resolveDbFile: attachmentPath.
+	self assert: attachmentFileReference exists.
+	^ attachmentFileReference readStreamDo: aBlock
 ]
 
 { #category : #accessing }
@@ -210,29 +210,6 @@ LeLocalStore >> explicitLinksOrNil [
 
 	^ self explicitLinksFileReference ifNotNil:
 		[ :file | storage loadPageFrom: file ].
-]
-
-{ #category : #'private - db properties' }
-LeLocalStore >> fileReferenceFrom: aString [
-	"Answer a FileReference or FileLocator from the supplied string.
-	FileLocator origins + 'dbParentDirectory' are available as formatted strings, e.g.
-		{home}/lepiter
-	is the equivalent of
-		FileLocator home / 'lepiter'"
-	| namedDirectories regex name path |
-
-	namedDirectories := (FileLocator supportedOrigins collect: [ :origin | 
-		origin -> (FileLocator origin: origin) ]) asDictionary.
-	namedDirectories at: #dbParentDirectory put: localRoot parent.
-	regex := '\{([a-zA-Z]+)\}(.*)' asRegex.
-	^ (regex matches: aString) ifTrue: 
-		[ name := regex subexpression: 2.
-		path := regex subexpression: 3.
-		namedDirectories at: name
-			ifPresent: [ :locator | locator resolve: path allButFirst ]
-			ifAbsent: [ self error: 'Unknown directory: ', name printString ] ]
-	ifFalse:
-	 	[ aString asFileReference ].
 ]
 
 { #category : #'private - db properties' }
@@ -303,12 +280,6 @@ LeLocalStore >> localRoot: aFileReference [
 ]
 
 { #category : #accessing }
-LeLocalStore >> pageFileReference: aLePage [
-
-	^ localRoot / (self pageFilename: aLePage)
-]
-
-{ #category : #accessing }
 LeLocalStore >> pageFilename: aLePage [
 
 	^ storage pageFilename: aLePage
@@ -318,6 +289,12 @@ LeLocalStore >> pageFilename: aLePage [
 LeLocalStore >> pageFilenameForId: aLePage [
 
 	^ storage pageFilenameForUid: aLePage
+]
+
+{ #category : #accessing }
+LeLocalStore >> pageFileReference: aLePage [
+
+	^ localRoot / (self pageFilename: aLePage)
 ]
 
 { #category : #accessing }

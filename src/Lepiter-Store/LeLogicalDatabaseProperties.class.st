@@ -426,6 +426,14 @@ LeLogicalDatabaseProperties >> registeredDatabaseDirectories: aCollection [
 ]
 
 { #category : #'api - accessing' }
+LeLogicalDatabaseProperties >> registeredDatabases [
+
+	^ self registeredDatabaseUrls collect: [ :each |
+		(LeDatabaseStore loaderFor: each) current 
+			loadAndMonitorFrom: each ]
+]
+
+{ #category : #'api - accessing' }
 LeLogicalDatabaseProperties >> registeredDatabaseUrls [
 
 	^ (self properties at: #registeredDatabaseUrls ifAbsent: [ #() ]) collect: #asZnUrl
@@ -435,14 +443,6 @@ LeLogicalDatabaseProperties >> registeredDatabaseUrls [
 LeLogicalDatabaseProperties >> registeredDatabaseUrls: aCollectionOfZnUrl [
 
 	^ self updateProperty: #registeredDatabaseUrls value: (aCollectionOfZnUrl collect: #asString)
-]
-
-{ #category : #'api - accessing' }
-LeLogicalDatabaseProperties >> registeredDatabases [
-
-	^ self registeredDatabaseUrls collect: [ :each |
-		(LeDatabaseStore loaderFor: each) current 
-			loadAndMonitorFrom: each ]
 ]
 
 { #category : #'api - storage' }
