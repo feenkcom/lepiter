@@ -100,6 +100,15 @@ page is associated to a database. If not the link will be lost.'.
 		targetReference: aTargetReference).
 ]
 
+{ #category : #'private - accessing' }
+LePage >> allOutgoingTargets [
+	"Return the list of actual target pages linked to from this page.
+	NB: a LeLinkExternalUrlReference does't have a content."
+
+	^ self allOutgoingExplicitLinks items
+		collect: [ :link | [ link targetReference content ] onErrorDo: [ nil ] ]
+]
+
 { #category : #accessing }
 LePage >> asMarkdownPage [
 	"Produce a markdown page with a YAML header suitable for use with GitHub pages, Pico, or other markdown-based websites."
