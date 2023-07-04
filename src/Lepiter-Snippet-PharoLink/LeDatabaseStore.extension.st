@@ -1,7 +1,7 @@
-Extension { #name : #LeLocalStore }
+Extension { #name : #LeDatabaseStore }
 
 { #category : #'*Lepiter-Snippet-PharoLink' }
-LeLocalStore >> pharoLink [
+LeDatabaseStore >> pharoLink [
 	"Answer the Dictionary containing the PharoLink settings for this database"
 	<return: #Dictionary>
 
@@ -11,7 +11,7 @@ LeLocalStore >> pharoLink [
 ]
 
 { #category : #'*Lepiter-Snippet-PharoLink' }
-LeLocalStore >> pharoLink: aDictionaryOrNil [
+LeDatabaseStore >> pharoLink: aDictionaryOrNil [
 
 	self 
 		updateProperty: #pharoLink
@@ -19,7 +19,7 @@ LeLocalStore >> pharoLink: aDictionaryOrNil [
 ]
 
 { #category : #'*Lepiter-Snippet-PharoLink' }
-LeLocalStore >> pharoLinkSettings [
+LeDatabaseStore >> pharoLinkSettings [
 	"Answer the initialised LePharoLinkSettings for this database"
 	<return: #LePharoLinkSettings>
 
