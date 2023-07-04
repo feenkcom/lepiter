@@ -108,7 +108,6 @@ LeDiskToClassStoreMigration >> visitLink: aLink [
 { #category : #visiting }
 LeDiskToClassStoreMigration >> visitPage: aLePage [
 
-	(aLePage title beginsWith: 'Query') ifTrue: [ self halt ].
 	^ self visitContent: aLePage
 ]
 
