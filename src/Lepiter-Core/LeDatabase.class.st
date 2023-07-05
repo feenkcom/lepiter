@@ -1100,6 +1100,15 @@ LeDatabase >> storeLocation [
 		ifNotNil: [ :aMonitor | aMonitor storeLocation ]
 ]
 
+{ #category : #accessing }
+LeDatabase >> tagPages [
+	"Return a list of named pages whose titles consist of a single word (potentially a tag)."
+
+	^ (self pages
+		select: [ :p | p isUnnamedPage not and: [ p title substrings size = 1 ] ])
+		sort: [ :a :b | a title < b title ]
+]
+
 { #category : #'api - accessing' }
 LeDatabase >> textualPageLinksCount [
 	"Answer the number of textual page links in the receiver"
