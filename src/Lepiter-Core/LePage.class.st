@@ -253,7 +253,7 @@ LePage >> explicitReferences [
 	^ (self database pages
 		select: [ :page | 
 			page allOutgoingExplicitLinks items
-				detect: [ :link | link targetPageTitle = self title ]
+				detect: [ :link | link isTextualLink and: [ link targetPageTitle = self title ] ]
 				ifFound: [ true ]
 				ifNone: [ false ] ]) sort: [ :a :b | a title < b title ]
 ]
