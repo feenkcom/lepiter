@@ -77,6 +77,9 @@ LeDatabaseStore >> dbProperties [
 	^ dbProperties ifNil: 
 		[ dbProperties := self loadPropertiesDictionary.
 		dbProperties
+			at: #schema
+			ifAbsent: [ self dbSchema: 'V3' ].
+		dbProperties
 			at: #uuid 
 			ifAbsent: 
 				[ dbProperties at: #uuid put: UUID new asString.
@@ -94,7 +97,7 @@ LeDatabaseStore >> dbSchema [
 LeDatabaseStore >> dbSchema: aLeDbVersion [ 
 
 
-	self dbProperties at: #__schema put: aLeDbVersion asString.
+	self dbProperties at: #schema put: aLeDbVersion asString.
 	self savePropertiesDictionary: dbProperties
 ]
 

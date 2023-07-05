@@ -14,7 +14,7 @@ LeDatabaseClassStoreExport >> export [
 	database hasMonitor ifTrue:
 		[ self exportAttachments.
 		self exportProperties ].
-	self updateProperty: #__schema value: storage class currentVersionString.
+	self updateProperty: #schema value: storage class currentVersionString.
 ]
 
 { #category : #'api - exporting' }
