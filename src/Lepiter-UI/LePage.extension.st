@@ -145,7 +145,7 @@ LePage >> gtDatabaseActionFor: anAction [
 	^ anAction button
 		tooltip: 'Inspect the page''s database';
 		priority: 8;
-		icon: BrGlamorousIcons database;
+		icon: LeIcons lepiterDatabase;
 		action: [ :aButton | aButton phlow spawnObject: self database ]
 ]
 
