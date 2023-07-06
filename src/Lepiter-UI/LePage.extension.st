@@ -128,11 +128,25 @@ LePage >> gtCopyPageFilePathActionFor: anAction [
 	
 	^ anAction button
 		tooltip: 'Inspect the page''s file';
-		priority: 1;
+		priority: 5;
 		icon: BrGlamorousIcons folder;
 		action: [ :aButton |
 			Clipboard clipboardText: (self database monitor pageFilename: self).
 			aButton phlow spawnObject: (self database monitor pageFileReference: self) ]
+]
+
+{ #category : #'*Lepiter-UI' }
+LePage >> gtDatabaseActionFor: anAction [
+	<todo: 'We need a database icon!'>
+	<gtAction>
+	self database ifNil: [ ^ anAction noAction ].
+	self database isDatabase ifFalse: [ ^ anAction noAction ].
+
+	^ anAction button
+		tooltip: 'Inspect the page''s database';
+		priority: 8;
+		icon: BrGlamorousIcons database;
+		action: [ :aButton | aButton phlow spawnObject: self database ]
 ]
 
 { #category : #'*Lepiter-UI' }
