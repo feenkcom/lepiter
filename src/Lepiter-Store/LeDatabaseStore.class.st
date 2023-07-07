@@ -75,16 +75,7 @@ LeDatabaseStore >> databaseName: aString [
 LeDatabaseStore >> dbProperties [
 
 	^ dbProperties ifNil: 
-		[ dbProperties := self loadPropertiesDictionary.
-		dbProperties
-			at: #schema
-			ifAbsent: [ self dbSchema: 'V3' ].
-		dbProperties
-			at: #uuid 
-			ifAbsent: 
-				[ dbProperties at: #uuid put: UUID new asString.
-				self savePropertiesDictionary: dbProperties ].
-		dbProperties ]
+		[ dbProperties := self loadPropertiesDictionary ]
 ]
 
 { #category : #accessing }
@@ -174,6 +165,19 @@ LeDatabaseStore >> localRoot [
 	For stores that aren't disk based, answer the default lepiter directory."
 
 	^ LepiterCoreDefaults defaultLocalDirectory
+]
+
+{ #category : #accessing }
+LeDatabaseStore >> newPropertiesDictionary [
+	"Answer a new, initialised properties dictionary"
+	| dict |
+	
+	dict := Dictionary new
+		at: #schema put: storage class currentVersionString;
+		at: #uuid put: UUID new asString;
+		yourself.
+	self savePropertiesDictionary: dict.
+	^ dict.
 ]
 
 { #category : #private }

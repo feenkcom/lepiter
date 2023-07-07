@@ -183,9 +183,9 @@ LeDatabaseClassStore >> loadExplicitLinks [
 LeDatabaseClassStore >> loadPropertiesDictionary [
 	"Answer the lepiter properties dictionary"
 
-	^ [ storage loadFromMethod: dbClass class >> #databaseProperties ]
+	^ [ storage loadPropertiesFromClass: dbClass class ]
 		on: KeyNotFound
-		do: [ :ex | Dictionary new ]
+		do: [ :ex | self newPropertiesDictionary ]
 ]
 
 { #category : #accessing }
@@ -225,12 +225,8 @@ LeDatabaseClassStore >> savePageNow: aLePage [
 LeDatabaseClassStore >> savePropertiesDictionary: propertiesDictionary [
 
 	storage
-		save: propertiesDictionary
+		saveProperties: propertiesDictionary
 		inClass: dbClass
-		selector: #databaseProperties
-		title: 'Database Properties'
-		pragma: '<lepiterDatabasePropertiesStore>'
-		classified: 'properties'
 ]
 
 { #category : #accessing }
