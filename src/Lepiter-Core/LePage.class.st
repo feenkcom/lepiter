@@ -105,8 +105,9 @@ LePage >> allOutgoingTargets [
 	"Return the list of actual target pages linked to from this page.
 	NB: a LeLinkExternalUrlReference does't have a content."
 
-	^ self allOutgoingExplicitLinks items
-		collect: [ :link | [ link targetReference content ] onErrorDo: [ nil ] ]
+	^ (self allOutgoingExplicitLinks items
+		collect: [ :link | [ link targetReference content ] onErrorDo: [ nil ] ])
+		select: #notNil
 ]
 
 { #category : #accessing }
@@ -252,7 +253,7 @@ LePage >> explicitReferences [
 	^ (self database pages
 		select: [ :page | 
 			page allOutgoingExplicitLinks items
-				detect: [ :link | link targetPageTitle = self title ]
+				detect: [ :link | link isTextualLink and: [ link targetPageTitle = self title ] ]
 				ifFound: [ true ]
 				ifNone: [ false ] ]) sort: [ :a :b | a title < b title ]
 ]

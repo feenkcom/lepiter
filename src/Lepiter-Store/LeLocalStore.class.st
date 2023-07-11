@@ -260,7 +260,7 @@ LeLocalStore >> loadPropertiesDictionary [
 	| propertiesFile |
 
 	propertiesFile := localRoot / self propertiesBasename.
-	propertiesFile exists ifFalse: [ ^ Dictionary new ].
+	propertiesFile exists ifFalse: [ ^ self newPropertiesDictionary ].
 	^ propertiesFile readStreamDo: [ :stream |
 		STONJSON fromStream: stream ].
 

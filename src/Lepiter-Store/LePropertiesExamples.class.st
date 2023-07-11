@@ -3,14 +3,14 @@ Class {
 	#superclass : #Object,
 	#traits : 'TAssertable',
 	#classTraits : 'TAssertable classTrait',
-	#category : 'Lepiter-Store-Examples'
+	#category : #'Lepiter-Store-Examples'
 }
 
 { #category : #private }
 LePropertiesExamples >> newProperties [
 	"Answer a default Lepiter properties object"
 
-	^ LeLocalStore new localRoot: FileSystem memory root
+	^ LeLocalStore forJsonV4 localRoot: FileSystem memory root
 ]
 
 { #category : #accessing }

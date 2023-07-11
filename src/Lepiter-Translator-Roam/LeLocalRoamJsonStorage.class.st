@@ -5,6 +5,13 @@ Class {
 }
 
 { #category : #accessing }
+LeLocalRoamJsonStorage class >> currentVersionString [
+	"Answer the string representation of the current version number"
+
+	^ '3'
+]
+
+{ #category : #accessing }
 LeLocalRoamJsonStorage >> dbFileExtension [
 
 	^ '.json'

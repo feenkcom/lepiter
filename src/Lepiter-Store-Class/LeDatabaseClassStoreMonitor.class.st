@@ -240,12 +240,7 @@ LeDatabaseClassStoreMonitor >> onClassRemoved: anAnnouncement [
 
 { #category : #'system announcements' }
 LeDatabaseClassStoreMonitor >> onClassRenamed: anAnnouncement [
-	"If you want to rename the class:
-	1. Stop the DB and monitor.
-	2. Rename the class.
-	3. Start the DB and monitor."
-
-	self error: 'Database class renamed'.
+	"No action required"
 ]
 
 { #category : #'system announcements' }

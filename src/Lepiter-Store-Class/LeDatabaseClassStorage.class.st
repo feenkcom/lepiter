@@ -82,6 +82,27 @@ LeDatabaseClassStorage >> loadJsonFromMethod: aCompiledMethod [
 ]
 
 { #category : #accessing }
+LeDatabaseClassStorage >> loadPropertiesFromClass: aClass [
+	"Answer the properties encoded in the supplied method"
+	| jsonString |
+
+	jsonString := ((aClass >> #databaseProperties) parseTree comments at: 2) contents
+		copyReplaceAll: '""' with: '"'.
+	^ [ STONJSON fromString: jsonString ]
+		on:  Error
+		do: [ :ex | | loadError |
+			UIManager default inform: 'Lepiter: Unable to load database properties due to a JSON parser error'.
+			loadError := LeDBLoadError new.
+			loadError properties
+				at: #class put: aClass;
+				at: #selector put: #databaseProperties.
+			loadError
+				reason: 'JSON Parse Error';
+				originalException: ex.
+			loadError signal ].
+]
+
+{ #category : #accessing }
 LeDatabaseClassStorage >> pagePragmaFor: aPage [
 	"Answer the pragma describing aPage"
 
@@ -169,7 +190,7 @@ LeDatabaseClassStorage >> save: anObject inClass: aClass selector: aSymbol title
 		stream
 			<< aSymbol; cr;
 			<< '"Automatically generated'; cr;
-			<< aString;
+			<< (aString copyReplaceAll: '"' with: '""');
 			nextPut: $"; cr.
 		pragmaString ifNotNil:
 			[ stream
@@ -231,6 +252,30 @@ LeDatabaseClassStorage >> savePage: aPage inClass: aClass [
 		pageTitle: aPage title;
 		operation: #save;
 		emit.
+]
+
+{ #category : #saving }
+LeDatabaseClassStorage >> saveProperties: aDictionary inClass: aClass [
+	"Write the supplied proprties back to the specified class."
+	| jsonString sourceCode |
+
+	jsonString := STONJSON toStringPretty: aDictionary.
+	jsonString := jsonString copyReplaceAll: '"' with: '""'.
+	sourceCode := String streamContents: [ :stream |
+		stream
+			<< 'databaseProperties'; cr;
+			tab;
+			<< '"Automatically generated"'; cr;
+			tab;
+			<< '<lepiterDatabasePropertiesStore>'; cr.
+		stream
+			nextPut: $";
+			<< jsonString;
+			nextPut: $" ].
+	aClass class
+		compile: sourceCode
+		classified: 'properties'.
+
 ]
 
 { #category : #saving }
