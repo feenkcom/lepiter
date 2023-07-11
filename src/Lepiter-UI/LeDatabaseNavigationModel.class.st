@@ -76,12 +76,13 @@ LeDatabaseNavigationModel >> gtSearchPageFor: anAction [
 	self hasDatabase ifFalse: [ ^ anAction noAction ].
 
 	^ anAction explicit
-		stencil: [
-			GtSpotterDropdownButtonStencil new
+		stencil: [ GtSpotterDropdownButtonStencil new
 				valuable: (LeDatabaseSpotterStart new navigationModel: self);
 				tooltip: 'Search Pages';
 				actOn: [ :anActOnEvent :anItem :theButton | 
-					self page: anItem asContentUIModel.
+					(anItem isKindOf: LePage) ifTrue: [ self page: anItem asContentUIModel ].
+					(anItem isKindOf: GtSpotterCategory)
+						ifTrue: [ theButton phlow spawnObject: anItem items ].
 					anActOnEvent beActed.
 					theButton fireEvent: BrDropdownHideWish new ];
 				asElement ]
