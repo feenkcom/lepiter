@@ -91,7 +91,7 @@ LePage >> gtConnectionsFor: aView [
 				icon: BrGlamorousVectorIcons add;
 				valuable: [ self database ];
 				tooltip: 'Add existing page';
-				actOn: [ :anActOnEvent :aPage |
+				objectActOn: [ :anActOnEvent :aPage |
 					| shortestPath |
 					shortestPath := LePathFinder new 
 						betweenPage: self and: aPage.

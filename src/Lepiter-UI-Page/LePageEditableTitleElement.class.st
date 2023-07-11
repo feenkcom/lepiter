@@ -51,7 +51,7 @@ LePageEditableTitleElement >> createAddButton [
 								when: GtSpotterExitAnnouncement
 								send: #onSpotterExitAnnouncement:
 								to: self ];
-						actOn: [ :anActOnEvent :aMenuItem :theButton | 
+						objectActOn: [ :anActOnEvent :aMenuItem :theButton | 
 							self pageViewModel pageModel addSnippet: aMenuItem asSnippet beforeIndex: 1.
 							self titleElement requestFocus.	"ideally the new snippet would gain focus here"
 							anActOnEvent beActed ];
