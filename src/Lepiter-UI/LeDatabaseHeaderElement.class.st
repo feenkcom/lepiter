@@ -11,7 +11,7 @@ Class {
 	#instVars : [
 		'toolbarElement'
 	],
-	#category : 'Lepiter-UI-! UI - Database'
+	#category : #'Lepiter-UI-! UI - Database'
 }
 
 { #category : #'private - adding / removing' }
@@ -52,7 +52,7 @@ LeDatabaseHeaderElement >> initializeSpotterToolbarItem [
 	aButton := GtSpotterDropdownButtonStencil new
 			valuable: [ self database ];
 			tooltip: 'Search Lepiter Database';
-			actOn: [ :anActOnEvent :anItem :theButton | 
+			objectActOn: [ :anActOnEvent :anItem :theButton | 
 				anActOnEvent beActed.
 				self selectAndScrollTo: anItem ];
 			asElement.

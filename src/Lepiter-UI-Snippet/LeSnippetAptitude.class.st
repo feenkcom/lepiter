@@ -253,7 +253,7 @@ LeSnippetAptitude >> newAddSnippetDropdown [
 							when: GtSpotterExitAnnouncement
 							send: #onSpotterExitAnnouncement:
 							to: self ];
-					actOn: [ :anActOnEvent :aMenuItem :theButton | 
+					objectActOn: [ :anActOnEvent :aMenuItem :theButton | 
 						self snippetBelowRequested: aMenuItem asSnippet.
 						anActOnEvent beActed ];
 					spotterElementFor: aButton ]
