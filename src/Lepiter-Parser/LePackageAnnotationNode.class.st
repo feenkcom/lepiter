@@ -29,7 +29,7 @@ LePackageAnnotationNode >> isDefined [
 { #category : #accessing }
 LePackageAnnotationNode >> packageAndTagName [
 	| name |
-	name := self nameNode source asString.
+	name := self nameNode value source.
 	self tagNode
 		ifNotNil: [ name := name , '(' , self tagNode value source asString , ')' ].
 	^ name
@@ -37,7 +37,7 @@ LePackageAnnotationNode >> packageAndTagName [
 
 { #category : #accessing }
 LePackageAnnotationNode >> packageName [
-	^ self nameNode source asString
+	^ self nameNode value source
 ]
 
 { #category : #accessing }
