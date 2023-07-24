@@ -40,6 +40,8 @@ LeHtmlPageExporter class >> exportPage: page to: directory [
 						ifFound: [ :thePage | thePage ]
 						ifNone: [  "ignore" ])).
 						
+	context assembler assemble.
+						
 	LeExportResourcesDirectorySaver new
 		resources: context resources;
 		rootDirectory: directory;
