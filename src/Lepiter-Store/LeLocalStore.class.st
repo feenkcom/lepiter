@@ -55,15 +55,23 @@ LeLocalStore class >> forJsonV4 [
 { #category : #attachments }
 LeLocalStore >> addAttachmentByCopy: aFileReference [
 	"Copy the attached file to the receiver's DB and answer the relative path string to the file"
+
+	<return: #String>
+	^ self addAttachmentByCopy: aFileReference withId: UUID new
+]
+
+{ #category : #attachments }
+LeLocalStore >> addAttachmentByCopy: aFileReference withId: aUuid [
+	"Copy the attached file to the receiver's DB and answer the relative path string to the file"
+
 	<return: #String>
 	| attachmentFileReference attachmentDirectory |
-
 	database assertNotReadOnly.
 
-	attachmentDirectory := self attachmentDirectoryAndMetadataFor:
-		                       aFileReference.
-	attachmentFileReference := attachmentDirectory
-	                           / aFileReference basename.
+	attachmentDirectory := self
+			attachmentDirectoryAndMetadataFor: aFileReference
+			usingId: aUuid.
+	attachmentFileReference := attachmentDirectory / aFileReference basename.
 	aFileReference copyTo: attachmentFileReference.
 	^ (attachmentFileReference relativeTo: localRoot) fullName
 ]
@@ -77,7 +85,7 @@ LeLocalStore >> addAttachmentByMove: aFileReference [
 	database assertNotReadOnly.
 
 	attachmentDirectory := self attachmentDirectoryAndMetadataFor:
-		                       aFileReference.
+		                       aFileReference usingId: UUID new.
 	attachmentFileReference := attachmentDirectory
 	                           / aFileReference basename.
 	aFileReference resolve copy moveTo: attachmentFileReference resolve.
@@ -88,18 +96,22 @@ LeLocalStore >> addAttachmentByMove: aFileReference [
 LeLocalStore >> addAttachmentWithContent: aString named: aName [
 	"Create an attachment to the receiver's DB and answer the relative path string to the file"
 	<return: #String>
+	^ self addAttachmentWithContent: aString named: aName withId: UUID new
+]
+
+{ #category : #attachments }
+LeLocalStore >> addAttachmentWithContent: aContents named: aName withId: aUuid [
 	| attachmentFileReference attachmentDirectory |
 
 	database assertNotReadOnly.
 
 	attachmentDirectory := self attachmentDirectoryAndMetadataFor:
-		                       aName asFileReference.
+		                       aName asFileReference usingId: aUuid.
 	attachmentFileReference := attachmentDirectory / aName asString.
 	attachmentFileReference
-		writeStreamEncoded: 'utf8'
-		do: [ :aStream | aStream nextPutAll: aString asString ].
+		binaryWriteStreamDo: [ :aStream | aStream nextPutAll: aContents ].
 	^ (attachmentFileReference relativeTo: localRoot)
-		  fullName
+		  fullName 
 ]
 
 { #category : #attachments }
@@ -121,13 +133,13 @@ LeLocalStore >> attachmentDirectories [
 ]
 
 { #category : #attachments }
-LeLocalStore >> attachmentDirectoryAndMetadataFor: aFileReference [
+LeLocalStore >> attachmentDirectoryAndMetadataFor: aFileReference usingId: aUuid [
 	"Create the attachment directory and populate the metadata for the supplied file reference.
 	Answer the directory."
 	| fileUID attachmentDirectory attachment |
 
 	self assert: [ aFileReference basename ~= 'lepiter_attachment.properties' ].
-	fileUID := UUID new asString36.
+	fileUID := aUuid asString36.
 	attachmentDirectory := attachmentsDirectory / fileUID.
 	self assert: attachmentDirectory exists not.
 	attachmentDirectory ensureCreateDirectory.
