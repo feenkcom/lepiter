@@ -6,7 +6,8 @@ Class {
 	#instVars : [
 		'path',
 		'snippet',
-		'reference'
+		'reference',
+		'source'
 	],
 	#category : #'Lepiter-Export-Resources - Model'
 }
@@ -95,7 +96,14 @@ LeExportSnippetResource >> snippet: anObject [
 LeExportSnippetResource >> source [
 	"Return a source of the export"
 
-	^ self snippet
+	^ source ifNil: [ self snippet ]
+]
+
+{ #category : #accessing }
+LeExportSnippetResource >> source: aSource [
+	"Set a source of the export"
+
+	source := aSource
 ]
 
 { #category : #accessing }

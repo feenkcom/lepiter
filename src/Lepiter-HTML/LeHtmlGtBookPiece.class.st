@@ -29,6 +29,16 @@ LeHtmlGtBookPiece class >> gtBook [
 		/ 'page-template.html'
 ]
 
+{ #category : #'instance creation' }
+LeHtmlGtBookPiece class >> gtSinglePage [
+	^ self fromFile: FileLocator gtResource 
+		/ 'feenkcom' 
+		/ 'lepiter' 
+		/ 'doc' 
+		/ 'gtbook'
+		/ 'single-page-template.html'
+]
+
 { #category : #initialization }
 LeHtmlGtBookPiece >> initialize [
 	super initialize.
