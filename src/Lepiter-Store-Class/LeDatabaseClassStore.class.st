@@ -45,10 +45,18 @@ LeDatabaseClassStore class >> newDbOnClass: classSymbol package: packageSymbol s
 { #category : #attachments }
 LeDatabaseClassStore >> addAttachmentByCopy: aFileReference [
 	"Copy the attached file to the receiver's DB and answer the string identifying the attachment"
+
+	<return: #String>
+	^ self addAttachmentByCopy: aFileReference withId: UUID new
+]
+
+{ #category : #attachments }
+LeDatabaseClassStore >> addAttachmentByCopy: aFileReference withId: aUuid [
+	"Copy the attached file to the receiver's DB and answer the string identifying the attachment"
 	<return: #String>
 	| attachmentUUID metadata |
 
-	attachmentUUID := UUID new asString36.
+	attachmentUUID := aUuid asString36.
 	metadata := LeAttachment new uploadDate: DateAndTime now.
 	self savePersonalInformation ifTrue:
 		[ metadata
@@ -75,16 +83,21 @@ LeDatabaseClassStore >> addAttachmentByMove: aFileReference [
 LeDatabaseClassStore >> addAttachmentWithContent: aString named: aName [
 	"Copy the attached file to the receiver's DB and answer the string identifying the attachment"
 	<return: #String>
+	^ self addAttachmentWithContent: aString named: aName withId: UUID new
+]
+
+{ #category : #attachments }
+LeDatabaseClassStore >> addAttachmentWithContent: aContents named: aName withId: aUuid [ 
 	| attachmentUUID metadata |
 
-	attachmentUUID := UUID new asString36.
+	attachmentUUID := aUuid asString36.
 	metadata := LeAttachment new uploadDate: DateAndTime now.
 	self savePersonalInformation ifTrue:
 		[ metadata
 			originalReference: aName asFileReference;
 			uploadedBy: self userEmail ].
 	storage
-		saveAttachment: aString utf8Encoded
+		saveAttachment: aContents utf8Encoded
 		inClass: dbClass 
 		selector: ('attachment_', attachmentUUID) asSymbol
 		title: aName
