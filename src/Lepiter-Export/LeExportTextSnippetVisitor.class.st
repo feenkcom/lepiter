@@ -44,3 +44,17 @@ LeExportTextSnippetVisitor >> visitDocumenterAnnotation: aDocumenterAnnotation [
 	
 	^ aDocumenterAnnotation
 ]
+
+{ #category : #generated }
+LeExportTextSnippetVisitor >> visitExternalImageLink: anExternalImageLink [
+	| aBuilder |
+	aBuilder := LeExportPictureResourceBuilder new
+			resources: context resources;
+			sequencer: context sequencer;
+			fileStore: context fileStore;
+			snippet: snippet.
+
+	anExternalImageLink acceptVisitor: aBuilder.
+
+	^ anExternalImageLink
+]

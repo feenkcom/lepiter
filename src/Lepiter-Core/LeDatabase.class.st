@@ -55,6 +55,18 @@ LeDatabase >> addAttachmentByCopy: aFileReference [
 ]
 
 { #category : #'api - attachments' }
+LeDatabase >> addAttachmentByCopy: aFileReference withId: aUuid [
+	"Copy the attached file to the receiver's DB and answer the relative path string to the file"
+	<return: #String>
+
+	self 
+		assert: monitor isNotNil
+		description: 'Unable to add attachment, monitor not configured'.
+
+	^ monitor addAttachmentByCopy: aFileReference withId: aUuid
+]
+
+{ #category : #'api - attachments' }
 LeDatabase >> addAttachmentByMove: aFileReference [
 	"Move the attached file to the receiver's DB and answer the relative path string to the file"
 	<return: #String>
@@ -76,6 +88,18 @@ LeDatabase >> addAttachmentWithContent: aString named: aName [
 		description: 'Unable to add attachment, monitor not configured'.
 
 	^ monitor addAttachmentWithContent: aString named: aName
+]
+
+{ #category : #'api - attachments' }
+LeDatabase >> addAttachmentWithContent: aString named: aName withId: aUuid [
+	"Create an attachment to the receiver's DB and answer the relative path string to the file"
+	<return: #String>
+
+	self 
+		assert: monitor isNotNil
+		description: 'Unable to add attachment, monitor not configured'.
+
+	^ monitor addAttachmentWithContent: aString named: aName withId: aUuid
 ]
 
 { #category : #'api - adding / removing' }
@@ -109,6 +133,20 @@ LeDatabase >> anyOne [
 LeDatabase >> assertNotReadOnly [
 
 	self assert: [ self readOnly isNil or: [ self readOnly not ] ]
+]
+
+{ #category : #accessing }
+LeDatabase >> asyncPagesContainingText: aQueryString [
+	^ [ | filter results |
+	results := OrderedCollection new.
+	filter := LeSubstringFilter new
+			caseSensitive: false;
+			query: aQueryString.
+	self
+		pagesWithNameDo: [ :eachPage | (filter isMatchedItem: eachPage) ifTrue: [ results add: eachPage ] ].
+	self
+		unnamedPagesDo: [ :eachPage | (filter isMatchedItem: eachPage) ifTrue: [ results add: eachPage ] ].
+	results asAsyncStream ] asAsyncFuture asAsyncStream flatten
 ]
 
 { #category : #accessing }

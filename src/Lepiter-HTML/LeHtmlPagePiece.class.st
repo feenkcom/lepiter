@@ -8,10 +8,9 @@ Class {
 
 { #category : #'api - writing' }
 LeHtmlPagePiece >> writeWithContext: aContext [
-	| visitor |
-	visitor := LeHtmlVisitor new.
-	visitor context: aContext.
-	
 	aContext page ifNotNil: [ :aPage | 
+		| visitor |
+		visitor := LeHtmlVisitor new.
+		visitor context: aContext.
 		aPage acceptVisitor: visitor ]
 ]

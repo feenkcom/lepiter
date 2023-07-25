@@ -17,7 +17,7 @@ LeHtmlPageExporterExamples >> exportSamplePage [
 
 	html := exporter contents.
 
-	"self assertNotEmptyHtml: html."
+	self assertNotEmptyHtml: html.
 
 	^ exporter
 ]

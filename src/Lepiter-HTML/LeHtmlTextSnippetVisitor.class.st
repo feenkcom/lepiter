@@ -42,6 +42,16 @@ LeHtmlTextSnippetVisitor >> initialize [
 	exportedNodes := OrderedCollection new.
 ]
 
+{ #category : #'private - exporting' }
+LeHtmlTextSnippetVisitor >> resourcesFor: aSource [
+	| snippetResources |
+	snippetResources := context resources select: [ :eachResource | 
+		eachResource source == aSource ].
+	
+	^ LeExportSnippetResources new
+		resources: snippetResources
+]
+
 { #category : #accessing }
 LeHtmlTextSnippetVisitor >> snippet [
 	^ snippet
@@ -119,15 +129,18 @@ LeHtmlTextSnippetVisitor >> visitDoubleBracketLink: aDoubleBracketLink [
 
 { #category : #generated }
 LeHtmlTextSnippetVisitor >> visitExternalImageLink: anExternalImageLink [
-	| imgSrc caption |
-	imgSrc := self convertToLocalOrAbsoluteUrl: anExternalImageLink url.
-	caption := anExternalImageLink label.
+	| resources |
+	resources := self resourcesFor: anExternalImageLink.
 
-	LeHtmlFigureImageWriter new
-		html: context html;
-		imageSrc: imgSrc;
-		caption: caption;
-		write
+	resources
+		ifEmpty: [ "ignore" ]
+		ifOne: [ :aResource | 
+			LeHtmlFigureImageWriter new
+				html: context html;
+				imageSrc: aResource imgSrc;
+				caption: anExternalImageLink label;
+				write ]
+		ifMore: [ :aCollection | "ignore" ]
 ]
 
 { #category : #generated }

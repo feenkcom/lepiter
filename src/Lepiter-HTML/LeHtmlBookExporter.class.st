@@ -18,20 +18,12 @@ Class {
 
 { #category : #'api - exporting' }
 LeHtmlBookExporter >> addAssetResourcesFrom: aDirectory [
-	LeHtmlAssetsInDirectoryResourceBuilder new
-		rootDiretory: aDirectory;
-		resources: self resources;
-		build
+	LeHtmlAssetsUtility addAssetResourcesFrom: aDirectory into: self resources
 ]
 
 { #category : #'api - exporting' }
 LeHtmlBookExporter >> addGtBookAssets [
-	self addAssetResourcesFrom: FileLocator gtResource 
-		/ 'feenkcom' 
-		/ 'lepiter' 
-		/ 'doc' 
-		/ 'gtbook'
-		/ 'assets'
+	LeHtmlAssetsUtility addGtBookAssetsInto: self resources
 ]
 
 { #category : #'api - exporting' }

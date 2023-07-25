@@ -19,26 +19,6 @@ LePage >> asHTMLDocument [
 ]
 
 { #category : #'*Lepiter-HTML-Old' }
-LePage >> gtHTMLLocalExportActionFor: anAction [
-	<gtAction>
-	self database ifNil: [ ^ anAction noAction ].
-	self database isDatabase ifFalse: [ ^ anAction noAction ].
-
-	^ anAction button
-		label: 'HTML';
-		tooltip: 'Export the page into an HTML format and store locally';
-		priority: 10;
-		icon: BrGlamorousVectorIcons spawn;
-		action: [ :aButton | 
-			| xdocFile |
-			xdocFile := XdWriter new
-					streamingStrategy: XdStreamingStrategy bytes;
-					lepiterIndexPage: self withLocalAssets: false;
-					write.
-			aButton phlow spawnObject: xdocFile ]
-]
-
-{ #category : #'*Lepiter-HTML-Old' }
 LePage >> resourcesVisitor [
 	^ LesPageResourceVisitor new 
 		page: self

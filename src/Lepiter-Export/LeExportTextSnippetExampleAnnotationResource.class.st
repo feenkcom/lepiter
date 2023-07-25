@@ -84,13 +84,6 @@ LeExportTextSnippetExampleAnnotationResource >> previewShowSelector [
 ]
 
 { #category : #accessing }
-LeExportTextSnippetExampleAnnotationResource >> source [
-	"Return a source of the export"
-
-	^ self annotation
-]
-
-{ #category : #accessing }
 LeExportTextSnippetExampleAnnotationResource >> sourceCode [
 	^ String streamContents: [ :aStream | 
 		aStream nextPutAll: self example method methodClass name.

@@ -11,32 +11,13 @@ LeHtmlVisitor >> visitExampleSnippet: aLeExampleSnippet [
 		tag: #div
 		do: [
 		
-			aLeExampleSnippet noCode ifFalse: [ 
-				snippetResources
-					ifEmpty: [ "ignore" ]
-					ifOne: [ :aResource | 
-						self writeExampleSourceCode: aLeExampleSnippet. ]
-					ifMore: [ :aCollection |
-						self writeExampleSourceCode: aLeExampleSnippet. ] ].
-	
-			snippetResources 
-				ifEmpty: [ "ignore" ]
-				ifOne: [ :aResource |
-					| aFileName |
-					aFileName := aResource pathName.
-					LeHtmlFigureImageWriter new
-						html: context html;
-						imageSrc: aFileName;
-						caption: nil;
-						write ]
-				ifMore: [ :aCollection |
-					LeHtmlCarouselWriter new
-						html: context html;
-						sequencer: context sequencer;
-						resources: aCollection;
-						write ].
+			LeHtmlExampleWriter new 
+				html: context html;
+				sequencer: context sequencer;
+				resources: snippetResources;
+				write.
 
-		self visitContent: aLeExampleSnippet ].
+			self visitContent: aLeExampleSnippet ].
 		
 	^ aLeExampleSnippet
 ]

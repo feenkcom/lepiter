@@ -63,6 +63,7 @@ LeExportTextSnippetAnnotationVisitor >> visitExampleAnnotation: anExampleAnnotat
 	"Store the resource"
 	aResource := LeExportTextSnippetExampleAnnotationResource new
 		snippet: snippet;
+		source: anExampleAnnotation;
 		annotation: anExampleAnnotation;
 		example: anExample;
 		path: aPath;

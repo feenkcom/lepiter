@@ -84,14 +84,8 @@ LeHtmlTextSnippetAnnotationVisitor >> visitExampleAnnotation: anExampleAnnotatio
 			withoutResourcesAnnotation: anExampleAnnotation 
 			snippet: snippet.
 			^ self ]
-		ifOne: [ :aResource | 
-			resource := aResource ]
-		ifMore: [ :aCollection | 
-			context logger 
-				tooManyResources: aCollection
-				annotation: anExampleAnnotation 
-				snippet: snippet.
-				^ self ].
+		ifOne: [ :aResource | resource := aResource ]
+		ifMore: [ :aCollection | resource := aCollection anyOne ].
 	
 	"Write label"
 	resource wantsLabelOutput ifTrue: [
@@ -102,11 +96,14 @@ LeHtmlTextSnippetAnnotationVisitor >> visitExampleAnnotation: anExampleAnnotatio
 		^ self ].
 	
 	"Write example code and output preview"
-	LeHtmlExampleWriter new 
-		html: context html;
-		sequencer: context sequencer;
-		resource: resource;
-		write
+	context html 
+		tag: #div
+		do: [
+			LeHtmlExampleWriter new 
+				html: context html;
+				sequencer: context sequencer;
+				resources: someResources;
+				write ]
 ]
 
 { #category : #generated }
