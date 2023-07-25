@@ -15,6 +15,16 @@ LeExportSnippetExamples >> textSnippetWithClassAnnotation [
 ]
 
 { #category : #examples }
+LeExportSnippetExamples >> textSnippetWithClassAnnotationAndText [
+	<gtExample>
+	| snippet |
+
+	snippet := LeTextSnippet  string: '{{gtClass:BrButton|label=Button}} **has** *very* nice API.'.
+
+	^ snippet
+]
+
+{ #category : #examples }
 LeExportSnippetExamples >> textSnippetWithExampleAnnotation [
 	<gtExample>
 	| snippet |
@@ -47,6 +57,16 @@ LeExportSnippetExamples >> textSnippetWithExternalLabelUrlLink [
 	| snippet |
 
 	snippet := LeTextSnippet  string: '[GToolkit](https://gtoolkit.com)'.
+
+	^ snippet
+]
+
+{ #category : #examples }
+LeExportSnippetExamples >> textSnippetWithExternalUrlLink [
+	<gtExample>
+	| snippet |
+
+	snippet := LeTextSnippet  string: '<https://gtoolkit.com>'.
 
 	^ snippet
 ]

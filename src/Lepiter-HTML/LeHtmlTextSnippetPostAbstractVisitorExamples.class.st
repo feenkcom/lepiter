@@ -26,6 +26,25 @@ LeHtmlTextSnippetPostAbstractVisitorExamples >> textSnippetWithClassAnnotation [
 ]
 
 { #category : #'examples - text snippet' }
+LeHtmlTextSnippetPostAbstractVisitorExamples >> textSnippetWithClassAnnotationAndText [
+	<gtExample>
+	| snippet visitor context html |
+	snippet := LeExportSnippetExamples new textSnippetWithClassAnnotationAndText.
+	
+	visitor := LeHtmlTextSnippetPostAbstractVisitor new
+		context: (context := LeHtmlContext new);
+		snippet: snippet.
+	
+	html := visitor contentsFor: snippet.
+	
+	self assertHtml: html equals: 'Button has very nice API.'.
+	
+	^ LeHtmlVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - text snippet' }
 LeHtmlTextSnippetPostAbstractVisitorExamples >> textSnippetWithExternalLabelUrlLink [
 	<gtExample>
 	| snippet visitor context html |
@@ -38,6 +57,25 @@ LeHtmlTextSnippetPostAbstractVisitorExamples >> textSnippetWithExternalLabelUrlL
 	html := visitor contentsFor: snippet.
 	
 	self assertHtml: html equals: 'GToolkit'.
+	
+	^ LeHtmlVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - text snippet' }
+LeHtmlTextSnippetPostAbstractVisitorExamples >> textSnippetWithExternalUrlLink [
+	<gtExample>
+	| snippet visitor context html |
+	snippet := LeExportSnippetExamples new textSnippetWithExternalUrlLink.
+	
+	visitor := LeHtmlTextSnippetPostAbstractVisitor new
+		context: (context := LeHtmlContext new);
+		snippet: snippet.
+	
+	html := visitor contentsFor: snippet.
+	
+	self assertHtml: html equals: 'https://gtoolkit.com'.
 	
 	^ LeHtmlVisitorHolder new
 		visitor: visitor;
