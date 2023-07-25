@@ -13,22 +13,7 @@ LeDatabaseSpotterStart >> gtSpotterForPagesByContentFor: aSearch [
 	^ aSearch explicit
 		priority: 23;
 		title: 'Page contents';
-		search: [ :aContext |
-			[
-			| filter results |
-			results := OrderedCollection new.
-			filter := LeSubstringFilter new
-				caseSensitive: false;
-				query: aContext searchQuery.
-			self navigationModel database pagesWithNameDo: [ :eachPage |
-				(filter isMatchedItem: eachPage)
-					ifTrue: [ results add: eachPage ] ].
-			self navigationModel database unnamedPagesDo: [ :eachPage |
-				(filter isMatchedItem: eachPage)
-					ifTrue: [ results add: eachPage ] ].
-			results asAsyncStream
-			] asAsyncFuture asAsyncStream flatten
-		];
+		search: [ :aContext | self navigationModel database asyncPagesContainingText: aContext searchQuery ];
 		itemName: #spotterItemName
 ]
 
