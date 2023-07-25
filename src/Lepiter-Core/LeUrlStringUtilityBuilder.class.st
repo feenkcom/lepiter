@@ -16,16 +16,21 @@ LeUrlStringUtilityBuilder >> asString [
 
 { #category : #'api - building' }
 LeUrlStringUtilityBuilder >> build [
-	| db rootDir |
+	| db rootDir fixedUrlString |
 	db := self database.
 
 	rootDir := (db isDatabase not or: [ db monitor isNil ])
 			ifTrue: [ FileLocator workingDirectory ]
 			ifFalse: [ db monitor localRoot ].
+			
+	fixedUrlString := LeUrlStringUtilityTwoSlashesFixer new
+		urlString: self urlString;
+		fix;
+		fixedUrlString.
 
 	urlStringUtility := GtUrlStringUtility new
-		rootDirectory: rootDir;
-		urlString: self urlString
+			rootDirectory: rootDir;
+			urlString: fixedUrlString
 ]
 
 { #category : #accessing }
