@@ -8,8 +8,8 @@ Point class >> leFromJsonV4Dictionary: aDictionary [
 	pointString := aDictionary at: #pointString.
 	splitString := $@ split: pointString.
 	^ self
-		x: splitString first asNumber
-		y: splitString second asNumber.
+		x: (Number gtReadAllFrom: splitString first)
+		y: (Number gtReadAllFrom: splitString second).
 ]
 
 { #category : #'*Lepiter-Store' }
