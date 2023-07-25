@@ -25,6 +25,15 @@ TLeHtmlContentAssertions >> assertHtml: html beginsWith: subString [
 ]
 
 { #category : #asserting }
+TLeHtmlContentAssertions >> assertHtml: html equals: wholeString [
+	self assertNotEmptyHtml: html.
+
+	self
+		assert: (html = wholeString)
+		description: [ 'Expected HTML is {1}, actual is {2}' format: {wholeString. html } ]
+]
+
+{ #category : #asserting }
 TLeHtmlContentAssertions >> assertHtml: html includes: subString [
 	self assertNotEmptyHtml: html.
 
