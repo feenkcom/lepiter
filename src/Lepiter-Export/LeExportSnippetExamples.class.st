@@ -5,6 +5,16 @@ Class {
 }
 
 { #category : #examples }
+LeExportSnippetExamples >> textSnippetWithClassAnnotation [
+	<gtExample>
+	| snippet |
+
+	snippet := LeTextSnippet  string: '{{gtClass:BrButton|label=Button}}'.
+
+	^ snippet
+]
+
+{ #category : #examples }
 LeExportSnippetExamples >> textSnippetWithExampleAnnotation [
 	<gtExample>
 	| snippet |
@@ -27,6 +37,16 @@ LeExportSnippetExamples >> textSnippetWithExampleAnnotationWithPreviewExpanded [
 	<gtExample>
 	| snippet |
 	snippet := LeTextSnippet new string: '{{gtExample:', BrExamplesShowroom name, ' >> #', #glamorousLargeButton, ' | previewExpanded=true}}'.
+
+	^ snippet
+]
+
+{ #category : #examples }
+LeExportSnippetExamples >> textSnippetWithExternalLabelUrlLink [
+	<gtExample>
+	| snippet |
+
+	snippet := LeTextSnippet  string: '[GToolkit](https://gtoolkit.com)'.
 
 	^ snippet
 ]
