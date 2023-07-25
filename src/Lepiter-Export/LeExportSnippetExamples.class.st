@@ -34,7 +34,7 @@ LeExportSnippetExamples >> textSnippetWithExampleAnnotationWithPreviewExpanded [
 { #category : #examples }
 LeExportSnippetExamples >> textSnippetWithImageLinkWithAbsolutePath [
 	<gtExample>
-	| snippet database page temporaryDirectory imageFile attachmentPath |
+	| snippet database page temporaryDirectory imageFile |
 	temporaryDirectory := GtTemporaryDirectory new.
 	database := LeLocalStoreLoad current onlyLoadFrom: temporaryDirectory reference.
 	database optionAt: #temporaryDirectory put: temporaryDirectory.
@@ -47,7 +47,7 @@ LeExportSnippetExamples >> textSnippetWithImageLinkWithAbsolutePath [
 			add.
 
 	snippet := page snippetBuilder
-			string: ('![Attachment Image Link](file:///{1})' format: { imageFile fullName });
+			string: ('![Attachment Image Link]({1})' format: { imageFile asZnRelativeUrl });
 			add.
 
 	^ snippet
