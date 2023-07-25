@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'html',
 		'sequencer',
-		'resource'
+		'resources'
 	],
 	#category : #'Lepiter-HTML-Writers'
 }
@@ -20,13 +20,14 @@ LeHtmlExampleWriter >> html: anObject [
 ]
 
 { #category : #accessing }
-LeHtmlExampleWriter >> resource [
-	^ resource
+LeHtmlExampleWriter >> resources [
+	<return: #LeExportSnippetResources>
+	^ resources
 ]
 
-{ #category : #convenience }
-LeHtmlExampleWriter >> resource: aResource [
-	resource := aResource
+{ #category : #accessing }
+LeHtmlExampleWriter >> resources: someResources [
+	resources := someResources
 ]
 
 { #category : #accessing }
@@ -41,47 +42,50 @@ LeHtmlExampleWriter >> sequencer: anObject [
 
 { #category : #'api - writing' }
 LeHtmlExampleWriter >> write [
-	html 
-		tag: #div
-		class: 'example_annotation'
-		do: [
-			html 
-				tag: #div
-				class: 'example_display'
-				do: [
-					resource wantsCodeOutput ifTrue: [ 
-						self writeCode ].
-
-					resource wantsPreviewOutput ifTrue: [ 
-						self writePreview ] ] ]
+	resources 
+		ifEmpty: [ "ignore" ] 
+		ifOne: [ :aResource |
+			aResource wantsCodeOutput ifTrue: [ self writeCode ].
+			aResource wantsPreviewOutput ifTrue: [ self writePreview ] ] 
+		ifMore: [ :aCollection | 
+			aCollection anyOne wantsCodeOutput ifTrue: [ self writeCode ].
+			aCollection anyOne wantsPreviewOutput ifTrue: [ self writePreview ] ].
 ]
 
 { #category : #'api - writing' }
 LeHtmlExampleWriter >> writeCode [
+	| anyResource |
+	resources 
+		ifEmpty: [ "ignore" ] 
+		ifOne: [ :aResource | anyResource := aResource ] 
+		ifMore: [ :aCollection | anyResource := aCollection anyOne ].
+		
+	anyResource ifNil: [ ^ self ].
+
 	html 
 		tag: #div
-		class: 'example_definition'
+		attributes: #('class' 'snippet textual-snippet code-snippet pharo-snippet documentWidth')
 		do: [ 
-			html 
-				tag: #figure
-				class: 'codeBlock gtexample-src paragraphWidth'
-				do: [
-					html 
-						tag: #pre
-						do: [ 
-							html 
-								tag: #code
-								class: 'hljs smalltalk'
-								with: resource sourceCode
-						]
-				]
-		]
+			 html 
+				tag: #pre
+				attributes: #('class' 'no_bottom_margin') 
+				with: anyResource sourceCode
+		].
 ]
 
 { #category : #'api - writing' }
 LeHtmlExampleWriter >> writePreview [
-	LeHtmlFigureImageWriter new
-		html: html;
-		imageSrc: resource pathName;
-		write
+	resources 
+		ifEmpty: [ "ignore" ]
+		ifOne: [ :aResource |
+			LeHtmlFigureImageWriter new
+				html: html;
+				imageSrc: aResource pathName;
+				write ]
+		ifMore: [ :aCollection |
+			LeHtmlCarouselWriter new
+				html: html;
+				sequencer: sequencer;
+				resources: aCollection;
+				write ].
 ]

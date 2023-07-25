@@ -8,6 +8,52 @@ Class {
 	#category : #'Lepiter-HTML-! Core'
 }
 
+{ #category : #convenience }
+LeHtmlPageExporter class >> exportPage: page to: directory [
+	| pageLinks context database html pageLinkBuilder |
+	database := page database.
+	context := LeHtmlContext new
+			page: page;
+			database: database.
+	
+	pageLinkBuilder := LeExportPageLinksBuilder new
+			in: [ :theBuilder | database ifNotNil: [ theBuilder database: database ] ];
+			mainPage: page;
+			sequencer: context sequencer;
+			html;
+			build.
+	pageLinks := pageLinkBuilder links.
+	context pageLinks: pageLinks.
+	
+	LeHtmlAssetsUtility addGtBookAssetsInto: context resources.
+
+	html := LeHtmlPageExporter new
+			context: context;
+			piece: LeHtmlGtBookPiece gtSinglePage;
+			contents.
+
+	context resources
+		addResource: (LeExportPageOutputResource new
+				content: html;
+				pageLink: (pageLinks
+						linkForPage: page
+						ifFound: [ :thePage | thePage ]
+						ifNone: [  "ignore" ])).
+						
+	context assembler assemble.
+						
+	LeExportResourcesDirectorySaver new
+		resources: context resources;
+		rootDirectory: directory;
+		save.
+
+	^ LeHtmlPage new
+		directory: directory;
+		pageFile: directory / pageLinkBuilder mainFileName;
+		resources: context resources;
+		log: context log
+]
+
 { #category : #'api - exporting' }
 LeHtmlPageExporter >> buildResources [
 	| visitor |
