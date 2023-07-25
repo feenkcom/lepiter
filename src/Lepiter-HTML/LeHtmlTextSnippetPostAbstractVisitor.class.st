@@ -82,3 +82,8 @@ LeHtmlTextSnippetPostAbstractVisitor >> visitExternalLabelUrlLink: anExternalLab
 
 	context html escape: label
 ]
+
+{ #category : #generated }
+LeHtmlTextSnippetPostAbstractVisitor >> visitText: aText [
+	context html escape: aText content
+]

@@ -15,6 +15,16 @@ LeExportSnippetExamples >> textSnippetWithClassAnnotation [
 ]
 
 { #category : #examples }
+LeExportSnippetExamples >> textSnippetWithClassAnnotationAndText [
+	<gtExample>
+	| snippet |
+
+	snippet := LeTextSnippet  string: '{{gtClass:BrButton|label=Button}} **has** *very* nice API.'.
+
+	^ snippet
+]
+
+{ #category : #examples }
 LeExportSnippetExamples >> textSnippetWithExampleAnnotation [
 	<gtExample>
 	| snippet |
