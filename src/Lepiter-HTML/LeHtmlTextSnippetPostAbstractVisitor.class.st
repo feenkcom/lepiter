@@ -35,6 +35,28 @@ LeHtmlTextSnippetPostAbstractVisitor >> context: aContext [
 ]
 
 { #category : #'gt - extensions' }
+LeHtmlTextSnippetPostAbstractVisitor >> gtFilesFor: aView [
+	<gtView>
+	context ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Files';
+		priority: 20;
+		object: [ context ];
+		view: #gtFilesFor:
+]
+
+{ #category : #'gt - extensions' }
+LeHtmlTextSnippetPostAbstractVisitor >> gtLogFor: aView [
+	<gtView>
+	context ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Log';
+		priority: 25;
+		object: [ context ];
+		view: #gtLogFor:
+]
+
+{ #category : #'gt - extensions' }
 LeHtmlTextSnippetPostAbstractVisitor >> gtResourcesFor: aView [
 	<gtView>
 	context ifNil: [ ^ aView empty ].
@@ -81,6 +103,11 @@ LeHtmlTextSnippetPostAbstractVisitor >> visitExternalLabelUrlLink: anExternalLab
 	label ifEmpty: [ label := anExternalLabelUrlLink url ].
 
 	context html escape: label
+]
+
+{ #category : #generated }
+LeHtmlTextSnippetPostAbstractVisitor >> visitExternalUrlLink: anExternalUrlLink [
+	context html escape: (anExternalUrlLink url ifNil: [ '' ])
 ]
 
 { #category : #generated }

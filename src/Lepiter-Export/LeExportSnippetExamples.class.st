@@ -62,6 +62,16 @@ LeExportSnippetExamples >> textSnippetWithExternalLabelUrlLink [
 ]
 
 { #category : #examples }
+LeExportSnippetExamples >> textSnippetWithExternalUrlLink [
+	<gtExample>
+	| snippet |
+
+	snippet := LeTextSnippet  string: '<https://gtoolkit.com>'.
+
+	^ snippet
+]
+
+{ #category : #examples }
 LeExportSnippetExamples >> textSnippetWithImageLinkWithAbsolutePath [
 	<gtExample>
 	| snippet database page temporaryDirectory imageFile |
