@@ -136,6 +136,20 @@ LeDatabase >> assertNotReadOnly [
 ]
 
 { #category : #accessing }
+LeDatabase >> asyncPagesContainingText: aQueryString [
+	^ [ | filter results |
+	results := OrderedCollection new.
+	filter := LeSubstringFilter new
+			caseSensitive: false;
+			query: aQueryString.
+	self
+		pagesWithNameDo: [ :eachPage | (filter isMatchedItem: eachPage) ifTrue: [ results add: eachPage ] ].
+	self
+		unnamedPagesDo: [ :eachPage | (filter isMatchedItem: eachPage) ifTrue: [ results add: eachPage ] ].
+	results asAsyncStream ] asAsyncFuture asAsyncStream flatten
+]
+
+{ #category : #accessing }
 LeDatabase >> asyncPagesForWord: aString [
 	^ ((self index asyncTitlesForWord: aString)
 		collect: [ :each | self pageNamed: each ifAbsent: [  ] ]) select: #notNil
