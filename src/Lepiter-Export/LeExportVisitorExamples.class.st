@@ -143,6 +143,29 @@ LeExportVisitorExamples >> textSnippetWithImageLinkWithRelativeAttachmentPath [
 ]
 
 { #category : #'examples - text snippet' }
+LeExportVisitorExamples >> textSnippetWithImageLinkWithRelativeAttachmentPathWithTwoSlashes [
+	<gtExample>
+	| snippet resources context visitor fileStore |
+	snippet := LeExportSnippetExamples new textSnippetWithImageLinkWithRelativeAttachmentPathWithTwoSlashes.
+	
+	visitor := LeExportVisitor new
+			context: (context := LeExportContext new
+				resources: (resources := LeExportResources new);
+				fileStore: (fileStore := LeExportMemoryStore new)).
+	
+	snippet acceptVisitor: visitor.
+	
+	self assertResources: resources size: 1.
+	self assertReadyResources: resources.
+	
+	self assertFileStoreIsEmpty: fileStore.
+
+	^ LeExportVisitorHolder new 
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - text snippet' }
 LeExportVisitorExamples >> textSnippetWithWordAnnotation [
 	<gtExample>
 	| snippet resources visitor fileStore |
