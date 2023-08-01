@@ -29,7 +29,7 @@ GtAbstractLepiterDb class >> defaultDatabase [
 			NotFound signalFor: self ]
 ]
 
-{ #category : #'gt - extensions' }
+{ #category : #accessing }
 GtAbstractLepiterDb class >> defaultDatabaseIfFound: aFoundBlock ifNone: anAbsentBlock [
 	"Answer the LeDatabase that uses the receiver as its store"
 	| logicalDatabase |
@@ -41,6 +41,21 @@ GtAbstractLepiterDb class >> defaultDatabaseIfFound: aFoundBlock ifNone: anAbsen
 				and: [ db monitor dbClass == self ] ]
 		ifFound: [ :aDatabase | aFoundBlock cull:  aDatabase ]
 		ifNone: [ anAbsentBlock value ]
+]
+
+{ #category : #accessing }
+GtAbstractLepiterDb class >> ensureRegisteredWithDefaultLogicalDatabase [
+	"Ensure the receiver is a registered database"
+	| logicalDatabase newDb |
+
+	self defaultDatabaseIfFound: [ :db | ^ db ] ifNone: [  ].
+	logicalDatabase := LeDatabasesRegistry default currentLoadedDefaultLogicalDatabase.
+	newDb := LeDatabaseClassStoreLoad forJsonV4
+			loadFrom: self name
+			package: self package name
+			saveDelay: LeDatabaseClassStoreLoad defaultDelay.
+	logicalDatabase addDB: newDb.
+	^ newDb
 ]
 
 { #category : #'gt - extensions' }
@@ -87,7 +102,7 @@ GtAbstractLepiterDb class >> gtBuildCoderDatabaseMenuIn: aDropdown [
 		items: menuItems.
 ]
 
-{ #category : #testing }
+{ #category : #'gt - extensions' }
 GtAbstractLepiterDb class >> gtViewDatabasePagesFor: aView [
 	<gtView>
 	<gtClassView>

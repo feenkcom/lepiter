@@ -17,6 +17,12 @@ LeDatabaseStore class >> current [
 ]
 
 { #category : #accessing }
+LeDatabaseStore class >> defaultDelay [
+
+	^ 30 seconds
+]
+
+{ #category : #accessing }
 LeDatabaseStore class >> loaderFor: aDatabaseUrl [
 
 	^ self allSubclasses detect: [ :each |
@@ -100,10 +106,10 @@ LeDatabaseStore >> defaultDatabaseName [
 	^ self subclassResponsibility
 ]
 
-{ #category : #'private - accessing' }
+{ #category : #accessing }
 LeDatabaseStore >> defaultDelay [
 
-	^ 30 seconds
+	^ self class defaultDelay
 ]
 
 { #category : #'private - db properties' }
