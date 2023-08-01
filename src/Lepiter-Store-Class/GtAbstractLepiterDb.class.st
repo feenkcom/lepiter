@@ -127,3 +127,18 @@ GtAbstractLepiterDb class >> isRegisteredWithDefaultDatabase [
 		defaultDatabaseIfFound: [ :aDatabase | true ]
 		ifNone:  [ false ]
 ]
+
+{ #category : #'gt - extensions' }
+GtAbstractLepiterDb class >> registereWithDefaultLogicalDatabase [
+	"Ensure the receiver is a registered database.
+	This should be called after the reload on startup has been initialised."
+
+	([ self ensureRegisteredWithDefaultLogicalDatabase ]
+		asAsyncFuture await: (AsyncFutureExecutionConfiguration new 
+			customGroup: #Lepiter))
+				then: [ ]
+				otherwise: [ :exception |
+					self inform: 'Error while adding knowledgebase: ' 
+						, exception messageText
+						, '. Do a manual reload to reproduce the error.']
+]
