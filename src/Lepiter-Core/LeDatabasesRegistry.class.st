@@ -24,6 +24,12 @@ LeDatabasesRegistry class >> defaultPrimaryDatabase [
 	^ self uniqueInstance defaultPrimaryDatabase
 ]
 
+{ #category : #accessing }
+LeDatabasesRegistry class >> getDatabaseByName: aDatabaseName [
+	^ LeDatabasesRegistry uniqueInstance defaultLogicalDatabase databases
+		detect: [ :db | db databaseName = aDatabaseName ]
+]
+
 { #category : #'private - hooks' }
 LeDatabasesRegistry class >> onRemoveUniqueInstance: anInstance [
 	"Stop any open databases before removing the instance"
