@@ -1,6 +1,8 @@
 Class {
 	#name : #LeExportSlides,
 	#superclass : #Object,
+	#traits : 'TGtSlideShow',
+	#classTraits : 'TGtSlideShow classTrait',
 	#category : #'Lepiter-Snippet-Element-Examples'
 }
 
