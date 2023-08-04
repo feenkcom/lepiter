@@ -5,7 +5,7 @@ Class {
 		'date',
 		'dateString'
 	],
-	#category : 'Lepiter-Core-Database - Filters'
+	#category : #'Lepiter-Core-Database - Filters'
 }
 
 { #category : #accessing }
@@ -20,14 +20,14 @@ LePageModifiedAfterFilter class >> filterDescriptorFor: aLeDatabase do: aBlock [
 		value:
 			(GtFilterDescriptor
 				creator: [ :value | self new dateString: value ]
-				named: 'Edited After'
+				named: 'Edited after'
 				order: 12
 				completion: (GtStringsCompletionStrategy new completions: dates)).
 	aBlock
 		value:
 			(GtFilterDescriptor
 				creator: [ :value | (self new dateString: value) not ]
-				named: 'Edited Before'
+				named: 'Edited before'
 				order: 12
 				completion: (GtStringsCompletionStrategy new completions: dates))
 ]
