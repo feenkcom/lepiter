@@ -270,13 +270,14 @@ LePage >> gtCopyActionFor: anAction [
 
 { #category : #search }
 LePage >> gtSpotterForSnippetsFor: aSearch [
-	"NB: We only search in text snippets."
+	"NB: We only search in text and code snippets."
 
 	<gtSearch>
 	^ aSearch list
 		priority: 10;
-		items: [ self allChildrenTextSnippets ];
-		title: 'Text Snippets';
+		items: [  "self allChildrenTextSnippets ."self
+				allChildrenSnippetsMatching: [ :aSnippet | aSnippet isTextSnippet or: [ aSnippet isCodeSnippet ] ] ];
+		title: 'Text & Code Snippets';
 		itemsLimit: Float infinity;
 		itemName: #text;
 		filterBySubstring;
