@@ -76,6 +76,25 @@ LeHtmlVisitorExamples >> textSnippetWithExampleAnnotationWithPreviewExpanded [
 ]
 
 { #category : #'examples - text snippet' }
+LeHtmlVisitorExamples >> textSnippetWithExternalLabelUrlLink [
+	<gtExample>
+	| snippet visitor context html |
+	snippet := LeExportSnippetExamples new textSnippetWithExternalLabelUrlLink.
+
+	visitor := LeHtmlVisitor new context: (context := LeHtmlContext new).
+
+	html := visitor contentsFor: snippet.
+
+	self
+		assertHtml: html
+		includes: '<a href="https://gtoolkit.com/">GToolkit</a>'.
+
+	^ LeHtmlVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - text snippet' }
 LeHtmlVisitorExamples >> textSnippetWithImageLinkWithAbsolutePath [
 	<gtExample>
 	| snippet html resources context visitor holder |

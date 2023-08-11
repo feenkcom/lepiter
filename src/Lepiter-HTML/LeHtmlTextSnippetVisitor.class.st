@@ -145,14 +145,17 @@ LeHtmlTextSnippetVisitor >> visitExternalImageLink: anExternalImageLink [
 
 { #category : #generated }
 LeHtmlTextSnippetVisitor >> visitExternalLabelUrlLink: anExternalLabelUrlLink [
-	| linkUrl convertedUrl |
+	| linkUrl convertedUrl label |
 	linkUrl := anExternalLabelUrlLink url.
 	convertedUrl := self convertToLocalOrAbsoluteUrl: linkUrl.
+	
+	label := anExternalLabelUrlLink label trimBoth.
+	label ifEmpty: [ label := linkUrl ].
 	
 	context html 
 		inlineTag: #a 
 		attributes: { #href. convertedUrl } 
-		with: convertedUrl
+		with: label
 ]
 
 { #category : #generated }
