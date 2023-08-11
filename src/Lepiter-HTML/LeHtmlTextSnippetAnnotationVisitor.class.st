@@ -115,10 +115,10 @@ LeHtmlTextSnippetAnnotationVisitor >> visitMethodAnnotation: aMethodAnnotation [
 
 	context html
 		inlineTag: 'code'
-		attributes: {'class'. 'method_annotation expandable_annotation_label {1}'
+		attributes: {'class'. 'annotation annotation-label annotation-label-code expandable-annotation-label {1}'
 				format: {(aMethodAnnotation isExpanded and: [ methodExists ])
-							ifTrue: [ 'expanded_annotation_body' ]
-							ifFalse: [ 'collapsed_annotation_body' ]}}
+							ifTrue: [ 'annotation-sibling-is-expanded' ]
+							ifFalse: [ 'annotation-sibling-is-collapsed' ]}}
 		with: (aMethodAnnotation hasLabel
 				ifTrue: [ aMethodAnnotation label ]
 				ifFalse: [ methodNameArgument fullName ]).
@@ -126,15 +126,15 @@ LeHtmlTextSnippetAnnotationVisitor >> visitMethodAnnotation: aMethodAnnotation [
 	methodExists ifFalse: [ ^ self ].
 				
 	context html 
-		tag: 'div'
-		attributes: {'class'. 'textual-snippet code-snippet pharo-method-snippet expandable_annotation_body {1}'
+		tag: 'span'
+		attributes: {'class'. 'textual-snippet code-snippet pharo-method-snippet expandable-annotation-view {1}'
 				format: {(aMethodAnnotation isExpanded)
-							ifTrue: [ 'visible_annotation' ]
-							ifFalse: [ 'hidden_annotation' ]}}
+							ifTrue: [ 'expanded-annotation-view' ]
+							ifFalse: [ 'collapsed-annotation-view' ]}}
 		do: [ 
 			context html 
-				tag: 'pre'
-				attributes: #('class' 'no_bottom_margin')
+				inlineTag: 'code'
+				attributes: #('class' '')
 				with: method sourceCode ]
 ]
 

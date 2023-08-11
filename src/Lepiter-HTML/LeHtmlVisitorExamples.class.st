@@ -164,6 +164,75 @@ LeHtmlVisitorExamples >> textSnippetWithImageLinkWithRelativeAttachmentPathWithT
 ]
 
 { #category : #'examples - text snippet' }
+LeHtmlVisitorExamples >> textSnippetWithMethodAnnotation [
+	<gtExample>
+	| snippet html resources context visitor holder |
+	holder := LeExportVisitorExamples new textSnippetWithMethodAnnotation.
+	snippet := holder snippet.
+	resources := holder resources.
+	
+	visitor := LeHtmlVisitor new
+			context: (context := LeHtmlContext new
+				resources: resources).
+	
+	html := visitor contentsFor: snippet.
+	
+	self assertHtml: html includes: '>BrButton>>#action:<'.
+	self assertHtml: html includes: 'annotation-sibling-is-collapsed'.
+	self assertHtml: html includes: 'expandable-annotation-view collapsed-annotation-view'.
+	
+	^ LeHtmlVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - text snippet' }
+LeHtmlVisitorExamples >> textSnippetWithMethodAnnotationCollapsed [
+	<gtExample>
+	| snippet html resources context visitor holder |
+	holder := LeExportVisitorExamples new textSnippetWithMethodAnnotationCollapsed.
+	snippet := holder snippet.
+	resources := holder resources.
+	
+	visitor := LeHtmlVisitor new
+			context: (context := LeHtmlContext new
+				resources: resources).
+	
+	html := visitor contentsFor: snippet.
+	
+	self assertHtml: html includes: '>BrButton>>#action:<'.
+	self assertHtml: html includes: 'annotation-sibling-is-collapsed'.
+	self assertHtml: html includes: 'expandable-annotation-view collapsed-annotation-view'.
+		
+	^ LeHtmlVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - text snippet' }
+LeHtmlVisitorExamples >> textSnippetWithMethodAnnotationExpanded [
+	<gtExample>
+	| snippet html resources context visitor holder |
+	holder := LeExportVisitorExamples new textSnippetWithMethodAnnotationExpanded.
+	snippet := holder snippet.
+	resources := holder resources.
+	
+	visitor := LeHtmlVisitor new
+			context: (context := LeHtmlContext new
+				resources: resources).
+	
+	html := visitor contentsFor: snippet.
+	
+	self assertHtml: html includes: '>BrButton>>#action:<'.
+	self assertHtml: html includes: 'annotation-sibling-is-expanded'.
+	self assertHtml: html includes: 'expandable-annotation-view expanded-annotation-view'.
+		
+	^ LeHtmlVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - text snippet' }
 LeHtmlVisitorExamples >> textSnippetWithWordAnnotation [
 	<gtExample>
 	| snippet html resources context visitor holder |
