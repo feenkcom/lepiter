@@ -6,7 +6,7 @@ Class {
 	#category : #'Lepiter-HTML-Examples'
 }
 
-{ #category : #'examples - picture snippet' }
+{ #category : #'examples - text snippet' }
 LeHtmlVisitorExamples >> textSnippetWithExampleAnnotation [
 	<gtExample>
 	| snippet html resources context visitor holder |
@@ -29,7 +29,7 @@ LeHtmlVisitorExamples >> textSnippetWithExampleAnnotation [
 		snippet: snippet
 ]
 
-{ #category : #'examples - picture snippet' }
+{ #category : #'examples - text snippet' }
 LeHtmlVisitorExamples >> textSnippetWithExampleAnnotationWithLabel [
 	<gtExample>
 	| snippet html resources context visitor holder |
@@ -51,7 +51,7 @@ LeHtmlVisitorExamples >> textSnippetWithExampleAnnotationWithLabel [
 		snippet: snippet
 ]
 
-{ #category : #'examples - picture snippet' }
+{ #category : #'examples - text snippet' }
 LeHtmlVisitorExamples >> textSnippetWithExampleAnnotationWithPreviewExpanded [
 	<gtExample>
 	| snippet html resources context visitor holder |
@@ -75,7 +75,26 @@ LeHtmlVisitorExamples >> textSnippetWithExampleAnnotationWithPreviewExpanded [
 		snippet: snippet
 ]
 
-{ #category : #'examples - picture snippet' }
+{ #category : #'examples - text snippet' }
+LeHtmlVisitorExamples >> textSnippetWithExternalLabelUrlLink [
+	<gtExample>
+	| snippet visitor context html |
+	snippet := LeExportSnippetExamples new textSnippetWithExternalLabelUrlLink.
+
+	visitor := LeHtmlVisitor new context: (context := LeHtmlContext new).
+
+	html := visitor contentsFor: snippet.
+
+	self
+		assertHtml: html
+		includes: '<a href="https://gtoolkit.com/">GToolkit</a>'.
+
+	^ LeHtmlVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - text snippet' }
 LeHtmlVisitorExamples >> textSnippetWithImageLinkWithAbsolutePath [
 	<gtExample>
 	| snippet html resources context visitor holder |
@@ -98,7 +117,7 @@ LeHtmlVisitorExamples >> textSnippetWithImageLinkWithAbsolutePath [
 		snippet: snippet
 ]
 
-{ #category : #'examples - picture snippet' }
+{ #category : #'examples - text snippet' }
 LeHtmlVisitorExamples >> textSnippetWithImageLinkWithRelativeAttachmentPath [
 	<gtExample>
 	| snippet html resources context visitor holder |
@@ -121,7 +140,7 @@ LeHtmlVisitorExamples >> textSnippetWithImageLinkWithRelativeAttachmentPath [
 		snippet: snippet
 ]
 
-{ #category : #'examples - picture snippet' }
+{ #category : #'examples - text snippet' }
 LeHtmlVisitorExamples >> textSnippetWithImageLinkWithRelativeAttachmentPathWithTwoSlashes [
 	<gtExample>
 	| snippet html resources context visitor holder |
@@ -144,7 +163,7 @@ LeHtmlVisitorExamples >> textSnippetWithImageLinkWithRelativeAttachmentPathWithT
 		snippet: snippet
 ]
 
-{ #category : #'examples - picture snippet' }
+{ #category : #'examples - text snippet' }
 LeHtmlVisitorExamples >> textSnippetWithWordAnnotation [
 	<gtExample>
 	| snippet html resources context visitor holder |

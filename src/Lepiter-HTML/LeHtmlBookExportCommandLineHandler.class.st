@@ -1,7 +1,7 @@
 Class {
 	#name : #LeHtmlBookExportCommandLineHandler,
 	#superclass : #CommandLineHandler,
-	#category : #'Lepiter-HTML-Old-Command Line'
+	#category : #'Lepiter-HTML-Command Line'
 }
 
 { #category : #accessing }
