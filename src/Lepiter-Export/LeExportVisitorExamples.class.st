@@ -166,6 +166,69 @@ LeExportVisitorExamples >> textSnippetWithImageLinkWithRelativeAttachmentPathWit
 ]
 
 { #category : #'examples - text snippet' }
+LeExportVisitorExamples >> textSnippetWithMethodAnnotation [
+	<gtExample>
+	| snippet resources visitor fileStore |
+	snippet := LeExportSnippetExamples new textSnippetWithMethodAnnotation.
+	visitor := LeExportVisitor new
+			context: (LeExportContext new 
+				resources: (resources := LeExportResources new);
+				fileStore: (fileStore := LeExportMemoryStore new)).
+
+	snippet acceptVisitor: visitor.
+
+	self assertResources: resources size: 0.
+	
+	self assertFileStoreIsEmpty: fileStore.
+	
+	^ LeExportVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - text snippet' }
+LeExportVisitorExamples >> textSnippetWithMethodAnnotationCollapsed [
+	<gtExample>
+	| snippet resources visitor fileStore |
+	snippet := LeExportSnippetExamples new textSnippetWithMethodAnnotationCollapsed.
+	visitor := LeExportVisitor new
+			context: (LeExportContext new 
+				resources: (resources := LeExportResources new);
+				fileStore: (fileStore := LeExportMemoryStore new)).
+
+	snippet acceptVisitor: visitor.
+
+	self assertResources: resources size: 0.
+	
+	self assertFileStoreIsEmpty: fileStore.
+	
+	^ LeExportVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - text snippet' }
+LeExportVisitorExamples >> textSnippetWithMethodAnnotationExpanded [
+	<gtExample>
+	| snippet resources visitor fileStore |
+	snippet := LeExportSnippetExamples new textSnippetWithMethodAnnotationExpanded.
+	visitor := LeExportVisitor new
+			context: (LeExportContext new 
+				resources: (resources := LeExportResources new);
+				fileStore: (fileStore := LeExportMemoryStore new)).
+
+	snippet acceptVisitor: visitor.
+
+	self assertResources: resources size: 0.
+	
+	self assertFileStoreIsEmpty: fileStore.
+	
+	^ LeExportVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - text snippet' }
 LeExportVisitorExamples >> textSnippetWithWordAnnotation [
 	<gtExample>
 	| snippet resources visitor fileStore |

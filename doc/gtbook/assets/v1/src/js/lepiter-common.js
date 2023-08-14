@@ -40,9 +40,9 @@ function formatCodeBlock() {
 function scrollToActiveNavigationItem() {
   /* Display the selected navigation item in the viewport. */
   let activeNavigationItems = $('.nav-item.active');
-  if (activeNavigationItems.length > 0)
-    console.log('scrolling');
-  activeNavigationItems[0].scrollIntoView({ behavior: "instant", block: "center", inline: "start" });
+  if (activeNavigationItems.length > 0) {
+    activeNavigationItems[0].scrollIntoView({behavior: "instant", block: "center", inline: "start"});
+  }
 }
 
 /**

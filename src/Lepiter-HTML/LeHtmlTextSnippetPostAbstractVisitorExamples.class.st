@@ -81,3 +81,22 @@ LeHtmlTextSnippetPostAbstractVisitorExamples >> textSnippetWithExternalUrlLink [
 		visitor: visitor;
 		snippet: snippet
 ]
+
+{ #category : #'examples - text snippet' }
+LeHtmlTextSnippetPostAbstractVisitorExamples >> textSnippetWithMethodAnnotation [
+	<gtExample>
+	| snippet visitor context html |
+	snippet := LeExportSnippetExamples new textSnippetWithMethodAnnotation.
+	
+	visitor := LeHtmlTextSnippetPostAbstractVisitor new
+		context: (context := LeHtmlContext new);
+		snippet: snippet.
+	
+	html := visitor contentsFor: snippet.
+	
+	"self assertHtml: html equals: 'Button'."
+	
+	^ LeHtmlVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]

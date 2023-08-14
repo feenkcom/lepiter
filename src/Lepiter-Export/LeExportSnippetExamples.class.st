@@ -9,7 +9,7 @@ LeExportSnippetExamples >> textSnippetWithClassAnnotation [
 	<gtExample>
 	| snippet |
 
-	snippet := LeTextSnippet  string: '{{gtClass:BrButton|label=Button}}'.
+	snippet := LeTextSnippet  string: '{{gtClass:',BrButton name,'|label=Button}}'.
 
 	^ snippet
 ]
@@ -137,6 +137,36 @@ LeExportSnippetExamples >> textSnippetWithImageLinkWithRelativeAttachmentPathWit
 	snippet := page snippetBuilder
 			string: ('![Attachment Image Link](file://{1})' format: { attachmentPath });
 			add.
+
+	^ snippet
+]
+
+{ #category : #examples }
+LeExportSnippetExamples >> textSnippetWithMethodAnnotation [
+	<gtExample>
+	| snippet |
+	snippet := LeTextSnippet
+			string: '{{gtMethod:' , (BrButton >> #action:) printString , '}}'.
+
+	^ snippet
+]
+
+{ #category : #examples }
+LeExportSnippetExamples >> textSnippetWithMethodAnnotationCollapsed [
+	<gtExample>
+	| snippet |
+	snippet := LeTextSnippet
+			string: '{{gtMethod:' , (BrButton >> #action:) printString , ' | expanded=false}}'.
+
+	^ snippet
+]
+
+{ #category : #examples }
+LeExportSnippetExamples >> textSnippetWithMethodAnnotationExpanded [
+	<gtExample>
+	| snippet |
+	snippet := LeTextSnippet
+			string: '{{gtMethod:' , (BrButton >> #action:) printString , ' | expanded}}'.
 
 	^ snippet
 ]

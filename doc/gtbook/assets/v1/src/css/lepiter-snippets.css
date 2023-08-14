@@ -38,21 +38,88 @@ main figure > img {
     }
 }*/
 
+
 /*
+    --------------------------------
+    Snippets other than text snippet
+    --------------------------------
+ */
+
+
+/*
+    --------------------------------
     Text snippet
+    --------------------------------
  */
 
 /* Limit regular text snippet content width on large screens.
- It does not limit headings. */
+   It does not limit headings. */
 @media (min-width: 992px) {
     .text-snippet > p {
         max-width: var(--max-text-snippet-p-width);
     }
 }
 
+/*
+    --------------------------------
+    Text snippet - annotations
+    --------------------------------
+ */
+
+.annotation {
+}
+
+.annotation-label {
+}
+
+.annotation-label-code {
+    font-family: "Source Code Pro", monospace;
+    background-color: #F0F0F0;
+}
+
+.annotation-label-code:hover {
+    background-color: #E0E0E0;
+}
+
+/* indicates that this is a clickable annotation label
+   which should expand/collapse .expandable-annotation-view siblings */
+.expandable-annotation-label {
+}
+
+/* indicates that the annotation view is expanded */
+.annotation-sibling-is-expanded {
+}
+
+/* indicates that the annotation view is collapsed */
+.annotation-sibling-is-collapsed {
+}
+
+/* indicates that this is an expandable annotation view */
+.expandable-annotation-view {
+}
+
+/* indicates that this is an annotation view is expanded */
+.expanded-annotation-view {
+    display: block;
+}
+
+/* indicates that this is an annotation view is collapsed */
+.collapsed-annotation-view {
+    display: none;
+}
+
+.code-snippet code {
+    font-family: "Source Code Pro", monospace;
+    color: inherit;
+    white-space: pre;
+    display: block;
+    margin-block-end: 1rem;
+}
 
 /*
+    --------------------------------
     Other rules
+    --------------------------------
  */
 
 .hidden_annotation_v3 {
@@ -79,10 +146,6 @@ main figure > img {
 
 }
 
-.method_annotation_v3 {
-
-}
-
 .pharo-method-snippet {
 
 }
@@ -92,10 +155,6 @@ main figure > img {
     color: #aaa;
     font-size: 0.8rem;
 }
-
-/*
-    PREVIOUS CODE (of version 2) that is active (used)
- */
 
 .class_annotation {
     font-family: "Source Code Pro", monospace;
@@ -151,6 +210,7 @@ main figure > img {
     border-left: 10px solid #eee;
     padding-left: 10px;
     border-radius: 5px;
+    tab-size: 4;
 }
 
 .pharo-snippet {

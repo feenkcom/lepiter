@@ -194,6 +194,22 @@ LeElementSnippet >> similarTo: anotherExampleSnippet [
 				and: [ self codeVisible = anotherExampleSnippet codeVisible ] ] ]
 ]
 
+{ #category : #printing }
+LeElementSnippet >> storeOn: aStream [
+	aStream
+		nextPut: $(;
+		nextPutAll: self className;
+		nextPutAll: ' new code: ';
+		print: self code;
+		nextPutAll: '; codeVisible: ';
+		print: self codeVisible;
+		nextPutAll: '; elementHeight: ';
+		print: self elementHeight;
+		nextPutAll: '; codeHeight: ';
+		print: self codeHeight;
+		nextPutAll: '; yourself)'
+]
+
 { #category : #updating }
 LeElementSnippet >> updateIfRequiredCodeVisibility: aBoolean [
 	| command |
