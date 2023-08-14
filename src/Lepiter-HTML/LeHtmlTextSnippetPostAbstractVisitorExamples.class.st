@@ -26,10 +26,10 @@ LeHtmlTextSnippetPostAbstractVisitorExamples >> textSnippetWithClassAnnotation [
 ]
 
 { #category : #'examples - text snippet' }
-LeHtmlTextSnippetPostAbstractVisitorExamples >> textSnippetWithClassAnnotationAndText [
+LeHtmlTextSnippetPostAbstractVisitorExamples >> textSnippetWithClassAnnotationLabeledAndText [
 	<gtExample>
 	| snippet visitor context html |
-	snippet := LeExportSnippetExamples new textSnippetWithClassAnnotationAndText.
+	snippet := LeExportSnippetExamples new textSnippetWithClassAnnotationLabeledAndText.
 	
 	visitor := LeHtmlTextSnippetPostAbstractVisitor new
 		context: (context := LeHtmlContext new);

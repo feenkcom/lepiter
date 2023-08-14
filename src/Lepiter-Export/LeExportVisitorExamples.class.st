@@ -7,6 +7,90 @@ Class {
 }
 
 { #category : #'examples - text snippet' }
+LeExportVisitorExamples >> textSnippetWithClassAnnotation [
+	<gtExample>
+	| snippet resources visitor fileStore |
+	snippet := LeExportSnippetExamples new textSnippetWithClassAnnotation.
+	visitor := LeExportVisitor new
+			context: (LeExportContext new 
+				resources: (resources := LeExportResources new);
+				fileStore: (fileStore := LeExportMemoryStore new)).
+
+	snippet acceptVisitor: visitor.
+
+	self assertResources: resources size: 0.
+	
+	self assertFileStoreIsEmpty: fileStore.
+	
+	^ LeExportVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - text snippet' }
+LeExportVisitorExamples >> textSnippetWithClassAnnotationCollapsed [
+	<gtExample>
+	| snippet resources visitor fileStore |
+	snippet := LeExportSnippetExamples new textSnippetWithClassAnnotationCollapsed.
+	visitor := LeExportVisitor new
+			context: (LeExportContext new 
+				resources: (resources := LeExportResources new);
+				fileStore: (fileStore := LeExportMemoryStore new)).
+
+	snippet acceptVisitor: visitor.
+
+	self assertResources: resources size: 0.
+	
+	self assertFileStoreIsEmpty: fileStore.
+	
+	^ LeExportVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - text snippet' }
+LeExportVisitorExamples >> textSnippetWithClassAnnotationExpanded [
+	<gtExample>
+	| snippet resources visitor fileStore |
+	snippet := LeExportSnippetExamples new textSnippetWithClassAnnotationExpanded.
+	visitor := LeExportVisitor new
+			context: (LeExportContext new 
+				resources: (resources := LeExportResources new);
+				fileStore: (fileStore := LeExportMemoryStore new)).
+
+	snippet acceptVisitor: visitor.
+
+	self assertResources: resources size: 0.
+	
+	self assertFileStoreIsEmpty: fileStore.
+	
+	^ LeExportVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - text snippet' }
+LeExportVisitorExamples >> textSnippetWithClassAnnotationLabeledAndText [
+	<gtExample>
+	| snippet resources visitor fileStore |
+	snippet := LeExportSnippetExamples new textSnippetWithClassAnnotationLabeledAndText.
+	visitor := LeExportVisitor new
+			context: (LeExportContext new 
+				resources: (resources := LeExportResources new);
+				fileStore: (fileStore := LeExportMemoryStore new)).
+
+	snippet acceptVisitor: visitor.
+
+	self assertResources: resources size: 0.
+	
+	self assertFileStoreIsEmpty: fileStore.
+	
+	^ LeExportVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - text snippet' }
 LeExportVisitorExamples >> textSnippetWithExampleAnnotation [
 	<gtExample>
 	| snippet resources visitor fileStore resource |

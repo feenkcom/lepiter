@@ -8,14 +8,34 @@ Class {
 LeExportSnippetExamples >> textSnippetWithClassAnnotation [
 	<gtExample>
 	| snippet |
-
-	snippet := LeTextSnippet  string: '{{gtClass:',BrButton name,'|label=Button}}'.
+	snippet := LeTextSnippet
+			string: '{{gtClass:' , BrButton name , '}}'.
 
 	^ snippet
 ]
 
 { #category : #examples }
-LeExportSnippetExamples >> textSnippetWithClassAnnotationAndText [
+LeExportSnippetExamples >> textSnippetWithClassAnnotationCollapsed [
+	<gtExample>
+	| snippet |
+	snippet := LeTextSnippet
+			string: '{{gtClass:' , BrButton  name , ' | expanded=false}}'.
+
+	^ snippet
+]
+
+{ #category : #examples }
+LeExportSnippetExamples >> textSnippetWithClassAnnotationExpanded [
+	<gtExample>
+	| snippet |
+	snippet := LeTextSnippet
+			string: '{{gtClass:' , BrButton name , ' | expanded}}'.
+
+	^ snippet
+]
+
+{ #category : #examples }
+LeExportSnippetExamples >> textSnippetWithClassAnnotationLabeledAndText [
 	<gtExample>
 	| snippet |
 

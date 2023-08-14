@@ -58,19 +58,34 @@ LeHtmlTextSnippetAnnotationVisitor >> visitAnnotation: anAnnotation [
 
 { #category : #generated }
 LeHtmlTextSnippetAnnotationVisitor >> visitClassAnnotation: aClassAnnotation [
-	| classNameArgument |
-	aClassAnnotation hasLabel ifTrue: [ 
-		context html 
-			inlineTag: #code
-			attributes: #('class' 'class_label')
-			with: aClassAnnotation label.
-		^ self ].
+	| label theClass theClassExists |
+	label := aClassAnnotation hasLabel
+			ifTrue: [ aClassAnnotation label trimBoth ]
+			ifFalse: [ aClassAnnotation referencedClassName ].
+	theClass := aClassAnnotation imageObject.
+	theClassExists := theClass isNotNil.
 	
-	classNameArgument := aClassAnnotation nameNode.
-	context html 
+	context html
 		inlineTag: 'code'
-		attributes: #('class' 'class_annotation')
-		with: classNameArgument value source
+		attributes: {'class'. 'annotation annotation-label annotation-label-class annotation-label-code expandable-annotation-label {1}'
+				format: {(aClassAnnotation isExpanded and: [ theClassExists ])
+							ifTrue: [ 'annotation-sibling-is-expanded' ]
+							ifFalse: [ 'annotation-sibling-is-collapsed' ]}}
+		with: label.
+		
+	theClassExists ifFalse: [ ^ self ].
+
+	context html 
+		tag: 'span'
+		attributes: {'class'. 'textual-snippet code-snippet pharo-class-definition expandable-annotation-view {1}'
+				format: {(aClassAnnotation isExpanded)
+							ifTrue: [ 'expanded-annotation-view' ]
+							ifFalse: [ 'collapsed-annotation-view' ]}}
+		do: [ 
+			context html 
+				inlineTag: 'code'
+				attributes: #('class' '')
+				with: theClass definitionString ]
 ]
 
 { #category : #generated }
@@ -115,7 +130,7 @@ LeHtmlTextSnippetAnnotationVisitor >> visitMethodAnnotation: aMethodAnnotation [
 
 	context html
 		inlineTag: 'code'
-		attributes: {'class'. 'annotation annotation-label annotation-label-code expandable-annotation-label {1}'
+		attributes: {'class'. 'annotation annotation-label annotation-label-method annotation-label-code expandable-annotation-label {1}'
 				format: {(aMethodAnnotation isExpanded and: [ methodExists ])
 							ifTrue: [ 'annotation-sibling-is-expanded' ]
 							ifFalse: [ 'annotation-sibling-is-collapsed' ]}}
