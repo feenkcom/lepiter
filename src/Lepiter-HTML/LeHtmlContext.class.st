@@ -13,6 +13,13 @@ Class {
 	#category : #'Lepiter-HTML-! Core'
 }
 
+{ #category : #copying }
+LeHtmlContext >> copyWithNewStream: aStream [
+	| aCopy |
+	aCopy := self copy.
+	aCopy newStream: aStream
+]
+
 { #category : #'api - accessing' }
 LeHtmlContext >> database [
 	<return: #LeDatabase>
@@ -22,6 +29,20 @@ LeHtmlContext >> database [
 { #category : #'api - accessing' }
 LeHtmlContext >> database: aDatabase [
 	database := aDatabase
+]
+
+{ #category : #initialization }
+LeHtmlContext >> defaultPageLinks [
+	^ LeExportPageLinksBuilder new
+		in: [ :theBuilder | 
+			database 
+				ifNotNil: [ theBuilder database: database ]
+				ifNil: [ theBuilder pages: { page } ] ];
+		mainPage: page;
+		sequencer: self sequencer;
+		html;
+		build;
+		links
 ]
 
 { #category : #'gt - extensions' }
@@ -63,6 +84,12 @@ LeHtmlContext >> html [
 				ifFalse: [ htmlStream := LeHtmlOutputPrettyStream on: stream ] ]
 ]
 
+{ #category : #'api - initialization' }
+LeHtmlContext >> newStream: aWriteStream [
+	stream := nil.
+	self stream: aWriteStream
+]
+
 { #category : #'api - accessing' }
 LeHtmlContext >> page [
 	<return: #LePage>
@@ -83,7 +110,7 @@ LeHtmlContext >> page: aLePage [
 
 { #category : #accessing }
 LeHtmlContext >> pageLink [
-	^ pageLinks
+	^ self pageLinks
 		linkForPage: page
 		ifFound: [ :aPage | aPage ]
 		ifNone: [ LeExportBookPageLink new
@@ -93,7 +120,7 @@ LeHtmlContext >> pageLink [
 
 { #category : #accessing }
 LeHtmlContext >> pageLinks [
-	^ pageLinks
+	^ pageLinks ifNil: [ pageLinks := self defaultPageLinks ]
 ]
 
 { #category : #accessing }

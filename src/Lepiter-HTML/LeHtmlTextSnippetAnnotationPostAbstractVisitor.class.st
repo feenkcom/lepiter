@@ -40,3 +40,25 @@ LeHtmlTextSnippetAnnotationPostAbstractVisitor >> visitClassAnnotation: aClassAn
 	classNameArgument := aClassAnnotation nameNode.
 	context html escape: classNameArgument value source
 ]
+
+{ #category : #generated }
+LeHtmlTextSnippetAnnotationPostAbstractVisitor >> visitMethodAnnotation: aMethodAnnotation [
+	| nameNode |
+	aMethodAnnotation hasLabel ifTrue: [ 
+		context html escape: aMethodAnnotation label.
+		^ self ].
+	
+	nameNode := aMethodAnnotation nameNode.
+	context html escape: nameNode value source
+]
+
+{ #category : #generated }
+LeHtmlTextSnippetAnnotationPostAbstractVisitor >> visitPackageAnnotation: aPackageAnnotation [
+	| nameNode |
+	aPackageAnnotation hasLabel ifTrue: [ 
+		context html escape: aPackageAnnotation label.
+		^ self ].
+	
+	nameNode := aPackageAnnotation nameNode.
+	context html escape: nameNode value source
+]

@@ -21,7 +21,15 @@ LeHtmlPageDescriptionAttributePiece >> writeWithContext: aContext [
 	
 	aPage childrenDo: [ :aSnippet | 
 		(self isDescriptionSnippet: aSnippet) ifTrue: [ 
-			aContext html escapeAttributeValue: aSnippet text asString.
+			| aVisitor aVisitorContext anHtml |
+			anHtml := String streamContents: [ :aStream | 
+				aVisitorContext := aContext copyWithNewStream: aStream.
+				aVisitor := LeHtmlTextSnippetPostAbstractVisitor new
+					context: aVisitorContext;
+					snippet: aSnippet.
+				aSnippet ast acceptVisitor: aVisitor ]. 
+		
+			aContext html escapeAttributeValue: anHtml.
 			^ self
 		]
 	].

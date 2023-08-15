@@ -4,7 +4,7 @@ I exemplify {{gtClass:LeExampleToPngExporter}}.
 Class {
 	#name : #LeExampleToPngExporterExamples,
 	#superclass : #Object,
-	#category : #'Lepiter-HTML-Old-Examples'
+	#category : #'Lepiter-Export-Resources - Examples'
 }
 
 { #category : #examples }

@@ -8,14 +8,34 @@ Class {
 LeExportSnippetExamples >> textSnippetWithClassAnnotation [
 	<gtExample>
 	| snippet |
-
-	snippet := LeTextSnippet  string: '{{gtClass:',BrButton name,'|label=Button}}'.
+	snippet := LeTextSnippet
+			string: '{{gtClass:' , BrButton name , '}}'.
 
 	^ snippet
 ]
 
 { #category : #examples }
-LeExportSnippetExamples >> textSnippetWithClassAnnotationAndText [
+LeExportSnippetExamples >> textSnippetWithClassAnnotationCollapsed [
+	<gtExample>
+	| snippet |
+	snippet := LeTextSnippet
+			string: '{{gtClass:' , BrButton  name , ' | expanded=false}}'.
+
+	^ snippet
+]
+
+{ #category : #examples }
+LeExportSnippetExamples >> textSnippetWithClassAnnotationExpanded [
+	<gtExample>
+	| snippet |
+	snippet := LeTextSnippet
+			string: '{{gtClass:' , BrButton name , ' | expanded}}'.
+
+	^ snippet
+]
+
+{ #category : #examples }
+LeExportSnippetExamples >> textSnippetWithClassAnnotationLabeledAndText [
 	<gtExample>
 	| snippet |
 
@@ -167,6 +187,36 @@ LeExportSnippetExamples >> textSnippetWithMethodAnnotationExpanded [
 	| snippet |
 	snippet := LeTextSnippet
 			string: '{{gtMethod:' , (BrButton >> #action:) printString , ' | expanded}}'.
+
+	^ snippet
+]
+
+{ #category : #examples }
+LeExportSnippetExamples >> textSnippetWithMethodAnnotationLabeled [
+	<gtExample>
+	| snippet |
+	snippet := LeTextSnippet
+			string: '{{gtMethod:' , (BrButton >> #action:) printString , ' | label=Button}}'.
+
+	^ snippet
+]
+
+{ #category : #examples }
+LeExportSnippetExamples >> textSnippetWithPackageAnnotation [
+	<gtExample>
+	| snippet |
+	snippet := LeTextSnippet
+			string: '{{gtPackage:' , BrButton package name asString , '}}'.
+
+	^ snippet
+]
+
+{ #category : #examples }
+LeExportSnippetExamples >> textSnippetWithPackageAnnotationLabeled [
+	<gtExample>
+	| snippet |
+	snippet := LeTextSnippet
+			string: '{{gtPackage:' , BrButton package name asString , ' | label=Button package}}'.
 
 	^ snippet
 ]

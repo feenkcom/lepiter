@@ -156,6 +156,16 @@ main figure > img {
     font-size: 0.8rem;
 }
 
+.pharo-class-definition {
+
+}
+
+.pharo-class-definition::after {
+    content: "Pharo class definition";
+    color: #aaa;
+    font-size: 0.8rem;
+}
+
 .class_annotation {
     font-family: "Source Code Pro", monospace;
     background-color: #F0F0F0;
