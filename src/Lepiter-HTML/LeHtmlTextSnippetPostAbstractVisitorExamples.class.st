@@ -18,7 +18,7 @@ LeHtmlTextSnippetPostAbstractVisitorExamples >> textSnippetWithClassAnnotation [
 	
 	html := visitor contentsFor: snippet.
 	
-	self assertHtml: html equals: 'Button'.
+	self assertHtml: html equals: 'BrButton'.
 	
 	^ LeHtmlVisitorHolder new
 		visitor: visitor;
