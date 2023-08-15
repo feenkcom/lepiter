@@ -41,3 +41,23 @@ LeHtmlPageExporterExamples >> exportSamplePageFullHtml [
 
 	^ exporter
 ]
+
+{ #category : #examples }
+LeHtmlPageExporterExamples >> pageWithTextSnippetUsedAsPagePreview [
+	<gtExample>
+	| page exporter html piece |
+	page := LeExportPageExamples new pageWithTextSnippetUsedAsPagePreview.
+	piece := LeHtmlGtBookPiece gtSinglePage.
+	
+	exporter := LeHtmlPageExporter new
+		page: page;
+		piece: piece.
+
+	html := exporter contents.
+
+	self assertNotEmptyHtml: html.
+	self assertHtml: html includes: '<meta name="description" content="GToolkit, Button, action method, is italic.">'.
+	self assertHtml: html includes: '<meta property="og:description" content="GToolkit, Button, action method, is italic.">'.
+
+	^ exporter
+]

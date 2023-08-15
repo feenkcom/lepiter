@@ -190,3 +190,33 @@ LeExportSnippetExamples >> textSnippetWithMethodAnnotationExpanded [
 
 	^ snippet
 ]
+
+{ #category : #examples }
+LeExportSnippetExamples >> textSnippetWithMethodAnnotationLabeled [
+	<gtExample>
+	| snippet |
+	snippet := LeTextSnippet
+			string: '{{gtMethod:' , (BrButton >> #action:) printString , ' | label=Button}}'.
+
+	^ snippet
+]
+
+{ #category : #examples }
+LeExportSnippetExamples >> textSnippetWithPackageAnnotation [
+	<gtExample>
+	| snippet |
+	snippet := LeTextSnippet
+			string: '{{gtPackage:' , BrButton package name asString , '}}'.
+
+	^ snippet
+]
+
+{ #category : #examples }
+LeExportSnippetExamples >> textSnippetWithPackageAnnotationLabeled [
+	<gtExample>
+	| snippet |
+	snippet := LeTextSnippet
+			string: '{{gtPackage:' , BrButton package name asString , ' | label=Button package}}'.
+
+	^ snippet
+]

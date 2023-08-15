@@ -94,7 +94,64 @@ LeHtmlTextSnippetPostAbstractVisitorExamples >> textSnippetWithMethodAnnotation 
 	
 	html := visitor contentsFor: snippet.
 	
-	"self assertHtml: html equals: 'Button'."
+	self assertHtml: html equals: 'BrButton'.
+	
+	^ LeHtmlVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - text snippet' }
+LeHtmlTextSnippetPostAbstractVisitorExamples >> textSnippetWithMethodAnnotationLabeled [
+	<gtExample>
+	| snippet visitor context html |
+	snippet := LeExportSnippetExamples new textSnippetWithMethodAnnotationLabeled.
+	
+	visitor := LeHtmlTextSnippetPostAbstractVisitor new
+		context: (context := LeHtmlContext new);
+		snippet: snippet.
+	
+	html := visitor contentsFor: snippet.
+	
+	self assertHtml: html equals: 'Button'.
+	
+	^ LeHtmlVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - text snippet' }
+LeHtmlTextSnippetPostAbstractVisitorExamples >> textSnippetWithPackageAnnotation [
+	<gtExample>
+	| snippet visitor context html |
+	snippet := LeExportSnippetExamples new textSnippetWithPackageAnnotation.
+	
+	visitor := LeHtmlTextSnippetPostAbstractVisitor new
+		context: (context := LeHtmlContext new);
+		snippet: snippet.
+	
+	html := visitor contentsFor: snippet.
+	
+	self assertHtml: html equals: BrButton package name asString.
+	
+	^ LeHtmlVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+]
+
+{ #category : #'examples - text snippet' }
+LeHtmlTextSnippetPostAbstractVisitorExamples >> textSnippetWithPackageAnnotationLabeled [
+	<gtExample>
+	| snippet visitor context html |
+	snippet := LeExportSnippetExamples new textSnippetWithPackageAnnotationLabeled.
+	
+	visitor := LeHtmlTextSnippetPostAbstractVisitor new
+		context: (context := LeHtmlContext new);
+		snippet: snippet.
+	
+	html := visitor contentsFor: snippet.
+	
+	self assertHtml: html equals: 'Button package'.
 	
 	^ LeHtmlVisitorHolder new
 		visitor: visitor;
