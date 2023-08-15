@@ -77,9 +77,6 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 				package: 'Lepiter-HTML'
 					with: [ spec
 							requires: #('Lepiter-Core' 'Lepiter-Parser' 'Lepiter-Export' 'LepiterXDoc' 'GToolkitReleaser') ];
-				package: 'Lepiter-HTML-Old'
-					with: [ spec
-							requires: #('Lepiter-Core' 'Lepiter-Parser' 'Lepiter-Export' 'Lepiter-HTML' 'LepiterXDoc') ];
 				package: 'Lepiter-Playground'
 					with: [ spec requires: #('Lepiter-Core' 'Lepiter-Store' 'Lepiter-UI') ];
 				package: 'Lepiter-Core-Examples'
