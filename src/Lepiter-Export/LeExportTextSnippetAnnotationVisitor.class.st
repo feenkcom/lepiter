@@ -43,8 +43,9 @@ LeExportTextSnippetAnnotationVisitor >> visitExampleAnnotation: anExampleAnnotat
 	
 	"Prepare example"
 	rbMethod := anExampleAnnotation imageObject.
-	rbMethod isDefined ifFalse: [ 
-		aResourceState := LeExportExampleMethodIsNotDefinedState uniqueInstance.
+	(rbMethod isNil or: [
+		rbMethod isDefined not ]) ifTrue: [ 
+			aResourceState := LeExportExampleMethodIsNotDefinedState uniqueInstance.
 	].
 	
 	aResourceState ifNil: [
@@ -62,13 +63,16 @@ LeExportTextSnippetAnnotationVisitor >> visitExampleAnnotation: anExampleAnnotat
 	
 	"Store the resource"
 	aResource := LeExportTextSnippetExampleAnnotationResource new
+		state: aResourceState;
 		snippet: snippet;
 		source: anExampleAnnotation;
 		annotation: anExampleAnnotation;
-		example: anExample;
 		path: aPath;
 		reference: aFile;
 		height: aHeight.
+		
+	anExample ifNotNil: [
+		aResource example: anExample ].
 		
 	self addResource: aResource
 ]
