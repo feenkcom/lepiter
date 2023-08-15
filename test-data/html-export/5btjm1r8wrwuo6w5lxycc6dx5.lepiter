@@ -189,7 +189,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Followed by a method definition: {{gtMethod:LeHtmlPageExporterExamples>>#samplePage}}."
+							"string" : "Followed by a method definition: {{gtMethod:LeExportSampleData>>#samplePage}}."
 						},
 						{
 							"__type" : "textSnippet",
@@ -226,7 +226,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Both classes and methods can be embedded using a string label:\n {{gtClass:LeHtmlPageExporterExamples|label=Exporter}}\n {{gtMethod:LeHtmlPageExporterExamples>>#samplePage|label=samplePage}}."
+							"string" : "Both classes and methods can be embedded using a string label:\n {{gtClass:LeHtmlPageExporterExamples|label=Exporter}}\n {{gtMethod:LeExportSampleData>>#samplePage|label=samplePage}}."
 						}
 					]
 				},
@@ -301,7 +301,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Example with only code:\n{{gtExample:LeHtmlFragmentExporterExamples>>#basicMarkdown}}"
+							"string" : "Example with only code:\n{{gtExample:LeExportSnippetExamples>>#textSnippetWithClassAnnotationLabeledAndText}}"
 						},
 						{
 							"__type" : "textSnippet",
