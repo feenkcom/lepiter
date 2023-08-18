@@ -10,6 +10,31 @@ Class {
 	#category : #'Lepiter-Python-Snippet'
 }
 
+{ #category : #accessing }
+LePythonSnippetElement >> coderEditorElementClass [
+	^ LeLSPSourceCoderEditorElement
+]
+
+{ #category : #accessing }
+LePythonSnippetElement >> onAddedToSceneGraph [
+	self userData
+		at: #lspFile
+		ifAbsentPut: [ | element snippetModel file |
+			element := self
+					allParentsDetect: [ :each | each class = LePageToolElement ]
+					ifFound: [ :each | each ]
+					ifNone: [ self ].
+			snippetModel := element userData
+					at: #lspSnippetModel
+					ifAbsentPut: [ GtLSPPythonSnippetModel local ].
+			file := snippetModel createSnippet.
+			file source: self editor text asString.
+			file open.
+			editorElement addAptitude: (GtLSPEditorAptitude new lspFile: file).
+			file ].
+	^ super onAddedToSceneGraph
+]
+
 { #category : #'api - snippet view model' }
 LePythonSnippetElement >> onSnippetViewModelChanged [
 	super onSnippetViewModelChanged.

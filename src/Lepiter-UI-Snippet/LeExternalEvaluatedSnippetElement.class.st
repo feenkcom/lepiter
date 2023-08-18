@@ -22,6 +22,11 @@ LeExternalEvaluatedSnippetElement class >> isAbstract [
 ]
 
 { #category : #initialization }
+LeExternalEvaluatedSnippetElement >> coderEditorElementClass [
+	^ GtSourceCoderEditorElement
+]
+
+{ #category : #initialization }
 LeExternalEvaluatedSnippetElement >> initialize [ 
 	super initialize.
 
@@ -57,7 +62,7 @@ LeExternalEvaluatedSnippetElement >> initializeLanguageElement [
 { #category : #initialization }
 LeExternalEvaluatedSnippetElement >> initializeTextEditor [
 
-	editorElement := GtSourceCoderEditorElement new 
+	editorElement := self coderEditorElementClass new 
 		padding: (BlInsets top: 5 left: 5 bottom: 5 right: 0).
 
 	editorElement editor 
