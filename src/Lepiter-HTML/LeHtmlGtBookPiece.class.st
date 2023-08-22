@@ -47,7 +47,7 @@ LeHtmlGtBookPiece >> initialize [
 		at: #title put: LeHtmlPageTitlePiece;
 		at: #titleAttribute put: LeHtmlPageTitleAttributePiece;
 		at: #descriptionAttribute put: LeHtmlPageDescriptionAttributePiece;
-		at: #urlAttribute put: LeHtmlPageBookGToolkitComAttributePiece;
+		at: #urlAttribute put: LeHtmlPageUrlAttributePiece;
 		at: #gtVersion put: LeHtmlGToolkitVersionPiece;
 		at: #navigation put: LeHtmlNavigationPiece;
 		at: #content put: LeHtmlPagePiece
