@@ -70,6 +70,14 @@ LePictureSnippet >> asSnippetViewModel [
 ]
 
 { #category : #accessing }
+LePictureSnippet >> attachmentNames [
+	self urlStringUtility isFile ifFalse: [ ^ #() ].
+	(self urlString beginsWith: LeLocalStore attachmentsDirectoryName) ifFalse: [ ^ #() ].
+
+	^ Array with: self urlString
+]
+
+{ #category : #accessing }
 LePictureSnippet >> caption [ 
 	<return: #String>
 
