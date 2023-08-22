@@ -150,7 +150,7 @@ LeSnippet >> attachToParent: aParentSnippet [
 
 { #category : #'api - attachments' }
 LeSnippet >> attachments [
-	^ LeSnippetAttachmentsCollector new
+	^ LeContentAttachmentsCollector new
 		content: self;
 		local
 ]

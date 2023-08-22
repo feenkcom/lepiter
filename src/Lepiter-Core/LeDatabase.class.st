@@ -229,7 +229,7 @@ LeDatabase >> attachmentUtf8Stream: attachmentPath do: aBlock [
 
 { #category : #'api - attachments' }
 LeDatabase >> attachments [
-	^ LeSnippetAttachmentsCollector new
+	^ LeContentAttachmentsCollector new
 		content: self;
 		all
 ]

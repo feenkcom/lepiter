@@ -377,7 +377,7 @@ LeContent >> attachmentNames [
 
 { #category : #'api - attachments' }
 LeContent >> attachments [
-	^ LeSnippetAttachmentsCollector new content: self
+	^ LeContentAttachmentsCollector new content: self
 ]
 
 { #category : #'private - editing' }

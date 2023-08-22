@@ -1,5 +1,5 @@
 Class {
-	#name : #LeSnippetAttachmentsCollector,
+	#name : #LeContentAttachmentsCollector,
 	#superclass : #Object,
 	#instVars : [
 		'attachments',
@@ -10,7 +10,7 @@ Class {
 }
 
 { #category : #'double dispatch' }
-LeSnippetAttachmentsCollector >> addSnippet: aSnippet attachmentNamed: aName [
+LeContentAttachmentsCollector >> addSnippet: aSnippet attachmentNamed: aName [
 	attachments
 		detect: [ :each | each name = aName ]
 		ifFound: [ :aSnippetAttachment | aSnippetAttachment snippet: aSnippet ]
@@ -23,24 +23,24 @@ LeSnippetAttachmentsCollector >> addSnippet: aSnippet attachmentNamed: aName [
 ]
 
 { #category : #'api - initialization' }
-LeSnippetAttachmentsCollector >> all [
-	self iterator: LeSnippetAllAttachmentsIterator new
+LeContentAttachmentsCollector >> all [
+	self iterator: LeContentAllAttachmentsIterator new
 ]
 
 { #category : #accessing }
-LeSnippetAttachmentsCollector >> content [
+LeContentAttachmentsCollector >> content [
 	^ content
 ]
 
 { #category : #accessing }
-LeSnippetAttachmentsCollector >> content: anObject [
+LeContentAttachmentsCollector >> content: anObject [
 	content := anObject
 ]
 
 { #category : #'api - enumerating' }
-LeSnippetAttachmentsCollector >> get [
+LeContentAttachmentsCollector >> get [
 	attachments := OrderedCollection new.
-	iterator snippet: content attachmentsInto: self.
+	iterator content: content attachmentsInto: self.
 	^ LeContentAttachments new 
 		content: content;
 		scope: iterator scope;
@@ -48,17 +48,17 @@ LeSnippetAttachmentsCollector >> get [
 ]
 
 { #category : #initialization }
-LeSnippetAttachmentsCollector >> initialize [
+LeContentAttachmentsCollector >> initialize [
 	super initialize.
-	iterator := LeSnippetLocalAttachmentsIterator new.
+	iterator := LeContentLocalAttachmentsIterator new.
 ]
 
 { #category : #'api - initialization' }
-LeSnippetAttachmentsCollector >> iterator: anObject [
+LeContentAttachmentsCollector >> iterator: anObject [
 	iterator := anObject
 ]
 
 { #category : #'api - initialization' }
-LeSnippetAttachmentsCollector >> local [
-	self iterator: LeSnippetLocalAttachmentsIterator new
+LeContentAttachmentsCollector >> local [
+	self iterator: LeContentLocalAttachmentsIterator new
 ]

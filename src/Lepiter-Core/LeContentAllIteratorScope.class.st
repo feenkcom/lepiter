@@ -1,5 +1,5 @@
 Class {
-	#name : #LeSnippetAllIteratorScope,
+	#name : #LeContentAllIteratorScope,
 	#superclass : #Object,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
@@ -7,6 +7,6 @@ Class {
 }
 
 { #category : #printing }
-LeSnippetAllIteratorScope >> gtDisplayOn: stream [
+LeContentAllIteratorScope >> gtDisplayOn: stream [
 	stream nextPutAll: 'content and its children tree hiearchy attachments'
 ]

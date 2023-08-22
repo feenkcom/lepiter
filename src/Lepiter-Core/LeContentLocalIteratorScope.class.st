@@ -1,5 +1,5 @@
 Class {
-	#name : #LeSnippetLocalIteratorScope,
+	#name : #LeContentLocalIteratorScope,
 	#superclass : #Object,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',

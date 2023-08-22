@@ -1,7 +1,7 @@
-Extension { #name : #LeSnippetAttachmentsExample }
+Extension { #name : #LeContentAttachmentsExample }
 
 { #category : #'*Lepiter-Snippet-Picture' }
-LeSnippetAttachmentsExample >> databaseDefaultAttachments [
+LeContentAttachmentsExample >> databaseDefaultAttachments [
 	"Get all attachments used in a given database must be a default behavior."
 
 	<gtExample>
@@ -31,7 +31,7 @@ LeSnippetAttachmentsExample >> databaseDefaultAttachments [
 ]
 
 { #category : #'*Lepiter-Snippet-Picture' }
-LeSnippetAttachmentsExample >> pageOneAllAttachments [
+LeContentAttachmentsExample >> pageOneAllAttachments [
 	<gtExample>
 	| pageHolder snippet attachments attachmentOne attachmentTwo page |
 	pageHolder := LeModelExamples new pageOneWithTwoAttachmentPictures.
@@ -63,7 +63,7 @@ LeSnippetAttachmentsExample >> pageOneAllAttachments [
 ]
 
 { #category : #'*Lepiter-Snippet-Picture' }
-LeSnippetAttachmentsExample >> pageOneDefaultAttachments [
+LeContentAttachmentsExample >> pageOneDefaultAttachments [
 	"Get all attachments used in a given page must be a default behavior."
 
 	<gtExample>
@@ -100,7 +100,7 @@ LeSnippetAttachmentsExample >> pageOneDefaultAttachments [
 ]
 
 { #category : #'*Lepiter-Snippet-Picture' }
-LeSnippetAttachmentsExample >> pageTwoDefaultAttachments [
+LeContentAttachmentsExample >> pageTwoDefaultAttachments [
 	"Get all attachments used in a given page should be a default behavior."
 
 	<gtExample>
@@ -129,7 +129,7 @@ LeSnippetAttachmentsExample >> pageTwoDefaultAttachments [
 ]
 
 { #category : #'*Lepiter-Snippet-Picture' }
-LeSnippetAttachmentsExample >> pictureSnippetAllAttachments [
+LeContentAttachmentsExample >> pictureSnippetAllAttachments [
 	<gtExample>
 	| page snippet attachments attachmentOne attachmentTwo |
 	page := LeModelExamples new pageOneWithTwoAttachmentPictures.
@@ -160,7 +160,7 @@ LeSnippetAttachmentsExample >> pictureSnippetAllAttachments [
 ]
 
 { #category : #'*Lepiter-Snippet-Picture' }
-LeSnippetAttachmentsExample >> pictureSnippetLocalAttachments [
+LeContentAttachmentsExample >> pictureSnippetLocalAttachments [
 	<gtExample>
 	| page snippet attachments attachmentOne |
 	page := LeModelExamples new pageOneWithTwoAttachmentPictures.
