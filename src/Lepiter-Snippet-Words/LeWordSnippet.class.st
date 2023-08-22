@@ -34,6 +34,11 @@ LeWordSnippet class >> empty [
 	^ self new
 ]
 
+{ #category : #accessing }
+LeWordSnippet class >> explanationAttachmentFileName [
+	^ 'word-snippet-explanation.json'
+]
+
 { #category : #'lepiter-store' }
 LeWordSnippet class >> leJsonV3AttributeMapping [
 
@@ -100,14 +105,13 @@ LeWordSnippet >> attachmentNames [
 ]
 
 { #category : #accessing }
-LeWordSnippet >> attachments [
-	^ {LeAttachment loadFromFolder: (self database 
-		resolveDbFile: (Path  *self explanationAttachmentName) parent pathString )}
-]
-
-{ #category : #'api - accessing' }
 LeWordSnippet >> contentAsString [
-	^ self word
+	^ String
+		streamContents: [ :aStream | 
+			aStream
+				nextPutAll: (self explanation
+						ifNotNil: #word
+						ifNil: [ self word ifNotNil: #asString ifNil: [ '' ] ]) ]
 ]
 
 { #category : #'api - accessing' }
@@ -129,12 +133,18 @@ LeWordSnippet >> explanation: anExplanation source: aSource [
 		description: [ 'Explanation must be non-nil' ].
 	(explanation isNil or: [ explanation = anExplanation ]) ifTrue: [ 
 		explanation := anExplanation.
+		self updateCachedExplanationBy: aSource.
 		^ self ].
 
 	explanation := anExplanation.
 
 	self updateCachedExplanationBy: aSource.
 	self announceExplanationChangedBy: aSource
+]
+
+{ #category : #'private - updating' }
+LeWordSnippet >> explanationAttachmentFileName [
+	^ self class explanationAttachmentFileName
 ]
 
 { #category : #'api - accessing' }
@@ -266,13 +276,11 @@ LeWordSnippet >> updateCachedExplanationBy: aSource [
 	LeStoreAttachmentWriter new
 		database: self database;
 		attachmentName: self explanationAttachmentName;
-		contentName: 'word-snippet-explanation.json';
-		content: [ STONJSON toString: (Array 
-			with: self explanation word
-			with: self explanation rawData) ];
-		writer: [ :anAttachmentName | 
-			self explanationAttachmentName: anAttachmentName source: aSource ];
-		write.
+		contentName: self explanationAttachmentFileName;
+		content: [ STONJSON
+				toString: (Array with: self explanation word with: self explanation rawData) ];
+		writer: [ :anAttachmentName | self explanationAttachmentName: anAttachmentName source: aSource ];
+		write
 ]
 
 { #category : #'api - accessing' }

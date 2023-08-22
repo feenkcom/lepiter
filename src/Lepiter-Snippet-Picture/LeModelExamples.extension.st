@@ -68,6 +68,27 @@ LeModelExamples >> pageOneWithTwoAttachmentPictures [
 ]
 
 { #category : #'*Lepiter-Snippet-Picture' }
+LeModelExamples >> pageThreeTitle [
+	^ 'Page three with words'
+]
+
+{ #category : #'*Lepiter-Snippet-Picture' }
+LeModelExamples >> pageThreeWithOneWordAttachment [
+	"Page with picture snippets. Some picture files repeats by purpose."
+
+	<gtExample>
+	| temporaryDatabase database page |
+	temporaryDatabase := self databaseWithWordSnippet.
+	database := temporaryDatabase database.
+
+	page := database pageNamed: self pageThreeTitle.
+
+	^ LePageExampleHolder new
+		page: page;
+		temporaryDatabase: temporaryDatabase
+]
+
+{ #category : #'*Lepiter-Snippet-Picture' }
 LeModelExamples >> pageTwoTitle [
 	^ 'Page two with pictures'
 ]
