@@ -7,12 +7,12 @@ Class {
 { #category : #accessing }
 LeSnippetAttachmentsExample >> pageAllAttachments [
 	<gtExample>
-	| page snippet attachments attachmentOne attachmentTwo |
-	page := LeModelExamples new pageWithTwoAttachmentPictures.
+	| pageHolder snippet attachments attachmentOne attachmentTwo |
+	pageHolder := LeModelExamples new pageWithTwoAttachmentPictures.
 	
-	attachments := page attachments all; get.
+	attachments := pageHolder page attachments all; get.
 	
-	snippet := page children first.
+	snippet := pageHolder children first.
 
 	self assert: (snippet urlString endsWith: 'feenk.png').
 	self assert: attachments isNotNil.
@@ -29,9 +29,7 @@ LeSnippetAttachmentsExample >> pageAllAttachments [
 	self assert: attachmentTwo snippets size equals: 1.
 	self assert: attachmentTwo snippets first == snippet children first.
 
-	^ LeSnippetHolder new
-		snippet: snippet;
-		temporaryDatabase: page temporaryDatabase
+	^ pageHolder
 ]
 
 { #category : #accessing }

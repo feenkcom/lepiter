@@ -148,18 +148,6 @@ LeSnippet >> attachToParent: aParentSnippet [
 	self parent: aParentSnippet
 ]
 
-{ #category : #'api - attachments' }
-LeSnippet >> attachmentNames [
-	"Return attachment names that, referencing to attachment files that are used by this snippet."
-
-	^ #()
-]
-
-{ #category : #'api - attachments' }
-LeSnippet >> attachments [
-	^ LeSnippetAttachments new snippet: self
-]
-
 { #category : #'api - testing' }
 LeSnippet >> canBeIndented [
 	"A snippet can be indented as long as it is not the first child.
@@ -234,26 +222,6 @@ LeSnippet >> extractUpdatableStateBasedOnState: aSnippetState [
 		appendState: (self 
 			extractSpecificStateBasedOnState: aSnippetState);
 		yourself
-]
-
-{ #category : #accessing }
-LeSnippet >> gtSnippetAttachmentsFor: aView [
-	<gtView>
-	^ aView columnedList
-		title: 'Attachments';
-		priority: 80;
-		items: [ self attachments
-				all;
-				get ];
-		column: 'Index'
-			text: [ :_ :index | index ]
-			width: 40;
-		column: 'Path' text: #name weight: 2;
-		column: 'Description'
-			text: [ :anAttachment | 
-				'used by {1} {2}'
-					format: {anAttachment snippets size.
-							'snippet' asPluralBasedOn: anAttachment snippets size} ]
 ]
 
 { #category : #'api - testing' }

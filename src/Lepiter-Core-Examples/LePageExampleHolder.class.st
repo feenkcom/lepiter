@@ -30,6 +30,16 @@ LePageExampleHolder >> gtPageLiveFor: aView [
 		view: #gtLiveFor:
 ]
 
+{ #category : #'gt - extensions' }
+LePageExampleHolder >> gtSnippetAttachmentsFor: aView [
+	<gtView>
+	^ aView forward
+		title: 'Attachments';
+		priority: 20;
+		object: [ self page ];
+		view: #gtSnippetAttachmentsFor:
+]
+
 { #category : #accessing }
 LePageExampleHolder >> page [
 	^ page
