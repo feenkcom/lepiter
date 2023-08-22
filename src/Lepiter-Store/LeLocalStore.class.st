@@ -33,6 +33,11 @@ Class {
 }
 
 { #category : #accessing }
+LeLocalStore class >> attachmentsDirectoryName [
+	^ 'attachments'
+]
+
+{ #category : #accessing }
 LeLocalStore class >> currentStorageClass [
 
 	^ LeLocalJsonV4Storage 
@@ -182,6 +187,11 @@ LeLocalStore >> attachmentsDirectory: anObject [
 ]
 
 { #category : #accessing }
+LeLocalStore >> attachmentsDirectoryName [
+	^ self class attachmentsDirectoryName
+]
+
+{ #category : #accessing }
 LeLocalStore >> dbPropertiesFile [
 	^ localRoot / self propertiesBasename
 ]
@@ -288,7 +298,7 @@ LeLocalStore >> localRoot: aFileReference [
 	"Set the localRoot for the storage"
 
 	localRoot := aFileReference.
-	attachmentsDirectory := localRoot / 'attachments'.
+	attachmentsDirectory := localRoot / self attachmentsDirectoryName
 ]
 
 { #category : #accessing }

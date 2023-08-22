@@ -26,7 +26,9 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 			baseline: 'GToolkitVisualizer' with: [
 				spec repository: 'github://feenkcom/gtoolkit-visualizer:main/src' ];
 			baseline: 'LepiterYoutube' with: [
-				spec repository: 'github://feenkcom/lepiter:main/src' ].
+				spec repository: 'github://feenkcom/lepiter:main/src' ];
+			baseline: 'GToolkit4LSP' with: [
+				spec repository: 'github://feenkcom/gt4lsp:main/src' ].
 		spec 
 			package: 'Lepiter-Pharo' with: [
 				spec requires: #('LepiterEngineCore' ). ];
@@ -51,7 +53,7 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 			package: 'Lepiter-JavaScript' with: [
 				spec requires: #('LepiterEngineCore' 'Gt4JSLink' 'Gt4ChromeDevTools' ). ];
 			package: 'Lepiter-Python' with: [
-				spec requires: #('LepiterEngineCore' 'Gt4PythonBridge' ). ];
+				spec requires: #('LepiterEngineCore' 'Gt4PythonBridge' 'GToolkit4LSP' ). ];
 			package: 'Lepiter-Snippet-PharoLink' with: [
 				spec requires: #('LepiterEngineCore' 'Gt4PharoLink' ). ];
 			package: 'Lepiter-Snippet-Pharo-Rewrites' with: [

@@ -21,6 +21,12 @@ main figure > img {
     box-shadow: 0 0 5px 5px lightgray;
 }
 
+figcaption {
+    font-size: 14px;
+    color: #6c757d;
+    text-align: center;
+}
+
 /*
     Snippet children.
     Disable the indent. We need to implement collapsable widget first.

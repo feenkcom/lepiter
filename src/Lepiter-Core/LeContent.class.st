@@ -368,6 +368,18 @@ LeContent >> attachChildSnippet: aNewSnippet [
 	^ aNewSnippet
 ]
 
+{ #category : #'api - attachments' }
+LeContent >> attachmentNames [
+	"Return attachment names that, referencing to attachment files that are used by this snippet."
+
+	^ #()
+]
+
+{ #category : #'api - attachments' }
+LeContent >> attachments [
+	^ LeSnippetAttachments new snippet: self
+]
+
 { #category : #'private - editing' }
 LeContent >> basicAddSnippet: newLeSnippet [
 
@@ -595,6 +607,26 @@ LeContent >> gtMarkdownPageFor: aView [
 		priority: 50;
 		aptitude: BrGlamorousCodeEditorAptitude;
 		text: [ self asMarkdownPage ]
+]
+
+{ #category : #'gt - extensions' }
+LeContent >> gtSnippetAttachmentsFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Attachments';
+		priority: 80;
+		items: [ self attachments
+				all;
+				get ];
+		column: 'Index'
+			text: [ :_ :index | index ]
+			width: 40;
+		column: 'Path' text: #name weight: 2;
+		column: 'Description'
+			text: [ :anAttachment | 
+				'used by {1} {2}'
+					format: {anAttachment snippets size.
+							'snippet' asPluralBasedOn: anAttachment snippets size} ]
 ]
 
 { #category : #'gt-extensions' }
