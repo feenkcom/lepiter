@@ -68,7 +68,7 @@ LeTemporaryDatabase >> ensureCreateTemporaryDirectory [
 			
 			reference := FileReference
 					newTempFilePrefix: 'lepiter-temporary-'
-					suffix: '-databse-directory'.
+					suffix: '-database-directory'.
 			reference ensureCreateDirectory.
 			
 			temporaryDirectory := GtTemporaryDirectory new reference: reference ].
@@ -88,6 +88,42 @@ LeTemporaryDatabase >> finalize [
 					"silently ignore errors"
 					anException emit ] ].
 	super finalize
+]
+
+{ #category : #'gt - extensions' }
+LeTemporaryDatabase >> gtDatabaseLiveFor: aView [
+	<gtView>
+	database ifNil: [ ^ aView empty ].
+	
+	^ aView forward
+		title: 'Database';
+		priority: 10;
+		object: [ self database ];
+		view: #gtLiveFor:
+]
+
+{ #category : #'gt - extensions' }
+LeTemporaryDatabase >> gtPathFor: aView [
+	<gtView>
+	database ifNil: [ ^ aView empty ].
+	
+	^ aView forward
+		title: 'Path';
+		priority: 55;
+		object: [ self reference ];
+		view: #gtPathFor:
+]
+
+{ #category : #'gt - extensions' }
+LeTemporaryDatabase >> gtTreeFor: aView [
+	<gtView>
+	database ifNil: [ ^ aView empty ].
+
+	^ aView forward
+		title: 'Root directory';
+		priority: 15;
+		object: [ self reference ];
+		view: #gtTreeFor:
 ]
 
 { #category : #initialization }

@@ -377,7 +377,7 @@ LeContent >> attachmentNames [
 
 { #category : #'api - attachments' }
 LeContent >> attachments [
-	^ LeSnippetAttachments new snippet: self
+	^ LeSnippetAttachmentsCollector new content: self
 ]
 
 { #category : #'private - editing' }
@@ -615,13 +615,13 @@ LeContent >> gtSnippetAttachmentsFor: aView [
 	^ aView columnedList
 		title: 'Attachments';
 		priority: 80;
-		items: [ self attachments
-				all;
-				get ];
+		items: [ self attachments get items ];
 		column: 'Index'
 			text: [ :_ :index | index ]
 			width: 40;
-		column: 'Path' text: #name weight: 2;
+		column: 'Path'
+			text: #name
+			weight: 2;
 		column: 'Description'
 			text: [ :anAttachment | 
 				'used by {1} {2}'

@@ -1,16 +1,16 @@
 Class {
-	#name : #LeSnippetAttachments,
+	#name : #LeSnippetAttachmentsCollector,
 	#superclass : #Object,
 	#instVars : [
-		'snippet',
 		'attachments',
-		'iterator'
+		'iterator',
+		'content'
 	],
 	#category : #'Lepiter-Core-Attachments'
 }
 
 { #category : #'double dispatch' }
-LeSnippetAttachments >> addSnippet: aSnippet attachmentNamed: aName [
+LeSnippetAttachmentsCollector >> addSnippet: aSnippet attachmentNamed: aName [
 	attachments
 		detect: [ :each | each name = aName ]
 		ifFound: [ :aSnippetAttachment | aSnippetAttachment snippet: aSnippet ]
@@ -23,39 +23,42 @@ LeSnippetAttachments >> addSnippet: aSnippet attachmentNamed: aName [
 ]
 
 { #category : #'api - initialization' }
-LeSnippetAttachments >> all [
+LeSnippetAttachmentsCollector >> all [
 	self iterator: LeSnippetAllAttachmentsIterator new
 ]
 
+{ #category : #accessing }
+LeSnippetAttachmentsCollector >> content [
+	^ content
+]
+
+{ #category : #accessing }
+LeSnippetAttachmentsCollector >> content: anObject [
+	content := anObject
+]
+
 { #category : #'api - enumerating' }
-LeSnippetAttachments >> get [
+LeSnippetAttachmentsCollector >> get [
 	attachments := OrderedCollection new.
-	iterator snippet: snippet attachmentsInto: self.
-	^ attachments
+	iterator snippet: content attachmentsInto: self.
+	^ LeContentAttachments new 
+		content: content;
+		scope: iterator scope;
+		items: attachments
 ]
 
 { #category : #initialization }
-LeSnippetAttachments >> initialize [
+LeSnippetAttachmentsCollector >> initialize [
 	super initialize.
 	iterator := LeSnippetLocalAttachmentsIterator new.
 ]
 
 { #category : #'api - initialization' }
-LeSnippetAttachments >> iterator: anObject [
+LeSnippetAttachmentsCollector >> iterator: anObject [
 	iterator := anObject
 ]
 
 { #category : #'api - initialization' }
-LeSnippetAttachments >> local [
+LeSnippetAttachmentsCollector >> local [
 	self iterator: LeSnippetLocalAttachmentsIterator new
-]
-
-{ #category : #accessing }
-LeSnippetAttachments >> snippet [
-	^ snippet
-]
-
-{ #category : #accessing }
-LeSnippetAttachments >> snippet: anObject [
-	snippet := anObject
 ]

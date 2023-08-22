@@ -207,6 +207,14 @@ LeDatabase >> attachmentDirectoryAndMetadataFor: aFileReference [
 ]
 
 { #category : #'api - attachments' }
+LeDatabase >> attachmentNames [
+	"Return attachment names that, referencing to attachment files that are used by this snippet.
+	Polymorhic to {{gtMethod: LeContent >> #attachmentNames }}"
+
+	^ #()
+]
+
+{ #category : #'api - attachments' }
 LeDatabase >> attachmentProperties: attachmentPath [
 
 	^ monitor attachmentProperties: attachmentPath
@@ -217,6 +225,13 @@ LeDatabase >> attachmentUtf8Stream: attachmentPath do: aBlock [
 	"Answer a stream on the binary contents of the supplied attachment path"
 
 	^ monitor attachmentUtf8Stream: attachmentPath do: aBlock
+]
+
+{ #category : #'api - attachments' }
+LeDatabase >> attachments [
+	^ LeSnippetAttachmentsCollector new
+		content: self;
+		all
 ]
 
 { #category : #'private - accessing' }

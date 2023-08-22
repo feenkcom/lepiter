@@ -148,6 +148,13 @@ LeSnippet >> attachToParent: aParentSnippet [
 	self parent: aParentSnippet
 ]
 
+{ #category : #'api - attachments' }
+LeSnippet >> attachments [
+	^ LeSnippetAttachmentsCollector new
+		content: self;
+		local
+]
+
 { #category : #'api - testing' }
 LeSnippet >> canBeIndented [
 	"A snippet can be indented as long as it is not the first child.
