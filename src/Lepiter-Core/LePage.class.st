@@ -160,6 +160,13 @@ LePage >> assignNewUID [
 	uid := UUID new.
 ]
 
+{ #category : #'api - attachments' }
+LePage >> attachments [
+	^ LeSnippetAttachmentsCollector new
+		content: self;
+		all
+]
+
 { #category : #'private - accessing' }
 LePage >> basicUid [ 
 

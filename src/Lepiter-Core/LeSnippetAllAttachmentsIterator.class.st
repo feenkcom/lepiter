@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #accessing }
+LeSnippetAllAttachmentsIterator >> scope [
+	^ LeSnippetAllIteratorScope default
+]
+
+{ #category : #accessing }
 LeSnippetAllAttachmentsIterator >> snippet: aSnippet attachmentsInto: aSnippetAttachments [
 	| aLocalIterator |
 	aLocalIterator := LeSnippetLocalAttachmentsIterator new.

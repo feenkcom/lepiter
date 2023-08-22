@@ -4,6 +4,11 @@ Class {
 	#category : #'Lepiter-Core-Attachments'
 }
 
+{ #category : #accessing }
+LeSnippetLocalAttachmentsIterator >> scope [
+	^ LeSnippetLocalIteratorScope default
+]
+
 { #category : #'api - enumerating' }
 LeSnippetLocalAttachmentsIterator >> snippet: aSnippet attachmentsInto: aSnippetAttachments [
 	aSnippet attachmentNames
