@@ -162,7 +162,7 @@ LePage >> assignNewUID [
 
 { #category : #'api - attachments' }
 LePage >> attachments [
-	^ LeSnippetAttachmentsCollector new
+	^ LeContentAttachmentsCollector new
 		content: self;
 		all
 ]

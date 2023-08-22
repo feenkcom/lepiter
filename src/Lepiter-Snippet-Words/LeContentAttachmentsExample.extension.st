@@ -1,7 +1,7 @@
-Extension { #name : #LeSnippetAttachmentsExample }
+Extension { #name : #LeContentAttachmentsExample }
 
 { #category : #'*Lepiter-Snippet-Words' }
-LeSnippetAttachmentsExample >> wordSnippetAttachments [
+LeContentAttachmentsExample >> wordSnippetAttachments [
 	<gtExample>
 	| page snippet attachments attachmentOne |
 	page := LeModelExamples new pageThreeWithOneWordAttachment.
