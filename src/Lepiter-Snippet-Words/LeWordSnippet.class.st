@@ -93,6 +93,13 @@ LeWordSnippet >> asSnippetViewModel [
 ]
 
 { #category : #accessing }
+LeWordSnippet >> attachmentNames [
+	^ self explanationAttachmentName 
+		ifNotNil: [ :aName | {aName} ] 
+		ifNil: [ #() ]
+]
+
+{ #category : #accessing }
 LeWordSnippet >> attachments [
 	^ {LeAttachment loadFromFolder: (self database 
 		resolveDbFile: (Path  *self explanationAttachmentName) parent pathString )}
