@@ -104,6 +104,15 @@ TLeBasicServer >> ensureCorrelationId: aRequest [
 ]
 
 { #category : #'gt-extensions' }
+TLeBasicServer >> gtOverviewFor: aView [
+	<gtView>
+	^ aView forward 
+		title: 'Overview';
+		object: [ self zincServer ];
+		view: #gtOverviewFor:
+]
+
+{ #category : #'gt-extensions' }
 TLeBasicServer >> gtViewRestEndpointsFor: aView [
 	<gtView>
 	^ self zincServer
