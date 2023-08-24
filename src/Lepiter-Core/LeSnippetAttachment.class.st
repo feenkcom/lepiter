@@ -24,6 +24,17 @@ LeSnippetAttachment >> fileReference [
 ]
 
 { #category : #accessing }
+LeSnippetAttachment >> gtSnippetsFor: aView [
+	<gtView>
+	
+	^ aView columnedList title: 'Snippets'; tooltip: 'Snippets using this attachment';
+	items: [ self snippets ];
+	column: 'Index' text: [ :_ :anIndex | anIndex ] width: 40;
+	column: 'Name' text: #contentAsString weight: 2;
+	column: 'Page' text: [ :aSnippet | aSnippet page ifNotNil: #title ]
+]
+
+{ #category : #accessing }
 LeSnippetAttachment >> name [
 	^ name
 ]
@@ -58,4 +69,17 @@ LeSnippetAttachment >> snippets [
 { #category : #accessing }
 LeSnippetAttachment >> snippets: aCollection [
 	snippets := aCollection
+]
+
+{ #category : #accessing }
+LeSnippetAttachment >> uidString [
+	<return: #String>
+	| aSplit |
+	aSplit := $/ split: (self name ifNil: [ '' ]).
+	self
+		assert: [ aSplit size = 3 ]
+		description: [ 'Attachment name must have three parts divided by the slash (/) character: {1}'
+				format: {self name} ].
+	
+	^ aSplit second
 ]
