@@ -9,6 +9,18 @@ Class {
 }
 
 { #category : #accessing }
+LeSnippetAttachment >> basename [
+	<return: #String>
+	^ self fileReference basename
+]
+
+{ #category : #accessing }
+LeSnippetAttachment >> contents [
+	<return: #ByteArray>
+	^ self fileReference binaryContents
+]
+
+{ #category : #accessing }
 LeSnippetAttachment >> database [
 	<return: #LeDatabase>
 	self
