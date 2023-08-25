@@ -8,5 +8,5 @@ Class {
 
 { #category : #printing }
 LeContentAllIteratorScope >> gtDisplayOn: stream [
-	stream nextPutAll: 'content and its children tree hiearchy attachments'
+	stream nextPutAll: 'content and its children tree hierarchy attachments'
 ]
