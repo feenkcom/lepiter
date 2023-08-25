@@ -138,10 +138,25 @@ TLeBasicServer >> isRunning [
 	^ self zincServer isRunning
 ]
 
+{ #category : #accessing }
+TLeBasicServer >> localhostUrl [
+	^ ('http://localhost:{1}' format: {self port}) asZnUrl
+]
+
 { #category : #'accessing - config' }
 TLeBasicServer >> permissionsToken [
 	"Todo check for token expiration"
 	^ self configuration permissionsToken
+]
+
+{ #category : #accessing }
+TLeBasicServer >> port [
+	^ self zincServer port
+]
+
+{ #category : #accessing }
+TLeBasicServer >> port: aNumber [
+	^ self zincServer port: aNumber
 ]
 
 { #category : #actions }
