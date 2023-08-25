@@ -301,6 +301,24 @@ LeLocalStore >> localRoot: aFileReference [
 	attachmentsDirectory := localRoot / self attachmentsDirectoryName
 ]
 
+{ #category : #attachments }
+LeLocalStore >> lookupAttachmentDirectoryAndMetadataFor: aFileReference usingId: aUuid [
+	"Create the attachment directory and populate the metadata for the supplied file reference.
+	Answer the directory."
+	| fileUID attachmentDirectory attachment |
+
+	self assert: [ aFileReference basename ~= 'lepiter_attachment.properties' ].
+	fileUID := aUuid asString36.
+	attachmentDirectory := attachmentsDirectory / fileUID.
+	self assert: attachmentDirectory exists.
+	attachment := LeAttachment new
+		originalReference: aFileReference asFileReference;
+		uploadDate: DateAndTime now;
+		uploadedBy: self userEmail.
+	attachment saveTo: attachmentDirectory for: database.
+	^ attachmentDirectory resolve
+]
+
 { #category : #accessing }
 LeLocalStore >> pageFileReference: aLePage [
 
@@ -428,4 +446,19 @@ LeLocalStore >> storeLocation [
 LeLocalStore >> titleFilename: aString [
 
 	^ storage titleFilename: aString
+]
+
+{ #category : #attachments }
+LeLocalStore >> updateAttachmentWithContent: aContents named: aName withId: aUuid [
+	| attachmentFileReference attachmentDirectory |
+
+	database assertNotReadOnly.
+
+	attachmentDirectory := self lookupAttachmentDirectoryAndMetadataFor:
+		                       aName asFileReference usingId: aUuid.
+	attachmentFileReference := attachmentDirectory / aName asString.
+	attachmentFileReference
+		binaryWriteStreamDo: [ :aStream | aStream nextPutAll: aContents ].
+	^ (attachmentFileReference relativeTo: localRoot)
+		  fullName 
 ]
