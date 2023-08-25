@@ -1227,6 +1227,18 @@ LeDatabase >> updateAttachmentNamed: aFileName content: anObject [
 		aStream nextPutAll: anObject asString ].
 ]
 
+{ #category : #'api - attachments' }
+LeDatabase >> updateAttachmentWithContent: aString named: aName withId: aUuid [
+	"Update an attachment to the receiver's DB and answer the relative path string to the file"
+	<return: #String>
+
+	self 
+		assert: monitor isNotNil
+		description: 'Unable to add attachment, monitor not configured'.
+
+	^ monitor updateAttachmentWithContent: aString named: aName withId: aUuid
+]
+
 { #category : #'private - hooks' }
 LeDatabase >> updateByTypeStorageDueTo: aLePageTitleChanged [
 	| aPage oldTypeClass newTypeClass |

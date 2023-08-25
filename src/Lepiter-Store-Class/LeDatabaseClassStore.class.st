@@ -270,3 +270,8 @@ LeDatabaseClassStore >> storeLocation [
 		scheme: #class;
 		segments: (OrderedCollection with: dbPackage with: dbClass name)
 ]
+
+{ #category : #attachments }
+LeDatabaseClassStore >> updateAttachmentWithContent: aContents named: aName withId: aUuid [ 
+	^ self addAttachmentWithContent: aContents named: aName withId: aUuid
+]
