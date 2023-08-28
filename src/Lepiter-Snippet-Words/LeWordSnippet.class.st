@@ -248,9 +248,9 @@ LeWordSnippet >> readCachedExplanationBy: aSource [
 	LeStoreAttachmentReader new
 		database: self database;
 		attachmentName: self explanationAttachmentName;
-		reader: [ :aContent | 
+		reader: [ :aBinaryContent | 
 			| anArray |
-			anArray := STON fromString: aContent.
+			anArray := STON fromString: aBinaryContent utf8Decoded.
 			self 
 				explanation: (LeWordExplanation new 
 					word: anArray first;
