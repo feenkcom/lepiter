@@ -1,6 +1,12 @@
 Extension { #name : #UUID }
 
 { #category : #'*Lepiter-Store' }
+UUID >> gtLeJsonV4Methods [
+	<gtExample>
+	^ UUID class gtMethodsInClass & 'leJsonV4' gtSubstringMatch
+]
+
+{ #category : #'*Lepiter-Store' }
 UUID class >> leFromJsonV3Dictionary: aDictionary [
 	"Create a new instance of the receiver from the supplied dictionary."
 
