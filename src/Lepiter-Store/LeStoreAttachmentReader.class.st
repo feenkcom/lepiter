@@ -4,9 +4,10 @@ Class {
 	#instVars : [
 		'database',
 		'reader',
-		'attachmentName'
+		'attachmentName',
+		'isBinaryContent'
 	],
-	#category : 'Lepiter-Store-Attachments'
+	#category : #'Lepiter-Store-Attachments'
 }
 
 { #category : #'api - accessing' }
@@ -38,15 +39,16 @@ LeStoreAttachmentReader >> hasMonitor [
 { #category : #'api - storage' }
 LeStoreAttachmentReader >> read [
 	"read an attachment content and return its content"
+
 	<return: #Object>
-	| aFile aContent |
+	| aContent |
 	self hasMonitor ifFalse: [ ^ self ].
 	self attachmentName ifNil: [ ^ self ].
-		
-	aFile := self database resolveDbFile: self attachmentName.
-	aFile exists ifFalse: [ ^ self ].
-	
-	aContent := aFile readStreamEncoded: #utf8 do: [ :aStream | aStream contents ].
+
+	self database
+		attachmentBinaryStream: self attachmentName
+		do: [ :stream | aContent := stream contents ].
+
 	^ self reader value: aContent
 ]
 
