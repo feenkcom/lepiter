@@ -14,7 +14,7 @@ ZnUrl >> asLepiterFileReference [
 	"If the path begins with a FileLocator origin, pass it as relative, otherwise absolute"
 	fileReferenceString := (segments first first = ${)
 		ifTrue: [ '/' join: segments ]
-		ifFalse: [ self pathPrintString ].
+		ifFalse: [ self asFileReference pathString ].
 	^ GtMacroFileReferenceEncoding new decodeFileReferenceString: fileReferenceString.
 ]
 
