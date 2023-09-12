@@ -47,6 +47,7 @@ LeJsonV4SerialisationExamples >> deSerializeAllImplementors [
 	excludedClasses := {
 		FileLocator.
 		FileReference.
+		Fraction.
 		GtPackageExampleGroup.
 		Point.
 		ScaledDecimal.
@@ -102,6 +103,18 @@ LeJsonV4SerialisationExamples >> form [
 	self assert: deserialized depth equals: original depth.
 	self assert: deserialized offset equals: original offset.
 	self assert: deserialized bits equals: original bits.
+]
+
+{ #category : #examples }
+LeJsonV4SerialisationExamples >> fraction [
+	<gtExample>
+	| original deserialized |
+
+	original := 4 / 3.
+	deserialized := LeJsonV4 uniqueInstance deserialize:
+		(LeJsonV4 uniqueInstance serialize: original) readStream.
+	self assert: deserialized class equals: Fraction.
+	self assert: original equals: deserialized.
 ]
 
 { #category : #examples }
