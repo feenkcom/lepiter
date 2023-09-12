@@ -50,7 +50,8 @@ LeHtmlGtBookPiece >> initialize [
 		at: #urlAttribute put: LeHtmlPageUrlAttributePiece;
 		at: #gtVersion put: LeHtmlGToolkitVersionPiece;
 		at: #navigation put: LeHtmlNavigationPiece;
-		at: #content put: LeHtmlPagePiece
+		at: #content put: LeHtmlPagePiece;
+		at: #date put: LeHtmlDatePiece
 ]
 
 { #category : #'api - initialization' }
