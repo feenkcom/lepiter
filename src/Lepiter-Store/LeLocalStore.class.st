@@ -250,6 +250,16 @@ LeLocalStore >> fileReferenceString: aFileReferenceStringOrNil [
 							on: stream ] ] ] ]
 ]
 
+{ #category : #accessing }
+LeLocalStore >> gtActionDBPropertiesFileFor: anAction [
+	<gtAction>
+	^ anAction button
+		tooltip: 'Browse lepiter.properties file';
+		priority: 10;
+		icon: BrGlamorousIcons folder;
+		action: [ :b | b phlow spawnObject: self dbPropertiesFile ]
+]
+
 { #category : #ui }
 LeLocalStore >> gtNameMappingFor: aView [
 	"Provide a page title -> filename view"
