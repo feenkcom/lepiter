@@ -26,7 +26,15 @@ TLeBasicServer classSide >> createDefaultWithNewZnServer [
 { #category : #'instance creation' }
 TLeBasicServer classSide >> createDefaultWithZnServer: aZnServer [
 	self assert: [ defaultInstance isNil ].
-	^ defaultInstance := self basicNew 
+	^ defaultInstance := self createWithZnServer: aZnServer
+]
+
+{ #category : #'instance creation' }
+TLeBasicServer classSide >> createWithZnServer: aZnServer [
+	"Create a server instance that does not use a default Zinc server and neither is set as default.
+	Useful for testing purposes."
+
+	^ self basicNew
 		basicInitializeZincServerWith: aZnServer;
 		initialize;
 		yourself
