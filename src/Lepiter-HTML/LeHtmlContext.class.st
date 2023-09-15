@@ -8,7 +8,8 @@ Class {
 		'htmlStream',
 		'page',
 		'pageLinks',
-		'database'
+		'database',
+		'date'
 	],
 	#category : #'Lepiter-HTML-! Core'
 }
@@ -29,6 +30,16 @@ LeHtmlContext >> database [
 { #category : #'api - accessing' }
 LeHtmlContext >> database: aDatabase [
 	database := aDatabase
+]
+
+{ #category : #accessing }
+LeHtmlContext >> date [
+	^ date
+]
+
+{ #category : #accessing }
+LeHtmlContext >> date: anObject [
+	date := anObject
 ]
 
 { #category : #initialization }
