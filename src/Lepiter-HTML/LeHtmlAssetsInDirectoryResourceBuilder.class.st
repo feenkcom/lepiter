@@ -29,7 +29,17 @@ LeHtmlAssetsInDirectoryResourceBuilder >> build [
 
 { #category : #private }
 LeHtmlAssetsInDirectoryResourceBuilder >> convertFile: aFile [
-	^ (aFile relativeTo: rootDiretory parent)
+	| aRoot |
+	
+	"A quick fix. It should be fixed in the resources.
+	It does not properly handle `FileLocator gtResource` 
+	if a file is not available in the first resource location, 
+	but rather in a later location."
+	aRoot := rootDiretory asFileReference.
+	aRoot class = GtResourceReference ifTrue: [ 
+		aRoot := aRoot fileReference ].
+
+	^ (aFile relativeTo: aRoot parent)
 ]
 
 { #category : #accessing }
