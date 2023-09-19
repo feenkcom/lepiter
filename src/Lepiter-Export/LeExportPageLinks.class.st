@@ -29,7 +29,7 @@ LeExportPageLinks >> gtLinksFor: aView [
 		items: [ self sortedLinks ];
 		column: 'Index' text: [ :_ :anIndex | anIndex ] width: 40;
 		column: 'Page Title' text: #pageTitle;
-		column: 'File Name' text: #fileName
+		column: 'File Name' text: #fileNameWithExtension
 ]
 
 { #category : #initialization }
