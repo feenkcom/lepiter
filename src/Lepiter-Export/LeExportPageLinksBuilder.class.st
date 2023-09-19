@@ -109,7 +109,7 @@ LeExportPageLinksBuilder >> gtViewTableOfContentsNodesFor: aView [
 { #category : #'api - initialization' }
 LeExportPageLinksBuilder >> html [
 	self fileExtension: 'html'.
-	self mainFileName: 'index.html'
+	self mainFileName: 'index'
 ]
 
 { #category : #'api - initialization' }
