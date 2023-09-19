@@ -71,7 +71,7 @@ LeExportPageOutputResource >> path [
 	"Return a path of the export"
 
 	<return: #RelativePath>
-	^ Path * self pageLink fileName
+	^ Path * self pageLink fileNameWithExtension
 ]
 
 { #category : #accessing }

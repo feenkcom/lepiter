@@ -41,17 +41,12 @@ LeExportPageLinksBuilder >> buildPageLink: aPage [
 				aStream
 					nextPutAll: aTitle;
 					nextPut: $-;
-					nextPutAll: anId.
-
-				self fileExtension
-					ifNotNil: [ :anExtension | 
-						aStream
-							nextPut: $.;
-							nextPutAll: anExtension ] ].
+					nextPutAll: anId ].
 
 	aResult := LeExportBookPageLink new
 			page: aPage;
 			fileName: aFileName;
+			fileExtension: self fileExtension;
 			id: anId.
 
 	^ aResult
@@ -95,7 +90,7 @@ LeExportPageLinksBuilder >> gtLinksFor: aView [
 		items: [ self sortedLinks ];
 		column: 'Index' text: [ :_ :anIndex | anIndex ] width: 40;
 		column: 'Page Title' text: #pageTitle;
-		column: 'File Name' text: #fileName
+		column: 'File Name' text: #fileNameWithExtension
 ]
 
 { #category : #'gt - extensions' }
