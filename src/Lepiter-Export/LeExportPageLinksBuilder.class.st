@@ -28,7 +28,8 @@ LeExportPageLinksBuilder >> buildPageLink: aPage [
 	aPage == self mainPage
 		ifTrue: [ ^ LeExportBookMainPageLink new
 				page: aPage;
-				fileName: self mainFileName ].
+				fileName: self mainFileName;
+				fileExtension: self fileExtension ].
 
 	aTitle := GtFileUtility
 			secureFileName: aPage title asString
@@ -61,7 +62,7 @@ LeExportPageLinksBuilder >> database: aLeDatabase [
 
 { #category : #accessing }
 LeExportPageLinksBuilder >> defaultMainFileName [
-	^ 'index.html'
+	^ 'index'
 ]
 
 { #category : #accessing }

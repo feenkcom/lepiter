@@ -5,10 +5,21 @@ Class {
 	#classTraits : 'TLeExportBookPageLink classTrait',
 	#instVars : [
 		'page',
-		'fileName'
+		'fileName',
+		'fileExtension'
 	],
 	#category : #'Lepiter-Export-Page Links - Model'
 }
+
+{ #category : #accessing }
+LeExportBookMainPageLink >> fileExtension [
+	^ fileExtension
+]
+
+{ #category : #accessing }
+LeExportBookMainPageLink >> fileExtension: anObject [
+	fileExtension := anObject
+]
 
 { #category : #accessing }
 LeExportBookMainPageLink >> fileName [
@@ -19,6 +30,13 @@ LeExportBookMainPageLink >> fileName [
 { #category : #accessing }
 LeExportBookMainPageLink >> fileName: aString [
 	fileName := aString
+]
+
+{ #category : #accessing }
+LeExportBookMainPageLink >> fileNameWithExtension [
+	^ fileExtension
+		ifNil: [ fileName ]
+		ifNotNil: [ fileName , '.' , fileExtension ]
 ]
 
 { #category : #testing }
