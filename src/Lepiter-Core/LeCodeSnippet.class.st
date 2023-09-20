@@ -76,7 +76,7 @@ LeCodeSnippet >> code: aString source: anObject [
 	"Set a new source string"
 
 	coder
-		sourceCode: (GtCoderExplicitSourceCode new source: aString)
+		sourceCode: (GtCoderExplicitStringSource new source: aString)
 		withStrategy: (GtCoderUpdateStrategy new source: anObject)
 ]
 
