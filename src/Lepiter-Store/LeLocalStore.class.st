@@ -420,7 +420,7 @@ LeLocalStore >> savePropertiesDictionary: properties [
 
 	propertiesFile := (localRoot / self propertiesBasename) resolve.
 	localRoot ensureCreateDirectory.
-	propertiesFile ensureDelete.
+	propertiesFile ensureDelete ensureCreateFile.
 	^ propertiesFile writeStreamDo: [ :stream |
 		STONJSON put: properties onStreamPretty: (ZnNewLineWriterStream on: stream) ].
 
