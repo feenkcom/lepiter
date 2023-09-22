@@ -30,6 +30,25 @@ LeContentExamples >> addPageToDatabase [
 	^ aDatabase
 ]
 
+{ #category : #asserting }
+LeContentExamples >> assertTextChangedAnnouncementFor: aSnippet from: anAnnouncer [
+	<gtExample>
+	| announcements newText |
+	
+	announcements := OrderedCollection new.
+	anAnnouncer when: Announcement send: #add: to: announcements.
+
+	newText := 'new block text' asRopedText.
+	aSnippet updateText: newText.
+	
+	self assert: aSnippet text characters equals: newText characters.
+	self assert: aSnippet string equals: newText asString.
+	
+	self assert: announcements size equals: 1.
+	self assert: announcements first class equals: LeSnippetTextChanged.
+	self assert: announcements first snippet equals: aSnippet.
+]
+
 { #category : #'examples - basic' }
 LeContentExamples >> basicDatabase [
 	<gtExample>
@@ -397,7 +416,7 @@ LeContentExamples >> pageOneWithTwoSnippetsAndWithSnippetChild [
 	^ aPage
 ]
 
-{ #category : #'examples - text changes' }
+{ #category : #'examples - model' }
 LeContentExamples >> removeLinkToEmptyPage [
 	"Removing a link to an empty page should remove that page"
 	<gtExample>
@@ -425,7 +444,7 @@ LeContentExamples >> removeLinkToEmptyPage [
 	^ aDatabase
 ]
 
-{ #category : #'examples - text changes' }
+{ #category : #'examples - model' }
 LeContentExamples >> removeLinkToNonExistingPage [
 	"Removing a link to a page that does not exist"
 	<gtExample>
@@ -530,7 +549,7 @@ LeContentExamples >> removeSnippetWithLink [
 	^ localDatabase
 ]
 
-{ #category : #'examples - text changes' }
+{ #category : #'examples - renames' }
 LeContentExamples >> renameDatabasePageToUnnamed_PageTitleChanged_ReceivedByDatabase [
 	<gtExample>
 	| aDatabase aPage aCollection |
@@ -547,7 +566,7 @@ LeContentExamples >> renameDatabasePageToUnnamed_PageTitleChanged_ReceivedByData
 	^ aDatabase
 ]
 
-{ #category : #'examples - text changes' }
+{ #category : #'examples - renames' }
 LeContentExamples >> renameDatabasePage_DatabaseResorted_AnnouncedByDatabase [
 	<gtExample>
 	| aDatabase aPage aCollection |
@@ -564,7 +583,7 @@ LeContentExamples >> renameDatabasePage_DatabaseResorted_AnnouncedByDatabase [
 	^ aDatabase
 ]
 
-{ #category : #'examples - text changes' }
+{ #category : #'examples - renames' }
 LeContentExamples >> renameDatabasePage_PageTitleChanged_AnnouncedByPage [
 	<gtExample>
 	| aDatabase aPage aCollection |
@@ -581,7 +600,7 @@ LeContentExamples >> renameDatabasePage_PageTitleChanged_AnnouncedByPage [
 	^ aDatabase
 ]
 
-{ #category : #'examples - text changes' }
+{ #category : #'examples - renames' }
 LeContentExamples >> renameDatabasePage_PageTitleChanged_ReceivedByDatabase [
 	<gtExample>
 	| aDatabase aPage aCollection |
@@ -598,11 +617,12 @@ LeContentExamples >> renameDatabasePage_PageTitleChanged_ReceivedByDatabase [
 	^ aDatabase
 ]
 
-{ #category : #'examples - block changes' }
+{ #category : #'examples - snippet changes' }
 LeContentExamples >> snippetChangeText [
 	<gtExample>
 	| aSnippet aCreateTime aCreateEmail anEditTime anEditEmail aNewUserEmail aNewText |
 	aSnippet := self textSnippetInPageAndDatabase.
+	
 	aCreateTime := aSnippet createTime.
 	aCreateEmail := aSnippet createEmail.
 	anEditTime := aSnippet editTime.
@@ -611,6 +631,7 @@ LeContentExamples >> snippetChangeText [
 	aSnippet database userEmail: aNewUserEmail.
 	aNewText := 'new block text' asRopedText.
 	aSnippet updateText: aNewText.
+	
 	self assert: aSnippet text characters equals: aNewText characters.
 	self assert: aSnippet string equals: aNewText asString.
 	self assert: aSnippet createTime == aCreateTime.
@@ -620,7 +641,47 @@ LeContentExamples >> snippetChangeText [
 	self assert: aSnippet editEmail equals: aSnippet database userEmail.
 	self assert: aSnippet editEmail email equals: aNewUserEmail.
 	self assert: aSnippet text equals: aNewText.
+	
 	^ aSnippet
+]
+
+{ #category : #'examples - snippet changes' }
+LeContentExamples >> snippetChangeText_AnnouncedByDatabase [
+	<gtExample>
+	| snippet |
+	snippet := self textSnippetInPageAndDatabase.
+	
+	self 
+		assertTextChangedAnnouncementFor: snippet 
+		from: snippet database weak.
+		
+	^ snippet
+]
+
+{ #category : #'examples - snippet changes' }
+LeContentExamples >> snippetChangeText_AnnouncedByPage [
+	<gtExample>
+	| snippet |
+	snippet := self textSnippetInPageAndDatabase.
+	
+	self 
+		assertTextChangedAnnouncementFor: snippet 
+		from: snippet page weak.
+	
+	^ snippet
+]
+
+{ #category : #'examples - snippet changes' }
+LeContentExamples >> snippetChangeText_AnnouncedBySnippet [
+	<gtExample>
+	| snippet |
+	snippet := self textSnippetInPageAndDatabase.
+	
+	self 
+		assertTextChangedAnnouncementFor: snippet 
+		from: snippet weak.
+		
+	^ snippet
 ]
 
 { #category : #'examples - model' }
