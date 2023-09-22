@@ -4,7 +4,18 @@ Class {
 	#category : #'Lepiter-Snippet-Docker-Examples'
 }
 
-{ #category : #'examples - snippets' }
+{ #category : #asserting }
+LeDockerSnippetUpdateExamples >> assertModificationAnnouncements: anAnnouncementsCollection [
+	self 
+		assertOneModificationAnnouncementIn: anAnnouncementsCollection 
+		ofType: LeDockerSnippetUrlChanged 
+		do: [ :anAnnouncement |
+			self 
+				assert: anAnnouncement snippet url 
+				equals: 'www.example.com/docker2' ]
+]
+
+{ #category : #asserting }
 LeDockerSnippetUpdateExamples >> assertSnippetModifiedFor: targetSnippet [
 	self 
 		assert: targetSnippet url
@@ -18,7 +29,7 @@ LeDockerSnippetUpdateExamples >> createTargetSnippet [
 		url: 'www.example.com/docker1'
 ]
 
-{ #category : #'examples - snippets' }
+{ #category : #actions }
 LeDockerSnippetUpdateExamples >> modifySnippet: aTargetSnippet [
 	<gtExample>
 	^ aTargetSnippet url: 'www.example.com/docker2'

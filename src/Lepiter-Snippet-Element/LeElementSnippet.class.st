@@ -100,7 +100,8 @@ LeElementSnippet >> codeHeight: aNumber [
 	
 	self notifyAnnouncement: (LeElementSnippetCodeHeightChanged new
 		source: self;
-		snippet: self)
+		snippet: self;
+		codeHeight: codeHeight)
 ]
 
 { #category : #accessing }
@@ -118,7 +119,8 @@ LeElementSnippet >> codeVisible: aBoolean [
 
 	self notifyAnnouncement: (LeElementSnippetCodeVisibilityChanged new
 		source: self;
-		snippet: self)
+		snippet: self;
+		codeVisible: codeVisible)
 ]
 
 { #category : #updating }
@@ -169,7 +171,8 @@ LeElementSnippet >> elementHeight: aNumber [
 	
 	self notifyAnnouncement: (LeElementSnippetElementHeightChanged new
 		source: self;
-		snippet: self)
+		snippet: self;
+		elementHeight: elementHeight)
 ]
 
 { #category : #initialization }

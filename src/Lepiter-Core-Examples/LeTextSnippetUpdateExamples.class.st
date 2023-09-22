@@ -4,6 +4,17 @@ Class {
 	#category : #'Lepiter-Core-Examples-Content'
 }
 
+{ #category : #accessing }
+LeTextSnippetUpdateExamples >> assertModificationAnnouncements: anAnnouncementsCollection [
+	self 
+		assertOneModificationAnnouncementIn: anAnnouncementsCollection 
+		ofType: LeSnippetTextChanged 
+		do: [ :anAnnouncement |
+			self 
+				assert: anAnnouncement snippet string 
+				equals: 'modified text v2' ]
+]
+
 { #category : #'examples - snippets' }
 LeTextSnippetUpdateExamples >> assertSnippetModifiedFor: targetSnippet [
 	self assert: targetSnippet string equals: 'modified text v2'.

@@ -8,8 +8,6 @@ This case happens when a snippet is modified, the contend is written to disk, an
 Class {
 	#name : #LeSnippetUpdateExamples,
 	#superclass : #Object,
-	#traits : 'TAssertable',
-	#classTraits : 'TAssertable classTrait',
 	#instVars : [
 		'memoryStorageFolder'
 	],
@@ -21,12 +19,12 @@ LeSnippetUpdateExamples class >> isAbstract [
 	^ self = LeSnippetUpdateExamples
 ]
 
-{ #category : #'examples - snippets' }
+{ #category : #actions }
 LeSnippetUpdateExamples >> addSnippetsInPage: targetPage [
 	self subclassResponsibility
 ]
 
-{ #category : #'examples - snippets' }
+{ #category : #asserting }
 LeSnippetUpdateExamples >> assertSnippetsModifiedInPage: aTargetPage [ 
 	self subclassResponsibility
 ]
@@ -47,7 +45,7 @@ LeSnippetUpdateExamples >> databaseWithMockedStorage [
 		saveDelay: Duration zero
 ]
 
-{ #category : #'examples - snippets' }
+{ #category : #actions }
 LeSnippetUpdateExamples >> modifySnippetsInPage: aPage [.
 	self subclassResponsibility
 ]
@@ -112,7 +110,8 @@ LeSnippetUpdateExamples >> reloadPageWithChangedSnippetsInStorage [
 { #category : #'examples - database' }
 LeSnippetUpdateExamples >> secondDatabaseWithMockedStorage [
 	<gtExample>
-	| localStore  folderReference |
+	| localStore folderReference |
+	
 	folderReference := memoryStorageFolder ifNil: [
 		memoryStorageFolder := FileSystem memory / 'storage'.
 		memoryStorageFolder ensureCreateDirectory ].
@@ -120,6 +119,7 @@ LeSnippetUpdateExamples >> secondDatabaseWithMockedStorage [
 	localStore := LeLocalStoreLoad new 
 		storage: LeMockLocalJsonV4StorageWithFilesOrder new.
 	localStore localRoot: folderReference.
+	
 	^ localStore 
 		loadAndMonitorFrom: folderReference 
 		saveDelay: Duration zero

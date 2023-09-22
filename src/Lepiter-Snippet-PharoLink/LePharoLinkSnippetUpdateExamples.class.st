@@ -1,10 +1,21 @@
 Class {
 	#name : #LePharoLinkSnippetUpdateExamples,
 	#superclass : #LeSingleSnippetUpdateExamples,
-	#category : 'Lepiter-Snippet-PharoLink-Examples'
+	#category : #'Lepiter-Snippet-PharoLink-Examples'
 }
 
-{ #category : #'examples - snippets' }
+{ #category : #asserting }
+LePharoLinkSnippetUpdateExamples >> assertModificationAnnouncements: anAnnouncementsCollection [
+	self 
+		assertOneModificationAnnouncementIn: anAnnouncementsCollection 
+		ofType: LeSnippetTextChanged 
+		do: [ :anAnnouncement |
+			self 
+				assert: anAnnouncement snippet string 
+				equals: '1+2+3' ]
+]
+
+{ #category : #asserting }
 LePharoLinkSnippetUpdateExamples >> assertSnippetModifiedFor: targetSnippet [
 	self assert: targetSnippet code equals: '1+2+3'.
 ]
