@@ -110,7 +110,8 @@ LeLogicalDatabaseReload >> reload [
 	"5. Execute commands + reload and start monitoring"
 	self executeUpdateCommands.
 	
-	database announce: (LeLogicalDatabaseReloaded new database: self).
+	database announce: (LeLogicalDatabaseReloaded new 
+		database: self database).
 ]
 
 { #category : #private }
