@@ -1,10 +1,19 @@
 Class {
 	#name : #LeGitHubIssueSnippetUpdateExamples,
 	#superclass : #LeSingleSnippetUpdateExamples,
-	#category : 'Lepiter-GitHub-Examples'
+	#category : #'Lepiter-GitHub-Examples'
 }
 
-{ #category : #'examples - snippets' }
+{ #category : #asserting }
+LeGitHubIssueSnippetUpdateExamples >> assertModificationAnnouncements: anAnnouncementsCollection [
+
+	self assert: anAnnouncementsCollection size equals: 3.
+	
+	self assert: (anAnnouncementsCollection allSatisfy: [ :anAnnouncement |
+		anAnnouncement class = LeSnippetContentChanged ])
+]
+
+{ #category : #asserting }
 LeGitHubIssueSnippetUpdateExamples >> assertSnippetModifiedFor: targetSnippet [
 	self assert: targetSnippet ownerName equals: 'pharo-project'.
 	self assert: targetSnippet projectName equals: 'pharo'.

@@ -4,7 +4,18 @@ Class {
 	#category : #'Lepiter-Snippet-Changes-Examples'
 }
 
-{ #category : #'examples - snippets' }
+{ #category : #asserting }
+LeChangesSnippetHeightUpdateExamples >> assertModificationAnnouncements: anAnnouncementsCollection [
+	self 
+		assertOneModificationAnnouncementIn: anAnnouncementsCollection 
+		ofType: LeChangesSnippetPreviewHeightChanged 
+		do: [ :anAnnouncement |
+			self 
+				assert: anAnnouncement snippet previewHeight 
+				equals: 330 ]
+]
+
+{ #category : #asserting }
 LeChangesSnippetHeightUpdateExamples >> assertSnippetModifiedFor: targetSnippet [
 	self 
 		assert: targetSnippet previewHeight 

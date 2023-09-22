@@ -1,10 +1,21 @@
 Class {
 	#name : #LePythonSnippetUpdateExamples,
 	#superclass : #LeSingleSnippetUpdateExamples,
-	#category : 'Lepiter-Python-Examples'
+	#category : #'Lepiter-Python-Examples'
 }
 
-{ #category : #'examples - snippets' }
+{ #category : #asserting }
+LePythonSnippetUpdateExamples >> assertModificationAnnouncements: anAnnouncementsCollection [
+	self 
+		assertOneModificationAnnouncementIn: anAnnouncementsCollection 
+		ofType: LeSnippetTextChanged 
+		do: [ :anAnnouncement |
+			self 
+				assert: anAnnouncement snippet string 
+				equals: '1+2+3' ]
+]
+
+{ #category : #asserting }
 LePythonSnippetUpdateExamples >> assertSnippetModifiedFor: targetSnippet [
 	self assert: targetSnippet code equals: '1+2+3'.
 ]

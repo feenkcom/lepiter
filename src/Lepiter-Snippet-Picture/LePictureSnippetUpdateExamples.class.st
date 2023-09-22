@@ -4,7 +4,16 @@ Class {
 	#category : #'Lepiter-Snippet-Picture-Examples'
 }
 
-{ #category : #'examples - snippets' }
+{ #category : #asserting }
+LePictureSnippetUpdateExamples >> assertModificationAnnouncements: anAnnouncementsCollection [
+	self 
+		assertOneModificationAnnouncementIn: anAnnouncementsCollection 
+		ofType: LeSnippetContentChanged 
+		do: [ :anAnnouncement |
+			"Nothing to assert here" ]
+]
+
+{ #category : #asserting }
 LePictureSnippetUpdateExamples >> assertSnippetModifiedFor: targetSnippet [
 	self 
 		assert: targetSnippet urlString 

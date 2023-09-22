@@ -4,7 +4,18 @@ Class {
 	#category : #'Lepiter-Snippet-Element-Examples'
 }
 
-{ #category : #'examples - snippets' }
+{ #category : #asserting }
+LeElementSnippeCodeUpdateExamples >> assertModificationAnnouncements: anAnnouncementsCollection [
+	self 
+		assertOneModificationAnnouncementIn: anAnnouncementsCollection 
+		ofType: LeSnippetTextChanged 
+		do: [ :anAnnouncement |
+			self 
+				assert: anAnnouncement snippet string 
+				equals: self updatedCode ]
+]
+
+{ #category : #asserting }
 LeElementSnippeCodeUpdateExamples >> assertSnippetModifiedFor: targetSnippet [
 	self 
 		assert: targetSnippet code 

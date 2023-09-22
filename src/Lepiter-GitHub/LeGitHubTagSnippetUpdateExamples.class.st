@@ -1,10 +1,19 @@
 Class {
 	#name : #LeGitHubTagSnippetUpdateExamples,
 	#superclass : #LeSingleSnippetUpdateExamples,
-	#category : 'Lepiter-GitHub-Examples'
+	#category : #'Lepiter-GitHub-Examples'
 }
 
-{ #category : #'examples - snippets' }
+{ #category : #asserting }
+LeGitHubTagSnippetUpdateExamples >> assertModificationAnnouncements: anAnnouncementsCollection [
+
+	self assert: anAnnouncementsCollection size equals: 3.
+	
+	self assert: (anAnnouncementsCollection allSatisfy: [ :anAnnouncement |
+		anAnnouncement class = LeSnippetContentChanged ])
+]
+
+{ #category : #asserting }
 LeGitHubTagSnippetUpdateExamples >> assertSnippetModifiedFor: targetSnippet [
 	self assert: targetSnippet ownerName equals: 'pharo-project'.
 	self assert: targetSnippet projectName equals: 'pharo'.
@@ -14,6 +23,7 @@ LeGitHubTagSnippetUpdateExamples >> assertSnippetModifiedFor: targetSnippet [
 { #category : #'examples - snippets' }
 LeGitHubTagSnippetUpdateExamples >> createTargetSnippet [
 	<gtExample>
+	
 	^ LeGitHubTagSnippet new
 		ownerName: 'feenkcom';
 		projectName: 'gtoolkit';
@@ -23,6 +33,7 @@ LeGitHubTagSnippetUpdateExamples >> createTargetSnippet [
 { #category : #'examples - snippets' }
 LeGitHubTagSnippetUpdateExamples >> modifySnippet: aTargetSnippet [
 	<gtExample>
+	
 	^ aTargetSnippet 
 		ownerName: 'pharo-project';
 		projectName: 'pharo';

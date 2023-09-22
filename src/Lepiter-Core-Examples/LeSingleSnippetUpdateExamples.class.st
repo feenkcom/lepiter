@@ -12,17 +12,34 @@ LeSingleSnippetUpdateExamples class >> isAbstract [
 	^ self = LeSingleSnippetUpdateExamples
 ]
 
-{ #category : #'examples - snippets' }
+{ #category : #actions }
 LeSingleSnippetUpdateExamples >> addSnippetsInPage: targetPage [
 	targetPage addSnippet: self createTargetSnippet.
 ]
 
-{ #category : #'examples - snippets' }
+{ #category : #asserting }
+LeSingleSnippetUpdateExamples >> assertModificationAnnouncements: announcements [
+]
+
+{ #category : #asserting }
+LeSingleSnippetUpdateExamples >> assertOneModificationAnnouncementIn: anAnnouncementsCollection ofType: aAnnouncementClass do: aBlock [
+	| targetAnnouncement|
+	
+	self assert: anAnnouncementsCollection size equals: 1.
+	
+	targetAnnouncement := anAnnouncementsCollection first.
+	self 
+		assert: targetAnnouncement class 
+		equals: aAnnouncementClass.
+	aBlock cull: targetAnnouncement 
+]
+
+{ #category : #asserting }
 LeSingleSnippetUpdateExamples >> assertSnippetModifiedFor: aSnippet [ 
 	self subclassResponsibility
 ]
 
-{ #category : #'examples - snippets' }
+{ #category : #asserting }
 LeSingleSnippetUpdateExamples >> assertSnippetsModifiedInPage: aTargetPage [ 
 	self assert: aTargetPage children size equals: 1.
 	self assertSnippetModifiedFor: aTargetPage children first
@@ -34,13 +51,20 @@ LeSingleSnippetUpdateExamples >> createTargetSnippet [
 	self subclassResponsibility
 ]
 
-{ #category : #'examples - snippets' }
+{ #category : #actions }
 LeSingleSnippetUpdateExamples >> modifySnippet: aSnippet [ 
 	self subclassResponsibility
 ]
 
-{ #category : #'examples - snippets' }
+{ #category : #actions }
 LeSingleSnippetUpdateExamples >> modifySnippetsInPage: aTargetPage [
+	| announcements |
 	self assert: aTargetPage children size equals: 1.
+	
+	announcements := OrderedCollection new.
+	aTargetPage weak 
+		when: Announcement send: #add: to: announcements.
 	self modifySnippet: aTargetPage children first.
+
+	self assertModificationAnnouncements: announcements.
 ]

@@ -4,7 +4,16 @@ Class {
 	#category : #'Lepiter-Snippet-WardleyMap-Examples'
 }
 
-{ #category : #'examples - snippets' }
+{ #category : #asserting }
+LeWardleyMapSnippetMapUpdateExamples >> assertModificationAnnouncements: anAnnouncementsCollection [
+	self 
+		assertOneModificationAnnouncementIn: anAnnouncementsCollection 
+		ofType: LeSnippetContentChanged 
+		do: [ :anAnnouncement |
+			"Nothing to assert for this announcement" ]
+]
+
+{ #category : #asserting }
 LeWardleyMapSnippetMapUpdateExamples >> assertSnippetModifiedFor: aSnippet [ 
 	self 
 		assert: aSnippet wardleyMap

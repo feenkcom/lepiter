@@ -1,8 +1,39 @@
 Class {
 	#name : #LeExampleSnippetOptionalAttributesUpdateExamples,
-	#superclass : #LeSingleSnippetUpdateExamples,
-	#category : 'Lepiter-Snippet-Example-Examples'
+	#superclass : #LeExampleSnippeUpdateExamples,
+	#category : #'Lepiter-Snippet-Example-Examples'
 }
+
+{ #category : #'examples - snippets' }
+LeExampleSnippetOptionalAttributesUpdateExamples >> assertModificationAnnouncements: anAnnouncementsCollection [
+
+	self assert: anAnnouncementsCollection size equals: 5.
+	
+	self 
+		assert: (anAnnouncementsCollection collect: #className) asArray 
+		equals: #(
+			LeExampleSnippetCodeExpandedChanged
+			LeExampleSnippetNoCodeChanged
+			LeExampleSnippetPreviewExpandedChanged
+			LeExampleSnippetPreviewShowSelectorChanged
+			LeExampleSnippetPreviewHeightChanged).
+			
+	self 
+		assert: anAnnouncementsCollection first snippet codeExpanded 
+		equals: false.
+	self 
+		assert: anAnnouncementsCollection second snippet noCode 
+		equals: false.
+	self 
+		assert: anAnnouncementsCollection third snippet previewExpanded 
+		equals: false.
+	self 
+		assert: anAnnouncementsCollection fourth snippet previewShowSelector 
+		equals: #gtLiveFor:.
+	self 
+		assert: anAnnouncementsCollection fifth snippet previewHeight 
+		equals: 400.
+]
 
 { #category : #'examples - snippets' }
 LeExampleSnippetOptionalAttributesUpdateExamples >> assertSnippetModifiedFor: targetSnippet [
