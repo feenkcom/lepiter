@@ -19,6 +19,7 @@ LeSingleSnippetUpdateExamples >> addSnippetsInPage: targetPage [
 
 { #category : #asserting }
 LeSingleSnippetUpdateExamples >> assertModificationAnnouncements: announcements [
+	"This assertion should be overriden by subclasses to check that a modification to the snippet resulted in the right announcements"
 ]
 
 { #category : #asserting }

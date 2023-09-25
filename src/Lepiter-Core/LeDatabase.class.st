@@ -1188,7 +1188,8 @@ LeDatabase >> unload [
 
 	self stopMonitoring.
 	self pagesDo: [ :page | page unload ].
-	self announcer announce: (LeDatabaseUnloadAnnouncement new content: self).
+	self announcer 
+		announce: (LeDatabaseUnloadAnnouncement new content: self).
 ]
 
 { #category : #'private - accessing' }
