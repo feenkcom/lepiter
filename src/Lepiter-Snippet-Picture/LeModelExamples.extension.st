@@ -1,6 +1,40 @@
 Extension { #name : #LeModelExamples }
 
 { #category : #'*Lepiter-Snippet-Picture' }
+LeModelExamples >> databaseWithPageHavingManyPictureSnippets [
+	"Pages with picture snippets."
+
+	<gtExample>
+	| temporaryDatabase database pageOne pictureFileOne pictureFileTwo |
+	temporaryDatabase := LeTemporaryDatabase new.
+	database := temporaryDatabase database.
+
+	pageOne := database pageBuilder
+			title: self pageOneTitle;
+			add.
+
+	pictureFileOne := FileLocator gtResource / 'feenkcom/gtoolkit/doc/feenk.png'.
+	pictureFileTwo := FileLocator gtResource / 'feenkcom/gtoolkit/doc/gtoolkit.png'.
+	
+	150 timesRepeat: [ 
+		| pictureAttachmentOne pictureAttachmentTwo snippetOne snippetTwo |
+		pictureAttachmentOne := database addAttachmentByCopy: pictureFileOne.
+		snippetOne := LePictureSnippet new
+				urlString: pictureAttachmentOne;
+				caption: 'Feenk'.
+		pageOne addSnippet: snippetOne.
+
+		pictureAttachmentTwo := database addAttachmentByCopy: pictureFileTwo.
+		snippetTwo := LePictureSnippet new
+				urlString: pictureAttachmentTwo;
+				caption: 'Glamorous Toolkit'.
+		snippetOne addSnippet: snippetTwo.
+	].
+
+	^ temporaryDatabase
+]
+
+{ #category : #'*Lepiter-Snippet-Picture' }
 LeModelExamples >> databaseWithTwoPagesHavingPictureSnippets [
 	"Pages with picture snippets. Some picture files repeats by purpose."
 
@@ -103,6 +137,22 @@ LeModelExamples >> pageTwoWithOneAttachmentPictures [
 	database := temporaryDatabase database.
 
 	page := database pageNamed: self pageTwoTitle.
+
+	^ LePageExampleHolder new
+		page: page;
+		temporaryDatabase: temporaryDatabase
+]
+
+{ #category : #'*Lepiter-Snippet-Picture' }
+LeModelExamples >> pageWithManyPictureSnippets [
+	"Page with a picture snippet."
+
+	<gtExample>
+	| temporaryDatabase database page |
+	temporaryDatabase := self databaseWithPageHavingManyPictureSnippets.
+	database := temporaryDatabase database.
+
+	page := database pageNamed: self pageOneTitle.
 
 	^ LePageExampleHolder new
 		page: page;
