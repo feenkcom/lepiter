@@ -1,6 +1,6 @@
 Class {
 	#name : #LeGitHubIssueSnippetUpdateExamples,
-	#superclass : #LeSingleSnippetUpdateExamples,
+	#superclass : #LeGitHubSnippetUpdateExamples,
 	#category : #'Lepiter-GitHub-Examples'
 }
 

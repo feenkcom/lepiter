@@ -19,10 +19,15 @@ LeContentExamples >> addPageToDatabase [
 	| aDatabase aPage aCollection |
 	aDatabase := self basicDatabase.
 	aCollection := OrderedCollection new.
+	
 	aDatabase 
-		when: LeDatabasePageAdded 
+		when: Announcement "LeDatabasePageAdded" 
 		do: [ :anAnnouncement | aCollection add: anAnnouncement ].
-	aPage := aDatabase pageBuilder title: 'page one'; add.
+	aPage := LePage named: 'page one'.
+	aPage addSnippet: (LeTextSnippet string: 'snippet one').
+	aPage addSnippet: (LeTextSnippet string: 'snippet two').
+	aDatabase addPage:  aPage.
+	
 	self assert: aDatabase size equals: 1.
 	self assert: aDatabase anyOne equals: aPage.
 	self assert: aCollection size equals: 1.
