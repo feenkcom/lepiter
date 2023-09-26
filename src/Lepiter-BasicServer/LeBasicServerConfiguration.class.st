@@ -1,5 +1,5 @@
 Class {
-	#name : #LeServerConfiguration,
+	#name : #LeBasicServerConfiguration,
 	#superclass : #Object,
 	#instVars : [
 		'jwtPublicKey',
@@ -11,12 +11,12 @@ Class {
 }
 
 { #category : #accessing }
-LeServerConfiguration class >> defaultPortNumber [
+LeBasicServerConfiguration class >> defaultPortNumber [
 	self subclassResponsibility
 ]
 
 { #category : #'instance creation' }
-LeServerConfiguration class >> forCurrentEnvironment [
+LeBasicServerConfiguration class >> forCurrentEnvironment [
 	| config |
 	config := self new.
 	config debugMode: false.
@@ -28,41 +28,41 @@ LeServerConfiguration class >> forCurrentEnvironment [
 ]
 
 { #category : #accessing }
-LeServerConfiguration >> authServerUrl [
+LeBasicServerConfiguration >> authServerUrl [
 	^ authServerUrl
 ]
 
 { #category : #accessing }
-LeServerConfiguration >> authServerUrl: anObject [
+LeBasicServerConfiguration >> authServerUrl: anObject [
 	authServerUrl := anObject
 ]
 
 { #category : #accessing }
-LeServerConfiguration >> debugMode [
+LeBasicServerConfiguration >> debugMode [
 	^ debugMode ifNil: [ false ]
 ]
 
 { #category : #accessing }
-LeServerConfiguration >> debugMode: aBoolean [
+LeBasicServerConfiguration >> debugMode: aBoolean [
 	^ debugMode := aBoolean
 ]
 
 { #category : #accessing }
-LeServerConfiguration >> jwtPublicKey [
+LeBasicServerConfiguration >> jwtPublicKey [
 	^ jwtPublicKey
 ]
 
 { #category : #accessing }
-LeServerConfiguration >> jwtPublicKey: anObject [
+LeBasicServerConfiguration >> jwtPublicKey: anObject [
 	jwtPublicKey := anObject
 ]
 
 { #category : #accessing }
-LeServerConfiguration >> permissionsToken [
+LeBasicServerConfiguration >> permissionsToken [
 	^ permissionsToken
 ]
 
 { #category : #accessing }
-LeServerConfiguration >> permissionsToken: anObject [
+LeBasicServerConfiguration >> permissionsToken: anObject [
 	permissionsToken := anObject
 ]
