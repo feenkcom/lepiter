@@ -1,6 +1,42 @@
 Extension { #name : #LeModelExamples }
 
 { #category : #'*Lepiter-Snippet-Picture' }
+LeModelExamples >> databaseWithPageHavingLargePictureSnippets [
+	"Pages with picture snippets."
+
+	<gtExample>
+	| temporaryDatabase database page form pngFile possibleColors |
+	temporaryDatabase := LeTemporaryDatabase new.
+	database := temporaryDatabase database.
+
+	page := database pageBuilder
+			title: self pageOneTitle;
+			add.
+
+	form := Form extent: 1600@1000 depth: 16.
+	possibleColors := Color gtRegisteredColors.
+	1 to: form extent x do: [ :x | 
+		1 to: form extent y do: [ :y |
+			form colorAt: x@y put: possibleColors atRandom color
+	] ].
+	pngFile := FileReference 
+		newTempFilePrefix: 'lepiter-model-examples' 
+		suffix: '-large-image.png'.
+	PNGReadWriter putForm: form onFileNamed: pngFile .
+	
+	15 timesRepeat: [ 
+		| pictureAttachment snippet |
+		pictureAttachment := database addAttachmentByCopy: pngFile.
+		snippet := LePictureSnippet new
+				urlString: pictureAttachment;
+				caption: 'Blank form'.
+		page addSnippet: snippet.
+	].
+
+	^ temporaryDatabase
+]
+
+{ #category : #'*Lepiter-Snippet-Picture' }
 LeModelExamples >> databaseWithPageHavingManyPictureSnippets [
 	"Pages with picture snippets."
 
@@ -137,6 +173,22 @@ LeModelExamples >> pageTwoWithOneAttachmentPictures [
 	database := temporaryDatabase database.
 
 	page := database pageNamed: self pageTwoTitle.
+
+	^ LePageExampleHolder new
+		page: page;
+		temporaryDatabase: temporaryDatabase
+]
+
+{ #category : #'*Lepiter-Snippet-Picture' }
+LeModelExamples >> pageWithLargePictureSnippets [
+	"Page with a picture snippet."
+
+	<gtExample>
+	| temporaryDatabase database page |
+	temporaryDatabase := self databaseWithPageHavingLargePictureSnippets.
+	database := temporaryDatabase database.
+
+	page := database pageNamed: self pageOneTitle.
 
 	^ LePageExampleHolder new
 		page: page;
