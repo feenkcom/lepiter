@@ -91,7 +91,7 @@ LeDatabasePageBuilderExamples >> addLaterEmptyPage_GarbageNotAddedPage [
 	aWeakPage := aDatabase pageBuilder addOnlyAfterSettingTitle asWeakReference.
 	self assert: aDatabase size equals: 0.
 
-	2 timesRepeat: [ Smalltalk garbageCollect ].
+	3 timesRepeat: [ Smalltalk garbageCollect ].
 	
 	self 
 		assert: (aWeakPage at: 1) isNil 
