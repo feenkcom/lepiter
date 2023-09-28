@@ -262,6 +262,20 @@ LeLocalStore >> fileReferenceString: aFileReferenceStringOrNil [
 							on: stream ] ] ] ]
 ]
 
+{ #category : #attachments }
+LeLocalStore >> findAttachmentById: aUuid [
+	| attachmentDirectory fileUID |
+	fileUID := aUuid asString36.
+	attachmentDirectory := attachmentsDirectory / fileUID.
+
+	attachmentDirectory exists
+		ifFalse: [ ^ LeLocalAttachmentDoesNotExist new
+				uuid: aUuid;
+				signal ].
+
+	^ attachmentDirectory children first contents
+]
+
 { #category : #accessing }
 LeLocalStore >> gtActionDBPropertiesFileFor: anAction [
 	<gtAction>
@@ -286,6 +300,18 @@ LeLocalStore >> gtNameMappingFor: aView [
 		column: 'Title' text: [ :each | each key ];
 		column: 'File' text: [ :each | each value basename ];
 		send: [ :each | each value ]
+]
+
+{ #category : #attachments }
+LeLocalStore >> hasAttachmentWithId: aUuid [
+	| attachmentDirectory fileUID |
+
+	database assertNotReadOnly.
+
+	fileUID := aUuid asString36.
+	attachmentDirectory := attachmentsDirectory / fileUID.
+	
+	^ attachmentDirectory exists
 ]
 
 { #category : #private }
