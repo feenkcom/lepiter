@@ -288,6 +288,18 @@ LeLocalStore >> gtNameMappingFor: aView [
 		send: [ :each | each value ]
 ]
 
+{ #category : #attachments }
+LeLocalStore >> hasAttachmentWithId: aUuid [
+	| attachmentDirectory fileUID |
+
+	database assertNotReadOnly.
+
+	fileUID := aUuid asString36.
+	attachmentDirectory := attachmentsDirectory / fileUID.
+	
+	^ attachmentDirectory exists
+]
+
 { #category : #private }
 LeLocalStore >> loadExplicitLinks [
 	
