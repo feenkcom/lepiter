@@ -28,6 +28,11 @@ LeDatabaseClassStorage >> explicitLinksOrNilFor: dbClass [
 ]
 
 { #category : #saving }
+LeDatabaseClassStorage >> findAttachmentById: aSelector inClass: aClass [
+	^ self loadAttachmentFromMethod: aClass class >> aSelector
+]
+
+{ #category : #saving }
 LeDatabaseClassStorage >> hasAttachmentWithId: aSelector inClass: aClass [
 	^ aClass respondsTo: aSelector
 ]

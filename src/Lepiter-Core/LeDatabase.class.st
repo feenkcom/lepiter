@@ -384,6 +384,18 @@ LeDatabase >> filename: anObject [
 	filename := anObject asFileReference
 ]
 
+{ #category : #'api - attachments' }
+LeDatabase >> findAttachmentById: aUuid [
+	"Find the attachment with that UUID"
+	<return: #String>
+
+	self 
+		assert: monitor isNotNil
+		description: 'Unable to search for attachment, monitor not configured'.
+
+	^ monitor findAttachmentById: aUuid
+]
+
 { #category : #accessing }
 LeDatabase >> gtAttachmentsFor: aView [
 	<gtView>
