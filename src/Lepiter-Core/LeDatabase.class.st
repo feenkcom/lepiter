@@ -497,6 +497,18 @@ LeDatabase >> gtViewUnnamedPageFor: aView [
 				ifFalse: [ aPage children first ] ]
 ]
 
+{ #category : #'api - attachments' }
+LeDatabase >> hasAttachmentWithId: aUuid [
+	"Check whether the attachment with that name already exists"
+	<return: #String>
+
+	self 
+		assert: monitor isNotNil
+		description: 'Unable to search for attachment, monitor not configured'.
+
+	^ monitor hasAttachmentWithId: aUuid
+]
+
 { #category : #'api - testing' }
 LeDatabase >> hasBlockUID: aLeUID [
 
