@@ -262,6 +262,20 @@ LeLocalStore >> fileReferenceString: aFileReferenceStringOrNil [
 							on: stream ] ] ] ]
 ]
 
+{ #category : #attachments }
+LeLocalStore >> findAttachmentById: aUuid [
+	| attachmentDirectory fileUID |
+	fileUID := aUuid asString36.
+	attachmentDirectory := attachmentsDirectory / fileUID.
+
+	attachmentDirectory exists
+		ifFalse: [ ^ LeLocalAttachmentDoesNotExist new
+				uuid: aUuid;
+				signal ].
+
+	^ attachmentDirectory children first contents
+]
+
 { #category : #accessing }
 LeLocalStore >> gtActionDBPropertiesFileFor: anAction [
 	<gtAction>

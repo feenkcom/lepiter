@@ -180,6 +180,21 @@ LeDatabaseClassStore >> defaultDatabaseName [
 ]
 
 { #category : #attachments }
+LeDatabaseClassStore >> findAttachmentById: aUuid [
+	| attachmentUUID |
+	attachmentUUID := aUuid asString36.
+
+	(self hasAttachmentWithId: aUuid)
+		ifFalse: [ ^ LeLocalAttachmentDoesNotExist new
+				uuid: aUuid;
+				signal ].
+
+	^ storage
+		findAttachmentById: ('attachment_' , attachmentUUID) asSymbol
+		inClass: dbClass
+]
+
+{ #category : #attachments }
 LeDatabaseClassStore >> hasAttachmentWithId: aUuid [
 	| attachmentUUID |
 
