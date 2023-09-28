@@ -16,6 +16,11 @@ LeContentAttachments >> content: aLeContent [
 	content := aLeContent
 ]
 
+{ #category : #enumerating }
+LeContentAttachments >> do: aBlock [
+	^ self items do: aBlock
+]
+
 { #category : #accessing }
 LeContentAttachments >> gtAttachmentsFor: aView [
 	<gtView>
