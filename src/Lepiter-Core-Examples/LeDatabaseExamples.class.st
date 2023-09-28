@@ -38,7 +38,7 @@ LeDatabaseExamples >> addAttachmentByCopy [
 
 	self assert: attachmentSource exists.
 	self assert: attachment exists.
-	propertiesFileReference := attachment parent / 'lepiter_attachment.properties'.
+	propertiesFileReference := attachment parent / LeAttachment basename.
 	self assert: propertiesFileReference exists.
 
 	properties := database attachmentProperties: attachmentId.
@@ -82,7 +82,7 @@ LeDatabaseExamples >> addAttachmentByMove [
 
 	self deny: attachmentSource exists.
 	self assert: attachment exists.
-	propertiesFileReference := attachment parent / 'lepiter_attachment.properties'.
+	propertiesFileReference := attachment parent / LeAttachment basename.
 	self assert: propertiesFileReference exists.
 
 	properties := LeAttachment loadFrom: propertiesFileReference.

@@ -143,10 +143,22 @@ LeLocalStore >> attachmentDirectoryAndMetadataFor: aFileReference usingId: aUuid
 	Answer the directory."
 	| fileUID attachmentDirectory attachment |
 
-	self assert: [ aFileReference basename ~= 'lepiter_attachment.properties' ].
+	self assert: [ aFileReference basename ~= LeAttachment basename ] description: [ 
+		String streamContents: [ :aStream | 
+			aStream nextPutAll: 'Cannot create attachment directory and metadata. The filename is '.
+			aStream nextPutAll: aFileReference basename.
+			aStream nextPutAll: '.' 
+		]
+	].
 	fileUID := aUuid asString36.
 	attachmentDirectory := attachmentsDirectory / fileUID.
-	self assert: attachmentDirectory exists not.
+	attachmentDirectory exists ifTrue: [ 
+		LeLocalAttachmentAlreadyExist new
+			basename: aFileReference basename;
+			uuid: fileUID;
+			signal
+	].
+	
 	attachmentDirectory ensureCreateDirectory.
 	attachment := LeAttachment new
 		originalReference: aFileReference asFileReference;
@@ -163,7 +175,7 @@ LeLocalStore >> attachmentProperties: attachmentPath [
 
 	attachmentFileReference := database resolveDbFile: attachmentPath.
 	self assert: attachmentFileReference exists.
-	^ LeAttachment loadFrom: attachmentFileReference parent / 'lepiter_attachment.properties'
+	^ LeAttachment loadFrom: attachmentFileReference parent / LeAttachment basename
 ]
 
 { #category : #attachments }
@@ -317,7 +329,7 @@ LeLocalStore >> lookupAttachmentDirectoryAndMetadataFor: aFileReference usingId:
 	Answer the directory."
 	| fileUID attachmentDirectory attachment |
 
-	self assert: [ aFileReference basename ~= 'lepiter_attachment.properties' ].
+	self assert: [ aFileReference basename ~= LeAttachment basename ].
 	fileUID := aUuid asString36.
 	attachmentDirectory := attachmentsDirectory / fileUID.
 	self assert: attachmentDirectory exists.
