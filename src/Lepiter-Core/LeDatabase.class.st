@@ -384,6 +384,18 @@ LeDatabase >> filename: anObject [
 	filename := anObject asFileReference
 ]
 
+{ #category : #'api - attachments' }
+LeDatabase >> findAttachmentById: aUuid [
+	"Find the attachment with that UUID"
+	<return: #String>
+
+	self 
+		assert: monitor isNotNil
+		description: 'Unable to search for attachment, monitor not configured'.
+
+	^ monitor findAttachmentById: aUuid
+]
+
 { #category : #accessing }
 LeDatabase >> gtAttachmentsFor: aView [
 	<gtView>
@@ -495,6 +507,18 @@ LeDatabase >> gtViewUnnamedPageFor: aView [
 			aPage children isEmpty
 				ifTrue: [ '' ]
 				ifFalse: [ aPage children first ] ]
+]
+
+{ #category : #'api - attachments' }
+LeDatabase >> hasAttachmentWithId: aUuid [
+	"Check whether the attachment with that name already exists"
+	<return: #String>
+
+	self 
+		assert: monitor isNotNil
+		description: 'Unable to search for attachment, monitor not configured'.
+
+	^ monitor hasAttachmentWithId: aUuid
 ]
 
 { #category : #'api - testing' }

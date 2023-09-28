@@ -179,6 +179,31 @@ LeDatabaseClassStore >> defaultDatabaseName [
 	^ self dbClassName
 ]
 
+{ #category : #attachments }
+LeDatabaseClassStore >> findAttachmentById: aUuid [
+	| attachmentUUID |
+	attachmentUUID := aUuid asString36.
+
+	(self hasAttachmentWithId: aUuid)
+		ifFalse: [ ^ LeLocalAttachmentDoesNotExist new
+				uuid: aUuid;
+				signal ].
+
+	^ storage
+		findAttachmentById: ('attachment_' , attachmentUUID) asSymbol
+		inClass: dbClass
+]
+
+{ #category : #attachments }
+LeDatabaseClassStore >> hasAttachmentWithId: aUuid [
+	| attachmentUUID |
+
+	attachmentUUID := aUuid asString36.
+	
+	^ storage
+		hasAttachmentWithId: ('attachment_', attachmentUUID) asSymbol inClass: dbClass
+]
+
 { #category : #private }
 LeDatabaseClassStore >> loadExplicitLinks [
 	"Load all the explicit links from the receiver's class"

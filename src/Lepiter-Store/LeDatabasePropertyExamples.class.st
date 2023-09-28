@@ -1,7 +1,7 @@
 Class {
 	#name : #LeDatabasePropertyExamples,
 	#superclass : #LeLocalExamples,
-	#category : 'Lepiter-Store-Local-Examples'
+	#category : #'Lepiter-Store-Local-Examples'
 }
 
 { #category : #examples }
@@ -19,7 +19,7 @@ LeDatabasePropertyExamples >> databaseWithPersonalInfo [
 	pathString := database addAttachmentByCopy: testAttachment.
 
 	properties := STONJSON fromString: 
-		((memStore / pathString) parent / 'lepiter_attachment.properties') contents.
+		((memStore / pathString) parent / LeAttachment basename) contents.
 	dbProperties := STONJSON fromString: (memStore / database properties propertiesBasename) contents.
 
 	self assert: (dbProperties at: #savePersonalInformation) equals: true.
@@ -43,6 +43,6 @@ LeDatabasePropertyExamples >> databaseWithoutPersonalInfo [
 	pathString := database addAttachmentByCopy: testAttachment.
 
 	properties := STONJSON fromString: 
-		((memStore / pathString) parent / 'lepiter_attachment.properties') contents.
+		((memStore / pathString) parent / LeAttachment basename) contents.
 	self deny: (properties includesKey: #originalReference).
 ]

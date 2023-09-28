@@ -143,10 +143,22 @@ LeLocalStore >> attachmentDirectoryAndMetadataFor: aFileReference usingId: aUuid
 	Answer the directory."
 	| fileUID attachmentDirectory attachment |
 
-	self assert: [ aFileReference basename ~= 'lepiter_attachment.properties' ].
+	self assert: [ aFileReference basename ~= LeAttachment basename ] description: [ 
+		String streamContents: [ :aStream | 
+			aStream nextPutAll: 'Cannot create attachment directory and metadata. The filename is '.
+			aStream nextPutAll: aFileReference basename.
+			aStream nextPutAll: '.' 
+		]
+	].
 	fileUID := aUuid asString36.
 	attachmentDirectory := attachmentsDirectory / fileUID.
-	self assert: attachmentDirectory exists not.
+	attachmentDirectory exists ifTrue: [ 
+		LeLocalAttachmentAlreadyExist new
+			basename: aFileReference basename;
+			uuid: fileUID;
+			signal
+	].
+	
 	attachmentDirectory ensureCreateDirectory.
 	attachment := LeAttachment new
 		originalReference: aFileReference asFileReference;
@@ -163,7 +175,7 @@ LeLocalStore >> attachmentProperties: attachmentPath [
 
 	attachmentFileReference := database resolveDbFile: attachmentPath.
 	self assert: attachmentFileReference exists.
-	^ LeAttachment loadFrom: attachmentFileReference parent / 'lepiter_attachment.properties'
+	^ LeAttachment loadFrom: attachmentFileReference parent / LeAttachment basename
 ]
 
 { #category : #attachments }
@@ -250,6 +262,20 @@ LeLocalStore >> fileReferenceString: aFileReferenceStringOrNil [
 							on: stream ] ] ] ]
 ]
 
+{ #category : #attachments }
+LeLocalStore >> findAttachmentById: aUuid [
+	| attachmentDirectory fileUID |
+	fileUID := aUuid asString36.
+	attachmentDirectory := attachmentsDirectory / fileUID.
+
+	attachmentDirectory exists
+		ifFalse: [ ^ LeLocalAttachmentDoesNotExist new
+				uuid: aUuid;
+				signal ].
+
+	^ attachmentDirectory children first contents
+]
+
 { #category : #accessing }
 LeLocalStore >> gtActionDBPropertiesFileFor: anAction [
 	<gtAction>
@@ -274,6 +300,18 @@ LeLocalStore >> gtNameMappingFor: aView [
 		column: 'Title' text: [ :each | each key ];
 		column: 'File' text: [ :each | each value basename ];
 		send: [ :each | each value ]
+]
+
+{ #category : #attachments }
+LeLocalStore >> hasAttachmentWithId: aUuid [
+	| attachmentDirectory fileUID |
+
+	database assertNotReadOnly.
+
+	fileUID := aUuid asString36.
+	attachmentDirectory := attachmentsDirectory / fileUID.
+	
+	^ attachmentDirectory exists
 ]
 
 { #category : #private }
@@ -317,7 +355,7 @@ LeLocalStore >> lookupAttachmentDirectoryAndMetadataFor: aFileReference usingId:
 	Answer the directory."
 	| fileUID attachmentDirectory attachment |
 
-	self assert: [ aFileReference basename ~= 'lepiter_attachment.properties' ].
+	self assert: [ aFileReference basename ~= LeAttachment basename ].
 	fileUID := aUuid asString36.
 	attachmentDirectory := attachmentsDirectory / fileUID.
 	self assert: attachmentDirectory exists.
