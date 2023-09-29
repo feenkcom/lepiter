@@ -1,1 +1,24 @@
-{	"repositories" : {		"github://feenkcom/Brick/src" : "v0.8.1039",		"github://feenkcom/gtoolkit-utility/src" : "v0.8.227",		"github://feenkcom/gtoolkit-chrome/src" : "v0.5.172",		"github://feenkcom/gt4dockerengine/src" : "v0.5.132",		"github://j-brant/SmaCC" : "v3.0.19",		"github://feenkcom/JSONWebToken/source" : "v0.5.130",		"github://feenkcom/zinc/repository" : "v3.0.27",		"github://feenkcom/gtoolkit-remote-python/src" : "v0.5.218",		"github://feenkcom/gtoolkit-inspector/src" : "v0.8.1820",		"github://feenkcom/gtoolkit-remote/src" : "v0.8.1376",		"github://feenkcom/gtoolkit-visualizer/src" : "v0.8.1345",		"github://feenkcom/gt4json/src" : "v0.6.548",		"github://feenkcom/pharo-beacon/repository" : "af4aca0d8ad4ebdf2de988d474e0e2bcdceaf4ae",		"github://feenkcom/xdoc/src" : "v0.8.666",		"github://feenkcom/gtoolkit-debugadapterprotocol/src" : "v0.5.217",		"github://feenkcom/gt4lsp/src" : "v0.6.91",		"github://feenkcom/gtoolkit-releaser/src" : "v0.8.193",		"github://feenkcom/gtoolkit-coder/src" : "v0.8.1398",		"github://feenkcom/gt4pharo/src" : "v0.6.1333",		"github://feenkcom/gtoolkit-remote-javascript/src" : "v0.5.453"	}}
+{
+	"repositories" : {
+		"github://feenkcom/Brick/src" : "v0.8.1040",
+		"github://feenkcom/gtoolkit-utility/src" : "v0.8.227",
+		"github://feenkcom/gtoolkit-chrome/src" : "v0.5.173",
+		"github://feenkcom/gt4dockerengine/src" : "v0.5.132",
+		"github://j-brant/SmaCC" : "v3.0.19",
+		"github://feenkcom/JSONWebToken/source" : "v0.5.130",
+		"github://feenkcom/zinc/repository" : "v3.0.28",
+		"github://feenkcom/gtoolkit-remote-python/src" : "v0.5.219",
+		"github://feenkcom/gtoolkit-inspector/src" : "v0.8.1821",
+		"github://feenkcom/gtoolkit-remote/src" : "v0.8.1377",
+		"github://feenkcom/gtoolkit-visualizer/src" : "v0.8.1346",
+		"github://feenkcom/gt4json/src" : "v0.6.549",
+		"github://feenkcom/pharo-beacon/repository" : "af4aca0d8ad4ebdf2de988d474e0e2bcdceaf4ae",
+		"github://feenkcom/xdoc/src" : "v0.8.666",
+		"github://feenkcom/gtoolkit-debugadapterprotocol/src" : "v0.5.218",
+		"github://feenkcom/gt4lsp/src" : "v0.6.92",
+		"github://feenkcom/gtoolkit-releaser/src" : "v0.8.193",
+		"github://feenkcom/gtoolkit-coder/src" : "v0.8.1399",
+		"github://feenkcom/gt4pharo/src" : "v0.6.1334",
+		"github://feenkcom/gtoolkit-remote-javascript/src" : "v0.5.454"
+	}
+}
