@@ -61,8 +61,13 @@ LeDatabaseClassStorage >> loadFromMethod: aCompiledMethod [
 	"Answer the object encoded in the supplied method"
 	| jsonString |
 
-	jsonString := (aCompiledMethod parseTree comments at: 2) contents
-		copyReplaceAll: '""' with: '"'.
+	jsonString := (aCompiledMethod parseTree comments at: 2) contents.
+	self 
+		forPharo11: [] 
+		forPharo10: [ 
+			"In Pharo 10 double quotes are doubled in comments, but not in Pharo 11"
+			jsonString :=  jsonString copyReplaceAll: '""' with: '"' ].
+			
 	^ [ LeJsonV4 uniqueInstance deserialize: jsonString readStream ]
 		on: NeoJSONParseError 
 		do: [ :ex | | loadError |
