@@ -31,6 +31,11 @@ LeSnippetAttachment >> database [
 ]
 
 { #category : #accessing }
+LeSnippetAttachment >> delete [
+	self fileReference parent ensureDeleteAll
+]
+
+{ #category : #accessing }
 LeSnippetAttachment >> fileReference [
 	^ self database resolveDbFile: self name
 ]
