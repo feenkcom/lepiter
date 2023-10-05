@@ -2,6 +2,20 @@
     Common styling
  */
 
+
+/* Font definition */
+
+@font-face {
+ font-family:"sources-regular";
+ src:url("/assets/v1/src/fonts/sourcesanspro-bold-webfont.woff");
+ font-weight: bold;
+}
+@font-face {
+ font-family:"sources-regular";
+ src:url("/assets/v1/src/fonts/sourcesanspro-regular-webfont.woff");
+  font-weight: regular;
+}
+
 :root {
     /* colors */
     --active-color: #eee;
@@ -32,6 +46,8 @@ body {
 
     /* new small viewport height for modern browsers */
     min-height: 100svh;
+
+   font-family:"sources-regular", sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 /* If the main content height is smaller than the viewport height,
