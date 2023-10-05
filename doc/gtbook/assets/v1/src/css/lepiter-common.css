@@ -228,6 +228,10 @@ It means that the navigation item highlight will start at the
   margin-block-start: 3em;
 }
 
+h1.le-main-title {
+  margin-block-start: 0;
+}
+
 .le-main-container h2 {
   margin-block-start: 2em;
 }
