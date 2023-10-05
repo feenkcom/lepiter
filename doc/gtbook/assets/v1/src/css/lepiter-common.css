@@ -221,6 +221,23 @@ It means that the navigation item highlight will start at the
 .le-main-container .h5,
 .le-main-container .h6  {
     font-weight: bold;
-    margin-block-start: 25pt;
-    margin-block-end: 25pt;
+    margin-block-end: 4px;
+}
+
+.le-main-container h1 {
+  margin-block-start: 3em;
+}
+
+.le-main-container h2 {
+  margin-block-start: 2em;
+}
+
+.le-main-container h3 {
+  margin-block-start: 1em;
+}
+
+.le-main-container h4,
+.le-main-container h5,
+.le-main-container h6 {
+  margin-block-start: 0.5em;
 }
