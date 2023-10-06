@@ -2,15 +2,15 @@ Extension { #name : #LeHtmlVisitor }
 
 { #category : #'*Lepiter-Snippet-Words' }
 LeHtmlVisitor >> visitWordSnippet: aLeWordSnippet [
-
 	context html
 		tag: #div
-		attributes: #('class' 'snippet textual-snippet word-snippet')
-		do: [				
-			LeWordExplanationHtmlBuilder new
+		attributes: (self
+				classesFor: aLeWordSnippet
+				withClasses: 'snippet textual-snippet word-snippet')
+		do: [ LeWordExplanationHtmlBuilder new
 				explanation: aLeWordSnippet explanation;
 				context: context;
-				build.  ].
-	
+				build ].
+
 	^ self visitContent: aLeWordSnippet
 ]

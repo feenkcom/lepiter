@@ -116,7 +116,7 @@ LeHtmlVisitorExamples >> textSnippetWithExampleAnnotation [
 	
 	html := visitor contentsFor: snippet.
 	
-	self assertHtml: html includes: ' <div class="snippet textual-snippet code-snippet pharo-snippet documentWidth">'.
+	self assertHtml: html includes: ' <div class="snippet textual-snippet code-snippet pharo-snippet paragraphWidth">'.
 	self assertHtml: html includes: 'BrExamplesShowroom>>#glamorousLargeButton'.
 	self assertHtml: html includes: BrExamplesShowroom name.
 	
@@ -139,7 +139,7 @@ LeHtmlVisitorExamples >> textSnippetWithExampleAnnotationWithLabel [
 	
 	html := visitor contentsFor: snippet.
 
-	self assertHtml: html includes: '<div class="snippet textual-snippet text-snippet">'.
+	self assertHtml: html includes: '<div class="snippet textual-snippet text-snippet paragraphWidth">'.
 	self assertHtml: html includes: '<code class="example_inlined">'.
 	
 	^ LeHtmlVisitorHolder new
@@ -161,7 +161,7 @@ LeHtmlVisitorExamples >> textSnippetWithExampleAnnotationWithPreviewExpanded [
 	
 	html := visitor contentsFor: snippet.
 	
-	self assertHtml: html includes: '<div class="snippet textual-snippet code-snippet pharo-snippet documentWidth">'.
+	self assertHtml: html includes: '<div class="snippet textual-snippet code-snippet pharo-snippet paragraphWidth">'.
 	self assertHtml: html includes: 'BrExamplesShowroom>>#glamorousLargeButton'.
 	self assertHtml: html includes: BrExamplesShowroom name.
 	self assertHtml: html includes: 'src="gt-figures/1000.png"'.
