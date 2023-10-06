@@ -17,6 +17,9 @@ main figure {
 main figure > img {
     max-width: 100%;
     background-color: white;
+}
+
+main figure >img:hover {
     box-shadow: 0 0 5px 5px lightgray;
 }
 
@@ -59,6 +62,7 @@ figcaption {
     width 808px;
   }
 }
+
 
 
 /*
@@ -145,7 +149,6 @@ figcaption {
 }
 
 .expandable_annotation_label {
-    /* background-color: #F0F0F0; */
 }
 
 .collapsed_annotation_body::after {
@@ -219,7 +222,6 @@ figcaption {
 
 .code_block {
     font-family: "Source Code Pro", monospace;
-    /* white-space: pre; */
 }
 
 .snippet {
@@ -312,7 +314,7 @@ figcaption {
 }
 
 .picture-snippet {
-
+    margin-bottom: 2rem;
 }
 
 /* Word snippet */
