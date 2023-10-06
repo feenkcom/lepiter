@@ -14,7 +14,7 @@ LeHtmlVisitorExamples >> pictureSnippetWithExistingFileReference [
 	
 	html := visitor contentsFor: snippet.
 	
-	self assertHtml: html beginsWith: '<figure class="snippet picture-snippet paragraphWidth"'.
+	self assertHtml: html beginsWith: '<figure class="snippet picture-snippet fullWidth"'.
 	self assertHtml: html includes: '<img class="picture-snippet-image" src="gt-figures/1000.jpg"/>'.
 	
 	^ LeHtmlVisitorHolder new
@@ -36,7 +36,7 @@ LeHtmlVisitorExamples >> pictureSnippetWithHttps [
 	
 	html := visitor contentsFor: snippet.
 
-	self assertHtml: html beginsWith: '<figure class="snippet picture-snippet paragraphWidth"'.
+	self assertHtml: html beginsWith: '<figure class="snippet picture-snippet fullWidth"'.
 	self assertHtml: html includes: '<img class="picture-snippet-image" src="https://gtoolkit.com/assets/pictures/use-case-rest-api.png"/>'.
 	
 	^ LeHtmlVisitorHolder new 
@@ -58,7 +58,7 @@ LeHtmlVisitorExamples >> pictureSnippetWithMissingFileReference [
 	
 	html := visitor contentsFor: snippet.
 	
-	self assertHtml: html beginsWith: '<figure class="snippet picture-snippet paragraphWidth"'.
+	self assertHtml: html beginsWith: '<figure class="snippet picture-snippet fullWidth"'.
 	self assertHtml: html includes: '<img class="picture-snippet-image" src="gt-figures/1000.jpg"/>'.
 	
 	^ LeHtmlVisitorHolder new
