@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'imageSrc',
 		'caption',
-		'html'
+		'html',
+		'width'
 	],
 	#category : #'Lepiter-HTML-Writers'
 }
@@ -39,22 +40,32 @@ LeHtmlFigureImageWriter >> imageSrc: anObject [
 	imageSrc := anObject
 ]
 
+{ #category : #accessing }
+LeHtmlFigureImageWriter >> width [
+	^ width
+]
+
+{ #category : #accessing }
+LeHtmlFigureImageWriter >> width: anObject [
+	width := anObject
+]
+
 { #category : #'api - writing' }
 LeHtmlFigureImageWriter >> write [
 	html
 		tag: #figure
-		attributes: #('class' 'snippet picture-snippet paragraphWidth')
-		do: [
-
-			html
+		attributes: {'class'.
+				'snippet picture-snippet ' , self width cssClass}
+		do: [ html
 				inlineTag: 'img'
-				attributes: {'class'. 'picture-snippet-image'. 'src'. imageSrc }.
+				attributes: {'class'.
+						'picture-snippet-image'.
+						'src'.
+						imageSrc}.
 
-			(caption isNotNil
-				and: [ caption trimBoth isNotEmpty ])
-					ifTrue: [ 
-						self html
-							inlineTag: 'figcaption'
-							attributes: #('class' 'picture-snippet-caption')
-							with: caption asString ] ]
+			(caption isNotNil and: [ caption trimBoth isNotEmpty ])
+				ifTrue: [ self html
+						inlineTag: 'figcaption'
+						attributes: #('class' 'picture-snippet-caption')
+						with: caption asString ] ]
 ]

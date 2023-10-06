@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'html',
 		'sequencer',
-		'resources'
+		'resources',
+		'width'
 	],
 	#category : #'Lepiter-HTML-Writers'
 }
@@ -40,6 +41,16 @@ LeHtmlExampleWriter >> sequencer: anObject [
 	sequencer := anObject
 ]
 
+{ #category : #accessing }
+LeHtmlExampleWriter >> width [
+	^ width
+]
+
+{ #category : #accessing }
+LeHtmlExampleWriter >> width: anObject [
+	width := anObject
+]
+
 { #category : #'api - writing' }
 LeHtmlExampleWriter >> write [
 	resources 
@@ -64,7 +75,7 @@ LeHtmlExampleWriter >> writeCode [
 
 	html 
 		tag: #div
-		attributes: #('class' 'snippet textual-snippet code-snippet pharo-snippet documentWidth')
+		attributes: {'class' . 'snippet textual-snippet code-snippet pharo-snippet ', self width cssClass}
 		do: [ 
 			 html 
 				tag: #pre
@@ -81,6 +92,7 @@ LeHtmlExampleWriter >> writePreview [
 			LeHtmlFigureImageWriter new
 				html: html;
 				imageSrc: aResource pathName;
+				width: self width;
 				write ]
 		ifMore: [ :aCollection |
 			LeHtmlCarouselWriter new
