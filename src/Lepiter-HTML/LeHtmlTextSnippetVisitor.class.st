@@ -34,6 +34,11 @@ LeHtmlTextSnippetVisitor >> convertToLocalOrAbsoluteUrl: linkUrl [
 		asString
 ]
 
+{ #category : #generated }
+LeHtmlTextSnippetVisitor >> defaultWidth [
+	^ LeSnippetParagraphWidth new
+]
+
 { #category : #initialization }
 LeHtmlTextSnippetVisitor >> initialize [ 
 	super initialize.
@@ -139,6 +144,7 @@ LeHtmlTextSnippetVisitor >> visitExternalImageLink: anExternalImageLink [
 				html: context html;
 				imageSrc: aResource imgSrc;
 				caption: anExternalImageLink label;
+				width: self defaultWidth;
 				write ]
 		ifMore: [ :aCollection | "ignore" ]
 ]

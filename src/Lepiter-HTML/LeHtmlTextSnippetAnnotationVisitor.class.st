@@ -21,6 +21,11 @@ LeHtmlTextSnippetAnnotationVisitor >> context: anObject [
 	context := anObject
 ]
 
+{ #category : #generated }
+LeHtmlTextSnippetAnnotationVisitor >> defaultWidth [
+	^ LeSnippetParagraphWidth new
+]
+
 { #category : #initialization }
 LeHtmlTextSnippetAnnotationVisitor >> initialize [
 	super initialize.
@@ -118,6 +123,7 @@ LeHtmlTextSnippetAnnotationVisitor >> visitExampleAnnotation: anExampleAnnotatio
 				html: context html;
 				sequencer: context sequencer;
 				resources: someResources;
+				width: self defaultWidth;
 				write ]
 ]
 

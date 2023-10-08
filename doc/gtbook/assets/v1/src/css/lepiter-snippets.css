@@ -6,7 +6,6 @@
     /* --min-column-width does not work in media queries.
      It is here for documentation purposes only. */
     --min-column-width: 992px;
-    --max-text-snippet-p-width: 608px;
 }
 
 /* Add space at the top and bottom of figures */
@@ -18,6 +17,9 @@ main figure {
 main figure > img {
     max-width: 100%;
     background-color: white;
+}
+
+main figure >img:hover {
     box-shadow: 0 0 5px 5px lightgray;
 }
 
@@ -44,6 +46,24 @@ figcaption {
     }
 }*/
 
+/* Widths */
+
+.fullWidth {
+  width: 100%;
+}
+
+/* Limit snippet content width on large screens.
+   It does not limit headings. */
+@media (min-width: 992px) {
+  .paragraphWidth {
+    width: 608px;
+  }
+  .documentWidth {
+    width 808px;
+  }
+}
+
+
 
 /*
     --------------------------------
@@ -57,14 +77,6 @@ figcaption {
     Text snippet
     --------------------------------
  */
-
-/* Limit regular text snippet content width on large screens.
-   It does not limit headings. */
-@media (min-width: 992px) {
-    .text-snippet > p {
-        max-width: var(--max-text-snippet-p-width);
-    }
-}
 
 /*
     --------------------------------
@@ -137,7 +149,6 @@ figcaption {
 }
 
 .expandable_annotation_label {
-    /* background-color: #F0F0F0; */
 }
 
 .collapsed_annotation_body::after {
@@ -211,7 +222,6 @@ figcaption {
 
 .code_block {
     font-family: "Source Code Pro", monospace;
-    /* white-space: pre; */
 }
 
 .snippet {
@@ -304,7 +314,7 @@ figcaption {
 }
 
 .picture-snippet {
-
+    margin-bottom: 2rem;
 }
 
 /* Word snippet */

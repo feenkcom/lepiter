@@ -96,20 +96,20 @@ LeHtmlVisitor >> resourcesFor: aLeSnippet [
 { #category : #visiting }
 LeHtmlVisitor >> visitElementSnippet: aLeElementSnippet [
 	| snippetResources |
-	
 	snippetResources := self resourcesFor: aLeElementSnippet.
-	
-	snippetResources 
-		ifEmpty: [ "ignore" ]
-		ifOne: [ :aResource |
+
+	snippetResources
+		ifEmpty: [  "ignore" ]
+		ifOne: [ :aResource | 
 			| aFileName |
 			aFileName := aResource pathName.
 			LeHtmlFigureImageWriter new
 				html: context html;
 				imageSrc: aFileName;
 				caption: aLeElementSnippet caption;
+				width: aLeElementSnippet asSnippetViewModel snippetView desiredSnippetWidth;
 				write ]
-		ifMore: [ :aCollection |
+		ifMore: [ :aCollection | 
 			LeHtmlCarouselWriter new
 				html: context html;
 				sequencer: context sequencer;
@@ -121,12 +121,12 @@ LeHtmlVisitor >> visitElementSnippet: aLeElementSnippet [
 
 { #category : #visiting }
 LeHtmlVisitor >> visitJavaScriptSnippet: aLeJavaScriptSnippet [
-
 	context html
 		tag: #div
-		attributes: #('class' 'snippet textual-snippet code-snippet javascript-snippet')
-		do: [
-			context html
+		attributes: (self
+				classesFor: aLeJavaScriptSnippet
+				withClasses: 'snippet textual-snippet code-snippet javascript-snippet')
+		do: [ context html
 				tag: #pre
 				attributes: #('class' 'no_bottom_margin')
 				with: aLeJavaScriptSnippet code ].
@@ -137,9 +137,10 @@ LeHtmlVisitor >> visitJavaScriptSnippet: aLeJavaScriptSnippet [
 LeHtmlVisitor >> visitPharoSnippet: aLePharoSnippet [
 	context html
 		tag: #div
-		attributes: #('class' 'snippet textual-snippet code-snippet pharo-snippet')
-		do: [
-			context html
+		attributes: (self
+				classesFor: aLePharoSnippet
+				withClasses: 'snippet textual-snippet code-snippet pharo-snippet')
+		do: [ context html
 				tag: #pre
 				attributes: #('class' 'no_bottom_margin')
 				with: aLePharoSnippet code ].
@@ -159,6 +160,7 @@ LeHtmlVisitor >> visitPictureSnippet: aLePictureSnippet [
 				html: context html;
 				imageSrc: aResource imgSrc;
 				caption: aLePictureSnippet caption;
+				width: aLePictureSnippet asSnippetViewModel snippetView desiredSnippetWidth;
 				write ]
 		ifMore: [ :aCollection | "ignore" ].
 
@@ -167,12 +169,12 @@ LeHtmlVisitor >> visitPictureSnippet: aLePictureSnippet [
 
 { #category : #visiting }
 LeHtmlVisitor >> visitPythonSnippet: aLePythonSnippet [
-
 	context html
 		tag: #div
-		attributes: #('class' 'snippet textual-snippet code-snippet python-snippet')
-		do: [
-			context html
+		attributes: (self
+				classesFor: aLePythonSnippet
+				withClasses: 'snippet textual-snippet code-snippet python-snippet')
+		do: [ context html
 				tag: #pre
 				attributes: #('class' 'no_bottom_margin')
 				with: aLePythonSnippet code ].
@@ -191,18 +193,17 @@ LeHtmlVisitor >> visitSnippet: aLeSnippet [
 
 { #category : #visiting }
 LeHtmlVisitor >> visitTextSnippet: aLeTextSnippet [
-
-	context html 
+	context html
 		tag: #div
-		attributes: #('class' 'snippet textual-snippet text-snippet')
-		do: [
-			| visitor |
+		attributes: (self
+				classesFor: aLeTextSnippet
+				withClasses: 'snippet textual-snippet text-snippet')
+		do: [ | visitor |
 			visitor := LeHtmlTextSnippetVisitor new
-				context: context;
-				snippet: aLeTextSnippet.
-				
-			aLeTextSnippet ast acceptVisitor: visitor.
-		].
-		
+					context: context;
+					snippet: aLeTextSnippet.
+
+			aLeTextSnippet ast acceptVisitor: visitor ].
+
 	self visitContent: aLeTextSnippet
 ]
