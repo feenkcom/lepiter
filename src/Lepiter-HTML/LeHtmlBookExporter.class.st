@@ -96,7 +96,6 @@ LeHtmlBookExporter >> ensurePageLinks [
 
 { #category : #'api - exporting' }
 LeHtmlBookExporter >> export [
-	self addGtBookAssets.
 	self exportHtml.
 	self assembleResources.
 ]
