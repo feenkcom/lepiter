@@ -185,7 +185,7 @@ LeHtmlTextSnippetAnnotationVisitor >> visitPageAnnotation: aPageAnnotation [
 				inlineTag: #a
 				attributes: {'href'.
 						aPageLink fileNameWithExtension}
-				with: aPageAnnotation pageName ]
+				with: aPageAnnotation label ]
 		ifNone: [ context html
 				inlineTag: #span
 				attributes: #('page-annotation')
