@@ -35,6 +35,7 @@ LeHtmlPageExporter class >> exportPage: page to: directory [
 	context resources
 		addResource: (LeExportPageOutputResource new
 				content: html;
+				hrefBuilder: context hrefBuilder;
 				pageLink: (pageLinks
 						linkForPage: page
 						ifFound: [ :thePage | thePage ]

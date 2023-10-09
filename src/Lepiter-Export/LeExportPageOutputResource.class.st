@@ -5,7 +5,8 @@ Class {
 	#classTraits : 'TLeExportResource classTrait',
 	#instVars : [
 		'content',
-		'pageLink'
+		'pageLink',
+		'hrefBuilder'
 	],
 	#category : #'Lepiter-Export-Resources - Model'
 }
@@ -24,6 +25,11 @@ LeExportPageOutputResource >> content [
 { #category : #accessing }
 LeExportPageOutputResource >> content: aString [
 	content := aString
+]
+
+{ #category : #accessing }
+LeExportPageOutputResource >> defaultHrefBuilder [
+	^ LeExportFilenameAndExtensionHypertextReferenceBuilder new
 ]
 
 { #category : #initialization }
@@ -56,6 +62,17 @@ LeExportPageOutputResource >> gtLiveFor: aView [
 ]
 
 { #category : #accessing }
+LeExportPageOutputResource >> hrefBuilder [
+	<return: #TLeExportHypertextReferenceBuilder>
+	^ hrefBuilder ifNil: [ hrefBuilder := self defaultHrefBuilder ]
+]
+
+{ #category : #accessing }
+LeExportPageOutputResource >> hrefBuilder: aBuilder [
+	hrefBuilder := aBuilder
+]
+
+{ #category : #accessing }
 LeExportPageOutputResource >> pageLink [
 	<return: #TLeExportBookPageLink>
 	^ pageLink
@@ -71,7 +88,7 @@ LeExportPageOutputResource >> path [
 	"Return a path of the export"
 
 	<return: #RelativePath>
-	^ Path * self pageLink fileNameWithExtension
+	^ Path * (self hrefBuilder hrefFromPageLink: self pageLink)
 ]
 
 { #category : #accessing }

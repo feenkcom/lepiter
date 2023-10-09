@@ -24,6 +24,7 @@ LeExportBookPageLink >> fileExtension: aString [
 
 { #category : #accessing }
 LeExportBookPageLink >> fileName [
+	<return: #String>
 	^ fileName
 ]
 

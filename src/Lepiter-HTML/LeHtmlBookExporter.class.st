@@ -11,7 +11,8 @@ Class {
 		'piece',
 		'resourceTime',
 		'htmlTime',
-		'fileStore'
+		'fileStore',
+		'hrefBuilder'
 	],
 	#category : #'Lepiter-HTML-! Core'
 }
@@ -64,6 +65,11 @@ LeHtmlBookExporter >> database: anObject [
 { #category : #initialization }
 LeHtmlBookExporter >> defaultFileStore [
 	^ LeExportTempDirectoryStore new
+]
+
+{ #category : #accessing }
+LeHtmlBookExporter >> defaultHrefBuilder [
+	^ LeExportFilenameAndExtensionHypertextReferenceBuilder new
 ]
 
 { #category : #accessing }
@@ -123,6 +129,7 @@ LeHtmlBookExporter >> exportPageLink: aPageLink [
 		database: self database;
 		sequencer: self sequencer;
 		fileStore: self fileStore;
+		hrefBuilder: self hrefBuilder;
 		log: self log.
 
 	anHtml := LeHtmlPageExporter new
@@ -180,6 +187,17 @@ LeHtmlBookExporter >> gtResourcesFor: aView [
 			label: 'Details'
 			tooltip: 'Inspect resources'
 			action: [ :aButton | aButton phlow spawnObject: resources ]
+]
+
+{ #category : #accessing }
+LeHtmlBookExporter >> hrefBuilder [
+	<return: #TLeExportHypertextReferenceBuilder>
+	^ hrefBuilder ifNil: [ hrefBuilder := self defaultHrefBuilder ]
+]
+
+{ #category : #accessing }
+LeHtmlBookExporter >> hrefBuilder: aBuilder [
+	hrefBuilder := aBuilder
 ]
 
 { #category : #'api - initialization' }
