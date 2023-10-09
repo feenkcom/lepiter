@@ -122,7 +122,8 @@ LeHtmlTextSnippetVisitor >> visitDoubleBracketLink: aDoubleBracketLink [
 		ifFound: [ :aLink | 
 			context html 
 				inlineTag: #a
-				attributes: { 'href'. aLink fileName asString }
+				attributes: { 'href'. 
+					(self context hrefBuilder  hrefFromPageLink: aLink) }
 				with: aDoubleBracketLink linkUID ]
 		ifNone: [ 
 			context html 

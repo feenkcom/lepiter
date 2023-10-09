@@ -32,7 +32,7 @@ LeHtmlPageUrlAttributePiece >> initialize [
 { #category : #'api - writing' }
 LeHtmlPageUrlAttributePiece >> writeWithContext: aContext [
 	| anUrl |
-	anUrl := self baseUrl / aContext pageLink fileName.
+	anUrl := self baseUrl / aContext pageHref.
 
 	aContext html escapeAttributeValue: anUrl asString
 ]

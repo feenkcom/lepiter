@@ -16,21 +16,22 @@ LePharoSnippetByScripterExamples >> applyNewNameWithScripter: aScripter [
 
 { #category : #'examples - support' }
 LePharoSnippetByScripterExamples >> assertBindingsIn: aStep [
-	
-	aStep check
-		label: 'Check pharo snippet variable values';
-		do: [ :aList :aData | 
-			| allBindings aValue |
-			allBindings := (aList query // LePharoSnippetElement // GtSourceCoderEditorElement) result collect: [ :eachCoder | 
-				eachCoder textualCoderViewModel compositeVariableBindings asDictionary ].
-			aValue := aData at: #scriptExecutionResult. 
-			self assert: aValue value equals: { 42 }.
-			self assert: (allBindings allSatisfy: [ :eachDictionary |
-				(eachDictionary at: #a) value == aValue ]).
-		];
-		onBreadthFirstChildOfClass: BrSimpleTree;
-		onBreadthFirstChildOfClass: BrInfiniteTreeElement;
-		play.
+	aStep
+		checkStep: [ :s | 
+			s
+				label: 'Check pharo snippet variable values';
+				do: [ :aList :aData | 
+					| allBindings aValue |
+					allBindings := (aList query // LePharoSnippetElement
+							// GtSourceCoderEditorElement) result
+							collect: [ :eachCoder | eachCoder textualCoderViewModel compositeVariableBindings asDictionary ].
+					aValue := aData at: #scriptExecutionResult.
+					self assert: aValue value equals: {42}.
+					self
+						assert: (allBindings
+								allSatisfy: [ :eachDictionary | (eachDictionary at: #a) value == aValue ]) ];
+				onBreadthFirstChildOfClass: BrSimpleTree;
+				onBreadthFirstChildOfClass: BrInfiniteTreeElement ].
 
 	^ aStep
 ]
@@ -38,17 +39,23 @@ LePharoSnippetByScripterExamples >> assertBindingsIn: aStep [
 { #category : #'examples - support' }
 LePharoSnippetByScripterExamples >> assertPharoSnippetElementContentIn: aStep [
 	<gtExample>
-	aStep check
-		label: 'Check pharo snippet element content';
-		do: [ :aList | 
-			| aPharoElementCollection |
-			aPharoElementCollection := (aList query // LePharoSnippetElement) result.
-			self assert: aPharoElementCollection isNotEmpty description: [ 'Page must have some Pharo snippet elements' ].
-			aPharoElementCollection do: [ :eachPharoElement |
-				self assert: eachPharoElement editor text asString equals: eachPharoElement snippet code asString ] ];
-		onBreadthFirstChildOfClass: BrSimpleTree;
-		onBreadthFirstChildOfClass: BrInfiniteTreeElement;
-		play
+	aStep
+		checkStep: [ :s | 
+			s
+				label: 'Check pharo snippet element content';
+				do: [ :aList | 
+					| aPharoElementCollection |
+					aPharoElementCollection := (aList query // LePharoSnippetElement) result.
+					self
+						assert: aPharoElementCollection isNotEmpty
+						description: [ 'Page must have some Pharo snippet elements' ].
+					aPharoElementCollection
+						do: [ :eachPharoElement | 
+							self
+								assert: eachPharoElement editor text asString
+								equals: eachPharoElement snippet code asString ] ];
+				onBreadthFirstChildOfClass: BrSimpleTree;
+				onBreadthFirstChildOfClass: BrInfiniteTreeElement ]
 ]
 
 { #category : #'examples - page' }
@@ -65,15 +72,15 @@ LePharoSnippetByScripterExamples >> checkEveryPharoSnippetHasSameVariableValue [
 { #category : #'examples - support' }
 LePharoSnippetByScripterExamples >> clickOnPharoSnippetAt: anIndex step: aStep [
 	<gtExample>
-	
-	aStep click
-		label: 'Click on a pharo snippet at ', anIndex asString, ' position';
-		onBreadthFirstChildOfClass: BrSimpleTree;
-		onBreadthFirstChildOfClass: BrInfiniteTreeElement;
-		onChildAt: anIndex;
-		onBreadthFirstChildOfClass: LePharoSnippetElement;
-		onBreadthFirstChildOfClass: BrTextElementWithCursors;
-		play.
+	aStep
+		clickStep: [ :s | 
+			s
+				label: 'Click on a pharo snippet at ' , anIndex asString , ' position';
+				onBreadthFirstChildOfClass: BrSimpleTree;
+				onBreadthFirstChildOfClass: BrInfiniteTreeElement;
+				onChildAt: anIndex;
+				onBreadthFirstChildOfClass: LePharoSnippetElement;
+				onBreadthFirstChildOfClass: BrTextElementWithCursors ].
 
 	^ aStep
 ]
@@ -92,18 +99,24 @@ LePharoSnippetByScripterExamples >> clickOnTheFirstPharoSnippet [
 { #category : #'examples - support' }
 LePharoSnippetByScripterExamples >> editEveryVisiblePharoSnippetIn: aStep appending: aString [
 	<gtExample>
-	aStep do
-		label: 'Edit textual snippet element content';
-		block: [ :aList | 
-			| aPharoElementCollection |
-			aPharoElementCollection := (aList query // LePharoSnippetElement) result.
-			self assert: aPharoElementCollection isNotEmpty description: [ 'Page must have some Pharo snippet elements' ].
-			aPharoElementCollection do: [ :eachPharoElement |
-				eachPharoElement editor text append: aString asRopedText. 
-				self assert: eachPharoElement editor text asString equals: eachPharoElement snippet code asString ] ];
-		onBreadthFirstChildOfClass: BrSimpleTree;
-		onBreadthFirstChildOfClass: BrInfiniteTreeElement;
-		play
+	aStep
+		doStep: [ :s | 
+			s
+				label: 'Edit textual snippet element content';
+				block: [ :aList | 
+					| aPharoElementCollection |
+					aPharoElementCollection := (aList query // LePharoSnippetElement) result.
+					self
+						assert: aPharoElementCollection isNotEmpty
+						description: [ 'Page must have some Pharo snippet elements' ].
+					aPharoElementCollection
+						do: [ :eachPharoElement | 
+							eachPharoElement editor text append: aString asRopedText.
+							self
+								assert: eachPharoElement editor text asString
+								equals: eachPharoElement snippet code asString ] ];
+				onBreadthFirstChildOfClass: BrSimpleTree;
+				onBreadthFirstChildOfClass: BrInfiniteTreeElement ]
 ]
 
 { #category : #'examples - rename variable' }
@@ -162,15 +175,16 @@ LePharoSnippetByScripterExamples >> evaluateWhenMaximized [
 		substeps: 'Execute and Inspect '
 		do: [ :aSubStep | 
 			self clickOnPharoSnippetAt: 1 step: aSubStep.
-			aSubStep click
-				label: 'Execute pharo snippet';
-				onBreadthFirstChildOfClass: BrSimpleTree;
-				onBreadthFirstChildOfClass: BrInfiniteTreeElement;
-				onChildAt: 1;
-				onBreadthFirstChildOfClass: LePharoSnippetElement;
-				onBreadthFirstChildOfClass: GtCoderActionsElement;
-				id: GtSourceCoderDoItAndGoActionId;
-				play ].
+			aSubStep
+				clickStep: [ :s | 
+					s
+						label: 'Execute pharo snippet';
+						onBreadthFirstChildOfClass: BrSimpleTree;
+						onBreadthFirstChildOfClass: BrInfiniteTreeElement;
+						onChildAt: 1;
+						onBreadthFirstChildOfClass: LePharoSnippetElement;
+						onBreadthFirstChildOfClass: GtCoderActionsElement;
+						id: GtSourceCoderDoItAndGoActionId ] ].
 	self executePharoSnippetAt: 2 step: aScripter.
 	^ aScripter
 ]
@@ -197,18 +211,19 @@ LePharoSnippetByScripterExamples >> executeAndAgainScrollDownPharoSnippets [
 								onBreadthFirstChildOfClass: BrInfiniteTreeElement;
 								play.
 							self assertBindingsIn: aStep ] ].
-			aRootStep check
-				label: 'Check that the last block is displayed';
-				do: [ :aList | 
-					| aLastBlock aBlockIndex |
-					aLastBlock := (aList children last query
-						// LePharoSnippetElement) result first snippet.
-					aBlockIndex := aLastBlock page children asArray
-						identityIndexOf: aLastBlock.
-					self assert: aBlockIndex equals: 51 ];
-				onBreadthFirstChildOfClass: BrSimpleTree;
-				onBreadthFirstChildOfClass: BrInfiniteTreeElement;
-				play ].
+			aRootStep
+				checkStep: [ :s | 
+					s
+						label: 'Check that the last block is displayed';
+						do: [ :aList | 
+							| aLastBlock aBlockIndex |
+							aLastBlock := (aList children last query // LePharoSnippetElement) result
+									first snippet.
+							aBlockIndex := aLastBlock page children asArray
+									identityIndexOf: aLastBlock.
+							self assert: aBlockIndex equals: 51 ];
+						onBreadthFirstChildOfClass: BrSimpleTree;
+						onBreadthFirstChildOfClass: BrInfiniteTreeElement ] ].
 	^ aScripter
 ]
 
@@ -224,43 +239,44 @@ LePharoSnippetByScripterExamples >> executeFirstPharoSnippet [
 ]
 
 { #category : #'examples - support' }
-LePharoSnippetByScripterExamples >> executePharoSnippetAt: anIndex step: aStep [ 
+LePharoSnippetByScripterExamples >> executePharoSnippetAt: anIndex step: aStep [
 	<gtExample>
-	
-	aStep substeps: 'Execute and store pharo snippet result ', anIndex asString, ' position' do: [ :aSubStep |
-		
-		self clickOnPharoSnippetAt: anIndex step: aSubStep.
-	
-		aSubStep click
-			label: 'Execute pharo snippet';
-			onBreadthFirstChildOfClass: BrSimpleTree;
-			onBreadthFirstChildOfClass: BrInfiniteTreeElement;
-			onChildAt: anIndex;
-			onBreadthFirstChildOfClass: LePharoSnippetElement;
-			onBreadthFirstChildOfClass: GtCoderActionsElement;
-			id: GtSourceCoderDoItActionId;
-			play.
-			
-		aSubStep do
-			label: 'Store execution result';
-			block: [ :anElement :aData | 
-				| aNewValue |
-				aNewValue := (anElement textualCoderViewModel compositeVariableBindings asDictionary at: #a) value.
-				
-				aData 
-					at: #scriptExecutionResult 
-					ifPresent: [ :anOldValue | (anOldValue == aNewValue) not ]
-					ifAbsent: [ "ignore" ].
-				
-				aData 
-					at: #scriptExecutionResult 
-					put: aNewValue ];
-			onBreadthFirstChildOfClass: BrSimpleTree;
-			onBreadthFirstChildOfClass: BrInfiniteTreeElement;
-			onChildAt: anIndex;
-			onBreadthFirstChildOfClass: LePharoSnippetElement;
-			onBreadthFirstChildOfClass: GtSourceCoderEditorElement;
-			play ].
+	aStep
+		substeps: 'Execute and store pharo snippet result ' , anIndex asString , ' position'
+		do: [ :aSubStep | 
+			self clickOnPharoSnippetAt: anIndex step: aSubStep.
+
+			aSubStep
+				clickStep: [ :s | 
+					s
+						label: 'Execute pharo snippet';
+						onBreadthFirstChildOfClass: BrSimpleTree;
+						onBreadthFirstChildOfClass: BrInfiniteTreeElement;
+						onChildAt: anIndex;
+						onBreadthFirstChildOfClass: LePharoSnippetElement;
+						onBreadthFirstChildOfClass: GtCoderActionsElement;
+						id: GtSourceCoderDoItActionId ].
+
+			aSubStep
+				doStep: [ :s | 
+					s
+						label: 'Store execution result';
+						block: [ :anElement :aData | 
+							| aNewValue |
+							aNewValue := (anElement textualCoderViewModel compositeVariableBindings
+									asDictionary at: #a) value.
+
+							aData
+								at: #scriptExecutionResult
+								ifPresent: [ :anOldValue | (anOldValue == aNewValue) not ]
+								ifAbsent: [  "ignore" ].
+
+							aData at: #scriptExecutionResult put: aNewValue ];
+						onBreadthFirstChildOfClass: BrSimpleTree;
+						onBreadthFirstChildOfClass: BrInfiniteTreeElement;
+						onChildAt: anIndex;
+						onBreadthFirstChildOfClass: LePharoSnippetElement;
+						onBreadthFirstChildOfClass: GtSourceCoderEditorElement ] ].
 
 	^ aStep
 ]
@@ -368,18 +384,19 @@ LePharoSnippetByScripterExamples >> scrollDownPharoSnippets [
 								onBreadthFirstChildOfClass: BrInfiniteTreeElement;
 								play.
 							self assertBindingsIn: aStep ] ].
-			aRootStep check
-				label: 'Check that the last block is displayed';
-				do: [ :aList | 
-					| aLastBlock aBlockIndex |
-					aLastBlock := (aList children last query
-						// LePharoSnippetElement) result first snippet.
-					aBlockIndex := aLastBlock page children asArray
-						identityIndexOf: aLastBlock.
-					self assert: aBlockIndex equals: 51 ];
-				onBreadthFirstChildOfClass: BrSimpleTree;
-				onBreadthFirstChildOfClass: BrInfiniteTreeElement;
-				play ].
+			aRootStep
+				checkStep: [ :s | 
+					s
+						label: 'Check that the last block is displayed';
+						do: [ :aList | 
+							| aLastBlock aBlockIndex |
+							aLastBlock := (aList children last query // LePharoSnippetElement) result
+									first snippet.
+							aBlockIndex := aLastBlock page children asArray
+									identityIndexOf: aLastBlock.
+							self assert: aBlockIndex equals: 51 ];
+						onBreadthFirstChildOfClass: BrSimpleTree;
+						onBreadthFirstChildOfClass: BrInfiniteTreeElement ] ].
 	^ aScripter
 ]
 
@@ -436,18 +453,19 @@ LePharoSnippetByScripterExamples >> scrollUpPharoSnippets [
 								onBreadthFirstChildOfClass: BrInfiniteTreeElement;
 								play.
 							self assertBindingsIn: aStep ] ].
-			aRootStep check
-				label: 'Check that the first block is displayed';
-				do: [ :aList | 
-					| aLastBlock aBlockIndex |
-					aLastBlock := (aList children first query
-						// LePharoSnippetElement) result first snippet.
-					aBlockIndex := aLastBlock page children asArray
-						identityIndexOf: aLastBlock.
-					self assert: aBlockIndex equals: 1 ];
-				onBreadthFirstChildOfClass: BrSimpleTree;
-				onBreadthFirstChildOfClass: BrInfiniteTreeElement;
-				play ].
+			aRootStep
+				checkStep: [ :s | 
+					s
+						label: 'Check that the first block is displayed';
+						do: [ :aList | 
+							| aLastBlock aBlockIndex |
+							aLastBlock := (aList children first query // LePharoSnippetElement)
+									result first snippet.
+							aBlockIndex := aLastBlock page children asArray
+									identityIndexOf: aLastBlock.
+							self assert: aBlockIndex equals: 1 ];
+						onBreadthFirstChildOfClass: BrSimpleTree;
+						onBreadthFirstChildOfClass: BrInfiniteTreeElement ] ].
 	^ aScripter
 ]
 
@@ -460,28 +478,31 @@ LePharoSnippetByScripterExamples >> startRenameLocalVariable [
 	aScripter
 		substeps: 'Initiate rename local variable'
 		do: [ :aStep | 
-			aStep click
-				label: 'Click on the coder editor to give it focus';
-				id: GtSourceCoderEditorId;
-				play.
+			aStep
+				clickStep: [ :s | 
+					s
+						label: 'Click on the coder editor to give it focus';
+						id: GtSourceCoderEditorId ].
 
-			aStep do
-				label: 'Move cursor to variable';
-				action: [ :aSourceEditor | aSourceEditor editor moveCursorTo: 0 ];
-				id: GtSourceCoderEditorId;
-				play.
+			aStep
+				doStep: [ :s | 
+					s
+						label: 'Move cursor to variable';
+						action: [ :aSourceEditor | aSourceEditor editor moveCursorTo: 0 ];
+						id: GtSourceCoderEditorId ].
 
 			aStep shortcut
 				combination: BlKeyCombination primaryR;
 				id: GtSourceCoderEditorId;
 				play.
 
-			aStep check
-				label: 'Check rename editor exists';
-				exists;
-				id: GtSourceCoderEditorId;
-				onBreadthFirstChildOfClass: GtRenameEditor;
-				play ].
+			aStep
+				checkStep: [ :s | 
+					s
+						label: 'Check rename editor exists';
+						exists;
+						id: GtSourceCoderEditorId;
+						onBreadthFirstChildOfClass: GtRenameEditor ] ].
 
 	^ aScripter
 ]

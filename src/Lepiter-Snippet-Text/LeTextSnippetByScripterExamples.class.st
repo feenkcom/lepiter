@@ -26,37 +26,40 @@ LeTextSnippetByScripterExamples >> changeTextSnippetText [
 	<gtExample>
 	| aScripter |
 	aScripter := self textSnippetElement.
-	
-	aScripter substep: 'Change and check snippet text' do: [ :aStep |
-		aStep do
-			label: 'Change snippet text';
-			block: [ :aSnippet |
-				| aText |
-				aText := aSnippet text copy.
-				aText insertString: ' INSERTED ' at: 5.
-				aSnippet updateText: aText ];
-			onModel;
-			play.
-		aStep wait forEmptySpaceTaskQueue;
-			play.
-		
-		aStep check
-			label: 'Check whether text editor and text snippet have different BlText instances';
-			satisfies: [ :anEditor | 
-				anEditor text ~~ aScripter model text ] 
-			description: [ 'Text editor must not share same BlText instance with the block model' ];
-			onBreadthFirstChildOfClass: GtTextualCoderEditorElement;
-			play.
 
-		aStep check
-			label: 'Text editor have same text content as snippet';
-			satisfies: [ :anEditor | 
-				anEditor text characters = aScripter model text characters ] 
-			description: [ 'Text editor must have same content as the snippet' ];
-			onBreadthFirstChildOfClass: GtTextualCoderEditorElement;
-			play.
-	].
-	
+	aScripter
+		substep: 'Change and check snippet text'
+		do: [ :aStep | 
+			aStep
+				doStep: [ :s | 
+					s
+						label: 'Change snippet text';
+						block: [ :aSnippet | 
+							| aText |
+							aText := aSnippet text copy.
+							aText insertString: ' INSERTED ' at: 5.
+							aSnippet updateText: aText ];
+						onModel ].
+			aStep wait
+				forEmptySpaceTaskQueue;
+				play.
+
+			aStep
+				checkStep: [ :s | 
+					s
+						label: 'Check whether text editor and text snippet have different BlText instances';
+						satisfies: [ :anEditor | anEditor text ~~ aScripter model text ]
+							description: [ 'Text editor must not share same BlText instance with the block model' ];
+						onBreadthFirstChildOfClass: GtTextualCoderEditorElement ].
+
+			aStep
+				checkStep: [ :s | 
+					s
+						label: 'Text editor have same text content as snippet';
+						satisfies: [ :anEditor | anEditor text characters = aScripter model text characters ]
+							description: [ 'Text editor must have same content as the snippet' ];
+						onBreadthFirstChildOfClass: GtTextualCoderEditorElement ] ].
+
 	^ aScripter
 ]
 
@@ -80,23 +83,23 @@ LeTextSnippetByScripterExamples >> compareElementAndSnippetTextInstances [
 	<gtExample>
 	| aScripter |
 	aScripter := self textSnippetElement.
-	
-	aScripter check
-		label: 'Text editor and snippet have differentes text instances';
-		satisfies: [ :anEditor | 
-			anEditor text ~~ aScripter model text ] 
-		description: [ 'Text editor must not have the same BlText instance as the snipept model' ];
-		onBreadthFirstChildOfClass: GtTextualCoderEditorElement;
-			play.
 
-	aScripter check
-		label: 'Text editor have same text content as snippet';
-		satisfies: [ :anEditor | 
-			anEditor text characters = aScripter model text characters ] 
-		description: [ 'Text editor must have same content as the snippet' ];
-		onBreadthFirstChildOfClass: GtTextualCoderEditorElement;
-			play.
-	
+	aScripter
+		checkStep: [ :s | 
+			s
+				label: 'Text editor and snippet have differentes text instances';
+				satisfies: [ :anEditor | anEditor text ~~ aScripter model text ]
+					description: [ 'Text editor must not have the same BlText instance as the snipept model' ];
+				onBreadthFirstChildOfClass: GtTextualCoderEditorElement ].
+
+	aScripter
+		checkStep: [ :s | 
+			s
+				label: 'Text editor have same text content as snippet';
+				satisfies: [ :anEditor | anEditor text characters = aScripter model text characters ]
+					description: [ 'Text editor must have same content as the snippet' ];
+				onBreadthFirstChildOfClass: GtTextualCoderEditorElement ].
+
 	^ aScripter
 ]
 
@@ -121,6 +124,7 @@ LeTextSnippetByScripterExamples >> insertPageRemoteLink [
 	"Add a Page Two remote linke into a Page One text snippet.
 	Each page is in a different database.
 	Both databases and pages exists."
+
 	<gtExample>
 	| aScripter |
 	aScripter := LeUIByScripterExamples new logicalDatabasePageOneElementInPager.
@@ -128,23 +132,25 @@ LeTextSnippetByScripterExamples >> insertPageRemoteLink [
 	aScripter
 		substeps: 'Link Page Two in Page One'
 		do: [ :aStep | 
-			aStep do
-				label: 'Add Page Two';
-				block: [ :aLogicalDatabase :aUserData | 
-					LeUIByScripterExamples
-						inExample: [ :anExample | 
-							| aPageTwo |
-							aPageTwo := anExample
-									addEmptyPageTwoInto: (anExample databaseTwoIn: aLogicalDatabase).
-							aUserData at: #pageTwoRemoteLink put: aPageTwo asRemoteLink ] ];
-				onModel;
-				play.
+			aStep
+				doStep: [ :s | 
+					s
+						label: 'Add Page Two';
+						block: [ :aLogicalDatabase :aUserData | 
+							LeUIByScripterExamples
+								inExample: [ :anExample | 
+									| aPageTwo |
+									aPageTwo := anExample
+											addEmptyPageTwoInto: (anExample databaseTwoIn: aLogicalDatabase).
+									aUserData at: #pageTwoRemoteLink put: aPageTwo asRemoteLink ] ];
+						onModel ].
 
-			aStep assert
-				label: 'Assert remote link';
-				satisfies: [ :theScripter | (theScripter userData at: #pageTwoRemoteLink) isNotNil ];
-				onScripter;
-				play.
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert remote link';
+						satisfies: [ :theScripter | (theScripter userData at: #pageTwoRemoteLink) isNotNil ];
+						onScripter ].
 
 			aStep requestFocus
 				in: [ :theStep | LeUIByScripterExamples targetPageInfiniteElement: theStep ];
@@ -152,26 +158,28 @@ LeTextSnippetByScripterExamples >> insertPageRemoteLink [
 				id: GtSourceCoderEditorId;
 				play.
 
-			aStep type
-				label: 'Type Page Two link';
-				valuable: [ :anElement :theScripter | (theScripter userData at: #pageTwoRemoteLink) , '  ' ];
-				play.
+			aStep
+				typeStep: [ :s | 
+					s
+						label: 'Type Page Two link';
+						valuable: [ :anElement :theScripter | (theScripter userData at: #pageTwoRemoteLink) , '  ' ] ].
 
-			aStep assert
-				label: 'Page Two link is valid';
-				value: [ :aText | 
-						aText iterator
-							detectAttribute: [ :each | each class = BlTextForegroundAttribute ]
-							ifFound: [ :that | that paint ]
-							ifNone: [ nil ] ]
-					equals: [ BrGlamorousColors linkColor ];
-				in: [ :theStep | LeUIByScripterExamples targetPageInfiniteElement: theStep ];
-				onChildAt: 1;
-				id: GtSourceCoderEditorId;
-				onBreadthFirstChildOfClass: BrButton;
-				/ #label;
-				onChildFromMessage: #text;
-				play ].
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Page Two link is valid';
+						value: [ :aText | 
+								aText iterator
+									detectAttribute: [ :each | each class = BlTextForegroundAttribute ]
+									ifFound: [ :that | that paint ]
+									ifNone: [ nil ] ]
+							equals: [ BrGlamorousColors linkColor ];
+						in: [ :theStep | LeUIByScripterExamples targetPageInfiniteElement: theStep ];
+						onChildAt: 1;
+						id: GtSourceCoderEditorId;
+						onBreadthFirstChildOfClass: BrButton;
+						/ #label;
+						onChildFromMessage: #text ] ].
 
 	^ aScripter
 ]
@@ -397,36 +405,38 @@ LeTextSnippetByScripterExamples >> typeTextInTextSnippetElement [
 	<gtExample>
 	| aScripter |
 	aScripter := self textSnippetElement.
-	
-	aScripter substep: 'Insert text' do: [ :aStep |
-		aStep do
-			label: 'Insert text';
-			block: [ :anEditor |
-				| aText |
-				aText := anEditor text.
-				aText insertString: ' INSERTED ' at: 5 ];
-			onBreadthFirstChildOfClass: GtTextualCoderEditorElement;
-			play.
-		aStep wait forEmptySpaceTaskQueue;
-			play.
-		
-		aStep check
-			label: 'Check whether text editor and text snippet have different BlText instances';
-			satisfies: [ :anEditor | 
-				anEditor text ~~ aScripter model text ] 
-			description: [ 'Text editor must not share same BlText instance with the block model' ];
-			onBreadthFirstChildOfClass: GtTextualCoderEditorElement;
-			play.
 
-		aStep check
-			label: 'Text editor have same text content as snippet';
-			satisfies: [ :anEditor | 
-				anEditor text characters = aScripter model text characters ] 
-			description: [ 'Text editor must have same content as the snippet' ];
-			onBreadthFirstChildOfClass: GtTextualCoderEditorElement;
-			play.
-			
-	].
-	
+	aScripter
+		substep: 'Insert text'
+		do: [ :aStep | 
+			aStep
+				doStep: [ :s | 
+					s
+						label: 'Insert text';
+						block: [ :anEditor | 
+							| aText |
+							aText := anEditor text.
+							aText insertString: ' INSERTED ' at: 5 ];
+						onBreadthFirstChildOfClass: GtTextualCoderEditorElement ].
+			aStep wait
+				forEmptySpaceTaskQueue;
+				play.
+
+			aStep
+				checkStep: [ :s | 
+					s
+						label: 'Check whether text editor and text snippet have different BlText instances';
+						satisfies: [ :anEditor | anEditor text ~~ aScripter model text ]
+							description: [ 'Text editor must not share same BlText instance with the block model' ];
+						onBreadthFirstChildOfClass: GtTextualCoderEditorElement ].
+
+			aStep
+				checkStep: [ :s | 
+					s
+						label: 'Text editor have same text content as snippet';
+						satisfies: [ :anEditor | anEditor text characters = aScripter model text characters ]
+							description: [ 'Text editor must have same content as the snippet' ];
+						onBreadthFirstChildOfClass: GtTextualCoderEditorElement ] ].
+
 	^ aScripter
 ]

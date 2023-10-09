@@ -34,19 +34,20 @@ LeDatabaseByScripterExamples >> scripterOnDatabaseToolWithToC [
 	| scripter |
 	scripter := GtWorldByScripterExamples new tabElementInScripter.
 
-	scripter do
-		label: 'Show Coder space';
-		block: [ :aTabElement | 
-			| aStencil |
-			aStencil := [ (self toolFor: LeUIExamples new databaseWithTableOfContents)
-					asElement createInPager maximized ] asStencil.
+	scripter
+		doStep: [ :s | 
+			s
+				label: 'Show Coder space';
+				block: [ :aTabElement | 
+					| aStencil |
+					aStencil := [ (self toolFor: LeUIExamples new databaseWithTableOfContents)
+							asElement createInPager maximized ] asStencil.
 
-			GtWorldUtility
-				showSpaceWithIcon: BrGlamorousVectorIcons transparent
-				title: 'Lepiter Page'
-				with: aStencil
-				from: aTabElement ];
-		play.
+					GtWorldUtility
+						showSpaceWithIcon: BrGlamorousVectorIcons transparent
+						title: 'Lepiter Page'
+						with: aStencil
+						from: aTabElement ] ].
 	^ scripter
 ]
 
@@ -66,27 +67,30 @@ LeDatabaseByScripterExamples >> scripterWithLinkClicked [
 	| scripter |
 	scripter := self scripterWithToCNavigated.
 
-	scripter click
-		label: 'Click link container';
-		id: #content;
-		id: #scrollable;
-		onChildAt: 1;
-		play.
+	scripter
+		clickStep: [ :s | 
+			s
+				label: 'Click link container';
+				id: #content;
+				id: #scrollable;
+				onChildAt: 1 ].
 
-	scripter click
-		label: 'Click link';
-		id: #content;
-		id: #scrollable;
-		onChildAt: 1;
-		play.
+	scripter
+		clickStep: [ :s | 
+			s
+				label: 'Click link';
+				id: #content;
+				id: #scrollable;
+				onChildAt: 1 ].
 
-	scripter check
-		label: 'Check that page was spawned';
-		id: #content;
-		onChildAt: 1;
-		onChildAt: 1;
-		satisfies: [ :aPager | aPager pages size = 2 ];
-		play.
+	scripter
+		checkStep: [ :s | 
+			s
+				label: 'Check that page was spawned';
+				id: #content;
+				onChildAt: 1;
+				onChildAt: 1;
+				satisfies: [ :aPager | aPager pages size = 2 ] ].
 
 	^ scripter
 ]
@@ -97,25 +101,28 @@ LeDatabaseByScripterExamples >> scripterWithLinkPrimaryClicked [
 	| scripter |
 	scripter := self scripterWithToCNavigated.
 
-	scripter click
-		label: 'Click link container';
-		id: #content;
-		id: #scrollable;
-		onChildAt: 1;
-		play.
+	scripter
+		clickStep: [ :s | 
+			s
+				label: 'Click link container';
+				id: #content;
+				id: #scrollable;
+				onChildAt: 1 ].
 
-	scripter click
-		label: 'Click link';
-		modifiers: BlKeyModifiers primary;
-		id: #content;
-		id: #scrollable;
-		onChildAt: 1;
-		play.
+	scripter
+		clickStep: [ :s | 
+			s
+				label: 'Click link';
+				modifiers: BlKeyModifiers primary;
+				id: #content;
+				id: #scrollable;
+				onChildAt: 1 ].
 
-	scripter check
-		label: 'Check that tab was spawned';
-		satisfies: [ :aWorld | aWorld tabs tabs size = 3 ];
-		play.
+	scripter
+		checkStep: [ :s | 
+			s
+				label: 'Check that tab was spawned';
+				satisfies: [ :aWorld | aWorld tabs tabs size = 3 ] ].
 
 	^ scripter
 ]
@@ -126,26 +133,29 @@ LeDatabaseByScripterExamples >> scripterWithOtherPageNavigated [
 	| scripter |
 	scripter := self scripterOnDatabaseTool.
 
-	scripter check
-		label: 'Ensure page is correct';
-		id: #content;
-		id: #title;
-		value: [ :anElement | anElement text asString ] equals: 'Page One';
-		play.
+	scripter
+		checkStep: [ :s | 
+			s
+				label: 'Ensure page is correct';
+				id: #content;
+				id: #title;
+				value: [ :anElement | anElement text asString ] equals: 'Page One' ].
 
-	scripter click
-		label: 'Select other page';
-		id: #sidebar;
-		id: #content;
-		id: #title;
-		play.
+	scripter
+		clickStep: [ :s | 
+			s
+				label: 'Select other page';
+				id: #sidebar;
+				id: #content;
+				id: #title ].
 
-	scripter check
-		label: 'Ensure page has changed';
-		id: #content;
-		id: #title;
-		value: [ :anElement | anElement text asString ] equals: 'Page Two';
-		play.
+	scripter
+		checkStep: [ :s | 
+			s
+				label: 'Ensure page has changed';
+				id: #content;
+				id: #title;
+				value: [ :anElement | anElement text asString ] equals: 'Page Two' ].
 
 	^ scripter
 ]
@@ -156,27 +166,31 @@ LeDatabaseByScripterExamples >> scripterWithToCDuplicateNavigated [
 	| scripter |
 	scripter := self scripterOnDatabaseToolWithToCDuplicatePage.
 
-	scripter check
-		label: 'Ensure page is correct';
-		id: #content;
-		id: #title;
-		value: [ :anElement | anElement text asString ] equals: scripter model pages last title;
-		play.
+	scripter
+		checkStep: [ :s | 
+			s
+				label: 'Ensure page is correct';
+				id: #content;
+				id: #title;
+				value: [ :anElement | anElement text asString ]
+					equals: scripter model pages last title ].
 
-	scripter click
-		label: 'Select other page';
-		id: #sidebar;
-		id: #content;
-		id: #scrollable;
-		onChildAt: scripter model pages size;
-		play.
+	scripter
+		clickStep: [ :s | 
+			s
+				label: 'Select other page';
+				id: #sidebar;
+				id: #content;
+				id: #scrollable;
+				onChildAt: scripter model pages size ].
 
-	scripter check
-		label: 'Ensure page has changed';
-		id: #content;
-		id: #title;
-		value: [ :anElement | anElement text asString ] equals: 'Summary';
-		play.
+	scripter
+		checkStep: [ :s | 
+			s
+				label: 'Ensure page has changed';
+				id: #content;
+				id: #title;
+				value: [ :anElement | anElement text asString ] equals: 'Summary' ].
 
 	^ scripter
 ]
@@ -187,26 +201,30 @@ LeDatabaseByScripterExamples >> scripterWithToCNavigated [
 	| scripter |
 	scripter := self scripterOnDatabaseToolWithToC.
 
-	scripter check
-		label: 'Ensure page is correct';
-		id: #content;
-		id: #title;
-		value: [ :anElement | anElement text asString ] equals: 'Charts';
-		play.
+	scripter
+		checkStep: [ :s | 
+			s
+				label: 'Ensure page is correct';
+				id: #content;
+				id: #title;
+				value: [ :anElement | anElement text asString ] equals: 'Charts' ].
 
-	scripter click
-		label: 'Select other page';
-		id: #sidebar;
-		id: #content;
-		id: #title;
-		play.
+	scripter
+		clickStep: [ :s | 
+			s
+				label: 'Select other page';
+				id: #sidebar;
+				id: #content;
+				id: #title ].
 
-	scripter check
-		label: 'Ensure page has changed';
-		id: #content;
-		id: #title;
-		value: [ :anElement | anElement text asString ] equals: 'Visualizing with Glamorous Toolkit';
-		play.
+	scripter
+		checkStep: [ :s | 
+			s
+				label: 'Ensure page has changed';
+				id: #content;
+				id: #title;
+				value: [ :anElement | anElement text asString ]
+					equals: 'Visualizing with Glamorous Toolkit' ].
 
 	^ scripter
 ]
@@ -217,43 +235,47 @@ LeDatabaseByScripterExamples >> scripterWithToCNavigatedAndOtherTabClicked [
 	| scripter check |
 	scripter := self scripterWithToCNavigated.
 
-	scripter click
-		label: 'Select other tab';
-		id: #sidebar;
-		id: #content;
-		id: #header;
-		id: #tabbar;
-		onChildAt: 2;
-		play.	"somehow the selection is only picked up on re-render"
-	scripter click
-		label: 'Select first tab';
-		id: #sidebar;
-		id: #content;
-		id: #header;
-		id: #tabbar;
-		onChildAt: 1;
-		play.
+	scripter
+		clickStep: [ :s | 
+			s
+				label: 'Select other tab';
+				id: #sidebar;
+				id: #content;
+				id: #header;
+				id: #tabbar;
+				onChildAt: 2 ].	"somehow the selection is only picked up on re-render"
+	scripter
+		clickStep: [ :s | 
+			s
+				label: 'Select first tab';
+				id: #sidebar;
+				id: #content;
+				id: #header;
+				id: #tabbar;
+				onChildAt: 1 ].
 
-	scripter click
-		label: 'Select other tab again';
-		id: #sidebar;
-		id: #content;
-		id: #header;
-		id: #tabbar;
-		onChildAt: 2;
-		play.
+	scripter
+		clickStep: [ :s | 
+			s
+				label: 'Select other tab again';
+				id: #sidebar;
+				id: #content;
+				id: #header;
+				id: #tabbar;
+				onChildAt: 2 ].
 
-	scripter check
-		label: 'Check that element is selected';
-		id: #sidebar;
-		id: #content;
-		id: #content;
-		id: #list;
-		satisfies: [ :aList | 
-			aList
-				selectedEntityDo: [ :aGroup | check := aGroup itemObject title = 'Visualizing with Glamorous Toolkit' ].
-			check ];
-		play.
+	scripter
+		checkStep: [ :s | 
+			s
+				label: 'Check that element is selected';
+				id: #sidebar;
+				id: #content;
+				id: #content;
+				id: #list;
+				satisfies: [ :aList | 
+					aList
+						selectedEntityDo: [ :aGroup | check := aGroup itemObject title = 'Visualizing with Glamorous Toolkit' ].
+					check ] ].
 
 	^ scripter
 ]
