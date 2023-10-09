@@ -178,8 +178,16 @@ LeHtmlTextSnippetAnnotationVisitor >> visitPackageAnnotation: aPackageAnnotation
 
 { #category : #generated }
 LeHtmlTextSnippetAnnotationVisitor >> visitPageAnnotation: aPageAnnotation [
-	context html
-		inlineTag: #span
-		attributes: #('page-annotation')
-		with: aPageAnnotation pageName
+	context pageLinks
+		linkTitled: aPageAnnotation pageName
+		ifFound: [ :aPageLink | 
+			context html
+				inlineTag: #a
+				attributes: {'href'.
+						aPageLink fileNameWithExtension}
+				with: aPageAnnotation pageName ]
+		ifNone: [ context html
+				inlineTag: #span
+				attributes: #('page-annotation')
+				with: aPageAnnotation pageName ]
 ]
