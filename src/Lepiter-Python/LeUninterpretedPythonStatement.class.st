@@ -10,7 +10,7 @@ Class {
 	#instVars : [
 		'string'
 	],
-	#category : 'Lepiter-Python-Bridge'
+	#category : #'Lepiter-Python-Bridge'
 }
 
 { #category : #convenience }
@@ -56,7 +56,7 @@ LeUninterpretedPythonStatement class >> statementsFrom: aString [
 ]
 
 { #category : #testing }
-LeUninterpretedPythonStatement >> isPythonValue [
+LeUninterpretedPythonStatement >> isLanguageLinkValue [
 	"A python value doesn't have assignment or begin with 'import'.
 	This doesn't parse the expression and doesn't handle strings containing an $= character."
 
