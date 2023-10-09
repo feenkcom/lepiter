@@ -12,90 +12,90 @@ Class {
 { #category : #'examples - support' }
 LeUIStylingPageByScripterExamples >> assertStep: aRootStep label: aStepLabel snippetIndex: aSnippetIndex annotationFrom: aStartIndex to: aStopIndex isHidden: isHidden [
 	<gtExample>
-	aRootStep substeps: aStepLabel do: [ :aStep | 
-		aStep assert
-			label: 'Assert text start index (', aStartIndex asString, ')';
-			value: [ :anEditor | 
-				(anEditor text from: aStartIndex to: aStartIndex)
-					hasAttributeSuchThat: [ :anAttribute | 
-						anAttribute class = BrTextHideAttribute ] ]
-				equals: [ isHidden ];
-			// LePageToolContentTreeElement;
-			// LePageSnippetsTreeElementId;
-			id: LeSnippetElementId index: aSnippetIndex;
-			// BrTextEditorParagraphElement;
-			play.
-			
-		aStep assert
-			label: 'Assert text stop index (', aStopIndex asString ,')';
-			value: [ :anEditor | 
-				(anEditor text from: aStopIndex to: aStopIndex)
-					hasAttributeSuchThat: [ :anAttribute | 
-						anAttribute class = BrTextHideAttribute ] ]
-				equals: [ isHidden ];
-			// LePageToolContentTreeElement;
-			// LePageSnippetsTreeElementId;
-			id: LeSnippetElementId index: aSnippetIndex;
-			// BrTextEditorParagraphElement;
-			play.
-			
-		aStartIndex > 1 ifTrue: [ 
-			aStep assert
-				label: 'Assert before text start index (', (aStartIndex - 1) asString, ')';
-				value: [ :anEditor | 
-					(anEditor text from: aStartIndex - 1 to: aStartIndex - 1)
-						hasAttributeSuchThat: [ :anAttribute | 
-							anAttribute class = BrTextHideAttribute ] ]
-					equals: [ isHidden not ];
-				// LePageToolContentTreeElement;
-				// LePageSnippetsTreeElementId;
-				id: LeSnippetElementId index: aSnippetIndex;
-				// BrTextEditorParagraphElement;
-				play ].
-				
-		aStep assert
-				label: 'Assert after text stop index (', (aStopIndex + 1) asString, ')';
-				value: [ :anEditor | 
-					anEditor text size > aStopIndex
-						ifFalse: [ isHidden not ]
-						ifTrue: [
-							(anEditor text from: aStopIndex + 1 to: aStopIndex + 1)
-								hasAttributeSuchThat: [ :anAttribute | 
-									anAttribute class = BrTextHideAttribute ] ] ]
-					equals: [ isHidden not ];
-				// LePageToolContentTreeElement;
-				// LePageSnippetsTreeElementId;
-				id: LeSnippetElementId index: aSnippetIndex;
-				// BrTextEditorParagraphElement;
-				play ]
+	aRootStep
+		substeps: aStepLabel
+		do: [ :aStep | 
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert text start index (' , aStartIndex asString , ')';
+						value: [ :anEditor | 
+								(anEditor text from: aStartIndex to: aStartIndex)
+									hasAttributeSuchThat: [ :anAttribute | anAttribute class = BrTextHideAttribute ] ]
+							equals: [ isHidden ];
+						// LePageToolContentTreeElement;
+						// LePageSnippetsTreeElementId;
+						id: LeSnippetElementId index: aSnippetIndex;
+						// BrTextEditorParagraphElement ].
+
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert text stop index (' , aStopIndex asString , ')';
+						value: [ :anEditor | 
+								(anEditor text from: aStopIndex to: aStopIndex)
+									hasAttributeSuchThat: [ :anAttribute | anAttribute class = BrTextHideAttribute ] ]
+							equals: [ isHidden ];
+						// LePageToolContentTreeElement;
+						// LePageSnippetsTreeElementId;
+						id: LeSnippetElementId index: aSnippetIndex;
+						// BrTextEditorParagraphElement ].
+
+			aStartIndex > 1
+				ifTrue: [ aStep
+						assertStep: [ :s | 
+							s
+								label: 'Assert before text start index (' , (aStartIndex - 1) asString , ')';
+								value: [ :anEditor | 
+										(anEditor text from: aStartIndex - 1 to: aStartIndex - 1)
+											hasAttributeSuchThat: [ :anAttribute | anAttribute class = BrTextHideAttribute ] ]
+									equals: [ isHidden not ];
+								// LePageToolContentTreeElement;
+								// LePageSnippetsTreeElementId;
+								id: LeSnippetElementId index: aSnippetIndex;
+								// BrTextEditorParagraphElement ] ].
+
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert after text stop index (' , (aStopIndex + 1) asString , ')';
+						value: [ :anEditor | 
+								anEditor text size > aStopIndex
+									ifFalse: [ isHidden not ]
+									ifTrue: [ (anEditor text from: aStopIndex + 1 to: aStopIndex + 1)
+											hasAttributeSuchThat: [ :anAttribute | anAttribute class = BrTextHideAttribute ] ] ]
+							equals: [ isHidden not ];
+						// LePageToolContentTreeElement;
+						// LePageSnippetsTreeElementId;
+						id: LeSnippetElementId index: aSnippetIndex;
+						// BrTextEditorParagraphElement ] ]
 ]
 
 { #category : #'examples - support' }
-LeUIStylingPageByScripterExamples >> assertStep: aStep snippetIndex: aSnippetIndex attributeId: anId labelValue: aValuable [ 
-
-	aStep assert
-		label: 'Assert attribute label';
-		value: [ :aButton | aButton label asString ] 
-			equals: aValuable;
-		// LePageToolContentTreeElement;
-		// LePageSnippetsTreeElementId;
-		id: LeSnippetElementId index: aSnippetIndex;
-		// anId;
-		play.
+LeUIStylingPageByScripterExamples >> assertStep: aStep snippetIndex: aSnippetIndex attributeId: anId labelValue: aValuable [
+	aStep
+		assertStep: [ :s | 
+			s
+				label: 'Assert attribute label';
+				value: [ :aButton | aButton label asString ] equals: aValuable;
+				// LePageToolContentTreeElement;
+				// LePageSnippetsTreeElementId;
+				id: LeSnippetElementId index: aSnippetIndex;
+				// anId ]
 ]
 
 { #category : #'examples - support' }
 LeUIStylingPageByScripterExamples >> assertStep: aStep snippetIndex: aSnippetIndex elementIdExists: anId [
 	<gtExample>
-
-	aStep assert
-		label: 'Assert example preview exists';
-		exists;
-		// LePageToolContentTreeElement;
-		// LePageSnippetsTreeElementId;
-		id: LeSnippetElementId index: aSnippetIndex;
-		// anId;
-		play.
+	aStep
+		assertStep: [ :s | 
+			s
+				label: 'Assert example preview exists';
+				exists;
+				// LePageToolContentTreeElement;
+				// LePageSnippetsTreeElementId;
+				id: LeSnippetElementId index: aSnippetIndex;
+				// anId ]
 ]
 
 { #category : #accessing }
@@ -114,49 +114,52 @@ LeUIStylingPageByScripterExamples >> pageClickOnTheFirstPageWorldTab [
 	| aScripter aLogger |
 	aScripter := self pageSecondTimeInWorldTab.
 
-	aLogger := self newMemoryLogger
-		name: '02 Display the page again'.
+	aLogger := self newMemoryLogger name: '02 Display the page again'.
 	aScripter userData at: #pageClickOnTheFirstPageWorldTab put: aLogger.
 
 	[ aScripter
 		substep: 'Display the first page tab'
 		do: [ :aStep | 
-			aStep click
-				label: 'Click on the second world tab';
-				// GtWorldTabGroupId;
-				/ #header;
-				// #tabbar;
-				onChildFromBlock: [ :aTabbar | aTabbar children second ];
-				play.
+			aStep
+				clickStep: [ :s | 
+					s
+						label: 'Click on the second world tab';
+						// GtWorldTabGroupId;
+						/ #header;
+						// #tabbar;
+						onChildFromBlock: [ :aTabbar | aTabbar children second ] ].
 
-			aStep assert
-				label: 'Assert page in a new tab';
-				value: [ :anElement | anElement tabs tabs size ] equals: 3;
-				play.
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert page in a new tab';
+						value: [ :anElement | anElement tabs tabs size ] equals: 3 ].
 
-			aStep assert
-				label: 'Assert page tab selection';
-				satisfies: [ :anElement | anElement tabs tabs second isSelected ]
-					description: [ 'Page tab must be selected' ];
-				play ] ] ensure: [ aLogger stop ].
-	
-	self 
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert page tab selection';
+						satisfies: [ :anElement | anElement tabs tabs second isSelected ]
+							description: [ 'Page tab must be selected' ] ] ] ]
+		ensure: [ aLogger stop ].
+
+	self
 		assertStep: aScripter
 		snippetIndex: 1
 		attributeId: (LeTextSnippetAttributeLabelElementId indexed: 1)
 		labelValue: LeUIDummyExamples new number asString.
-		
+
 	self
 		assertStep: aScripter
 		snippetIndex: 1
 		elementIdExists: (LeTextSnippetAttributeExampleElementId indexed: 2).
-		
-	self 
-		assertStep: aScripter 
+
+	self
+		assertStep: aScripter
 		label: 'Assert the second example annotation is hidden'
 		snippetIndex: 1
 		annotationFrom: 153
-		to: 227 
+		to: 227
 		isHidden: true.
 
 	^ aScripter
@@ -166,69 +169,68 @@ LeUIStylingPageByScripterExamples >> pageClickOnTheFirstPageWorldTab [
 LeUIStylingPageByScripterExamples >> pageIntoWorldTab [
 	<gtExample>
 	| aScripter aLogger |
+	aScripter := GtWorldByScripterExamples new tabElementInScripter.
 
-	aScripter := GtWorldByScripterExamples new tabElementInScripter.	
-	
-	aLogger := self newMemoryLogger
-		name: '01 Display page'.
+	aLogger := self newMemoryLogger name: '01 Display page'.
 	aScripter userData at: #pageIntoWorldTab put: aLogger.
-	
-	[
-	
-	aScripter substep: 'Add page into a world tab' do: [ :aStep |
-		aStep do
-			label: 'Show Coder space';
-			block: [ :aTabElement | 
-				| aStencil |
-				aStencil := [
-						| aPage |
-						aPage := self pageOneWithText.
-						LeUIByScripterExamples new pageInPager: aPage 
-					] asStencil.
-				
-				GtWorldUtility 
-					showSpaceWithIcon: BrGlamorousVectorIcons transparent 
-					title: 'Lepiter Page'
-					with: aStencil 
-					from: aTabElement ];
-			play.
-			
-		aStep assert
-			label: 'Assert page in a new tab';
-			value: [ :anElement | anElement tabs tabs size ] equals: 2;
-			play.
-			
-		aStep assert 
-			label: 'Assert page tab label';
-			value: [ :anElement | anElement tabs tabs second widget label asString ]
-				equals: 'Page One';
-			play.
 
-		aStep assert 
-			label: 'Assert page tab selection';
-			satisfies: [ :anElement | anElement tabs tabs second isSelected ]
-				description: [ 'Page tab must be selected' ];
-			play ].
-			
-	] ensure: [ aLogger stop ].
-			
-	self 
+	[ aScripter
+		substep: 'Add page into a world tab'
+		do: [ :aStep | 
+			aStep
+				doStep: [ :s | 
+					s
+						label: 'Show Coder space';
+						block: [ :aTabElement | 
+							| aStencil |
+							aStencil := [ | aPage |
+								aPage := self pageOneWithText.
+								LeUIByScripterExamples new pageInPager: aPage ] asStencil.
+
+							GtWorldUtility
+								showSpaceWithIcon: BrGlamorousVectorIcons transparent
+								title: 'Lepiter Page'
+								with: aStencil
+								from: aTabElement ] ].
+
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert page in a new tab';
+						value: [ :anElement | anElement tabs tabs size ] equals: 2 ].
+
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert page tab label';
+						value: [ :anElement | anElement tabs tabs second widget label asString ]
+							equals: 'Page One' ].
+
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert page tab selection';
+						satisfies: [ :anElement | anElement tabs tabs second isSelected ]
+							description: [ 'Page tab must be selected' ] ] ] ]
+		ensure: [ aLogger stop ].
+
+	self
 		assertStep: aScripter
 		snippetIndex: 1
 		attributeId: (LeTextSnippetAttributeLabelElementId indexed: 1)
 		labelValue: LeUIDummyExamples new number asString.
-		
+
 	self
 		assertStep: aScripter
 		snippetIndex: 1
 		elementIdExists: (LeTextSnippetAttributeExampleElementId indexed: 2).
-	
-	self 
-		assertStep: aScripter 
+
+	self
+		assertStep: aScripter
 		label: 'Assert the second example annotation is hidden'
 		snippetIndex: 1
 		annotationFrom: 153
-		to: 227 
+		to: 227
 		isHidden: true.
 
 	^ aScripter
@@ -277,49 +279,53 @@ LeUIStylingPageByScripterExamples >> pageOneWithText [
 LeUIStylingPageByScripterExamples >> pageSecondTimeInWorldTab [
 	<gtExample>
 	| aScripter |
+	aScripter := self pageIntoWorldTab.
 
-	aScripter := self pageIntoWorldTab.	
-	
-	aScripter substep: 'Add page into a world tab' do: [ :aStep |
-		aStep click
-			// LeOpenPageInNewWorldTabElementId;
-			play.
-			
-		aStep assert
-			label: 'Assert page in a new tab';
-			value: [ :anElement | anElement tabs tabs size ] equals: 3;
-			play.
-			
-		aStep assert 
-			label: 'Assert page tab label';
-			value: [ :anElement | 
-					anElement tabs tabs third widget label asString ]
-				equals: 'Page One';
-			play.
+	aScripter
+		substep: 'Add page into a world tab'
+		do: [ :aStep | 
+			aStep
+				clickStep: [ :s | 
+					s
+						// LeOpenPageInNewWorldTabElementId ].
 
-		aStep assert 
-			label: 'Assert page tab selection';
-			satisfies: [ :anElement | anElement tabs tabs third isSelected ]
-				description: [ 'Page tab must be selected' ];
-			play ].
-			
-	self 
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert page in a new tab';
+						value: [ :anElement | anElement tabs tabs size ] equals: 3 ].
+
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert page tab label';
+						value: [ :anElement | anElement tabs tabs third widget label asString ]
+							equals: 'Page One' ].
+
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert page tab selection';
+						satisfies: [ :anElement | anElement tabs tabs third isSelected ]
+							description: [ 'Page tab must be selected' ] ] ].
+
+	self
 		assertStep: aScripter
 		snippetIndex: 1
 		attributeId: (LeTextSnippetAttributeLabelElementId indexed: 1)
 		labelValue: LeUIDummyExamples new number asString.
-		
+
 	self
 		assertStep: aScripter
 		snippetIndex: 1
 		elementIdExists: (LeTextSnippetAttributeExampleElementId indexed: 2).
-	
-	self 
-		assertStep: aScripter 
+
+	self
+		assertStep: aScripter
 		label: 'Assert the second example annotation is hidden'
 		snippetIndex: 1
 		annotationFrom: 153
-		to: 227 
+		to: 227
 		isHidden: true.
 
 	^ aScripter
@@ -334,59 +340,64 @@ LeUIStylingPageByScripterExamples >> pageSwitchToTheFirstWorldTabThenBackToTheSe
 	aScripter
 		substep: 'Display the first tab'
 		do: [ :aStep | 
-			aStep click
-				label: 'Click on the first world tab';
-				// GtWorldTabGroupId;
-				/ #header;
-				// #tabbar;
-				onChildFromBlock: [ :aTabbar | aTabbar children first ];
-				play.
+			aStep
+				clickStep: [ :s | 
+					s
+						label: 'Click on the first world tab';
+						// GtWorldTabGroupId;
+						/ #header;
+						// #tabbar;
+						onChildFromBlock: [ :aTabbar | aTabbar children first ] ].
 
-			aStep assert
-				label: 'Assert page tab selection';
-				satisfies: [ :anElement | anElement tabs tabs first isSelected ]
-					description: [ 'Page tab must be selected' ];
-				play ].
-	
-	aLogger := self newMemoryLogger
-		name: '02 Display the page again'.
-	aScripter userData at: #pageSwitchToTheFirstWorldTabThenBackToTheSecondWorldTab put: aLogger.
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert page tab selection';
+						satisfies: [ :anElement | anElement tabs tabs first isSelected ]
+							description: [ 'Page tab must be selected' ] ] ].
+
+	aLogger := self newMemoryLogger name: '02 Display the page again'.
+	aScripter userData
+		at: #pageSwitchToTheFirstWorldTabThenBackToTheSecondWorldTab
+		put: aLogger.
 
 	[ aScripter
 		substep: 'Display the second tab'
 		do: [ :aStep | 
-			aStep click
-				label: 'Click on the second world tab';
-				// GtWorldTabGroupId;
-				/ #header;
-				// #tabbar;
-				onChildFromBlock: [ :aTabbar | aTabbar children second ];
-				play.
+			aStep
+				clickStep: [ :s | 
+					s
+						label: 'Click on the second world tab';
+						// GtWorldTabGroupId;
+						/ #header;
+						// #tabbar;
+						onChildFromBlock: [ :aTabbar | aTabbar children second ] ].
 
-			aStep assert
-				label: 'Assert page tab selection';
-				satisfies: [ :anElement | anElement tabs tabs second isSelected ]
-					description: [ 'Page tab must be selected' ];
-				play ] 
-	] ensure: [ aLogger stop ].
-	
-	self 
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert page tab selection';
+						satisfies: [ :anElement | anElement tabs tabs second isSelected ]
+							description: [ 'Page tab must be selected' ] ] ] ]
+		ensure: [ aLogger stop ].
+
+	self
 		assertStep: aScripter
 		snippetIndex: 1
 		attributeId: (LeTextSnippetAttributeLabelElementId indexed: 1)
 		labelValue: LeUIDummyExamples new number asString.
-		
+
 	self
 		assertStep: aScripter
 		snippetIndex: 1
 		elementIdExists: (LeTextSnippetAttributeExampleElementId indexed: 2).
-	
-	self 
-		assertStep: aScripter 
+
+	self
+		assertStep: aScripter
 		label: 'Assert the second example annotation is hidden'
 		snippetIndex: 1
 		annotationFrom: 153
-		to: 227 
+		to: 227
 		isHidden: true.
 
 	^ aScripter
@@ -398,27 +409,30 @@ LeUIStylingPageByScripterExamples >> pageWithClassClicked [
 	| aScripter |
 	aScripter := self pageWithClassIntoWorldTab.
 
-	aScripter click
-		label: 'Click link container';
-		id: #content;
-		id: #scrollable;
-		onChildAt: 1;
-		play.
+	aScripter
+		clickStep: [ :s | 
+			s
+				label: 'Click link container';
+				id: #content;
+				id: #scrollable;
+				onChildAt: 1 ].
 
-	aScripter click
-		label: 'Click link';
-		id: #content;
-		id: #scrollable;
-		onChildAt: 1;
-		play.
+	aScripter
+		clickStep: [ :s | 
+			s
+				label: 'Click link';
+				id: #content;
+				id: #scrollable;
+				onChildAt: 1 ].
 
-	aScripter check
-		label: 'Check that page was spawned';
-		id: #content;
-		onChildAt: 1;
-		onChildAt: 1;
-		satisfies: [ :aPager | aPager pages size = 2 ];
-		play.
+	aScripter
+		checkStep: [ :s | 
+			s
+				label: 'Check that page was spawned';
+				id: #content;
+				onChildAt: 1;
+				onChildAt: 1;
+				satisfies: [ :aPager | aPager pages size = 2 ] ].
 
 	^ aScripter
 ]
@@ -429,37 +443,41 @@ LeUIStylingPageByScripterExamples >> pageWithClassIntoWorldTab [
 	| aScripter |
 	aScripter := GtWorldByScripterExamples new tabElementInScripter.
 
-	aScripter do
-		label: 'Show Coder space';
-		block: [ :aTabElement | 
-			| aStencil |
-			aStencil := [ | aPage |
-				aPage := self pageOneWithClass.
-				LeUIByScripterExamples new pageInPager: aPage ] asStencil.
+	aScripter
+		doStep: [ :s | 
+			s
+				label: 'Show Coder space';
+				block: [ :aTabElement | 
+					| aStencil |
+					aStencil := [ | aPage |
+						aPage := self pageOneWithClass.
+						LeUIByScripterExamples new pageInPager: aPage ] asStencil.
 
-			GtWorldUtility
-				showSpaceWithIcon: BrGlamorousVectorIcons transparent
-				title: 'Lepiter Page'
-				with: aStencil
-				from: aTabElement ];
-		play.
+					GtWorldUtility
+						showSpaceWithIcon: BrGlamorousVectorIcons transparent
+						title: 'Lepiter Page'
+						with: aStencil
+						from: aTabElement ] ].
 
-	aScripter assert
-		label: 'Assert page in a new tab';
-		value: [ :anElement | anElement tabs tabs size ] equals: 2;
-		play.
+	aScripter
+		assertStep: [ :s | 
+			s
+				label: 'Assert page in a new tab';
+				value: [ :anElement | anElement tabs tabs size ] equals: 2 ].
 
-	aScripter assert
-		label: 'Assert page tab label';
-		value: [ :anElement | anElement tabs tabs second widget label asString ]
-			equals: 'Page One';
-		play.
+	aScripter
+		assertStep: [ :s | 
+			s
+				label: 'Assert page tab label';
+				value: [ :anElement | anElement tabs tabs second widget label asString ]
+					equals: 'Page One' ].
 
-	aScripter assert
-		label: 'Assert page tab selection';
-		satisfies: [ :anElement | anElement tabs tabs second isSelected ]
-			description: [ 'Page tab must be selected' ];
-		play.
+	aScripter
+		assertStep: [ :s | 
+			s
+				label: 'Assert page tab selection';
+				satisfies: [ :anElement | anElement tabs tabs second isSelected ]
+					description: [ 'Page tab must be selected' ] ].
 
 	^ aScripter
 ]
@@ -470,25 +488,28 @@ LeUIStylingPageByScripterExamples >> pageWithClassPrimaryClicked [
 	| aScripter |
 	aScripter := self pageWithClassIntoWorldTab.
 
-	aScripter click
-		label: 'Click link container';
-		id: #content;
-		id: #scrollable;
-		onChildAt: 1;
-		play.
+	aScripter
+		clickStep: [ :s | 
+			s
+				label: 'Click link container';
+				id: #content;
+				id: #scrollable;
+				onChildAt: 1 ].
 
-	aScripter click
-		label: 'Click link';
-		modifiers: BlKeyModifiers primary;
-		id: #content;
-		id: #scrollable;
-		onChildAt: 1;
-		play.
+	aScripter
+		clickStep: [ :s | 
+			s
+				label: 'Click link';
+				modifiers: BlKeyModifiers primary;
+				id: #content;
+				id: #scrollable;
+				onChildAt: 1 ].
 
-	aScripter check
-		label: 'Check that tab was spawned';
-		satisfies: [ :aWorld | aWorld tabs tabs size = 3 ];
-		play.
+	aScripter
+		checkStep: [ :s | 
+			s
+				label: 'Check that tab was spawned';
+				satisfies: [ :aWorld | aWorld tabs tabs size = 3 ] ].
 
 	^ aScripter
 ]
@@ -499,27 +520,30 @@ LeUIStylingPageByScripterExamples >> pageWithPackageClicked [
 	| aScripter |
 	aScripter := self pageWithPackageIntoWorldTab.
 
-	aScripter click
-		label: 'Click link container';
-		id: #content;
-		id: #scrollable;
-		onChildAt: 1;
-		play.
+	aScripter
+		clickStep: [ :s | 
+			s
+				label: 'Click link container';
+				id: #content;
+				id: #scrollable;
+				onChildAt: 1 ].
 
-	aScripter click
-		label: 'Click link';
-		id: #content;
-		id: #scrollable;
-		onChildAt: 1;
-		play.
+	aScripter
+		clickStep: [ :s | 
+			s
+				label: 'Click link';
+				id: #content;
+				id: #scrollable;
+				onChildAt: 1 ].
 
-	aScripter check
-		label: 'Check that page was spawned';
-		id: #content;
-		onChildAt: 1;
-		onChildAt: 1;
-		satisfies: [ :aPager | aPager pages size = 2 ];
-		play.
+	aScripter
+		checkStep: [ :s | 
+			s
+				label: 'Check that page was spawned';
+				id: #content;
+				onChildAt: 1;
+				onChildAt: 1;
+				satisfies: [ :aPager | aPager pages size = 2 ] ].
 
 	^ aScripter
 ]
@@ -530,37 +554,41 @@ LeUIStylingPageByScripterExamples >> pageWithPackageIntoWorldTab [
 	| aScripter |
 	aScripter := GtWorldByScripterExamples new tabElementInScripter.
 
-	aScripter do
-		label: 'Show Coder space';
-		block: [ :aTabElement | 
-			| aStencil |
-			aStencil := [ | aPage |
-				aPage := self pageOneWithClass.
-				LeUIByScripterExamples new pageInPager: aPage ] asStencil.
+	aScripter
+		doStep: [ :s | 
+			s
+				label: 'Show Coder space';
+				block: [ :aTabElement | 
+					| aStencil |
+					aStencil := [ | aPage |
+						aPage := self pageOneWithClass.
+						LeUIByScripterExamples new pageInPager: aPage ] asStencil.
 
-			GtWorldUtility
-				showSpaceWithIcon: BrGlamorousVectorIcons transparent
-				title: 'Lepiter Page'
-				with: aStencil
-				from: aTabElement ];
-		play.
+					GtWorldUtility
+						showSpaceWithIcon: BrGlamorousVectorIcons transparent
+						title: 'Lepiter Page'
+						with: aStencil
+						from: aTabElement ] ].
 
-	aScripter assert
-		label: 'Assert page in a new tab';
-		value: [ :anElement | anElement tabs tabs size ] equals: 2;
-		play.
+	aScripter
+		assertStep: [ :s | 
+			s
+				label: 'Assert page in a new tab';
+				value: [ :anElement | anElement tabs tabs size ] equals: 2 ].
 
-	aScripter assert
-		label: 'Assert page tab label';
-		value: [ :anElement | anElement tabs tabs second widget label asString ]
-			equals: 'Page One';
-		play.
+	aScripter
+		assertStep: [ :s | 
+			s
+				label: 'Assert page tab label';
+				value: [ :anElement | anElement tabs tabs second widget label asString ]
+					equals: 'Page One' ].
 
-	aScripter assert
-		label: 'Assert page tab selection';
-		satisfies: [ :anElement | anElement tabs tabs second isSelected ]
-			description: [ 'Page tab must be selected' ];
-		play.
+	aScripter
+		assertStep: [ :s | 
+			s
+				label: 'Assert page tab selection';
+				satisfies: [ :anElement | anElement tabs tabs second isSelected ]
+					description: [ 'Page tab must be selected' ] ].
 
 	^ aScripter
 ]
@@ -571,25 +599,28 @@ LeUIStylingPageByScripterExamples >> pageWithPackagePrimaryClicked [
 	| aScripter |
 	aScripter := self pageWithPackageIntoWorldTab.
 
-	aScripter click
-		label: 'Click link container';
-		id: #content;
-		id: #scrollable;
-		onChildAt: 1;
-		play.
+	aScripter
+		clickStep: [ :s | 
+			s
+				label: 'Click link container';
+				id: #content;
+				id: #scrollable;
+				onChildAt: 1 ].
 
-	aScripter click
-		label: 'Click link';
-		modifiers: BlKeyModifiers primary;
-		id: #content;
-		id: #scrollable;
-		onChildAt: 1;
-		play.
+	aScripter
+		clickStep: [ :s | 
+			s
+				label: 'Click link';
+				modifiers: BlKeyModifiers primary;
+				id: #content;
+				id: #scrollable;
+				onChildAt: 1 ].
 
-	aScripter check
-		label: 'Check that tab was spawned';
-		satisfies: [ :aWorld | aWorld tabs tabs size = 3 ];
-		play.
+	aScripter
+		checkStep: [ :s | 
+			s
+				label: 'Check that tab was spawned';
+				satisfies: [ :aWorld | aWorld tabs tabs size = 3 ] ].
 
 	^ aScripter
 ]
@@ -597,62 +628,63 @@ LeUIStylingPageByScripterExamples >> pageWithPackagePrimaryClicked [
 { #category : #'examples - support' }
 LeUIStylingPageByScripterExamples >> step: aRootStep label: aStepLabel snippetIndex: aSnippetIndex annotationFrom: aStartIndex to: aStopIndex isHidden: isHidden [
 	<gtExample>
-	aRootStep substeps: aStepLabel do: [ :aStep | 
-		aStep assert
-			label: 'Assert text start index (', aStartIndex asString, ')';
-			value: [ :anEditor | 
-				(anEditor text from: aStartIndex to: aStartIndex)
-					hasAttributeSuchThat: [ :anAttribute | 
-						anAttribute class = BrTextHideAttribute ] ]
-				equals: [ isHidden ];
-			// LePageToolContentTreeElement;
-			// LePageSnippetsTreeElementId;
-			id: LeSnippetElementId index: aSnippetIndex;
-			// BrTextEditorParagraphElement;
-			play.
-			
-		aStep assert
-			label: 'Assert text stop index (', aStopIndex asString ,')';
-			value: [ :anEditor | 
-				(anEditor text from: aStopIndex to: aStopIndex)
-					hasAttributeSuchThat: [ :anAttribute | 
-						anAttribute class = BrTextHideAttribute ] ]
-				equals: [ isHidden ];
-			// LePageToolContentTreeElement;
-			// LePageSnippetsTreeElementId;
-			id: LeSnippetElementId index: aSnippetIndex;
-			// BrTextEditorParagraphElement;
-			play.
-			
-		aStartIndex > 1 ifTrue: [ 
-			aStep assert
-				label: 'Assert before text start index (', (aStartIndex - 1) asString, ')';
-				value: [ :anEditor | 
-					(anEditor text from: aStartIndex - 1 to: aStartIndex - 1)
-						hasAttributeSuchThat: [ :anAttribute | 
-							anAttribute class = BrTextHideAttribute ] ]
-					equals: [ isHidden not ];
-				// LePageToolContentTreeElement;
-				// LePageSnippetsTreeElementId;
-				id: LeSnippetElementId index: aSnippetIndex;
-				// BrTextEditorParagraphElement;
-				play ].
-				
-		aStep assert
-				label: 'Assert after text stop index (', (aStopIndex + 1) asString, ')';
-				value: [ :anEditor | 
-					anEditor text size > aStopIndex
-						ifFalse: [ isHidden not ]
-						ifTrue: [
-							(anEditor text from: aStopIndex + 1 to: aStopIndex + 1)
-								hasAttributeSuchThat: [ :anAttribute | 
-									anAttribute class = BrTextHideAttribute ] ] ]
-					equals: [ isHidden not ];
-				// LePageToolContentTreeElement;
-				// LePageSnippetsTreeElementId;
-				id: LeSnippetElementId index: aSnippetIndex;
-				// BrTextEditorParagraphElement;
-				play ]
+	aRootStep
+		substeps: aStepLabel
+		do: [ :aStep | 
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert text start index (' , aStartIndex asString , ')';
+						value: [ :anEditor | 
+								(anEditor text from: aStartIndex to: aStartIndex)
+									hasAttributeSuchThat: [ :anAttribute | anAttribute class = BrTextHideAttribute ] ]
+							equals: [ isHidden ];
+						// LePageToolContentTreeElement;
+						// LePageSnippetsTreeElementId;
+						id: LeSnippetElementId index: aSnippetIndex;
+						// BrTextEditorParagraphElement ].
+
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert text stop index (' , aStopIndex asString , ')';
+						value: [ :anEditor | 
+								(anEditor text from: aStopIndex to: aStopIndex)
+									hasAttributeSuchThat: [ :anAttribute | anAttribute class = BrTextHideAttribute ] ]
+							equals: [ isHidden ];
+						// LePageToolContentTreeElement;
+						// LePageSnippetsTreeElementId;
+						id: LeSnippetElementId index: aSnippetIndex;
+						// BrTextEditorParagraphElement ].
+
+			aStartIndex > 1
+				ifTrue: [ aStep
+						assertStep: [ :s | 
+							s
+								label: 'Assert before text start index (' , (aStartIndex - 1) asString , ')';
+								value: [ :anEditor | 
+										(anEditor text from: aStartIndex - 1 to: aStartIndex - 1)
+											hasAttributeSuchThat: [ :anAttribute | anAttribute class = BrTextHideAttribute ] ]
+									equals: [ isHidden not ];
+								// LePageToolContentTreeElement;
+								// LePageSnippetsTreeElementId;
+								id: LeSnippetElementId index: aSnippetIndex;
+								// BrTextEditorParagraphElement ] ].
+
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert after text stop index (' , (aStopIndex + 1) asString , ')';
+						value: [ :anEditor | 
+								anEditor text size > aStopIndex
+									ifFalse: [ isHidden not ]
+									ifTrue: [ (anEditor text from: aStopIndex + 1 to: aStopIndex + 1)
+											hasAttributeSuchThat: [ :anAttribute | anAttribute class = BrTextHideAttribute ] ] ]
+							equals: [ isHidden not ];
+						// LePageToolContentTreeElement;
+						// LePageSnippetsTreeElementId;
+						id: LeSnippetElementId index: aSnippetIndex;
+						// BrTextEditorParagraphElement ] ]
 ]
 
 { #category : #'examples - example annotations' }
@@ -661,35 +693,37 @@ LeUIStylingPageByScripterExamples >> textSnippetWithExampleAnnotations [
 	| aScripter |
 	aScripter := LeUIByScripterExamples new emptyPageElementInPager.
 
-	aScripter type
-		label: 'Type text with example annotations';
-		text: self textWithExampleAnnotations;
-		play.
+	aScripter
+		typeStep: [ :s | 
+			s
+				label: 'Type text with example annotations';
+				text: self textWithExampleAnnotations ].
 
-	aScripter assert
-		label: 'Assert that the written text is stored in the text snippet';
-		value: [ :aDatabase | aDatabase pages first children first text asString ]
-			equals: [ self textWithExampleAnnotations asString ];
-		onModel;
-		play.
-		
-	self 
+	aScripter
+		assertStep: [ :s | 
+			s
+				label: 'Assert that the written text is stored in the text snippet';
+				value: [ :aDatabase | aDatabase pages first children first text asString ]
+					equals: [ self textWithExampleAnnotations asString ];
+				onModel ].
+
+	self
 		assertStep: aScripter
 		snippetIndex: 1
 		attributeId: (LeTextSnippetAttributeLabelElementId indexed: 1)
 		labelValue: LeUIDummyExamples new number asString.
-		
+
 	self
 		assertStep: aScripter
 		snippetIndex: 1
 		elementIdExists: (LeTextSnippetAttributeExampleElementId indexed: 2).
-	
-	self 
-		assertStep: aScripter 
+
+	self
+		assertStep: aScripter
 		label: 'Assert the second example annotation is hidden'
 		snippetIndex: 1
 		annotationFrom: 153
-		to: 227 
+		to: 227
 		isHidden: true.
 
 	^ aScripter

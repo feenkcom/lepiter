@@ -513,17 +513,17 @@ LeUIExamples >> pageToolElement_NoHierarchy [
 
 { #category : #'examples - page - tool' }
 LeUIExamples >> scripterOnPageToolElementWithTitleFocused [
-
 	<gtExample>
 	| scripter anElement |
 	scripter := BlScripter new.
 	anElement := self pageToolElement_Hierarchy_TitleFocused.
 	scripter element: anElement.
-	
-	scripter check
-		label: 'Check title element is focused';
-		satisfies: [ :element | element contentElement titleElement hasFocus ];
-		play.
+
+	scripter
+		checkStep: [ :s | 
+			s
+				label: 'Check title element is focused';
+				satisfies: [ :element | element contentElement titleElement hasFocus ] ].
 
 	^ scripter
 ]
