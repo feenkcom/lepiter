@@ -89,18 +89,20 @@ LePageEditableTitleElementExamples >> pageEditableTitleElement_LongTitle [
 	anElement := self basicPageEditableTitleElement.
 	aPage := self titledPage.
 	aScripter := BlScripter new element: anElement.
-	
+
 	aPage updateTitle: (String loremIpsum: 108).
 
-	aScripter do
-		label: 'Reset page view model';
-		block: [ anElement pageViewModel: aPage asContentUIModel ];
-		play.
+	aScripter
+		doStep: [ :s | 
+			s
+				label: 'Reset page view model';
+				block: [ anElement pageViewModel: aPage asContentUIModel ] ].
 
-	aScripter check
-		label: 'Check that page title changes';
-		satisfies: [ :element | element titleElement text asString = aPage title ];
-		play.
+	aScripter
+		checkStep: [ :s | 
+			s
+				label: 'Check that page title changes';
+				satisfies: [ :element | element titleElement text asString = aPage title ] ].
 	^ anElement
 ]
 
@@ -133,15 +135,17 @@ LePageEditableTitleElementExamples >> pageEditableTitleElement_TitledPage [
 	aPage := self titledPage.
 	aScripter := BlScripter new element: anElement.
 
-	aScripter do
-		label: 'Reset page view model';
-		block: [ anElement pageViewModel: aPage asContentUIModel ];
-		play.
+	aScripter
+		doStep: [ :s | 
+			s
+				label: 'Reset page view model';
+				block: [ anElement pageViewModel: aPage asContentUIModel ] ].
 
-	aScripter check
-		label: 'Check that page title changes';
-		satisfies: [ :element | element titleElement text asString = aPage title ];
-		play.
+	aScripter
+		checkStep: [ :s | 
+			s
+				label: 'Check that page title changes';
+				satisfies: [ :element | element titleElement text asString = aPage title ] ].
 	^ anElement
 ]
 

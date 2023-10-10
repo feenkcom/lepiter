@@ -34,6 +34,7 @@ LeExportBookMainPageLink >> fileName: aString [
 
 { #category : #accessing }
 LeExportBookMainPageLink >> fileNameWithExtension [
+	<return: #String>
 	^ fileExtension
 		ifNil: [ fileName ]
 		ifNotNil: [ fileName , '.' , fileExtension ]

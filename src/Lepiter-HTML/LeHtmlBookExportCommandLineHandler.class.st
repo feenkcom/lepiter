@@ -60,6 +60,7 @@ LeHtmlBookExportCommandLineHandler >> activate [
 			database: aGtBook;
 			mainPage: aMainPage;
 			piece: LeHtmlGtBookPiece gtBook;
+			hrefBuilder: LeExportFilenameHypertextReferenceBuilder new;
 			integerSequencer;
 			addGtBookAssets;
 			export;

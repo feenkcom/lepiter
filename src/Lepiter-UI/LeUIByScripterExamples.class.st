@@ -26,54 +26,60 @@ LeUIByScripterExamples class >> addNewSnippetShortcut [
 ]
 
 { #category : #'examples - support' }
-LeUIByScripterExamples class >> addSnippetNamed: aSnippetName step: aParentStep [ 
+LeUIByScripterExamples class >> addSnippetNamed: aSnippetName step: aParentStep [
 	"I add a new snippet to a page as a second page child.
 	I assume that the there is a {{gtClass:LePageToolElement}} instance.
 	I assume that the lepiter database has at least one snippet.
 	I assume that the first page snippet is a text snippet."
+
 	<gtExample>
-	
 	| aSnippetsCount |
-	aParentStep substeps: ('Add new {1} snippet' format: { aSnippetName }) do: [ :aStep |
-	
-		aStep do
-			label: 'Find out the number of snippets';
-			block: [ :aPageElement | aSnippetsCount := aPageElement pageViewModel pageModel children size ];
-			onBreadthFirstChildOfClass: LePageToolElement;
-			play.
-			
-		aStep shortcut
-			label: 'Open add snippet spotter';
-			combination: self addNewSnippetShortcut;
-			in: [ :theStep | self targetPageInfiniteElement: theStep ];
-			onChildAt: 1;
-			id: GtSourceCoderEditorId;
-			play.
-			
-		aStep type 
-			text: aSnippetName;
-			onSpaceRoot;
-			onBreadthFirstChildOfClass: GtStreamingSpotterSearchField;
-			play.
-			
-		aStep keyPress 
-			label: ('Insert {1} snippet' format: { aSnippetName });
-			key: BlKeyboardKey return;
-			play.
-			
-		aStep assert 
-			label: 'Page has two snippets';
-			value: [ :aPageElement | aPageElement pageViewModel pageModel children size ] 
-				equals: [ aSnippetsCount + 1 ];
-			onBreadthFirstChildOfClass: LePageToolElement;
-			play.
-		
-		aStep assert
-			label: 'Assert picture widget is inserted';
-			value: [ :anInfiniteElement | anInfiniteElement childrenCount  ] equals: [ 2 ];
-			in: [ :theStep | self targetPageInfiniteElement: theStep ];
-			play.
-	]
+	aParentStep
+		substeps: ('Add new {1} snippet' format: {aSnippetName})
+		do: [ :aStep | 
+			aStep
+				doStep: [ :s | 
+					s
+						label: 'Find out the number of snippets';
+						block: [ :aPageElement | aSnippetsCount := aPageElement pageViewModel pageModel children size ];
+						onBreadthFirstChildOfClass: LePageToolElement ].
+
+			aStep shortcut
+				label: 'Open add snippet spotter';
+				combination: self addNewSnippetShortcut;
+				in: [ :theStep | self targetPageInfiniteElement: theStep ];
+				onChildAt: 1;
+				id: GtSourceCoderEditorId;
+				play.
+
+			aStep
+				typeStep: [ :s | 
+					s
+						text: aSnippetName;
+						onSpaceRoot;
+						onBreadthFirstChildOfClass: GtStreamingSpotterSearchField ].
+
+			aStep
+				keyPressStep: [ :s | 
+					s
+						label: ('Insert {1} snippet' format: {aSnippetName});
+						key: BlKeyboardKey return ].
+
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Page has two snippets';
+						value: [ :aPageElement | aPageElement pageViewModel pageModel children size ]
+							equals: [ aSnippetsCount + 1 ];
+						onBreadthFirstChildOfClass: LePageToolElement ].
+
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert picture widget is inserted';
+						value: [ :anInfiniteElement | anInfiniteElement childrenCount ]
+							equals: [ 2 ];
+						in: [ :theStep | self targetPageInfiniteElement: theStep ] ] ]
 ]
 
 { #category : #utilities }
@@ -332,19 +338,21 @@ LeUIByScripterExamples >> pageOneElementUsingDatabaseModel: aModelBlock extra: a
 					(self pageOneIn: aDatabase) asLepiterPagePhlowTool
 						asElementDo: (anElementBlock ifNil: [ [ :anElement | anElement ] ]) ].
 
-			aStep assert
-				label: self pageOneTitle , ' element has one snippet widget';
-				value: [ :anInfiniteElement | anInfiniteElement children size ]
-					equals: [ 1 ];
-				in: [ :theStep | self class targetPageInfiniteElement: theStep ];
-				play.
+			aStep
+				assertStep: [ :s | 
+					s
+						label: self pageOneTitle , ' element has one snippet widget';
+						value: [ :anInfiniteElement | anInfiniteElement children size ]
+							equals: [ 1 ];
+						in: [ :theStep | self class targetPageInfiniteElement: theStep ] ].
 
-			aStep assert
-				label: self pageOneTitle , ' has one snippet';
-				value: [ :aDatabase | (self pageOneIn: aDatabase) children size ]
-					equals: [ 1 ];
-				onModel;
-				play ].
+			aStep
+				assertStep: [ :s | 
+					s
+						label: self pageOneTitle , ' has one snippet';
+						value: [ :aDatabase | (self pageOneIn: aDatabase) children size ]
+							equals: [ 1 ];
+						onModel ] ].
 
 	^ aScripter
 ]

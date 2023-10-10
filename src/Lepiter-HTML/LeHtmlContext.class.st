@@ -9,7 +9,8 @@ Class {
 		'page',
 		'pageLinks',
 		'database',
-		'date'
+		'date',
+		'hrefBuilder'
 	],
 	#category : #'Lepiter-HTML-! Core'
 }
@@ -40,6 +41,11 @@ LeHtmlContext >> date [
 { #category : #accessing }
 LeHtmlContext >> date: anObject [
 	date := anObject
+]
+
+{ #category : #accessing }
+LeHtmlContext >> defaultHrefBuilder [
+	^ LeExportFilenameAndExtensionHypertextReferenceBuilder new
 ]
 
 { #category : #initialization }
@@ -76,6 +82,17 @@ LeHtmlContext >> gtStreamStateFor: aView [
 		priority: 10;
 		object: [ stream ];
 		view: #gtStreamStateFor:
+]
+
+{ #category : #accessing }
+LeHtmlContext >> hrefBuilder [
+	<return: #TLeExportHypertextReferenceBuilder>
+	^ hrefBuilder ifNil: [ hrefBuilder := self defaultHrefBuilder ]
+]
+
+{ #category : #accessing }
+LeHtmlContext >> hrefBuilder: aBuilder [
+	hrefBuilder := aBuilder
 ]
 
 { #category : #'api - accessing' }
@@ -120,13 +137,19 @@ LeHtmlContext >> page: aLePage [
 ]
 
 { #category : #accessing }
+LeHtmlContext >> pageHref [
+	^ self hrefBuilder hrefFromPageLink: self pageLink
+]
+
+{ #category : #accessing }
 LeHtmlContext >> pageLink [
 	^ self pageLinks
 		linkForPage: page
 		ifFound: [ :aPage | aPage ]
 		ifNone: [ LeExportBookPageLink new
 				page: page;
-				fileName: 'index.html' ]
+				fileName: 'index';
+				fileExtension: 'html' ]
 ]
 
 { #category : #accessing }

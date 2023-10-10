@@ -13,5 +13,6 @@ LeHtmlNavigationPiece >> writeWithContext: aContext [
 		pageLinks: aContext pageLinks;
 		selectedPage: aContext page;
 		writeStream: aContext html;
+		hrefBuilder: aContext hrefBuilder;
 		export
 ]

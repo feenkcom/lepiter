@@ -12,10 +12,11 @@ LePictureByScripterExamples >> acceptUrl: aParentStep [
 	aParentStep
 		substeps: 'Accept picture URL'
 		do: [ :aStep | 
-			aStep click
-				// LePictureSnippetElement;
-				// LePictureSnippetAcceptUrlElementId;
-				play ]
+			aStep
+				clickStep: [ :s | 
+					s
+						// LePictureSnippetElement;
+						// LePictureSnippetAcceptUrlElementId ] ]
 ]
 
 { #category : #'examples - ui' }
@@ -95,22 +96,24 @@ LePictureByScripterExamples >> resizeImage: aParentStep [
 	aParentStep
 		substeps: 'Resize image'
 		do: [ :aStep | 
-			aStep do
-				label: 'Set image height';
-				block: [ :anImageElement | (BrResizerElementLength exact: self imageHeight) adjustHeightFor: anImageElement ];
-				// LePictureSnippetElement;
-				// LePictureSnippetImageContainerElementId;
-				/ #imageElement;
-				play.
+			aStep
+				doStep: [ :s | 
+					s
+						label: 'Set image height';
+						block: [ :anImageElement | (BrResizerElementLength exact: self imageHeight) adjustHeightFor: anImageElement ];
+						// LePictureSnippetElement;
+						// LePictureSnippetImageContainerElementId;
+						/ #imageElement ].
 
-			aStep assert
-				label: 'Assert image height';
-				value: [ :anImageElement | anImageElement height ]
-					equals: [ self imageHeight ];
-				// LePictureSnippetElement;
-				// LePictureSnippetImageContainerElementId;
-				/ #imageElement;
-				play ]
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert image height';
+						value: [ :anImageElement | anImageElement height ]
+							equals: [ self imageHeight ];
+						// LePictureSnippetElement;
+						// LePictureSnippetImageContainerElementId;
+						/ #imageElement ] ]
 ]
 
 { #category : #'examples - ui' }
@@ -134,32 +137,36 @@ LePictureByScripterExamples >> typePictureCaption: aParentStep [
 				// LePictureSnippetCaptionEditorElementId;
 				play.
 
-			aStep type
-				text: self pictureCaption;
-				play.
+			aStep
+				typeStep: [ :s | 
+					s
+						text: self pictureCaption ].
 
-			aStep assert
-				label: 'Assert caption editor text';
-				value: [ :anCaptionEditor | anCaptionEditor text asString ]
-					equals: [ self pictureCaption ];
-				// LePictureSnippetElement;
-				// LePictureSnippetCaptionEditorElementId;
-				play.
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert caption editor text';
+						value: [ :anCaptionEditor | anCaptionEditor text asString ]
+							equals: [ self pictureCaption ];
+						// LePictureSnippetElement;
+						// LePictureSnippetCaptionEditorElementId ].
 
-			aStep assert
-				label: 'Assert snippet caption value';
-				value: [ :aPictureElement | aPictureElement snippet caption ]
-					equals: [ self pictureCaption ];
-				// LePictureSnippetElement;
-				play.
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert snippet caption value';
+						value: [ :aPictureElement | aPictureElement snippet caption ]
+							equals: [ self pictureCaption ];
+						// LePictureSnippetElement ].
 
-			aStep assert
-				label: 'Assert caption editor text';
-				value: [ :aCaptionLabel | aCaptionLabel text asString ]
-					equals: [ self pictureCaption ];
-				// LePictureSnippetElement;
-				// LePictureSnippetCaptionLabelElementId;
-				play ]
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert caption editor text';
+						value: [ :aCaptionLabel | aCaptionLabel text asString ]
+							equals: [ self pictureCaption ];
+						// LePictureSnippetElement;
+						// LePictureSnippetCaptionLabelElementId ] ]
 ]
 
 { #category : #'examples - ui' }
@@ -184,22 +191,25 @@ LePictureByScripterExamples >> typePictureUrl: aParentStep [
 				// LePictureSnippetUrlEditorElementId;
 				play.
 
-			aStep type
-				text: self pictureUrl;
-				play.
+			aStep
+				typeStep: [ :s | 
+					s
+						text: self pictureUrl ].
 
-			aStep assert
-				label: 'Assert URL editor text';
-				value: [ :anUrlEditor | anUrlEditor text asString ]
-					equals: [ self pictureUrl ];
-				// LePictureSnippetElement;
-				// LePictureSnippetUrlEditorElementId;
-				play.
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert URL editor text';
+						value: [ :anUrlEditor | anUrlEditor text asString ]
+							equals: [ self pictureUrl ];
+						// LePictureSnippetElement;
+						// LePictureSnippetUrlEditorElementId ].
 
-			aStep assert
-				label: 'Assert snippet URL value';
-				value: [ :aPictureElement | aPictureElement snippet urlString ]
-					equals: [ self pictureUrl ];
-				// LePictureSnippetElement;
-				play ]
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert snippet URL value';
+						value: [ :aPictureElement | aPictureElement snippet urlString ]
+							equals: [ self pictureUrl ];
+						// LePictureSnippetElement ] ]
 ]

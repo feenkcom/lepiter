@@ -8,7 +8,8 @@ Class {
 		'content',
 		'internalStream',
 		'externalStream',
-		'selectedPage'
+		'selectedPage',
+		'hrefBuilder'
 	],
 	#category : #'Lepiter-HTML-Exporters'
 }
@@ -21,6 +22,11 @@ LeHtmlBookNavigationExporter >> content [
 { #category : #accessing }
 LeHtmlBookNavigationExporter >> database: aDatabase [
 	self tocNodes: aDatabase tableOfContentsNodes
+]
+
+{ #category : #accessing }
+LeHtmlBookNavigationExporter >> defaultHrefBuilder [
+	^ LeExportFilenameAndExtensionHypertextReferenceBuilder new
 ]
 
 { #category : #'api - export' }
@@ -129,7 +135,8 @@ LeHtmlBookNavigationExporter >> exportNode: aNode [
 			| anUrl |
 			anUrl := pageLinks
 				linkForPage: aNode page
-				ifFound: [ :anUrlLink | anUrlLink fileName ]
+				ifFound: [ :anUrlLink | 
+					self hrefBuilder hrefFromPageLink: anUrlLink ]
 				ifNone: [ '/404.html' ].
 			
 		
@@ -154,6 +161,17 @@ LeHtmlBookNavigationExporter >> gtContentFor: aView [
 		text: [ self content ifNil: [ '' ] ];
 		aptitude: [ BrGlamorousCodeEditorAptitude ];
 		actionUpdateButton
+]
+
+{ #category : #accessing }
+LeHtmlBookNavigationExporter >> hrefBuilder [
+	<return: #TLeExportHypertextReferenceBuilder>
+	^ hrefBuilder ifNil: [ hrefBuilder := self defaultHrefBuilder ]
+]
+
+{ #category : #accessing }
+LeHtmlBookNavigationExporter >> hrefBuilder: aBuilder [
+	hrefBuilder := aBuilder
 ]
 
 { #category : #accessing }
