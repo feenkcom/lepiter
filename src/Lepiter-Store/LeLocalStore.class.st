@@ -264,7 +264,7 @@ LeLocalStore >> fileReferenceString: aFileReferenceStringOrNil [
 
 { #category : #attachments }
 LeLocalStore >> findAttachmentById: aUuid [
-	| attachmentDirectory fileUID |
+	| attachmentDirectory fileUID targetFile |
 	fileUID := aUuid asString36.
 	attachmentDirectory := attachmentsDirectory / fileUID.
 
@@ -273,7 +273,14 @@ LeLocalStore >> findAttachmentById: aUuid [
 				uuid: aUuid;
 				signal ].
 
-	^ attachmentDirectory children first contents
+	targetFile := attachmentDirectory files
+			detect: [ :aFile | aFile basename ~= LeAttachment basename ]
+			ifNone: [ ^ LeLocalAttachmentMissingFile new
+					uuid: aUuid;
+					directory: attachmentDirectory;
+					signal ].
+
+	^ targetFile binaryContents
 ]
 
 { #category : #accessing }
