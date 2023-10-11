@@ -1,0 +1,247 @@
+/*
+    Common styling
+ */
+
+
+/* Font definition */
+
+@font-face {
+ font-family:"sources-regular";
+ src:url("/assets/v1/src/fonts/sourcesanspro-bold-webfont.woff");
+ font-weight: bold;
+}
+@font-face {
+ font-family:"sources-regular";
+ src:url("/assets/v1/src/fonts/sourcesanspro-regular-webfont.woff");
+  font-weight: regular;
+}
+
+:root {
+    /* colors */
+    --active-color: #eee;
+    --hovered-color: #ddd;
+    --text-color: black;
+    --link-text-color: var(--text-color);
+
+    /* space */
+    --link-indent: 1rem;
+
+    /* --min-column-width does not work in media queries.
+     It is here for documentation purposes only. */
+    --min-column-width: 992px;
+}
+
+body {
+    /*
+        The body contains a main content and a footer.
+        We want the footer to be below the content and stick in
+        the bottom of viewport if the content height is smaller than
+        a viewport height (excluding the footer height).
+    */
+    display: flex;
+    flex-direction: column;
+
+    /* fallback height */
+    min-height: 100vh;
+
+    /* new small viewport height for modern browsers */
+    min-height: 100svh;
+
+   font-family:"sources-regular", sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+/* If the main content height is smaller than the viewport height,
+the margin will occupy the spare area. */
+body footer {
+    margin-top: auto;
+}
+
+/* Link styling */
+a {
+    text-decoration: underline;
+    color: var(--link-text-color);
+}
+
+a:hover {
+    text-decoration: none;
+    color: var(--link-text-color);
+    background-color: var(--hovered-color);
+}
+
+a.active {
+    background-color: var(--active-color)
+}
+
+/* Content row with navigation and main content column. */
+/* Without this, we have an issue with viewport width overlap.
+ As a consequence, there is a horizontal scrollbar. */
+.le-row {
+    margin-inline: 0;
+}
+/* Keep the navigatin index at the viewport start.
+It means that the navigation item highlight will start at the
+ beginning of the viewport. */
+.le-nav-column {
+    padding-inline-start: 0;
+}
+
+/*
+    Navigation index
+*/
+
+/* Header */
+.le-logo {
+    margin-block: 0.5rem;
+}
+.le-logo-g {
+    font-weight: lighter;
+}
+.le-logo-t {
+    font-weight: bold;
+}
+.le-logo-book {
+    font-weight: bold;
+}
+.le-logo-version {
+    font-weight: lighter;
+}
+
+/* Scrollable navigation list */
+.le-nav-scrollable {
+    /* Make the navigation list scrollable */
+    /* fallback height */
+    max-height: 100vh;
+    /* new small viewport height for modern browsers */
+    max-height: 100svh;
+    top: 0;
+    bottom: 0;
+    overflow-y: auto;
+
+    /* smaller font */
+    font-size: 0.88rem;
+    color: var(--text-color);
+}
+
+/* Expanded navigation list */
+@media (min-width: 992px) {
+    .le-nav-scrollable {
+        /* border that splits navigation list from the main content */
+        border-inline-end: solid var(--active-color) thin;
+
+        /* same space between navigation list and footer
+         as between main content and the footer */
+        padding-block-end: 3rem;
+    }
+}
+
+/* navigation links */
+.le-nav-link {
+    color: var(--link-text-color);
+}
+
+.le-nav-container a {
+    text-decoration: none;
+}
+
+/* The root index items are separated */
+.le-nav-item.le-nav-level-1 {
+    padding-bottom: 1em;
+}
+
+/* The root index items are bold */
+.le-nav-link.le-nav-level-1 {
+    font-weight: bold;
+}
+
+/* Indent inner-navigation index links */
+.le-nav-link.le-nav-level-2  {
+    padding-left: calc(2 * var(--link-indent));
+}
+
+.le-nav-link.le-nav-level-3  {
+    padding-left: calc(3 * var(--link-indent));
+}
+
+.le-nav-link.le-nav-level-4  {
+    padding-left: calc(4 * var(--link-indent));
+}
+
+.le-nav-link.le-nav-level-5  {
+    padding-left: calc(5 * var(--link-indent));
+}
+
+.le-nav-link.le-nav-level-6  {
+    padding-left: calc(6 * var(--link-indent));
+}
+
+.le-nav-link.le-nav-level-7  {
+    padding-left: calc(7 * var(--link-indent));
+}
+
+.le-nav-link.le-nav-level-8  {
+    padding-left: calc(8 * var(--link-indent));
+}
+
+.le-nav-link.le-nav-level-9  {
+    padding-left: calc(9 * var(--link-indent));
+}
+
+/*
+    Footer
+*/
+
+.le-footer {
+    background-color: black;
+    color: white;
+}
+
+.le-footer a {
+    text-decoration: underline;
+    color: inherit;
+}
+
+/*
+    Content
+*/
+
+.le-main-title {
+    font-weight: bold;
+}
+
+.le-main-container h1,
+.le-main-container h2,
+.le-main-container h3,
+.le-main-container h4,
+.le-main-container h5,
+.le-main-container h6,
+.le-main-container .h1,
+.le-main-container .h2,
+.le-main-container .h3,
+.le-main-container .h4,
+.le-main-container .h5,
+.le-main-container .h6  {
+    font-weight: bold;
+    margin-block-end: 4px;
+}
+
+.le-main-container h1 {
+  margin-block-start: 3em;
+}
+
+h1.le-main-title {
+  margin-block-start: 0;
+}
+
+.le-main-container h2 {
+  margin-block-start: 2em;
+}
+
+.le-main-container h3 {
+  margin-block-start: 1em;
+}
+
+.le-main-container h4,
+.le-main-container h5,
+.le-main-container h6 {
+  margin-block-start: 0.5em;
+}
