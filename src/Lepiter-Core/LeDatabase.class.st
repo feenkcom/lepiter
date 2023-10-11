@@ -387,7 +387,7 @@ LeDatabase >> filename: anObject [
 { #category : #'api - attachments' }
 LeDatabase >> findAttachmentById: aUuid [
 	"Find the attachment with that UUID"
-	<return: #String>
+	<return: #ByteArray>
 
 	self 
 		assert: monitor isNotNil
