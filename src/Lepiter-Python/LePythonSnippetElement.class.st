@@ -52,14 +52,15 @@ LePythonSnippetElement >> serverStrategy [
 { #category : #private }
 LePythonSnippetElement >> updateLanguageLabel [
 	| serverAddress label |
-
-	serverAddress := self serverStrategy applicationSettings pythonSocketAddress.
-	label := String streamContents: [ :stream |
-		stream
-			<< 'Python @ ';
-			<< serverAddress ipOrName;
-			<< ':';
-			print: serverAddress port ].
-	languageElement text: (label asRopedText glamorousRegularFont foreground: BrGlamorousColors textMarkupColor).
-
+	serverAddress := self serverStrategy applicationSettings serverSocketAddress.
+	label := String
+			streamContents: [ :stream | 
+				stream
+					<< 'Python @ ';
+					<< serverAddress ipOrName;
+					<< ':';
+					print: serverAddress port ].
+	languageElement
+		text: (label asRopedText glamorousRegularFont
+				foreground: BrGlamorousColors textMarkupColor)
 ]
