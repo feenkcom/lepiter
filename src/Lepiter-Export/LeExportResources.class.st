@@ -28,6 +28,11 @@ LeExportResources >> assembledResources [
 ]
 
 { #category : #enumerating }
+LeExportResources >> collect: aBlock [
+	^ resources collect: aBlock as: Array
+]
+
+{ #category : #enumerating }
 LeExportResources >> do: aBlock [
 	resources do: aBlock
 ]

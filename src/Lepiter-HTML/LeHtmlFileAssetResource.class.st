@@ -25,6 +25,11 @@ LeHtmlFileAssetResource >> defaultState [
 	^ LeExportResourceState ready
 ]
 
+{ #category : #testing }
+LeHtmlFileAssetResource >> isAssetResource [
+	^ true
+]
+
 { #category : #accessing }
 LeHtmlFileAssetResource >> path [
 	"Return a path of the export"
