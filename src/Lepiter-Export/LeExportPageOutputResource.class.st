@@ -4,9 +4,9 @@ Class {
 	#traits : 'TLeExportResource',
 	#classTraits : 'TLeExportResource classTrait',
 	#instVars : [
-		'content',
 		'pageLink',
-		'hrefBuilder'
+		'hrefBuilder',
+		'contents'
 	],
 	#category : #'Lepiter-Export-Resources - Model'
 }
@@ -19,12 +19,23 @@ LeExportPageOutputResource >> acceptVisitor: aVisitor [
 { #category : #accessing }
 LeExportPageOutputResource >> content [
 	<return: #String>
-	^ content
+	^ contents
 ]
 
 { #category : #accessing }
 LeExportPageOutputResource >> content: aString [
-	content := aString
+	contents := aString
+]
+
+{ #category : #accessing }
+LeExportPageOutputResource >> contents [
+	<return: #String>
+	^ contents
+]
+
+{ #category : #accessing }
+LeExportPageOutputResource >> contents: aString [
+	contents := aString
 ]
 
 { #category : #accessing }
