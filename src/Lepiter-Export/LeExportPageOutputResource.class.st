@@ -5,7 +5,6 @@ Class {
 	#classTraits : 'TLeExportResource classTrait',
 	#instVars : [
 		'pageLink',
-		'hrefBuilder',
 		'contents'
 	],
 	#category : #'Lepiter-Export-Resources - Model'
