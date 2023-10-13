@@ -169,8 +169,9 @@ GtPythonCoderModel >> returnVariablesExpressionFrom: pythonBindings [
 				stream 
 					nextPut: $";
 					<< name;
-					<< '": ';
-					<< name ]
+					<< '": registry().proxy(';
+					<< name;
+					<< ')' ]
 			separatedBy:
 				[ stream << ', ' ].
 		stream << ' }' ].
