@@ -11,39 +11,47 @@ Class {
 { #category : #converting }
 GtPythonCoderModel >> asCoderViewModel [
 
-	^ GtSourceCoderViewModel new coder: self
+	^ GtPythonCoderViewModel new coder: self
 ]
 
 { #category : #'private - execution' }
-GtPythonCoderModel >> bindAndExecute: sourceString [
+GtPythonCoderModel >> bindAndExecute: sourceString inContext: aGtSourceCoderEvaluationContext [
 	"Answer the source code with all declared variables returned in an immediate dictionary"
-	| trimmedSource ast commandFactory lastStatement pythonBindings application |
 
+	| trimmedSource ast commandFactory lastStatement pythonBindings application ws startPosition |
 	trimmedSource := SmaCCString on: sourceString.
 	ast := PythonParser parseWithErrors: sourceString.
+	startPosition := ast statements first startPosition.
+	ws := trimmedSource startOfLineWhitespaceBeforeIndex: startPosition.
+	trimmedSource insert: 'self = ' at: startPosition.
+	trimmedSource
+		insert: (aGtSourceCoderEvaluationContext requesterObject selfObject
+				ifNil: [ 'None' ]
+				ifNotNil: [ :obj | 
+					(obj isKindOf: PBProxyObject)
+						ifTrue: [ String
+								streamContents: [ :stream | obj resolveIdPyExpression writePython3On: stream ] ]
+						ifFalse: [ 'None' ] ])
+		at: startPosition.
+	trimmedSource insert: String cr , ws at: startPosition.
 	"Assign the final statement to snippetResult if it isn't already an assignment"
 	lastStatement := ast statements last.
-	(lastStatement isValueStatement) ifTrue:
-		[ trimmedSource 
-			insert: 'snippetResult = ' 
-			at: lastStatement startPosition. ]
-	ifFalse:
-		[ trimmedSource
-			append: String cr;
-			append: 'snippetResult = None' ].
+	lastStatement isValueStatement
+		ifTrue: [ trimmedSource insert: 'snippetResult = ' at: lastStatement startPosition ]
+		ifFalse: [ trimmedSource
+				append: String cr;
+				append: 'snippetResult = None' ].
 	pythonBindings := self pythonBindings.
 
 	application := pythonApplicationStrategy applicationServer.
 	application isRunning ifFalse: [ application start ].
 	commandFactory := application newCommandStringFactory.
-	pythonBindings do: [ :binding |
-		commandFactory addBinding: binding ].
+	pythonBindings do: [ :binding | commandFactory addBinding: binding ].
 	commandFactory
 		script: trimmedSource asString;
 		resultExpression: (self returnVariablesExpressionFrom: pythonBindings) string.
 
-	^ commandFactory sendAndWait.
-
+	^ commandFactory sendAndWait
 ]
 
 { #category : #'api - ast' }
@@ -117,14 +125,13 @@ GtPythonCoderModel >> primitiveDebug: aSourceString inContext: aGtSourceCoderEva
 { #category : #'private - actions' }
 GtPythonCoderModel >> primitiveEvaluate: aSourceString inContext: aGtSourceCoderEvaluationContext onFailDo: anEvaluationFailBlock [
 	| result |
+	result := self
+			bindAndExecute: aSourceString
+			inContext: aGtSourceCoderEvaluationContext.
+	result
+		associationsDo: [ :binding | (pharoBindings bindingOf: binding key asSymbol) value: binding value ].
 
-	result := self bindAndExecute: aSourceString.
-	result associationsDo: [ :binding |
-		(pharoBindings bindingOf: binding key asSymbol) value: binding value ].
-
-	^ result
-		at: 'snippetResult'
-		ifAbsent: anEvaluationFailBlock
+	^ result at: 'snippetResult' ifAbsent: anEvaluationFailBlock
 ]
 
 { #category : #accessing }
