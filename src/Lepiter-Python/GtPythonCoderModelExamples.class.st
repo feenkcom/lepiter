@@ -86,6 +86,6 @@ GtPythonCoderModelExamples >> returnWithStatement [
 	ast := PythonParser parseWithErrors: source.
 	lastStatement := ast statements last.
 	self assert: lastStatement isValueStatement.
-	self assert: lastStatement stmts first testlist atom numberToken value equals: '42'.
+	self assert: lastStatement stmts first testlist numberToken value equals: '42'.
 	^ ast.
 ]
