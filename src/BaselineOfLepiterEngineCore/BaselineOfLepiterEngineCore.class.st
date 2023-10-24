@@ -16,37 +16,37 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 				spec repository: 'github://feenkcom/gtoolkit-utility:v0.8.235/src' ].
 		spec
 			baseline: 'GToolkitInspector' with: [
-				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.1841/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.1842/src' ].
 		spec
 			baseline: 'GToolkitCoder' with: [
 				spec repository: 'github://feenkcom/gtoolkit-coder:v0.8.1414/src' ].
 		spec
 			baseline: 'GToolkit4Pharo' with: [
-				spec repository: 'github://feenkcom/gt4pharo:v0.6.1354/src' ].
+				spec repository: 'github://feenkcom/gt4pharo:v0.6.1355/src' ].
 		spec
 			baseline: 'GToolkit4Json' with: [
-				spec repository: 'github://feenkcom/gt4json:v0.6.570/src' ].
+				spec repository: 'github://feenkcom/gt4json:v0.6.571/src' ].
 		spec
 			baseline: 'GToolkitReleaser' with: [
 				spec repository: 'github://feenkcom/gtoolkit-releaser:v0.8.197/src' ].
 		spec
 			baseline: 'LepiterXDoc' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.1855/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.6.1856/src' ].
 		spec
 			baseline: 'SmaCCRuntime' with: [
-				spec repository: 'github://j-brant/SmaCC:v3.0.19' ].
+				spec repository: 'github://j-brant/SmaCC:v3.0.20' ].
 		spec
 			baseline: 'JSONParser' with: [
-				spec repository: 'github://j-brant/SmaCC:v3.0.19' ].
+				spec repository: 'github://j-brant/SmaCC:v3.0.20' ].
 		spec
 			baseline: 'Beacon' with: [
 				spec repository: 'github://feenkcom/pharo-beacon:af4aca0d8ad4ebdf2de988d474e0e2bcdceaf4ae/repository' ].
 		spec
 			baseline: 'JSONWebToken' with: [
-				spec repository: 'github://feenkcom/JSONWebToken:v0.5.131/source' ].
+				spec repository: 'github://feenkcom/JSONWebToken:v0.5.132/source' ].
 		spec
 			baseline: 'ZincHTTPComponentsRest' with: [
-				spec repository: 'github://feenkcom/zinc:v3.0.32/repository' ].
+				spec repository: 'github://feenkcom/zinc:v3.0.33/repository' ].
 
 		spec package: 'Lepiter-Parser' with: [
 			spec requires: #('SmaCCRuntime') ].
