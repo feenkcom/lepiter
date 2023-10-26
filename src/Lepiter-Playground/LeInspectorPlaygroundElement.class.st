@@ -192,11 +192,19 @@ LeInspectorPlaygroundElement >> tryToFocusFirstSnippet [
 
 { #category : #'private - updating' }
 LeInspectorPlaygroundElement >> updatePage [
-
+	| pageViewModel |
+	
 	page := self locatePageForObject.
-	self pageElement pageViewModel: (page asContentUIModel
-		externalSnippetContext: self externalSnippetContext).
-	self pageElement pageViewModel receiver: self object
+	
+	pageViewModel := page asContentUIModel.
+	pageViewModel externalSnippetContext: self externalSnippetContext.
+	self object isContext ifTrue: [
+		"In case this object is a Contect set it as the runtime context."
+		pageViewModel sharedSnippetContext 
+			pharoRuntimeContext: self object ].
+		
+	self pageElement pageViewModel: pageViewModel.
+	self pageElement pageViewModel receiver: self object.
 ]
 
 { #category : #'api - updating' }
