@@ -6,7 +6,8 @@ Class {
 		'sharedBindings',
 		'selfObject',
 		'variablePreviewToggle',
-		'externalSnippetContext'
+		'externalSnippetContext',
+		'pharoRuntimeContext'
 	],
 	#category : #'Lepiter-UI-Snippet-! View Models'
 }
@@ -40,6 +41,21 @@ LeSharedSnippetContext >> initialize [
 	
 	sharedBindings := GtSharedVariablesBindings new.
 	variablePreviewToggle := BrToggleModel new.
+]
+
+{ #category : #accessing }
+LeSharedSnippetContext >> pharoRuntimeContext [
+	<return: #Context>
+
+	^ pharoRuntimeContext
+]
+
+{ #category : #accessing }
+LeSharedSnippetContext >> pharoRuntimeContext: aContext [
+	"Assign an optional Pharo runtime context.
+	Should be used when evaluating Pharo code in a presence of a running system (live debugger, code snippets in debugger)"
+
+	pharoRuntimeContext := aContext
 ]
 
 { #category : #accessing }
