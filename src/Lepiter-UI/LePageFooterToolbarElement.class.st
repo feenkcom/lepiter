@@ -7,7 +7,7 @@ Class {
 		'pageModel',
 		'changeDatabaseButton'
 	],
-	#category : 'Lepiter-UI-! Tool - Page'
+	#category : #'Lepiter-UI-! Tool - Page'
 }
 
 { #category : #callbacks }
@@ -105,4 +105,11 @@ LePageFooterToolbarElement >> pageModel: anObject [
 LePageFooterToolbarElement >> updateContent [
 	changeDatabaseButton label: self currentDatabase databaseName.
 	changeDatabaseButton enabled: self pageModel canMoveToAnotherDatabase.
+	
+	self currentDatabase isDatabase ifFalse: [
+		"Do not show the button at all in case the page does not have a database"
+		changeDatabaseButton visibility: BlVisibility gone.
+		
+		self margin: (BlInsets all:0).
+		self padding: (BlInsets all:0)]
 ]
