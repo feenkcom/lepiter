@@ -66,8 +66,9 @@ LePharoSnippetViewModel >> sharedSnippetContext: aLeSharedSnippetContext [
 	coderViewModel
 		sharedBindings: aLeSharedSnippetContext sharedBindings;
 		selfObject: aLeSharedSnippetContext selfObject;
-		variableValueToggleModel: aLeSharedSnippetContext variablePreviewToggle.
-		
+		variableValueToggleModel: aLeSharedSnippetContext variablePreviewToggle;
+		context: aLeSharedSnippetContext pharoRuntimeContext.
+	
 	aLeSharedSnippetContext whenSelfObjectChangedSend: #onSelfObjectChanged to: self
 ]
 
