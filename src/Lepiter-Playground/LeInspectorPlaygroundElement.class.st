@@ -198,10 +198,10 @@ LeInspectorPlaygroundElement >> updatePage [
 	
 	pageViewModel := page asContentUIModel.
 	pageViewModel externalSnippetContext: self externalSnippetContext.
-	self object isContext ifTrue: [
-		"In case this object is a Contect set it as the runtime context."
+	"self object isContext ifTrue: [
+		""In case this object is a Contect set it as the runtime context.""
 		pageViewModel sharedSnippetContext 
-			pharoRuntimeContext: self object ].
+			pharoRuntimeContext: self object ]."
 		
 	self pageElement pageViewModel: pageViewModel.
 	self pageElement pageViewModel receiver: self object.
