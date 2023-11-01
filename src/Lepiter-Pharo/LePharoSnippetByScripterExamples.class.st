@@ -183,7 +183,7 @@ LePharoSnippetByScripterExamples >> evaluateWhenMaximized [
 						onBreadthFirstChildOfClass: BrInfiniteTreeElement;
 						onChildAt: 1;
 						onBreadthFirstChildOfClass: LePharoSnippetElement;
-						onBreadthFirstChildOfClass: GtCoderActionsElement;
+						onBreadthFirstChildOfClass: GtSourceCoderActionsElement;
 						id: GtSourceCoderDoItAndGoActionId ] ].
 	self executePharoSnippetAt: 2 step: aScripter.
 	^ aScripter
@@ -254,7 +254,7 @@ LePharoSnippetByScripterExamples >> executePharoSnippetAt: anIndex step: aStep [
 						onBreadthFirstChildOfClass: BrInfiniteTreeElement;
 						onChildAt: anIndex;
 						onBreadthFirstChildOfClass: LePharoSnippetElement;
-						onBreadthFirstChildOfClass: GtCoderActionsElement;
+						onBreadthFirstChildOfClass: GtSourceCoderActionsElement;
 						id: GtSourceCoderDoItActionId ].
 
 			aSubStep

@@ -66,7 +66,7 @@ LeElementSnippetElement >> createCoderSlideActionsToolbar [
 
 { #category : #initialization }
 LeElementSnippetElement >> createCoderToolbar [
-	^ GtCoderActionsElement new
+	^ GtSourceCoderActionsElement new
 		margin: (BlInsets left: 5)
 ]
 
