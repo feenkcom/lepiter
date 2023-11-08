@@ -29,7 +29,7 @@ LeGtBookDatabaseExplicitReloadExamples >> reloadAllPagesFromDisk [
 	existinDatabase := self copyGlamorousToolkitBookInMemory.
 	existinDatabase stopMonitoring.
 	
-	asseamblers := LePageStructureAsseamblersGroup new.
+	asseamblers := LePageStructureAssemblersGroup new.
 	replacementDatabase := self copyGlamorousToolkitBookInMemory.
 	(replacementDatabase pages
 		reject: [ :aPage | aPage allChildrenDepthFirst 
