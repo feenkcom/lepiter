@@ -21,6 +21,21 @@ LeUID >> = anObject [
 	^ uid = anObject uid
 ]
 
+{ #category : #accessing }
+LeUID >> gtDetailsFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Details';
+		items: [ {
+			('LeUID/UUID Base64' -> self printString).
+			('LeUID/UUID String' -> self uid asString).
+			('LeUID/UUID Base36' -> self uid asString36).
+			('LeUID/UUID Raw' -> self uid) } ];
+		column: 'Key' text: #key;
+		column: 'Value' text: #value;
+		send: #value
+]
+
 { #category : #'api - testing' }
 LeUID >> hasUidString: aString64 [
 
