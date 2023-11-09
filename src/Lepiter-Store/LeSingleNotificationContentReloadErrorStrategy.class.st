@@ -69,6 +69,7 @@ LeSingleNotificationContentReloadErrorStrategy >> errorTextForSingleErrorOn: aSt
 		nextPutAll: 'There was one error during Lepiter reload of ';
 		nextPutAll: currentDatabaseName;
 		nextPutAll: ': ';
+		cr;
 		tab;
 		nextPutAll: '- ';
 		nextPutAll: self contentErrors first description;
