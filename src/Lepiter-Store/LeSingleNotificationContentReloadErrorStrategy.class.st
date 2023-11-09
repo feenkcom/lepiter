@@ -1,5 +1,5 @@
 "
-This strategy logs all erros that appear during the database reload, and shows a notification if there were errors when the reload is done.
+This strategy logs all erros that appear during a single database reload, and shows a notification if there were errors when the reload is done.
 "
 Class {
 	#name : #LeSingleNotificationContentReloadErrorStrategy,
@@ -41,7 +41,7 @@ LeSingleNotificationContentReloadErrorStrategy >> createErrorsNotificationText [
 
 { #category : #printing }
 LeSingleNotificationContentReloadErrorStrategy >> errorTextForMultipleErrorsOn: aStream [ 
-	aStream nextPutAll: ('There were {1} errors during Lepiter reload of {2}: '
+	aStream nextPutAll: ('{1} content errors during Lepiter reload of {2}: '
 		format: {
 			self contentErrors size.
 			currentDatabaseName}).
@@ -66,7 +66,7 @@ LeSingleNotificationContentReloadErrorStrategy >> errorTextForMultipleErrorsOn: 
 { #category : #printing }
 LeSingleNotificationContentReloadErrorStrategy >> errorTextForSingleErrorOn: aStream [ 
 	aStream 
-		nextPutAll: 'There was one error during Lepiter reload of ';
+		nextPutAll: 'Content error during Lepiter reload of ';
 		nextPutAll: currentDatabaseName;
 		nextPutAll: ': ';
 		cr;
@@ -80,7 +80,9 @@ LeSingleNotificationContentReloadErrorStrategy >> errorTextForSingleErrorOn: aSt
 LeSingleNotificationContentReloadErrorStrategy >> executeManaged: aBlock [
 	^ aBlock
 		on: Error 
-		do: [ :anError | self recordError: anError ]
+		do: [ :anError | 
+			anError freeze.
+			self recordError: anError ]
 ]
 
 { #category : #adding }

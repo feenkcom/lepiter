@@ -518,6 +518,15 @@ LeDatabaseClassStoreMonitor >> shouldProcessMethodAnnouncement: anAnnouncement [
 	^ (selector beginsWith: 'page_') or: [ selector = #explicitLinks ]
 ]
 
+{ #category : #notifications }
+LeDatabaseClassStoreMonitor >> showNotificationForException: anException withMessage: aMessage [ 
+	^ GtObjectNotificationMessage new
+		message: aMessage;
+		tooltip: 'Inspect loading error';
+		object: anException;
+		registerNotifications
+]
+
 { #category : #'system startup' }
 LeDatabaseClassStoreMonitor >> shutDown [
 	self updateEntries
@@ -572,10 +581,17 @@ LeDatabaseClassStoreMonitor >> submitReload [
 			asAsyncFuture await: (AsyncFutureExecutionConfiguration new 
 				customGroup: #Lepiter))
 					then: [ ]
-					otherwise: [ :exception |
-						self inform: 'Error during Lepiter reload: ' 
-							, exception messageText
-							, '. Do a manual reload to reproduce the error.']
+					otherwise: [ :anException |
+						anException freeze.
+						self 
+							showNotificationForException: anException
+							withMessage:(String streamContents: [ :aStream |
+								aStream 
+									<< 'Fatal error during Lepiter reload: ';
+									<< anException description;
+									cr; cr;
+									<< 'The database can be in an inconsistent state. ';
+									<< 'Resolve this problem before continuing to use the image! See "How to fix Lepiter loading errors".' ]) ]
 ]
 
 { #category : #'system announcements' }

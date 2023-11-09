@@ -1,6 +1,6 @@
 "
 This strategy gives callers a chance to handle errors first by catching {{gtClass:UnhandledError}}.
-If there is no handler, fork the exception so the load can continue.
+If there is no handler, it forks the exception so the load can continue.
 "
 Class {
 	#name : #LeForkDebuggerContentReloadErrorStrategy,
