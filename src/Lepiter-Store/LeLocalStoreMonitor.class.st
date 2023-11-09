@@ -411,6 +411,16 @@ LeLocalStoreMonitor >> scheduleNextUpdate [
 			errorHandler: AsyncPassExceptionHandler new)
 ]
 
+{ #category : #notifications }
+LeLocalStoreMonitor >> showNotificationForException: anException withMessage: aMessage [ 
+	^ GtObjectNotificationMessage new
+		message: aMessage;
+		tooltip: 'Inspect loading error';
+		object: anException;
+		showNotifications;
+		registerNotifications
+]
+
 { #category : #'system startup' }
 LeLocalStoreMonitor >> shutDown [
 	self updateEntries
@@ -463,10 +473,17 @@ LeLocalStoreMonitor >> submitReload [
 			asAsyncFuture await: (AsyncFutureExecutionConfiguration new 
 				customGroup: #Lepiter))
 					then: [ ]
-					otherwise: [ :exception |
-						self inform: 'Error during Lepiter reload: ' 
-							, exception messageText
-							, '. Do a manual reload to reproduce the error.']
+					otherwise: [ :anException |
+						anException freeze.
+						self 
+							showNotificationForException: anException
+							withMessage:(String streamContents: [ :aStream |
+								aStream 
+									<< 'Fatal error during Lepiter reload: ';
+									<< anException description;
+									cr; cr;
+									<< 'The database can be in an inconsistent state. ';
+									<< 'Resolve this problem before continuing to use the image! See "How to fix Lepiter loading errors".' ]) ]
 ]
 
 { #category : #private }
