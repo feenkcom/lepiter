@@ -36,7 +36,7 @@ LeSingleNotificationContentReloadErrorStrategy >> createErrorsNotificationText [
 				ifTrue: [ self errorTextForSingleErrorOn: aStream ]
 				ifFalse: [ self errorTextForMultipleErrorsOn: aStream ].
 			aStream cr.
-			aStream nextPutAll: 'Do a manual reload to reproduce the error (see "How to reload the content of the default logical database").' ]
+			aStream nextPutAll: 'See "How to fix Lepiter loading errors".' ]
 ]
 
 { #category : #printing }

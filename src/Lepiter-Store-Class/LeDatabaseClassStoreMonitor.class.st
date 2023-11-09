@@ -524,6 +524,7 @@ LeDatabaseClassStoreMonitor >> showNotificationForException: anException withMes
 		message: aMessage;
 		tooltip: 'Inspect loading error';
 		object: anException;
+		showNotifications;
 		registerNotifications
 ]
 

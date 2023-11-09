@@ -417,6 +417,7 @@ LeLocalStoreMonitor >> showNotificationForException: anException withMessage: aM
 		message: aMessage;
 		tooltip: 'Inspect loading error';
 		object: anException;
+		showNotifications;
 		registerNotifications
 ]
 
