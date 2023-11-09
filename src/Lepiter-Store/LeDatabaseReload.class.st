@@ -22,10 +22,18 @@ Class {
 		'addedExplicitLinks',
 		'deletedPageIDs',
 		'deletedLinksIDs',
-		'shouldDeletePages'
+		'shouldDeletePages',
+		'contentReloadErrorStrategy'
 	],
 	#category : #'Lepiter-Store-Reload'
 }
+
+{ #category : #accessing }
+LeDatabaseReload >> contentReloadErrorStrategy: aContentReloadErrorStrategy [
+	self assert: [ aContentReloadErrorStrategy notNil ].
+	
+	contentReloadErrorStrategy := aContentReloadErrorStrategy
+]
 
 { #category : #accessing }
 LeDatabaseReload >> database [ 
@@ -33,20 +41,22 @@ LeDatabaseReload >> database [
 	^ monitor database
 ]
 
+{ #category : #initialization }
+LeDatabaseReload >> defaultContentReloadErrorStrategy [
+	^ LeDatabaseContentReloadErrorStrategy forkDebuggerOnErrorStrategy
+]
+
 { #category : #accessing }
 LeDatabaseReload >> enablePageDeletion [
 	shouldDeletePages := true
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 LeDatabaseReload >> initialize [
-
 	super initialize.
-	loadedPageIDs := Set new.
-	loadedLinkIDs := Set new.
-	reloadedPages := Set new.
-	addedPages := Set new.
-	addedExplicitLinks := Set new.
+	
+	self resetData.
+	self contentReloadErrorStrategy: self defaultContentReloadErrorStrategy
 ]
 
 { #category : #accessing }
@@ -78,51 +88,38 @@ LeDatabaseReload >> reload [
 
 	monitorIsRunning := monitor isRunning.
 	monitorIsRunning ifTrue: [ monitor stopMonitoring ].
-	loadedPageIDs := Set new.
-	loadedLinkIDs := Set new.
-	reloadedPages := Set new.
-	addedPages := Set new.
-	addedExplicitLinks := Set new.
+
+	self resetData.
 
 	monitor storage updateDbStore: monitor.
-
 	self reloadDatabaseProperties.
-
-	self properties preloadScript ifNotNil: 
-		[ :script | script fileIn ].
+	self properties preloadScript ifNotNil: [ :script | script fileIn ].
 
 	[ | explicitLinks |
-		explicitLinks := monitor loadExplicitLinks.
-		self updateExplicitLinksContainer: explicitLinks.
-	
-		monitor pagesFromStore do: [ :page |
-			"Errors while loading the page will be signalled as LeDBLoadError.
-			Give callers a chance to handle errors first by catching UnhandledError.
-			If there is no handler, fork the exception so the load can continue."
-			[ self reloadPage: page ]
-				on: UnhandledError 
-				fork: [ :ex | ex pass ] ].
+	contentReloadErrorStrategy actBeforeDatabaseReloadFor: self database.
 
-		self updateReloadedPages.
-		self updateAddedPages.
+	explicitLinks := monitor loadExplicitLinks.
+	self updateExplicitLinksContainer: explicitLinks.
 
-		[ self reloadExplicitLinks: explicitLinks ] 
-				on: UnhandledError 
-				fork: [ :ex | ex pass ].
-		
-		self updateAddedExplicitLinks.
+	monitor pagesFromStore
+		do: [ :page | contentReloadErrorStrategy executeManaged: [ self reloadPage: page ] ].
 
-		"Only remove deleted pages if the flag is set.
+	self updateReloadedPages.
+	self updateAddedPages.
+
+	contentReloadErrorStrategy
+		executeManaged: [ self reloadExplicitLinks: explicitLinks ].
+
+	self updateAddedExplicitLinks.	"Only remove deleted pages if the flag is set.
 		This removes pages that are added (new pages) prior to the reload completing.
 		See the class comments for more information."
-		self shouldDeletePages ifTrue: [
-			self removeDeletedPages ].
-		self removeDeletedLinks.
-	
-	] ensure:
-			[ monitorIsRunning 
+	self shouldDeletePages ifTrue: [ self removeDeletedPages ].
+	self removeDeletedLinks.
+
+	contentReloadErrorStrategy actAfterDatabaseReloadFor: self database ]
+		ensure: [ monitorIsRunning
 				ifTrue: [ monitor startMonitoring ]
-				ifFalse: [ monitor loadCorruptPages ] ].
+				ifFalse: [ monitor loadCorruptPages ] ]
 ]
 
 { #category : #private }
@@ -227,6 +224,15 @@ LeDatabaseReload >> removeDeletedPages [
 	deletedPageIDs := (self database pages collect: #uid as: Set) difference: loadedPageIDs.
 	deletedPageIDs do: [ :uid |
 		self database removePage: (self database pageWithID: uid) ]
+]
+
+{ #category : #initialization }
+LeDatabaseReload >> resetData [
+	loadedPageIDs := Set new.
+	loadedLinkIDs := Set new.
+	reloadedPages := Set new.
+	addedPages := Set new.
+	addedExplicitLinks := Set new
 ]
 
 { #category : #accessing }

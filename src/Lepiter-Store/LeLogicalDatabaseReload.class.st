@@ -8,14 +8,23 @@ Class {
 		'playgroundDirectory',
 		'registeredDirectories',
 		'registeredDatabases',
-		'updateCommands'
+		'updateCommands',
+		'contentReloadErrorStrategy'
 	],
 	#category : #'Lepiter-Store-Reload'
 }
 
 { #category : #private }
 LeLogicalDatabaseReload >> addCommand: aCommand [
+	aCommand contentReloadErrorStrategy: contentReloadErrorStrategy.
 	updateCommands add: aCommand
+]
+
+{ #category : #accessing }
+LeLogicalDatabaseReload >> contentReloadErrorStrategy: aContentReloadErrorStrategy [
+	self assert: [ aContentReloadErrorStrategy notNil ].
+	
+	contentReloadErrorStrategy := aContentReloadErrorStrategy
 ]
 
 { #category : #accessing }
@@ -54,6 +63,11 @@ LeLogicalDatabaseReload >> dbFor: dbZnUrl [
 		isExisting: false
 ]
 
+{ #category : #initialialize }
+LeLogicalDatabaseReload >> defaultContentReloadErrorStrategy [
+	^ LeDatabaseContentReloadErrorStrategy forkDebuggerOnErrorStrategy
+]
+
 { #category : #private }
 LeLogicalDatabaseReload >> executeUpdateCommands [
 	"Steps:
@@ -65,6 +79,11 @@ LeLogicalDatabaseReload >> executeUpdateCommands [
 	updateCommands do: [ :each | each removeIn: database ].
 	updateCommands do: [ :each | each reloadAndStartMonitoringIn: database ].
 	updateCommands do: [ :each | each addIn: database ]
+]
+
+{ #category : #initialialize }
+LeLogicalDatabaseReload >> initialize [
+	self contentReloadErrorStrategy: self defaultContentReloadErrorStrategy
 ]
 
 { #category : #accessing }
@@ -212,11 +231,14 @@ LeLogicalDatabaseReload >> updateRegisteredDatabasesAndSpaces [
 				(self dbFor: znUrl)
 					ifExisting: [ :aDb :isPrimaryDB :isPlaygroundDB | 
 						isPrimaryDB | isPlaygroundDB
-							ifTrue: [ self addCommand: (LeLogicalDatabaseReloadUpdateShuffledDb new database: aDb) ]
-							ifFalse: [ self addCommand: (LeLogicalDatabaseReloadUpdateExistingDb new database: aDb) ].
+							ifTrue: [ self addCommand: (LeLogicalDatabaseReloadUpdateShuffledDb new 
+								database: aDb) ]
+							ifFalse: [ self addCommand: (LeLogicalDatabaseReloadUpdateExistingDb new 
+								database: aDb) ].
 						aDb ]
 					ifNew: [ :aDb | 
-						self addCommand: (LeLogicalDatabaseReloadUpdateAddDb new database: aDb).
+						self addCommand: (LeLogicalDatabaseReloadUpdateAddDb new 
+							database: aDb).
 						aDb ] ]
 			as: Array
 ]

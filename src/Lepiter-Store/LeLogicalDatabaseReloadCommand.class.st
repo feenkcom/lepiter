@@ -7,12 +7,33 @@ I am used by {{gtClass: LeLogicalDatabaseReload}}.
 Class {
 	#name : #LeLogicalDatabaseReloadCommand,
 	#superclass : #Object,
+	#instVars : [
+		'contentReloadErrorStrategy'
+	],
 	#category : #'Lepiter-Store-Reload'
 }
 
 { #category : #updating }
 LeLogicalDatabaseReloadCommand >> addIn: aLogicalDatabase [
 	self subclassResponsibility
+]
+
+{ #category : #accessing }
+LeLogicalDatabaseReloadCommand >> contentReloadErrorStrategy [
+	^ contentReloadErrorStrategy ifNil: [
+		self defaultContentReloadErrorStrategy]
+]
+
+{ #category : #accessing }
+LeLogicalDatabaseReloadCommand >> contentReloadErrorStrategy: aContentReloadErrorStrategy [
+	self assert: [ aContentReloadErrorStrategy notNil ].
+	
+	contentReloadErrorStrategy := aContentReloadErrorStrategy
+]
+
+{ #category : #accessing }
+LeLogicalDatabaseReloadCommand >> defaultContentReloadErrorStrategy [
+	^ LeDatabaseContentReloadErrorStrategy forkDebuggerOnErrorStrategy
 ]
 
 { #category : #printing }

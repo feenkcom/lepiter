@@ -22,6 +22,12 @@ LeDBLoadError >> initialize [
 	properties := Dictionary new.
 ]
 
+{ #category : #printing }
+LeDBLoadError >> messageText [
+	^ messageText ifNil: [ 
+		messageText := self standardMessageText ]
+]
+
 { #category : #accessing }
 LeDBLoadError >> originalException [
 	^ originalException
@@ -52,15 +58,6 @@ LeDBLoadError >> pageUid: anObject [
 	pageUid := anObject
 ]
 
-{ #category : #printing }
-LeDBLoadError >> printOn: aStream [
-
-	aStream
-		print: reason;
-		<< ' in page ';
-		print: pageTitle
-]
-
 { #category : #accessing }
 LeDBLoadError >> properties [
 	^ properties
@@ -74,4 +71,13 @@ LeDBLoadError >> reason [
 { #category : #accessing }
 LeDBLoadError >> reason: anObject [
 	reason := anObject
+]
+
+{ #category : #printing }
+LeDBLoadError >> standardMessageText [
+	^ String streamContents: [ :aStream | 
+		aStream
+			print: reason;
+			<< ' in page ';
+			print: pageTitle ]
 ]

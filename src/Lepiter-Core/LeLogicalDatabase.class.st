@@ -733,11 +733,12 @@ LeLogicalDatabase >> registeredDBs: anArray [
 ]
 
 { #category : #'startup-shutdown' }
-LeLogicalDatabase >> reloadRequestFrom: aLeDatabase [
+LeLogicalDatabase >> reloadRequestFrom: aLeDatabase withErrorStrategy: aContentReloadErrorStrategy [
 	"All concrete databases will be requested to reload at Pharo session startup.
 	Only reload the receiver once - when the primary DB requests it."
 
-	aLeDatabase == primaryDB ifTrue: [ self reload ]
+	aLeDatabase == primaryDB ifTrue: [ 
+		self reloadWithErrorStrategy: aContentReloadErrorStrategy ]
 ]
 
 { #category : #accessing }

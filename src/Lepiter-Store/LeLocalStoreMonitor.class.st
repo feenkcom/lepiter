@@ -212,12 +212,13 @@ LeLocalStoreMonitor >> loadCorruptPages [
 ]
 
 { #category : #'startup-shutdown' }
-LeLocalStoreMonitor >> primitiveReload [
+LeLocalStoreMonitor >> primitiveReloadWithErrorStrategy: aContentReloadErrorStrategy [
 	"Reload the receiver's database."
 
-	super primitiveReload.
+	self clearDatabaseProperties.
 	LeDatabaseReload new
 		monitor: self;
+		contentReloadErrorStrategy:  aContentReloadErrorStrategy;
 		reload
 ]
 
@@ -309,12 +310,25 @@ LeLocalStoreMonitor >> queueSave: aPage [
 
 { #category : #'startup-shutdown' }
 LeLocalStoreMonitor >> reload [
+	self reloadWithErrorStrategy: LeDatabaseContentReloadErrorStrategy forkDebuggerOnErrorStrategy
+]
+
+{ #category : #'startup-shutdown' }
+LeLocalStoreMonitor >> reloadWithErrorStrategy: aContentReloadErrorStrategy [
 	"Reload the receiver's database.
 	If the receiver is part of a logical database, defer to the logical database to coordinate reloads across all concrete databases."
 
 	(database hasParentDatabase and: [ database parent hasProperties ]) ifTrue: 
-		[ ^ database parent reloadRequestFrom: database ].
-	self primitiveReload.
+		[ ^ database parent 
+				reloadRequestFrom: database
+				withErrorStrategy: aContentReloadErrorStrategy ].
+	
+	self primitiveReloadWithErrorStrategy: aContentReloadErrorStrategy.
+]
+
+{ #category : #'startup-shutdown' }
+LeLocalStoreMonitor >> reloadWithNotificationOnError [
+	self reloadWithErrorStrategy: LeDatabaseContentReloadErrorStrategy singleNotificationOnErrorStrategy
 ]
 
 { #category : #private }
@@ -445,7 +459,7 @@ LeLocalStoreMonitor >> stopMonitoring [
 LeLocalStoreMonitor >> submitReload [
 
 	([ self class shutdownMonitor 
-		critical: [ self reload ] ]
+		critical: [ self reloadWithNotificationOnError ] ]
 			asAsyncFuture await: (AsyncFutureExecutionConfiguration new 
 				customGroup: #Lepiter))
 					then: [ ]

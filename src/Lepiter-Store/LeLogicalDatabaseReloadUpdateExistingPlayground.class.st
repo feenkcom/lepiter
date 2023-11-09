@@ -45,7 +45,7 @@ LeLogicalDatabaseReloadUpdateExistingPlayground >> reloadAndStartMonitoringIn: a
 	self isAlsoPrimaryDB ifTrue: [ ^ self ].
 
 	self playgroundDB monitor
-		primitiveReload;
+		primitiveReloadWithErrorStrategy: self contentReloadErrorStrategy;
 		startMonitoring
 ]
 

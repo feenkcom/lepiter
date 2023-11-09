@@ -29,7 +29,7 @@ LeLogicalDatabaseReloadUpdateShuffledDb >> reloadAndStartMonitoringIn: aLogicalD
 	"Existing (reused) databases should be reloaded and monitoring started"
 
 	self database monitor
-		primitiveReload;
+		primitiveReloadWithErrorStrategy: self contentReloadErrorStrategy;
 		startMonitoring
 ]
 

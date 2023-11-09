@@ -477,7 +477,11 @@ LeLocalStore >> signalDuplicatePage: aPage reason: aString originalException: or
 
 	file := localRoot / (storage pageFilename: aPage).
 	corruptFileReference := (file withExtension: 'corrupt') nextVersion.
-	UIManager default inform: 'Lepiter: Unable to load: ', corruptFileReference basename, ' in ', corruptFileReference parent fullName, ' due to a duplicate page ID'.
+	"UIManager default 
+		inform: 'Lepiter: Unable to load: '
+			, corruptFileReference basename
+			, ' in ', corruptFileReference parent fullName
+			, ' due to a duplicate page ID'."
 	file resolve renameTo: corruptFileReference basename.
 	error := LeDBLoadError new.
 	error properties at: #fileReference put: corruptFileReference.
