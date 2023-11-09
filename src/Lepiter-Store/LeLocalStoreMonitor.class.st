@@ -468,7 +468,7 @@ LeLocalStoreMonitor >> stopMonitoring [
 LeLocalStoreMonitor >> submitReload [
 
 	([ self class shutdownMonitor 
-		critical: [ 1/0. self reloadWithNotificationOnError ] ]
+		critical: [ self reloadWithNotificationOnError ] ]
 			asAsyncFuture await: (AsyncFutureExecutionConfiguration new 
 				customGroup: #Lepiter))
 					then: [ ]
