@@ -28,7 +28,7 @@ LeLogicalDatabaseReloadUpdateShuffledPrimary >> reloadAndStartMonitoringIn: aLog
 	"Existing (reused) databases should be reloaded and monitoring started"
 
 	self primaryDB monitor
-		primitiveReload;
+		primitiveReloadWithErrorStrategy: self contentReloadErrorStrategy;
 		startMonitoring
 ]
 

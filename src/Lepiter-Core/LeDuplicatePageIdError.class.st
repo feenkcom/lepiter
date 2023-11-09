@@ -27,15 +27,8 @@ LeDuplicatePageIdError >> isResumable [
 
 { #category : #accessing }
 LeDuplicatePageIdError >> messageText [
-
-	^ messageText 
-		ifNil: [ self page
-			ifNil: [ 'DuplicatePageIdError for unknown page.']
-			ifNotNil: [ :aPage |
-				'DuplicatePageIdError for page "{1}" with uid {2}' 
-					format: {
-						page gtDisplayString.
-						page uidString} ] ]
+	^ messageText ifNil: [ 
+		messageText := self standardMessageText ]
 ]
 
 { #category : #accessing }
@@ -46,4 +39,14 @@ LeDuplicatePageIdError >> page [
 { #category : #accessing }
 LeDuplicatePageIdError >> page: anObject [
 	page := anObject
+]
+
+{ #category : #accessing }
+LeDuplicatePageIdError >> standardMessageText [
+	^ self page
+		ifNil: [ 'DuplicatePageIdError for unknown page.' ]
+		ifNotNil: [ :aPage | 
+			'DuplicatePageIdError for page "{1}" with uid {2}'
+				format: {page gtDisplayString.
+						page uidString} ]
 ]

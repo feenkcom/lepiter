@@ -186,14 +186,6 @@ LeDatabaseStore >> newPropertiesDictionary [
 	^ dict.
 ]
 
-{ #category : #private }
-LeDatabaseStore >> primitiveReload [
-	"Reload the receiver.
-	Flush any data that may have changed on-disk since the last (re)load."
-
-	self clearDatabaseProperties
-]
-
 { #category : #'accessing - db properties' }
 LeDatabaseStore >> propertyAt: aSymbol [
 	<return: #String or: #Dictionary>
