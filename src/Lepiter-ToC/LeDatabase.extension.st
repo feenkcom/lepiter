@@ -29,7 +29,10 @@ LeDatabase >> notifyTableOfContensPageIdChangedFrom: anOldUUID to: aNewUUID [
 LeDatabase >> tableOfContents [ 
 
 	^ self tableOfContentsPageID
-		ifNotNil: [ :pageID | self pageWithID: pageID ]
+		ifNotNil: [ :pageID | 
+			self 
+				pageWithID: pageID
+				ifAbsent: [ nil ] ]
 ]
 
 { #category : #'*Lepiter-ToC' }
