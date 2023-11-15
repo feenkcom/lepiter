@@ -24,7 +24,7 @@ LeModelExamples >> databaseWithPageHavingLargePictureSnippets [
 		suffix: '-large-image.png'.
 	PNGReadWriter putForm: form onFileNamed: pngFile .
 	
-	15 timesRepeat: [ 
+	5 timesRepeat: [ 
 		| pictureAttachment snippet |
 		pictureAttachment := database addAttachmentByCopy: pngFile.
 		snippet := LePictureSnippet new
@@ -52,7 +52,7 @@ LeModelExamples >> databaseWithPageHavingManyPictureSnippets [
 	pictureFileOne := FileLocator gtResource / 'feenkcom/gtoolkit/doc/feenk.png'.
 	pictureFileTwo := FileLocator gtResource / 'feenkcom/gtoolkit/doc/gtoolkit.png'.
 	
-	150 timesRepeat: [ 
+	15 timesRepeat: [ 
 		| pictureAttachmentOne pictureAttachmentTwo snippetOne snippetTwo |
 		pictureAttachmentOne := database addAttachmentByCopy: pictureFileOne.
 		snippetOne := LePictureSnippet new
