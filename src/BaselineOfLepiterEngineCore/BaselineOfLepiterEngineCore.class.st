@@ -10,28 +10,28 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'Brick' with: [
-				spec repository: 'github://feenkcom/Brick:v0.8.1068/src' ].
+				spec repository: 'github://feenkcom/Brick:v0.8.1069/src' ].
 		spec
 			baseline: 'GToolkitFileUtility' with: [
 				spec repository: 'github://feenkcom/gtoolkit-utility:v0.8.243/src' ].
 		spec
 			baseline: 'GToolkitInspector' with: [
-				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.1873/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.1874/src' ].
 		spec
 			baseline: 'GToolkitCoder' with: [
-				spec repository: 'github://feenkcom/gtoolkit-coder:v0.8.1433/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-coder:v0.8.1434/src' ].
 		spec
 			baseline: 'GToolkit4Pharo' with: [
-				spec repository: 'github://feenkcom/gt4pharo:v0.6.1380/src' ].
+				spec repository: 'github://feenkcom/gt4pharo:v0.6.1381/src' ].
 		spec
 			baseline: 'GToolkit4Json' with: [
-				spec repository: 'github://feenkcom/gt4json:v0.6.604/src' ].
+				spec repository: 'github://feenkcom/gt4json:v0.6.605/src' ].
 		spec
 			baseline: 'GToolkitReleaser' with: [
-				spec repository: 'github://feenkcom/gtoolkit-releaser:v0.8.201/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-releaser:v0.8.202/src' ].
 		spec
 			baseline: 'LepiterXDoc' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.1897/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.6.1898/src' ].
 		spec
 			baseline: 'SmaCCRuntime' with: [
 				spec repository: 'github://j-brant/SmaCC:v3.0.24' ].
@@ -40,7 +40,7 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 				spec repository: 'github://j-brant/SmaCC:v3.0.24' ].
 		spec
 			baseline: 'Beacon' with: [
-				spec repository: 'github://feenkcom/pharo-beacon:af4aca0d8ad4ebdf2de988d474e0e2bcdceaf4ae/repository' ].
+				spec repository: 'github://feenkcom/pharo-beacon:44e6aee2d2b02253731169c4bae56594bf38a480/repository' ].
 		spec
 			baseline: 'JSONWebToken' with: [
 				spec repository: 'github://feenkcom/JSONWebToken:v0.5.135/source' ].
