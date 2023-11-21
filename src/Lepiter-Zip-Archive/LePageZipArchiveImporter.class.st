@@ -35,7 +35,7 @@ LePageZipArchiveImporter >> createPageInTemporaryDatabase [
 	attachmentFiles do: [ :each | | id |
 		id := each resolve parent path segments last.
 		self database database addAttachmentByCopy: each withId: (UUID fromString36: id) ].
-	database database addPage: self page
+	self database database addPage: self page
 ]
 
 { #category : #accessing }
