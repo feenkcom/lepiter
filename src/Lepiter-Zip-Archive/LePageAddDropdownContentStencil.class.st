@@ -67,7 +67,9 @@ LePageAddDropdownContentStencil >> icon: anObject [
 { #category : #initalization }
 LePageAddDropdownContentStencil >> initialize [
 	super initialize.
-	action := [ :aConfirmationButton | self addPage ].
+	action := [ :aConfirmationButton |
+		"the confirmationButton is already hidden at this point"
+		self anchor phlow spawnObject: self addPage ].
 	icon := BrGlamorousVectorIcons add.
 	label := 'Add page'.
 ]
