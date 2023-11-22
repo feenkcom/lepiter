@@ -17,13 +17,13 @@ LePageFooterToolbarElement >> actOnPageModelChanged [
 
 { #category : #accessing }
 LePageFooterToolbarElement >> availableDatabases [
-	| logicalDatabase |
-	self currentDatabase logicalDatabase 
-		ifNil: [ ^ #() ]
-		ifNotNil: [ :aLogicalDatabase | logicalDatabase := aLogicalDatabase ].
-	
-	^ logicalDatabase databases copyWithout: self currentDatabase
-	 
+	^ self currentDatabase logicalDatabase 
+		ifNil: [ #() ]
+		ifNotNil: [ :aLogicalDatabase | 
+			Array streamContents: [ :out |
+				aLogicalDatabase databasesDo: [ :aDatabase |
+					aDatabase = self currentDatabase
+						ifFalse: [ out nextPut: aDatabase ] ] ] ]
 ]
 
 { #category : #accessing }
