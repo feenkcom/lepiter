@@ -289,12 +289,8 @@ LeLogicalDatabase >> databaseWithID: aUUIDString ifNone: noneBlock [
 LeLogicalDatabase >> databases [
 	"Answer the receiver's databases in evaluation order, without duplicates"
 
-	^ Array new: registeredDBs size + 2 streamContents: [ :stream |
-		stream nextPut: primaryDB.
-		playgroundDB == primaryDB ifFalse:
-			[ stream nextPut: playgroundDB ].
-		registeredDBs do: [ :db |
-			stream nextPut: db ] ] .
+	^ Array streamContents: [ :stream |
+		self databasesDo: [ :db | stream nextPut: db ] ]
 ]
 
 { #category : #'api - accessing' }
