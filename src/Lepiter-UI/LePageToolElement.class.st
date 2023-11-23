@@ -141,11 +141,6 @@ LePageToolElement >> subscribeToPageViewModel [
 ]
 
 { #category : #'private - accessing' }
-LePageToolElement >> tabLabelChanger [
-	^ titleNotifier
-]
-
-{ #category : #'private - accessing' }
 LePageToolElement >> titleNotifier [
 	<return: #GtPhlowTitleNotifier>
 	^ titleNotifier
