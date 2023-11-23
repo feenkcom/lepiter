@@ -19,6 +19,36 @@ Class {
 	#category : #'Lepiter-Zip-Archive'
 }
 
+{ #category : #utilites }
+LePageZipArchiveImporter class >> importPage: page [
+	^ self 
+		importPage: page 
+		inDatabase: LeDatabasesRegistry new defaultLogicalDatabase primaryDB
+]
+
+{ #category : #utilities }
+LePageZipArchiveImporter class >> importPage: page inDatabase: database [
+	| pageCopy |
+	"serialize/deserialize to make an independent copy"
+	pageCopy := LeJsonV4 default deserialize: (LeJsonV4 default serialize: page) readStream.
+	"set a unique title that indicates this was imported"
+	pageCopy title: page title , ' - Imported ' , DateAndTime now printToSeconds.
+	"change the page's uid (see LePage>>#assingNewUID to make it unique"
+	pageCopy basicUid: database newUID uid.
+	"change the uid's of all snippets to make them unique"
+	pageCopy allChildrenDepthFirstDo: [ :snippet |
+		snippet uid: database newUID ].
+	"copy attachment files over, when needed"
+	pageCopy attachments get items do: [ :attachment | | id file |
+		id := UUID fromString36: ($/ split: attachment name) second.
+		file := page database resolveDbFile: attachment name. "use the original page's database !:"
+		(database hasAttachmentWithId: id)
+			ifFalse: [ database addAttachmentByCopy: file withId: id ] ].
+	"finally add the page"
+	database addPage: pageCopy.
+	^ pageCopy
+]
+
 { #category : #accessing }
 LePageZipArchiveImporter >> attachmentsDirectory [
 	^ self exportDirectory / 'attachments'
@@ -34,13 +64,14 @@ LePageZipArchiveImporter >> createPageInTemporaryDatabase [
 		self attachmentsDirectory / id / attachmentFile ].
 	attachmentFiles do: [ :each | | id |
 		id := each resolve parent path segments last.
-		self database database addAttachmentByCopy: each withId: (UUID fromString36: id) ].
-	self database database addPage: self page
+		self database addAttachmentByCopy: each withId: (UUID fromString36: id) ].
+	self database addPage: self page
 ]
 
 { #category : #accessing }
 LePageZipArchiveImporter >> database [
-	^ database ifNil: [ database := LeTemporaryDatabase new ]
+	^ database
+		ifNil: [ database := LeLocalStoreLoad current loadAndMonitorFrom: self lepiterDirectory ]
 ]
 
 { #category : #accessing }
@@ -103,6 +134,11 @@ LePageZipArchiveImporter >> import [
 	self assert: (self file basename endsWith: '.lepiter.zip').
 	self extractZipArchive.
 	self createPageInTemporaryDatabase
+]
+
+{ #category : #accessing }
+LePageZipArchiveImporter >> lepiterDirectory [
+	^ self directory / #lepiter
 ]
 
 { #category : #accessing }
