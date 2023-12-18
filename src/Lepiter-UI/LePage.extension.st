@@ -1,6 +1,23 @@
 Extension { #name : #LePage }
 
 { #category : #'*Lepiter-UI' }
+LePage >> asClickableLabelStencil [
+	"Experimental -- for building Sceneries and Mondrian maps with clickable labels for Lepiter pages."
+
+	^ (BrLabel new
+		border: (BlBorder paint: Color lightGray);
+		text: self title;
+		aptitude: BrGlamorousLabelAptitude new
+				+ (BrStyleCommonAptitude new
+						hovered: [ :aStyle | aStyle background: (Color blue alpha: 0.5) ]);
+		when: BlClickEvent
+			do: [ :e | 
+				e target phlow spawnTool: self asPhlowTool.
+				e consumed: true ];
+		padding: (BlInsets all: 5)) asStencil
+]
+
+{ #category : #'*Lepiter-UI' }
 LePage >> asContentUIModel [
 	<return: #LeContentViewModel>
 	^ LePageViewModel new pageModel: self
