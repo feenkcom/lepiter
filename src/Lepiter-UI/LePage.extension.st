@@ -2,14 +2,13 @@ Extension { #name : #LePage }
 
 { #category : #'*Lepiter-UI' }
 LePage >> asClickableLabel [
-	"Experimental -- for building Sceneries and Mondrian maps with clickable labels for Lepiter pages."
+	"For building Sceneries and Mondrian maps with clickable labels for Lepiter pages."
 
 	^ BrLabel new
-		border: (BlBorder paint: Color lightGray);
 		text: self title;
-		aptitude: BrGlamorousLabelAptitude new
+		aptitude: BrGlamorousLabelAptitude new bold
 				+ (BrStyleCommonAptitude new
-						hovered: [ :aStyle | aStyle background: (Color blue alpha: 0.5) ]);
+						hovered: [ :aStyle | aStyle background: Color paleBlue ]);
 		when: BlClickEvent
 			do: [ :e | 
 				e target phlow spawnTool: self asPhlowTool.
