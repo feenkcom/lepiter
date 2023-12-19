@@ -37,6 +37,12 @@ Class {
 	#category : #'Lepiter-Core-Model'
 }
 
+{ #category : #'instance creation' }
+LeDatabase class >> gtBook [
+	^ LeDatabasesRegistry uniqueInstance defaultLogicalDatabase databases
+		detect: [ :db | db databaseName = 'Glamorous Toolkit Book' ]
+]
+
 { #category : #'api - instance creation' }
 LeDatabase class >> null [
 	^ LeNullDatabase default
