@@ -58,8 +58,8 @@ LePage class >> leJsonV3Name [
 LePage class >> leJsonV4AttributeMapping [
 
 	^ super leJsonV4AttributeMapping
-		add: (#type -> #pageType);
-		add: (#basicUid -> #uid);
+		addFirst: (#type -> #pageType);
+		addFirst: (#basicUid -> #uid);
 		yourself
 ]
 
