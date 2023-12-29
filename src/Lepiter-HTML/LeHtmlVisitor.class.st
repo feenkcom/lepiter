@@ -139,7 +139,7 @@ LeHtmlVisitor >> visitPharoSnippet: aLePharoSnippet [
 		tag: #div
 		attributes: (self
 				classesFor: aLePharoSnippet
-				withClasses: 'snippet textual-snippet code-snippet pharo-snippet')
+				withClasses: 'snippet textual-snippet code-snippet pharo-snippet nesting-level-', (aLePharoSnippet nestingLevel printString)))
 		do: [ context html
 				tag: #pre
 				attributes: #('class' 'no_bottom_margin')
