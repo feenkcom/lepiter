@@ -173,7 +173,7 @@ LeHtmlVisitor >> visitPythonSnippet: aLePythonSnippet [
 		tag: #div
 		attributes: (self
 				classesFor: aLePythonSnippet
-				withClasses: 'snippet textual-snippet code-snippet python-snippet')
+				withClasses: 'snippet textual-snippet code-snippet python-snippet nesting-level-', (aLePythonSnippet nestingLevel printString))))
 		do: [ context html
 				tag: #pre
 				attributes: #('class' 'no_bottom_margin')
