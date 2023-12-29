@@ -197,7 +197,7 @@ LeHtmlVisitor >> visitTextSnippet: aLeTextSnippet [
 		tag: #div
 		attributes: (self
 				classesFor: aLeTextSnippet
-				withClasses: 'snippet textual-snippet text-snippet')
+				withClasses: 'snippet textual-snippet text-snippet nesting-level-', (aLeTextSnippet nestingLevel printString))
 		do: [ | visitor |
 			visitor := LeHtmlTextSnippetVisitor new
 					context: context;
