@@ -569,6 +569,13 @@ LePage >> storeOn: aStream [
 		nextPut: $)
 ]
 
+{ #category : #accessing }
+LePage >> tags [
+	"Outgoing links to pages with single-word titles, i.e., pages that could be interpreted as tags."
+
+	^ self allOutgoingTargets select: [ :page | page title substrings size = 1 ]
+]
+
 { #category : #'api - accessing' }
 LePage >> title [
 	"Answer the page's title"
