@@ -87,6 +87,11 @@ LePharoSnippet >> compileExampleMethod: aSelector in: aClass classified: aSymbol
 ]
 
 { #category : #accessing }
+LePharoSnippet >> followingSnippets [
+	^ self withFollowingSnippets allButFirst
+]
+
+{ #category : #accessing }
 LePharoSnippet >> moveFollowingSnippetsToPage: pageName [
 	"Use this to split a lepiter snippet by evaluating or inspecting this in a code
 	snippet at the split point.
@@ -96,14 +101,9 @@ LePharoSnippet >> moveFollowingSnippetsToPage: pageName [
 	children of that snippet in the tree.
 	"
 
-	|  targetPage snippets start stop |
+	| targetPage |
 	targetPage := self page database ensurePageNamed: pageName.
-	snippets := self parent children asArray.
-	start := snippets indexOf: self.
-	stop := snippets size.
-	snippets
-		from: start + 1
-		to: stop
+	self followingSnippets
 		do: [ :each | 
 			self parent removeSnippet: each.
 			targetPage addSnippet: each ].
@@ -113,4 +113,18 @@ LePharoSnippet >> moveFollowingSnippetsToPage: pageName [
 { #category : #initialization }
 LePharoSnippet >> newCoder [
 	^ GtPharoSnippetCoder new
+]
+
+{ #category : #accessing }
+LePharoSnippet >> withFollowingSnippets [
+	"This snippet and all following children of the same parent.
+	Sample usages:
+		thisSnippet withFollowingSnippets do: #indent.
+		thisSnippet withFollowingSnippets reversed do: #unindent.
+	"
+	| snippets stop start |
+	snippets := self parent children asArray.
+	start := snippets indexOf: self.
+	stop := snippets size.
+	^ snippets copyFrom: start to: stop
 ]
