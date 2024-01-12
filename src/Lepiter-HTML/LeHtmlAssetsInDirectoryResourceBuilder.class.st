@@ -30,7 +30,6 @@ LeHtmlAssetsInDirectoryResourceBuilder >> build [
 { #category : #private }
 LeHtmlAssetsInDirectoryResourceBuilder >> convertFile: aFile [
 	| aRoot |
-	
 	"A quick fix. It should be fixed in the resources.
 	It does not properly handle `FileLocator gtResource` 
 	if a file is not available in the first resource location, 
