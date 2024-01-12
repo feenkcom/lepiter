@@ -3,17 +3,8 @@ Extension { #name : #LePage }
 { #category : #'*Lepiter-UI' }
 LePage >> asClickableLabel [
 	"For building Sceneries and Mondrian maps with clickable labels for Lepiter pages."
-
-	^ BrLabel new
-		text: self title;
-		aptitude: BrGlamorousLabelAptitude new bold
-				+ (BrStyleCommonAptitude new
-						hovered: [ :aStyle | aStyle background: Color paleBlue ]);
-		when: BlClickEvent
-			do: [ :e | 
-				e target phlow spawnTool: self asPhlowTool.
-				e consumed: true ];
-		padding: (BlInsets all: 5)
+	
+	^ (LePageTitleLabelBuilder forPage: self) build
 ]
 
 { #category : #'*Lepiter-UI' }
