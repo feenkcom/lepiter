@@ -76,8 +76,7 @@ LePage >> gtConnectionsFor: aView [
 					c vertical matchParent ].
 			
 			"Mark connector as a normal tool that does not expand the contained pages."
-			gtconnector addViewModel: (BrInteractiveModel withAll: {
-		 		GtPhlowToolContainerDetailModel new beNormalLevel }).
+			gtconnector beNormalLevel.
 			
 			gtconnector stencil: [ :lePage |
 				| pageContainer |
@@ -163,7 +162,7 @@ LePage >> gtDependenciesMapFor: aView [
 		title: 'Dependencies map';
 		painting: [:m |
 		| all |
-all := {self} asSet, (self incomingLinks collect: [:x | x origin ifNotNil: #page]), (self allChildOutgoingTextualLinks collect: [:x | x target ifNotNil: #page]) reject: #isNil.
+all := {self} asSet, (self incomingLinks collect: [:x | x originReference ifNotNil: [ :aReference | aReference isPageReference ifTrue: [ aReference page ] ifFalse: [ nil ] ] ]), (self allChildOutgoingTextualLinks collect: [:x | x targetReference ifNotNil: [ :aReference | aReference isPageReference ifTrue: [ aReference page ] ifFalse: [ nil ] ]]) reject: #isNil.
 m nodes 
 	stencil: [:each | 
 		| element |

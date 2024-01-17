@@ -203,7 +203,7 @@ LeEvaluatedSnippetElement >> spawnBelowTool: aTool [
 	| aPreviewElement |
 	
 	aPreviewElement := aTool asElement.
-	aPreviewElement dispatchEvent: GtPhlowToolDetailWish beNormalLevel.
+	aPreviewElement states addState: GtPhlowToolDetailState normal.
 	
 	self spawnBelowPreviewElement: aPreviewElement
 ]

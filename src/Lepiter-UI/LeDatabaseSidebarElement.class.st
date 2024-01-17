@@ -87,8 +87,8 @@ LeDatabaseSidebarElement >> initialize [
 	self expand.
 		
 	self addAptitude: (GtPhlowToolDetailAptitude new
-		normal: [ self onNormalVolume ];
-		detailed: [ self onDetailedVolume ]).
+		normal: [ :aStyle | aStyle do: [ self onNormalVolume ] ];
+		detailed: [ :aStyle | aStyle do: [ self onDetailedVolume ] ]).
 	self addAptitude: (BrLayoutResizerAptitude new
 		vInherit;
 		vInherit: self tabGroupElement)
