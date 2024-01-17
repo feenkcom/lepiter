@@ -309,6 +309,11 @@ LePage >> hasIncomingUnlinked [
 		ifAbsent: [ false ]
 ]
 
+{ #category : #testing }
+LePage >> hasTagNamed: aString [
+	^ (self tags collect: #title) includes: aString
+]
+
 { #category : #'api - testing' }
 LePage >> hasTitle [
 	^ self type isUnnamedPageType not
