@@ -468,11 +468,13 @@ LeUIExamples >> pageToolElement_Hierarchy_Maximized [
 	<gtExample>
 	| anElement aContainer |
 	aContainer := BrWidgetContainer new matchParent.
-	aContainer 
-		addInteractiveModelState: GtPhlowToolContainerDetailModel new beDetailedLevel;
-		addAptitude: BrLayoutResizerAptitude inherit.
+	aContainer states addState: GtPhlowToolDetailState detailed.
+	
 	anElement := self pageToolElement_Hierarchy.
+	anElement matchParent.
+	
 	aContainer addChild: anElement.
+	
 	^ aContainer
 ]
 
@@ -481,11 +483,11 @@ LeUIExamples >> pageToolElement_Hierarchy_Normal [
 	<gtExample>
 	| anElement aContainer |
 	aContainer := BrWidgetContainer new matchParent.
-	aContainer 
-		addInteractiveModelState: GtPhlowToolContainerDetailModel new beNormalLevel;
-		addAptitude: BrLayoutResizerAptitude inherit.
+	aContainer states addState: GtPhlowToolDetailState normal.
 
 	anElement := self pageToolElement_Hierarchy.
+	anElement matchParent.
+	
 	aContainer addChild: anElement.
 	^ aContainer
 ]

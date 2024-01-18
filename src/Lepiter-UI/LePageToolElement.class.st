@@ -34,13 +34,13 @@ LePageToolElement >> initialize [
 	self initializeContentElement.
 	self initializeTitleNotifier.
 	self layout: BlLinearLayout horizontal.
-	self addInteractiveModelState: GtPhlowToolDetailModel new.
 	
 	self addChild: self sidebarElement as: #sidebar.
 	self addChild: self contentElement as: #content.
+	
 	self addAptitude: (GtPhlowToolDetailAptitude new
-		normal: [ self onNormalVolume ];
-		detailed: [ self onDetailedVolume ]).
+		normal: [ :aStyle | aStyle do: [ self onNormalVolume ] ];
+		detailed: [ :aStyle | aStyle do: [ self onDetailedVolume ] ]).
 
 	self beFocusable.
 	self when: BlClickEvent do: [ :anEvent | self requestFocus ]

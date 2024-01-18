@@ -5,7 +5,6 @@ Class {
 	#classTraits : 'TGtPhlowToolDetailAdjustable classTrait + TLeWithPageViewModel classTrait + TBrLayoutResizable classTrait',
 	#instVars : [
 		'page',
-		'volumeModel',
 		'connectorElement',
 		'innerContainer',
 		'pageElement'
@@ -53,14 +52,6 @@ LeConnectorPageContainerElement >> initialize [
 	super initialize.
 
 	self layout: BlLinearLayout horizontal.
-
-	volumeModel := GtPhlowToolDetailModel new.
-	self addInteractiveModelState: volumeModel.
-
-	"Mark the as container normal tool so each page has its own volume."
-	self addViewModel: (BrInteractiveModel withAll: {
-		BrFocusModel new.
-		 GtPhlowToolContainerDetailModel new beNormalLevel }).
 
 	self constraintsDo: [ :c |
 		c horizontal fitContent.
@@ -113,6 +104,7 @@ LeConnectorPageContainerElement >> initialize [
 				ifNone: [] ].
 
 	pageElement := LeConnectorPageElement new.
+	pageElement matchParent.
 	pageElement when: GtPhlowObjectToSpawn do: [ :spawnEvent | 
 			| isInspect |
 			isInspect := spawnEvent target userData includesKey: #isInspectButton.
@@ -128,8 +120,8 @@ LeConnectorPageContainerElement >> initialize [
 	self addChild: innerContainer.
 
 	self addAptitude: (GtPhlowToolDetailAptitude new
-		normal: [ self actOnNormalVolume ];
-		detailed: [ self actOnDetailedVolume ]).
+		normal: [ :aStyle | aStyle do: [ self actOnNormalVolume ] ];
+		detailed: [ :aStyle | aStyle do: [ self actOnDetailedVolume ] ]).
 ]
 
 { #category : #'api - page view model' }
@@ -147,7 +139,7 @@ LeConnectorPageContainerElement >> page [
 { #category : #accessing }
 LeConnectorPageContainerElement >> page: aPage [
 	page := aPage.
-	self onContentChanged.
+	self updateContent.
 ]
 
 { #category : #accessing }
@@ -155,9 +147,9 @@ LeConnectorPageContainerElement >> pageElement [
 	^ pageElement
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 LeConnectorPageContainerElement >> toggleVolume [
-	volumeModel isDetailed ifFalse: [ 
+	self isDetailedLevel ifFalse: [ 
 		self beDetailedLevel.
 		(self connectorElement entityElements copyWithout: self) do: [ :aContainer |
 			aContainer beNormalLevel ] ].
