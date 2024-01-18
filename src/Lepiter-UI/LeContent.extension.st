@@ -45,3 +45,17 @@ LeContent >> gtLiveFor: aView [
 		object: [ self asContentUIModel ];
 		view: #gtLiveFor:
 ]
+
+{ #category : #'*Lepiter-UI' }
+LeContent >> gtStoreStringFor: aView [
+	<gtView>
+	^ aView explicit
+		title: 'StoreString';
+		priority: 120;
+		stencil: [ (GtPharoSnippetCoder new
+				forSource: self storeString;
+				format;
+				subscribeToSystem;
+				asExpandedOnlyElement) vFitContentLimited ];
+		actionUpdateButton
+]
