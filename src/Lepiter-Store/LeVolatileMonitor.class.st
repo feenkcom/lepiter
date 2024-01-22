@@ -6,7 +6,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'uuid',
-		'databaseName'
+		'databaseName',
+		'tableOfContentsPageID'
 	],
 	#category : #'Lepiter-Store-LocalJSON-Store'
 }
@@ -34,7 +35,12 @@ LeVolatileMonitor >> initialize [
 LeVolatileMonitor >> tableOfContentsPageID [
 	"Answer the page UUID for the Table Of Contents, or nil if not set"
 
-	^ nil
+	^ tableOfContentsPageID
+]
+
+{ #category : #accessing }
+LeVolatileMonitor >> tableOfContentsPageID: aUUID [
+	tableOfContentsPageID := aUUID
 ]
 
 { #category : #accessing }
