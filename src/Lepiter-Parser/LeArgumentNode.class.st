@@ -135,6 +135,11 @@ LeArgumentNode >> isPreviewHeight [
 ]
 
 { #category : #testing }
+LeArgumentNode >> isPreviewSelect [
+	^ false
+]
+
+{ #category : #testing }
 LeArgumentNode >> isPreviewShow [
 	^ false
 ]

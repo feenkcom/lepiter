@@ -12,7 +12,8 @@ Class {
 		'previewShowSelector',
 		'resultVariableName',
 		'document',
-		'elementId'
+		'elementId',
+		'previewSelectSelector'
 	],
 	#category : #'Lepiter-UI-Core-Text - Attributes'
 }
@@ -114,6 +115,7 @@ GtExamplePreviewAttribute >> newExamplePreviewStencil [
 		noCode: self noCode;
 		previewExpanded: self previewExpanded;
 		previewShowSelector: self previewShowSelector;
+		previewSelectSelector: self previewSelectSelector;
 		previewHeight: self previewHeight;
 		elementId: self elementId
 ]
@@ -149,13 +151,23 @@ GtExamplePreviewAttribute >> previewHeight: anObject [
 ]
 
 { #category : #accessing }
+GtExamplePreviewAttribute >> previewSelectSelector [
+	^ previewSelectSelector
+]
+
+{ #category : #accessing }
+GtExamplePreviewAttribute >> previewSelectSelector: aSelector [
+	previewSelectSelector := aSelector
+]
+
+{ #category : #accessing }
 GtExamplePreviewAttribute >> previewShowSelector [
 	^ previewShowSelector
 ]
 
 { #category : #accessing }
-GtExamplePreviewAttribute >> previewShowSelector: anObject [
-	previewShowSelector := anObject
+GtExamplePreviewAttribute >> previewShowSelector: aSelector [
+	previewShowSelector := aSelector
 ]
 
 { #category : #accessing }

@@ -6,7 +6,7 @@ Class {
 
 { #category : #'generated-accessing' }
 LeAnnotationParser class >> cacheId [
-	^'2023-08-04T09:44:29.302587-04:00'
+	^'2024-01-24T14:00:52.409165+01:00'
 ]
 
 { #category : #'instance creation' }
@@ -41,6 +41,7 @@ LeAnnotationParser class >> definitionComment [
 	PreviewExpandedArgument
 	PreviewHeightArgument
 	PreviewShowArgument
+	PreviewSelectArgument
 	ReturnArgument
 	ShowArgument
 	PackageTagArgument
@@ -124,6 +125,9 @@ default path <bar>
 	;
 <previewShow>
 	: previewShow
+	;
+<previewSelect>
+	: previewSelect
 	;
 <previewExpanded>
 	: previewExpanded
@@ -256,6 +260,7 @@ ExampleAnnotationItem
 	| PreviewHeight
 	| PreviewExpanded
 	| PreviewShow
+	| PreviewSelect
 	| Alignment
 	| Return
 	;
@@ -267,6 +272,9 @@ Alignment
 	;
 PreviewShow
 	: <previewShow> 'name' <eq> 'equals' <selector> 'value' {{PreviewShowArgument}}
+	;
+PreviewSelect
+	: <previewSelect> 'name' <eq> 'equals' <selector> 'value' {{PreviewSelectArgument}}
 	;
 PreviewExpanded
 	: <previewExpanded> 'name' OptionalBooleanValue {{PreviewExpandedArgument}}
@@ -371,107 +379,109 @@ ClassAnnotation
 { #category : #generated }
 LeAnnotationParser class >> reduceTable [
 ^#(
-	#(51 0 #reduceActionForSwitchToLabel1: 3579905 true) 
-	#(60 0 #reduceActionForOptionalBooleanValue1: 4591617 false) 
-	#(42 1 #reduceActionForPackageName2: 2761730 false) 
-	#(38 1 #reduceActionForPackageAnnotation1: 2399233 false) 
-	#(39 1 #reduceActionForPackageAnnotationItems2: 2453506 false) 
-	#(40 1 #liftFirstValue: 2589699 false) 
-	#(40 1 #liftFirstValue: 2589697 false) 
-	#(40 1 #liftFirstValue: 2589702 false) 
-	#(40 1 #liftFirstValue: 2589701 false) 
-	#(40 1 #liftFirstValue: 2589700 false) 
-	#(40 1 #liftFirstValue: 2589698 false) 
-	#(52 1 #reduceActionForClassName3: 3627011 false) 
-	#(85 1 #reduceActionForClassAnnotation1: 6666241 false) 
-	#(43 1 #reduceActionForPackageAnnotationItems2: 2906114 false) 
-	#(44 1 #liftFirstValue: 3032070 false) 
-	#(44 1 #liftFirstValue: 3032069 false) 
-	#(44 1 #liftFirstValue: 3032068 false) 
-	#(44 1 #liftFirstValue: 3032067 false) 
-	#(44 1 #liftFirstValue: 3032066 false) 
-	#(44 1 #liftFirstValue: 3032065 false) 
-	#(55 1 #liftFirstValue: 3993602 false) 
-	#(55 1 #liftFirstValue: 3993603 false) 
-	#(53 1 #reduceActionForExampleAnnotation1: 3806209 false) 
-	#(54 1 #reduceActionForPackageAnnotationItems2: 3859458 false) 
-	#(55 1 #liftFirstValue: 3993610 false) 
-	#(55 1 #liftFirstValue: 3993609 false) 
-	#(55 1 #liftFirstValue: 3993608 false) 
-	#(55 1 #liftFirstValue: 3993607 false) 
-	#(55 1 #liftFirstValue: 3993606 false) 
-	#(55 1 #liftFirstValue: 3993605 false) 
-	#(55 1 #liftFirstValue: 3993604 false) 
-	#(55 1 #liftFirstValue: 3993601 false) 
-	#(66 1 #liftFirstValue: 5100549 false) 
-	#(66 1 #liftFirstValue: 5100548 false) 
-	#(66 1 #liftFirstValue: 5100547 false) 
-	#(66 1 #liftFirstValue: 5100546 false) 
-	#(64 1 #reduceActionForMethodAnnotation1: 4919297 false) 
-	#(65 1 #reduceActionForPackageAnnotationItems2: 4970498 false) 
-	#(66 1 #liftFirstValue: 5100545 false) 
-	#(71 1 #reduceActionForPath1: 5583873 false) 
-	#(70 1 #liftFirstValue: 5519363 false) 
-	#(70 1 #liftFirstValue: 5519362 false) 
-	#(70 1 #liftFirstValue: 5519361 false) 
-	#(68 1 #reduceActionForChangesAnnotation1: 5331969 false) 
-	#(69 1 #reduceActionForPackageAnnotationItems2: 5385218 false) 
-	#(70 1 #liftFirstValue: 5519364 false) 
-	#(79 1 #reduceActionForPageLabel1: 6167553 false) 
-	#(77 0 #reduceActionForSwitchToUuid1: 6077441 true) 
-	#(74 1 #liftFirstValue: 5833732 false) 
-	#(72 1 #reduceActionForPageAnnotation1: 5663745 false) 
-	#(73 1 #reduceActionForPackageAnnotationItems2: 5710850 false) 
-	#(74 1 #liftFirstValue: 5833731 false) 
-	#(74 1 #liftFirstValue: 5833730 false) 
-	#(74 1 #liftFirstValue: 5833729 false) 
-	#(82 1 #liftFirstValue: 6458371 false) 
-	#(80 1 #reduceActionForTodoAnnotation1: 6289409 false) 
-	#(81 1 #reduceActionForPackageAnnotationItems2: 6336514 false) 
-	#(82 1 #liftFirstValue: 6458370 false) 
-	#(82 1 #liftFirstValue: 6458369 false) 
-	#(60 1 #reduceActionForOptionalBooleanValue2: 4591618 false) 
-	#(47 2 #reduceActionForExpanded1: 3275777 false) 
-	#(52 2 #reduceActionForClassName4: 3627012 false) 
-	#(48 2 #reduceActionForFull1: 3352577 false) 
-	#(59 2 #reduceActionForPreviewExpanded1: 4493313 false) 
-	#(62 2 #reduceActionForNoCode1: 4759553 false) 
-	#(63 2 #reduceActionForCodeExpanded1: 4830209 false) 
-	#(83 2 #reduceActionForCompleted1: 6510593 false) 
-	#(84 2 #reduceActionForCompleted1: 6594561 false) 
-	#(42 3 #reduceActionForPackageName1: 2761729 false) 
-	#(50 0 #reduceActionForSwitchToDefault1: 3528705 true) 
-	#(60 2 #reduceActionForOptionalBooleanValue3: 4591619 false) 
-	#(46 3 #reduceActionForShow1: 3198977 false) 
-	#(45 3 #reduceActionForHeight1: 3117057 false) 
-	#(41 3 #reduceActionForTag1: 2677761 false) 
-	#(39 3 #reduceActionForPackageAnnotationItems1: 2453505 false) 
-	#(52 3 #reduceActionForClassName1: 3627009 false) 
-	#(43 3 #reduceActionForPackageAnnotationItems1: 2906113 false) 
-	#(67 3 #reduceActionForMethodName1: 5179393 false) 
-	#(56 3 #reduceActionForReturn1: 4157441 false) 
-	#(57 3 #reduceActionForAlignment1: 4245505 false) 
-	#(57 3 #reduceActionForAlignment1: 4245506 false) 
-	#(57 3 #reduceActionForAlignment1: 4245507 false) 
-	#(58 3 #reduceActionForPreviewShow1: 4395009 false) 
-	#(61 3 #reduceActionForPreviewHeight1: 4656129 false) 
-	#(54 3 #reduceActionForPackageAnnotationItems1: 3859457 false) 
-	#(65 3 #reduceActionForPackageAnnotationItems1: 4970497 false) 
-	#(71 3 #reduceActionForPath2: 5583874 false) 
-	#(69 3 #reduceActionForPackageAnnotationItems1: 5385217 false) 
-	#(79 3 #reduceActionForPageLabel2: 6167554 false) 
-	#(78 0 #reduceActionForSwitchToPath1: 6122497 true) 
-	#(73 3 #reduceActionForPackageAnnotationItems1: 5710849 false) 
-	#(83 3 #reduceActionForCompleted2: 6510594 false) 
-	#(84 3 #reduceActionForCompleted2: 6594562 false) 
-	#(81 3 #reduceActionForPackageAnnotationItems1: 6336513 false) 
-	#(52 4 #reduceActionForClassName2: 3627010 false) 
-	#(67 4 #reduceActionForMethodName2: 5179394 false) 
-	#(49 5 #reduceActionForLabel1: 3417089 false) 
-	#(67 5 #reduceActionForMethodName3: 5179395 false) 
-	#(76 5 #reduceActionForDb1: 5984257 false) 
-	#(75 5 #reduceActionForId1: 5891073 false) 
-	#(67 6 #reduceActionForMethodName4: 5179396 false)
+	#(52 0 #reduceActionForSwitchToLabel1: 3640321 true) 
+	#(62 0 #reduceActionForOptionalBooleanValue1: 4773889 false) 
+	#(43 1 #reduceActionForPackageName2: 2822146 false) 
+	#(39 1 #reduceActionForPackageAnnotation1: 2459649 false) 
+	#(40 1 #reduceActionForPackageAnnotationItems2: 2513922 false) 
+	#(41 1 #liftFirstValue: 2650115 false) 
+	#(41 1 #liftFirstValue: 2650113 false) 
+	#(41 1 #liftFirstValue: 2650118 false) 
+	#(41 1 #liftFirstValue: 2650117 false) 
+	#(41 1 #liftFirstValue: 2650116 false) 
+	#(41 1 #liftFirstValue: 2650114 false) 
+	#(53 1 #reduceActionForClassName3: 3687427 false) 
+	#(87 1 #reduceActionForClassAnnotation1: 6848513 false) 
+	#(44 1 #reduceActionForPackageAnnotationItems2: 2966530 false) 
+	#(45 1 #liftFirstValue: 3092486 false) 
+	#(45 1 #liftFirstValue: 3092485 false) 
+	#(45 1 #liftFirstValue: 3092484 false) 
+	#(45 1 #liftFirstValue: 3092483 false) 
+	#(45 1 #liftFirstValue: 3092482 false) 
+	#(45 1 #liftFirstValue: 3092481 false) 
+	#(56 1 #liftFirstValue: 4054018 false) 
+	#(56 1 #liftFirstValue: 4054019 false) 
+	#(54 1 #reduceActionForExampleAnnotation1: 3866625 false) 
+	#(55 1 #reduceActionForPackageAnnotationItems2: 3919874 false) 
+	#(56 1 #liftFirstValue: 4054027 false) 
+	#(56 1 #liftFirstValue: 4054026 false) 
+	#(56 1 #liftFirstValue: 4054024 false) 
+	#(56 1 #liftFirstValue: 4054025 false) 
+	#(56 1 #liftFirstValue: 4054023 false) 
+	#(56 1 #liftFirstValue: 4054022 false) 
+	#(56 1 #liftFirstValue: 4054021 false) 
+	#(56 1 #liftFirstValue: 4054020 false) 
+	#(56 1 #liftFirstValue: 4054017 false) 
+	#(68 1 #liftFirstValue: 5282821 false) 
+	#(68 1 #liftFirstValue: 5282820 false) 
+	#(68 1 #liftFirstValue: 5282819 false) 
+	#(68 1 #liftFirstValue: 5282818 false) 
+	#(66 1 #reduceActionForMethodAnnotation1: 5101569 false) 
+	#(67 1 #reduceActionForPackageAnnotationItems2: 5152770 false) 
+	#(68 1 #liftFirstValue: 5282817 false) 
+	#(73 1 #reduceActionForPath1: 5766145 false) 
+	#(72 1 #liftFirstValue: 5701635 false) 
+	#(72 1 #liftFirstValue: 5701634 false) 
+	#(72 1 #liftFirstValue: 5701633 false) 
+	#(70 1 #reduceActionForChangesAnnotation1: 5514241 false) 
+	#(71 1 #reduceActionForPackageAnnotationItems2: 5567490 false) 
+	#(72 1 #liftFirstValue: 5701636 false) 
+	#(81 1 #reduceActionForPageLabel1: 6349825 false) 
+	#(79 0 #reduceActionForSwitchToUuid1: 6259713 true) 
+	#(76 1 #liftFirstValue: 6016004 false) 
+	#(74 1 #reduceActionForPageAnnotation1: 5846017 false) 
+	#(75 1 #reduceActionForPackageAnnotationItems2: 5893122 false) 
+	#(76 1 #liftFirstValue: 6016003 false) 
+	#(76 1 #liftFirstValue: 6016002 false) 
+	#(76 1 #liftFirstValue: 6016001 false) 
+	#(84 1 #liftFirstValue: 6640643 false) 
+	#(82 1 #reduceActionForTodoAnnotation1: 6471681 false) 
+	#(83 1 #reduceActionForPackageAnnotationItems2: 6518786 false) 
+	#(84 1 #liftFirstValue: 6640642 false) 
+	#(84 1 #liftFirstValue: 6640641 false) 
+	#(62 1 #reduceActionForOptionalBooleanValue2: 4773890 false) 
+	#(48 2 #reduceActionForExpanded1: 3336193 false) 
+	#(53 2 #reduceActionForClassName4: 3687428 false) 
+	#(49 2 #reduceActionForFull1: 3412993 false) 
+	#(61 2 #reduceActionForPreviewExpanded1: 4675585 false) 
+	#(64 2 #reduceActionForNoCode1: 4941825 false) 
+	#(65 2 #reduceActionForCodeExpanded1: 5012481 false) 
+	#(85 2 #reduceActionForCompleted1: 6692865 false) 
+	#(86 2 #reduceActionForCompleted1: 6776833 false) 
+	#(43 3 #reduceActionForPackageName1: 2822145 false) 
+	#(51 0 #reduceActionForSwitchToDefault1: 3589121 true) 
+	#(62 2 #reduceActionForOptionalBooleanValue3: 4773891 false) 
+	#(47 3 #reduceActionForShow1: 3259393 false) 
+	#(46 3 #reduceActionForHeight1: 3177473 false) 
+	#(42 3 #reduceActionForTag1: 2738177 false) 
+	#(40 3 #reduceActionForPackageAnnotationItems1: 2513921 false) 
+	#(53 3 #reduceActionForClassName1: 3687425 false) 
+	#(44 3 #reduceActionForPackageAnnotationItems1: 2966529 false) 
+	#(69 3 #reduceActionForMethodName1: 5361665 false) 
+	#(57 3 #reduceActionForReturn1: 4235265 false) 
+	#(58 3 #reduceActionForAlignment1: 4323329 false) 
+	#(58 3 #reduceActionForAlignment1: 4323330 false) 
+	#(58 3 #reduceActionForAlignment1: 4323331 false) 
+	#(59 3 #reduceActionForPreviewShow1: 4472833 false) 
+	#(60 3 #reduceActionForPreviewSelect1: 4571137 false) 
+	#(63 3 #reduceActionForPreviewHeight1: 4838401 false) 
+	#(55 3 #reduceActionForPackageAnnotationItems1: 3919873 false) 
+	#(67 3 #reduceActionForPackageAnnotationItems1: 5152769 false) 
+	#(73 3 #reduceActionForPath2: 5766146 false) 
+	#(71 3 #reduceActionForPackageAnnotationItems1: 5567489 false) 
+	#(81 3 #reduceActionForPageLabel2: 6349826 false) 
+	#(80 0 #reduceActionForSwitchToPath1: 6304769 true) 
+	#(75 3 #reduceActionForPackageAnnotationItems1: 5893121 false) 
+	#(85 3 #reduceActionForCompleted2: 6692866 false) 
+	#(86 3 #reduceActionForCompleted2: 6776834 false) 
+	#(83 3 #reduceActionForPackageAnnotationItems1: 6518785 false) 
+	#(53 4 #reduceActionForClassName2: 3687426 false) 
+	#(69 4 #reduceActionForMethodName2: 5361666 false) 
+	#(50 5 #reduceActionForLabel1: 3477505 false) 
+	#(69 5 #reduceActionForMethodName3: 5361667 false) 
+	#(78 5 #reduceActionForDb1: 6166529 false) 
+	#(77 5 #reduceActionForId1: 6073345 false) 
+	#(69 6 #reduceActionForMethodName4: 5361668 false)
 	).
 ]
 
@@ -517,185 +527,189 @@ LeAnnotationParser class >> startingStateForTodoAnnotation [
 
 { #category : #generated }
 LeAnnotationParser class >> symbolNames [
-	^ #('<className>' '<unarySelector>' '<selector>' '<integer>' '<labelText>' '<whitespace>' '<name>' '<eq>' '<label>' '<full>' '<expanded>' '<boolean>' '<show>' '<height>' '<bar>' '<return>' '<alignment>' '<previewShow>' '<previewExpanded>' '<previewHeight>' '<noCode>' '<gtgt>' '<codeExpanded>' '<documentWidth>' '<fullWidth>' '<paragraphWidth>' '<class>' '<path>' '<db>' '<uuid>' '<completed>' '<due>' '<date>' '<id>' '<packageName>' '<tag>' 'B e g i n' 'PackageAnnotation' 'PackageAnnotationItems' 'PackageAnnotationItem' 'Tag' 'PackageName' 'ClassAnnotationItems' 'ClassAnnotationItem' 'Height' 'Show' 'Expanded' 'Full' 'Label' 'SwitchToDefault' 'SwitchToLabel' 'ClassName' 'ExampleAnnotation' 'ExampleAnnotationItems' 'ExampleAnnotationItem' 'Return' 'Alignment' 'PreviewShow' 'PreviewExpanded' 'OptionalBooleanValue' 'PreviewHeight' 'NoCode' 'CodeExpanded' 'MethodAnnotation' 'MethodAnnotationItems' 'MethodAnnotationItem' 'MethodName' 'ChangesAnnotation' 'ChangesAnnotationItems' 'ChangesAnnotationItem' 'Path' 'PageAnnotation' 'PageAnnotationItems' 'PageAnnotationItem' 'Id' 'Db' 'SwitchToUuid' 'SwitchToPath' 'PageLabel' 'TodoAnnotation' 'TodoAnnotationItems' 'TodoAnnotationItem' 'Completed' 'Due' 'ClassAnnotation' 'E O F' 'error')
+	^ #('<className>' '<unarySelector>' '<selector>' '<integer>' '<labelText>' '<whitespace>' '<name>' '<eq>' '<label>' '<full>' '<expanded>' '<boolean>' '<show>' '<height>' '<bar>' '<return>' '<alignment>' '<previewShow>' '<previewSelect>' '<previewExpanded>' '<previewHeight>' '<noCode>' '<gtgt>' '<codeExpanded>' '<documentWidth>' '<fullWidth>' '<paragraphWidth>' '<class>' '<path>' '<db>' '<uuid>' '<completed>' '<due>' '<date>' '<id>' '<packageName>' '<tag>' 'B e g i n' 'PackageAnnotation' 'PackageAnnotationItems' 'PackageAnnotationItem' 'Tag' 'PackageName' 'ClassAnnotationItems' 'ClassAnnotationItem' 'Height' 'Show' 'Expanded' 'Full' 'Label' 'SwitchToDefault' 'SwitchToLabel' 'ClassName' 'ExampleAnnotation' 'ExampleAnnotationItems' 'ExampleAnnotationItem' 'Return' 'Alignment' 'PreviewShow' 'PreviewSelect' 'PreviewExpanded' 'OptionalBooleanValue' 'PreviewHeight' 'NoCode' 'CodeExpanded' 'MethodAnnotation' 'MethodAnnotationItems' 'MethodAnnotationItem' 'MethodName' 'ChangesAnnotation' 'ChangesAnnotationItems' 'ChangesAnnotationItem' 'Path' 'PageAnnotation' 'PageAnnotationItems' 'PageAnnotationItem' 'Id' 'Db' 'SwitchToUuid' 'SwitchToPath' 'PageLabel' 'TodoAnnotation' 'TodoAnnotationItems' 'TodoAnnotationItem' 'Completed' 'Due' 'ClassAnnotation' 'E O F' 'error')
 ]
 
 { #category : #generated }
 LeAnnotationParser class >> symbolTypes [
-	^ #(#SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #LePackageAnnotationNode #LePackageAnnotationNode #OrderedCollection #LeArgumentNode #LePackageTagArgumentNode #LePackageNameArgumentNode #OrderedCollection #LeArgumentNode #LeHeightArgumentNode #LeShowArgumentNode #LeExpandedArgumentNode #LeFullArgumentNode #LeLabelArgumentNode nil nil #LeClassNameArgumentNode #LeExampleAnnotationNode #OrderedCollection #LeArgumentNode #LeReturnArgumentNode #LeAlignmentArgumentNode #LePreviewShowArgumentNode #LePreviewExpandedArgumentNode #OrderedCollection #LePreviewHeightArgumentNode #LeNoCodeArgumentNode #LeCodeExpandedArgumentNode #LeMethodAnnotationNode #OrderedCollection #LeArgumentNode #LeMethodNameArgumentNode #LeChangesAnnotationNode #OrderedCollection #LeArgumentNode #LeFileNameArgumentNode #LePageAnnotationNode #OrderedCollection #LeArgumentNode #LeIdArgumentNode #LeDbArgumentNode nil nil #LePageNameArgumentNode #LeTodoAnnotationNode #OrderedCollection #LeArgumentNode #LeDateArgumentNode #LeDateArgumentNode #LeClassAnnotationNode #SmaCCToken #SmaCCErrorNode)
+	^ #(#SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #SmaCCToken #LePackageAnnotationNode #LePackageAnnotationNode #OrderedCollection #LeArgumentNode #LePackageTagArgumentNode #LePackageNameArgumentNode #OrderedCollection #LeArgumentNode #LeHeightArgumentNode #LeShowArgumentNode #LeExpandedArgumentNode #LeFullArgumentNode #LeLabelArgumentNode nil nil #LeClassNameArgumentNode #LeExampleAnnotationNode #OrderedCollection #LeArgumentNode #LeReturnArgumentNode #LeAlignmentArgumentNode #LePreviewShowArgumentNode #LePreviewSelectArgumentNode #LePreviewExpandedArgumentNode #OrderedCollection #LePreviewHeightArgumentNode #LeNoCodeArgumentNode #LeCodeExpandedArgumentNode #LeMethodAnnotationNode #OrderedCollection #LeArgumentNode #LeMethodNameArgumentNode #LeChangesAnnotationNode #OrderedCollection #LeArgumentNode #LeFileNameArgumentNode #LePageAnnotationNode #OrderedCollection #LeArgumentNode #LeIdArgumentNode #LeDbArgumentNode nil nil #LePageNameArgumentNode #LeTodoAnnotationNode #OrderedCollection #LeArgumentNode #LeDateArgumentNode #LeDateArgumentNode #LeClassAnnotationNode #SmaCCToken #SmaCCErrorNode)
 ]
 
 { #category : #generated }
 LeAnnotationParser class >> transitionTable [
 ^#(
-#[1 0 33 0 7 0 37 0 9 0 41 0 11 0 45 0 13 0 49 0 14 0 53 0 35 0 57 0 36 0 61 0 38 0 65 0 39 0 69 0 40 0 69 0 41 0 69 0 42 0 69 0 45 0 69 0 46 0 69 0 47 0 69 0 49] 
-#[1 0 97 0 1 0 101 0 7 0 37 0 9 0 105 0 10 0 41 0 11 0 45 0 13 0 49 0 14 0 109 0 43 0 113 0 44 0 113 0 45 0 113 0 46 0 113 0 47 0 113 0 48 0 113 0 49 0 113 0 52 0 141 0 85] 
-#[1 0 145 0 1 0 149 0 7 0 37 0 9 0 41 0 11 0 153 0 16 0 157 0 17 0 161 0 18 0 165 0 19 0 169 0 20 0 173 0 21 0 177 0 23 0 197 0 47 0 197 0 49 0 189 0 53 0 193 0 54 0 197 0 55 0 197 0 56 0 197 0 57 0 197 0 58 0 197 0 59 0 197 0 61 0 197 0 62 0 197 0 63 0 197 0 67] 
-#[1 0 145 0 1 0 149 0 7 0 37 0 9 0 41 0 11 0 45 0 13 0 49 0 14 1 1 0 45 1 1 0 46 1 1 0 47 1 1 0 49 0 249 0 64 0 253 0 65 1 1 0 66 1 1 0 67] 
-#[1 1 9 0 7 0 41 0 11 0 45 0 13 0 49 0 14 1 13 0 28 1 37 0 45 1 37 0 46 1 37 0 47 1 29 0 68 1 33 0 69 1 37 0 70 1 37 0 71] 
-#[1 1 45 0 7 0 37 0 9 1 49 0 28 1 53 0 29 1 57 0 34 1 73 0 49 1 65 0 72 1 69 0 73 1 73 0 74 1 73 0 75 1 73 0 76 1 73 0 79] 
-#[1 0 37 0 9 1 89 0 31 1 93 0 32 1 109 0 49 1 101 0 80 1 105 0 81 1 109 0 82 1 109 0 83 1 109 0 84] 
-#[0 1 121 0 8] 
-#[1 0 6 0 8 1 125 0 51] 
-#[1 1 129 0 8 0 10 0 15 1 133 0 60 0 10 0 86] 
-#[0 1 137 0 8] 
-#[0 1 141 0 8] 
-#[0 0 14 0 15 0 86] 
+#[1 0 33 0 7 0 37 0 9 0 41 0 11 0 45 0 13 0 49 0 14 0 53 0 36 0 57 0 37 0 61 0 39 0 65 0 40 0 69 0 41 0 69 0 42 0 69 0 43 0 69 0 46 0 69 0 47 0 69 0 48 0 69 0 50] 
+#[1 0 97 0 1 0 101 0 7 0 37 0 9 0 105 0 10 0 41 0 11 0 45 0 13 0 49 0 14 0 109 0 44 0 113 0 45 0 113 0 46 0 113 0 47 0 113 0 48 0 113 0 49 0 113 0 50 0 113 0 53 0 141 0 87] 
+#[1 0 145 0 1 0 149 0 7 0 37 0 9 0 41 0 11 0 153 0 16 0 157 0 17 0 161 0 18 0 165 0 19 0 169 0 20 0 173 0 21 0 177 0 22 0 181 0 24 0 201 0 48 0 201 0 50 0 193 0 54 0 197 0 55 0 201 0 56 0 201 0 57 0 201 0 58 0 201 0 59 0 201 0 60 0 201 0 61 0 201 0 63 0 201 0 64 0 201 0 65 0 201 0 69] 
+#[1 0 145 0 1 0 149 0 7 0 37 0 9 0 41 0 11 0 45 0 13 0 49 0 14 1 9 0 46 1 9 0 47 1 9 0 48 1 9 0 50 1 1 0 66 1 5 0 67 1 9 0 68 1 9 0 69] 
+#[1 1 17 0 7 0 41 0 11 0 45 0 13 0 49 0 14 1 21 0 29 1 45 0 46 1 45 0 47 1 45 0 48 1 37 0 70 1 41 0 71 1 45 0 72 1 45 0 73] 
+#[1 1 53 0 7 0 37 0 9 1 57 0 29 1 61 0 30 1 65 0 35 1 81 0 50 1 73 0 74 1 77 0 75 1 81 0 76 1 81 0 77 1 81 0 78 1 81 0 81] 
+#[1 0 37 0 9 1 97 0 32 1 101 0 33 1 117 0 50 1 109 0 82 1 113 0 83 1 117 0 84 1 117 0 85 1 117 0 86] 
+#[0 1 129 0 8] 
+#[1 0 6 0 8 1 133 0 52] 
+#[1 1 137 0 8 0 10 0 15 1 141 0 62 0 10 0 88] 
 #[0 1 145 0 8] 
-#[0 0 0 0 86] 
-#[1 1 149 0 15 0 18 0 86] 
-#[0 0 22 0 15 0 86] 
-#[0 0 26 0 15 0 86] 
-#[0 0 30 0 15 0 86] 
-#[0 0 34 0 15 0 86] 
-#[0 0 38 0 15 0 86] 
-#[0 0 42 0 15 0 86] 
-#[0 0 46 0 15 0 86] 
-#[1 0 50 0 15 1 153 0 27 0 50 0 86] 
-#[0 1 157 0 8] 
-#[1 1 129 0 8 0 10 0 15 1 161 0 60 0 10 0 86] 
-#[1 1 165 0 15 0 54 0 86] 
-#[0 0 58 0 15 0 86] 
-#[0 0 62 0 15 0 86] 
-#[0 0 66 0 15 0 86] 
-#[0 0 70 0 15 0 86] 
-#[0 0 74 0 15 0 86] 
-#[0 0 78 0 15 0 86] 
-#[0 0 82 0 15 0 86] 
-#[0 0 0 0 86] 
-#[1 1 169 0 22 1 173 0 27] 
-#[0 1 177 0 8] 
-#[0 1 181 0 8] 
+#[0 1 149 0 8] 
+#[0 0 14 0 15 0 88] 
+#[0 1 153 0 8] 
+#[0 0 0 0 88] 
+#[1 1 157 0 15 0 18 0 88] 
+#[0 0 22 0 15 0 88] 
+#[0 0 26 0 15 0 88] 
+#[0 0 30 0 15 0 88] 
+#[0 0 34 0 15 0 88] 
+#[0 0 38 0 15 0 88] 
+#[0 0 42 0 15 0 88] 
+#[0 0 46 0 15 0 88] 
+#[1 0 50 0 15 1 161 0 28 0 50 0 88] 
+#[0 1 165 0 8] 
+#[1 1 137 0 8 0 10 0 15 1 169 0 62 0 10 0 88] 
+#[1 1 173 0 15 0 54 0 88] 
+#[0 0 58 0 15 0 88] 
+#[0 0 62 0 15 0 88] 
+#[0 0 66 0 15 0 88] 
+#[0 0 70 0 15 0 88] 
+#[0 0 74 0 15 0 88] 
+#[0 0 78 0 15 0 88] 
+#[0 0 82 0 15 0 88] 
+#[0 0 0 0 88] 
+#[1 1 177 0 23 1 181 0 28] 
 #[0 1 185 0 8] 
 #[0 1 189 0 8] 
-#[1 1 129 0 8 0 10 0 15 1 193 0 60 0 10 0 86] 
+#[0 1 193 0 8] 
 #[0 1 197 0 8] 
-#[1 1 129 0 8 0 10 0 15 1 201 0 60 0 10 0 86] 
-#[1 1 129 0 8 0 10 0 15 1 205 0 60 0 10 0 86] 
-#[0 0 86 0 15 0 86] 
-#[0 0 90 0 15 0 86] 
-#[0 0 0 0 86] 
-#[1 1 209 0 15 0 94 0 86] 
-#[0 0 98 0 15 0 86] 
-#[0 0 102 0 15 0 86] 
-#[0 0 106 0 15 0 86] 
-#[0 0 110 0 15 0 86] 
-#[0 0 114 0 15 0 86] 
-#[0 0 118 0 15 0 86] 
-#[0 0 122 0 15 0 86] 
-#[0 0 126 0 15 0 86] 
-#[0 0 130 0 15 0 86] 
-#[0 0 134 0 15 0 86] 
-#[0 0 138 0 15 0 86] 
-#[0 0 142 0 15 0 86] 
-#[0 0 146 0 15 0 86] 
-#[0 0 0 0 86] 
-#[1 1 213 0 15 0 150 0 86] 
-#[0 0 154 0 15 0 86] 
-#[0 0 158 0 15 0 86] 
-#[0 1 217 0 8] 
-#[0 0 162 0 15 0 86] 
-#[0 0 166 0 15 0 86] 
-#[0 0 170 0 15 0 86] 
-#[0 0 174 0 15 0 86] 
-#[0 0 0 0 86] 
-#[1 1 221 0 15 0 178 0 86] 
-#[0 0 182 0 15 0 86] 
-#[0 0 186 0 15 0 86] 
-#[0 1 225 0 8] 
-#[0 0 190 0 15 0 86] 
-#[1 0 194 0 8 1 229 0 77] 
-#[1 0 194 0 8 1 233 0 77] 
-#[0 0 198 0 15 0 86] 
-#[0 0 0 0 86] 
-#[1 1 237 0 15 0 202 0 86] 
-#[0 0 206 0 15 0 86] 
-#[0 0 210 0 15 0 86] 
-#[0 0 214 0 15 0 86] 
-#[0 0 218 0 15 0 86] 
-#[0 1 241 0 8] 
-#[0 1 245 0 8] 
-#[0 0 222 0 15 0 86] 
-#[0 0 0 0 86] 
-#[1 1 249 0 15 0 226 0 86] 
-#[0 0 230 0 15 0 86] 
-#[0 0 234 0 15 0 86] 
-#[0 0 238 0 15 0 86] 
-#[0 1 253 0 35] 
+#[0 1 201 0 8] 
+#[1 1 137 0 8 0 10 0 15 1 205 0 62 0 10 0 88] 
+#[0 1 209 0 8] 
+#[1 1 137 0 8 0 10 0 15 1 213 0 62 0 10 0 88] 
+#[1 1 137 0 8 0 10 0 15 1 217 0 62 0 10 0 88] 
+#[0 0 86 0 15 0 88] 
+#[0 0 90 0 15 0 88] 
+#[0 0 0 0 88] 
+#[1 1 221 0 15 0 94 0 88] 
+#[0 0 98 0 15 0 88] 
+#[0 0 102 0 15 0 88] 
+#[0 0 106 0 15 0 88] 
+#[0 0 110 0 15 0 88] 
+#[0 0 114 0 15 0 88] 
+#[0 0 118 0 15 0 88] 
+#[0 0 122 0 15 0 88] 
+#[0 0 126 0 15 0 88] 
+#[0 0 130 0 15 0 88] 
+#[0 0 134 0 15 0 88] 
+#[0 0 138 0 15 0 88] 
+#[0 0 142 0 15 0 88] 
+#[0 0 146 0 15 0 88] 
+#[0 0 150 0 15 0 88] 
+#[0 0 0 0 88] 
+#[1 1 225 0 15 0 154 0 88] 
+#[0 0 158 0 15 0 88] 
+#[0 0 162 0 15 0 88] 
+#[0 1 229 0 8] 
+#[0 0 166 0 15 0 88] 
+#[0 0 170 0 15 0 88] 
+#[0 0 174 0 15 0 88] 
+#[0 0 178 0 15 0 88] 
+#[0 0 0 0 88] 
+#[1 1 233 0 15 0 182 0 88] 
+#[0 0 186 0 15 0 88] 
+#[0 0 190 0 15 0 88] 
+#[0 1 237 0 8] 
+#[0 0 194 0 15 0 88] 
+#[1 0 198 0 8 1 241 0 79] 
+#[1 0 198 0 8 1 245 0 79] 
+#[0 0 202 0 15 0 88] 
+#[0 0 0 0 88] 
+#[1 1 249 0 15 0 206 0 88] 
+#[0 0 210 0 15 0 88] 
+#[0 0 214 0 15 0 88] 
+#[0 0 218 0 15 0 88] 
+#[0 0 222 0 15 0 88] 
+#[0 1 253 0 8] 
 #[0 2 1 0 8] 
-#[1 2 5 0 12 0 242 0 15 0 242 0 86] 
-#[0 0 246 0 15 0 86] 
-#[0 2 9 0 3] 
-#[0 2 13 0 4] 
-#[0 2 17 0 35] 
-#[1 0 33 0 7 0 37 0 9 0 41 0 11 0 45 0 13 0 49 0 14 0 53 0 35 0 57 0 36 2 21 0 40 2 21 0 41 2 21 0 42 2 21 0 45 2 21 0 46 2 21 0 47 2 21 0 49] 
-#[0 0 250 0 15 0 86] 
-#[0 2 25 0 1] 
-#[0 0 254 0 15 0 86] 
-#[1 0 97 0 1 0 101 0 7 0 37 0 9 0 105 0 10 0 41 0 11 0 45 0 13 0 49 0 14 2 29 0 44 2 29 0 45 2 29 0 46 2 29 0 47 2 29 0 48 2 29 0 49 2 29 0 52] 
-#[0 2 33 0 3] 
-#[0 2 37 0 22] 
-#[0 2 41 0 1] 
-#[0 2 45 0 2] 
-#[1 2 49 0 24 2 53 0 25 2 57 0 26] 
-#[0 2 61 0 3] 
-#[0 1 2 0 15 0 86] 
-#[0 2 65 0 4] 
-#[0 1 6 0 15 0 86] 
-#[0 1 10 0 15 0 86] 
-#[1 0 145 0 1 0 149 0 7 0 37 0 9 0 41 0 11 0 153 0 16 0 157 0 17 0 161 0 18 0 165 0 19 0 169 0 20 0 173 0 21 0 177 0 23 2 69 0 47 2 69 0 49 2 69 0 55 2 69 0 56 2 69 0 57 2 69 0 58 2 69 0 59 2 69 0 61 2 69 0 62 2 69 0 63 2 69 0 67] 
-#[1 0 145 0 1 0 149 0 7 0 37 0 9 0 41 0 11 0 45 0 13 0 49 0 14 2 73 0 45 2 73 0 46 2 73 0 47 2 73 0 49 2 73 0 66 2 73 0 67] 
-#[0 2 77 0 28] 
-#[1 1 9 0 7 0 41 0 11 0 45 0 13 0 49 0 14 1 13 0 28 2 81 0 45 2 81 0 46 2 81 0 47 2 81 0 70 2 81 0 71] 
-#[0 2 85 0 28] 
-#[0 2 89 0 8] 
-#[0 2 93 0 8] 
-#[1 1 45 0 7 0 37 0 9 1 49 0 28 1 53 0 29 1 57 0 34 2 97 0 49 2 97 0 74 2 97 0 75 2 97 0 76 2 97 0 79] 
-#[1 1 14 0 15 2 101 0 33 1 14 0 86] 
-#[1 1 18 0 15 2 105 0 33 1 18 0 86] 
-#[1 0 37 0 9 1 89 0 31 1 93 0 32 2 109 0 49 2 109 0 82 2 109 0 83 2 109 0 84] 
-#[0 1 22 0 15 0 86] 
-#[1 1 26 0 5 2 113 0 50] 
-#[0 1 30 0 15 0 86] 
-#[0 1 34 0 15 0 86] 
-#[0 1 38 0 15 0 86] 
-#[0 1 42 0 15 0 86] 
-#[0 1 46 0 15 0 86] 
-#[1 1 50 0 15 2 117 0 27 1 50 0 86] 
-#[0 1 54 0 15 0 86] 
-#[0 1 58 0 15 0 86] 
-#[0 2 121 0 3] 
-#[1 2 125 0 22 2 129 0 27] 
-#[0 1 62 0 15 0 86] 
-#[0 1 66 0 15 0 86] 
-#[0 1 70 0 15 0 86] 
-#[0 1 74 0 15 0 86] 
-#[0 1 78 0 15 0 86] 
-#[0 1 82 0 15 0 86] 
-#[0 1 86 0 15 0 86] 
-#[0 1 90 0 15 0 86] 
-#[0 1 94 0 15 0 86] 
-#[0 1 98 0 15 0 86] 
-#[0 1 102 0 15 0 86] 
-#[1 1 106 0 30 2 133 0 78] 
-#[1 1 106 0 30 2 137 0 78] 
-#[0 1 110 0 15 0 86] 
-#[0 1 114 0 15 0 86] 
-#[0 1 118 0 15 0 86] 
-#[0 1 122 0 15 0 86] 
-#[0 2 141 0 5] 
-#[0 1 126 0 15 0 86] 
-#[0 1 130 0 15 0 86] 
-#[0 2 145 0 3] 
-#[0 2 149 0 22] 
-#[0 2 153 0 30] 
-#[0 2 157 0 30] 
-#[0 1 134 0 15 0 86] 
-#[0 1 138 0 15 0 86] 
+#[0 0 226 0 15 0 88] 
+#[0 0 0 0 88] 
+#[1 2 5 0 15 0 230 0 88] 
+#[0 0 234 0 15 0 88] 
+#[0 0 238 0 15 0 88] 
+#[0 0 242 0 15 0 88] 
+#[0 2 9 0 36] 
+#[0 2 13 0 8] 
+#[1 2 17 0 12 0 246 0 15 0 246 0 88] 
+#[0 0 250 0 15 0 88] 
+#[0 2 21 0 3] 
+#[0 2 25 0 4] 
+#[0 2 29 0 36] 
+#[1 0 33 0 7 0 37 0 9 0 41 0 11 0 45 0 13 0 49 0 14 0 53 0 36 0 57 0 37 2 33 0 41 2 33 0 42 2 33 0 43 2 33 0 46 2 33 0 47 2 33 0 48 2 33 0 50] 
+#[0 0 254 0 15 0 88] 
+#[0 2 37 0 1] 
+#[0 1 2 0 15 0 88] 
+#[1 0 97 0 1 0 101 0 7 0 37 0 9 0 105 0 10 0 41 0 11 0 45 0 13 0 49 0 14 2 41 0 45 2 41 0 46 2 41 0 47 2 41 0 48 2 41 0 49 2 41 0 50 2 41 0 53] 
+#[0 2 45 0 3] 
+#[0 2 49 0 23] 
+#[0 2 53 0 1] 
+#[0 2 57 0 2] 
+#[1 2 61 0 25 2 65 0 26 2 69 0 27] 
+#[0 2 73 0 3] 
+#[0 2 77 0 3] 
+#[0 1 6 0 15 0 88] 
+#[0 2 81 0 4] 
+#[0 1 10 0 15 0 88] 
+#[0 1 14 0 15 0 88] 
+#[1 0 145 0 1 0 149 0 7 0 37 0 9 0 41 0 11 0 153 0 16 0 157 0 17 0 161 0 18 0 165 0 19 0 169 0 20 0 173 0 21 0 177 0 22 0 181 0 24 2 85 0 48 2 85 0 50 2 85 0 56 2 85 0 57 2 85 0 58 2 85 0 59 2 85 0 60 2 85 0 61 2 85 0 63 2 85 0 64 2 85 0 65 2 85 0 69] 
+#[1 0 145 0 1 0 149 0 7 0 37 0 9 0 41 0 11 0 45 0 13 0 49 0 14 2 89 0 46 2 89 0 47 2 89 0 48 2 89 0 50 2 89 0 68 2 89 0 69] 
+#[0 2 93 0 29] 
+#[1 1 17 0 7 0 41 0 11 0 45 0 13 0 49 0 14 1 21 0 29 2 97 0 46 2 97 0 47 2 97 0 48 2 97 0 72 2 97 0 73] 
+#[0 2 101 0 29] 
+#[0 2 105 0 8] 
+#[0 2 109 0 8] 
+#[1 1 53 0 7 0 37 0 9 1 57 0 29 1 61 0 30 1 65 0 35 2 113 0 50 2 113 0 76 2 113 0 77 2 113 0 78 2 113 0 81] 
+#[1 1 18 0 15 2 117 0 34 1 18 0 88] 
+#[1 1 22 0 15 2 121 0 34 1 22 0 88] 
+#[1 0 37 0 9 1 97 0 32 1 101 0 33 2 125 0 50 2 125 0 84 2 125 0 85 2 125 0 86] 
+#[0 1 26 0 15 0 88] 
+#[1 1 30 0 5 2 129 0 51] 
+#[0 1 34 0 15 0 88] 
+#[0 1 38 0 15 0 88] 
+#[0 1 42 0 15 0 88] 
+#[0 1 46 0 15 0 88] 
+#[0 1 50 0 15 0 88] 
+#[1 1 54 0 15 2 133 0 28 1 54 0 88] 
+#[0 1 58 0 15 0 88] 
+#[0 1 62 0 15 0 88] 
+#[0 2 137 0 3] 
+#[1 2 141 0 23 2 145 0 28] 
+#[0 1 66 0 15 0 88] 
+#[0 1 70 0 15 0 88] 
+#[0 1 74 0 15 0 88] 
+#[0 1 78 0 15 0 88] 
+#[0 1 82 0 15 0 88] 
+#[0 1 86 0 15 0 88] 
+#[0 1 90 0 15 0 88] 
+#[0 1 94 0 15 0 88] 
+#[0 1 98 0 15 0 88] 
+#[0 1 102 0 15 0 88] 
+#[0 1 106 0 15 0 88] 
+#[0 1 110 0 15 0 88] 
+#[1 1 114 0 31 2 149 0 80] 
+#[1 1 114 0 31 2 153 0 80] 
+#[0 1 118 0 15 0 88] 
+#[0 1 122 0 15 0 88] 
+#[0 1 126 0 15 0 88] 
+#[0 1 130 0 15 0 88] 
+#[0 2 157 0 5] 
+#[0 1 134 0 15 0 88] 
+#[0 1 138 0 15 0 88] 
 #[0 2 161 0 3] 
-#[0 1 142 0 15 0 86] 
-#[0 1 146 0 15 0 86] 
-#[0 1 150 0 15 0 86]
+#[0 2 165 0 23] 
+#[0 2 169 0 31] 
+#[0 2 173 0 31] 
+#[0 1 142 0 15 0 88] 
+#[0 1 146 0 15 0 88] 
+#[0 2 177 0 3] 
+#[0 1 150 0 15 0 88] 
+#[0 1 154 0 15 0 88] 
+#[0 1 158 0 15 0 88]
 	).
 ]
 
@@ -1057,6 +1071,16 @@ LeAnnotationParser >> reduceActionForPreviewExpanded1: nodes [
 LeAnnotationParser >> reduceActionForPreviewHeight1: nodes [
 	| result |
 	result := LePreviewHeightArgumentNode new.
+	result name: (nodes at: 1).
+	result equals: (nodes at: 2).
+	result value: (nodes at: 3).
+	^ result
+]
+
+{ #category : #'generated-reduction actions' }
+LeAnnotationParser >> reduceActionForPreviewSelect1: nodes [
+	| result |
+	result := LePreviewSelectArgumentNode new.
 	result name: (nodes at: 1).
 	result equals: (nodes at: 2).
 	result value: (nodes at: 3).

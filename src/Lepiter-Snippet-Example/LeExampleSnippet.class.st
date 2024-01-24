@@ -11,7 +11,8 @@ Class {
 		'noCode',
 		'previewExpanded',
 		'previewShowSelector',
-		'previewHeight'
+		'previewHeight',
+		'previewSelectSelector'
 	],
 	#category : #'Lepiter-Snippet-Example-Snippet'
 }
@@ -22,6 +23,11 @@ LeExampleSnippet class >> contextMenuItemSpecification [
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;
 		title: 'Example'
+]
+
+{ #category : #accessing }
+LeExampleSnippet class >> defaultPreviewShowSelector [
+	^ #gtViewsFor:
 ]
 
 { #category : #factory }
@@ -40,6 +46,7 @@ LeExampleSnippet class >> leJsonV4AttributeMapping [
 			#exampleSelector->#exampleSelector. 
 			#previewHeight->#previewHeight. 
 			#previewShowSelector->#previewShowSelector. 
+			#previewSelectSelector->#previewSelectSelector. 
 			#exampleBehaviorName->#exampleBehaviorName. 
 			#codeExpanded->#codeExpanded. 
 			#previewExpanded->#previewExpanded. 
@@ -94,6 +101,12 @@ LeExampleSnippet >> asAnnotationString [
 					nextPutAll: ' | previewShow=';
 					nextPut: $#;
 					nextPutAll: self previewShowSelector asString ].
+		
+		self previewSelectSelector ifNotNil: [
+				aStream
+					nextPutAll: ' | previewSelect=';
+					nextPut: $#;
+					nextPutAll: self previewSelectSelector asString ].
 				
 		self previewHeight = self defaultPreviewHeight
 			ifFalse: [
@@ -176,7 +189,7 @@ LeExampleSnippet >> defaultPreviewHeight [
 
 { #category : #initialization }
 LeExampleSnippet >> defaultPreviewShowSelector [
-	^ #gtViewsFor:
+	^ self class defaultPreviewShowSelector
 ]
 
 { #category : #'api - testing' }
@@ -323,6 +336,12 @@ LeExampleSnippet >> hasPreviewHeight [
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#propertyTesterTemplate'>
 
 	^ previewHeight notNil
+]
+
+{ #category : #'api - preview show selector' }
+LeExampleSnippet >> hasPreviewSelectSelector [
+
+	^ previewSelectSelector notNil
 ]
 
 { #category : #'api - preview show selector' }
@@ -474,6 +493,15 @@ LeExampleSnippet >> notifyPreviewHeightChanged [
 ]
 
 { #category : #'api - preview show selector' }
+LeExampleSnippet >> notifyPreviewSelectSelectorChanged [
+	
+	self notifyAnnouncement: (LeExampleSnippetPreviewSelectSelectorChanged new
+		source: self;
+		snippet: self;
+		previewSelectSelector: self previewSelectSelector).
+]
+
+{ #category : #'api - preview show selector' }
 LeExampleSnippet >> notifyPreviewShowSelectorChanged [
 	"Override this notify method to announce changes to the property"
 	<propertyChangeNotifier: #previewShowSelector>
@@ -527,6 +555,11 @@ LeExampleSnippet >> onNewPreviewHeightSet: aNewPreviewHeight [
 ]
 
 { #category : #'api - preview show selector' }
+LeExampleSnippet >> onNewPreviewSelectSelectorSet: aNewPreviewSelectSelector [
+	
+]
+
+{ #category : #'api - preview show selector' }
 LeExampleSnippet >> onNewPreviewShowSelectorSet: aNewPreviewShowSelector [
 	"Is sent after a new value of the previewShowSelector is assigned"
 	<propertySetHook: #previewShowSelector>
@@ -573,6 +606,11 @@ LeExampleSnippet >> onPreviousPreviewHeightUnset: aPreviousPreviewHeight [
 	"Is sent after a previous value of the previewHeight is de-assigned"
 	<propertyUnsetHook: #previewHeight>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#onPreviousPropertyUnsetHookTemplate'>
+]
+
+{ #category : #'api - preview show selector' }
+LeExampleSnippet >> onPreviousPreviewSelectSelectorUnset: aPreviousPreviewSelectSelector [
+	
 ]
 
 { #category : #'api - preview show selector' }
@@ -642,6 +680,29 @@ LeExampleSnippet >> previewHeight: aNewPreviewHeight [
 	self notifyPreviewHeightChanged
 ]
 
+{ #category : #accessing }
+LeExampleSnippet >> previewSelectSelector [
+	^ previewSelectSelector
+]
+
+{ #category : #'api - preview show selector' }
+LeExampleSnippet >> previewSelectSelector: aNewPreviewSelectSelector [
+
+	(self hasPreviewSelectSelector
+		and: [ self previewSelectSelector = aNewPreviewSelectSelector ])
+			ifTrue: [ ^ self ].
+	
+	self hasPreviewSelectSelector
+		ifTrue: [
+			| aPreviousPreviewSelectSelector |
+			aPreviousPreviewSelectSelector := previewSelectSelector.
+			previewSelectSelector := nil.
+			self onPreviousPreviewSelectSelectorUnset: aPreviousPreviewSelectSelector ].
+	previewSelectSelector := aNewPreviewSelectSelector.
+	self onNewPreviewSelectSelectorSet: aNewPreviewSelectSelector.
+	self notifyPreviewSelectSelectorChanged
+]
+
 { #category : #'api - preview show selector' }
 LeExampleSnippet >> previewShowSelector [
 	<return: #Symbol>
@@ -693,7 +754,8 @@ LeExampleSnippet >> similarTo: anotherExampleSnippet [
 				and: [ self noCode = anotherExampleSnippet noCode
 					and: [ self previewExpanded = anotherExampleSnippet previewExpanded
 						and: [ self previewHeight = anotherExampleSnippet previewHeight
-							and: [ self previewShowSelector = anotherExampleSnippet previewShowSelector ] ] ] ] ] ]
+							and: [ self previewShowSelector = anotherExampleSnippet previewShowSelector
+								and: [ self previewSelectSelector = anotherExampleSnippet previewSelectSelector ]  ] ] ] ] ] ]
 ]
 
 { #category : #converting }
@@ -739,6 +801,10 @@ LeExampleSnippet >> storeOn: aStream [
 	self previewShowSelector = self defaultPreviewShowSelector ifFalse: [ 
 		aStream nextPutAll: '; previewShowSelector: '.
 		self previewShowSelector storeOn: aStream ].
+		
+	self previewSelectSelector ifNotNil: [ 
+		aStream nextPutAll: '; previewSelectSelector: '.
+		self previewSelectSelector storeOn: aStream ].
 
 	self previewHeight = self defaultPreviewHeight ifFalse: [ 
 		aStream nextPutAll: '; previewHeight: '.

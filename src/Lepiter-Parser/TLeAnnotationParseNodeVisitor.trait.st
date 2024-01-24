@@ -146,6 +146,11 @@ TLeAnnotationParseNodeVisitor >> visitPreviewHeightArgument: aPreviewHeightArgum
 ]
 
 { #category : #generated }
+TLeAnnotationParseNodeVisitor >> visitPreviewSelectArgument: aPreviewSelectArgument [
+	^ self visitArgument: aPreviewSelectArgument
+]
+
+{ #category : #generated }
 TLeAnnotationParseNodeVisitor >> visitPreviewShowArgument: aPreviewShowArgument [
 	^ self visitArgument: aPreviewShowArgument
 ]

@@ -11,7 +11,8 @@ Class {
 		'previewHeight',
 		'previewShowSelector',
 		'resultVariableName',
-		'elementId'
+		'elementId',
+		'previewSelectSelector'
 	],
 	#category : #'Lepiter-UI-Core-Brick - Stencils'
 }
@@ -41,6 +42,7 @@ GtExamplePreviewStencil >> create [
 	<return: #BlElement>
 
 	| aContainer aPreviewContainerElement |
+	
 	aContainer := BlElement new
 		layout: BlLinearLayout vertical;
 		constraintsDo: [ :c | 
@@ -164,9 +166,16 @@ GtExamplePreviewStencil >> newContainerWithHeight: aHeightNumber [
 { #category : #'instance creation' }
 GtExamplePreviewStencil >> newPreviewElementFor: anObject [
 	<return: #BlElement>
-	| aView |
-	aView := GtPhlowView empty on: anObject perform: self previewShowSelector asSymbol.
-	^ aView asElementDo: [ :anElement | anElement ]
+	| view viewElement |
+	view := GtPhlowView empty
+			on: anObject
+			perform: self previewShowSelector asSymbol.
+	viewElement := view asElementDo: [ :anElement | anElement ].
+
+	self previewShowSelector = LeExampleSnippet defaultPreviewShowSelector
+		ifTrue: [ self selectViewInPreviewElement: viewElement onObject: anObject ].
+
+	^ viewElement
 ]
 
 { #category : #accessing }
@@ -200,13 +209,34 @@ GtExamplePreviewStencil >> previewHeight: anObject [
 ]
 
 { #category : #accessing }
+GtExamplePreviewStencil >> previewSelectSelector [
+	^ previewSelectSelector
+]
+
+{ #category : #accessing }
+GtExamplePreviewStencil >> previewSelectSelector: aSelector [
+	previewSelectSelector := aSelector
+]
+
+{ #category : #accessing }
 GtExamplePreviewStencil >> previewShowSelector [
 	^ previewShowSelector
 ]
 
 { #category : #accessing }
-GtExamplePreviewStencil >> previewShowSelector: anObject [
-	previewShowSelector := anObject
+GtExamplePreviewStencil >> previewShowSelector: aSelector [
+	previewShowSelector := aSelector
+]
+
+{ #category : #'instance creation' }
+GtExamplePreviewStencil >> selectViewInPreviewElement: aViewElement onObject: anObject [ 
+	| inspectorTabs |
+	self previewSelectSelector ifNil: [ ^ self ].
+	
+	inspectorTabs := aViewElement phlow firstChildWithView.
+	(GtInspectorTabSelector byViewMethod
+		methodSelector: self previewSelectSelector)
+			selectTabIn: inspectorTabs on: anObject
 ]
 
 { #category : #private }

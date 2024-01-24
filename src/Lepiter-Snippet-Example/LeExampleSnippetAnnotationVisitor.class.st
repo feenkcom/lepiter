@@ -6,7 +6,7 @@ Class {
 	#instVars : [
 		'exampleSnippet'
 	],
-	#category : 'Lepiter-Snippet-Example-Snippet'
+	#category : #'Lepiter-Snippet-Example-Snippet'
 }
 
 { #category : #accessing }
@@ -58,6 +58,11 @@ LeExampleSnippetAnnotationVisitor >> visitPreviewExpandedArgument: aPreviewExpan
 { #category : #generated }
 LeExampleSnippetAnnotationVisitor >> visitPreviewHeightArgument: aPreviewHeightArgument [
 	self exampleSnippet previewHeight: aPreviewHeightArgument integerValue
+]
+
+{ #category : #generated }
+LeExampleSnippetAnnotationVisitor >> visitPreviewSelectArgument: aPreviewSelectArgument [
+	self exampleSnippet previewSelectSelector: aPreviewSelectArgument selectorValue
 ]
 
 { #category : #generated }

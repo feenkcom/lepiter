@@ -7,7 +7,7 @@ Class {
 { #category : #'generated-initialization' }
 LeAnnotationScanner class >> initializeKeywordMap [
 	keywordMap := Dictionary new.
-	#(#(2 'alignment' #(17 #(#default))) #(2 'class' #(27 #(#default))) #(2 'classTrait' #(27 #(#default))) #(2 'codeExpanded' #(23 #(#default))) #(2 'completed' #(31 #(#default))) #(2 'documentWidth' #(24 #(#default))) #(2 'due' #(32 #(#default))) #(2 'full' #(10 #(#default))) #(2 'fullWidth' #(25 #(#default))) #(2 'name' #(7 #(#default))) #(2 'noCode' #(21 #(#default))) #(2 'paragraphWidth' #(26 #(#default))) #(2 'previewExpanded' #(19 #(#default))) #(2 'previewHeight' #(20 #(#default))) #(2 'previewShow' #(18 #(#default))) #(2 'return' #(16 #(#default))) #(2 'tag' #(36 #(#default))) #(3 '>>' #(22 #(#default))) #(3 'alignment' #(17 #(#default))) #(3 'class' #(27 #(#default))) #(3 'classTrait' #(27 #(#default))) #(3 'codeExpanded' #(23 #(#default))) #(3 'completed' #(31 #(#default))) #(3 'documentWidth' #(24 #(#default))) #(3 'due' #(32 #(#default))) #(3 'full' #(10 #(#default))) #(3 'fullWidth' #(25 #(#default))) #(3 'name' #(7 #(#default))) #(3 'noCode' #(21 #(#default))) #(3 'paragraphWidth' #(26 #(#default))) #(3 'previewExpanded' #(19 #(#default))) #(3 'previewHeight' #(20 #(#default))) #(3 'previewShow' #(18 #(#default))) #(3 'return' #(16 #(#default))) #(3 'tag' #(36 #(#default))))
+	#(#(2 'alignment' #(17 #(#default))) #(2 'class' #(28 #(#default))) #(2 'classTrait' #(28 #(#default))) #(2 'codeExpanded' #(24 #(#default))) #(2 'completed' #(32 #(#default))) #(2 'documentWidth' #(25 #(#default))) #(2 'due' #(33 #(#default))) #(2 'full' #(10 #(#default))) #(2 'fullWidth' #(26 #(#default))) #(2 'name' #(7 #(#default))) #(2 'noCode' #(22 #(#default))) #(2 'paragraphWidth' #(27 #(#default))) #(2 'previewExpanded' #(20 #(#default))) #(2 'previewHeight' #(21 #(#default))) #(2 'previewSelect' #(19 #(#default))) #(2 'previewShow' #(18 #(#default))) #(2 'return' #(16 #(#default))) #(2 'tag' #(37 #(#default))) #(3 '>>' #(23 #(#default))) #(3 'alignment' #(17 #(#default))) #(3 'class' #(28 #(#default))) #(3 'classTrait' #(28 #(#default))) #(3 'codeExpanded' #(24 #(#default))) #(3 'completed' #(32 #(#default))) #(3 'documentWidth' #(25 #(#default))) #(3 'due' #(33 #(#default))) #(3 'full' #(10 #(#default))) #(3 'fullWidth' #(26 #(#default))) #(3 'name' #(7 #(#default))) #(3 'noCode' #(22 #(#default))) #(3 'paragraphWidth' #(27 #(#default))) #(3 'previewExpanded' #(20 #(#default))) #(3 'previewHeight' #(21 #(#default))) #(3 'previewSelect' #(19 #(#default))) #(3 'previewShow' #(18 #(#default))) #(3 'return' #(16 #(#default))) #(3 'tag' #(37 #(#default))))
 		do: [ :each | 
 			(keywordMap at: each first ifAbsentPut: [ Dictionary new ])
 				at: (each at: 2)
@@ -17,12 +17,12 @@ LeAnnotationScanner class >> initializeKeywordMap [
 
 { #category : #generated }
 LeAnnotationScanner >> emptySymbolTokenId [
-	^ 86
+	^ 88
 ]
 
 { #category : #generated }
 LeAnnotationScanner >> errorTokenId [
-	^ 87
+	^ 89
 ]
 
 { #category : #generated }
@@ -135,13 +135,13 @@ LeAnnotationScanner >> scan14 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan14X1 [
-	self recordMatch: #(28).
+	self recordMatch: #(29).
 	^ self scan14X1X2
 ]
 
 { #category : #generated }
 LeAnnotationScanner >> scan14X1X1 [
-	[ self recordMatch: #(28).
+	[ self recordMatch: #(29).
 	self step.
 	currentCharacter <= $<
 		or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ]
@@ -169,15 +169,15 @@ LeAnnotationScanner >> scan14X1X2 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan14X2 [
-	self recordMatch: #(3 28).
+	self recordMatch: #(3 29).
 	self step.
 	currentCharacter == $: ifTrue: [ ^ self scan18 ].
 	currentCharacter == $a
-		ifTrue: [ self recordMatch: #(3 28).
+		ifTrue: [ self recordMatch: #(3 29).
 			self step.
 			currentCharacter == $: ifTrue: [ ^ self scan18 ].
 			currentCharacter == $l
-				ifTrue: [ self recordMatch: #(3 28).
+				ifTrue: [ self recordMatch: #(3 29).
 					self step.
 					currentCharacter == $: ifTrue: [ ^ self scan18 ].
 					currentCharacter == $s ifTrue: [ ^ self scan24 ] ] ].
@@ -186,7 +186,7 @@ LeAnnotationScanner >> scan14X2 [
 	(currentCharacter <= $<
 		or: [ (currentCharacter between: $> and: ${)
 				or: [ currentCharacter between: $~ and: (Character value: 247) ] ])
-		ifTrue: [ [ self recordMatch: #(28).
+		ifTrue: [ [ self recordMatch: #(29).
 			self step.
 			currentCharacter <= $<
 				or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ]
@@ -196,11 +196,11 @@ LeAnnotationScanner >> scan14X2 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan14X3 [
-	self recordMatch: #(3 28).
+	self recordMatch: #(3 29).
 	self step.
 	currentCharacter == $: ifTrue: [ ^ self scan18 ].
 	currentCharacter == $r
-		ifTrue: [ self recordMatch: #(3 28).
+		ifTrue: [ self recordMatch: #(3 29).
 			self step.
 			currentCharacter == $: ifTrue: [ ^ self scan18 ].
 			currentCharacter == $u ifTrue: [ ^ self scan24 ] ].
@@ -209,7 +209,7 @@ LeAnnotationScanner >> scan14X3 [
 	(currentCharacter <= $<
 		or: [ (currentCharacter between: $> and: ${)
 				or: [ currentCharacter between: $~ and: (Character value: 247) ] ])
-		ifTrue: [ [ self recordMatch: #(28).
+		ifTrue: [ [ self recordMatch: #(29).
 			self step.
 			currentCharacter <= $<
 				or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ]
@@ -219,11 +219,11 @@ LeAnnotationScanner >> scan14X3 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan14X4 [
-	self recordMatch: #(3 28).
+	self recordMatch: #(3 29).
 	self step.
 	currentCharacter == $: ifTrue: [ ^ self scan18 ].
 	currentCharacter == $d
-		ifTrue: [ self recordMatch: #(3 28 34).
+		ifTrue: [ self recordMatch: #(3 29 35).
 			self step.
 			currentCharacter == $: ifTrue: [ ^ self scan18 ] ].
 	(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
@@ -231,7 +231,7 @@ LeAnnotationScanner >> scan14X4 [
 	(currentCharacter <= $<
 		or: [ (currentCharacter between: $> and: ${)
 				or: [ currentCharacter between: $~ and: (Character value: 247) ] ])
-		ifTrue: [ [ self recordMatch: #(28).
+		ifTrue: [ [ self recordMatch: #(29).
 			self step.
 			currentCharacter <= $<
 				or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ]
@@ -241,11 +241,11 @@ LeAnnotationScanner >> scan14X4 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan14X5 [
-	self recordMatch: #(3 28).
+	self recordMatch: #(3 29).
 	self step.
 	currentCharacter == $: ifTrue: [ ^ self scan18 ].
 	currentCharacter == $b
-		ifTrue: [ self recordMatch: #(3 28 29).
+		ifTrue: [ self recordMatch: #(3 29 30).
 			self step.
 			currentCharacter == $: ifTrue: [ ^ self scan18 ] ].
 	(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
@@ -253,7 +253,7 @@ LeAnnotationScanner >> scan14X5 [
 	(currentCharacter <= $<
 		or: [ (currentCharacter between: $> and: ${)
 				or: [ currentCharacter between: $~ and: (Character value: 247) ] ])
-		ifTrue: [ [ self recordMatch: #(28).
+		ifTrue: [ [ self recordMatch: #(29).
 			self step.
 			currentCharacter <= $<
 				or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ]
@@ -263,12 +263,12 @@ LeAnnotationScanner >> scan14X5 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan14X6 [
-	[ self recordMatch: #(4 28).
+	[ self recordMatch: #(4 29).
 	self step.
 	currentCharacter isDigit ] whileTrue.
 	(currentCharacter <= $<
 		or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ])
-		ifTrue: [ [ self recordMatch: #(28).
+		ifTrue: [ [ self recordMatch: #(29).
 			self step.
 			currentCharacter <= $<
 				or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ]
@@ -278,7 +278,7 @@ LeAnnotationScanner >> scan14X6 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan14X7 [
-	[ self recordMatch: #(28).
+	[ self recordMatch: #(29).
 	self step.
 	currentCharacter <= $<
 		or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ]
@@ -305,7 +305,7 @@ LeAnnotationScanner >> scan14X8 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan15 [
-	[ self recordMatch: #(3 28).
+	[ self recordMatch: #(3 29).
 	self step.
 	currentCharacter == $= ifTrue: [ ^ self scan2 ].
 	currentCharacter == $\ ifTrue: [ ^ self scan16 ].
@@ -316,7 +316,7 @@ LeAnnotationScanner >> scan15 [
 								or: [ (currentCharacter between: $< and: $@) or: [ currentCharacter == $~ ] ] ] ] ] ]
 		whileTrue.
 	(currentCharacter <= ${ or: [ currentCharacter >= (Character value: 127) ])
-		ifTrue: [ [ self recordMatch: #(28).
+		ifTrue: [ [ self recordMatch: #(29).
 			self step.
 			currentCharacter <= $<
 				or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ]
@@ -326,7 +326,7 @@ LeAnnotationScanner >> scan15 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan16 [
-	self recordMatch: #(28).
+	self recordMatch: #(29).
 	self step.
 	('=|' includes: currentCharacter) ifTrue: [ ^ self scan2 ].
 	(currentCharacter == $!
@@ -336,7 +336,7 @@ LeAnnotationScanner >> scan16 [
 								or: [ (currentCharacter between: $< and: $@) or: [ '\~' includes: currentCharacter ] ] ] ] ])
 		ifTrue: [ ^ self scan15 ].
 	(currentCharacter <= ${ or: [ currentCharacter >= (Character value: 127) ])
-		ifTrue: [ [ self recordMatch: #(28).
+		ifTrue: [ [ self recordMatch: #(29).
 			self step.
 			currentCharacter <= $<
 				or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ]
@@ -346,14 +346,14 @@ LeAnnotationScanner >> scan16 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan17 [
-	[ self recordMatch: #(3 28).
+	[ self recordMatch: #(3 29).
 	self step.
 	currentCharacter == $: ifTrue: [ ^ self scan18 ].
 	currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ] ] whileTrue.
 	(currentCharacter <= $<
 		or: [ (currentCharacter between: $> and: ${)
 				or: [ currentCharacter between: $~ and: (Character value: 247) ] ])
-		ifTrue: [ [ self recordMatch: #(28).
+		ifTrue: [ [ self recordMatch: #(29).
 			self step.
 			currentCharacter <= $<
 				or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ]
@@ -363,17 +363,17 @@ LeAnnotationScanner >> scan17 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan18 [
-	self recordMatch: #(3 28).
+	self recordMatch: #(3 29).
 	self step.
 	(currentCharacter isLetter or: [ currentCharacter == $_ ])
-		ifTrue: [ [ self recordMatch: #(28).
+		ifTrue: [ [ self recordMatch: #(29).
 			self step.
 			currentCharacter == $: ifTrue: [ ^ self scan18 ].
 			currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ] ] whileTrue ].
 	(currentCharacter <= $<
 		or: [ (currentCharacter between: $> and: ${)
 				or: [ currentCharacter between: $~ and: (Character value: 247) ] ])
-		ifTrue: [ [ self recordMatch: #(28).
+		ifTrue: [ [ self recordMatch: #(29).
 			self step.
 			currentCharacter <= $<
 				or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ]
@@ -383,7 +383,7 @@ LeAnnotationScanner >> scan18 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan19 [
-	self recordMatch: #(3 28).
+	self recordMatch: #(3 29).
 	self step.
 	currentCharacter == $: ifTrue: [ ^ self scan18 ].
 	currentCharacter == $x ifTrue: [ ^ self scan20 ].
@@ -392,7 +392,7 @@ LeAnnotationScanner >> scan19 [
 	(currentCharacter <= $<
 		or: [ (currentCharacter between: $> and: ${)
 				or: [ currentCharacter between: $~ and: (Character value: 247) ] ])
-		ifTrue: [ [ self recordMatch: #(28).
+		ifTrue: [ [ self recordMatch: #(29).
 			self step.
 			currentCharacter <= $<
 				or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ]
@@ -424,7 +424,7 @@ LeAnnotationScanner >> scan1X10 [
 	self step.
 	currentCharacter == $: ifTrue: [ ^ self scan4 ].
 	currentCharacter == $b
-		ifTrue: [ self recordMatch: #(2 3 29).
+		ifTrue: [ self recordMatch: #(2 3 30).
 			self step.
 			currentCharacter == $: ifTrue: [ ^ self scan4 ] ].
 	(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
@@ -434,19 +434,19 @@ LeAnnotationScanner >> scan1X10 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan1X11 [
-	self recordMatch: #(4 33).
+	self recordMatch: #(4 34).
 	self step.
 	currentCharacter == $- ifTrue: [ ^ self scan8 ].
 	currentCharacter isDigit
-		ifTrue: [ self recordMatch: #(4 33).
+		ifTrue: [ self recordMatch: #(4 34).
 			self step.
 			currentCharacter == $- ifTrue: [ ^ self scan8 ].
 			currentCharacter isDigit
-				ifTrue: [ self recordMatch: #(4 33).
+				ifTrue: [ self recordMatch: #(4 34).
 					self step.
 					currentCharacter == $- ifTrue: [ ^ self scan8 ].
 					currentCharacter isDigit
-						ifTrue: [ self recordMatch: #(4 33).
+						ifTrue: [ self recordMatch: #(4 34).
 							self step.
 							currentCharacter == $- ifTrue: [ ^ self scan8 ].
 							currentCharacter isDigit
@@ -485,10 +485,10 @@ LeAnnotationScanner >> scan1X13 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan1X2 [
-	self recordMatch: #(3 33).
+	self recordMatch: #(3 34).
 	self step.
 	currentCharacter == $-
-		ifTrue: [ self recordMatch: #(3 33).
+		ifTrue: [ self recordMatch: #(3 34).
 			self step.
 			currentCharacter == $\ ifTrue: [ ^ self scan3 ].
 			currentCharacter isDigit ifTrue: [ ^ self scan5 ].
@@ -568,10 +568,10 @@ LeAnnotationScanner >> scan1X4 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan1X5 [
-	[ self recordMatch: #(1 2 3 35).
+	[ self recordMatch: #(1 2 3 36).
 	self step.
 	currentCharacter == $-
-		ifTrue: [ [ self recordMatch: #(35).
+		ifTrue: [ [ self recordMatch: #(36).
 			self step.
 			currentCharacter isAlphaNumeric or: [ '-_' includes: currentCharacter ] ]
 				whileTrue.
@@ -643,7 +643,7 @@ LeAnnotationScanner >> scan1X9 [
 	self step.
 	currentCharacter == $: ifTrue: [ ^ self scan4 ].
 	currentCharacter == $d
-		ifTrue: [ self recordMatch: #(2 3 34).
+		ifTrue: [ self recordMatch: #(2 3 35).
 			self step.
 			currentCharacter == $: ifTrue: [ ^ self scan4 ] ].
 	(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
@@ -667,7 +667,7 @@ LeAnnotationScanner >> scan2 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan20 [
-	self recordMatch: #(3 28).
+	self recordMatch: #(3 29).
 	self step.
 	currentCharacter == $: ifTrue: [ ^ self scan18 ].
 	currentCharacter == $p ifTrue: [ ^ self scan21 ].
@@ -676,7 +676,7 @@ LeAnnotationScanner >> scan20 [
 	(currentCharacter <= $<
 		or: [ (currentCharacter between: $> and: ${)
 				or: [ currentCharacter between: $~ and: (Character value: 247) ] ])
-		ifTrue: [ [ self recordMatch: #(28).
+		ifTrue: [ [ self recordMatch: #(29).
 			self step.
 			currentCharacter <= $<
 				or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ]
@@ -686,7 +686,7 @@ LeAnnotationScanner >> scan20 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan21 [
-	self recordMatch: #(3 28).
+	self recordMatch: #(3 29).
 	self step.
 	currentCharacter == $: ifTrue: [ ^ self scan18 ].
 	currentCharacter == $a ifTrue: [ ^ self scan22 ].
@@ -695,7 +695,7 @@ LeAnnotationScanner >> scan21 [
 	(currentCharacter <= $<
 		or: [ (currentCharacter between: $> and: ${)
 				or: [ currentCharacter between: $~ and: (Character value: 247) ] ])
-		ifTrue: [ [ self recordMatch: #(28).
+		ifTrue: [ [ self recordMatch: #(29).
 			self step.
 			currentCharacter <= $<
 				or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ]
@@ -705,7 +705,7 @@ LeAnnotationScanner >> scan21 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan22 [
-	self recordMatch: #(3 28).
+	self recordMatch: #(3 29).
 	self step.
 	currentCharacter == $: ifTrue: [ ^ self scan18 ].
 	currentCharacter == $n ifTrue: [ ^ self scan23 ].
@@ -714,7 +714,7 @@ LeAnnotationScanner >> scan22 [
 	(currentCharacter <= $<
 		or: [ (currentCharacter between: $> and: ${)
 				or: [ currentCharacter between: $~ and: (Character value: 247) ] ])
-		ifTrue: [ [ self recordMatch: #(28).
+		ifTrue: [ [ self recordMatch: #(29).
 			self step.
 			currentCharacter <= $<
 				or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ]
@@ -724,19 +724,19 @@ LeAnnotationScanner >> scan22 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan23 [
-	self recordMatch: #(3 28).
+	self recordMatch: #(3 29).
 	self step.
 	currentCharacter == $: ifTrue: [ ^ self scan18 ].
 	currentCharacter == $d
-		ifTrue: [ self recordMatch: #(3 28).
+		ifTrue: [ self recordMatch: #(3 29).
 			self step.
 			currentCharacter == $: ifTrue: [ ^ self scan18 ].
 			currentCharacter == $e
-				ifTrue: [ self recordMatch: #(3 28).
+				ifTrue: [ self recordMatch: #(3 29).
 					self step.
 					currentCharacter == $: ifTrue: [ ^ self scan18 ].
 					currentCharacter == $d
-						ifTrue: [ self recordMatch: #(3 11 28).
+						ifTrue: [ self recordMatch: #(3 11 29).
 							self step.
 							currentCharacter == $: ifTrue: [ ^ self scan18 ] ] ] ].
 	(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
@@ -744,7 +744,7 @@ LeAnnotationScanner >> scan23 [
 	(currentCharacter <= $<
 		or: [ (currentCharacter between: $> and: ${)
 				or: [ currentCharacter between: $~ and: (Character value: 247) ] ])
-		ifTrue: [ [ self recordMatch: #(28).
+		ifTrue: [ [ self recordMatch: #(29).
 			self step.
 			currentCharacter <= $<
 				or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ]
@@ -754,11 +754,11 @@ LeAnnotationScanner >> scan23 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan24 [
-	self recordMatch: #(3 28).
+	self recordMatch: #(3 29).
 	self step.
 	currentCharacter == $: ifTrue: [ ^ self scan18 ].
 	currentCharacter == $e
-		ifTrue: [ self recordMatch: #(3 12 28).
+		ifTrue: [ self recordMatch: #(3 12 29).
 			self step.
 			currentCharacter == $: ifTrue: [ ^ self scan18 ] ].
 	(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
@@ -766,7 +766,7 @@ LeAnnotationScanner >> scan24 [
 	(currentCharacter <= $<
 		or: [ (currentCharacter between: $> and: ${)
 				or: [ currentCharacter between: $~ and: (Character value: 247) ] ])
-		ifTrue: [ [ self recordMatch: #(28).
+		ifTrue: [ [ self recordMatch: #(29).
 			self step.
 			currentCharacter <= $<
 				or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ]
@@ -776,7 +776,7 @@ LeAnnotationScanner >> scan24 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan25 [
-	self recordMatch: #(3 28).
+	self recordMatch: #(3 29).
 	self step.
 	currentCharacter == $: ifTrue: [ ^ self scan18 ].
 	currentCharacter == $e ifTrue: [ ^ self scan26 ].
@@ -785,7 +785,7 @@ LeAnnotationScanner >> scan25 [
 	(currentCharacter <= $<
 		or: [ (currentCharacter between: $> and: ${)
 				or: [ currentCharacter between: $~ and: (Character value: 247) ] ])
-		ifTrue: [ [ self recordMatch: #(28).
+		ifTrue: [ [ self recordMatch: #(29).
 			self step.
 			currentCharacter <= $<
 				or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ]
@@ -795,7 +795,7 @@ LeAnnotationScanner >> scan25 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan26 [
-	self recordMatch: #(3 28).
+	self recordMatch: #(3 29).
 	self step.
 	currentCharacter == $: ifTrue: [ ^ self scan18 ].
 	currentCharacter == $i ifTrue: [ ^ self scan27 ].
@@ -804,7 +804,7 @@ LeAnnotationScanner >> scan26 [
 	(currentCharacter <= $<
 		or: [ (currentCharacter between: $> and: ${)
 				or: [ currentCharacter between: $~ and: (Character value: 247) ] ])
-		ifTrue: [ [ self recordMatch: #(28).
+		ifTrue: [ [ self recordMatch: #(29).
 			self step.
 			currentCharacter <= $<
 				or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ]
@@ -814,19 +814,19 @@ LeAnnotationScanner >> scan26 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan27 [
-	self recordMatch: #(3 28).
+	self recordMatch: #(3 29).
 	self step.
 	currentCharacter == $: ifTrue: [ ^ self scan18 ].
 	currentCharacter == $g
-		ifTrue: [ self recordMatch: #(3 28).
+		ifTrue: [ self recordMatch: #(3 29).
 			self step.
 			currentCharacter == $: ifTrue: [ ^ self scan18 ].
 			currentCharacter == $h
-				ifTrue: [ self recordMatch: #(3 28).
+				ifTrue: [ self recordMatch: #(3 29).
 					self step.
 					currentCharacter == $: ifTrue: [ ^ self scan18 ].
 					currentCharacter == $t
-						ifTrue: [ self recordMatch: #(3 14 28).
+						ifTrue: [ self recordMatch: #(3 14 29).
 							self step.
 							currentCharacter == $: ifTrue: [ ^ self scan18 ] ] ] ].
 	(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
@@ -834,7 +834,7 @@ LeAnnotationScanner >> scan27 [
 	(currentCharacter <= $<
 		or: [ (currentCharacter between: $> and: ${)
 				or: [ currentCharacter between: $~ and: (Character value: 247) ] ])
-		ifTrue: [ [ self recordMatch: #(28).
+		ifTrue: [ [ self recordMatch: #(29).
 			self step.
 			currentCharacter <= $<
 				or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ]
@@ -844,7 +844,7 @@ LeAnnotationScanner >> scan27 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan28 [
-	self recordMatch: #(3 28).
+	self recordMatch: #(3 29).
 	self step.
 	currentCharacter == $: ifTrue: [ ^ self scan18 ].
 	currentCharacter == $a ifTrue: [ ^ self scan29 ].
@@ -853,7 +853,7 @@ LeAnnotationScanner >> scan28 [
 	(currentCharacter <= $<
 		or: [ (currentCharacter between: $> and: ${)
 				or: [ currentCharacter between: $~ and: (Character value: 247) ] ])
-		ifTrue: [ [ self recordMatch: #(28).
+		ifTrue: [ [ self recordMatch: #(29).
 			self step.
 			currentCharacter <= $<
 				or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ]
@@ -863,19 +863,19 @@ LeAnnotationScanner >> scan28 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan29 [
-	self recordMatch: #(3 28).
+	self recordMatch: #(3 29).
 	self step.
 	currentCharacter == $: ifTrue: [ ^ self scan18 ].
 	currentCharacter == $b
-		ifTrue: [ self recordMatch: #(3 28).
+		ifTrue: [ self recordMatch: #(3 29).
 			self step.
 			currentCharacter == $: ifTrue: [ ^ self scan18 ].
 			currentCharacter == $e
-				ifTrue: [ self recordMatch: #(3 28).
+				ifTrue: [ self recordMatch: #(3 29).
 					self step.
 					currentCharacter == $: ifTrue: [ ^ self scan18 ].
 					currentCharacter == $l
-						ifTrue: [ self recordMatch: #(3 9 28).
+						ifTrue: [ self recordMatch: #(3 9 29).
 							self step.
 							currentCharacter == $: ifTrue: [ ^ self scan18 ] ] ] ].
 	(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
@@ -883,7 +883,7 @@ LeAnnotationScanner >> scan29 [
 	(currentCharacter <= $<
 		or: [ (currentCharacter between: $> and: ${)
 				or: [ currentCharacter between: $~ and: (Character value: 247) ] ])
-		ifTrue: [ [ self recordMatch: #(28).
+		ifTrue: [ [ self recordMatch: #(29).
 			self step.
 			currentCharacter <= $<
 				or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ]
@@ -906,19 +906,19 @@ LeAnnotationScanner >> scan3 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan30 [
-	self recordMatch: #(3 28).
+	self recordMatch: #(3 29).
 	self step.
 	currentCharacter == $: ifTrue: [ ^ self scan18 ].
 	currentCharacter == $h
-		ifTrue: [ self recordMatch: #(3 28).
+		ifTrue: [ self recordMatch: #(3 29).
 			self step.
 			currentCharacter == $: ifTrue: [ ^ self scan18 ].
 			currentCharacter == $o
-				ifTrue: [ self recordMatch: #(3 28).
+				ifTrue: [ self recordMatch: #(3 29).
 					self step.
 					currentCharacter == $: ifTrue: [ ^ self scan18 ].
 					currentCharacter == $w
-						ifTrue: [ self recordMatch: #(3 13 28).
+						ifTrue: [ self recordMatch: #(3 13 29).
 							self step.
 							currentCharacter == $: ifTrue: [ ^ self scan18 ] ] ] ].
 	(currentCharacter isAlphaNumeric or: [ currentCharacter == $_ ])
@@ -926,7 +926,7 @@ LeAnnotationScanner >> scan30 [
 	(currentCharacter <= $<
 		or: [ (currentCharacter between: $> and: ${)
 				or: [ currentCharacter between: $~ and: (Character value: 247) ] ])
-		ifTrue: [ [ self recordMatch: #(28).
+		ifTrue: [ [ self recordMatch: #(29).
 			self step.
 			currentCharacter <= $<
 				or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ]
@@ -947,19 +947,19 @@ LeAnnotationScanner >> scan4 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan5 [
-	self recordMatch: #(33).
+	self recordMatch: #(34).
 	self step.
-	currentCharacter isDigit ifTrue: [ ^ self recordAndReportMatch: #(33) ].
+	currentCharacter isDigit ifTrue: [ ^ self recordAndReportMatch: #(34) ].
 	^ self reportLastMatch
 ]
 
 { #category : #generated }
 LeAnnotationScanner >> scan6 [
-	self recordMatch: #(33).
+	self recordMatch: #(34).
 	self step.
 	currentCharacter == $- ifTrue: [ ^ self scan7 ].
 	currentCharacter isDigit
-		ifTrue: [ self recordMatch: #(33).
+		ifTrue: [ self recordMatch: #(34).
 			self step.
 			currentCharacter == $- ifTrue: [ ^ self scan7 ] ].
 	^ self reportLastMatch
@@ -967,7 +967,7 @@ LeAnnotationScanner >> scan6 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan7 [
-	self recordMatch: #(33).
+	self recordMatch: #(34).
 	self step.
 	currentCharacter isDigit ifTrue: [ ^ self scan5 ].
 	^ self reportLastMatch
@@ -975,7 +975,7 @@ LeAnnotationScanner >> scan7 [
 
 { #category : #generated }
 LeAnnotationScanner >> scan8 [
-	self recordMatch: #(33).
+	self recordMatch: #(34).
 	self step.
 	currentCharacter == $- ifTrue: [ ^ self scan7 ].
 	currentCharacter isDigit ifTrue: [ ^ self scan6 ].
@@ -1004,100 +1004,100 @@ LeAnnotationScanner >> scanForToken [
 	scope == #uuid
 		ifTrue: [ self step.
 			(currentCharacter isDigit or: [ currentCharacter between: $a and: $z ])
-				ifTrue: [ self recordMatch: #(30).
+				ifTrue: [ self recordMatch: #(31).
 					self step.
 					(currentCharacter isDigit or: [ currentCharacter between: $a and: $z ])
-						ifTrue: [ self recordMatch: #(30).
+						ifTrue: [ self recordMatch: #(31).
 							self step.
 							(currentCharacter isDigit or: [ currentCharacter between: $a and: $z ])
-								ifTrue: [ self recordMatch: #(30).
+								ifTrue: [ self recordMatch: #(31).
 									self step.
 									(currentCharacter isDigit or: [ currentCharacter between: $a and: $z ])
-										ifTrue: [ self recordMatch: #(30).
+										ifTrue: [ self recordMatch: #(31).
 											self step.
 											(currentCharacter isDigit
 												or: [ currentCharacter between: $a and: $z ])
-												ifTrue: [ self recordMatch: #(30).
+												ifTrue: [ self recordMatch: #(31).
 													self step.
 													(currentCharacter isDigit
 														or: [ currentCharacter between: $a and: $z ])
-														ifTrue: [ self recordMatch: #(30).
+														ifTrue: [ self recordMatch: #(31).
 															self step.
 															(currentCharacter isDigit
 																or: [ currentCharacter between: $a and: $z ])
-																ifTrue: [ self recordMatch: #(30).
+																ifTrue: [ self recordMatch: #(31).
 																	self step.
 																	(currentCharacter isDigit
 																		or: [ currentCharacter between: $a and: $z ])
-																		ifTrue: [ self recordMatch: #(30).
+																		ifTrue: [ self recordMatch: #(31).
 																			self step.
 																			(currentCharacter isDigit
 																				or: [ currentCharacter between: $a and: $z ])
-																				ifTrue: [ self recordMatch: #(30).
+																				ifTrue: [ self recordMatch: #(31).
 																					self step.
 																					(currentCharacter isDigit
 																						or: [ currentCharacter between: $a and: $z ])
-																						ifTrue: [ self recordMatch: #(30).
+																						ifTrue: [ self recordMatch: #(31).
 																							self step.
 																							(currentCharacter isDigit
 																								or: [ currentCharacter between: $a and: $z ])
-																								ifTrue: [ self recordMatch: #(30).
+																								ifTrue: [ self recordMatch: #(31).
 																									self step.
 																									(currentCharacter isDigit
 																										or: [ currentCharacter between: $a and: $z ])
-																										ifTrue: [ self recordMatch: #(30).
+																										ifTrue: [ self recordMatch: #(31).
 																											self step.
 																											(currentCharacter isDigit
 																												or: [ currentCharacter between: $a and: $z ])
-																												ifTrue: [ self recordMatch: #(30).
+																												ifTrue: [ self recordMatch: #(31).
 																													self step.
 																													(currentCharacter isDigit
 																														or: [ currentCharacter between: $a and: $z ])
-																														ifTrue: [ self recordMatch: #(30).
+																														ifTrue: [ self recordMatch: #(31).
 																															self step.
 																															(currentCharacter isDigit
 																																or: [ currentCharacter between: $a and: $z ])
-																																ifTrue: [ self recordMatch: #(30).
+																																ifTrue: [ self recordMatch: #(31).
 																																	self step.
 																																	(currentCharacter isDigit
 																																		or: [ currentCharacter between: $a and: $z ])
-																																		ifTrue: [ self recordMatch: #(30).
+																																		ifTrue: [ self recordMatch: #(31).
 																																			self step.
 																																			(currentCharacter isDigit
 																																				or: [ currentCharacter between: $a and: $z ])
-																																				ifTrue: [ self recordMatch: #(30).
+																																				ifTrue: [ self recordMatch: #(31).
 																																					self step.
 																																					(currentCharacter isDigit
 																																						or: [ currentCharacter between: $a and: $z ])
-																																						ifTrue: [ self recordMatch: #(30).
+																																						ifTrue: [ self recordMatch: #(31).
 																																							self step.
 																																							(currentCharacter isDigit
 																																								or: [ currentCharacter between: $a and: $z ])
-																																								ifTrue: [ self recordMatch: #(30).
+																																								ifTrue: [ self recordMatch: #(31).
 																																									self step.
 																																									(currentCharacter isDigit
 																																										or: [ currentCharacter between: $a and: $z ])
-																																										ifTrue: [ self recordMatch: #(30).
+																																										ifTrue: [ self recordMatch: #(31).
 																																											self step.
 																																											(currentCharacter isDigit
 																																												or: [ currentCharacter between: $a and: $z ])
-																																												ifTrue: [ self recordMatch: #(30).
+																																												ifTrue: [ self recordMatch: #(31).
 																																													self step.
 																																													(currentCharacter isDigit
 																																														or: [ currentCharacter between: $a and: $z ])
-																																														ifTrue: [ self recordMatch: #(30).
+																																														ifTrue: [ self recordMatch: #(31).
 																																															self step.
 																																															(currentCharacter isDigit
 																																																or: [ currentCharacter between: $a and: $z ])
-																																																ifTrue: [ self recordMatch: #(30).
+																																																ifTrue: [ self recordMatch: #(31).
 																																																	self step.
 																																																	(currentCharacter isDigit
 																																																		or: [ currentCharacter between: $a and: $z ])
-																																																		ifTrue: [ self recordMatch: #(30).
+																																																		ifTrue: [ self recordMatch: #(31).
 																																																			self step.
 																																																			(currentCharacter isDigit
 																																																				or: [ currentCharacter between: $a and: $z ])
-																																																				ifTrue: [ ^ self recordAndReportMatch: #(30) ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ].
+																																																				ifTrue: [ ^ self recordAndReportMatch: #(31) ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ] ].
 	^ self reportLastMatch
 ]
 

@@ -1,7 +1,7 @@
 Class {
 	#name : #LeExampleAnnotationNode,
 	#superclass : #LeAnnotationNode,
-	#category : 'Lepiter-Parser'
+	#category : #'Lepiter-Parser'
 }
 
 { #category : #generated }
@@ -55,6 +55,15 @@ LeExampleAnnotationNode >> previewHeight [
 		do: [ :each | 
 			each isPreviewHeight
 				ifTrue: [ ^ each integerValue ] ].
+	^ nil
+]
+
+{ #category : #accessing }
+LeExampleAnnotationNode >> previewSelectSelector [
+	items
+		do: [ :each | 
+			each isPreviewSelect
+				ifTrue: [ ^ each selectorValue ] ].
 	^ nil
 ]
 

@@ -467,6 +467,7 @@ LeAnnotationStylerVisitor >> styleExpandingExample: anExampleAnnotation [
 		previewShowSelector:
 			(anExampleAnnotation previewShowSelector
 				ifNil: [ LepiterConstants defaultShowSelector ]);
+		previewSelectSelector:(anExampleAnnotation previewSelectSelector);
 		previewHeight:
 			(anExampleAnnotation previewHeight
 				ifNil: [ LepiterConstants defaultPreviewHeight ]).
