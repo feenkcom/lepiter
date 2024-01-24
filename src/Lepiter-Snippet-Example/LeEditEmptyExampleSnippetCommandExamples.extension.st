@@ -8,6 +8,7 @@ LeEditEmptyExampleSnippetCommandExamples >> initialModifiedSnippet [
 		codeExpanded: false;
 		noCode: true;
 		previewShowSelector: #gtPreviewFor:;
+		previewShowSelector: #gtRawFor:;
 		previewExpanded:  true;
 		previewHeight: 250
 ]

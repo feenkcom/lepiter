@@ -16,7 +16,7 @@ LeEditExampleSnippetCommandExamples >> assertTargetSnippetContentChanged [
 
 { #category : #accessing }
 LeEditExampleSnippetCommandExamples >> changedStateAttributes [
-	^ #(codeExpanded exampleBehaviorName exampleSelector noCode previewExpanded previewHeight previewShowSelector)
+	^ #(codeExpanded exampleBehaviorName exampleSelector noCode previewExpanded previewHeight previewShowSelector previewSelectSelector)
 ]
 
 { #category : #accessing }
