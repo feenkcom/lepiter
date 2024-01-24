@@ -227,7 +227,7 @@ LeExampleSnippetViewModel >> handleAnnotationAstChange: anAst [
 	LeExampleSnippetAnnotationVisitor new
 		exampleSnippet: aNewSnippet;
 		accept: anAst.
-
+	
 	"if properties did not change, do nothing"
 	(self snippetModel similarTo: aNewSnippet) ifTrue: [ ^ self ].
 
@@ -415,6 +415,13 @@ LeExampleSnippetViewModel >> onSnippetPreviewHeightChanged: aLeExampleSnippetPre
 ]
 
 { #category : #'api - preview show selector' }
+LeExampleSnippetViewModel >> onSnippetPreviewSelectSelectorChanged: aLeExampleSnippetPreviewSelectorSelectorChanged [
+	
+	self clearCachedExamplePreview.
+	self announce: aLeExampleSnippetPreviewSelectorSelectorChanged
+]
+
+{ #category : #'api - preview show selector' }
 LeExampleSnippetViewModel >> onSnippetPreviewShowSelectorChanged: aLeExampleSnippetPreviewShowSelectorChanged [
 	<modelEventHandler: #snippet event: #LeExampleSnippetPreviewShowSelectorChanged>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#onPropertyChangedTemplate'>
@@ -462,6 +469,18 @@ LeExampleSnippetViewModel >> previewHeight: aPreviewHeight [
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#setterDelegateTemplate'>
 
 	self snippetModel previewHeight: aPreviewHeight
+]
+
+{ #category : #'api - preview show selector' }
+LeExampleSnippetViewModel >> previewSelectSelector [
+	
+	^ self snippetModel previewSelectSelector
+]
+
+{ #category : #'api - preview show selector' }
+LeExampleSnippetViewModel >> previewSelectSelector: aPreviewSelectSelector [
+
+	self snippetModel previewSelectSelector: aPreviewSelectSelector
 ]
 
 { #category : #'api - preview show selector' }
@@ -523,6 +542,7 @@ LeExampleSnippetViewModel >> subscribeToSnippetModel [
 	self snippetModel weak when: LeExampleSnippetNoCodeChanged send: #onSnippetNoCodeChanged: to: self.
 	self snippetModel weak when: LeExampleSnippetPreviewExpandedChanged send: #onSnippetPreviewExpandedChanged: to: self.
 	self snippetModel weak when: LeExampleSnippetPreviewShowSelectorChanged send: #onSnippetPreviewShowSelectorChanged: to: self.
+	self snippetModel weak when: LeExampleSnippetPreviewSelectSelectorChanged send: #onSnippetPreviewSelectSelectorChanged: to: self.
 	self snippetModel weak when: LeExampleSnippetPreviewHeightChanged send: #onSnippetPreviewHeightChanged: to: self.
 ]
 

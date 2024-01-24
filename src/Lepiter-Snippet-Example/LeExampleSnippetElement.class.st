@@ -43,6 +43,7 @@ LeExampleSnippetElement >> computeExamplePreviewElement [
 							noCode: self snippetViewModel noCode;
 							previewExpanded: self snippetViewModel previewExpanded;
 							previewShowSelector: self snippetViewModel previewShowSelector;
+							previewSelectSelector: self snippetViewModel previewSelectSelector;
 							previewHeight: self snippetViewModel previewHeight;
 							asElement) ]
 		ifAbsent: [ anElement := LeExampleSnippetNoPreview new

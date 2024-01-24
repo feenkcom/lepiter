@@ -3,7 +3,7 @@ Class {
 	#superclass : #GtCoderAstStyler,
 	#traits : 'TLeAnnotationParseNodeVisitor',
 	#classTraits : 'TLeAnnotationParseNodeVisitor classTrait',
-	#category : 'Lepiter-Snippet-Example-Snippet'
+	#category : #'Lepiter-Snippet-Example-Snippet'
 }
 
 { #category : #'api - styling' }
@@ -85,6 +85,16 @@ LeExampleSnippetStyler >> visitPreviewHeightArgument: aPreviewHeightArgument [
 		attributes: { BlTextForegroundAttribute color: Color red muchDarker }
 		from: aPreviewHeightArgument value startPosition
 		to: aPreviewHeightArgument value stopPosition
+]
+
+{ #category : #generated }
+LeExampleSnippetStyler >> visitPreviewSelectArgument: aPreviewSelectArgument [
+	self visitArgument: aPreviewSelectArgument.
+
+	self
+		attributes: { BlTextForegroundAttribute color: Color magenta muchDarker }
+		from: aPreviewSelectArgument value startPosition
+		to: aPreviewSelectArgument value stopPosition.
 ]
 
 { #category : #generated }

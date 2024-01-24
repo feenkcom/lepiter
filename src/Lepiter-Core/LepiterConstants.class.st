@@ -368,11 +368,6 @@ LepiterConstants class >> pathParameterName [
 ]
 
 { #category : #'pillar parameter names' }
-LepiterConstants class >> previewExpandedParameterName [
-	^ #previewExpanded
-]
-
-{ #category : #'pillar parameter names' }
 LepiterConstants class >> previewHeightParameterName [
 	^ #previewHeight
 ]
