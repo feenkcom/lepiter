@@ -357,6 +357,14 @@ LeLogicalDatabase >> hasDatabaseAt: aFileReference [
 ]
 
 { #category : #'api - testing' }
+LeLogicalDatabase >> hasDatabaseNamed: aDatabaseName [
+	^ self databases
+		detect: [ :db | db databaseName = aDatabaseName ]
+		ifFound: [ true ]
+		ifNone: [ false ]
+]
+
+{ #category : #'api - testing' }
 LeLogicalDatabase >> hasNamedPages [
 	"Answer a boolean indicating if any of the receiver's DBs contain named pages"
 	<return: #Boolean>
