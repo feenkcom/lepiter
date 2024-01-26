@@ -118,7 +118,7 @@ LeModelExamples >> databaseWithTwoPagesHavingPictureSnippets [
 
 { #category : #'*Lepiter-Snippet-Picture' }
 LeModelExamples >> pageOneTitle [
-	^ 'Page one with pictures'
+	^ 'Page one'
 ]
 
 { #category : #'*Lepiter-Snippet-Picture' }
