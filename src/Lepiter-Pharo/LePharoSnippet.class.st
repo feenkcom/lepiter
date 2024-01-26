@@ -68,7 +68,7 @@ LePharoSnippet >> asExampleMethodStringFor: aSelector [
 	^ newAST formattedCode
 ]
 
-{ #category : #accessing }
+{ #category : #converting }
 LePharoSnippet >> asSnippetViewModel [
 	<return: #LeSnippetViewModel>
 
