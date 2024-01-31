@@ -190,7 +190,7 @@ LeElementSnippetElement >> exceptionAction [
 { #category : #private }
 LeElementSnippetElement >> generateDisplayElement [
 	[[		
-		self snippetViewModel doItAllRequestedBy: self ]
+		self snippetViewModel doItAllRequestedBy: (LeElementSnippetElementRequester new element: self) ]
 		on: Error
 			do: [ :ex | self exception: ex ]]
 		on: GtCoderEvaluationUnhandledError
@@ -262,7 +262,7 @@ LeElementSnippetElement >> isCoderCreated [
 
 { #category : #'private - event handling' }
 LeElementSnippetElement >> onCodeEvaluated: anEvaluatedAnnouncement [
-	(anEvaluatedAnnouncement isRequestedByElementOrItsChild: self)
+	(anEvaluatedAnnouncement requesterObject isRequestedByElementOrItsChild: self)
 		ifFalse: [ ^ self ].
 
 	self setElement: [ anEvaluatedAnnouncement evaluationResult value ]
@@ -349,15 +349,6 @@ LeElementSnippetElement >> registerCoderResizeEventsFor: aResizer [
 			anEvent hasVerticalChange ifTrue: [
 				self snippetViewModel 
 					resizeElementHeightTo: anEvent modifiedExtent y ] ]
-]
-
-{ #category : #initialization }
-LeElementSnippetElement >> registerEventsForCoder: aCoder [
-
-	aCoder announcer weak
-		when: GtCoderEvaluationAnnouncement
-		send: #onCodeEvaluated:
-		to: self
 ]
 
 { #category : #initialization }
