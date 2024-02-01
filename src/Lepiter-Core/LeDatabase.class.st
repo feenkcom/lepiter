@@ -48,6 +48,11 @@ LeDatabase class >> null [
 	^ LeNullDatabase default
 ]
 
+{ #category : #'instance creation' }
+LeDatabase class >> primaryDB [
+	^ LeDatabasesRegistry uniqueInstance defaultLogicalDatabase primaryDB
+]
+
 { #category : #'api - attachments' }
 LeDatabase >> addAttachmentByCopy: aFileReference [
 	"Copy the attached file to the receiver's DB and answer the relative path string to the file"
