@@ -10,7 +10,7 @@ BaselineOfLepiterXDoc >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'Xdoc' with: [
-				spec repository: 'github://feenkcom/xdoc:v0.8.715/src' ].
+				spec repository: 'github://feenkcom/xdoc:v0.8.716/src' ].
 
 		spec package: 'Lepiter-XDoc' with: [
 			spec requires: #('Xdoc') ].
