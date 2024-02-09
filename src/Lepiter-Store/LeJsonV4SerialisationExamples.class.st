@@ -8,13 +8,21 @@ Class {
 
 { #category : #examples }
 LeJsonV4SerialisationExamples >> byteArray [
+	"ByteArray serialisation changed from storeString to base64Encoded.
+	Confirm that both can be deserialised."
 	<gtExample>
-	| original deserialized |
+	| original serialized deserialized storeString |
 
 	LeJsonV4 cleanUp.
 	original := #[3 1 4 1 5].
-	deserialized := LeJsonV4 uniqueInstance deserialize:
-		(LeJsonV4 uniqueInstance serialize: original) readStream.
+	storeString := '{"__schema":"4.1","__type":"byteArray","byteArrayString":"#[3 1 4 1 5]"}'.
+	deserialized := LeJsonV4 uniqueInstance deserialize: storeString readStream.
+	self assert: deserialized class equals: ByteArray.
+	self assert: original equals: deserialized.
+
+	serialized := LeJsonV4 uniqueInstance serialize: original.
+	deserialized := LeJsonV4 uniqueInstance deserialize: serialized readStream.
+	self assert: serialized equals: '{"__schema":"4.1","__type":"byteArray","byteArrayString":"AwEEAQU="}'.
 	self assert: deserialized class equals: ByteArray.
 	self assert: original equals: deserialized.
 ]
