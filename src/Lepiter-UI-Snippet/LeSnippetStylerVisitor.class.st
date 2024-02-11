@@ -713,7 +713,7 @@ LeSnippetStylerVisitor >> styleResult: result for: aCodeNode [
 				to: aCodeNode stopPosition ]."
 
 	evaluatedCodeAttribute := GtPlaygroundEvaluatedCodeButtonAttribute new
-		result: result;
+		result: result value;
 		action: [ :aButton :anEvent |
 			aButton phlow spawnObject: result value ].
 	(text
