@@ -1,7 +1,7 @@
 Class {
 	#name : #LeSnippetStylerVisitor,
 	#superclass : #LeContentNodeVisitor,
-	#traits : 'TLeExtensibleContentNodeVisitor + TSmaCCCompositeVisitor + (TLeContentNodeVisitor - {#acceptNode:})',
+	#traits : 'TLeExtensibleContentNodeVisitor + TSmaCCCompositeVisitor + TLeContentNodeVisitor',
 	#classTraits : 'TLeExtensibleContentNodeVisitor classTrait + TSmaCCCompositeVisitor classTrait + TLeContentNodeVisitor classTrait',
 	#instVars : [
 		'styler',
@@ -116,10 +116,8 @@ LeSnippetStylerVisitor >> evaluateCodeBlock: aCodeBlock expanded: aBoolean from:
 	aSnippetCoderViewModel := aSnippetCoder asCoderViewModel.
 	aSnippetCoderViewModel selfObject: self evaluationReceiver.
 	aSnippetCoderViewModel sharedBindings: self variableBindings.
-	
 	aResult := aSnippetCoderViewModel doItAll.
 
-	source := aCodeBlock code source.
 	position := source size.
 	[ position > 1 and: [ (source at: position) isLineBreak ] ]
 		whileTrue: [ position := position - 1 ].
@@ -130,8 +128,8 @@ LeSnippetStylerVisitor >> evaluateCodeBlock: aCodeBlock expanded: aBoolean from:
 				value: aResult;
 				expanded: aBoolean;
 				position: position).
-
-	self editor ifNotNil: #styleText
+	self styler snippetViewModel coderViewModel  coderModel  requestStyleSourceText.
+	aBoolean ifTrue: [ aButton phlow spawnObject: aResult value ].
 ]
 
 { #category : #evaluating }
@@ -450,25 +448,23 @@ LeSnippetStylerVisitor >> styleCodeBlock: aCodeNode [
 		ifTrue: [ self styleSmalltalkCodeBlock: aCodeNode ].
 	(self text from: aCodeNode startPosition to: aCodeNode stopPosition)
 		glamorousCodeFont.
-	self
+	"self
 		styleAutoHiding: (aCodeNode startPosition to: aCodeNode code startPosition - 1)
 		and: (aCodeNode code stopPosition + 1 to: aCodeNode stopPosition)
-		whenOutside: aCodeNode sourceInterval.
+		whenOutside: aCodeNode sourceInterval."
 	aCodeNode isForSmalltalk
 		ifTrue: [ (text from: aCodeNode stopPosition to: aCodeNode stopPosition)
 				attributes:
 					{(GtButtonAttribute new
 						beAppend;
-						stencil: [ BrButton new
-								aptitude: BrGlamorousButtonWithIconAptitude;
-								beSmallSize;
-								margin: (BlInsets left: 3 right: 3);
+						stencil: [ GtButtonStencil new
 								icon: BrGlamorousVectorIcons play;
 								action:
 										[ :aWidget :aButtonModel | self evaluateCodeBlock: aCodeNode expanded: false from: aWidget ] ]).
 					(GtButtonAttribute new
 						beAppend;
 						stencil: [ GtButtonStencil new
+								icon: BrGlamorousVectorIcons playinspect;
 								action:
 									[ :aWidget :aButtonModel | self evaluateCodeBlock: aCodeNode expanded: true from: aWidget ] ])}.
 			self executionResults
@@ -701,7 +697,7 @@ LeSnippetStylerVisitor >> styleResult: result for: aCodeNode [
 	| evaluatedCodeAttribute |
 	results add: result.
 
-	result expanded
+	"result expanded
 		ifTrue: [
 			| previewAttribute |
 			
@@ -714,18 +710,18 @@ LeSnippetStylerVisitor >> styleResult: result for: aCodeNode [
 			text
 				attribute: previewAttribute
 				from: aCodeNode stopPosition
-				to: aCodeNode stopPosition ].
+				to: aCodeNode stopPosition ]."
 
 	evaluatedCodeAttribute := GtPlaygroundEvaluatedCodeButtonAttribute new
 		result: result;
 		action: [
 			result expanded: true.
 			self editor styleText ].
-
-	text
-		attribute: evaluatedCodeAttribute;
+	(text
 		from: aCodeNode code startPosition + result position - 1
-		to: aCodeNode code startPosition + result position - 1
+		to: aCodeNode code startPosition + result position - 1)
+		attributes: {evaluatedCodeAttribute}
+
 ]
 
 { #category : #'private - styling' }
