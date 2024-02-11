@@ -3,8 +3,12 @@ Extension { #name : #ByteArray }
 { #category : #'*Lepiter-Store' }
 ByteArray class >> leFromJsonV4Dictionary: aDictionary [
 	"Create a new instance of the receiver from the supplied dictionary."
+	| serialized |
 
-	^ self evaluate: (aDictionary at: #byteArrayString)
+	serialized := aDictionary at: #byteArrayString.
+	^ (serialized beginsWith: '#[')
+		ifTrue: [ self evaluate: serialized ]
+		ifFalse: [ serialized base64Decoded ]
 ]
 
 { #category : #'*Lepiter-Store' }
@@ -18,7 +22,7 @@ ByteArray class >> leJsonV4MappingFor: aNeoJSONMapper [
 			setter: [ :um | self error: 'Objects should not be read here' ].
 		mapping 
 			mapProperty: #byteArrayString
-			getter: [ :object | object storeString ]
+			getter: [ :object | object base64Encoded ]
 			setter: [ :byteArrayString | self evaluate: byteArrayString ] ].
 
 ]
