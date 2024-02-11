@@ -714,9 +714,8 @@ LeSnippetStylerVisitor >> styleResult: result for: aCodeNode [
 
 	evaluatedCodeAttribute := GtPlaygroundEvaluatedCodeButtonAttribute new
 		result: result;
-		action: [
-			result expanded: true.
-			self editor styleText ].
+		action: [ :aButton :anEvent |
+			aButton phlow spawnObject: result value ].
 	(text
 		from: aCodeNode code startPosition + result position - 1
 		to: aCodeNode code startPosition + result position - 1)
