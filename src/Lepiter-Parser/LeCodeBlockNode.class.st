@@ -7,7 +7,7 @@ Class {
 		'begin',
 		'end'
 	],
-	#category : 'Lepiter-Parser'
+	#category : #'Lepiter-Parser'
 }
 
 { #category : #generated }
@@ -45,6 +45,12 @@ LeCodeBlockNode >> end [
 { #category : #generated }
 LeCodeBlockNode >> end: aSmaCCToken [
 	end := aSmaCCToken
+]
+
+{ #category : #testing }
+LeCodeBlockNode >> isForLanguage: aLanguageString [
+	^ language isNotNil
+		and: [ aLanguageString = language source asLowercase ]
 ]
 
 { #category : #testing }
