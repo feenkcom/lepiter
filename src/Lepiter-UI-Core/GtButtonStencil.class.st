@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'action',
 		'label',
-		'iconStencilBuilder'
+		'iconStencilBuilder',
+		'tooltip'
 	],
 	#category : #'Lepiter-UI-Core-Brick - Stencils'
 }
@@ -23,14 +24,13 @@ GtButtonStencil >> action: aValuable [
 GtButtonStencil >> create [
 	| aLook |
 	aLook := BrGlamorousButtonWithIconAptitude.
-	self hasLabel ifTrue: [ 
-		aLook := aLook + BrGlamorousButtonLabelAptitude ].
+	self hasLabel ifTrue: [ aLook := aLook + BrGlamorousButtonLabelAptitude ].
 
 	^ BrButton new
 		aptitude: aLook;
 		beSmallSize;
 		icon: self icon;
-		label: self label;
+		label: (self label ifNil: [ self tooltip ]);
 		action: self action
 ]
 
@@ -68,4 +68,14 @@ GtButtonStencil >> label [
 { #category : #accessing }
 GtButtonStencil >> label: aStringOrText [
 	label := aStringOrText
+]
+
+{ #category : #accessing }
+GtButtonStencil >> tooltip [
+	^ tooltip
+]
+
+{ #category : #accessing }
+GtButtonStencil >> tooltip: anObject [
+	tooltip := anObject
 ]
