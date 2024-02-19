@@ -103,7 +103,5 @@ LePythonSnippetElement >> updateLanguageLabel [
 				'Python @ ' , serverAddress printAddress ]
 			ifFalse: [ 
 				'Python not running' ].
-	languageElement
-		label: (label asRopedText glamorousRegularFont
-				foreground: BrGlamorousColors textMarkupColor)
+	languageElement label: label
 ]
