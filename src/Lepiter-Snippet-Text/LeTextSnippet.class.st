@@ -298,6 +298,14 @@ LeTextSnippet >> hasLinkTarget: aNode [
 		ifNone: [ false ]
 ]
 
+{ #category : #accessing }
+LeTextSnippet >> hasLinkWithTitle: aString [
+	^ self outgoingTextualLinks
+		detect: [ :link | link targetPageTitle = aString ]
+		ifFound: [ true ]
+		ifNone: [ false ]
+]
+
 { #category : #'private - testing' }
 LeTextSnippet >> hasOutgoingTextualLinks [
 	^ self outgoingTextualLinks isNotEmpty

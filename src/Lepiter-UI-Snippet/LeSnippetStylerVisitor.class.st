@@ -459,12 +459,14 @@ LeSnippetStylerVisitor >> styleCodeBlock: aCodeNode [
 						beAppend;
 						stencil: [ GtButtonStencil new
 								icon: BrGlamorousVectorIcons play;
+								tooltip: 'Execute';
 								action:
 										[ :aWidget :aButtonModel | self evaluateCodeBlock: aCodeNode expanded: false from: aWidget ] ]).
 					(GtButtonAttribute new
 						beAppend;
 						stencil: [ GtButtonStencil new
 								icon: BrGlamorousVectorIcons playinspect;
+								tooltip: 'Inspect';
 								action:
 									[ :aWidget :aButtonModel | self evaluateCodeBlock: aCodeNode expanded: true from: aWidget ] ])}.
 			self executionResults
