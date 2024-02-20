@@ -78,8 +78,8 @@ LePythonSnippetElement >> subscribeToSnippetViewModel [
 	
 	super subscribeToSnippetViewModel.
 	
-	Beacon instance announcer weak
-		when: LanguageLinkStartStopSignal
+	LanguageLinkApplication announcer weak
+		when: LanguageLinkStartStopAnnouncement
 		send: #onLanguageLinkStartStop:
 		to: self
 ]
@@ -91,7 +91,7 @@ LePythonSnippetElement >> unsubscribeFromSnippetViewModel [
 	
 	super unsubscribeFromSnippetViewModel.
 	
-	Beacon instance announcer unsubscribe: self
+	LanguageLinkApplication announcer unsubscribe: self
 ]
 
 { #category : #private }
