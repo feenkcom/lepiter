@@ -14,7 +14,9 @@ LePythonApplicationGlobalStrategy class >> strategyName [
 LePythonApplicationGlobalStrategy >> applicationServer [
 	content database isDatabase ifFalse: [ ^ nil ].
 	PBApplication isRunning
-		ifFalse: [ PBApplication uniqueInstance: (self newPbApplicationFor: content database) ].
+		ifFalse: [ 
+			PBApplication uniqueInstance
+				ifNil: [ PBApplication uniqueInstance: (self newPbApplicationFor: content database) ] ].
 	^ PBApplication uniqueInstance
 ]
 
