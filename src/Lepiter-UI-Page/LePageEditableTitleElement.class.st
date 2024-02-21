@@ -194,7 +194,7 @@ LePageEditableTitleElement >> onPageViewModelChanged [
 
 	self titleElement
 		styler: (LePageTitleStyler new pageViewModel: self pageViewModel).
-	self inUIProcessDo: [ self updatePageTitle ]
+	self enqueueTask: (BlTaskAction new action: [ self updatePageTitle ])
 ]
 
 { #category : #'private - event handling' }
