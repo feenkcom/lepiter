@@ -38,9 +38,14 @@ Class {
 }
 
 { #category : #'instance creation' }
+LeDatabase class >> databaseNamed: aString [
+	^ LeDatabasesRegistry uniqueInstance defaultLogicalDatabase
+		databaseNamed: aString
+]
+
+{ #category : #'instance creation' }
 LeDatabase class >> gtBook [
-	^ LeDatabasesRegistry uniqueInstance defaultLogicalDatabase databases
-		detect: [ :db | db databaseName = 'Glamorous Toolkit Book' ]
+	^ self databaseNamed: 'Glamorous Toolkit Book'
 ]
 
 { #category : #'api - instance creation' }
