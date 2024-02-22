@@ -103,11 +103,12 @@ LePageToolElement >> onPageViewModelChanged [
 	self contentElement pageViewModel: self pageViewModel.
 
 	self
-		inUIProcessDo: [ self sidebarElement
-				databaseViewModel: self pageViewModel databaseViewModel;
-				selection: self pageViewModel.
+		enqueueTask: (BlTaskAction new
+				action: [ self sidebarElement
+						databaseViewModel: self pageViewModel databaseViewModel;
+						selection: self pageViewModel.
 
-			self updateWorldTitle ]
+					self updateWorldTitle ])
 ]
 
 { #category : #'private - event handling' }

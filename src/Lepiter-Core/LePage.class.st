@@ -390,6 +390,11 @@ LePage >> isTableOfContents [
 	^ self database tableOfContents == self
 ]
 
+{ #category : #accessing }
+LePage >> isTag [
+	^ self title substrings size = 1
+]
+
 { #category : #'api - testing' }
 LePage >> isTodayDailyNote [
 	^ self type isTodayDailyNote
@@ -578,7 +583,7 @@ LePage >> storeOn: aStream [
 LePage >> tags [
 	"Outgoing links to pages with single-word titles, i.e., pages that could be interpreted as tags."
 
-	^ self allOutgoingTargets select: [ :page | page title substrings size = 1 ]
+	^ self allOutgoingTargets select: [ :page | page isTag ]
 ]
 
 { #category : #'api - accessing' }
