@@ -28,6 +28,13 @@ LeHeaderNode >> headerLevel [
 	^ numberSigns size min: 6
 ]
 
+{ #category : #accessing }
+LeHeaderNode >> headerName [
+	^ self topParent completeSource
+		copyFrom: self startPosition + self headerLevel
+		to: self stopPosition
+]
+
 { #category : #'generated-initialize-release' }
 LeHeaderNode >> initialize [
 	super initialize.
