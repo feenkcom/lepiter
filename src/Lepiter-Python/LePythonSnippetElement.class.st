@@ -7,6 +7,9 @@ Currently the global uniqueInstance of the {{gtClass:name=PBApplication}} is alw
 Class {
 	#name : #LePythonSnippetElement,
 	#superclass : #LeExternalEvaluatedSnippetElement,
+	#instVars : [
+		'dropdownHandleButton'
+	],
 	#category : #'Lepiter-Python-Snippet'
 }
 
@@ -20,15 +23,47 @@ LePythonSnippetElement >> initializeLanguageElement [
 	"Initialise the element that displays the language and connection details.
 	This is normally a text element, but subclasses may replace it with something else, e.g. a button"
 
+	| aptitude |
+	aptitude := BrGlamorousWithDropdownAptitude
+		handle: [
+			dropdownHandleButton := BrButton new
+				aptitude: BrGlamorousButtonRectangularAptitude + BrGlamorousButtonWithLabelAptitude;
+				label: languageElement label ]
+		content: [ | buttonBar details contents|
+			buttonBar := BrHorizontalPane new
+				hMatchParent;
+				vFitContent;
+				layout: (BlLinearLayout horizontal cellSpacing: 5);
+				margin: (BlInsets all: 5);
+				addChild: (BrButton new
+					aptitude: BrGlamorousButtonWithIconAptitude;
+					icon: BrGlamorousVectorIcons shutdown;
+					label: 'Start/stop PythonBridge';
+					action: [ :element | self serverStrategy applicationServer toggleStartStop ]);
+				addChild: (BrButton new
+					aptitude: BrGlamorousButtonWithIconAptitude;
+					icon: BrGlamorousVectorIcons refresh;
+					label: 'Restart PythonBridge';
+					action: [ :element | self serverStrategy applicationServer restart ]);
+				addChild: (BrButton new
+					aptitude: BrGlamorousButtonWithIconAptitude;
+					icon: BrGlamorousVectorIcons inspect;
+					label: 'Inspect PythonBridge';
+					action: [ :element | 
+						self phlow spawnObject: self serverStrategy applicationServer.
+						element fireEvent: BrDropdownHideWish new ]);
+				yourself.
+			details := (self serverStrategy applicationServer gtDetailsFor: GtPhlowEmptyView new) asElement.
+			contents := BrVerticalPane new
+				addChild: details;
+				addChild: buttonBar;
+				fitContent.
+			contents size: 600@300.
+			contents ].
 	^ BrButton new
-		aptitude: (BrGlamorousLabelAptitude new glamorousRegularSmallSize
-				foreground: BrGlamorousColors textMarkupColor);
+		aptitude: BrGlamorousButtonWithLabelAptitude + aptitude - BrGlamorousButtonExteriorAptitude;
 		label: 'Python not running';
-		action: [ :element | 
-			element phlow spawnObject: self serverStrategy applicationServer.
-			self updateLanguageLabel ];
-		margin: (BlInsets top: 5 right: 5);
-		fitContent
+		yourself
 ]
 
 { #category : #accessing }
@@ -103,5 +138,7 @@ LePythonSnippetElement >> updateLanguageLabel [
 				'Python @ ' , serverAddress printAddress ]
 			ifFalse: [ 
 				'Python not running' ].
-	languageElement label: label
+	languageElement label: label.
+	dropdownHandleButton ifNotNil: [ dropdownHandleButton label: label ].
+	^ label
 ]
