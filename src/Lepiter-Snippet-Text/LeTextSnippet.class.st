@@ -321,6 +321,11 @@ LeTextSnippet >> hasString [
 	^ self hasText
 ]
 
+{ #category : #accessing }
+LeTextSnippet >> headers [
+	^ self ast // #LeHeaderNode collect: [ :val | val headerName asString ]
+]
+
 { #category : #'api - accessing' }
 LeTextSnippet >> heading [
 	<return: #Integer or: nil>
