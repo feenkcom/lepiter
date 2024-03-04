@@ -28,7 +28,8 @@ LePythonSnippetElement >> initializeLanguageElement [
 		handle: [
 			dropdownHandleButton := BrButton new
 				aptitude: BrGlamorousButtonRectangularAptitude + BrGlamorousButtonWithLabelAptitude;
-				label: languageElement label ]
+				label: languageElement label;
+				beSmallSize ]
 		content: [ | buttonBar details contents|
 			buttonBar := BrHorizontalPane new
 				hMatchParent;
@@ -63,6 +64,7 @@ LePythonSnippetElement >> initializeLanguageElement [
 	^ BrButton new
 		aptitude: BrGlamorousButtonWithLabelAptitude + aptitude - BrGlamorousButtonExteriorAptitude;
 		label: 'Python not running';
+		beSmallSize;
 		yourself
 ]
 
