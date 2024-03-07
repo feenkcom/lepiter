@@ -82,7 +82,7 @@ LeDatabaseRegistrations class >> loadLepiterKnowledgeBases [
 
 { #category : #'accessing - pragma' }
 LeDatabaseRegistrations class >> pragmaSelector [
-	^ #lepiterDirectory:
+	^ #lepiterPath:
 ]
 
 { #category : #'building image utilities' }
