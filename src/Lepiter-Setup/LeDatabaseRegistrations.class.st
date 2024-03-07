@@ -87,7 +87,8 @@ LeDatabaseRegistrations class >> logicalDatabaseProperties [
 			defaultLocalLogicalDatabasePropertiesFileReference.
 	databaseProperties := LeLogicalDatabaseProperties
 			forPropertiesFile: propertiesFile
-			ifAbsentUse: [ self newLogicalDatabaseProperties ]
+			ifAbsentUse: [ self newLogicalDatabaseProperties ].
+	^ databaseProperties
 ]
 
 { #category : #'database initialization' }
