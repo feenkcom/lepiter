@@ -32,7 +32,7 @@ LeDatabaseRegistration >> gtLiveFor: aView [
 { #category : #'gt - extensions' }
 LeDatabaseRegistration >> gtSourceCodeFor: aView [
 	<gtView>
-	self objectBuilder ifNil: [ ^ aView empty ].
+	self pragma ifNil: [ ^ aView empty ].
 
 	^ aView forward
 		title: 'Source Code';
