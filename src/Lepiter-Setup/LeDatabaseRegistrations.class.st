@@ -80,6 +80,31 @@ LeDatabaseRegistrations class >> loadLepiterKnowledgeBases [
 	LeDatabasesRegistry default defaultLogicalDatabase reload
 ]
 
+{ #category : #'database initialization' }
+LeDatabaseRegistrations class >> logicalDatabaseProperties [
+	| databaseProperties propertiesFile |
+	propertiesFile := LepiterCoreDefaults
+			defaultLocalLogicalDatabasePropertiesFileReference.
+	databaseProperties := LeLogicalDatabaseProperties
+			forPropertiesFile: propertiesFile
+			ifAbsentUse: [ self newLogicalDatabaseProperties ]
+]
+
+{ #category : #'database initialization' }
+LeDatabaseRegistrations class >> newLogicalDatabaseProperties [
+	| aDatabaseProperties |
+	aDatabaseProperties := LeLogicalDatabaseProperties
+			withDefaultPrimaryDatabaseAndGlamorousDocumentation.
+
+	self
+		allDocumentationPathsDo: [ :aPath | 
+			| aFile |
+			aFile := LepiterCoreDefaults defaultDocumentationDirectory / aPath pathString.
+			aDatabaseProperties addRegisteredDirectory: aFile ].
+
+	^ aDatabaseProperties
+]
+
 { #category : #'accessing - pragma' }
 LeDatabaseRegistrations class >> pragmaSelector [
 	^ #lepiterPath:
@@ -99,4 +124,24 @@ LeDatabaseRegistrations class >> registerLepiterKnowledgeBasesInto: aLeDatabaseP
 			| aFile |
 			aFile := FileLocator gtResource / aPath pathString.
 			aLeDatabaseProperties addFirstRegisteredDirectory: aFile ]
+]
+
+{ #category : #'database initialization' }
+LeDatabaseRegistrations class >> setupDatabasesRegistry [
+	<return: #LeLogicalDatabase>
+	| databaseProperties |
+	databaseProperties := self logicalDatabaseProperties.
+	^ LeDatabasesRegistry uniqueInstance
+		setupWithLogicalDatabaseProperties: databaseProperties
+]
+
+{ #category : #'database initialization' }
+LeDatabaseRegistrations class >> setupDatabasesRegistryWithMonitor: isRunningMonitor [
+	<return: #LeLogicalDatabase>
+	| aDatabaseProperties aDatabase |
+	aDatabaseProperties := self logicalDatabaseProperties.
+	aDatabase := LeDatabasesRegistry uniqueInstance
+			setupWithLogicalDatabaseProperties: aDatabaseProperties.
+	isRunningMonitor ifFalse: [ aDatabase stopMonitoring ].
+	^ aDatabase
 ]
