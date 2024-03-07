@@ -1,8 +1,13 @@
 Extension { #name : #GtResourceReference }
 
 { #category : #'*Lepiter-Store' }
+GtResourceReference >> asLepiterFileReference [
+	^ self
+]
+
+{ #category : #'*Lepiter-Store' }
 GtResourceReference >> asLepiterZnUrl [
-	^ self fileReference asLepiterZnUrl
+	^ self asFileLocator asLepiterZnUrl
 ]
 
 { #category : #'*Lepiter-Store' }

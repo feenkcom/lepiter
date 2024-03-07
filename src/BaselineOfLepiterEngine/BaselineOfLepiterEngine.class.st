@@ -19,7 +19,8 @@ BaselineOfLepiterEngine >> baseline: spec [
 		spec package: 'Lepiter-Validator' with: [
 				spec requires: #('LepiterEngineExtensions' ). ].
 		spec package: 'Lepiter-Tool' with: [
-				spec requires: #('LepiterEngineExtensions' ). ]. ].
+				spec requires: #('LepiterEngineExtensions' ). ].
+		spec package: 'Lepiter-Setup' ].
 ]
 
 { #category : #converting }

@@ -1,0 +1,102 @@
+Class {
+	#name : #LeDatabaseRegistrations,
+	#superclass : #Object,
+	#category : #'Lepiter-Setup-Core'
+}
+
+{ #category : #'accessing - path' }
+LeDatabaseRegistrations class >> allDocumentationPaths [
+	^ Array streamContents: [ :aStream | 
+		self allDocumentationPathsDo: [ :aPath | 
+			aStream nextPut: aPath ] ]
+]
+
+{ #category : #'accessing - path' }
+LeDatabaseRegistrations class >> allDocumentationPathsDo: aBlock [
+	| allPragmas |
+	allPragmas := self allDocumentationPragmas.
+
+	allPragmas
+		do: [ :eachPragma | 
+			| aPath |
+			aPath := eachPragma method valueWithReceiver: self arguments: {}.
+			aPath ifNotNil: [ aBlock cull: aPath cull: eachPragma ] ]
+]
+
+{ #category : #'accessing - pragma' }
+LeDatabaseRegistrations class >> allDocumentationPragmas [
+	^ Pragma
+		allNamed: self pragmaSelector
+		in: self class
+		sortedByArgument: 1
+]
+
+{ #category : #'accessing - path' }
+LeDatabaseRegistrations class >> allReverseDocumentationPathsDo: aBlock [
+	| allPragmas |
+	allPragmas := self allDocumentationPragmas.
+
+	allPragmas
+		reverseDo: [ :eachPragma | 
+			| aPath |
+			aPath := eachPragma method valueWithReceiver: self arguments: {}.
+			aPath ifNotNil: [ aBlock cull: aPath cull: eachPragma ] ]
+]
+
+{ #category : #'gt - extensions' }
+LeDatabaseRegistrations class >> gtAllDocumentationPathsFor: aView [
+	<gtView>
+	<gtClassView>
+	^ aView columnedList
+		title: 'Lepiter Documentation Paths';
+		priority: 1;
+		items: [ Array
+				streamContents: [ :aStream | 
+					self
+						allDocumentationPathsDo: [ :aPath :aPragma | 
+							aStream
+								nextPut: (LeDatabaseRegistration new
+										path: aPath;
+										pragma: aPragma) ] ] ];
+		column: 'Index'
+			text: [ :anItem :anIndex | anIndex ]
+			width: 35;
+		column: 'Path' text: [ :anItem | anItem directory pathString ];
+		column: 'Package' text: [ :anItem | anItem pragma method package ];
+		column: 'Exists'
+			text: [ :anItem | 
+				anItem directory exists
+					ifTrue: [ 'yes' asRopedText foreground: BrGlamorousColors disabledButtonTextColor ]
+					ifFalse: [ 'no' ] ]
+			width: 40;
+		actionUpdateButton
+]
+
+{ #category : #'building image utilities' }
+LeDatabaseRegistrations class >> loadLepiterKnowledgeBases [
+	"I am used when an application is build manually"
+
+	self registerLepiterKnowledgeBases.
+	LeDatabasesRegistry default defaultLogicalDatabase reload
+]
+
+{ #category : #'accessing - pragma' }
+LeDatabaseRegistrations class >> pragmaSelector [
+	^ #lepiterDirectory:
+]
+
+{ #category : #'building image utilities' }
+LeDatabaseRegistrations class >> registerLepiterKnowledgeBases [
+	| aCurrentProperties |
+	aCurrentProperties := LeDatabasesRegistry defaultLogicalDatabase properties.
+	self registerLepiterKnowledgeBasesInto: aCurrentProperties
+]
+
+{ #category : #'building image utilities' }
+LeDatabaseRegistrations class >> registerLepiterKnowledgeBasesInto: aLeDatabaseProperties [
+	self
+		allReverseDocumentationPathsDo: [ :aPath | 
+			| aFile |
+			aFile := FileLocator gtResource / aPath pathString.
+			aLeDatabaseProperties addFirstRegisteredDirectory: aFile ]
+]
