@@ -73,6 +73,18 @@ LeElementSnippet >> acceptVisitor: aVisitor [
 	^ aVisitor visitElementSnippet: self
 ]
 
+{ #category : #converting }
+LeElementSnippet >> asPreviewElement [
+	"Copied from LeTextElement. Might not be correct."
+	| viewModel snippetElement |
+
+	viewModel := self asSnippetViewModel.
+	snippetElement := viewModel snippetView asElement.
+	snippetElement snippetViewModel: viewModel.
+	snippetElement padding: (BlInsets all: 10).
+	^ snippetElement
+]
+
 { #category : #accessing }
 LeElementSnippet >> asSnippetViewModel [
 	<return: #LeSnippetViewModel>
