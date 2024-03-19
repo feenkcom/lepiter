@@ -122,9 +122,9 @@ LeDatabaseRegistrations class >> registerLepiterKnowledgeBases [
 LeDatabaseRegistrations class >> registerLepiterKnowledgeBasesInto: aLeDatabaseProperties [
 	self
 		allReverseDocumentationPathsDo: [ :aPath | 
-			| aFile |
-			aFile := FileLocator gtResource / aPath pathString.
-			aLeDatabaseProperties addFirstRegisteredDirectory: aFile ]
+			| aDir |
+			aDir := FileLocator gtResource / aPath pathString.
+			aLeDatabaseProperties addRegisteredDirectory: aDir ]
 ]
 
 { #category : #'database initialization' }
