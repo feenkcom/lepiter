@@ -76,7 +76,7 @@ LeSmaCCRewriteSearchResult >> gtResultsView: aView [
 										text: (String
 												streamContents: [ :stream | stream nextPutAll: node source ]
 												limitedTo: 100) ] ]).
-			BrHorizontalPane new
+			BrVerticalPane new
 				matchParent;
 				addChild: list;
 				addChild: editor ]

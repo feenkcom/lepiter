@@ -23,6 +23,18 @@ LeHtmlPage >> directory: anObject [
 ]
 
 { #category : #'gt - extensions' }
+LeHtmlPage >> gtActionWebBrowseFor: anAction [
+	<gtAction>
+	self directory exists ifFalse: [ ^ anAction noAction ].
+
+	^ anAction button
+		priority: 5;
+		icon: BrGlamorousIcons go;
+		tooltip: 'Open in OS';
+		action: [ WebBrowser openOn: self directory fullName ]
+]
+
+{ #category : #'gt - extensions' }
 LeHtmlPage >> gtOpenInWebBrowserFor: anAction [
 	<gtAction>
 	pageFile ifNil: [ ^ anAction noAction ].
