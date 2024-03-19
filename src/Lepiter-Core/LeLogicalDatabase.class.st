@@ -328,9 +328,12 @@ LeLogicalDatabase >> explicitLinksCount [
 { #category : #accessing }
 LeLogicalDatabase >> gtDatabasesFor: aView [
 	<gtView>
-	^ aView list
+	^ aView columnedList
 		title: 'Databases';
-		items: [ self databases ]
+		items: [ self databases ];
+		column: 'Name' text: #databaseName;
+		column: 'Pages' text: [:db | db pages size ];
+		column: 'Links' text: [:db | db linksCount ]
 ]
 
 { #category : #'api - testing' }

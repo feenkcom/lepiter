@@ -253,7 +253,7 @@ LeLogicalDatabaseExamples >> crossDatabaseLinkLoadRegistered [
 
 	"Now the link has been resolved"
 	self assert: sourcePage children first outgoingTextualLinks first targetReference content isNotNil.
-
+	^ logicalDB
 ]
 
 { #category : #private }
