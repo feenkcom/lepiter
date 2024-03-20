@@ -6,7 +6,8 @@ Class {
 
 { #category : #accessing }
 PBImageMetadata class >> pythonClass [
-
+	"There does not seem to be a corresponding Python class"
+	
 	^ #Image
 ]
 

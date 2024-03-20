@@ -14,6 +14,11 @@ LePageAnnotationNode >> dbUuidString [
 	^ self dbNode ifNotNil: [ :node | node value source ]
 ]
 
+{ #category : #accessing }
+LePageAnnotationNode >> hasPageName [
+	^ self nameNode notNil
+]
+
 { #category : #testing }
 LePageAnnotationNode >> isDefined [
 	^ (self nameNode ifNil: [ self pageUidNode ]) 

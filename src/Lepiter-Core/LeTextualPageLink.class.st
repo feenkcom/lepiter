@@ -1,7 +1,7 @@
 Class {
 	#name : #LeTextualPageLink,
 	#superclass : #LeTextualLink,
-	#category : 'Lepiter-Core-Links'
+	#category : #'Lepiter-Core-Links'
 }
 
 { #category : #'api - testing' }
@@ -24,6 +24,8 @@ LeTextualPageLink >> linkNameInterval [
 		ifTrue: [ ^ node startPosition + 3 to: node stopPosition - 2 ].
 	(node isKindOf: LeKeywordLinkNode)
 		ifTrue: [ ^ node startPosition to: node stopPosition - 2 ].
+	((node isKindOf: LePageAnnotationNode) and: [node hasPageName])
+		ifTrue: [ ^ node nameNode startPosition to: node nameNode stopPosition ].
 	^ self error: 'Unknown link type'
 ]
 

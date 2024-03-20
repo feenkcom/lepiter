@@ -82,6 +82,46 @@ LeTextualPageLinkWithinSameDatabaseExamples >> changeSnippetContentToRemoveLinks
 ]
 
 { #category : #'examples - creation' }
+LeTextualPageLinkWithinSameDatabaseExamples >> createDatabaseWithGtPageLink [
+	<gtExample>
+		
+	theDatabase := self emptyDatabase.
+	
+	theFirstPage := theDatabase pageBuilder 
+		title: 'Page 1';
+		add.
+	theSecondPage := theDatabase pageBuilder 
+		title: 'Page 2';
+		add.
+	
+	theFirstSnippet := theFirstPage snippetBuilder string: 'First Snippet  with link to {{gtPage:Page 2|db=', theDatabase uuid asString36, '}}'; add.
+	theSecondSnippet := theSecondPage snippetBuilder 
+		string: 'Another Snippet'; 
+		add.
+	
+	self assert: theDatabase explicitLinksCount equals: 1.
+	self assert: theDatabase textualSnippetsLinksCount equals: 0.
+	self assert: theDatabase textualPageLinksCount equals: 1.
+	
+	^ theDatabase
+]
+
+{ #category : #'examples - creation' }
+LeTextualPageLinkWithinSameDatabaseExamples >> createDatabaseWithRenamedGtPageLink [
+	<gtExample>
+		
+	theDatabase := self createDatabaseWithGtPageLink.
+	theSecondPage := theDatabase pageNamed: 'Page 2'.
+	theSecondPage renameTo: 'Renamed page'.
+	
+	self assert: theDatabase explicitLinksCount equals: 1.
+	self assert: theDatabase textualSnippetsLinksCount equals: 0.
+	self assert: theDatabase textualPageLinksCount equals: 1.
+
+	^ theDatabase
+]
+
+{ #category : #'examples - creation' }
 LeTextualPageLinkWithinSameDatabaseExamples >> createDatabaseWithTextualLink [
 	<gtExample>
 		
