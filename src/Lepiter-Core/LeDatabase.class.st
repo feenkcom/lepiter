@@ -1088,21 +1088,19 @@ LeDatabase >> setPage: aLePage [
 	"Add the supplied page to the receiver without updating links and metadata.
 	This may be used as part of a bulk load to ensure linked pages aren't created prematurely.
 	Raise an error if a page with the same title exists."
+
 	| pages duplicate |
-	
-	pages := pagesByType at: aLePage pageTypeClass.
-
-	"Allow an exception handler to either ignore a duplicate page or repair it, and carry on"
-	duplicate := (pages includesKey: aLePage databaseKey) ifTrue: 
-		[ LeDuplicatePageIdError new page: aLePage; signal ]
-	ifFalse:
-		[ false ].
-	duplicate ifTrue: [ ^ nil ].
-
-	"Ensure that the page UID is unique within the database.
+	pages := pagesByType at: aLePage pageTypeClass.	"Allow an exception handler to either ignore a duplicate page or repair it, and carry on"
+	duplicate := (pages includesKey: aLePage databaseKey)
+			ifTrue: [ LeDuplicatePageIdError new
+					pageInDB: (pages at: aLePage databaseKey);
+					pageToAdd: aLePage;
+					signal.
+					true]
+			ifFalse: [ false ].
+	duplicate ifTrue: [ ^ nil ].	"Ensure that the page UID is unique within the database.
 	This is the one time a page can have its UID changed."
-	[ self hasPageUID: aLePage uid ] whileTrue:
-		[ aLePage assignNewUID ].
+	[ self hasPageUID: aLePage uid ] whileTrue: [ aLePage assignNewUID ].
 
 	aLePage aboutToAddToDatabase: self.
 	pages at: aLePage databaseKey put: aLePage.
