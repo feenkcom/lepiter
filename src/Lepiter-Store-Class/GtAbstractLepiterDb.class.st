@@ -128,6 +128,21 @@ GtAbstractLepiterDb class >> isRegisteredWithDefaultDatabase [
 		ifNone:  [ false ]
 ]
 
+{ #category : #accessing }
+GtAbstractLepiterDb class >> pageAtSelector: aSymbol [
+	"Answer the LePage stored in the specified selector.
+	Convenience method for viewing individual pages without loading the DB, e.g. in Epicea"
+	| method |
+
+	method := self class methodNamed: aSymbol.
+	^ LeJsonV4 uniqueInstance deserialize: ((LeDatabaseClassJsonV4Storage compiler
+		source: method sourceCode;
+		failBlock: [  ];
+		parse) 
+			comments second contents copyReplaceAll: '""' with: '"') 
+				readStream
+]
+
 { #category : #'gt - extensions' }
 GtAbstractLepiterDb class >> registereWithDefaultLogicalDatabase [
 	"Ensure the receiver is a registered database.
