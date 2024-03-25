@@ -25,12 +25,16 @@ LeDuplicatePageIdError >> gtDetailsFor: aView [
 	<gtExceptionDebuggingView>
 	^ aView columnedList 
 		title: 'Details';
+		priority: 0;
 		items: {
 			'Page already in DB' -> pageInDB . 
 			'Page to add' -> page };
 		column: 'Page' text: #key;
 		column: 'Title' text: [:each | each value title];
-		column: 'Uid' text: [:each | each value uidString ]
+		column: 'Uid' text: [:each | each value uidString ];
+		column: 'DB key' text: [:each | each value databaseKey ];
+		contextItemLabel: 'Inspect database key' action: [:anElement :each | anElement phlow spawnObject: each value databaseKey ];
+		send: #value
 ]
 
 { #category : #private }
