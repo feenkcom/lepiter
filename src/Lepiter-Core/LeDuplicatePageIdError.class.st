@@ -42,6 +42,7 @@ LeDuplicatePageIdError >> gtDetailsFor: aView [
 		column: 'On disk' text: [:each | (database monitor pageFileReference: each value) exists ];
 		contextItemLabel: 'Inspect database key' action: [:anElement :each | anElement phlow spawnObject: each value databaseKey ];
 		contextItemLabel: 'Inspect file' action: [:anElement :each | anElement phlow spawnObject: (database monitor pageFileReference: each value) ];
+		contextItemLabel: 'Delete file' action: [:anElement :each | (database monitor pageFileReference: each value) ensureDelete ] if: [:each | (database monitor pageFileReference: each value) exists ];
 		send: #value
 ]
 
