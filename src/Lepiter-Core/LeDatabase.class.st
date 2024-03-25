@@ -1093,6 +1093,7 @@ LeDatabase >> setPage: aLePage [
 	pages := pagesByType at: aLePage pageTypeClass.	"Allow an exception handler to either ignore a duplicate page or repair it, and carry on"
 	duplicate := (pages includesKey: aLePage databaseKey)
 			ifTrue: [ LeDuplicatePageIdError new
+					database: self;
 					pageInDB: (pages at: aLePage databaseKey);
 					pageToAdd: aLePage;
 					signal.
