@@ -142,6 +142,22 @@ LeLocalStoreMonitor >> gtViewCorruptFilesFor: aView [
 		items: [ self corruptFiles]
 ]
 
+{ #category : #accessing }
+LeLocalStoreMonitor >> gtViewDiskFilesFor: aView [
+	"Show the page files as they are on disk"
+	<gtView>
+
+	storage ifNil: [ ^ aView empty ].
+	^ aView columnedList 
+		title: 'Files on disk';
+		priority: 11;
+		items: [ self pagesFromStore
+			collect: [ :page | page title -> (self pageFileReference: page) ] ];
+		column: 'Title' text: [ :each | each key ];
+		column: 'File' text: [ :each | each value basename ];
+		send: [ :each | each value ]
+]
+
 { #category : #'gt-extensions' }
 LeLocalStoreMonitor >> gtViewStatusDetailsFor: aView [
 	<gtView>

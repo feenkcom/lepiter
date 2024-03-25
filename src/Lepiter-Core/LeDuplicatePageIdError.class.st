@@ -75,8 +75,10 @@ LeDuplicatePageIdError >> standardMessageText [
 	^ self page
 		ifNil: [ 'DuplicatePageIdError for unknown page.' ]
 		ifNotNil: [ :aPage | 
-			'Page "{1}" has the same uid {2} as the existing "{3}".'
+			'Page "{1}" with id {2} has the same databaseKey {3} as the existing "{4}" with id {5}.'
 				format: {page gtDisplayString.
 						page uidString.
-						pageInDB gtDisplayString} ]
+						page databaseKey.
+						pageInDB gtDisplayString.
+						pageInDB uidString} ]
 ]
