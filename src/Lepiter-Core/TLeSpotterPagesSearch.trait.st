@@ -29,19 +29,21 @@ TLeSpotterPagesSearch >> gtSpotterContentFor: aSearch [
 		title: 'Direct Children Content';
 		priority: 21;
 		items: [ self children ];
-		itemFilterName: #content;
+		itemName: [ :each | each contentAsString ];
 		wantsToDisplayOnEmptyQuery: true;
 		filterBySubstring
 ]
 
 { #category : #'gt-extensions' }
-TLeSpotterPagesSearch >> gtSpotterSubPartsFor: aStep [
+TLeSpotterPagesSearch >> gtSpotterUidFor: aSearch [
 	<gtSearch>
-	false ifFalse: [ ^ self ].
-	aStep listProcessor
-		priority: 24;
-		title: 'Navigate To Children';
-		wantsToDisplayOnEmptyQuery: false;
+	self hasChildren ifFalse: [ ^ aSearch empty ].
+	^ aSearch list
+		title: 'Pages with UUID';
+		priority: 51;
+		items: [ self children ];
+		itemName: [ :each | each uidString ];
+		wantsToDisplayOnEmptyQuery: true;
 		filterBySubstring
 ]
 
