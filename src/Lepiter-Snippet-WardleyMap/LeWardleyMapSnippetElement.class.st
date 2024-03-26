@@ -3,7 +3,8 @@ Class {
 	#superclass : #LeSnippetElement,
 	#instVars : [
 		'wardleyMapElement',
-		'wardleyMapContainer'
+		'wardleyMapContainer',
+		'maximizerAptitude'
 	],
 	#category : #'Lepiter-Snippet-WardleyMap-Snippet'
 }
@@ -54,9 +55,16 @@ LeWardleyMapSnippetElement >> initialize [
 		when: BlResizerResizedEvent
 		do: [ :aResizerEvent | self snippet height: aResizerEvent extent y ].
 
+	maximizerAptitude := BrGlamorousWithMaximizerAptitude new
+		// LeWardleyMapElement;
+		preferredBackground: Color white.
+		
 	wardleyMapContainer := BrVerticalPane new
 		fitContent;
-		addChild: wardleyMapElement
+		clipChildren: true;
+		addAptitude: maximizerAptitude;
+		addChild: wardleyMapElement.
+	self onSnippetViewModelFocused: false
 ]
 
 { #category : #'private - event handling' }
@@ -83,7 +91,10 @@ LeWardleyMapSnippetElement >> onSnippetViewModelFocused: aBoolean [
 
 	aBoolean
 		ifTrue: [ self requestFocus ]
-		ifFalse: [ self loseFocus ]
+		ifFalse: [ self loseFocus ].
+	aBoolean
+		ifTrue: [ maximizerAptitude showMaximizeButton ]
+		ifFalse: [ maximizerAptitude hideMaximizeButton ].
 ]
 
 { #category : #'api - snippet view model' }

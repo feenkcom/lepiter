@@ -1,6 +1,6 @@
 Class {
 	#name : #GtPharoLinkCoderModel,
-	#superclass : #GtSourceCoder,
+	#superclass : #GtSmalltalkSourceCoder,
 	#instVars : [
 		'pharoBindings',
 		'applicationStrategy'

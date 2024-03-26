@@ -4,10 +4,16 @@ Class {
 	#instVars : [
 		'page',
 		'file',
-		'pageInDB'
+		'pageInDB',
+		'database'
 	],
 	#category : #'Lepiter-Core-Exceptions'
 }
+
+{ #category : #'private - adding / removing' }
+LeDuplicatePageIdError >> database: aDatabase [ 
+	database := aDatabase
+]
 
 { #category : #accessing }
 LeDuplicatePageIdError >> file [
@@ -25,12 +31,19 @@ LeDuplicatePageIdError >> gtDetailsFor: aView [
 	<gtExceptionDebuggingView>
 	^ aView columnedList 
 		title: 'Details';
+		priority: 0;
 		items: {
 			'Page already in DB' -> pageInDB . 
 			'Page to add' -> page };
 		column: 'Page' text: #key;
 		column: 'Title' text: [:each | each value title];
-		column: 'Uid' text: [:each | each value uidString ]
+		column: 'Uid' text: [:each | each value uidString ];
+		column: 'DB key' text: [:each | each value databaseKey ];
+		column: 'On disk' text: [:each | (database monitor pageFileReference: each value) exists ];
+		contextItemLabel: 'Inspect database key' action: [:anElement :each | anElement phlow spawnObject: each value databaseKey ];
+		contextItemLabel: 'Inspect file' action: [:anElement :each | anElement phlow spawnObject: (database monitor pageFileReference: each value) ];
+		contextItemLabel: 'Delete file' action: [:anElement :each | (database monitor pageFileReference: each value) ensureDelete ] if: [:each | (database monitor pageFileReference: each value) exists ];
+		send: #value
 ]
 
 { #category : #private }
@@ -71,8 +84,10 @@ LeDuplicatePageIdError >> standardMessageText [
 	^ self page
 		ifNil: [ 'DuplicatePageIdError for unknown page.' ]
 		ifNotNil: [ :aPage | 
-			'Page "{1}" has the same uid {2} as the existing "{3}".'
+			'Page "{1}" with id {2} has the same databaseKey {3} as the existing "{4}" with id {5}.'
 				format: {page gtDisplayString.
 						page uidString.
-						pageInDB gtDisplayString} ]
+						page databaseKey.
+						pageInDB gtDisplayString.
+						pageInDB uidString} ]
 ]
