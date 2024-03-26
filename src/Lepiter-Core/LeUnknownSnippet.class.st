@@ -94,7 +94,8 @@ LeUnknownSnippet >> gtStringFor: aView [
 	^ aView textEditor
 		title: 'JSON string';
 		priority: 10;
-		aptitude: BrGlamorousRegularEditorAptitude;
+		aptitude: BrGlamorousCodeEditorAptitude;
+		styler: JSONParser gtStyler;
 		text: [ self jsonString ]
 ]
 
