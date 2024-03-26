@@ -1094,7 +1094,7 @@ LeDatabase >> setPage: aLePage [
 	duplicate := (pages includesKey: aLePage databaseKey)
 			ifTrue: [ LeDuplicatePageIdError new
 					database: self;
-					pageInDB: (pages at: aLePage databaseKey);
+					pageInCurrentDatabase: (pages at: aLePage databaseKey);
 					pageToAdd: aLePage;
 					signal.
 					true]
