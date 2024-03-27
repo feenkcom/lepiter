@@ -27,7 +27,8 @@ LeDatabaseRegistrations class >> allDocumentationPathsDo: aBlock [
 LeDatabaseRegistrations class >> allDocumentationPragmas [
 	^ Pragma
 		allNamed: self pragmaSelector
-		in: self class
+		from: LeDatabaseRegistrations
+		to: self class
 		sortedByArgument: 1
 ]
 
@@ -48,7 +49,7 @@ LeDatabaseRegistrations class >> gtAllDocumentationPathsFor: aView [
 	<gtView>
 	<gtClassView>
 	^ aView columnedList
-		title: 'Lepiter Documentation Paths';
+		title: 'Lepiter documentation paths';
 		priority: 1;
 		items: [ Array
 				streamContents: [ :aStream | 
