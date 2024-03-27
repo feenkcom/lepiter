@@ -86,12 +86,17 @@ LePharoSnippet >> compileExampleMethod: aSelector in: aClass classified: aSymbol
 	GtPharoCodeModifier current performRefactoryChange: change
 ]
 
-{ #category : #accessing }
+{ #category : #enumerating }
 LePharoSnippet >> followingSnippets [
 	^ self withFollowingSnippets allButFirst
 ]
 
-{ #category : #accessing }
+{ #category : #enumerating }
+LePharoSnippet >> indentAll [
+	self withFollowingSnippets do: #indent
+]
+
+{ #category : #enumerating }
 LePharoSnippet >> moveFollowingSnippetsToPage: pageName [
 	"Use this to split a lepiter snippet by evaluating or inspecting this in a code
 	snippet at the split point.
@@ -115,7 +120,12 @@ LePharoSnippet >> newCoder [
 	^ GtPharoSnippetCoder new
 ]
 
-{ #category : #accessing }
+{ #category : #enumerating }
+LePharoSnippet >> unindentAll [
+	self withFollowingSnippets reversed do: #unindent
+]
+
+{ #category : #enumerating }
 LePharoSnippet >> withFollowingSnippets [
 	"This snippet and all following children of the same parent.
 	Sample usages:
