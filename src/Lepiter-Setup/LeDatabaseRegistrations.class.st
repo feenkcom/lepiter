@@ -27,8 +27,8 @@ LeDatabaseRegistrations class >> allDocumentationPathsDo: aBlock [
 LeDatabaseRegistrations class >> allDocumentationPragmas [
 	^ Pragma
 		allNamed: self pragmaSelector
-		from: LeDatabaseRegistrations
-		to: self class
+		from: self class
+		to: LeDatabaseRegistrations
 		sortedByArgument: 1
 ]
 
