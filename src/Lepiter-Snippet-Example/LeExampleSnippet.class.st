@@ -286,9 +286,9 @@ LeExampleSnippet >> exampleSelector: aNewExampleSelector [
 
 { #category : #'private - subscriptions' }
 LeExampleSnippet >> handleSystemClassAnnouncement: anAnnouncement [
-	anAnnouncement affectsClasses
-		ifTrue: [ exampleBehaviorName = anAnnouncement classAffected instanceSide name
-				ifTrue: [ self notifyExampleBehaviorNameChanged ] ]
+	anAnnouncement affectsClasses ifFalse: [ ^ self ].
+	exampleBehaviorName = anAnnouncement classAffected originalName
+		ifTrue: [ self notifyExampleBehaviorNameChanged ]
 ]
 
 { #category : #'private - subscriptions' }
@@ -948,13 +948,7 @@ LeExampleSnippet >> unsetPreviewShowSelector [
 
 { #category : #'private - subscriptions' }
 LeExampleSnippet >> unsubscribeFromSystem [
-	SystemAnnouncer uniqueInstance weak
-		when: ClassAnnouncement
-			send: #handleSystemClassAnnouncement:
-			to: self;
-		when: MethodAnnouncement
-			send: #handleSystemMethodAnnouncement:
-			to: self
+	SystemAnnouncer uniqueInstance unsubscribe: self
 ]
 
 { #category : #converting }
