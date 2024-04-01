@@ -258,6 +258,7 @@ LeExampleSnippetViewModel >> handleSystemClassAnnouncement: aClassAnnouncement [
 
 { #category : #'private - event handling' }
 LeExampleSnippetViewModel >> handleSystemMethodAnnouncement: aMethodAnnouncement [
+	true ifTrue: [ ^ self ].
 	self gtExampleDo: [ :aGtExample |
 		(aMethodAnnouncement affectsMethod: aGtExample method)
 			ifFalse: [ ^ self ].
@@ -296,6 +297,7 @@ LeExampleSnippetViewModel >> initialize [
 		send: #requestUpdateAnnotationText 
 		to: self.
 	
+	true ifTrue: [ ^ self ].
 	SystemAnnouncer uniqueInstance weak 
 		when: ClassAnnouncement
 			send: #handleSystemClassAnnouncement:

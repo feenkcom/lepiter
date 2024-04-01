@@ -58,18 +58,16 @@ LeSnippetStyler >> handleEpiceaUpdate: anAnnouncement [
 ]
 
 { #category : #private }
-LeSnippetStyler >> handleSystemChangeAnnouncement: anAnnouncement [
-	anAnnouncement affectsClasses
-		ifTrue: [ (subscribedClasses
-				includes: anAnnouncement classAffected instanceSide name)
-				ifTrue: [ self restyle ] ].
-	(anAnnouncement isKindOf: MethodAnnouncement)
-		ifTrue: [ (subscribedMethods
-				includes:
-					{anAnnouncement methodClass name.
-					anAnnouncement selector})
-				ifTrue: [ self restyle ] ].
-	self updateChanges
+LeSnippetStyler >> handleSystemClassAnnouncement: anAnnouncement [
+	(subscribedClasses includes: anAnnouncement classAffected originalName)
+		ifTrue: [ self restyle ]
+]
+
+{ #category : #private }
+LeSnippetStyler >> handleSystemMethodAnnouncement: anAnnouncement [
+	(subscribedMethods
+		includes: {anAnnouncement methodClass originalName.
+				anAnnouncement selector}) ifTrue: [ self restyle ].
 ]
 
 { #category : #'api - accessing' }
@@ -128,6 +126,7 @@ LeSnippetStyler >> restyleWhenClassChanged: aClassName [
 { #category : #private }
 LeSnippetStyler >> restyleWhenMethodChanged: aSelector inClass: aClassName [
 	self subscribeToSystem.
+	subscribedClasses add: aClassName.
 	subscribedMethods
 		add:
 			{aClassName.
@@ -194,13 +193,15 @@ LeSnippetStyler >> styleText: aText heading: aHeadingStyle [
 
 { #category : #private }
 LeSnippetStyler >> subscribeToSystem [
-	subscribedToSystemAnnouncer
-		ifTrue: [ ^ self ].
+	subscribedToSystemAnnouncer ifTrue: [ ^ self ].
 	subscribedToSystemAnnouncer := true.
 	SystemAnnouncer uniqueInstance weak
-		when: ClassAnnouncement , MethodAnnouncement
-		send: #handleSystemChangeAnnouncement:
-		to: self
+		when: ClassAnnouncement
+			send: #handleSystemClassAnnouncement:
+			to: self;
+		when: MethodAnnouncement
+			send: #handleSystemMethodAnnouncement:
+			to: self
 ]
 
 { #category : #private }
