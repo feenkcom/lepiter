@@ -1,6 +1,11 @@
 Extension { #name : #LeModelExamples }
 
 { #category : #'*Lepiter-Snippets' }
+LeModelExamples >> changeSnippetsPageTitle [
+	^ 'Change snippets'
+]
+
+{ #category : #'*Lepiter-Snippets' }
 LeModelExamples >> createClassChange [
 ^ 'OmEntry {
 	#tags : {
@@ -82,7 +87,7 @@ LeModelExamples >> databaseWithPageHavingChangeAndDependentSnippets [
 	database := temporaryDatabase database.
 
 	page := database pageBuilder
-			title: 'Change snippets';
+			title: self changeSnippetsPageTitle;
 			add.
 
 	createClassPath := database
@@ -107,7 +112,7 @@ LeModelExamples >> databaseWithPageHavingChangeAndDependentSnippets [
 		string: '{{gtMethod:LeOnDemandDummyClass >> #example}}';
 		add.
 
-	exampleSnippet := LeExampleSnippet empty 
+	exampleSnippet := LeExampleSnippet empty
 			exampleBehaviorName: #LeOnDemandDummyClass;
 			exampleSelector: #example;
 			codeExpanded: false;
@@ -117,4 +122,19 @@ LeModelExamples >> databaseWithPageHavingChangeAndDependentSnippets [
 	page addSnippet: exampleSnippet.
 
 	^ temporaryDatabase
+]
+
+{ #category : #'*Lepiter-Snippets' }
+LeModelExamples >> pageHavingChangeAndDependentSnippets [
+
+	<gtExample>
+	| temporaryDatabase database page |
+	temporaryDatabase := self databaseWithPageHavingChangeAndDependentSnippets.
+	database := temporaryDatabase database.
+
+	page := database pageNamed: self changeSnippetsPageTitle.
+
+	^ LePageExampleHolder new
+		page: page;
+		temporaryDatabase: temporaryDatabase
 ]
