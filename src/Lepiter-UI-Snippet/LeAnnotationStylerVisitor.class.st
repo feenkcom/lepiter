@@ -4,7 +4,6 @@ Class {
 	#traits : 'TLeAnnotationParseNodeVisitor',
 	#classTraits : 'TLeAnnotationParseNodeVisitor classTrait',
 	#instVars : [
-		'styler',
 		'normalFontSize',
 		'lastUniqueId'
 	],

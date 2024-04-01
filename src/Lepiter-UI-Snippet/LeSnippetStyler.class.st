@@ -3,7 +3,6 @@ Class {
 	#superclass : #BlTextStyler,
 	#instVars : [
 		'snippetViewModel',
-		'editor',
 		'attributesBuilder',
 		'showMarkup',
 		'subscribedClasses',
@@ -44,14 +43,11 @@ LeSnippetStyler >> displayMarkup [
 	self restyle.
 ]
 
-{ #category : #'api - accessing' }
+{ #category : #accessing }
 LeSnippetStyler >> editor [
-	^ editor
-]
+	"There is an old code that depends on this method. Such calls should be removed."
 
-{ #category : #'api - accessing' }
-LeSnippetStyler >> editor: anObject [
-	editor := anObject
+	^ nil
 ]
 
 { #category : #private }
@@ -119,8 +115,8 @@ LeSnippetStyler >> privateStyle: aText [
 
 { #category : #private }
 LeSnippetStyler >> restyle [
-	editor notNil
-		ifTrue: [ editor styleText ]
+	snippetViewModel ifNotNil: [ :aViewModel | 
+		aViewModel requestStyleSourceText ]
 ]
 
 { #category : #private }
