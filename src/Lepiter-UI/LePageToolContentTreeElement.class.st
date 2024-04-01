@@ -108,6 +108,7 @@ LePageToolContentTreeElement >> createTreeElement [
 		nodeStencil: [ :aSnippetView | aSnippetView asElement ];
 		nodeDataBinder: [ :aSnippetElement :aTreeNode | 
 			aSnippetElement
+				id: (LeSnippetId new uid: aTreeNode value uid);
 				snippetViewModel: (aTreeNode value titleElement: self titleElement) ];
 		rowStencil: [ :aNodeType :aNodeElement | self createTreeRowFor: aNodeElement ];
 		rowDataBinder: [ :aRowElement :aTreeNode :aRowIndex | 
