@@ -284,6 +284,19 @@ LeExampleSnippet >> exampleSelector: aNewExampleSelector [
 	self notifyExampleSelectorChanged
 ]
 
+{ #category : #'private - subscriptions' }
+LeExampleSnippet >> handleSystemClassAnnouncement: anAnnouncement [
+	exampleBehaviorName = anAnnouncement classAffected originalName
+		ifTrue: [ self notifyExampleBehaviorNameChanged ]
+]
+
+{ #category : #'private - subscriptions' }
+LeExampleSnippet >> handleSystemMethodAnnouncement: anAnnouncement [
+	(exampleBehaviorName = anAnnouncement methodClass originalName
+		and: [ exampleSelector = anAnnouncement selector ])
+		ifTrue: [ self notifyExampleSelectorChanged ]
+]
+
 { #category : #'api - code expanded' }
 LeExampleSnippet >> hasCodeExpanded [
 	<return: #Boolean>
@@ -361,7 +374,9 @@ LeExampleSnippet >> initialize [
 	noCode := self defaultNoCode.
 	previewExpanded := self defaultPreviewExpanded.
 	previewShowSelector := self defaultPreviewShowSelector.
-	previewHeight := self defaultPreviewHeight
+	previewHeight := self defaultPreviewHeight.
+	
+	self subscribeToSystem
 ]
 
 { #category : #converting }
@@ -813,6 +828,18 @@ LeExampleSnippet >> storeOn: aStream [
 	aStream nextPutAll: ')'
 ]
 
+{ #category : #'private - subscriptions' }
+LeExampleSnippet >> subscribeToSystem [
+	self unsubscribeFromSystem.
+	SystemAnnouncer uniqueInstance weak
+		when: ClassAnnouncement
+			send: #handleSystemClassAnnouncement:
+			to: self;
+		when: MethodAnnouncement
+			send: #handleSystemMethodAnnouncement:
+			to: self
+]
+
 { #category : #'api - code expanded' }
 LeExampleSnippet >> unsetCodeExpanded [
 	<propertyUnsetter: #codeExpanded>
@@ -916,6 +943,11 @@ LeExampleSnippet >> unsetPreviewShowSelector [
 	previewShowSelector := nil.
 	self onPreviousPreviewShowSelectorUnset: aPreviousPreviewShowSelector.
 	self notifyPreviewShowSelectorChanged
+]
+
+{ #category : #'private - subscriptions' }
+LeExampleSnippet >> unsubscribeFromSystem [
+	SystemAnnouncer uniqueInstance unsubscribe: self
 ]
 
 { #category : #converting }

@@ -20,6 +20,8 @@ BaselineOfLepiterEngine >> baseline: spec [
 				spec requires: #('LepiterEngineExtensions' ). ].
 		spec package: 'Lepiter-Tool' with: [
 				spec requires: #('LepiterEngineExtensions' ). ].
+		spec package: 'Lepiter-Snippets' with: [ 
+				spec requires: #('LepiterEngineExtensions') ].
 		spec package: 'Lepiter-Setup' ].
 ]
 

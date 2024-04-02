@@ -201,7 +201,7 @@ LeExampleSnippetElement >> initializeAsyncFuture [
 
 { #category : #'private - event handling' }
 LeExampleSnippetElement >> onExampleSnippetContentChanged [
-	self requestExamplePreviewUpdate
+	self enqueueTask: (BlTaskAction new action: [ self requestExamplePreviewUpdate ])
 ]
 
 { #category : #'api - snippet view model' }

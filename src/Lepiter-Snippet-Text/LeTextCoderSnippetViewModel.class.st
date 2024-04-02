@@ -137,6 +137,11 @@ LeTextCoderSnippetViewModel >> onSnippetTextChanged: aLeSnippetTextChanged [
 						applyTextEditCommand: aTextEditCommand ]" ]
 ]
 
+{ #category : #'api - text' }
+LeTextCoderSnippetViewModel >> requestStyleSourceText [
+	textCoder requestStyleSourceText
+]
+
 { #category : #accessing }
 LeTextCoderSnippetViewModel >> shouldShowMarkup [
 	^ shouldShowMarkup
