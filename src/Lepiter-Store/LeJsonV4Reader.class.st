@@ -96,18 +96,24 @@ LeJsonV4Reader >> postCopy [
 { #category : #private }
 LeJsonV4Reader >> unknownSnippetTypeFrom: map [
 	"If the supplied map looks like a snippet, answer an unknown snippet, otherwise raise an exception"
-	| children snippet |
 
+	| children snippet |
 	"map is considered a snippet if it has all the keys of LeBlock"
-	((LeSnippet leJsonV4AttributeMapping collect: #key as: Set) difference: map keys) ifNotEmpty: 
-		[ self error: 'Unknown snippet type' ].
+	((LeSnippet leJsonV4AttributeMapping collect: #key as: Set)
+		difference: map keys) ifNotEmpty: [ self error: 'Unknown snippet type' ].
 
 	children := map at: #children.
 	map at: #children put: LeSnippets new.
-	snippet := LeUnknownSnippet jsonString: (String streamContents: [ :stream | 
-				LeJsonV4 uniqueInstance serialize: map on: stream prettyPrint: true ]).
-	snippet 
+	snippet := LeUnknownSnippet
+			jsonString: (String
+					streamContents: [ :stream | 
+						LeJsonV4 uniqueInstance
+							serialize: map
+							on: stream
+							prettyPrint: true ]).
+	snippet
 		children: children;
-		uid: (map at: #uid).
+		uid: (map at: #uid). 
+	map at: #editTime ifPresent: [ :editTime | snippet editTime: editTime ].
 	^ snippet
 ]
