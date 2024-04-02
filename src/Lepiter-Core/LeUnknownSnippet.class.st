@@ -168,14 +168,14 @@ LeUnknownSnippet >> reloadAttributesFromContent: aLeContent [
 	"Update only the jsonString.
 	No other metadata needs to be update for an unknown snippet, as that
 	snippet is created on-the-fly by the importer."
-	| changed |
-	
+
+	| changed metaDataChanged |
 	changed := false.
-	jsonString = aLeContent jsonString ifFalse: [ 
-		self jsonString: aLeContent jsonString.
-		changed := true ].
-	
-	^ changed
+	jsonString = aLeContent jsonString
+		ifFalse: [ self jsonString: aLeContent jsonString.
+			changed := true ].
+	metaDataChanged := self reloadCommonMetadataFromContent: aLeContent.
+	^ metaDataChanged or: [ changed ]
 ]
 
 { #category : #'private - updating' }
