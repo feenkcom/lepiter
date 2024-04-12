@@ -48,6 +48,14 @@ LePythonSnippetElement >> initializeLanguageElement [
 					action: [ :element | self serverStrategy applicationServer restart ]);
 				addChild: (BrButton new
 					aptitude: BrGlamorousButtonWithIconAptitude;
+					icon: BrGlamorousVectorIcons edit;
+					label: 'Open LSP editor';
+					action: [ :element | | model |
+						model := GtLSPPythonModel onDirectory: self serverStrategy applicationServer settings workingDirectory.
+						self phlow spawnObject: model.
+						element fireEvent: BrDropdownHideWish new ]);
+				addChild: (BrButton new
+					aptitude: BrGlamorousButtonWithIconAptitude;
 					icon: BrGlamorousVectorIcons inspect;
 					label: 'Inspect PythonBridge';
 					action: [ :element | 
