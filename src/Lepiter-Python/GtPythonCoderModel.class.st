@@ -32,8 +32,7 @@ GtPythonCoderModel >> bindAndExecute: sourceString inContext: aGtSourceCoderEval
 				ifNil: [ 'None' ]
 				ifNotNil: [ :obj | 
 					(obj isKindOf: PBProxyObject)
-						ifTrue: [ String
-								streamContents: [ :stream | obj resolveIdPyExpression writePython3On: stream ] ]
+						ifTrue: [ obj resolveIdPyExpression generate ]
 						ifFalse: [ 'None' ] ])
 		at: startPosition.
 	trimmedSource insert: String cr , ws at: startPosition.
@@ -41,9 +40,7 @@ GtPythonCoderModel >> bindAndExecute: sourceString inContext: aGtSourceCoderEval
 	lastStatement := ast statements last.
 	lastStatement isValueStatement
 		ifTrue: [ trimmedSource insert: 'snippetResult = ' at: lastStatement startPosition ]
-		ifFalse: [ trimmedSource
-				append: String cr;
-				append: 'snippetResult = None' ].
+		ifFalse: [ trimmedSource append: String cr; append: 'snippetResult = None' ].
 	pythonBindings := self pythonBindings.
 
 	application := pythonApplicationStrategy applicationServer.
@@ -140,8 +137,7 @@ GtPythonCoderModel >> primitiveEvaluate: aSourceString inContext: aGtSourceCoder
 			inContext: aGtSourceCoderEvaluationContext.
 	result associationsDo: [ :binding |
 		remoteValue := binding value.
-		"in order not to overwrite an existing Python binding,
-		try to unwrap all but snippetResult to primitive types"
+		"try to unwrap all but snippetResult to primitive types"
 		binding key = 'snippetResult'
 			ifFalse: [ remoteValue := remoteValue unwrapPrimitiveTypes ].
 		(pharoBindings bindingOf: binding key asSymbol) value: remoteValue ].
