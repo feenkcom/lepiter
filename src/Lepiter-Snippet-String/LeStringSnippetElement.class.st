@@ -18,7 +18,7 @@ LeStringSnippetElement >> go [
 	sharedBindings := self snippetViewModel snippetBindings.
 	binding := sharedBindings bindingOf: bindingName asSymbol.
 	binding value: string.
-	^ bindingName -> string
+	^ "bindingName ->" string
 ]
 
 { #category : #initialization }
@@ -85,6 +85,8 @@ LeStringSnippetElement >> initialize [
 	bindingEditor vFitContent.
 	bindingEditor hMatchParent.
 	bindingEditor aptitude: (BrGlamorousEditableLabelAptitude new) + (BrGlamorousCodeEditorAptitude new).
+	
+	bindingEditor editor text: 'loremIpsum' asRopedText.
 	
 	toolbarElement addItem: bindingEditor.
 ]
