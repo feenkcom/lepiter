@@ -1,7 +1,7 @@
 Class {
 	#name : #LeFileSnippetViewModel,
 	#superclass : #LeSnippetViewModel,
-	#category : #'Lepiter-Snippet-String'
+	#category : #'Lepiter-Snippet-File'
 }
 
 { #category : #accessing }

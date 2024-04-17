@@ -7,7 +7,7 @@ Class {
 		'acceptAction',
 		'inspectAction'
 	],
-	#category : #'Lepiter-Snippet-String'
+	#category : #'Lepiter-Snippet-File'
 }
 
 { #category : #accessing }

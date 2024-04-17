@@ -5,7 +5,7 @@ Class {
 		'fileReference',
 		'bindingName'
 	],
-	#category : #'Lepiter-Snippet-String'
+	#category : #'Lepiter-Snippet-File'
 }
 
 { #category : #'api - accessing menu' }

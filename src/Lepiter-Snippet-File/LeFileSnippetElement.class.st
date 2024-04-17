@@ -5,7 +5,7 @@ Class {
 		'contentElement',
 		'form'
 	],
-	#category : #'Lepiter-Snippet-String'
+	#category : #'Lepiter-Snippet-File'
 }
 
 { #category : #accessing }
