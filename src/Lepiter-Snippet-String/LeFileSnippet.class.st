@@ -76,6 +76,7 @@ LeFileSnippet >> fileReferenceRepresentation [
 { #category : #accessing }
 LeFileSnippet >> fileReferenceRepresentation: aString [
 	| url |
+	aString ifNil: [ ^ self fileReference: nil ].
 	url := aString asUrl.
 	^ self fileReference: url
 ]

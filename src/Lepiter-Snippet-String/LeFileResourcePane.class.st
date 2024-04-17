@@ -34,7 +34,7 @@ LeFileResourcePane >> bindingDescription [
 		priority: 1;
 		label: 'Binding';
 		accessor: #bindingName;
-		default: 'file'
+		default: ''
 ]
 
 { #category : #accessing }
@@ -43,8 +43,8 @@ LeFileResourcePane >> bindingName [
 ]
 
 { #category : #accessing }
-LeFileResourcePane >> bindingName: anObject [
-	bindingName := anObject
+LeFileResourcePane >> bindingName: aString [
+	bindingName := aString
 ]
 
 { #category : #accessing }
@@ -53,8 +53,8 @@ LeFileResourcePane >> fileReference [
 ]
 
 { #category : #accessing }
-LeFileResourcePane >> fileReference: anObject [
-	fileReference := anObject
+LeFileResourcePane >> fileReference: aString [
+	fileReference := aString
 ]
 
 { #category : #magritte }
@@ -64,7 +64,7 @@ LeFileResourcePane >> fileReferenceDescription [
 		priority: 2;
 		label: 'FileReference';
 		accessor: #fileReference;
-		default: '/tmp/foo.txt'
+		default: ''
 ]
 
 { #category : #accessing }
