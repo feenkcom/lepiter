@@ -2,7 +2,8 @@ Class {
 	#name : #LeFileSnippet,
 	#superclass : #LeSnippet,
 	#instVars : [
-		'fileReference'
+		'fileReference',
+		'bindingName'
 	],
 	#category : #'Lepiter-Snippet-String'
 }
@@ -12,12 +13,20 @@ LeFileSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;
-		title: 'FileResource'
+		title: 'File'
 ]
 
 { #category : #accessing }
 LeFileSnippet class >> empty [
 	^ self new
+]
+
+{ #category : #accessing }
+LeFileSnippet class >> leJsonV4AttributeMapping [
+	^ super leJsonV4AttributeMapping
+		add: #fileReferenceRepresentation -> #fileReference;
+		add: #bindingName -> #bindingName;
+		yourself
 ]
 
 { #category : #accessing }
@@ -32,6 +41,41 @@ LeFileSnippet >> asSnippetViewModel [
 ]
 
 { #category : #accessing }
+LeFileSnippet >> bindingName [
+	^ bindingName
+]
+
+{ #category : #accessing }
+LeFileSnippet >> bindingName: aNameString [
+	bindingName := aNameString
+]
+
+{ #category : #accessing }
 LeFileSnippet >> contentAsString [
-	^ String new
+	self fileReference ifNil: [ ^ String new ].
+	^ self fileReferenceRepresentation
+]
+
+{ #category : #accessing }
+LeFileSnippet >> fileReference [
+	^ fileReference
+]
+
+{ #category : #accessing }
+LeFileSnippet >> fileReference: aFileReference [
+	aFileReference ifNil: [ ^ fileReference := nil ].
+	fileReference := aFileReference asFileReference
+]
+
+{ #category : #accessing }
+LeFileSnippet >> fileReferenceRepresentation [
+	self fileReference ifNil: [ ^ nil ].
+	^ self fileReference asUrl asString
+]
+
+{ #category : #accessing }
+LeFileSnippet >> fileReferenceRepresentation: aString [
+	| url |
+	url := aString asUrl.
+	^ self fileReference: url
 ]
