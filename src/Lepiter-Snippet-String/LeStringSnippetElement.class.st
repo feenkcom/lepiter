@@ -14,7 +14,9 @@ Class {
 LeStringSnippetElement >> go [
 	| string bindingName sharedBindings binding |
 	string := stringEditor text asString.
+	self snippetViewModel contentString: string.
 	bindingName := bindingEditor text asString.
+	self snippetViewModel bindingName: bindingName.
 	sharedBindings := self snippetViewModel snippetBindings.
 	binding := sharedBindings bindingOf: bindingName asSymbol.
 	binding value: string.
@@ -29,7 +31,7 @@ LeStringSnippetElement >> initialize [
 	
 	stringEditor := BrEditor new.
 	stringEditor aptitude: BrGlamorousCodeEditorAptitude.
-	stringEditor editor text: String loremIpsum asRopedText.
+	stringEditor editor text: 'empty' asRopedText.
 	
 	"editorElement
 		constraintsDo: [ :c | 
@@ -43,7 +45,7 @@ LeStringSnippetElement >> initialize [
 		aptitude: (BrGlamorousLabelAptitude new glamorousRegularSmallSize
 		foreground: BrGlamorousColors textMarkupColor);
 		margin: (BlInsets top: 5 right: 5);
-		text: 'String Resource'.
+		text: 'String'.
 	indicatorElement constraintsDo: [ :c |
 		c frame horizontal alignRight.
 		c frame vertical alignTop ].
@@ -86,9 +88,16 @@ LeStringSnippetElement >> initialize [
 	bindingEditor hMatchParent.
 	bindingEditor aptitude: (BrGlamorousEditableLabelAptitude new) + (BrGlamorousCodeEditorAptitude new).
 	
-	bindingEditor editor text: 'loremIpsum' asRopedText.
+	bindingEditor editor text: '' asRopedText.
 	
 	toolbarElement addItem: bindingEditor.
+]
+
+{ #category : #'api - snippet view model' }
+LeStringSnippetElement >> onSnippetViewModelChanged [
+	super onSnippetViewModelChanged.
+	stringEditor text: (self snippetViewModel contentString ifNil: [ String new ]) asRopedText .
+	bindingEditor text: (self snippetViewModel bindingName ifNil: [ String new ]) asRopedText
 ]
 
 { #category : #accessing }

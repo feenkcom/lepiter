@@ -5,14 +5,16 @@ Class {
 		'contentElement',
 		'form'
 	],
-	#category : #'Lepiter-Snippet-String'
+	#category : #'Lepiter-Snippet-File'
 }
 
 { #category : #accessing }
 LeFileSnippetElement >> go [
 	| file bindingName sharedBindings binding |
 	file := form fileReference asFileReference.
+	self snippetViewModel fileReference: file.
 	bindingName := form bindingName.
+	self snippetViewModel bindingName: bindingName.
 	sharedBindings := self snippetViewModel snippetBindings.
 	binding := sharedBindings bindingOf: bindingName asSymbol.
 	binding value: file.
@@ -40,7 +42,7 @@ LeFileSnippetElement >> initialize [
 		aptitude: (BrGlamorousLabelAptitude new glamorousRegularSmallSize
 		foreground: BrGlamorousColors textMarkupColor);
 		margin: (BlInsets top: 5 right: 5);
-		text: 'File Resourece'.
+		text: 'File'.
 	indicatorElement constraintsDo: [ :c |
 		c frame horizontal alignRight.
 		c frame vertical alignTop ].
@@ -49,6 +51,15 @@ LeFileSnippetElement >> initialize [
 		hMatchParent;
 		vFitContent;
 		addChildren: { formElement. indicatorElement } 
+]
+
+{ #category : #'api - snippet view model' }
+LeFileSnippetElement >> onSnippetViewModelChanged [
+	super onSnippetViewModelChanged.
+	form
+		fileReference: (self snippetViewModel fileReference
+				ifNotNil: [ :fileReference | fileReference pathString ]).
+	form bindingName: self snippetViewModel bindingName
 ]
 
 { #category : #accessing }
