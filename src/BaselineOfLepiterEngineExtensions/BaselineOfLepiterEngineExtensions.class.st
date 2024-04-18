@@ -59,6 +59,10 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 			package: 'Lepiter-Snippet-Pharo-Rewrites' with: [
 				spec requires: #('LepiterEngineCore' ) ];
 			package: 'Lepiter-Snippet-SmaCC-Rewrites' with: [
+				spec requires: #('LepiterEngineCore' ) ];
+			package: 'Lepiter-Snippet-String' with: [
+				spec requires: #('LepiterEngineCore' ) ];
+			package: 'Lepiter-Snippet-File' with: [
 				spec requires: #('LepiterEngineCore' ) ]. ].
 
 ]

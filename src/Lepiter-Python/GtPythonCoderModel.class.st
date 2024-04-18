@@ -18,9 +18,12 @@ GtPythonCoderModel >> asCoderViewModel [
 GtPythonCoderModel >> bindAndExecute: sourceString inContext: aGtSourceCoderEvaluationContext [
 	"Answer the source code with all declared variables returned in an immediate dictionary"
 
-	| trimmedSource ast commandFactory lastStatement pythonBindings application ws startPosition |
+	| trimmedSource ast commandFactory lastStatement pythonBindings application ws startPosition varNodeVisitor returnBindings |
+	
 	trimmedSource := SmaCCString on: sourceString.
 	ast := PythonParser parseWithErrors: sourceString.
+	varNodeVisitor := GtPythonVarNodeVisitor new.
+	varNodeVisitor accept: ast.
 	startPosition := ast statements first startPosition.
 	ws := trimmedSource startOfLineWhitespaceBeforeIndex: startPosition.
 	trimmedSource insert: 'self = ' at: startPosition.
@@ -29,8 +32,7 @@ GtPythonCoderModel >> bindAndExecute: sourceString inContext: aGtSourceCoderEval
 				ifNil: [ 'None' ]
 				ifNotNil: [ :obj | 
 					(obj isKindOf: PBProxyObject)
-						ifTrue: [ String
-								streamContents: [ :stream | obj resolveIdPyExpression writePython3On: stream ] ]
+						ifTrue: [ obj resolveIdPyExpression generate ]
 						ifFalse: [ 'None' ] ])
 		at: startPosition.
 	trimmedSource insert: String cr , ws at: startPosition.
@@ -38,18 +40,22 @@ GtPythonCoderModel >> bindAndExecute: sourceString inContext: aGtSourceCoderEval
 	lastStatement := ast statements last.
 	lastStatement isValueStatement
 		ifTrue: [ trimmedSource insert: 'snippetResult = ' at: lastStatement startPosition ]
-		ifFalse: [ trimmedSource
-				append: String cr;
-				append: 'snippetResult = None' ].
+		ifFalse: [ trimmedSource append: String cr; append: 'snippetResult = None' ].
 	pythonBindings := self pythonBindings.
 
 	application := pythonApplicationStrategy applicationServer.
 	application isRunning ifFalse: [ application start ].
 	commandFactory := application newCommandStringFactory.
-	pythonBindings do: [ :binding | commandFactory addBinding: binding ].
+	"Only bind when read"
+	pythonBindings do: [ :binding |
+		(varNodeVisitor accessedFirstVariableNames includes: binding key)
+			ifTrue: [ commandFactory addBinding: binding ] ].
+	"Only bind when written"
+	returnBindings := pythonBindings select: [ :binding | 
+		varNodeVisitor assignedVariableNames includes: binding key ].
 	commandFactory
 		script: trimmedSource asString;
-		resultExpression: (self returnVariablesExpressionFrom: pythonBindings) string.
+		resultExpression: (self returnVariablesExpressionFrom: returnBindings) string.
 
 	^ commandFactory sendAndWait
 ]
@@ -124,12 +130,17 @@ GtPythonCoderModel >> primitiveDebug: aSourceString inContext: aGtSourceCoderEva
 
 { #category : #'private - actions' }
 GtPythonCoderModel >> primitiveEvaluate: aSourceString inContext: aGtSourceCoderEvaluationContext onFailDo: anEvaluationFailBlock [
-	| result |
+	| result remoteValue |
+	
 	result := self
 			bindAndExecute: aSourceString
 			inContext: aGtSourceCoderEvaluationContext.
-	result
-		associationsDo: [ :binding | (pharoBindings bindingOf: binding key asSymbol) value: binding value ].
+	result associationsDo: [ :binding |
+		remoteValue := binding value.
+		"try to unwrap all but snippetResult to primitive types"
+		binding key = 'snippetResult'
+			ifFalse: [ remoteValue := remoteValue unwrapPrimitiveTypes ].
+		(pharoBindings bindingOf: binding key asSymbol) value: remoteValue ].
 
 	^ result at: 'snippetResult' ifAbsent: anEvaluationFailBlock
 ]
@@ -147,24 +158,27 @@ GtPythonCoderModel >> pythonApplicationStrategy: anObject [
 { #category : #'private - execution' }
 GtPythonCoderModel >> pythonBindings [
 	"Answer a collection of python bindings.
-	This is basically any snippet binding that can be passed in, but always excluding thisSnippet, thisSnippetElement and snippetResult"
+	This is basically any snippet binding that can be passed in, 
+	but always excluding thisSnippet and thisSnippetElement
+	while snippetResult is set to nil (None)"
+	
 	| pythonBindings canBind |
 
 	pythonBindings := OrderedCollection new.
 	(pharoBindings bindingOf: #snippetResult) value: nil.
 	pharoBindings asDictionary keysAndValuesDo: [ :key :value |
-		(#(thisSnippet thisSnippetElement) includes: key) ifFalse: 
-			[ canBind := [ MpEncoder encode: value value.
-					"NeoJSONWriter toString: value value." true ]
-				on: Error do: [ false ].
-			canBind ifTrue: 
-				[ pythonBindings add: (PBBinding key: key wrap: value value) ] ] ].
+		(#(thisSnippet thisSnippetElement) includes: key) ifFalse: [ 
+			canBind := [ MpEncoder encode: value value. true ]
+							on: Error do: [ false ].
+			canBind ifTrue: [ pythonBindings add: (PBBinding key: key wrap: value value) ] ] ].
+	
 	^ pythonBindings
 ]
 
 { #category : #private }
 GtPythonCoderModel >> returnVariablesExpressionFrom: pythonBindings [
 	"Answer the LeUninterpretedPythonStatement that returns all the bindings"
+	
 	| bindingNames expressionString |
 
 	bindingNames := pythonBindings collect: [ :binding | binding key ] as: Set.
@@ -172,16 +186,10 @@ GtPythonCoderModel >> returnVariablesExpressionFrom: pythonBindings [
 	expressionString := String streamContents: [ :stream |
 		stream << '{ '.
 		bindingNames 
-			do: [ :name |
-				stream 
-					nextPut: $";
-					<< name;
-					<< '": registry().proxy(';
-					<< name;
-					<< ')' ]
-			separatedBy:
-				[ stream << ', ' ].
+			do: [ :name | stream  << '"'; << name; << '": registry().proxy('; << name; << ')' ]
+			separatedBy: [ stream << ', ' ].
 		stream << ' }' ].
+
 	^ LeUninterpretedPythonStatement new string: expressionString
 ]
 
