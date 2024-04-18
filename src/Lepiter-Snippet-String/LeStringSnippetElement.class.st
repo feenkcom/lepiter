@@ -1,6 +1,6 @@
 Class {
 	#name : #LeStringSnippetElement,
-	#superclass : #LeSnippetElement,
+	#superclass : #LeTextualSnippetElement,
 	#instVars : [
 		'contentElement',
 		'toolbarElement',
@@ -9,6 +9,17 @@ Class {
 	],
 	#category : #'Lepiter-Snippet-String'
 }
+
+{ #category : #'api - snippet view model' }
+LeStringSnippetElement >> alignContentLeftBy: aNumber [
+	stringEditor padding: ((stringEditor padding withLeft: aNumber) withRight: aNumber)
+]
+
+{ #category : #accessing }
+LeStringSnippetElement >> editor [
+	<return: #BrTextEditorModel>
+	^ stringEditor editor
+]
 
 { #category : #initialization }
 LeStringSnippetElement >> go [
@@ -29,17 +40,17 @@ LeStringSnippetElement >> initialize [
 	
 	super initialize.
 	
-	stringEditor := BrEditor new.
-	stringEditor aptitude: BrGlamorousCodeEditorAptitude.
+	stringEditor := GtTextualCoderEditorElement new.
+	stringEditor aptitudeDo: [ :aLook | aLook glamorousRegularDefaultFont ].
 	stringEditor editor text: 'empty' asRopedText.
 	
-	"editorElement
-		constraintsDo: [ :c | 
-			c frame horizontal alignLeft.
-			c frame vertical alignTop ].
-	editorElement hMatchParent."
-	
-	stringEditor size: 640@240.
+	stringEditor padding: (BlInsets top: 5 bottom: 5).
+	stringEditor margin: BlInsets empty.
+	stringEditor editor 
+		addEventHandler: (LeEditorReachedBorderEventHandler new 
+			snippetElement: self).
+			
+	stringEditor editor ensureNoUndoRedoShortcuts.
 	
 	indicatorElement := BrLabel new
 		aptitude: (BrGlamorousLabelAptitude new glamorousRegularSmallSize
@@ -96,7 +107,9 @@ LeStringSnippetElement >> initialize [
 { #category : #'api - snippet view model' }
 LeStringSnippetElement >> onSnippetViewModelChanged [
 	super onSnippetViewModelChanged.
-	stringEditor text: (self snippetViewModel contentString ifNil: [ String new ]) asRopedText .
+	self updateCoderViewModel.
+	
+	"stringEditor text: (self snippetViewModel contentString ifNil: [ String new ]) asRopedText ."
 	bindingEditor text: (self snippetViewModel bindingName ifNil: [ String new ]) asRopedText
 ]
 
@@ -108,4 +121,9 @@ LeStringSnippetElement >> snippetContent [
 { #category : #accessing }
 LeStringSnippetElement >> snippetToolbar [
 	^ toolbarElement
+]
+
+{ #category : #'private - updating' }
+LeStringSnippetElement >> updateCoderViewModel [
+	stringEditor textualCoderViewModel: self snippetViewModel coderViewModel
 ]
