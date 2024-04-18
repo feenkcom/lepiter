@@ -432,7 +432,7 @@ LeUIStylingPageByScripterExamples >> pageWithClassClicked [
 				id: #content;
 				onChildAt: 1;
 				onChildAt: 1;
-				satisfies: [ :aPager | aPager pages size = 2 ] ].
+				value: [ :aPager | aPager pages size ] equals: 2 ].
 
 	^ aScripter
 ]
@@ -444,40 +444,43 @@ LeUIStylingPageByScripterExamples >> pageWithClassIntoWorldTab [
 	aScripter := GtWorldByScripterExamples new tabElementInScripter.
 
 	aScripter
-		doStep: [ :s | 
-			s
-				label: 'Show Coder space';
-				block: [ :aTabElement | 
-					| aStencil |
-					aStencil := [ | aPage |
-						aPage := self pageOneWithClass.
-						LeUIByScripterExamples new pageInPager: aPage ] asStencil.
+		substep: 'Create page with class link'
+		do: [ :aStep | 
+			aStep
+				doStep: [ :s | 
+					s
+						label: 'Show Coder space';
+						block: [ :aTabElement | 
+							| aStencil |
+							aStencil := [ | aPage |
+								aPage := self pageOneWithClass.
+								LeUIByScripterExamples new pageInPager: aPage ] asStencil.
 
-					GtWorldUtility
-						showSpaceWithIcon: BrGlamorousVectorIcons transparent
-						title: 'Lepiter Page'
-						with: aStencil
-						from: aTabElement ] ].
+							GtWorldUtility
+								showSpaceWithIcon: BrGlamorousVectorIcons transparent
+								title: 'Lepiter Page'
+								with: aStencil
+								from: aTabElement ] ].
 
-	aScripter
-		assertStep: [ :s | 
-			s
-				label: 'Assert page in a new tab';
-				value: [ :anElement | anElement tabs tabs size ] equals: 2 ].
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert page in a new tab';
+						value: [ :anElement | anElement tabs tabs size ] equals: 2 ].
 
-	aScripter
-		assertStep: [ :s | 
-			s
-				label: 'Assert page tab label';
-				value: [ :anElement | anElement tabs tabs second widget label asString ]
-					equals: 'Page One' ].
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert page tab label';
+						value: [ :anElement | anElement tabs tabs second widget label asString ]
+							equals: 'Page One' ].
 
-	aScripter
-		assertStep: [ :s | 
-			s
-				label: 'Assert page tab selection';
-				satisfies: [ :anElement | anElement tabs tabs second isSelected ]
-					description: [ 'Page tab must be selected' ] ].
+			aStep
+				assertStep: [ :s | 
+					s
+						label: 'Assert page tab selection';
+						satisfies: [ :anElement | anElement tabs tabs second isSelected ]
+							description: [ 'Page tab must be selected' ] ] ].
 
 	^ aScripter
 ]

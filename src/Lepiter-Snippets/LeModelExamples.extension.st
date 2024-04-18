@@ -125,6 +125,30 @@ LeModelExamples >> databaseWithPageHavingChangeAndDependentSnippets [
 ]
 
 { #category : #'*Lepiter-Snippets' }
+LeModelExamples >> databaseWithStringAndPharoSnippets [
+	<gtExample>
+	| temporaryDatabase database page pharoSnippet stringSnippet |
+	temporaryDatabase := LeTemporaryDatabase new.
+	database := temporaryDatabase database.
+
+	page := database pageBuilder
+			title: self stringAndPharoPageTitle;
+			add.
+
+	stringSnippet := LeStringSnippet new
+			contentString: self stringSQLContents;
+			bindingName: self stringBindingName;
+			format: MysqlParser name;
+			previewHeight: 220.
+	page addSnippet: stringSnippet.
+
+	pharoSnippet := LePharoSnippet empty code: self stringBindingName.
+	page addSnippet: pharoSnippet.
+
+	^ temporaryDatabase
+]
+
+{ #category : #'*Lepiter-Snippets' }
 LeModelExamples >> pageHavingChangeAndDependentSnippets [
 
 	<gtExample>
@@ -137,4 +161,39 @@ LeModelExamples >> pageHavingChangeAndDependentSnippets [
 	^ LePageExampleHolder new
 		page: page;
 		temporaryDatabase: temporaryDatabase
+]
+
+{ #category : #'*Lepiter-Snippets' }
+LeModelExamples >> pageHavingStringAndPharoSnippets [
+
+	<gtExample>
+	| temporaryDatabase database page |
+	temporaryDatabase := self databaseWithStringAndPharoSnippets.
+	database := temporaryDatabase database.
+
+	page := database pageNamed: self stringAndPharoPageTitle.
+
+	^ LePageExampleHolder new
+		page: page;
+		temporaryDatabase: temporaryDatabase
+]
+
+{ #category : #'*Lepiter-Snippets' }
+LeModelExamples >> stringAndPharoPageTitle [
+	^ 'String and Pharo snippets'
+]
+
+{ #category : #'*Lepiter-Snippets' }
+LeModelExamples >> stringBindingName [
+	^ 'sqlQuery'
+]
+
+{ #category : #'*Lepiter-Snippets' }
+LeModelExamples >> stringSQLContents [
+	^ 'SELECT driverstandings.driverid, drivers.driverref, drivers.nationality, SUM(position) AS wins
+FROM driverstandings, drivers 
+WHERE driverstandings.driverid = drivers.driverid AND driverstandings.position = 1 
+GROUP BY driverstandings.driverid, drivers.driverref, drivers.nationality 
+ORDER BY wins DESC 
+LIMIT 20'
 ]
