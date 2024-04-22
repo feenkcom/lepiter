@@ -23,5 +23,8 @@ LeStringSpotterStart >> gtSpotterParsersAndStylersFor: aSearch [
 			LeStringParserNameBuilder new
 				parserClass: aParser;
 				buildWithExtensions ];
-		filter: GtSpotterSubstringFilter new
+		filterBySubstring;
+		withoutCategoryAction;
+		withoutItemsLimit;
+		wantsToDisplayOnEmptyQuery: true
 ]
