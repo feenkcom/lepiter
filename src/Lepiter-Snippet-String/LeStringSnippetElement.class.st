@@ -1,116 +1,155 @@
 Class {
 	#name : #LeStringSnippetElement,
-	#superclass : #LeTextualSnippetElement,
+	#superclass : #LeEvaluatedSnippetElement,
 	#instVars : [
 		'contentElement',
-		'toolbarElement',
-		'stringEditor',
-		'bindingEditor'
+		'bindingEditor',
+		'indicatorElement'
 	],
 	#category : #'Lepiter-Snippet-String'
 }
 
-{ #category : #'api - snippet view model' }
-LeStringSnippetElement >> alignContentLeftBy: aNumber [
-	stringEditor padding: ((stringEditor padding withLeft: aNumber) withRight: aNumber)
-]
+{ #category : #'private - accessing' }
+LeStringSnippetElement >> editorElement [
+	"Answer the BrEditor used by the receiver"
 
-{ #category : #accessing }
-LeStringSnippetElement >> editor [
-	<return: #BrTextEditorModel>
-	^ stringEditor editor
+	^ editorElement
 ]
 
 { #category : #initialization }
 LeStringSnippetElement >> go [
 	| string bindingName sharedBindings binding |
-	string := stringEditor text asString.
+	string := editorElement text asString.
 	self snippetViewModel contentString: string.
 	bindingName := bindingEditor text asString.
 	self snippetViewModel bindingName: bindingName.
 	sharedBindings := self snippetViewModel snippetBindings.
 	binding := sharedBindings bindingOf: bindingName asSymbol.
 	binding value: string.
-	^ "bindingName ->" string
+	^ string
 ]
 
 { #category : #initialization }
 LeStringSnippetElement >> initialize [
-	| indicatorElement playButton playInspectButton |
-	
 	super initialize.
-	
-	stringEditor := GtTextualCoderEditorElement new.
-	stringEditor aptitudeDo: [ :aLook | aLook glamorousRegularDefaultFont ].
-	stringEditor editor text: 'empty' asRopedText.
-	
-	stringEditor padding: (BlInsets top: 5 bottom: 5).
-	stringEditor margin: BlInsets empty.
-	stringEditor editor 
-		addEventHandler: (LeEditorReachedBorderEventHandler new 
-			snippetElement: self).
-			
-	stringEditor editor ensureNoUndoRedoShortcuts.
-	
-	indicatorElement := BrLabel new
-		aptitude: (BrGlamorousLabelAptitude new glamorousRegularSmallSize
-		foreground: BrGlamorousColors textMarkupColor);
-		margin: (BlInsets top: 5 right: 5);
-		text: 'String'.
-	indicatorElement constraintsDo: [ :c |
-		c frame horizontal alignRight.
-		c frame vertical alignTop ].
-
+	self initializeEditorElement.
+	self initializeIndicatorElement.
 	contentElement := BrFrame new
-		hMatchParent;
-		vFitContent;
-		addChildren: { stringEditor. indicatorElement }.
-		
-	toolbarElement := BrToolbar new
-		aptitude: BrGlamorousToolbarAptitude;
-		hMatchParent;
-		vFitContent.
-		
+			hMatchParent;
+			vFitContent;
+			addChildren: {editorElement.
+					indicatorElement}.
+	self initializeCoderToolbarElement
+]
+
+{ #category : #initialization }
+LeStringSnippetElement >> initializeCoderToolbarElement [
+	| playButton playInspectButton |
+	coderToolbar := GtSourceCoderActionsElement new.
 	playButton := BrButton new
-		beTinySize;
-		aptitude: BrGlamorousButtonWithIconAptitude;
-		icon: BrGlamorousVectorIcons play;
-		label: 'Set string';
-		action: [ :aButton | self go ].
-		
-	toolbarElement addItem: playButton.
-	
+			beTinySize;
+			margin: (BlInsets left: 0 right: 3);
+			aptitude: BrGlamorousButtonWithIconAptitude;
+			icon: BrGlamorousVectorIcons play;
+			label: 'Set string';
+			action: [ :aButton | self go ];
+			constraintsDo: [ :c | c linear vertical alignCenter ].
+	coderToolbar addChild: playButton.
 	playInspectButton := BrButton new
-		beTinySize;
-		aptitude: BrGlamorousButtonWithIconAptitude;
-		icon: BrGlamorousVectorIcons playinspect;
-		label: 'Set string and inspect';
-		action: [ :aButton | aButton phlow spawnObject: self go ].
-		
-	toolbarElement addItem: playInspectButton.
-	
-	toolbarElement addItem: (BrLabel new
-		beTinySize;
-		text: 'Binding:' asRopedText;
-		aptitude: BrGlamorousLabelAptitude new).
-	
-	bindingEditor := BrEditor new.
-	bindingEditor vFitContent.
-	bindingEditor hMatchParent.
-	bindingEditor aptitude: (BrGlamorousEditableLabelAptitude new) + (BrGlamorousCodeEditorAptitude new).
-	
+			beTinySize;
+			margin: (BlInsets left: 0 right: 3);
+			aptitude: BrGlamorousButtonWithIconAptitude;
+			icon: BrGlamorousVectorIcons playinspect;
+			label: 'Set string and inspect';
+			action: [ :aButton | aButton phlow spawnObject: self go ];
+			constraintsDo: [ :c | c linear vertical alignCenter ].
+	coderToolbar addChild: playInspectButton.
+	coderToolbar
+		addChild: (BrLabel new
+				beTinySize;
+				margin: (BlInsets left: 0 right: 1);
+				text: 'Binding:' asRopedText;
+				constraintsDo: [ :c | c linear vertical alignCenter ];
+				aptitude: BrGlamorousLabelAptitude new).
+	bindingEditor := BrEditor new
+			vFitContent;
+			hFitContentLimited;
+			constraintsDo: [ :c | 
+				c linear vertical alignCenter.
+				c minWidth: 100 ];
+			aptitude: BrGlamorousEditableLabelAptitude new glamorousCodeTinySize;
+			addAptitude: BrGlamorousCodeEditorAptitude new.
 	bindingEditor editor text: '' asRopedText.
-	
-	toolbarElement addItem: bindingEditor.
+	coderToolbar addChild: bindingEditor
+]
+
+{ #category : #initialization }
+LeStringSnippetElement >> initializeEditorElement [
+	editorElement := GtSourceCoderEditorElement new
+			hMatchParent;
+			vFitContentLimited;
+			padding: (BlInsets
+					top: 5
+					left: 7
+					bottom: 5
+					right: 0);
+			margin: BlInsets empty.
+	editorElement editor
+		addEventHandler: (LeEditorReachedBorderEventHandler new snippetElement: self);
+		ensureNoUndoRedoShortcuts.
+
+	true
+		ifFalse: [ editorElement aptitudeDo: [ :aLook | aLook glamorousRegularDefaultFont ] ]
+]
+
+{ #category : #initialization }
+LeStringSnippetElement >> initializeIndicatorElement [
+	true
+		ifFalse: [ indicatorElement := BrButton new
+					aptitude: BrGlamorousButtonWithLabelAptitude - BrGlamorousButtonExteriorAptitude;
+					margin: (BlInsets top: 5 right: 5);
+					label: 'String';
+					beSmallSize;
+					constraintsDo: [ :c | 
+						c frame horizontal alignRight.
+						c frame vertical alignTop ] ].
+
+	indicatorElement := GtSpotterDropdownButtonStencil new
+			icon: nil;
+			label: 'String';
+			tooltip: 'Set string parser';
+			aptitude: [ BrGlamorousButtonWithLabelAptitude - BrGlamorousButtonExteriorAptitude ];
+			beSmallSize;
+			receiver: LeStringSpotterStart selector: #new;
+			objectActOn: [ :anActOnEvent :aParserClass :aButton | 
+				self onParserSelected: aParserClass actOnEvent: anActOnEvent ];
+			asElement.
+
+	indicatorElement
+		background: Color white;
+		margin: (BlInsets top: 5 right: 5);
+		constraintsDo: [ :c | 
+			c frame horizontal alignRight.
+			c frame vertical alignTop ]
+]
+
+{ #category : #'private - event handling' }
+LeStringSnippetElement >> onParserSelected: aParserClass actOnEvent: anActOnEvent [
+	self hasSnippetViewModel ifFalse: [ ^ self ].
+	self snippetViewModel selectParserClass: aParserClass.
+	anActOnEvent actedUpon: true.
 ]
 
 { #category : #'api - snippet view model' }
 LeStringSnippetElement >> onSnippetViewModelChanged [
 	super onSnippetViewModelChanged.
-	self updateCoderViewModel.
-	
-	"stringEditor text: (self snippetViewModel contentString ifNil: [ String new ]) asRopedText ."
-	bindingEditor text: (self snippetViewModel bindingName ifNil: [ String new ]) asRopedText
+	self updateElement
+]
+
+{ #category : #'private - announcement handling' }
+LeStringSnippetElement >> onStringFormatChanged: anAnnouncement [
+	self updateIndicatorElement.
+	self updateEditorElement.
 ]
 
 { #category : #accessing }
@@ -118,12 +157,56 @@ LeStringSnippetElement >> snippetContent [
 	^ contentElement
 ]
 
-{ #category : #accessing }
-LeStringSnippetElement >> snippetToolbar [
-	^ toolbarElement
+{ #category : #'api - snippet view model' }
+LeStringSnippetElement >> subscribeToSnippetViewModel [
+	super subscribeToSnippetViewModel.
+
+	self snippetViewModel announcer weak
+		when: LeStringFormatChanged
+		send: #onStringFormatChanged:
+		to: self
+]
+
+{ #category : #'api - snippet view model' }
+LeStringSnippetElement >> unsubscribeFromSnippetViewModel [
+	super unsubscribeFromSnippetViewModel.
+
+	self snippetViewModel announcer unsubscribe: self
 ]
 
 { #category : #'private - updating' }
-LeStringSnippetElement >> updateCoderViewModel [
-	stringEditor textualCoderViewModel: self snippetViewModel coderViewModel
+LeStringSnippetElement >> updateBindingElement [
+	bindingEditor
+		text: (self snippetViewModel bindingName ifNil: [ String new ]) asRopedText
+]
+
+{ #category : #'private - updating' }
+LeStringSnippetElement >> updateEditorElement [
+	| aParserClass |
+	editorElement
+		text: (self snippetViewModel contentString ifNil: [ String empty ]) asRopedText.
+
+	aParserClass := self snippetViewModel parser.
+	(aParserClass isNotNil and: [ aParserClass gtStyler isNotNil ])
+		ifTrue: [ editorElement styler: aParserClass gtStyler ]
+]
+
+{ #category : #'private - updating' }
+LeStringSnippetElement >> updateElement [
+	self updateEditorElement.
+	self updateBindingElement.
+	self updateIndicatorElement.
+]
+
+{ #category : #'private - updating' }
+LeStringSnippetElement >> updateIndicatorElement [
+	| aParserClass aParserName anIndicatorLabel |
+	aParserClass := self snippetViewModel parser.
+	aParserName := LeStringParserNameBuilder new
+			parserClass: aParserClass;
+			build.
+	anIndicatorLabel := aParserName
+			ifNil: [ 'String' ]
+			ifNotNil: [ 'String ({1})' format: {aParserName} ].
+	indicatorElement label: anIndicatorLabel
 ]

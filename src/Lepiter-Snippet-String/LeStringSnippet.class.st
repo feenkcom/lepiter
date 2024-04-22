@@ -1,6 +1,6 @@
 Class {
 	#name : #LeStringSnippet,
-	#superclass : #LeTextualSnippet,
+	#superclass : #LeCodeSnippet,
 	#instVars : [
 		'contentString',
 		'bindingName',
@@ -35,6 +35,12 @@ LeStringSnippet class >> leJsonV4AttributeMapping [
 { #category : #accessing }
 LeStringSnippet class >> leJsonV4Name [
 	^ 'stringSnippet'
+]
+
+{ #category : #visiting }
+LeStringSnippet >> acceptVisitor: aVisitor [
+ 
+	^ aVisitor visitStringSnippet: self
 ]
 
 { #category : #'api - editing' }
@@ -129,7 +135,23 @@ LeStringSnippet >> format [
 
 { #category : #accessing }
 LeStringSnippet >> format: aFormatString [
-	format := aFormatString
+	format = aFormatString ifTrue: [ ^ self ].
+	format := aFormatString.
+	self notifyFormatChanged
+]
+
+{ #category : #initialization }
+LeStringSnippet >> newCoder [
+	^ GtTextCoder new
+]
+
+{ #category : #'private - notifying' }
+LeStringSnippet >> notifyFormatChanged [
+	self notifier
+		local;
+		announce: (LeStringFormatChanged new
+				parser: self parser;
+				format: self format)
 ]
 
 { #category : #'api - accessing' }
@@ -139,7 +161,8 @@ LeStringSnippet >> paragraphStyle [
 
 { #category : #accessing }
 LeStringSnippet >> parser [
-	^ nil
+	^ self format
+		ifNotNil: [ :aParserName | self class environment at: aParserName asSymbol ifAbsent: [ nil ] ]
 ]
 
 { #category : #accessing }
@@ -150,6 +173,11 @@ LeStringSnippet >> previewHeight [
 { #category : #accessing }
 LeStringSnippet >> previewHeight: anObject [
 	previewHeight := anObject
+]
+
+{ #category : #'as yet unclassified' }
+LeStringSnippet >> selectParserClass: aParserClass [
+	self format: aParserClass name
 ]
 
 { #category : #accessing }
