@@ -4,6 +4,11 @@ Class {
 	#category : #'Lepiter-Snippet-String'
 }
 
+{ #category : #printing }
+LeStringSpotterStart >> gtDisplayOn: stream [
+	stream nextPutAll: 'Select parser'
+]
+
 { #category : #searching }
 LeStringSpotterStart >> gtSpotterParsersAndStylersFor: aSearch [
 	<gtSearch>

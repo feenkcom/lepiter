@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'contentElement',
 		'bindingEditor',
-		'indicatorElement'
+		'indicatorElement',
+		'indicatorStencil'
 	],
 	#category : #'Lepiter-Snippet-String'
 }
@@ -104,26 +105,18 @@ LeStringSnippetElement >> initializeEditorElement [
 
 { #category : #initialization }
 LeStringSnippetElement >> initializeIndicatorElement [
-	true
-		ifFalse: [ indicatorElement := BrButton new
-					aptitude: BrGlamorousButtonWithLabelAptitude - BrGlamorousButtonExteriorAptitude;
-					margin: (BlInsets top: 5 right: 5);
-					label: 'String';
-					beSmallSize;
-					constraintsDo: [ :c | 
-						c frame horizontal alignRight.
-						c frame vertical alignTop ] ].
-
-	indicatorElement := GtSpotterDropdownButtonStencil new
+	indicatorStencil := GtSpotterDropdownButtonStencil new
 			icon: nil;
 			label: 'String';
 			tooltip: 'Set string parser';
 			aptitude: [ BrGlamorousButtonWithLabelAptitude - BrGlamorousButtonExteriorAptitude ];
 			beSmallSize;
+			hidePreview;
+			extent: 300@400;
 			receiver: LeStringSpotterStart selector: #new;
-			objectActOn: [ :anActOnEvent :aParserClass :aButton | 
-				self onParserSelected: aParserClass actOnEvent: anActOnEvent ];
-			asElement.
+			objectActOn: [ :anActOnEvent :aParserClass :aButton | self onParserSelected: aParserClass actOnEvent: anActOnEvent ].
+
+	indicatorElement := indicatorStencil asElement.
 
 	indicatorElement
 		background: Color white;
@@ -208,5 +201,6 @@ LeStringSnippetElement >> updateIndicatorElement [
 	anIndicatorLabel := aParserName
 			ifNil: [ 'String' ]
 			ifNotNil: [ 'String ({1})' format: {aParserName} ].
-	indicatorElement label: anIndicatorLabel
+	indicatorElement label: anIndicatorLabel.
+	indicatorStencil label: anIndicatorLabel
 ]
