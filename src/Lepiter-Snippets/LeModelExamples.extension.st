@@ -127,7 +127,9 @@ LeModelExamples >> databaseWithPageHavingChangeAndDependentSnippets [
 { #category : #'*Lepiter-Snippets' }
 LeModelExamples >> databaseWithStringAndPharoSnippets [
 	<gtExample>
+
 	| temporaryDatabase database page pharoSnippet stringSnippet |
+
 	temporaryDatabase := LeTemporaryDatabase new.
 	database := temporaryDatabase database.
 
@@ -136,9 +138,9 @@ LeModelExamples >> databaseWithStringAndPharoSnippets [
 			add.
 
 	stringSnippet := LeStringSnippet new
-			contentString: self stringSQLContents;
+			contentString: self stringJSONContents;
 			bindingName: self stringBindingName;
-			format: MysqlParser name;
+			format: JSONParser name;
 			previewHeight: 220.
 	page addSnippet: stringSnippet.
 
@@ -165,9 +167,10 @@ LeModelExamples >> pageHavingChangeAndDependentSnippets [
 
 { #category : #'*Lepiter-Snippets' }
 LeModelExamples >> pageHavingStringAndPharoSnippets [
-
 	<gtExample>
+	
 	| temporaryDatabase database page |
+	
 	temporaryDatabase := self databaseWithStringAndPharoSnippets.
 	database := temporaryDatabase database.
 
@@ -185,15 +188,33 @@ LeModelExamples >> stringAndPharoPageTitle [
 
 { #category : #'*Lepiter-Snippets' }
 LeModelExamples >> stringBindingName [
-	^ 'sqlQuery'
+	^ 'jsonQuery'
 ]
 
 { #category : #'*Lepiter-Snippets' }
-LeModelExamples >> stringSQLContents [
-	^ 'SELECT driverstandings.driverid, drivers.driverref, drivers.nationality, SUM(position) AS wins
-FROM driverstandings, drivers 
-WHERE driverstandings.driverid = drivers.driverid AND driverstandings.position = 1 
-GROUP BY driverstandings.driverid, drivers.driverref, drivers.nationality 
-ORDER BY wins DESC 
-LIMIT 20'
+LeModelExamples >> stringJSONContents [
+	^ '{
+  "name": "Elizabeth",
+  "children": [
+    {
+      "name": "Charles",
+      "children": [
+        {
+          "name": "William",
+          "children": [
+            { "name": "George" },
+            { "name": "Charlotte" }
+          ]
+        },
+        {
+          "name": "Harry",
+          "children": [
+          	{ "name": "Archie" },
+          	{ "name": "Lilibet" }
+          ]
+        }
+      ]
+    }
+  ]
+}'
 ]
