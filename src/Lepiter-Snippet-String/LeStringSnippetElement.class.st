@@ -141,8 +141,10 @@ LeStringSnippetElement >> onSnippetViewModelChanged [
 
 { #category : #'private - announcement handling' }
 LeStringSnippetElement >> onStringFormatChanged: anAnnouncement [
-	self updateIndicatorElement.
-	self updateEditorElement.
+	BlTaskAction
+		enqueueElement: self
+		action: [ self updateIndicatorElement.
+			self updateEditorElement ]
 ]
 
 { #category : #accessing }
