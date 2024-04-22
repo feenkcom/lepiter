@@ -104,7 +104,11 @@ LeStringSnippet >> bindingName [
 
 { #category : #accessing }
 LeStringSnippet >> bindingName: aNameString [
-	bindingName := aNameString
+	| anOldName |
+	bindingName = aNameString ifTrue: [ ^ self ].
+	anOldName := bindingName.
+	bindingName := aNameString.
+	self notifyBindingNameChangedFrom: anOldName to: aNameString
 ]
 
 { #category : #accessing }
@@ -142,6 +146,15 @@ LeStringSnippet >> format: aFormatString [
 { #category : #initialization }
 LeStringSnippet >> newCoder [
 	^ GtTextCoder new
+]
+
+{ #category : #'private - notifying' }
+LeStringSnippet >> notifyBindingNameChangedFrom: anOldName to: aNewName [
+	self notifier
+		local;
+		announce: (LeStringBindingNameChanged new
+				oldName: anOldName;
+				newName: aNewName)
 ]
 
 { #category : #'private - notifying' }

@@ -21,6 +21,16 @@ LeBindingNameUpdater >> bindings: anObject [
 	bindings := anObject
 ]
 
+{ #category : #testing }
+LeBindingNameUpdater >> hasNewName [
+	^ self newName isNotNil and: [ self newName isNotEmpty ]
+]
+
+{ #category : #testing }
+LeBindingNameUpdater >> hasOldName [
+	^ self oldName isNotNil and: [ self oldName isNotEmpty ]
+]
+
 { #category : #initialization }
 LeBindingNameUpdater >> initialize [
 	super initialize.
@@ -69,12 +79,9 @@ LeBindingNameUpdater >> onSuccess: aValuable [
 
 { #category : #updating }
 LeBindingNameUpdater >> update [
-	self oldName ifNil: [ ^ self ].
-	self oldName ifEmpty: [ ^ self ].
-	self newName ifNil: [ ^ self ].
-	self newName ifEmpty: [ ^ self ].
+	self hasOldName ifTrue: [ self bindings removeBindingOf: self oldName ].
 
-	self bindings removeBindingOf: self oldName.
+	self hasNewName ifFalse: [ ^ self ].
 	(self bindings bindingOf: self newName) value: self newValue.
 	self onSuccess value
 ]
