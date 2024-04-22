@@ -128,7 +128,7 @@ LeDuplicatePageIdError >> file: anObject [
 { #category : #'gt - extensions' }
 LeDuplicatePageIdError >> gtDetailsFor: aView [
 	<gtView>
-	<gtExceptionDebuggingView>
+	<gtExceptionView>
 	
 	^ aView columnedList 
 		title: 'Details';
@@ -150,7 +150,7 @@ LeDuplicatePageIdError >> gtDetailsFor: aView [
 { #category : #'gt - extensions' }
 LeDuplicatePageIdError >> gtViewTwoPageComparisonFor: aView [
 	<gtView>
-	<gtExceptionDebuggingView>
+	<gtExceptionView>
 	
 	^ aView explicit
 		title: 'Comparison';
