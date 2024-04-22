@@ -432,7 +432,7 @@ LeUIStylingPageByScripterExamples >> pageWithClassClicked [
 				id: #content;
 				onChildAt: 1;
 				onChildAt: 1;
-				value: [ :aPager | aPager pages size ] equals: 3 ].
+				value: [ :aPager | aPager pages size ] equals: 2 ].
 
 	^ aScripter
 ]

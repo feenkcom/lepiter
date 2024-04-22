@@ -1,6 +1,6 @@
 Class {
 	#name : #LeStringSnippetViewModel,
-	#superclass : #LeSnippetViewModel,
+	#superclass : #LeCodeSnippetViewModel,
 	#category : #'Lepiter-Snippet-String'
 }
 
@@ -34,7 +34,57 @@ LeStringSnippetViewModel >> format: aFormatString [
 	^ self snippet format: aFormatString
 ]
 
+{ #category : #initialization }
+LeStringSnippetViewModel >> initializeCoderAddOns: aTextualCoderViewModel [
+	"Initialise the keyboard shortcuts in the code editor"
+
+	super initializeCoderAddOns: aTextualCoderViewModel.
+	
+	aTextualCoderViewModel
+		"Indent LeSnippet"
+		addShortcut: (LeSnippetIndentSnippetShortcut new combination: (self keyboardShortcut: #IndentSnippet));
+		"Unindent LeSnippet"
+		addShortcut: (LeSnippetUnindentSnippetShortcut new combination: (self keyboardShortcut: #UnindentSnippet));
+		"Move Snippet up"
+		addShortcut: (LeSnippetMoveSnippetUpShortcut new combination: (self keyboardShortcut: #MoveSnippetUp));
+		"Move Snippet down"
+		addShortcut: (LeSnippetMoveSnippetDownShortcut new combination: (self keyboardShortcut: #MoveSnippetDown))
+]
+
+{ #category : #'private - announcement handling' }
+LeStringSnippetViewModel >> onStringFormatChanged: anAnnouncement [
+	self announcer announce: anAnnouncement
+]
+
+{ #category : #accessing }
+LeStringSnippetViewModel >> parser [
+	^ self snippetModel parser
+]
+
+{ #category : #'api - accessing' }
+LeStringSnippetViewModel >> selectParserClass: aParserClass [
+	self hasSnippetModel ifFalse: [ ^ self ].
+	self snippetModel selectParserClass: aParserClass
+]
+
 { #category : #accessing }
 LeStringSnippetViewModel >> snippetElementClass [
 	^ LeStringSnippetElement
+]
+
+{ #category : #'api - snippet model' }
+LeStringSnippetViewModel >> subscribeToSnippetModel [
+	super subscribeToSnippetModel.
+
+	self snippetModel announcer weak
+		when: LeStringFormatChanged
+		send: #onStringFormatChanged:
+		to: self
+]
+
+{ #category : #'api - snippet model' }
+LeStringSnippetViewModel >> unsubscribeFromSnippetModel [
+	super unsubscribeFromSnippetModel.
+
+	self snippetModel announcer unsubscribe: self
 ]

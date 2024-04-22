@@ -27,10 +27,11 @@ LeEvaluatedSnippetElement >> arrowElement [
 
 { #category : #actions }
 LeEvaluatedSnippetElement >> clearPreview [
+	self arrowElement ifNil: [ ^ self ].
 	self arrowElement visibility: BlVisibility gone.
-	self previewContainer 
+	self previewContainer
 		visibility: BlVisibility gone;
-		removeChildNamed: #previewElement.
+		removeChildNamed: #previewElement
 ]
 
 { #category : #'private - accessing' }
@@ -130,17 +131,10 @@ LeEvaluatedSnippetElement >> newSpawnDesinationButton [
 
 { #category : #'api - snippet view model' }
 LeEvaluatedSnippetElement >> onSnippetViewModelChanged [
-	arrowElement hasParent
-		ifFalse: [ self addChild: arrowElement ].
-	previewContainer hasParent
-		ifFalse: [ self addChild: previewContainer ].
-
-	spawnDestination icon: snippetViewModel spawnDestination icon.
-
+	"we should assign the coder UI model *before* the focus state"
+	self updateSpawnDownElements.
 	self updateCoderUIModel.
 	self clearPreview.
-
-	"we should assign the coder UI model *before* the focus state"
 	super onSnippetViewModelChanged
 ]
 
@@ -218,4 +212,13 @@ LeEvaluatedSnippetElement >> switchSpawnDestination [
 LeEvaluatedSnippetElement >> updateCoderUIModel [
 	editorElement textualCoderViewModel: self snippetViewModel coderViewModel.
 	coderToolbar coderViewModel: self snippetViewModel coderViewModel
+]
+
+{ #category : #'private - updating' }
+LeEvaluatedSnippetElement >> updateSpawnDownElements [
+	arrowElement ifNil: [ ^ self ].
+	arrowElement hasParent ifFalse: [ self addChild: arrowElement ].
+	previewContainer hasParent ifFalse: [ self addChild: previewContainer ].
+
+	spawnDestination icon: snippetViewModel spawnDestination icon
 ]

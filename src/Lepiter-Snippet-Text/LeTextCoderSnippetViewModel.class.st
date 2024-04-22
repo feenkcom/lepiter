@@ -103,7 +103,7 @@ LeTextCoderSnippetViewModel >> onSnippetModelChanged [
 	self snippetChildren: (self snippetModel children collect: [ :eachChildSnippet | eachChildSnippet asSnippetViewModel ]).
 
 	textCoder
-		sourceCodeSynchronously: (GtCoderExplicitSourceText new text: self snippetModel text copyWithoutExternalReferences).
+		sourceCodeSynchronously: (GtCoderExplicitTextSource new text: self snippetModel text copyWithoutExternalReferences).
 	self coderViewModel completionStrategy database: self snippetModel database.
 ]
 

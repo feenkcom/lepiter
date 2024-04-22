@@ -125,6 +125,32 @@ LeModelExamples >> databaseWithPageHavingChangeAndDependentSnippets [
 ]
 
 { #category : #'*Lepiter-Snippets' }
+LeModelExamples >> databaseWithStringAndPharoSnippets [
+	<gtExample>
+
+	| temporaryDatabase database page pharoSnippet stringSnippet |
+
+	temporaryDatabase := LeTemporaryDatabase new.
+	database := temporaryDatabase database.
+
+	page := database pageBuilder
+			title: self stringAndPharoPageTitle;
+			add.
+
+	stringSnippet := LeStringSnippet new
+			contentString: self stringJSONContents;
+			bindingName: self stringBindingName;
+			format: JSONParser name;
+			previewHeight: 220.
+	page addSnippet: stringSnippet.
+
+	pharoSnippet := LePharoSnippet empty code: self stringBindingName.
+	page addSnippet: pharoSnippet.
+
+	^ temporaryDatabase
+]
+
+{ #category : #'*Lepiter-Snippets' }
 LeModelExamples >> pageHavingChangeAndDependentSnippets [
 
 	<gtExample>
@@ -137,4 +163,58 @@ LeModelExamples >> pageHavingChangeAndDependentSnippets [
 	^ LePageExampleHolder new
 		page: page;
 		temporaryDatabase: temporaryDatabase
+]
+
+{ #category : #'*Lepiter-Snippets' }
+LeModelExamples >> pageHavingStringAndPharoSnippets [
+	<gtExample>
+	
+	| temporaryDatabase database page |
+	
+	temporaryDatabase := self databaseWithStringAndPharoSnippets.
+	database := temporaryDatabase database.
+
+	page := database pageNamed: self stringAndPharoPageTitle.
+
+	^ LePageExampleHolder new
+		page: page;
+		temporaryDatabase: temporaryDatabase
+]
+
+{ #category : #'*Lepiter-Snippets' }
+LeModelExamples >> stringAndPharoPageTitle [
+	^ 'String and Pharo snippets'
+]
+
+{ #category : #'*Lepiter-Snippets' }
+LeModelExamples >> stringBindingName [
+	^ 'jsonQuery'
+]
+
+{ #category : #'*Lepiter-Snippets' }
+LeModelExamples >> stringJSONContents [
+	^ '{
+  "name": "Elizabeth",
+  "children": [
+    {
+      "name": "Charles",
+      "children": [
+        {
+          "name": "William",
+          "children": [
+            { "name": "George" },
+            { "name": "Charlotte" }
+          ]
+        },
+        {
+          "name": "Harry",
+          "children": [
+          	{ "name": "Archie" },
+          	{ "name": "Lilibet" }
+          ]
+        }
+      ]
+    }
+  ]
+}'
 ]

@@ -40,6 +40,17 @@ LePageExampleHolder >> gtSnippetAttachmentsFor: aView [
 		view: #gtSnippetAttachmentsFor:
 ]
 
+{ #category : #'gt - extensions' }
+LePageExampleHolder >> gtSnippetsFor: aView [
+	<gtView>
+	self page ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Snippets';
+		priority: 10;
+		object: [ self page ];
+		view: #gtSnippetsFor:
+]
+
 { #category : #accessing }
 LePageExampleHolder >> page [
 	^ page
