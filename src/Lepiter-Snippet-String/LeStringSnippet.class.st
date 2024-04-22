@@ -4,8 +4,7 @@ Class {
 	#instVars : [
 		'contentString',
 		'bindingName',
-		'format',
-		'previewHeight'
+		'format'
 	],
 	#category : #'Lepiter-Snippet-String'
 }
@@ -163,16 +162,6 @@ LeStringSnippet >> paragraphStyle [
 LeStringSnippet >> parser [
 	^ self format
 		ifNotNil: [ :aParserName | self class environment at: aParserName asSymbol ifAbsent: [ nil ] ]
-]
-
-{ #category : #accessing }
-LeStringSnippet >> previewHeight [
-	^ previewHeight ifNil: [ previewHeight := self defaultPreviewHeight ]
-]
-
-{ #category : #accessing }
-LeStringSnippet >> previewHeight: anObject [
-	previewHeight := anObject
 ]
 
 { #category : #'as yet unclassified' }

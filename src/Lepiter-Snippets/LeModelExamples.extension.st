@@ -140,8 +140,7 @@ LeModelExamples >> databaseWithStringAndPharoSnippets [
 	stringSnippet := LeStringSnippet new
 			contentString: self stringJSONContents;
 			bindingName: self stringBindingName;
-			format: JSONParser name;
-			previewHeight: 220.
+			format: JSONParser name.
 	page addSnippet: stringSnippet.
 
 	pharoSnippet := LePharoSnippet empty code: self stringBindingName.
