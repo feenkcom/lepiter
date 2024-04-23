@@ -20,10 +20,11 @@ LeShellCommandSnippetElement >> go [
 		command: command;
 		arguments: arguments;
 		bindingName: bindingName.
-	
-	result := form execute.
-	
+
 	sharedBindings := self snippetViewModel snippetBindings.
+	
+	result := form executeUsingBindings: sharedBindings asDictionary.
+	
 	binding := sharedBindings bindingOf: bindingName asSymbol.
 	binding value: result.
 

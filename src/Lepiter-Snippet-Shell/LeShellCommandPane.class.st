@@ -122,6 +122,23 @@ LeShellCommandPane >> execute [
 ]
 
 { #category : #accessing }
+LeShellCommandPane >> executeUsingBindings: bindings [
+	| subProcess processedArguments|
+	processedArguments := self arguments collect: [ :each | 
+		bindings
+			at: each string
+			ifPresent: [ :binding | binding value asString ]
+			ifAbsent: [ each string ] ].
+	subProcess := GtSubprocessWithInMemoryOutput new
+			command: self command;
+			arguments: processedArguments;
+			terminateOnShutdown;
+			runAndWait.
+	subProcess isSuccess ifFalse: [ subProcess inspect ].
+	^ subProcess stdout
+]
+
+{ #category : #accessing }
 LeShellCommandPane >> fullCommand [
 	^ self arguments
 		ifEmpty: [ self command ]
