@@ -134,8 +134,8 @@ LeShellCommandPane >> executeUsingBindings: bindings [
 			arguments: processedArguments;
 			terminateOnShutdown;
 			runAndWait.
-	subProcess isSuccess ifFalse: [ subProcess inspect ].
-	^ subProcess stdout
+	"subProcess isSuccess ifFalse: [ subProcess inspect ]."
+	^ subProcess stdout trimBoth
 ]
 
 { #category : #accessing }
