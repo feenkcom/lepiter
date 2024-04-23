@@ -1,5 +1,5 @@
 Class {
-	#name : #LeCommandShellArgument,
+	#name : #LeShellCommandArgument,
 	#superclass : #Object,
 	#instVars : [
 		'string'
@@ -8,22 +8,22 @@ Class {
 }
 
 { #category : #printing }
-LeCommandShellArgument >> printOn: stream [
+LeShellCommandArgument >> printOn: stream [
 	stream nextPutAll: string
 ]
 
 { #category : #accessing }
-LeCommandShellArgument >> string [
+LeShellCommandArgument >> string [
 	^ string
 ]
 
 { #category : #accessing }
-LeCommandShellArgument >> string: anObject [
+LeShellCommandArgument >> string: anObject [
 	string := anObject
 ]
 
 { #category : #magritte }
-LeCommandShellArgument >> stringDescription [
+LeShellCommandArgument >> stringDescription [
 	<magritteDescription>
 	^ MAStringDescription new
 		priority: 1;

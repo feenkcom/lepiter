@@ -19,8 +19,18 @@ LeShellCommandPane >> acceptAction [
 ]
 
 { #category : #accessing }
-LeShellCommandPane >> acceptAction: anObject [
-	acceptAction := anObject
+LeShellCommandPane >> acceptAction: anAction [
+	acceptAction := anAction
+]
+
+{ #category : #accessing }
+LeShellCommandPane >> argumentStrings [
+	^ self arguments collect: #string
+]
+
+{ #category : #accessing }
+LeShellCommandPane >> argumentStrings: aStringCollection [
+	^ self arguments: (aStringCollection collect: [ :string | LeShellCommandArgument new string: string ])
 ]
 
 { #category : #accessing }
@@ -29,26 +39,8 @@ LeShellCommandPane >> arguments [
 ]
 
 { #category : #accessing }
-LeShellCommandPane >> arguments: anObject [
-	arguments := anObject
-]
-
-{ #category : #magritte }
-LeShellCommandPane >> argumentsDescription [
-	<magritteDescription>
-	^ MAToManyRelationDescription new
-		label: 'Arguments';
-		priority: 2;
-		accessor: #arguments;
-		classes: { LeCommandShellArgument };
-		blocItemStencil: [ :anItemViewModel :anItemIndex | 
-			anItemViewModel asElement
-				fitContent;
-				border: (BlBorder paint: BrGlamorousColors disabledButtonBorderColor width: 1);
-				margin: (BlInsets top: 0 right: 5 bottom: 5 left: 0);
-				padding: (BlInsets all: 5);
-				background: Color white ];
-		newItemStencil: [ LeCommandShellArgument new ]
+LeShellCommandPane >> arguments: aCollection [
+	arguments := aCollection
 ]
 
 { #category : #accessing }
@@ -72,8 +64,30 @@ LeShellCommandPane >> bindingName [
 ]
 
 { #category : #accessing }
-LeShellCommandPane >> bindingName: anObject [
-	bindingName := anObject
+LeShellCommandPane >> bindingName: aString [
+	bindingName := aString
+]
+
+{ #category : #accessing }
+LeShellCommandPane >> combinedArguments [
+	^ ' ' join: self argumentStrings
+]
+
+{ #category : #accessing }
+LeShellCommandPane >> combinedArguments: string [
+	| parts |
+	parts := string findTokens: Character separators.
+	self argumentStrings: parts
+]
+
+{ #category : #magritte }
+LeShellCommandPane >> combinedArgumentsDescription [
+	<magritteDescription>
+	^ MAStringDescription new
+		label: 'Arguments';
+		priority: 2;
+		accessor: #combinedArguments;
+		default: ''
 ]
 
 { #category : #accessing }
@@ -104,7 +118,32 @@ LeShellCommandPane >> execute [
 			arguments: (self arguments collect: #string);
 			terminateOnShutdown;
 			runAndWait.
-	^ self bindingName -> subProcess stdout
+	^ subProcess stdout
+]
+
+{ #category : #accessing }
+LeShellCommandPane >> fullCommand [
+	^ self arguments
+		ifEmpty: [ self command ]
+		ifNotEmpty: [ self command , ' ' , self combinedArguments ]
+]
+
+{ #category : #magritte }
+LeShellCommandPane >> individualArgumentsDescription [
+	"<magritteDescription>"
+	^ MAToManyRelationDescription new
+		label: 'Arguments';
+		priority: 2;
+		accessor: #arguments;
+		classes: { LeShellCommandArgument };
+		blocItemStencil: [ :anItemViewModel :anItemIndex | 
+			anItemViewModel asElement
+				fitContent;
+				border: (BlBorder paint: BrGlamorousColors disabledButtonBorderColor width: 1);
+				margin: (BlInsets top: 0 right: 5 bottom: 5 left: 0);
+				padding: (BlInsets all: 5);
+				background: Color white ];
+		newItemStencil: [ LeShellCommandArgument new ]
 ]
 
 { #category : #accessing }
@@ -115,8 +154,8 @@ LeShellCommandPane >> inspectAction [
 ]
 
 { #category : #accessing }
-LeShellCommandPane >> inspectAction: anObject [
-	inspectAction := anObject
+LeShellCommandPane >> inspectAction: anAction [
+	inspectAction := anAction
 ]
 
 { #category : #magritte }
