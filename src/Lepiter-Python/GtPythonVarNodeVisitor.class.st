@@ -61,13 +61,14 @@ GtPythonVarNodeVisitor >> visitAssignmentExpression: anAssignmentExpression [
 
 { #category : #generated }
 GtPythonVarNodeVisitor >> visitExprStmt: anExprStmt [
-	| result assignmentOperator name |
+	| result assignmentOperator |
 	result := self visitRoot: anExprStmt.
 	anExprStmt assigns ifNotEmpty: [
 		assignmentOperator := anExprStmt assigns first value.
-		name := anExprStmt testlist nameToken value.
 		assignmentOperator = '='
-			ifTrue: [ assignedVariables add: name ] ].
+			ifTrue: [ 
+				anExprStmt testlist nodesDo: [ :aNode |
+					assignedVariables add: aNode nameToken value ] ] ].
 	^ result
 ]
 
