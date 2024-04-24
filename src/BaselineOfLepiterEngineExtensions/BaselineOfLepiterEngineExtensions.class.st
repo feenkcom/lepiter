@@ -10,13 +10,13 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'LepiterEngineCore' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.2229/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.6.2230/src' ].
 		spec
 			baseline: 'GToolkit4DockerEngine' with: [
 				spec repository: 'github://feenkcom/gt4dockerengine:v0.5.133/src' ].
 		spec
 			baseline: 'Gt4JSLink' with: [
-				spec repository: 'github://feenkcom/gtoolkit-remote-javascript:v0.5.598/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-remote-javascript:v0.5.599/src' ].
 		spec
 			baseline: 'Gt4ChromeDevTools' with: [
 				spec repository: 'github://feenkcom/gtoolkit-chrome:v0.5.191/src' ].
@@ -28,16 +28,16 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 				spec repository: 'github://feenkcom/gtoolkit-debugadapterprotocol:v0.5.338/src' ].
 		spec
 			baseline: 'Gt4PharoLink' with: [
-				spec repository: 'github://feenkcom/gtoolkit-remote:v0.8.1570/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-remote:v0.8.1571/src' ].
 		spec
 			baseline: 'GToolkitVisualizer' with: [
-				spec repository: 'github://feenkcom/gtoolkit-visualizer:v0.8.1618/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-visualizer:v0.8.1619/src' ].
 		spec
 			baseline: 'LepiterYoutube' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.2229/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.6.2230/src' ].
 		spec
 			baseline: 'GToolkit4LSP' with: [
-				spec repository: 'github://feenkcom/gt4lsp:v0.6.276/src' ].
+				spec repository: 'github://feenkcom/gt4lsp:v0.6.277/src' ].
 
 		spec package: 'Lepiter-Pharo' with: [
 			spec requires: #('LepiterEngineCore') ].
@@ -72,6 +72,8 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 		spec package: 'Lepiter-Snippet-String' with: [
 			spec requires: #('LepiterEngineCore') ].
 		spec package: 'Lepiter-Snippet-File' with: [
+			spec requires: #('LepiterEngineCore') ].
+		spec package: 'Lepiter-Snippet-Shell' with: [
 			spec requires: #('LepiterEngineCore') ].
 	]
 ]
