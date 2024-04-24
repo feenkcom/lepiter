@@ -51,6 +51,24 @@ LeStringSnippetViewModel >> initializeCoderAddOns: aTextualCoderViewModel [
 		addShortcut: (LeSnippetMoveSnippetDownShortcut new combination: (self keyboardShortcut: #MoveSnippetDown))
 ]
 
+{ #category : #'api - snippet model' }
+LeStringSnippetViewModel >> onSnippetModelChanged [
+	super onSnippetModelChanged.
+
+	self updateResultVariableBindings
+]
+
+{ #category : #'api - snippet model' }
+LeStringSnippetViewModel >> onStringBindingNameChanged: anAnnouncement [
+	LeBindingNameUpdater new
+		oldName: anAnnouncement oldName;
+		newName: anAnnouncement newName;
+		newValue: self contentString; 
+		bindings: self snippetBindings;
+		onSuccess: [ self announce: anAnnouncement ];
+		update
+]
+
 { #category : #'private - announcement handling' }
 LeStringSnippetViewModel >> onStringFormatChanged: anAnnouncement [
 	self announcer announce: anAnnouncement
@@ -67,6 +85,13 @@ LeStringSnippetViewModel >> selectParserClass: aParserClass [
 	self snippetModel selectParserClass: aParserClass
 ]
 
+{ #category : #'api - shared context' }
+LeStringSnippetViewModel >> sharedSnippetContext: aLeSharedSnippetContext [
+	super sharedSnippetContext: aLeSharedSnippetContext.
+	
+	self updateResultVariableBindings
+]
+
 { #category : #accessing }
 LeStringSnippetViewModel >> snippetElementClass [
 	^ LeStringSnippetElement
@@ -79,6 +104,9 @@ LeStringSnippetViewModel >> subscribeToSnippetModel [
 	self snippetModel announcer weak
 		when: LeStringFormatChanged
 		send: #onStringFormatChanged:
+		to: self;
+		when: LeStringBindingNameChanged
+		send: #onStringBindingNameChanged:
 		to: self
 ]
 
@@ -87,4 +115,13 @@ LeStringSnippetViewModel >> unsubscribeFromSnippetModel [
 	super unsubscribeFromSnippetModel.
 
 	self snippetModel announcer unsubscribe: self
+]
+
+{ #category : #'private - updating' }
+LeStringSnippetViewModel >> updateResultVariableBindings [
+	LeBindingNameUpdater new
+		newName: self bindingName;
+		newValue: self contentString;
+		bindings: self snippetBindings;
+		update
 ]

@@ -97,7 +97,7 @@ LeFileResourcePane >> magritteCancelAction [
 	^ nil
 ]
 
-{ #category : #accessing }
+{ #category : #magritte }
 LeFileResourcePane >> magritteInspectAction [
 	<magritteActionDescription>
 	^ super magritteAcceptAction
