@@ -1,12 +1,15 @@
 "
 I am AutomaticCounter.
 
-I model a monotonously increasing counter (#value and #increment).
-I can function autonomously, incrementing each second in a separate process (#start and #stop).
-I send generic announcements to my announcer when I change (#announcer and #announceChange).
+I model a monotonously increasing counter ({{gtMethod:AutomaticCounter>>#value}} and {{gtMethod:AutomaticCounter>>#increment}}).
+I can function autonomously, incrementing each second in a separate process ({{gtMethod:AutomaticCounter>>#start}} and {{gtMethod:AutomaticCounter>>#stop}}).
+I send generic announcements to my announcer when I change ({{gtMethod:AutomaticCounter>>#announcer}} and {{gtMethod:AutomaticCounter>>#announceChange}}).
 
-My GT views update automatically.
-My GT actions control my incrementing process (start/stop) or allow manual incrementing.
+My GT views ({{gtMethod:AutomaticCounter>>#gtPreviewFor:}} and {{gtMethod:AutomaticCounter>>#gtElementFor:}}) update automatically.
+They use different implementations.
+My GT actions control my incrementing process ({{gtMethod:AutomaticCounter>>#gtStartActionFor:}} and {{gtMethod:AutomaticCounter>>#stop}}) or allow manual incrementing ({{gtMethod:AutomaticCounter>>#gtIncrementActionFor:}}.
+
+You can play with and explore this example: 
 
 {{gtExample:AutomaticCounter>>#example}}
 "
