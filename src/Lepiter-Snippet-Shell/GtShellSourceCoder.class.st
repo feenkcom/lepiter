@@ -94,6 +94,7 @@ GtShellSourceCoder >> pharoBindings [
 
 { #category : #accessing }
 GtShellSourceCoder >> pharoBindings: gtSharedVariablesBindings [
+	"gtSharedVariablesBindings bindingNames isEmpty ifTrue: [ self haltOne ]."
 	pharoBindings := gtSharedVariablesBindings
 ]
 

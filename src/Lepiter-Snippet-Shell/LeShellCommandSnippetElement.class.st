@@ -52,7 +52,9 @@ LeShellCommandSnippetElement >> initializeCoderToolbar [
 				c minWidth: 100 ];
 			aptitude: BrGlamorousEditableLabelAptitude new glamorousCodeTinySize;
 			addAptitude: BrGlamorousCodeEditorAptitude new.
-	bindingEditor editor text: '' asRopedText.
+	bindingEditor editor 
+		text: '' asRopedText;
+		when: BrTextEditorModifiedEvent do: [ :event | self onBindingEditorModified: event ] .
 	coderToolbar addChild: bindingEditor
 ]
 
@@ -61,6 +63,15 @@ LeShellCommandSnippetElement >> initializeLanguageElement [
 	indicator := super initializeLanguageElement.
 	indicator text: 'Shell command'.
 	^ indicator
+]
+
+{ #category : #initialization }
+LeShellCommandSnippetElement >> onBindingEditorModified: event [
+	| newBindingName |
+	newBindingName := event text asString.
+	self snippet bindingName: newBindingName.
+	self coder bindingName: newBindingName.
+	event consumed: true
 ]
 
 { #category : #'api - snippet view model' }
