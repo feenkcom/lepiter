@@ -1,12 +1,26 @@
 Class {
 	#name : #GtShellSourceCoder,
 	#superclass : #GtSourceCoder,
+	#instVars : [
+		'pharoBindings',
+		'bindingName'
+	],
 	#category : #'Lepiter-Snippet-Shell'
 }
 
 { #category : #accessing }
 GtShellSourceCoder >> asCoderViewModel [
 	^ GtSourceCoderViewModel new coder: self
+]
+
+{ #category : #accessing }
+GtShellSourceCoder >> bindingName [
+	^ bindingName ifNil: [ 'shellOutput' ]
+]
+
+{ #category : #accessing }
+GtShellSourceCoder >> bindingName: aNameString [
+	bindingName := aNameString
 ]
 
 { #category : #'api - ast' }
@@ -16,8 +30,6 @@ GtShellSourceCoder >> computeAst: theSourceString [
 
 { #category : #'private - actions' }
 GtShellSourceCoder >> executeShellScript: script [
-	"this is synchroneous, not snippet variable binding in or out"
-	
 	| builder childProcess output |
 
 	builder := GtExternalProcessBuilder new
@@ -25,13 +37,19 @@ GtShellSourceCoder >> executeShellScript: script [
 		arg: '-c';
 		arg: (String lf join: script lines).
 
+	self pharoBindings asDictionary keysAndValuesDo: [ :key :value |
+		(value value isString and: [ script includesSubstring: key ]) ifTrue: [
+			builder env: key value: value value ] ].
+
 	childProcess := builder
 		pipeStdout;
 		spawn.
 
-	output := childProcess waitWithOutput stdoutString.
+	output := childProcess waitWithOutput stdoutString trimBoth.
 
-	^ output trimBoth
+	(self pharoBindings bindingOf: self bindingName asSymbol) value: output.
+	
+	^ output
 ]
 
 { #category : #accessing }
@@ -67,6 +85,16 @@ GtShellSourceCoder >> initializeShortcuts: addOns [
 	addOns
 		addShortcut: GtSourceCoderDoItShortcut new;
 		addShortcut: GtSourceCoderDoItAndInspectShortcut new
+]
+
+{ #category : #accessing }
+GtShellSourceCoder >> pharoBindings [
+	^ pharoBindings
+]
+
+{ #category : #accessing }
+GtShellSourceCoder >> pharoBindings: gtSharedVariablesBindings [
+	pharoBindings := gtSharedVariablesBindings
 ]
 
 { #category : #'private - actions' }
