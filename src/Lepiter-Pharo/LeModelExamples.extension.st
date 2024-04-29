@@ -3,13 +3,18 @@ Extension { #name : #LeModelExamples }
 { #category : #'*Lepiter-Pharo' }
 LeModelExamples >> databaseWithPageHavingManyPharoSnippets [
 	<gtExample>
-	| temporaryDatabase database pageOne |
+	| temporaryDatabase database pageOne aSnippet |
 	temporaryDatabase := LeTemporaryDatabase new.
 	database := temporaryDatabase database.
 
 	pageOne := database pageBuilder
 			title: self pageOneTitle;
 			add.
+
+	aSnippet := LePharoSnippet new code: 'GtCoderEmbeddedDebuggerElement enableEmbeddedDebugger'.
+	pageOne addSnippet: aSnippet.
+	aSnippet := LePharoSnippet new code: 'GtCoderEmbeddedDebuggerElement disableEmbeddedDebugger'.
+	pageOne addSnippet: aSnippet.
 
 	1
 		to: 10
