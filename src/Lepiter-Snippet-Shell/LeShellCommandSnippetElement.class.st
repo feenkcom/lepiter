@@ -1,9 +1,8 @@
 Class {
 	#name : #LeShellCommandSnippetElement,
-	#superclass : #LeSnippetElement,
+	#superclass : #LeExternalEvaluatedSnippetElement,
 	#instVars : [
-		'contentElement',
-		'form'
+		'indicator'
 	],
 	#category : #'Lepiter-Snippet-Shell'
 }
@@ -32,53 +31,25 @@ LeShellCommandSnippetElement >> go [
 ]
 
 { #category : #initialization }
-LeShellCommandSnippetElement >> initialize [
-	| formElement indicatorElement |
-	super initialize.
-	
-	form := LeShellCommandPane new.
-	form
-		acceptAction: [ self go ];
-		inspectAction: [ :model :element | element phlow spawnObject: self go ].
-		
-	formElement := form asElement margin: (BlInsets all: 10).
-	formElement
-		constraintsDo: [ :c | 
-			c frame horizontal alignLeft.
-			c frame vertical alignTop ].
-	formElement hMatchParent.
-		
-	indicatorElement := BrLabel new
-		aptitude: (BrGlamorousLabelAptitude new glamorousRegularSmallSize
-		foreground: BrGlamorousColors textMarkupColor);
-		margin: (BlInsets top: 5 right: 5);
-		text: 'Shell command'.
-	indicatorElement constraintsDo: [ :c |
-		c frame horizontal alignRight.
-		c frame vertical alignTop ].
-		
-	contentElement := BrFrame new
-		hMatchParent;
-		vFitContent;
-		addChildren: { formElement. indicatorElement }.
+LeShellCommandSnippetElement >> initializeLanguageElement [
+	indicator := super initializeLanguageElement.
+	indicator text: 'Shell command'.
+	^ indicator
 ]
 
 { #category : #'api - snippet view model' }
 LeShellCommandSnippetElement >> onSnippetViewModelChanged [
 	super onSnippetViewModelChanged.
 	
-	form
-		command: self snippetViewModel snippetModel command;
-		argumentStrings: self snippetViewModel snippetModel arguments;
-		bindingName: self snippetViewModel snippetModel bindingName
+	"bindingName"
 ]
 
-{ #category : #accessing }
-LeShellCommandSnippetElement >> snippetContent [
-	^ contentElement
+{ #category : #'api - snippet view model' }
+LeShellCommandSnippetElement >> subscribeToSnippetViewModel [
+	^ super subscribeToSnippetViewModel
 ]
 
-{ #category : #accessing }
-LeShellCommandSnippetElement >> snippetToolbar [
-	^ nil
+{ #category : #'api - snippet view model' }
+LeShellCommandSnippetElement >> unsubscribeFromSnippetViewModel [
+	super unsubscribeFromSnippetViewModel
 ]
