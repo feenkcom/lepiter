@@ -18,7 +18,7 @@ LeFileSnippetElement >> go [
 	sharedBindings := self snippetViewModel snippetBindings.
 	binding := sharedBindings bindingOf: bindingName asSymbol.
 	binding value: file.
-	^ "bindingName ->" file
+	^ file
 ]
 
 { #category : #initalization }
@@ -38,11 +38,7 @@ LeFileSnippetElement >> initialize [
 			c frame vertical alignTop ].
 	formElement hMatchParent.
 	
-	indicatorElement := BrLabel new
-		aptitude: (BrGlamorousLabelAptitude new glamorousRegularSmallSize
-		foreground: BrGlamorousColors textMarkupColor);
-		margin: (BlInsets top: 5 right: 5);
-		text: 'File'.
+	indicatorElement := self newIndicatorElement.
 	indicatorElement constraintsDo: [ :c |
 		c frame horizontal alignRight.
 		c frame vertical alignTop ].
@@ -51,6 +47,42 @@ LeFileSnippetElement >> initialize [
 		hMatchParent;
 		vFitContent;
 		addChildren: { formElement. indicatorElement } 
+]
+
+{ #category : #accessing }
+LeFileSnippetElement >> newFileSelection: fileReference [
+	"self inform: 'Go: ' , fileReference pathString."
+	form fileReference: fileReference pathString.
+	self snippetViewModel fileReference: fileReference
+]
+
+{ #category : #accessing }
+LeFileSnippetElement >> newIndicatorElement [
+	| newIndicatorElement aptitude |
+	
+	aptitude := BrGlamorousWithDropdownAptitude
+		handle: [
+			BrButton new
+				aptitude: BrGlamorousButtonRectangularAptitude 
+								+ BrGlamorousButtonWithLabelAptitude - BrGlamorousButtonExteriorAptitude;
+				label: 'File';
+				beSmallSize ]
+		content: [ | fileBrowser |
+			fileBrowser := BrFileSelector new margin: (BlInsets all: 5).
+			fileBrowser buttonLabel: 'Select'.
+			fileBrowser okAction: [ :filePath | 
+				self newFileSelection: filePath.
+				fileBrowser fireEvent: BrDropdownHideWish new ].
+			fileBrowser fileFilterBlock: [ :aFileReference | true ].
+			fileBrowser ].
+			
+	newIndicatorElement := BrButton new
+		aptitude: BrGlamorousButtonWithLabelAptitude + aptitude - BrGlamorousButtonExteriorAptitude;
+		label: 'File';
+		beSmallSize;
+		margin: (BlInsets top: 5 right: 5).
+		
+	^ newIndicatorElement
 ]
 
 { #category : #'api - snippet view model' }
