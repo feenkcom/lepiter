@@ -192,9 +192,3 @@ GtPythonCoderModel >> returnVariablesExpressionFrom: pythonBindings [
 
 	^ LeUninterpretedPythonStatement new string: expressionString
 ]
-
-{ #category : #accessing }
-GtPythonCoderModel >> variableBindings: aGtSnippetBindings [
-
-	^ self pharoBindings: aGtSnippetBindings
-]

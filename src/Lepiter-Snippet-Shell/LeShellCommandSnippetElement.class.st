@@ -1,84 +1,95 @@
 Class {
 	#name : #LeShellCommandSnippetElement,
-	#superclass : #LeSnippetElement,
+	#superclass : #LeExternalEvaluatedSnippetElement,
 	#instVars : [
-		'contentElement',
-		'form'
+		'indicator',
+		'bindingEditor'
 	],
 	#category : #'Lepiter-Snippet-Shell'
 }
 
-{ #category : #accessing }
-LeShellCommandSnippetElement >> go [
-	| command arguments result bindingName sharedBindings binding |
+{ #category : #initialization }
+LeShellCommandSnippetElement >> initializeCoderToolbar [
+	| label |
+	super initializeCoderToolbar.
 	
-	command := form command.
-	arguments := form argumentStrings.
-	bindingName := form bindingName.
-
-	self snippetViewModel snippetModel 
-		command: command;
-		arguments: arguments;
-		bindingName: bindingName.
-
-	sharedBindings := self snippetViewModel snippetBindings.
+	label := BrLabel new
+			beTinySize;
+			margin: (BlInsets left: 0 right: 1);
+			text: 'Binding:' asRopedText;
+			constraintsDo: [ :c | c linear vertical alignCenter ];
+			aptitude: BrGlamorousLabelAptitude new.
+	coderToolbar addChild: label.
 	
-	result := form executeUsingBindings: sharedBindings asDictionary.
-	
-	binding := sharedBindings bindingOf: bindingName asSymbol.
-	binding value: result.
-
-	^ result
+	bindingEditor := BrEditor new
+			vFitContent;
+			hFitContentLimited;
+			constraintsDo: [ :c | 
+				c linear vertical alignCenter.
+				c minWidth: 100 ];
+			aptitude: BrGlamorousEditableLabelAptitude new glamorousCodeTinySize;
+			addAptitude: BrGlamorousCodeEditorAptitude new.
+	bindingEditor editor 
+		text: '' asRopedText;
+		when: BrTextEditorModifiedEvent do: [ :event | self onBindingEditorModified: event ] .
+	coderToolbar addChild: bindingEditor
 ]
 
 { #category : #initialization }
-LeShellCommandSnippetElement >> initialize [
-	| formElement indicatorElement |
-	super initialize.
-	
-	form := LeShellCommandPane new.
-	form
-		acceptAction: [ self go ];
-		inspectAction: [ :model :element | element phlow spawnObject: self go ].
-		
-	formElement := form asElement margin: (BlInsets all: 10).
-	formElement
-		constraintsDo: [ :c | 
-			c frame horizontal alignLeft.
-			c frame vertical alignTop ].
-	formElement hMatchParent.
-		
-	indicatorElement := BrLabel new
-		aptitude: (BrGlamorousLabelAptitude new glamorousRegularSmallSize
-		foreground: BrGlamorousColors textMarkupColor);
-		margin: (BlInsets top: 5 right: 5);
-		text: 'Shell command'.
-	indicatorElement constraintsDo: [ :c |
-		c frame horizontal alignRight.
-		c frame vertical alignTop ].
-		
-	contentElement := BrFrame new
-		hMatchParent;
-		vFitContent;
-		addChildren: { formElement. indicatorElement }.
+LeShellCommandSnippetElement >> initializeLanguageElement [
+	indicator := super initializeLanguageElement.
+	indicator text: 'Shell command'.
+	^ indicator
+]
+
+{ #category : #'private - updating' }
+LeShellCommandSnippetElement >> onBindingEditorModified: event [
+	| newBindingName |
+	newBindingName := event text asString.
+	self snippet bindingName: newBindingName.
+	self coder bindingName: newBindingName.
+	event consumed: true
+]
+
+{ #category : #'private - updating' }
+LeShellCommandSnippetElement >> onShellSourceCoderStarted: announement [
+	self enqueueTask: (BlTaskAction new action: [ indicator text: 'Shell command (running)' ])
+]
+
+{ #category : #'private - updating' }
+LeShellCommandSnippetElement >> onShellSourceCoderStopped: announement [
+	self enqueueTask: (BlTaskAction new action: [ indicator text: 'Shell command' ])
 ]
 
 { #category : #'api - snippet view model' }
 LeShellCommandSnippetElement >> onSnippetViewModelChanged [
 	super onSnippetViewModelChanged.
 	
-	form
-		command: self snippetViewModel snippetModel command;
-		argumentStrings: self snippetViewModel snippetModel arguments;
-		bindingName: self snippetViewModel snippetModel bindingName
+	self coder
+		pharoBindings: self snippetViewModel snippetBindings;
+		bindingName: self snippetViewModel bindingName.
+		
+	self updateBindingElement
 ]
 
-{ #category : #accessing }
-LeShellCommandSnippetElement >> snippetContent [
-	^ contentElement
+{ #category : #'api - snippet view model' }
+LeShellCommandSnippetElement >> subscribeToSnippetViewModel [
+	super subscribeToSnippetViewModel.
+	
+	self coder announcer
+		when: GtShellSourceCoderStarted send: #onShellSourceCoderStarted: to: self;
+		when: GtShellSourceCoderStopped send: #onShellSourceCoderStopped: to: self
 ]
 
-{ #category : #accessing }
-LeShellCommandSnippetElement >> snippetToolbar [
-	^ nil
+{ #category : #'api - snippet view model' }
+LeShellCommandSnippetElement >> unsubscribeFromSnippetViewModel [
+	super unsubscribeFromSnippetViewModel.
+	
+	self coder announcer unsubscribe: self
+]
+
+{ #category : #'private - updating' }
+LeShellCommandSnippetElement >> updateBindingElement [
+	bindingEditor
+		text: (self snippetViewModel bindingName ifNil: [ String new ]) asRopedText
 ]
