@@ -5,7 +5,8 @@ Class {
 		'bindingName',
 		'fileReference',
 		'acceptAction',
-		'inspectAction'
+		'inspectAction',
+		'announcer'
 	],
 	#category : #'Lepiter-Snippet-File'
 }
@@ -23,6 +24,11 @@ LeFileResourcePane >> acceptAction: anAction [
 ]
 
 { #category : #accessing }
+LeFileResourcePane >> announcer [
+	^ announcer ifNil: [ announcer := Announcer new ]
+]
+
+{ #category : #accessing }
 LeFileResourcePane >> asElement [
 	^ self asGtMagritteViewModel asElement padding: (BlInsets all: 10)
 ]
@@ -34,7 +40,8 @@ LeFileResourcePane >> bindingDescription [
 		priority: 1;
 		label: 'Binding';
 		accessor: #bindingName;
-		default: ''
+		default: '';
+		updateOn: Announcement from: self announcer
 ]
 
 { #category : #accessing }
@@ -44,7 +51,8 @@ LeFileResourcePane >> bindingName [
 
 { #category : #accessing }
 LeFileResourcePane >> bindingName: aString [
-	bindingName := aString
+	bindingName := aString.
+	self announcer announce: Announcement
 ]
 
 { #category : #accessing }
@@ -54,7 +62,8 @@ LeFileResourcePane >> fileReference [
 
 { #category : #accessing }
 LeFileResourcePane >> fileReference: aString [
-	fileReference := aString
+	fileReference := aString.
+	self announcer announce: Announcement
 ]
 
 { #category : #magritte }
@@ -64,7 +73,8 @@ LeFileResourcePane >> fileReferenceDescription [
 		priority: 2;
 		label: 'FileReference';
 		accessor: #fileReference;
-		default: ''
+		default: '';
+		updateOn: Announcement from: self announcer
 ]
 
 { #category : #accessing }
