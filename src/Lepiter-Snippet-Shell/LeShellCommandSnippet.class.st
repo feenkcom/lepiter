@@ -20,6 +20,24 @@ LeShellCommandSnippet class >> empty [
 	^ self new
 ]
 
+{ #category : #acccessing }
+LeShellCommandSnippet class >> leJsonV4AttributeMapping [
+	^ super leJsonV4AttributeMapping
+		add: #bindingName -> #bindingName;
+		yourself
+]
+
+{ #category : #accessing }
+LeShellCommandSnippet class >> leJsonV4Name [
+	^ 'shellCommandSnippet'
+]
+
+{ #category : #accessing }
+LeShellCommandSnippet >> asSnippetViewModel [
+	<return: #LeSnippetViewModel>
+	^ LeShellCommandSnippetViewModel new snippetModel: self
+]
+
 { #category : #accessing }
 LeShellCommandSnippet >> bindingName [
 	^ bindingName
