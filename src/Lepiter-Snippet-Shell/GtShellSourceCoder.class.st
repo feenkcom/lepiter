@@ -36,40 +36,26 @@ GtShellSourceCoder >> convertPrimitiveValue: anObject [
 
 { #category : #'private - actions' }
 GtShellSourceCoder >> executeShellScript: script [
-	| builder childProcess output transcript poller |
-	
-	self announce: GtShellScriptStarted.
+	| shellScriptProcess |
 
-	builder := GtExternalProcessBuilder new
-		command: '/bin/sh';
-		arg: '-c';
-		arg: (String lf join: script lines).
+	shellScriptProcess := GtShellScriptProcess new script: script.
 
 	self pharoBindings asDictionary keysAndValuesDo: [ :key :value |
-		((self isPrimitiveValue: value value) and: [ script includesSubstring: '$' , key ]) ifTrue: [
-			builder env: key value: (self convertPrimitiveValue: value value) ] ].
-			
-	transcript := GtTranscript new.
+		((self isPrimitiveValue: value value) 
+				and: [ script includesSubstring: '$' , key ]) ifTrue: [
+			shellScriptProcess 
+				env: key 
+				value: (self convertPrimitiveValue: value value) ] ].
 
-	childProcess := builder
-		pipeStdout;
-		spawn.
+	shellScriptProcess onSuccess: [ :output |
+		(self pharoBindings bindingOf: self bindingName asSymbol) value: output ].
 
-	childProcess asynchronousStdout
-		pollStringEvery: 0.5 seconds
-		do: [ :aString | transcript show: aString ].
-
-	poller := [ 
-		[ childProcess isRunning ] whileTrue: [ 0.5 seconds wait ].
-		transcript textDo: [ :text | 
-			(self pharoBindings bindingOf: self bindingName asSymbol) 
-				value: text asString ].
-		self announce: GtShellScriptStopped ] 
-		forkAt: Processor userBackgroundPriority named: 'poller'.
-				
-	(self pharoBindings bindingOf: self bindingName asSymbol) value: output.
+	shellScriptProcess announcer weak
+		when: GtShellScriptAnnouncement do: [ :announcement | self announce: announcement ].
 	
-	^ transcript
+	shellScriptProcess start.
+
+	^ shellScriptProcess
 ]
 
 { #category : #accessing }
@@ -109,7 +95,7 @@ GtShellSourceCoder >> initializeShortcuts: addOns [
 
 { #category : #private }
 GtShellSourceCoder >> isPrimitiveValue: anObject [
-	^ anObject isString or: [ anObject isNumber or: [ anObject isBoolean ] ]
+	^ #(isString isNumber isBoolean) anySatisfy: [ :each | anObject perform: each ]
 ]
 
 { #category : #accessing }
