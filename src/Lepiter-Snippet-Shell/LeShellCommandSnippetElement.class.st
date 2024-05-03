@@ -77,8 +77,8 @@ LeShellCommandSnippetElement >> subscribeToSnippetViewModel [
 	super subscribeToSnippetViewModel.
 	
 	self coder announcer
-		when: GtShellSourceCoderStarted send: #onShellSourceCoderStarted: to: self;
-		when: GtShellSourceCoderStopped send: #onShellSourceCoderStopped: to: self
+		when: GtShellScriptStarted send: #onShellSourceCoderStarted: to: self;
+		when: GtShellScriptStopped send: #onShellSourceCoderStopped: to: self
 ]
 
 { #category : #'api - snippet view model' }
