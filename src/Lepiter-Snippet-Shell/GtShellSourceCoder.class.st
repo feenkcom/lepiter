@@ -38,7 +38,7 @@ GtShellSourceCoder >> convertPrimitiveValue: anObject [
 GtShellSourceCoder >> executeShellScript: script [
 	| builder childProcess output transcript poller |
 	
-	self announce: GtShellSourceCoderStarted.
+	self announce: GtShellScriptStarted.
 
 	builder := GtExternalProcessBuilder new
 		command: '/bin/sh';
@@ -64,7 +64,7 @@ GtShellSourceCoder >> executeShellScript: script [
 		transcript textDo: [ :text | 
 			(self pharoBindings bindingOf: self bindingName asSymbol) 
 				value: text asString ].
-		self announce: GtShellSourceCoderStopped ] 
+		self announce: GtShellScriptStopped ] 
 		forkAt: Processor userBackgroundPriority named: 'poller'.
 				
 	(self pharoBindings bindingOf: self bindingName asSymbol) value: output.

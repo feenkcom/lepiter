@@ -1,5 +1,5 @@
 Class {
-	#name : #GtShellSourceCoderStopped,
+	#name : #GtShellScriptAnnouncement,
 	#superclass : #Announcement,
 	#category : #'Lepiter-Snippet-Shell'
 }
