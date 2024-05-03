@@ -15,7 +15,9 @@ Class {
 		'stderr',
 		'poller',
 		'announcer',
-		'state'
+		'state',
+		'bindings',
+		'onSuccess'
 	],
 	#category : #'Lepiter-Snippet-Shell'
 }
@@ -33,6 +35,11 @@ GtShellScriptProcess >> announcer [
 { #category : #testing }
 GtShellScriptProcess >> didRun [
 	^ state = #ran
+]
+
+{ #category : #accessing }
+GtShellScriptProcess >> env: key value: value [
+	bindings at: key put: value
 ]
 
 { #category : #examples }
@@ -82,30 +89,21 @@ echo "I can''t do that, Dave" >&2'
 { #category : #private }
 GtShellScriptProcess >> execute [
 	| builder |
-	
 	builder := GtExternalProcessBuilder new
-		command: '/bin/sh';
-		arg: '-c';
-		arg: (String lf join: self script lines).
-			
+			command: '/bin/sh';
+			arg: '-c';
+			arg: (String lf join: self script lines).
+
+	bindings keysAndValuesDo: [ :key :value | builder env: key value: value ].
+
 	childProcess := builder
-		pipeStdout;
-		pipeStderr;
-		spawn.
+			pipeStdout;
+			pipeStderr;
+			spawn.
 
-	childProcess asynchronousStdout
-		pollStringEvery: 0.5 seconds
-		do: [ :aString | stdout show: aString ].
-
-	childProcess asynchronousStderr
-		pollStringEvery: 0.5 seconds
-		do: [ :aString | stderr show: aString ].
-
-	poller := [ 
-		[ childProcess isRunning ] whileTrue: [ 0.5 seconds wait ].
-		state := #ran.
-		self announce: GtShellScriptStopped ] 
-		forkAt: Processor userBackgroundPriority named: 'poller'.
+	self pollStdout.
+	self pollStderr.
+	self pollChildProcessCompletion
 ]
 
 { #category : #'gt extensions' }
@@ -185,6 +183,7 @@ GtShellScriptProcess >> initialize [
 	state := #new.
 	stdout := GtTranscript new.
 	stderr := GtTranscript new.
+	bindings := Dictionary new
 ]
 
 { #category : #testing }
@@ -205,9 +204,42 @@ GtShellScriptProcess >> isSuccess [
 ]
 
 { #category : #accessing }
+GtShellScriptProcess >> onSuccess: block [
+	"Set block to be executed when the shell script process completes successfully.
+	It will be called with the trimmed stdout string value."
+	 
+	onSuccess := block
+]
+
+{ #category : #accessing }
 GtShellScriptProcess >> output [
 	stdout textDo: [ :text | ^ text asString trimBoth ].
 	^ String new
+]
+
+{ #category : #private }
+GtShellScriptProcess >> pollChildProcessCompletion [
+	poller := [ 
+		[ childProcess isRunning ] whileTrue: [ 0.5 seconds wait ].
+		state := #ran.
+		onSuccess ifNotNil: [ onSuccess value: self output ].
+		self announce: GtShellScriptStopped ]
+			forkAt: Processor userBackgroundPriority
+			named: 'poller'
+]
+
+{ #category : #private }
+GtShellScriptProcess >> pollStderr [
+	childProcess asynchronousStderr
+		pollStringEvery: 0.5 seconds
+		do: [ :aString | stderr show: aString ]
+]
+
+{ #category : #private }
+GtShellScriptProcess >> pollStdout [
+	childProcess asynchronousStdout
+		pollStringEvery: 0.5 seconds
+		do: [ :aString | stdout show: aString ]
 ]
 
 { #category : #accessing }
