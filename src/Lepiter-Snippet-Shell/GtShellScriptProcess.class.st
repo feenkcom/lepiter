@@ -130,18 +130,20 @@ GtShellScriptProcess >> gtStopActionFor: composite [
 GtShellScriptProcess >> gtViewScriptFor: composite [
 	<gtView>
 	self hasScript ifFalse: [ ^ composite empty ].
-	^ composite text
+	^ composite textEditor
 		title: 'Script';
 		priority: 20;
+		aptitude: BrGlamorousCodeEditorAptitude;
 		text: [ self script ]
 ]
 
 { #category : #'gt extensions' }
 GtShellScriptProcess >> gtViewStateFor: composite [
 	<gtView>
-	^ composite text
+	^ composite textEditor
 		title: 'State';
 		priority: 10;
+		aptitude: BrGlamorousCodeEditorAptitude;
 		text: [ self stateDescription ];
 		updateWhen: GtShellScriptAnnouncement in: [ self announcer];
 		actionUpdateButton
