@@ -127,6 +127,18 @@ GtShellScriptProcess >> gtStopActionFor: composite [
 ]
 
 { #category : #'gt extensions' }
+GtShellScriptProcess >> gtViewOutputFor: composite [
+	<gtView>
+	^ composite textEditor
+		title: 'Output';
+		priority: 25;
+		aptitude: BrGlamorousCodeEditorAptitude;
+		text: [ self output ];
+		updateWhen: GtShellScriptAnnouncement in: [ self announcer];
+		actionUpdateButton
+]
+
+{ #category : #'gt extensions' }
 GtShellScriptProcess >> gtViewScriptFor: composite [
 	<gtView>
 	self hasScript ifFalse: [ ^ composite empty ].
