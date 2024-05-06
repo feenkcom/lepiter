@@ -51,7 +51,7 @@ GtShellSourceCoder >> executeShellScript: script [
 		(self pharoBindings bindingOf: self bindingName asSymbol) value: output ].
 
 	shellScriptProcess announcer weak
-		when: GtShellScriptAnnouncement do: [ :announcement | self announce: announcement ].
+		when: GtShellScriptAnnouncement send: #announce: to: self.
 	
 	shellScriptProcess start.
 
