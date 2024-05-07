@@ -381,6 +381,11 @@ LePage >> isDailyNote [
 ]
 
 { #category : #'api - testing' }
+LePage >> isNamedPage [
+	^ self type isNamedPageType
+]
+
+{ #category : #'api - testing' }
 LePage >> isPage [
 	^ true
 ]
