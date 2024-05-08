@@ -122,7 +122,6 @@ LePharoSnippetByScripterExamples >> editEveryVisiblePharoSnippetIn: aStep append
 { #category : #'examples - rename variable' }
 LePharoSnippetByScripterExamples >> enterNewLocalVariableName [
 	<gtExample>
-	<noTest>
 	| aScripter |
 	aScripter := self startRenameLocalVariable.
 
