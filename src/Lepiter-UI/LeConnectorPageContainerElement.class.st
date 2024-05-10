@@ -91,7 +91,7 @@ LeConnectorPageContainerElement >> initialize [
 			resizeTarget: innerContainer; 
 			minimumExtent: 0@75).
 	aCloseButton := GtInspectorRoundButtonStencil new asElement
-		icon: (GtInspectorPlusIconStencil close asElement);
+		icon: (BrPlusIconStencil close asElement);
 		constraintsDo: [ :c |
 			c ignoreByLayout.
 			c margin: (BlInsets top: -10 left: 0 bottom: 0 right: -10).
