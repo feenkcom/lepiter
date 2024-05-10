@@ -1,16 +1,16 @@
 Class {
-	#name : #LeShellCommandSnippetViewModel,
+	#name : #LeShellScriptSnippetViewModel,
 	#superclass : #LeCodeSnippetViewModel,
 	#category : #'Lepiter-Snippet-Shell'
 }
 
 { #category : #accessing }
-LeShellCommandSnippetViewModel >> bindingName [
+LeShellScriptSnippetViewModel >> bindingName [
 	^ self snippetModel bindingName
 ]
 
 { #category : #'api - snippet model' }
-LeShellCommandSnippetViewModel >> initializeCoderAddOns: aCoderViewModel [
+LeShellScriptSnippetViewModel >> initializeCoderAddOns: aCoderViewModel [
 	"Initialise the keyboard shortcuts in the code editor"
 
 	aCoderViewModel
@@ -29,6 +29,6 @@ LeShellCommandSnippetViewModel >> initializeCoderAddOns: aCoderViewModel [
 ]
 
 { #category : #'api - accessing' }
-LeShellCommandSnippetViewModel >> snippetElementClass [
-	^ LeShellCommandSnippetElement
+LeShellScriptSnippetViewModel >> snippetElementClass [
+	^ LeShellScriptSnippetElement
 ]
