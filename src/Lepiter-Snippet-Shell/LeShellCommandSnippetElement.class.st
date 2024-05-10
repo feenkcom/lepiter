@@ -10,21 +10,15 @@ Class {
 
 { #category : #initialization }
 LeShellCommandSnippetElement >> initializeCoderToolbar [
-	| label shellToolbar |
+	| label |
 	super initializeCoderToolbar.
-
-	shellToolbar := BrToolbar new
-		aptitude: (BrGlamorousToolbarAptitude new spacing: 4);
-		padding: (BlInsets left: -4).
-
 	label := BrLabel new
 			beTinySize;
 			margin: (BlInsets left: 0 right: 1);
 			text: 'Binding:' asRopedText;
 			constraintsDo: [ :c | c linear vertical alignCenter ];
 			aptitude: BrGlamorousLabelAptitude new.
-	shellToolbar addChild: label.
-	
+	coderToolbar addChild: label.
 	bindingEditor := BrEditor new
 			vFitContent;
 			hFitContentLimited;
@@ -36,9 +30,7 @@ LeShellCommandSnippetElement >> initializeCoderToolbar [
 	bindingEditor editor 
 		text: '' asRopedText;
 		when: BrTextEditorModifiedEvent do: [ :event | self onBindingEditorModified: event ].
-	shellToolbar addChild: bindingEditor.
-
-	coderToolbar addChild: shellToolbar
+	coderToolbar addChild: bindingEditor.
 ]
 
 { #category : #initialization }

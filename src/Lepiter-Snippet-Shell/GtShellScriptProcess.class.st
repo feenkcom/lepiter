@@ -179,7 +179,7 @@ GtShellScriptProcess >> gtViewStdoutFor: composite [
 	stdout ifNil: [ ^ composite empty ].
 	^ composite forward
 		title: 'Stdout';
-		priority: 30;
+		priority: 1;
 		object: [ stdout ];
 		view: #gtLiveFor:;
 		actionUpdateButton
