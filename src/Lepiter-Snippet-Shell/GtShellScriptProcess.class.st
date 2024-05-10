@@ -89,10 +89,8 @@ echo "I can''t do that, Dave" >&2'
 { #category : #private }
 GtShellScriptProcess >> execute [
 	| builder |
-	builder := GtExternalProcessBuilder new
-			command: '/bin/sh';
-			arg: '-c';
-			arg: (String lf join: self script lines).
+	builder := self newShellScriptBuilder
+		arg: (OSPlatform current lineEnding join: self script lines).
 
 	bindings keysAndValuesDo: [ :key :value | builder env: key value: value ].
 
@@ -215,6 +213,19 @@ GtShellScriptProcess >> isRunning [
 GtShellScriptProcess >> isSuccess [
 	^ self didRun
 		and: [ childProcess isTerminated and: [ childProcess wait isSuccess ] ]
+]
+
+{ #category : #private }
+GtShellScriptProcess >> newShellScriptBuilder [
+	^ OSPlatform current isWindows
+		ifTrue: [ 
+			GtExternalProcessBuilder new
+				command: 'powershell';
+				arg: '-c' ]
+		ifFalse: [ 
+			GtExternalProcessBuilder new
+				command: '/bin/bash';
+				arg: '-c' ]
 ]
 
 { #category : #accessing }
