@@ -77,11 +77,11 @@ LeTableOfContentsNode >> printOn: aStream [
 	pageTitle := self page 
 		ifNil: [ '<unknown>' ]
 		ifNotNil: [ :aPage | aPage title ].
-	link
+	"link
 		ifNil: [ super printOn: aStream ]
-		ifNotNil: [ aStream 
+		ifNotNil: [ "aStream 
 			<< 'ToC: ';
-			<< pageTitle ].
+			<< pageTitle "]".
 	aStream
 		space;
 		nextPut: $(;
