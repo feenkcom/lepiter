@@ -1,5 +1,5 @@
 Class {
-	#name : #LeShellCommandSnippetElement,
+	#name : #LeShellScriptSnippetElement,
 	#superclass : #LeExternalEvaluatedSnippetElement,
 	#instVars : [
 		'indicator',
@@ -9,7 +9,7 @@ Class {
 }
 
 { #category : #initialization }
-LeShellCommandSnippetElement >> initializeCoderToolbar [
+LeShellScriptSnippetElement >> initializeCoderToolbar [
 	| label |
 	super initializeCoderToolbar.
 	label := BrLabel new
@@ -34,14 +34,14 @@ LeShellCommandSnippetElement >> initializeCoderToolbar [
 ]
 
 { #category : #initialization }
-LeShellCommandSnippetElement >> initializeLanguageElement [
+LeShellScriptSnippetElement >> initializeLanguageElement [
 	indicator := super initializeLanguageElement.
-	indicator text: 'Shell command'.
+	indicator text: 'Shell script'.
 	^ indicator
 ]
 
 { #category : #'private - updating' }
-LeShellCommandSnippetElement >> onBindingEditorModified: event [
+LeShellScriptSnippetElement >> onBindingEditorModified: event [
 	| newBindingName |
 	newBindingName := event text asString.
 	self snippet bindingName: newBindingName.
@@ -50,17 +50,17 @@ LeShellCommandSnippetElement >> onBindingEditorModified: event [
 ]
 
 { #category : #'private - updating' }
-LeShellCommandSnippetElement >> onShellSourceCoderStarted: announement [
-	self enqueueTask: (BlTaskAction new action: [ indicator text: 'Shell command (running)' ])
+LeShellScriptSnippetElement >> onShellSourceCoderStarted: announement [
+	self enqueueTask: (BlTaskAction new action: [ indicator text: 'Shell script (running)' ])
 ]
 
 { #category : #'private - updating' }
-LeShellCommandSnippetElement >> onShellSourceCoderStopped: announement [
-	self enqueueTask: (BlTaskAction new action: [ indicator text: 'Shell command' ])
+LeShellScriptSnippetElement >> onShellSourceCoderStopped: announement [
+	self enqueueTask: (BlTaskAction new action: [ indicator text: 'Shell script' ])
 ]
 
 { #category : #'api - snippet view model' }
-LeShellCommandSnippetElement >> onSnippetViewModelChanged [
+LeShellScriptSnippetElement >> onSnippetViewModelChanged [
 	super onSnippetViewModelChanged.
 	
 	self coder
@@ -71,7 +71,7 @@ LeShellCommandSnippetElement >> onSnippetViewModelChanged [
 ]
 
 { #category : #'api - snippet view model' }
-LeShellCommandSnippetElement >> subscribeToSnippetViewModel [
+LeShellScriptSnippetElement >> subscribeToSnippetViewModel [
 	super subscribeToSnippetViewModel.
 	
 	self coder announcer
@@ -80,14 +80,14 @@ LeShellCommandSnippetElement >> subscribeToSnippetViewModel [
 ]
 
 { #category : #'api - snippet view model' }
-LeShellCommandSnippetElement >> unsubscribeFromSnippetViewModel [
+LeShellScriptSnippetElement >> unsubscribeFromSnippetViewModel [
 	super unsubscribeFromSnippetViewModel.
 	
 	self coder announcer unsubscribe: self
 ]
 
 { #category : #'private - updating' }
-LeShellCommandSnippetElement >> updateBindingElement [
+LeShellScriptSnippetElement >> updateBindingElement [
 	bindingEditor
 		text: (self snippetViewModel bindingName ifNil: [ String new ]) asRopedText
 ]

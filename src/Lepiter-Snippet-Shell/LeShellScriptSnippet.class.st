@@ -1,5 +1,5 @@
 Class {
-	#name : #LeShellCommandSnippet,
+	#name : #LeShellScriptSnippet,
 	#superclass : #LeCodeSnippet,
 	#instVars : [
 		'bindingName'
@@ -8,52 +8,52 @@ Class {
 }
 
 { #category : #'accessing - menu' }
-LeShellCommandSnippet class >> contextMenuItemSpecification [
+LeShellScriptSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;
-		title: 'Shell command'
+		title: 'Shell script'
 ]
 
 { #category : #accessing }
-LeShellCommandSnippet class >> empty [
+LeShellScriptSnippet class >> empty [
 	^ self new
 ]
 
 { #category : #acccessing }
-LeShellCommandSnippet class >> leJsonV4AttributeMapping [
+LeShellScriptSnippet class >> leJsonV4AttributeMapping [
 	^ super leJsonV4AttributeMapping
 		add: #bindingName -> #bindingName;
 		yourself
 ]
 
 { #category : #accessing }
-LeShellCommandSnippet class >> leJsonV4Name [
+LeShellScriptSnippet class >> leJsonV4Name [
 	^ 'shellCommandSnippet'
 ]
 
 { #category : #accessing }
-LeShellCommandSnippet >> asSnippetViewModel [
+LeShellScriptSnippet >> asSnippetViewModel [
 	<return: #LeSnippetViewModel>
-	^ LeShellCommandSnippetViewModel new snippetModel: self
+	^ LeShellScriptSnippetViewModel new snippetModel: self
 ]
 
 { #category : #accessing }
-LeShellCommandSnippet >> bindingName [
+LeShellScriptSnippet >> bindingName [
 	^ bindingName
 ]
 
 { #category : #accessing }
-LeShellCommandSnippet >> bindingName: aNameString [
+LeShellScriptSnippet >> bindingName: aNameString [
 	bindingName := aNameString
 ]
 
 { #category : #initialization }
-LeShellCommandSnippet >> newCoder [
-	^ GtShellSourceCoder new
+LeShellScriptSnippet >> newCoder [
+	^ GtShellScriptSourceCoder new
 ]
 
 { #category : #accessing }
-LeShellCommandSnippet >> shellScript [
+LeShellScriptSnippet >> shellScript [
 	^ self code
 ]

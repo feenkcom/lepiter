@@ -1,5 +1,5 @@
 Class {
-	#name : #GtShellSourceCoder,
+	#name : #GtShellScriptSourceCoder,
 	#superclass : #GtSourceCoder,
 	#instVars : [
 		'pharoBindings',
@@ -9,33 +9,33 @@ Class {
 }
 
 { #category : #accessing }
-GtShellSourceCoder >> asCoderViewModel [
+GtShellScriptSourceCoder >> asCoderViewModel [
 	^ GtSourceCoderViewModel new coder: self
 ]
 
 { #category : #accessing }
-GtShellSourceCoder >> bindingName [
+GtShellScriptSourceCoder >> bindingName [
 	^ bindingName ifNil: [ 'shellOutput' ]
 ]
 
 { #category : #accessing }
-GtShellSourceCoder >> bindingName: aNameString [
+GtShellScriptSourceCoder >> bindingName: aNameString [
 	bindingName := aNameString
 ]
 
 { #category : #'api - ast' }
-GtShellSourceCoder >> computeAst: theSourceString [
+GtShellScriptSourceCoder >> computeAst: theSourceString [
 	^ theSourceString
 ]
 
 { #category : #private }
-GtShellSourceCoder >> convertPrimitiveValue: anObject [
+GtShellScriptSourceCoder >> convertPrimitiveValue: anObject [
 	anObject isBoolean ifTrue: [ ^ anObject asBit asString ].
 	^ anObject asString
 ]
 
 { #category : #'private - actions' }
-GtShellSourceCoder >> executeShellScript: script [
+GtShellScriptSourceCoder >> executeShellScript: script [
 	| shellScriptProcess |
 
 	shellScriptProcess := GtShellScriptProcess new script: script.
@@ -59,7 +59,7 @@ GtShellSourceCoder >> executeShellScript: script [
 ]
 
 { #category : #accessing }
-GtShellSourceCoder >> initializeAddOns: addOns [
+GtShellScriptSourceCoder >> initializeAddOns: addOns [
 	super initializeAddOns: addOns.
 	
 	"addOns addStyler: (GtCoderAstSmaCCParserStyler new smaccStyler: PsqlParser gtStyler)."
@@ -85,7 +85,7 @@ GtShellSourceCoder >> initializeAddOns: addOns [
 ]
 
 { #category : #initialization }
-GtShellSourceCoder >> initializeShortcuts: addOns [
+GtShellScriptSourceCoder >> initializeShortcuts: addOns [
 	super initializeShortcuts: addOns.
 
 	addOns
@@ -94,22 +94,22 @@ GtShellSourceCoder >> initializeShortcuts: addOns [
 ]
 
 { #category : #private }
-GtShellSourceCoder >> isPrimitiveValue: anObject [
+GtShellScriptSourceCoder >> isPrimitiveValue: anObject [
 	^ #(isString isNumber isBoolean) anySatisfy: [ :each | anObject perform: each ]
 ]
 
 { #category : #accessing }
-GtShellSourceCoder >> pharoBindings [
+GtShellScriptSourceCoder >> pharoBindings [
 	^ pharoBindings
 ]
 
 { #category : #accessing }
-GtShellSourceCoder >> pharoBindings: gtSharedVariablesBindings [
+GtShellScriptSourceCoder >> pharoBindings: gtSharedVariablesBindings [
 	"gtSharedVariablesBindings bindingNames isEmpty ifTrue: [ self haltOne ]."
 	pharoBindings := gtSharedVariablesBindings
 ]
 
 { #category : #'private - actions' }
-GtShellSourceCoder >> primitiveEvaluate: aSourceString inContext: aGtSourceCoderEvaluationContext onFailDo: anEvaluationFailBlock [
+GtShellScriptSourceCoder >> primitiveEvaluate: aSourceString inContext: aGtSourceCoderEvaluationContext onFailDo: anEvaluationFailBlock [
 	^ self executeShellScript: aSourceString
 ]
