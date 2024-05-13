@@ -19,6 +19,11 @@ LeTableOfContentsRestNode >> children: anObject [
 	children := anObject
 ]
 
+{ #category : #accessing }
+LeTableOfContentsRestNode >> gtDisplayOn: stream [
+	stream nextPutAll: 'Unclassified pages'
+]
+
 { #category : #initialization }
 LeTableOfContentsRestNode >> initialize [
 	super initialize.
