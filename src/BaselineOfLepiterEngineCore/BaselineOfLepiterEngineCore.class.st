@@ -10,34 +10,34 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'Brick' with: [
-				spec repository: 'github://feenkcom/Brick:v0.8.1203/src' ].
+				spec repository: 'github://feenkcom/Brick:v0.8.1204/src' ].
 		spec
 			baseline: 'GToolkitFileUtility' with: [
-				spec repository: 'github://feenkcom/gtoolkit-utility:v0.8.299/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-utility:v0.8.300/src' ].
 		spec
 			baseline: 'GToolkitInspector' with: [
-				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.2144/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.2145/src' ].
 		spec
 			baseline: 'GToolkitCoder' with: [
-				spec repository: 'github://feenkcom/gtoolkit-coder:v0.8.1621/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-coder:v0.8.1622/src' ].
 		spec
 			baseline: 'GToolkit4Pharo' with: [
-				spec repository: 'github://feenkcom/gt4pharo:v0.6.1627/src' ].
+				spec repository: 'github://feenkcom/gt4pharo:v0.6.1628/src' ].
 		spec
 			baseline: 'GToolkit4Json' with: [
-				spec repository: 'github://feenkcom/gt4json:v0.6.887/src' ].
+				spec repository: 'github://feenkcom/gt4json:v0.6.888/src' ].
 		spec
 			baseline: 'GToolkitReleaser' with: [
-				spec repository: 'github://feenkcom/gtoolkit-releaser:v0.8.238/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-releaser:v0.8.239/src' ].
 		spec
 			baseline: 'LepiterXDoc' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.2287/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.6.2288/src' ].
 		spec
 			baseline: 'SmaCCRuntime' with: [
-				spec repository: 'github://j-brant/SmaCC:v3.0.52' ].
+				spec repository: 'github://j-brant/SmaCC:v3.0.53' ].
 		spec
 			baseline: 'JSONParser' with: [
-				spec repository: 'github://j-brant/SmaCC:v3.0.52' ].
+				spec repository: 'github://j-brant/SmaCC:v3.0.53' ].
 		spec
 			baseline: 'Beacon' with: [
 				spec repository: 'github://feenkcom/pharo-beacon:436efc02a9ec837b7430af1ee783a02c48360788/repository' ].
