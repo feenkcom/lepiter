@@ -77,6 +77,25 @@ LePythonSnippetElement >> initializeLanguageElement [
 ]
 
 { #category : #accessing }
+LePythonSnippetElement >> initializeTextEditor [
+	super initializeTextEditor.
+	editorElement editor
+		when: BrTextEditorInsertedEvent
+			do: [ :event | self updateLspSourceFrom: event ];
+		when: BrTextEditorDeletedEvent
+			do: [ :event | self updateLspSourceFrom: event ];
+		when: BlInfiniteDataSourceChanged
+			do: [ :event | self updateLspSourceFrom: event ].
+	editorElement
+		addEditorShortcut: (BlShortcutWithAction new
+				combination: BlKeyCombination primaryR;
+				action: [ GtLSPRenameRefactoringController new
+						editor: editorElement;
+						lspFile: (self userData at: #lspFile);
+						execute ])
+]
+
+{ #category : #accessing }
 LePythonSnippetElement >> onAddedToSceneGraph [
 	self userData
 		at: #lspFile
@@ -89,7 +108,7 @@ LePythonSnippetElement >> onAddedToSceneGraph [
 					at: #lspSnippetModel
 					ifAbsentPut: [ GtLSPPythonSnippetModel local ].
 			file := snippetModel createSnippet.
-			file source: self editor text asString.
+			file source: self coder currentSourceString.
 			file open.
 			editorElement addAptitude: (GtLSPEditorAptitude new lspFile: file).
 			file ].
@@ -151,4 +170,10 @@ LePythonSnippetElement >> updateLanguageLabel [
 	languageElement label: label.
 	dropdownHandleButton ifNotNil: [ dropdownHandleButton label: label ].
 	^ label
+]
+
+{ #category : #accessing }
+LePythonSnippetElement >> updateLspSourceFrom: event [
+	(self userData at: #lspFile ifAbsent: [ ^ self ])
+		source: event source text asString
 ]
