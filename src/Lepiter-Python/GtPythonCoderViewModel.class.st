@@ -7,6 +7,15 @@ Class {
 	#category : #'Lepiter-Python-Coder'
 }
 
+{ #category : #'as yet unclassified' }
+GtPythonCoderViewModel >> allowSaveDueTo: aGtLSPRenameAction [ 
+]
+
+{ #category : #accessing }
+GtPythonCoderViewModel >> preventSaveDueTo: anObject [
+	"do nothing"
+]
+
 { #category : #accessing }
 GtPythonCoderViewModel >> selfObject [
 	^ selfObject
