@@ -25,6 +25,11 @@ LeCodeBlockNode >> begin: aSmaCCToken [
 	begin := aSmaCCToken
 ]
 
+{ #category : #accessing }
+LeCodeBlockNode >> beginWithLanguageStopPosition [
+	^ language ifNil: [ begin stopPosition ] ifNotNil: [ language stopPosition ]
+]
+
 { #category : #generated }
 LeCodeBlockNode >> code [
 	^ code
