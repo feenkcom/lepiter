@@ -55,35 +55,32 @@ GtPythonVarNodeVisitor >> undeclaredVariableNames [
 ]
 
 { #category : #generated }
-GtPythonVarNodeVisitor >> visitAssignmentExpression: anAssignmentExpression [
-	^ self visitRoot: anAssignmentExpression
-]
-
-{ #category : #generated }
-GtPythonVarNodeVisitor >> visitExprStmt: anExprStmt [
+GtPythonVarNodeVisitor >> visitAssignmentStatement: anAssignmentStatement [
 	| result assignmentOperator |
-	result := self visitRoot: anExprStmt.
-	anExprStmt assigns ifNotEmpty: [
-		assignmentOperator := anExprStmt assigns first value.
-		assignmentOperator = '='
-			ifTrue: [ 
-				anExprStmt testlist nodesDo: [ :aNode |
-					assignedVariables add: aNode nameToken value ] ] ].
+	result := self visitStatement: anAssignmentStatement.
+	assignmentOperator := anAssignmentStatement assigns first value.
+	assignmentOperator = '='
+		ifTrue: [ anAssignmentStatement lhs
+				withAllNodesOfType: PyVariableExpressionNode
+				do: [ :aNode | assignedVariables add: aNode nameToken value ] ].
 	^ result
 ]
 
 { #category : #generated }
-GtPythonVarNodeVisitor >> visitSymbol: aSymbol [
-	| name |
-	name := aSymbol nameToken value.
-	((assignedVariables includes: name) or: [ temporaryVariables includes: name ])
-		ifFalse: [ accessedFirstVariables add: name ].
-	^ self visitRoot: aSymbol
+GtPythonVarNodeVisitor >> visitParameter: aParameter [
+	aParameter name
+		ifNotNil: [ :name | 
+			name
+				withAllNodesOfType: PyVariableExpressionNode
+				do: [ :node | temporaryVariables add: node nameToken value ] ].
+	^ self visitRoot: aParameter
 ]
 
 { #category : #generated }
-GtPythonVarNodeVisitor >> visitVarArgList: aVarArgList [
-	aVarArgList args do: [ :each | 
-		temporaryVariables add: (each nameToken value) ].
-	^ self visitRoot: aVarArgList
+GtPythonVarNodeVisitor >> visitVariableExpression: aVariableExpression [
+	| name |
+	name := aVariableExpression nameToken value.
+	((assignedVariables includes: name) or: [ temporaryVariables includes: name ])
+		ifFalse: [ accessedFirstVariables add: name ].
+	^ self visitExpression: aVariableExpression
 ]
