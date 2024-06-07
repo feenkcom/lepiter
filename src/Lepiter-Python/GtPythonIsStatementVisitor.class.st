@@ -24,8 +24,7 @@ GtPythonIsStatementVisitor >> isStatement: aSmaCCParseNode [
 ]
 
 { #category : #generated }
-GtPythonIsStatementVisitor >> visitSimpleStmt: aSimpleStmt [
-
+GtPythonIsStatementVisitor >> visitStatement: aStatement [
 	isStatement := true.
-	^ self visitRoot: aSimpleStmt
+	^ self visitRoot: aStatement
 ]
