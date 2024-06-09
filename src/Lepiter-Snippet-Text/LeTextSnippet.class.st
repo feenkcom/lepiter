@@ -265,6 +265,23 @@ LeTextSnippet >> fromStonMapKey: key value: value [
 		[ self heading: value ].
 ]
 
+{ #category : #accessing }
+LeTextSnippet >> gtASTFor: aView [
+	<gtView>
+	^ aView forward
+		title: 'AST';
+		object: [ self ast ];
+		view: #gtExploreFor:
+]
+
+{ #category : #printing }
+LeTextSnippet >> gtDisplayOn: aStream [
+	aStream 
+		nextPutAll: (self text 
+			ifNil: [ '' ] 
+			ifNotNil: [ :aText | aText asString ])
+]
+
 { #category : #'gt-extensions' }
 LeTextSnippet >> gtSpotterContainingSubPartsFor: aSearch [
 	<gtSearch>
