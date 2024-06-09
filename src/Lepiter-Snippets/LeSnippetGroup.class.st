@@ -9,33 +9,44 @@ Class {
 { #category : #accessing }
 LeSnippetGroup >> gtLiveFor: aView [
 	<gtView>
+	| groups list |
 	^ aView explicit
 		title: 'Live';
-		stencil: [ BrSimpleList new
-				matchParent;
-				items: self items;
-				itemStencil: [ BrVerticalPane new
-						hMatchParent;
-						padding: (BlInsets all: 10);
-						vFitContent ];
-				itemDataBinder: [ :aPane :aSnippet | 
-					| viewModel aSnippetElement |
-					viewModel := aSnippet asSnippetViewModel.
-					aSnippetElement := viewModel snippetView asElement.
-					aSnippetElement snippetViewModel: viewModel.
-					aPane removeChildren.
-					aPane
-						addChild: (BrLabel new
-								aptitude: (BrGlamorousLabelAptitude new foreground: Color gray)
-										+ (BrStyleCommonAptitude new
-												default: [ :aStyle | 
-													aStyle
-														geometry: (BlRoundedRectangleGeometry cornerRadius: 4);
-														border: BlBorder empty ];
-												hovered: [ :aStyle | aStyle border: (BlBorder paint: aPane theme button hoveredBorderColor width: 1) ]);
-								when: BlClickEvent do: [:e | e target phlow spawnObject: aSnippet page ];
-								text: aSnippet page title).
-					aPane addChild: aSnippetElement ] ]
+		stencil: [ groups := (self items groupedBy: #page) associations asAsyncStream
+					collect: [ :each | 
+						BrGroup new
+							stream: each value asAsyncStream;
+							domainObject: each key;
+							itemStencil: [ BrVerticalPane new
+									hMatchParent;
+									vFitContent ];
+							itemDataBinder: [ :aPane :aSnippet | 
+								| viewModel aSnippetElement |
+								viewModel := aSnippet asSnippetViewModel.
+								aSnippetElement := viewModel snippetView asElement.
+								aSnippetElement snippetViewModel: viewModel.
+								aPane removeChildren.
+								aPane addChild: aSnippetElement ];
+							shouldShowWithoutItems: true ].
+			list := BrGroupedList new.
+			list
+				margin: (BlInsets all: 10);
+				headerElementStencil: [ BrLabel new
+						margin: (BlInsets top: 20);
+						aptitude: (BrGlamorousLabelAptitude new foreground: Color gray)
+								+ (BrStyleCommonAptitude new
+										default: [ :aStyle | 
+											aStyle
+												geometry: (BlRoundedRectangleGeometry cornerRadius: 4);
+												border: BlBorder empty ];
+										hovered: [ :aStyle | aStyle border: (BlBorder paint: list theme button hoveredBorderColor width: 1) ]) ];
+				headerDataBinder: [ :aLabel :eachItem | 
+					aLabel
+						text: eachItem domainObject title;
+						removeEventHandlersSuchThat: [ :x | true ];
+						when: BlClickEvent
+							do: [ :e | e target phlow spawnObject: eachItem domainObject ] ];
+				stream: groups ]
 ]
 
 { #category : #accessing }
