@@ -7,11 +7,11 @@ Class {
 }
 
 { #category : #accessing }
-LeSnippetGroup >> gtLiveFor: aView [
+LeSnippetGroup >> gtByPageFor: aView [
 	<gtView>
 	| groups list |
 	^ aView explicit
-		title: 'Live';
+		title: 'By page';
 		stencil: [ groups := (self items groupedBy: #page) associations asAsyncStream
 					collect: [ :each | 
 						BrGroup new
@@ -34,12 +34,12 @@ LeSnippetGroup >> gtLiveFor: aView [
 				headerElementStencil: [ BrLabel new
 						margin: (BlInsets top: 20);
 						aptitude: (BrGlamorousLabelAptitude new foreground: Color gray)
-								+ (BrStyleCommonAptitude new
+								"+ (BrStyleCommonAptitude new
 										default: [ :aStyle | 
 											aStyle
 												geometry: (BlRoundedRectangleGeometry cornerRadius: 4);
 												border: BlBorder empty ];
-										hovered: [ :aStyle | aStyle border: (BlBorder paint: list theme button hoveredBorderColor width: 1) ]) ];
+										hovered: [ :aStyle | aStyle border: (BlBorder paint: list theme button hoveredBorderColor width: 1) ])" ];
 				headerDataBinder: [ :aLabel :eachItem | 
 					aLabel
 						text: eachItem domainObject title;
