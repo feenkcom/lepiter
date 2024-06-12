@@ -164,6 +164,7 @@ LeWardleyMapSnippet >> initialize [
 LeWardleyMapSnippet >> linkForNode: aWardleyMapNodeModel ifFound: aFoundBlock [
 	| theLinks |
 	
+	self uid ifNil: [ ^ self ].
 	theLinks := self database linksWithOriginReferenceMatching: ((LeWardleyMapNodeReference forSnippetUid: self uid)
 		nodeUUID: aWardleyMapNodeModel id).
 	theLinks ifEmpty: [ ^ self ].
