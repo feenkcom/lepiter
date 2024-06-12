@@ -34,32 +34,22 @@ LeWardleyMapNodeEditorElement >> createNodeLinkButton [
 { #category : #initialization }
 LeWardleyMapNodeEditorElement >> createNodeLinkEditor [
 	| completionController |
-	
 	linkEditor := BrEditableLabel new
-		aptitude: BrGlamorousEditableLabelAptitude new;
-		text: '';
-		hExact: 100;
-		vFitContent.
-	
+			aptitude: BrGlamorousEditableLabelAptitude new;
+			text: '';
+			hExact: 100;
+			vFitContent.
+
 	linkEditorCompletionStrategy := LeCompletionStrategy new.
 
 	completionController := GtCompletionController
-		on: linkEditor
-		strategy: linkEditorCompletionStrategy.
+			on: linkEditor
+			strategy: linkEditorCompletionStrategy.
 	completionController install.
-	
+
 	linkEditor
 		when: BrEditorAcceptWish
-		do: [ :aWish |
-			| aPageName |
-			
-			aPageName := aWish text asString trimBoth trimBoth: [ :ch | { $[ . $] } includes: ch ].
-			aWish currentTarget text: aPageName.
-
-			self snippet
-				createLinkFromNode: self wardleyMapNodeViewModel wardleyMapNodeModel
-				toPageNamed: aPageName.
-			self updateLinks ].
+		do: [ :aWish | self onEditorAcceptWish: aWish ].
 
 	^ linkEditor
 ]
@@ -90,6 +80,27 @@ LeWardleyMapNodeEditorElement >> createPropertyEditorElements [
 	}
 ]
 
+{ #category : #'event handling' }
+LeWardleyMapNodeEditorElement >> onEditorAcceptWish: aWish [
+	| aNewPageName |
+	aNewPageName := aWish text asString trimBoth
+			trimBoth: [ :ch | 
+				{$[.
+					$]} includes: ch ].
+	
+	self wardleyMapNodeViewModel
+				detectDecorator: [ :each | 
+					each isLinkToAnyLepiterPage ]
+				ifFound: [ :aDecorator | 
+					self wardleyMapNodeViewModel removeWardleyMapDecoratorModel: aDecorator ]
+				ifNone: [ ].
+
+	self snippet
+		createLinkFromNode: self wardleyMapNodeViewModel wardleyMapNodeModel
+		toPageNamed: aNewPageName.
+	^ self updateLinks
+]
+
 { #category : #accessing }
 LeWardleyMapNodeEditorElement >> snippet [
 	^ snippet
@@ -115,5 +126,14 @@ LeWardleyMapNodeEditorElement >> updateLinks [
 			linkEditor text: aLink targetReference content title.
 
 			linkButton action: [ :aButtonElement | self canvasElement phlow spawnTool: (aLink targetReference content asPhlowTool) ].
-			linkButton visibility: BlVisibility visible ]
+			linkButton visibility: BlVisibility visible.
+			self wardleyMapNodeViewModel
+				detectDecorator: [ :each | 
+					each isLinkToLepiterPage: aLink targetReference content ]
+				ifFound: [ :aDecorator | "Decorator already exists" ]
+				ifNone: [ 
+					| aDecorator |
+					aDecorator := GtWardleyMapLink new
+							page: aLink targetReference content.
+					self wardleyMapNodeViewModel addWardleyMapDecoratorModel: aDecorator ] ]
 ]
