@@ -164,6 +164,7 @@ LeWardleyMapSnippet >> initialize [
 LeWardleyMapSnippet >> linkForNode: aWardleyMapNodeModel ifFound: aFoundBlock [
 	| theLinks |
 	
+	self uid ifNil: [ ^ self ].
 	theLinks := self database linksWithOriginReferenceMatching: ((LeWardleyMapNodeReference forSnippetUid: self uid)
 		nodeUUID: aWardleyMapNodeModel id).
 	theLinks ifEmpty: [ ^ self ].
@@ -191,6 +192,13 @@ LeWardleyMapSnippet >> markdownOn: stream level: anInteger [
 		childrenDo: [ :child | 
 			stream cr.
 			child markdownOn: stream level: anInteger + 1 ]
+]
+
+{ #category : #'private - hooks' }
+LeWardleyMapSnippet >> onAddedToDatabase [
+	super onAddedToDatabase.
+
+	self updateWardleyMapDecorators
 ]
 
 { #category : #'private - hooks' }
@@ -246,6 +254,30 @@ LeWardleyMapSnippet >> title [
 	^ self wardleyMap title
 ]
 
+{ #category : #'private - updating' }
+LeWardleyMapSnippet >> updateWardleyMapDecorators [
+	"Since we do not store decorators, we need to re-create decorators for existing page links"
+
+	wardleyMap nodes do: [ :eachNode | 
+		self updateWardleyMapDecoratorsFor: eachNode ]
+]
+
+{ #category : #'private - updating' }
+LeWardleyMapSnippet >> updateWardleyMapDecoratorsFor: aWardleyMapNode [
+	self
+		linkForNode: aWardleyMapNode
+		ifFound: [ :aLink |
+			aWardleyMapNode
+				detectDecorator: [ :each | 
+					each isLinkToLepiterPage: aLink targetReference content ]
+				ifFound: [ :aDecorator | "Decorator already exists" ]
+				ifNone: [ 
+					| aDecorator |
+					aDecorator := GtWardleyMapLink new
+							page: aLink targetReference content.
+					aWardleyMapNode addWardleyMapDecoratorModel: aDecorator ] ] 
+]
+
 { #category : #accessing }
 LeWardleyMapSnippet >> wardleyMap [
 	^ wardleyMap
@@ -256,6 +288,7 @@ LeWardleyMapSnippet >> wardleyMap: aNewWardleyMap [
 	wardleyMap
 		ifNotNil: [ :aPreviousWardleyMap | aPreviousWardleyMap unsubscribe: self ].
 	wardleyMap := aNewWardleyMap.
+	self updateWardleyMapDecorators.
 	wardleyMap weak
 		when: GtWardleyMapAnnouncement
 		send: #onWardleyMapChanged:

@@ -98,6 +98,10 @@ LeWardleyMapNodeEditorElement >> onEditorAcceptWish: aWish [
 	self snippet
 		createLinkFromNode: self wardleyMapNodeViewModel wardleyMapNodeModel
 		toPageNamed: aNewPageName.
+		
+	self snippet
+		updateWardleyMapDecoratorsFor: self wardleyMapNodeViewModel wardleyMapNodeModel.
+		
 	^ self updateLinks
 ]
 
@@ -126,14 +130,5 @@ LeWardleyMapNodeEditorElement >> updateLinks [
 			linkEditor text: aLink targetReference content title.
 
 			linkButton action: [ :aButtonElement | self canvasElement phlow spawnTool: (aLink targetReference content asPhlowTool) ].
-			linkButton visibility: BlVisibility visible.
-			self wardleyMapNodeViewModel
-				detectDecorator: [ :each | 
-					each isLinkToLepiterPage: aLink targetReference content ]
-				ifFound: [ :aDecorator | "Decorator already exists" ]
-				ifNone: [ 
-					| aDecorator |
-					aDecorator := GtWardleyMapLink new
-							page: aLink targetReference content.
-					self wardleyMapNodeViewModel addWardleyMapDecoratorModel: aDecorator ] ]
+			linkButton visibility: BlVisibility visible ]
 ]
