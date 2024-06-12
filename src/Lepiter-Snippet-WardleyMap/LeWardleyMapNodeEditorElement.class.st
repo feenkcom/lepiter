@@ -100,7 +100,7 @@ LeWardleyMapNodeEditorElement >> onEditorAcceptWish: aWish [
 		toPageNamed: aNewPageName.
 		
 	self snippet
-		updateWardleyMapLepiterPageLinksFor: self wardleyMapNodeViewModel wardleyMapNodeModel.
+		updateWardleyMapDecoratorsFor: self wardleyMapNodeViewModel wardleyMapNodeModel.
 		
 	^ self updateLinks
 ]

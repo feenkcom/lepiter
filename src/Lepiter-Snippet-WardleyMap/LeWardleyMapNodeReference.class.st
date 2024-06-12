@@ -55,3 +55,16 @@ LeWardleyMapNodeReference >> nodeUUID [
 LeWardleyMapNodeReference >> nodeUUID: anObject [
 	nodeUUID := anObject
 ]
+
+{ #category : #actions }
+LeWardleyMapNodeReference >> resolveInDatabase: aDatabase [
+	super resolveInDatabase: aDatabase.
+	self content ifNil: [ ^ self ].
+	
+	self flag: #hack.
+	self explicitLink targetReference content
+		ifNil: [ self explicitLink targetReference resolveAndLinkReference ].
+	self explicitLink targetReference content 
+		ifNil: [ ^ self ].
+	self content updateWardleyMapDecorators.
+]
