@@ -90,22 +90,21 @@ LeWardleyMapSnippet >> contentAsString [
 
 { #category : #'api - links' }
 LeWardleyMapSnippet >> createLinkFromNode: aWardleyMapNodeModel toPageNamed: aPageName [
-	| anOriginReference aTargetReference |
-
+	| anOriginReference aTargetReference aPage |
 	self
 		linkForNode: aWardleyMapNodeModel
-		ifFound: [ :aLink | self database removeExplicitLinks: { aLink } ].
+		ifFound: [ :aLink | self database removeExplicitLinks: {aLink} ].
 
-	anOriginReference := (LeWardleyMapNodeReference forSnippetUid: self uid)
-		nodeUUID: aWardleyMapNodeModel id.
+	aPage := self database pageNamed: aPageName ifAbsent: [ ^ self ].	
 	
-	"today it only works if there is a page"
-	aTargetReference := LeLinkPageUidReference
-		forPageUid: (self database pageNamed: aPageName) uid.
-		
-	self database addExplicitLink: (LeAttachedLink new 
-		originReference: anOriginReference;
-		targetReference: aTargetReference)
+	anOriginReference := (LeWardleyMapNodeReference forSnippetUid: self uid)
+			nodeUUID: aWardleyMapNodeModel id.
+	aTargetReference := LeLinkPageUidReference forPageUid: aPage uid.
+
+	self database
+		addExplicitLink: (LeAttachedLink new
+				originReference: anOriginReference;
+				targetReference: aTargetReference)
 ]
 
 { #category : #accessing }
