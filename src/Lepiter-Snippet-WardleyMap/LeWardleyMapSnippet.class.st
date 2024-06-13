@@ -268,12 +268,12 @@ LeWardleyMapSnippet >> updateWardleyMapDecoratorsFor: aWardleyMapNode [
 		ifFound: [ :aLink |
 			aWardleyMapNode
 				detectDecorator: [ :each | 
-					each isLinkToLepiterPage: aLink targetReference content ]
+					each isLinkToLepiterPageUid: aLink targetReference pageUid ]
 				ifFound: [ :aDecorator | "Decorator already exists" ]
 				ifNone: [ 
 					| aDecorator |
 					aDecorator := GtWardleyMapLink new
-							page: aLink targetReference content.
+							pageUid: aLink targetReference pageUid.
 					aWardleyMapNode addWardleyMapDecoratorModel: aDecorator ] ] 
 ]
 

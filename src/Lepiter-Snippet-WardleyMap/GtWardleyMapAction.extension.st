@@ -32,6 +32,15 @@ GtWardleyMapAction >> isLinkToLepiterPageNamed: aLePageName [
 ]
 
 { #category : #'*Lepiter-Snippet-WardleyMap' }
+GtWardleyMapAction >> isLinkToLepiterPageUid: aLePageUid [
+	self lepiterPageUidOption
+		ifNotNil: [ :aLinkedPageUid | aLePageUid = aLinkedPageUid ifTrue: [ ^ true ] ].
+	self lepiterPageOption
+		ifNotNil: [ :aLinkedPage | aLePageUid = aLinkedPage uid ifTrue: [ ^ true ] ].
+	^ false
+]
+
+{ #category : #'*Lepiter-Snippet-WardleyMap' }
 GtWardleyMapAction >> lepiterPageNameOption [
 	^ self optionAt: #lepiterPageName ifAbsent: [ nil ]
 ]
