@@ -41,7 +41,7 @@ LeWardleyMapSnippetElement >> gtWardleyScriptFor: aView [
 LeWardleyMapSnippetElement >> initialize [
 	super initialize.
 	
-	wardleyMapElement := LeWardleyMapElement new.
+	wardleyMapElement := GtWardleyMapElement new.
 	wardleyMapElement vExact: 300.
 	wardleyMapElement evolutionSections: {
 		'genesis'.
@@ -56,7 +56,7 @@ LeWardleyMapSnippetElement >> initialize [
 		do: [ :aResizerEvent | self snippet height: aResizerEvent extent y ].
 
 	maximizerAptitude := BrGlamorousWithMaximizerAptitude new
-		// LeWardleyMapElement;
+		// GtWardleyMapElement;
 		preferredBackground: Color white.
 		
 	wardleyMapContainer := BrVerticalPane new
@@ -79,8 +79,8 @@ LeWardleyMapSnippetElement >> onSnippetViewModelChanged [
 	| aWardleyMapViewModel |
 	aWardleyMapViewModel := GtWardleyMapViewModel new.
 	aWardleyMapViewModel
-		wardleyMapModel: self snippetViewModel snippetModel wardleyMap.
-	wardleyMapElement snippet: self snippet.
+		wardleyMapModel: self snippetViewModel snippetModel wardleyMap;
+		wardleySnippetModel: self snippet.
 	wardleyMapElement wardleyMapViewModel: aWardleyMapViewModel.
 	self onSnippetHeightChanged
 ]
