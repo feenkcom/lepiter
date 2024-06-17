@@ -15,3 +15,8 @@ LeWardleyMapNodeToPageMenuItem >> createElementUsingContext: aContextMenuItem [
 		wardleyMapNodeViewModel: aContextMenuItem wardleyMapNodeViewModel;
 		snippetModel: aContextMenuItem wardleySnippetModel
 ]
+
+{ #category : #'gt - extensions' }
+LeWardleyMapNodeToPageMenuItem >> gtItemName [
+	^ 'Lepiter page linker'
+]
