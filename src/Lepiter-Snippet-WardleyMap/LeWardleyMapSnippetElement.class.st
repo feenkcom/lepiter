@@ -145,3 +145,8 @@ LeWardleyMapSnippetElement >> unsubscribeFromSnippetViewModel [
 
 	self snippet unsubscribe: self
 ]
+
+{ #category : #accessing }
+LeWardleyMapSnippetElement >> wardleyMapViewModel [
+	^ wardleyMapElement wardleyMapViewModel
+]
