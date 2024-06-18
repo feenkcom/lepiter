@@ -45,7 +45,8 @@ LeWardleyMapNodeToPageLinkElement >> initializeLinkButton [
 LeWardleyMapNodeToPageLinkElement >> initializeLinkEditor [
 	| completionController |
 	linkEditor := BrEditableLabel new
-			aptitude: BrGlamorousEditableLabelAptitude new;
+			aptitude: BrGlamorousEditableLabelAptitude new 
+				glamorousRegularFontAndSize;
 			text: '';
 			hExact: 100;
 			vFitContent.
@@ -62,6 +63,13 @@ LeWardleyMapNodeToPageLinkElement >> initializeLinkEditor [
 		do: [ :aWish | self onEditorAcceptWish: aWish ].
 
 	^ linkEditor
+]
+
+{ #category : #'event handling' }
+LeWardleyMapNodeToPageLinkElement >> onDatabaseChanged [
+	self hasSnippetModel ifFalse: [ ^ self ].
+
+	linkEditorCompletionStrategy database: self snippetModel database
 ]
 
 { #category : #'event handling' }
@@ -121,6 +129,7 @@ LeWardleyMapNodeToPageLinkElement >> onSnippetModelChanged [
 	wish to perform an operation that requires an announcement, but keep in mind that this is not the most efficient way"
 	<generatedFrom: #'TGtRobocoderWithObjectTraitTemplate>>#onObjectChangedTemplate'>
 	
+	self onDatabaseChanged.
 	self onLinkNodeChanged
 ]
 
