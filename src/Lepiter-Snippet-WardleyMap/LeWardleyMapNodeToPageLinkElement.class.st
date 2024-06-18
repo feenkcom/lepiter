@@ -34,9 +34,7 @@ LeWardleyMapNodeToPageLinkElement >> initialize [
 
 { #category : #initialization }
 LeWardleyMapNodeToPageLinkElement >> initializeLinkButton [
-	linkButton := BrButton new
-			aptitude: BrGlamorousButtonWithIconAptitude;
-			beSmallSize;
+	linkButton := GtWardleyMapUtility newMenuItemButtonWithIcon
 			icon: BrGlamorousVectorIcons inspect;
 			label: 'Go to page'
 ]
@@ -48,7 +46,7 @@ LeWardleyMapNodeToPageLinkElement >> initializeLinkEditor [
 			aptitude: BrGlamorousEditableLabelAptitude new 
 				glamorousRegularFontAndSize;
 			text: '';
-			hExact: 100;
+			hExact: GtWardleyMapConstants menuItemEditorWidth;
 			vFitContent.
 
 	linkEditorCompletionStrategy := LeCompletionStrategy new.
