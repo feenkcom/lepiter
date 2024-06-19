@@ -156,7 +156,8 @@ LeWardleyMapSnippet >> initialize [
 	super initialize.
 
 	height := self defaultHeight.
-	wardleyMap := GtWardleyMapModel new
+	wardleyMap := GtWardleyMapModel new.
+	wardleyMap isEvolutionAxisVisible: true.
 ]
 
 { #category : #'api - links' }

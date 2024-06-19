@@ -43,12 +43,6 @@ LeWardleyMapSnippetElement >> initialize [
 	
 	wardleyMapElement := GtWardleyMapElement new.
 	wardleyMapElement vExact: 300.
-	wardleyMapElement evolutionSections: {
-		'genesis'.
-		'custom built'.
-		'product (+rental)'.
-		'commodity'
-	}.
 	
 	wardleyMapElement addAptitude: BrGlamorousWithVerticalResizerAptitude new beBottom.
 	wardleyMapElement
