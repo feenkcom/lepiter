@@ -13,8 +13,13 @@ TLeWithFontSize >> decreaseFontSize [
 ]
 
 { #category : #'private - accessing' }
+TLeWithFontSize >> defaultFontSize [
+	^ 1.0 fontEm
+]
+
+{ #category : #'private - accessing' }
 TLeWithFontSize >> fontSize [
-	^ fontSize ifNil: [ fontSize := 1.0 fontEm ].
+	^ fontSize ifNil: [ fontSize := self defaultFontSize ]
 ]
 
 { #category : #'private - event handling' }
@@ -34,4 +39,15 @@ TLeWithFontSize >> initializeFontSizeShortcuts [
 		name: 'Decrease font size';
 		combination: BlKeyCombination builder primary minus build;
 		action: [ self decreaseFontSize ]).
+		
+	self addShortcut: (BlShortcutWithAction new
+		name: 'Reset to default font size';
+		combination: (BlKeyCombination builder primary key: BlKeyboardKey zero) build;
+		action: [ self resetFontSize ]).
+]
+
+{ #category : #'private - event handling' }
+TLeWithFontSize >> resetFontSize [
+	fontSize := self defaultFontSize.
+	self properties fontSize: fontSize
 ]
