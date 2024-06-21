@@ -228,7 +228,7 @@ LePage >> databaseKey [
 	^ type databaseKey
 ]
 
-{ #category : #'api - editing\t' }
+{ #category : #'api - editing' }
 LePage >> duplicatePageWithNewName: aTitleString inDatabase: aDatabase [
 
 	| newPage uuidMapping |
