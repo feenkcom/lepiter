@@ -19,6 +19,14 @@ LeSmaCCRewriteSearchFileResult >> file: aFileReference [
 ]
 
 { #category : #accessing }
+LeSmaCCRewriteSearchFileResult >> gtDisplayOn: stream [
+	stream 
+		nextPutAll: self nodes items size asString;
+		nextPutAll: ' nodes in '.
+	file gtDisplayOn: stream.
+]
+
+{ #category : #accessing }
 LeSmaCCRewriteSearchFileResult >> gtNodesFor: aView [
 	<gtView>
 	^ aView list
