@@ -18,10 +18,10 @@ LeSmaCCRewriteSearchResult >> fileResultsStream: anAsyncStream [
 ]
 
 { #category : #accessing }
-LeSmaCCRewriteSearchResult >> gtResultsView: aView [
+LeSmaCCRewriteSearchResult >> gtGroupedResultsView: aView [
 	<gtView>
 	^ aView explicit
-		title: 'Results';
+		title: 'Grouped results';
 		stencil: [ | list editor selectedItem highlightAttribute |
 			highlightAttribute := BlTextDecorationAttribute new underline
 					beNotOverwritableByStyler;
@@ -80,4 +80,19 @@ LeSmaCCRewriteSearchResult >> gtResultsView: aView [
 				matchParent;
 				addChild: list;
 				addChild: editor ]
+]
+
+{ #category : #accessing }
+LeSmaCCRewriteSearchResult >> gtResultsView: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Results';
+		items: [ self fileResultsStream asyncSimilarCopy ];
+		column: 'File' text: [ :each | each file ];
+		column: 'Nodes'
+			text: [ :each | 
+				| nodeCount |
+				nodeCount := each nodes items size.
+				nodeCount isZero ifTrue: [ '' ] ifFalse: [ nodeCount ] ]
+			width: 100
 ]
