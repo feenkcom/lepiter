@@ -1,9 +1,29 @@
 Extension { #name : #GtWardleyMapDecoratorExamples }
 
 { #category : #'*Lepiter-Snippet-WardleyMap' }
+GtWardleyMapDecoratorExamples >> mapElementWithLepiterPageAction [
+	<gtExample>
+	|  aMapViewModel anElement |
+	aMapViewModel := self mapViewModelWithLepiterPageAction.
+	anElement := GtWardleyMapElement new wardleyMapViewModel: aMapViewModel.
+	
+	^ anElement
+]
+
+{ #category : #'*Lepiter-Snippet-WardleyMap' }
+GtWardleyMapDecoratorExamples >> mapViewModelWithLepiterPageAction [
+	<gtExample>
+	| aMap  aMapViewModel |
+	aMap := self mapWithLepiterPageAction.
+	aMapViewModel := GtWardleyMapViewModel new wardleyMapModel: aMap.
+	
+	^ aMapViewModel
+]
+
+{ #category : #'*Lepiter-Snippet-WardleyMap' }
 GtWardleyMapDecoratorExamples >> mapWithLepiterPageAction [
 	<gtExample>
-	| aMap aPageNameA aNodeA aLinkA aNodeB aLinkB aPageB aPageNameC aLinkC aNodeC |
+	| aMap aPageNameA aNodeA aLinkA aNodeB aLinkB aPageB aPageNameC aLinkC aNodeC aPageNameD aLinkD |
 	aMap := GtWardleyMapModelExamples new newMapWithNodes.
 
 	aNodeA := aMap nodeWithName: 'Node A' ifFound: [ :theNode | theNode ] ifNone: [ nil ].
@@ -22,6 +42,11 @@ GtWardleyMapDecoratorExamples >> mapWithLepiterPageAction [
 	aPageNameC := 'Analyzing feature toggles from a Python project: missing page'.
 	aLinkC := GtWardleyMapAction new pageNamed: aPageNameC.
 	aNodeC addWardleyMapDecoratorModel: aLinkC.
+	
+	aPageNameD := 'Case studies of Moldable Development'.
+	aLinkD := GtWardleyMapAction new pageNamed: aPageNameD.
+	aLinkD label: (GtWardleyMapUtility buttonLabelFromString: aPageNameD).
+	aMap addWardleyMapDecoratorModel: aLinkD.
 
 	^ aMap
 ]
