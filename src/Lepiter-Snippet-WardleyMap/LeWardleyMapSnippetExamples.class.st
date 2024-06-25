@@ -176,6 +176,21 @@ LeWardleyMapSnippetExamples >> snippetWithNodesAndEdgesHasNoLinks [
 ]
 
 { #category : #'examples - setup' }
+LeWardleyMapSnippetExamples >> snippetWithProposedModifications [
+	<gtExample>
+	| snippet |
+	snippet := self emptySnippet.
+	snippet
+		wardleyMap: GtWardleyMapDecoratorExamples new mapWithProposedModifications.
+
+	self assert: snippet wardleyMap isNotNil.
+	self assert: snippet wardleyMap nodes isNotEmpty.
+	self assert: snippet wardleyMap edges isNotEmpty.
+
+	^ snippet
+]
+
+{ #category : #'examples - setup' }
 LeWardleyMapSnippetExamples >> stopDatabaseMonitor [
 	theDatabase ifNotNil: [ theDatabase stopMonitoring ]
 ]
