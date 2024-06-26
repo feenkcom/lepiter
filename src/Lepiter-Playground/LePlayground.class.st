@@ -30,7 +30,7 @@ LePlayground class >> createWithNotePageInKnowledgeBase: aKnowledgeBase [
 ]
 
 { #category : #'api - instantiation' }
-LePlayground class >> createWithPharoCodPageInKnowledgeBase: aKnowledgeBase [
+LePlayground class >> createWithPharoCodePageInKnowledgeBase: aKnowledgeBase [
 	^ self createOn: (self newDefaultPharoCodePageInKnowledgeBase: aKnowledgeBase)
 ]
 
