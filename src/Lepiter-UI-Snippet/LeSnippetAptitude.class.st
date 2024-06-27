@@ -267,7 +267,7 @@ LeSnippetAptitude >> newPlusElement [
 	<return: #BlElement>
 
 	^ GtInspectorRoundButtonStencil small asElement
-		icon: (GtInspectorPlusIconStencil add thickness: 1; radius: 4; asElement);
+		icon: (BrPlusIconStencil add thickness: 1; radius: 4; asElement);
 		yourself
 ]
 

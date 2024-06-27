@@ -23,7 +23,7 @@ LeContextMenuSpotterStart >> database: anObject [
 
 { #category : #printing }
 LeContextMenuSpotterStart >> gtDisplayOn: aStream [
-	aStream nextPutAll: 'New snippet'
+	aStream nextPutAll: 'Add new snippet'
 ]
 
 { #category : #searching }
