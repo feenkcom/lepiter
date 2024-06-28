@@ -8,5 +8,9 @@ Class {
 LeWardleyMapImporter >> importIdFrom: aUUID [
 	"UUID is instantiated as part of the json -> dictionary lepiter convertion"
 
-	^ aUUID
+	aUUID isDictionary ifFalse: [ ^ aUUID ].
+	
+	"When LeSnippetViewModel>>#insertNewSnippet: path execution is used, 
+	the given aUUID is a dictionary with __type and uuid keys."
+	^ UUID leFromJsonV4Dictionary: aUUID.
 ]
