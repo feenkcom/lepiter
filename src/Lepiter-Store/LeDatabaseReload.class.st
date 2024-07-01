@@ -86,6 +86,10 @@ LeDatabaseReload >> reload [
 	"Reload the receiver's database.
 	The monitor has flushed the db properties prior to calling this method."
 
+	monitor database announce: (LeDatabaseAboutToReload new
+		logicalDatabase: monitor database parent;
+		database: monitor database).
+	
 	monitorIsRunning := monitor isRunning.
 	monitorIsRunning ifTrue: [ monitor stopMonitoring ].
 
@@ -110,16 +114,22 @@ LeDatabaseReload >> reload [
 	contentReloadErrorStrategy
 		executeManaged: [ self reloadExplicitLinks: explicitLinks ].
 
-	self updateAddedExplicitLinks.	"Only remove deleted pages if the flag is set.
-		This removes pages that are added (new pages) prior to the reload completing.
-		See the class comments for more information."
+	self updateAddedExplicitLinks.
+	
+	"Only remove deleted pages if the flag is set.
+	This removes pages that are added (new pages) prior to the reload completing.
+	See the class comments for more information."
 	self shouldDeletePages ifTrue: [ self removeDeletedPages ].
 	self removeDeletedLinks.
 
 	contentReloadErrorStrategy actAfterDatabaseReloadFor: self database ]
 		ensure: [ monitorIsRunning
 				ifTrue: [ monitor startMonitoring ]
-				ifFalse: [ monitor loadCorruptPages ] ]
+				ifFalse: [ monitor loadCorruptPages ] ].
+				
+	monitor database announce: (LeDatabaseReloaded new
+		logicalDatabase: monitor database parent;
+		database: monitor database).
 ]
 
 { #category : #private }
