@@ -55,27 +55,57 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReload [
 		"Confirm that each DB has the logical DB as its parent"
 		self assert: db parent equals: logicalDB. ].
 
-	self assert: announcements size equals: 7.
+	self assert: announcements size equals: 14.
 	self assert: ((announcements first: 3) 
 		allSatisfy: [ :anAnnouncement | 
 			anAnnouncement class = LeDatabasesAddedAnnouncement ]).
-	self assert: ((announcements copyFrom: 4 to: 6) 
-		allSatisfy: [ :anAnnouncement | 
-			anAnnouncement class = LeSnippetTextChanged ]).
-	self assert: (announcements last class) equals: LeLogicalDatabaseReloaded.
-			
 	self 
 		assert: ((announcements first: 3) collect: #database as: Array) 
 		equals:{ primaryDB. playgroundDB. registeredDB. }.
 	self 
-		assert: ((announcements copyFrom: 4 to: 6) 
-			collect: [ :anAnnouncement |
-				anAnnouncement snippet string ] 
-			as: Array) 
-		equals:
-			{ 'primary'. 'playground'. 'registered'. }.
+		assert: (announcements at: 4) class 
+		equals: LeLogicalDatabaseAboutToReload.
 	self 
-		assert: (announcements last database) 
+		assert: (announcements at: 5) class 
+		equals: LeDatabaseAboutToReload.
+	self 
+		assert: (announcements at: 6) class
+		equals: LeSnippetTextChanged.
+	self 
+		assert: (announcements at: 6) snippet string
+		equals: 'primary'.
+	self 
+		assert: (announcements at: 7) class 
+		equals: LeDatabaseReloaded.
+	self 
+		assert: (announcements at: 8) class 
+		equals: LeDatabaseAboutToReload.
+	self 
+		assert: (announcements at: 9) class
+		equals: LeSnippetTextChanged.
+	self 
+		assert: (announcements at: 9) snippet string
+		equals: 'playground'.
+	self 
+		assert: (announcements at: 10) class 
+		equals: LeDatabaseReloaded.
+	self 
+		assert: (announcements at: 11) class 
+		equals: LeDatabaseAboutToReload.
+	self 
+		assert: (announcements at: 12) class
+		equals: LeSnippetTextChanged.
+	self 
+		assert: (announcements at: 12) snippet string
+		equals: 'registered'.
+	self 
+		assert: (announcements at: 13) class 
+		equals: LeDatabaseReloaded.
+	self 
+		assert: (announcements at: 14) class 
+		equals: LeLogicalDatabaseReloaded.
+	self 
+		assert: (announcements at: 14) database 
 		equals: logicalDB.
 		
 	^ logicalDB
@@ -116,6 +146,10 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadAddRegistered [
 		self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].
 	self assert: logicalDB registeredDBs isEmpty.
 	self assert: announcements size equals: 2.
+	self 
+		assert: ((announcements first: 2) collect: [ :each | 
+			each database databaseName ] as: Array) 
+		equals:{ #primary. #playground. }.
 
 	"Reload the logical database"
 	logicalDB primaryDB reload.
@@ -123,16 +157,45 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadAddRegistered [
 	"Confirm that the registered DB has appeared"
 	self assert: logicalDB registeredDBs size equals: 1.
 	self assert: logicalDB registeredDBs first databaseName equals: #registered.
-	self assert: announcements size equals: 4.
+	self assert: announcements size equals: 9.
 	self 
-		assert: ((announcements first: 3) collect: [ :each | 
-			each database databaseName ] as: Array) 
-		equals:{ #primary. #playground. #registered. }.
+		assert: (announcements at: 3) class 
+		equals: LeLogicalDatabaseAboutToReload.
 	self 
-		assert: announcements last class 
+		assert: (announcements at: 4) class 
+		equals: LeDatabaseAboutToReload.
+	self 
+		assert: (announcements at: 4) database 
+		equals: primaryDB.
+	self 
+		assert: (announcements at: 5) class 
+		equals: LeDatabaseReloaded.
+	self 
+		assert: (announcements at: 5) database 
+		equals: primaryDB.
+	self 
+		assert: (announcements at: 6) class 
+		equals: LeDatabaseAboutToReload.
+	self 
+		assert: (announcements at: 6) database 
+		equals: playgroundDB.
+	self 
+		assert: (announcements at: 7) class 
+		equals: LeDatabaseReloaded.
+	self 
+		assert: (announcements at: 6) database 
+		equals: playgroundDB.
+	self 
+		assert: (announcements at: 8) class 
+		equals: LeDatabasesAddedAnnouncement.
+	self 
+		assert: (announcements at: 8) database databaseName
+		equals: #registered.
+	self 
+		assert: (announcements at: 9) class 
 		equals: LeLogicalDatabaseReloaded.
 	self 
-		assert: announcements last database
+		assert: (announcements at: 9) database
 		equals: logicalDB.
 	
 	self assert: logicalDB registeredDBs first parent equals: logicalDB.
@@ -181,11 +244,32 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadShuffle [
 	self assert: logicalDB primaryDB identicalTo: registeredDB.
 	self assert: logicalDB playgroundDB identicalTo: playgroundDB.
 	self assert: logicalDB registeredDBs first identicalTo: primaryDB.
-	self assert: announcements size equals: 4.
+	self assert: announcements size equals: 11.
 	self assert: ((announcements first: 3) collect: #database as: Array) equals:
 		{ primaryDB. playgroundDB. registeredDB. }.
 	self 
-		assert: announcements last class 
+		assert: (announcements at: 4) class 
+		equals: LeLogicalDatabaseAboutToReload.
+	self 
+		assert: (announcements at: 5) class 
+		equals: LeDatabaseAboutToReload.
+	self 
+		assert: (announcements at: 6) class 
+		equals: LeDatabaseReloaded.
+	self 
+		assert: (announcements at: 7) class 
+		equals: LeDatabaseAboutToReload.
+	self 
+		assert: (announcements at: 8) class 
+		equals: LeDatabaseReloaded.
+	self 
+		assert: (announcements at: 9) class 
+		equals: LeDatabaseAboutToReload.
+	self 
+		assert: (announcements at: 10) class 
+		equals: LeDatabaseReloaded.
+	self 
+		assert: (announcements at: 11) class 
 		equals: LeLogicalDatabaseReloaded.
 	self 
 		assert: announcements last database
@@ -230,6 +314,9 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadUnloadRegistered [
 	{ primaryDB. playgroundDB. registeredDB. } do: [ :db |
 		self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].
 	self assert: announcements size equals: 3.
+	self 
+		assert: (announcements collect: #class as: Set) asArray 
+		equals: { LeDatabasesAddedAnnouncement }.
 
 	"Using a separate DB instance, update the page"
 	{ primaryDB. playgroundDB. } do: [ :db | | dbDuplicate |
@@ -239,6 +326,8 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadUnloadRegistered [
 		(dbDuplicate pageNamed: #Page1) children first updateText: db databaseName asRopedText.
 		dbDuplicate stopMonitoring ].
 
+	self assert: announcements size equals: 3.
+	
 	"Reload the logical database"
 	logicalDB primaryDB reload.
 
@@ -252,27 +341,56 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadUnloadRegistered [
 	self assert: unloadAnnouncements first content equals: 
 		(registeredDB pageNamed: #Page1) children first.
 		
-	self assert: announcements size equals: 7.
-	self assert: ((announcements first: 4) collect: #database as: Array) equals:
-		{ primaryDB. playgroundDB. registeredDB. registeredDB. }.
-		
+	self assert: announcements size equals: 12.
 	self 
-		assert: announcements fifth class
+		assert: (announcements at: 4) class 
+		equals: LeLogicalDatabaseAboutToReload.
+	self 
+		assert: (announcements at: 5) class 
+		equals: LeDatabaseUnloadAnnouncement.
+	self 
+		assert: (announcements at: 5) database
+		equals: registeredDB.
+	self 
+		assert: (announcements at: 6) class 
+		equals: LeDatabaseAboutToReload.
+	self 
+		assert: (announcements at: 6) database
+		equals: primaryDB.
+	self 
+		assert: (announcements at: 7) class
 		equals: LeSnippetTextChanged.
 	self 
-		assert: announcements sixth class
-		equals: LeSnippetTextChanged.
-	self 
-		assert: announcements seventh class
-		equals: LeLogicalDatabaseReloaded.
-		
-	self 
-		assert: announcements fifth snippet string
+		assert: (announcements at: 7) snippet string
 		equals: 'primary'.
 	self 
-		assert: announcements sixth snippet string
+		assert: (announcements at: 8) class 
+		equals: LeDatabaseReloaded.
+	self 
+		assert: (announcements at: 8) database
+		equals: primaryDB.
+	self 
+		assert: (announcements at: 9) class 
+		equals: LeDatabaseAboutToReload.
+	self 
+		assert: (announcements at: 9) database
+		equals: playgroundDB.
+	self 
+		assert: (announcements at: 10) class
+		equals: LeSnippetTextChanged.
+	self 
+		assert: (announcements at: 10) snippet string
 		equals: 'playground'.
-
+	self 
+		assert: (announcements at: 11) class 
+		equals: LeDatabaseReloaded.
+	self 
+		assert: (announcements at: 11) database
+		equals: playgroundDB.
+	self 
+		assert: (announcements at: 12) class
+		equals: LeLogicalDatabaseReloaded.
+	
 	^ logicalDB
 ]
 
@@ -318,14 +436,45 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseWithFileLocatorRootReload [
 		"Confirm that each DB has the logical DB as its parent"
 		self assert: db parent equals: logicalDB. ].
 
-	self assert: announcements size equals: 3.
-	self assert: ((announcements first: 2) collect: #database as: Array) equals:
-		{ primaryDB. registeredDB. }.
+	self assert: announcements size equals: 8.
+	self 
+		assert: ((announcements first: 2) collect: #class as: Set) asArray 
+		equals: { LeDatabasesAddedAnnouncement }.
+	self 
+		assert: ((announcements first: 2) collect: #database as: Array) 
+		equals: { primaryDB. registeredDB. }.
 	self 
 		assert: announcements third class 
+		equals: LeLogicalDatabaseAboutToReload.
+	self 
+		assert: announcements fourth class 
+		equals: LeDatabaseAboutToReload.
+	self 
+		assert: announcements fourth database
+		equals: primaryDB.
+	self 
+		assert: announcements fifth class 
+		equals: LeDatabaseReloaded.
+	self 
+		assert: announcements fifth database
+		equals: primaryDB.
+	self 
+		assert: announcements sixth class 
+		equals: LeDatabaseAboutToReload.
+	self 
+		assert: announcements sixth database
+		equals: registeredDB.
+	self 
+		assert: announcements seventh class 
+		equals: LeDatabaseReloaded.
+	self 
+		assert: announcements seventh database
+		equals: registeredDB.
+	self 
+		assert: announcements eighth class 
 		equals: LeLogicalDatabaseReloaded.
 	self 
-		assert: announcements third database
+		assert: announcements eighth database
 		equals: logicalDB.
 		
 	"Ensure that after reload the identity of individual databases did not changed.

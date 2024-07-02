@@ -108,9 +108,11 @@ LeLogicalDatabaseReload >> reload [
 
 	existingDbs := Set new.
 	updateCommands := OrderedCollection new.
+	database announce: (LeLogicalDatabaseAboutToReload new 
+		database: self database).
 	
 	"1. Stop monitoring all DBs"
-	database databasesDo: [ :db | 
+	database databasesDo: [ :db |
 		db stopMonitoring.
 		existingDbs add: db ].
 		

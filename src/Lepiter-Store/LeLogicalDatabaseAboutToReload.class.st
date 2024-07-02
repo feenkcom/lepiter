@@ -1,5 +1,5 @@
 Class {
-	#name : #LeLogicalDatabaseReloaded,
+	#name : #LeLogicalDatabaseAboutToReload,
 	#superclass : #Announcement,
 	#instVars : [
 		'database'
@@ -8,13 +8,13 @@ Class {
 }
 
 { #category : #accessing }
-LeLogicalDatabaseReloaded >> database [
+LeLogicalDatabaseAboutToReload >> database [
 
 	^ database
 ]
 
 { #category : #accessing }
-LeLogicalDatabaseReloaded >> database: aLogicalDatabase [
+LeLogicalDatabaseAboutToReload >> database: aLogicalDatabase [
 
 	database := aLogicalDatabase
 ]
