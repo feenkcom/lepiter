@@ -113,6 +113,9 @@ LeLogicalDatabaseReload >> reload [
 	
 	"1. Stop monitoring all DBs"
 	database databasesDo: [ :db |
+		db announce: (LeDatabaseAboutToReload new 
+			logicalDatabase: self database;
+			database: db).
 		db stopMonitoring.
 		existingDbs add: db ].
 		
