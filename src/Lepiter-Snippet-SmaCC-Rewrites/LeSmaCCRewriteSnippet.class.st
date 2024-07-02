@@ -318,3 +318,11 @@ LeSmaCCRewriteSnippet >> startingStateIndex [
 				on: Error
 				do: [ :ex | ex return ] ]) ifNil: [ 0 ]
 ]
+
+{ #category : #accessing }
+LeSmaCCRewriteSnippet >> storeOn: aStream [
+	aStream << '(' << self className << ' new search: ' << search storeString
+		<< '; replace: ' << replace storeString << '; scope: ' << scope storeString
+		<< '; parser: ' << parser storeString << '; startingState: '
+		<< startingState storeString << '; yourself)'
+]
