@@ -86,9 +86,14 @@ LeDatabaseReload >> reload [
 	"Reload the receiver's database.
 	The monitor has flushed the db properties prior to calling this method."
 
-	monitor database announce: (LeDatabaseAboutToReload new
-		logicalDatabase: monitor database parent;
-		database: monitor database).
+	monitor database hasParentDatabase ifFalse: [
+		"If there is logical parent database, then LeDatabaseAboutToReload
+		was already announced. We therefore do not repeat it. We want to let users
+		know as soon as possible, that a database is going to be reloaded. UI widgets
+		can therefore disable editing, etc."
+		monitor database announce: (LeDatabaseAboutToReload new
+			logicalDatabase: monitor database parent;
+			database: monitor database) ].
 	
 	monitorIsRunning := monitor isRunning.
 	monitorIsRunning ifTrue: [ monitor stopMonitoring ].
