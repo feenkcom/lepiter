@@ -215,35 +215,37 @@ LeDatabaseSidebarGroupedListElement >> updateListItems [
 
 { #category : #'private - updating' }
 LeDatabaseSidebarGroupedListElement >> updateSelection [
-	| aPage aPromise |
+	| aPage aPromise aPageDate |
 	self hasSelection ifFalse: [ ^ self ].
 	self selection class = LeContentViewModel ifTrue: [ ^ self ].
-		
+
 	aPage := self selection pageModel.
+	aPageDate := aPage createTime ifNotNil: #asDate.
 	LeDatabaseSidebarGroupedListUpdateSelectionSignal new
 		page: aPage;
-		groupDomainObject: aPage createTime asDate;
+		groupDomainObject: aPageDate;
 		navigationModel: navigationModel;
 		groupedItems: groupedItems;
 		emit.
-	
-	aPromise := (self listElement scrollToGroupDomainObject: aPage createTime asDate item: aPage offset: 20)
-		then: [ :anIndex :isSynchronous |
-			LeDatabaseSidebarGroupedListScrolledToIndexSignal new
-				page: aPage;
-				groupDomainObject: aPage createTime asDate;
-				navigationModel: navigationModel;
-				groupedItems: groupedItems;
-				pageIndex: anIndex;
-				emit.
-			anIndex > 0 ifTrue: [
-				isSynchronous 
-					ifTrue: [
-						self listElement selectOne: anIndex ]
-					ifFalse: [ 
-						BlTaskAction 
-							enqueueElement: self 
-							action: [ self listElement selectOne: anIndex ] ] ] ].
-	
-	self enqueueTask: (BlPromiseTask new promise: aPromise).
+
+	aPromise := (self listElement
+			scrollToGroupDomainObject: aPageDate
+			item: aPage
+			offset: 20)
+			then: [ :anIndex :isSynchronous | 
+				LeDatabaseSidebarGroupedListScrolledToIndexSignal new
+					page: aPage;
+					groupDomainObject: aPageDate;
+					navigationModel: navigationModel;
+					groupedItems: groupedItems;
+					pageIndex: anIndex;
+					emit.
+				anIndex > 0
+					ifTrue: [ isSynchronous
+							ifTrue: [ self listElement selectOne: anIndex ]
+							ifFalse: [ BlTaskAction
+									enqueueElement: self
+									action: [ self listElement selectOne: anIndex ] ] ] ].
+
+	self enqueueTask: (BlPromiseTask new promise: aPromise)
 ]
