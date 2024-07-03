@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'listElement',
 		'navigationModel',
-		'groupedItems'
+		'groupedItems',
+		'selectionUpdater'
 	],
 	#category : #'Lepiter-UI-! UI - Database'
 }
@@ -50,12 +51,13 @@ LeDatabaseSidebarGroupedListElement >> hasSelection [
 	^ navigationModel notNil and: [ navigationModel hasPage ]
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 LeDatabaseSidebarGroupedListElement >> initialize [
 	super initialize.
 	
 	groupedItems := {}.
 	
+	self initializeUpdater.
 	self initializeListElement.
 	self layout: BlLinearLayout vertical.
 
@@ -63,12 +65,14 @@ LeDatabaseSidebarGroupedListElement >> initialize [
 	self addAptitude: (BrLayoutResizerAptitude new inherit: self listElement).
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 LeDatabaseSidebarGroupedListElement >> initializeListElement [
 	listElement := BrGroupedList new
 			margin: (BlInsets top: 5);
 			when: BrSelectionChanged
 				do: [ :anEvent | self onTreeSelectionChanged: anEvent ];
+			when: BrItemsProviderItemsChangedEvent 
+				do: [ :anEvent | self onItemsProviderItemsChanged: anEvent ];
 			headerElementStencil: [ BrLabel new
 					beSmallSize;
 					aptitude: (BrGlamorousLabelAptitude new foreground: Color gray);
@@ -78,6 +82,14 @@ LeDatabaseSidebarGroupedListElement >> initializeListElement [
 			headerDataBinder: [ :aLabelElement :aGroup | aLabelElement text: aGroup domainObject asString ];
 			groups: {};
 			matchParent
+]
+
+{ #category : #initialization }
+LeDatabaseSidebarGroupedListElement >> initializeUpdater [
+	selectionUpdater := BrElementUpdater new
+			element: self
+			selector: #updateSelection;
+			postponedDuration: 0 milliSeconds
 ]
 
 { #category : #accessing }
@@ -109,16 +121,19 @@ LeDatabaseSidebarGroupedListElement >> listElement: anObject [
 	listElement := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #'api - navigation model' }
 LeDatabaseSidebarGroupedListElement >> navigationModel [
 	^ navigationModel
 ]
 
-{ #category : #accessing }
+{ #category : #'api - navigation model' }
 LeDatabaseSidebarGroupedListElement >> navigationModel: anObject [
+	navigationModel == anObject ifTrue: [ ^ self ].
+	navigationModel ifNotNil: [ navigationModel unsubscribe: self ].
 	navigationModel := anObject.
-	navigationModel when: LeUIDatabaseNavigationModelChanged send: #onNavigationModelChanged to: self.
-	navigationModel when: LeUIPageSelected send: #updateSelection to: self
+	navigationModel weak 
+		when: LeUIDatabaseNavigationModelChanged send: #onNavigationModelChanged: to: self;
+		when: LeUIPageSelected send: #onNavigationModelPageSelected: to: self
 ]
 
 { #category : #accessing }
@@ -137,7 +152,7 @@ LeDatabaseSidebarGroupedListElement >> notifyListSelectionChangedTo: aPage [
 { #category : #accessing }
 LeDatabaseSidebarGroupedListElement >> onAddedToSceneGraph [
 	super onAddedToSceneGraph.
-	self updateSelection.
+	selectionUpdater ifNotNil: #requestUpdate.
 ]
 
 { #category : #accessing }
@@ -147,18 +162,32 @@ LeDatabaseSidebarGroupedListElement >> onContentUIModelChanged [
 	self updateListItems.
 ]
 
-{ #category : #accessing }
+{ #category : #'event handling' }
+LeDatabaseSidebarGroupedListElement >> onItemsProviderItemsChanged: anEvent [
+	selectionUpdater ifNotNil: #requestUpdate
+]
+
+{ #category : #'event handling' }
 LeDatabaseSidebarGroupedListElement >> onNavigationModelChanged [
 	self updateListItems.
-	self updateSelection
 ]
 
-{ #category : #accessing }
+{ #category : #'event handling' }
+LeDatabaseSidebarGroupedListElement >> onNavigationModelChanged: anAnnouncement [
+	BlTaskAction enqueueElement: self action: [ self onNavigationModelChanged ]
+]
+
+{ #category : #'event handling' }
+LeDatabaseSidebarGroupedListElement >> onNavigationModelPageSelected: anAnnouncement [
+	selectionUpdater ifNotNil: #requestUpdate
+]
+
+{ #category : #'event handling' }
 LeDatabaseSidebarGroupedListElement >> onSelectionChanged [
-	self updateSelection.
+	selectionUpdater ifNotNil: #requestUpdate
 ]
 
-{ #category : #accessing }
+{ #category : #'event handling' }
 LeDatabaseSidebarGroupedListElement >> onTreeSelectionChanged: aBrSelectionChanged [
 	aBrSelectionChanged
 		selectedDo: [ :anInterval | 
@@ -166,37 +195,55 @@ LeDatabaseSidebarGroupedListElement >> onTreeSelectionChanged: aBrSelectionChang
 				selectedEntityDo: [ :aNode | aNode isHeader ifFalse: [ self notifyListSelectionChangedTo: aNode itemObject ] ] ]
 ]
 
-{ #category : #accessing }
+{ #category : #'api - navigation model' }
 LeDatabaseSidebarGroupedListElement >> selection [
 	^ navigationModel page
 ]
 
-{ #category : #accessing }
+{ #category : #'api - navigation model' }
 LeDatabaseSidebarGroupedListElement >> selection: aViewModel [
 	"Set selected page"
 
 	navigationModel announce: (LeUIPageSelectionRequest new page: aViewModel)
 ]
 
-{ #category : #accessing }
+{ #category : #'private - updating' }
 LeDatabaseSidebarGroupedListElement >> updateListItems [
-	self listElement
-		stream: self items.
-		
-	self updateSelection.
+	self listElement stream: self items.
+	selectionUpdater ifNotNil: #requestUpdate
 ]
 
-{ #category : #accessing }
+{ #category : #'private - updating' }
 LeDatabaseSidebarGroupedListElement >> updateSelection [
-	| page index |
+	| aPage aPromise |
 	self hasSelection ifFalse: [ ^ self ].
-
 	self selection class = LeContentViewModel ifTrue: [ ^ self ].
-
-	self hasSelection
-		ifTrue: [ page := self selection pageModel.
-			index := self findPageIndexInListElement: page.
-			index > 0
-				ifTrue: [ self listElement selectOne: index.
-					self listElement scrollToIndex: index ] ]
+		
+	aPage := self selection pageModel.
+	LeDatabaseSidebarGroupedListUpdateSelectionSignal new
+		page: aPage;
+		groupDomainObject: aPage createTime asDate;
+		navigationModel: navigationModel;
+		groupedItems: groupedItems;
+		emit.
+	
+	aPromise := (self listElement scrollToGroupDomainObject: aPage createTime asDate item: aPage offset: 20)
+		then: [ :anIndex :isSynchronous |
+			LeDatabaseSidebarGroupedListScrolledToIndexSignal new
+				page: aPage;
+				groupDomainObject: aPage createTime asDate;
+				navigationModel: navigationModel;
+				groupedItems: groupedItems;
+				pageIndex: anIndex;
+				emit.
+			anIndex > 0 ifTrue: [
+				isSynchronous 
+					ifTrue: [
+						self listElement selectOne: anIndex ]
+					ifFalse: [ 
+						BlTaskAction 
+							enqueueElement: self 
+							action: [ self listElement selectOne: anIndex ] ] ] ].
+	
+	self enqueueTask: (BlPromiseTask new promise: aPromise).
 ]

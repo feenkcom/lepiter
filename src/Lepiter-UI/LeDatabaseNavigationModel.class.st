@@ -115,7 +115,7 @@ LeDatabaseNavigationModel >> hasPage [
 LeDatabaseNavigationModel >> initialize [
 	super initialize.
 
-	self announcer
+	self announcer weak
 		when: LeUIPageSelectionRequest
 		send: #onSelection:
 		to: self

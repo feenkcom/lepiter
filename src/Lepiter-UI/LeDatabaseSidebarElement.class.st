@@ -118,7 +118,7 @@ LeDatabaseSidebarElement >> initializeListeners [
 { #category : #initialization }
 LeDatabaseSidebarElement >> initializeNavigationModel [
 	navigationModel := LeDatabaseNavigationModel new.
-	navigationModel when: LeUIPageSelected send: #onPageSelection: to: self
+	navigationModel weak when: LeUIPageSelected send: #onPageSelection: to: self
 ]
 
 { #category : #initialization }
