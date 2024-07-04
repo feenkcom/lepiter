@@ -71,6 +71,15 @@ LePageViewModel >> externalSnippetContext: anExternalSnippetContext [
 	sharedSnippetContext externalSnippetContext: anExternalSnippetContext
 ]
 
+{ #category : #printing }
+LePageViewModel >> gtDisplayOn: aStream [
+	pageModel
+		ifNil: [ super gtDisplayOn: aStream ]
+		ifNotNil: [ :aPage | 
+			aStream nextPutAll: 'Page view model of '.
+			aPage gtDisplayOn: aStream ]
+]
+
 { #category : #initialization }
 LePageViewModel >> initialize [
 	super initialize.
