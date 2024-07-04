@@ -81,7 +81,6 @@ LeDatabaseSidebarGroupedListElement >> initializeListElement [
 					vFitContent;
 					margin: (BlInsets top: 10 left: 5) ];
 			headerDataBinder: [ :aLabelElement :aGroup | aLabelElement text: aGroup domainObject asString ];
-			groups: {};
 			matchParent
 ]
 
@@ -170,7 +169,7 @@ LeDatabaseSidebarGroupedListElement >> onContentUIModelChanged [
 
 { #category : #'event handling' }
 LeDatabaseSidebarGroupedListElement >> onItemsProviderItemsChanged: anEvent [
-	selectionUpdater ifNotNil: #requestUpdate
+	self requestSelectionUpdate
 ]
 
 { #category : #'event handling' }
@@ -185,12 +184,12 @@ LeDatabaseSidebarGroupedListElement >> onNavigationModelChanged: anAnnouncement 
 
 { #category : #'event handling' }
 LeDatabaseSidebarGroupedListElement >> onNavigationModelPageSelected: anAnnouncement [
-	selectionUpdater ifNotNil: #requestUpdate
+	self requestSelectionUpdate
 ]
 
 { #category : #'event handling' }
 LeDatabaseSidebarGroupedListElement >> onSelectionChanged [
-	selectionUpdater ifNotNil: #requestUpdate
+	self requestSelectionUpdate
 ]
 
 { #category : #'event handling' }
@@ -199,6 +198,16 @@ LeDatabaseSidebarGroupedListElement >> onTreeSelectionChanged: aBrSelectionChang
 		selectedDo: [ :anInterval | 
 			self listElement
 				selectedEntityDo: [ :aNode | aNode isHeader ifFalse: [ self notifyListSelectionChangedTo: aNode itemObject ] ] ]
+]
+
+{ #category : #'event handling' }
+LeDatabaseSidebarGroupedListElement >> requestSelectionUpdate [
+	LeDatabaseSidebarGroupedListRequestUpdateSelectionSignal new
+		navigationModel: navigationModel;
+		groupedItems: groupedItems;
+		emit.
+
+	selectionUpdater ifNotNil: #requestUpdate
 ]
 
 { #category : #'api - navigation model' }
@@ -217,9 +226,9 @@ LeDatabaseSidebarGroupedListElement >> selection: aViewModel [
 LeDatabaseSidebarGroupedListElement >> updateListItems [
 	groupedItems ifNil: [ ^ self ].
 	navigationModel ifNil: [ ^ self ].
-	
+
 	self listElement stream: self items.
-	selectionUpdater ifNotNil: #requestUpdate
+	self requestSelectionUpdate
 ]
 
 { #category : #'private - updating' }
