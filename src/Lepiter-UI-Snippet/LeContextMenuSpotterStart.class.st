@@ -31,7 +31,7 @@ LeContextMenuSpotterStart >> gtNewSnippetFor: aSearch [
 	<gtSearch>
 	
 	^ aSearch list
-		title: 'Snippet type';
+		title: 'Add page with snippet';
 		priority: 1;
 		items: [ LeContextMenuSnippetItemsCollector new 
 			collectMenuItems ];
