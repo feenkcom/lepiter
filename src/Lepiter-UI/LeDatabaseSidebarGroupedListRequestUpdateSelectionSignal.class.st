@@ -3,7 +3,8 @@ Class {
 	#superclass : #ContextStackSignal,
 	#instVars : [
 		'navigationModel',
-		'groupedItems'
+		'groupedItems',
+		'page'
 	],
 	#category : #'Lepiter-UI-Beacon'
 }
@@ -25,5 +26,11 @@ LeDatabaseSidebarGroupedListRequestUpdateSelectionSignal >> navigationModel [
 
 { #category : #accessing }
 LeDatabaseSidebarGroupedListRequestUpdateSelectionSignal >> navigationModel: anObject [
-	navigationModel := anObject
+	navigationModel := anObject.
+	page := navigationModel ifNotNil: #page.
+]
+
+{ #category : #accessing }
+LeDatabaseSidebarGroupedListRequestUpdateSelectionSignal >> page [
+	^ page
 ]
