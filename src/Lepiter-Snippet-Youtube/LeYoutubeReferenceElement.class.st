@@ -266,14 +266,9 @@ LeYoutubeReferenceElement >> urlString: urlString [
 
 { #category : #accessing }
 LeYoutubeReferenceElement >> videoIdFrom: aStringUrl [
-	| aUrl |
-	aUrl := aStringUrl asZnUrl.	
-	"if there is a query, look for the 'v' query parameter; 
-	 if there is none, try the last  URL segment. this should work
-	 with youtube.com, youtu.be and youtube.com shorts"
-	^ aUrl hasQuery
-		ifTrue: [ aUrl query at: 'v' ifAbsent: [ aUrl segments last ] ]
-		ifFalse: [ aUrl segments last ]
+	^ LeYoutubeUrl new
+		string: aStringUrl;
+		embedVideoIdAndStart
 ]
 
 { #category : #accessing }

@@ -49,7 +49,10 @@ LeYoutubeUrl >> gtOverview [
 			value: self videoId.
 		GtPhlowOverviewItem new
 			name: 'Start at time [seconds]';
-			value: self startAt}
+			value: self startAt.
+		GtPhlowOverviewItem new
+			name: 'Embed video ID and start at time';
+			value: self embedVideoIdAndStart}
 ]
 
 { #category : #'gt - extensions' }
@@ -58,7 +61,7 @@ LeYoutubeUrl >> gtOverviewFor: aView [
 	^ aView columnedList
 		title: 'Details';
 		items: [ self gtOverview ];
-		column: 'Name' text: #name;
+		column: 'Name' text: #name weight: 0.5;
 		column: 'Value' text: #description;
 		send: #value
 ]
@@ -74,16 +77,13 @@ LeYoutubeUrl >> isValidYoutubeUrl [
 LeYoutubeUrl >> startAt [
 	"Return YouTube video start-at position"
 
-	<return: #Integer>
-	self url ifNil: [ ^ 0 ].
+	<return: #String>
+	self url ifNil: [ ^ '0' ].
 	^ self url hasQuery
 		ifTrue: [ self url query at: 't' 
-			ifPresent: [ :aString | 
-				(aString allSatisfy: #isDigit)
-					ifTrue: [ aString asNumber ]
-					ifFalse: [ 0 ] ] 
-			ifAbsent: [ 0 ] ]
-		ifFalse: [ 0 ]
+			ifPresent: [ :aString | aString ] 
+			ifAbsent: [ '0' ] ]
+		ifFalse: [ '0' ]
 ]
 
 { #category : #accessing }
