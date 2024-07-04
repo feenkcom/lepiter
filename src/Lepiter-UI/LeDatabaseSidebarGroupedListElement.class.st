@@ -202,6 +202,10 @@ LeDatabaseSidebarGroupedListElement >> onTreeSelectionChanged: aBrSelectionChang
 
 { #category : #'event handling' }
 LeDatabaseSidebarGroupedListElement >> requestSelectionUpdate [
+	groupedItems ifNil: [ ^ self ].
+	groupedItems ifEmpty: [ ^ self ].
+	navigationModel ifNil: [ ^ self ].
+
 	LeDatabaseSidebarGroupedListRequestUpdateSelectionSignal new
 		navigationModel: navigationModel;
 		groupedItems: groupedItems;
@@ -228,7 +232,6 @@ LeDatabaseSidebarGroupedListElement >> updateListItems [
 	navigationModel ifNil: [ ^ self ].
 
 	self listElement stream: self items.
-	self requestSelectionUpdate
 ]
 
 { #category : #'private - updating' }
