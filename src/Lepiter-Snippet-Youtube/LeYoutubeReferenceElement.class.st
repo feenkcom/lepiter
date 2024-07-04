@@ -17,14 +17,8 @@ Class {
 
 { #category : #accessing }
 LeYoutubeReferenceElement >> computeImageUrl: aStringUrl [
-	| videoId aUrl |
-	aUrl := aStringUrl asZnUrl.
-	"if there is a query, look for the 'v' query parameter; 
-	 if there is none, try the last  URL segment. this should work
-	 with youtube.com, youtu.be and youtube.com shorts"
-	videoId := aUrl hasQuery
-			ifTrue: [ aUrl query at: 'v' ifAbsent: [ aUrl segments last ] ]
-			ifFalse: [ aUrl segments last ].
+	| videoId |
+	videoId := self videoIdFrom: aStringUrl.
 	^ 'http://img.youtube.com/vi/' , videoId , '/0.jpg'
 ]
 
@@ -227,10 +221,11 @@ LeYoutubeReferenceElement >> snippetToolbar [
 
 { #category : #accessing }
 LeYoutubeReferenceElement >> updatePicture [
-	| imageElement imageUrl utility |
+	| imageElement |
 	imageElement := gtUrlUtility isValid
-		ifFalse: [ imageElement := BlElement new size: 0 @ 0 ]
-		ifTrue: [ imageUrl := self computeImageUrl: gtUrlUtility urlString.
+			ifFalse: [ imageElement := BlElement new size: 0 @ 0 ]
+			ifTrue: [
+			" imageUrl := self computeImageUrl: gtUrlUtility urlString.
 			utility := GtUrlStringUtility new.
 			utility urlString: imageUrl.
 			utility isValid
@@ -241,10 +236,16 @@ LeYoutubeReferenceElement >> updatePicture [
 				(BrAsyncFileWidget new url: utility urlString)
 						constraintsDo: [ :c | 
 							c horizontal matchParent.
-							c vertical exact: 300 ] ] ].
+							c vertical exact: 300 ] ] "
+			
+			GtWebViewElement new
+							margin: (BlInsets all: 12);
+							html: '<iframe style="aspect-ratio: 16 / 9;
+  width: 100%;" src="https://www.youtube.com/embed/'
+									, (self videoIdFrom: gtUrlUtility urlString)
+									, '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>' ].
 	pictureContainer removeChildNamed: #imageElement.
-	pictureContainer addChild: imageElement as: #imageElement.
-	
+	pictureContainer addChild: imageElement as: #imageElement
 ]
 
 { #category : #accessing }
@@ -261,6 +262,18 @@ LeYoutubeReferenceElement >> urlString: urlString [
 	gtUrlUtility urlString: urlString.
 	self snippet urlString: urlString source: self.
 	self updatePicture
+]
+
+{ #category : #accessing }
+LeYoutubeReferenceElement >> videoIdFrom: aStringUrl [
+	| aUrl |
+	aUrl := aStringUrl asZnUrl.	
+	"if there is a query, look for the 'v' query parameter; 
+	 if there is none, try the last  URL segment. this should work
+	 with youtube.com, youtu.be and youtube.com shorts"
+	^ aUrl hasQuery
+		ifTrue: [ aUrl query at: 'v' ifAbsent: [ aUrl segments last ] ]
+		ifFalse: [ aUrl segments last ]
 ]
 
 { #category : #accessing }
