@@ -5,7 +5,8 @@ Class {
 		'listElement',
 		'navigationModel',
 		'groupedItems',
-		'selectionUpdater'
+		'selectionUpdater',
+		'selectionElementPromise'
 	],
 	#category : #'Lepiter-UI-! UI - Database'
 }
@@ -57,7 +58,7 @@ LeDatabaseSidebarGroupedListElement >> initialize [
 	
 	groupedItems := {}.
 	
-	self initializeUpdater.
+	self initializeSelectionUpdater.
 	self initializeListElement.
 	self layout: BlLinearLayout vertical.
 
@@ -85,11 +86,16 @@ LeDatabaseSidebarGroupedListElement >> initializeListElement [
 ]
 
 { #category : #initialization }
-LeDatabaseSidebarGroupedListElement >> initializeUpdater [
+LeDatabaseSidebarGroupedListElement >> initializeSelectionUpdater [
 	selectionUpdater := BrElementUpdater new
 			element: self
 			selector: #updateSelection;
-			postponedDuration: 0 milliSeconds
+			postponedDuration: 300 milliSeconds.
+	
+	selectionElementPromise := BrAsyncElementPromise on: self.
+	selectionElementPromise
+		whenSuccess: [ :anElement :aScrollToPageData |
+			self updateSelectionToIndex: aScrollToPageData ]
 ]
 
 { #category : #accessing }
@@ -152,7 +158,7 @@ LeDatabaseSidebarGroupedListElement >> notifyListSelectionChangedTo: aPage [
 { #category : #accessing }
 LeDatabaseSidebarGroupedListElement >> onAddedToSceneGraph [
 	super onAddedToSceneGraph.
-	selectionUpdater ifNotNil: #requestUpdate.
+	"selectionUpdater ifNotNil: #requestUpdate."
 ]
 
 { #category : #accessing }
@@ -209,22 +215,26 @@ LeDatabaseSidebarGroupedListElement >> selection: aViewModel [
 
 { #category : #'private - updating' }
 LeDatabaseSidebarGroupedListElement >> updateListItems [
+	groupedItems ifNil: [ ^ self ].
+	navigationModel ifNil: [ ^ self ].
+	
 	self listElement stream: self items.
 	selectionUpdater ifNotNil: #requestUpdate
 ]
 
 { #category : #'private - updating' }
 LeDatabaseSidebarGroupedListElement >> updateSelection [
-	| aPage aPromise aPageDate |
+	| aPage aPromise aPageDate aNavigationModel |
 	self hasSelection ifFalse: [ ^ self ].
 	self selection class = LeContentViewModel ifTrue: [ ^ self ].
 
 	aPage := self selection pageModel.
 	aPageDate := aPage createTime ifNotNil: #asDate.
+	aNavigationModel := navigationModel.
 	LeDatabaseSidebarGroupedListUpdateSelectionSignal new
 		page: aPage;
 		groupDomainObject: aPageDate;
-		navigationModel: navigationModel;
+		navigationModel: aNavigationModel;
 		groupedItems: groupedItems;
 		emit.
 
@@ -233,19 +243,31 @@ LeDatabaseSidebarGroupedListElement >> updateSelection [
 			item: aPage
 			offset: 20)
 			then: [ :anIndex :isSynchronous | 
-				LeDatabaseSidebarGroupedListScrolledToIndexSignal new
+				LeDatabaseSidebarScrollToPageData new
 					page: aPage;
-					groupDomainObject: aPageDate;
-					navigationModel: navigationModel;
-					groupedItems: groupedItems;
 					pageIndex: anIndex;
-					emit.
-				anIndex > 0
-					ifTrue: [ isSynchronous
-							ifTrue: [ self listElement selectOne: anIndex ]
-							ifFalse: [ BlTaskAction
-									enqueueElement: self
-									action: [ self listElement selectOne: anIndex ] ] ] ].
+					groupDomainObject: aPageDate;
+					navigationModel: aNavigationModel ].
 
-	self enqueueTask: (BlPromiseTask new promise: aPromise)
+	selectionElementPromise promise: aPromise
+]
+
+{ #category : #'private - updating' }
+LeDatabaseSidebarGroupedListElement >> updateSelectionToIndex: aScrollToPageData [
+	| aPage aPageIndex |
+	navigationModel == aScrollToPageData navigationModel ifFalse: [ ^ self ].
+	self hasSelection ifFalse: [ ^ self ].
+	self selection class = LeContentViewModel ifTrue: [ ^ self ].
+	aPage := self selection pageModel.
+	aPage == aScrollToPageData page ifFalse: [ ^ self ].
+	aPageIndex := aScrollToPageData pageIndex.
+	aPageIndex > 0 ifFalse: [ ^ self ].
+
+	LeDatabaseSidebarGroupedListScrolledToIndexSignal new
+		page: aPage;
+		groupDomainObject: aScrollToPageData groupDomainObject;
+		navigationModel: aScrollToPageData navigationModel;
+		pageIndex: aPageIndex;
+		emit.
+	self listElement selectOne: aPageIndex
 ]
