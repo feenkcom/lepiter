@@ -136,7 +136,9 @@ LeYoutubeReferenceElement >> initializePictureContainer [
 	pictureContainer := BrFrame new
 		hMatchParent;
 		vExact: 500;
-		layout: BlLinearLayout vertical;
+		constraintsDo: [ :c | c minHeight: 200 ];
+		when: BlElementExtentChangedEvent 
+			do: [ :anEvent | self onPictureContainerExtentChanged: anEvent ];
 		yourself.
 	
 	snippetContainer addChild: self videoTitleContainer as: #title.
@@ -153,19 +155,25 @@ LeYoutubeReferenceElement >> initializeSceneResizer [
 						do: [ :anEvent | self onResizerResizedEvent: anEvent ] ])
 ]
 
-{ #category : #accessing }
+{ #category : #'event handling' }
+LeYoutubeReferenceElement >> onPictureContainerExtentChanged: anEvent [
+	"Since the HTML embed code defines style as:
+		aspect-ratio: 16 / 9;
+		height: 100%;
+	and we do not want to clip the video horizontally, 
+	it is necessary to limit maximimum snippet height."
+
+	| aWidth aHeight aMaxHeight |
+	aWidth := anEvent currentTarget width.
+	aHeight := anEvent currentTarget height.
+	aMaxHeight := aWidth * 9 / 16.
+	anEvent currentTarget constraintsDo: [ :c | c maxHeight: aMaxHeight ].
+	self updatePictureWidth
+]
+
+{ #category : #'event handling' }
 LeYoutubeReferenceElement >> onResizerResizedEvent: anEvent [
-	pictureContainer
-		childWithId: #imageElement
-		ifFound: [ :anImageElement | 
-			| aNewWidth aHeight |
-			anImageElement constraintsDo: [ :c | 
-				c frame horizontal alignCenter
-			].
-			aHeight := anImageElement height.
-			aNewWidth := (16 / 9 * aHeight) min: pictureContainer width.
-			anImageElement hExact: aNewWidth ]
-		ifNone: [  ]
+	self updatePictureWidth
 ]
 
 { #category : #accessing }
@@ -238,29 +246,42 @@ LeYoutubeReferenceElement >> snippetToolbar [
 LeYoutubeReferenceElement >> updatePicture [
 	| imageElement |
 	imageElement := gtUrlUtility isValid
-			ifFalse: [ imageElement := BlElement new size: 0 @ 0 ]
-			ifTrue: [
-			" imageUrl := self computeImageUrl: gtUrlUtility urlString.
-			utility := GtUrlStringUtility new.
-			utility urlString: imageUrl.
-			utility isValid
-				ifFalse: [ BlElement new size: 0 @ 0 ]
-				ifTrue: [ 
-				title label: self snippet title.
-				authorName label: self snippet authorName.
-				(BrAsyncFileWidget new url: utility urlString)
-						constraintsDo: [ :c | 
-							c horizontal matchParent.
-							c vertical exact: 300 ] ] "
-			
-			GtWebViewElement new
-							margin: (BlInsets bottom: 5);
-							html: '<iframe style="aspect-ratio: 16 / 9;
+			ifFalse: [ BlElement new size: 0 @ 0 ]
+			ifTrue: [ GtWebViewElement new
+					constraintsDo: [ :c | c frame horizontal alignCenter ];
+					when: BlElementExtentChangedEvent 
+						doOnce: [ :anEvent | 
+							self updatePictureWidth: anEvent currentTarget ];
+					margin: (BlInsets bottom: 5);
+					html: '<iframe style="aspect-ratio: 16 / 9;
   height: 100%;" src="https://www.youtube.com/embed/'
-									, (self videoIdFrom: gtUrlUtility urlString)
-									, '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>' ].
+							, (self videoIdFrom: gtUrlUtility urlString)
+							, '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>' ].
 	pictureContainer removeChildNamed: #imageElement.
-	pictureContainer addChild: imageElement as: #imageElement
+	pictureContainer addChild: imageElement as: #imageElement.
+]
+
+{ #category : #'private - updating' }
+LeYoutubeReferenceElement >> updatePictureWidth [
+	pictureContainer
+		childWithId: #imageElement
+		ifFound: [ :anImageElement | self updatePictureWidth: anImageElement ]
+		ifNone: [  ]
+]
+
+{ #category : #'private - updating' }
+LeYoutubeReferenceElement >> updatePictureWidth: anImageElement [
+	"Since the HTML embed code defines style as:
+		aspect-ratio: 16 / 9;
+		height: 100%;
+	and we want to keep the video horizontally in the center of the snippet,
+	it is necessary to keep the image element extent ratio to be also 16 / 9."
+
+	| aHeight aNewWidth |
+	aHeight := anImageElement height.
+	aNewWidth := 16 / 9 * aHeight.
+	aNewWidth < pictureContainer width
+		ifTrue: [ (BrResizerElementLength exact: aNewWidth) adjustWidthFor: anImageElement ]
 ]
 
 { #category : #accessing }
