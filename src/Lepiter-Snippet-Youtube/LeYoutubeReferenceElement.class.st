@@ -159,12 +159,10 @@ LeYoutubeReferenceElement >> onResizerResizedEvent: anEvent [
 		childWithId: #imageElement
 		ifFound: [ :anImageElement | 
 			| aNewWidth aHeight |
-			anImageElement constraintsDo: [ :c | 
-				c frame horizontal alignCenter
-			].
 			aHeight := anImageElement height.
-			aNewWidth := (16 / 9 * aHeight) min: pictureContainer width.
-			anImageElement hExact: aNewWidth ]
+			aNewWidth := 16 / 9 * aHeight.
+			aNewWidth < pictureContainer width
+				ifTrue: [ anImageElement hExact: aNewWidth ] ]
 		ifNone: [  ]
 ]
 
