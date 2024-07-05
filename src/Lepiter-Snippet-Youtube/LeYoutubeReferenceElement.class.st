@@ -10,7 +10,8 @@ Class {
 		'errorStencil',
 		'errorText',
 		'authorName',
-		'title'
+		'title',
+		'snippetContainer'
 	],
 	#category : #'Lepiter-Snippet-Youtube-View-Element'
 }
@@ -129,28 +130,42 @@ LeYoutubeReferenceElement >> initializeEditor [
 
 { #category : #accessing }
 LeYoutubeReferenceElement >> initializePictureContainer [
-	pictureContainer := BrButton new
-		constraintsDo: [ :c | 
-			c horizontal matchParent.
-			c vertical fitContent ];
+	snippetContainer := BrVerticalPane new
+		hMatchParent;
+		vFitContent.
+	pictureContainer := BrFrame new
+		hMatchParent;
+		vExact: 500;
 		layout: BlLinearLayout vertical;
-		padding: (BlInsets top: 5 left: 7 bottom: 5 right: 5);
 		yourself.
 	
-	pictureContainer addChild: self videoTitleContainer.
+	snippetContainer addChild: self videoTitleContainer as: #title.
+	snippetContainer addChild: pictureContainer as: #pictureContainer.
 ]
 
 { #category : #accessing }
 LeYoutubeReferenceElement >> initializeSceneResizer [
-	pictureContainer addAptitude: (BrGlamorousWithVerticalResizerAptitude new beBottom
-		resizerDo: [ :theResizer |
-			theResizer
-				when: BlResizerResizedEvent
-				do: [:anEvent |
-					pictureContainer
-						childWithId: #imageElement
-						ifFound: [ :anImageElement | (BrResizerElementLength exact: anEvent extent y) adjustHeightFor: anImageElement ]
-						ifNone: [ ] ] ])
+	pictureContainer
+		addAptitude: (BrGlamorousWithVerticalResizerAptitude new beBottom
+				resizerDo: [ :theResizer | 
+					theResizer
+						when: BlResizerResizedEvent
+						do: [ :anEvent | self onResizerResizedEvent: anEvent ] ])
+]
+
+{ #category : #accessing }
+LeYoutubeReferenceElement >> onResizerResizedEvent: anEvent [
+	pictureContainer
+		childWithId: #imageElement
+		ifFound: [ :anImageElement | 
+			| aNewWidth aHeight |
+			anImageElement constraintsDo: [ :c | 
+				c frame horizontal alignCenter
+			].
+			aHeight := anImageElement height.
+			aNewWidth := (16 / 9 * aHeight) min: pictureContainer width.
+			anImageElement hExact: aNewWidth ]
+		ifNone: [  ]
 ]
 
 { #category : #accessing }
@@ -205,7 +220,7 @@ LeYoutubeReferenceElement >> snippetContent [
 	View Model properties and derived look"
 	<return: #BlElement>
 
-	^ pictureContainer
+	^ snippetContainer
 ]
 
 { #category : #accessing }
@@ -239,9 +254,9 @@ LeYoutubeReferenceElement >> updatePicture [
 							c vertical exact: 300 ] ] "
 			
 			GtWebViewElement new
-							margin: (BlInsets all: 12);
+							margin: (BlInsets bottom: 5);
 							html: '<iframe style="aspect-ratio: 16 / 9;
-  width: 100%;" src="https://www.youtube.com/embed/'
+  height: 100%;" src="https://www.youtube.com/embed/'
 									, (self videoIdFrom: gtUrlUtility urlString)
 									, '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>' ].
 	pictureContainer removeChildNamed: #imageElement.
@@ -287,13 +302,13 @@ LeYoutubeReferenceElement >> videoTitleContainer [
 			+ BrGlamorousButtonLabelAptitude;
 			action:  [ WebBrowser openOn: self snippet authorUrl ];
 			icon: BrGlamorousIcons go asElement;
-			label: ''.
+			label: 'Author'.
 	title := BrButton new.
 	title aptitude: BrGlamorousButtonRectangularAptitude
 			+ BrGlamorousButtonLabelAptitude;
 			action:  [ WebBrowser openOn: self snippet youtubeUrl ];
 			icon: BrGlamorousIcons go asElement;
-			label: ''.
+			label: 'Watch on YouTube'.
 	container addChild: title; addChild: authorName.
 	^ container
 ]
