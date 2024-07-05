@@ -66,6 +66,42 @@ LeModelExamples >> databaseWithPageHavingOnePharoSnippet [
 ]
 
 { #category : #'*Lepiter-Pharo' }
+LeModelExamples >> databaseWithPageHavingPharoSnippetWithNonExistentClassAndMethod [
+	<gtExample>
+	| temporaryDatabase database pageOne aSnippet |
+	temporaryDatabase := LeTemporaryDatabase new.
+	database := temporaryDatabase database.
+
+	pageOne := database pageBuilder
+			title: self pageOneTitle;
+			add.
+
+	aSnippet := LePharoSnippet new code: ('{1} new methodArg1: 72 arg2: 144' format: { self nonExistentClassName }).
+	pageOne addSnippet: aSnippet.
+
+	^ temporaryDatabase
+]
+
+{ #category : #'*Lepiter-Pharo' }
+LeModelExamples >> nonExistentClassName [
+	^ 'UnexistentClass20240705'
+]
+
+{ #category : #'*Lepiter-Pharo' }
+LeModelExamples >> pageOneHavingPharoSnippetWithNonExistentClassAndMethod [
+	<gtExample>
+	| temporaryDatabase database page |
+	temporaryDatabase := self databaseWithPageHavingPharoSnippetWithNonExistentClassAndMethod.
+	database := temporaryDatabase database.
+
+	page := database pageNamed: self pageOneTitle.
+
+	^ LePageExampleHolder new
+		page: page;
+		temporaryDatabase: temporaryDatabase
+]
+
+{ #category : #'*Lepiter-Pharo' }
 LeModelExamples >> pageOneWithOnePharoSnippet [
 	"Page with one Pharo snippet that have valid executable code"
 
