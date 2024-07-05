@@ -167,15 +167,13 @@ LeYoutubeReferenceElement >> onPictureContainerExtentChanged: anEvent [
 	aWidth := anEvent currentTarget width.
 	aHeight := anEvent currentTarget height.
 	aMaxHeight := aWidth * 9 / 16.
-	anEvent currentTarget constraintsDo: [ :c | c maxHeight: aMaxHeight ]
+	anEvent currentTarget constraintsDo: [ :c | c maxHeight: aMaxHeight ].
+	self updatePictureWidth
 ]
 
 { #category : #'event handling' }
 LeYoutubeReferenceElement >> onResizerResizedEvent: anEvent [
-	pictureContainer
-		childWithId: #imageElement
-		ifFound: [ :anImageElement | self updatePictureWidth: anImageElement ]
-		ifNone: [  ]
+	self updatePictureWidth
 ]
 
 { #category : #accessing }
@@ -261,6 +259,14 @@ LeYoutubeReferenceElement >> updatePicture [
 							, '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>' ].
 	pictureContainer removeChildNamed: #imageElement.
 	pictureContainer addChild: imageElement as: #imageElement.
+]
+
+{ #category : #'private - updating' }
+LeYoutubeReferenceElement >> updatePictureWidth [
+	pictureContainer
+		childWithId: #imageElement
+		ifFound: [ :anImageElement | self updatePictureWidth: anImageElement ]
+		ifNone: [  ]
 ]
 
 { #category : #'private - updating' }
