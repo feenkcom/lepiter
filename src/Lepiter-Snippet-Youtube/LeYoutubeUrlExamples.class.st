@@ -17,7 +17,7 @@ LeYoutubeUrlExamples >> video01 [
 	self assert: aYoutubeUrl isValidYoutubeUrl.
 	self assert: aYoutubeUrl videoId equals: 'WfAbOlmULjk'.
 	self assert: aYoutubeUrl startAt equals: '21'.
-	self assert: aYoutubeUrl embedVideoIdAndStart equals: 'WfAbOlmULjk?t=21'.
+	self assert: aYoutubeUrl embedVideoIdAndStart equals: 'WfAbOlmULjk?start=21'.
 	
 	^ aYoutubeUrl
 ]
@@ -35,7 +35,7 @@ LeYoutubeUrlExamples >> video02 [
 	self assert: aYoutubeUrl isValidYoutubeUrl.
 	self assert: aYoutubeUrl videoId equals: 'WfAbOlmULjk'.
 	self assert: aYoutubeUrl startAt equals: '12'.
-	self assert: aYoutubeUrl embedVideoIdAndStart equals: 'WfAbOlmULjk?t=12'.
+	self assert: aYoutubeUrl embedVideoIdAndStart equals: 'WfAbOlmULjk?start=12'.
 	
 	^ aYoutubeUrl
 ]
@@ -53,7 +53,7 @@ LeYoutubeUrlExamples >> video03 [
 	self assert: aYoutubeUrl isValidYoutubeUrl.
 	self assert: aYoutubeUrl videoId equals: 'WfAbOlmULjk'.
 	self assert: aYoutubeUrl startAt equals: '144'.
-	self assert: aYoutubeUrl embedVideoIdAndStart equals: 'WfAbOlmULjk?t=144'.
+	self assert: aYoutubeUrl embedVideoIdAndStart equals: 'WfAbOlmULjk?start=144'.
 	
 	^ aYoutubeUrl
 ]
@@ -89,7 +89,7 @@ LeYoutubeUrlExamples >> video05 [
 	self assert: aYoutubeUrl isValidYoutubeUrl not.
 	self assert: aYoutubeUrl videoId equals: 'anything but url'.
 	self assert: aYoutubeUrl startAt equals: 0 asString.
-	self assert: aYoutubeUrl embedVideoIdAndStart equals: 'anything but url?t=0'.
+	self assert: aYoutubeUrl embedVideoIdAndStart equals: 'anything but url?start=0'.
 	
 	^ aYoutubeUrl
 ]
@@ -125,7 +125,7 @@ LeYoutubeUrlExamples >> video07 [
 	self assert: aYoutubeUrl isValidYoutubeUrl.
 	self assert: aYoutubeUrl videoId equals: 'WfAbOlmULjk'.
 	self assert: aYoutubeUrl startAt equals: '144s'.
-	self assert: aYoutubeUrl embedVideoIdAndStart equals: 'WfAbOlmULjk?t=144s'.
+	self assert: aYoutubeUrl embedVideoIdAndStart equals: 'WfAbOlmULjk?start=144s'.
 	
 	^ aYoutubeUrl
 ]

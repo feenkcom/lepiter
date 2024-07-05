@@ -23,7 +23,7 @@ LeYoutubeUrl >> embedVideoIdAndStart [
 	^ self videoId
 		ifNil: [ ^ '' ]
 		ifNotNil: [ :aVideoId | 
-			'{1}?t={2}' format: {aVideoId. self startAt} ]
+			'{1}?start={2}' format: {aVideoId. self startAt} ]
 ]
 
 { #category : #'gt - extensions' }
