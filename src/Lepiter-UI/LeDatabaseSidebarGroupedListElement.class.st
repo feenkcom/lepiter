@@ -252,8 +252,7 @@ LeDatabaseSidebarGroupedListElement >> updateSelection [
 
 	aPromise := (self listElement
 			scrollToGroupDomainObject: aPageDate
-			item: aPage
-			offset: 20)
+			item: aPage)
 			then: [ :anIndex :isSynchronous | 
 				LeDatabaseSidebarScrollToPageData new
 					page: aPage;
