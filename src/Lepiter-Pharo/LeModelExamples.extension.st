@@ -83,6 +83,28 @@ LeModelExamples >> databaseWithPageHavingPharoSnippetWithNonExistentClassAndMeth
 ]
 
 { #category : #'*Lepiter-Pharo' }
+LeModelExamples >> databaseWithPageHavingPharoSnippetWithNonExistentClassAndMethod2 [
+	<gtExample>
+	| temporaryDatabase database pageOne aSnippet |
+	temporaryDatabase := LeTemporaryDatabase new.
+	database := temporaryDatabase database.
+
+	pageOne := database pageBuilder
+			title: self pageOneTitle;
+			add.
+
+	aSnippet := LePharoSnippet new code: ('arg1 := 72.
+arg2 := 144.
+object := {1} new.' format: { self nonExistentClassName }).
+	pageOne addSnippet: aSnippet.
+
+	aSnippet := LePharoSnippet new code: ('object methodArg1: arg1 arg2: arg2' format: { self nonExistentClassName }).
+	pageOne addSnippet: aSnippet.
+	
+	^ temporaryDatabase
+]
+
+{ #category : #'*Lepiter-Pharo' }
 LeModelExamples >> nonExistentClassName [
 	^ 'UnexistentClass20240705'
 ]
@@ -92,6 +114,20 @@ LeModelExamples >> pageOneHavingPharoSnippetWithNonExistentClassAndMethod [
 	<gtExample>
 	| temporaryDatabase database page |
 	temporaryDatabase := self databaseWithPageHavingPharoSnippetWithNonExistentClassAndMethod.
+	database := temporaryDatabase database.
+
+	page := database pageNamed: self pageOneTitle.
+
+	^ LePageExampleHolder new
+		page: page;
+		temporaryDatabase: temporaryDatabase
+]
+
+{ #category : #'*Lepiter-Pharo' }
+LeModelExamples >> pageOneHavingPharoSnippetWithNonExistentClassAndMethod2 [
+	<gtExample>
+	| temporaryDatabase database page |
+	temporaryDatabase := self databaseWithPageHavingPharoSnippetWithNonExistentClassAndMethod2.
 	database := temporaryDatabase database.
 
 	page := database pageNamed: self pageOneTitle.
