@@ -105,6 +105,7 @@ LeSnippet >> additionalStateForCopying [
 LeSnippet >> allSnippetVariables [
 	| variables |
 	variables := Set new.
+	self page ifNil: [ ^ variables ].
 	self page
 		allChildrenDepthFirstDo: [ :each | 
 			each isCodeSnippet

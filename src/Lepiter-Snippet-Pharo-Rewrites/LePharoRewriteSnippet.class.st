@@ -122,7 +122,10 @@ LePharoRewriteSnippet >> filterDescriptorNamesAndValuesDo: aBlock [
 LePharoRewriteSnippet >> filterDescriptorsUsing: snippetContext [
 	| variableBindings descriptors variables |
 	descriptors := GtSearchFilter globalFilterDescriptors.
-	variableBindings := snippetContext sharedBindings.
+	variableBindings := snippetContext 
+		ifNil: [ GtSharedVariablesBindings new ]
+		ifNotNil: [ :aContext |
+			aContext sharedBindings ].
 	variables := self allSnippetVariables
 			select: [ :each | 
 				(variableBindings hasBindingOf: each asSymbol) not
@@ -139,8 +142,9 @@ LePharoRewriteSnippet >> filterDescriptorsUsing: snippetContext [
 									GtSearchImageMethodsFilter forAllMethods ] ];
 						named: each;
 						order: 0) ].
-	(snippetContext selfObject isKindOf: GtSearchFilter)
-		ifTrue: [ descriptors
+	(snippetContext notNil and: [ 
+		snippetContext selfObject isKindOf: GtSearchFilter])
+			ifTrue: [ descriptors
 				addFirst: (GtFilterDescriptor new
 						valueNotRequired;
 						creator: [ :value | snippetContext selfObject ];
