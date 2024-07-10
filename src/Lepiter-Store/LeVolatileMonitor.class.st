@@ -7,7 +7,8 @@ Class {
 	#instVars : [
 		'uuid',
 		'databaseName',
-		'tableOfContentsPageID'
+		'tableOfContentsPageID',
+		'dbProperties'
 	],
 	#category : #'Lepiter-Store-LocalJSON-Store'
 }
@@ -22,6 +23,11 @@ LeVolatileMonitor >> databaseName [
 LeVolatileMonitor >> databaseName: anObject [
 
 	databaseName := anObject
+]
+
+{ #category : #accessing }
+LeVolatileMonitor >> dbProperties [
+	^ dbProperties ifNil: [ dbProperties := {} asDictionary ]
 ]
 
 { #category : #initialization }
