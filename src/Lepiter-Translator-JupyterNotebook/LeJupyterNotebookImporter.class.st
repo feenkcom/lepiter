@@ -15,7 +15,21 @@ LeJupyterNotebookImporter class >> forDatabase: aDatabase [
 
 { #category : #accessing }
 LeJupyterNotebookImporter >> createLepiterPageForNotebookAt: aFileReference [
-	| rawNotebook |
+	| rawNotebook aPage |
 	rawNotebook := LeJupyterRawNotebook fromIpynbFile: aFileReference.
-	^ rawNotebook createLepiterPage
+	aPage := rawNotebook createLepiterPage.
+
+	database ifNotNil: [ database addPage: aPage ].
+
+	^ aPage
+]
+
+{ #category : #accessing }
+LeJupyterNotebookImporter >> database [
+	^ database
+]
+
+{ #category : #accessing }
+LeJupyterNotebookImporter >> database: anObject [
+	database := anObject
 ]

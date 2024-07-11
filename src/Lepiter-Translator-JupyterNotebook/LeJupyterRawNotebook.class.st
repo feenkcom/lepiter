@@ -20,9 +20,8 @@ LeJupyterRawNotebook class >> fromIpynbFile: aFileReference [
 LeJupyterRawNotebook >> createLepiterPage [
 	| page |
 	page := LePage named: self name.
-	self rawCells do: [ :aCell |
-		page addSnippet: aCell createLepiterSnippet ].
-	
+	self rawCells do: [ :aCell | page addSnippet: aCell createLepiterSnippet ].
+
 	^ page
 ]
 
