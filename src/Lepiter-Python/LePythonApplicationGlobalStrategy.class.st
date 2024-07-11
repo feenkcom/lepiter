@@ -12,7 +12,6 @@ LePythonApplicationGlobalStrategy class >> strategyName [
 
 { #category : #accessing }
 LePythonApplicationGlobalStrategy >> applicationServer [
-	content database isDatabase ifFalse: [ ^ nil ].
 	PBApplication isRunning
 		ifFalse: [ 
 			PBApplication uniqueInstance
