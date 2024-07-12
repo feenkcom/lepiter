@@ -17,9 +17,7 @@ LeSnippetGroup >> gtByPageFor: aView [
 						BrGroup new
 							stream: each value asAsyncStream;
 							domainObject: each key;
-							itemStencil: [ BrVerticalPane new
-									hMatchParent;
-									vFitContent ];
+							itemStencil: [ BrVerticalPane new hMatchParent vFitContent ];
 							itemDataBinder: [ :aPane :aSnippet | 
 								| viewModel aSnippetElement |
 								viewModel := aSnippet asSnippetViewModel.
@@ -34,18 +32,20 @@ LeSnippetGroup >> gtByPageFor: aView [
 				headerElementStencil: [ BrLabel new
 						margin: (BlInsets top: 20);
 						aptitude: (BrGlamorousLabelAptitude new foreground: Color gray)
-								"+ (BrStyleCommonAptitude new
+								+ (BrStyleCommonAptitude new
 										default: [ :aStyle | 
 											aStyle
 												geometry: (BlRoundedRectangleGeometry cornerRadius: 4);
 												border: BlBorder empty ];
-										hovered: [ :aStyle | aStyle border: (BlBorder paint: list theme button hoveredBorderColor width: 1) ])" ];
-				headerDataBinder: [ :aLabel :eachItem | 
-					aLabel
-						text: eachItem domainObject title;
-						removeEventHandlersSuchThat: [ :x | true ];
+										hovered: [ :aStyle | aStyle border: (BlBorder paint: list theme button hoveredBorderColor width: 1) ]);
 						when: BlClickEvent
-							do: [ :e | e target phlow spawnObject: eachItem domainObject ] ];
+							do: [ :e | 
+								| page |
+								page := e currentTarget viewModel model.
+								e currentTarget phlow spawnObject: page ] ];
+				headerDataBinder: [ :aLabel :eachItem | 
+					aLabel viewModel model: eachItem domainObject.
+					aLabel text: eachItem domainObject title ];
 				stream: groups ]
 ]
 
