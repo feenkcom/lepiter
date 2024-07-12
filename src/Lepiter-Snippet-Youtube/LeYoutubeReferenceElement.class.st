@@ -244,21 +244,27 @@ LeYoutubeReferenceElement >> snippetToolbar [
 
 { #category : #accessing }
 LeYoutubeReferenceElement >> updatePicture [
-	| imageElement |
+	| imageElement utility imageUrl |
 	imageElement := gtUrlUtility isValid
 			ifFalse: [ BlElement new size: 0 @ 0 ]
-			ifTrue: [ GtWebViewElement new
+			ifTrue: [ imageUrl := self computeImageUrl: gtUrlUtility urlString.
+				utility := GtUrlStringUtility new.
+				utility urlString: imageUrl.
+				utility isValid
+					ifFalse: [ BlElement new size: 0 @ 0 ]
+					ifTrue: [ title label: self snippet title.
+						authorName label: self snippet authorName ].
+				GtWebViewElement new
 					constraintsDo: [ :c | c frame horizontal alignCenter ];
-					when: BlElementExtentChangedEvent 
-						doOnce: [ :anEvent | 
-							self updatePictureWidth: anEvent currentTarget ];
+					when: BlElementExtentChangedEvent
+						doOnce: [ :anEvent | self updatePictureWidth: anEvent currentTarget ];
 					margin: (BlInsets bottom: 5);
 					html: '<iframe style="aspect-ratio: 16 / 9;
   height: 100%;" src="https://www.youtube.com/embed/'
 							, (self videoIdFrom: gtUrlUtility urlString)
 							, '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>' ].
 	pictureContainer removeChildNamed: #imageElement.
-	pictureContainer addChild: imageElement as: #imageElement.
+	pictureContainer addChild: imageElement as: #imageElement
 ]
 
 { #category : #'private - updating' }

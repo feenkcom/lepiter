@@ -44,30 +44,9 @@ LePageTitleAndSummaryElement >> emailElement [
 LePageTitleAndSummaryElement >> initialize [
 	super initialize.
 	self initializeTitleElement.
-"	self initializeDateAndEmailElement.
-	self initializeDateElement.
-	self initializeEmailElement."
 	self layout: BlLinearLayout horizontal.
-	
 	self addChild: self titleElement as: #title.
 	self addChild: self summaryElement as: #summary.
-"	self addChild: self dateAndEmailElement as: #dateAndEmail.
-	self dateAndEmailElement addChild: self dateElement as: #date.
-	self dateAndEmailElement addChild: self emailElement as: #email.
-	
-	self addAptitude: (BrLayoutResizerAptitude new
-		hInherit;
-		vAnyToFitContent; 
-		hInherit: self titleElement;
-		vAnyToFitContent: self titleElement;
-		hInherit: self dateAndEmailElement;
-		vAnyToFitContent: self dateAndEmailElement;
-		hInherit: self dateElement;
-		vAnyToFitContent: self dateElement;
-		hInherit: self emailElement;
-		vAnyToFitContent: self emailElement)."
-
-	
 	self initializeListeners
 ]
 
