@@ -108,6 +108,5 @@ LeWardleyMapSnippetGroup >> gtNodeProfilesWithMultipleOccurrencesFor: aView [
 										do: [ :e | 
 											e target phlow spawnObject: aScaleContext originalValue.
 											e consumed: true ] ];
-							values: (association value)) ];
-		send: #value
+							values: (association value)) ]
 ]
