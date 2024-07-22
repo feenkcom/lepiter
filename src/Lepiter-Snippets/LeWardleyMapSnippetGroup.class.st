@@ -13,7 +13,7 @@ LeWardleyMapSnippetGroup >> gtNodeProfilesFor: aView [
 		items: [ ((self items
 				flatCollect: [ :aSnippet | aSnippet wardleyMap nodes collect: [ :aNode | aNode -> aSnippet ] ])
 				groupedBy: [ :each | each key label ]) associations
-				sorted: [ :a :b | a key < b key ] ];
+				sorted: [ :a :b | a key asLowercase < b key asLowercase ] ];
 		column: 'Label' text: [ :each | each key ];
 		column: 'Positions'
 			text: [ :association | 
@@ -22,28 +22,36 @@ LeWardleyMapSnippetGroup >> gtNodeProfilesFor: aView [
 							collect: [ :innerAssociation | innerAssociation key evolution printShowingDecimalPlaces: 2 ]) ];
 		column: 'Profile'
 			stencil: [ :association | 
-				elements := association value
-						collect: [ :innerAssociation | 
-							BlElement new
-								size: 10 @ 10;
-								aptitude: (BrStyleCommonAptitude new
-										default: [ :s | 
-											s background: (Color black alpha: 0.2) ];
-										hovered: [ :s | 
-											s background: BrGlamorousColors primaryBorderColor. ];
-										pressed: [ :s | 
-											s background: BrGlamorousColors pressedButtonBorderColor ]);
-								when: BlClickEvent
-									do: [ :e | 
-										e target phlow spawnObject: innerAssociation value.
-										e consumed: true ];
-								geometry: BlCircleGeometry new;
-								background: (Color black alpha: 0.2);
-								relocate: (innerAssociation key evolution * 100 + 5) @ 5 ].
-				BlElement new
-					size: 110 @ 20;
+				BrVerticalPane new
+					vFitContent;
+					hMatchParent;
+					padding: (BlInsets
+							top: 1
+							left: 8
+							bottom: 1
+							right: 8);
 					geometry: (BlRoundedRectangleGeometry cornerRadius: 10);
 					border: Color veryVeryLightGray;
-					addChildren: elements ]
-			width: 120
+					addChild: (GtPlotterMarkersElement new
+							scaleX: (GtPlotterLinearScale new domainFrom: 0 to: 1);
+							y: [ :each | 0.5 ];
+							x: [:assoc | assoc key evolution];
+							clipChildren: false;
+							constraintsDo: [ :c | c vertical fitContent ];
+							markerStyle: [ :anElement :aScaleContext | 
+								anElement
+									size: 16 @ 16;
+									border: (Color white alpha: 0.2);
+									background: (Color black alpha: 0.4);
+									aptitude: (BrStyleCommonAptitude new
+										default: [ :s | s background: (Color black alpha: 0.5) ];
+										hovered: [ :s | s background: BrGlamorousColors primaryBorderColor ];
+										pressed: [ :s | s background: BrGlamorousColors pressedButtonBorderColor ]);
+								when: BlClickEvent
+									do: [ :e | 
+										e target phlow spawnObject: aScaleContext originalValue value.
+										e consumed: true ] ];
+							values: (association value
+						collect: [ :innerAssociation | innerAssociation]) ) ];
+		send: #value
 ]
