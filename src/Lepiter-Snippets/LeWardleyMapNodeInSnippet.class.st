@@ -14,7 +14,7 @@ LeWardleyMapNodeInSnippet >> gtLiveFor: aView [
 	^ aView forward
 		title: 'Live';
 		priority: 1;
-		object: [ self wardleyMapSnippet];
+		object: [ self wardleyMapSnippetWithNodeHighlight];
 		view: #gtLiveFor:
 ]
 
@@ -36,4 +36,21 @@ LeWardleyMapNodeInSnippet >> wardleyMapSnippet [
 { #category : #accessing }
 LeWardleyMapNodeInSnippet >> wardleyMapSnippet: aSnippet [ 
 	wardleyMapSnippet := aSnippet
+]
+
+{ #category : #accessing }
+LeWardleyMapNodeInSnippet >> wardleyMapSnippetWithNodeHighlight [
+	| aSnippet aSnippetViewModel aMapViewModel |
+	aSnippet := self wardleyMapSnippet.
+	aSnippetViewModel := aSnippet asSnippetViewModel.
+	
+	aMapViewModel := aSnippetViewModel wardleyMapViewModel.
+	aMapViewModel 
+		nodeViewModelFor: self node 
+		ifFound: [ :aNodeViewModel | 
+			"We do not add a decoration model since we do not want to see the same highlight in all snippet views."
+			aNodeViewModel addWardleyMapDecoratorViewModel: GtWardleyMapHighlight new asDecoratorViewModel ] 
+		ifNone: [ "ignore" ].
+
+	^ aSnippetViewModel
 ]
