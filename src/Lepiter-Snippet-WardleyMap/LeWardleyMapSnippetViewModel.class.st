@@ -1,8 +1,18 @@
 Class {
 	#name : #LeWardleyMapSnippetViewModel,
 	#superclass : #LeSnippetViewModel,
+	#instVars : [
+		'wardleyMapViewModel'
+	],
 	#category : #'Lepiter-Snippet-WardleyMap-Snippet'
 }
+
+{ #category : #private }
+LeWardleyMapSnippetViewModel >> createWardleyViewModel [
+	^ GtWardleyMapViewModel new
+		wardleyMapModel: self snippetModel wardleyMap;
+		wardleySnippetModel: self snippetModel
+]
 
 { #category : #accessing }
 LeWardleyMapSnippetViewModel >> gtWardleyScriptFor: aView [
@@ -31,7 +41,20 @@ LeWardleyMapSnippetViewModel >> gtWardleyScriptFor: aView [
 			action: [ :aButton | aButton phlow spawnObject: self snippetModel wardleyMap ]
 ]
 
+{ #category : #'api - snippet model' }
+LeWardleyMapSnippetViewModel >> onSnippetModelChanged [
+	super onSnippetModelChanged.
+
+	wardleyMapViewModel := self createWardleyViewModel
+]
+
 { #category : #accessing }
 LeWardleyMapSnippetViewModel >> snippetElementClass [
 	^ LeWardleyMapSnippetElement
+]
+
+{ #category : #accessing }
+LeWardleyMapSnippetViewModel >> wardleyMapViewModel [
+	<return: #GtWardleyMapViewModel>
+	^ wardleyMapViewModel ifNil: [ wardleyMapViewModel := self createWardleyViewModel ]
 ]
