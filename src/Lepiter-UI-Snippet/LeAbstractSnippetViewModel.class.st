@@ -221,16 +221,15 @@ LeAbstractSnippetViewModel >> gtLiveFor: aView [
 	self class isAbstract
 		ifTrue: [ ^ aView empty ].
 
-	^ aView forward
+	^ aView explicit
 		title: 'Live';
 		priority: 1;
-		object: [
+		stencil: [
 			| aSnippetElement |
 			aSnippetElement := self snippetView asElement.
 			aSnippetElement snippetViewModel: self.
 			aSnippetElement padding: (BlInsets all: 10).
-			aSnippetElement ];
-		view: #gtLiveFor:
+			aSnippetElement ]
 ]
 
 { #category : #initialization }
