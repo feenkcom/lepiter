@@ -44,8 +44,8 @@ LeWardleyMapSnippetGroup >> gtNodeProfilesFor: aView [
 							markerStyle: [ :anElement :aScaleContext | 
 								anElement
 									size: 16 @ 16;
-									border: (Color white alpha: 0.2);
-									background: (Color black alpha: 0.4);
+									border: (Color white alpha: 0.5);
+									background: (Color black alpha: 0.2);
 									aptitude: (BrStyleCommonAptitude new
 											default: [ :s | s background: (Color black alpha: 0.5) ];
 											hovered: [ :s | s background: BrGlamorousColors primaryBorderColor ];
