@@ -160,7 +160,7 @@ LeModelExamples >> pageThreeWithOneWordAttachment [
 
 { #category : #'*Lepiter-Snippet-Picture' }
 LeModelExamples >> pageTwoTitle [
-	^ 'Page two with pictures'
+	^ 'Page two'
 ]
 
 { #category : #'*Lepiter-Snippet-Picture' }
