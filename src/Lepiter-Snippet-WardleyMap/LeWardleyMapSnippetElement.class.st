@@ -70,12 +70,7 @@ LeWardleyMapSnippetElement >> onSnippetHeightChanged [
 LeWardleyMapSnippetElement >> onSnippetViewModelChanged [
 	"Is sent when a new Snippet view model is assigned to the element"
 
-	| aWardleyMapViewModel |
-	aWardleyMapViewModel := GtWardleyMapViewModel new.
-	aWardleyMapViewModel
-		wardleyMapModel: self snippetViewModel snippetModel wardleyMap;
-		wardleySnippetModel: self snippet.
-	wardleyMapElement wardleyMapViewModel: aWardleyMapViewModel.
+	wardleyMapElement wardleyMapViewModel: self snippetViewModel wardleyMapViewModel.
 	self onSnippetHeightChanged
 ]
 
