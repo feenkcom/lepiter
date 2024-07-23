@@ -156,8 +156,8 @@ LeWardleyMapSnippet >> initialize [
 	super initialize.
 
 	height := self defaultHeight.
-	wardleyMap := GtWardleyMapModel new.
-	wardleyMap isEvolutionAxisVisible: true.
+	self wardleyMap: (GtWardleyMapModel new
+		isEvolutionAxisVisible: true).
 ]
 
 { #category : #'api - links' }
@@ -216,6 +216,14 @@ LeWardleyMapSnippet >> onWardleyMapChanged: anAnnouncement [
 	"I am sent when wardley map changes, this triggers auto-save of the wardley map snippet"
 
 	self announceContentChanged
+]
+
+{ #category : #'private - event handling' }
+LeWardleyMapSnippet >> onWardleyMapNodeRemoved: anAnnouncement [
+	self 
+		linkForNode: anAnnouncement nodeModel 
+		ifFound: [ :aLink |
+			self database removeExplicitLinks: { aLink } ]
 ]
 
 { #category : #'private - updating' }
@@ -290,9 +298,8 @@ LeWardleyMapSnippet >> wardleyMap: aNewWardleyMap [
 	wardleyMap := aNewWardleyMap.
 	self updateWardleyMapDecorators.
 	wardleyMap weak
-		when: GtWardleyMapAnnouncement
-		send: #onWardleyMapChanged:
-		to: self.
+		when: GtWardleyMapAnnouncement send: #onWardleyMapChanged: to: self;
+		when: GtWardleyMapNodeModelRemoved send: #onWardleyMapNodeRemoved: to: self.
 	self announceWardleyMapChangedBy: nil
 ]
 
