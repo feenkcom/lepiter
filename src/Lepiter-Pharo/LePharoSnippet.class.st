@@ -75,6 +75,29 @@ LePharoSnippet >> asSnippetViewModel [
 	^ LePharoSnippetViewModel new snippetModel: self
 ]
 
+{ #category : #references }
+LePharoSnippet >> classAndSelectorReferencesPromise [
+	^ self coder ast
+		then: [ :coderAst | 
+			| refs vars |
+			vars := Set new.
+			refs := Set new.
+			coderAst ast
+				withAllNodesDo: [ :each | 
+					each isErrorNode
+						ifFalse: [ each isVariable
+								ifTrue: [ each name value first isUppercase ifTrue: [ vars add: each name value ] ]
+								ifFalse: [ each isMessage
+										ifTrue: [ refs add: each selector ]
+										ifFalse: [ (each isLiteral and: [ each isSymbol ])
+												ifTrue: [ each symbol
+														ifNotNil: [ :symbol | symbol numArgs >= 0 ifTrue: [ refs add: symbol ] ] ] ] ] ] ]
+				andTokensDo: [ :t |  ]
+				includesErrors: true.
+			{vars.
+				refs} ]
+]
+
 { #category : #converting }
 LePharoSnippet >> compileExampleMethod: aSelector in: aClass classified: aSymbol [
 	| change newSource |

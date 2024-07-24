@@ -171,6 +171,16 @@ LeDatabase >> asyncPagesForWord: aString [
 		collect: [ :each | self pageNamed: each ifAbsent: [  ] ]) select: #notNil
 ]
 
+{ #category : #'api - query' }
+LeDatabase >> asyncSnippetClassReferencesTo: aString [
+	^ self index asyncSnippetClassReferencesTo: aString
+]
+
+{ #category : #'api - query' }
+LeDatabase >> asyncSnippetReferencesTo: aString [
+	^ self index asyncSnippetReferencesTo: aString
+]
+
 { #category : #'api - accessing' }
 LeDatabase >> at: aKey forPageType: aPageType [
 	"Lookup the given key for aPageType, if not present raise an exception"

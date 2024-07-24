@@ -31,6 +31,27 @@ LeAbstractDatabase >> announcer [
 	^ announcer
 ]
 
+{ #category : #'api - query' }
+LeAbstractDatabase >> asyncPageClassReferencesTo: aString [
+	^ ((self asyncSnippetClassReferencesTo: aString) collect: #page)
+		withoutDuplicates
+]
+
+{ #category : #'api - query' }
+LeAbstractDatabase >> asyncPageReferencesTo: aString [
+	^ ((self asyncSnippetReferencesTo: aString) collect: #page) withoutDuplicates
+]
+
+{ #category : #'api - query' }
+LeAbstractDatabase >> asyncSnippetClassReferencesTo: aString [
+	^ #() asAsyncStream
+]
+
+{ #category : #'api - query' }
+LeAbstractDatabase >> asyncSnippetReferencesTo: aString [
+	^ #() asAsyncStream
+]
+
 { #category : #initialization }
 LeAbstractDatabase >> initialize [
 

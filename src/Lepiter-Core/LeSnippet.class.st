@@ -192,6 +192,11 @@ LeSnippet >> canBeUnindented [
 	^ self parent isSnippet
 ]
 
+{ #category : #references }
+LeSnippet >> classAndSelectorReferencesPromise [
+	^ #(#() #()) asAsyncPromise
+]
+
 { #category : #'api - commands' }
 LeSnippet >> commandBuilder [
 	^ LeSnippetCommandBuilder forContent: self
