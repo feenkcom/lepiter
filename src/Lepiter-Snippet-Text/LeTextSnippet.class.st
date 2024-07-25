@@ -246,6 +246,23 @@ LeTextSnippet >> cachedTextualLinks [
 	^ cachedTextualLinks
 ]
 
+{ #category : #accessing }
+LeTextSnippet >> classAndSelectorReferencesPromise [
+	^ [ | classes selectors |
+	classes := Set new.
+	selectors := Set new.
+	self ast
+		withAllNodesDo: [ :node | 
+			(node isKindOf: LeClassNameArgumentNode)
+				ifTrue: [ classes add: node className.
+					(node isKindOf: LeMethodNameArgumentNode)
+						ifTrue: [ selectors add: node selector value ] ] ]
+		andTokensDo: [ :token |  ]
+		includesErrors: true.
+	{classes.
+		selectors} ] asAsyncPromise
+]
+
 { #category : #'api - accessing' }
 LeTextSnippet >> contentAsString [
 	^ self string
