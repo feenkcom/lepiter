@@ -122,6 +122,31 @@ LeExampleSnippet >> asSnippetViewModel [
 	^ LeExampleSnippetViewModel new snippetModel: self
 ]
 
+{ #category : #accessing }
+LeExampleSnippet >> changeToRenameClass: oldName to: newName [
+	self instanceClassName = oldName ifFalse: [ ^ nil ].
+	^ LeExampleSnippetChange new
+		snippet: self;
+		selector: #exampleBehaviorName;
+		newValue: (self isForMetaclass
+				ifTrue: [ newName , ' class' ]
+				ifFalse: [ newName asSymbol ]);
+		yourself
+]
+
+{ #category : #accessing }
+LeExampleSnippet >> classAndSelectorReferencesPromise [
+	^ [ | classes selectors |
+	classes := Set new.
+	selectors := Set new.
+	classes add: self instanceClassName.
+	self exampleSelector ifNotNil: [ :sel | selectors add: sel ].
+	self previewSelectSelector ifNotNil: [ :sel | selectors add: sel ].
+	self previewShowSelector ifNotNil: [ :sel | selectors add: sel ].
+	{classes.
+		selectors} ] asAsyncPromise
+]
+
 { #category : #'api - code expanded' }
 LeExampleSnippet >> codeExpanded [
 	<return: #Boolean>

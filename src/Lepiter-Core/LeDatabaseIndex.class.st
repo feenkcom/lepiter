@@ -154,6 +154,14 @@ LeDatabaseIndex >> processPageRemoved: page [
 	page allChildrenDepthFirstDo: [ :each | self removeReferencesFromSnippet: each ]
 ]
 
+{ #category : #accessing }
+LeDatabaseIndex >> recomputeIndex [
+	titleCache := GtNamesPrefixTree new.
+	selectorCache := nil.
+	classCache := nil.
+	self computeIndex
+]
+
 { #category : #references }
 LeDatabaseIndex >> removeReferencesFromSnippet: aSnippet [
 	aSnippet

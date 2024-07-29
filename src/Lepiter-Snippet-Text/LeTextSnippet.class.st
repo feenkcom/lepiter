@@ -247,6 +247,26 @@ LeTextSnippet >> cachedTextualLinks [
 ]
 
 { #category : #accessing }
+LeTextSnippet >> changeToRenameClass: oldName to: newName [
+	| modifiedSource |
+	modifiedSource := SmaCCString on: self string.
+	self ast
+		withAllNodesDo: [ :node | 
+			((node isKindOf: LeClassNameArgumentNode) and: [ node className = oldName ])
+				ifTrue: [ modifiedSource
+						replaceFrom: node value startPosition
+						to: node value stopPosition
+						with: newName ] ]
+		andTokensDo: [ :token |  ]
+		includesErrors: true.
+	modifiedSource isModified ifFalse: [ ^ nil ].
+	^ LeSnippetChange new
+		snippet: self;
+		newSource: modifiedSource asString;
+		yourself
+]
+
+{ #category : #accessing }
 LeTextSnippet >> classAndSelectorReferencesPromise [
 	^ [ | classes selectors |
 	classes := Set new.
