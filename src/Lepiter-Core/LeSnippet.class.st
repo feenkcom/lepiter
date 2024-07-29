@@ -192,6 +192,11 @@ LeSnippet >> canBeUnindented [
 	^ self parent isSnippet
 ]
 
+{ #category : #refactoring }
+LeSnippet >> changeToRenameClass: oldName to: newName [
+	^ nil
+]
+
 { #category : #references }
 LeSnippet >> classAndSelectorReferencesPromise [
 	^ #(#() #()) asAsyncPromise
