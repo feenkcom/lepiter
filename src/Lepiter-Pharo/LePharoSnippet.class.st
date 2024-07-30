@@ -75,59 +75,6 @@ LePharoSnippet >> asSnippetViewModel [
 	^ LePharoSnippetViewModel new snippetModel: self
 ]
 
-{ #category : #references }
-LePharoSnippet >> changeToRenameClass: oldName to: newName [
-	| modifiedSource |
-	modifiedSource := SmaCCString on: self string.
-	self coder ast wait ast
-		withAllNodesDo: [ :each | 
-			each isErrorNode
-				ifFalse: [ each isVariable
-						ifTrue: [ each name value = oldName
-								ifTrue: [ modifiedSource
-										replaceFrom: each startPosition
-										to: each stopPosition
-										with: newName ] ]
-						ifFalse: [ (each isLiteral and: [ each isSymbol ])
-								ifTrue: [ each symbol = oldName asSymbol
-										ifTrue: [ modifiedSource
-												replaceFrom: (each source first = $#
-														ifTrue: [ each startPosition + 1 ]
-														ifFalse: [ each startPosition ])
-												to: each stopPosition
-												with: newName ] ] ] ] ]
-		andTokensDo: [ :token |  ]
-		includesErrors: true.
-	modifiedSource isModified ifFalse: [ ^ nil ].
-	^ LeSnippetChange new
-		snippet: self;
-		newSource: modifiedSource asString;
-		yourself
-]
-
-{ #category : #references }
-LePharoSnippet >> classAndSelectorReferencesPromise [
-	^ self coder ast
-		then: [ :coderAst | 
-			| refs vars |
-			vars := Set new.
-			refs := Set new.
-			coderAst ast
-				withAllNodesDo: [ :each | 
-					each isErrorNode
-						ifFalse: [ each isVariable
-								ifTrue: [ each name value first isUppercase ifTrue: [ vars add: each name value ] ]
-								ifFalse: [ each isMessage
-										ifTrue: [ refs add: each selector ]
-										ifFalse: [ (each isLiteral and: [ each isSymbol ])
-												ifTrue: [ each symbol
-														ifNotNil: [ :symbol | symbol numArgs >= 0 ifTrue: [ refs add: symbol ] ] ] ] ] ] ]
-				andTokensDo: [ :t |  ]
-				includesErrors: true.
-			{vars.
-				refs} ]
-]
-
 { #category : #converting }
 LePharoSnippet >> compileExampleMethod: aSelector in: aClass classified: aSymbol [
 	| change newSource |
@@ -147,6 +94,11 @@ LePharoSnippet >> followingSnippets [
 { #category : #enumerating }
 LePharoSnippet >> indentAll [
 	self withFollowingSnippets do: #indent
+]
+
+{ #category : #testing }
+LePharoSnippet >> isForLocalImage [
+	^ true
 ]
 
 { #category : #enumerating }

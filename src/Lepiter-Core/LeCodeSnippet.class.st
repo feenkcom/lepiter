@@ -58,6 +58,59 @@ LeCodeSnippet >> appendText: aText source: anObject [
 		with: (GtCoderUpdateStrategy new source: anObject)
 ]
 
+{ #category : #references }
+LeCodeSnippet >> changeToRenameClass: oldName to: newName [
+	| modifiedSource |
+	self isForLocalImage ifFalse: [ ^ nil ].
+	modifiedSource := SmaCCString on: self string.
+	self coder ast wait ast
+		withAllNodesDo: [ :each | 
+			each isErrorNode
+				ifFalse: [ each isVariable
+						ifTrue: [ each name value = oldName
+								ifTrue: [ modifiedSource
+										replaceFrom: each startPosition
+										to: each stopPosition
+										with: newName ] ]
+						ifFalse: [ (each isLiteral and: [ each isSymbol ])
+								ifTrue: [ each symbol = oldName asSymbol
+										ifTrue: [ modifiedSource
+												replaceFrom: (each source first = $#
+														ifTrue: [ each startPosition + 1 ]
+														ifFalse: [ each startPosition ])
+												to: each stopPosition
+												with: newName ] ] ] ] ]
+		andTokensDo: [ :token |  ]
+		includesErrors: true.
+	modifiedSource isModified ifFalse: [ ^ nil ].
+	^ LeSnippetChange new
+		snippet: self;
+		newSource: modifiedSource asString;
+		yourself
+]
+
+{ #category : #references }
+LeCodeSnippet >> classAndSelectorReferencesPromise [
+	^ self coder ast
+		then: [ :coderAst | 
+			| refs vars |
+			vars := Set new.
+			refs := Set new.
+			coderAst ast
+				withAllNodesDo: [ :each | 
+					(each isKindOf: GtPharoVariableNode)
+						ifTrue: [ each name value first isUppercase ifTrue: [ vars add: each name value ] ]
+						ifFalse: [ (each isKindOf: GtPharoMessageNode)
+								ifTrue: [ refs add: each selector ]
+								ifFalse: [ (each isKindOf: GtPharoSymbolLiteralNode)
+										ifTrue: [ each symbol
+												ifNotNil: [ :symbol | symbol numArgs >= 0 ifTrue: [ refs add: symbol ] ] ] ] ] ]
+				andTokensDo: [ :t |  ]
+				includesErrors: true.
+			{vars.
+				refs} ]
+]
+
 { #category : #'api - accessing' }
 LeCodeSnippet >> code [
 	<return: #String>
@@ -140,6 +193,11 @@ LeCodeSnippet >> initialize [
 { #category : #'api - testing' }
 LeCodeSnippet >> isCodeSnippet [
 	^ true
+]
+
+{ #category : #testing }
+LeCodeSnippet >> isForLocalImage [
+	^ false
 ]
 
 { #category : #initialization }
