@@ -196,6 +196,11 @@ LeElementSnippet >> initialize [
 	codeVisible := true
 ]
 
+{ #category : #testing }
+LeElementSnippet >> isForLocalImage [
+	^ true
+]
+
 { #category : #initialization }
 LeElementSnippet >> newCoder [
 	^ GtPharoSnippetCoder new
