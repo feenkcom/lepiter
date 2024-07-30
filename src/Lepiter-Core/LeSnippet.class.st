@@ -197,6 +197,11 @@ LeSnippet >> changeToRenameClass: oldName to: newName [
 	^ nil
 ]
 
+{ #category : #refactoring }
+LeSnippet >> changesToRenameSelector: oldName to: newName [
+	^ #()
+]
+
 { #category : #references }
 LeSnippet >> classAndSelectorReferencesPromise [
 	^ #(#() #()) asAsyncPromise
