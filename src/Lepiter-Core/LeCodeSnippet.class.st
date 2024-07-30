@@ -90,6 +90,51 @@ LeCodeSnippet >> changeToRenameClass: oldName to: newName [
 ]
 
 { #category : #references }
+LeCodeSnippet >> changesToRenameSelector: oldName to: newName [
+	| modifiedSource |
+	self isForLocalImage ifFalse: [ ^ nil ].
+	modifiedSource := SmaCCString on: self string.
+	self coder ast wait ast
+		withAllNodesDo: [ :each | 
+			| parentNode |
+			each isErrorNode
+				ifFalse: [ (each isKindOf: GtPharoMessageNode)
+						ifTrue: [ each selector = oldName asSymbol
+								ifTrue: [ each selectorParts
+										with: newName keywords
+										do: [ :token :string | 
+											token source = string
+												ifFalse: [ modifiedSource
+														replaceFrom: token startPosition
+														to: token stopPosition
+														with: string ] ].
+									(newName isKeyword
+										and: [ each selector isBinary
+												and: [ ((parentNode := each parent) isKindOf: GtPharoMessageSendNode)
+														and: [ parentNode leftParens isEmpty
+																and: [ (parentNode parent isKindOf: GtPharoMessageSendNode)
+																		or: [ parentNode parent isKindOf: GtPharoMessageSendNode ] ] ] ] ])
+										ifTrue: [ modifiedSource
+												insert: '(' at: parentNode startPosition;
+												insert: ')' at: parentNode stopPosition + 1 ] ] ]
+						ifFalse: [ (each isKindOf: GtPharoSymbolLiteralNode)
+								ifTrue: [ each symbol = oldName asSymbol
+										ifTrue: [ modifiedSource
+												replaceFrom: (each source first = $#
+														ifTrue: [ each startPosition + 1 ]
+														ifFalse: [ each startPosition ])
+												to: each stopPosition
+												with: newName ] ] ] ] ]
+		andTokensDo: [ :token |  ]
+		includesErrors: true.
+	modifiedSource isModified ifFalse: [ ^ nil ].
+	^ {LeSnippetChange new
+			snippet: self;
+			newSource: modifiedSource asString;
+			yourself}
+]
+
+{ #category : #references }
 LeCodeSnippet >> classAndSelectorReferencesPromise [
 	^ self coder ast
 		then: [ :coderAst | 

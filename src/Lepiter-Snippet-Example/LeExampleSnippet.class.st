@@ -135,6 +135,22 @@ LeExampleSnippet >> changeToRenameClass: oldName to: newName [
 ]
 
 { #category : #accessing }
+LeExampleSnippet >> changesToRenameSelector: oldName to: newName [
+	| changes |
+	changes := OrderedCollection new.
+	#(exampleSelector previewSelectSelector previewShowSelector)
+		do: [ :each | 
+			(self perform: each) = oldName
+				ifTrue: [ changes
+						add: (LeExampleSnippetChange new
+								snippet: self;
+								selector: each;
+								newValue: newName;
+								yourself) ] ].
+	^ changes
+]
+
+{ #category : #accessing }
 LeExampleSnippet >> classAndSelectorReferencesPromise [
 	^ [ | classes selectors |
 	classes := Set new.
