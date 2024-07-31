@@ -417,6 +417,14 @@ LePage >> latestEditTime [
 	^ latestEditTime ifNil: [ latestEditTime := self getLatestEditTime ]
 ]
 
+{ #category : #accessing }
+LePage >> linkedPages [
+	"Return just the array of pages that this page links to."
+	^ (self allOutgoingExplicitLinks items
+		select: [ :l | l isTextualLink and: [ l isExistingPage ] ])
+		collect: [ :l | l targetReference content ]
+]
+
 { #category : #'private - exporting' }
 LePage >> markdownOn: stream [
 	"Write the receiver as an HTML string on the supplied stream"
