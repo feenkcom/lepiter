@@ -40,10 +40,14 @@ LeSearchClassReferencesFilter >> hash [
 { #category : #accessing }
 LeSearchClassReferencesFilter >> matches: anObject [
 	^ (super matches: anObject)
-		and: [ anObject
+		and: [ (anObject
 				optionAt: #variables
-				ifPresent: [ :selectors | selectors includes: name ]
-				ifAbsent: [ false ] ]
+				ifPresent: [ :variables | variables includes: name ]
+				ifAbsent: [ false ])
+				or: [ anObject
+						optionAt: #selectors
+						ifPresent: [ :selectors | selectors includes: name ]
+						ifAbsent: [ false ] ] ]
 ]
 
 { #category : #accessing }
