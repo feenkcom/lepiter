@@ -151,6 +151,11 @@ LeDatabase >> assertNotReadOnly [
 	self assert: [ self readOnly isNil or: [ self readOnly not ] ]
 ]
 
+{ #category : #'api - accessing' }
+LeDatabase >> asyncAllSnippets [
+	^ (self pages asAsyncStream collect: [ :page | page asyncAllSnippets ]) flatten
+]
+
 { #category : #accessing }
 LeDatabase >> asyncPagesContainingText: aQueryString [
 	^ [ | filter results |
@@ -656,6 +661,11 @@ LeDatabase >> isPrimary [
 	^ self parent
 		ifNotNil: [ :aParent | aParent isPrimary: self ]
 		ifNil: [ true ]
+]
+
+{ #category : #'api - query' }
+LeDatabase >> leSnippetsInDB [
+	^ LeSearchDatabaseSnippetFilter forDatabase: self
 ]
 
 { #category : #'private - accessing' }
