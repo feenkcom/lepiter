@@ -126,6 +126,13 @@ LeLogicalDatabase >> anyOne [
 	^ primaryDB anyOne
 ]
 
+{ #category : #'api - accessing' }
+LeLogicalDatabase >> asyncAllSnippets [
+	^ self databases
+		inject: #() asAsyncStream
+		into: [ :sum :each | sum merge: each asyncAllSnippets ]
+]
+
 { #category : #accessing }
 LeLogicalDatabase >> asyncPagesForWord: aString [
 	| results |

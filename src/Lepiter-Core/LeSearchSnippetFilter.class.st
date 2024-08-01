@@ -11,15 +11,7 @@ LeSearchSnippetFilter class >> resultType [
 
 { #category : #accessing }
 LeSearchSnippetFilter >> defaultFilterScope [
-	^ LeDatabasesRegistry uniqueInstance defaultLogicalDatabase databases
-		inject: #() asAsyncStream
-		into: [ :sum :each | 
-			sum
-				merge: (each pages asAsyncStream
-						collect: [ :page | 
-							AsyncDepthFirstTraversalStream new
-								roots: page children asArray
-								children: [ :snippet | snippet children asArray ] ]) flatten ]
+	^ LeDatabasesRegistry uniqueInstance defaultLogicalDatabase asyncAllSnippets
 ]
 
 { #category : #accessing }

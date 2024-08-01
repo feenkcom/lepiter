@@ -358,6 +358,13 @@ LeContent >> ast [
 	^ nil
 ]
 
+{ #category : #accessing }
+LeContent >> asyncAllSnippets [
+	^ AsyncDepthFirstTraversalStream new
+		roots: self children asArray
+		children: [ :snippet | snippet children asArray ]
+]
+
 { #category : #'api - attaching / detaching' }
 LeContent >> attachChildSnippet: aNewSnippet [
 	self assert: [ aNewSnippet notNil ].

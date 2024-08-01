@@ -418,6 +418,11 @@ LePage >> latestEditTime [
 ]
 
 { #category : #accessing }
+LePage >> leSnippetsInPage [
+	^ LeSearchPageSnippetFilter forPage: self
+]
+
+{ #category : #accessing }
 LePage >> linkedPages [
 	"Return just the array of pages that this page links to."
 	^ (self allOutgoingExplicitLinks items

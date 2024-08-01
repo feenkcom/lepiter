@@ -1,6 +1,6 @@
 Extension { #name : #Class }
 
 { #category : #'*Lepiter-Core' }
-Class >> lepiterReferences [
+Class >> leReferences [
 	^ LeSearchClassReferencesFilter forClass: self
 ]
