@@ -2,32 +2,41 @@ Class {
 	#name : #LeExampleSnippetChange,
 	#superclass : #RBRefactoryChange,
 	#instVars : [
-		'newValue',
-		'selector',
-		'snippet'
+		'snippet',
+		'updates'
 	],
 	#category : #'Lepiter-Core-Refactoring'
 }
 
 { #category : #comparing }
 LeExampleSnippetChange >> = anObject [
-	^ self class = anObject class
-		and: [ self snippet == anObject snippet
-				and: [ self selector = anObject selector and: [ self newValue = anObject newValue ] ] ]
+	self == anObject ifTrue: [ ^ true ].
+	(self class = anObject class and: [ self snippet == anObject snippet ])
+		ifFalse: [ ^ false ].
+	updates size = anObject updates size ifFalse: [ ^ false ].
+	anObject updates
+		keysAndValuesDo: [ :key :value | (updates at: key ifAbsent: [ ^ false ]) = value ifFalse: [ ^ false ] ].
+	^ true
+]
+
+{ #category : #accessing }
+LeExampleSnippetChange >> change: aSymbol to: anObject [
+	updates at: aSymbol put: anObject
 ]
 
 { #category : #accessing }
 LeExampleSnippetChange >> changeString [
-	^ 'Example snippet change to ' , selector , ' in '
-		, snippet page gtDisplayString
+	^ 'Example snippet change in ' , snippet page gtDisplayString
 ]
 
 { #category : #'performing-changes' }
 LeExampleSnippetChange >> executeNotifying: aBlock [
 	| undo |
 	undo := self copy.
-	undo newValue: (snippet perform: selector).
-	snippet perform: (selector , ':') asSymbol with: newValue.
+	updates
+		keysAndValuesDo: [ :key :value | 
+			undo change: key to: (snippet perform: key).
+			snippet perform: (key , ':') asSymbol with: value ].
 	aBlock value.
 	^ undo
 ]
@@ -35,40 +44,44 @@ LeExampleSnippetChange >> executeNotifying: aBlock [
 { #category : #accessing }
 LeExampleSnippetChange >> gtDiffChange [
 	^ GtDiffBuilder
-		computeDifferencesFrom: selector asString , ': '
-				, (snippet perform: selector) gtDisplayString
-		to: selector asString , ': ' , newValue gtDisplayString
+		computeDifferencesFrom: snippet asAnnotationString
+		to: (snippet asAnnotationStringWithChanges: updates)
 		using: GtCharacterGroupDiffSplitter words
+]
+
+{ #category : #accessing }
+LeExampleSnippetChange >> gtDiffViewFor: aView [
+	<gtView>
+	^ aView forward
+		title: 'Diff';
+		object: [ self gtDiffChange ];
+		view: #gtTextView:
+]
+
+{ #category : #accessing }
+LeExampleSnippetChange >> hasChanges [
+	^ updates notEmpty
 ]
 
 { #category : #comparing }
 LeExampleSnippetChange >> hash [
-	^ ((self class hash bitXor: self snippet hash) bitXor: self selector hash)
-		bitXor: self newValue hash
+	^ (self class hash bitXor: self snippet hash) bitXor: updates hash
 ]
 
 { #category : #accessing }
-LeExampleSnippetChange >> newValue [
-	^ newValue
+LeExampleSnippetChange >> initialize [
+	super initialize.
+	updates := Dictionary new
 ]
 
 { #category : #accessing }
-LeExampleSnippetChange >> newValue: anObject [
-	newValue := anObject
+LeExampleSnippetChange >> postCopy [
+	super postCopy.
+	updates := updates copy
 ]
 
 { #category : #private }
 LeExampleSnippetChange >> renameChangesForClass: oldClassName to: newClassName [
-]
-
-{ #category : #accessing }
-LeExampleSnippetChange >> selector [
-	^ selector
-]
-
-{ #category : #accessing }
-LeExampleSnippetChange >> selector: anObject [
-	selector := anObject
 ]
 
 { #category : #accessing }
@@ -79,4 +92,14 @@ LeExampleSnippetChange >> snippet [
 { #category : #accessing }
 LeExampleSnippetChange >> snippet: anObject [
 	snippet := anObject
+]
+
+{ #category : #accessing }
+LeExampleSnippetChange >> updates [
+	^ updates
+]
+
+{ #category : #accessing }
+LeExampleSnippetChange >> updates: anObject [
+	updates := anObject
 ]

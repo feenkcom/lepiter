@@ -198,8 +198,8 @@ LeSnippet >> changeToRenameClass: oldName to: newName [
 ]
 
 { #category : #refactoring }
-LeSnippet >> changesToRenameSelector: oldName to: newName [
-	^ #()
+LeSnippet >> changeToRenameSelector: oldName to: newName [
+	^ nil
 ]
 
 { #category : #references }
