@@ -67,52 +67,69 @@ LeExampleSnippet >> acceptVisitor: aVisitor [
 
 { #category : #'api - accessing' }
 LeExampleSnippet >> asAnnotationString [
-	^ String streamContents: [ :aStream |	
-		aStream
-			nextPutAll: (self exampleBehaviorName ifNil: [ '' ]).
+	^ self asAnnotationStringWithChanges: Dictionary new
+]
 
-		(self hasExampleBehaviorName and: [ self hasExampleSelector ])
-			ifTrue: [ aStream nextPutAll: ' >> #' ].
+{ #category : #'api - accessing' }
+LeExampleSnippet >> asAnnotationStringWithChanges: aDictionary [
+	^ String
+		streamContents: [ :aStream | 
+			| className selectorName value |
+			className := aDictionary
+					at: #exampleBehaviorName
+					ifAbsent: [ self exampleBehaviorName ].
+			selectorName := aDictionary
+					at: #exampleSelector
+					ifAbsent: [ self exampleSelector ].
 
-		aStream
-			nextPutAll: (self exampleSelector ifNil: [ '' ]).
+			aStream nextPutAll: (className ifNil: [ '' ]).
 
-		self noCode = self defaultNoCode
-			ifFalse: [
-				aStream
-					nextPutAll: ' | noCode=';
-					print: self noCode ].
-				
-		self codeExpanded = self defaultCodeExpanded
-			ifFalse: [
-				aStream
-					nextPutAll: ' | codeExpanded=';
-					print: self codeExpanded ].
-		
-		self previewExpanded = self defaultPreviewExpanded
-			ifFalse: [
-				aStream
-					nextPutAll: ' | previewExpanded=';
-					print: self previewExpanded ].
-				
-		self previewShowSelector = self defaultPreviewShowSelector
-			ifFalse: [
-				aStream
-					nextPutAll: ' | previewShow=';
-					nextPut: $#;
-					nextPutAll: self previewShowSelector asString ].
-		
-		self previewSelectSelector ifNotNil: [
-				aStream
-					nextPutAll: ' | previewSelect=';
-					nextPut: $#;
-					nextPutAll: self previewSelectSelector asString ].
-				
-		self previewHeight = self defaultPreviewHeight
-			ifFalse: [
-				aStream
-					nextPutAll: ' | previewHeight=';
-					print: self previewHeight ] ]
+			(className notNil and: [ selectorName notNil ])
+				ifTrue: [ aStream nextPutAll: ' >> #' ].
+
+			aStream nextPutAll: (selectorName ifNil: [ '' ]).
+
+			value := aDictionary at: #noCode ifAbsent: [ self noCode ].
+			value = self defaultNoCode
+				ifFalse: [ aStream
+						nextPutAll: ' | noCode=';
+						print: value ].
+
+			value := aDictionary at: #codeExpanded ifAbsent: [ self codeExpanded ].
+			value = self defaultCodeExpanded
+				ifFalse: [ aStream
+						nextPutAll: ' | codeExpanded=';
+						print: value ].
+
+			value := aDictionary at: #previewExpanded ifAbsent: [ self previewExpanded ].
+			value = self defaultPreviewExpanded
+				ifFalse: [ aStream
+						nextPutAll: ' | previewExpanded=';
+						print: value ].
+
+			value := aDictionary
+					at: #previewShowSelector
+					ifAbsent: [ self previewShowSelector ].
+			value = self defaultPreviewShowSelector
+				ifFalse: [ aStream
+						nextPutAll: ' | previewShow=';
+						nextPut: $#;
+						nextPutAll: value asString ].
+
+			value := aDictionary
+					at: #previewSelectSelector
+					ifAbsent: [ self previewSelectSelector ].
+			value
+				ifNotNil: [ aStream
+						nextPutAll: ' | previewSelect=';
+						nextPut: $#;
+						nextPutAll: value asString ].
+
+			value := aDictionary at: #previewHeight ifAbsent: [ self previewHeight ].
+			value = self defaultPreviewHeight
+				ifFalse: [ aStream
+						nextPutAll: ' | previewHeight=';
+						print: value ] ]
 ]
 
 { #category : #'api - accessing' }
@@ -127,27 +144,20 @@ LeExampleSnippet >> changeToRenameClass: oldName to: newName [
 	self instanceClassName = oldName ifFalse: [ ^ nil ].
 	^ LeExampleSnippetChange new
 		snippet: self;
-		selector: #exampleBehaviorName;
-		newValue: (self isForMetaclass
-				ifTrue: [ newName , ' class' ]
-				ifFalse: [ newName asSymbol ]);
+		change: #exampleBehaviorName
+			to: (self isForMetaclass
+					ifTrue: [ newName , ' class' ]
+					ifFalse: [ newName asSymbol ]);
 		yourself
 ]
 
 { #category : #accessing }
-LeExampleSnippet >> changesToRenameSelector: oldName to: newName [
-	| changes |
-	changes := OrderedCollection new.
+LeExampleSnippet >> changeToRenameSelector: oldName to: newName [
+	| change |
+	change := LeExampleSnippetChange new snippet: self.
 	#(exampleSelector previewSelectSelector previewShowSelector)
-		do: [ :each | 
-			(self perform: each) = oldName
-				ifTrue: [ changes
-						add: (LeExampleSnippetChange new
-								snippet: self;
-								selector: each;
-								newValue: newName;
-								yourself) ] ].
-	^ changes
+		do: [ :each | (self perform: each) = oldName ifTrue: [ change change: each to: newName ] ].
+	^ change hasChanges ifTrue: [ change ] ifFalse: [ nil ]
 ]
 
 { #category : #accessing }

@@ -90,7 +90,7 @@ LeCodeSnippet >> changeToRenameClass: oldName to: newName [
 ]
 
 { #category : #references }
-LeCodeSnippet >> changesToRenameSelector: oldName to: newName [
+LeCodeSnippet >> changeToRenameSelector: oldName to: newName [
 	| modifiedSource |
 	self isForLocalImage ifFalse: [ ^ nil ].
 	modifiedSource := SmaCCString on: self string.
@@ -128,10 +128,10 @@ LeCodeSnippet >> changesToRenameSelector: oldName to: newName [
 		andTokensDo: [ :token |  ]
 		includesErrors: true.
 	modifiedSource isModified ifFalse: [ ^ nil ].
-	^ {LeSnippetChange new
-			snippet: self;
-			newSource: modifiedSource asString;
-			yourself}
+	^ LeSnippetChange new
+		snippet: self;
+		newSource: modifiedSource asString;
+		yourself
 ]
 
 { #category : #references }

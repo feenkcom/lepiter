@@ -37,6 +37,15 @@ LeSnippetChange >> gtDiffChange [
 		using: GtCharacterGroupDiffSplitter words
 ]
 
+{ #category : #accessing }
+LeSnippetChange >> gtDiffViewFor: aView [
+	<gtView>
+	^ aView forward
+		title: 'Diff';
+		object: [ self gtDiffChange ];
+		view: #gtTextView:
+]
+
 { #category : #comparing }
 LeSnippetChange >> hash [
 	^ self snippet hash bitXor: self newSource hash
