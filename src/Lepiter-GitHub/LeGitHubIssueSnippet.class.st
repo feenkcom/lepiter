@@ -9,7 +9,12 @@ LeGitHubIssueSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;
-		title: 'GitHub issue'
+		title: self description
+]
+
+{ #category : #'api - accessing menu' }
+LeGitHubIssueSnippet class >> description [
+	^ 'GitHub issue'
 ]
 
 { #category : #jsonV3 }

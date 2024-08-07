@@ -16,7 +16,12 @@ LeSmaCCRewriteSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;
-		title: 'SmaCC rewrite'
+		title: self description
+]
+
+{ #category : #'api - accessing menu' }
+LeSmaCCRewriteSnippet class >> description [
+	^ 'SmaCC rewrite'
 ]
 
 { #category : #'instance creation' }

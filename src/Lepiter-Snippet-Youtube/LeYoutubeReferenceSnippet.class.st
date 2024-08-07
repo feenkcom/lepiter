@@ -13,7 +13,12 @@ LeYoutubeReferenceSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;
-		title: 'Youtube'
+		title: self description
+]
+
+{ #category : #accessing }
+LeYoutubeReferenceSnippet class >> description [
+	^ 'Youtube'
 ]
 
 { #category : #accessing }

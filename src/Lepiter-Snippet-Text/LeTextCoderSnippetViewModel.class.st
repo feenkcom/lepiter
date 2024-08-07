@@ -14,6 +14,14 @@ LeTextCoderSnippetViewModel >> coderViewModel [
 	^ textCoderViewModel
 ]
 
+{ #category : #accessing }
+LeTextCoderSnippetViewModel >> expandedElement [
+	| element |
+	element := super expandedElement.
+	element padding: element padding + (BlInsets left: 6).
+	^ element
+]
+
 { #category : #initialization }
 LeTextCoderSnippetViewModel >> initialize [
 	super initialize.

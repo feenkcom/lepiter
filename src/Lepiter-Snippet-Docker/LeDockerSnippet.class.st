@@ -12,7 +12,12 @@ LeDockerSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;
-		title: 'Docker'
+		title: self description
+]
+
+{ #category : #accessing }
+LeDockerSnippet class >> description [
+	^ 'Docker'
 ]
 
 { #category : #'instace creation' }

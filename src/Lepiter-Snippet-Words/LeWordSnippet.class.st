@@ -26,7 +26,12 @@ LeWordSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;
-		title: 'Word explanation'
+		title: self description
+]
+
+{ #category : #'api - accessing menu' }
+LeWordSnippet class >> description [
+	^ 'Word explanation'
 ]
 
 { #category : #factory }

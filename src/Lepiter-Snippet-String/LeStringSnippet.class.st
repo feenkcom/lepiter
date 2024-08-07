@@ -14,7 +14,12 @@ LeStringSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;
-		title: 'String'
+		title: self description
+]
+
+{ #category : #'api - accessing menu' }
+LeStringSnippet class >> description [
+	^ 'String'
 ]
 
 { #category : #accessing }

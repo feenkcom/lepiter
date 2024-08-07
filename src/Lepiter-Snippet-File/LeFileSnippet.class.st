@@ -13,7 +13,12 @@ LeFileSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;
-		title: 'File'
+		title: self description
+]
+
+{ #category : #'api - accessing menu' }
+LeFileSnippet class >> description [
+	^ 'File'
 ]
 
 { #category : #accessing }

@@ -38,6 +38,11 @@ LeSearchClassReferencesFilter >> hash [
 ]
 
 { #category : #accessing }
+LeSearchClassReferencesFilter >> highlighter [
+	^ GtPharoVariableReferenceHighlighter forVariableName: self name
+]
+
+{ #category : #accessing }
 LeSearchClassReferencesFilter >> matches: anObject [
 	^ (super matches: anObject)
 		and: [ (anObject

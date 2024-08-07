@@ -13,7 +13,12 @@ LeChangesSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;
-		title: 'Changes'
+		title: self description
+]
+
+{ #category : #'api - accessing menu' }
+LeChangesSnippet class >> description [
+	^ 'Changes'
 ]
 
 { #category : #factory }

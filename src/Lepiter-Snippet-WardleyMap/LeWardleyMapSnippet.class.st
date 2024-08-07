@@ -14,12 +14,17 @@ LeWardleyMapSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;
-		title: 'Wardley Map'
+		title: self description
 ]
 
 { #category : #accessing }
 LeWardleyMapSnippet class >> defaultHeight [
 	^ 300
+]
+
+{ #category : #'api - accessing menu' }
+LeWardleyMapSnippet class >> description [
+	^ 'Wardley Map'
 ]
 
 { #category : #factory }

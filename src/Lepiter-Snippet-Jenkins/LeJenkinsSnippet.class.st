@@ -12,7 +12,12 @@ LeJenkinsSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;
-		title: 'Jenkins'
+		title: self description
+]
+
+{ #category : #'api - accessing menu' }
+LeJenkinsSnippet class >> description [
+	^ 'Jenkins'
 ]
 
 { #category : #accessing }

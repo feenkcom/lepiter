@@ -22,12 +22,17 @@ LeExampleSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;
-		title: 'Example'
+		title: self description
 ]
 
 { #category : #accessing }
 LeExampleSnippet class >> defaultPreviewShowSelector [
 	^ #gtViewsFor:
+]
+
+{ #category : #'api - accessing menu' }
+LeExampleSnippet class >> description [
+	^ 'Example'
 ]
 
 { #category : #factory }

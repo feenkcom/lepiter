@@ -27,11 +27,15 @@ Class {
 { #category : #accessing }
 LePharoSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
-
 	^ LeContextMenuItemSpecification new
 		priority: 2;
 		snippetClass: self;
-		title: 'Pharo'
+		title: self description
+]
+
+{ #category : #accessing }
+LePharoSnippet class >> description [
+	^ 'Pharo'
 ]
 
 { #category : #accessing }

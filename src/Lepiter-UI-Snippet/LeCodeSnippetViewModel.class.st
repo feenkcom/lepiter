@@ -12,6 +12,25 @@ LeCodeSnippetViewModel >> coderViewModel [
 	^ coderViewModel
 ]
 
+{ #category : #accessing }
+LeCodeSnippetViewModel >> collapsedTextPromise [
+	^ self coderViewModel coderModel ast
+		then: [ :each | 
+			| string text index |
+			string := self snippetModel contentAsString asString.
+			text := string asRopedText glamorousCodeFontAndSize.
+			(GtPharoStyler new coderViewModel: self coderViewModel)
+				style: text
+				ast: each ast.
+			self highlighter
+				ifNotNil: [ :highlighter | highlighter style: text ast: each ast ].
+			index := string indexOfAnyOf: String crlf.
+			index > 0
+				ifTrue: [ text := text copyFrom: 1 to: index - 1.
+					text appendString: '...' ].
+			text ]
+]
+
 { #category : #'api - focus' }
 LeCodeSnippetViewModel >> focusDueToNavigationDown [
 	super focusDueToNavigationDown.

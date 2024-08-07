@@ -26,6 +26,12 @@ LePharoSnippetViewModel >> gtActionCreateExampleFor: anAction [
 								   constraintsDo: [ :c | c grid horizontal span: 2 ]) ] ]
 ]
 
+{ #category : #accessing }
+LePharoSnippetViewModel >> highlighter: anObject [
+	super highlighter: anObject.
+	self updateHighlighter
+]
+
 { #category : #initialization }
 LePharoSnippetViewModel >> initializeCoderAddOns: aCoderViewModel [
 	"Initialise the keyboard shortcuts in the code editor"
@@ -58,6 +64,12 @@ LePharoSnippetViewModel >> onSelfObjectChanged [
 	coderViewModel selfObject: sharedContext selfObject
 ]
 
+{ #category : #accessing }
+LePharoSnippetViewModel >> onSnippetModelChanged [
+	super onSnippetModelChanged.
+	self updateHighlighter
+]
+
 { #category : #'api - bindings' }
 LePharoSnippetViewModel >> sharedSnippetContext: aLeSharedSnippetContext [
 	sharedContext unsubscribe: self.
@@ -75,4 +87,10 @@ LePharoSnippetViewModel >> sharedSnippetContext: aLeSharedSnippetContext [
 { #category : #accessing }
 LePharoSnippetViewModel >> snippetElementClass [
 	^ LePharoSnippetElement
+]
+
+{ #category : #accessing }
+LePharoSnippetViewModel >> updateHighlighter [
+	self highlighter
+		ifNotNil: [ :highlighter | coderViewModel addStyler: highlighter ]
 ]

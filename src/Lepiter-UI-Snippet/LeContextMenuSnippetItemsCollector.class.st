@@ -58,11 +58,11 @@ LeContextMenuSnippetItemsCollector >> collectPragmasInClass: aClass [
 ]
 
 { #category : #building }
-LeContextMenuSnippetItemsCollector >> createMenuItemFromPragma: aPragma [ 
+LeContextMenuSnippetItemsCollector >> createMenuItemFromPragma: aPragma [
 	| menuItem |
 	menuItem := aPragma method
-			valueWithReceiver: aPragma methodClass
-			arguments: #(  ).
+			valueWithReceiver: aPragma methodClass instanceSide
+			arguments: #().
 	menuItem definingMethod: aPragma method.
 	^ menuItem
 ]
