@@ -98,6 +98,7 @@ LeInspectorPlaygroundElement >> initializePageElement [
 { #category : #initialization }
 LeInspectorPlaygroundElement >> initializeResizerElement [
 	resizerElement := BrResizer new
+		id: LeInspectorPlaygroundResizerId;
 		aptitude: BrGlamorousHandleBarResizerAptitude;
 		elevation: (BlRelativeElevation elevation: 1000);
 		constraintsDo: [ :c | c ignoreByLayout ];
