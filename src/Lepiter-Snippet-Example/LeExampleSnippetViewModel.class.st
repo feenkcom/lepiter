@@ -89,6 +89,18 @@ LeExampleSnippetViewModel >> codeExpanded: aCodeExpanded [
 	self snippetModel codeExpanded: aCodeExpanded
 ]
 
+{ #category : #accessing }
+LeExampleSnippetViewModel >> collapsedTextPromise [
+	^ [ | text string styler |
+	string := self snippetModel contentAsString.
+	text := string asRopedText.
+	styler := LeExampleSnippetStyler new.
+	(LeParser parseWithErrors: string)
+		withAllNodesOfType: LeAnnotationNode
+		do: [ :each | styler style: text ast: each ].
+	text ] asAsyncPromise
+]
+
 { #category : #'api - example behavior name' }
 LeExampleSnippetViewModel >> exampleBehaviorName [
 	<return: #Symbol>

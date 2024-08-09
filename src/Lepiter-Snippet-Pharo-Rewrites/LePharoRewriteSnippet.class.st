@@ -15,7 +15,12 @@ LePharoRewriteSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;
-		title: 'Pharo rewrite'
+		title: self description
+]
+
+{ #category : #'api - accessing menu' }
+LePharoRewriteSnippet class >> description [
+	^ 'Pharo rewrite'
 ]
 
 { #category : #'instance creation' }

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'tagName'
 	],
-	#category : 'Lepiter-GitHub-Snippets'
+	#category : #'Lepiter-GitHub-Snippets'
 }
 
 { #category : #'api - accessing menu' }
@@ -12,7 +12,12 @@ LeGitHubTagSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;
-		title: 'GitHub tag'
+		title: self description
+]
+
+{ #category : #'api - accessing menu' }
+LeGitHubTagSnippet class >> description [
+	^ 'GitHub tag'
 ]
 
 { #category : #jsonV3 }

@@ -59,7 +59,7 @@ LeEvaluatedSnippetElement >> editor [
 LeEvaluatedSnippetElement >> initializeCoderToolbar [
 	coderToolbar := GtSourceCoderActionsElement new.
 	spawnDestination := self newSpawnDesinationButton.
-	coderToolbar addChild: spawnDestination
+	coderToolbar addChild: spawnDestination as: #spawnDestination
 ]
 
 { #category : #initialization }

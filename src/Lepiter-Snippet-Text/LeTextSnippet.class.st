@@ -61,13 +61,18 @@ LeTextSnippet class >> contextMenuItemSpecification [
 	^ LeContextMenuItemSpecification new
 		priority: 1;
 		snippetClass: self;
-		title: 'Text'
+		title: self description
 ]
 
 { #category : #utils }
 LeTextSnippet class >> createTextAttributeWithValue: aSnippetText [
 	^ (super createTextAttributeWithValue: aSnippetText)
 		attributeName: #string
+]
+
+{ #category : #accessing }
+LeTextSnippet class >> description [
+	^ 'Text'
 ]
 
 { #category : #factory }

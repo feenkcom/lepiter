@@ -38,7 +38,9 @@ Class {
 		'snippetContainer',
 		'widgetContent',
 		'sidebarStencil',
-		'sidebar'
+		'sidebar',
+		'shouldShowSidebar',
+		'shouldShowBottomToolbar'
 	],
 	#category : #'Lepiter-UI-Snippet-Looks'
 }
@@ -288,6 +290,26 @@ LeSnippetAptitude >> padding: aBlInsets [
 	padding := aBlInsets
 ]
 
+{ #category : #accessing }
+LeSnippetAptitude >> shouldShowBottomToolbar [
+	^ shouldShowBottomToolbar ifNil: [ true ]
+]
+
+{ #category : #accessing }
+LeSnippetAptitude >> shouldShowBottomToolbar: aBoolean [
+	shouldShowBottomToolbar := aBoolean
+]
+
+{ #category : #accessing }
+LeSnippetAptitude >> shouldShowSidebar [
+	^ shouldShowSidebar ifNil: [ true ]
+]
+
+{ #category : #accessing }
+LeSnippetAptitude >> shouldShowSidebar: aBoolean [
+	shouldShowSidebar := aBoolean
+]
+
 { #category : #private }
 LeSnippetAptitude >> showActions [
 	areActionsVisible := true.
@@ -298,6 +320,7 @@ LeSnippetAptitude >> showActions [
 
 { #category : #'private - bottom toolbar' }
 LeSnippetAptitude >> showBottomToolbar [
+	self shouldShowBottomToolbar ifFalse: [ ^ self ].
 	self ensureBottomToolbar.
 	bottomToolbar visibility: BlVisibility visible.
 	self updateBottomToolbarMargin
@@ -311,6 +334,7 @@ LeSnippetAptitude >> showBottomToolbarDropdown [
 
 { #category : #'private - sidebar' }
 LeSnippetAptitude >> showSidebar [
+	self shouldShowSidebar ifFalse: [ ^ self ].
 	self ensureSidebar.
 	sidebar visibility: BlVisibility visible
 ]

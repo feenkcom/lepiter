@@ -36,6 +36,11 @@ LeSearchReferencesFilter >> hash [
 ]
 
 { #category : #accessing }
+LeSearchReferencesFilter >> highlighter [
+	^ GtPharoSelectorReferenceAndLiteralHighlighter forSelector: self selector
+]
+
+{ #category : #accessing }
 LeSearchReferencesFilter >> matches: anObject [
 	^ (super matches: anObject)
 		and: [ anObject

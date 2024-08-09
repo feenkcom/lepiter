@@ -25,7 +25,12 @@ LeElementSnippet class >> contextMenuItemSpecification [
 	^ LeContextMenuItemSpecification new
 		priority: 4;
 		snippetClass: self;
-		title: 'Element'
+		title: self description
+]
+
+{ #category : #factory }
+LeElementSnippet class >> description [
+	^ 'Element'
 ]
 
 { #category : #factory }

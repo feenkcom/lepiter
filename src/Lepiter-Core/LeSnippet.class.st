@@ -22,6 +22,11 @@ Class {
 }
 
 { #category : #accessing }
+LeSnippet class >> description [
+	^ ''
+]
+
+{ #category : #accessing }
 LeSnippet class >> stateAttributes [
 	^ self leJsonV4AttributeMapping collect: [ :aMapping |
 		LeGenericSnippetStateAttribute named: aMapping key ]

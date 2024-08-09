@@ -12,7 +12,12 @@ LeShellScriptSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;
-		title: 'Shell script'
+		title: self description
+]
+
+{ #category : #'accessing - menu' }
+LeShellScriptSnippet class >> description [
+	^ 'Shell script'
 ]
 
 { #category : #accessing }

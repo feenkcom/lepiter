@@ -16,7 +16,12 @@ LePictureSnippet class >> contextMenuItemSpecification [
 	^ LeContextMenuItemSpecification new
 		priority: 3;
 		snippetClass: self;
-		title: 'Picture'
+		title: self description
+]
+
+{ #category : #accessing }
+LePictureSnippet class >> description [
+	^ 'Picture'
 ]
 
 { #category : #factory }

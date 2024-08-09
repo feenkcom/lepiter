@@ -22,7 +22,12 @@ LeJavaScriptSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;
-		title: 'Javascript'
+		title: self description
+]
+
+{ #category : #'api - accessing menu' }
+LeJavaScriptSnippet class >> description [
+	^ 'Javascript'
 ]
 
 { #category : #'lepiter-store' }

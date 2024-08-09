@@ -12,7 +12,12 @@ LePythonSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;
-		title: 'Python'
+		title: self description
+]
+
+{ #category : #'api - accessing menu' }
+LePythonSnippet class >> description [
+	^ 'Python'
 ]
 
 { #category : #'lepiter-store' }

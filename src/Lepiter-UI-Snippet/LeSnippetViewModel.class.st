@@ -40,6 +40,37 @@ LeSnippetViewModel >> addSnippetBeforeSelfBasedOn: aSnippet [
 	^ insertCommand execute insertedSnippet.
 ]
 
+{ #category : #accessing }
+LeSnippetViewModel >> collapsedElement [
+	^ self collapsedElementClass new
+]
+
+{ #category : #accessing }
+LeSnippetViewModel >> collapsedElementClass [
+	^ LeCollapsedSummarySnippetElement
+]
+
+{ #category : #accessing }
+LeSnippetViewModel >> collapsedTextPromise [
+	^ [ | string index |
+	string := self snippetModel contentAsString asString.
+	index := string indexOfAnyOf: String crlf.
+	index > 0
+		ifTrue: [ string := (string first: (index - 1 min: 70)) , '...' ]
+		ifFalse: [ string size > 70 ifTrue: [ string := (string first: 70) , '...' ] ].
+	string asRopedText glamorousRegularFontAndSize ] asAsyncPromise
+]
+
+{ #category : #accessing }
+LeSnippetViewModel >> expandedElement [
+	^ self expandedElementClass new padding: BlInsets empty
+]
+
+{ #category : #accessing }
+LeSnippetViewModel >> expandedElementClass [
+	^ self snippetElementClass
+]
+
 { #category : #'gt - extensions' }
 LeSnippetViewModel >> gtActionIndentFor: anAction [
 	<gtAction>

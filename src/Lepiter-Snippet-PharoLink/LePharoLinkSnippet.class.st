@@ -12,7 +12,12 @@ LePharoLinkSnippet class >> contextMenuItemSpecification [
 	<leSnippetSpecification>
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;
-		title: 'PharoLink'
+		title: self description
+]
+
+{ #category : #'api - accessing menu' }
+LePharoLinkSnippet class >> description [
+	^ 'PharoLink'
 ]
 
 { #category : #'lepiter-store' }

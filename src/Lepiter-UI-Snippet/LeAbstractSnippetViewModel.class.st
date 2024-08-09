@@ -232,6 +232,16 @@ LeAbstractSnippetViewModel >> gtLiveFor: aView [
 			aSnippetElement ]
 ]
 
+{ #category : #accessing }
+LeAbstractSnippetViewModel >> highlighter [
+	^ self optionAt: #highlighter ifAbsent: [  ]
+]
+
+{ #category : #accessing }
+LeAbstractSnippetViewModel >> highlighter: anObject [
+	^ self optionAt: #highlighter put: anObject
+]
+
 { #category : #initialization }
 LeAbstractSnippetViewModel >> initialize [
 	super initialize.
