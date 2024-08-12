@@ -89,13 +89,16 @@ LeExampleSnippetViewModel >> codeExpanded: aCodeExpanded [
 	self snippetModel codeExpanded: aCodeExpanded
 ]
 
-{ #category : #accessing }
+{ #category : #'filter view' }
 LeExampleSnippetViewModel >> collapsedTextPromise [
-	^ [ | text string styler |
+	^ [ | text string styler ast |
 	string := self snippetModel contentAsString.
 	text := string asRopedText.
 	styler := LeExampleSnippetStyler new.
-	(LeParser parseWithErrors: string)
+	ast := LeParser parseWithErrors: string.
+	self leHighlighter
+		ifNotNil: [ :highlighter | highlighter style: text ast: ast ].
+	ast
 		withAllNodesOfType: LeAnnotationNode
 		do: [ :each | styler style: text ast: each ].
 	text ] asAsyncPromise

@@ -14,7 +14,20 @@ LeTextCoderSnippetViewModel >> coderViewModel [
 	^ textCoderViewModel
 ]
 
-{ #category : #accessing }
+{ #category : #'filter view' }
+LeTextCoderSnippetViewModel >> collapsedTextPromise [
+	^ self coderViewModel coderModel ast
+		then: [ :each | 
+			| string text index |
+			string := self snippetModel contentAsString asString.
+			text := string asRopedText.
+			self leHighlighter
+				ifNotNil: [ :highlighter | highlighter style: text ast: each ast ].
+			index := self indexOfHighlightIn: text.
+			self clipTextIn: text around: index ]
+]
+
+{ #category : #'filter view' }
 LeTextCoderSnippetViewModel >> expandedElement [
 	| element |
 	element := super expandedElement.

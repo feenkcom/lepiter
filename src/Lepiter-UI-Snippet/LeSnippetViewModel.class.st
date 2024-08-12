@@ -40,17 +40,51 @@ LeSnippetViewModel >> addSnippetBeforeSelfBasedOn: aSnippet [
 	^ insertCommand execute insertedSnippet.
 ]
 
-{ #category : #accessing }
+{ #category : #'filter view' }
+LeSnippetViewModel >> clipTextIn: aText around: anIndex [
+	| start end eol result maxSize minSize |
+	maxSize := 60.
+	minSize := maxSize // 2.
+	eol := String crlf.
+	start := anIndex - 1.
+	[ start <= 0
+		or: [ | char |
+			char := aText at: start.
+			(eol includes: char)
+				or: [ char isSeparator and: [ start < (anIndex - minSize) ] ] ] ]
+		whileFalse: [ start := start - 1 ].
+	start := start + 1 max: anIndex - maxSize.
+	start > 1
+		ifTrue: [ [ start < anIndex and: [ (aText at: start) isSeparator ] ]
+				whileTrue: [ start := start + 1 ] ].
+	maxSize := 1000.
+	minSize := maxSize // 2.
+	end := anIndex + 1.
+	[ end > aText size
+		or: [ | char |
+			char := aText at: end.
+			(eol includes: char)
+				or: [ char isSeparator and: [ end > (anIndex + minSize) ] ] ] ]
+		whileFalse: [ end := end + 1 ].
+	end := end - 1 min: anIndex + maxSize.
+	(start = 1 and: [ end = aText size ]) ifTrue: [ ^ aText ].
+	result := aText copyFrom: start to: end.
+	start > 1 ifTrue: [ result insertString: '...' at: 0 ].
+	end < aText size ifTrue: [ result appendString: '...' ].
+	^ result
+]
+
+{ #category : #'filter view' }
 LeSnippetViewModel >> collapsedElement [
 	^ self collapsedElementClass new
 ]
 
-{ #category : #accessing }
+{ #category : #'filter view' }
 LeSnippetViewModel >> collapsedElementClass [
 	^ LeCollapsedSummarySnippetElement
 ]
 
-{ #category : #accessing }
+{ #category : #'filter view' }
 LeSnippetViewModel >> collapsedTextPromise [
 	^ [ | string index |
 	string := self snippetModel contentAsString asString.
@@ -61,12 +95,12 @@ LeSnippetViewModel >> collapsedTextPromise [
 	string asRopedText glamorousRegularFontAndSize ] asAsyncPromise
 ]
 
-{ #category : #accessing }
+{ #category : #'filter view' }
 LeSnippetViewModel >> expandedElement [
 	^ self expandedElementClass new padding: BlInsets empty
 ]
 
-{ #category : #accessing }
+{ #category : #'filter view' }
 LeSnippetViewModel >> expandedElementClass [
 	^ self snippetElementClass
 ]
@@ -141,6 +175,13 @@ LeSnippetViewModel >> gtActionUnindentFor: anAction [
 		target: LeSnippetContextMenuActionTarget uniqueInstance;
 		priority: 3;
 		action: [ :aButton :aSnippetElement | self requestUnindent ]
+]
+
+{ #category : #'filter view' }
+LeSnippetViewModel >> indexOfHighlightIn: aText [
+	^ (1 to: aText size)
+		detect: [ :i | (aText attributesAt: i) notEmpty ]
+		ifNone: [ 1 ]
 ]
 
 { #category : #'api - actions' }
