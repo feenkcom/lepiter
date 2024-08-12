@@ -25,6 +25,11 @@ LeCollapsedSummarySnippetElement >> initialize [
 
 { #category : #accessing }
 LeCollapsedSummarySnippetElement >> onSnippetViewModelChanged [
+	self updateLabel
+]
+
+{ #category : #accessing }
+LeCollapsedSummarySnippetElement >> updateLabel [
 	snippetViewModel
 		ifNotNil: [ snippetViewModel collapsedTextPromise
 				then: [ :text | label inUIProcessDo: [ label text: text ] ] ]

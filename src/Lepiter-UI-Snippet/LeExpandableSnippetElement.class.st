@@ -69,6 +69,9 @@ LeExpandableSnippetElement >> newExpandedElement [
 
 { #category : #accessing }
 LeExpandableSnippetElement >> onCollapsed [
+	collapsedElement
+		childNamed: #content
+		ifFound: [ :element | element updateLabel ]
 ]
 
 { #category : #accessing }

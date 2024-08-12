@@ -259,6 +259,16 @@ LeAbstractSnippetViewModel >> keyboardShortcut: aSymbol [
 	^ LeSnippetElement keyboardShortcut: aSymbol
 ]
 
+{ #category : #accessing }
+LeAbstractSnippetViewModel >> leHighlighter [
+	^ self optionAt: #leHighlighter ifAbsent: [  ]
+]
+
+{ #category : #accessing }
+LeAbstractSnippetViewModel >> leHighlighter: anObject [
+	^ self optionAt: #leHighlighter put: anObject
+]
+
 { #category : #private }
 LeAbstractSnippetViewModel >> notifyExpansionChanged: aBoolean [
 	self announce: (LeSnippetExpansionChanged new expanded: aBoolean)

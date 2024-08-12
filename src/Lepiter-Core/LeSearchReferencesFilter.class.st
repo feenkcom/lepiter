@@ -41,6 +41,17 @@ LeSearchReferencesFilter >> highlighter [
 ]
 
 { #category : #accessing }
+LeSearchReferencesFilter >> leHighlighter [
+	^ (GtSmaCCParserStyler forParser: LeAnnotationParser)
+		stylerRules: {GtSmaCCNodeVariableStylerRule
+					nodeClassName: #LeMethodNameArgumentNode
+					variableNames: #(selector)
+					styleBlock: [ :styler :token | 
+						(token source = selector or: [ token source = ('#' , selector) ])
+							ifTrue: [ styler underlineColor: BrGlamorousColors textHighlightColor thickness: 3 ] ]}
+]
+
+{ #category : #accessing }
 LeSearchReferencesFilter >> matches: anObject [
 	^ (super matches: anObject)
 		and: [ anObject
