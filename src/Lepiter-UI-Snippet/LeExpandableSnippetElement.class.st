@@ -55,7 +55,7 @@ LeExpandableSnippetElement >> newContentElement [
 	^ BrVerticalPane new
 		hMatchParent;
 		vFitContent;
-		padding: (BlInsets all: 5);
+		margin: (BlInsets all: 5);
 		addChild: LeSnippetHeaderElement new as: #header;
 		yourself
 ]
@@ -106,11 +106,11 @@ LeExpandableSnippetElement >> updateSnippetViewModels [
 						ifFound: [ :header | header snippetViewModel: snippetViewModel ].
 					element := snippetViewModel collapsedElement.
 					element
-						padding: element padding
+						margin: element margin
 								+ (BlInsets
-										top: 13
+										top: 0
 										bottom: 5
-										left: 10
+										left: 0
 										right: 10).
 					element snippetViewModel: snippetViewModel.
 					collapsedElement addChild: element as: #content ] ].
@@ -143,11 +143,11 @@ LeExpandableSnippetElement >> updateSnippetViewModels [
 					element addAptitude: look.
 					element snippetViewModel: snippetViewModel.
 					element
-						padding: element padding
+						margin: element margin
 								+ (BlInsets
-										top: 5
+										top: 0
 										bottom: 5
-										left: 5
+										left: 0
 										right: 8).
 					expandedElement addChild: element as: #content ] ]
 ]
