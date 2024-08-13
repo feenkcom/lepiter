@@ -42,7 +42,7 @@ LeSnippetViewModel >> addSnippetBeforeSelfBasedOn: aSnippet [
 
 { #category : #'filter view' }
 LeSnippetViewModel >> clipTextIn: aText around: anIndex [
-	| start end eol result maxSize minSize |
+	| start end eol result maxSize minSize lastWasSeparator index |
 	maxSize := 60.
 	minSize := maxSize // 2.
 	eol := String crlf.
@@ -70,7 +70,18 @@ LeSnippetViewModel >> clipTextIn: aText around: anIndex [
 	(start = 1 and: [ end = aText size ]) ifTrue: [ ^ aText ].
 	result := aText copyFrom: start to: end.
 	start > 1 ifTrue: [ result insertString: '...' at: 0 ].
-	end < aText size ifTrue: [ result appendString: '...' ].
+	end < aText size
+		ifTrue: [ result append: ('...' asRopedText attributes: (result attributesAt: 0)) ].
+	lastWasSeparator := false.
+	index := 1.
+	[ index <= result size ]
+		whileTrue: [ (result at: index) isSeparator
+				ifTrue: [ lastWasSeparator
+						ifTrue: [ result delete: index to: index ]
+						ifFalse: [ index := index + 1 ].
+					lastWasSeparator := true ]
+				ifFalse: [ index := index + 1.
+					lastWasSeparator := false ] ].
 	^ result
 ]
 
@@ -86,12 +97,21 @@ LeSnippetViewModel >> collapsedElementClass [
 
 { #category : #'filter view' }
 LeSnippetViewModel >> collapsedTextPromise [
-	^ [ | string index |
-	string := self snippetModel contentAsString asString.
-	index := string indexOfAnyOf: String crlf.
-	index > 0
-		ifTrue: [ string := (string first: (index - 1 min: 70)) , '...' ]
-		ifFalse: [ string size > 70 ifTrue: [ string := (string first: 70) , '...' ] ].
+	^ [ | string readStream |
+	readStream := self snippetModel contentAsString asString readStream.
+	string := String
+			streamContents: [ :stream | 
+				| lastWasSeparator char |
+				lastWasSeparator := false.
+				[ readStream atEnd
+					or: [ stream position > 70 or: [ String crlf includes: readStream peek ] ] ]
+					whileFalse: [ char := readStream next.
+						char isSeparator
+							ifTrue: [ lastWasSeparator ifFalse: [ stream nextPut: $  ].
+								lastWasSeparator := true ]
+							ifFalse: [ lastWasSeparator := false.
+								stream nextPut: char ] ].
+				readStream atEnd ifFalse: [ stream nextPutAll: '...' ] ].
 	string asRopedText glamorousRegularFontAndSize ] asAsyncPromise
 ]
 
