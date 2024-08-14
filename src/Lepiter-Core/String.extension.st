@@ -1,6 +1,11 @@
 Extension { #name : #String }
 
 { #category : #'*Lepiter-Core' }
+String >> leASTMatches [
+	^ LeSearchRBASTSnippetFilter sourceExpression: self
+]
+
+{ #category : #'*Lepiter-Core' }
 String >> leDBMatches [
 	^ LeDatabasesRegistry uniqueInstance defaultLogicalDatabase databases
 		inject: GtSearchNullFilter new
@@ -19,4 +24,9 @@ String >> lePageMatches [
 				pageNamed: self
 				ifPresent: [ :page | sum | page leSnippetsInPage ]
 				ifAbsent: [ sum ] ]
+]
+
+{ #category : #'*Lepiter-Core' }
+String >> leSubstringMatch [
+	^ LeSearchSubstringSnippetFilter substring: self
 ]
