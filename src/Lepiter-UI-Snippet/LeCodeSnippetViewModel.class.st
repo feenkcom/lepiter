@@ -20,7 +20,7 @@ LeCodeSnippetViewModel >> collapsedTextPromise [
 			string := self snippetModel contentAsString asString.
 			text := string asRopedText.
 			self highlighter
-				ifNotNil: [ :highlighter | highlighter style: text ast: each ast ].
+				ifNotNil: [ :highlighter | [ highlighter style: text ast: each ast ] on: Error do: [ :ex | ex return ] ].
 			index := self indexOfHighlightIn: text.
 			text glamorousCodeFontAndSize.
 			(GtPharoStyler new coderViewModel: self coderViewModel)

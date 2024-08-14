@@ -97,22 +97,10 @@ LeSnippetViewModel >> collapsedElementClass [
 
 { #category : #'filter view' }
 LeSnippetViewModel >> collapsedTextPromise [
-	^ [ | string readStream |
-	readStream := self snippetModel contentAsString asString readStream.
-	string := String
-			streamContents: [ :stream | 
-				| lastWasSeparator char |
-				lastWasSeparator := false.
-				[ readStream atEnd
-					or: [ stream position > 70 or: [ String crlf includes: readStream peek ] ] ]
-					whileFalse: [ char := readStream next.
-						char isSeparator
-							ifTrue: [ lastWasSeparator ifFalse: [ stream nextPut: $  ].
-								lastWasSeparator := true ]
-							ifFalse: [ lastWasSeparator := false.
-								stream nextPut: char ] ].
-				readStream atEnd ifFalse: [ stream nextPutAll: '...' ] ].
-	string asRopedText glamorousRegularFontAndSize ] asAsyncPromise
+	^ [ | text |
+	text := self snippetModel contentAsString asString asRopedText.
+	text glamorousRegularFontAndSize.
+	self clipTextIn: text around: 1 ] asAsyncPromise
 ]
 
 { #category : #'filter view' }
