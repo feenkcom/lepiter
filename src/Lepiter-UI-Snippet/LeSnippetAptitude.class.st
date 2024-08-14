@@ -40,7 +40,8 @@ Class {
 		'sidebarStencil',
 		'sidebar',
 		'shouldShowSidebar',
-		'shouldShowBottomToolbar'
+		'shouldShowBottomToolbar',
+		'shouldShowActionsOnFocus'
 	],
 	#category : #'Lepiter-UI-Snippet-Looks'
 }
@@ -133,54 +134,53 @@ LeSnippetAptitude >> initialize [
 
 	self initializeElements.
 
-	snippetContent := BlElement new size: 0@0.
+	snippetContent := BlElement new size: 0 @ 0.
 	sidebarStencil := [ BlElement new
-		layout: BlLinearLayout vertical;
-		preventMouseEvents;
-		constraintsDo: [ :c |
-			c horizontal fitContent.
-			c vertical matchParent ] ] asStencil.
+			layout: BlLinearLayout vertical;
+			preventMouseEvents;
+			constraintsDo: [ :c | 
+				c horizontal fitContent.
+				c vertical matchParent ] ] asStencil.
 
 	self addChangeProperty: #(widget margin) with: [ margin ].
 
-	self addChangeAddChildAs: #(content) with: [
-		widgetContent addChild: snippetContainer as: #snippetContainer.
-		
-		self contentContainer addChild: snippetContent.
+	self
+		addChangeAddChildAs: #(content)
+		with: [ widgetContent addChild: snippetContainer as: #snippetContainer.
 
-		widgetContent ].
-	
+			self contentContainer addChild: snippetContent.
+
+			widgetContent ].
+
 	self addChangeProperty: #(snippetContainer padding) with: [ padding ].
 
 	self add: (BrLayoutResizerAptitude new inherit: [ widgetContent ]).
-	widgetContent addAptitude: (BrLayoutResizerAptitude new inherit: [ snippetContainer ]).
-	self contentContainer addAptitude: (BrLayoutResizerAptitude new inherit: [ snippetContent ]).
+	widgetContent
+		addAptitude: (BrLayoutResizerAptitude new inherit: [ snippetContainer ]).
+	self contentContainer
+		addAptitude: (BrLayoutResizerAptitude new inherit: [ snippetContent ]).
 
-	self add: (BrLazyStyleCommonAptitude new
-		when: BlElementState focused | BlElementState hovered
-			style: [ :aStyle |
-				aStyle
-					do: [ self showActions ]
-					after: [ self hideActions ]];
-		when: (BlElementState focused & BlElementState hovered)
-			style: [ :aStyle |
-				aStyle
-					do: [ self visuallyFocus ]
-					after: [ self visuallyUnfocusAndUnhover ] ];
-		when: (BlElementState focused & BlElementState hovered not)
-			style: [ :aStyle |
-				aStyle
-					do: [ self visuallyFocus ]
-					after: [ self visuallyUnfocusAndUnhover ] ];
-		when: (BlElementState hovered & BlElementState focused not)
-			style: [ :aStyle |
-				aStyle
-					do: [ self visuallyHover ]
-					after: [ self visuallyUnfocusAndUnhover ] ]).
+	self
+		add: (BrLazyStyleCommonAptitude new
+				when: BlElementState focused | BlElementState hovered
+					style: [ :aStyle | 
+						self shouldShowActionsOnFocus
+							ifTrue: [ aStyle do: [ self showActions ] after: [ self hideActions ] ] ];
+				when: BlElementState focused & BlElementState hovered
+					style: [ :aStyle | aStyle do: [ self visuallyFocus ] after: [ self visuallyUnfocusAndUnhover ] ];
+				when: BlElementState focused & BlElementState hovered not
+					style: [ :aStyle | aStyle do: [ self visuallyFocus ] after: [ self visuallyUnfocusAndUnhover ] ];
+				when: BlElementState hovered & BlElementState focused not
+					style: [ :aStyle | aStyle do: [ self visuallyHover ] after: [ self visuallyUnfocusAndUnhover ] ]).
 
-	snippetContainer addShortcut: (BlShortcutWithAction new
-		combination: (BlKeyCombination builder shift; primary; key: BlKeyboardKey return; build);
-		action: [ :anEvent :aShortcut | self showBottomToolbarDropdown ]).
+	snippetContainer
+		addShortcut: (BlShortcutWithAction new
+				combination: (BlKeyCombination builder
+						shift;
+						primary;
+						key: BlKeyboardKey return;
+						build);
+				action: [ :anEvent :aShortcut | self showBottomToolbarDropdown ]).
 
 	self hideActions
 ]
@@ -222,14 +222,6 @@ LeSnippetAptitude >> margin [
 { #category : #'api - accessing' }
 LeSnippetAptitude >> margin: anObject [
 	margin := anObject
-]
-
-{ #category : #private }
-LeSnippetAptitude >> mayHideActions [
-	"Only hide actions if the widget does not have focus"
-	self widgetDo: [ :aWidget |
-		aWidget hasFocus ifTrue: [ ^ self ] ].
-	self hideActions
 ]
 
 { #category : #'instance creation' }
@@ -288,6 +280,18 @@ LeSnippetAptitude >> padding [
 { #category : #'api - accessing' }
 LeSnippetAptitude >> padding: aBlInsets [
 	padding := aBlInsets
+]
+
+{ #category : #accessing }
+LeSnippetAptitude >> shouldShowActionsOnFocus [
+	^ shouldShowActionsOnFocus ifNil: [ true ]
+]
+
+{ #category : #accessing }
+LeSnippetAptitude >> shouldShowActionsOnFocus: aBoolean [
+	shouldShowActionsOnFocus := aBoolean.
+	(shouldShowActionsOnFocus or: [ areActionsVisible ])
+		ifFalse: [ self showActions ]
 ]
 
 { #category : #accessing }

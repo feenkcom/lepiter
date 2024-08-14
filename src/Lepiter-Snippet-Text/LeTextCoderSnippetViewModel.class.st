@@ -24,6 +24,9 @@ LeTextCoderSnippetViewModel >> collapsedTextPromise [
 			self leHighlighter
 				ifNotNil: [ :highlighter | highlighter style: text ast: each ast ].
 			index := self indexOfHighlightIn: text.
+			LeSnippetStyler new
+				snippetViewModel: self;
+				style: text ast: each ast.
 			self clipTextIn: text around: index ]
 ]
 

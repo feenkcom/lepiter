@@ -127,6 +127,7 @@ LeExpandableSnippetElement >> updateSnippetViewModels [
 					look := LeSnippetWithToolbarAptitude new.
 					look shouldShowBottomToolbar: false.
 					look shouldShowSidebar: false.
+					look shouldShowActionsOnFocus: false.
 					look margin: (BlInsets top: 3 bottom: 3).
 
 					look snippetContent: element snippetContent.
