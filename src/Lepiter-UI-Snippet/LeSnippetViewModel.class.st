@@ -97,10 +97,20 @@ LeSnippetViewModel >> collapsedElementClass [
 
 { #category : #'filter view' }
 LeSnippetViewModel >> collapsedTextPromise [
-	^ [ | text |
-	text := self snippetModel contentAsString asString asRopedText.
+	^ [ | string text index |
+	string := self snippetModel contentAsString asString.
+	text := string asRopedText.
+	self
+		highlightText: text
+		ast: (FileNode new
+				lines: {SmaCCToken
+							value: string
+							start: 1
+							ids: #()})
+		using: self leHighlighters.
+	index := self indexOfHighlightIn: text.
 	text glamorousRegularFontAndSize.
-	self clipTextIn: text around: 1 ] asAsyncPromise
+	self clipTextIn: text around: index ] asAsyncPromise
 ]
 
 { #category : #'filter view' }
@@ -111,6 +121,15 @@ LeSnippetViewModel >> expandedElement [
 { #category : #'filter view' }
 LeSnippetViewModel >> expandedElementClass [
 	^ self snippetElementClass
+]
+
+{ #category : #'filter view' }
+LeSnippetViewModel >> findHighlighterFor: aParserClass using: highlightersDictionary [
+	| parserClass |
+	parserClass := aParserClass.
+	[ highlightersDictionary at: parserClass ifPresent: [ :styler | ^ styler ].
+	parserClass notNil ] whileTrue: [ parserClass := parserClass superclass ].
+	^ nil
 ]
 
 { #category : #'gt - extensions' }
@@ -183,6 +202,14 @@ LeSnippetViewModel >> gtActionUnindentFor: anAction [
 		target: LeSnippetContextMenuActionTarget uniqueInstance;
 		priority: 3;
 		action: [ :aButton :aSnippetElement | self requestUnindent ]
+]
+
+{ #category : #'filter view' }
+LeSnippetViewModel >> highlightText: text ast: aSmaCCParseNode using: highlightersDictionary [
+	(self
+		findHighlighterFor: aSmaCCParseNode parserClass
+		using: highlightersDictionary)
+		ifNotNil: [ :styler | styler style: text ast: aSmaCCParseNode ]
 ]
 
 { #category : #'filter view' }

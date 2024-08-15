@@ -28,6 +28,11 @@ LePythonSnippetViewModel >> onSelfObjectChanged [
 	coderViewModel selfObject: sharedContext selfObject
 ]
 
+{ #category : #'filter view' }
+LePythonSnippetViewModel >> parserClass [
+	^ PythonParser
+]
+
 { #category : #'api - bindings' }
 LePythonSnippetViewModel >> sharedSnippetContext: aLeSharedSnippetContext [
 	sharedContext unsubscribe: self.

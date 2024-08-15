@@ -41,14 +41,19 @@ LeSearchReferencesFilter >> highlighter [
 ]
 
 { #category : #accessing }
-LeSearchReferencesFilter >> leHighlighter [
-	^ (GtSmaCCParserStyler forParser: LeAnnotationParser)
-		stylerRules: {GtSmaCCNodeVariableStylerRule
-					nodeClassName: #LeMethodNameArgumentNode
-					variableNames: #(selector)
-					styleBlock: [ :styler :token | 
-						(token source = selector or: [ token source = ('#' , selector) ])
-							ifTrue: [ styler underlineColor: BrGlamorousColors textHighlightColor thickness: 3 ] ]}
+LeSearchReferencesFilter >> leHighlighters [
+	^ Dictionary new
+		at: GtPharoParser
+			put: (GtPharoSelectorReferenceAndLiteralHighlighter forSelector: self selector);
+		at: LeParser
+			put: ((GtSmaCCParserStyler forParser: LeAnnotationParser)
+					stylerRules: {GtSmaCCNodeVariableStylerRule
+								nodeClassName: #LeMethodNameArgumentNode
+								variableNames: #(selector)
+								styleBlock: [ :styler :token | 
+									(token source = selector or: [ token source = ('#' , selector) ])
+										ifTrue: [ styler underlineColor: BrGlamorousColors textHighlightColor thickness: 3 ] ]});
+		yourself
 ]
 
 { #category : #accessing }
