@@ -79,6 +79,11 @@ LeStringSnippetViewModel >> parser [
 	^ self snippetModel parser
 ]
 
+{ #category : #'filter view' }
+LeStringSnippetViewModel >> parserClass [
+	^ self parser class
+]
+
 { #category : #'api - accessing' }
 LeStringSnippetViewModel >> selectParserClass: aParserClass [
 	self hasSnippetModel ifFalse: [ ^ self ].

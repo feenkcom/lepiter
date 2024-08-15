@@ -16,16 +16,17 @@ LeCodeSnippetViewModel >> coderViewModel [
 LeCodeSnippetViewModel >> collapsedTextPromise [
 	^ self coderViewModel coderModel ast
 		then: [ :each | 
-			| string text index |
+			| string text index highlighter |
 			string := self snippetModel contentAsString asString.
 			text := string asRopedText.
-			self highlighter
-				ifNotNil: [ :highlighter | [ highlighter style: text ast: each ast ] on: Error do: [ :ex | ex return ] ].
+			highlighter := self
+					findHighlighterFor: each ast parserClass
+					using: self leHighlighters.
+			highlighter ifNotNil: [ highlighter style: text ast: each ast ].
 			index := self indexOfHighlightIn: text.
 			text glamorousCodeFontAndSize.
-			(GtPharoStyler new coderViewModel: self coderViewModel)
-				style: text
-				ast: each ast.
+			self coderViewModel addOns wait stylers
+				do: [ :styler | styler == highlighter ifFalse: [ styler style: text ast: each ast ] ].
 			self clipTextIn: text around: index ]
 ]
 
@@ -73,6 +74,11 @@ LeCodeSnippetViewModel >> onSnippetModelChanged [
 	self initializeCoderAddOns: coderViewModel
 ]
 
+{ #category : #'filter view' }
+LeCodeSnippetViewModel >> parserClass [
+	^ nil
+]
+
 { #category : #accessing }
 LeCodeSnippetViewModel >> snippetView [
 	<return: #LeSnippetView>
@@ -90,4 +96,10 @@ LeCodeSnippetViewModel >> spawnDestination [
 { #category : #'api - accessing' }
 LeCodeSnippetViewModel >> spawnDestination: aSpawnDesiredDestination [
 	self coderViewModel coderModel spawnDestination: aSpawnDesiredDestination
+]
+
+{ #category : #'filter view' }
+LeCodeSnippetViewModel >> updateHighlighter [
+	(self findHighlighterFor: self parserClass using: self leHighlighters)
+		ifNotNil: [ :highlighter | coderViewModel addStyler: highlighter ]
 ]

@@ -96,8 +96,10 @@ LeExampleSnippetViewModel >> collapsedTextPromise [
 	text := string asRopedText.
 	styler := LeExampleSnippetStyler new.
 	ast := LeParser parseWithErrors: string.
-	self leHighlighter
-		ifNotNil: [ :highlighter | highlighter style: text ast: ast ].
+	self
+		highlightText: text
+		ast: ast
+		using: self leHighlighters.
 	ast
 		withAllNodesOfType: LeAnnotationNode
 		do: [ :each | styler style: text ast: each ].

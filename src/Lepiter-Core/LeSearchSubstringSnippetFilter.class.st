@@ -28,27 +28,30 @@ LeSearchSubstringSnippetFilter >> highlighter [
 ]
 
 { #category : #accessing }
-LeSearchSubstringSnippetFilter >> leHighlighter [
-	^ (GtSmaCCParserStyler forParser: LeAnnotationParser)
-		stylerRules: {(GtSmaCCNodeStylerRule
-					nodeClassName: #SmaCCParseNode
-					styleBlock: [ :styler :node :text | 
-						| index string |
-						string := text asString.
-						index := 1.
-						[ index <= string size ]
-							whileTrue: [ index := string
-										findString: substring
-										startingAt: index
-										caseSensitive: false.
-								index = 0
-									ifTrue: [ index := string size + 1 ]
-									ifFalse: [ (text from: index to: index + substring size - 1)
-											underlineColor: BrGlamorousColors textHighlightColor
-											thickness: 3.
-										index := index + substring size ] ] ])
-					continueOnMatch: false;
-					yourself}
+LeSearchSubstringSnippetFilter >> leHighlighters [
+	^ Dictionary new
+		at: nil
+			put: ((GtSmaCCParserStyler forParser: LineParser)
+					stylerRules: {(GtSmaCCNodeStylerRule
+								nodeClassName: #SmaCCParseNode
+								styleBlock: [ :styler :node :text | 
+									| index string |
+									string := text asString.
+									index := 1.
+									[ index <= string size ]
+										whileTrue: [ index := string
+													findString: substring
+													startingAt: index
+													caseSensitive: false.
+											index = 0
+												ifTrue: [ index := string size + 1 ]
+												ifFalse: [ (text from: index to: index + substring size - 1)
+														underlineColor: BrGlamorousColors textHighlightColor
+														thickness: 3.
+													index := index + substring size ] ] ])
+								continueOnMatch: false;
+								yourself});
+		yourself
 ]
 
 { #category : #accessing }

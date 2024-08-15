@@ -1,7 +1,7 @@
 Class {
 	#name : #LePharoLinkSnippetViewModel,
 	#superclass : #LeCodeSnippetViewModel,
-	#category : 'Lepiter-Snippet-PharoLink-Snippet'
+	#category : #'Lepiter-Snippet-PharoLink-Snippet'
 }
 
 { #category : #initialization }
@@ -21,6 +21,11 @@ LePharoLinkSnippetViewModel >> initializeCoderAddOns: aCoderViewModel [
 		addShortcut: (LeSnippetMoveSnippetUpShortcut new combination: (self keyboardShortcut: #MoveSnippetUp));
 		"Move Snippet down"
 		addShortcut: (LeSnippetMoveSnippetDownShortcut new combination: (self keyboardShortcut: #MoveSnippetDown))
+]
+
+{ #category : #'filter view' }
+LePharoLinkSnippetViewModel >> parserClass [
+	^ GtPharoParser
 ]
 
 { #category : #accessing }

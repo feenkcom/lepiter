@@ -21,8 +21,10 @@ LeTextCoderSnippetViewModel >> collapsedTextPromise [
 			| string text index |
 			string := self snippetModel contentAsString asString.
 			text := string asRopedText.
-			self leHighlighter
-				ifNotNil: [ :highlighter | highlighter style: text ast: each ast ].
+			self
+				highlightText: text
+				ast: each ast
+				using: self leHighlighters.
 			index := self indexOfHighlightIn: text.
 			LeSnippetStyler new
 				snippetViewModel: self;

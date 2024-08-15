@@ -10,9 +10,8 @@ LeAsyncSearchSnippetGroupStream >> gtItemsFor: aView [
 	^ aView explicit
 		title: 'Items' translated;
 		priority: 10;
-		stencil: [ | highlighter leHighlighter |
-			highlighter := self highlighter.
-			leHighlighter := self leHighlighter.
+		stencil: [ | leHighlighters |
+			leHighlighters := self leHighlighters.
 			BrSimpleList new
 				matchParent;
 				stream: self asyncSimilarCopy;
@@ -20,8 +19,7 @@ LeAsyncSearchSnippetGroupStream >> gtItemsFor: aView [
 				itemDataBinder: [ :element :each | 
 					| viewModel |
 					viewModel := each asSnippetViewModel.
-					highlighter ifNotNil: [ viewModel highlighter: highlighter ].
-					leHighlighter ifNotNil: [ viewModel leHighlighter: leHighlighter ].
+					viewModel leHighlighters: leHighlighters.
 					element snippetViewModel: viewModel ];
 				yourself ]
 ]

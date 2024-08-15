@@ -1,12 +1,17 @@
 Extension { #name : #GtSearchBinaryFilter }
 
 { #category : #'*Lepiter-Core' }
-GtSearchBinaryFilter >> leHighlighter [
-	^ left leHighlighter
-		ifNil: [ right leHighlighter ]
-		ifNotNil: [ :lh | 
-			right leHighlighter
-				ifNil: [ lh ]
-				ifNotNil:
-					[ :rh | GtCompositeHighlighter forHighlighters: (Array with: lh with: rh) ] ]
+GtSearchBinaryFilter >> leHighlighters [
+	| highlighters |
+	highlighters := left leHighlighters copy.
+	right leHighlighters
+		keysAndValuesDo: [ :key :value | 
+			highlighters
+				at: key
+				ifPresent: [ :leftValue | 
+					GtCompositeHighlighter
+						forHighlighters: {leftValue.
+								value} ]
+				ifAbsentPut: [ value ] ].
+	^ highlighters
 ]

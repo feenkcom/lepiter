@@ -1,7 +1,7 @@
 Class {
 	#name : #LeJavaScriptSnippetViewModel,
 	#superclass : #LeCodeSnippetViewModel,
-	#category : 'Lepiter-JavaScript-Snippet'
+	#category : #'Lepiter-JavaScript-Snippet'
 }
 
 { #category : #initialization }
@@ -21,6 +21,11 @@ LeJavaScriptSnippetViewModel >> initializeCoderAddOns: aCoderViewModel [
 		addShortcut: (LeSnippetMoveSnippetUpShortcut new combination: (self keyboardShortcut: #MoveSnippetUp));
 		"Move Snippet down"
 		addShortcut: (LeSnippetMoveSnippetDownShortcut new combination: (self keyboardShortcut: #MoveSnippetDown))
+]
+
+{ #category : #'filter view' }
+LeJavaScriptSnippetViewModel >> parserClass [
+	^ JSParser
 ]
 
 { #category : #accessing }
