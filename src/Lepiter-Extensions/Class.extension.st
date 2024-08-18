@@ -14,3 +14,16 @@ Class >> gtLepiterCommentFor: aView [
 				savePage: aTab viewContentElement page ];
 		actionUpdateButtonTooltip: 'Update class comment'
 ]
+
+{ #category : #'*Lepiter-Extensions' }
+Class >> gtLepiterReferencesFor: aView [
+	<gtView>
+	<gtClassView>
+	
+	^ aView forward
+		title: 'Documentation';
+		tooltip: 'References from Lepiter pages';
+		priority: 50;
+		object: [ self leReferences ];
+		view: #gtItemsFor:
+]
