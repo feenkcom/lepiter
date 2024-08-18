@@ -205,3 +205,12 @@ LeTextCoderSnippetViewModel >> unsubscribeFromSnippetModel [
 	self coderViewModel coder unsubscribe: self.
 	self snippet unsubscribe: self
 ]
+
+{ #category : #'filter view' }
+LeTextCoderSnippetViewModel >> updateHighlighter [
+	(self findHighlighterFor: LeParser using: self leHighlighters)
+		ifNotNil: [ :highlighter | 
+			textCoderViewModel
+				addStyler: highlighter;
+				requestUpdateAddOns ]
+]

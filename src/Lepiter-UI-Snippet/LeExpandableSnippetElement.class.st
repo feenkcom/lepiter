@@ -46,7 +46,7 @@ LeExpandableSnippetElement >> initialize [
 { #category : #accessing }
 LeExpandableSnippetElement >> newCollapsedElement [
 	collapsedElement := self newContentElement.
-	self updateSnippetViewModels.
+	self updateCollapsedElement.
 	^ collapsedElement
 ]
 
@@ -63,7 +63,7 @@ LeExpandableSnippetElement >> newContentElement [
 { #category : #accessing }
 LeExpandableSnippetElement >> newExpandedElement [
 	expandedElement := self newContentElement.
-	self updateSnippetViewModels.
+	self updateExpandedElement.
 	^ expandedElement
 ]
 
@@ -94,61 +94,71 @@ LeExpandableSnippetElement >> snippetContent [
 ]
 
 { #category : #accessing }
-LeExpandableSnippetElement >> updateSnippetViewModels [
+LeExpandableSnippetElement >> updateCollapsedElement [
+	collapsedElement ifNil: [ ^ self ].
 	collapsedElement
-		ifNotNil: [ collapsedElement
-				childNamed: #content
-				ifFound: [ :content | content removeFromParent ].
-			snippetViewModel
-				ifNotNil: [ | element |
-					collapsedElement
-						childNamed: #header
-						ifFound: [ :header | header snippetViewModel: snippetViewModel ].
-					element := snippetViewModel collapsedElement.
-					element
-						margin: element margin
-								+ (BlInsets
-										top: 0
-										bottom: 5
-										left: 0
-										right: 10).
-					element snippetViewModel: snippetViewModel.
-					collapsedElement addChild: element as: #content ] ].
+		childNamed: #content
+		ifFound: [ :content | content removeFromParent ].
+	snippetViewModel
+		ifNotNil: [ | element |
+			collapsedElement
+				childNamed: #header
+				ifFound: [ :header | header snippetViewModel: snippetViewModel ].
+			element := snippetViewModel collapsedElement.
+			element
+				margin: element margin
+						+ (BlInsets
+								top: 0
+								bottom: 5
+								left: 0
+								right: 10).
+			element snippetViewModel: snippetViewModel.
+			collapsedElement addChild: element as: #content ]
+]
+
+{ #category : #accessing }
+LeExpandableSnippetElement >> updateExpandedElement [
+	expandedElement ifNil: [ ^ self ].
 	expandedElement
-		ifNotNil: [ expandedElement
-				childNamed: #content
-				ifFound: [ :content | content removeFromParent ].
-			snippetViewModel
-				ifNotNil: [ | element look toolbar |
-					expandedElement
-						childNamed: #header
-						ifFound: [ :header | header snippetViewModel: snippetViewModel ].
-					element := snippetViewModel expandedElement.
-					look := LeSnippetWithToolbarAptitude new.
-					look shouldShowBottomToolbar: false.
-					look shouldShowSidebar: false.
-					look shouldShowActionsOnFocus: false.
-					look margin: (BlInsets top: 3 bottom: 3).
+		childNamed: #content
+		ifFound: [ :content | content removeFromParent ].
+	snippetViewModel
+		ifNotNil: [ | element look toolbar |
+			expandedElement
+				childNamed: #header
+				ifFound: [ :header | header snippetViewModel: snippetViewModel ].
+			element := snippetViewModel expandedElement.
+			look := LeSnippetWithToolbarAptitude new.
+			look shouldShowBottomToolbar: false.
+			look shouldShowSidebar: false.
+			look shouldShowActionsOnFocus: false.
+			look margin: (BlInsets top: 3 bottom: 3).
 
-					look snippetContent: element snippetContent.
+			look snippetContent: element snippetContent.
 
-					element clipChildren: false.
-					toolbar := element snippetToolbar.
-					toolbar
-						ifNotNil: [ toolbar
-								childNamed: #spawnDestination
-								ifFound: [ :el | el visibility: BlVisibility gone ] ].
-					look snippetToolbar: toolbar.
-					look sidebarStencil: (LeSnippetSidebarStencil new snippetElement: element).
+			element clipChildren: false.
+			toolbar := element snippetToolbar.
+			toolbar
+				ifNotNil: [ toolbar
+						childNamed: #spawnDestination
+						ifFound: [ :el | el visibility: BlVisibility gone ] ].
+			look snippetToolbar: toolbar.
+			look sidebarStencil: (LeSnippetSidebarStencil new snippetElement: element).
 
-					element addAptitude: look.
-					element snippetViewModel: snippetViewModel.
-					element
-						margin: element margin
-								+ (BlInsets
-										top: 0
-										bottom: 5
-										left: 0
-										right: 8).
-					expandedElement addChild: element as: #content ] ]
+			element addAptitude: look.
+			element snippetViewModel: snippetViewModel.
+			element
+				margin: element margin
+						+ (BlInsets
+								top: 0
+								bottom: 5
+								left: 0
+								right: 8).
+			expandedElement addChild: element as: #content ]
+]
+
+{ #category : #accessing }
+LeExpandableSnippetElement >> updateSnippetViewModels [
+	self updateCollapsedElement.
+	self updateExpandedElement
 ]
