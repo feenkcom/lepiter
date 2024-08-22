@@ -18,11 +18,21 @@ GtPythonVarNodeVisitor >> accessedFirstVariableNames [
 	^ accessedFirstVariables
 ]
 
+{ #category : #generated }
+GtPythonVarNodeVisitor >> accessedFirstVariableNames: anObject [ 
+	accessedFirstVariables := anObject
+]
+
 { #category : #accessing }
 GtPythonVarNodeVisitor >> assignedVariableNames [
 	"Answer the set of variable names that are assigned to"
 
 	^ assignedVariables
+]
+
+{ #category : #generated }
+GtPythonVarNodeVisitor >> assignedVariables: anObject [ 
+	assignedVariables := anObject
 ]
 
 { #category : #accessing }
@@ -47,6 +57,11 @@ GtPythonVarNodeVisitor >> temporaryVariableNames [
 	^ temporaryVariables
 ]
 
+{ #category : #generated }
+GtPythonVarNodeVisitor >> temporaryVariableNames: anObject [ 
+	temporaryVariables := anObject
+]
+
 { #category : #accessing }
 GtPythonVarNodeVisitor >> undeclaredVariableNames [
 	"Answer the set of variable names where the variable is assigned a value, but is not a temporary variable"
@@ -64,6 +79,19 @@ GtPythonVarNodeVisitor >> visitAssignmentStatement: anAssignmentStatement [
 				withAllNodesOfType: PyVariableExpressionNode
 				do: [ :aNode | assignedVariables add: aNode nameToken value ] ].
 	^ result
+]
+
+{ #category : #generated }
+GtPythonVarNodeVisitor >> visitFunctionDefinition: aFunctionDefinition [
+	| visitor |
+	visitor := GtPythonVarNodeVisitor new
+			accessedFirstVariableNames: self accessedFirstVariableNames copy;
+			assignedVariables: self assignedVariableNames copy;
+			temporaryVariableNames: self temporaryVariableNames copy.
+	visitor visitStatement: aFunctionDefinition.
+	self accessedFirstVariableNames: visitor accessedFirstVariableNames.
+	temporaryVariables add: aFunctionDefinition fname value.
+	^ self
 ]
 
 { #category : #generated }
