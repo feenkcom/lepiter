@@ -220,6 +220,25 @@ LeSmaCCRewriteSnippet >> isRewritable: anObject [
 		and: [ anObject allSatisfy: [ :each | self isRewritable: each ] ]
 ]
 
+{ #category : #'as yet unclassified' }
+LeSmaCCRewriteSnippet >> markdownOn: stream level: anInteger [
+	"Placeholder. What should we do here?"
+
+	anInteger * 4 timesRepeat: [ stream nextPut: Character space ].
+	stream
+		cr;
+		<< '```';
+		cr;
+		<< self contentAsString trimBoth;
+		cr;
+		<< '```';
+		cr.
+	self
+		childrenDo: [ :child | 
+			stream cr.
+			child markdownOn: stream level: anInteger + 1 ]
+]
+
 { #category : #accessing }
 LeSmaCCRewriteSnippet >> parser [
 	^ parser
