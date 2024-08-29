@@ -176,6 +176,8 @@ LePharoRewriteSnippet >> isMethodPattern: aBoolean [
 
 { #category : #'private - exporting' }
 LePharoRewriteSnippet >> markdownOn: stream level: anInteger [
+	"Placeholder. What should we do here?"
+
 	anInteger * 4 timesRepeat: [ stream nextPut: Character space ].
 	stream
 		cr;
