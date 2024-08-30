@@ -87,8 +87,9 @@ LeSmaCCRewriteSearchResult >> gtResultsView: aView [
 	<gtView>
 	^ aView columnedList
 		title: 'Results';
+		priority: 1;
 		items: [ self fileResultsStream asyncSimilarCopy toArray wait ];
-		column: 'File' text: [ :each | each file ];
+		column: 'File' text: [ :each | each file asRopedText foreground: (each nodes items size isZero ifTrue: [Color gray] ifFalse: [Color black]) ];
 		column: 'Nodes'
 			text: [ :each | 
 				| nodeCount |
