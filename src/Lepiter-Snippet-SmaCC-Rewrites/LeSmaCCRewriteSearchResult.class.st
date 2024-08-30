@@ -2,10 +2,23 @@ Class {
 	#name : #LeSmaCCRewriteSearchResult,
 	#superclass : #Object,
 	#instVars : [
-		'fileResultsStream'
+		'fileResultsStream',
+		'parser',
+		'directory',
+		'lspModel'
 	],
 	#category : #'Lepiter-Snippet-SmaCC-Rewrites-Model'
 }
+
+{ #category : #accessing }
+LeSmaCCRewriteSearchResult >> directory [
+	^ directory
+]
+
+{ #category : #accessing }
+LeSmaCCRewriteSearchResult >> directory: anObject [
+	directory := anObject
+]
 
 { #category : #accessing }
 LeSmaCCRewriteSearchResult >> fileResultsStream [
@@ -95,4 +108,22 @@ LeSmaCCRewriteSearchResult >> gtResultsView: aView [
 				nodeCount := each nodes items size.
 				nodeCount isZero ifTrue: [ '' ] ifFalse: [ nodeCount ] ]
 			width: 100
+]
+
+{ #category : #accessing }
+LeSmaCCRewriteSearchResult >> lspModel [
+	^ lspModel
+		ifNil: [ parser
+				ifNotNil: [ parser gtLSPModelClass
+						ifNotNil: [ :cls | lspModel := cls onDirectory: (self directory ifNil: [ '.' ]) ] ] ]
+]
+
+{ #category : #accessing }
+LeSmaCCRewriteSearchResult >> parser [
+	^ parser
+]
+
+{ #category : #accessing }
+LeSmaCCRewriteSearchResult >> parser: anObject [
+	parser := anObject
 ]

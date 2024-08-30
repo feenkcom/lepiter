@@ -88,6 +88,11 @@ LeSmaCCRewriteSnippet >> contentAsString [
 				print: (startingState ifNil: [ '' ]) ]
 ]
 
+{ #category : #accessing }
+LeSmaCCRewriteSnippet >> directory [
+	
+]
+
 { #category : #actions }
 LeSmaCCRewriteSnippet >> executeReplaceIn: fileRefs [
 	^ self executeReplaceInFiles: (self fileReferencesIn: fileRefs)
@@ -131,7 +136,11 @@ LeSmaCCRewriteSnippet >> executeReplaceInFiles: anAsyncStream [
 
 { #category : #actions }
 LeSmaCCRewriteSnippet >> executeSearchIn: fileRefs [
-	^ self executeSearchInFiles: (self fileReferencesIn: fileRefs)
+	| result |
+	result := self executeSearchInFiles: (self fileReferencesIn: fileRefs).
+	(fileRefs size = 1 and: [ fileRefs first isDirectory ])
+		ifTrue: [ result directory: fileRefs first ].
+	^ result
 ]
 
 { #category : #actions }
@@ -147,10 +156,17 @@ LeSmaCCRewriteSnippet >> executeSearchInFile: aFileReference for: patterns [
 
 { #category : #actions }
 LeSmaCCRewriteSnippet >> executeSearchInFiles: anAsyncStream [
-	| patterns |
+	| patterns searchResult |
 	patterns := self searchPatterns.
-	^ LeSmaCCRewriteSearchResult new
-		fileResultsStream: (anAsyncStream collect: [ :each | self executeSearchInFile: each for: patterns ])
+	searchResult := LeSmaCCRewriteSearchResult new.
+	searchResult parser: self parserClass.
+	searchResult
+		fileResultsStream: (anAsyncStream
+				collect: [ :each | 
+					(self executeSearchInFile: each for: patterns)
+						owner: searchResult;
+						yourself ]).
+	^ searchResult
 ]
 
 { #category : #actions }
