@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'file',
-		'nodes'
+		'nodes',
+		'owner'
 	],
 	#category : #'Lepiter-Snippet-SmaCC-Rewrites-Model'
 }
@@ -27,12 +28,37 @@ LeSmaCCRewriteSearchFileResult >> gtDisplayOn: stream [
 ]
 
 { #category : #accessing }
+LeSmaCCRewriteSearchFileResult >> gtLSPFileFor: aView [
+	<gtView>
+	| lspFile |
+	lspFile := (self owner ifNotNil: [ self owner lspModel ])
+			ifNotNil: [ :model | model existingOrCreatefileFor: file ].
+	lspFile ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'File';
+		priority: 60;
+		object: [ lspFile ];
+		view: #gtLiveFor:
+]
+
+{ #category : #accessing }
 LeSmaCCRewriteSearchFileResult >> gtNodesFor: aView [
 	<gtView>
+	| lspFile |
+	lspFile := (self owner ifNotNil: [ self owner lspModel ])
+			ifNotNil: [ :model | model existingOrCreatefileFor: file ].
 	^ aView list
 		title: 'Nodes';
 		items: [ self nodes ];
-		itemText: [ :each | each source ]
+		itemText: [ :each | each source ];
+		send: [ :each | 
+			lspFile
+				ifNil: [ each ]
+				ifNotNil: [ GtLSPFileLocation new
+						lspFile: lspFile;
+						start: each startPosition;
+						end: each stopPosition;
+						yourself ] ]
 ]
 
 { #category : #accessing }
@@ -43,4 +69,14 @@ LeSmaCCRewriteSearchFileResult >> nodes [
 { #category : #accessing }
 LeSmaCCRewriteSearchFileResult >> nodes: anAsyncStream [
 	nodes := anAsyncStream cached
+]
+
+{ #category : #accessing }
+LeSmaCCRewriteSearchFileResult >> owner [
+	^ owner
+]
+
+{ #category : #accessing }
+LeSmaCCRewriteSearchFileResult >> owner: aSearchResult [
+	owner := aSearchResult
 ]

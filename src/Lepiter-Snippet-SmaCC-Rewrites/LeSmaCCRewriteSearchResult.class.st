@@ -2,10 +2,23 @@ Class {
 	#name : #LeSmaCCRewriteSearchResult,
 	#superclass : #Object,
 	#instVars : [
-		'fileResultsStream'
+		'fileResultsStream',
+		'parser',
+		'directory',
+		'lspModel'
 	],
 	#category : #'Lepiter-Snippet-SmaCC-Rewrites-Model'
 }
+
+{ #category : #accessing }
+LeSmaCCRewriteSearchResult >> directory [
+	^ directory
+]
+
+{ #category : #accessing }
+LeSmaCCRewriteSearchResult >> directory: anObject [
+	directory := anObject
+]
 
 { #category : #accessing }
 LeSmaCCRewriteSearchResult >> fileResultsStream [
@@ -85,15 +98,44 @@ LeSmaCCRewriteSearchResult >> gtGroupedResultsView: aView [
 { #category : #accessing }
 LeSmaCCRewriteSearchResult >> gtResultsView: aView [
 	<gtView>
-	^ aView columnedList
+	^ aView columnedTree
 		title: 'Results';
 		priority: 1;
 		items: [ self fileResultsStream asyncSimilarCopy toArray wait ];
-		column: 'File' text: [ :each | each file asRopedText foreground: (each nodes items size isZero ifTrue: [Color gray] ifFalse: [Color black]) ];
+		children: [ :each | 
+			(each isKindOf: LeSmaCCRewriteSearchFileResult)
+				ifTrue: [ each nodes items ]
+				ifFalse: [ {} ] ];
+		column: 'File'
+			text: [ :each | 
+				(each isKindOf: LeSmaCCRewriteSearchFileResult)
+					ifTrue: [ each file asRopedText
+							foreground: (each nodes items size isZero ifTrue: [ Color gray ] ifFalse: [ Color black ]) ]
+					ifFalse: [ each source ] ];
 		column: 'Nodes'
 			text: [ :each | 
-				| nodeCount |
+				(each isKindOf: LeSmaCCRewriteSearchFileResult)
+					ifTrue: [ | nodeCount |
 				nodeCount := each nodes items size.
 				nodeCount isZero ifTrue: [ '' ] ifFalse: [ nodeCount ] ]
+					ifFalse: [ '' ] ]
 			width: 100
+]
+
+{ #category : #accessing }
+LeSmaCCRewriteSearchResult >> lspModel [
+	^ lspModel
+		ifNil: [ parser
+				ifNotNil: [ parser gtLSPModelClass
+						ifNotNil: [ :cls | lspModel := cls onDirectory: (self directory ifNil: [ '.' ]) ] ] ]
+]
+
+{ #category : #accessing }
+LeSmaCCRewriteSearchResult >> parser [
+	^ parser
+]
+
+{ #category : #accessing }
+LeSmaCCRewriteSearchResult >> parser: anObject [
+	parser := anObject
 ]
