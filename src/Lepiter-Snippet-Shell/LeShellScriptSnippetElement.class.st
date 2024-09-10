@@ -8,6 +8,29 @@ Class {
 	#category : #'Lepiter-Snippet-Shell'
 }
 
+{ #category : #'gt-extensions' }
+LeShellScriptSnippetElement >> gtHelpActionFor: composite [
+	<gtAction>
+	^ composite button
+		label: 'Help';
+		priority: 30;
+		tooltip: 'Show documentation';
+		action: [ :aButton | 
+			aButton phlow 
+				spawnObject: (LeDatabase gtBook pageNamed: 'Shell snippet') ]
+]
+
+{ #category : #'gt - extensions' }
+LeShellScriptSnippetElement >> gtHelpViewFor: composite [
+	<gtView>
+	^ composite forward
+		title: 'Help';
+		priority: 3;
+		tooltip: 'Show documentation';
+		object: [ LeDatabase gtBook pageNamed: 'Shell snippet' ];
+		yourself
+]
+
 { #category : #initialization }
 LeShellScriptSnippetElement >> initializeCoderToolbar [
 	| label |
