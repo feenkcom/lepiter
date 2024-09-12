@@ -188,6 +188,21 @@ LeLocalStore >> attachmentUtf8Stream: attachmentPath do: aBlock [
 	^ attachmentFileReference readStreamDo: aBlock
 ]
 
+{ #category : #attachments }
+LeLocalStore >> attachmentWithDataForId: aUuid [
+	| fileUID attachmentDirectory properties |
+	
+	fileUID := aUuid asString36.
+	attachmentDirectory := attachmentsDirectory / fileUID.
+	attachmentDirectory exists ifFalse: [ ^ nil ].
+	
+	properties := LeAttachment loadFromFolder: attachmentDirectory.
+	^ LeAttachmentWithDiskStorageData new
+		id: fileUID;
+		database: self database;
+		metadata: properties
+]
+
 { #category : #accessing }
 LeLocalStore >> attachmentsDirectory [
 	^ attachmentsDirectory
