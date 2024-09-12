@@ -127,8 +127,11 @@ LeLocalStoreMonitor >> gtAttachmentsFor: aView [
 				aFile basename ~= LeAttachment basename ].
 			allFiles size = 1
 				ifTrue: [ allFiles first basename ]
-				ifFalse: [ allFiles size asString, ' attachments' ] ]
-	
+				ifFalse: [ allFiles size asString, ' attachments' ] ];
+		send: [ :aDirectory |
+			LeAttachmentWithDiskStorageData 
+				fromDirectory: aDirectory
+				inDatabase: self database ]
 ]
 
 { #category : #'gt-extensions' }

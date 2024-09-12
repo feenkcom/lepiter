@@ -41,7 +41,7 @@ LeDatabaseClassAttachmentExamples >> addAttachmentByContent [
 LeDatabaseClassAttachmentExamples >> addAttachmentByCopy [
 	"Demonstrate attaching a file to a database by copy"
 	<gtExample>
-	| attachmentId attachmentSource userEmail now properties memFS |
+	| attachmentId attachmentPath attachmentSource userEmail now properties memFS |
 
 	self monitorWithDuration: Duration zero.
 	memFS := FileSystem memory root.
@@ -57,7 +57,12 @@ LeDatabaseClassAttachmentExamples >> addAttachmentByCopy [
 
 	self assert: monitor attachmentIds isEmpty.
 
-	attachmentId := database addAttachmentByCopy: attachmentSource.
+	attachmentPath := database addAttachmentByCopy: attachmentSource.
+	self assert: (attachmentPath splitOn: '/') size equals: 3.
+	self assert: (attachmentPath splitOn: '/') first equals: 'attachments'.
+	self assert: (attachmentPath splitOn: '/') third equals: 'attachment.txt'.
+	
+	attachmentId := (attachmentPath splitOn: '/') second.
 	self assert: attachmentSource exists.
 	self assert: (monitor dbClass respondsTo: ('attachment_', attachmentId) asSymbol).
 

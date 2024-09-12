@@ -21,6 +21,7 @@ LeAttachment class >> leJsonV4AttributeMapping [
 
 	^ super leJsonV4AttributeMapping
 		add: (#originalReference -> #originalReference);
+		add: (#originalBasename -> #originalBasename);
 		add: (#uploadDate -> #uploadDate);
 		add: (#uploadedBy -> #uploadedBy);
 		yourself

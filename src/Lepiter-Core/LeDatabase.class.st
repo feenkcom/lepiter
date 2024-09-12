@@ -259,6 +259,20 @@ LeDatabase >> attachmentUtf8Stream: attachmentPath do: aBlock [
 ]
 
 { #category : #'api - attachments' }
+LeDatabase >> attachmentWithDataForId: aUuid [
+	"Return an attachment object containing the attachment data"
+	<return: #LeAttachmentWithData>
+
+	self 
+		assert: monitor isNotNil
+		description: 'Unable to search for attachment, monitor not configured'.
+
+	^ (monitor hasAttachmentWithId: aUuid) 
+		ifTrue: [ monitor attachmentWithDataForId: aUuid ]
+		ifFalse: [ nil ]
+]
+
+{ #category : #'api - attachments' }
 LeDatabase >> attachments [
 	^ LeContentAttachmentsCollector new
 		content: self;
@@ -435,8 +449,7 @@ LeDatabase >> gtAttachmentsFor: aView [
 		title: 'Attachments';
 		priority: 70;
 		object: [self monitor ];
-		view: #gtAttachmentsFor:;
-		actionUpdateButton
+		view: #gtAttachmentsFor:
 ]
 
 { #category : #'gt-extensions' }

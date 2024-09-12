@@ -57,7 +57,9 @@ LeDatabaseClassStore >> addAttachmentByCopy: aFileReference withId: aUuid [
 	| attachmentUUID metadata |
 
 	attachmentUUID := aUuid asString36.
-	metadata := LeAttachment new uploadDate: DateAndTime now.
+	metadata := LeAttachment new 
+		uploadDate: DateAndTime now;
+		originalBasename: aFileReference basename.
 	self savePersonalInformation ifTrue:
 		[ metadata
 			originalReference: aFileReference asFileReference;
@@ -69,7 +71,7 @@ LeDatabaseClassStore >> addAttachmentByCopy: aFileReference withId: aUuid [
 		title: aFileReference basename
 		classified: 'attachments'
 		metadata: metadata.
-	^ attachmentUUID
+	^ 'attachments/',attachmentUUID, '/', aFileReference basename
 ]
 
 { #category : #attachments }
@@ -124,6 +126,19 @@ LeDatabaseClassStore >> attachmentUtf8Stream: attachmentId do: aBlock [
 	"Answer a stream on the binary contents of the supplied attachment path"
 
 	^ aBlock value: (ZnCharacterReadStream on: (storage loadAttachmentFromMethod: (dbClass class >> (storage attachmentSelectorFor: attachmentId))) readStream encoding: 'utf-8')
+]
+
+{ #category : #attachments }
+LeDatabaseClassStore >> attachmentWithDataForId: aUuid [
+	| selector properties |
+	selector := storage 
+		attachmentSelectorFor: aUuid asString36.
+	properties := dbClass perform: selector.
+			
+	^ LeAttachmentWithClassStorageData new
+		id: aUuid asString36;
+		database: self database;
+		metadata: properties 
 ]
 
 { #category : #accessing }

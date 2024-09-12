@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'originalReference',
 		'uploadedBy',
-		'uploadDate'
+		'uploadDate',
+		'originalBasename'
 	],
 	#category : #'Lepiter-Core-Model'
 }
@@ -29,6 +30,48 @@ LeAttachment >> acceptVisitor: aVisitor [
 	^ aVisitor visitAttachment: self
 ]
 
+{ #category : #printing }
+LeAttachment >> fileNameDescription [
+	^ self originalReference 
+		ifNil: [ 
+			self originalBasename
+				ifNil: [ '<none>' ] ]
+		ifNotNil: #basename 
+]
+
+{ #category : #printing }
+LeAttachment >> gtDisplayOn: aStream [
+	super gtDisplayOn: aStream.
+	
+	aStream parenthesize: [
+		aStream << self fileNameDescription ]
+]
+
+{ #category : #accessing }
+LeAttachment >> originalBasename [
+	"This is a new field that can be missing for older attachments.
+	The reason we added it is to keep the name of the file even if 
+	the originalReference is missing, so that we can identify the 
+	actual attachment file, without needing callers to pass the file name"
+	
+	^ originalBasename
+]
+
+{ #category : #accessing }
+LeAttachment >> originalBasename: aFilename [
+	originalBasename := aFilename
+]
+
+{ #category : #accessing }
+LeAttachment >> originalExtension [
+	| basename |
+	basename := self originalBasename ifNil: [
+		self originalReference ifNotNil: [ :aFile | aFile basename ] ].
+	
+	^ basename ifNotNil: [ :aBasename |
+		aBasename copyAfterLast: Path extensionDelimiter ]
+]
+
 { #category : #accessing }
 LeAttachment >> originalReference [
 	^ originalReference
@@ -48,6 +91,9 @@ LeAttachment >> storeOn: aStream [
 		<< ' new';
 		<< ' instVarNamed: ''options'' put: ';
 			<< (self instVarNamed: 'options') storeString;
+			<< ';';
+		<< ' instVarNamed: ''originalBasename'' put: ';
+			<< (self instVarNamed: 'originalBasename') storeString;
 			<< ';';
 		<< ' instVarNamed: ''originalReference'' put: ';
 			<< (self instVarNamed: 'originalReference') storeString;

@@ -116,12 +116,14 @@ LeDatabaseClassStoreMonitor >> gtAttachmentsFor: aView [
 		priority: 15;
 		items: [ self attachmentIds ];
 		column: 'ID' text: #yourself;
-		column: 'Name' text: [ :id | | selector properties |
+		column: 'Name' text: [ :id | 
+			| selector properties |
 			selector := storage attachmentSelectorFor: id.
 			properties := dbClass perform: selector.
-			properties originalReference 
-				ifNil: [ '<none>' ]
-				ifNotNil: #basename ];
+			properties fileNameDescription ];
+		send: [ :anAttachmentId |
+			self attachmentWithDataForId: (UUID 
+				fromString36: anAttachmentId) ];
 		actionUpdateButton
 ]
 

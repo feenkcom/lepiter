@@ -14,6 +14,43 @@ Class {
 	#category : #'Lepiter-Snippet-Picture-Snippet'
 }
 
+{ #category : #private }
+LePictureSnippetElement >> createPictureWidgetForValidExternalUrl [
+	^ gtUrlUtility isValid
+		ifFalse: [ nil ]
+		ifTrue: [ 
+			BrAsyncFileWidget new 
+				url: gtUrlUtility urlString ]
+]
+
+{ #category : #private }
+LePictureSnippetElement >> createPictureWidgetFromAttachment [
+	| attachmentWithData |
+	attachmentWithData := self findAttachmentWithData.
+	attachmentWithData ifNil: [ ^ nil ].
+	
+	"This part exists mostly for backward compatibility. Most likely
+	not really needed, but right now if we are dealing with a valid 
+	attachment stored on disk, we use the old way of rendering it"
+	^ attachmentWithData hasWithDiskStorage
+		ifTrue: [ self createPictureWidgetForValidExternalUrl ]
+		ifFalse: [ attachmentWithData createPictureWidget ]
+]
+
+{ #category : #private }
+LePictureSnippetElement >> findAttachmentWithData [
+	| parts uuid |
+	self snippet urlString ifNil: [ ^ nil ].
+	parts := self snippet urlString splitOn: '/'.
+	parts size < 2 ifTrue: [ ^ nil ].
+	
+	[uuid := UUID fromString36: parts second] 
+		on: Error do: [ :ex | ^ nil ] .
+	self database  hasMonitor ifFalse: [ ^ nil ].
+	^ self database 
+		attachmentWithDataForId: uuid
+]
+
 { #category : #initialization }
 LePictureSnippetElement >> initialize [ 
 	super initialize.
@@ -158,6 +195,12 @@ LePictureSnippetElement >> initializeUrlEditor [
 		addChild: urlContainer
 ]
 
+{ #category : #testing }
+LePictureSnippetElement >> isWithPictureAttachment [
+	^ self snippet urlString notNil and: [
+		self snippet urlString beginsWith: 'attachments/']
+]
+
 { #category : #'private - event handling' }
 LePictureSnippetElement >> onCaptionModifiedEvent: anEvent [
 	| titleString |
@@ -256,16 +299,26 @@ LePictureSnippetElement >> snippetToolbar [
 { #category : #private }
 LePictureSnippetElement >> updatePicture [
 	| imageElement |
-	imageElement := gtUrlUtility isValid
-			ifFalse: [ BlElement new size: 0 @ 0 ]
-			ifTrue: [ | aPreviewHeight |
-				aPreviewHeight := self snippet previewHeight.
-				aPreviewHeight isZero
-					ifTrue: [ self snippet previewHeight: (aPreviewHeight := 300) ].
-				(BrAsyncFileWidget new url: gtUrlUtility urlString)
+	
+	imageElement := self isWithPictureAttachment
+		ifTrue: [ self createPictureWidgetFromAttachment ] 
+		ifFalse: [ self createPictureWidgetForValidExternalUrl ].
+	
+	imageElement 
+		ifNil: [ 
+			imageElement := BlElement new 
+				size: 0 @ 0 ]
+		ifNotNil: [
+			| currentPreviewHeight |
+			currentPreviewHeight := self snippet previewHeight.
+			currentPreviewHeight isZero ifTrue: [ 
+				currentPreviewHeight := 300.
+				self snippet 
+					previewHeight: currentPreviewHeight ].
+				imageElement
 					constraintsDo: [ :c | 
 						c horizontal matchParent.
-						c vertical exact: aPreviewHeight ] ].
+						c vertical exact: currentPreviewHeight ] ].
 
 	pictureContainer removeChildNamed: #imageElement.
 	pictureContainer addChildFirst: imageElement as: #imageElement
