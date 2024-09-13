@@ -42,7 +42,7 @@ GtShellScriptSourceCoder >> executeShellScript: script [
 
 	self pharoBindings asDictionary keysAndValuesDo: [ :key :value |
 		((self isPrimitiveValue: value value) 
-				and: [ script includesSubstring: '$' , key ]) ifTrue: [
+				and: [ script includesSubstring: key caseSensitive: true ]) ifTrue: [
 			shellScriptProcess 
 				env: key 
 				value: (self convertPrimitiveValue: value value) ] ].
