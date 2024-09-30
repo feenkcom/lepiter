@@ -362,7 +362,7 @@ LeAnnotationStylerVisitor >> styleButton: anAnnotation forValuable: aValuable de
 	anId := LeTextSnippetAttributeLabelElementId indexed: self nextUniqueId. 
 		
 	attribute := GtButtonAttribute new
-		beAppend;
+		beReplace;
 		stencil: [
 			| button |
 			button := LeSnippetStylerVisitor 
@@ -457,7 +457,7 @@ LeAnnotationStylerVisitor >> styleExpandingExample: anExampleAnnotation [
 
 	attribute := GtExamplePreviewAttribute new
 		withCache: self elements key: anExampleAnnotation source;
-		beAppend;
+		beReplace;
 		elementId: anId;
 		example: anExample;
 		codeExpanded: anExampleAnnotation codeExpanded;
