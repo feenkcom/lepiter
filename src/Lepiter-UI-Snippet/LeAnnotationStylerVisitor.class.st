@@ -288,7 +288,7 @@ LeAnnotationStylerVisitor >> styleButton: anAnnotation for: object defaultLabel:
 	anId := LeTextSnippetAttributeLabelElementId indexed: self nextUniqueId.
 
 	attribute := GtButtonAttribute new
-			beAppend;
+			beReplace;
 			stencil: [ | button label |
 				label := object
 						ifNil: [ anAnnotation nameNode
