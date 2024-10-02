@@ -53,6 +53,8 @@ LeInspectorPlaygroundElement >> expand [
 
 { #category : #accessing }
 LeInspectorPlaygroundElement >> externalSnippetContext [
+	<return: #LeExternalSnippetContext>
+	
 	^ externalSnippetContext
 ]
 
@@ -199,6 +201,8 @@ LeInspectorPlaygroundElement >> updatePage [
 	
 	pageViewModel := page asContentUIModel.
 	pageViewModel externalSnippetContext: self externalSnippetContext.
+	self objectHolder configurePageViewModel: pageViewModel.
+	
 	"self object isContext ifTrue: [
 		""In case this object is a Contect set it as the runtime context.""
 		pageViewModel sharedSnippetContext 
