@@ -167,6 +167,11 @@ LeNullDatabase >> tableOfContents [
 	^ nil
 ]
 
+{ #category : #accessing }
+LeNullDatabase >> tableOfContentsNodes [
+	^ #()
+]
+
 { #category : #'adding / removing' }
 LeNullDatabase >> unregisterSnippet: aSnippet [
 ]
