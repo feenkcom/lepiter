@@ -422,7 +422,8 @@ LeUIStylingPageByScripterExamples >> pageWithClassClicked [
 			s
 				label: 'Click link';
 				id: #content;
-				// LeTextSnippetAttributeLabelElementId ].
+				id: #scrollable;
+				onChildAt: 1 ].
 
 	aScripter
 		checkStep: [ :s | 
@@ -504,7 +505,8 @@ LeUIStylingPageByScripterExamples >> pageWithClassPrimaryClicked [
 				label: 'Click link';
 				modifiers: BlKeyModifiers primary;
 				id: #content;
-				// LeTextSnippetAttributeLabelElementId ].
+				id: #scrollable;
+				onChildAt: 1 ].
 
 	aScripter
 		checkStep: [ :s | 
@@ -534,7 +536,8 @@ LeUIStylingPageByScripterExamples >> pageWithPackageClicked [
 			s
 				label: 'Click link';
 				id: #content;
-				// LeTextSnippetAttributeLabelElementId ].
+				id: #scrollable;
+				onChildAt: 1 ].
 
 	aScripter
 		checkStep: [ :s | 
@@ -613,7 +616,8 @@ LeUIStylingPageByScripterExamples >> pageWithPackagePrimaryClicked [
 				label: 'Click link';
 				modifiers: BlKeyModifiers primary;
 				id: #content;
-				// LeTextSnippetAttributeLabelElementId ].
+				id: #scrollable;
+				onChildAt: 1 ].
 
 	aScripter
 		checkStep: [ :s | 

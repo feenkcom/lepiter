@@ -14,6 +14,8 @@ Class {
 
 { #category : #accessing }
 LeSharedSnippetContext >> externalSnippetContext [
+	<return: #LeExternalSnippetContext>
+	
 	^ externalSnippetContext ifNil: [
 		externalSnippetContext := LeExternalSnippetContext new ]
 ]
