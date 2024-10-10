@@ -10,7 +10,7 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'LepiterEngineCore' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.2598/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.6.2599/src' ].
 		spec
 			baseline: 'GToolkit4DockerEngine' with: [
 				spec repository: 'github://feenkcom/gt4dockerengine:v0.5.133/src' ].
@@ -31,10 +31,10 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 				spec repository: 'github://feenkcom/gtoolkit-remote:v0.8.1755/src' ].
 		spec
 			baseline: 'GToolkitVisualizer' with: [
-				spec repository: 'github://feenkcom/gtoolkit-visualizer:v0.8.1914/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-visualizer:v0.8.1915/src' ].
 		spec
 			baseline: 'LepiterYoutube' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.2598/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.6.2599/src' ].
 		spec
 			baseline: 'GToolkit4LSP' with: [
 				spec repository: 'github://feenkcom/gt4lsp:v0.6.454/src' ].
