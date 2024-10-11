@@ -5,7 +5,8 @@ Class {
 	#classTraits : 'TGtUniqueInstance classTrait',
 	#instVars : [
 		'newReader',
-		'newWriter'
+		'newWriter',
+		'mutex'
 	],
 	#category : #'Lepiter-Store-JsonV4'
 }
@@ -45,7 +46,7 @@ LeJsonV4 >> deserialize: aStream [
 		next.
 	"If the deserialised object is a Dictionary, the __schema should be removed"
 	object isDictionary ifTrue:
-		[ object removeKey: #'__schema' ifAbsent: [ ] ].
+		[ object removeKey: '__schema' ifAbsent: [ ] ].
 
 	^ object
 ]

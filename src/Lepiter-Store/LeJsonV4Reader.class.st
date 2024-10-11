@@ -72,7 +72,7 @@ LeJsonV4Reader >> parseMap [
 
 	map := super parseMap.
 	^ map 
-		at: #'__type'
+		at: '__type'
 		ifPresent: [ :type | self object: type from: map ]
 		ifAbsent: [ map ]
 ]
@@ -102,8 +102,8 @@ LeJsonV4Reader >> unknownSnippetTypeFrom: map [
 	((LeSnippet leJsonV4AttributeMapping collect: #key as: Set)
 		difference: map keys) ifNotEmpty: [ self error: 'Unknown snippet type' ].
 
-	children := map at: #children.
-	map at: #children put: LeSnippets new.
+	children := map at: 'children'.
+	map at: 'children' put: LeSnippets new.
 	snippet := LeUnknownSnippet
 			jsonString: (String
 					streamContents: [ :stream | 
@@ -113,7 +113,7 @@ LeJsonV4Reader >> unknownSnippetTypeFrom: map [
 							prettyPrint: true ]).
 	snippet
 		children: children;
-		uid: (map at: #uid). 
-	map at: #editTime ifPresent: [ :editTime | snippet editTime: editTime ].
+		uid: (map at: 'uid'). 
+	map at: 'editTime' ifPresent: [ :editTime | snippet editTime: editTime ].
 	^ snippet
 ]

@@ -62,7 +62,7 @@ LeDatabaseStore >> database: anObject [
 LeDatabaseStore >> databaseName [
 	<return: #String or: nil>
 
-	^ self dbProperties at: #databaseName 
+	^ self dbProperties at: 'databaseName'
 		ifPresent: [ :aString | aString ]
 		ifAbsent: [ self defaultDatabaseName ]
 ]
@@ -87,7 +87,7 @@ LeDatabaseStore >> dbProperties [
 { #category : #accessing }
 LeDatabaseStore >> dbSchema [
 
-	^ LeDbVersion fromString: (self dbProperties at: #schema)
+	^ LeDbVersion fromString: (self dbProperties at: 'schema')
 ]
 
 { #category : #'private - accessing' }
@@ -283,7 +283,7 @@ LeDatabaseStore >> uuid [
 	"Answer the UUID of the receiver's DB"
 	<return: #UUID>
 
-	^ UUID fromString: (self dbProperties at: #uuid)
+	^ UUID fromString: (self dbProperties at: 'uuid')
 ]
 
 { #category : #'accessing - db properties' }
