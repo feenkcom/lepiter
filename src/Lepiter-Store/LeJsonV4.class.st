@@ -51,6 +51,13 @@ LeJsonV4 >> deserialize: aStream [
 	^ object
 ]
 
+{ #category : #initialization }
+LeJsonV4 >> initialize [
+
+	super initialize.
+	mutex := Mutex new.
+]
+
 { #category : #loading }
 LeJsonV4 >> loadFile: aFileReference [
 
@@ -60,18 +67,20 @@ LeJsonV4 >> loadFile: aFileReference [
 
 { #category : #initialization }
 LeJsonV4 >> newReader [ 
-	newReader ifNil: [ 
-		newReader := LeJsonV4Reader new.
-		self allClassMappingsFor: newReader ].
+	newReader ifNil: [ mutex critical: [ | reader |
+		reader := LeJsonV4Reader new.
+		self allClassMappingsFor: reader.
+		newReader := reader ] ].
 	^ newReader copy
 ]
 
 { #category : #initialization }
 LeJsonV4 >> newWriter [ 
 
-	newWriter ifNil: 
-		[ newWriter := LeJsonV4Writer new.
-		self allClassMappingsFor: newWriter ].
+	newWriter ifNil: [ mutex critical: [ | writer |
+		writer := LeJsonV4Writer new.
+		self allClassMappingsFor: writer.
+		newWriter := writer ] ].
 	^ newWriter copy
 ]
 
