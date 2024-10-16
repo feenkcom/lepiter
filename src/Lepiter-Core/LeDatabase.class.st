@@ -649,7 +649,7 @@ LeDatabase >> initialize [
 	LePageType subclassesDo: [ :pageType |
 		pagesByType
 			at: pageType pageTypeClass
-			ifAbsentPut: [ Dictionary new ] ].
+			ifAbsentPut: [ GtStringContentDictionary new ] ].
 	blocksByUID := Dictionary new.
 	self ensureExplicitLinksStorage.
 	self weak

@@ -348,7 +348,7 @@ LeExampleSnippet >> handleSystemClassAnnouncement: anAnnouncement [
 
 { #category : #'private - subscriptions' }
 LeExampleSnippet >> handleSystemMethodAnnouncement: anAnnouncement [
-	(exampleBehaviorName = anAnnouncement methodClass originalName
+	((exampleBehaviorName sameContentAs: anAnnouncement methodClass originalName)
 		and: [ exampleSelector = anAnnouncement selector ])
 		ifTrue: [ self notifyExampleSelectorChanged ]
 ]
