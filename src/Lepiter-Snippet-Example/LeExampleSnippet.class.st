@@ -271,7 +271,7 @@ LeExampleSnippet >> exampleBehaviorName: aNewExampleBehaviorName [
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#propertySetterTemplate'>
 
 	(self hasExampleBehaviorName
-		and: [ self exampleBehaviorName = aNewExampleBehaviorName ])
+		and: [ self exampleBehaviorName sameContentAs: aNewExampleBehaviorName ])
 			ifTrue: [ ^ self ].
 	
 	self hasExampleBehaviorName
@@ -280,7 +280,7 @@ LeExampleSnippet >> exampleBehaviorName: aNewExampleBehaviorName [
 			aPreviousExampleBehaviorName := exampleBehaviorName.
 			exampleBehaviorName := nil.
 			self onPreviousExampleBehaviorNameUnset: aPreviousExampleBehaviorName ].
-	exampleBehaviorName := aNewExampleBehaviorName asSymbol.
+	exampleBehaviorName := aNewExampleBehaviorName.
 	self onNewExampleBehaviorNameSet: exampleBehaviorName.
 	self notifyExampleBehaviorNameChanged
 ]
