@@ -105,7 +105,9 @@ LeDatabaseClassStorage >> loadPropertiesFromClass: aClass [
 
 	jsonString := ((aClass >> #databaseProperties) parseTree comments at: 2) contents
 		copyReplaceAll: '""' with: '"'.
-	^ [ STONJSON fromString: jsonString ]
+	^ [ (NeoJSONReader on: jsonString readStream)
+		mapClass: GtStringContentDictionary;
+		next ]
 		on:  Error
 		do: [ :ex | | loadError |
 			UIManager default inform: 'Lepiter: Unable to load database properties due to a JSON parser error'.

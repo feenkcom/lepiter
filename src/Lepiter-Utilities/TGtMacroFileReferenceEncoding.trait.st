@@ -17,7 +17,7 @@ TGtMacroFileReferenceEncoding >> decodeFileReferenceString: aString [
 	| namedDirectories regex name path |
 
 	namedDirectories := (FileLocator supportedOrigins collect: [ :origin | 
-		origin -> (FileLocator origin: origin) ]) asDictionary.
+		origin -> (FileLocator origin: origin) ]) asGtStringContentDictionary.
 	"TODO: Add support for additional named directories"
 	"namedDirectories at: #dbParentDirectory put: localRoot parent."
 	regex := '\{([a-zA-Z]+)\}(.*)' asRegex.

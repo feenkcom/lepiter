@@ -78,7 +78,7 @@ LePharoClassPageType >> pageClassName [
 
 { #category : #accessing }
 LePharoClassPageType >> pageClassName: aSymbolOrString [
-	"Set the receiver's class. The class name is stored as a Symbol or String"
+	"Set the receiver's class. The class name is stored as a Symbol or String."
 
 	pageClassName := aSymbolOrString
 ]

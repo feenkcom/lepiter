@@ -271,7 +271,7 @@ LeExampleSnippet >> exampleBehaviorName: aNewExampleBehaviorName [
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#propertySetterTemplate'>
 
 	(self hasExampleBehaviorName
-		and: [ self exampleBehaviorName = aNewExampleBehaviorName ])
+		and: [ self exampleBehaviorName sameContentAs: aNewExampleBehaviorName ])
 			ifTrue: [ ^ self ].
 	
 	self hasExampleBehaviorName
@@ -281,7 +281,7 @@ LeExampleSnippet >> exampleBehaviorName: aNewExampleBehaviorName [
 			exampleBehaviorName := nil.
 			self onPreviousExampleBehaviorNameUnset: aPreviousExampleBehaviorName ].
 	exampleBehaviorName := aNewExampleBehaviorName.
-	self onNewExampleBehaviorNameSet: aNewExampleBehaviorName.
+	self onNewExampleBehaviorNameSet: exampleBehaviorName.
 	self notifyExampleBehaviorNameChanged
 ]
 
@@ -348,7 +348,7 @@ LeExampleSnippet >> handleSystemClassAnnouncement: anAnnouncement [
 
 { #category : #'private - subscriptions' }
 LeExampleSnippet >> handleSystemMethodAnnouncement: anAnnouncement [
-	(exampleBehaviorName = anAnnouncement methodClass originalName
+	((exampleBehaviorName sameContentAs: anAnnouncement methodClass originalName)
 		and: [ exampleSelector = anAnnouncement selector ])
 		ifTrue: [ self notifyExampleSelectorChanged ]
 ]
@@ -788,9 +788,11 @@ LeExampleSnippet >> previewShowSelector: aNewPreviewShowSelector [
 	<propertySetter: #previewShowSelector>
 	<propertyAnnouncement: #LeExampleSnippetPreviewShowSelectorChanged>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#propertySetterTemplate'>
+	| newSelector |
 
+	newSelector := aNewPreviewShowSelector asSymbol.
 	(self hasPreviewShowSelector
-		and: [ self previewShowSelector = aNewPreviewShowSelector ])
+		and: [ self previewShowSelector = newSelector ])
 			ifTrue: [ ^ self ].
 	
 	self hasPreviewShowSelector
@@ -799,8 +801,8 @@ LeExampleSnippet >> previewShowSelector: aNewPreviewShowSelector [
 			aPreviousPreviewShowSelector := previewShowSelector.
 			previewShowSelector := nil.
 			self onPreviousPreviewShowSelectorUnset: aPreviousPreviewShowSelector ].
-	previewShowSelector := aNewPreviewShowSelector.
-	self onNewPreviewShowSelectorSet: aNewPreviewShowSelector.
+	previewShowSelector := newSelector.
+	self onNewPreviewShowSelectorSet: newSelector.
 	self notifyPreviewShowSelectorChanged
 ]
 

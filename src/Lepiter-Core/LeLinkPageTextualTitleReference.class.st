@@ -35,7 +35,7 @@ LeLinkPageTextualTitleReference >> isReferencingContent: aLeContent [
 	
 	^ (super isReferencingContent: aLeContent) and: [
 			aLeContent isPage and: [
-				aLeContent title = self pageTitle ] ]
+				aLeContent title sameContentAs: self pageTitle ] ]
 ]
 
 { #category : #accessing }
