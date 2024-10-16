@@ -77,12 +77,12 @@ LeContextMenuSpotterStart >> spotterPictureFileStringFor: pictureString [
 
 	extension := (pictureString copyAfterLast: $.) asLowercase.
 	mimeType := ZnMimeType forFilenameExtension: extension.
-	mimeType main = #image ifFalse: [ ^ nil ].
+	mimeType main = 'image' ifFalse: [ ^ nil ].
 	urlUtility := GtUrlStringUtility new
 		rootDirectory: self database localStoreRootDirectory;
 		urlString: pictureString.
 	^ urlUtility isValid ifTrue: 
-		[ (pictureString beginsWith: #attachments) ifTrue:
+		[ (pictureString beginsWith: 'attachments') ifTrue:
 			"The file is already in the database, don't add it a second time"
 			[ pictureString ]
 		ifFalse: [ url := urlUtility urlString asZnUrl.
