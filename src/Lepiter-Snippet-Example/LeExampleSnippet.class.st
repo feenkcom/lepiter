@@ -280,8 +280,8 @@ LeExampleSnippet >> exampleBehaviorName: aNewExampleBehaviorName [
 			aPreviousExampleBehaviorName := exampleBehaviorName.
 			exampleBehaviorName := nil.
 			self onPreviousExampleBehaviorNameUnset: aPreviousExampleBehaviorName ].
-	exampleBehaviorName := aNewExampleBehaviorName.
-	self onNewExampleBehaviorNameSet: aNewExampleBehaviorName.
+	exampleBehaviorName := aNewExampleBehaviorName asSymbol.
+	self onNewExampleBehaviorNameSet: exampleBehaviorName.
 	self notifyExampleBehaviorNameChanged
 ]
 
@@ -788,9 +788,11 @@ LeExampleSnippet >> previewShowSelector: aNewPreviewShowSelector [
 	<propertySetter: #previewShowSelector>
 	<propertyAnnouncement: #LeExampleSnippetPreviewShowSelectorChanged>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#propertySetterTemplate'>
+	| newSelector |
 
+	newSelector := aNewPreviewShowSelector asSymbol.
 	(self hasPreviewShowSelector
-		and: [ self previewShowSelector = aNewPreviewShowSelector ])
+		and: [ self previewShowSelector = newSelector ])
 			ifTrue: [ ^ self ].
 	
 	self hasPreviewShowSelector
@@ -799,8 +801,8 @@ LeExampleSnippet >> previewShowSelector: aNewPreviewShowSelector [
 			aPreviousPreviewShowSelector := previewShowSelector.
 			previewShowSelector := nil.
 			self onPreviousPreviewShowSelectorUnset: aPreviousPreviewShowSelector ].
-	previewShowSelector := aNewPreviewShowSelector.
-	self onNewPreviewShowSelectorSet: aNewPreviewShowSelector.
+	previewShowSelector := newSelector.
+	self onNewPreviewShowSelectorSet: newSelector.
 	self notifyPreviewShowSelectorChanged
 ]
 

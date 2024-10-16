@@ -21,7 +21,14 @@ LeJsonV4Reader >> for: smalltalkClass do: block [
 LeJsonV4Reader >> initialize [
 
 	super initialize.
-	typeMap := Dictionary new.
+	typeMap := GtStringContentDictionary new.
+]
+
+{ #category : #accessing }
+LeJsonV4Reader >> mapClass [
+	"Return the collection type to use for JSON maps"
+	
+	^ mapClass ifNil: [ GtStringContentDictionary ]
 ]
 
 { #category : #accessing }
@@ -99,7 +106,7 @@ LeJsonV4Reader >> unknownSnippetTypeFrom: map [
 
 	| children snippet |
 	"map is considered a snippet if it has all the keys of LeBlock"
-	((LeSnippet leJsonV4AttributeMapping collect: #key as: Set)
+	((LeSnippet leJsonV4AttributeMapping collect: #key as: GtStringContentSet)
 		difference: map keys) ifNotEmpty: [ self error: 'Unknown snippet type' ].
 
 	children := map at: 'children'.

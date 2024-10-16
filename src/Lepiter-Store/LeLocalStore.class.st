@@ -354,7 +354,9 @@ LeLocalStore >> loadPropertiesDictionary [
 	propertiesFile := localRoot / self propertiesBasename.
 	propertiesFile exists ifFalse: [ ^ self newPropertiesDictionary ].
 	^ propertiesFile readStreamDo: [ :stream |
-		STONJSON fromStream: stream ].
+		(NeoJSONReader on: stream)
+			mapClass: GtStringContentDictionary;
+			next ].
 
 ]
 

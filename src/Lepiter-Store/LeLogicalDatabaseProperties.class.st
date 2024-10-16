@@ -207,7 +207,10 @@ LeLogicalDatabaseProperties >> load [
 	(localFile isNotNil and: [ localFile exists ]) ifFalse: [ ^ Dictionary new ].
 	dictionary := localFile
 		readStreamEncoded: #utf8 
-		do: [ :aStream | STONJSON fromStream: aStream ].
+		do: [ :aStream | 
+			(NeoJSONReader on: aStream)
+				mapClass: GtStringContentDictionary;
+				next ].
 	self migrateStonPropertiesIn: dictionary.
 	self migrateDirectoryStringsIn: dictionary.
 	self integrityCheck: dictionary.
