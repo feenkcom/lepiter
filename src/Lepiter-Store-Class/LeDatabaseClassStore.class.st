@@ -308,7 +308,7 @@ LeDatabaseClassStore >> storeLocation [
 
 	^ ZnUrl new
 		scheme: #class;
-		segments: (OrderedCollection with: dbPackage with: dbClass name)
+		segments: (OrderedCollection with: dbPackage asString with: dbClass name asString)
 ]
 
 { #category : #attachments }
