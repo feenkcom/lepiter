@@ -122,7 +122,7 @@ LeDatabaseStore >> fileReferenceFrom: aString [
 	| namedDirectories regex name path |
 
 	namedDirectories := (FileLocator supportedOrigins collect: [ :origin | 
-		origin -> (FileLocator origin: origin) ]) asDictionary.
+		origin -> (FileLocator origin: origin) ]) asGtStringContentDictionary.
 	namedDirectories at: #dbParentDirectory put: self localRoot parent.
 	regex := '\{([a-zA-Z]+)\}(.*)' asRegex.
 	^ (regex matches: aString) ifTrue: 
@@ -178,7 +178,7 @@ LeDatabaseStore >> newPropertiesDictionary [
 	"Answer a new, initialised properties dictionary"
 	| dict |
 	
-	dict := Dictionary new
+	dict := GtStringContentDictionary new
 		at: #schema put: storage class currentVersionString;
 		at: #uuid put: UUID new asString;
 		yourself.
