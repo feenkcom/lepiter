@@ -64,6 +64,7 @@ LeDatabaseIndex >> asyncTitlesForWord: aString [
 	trimmedString := aString trim.
 	^ (self asyncOrderedSearchForWords: trimmedString in: titleCache)
 		withoutDuplicates
+			useContentComparison
 ]
 
 { #category : #events }
