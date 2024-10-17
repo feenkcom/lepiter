@@ -326,7 +326,7 @@ LeExampleSnippet >> exampleSelector: aNewExampleSelector [
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#propertySetterTemplate'>
 	| newSelector |
 
-	newSelector := aNewExampleSelector asSymbol.
+	newSelector := aNewExampleSelector ifNotNil: #asSymbol.
 	(self hasExampleSelector
 		and: [ self exampleSelector = newSelector ])
 			ifTrue: [ ^ self ].
