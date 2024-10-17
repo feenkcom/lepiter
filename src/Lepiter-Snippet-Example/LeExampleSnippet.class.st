@@ -299,7 +299,7 @@ LeExampleSnippet >> exampleMethod [
 	^ self exampleClass 
 		ifNotNil: [ :aClass |
 			aClass
-				compiledMethodAt: exampleSelector asSymbol
+				compiledMethodAt: exampleSelector
 				ifPresent: [ :method | method parseTree ]
 				ifAbsent: [ nil ] ]
 ]
@@ -324,9 +324,11 @@ LeExampleSnippet >> exampleSelector: aNewExampleSelector [
 	<propertySetter: #exampleSelector>
 	<propertyAnnouncement: #LeExampleSnippetExampleSelectorChanged>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#propertySetterTemplate'>
+	| newSelector |
 
+	newSelector := aNewExampleSelector asSymbol.
 	(self hasExampleSelector
-		and: [ self exampleSelector = aNewExampleSelector ])
+		and: [ self exampleSelector = newSelector ])
 			ifTrue: [ ^ self ].
 	
 	self hasExampleSelector
@@ -335,8 +337,8 @@ LeExampleSnippet >> exampleSelector: aNewExampleSelector [
 			aPreviousExampleSelector := exampleSelector.
 			exampleSelector := nil.
 			self onPreviousExampleSelectorUnset: aPreviousExampleSelector ].
-	exampleSelector := aNewExampleSelector.
-	self onNewExampleSelectorSet: aNewExampleSelector.
+	exampleSelector := newSelector.
+	self onNewExampleSelectorSet: newSelector.
 	self notifyExampleSelectorChanged
 ]
 
