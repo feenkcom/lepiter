@@ -92,5 +92,5 @@ LePharoClassPageType >> printOn: aStream [
 { #category : #accessing }
 LePharoClassPageType >> title [
 
-	^ pageClassName, ' Page'
+	^ pageClassName asString, ' Page'
 ]
