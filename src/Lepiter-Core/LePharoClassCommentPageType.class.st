@@ -12,7 +12,7 @@ Class {
 	#instVars : [
 		'pharoClassName'
 	],
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #jsonV3 }
@@ -84,5 +84,5 @@ LePharoClassCommentPageType >> printOn: aStream [
 { #category : #accessing }
 LePharoClassCommentPageType >> title [
 
-	^ pharoClassName, ' Comment'
+	^ pharoClassName asString, ' Comment'
 ]
