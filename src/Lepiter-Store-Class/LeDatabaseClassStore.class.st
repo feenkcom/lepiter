@@ -191,7 +191,7 @@ LeDatabaseClassStore >> defaultDatabaseName [
 	"Answer the name to be used if one hasn't been explicitly set"
 	<return: #String>
 
-	^ self dbClassName
+	^ self dbClassName asString
 ]
 
 { #category : #attachments }
