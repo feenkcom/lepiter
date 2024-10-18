@@ -43,10 +43,11 @@ LeReplaceSubtextCompletionAction >> database: anObject [
 
 { #category : #private }
 LeReplaceSubtextCompletionAction >> findPage [
-
-	^ database pageNamed: pageName 
+	^ database
+		pageNamed: pageName
 		ifPresent: [ :aPage | aPage ]
-		ifAbsent: [ database pages detect: [ :each | each title = pageName ] ]
+		ifAbsent: [ database pages
+				detect: [ :each | each title sameContentAs: pageName ] ]
 ]
 
 { #category : #'private - accessing' }

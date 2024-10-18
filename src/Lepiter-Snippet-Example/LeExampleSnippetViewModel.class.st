@@ -197,7 +197,7 @@ LeExampleSnippetViewModel >> gtExampleDo: aBlock ifAbsent: absentBlock [
 		optionAt: #gtExample
 		ifPresent: [ :aGtExample | 
 			aGtExample exists and: [ 
-				(aGtExample methodClass name = self exampleBehaviorName and: [ 
+				((aGtExample methodClass name sameContentAs: self exampleBehaviorName) and: [ 
 					 aGtExample selector = self exampleSelector ]) ifTrue: [ 
 					^ aBlock value: aGtExample ] ] ]
 		ifAbsent: [  ].

@@ -191,7 +191,7 @@ LeDatabaseClassStore >> defaultDatabaseName [
 	"Answer the name to be used if one hasn't been explicitly set"
 	<return: #String>
 
-	^ self dbClassName
+	^ self dbClassName asString
 ]
 
 { #category : #attachments }
@@ -308,7 +308,7 @@ LeDatabaseClassStore >> storeLocation [
 
 	^ ZnUrl new
 		scheme: #class;
-		segments: (OrderedCollection with: dbPackage with: dbClass name)
+		segments: (OrderedCollection with: dbPackage asString with: dbClass name asString)
 ]
 
 { #category : #attachments }

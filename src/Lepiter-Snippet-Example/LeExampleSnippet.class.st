@@ -299,7 +299,7 @@ LeExampleSnippet >> exampleMethod [
 	^ self exampleClass 
 		ifNotNil: [ :aClass |
 			aClass
-				compiledMethodAt: exampleSelector asSymbol
+				compiledMethodAt: exampleSelector
 				ifPresent: [ :method | method parseTree ]
 				ifAbsent: [ nil ] ]
 ]
@@ -324,9 +324,11 @@ LeExampleSnippet >> exampleSelector: aNewExampleSelector [
 	<propertySetter: #exampleSelector>
 	<propertyAnnouncement: #LeExampleSnippetExampleSelectorChanged>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#propertySetterTemplate'>
+	| newSelector |
 
+	newSelector := aNewExampleSelector ifNotNil: #asSymbol.
 	(self hasExampleSelector
-		and: [ self exampleSelector = aNewExampleSelector ])
+		and: [ self exampleSelector = newSelector ])
 			ifTrue: [ ^ self ].
 	
 	self hasExampleSelector
@@ -335,14 +337,14 @@ LeExampleSnippet >> exampleSelector: aNewExampleSelector [
 			aPreviousExampleSelector := exampleSelector.
 			exampleSelector := nil.
 			self onPreviousExampleSelectorUnset: aPreviousExampleSelector ].
-	exampleSelector := aNewExampleSelector.
-	self onNewExampleSelectorSet: aNewExampleSelector.
+	exampleSelector := newSelector.
+	self onNewExampleSelectorSet: newSelector.
 	self notifyExampleSelectorChanged
 ]
 
 { #category : #'private - subscriptions' }
 LeExampleSnippet >> handleSystemClassAnnouncement: anAnnouncement [
-	exampleBehaviorName = anAnnouncement classAffected originalName
+	(exampleBehaviorName sameContentAs: anAnnouncement classAffected originalName)
 		ifTrue: [ self notifyExampleBehaviorNameChanged ]
 ]
 
@@ -790,7 +792,7 @@ LeExampleSnippet >> previewShowSelector: aNewPreviewShowSelector [
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#propertySetterTemplate'>
 	| newSelector |
 
-	newSelector := aNewPreviewShowSelector asSymbol.
+	newSelector := aNewPreviewShowSelector ifNotNil: [ aNewPreviewShowSelector asSymbol ].
 	(self hasPreviewShowSelector
 		and: [ self previewShowSelector = newSelector ])
 			ifTrue: [ ^ self ].
@@ -822,7 +824,7 @@ LeExampleSnippet >> referencedExampleSourceCode [
 { #category : #'api - testing' }
 LeExampleSnippet >> similarTo: anotherExampleSnippet [
 	^ self codeExpanded = anotherExampleSnippet codeExpanded
-		and: [ self exampleBehaviorName = anotherExampleSnippet exampleBehaviorName
+		and: [ (self exampleBehaviorName sameContentAs: anotherExampleSnippet exampleBehaviorName)
 			and: [ self exampleSelector = anotherExampleSnippet exampleSelector
 				and: [ self noCode = anotherExampleSnippet noCode
 					and: [ self previewExpanded = anotherExampleSnippet previewExpanded

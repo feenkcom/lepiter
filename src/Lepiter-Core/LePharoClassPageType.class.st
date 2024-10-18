@@ -31,11 +31,9 @@ LePharoClassPageType class >> pageClassName: aSymbol page: aLePage [
 LePharoClassPageType >> = anObject [
 	"Answer whether the receiver and anObject represent the same page type."
 
-	self == anObject
-		ifTrue: [ ^ true ].
-	self class = anObject class
-		ifFalse: [ ^ false ].
-	^ pageClassName = anObject pageClassName
+	self == anObject ifTrue: [ ^ true ].
+	self class = anObject class ifFalse: [ ^ false ].
+	^ pageClassName sameContentAs: anObject pageClassName
 ]
 
 { #category : #accessing }
