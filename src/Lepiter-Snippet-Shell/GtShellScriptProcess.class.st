@@ -19,8 +19,37 @@ Class {
 		'bindings',
 		'onSuccess'
 	],
+	#classVars : [
+		'BashExecutable'
+	],
 	#category : #'Lepiter-Snippet-Shell'
 }
+
+{ #category : #accessing }
+GtShellScriptProcess class >> bashExecutable [
+
+	^ BashExecutable ifNil: [ BashExecutable := self findBashExecutable fullName ]
+]
+
+{ #category : #private }
+GtShellScriptProcess class >> findBashExecutable [
+	"Answer the path to the specified executable.
+	Run this is a shell as some platforms, e.g. Mac, don't set up the same environment for processes started from the file explorer."
+
+	^ GtOsSystemInfo current findExecutable: 'bash'.
+]
+
+{ #category : #initialization }
+GtShellScriptProcess class >> initialize [
+
+	SessionManager default registerSystemClassNamed: self name.
+]
+
+{ #category : #initialization }
+GtShellScriptProcess class >> startUp: resuming [
+
+	resuming ifTrue: [ BashExecutable := nil ]
+]
 
 { #category : #private }
 GtShellScriptProcess >> announce: announcement [
@@ -224,7 +253,7 @@ GtShellScriptProcess >> newShellScriptBuilder [
 				arg: '-c' ]
 		ifFalse: [ 
 			GtExternalProcessBuilder new
-				command: '/bin/bash';
+				command: self class bashExecutable;
 				arg: '-c' ]
 ]
 
