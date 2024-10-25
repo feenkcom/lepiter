@@ -358,6 +358,51 @@ LeParserExamples >> externalUrlLink [
 ]
 
 { #category : #'examples - markdown' }
+LeParserExamples >> headerWithInitialSpaces [
+	<gtExample>
+	| node header |
+	node := self parse: '# Title 1'.
+	node allNodesOfType: LeHeaderNode do: [ :each | header := each ].
+	self assert: header hidingStartPosition equals: 1.
+	self assert: header hidingStopPosition equals: 2.
+	self
+		assert: (node source copyFrom: header hidingStartPosition to: header hidingStopPosition)
+		equals: '# '.
+
+	^ node
+]
+
+{ #category : #'examples - markdown' }
+LeParserExamples >> headerWithInitialSpaces2 [
+	<gtExample>
+	| node header |
+	node := self parse: '#    	(Ahoj  )'.
+	node allNodesOfType: LeHeaderNode do: [ :each | header := each ].
+	self assert: header hidingStartPosition equals: 1.
+	self assert: header hidingStopPosition equals: 6.
+	self
+		assert: (node source copyFrom: header hidingStartPosition to: header hidingStopPosition)
+		equals: '#    	'.
+
+	^ node
+]
+
+{ #category : #'examples - markdown' }
+LeParserExamples >> headerWithoutInitialSpaces [
+	<gtExample>
+	| node header |
+	node := self parse: '#Title 1'.
+	node allNodesOfType: LeHeaderNode do: [ :each | header := each ].
+	self assert: header hidingStartPosition equals: 1.
+	self assert: header hidingStopPosition equals: 1.
+	self
+		assert: (node source copyFrom: header hidingStartPosition to: header hidingStopPosition)
+		equals: '#'.
+
+	^ node
+]
+
+{ #category : #'examples - markdown' }
 LeParserExamples >> headers [
 	<gtExample>
 	| node headers |

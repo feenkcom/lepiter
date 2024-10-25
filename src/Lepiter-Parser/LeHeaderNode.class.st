@@ -35,6 +35,39 @@ LeHeaderNode >> headerName [
 		to: self stopPosition
 ]
 
+{ #category : #accessing }
+LeHeaderNode >> hidingInterval [
+	^ self startPosition to: self hidingStopPosition
+]
+
+{ #category : #accessing }
+LeHeaderNode >> hidingStartPosition [
+	^ self startPosition
+]
+
+{ #category : #accessing }
+LeHeaderNode >> hidingStopPosition [
+	"We want to hide also first separators (spaces) and display just a header text.
+	For example, if users type header like `# Title 1`, we want to hide `# ` (including spaces) part, not only `#`.
+	See https://github.com/feenkcom/gtoolkit/issues/4131"
+
+	| aTextIndex aPreviousPart |
+	self parts ifEmpty: [ ^ self numberSigns last stopPosition ].
+	aPreviousPart := nil.
+	self parts do: [ :eachPart |
+		(eachPart isKindOf: LeTextNode)
+			ifFalse: [
+				aPreviousPart ifNil: [ ^ self numberSigns last stopPosition ].
+				^ aPreviousPart stopPosition ].
+	
+		aTextIndex := eachPart content findFirst: [ :each | each isSeparator not ].
+		aTextIndex = 0 ifFalse: [	
+			^ (eachPart startPosition + aTextIndex - 2) min: self stopPosition ].
+		aPreviousPart := eachPart ].
+		
+	 ^ self numberSigns last stopPosition 
+]
+
 { #category : #'generated-initialize-release' }
 LeHeaderNode >> initialize [
 	super initialize.
