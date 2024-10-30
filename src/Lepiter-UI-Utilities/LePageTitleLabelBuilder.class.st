@@ -26,12 +26,22 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'database',
-		'title'
+		'title',
+		'category'
 	],
 	#category : #'Lepiter-UI-Utilities-Mondrian'
 }
 
-{ #category : #accessing }
+{ #category : #'instance creation' }
+LePageTitleLabelBuilder class >> forCategory: aString andTitle: aPageTitle andDatabase: aLeDatabase [ 
+	^ self new
+		title: aPageTitle;
+		category: aString;
+		database: aLeDatabase;
+		yourself
+]
+
+{ #category : #'instance creation' }
 LePageTitleLabelBuilder class >> forPage: aPage [
 	^ self new
 		title: aPage title;
@@ -39,7 +49,7 @@ LePageTitleLabelBuilder class >> forPage: aPage [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : #'instance creation' }
 LePageTitleLabelBuilder class >> forTitle: aPageTitle andDatabase: aLeDatabase [
 	^ self new
 		title: aPageTitle;
@@ -47,10 +57,10 @@ LePageTitleLabelBuilder class >> forTitle: aPageTitle andDatabase: aLeDatabase [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : #building }
 LePageTitleLabelBuilder >> build [
 	^ BrLabel new
-		text: self title;
+		text: self category, self title;
 		aptitude: BrGlamorousLabelAptitude new bold
 				+ (BrStyleCommonAptitude new
 						hovered: [ :aStyle | aStyle background: self hoverColor ]);
@@ -64,6 +74,16 @@ LePageTitleLabelBuilder >> build [
 ]
 
 { #category : #accessing }
+LePageTitleLabelBuilder >> category [
+	^ category
+]
+
+{ #category : #accessing }
+LePageTitleLabelBuilder >> category: aString [
+	category := aString
+]
+
+{ #category : #accessing }
 LePageTitleLabelBuilder >> database [
 	^ database
 ]
@@ -73,7 +93,7 @@ LePageTitleLabelBuilder >> database: aLeDatabase [
 	database := aLeDatabase
 ]
 
-{ #category : #accessing }
+{ #category : #view }
 LePageTitleLabelBuilder >> gtLabelFor: aView [
 	<gtView>
 	^ aView forward
@@ -89,6 +109,11 @@ LePageTitleLabelBuilder >> hoverColor [
 		pageNamed: self title
 		ifPresent: [ Color paleBlue ]
 		ifAbsent: [ Color pink ]
+]
+
+{ #category : #initialization }
+LePageTitleLabelBuilder >> initialize [
+	self category: ''
 ]
 
 { #category : #accessing }
