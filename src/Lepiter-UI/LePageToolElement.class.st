@@ -43,7 +43,11 @@ LePageToolElement >> initialize [
 		detailed: [ :aStyle | aStyle do: [ self onDetailedVolume ] ]).
 
 	self beFocusable.
-	self when: BlClickEvent do: [ :anEvent | self requestFocus ]
+	self when: BlClickEvent do: [ :anEvent | self requestFocus ].
+	self phlow 
+		accessTool: (GtPhlowToolClassType forClass: LePage) 
+		viewModel: #pageViewModel 
+		object: #pageModel.
 ]
 
 { #category : #initialization }
@@ -117,6 +121,12 @@ LePageToolElement >> onSidebarChangePageWish: aWish [
 		ifTrue: [ ^ self ].
 
 	self pageViewModel: aWish pageUIModel
+]
+
+{ #category : #'api - page model' }
+LePageToolElement >> pageModel [
+	self hasPage ifFalse: [ ^ nil ].
+	^ self pageViewModel pageModel
 ]
 
 { #category : #'api - accessing' }
