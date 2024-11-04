@@ -152,6 +152,7 @@ LePage >> gtDatabaseActionFor: anAction [
 		tooltip: 'Inspect the page''s database';
 		priority: 8;
 		icon: LeIcons lepiterDatabase;
+		id: LePageDatabaseActionId;
 		action: [ :aButton | aButton phlow spawnObject: self database ]
 ]
 
