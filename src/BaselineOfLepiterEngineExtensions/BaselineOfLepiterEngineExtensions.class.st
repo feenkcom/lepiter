@@ -10,34 +10,34 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'LepiterEngineCore' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.2649/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.6.2650/src' ].
 		spec
 			baseline: 'GToolkit4DockerEngine' with: [
 				spec repository: 'github://feenkcom/gt4dockerengine:v0.5.133/src' ].
 		spec
 			baseline: 'Gt4JSLink' with: [
-				spec repository: 'github://feenkcom/gtoolkit-remote-javascript:v0.5.669/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-remote-javascript:v0.5.670/src' ].
 		spec
 			baseline: 'Gt4ChromeDevTools' with: [
-				spec repository: 'github://feenkcom/gtoolkit-chrome:v0.5.202/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-chrome:v0.5.203/src' ].
 		spec
 			baseline: 'Gt4PythonBridge' with: [
-				spec repository: 'github://feenkcom/gtoolkit-remote-python:v0.5.383/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-remote-python:v0.5.384/src' ].
 		spec
 			baseline: 'Gt4DebugAdapterProtocol' with: [
-				spec repository: 'github://feenkcom/gtoolkit-debugadapterprotocol:v0.5.372/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-debugadapterprotocol:v0.5.373/src' ].
 		spec
 			baseline: 'Gt4PharoLink' with: [
-				spec repository: 'github://feenkcom/gtoolkit-remote:v0.8.1780/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-remote:v0.8.1781/src' ].
 		spec
 			baseline: 'GToolkitVisualizer' with: [
-				spec repository: 'github://feenkcom/gtoolkit-visualizer:v0.8.1963/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-visualizer:v0.8.1964/src' ].
 		spec
 			baseline: 'LepiterYoutube' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.2649/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.6.2650/src' ].
 		spec
 			baseline: 'GToolkit4LSP' with: [
-				spec repository: 'github://feenkcom/gt4lsp:v0.6.477/src' ].
+				spec repository: 'github://feenkcom/gt4lsp:v0.6.478/src' ].
 
 		spec package: 'Lepiter-Pharo' with: [
 			spec requires: #(#LepiterEngineCore) ].
