@@ -146,7 +146,7 @@ LeExportResourcesDirectorySaver >> visitExportAnnotationResource: aResource [
 LeExportResourcesDirectorySaver >> visitExportSnippetResource: aResource [
 	self
 		assert: [ aResource reference isNotNil ]
-		description: [ 'Resource reference must be non-nil: {1}' format: {aResource reference} ].
+		description: [ 'Resource reference must be non-nil: {1}' format: {aResource} ].
 		
 	self
 		assert: [ aResource reference exists ]
