@@ -203,7 +203,7 @@ LeSnippet >> changeToRenameClass: oldName to: newName [
 ]
 
 { #category : #refactoring }
-LeSnippet >> changeToRenameSelector: oldName to: newName [
+LeSnippet >> changeToRenameSelector: oldName to: newName using: aRewriter [
 	^ nil
 ]
 
