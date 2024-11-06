@@ -90,9 +90,18 @@ LeCodeSnippet >> changeToRenameClass: oldName to: newName [
 ]
 
 { #category : #references }
-LeCodeSnippet >> changeToRenameSelector: oldName to: newName [
-	| modifiedSource |
+LeCodeSnippet >> changeToRenameSelector: oldName to: newName using: aRewriter [
+	| modifiedSource source ast |
 	self isForLocalImage ifFalse: [ ^ nil ].
+	aRewriter
+		ifNotNil: [ source := self coder currentSourceString.
+			ast := RBParser parseFaultyExpression: source.
+			(aRewriter executeTree: ast)
+				ifTrue: [ ^ LeSnippetChange new
+						snippet: self;
+						newSource: aRewriter tree formattedCode;
+						yourself ].
+			^ nil ].
 	modifiedSource := SmaCCString on: self string.
 	self coder ast wait ast
 		withAllNodesDo: [ :each | 

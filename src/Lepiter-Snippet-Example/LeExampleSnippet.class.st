@@ -157,7 +157,7 @@ LeExampleSnippet >> changeToRenameClass: oldName to: newName [
 ]
 
 { #category : #accessing }
-LeExampleSnippet >> changeToRenameSelector: oldName to: newName [
+LeExampleSnippet >> changeToRenameSelector: oldName to: newName using: aRewriter [
 	| change |
 	change := LeExampleSnippetChange new snippet: self.
 	#(exampleSelector previewSelectSelector previewShowSelector)
