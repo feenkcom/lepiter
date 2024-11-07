@@ -50,6 +50,20 @@ LeCodeSnippet class >> stateAttributes [
 			ifFalse: [ LeGenericSnippetStateAttribute named: aMapping key ] ]
 ]
 
+{ #category : #references }
+LeCodeSnippet >> addParameterTo: oldName using: aRewriter [
+	| source ast |
+	self isForLocalImage ifFalse: [ ^ nil ].
+	source := self coder currentSourceString.
+	ast := RBParser parseFaultyExpression: source.
+	(aRewriter executeTree: ast)
+		ifTrue: [ ^ LeSnippetChange new
+				snippet: self;
+				newSource: aRewriter tree formattedCode;
+				yourself ].
+	^ nil
+]
+
 { #category : #'api - editing' }
 LeCodeSnippet >> appendText: aText source: anObject [
 

@@ -62,6 +62,11 @@ page is associated to a database. If not the link will be lost.'.
 		targetReference: aTargetReference).
 ]
 
+{ #category : #refactoring }
+LeSnippet >> addParameterTo: oldName using: aRewriter [
+	^ nil
+]
+
 { #category : #'api - editing' }
 LeSnippet >> addSnippetAfterSelf [
 	"Add a new snippet after the receiver. Answer the new snippet"
