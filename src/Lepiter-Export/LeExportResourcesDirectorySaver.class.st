@@ -143,6 +143,13 @@ LeExportResourcesDirectorySaver >> visitExportAnnotationResource: aResource [
 ]
 
 { #category : #visiting }
+LeExportResourcesDirectorySaver >> visitExportExternalImageSnippetResource: aResource [
+	"Do nothing, since the image has an external URL"
+
+	
+]
+
+{ #category : #visiting }
 LeExportResourcesDirectorySaver >> visitExportSnippetResource: aResource [
 	self
 		assert: [ aResource reference isNotNil ]

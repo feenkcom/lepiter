@@ -87,7 +87,7 @@ LeExportSnippetResource >> printDetailsOn: aStream [
 		nextPutAll: 'page=';
 		print: self pageTitle;
 		nextPutAll: ', state=';
-		print: self state
+		nextPutAll: (self state ifNotNil: #name) asString
 ]
 
 { #category : #printing }
