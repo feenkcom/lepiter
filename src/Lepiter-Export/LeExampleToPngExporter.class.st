@@ -99,19 +99,12 @@ LeExampleToPngExporter >> exportWithScripter [
 		on: BlDevScripterPulseTimeoutError
 		do: [ :anException | 
 			NonInteractiveTranscript stderr
-				show: 'ERROR: Scripter have not finished on time.';
-				cr;
-				show: '       Example: ';
-				show: example gtDisplayString;
-				cr;
-				show: '       Scripter model: ';
-				show: scripter model;
-				cr;
-				show: '       Exception: ';
-				show: anException;
-				cr;
-				show: '       The issue is ignored, proceeding to the PNG export.';
-				cr ].
+				show: 'ERROR: Scripter have not finished on time.'; cr;
+				show: '       Example: '; show: example gtDisplayString; cr;
+				show: '       Scripter model: '; show: scripter model gtDisplayString; cr;
+				show: '       Preview selector: '; show: previewSelector; cr;
+				show: '       Exception: '; show: anException; cr;
+				show: '       The issue is ignored, proceeding to the PNG export.'; cr ].
 
 	fileReference ensureDelete.
 	fileReference parent ensureCreateDirectory.
