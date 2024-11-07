@@ -578,6 +578,11 @@ LeSnippet >> previousSnippetDo: aBlock ifNone: aNoneBlock [
 		ifFalse: [ aBlock value: (self parent children at: myIndex - 1) lastChildOrSelf ]
 ]
 
+{ #category : #refactoring }
+LeSnippet >> removeParameterFrom: oldName using: aRewriter [
+	^ nil
+]
+
 { #category : #removing }
 LeSnippet >> removeSelf [
 	"Remove the receiver from its parent"

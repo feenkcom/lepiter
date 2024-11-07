@@ -308,6 +308,20 @@ LeCodeSnippet >> printOn: aStream [
 		nextPutAll: ')'
 ]
 
+{ #category : #references }
+LeCodeSnippet >> removeParameterFrom: oldName using: aRewriter [
+	| source ast |
+	self isForLocalImage ifFalse: [ ^ nil ].
+	source := self coder currentSourceString.
+	ast := RBParser parseFaultyExpression: source.
+	(aRewriter executeTree: ast)
+		ifTrue: [ ^ LeSnippetChange new
+				snippet: self;
+				newSource: aRewriter tree formattedCode;
+				yourself ].
+	^ nil
+]
+
 { #category : #'private - event handling' }
 LeCodeSnippet >> shouldAddTraceEventForChange: aGtCoderSourceCodeChanged [ 
 	"We only add a trace event if we either have the previous text
