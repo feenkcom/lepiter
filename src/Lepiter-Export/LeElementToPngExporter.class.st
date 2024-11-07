@@ -61,8 +61,8 @@ LeElementToPngExporter >> export [
 		do: [ :anException | 
 			NonInteractiveTranscript stderr
 				show: 'ERROR: Scripter have not finished on time.'; cr;
-				show: '       '; show: element gtDisplayString; cr;
-				show: '       '; show: anException; cr;
+				show: '       Element: '; show: element gtDisplayString; cr;
+				show: '       Exception: '; show: anException; cr;
 				show: '       The issue is ignored, proceeding to the PNG export.'; cr.
 	].
 	
