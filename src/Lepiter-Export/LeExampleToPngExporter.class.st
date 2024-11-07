@@ -90,21 +90,24 @@ LeExampleToPngExporter >> exportWithScripter [
 		doStep: [ :s | 
 			s
 				label: 'Create phlow view element';
-				block: [ BlUseAsyncFeatures
-						disableDuring: [ | view |
-							view := GtPhlowView empty
-									on: scripter model
-									perform: previewSelector asSymbol.
-							view asElementDo: [ :anElement | container addChild: anElement ] ] ] ] ]
+				block: [ | view |
+						view := GtPhlowView empty
+								on: scripter model
+								perform: previewSelector asSymbol.
+						view asElementDo: [ :anElement | 
+							container addChild: anElement ] ] ] ]
 		on: BlDevScripterPulseTimeoutError
 		do: [ :anException | 
 			NonInteractiveTranscript stderr
 				show: 'ERROR: Scripter have not finished on time.';
 				cr;
-				show: '       ';
+				show: '       Example: ';
 				show: example gtDisplayString;
 				cr;
-				show: '       ';
+				show: '       Scripter model: ';
+				show: scripter model;
+				cr;
+				show: '       Exception: ';
 				show: anException;
 				cr;
 				show: '       The issue is ignored, proceeding to the PNG export.';
