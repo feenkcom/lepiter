@@ -211,18 +211,21 @@ LeDatabaseReload >> reloadOnlyLinks [
 { #category : #private }
 LeDatabaseReload >> reloadPage: page [
 
-	(loadedPageIDs includes: page uid) ifTrue: 
-		[ monitor signalDuplicatePage: page 
-			reason: 'Duplicate page ID' 
-			originalException: nil]
-	ifFalse:
-		[ self database pageWithID: page uid
-			ifPresent: [ :existingPage | reloadedPages add: page
-				"existingPage reloadFromPage: page" ]
-			ifAbsent: 
-				[ self database setPage: page.
-				addedPages add: page ].
-		loadedPageIDs add: page uid ]
+	(loadedPageIDs includes: page uid) 
+		ifTrue: [ 
+			monitor signalDuplicatePage: page 
+				reason: 'Duplicate page ID' 
+				originalException: nil]
+		ifFalse: [ 
+			self database 
+				pageWithID: page uid
+				ifPresent: [ :existingPage | 
+					reloadedPages add: page
+					"existingPage reloadFromPage: page" ]
+				ifAbsent: 
+					[ self database setPage: page.
+					addedPages add: page ].
+			loadedPageIDs add: page uid ]
 ]
 
 { #category : #private }
@@ -300,7 +303,8 @@ LeDatabaseReload >> updateReloadedPages [
 	This must be called after all new pages have been added (#setPage:)"
 
 	reloadedPages do: [ :page |
-		self database pageWithID: page uid
+		self database 
+			pageWithID: page uid
 			ifPresent: [ :existingPage | existingPage newReloadFromPage: page ]
 			ifAbsent: [ self error: 'Unable to find existing page' ] ].
 ]

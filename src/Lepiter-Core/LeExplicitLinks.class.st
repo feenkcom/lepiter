@@ -205,6 +205,16 @@ LeExplicitLinks >> size [
 	^ externalLinksByUuid size
 ]
 
+{ #category : #'as yet unclassified' }
+LeExplicitLinks >> storageHash [
+	^ self optionAt: #storageHash ifAbsent: [ nil ]
+]
+
+{ #category : #'as yet unclassified' }
+LeExplicitLinks >> storageHash: aLeBinaryContentsHash [ 
+	^ self optionAt: #storageHash put: aLeBinaryContentsHash
+]
+
 { #category : #accessing }
 LeExplicitLinks >> title [ 	
 	^ 'Explicit links -', self uid asString

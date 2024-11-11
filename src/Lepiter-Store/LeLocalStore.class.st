@@ -414,7 +414,14 @@ LeLocalStore >> pagesFromStore [
 	"Answer a collection of all pages loaded from the store"
 
 	^ (storage dbFilesIn: self localRoot)
-		collect: [ :file | storage loadFromFile: file ]
+		collect: [ :file | 
+			| aPage |
+			aPage := storage loadFromFile: file.
+			aPage ifNotNil: [
+				| aHash |
+				aHash := LeBinaryContentsHash fromFileReference: file.
+				aPage storageHash: aHash ].
+			aPage ]
 ]
 
 { #category : #'accessing - db properties' }

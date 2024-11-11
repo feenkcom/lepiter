@@ -572,6 +572,16 @@ LePage >> shouldAppearInIndexOrDailyNotes [
 	^ self type shouldAppearInIndexOrDailyNotes
 ]
 
+{ #category : #'api - updating' }
+LePage >> storageHash [
+	^ self optionAt: #storageHash ifAbsent: [ nil ]
+]
+
+{ #category : #'api - updating' }
+LePage >> storageHash: aLeBinaryContentsHash [
+	^ self optionAt: #storageHash put: aLeBinaryContentsHash
+]
+
 { #category : #printing }
 LePage >> storeOn: aStream [
 	"If type can be nil, then we need to adapt the logic below."
