@@ -120,7 +120,7 @@ LeLogicalDatabaseReload >> reload [
 				db reloadReason: aReason.
 				db stopMonitoring. ] 
 			ifOutOfDate: [ :aReason |
-				self database reloadReason: aReason.
+				db reloadReason: aReason.
 				db announce: (LeDatabaseAboutToReload new 
 					logicalDatabase: self database;
 					database: db) ].

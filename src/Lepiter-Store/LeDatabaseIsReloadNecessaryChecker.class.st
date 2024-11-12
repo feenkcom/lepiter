@@ -40,31 +40,46 @@ LeDatabaseIsReloadNecessaryChecker class >> reloadAsNeeded [
 
 { #category : #checking }
 LeDatabaseIsReloadNecessaryChecker >> check [
-	"Return reload reason.
-	Notice that it currently checks only page files. There are other files
-	that can change, e.g., external links, attachments, and db properties."
+	"Return reload reason."
 
 	<return: #LeDatabaseReloadReason>
+	| aMonitor aCurrentProperties aStorageProperties |
+	
+	"1. Check whether partial reload is enabled."
 	self isReloadAlways ifTrue: [ 
 		^ LeDatabaseAlwaysReloadReason new
 			database: self database ].
 			
+	"2. Check whether reload reason was already computed."
 	self database reloadReason ifNotNil: [ :aReason | 
-		"The reason is already computed, we therefore reuse it"
 		^ aReason ].
+		
+	"3. Check database properties change status.
+		Properties are loaded since it is expected to be a fast action."
+	aMonitor := self database monitor.
+	aCurrentProperties := aMonitor dbPropertiesOrNil.
+	aStorageProperties := aMonitor loadPropertiesDictionary.
+	aCurrentProperties = aStorageProperties ifFalse: [ 
+		^ LeDatabasePropertiesChangedReloadReason new
+			database: self database;
+			currentProperties: aCurrentProperties;
+			storageProperties: aStorageProperties ].
 	
+	"4. Check explicit links change status."
 	self database explicitLinks ifNotNil: [ :aModel | 
 		| aFile |
-		aFile := self database monitor explicitLinksFileReference.
+		aFile := aMonitor explicitLinksFileReference.
 		(self checkModel: aModel file: aFile)
 			ifNotNil: [ :aReason | ^ aReason ] ].
 	
+	"5. Check change status of all pages."
 	self database pagesDo: [ :aPage | 
 		| aFile |
-		aFile := self database monitor pageFileReference: aPage.
+		aFile := aMonitor pageFileReference: aPage.
 		(self checkModel: aPage file: aFile)
 			ifNotNil: [ :aReason | ^ aReason ] ].
 	
+	"6. Nothing was changed."
 	^ LeDatabaseUpToDateReloadReason new
 		database: self database
 ]

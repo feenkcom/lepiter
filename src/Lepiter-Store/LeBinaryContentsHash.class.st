@@ -15,6 +15,13 @@ LeBinaryContentsHash class >> fromFileReference: aFileReference [
 	^ self new hex: aByteArray hex
 ]
 
+{ #category : #factory }
+LeBinaryContentsHash class >> fromString: aString [
+	| aByteArray |
+	aByteArray := SHA1 hashMessage: aString.
+	^ self new hex: aByteArray hex
+]
+
 { #category : #comparing }
 LeBinaryContentsHash >> = anObject [
 	self == anObject ifTrue: [ ^ true ].
@@ -43,13 +50,6 @@ LeBinaryContentsHash >> hex [
 { #category : #accessing }
 LeBinaryContentsHash >> hex: anObject [
 	hex := anObject
-]
-
-{ #category : #testing }
-LeBinaryContentsHash >> isSameAsFileReference: aFileReference [
-	| anotherHash |
-	anotherHash := self class fromFileReference: aFileReference.
-	^ self = anotherHash
 ]
 
 { #category : #printing }
