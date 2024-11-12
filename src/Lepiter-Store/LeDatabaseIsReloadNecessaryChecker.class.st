@@ -71,8 +71,8 @@ LeDatabaseIsReloadNecessaryChecker >> database: aLeDatabase [
 ]
 
 { #category : #checking }
-LeDatabaseIsReloadNecessaryChecker >> ifUpdated: updatedBlock ifOutOfDate: outOfDateBlock [
-	^ self check ifFalse: updatedBlock ifTrue: outOfDateBlock
+LeDatabaseIsReloadNecessaryChecker >> ifUpToDate: anUpdatedBlock ifOutOfDate: anOutOfDateBlock [
+	^ self check ifFalse: anUpdatedBlock ifTrue: anOutOfDateBlock
 ]
 
 { #category : #testing }

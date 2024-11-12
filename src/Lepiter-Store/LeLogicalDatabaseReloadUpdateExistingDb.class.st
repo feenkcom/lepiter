@@ -30,7 +30,7 @@ LeLogicalDatabaseReloadUpdateExistingDb >> reloadAndStartMonitoringIn: aLogicalD
 
 	LeDatabaseIsReloadNecessaryChecker new
 		database: self database;
-		ifUpdated: [
+		ifUpToDate: [
 			self database monitor startMonitoring ] 
 		ifOutOfDate: [
 			self database monitor

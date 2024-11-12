@@ -74,7 +74,11 @@ LePage >> newReloadFromPage: aLePage [
 	"Update the receiver to match the supplied page."
 
 	| typeOfChange changed |
-	self storageHash: aLePage storageHash.
+	LePageIsReloadNecessaryChecker new
+		existingPage: self;
+		loadedPage: aLePage;
+		ifUpToDate: [ ^ self ] ifOutOfDate: [ "ignore" ].
+
 	typeOfChange := self detectStructureChangeTypeToPage: aLePage.
 	typeOfChange needsPageRebuild
 		ifTrue: [ self rebuildFromContent: aLePage.
@@ -92,6 +96,8 @@ LePage >> newReloadFromPage: aLePage [
 						ifTrue: [ self updateTitle: '' ]
 						ifFalse: [ type := aLePage type ] ].
 			changed := true ].
+			
+	self storageHash: aLePage storageHash.
 
 	changed ifTrue: [ self announceTreeChanged: self ]
 ]

@@ -30,7 +30,7 @@ LeLogicalDatabaseReloadUpdateExistingPrimary >> reloadAndStartMonitoringIn: aLog
 
 	LeDatabaseIsReloadNecessaryChecker new
 		database: self primaryDB;
-		ifUpdated: [
+		ifUpToDate: [
 			self primaryDB monitor startMonitoring ] 
 		ifOutOfDate: [
 			self primaryDB monitor

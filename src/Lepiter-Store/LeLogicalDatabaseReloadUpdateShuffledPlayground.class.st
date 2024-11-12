@@ -51,7 +51,7 @@ LeLogicalDatabaseReloadUpdateShuffledPlayground >> reloadAndStartMonitoringIn: a
 
 	LeDatabaseIsReloadNecessaryChecker new
 		database: self playgroundDB;
-		ifUpdated: [
+		ifUpToDate: [
 			self playgroundDB monitor startMonitoring ] 
 		ifOutOfDate: [
 			self playgroundDB monitor
