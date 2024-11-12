@@ -48,6 +48,10 @@ LeDatabaseIsReloadNecessaryChecker >> check [
 	self isReloadAlways ifTrue: [ 
 		^ LeDatabaseAlwaysReloadReason new
 			database: self database ].
+			
+	self database reloadReason ifNotNil: [ :aReason | 
+		"The reason is already computed, we therefore reuse it"
+		^ aReason ].
 	
 	self database explicitLinks ifNotNil: [ :aModel | 
 		| aFile |

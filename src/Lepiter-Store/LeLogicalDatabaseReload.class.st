@@ -111,13 +111,21 @@ LeLogicalDatabaseReload >> reload [
 	database announce: (LeLogicalDatabaseAboutToReload new 
 		database: self database).
 	
+	[
 	"1. Stop monitoring all DBs"
 	database databasesDo: [ :db |
-		db announce: (LeDatabaseAboutToReload new 
-			logicalDatabase: self database;
-			database: db).
-		db stopMonitoring.
-		existingDbs add: db ].
+		LeDatabaseIsReloadNecessaryChecker new
+			database: db;
+			ifUpToDate: [ :aReason |
+				db reloadReason: aReason.
+				db stopMonitoring. ] 
+			ifOutOfDate: [ :aReason |
+				self database reloadReason: aReason.
+				db announce: (LeDatabaseAboutToReload new 
+					logicalDatabase: self database;
+					database: db) ].
+				db stopMonitoring.
+				existingDbs add: db ].
 		
 	"2. Reload properties
 	Ensure that reloading relies on new mappings from code"
@@ -133,6 +141,12 @@ LeLogicalDatabaseReload >> reload [
 	
 	"5. Execute commands + reload and start monitoring"
 	self executeUpdateCommands.
+	
+	] ensure: [ 
+	"6. Clear cached reload reasons"
+		existingDbs do: [ :db | 
+			db clearReloadReason ]
+	].
 	
 	database announce: (LeLogicalDatabaseReloaded new 
 		database: self database).
