@@ -404,7 +404,7 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadUnloadRegistered [
 
 { #category : #'examples - Logical DB' }
 LeLogicalDatabaseReloadExamples >> logicalDatabaseWithFileLocatorRootReload [
-	"This tests the basic scenario of reloading the primary database and a registered databases when the individual databases use a file locator. This should not create a new instance for any of the existing databases on reload. This example exists as we had bug where were using both file references and file locators to the same folder that we causing databses to be recreated instead of being updated."
+	"This tests the basic scenario of reloading the primary database and a registered databases when the individual databases use a file locator. This should not create a new instance for any of the existing databases on reload. This example exists as we had bug where were using both file references and file locators to the same folder that were causing databases to be recreated instead of being updated."
 	<gtExample>
 	<after: #deleteTemporaryDirectory>
 	| logicalDB primaryDB registeredDB announcements |
