@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'hex'
 	],
-	#category : #'Lepiter-Store-LocalJSON-Store'
+	#category : #'Lepiter-Store-Reload - Optimizations'
 }
 
 { #category : #factory }

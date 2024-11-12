@@ -340,7 +340,13 @@ LeLocalStore >> hasAttachmentWithId: aUuid [
 LeLocalStore >> loadExplicitLinks [
 	
 	storage withExplicitLinksFileIn: localRoot do: [ :aFile |
-		[ ^ storage loadFromFile: aFile ] 
+		[
+			| theExplicitLinks aHash |
+			theExplicitLinks := storage loadFromFile: aFile.
+			aHash := LeBinaryContentsHash fromFileReference: aFile.
+			theExplicitLinks storageHash: aHash.
+			^ theExplicitLinks
+		 ]
 			on: LeDBLoadError 
 			fork: [ :ex | ex pass ] ].
 	^ nil

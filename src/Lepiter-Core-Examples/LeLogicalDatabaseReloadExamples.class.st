@@ -152,8 +152,8 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadAddRegistered [
 		equals:{ #primary. #playground. }.
 
 	"Reload the logical database"
-	LeDatabaseIsReloadNecessaryChecker 
-		alwaysReloadDuring: [ logicalDB primaryDB reload ].
+	LeReloadOptimization 
+		disableDuring: [ logicalDB primaryDB reload ].
 
 	"Confirm that the registered DB has appeared"
 	self assert: logicalDB registeredDBs size equals: 1.
@@ -239,8 +239,8 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadShuffle [
 	self assert: announcements size equals: 3.
 
 	"Reload the logical database"
-	LeDatabaseIsReloadNecessaryChecker 
-		alwaysReloadDuring: [ logicalDB primaryDB reload ].
+	LeReloadOptimization 
+		disableDuring: [ logicalDB primaryDB reload ].
 
 	"Confirm that the databases have been swapped, and the instance identity maintained"
 	self assert: logicalDB primaryDB identicalTo: registeredDB.
@@ -435,8 +435,8 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseWithFileLocatorRootReload [
 		self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].
 
 	"Reload the logical database in place without any changes"
-	LeDatabaseIsReloadNecessaryChecker 
-		alwaysReloadDuring: [ logicalDB primaryDB reload ].
+	LeReloadOptimization 
+		disableDuring: [ logicalDB primaryDB reload ].
 
 	"Confirm that each DB has been reloaded correctly"
 	{ primaryDB. registeredDB. } do: [ :db |
@@ -521,8 +521,8 @@ LeLogicalDatabaseReloadExamples >> logicalPrimaryDatabaseReset [
 
 	announcements := OrderedCollection new.
 	logicalDB weak when: LeAnnouncement send: #add: to: announcements.
-	LeDatabaseIsReloadNecessaryChecker 
-		alwaysReloadDuring: [ logicalDB primaryDB reload ].
+	LeReloadOptimization 
+		disableDuring: [ logicalDB primaryDB reload ].
 
 	self assert: (rootDir / propertiesBasename) exists.
 	"To prevent new pages created by the user during the reload from being deleted, the reload currently doesn't delete pages.  This should be 0, but accept 2 for now."

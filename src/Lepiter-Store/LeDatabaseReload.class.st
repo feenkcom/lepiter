@@ -163,7 +163,8 @@ LeDatabaseReload >> reloadExplicitLink: anExplicitLink [
 		ifFalse: [ 
 			self database
 				explicitLinkWithUuid: anExplicitLink linkUuid
-				ifPresent: [ :existingLink | existingLink reloadFromExternalLink: anExplicitLink ]
+				ifPresent: [ :existingLink | 
+					existingLink reloadFromExternalLink: anExplicitLink ]
 				ifAbsent: [ 
 					anExplicitLink onAboutToAddToDatabase: self database.
 					self database basicAddExplicitLink: anExplicitLink.
@@ -176,8 +177,16 @@ LeDatabaseReload >> reloadExplicitLink: anExplicitLink [
 LeDatabaseReload >> reloadExplicitLinks: explicitLinks [
 
 	explicitLinks ifNil: [ ^ self ].
+	
+	LePageIsReloadNecessaryChecker new
+		existingPage: self database explicitLinks;
+		loadedPage: explicitLinks;
+		ifUpToDate: [ ^ self ] ifOutOfDate: [ "ignore" ].
+	
 	explicitLinks do: [ :anExplicitLink |
 		self reloadExplicitLink: anExplicitLink ].
+		
+	self database explicitLinks storageHash: explicitLinks storageHash
 ]
 
 { #category : #actions }

@@ -5,7 +5,7 @@ Class {
 		'existingPage',
 		'loadedPage'
 	],
-	#category : #'Lepiter-Store-Reload'
+	#category : #'Lepiter-Store-Reload - Optimizations'
 }
 
 { #category : #checking }
@@ -35,13 +35,16 @@ LePageIsReloadNecessaryChecker >> existingPage: anObject [
 ]
 
 { #category : #checking }
-LePageIsReloadNecessaryChecker >> ifUpToDate: anUpdatedBlock ifOutOfDate: anOutOfDateBlock [
-	^ self check ifFalse: anUpdatedBlock ifTrue: anOutOfDateBlock
+LePageIsReloadNecessaryChecker >> ifUpToDate: anUpToDateBlock ifOutOfDate: anOutOfDateBlock [
+	^ self check ifFalse: anUpToDateBlock ifTrue: anOutOfDateBlock
 ]
 
 { #category : #testing }
 LePageIsReloadNecessaryChecker >> isReloadAlways [
-	^ LeDatabaseIsReloadNecessaryChecker isReloadAlways
+	^ LeReloadOptimization 
+		ifEnabled: [ false ]
+		ifDisabled: [ true ]
+		ifUndefiend: [ LeDatabaseIsReloadNecessaryChecker isReloadAlways ]
 ]
 
 { #category : #accessing }
