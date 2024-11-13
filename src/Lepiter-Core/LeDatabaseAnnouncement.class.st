@@ -10,7 +10,7 @@ Class {
 	#instVars : [
 		'database'
 	],
-	#category : 'Lepiter-Core-Announcements'
+	#category : #'Lepiter-Core-Announcements'
 }
 
 { #category : #'api - accessing' }
@@ -21,4 +21,14 @@ LeDatabaseAnnouncement >> database [
 { #category : #'api - accessing' }
 LeDatabaseAnnouncement >> database: anObject [
 	database := anObject
+]
+
+{ #category : #printing }
+LeDatabaseAnnouncement >> printOn: aStream [
+	super printOn: aStream.
+
+	aStream
+		nextPut: $(;
+		print: self database;
+		nextPut: $)
 ]

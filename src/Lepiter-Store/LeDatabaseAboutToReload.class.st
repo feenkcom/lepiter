@@ -29,3 +29,13 @@ LeDatabaseAboutToReload >> logicalDatabase [
 LeDatabaseAboutToReload >> logicalDatabase: anObject [
 	logicalDatabase := anObject
 ]
+
+{ #category : #printing }
+LeDatabaseAboutToReload >> printOn: aStream [
+	super printOn: aStream.
+
+	aStream
+		nextPut: $(;
+		print: self database;
+		nextPut: $)
+]
