@@ -13,11 +13,15 @@ LeNotifierExamples >> addAllAnnouncementsIn: aDatabase into: aCollection [
 	<gtExample>
 	aDatabase
 		when: Announcement
-		do: [ :anAnnouncement :anAnnouncer | aCollection add: anAnnouncer ];
+		send: #add:
+		to: aCollection.
+	
+	aDatabase
 		allChildrenBreadthFirstDo: [ :aContent | 
-			aContent
+			aContent weak
 				when: Announcement
-				do: [ :anAnnouncement :anAnnouncer | aCollection add: anAnnouncer ] ]
+				send: #add:
+				to: aCollection ]
 ]
 
 { #category : #'examples - notifier' }
@@ -66,8 +70,13 @@ LeNotifierExamples >> databaseNotification_BlockThree_OneSubscription [
 	aCollection := OrderedCollection new.
 	aBlockThree := self hierarchy_thirdBlock.
 	aDatabase := aBlockThree database.
-	aDatabase when: Announcement do: [ :anAnnouncement :anAnnouncer | aCollection add: anAnnouncer ].
-	aBlockThree notifier database; announce: Announcement.
+	aDatabase weak
+		when: Announcement
+		send: #add:
+		to: aCollection.
+	aBlockThree notifier
+		database;
+		announce: Announcement.
 	self assert: aCollection size equals: 1.
 	self assert: aCollection first equals: aDatabase announcer.
 	^ aDatabase
@@ -80,9 +89,17 @@ LeNotifierExamples >> databaseNotification_BlockThree_TwoSubscriptions [
 	aCollection := OrderedCollection new.
 	aBlockThree := self hierarchy_thirdBlock.
 	aDatabase := aBlockThree database.
-	aBlockThree when: Announcement do: [ :anAnnouncement :anAnnouncer | aCollection add: anAnnouncer ].
-	aDatabase when: Announcement do: [ :anAnnouncement :anAnnouncer | aCollection add: anAnnouncer ].
-	aBlockThree notifier database; announce: Announcement.
+	aBlockThree weak
+		when: Announcement
+		send: #add:
+		to: aCollection.
+	aDatabase weak
+		when: Announcement
+		send: #add:
+		to: aCollection.
+	aBlockThree notifier
+		database;
+		announce: Announcement.
 	self assert: aCollection size equals: 1.
 	self assert: aCollection first equals: aDatabase announcer.
 	^ aDatabase
@@ -161,9 +178,18 @@ LeNotifierExamples >> localAndDatabaseNotification_BlockThree_TwoSubscriptions [
 	aCollection := OrderedCollection new.
 	aBlockThree := self hierarchy_thirdBlock.
 	aDatabase := aBlockThree database.
-	aBlockThree when: Announcement do: [ :anAnnouncement :anAnnouncer | aCollection add: anAnnouncer ].
-	aDatabase when: Announcement do: [ :anAnnouncement :anAnnouncer | aCollection add: anAnnouncer ].
-	aBlockThree notifier local; database; announce: Announcement.
+	aBlockThree weak
+		when: Announcement
+		send: #add:
+		to: aCollection.
+	aDatabase weak
+		when: Announcement
+		send: #add:
+		to: aCollection.
+	aBlockThree notifier
+		local;
+		database;
+		announce: Announcement.
 	self assert: aCollection size equals: 2.
 	self assert: aCollection first equals: aBlockThree announcer.
 	self assert: aCollection second equals: aDatabase announcer.

@@ -22,7 +22,8 @@ LeContentNotifierExamples >> bubblingInPage [
 	aCollection := OrderedCollection new.
 	self 
 		subscribeTo: aPage
-		andAllSnippets: [ :theAnnouncement | aCollection add: theAnnouncement ].
+		andAllChildrenSending: #add:
+		to: aCollection.
 	anAnnouncement := aPage notifier bubble; announce: Announcement.
 	self assert: anAnnouncement class equals: Announcement.
 	self assert: aCollection size equals: 1.
@@ -39,7 +40,8 @@ LeContentNotifierExamples >> bubblingInSecondSnippet [
 	aCollection := OrderedCollection new.
 	self 
 		subscribeTo: aPage
-		andAllSnippets: [ :theAnnouncement | aCollection add: theAnnouncement ].
+		andAllChildrenSending: #add:
+		to: aCollection.
 	anAnnouncement := aSecondSnippet notifier bubble; announce: Announcement.
 	self assert: anAnnouncement class equals: Announcement.
 	self assert: aCollection size equals: 3.
@@ -57,7 +59,8 @@ LeContentNotifierExamples >> bubblingInThirdSnippet [
 	aCollection := OrderedCollection new.
 	self 
 		subscribeTo: aPage
-		andAllSnippets: [ :theAnnouncement | aCollection add: theAnnouncement ].
+		andAllChildrenSending: #add:
+		to: aCollection.
 	anAnnouncement := aThirdSnippet notifier bubble; announce: Announcement.
 	self assert: anAnnouncement class equals: Announcement.
 	self assert: aCollection size equals: 4.
@@ -74,7 +77,8 @@ LeContentNotifierExamples >> localInPage [
 	aCollection := OrderedCollection new.
 	self 
 		subscribeTo: aPage
-		andAllSnippets: [ :theAnnouncement | aCollection add: theAnnouncement ].
+		andAllChildrenSending: #add:
+		to: aCollection.
 	anAnnouncement := aPage notifier bubble; announce: Announcement.
 	self assert: anAnnouncement class equals: Announcement.
 	self assert: aCollection size equals: 1.
@@ -91,7 +95,8 @@ LeContentNotifierExamples >> localInSecondSnippet [
 	aCollection := OrderedCollection new.
 	self 
 		subscribeTo: aPage
-		andAllSnippets: [ :theAnnouncement | aCollection add: theAnnouncement ].
+		andAllChildrenSending: #add:
+		to: aCollection.
 	anAnnouncement := aSecondSnippet notifier local; announce: Announcement.
 	self assert: anAnnouncement class equals: Announcement.
 	self assert: aCollection size equals: 1.
@@ -108,7 +113,8 @@ LeContentNotifierExamples >> localInThirdSnippet [
 	aCollection := OrderedCollection new.
 	self 
 		subscribeTo: aPage
-		andAllSnippets: [ :theAnnouncement | aCollection add: theAnnouncement ].
+		andAllChildrenSending: #add:
+		to: aCollection.
 	anAnnouncement := aThirdSnippet notifier local; announce: Announcement.
 	self assert: anAnnouncement class equals: Announcement.
 	self assert: aCollection size equals: 1.
@@ -128,10 +134,11 @@ LeContentNotifierExamples >> pageWithThreeSnippets [
 ]
 
 { #category : #'examples - support' }
-LeContentNotifierExamples >> subscribeTo: aPageOrSnippet andAllSnippets: aBlock [
-	aPageOrSnippet when: Announcement do: aBlock.
+LeContentNotifierExamples >> subscribeTo: aPageOrSnippet andAllChildrenSending: aSymbol to: aSubscriber [
+	aPageOrSnippet weak when: Announcement send: aSymbol to: aSubscriber.
 	aPageOrSnippet childrenDo: [ :eachChild |
 		self 
 			subscribeTo: eachChild 
-			andAllSnippets: aBlock ].
+			andAllChildrenSending: aSymbol
+			to: aSubscriber ].
 ]
