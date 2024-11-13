@@ -194,6 +194,23 @@ LeDatabaseClassStore >> defaultDatabaseName [
 	^ self dbClassName asString
 ]
 
+{ #category : #private }
+LeDatabaseClassStore >> explicitLinksHash [
+	"Return hash of explicit links from the receiver's class"
+
+	<return: #LeBinaryContentsHash or: nil>
+	| method |
+
+	method := dbClass class methodDict
+		at: #links
+		ifAbsent: [ ^ nil ].
+	^ [ 
+		storage hashFromMethod: method.
+	]
+		on: LeDBLoadError 
+		fork: [ :ex | ex pass ].
+]
+
 { #category : #attachments }
 LeDatabaseClassStore >> findAttachmentById: aUuid [
 	| attachmentUUID |
@@ -227,7 +244,13 @@ LeDatabaseClassStore >> loadExplicitLinks [
 	method := dbClass class methodDict
 		at: #links
 		ifAbsent: [ ^ nil ].
-	^ [ storage loadFromMethod: method ]
+	^ [ 
+		| theExplicitLinks aHash |
+		theExplicitLinks := storage loadFromMethod: method.
+		aHash := storage hashFromMethod: method.
+		theExplicitLinks storageHash: aHash.
+		theExplicitLinks
+	]
 		on: LeDBLoadError 
 		fork: [ :ex | ex pass ].
 ]
@@ -241,12 +264,34 @@ LeDatabaseClassStore >> loadPropertiesDictionary [
 		do: [ :ex | self newPropertiesDictionary ]
 ]
 
+{ #category : #private }
+LeDatabaseClassStore >> pageHashFor: aLePage [
+	"Return stored content hash that corresponds to the given page"
+
+	<return: #LeBinaryContentsHash or: nil>
+	| method |
+
+	method := dbClass class methodDict
+		at: (storage pageSelectorFor: aLePage)
+		ifAbsent: [ ^ nil ].
+	
+	^ [ 
+		storage hashFromMethod: method.
+	]
+		on: LeDBLoadError 
+		fork: [ :ex | ex pass ].
+]
+
 { #category : #accessing }
 LeDatabaseClassStore >> pagesFromStore [
 	"Answer a collection of all pages loaded from the store"
 
 	^ (storage pageSelectorsIn: dbClass) collect: [ :selector |
-		storage loadFromClass: dbClass selector: selector ]
+		| page |
+		page := storage loadFromClass: dbClass selector: selector.
+		page ifNotNil: [ 
+			page storageHash: (self pageHashFor: page) ].
+		page ]
 ]
 
 { #category : #'accessing - db properties' }

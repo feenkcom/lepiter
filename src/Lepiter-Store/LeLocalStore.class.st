@@ -254,6 +254,18 @@ LeLocalStore >> explicitLinksFileReference [
 	^ self storage explicitLinksFileOrNilIn: self localRoot
 ]
 
+{ #category : #private }
+LeLocalStore >> explicitLinksHash [
+	<return: #LeBinaryContentsHash or: nil>
+	storage withExplicitLinksFileIn: localRoot do: [ :aFile |
+		[
+			^ LeBinaryContentsHash fromFileReference: aFile.
+		 ]
+			on: LeDBLoadError 
+			fork: [ :ex | ex pass ] ].
+	^ nil
+]
+
 { #category : #accessing }
 LeLocalStore >> explicitLinksOrNil [
 
@@ -413,6 +425,18 @@ LeLocalStore >> pageFilename: aLePage [
 LeLocalStore >> pageFilenameForId: aLePage [
 
 	^ storage pageFilenameForUid: aLePage
+]
+
+{ #category : #accessing }
+LeLocalStore >> pageHashFor: aLePage [
+	<return: #LeBinaryContentsHash or: nil>
+
+	| aFile |
+	aFile := localRoot / (self pageFilename: aLePage).
+	aFile ifNil: [ ^ nil ].
+	aFile exists ifFalse: [ ^ nil ].
+	
+	^ LeBinaryContentsHash fromFileReference: aFile
 ]
 
 { #category : #accessing }

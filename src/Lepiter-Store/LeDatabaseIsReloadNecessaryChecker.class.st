@@ -67,16 +67,16 @@ LeDatabaseIsReloadNecessaryChecker >> check [
 	
 	"4. Check explicit links change status."
 	self database explicitLinks ifNotNil: [ :aModel | 
-		| aFile |
-		aFile := aMonitor explicitLinksFileReference.
-		(self checkModel: aModel file: aFile)
+		| aHash |
+		aHash := aMonitor explicitLinksHash.
+		(self checkModel: aModel storageHash: aHash)
 			ifNotNil: [ :aReason | ^ aReason ] ].
 	
 	"5. Check change status of all pages."
 	self database pagesDo: [ :aPage | 
-		| aFile |
-		aFile := aMonitor pageFileReference: aPage.
-		(self checkModel: aPage file: aFile)
+		| aHash |
+		aHash := aMonitor pageHashFor: aPage.
+		(self checkModel: aPage storageHash: aHash)
 			ifNotNil: [ :aReason | ^ aReason ] ].
 	
 	"6. Nothing was changed."
@@ -85,25 +85,21 @@ LeDatabaseIsReloadNecessaryChecker >> check [
 ]
 
 { #category : #checking }
-LeDatabaseIsReloadNecessaryChecker >> checkModel: aModel file: aFile [
-	aFile ifNil: [ ^ nil ].
-	aFile exists ifFalse: [ ^ nil ].
+LeDatabaseIsReloadNecessaryChecker >> checkModel: aModel storageHash: aStorageHash [
+	aStorageHash ifNil: [ ^ nil ].
 
 	aModel storageHash
 		ifNil: [ 
 			^ LeDatabaseMissingHashReloadReason new
 				database: self database;
 				model: aModel ]
-		ifNotNil: [ :aHash | 
-			| aFileHash |
-			aFileHash := LeBinaryContentsHash fromFileReference: aFile.
-			aHash = aFileHash ifFalse: [ 
+		ifNotNil: [ :aModelHash | 
+			aModelHash = aStorageHash ifFalse: [ 
 				^ LeDatabaseFileChangedReloadReason new
 					database: self database;
 					model: aModel;
-					modelHash: aHash;
-					file: aFile;
-					fileHash: aFileHash ] ].
+					modelHash: aModelHash;
+					storageHash: aStorageHash ] ].
 
 	^ nil
 ]

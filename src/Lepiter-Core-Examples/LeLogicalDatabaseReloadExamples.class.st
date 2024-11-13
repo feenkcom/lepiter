@@ -615,8 +615,8 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseWithFileLocatorRootReload [
 	"Confirm that each DB has been reloaded correctly"
 	{primaryDB.
 		registeredDB}
-		do: [
-			"Confirm that each DB has the same page":db | 
+		do: [ :db | 
+			"Confirm that each DB has the same page"
 			self assert: (db pageNamed: #Page1) children first string equals: #Snippet1.
 			"Confirm that each DB has the logical DB as its parent"
 			self assert: db parent equals: logicalDB ].

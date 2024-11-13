@@ -149,16 +149,21 @@ LeDatabaseClassStoreLoad >> loadPages [
 	pageIds := Set new.
 	pages := OrderedCollection new.
 	(storage pageSelectorsIn: dbClass) do: [ :selector |
-		[ page := storage loadFromMethod: (dbClass class methodDict at: selector).
-		(pageIds includes: page uid) ifTrue: 
-			[ storage renameTo: 'duplicate' pageUid: page uid class: dbClass.
-			duplicates add: selector ]
-		ifFalse:
-			[ pageIds add: page uid.
-			pages add: page ] ]
-				on: LeDBLoadError 
-				fork: [ :ex | 
-					corrupted add: file.
-					ex pass ] ].
+		[ 
+			page := storage loadFromMethod: (dbClass class methodDict at: selector).
+			page ifNotNil: [
+				page storageHash: (self pageHashFor: page) ].
+			(pageIds includes: page uid) ifTrue: 
+				[ storage renameTo: 'duplicate' pageUid: page uid class: dbClass.
+				duplicates add: selector ]
+			ifFalse:
+				[ pageIds add: page uid.
+				pages add: page ] 
+		]
+			on: LeDBLoadError 
+			fork: [ :ex | 
+				corrupted add: file.
+				ex pass ] ].
+	
 	^ pages reject: #isNil.
 ]

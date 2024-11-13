@@ -33,6 +33,7 @@ LeDatabaseClassMonitorExamples >> databaseRoundTrip [
 { #category : #'examples - monitor' }
 LeDatabaseClassMonitorExamples >> monitorBlockAdded [
 	<gtExample>
+	<after: #stopMonitor>
 	| page3 page3FromFile |
 
 	self monitorWithDuration: Duration zero.
@@ -50,6 +51,7 @@ LeDatabaseClassMonitorExamples >> monitorBlockAdded [
 { #category : #'examples - monitor' }
 LeDatabaseClassMonitorExamples >> monitorBlockModified [
 	<gtExample>
+	<after: #stopMonitor>
 	| page3 page3FromFile block31 |
 
 	self monitorWithDuration: Duration zero.
@@ -68,6 +70,7 @@ LeDatabaseClassMonitorExamples >> monitorBlockModified [
 { #category : #'examples - monitor' }
 LeDatabaseClassMonitorExamples >> monitorBlockRemoved [
 	<gtExample>
+	<after: #stopMonitor>
 	| page2 page2FromFile block21 |
 
 	self monitorWithDuration: Duration zero.
@@ -101,6 +104,7 @@ LeDatabaseClassMonitorExamples >> monitorClassRemoved [
 { #category : #'examples - monitor' }
 LeDatabaseClassMonitorExamples >> monitorExplicitLinkBetweenPagesAdded [
 	<gtExample>
+	<after: #stopMonitor>
 	| page1 page2 explicitLink explicitLinks explicitLinksReloaded |
 	
 	self monitorWithDuration: Duration zero.
@@ -151,6 +155,7 @@ LeDatabaseClassMonitorExamples >> monitorExplicitLinkBetweenPagesRemoved [
 LeDatabaseClassMonitorExamples >> monitorNamedPageEmptied [
 	"Removing all content from a named page should leave it on disk (with no content)"
 	<gtExample>
+	<after: #stopMonitor>
 	| page1 |
 
 	self monitorWithDuration: Duration zero.
@@ -165,6 +170,7 @@ LeDatabaseClassMonitorExamples >> monitorNamedPageEmptied [
 { #category : #'examples - monitor' }
 LeDatabaseClassMonitorExamples >> monitorPageAdded [
 	<gtExample>
+	<after: #stopMonitor>
 	| page title mpaReloaded |
 
 	title := 'Monitor Page Added'.
@@ -182,7 +188,8 @@ LeDatabaseClassMonitorExamples >> monitorPageAdded [
 { #category : #'examples - monitor' }
 LeDatabaseClassMonitorExamples >> monitorPageMethodAdded [
 	<gtExample>
-
+	<after: #stopMonitor>
+	
 	self monitorWithDuration: Duration zero.
 	self deny: (monitor database hasPageNamed: 'Monitor Method Added').
 	monitor dbClass class
@@ -231,6 +238,7 @@ LeDatabaseClassMonitorExamples >> monitorPageMethodRemoved [
 { #category : #'examples - monitor' }
 LeDatabaseClassMonitorExamples >> monitorPageRemoved [
 	<gtExample>
+	<after: #stopMonitor>
 	| page3 |
 
 	self monitorWithDuration: Duration zero.
@@ -245,6 +253,7 @@ LeDatabaseClassMonitorExamples >> monitorPageRemoved [
 { #category : #'examples - monitor' }
 LeDatabaseClassMonitorExamples >> monitorPageTitleChanged [
 	<gtExample>
+	<after: #stopMonitor>
 	| page3 newPage3 |
 
 	self monitorWithDuration: Duration zero.
@@ -262,6 +271,7 @@ LeDatabaseClassMonitorExamples >> monitorPageTitleChanged [
 LeDatabaseClassMonitorExamples >> monitorPharoClassPageEmptied [
 	"Removing all content from a pharo class page should remove it from disk"
 	<gtExample>
+	<after: #stopMonitor>
 	| classPage |
 
 	self monitorWithDuration: Duration zero.
@@ -283,6 +293,7 @@ LeDatabaseClassMonitorExamples >> monitorPharoClassPageEmptied [
 LeDatabaseClassMonitorExamples >> monitorSaveDelay [
 	"Do a check that multiple updates are queued and processed."
 	<gtExample>
+	<after: #stopMonitor>
 	<noTest>
 	| page3 page3FromFile count |
 
@@ -419,7 +430,6 @@ LeDatabaseClassMonitorExamples >> reportMonitorSaveDelayError: title count: coun
 { #category : #private }
 LeDatabaseClassMonitorExamples >> reset [ 
 
-	memStore := nil.
 	database := nil.
 	monitor := nil.
 ]
