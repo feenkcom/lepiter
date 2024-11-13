@@ -22,7 +22,8 @@ LeExplicitLinks >> addLink: aLink [
 	self assert: [ aLink linkUuid notNil ] description: 'Here links should have a unique id'.
 	self assert: [ (self hasExplicitLinkUID: aLink linkUuid) not ].
 	
-	externalLinksByUuid at: aLink linkUuid put: aLink
+	externalLinksByUuid at: aLink linkUuid put: aLink.
+	self clearStorageHash
 ]
 
 { #category : #accessing }
@@ -43,6 +44,11 @@ LeExplicitLinks >> at: aLinkUuid ifPresent: aPresentBlock ifAbsent: anAbsentBloc
 		at: aLinkUuid 
 		ifPresent: aPresentBlock 
 		ifAbsent: anAbsentBlock
+]
+
+{ #category : #'api - updating' }
+LeExplicitLinks >> clearStorageHash [
+	self clearOption: #storageHash ifAbsent: [ "ignore" ]
 ]
 
 { #category : #'private-for tests' }
@@ -181,6 +187,7 @@ LeExplicitLinks >> printOn: aStream [
 
 { #category : #removing }
 LeExplicitLinks >> remove: anExplicitLink ifAbsent: aBlock [
+	self clearStorageHash.
 	^ externalLinksByUuid 
 		removeKey: anExplicitLink linkUuid 
 		ifAbsent: aBlock
@@ -188,6 +195,7 @@ LeExplicitLinks >> remove: anExplicitLink ifAbsent: aBlock [
 
 { #category : #removing }
 LeExplicitLinks >> removeAll: aCollectionOfLinks [ 
+	self clearStorageHash.
 	aCollectionOfLinks do: [ :anExplicitLink |
 		externalLinksByUuid 
 			removeKey: anExplicitLink linkUuid 
@@ -203,6 +211,16 @@ LeExplicitLinks >> select: aBlock [
 { #category : #accessing }
 LeExplicitLinks >> size [ 	
 	^ externalLinksByUuid size
+]
+
+{ #category : #'api - updating' }
+LeExplicitLinks >> storageHash [
+	^ self optionAt: #storageHash ifAbsent: [ nil ]
+]
+
+{ #category : #'api - updating' }
+LeExplicitLinks >> storageHash: aLeBinaryContentsHash [ 
+	^ self optionAt: #storageHash put: aLeBinaryContentsHash
 ]
 
 { #category : #accessing }

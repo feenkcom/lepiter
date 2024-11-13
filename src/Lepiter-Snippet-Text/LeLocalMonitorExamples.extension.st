@@ -3,6 +3,7 @@ Extension { #name : #LeLocalMonitorExamples }
 { #category : #'*Lepiter-Snippet-Text' }
 LeLocalMonitorExamples >> monitorPageAdded [
 	<gtExample>
+	<after: #stopMonitor>
 	| page title mpaFilename mpaFromFile |
 
 	title := 'Monitor Page Added'.
@@ -22,6 +23,7 @@ LeLocalMonitorExamples >> monitorPageAdded [
 LeLocalMonitorExamples >> monitorPharoClassPageEmptied [
 	"Removing all content from a pharo class page should remove it from disk"
 	<gtExample>
+	<after: #stopMonitor>
 	| classPage pageFilename |
 
 	self monitorWithDuration: Duration zero.

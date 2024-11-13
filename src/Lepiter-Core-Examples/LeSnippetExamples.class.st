@@ -134,22 +134,25 @@ LeSnippetExamples >> indentedPage [
 LeSnippetExamples >> indentedPage_doesNotTriggerAddAndRemoveAnnouncement [
 	<gtExample>
 	| page snippetFour addAnnouncements removeAnnouncements |
-
 	page := self exampleMergingPage.
 
 	addAnnouncements := OrderedCollection new.
 	removeAnnouncements := OrderedCollection new.
-	page database when: LeContentTreeAdded do: [ :anAddAnnouncement | 
-		addAnnouncements add: anAddAnnouncement ].
-	page database when: LeContentTreeRemoved do: [ :aRemoveAnnouncement | 
-		removeAnnouncements add: aRemoveAnnouncement ].
-	
+	page database weak
+		when: LeContentTreeAdded
+		send: #add:
+		to: addAnnouncements.
+	page database weak
+		when: LeContentTreeRemoved
+		send: #add:
+		to: removeAnnouncements.
+
 	snippetFour := page children at: 4.
 	snippetFour indent.
-	
+
 	self assert: addAnnouncements size equals: 0.
 	self assert: removeAnnouncements size equals: 0.
-	
+
 	^ page
 ]
 
@@ -157,18 +160,19 @@ LeSnippetExamples >> indentedPage_doesNotTriggerAddAndRemoveAnnouncement [
 LeSnippetExamples >> indentedPage_triggersMoveAnnouncement [
 	<gtExample>
 	| page snippetFour moveAnnouncements |
-
 	page := self exampleMergingPage.
 
 	moveAnnouncements := OrderedCollection new.
-	page database when: LeContentTreeMoved do: [ :aMoveAnnouncement | 
-		moveAnnouncements add: aMoveAnnouncement ].
-	
+	page database weak
+		when: LeContentTreeMoved
+		send: #add:
+		to: moveAnnouncements.
+
 	snippetFour := page children at: 4.
 	snippetFour indent.
-	
+
 	self assert: moveAnnouncements size equals: 1.
-	
+
 	^ page
 ]
 
@@ -401,23 +405,26 @@ LeSnippetExamples >> moveDownSnippetToDifferentParentWithoutChildren [
 LeSnippetExamples >> moveSnippetDownInDifferentParent_doesNotTriggerAddAndRemoveAnnouncement [
 	<gtExample>
 	| page snippetTwo snippetThree addAnnouncements removeAnnouncements |
-
 	page := self indentedPage.
 
 	addAnnouncements := OrderedCollection new.
 	removeAnnouncements := OrderedCollection new.
-	page database when: LeContentTreeAdded do: [ :anAddAnnouncement | 
-		addAnnouncements add: anAddAnnouncement ].
-	page database when: LeContentTreeRemoved do: [ :aRemoveAnnouncement | 
-		removeAnnouncements add: aRemoveAnnouncement ].
-	
+	page database weak
+		when: LeContentTreeAdded
+		send: #add:
+		to: addAnnouncements.
+	page database weak
+		when: LeContentTreeRemoved
+		send: #add:
+		to: removeAnnouncements.
+
 	snippetTwo := page children at: 2.
 	snippetThree := snippetTwo children first.
 	snippetThree moveDown.
-	
+
 	self assert: addAnnouncements size equals: 0.
 	self assert: removeAnnouncements size equals: 0.
-	
+
 	^ page
 ]
 
@@ -425,19 +432,20 @@ LeSnippetExamples >> moveSnippetDownInDifferentParent_doesNotTriggerAddAndRemove
 LeSnippetExamples >> moveSnippetDownInDifferentParent_triggersMoveAnnouncement [
 	<gtExample>
 	| page snippetTwo snippetThree moveAnnouncements |
-
 	page := self indentedPage.
 
 	moveAnnouncements := OrderedCollection new.
-	page database when: LeContentTreeMoved do: [ :aMoveAnnouncement | 
-		moveAnnouncements add: aMoveAnnouncement ].
-	
+	page database weak
+		when: LeContentTreeMoved
+		send: #add:
+		to: moveAnnouncements.
+
 	snippetTwo := page children at: 2.
 	snippetThree := snippetTwo children first.
 	snippetThree moveDown.
-	
+
 	self assert: moveAnnouncements size equals: 1.
-	
+
 	^ page
 ]
 
@@ -445,22 +453,25 @@ LeSnippetExamples >> moveSnippetDownInDifferentParent_triggersMoveAnnouncement [
 LeSnippetExamples >> moveSnippetDownInPage_doesNotTriggerAddAndRemoveAnnouncement [
 	<gtExample>
 	| page snippetTwo addAnnouncements removeAnnouncements |
-
 	page := self exampleMergingPage.
 
 	addAnnouncements := OrderedCollection new.
 	removeAnnouncements := OrderedCollection new.
-	page database when: LeContentTreeAdded do: [ :anAddAnnouncement | 
-		addAnnouncements add: anAddAnnouncement ].
-	page database when: LeContentTreeRemoved do: [ :aRemoveAnnouncement | 
-		removeAnnouncements add: aRemoveAnnouncement ].
-	
+	page database weak
+		when: LeContentTreeAdded
+		send: #add:
+		to: addAnnouncements.
+	page database weak
+		when: LeContentTreeRemoved
+		send: #add:
+		to: removeAnnouncements.
+
 	snippetTwo := page children at: 2.
 	snippetTwo moveDown.
-	
+
 	self assert: addAnnouncements size equals: 0.
 	self assert: removeAnnouncements size equals: 0.
-	
+
 	^ page
 ]
 
@@ -468,18 +479,19 @@ LeSnippetExamples >> moveSnippetDownInPage_doesNotTriggerAddAndRemoveAnnouncemen
 LeSnippetExamples >> moveSnippetDownInPage_triggersMoveAnnouncement [
 	<gtExample>
 	| page snippetTwo moveAnnouncements |
-
 	page := self exampleMergingPage.
 
 	moveAnnouncements := OrderedCollection new.
-	page database when: LeContentTreeMoved do: [ :aMoveAnnouncement | 
-		moveAnnouncements add: aMoveAnnouncement ].
-	
+	page database weak
+		when: LeContentTreeMoved
+		send: #add:
+		to: moveAnnouncements.
+
 	snippetTwo := page children at: 2.
 	snippetTwo moveDown.
-	
-	self assert: moveAnnouncements size equals:  1.
-	
+
+	self assert: moveAnnouncements size equals: 1.
+
 	^ page
 ]
 
@@ -487,23 +499,26 @@ LeSnippetExamples >> moveSnippetDownInPage_triggersMoveAnnouncement [
 LeSnippetExamples >> moveSnippetUpInDifferentParent_doesNotTriggerAddAndRemoveAnnouncement [
 	<gtExample>
 	| page snippetTwo snippetThree addAnnouncements removeAnnouncements |
-
 	page := self indentedPage.
 
 	addAnnouncements := OrderedCollection new.
 	removeAnnouncements := OrderedCollection new.
-	page database when: LeContentTreeAdded do: [ :anAddAnnouncement | 
-		addAnnouncements add: anAddAnnouncement ].
-	page database when: LeContentTreeRemoved do: [ :aRemoveAnnouncement | 
-		removeAnnouncements add: aRemoveAnnouncement ].
-	
+	page database weak
+		when: LeContentTreeAdded
+		send: #add:
+		to: addAnnouncements.
+	page database weak
+		when: LeContentTreeRemoved
+		send: #add:
+		to: removeAnnouncements.
+
 	snippetTwo := page children at: 2.
 	snippetThree := snippetTwo children first.
 	snippetThree moveUp.
-	
+
 	self assert: addAnnouncements size equals: 0.
 	self assert: removeAnnouncements size equals: 0.
-	
+
 	^ page
 ]
 
@@ -511,19 +526,20 @@ LeSnippetExamples >> moveSnippetUpInDifferentParent_doesNotTriggerAddAndRemoveAn
 LeSnippetExamples >> moveSnippetUpInDifferentParent_triggersMoveAnnouncement [
 	<gtExample>
 	| page snippetTwo snippetThree moveAnnouncements |
-
 	page := self indentedPage.
 
 	moveAnnouncements := OrderedCollection new.
-	page database when: LeContentTreeMoved do: [ :aMoveAnnouncement | 
-		moveAnnouncements add: aMoveAnnouncement ].
-	
+	page database weak
+		when: LeContentTreeMoved
+		send: #add:
+		to: moveAnnouncements.
+
 	snippetTwo := page children at: 2.
 	snippetThree := snippetTwo children first.
 	snippetThree moveUp.
-	
+
 	self assert: moveAnnouncements size equals: 1.
-	
+
 	^ page
 ]
 
@@ -531,22 +547,25 @@ LeSnippetExamples >> moveSnippetUpInDifferentParent_triggersMoveAnnouncement [
 LeSnippetExamples >> moveSnippetUpInPage_doesNotTriggerAddAndRemoveAnnouncement [
 	<gtExample>
 	| page snippetTwo addAnnouncements removeAnnouncements |
-
 	page := self exampleMergingPage.
 
 	addAnnouncements := OrderedCollection new.
 	removeAnnouncements := OrderedCollection new.
-	page database when: LeContentTreeAdded do: [ :anAddAnnouncement | 
-		addAnnouncements add: anAddAnnouncement ].
-	page database when: LeContentTreeRemoved do: [ :aRemoveAnnouncement | 
-		removeAnnouncements add: aRemoveAnnouncement ].
-	
+	page database weak
+		when: LeContentTreeAdded
+		send: #add:
+		to: addAnnouncements.
+	page database weak
+		when: LeContentTreeRemoved
+		send: #add:
+		to: removeAnnouncements.
+
 	snippetTwo := page children at: 2.
 	snippetTwo moveUp.
-	
+
 	self assert: addAnnouncements size equals: 0.
 	self assert: removeAnnouncements size equals: 0.
-	
+
 	^ page
 ]
 
@@ -554,18 +573,19 @@ LeSnippetExamples >> moveSnippetUpInPage_doesNotTriggerAddAndRemoveAnnouncement 
 LeSnippetExamples >> moveSnippetUpInPage_triggersMoveAnnouncement [
 	<gtExample>
 	| page snippetTwo moveAnnouncements |
-
 	page := self exampleMergingPage.
 
 	moveAnnouncements := OrderedCollection new.
-	page database when: LeContentTreeMoved do: [ :aMoveAnnouncement | 
-		moveAnnouncements add: aMoveAnnouncement ].
-	
+	page database weak
+		when: LeContentTreeMoved
+		send: #add:
+		to: moveAnnouncements.
+
 	snippetTwo := page children at: 2.
 	snippetTwo moveUp.
-	
-	self assert: moveAnnouncements size equals:  1.
-	
+
+	self assert: moveAnnouncements size equals: 1.
+
 	^ page
 ]
 
@@ -976,23 +996,26 @@ LeSnippetExamples >> unindentChildSnippet [
 LeSnippetExamples >> unindentSnippet_doesNotTriggerAddAndRemoveAnnouncement [
 	<gtExample>
 	| page snippetTwo snippetThree addAnnouncements removeAnnouncements |
-
 	page := self indentedPage.
 
 	addAnnouncements := OrderedCollection new.
 	removeAnnouncements := OrderedCollection new.
-	page database when: LeContentTreeAdded do: [ :anAddAnnouncement | 
-		addAnnouncements add: anAddAnnouncement ].
-	page database when: LeContentTreeRemoved do: [ :aRemoveAnnouncement | 
-		removeAnnouncements add: aRemoveAnnouncement ].
-	
+	page database weak
+		when: LeContentTreeAdded
+		send: #add:
+		to: addAnnouncements.
+	page database weak
+		when: LeContentTreeRemoved
+		send: #add:
+		to: removeAnnouncements.
+
 	snippetTwo := page children at: 2.
 	snippetThree := snippetTwo children first.
 	snippetThree unindent.
-	
+
 	self assert: addAnnouncements size equals: 0.
 	self assert: removeAnnouncements size equals: 0.
-	
+
 	^ page
 ]
 
@@ -1000,18 +1023,19 @@ LeSnippetExamples >> unindentSnippet_doesNotTriggerAddAndRemoveAnnouncement [
 LeSnippetExamples >> unindentSnippet_triggersMoveAnnouncement [
 	<gtExample>
 	| page snippetTwo snippetThree moveAnnouncements |
-
 	page := self indentedPage.
 
 	moveAnnouncements := OrderedCollection new.
-	page database when: LeContentTreeMoved do: [ :aMoveAnnouncement | 
-		moveAnnouncements add: aMoveAnnouncement ].
-	
+	page database weak
+		when: LeContentTreeMoved
+		send: #add:
+		to: moveAnnouncements.
+
 	snippetTwo := page children at: 2.
 	snippetThree := snippetTwo children first.
 	snippetThree unindent.
-	
+
 	self assert: moveAnnouncements size equals: 1.
-	
+
 	^ page
 ]

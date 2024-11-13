@@ -80,10 +80,10 @@ LeExplicitlyAttachedLinksExamples >> databaseWithExplicitLinkBetweenPages_addAnn
 		targetReference: (LeLinkPageUidReference forPageUid: secondPage uid).
 	
 	linksAddedAnnouncements := OrderedCollection new.
-	database 
+	database weak
 		when: LeExplicitLinkAddedAnnouncement 
-		do: [ :anAnnouncement | 
-			linksAddedAnnouncements add: anAnnouncement ].
+		send: #add:
+		to: linksAddedAnnouncements.
 		
 	database addExplicitLink: explicitLink.
 	
@@ -371,24 +371,24 @@ LeExplicitlyAttachedLinksExamples >> logicalDatabaseWithExplicitLinkBetweenPages
 	logicalDatabase := self logicalDatabaseWithTwoDatabases.
 	firstPage := logicalDatabase pageNamed: 'Page 1'.
 	secondPage := logicalDatabase pageNamed: 'Page 2'.
-	
-	explicitLink := LeAttachedLink new 
-		originReference: (LeLinkPageUidReference forPageUid: firstPage uid);
-		targetReference: (LeLinkPageUidReference 
-			forPageUid: secondPage uid
-			targetDatabaseUUID: secondPage database uuidString).
-			
+
+	explicitLink := LeAttachedLink new
+			originReference: (LeLinkPageUidReference forPageUid: firstPage uid);
+			targetReference: (LeLinkPageUidReference
+					forPageUid: secondPage uid
+					targetDatabaseUUID: secondPage database uuidString).
+
 	linksAddedAnnouncements := OrderedCollection new.
-	logicalDatabase
-		when: LeExplicitLinkAddedAnnouncement 
-		do: [ :anAnnouncement | 
-			linksAddedAnnouncements add: anAnnouncement ].
-	
+	logicalDatabase weak
+		when: LeExplicitLinkAddedAnnouncement
+		send: #add:
+		to: linksAddedAnnouncements.
+
 	logicalDatabase primaryDB addExplicitLink: explicitLink.
 	self assert: linksAddedAnnouncements size equals: 1.
 	self assert: linksAddedAnnouncements first newExplicitLink equals: explicitLink.
 	self assert: linksAddedAnnouncements first requiresSavingOfLinks.
-	
+
 	^ logicalDatabase
 ]
 
@@ -407,10 +407,10 @@ LeExplicitlyAttachedLinksExamples >> logicalDatabaseWithExplicitLinkBetweenPages
 			targetDatabaseUUID: secondPage database uuidString).
 			
 	linksAddedAnnouncements := OrderedCollection new.
-	logicalDatabase primaryDB
+	logicalDatabase primaryDB weak
 		when: LeExplicitLinkAddedAnnouncement 
-		do: [ :anAnnouncement | 
-			linksAddedAnnouncements add: anAnnouncement ].
+		send: #add:
+		to: linksAddedAnnouncements.
 	
 	logicalDatabase primaryDB addExplicitLink: explicitLink.
 	self assert: linksAddedAnnouncements size equals: 1.
@@ -581,15 +581,15 @@ LeExplicitlyAttachedLinksExamples >> primaryDatabase [
 { #category : #'examples - addition' }
 LeExplicitlyAttachedLinksExamples >> readdPageWithIncomingExplicitLinks [
 	<gtExample>
-	| database firstPage secondPage currentLink linksAddedAnnouncement |
+	| database firstPage secondPage currentLink linksAddedAnnouncements |
 	database := self removePageWithIncomingExplicitLinks.
 	firstPage := database pageNamed: 'Page 1'.
 	
-	linksAddedAnnouncement := nil.
-	database 
+	linksAddedAnnouncements := OrderedCollection new.
+	database weak
 		when: LeExplicitLinkAddedAnnouncement 
-		do: [ :anAnnouncement | 
-			linksAddedAnnouncement := anAnnouncement ].
+		send: #add:
+		to: linksAddedAnnouncements.
 	
 	currentLink := database explicitLinks first.
 	
@@ -601,7 +601,7 @@ LeExplicitlyAttachedLinksExamples >> readdPageWithIncomingExplicitLinks [
 	
 	self assert: database explicitLinksCount equals: 1.
 	self assert: database textualSnippetsLinksCount equals: 0.
-	self assert: linksAddedAnnouncement isNil.
+	self assert: linksAddedAnnouncements size equals: 0.
 	
 	self assert: currentLink originReference content equals: firstPage.
 	self assert: currentLink targetReference content equals: secondPage.
@@ -619,15 +619,15 @@ LeExplicitlyAttachedLinksExamples >> readdPageWithIncomingExplicitLinks [
 { #category : #'examples - addition' }
 LeExplicitlyAttachedLinksExamples >> readdPageWithIncomingExplicitLinksFromOtherDatabasePage [
 	<gtExample>
-	| logicalDatabase targetDatabase firstPage secondPage currentLink linksAddedAnnouncement |
+	| logicalDatabase targetDatabase firstPage secondPage currentLink linksAddedAnnouncements |
 	logicalDatabase := self removePageWithIncomingExplicitLinksFromOtherDatabasePage.
 	firstPage := logicalDatabase pageNamed: 'Page 1'.
 	
-	linksAddedAnnouncement := nil.
-	logicalDatabase 
+	linksAddedAnnouncements := OrderedCollection new.
+	logicalDatabase weak
 		when: LeExplicitLinkAddedAnnouncement 
-		do: [ :anAnnouncement | 
-			linksAddedAnnouncement := anAnnouncement ].
+		send: #add:
+		to: linksAddedAnnouncements.
 	
 	currentLink := logicalDatabase primaryDB explicitLinks first.
 	
@@ -640,7 +640,7 @@ LeExplicitlyAttachedLinksExamples >> readdPageWithIncomingExplicitLinksFromOther
 	
 	self assert: logicalDatabase explicitLinksCount equals: 1.
 	self assert: logicalDatabase textualSnippetsLinksCount equals: 0.
-	self assert: linksAddedAnnouncement isNil.
+	self assert: linksAddedAnnouncements size equals: 0.
 	
 	self assert: currentLink originReference content equals: firstPage.
 	self assert: currentLink targetReference content equals: secondPage.
@@ -726,22 +726,22 @@ LeExplicitlyAttachedLinksExamples >> removeExplicitLinkBetweenPagesFromDifferent
 { #category : #'examples - explicit links' }
 LeExplicitlyAttachedLinksExamples >> removePageWithIncomingExplicitLinks [
 	<gtExample>
-	| database firstPage secondPage currentLink linksRemovedAnnouncement |
+	| database firstPage secondPage currentLink linksRemovedAnnouncements |
 	database := self databaseWithExplicitLinkBetweenPages.
 	secondPage := database pageNamed: 'Page 2'.
 	firstPage := database pageNamed: 'Page 1'.
 	currentLink := database explicitLinks items first.
 	
-	linksRemovedAnnouncement := nil.
-	database 
+	linksRemovedAnnouncements := OrderedCollection new.
+	database weak
 		when: LeExplicitLinksRemovedAnnouncement 
-		do: [ :anAnnouncement | 
-			linksRemovedAnnouncement := anAnnouncement ].
+		send: #add:
+		to: linksRemovedAnnouncements.
 	
 	secondPage removeSelf.
 	self assert: database explicitLinksCount equals: 1.
 	self assert: database textualSnippetsLinksCount equals: 0.
-	self assert: linksRemovedAnnouncement isNil.
+	self assert: linksRemovedAnnouncements size equals: 0.
 	
 	self assert: currentLink targetReference content equals: nil.
 	self assert: currentLink targetReference pageUid equals: secondPage uid.
@@ -758,22 +758,22 @@ LeExplicitlyAttachedLinksExamples >> removePageWithIncomingExplicitLinks [
 { #category : #'examples - explicit links' }
 LeExplicitlyAttachedLinksExamples >> removePageWithIncomingExplicitLinksFromOtherDatabasePage [
 	<gtExample>
-	| logicalDatabase firstPage secondPage currentLink linksRemovedAnnouncement |
+	| logicalDatabase firstPage secondPage currentLink linksRemovedAnnouncements |
 	logicalDatabase := self logicalDatabaseWithExplicitLinkBetweenPages.
 	secondPage := logicalDatabase pageNamed: 'Page 2'.
 	firstPage := logicalDatabase pageNamed: 'Page 1'.
 	currentLink := logicalDatabase primaryDB explicitLinks items first.
 	
-	linksRemovedAnnouncement := nil.
-	logicalDatabase 
+	linksRemovedAnnouncements := OrderedCollection new.
+	logicalDatabase weak
 		when: LeExplicitLinksRemovedAnnouncement 
-		do: [ :anAnnouncement | 
-			linksRemovedAnnouncement := anAnnouncement ].
+		send: #add:
+		to: linksRemovedAnnouncements.
 	
 	secondPage removeSelf.
 	self assert: logicalDatabase explicitLinksCount equals: 1.
 	self assert: logicalDatabase textualSnippetsLinksCount equals: 0.
-	self assert: linksRemovedAnnouncement isNil.
+	self assert: linksRemovedAnnouncements size equals: 0.
 	
 	self assert: currentLink targetReference content equals: nil.
 	self assert: currentLink targetReference pageUid equals: secondPage uid.
@@ -790,25 +790,25 @@ LeExplicitlyAttachedLinksExamples >> removePageWithIncomingExplicitLinksFromOthe
 { #category : #'examples - explicit links' }
 LeExplicitlyAttachedLinksExamples >> removePageWithOutgoingExplicitLinks [
 	<gtExample>
-	| database currentLink firstPage secondPage linksRemovedAnnouncement |
+	| database currentLink firstPage secondPage linksRemovedAnnouncements |
 	database := self databaseWithExplicitLinkBetweenPages.
 	firstPage := database pageNamed: 'Page 1'.
 	secondPage := database pageNamed: 'Page 2'.
 	currentLink := database explicitLinks items first.
 	
-	linksRemovedAnnouncement := nil.
-	database 
+	linksRemovedAnnouncements := OrderedCollection new.
+	database weak
 		when: LeExplicitLinksRemovedAnnouncement 
-		do: [ :anAnnouncement | 
-			linksRemovedAnnouncement := anAnnouncement ].
+		send: #add:
+		to: linksRemovedAnnouncements.
 	
 	firstPage removeSelf.
 	self assert: database explicitLinksCount equals: 0.
 	self assert: database textualSnippetsLinksCount equals: 0.
 	
-	self assert: linksRemovedAnnouncement notNil.
-	self assert: linksRemovedAnnouncement removedExplicitLinks size equals: 1.
-	self assert: linksRemovedAnnouncement removedExplicitLinks items first equals: currentLink.
+	self assert: linksRemovedAnnouncements size equals: 1.
+	self assert: linksRemovedAnnouncements first removedExplicitLinks size equals: 1.
+	self assert: linksRemovedAnnouncements first removedExplicitLinks items first equals: currentLink.
 	
 	self assert: firstPage outgoingExplicitLinks size equals: 0.
 	self assert: firstPage incomingLinks size equals: 0.
@@ -822,26 +822,26 @@ LeExplicitlyAttachedLinksExamples >> removePageWithOutgoingExplicitLinks [
 { #category : #'examples - explicit links' }
 LeExplicitlyAttachedLinksExamples >> removePageWithOutgoingExplicitLinksToOtherDatabasePage [
 	<gtExample>
-	| logicalDatabase currentLink firstPage secondPage linksRemovedAnnouncement |
+	| logicalDatabase currentLink firstPage secondPage linksRemovedAnnouncements |
 	logicalDatabase := self logicalDatabaseWithExplicitLinkBetweenPages.
 	firstPage := logicalDatabase pageNamed: 'Page 1'.
 	secondPage := logicalDatabase pageNamed: 'Page 2'.
 	currentLink := logicalDatabase primaryDB explicitLinks items first.
 	
-	linksRemovedAnnouncement := nil.
-	logicalDatabase 
+	linksRemovedAnnouncements := OrderedCollection new.
+	logicalDatabase weak
 		when: LeExplicitLinksRemovedAnnouncement 
-		do: [ :anAnnouncement | 
-			linksRemovedAnnouncement := anAnnouncement ].
+		send: #add:
+		to: linksRemovedAnnouncements.
 	
 	firstPage removeSelf.
 	self assert: logicalDatabase primaryDB explicitLinksCount equals: 0.
 	self assert: logicalDatabase registeredDBs first explicitLinksCount equals: 0.
 	self assert: logicalDatabase explicitLinksCount equals: 0.
 	
-	self assert: linksRemovedAnnouncement notNil.
-	self assert: linksRemovedAnnouncement removedExplicitLinks size equals: 1.
-	self assert: linksRemovedAnnouncement removedExplicitLinks items first equals: currentLink.
+	self assert: linksRemovedAnnouncements size equals: 1.
+	self assert: linksRemovedAnnouncements first removedExplicitLinks size equals: 1.
+	self assert: linksRemovedAnnouncements first removedExplicitLinks items first equals: currentLink.
 	
 	self assert: firstPage outgoingExplicitLinks size equals: 0.
 	self assert: firstPage incomingLinks size equals: 0.
@@ -864,10 +864,10 @@ LeExplicitlyAttachedLinksExamples >> removePageWithSnippetWithIncomingExplicitLi
 	currentLink := database explicitLinks items first.
 	
 	linksRemovedAnnouncements := OrderedCollection new.
-	database 
+	database weak
 		when: LeExplicitLinksRemovedAnnouncement 
-		do: [ :anAnnouncement | 
-			linksRemovedAnnouncements add: anAnnouncement ].
+		send: #add:
+		to: linksRemovedAnnouncements..
 	
 	secondPage removeSelf.
 	self assert: database explicitLinks size equals: 1.
@@ -895,10 +895,10 @@ LeExplicitlyAttachedLinksExamples >> removePageWithSnippetWithOutgoingExplicitLi
 	firstSnippet := firstPage children first.
 	secondSnippet := secondPage children first.
 	linksRemovedAnnouncements := OrderedCollection new.
-	database
-		when: LeExplicitLinksRemovedAnnouncement
-		do:
-			[ :anAnnouncement | linksRemovedAnnouncements add: anAnnouncement ].
+	database weak
+		when: LeExplicitLinksRemovedAnnouncement 
+		send: #add:
+		to: linksRemovedAnnouncements.
 	firstPage removeSelf.
 	self assert: database explicitLinks size equals: 0.
 	self assert: linksRemovedAnnouncements size equals: 1.
@@ -923,10 +923,10 @@ LeExplicitlyAttachedLinksExamples >> removeSnippetWithChildSnippetsWithIncomingE
 	currentLink := database explicitLinks items first.
 	
 	linksRemovedAnnouncements := OrderedCollection new.
-	database 
+	database weak
 		when: LeExplicitLinksRemovedAnnouncement 
-		do: [ :anAnnouncement | 
-			linksRemovedAnnouncements add: anAnnouncement ].
+		send: #add:
+		to: linksRemovedAnnouncements.
 	
 	firstSnippet removeSelf.
 	self assert: database explicitLinks size equals: 1.
@@ -947,10 +947,10 @@ LeExplicitlyAttachedLinksExamples >> removeSnippetWithChildSnippetsWithOutgoingE
 	firstSnippet := firstPage children first.
 	
 	linksRemovedAnnouncements := OrderedCollection new.
-	database 
+	database weak
 		when: LeExplicitLinksRemovedAnnouncement 
-		do: [ :anAnnouncement | 
-			linksRemovedAnnouncements add: anAnnouncement ].
+		send: #add:
+		to: linksRemovedAnnouncements.
 	
 	firstSnippet removeSelf.
 	self assert: database explicitLinks isEmpty.
@@ -964,7 +964,7 @@ LeExplicitlyAttachedLinksExamples >> removeSnippetWithChildSnippetsWithOutgoingE
 { #category : #'examples - explicit links' }
 LeExplicitlyAttachedLinksExamples >> removeSnippetWithIncomingExplicitLinks [
 	<gtExample>
-	| database firstPage secondPage firstSnippet secondSnippet currentLink linksRemovedAnnouncement |
+	| database firstPage secondPage firstSnippet secondSnippet currentLink linksRemovedAnnouncements |
 	database := self databaseWithExplicitLinkBetweenSnippets.
 	firstPage := database pageNamed: 'Page 1'.
 	firstSnippet := firstPage children first.
@@ -972,16 +972,16 @@ LeExplicitlyAttachedLinksExamples >> removeSnippetWithIncomingExplicitLinks [
 	secondSnippet := secondPage children first.
 	currentLink := database explicitLinks items first.
 	
-	linksRemovedAnnouncement := nil.
-	database 
+	linksRemovedAnnouncements := OrderedCollection new.
+	database weak
 		when: LeExplicitLinksRemovedAnnouncement 
-		do: [ :anAnnouncement | 
-			linksRemovedAnnouncement := anAnnouncement ].
+		send: #add:
+		to: linksRemovedAnnouncements.
 	
 	secondSnippet removeSelf.
 	self assert: database explicitLinks size equals: 1.
-	self assert: linksRemovedAnnouncement isNil.
-	
+	self assert: linksRemovedAnnouncements size equals: 0.
+
 	self assert: currentLink targetReference content equals: nil.
 	self assert: currentLink targetReference snippetUid equals: secondSnippet uid.
 	
@@ -997,23 +997,23 @@ LeExplicitlyAttachedLinksExamples >> removeSnippetWithIncomingExplicitLinks [
 { #category : #'examples - explicit links' }
 LeExplicitlyAttachedLinksExamples >> removeSnippetWithOutgoingExplicitLinks [
 	<gtExample>
-	| database firstPage secondPage firstSnippet secondSnippet linksRemovedAnnouncement |
+	| database firstPage secondPage firstSnippet secondSnippet linksRemovedAnnouncements |
 	database := self databaseWithExplicitLinkBetweenSnippets.
 	firstPage := database pageNamed: 'Page 1'.
 	firstSnippet := firstPage children first.
 	secondPage := database pageNamed: 'Page 2'.
 	secondSnippet := secondPage children first.
 	
-	linksRemovedAnnouncement := nil.
-	database 
+	linksRemovedAnnouncements := OrderedCollection new.
+	database weak
 		when: LeExplicitLinksRemovedAnnouncement 
-		do: [ :anAnnouncement | 
-			linksRemovedAnnouncement := anAnnouncement ].
+		send: #add:
+		to: linksRemovedAnnouncements.
 	
 	firstSnippet removeSelf.
 	self assert: database explicitLinks isEmpty.
-	self assert: linksRemovedAnnouncement notNil.
-	self assert: linksRemovedAnnouncement removedExplicitLinks size equals: 1.
+	self assert: linksRemovedAnnouncements size equals: 1.
+	self assert: linksRemovedAnnouncements first removedExplicitLinks size equals: 1.
 	
 	self assert: firstSnippet outgoingExplicitLinks size equals: 0.
 	self assert: firstSnippet incomingLinks size equals: 0.

@@ -79,9 +79,14 @@ LeDatabaseStore >> databaseName: aString [
 
 { #category : #'accessing - db properties' }
 LeDatabaseStore >> dbProperties [
+	<return: #GtStringContentDictionary>
+	^ dbProperties ifNil: [ dbProperties := self loadPropertiesDictionary ]
+]
 
-	^ dbProperties ifNil: 
-		[ dbProperties := self loadPropertiesDictionary ]
+{ #category : #'accessing - db properties' }
+LeDatabaseStore >> dbPropertiesOrNil [
+	<return: #GtStringContentDictionary or: nil>
+	^ dbProperties
 ]
 
 { #category : #accessing }

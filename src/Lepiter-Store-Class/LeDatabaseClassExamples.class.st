@@ -109,6 +109,12 @@ LeDatabaseClassExamples >> monitorWithDuration: aDuration [
 	^ monitor
 ]
 
+{ #category : #after }
+LeDatabaseClassExamples >> stopMonitor [
+	monitor ifNotNil: [ :aMonitor |
+		aMonitor stopMonitoring ]
+]
+
 { #category : #accessing }
 LeDatabaseClassExamples >> testDataLocation [
 

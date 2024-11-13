@@ -13,11 +13,13 @@ LeNotifierExamples >> addAllAnnouncementsIn: aDatabase into: aCollection [
 	<gtExample>
 	aDatabase
 		when: Announcement
-		do: [ :anAnnouncement :anAnnouncer | aCollection add: anAnnouncer ];
+		do: [ :anAnnouncement :anAnnouncer | 
+			aCollection add: anAnnouncer ];
 		allChildrenBreadthFirstDo: [ :aContent | 
 			aContent
 				when: Announcement
-				do: [ :anAnnouncement :anAnnouncer | aCollection add: anAnnouncer ] ]
+				do: [ :anAnnouncement :anAnnouncer | 
+					aCollection add: anAnnouncer ] ]
 ]
 
 { #category : #'examples - notifier' }

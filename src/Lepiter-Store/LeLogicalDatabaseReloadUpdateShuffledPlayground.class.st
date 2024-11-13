@@ -49,9 +49,14 @@ LeLogicalDatabaseReloadUpdateShuffledPlayground >> reloadAndStartMonitoringIn: a
 
 	self isAlsoPrimaryDB ifTrue: [ ^ self ].
 
-	self playgroundDB monitor
-		primitiveReloadWithErrorStrategy: self contentReloadErrorStrategy;
-		startMonitoring
+	LeDatabaseIsReloadNecessaryChecker new
+		database: self playgroundDB;
+		ifUpToDate: [
+			self playgroundDB monitor startMonitoring ] 
+		ifOutOfDate: [
+			self playgroundDB monitor
+				primitiveReloadWithErrorStrategy: self contentReloadErrorStrategy;
+				startMonitoring ]
 ]
 
 { #category : #evaluating }

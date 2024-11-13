@@ -28,9 +28,14 @@ LeLogicalDatabaseReloadUpdateShuffledDb >> database: anObject [
 LeLogicalDatabaseReloadUpdateShuffledDb >> reloadAndStartMonitoringIn: aLogicalDatabase [
 	"Existing (reused) databases should be reloaded and monitoring started"
 
-	self database monitor
-		primitiveReloadWithErrorStrategy: self contentReloadErrorStrategy;
-		startMonitoring
+	LeDatabaseIsReloadNecessaryChecker new
+		database: self database;
+		ifUpToDate: [
+			self database monitor startMonitoring ] 
+		ifOutOfDate: [
+			self database monitor
+				primitiveReloadWithErrorStrategy: self contentReloadErrorStrategy;
+				startMonitoring ]
 ]
 
 { #category : #evaluating }

@@ -51,21 +51,23 @@ LeTextualPageLinkWithinSameDatabaseExamples >> changeSnippetContentToRemoveLinks
 	| database currentLink linksRemovedAnnouncements |
 	database := self createDatabaseWithTextualLink.
 	currentLink := database explicitLinks items first.
-	
+
 	linksRemovedAnnouncements := OrderedCollection new.
-	database 
-		when: LeExplicitLinksRemovedAnnouncement 
-		do: [ :anAnnouncement | 
-			linksRemovedAnnouncements add: anAnnouncement ].
-	
+	database weak
+		when: LeExplicitLinksRemovedAnnouncement
+		send: #add:
+		to: linksRemovedAnnouncements.
+
 	self firstSnippet updateText: 'new content with no link' asRopedText.
-	
+
 	self assert: linksRemovedAnnouncements size equals: 1.
-	self assert: linksRemovedAnnouncements first removedExplicitLinks size equals: 1.
-	self 
-		assert: linksRemovedAnnouncements first removedExplicitLinks first 
+	self
+		assert: linksRemovedAnnouncements first removedExplicitLinks size
+		equals: 1.
+	self
+		assert: linksRemovedAnnouncements first removedExplicitLinks first
 		equals: currentLink.
-	
+
 	^ database
 ]
 
@@ -310,31 +312,32 @@ LeTextualPageLinkWithinSameDatabaseExamples >> createDatabaseWithTextualLinkToNo
 LeTextualPageLinkWithinSameDatabaseExamples >> createDatabaseWithTextualLink_addAnnouncementIsTriggered [
 	<gtExample>
 	<after: #stopDatabaseMonitoring>
-	
 	| pageOne firstSnippet linksAddedAnnouncements |
 	theDatabase := self emptyDatabase.
-	
-	pageOne := theDatabase pageBuilder 
-		title: 'Page 1';
-		add.
-	theDatabase pageBuilder 
+
+	pageOne := theDatabase pageBuilder
+			title: 'Page 1';
+			add.
+	theDatabase pageBuilder
 		title: 'Page 2';
 		add.
-	
+
 	linksAddedAnnouncements := OrderedCollection new.
-	theDatabase 
-		when: LeExplicitLinkAddedAnnouncement 
-		do: [ :anAnnouncement | 
-			linksAddedAnnouncements add: anAnnouncement ].
-	
-	firstSnippet := pageOne snippetBuilder string: 'First Snippet  with link to [[Page 2]]'; add.
-	
+	theDatabase weak
+		when: LeExplicitLinkAddedAnnouncement
+		send: #add:
+		to: linksAddedAnnouncements.
+
+	firstSnippet := pageOne snippetBuilder
+			string: 'First Snippet  with link to [[Page 2]]';
+			add.
+
 	self assert: linksAddedAnnouncements size equals: 1.
 	self assert: linksAddedAnnouncements first requiresSavingOfLinks not.
-	self 
-		assert: linksAddedAnnouncements first newExplicitLink 
+	self
+		assert: linksAddedAnnouncements first newExplicitLink
 		equals: firstSnippet outgoingExplicitLinks items first.
-	
+
 	^ theDatabase
 ]
 
@@ -668,21 +671,23 @@ LeTextualPageLinkWithinSameDatabaseExamples >> removeSnippetWithOutgoingTextualL
 	| database currentLink linksRemovedAnnouncements |
 	database := self createDatabaseWithTextualLink.
 	currentLink := database explicitLinks items first.
-	
+
 	linksRemovedAnnouncements := OrderedCollection new.
-	database 
-		when: LeExplicitLinksRemovedAnnouncement 
-		do: [ :anAnnouncement | 
-			linksRemovedAnnouncements add: anAnnouncement ].
-	
+	database weak
+		when: LeExplicitLinksRemovedAnnouncement
+		send: #add:
+		to: linksRemovedAnnouncements.
+
 	self firstSnippet removeSelf.
-	
+
 	self assert: linksRemovedAnnouncements size equals: 1.
-	self assert: linksRemovedAnnouncements first removedExplicitLinks size equals: 1.
-	self 
-		assert: linksRemovedAnnouncements first removedExplicitLinks items first 
+	self
+		assert: linksRemovedAnnouncements first removedExplicitLinks size
+		equals: 1.
+	self
+		assert: linksRemovedAnnouncements first removedExplicitLinks items first
 		equals: currentLink.
-	
+
 	^ database
 ]
 

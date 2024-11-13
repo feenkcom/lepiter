@@ -46,6 +46,17 @@ LeDatabaseClassStorage >> hasPageStored: aPage inClass: dbClass [
 ]
 
 { #category : #accessing }
+LeDatabaseClassStorage >> hashFromMethod: aCompiledMethod [
+	"Answer the hash of an object encoded in the supplied method"
+	
+	<return: #LeBinaryContentsHash>
+	| jsonString |
+
+	jsonString := (aCompiledMethod parseTree comments at: 2) contents.
+	^ LeBinaryContentsHash fromString: jsonString.
+]
+
+{ #category : #accessing }
 LeDatabaseClassStorage >> loadAttachmentFromMethod: aCompiledMethod [
 	"Answer the object encoded in the supplied method"
 
