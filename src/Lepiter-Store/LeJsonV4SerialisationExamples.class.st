@@ -7,6 +7,18 @@ Class {
 }
 
 { #category : #examples }
+LeJsonV4SerialisationExamples >> bitmap [
+	<gtExample>
+	| original deserialized |
+
+	original := Bitmap gtExampleIconBits.
+	deserialized := LeJsonV4 uniqueInstance deserialize:
+		(LeJsonV4 uniqueInstance serialize: original) readStream.
+	self assert: deserialized class equals: Bitmap.
+	self assert: original equals: deserialized.
+]
+
+{ #category : #examples }
 LeJsonV4SerialisationExamples >> byteArray [
 	"ByteArray serialisation changed from storeString to base64Encoded.
 	Confirm that both can be deserialised."
@@ -149,4 +161,16 @@ LeJsonV4SerialisationExamples >> scaledDecimal [
 	self assert: deserialized class equals: ScaledDecimal.
 	self assert: original equals: deserialized.
 	self assert: deserialized scale equals: 4.
+]
+
+{ #category : #examples }
+LeJsonV4SerialisationExamples >> uuid [
+	<gtExample>
+	| original deserialized |
+
+	original := UUID new.
+	deserialized := LeJsonV4 uniqueInstance deserialize:
+		(LeJsonV4 uniqueInstance serialize: original) readStream.
+	self assert: deserialized class equals: UUID.
+	self assert: original equals: deserialized.
 ]
