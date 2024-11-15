@@ -211,6 +211,11 @@ LePage >> canMoveToDatabase: aNewDatabase [
 	^ true
 ]
 
+{ #category : #'api - updating' }
+LePage >> clearStorageHash [
+	self clearOption: #storageHash ifAbsent: [ "ignore" ]
+]
+
 { #category : #'api - commands' }
 LePage >> commandBuilder [
 	^ LePageCommandBuilder forContent: self
@@ -349,6 +354,11 @@ LePage >> initialize [
 	self assignNewUID.
 	
 	editHistory := LePageEditHistory forPage: self.
+	
+	self weak 
+		when: LeSnippetContentChanged, LePageTitleChanged, LeContentTreeChanged
+		send: #clearStorageHash
+		to: self
 ]
 
 { #category : #initialization }
@@ -570,6 +580,16 @@ LePage >> renameTo: aString [
 { #category : #accessing }
 LePage >> shouldAppearInIndexOrDailyNotes [
 	^ self type shouldAppearInIndexOrDailyNotes
+]
+
+{ #category : #'api - updating' }
+LePage >> storageHash [
+	^ self optionAt: #storageHash ifAbsent: [ nil ]
+]
+
+{ #category : #'api - updating' }
+LePage >> storageHash: aLeBinaryContentsHash [
+	^ self optionAt: #storageHash put: aLeBinaryContentsHash
 ]
 
 { #category : #printing }

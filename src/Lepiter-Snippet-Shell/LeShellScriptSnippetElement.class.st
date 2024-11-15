@@ -97,7 +97,7 @@ LeShellScriptSnippetElement >> onSnippetViewModelChanged [
 LeShellScriptSnippetElement >> subscribeToSnippetViewModel [
 	super subscribeToSnippetViewModel.
 	
-	self coder announcer
+	self coder announcer weak
 		when: GtShellScriptStarted send: #onShellSourceCoderStarted: to: self;
 		when: GtShellScriptStopped send: #onShellSourceCoderStopped: to: self
 ]

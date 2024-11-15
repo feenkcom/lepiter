@@ -60,6 +60,7 @@ LeLocalMonitorExamples >> importedDatabase [
 { #category : #'examples - monitor' }
 LeLocalMonitorExamples >> monitorBlockAdded [
 	<gtExample>
+	<after: #stopMonitor>
 	| page3 page3FromFile |
 
 	self monitorWithDuration: Duration zero.
@@ -77,6 +78,7 @@ LeLocalMonitorExamples >> monitorBlockAdded [
 { #category : #'examples - monitor' }
 LeLocalMonitorExamples >> monitorBlockModified [
 	<gtExample>
+	<after: #stopMonitor>
 	| page3 page3FromFile block31 |
 
 	self monitorWithDuration: Duration zero.
@@ -95,6 +97,7 @@ LeLocalMonitorExamples >> monitorBlockModified [
 { #category : #'examples - monitor' }
 LeLocalMonitorExamples >> monitorBlockRemoved [
 	<gtExample>
+	<after: #stopMonitor>
 	| page2 page2FromFile block21 |
 
 	self monitorWithDuration: Duration zero.
@@ -114,6 +117,7 @@ LeLocalMonitorExamples >> monitorBlockRemoved [
 { #category : #'examples - monitor' }
 LeLocalMonitorExamples >> monitorExplicitLinkBetweenPagesAdded [
 	<gtExample>
+	<after: #stopMonitor>
 	| page1 page2 explicitLink explicitLinksFile explicitLinksFromFile |
 	
 	self monitorWithDuration: Duration zero.
@@ -164,6 +168,7 @@ LeLocalMonitorExamples >> monitorExplicitLinkBetweenPagesRemoved [
 LeLocalMonitorExamples >> monitorNamedPageEmptied [
 	"Removing all content from a named page should leave it on disk (with no content)"
 	<gtExample>
+	<after: #stopMonitor>
 	| page1 |
 
 	self monitorWithDuration: Duration zero.
@@ -178,6 +183,7 @@ LeLocalMonitorExamples >> monitorNamedPageEmptied [
 { #category : #'examples - monitor' }
 LeLocalMonitorExamples >> monitorPageRemoved [
 	<gtExample>
+	<after: #stopMonitor>
 	| page3 page3Filename |
 
 	self monitorWithDuration: Duration zero.
@@ -193,6 +199,7 @@ LeLocalMonitorExamples >> monitorPageRemoved [
 { #category : #'examples - monitor' }
 LeLocalMonitorExamples >> monitorPageTitleChanged [
 	<gtExample>
+	<after: #stopMonitor>
 	| page3 page3Filename newPage3 |
 
 	self monitorWithDuration: Duration zero.
@@ -211,6 +218,7 @@ LeLocalMonitorExamples >> monitorPageTitleChanged [
 LeLocalMonitorExamples >> monitorSaveDelay [
 	"Do a check that multiple updates are queued and processed."
 	<gtExample>
+	<after: #stopMonitor>
 	<noTest>
 	| page3 page3FromFile count |
 
@@ -277,4 +285,10 @@ LeLocalMonitorExamples >> reset [
 	memStore := nil.
 	database := nil.
 	monitor := nil.
+]
+
+{ #category : #after }
+LeLocalMonitorExamples >> stopMonitor [
+	monitor ifNotNil: [ :aMonitor |
+		aMonitor stopMonitoring ]
 ]

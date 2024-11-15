@@ -163,7 +163,8 @@ LeDatabaseReload >> reloadExplicitLink: anExplicitLink [
 		ifFalse: [ 
 			self database
 				explicitLinkWithUuid: anExplicitLink linkUuid
-				ifPresent: [ :existingLink | existingLink reloadFromExternalLink: anExplicitLink ]
+				ifPresent: [ :existingLink | 
+					existingLink reloadFromExternalLink: anExplicitLink ]
 				ifAbsent: [ 
 					anExplicitLink onAboutToAddToDatabase: self database.
 					self database basicAddExplicitLink: anExplicitLink.
@@ -176,8 +177,16 @@ LeDatabaseReload >> reloadExplicitLink: anExplicitLink [
 LeDatabaseReload >> reloadExplicitLinks: explicitLinks [
 
 	explicitLinks ifNil: [ ^ self ].
+	
+	LePageIsReloadNecessaryChecker new
+		existingPage: self database explicitLinks;
+		loadedPage: explicitLinks;
+		ifUpToDate: [ ^ self ] ifOutOfDate: [ "ignore" ].
+	
 	explicitLinks do: [ :anExplicitLink |
 		self reloadExplicitLink: anExplicitLink ].
+		
+	self database explicitLinks storageHash: explicitLinks storageHash
 ]
 
 { #category : #actions }
@@ -211,18 +220,21 @@ LeDatabaseReload >> reloadOnlyLinks [
 { #category : #private }
 LeDatabaseReload >> reloadPage: page [
 
-	(loadedPageIDs includes: page uid) ifTrue: 
-		[ monitor signalDuplicatePage: page 
-			reason: 'Duplicate page ID' 
-			originalException: nil]
-	ifFalse:
-		[ self database pageWithID: page uid
-			ifPresent: [ :existingPage | reloadedPages add: page
-				"existingPage reloadFromPage: page" ]
-			ifAbsent: 
-				[ self database setPage: page.
-				addedPages add: page ].
-		loadedPageIDs add: page uid ]
+	(loadedPageIDs includes: page uid) 
+		ifTrue: [ 
+			monitor signalDuplicatePage: page 
+				reason: 'Duplicate page ID' 
+				originalException: nil]
+		ifFalse: [ 
+			self database 
+				pageWithID: page uid
+				ifPresent: [ :existingPage | 
+					reloadedPages add: page
+					"existingPage reloadFromPage: page" ]
+				ifAbsent: 
+					[ self database setPage: page.
+					addedPages add: page ].
+			loadedPageIDs add: page uid ]
 ]
 
 { #category : #private }
@@ -300,7 +312,8 @@ LeDatabaseReload >> updateReloadedPages [
 	This must be called after all new pages have been added (#setPage:)"
 
 	reloadedPages do: [ :page |
-		self database pageWithID: page uid
+		self database 
+			pageWithID: page uid
 			ifPresent: [ :existingPage | existingPage newReloadFromPage: page ]
 			ifAbsent: [ self error: 'Unable to find existing page' ] ].
 ]

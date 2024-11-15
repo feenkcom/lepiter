@@ -162,16 +162,18 @@ LeLocalStoreLoad >> loadPagesIn: aRootFolder [
 	pages := OrderedCollection new.
 	(storage dbFilesIn: aRootFolder) do: [ :file |
 		[ page := storage loadFromFile: file.
-		(pageIds includes: page uid) ifTrue: 
-			[ file renameTo: (file withExtension: 'duplicate') basename.
-			duplicates add: file ]
-		ifFalse:
-			[ pageIds add: page uid.
-			pages add: page ] ]
-				on: LeDBLoadError 
-				fork: [ :ex | 
-					corrupted add: file.
-					ex pass ] ].
+		page storageHash: (LeBinaryContentsHash fromFileReference: file).
+		(pageIds includes: page uid) 
+			ifTrue: [ 
+				file renameTo: (file withExtension: 'duplicate') basename.
+				duplicates add: file ]
+			ifFalse: [ 
+				pageIds add: page uid.
+				pages add: page ] ]
+					on: LeDBLoadError 
+					fork: [ :ex | 
+						corrupted add: file.
+						ex pass ] ].
 	^ pages reject: #isNil
 ]
 

@@ -20,9 +20,10 @@ LeContentExamples >> addPageToDatabase [
 	aDatabase := self basicDatabase.
 	aCollection := OrderedCollection new.
 	
-	aDatabase 
+	aDatabase weak
 		when: Announcement "LeDatabasePageAdded" 
-		do: [ :anAnnouncement | aCollection add: anAnnouncement ].
+		send: #add:
+		to: aCollection.
 	aPage := LePage named: 'page one'.
 	aPage addSnippet: (LeTextSnippet string: 'snippet one').
 	aPage addSnippet: (LeTextSnippet string: 'snippet two').
@@ -560,9 +561,10 @@ LeContentExamples >> renameDatabasePageToUnnamed_PageTitleChanged_ReceivedByData
 	| aDatabase aPage aCollection |
 	aDatabase := self renameDatabasePage_PageTitleChanged_ReceivedByDatabase.
 	aCollection := OrderedCollection new.
-	aDatabase 
+	aDatabase weak
 		when: LePageTitleChanged
-		do: [ :anAnnouncement | aCollection add: anAnnouncement ].
+		send: #add:
+		to: aCollection.
 	aPage := aDatabase anyOne.
 	aPage updateTitle: ''.
 	self assert: aDatabase size equals: 1.
@@ -577,9 +579,10 @@ LeContentExamples >> renameDatabasePage_DatabaseResorted_AnnouncedByDatabase [
 	| aDatabase aPage aCollection |
 	aDatabase := self addPageToDatabase.
 	aCollection := OrderedCollection new.
-	aDatabase 
+	aDatabase weak
 		when: LeDatabaseResorted
-		do: [ :anAnnouncement | aCollection add: anAnnouncement ].
+		send: #add:
+		to: aCollection.
 	aPage := aDatabase anyOne.
 	aPage updateTitle: 'page two'.
 	self assert: aDatabase size equals: 1.
@@ -595,9 +598,10 @@ LeContentExamples >> renameDatabasePage_PageTitleChanged_AnnouncedByPage [
 	aDatabase := self addPageToDatabase.
 	aCollection := OrderedCollection new.
 	aPage := aDatabase anyOne.
-	aPage 
+	aPage weak
 		when: LePageTitleChanged
-		do: [ :anAnnouncement | aCollection add: anAnnouncement ].
+		send: #add:
+		to: aCollection.
 	aPage updateTitle: 'page two'.
 	self assert: aDatabase size equals: 1.
 	self assert: aCollection size equals: 1.
@@ -611,9 +615,10 @@ LeContentExamples >> renameDatabasePage_PageTitleChanged_ReceivedByDatabase [
 	| aDatabase aPage aCollection |
 	aDatabase := self addPageToDatabase.
 	aCollection := OrderedCollection new.
-	aDatabase 
+	aDatabase weak
 		when: LePageTitleChanged
-		do: [ :anAnnouncement | aCollection add: anAnnouncement ].
+		send: #add:
+		to: aCollection.
 	aPage := aDatabase anyOne.
 	aPage updateTitle: 'page two'.
 	self assert: aDatabase size equals: 1.

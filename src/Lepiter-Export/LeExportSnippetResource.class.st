@@ -40,11 +40,11 @@ LeExportSnippetResource >> gtFigureFor: aView [
 LeExportSnippetResource >> gtPageFor: aView [
 	<gtView>
 	snippet ifNil: [ ^ aView empty ].
-	
+
 	^ aView forward
 		title: 'Page';
 		priority: 30;
-		object: [ snippet page ];
+		object: [ self page ];
 		view: #gtLiveFor:
 ]
 
@@ -61,6 +61,16 @@ LeExportSnippetResource >> gtSnippetFor: aView [
 ]
 
 { #category : #accessing }
+LeExportSnippetResource >> page [
+	^ snippet ifNotNil: #page
+]
+
+{ #category : #accessing }
+LeExportSnippetResource >> pageTitle [
+	^ self page ifNotNil: #title
+]
+
+{ #category : #accessing }
 LeExportSnippetResource >> path [
 	<return: #RelativePath>
 	^ path
@@ -69,6 +79,24 @@ LeExportSnippetResource >> path [
 { #category : #accessing }
 LeExportSnippetResource >> path: aRelativePath [
 	path := aRelativePath
+]
+
+{ #category : #printing }
+LeExportSnippetResource >> printDetailsOn: aStream [
+	aStream
+		nextPutAll: 'page=';
+		print: self pageTitle;
+		nextPutAll: ', state=';
+		nextPutAll: (self state ifNotNil: #name) asString
+]
+
+{ #category : #printing }
+LeExportSnippetResource >> printOn: aStream [
+	super printOn: aStream.
+	
+	aStream nextPut: $(.
+	self printDetailsOn: aStream.
+	aStream nextPut: $)
 ]
 
 { #category : #accessing }

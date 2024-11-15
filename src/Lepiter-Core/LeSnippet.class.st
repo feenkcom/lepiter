@@ -62,6 +62,11 @@ page is associated to a database. If not the link will be lost.'.
 		targetReference: aTargetReference).
 ]
 
+{ #category : #refactoring }
+LeSnippet >> addParameterTo: oldName using: aRewriter [
+	^ nil
+]
+
 { #category : #'api - editing' }
 LeSnippet >> addSnippetAfterSelf [
 	"Add a new snippet after the receiver. Answer the new snippet"
@@ -203,7 +208,7 @@ LeSnippet >> changeToRenameClass: oldName to: newName [
 ]
 
 { #category : #refactoring }
-LeSnippet >> changeToRenameSelector: oldName to: newName [
+LeSnippet >> changeToRenameSelector: oldName to: newName using: aRewriter [
 	^ nil
 ]
 
@@ -571,6 +576,11 @@ LeSnippet >> previousSnippetDo: aBlock ifNone: aNoneBlock [
 				ifTrue: [ aNoneBlock value ]
 				ifFalse: [ aBlock value: self parent ] ]
 		ifFalse: [ aBlock value: (self parent children at: myIndex - 1) lastChildOrSelf ]
+]
+
+{ #category : #refactoring }
+LeSnippet >> removeParameterFrom: oldName using: aRewriter [
+	^ nil
 ]
 
 { #category : #removing }

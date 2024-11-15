@@ -50,6 +50,20 @@ LeCodeSnippet class >> stateAttributes [
 			ifFalse: [ LeGenericSnippetStateAttribute named: aMapping key ] ]
 ]
 
+{ #category : #references }
+LeCodeSnippet >> addParameterTo: oldName using: aRewriter [
+	| source ast |
+	self isForLocalImage ifFalse: [ ^ nil ].
+	source := self coder currentSourceString.
+	ast := RBParser parseFaultyExpression: source.
+	(aRewriter executeTree: ast)
+		ifTrue: [ ^ LeSnippetChange new
+				snippet: self;
+				newSource: aRewriter tree formattedCode;
+				yourself ].
+	^ nil
+]
+
 { #category : #'api - editing' }
 LeCodeSnippet >> appendText: aText source: anObject [
 
@@ -90,9 +104,18 @@ LeCodeSnippet >> changeToRenameClass: oldName to: newName [
 ]
 
 { #category : #references }
-LeCodeSnippet >> changeToRenameSelector: oldName to: newName [
-	| modifiedSource |
+LeCodeSnippet >> changeToRenameSelector: oldName to: newName using: aRewriter [
+	| modifiedSource source ast |
 	self isForLocalImage ifFalse: [ ^ nil ].
+	aRewriter
+		ifNotNil: [ source := self coder currentSourceString.
+			ast := RBParser parseFaultyExpression: source.
+			(aRewriter executeTree: ast)
+				ifTrue: [ ^ LeSnippetChange new
+						snippet: self;
+						newSource: aRewriter tree formattedCode;
+						yourself ].
+			^ nil ].
 	modifiedSource := SmaCCString on: self string.
 	self coder ast wait ast
 		withAllNodesDo: [ :each | 
@@ -283,6 +306,20 @@ LeCodeSnippet >> printOn: aStream [
 		nextPutAll: (self code 
 			ifNil: [''] ifNotNil: [self code takeFirst: 20]);
 		nextPutAll: ')'
+]
+
+{ #category : #references }
+LeCodeSnippet >> removeParameterFrom: oldName using: aRewriter [
+	| source ast |
+	self isForLocalImage ifFalse: [ ^ nil ].
+	source := self coder currentSourceString.
+	ast := RBParser parseFaultyExpression: source.
+	(aRewriter executeTree: ast)
+		ifTrue: [ ^ LeSnippetChange new
+				snippet: self;
+				newSource: aRewriter tree formattedCode;
+				yourself ].
+	^ nil
 ]
 
 { #category : #'private - event handling' }

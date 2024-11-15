@@ -1,6 +1,11 @@
 Extension { #name : #LeLogicalDatabase }
 
 { #category : #'*Lepiter-Store' }
+LeLogicalDatabase >> fullReload [
+	LeReloadOptimization disableDuring: [ self reload ]
+]
+
+{ #category : #'*Lepiter-Store' }
 LeLogicalDatabase >> reload [ 
 	self reloadWithForkedDebugging
 ]

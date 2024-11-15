@@ -8,6 +8,7 @@ Class {
 LeDatabaseClassAttachmentExamples >> addAttachmentByContent [
 	"Demonstrate attaching a file to a database by utf-8 content"
 	<gtExample>
+	<after: #stopMonitor>
 	| attachmentId userEmail now properties memFS |
 
 	self monitorWithDuration: Duration zero.
@@ -41,6 +42,7 @@ LeDatabaseClassAttachmentExamples >> addAttachmentByContent [
 LeDatabaseClassAttachmentExamples >> addAttachmentByCopy [
 	"Demonstrate attaching a file to a database by copy"
 	<gtExample>
+	<after: #stopMonitor>
 	| attachmentId attachmentPath attachmentSource userEmail now properties memFS |
 
 	self monitorWithDuration: Duration zero.
@@ -84,6 +86,7 @@ LeDatabaseClassAttachmentExamples >> addAttachmentByCopy [
 LeDatabaseClassAttachmentExamples >> addAttachmentByMove [
 	"Demonstrate attaching a file to a database by copy"
 	<gtExample>
+	<after: #stopMonitor>
 	| attachmentSource userEmail now memFS |
 
 	self monitorWithDuration: Duration zero.

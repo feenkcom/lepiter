@@ -40,7 +40,7 @@ LeAnnotationStylerVisitor >> changesFor: aChangesAnnotation [
 					filename := self resolve: fileNameWithExtension.
 					changes := GtEpicea new.
 					changes ombuFile: filename.
-					changes
+					changes weak
 						when: GtEpiceaUpdatedAnnouncement
 						send: #handleEpiceaUpdate:
 						to: self styler.

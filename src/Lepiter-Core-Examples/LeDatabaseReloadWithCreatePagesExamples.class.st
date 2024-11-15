@@ -62,7 +62,24 @@ LeDatabaseReloadWithCreatePagesExamples >> reloadPageOneAndThenPageTwo [
 	database := self removePageTwoRemoveLinksAndRestorePageOneWithMonitorStopped.
 	database monitor startMonitoring. 
 	
-	database reload.
+	LeReloadOptimization disableDuring: [ database reload ].
+	
+	self assert: database pageCount equals: 2.
+	self assert: database explicitLinksCount equals: 1.
+	self assert: (database hasPageNamed: 'PageOne').
+	self assert: (database hasPageNamed: 'PageTwo').
+	
+	^ database
+]
+
+{ #category : #examples }
+LeDatabaseReloadWithCreatePagesExamples >> reloadPageOneAndThenPageTwo_OptimizedReload [
+	<gtExample>
+	| database |
+	database := self removePageTwoRemoveLinksAndRestorePageOneWithMonitorStopped.
+	database monitor startMonitoring. 
+	
+	LeReloadOptimization enableDuring: [ database reload ].
 	
 	self assert: database pageCount equals: 2.
 	self assert: database explicitLinksCount equals: 1.

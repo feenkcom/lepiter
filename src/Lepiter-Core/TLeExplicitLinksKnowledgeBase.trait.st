@@ -229,7 +229,8 @@ TLeExplicitLinksKnowledgeBase >> setExplicitLinks: aCollectionOfLinks [
 	explicitLinks addAllLinks: aCollectionOfLinks.
 	aCollectionOfLinks do: [ :aLink |
 		aLink onAddedToDatabase: self.
-		self basicAddLinkToContentCache: aLink. ]
+		self basicAddLinkToContentCache: aLink. ].
+	explicitLinks storageHash: aCollectionOfLinks storageHash
 ]
 
 { #category : #initialization }

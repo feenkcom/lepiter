@@ -254,6 +254,18 @@ LeLocalStore >> explicitLinksFileReference [
 	^ self storage explicitLinksFileOrNilIn: self localRoot
 ]
 
+{ #category : #private }
+LeLocalStore >> explicitLinksHash [
+	<return: #LeBinaryContentsHash or: nil>
+	storage withExplicitLinksFileIn: localRoot do: [ :aFile |
+		[
+			^ LeBinaryContentsHash fromFileReference: aFile.
+		 ]
+			on: LeDBLoadError 
+			fork: [ :ex | ex pass ] ].
+	^ nil
+]
+
 { #category : #accessing }
 LeLocalStore >> explicitLinksOrNil [
 
@@ -340,7 +352,13 @@ LeLocalStore >> hasAttachmentWithId: aUuid [
 LeLocalStore >> loadExplicitLinks [
 	
 	storage withExplicitLinksFileIn: localRoot do: [ :aFile |
-		[ ^ storage loadFromFile: aFile ] 
+		[
+			| theExplicitLinks aHash |
+			theExplicitLinks := storage loadFromFile: aFile.
+			aHash := LeBinaryContentsHash fromFileReference: aFile.
+			theExplicitLinks storageHash: aHash.
+			^ theExplicitLinks
+		 ]
 			on: LeDBLoadError 
 			fork: [ :ex | ex pass ] ].
 	^ nil
@@ -410,11 +428,30 @@ LeLocalStore >> pageFilenameForId: aLePage [
 ]
 
 { #category : #accessing }
+LeLocalStore >> pageHashFor: aLePage [
+	<return: #LeBinaryContentsHash or: nil>
+
+	| aFile |
+	aFile := localRoot / (self pageFilename: aLePage).
+	aFile ifNil: [ ^ nil ].
+	aFile exists ifFalse: [ ^ nil ].
+	
+	^ LeBinaryContentsHash fromFileReference: aFile
+]
+
+{ #category : #accessing }
 LeLocalStore >> pagesFromStore [
 	"Answer a collection of all pages loaded from the store"
 
 	^ (storage dbFilesIn: self localRoot)
-		collect: [ :file | storage loadFromFile: file ]
+		collect: [ :file | 
+			| aPage |
+			aPage := storage loadFromFile: file.
+			aPage ifNotNil: [
+				| aHash |
+				aHash := LeBinaryContentsHash fromFileReference: file.
+				aPage storageHash: aHash ].
+			aPage ]
 ]
 
 { #category : #'accessing - db properties' }
