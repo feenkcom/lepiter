@@ -233,7 +233,7 @@ GtExamplePreviewStencil >> selectViewInPreviewElement: aViewElement onObject: an
 	| inspectorTabGroup |
 	self previewSelectSelector ifNil: [ ^ self ].
 	
-	inspectorTabGroup := aViewElement phlow firstChildWithView.
+	inspectorTabGroup := aViewElement phlow firstChildWithViewContent.
 	(GtInspectorTabSelector byViewMethod
 		methodSelector: self previewSelectSelector)
 			selectTabInGroup:  inspectorTabGroup on: anObject
