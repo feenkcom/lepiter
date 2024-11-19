@@ -17,8 +17,11 @@ LeBinaryContentsHash class >> fromFileReference: aFileReference [
 
 { #category : #factory }
 LeBinaryContentsHash class >> fromString: aString [
-	| aByteArray |
-	aByteArray := SHA1 hashStream: aString readStream.
+	| sourceArray aByteArray |
+	sourceArray := ByteArray new: aString byteSize.
+	1 to: aString byteSize do: [:i |
+		sourceArray at: i put: (aString byteAt: i)].
+	aByteArray := SHA1 hashMessage: sourceArray.
 	^ self new hex: aByteArray hex
 ]
 
