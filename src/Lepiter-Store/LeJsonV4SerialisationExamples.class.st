@@ -14,7 +14,7 @@ LeJsonV4SerialisationExamples >> bitmap [
 	original := Bitmap gtExampleIconBits.
 	deserialized := LeJsonV4 uniqueInstance deserialize:
 		(LeJsonV4 uniqueInstance serialize: original) readStream.
-	self assert: deserialized class equals: Bitmap.
+	self assert: deserialized class equals: original class.
 	self assert: original equals: deserialized.
 ]
 
