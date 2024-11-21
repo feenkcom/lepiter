@@ -115,6 +115,15 @@ LeDuplicatePageIdError >> database: aDatabase [
 	database := aDatabase
 ]
 
+{ #category : #'as yet unclassified' }
+LeDuplicatePageIdError >> deletePageFile: aPage [
+	"Delete the file from the supplied page, and if in the DB, remove the page"
+
+	self halt.
+	(database monitor pageFileReference: aPage) ensureDelete.
+	aPage removeSelf.
+]
+
 { #category : #accessing }
 LeDuplicatePageIdError >> file [
 	^ file
@@ -143,7 +152,9 @@ LeDuplicatePageIdError >> gtDetailsFor: aView [
 		column: 'On disk' text: [:each | (database monitor pageFileReference: each value) exists ];
 		contextItemLabel: 'Inspect database key' action: [:anElement :each | anElement phlow spawnObject: each value databaseKey ];
 		contextItemLabel: 'Inspect file' action: [:anElement :each | anElement phlow spawnObject: (database monitor pageFileReference: each value) ];
-		contextItemLabel: 'Delete file' action: [:anElement :each | (database monitor pageFileReference: each value) ensureDelete ] if: [:each | (database monitor pageFileReference: each value) exists ];
+		contextItemLabel: 'Delete page & file'
+			action: [ :anElement :each | self deletePageFile: each value ] 
+			if: [:each | (database monitor pageFileReference: each value) exists ];
 		send: #value
 ]
 
