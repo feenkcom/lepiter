@@ -119,7 +119,6 @@ LeDuplicatePageIdError >> database: aDatabase [
 LeDuplicatePageIdError >> deletePageFile: aPage [
 	"Delete the file from the supplied page, and if in the DB, remove the page"
 
-	self halt.
 	(database monitor pageFileReference: aPage) ensureDelete.
 	aPage removeSelf.
 ]
