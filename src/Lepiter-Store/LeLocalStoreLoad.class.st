@@ -162,7 +162,7 @@ LeLocalStoreLoad >> loadPagesIn: aRootFolder [
 	pages := OrderedCollection new.
 	(storage dbFilesIn: aRootFolder) do: [ :file |
 		[ page := storage loadFromFile: file.
-		LeDatabaseIsReloadNecessaryChecker  isReloadAlways ifFalse: [
+		LeReloadOptimization ifEnabled: [
 			page storageHash: (LeBinaryContentsHash fromFileReference: file) ].
 		(pageIds includes: page uid) 
 			ifTrue: [ 

@@ -230,7 +230,7 @@ TLeExplicitLinksKnowledgeBase >> setExplicitLinks: aCollectionOfLinks [
 	aCollectionOfLinks do: [ :aLink |
 		aLink onAddedToDatabase: self.
 		self basicAddLinkToContentCache: aLink. ].
-	LeDatabaseIsReloadNecessaryChecker  isReloadAlways ifFalse: [
+	LeReloadOptimization ifEnabled: [
 		explicitLinks storageHash: aCollectionOfLinks storageHash ].
 ]
 

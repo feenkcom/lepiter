@@ -97,7 +97,7 @@ LePage >> newReloadFromPage: aLePage [
 						ifFalse: [ type := aLePage type ] ].
 			changed := true ].
 			
-	LeDatabaseIsReloadNecessaryChecker  isReloadAlways ifFalse: [
+	LeReloadOptimization ifEnabled: [
 		self storageHash: aLePage storageHash ].
 
 	changed ifTrue: [ self announceTreeChanged: self ]

@@ -355,7 +355,7 @@ LeLocalStore >> loadExplicitLinks [
 		[
 			| theExplicitLinks aHash |
 			theExplicitLinks := storage loadFromFile: aFile.
-			LeDatabaseIsReloadNecessaryChecker  isReloadAlways ifFalse: [
+			LeReloadOptimization ifEnabled: [
 				aHash := LeBinaryContentsHash fromFileReference: aFile.
 				theExplicitLinks storageHash: aHash ].
 			^ theExplicitLinks
@@ -449,7 +449,7 @@ LeLocalStore >> pagesFromStore [
 			| aPage |
 			aPage := storage loadFromFile: file.
 			aPage ifNotNil: [
-				LeDatabaseIsReloadNecessaryChecker  isReloadAlways ifFalse: [
+				LeReloadOptimization ifEnabled: [
 					| aHash |
 					aHash := LeBinaryContentsHash fromFileReference: file.
 					aPage storageHash: aHash ] ].

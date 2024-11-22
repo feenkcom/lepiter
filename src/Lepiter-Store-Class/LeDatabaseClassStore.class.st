@@ -247,7 +247,7 @@ LeDatabaseClassStore >> loadExplicitLinks [
 	^ [ 
 		| theExplicitLinks |
 		theExplicitLinks := storage loadFromMethod: method.
-		LeDatabaseIsReloadNecessaryChecker  isReloadAlways ifFalse: [
+		LeReloadOptimization ifEnabled: [
 			| aHash |
 			aHash := storage hashFromMethod: method.
 			theExplicitLinks storageHash: aHash.
@@ -292,7 +292,7 @@ LeDatabaseClassStore >> pagesFromStore [
 		| page |
 		page := storage loadFromClass: dbClass selector: selector.
 		page ifNotNil: [ 
-			LeDatabaseIsReloadNecessaryChecker  isReloadAlways ifFalse: [
+			LeReloadOptimization ifEnabled: [
 				page storageHash: (self pageHashFor: page) ] ].
 		page ]
 ]
