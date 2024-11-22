@@ -245,11 +245,13 @@ LeDatabaseClassStore >> loadExplicitLinks [
 		at: #links
 		ifAbsent: [ ^ nil ].
 	^ [ 
-		| theExplicitLinks aHash |
+		| theExplicitLinks |
 		theExplicitLinks := storage loadFromMethod: method.
-		aHash := storage hashFromMethod: method.
-		theExplicitLinks storageHash: aHash.
-		theExplicitLinks
+		LeDatabaseIsReloadNecessaryChecker  isReloadAlways ifFalse: [
+			| aHash |
+			aHash := storage hashFromMethod: method.
+			theExplicitLinks storageHash: aHash.
+			theExplicitLinks ]
 	]
 		on: LeDBLoadError 
 		fork: [ :ex | ex pass ].
@@ -290,7 +292,8 @@ LeDatabaseClassStore >> pagesFromStore [
 		| page |
 		page := storage loadFromClass: dbClass selector: selector.
 		page ifNotNil: [ 
-			page storageHash: (self pageHashFor: page) ].
+			LeDatabaseIsReloadNecessaryChecker  isReloadAlways ifFalse: [
+				page storageHash: (self pageHashFor: page) ] ].
 		page ]
 ]
 

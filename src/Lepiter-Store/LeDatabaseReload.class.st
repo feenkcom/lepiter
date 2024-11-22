@@ -186,7 +186,8 @@ LeDatabaseReload >> reloadExplicitLinks: explicitLinks [
 	explicitLinks do: [ :anExplicitLink |
 		self reloadExplicitLink: anExplicitLink ].
 		
-	self database explicitLinks storageHash: explicitLinks storageHash
+	LeDatabaseIsReloadNecessaryChecker  isReloadAlways ifFalse: [
+		self database explicitLinks storageHash: explicitLinks storageHash ]
 ]
 
 { #category : #actions }

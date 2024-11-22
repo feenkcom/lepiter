@@ -162,7 +162,8 @@ LeLocalStoreLoad >> loadPagesIn: aRootFolder [
 	pages := OrderedCollection new.
 	(storage dbFilesIn: aRootFolder) do: [ :file |
 		[ page := storage loadFromFile: file.
-		page storageHash: (LeBinaryContentsHash fromFileReference: file).
+		LeDatabaseIsReloadNecessaryChecker  isReloadAlways ifFalse: [
+			page storageHash: (LeBinaryContentsHash fromFileReference: file) ].
 		(pageIds includes: page uid) 
 			ifTrue: [ 
 				file renameTo: (file withExtension: 'duplicate') basename.

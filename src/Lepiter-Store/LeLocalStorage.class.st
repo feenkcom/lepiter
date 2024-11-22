@@ -96,7 +96,8 @@ LeLocalStorage >> savePage: aPage inFile: aPageFile [
 				<< ' curtailed';
 				lf; flush.
 			self error: 'Lepiter DB page save curtailed' ] ].
-	aPage storageHash: (LeBinaryContentsHash fromFileReference: aPageFile).
+	LeDatabaseIsReloadNecessaryChecker  isReloadAlways ifFalse: [
+		aPage storageHash: (LeBinaryContentsHash fromFileReference: aPageFile) ].
 	LeLocalStoreSignal new
 		pageTitle: aPage title;
 		operation: #save;
