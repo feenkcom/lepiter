@@ -152,7 +152,8 @@ LeDatabaseClassStoreLoad >> loadPages [
 		[ 
 			page := storage loadFromMethod: (dbClass class methodDict at: selector).
 			page ifNotNil: [
-				page storageHash: (self pageHashFor: page) ].
+				LeReloadOptimization ifEnabled: [
+					page storageHash: (self pageHashFor: page) ] ].
 			(pageIds includes: page uid) ifTrue: 
 				[ storage renameTo: 'duplicate' pageUid: page uid class: dbClass.
 				duplicates add: selector ]

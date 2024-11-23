@@ -355,8 +355,9 @@ LeLocalStore >> loadExplicitLinks [
 		[
 			| theExplicitLinks aHash |
 			theExplicitLinks := storage loadFromFile: aFile.
-			aHash := LeBinaryContentsHash fromFileReference: aFile.
-			theExplicitLinks storageHash: aHash.
+			LeReloadOptimization ifEnabled: [
+				aHash := LeBinaryContentsHash fromFileReference: aFile.
+				theExplicitLinks storageHash: aHash ].
 			^ theExplicitLinks
 		 ]
 			on: LeDBLoadError 
@@ -448,9 +449,10 @@ LeLocalStore >> pagesFromStore [
 			| aPage |
 			aPage := storage loadFromFile: file.
 			aPage ifNotNil: [
-				| aHash |
-				aHash := LeBinaryContentsHash fromFileReference: file.
-				aPage storageHash: aHash ].
+				LeReloadOptimization ifEnabled: [
+					| aHash |
+					aHash := LeBinaryContentsHash fromFileReference: file.
+					aPage storageHash: aHash ] ].
 			aPage ]
 ]
 

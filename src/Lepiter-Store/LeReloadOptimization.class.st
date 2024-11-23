@@ -15,6 +15,23 @@ LeReloadOptimization class >> enableDuring: aBlock [
 ]
 
 { #category : #testing }
+LeReloadOptimization class >> ifEnabled: anEnabledBlock [
+	^ self 
+		ifEnabled: anEnabledBlock 
+		ifDisabled: [ "do nothing" ]
+]
+
+{ #category : #testing }
+LeReloadOptimization class >> ifEnabled: anEnabledBlock ifDisabled: aDisabledBlock [
+	^ self
+		ifEnabled: anEnabledBlock
+		ifDisabled: aDisabledBlock
+		ifUndefiend: [ LeDatabaseIsReloadNecessaryChecker isReloadAlways
+			ifFalse: anEnabledBlock
+			ifTrue: aDisabledBlock ]
+]
+
+{ #category : #testing }
 LeReloadOptimization class >> ifEnabled: anEnabledBlock ifDisabled: aDisabledBlock ifUndefiend: anUndefinedBlock [
 	^ self value
 		ifNil: anUndefinedBlock 

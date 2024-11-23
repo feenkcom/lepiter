@@ -44,7 +44,6 @@ LePageIsReloadNecessaryChecker >> isReloadAlways [
 	^ LeReloadOptimization 
 		ifEnabled: [ false ]
 		ifDisabled: [ true ]
-		ifUndefiend: [ LeDatabaseIsReloadNecessaryChecker isReloadAlways ]
 ]
 
 { #category : #accessing }

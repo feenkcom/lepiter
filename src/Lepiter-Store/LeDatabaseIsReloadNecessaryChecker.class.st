@@ -135,5 +135,4 @@ LeDatabaseIsReloadNecessaryChecker >> isReloadAlways [
 	^ LeReloadOptimization 
 		ifEnabled: [ false ]
 		ifDisabled: [ true ]
-		ifUndefiend: [ self class isReloadAlways ]
 ]

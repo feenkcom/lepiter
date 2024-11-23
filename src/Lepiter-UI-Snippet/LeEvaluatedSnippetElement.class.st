@@ -76,7 +76,7 @@ LeEvaluatedSnippetElement >> newArrowElement [
 	^ BlElement new
 		size: 24@16;
 		visibility: BlVisibility gone; 
-		geometry: (BlPolygon vertices: { 0@0 . 24@0 . 12@16 } );
+		geometry: (BlPolygonGeometry vertices: { 0@0 . 24@0 . 12@16 } );
 		margin: (BlInsets top: 13 right: 5 bottom: 0 left: 0);
 		background: Color veryVeryLightGray;
 		constraintsDo: [ :c |
