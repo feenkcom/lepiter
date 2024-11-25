@@ -42,12 +42,11 @@ LeDatabaseByScripterExamples >> scripterOnDatabaseToolWithToC [
 					| aStencil |
 					aStencil := [ (self toolFor: LeUIExamples new databaseWithTableOfContents)
 							asElement createInPager maximized ] asStencil.
-
-					GtWorldUtility
-						showSpaceWithIcon: BrGlamorousVectorIcons transparent
-						title: 'Lepiter Page'
-						with: aStencil
-						from: aTabElement ] ].
+					aTabElement phlow spaceBuilder
+						icon: BrGlamorousVectorIcons transparent;
+						title: 'Lepiter Page';
+						stencil: aStencil;
+						show ] ].
 	^ scripter
 ]
 
