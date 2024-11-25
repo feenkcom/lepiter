@@ -24,11 +24,6 @@ LeHomePagesElement >> onPageClick: aLePageViewModel [
 		icon: LeIcons lepiterPage
 		inPagerWith: [ aLePageViewModel asPhlowTool asElementDo: [ :e | e ] ] asStencil
 		from: self
-	
-	"GtWorldUtility 
-		showSpaceWithTitle: aLePageViewModel printPageTabLabel
-		inPagerWith: [ aLePageViewModel asPhlowTool asElementDo: [ :e | e ] ] asStencil
-		from: self"
 ]
 
 { #category : #'private - accessing' }

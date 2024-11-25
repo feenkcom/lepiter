@@ -186,12 +186,11 @@ LeUIStylingPageByScripterExamples >> pageIntoWorldTab [
 							aStencil := [ | aPage |
 								aPage := self pageOneWithText.
 								LeUIByScripterExamples new pageInPager: aPage ] asStencil.
-
-							GtWorldUtility
-								showSpaceWithIcon: BrGlamorousVectorIcons transparent
-								title: 'Lepiter Page'
-								with: aStencil
-								from: aTabElement ] ].
+							aTabElement phlow spaceBuilder
+								icon: BrGlamorousVectorIcons transparent;
+								title: 'Lepiter Page';
+								stencil: aStencil;
+								show ] ].
 
 			aStep
 				assertStep: [ :s | 
@@ -455,12 +454,11 @@ LeUIStylingPageByScripterExamples >> pageWithClassIntoWorldTab [
 							aStencil := [ | aPage |
 								aPage := self pageOneWithClass.
 								LeUIByScripterExamples new pageInPager: aPage ] asStencil.
-
-							GtWorldUtility
-								showSpaceWithIcon: BrGlamorousVectorIcons transparent
-								title: 'Lepiter Page'
-								with: aStencil
-								from: aTabElement ] ].
+							aTabElement phlow spaceBuilder
+								icon: BrGlamorousVectorIcons transparent;
+								title: 'Lepiter Page';
+								stencil: aStencil;
+								show ] ].
 
 			aStep
 				assertStep: [ :s | 
@@ -566,12 +564,11 @@ LeUIStylingPageByScripterExamples >> pageWithPackageIntoWorldTab [
 					aStencil := [ | aPage |
 						aPage := self pageOneWithClass.
 						LeUIByScripterExamples new pageInPager: aPage ] asStencil.
-
-					GtWorldUtility
-						showSpaceWithIcon: BrGlamorousVectorIcons transparent
-						title: 'Lepiter Page'
-						with: aStencil
-						from: aTabElement ] ].
+					aTabElement phlow spaceBuilder
+						icon: BrGlamorousVectorIcons transparent;
+						title: 'Lepiter Page';
+						stencil: aStencil;
+						show ] ].
 
 	aScripter
 		assertStep: [ :s | 
