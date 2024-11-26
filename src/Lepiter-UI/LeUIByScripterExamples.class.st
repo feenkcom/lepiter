@@ -360,15 +360,26 @@ LeUIByScripterExamples >> pageOneElementUsingDatabaseModel: aModelBlock extra: a
 { #category : #'examples - removed page' }
 LeUIByScripterExamples >> pageOneFromDatabaseWithOnlyOnePage [
 	<gtExample>
-	^ self
+	| aScripter |
+	aScripter := self
 		scripterWithModel: [ LeModelExamples new pageOneFromDatabaseWithOnlyOnePage ]
 		element: [ :aPageHolder | 
-			GtPager
-				createWrappedOn: (aPageHolder page asLepiterPagePhlowTool asElementDo: [ :anElement | anElement ]) ]
+			GtPager createWrappedOn: (aPageHolder page asLepiterPagePhlowTool 
+				asElementDo: [ :anElement | anElement ]) ].
+				
+	aScripter assert
+		label: 'Assert page snippet tree widget exists';
+		// LePageSnippetsTreeElementId;
+		exists;
+		play.
+		
+	^ aScripter
 ]
 
 { #category : #'examples - removed page' }
 LeUIByScripterExamples >> pageOneFromDatabaseWithOnlyOnePage_RemoveLastPage [
+	"See https://github.com/feenkcom/gtoolkit/issues/4186"
+
 	<gtExample>
 	| aScripter |
 	aScripter := self pageOneFromDatabaseWithOnlyOnePage.
@@ -382,12 +393,20 @@ LeUIByScripterExamples >> pageOneFromDatabaseWithOnlyOnePage_RemoveLastPage [
 		onSpaceRoot;
 		// LePageConfirmationActionId;
 		play.
+		
+	aScripter assert
+		label: 'Assert page snippet tree widget does not exist';
+		// LePageSnippetsTreeElementId;
+		notExists;
+		play.
 
 	^ aScripter
 ]
 
 { #category : #'examples - removed page' }
 LeUIByScripterExamples >> pageOneFromDatabaseWithOnlyOnePage_RemoveLastPage_CheckSidebar [
+	"See https://github.com/feenkcom/gtoolkit/issues/4186"
+
 	<gtExample>
 	| aScripter |
 	aScripter := self pageOneFromDatabaseWithOnlyOnePage_RemoveLastPage.
@@ -401,7 +420,7 @@ LeUIByScripterExamples >> pageOneFromDatabaseWithOnlyOnePage_RemoveLastPage_Chec
 		// LeDatabaseSidebarGroupedListElement;
 		// #scrollable;
 		value: [ :anInfiniteElement | anInfiniteElement childrenCount ] equals: 0;
-		label: 'Sidebar has no pages';
+		label: 'Assert sidebar has no pages';
 		play.
 
 	^ aScripter

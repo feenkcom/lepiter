@@ -29,6 +29,8 @@ LePageToolElement >> contentElement [
 
 { #category : #'private - updating' }
 LePageToolElement >> hideContentElementWithOriginalDatabase: aLeDatabase [
+	"See https://github.com/feenkcom/gtoolkit/issues/4186"
+
 	contentElement parent == self ifFalse: [ ^ self ].
 	self
 		replaceChild: contentElement
@@ -170,6 +172,8 @@ LePageToolElement >> selectionTransformation: aBlock [
 
 { #category : #'private - updating' }
 LePageToolElement >> showContentElement [
+	"See https://github.com/feenkcom/gtoolkit/issues/4186"
+
 	| anId |
 	contentElement parent == self ifTrue: [ ^ self ].
 	anId := #content asBlocElementId.

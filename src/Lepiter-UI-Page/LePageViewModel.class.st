@@ -134,6 +134,7 @@ LePageViewModel >> onPageRemoved: aPageRemovedAnnouncement [
 
 	anOriginalDatabase := aPageRemovedAnnouncement database.
 
+	"See https://github.com/feenkcom/gtoolkit/issues/4186"
 	self announce: (LePageViewModelPageRemoved new 
 		pageViewModel: self;
 		originalDatabase: anOriginalDatabase)
