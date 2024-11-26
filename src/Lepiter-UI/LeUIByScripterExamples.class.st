@@ -357,6 +357,56 @@ LeUIByScripterExamples >> pageOneElementUsingDatabaseModel: aModelBlock extra: a
 	^ aScripter
 ]
 
+{ #category : #'examples - removed page' }
+LeUIByScripterExamples >> pageOneFromDatabaseWithOnlyOnePage [
+	<gtExample>
+	^ self
+		scripterWithModel: [ LeModelExamples new pageOneFromDatabaseWithOnlyOnePage ]
+		element: [ :aPageHolder | 
+			GtPager
+				createWrappedOn: (aPageHolder page asLepiterPagePhlowTool asElementDo: [ :anElement | anElement ]) ]
+]
+
+{ #category : #'examples - removed page' }
+LeUIByScripterExamples >> pageOneFromDatabaseWithOnlyOnePage_RemoveLastPage [
+	<gtExample>
+	| aScripter |
+	aScripter := self pageOneFromDatabaseWithOnlyOnePage.
+
+	aScripter click
+		label: 'Click on the remove page button';
+		// LePageRemoveActionId;
+		play.
+	aScripter click
+		label: 'Confirm page removal';
+		onSpaceRoot;
+		// LePageConfirmationActionId;
+		play.
+
+	^ aScripter
+]
+
+{ #category : #'examples - removed page' }
+LeUIByScripterExamples >> pageOneFromDatabaseWithOnlyOnePage_RemoveLastPage_CheckSidebar [
+	<gtExample>
+	| aScripter |
+	aScripter := self pageOneFromDatabaseWithOnlyOnePage_RemoveLastPage.
+
+	aScripter click
+		label: 'Maximize page';
+		// GtPagerMaximizeButtonElementId;
+		play.
+
+	aScripter assert
+		// LeDatabaseSidebarGroupedListElement;
+		// #scrollable;
+		value: [ :anInfiniteElement | anInfiniteElement childrenCount ] equals: 0;
+		label: 'Sidebar has no pages';
+		play.
+
+	^ aScripter
+]
+
 { #category : #'examples - support' }
 LeUIByScripterExamples >> pageOneIn: aDatabase [
 	"Find Page One"

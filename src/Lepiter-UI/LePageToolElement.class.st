@@ -27,6 +27,15 @@ LePageToolElement >> contentElement [
 	^ contentElement
 ]
 
+{ #category : #'private - updating' }
+LePageToolElement >> hideContentElementWithOriginalDatabase: aLeDatabase [
+	contentElement parent == self ifFalse: [ ^ self ].
+	self
+		replaceChild: contentElement
+		with: (self newEmptyPageWithOriginalDatabase: aLeDatabase)
+		as: #content
+]
+
 { #category : #initialization }
 LePageToolElement >> initialize [
 	super initialize.
@@ -71,6 +80,22 @@ LePageToolElement >> initializeTitleNotifier [
 	self addEventHandler: titleNotifier.
 ]
 
+{ #category : #'private - updating' }
+LePageToolElement >> newEmptyPageWithOriginalDatabase: aLeDatabase [
+	| aText |
+	aText := aLeDatabase hasChildren
+			ifTrue: [ 'No page selected' ]
+			ifFalse: [ 'Empty knowledgebase' ].
+	^ BrFrame new
+		matchParent;
+		addChild: (BrLabel new
+				aptitude: (BrGlamorousLabelAptitude new foreground: self theme button disabledTextColor);
+				text: aText;
+				constraintsDo: [ :c | 
+					c frame horizontal alignCenter.
+					c frame vertical alignCenter ])
+]
+
 { #category : #'private - event handling' }
 LePageToolElement >> onDetailedVolume [
 	self sidebarElement show
@@ -96,6 +121,13 @@ LePageToolElement >> onPageModelReplaced [
 ]
 
 { #category : #'private - event handling' }
+LePageToolElement >> onPageRemoved: anAnnouncement [
+	BlTaskAction
+		enqueueElement: self
+		action: [ self hideContentElementWithOriginalDatabase: anAnnouncement originalDatabase ]
+]
+
+{ #category : #'private - event handling' }
 LePageToolElement >> onPageTitleChanged [
 	self updateWorldTitle
 ]
@@ -108,7 +140,9 @@ LePageToolElement >> onPageViewModelChanged [
 
 	self
 		enqueueTask: (BlTaskAction new
-				action: [ self sidebarElement
+				action: [ 
+					self showContentElement.
+					self sidebarElement
 						databaseViewModel: self pageViewModel databaseViewModel;
 						selection: self pageViewModel.
 
@@ -134,6 +168,19 @@ LePageToolElement >> selectionTransformation: aBlock [
 	self contentElement selectionTransformation: aBlock
 ]
 
+{ #category : #'private - updating' }
+LePageToolElement >> showContentElement [
+	| anId |
+	contentElement parent == self ifTrue: [ ^ self ].
+	anId := #content asBlocElementId.
+	self children
+		detect: [ :each | each id = anId ]
+		ifFound: [ :anElement | anElement removeFromParent ]
+		ifNone: [ "ignore" ].
+
+	self addChild: contentElement as: anId
+]
+
 { #category : #'private - accessing' }
 LePageToolElement >> sidebarElement [
 	^ sidebarElement
@@ -148,7 +195,8 @@ LePageToolElement >> subscribeToPageViewModel [
 	self pageViewModel weak 
 		when: LePageViewModelTitleChanged send: #onPageTitleChanged to: self;
 		when: LePageViewModelPageReplaced send: #onPageModelReplaced to: self;
-		when: LePageViewModelDatabaseChanged send: #onPageDatabaseChanged to: self
+		when: LePageViewModelDatabaseChanged send: #onPageDatabaseChanged to: self;
+		when: LePageViewModelPageRemoved send: #onPageRemoved: to: self.
 ]
 
 { #category : #'private - accessing' }

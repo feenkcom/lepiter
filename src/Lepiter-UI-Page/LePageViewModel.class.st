@@ -128,20 +128,15 @@ LePageViewModel >> onPageMoved: aPageDatabaseMovedAnnouncement [
 
 { #category : #'private - event handling' }
 LePageViewModel >> onPageRemoved: aPageRemovedAnnouncement [
-	| aRemovedPage anOriginalDatabase anotherPage |
-
+	| aRemovedPage anOriginalDatabase |
 	aRemovedPage := aPageRemovedAnnouncement page.
-	self pageModel = aRemovedPage
-		ifFalse: [ ^ self ].
-	
-	anOriginalDatabase := aPageRemovedAnnouncement database.
-	
-	"I display another page or create a new one, if there is no other page to display."
-	anotherPage := anOriginalDatabase hasChildren 
-		ifTrue: [ anOriginalDatabase anyOne ]
-		ifFalse: [ (anOriginalDatabase pageBuilder uniqueTitle; add) ].
+	self pageModel = aRemovedPage ifFalse: [ ^ self ].
 
-	self pageModel: anotherPage
+	anOriginalDatabase := aPageRemovedAnnouncement database.
+
+	self announce: (LePageViewModelPageRemoved new 
+		pageViewModel: self;
+		originalDatabase: anOriginalDatabase)
 ]
 
 { #category : #'private - event handling' }

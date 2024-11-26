@@ -33,6 +33,25 @@ LeModelExamples >> databaseWithManyPagesOfDifferentCreateTimes [
 ]
 
 { #category : #examples }
+LeModelExamples >> databaseWithOnePage [
+	<gtExample>
+	| aTemporaryDatabase aDatabase aPageName aPage aTextSnippetContents aSnippet |
+	aTemporaryDatabase := LeTemporaryDatabase new.
+	aDatabase := aTemporaryDatabase database.
+
+	aPageName := 'Page One'.
+	aPage := aDatabase pageBuilder
+			title: aPageName;
+			add.
+	aTextSnippetContents := 'Text of the page one'.
+	aSnippet := aPage snippetBuilder
+			string: aTextSnippetContents;
+			add.
+
+	^ aTemporaryDatabase
+]
+
+{ #category : #examples }
 LeModelExamples >> page50OfDatabaseWithManyPagesOfDifferentCreateTimes [
 	<gtExample>
 	| temporaryDatabase database page |
@@ -40,6 +59,20 @@ LeModelExamples >> page50OfDatabaseWithManyPagesOfDifferentCreateTimes [
 	database := temporaryDatabase database.
 
 	page := database pageNamed: 'Page 50'.
+
+	^ LePageExampleHolder new
+		page: page;
+		temporaryDatabase: temporaryDatabase
+]
+
+{ #category : #examples }
+LeModelExamples >> pageOneFromDatabaseWithOnlyOnePage [
+	<gtExample>
+	| temporaryDatabase database page |
+	temporaryDatabase := self databaseWithOnePage.
+	database := temporaryDatabase database.
+
+	page := database pages anyOne.
 
 	^ LePageExampleHolder new
 		page: page;

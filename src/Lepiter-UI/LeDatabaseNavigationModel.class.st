@@ -97,8 +97,7 @@ LeDatabaseNavigationModel >> gtViewPagesFor: aView [
 		priority: 3;
 		stencil: [ LeDatabaseSidebarGroupedListElement new
 				navigationModel: self;
-				groupedItems: (self database dailyNotesGroup
-						collect: [ :aDailyNote | aDailyNote date -> aDailyNote children ]) ]
+				beDailyNotes ]
 ]
 
 { #category : #testing }
