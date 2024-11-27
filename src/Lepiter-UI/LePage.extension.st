@@ -231,6 +231,7 @@ LePage >> gtRemoveActionFor: anAction [
 	<lePageAction>
 
 	^ anAction dropdown 
+		id: LePageRemoveActionId;
 		tooltip: 'Remove Page';
 		icon: BrGlamorousVectorIcons remove;
 		content: [:aButton | (LePageRemoveDropdownContentStencil new

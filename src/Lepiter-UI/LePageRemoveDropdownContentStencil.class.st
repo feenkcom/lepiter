@@ -85,6 +85,7 @@ LePageRemoveDropdownContentStencil >> label: anObject [
 { #category : #'private - instance creation' }
 LePageRemoveDropdownContentStencil >> newConfirmationButton [
 	^ BrButton new
+		id: LePageConfirmationActionId;
 		icon: self icon;
 		beSmallSize;
 		requestFocus;
