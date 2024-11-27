@@ -249,7 +249,7 @@ LeCodeSnippet >> initialize [
 	super initialize.
 
 	coder := self newCoder.
-	coder weak
+	coder
 		when: GtCoderSourceCodeChanged
 			send: #onCoderSourceModified:
 			to: self;
