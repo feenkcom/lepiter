@@ -220,11 +220,10 @@ LePage >> gtOpenInNewTabActionFor: anAction [
 		tooltip: 'Open page in a new world tab';
 		icon: BrGlamorousVectorIcons spawn;
 		action: [ :aButton | 
-			GtWorldUtility
-				showSpaceWithTitle: self title
-				inPagerWith: [ self asLepiterPagePhlowTool asElementDo: [ :e | e ] ]
-						asStencil
-				from: aButton ]
+			aButton phlow spaceBuilder
+				title: self title;
+				inPager: [ self asLepiterPagePhlowTool asElementDo: [ :e | e ] ] asStencil;
+				show ]
 ]
 
 { #category : #'*Lepiter-UI' }
@@ -232,6 +231,7 @@ LePage >> gtRemoveActionFor: anAction [
 	<lePageAction>
 
 	^ anAction dropdown 
+		id: LePageRemoveActionId;
 		tooltip: 'Remove Page';
 		icon: BrGlamorousVectorIcons remove;
 		content: [:aButton | (LePageRemoveDropdownContentStencil new

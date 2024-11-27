@@ -41,13 +41,16 @@ LeHomeCommonDatabaseHeaderElement >> newAddNewPageButton [
 ]
 
 { #category : #'private - event handling' }
-LeHomeCommonDatabaseHeaderElement >> onAddNewPageFrom: aButton [ 
+LeHomeCommonDatabaseHeaderElement >> onAddNewPageFrom: aButton [
 	| aNewPage |
-	aNewPage := self database pageBuilder uniqueTitle; add.
-	GtWorldUtility 
-		showSpaceWithTitle: aNewPage tabLabel
-		inPagerWith: [ aNewPage asLepiterPagePhlowTool asElementDo: [ :e | e ] ] asStencil
-		from: aButton.
+	aNewPage := self database pageBuilder
+			uniqueTitle;
+			add.
+	aButton phlow spaceBuilder
+		title: aNewPage tabLabel;
+		icon: LeIcons lepiterPage;
+		inPager: [ aNewPage asLepiterPagePhlowTool asElementDo: [ :e | e ] ] asStencil;
+		show
 ]
 
 { #category : #'private - accessing' }

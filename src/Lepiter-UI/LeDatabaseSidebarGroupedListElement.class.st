@@ -4,11 +4,17 @@ Class {
 	#instVars : [
 		'listElement',
 		'navigationModel',
-		'groupedItems',
-		'selectionUpdater'
+		'selectionUpdater',
+		'updater',
+		'groupedItemsBuilder'
 	],
 	#category : #'Lepiter-UI-! UI - Database'
 }
+
+{ #category : #'api - initialization' }
+LeDatabaseSidebarGroupedListElement >> beDailyNotes [
+	self groupedItemsBuilder: LeDatabaseDailyNotesGroupedItems new
+]
 
 { #category : #accessing }
 LeDatabaseSidebarGroupedListElement >> database [
@@ -22,13 +28,27 @@ LeDatabaseSidebarGroupedListElement >> databaseViewModel [
 
 { #category : #accessing }
 LeDatabaseSidebarGroupedListElement >> groupedItems [
-	^ groupedItems
+	self navigationModel ifNil: [ ^ #() ].
+	^ groupedItemsBuilder
+		ifNotNil: [ :anObject | anObject fromNavigationModel: self navigationModel ]
+		ifNil: [ #() ]
 ]
 
 { #category : #accessing }
 LeDatabaseSidebarGroupedListElement >> groupedItems: anObject [
-	groupedItems := anObject.
-	self updateListItems
+	self groupedItemsBuilder: (LeDatabaseExplicitGroupedItems new 
+		groupedItems: anObject)
+]
+
+{ #category : #accessing }
+LeDatabaseSidebarGroupedListElement >> groupedItemsBuilder [
+	^ groupedItemsBuilder
+]
+
+{ #category : #accessing }
+LeDatabaseSidebarGroupedListElement >> groupedItemsBuilder: aBuilder [
+	groupedItemsBuilder := aBuilder.
+	self onGroupedItemsBuilderChange
 ]
 
 { #category : #accessing }
@@ -40,7 +60,9 @@ LeDatabaseSidebarGroupedListElement >> hasSelection [
 LeDatabaseSidebarGroupedListElement >> initialize [
 	super initialize.
 
-	groupedItems := {}.
+	groupedItemsBuilder := nil.
+	updater := BrElementUpdater new 
+		element: self selector: #updateElement.
 
 	self initializeSelectionUpdater.
 	self initializeListElement.
@@ -65,7 +87,8 @@ LeDatabaseSidebarGroupedListElement >> initializeListElement [
 					vFitContent;
 					margin: (BlInsets top: 10 left: 5) ];
 			headerDataBinder: [ :aLabelElement :aGroup | aLabelElement text: aGroup domainObject asString ];
-			matchParent
+			matchParent;
+			groups: #()
 ]
 
 { #category : #initialization }
@@ -107,7 +130,8 @@ LeDatabaseSidebarGroupedListElement >> navigationModel: anObject [
 	navigationModel := anObject.
 	navigationModel weak 
 		when: LeUIDatabaseNavigationModelChanged send: #onNavigationModelChanged: to: self;
-		when: LeUIPageSelected send: #onNavigationModelPageSelected: to: self
+		when: LeUIPageSelected send: #onNavigationModelPageSelected: to: self.
+	self onNavigationModelChanged
 ]
 
 { #category : #accessing }
@@ -134,6 +158,16 @@ LeDatabaseSidebarGroupedListElement >> onContentUIModelChanged [
 	super onContentUIModelChanged.
 
 	self updateListItems.
+]
+
+{ #category : #'private - announcement handling' }
+LeDatabaseSidebarGroupedListElement >> onDatabaseContentChanged: anAnnouncement [
+	updater requestUpdate
+]
+
+{ #category : #accessing }
+LeDatabaseSidebarGroupedListElement >> onGroupedItemsBuilderChange [
+	self updateListItems
 ]
 
 { #category : #'event handling' }
@@ -171,13 +205,13 @@ LeDatabaseSidebarGroupedListElement >> onTreeSelectionChanged: aBrSelectionChang
 
 { #category : #'event handling' }
 LeDatabaseSidebarGroupedListElement >> requestSelectionUpdate [
-	groupedItems ifNil: [ ^ self ].
-	groupedItems ifEmpty: [ ^ self ].
+	groupedItemsBuilder ifNil: [ ^ self ].
 	navigationModel ifNil: [ ^ self ].
+	self groupedItems ifEmpty: [ ^ self ].
 
 	LeDatabaseSidebarGroupedListRequestUpdateSelectionSignal new
 		navigationModel: navigationModel;
-		groupedItems: groupedItems;
+		groupedItems: groupedItemsBuilder;
 		emit.
 
 	selectionUpdater ifNotNil: #requestUpdate
@@ -195,9 +229,25 @@ LeDatabaseSidebarGroupedListElement >> selection: aViewModel [
 	navigationModel announce: (LeUIPageSelectionRequest new page: aViewModel)
 ]
 
+{ #category : #'private - subscriptions' }
+LeDatabaseSidebarGroupedListElement >> subscribeToContent [
+	super subscribeToContent.
+
+	self database weak
+		when: LeDatabasePageAdded, LeDatabasePageRemoved, LeDatabaseResorted, LePageUnloadAnnouncement 
+		send: #onDatabaseContentChanged: 
+		to: self
+]
+
+{ #category : #'private - updating' }
+LeDatabaseSidebarGroupedListElement >> updateElement [
+	self updateListItems.
+	self updateSelection
+]
+
 { #category : #'private - updating' }
 LeDatabaseSidebarGroupedListElement >> updateListItems [
-	groupedItems ifNil: [ ^ self ].
+	groupedItemsBuilder ifNil: [ ^ self ].
 	navigationModel ifNil: [ ^ self ].
 	listElement stream: self items
 ]
@@ -215,7 +265,7 @@ LeDatabaseSidebarGroupedListElement >> updateSelection [
 		page: aPage;
 		groupDomainObject: aPageDate;
 		navigationModel: aNavigationModel;
-		groupedItems: groupedItems;
+		groupedItems: self groupedItems;
 		emit.
 
 	1
@@ -231,7 +281,7 @@ LeDatabaseSidebarGroupedListElement >> updateSelection [
 								page: aPage;
 								groupDomainObject: aPageDate;
 								navigationModel: aNavigationModel;
-								groupedItems: groupedItems;
+								groupedItems: self groupedItems;
 								pageIndex: anIndex.
 							^ self ] ] ].
 ]

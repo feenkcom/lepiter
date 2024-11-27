@@ -401,22 +401,28 @@ LeUIExamples >> pageToolContentElement_NoHierarchy [
 { #category : #'examples - page - tool' }
 LeUIExamples >> pageToolContentElement_RemovePage [
 	<gtExample>
-	| anElement aPreviousPage aSpace aNewPage |
+	| anElement aRemovedPage aNewPage aScripter aDatabase |
+	aScripter := BlScripter new.
 	anElement := self pageToolContentElement_Hierarchy.
-	aSpace := self showInSpace: anElement.
+	aScripter element: anElement.
 
-	aPreviousPage := anElement pageViewModel pageModel.
-	anElement pageViewModel removePage.
-	self waitTaskExecutionIn: anElement.
+	aRemovedPage := anElement pageViewModel pageModel.
+	aDatabase := aRemovedPage database.
+	
+	aScripter do 
+		block: [ anElement pageViewModel removePage ];
+		play.
 	
 	aNewPage := anElement pageViewModel pageModel.
 	
-	self assert: aNewPage ~= aPreviousPage.
+	"See https://github.com/feenkcom/gtoolkit/issues/4186
+	We do not create new pages anymore.
+	Instead, the page widget indicates that page is deleted."
+	self assert: aNewPage == aRemovedPage.
 	self assert: aNewPage ~= LePage null.
 	self assert: aNewPage class equals: LePage.
-	self assert: aNewPage database pageCount equals: 1.
-	self closeSpace: aSpace with: anElement.
-	^ anElement
+	self assert: aDatabase pageCount equals: 0.
+	^ aScripter
 ]
 
 { #category : #'examples - page - toolbar' }

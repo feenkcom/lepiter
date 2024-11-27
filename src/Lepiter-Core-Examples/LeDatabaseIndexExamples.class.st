@@ -16,37 +16,6 @@ LeDatabaseIndexExamples >> classSearch [
 ]
 
 { #category : #accessing }
-LeDatabaseIndexExamples >> database [
-	<gtExample>
-	| page pageUID database |
-	database := LeDatabase new.
-
-	page := LePage named: self pageTitle.
-	database addPage: page.
-	pageUID := page uid.
-
-	page
-		addSnippet: (LePharoSnippet new
-				code: 'OrderedCollection withAll: {#printString. #Object. #''a b c''. #printOn:}').
-
-	page addSnippet: (LePharoSnippet new code: '2 printString').
-
-	page addSnippet: (LePharoSnippet new code: 'OrderedCollection new').
-
-	page
-		addSnippet: (LePharoSnippet new code: '(Smalltalk at: #OrderedCollection) new').
-
-	page
-		addSnippet: (LeTextSnippet new
-				string: '{{gtClass:Object}} {{gtMethod:name=Set>>grow}} {{gtExample:LeDatabaseIndexExamples>>database}}').
-
-
-	self assert: (database pageWithID: pageUID) uid equals: pageUID.
-
-	^ database
-]
-
-{ #category : #accessing }
 LeDatabaseIndexExamples >> gtClassSearch [
 	<gtExample>
 	| database snippets asyncSnippets |
