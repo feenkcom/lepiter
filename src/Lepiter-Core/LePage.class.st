@@ -355,7 +355,7 @@ LePage >> initialize [
 	
 	editHistory := LePageEditHistory forPage: self.
 	
-	self weak 
+	self weak
 		when: LeSnippetContentChanged, LePageTitleChanged, LeContentTreeChanged
 		send: #clearStorageHash
 		to: self

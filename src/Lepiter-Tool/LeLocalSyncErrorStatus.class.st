@@ -31,33 +31,30 @@ LeLocalSyncErrorStatus >> statusIcon [
 
 { #category : #'gt-extensions' }
 LeLocalSyncErrorStatus >> statusWidget [
-
 	| container |
 	container := super statusWidget.
-	container addChild: (BrButton new
-			 aptitude: BrGlamorousButtonWithIconAptitude;
-			 icon: BrGlamorousIcons inspect;
-			 label: 'View status';
-			 margin: (BlInsets left: 5);
-			 action: [ :aButtonElement | 
-				 GtWorldUtility
-					 showSpaceWithTitle: self
-					 with: (GtInspector createOn: self) maximized
-					 from: aButtonElement.
-				 aButtonElement fireEvent: BrDropdownHideWish new ]).
+	container
+		addChild: (BrButton new
+				aptitude: BrGlamorousButtonWithIconAptitude;
+				icon: BrGlamorousIcons inspect;
+				label: 'View status';
+				margin: (BlInsets left: 5);
+				action: [ :aButtonElement | 
+					aButtonElement phlow spaceBuilder
+						title: self asString;
+						stencil: (GtInspector createOn: self) maximized;
+						show.
+					aButtonElement fireEvent: BrDropdownHideWish new ]).
 
-	container addChild: (BrButton new
-			 aptitude: BrGlamorousButtonWithIconAptitude;
-			 icon: BrGlamorousIcons play;
-			 label: 'Start Monitoring';
-			 margin: (BlInsets left: 5);
-			 in: [ :aButton | 
-				 LeLocalMonitorElementHandler
-					 forElement: aButton
-					 monitor: self database monitor. ];
-			 action: [ :aButton | 
-				 aButton disable.
-				 self database monitor isRunning ifFalse: [ 
-						 self database startMonitoring ] ]).
+	container
+		addChild: (BrButton new
+				aptitude: BrGlamorousButtonWithIconAptitude;
+				icon: BrGlamorousIcons play;
+				label: 'Start Monitoring';
+				margin: (BlInsets left: 5);
+				in: [ :aButton | LeLocalMonitorElementHandler forElement: aButton monitor: self database monitor ];
+				action: [ :aButton | 
+					aButton disable.
+					self database monitor isRunning ifFalse: [ self database startMonitoring ] ]).
 	^ container
 ]
