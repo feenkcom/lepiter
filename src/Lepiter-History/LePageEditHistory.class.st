@@ -180,7 +180,7 @@ LePageEditHistory >> redoUndoActions [
 
 { #category : #initialization }
 LePageEditHistory >> registerEvents [
-	targetPage announcer
+	targetPage announcer weak
 		when: LeContentCommandExecutedAnnouncement 
 			send: #actOnCommandExecutedFor:
 			to: self;
