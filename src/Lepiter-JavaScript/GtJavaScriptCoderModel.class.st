@@ -86,7 +86,7 @@ GtJavaScriptCoderModel >> computeAst: theSourceString [
 
 { #category : #'api - ast' }
 GtJavaScriptCoderModel >> implicitVariableReferencesTo: aString do: aBlock [
-	self astAwait allNodesOfType: JSNameExpressionNode do: [ :node | 
+	self astSync allNodesOfType: JSNameExpressionNode do: [ :node | 
 		node name source = aString ifTrue: [ 
 			(node parent isKindOf: JSVariableDeclarationNode)
 				ifTrue: [ ^ self ]

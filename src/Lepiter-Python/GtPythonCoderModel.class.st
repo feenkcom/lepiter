@@ -69,7 +69,7 @@ GtPythonCoderModel >> computeAst: theSourceString [
 
 { #category : #'api - ast' }
 GtPythonCoderModel >> implicitVariableReferencesTo: aString do: aBlock [
-	self astAwait withAllNodesOfType: PyVariableExpressionNode do: [ :node | 
+	self astSync withAllNodesOfType: PyVariableExpressionNode do: [ :node | 
 		node nameToken source = aString ifTrue: [ aBlock value: node ] ]
 ]
 

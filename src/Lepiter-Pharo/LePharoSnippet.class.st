@@ -61,7 +61,7 @@ LePharoSnippet >> asExampleMethodStringFor: aSelector [
 	| newAST variables |
 	newAST := RBParser parseMethod: aSelector , String cr , coder currentSourceText.
 	variables := Set new.
-	coder astAwait
+	coder astSync
 		allNodesOfType: GtPharoVariableNode
 		do: [ :node | 
 			(node whoDefines notNil or: [ Smalltalk globals includesKey: node variableName ])
