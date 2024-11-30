@@ -99,8 +99,11 @@ LeYoutubeUrl >> string: anUrlString [
 	string := anUrlString.
 	(self allowedYoutubeHosts
 		anySatisfy: [ :aHost | anUrlString beginsWith: aHost caseSensitive: false ])
-		ifTrue: [ url := ('https://{1}' format: {anUrlString}) asZnUrl ]
-		ifFalse: [ url := anUrlString asZnUrl ]
+		ifTrue: [
+			url := ('https://{1}' format: {anUrlString}) asZnUrl ]
+		ifFalse: [
+			"Not every arbitrary string is a valid URL" 
+			[ url := anUrlString asZnUrl ] on: Error do: [ url := nil ] ]
 ]
 
 { #category : #accessing }

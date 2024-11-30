@@ -5,6 +5,15 @@ Class {
 }
 
 { #category : #accessing }
+LeYoutubeUrlExamples >> invalidUrl1 [
+	<gtExample>
+	| aYoutubeUrl |
+	aYoutubeUrl := LeYoutubeUrl new string: 'Tudor Gîrba'.
+	self assert: aYoutubeUrl isValidYoutubeUrl not.
+	^ aYoutubeUrl
+]
+
+{ #category : #accessing }
 LeYoutubeUrlExamples >> video01 [
 	<gtExample>
 	| anUrlString anUrl aYoutubeUrl |
