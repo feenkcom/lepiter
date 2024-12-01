@@ -1,7 +1,7 @@
 Class {
 	#name : #LeGitHubIssueUrlValidatorExamples,
 	#superclass : #Object,
-	#category : 'Lepiter-GitHub-Client'
+	#category : #'Lepiter-GitHub-Client'
 }
 
 { #category : #'examples - validator' }
@@ -25,6 +25,17 @@ LeGitHubIssueUrlValidatorExamples >> shortInvalidUrl [
 { #category : #'examples - url' }
 LeGitHubIssueUrlValidatorExamples >> validUrl [
 	^ 'https://github.com/feenkcom/gtoolkit/issues/1822'
+]
+
+{ #category : #'examples - validator' }
+LeGitHubIssueUrlValidatorExamples >> validator_IllegalUrl [
+	<gtExample>
+	| aValidator |
+	aValidator := LeGitHubIssueUrlValidator new.
+	aValidator url: 'Tudor Gîrba'.
+	aValidator validate.
+	self assert: aValidator isValid not.
+	^ aValidator
 ]
 
 { #category : #'examples - validator' }
