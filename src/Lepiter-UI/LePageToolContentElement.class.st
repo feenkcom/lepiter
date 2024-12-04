@@ -95,7 +95,7 @@ LePageToolContentElement >> registerSpawnBelowHandler [
 		do: [ :aSpawnEvent | 
 			aSpawnEvent spawnDestination isSpawnBelow ifTrue: [ 
 				aSpawnEvent consumed: true. 
-				(aSpawnEvent propertyAt: #spawnContainer)
+				(aSpawnEvent spawnContainer)
 					spawnBelowTool: aSpawnEvent tool ] ]
 ]
 
