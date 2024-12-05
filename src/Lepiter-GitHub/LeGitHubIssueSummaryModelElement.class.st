@@ -49,7 +49,6 @@ LeGitHubIssueSummaryModelElement >> initializeBodyElement [
 	bodyElement := BrEditor new
 		beReadOnlyWithSelection;
 		aptitude: BrGlamorousRegularEditorAptitude;
-		styler: LeSnippetStyler new;
 		hMatchParent;
 		vFitContentLimited.
 ]
@@ -75,6 +74,7 @@ LeGitHubIssueSummaryModelElement >> titleElement [
 
 { #category : #'private - updating' }
 LeGitHubIssueSummaryModelElement >> updateElement [
+	
 	super updateElement.
 	self titleElement text: self model title.
 	self bodyElement text: self model body.

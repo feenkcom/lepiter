@@ -30,7 +30,6 @@ LeGitHubTagSummaryModelElement >> initializeMessageElement [
 	messageElement := BrEditor new
 		beReadOnlyWithSelection;
 		aptitude: BrGlamorousRegularEditorAptitude;
-		styler: LeSnippetStyler new;
 		hMatchParent;
 		vFitContentLimited. 
 ]
@@ -58,6 +57,7 @@ LeGitHubTagSummaryModelElement >> titleElement [
 
 { #category : #'private - updating' }
 LeGitHubTagSummaryModelElement >> updateElement [
+	self halt.
 	super updateElement.
 
 	self titleElement text: self model tagName.
