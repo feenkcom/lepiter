@@ -28,10 +28,10 @@ LeGitHubTagSummaryModelElement >> initialize [
 { #category : #initialization }
 LeGitHubTagSummaryModelElement >> initializeMessageElement [
 	messageElement := BrEditor new
-		beReadOnlyWithSelection;
-		aptitude: BrGlamorousRegularEditorAptitude;
-		hMatchParent;
-		vFitContentLimited. 
+			beReadOnlyWithSelection;
+			aptitude: BrGlamorousRegularEditorAptitude;
+			hMatchParent;
+			vFitContentLimited
 ]
 
 { #category : #initialization }
@@ -47,6 +47,13 @@ LeGitHubTagSummaryModelElement >> initializeTitleElement [
 LeGitHubTagSummaryModelElement >> messageElement [
 	<return: #BrEditor>
 	^ messageElement
+]
+
+{ #category : #'as yet unclassified' }
+LeGitHubTagSummaryModelElement >> snippetViewModel: anObject [
+	super snippetViewModel: anObject.
+	
+	messageElement styler: (LeSnippetStyler new snippetViewModel: self snippetViewModel)
 ]
 
 { #category : #'private - accessing' }

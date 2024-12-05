@@ -63,6 +63,14 @@ LeGitHubEditorAndSummaryModelElement >> showSummary [
 
 ]
 
+{ #category : #'as yet unclassified' }
+LeGitHubEditorAndSummaryModelElement >> snippetViewModel: anObject [
+	super snippetViewModel: anObject.
+	
+	summaryElement snippetViewModel: anObject.
+	editorElement snippetViewModel: anObject
+]
+
 { #category : #'private - accessing' }
 LeGitHubEditorAndSummaryModelElement >> summaryElement [
 	<return: #LeGitHubTagSummaryModelElement>

@@ -122,6 +122,11 @@ LeGitHubSnippet >> ownerName: aString [
 	self model ownerName: aString
 ]
 
+{ #category : #'as yet unclassified' }
+LeGitHubSnippet >> paragraphStyle [
+	^ LeParagraphStyle text
+]
+
 { #category : #'api - model' }
 LeGitHubSnippet >> projectName [
 	^ self model projectName ifNil: [ String empty ]

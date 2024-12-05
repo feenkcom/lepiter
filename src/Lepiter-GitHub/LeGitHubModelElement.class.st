@@ -4,9 +4,10 @@ Class {
 	#traits : 'TBrLayoutResizable',
 	#classTraits : 'TBrLayoutResizable classTrait',
 	#instVars : [
-		'model'
+		'model',
+		'snippetViewModel'
 	],
-	#category : 'Lepiter-GitHub-UI Model Elements'
+	#category : #'Lepiter-GitHub-UI Model Elements'
 }
 
 { #category : #'private - asserting' }
@@ -67,6 +68,16 @@ LeGitHubModelElement >> onResponeChanged: anAnnouncement [
 	anAnnouncement source = self ifTrue: [ ^ self ].
 	self enqueueTask: (BlTaskAction new action: [
 		self updateElement ])
+]
+
+{ #category : #accessing }
+LeGitHubModelElement >> snippetViewModel [
+	^ snippetViewModel
+]
+
+{ #category : #accessing }
+LeGitHubModelElement >> snippetViewModel: anObject [
+	snippetViewModel := anObject
 ]
 
 { #category : #'private - subscriptions' }
