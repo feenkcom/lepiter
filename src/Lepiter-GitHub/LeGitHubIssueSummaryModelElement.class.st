@@ -47,11 +47,10 @@ LeGitHubIssueSummaryModelElement >> initialize [
 { #category : #initialization }
 LeGitHubIssueSummaryModelElement >> initializeBodyElement [
 	bodyElement := BrEditor new
-		beReadOnlyWithSelection;
-		aptitude: BrGlamorousRegularEditorAptitude;
-		styler: LeSnippetStyler new;
-		hMatchParent;
-		vFitContentLimited.
+			beReadOnlyWithSelection;
+			aptitude: BrGlamorousRegularEditorAptitude;
+			hMatchParent;
+			vFitContentLimited
 ]
 
 { #category : #initialization }
@@ -67,6 +66,13 @@ LeGitHubIssueSummaryModelElement >> initializeTitleElement [
 		fitContent.
 ]
 
+{ #category : #'as yet unclassified' }
+LeGitHubIssueSummaryModelElement >> snippetViewModel: anObject [
+	super snippetViewModel: anObject.
+	bodyElement
+		styler: (LeSnippetStyler new snippetViewModel: self snippetViewModel)
+]
+
 { #category : #'private - accessing' }
 LeGitHubIssueSummaryModelElement >> titleElement [
 	<return: #BrLabel>
@@ -75,6 +81,7 @@ LeGitHubIssueSummaryModelElement >> titleElement [
 
 { #category : #'private - updating' }
 LeGitHubIssueSummaryModelElement >> updateElement [
+	
 	super updateElement.
 	self titleElement text: self model title.
 	self bodyElement text: self model body.
