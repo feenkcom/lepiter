@@ -102,18 +102,13 @@ LeExternalEvaluatedSnippetElement >> initializeTextEditorShortcuts [
 LeExternalEvaluatedSnippetElement >> registerSpawnBelowHandler [
 	self
 		when: GtPhlowObjectToSpawn
-		do: [ :aSpawnEvent |
-			(aSpawnEvent spawnDestination isSpawnBelow and:
-			[ (aSpawnEvent properties includesKey: #spawnContainer) not ]) ifTrue: [ 
-				aSpawnEvent consumed: true. 
-				self fireEvent: (GtPhlowObjectToSpawn new 
-					previousSpawnEvent: aSpawnEvent;
-					tool: aSpawnEvent tool; 
-					sourceElement: aSpawnEvent currentTarget;
-					spawnDestination: aSpawnEvent spawnDestination;
-					in: [ :anNewEvent | 
-						anNewEvent propertyAt: #spawnContainer put: self ];
-					yourself) ] ].
+		do: [ :aSpawnEvent | 
+			(aSpawnEvent spawnDestination isSpawnBelow
+				and: [ aSpawnEvent spawnContainer isNil ])
+				ifTrue: [ self
+						fireEvent: (GtPhlowObjectToSpawn new
+								fromPreviousSpawnEvent: aSpawnEvent;
+								spawnContainer: self) ] ]
 ]
 
 { #category : #accessing }

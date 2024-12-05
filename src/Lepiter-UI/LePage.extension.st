@@ -178,9 +178,9 @@ m nodes
 				constraintsDo: [ :c |
 					c horizontal fitContent.
 					c vertical fitContent ];
-				when: GtPhlowObjectToSpawn do: [ :anEvent | element fireEvent: (GtPhlowObjectToSpawn new
-					object: anEvent object;
-					sourceElement: anEvent target) ].
+				when: GtPhlowObjectToSpawn do: [ :anEvent | 
+					element fireEvent: (GtPhlowObjectToSpawn new 
+						fromPreviousSpawnEvent: anEvent) ].
 			(each gtViewsFor: GtPhlowEmptyView new) asElementDo: [ :anInspectorElement |
 				aContainer addChild: ((anInspectorElement exact: 400@400) asScalableElement size: 200@200)
 			] ]) showDelay: 100 milliSeconds);
