@@ -64,7 +64,6 @@ LeGitHubTagSummaryModelElement >> titleElement [
 
 { #category : #'private - updating' }
 LeGitHubTagSummaryModelElement >> updateElement [
-	self halt.
 	super updateElement.
 
 	self titleElement text: self model tagName.
