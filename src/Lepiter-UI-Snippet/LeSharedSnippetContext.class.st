@@ -1,6 +1,8 @@
 Class {
 	#name : #LeSharedSnippetContext,
 	#superclass : #Object,
+	#traits : 'TGtCoderWithSelfObjectHolder',
+	#classTraits : 'TGtCoderWithSelfObjectHolder classTrait',
 	#instVars : [
 		'announcer',
 		'sharedBindings',
@@ -45,6 +47,11 @@ LeSharedSnippetContext >> initialize [
 	variablePreviewToggle := BrToggleModel new.
 ]
 
+{ #category : #'api - self object' }
+LeSharedSnippetContext >> onSelfObjectHolderChanged [
+	announcer ifNotNil: [ :anAnnouncer | anAnnouncer announce: #selfObject ]
+]
+
 { #category : #accessing }
 LeSharedSnippetContext >> pharoRuntimeContext [
 	<return: #Context>
@@ -58,19 +65,6 @@ LeSharedSnippetContext >> pharoRuntimeContext: aContext [
 	Should be used when evaluating Pharo code in a presence of a running system (live debugger, code snippets in debugger)"
 
 	pharoRuntimeContext := aContext
-]
-
-{ #category : #accessing }
-LeSharedSnippetContext >> selfObject [
-
-	^ selfObject
-]
-
-{ #category : #accessing }
-LeSharedSnippetContext >> selfObject: anObject [
-	selfObject := anObject.
-
-	announcer ifNotNil: [ :anAnnouncer | anAnnouncer announce: #selfObject ]
 ]
 
 { #category : #accessing }
