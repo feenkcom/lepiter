@@ -26,7 +26,11 @@ LeCodeSnippetViewModel >> collapsedTextPromise [
 			index := self indexOfHighlightIn: text.
 			text glamorousCodeFontAndSize.
 			self coderViewModel addOns wait stylers
-				do: [ :styler | styler == highlighter ifFalse: [ styler style: text ast: each ast ] ].
+				do: [ :styler | 
+					styler == highlighter
+						ifFalse: [ (styler respondsTo: #coderViewModel:)
+								ifTrue: [ styler coderViewModel: self coderViewModel ].
+							styler style: text ast: each ast ] ].
 			self clipTextIn: text around: index ]
 ]
 
