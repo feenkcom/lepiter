@@ -8,7 +8,7 @@ Class {
 	#classInstVars : [
 		'defaultDocumentationDirectory'
 	],
-	#category : 'Lepiter-Core-Defaults'
+	#category : #'Lepiter-Core-Defaults'
 }
 
 { #category : #constants }
@@ -33,6 +33,14 @@ LepiterCoreDefaults class >> defaultDocumentationDirectory: aFileLocator [
 LepiterCoreDefaults class >> defaultGemStonePropertiesFileReference [
 
 	^ self defaultLocalDirectory / self gemStonePropertiesBasename
+]
+
+{ #category : #defaults }
+LepiterCoreDefaults class >> defaultGt4llmDocumentationDirectory [
+	^ self defaultDocumentationDirectory
+		/ 'feenkcom' 
+		/ 'gt4llm' 
+		/ 'lepiter'
 ]
 
 { #category : #defaults }
