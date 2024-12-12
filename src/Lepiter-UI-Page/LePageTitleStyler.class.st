@@ -22,9 +22,10 @@ LePageTitleStyler >> privateStyle: aText [
 	| buttonsAttribute |
 	buttonsAttribute := {LePageTitleButtonsAttribute new
 				pageViewModel: self pageViewModel}.
+	
 	aText
 		attributes: buttonsAttribute
-		from: aText size - 1
+		from: ((aText size - 1) max: 0)
 		to: aText size.
 	((pageViewModel database hasPageNamed: aText asString)
 		and: [ (pageViewModel pageTitle = aText asString) not ])

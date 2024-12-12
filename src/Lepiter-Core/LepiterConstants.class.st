@@ -82,7 +82,8 @@ LepiterConstants class >> defaultExamplesShowSelector [
 { #category : #'file export' }
 LepiterConstants class >> defaultExportFigureWidth [
 	"Exported figure width without considering the scale factor at ${method:GtDocumentConstants class>>#exportFigureScaleFactor}$"
-	^ 800
+
+	^ 1200
 ]
 
 { #category : #'pillar parameter default values' }
