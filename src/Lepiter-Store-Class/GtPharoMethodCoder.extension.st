@@ -9,6 +9,7 @@ GtPharoMethodCoder >> gtLepiterPageStoreFor: anAST into: coderAddOns [
 		ifTrue: [ ^ self ].
 	coderAddOns
 		addContextMenuItem: 'Inspect Lepiter Page' translated
+		group: BrMenuItemGroupConfiguration navigation
 		hover: nil
 		leave: nil
 		action: [ :aCoderUIModel :anEvent | 
