@@ -493,7 +493,7 @@ LeTextSnippet >> printOn: aStream [
 		nextPutAll: ')'
 ]
 
-{ #category : #'api - editing' }
+{ #category : #converting }
 LeTextSnippet >> promoteToPage [
 	
 	| aPage |
@@ -501,6 +501,7 @@ LeTextSnippet >> promoteToPage [
 	self database addPage: aPage.
 	self transferChildrenTo: aPage.
 	self removeSelf.
+	^ aPage
 ]
 
 { #category : #'private - updating' }
