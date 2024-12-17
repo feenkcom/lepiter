@@ -310,9 +310,12 @@ LeTextSnippet >> fromStonMapKey: key value: value [
 { #category : #accessing }
 LeTextSnippet >> gtASTFor: aView [
 	<gtView>
+	self hasText
+		ifFalse: [ ^ aView empty ].
 	^ aView forward
 		title: 'AST';
-		object: [ self ast ];
+		priority: 10;
+		object: [ LeParser parse: self text asString ];
 		view: #gtExploreFor:
 ]
 
