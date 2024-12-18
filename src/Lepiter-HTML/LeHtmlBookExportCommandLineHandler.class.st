@@ -6,12 +6,12 @@ Class {
 
 { #category : #accessing }
 LeHtmlBookExportCommandLineHandler class >> commandName [
-	^ 'exportgtbook'
+	^ 'exportbook'
 ]
 
 { #category : #accessing }
 LeHtmlBookExportCommandLineHandler class >> description [
-	^ 'export Glamorous Toolkit book into HTML'
+	^ 'export a provided book into HTML (Glamorous Toolkit book is exported by default)'
 ]
 
 { #category : #activation }
