@@ -20,6 +20,11 @@ LeHtmlGtBookExportCommandLineHandler >> defaultBookName [
 ]
 
 { #category : #defaults }
+LeHtmlGtBookExportCommandLineHandler >> defaultHypertextReferenceBuilder [
+	^ LeExportFilenameHypertextReferenceBuilder new
+]
+
+{ #category : #defaults }
 LeHtmlGtBookExportCommandLineHandler >> defaultMainPageName [
 	^ 'Glamorous Toolkit'
 ]

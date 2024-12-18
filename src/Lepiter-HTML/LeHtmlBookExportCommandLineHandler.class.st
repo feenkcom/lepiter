@@ -16,7 +16,7 @@ LeHtmlBookExportCommandLineHandler class >> description [
 
 { #category : #activation }
 LeHtmlBookExportCommandLineHandler >> activate [
-	| aBookExporter aBookName aBook aTargetDirName aTargetDir theWorkflowBuilder aMainPageName aMainPage aPageTemplateFileName aPiece anInputDirName |
+	| aBookExporter aBookName aBook aTargetDirName aTargetDir theWorkflowBuilder aMainPageName aMainPage aPageTemplateFileName aPiece anInputDirName aHrefBuilder |
 	self activateHelp ifTrue: [ ^ self ].
 	anInputDirName := self optionBookInputDirectoryName.
 	anInputDirName ifNotNil: [ self ensureBookLoaded: anInputDirName ].
@@ -33,6 +33,7 @@ LeHtmlBookExportCommandLineHandler >> activate [
 	aTargetDir := self findTargetDirectoryNamed: aTargetDirName.
 	aPageTemplateFileName := self optionPageTemplateFileName.
 	aPiece := self findTemplatePieceForFileNamed: aPageTemplateFileName.
+	aHrefBuilder := self optionHypertextReferenceBuilder.
 	theWorkflowBuilder := [ NonInteractiveTranscript stdout
 			show: 'Exporting "';
 			show: aBookName;
@@ -43,7 +44,7 @@ LeHtmlBookExportCommandLineHandler >> activate [
 				database: aBook;
 				mainPage: aMainPage;
 				piece: aPiece;
-				hrefBuilder: LeExportFilenameHypertextReferenceBuilder new;
+				hrefBuilder: aHrefBuilder;
 				integerSequencer;
 				addGtBookAssets;
 				export;
@@ -62,6 +63,11 @@ LeHtmlBookExportCommandLineHandler >> activate [
 { #category : #defaults }
 LeHtmlBookExportCommandLineHandler >> defaultBookName [
 	^ nil
+]
+
+{ #category : #defaults }
+LeHtmlBookExportCommandLineHandler >> defaultHypertextReferenceBuilder [
+	^ LeExportFilenameAndExtensionHypertextReferenceBuilder new
 ]
 
 { #category : #defaults }
@@ -178,6 +184,30 @@ LeHtmlBookExportCommandLineHandler >> optionBookName [
 		description: [ 'Book name must be defined. Use --book-name option' ].
 		
 	^ aBookName
+]
+
+{ #category : #'accessing - arguments' }
+LeHtmlBookExportCommandLineHandler >> optionHypertextReferenceBuilder [
+	| aBuilderName |
+	aBuilderName := self
+			optionAt: 'href-builder'
+			ifPresent: [ :anInput |
+				| aName |
+				aName := anInput trimBoth.
+				self
+					assert: [ aName isNotEmpty ]
+					description: [ 'Hypertext reference builder name must be non-empty: `{1}`' 
+						format: {anInput} ].
+				aName ]
+			ifAbsent: [ nil ].
+
+	aBuilderName ifNotNil: [ 
+		TLeExportHypertextReferenceBuilder users do: [ :eachClass | 
+			(eachClass optionValue = aBuilderName) ifTrue: [
+				^ eachClass new ] ].
+		self error: ('Hypertext reference builder named "{1}" does not exist.' format: { aBuilderName }) ].
+			
+	^ self defaultHypertextReferenceBuilder.
 ]
 
 { #category : #'accessing - arguments' }
