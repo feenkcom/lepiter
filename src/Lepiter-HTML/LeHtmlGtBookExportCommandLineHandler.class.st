@@ -13,3 +13,13 @@ LeHtmlGtBookExportCommandLineHandler class >> commandName [
 LeHtmlGtBookExportCommandLineHandler class >> description [
 	^ 'export Glamorous Toolkit book into HTML'
 ]
+
+{ #category : #defaults }
+LeHtmlGtBookExportCommandLineHandler >> defaultBookName [
+	^ 'Glamorous Toolkit Book'
+]
+
+{ #category : #defaults }
+LeHtmlGtBookExportCommandLineHandler >> defaultMainPageName [
+	^ 'Glamorous Toolkit'
+]
