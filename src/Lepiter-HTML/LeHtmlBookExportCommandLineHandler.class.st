@@ -108,7 +108,7 @@ LeHtmlBookExportCommandLineHandler >> ensureBookLoaded: anInputDirName [
 			aRootDir = anInputDir ifTrue: [ ^ self ] ] ].
 			
 	LeDatabasesRegistry defaultLogicalDatabase properties
-		addRegisteredDirectory: anInputDirName.
+		addRegisteredDirectory: anInputDir.
 	LeDatabasesRegistry default defaultLogicalDatabase reload.
 ]
 
