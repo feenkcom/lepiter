@@ -16,19 +16,13 @@ LeHtmlBookExportCommandLineHandler class >> description [
 
 { #category : #activation }
 LeHtmlBookExportCommandLineHandler >> activate [
-	| aBookExporter aBookName aBook aTargetDirName aTargetDir theWorkflowBuilder aMainPageName aMainPage aPageTemplateFileName aPiece anInputDirName aHrefBuilder |
+	| aBookExporter aBookName aBook aTargetDirName aTargetDir theWorkflowBuilder aMainPage aPageTemplateFileName aPiece anInputDirName aHrefBuilder |
 	self activateHelp ifTrue: [ ^ self ].
 	anInputDirName := self optionBookInputDirectoryName.
 	anInputDirName ifNotNil: [ self ensureBookLoaded: anInputDirName ].
 	aBookName := self optionBookName.
 	aBook := self findBookNamed: aBookName.
-	aMainPageName := self optionMainPageName.
-	aMainPage := aBook pageNamed: aMainPageName.
-	self
-		assert: [ aMainPage isNotNil ]
-		description: [ '"{1}" does not include "{2}" main page not found'
-				format: {aBookName.
-						aMainPageName} ].
+	aMainPage := self findMainPageInBook: aBook named: aBookName.
 	aTargetDirName := self optionTargetDirName.
 	aTargetDir := self findTargetDirectoryNamed: aTargetDirName.
 	aPageTemplateFileName := self optionPageTemplateFileName.
@@ -121,6 +115,19 @@ LeHtmlBookExportCommandLineHandler >> findBookNamed: aBookName [
 		assert: [ aBook isNotNil ]
 		description: [ '"{1}" knowledgebase not found' format: {aBookName} ].
 	^ aBook
+]
+
+{ #category : #activation }
+LeHtmlBookExportCommandLineHandler >> findMainPageInBook: aBook named: aBookName [
+	| aMainPage aMainPageName |
+	aMainPageName := self optionMainPageName.
+	aMainPage := aBook pageNamed: aMainPageName.
+	self
+		assert: [ aMainPage isNotNil ]
+		description: [ '"{1}" does not include "{2}" main page'
+				format: {aBookName.
+						aMainPageName} ].
+	^ aMainPage
 ]
 
 { #category : #activation }
