@@ -262,14 +262,9 @@ LePageViewModel >> printPageSummaryLimitedTo: aNumber [
 { #category : #'api - page' }
 LePageViewModel >> printPageTabLabel [
 	"Return a short title that fits nicely in ${class:LeWorldElement}$'s tab label"
+
 	<return: #String>
-	| aTitle |
-
-	aTitle := self pageTitle.
-
-	^ aTitle size < 21
-		ifTrue: [ aTitle ]
-		ifFalse: [ (aTitle first: (aTitle size min: 21)), '...' ]
+	^ self pageModel printPageTabLabel
 ]
 
 { #category : #accessing }

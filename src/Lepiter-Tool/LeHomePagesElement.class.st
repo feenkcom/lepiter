@@ -18,11 +18,7 @@ LeHomePagesElement >> isForTodayNote [
 
 { #category : #'private - event handling' }
 LeHomePagesElement >> onPageClick: aLePageViewModel [
-	self phlow spaceBuilder
-		icon: LeIcons lepiterPage;
-		title: aLePageViewModel printPageTabLabel;
-		inPager: [ aLePageViewModel asPhlowTool asElementDo: [ :e | e ] ] asStencil;
-		show
+	BlSpace spawnPage: aLePageViewModel pageModel from: self
 ]
 
 { #category : #'private - accessing' }

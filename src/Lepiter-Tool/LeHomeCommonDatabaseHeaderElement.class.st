@@ -46,11 +46,12 @@ LeHomeCommonDatabaseHeaderElement >> onAddNewPageFrom: aButton [
 	aNewPage := self database pageBuilder
 			uniqueTitle;
 			add.
-	aButton phlow spaceBuilder
+	BlSpace new
 		title: aNewPage tabLabel;
 		icon: LeIcons lepiterPage;
 		inPager: [ aNewPage asLepiterPagePhlowTool asElementDo: [ :e | e ] ] asStencil;
-		show
+		withSceneDriller;
+		showFrom: aButton
 ]
 
 { #category : #'private - accessing' }
