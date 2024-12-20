@@ -529,6 +529,19 @@ LePage >> printOn: aStream [
 	type printOn: aStream.
 ]
 
+{ #category : #'api - accessing' }
+LePage >> printPageTabLabel [
+	"Return a short title that fits nicely in ${class:LeWorldElement}$'s tab label"
+	<return: #String>
+	| aTitle |
+
+	aTitle := self title.
+
+	^ aTitle size < 21
+		ifTrue: [ aTitle ]
+		ifFalse: [ (aTitle first: (aTitle size min: 21)), '...' ]
+]
+
 { #category : #'private - updating' }
 LePage >> reloadAttributesFromContent: aLeContent [
 	^ self reloadCommonMetadataFromContent: aLeContent.

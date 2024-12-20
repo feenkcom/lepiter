@@ -40,10 +40,11 @@ LeLocalSyncErrorStatus >> statusWidget [
 				label: 'View status';
 				margin: (BlInsets left: 5);
 				action: [ :aButtonElement | 
-					aButtonElement phlow spaceBuilder
+					BlSpace new
 						title: self asString;
-						stencil: (GtInspector createOn: self) maximized;
-						show.
+						addChild: (GtInspector createOn: self) maximized;
+						withSceneDriller;
+						showFrom: aButtonElement.
 					aButtonElement fireEvent: BrDropdownHideWish new ]).
 
 	container

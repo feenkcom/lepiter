@@ -186,11 +186,11 @@ LeUIStylingPageByScripterExamples >> pageIntoWorldTab [
 							aStencil := [ | aPage |
 								aPage := self pageOneWithText.
 								LeUIByScripterExamples new pageInPager: aPage ] asStencil.
-							aTabElement phlow spaceBuilder
+							BlSpace new
 								icon: BrGlamorousVectorIcons transparent;
 								title: 'Lepiter Page';
-								stencil: aStencil;
-								show ] ].
+								addChild: aStencil asElement;
+								showFrom: aTabElement ] ].
 
 			aStep
 				assertStep: [ :s | 
@@ -454,11 +454,11 @@ LeUIStylingPageByScripterExamples >> pageWithClassIntoWorldTab [
 							aStencil := [ | aPage |
 								aPage := self pageOneWithClass.
 								LeUIByScripterExamples new pageInPager: aPage ] asStencil.
-							aTabElement phlow spaceBuilder
+							BlSpace new
 								icon: BrGlamorousVectorIcons transparent;
 								title: 'Lepiter Page';
-								stencil: aStencil;
-								show ] ].
+								addChild: aStencil asElement;
+								showFrom: aTabElement ] ].
 
 			aStep
 				assertStep: [ :s | 
@@ -564,11 +564,11 @@ LeUIStylingPageByScripterExamples >> pageWithPackageIntoWorldTab [
 					aStencil := [ | aPage |
 						aPage := self pageOneWithClass.
 						LeUIByScripterExamples new pageInPager: aPage ] asStencil.
-					aTabElement phlow spaceBuilder
+					BlSpace new
 						icon: BrGlamorousVectorIcons transparent;
 						title: 'Lepiter Page';
-						stencil: aStencil;
-						show ] ].
+						addChild: aStencil asElement;
+						showFrom: aTabElement ] ].
 
 	aScripter
 		assertStep: [ :s | 

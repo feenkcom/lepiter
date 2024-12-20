@@ -220,10 +220,10 @@ LePage >> gtOpenInNewTabActionFor: anAction [
 		tooltip: 'Open page in a new world tab';
 		icon: BrGlamorousVectorIcons spawn;
 		action: [ :aButton | 
-			aButton phlow spaceBuilder
-				title: self title;
-				inPager: [ self asLepiterPagePhlowTool asElementDo: [ :e | e ] ] asStencil;
-				show ]
+			BlSpace new
+				pageInPager: self;
+				withSceneDriller;
+				showFrom: aButton ]
 ]
 
 { #category : #'*Lepiter-UI' }
