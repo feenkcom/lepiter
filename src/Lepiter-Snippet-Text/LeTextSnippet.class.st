@@ -493,6 +493,17 @@ LeTextSnippet >> printOn: aStream [
 		nextPutAll: ')'
 ]
 
+{ #category : #converting }
+LeTextSnippet >> promoteToPage [
+	
+	| aPage |
+	aPage := LePage named: self text asString.
+	self database addPage: aPage.
+	self transferChildrenTo: aPage.
+	self removeSelf.
+	^ aPage
+]
+
 { #category : #'private - updating' }
 LeTextSnippet >> reloadAttributesFromContent: aLeSnippet [
 	"Reload the receiver's attributes from the supplied snippet"

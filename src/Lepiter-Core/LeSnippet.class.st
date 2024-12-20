@@ -400,6 +400,12 @@ LeSnippet >> moveDownThroughCommand [
 ]
 
 { #category : #'api - editing' }
+LeSnippet >> moveToPage: aPage [
+	self page removeSnippet: self.
+	aPage addSnippet: self
+]
+
+{ #category : #'api - editing' }
 LeSnippet >> moveUp [
 	"Move the receiver up one snippet.
 	If the receiver has a sibling below it, move there, if not and the receiver's parent has a sibling below, move there"
