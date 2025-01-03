@@ -85,7 +85,5 @@ LeUID >> uidString [
 { #category : #accessing }
 LeUID >> uidString: aString64 [
 
-	uid := UUID nilUUID.
-	ZnBase64Encoder new decode: aString64 readStream to: uid writeStream.
-
+	uid := UUID fromBase64EncodedString: aString64
 ]
