@@ -10,7 +10,7 @@ Class {
 	#instVars : [
 		'jsonPage'
 	],
-	#category : 'Lepiter-Store-JsonV4'
+	#category : #'Lepiter-Store-JsonV4'
 }
 
 { #category : #private }
@@ -29,8 +29,7 @@ LeJsonV4000Updater class >> cleanUidString: aString [
 				with: (alphabet at: (ch codePoint \\ (alphabet size + 1))) asString ] ].
 	(uidString size \\ 4) = 0 ifFalse:
 		[ uidString := uidString, (uidString copyFrom: 1 to: (4 - (uidString size \\ 4))) ].
-	uid := UUID nilUUID.
-	ZnBase64Encoder new decode: uidString readStream to: uid writeStream.
+	uid := UUID fromBase64EncodedString: uidString.
 	^ uid base64Encoded.
 ]
 
