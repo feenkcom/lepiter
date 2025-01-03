@@ -15,7 +15,7 @@
 		"github://feenkcom/pharo-beacon/repository" : "839881eafebdd79eeb88a2d29bf77d6c74e42075",
 		"github://feenkcom/xdoc/src" : "v0.8.815",
 		"github://feenkcom/gtoolkit-debugadapterprotocol/src" : "v0.5.382",
-		"github://feenkcom/gt4lsp/src" : "v0.6.559",
+		"github://feenkcom/gt4lsp/src" : "v0.6.560",
 		"github://feenkcom/gtoolkit-releaser/src" : "v0.8.259",
 		"github://feenkcom/gtoolkit-coder/src" : "v0.8.1915",
 		"github://feenkcom/gt4pharo/src" : "v0.6.1972",
