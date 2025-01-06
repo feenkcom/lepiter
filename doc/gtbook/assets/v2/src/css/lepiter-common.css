@@ -57,6 +57,15 @@ body footer {
 }
 
 /* Link styling */
+h1 a, 
+h2 a, 
+h3 a, 
+h4 a, 
+h5 a, 
+h6 a {
+    text-decoration: unset;
+}
+
 a {
     text-decoration: underline;
     color: var(--link-text-color);

@@ -6,7 +6,8 @@ Class {
 	#instVars : [
 		'context',
 		'snippet',
-		'exportedNodes'
+		'exportedNodes',
+		'elementIds'
 	],
 	#classInstVars : [
 		'componentVisitorClasses'
@@ -37,6 +38,16 @@ LeHtmlTextSnippetVisitor >> convertToLocalOrAbsoluteUrl: linkUrl [
 { #category : #generated }
 LeHtmlTextSnippetVisitor >> defaultWidth [
 	^ LeSnippetParagraphWidth new
+]
+
+{ #category : #generated }
+LeHtmlTextSnippetVisitor >> elementIds [
+	^ elementIds ifNil: [ elementIds := OrderedCollection new ]
+]
+
+{ #category : #generated }
+LeHtmlTextSnippetVisitor >> elementIds: aCollection [
+	elementIds := aCollection
 ]
 
 { #category : #initialization }
@@ -179,11 +190,24 @@ LeHtmlTextSnippetVisitor >> visitExternalUrlLink: anExternalUrlLink [
 
 { #category : #generated }
 LeHtmlTextSnippetVisitor >> visitHeader: aHeader [
+	| anElementId |
 	exportedNodes add: aHeader.
 	
+	anElementId := LeHtmlElementIdBuilder new
+		existingIds: self elementIds;
+		contentNode: aHeader;
+		build;
+		elementId.
+		
 	context html
 		tag: 'h' , (aHeader headerLevel + 1) asString
-		do: [ self visitContent: aHeader ]
+		attributes: { 'id'. anElementId }
+		do: [ 
+			context html
+				tag: 'a'
+				attributes: {
+					'href'. '#' , anElementId }
+				do: [ self visitContent: aHeader ] ]
 ]
 
 { #category : #generated }
