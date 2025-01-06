@@ -226,6 +226,9 @@ LeLocalStoreMonitor >> isRunningCleanly [
 LeLocalStoreMonitor >> loadCorruptPages [
 	"Load the list of corrupt files (which should of course be empty)"
 
+	"Two images sharing a lepiter directory can cause a race condition if one of the images removes the directory.
+	While this is bad practice, guard against it by ensuring the directory exists."
+	localRoot ensureCreateDirectory.
 	corruptFiles := #('*.corrupt' '*.duplicate') flatCollect: [ :pattern |
 		localRoot childrenMatching: pattern ]
 ]
