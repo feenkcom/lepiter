@@ -51,7 +51,8 @@ LeHtmlGtBookPiece >> initialize [
 		at: #gtVersion put: LeHtmlGToolkitVersionPiece;
 		at: #navigation put: LeHtmlNavigationPiece;
 		at: #content put: LeHtmlPagePiece;
-		at: #date put: LeHtmlDatePiece
+		at: #date put: LeHtmlDatePiece;
+		at: #author put: LeHtmlAuthorPiece
 ]
 
 { #category : #'api - initialization' }

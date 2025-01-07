@@ -30,11 +30,14 @@ LeMethodNameArgumentNode >> gtGt: aSmaCCToken [
 
 { #category : #accessing }
 LeMethodNameArgumentNode >> imageObject [
-	^ super imageObject
-		ifNotNil: [ :cls | 
-			cls isBehavior
-				ifTrue: [ (cls compiledMethodAt: self methodName ifAbsent: [ nil ]) notNil
-						ifTrue: [ RGMethodDefinition realClass: cls selector: self methodName ] ] ]
+	| aBehavior aMethod |
+	aBehavior := super imageObject.
+	aBehavior isBehavior ifFalse: [ ^ nil ].
+	
+	aMethod := aBehavior lookupSelector: self methodName.
+	aMethod ifNil: [ ^ nil ].
+	
+	^ aMethod asActiveRingDefinition.
 ]
 
 { #category : #accessing }

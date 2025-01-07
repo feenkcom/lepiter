@@ -15,11 +15,16 @@ LeHtmlAssetsUtility class >> addAssetResourcesFrom: directory into: resources [
 { #category : #'api - resources' }
 LeHtmlAssetsUtility class >> addGtBookAssetsInto: resources [
 	self
-		addAssetResourcesFrom: FileLocator gtResource 
-			/ 'feenkcom' 
-			/ 'lepiter' 
-			/ 'doc' 
-			/ 'gtbook' 
-			/ 'assets'
+		addAssetResourcesFrom: self gtBookAssetsDirectory
 		into: resources
+]
+
+{ #category : #'api - resources' }
+LeHtmlAssetsUtility class >> gtBookAssetsDirectory [
+	^ FileLocator gtResource 
+		/ 'feenkcom' 
+		/ 'lepiter' 
+		/ 'doc' 
+		/ 'gtbook' 
+		/ 'assets'
 ]
