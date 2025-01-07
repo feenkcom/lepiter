@@ -417,6 +417,22 @@ LeParserExamples >> headers [
 ]
 
 { #category : #'examples - markdown' }
+LeParserExamples >> headers2 [
+	<gtExample>
+	| node headers |
+	node := self
+		parse:
+			'# I am __Header One (Letter A)__' , String cr , String cr , 
+			'## I am *Header Two {Letter B}*' , String cr, 
+			'### I am {{gtClass:BrButton}} header', String cr, 
+			'#### 中国 header'.
+	headers := node parts select: [ :each | each isKindOf: LeHeaderNode ].
+	self assert: headers size equals: 4.
+	1 to: headers size do: [ :i | self assert: (headers at: i) numberSigns size equals: i ].
+	^ node
+]
+
+{ #category : #'examples - markdown' }
 LeParserExamples >> inlineCode [
 	<gtExample>
 	| node code |

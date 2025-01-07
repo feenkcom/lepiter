@@ -4,7 +4,8 @@ Class {
 	#traits : 'TLeModelVisitor',
 	#classTraits : 'TLeModelVisitor classTrait',
 	#instVars : [
-		'context'
+		'context',
+		'elementIds'
 	],
 	#category : #'Lepiter-HTML-! Core'
 }
@@ -26,6 +27,11 @@ LeHtmlVisitor >> context [
 { #category : #accessing }
 LeHtmlVisitor >> context: aContext [
 	context := aContext
+]
+
+{ #category : #visiting }
+LeHtmlVisitor >> elementIds [
+	^ elementIds ifNil: [ elementIds := OrderedCollection new ]
 ]
 
 { #category : #'gt - extensions' }
@@ -200,6 +206,7 @@ LeHtmlVisitor >> visitTextSnippet: aLeTextSnippet [
 				withClasses: 'snippet textual-snippet text-snippet')
 		do: [ | visitor |
 			visitor := LeHtmlTextSnippetVisitor new
+					elementIds: self elementIds;
 					context: context;
 					snippet: aLeTextSnippet.
 
