@@ -10,10 +10,30 @@ Class {
 		'pageLinks',
 		'database',
 		'date',
-		'hrefBuilder'
+		'hrefBuilder',
+		'author'
 	],
 	#category : #'Lepiter-HTML-! Core'
 }
+
+{ #category : #accessing }
+LeHtmlContext >> author [
+	<return: #TLeHtmlAuthor or: nil>
+	^ author
+]
+
+{ #category : #accessing }
+LeHtmlContext >> author: anAuthor [
+	author := anAuthor
+]
+
+{ #category : #accessing }
+LeHtmlContext >> authorName: aString [
+	aString ifNil: [ 
+		author := nil.
+		^ self ].
+	self author: (LeHtmlAuthor new name: aString)
+]
 
 { #category : #copying }
 LeHtmlContext >> copyWithNewStream: aStream [

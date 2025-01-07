@@ -196,6 +196,22 @@ It means that the navigation item highlight will start at the
 }
 
 /*
+	Meta data
+*/
+
+.le-post-meta {
+	padding-bottom: 1rem;
+}
+
+.le-post-publish-date, 
+.le-post-publish-user {
+    color: #6c757d;
+    font-size: 80%;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+/*
     Footer
 */
 

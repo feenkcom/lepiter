@@ -10,6 +10,16 @@ Class {
 	#category : #'Lepiter-HTML-Piece - Model'
 }
 
+{ #category : #'instance-creation' }
+LeHtmlFormatPiece class >> fromFile: aFileReference [
+	self
+		assert: [ aFileReference exists ]
+		description: [ 'File with template must exist: {1}' 
+			format: {aFileReference} ].
+
+	^ self new template: aFileReference contents
+]
+
 { #category : #accessing }
 LeHtmlFormatPiece >> arguments [
 	^ arguments
