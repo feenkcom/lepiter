@@ -134,6 +134,17 @@ GtShellScriptProcess >> execute [
 ]
 
 { #category : #'gt extensions' }
+GtShellScriptProcess >> gtBindingsFor: aView [
+	<gtView>
+	bindings ifNil: [ ^ aView empty ].
+	
+	^ aView forward
+		title: 'Bindings';
+		object: [ bindings ];
+		view: #gtTreeFor:context:
+]
+
+{ #category : #'gt extensions' }
 GtShellScriptProcess >> gtStartActionFor: composite [
 	<gtAction>
 	^ composite button
@@ -294,6 +305,16 @@ GtShellScriptProcess >> pollStdout [
 	childProcess asynchronousStdout
 		pollStringEvery: 0.5 seconds
 		do: [ :aString | stdout show: aString ]
+]
+
+{ #category : #printing }
+GtShellScriptProcess >> printOn: aStream [
+	super printOn: aStream.
+
+	aStream
+		nextPut: $(;
+		nextPutAll: self stateDescription asString;
+		nextPut: $)
 ]
 
 { #category : #accessing }
