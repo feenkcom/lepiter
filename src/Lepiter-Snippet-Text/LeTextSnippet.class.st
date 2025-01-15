@@ -509,13 +509,19 @@ LeTextSnippet >> reloadAttributesFromContent: aLeSnippet [
 	"Reload the receiver's attributes from the supplied snippet"
 	| changed |
 	
-	changed := self reloadCommonMetadataFromContent: aLeSnippet.
+	changed := false.
 	paragraphStyle = aLeSnippet paragraphStyle ifFalse:
 		[ paragraphStyle := aLeSnippet paragraphStyle.
 		changed := true ].
 	text characters = aLeSnippet text characters ifFalse: 
 		[ self updateText: aLeSnippet text.
 		changed := true ].
+		
+	"Reload the common attributes after we set the text, as changing the text
+	also can update them"
+	(self reloadCommonMetadataFromContent: aLeSnippet) ifTrue: [
+		changed := true ].
+	
 	^ changed
 ]
 
