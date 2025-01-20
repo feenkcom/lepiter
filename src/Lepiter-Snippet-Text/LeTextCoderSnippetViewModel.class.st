@@ -29,7 +29,7 @@ LeTextCoderSnippetViewModel >> collapsedTextPromise [
 			LeSnippetStyler new
 				snippetViewModel: self;
 				style: text ast: each ast.
-			self clipTextIn: text around: index ]
+			text clipForPreviewAround: index ]
 ]
 
 { #category : #'filter view' }

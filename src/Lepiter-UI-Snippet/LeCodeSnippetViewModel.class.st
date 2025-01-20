@@ -31,7 +31,7 @@ LeCodeSnippetViewModel >> collapsedTextPromise [
 						ifFalse: [ (styler respondsTo: #coderViewModel:)
 								ifTrue: [ styler coderViewModel: self coderViewModel ].
 							styler style: text ast: each ast ] ].
-			self clipTextIn: text around: index ]
+			text clipForPreviewAround: index ]
 ]
 
 { #category : #'api - focus' }
