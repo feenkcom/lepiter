@@ -41,51 +41,6 @@ LeSnippetViewModel >> addSnippetBeforeSelfBasedOn: aSnippet [
 ]
 
 { #category : #'filter view' }
-LeSnippetViewModel >> clipTextIn: aText around: anIndex [
-	| start end eol result maxSize minSize lastWasSeparator index |
-	maxSize := 60.
-	minSize := maxSize // 2.
-	eol := String crlf.
-	start := anIndex - 1.
-	[ start <= 0
-		or: [ | char |
-			char := aText at: start.
-			(eol includes: char)
-				or: [ char isSeparator and: [ start < (anIndex - minSize) ] ] ] ]
-		whileFalse: [ start := start - 1 ].
-	start := start + 1 max: anIndex - maxSize.
-	start > 1
-		ifTrue: [ [ start < anIndex and: [ (aText at: start) isSeparator ] ]
-				whileTrue: [ start := start + 1 ] ].
-	maxSize := 1000.
-	minSize := maxSize // 2.
-	end := anIndex + 1.
-	[ end > aText size
-		or: [ | char |
-			char := aText at: end.
-			(eol includes: char)
-				or: [ char isSeparator and: [ end > (anIndex + minSize) ] ] ] ]
-		whileFalse: [ end := end + 1 ].
-	end := end - 1 min: anIndex + maxSize.
-	(start = 1 and: [ end = aText size ]) ifTrue: [ ^ aText ].
-	result := aText copyFrom: start to: end.
-	start > 1 ifTrue: [ result insertString: '...' at: 0 ].
-	end < aText size
-		ifTrue: [ result append: ('...' asRopedText attributes: (result attributesAt: 0)) ].
-	lastWasSeparator := false.
-	index := 1.
-	[ index <= result size ]
-		whileTrue: [ (result at: index) isSeparator
-				ifTrue: [ lastWasSeparator
-						ifTrue: [ result delete: index to: index ]
-						ifFalse: [ index := index + 1 ].
-					lastWasSeparator := true ]
-				ifFalse: [ index := index + 1.
-					lastWasSeparator := false ] ].
-	^ result
-]
-
-{ #category : #'filter view' }
 LeSnippetViewModel >> collapsedElement [
 	^ self collapsedElementClass new
 ]
@@ -110,7 +65,7 @@ LeSnippetViewModel >> collapsedTextPromise [
 		using: self leHighlighters.
 	index := self indexOfHighlightIn: text.
 	text glamorousRegularFontAndSize.
-	self clipTextIn: text around: index ] asAsyncPromise
+	text clipForPreviewAround: index ] asAsyncPromise
 ]
 
 { #category : #'filter view' }
