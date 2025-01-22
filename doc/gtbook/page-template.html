@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{title}</title>
+    <title>{{title}}</title>
 
     <!-- browser setup -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,12 +10,12 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
 
     <!-- page meta information -->
-    <meta name="description" content="{descriptionAttribute}">
+    <meta name="description" content="{{descriptionAttribute}}">
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="gtoolkit book">
-    <meta property="og:title" content="{titleAttribute}">
-    <meta property="og:url" content="{urlAttribute}">
-    <meta property="og:description" content="{descriptionAttribute}">
+    <meta property="og:title" content="{{titleAttribute}}">
+    <meta property="og:url" content="{{urlAttribute}}">
+    <meta property="og:description" content="{{descriptionAttribute}}">
 
     <!-- CSS styles -->
     <link rel="stylesheet" href="assets/vendor/awesomefonts/css/all.css">
@@ -39,7 +39,7 @@
                             </i>
                         </button>
                         <p class="le-logo">
-                            <a class="le-logo-link" href="https://gtoolkit.com" alt="Glamorous Toolkit"><span class="le-logo-g">glamorous</span><span class="le-logo-t">toolkit</span></a> <span class="le-logo-version">{gtVersion}</span>
+                            <a class="le-logo-link" href="https://gtoolkit.com" alt="Glamorous Toolkit"><span class="le-logo-g">glamorous</span><span class="le-logo-t">toolkit</span></a> <span class="le-logo-version">{{gtVersion}}</span>
                         </p>
                     </header>
 
@@ -47,7 +47,7 @@
 
                         <!-- navigation start -->
 
-                        {navigation}
+                        {{navigation}}
 
                         <!-- navigation end -->
                     </nav>
@@ -59,11 +59,11 @@
             <div class="col-lg-9 le-main-col">
                 <div class="container min-height py-5 le-main-container">
                     <main>
-                        <h1 class="le-main-title">{title}</h1>
+                        <h1 class="le-main-title">{{title}}</h1>
 
                         <!-- page content start -->
 
-                        {content}
+                        {{content}}
 
                         <!-- page content end -->
                     </main>
