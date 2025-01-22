@@ -43,7 +43,7 @@ LeHtmlGtBookPiece class >> gtSinglePage [
 LeHtmlGtBookPiece >> initialize [
 	super initialize.
 
-	formatPiece := LeHtmlFormatPiece new
+	formatPiece := LeHtmlDoubleBracketFormatPiece new
 		at: #title put: LeHtmlPageTitlePiece;
 		at: #titleAttribute put: LeHtmlPageTitleAttributePiece;
 		at: #descriptionAttribute put: LeHtmlPageDescriptionAttributePiece;
