@@ -37,6 +37,13 @@ LeContentAttributesReloader >> changedAttributes [
 	^ changedAttributes ifNil: [ #() ]
 ]
 
+{ #category : #accessing }
+LeContentAttributesReloader >> commonAttributeNames [
+	^ LeContent leJsonV4AttributeMapping 
+		collect: [ :aMapping |
+			aMapping key ]
+]
+
 { #category : #'accessing - mappings' }
 LeContentAttributesReloader >> commonMetadataAttributeMappings [
 	| ignoredAttributes |
@@ -134,9 +141,34 @@ LeContentAttributesReloader >> updateAttributeForMapping: aMapping fromContent: 
 ]
 
 { #category : #update }
+LeContentAttributesReloader >> updateCommonMetadataMappingsIn: attributeMapping  fromContent: aContent [
+	| commonAttributeNames commonMappings |
+	commonAttributeNames := self commonAttributeNames.
+	commonMappings := attributeMapping select: [ :each |
+		commonAttributeNames includes: each key ].
+	
+	commonMappings do: [ :aMapping |
+		self 
+			updateAttributeForMapping: aMapping
+			fromContent: aContent ]
+]
+
+{ #category : #update }
 LeContentAttributesReloader >> updateForMappings: attributeMapping  fromContent: aContent [
 	self resetChangedAttributes.
-	attributeMapping do: [ :aMapping |
+	
+	self updateSpecificMappingsIn: attributeMapping  fromContent: aContent.
+	self updateCommonMetadataMappingsIn: attributeMapping  fromContent: aContent.
+]
+
+{ #category : #update }
+LeContentAttributesReloader >> updateSpecificMappingsIn: attributeMapping  fromContent: aContent [
+	| commonAttributeNames specificMappings |
+	commonAttributeNames := self commonAttributeNames.
+	specificMappings := attributeMapping reject: [ :each |
+		commonAttributeNames includes: each key ].
+	
+	specificMappings do: [ :aMapping |
 		self 
 			updateAttributeForMapping: aMapping
 			fromContent: aContent ]
