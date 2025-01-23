@@ -34,7 +34,7 @@ LeExportPageLinksBuilder >> buildPageLink: aPage [
 	aTitle := GtFileUtility
 			secureFileName: aPage title asString
 			extension: nil
-			maxLenght: XdConstants xdocFileNameMaxLenght.
+			maxLength: XdConstants xdocFileNameMaxLength.
 	anId := self sequencer nextIdFromPage: aPage.
 
 	aFileName := String

@@ -93,7 +93,7 @@ LeExampleSnippetElement >> exportExample [
 								             self snippetViewModel previewShowSelector
 									             asString
 							             extension: 'png'
-							             maxLenght: 72.
+							             maxLength: 72.
 
 						aFileName asFileReference ensureDelete.
 
