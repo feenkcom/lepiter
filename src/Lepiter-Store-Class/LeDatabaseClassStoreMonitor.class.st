@@ -336,9 +336,13 @@ LeDatabaseClassStoreMonitor >> processPageTitleChanged: anAnnouncement [
 
 { #category : #'private - announcements' }
 LeDatabaseClassStoreMonitor >> processSnippetContentChanged: anAnnouncement [
-
+	| page reloadingSelector |
+	
 	anAnnouncement snippet page ifNil: [ ^ self ].
-	self savePage: anAnnouncement snippet page
+	reloadingSelector := LeDatabaseClassStoreReloadPageId value.
+	page := anAnnouncement snippet page.
+	(storage pageSelectorForUid: page uid) = reloadingSelector ifTrue: [ ^ self ].
+	self savePage: page.
 ]
 
 { #category : #private }

@@ -11,7 +11,9 @@ Class {
 LeDatabaseClassStoreQueueReloadPageEntry >> apply [
 	"Apply the receiver's changes"
 
-	monitor reloadPageSelectorNow: pageSelector
+	LeDatabaseClassStoreReloadPageId
+		value: pageSelector
+		during: [ monitor reloadPageSelectorNow: pageSelector ]
 ]
 
 { #category : #accessing }
