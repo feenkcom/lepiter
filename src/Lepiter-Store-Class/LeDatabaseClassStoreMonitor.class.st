@@ -297,7 +297,7 @@ LeDatabaseClassStoreMonitor >> processContentTreeChanged: anAnnouncement [
 	"If empty pages should be saved, always save the page,
 	otherwise save it if it has content."
 	(page type saveEmptyPages or: [ page isNotEmpty ]) ifTrue: 
-		[ ^ self savePage: page ].
+		[ ^ self saveIfReloadingSelectorIsDifferentThenPage: page ].
 
 	"If we got here, the page is empty and empty pages shouldn't be saved.
 	Remove it from the DB if it exists."
@@ -319,7 +319,7 @@ LeDatabaseClassStoreMonitor >> processPageAdded: anAnnouncement [
 
 	page := anAnnouncement page.
 	(page type saveEmptyPages or: [ page isNotEmpty ]) ifTrue: 
-		[ self savePage: anAnnouncement page ]
+		[ self saveIfReloadingSelectorIsDifferentThenPage: anAnnouncement page ]
 ]
 
 { #category : #'private - announcements' }
@@ -330,19 +330,16 @@ LeDatabaseClassStoreMonitor >> processPageRemoved: anAnnouncement [
 
 { #category : #'private - announcements' }
 LeDatabaseClassStoreMonitor >> processPageTitleChanged: anAnnouncement [
-
-	self savePage: anAnnouncement page.
+	anAnnouncement page ifNil: [ ^ self ].
+	
+	self saveIfReloadingSelectorIsDifferentThenPage: anAnnouncement page
 ]
 
 { #category : #'private - announcements' }
 LeDatabaseClassStoreMonitor >> processSnippetContentChanged: anAnnouncement [
-	| page reloadingSelector |
-	
 	anAnnouncement snippet page ifNil: [ ^ self ].
-	reloadingSelector := LeDatabaseClassStoreReloadPageId value.
-	page := anAnnouncement snippet page.
-	(storage pageSelectorForUid: page uid) = reloadingSelector ifTrue: [ ^ self ].
-	self savePage: page.
+	
+	self saveIfReloadingSelectorIsDifferentThenPage: anAnnouncement snippet page
 ]
 
 { #category : #private }
@@ -484,6 +481,16 @@ LeDatabaseClassStoreMonitor >> saveDelay: aDuration [
 	Note that the new duration only takes affect after the next update."
 
 	saveDelay := aDuration
+]
+
+{ #category : #'private - announcements' }
+LeDatabaseClassStoreMonitor >> saveIfReloadingSelectorIsDifferentThenPage: aPage [
+	| reloadingSelector |
+	
+	reloadingSelector := LeDatabaseClassStoreReloadPageId value.
+	(storage pageSelectorForUid: aPage uid) = reloadingSelector ifTrue: [ ^ self ].
+	
+	self savePage: aPage.
 ]
 
 { #category : #private }
