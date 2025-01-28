@@ -9,7 +9,7 @@
 		"github://feenkcom/zinc/repository" : "v3.0.69",
 		"github://feenkcom/gtoolkit-remote-python/src" : "v0.5.397",
 		"github://feenkcom/gtoolkit-inspector/src" : "v0.8.2540",
-		"github://feenkcom/gtoolkit-remote/src" : "v0.8.1885",
+		"github://feenkcom/gtoolkit-remote/src" : "v0.8.1886",
 		"github://feenkcom/gtoolkit-visualizer/src" : "v0.8.2094",
 		"github://feenkcom/gt4json/src" : "v0.6.1286",
 		"github://feenkcom/pharo-beacon/repository" : "fb7552975cd29276c901d0f970900f25b6dae2d6",
@@ -19,6 +19,6 @@
 		"github://feenkcom/gtoolkit-releaser/src" : "v0.8.262",
 		"github://feenkcom/gtoolkit-coder/src" : "v0.8.1937",
 		"github://feenkcom/gt4pharo/src" : "v0.6.2003",
-		"github://feenkcom/gtoolkit-remote-javascript/src" : "v0.5.696"
+		"github://feenkcom/gtoolkit-remote-javascript/src" : "v0.5.697"
 	}
 }
