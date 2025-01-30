@@ -70,6 +70,11 @@ LeSmaCCRewriteSnippet >> asSnippetViewModel [
 	^ LeSmaCCRewriteSnippetViewModel new snippetModel: self
 ]
 
+{ #category : #testing }
+LeSmaCCRewriteSnippet >> canMoveToAnotherDatabase [
+	^ true
+]
+
 { #category : #accessing }
 LeSmaCCRewriteSnippet >> contentAsString [
 	^ String

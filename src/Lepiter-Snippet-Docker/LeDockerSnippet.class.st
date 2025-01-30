@@ -55,6 +55,11 @@ LeDockerSnippet >> asSnippetViewModel [
 	^ LeDockerSnippetViewModel new snippetModel: self
 ]
 
+{ #category : #testing }
+LeDockerSnippet >> canMoveToAnotherDatabase [
+	^ true
+]
+
 { #category : #'api - accessing' }
 LeDockerSnippet >> contentAsString [
 	<return: #String>

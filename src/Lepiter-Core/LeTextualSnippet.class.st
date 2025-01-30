@@ -54,12 +54,12 @@ LeTextualSnippet >> appendText: aText source: anObject [
 ]
 
 { #category : #testing }
-LeTextualSnippet >> hasAttachedLinks [
+LeTextualSnippet >> canMoveToAnotherDatabase [
 	(self incomingLinks anySatisfy: [ :aLink | aLink isAttachedLink ])
-		ifTrue: [ ^ true ].
+		ifTrue: [ ^ false ].
 	(self outgoingExplicitLinks anySatisfy: [ :aLink | aLink isAttachedLink ])
-		ifTrue: [ ^ true ].
-	^ false
+		ifTrue: [ ^ false ].
+	^ true
 ]
 
 { #category : #'private - testing' }

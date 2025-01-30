@@ -55,6 +55,11 @@ LeJenkinsSnippet >> asSnippetViewModel [
 	^ LeJenkinsSnippetViewModel new jenkinsSnippetModel: self
 ]
 
+{ #category : #testing }
+LeJenkinsSnippet >> canMoveToAnotherDatabase [
+	^ true
+]
+
 { #category : #accessing }
 LeJenkinsSnippet >> contentAsString [
 	<return: #String>

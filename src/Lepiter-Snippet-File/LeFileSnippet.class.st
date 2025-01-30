@@ -55,6 +55,11 @@ LeFileSnippet >> bindingName: aNameString [
 	bindingName := aNameString
 ]
 
+{ #category : #testing }
+LeFileSnippet >> canMoveToAnotherDatabase [
+	^ true
+]
+
 { #category : #accessing }
 LeFileSnippet >> contentAsString [
 	self fileReference ifNil: [ ^ String new ].

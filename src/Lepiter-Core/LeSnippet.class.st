@@ -202,6 +202,13 @@ LeSnippet >> canBeUnindented [
 	^ self parent isSnippet
 ]
 
+{ #category : #testing }
+LeSnippet >> canMoveToAnotherDatabase [
+	"For the moment, if a snippet has links to attachments in the database or is somehow tied to other files, it cannot be moved.
+	Each snippet class should implement this as true or false, or implement the corresponding logic."
+	^ false
+]
+
 { #category : #refactoring }
 LeSnippet >> changeToRenameClass: oldName to: newName [
 	^ nil
@@ -255,14 +262,6 @@ LeSnippet >> extractUpdatableStateBasedOnState: aSnippetState [
 		appendState: (self 
 			extractSpecificStateBasedOnState: aSnippetState);
 		yourself
-]
-
-{ #category : #testing }
-LeSnippet >> hasAttachedLinks [
-	"If a snippet has links attached to its database, 
-	it cannot be moved, and hence its page cannot be moved.
-	We assume this is the case, and override it in subclasses."
-	^ true
 ]
 
 { #category : #'api - testing' }
