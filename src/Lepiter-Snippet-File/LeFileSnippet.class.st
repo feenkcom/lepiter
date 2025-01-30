@@ -90,3 +90,15 @@ LeFileSnippet >> fileReferenceRepresentation: aString [
 	url := aString asUrl.
 	^ self fileReference: url
 ]
+
+{ #category : #printing }
+LeFileSnippet >> storeOn: aStream [
+	aStream
+		nextPut: $(;
+		nextPutAll: self className;
+		nextPutAll: ' new fileReference:'.
+	self fileReference storeOn: aStream.
+	aStream nextPutAll: '; bindingName:'.
+	self bindingName storeOn: aStream.
+	aStream nextPutAll: '; yourself)'
+]

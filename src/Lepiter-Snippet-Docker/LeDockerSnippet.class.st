@@ -76,6 +76,20 @@ LeDockerSnippet >> notifyUrlChanged [
 		url: self url).
 ]
 
+{ #category : #printing }
+LeDockerSnippet >> storeOn: aStream [
+
+	aStream
+		nextPut: $(;
+		nextPutAll: self className;
+		nextPutAll: ' new url: '.
+	self url storeOn: aStream.
+	self childrenDo: [ :snippet | 
+		aStream nextPutAll: '; addSnippet: '.
+		snippet storeOn: aStream ].
+	aStream nextPutAll: '; yourself)'
+]
+
 { #category : #accessing }
 LeDockerSnippet >> url [
 	^ url
