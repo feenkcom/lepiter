@@ -210,6 +210,11 @@ LeWordSnippet >> gtViewExplanationRawDataFor: aView [
 ]
 
 { #category : #testing }
+LeWordSnippet >> hasAttachedLinks [
+	^ false
+]
+
+{ #category : #testing }
 LeWordSnippet >> hasWord [
 	^ self word notNil
 ]

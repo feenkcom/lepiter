@@ -183,19 +183,18 @@ LePage >> basicUid: aUUID [
 
 { #category : #'api - testing' }
 LePage >> canMoveToAnotherDatabase [
+	"A page can be moved if none of its snippets has links
+	attached to this page's database. 
+	NB: new snippet types should override LeSnippet>>#hasAttachedLinks
+	if they have no attached links, or if they must implement a
+	special logic to determine this."
+
 	(self outgoingExplicitLinks anySatisfy: [ :aLink | aLink isAttachedLink ])
 		ifTrue: [ ^ false ].
 	(self incomingLinks anySatisfy: [ :aLink | aLink isAttachedLink ])
 		ifTrue: [ ^ false ].
-	
-	self allChildrenBreadthFirstDo: [ :aSnippet | 
-		(aSnippet isTextSnippet not and: [ 
-			aSnippet isCodeSnippet not ])
-				ifTrue: [ ^ false ].
-			(aSnippet incomingLinks anySatisfy: [ :aLink | aLink isAttachedLink ])
-				ifTrue: [ ^ false ].
-			(aSnippet outgoingExplicitLinks anySatisfy: [ :aLink | aLink isAttachedLink ])
-				ifTrue: [ ^ false ] ].
+	self
+		allChildrenBreadthFirstDo: [ :aSnippet | aSnippet hasAttachedLinks ifTrue: [ ^ false ] ].
 	^ true
 ]
 

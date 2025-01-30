@@ -257,6 +257,14 @@ LeSnippet >> extractUpdatableStateBasedOnState: aSnippetState [
 		yourself
 ]
 
+{ #category : #testing }
+LeSnippet >> hasAttachedLinks [
+	"If a snippet has links attached to its database, 
+	it cannot be moved, and hence its page cannot be moved.
+	We assume this is the case, and override it in subclasses."
+	^ true
+]
+
 { #category : #'api - testing' }
 LeSnippet >> hasUid: aLeUID [
 
@@ -302,6 +310,12 @@ LeSnippet >> insertSnippetBeforeSelfCommandOfType: aNewSnippetClass [
 	^ self parent 
 		insertChildCommandBeforeSnippet: self 
 		ofType: aNewSnippetClass
+]
+
+{ #category : #testing }
+LeSnippet >> isAbstract [
+	"LeSnippet methods select: #isAbstract"
+	^ true
 ]
 
 { #category : #'api - testing' }
