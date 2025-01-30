@@ -222,6 +222,11 @@ LeLocalStoreMonitor >> isRunningCleanly [
 	^ state = #running and: [ self hasCorruptPages not ]
 ]
 
+{ #category : #testing }
+LeLocalStoreMonitor >> isVolatileMonitor [
+	^ false
+]
+
 { #category : #private }
 LeLocalStoreMonitor >> loadCorruptPages [
 	"Load the list of corrupt files (which should of course be empty)"

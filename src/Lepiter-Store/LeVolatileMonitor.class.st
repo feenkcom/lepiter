@@ -37,6 +37,11 @@ LeVolatileMonitor >> initialize [
 	uuid := UUID new.
 ]
 
+{ #category : #testing }
+LeVolatileMonitor >> isVolatileMonitor [
+	^ true
+]
+
 { #category : #accessing }
 LeVolatileMonitor >> tableOfContentsPageID [
 	"Answer the page UUID for the Table Of Contents, or nil if not set"

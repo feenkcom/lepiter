@@ -444,6 +444,7 @@ LeDatabase >> findAttachmentById: aUuid [
 { #category : #accessing }
 LeDatabase >> gtAttachmentsFor: aView [
 	<gtView>
+	monitor isVolatileMonitor ifTrue: [ ^ aView empty ].
 	self monitor ifNil: [ ^ aView empty ].
 	^ aView forward
 		title: 'Attachments';
@@ -501,6 +502,7 @@ LeDatabase >> gtMapFor: aView [
 { #category : #accessing }
 LeDatabase >> gtViewCorruptFilesFor: aView [
 	<gtView>
+	monitor isVolatileMonitor ifTrue: [ ^ aView empty ].
 	monitor ifNil: [ ^ aView empty ].
 	^ aView forward
 		title: 'Corrupt files';
@@ -512,6 +514,7 @@ LeDatabase >> gtViewCorruptFilesFor: aView [
 { #category : #accessing }
 LeDatabase >> gtViewFilesNameMappingFor: aView [
 	<gtView>
+	monitor isVolatileMonitor ifTrue: [ ^ aView empty ].
 	monitor ifNil: [ ^ aView empty ].
 	^ aView forward
 		title: 'Page file mappings';
