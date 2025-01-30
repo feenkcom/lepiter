@@ -77,3 +77,13 @@ LeJenkinsSnippet >> jenkinsUrl [
 LeJenkinsSnippet >> jenkinsUrl: aJenkinsUrl [
 	jenkinsUrl := aJenkinsUrl
 ]
+
+{ #category : #printing }
+LeJenkinsSnippet >> storeOn: aStream [
+	aStream
+		nextPut: $(;
+		nextPutAll: self className;
+		nextPutAll: ' new jenkinsUrl:'.
+	self jenkinsUrl storeOn: aStream.
+	aStream nextPutAll: '; yourself)'
+]
