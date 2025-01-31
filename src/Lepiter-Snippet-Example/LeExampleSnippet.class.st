@@ -144,6 +144,11 @@ LeExampleSnippet >> asSnippetViewModel [
 	^ LeExampleSnippetViewModel new snippetModel: self
 ]
 
+{ #category : #testing }
+LeExampleSnippet >> canMoveToAnotherDatabase [
+	^ true
+]
+
 { #category : #accessing }
 LeExampleSnippet >> changeToRenameClass: oldName to: newName [
 	self instanceClassName = oldName ifFalse: [ ^ nil ].

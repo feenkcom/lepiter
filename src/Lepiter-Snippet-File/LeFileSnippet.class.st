@@ -55,6 +55,11 @@ LeFileSnippet >> bindingName: aNameString [
 	bindingName := aNameString
 ]
 
+{ #category : #testing }
+LeFileSnippet >> canMoveToAnotherDatabase [
+	^ true
+]
+
 { #category : #accessing }
 LeFileSnippet >> contentAsString [
 	self fileReference ifNil: [ ^ String new ].
@@ -84,4 +89,16 @@ LeFileSnippet >> fileReferenceRepresentation: aString [
 	aString ifNil: [ ^ self fileReference: nil ].
 	url := aString asUrl.
 	^ self fileReference: url
+]
+
+{ #category : #printing }
+LeFileSnippet >> storeOn: aStream [
+	aStream
+		nextPut: $(;
+		nextPutAll: self className;
+		nextPutAll: ' new fileReference:'.
+	self fileReference storeOn: aStream.
+	aStream nextPutAll: '; bindingName:'.
+	self bindingName storeOn: aStream.
+	aStream nextPutAll: '; yourself)'
 ]

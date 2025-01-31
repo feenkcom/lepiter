@@ -55,6 +55,11 @@ LeDockerSnippet >> asSnippetViewModel [
 	^ LeDockerSnippetViewModel new snippetModel: self
 ]
 
+{ #category : #testing }
+LeDockerSnippet >> canMoveToAnotherDatabase [
+	^ true
+]
+
 { #category : #'api - accessing' }
 LeDockerSnippet >> contentAsString [
 	<return: #String>
@@ -69,6 +74,20 @@ LeDockerSnippet >> notifyUrlChanged [
 		source: self;
 		snippet: self;
 		url: self url).
+]
+
+{ #category : #printing }
+LeDockerSnippet >> storeOn: aStream [
+
+	aStream
+		nextPut: $(;
+		nextPutAll: self className;
+		nextPutAll: ' new url: '.
+	self url storeOn: aStream.
+	self childrenDo: [ :snippet | 
+		aStream nextPutAll: '; addSnippet: '.
+		snippet storeOn: aStream ].
+	aStream nextPutAll: '; yourself)'
 ]
 
 { #category : #accessing }

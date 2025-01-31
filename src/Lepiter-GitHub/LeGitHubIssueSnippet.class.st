@@ -6,7 +6,7 @@ Class {
 
 { #category : #'api - accessing menu' }
 LeGitHubIssueSnippet class >> contextMenuItemSpecification [
-	<leSnippetSpecification>
+	"<leSnippetSpecification>"
 	^ LeContextMenuItemSpecification new
 		snippetClass: self;
 		title: self description

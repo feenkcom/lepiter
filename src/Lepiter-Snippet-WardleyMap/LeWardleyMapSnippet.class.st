@@ -85,6 +85,11 @@ LeWardleyMapSnippet >> asSnippetViewModel [
 	^ LeWardleyMapSnippetViewModel new snippetModel: self
 ]
 
+{ #category : #testing }
+LeWardleyMapSnippet >> canMoveToAnotherDatabase [
+	^ true
+]
+
 { #category : #'api - accessing' }
 LeWardleyMapSnippet >> contentAsString [
 	"Return a content, e.g., title or string"

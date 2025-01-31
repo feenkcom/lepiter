@@ -53,6 +53,15 @@ LeTextualSnippet >> appendText: aText source: anObject [
 	self subclassResponsibility
 ]
 
+{ #category : #testing }
+LeTextualSnippet >> canMoveToAnotherDatabase [
+	(self incomingLinks anySatisfy: [ :aLink | aLink isAttachedLink ])
+		ifTrue: [ ^ false ].
+	(self outgoingExplicitLinks anySatisfy: [ :aLink | aLink isAttachedLink ])
+		ifTrue: [ ^ false ].
+	^ true
+]
+
 { #category : #'private - testing' }
 LeTextualSnippet >> hasContent [
 	"Answer a boolean indicating whether the receiver is considered without content.

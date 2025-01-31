@@ -202,6 +202,13 @@ LeSnippet >> canBeUnindented [
 	^ self parent isSnippet
 ]
 
+{ #category : #testing }
+LeSnippet >> canMoveToAnotherDatabase [
+	"For the moment, if a snippet has links to attachments in the database or is somehow tied to other files, it cannot be moved.
+	Each snippet class should implement this as true or false, or implement the corresponding logic."
+	^ false
+]
+
 { #category : #refactoring }
 LeSnippet >> changeToRenameClass: oldName to: newName [
 	^ nil
@@ -302,6 +309,12 @@ LeSnippet >> insertSnippetBeforeSelfCommandOfType: aNewSnippetClass [
 	^ self parent 
 		insertChildCommandBeforeSnippet: self 
 		ofType: aNewSnippetClass
+]
+
+{ #category : #testing }
+LeSnippet >> isAbstract [
+	"LeSnippet methods select: #isAbstract"
+	^ true
 ]
 
 { #category : #'api - testing' }

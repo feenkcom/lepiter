@@ -73,6 +73,11 @@ LePharoRewriteSnippet >> asSnippetViewModel [
 	^ LePharoRewriteSnippetViewModel new snippetModel: self
 ]
 
+{ #category : #testing }
+LePharoRewriteSnippet >> canMoveToAnotherDatabase [
+	^ true
+]
+
 { #category : #accessing }
 LePharoRewriteSnippet >> contentAsString [
 	^ String

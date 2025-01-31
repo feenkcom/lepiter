@@ -59,6 +59,11 @@ LeYoutubeReferenceSnippet >> authorUrl [
 	^ leRawYoutubeReferenceInfo authorUrl
 ]
 
+{ #category : #testing }
+LeYoutubeReferenceSnippet >> canMoveToAnotherDatabase [
+	^ true
+]
+
 { #category : #accessing }
 LeYoutubeReferenceSnippet >> contentAsString [
 	^ urlString

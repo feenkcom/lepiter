@@ -187,6 +187,20 @@ LeStringSnippet >> selectParserClass: aParserClass [
 	self format: aParserClass name
 ]
 
+{ #category : #printing }
+LeStringSnippet >> storeOn: aStream [
+	aStream
+		nextPut: $(;
+		nextPutAll: self className;
+		nextPutAll: ' new contentString: '.
+	self contentString storeOn: aStream.
+	aStream nextPutAll: '; bindingName: '.
+	self bindingName storeOn: aStream.
+	aStream nextPutAll: '; format: '.
+	self format storeOn: aStream.
+	aStream nextPutAll: '; yourself)'
+]
+
 { #category : #accessing }
 LeStringSnippet >> text [
 	^ self contentString asRopedText
