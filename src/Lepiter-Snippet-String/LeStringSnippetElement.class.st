@@ -35,11 +35,7 @@ LeStringSnippetElement >> initialize [
 	super initialize.
 	self initializeEditorElement.
 	self initializeIndicatorElement.
-	contentElement := BrFrame new
-			hMatchParent;
-			vFitContent;
-			addChildren: {editorElement.
-					indicatorElement}.
+	self initializeContentElement.
 	self initializeCoderToolbarElement
 ]
 
@@ -82,6 +78,15 @@ LeStringSnippetElement >> initializeCoderToolbarElement [
 			addAptitude: BrGlamorousCodeEditorAptitude new.
 	bindingEditor editor text: '' asRopedText.
 	coderToolbar addChild: bindingEditor
+]
+
+{ #category : #initialization }
+LeStringSnippetElement >> initializeContentElement [
+	contentElement := BrFrame new
+			hMatchParent;
+			vFitContent;
+			addChildren: {editorElement.
+					indicatorElement}
 ]
 
 { #category : #initialization }
