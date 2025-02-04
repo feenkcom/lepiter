@@ -1,6 +1,17 @@
 Extension { #name : #LeDatabase }
 
 { #category : #'*Lepiter-ToC' }
+LeDatabase >> gtViewCommentPagesFor: aView [
+	<gtView>
+	self hasCommentPages ifFalse: [ ^ aView empty ].
+	^ aView tree
+		title: 'Comment pages';
+		priority: 52;
+		items: [ self commentPages ];
+		children: #children
+]
+
+{ #category : #'*Lepiter-ToC' }
 LeDatabase >> gtViewTableOfContentsNodesFor: aView [
 	<gtView>
 	^ aView tree

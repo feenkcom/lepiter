@@ -186,6 +186,12 @@ LeContent >> allChildrenBreadthFirstDo: aBlock [
 ]
 
 { #category : #'api - enumerating' }
+LeContent >> allChildrenCommentSnippets [
+	^ self allChildrenSnippetsMatching: [ :aSnippet |
+		aSnippet isCommentSnippet ]
+]
+
+{ #category : #'api - enumerating' }
 LeContent >> allChildrenDepthFirst [
 	| all |
 	all := OrderedCollection new.
@@ -676,6 +682,12 @@ LeContent >> hasBlocks [
 LeContent >> hasChildren [
 	<return: #Boolean>
 	^ self children isNotEmpty
+]
+
+{ #category : #'api - testing' }
+LeContent >> hasCommentSnippets [
+	<return: #Boolean>
+	^ self allChildrenCommentSnippets notEmpty
 ]
 
 { #category : #'private - testing' }

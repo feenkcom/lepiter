@@ -311,6 +311,11 @@ LeDatabase >> children [
 	^ self pages
 ]
 
+{ #category : #'api - accessing' }
+LeDatabase >> commentPages [
+	^ self pages select: #hasCommentSnippets
+]
+
 { #category : #callbacks }
 LeDatabase >> completeAddPageLaterFor: aTitleChangesAnnoucement [ 
 	"This is a callback for adding a page to a database only when the title changed.
@@ -579,6 +584,11 @@ LeDatabase >> hasChildren [
 
 	self do: [ :aPage | ^ true ].
 	^ false
+]
+
+{ #category : #'api - testing' }
+LeDatabase >> hasCommentPages [
+	^ self commentPages notEmpty
 ]
 
 { #category : #'api - testing' }
@@ -1228,7 +1238,7 @@ LeDatabase >> storeLocation [
 		ifNotNil: [ :aMonitor | aMonitor storeLocation ]
 ]
 
-{ #category : #accessing }
+{ #category : #'api - accessing' }
 LeDatabase >> tagPages [
 	"Return a list of named pages whose titles consist of a single word (potentially a tag)."
 

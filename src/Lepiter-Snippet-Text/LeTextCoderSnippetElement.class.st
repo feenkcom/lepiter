@@ -28,16 +28,19 @@ LeTextCoderSnippetElement >> editorElement [
 { #category : #initialization }
 LeTextCoderSnippetElement >> initialize [
 	super initialize.
+	self initializeEditorElement
+]
 
+{ #category : #initialization }
+LeTextCoderSnippetElement >> initializeEditorElement [
 	editorElement := GtTextualCoderEditorElement new.
 	editorElement aptitudeDo: [ :aLook | aLook glamorousRegularDefaultFont ].
 
 	editorElement padding: (BlInsets top: 5 bottom: 5).
 	editorElement margin: BlInsets empty.
-	editorElement editor 
-		addEventHandler: (LeEditorReachedBorderEventHandler new 
-			snippetElement: self).
-	
+	editorElement editor
+		addEventHandler: (LeEditorReachedBorderEventHandler new snippetElement: self).
+
 	editorElement editor ensureNoUndoRedoShortcuts
 ]
 
