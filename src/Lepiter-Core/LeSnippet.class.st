@@ -324,6 +324,11 @@ LeSnippet >> isCodeSnippet [
 ]
 
 { #category : #'api - testing' }
+LeSnippet >> isCommentSnippet [
+	^ false
+]
+
+{ #category : #'api - testing' }
 LeSnippet >> isFirstChild [
 	^ self parent isChildAtFirstPositionFor: self
 ]

@@ -42,3 +42,8 @@ LeCommentSnippet >> asSnippetViewModel [
 	<return: #LeSnippetViewModel>
 	^ LeCommentSnippetViewModel new snippetModel: self
 ]
+
+{ #category : #'api - testing' }
+LeCommentSnippet >> isCommentSnippet [
+	^ true
+]
