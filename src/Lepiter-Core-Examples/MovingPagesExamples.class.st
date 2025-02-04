@@ -22,6 +22,17 @@ MovingPagesExamples >> changesSnippetPage [
 ]
 
 { #category : #'example - page' }
+MovingPagesExamples >> commentSnippetPage [
+	<moveablePage>
+	<gtExample>
+	^ (LePage named: 'A Comment snippet page')
+		addSnippet: (LeCommentSnippet new
+				string: 'Some editorial text';
+				yourself);
+		yourself
+]
+
+{ #category : #'example - page' }
 MovingPagesExamples >> dockerSnippetPage [
 	<moveablePage>
 	<gtExample>
