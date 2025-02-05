@@ -14,17 +14,11 @@ Class {
 { #category : #initalization }
 LeCommentSnippetElement >> initialize [
 	super initialize.
-	self initializeNullElement
+	self initializeEditorElement
 ]
 
 { #category : #initalization }
 LeCommentSnippetElement >> initializeEditorElement [
 	super initializeEditorElement.
 	editorElement background: Color paleYellow
-]
-
-{ #category : #initalization }
-LeCommentSnippetElement >> initializeNullElement [
-	"An empty element to show instead of the editor when the snippet is hidden."
-	nullElement := BlElement new.
 ]
