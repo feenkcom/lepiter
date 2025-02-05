@@ -629,7 +629,7 @@ LeTextSnippet >> updateFromCommandText: aText source: anObject [
 
 { #category : #'api - editing' }
 LeTextSnippet >> updateFromTextEditCommand: aCommand source: anObject [	
-	"Update the contet of the snippet using the given command."
+	"Update the content of the snippet using the given command."
 	| targetText|
 	targetText := self text.
 	aCommand applyTextChangeOn:  targetText.
