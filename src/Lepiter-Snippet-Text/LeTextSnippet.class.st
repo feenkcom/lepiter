@@ -77,8 +77,10 @@ LeTextSnippet class >> leJsonV3Name [
 { #category : #accessing }
 LeTextSnippet class >> leJsonV4AttributeMapping [
 
-	^ super leJsonV4AttributeMapping
+	"Using 'allButLast' below is a hack-ish way of not changing the serialized json for a page. By moving #string to the superclass the order of the two attributes changed. We try and preserve the same order."
+	^ super leJsonV4AttributeMapping allButLast
 		add: (#paragraphStyle -> #paragraphStyle);
+		add: (#string -> #string);
 		yourself
 ]
 
