@@ -78,9 +78,9 @@ TLePageToolContentTreeElement >> createTreeRowFor: aSnippetElement [
 		constraintsDo: [ :c |
 			c horizontal matchParent.
 			c vertical fitContent ];
-		addChild: (BrTriangle new
+		addChild: (BrInlineExpanderElement new
 			beSmallSize;
-			aptitude: BrGlamorousTriangleInCircleAptitude;
+			aptitude: BrGlamorousTriangleInCircleExpanderAptitude;
 			toggleAction: [ :aToggleElement :aToggleModel |
 				aToggleModel model toggle.
 				aSnippetElement snippetViewModel expanded: aToggleModel model isExpanded ]) as: #toggle;

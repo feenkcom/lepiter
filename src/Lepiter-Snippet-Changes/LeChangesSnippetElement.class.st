@@ -63,7 +63,7 @@ LeChangesSnippetElement >> createChangesFilePicker [
 ]
 
 { #category : #initialization }
-LeChangesSnippetElement >> createInpsectChangesButton [
+LeChangesSnippetElement >> createInspectChangesButton [
 	| aButton |
 
 	aButton := BrButton new.
@@ -116,7 +116,7 @@ LeChangesSnippetElement >> initialize [
 		padding: (BlInsets top: 3 left: 3 bottom: 4 right: 3).
 	fileNameEditor editor addEventHandler: (LeEditorReachedBorderEventHandler new snippetElement: self).
 
-	inspectChangesButton := self createInpsectChangesButton.
+	inspectChangesButton := self createInspectChangesButton.
 	createChangesFileButton := self createChangesFileButton.
 
 	toolbarContainer := BrHorizontalPane new

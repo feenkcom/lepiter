@@ -13,9 +13,9 @@ Class {
 LePageReferencesExpanderAptitude >> initialize [
 	super initialize.
 
-	toggle := BrTriangle new
+	toggle := BrInlineExpanderElement new
 		beSmallSize;
-		aptitude: BrGlamorousTriangleInCircleAptitude;
+		aptitude: BrGlamorousTriangleInCircleExpanderAptitude;
 		toggleAction: [ self widget fireEvent: BrExpansionToggleWish new ];
 		margin: (BlInsets top: 2).
 

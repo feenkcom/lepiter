@@ -14,7 +14,7 @@ LeModel >> acceptVisitor: aVisitor [
 
 { #category : #printing }
 LeModel >> storeOn: aStream [ 
-	"The default storeStream: method does notterminate for snippets and other LeModel classes."
+	"The default storeStream: method does not terminate for snippets and other LeModel classes."
 
 	self subclassResponsibility
 
