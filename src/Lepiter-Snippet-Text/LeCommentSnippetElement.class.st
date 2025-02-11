@@ -4,17 +4,14 @@ I am like my parent, except that I am usually hidden, and when I am displayed, m
 "
 Class {
 	#name : #LeCommentSnippetElement,
-	#superclass : #LeTextCoderSnippetElement,
-	#instVars : [
-		'nullElement'
-	],
+	#superclass : #LePlainTextCoderSnippetElement,
 	#category : #'Lepiter-Snippet-Text-Snippet'
 }
 
-{ #category : #initalization }
-LeCommentSnippetElement >> initialize [
-	super initialize.
-	self initializeEditorElement
+{ #category : #'api - snippet view model' }
+LeCommentSnippetElement >> alignContentLeftBy: aNumber [
+	"All snippets should be nicely aligned to the left. However, only snippets themselves know their content and layout structure.
+	Override me to align the content by aNumber of points to the left. Usually it should just involve setting a corresponding padding or margin"
 ]
 
 { #category : #initalization }
