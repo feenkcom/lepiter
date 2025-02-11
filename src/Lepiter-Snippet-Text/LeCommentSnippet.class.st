@@ -7,7 +7,7 @@ I am just like a {{gtClass:name=LeTextSnippet}}, except:
 "
 Class {
 	#name : #LeCommentSnippet,
-	#superclass : #LeTextSnippet,
+	#superclass : #LePlainTextSnippet,
 	#category : #'Lepiter-Snippet-Text-Snippet'
 }
 
@@ -25,16 +25,14 @@ LeCommentSnippet class >> description [
 ]
 
 { #category : #factory }
-LeCommentSnippet class >> empty [
-	"Return a block with empty comment"
-	^ self builder
-		emptyComment;
-		build
-]
-
-{ #category : #factory }
 LeCommentSnippet class >> leJsonV4Name [
 	^ 'commentSnippet'
+]
+
+{ #category : #visiting }
+LeCommentSnippet >> acceptVisitor: aVisitor [
+
+	^ aVisitor visitTextSnippet: self
 ]
 
 { #category : #converting }
