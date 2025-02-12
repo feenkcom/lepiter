@@ -45,3 +45,10 @@ LeCommentSnippet >> asSnippetViewModel [
 LeCommentSnippet >> isCommentSnippet [
 	^ true
 ]
+
+{ #category : #'api - accessing' }
+LeCommentSnippet >> paragraphStyle [
+	"Needed for the view models text styler."
+
+	^ LeParagraphStyle text
+]
