@@ -5,8 +5,8 @@ I visit text snippets and generate output using a context object.
 Class {
 	#name : #LeLatexTextSnippetVisitor,
 	#superclass : #Object,
-	#traits : 'TLeExtensibleContentNodeVisitor + TLeContentNodeVisitor',
-	#classTraits : 'TLeExtensibleContentNodeVisitor classTrait + TLeContentNodeVisitor classTrait',
+	#traits : 'TLeExtensibleContentNodeVisitor + TSmaCCCompositeVisitor + (TLeContentNodeVisitor - {#acceptNode:})',
+	#classTraits : 'TLeExtensibleContentNodeVisitor classTrait + TSmaCCCompositeVisitor classTrait + TLeContentNodeVisitor classTrait',
 	#instVars : [
 		'context'
 	],
