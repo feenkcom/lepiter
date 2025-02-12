@@ -1,3 +1,6 @@
+"
+I am a common superclass of text-based (not code-based) snippets.
+"
 Class {
 	#name : #LePlainTextSnippet,
 	#superclass : #LeTextualSnippet,
