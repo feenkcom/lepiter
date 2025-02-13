@@ -8,6 +8,9 @@ I am just like a {{gtClass:name=LeTextSnippet}}, except:
 Class {
 	#name : #LeCommentSnippet,
 	#superclass : #LePlainTextSnippet,
+	#instVars : [
+		'isHidden'
+	],
 	#category : #'Lepiter-Snippet-Text-Snippet'
 }
 
@@ -41,9 +44,25 @@ LeCommentSnippet >> asSnippetViewModel [
 	^ LeCommentSnippetViewModel new snippetModel: self
 ]
 
+{ #category : #'as yet unclassified' }
+LeCommentSnippet >> initialize [
+	super initialize.
+	self isHidden: false
+]
+
 { #category : #'api - testing' }
 LeCommentSnippet >> isCommentSnippet [
 	^ true
+]
+
+{ #category : #accessing }
+LeCommentSnippet >> isHidden [
+	^ isHidden
+]
+
+{ #category : #accessing }
+LeCommentSnippet >> isHidden: anObject [
+	isHidden := anObject
 ]
 
 { #category : #'api - accessing' }

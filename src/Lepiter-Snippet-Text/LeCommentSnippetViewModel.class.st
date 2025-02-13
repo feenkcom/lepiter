@@ -20,6 +20,11 @@ LeCommentSnippetViewModel >> initializeTextCoderViewModel [
 				lepiterStyler: (LeSnippetStyler new snippetViewModel: self))
 ]
 
+{ #category : #testing }
+LeCommentSnippetViewModel >> isHidden [
+	^ self snippetModel isHidden
+]
+
 { #category : #'api - snippet model' }
 LeCommentSnippetViewModel >> onSnippetModelChanged [
 	super onSnippetModelChanged.
