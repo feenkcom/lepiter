@@ -19,6 +19,21 @@ LePage >> gtShowHideCommentsFor: anAction [
 ]
 
 { #category : #'*Lepiter-Snippet-Text' }
+LePage >> gtToggleCommentsActionFor: anAction [
+	<lePageAction>
+	self hasCommentSnippets ifFalse: [ ^ anAction empty ].
+	^ anAction button
+		id: LeOpenPageInNewWorldTabElementId;
+		priority: 100;
+		tooltip: 'Show / hide comments';
+		icon: LeCommentSnippetElement noteIcon;
+		action: [ :aButton | 
+			| toggle |
+			toggle := self allChildrenCommentSnippets first isHidden not.
+			self allChildrenCommentSnippets do: [ :each | each isHidden: toggle ] ]
+]
+
+{ #category : #'*Lepiter-Snippet-Text' }
 LePage >> hasGtTodo [
 
 	"Report whether this page has a todo.
