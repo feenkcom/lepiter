@@ -128,11 +128,13 @@ LeCommentSnippetElement >> initializeToolbarElement [
 
 { #category : #'event handling' }
 LeCommentSnippetElement >> onHideAction: aButton [
+	self snippetContainerDo: #hFitContent.
 	self snippet hide
 ]
 
 { #category : #'event handling' }
 LeCommentSnippetElement >> onShowAction: aButton [
+	self snippetContainerDo: #hMatchParent.
 	self snippet show
 ]
 
@@ -150,6 +152,14 @@ LeCommentSnippetElement >> showComment [
 	self editorElement visibility: BlVisibility visible.
 	self hideButton visibility: BlVisibility visible.
 	self iconElement visibility: BlVisibility gone.
+]
+
+{ #category : #'event handling' }
+LeCommentSnippetElement >> snippetContainerDo: aBlockWithArgument [
+	self
+		allParentsDetect: [ :each | each isKindOf: LeSnippetContainerElement ]
+		ifFound: [ :each | aBlockWithArgument value: each ]
+		ifNone: [ nil ]
 ]
 
 { #category : #'api - view' }
