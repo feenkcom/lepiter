@@ -28,6 +28,14 @@ LeCommentSnippet class >> description [
 ]
 
 { #category : #factory }
+LeCommentSnippet class >> leJsonV4AttributeMapping [
+
+	^ super leJsonV4AttributeMapping
+		add: (#isHidden -> #isHidden);
+		yourself
+]
+
+{ #category : #factory }
 LeCommentSnippet class >> leJsonV4Name [
 	^ 'commentSnippet'
 ]
@@ -38,16 +46,23 @@ LeCommentSnippet >> acceptVisitor: aVisitor [
 	^ aVisitor visitTextSnippet: self
 ]
 
+{ #category : #announcements }
+LeCommentSnippet >> announceVisibilityChanged [
+	self
+		notifyAnnouncement: (LeCommentSnippetVisibilityChanged new
+				snippet: self;
+				yourself)
+]
+
 { #category : #converting }
 LeCommentSnippet >> asSnippetViewModel [
 	<return: #LeSnippetViewModel>
 	^ LeCommentSnippetViewModel new snippetModel: self
 ]
 
-{ #category : #'as yet unclassified' }
-LeCommentSnippet >> initialize [
-	super initialize.
-	self isHidden: false
+{ #category : #accessing }
+LeCommentSnippet >> hide [
+	self isHidden: true
 ]
 
 { #category : #'api - testing' }
@@ -57,12 +72,13 @@ LeCommentSnippet >> isCommentSnippet [
 
 { #category : #accessing }
 LeCommentSnippet >> isHidden [
-	^ isHidden
+	^ isHidden ifNil: [ isHidden := false ]
 ]
 
 { #category : #accessing }
-LeCommentSnippet >> isHidden: anObject [
-	isHidden := anObject
+LeCommentSnippet >> isHidden: aBoolean [
+	isHidden := aBoolean.
+	self announceVisibilityChanged
 ]
 
 { #category : #'api - accessing' }
@@ -70,4 +86,25 @@ LeCommentSnippet >> paragraphStyle [
 	"Needed for the view models text styler."
 
 	^ LeParagraphStyle text
+]
+
+{ #category : #accessing }
+LeCommentSnippet >> show [
+	self isHidden: false
+]
+
+{ #category : #printing }
+LeCommentSnippet >> storeOn: aStream [
+	aStream
+		nextPut: $(;
+		nextPutAll: self className;
+		nextPutAll: ' new string: '.
+	self string storeOn: aStream.
+	aStream
+		nextPutAll: '; isHidden: '.
+	self isHidden storeOn: aStream.
+	self childrenDo: [ :snippet | 
+		aStream nextPutAll: '; addSnippet: '.
+		snippet storeOn: aStream ].
+	aStream nextPutAll: '; yourself)'
 ]

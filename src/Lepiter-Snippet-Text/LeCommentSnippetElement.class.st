@@ -62,7 +62,7 @@ LeCommentSnippetElement >> initialize [
 
 { #category : #initalization }
 LeCommentSnippetElement >> initializeContentElement [
-	"TO DO: add the icon representing the closed comment."
+	"The contentElement holds both the editorElement and the iconElement, only ione of which is visible at a time, depending on the state of the snippet."
 	contentElement := BrFrame new
 			padding: (BlInsets bottom: 5);
 			vFitContent;
@@ -80,17 +80,16 @@ LeCommentSnippetElement >> initializeEditorElement [
 
 { #category : #initalization }
 LeCommentSnippetElement >> initializeIconElement [
-	"How to adjust the border without removing the whole exterior aptitude?"
 	iconElement := BrButton new
-			aptitude: BrGlamorousButtonWithIconAptitude 
-				- BrGlamorousButtonExteriorAptitude;
+			aptitude: BrGlamorousButtonWithIconAptitude - BrGlamorousButtonExteriorAptitude;
 			icon: self noteIcon;
 			label: 'Show comment';
-			action: [ :aButton | self onShowAction: aButton ].
+			action: [ :aButton | self onShowAction: aButton ]
 ]
 
 { #category : #initalization }
 LeCommentSnippetElement >> initializeToolbarElement [
+	"We only need a hide button, because the icon in the hidden state itself is a show button."
 	toolbarElement := BrToolbar new
 		aptitude: BrGlamorousToolbarAptitude;
 		hMatchParent;
@@ -128,17 +127,22 @@ LeCommentSnippetElement >> noteIconArray [
 ]
 
 { #category : #'event handling' }
-LeCommentSnippetElement >> onHideAction: aButton [ 
-	"This needs to propagate to the model and back.
-	Hack locally for now."
-	self hideComment
+LeCommentSnippetElement >> onHideAction: aButton [
+	self snippet hide
 ]
 
 { #category : #'event handling' }
-LeCommentSnippetElement >> onShowAction: aButton [ 
-	"This needs to propagate to the model and back.
-	Hack locally for now."
-	self showComment
+LeCommentSnippetElement >> onShowAction: aButton [
+	self snippet show
+]
+
+{ #category : #'event handling' }
+LeCommentSnippetElement >> onSnippetViewModelChanged [
+	super onSnippetViewModelChanged.
+
+	self snippetViewModel isHidden
+		ifTrue: [ self hideComment ]
+		ifFalse: [ self showComment ]
 ]
 
 { #category : #'event handling' }
@@ -160,6 +164,18 @@ LeCommentSnippetElement >> snippetToolbar [
 	<return: #BlElement or: nil>
 
 	^ self toolbarElement
+]
+
+{ #category : #'event handling' }
+LeCommentSnippetElement >> subscribeToSnippetViewModel [
+	"Actually, here we directly subscribe to the view."
+
+	super subscribeToSnippetViewModel.
+
+	self snippet weak
+		when: LeCommentSnippetVisibilityChanged
+		send: #onSnippetViewModelChanged
+		to: self
 ]
 
 { #category : #accessing }

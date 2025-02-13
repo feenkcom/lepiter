@@ -25,13 +25,6 @@ LeCommentSnippetViewModel >> isHidden [
 	^ self snippetModel isHidden
 ]
 
-{ #category : #'api - snippet model' }
-LeCommentSnippetViewModel >> onSnippetModelChanged [
-	super onSnippetModelChanged.
-	
-	self coderViewModel completionStrategy  database: self snippetModel database.
-]
-
 { #category : #acccessing }
 LeCommentSnippetViewModel >> snippetElementClass [
 	^ LeCommentSnippetElement
