@@ -26,6 +26,8 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 					with: [ spec repository: 'github://feenkcom/gtoolkit-releaser:main/src' ];
 				baseline: 'LepiterXDoc'
 					with: [ spec repository: 'github://feenkcom/lepiter:main/src' ];
+				baseline: 'LepiterLatex'
+					with: [ spec repository: 'github://feenkcom/lepiter:main/src' ];
 				baseline: 'SmaCCRuntime'
 					with: [ spec repository: 'github://j-brant/SmaCC' ];
 				baseline: 'JSONParser' with: [ spec repository: 'github://j-brant/SmaCC' ];
