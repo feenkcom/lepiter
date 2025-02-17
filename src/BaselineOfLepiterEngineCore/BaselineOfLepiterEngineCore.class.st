@@ -26,8 +26,6 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 					with: [ spec repository: 'github://feenkcom/gtoolkit-releaser:main/src' ];
 				baseline: 'LepiterXDoc'
 					with: [ spec repository: 'github://feenkcom/lepiter:main/src' ];
-				"baseline: 'LepiterLatex'
-					with: [ spec repository: 'github://feenkcom/lepiter:main/src' ];"
 				baseline: 'SmaCCRuntime'
 					with: [ spec repository: 'github://j-brant/SmaCC' ];
 				baseline: 'JSONParser' with: [ spec repository: 'github://j-brant/SmaCC' ];
@@ -85,5 +83,9 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 					with: [ spec
 							requires: #('Lepiter-Snippet-Text' 'Lepiter-Store-Class' 'Lepiter-Utilities') ];
 				package: 'Lepiter-BasicServer'
-					with: [ spec requires: #(Beacon JSONWebToken ZincHTTPComponentsRest) ] ]
+					with: [ spec requires: #(Beacon JSONWebToken ZincHTTPComponentsRest) ]
+					";
+				package: 'LepiterLatex'
+					with: [ spec requires: #('Lepiter-Core') ] "
+					]
 ]

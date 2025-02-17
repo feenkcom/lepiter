@@ -6,10 +6,10 @@ Class {
 
 { #category : #baseline }
 BaselineOfLepiterLatex >> baseline: spec [
-	<baseline> 
+	<baseline>
 	spec
-		for: #common do: [
-			spec
-				package: 'Lepiter-Latex'
+		for: #common
+		do: [ spec package: #'Lepiter-Latex' 
+			with: [ spec requires: #('Lepiter-Core') ] 
 		]
 ]
