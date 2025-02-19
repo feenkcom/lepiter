@@ -40,7 +40,7 @@ LeJenkinsSnippetViewModel >> onJenkinsSnippetModelChanged [
 
 { #category : #accessing }
 LeJenkinsSnippetViewModel >> shouldShowForm [
-	^ showForm
+	^ true
 ]
 
 { #category : #accessing }
