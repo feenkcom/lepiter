@@ -79,9 +79,19 @@ LePharoSnippetAttributeReloadedExamples >> reloadPharoSnippetWithChangedCodeAndE
 	changedSnippet database: database.
 	
 	changedSnippet code: '1+41'.
+	self assert: changedSnippet editTime  notNil.
+	
+	"Force an edit time that is slightly different then the current time.
+	If the test is executed fast, when the code is set in the original snippet,
+	the edit time is set to the same value as in the changed snippet,
+	and then the reloaded does not see any difference in the edit time "
+	changedSnippet editTime: (LeTime new
+		time: changedSnippet editTime time - 1 milliseconds).
+		
 	attributesReloader reloadFromContent: changedSnippet.
 	
 	self assert: attributesReloader hasChanges.
+	self assert: attributesReloader changedAttributes size equals: 2.
 	self assert: attributesReloader changedAttributes asArray equals: #(code editTime).
 	self assert: originalSnippet code equals: '1+41'.
 	self assert: originalSnippet createEmail equals: changedSnippet createEmail.
