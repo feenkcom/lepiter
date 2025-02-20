@@ -82,7 +82,6 @@ LePharoSnippetAttributeReloadedExamples >> reloadPharoSnippetWithChangedCodeAndE
 	attributesReloader reloadFromContent: changedSnippet.
 	
 	self assert: attributesReloader hasChanges.
-	self assert: attributesReloader changedAttributes size equals: 2.
 	self assert: attributesReloader changedAttributes asArray equals: #(code editTime).
 	self assert: originalSnippet code equals: '1+41'.
 	self assert: originalSnippet createEmail equals: changedSnippet createEmail.
