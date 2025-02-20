@@ -268,6 +268,27 @@ LeCodeSnippet >> isForLocalImage [
 	^ false
 ]
 
+{ #category : #'as yet unclassified' }
+LeCodeSnippet >> markdownOn: stream level: anInteger [
+	"Write the receiver as an HTML string on the supplied stream.
+	This is currently a simplistic implementation which doesn't handle line breaks within the block properly (they need to be indented)"
+
+	(self hasText or: [ self hasChildren ]) ifFalse: [ ^ self ].
+	anInteger * 4 timesRepeat: [ stream nextPut: Character space ].
+	stream
+		<< (anInteger > 0 ifTrue: [ '- ' ] ifFalse: [ '' ]);
+		<< '```';
+		<< self class description;
+		cr;
+		<< self contentAsString trimBoth;
+		cr;
+		<< '```'.
+	self
+		childrenDo: [ :child | 
+			stream cr.
+			child markdownOn: stream level: anInteger + 1 ]
+]
+
 { #category : #initialization }
 LeCodeSnippet >> newCoder [
 	^ self subclassResponsibility

@@ -60,16 +60,15 @@ LeJenkinsSnippetElement >> createFormElement [
 
 { #category : #accessing }
 LeJenkinsSnippetElement >> createInspectButtonToolbar [
-	| playInspectButton toolbar result |
-	toolbar := BrToolbar new
-		aptitude: BrToolbarAptitude new;
-		layout:
-			(BlGridLayout horizontal
-				rowCount: 1;
-				cellSpacing: 10);
-		constraintsDo: [ :c | 
-			c horizontal fitContent.
-			c vertical fitContent ].
+	| playInspectButton tb result |
+	tb := BrToolbar new
+			aptitude: BrToolbarAptitude new;
+			layout: (BlGridLayout horizontal
+					rowCount: 1;
+					cellSpacing: 10);
+			constraintsDo: [ :c | 
+				c horizontal fitContent.
+				c vertical fitContent ].
 	playInspectButton := BrButton new.
 	playInspectButton
 		beSmallSize;
@@ -85,17 +84,16 @@ LeJenkinsSnippetElement >> createInspectButtonToolbar [
 				token: tokenString
 				andUrl: urlString.
 			client := JcJenkinsClient new
-				username: username
-				token: tokenString
-				url: urlString.
-			client hasValidUrl ifTrue: [
-				[ result := client blueOcean.
-				self addInspectResultToContainer:result] 
-					on: KeyNotFound
-					do: [ playInspectButton phlow 
-						spawnObject: client plainJenkinsApi ]]].
-	toolbar addItem: playInspectButton.
-	^ toolbar
+					username: username
+					token: tokenString
+					url: urlString.
+			client hasValidUrl
+				ifTrue: [ [ result := client blueOcean.
+					playInspectButton phlow spawnObject: result ]
+						on: KeyNotFound
+						do: [ playInspectButton phlow spawnObject: client plainJenkinsApi ] ] ].
+	tb addItem: playInspectButton.
+	^ tb
 ]
 
 { #category : #accessing }
@@ -137,11 +135,11 @@ LeJenkinsSnippetElement >> initialize [
 	contentElement := BrVerticalPane new.
 	formElement := self createFormElement.
 	toolbar := self createInspectButtonToolbar.
-	resultContainer := self createResultContainer.
-	contentElement
+"	resultContainer := self createResultContainer.
+"	contentElement
 		vFitContent;
 		hMatchParent.
-	contentElement addChild: resultContainer.
+"	contentElement addChild: resultContainer."
 	contentElement addChild: formElement.
 	contentElement addChild: toolbar.
 	showFormToggle := self createShowFormToggleButton.
@@ -182,8 +180,8 @@ LeJenkinsSnippetElement >> onJenkinsSnippetViewModelChanged [
 				username: username
 				token: tokenString
 				url: urlInputElement editor text asString.
-		client hasValidUrl ifTrue: [
-			self addInspectResultToContainer: client blueOcean]].
+		"client hasValidUrl ifTrue: [
+			self addInspectResultToContainer: client blueOcean]"].
 	
 ]
 
