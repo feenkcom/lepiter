@@ -73,8 +73,7 @@ LeLogicalDatabaseProperties class >> withDefaultPrimaryDatabase [
 LeLogicalDatabaseProperties class >> withDefaultPrimaryDatabaseAndGlamorousDocumentation [
 
 	^ self withDefaultPrimaryDatabase
-		addRegisteredDirectory: LepiterCoreDefaults defaultGtoolkitDocumentationDirectory;
-		addRegisteredDirectory: LepiterCoreDefaults defaultGt4llmDocumentationDirectory
+		addRegisteredDirectory: LepiterCoreDefaults defaultGtoolkitDocumentationDirectory
 ]
 
 { #category : #accessing }

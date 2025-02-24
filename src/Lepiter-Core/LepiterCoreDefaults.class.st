@@ -36,14 +36,6 @@ LepiterCoreDefaults class >> defaultGemStonePropertiesFileReference [
 ]
 
 { #category : #defaults }
-LepiterCoreDefaults class >> defaultGt4llmDocumentationDirectory [
-	^ self defaultDocumentationDirectory
-		/ 'feenkcom' 
-		/ 'gt4llm' 
-		/ 'lepiter'
-]
-
-{ #category : #defaults }
 LepiterCoreDefaults class >> defaultGtoolkitDocumentationDirectory [
 	^ self defaultDocumentationDirectory
 		/ 'feenkcom' 
