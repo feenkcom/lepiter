@@ -337,9 +337,10 @@ LeLogicalDatabase >> gtDatabasesFor: aView [
 	<gtView>
 	^ aView columnedList
 		title: 'Databases';
-		items: [ self databases ];
+		items: [ self databases sorted: [ :each | each pageCount ] descending ];
 		column: 'Name' text: #databaseName;
-		column: 'Pages' text: [:db | db pages size ];
+		column: 'Pages' text: [:db | db pageCount ];
+		column: 'Snippets' text: [:db | db snippetsCount ];
 		column: 'Links' text: [:db | db linksCount ]
 ]
 
