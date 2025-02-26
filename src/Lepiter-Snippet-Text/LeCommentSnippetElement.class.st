@@ -9,7 +9,8 @@ Class {
 		'contentElement',
 		'iconElement',
 		'toolbarElement',
-		'hideButton'
+		'hideButton',
+		'saveAptitude'
 	],
 	#category : #'Lepiter-Snippet-Text-Snippet'
 }
@@ -57,9 +58,14 @@ LeCommentSnippetElement >> hideButton [
 
 { #category : #'event handling' }
 LeCommentSnippetElement >> hideComment [
+	self snippetContainerDo: #hFitContent.
 	self editorElement visibility: BlVisibility gone.
 	self hideButton visibility: BlVisibility gone.
 	self iconElement visibility: BlVisibility visible.
+	self
+		snippetAptitudeDo: [ :a | 
+			a shouldShowSidebar: false.
+			a shouldShowBottomToolbar: false ]
 ]
 
 { #category : #accessing }
@@ -95,7 +101,8 @@ LeCommentSnippetElement >> initializeContentElement [
 { #category : #initalization }
 LeCommentSnippetElement >> initializeEditorElement [
 	super initializeEditorElement.
-	editorElement background: Color paleYellow
+	editorElement background: Color paleYellow.
+	editorElement padding: (BlInsets all: 5)
 ]
 
 { #category : #initalization }
@@ -128,13 +135,11 @@ LeCommentSnippetElement >> initializeToolbarElement [
 
 { #category : #'event handling' }
 LeCommentSnippetElement >> onHideAction: aButton [
-	self snippetContainerDo: #hFitContent.
 	self snippet hide
 ]
 
 { #category : #'event handling' }
 LeCommentSnippetElement >> onShowAction: aButton [
-	self snippetContainerDo: #hMatchParent.
 	self snippet show
 ]
 
@@ -149,9 +154,20 @@ LeCommentSnippetElement >> onSnippetViewModelChanged [
 
 { #category : #'event handling' }
 LeCommentSnippetElement >> showComment [
+	self snippetContainerDo: #hMatchParent.
 	self editorElement visibility: BlVisibility visible.
 	self hideButton visibility: BlVisibility visible.
 	self iconElement visibility: BlVisibility gone.
+	self
+		snippetAptitudeDo: [ :a | 
+			a shouldShowSidebar: true.
+			a shouldShowBottomToolbar: true ]
+]
+
+{ #category : #'event handling' }
+LeCommentSnippetElement >> snippetAptitudeDo: aBlock [
+	(self aptitude isKindOf: LeSnippetAptitude)
+		ifTrue: [ aBlock value: self aptitude ]
 ]
 
 { #category : #'event handling' }

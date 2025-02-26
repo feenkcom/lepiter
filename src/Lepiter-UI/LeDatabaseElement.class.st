@@ -7,7 +7,7 @@ See my {{gtClass:LeDatabaseElement|expanded|show=#gtSubclassesFor:}} for concret
 Class {
 	#name : #LeDatabaseElement,
 	#superclass : #LeContentElement,
-	#category : 'Lepiter-UI-! UI - Database'
+	#category : #'Lepiter-UI-! UI - Database'
 }
 
 { #category : #'api - accessing' }
@@ -15,12 +15,6 @@ LeDatabaseElement >> database [
 	<return: #LeDatabase>
 
 	^ self content
-]
-
-{ #category : #'api - accessing' }
-LeDatabaseElement >> database: aDatabase [
-	self deprecated: 'Use #databaseUIMoldel: instead'.
-	self halt
 ]
 
 { #category : #'api - accessing' }
