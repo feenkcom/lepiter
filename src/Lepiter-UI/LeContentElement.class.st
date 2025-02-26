@@ -10,7 +10,7 @@ Class {
 	#instVars : [
 		'contentUIModel'
 	],
-	#category : 'Lepiter-UI-! Content Elements'
+	#category : #'Lepiter-UI-! Content Elements'
 }
 
 { #category : #'api - accessing' }
@@ -32,13 +32,6 @@ LeContentElement >> contentHolder [
 	self deprecated: 'Use #contentUIModel instead'.
 
 	^ contentUIModel
-]
-
-{ #category : #'api - accessing' }
-LeContentElement >> contentHolder: aContentHolder [
-
-	self deprecated: 'Use contentUIModel: instead'.
-	self halt
 ]
 
 { #category : #'api - ui model' }
@@ -89,14 +82,6 @@ LeContentElement >> hasContent [
 	^ contentUIModel notNil
 ]
 
-{ #category : #'private - hooks' }
-LeContentElement >> onContentChanged [
-	"Subclasses can react to content (page and block) changes"
-	
-	self deprecated: 'Use #onContentUIModelChanged instead'.
-	self halt
-]
-
 { #category : #'api - ui model' }
 LeContentElement >> onContentUIModelChanged [
 	"Subclasses can react to content (page and block) changes"
@@ -107,23 +92,6 @@ LeContentElement >> onContentUIModelChanged [
 { #category : #accessing }
 LeContentElement >> selectAndScrollTo: aPage [
 	self flag: 'TODO define this method to be able scroll to a specific block'
-]
-
-{ #category : #'api - accessing' }
-LeContentElement >> setContent: aPageOrBlock [
-	"Quietly set the receivers content. Delegate to the method setting the content holder."
-
-	self deprecated: 'Use setContentUIModel: instead'.
-	self halt
-]
-
-{ #category : #'api - accessing' }
-LeContentElement >> setContentHolder: aNewContentHolder [
-	"Quietly set the receivers content holder (without performing #onContentHolderChanged.
-	Answer a boolean indicating whether the content holder was actually changed"
-
-	self deprecated: 'Use setContentUIModel: instead'.
-	self halt
 ]
 
 { #category : #'private - subscriptions' }
