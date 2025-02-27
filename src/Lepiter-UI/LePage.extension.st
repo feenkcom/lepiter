@@ -227,6 +227,14 @@ LePage >> gtOpenInNewTabActionFor: anAction [
 ]
 
 { #category : #'*Lepiter-UI' }
+LePage >> gtReachablePagesMapFor: aView [
+	"<gtView>"
+	^ aView mondrian
+		title: 'Reachability Map';
+		painting: [ :m | self reachablePagesMapFor: m from: self ]
+]
+
+{ #category : #'*Lepiter-UI' }
 LePage >> gtRemoveActionFor: anAction [
 	<lePageAction>
 
@@ -265,6 +273,50 @@ LePage >> gtSpotterDatabaseFor: aSearch [
 			LePageToolElement new pageViewModel: aPageViewModel ];
 		filterBySubstring;
 		items: [ self database children ]
+]
+
+{ #category : #'*Lepiter-UI' }
+LePage >> reachablePagesMap [
+	"Inspired by GT Book page: Optimizing the links in the book for first time readers"
+	^ self reachablePagesMapFor: GtMondrian new from: self
+]
+
+{ #category : #'*Lepiter-UI' }
+LePage >> reachablePagesMapFor: aMondrian from: aStartPage [
+	"Inspired by GT Book page: Optimizing the links in the book for first time readers"
+	| nonTocPages  allReachedPages |
+	nonTocPages := self database pages reject: #isTableOfContents.
+
+	allReachedPages := aStartPage
+			deepCollect: [ :each | 
+				each allChildOutgoingTextualLinks
+					collectAsSet: [ :x | x target ifNotNil: #page ] ].
+	aMondrian nodes
+		stencil: [ :each | 
+			| color size |
+			color := (allReachedPages includes: each)
+					ifTrue: [ Color green muchDarker ]
+					ifFalse: [ Color red ].
+			size := 5 @ 5.
+			each = aStartPage
+				ifTrue: [ color := Color blue.
+					size := 10 @ 10 ].
+			BlElement new
+				background: color;
+				size: size;
+				when: BlClickEvent
+					do: [ :e | e currentTarget phlow spawnTool: each asPhlowTool ] ];
+		with: nonTocPages.
+	aMondrian edges
+		stencil: [ BlLineElement new
+				border: Color veryLightGray;
+				toHead: (BlArrowheadSimpleArrow new border: Color veryLightGray);
+				zIndex: -1 ];
+		connectToAll: [ :page | page allOutgoingTextualLinks collectAsSet: #target ].
+	aMondrian layout force
+		nbIterations: 30;
+		charge: -50.
+	^ aMondrian
 ]
 
 { #category : #'*Lepiter-UI' }
