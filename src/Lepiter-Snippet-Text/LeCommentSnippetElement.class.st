@@ -58,6 +58,8 @@ LeCommentSnippetElement >> hideButton [
 
 { #category : #'event handling' }
 LeCommentSnippetElement >> hideComment [
+	"Hide the comment element and show the iconized element instead."
+
 	self snippetContainerDo: #hFitContent.
 	self editorElement visibility: BlVisibility gone.
 	self hideButton visibility: BlVisibility gone.
@@ -135,11 +137,15 @@ LeCommentSnippetElement >> initializeToolbarElement [
 
 { #category : #'event handling' }
 LeCommentSnippetElement >> onHideAction: aButton [
+	"Update the model. Eventually this will trigger hideComment"
+
 	self snippet hide
 ]
 
 { #category : #'event handling' }
 LeCommentSnippetElement >> onShowAction: aButton [
+	"Update the model. Eventually this will trigger showComment"
+
 	self snippet show
 ]
 
@@ -154,6 +160,8 @@ LeCommentSnippetElement >> onSnippetViewModelChanged [
 
 { #category : #'event handling' }
 LeCommentSnippetElement >> showComment [
+	"Hide the icon element and show the comment element instead."
+
 	self snippetContainerDo: #hMatchParent.
 	self editorElement visibility: BlVisibility visible.
 	self hideButton visibility: BlVisibility visible.
