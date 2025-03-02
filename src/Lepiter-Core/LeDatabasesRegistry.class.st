@@ -8,7 +8,9 @@ Class {
 
 { #category : #accessing }
 LeDatabasesRegistry class >> defaultLogicalDatabase [
-
+	<gtExample>
+	<noTest>
+	
 	^ self uniqueInstance defaultLogicalDatabase
 ]
 

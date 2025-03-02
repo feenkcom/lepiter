@@ -9,7 +9,8 @@ Class {
 		'contentElement',
 		'iconElement',
 		'toolbarElement',
-		'hideButton'
+		'hideButton',
+		'saveAptitude'
 	],
 	#category : #'Lepiter-Snippet-Text-Snippet'
 }
@@ -57,9 +58,16 @@ LeCommentSnippetElement >> hideButton [
 
 { #category : #'event handling' }
 LeCommentSnippetElement >> hideComment [
+	"Hide the comment element and show the iconized element instead."
+
+	self snippetContainerDo: #hFitContent.
 	self editorElement visibility: BlVisibility gone.
 	self hideButton visibility: BlVisibility gone.
 	self iconElement visibility: BlVisibility visible.
+	self
+		snippetAptitudeDo: [ :a | 
+			a shouldShowSidebar: false.
+			a shouldShowBottomToolbar: false ]
 ]
 
 { #category : #accessing }
@@ -95,7 +103,8 @@ LeCommentSnippetElement >> initializeContentElement [
 { #category : #initalization }
 LeCommentSnippetElement >> initializeEditorElement [
 	super initializeEditorElement.
-	editorElement background: Color paleYellow
+	editorElement background: Color paleYellow.
+	editorElement padding: (BlInsets all: 5)
 ]
 
 { #category : #initalization }
@@ -128,13 +137,15 @@ LeCommentSnippetElement >> initializeToolbarElement [
 
 { #category : #'event handling' }
 LeCommentSnippetElement >> onHideAction: aButton [
-	self snippetContainerDo: #hFitContent.
+	"Update the model. Eventually this will trigger hideComment"
+
 	self snippet hide
 ]
 
 { #category : #'event handling' }
 LeCommentSnippetElement >> onShowAction: aButton [
-	self snippetContainerDo: #hMatchParent.
+	"Update the model. Eventually this will trigger showComment"
+
 	self snippet show
 ]
 
@@ -149,9 +160,22 @@ LeCommentSnippetElement >> onSnippetViewModelChanged [
 
 { #category : #'event handling' }
 LeCommentSnippetElement >> showComment [
+	"Hide the icon element and show the comment element instead."
+
+	self snippetContainerDo: #hMatchParent.
 	self editorElement visibility: BlVisibility visible.
 	self hideButton visibility: BlVisibility visible.
 	self iconElement visibility: BlVisibility gone.
+	self
+		snippetAptitudeDo: [ :a | 
+			a shouldShowSidebar: true.
+			a shouldShowBottomToolbar: true ]
+]
+
+{ #category : #'event handling' }
+LeCommentSnippetElement >> snippetAptitudeDo: aBlock [
+	(self aptitude isKindOf: LeSnippetAptitude)
+		ifTrue: [ aBlock value: self aptitude ]
 ]
 
 { #category : #'event handling' }

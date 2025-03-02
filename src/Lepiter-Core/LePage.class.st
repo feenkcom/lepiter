@@ -731,3 +731,11 @@ LePage >> updater [
 		page: self;
 		database: self database.
 ]
+
+{ #category : #accessing }
+LePage >> wordCount [
+	"Inspired by:  Optimizing the links in the book for first time readers"
+
+	^ self allChildrenBreadthFirst
+		sumNumbers: [ :each | each contentAsString substrings size ]
+]

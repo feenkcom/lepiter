@@ -57,6 +57,46 @@ LePage >> asPreviewElement [
 ]
 
 { #category : #'*Lepiter-UI' }
+LePage >> dependenciesMapFor: aMondrian [
+	| all |
+	all := {self} asSet
+			, (self incomingLinks
+					collect: [ :x | 
+						x originReference
+							ifNotNil: [ :aReference | aReference isPageReference ifTrue: [ aReference page ] ifFalse: [ nil ] ] ])
+			, (self allChildOutgoingTextualLinks
+					collect: [ :x | 
+						x targetReference
+							ifNotNil: [ :aReference | aReference isPageReference ifTrue: [ aReference page ] ifFalse: [ nil ] ] ])
+			reject: #isNil.
+	aMondrian nodes
+		stencil: [ :each | 
+			| element |
+			element := BlElement new
+					size: (each = self ifTrue: [ 10 @ 10 ] ifFalse: [ 5 @ 5 ]);
+					border: (each = self ifTrue: [ BlBorder paint: Color black ] ifFalse: [ BlBorder empty ]);
+					when: BlClickEvent do: [ :e | e target phlow spawnObject: each ];
+					aptitude: (self hoverPage: each forNodeEement: element);
+					geometry: BlCircleGeometry new;
+					background: (each isDailyNote ifTrue: [ Color blue ] ifFalse: [ Color red ]) ];
+		with: all.
+	aMondrian edges
+		fromNearestTightCircle;
+		toNearestTightCircle;
+		stencil: [ :each | 
+			BlLineElement new
+				zIndex: -1;
+				border: (BlBorder paint: (Color lightGray alpha: 0.5) width: 1);
+				toHead: (BlArrowheadSimpleArrow new border: (BlBorder paint: Color lightGray width: 1)) ];
+		connect: all
+			toAll: [ :each | 
+				each allChildOutgoingTextualLinks
+					collectAsSet: [ :x | x target ifNotNil: #page ] ].
+	aMondrian layout force.
+	^ aMondrian
+]
+
+{ #category : #'*Lepiter-UI' }
 LePage >> gtConnectionsFor: aView [
 	<gtView>
 	^ aView explicit
@@ -159,46 +199,9 @@ LePage >> gtDatabaseActionFor: anAction [
 { #category : #'*Lepiter-UI' }
 LePage >> gtDependenciesMapFor: aView [
 	<gtView>
-	^ aView mondrian 
+	^ aView mondrian
 		title: 'Dependencies map';
-		painting: [:m |
-		| all |
-all := {self} asSet, (self incomingLinks collect: [:x | x originReference ifNotNil: [ :aReference | aReference isPageReference ifTrue: [ aReference page ] ifFalse: [ nil ] ] ]), (self allChildOutgoingTextualLinks collect: [:x | x targetReference ifNotNil: [ :aReference | aReference isPageReference ifTrue: [ aReference page ] ifFalse: [ nil ] ]]) reject: #isNil.
-m nodes 
-	stencil: [:each | 
-		| element |
-		element := BlElement new 
-		size: (each = self ifTrue: [10@10] ifFalse: [5@5]);
-		border: (each = self ifTrue: [ BlBorder paint: Color black] ifFalse: [BlBorder empty]);
-		when: BlClickEvent do: [:e | e target phlow spawnObject: each];
-		aptitude: ((BrGlamorousWithTooltipAptitude2 content: [
-			| aContainer |
-			aContainer := BlElement new
-				layout: BlFrameLayout new;
-				constraintsDo: [ :c |
-					c horizontal fitContent.
-					c vertical fitContent ];
-				when: GtPhlowObjectToSpawn do: [ :anEvent | 
-					element fireEvent: (GtPhlowObjectToSpawn new 
-						fromPreviousSpawnEvent: anEvent) ].
-			(each gtViewsFor: GtPhlowEmptyView new) asElementDo: [ :anInspectorElement |
-				aContainer addChild: ((anInspectorElement exact: 400@400) asScalableElement size: 200@200)
-			] ]) showDelay: 100 milliSeconds);
-		geometry: BlCircleGeometry new;
-		background: (each isDailyNote ifTrue: [Color blue] ifFalse: [Color red]) ];
-	with: all.
-m edges 
-	fromNearestTightCircle;
-		toNearestTightCircle;
-	stencil: [:each | BlLineElement new  
-		zIndex: -1;
-		border: (BlBorder paint: (Color lightGray alpha: 0.5) width: 1);
-		toHead: (BlArrowheadSimpleArrow new
-			border: (BlBorder paint: (Color lightGray) width: 1))];
-	connect: all 
-	toAll: [:each | each allChildOutgoingTextualLinks collectAsSet: [:x | x target ifNotNil: #page]].
-m layout force.
-m ]
+		painting: [ :m | self dependenciesMapFor: m ]
 ]
 
 { #category : #'*Lepiter-UI' }
@@ -224,6 +227,18 @@ LePage >> gtOpenInNewTabActionFor: anAction [
 				pageInPager: self;
 				withSceneDriller;
 				showFrom: aButton ]
+]
+
+{ #category : #'*Lepiter-UI' }
+LePage >> gtReachablePagesMapFor: aView [
+	"Inspired by: Optimizing the links in the book for first time readers
+	The map shows the current page in blue, reachable pages in dark green, and unreachable pages in red. To avoid clutter, the ToC page is not included, but is considered for reachability. Nodes are scaled according to their word count.
+	Only named pages are included."
+
+	<gtView>
+	^ aView mondrian
+		title: 'Reachability Map';
+		painting: [ :m | self reachablePagesMapFor: m from: self ]
 ]
 
 { #category : #'*Lepiter-UI' }
@@ -265,6 +280,79 @@ LePage >> gtSpotterDatabaseFor: aSearch [
 			LePageToolElement new pageViewModel: aPageViewModel ];
 		filterBySubstring;
 		items: [ self database children ]
+]
+
+{ #category : #'*Lepiter-UI' }
+LePage >> hoverPage: aPage forNodeEement: aMondrianNodeElement [
+	^ (BrGlamorousWithTooltipAptitude
+		content: [ | aContainer |
+			aContainer := BlElement new
+					layout: BlFrameLayout new;
+					constraintsDo: [ :c | 
+						c horizontal fitContent.
+						c vertical fitContent ];
+					when: GtPhlowObjectToSpawn
+						do: [ :anEvent | aMondrianNodeElement fireEvent: (GtPhlowObjectToSpawn new fromPreviousSpawnEvent: anEvent) ].
+			(aPage gtViewsFor: GtPhlowEmptyView new)
+				asElementDo: [ :anInspectorElement | 
+					aContainer
+						addChild: ((anInspectorElement exact: 400 @ 400) asScalableElement size: 200 @ 200) ] ])
+		showDelay: 100 milliSeconds
+]
+
+{ #category : #'*Lepiter-UI' }
+LePage >> reachablePagesMap [
+	"Inspired by GT Book page: Optimizing the links in the book for first time readers"
+	^ self reachablePagesMapFor: GtMondrian new from: self
+]
+
+{ #category : #'*Lepiter-UI' }
+LePage >> reachablePagesMapFor: aMondrian from: aStartPage [
+	"Inspired by: Optimizing the links in the book for first time readers
+	The map shows the current page in blue, reachable pages in dark green, and unreachable pages in red. To avoid clutter, the ToC page is not included, but is considered for reachability. Nodes are scaled according to their word count.
+	Only named pages are included."
+
+	| nonTocPages allReachedPages minSize maxSize maxWordVal |
+	nonTocPages := self database pagesByName reject: #isTableOfContents.
+
+	allReachedPages := aStartPage
+			deepCollect: [ :each | 
+				each allChildOutgoingTextualLinks
+					collectAsSet: [ :x | x target ifNotNil: #page ] ].
+	maxWordVal := (self database pages collect: #wordCount) max sqrt.
+	minSize := 5.
+	maxSize := 25.
+
+	aMondrian nodes
+		stencil: [ :each | 
+			| element color size scaledSize |
+			color := (allReachedPages includes: each)
+					ifTrue: [ Color green muchDarker ]
+					ifFalse: [ Color red  ].
+			scaledSize := ((maxSize - minSize) * each wordCount sqrt / maxWordVal)
+					truncated + minSize.
+			size := scaledSize @ scaledSize.
+			each = aStartPage
+				ifTrue: [ color := Color blue.
+					size := 30 @ 30 ].
+			element := BlElement new
+				background: color;
+				size: size;
+				geometry: BlCircleGeometry new;
+				when: BlClickEvent
+					do: [ :e | e currentTarget phlow spawnTool: each asPhlowTool ];
+				aptitude: (self hoverPage: each forNodeEement: element) ];
+		with: nonTocPages.
+	aMondrian edges
+		stencil: [ BlLineElement new
+				border: Color veryLightGray;
+				toHead: (BlArrowheadSimpleArrow new border: Color veryLightGray);
+				zIndex: -1 ];
+		connectToAll: [ :page | page allOutgoingTextualLinks collectAsSet: #target ].
+	aMondrian layout force
+		nbIterations: 30;
+		charge: -50.
+	^ aMondrian
 ]
 
 { #category : #'*Lepiter-UI' }
