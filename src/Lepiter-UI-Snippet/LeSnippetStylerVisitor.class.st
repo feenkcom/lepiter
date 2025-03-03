@@ -264,14 +264,6 @@ LeSnippetStylerVisitor >> newExpandedElement: aLink [
 ]
 
 { #category : #'api - accessing' }
-LeSnippetStylerVisitor >> normalFontSize [
-	"Styler should specify font sizes in relative units"
-
-	self halt.
-	^ 20
-]
-
-{ #category : #'api - accessing' }
 LeSnippetStylerVisitor >> referencedPage [
 	^ referencedPage
 ]
