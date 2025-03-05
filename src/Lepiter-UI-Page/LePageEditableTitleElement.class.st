@@ -38,7 +38,7 @@ LePageEditableTitleElement >> createAddButton [
 			c ignored horizontal alignCenter.
 			c ignored vertical alignBottom ];
 		visibility: BlVisibility hidden;
-		addAptitude: (BrGlamorousWithDropdownAptitude
+		addAptitude: (BrGlamorousWithExplicitDropdownAptitude
 				handle: [ self plusButton
 						aptitude: BrIconAptitude;
 						background: BrGlamorousColors secondaryHeaderBackgroundColor ]
@@ -56,7 +56,8 @@ LePageEditableTitleElement >> createAddButton [
 							self titleElement requestFocus.	"ideally the new snippet would gain focus here"
 							anActOnEvent beActed ];
 						spotterElementFor: aButton ]
-				aptitudeDo: [ :anAnchoredLook | anAnchoredLook background: BrGlamorousColors secondaryHeaderBackgroundColor ])
+				containerDo: [ :aMenuContainer | 
+					aMenuContainer background: BrGlamorousColors secondaryHeaderBackgroundColor ])
 				doNotHideWidget.
 				
 	^ aButton

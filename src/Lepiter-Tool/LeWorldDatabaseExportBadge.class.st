@@ -96,7 +96,7 @@ LeWorldDatabaseExportBadge >> initialize [
 	self
 		icon: BrGlamorousIcons savetodisk;
 		aptitude: BrGlamorousButtonWithIconAptitude.
-	self addAptitude: (BrGlamorousWithDropdownAptitude
+	self addAptitude: (BrGlamorousWithExplicitDropdownAptitude
 		handle: [ self createDropdownExpandedHandleButton ]
 		content: [ self createDropdownContentWithAnchor: self ]).
 		
