@@ -41,7 +41,7 @@ LeChangesSnippetElement >> createChangesFilePicker [
 		icon: BrGlamorousIcons loadfromdisk;
 		label: 'Select .ombu file';
 		aptitude: BrGlamorousButtonWithIconAptitude;
-		addAptitude: (BrGlamorousWithDropdownAptitude
+		addAptitude: (BrGlamorousWithExplicitDropdownAptitude
 				handle: [ BrButton new
 						icon: BrGlamorousIcons folder;
 						aptitude: BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude

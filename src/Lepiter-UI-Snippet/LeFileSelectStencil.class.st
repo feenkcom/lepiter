@@ -10,7 +10,7 @@ Class {
 		'textEditorPiece',
 		'subText'
 	],
-	#category : 'Lepiter-UI-Snippet-Text actions'
+	#category : #'Lepiter-UI-Snippet-Text actions'
 }
 
 { #category : #'api - instantiation' }
@@ -35,7 +35,7 @@ LeFileSelectStencil >> create [
 		icon: BrGlamorousIcons loadfromdisk;
 		label: label;
 		addAptitude:
-			(BrGlamorousWithDropdownAptitude
+			(BrGlamorousWithExplicitDropdownAptitude
 				handle: [ BrButton new
 						icon: BrGlamorousIcons loadfromdisk;
 						label: label;
@@ -49,7 +49,7 @@ LeFileSelectStencil >> create [
 						folder: FileLocator home;
 						okAction: [ :file :button | 
 							file isFile
-								ifTrue: [ aButton dispatchEvent: (BrDropdownHideWish new anchor: aButton).
+								ifTrue: [ button fireEvent: BrDropdownHideWish new.
 									self importFromFile: file type: stencil currentType ] ];
 						buttonLabel: 'Import';
 						exact: self extent;

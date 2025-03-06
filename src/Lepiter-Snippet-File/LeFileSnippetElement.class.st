@@ -60,7 +60,7 @@ LeFileSnippetElement >> newFileSelection: fileReference [
 LeFileSnippetElement >> newIndicatorElement [
 	| newIndicatorElement aptitude |
 	
-	aptitude := BrGlamorousWithDropdownAptitude
+	aptitude := BrGlamorousWithExplicitDropdownAptitude
 		handle: [
 			BrButton new
 				aptitude: BrGlamorousButtonRectangularAptitude 

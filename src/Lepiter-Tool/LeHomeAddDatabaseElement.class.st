@@ -62,7 +62,7 @@ LeHomeAddDatabaseElement >> initializeButtonElement [
 		label: 'New Database';
 		disable.
 		
-	aDropdownLook := BrGlamorousWithDropdownAptitude
+	aDropdownLook := BrGlamorousWithExplicitDropdownAptitude
 			handle: [
 				BrButton new
 					icon: BrGlamorousIcons add;

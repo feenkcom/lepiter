@@ -141,7 +141,7 @@ LeWorldDatabaseImportBadge >> initialize [
 	self
 		icon: BrGlamorousIcons loadfromdisk;
 		aptitude: BrGlamorousButtonWithIconAptitude.
-	self addAptitude: (BrGlamorousWithDropdownAptitude
+	self addAptitude: (BrGlamorousWithExplicitDropdownAptitude
 		handle: [ self createDropdownExpandedHandleButton ]
 		content: [self createDropdownContentWithAnchor: self ]).
 		

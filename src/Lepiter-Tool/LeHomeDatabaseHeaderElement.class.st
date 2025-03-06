@@ -118,7 +118,7 @@ LeHomeDatabaseHeaderElement >> newRemoveButtonElement [
 	removeButton := BrButton new.
 	removeButton
 		aptitude: BrGlamorousButtonWithIconAptitude
-			+ (BrGlamorousWithDropdownAptitude
+			+ (BrGlamorousWithExplicitDropdownAptitude
 					handle: [ BrButton new
 						icon: BrGlamorousIcons empty;
 						aptitude: BrGlamorousButtonRectangularAptitude + BrGlamorousButtonIconAptitude ]
