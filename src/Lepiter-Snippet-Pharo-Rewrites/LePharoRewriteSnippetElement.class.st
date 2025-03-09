@@ -407,7 +407,7 @@ LePharoRewriteSnippetElement >> initialize [
 		ifPresent: [ :strategy | strategy hasImplicitVariables: true ].
 	searchEditor when: BlBlurEvent do: [ :event | self updateReplaceVariables ].
 	searchEditor
-		addAptitude: (BrGlamorousWithContextMenuAptitude
+		addAptitude: (BrGlamorousWithExplicitContextMenuAptitude
 				content: [ self createContextMenuContentFor: searchEditor isSearch: true ]).
 	searchEditor
 		addShortcut: (BlShortcutWithAction new
@@ -428,7 +428,7 @@ LePharoRewriteSnippetElement >> initialize [
 	rewriteElement addChild: (self createLabel: 'Replace with:').
 	replaceEditor := self createSourceEditor: #updateReplace.
 	replaceEditor
-		addAptitude: (BrGlamorousWithContextMenuAptitude
+		addAptitude: (BrGlamorousWithExplicitContextMenuAptitude
 				content: [ self createContextMenuContentFor: replaceEditor isSearch: false ]).
 	replaceEditor
 		addShortcut: (BlShortcutWithAction new

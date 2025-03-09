@@ -74,6 +74,7 @@ LeFileSnippetElement >> newIndicatorElement [
 				self newFileSelection: filePath.
 				fileBrowser fireEvent: BrDropdownHideWish new ].
 			fileBrowser fileFilterBlock: [ :aFileReference | true ].
+			fileBrowser addAptitude: BrGlamorousMenuResizableAptitude new.
 			fileBrowser ].
 			
 	newIndicatorElement := BrButton new
