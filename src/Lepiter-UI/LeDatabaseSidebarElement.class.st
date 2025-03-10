@@ -78,7 +78,6 @@ LeDatabaseSidebarElement >> initialize [
 	self initializeTabGroupElement.
 	self initializeElement.
 
-	self addChild: self tabGroupElement as: #content.
 	self
 		addAptitude: (BrGlamorousWithHorizontalResizerAptitude new 
 		resizerDo: [ :theResizer | resizerElement := theResizer ]).
@@ -128,7 +127,9 @@ LeDatabaseSidebarElement >> initializeTabGroupElement [
 					fromObject: navigationModel;
 					pragmaName: #leDatabaseView;
 					collect);
-			asElementDo: [ :aTabGroup | aTabGroup padding: aTabGroup padding + (BlInsets right: 3) ]
+			asElementDo: [ :aTabGroup | aTabGroup padding: aTabGroup padding + (BlInsets right: 3) ].
+			
+	tabGroupElement id: #content.
 ]
 
 { #category : #'private - testing' }
@@ -191,12 +192,16 @@ LeDatabaseSidebarElement >> onContentUIModelChanged [
 
 { #category : #'private - event handling' }
 LeDatabaseSidebarElement >> onDetailedVolume [
-	self show
+	self show.
+	
+	tabGroupElement hasParent
+		ifFalse: [ self addChildFirst: tabGroupElement ]
 ]
 
 { #category : #'private - event handling' }
 LeDatabaseSidebarElement >> onNormalVolume [
-	self hide
+	self hide.
+	tabGroupElement removeFromParent.
 ]
 
 { #category : #initialization }
