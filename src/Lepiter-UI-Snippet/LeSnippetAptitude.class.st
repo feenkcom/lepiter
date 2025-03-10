@@ -231,7 +231,7 @@ LeSnippetAptitude >> newAddSnippetDropdown [
 	
 	aButton := self newPlusElement.
 	aButton
-		addAptitude: (BrGlamorousWithDropdownAptitude
+		addAptitude: (BrGlamorousWithExplicitDropdownAptitude
 			handle: [ 
 				self newPlusElement
 					aptitude: BrIconAptitude;
@@ -251,8 +251,8 @@ LeSnippetAptitude >> newAddSnippetDropdown [
 						self snippetBelowRequested: aMenuItem asSnippet.
 						anActOnEvent beActed ];
 					spotterElementFor: aButton ]
-			aptitudeDo: [ :anAnchoredLook | 
-				anAnchoredLook background: BrGlamorousColors secondaryHeaderBackgroundColor ]) doNotHideWidget.
+			containerDo: [ :aMenuContainer | 
+				aMenuContainer background: BrGlamorousColors secondaryHeaderBackgroundColor ]) doNotHideWidget.
 	^ aButton
 ]
 

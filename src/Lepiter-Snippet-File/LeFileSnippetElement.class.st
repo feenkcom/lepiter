@@ -60,7 +60,7 @@ LeFileSnippetElement >> newFileSelection: fileReference [
 LeFileSnippetElement >> newIndicatorElement [
 	| newIndicatorElement aptitude |
 	
-	aptitude := BrGlamorousWithDropdownAptitude
+	aptitude := BrGlamorousWithExplicitDropdownAptitude
 		handle: [
 			BrButton new
 				aptitude: BrGlamorousButtonRectangularAptitude 
@@ -74,6 +74,7 @@ LeFileSnippetElement >> newIndicatorElement [
 				self newFileSelection: filePath.
 				fileBrowser fireEvent: BrDropdownHideWish new ].
 			fileBrowser fileFilterBlock: [ :aFileReference | true ].
+			fileBrowser addAptitude: BrGlamorousMenuResizableAptitude new.
 			fileBrowser ].
 			
 	newIndicatorElement := BrButton new

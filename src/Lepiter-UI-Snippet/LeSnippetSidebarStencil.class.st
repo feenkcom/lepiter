@@ -40,7 +40,7 @@ LeSnippetSidebarStencil >> createSidebarContainerFor: aSnippetElement [
 			(GtInspectorRoundButtonStencil small asElement
 				constraintsDo: [ :c | c frame vertical alignCenterAt: 1 ];
 				addAptitude:
-					(BrGlamorousWithDropdownAptitude
+					(BrGlamorousWithExplicitDropdownAptitude
 						handle: [ GtInspectorRoundButtonStencil small asElement
 								aptitude: BrIconAptitude;
 								icon:

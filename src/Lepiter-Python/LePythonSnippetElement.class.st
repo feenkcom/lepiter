@@ -24,7 +24,7 @@ LePythonSnippetElement >> initializeLanguageElement [
 	This is normally a text element, but subclasses may replace it with something else, e.g. a button"
 
 	| aptitude |
-	aptitude := BrGlamorousWithDropdownAptitude
+	aptitude := BrGlamorousWithExplicitDropdownAptitude
 		handle: [
 			dropdownHandleButton := BrButton new
 				aptitude: BrGlamorousButtonRectangularAptitude + BrGlamorousButtonWithLabelAptitude;

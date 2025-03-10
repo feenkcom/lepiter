@@ -6,7 +6,7 @@ Class {
 		'extent',
 		'pictureElement'
 	],
-	#category : 'Lepiter-UI-Basic - Support'
+	#category : #'Lepiter-UI-Basic - Support'
 }
 
 { #category : #'api - instantiation' }
@@ -19,7 +19,7 @@ LePictureImportStencil >> create [
 		icon: BrGlamorousIcons loadfromdisk;
 		label: self tooltip;
 		aptitude: BrGlamorousButtonWithIconAptitude;
-		addAptitude: ((BrGlamorousWithDropdownAptitude
+		addAptitude: ((BrGlamorousWithExplicitDropdownAptitude
 			handle: [
 				BrButton new
 					icon: BrGlamorousIcons folder;

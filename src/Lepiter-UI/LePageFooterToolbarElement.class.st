@@ -79,7 +79,7 @@ LePageFooterToolbarElement >> newChangeDatabaseButton [
 		aptitude:
 			BrGlamorousButtonWithLabelAptitude
 				+
-					(BrGlamorousWithDropdownAptitude
+					(BrGlamorousWithExplicitDropdownAptitude
 						handle: [
 							BrButton new
 								beSmallSize;

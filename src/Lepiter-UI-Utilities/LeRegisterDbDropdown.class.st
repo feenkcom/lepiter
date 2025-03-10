@@ -68,7 +68,7 @@ LeRegisterDbDropdown >> initializeDropdownElement [
 
 	dropdownElement := self newButton
 		label: self tooltip;
-		addAptitude: (BrGlamorousWithDropdownAptitude
+		addAptitude: (BrGlamorousWithExplicitDropdownAptitude
 			handle: [ self newDropdownButton ]
 			content: [ self reusedDropdownContent ])
 ]

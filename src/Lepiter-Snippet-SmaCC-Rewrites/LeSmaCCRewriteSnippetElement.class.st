@@ -38,7 +38,7 @@ LeSmaCCRewriteSnippetElement >> createParserDropDown [
 	| button dropDownLook |
 	button := self createDropDownButton: self parserLabel.
 	button background: BrGlamorousColors neutralBackgroundColor.
-	dropDownLook := BrGlamorousWithDropdownAptitude
+	dropDownLook := BrGlamorousWithExplicitDropdownAptitude
 			handle: [ self createDropDownButton: self parserLabel ]
 			content: [ BrSimpleList new
 					vFitContentLimited;
@@ -324,7 +324,7 @@ LeSmaCCRewriteSnippetElement >> updateStartingState [
 					pane addChild: ((self createLabel: 'as:') margin: (BlInsets top: 5)).
 					button := self createDropDownButton: self startingStateLabel.
 					button background: BrGlamorousColors neutralBackgroundColor.
-					dropDownLook := BrGlamorousWithDropdownAptitude
+					dropDownLook := BrGlamorousWithExplicitDropdownAptitude
 							handle: [ self createDropDownButton: self startingStateLabel ]
 							content: [ BrSimpleList new
 									vFitContentLimited;
