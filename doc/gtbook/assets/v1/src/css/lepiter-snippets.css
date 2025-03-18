@@ -83,6 +83,12 @@ figcaption {
 .annotation-label-code {
     font-family: "Source Code Pro", monospace;
     background-color: #F0F0F0;
+
+    /* The overflow-wrap seems to work better since it tries to keep
+    word characters together whenever it is possible. Word-break
+    breaks words to fill end of lines. */
+    /* word-break: break-all; */
+    overflow-wrap: break-word;
 }
 
 .annotation-label-code:hover {
