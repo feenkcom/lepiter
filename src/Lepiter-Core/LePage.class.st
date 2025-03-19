@@ -128,6 +128,16 @@ LePage >> asMarkdownPage [
 ]
 
 { #category : #'api - converting' }
+LePage >> asPagePhlowTool [
+	"Inspect me to obtain a LePage tool view first."
+
+	^ GtPhlowCompositeTool new
+		addTool: (LePagePhlowTool new
+				shouldFocusFirstSnippet: true;
+				page: self)
+]
+
+{ #category : #'api - converting' }
 LePage >> asRemoteLink [
 	"Answer the string representing a remote link to the receiver"
 
