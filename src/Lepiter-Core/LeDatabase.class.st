@@ -45,7 +45,12 @@ LeDatabase class >> databaseNamed: aString [
 
 { #category : #'instance creation' }
 LeDatabase class >> gtBook [
-	^ self databaseNamed: 'Glamorous Toolkit Book'
+	^ self databaseNamed: self gtBookName
+]
+
+{ #category : #constant }
+LeDatabase class >> gtBookName [
+	^ 'Glamorous Toolkit Book'
 ]
 
 { #category : #'api - instance creation' }
