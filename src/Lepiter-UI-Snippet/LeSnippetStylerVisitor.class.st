@@ -666,18 +666,18 @@ LeSnippetStylerVisitor >> styleOpenExternalLinkButton: aLink text: aSubText [
 	aSubText
 		appendingAdornment: [ :aTBrTextEditorTextualPiece :anEditorElement | 
 			| button oldLook |
-			button := self class textLinkButtonPadding: aTBrTextEditorTextualPiece wordPadding 
-										margin: aTBrTextEditorTextualPiece wordMargin.
+			button := self class
+					textLinkButtonPadding: aTBrTextEditorTextualPiece wordPadding
+					margin: aTBrTextEditorTextualPiece wordMargin.
 			oldLook := button aptitude.
 			button
 				removeAptitude: oldLook;
-				addAptitude: (BrGlamorousButtonLabelAndIconAptitude new
-							defaultColor: oldLook defaultColor);
-				addAptitude: (BrGlamorousWithLabelTooltipAptitude new
-							text: aLink url asString asRopedText);
+				addAptitude: (BrGlamorousButtonLabelAndIconAptitude new defaultColor: oldLook defaultColor);
+				addAptitude: (BrGlamorousWithExplicitTooltipAptitude text: aLink url asString asRopedText);
 				icon: BrGlamorousVectorIcons link;
 				label: aLink displayLabel;
-				action: [ :aButton | | urlUtility |
+				action: [ :aButton | 
+					| urlUtility |
 					urlUtility := self resolveUrl: aLink url.
 					urlUtility isFile
 						ifTrue: [ aButton phlow spawnObject: urlUtility asFileReference ]

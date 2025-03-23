@@ -48,11 +48,12 @@ LePageCardElement >> initialize [
 { #category : #initialization }
 LePageCardElement >> initializeContainerElement [
 	containerElement := BrButton new
-		layout: BlLinearLayout vertical;
-		aptitude: (BrGlamorousButtonExteriorAptitude new + BrGlamorousButtonWithLabelTooltipAptitude new);
-		padding: (BlInsets all: 1);
-		geometry: (BlRoundedRectangleGeometry cornerRadius: 4);
-		action: [ self phlow spawnTool: self pageViewModel asPhlowTool ]
+			layout: BlLinearLayout vertical;
+			aptitude: BrGlamorousButtonExteriorAptitude new
+					+ BrGlamorousButtonWithLabelTooltipAptitude2 new;
+			padding: (BlInsets all: 1);
+			geometry: (BlRoundedRectangleGeometry cornerRadius: 4);
+			action: [ self phlow spawnTool: self pageViewModel asPhlowTool ]
 ]
 
 { #category : #initialization }

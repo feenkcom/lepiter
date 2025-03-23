@@ -12,6 +12,7 @@ Class {
 { #category : #'api - instantiation' }
 LePictureImportStencil >> create [
 	"Create the new element"
+
 	| aButton |
 	"Specify the button to be used when the dropdown is hidden"
 	aButton := BrButton new.
@@ -19,25 +20,23 @@ LePictureImportStencil >> create [
 		icon: BrGlamorousIcons loadfromdisk;
 		label: self tooltip;
 		aptitude: BrGlamorousButtonWithIconAptitude;
-		addAptitude: ((BrGlamorousWithExplicitDropdownAptitude
-			handle: [
-				BrButton new
-					icon: BrGlamorousIcons folder;
-					label: self tooltip;
-					aptitude: 	BrGlamorousButtonWithIconAptitude 
-						- BrGlamorousButtonWithLabelTooltipAptitude
-						- BrGlamorousButtonExteriorAptitude ]
-			content: [ | stencil |
-				stencil := LeImportFileSelector new.
-				stencil
-					folder: FileLocator home;
-					okAction: [ :file :button | 
-						file isFile ifTrue: 
-							[ aButton dispatchEvent: (BrDropdownHideWish new anchor: aButton).
-							self importFromFile: file type: stencil currentType ] ];
-					buttonLabel: 'Import';
-					exact: self extent;
-					padding: (BlInsets all: 20) ])).
+		addAptitude: (BrGlamorousWithExplicitDropdownAptitude
+				handle: [ BrButton new
+						icon: BrGlamorousIcons folder;
+						label: self tooltip;
+						aptitude: BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude2
+								- BrGlamorousButtonExteriorAptitude ]
+				content: [ | stencil |
+					stencil := LeImportFileSelector new.
+					stencil
+						folder: FileLocator home;
+						okAction: [ :file :button | 
+							file isFile
+								ifTrue: [ aButton dispatchEvent: (BrDropdownHideWish new anchor: aButton).
+									self importFromFile: file type: stencil currentType ] ];
+						buttonLabel: 'Import';
+						exact: self extent;
+						padding: (BlInsets all: 20) ]).
 	^ aButton
 ]
 
