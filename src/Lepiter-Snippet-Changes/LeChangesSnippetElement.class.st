@@ -44,7 +44,7 @@ LeChangesSnippetElement >> createChangesFilePicker [
 		addAptitude: (BrGlamorousWithExplicitDropdownAptitude
 				handle: [ BrButton new
 						icon: BrGlamorousIcons folder;
-						aptitude: BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude
+						aptitude: BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude2
 								- BrGlamorousButtonExteriorAptitude ]
 				content: [ | stencil |
 					stencil := LeImportFileSelector new.

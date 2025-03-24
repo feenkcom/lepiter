@@ -284,7 +284,7 @@ LePage >> gtSpotterDatabaseFor: aSearch [
 
 { #category : #'*Lepiter-UI' }
 LePage >> hoverPage: aPage forNodeEement: aMondrianNodeElement [
-	^ (BrGlamorousWithTooltipAptitude
+	^ (BrGlamorousWithExplicitTooltipAptitude
 		content: [ | aContainer |
 			aContainer := BlElement new
 					layout: BlFrameLayout new;

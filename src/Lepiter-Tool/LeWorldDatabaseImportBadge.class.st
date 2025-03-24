@@ -39,9 +39,8 @@ LeWorldDatabaseImportBadge >> createDropdownExpandedHandleButton [
 	^ BrButton new
 		icon: BrGlamorousIcons loadfromdisk;
 		label: self tooltip;
-		aptitude: BrGlamorousButtonWithIconAptitude 
-			- BrGlamorousButtonWithLabelTooltipAptitude
-			- BrGlamorousButtonExteriorAptitude
+		aptitude: BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude2
+				- BrGlamorousButtonExteriorAptitude
 ]
 
 { #category : #'building widgets' }
