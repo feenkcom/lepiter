@@ -89,6 +89,11 @@ LeHtmlTextSnippetPostAbstractVisitor >> snippet: anObject [
 ]
 
 { #category : #generated }
+LeHtmlTextSnippetPostAbstractVisitor >> visitDefinedLink: aDefinedLink [
+	context html escape: aDefinedLink linkLabel
+]
+
+{ #category : #generated }
 LeHtmlTextSnippetPostAbstractVisitor >> visitDocumenterAnnotation: aDocumenterAnnotation [
 	aDocumenterAnnotation annotation
 		acceptVisitor: (LeHtmlTextSnippetAnnotationPostAbstractVisitor new 
