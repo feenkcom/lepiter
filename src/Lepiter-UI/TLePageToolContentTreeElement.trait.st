@@ -77,7 +77,7 @@ TLePageToolContentTreeElement >> createTreeRowFor: aSnippetElement [
 		clipChildren: false;
 		constraintsDo: [ :c |
 			c horizontal matchParent.
-			c vertical fitContent ];
+			c vertical fitContentLimited ];
 		addChild: (BrInlineExpanderElement new
 			beSmallSize;
 			aptitude: BrGlamorousTriangleInCircleExpanderAptitude;

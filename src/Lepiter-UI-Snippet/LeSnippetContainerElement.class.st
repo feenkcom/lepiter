@@ -11,7 +11,7 @@ Class {
 	#instVars : [
 		'snippetElement'
 	],
-	#category : 'Lepiter-UI-Snippet-! Views'
+	#category : #'Lepiter-UI-Snippet-! Views'
 }
 
 { #category : #initialization }
@@ -19,7 +19,7 @@ LeSnippetContainerElement >> initialize [
 	super initialize.
 	
 	self hMatchParent.
-	self vFitContent.
+	self vFitContentLimited.
 	
 	self layout: BlFrameLayout new.
 	self clipChildren: false.
