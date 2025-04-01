@@ -1,56 +1,6 @@
 Extension { #name : #LeContextMenuSpotterStart }
 
 { #category : #'*Lepiter-Snippet-Picture' }
-LeContextMenuSpotterStart >> gtSpotterForOnlineWardleyMapFor: aSearch [
-	<gtSearch>
-	^ aSearch explicit
-		title: 'Add Wardley Map';
-		priority: 2;
-		itemName: #title;
-		search: [ :aContext | 
-			((aContext searchQuery asAsyncFuture asAsyncStream
-				collect: [ :aQuery | 
-					(aQuery beginsWith: 'https://onlinewardleymaps.com/')
-						ifTrue: [ aQuery removePrefix: 'https://onlinewardleymaps.com/#' ]
-						ifFalse: [ nil ] ]) select: #notNil)
-				collect: [ :aMapId | 
-					LeContextMenuItemValuableSpecification new
-						valuable: [ 
-							| url json dictionary map |
-							url := 'https://api.onlinewardleymaps.com/v1/maps/fetch?id='
-									, (aMapId gtRemovePrefix: 'https://onlinewardleymaps.com/#').
-							json := ZnClient new get: url.
-							dictionary := STONJSON fromString: json.
-							map := GtWardleyMapScriptImporter
-									forString: (dictionary at: 'text') asString.
-							LeWardleyMapSnippet new wardleyMap: map ];
-						title: aMapId ] ]
-]
-
-{ #category : #'*Lepiter-Snippet-Picture' }
-LeContextMenuSpotterStart >> gtSpotterForOnlineYouTubeVideoFor: aSearch [
-	<gtSearch>
-	^ aSearch explicit
-		title: 'Add YouTube video';
-		priority: 2;
-		itemName: #title;
-		search: [ :aContext | 
-			((aContext searchQuery asAsyncFuture asAsyncStream
-				collect: [ :aQuery | 
-					| aYouTubeUrl |
-					aYouTubeUrl := LeYoutubeUrl new string: aQuery.
-					aYouTubeUrl isValidYoutubeUrl
-						ifFalse: [ nil ]
-						ifTrue: [ aYouTubeUrl ] ]) select: #notNil)
-				collect: [ :aYouTubeUrl | 
-					LeContextMenuItemValuableSpecification new
-						valuable: [ 
-							LeYoutubeReferenceSnippet new
-								urlString: aYouTubeUrl url asString. ];
-						title: aYouTubeUrl string ] ]
-]
-
-{ #category : #'*Lepiter-Snippet-Picture' }
 LeContextMenuSpotterStart >> gtSpotterForPictureFor: aSearch [
 	<gtSearch>
 
