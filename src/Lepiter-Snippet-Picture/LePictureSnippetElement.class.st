@@ -9,7 +9,8 @@ Class {
 		'snippetToolbar',
 		'urlEditorElement',
 		'captionEditorElement',
-		'captionLabel'
+		'captionLabel',
+		'referenceEditorElement'
 	],
 	#category : #'Lepiter-Snippet-Picture-Snippet'
 }
@@ -117,6 +118,38 @@ LePictureSnippetElement >> initializePictureContainer [
 ]
 
 { #category : #initialization }
+LePictureSnippetElement >> initializeReferenceEditor [
+	referenceEditorElement := BrEditor new
+			id: LePictureSnippetReferenceEditorElementId;
+			aptitude: BrGlamorousRegularEditorAptitude new glamorousRegularSmallSize
+					+ BrGlamorousInputFieldSpacingAptitude new;
+			vFitContent;
+			hMatchParent;
+			constraintsDo: [ :c | 
+				c minWidth: 100.
+				c grid vertical alignCenter ].
+
+	referenceEditorElement editor
+		when: BrTextEditorModifiedEvent
+		do: [ :anEvent | self onReferenceModifiedEvent: anEvent ].
+		
+	LeSnippetEditorElementShortcuter new
+		editor: referenceEditorElement;
+		indent;
+		moveUpAndDown;
+		loseFocus.
+
+	snippetToolbar
+		addChild: (BrLabel new
+				aptitude: (BrGlamorousLabelAptitude new foreground: BrGlamorousColors disabledButtonTextColor);
+				beSmallSize;
+				text: 'Reference:';
+				constraintsDo: [ :c | 
+					c grid vertical alignCenter ]);
+		addChild: referenceEditorElement
+]
+
+{ #category : #initialization }
 LePictureSnippetElement >> initializeSceneResizer [
 	pictureContainer
 		addAptitude: (BrGlamorousWithVerticalResizerAptitude new beBottom
@@ -137,6 +170,7 @@ LePictureSnippetElement >> initializeToolbar [
 
 	self initializeUrlEditor.
 	self initializeCaptionEditor.
+	self initializeReferenceEditor.
 ]
 
 { #category : #initialization }
@@ -211,6 +245,14 @@ LePictureSnippetElement >> onCaptionModifiedEvent: anEvent [
 ]
 
 { #category : #'private - event handling' }
+LePictureSnippetElement >> onReferenceModifiedEvent: anEvent [
+	| titleString |
+
+	titleString := referenceEditorElement text asString.
+	self snippet reference: titleString source: self
+]
+
+{ #category : #'private - event handling' }
 LePictureSnippetElement >> onResizerResized: anEvent [
 	"Since pictureContainer is (must be) with #vFitContent,
 	we set the #imageElement exact height. The pictureContainer also have
@@ -247,6 +289,7 @@ LePictureSnippetElement >> onSnippetViewModelChanged [
 	urlEditorElement text: urlString asRopedText.
 	captionEditorElement text: self snippet caption.
 	captionLabel text: self snippet caption.
+	referenceEditorElement text: self snippet reference.
 	self updatePicture
 ]
 

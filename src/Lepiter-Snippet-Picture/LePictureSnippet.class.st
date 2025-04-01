@@ -3,9 +3,9 @@ Class {
 	#superclass : #LeSnippet,
 	#instVars : [
 		'urlString',
-		'altText',
 		'caption',
-		'previewHeight'
+		'previewHeight',
+		'reference'
 	],
 	#category : #'Lepiter-Snippet-Picture-Snippet'
 }
@@ -53,6 +53,7 @@ LePictureSnippet class >> leJsonV4AttributeMapping [
 		add: (#urlString -> #url);
 		add: (#caption -> #caption);
 		add: (#previewHeight -> #previewHeight);
+		add: (#reference -> #reference);
 		yourself
 ]
 
@@ -126,7 +127,21 @@ LePictureSnippet >> initialize [
 
 	urlString := ''.
 	caption := ''.
-	previewHeight := 0
+	previewHeight := 0.
+	reference := ''
+]
+
+{ #category : #testing }
+LePictureSnippet >> isPictureSnippet [
+	^ true
+]
+
+{ #category : #testing }
+LePictureSnippet >> isPictureSnippetWithReference: aReference [
+	"Return true if aReference is same as #reference.
+	aReference is a String instance."
+
+	^ self reference isNotNil and: [ self reference = aReference ]
 ]
 
 { #category : #'private - exporting' }
@@ -179,6 +194,35 @@ LePictureSnippet >> previewHeight: aNumber source: aSource [
 		ifTrue: [ ^ self ].
 
 	previewHeight := aNumber.
+	self updateEditTimeAndEmail.
+	self announceContentChangedBy: aSource
+]
+
+{ #category : #accessing }
+LePictureSnippet >> reference [ 
+	<return: #String>
+
+	^ reference
+]
+
+{ #category : #accessing }
+LePictureSnippet >> reference: aString [
+	self reference: aString source: self
+]
+
+{ #category : #accessing }
+LePictureSnippet >> reference: aString source: aSource [
+	"Change the picture reference.
+	The reference is a name that can be used to reference pictures in other parts, e.g., a text.
+	For example: {{gtFigure:ref=figure1}}"
+	self
+		assert: [ aString notNil ]
+		description: [ 'Reference must be non-nil' ].
+
+	self reference = aString
+		ifTrue: [ ^ self ].
+
+	reference := aString.
 	self updateEditTimeAndEmail.
 	self announceContentChangedBy: aSource
 ]
