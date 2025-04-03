@@ -64,6 +64,25 @@ LePictureByScripterExamples >> imageHeight [
 	^ 300
 ]
 
+{ #category : #'examples - reference' }
+LePictureByScripterExamples >> pageWithPictureReference [
+	<gtExample>
+	| aPage aScripter aReferenceButtonQuery |
+	aPage := LePictureAnnotationStylerExamples new styleReferenceKeyAndValue.
+	aScripter := BlScripter new.
+	aScripter model: aPage.
+	aScripter element: (aPage asLepiterPagePhlowTool asElementDo: [ :e | e ]).
+
+	aReferenceButtonQuery := aScripter root query // LeTextCoderSnippetElement
+			// GtSourceCoderEditorId // BrButton.
+	self assert: aReferenceButtonQuery result size equals: 1.
+	self
+		assert: aReferenceButtonQuery anyOne label asString
+		equals: (LePictureAnnotationStyler buttonLabelTemplate format: {1}).
+
+	^ aScripter
+]
+
 { #category : #'examples - ui' }
 LePictureByScripterExamples >> pictureCaption [
 	^ 'Glamorous Toolkit overview'
