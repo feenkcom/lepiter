@@ -5,6 +5,14 @@ Class {
 }
 
 { #category : #accessing }
+LeInspectorPlaygroundLocalClassPageStrategy >> configureExistingPage: aPage forObject: anObject [
+	"| page |
+	page := LePage pharoClassName: anObject class name.
+	page addSnippet: LePharoSnippet new.
+	^ page"
+]
+
+{ #category : #accessing }
 LeInspectorPlaygroundLocalClassPageStrategy >> createNewPageForObject: anObject [
 	| page |
 	page := LePage pharoClassName: anObject class name.

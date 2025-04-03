@@ -5,6 +5,12 @@ Class {
 }
 
 { #category : #accessing }
+LeInspectorPlaygroundPageStrategy >> configureExistingPage: aPage forObject: anObject [
+
+	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
 LeInspectorPlaygroundPageStrategy >> createNewPageForObject: anObject [
 
 	^ self subclassResponsibility
@@ -14,11 +20,14 @@ LeInspectorPlaygroundPageStrategy >> createNewPageForObject: anObject [
 LeInspectorPlaygroundPageStrategy >> ensurePlaygroundPageInDatabase: aDatabase forObject: anObject [
 	^ aDatabase
 		at: (self pageDatabaseKeyBasedOnObject: anObject)
-		ifPresent: [ :aPage | aPage ]
-		ifAbsent: [ | page |
-			page := self createNewPageForObject: anObject.
-			aDatabase addPage: page.
-			page ]
+		ifPresent: [ :aPage | 
+			self configureExistingPage: aPage forObject: anObject.
+			aPage ]
+		ifAbsent: [ 
+			| newPage |
+			newPage := self createNewPageForObject: anObject.
+			aDatabase addPage: newPage.
+			newPage ]
 		forPageType: self playgroundPageType
 ]
 
