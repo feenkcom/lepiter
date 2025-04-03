@@ -137,23 +137,34 @@ LeDuplicatePageIdError >> file: anObject [
 LeDuplicatePageIdError >> gtDetailsFor: aView [
 	<gtView>
 	<gtExceptionView>
-	
-	^ aView columnedList 
+	^ aView columnedList
 		title: 'Details';
 		priority: 0.1;
-		items: {
-			'Page already in DB' -> existingPage . 
-			'Page to add' -> newPage };
+		items: {'Page already in DB' -> existingPage.
+				'Page to add' -> newPage};
 		column: 'Page' text: #key;
-		column: 'Title' text: [:each | each value title];
-		column: 'Uid' text: [:each | each value uidString ];
-		column: 'DB key' text: [:each | each value databaseKey ];
-		column: 'On disk' text: [:each | (database monitor pageFileReference: each value) exists ];
-		contextItemLabel: 'Inspect database key' action: [:anElement :each | anElement phlow spawnObject: each value databaseKey ];
-		contextItemLabel: 'Inspect file' action: [:anElement :each | anElement phlow spawnObject: (database monitor pageFileReference: each value) ];
+		column: 'Title' text: [ :each | each value title ];
+		column: 'Uid' text: [ :each | each value uidString ];
+		column: 'DB key' text: [ :each | each value databaseKey ];
+		column: 'On disk'
+			text: [ :each | 
+				database monitor
+					ifNil: [ 'N/A' ]
+					ifNotNil: [ (database monitor pageFileReference: each value) exists ] ];
+		contextItemLabel: 'Inspect database key'
+			action: [ :anElement :each | anElement phlow spawnObject: each value databaseKey ];
+		contextItemLabel: 'Inspect id'
+			action: [ :anElement :each | anElement phlow spawnObject: each value uidString ];
+		contextItemLabel: 'Inspect file'
+			action: [ :anElement :each | anElement phlow spawnObject: (database monitor pageFileReference: each value) ]
+			if: [ :each | 
+				database monitor notNil
+					and: [ (database monitor pageFileReference: each value) exists ] ];
 		contextItemLabel: 'Delete page & file'
-			action: [ :anElement :each | self deletePageFile: each value ] 
-			if: [:each | (database monitor pageFileReference: each value) exists ];
+			action: [ :anElement :each | self deletePageFile: each value ]
+			if: [ :each | 
+				database monitor notNil
+					and: [ (database monitor pageFileReference: each value) exists ] ];
 		send: #value
 ]
 
