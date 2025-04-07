@@ -524,7 +524,7 @@ LeAnnotationStylerVisitor >> styleLinkButton: aLink text: aSubText [
 ]
 
 { #category : #styling }
-LeAnnotationStylerVisitor >> styleName: aClassAnnotation spawning: aBlock [
+LeAnnotationStylerVisitor >> styleName: aClassAnnotation [
 	| nameNode aLinkColor |
 
 	(nameNode := aClassAnnotation nameNode)
@@ -539,7 +539,7 @@ LeAnnotationStylerVisitor >> styleName: aClassAnnotation spawning: aBlock [
 ]
 
 { #category : #styling }
-LeAnnotationStylerVisitor >> styleTag: aPackageAnnotation spawning: aBlock [
+LeAnnotationStylerVisitor >> styleTag: aPackageAnnotation [
 	| nameNode aLinkColor tagNode |
 
 	(nameNode := aPackageAnnotation nameNode)
@@ -599,14 +599,9 @@ LeAnnotationStylerVisitor >> visitChangesAnnotation: aChangesAnnotation [
 
 { #category : #visiting }
 LeAnnotationStylerVisitor >> visitClassAnnotation: aClassAnnotation [
-
 	self visitAnnotation: aClassAnnotation.
 	self restyleWhenClassChanged: aClassAnnotation.
-	self
-		styleName: aClassAnnotation
-		spawning: [ :anEvent | 
-			anEvent target phlow
-				spawnTool: (GtClassCoderTool observedClass: aClassAnnotation imageObject) ].
+	self styleName: aClassAnnotation.
 	self
 		styleButton: aClassAnnotation
 		withTool: [ GtClassCoderTool forClass: aClassAnnotation imageObject ].
@@ -620,26 +615,18 @@ LeAnnotationStylerVisitor >> visitExampleAnnotation: anExampleAnnotation [
 	| anExample |
 	self visitAnnotation: anExampleAnnotation.
 	self restyleWhenMethodChanged: anExampleAnnotation.
-	self
-		styleName: anExampleAnnotation
-		spawning:
-			[ :anEvent | anEvent target phlow spawnObject: anExampleAnnotation imageObject ].
-			
-	anExample := (self exampleFor: anExampleAnnotation imageObject).
+	self styleName: anExampleAnnotation.
+
+	anExample := self exampleFor: anExampleAnnotation imageObject.
 	anExample ifNil: [ ^ self ].
-	
+
 	anExampleAnnotation hasLabel
-		ifTrue: [ 
-			self
+		ifTrue: [ self
 				styleButton: anExampleAnnotation
-				forValuable: (MessageSend 
-					receiver: anExample
-					selector: #returnValue)
+				forValuable: (MessageSend receiver: anExample selector: #returnValue)
 				defaultLabel: #printString
-				withTool: [ GtInspectorTool new 
-					valuable: (MessageSend 
-						receiver: anExample 
-						selector: #returnValue) ] ]
+				withTool: [ GtInspectorTool new
+						valuable: (MessageSend receiver: anExample selector: #returnValue) ] ]
 		ifFalse: [ self styleExpandingExample: anExampleAnnotation ]
 ]
 
@@ -647,10 +634,7 @@ LeAnnotationStylerVisitor >> visitExampleAnnotation: anExampleAnnotation [
 LeAnnotationStylerVisitor >> visitMethodAnnotation: aMethodAnnotation [
 	self visitAnnotation: aMethodAnnotation.
 	self restyleWhenMethodChanged: aMethodAnnotation.
-	self
-		styleName: aMethodAnnotation
-		spawning:
-			[ :anEvent | anEvent target phlow spawnObject: aMethodAnnotation imageObject ].
+	self styleName: aMethodAnnotation.
 	self
 		styleButton: aMethodAnnotation
 		withTool: [ GtMethodCoderTool compiledMethod: aMethodAnnotation imageObject ].
@@ -662,12 +646,8 @@ LeAnnotationStylerVisitor >> visitMethodAnnotation: aMethodAnnotation [
 { #category : #visiting }
 LeAnnotationStylerVisitor >> visitPackageAnnotation: aPackageAnnotation [
 	self visitAnnotation: aPackageAnnotation.
-	self
-		styleName: aPackageAnnotation
-		spawning: [ :anEvent | anEvent target phlow spawnTool: aPackageAnnotation imageObject gtSpawnCoder ].
-	self
-		styleTag: aPackageAnnotation
-		spawning: [ :anEvent | anEvent target phlow spawnTool: aPackageAnnotation imageObject gtSpawnCoder ].
+	self styleName: aPackageAnnotation.
+	self styleTag: aPackageAnnotation.
 	self
 		styleButton: aPackageAnnotation
 		for: aPackageAnnotation
