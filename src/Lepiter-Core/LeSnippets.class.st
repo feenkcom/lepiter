@@ -179,16 +179,6 @@ LeSnippets >> moveUpSnippet: aLeSnippet [
 	^ true
 ]
 
-{ #category : #serialization }
-LeSnippets >> neoJsonOn: neoJSONWriter [
-	"If the receiver has only a single, empty child, write an empty collection"
-
-	(items size = 1 and: [ items first isEmpty ]) ifTrue: 
-		[ neoJSONWriter nextPut: self class new.
-		^ self ].
-	neoJSONWriter writeObject: self
-]
-
 { #category : #printing }
 LeSnippets >> printOn: aStream [
 	aStream 
