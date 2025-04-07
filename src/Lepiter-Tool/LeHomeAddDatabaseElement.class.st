@@ -80,6 +80,7 @@ LeHomeAddDatabaseElement >> initializeButtonElement [
 								self addNewDatabaseInDirectory: aDirectory ] ];
 					buttonLabel: 'Add database';
 					exact: self extent;
+					addAptitude: BrGlamorousMenuResizableAptitude new;
 					padding: (BlInsets all: 20);
 					matchParent ].
 		
