@@ -26,7 +26,7 @@ LePictureImportStencil >> create [
 						label: self tooltip;
 						aptitude: BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude2
 								- BrGlamorousButtonExteriorAptitude ]
-				content: [ | stencil |
+				content: [ | stencil element |
 					stencil := LeImportFileSelector new.
 					stencil
 						folder: FileLocator home;
@@ -36,7 +36,10 @@ LePictureImportStencil >> create [
 									self importFromFile: file type: stencil currentType ] ];
 						buttonLabel: 'Import';
 						exact: self extent;
-						padding: (BlInsets all: 20) ]).
+						padding: (BlInsets all: 20).
+					element := stencil asElement.
+					element addAptitude: BrGlamorousMenuResizableAptitude new.
+					element ]).
 	^ aButton
 ]
 
