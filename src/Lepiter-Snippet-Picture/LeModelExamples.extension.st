@@ -117,6 +117,73 @@ LeModelExamples >> databaseWithTwoPagesHavingPictureSnippets [
 ]
 
 { #category : #'*Lepiter-Snippet-Picture' }
+LeModelExamples >> databaseWithTwoPagesHavingPictureSnippets_definedReferenceIds [
+	"Pages with picture snippets. Some picture files repeats by purpose.
+	All picture snippets have defined reference IDs."
+
+	<gtExample>
+	| temporaryDatabase database referenceIndex |
+	temporaryDatabase := self databaseWithTwoPagesHavingPictureSnippets.
+	database := temporaryDatabase database.
+
+	referenceIndex := 0.
+	database pagesDo: [ :eachPage | 
+		eachPage allChildrenDepthFirstDo: [ :eachSnippet | 
+			eachSnippet isPictureSnippet ifTrue: [ 
+				referenceIndex := referenceIndex + 1.
+				eachSnippet reference: 'picture', referenceIndex asString
+			]
+		]
+	].
+
+	^ temporaryDatabase
+]
+
+{ #category : #'*Lepiter-Snippet-Picture' }
+LeModelExamples >> databaseWithTwoPagesHavingPictureSnippets_definedReferenceIds_toc1 [
+	"Pages with picture snippets. Some picture files repeats by purpose.
+	All picture snippets have defined reference IDs.
+	Defined Table of Contents with Page One followed by Page Two."
+
+	<gtExample>
+	| temporaryDatabase database tocPage |
+	temporaryDatabase := self databaseWithTwoPagesHavingPictureSnippets_definedReferenceIds.
+	database := temporaryDatabase database.
+	
+	tocPage := database pageBuilder title: 'Table of Contents'; add.
+	self assert: database pages size equals: 3.
+	
+	tocPage snippetBuilder string: '[[', self pageOneTitle, ']]'; add.
+	tocPage snippetBuilder string: '[[', self pageTwoTitle, ']]'; add.
+	database tableOfContentsPageID: tocPage uid.
+	self assert: database tableOfContents equals: tocPage.
+
+	^ temporaryDatabase
+]
+
+{ #category : #'*Lepiter-Snippet-Picture' }
+LeModelExamples >> databaseWithTwoPagesHavingPictureSnippets_definedReferenceIds_toc2 [
+	"Pages with picture snippets. Some picture files repeats by purpose.
+	All picture snippets have defined reference IDs.
+	Defined Table of Contents with Page Two followed by Page One."
+
+	<gtExample>
+	| temporaryDatabase database tocPage |
+	temporaryDatabase := self databaseWithTwoPagesHavingPictureSnippets_definedReferenceIds.
+	database := temporaryDatabase database.
+	
+	tocPage := database pageBuilder title: 'Table of Contents'; add.
+	self assert: database pages size equals: 3.
+	
+	tocPage snippetBuilder string: '[[', self pageTwoTitle, ']]'; add.
+	tocPage snippetBuilder string: '[[', self pageOneTitle, ']]'; add.
+	database tableOfContentsPageID: tocPage uid.
+	self assert: database tableOfContents equals: tocPage.
+
+	^ temporaryDatabase
+]
+
+{ #category : #'*Lepiter-Snippet-Picture' }
 LeModelExamples >> pageOneTitle [
 	^ 'Page one'
 ]
@@ -128,6 +195,59 @@ LeModelExamples >> pageOneWithTwoAttachmentPictures [
 	<gtExample>
 	| temporaryDatabase database page |
 	temporaryDatabase := self databaseWithTwoPagesHavingPictureSnippets.
+	database := temporaryDatabase database.
+
+	page := database pageNamed: self pageOneTitle.
+
+	^ LePageExampleHolder new
+		page: page;
+		temporaryDatabase: temporaryDatabase
+]
+
+{ #category : #'*Lepiter-Snippet-Picture' }
+LeModelExamples >> pageOneWithTwoAttachmentPictures_definedReferenceIds [
+	"Page with picture snippets. Some picture files repeats by purpose.
+	All picture snippets have defined reference IDs."
+
+	<gtExample>
+	| temporaryDatabase database page |
+	temporaryDatabase := self databaseWithTwoPagesHavingPictureSnippets_definedReferenceIds.
+	database := temporaryDatabase database.
+
+	page := database pageNamed: self pageOneTitle.
+
+	^ LePageExampleHolder new
+		page: page;
+		temporaryDatabase: temporaryDatabase
+]
+
+{ #category : #'*Lepiter-Snippet-Picture' }
+LeModelExamples >> pageOneWithTwoAttachmentPictures_definedReferenceIds_toc1 [
+	"Page with picture snippets. Some picture files repeats by purpose.
+	All picture snippets have defined reference IDs.
+	Defined Table of Contents with Page One followed by Page Two."
+
+	<gtExample>
+	| temporaryDatabase database page |
+	temporaryDatabase := self databaseWithTwoPagesHavingPictureSnippets_definedReferenceIds_toc1.
+	database := temporaryDatabase database.
+
+	page := database pageNamed: self pageOneTitle.
+
+	^ LePageExampleHolder new
+		page: page;
+		temporaryDatabase: temporaryDatabase
+]
+
+{ #category : #'*Lepiter-Snippet-Picture' }
+LeModelExamples >> pageOneWithTwoAttachmentPictures_definedReferenceIds_toc2 [
+	"Page with picture snippets. Some picture files repeats by purpose.
+	All picture snippets have defined reference IDs.
+	Defined Table of Contents with Page Two followed by Page One."
+
+	<gtExample>
+	| temporaryDatabase database page |
+	temporaryDatabase := self databaseWithTwoPagesHavingPictureSnippets_definedReferenceIds_toc2.
 	database := temporaryDatabase database.
 
 	page := database pageNamed: self pageOneTitle.
@@ -170,6 +290,59 @@ LeModelExamples >> pageTwoWithOneAttachmentPictures [
 	<gtExample>
 	| temporaryDatabase database page |
 	temporaryDatabase := self databaseWithTwoPagesHavingPictureSnippets.
+	database := temporaryDatabase database.
+
+	page := database pageNamed: self pageTwoTitle.
+
+	^ LePageExampleHolder new
+		page: page;
+		temporaryDatabase: temporaryDatabase
+]
+
+{ #category : #'*Lepiter-Snippet-Picture' }
+LeModelExamples >> pageTwoWithOneAttachmentPictures_definedReferenceIds [
+	"Page with a picture snippet.
+	All picture snippets have defined reference IDs."
+
+	<gtExample>
+	| temporaryDatabase database page |
+	temporaryDatabase := self databaseWithTwoPagesHavingPictureSnippets_definedReferenceIds.
+	database := temporaryDatabase database.
+
+	page := database pageNamed: self pageTwoTitle.
+
+	^ LePageExampleHolder new
+		page: page;
+		temporaryDatabase: temporaryDatabase
+]
+
+{ #category : #'*Lepiter-Snippet-Picture' }
+LeModelExamples >> pageTwoWithOneAttachmentPictures_definedReferenceIds_toc1 [
+	"Page with a picture snippet.
+	All picture snippets have defined reference IDs.
+	Defined Table of Contents with Page One followed by Page Two."
+
+	<gtExample>
+	| temporaryDatabase database page |
+	temporaryDatabase := self databaseWithTwoPagesHavingPictureSnippets_definedReferenceIds_toc1.
+	database := temporaryDatabase database.
+
+	page := database pageNamed: self pageTwoTitle.
+
+	^ LePageExampleHolder new
+		page: page;
+		temporaryDatabase: temporaryDatabase
+]
+
+{ #category : #'*Lepiter-Snippet-Picture' }
+LeModelExamples >> pageTwoWithOneAttachmentPictures_definedReferenceIds_toc2 [
+	"Page with a picture snippet.
+	All picture snippets have defined reference IDs.
+	Defined Table of Contents with Page Two followed by Page One."
+
+	<gtExample>
+	| temporaryDatabase database page |
+	temporaryDatabase := self databaseWithTwoPagesHavingPictureSnippets_definedReferenceIds_toc2.
 	database := temporaryDatabase database.
 
 	page := database pageNamed: self pageTwoTitle.

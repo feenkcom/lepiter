@@ -98,3 +98,8 @@ LeAbstractDatabase >> readOnly [
 LeAbstractDatabase >> readOnly: aBoolean [
 	readOnly := aBoolean
 ]
+
+{ #category : #'api - enumerating' }
+LeAbstractDatabase >> snippetsIterator [
+	^ LeDatabaseToCSnippetsIterator new database: self
+]

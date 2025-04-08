@@ -38,7 +38,7 @@ LeDatabase >> notifyTableOfContensPageIdChangedFrom: anOldUUID to: aNewUUID [
 
 { #category : #'*Lepiter-ToC' }
 LeDatabase >> tableOfContents [ 
-
+	<return: #LePage or: nil>
 	^ self tableOfContentsPageID
 		ifNotNil: [ :pageID | 
 			self 
