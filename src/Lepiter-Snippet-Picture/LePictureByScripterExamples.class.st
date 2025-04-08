@@ -65,6 +65,306 @@ LePictureByScripterExamples >> imageHeight [
 ]
 
 { #category : #'examples - reference' }
+LePictureByScripterExamples >> pageOneWithTwoAttachmentPictures_definedReferenceIds_reference3 [
+	<gtExample>
+	| aPageHolder aPage aSnippet aScripter aReferenceButtonQuery |
+	aPageHolder := LeModelExamples new pageOneWithTwoAttachmentPictures_definedReferenceIds.
+	aPage := aPageHolder page.
+	aSnippet := LeTextSnippet new string: '{{gtPictureReference:picture3}} is on [[Page one]].'.
+	aPage addFirstSnippet: aSnippet.
+	
+	aScripter := BlScripter new.
+	aScripter model: aPage.
+	aScripter element: (aPage asLepiterPagePhlowTool asElementDo: [ :e | e ]).
+
+	aReferenceButtonQuery := aScripter root query // LeTextCoderSnippetElement
+			// GtSourceCoderEditorId // BrButton
+			@ [ :eachButton | eachButton label asString 
+				= (LePictureAnnotationStyler buttonLabelTemplate format: {3}) ].
+	self assert: aReferenceButtonQuery result size equals: 1.
+	self
+		assert: aReferenceButtonQuery anyOne label asString
+		equals: (LePictureAnnotationStyler buttonLabelTemplate format: {3}).
+
+	^ aScripter
+]
+
+{ #category : #'examples - reference' }
+LePictureByScripterExamples >> pageOneWithTwoAttachmentPictures_definedReferenceIds_reference4 [
+	<gtExample>
+	| aPageHolder aPage aSnippet aScripter aReferenceButtonQuery |
+	aPageHolder := LeModelExamples new pageOneWithTwoAttachmentPictures_definedReferenceIds.
+	aPage := aPageHolder page.
+	aSnippet := LeTextSnippet new string: '{{gtPictureReference:picture4}} is on [[Page two]].'.
+	aPage addFirstSnippet: aSnippet.
+	
+	aScripter := BlScripter new.
+	aScripter model: aPage.
+	aScripter element: (aPage asLepiterPagePhlowTool asElementDo: [ :e | e ]).
+
+	aReferenceButtonQuery := aScripter root query // LeTextCoderSnippetElement
+			// GtSourceCoderEditorId // BrButton
+			@ [ :eachButton | eachButton label asString 
+				= (LePictureAnnotationStyler buttonLabelTemplate format: {4}) ].
+	self assert: aReferenceButtonQuery result size equals: 1.
+	self
+		assert: aReferenceButtonQuery anyOne label asString
+		equals: (LePictureAnnotationStyler buttonLabelTemplate format: {4}).
+
+	^ aScripter
+]
+
+{ #category : #'examples - reference' }
+LePictureByScripterExamples >> pageOneWithTwoAttachmentPictures_definedReferenceIds_toc1_reference3 [
+	<gtExample>
+	| aPageHolder aPage aSnippet aScripter aReferenceButtonQuery |
+	aPageHolder := LeModelExamples new pageOneWithTwoAttachmentPictures_definedReferenceIds_toc1.
+	aPage := aPageHolder page.
+	aSnippet := LeTextSnippet new string: '{{gtPictureReference:picture3}} is on [[Page one]].'.
+	aPage addFirstSnippet: aSnippet.
+	
+	aScripter := BlScripter new.
+	aScripter model: aPage.
+	aScripter element: (aPage asLepiterPagePhlowTool asElementDo: [ :e | e ]).
+
+	aReferenceButtonQuery := aScripter root query // LeTextCoderSnippetElement
+			// GtSourceCoderEditorId // BrButton
+			@ [ :eachButton | eachButton label asString 
+				= (LePictureAnnotationStyler buttonLabelTemplate format: {3}) ].
+	self assert: aReferenceButtonQuery result size equals: 1.
+	self
+		assert: aReferenceButtonQuery anyOne label asString
+		equals: (LePictureAnnotationStyler buttonLabelTemplate format: {3}).
+
+	^ aScripter
+]
+
+{ #category : #'examples - reference' }
+LePictureByScripterExamples >> pageOneWithTwoAttachmentPictures_definedReferenceIds_toc1_reference4 [
+	<gtExample>
+	| aPageHolder aPage aSnippet aScripter aReferenceButtonQuery |
+	aPageHolder := LeModelExamples new pageOneWithTwoAttachmentPictures_definedReferenceIds_toc1.
+	aPage := aPageHolder page.
+	aSnippet := LeTextSnippet new string: '{{gtPictureReference:picture4}} is on [[Page two]].'.
+	aPage addFirstSnippet: aSnippet.
+	
+	aScripter := BlScripter new.
+	aScripter model: aPage.
+	aScripter element: (aPage asLepiterPagePhlowTool asElementDo: [ :e | e ]).
+
+	aReferenceButtonQuery := aScripter root query // LeTextCoderSnippetElement
+			// GtSourceCoderEditorId // BrButton
+			@ [ :eachButton | eachButton label asString 
+				= (LePictureAnnotationStyler buttonLabelTemplate format: {4}) ].
+	self assert: aReferenceButtonQuery result size equals: 1.
+	self
+		assert: aReferenceButtonQuery anyOne label asString
+		equals: (LePictureAnnotationStyler buttonLabelTemplate format: {4}).
+
+	^ aScripter
+]
+
+{ #category : #'examples - reference' }
+LePictureByScripterExamples >> pageOneWithTwoAttachmentPictures_definedReferenceIds_toc2_reference3 [
+	<gtExample>
+	| aPageHolder aPage aSnippet aScripter aReferenceButtonQuery |
+	aPageHolder := LeModelExamples new pageOneWithTwoAttachmentPictures_definedReferenceIds_toc2.
+	aPage := aPageHolder page.
+	aSnippet := LeTextSnippet new string: '{{gtPictureReference:picture3}} is on [[Page one]].'.
+	aPage addFirstSnippet: aSnippet.
+	
+	aScripter := BlScripter new.
+	aScripter model: aPage.
+	aScripter element: (aPage asLepiterPagePhlowTool asElementDo: [ :e | e ]).
+
+	aReferenceButtonQuery := aScripter root query // LeTextCoderSnippetElement
+			// GtSourceCoderEditorId // BrButton
+			@ [ :eachButton | eachButton label asString 
+				= (LePictureAnnotationStyler buttonLabelTemplate format: {4}) ].
+	self assert: aReferenceButtonQuery result size equals: 1.
+	self
+		assert: aReferenceButtonQuery anyOne label asString
+		equals: (LePictureAnnotationStyler buttonLabelTemplate format: {4}).
+
+	^ aScripter
+]
+
+{ #category : #'examples - reference' }
+LePictureByScripterExamples >> pageOneWithTwoAttachmentPictures_definedReferenceIds_toc2_reference4 [
+	<gtExample>
+	| aPageHolder aPage aSnippet aScripter aReferenceButtonQuery |
+	aPageHolder := LeModelExamples new pageOneWithTwoAttachmentPictures_definedReferenceIds_toc2.
+	aPage := aPageHolder page.
+	aSnippet := LeTextSnippet new string: '{{gtPictureReference:picture4}} is on [[Page two]].'.
+	aPage addFirstSnippet: aSnippet.
+	
+	aScripter := BlScripter new.
+	aScripter model: aPage.
+	aScripter element: (aPage asLepiterPagePhlowTool asElementDo: [ :e | e ]).
+
+	aReferenceButtonQuery := aScripter root query // LeTextCoderSnippetElement
+			// GtSourceCoderEditorId // BrButton
+			@ [ :eachButton | eachButton label asString 
+				= (LePictureAnnotationStyler buttonLabelTemplate format: {1}) ].
+	self assert: aReferenceButtonQuery result size equals: 1.
+	self
+		assert: aReferenceButtonQuery anyOne label asString
+		equals: (LePictureAnnotationStyler buttonLabelTemplate format: {1}).
+
+	^ aScripter
+]
+
+{ #category : #'examples - reference' }
+LePictureByScripterExamples >> pageTwoWithOneAttachmentPictures_definedReferenceIds_reference3 [
+	<gtExample>
+	| aPageHolder aPage aSnippet aScripter aReferenceButtonQuery |
+	aPageHolder := LeModelExamples new pageTwoWithOneAttachmentPictures_definedReferenceIds.
+	aPage := aPageHolder page.
+	aSnippet := LeTextSnippet new string: '{{gtPictureReference:picture3}} is on [[Page one]].'.
+	aPage addSnippet: aSnippet.
+	
+	aScripter := BlScripter new.
+	aScripter model: aPage.
+	aScripter element: (aPage asLepiterPagePhlowTool asElementDo: [ :e | e ]).
+
+	aReferenceButtonQuery := aScripter root query // LeTextCoderSnippetElement
+			// GtSourceCoderEditorId // BrButton
+			@ [ :eachButton | eachButton label asString 
+				= (LePictureAnnotationStyler buttonLabelTemplate format: {3}) ].
+	self assert: aReferenceButtonQuery result size equals: 1.
+	self
+		assert: aReferenceButtonQuery anyOne label asString
+		equals: (LePictureAnnotationStyler buttonLabelTemplate format: {3}).
+
+	^ aScripter
+]
+
+{ #category : #'examples - reference' }
+LePictureByScripterExamples >> pageTwoWithOneAttachmentPictures_definedReferenceIds_reference4 [
+	<gtExample>
+	| aPageHolder aPage aSnippet aScripter aReferenceButtonQuery |
+	aPageHolder := LeModelExamples new pageTwoWithOneAttachmentPictures_definedReferenceIds.
+	aPage := aPageHolder page.
+	aSnippet := LeTextSnippet new string: '{{gtPictureReference:picture4}} is on [[Page one]].'.
+	aPage addSnippet: aSnippet.
+	
+	aScripter := BlScripter new.
+	aScripter model: aPage.
+	aScripter element: (aPage asLepiterPagePhlowTool asElementDo: [ :e | e ]).
+
+	aReferenceButtonQuery := aScripter root query // LeTextCoderSnippetElement
+			// GtSourceCoderEditorId // BrButton
+			@ [ :eachButton | eachButton label asString 
+				= (LePictureAnnotationStyler buttonLabelTemplate format: {4}) ].
+	self assert: aReferenceButtonQuery result size equals: 1.
+	self
+		assert: aReferenceButtonQuery anyOne label asString
+		equals: (LePictureAnnotationStyler buttonLabelTemplate format: {4}).
+
+	^ aScripter
+]
+
+{ #category : #'examples - reference' }
+LePictureByScripterExamples >> pageTwoWithOneAttachmentPictures_definedReferenceIds_toc1_reference3 [
+	<gtExample>
+	| aPageHolder aPage aSnippet aScripter aReferenceButtonQuery |
+	aPageHolder := LeModelExamples new pageTwoWithOneAttachmentPictures_definedReferenceIds_toc1.
+	aPage := aPageHolder page.
+	aSnippet := LeTextSnippet new string: '{{gtPictureReference:picture3}} is on [[Page one]].'.
+	aPage addSnippet: aSnippet.
+	
+	aScripter := BlScripter new.
+	aScripter model: aPage.
+	aScripter element: (aPage asLepiterPagePhlowTool asElementDo: [ :e | e ]).
+
+	aReferenceButtonQuery := aScripter root query // LeTextCoderSnippetElement
+			// GtSourceCoderEditorId // BrButton
+			@ [ :eachButton | eachButton label asString 
+				= (LePictureAnnotationStyler buttonLabelTemplate format: {3}) ].
+	self assert: aReferenceButtonQuery result size equals: 1.
+	self
+		assert: aReferenceButtonQuery anyOne label asString
+		equals: (LePictureAnnotationStyler buttonLabelTemplate format: {3}).
+
+	^ aScripter
+]
+
+{ #category : #'examples - reference' }
+LePictureByScripterExamples >> pageTwoWithOneAttachmentPictures_definedReferenceIds_toc1_reference4 [
+	<gtExample>
+	| aPageHolder aPage aSnippet aScripter aReferenceButtonQuery |
+	aPageHolder := LeModelExamples new pageTwoWithOneAttachmentPictures_definedReferenceIds_toc1.
+	aPage := aPageHolder page.
+	aSnippet := LeTextSnippet new string: '{{gtPictureReference:picture4}} is on [[Page two]].'.
+	aPage addSnippet: aSnippet.
+	
+	aScripter := BlScripter new.
+	aScripter model: aPage.
+	aScripter element: (aPage asLepiterPagePhlowTool asElementDo: [ :e | e ]).
+
+	aReferenceButtonQuery := aScripter root query // LeTextCoderSnippetElement
+			// GtSourceCoderEditorId // BrButton
+			@ [ :eachButton | eachButton label asString 
+				= (LePictureAnnotationStyler buttonLabelTemplate format: {4}) ].
+	self assert: aReferenceButtonQuery result size equals: 1.
+	self
+		assert: aReferenceButtonQuery anyOne label asString
+		equals: (LePictureAnnotationStyler buttonLabelTemplate format: {4}).
+
+	^ aScripter
+]
+
+{ #category : #'examples - reference' }
+LePictureByScripterExamples >> pageTwoWithOneAttachmentPictures_definedReferenceIds_toc2_reference3 [
+	<gtExample>
+	| aPageHolder aPage aSnippet aScripter aReferenceButtonQuery |
+	aPageHolder := LeModelExamples new pageTwoWithOneAttachmentPictures_definedReferenceIds_toc2.
+	aPage := aPageHolder page.
+	aSnippet := LeTextSnippet new string: '{{gtPictureReference:picture3}} is on [[Page one]].'.
+	aPage addSnippet: aSnippet.
+	
+	aScripter := BlScripter new.
+	aScripter model: aPage.
+	aScripter element: (aPage asLepiterPagePhlowTool asElementDo: [ :e | e ]).
+
+	aReferenceButtonQuery := aScripter root query // LeTextCoderSnippetElement
+			// GtSourceCoderEditorId // BrButton
+			@ [ :eachButton | eachButton label asString 
+				= (LePictureAnnotationStyler buttonLabelTemplate format: {4}) ].
+	self assert: aReferenceButtonQuery result size equals: 1.
+	self
+		assert: aReferenceButtonQuery anyOne label asString
+		equals: (LePictureAnnotationStyler buttonLabelTemplate format: {4}).
+
+	^ aScripter
+]
+
+{ #category : #'examples - reference' }
+LePictureByScripterExamples >> pageTwoWithOneAttachmentPictures_definedReferenceIds_toc2_reference4 [
+	<gtExample>
+	| aPageHolder aPage aSnippet aScripter aReferenceButtonQuery |
+	aPageHolder := LeModelExamples new pageTwoWithOneAttachmentPictures_definedReferenceIds_toc2.
+	aPage := aPageHolder page.
+	aSnippet := LeTextSnippet new string: '{{gtPictureReference:picture4}} is on [[Page two]].'.
+	aPage addSnippet: aSnippet.
+	
+	aScripter := BlScripter new.
+	aScripter model: aPage.
+	aScripter element: (aPage asLepiterPagePhlowTool asElementDo: [ :e | e ]).
+
+	aReferenceButtonQuery := aScripter root query // LeTextCoderSnippetElement
+			// GtSourceCoderEditorId // BrButton
+			@ [ :eachButton | eachButton label asString 
+				= (LePictureAnnotationStyler buttonLabelTemplate format: {1}) ].
+	self assert: aReferenceButtonQuery result size equals: 1.
+	self
+		assert: aReferenceButtonQuery anyOne label asString
+		equals: (LePictureAnnotationStyler buttonLabelTemplate format: {1}).
+
+	^ aScripter
+]
+
+{ #category : #'examples - reference' }
 LePictureByScripterExamples >> pageWithPictureReference [
 	<gtExample>
 	| aPage aScripter aReferenceButtonQuery |

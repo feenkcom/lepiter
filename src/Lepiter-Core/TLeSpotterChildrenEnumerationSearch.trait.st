@@ -42,3 +42,9 @@ TLeSpotterChildrenEnumerationSearch >> withAllChildrenBreadthFirstDo: aBlock [
 	aBlock value: self.
 	self allChildrenBreadthFirstDo: aBlock
 ]
+
+{ #category : #'api - enumerating' }
+TLeSpotterChildrenEnumerationSearch >> withAllChildrenDepthFirstDo: aBlock [ 
+	aBlock value: self.
+	self allChildrenDepthFirstDo: aBlock
+]
