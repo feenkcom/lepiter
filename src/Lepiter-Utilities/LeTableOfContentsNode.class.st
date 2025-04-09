@@ -10,8 +10,6 @@ While the database currently only supports a single specified ToC, there is noth
 Class {
 	#name : #LeTableOfContentsNode,
 	#superclass : #LeAbstractTableOfContentsNode,
-	#traits : 'TLeSpotterChildrenEnumerationSearch',
-	#classTraits : 'TLeSpotterChildrenEnumerationSearch classTrait',
 	#instVars : [
 		'page',
 		'link',
