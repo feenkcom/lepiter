@@ -116,6 +116,11 @@ LePictureSnippet >> contentAsString [
 	^ urlString
 ]
 
+{ #category : #'api - testing' }
+LePictureSnippet >> hasCaption [
+	^ self caption isNotNil and: [ self caption trimBoth isNotEmpty ]
+]
+
 { #category : #accessing }
 LePictureSnippet >> hasContent [
 	^ self urlString isNotEmpty or: [ self caption isNotEmpty ]
