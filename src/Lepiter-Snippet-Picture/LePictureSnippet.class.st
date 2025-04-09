@@ -37,6 +37,7 @@ LePictureSnippet class >> leJsonV3AttributeMapping [
 		add: (#urlString -> #url);
 		add: (#caption -> #caption);
 		add: (#previewHeight -> #previewHeight);
+		add: (#reference -> #reference);
 		yourself
 ]
 
@@ -116,6 +117,15 @@ LePictureSnippet >> contentAsString [
 	^ urlString
 ]
 
+{ #category : #'private - updating' }
+LePictureSnippet >> createReference [
+	self database ifNil: [ ^ self ].
+	self database isDatabase ifFalse: [ ^ self ].
+	self assert: self hasReference not.
+
+	self reference: self database pictureReferenceNextId
+]
+
 { #category : #'api - testing' }
 LePictureSnippet >> hasCaption [
 	^ self caption isNotNil and: [ self caption trimBoth isNotEmpty ]
@@ -124,6 +134,11 @@ LePictureSnippet >> hasCaption [
 { #category : #accessing }
 LePictureSnippet >> hasContent [
 	^ self urlString isNotEmpty or: [ self caption isNotEmpty ]
+]
+
+{ #category : #testing }
+LePictureSnippet >> hasReference [
+	^ self reference isNotNil and: [ self reference isNotEmpty ]
 ]
 
 { #category : #initialization }
@@ -146,7 +161,7 @@ LePictureSnippet >> isPictureSnippetWithReference: aReference [
 	"Return true if aReference is same as #reference.
 	aReference is a String instance."
 
-	^ self reference isNotNil and: [ self reference = aReference ]
+	^ self hasReference and: [ self reference = aReference ]
 ]
 
 { #category : #'private - exporting' }
@@ -165,6 +180,15 @@ LePictureSnippet >> markdownOn: stream level: anInteger [
 	self childrenDo: [ :child |
 		stream cr.
 		child markdownOn: stream level: anInteger + 1 ]
+]
+
+{ #category : #'private - hooks' }
+LePictureSnippet >> onAddedToDatabase [
+	super onAddedToDatabase.
+
+	self database isDatabase ifFalse: [ ^ self ].
+
+	self hasReference ifFalse: [ self createReference ]
 ]
 
 { #category : #accessing }
