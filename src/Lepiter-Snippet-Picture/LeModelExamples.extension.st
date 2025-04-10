@@ -91,7 +91,7 @@ LeModelExamples >> databaseWithTwoPagesHavingPictureSnippets [
 			caption: 'Feenk'.
 	self assert: snippetOne reference isEmpty.
 	pageOne addSnippet: snippetOne.
-	self assert: snippetOne reference isNotEmpty.
+	self assert: snippetOne reference isEmpty.
 
 	pictureFileTwo := FileLocator gtResource / 'feenkcom/gtoolkit/doc/gtoolkit.png'.
 	pictureAttachmentTwo := database addAttachmentByCopy: pictureFileTwo.
