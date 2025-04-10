@@ -1,6 +1,8 @@
 Class {
 	#name : #LeAbstractTableOfContentsNode,
 	#superclass : #Object,
+	#traits : 'TLeSpotterChildrenEnumerationSearch',
+	#classTraits : 'TLeSpotterChildrenEnumerationSearch classTrait',
 	#category : #'Lepiter-Utilities-ToC'
 }
 

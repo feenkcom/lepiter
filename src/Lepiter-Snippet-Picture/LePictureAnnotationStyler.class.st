@@ -62,7 +62,10 @@ LePictureAnnotationStyler >> styleButton: anAnnotation [
 	attribute := GtButtonAttribute new
 			beAppend;
 			stencil: [ | button label |
-				label := self class buttonLabelTemplate format: {aSnippetReference index}.
+				label := self class buttonLabelTemplate format: { 
+					aSnippetReference hasCaption
+						ifTrue: [ aSnippetReference caption ]
+						ifFalse: [ aSnippetReference index ] }.
 				button := LeSnippetStylerVisitor
 						textLinkButtonPadding: (BlInsets top: 2)
 						margin: BlInsets empty.

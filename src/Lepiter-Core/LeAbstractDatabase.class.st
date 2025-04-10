@@ -89,6 +89,21 @@ LeAbstractDatabase >> parent: aLeLogicalDatabase [
 	parent := aLeLogicalDatabase
 ]
 
+{ #category : #'api - reference' }
+LeAbstractDatabase >> pictureReferenceIds [
+	^ self
+		optionAt: #pictureReferenceIds
+		ifAbsentPut: [ LeDatabaseReferenceIds picture ]
+]
+
+{ #category : #'api - reference' }
+LeAbstractDatabase >> pictureReferenceNextId [
+	^ LeDatabaseReferenceIdBuilder new
+		database: self;
+		referenceIds: self pictureReferenceIds;
+		nextReference
+]
+
 { #category : #accessing }
 LeAbstractDatabase >> readOnly [
 	^ readOnly

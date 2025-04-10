@@ -10,6 +10,17 @@ Class {
 }
 
 { #category : #accessing }
+LePictureSnippetReference >> caption [
+	<return: #String>
+	^ snippetModel caption
+]
+
+{ #category : #testing }
+LePictureSnippetReference >> hasCaption [
+	^ snippetModel hasCaption
+]
+
+{ #category : #accessing }
 LePictureSnippetReference >> index [
 	<return: #Integer>
 	^ index
