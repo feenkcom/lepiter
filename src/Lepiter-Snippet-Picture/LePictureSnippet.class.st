@@ -182,15 +182,6 @@ LePictureSnippet >> markdownOn: stream level: anInteger [
 		child markdownOn: stream level: anInteger + 1 ]
 ]
 
-{ #category : #'private - hooks' }
-LePictureSnippet >> onAddedToDatabase [
-	super onAddedToDatabase.
-
-	self database isDatabase ifFalse: [ ^ self ].
-
-	self hasReference ifFalse: [ self createReference ]
-]
-
 { #category : #accessing }
 LePictureSnippet >> pictureFileBytes [
 	^ self urlString asFileReference binaryReadStream upToEnd.
