@@ -277,6 +277,26 @@ LePage >> explicitReferences [
 ]
 
 { #category : #accessing }
+LePage >> gtBindingsActionFor: anAction [
+	<lePageAction>
+	^ anAction dropdown
+		tooltip: 'Inspect variable bindings';
+		icon: BrGlamorousVectorIcons inspect;
+		content: [ :aButton | 
+			aButton parent parent parent parent
+				allChildrenBreadthFirstDetect: [ :anElement | anElement isKindOf: LePharoSnippetElement ]
+				ifFound: [ :aSnippetElement | 
+					(aSnippetElement snippetViewModel coderViewModel
+						gtBindingsFor: GtPhlowView empty) asElement
+						size: 300 @ 100;
+						aptitude: BrGlamorousWithVerticalResizerAptitude
+								+ BrGlamorousWithHorizontalResizerAptitude ]
+				ifNone: [ BrEditor new fitContent beReadOnlyWithoutSelection
+						aptitude: BrGlamorousRegularEditorAptitude;
+						text: 'No variables bound on this page.' ] ]
+]
+
+{ #category : #accessing }
 LePage >> gtCopyActionFor: anAction [
 	<lePageAction>
 
