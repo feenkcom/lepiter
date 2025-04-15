@@ -26,6 +26,16 @@ LePharoSnippetViewModel >> gtActionCreateExampleFor: anAction [
 								   constraintsDo: [ :c | c grid horizontal span: 2 ]) ] ]
 ]
 
+{ #category : #'gt extensions' }
+LePharoSnippetViewModel >> gtBindingsFor: aView [
+	<gtView>
+	^ aView forward
+		title: 'Bindings';
+		priority: 5;
+		object: [ self coderViewModel ];
+		view: #gtBindingsFor:
+]
+
 { #category : #initialization }
 LePharoSnippetViewModel >> initializeCoderAddOns: aCoderViewModel [
 	"Initialise the keyboard shortcuts in the code editor"
