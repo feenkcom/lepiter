@@ -124,6 +124,31 @@ LeTextSnippet >> changeToRenameClass: oldName to: newName [
 ]
 
 { #category : #accessing }
+LeTextSnippet >> changeToRenameSelector: oldName to: newName using: aRewriter [
+	| modifiedSource |
+	modifiedSource := SmaCCString on: self string.
+	self ast
+		withAllNodesDo: [ :node | 
+			| firstIsHash selector |
+			(node isKindOf: LeMethodNameArgumentNode)
+				ifTrue: [ selector := node selector value.
+					firstIsHash := selector first = $#.
+					firstIsHash ifTrue: [ selector := selector allButFirst ].
+					selector = oldName
+						ifTrue: [ modifiedSource
+								replaceFrom: node selector startPosition
+								to: node selector stopPosition
+								with: (firstIsHash ifTrue: [ '#' ] ifFalse: [ '' ]) , newName ] ] ]
+		andTokensDo: [ :token |  ]
+		includesErrors: true.
+	modifiedSource isModified ifFalse: [ ^ nil ].
+	^ LeSnippetChange new
+		snippet: self;
+		newSource: modifiedSource asString;
+		yourself
+]
+
+{ #category : #accessing }
 LeTextSnippet >> classAndSelectorReferencesPromise [
 	^ [ | classes selectors |
 	classes := Set new.
@@ -133,7 +158,10 @@ LeTextSnippet >> classAndSelectorReferencesPromise [
 			(node isKindOf: LeClassNameArgumentNode)
 				ifTrue: [ classes add: node className.
 					(node isKindOf: LeMethodNameArgumentNode)
-						ifTrue: [ selectors add: node selector value ] ] ]
+						ifTrue: [ | selector |
+							selector := node selector value.
+							selector first = $# ifTrue: [ selector := selector allButFirst ].
+							selectors add: selector ] ] ]
 		andTokensDo: [ :token |  ]
 		includesErrors: true.
 	{classes.
