@@ -282,6 +282,7 @@ LePage >> gtBindingsActionFor: anAction [
 	^ anAction dropdown
 		tooltip: 'Inspect variable bindings';
 		icon: BrGlamorousVectorIcons inspect;
+		withDropdownIndicator;
 		content: [ :aButton | 
 			aButton parent parent parent parent
 				allChildrenBreadthFirstDetect: [ :anElement | anElement isKindOf: LePharoSnippetElement ]
