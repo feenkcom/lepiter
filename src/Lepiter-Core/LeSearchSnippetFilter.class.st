@@ -25,10 +25,46 @@ LeSearchSnippetFilter >> gtItemsByDatabaseFor: aView [
 				groupedBy: [ :each | each database ]) associations
 				sorted: [ :assoc | assoc key ifNil: [ '' ] ifNotNil: [ :each | each databaseName ] ]
 						ascending ];
-		column: 'Database'
-			text: [ :assoc | assoc key ifNil: [ '' ] ifNotNil: [ :each | each databaseName ] ];
+		column: 'Database' do: [ :aColumn |
+			aColumn
+				cellStencil: [ 
+					GtPhlowLabelWithIcon new ];
+				dataBinder: [ :anElement :assoc | 
+					anElement 
+						initializeWithIcon: LeIcons lepiterDatabase
+						label: (assoc key 
+							ifNil: [ '' ] 
+							ifNotNil: [ :each | each databaseName ] ) ] ];
 		column: 'Items' text: [ :assoc | assoc value size ];
-		send: [ :assoc | self & (LeSearchDatabaseSnippetFilter forDatabase: assoc key) ]
+		send: [ :assoc | 
+			self & (LeSearchDatabaseSnippetFilter forDatabase: assoc key) ]
+]
+
+{ #category : #accessing }
+LeSearchSnippetFilter >> gtItemsByPageFor: aView [
+	<gtView>
+	<gtToolView>
+	^ aView columnedList
+		title: 'By Page';
+		priority: 45;
+		items: [ (self result asyncSimilarCopy toArray wait
+				groupedBy: [ :each | each page ]) associations
+				sorted: [ :assoc | assoc key 
+					ifNil: [ '' ] 
+					ifNotNil: [ :each | each title ] ]
+						ascending ];
+		column: 'Page' do: [ :aColumn |
+			aColumn
+				cellStencil: [ 
+					GtPhlowLabelWithIcon new ];
+				dataBinder: [ :anElement :assoc | 
+					anElement 
+						initializeWithIcon: LeIcons lepiterPage
+						label: (assoc key 
+							ifNil: [ '' ] 
+							ifNotNil: [ :each | each title ] ) ] ];
+		column: 'Items' text: [ :assoc | assoc value size ];
+		send: [ :assoc | self & (LeSearchPageSnippetFilter forPage:  assoc key) ]
 ]
 
 { #category : #accessing }
