@@ -38,7 +38,7 @@ LePictureImportStencil >> create [
 						exact: self extent;
 						padding: (BlInsets all: 20).
 					element := stencil asElement.
-					element addAptitude: BrGlamorousMenuResizableAptitude new.
+					element addAptitude: BrGlamorousPopoverResizableAptitude new.
 					element ]).
 	^ aButton
 ]
