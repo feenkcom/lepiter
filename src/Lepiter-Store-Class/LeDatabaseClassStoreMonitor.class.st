@@ -624,6 +624,14 @@ LeDatabaseClassStoreMonitor >> subscribeToSystemAnnouncer [
 			to: self ].
 ]
 
+{ #category : #accessing }
+LeDatabaseClassStoreMonitor >> uidsInStore [
+
+	^ (storage pageSelectorsIn: dbClass) 
+		collect: [ :selector | selector asString copyFrom: 6 to: selector size ]
+		as: Set
+]
+
 { #category : #private }
 LeDatabaseClassStoreMonitor >> updateEntries [
 	"Perform all the queued updates"
