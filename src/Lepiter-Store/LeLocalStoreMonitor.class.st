@@ -513,6 +513,15 @@ LeLocalStoreMonitor >> submitReload [
 									<< 'Resolve this problem before continuing to use the image! See "How to fix Lepiter loading errors".' ]) ]
 ]
 
+{ #category : #accessing }
+LeLocalStoreMonitor >> uidsInStore [
+	"Answer the Set of page UIDs in the receiver"
+
+	^ (storage dbFilesIn: self localRoot)
+		collect: [ :fr | fr basenameWithoutExtension ]
+		as: Set.
+]
+
 { #category : #private }
 LeLocalStoreMonitor >> updateEntries [
 	"Perform all the queued updates"

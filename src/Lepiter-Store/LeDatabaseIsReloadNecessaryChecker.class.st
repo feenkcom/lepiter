@@ -41,10 +41,9 @@ LeDatabaseIsReloadNecessaryChecker class >> reloadAsNeeded [
 { #category : #checking }
 LeDatabaseIsReloadNecessaryChecker >> check [
 	"Return reload reason."
-
 	<return: #LeDatabaseReloadReason>
 	| aMonitor aCurrentProperties aStorageProperties |
-	
+
 	"1. Check whether partial reload is enabled."
 	self isReloadAlways ifTrue: [ 
 		^ LeDatabaseAlwaysReloadReason new
@@ -78,8 +77,15 @@ LeDatabaseIsReloadNecessaryChecker >> check [
 		aHash := aMonitor pageHashFor: aPage.
 		(self checkModel: aPage storageHash: aHash)
 			ifNotNil: [ :aReason | ^ aReason ] ].
-	
-	"6. Nothing was changed."
+
+	"6. Check for new pages."
+	self newPageUIDs ifNotEmpty:
+		[ :newPageUIDs |
+			 ^ LeDatabaseNewPagesReloadReason new
+				pageUIDs: newPageUIDs;
+				database: self database ].
+
+	"7. Nothing was changed."
 	^ LeDatabaseUpToDateReloadReason new
 		database: self database
 ]
@@ -135,4 +141,15 @@ LeDatabaseIsReloadNecessaryChecker >> isReloadAlways [
 	^ LeReloadOptimization 
 		ifEnabled: [ false ]
 		ifDisabled: [ true ]
+]
+
+{ #category : #testing }
+LeDatabaseIsReloadNecessaryChecker >> newPageUIDs [
+	| loadedUIDs storeUIDs |
+
+	storeUIDs := database monitor uidsInStore.
+	loadedUIDs := database pageUIDs
+		collect: [ :each | each asString36 ]
+		as: Set.
+	^ storeUIDs difference: loadedUIDs
 ]
