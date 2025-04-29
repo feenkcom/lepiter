@@ -284,17 +284,11 @@ LePage >> gtBindingsActionFor: anAction [
 		icon: BrGlamorousVectorIcons inspect;
 		withDropdownIndicator;
 		content: [ :aButton | 
-			aButton parent parent parent parent
-				allChildrenBreadthFirstDetect: [ :anElement | anElement isKindOf: LePharoSnippetElement ]
-				ifFound: [ :aSnippetElement | 
-					(aSnippetElement snippetViewModel coderViewModel
-						gtBindingsFor: GtPhlowView empty) asElement
-						size: 300 @ 100;
-						aptitude: BrGlamorousWithVerticalResizerAptitude
-								+ BrGlamorousWithHorizontalResizerAptitude ]
-				ifNone: [ BrEditor new fitContent beReadOnlyWithoutSelection
-						aptitude: BrGlamorousRegularEditorAptitude;
-						text: 'No variables bound on this page.' ] ]
+			(aButton parent parent parent parent pageViewModel sharedSnippetContext
+				gtViewSharedBindingsFor: GtPhlowView empty) asElement
+				size: 300 @ 100;
+				aptitude: BrGlamorousWithVerticalResizerAptitude
+						+ BrGlamorousWithHorizontalResizerAptitude ]
 ]
 
 { #category : #accessing }
