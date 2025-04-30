@@ -11,6 +11,11 @@ Class {
 	#category : #'Lepiter-Core-Model'
 }
 
+{ #category : #printing }
+LeNamedPageType class >> niceClassName [
+	^ 'Named Page'
+]
+
 { #category : #accessing }
 LeNamedPageType class >> title: aString page: aLePage [
 	| newType |
