@@ -26,7 +26,7 @@ BlSpace class >> spawnPage: aLePage from: anElement [
 		assert: [ aLePage isNotNil ] 
 		description: [ 'Page must be non-nil' ].
 	aSpaceOrNil := self
-			spawnTool: [ aLePage asLepiterPagePhlowTool ]
+			spawnTool: [ aLePage asPhlowTool ]
 			from: anElement.
 	aSpaceOrNil ifNotNil: [ :aSpace | 
 		aSpace 

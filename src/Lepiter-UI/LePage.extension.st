@@ -44,16 +44,12 @@ LePage >> asLepiterReferencedPagePhlowTool: aReferencedPage [
 { #category : #'*Lepiter-UI' }
 LePage >> asPhlowTool [
 	<return: #LePhlowTool>
-	^ self asLepiterPagePhlowTool
+	^ self type asLepiterPagePhlowTool
 ]
 
 { #category : #'*Lepiter-UI' }
 LePage >> asPreviewElement [
-
-	^ LePageToolContentTreeElement new
-		  withTitleOnly;
-		  pageViewModel: self asContentUIModel;
-		  matchParent
+	^ self type asPreviewElement
 ]
 
 { #category : #'*Lepiter-UI' }
@@ -258,7 +254,7 @@ LePage >> gtRemoveActionFor: anAction [
 LePage >> gtSpotterActDefaultFrom: aSpotterElement [
 	| pageTool toolElement |
 
-	pageTool := self asLepiterPagePhlowTool.
+	pageTool := self asPhlowTool.
 	toolElement := pageTool asElementDo: [ :e | e ].
 	(GtPager 
 		openWrappedOn: toolElement 
