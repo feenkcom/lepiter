@@ -511,6 +511,11 @@ LePage >> moveUpSnippet: aLeSnippet [
 		true ]
 ]
 
+{ #category : #'api - accessing' }
+LeContent >> nestingLevel [
+	^ 0
+]
+
 { #category : #'api - notifications' }
 LePage >> notifier [
 	^ LeNotifier new
