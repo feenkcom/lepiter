@@ -10,6 +10,7 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReload [
 
 	<gtExample>
 	<after: #deleteTemporaryDirectory>
+	<return: #LeLogicalDatabase>
 	| logicalDB primaryDB playgroundDB registeredDB announcements |
 	"Store all the received announcements"
 	announcements := OrderedCollection new.
@@ -55,7 +56,7 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReload [
 	{primaryDB.
 		playgroundDB.
 		registeredDB}
-		do: [  "Confirm that each DB has the updated page":db | 
+		do: [ :db "Confirm that each DB has the updated page" | 
 			self
 				assert: (db pageNamed: #Page1) children first string
 				equals: db databaseName.	"Confirm that each DB has the logical DB as its parent"
@@ -95,8 +96,8 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadAddRegistered [
 
 	<gtExample>
 	<after: #deleteTemporaryDirectory>
+	<return: #LeLogicalDatabase>
 	| logicalDB primaryDB playgroundDB registeredDB announcements |
-	
 	"Store all the received announcements"
 	announcements := OrderedCollection new.
 	primaryDB := self createDatabaseOnDisk.
@@ -122,9 +123,7 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadAddRegistered [
 				primaryDatabaseDirectory: primaryDB localStoreRootDirectory;
 				playgroundDatabaseDirectory: playgroundDB localStoreRootDirectory;
 				addRegisteredDirectory: registeredDB localStoreRootDirectory).
-	registeredDB := nil.
-	
-	"Confirm that each DB is in the expected state"
+	registeredDB := nil.	"Confirm that each DB is in the expected state"
 	logicalDB
 		databasesDo: [ :db | self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].
 	self assert: logicalDB registeredDBs isEmpty.
@@ -134,12 +133,8 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadAddRegistered [
 				collect: [ :each | each database databaseName ]
 				as: Array)
 		equals: {#primary.
-				#playground}.
-				
-	"Reload the logical database"
-	LeReloadOptimization disableDuring: [ logicalDB primaryDB reload ].
-	
-	"Confirm that the registered DB has appeared"
+				#playground}.	"Reload the logical database"
+	LeReloadOptimization disableDuring: [ logicalDB primaryDB reload ].	"Confirm that the registered DB has appeared"
 	self assert: logicalDB registeredDBs size equals: 1.
 	self assert: logicalDB registeredDBs first databaseName equals: #registered.
 	self assert: announcements size equals: 9.
@@ -168,8 +163,8 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadAddRegistered_OptimizedR
 
 	<gtExample>
 	<after: #deleteTemporaryDirectory>
+	<return: #LeLogicalDatabase>
 	| logicalDB primaryDB playgroundDB registeredDB announcements |
-	
 	"Store all the received announcements"
 	announcements := OrderedCollection new.
 	primaryDB := self createDatabaseOnDisk.
@@ -195,9 +190,7 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadAddRegistered_OptimizedR
 				primaryDatabaseDirectory: primaryDB localStoreRootDirectory;
 				playgroundDatabaseDirectory: playgroundDB localStoreRootDirectory;
 				addRegisteredDirectory: registeredDB localStoreRootDirectory).
-	registeredDB := nil.
-	
-	"Confirm that each DB is in the expected state"
+	registeredDB := nil.	"Confirm that each DB is in the expected state"
 	logicalDB
 		databasesDo: [ :db | self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].
 	self assert: logicalDB registeredDBs isEmpty.
@@ -207,12 +200,8 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadAddRegistered_OptimizedR
 				collect: [ :each | each database databaseName ]
 				as: Array)
 		equals: {#primary.
-				#playground}.
-				
-	"Reload the logical database"
-	LeReloadOptimization disableDuring: [ logicalDB primaryDB reload ].
-	
-	"Confirm that the registered DB has appeared"
+				#playground}.	"Reload the logical database"
+	LeReloadOptimization disableDuring: [ logicalDB primaryDB reload ].	"Confirm that the registered DB has appeared"
 	self assert: logicalDB registeredDBs size equals: 1.
 	self assert: logicalDB registeredDBs first databaseName equals: #registered.
 	self assert: announcements size equals: 9.
@@ -241,8 +230,8 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadShuffle [
 
 	<gtExample>
 	<after: #deleteTemporaryDirectory>
+	<return: #LeLogicalDatabase>
 	| logicalDB primaryDB playgroundDB registeredDB announcements |
-	
 	"Store all the received announcements"
 	announcements := OrderedCollection new.
 	primaryDB := self createDatabaseOnDisk.
@@ -267,17 +256,11 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadShuffle [
 				localFile: temporaryDirectory / LepiterCoreDefaults logicalDatabasePropertiesBasename;
 				primaryDatabaseDirectory: registeredDB localStoreRootDirectory;
 				playgroundDatabaseDirectory: playgroundDB localStoreRootDirectory;
-				addRegisteredDirectory: primaryDB localStoreRootDirectory).
-				
-	"Confirm that each DB is in the expected state"
+				addRegisteredDirectory: primaryDB localStoreRootDirectory).	"Confirm that each DB is in the expected state"
 	logicalDB
 		databasesDo: [ :db | self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].
-	self assert: announcements size equals: 3.
-	
-	"Reload the logical database"
-	LeReloadOptimization disableDuring: [ logicalDB primaryDB reload ].
-	
-	"Confirm that the databases have been swapped, and the instance identity maintained"
+	self assert: announcements size equals: 3.	"Reload the logical database"
+	LeReloadOptimization disableDuring: [ logicalDB primaryDB reload ].	"Confirm that the databases have been swapped, and the instance identity maintained"
 	self assert: logicalDB primaryDB identicalTo: registeredDB.
 	self assert: logicalDB playgroundDB identicalTo: playgroundDB.
 	self assert: logicalDB registeredDBs first identicalTo: primaryDB.
@@ -306,8 +289,8 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadShuffle_OptimizedReload 
 
 	<gtExample>
 	<after: #deleteTemporaryDirectory>
+	<return: #LeLogicalDatabase>
 	| logicalDB primaryDB playgroundDB registeredDB announcements |
-	
 	"Store all the received announcements"
 	announcements := OrderedCollection new.
 	primaryDB := self createDatabaseOnDisk.
@@ -332,22 +315,14 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadShuffle_OptimizedReload 
 				localFile: temporaryDirectory / LepiterCoreDefaults logicalDatabasePropertiesBasename;
 				primaryDatabaseDirectory: registeredDB localStoreRootDirectory;
 				playgroundDatabaseDirectory: playgroundDB localStoreRootDirectory;
-				addRegisteredDirectory: primaryDB localStoreRootDirectory).
-				
-	"Confirm that each DB is in the expected state"
+				addRegisteredDirectory: primaryDB localStoreRootDirectory).	"Confirm that each DB is in the expected state"
 	logicalDB
 		databasesDo: [ :db | self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].
-	self assert: announcements size equals: 3.
-	
-	"Reload the logical database"
-	LeReloadOptimization enableDuring: [ logicalDB primaryDB reload ].
-	
-	"Confirm that the databases have been swapped, and the instance identity maintained"
+	self assert: announcements size equals: 3.	"Reload the logical database"
+	LeReloadOptimization enableDuring: [ logicalDB primaryDB reload ].	"Confirm that the databases have been swapped, and the instance identity maintained"
 	self assert: logicalDB primaryDB identicalTo: registeredDB.
 	self assert: logicalDB playgroundDB identicalTo: playgroundDB.
-	self assert: logicalDB registeredDBs first identicalTo: primaryDB.
-	
-	"Databases are not reloaded, therefore only logical database reload events
+	self assert: logicalDB registeredDBs first identicalTo: primaryDB.	"Databases are not reloaded, therefore only logical database reload events
 	are emitted."
 	self assert: announcements size equals: 5.
 	self
@@ -368,8 +343,8 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadUnloadRegistered [
 
 	<gtExample>
 	<after: #deleteTemporaryDirectory>
+	<return: #LeLogicalDatabase>
 	| logicalDB primaryDB playgroundDB registeredDB unloadAnnouncements announcements |
-	
 	"Store all the received announcements from the logicalDB"
 	announcements := OrderedCollection new.
 	primaryDB := self createDatabaseOnDisk.
@@ -402,9 +377,7 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadUnloadRegistered [
 		properties: (LeLogicalDatabaseProperties new
 				localFile: temporaryDirectory / LepiterCoreDefaults logicalDatabasePropertiesBasename;
 				primaryDatabaseDirectory: primaryDB localStoreRootDirectory;
-				playgroundDatabaseDirectory: playgroundDB localStoreRootDirectory).
-				
-	"Confirm that each DB is in the expected state"
+				playgroundDatabaseDirectory: playgroundDB localStoreRootDirectory).	"Confirm that each DB is in the expected state"
 	{primaryDB.
 		playgroundDB.
 		registeredDB}
@@ -412,9 +385,7 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadUnloadRegistered [
 	self assert: announcements size equals: 3.
 	self
 		assert: (announcements collect: #class as: Set) asArray
-		equals: {LeDatabasesAddedAnnouncement}.
-		
-	"Using a separate DB instance, update the page"
+		equals: {LeDatabasesAddedAnnouncement}.	"Using a separate DB instance, update the page"
 	{primaryDB.
 		playgroundDB}
 		do: [ :db | 
@@ -426,20 +397,14 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadUnloadRegistered [
 				updateText: db databaseName asRopedText.
 			dbDuplicate stopMonitoring ].
 
-	self assert: announcements size equals: 3.
-	
-	"Reload the logical database"
-	LeReloadOptimization disableDuring: [ logicalDB primaryDB reload ].
-	
-	"Confirm that each DB has the updated page"
+	self assert: announcements size equals: 3.	"Reload the logical database"
+	LeReloadOptimization disableDuring: [ logicalDB primaryDB reload ].	"Confirm that each DB has the updated page"
 	{primaryDB.
 		playgroundDB}
 		do: [ :db | 
 			self
 				assert: (db pageNamed: #Page1) children first string
-				equals: db databaseName ].
-				
-	"Confirm that the registered DB unload has been announced"
+				equals: db databaseName ].	"Confirm that the registered DB unload has been announced"
 	self assert: unloadAnnouncements size equals: 6.
 	self assert: unloadAnnouncements last content equals: registeredDB.
 	self
@@ -475,8 +440,8 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadUnloadRegistered_Optimiz
 
 	<gtExample>
 	<after: #deleteTemporaryDirectory>
+	<return: #LeLogicalDatabase>
 	| logicalDB primaryDB playgroundDB registeredDB unloadAnnouncements announcements |
-	
 	"Store all the received announcements from the logicalDB"
 	announcements := OrderedCollection new.
 	primaryDB := self createDatabaseOnDisk.
@@ -509,9 +474,7 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadUnloadRegistered_Optimiz
 		properties: (LeLogicalDatabaseProperties new
 				localFile: temporaryDirectory / LepiterCoreDefaults logicalDatabasePropertiesBasename;
 				primaryDatabaseDirectory: primaryDB localStoreRootDirectory;
-				playgroundDatabaseDirectory: playgroundDB localStoreRootDirectory).
-				
-	"Confirm that each DB is in the expected state"
+				playgroundDatabaseDirectory: playgroundDB localStoreRootDirectory).	"Confirm that each DB is in the expected state"
 	{primaryDB.
 		playgroundDB.
 		registeredDB}
@@ -519,9 +482,7 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadUnloadRegistered_Optimiz
 	self assert: announcements size equals: 3.
 	self
 		assert: (announcements collect: #class as: Set) asArray
-		equals: {LeDatabasesAddedAnnouncement}.
-		
-	"Using a separate DB instance, update the page"
+		equals: {LeDatabasesAddedAnnouncement}.	"Using a separate DB instance, update the page"
 	{primaryDB.
 		playgroundDB}
 		do: [ :db | 
@@ -533,20 +494,14 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadUnloadRegistered_Optimiz
 				updateText: db databaseName asRopedText.
 			dbDuplicate stopMonitoring ].
 
-	self assert: announcements size equals: 3.
-	
-	"Reload the logical database"
-	LeReloadOptimization enableDuring: [ logicalDB primaryDB reload ].
-	
-	"Confirm that each DB has the updated page"
+	self assert: announcements size equals: 3.	"Reload the logical database"
+	LeReloadOptimization enableDuring: [ logicalDB primaryDB reload ].	"Confirm that each DB has the updated page"
 	{primaryDB.
 		playgroundDB}
 		do: [ :db | 
 			self
 				assert: (db pageNamed: #Page1) children first string
-				equals: db databaseName ].
-				
-	"Confirm that the registered DB unload has been announced"
+				equals: db databaseName ].	"Confirm that the registered DB unload has been announced"
 	self assert: unloadAnnouncements size equals: 6.
 	self assert: unloadAnnouncements last content equals: registeredDB.
 	self
@@ -580,6 +535,7 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseWithFileLocatorRootReload [
 
 	<gtExample>
 	<after: #deleteTemporaryDirectory>
+	<return: #LeLogicalDatabase>
 	| logicalDB primaryDB registeredDB announcements |
 	"Store all the received announcements"
 	announcements := OrderedCollection new.
@@ -602,23 +558,15 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseWithFileLocatorRootReload [
 		properties: (LeLogicalDatabaseProperties new
 				localFile: temporaryDirectory / LepiterCoreDefaults logicalDatabasePropertiesBasename;
 				primaryDatabaseDirectory: primaryDB localStoreRootDirectory;
-				addRegisteredDirectory: registeredDB localStoreRootDirectory).
-				
-	"Confirm that each DB is in the expected state"
+				addRegisteredDirectory: registeredDB localStoreRootDirectory).	"Confirm that each DB is in the expected state"
 	{primaryDB.
 		registeredDB}
-		do: [ :db | self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].
-		
-	"Reload the logical database in place without any changes"
-	LeReloadOptimization disableDuring: [ logicalDB primaryDB reload ].
-	
-	"Confirm that each DB has been reloaded correctly"
+		do: [ :db | self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].	"Reload the logical database in place without any changes"
+	LeReloadOptimization disableDuring: [ logicalDB primaryDB reload ].	"Confirm that each DB has been reloaded correctly"
 	{primaryDB.
 		registeredDB}
-		do: [ :db | 
-			"Confirm that each DB has the same page"
-			self assert: (db pageNamed: #Page1) children first string equals: #Snippet1.
-			"Confirm that each DB has the logical DB as its parent"
+		do: [  "Confirm that each DB has the same page":db | 
+			self assert: (db pageNamed: #Page1) children first string equals: #Snippet1.	"Confirm that each DB has the logical DB as its parent"
 			self assert: db parent equals: logicalDB ].
 
 	self assert: announcements size equals: 8.
@@ -639,9 +587,7 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseWithFileLocatorRootReload [
 	self assert: (announcements at: 7) class equals: LeDatabaseReloaded.
 	self assert: (announcements at: 7) database equals: registeredDB.
 	self assert: (announcements at: 8) class equals: LeLogicalDatabaseReloaded.
-	self assert: (announcements at: 8) database equals: logicalDB.
-	
-	"Ensure that after reload the identity of individual databases did not changed.
+	self assert: (announcements at: 8) database equals: logicalDB.	"Ensure that after reload the identity of individual databases did not changed.
 	The update should just reload them."
 	self
 		assert: logicalDB primaryDB == primaryDB
@@ -659,8 +605,8 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseWithFileLocatorRootReload_Opti
 
 	<gtExample>
 	<after: #deleteTemporaryDirectory>
+	<return: #LeLogicalDatabase>
 	| logicalDB primaryDB registeredDB announcements |
-	
 	"Store all the received announcements"
 	announcements := OrderedCollection new.
 
@@ -682,23 +628,15 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseWithFileLocatorRootReload_Opti
 		properties: (LeLogicalDatabaseProperties new
 				localFile: temporaryDirectory / LepiterCoreDefaults logicalDatabasePropertiesBasename;
 				primaryDatabaseDirectory: primaryDB localStoreRootDirectory;
-				addRegisteredDirectory: registeredDB localStoreRootDirectory).
-				
-	"Confirm that each DB is in the expected state"
+				addRegisteredDirectory: registeredDB localStoreRootDirectory).	"Confirm that each DB is in the expected state"
 	{primaryDB.
 		registeredDB}
-		do: [ :db | self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].
-		
-	"Reload the logical database in place without any changes"
-	LeReloadOptimization enableDuring: [ logicalDB primaryDB reload ].
-	
-	"Confirm that each DB has been reloaded correctly"
+		do: [ :db | self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].	"Reload the logical database in place without any changes"
+	LeReloadOptimization enableDuring: [ logicalDB primaryDB reload ].	"Confirm that each DB has been reloaded correctly"
 	{primaryDB.
 		registeredDB}
-		do: [ :db |
-			"Confirm that each DB has the same page" 
-			self assert: (db pageNamed: #Page1) children first string equals: #Snippet1.
-			"Confirm that each DB has the logical DB as its parent"
+		do: [  "Confirm that each DB has the same page":db | 
+			self assert: (db pageNamed: #Page1) children first string equals: #Snippet1.	"Confirm that each DB has the logical DB as its parent"
 			self assert: db parent equals: logicalDB ].
 
 	self assert: announcements size equals: 4.
@@ -711,9 +649,7 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseWithFileLocatorRootReload_Opti
 				registeredDB}.
 	self assert: (announcements at: 3) class equals: LeLogicalDatabaseAboutToReload.
 	self assert: (announcements at: 4) class equals: LeLogicalDatabaseReloaded.
-	self assert: (announcements at: 4) database equals: logicalDB.
-	
-	"Ensure that after reload the identity of individual databases did not changed.
+	self assert: (announcements at: 4) database equals: logicalDB.	"Ensure that after reload the identity of individual databases did not changed.
 	The update should just reload them."
 	self
 		assert: logicalDB primaryDB == primaryDB
@@ -728,15 +664,17 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseWithFileLocatorRootReload_Opti
 { #category : #'examples - Logical DB' }
 LeLogicalDatabaseReloadExamples >> logicalPrimaryDatabaseReset [
 	"This simulates the scenario where the lepiter app is distributed with a primary DB assumed, but is run for the first time on a new machine"
+
 	<gtExample>
 	<after: #deleteTemporaryDirectory>
-	| logicalDB rootDir propertiesBasename announcements|
-
+	<return: #LeLogicalDatabase>
+	| logicalDB rootDir propertiesBasename announcements |
 	logicalDB := LeLogicalDatabase primaryDB: self createDatabaseOnDisk.
 	rootDir := logicalDB primaryDB localStoreRootDirectory.
-	logicalDB properties: (LeLogicalDatabaseProperties new 
-		localFile: (rootDir parent / LepiterCoreDefaults logicalDatabasePropertiesBasename);
-		primaryDatabaseDirectory: rootDir).
+	logicalDB
+		properties: (LeLogicalDatabaseProperties new
+				localFile: rootDir parent / LepiterCoreDefaults logicalDatabasePropertiesBasename;
+				primaryDatabaseDirectory: rootDir).
 	propertiesBasename := logicalDB primaryDB monitor propertiesBasename.
 
 	self assert: (rootDir / propertiesBasename) exists.
@@ -747,31 +685,34 @@ LeLogicalDatabaseReloadExamples >> logicalPrimaryDatabaseReset [
 	self deny: rootDir exists.
 
 	announcements := OrderedCollection new.
-	logicalDB weak when: LeAnnouncement send: #add: to: announcements.
-	LeReloadOptimization 
-		disableDuring: [ logicalDB primaryDB reload ].
+	logicalDB weak
+		when: LeAnnouncement
+		send: #add:
+		to: announcements.
+	LeReloadOptimization disableDuring: [ logicalDB primaryDB reload ].
 
-	self assert: (rootDir / propertiesBasename) exists.
-	"To prevent new pages created by the user during the reload from being deleted, the reload currently doesn't delete pages.  This should be 0, but accept 2 for now."
+	self assert: (rootDir / propertiesBasename) exists.	"To prevent new pages created by the user during the reload from being deleted, the reload currently doesn't delete pages.  This should be 0, but accept 2 for now."
 	self assert: logicalDB primaryDB pageCount equals: 2.
-	
+
 	self assert: announcements isEmpty.
-	
+
 	^ logicalDB
 ]
 
 { #category : #'examples - Logical DB' }
 LeLogicalDatabaseReloadExamples >> logicalPrimaryDatabaseReset_OptimizedReload [
 	"This simulates the scenario where the lepiter app is distributed with a primary DB assumed, but is run for the first time on a new machine"
+
 	<gtExample>
 	<after: #deleteTemporaryDirectory>
-	| logicalDB rootDir propertiesBasename announcements|
-
+	<return: #LeLogicalDatabase>
+	| logicalDB rootDir propertiesBasename announcements |
 	logicalDB := LeLogicalDatabase primaryDB: self createDatabaseOnDisk.
 	rootDir := logicalDB primaryDB localStoreRootDirectory.
-	logicalDB properties: (LeLogicalDatabaseProperties new 
-		localFile: (rootDir parent / LepiterCoreDefaults logicalDatabasePropertiesBasename);
-		primaryDatabaseDirectory: rootDir).
+	logicalDB
+		properties: (LeLogicalDatabaseProperties new
+				localFile: rootDir parent / LepiterCoreDefaults logicalDatabasePropertiesBasename;
+				primaryDatabaseDirectory: rootDir).
 	propertiesBasename := logicalDB primaryDB monitor propertiesBasename.
 
 	self assert: (rootDir / propertiesBasename) exists.
@@ -782,15 +723,16 @@ LeLogicalDatabaseReloadExamples >> logicalPrimaryDatabaseReset_OptimizedReload [
 	self deny: rootDir exists.
 
 	announcements := OrderedCollection new.
-	logicalDB weak when: LeAnnouncement send: #add: to: announcements.
-	LeReloadOptimization 
-		enableDuring: [ logicalDB primaryDB reload ].
+	logicalDB weak
+		when: LeAnnouncement
+		send: #add:
+		to: announcements.
+	LeReloadOptimization enableDuring: [ logicalDB primaryDB reload ].
 
-	self assert: (rootDir / propertiesBasename) exists.
-	"To prevent new pages created by the user during the reload from being deleted, the reload currently doesn't delete pages.  This should be 0, but accept 2 for now."
+	self assert: (rootDir / propertiesBasename) exists.	"To prevent new pages created by the user during the reload from being deleted, the reload currently doesn't delete pages.  This should be 0, but accept 2 for now."
 	self assert: logicalDB primaryDB pageCount equals: 2.
-	
+
 	self assert: announcements isEmpty.
-	
+
 	^ logicalDB
 ]

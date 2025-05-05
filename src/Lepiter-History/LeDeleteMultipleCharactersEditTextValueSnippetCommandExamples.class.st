@@ -17,9 +17,10 @@ LeDeleteMultipleCharactersEditTextValueSnippetCommandExamples >> initialStringVa
 { #category : #accessing }
 LeDeleteMultipleCharactersEditTextValueSnippetCommandExamples >> instantiateBasicTextEditCommand [
 	<gtExample>
-	
-	^ BrTextEditorHistoryDeletionCommand new 
-		texts: { '1' asRopedText . '1' asRopedText };
+	<return: #BrTextEditorHistoryDeletionCommand>
+	^ BrTextEditorHistoryDeletionCommand new
+		texts: {'1' asRopedText.
+				'1' asRopedText};
 		undoIndices: #(2 5);
 		redoIndices: #(2 4)
 ]

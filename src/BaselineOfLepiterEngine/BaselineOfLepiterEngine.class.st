@@ -31,6 +31,8 @@ BaselineOfLepiterEngine >> baseline: spec [
 { #category : #converting }
 BaselineOfLepiterEngine >> gtExamples [
 	<gtExample>
+	<return: #GtExplicitExampleGroup>
 	^ ('Lepiter' gtPackageMatches & #gtExample gtReferences
-		& (GtSearchMethodsInClassFilter forClass: BaselineOfLepiterEngine) not) gtExamples
+		& (GtSearchMethodsInClassFilter forClass: BaselineOfLepiterEngine) not)
+		gtExamples
 ]

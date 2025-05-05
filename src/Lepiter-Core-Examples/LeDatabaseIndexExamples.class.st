@@ -7,6 +7,7 @@ Class {
 { #category : #accessing }
 LeDatabaseIndexExamples >> classSearch [
 	<gtExample>
+	<return: #AsyncWithoutDuplicatesStream>
 	| database snippets asyncSnippets |
 	database := self database.
 	asyncSnippets := database asyncSnippetClassReferencesTo: 'OrderedCollection'.
@@ -18,6 +19,7 @@ LeDatabaseIndexExamples >> classSearch [
 { #category : #accessing }
 LeDatabaseIndexExamples >> gtClassSearch [
 	<gtExample>
+	<return: #AsyncWithoutDuplicatesStream>
 	| database snippets asyncSnippets |
 	database := self database.
 	asyncSnippets := database asyncSnippetClassReferencesTo: #Object.
@@ -29,6 +31,7 @@ LeDatabaseIndexExamples >> gtClassSearch [
 { #category : #accessing }
 LeDatabaseIndexExamples >> gtExampleSearch [
 	<gtExample>
+	<return: #AsyncSequenceStream>
 	| database snippets asyncSnippets |
 	database := self database.
 	asyncSnippets := database asyncSnippetClassReferencesTo: self class name.
@@ -43,6 +46,7 @@ LeDatabaseIndexExamples >> gtExampleSearch [
 { #category : #accessing }
 LeDatabaseIndexExamples >> gtMethodSearch [
 	<gtExample>
+	<return: #AsyncSequenceStream>
 	| database snippets asyncSnippets |
 	database := self database.
 	asyncSnippets := database asyncSnippetClassReferencesTo: #Set.
@@ -57,6 +61,7 @@ LeDatabaseIndexExamples >> gtMethodSearch [
 { #category : #accessing }
 LeDatabaseIndexExamples >> pageSendersSearch [
 	<gtExample>
+	<return: #AsyncWithoutDuplicatesStream>
 	| database pages asyncPages |
 	database := self database.
 	asyncPages := database asyncPageReferencesTo: #printString.
@@ -76,6 +81,7 @@ LeDatabaseIndexExamples >> pageTitle [
 { #category : #accessing }
 LeDatabaseIndexExamples >> pageTitleSearch [
 	<gtExample>
+	<return: #AsyncWithoutDuplicatesStream>
 	| database titles asyncTitles |
 	database := self database.
 	asyncTitles := database index asyncTitlesForWord: 'te'.
@@ -88,6 +94,7 @@ LeDatabaseIndexExamples >> pageTitleSearch [
 { #category : #accessing }
 LeDatabaseIndexExamples >> removePageUpdatesSearch [
 	<gtExample>
+	<return: #LeDatabase>
 	| database page asyncPages |
 	database := self database.
 	asyncPages := database asyncPageReferencesTo: #withAll:.
@@ -104,6 +111,7 @@ LeDatabaseIndexExamples >> removePageUpdatesSearch [
 { #category : #accessing }
 LeDatabaseIndexExamples >> removeSnippetUpdatesSearch [
 	<gtExample>
+	<return: #AsyncSequenceStream>
 	| database snippet asyncSnippets |
 	database := self database.
 	asyncSnippets := database asyncSnippetReferencesTo: #withAll:.
@@ -120,6 +128,7 @@ LeDatabaseIndexExamples >> removeSnippetUpdatesSearch [
 { #category : #accessing }
 LeDatabaseIndexExamples >> sendersSearch [
 	<gtExample>
+	<return: #AsyncSequenceStream>
 	| database snippets asyncSnippets |
 	database := self database.
 	asyncSnippets := database asyncSnippetReferencesTo: #withAll:.
@@ -137,6 +146,7 @@ LeDatabaseIndexExamples >> sendersSearch [
 { #category : #accessing }
 LeDatabaseIndexExamples >> updateSnippetUpdatesSearch [
 	<gtExample>
+	<return: #AsyncSequenceStream>
 	| database snippet asyncSnippets |
 	database := self database.
 	asyncSnippets := database asyncSnippetReferencesTo: #withAll:.
@@ -157,6 +167,7 @@ LeDatabaseIndexExamples >> updateSnippetUpdatesSearch [
 { #category : #accessing }
 LeDatabaseIndexExamples >> updateTextSnippetUpdatesSearch [
 	<gtExample>
+	<return: #AsyncSequenceStream>
 	| database snippet asyncSnippets |
 	database := self database.
 	asyncSnippets := database asyncSnippetReferencesTo: #database.

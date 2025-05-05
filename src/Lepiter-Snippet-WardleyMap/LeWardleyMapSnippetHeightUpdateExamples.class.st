@@ -28,8 +28,8 @@ LeWardleyMapSnippetHeightUpdateExamples >> assertSnippetModifiedFor: aSnippet [
 { #category : #'examples - snippets' }
 LeWardleyMapSnippetHeightUpdateExamples >> createTargetSnippet [
 	<gtExample>
-	^ LeWardleyMapSnippet new
-		wardleyMap: self wardleyMapWithNode
+	<return: #LeWardleyMapSnippet>
+	^ LeWardleyMapSnippet new wardleyMap: self wardleyMapWithNode
 ]
 
 { #category : #'examples - snippets' }

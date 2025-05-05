@@ -23,6 +23,7 @@ LeJavaScriptSnippetUpdateExamples >> assertSnippetModifiedFor: targetSnippet [
 { #category : #'examples - snippets' }
 LeJavaScriptSnippetUpdateExamples >> createTargetSnippet [
 	<gtExample>
+	<return: #LeJavaScriptSnippet>
 	^ LeJavaScriptSnippet code: '1+2'
 ]
 

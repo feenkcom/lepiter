@@ -14,6 +14,7 @@ Class {
 { #category : #'examples - database - tree' }
 LeUIExamples >> basicDatabaseFilteredTreeElement [
 	<gtExample>
+	<return: #LeDatabaseFilteredTreeElement>
 	| anElement |
 	anElement := LeDatabaseFilteredTreeElement new.
 	anElement matchParent.
@@ -24,6 +25,7 @@ LeUIExamples >> basicDatabaseFilteredTreeElement [
 { #category : #'examples - database - header' }
 LeUIExamples >> basicDatabaseHeaderElement [
 	<gtExample>
+	<return: #LeDatabaseHeaderElement>
 	| anElement |
 	anElement := LeDatabaseHeaderElement new.
 	anElement matchParent.
@@ -34,6 +36,7 @@ LeUIExamples >> basicDatabaseHeaderElement [
 { #category : #'examples - database - sidebar' }
 LeUIExamples >> basicDatabaseSidebarElement [
 	<gtExample>
+	<return: #LeDatabaseSidebarElement>
 	| anElement |
 	anElement := LeDatabaseSidebarElement new.
 	anElement show.
@@ -44,6 +47,7 @@ LeUIExamples >> basicDatabaseSidebarElement [
 { #category : #'examples - database - tool' }
 LeUIExamples >> basicDatabaseToolElement [
 	<gtExample>
+	<return: #LeDatabaseToolElement>
 	| anElement |
 	anElement := LeDatabaseToolElement new.
 	anElement matchParent.
@@ -54,6 +58,7 @@ LeUIExamples >> basicDatabaseToolElement [
 { #category : #'examples - database - tree' }
 LeUIExamples >> basicDatabaseTreeElement [
 	<gtExample>
+	<return: #LeDatabaseTreeElement>
 	| anElement |
 	anElement := LeDatabaseTreeElement new.
 	anElement matchParent.
@@ -64,8 +69,8 @@ LeUIExamples >> basicDatabaseTreeElement [
 { #category : #'examples - page - block tree' }
 LeUIExamples >> basicPageBlockTreeElement [
 	<gtExample>
+	<return: #LePageToolContentTreeElement>
 	| anElement |
-
 	anElement := LePageToolContentTreeElement new.
 	self assert: anElement hasPage not.
 
@@ -75,6 +80,7 @@ LeUIExamples >> basicPageBlockTreeElement [
 { #category : #'examples - page - title and edit info' }
 LeUIExamples >> basicPageTitleAndEditInfoElement [
 	<gtExample>
+	<return: #LePageTitleAndSummaryElement>
 	| anElement |
 	anElement := LePageTitleAndSummaryElement new.
 	self assert: anElement hasPage not.
@@ -84,6 +90,7 @@ LeUIExamples >> basicPageTitleAndEditInfoElement [
 { #category : #'examples - page - tool' }
 LeUIExamples >> basicPageToolContentElement [
 	<gtExample>
+	<return: #LePageToolContentTreeElement>
 	| anElement |
 	anElement := LePageToolContentTreeElement new.
 	self assert: anElement hasPage not.
@@ -93,6 +100,7 @@ LeUIExamples >> basicPageToolContentElement [
 { #category : #'examples - page - tool' }
 LeUIExamples >> basicPageToolElement [
 	<gtExample>
+	<return: #LePageToolElement>
 	| anElement |
 	anElement := LePageToolElement new.
 	self assert: anElement hasPage not.
@@ -102,18 +110,23 @@ LeUIExamples >> basicPageToolElement [
 { #category : #'examples - toolbar' }
 LeUIExamples >> basicToolbar [
 	<gtExample>
+	<return: #LeToolbarElement>
 	| anElement |
-	anElement := LeToolbarElement new
-		matchParent.
+	anElement := LeToolbarElement new matchParent.
 	^ anElement
 ]
 
 { #category : #'examples - model' }
 LeUIExamples >> blockWithLinkToPage [
 	<gtExample>
+	<return: #LeTextSnippet>
 	| aPage aSnippet |
-	aPage := self database pageBuilder title: 'one'; add.
-	aSnippet := aPage snippetBuilder string: (String loremIpsum: 100) allButLast, ' [[two]] ', (String loremIpsum: 100); add.
+	aPage := self database pageBuilder
+			title: 'one';
+			add.
+	aSnippet := aPage snippetBuilder
+			string: (String loremIpsum: 100) allButLast , ' [[two]] ' , (String loremIpsum: 100);
+			add.
 	self assert: aSnippet isTextSnippet.
 	^ aSnippet
 ]
@@ -130,20 +143,22 @@ LeUIExamples >> buttonIcon: anIcon tooltip: aTooltip [
 { #category : #'examples - model' }
 LeUIExamples >> database [
 	<gtExample>
-	| database folderReference localStore  |
+	<return: #LeDatabase>
+	| database folderReference localStore |
 	folderReference := FileSystem memory / 'storage-main'.
 	folderReference ensureCreateDirectory.
-	
+
 	localStore := LeLocalStoreLoad current.
 	localStore localRoot: folderReference.
 	database := localStore loadAndMonitorFrom: folderReference.
 	self assert: database explicitLinks size equals: 0.
-	^ database 
+	^ database
 ]
 
 { #category : #'examples - database - tree' }
 LeUIExamples >> databaseFilteredTreeElement [
 	<gtExample>
+	<return: #LeDatabaseFilteredTreeElement>
 	| anElement aDatabase |
 	anElement := self basicDatabaseFilteredTreeElement.
 	aDatabase := self databaseWithTwoPagesAndTwoDailyNotes.
@@ -155,6 +170,7 @@ LeUIExamples >> databaseFilteredTreeElement [
 { #category : #'examples - database - header' }
 LeUIExamples >> databaseHeaderElement [
 	<gtExample>
+	<return: #LeDatabaseHeaderElement>
 	| anElement aDatabase |
 	anElement := self basicDatabaseHeaderElement.
 	aDatabase := self databaseWithTwoPagesAndTwoDailyNotes.
@@ -169,6 +185,7 @@ LeUIExamples >> databaseHeaderElement [
 { #category : #'examples - database - sidebar' }
 LeUIExamples >> databaseSidebarElement [
 	<gtExample>
+	<return: #LeDatabaseSidebarElement>
 	| anElement aDatabase aValue |
 	anElement := self basicDatabaseSidebarElement.
 
@@ -176,7 +193,7 @@ LeUIExamples >> databaseSidebarElement [
 	anElement databaseViewModel: aDatabase asContentUIModel.
 
 	self assert: anElement database equals: aDatabase.
-	
+
 	aValue := nil.
 	self assert: anElement tabGroupElement tabs size equals: 1.
 	^ anElement
@@ -209,16 +226,20 @@ LeUIExamples >> databaseSidebarElementWithTableOfContents [
 { #category : #'examples - database - sidebar' }
 LeUIExamples >> databaseSidebarElement_AddPage [
 	<gtExample>
+	<return: #LeDatabaseSidebarElement>
 	| anElement aDatabase |
 	anElement := self databaseSidebarElement.
 	aDatabase := anElement database.
-	aDatabase pageBuilder title: 'newly added'; add.
+	aDatabase pageBuilder
+		title: 'newly added';
+		add.
 	^ anElement
 ]
 
 { #category : #'examples - database - tool' }
 LeUIExamples >> databaseToolElement [
 	<gtExample>
+	<return: #LeDatabaseToolElement>
 	| anElement aDatabase |
 	anElement := self basicDatabaseToolElement.
 	aDatabase := self databaseWithTwoPagesAndTwoDailyNotes.
@@ -230,6 +251,7 @@ LeUIExamples >> databaseToolElement [
 { #category : #'examples - database - tree' }
 LeUIExamples >> databaseTreeElement [
 	<gtExample>
+	<return: #LeDatabaseTreeElement>
 	| anElement aDatabase |
 	anElement := self basicDatabaseTreeElement.
 	aDatabase := self databaseWithTwoPagesAndTwoDailyNotes.
@@ -241,29 +263,48 @@ LeUIExamples >> databaseTreeElement [
 { #category : #'examples - model' }
 LeUIExamples >> databaseWithLinkedReferencesAmongPages [
 	<gtExample>
+	<return: #LeDatabase>
 	| aDatabase aPage |
-	aDatabase := self database.
-
-	"one"
-	aPage := aDatabase pageBuilder title: 'one'; add.
-	aPage snippetBuilder string: 'one > one'; add.
-	aPage snippetBuilder string: 'one > two [[three]]'; add.
-	aPage snippetBuilder string: 'one > three [[four]]'; add.
-
-	"two"
-	aPage := aDatabase pageBuilder title: 'two'; add.
-	aPage snippetBuilder string: 'two > one'; add.
-	aPage snippetBuilder string: 'two > two [[three]]'; add.
-
-	"three"
-	aPage := aDatabase pageBuilder title: 'three'; add.
-	aPage snippetBuilder string: 'three > one'; add.
-	aPage snippetBuilder string: 'three > two'; add.
-
-	"four"
-	aPage :=  aDatabase pageBuilder title: 'four'; add.
-	aPage snippetBuilder string: 'four > one [[four]]'; add.
-	aPage snippetBuilder string: 'four > two'; add.
+	aDatabase := self database.	"one"
+	aPage := aDatabase pageBuilder
+			title: 'one';
+			add.
+	aPage snippetBuilder
+		string: 'one > one';
+		add.
+	aPage snippetBuilder
+		string: 'one > two [[three]]';
+		add.
+	aPage snippetBuilder
+		string: 'one > three [[four]]';
+		add.	"two"
+	aPage := aDatabase pageBuilder
+			title: 'two';
+			add.
+	aPage snippetBuilder
+		string: 'two > one';
+		add.
+	aPage snippetBuilder
+		string: 'two > two [[three]]';
+		add.	"three"
+	aPage := aDatabase pageBuilder
+			title: 'three';
+			add.
+	aPage snippetBuilder
+		string: 'three > one';
+		add.
+	aPage snippetBuilder
+		string: 'three > two';
+		add.	"four"
+	aPage := aDatabase pageBuilder
+			title: 'four';
+			add.
+	aPage snippetBuilder
+		string: 'four > one [[four]]';
+		add.
+	aPage snippetBuilder
+		string: 'four > two';
+		add.
 
 	^ aDatabase
 ]
@@ -271,17 +312,24 @@ LeUIExamples >> databaseWithLinkedReferencesAmongPages [
 { #category : #'examples - model' }
 LeUIExamples >> databaseWithPageAAndLinkToPageB [
 	<gtExample>
+	<return: #LeDatabase>
 	| aDatabase |
 	aDatabase := self database.
-	aDatabase pageBuilder title: 'b'; add.
-	(aDatabase pageBuilder title: 'a'; add)
-		snippetBuilder string: '[[b]]'; add.
-	^ aDatabase	
+	aDatabase pageBuilder
+		title: 'b';
+		add.
+	(aDatabase pageBuilder
+		title: 'a';
+		add) snippetBuilder
+		string: '[[b]]';
+		add.
+	^ aDatabase
 ]
 
 { #category : #'examples - model' }
 LeUIExamples >> databaseWithTableOfContents [
 	<gtExample>
+	<return: #LeDatabase>
 	| aDatabase aFile |
 	aFile := GtResourceReference path: Path * 'feenkcom/lepiter/test-data/toc'.
 	aDatabase := LeLocalStoreLoad current loadAndMonitorFrom: aFile fileReference.
@@ -291,6 +339,7 @@ LeUIExamples >> databaseWithTableOfContents [
 { #category : #'examples - model' }
 LeUIExamples >> databaseWithTableOfContentsDuplicatePage [
 	<gtExample>
+	<return: #LeDatabase>
 	| aDatabase aFile |
 	aFile := GtResourceReference path: Path * 'feenkcom/lepiter/test-data/toc'.
 	aDatabase := LeLocalStoreLoad current loadAndMonitorFrom: aFile fileReference.
@@ -303,19 +352,26 @@ LeUIExamples >> databaseWithTableOfContentsDuplicatePage [
 { #category : #'examples - model' }
 LeUIExamples >> databaseWithTwoPagesAndTwoDailyNotes [
 	<gtExample>
+	<return: #LeDatabase>
 	| aDatabase |
 	aDatabase := self titledPageWithBlockHierachy database.
-	aDatabase pageBuilder title: 'two'; add.
-	aDatabase pageBuilder noteOf: Date today; add.
-	aDatabase pageBuilder noteOf: Date yesterday; add.
+	aDatabase pageBuilder
+		title: 'two';
+		add.
+	aDatabase pageBuilder
+		noteOf: Date today;
+		add.
+	aDatabase pageBuilder
+		noteOf: Date yesterday;
+		add.
 	^ aDatabase
 ]
 
 { #category : #'examples - model' }
 LeUIExamples >> linkedReferences_PageThree [
 	<gtExample>
+	<return: #LeIncomingExplicitPageLinksGroup>
 	| aPage aReference |
-
 	aPage := self pageThreeOfDatabaseWithLinkedReferencesAmongPages.
 	aReference := (LeLinksSelector default rootsFor: aPage) first.
 
@@ -324,8 +380,8 @@ LeUIExamples >> linkedReferences_PageThree [
 
 { #category : #'examples - page - block tree' }
 LeUIExamples >> pageBlockTreeElement_Hierarchy [
-
 	<gtExample>
+	<return: #LePageToolContentTreeElement>
 	| anElement aPage |
 	aPage := self titledPageWithBlockHierachy.
 
@@ -339,8 +395,8 @@ LeUIExamples >> pageBlockTreeElement_Hierarchy [
 
 { #category : #'examples - page - block tree' }
 LeUIExamples >> pageBlockTreeElement_NoHierarchy [
-
 	<gtExample>
+	<return: #LePageToolContentTreeElement>
 	| anElement aPage |
 	aPage := self titledPage.
 
@@ -355,6 +411,7 @@ LeUIExamples >> pageBlockTreeElement_NoHierarchy [
 { #category : #'examples - model' }
 LeUIExamples >> pageThreeOfDatabaseWithLinkedReferencesAmongPages [
 	<gtExample>
+	<return: #LePage>
 	| aDatabase aPage |
 	aDatabase := self databaseWithLinkedReferencesAmongPages.
 	aPage := aDatabase pageNamed: 'three'.
@@ -363,23 +420,22 @@ LeUIExamples >> pageThreeOfDatabaseWithLinkedReferencesAmongPages [
 
 { #category : #'examples - page - title and edit info' }
 LeUIExamples >> pageTitleAndEditInfoElement [
-
 	<gtExample>
+	<return: #LePageTitleAndSummaryElement>
 	| anElement aPage aPageViewModel |
 	anElement := self basicPageTitleAndEditInfoElement.
 	aPage := self titledPage.
 	aPageViewModel := aPage asContentUIModel.
 	anElement pageViewModel: aPageViewModel.
-	self assert: anElement titleElement text asString equals: aPage title.
-	"self assert: anElement dateElement text asString equals: aPage editTime asDate asString.
+	self assert: anElement titleElement text asString equals: aPage title.	"self assert: anElement dateElement text asString equals: aPage editTime asDate asString.
 	self assert: anElement emailElement text asString equals: aPage editEmail email asString."
 	^ anElement
 ]
 
 { #category : #'examples - page - tool' }
 LeUIExamples >> pageToolContentElement_Hierarchy [
-
 	<gtExample>
+	<return: #LePageToolContentTreeElement>
 	| anElement aPage |
 	anElement := self basicPageToolContentElement.
 	aPage := self titledPageWithBlockHierachy.
@@ -389,8 +445,8 @@ LeUIExamples >> pageToolContentElement_Hierarchy [
 
 { #category : #'examples - page - tool' }
 LeUIExamples >> pageToolContentElement_NoHierarchy [
-
 	<gtExample>
+	<return: #LePageToolContentTreeElement>
 	| anElement aPage |
 	anElement := self basicPageToolContentElement.
 	aPage := self titledPage.
@@ -401,6 +457,7 @@ LeUIExamples >> pageToolContentElement_NoHierarchy [
 { #category : #'examples - page - tool' }
 LeUIExamples >> pageToolContentElement_RemovePage [
 	<gtExample>
+	<return: #BlScripter>
 	| anElement aRemovedPage aNewPage aScripter aDatabase |
 	aScripter := BlScripter new.
 	anElement := self pageToolContentElement_Hierarchy.
@@ -408,14 +465,12 @@ LeUIExamples >> pageToolContentElement_RemovePage [
 
 	aRemovedPage := anElement pageViewModel pageModel.
 	aDatabase := aRemovedPage database.
-	
-	aScripter do 
+
+	aScripter do
 		block: [ anElement pageViewModel removePage ];
 		play.
-	
-	aNewPage := anElement pageViewModel pageModel.
-	
-	"See https://github.com/feenkcom/gtoolkit/issues/4186
+
+	aNewPage := anElement pageViewModel pageModel.	"See https://github.com/feenkcom/gtoolkit/issues/4186
 	We do not create new pages anymore.
 	Instead, the page widget indicates that page is deleted."
 	self assert: aNewPage == aRemovedPage.
@@ -428,6 +483,7 @@ LeUIExamples >> pageToolContentElement_RemovePage [
 { #category : #'examples - page - toolbar' }
 LeUIExamples >> pageToolContentElement_TitleAndAllActionButtons [
 	<gtExample>
+	<return: #LePageToolContentTreeElement>
 	| anElement anItem |
 	anElement := self pageToolContentElement_Hierarchy.
 	anElement withTitleOnly.
@@ -439,6 +495,7 @@ LeUIExamples >> pageToolContentElement_TitleAndAllActionButtons [
 { #category : #'examples - page - toolbar' }
 LeUIExamples >> pageToolContentElement_TitleAndInspectButton [
 	<gtExample>
+	<return: #LePageToolContentTreeElement>
 	| anElement anItem |
 	anElement := self pageToolContentElement_Hierarchy.
 	anElement withTitleAndButtons.
@@ -450,6 +507,7 @@ LeUIExamples >> pageToolContentElement_TitleAndInspectButton [
 { #category : #'examples - page - toolbar' }
 LeUIExamples >> pageToolContentElement_TitleOnly [
 	<gtExample>
+	<return: #LePageToolContentTreeElement>
 	| anElement anItem |
 	anElement := self pageToolContentElement_Hierarchy.
 	anElement withTitleOnly.
@@ -460,8 +518,8 @@ LeUIExamples >> pageToolContentElement_TitleOnly [
 
 { #category : #'examples - page - tool' }
 LeUIExamples >> pageToolElement_Hierarchy [
-
 	<gtExample>
+	<return: #LePageToolElement>
 	| anElement aPage |
 	anElement := self basicPageToolElement.
 	aPage := self titledPageWithBlockHierachy.
@@ -472,36 +530,38 @@ LeUIExamples >> pageToolElement_Hierarchy [
 { #category : #'examples - page - tool' }
 LeUIExamples >> pageToolElement_Hierarchy_Maximized [
 	<gtExample>
+	<return: #BrWidgetContainer>
 	| anElement aContainer |
 	aContainer := BrWidgetContainer new matchParent.
 	aContainer states addState: GtPhlowToolDetailState detailed.
-	
+
 	anElement := self pageToolElement_Hierarchy.
 	anElement matchParent.
-	
+
 	aContainer addChild: anElement.
-	
+
 	^ aContainer
 ]
 
 { #category : #'examples - page - tool' }
 LeUIExamples >> pageToolElement_Hierarchy_Normal [
 	<gtExample>
+	<return: #BrWidgetContainer>
 	| anElement aContainer |
 	aContainer := BrWidgetContainer new matchParent.
 	aContainer states addState: GtPhlowToolDetailState normal.
 
 	anElement := self pageToolElement_Hierarchy.
 	anElement matchParent.
-	
+
 	aContainer addChild: anElement.
 	^ aContainer
 ]
 
 { #category : #'examples - page - tool' }
 LeUIExamples >> pageToolElement_Hierarchy_TitleFocused [
-
 	<gtExample>
+	<return: #LePageToolElement>
 	| anElement |
 	anElement := self pageToolElement_Hierarchy.
 	anElement contentElement selectTitle.
@@ -510,8 +570,8 @@ LeUIExamples >> pageToolElement_Hierarchy_TitleFocused [
 
 { #category : #'examples - page - tool' }
 LeUIExamples >> pageToolElement_NoHierarchy [
-
 	<gtExample>
+	<return: #LePageToolElement>
 	| anElement aPage |
 	anElement := self basicPageToolElement.
 	aPage := self titledPage.
@@ -522,6 +582,7 @@ LeUIExamples >> pageToolElement_NoHierarchy [
 { #category : #'examples - page - tool' }
 LeUIExamples >> scripterOnPageToolElementWithTitleFocused [
 	<gtExample>
+	<return: #BlScripter>
 	| scripter anElement |
 	scripter := BlScripter new.
 	anElement := self pageToolElement_Hierarchy_TitleFocused.
@@ -539,83 +600,131 @@ LeUIExamples >> scripterOnPageToolElementWithTitleFocused [
 { #category : #'examples - model' }
 LeUIExamples >> titledPage [
 	<gtExample>
-	^ self database pageBuilder title: 'one'; add
+	<return: #LePage>
+	^ self database pageBuilder
+		title: 'one';
+		add
 ]
 
 { #category : #'examples - model' }
 LeUIExamples >> titledPageWithBlock [
 	<gtExample>
+	<return: #LePage>
 	| aPage |
-	aPage := self database pageBuilder title: 'one'; add.
-	aPage snippetBuilder string: '[[two]]'; add.
+	aPage := self database pageBuilder
+			title: 'one';
+			add.
+	aPage snippetBuilder
+		string: '[[two]]';
+		add.
 	^ aPage
 ]
 
 { #category : #'examples - model' }
 LeUIExamples >> titledPageWithBlockHierachy [
 	<gtExample>
+	<return: #LePage>
 	| aPage aSnippetOne aSnippetTwo |
-	aPage := self database pageBuilder title: 'one'; add.
-	aSnippetOne := aPage snippetBuilder string: 'block one > one'; add.
-	aSnippetTwo := aPage snippetBuilder string: 'block one > two'; add.
-	aSnippetOne snippetBuilder string: 'block one > one > one'; add.
-	aSnippetOne snippetBuilder string: 'block one > one > two'; add.
-	aSnippetTwo snippetBuilder string: 'block one > two > one'; add.
-	aSnippetTwo snippetBuilder string: 'block one > two > two'; add.
+	aPage := self database pageBuilder
+			title: 'one';
+			add.
+	aSnippetOne := aPage snippetBuilder
+			string: 'block one > one';
+			add.
+	aSnippetTwo := aPage snippetBuilder
+			string: 'block one > two';
+			add.
+	aSnippetOne snippetBuilder
+		string: 'block one > one > one';
+		add.
+	aSnippetOne snippetBuilder
+		string: 'block one > one > two';
+		add.
+	aSnippetTwo snippetBuilder
+		string: 'block one > two > one';
+		add.
+	aSnippetTwo snippetBuilder
+		string: 'block one > two > two';
+		add.
 	^ aPage
 ]
 
 { #category : #'examples - model' }
 LeUIExamples >> titledPageWithPharoCodeHierarchy [
 	<gtExample>
+	<return: #LePage>
 	| aPage aSnippetOne otherSnippets |
-	aPage := self database pageBuilder title: 'Shared variable a'; add.
-	aSnippetOne := aPage snippetBuilder pharo: 'a := Array with: 42'; add.
-	otherSnippets := 50 timesRepeat: [ aPage snippetBuilder pharo: 'a'; add ].
+	aPage := self database pageBuilder
+			title: 'Shared variable a';
+			add.
+	aSnippetOne := aPage snippetBuilder
+			pharo: 'a := Array with: 42';
+			add.
+	otherSnippets := 50
+			timesRepeat: [ aPage snippetBuilder
+					pharo: 'a';
+					add ].
 	^ aPage
 ]
 
 { #category : #'examples - model' }
 LeUIExamples >> titledPageWithPharoCodeHierarchy_assignments [
 	<gtExample>
+	<return: #LePage>
 	| aPage aNumber |
-	aPage := self database pageBuilder title: 'Shared variable a'; add.
+	aPage := self database pageBuilder
+			title: 'Shared variable a';
+			add.
 	aNumber := 0.
-	10 timesRepeat: [ 
-		aNumber := aNumber + 1.
-		aPage snippetBuilder pharo: 'a := Array with: ', aNumber asString; add.
-		aPage snippetBuilder pharo: 'a'; add.
-		 ].
+	10
+		timesRepeat: [ aNumber := aNumber + 1.
+			aPage snippetBuilder
+				pharo: 'a := Array with: ' , aNumber asString;
+				add.
+			aPage snippetBuilder
+				pharo: 'a';
+				add ].
 	^ aPage
 ]
 
 { #category : #'examples - model' }
 LeUIExamples >> titledPageWithPharoCodeHierarchy_numbers [
 	<gtExample>
+	<return: #LePage>
 	| aPage aNumber |
-	aPage := self database pageBuilder title: 'Enumerated pharo snippets'; add.
+	aPage := self database pageBuilder
+			title: 'Enumerated pharo snippets';
+			add.
 	aNumber := 0.
-	42 timesRepeat: [ 
-		aNumber := aNumber + 1.
-		aPage snippetBuilder pharo: aNumber asString; add. ].
+	42
+		timesRepeat: [ aNumber := aNumber + 1.
+			aPage snippetBuilder
+				pharo: aNumber asString;
+				add ].
 	^ aPage
 ]
 
 { #category : #'examples - model' }
 LeUIExamples >> titledPageWithTextSnippets_numbers [
 	<gtExample>
+	<return: #LePage>
 	| aPage aNumber |
-	aPage := self database pageBuilder title: 'Enumerated pharo snippets'; add.
+	aPage := self database pageBuilder
+			title: 'Enumerated pharo snippets';
+			add.
 	aNumber := 0.
-	42 timesRepeat: [ 
-		aNumber := aNumber + 1.
-		aPage snippetBuilder string: aNumber asString; add. ].
+	42
+		timesRepeat: [ aNumber := aNumber + 1.
+			aPage snippetBuilder
+				string: aNumber asString;
+				add ].
 	^ aPage
 ]
 
 { #category : #'examples - toolbar' }
 LeUIExamples >> toolbarWithButton [
 	<gtExample>
+	<return: #LeToolbarElement>
 	| anElement aButton |
 	anElement := self basicToolbar.
 	aButton := self buttonIcon: BrGlamorousIcons inspect tooltip: 'Inspect'.
@@ -626,6 +735,7 @@ LeUIExamples >> toolbarWithButton [
 { #category : #'examples - toolbar' }
 LeUIExamples >> toolbarWithTwoButtons [
 	<gtExample>
+	<return: #LeToolbarElement>
 	| anElement aButton |
 	anElement := self toolbarWithButton.
 	aButton := self buttonIcon: BrGlamorousIcons browse tooltip: 'Browse'.
@@ -636,6 +746,7 @@ LeUIExamples >> toolbarWithTwoButtons [
 { #category : #'examples - toolbar' }
 LeUIExamples >> toolbarWithTwoButtonsAndFixedSeparator [
 	<gtExample>
+	<return: #LeToolbarElement>
 	| anElement aButton |
 	anElement := self toolbarWithButton.
 	anElement addFixedSeparator.
@@ -647,5 +758,6 @@ LeUIExamples >> toolbarWithTwoButtonsAndFixedSeparator [
 { #category : #'examples - model' }
 LeUIExamples >> untitledPage [
 	<gtExample>
+	<return: #LePage>
 	^ self database pageBuilder addOnlyAfterSettingTitle
 ]

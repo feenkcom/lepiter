@@ -7,9 +7,10 @@ Class {
 { #category : #'examples - json' }
 LeRoamJsonExamples >> databaseWithOnePageNoCreateValues [
 	<gtExample>
+	<return: #LeDatabase>
 	| aDatabase |
 	aDatabase := self reader
-		databaseFromString: self databaseWithOnePageNoCreateValuesJson.
+			databaseFromString: self databaseWithOnePageNoCreateValuesJson.
 	self assert: aDatabase size equals: 1.
 	^ aDatabase
 ]
@@ -27,9 +28,10 @@ LeRoamJsonExamples >> databaseWithOnePageNoCreateValuesJson [
 { #category : #'examples - json' }
 LeRoamJsonExamples >> databaseWithOnePageNoEditValues [
 	<gtExample>
+	<return: #LeDatabase>
 	| aDatabase |
 	aDatabase := self reader
-		databaseFromString: self databaseWithOnePageNoEditValuesJson.
+			databaseFromString: self databaseWithOnePageNoEditValuesJson.
 	self assert: aDatabase size equals: 1.
 	^ aDatabase
 ]
@@ -46,6 +48,7 @@ LeRoamJsonExamples >> databaseWithOnePageNoEditValuesJson [
 { #category : #'examples - json' }
 LeRoamJsonExamples >> databaseWithOnePageNoEditValues_Read [
 	<gtExample>
+	<return: #FileReference>
 	| aDatabase aFile |
 	aFile := self databaseWithOnePageNoEditValues_Write.
 	aDatabase := LeDatabase fromRoamJsonFile: aFile.
@@ -57,6 +60,7 @@ LeRoamJsonExamples >> databaseWithOnePageNoEditValues_Read [
 { #category : #'examples - json' }
 LeRoamJsonExamples >> databaseWithOnePageNoEditValues_Write [
 	<gtExample>
+	<return: #FileReference>
 	| aDatabase aFile |
 	aDatabase := self databaseWithOnePageNoEditValues.
 	aFile := FileSystem memory workingDirectory / 'file.json'.
@@ -71,19 +75,18 @@ LeRoamJsonExamples >> databaseWithOnePageNoEditValues_Write [
 { #category : #'examples - json' }
 LeRoamJsonExamples >> databaseWithOnePageWithSnippetWithInvalidBase64Encoder [
 	<gtExample>
+	<return: #LeDatabase>
 	| aDatabase targetPage targetSnippet |
 	aDatabase := self reader
-		databaseFromString: self databaseWithOnePageWithSnippetWithInvalidBase64EncoderJson.
+			databaseFromString: self databaseWithOnePageWithSnippetWithInvalidBase64EncoderJson.
 	self assert: aDatabase size equals: 1.
-	
+
 	targetPage := aDatabase pages first.
 	self assert: targetPage children size equals: 1.
-	
+
 	targetSnippet := targetPage children first.
-	self 
-		assert: targetSnippet uidString 
-		equals: 'Wuu11jwlbWuuAAAAAAAAAA=='.
-	
+	self assert: targetSnippet uidString equals: 'Wuu11jwlbWuuAAAAAAAAAA=='.
+
 	^ aDatabase
 ]
 
@@ -110,19 +113,18 @@ LeRoamJsonExamples >> databaseWithOnePageWithSnippetWithInvalidBase64EncoderJson
 { #category : #'examples - json' }
 LeRoamJsonExamples >> databaseWithPageWithSnippetLink [
 	<gtExample>
+	<return: #LeDatabase>
 	| aDatabase pageWithLink snippetWithLink |
 	aDatabase := self reader
-		databaseFromString: self databaseWithPageWithSnippetLinkJson.
+			databaseFromString: self databaseWithPageWithSnippetLinkJson.
 	self assert: aDatabase size equals: 2.
-	
+
 	pageWithLink := aDatabase pageNamed: 'One snippet with link'.
 	self assert: pageWithLink children size equals: 1.
-	
+
 	snippetWithLink := pageWithLink children first.
-	self 
-		assert: snippetWithLink string 
-		equals: 'link ((Wuu11jwlbWuuAAAAAAAAAA==))'.
-	
+	self assert: snippetWithLink string equals: 'link ((Wuu11jwlbWuuAAAAAAAAAA==))'.
+
 	^ aDatabase
 ]
 
@@ -169,19 +171,20 @@ LeRoamJsonExamples >> databaseWithPageWithSnippetLinkJson [
 { #category : #'examples - json' }
 LeRoamJsonExamples >> databaseWithPageWithSnippetWithTwoLinks [
 	<gtExample>
+	<return: #LeDatabase>
 	| aDatabase pageWithLink snippetWithLink |
 	aDatabase := self reader
-		databaseFromString: self databaseWithPageWithSnippetWithTwoLinksJson.
+			databaseFromString: self databaseWithPageWithSnippetWithTwoLinksJson.
 	self assert: aDatabase size equals: 2.
-	
+
 	pageWithLink := aDatabase pageNamed: 'One snippet with link'.
 	self assert: pageWithLink children size equals: 1.
-	
+
 	snippetWithLink := pageWithLink children first.
-	self 
-		assert: snippetWithLink string 
+	self
+		assert: snippetWithLink string
 		equals: 'link ((Wuu11jwlbWuuAAAAAAAAAA==)) and ((OpgJN0KUhOpgAAAAAAAAAA==))'.
-	
+
 	^ aDatabase
 ]
 
@@ -237,8 +240,8 @@ LeRoamJsonExamples >> databaseWithPageWithSnippetWithTwoLinksJson [
 { #category : #accessing }
 LeRoamJsonExamples >> defaultPictureSnippet [
 	<gtExample>
+	<return: #LePictureSnippet>
 	| pictureSnippet |
-
 	pictureSnippet := LePictureSnippet new.
 	self assert: pictureSnippet roamJsonStringContent equals: ''.
 
@@ -267,12 +270,12 @@ LeRoamJsonExamples >> exportedDatabaseJson [
 { #category : #'examples - json' }
 LeRoamJsonExamples >> helpDatabaseFromJsonImport [
 	<gtExample>
+	<return: #LeDatabase>
 	| aDatabase |
-	aDatabase := self reader
-		databaseFromString: self helpDatabaseJson.
-	
+	aDatabase := self reader databaseFromString: self helpDatabaseJson.
+
 	self assert: aDatabase size equals: 5.
-	
+
 	^ aDatabase
 ]
 
@@ -403,25 +406,26 @@ LeRoamJsonExamples >> helpDatabaseJson [
 { #category : #'examples - json' }
 LeRoamJsonExamples >> helpDatabaseSnippetWithFourLinks [
 	<gtExample>
+	<return: #LeDatabase>
 	| aDatabase targetPage targetSnippet |
-	aDatabase := self reader
-		databaseFromString: self helpDatabaseJson.
+	aDatabase := self reader databaseFromString: self helpDatabaseJson.
 	self assert: aDatabase size equals: 5.
-	
+
 	targetPage := aDatabase pageNamed: 'Page with Snippet with 4 links'.
 	self assert: targetPage children size equals: 1.
-	
+
 	targetSnippet := targetPage children first.
-	self 
-		assert: targetSnippet string 
+	self
+		assert: targetSnippet string
 		equals: 'Lepiters is ((LhB0QVSAAAAAAAAAAAAAAA==)), ((egMdI3+yAAAAAAAAAAAAAA==)) and ((aKDB+BgdAAAAAAAAAAAAAA==)) / ((aKDB+BgdAAAAAAAAAAAAAA==))'.
-	
+
 	^ aDatabase
 ]
 
 { #category : #'examples - json' }
 LeRoamJsonExamples >> pageNoCreateValues [
 	<gtExample>
+	<return: #LePage>
 	| aDatabase aPage |
 	aDatabase := self databaseWithOnePageNoCreateValues.
 	aPage := aDatabase anyOne.
@@ -439,6 +443,7 @@ LeRoamJsonExamples >> pageNoCreateValues [
 { #category : #'examples - json' }
 LeRoamJsonExamples >> pageNoEditValues [
 	<gtExample>
+	<return: #LePage>
 	| aDatabase aPage |
 	aDatabase := self databaseWithOnePageNoEditValues.
 	aPage := aDatabase anyOne.
@@ -456,52 +461,56 @@ LeRoamJsonExamples >> pageNoEditValues [
 { #category : #'examples - basic' }
 LeRoamJsonExamples >> pageWithSnippet [
 	<gtExample>
+	<return: #LePage>
 	| db page |
 	db := LeDatabase new.
 	page := db pageBuilder
-		title: 'Page with Pharo Snippet';
-		add.
+			title: 'Page with Pharo Snippet';
+			add.
 	page snippetBuilder
 		string: 'Preceding text block';
 		add.
-	
+
 	page addSnippet: (LePharoSnippet new code: '42 inspect').
 	page snippetBuilder
 		string: 'Following text block';
 		add.
-	
+
 	^ page
 ]
 
 { #category : #'examples - basic' }
 LeRoamJsonExamples >> pageWithSnippetJSONExport [
 	"Export the example page in Roam JSON format"
-	<gtExample>
-	| page roamJSON jsonObject blocks snippetBlock code |
 
+	<gtExample>
+	<return: #ByteString>
+	| page roamJSON jsonObject blocks snippetBlock code |
 	page := self pageWithSnippet.
-	roamJSON := String streamContents: [ :stream |
-		LeRoamJsonTranslator default page: page toStream: stream ].
+	roamJSON := String
+			streamContents: [ :stream | LeRoamJsonTranslator default page: page toStream: stream ].
 	jsonObject := STONJSON fromString: roamJSON.
 	blocks := jsonObject at: #children.
 	snippetBlock := blocks second.
 	code := snippetBlock at: #string.
-	
+
 	self assert: code equals: '```smalltalk\42 inspect\```' withCRs.
-	
+
 	^ roamJSON
 ]
 
 { #category : #accessing }
 LeRoamJsonExamples >> pictureSnippetWithURL [
 	<gtExample>
+	<return: #LePictureSnippet>
 	| urlString pictureSnippet |
-	
 	urlString := 'https://domain.com/picture.jpg'.
-	
+
 	pictureSnippet := self defaultPictureSnippet.
 	pictureSnippet urlString: urlString.
-	self assert: pictureSnippet roamJsonStringContent equals: ('![]({1})' format: { urlString }).
+	self
+		assert: pictureSnippet roamJsonStringContent
+		equals: ('![]({1})' format: {urlString}).
 
 	^ pictureSnippet
 ]
@@ -509,11 +518,12 @@ LeRoamJsonExamples >> pictureSnippetWithURL [
 { #category : #'examples - basic' }
 LeRoamJsonExamples >> readEditTime [
 	<gtExample>
+	<return: #DateAndTime>
 	| aDateAndTime |
-	aDateAndTime := self reader 
-		readString: self editTime asString
-		as: DateAndTime
-		withMapping: #dateAndTimeMappingFor:.
+	aDateAndTime := self reader
+			readString: self editTime asString
+			as: DateAndTime
+			withMapping: #dateAndTimeMappingFor:.
 	self assert: aDateAndTime equals: '2019-07-26T22:13:53.107+00:00' asDateAndTime.
 	^ aDateAndTime
 ]
@@ -526,14 +536,15 @@ LeRoamJsonExamples >> reader [
 { #category : #'examples - json' }
 LeRoamJsonExamples >> simplePage [
 	<gtExample>
+	<return: #LePage>
 	| aPage |
 	aPage := self reader
-		readString: self simplePageJson 
-		as: LePage 
-		withMapping: #pageMappingFor:.
-		
+			readString: self simplePageJson
+			as: LePage
+			withMapping: #pageMappingFor:.
+
 	self assert: aPage children size equals: 0.
-	
+
 	^ aPage
 ]
 
@@ -549,16 +560,17 @@ LeRoamJsonExamples >> simplePageJson [
 { #category : #'examples - basic' }
 LeRoamJsonExamples >> writeEditTime [
 	<gtExample>
+	<return: #ByteString>
 	| aDateAndTime aString |
 	aDateAndTime := self readEditTime.
-	aString := self writer 
-		write: aDateAndTime 
-		as: DateAndTime
-		withMapping: #dateAndTimeMappingFor:.
-		
+	aString := self writer
+			write: aDateAndTime
+			as: DateAndTime
+			withMapping: #dateAndTimeMappingFor:.
+
 	self assert: aString asInteger equals: self editTime.
 	self assert: aString equals: self editTime asString.
-	
+
 	^ aString
 ]
 

@@ -3,6 +3,7 @@ Extension { #name : #LeDatabaseIndexExamples }
 { #category : #'*Lepiter-Pharo' }
 LeDatabaseIndexExamples >> database [
 	<gtExample>
+	<return: #LeDatabase>
 	| page pageUID database |
 	database := LeDatabase new.
 

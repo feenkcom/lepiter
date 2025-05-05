@@ -29,6 +29,7 @@ LeElementSnippeCodeUpdateExamples >> assertSnippetModifiedFor: targetSnippet [
 { #category : #'examples - snippets' }
 LeElementSnippeCodeUpdateExamples >> createTargetSnippet [
 	<gtExample>
+	<return: #LeElementSnippet>
 	^ LeElementSnippet code: 'BlElement new'
 ]
 

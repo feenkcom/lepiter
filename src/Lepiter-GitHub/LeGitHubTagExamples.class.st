@@ -1,12 +1,13 @@
 Class {
 	#name : #LeGitHubTagExamples,
 	#superclass : #LeGitHubExamples,
-	#category : 'Lepiter-GitHub-Examples'
+	#category : #'Lepiter-GitHub-Examples'
 }
 
 { #category : #'examples - ui auxiliar' }
 LeGitHubTagExamples >> basicEditorModelElement [
 	<gtExample>
+	<return: #LeGitHubTagEditorModelElement>
 	| anElement |
 	anElement := LeGitHubTagEditorModelElement new.
 	^ anElement
@@ -15,6 +16,7 @@ LeGitHubTagExamples >> basicEditorModelElement [
 { #category : #'examples - model' }
 LeGitHubTagExamples >> basicModel [
 	<gtExample>
+	<return: #LeGitHubTagModel>
 	| aModel |
 	aModel := LeGitHubTagModel new.
 	^ aModel
@@ -23,6 +25,7 @@ LeGitHubTagExamples >> basicModel [
 { #category : #'examples - ui model' }
 LeGitHubTagExamples >> basicModelElement [
 	<gtExample>
+	<return: #LeGitHubTagModelElement>
 	| anElement |
 	anElement := LeGitHubTagModelElement new.
 	^ anElement
@@ -31,6 +34,7 @@ LeGitHubTagExamples >> basicModelElement [
 { #category : #'examples - snippet' }
 LeGitHubTagExamples >> basicSnippet [
 	<gtExample>
+	<return: #LeGitHubTagSnippet>
 	| aSnippet |
 	aSnippet := LeGitHubTagSnippet new.
 	^ aSnippet
@@ -39,15 +43,17 @@ LeGitHubTagExamples >> basicSnippet [
 { #category : #'examples - ui snippet' }
 LeGitHubTagExamples >> basicSnippetElement [
 	<gtExample>
+	<return: #LeGitHubTagSnippetElement>
 	| anElement |
 	anElement := LeGitHubTagSnippetElement new.
 	self assert: anElement hasSnippetViewModel not.
-	^ anElement 
+	^ anElement
 ]
 
 { #category : #'examples - ui auxiliar' }
 LeGitHubTagExamples >> basicSummaryModelElement [
 	<gtExample>
+	<return: #LeGitHubTagSummaryModelElement>
 	| anElement |
 	anElement := LeGitHubTagSummaryModelElement new.
 	^ anElement
@@ -56,6 +62,7 @@ LeGitHubTagExamples >> basicSummaryModelElement [
 { #category : #'examples - ui auxiliar' }
 LeGitHubTagExamples >> editorModelElement [
 	<gtExample>
+	<return: #LeGitHubTagEditorModelElement>
 	| anElement aModel |
 	anElement := self basicEditorModelElement.
 
@@ -63,13 +70,14 @@ LeGitHubTagExamples >> editorModelElement [
 	anElement model: aModel.
 
 	self assert: anElement model equals: aModel.
-	
+
 	^ anElement
 ]
 
 { #category : #'examples - model' }
 LeGitHubTagExamples >> model [
 	<gtExample>
+	<return: #LeGitHubTagModel>
 	| aModel |
 	aModel := self basicModel.
 	aModel ownerName: self ownerName.
@@ -81,6 +89,7 @@ LeGitHubTagExamples >> model [
 { #category : #'examples - ui model' }
 LeGitHubTagExamples >> modelElement [
 	<gtExample>
+	<return: #LeGitHubTagModelElement>
 	| anElement aModel |
 	anElement := self basicModelElement.
 
@@ -88,13 +97,14 @@ LeGitHubTagExamples >> modelElement [
 	anElement model: aModel.
 
 	self assert: anElement model equals: aModel.
-	
+
 	^ anElement
 ]
 
 { #category : #'examples - snippet' }
 LeGitHubTagExamples >> snippet [
 	<gtExample>
+	<return: #LeGitHubTagSnippet>
 	| aSnippet |
 	aSnippet := self basicSnippet.
 	aSnippet ownerName: self ownerName.
@@ -106,6 +116,7 @@ LeGitHubTagExamples >> snippet [
 { #category : #'examples - ui snippet' }
 LeGitHubTagExamples >> snippetElement [
 	<gtExample>
+	<return: #LeGitHubTagSnippetElement>
 	| anElement aSnippet |
 	anElement := self basicSnippetElement.
 	aSnippet := self snippet.
@@ -117,6 +128,7 @@ LeGitHubTagExamples >> snippetElement [
 { #category : #'examples - ui snippet' }
 LeGitHubTagExamples >> snippetElement_WithResponse [
 	<gtExample>
+	<return: #LeGitHubTagSnippetElement>
 	| anElement aSnippet |
 	anElement := self basicSnippetElement.
 	aSnippet := self snippet.
@@ -129,6 +141,7 @@ LeGitHubTagExamples >> snippetElement_WithResponse [
 { #category : #'examples - ui auxiliar' }
 LeGitHubTagExamples >> summaryModelElement [
 	<gtExample>
+	<return: #LeGitHubTagSummaryModelElement>
 	| anElement aModel |
 	anElement := self basicSummaryModelElement.
 
@@ -136,7 +149,7 @@ LeGitHubTagExamples >> summaryModelElement [
 	anElement model: aModel.
 
 	self assert: anElement model equals: aModel.
-	
+
 	^ anElement
 ]
 

@@ -28,7 +28,8 @@ LeWardleyMapSnippetUpdateExamples >> nodeUUID [
 { #category : #'examples - snippets' }
 LeWardleyMapSnippetUpdateExamples >> wardleyMapWithNode [
 	<gtExample>
-	^ GtWardleyMapModelExamples new newMap 
+	<return: #GtWardleyMapModel>
+	^ GtWardleyMapModelExamples new newMap
 		addNode: self newWardleyMapNode;
 		yourself
 ]

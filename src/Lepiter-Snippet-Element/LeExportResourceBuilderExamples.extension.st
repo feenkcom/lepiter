@@ -3,6 +3,7 @@ Extension { #name : #LeExportResourceBuilderExamples }
 { #category : #'*Lepiter-Snippet-Element' }
 LeExportResourceBuilderExamples >> snippetElementWithSlideshowSpecification [
 	<gtExample>
+	<return: #LeExportPresenterSlideShowElementResourceBuilder>
 	| finder element snippet resourcer objectSpecification resources sequencer fileStore createdResources |
 	finder := LeExportObjectSpecificationBuilderExamples new
 			snippetElementWithSlideshowSpecification.

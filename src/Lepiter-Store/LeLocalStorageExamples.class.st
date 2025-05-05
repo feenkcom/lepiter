@@ -3,18 +3,19 @@ Class {
 	#superclass : #Object,
 	#traits : 'TAssertable',
 	#classTraits : 'TAssertable classTrait',
-	#category : 'Lepiter-Store-Local-Examples'
+	#category : #'Lepiter-Store-Local-Examples'
 }
 
 { #category : #examples }
 LeLocalStorageExamples >> ensureAttributeOrdering [
 	"Check that a the process of reading and writing a JSON file doesn't change the attribute ordering"
-	<gtExample>
-	| pageJson fileSystem file storage jsonObject file2 pageJson2 |
 
-	pageJson := ((self class >> #jsonSource) comments second 
-		copyReplaceAll: '''' with: '"')
-		withUnixLineEndings.
+	<gtExample>
+	<return: #ByteString>
+	| pageJson fileSystem file storage jsonObject file2 pageJson2 |
+	pageJson := ((self class >> #jsonSource) comments second
+			copyReplaceAll: ''''
+			with: '"') withUnixLineEndings.
 	fileSystem := FileSystem memory.
 	file := fileSystem root / 'page.json'.
 	file writeStreamDo: [ :stream | stream << pageJson ].
@@ -25,9 +26,7 @@ LeLocalStorageExamples >> ensureAttributeOrdering [
 	storage write: jsonObject toJsonFile: file2.
 	pageJson2 := file2 contents.
 
-	self 
-		assert: pageJson2 withUnixLineEndings 
-		equals: pageJson.
+	self assert: pageJson2 withUnixLineEndings equals: pageJson.
 	^ pageJson
 ]
 

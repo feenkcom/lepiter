@@ -22,6 +22,7 @@ LeExportSnippetExamples >> pictureFile_MissingOne [
 { #category : #'*Lepiter-Snippet-Picture' }
 LeExportSnippetExamples >> pictureSnippetWithExistingFileReference [
 	<gtExample>
+	<return: #LePictureSnippet>
 	| snippet |
 	snippet := LePictureSnippet new urlString: self pictureFile_ExistingOne.
 
@@ -31,8 +32,10 @@ LeExportSnippetExamples >> pictureSnippetWithExistingFileReference [
 { #category : #'*Lepiter-Snippet-Picture' }
 LeExportSnippetExamples >> pictureSnippetWithHttps [
 	<gtExample>
+	<return: #LePictureSnippet>
 	| snippet |
-	snippet := LePictureSnippet new urlString: 'https://gtoolkit.com/assets/pictures/use-case-rest-api.png'.
+	snippet := LePictureSnippet new
+			urlString: 'https://gtoolkit.com/assets/pictures/use-case-rest-api.png'.
 
 	^ snippet
 ]
@@ -40,6 +43,7 @@ LeExportSnippetExamples >> pictureSnippetWithHttps [
 { #category : #'*Lepiter-Snippet-Picture' }
 LeExportSnippetExamples >> pictureSnippetWithMissingFileReference [
 	<gtExample>
+	<return: #LePictureSnippet>
 	| snippet |
 	snippet := LePictureSnippet new urlString: self pictureFile_MissingOne.
 
