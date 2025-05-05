@@ -7,6 +7,7 @@ Class {
 { #category : #'examples - basic' }
 LePageBuilderExamples >> basicBuilder [
 	<gtExample>
+	<return: #LePageBuilder>
 	| aBuilder |
 	aBuilder := LePage builder.
 	^ aBuilder
@@ -15,6 +16,7 @@ LePageBuilderExamples >> basicBuilder [
 { #category : #'examples - pages' }
 LePageBuilderExamples >> basicPage [
 	<gtExample>
+	<return: #LePage>
 	| aBuilder aPage |
 	aBuilder := self basicBuilder.
 	aPage := aBuilder build.

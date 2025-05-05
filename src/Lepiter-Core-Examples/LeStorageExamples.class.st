@@ -61,8 +61,8 @@ LeStorageExamples >> assertSnippetEqualsEvaluatedStoreString: aSnippet [
 
 { #category : #accessing }
 LeStorageExamples >> emptyTextSnippet [
-
 	<gtExample>
+	<return: #LeTextSnippet>
 	| snippet |
 	snippet := LeTextSnippet string: ''.
 	self assertSnippetEqualsEvaluatedStoreString: snippet.
@@ -80,10 +80,11 @@ LeStorageExamples >> gtBook [
 { #category : #accessing }
 LeStorageExamples >> nestedTextSnippet [
 	<gtExample>
+	<return: #LeTextSnippet>
 	| snippet |
 	snippet := self textSnippet.
-	snippet addSnippet:
-		(LeTextSnippet string: 'Everything happens by sending messages').
+	snippet
+		addSnippet: (LeTextSnippet string: 'Everything happens by sending messages').
 	self assertSnippetEqualsEvaluatedStoreString: snippet.
 	^ snippet
 ]
@@ -91,7 +92,8 @@ LeStorageExamples >> nestedTextSnippet [
 { #category : #accessing }
 LeStorageExamples >> textSnippet [
 	<gtExample>
-	|snippet|
+	<return: #LeTextSnippet>
+	| snippet |
 	snippet := LeTextSnippet string: 'Everything is an object.'.
 	self assertSnippetEqualsEvaluatedStoreString: snippet.
 	^ snippet
@@ -100,7 +102,8 @@ LeStorageExamples >> textSnippet [
 { #category : #accessing }
 LeStorageExamples >> textSnippetWithQuotes [
 	<gtExample>
-	|snippet|
+	<return: #LeTextSnippet>
+	| snippet |
 	snippet := LeTextSnippet string: '''Everything'' is an ''object''.'.
 	self assertSnippetEqualsEvaluatedStoreString: snippet.
 	^ snippet
@@ -109,6 +112,7 @@ LeStorageExamples >> textSnippetWithQuotes [
 { #category : #accessing }
 LeStorageExamples >> unnamedPageWithTextAndPharoSnippets [
 	<gtExample>
+	<return: #LePage>
 	| page |
 	page := LePage unnamedPage.
 	page addSnippet: self textSnippet.

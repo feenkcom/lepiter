@@ -36,7 +36,8 @@ LeExampleSnippetMethodUpdateExamples >> assertSnippetModifiedFor: targetSnippet 
 { #category : #'examples - snippets' }
 LeExampleSnippetMethodUpdateExamples >> createTargetSnippet [
 	<gtExample>
-	^ LeExampleSnippet new 
+	<return: #LeExampleSnippet>
+	^ LeExampleSnippet new
 		exampleBehaviorName: 'BlBasicExamples';
 		exampleSelector: #circle
 ]

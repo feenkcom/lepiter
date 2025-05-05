@@ -17,9 +17,9 @@ LeInsertSingleCharacterEditTextValueSnippetCommandExamples >> initialStringValue
 { #category : #accessing }
 LeInsertSingleCharacterEditTextValueSnippetCommandExamples >> instantiateBasicTextEditCommand [
 	<gtExample>
-	
-	^ BrTextEditorHistoryInsertionCommand new 
-		strings: { 'x' };
+	<return: #BrTextEditorHistoryInsertionCommand>
+	^ BrTextEditorHistoryInsertionCommand new
+		strings: {'x'};
 		undoIndices: #(1);
 		redoIndices: #(1)
 ]

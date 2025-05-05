@@ -27,6 +27,7 @@ DatabaseHolderExamples >> emptiedDatabase [
 	"We remove all the pages."
 
 	<gtExample>
+	<return: #DatabaseHolderExamples>
 	| eg |
 	eg := self initializedDatabase.
 	eg database pages do: #removeSelf.
@@ -38,25 +39,27 @@ DatabaseHolderExamples >> emptiedDatabase [
 DatabaseHolderExamples >> gtProjectPage [
 	<lePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'GT')
-	addSnippet: (LeTextSnippet new
-			string: ' [[Project]]';
-			yourself);
-	yourself
+		addSnippet: (LeTextSnippet new
+				string: ' [[Project]]';
+				yourself);
+		yourself
 ]
 
 { #category : #page }
 DatabaseHolderExamples >> gtbookTodoPage [
 	<lePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'GT Book')
-	addSnippet: (LeTextSnippet new
-			string: ' [[GT]] [[ToDo]]';
-			yourself);
-	addSnippet: (LeTextSnippet new
-			string: 'Work on the GT Book';
-			yourself);
-	yourself
+		addSnippet: (LeTextSnippet new
+				string: ' [[GT]] [[ToDo]]';
+				yourself);
+		addSnippet: (LeTextSnippet new
+				string: 'Work on the GT Book';
+				yourself);
+		yourself
 ]
 
 { #category : #initialization }
@@ -71,6 +74,7 @@ DatabaseHolderExamples >> initializedDatabase [
 	"Upon the first access to #database, the transient database will be initialized."
 
 	<gtExample>
+	<return: #DatabaseHolderExamples>
 	| eg |
 	eg := self class new.
 
@@ -86,6 +90,7 @@ DatabaseHolderExamples >> nilDatabase [
 	"If we do not send #initializeDatabase or the #database accessor, the database will remain nil, and also no database views or actions will appear."
 
 	<gtExample>
+	<return: #DatabaseHolderExamples>
 	| eg |
 	eg := self.
 	self assert: database isNil.
@@ -96,27 +101,30 @@ DatabaseHolderExamples >> nilDatabase [
 DatabaseHolderExamples >> projectTagPage [
 	<lePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'Project')
-	addSnippet: (LeTextSnippet new
-			string: '';
-			yourself);
-	yourself
+		addSnippet: (LeTextSnippet new
+				string: '';
+				yourself);
+		yourself
 ]
 
 { #category : #page }
 DatabaseHolderExamples >> todoTagPage [
 	<lePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'ToDo')
-	addSnippet: (LeTextSnippet new
-			string: '';
-			yourself);
-	yourself
+		addSnippet: (LeTextSnippet new
+				string: '';
+				yourself);
+		yourself
 ]
 
 { #category : #page }
 DatabaseHolderExamples >> unnamedPage [
 	<lePage>
 	<gtExample>
+	<return: #LePage>
 	^ LePage unnamedPage yourself
 ]

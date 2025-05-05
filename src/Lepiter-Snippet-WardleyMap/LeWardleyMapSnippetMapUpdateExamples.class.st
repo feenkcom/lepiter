@@ -26,6 +26,7 @@ LeWardleyMapSnippetMapUpdateExamples >> assertSnippetModifiedFor: aSnippet [
 { #category : #'examples - snippets' }
 LeWardleyMapSnippetMapUpdateExamples >> createTargetSnippet [
 	<gtExample>
+	<return: #LeWardleyMapSnippet>
 	^ LeWardleyMapSnippetExamples new emptySnippet
 ]
 

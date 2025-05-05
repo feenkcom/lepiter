@@ -24,6 +24,7 @@ LeTextSnippetByScripterExamples >> assertTextSnippetElementContentIn: aStep [
 { #category : #'examples - text snippet' }
 LeTextSnippetByScripterExamples >> changeTextSnippetText [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self textSnippetElement.
 
@@ -81,6 +82,7 @@ LeTextSnippetByScripterExamples >> clickOnTextSnippetAt: anIndex step: aStep [
 { #category : #'examples - by scripter' }
 LeTextSnippetByScripterExamples >> compareElementAndSnippetTextInstances [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self textSnippetElement.
 
@@ -126,6 +128,7 @@ LeTextSnippetByScripterExamples >> insertPageRemoteLink [
 	Both databases and pages exists."
 
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := LeUIByScripterExamples new logicalDatabasePageOneElementInPager.
 
@@ -195,6 +198,7 @@ LeTextSnippetByScripterExamples >> linkPageOneAndPageTwoOfDisconnectedDatabases 
 	Display Page Two (According to https://github.com/feenkcom/gtoolkit/issues/3081 the link should be red)."
 
 	<gtExample>
+	<return: #LeTextSnippetExampleResult>
 	| aDatabaseOne aDatabaseTwo aPageOne aPageTwo aPageOneRemoteLink aSnippet |
 	aDatabaseOne := LeUIByScripterExamples new databaseWithPageOne.
 	aDatabaseOne databaseName: LeUIByScripterExamples new databaseOneName.
@@ -208,7 +212,7 @@ LeTextSnippetByScripterExamples >> linkPageOneAndPageTwoOfDisconnectedDatabases 
 	aSnippet := aPageTwo snippetBuilder
 			string: aPageOneRemoteLink , '  ';
 			add.
-			
+
 	self assert: aDatabaseTwo explicitLinks size equals: 1.
 	self assert: aDatabaseTwo explicitLinks first isExistingPage not.
 
@@ -231,16 +235,17 @@ LeTextSnippetByScripterExamples >> linkPageOneAndPageTwoOfDisconnectedDatabases_
 	Display Page Two (According to https://github.com/feenkcom/gtoolkit/issues/3081 the link should be red)."
 
 	<gtExample>
+	<return: #LeTextSnippetExampleResult>
 	| aResult aDatabaseOne aDatabaseTwo aLogicalDatabase |
 	aResult := self linkPageOneAndPageTwoOfDisconnectedDatabases.
 	aDatabaseOne := aResult databaseOne.
 	aDatabaseTwo := aResult databaseTwo.
 
 	aLogicalDatabase := LeLogicalDatabase primaryDB: aDatabaseOne.
-	
+
 	self assert: aDatabaseTwo explicitLinks size equals: 1.
 	self assert: aDatabaseTwo explicitLinks first targetReference isResolved not.
-	
+
 	aLogicalDatabase addDB: aDatabaseTwo.
 
 	self assert: aDatabaseTwo explicitLinks size equals: 1.
@@ -265,16 +270,17 @@ LeTextSnippetByScripterExamples >> linkPageOneAndPageTwoOfDisconnectedDatabases_
 	Display Page Two (According to https://github.com/feenkcom/gtoolkit/issues/3081 the link should be red)."
 
 	<gtExample>
+	<return: #LeTextSnippetExampleResult>
 	| aResult aDatabaseOne aDatabaseTwo aLogicalDatabase |
 	aResult := self linkPageOneAndPageTwoOfDisconnectedDatabases.
 	aDatabaseOne := aResult databaseOne.
 	aDatabaseTwo := aResult databaseTwo.
 
 	aLogicalDatabase := LeLogicalDatabase primaryDB: aDatabaseTwo.
-	
+
 	self assert: aDatabaseTwo explicitLinks size equals: 1.
 	self assert: aDatabaseTwo explicitLinks first targetReference isResolved not.
-	
+
 	aLogicalDatabase addDB: aDatabaseOne.
 
 	self assert: aDatabaseTwo explicitLinks size equals: 1.
@@ -308,21 +314,19 @@ LeTextSnippetByScripterExamples >> moveDownTextSnippetAt: anIndex step: aStep [
 
 { #category : #'examples - page - text snippets' }
 LeTextSnippetByScripterExamples >> pageContentElementWithEnumeradedTextSnippets [
-
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self
-		             scripterWithModel: [ 
-		             LeUIExamples new titledPageWithTextSnippets_numbers ]
-		             element: [ :aPage | 
-			             LePageToolContentTreeElement new pageViewModel:
-				             aPage asContentUIModel ].
+			scripterWithModel: [ LeUIExamples new titledPageWithTextSnippets_numbers ]
+			element: [ :aPage | LePageToolContentTreeElement new pageViewModel: aPage asContentUIModel ].
 	^ aScripter
 ]
 
 { #category : #'examples - page - text snippets' }
 LeTextSnippetByScripterExamples >> scrollDownEnumeradedTextSnippets [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self pageContentElementWithEnumeradedTextSnippets.
 	aScripter
@@ -331,13 +335,12 @@ LeTextSnippetByScripterExamples >> scrollDownEnumeradedTextSnippets [
 			| anIndex |
 			anIndex := 0.
 			8
-				timesRepeat: [ 
-					anIndex := anIndex + 1.
-					
-					self moveDownTextSnippetAt: 1 step: aRootStep. 
-					
+				timesRepeat: [ anIndex := anIndex + 1.
+
+					self moveDownTextSnippetAt: 1 step: aRootStep.
+
 					self editEveryVisibleTextSnippetIn: aRootStep appending: ' scrollDown'.
-					
+
 					aRootStep
 						substeps: anIndex asString , ' scroll and snippet element content'
 						do: [ :aStep | 
@@ -346,17 +349,19 @@ LeTextSnippetByScripterExamples >> scrollDownEnumeradedTextSnippets [
 								downBy: 25;
 								onBreadthFirstChildOfClass: BrSimpleTree;
 								onBreadthFirstChildOfClass: BrInfiniteTreeElement;
-			play.
-							aStep wait forEmptySpaceTaskQueueTimeout: 1 seconds;
-			play.
-							
-							self assertTextSnippetElementContentIn: aStep. ] ] ].
+								play.
+							aStep wait
+								forEmptySpaceTaskQueueTimeout: 1 seconds;
+								play.
+
+							self assertTextSnippetElementContentIn: aStep ] ] ].
 	^ aScripter
 ]
 
 { #category : #'examples - page - text snippets' }
 LeTextSnippetByScripterExamples >> scrollUpEnumeradedTextSnippets [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self scrollDownEnumeradedTextSnippets.
 	aScripter
@@ -365,11 +370,10 @@ LeTextSnippetByScripterExamples >> scrollUpEnumeradedTextSnippets [
 			| anIndex |
 			anIndex := 0.
 			8
-				timesRepeat: [ 
-					anIndex := anIndex + 1.
-					
+				timesRepeat: [ anIndex := anIndex + 1.
+
 					self editEveryVisibleTextSnippetIn: aRootStep appending: ' scrollUp'.
-					
+
 					aRootStep
 						substeps: anIndex asString , ' scroll and snippet element content'
 						do: [ :aStep | 
@@ -378,10 +382,11 @@ LeTextSnippetByScripterExamples >> scrollUpEnumeradedTextSnippets [
 								upBy: 25;
 								onBreadthFirstChildOfClass: BrSimpleTree;
 								onBreadthFirstChildOfClass: BrInfiniteTreeElement;
-			play.
-							aStep wait forEmptySpaceTaskQueueTimeout: 1 seconds;
-			play.
-							
+								play.
+							aStep wait
+								forEmptySpaceTaskQueueTimeout: 1 seconds;
+								play.
+
 							self assertTextSnippetElementContentIn: aStep ] ] ].
 	^ aScripter
 ]
@@ -389,20 +394,22 @@ LeTextSnippetByScripterExamples >> scrollUpEnumeradedTextSnippets [
 { #category : #'examples - by scripter' }
 LeTextSnippetByScripterExamples >> textSnippetElement [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self
-		scripterWithModel: [ LeUIExamples new blockWithLinkToPage ]
-		element: [ :aSnippet | 
-			| snippetViewModel snippetElement |
-			snippetViewModel := aSnippet asSnippetViewModel.
-			snippetElement := snippetViewModel snippetView asElement.
-			snippetElement snippetViewModel: snippetViewModel ].
+			scripterWithModel: [ LeUIExamples new blockWithLinkToPage ]
+			element: [ :aSnippet | 
+				| snippetViewModel snippetElement |
+				snippetViewModel := aSnippet asSnippetViewModel.
+				snippetElement := snippetViewModel snippetView asElement.
+				snippetElement snippetViewModel: snippetViewModel ].
 	^ aScripter
 ]
 
 { #category : #'examples - by scripter' }
 LeTextSnippetByScripterExamples >> typeTextInTextSnippetElement [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self textSnippetElement.
 

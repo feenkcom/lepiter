@@ -7,27 +7,29 @@ Class {
 { #category : #examples }
 LeModelExamples >> databaseWithManyPagesOfDifferentCreateTimes [
 	<gtExample>
+	<return: #LeTemporaryDatabase>
 	| aTemporaryDatabase aDatabase aTime |
 	aTemporaryDatabase := LeTemporaryDatabase new.
 	aDatabase := aTemporaryDatabase database.
 
 	aTime := DateAndTime now.
-	1 to: 100 do: [ :anIndex | 
-		| aPageName aPage aTextSnippetContents aSnippet |
-		aPageName := 'Page {1}' format: { anIndex }.
-		aPage := aDatabase pageBuilder 
-			title: aPageName; 
-			createTime: aTime - 25 hours;
-			editTime: aTime;
-			add.
-		aTextSnippetContents := 'Text of the page {1}' format: { anIndex }.
-		aSnippet := aPage snippetBuilder 
-			string: aTextSnippetContents; 
-			createTime: aTime - 25 hours;
-			editTime: aTime;
-			add.
-		aTime := aTime - 8 hours.
-	].
+	1
+		to: 100
+		do: [ :anIndex | 
+			| aPageName aPage aTextSnippetContents aSnippet |
+			aPageName := 'Page {1}' format: {anIndex}.
+			aPage := aDatabase pageBuilder
+					title: aPageName;
+					createTime: aTime - 25 hours;
+					editTime: aTime;
+					add.
+			aTextSnippetContents := 'Text of the page {1}' format: {anIndex}.
+			aSnippet := aPage snippetBuilder
+					string: aTextSnippetContents;
+					createTime: aTime - 25 hours;
+					editTime: aTime;
+					add.
+			aTime := aTime - 8 hours ].
 
 	^ aTemporaryDatabase
 ]
@@ -35,6 +37,7 @@ LeModelExamples >> databaseWithManyPagesOfDifferentCreateTimes [
 { #category : #examples }
 LeModelExamples >> databaseWithOnePage [
 	<gtExample>
+	<return: #LeTemporaryDatabase>
 	| aTemporaryDatabase aDatabase aPageName aPage aTextSnippetContents aSnippet |
 	aTemporaryDatabase := LeTemporaryDatabase new.
 	aDatabase := aTemporaryDatabase database.
@@ -54,6 +57,7 @@ LeModelExamples >> databaseWithOnePage [
 { #category : #examples }
 LeModelExamples >> page50OfDatabaseWithManyPagesOfDifferentCreateTimes [
 	<gtExample>
+	<return: #LePageExampleHolder>
 	| temporaryDatabase database page |
 	temporaryDatabase := self databaseWithManyPagesOfDifferentCreateTimes.
 	database := temporaryDatabase database.
@@ -68,6 +72,7 @@ LeModelExamples >> page50OfDatabaseWithManyPagesOfDifferentCreateTimes [
 { #category : #examples }
 LeModelExamples >> pageOneFromDatabaseWithOnlyOnePage [
 	<gtExample>
+	<return: #LePageExampleHolder>
 	| temporaryDatabase database page |
 	temporaryDatabase := self databaseWithOnePage.
 	database := temporaryDatabase database.

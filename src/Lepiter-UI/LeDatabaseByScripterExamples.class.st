@@ -9,6 +9,7 @@ Class {
 { #category : #accessing }
 LeDatabaseByScripterExamples >> databaseWithTwoPages [
 	<gtExample>
+	<return: #LeDatabase>
 	| database |
 	database := LeUIByScripterExamples new emptyDatabase.
 
@@ -21,6 +22,7 @@ LeDatabaseByScripterExamples >> databaseWithTwoPages [
 { #category : #accessing }
 LeDatabaseByScripterExamples >> scripterOnDatabaseTool [
 	<gtExample>
+	<return: #BlScripter>
 	| scripter |
 	scripter := self
 			scripterWithModel: [ :aTarget :theScripter | self databaseWithTwoPages ]
@@ -31,6 +33,7 @@ LeDatabaseByScripterExamples >> scripterOnDatabaseTool [
 { #category : #accessing }
 LeDatabaseByScripterExamples >> scripterOnDatabaseToolWithToC [
 	<gtExample>
+	<return: #BlScripter>
 	| scripter |
 	scripter := GtWorldByScripterExamples new tabElementInScripter.
 
@@ -54,6 +57,7 @@ LeDatabaseByScripterExamples >> scripterOnDatabaseToolWithToC [
 { #category : #accessing }
 LeDatabaseByScripterExamples >> scripterOnDatabaseToolWithToCDuplicatePage [
 	<gtExample>
+	<return: #BlScripter>
 	| scripter |
 	scripter := self
 			scripterWithModel: [ :aTarget :theScripter | LeUIExamples new databaseWithTableOfContentsDuplicatePage ]
@@ -64,6 +68,7 @@ LeDatabaseByScripterExamples >> scripterOnDatabaseToolWithToCDuplicatePage [
 { #category : #accessing }
 LeDatabaseByScripterExamples >> scripterWithLinkClicked [
 	<gtExample>
+	<return: #BlScripter>
 	| scripter |
 	scripter := self scripterWithToCNavigated.
 
@@ -98,6 +103,7 @@ LeDatabaseByScripterExamples >> scripterWithLinkClicked [
 { #category : #accessing }
 LeDatabaseByScripterExamples >> scripterWithLinkPrimaryClicked [
 	<gtExample>
+	<return: #BlScripter>
 	| scripter |
 	scripter := self scripterWithToCNavigated.
 
@@ -130,6 +136,7 @@ LeDatabaseByScripterExamples >> scripterWithLinkPrimaryClicked [
 { #category : #accessing }
 LeDatabaseByScripterExamples >> scripterWithOtherPageNavigated [
 	<gtExample>
+	<return: #BlScripter>
 	| scripter |
 	scripter := self scripterOnDatabaseTool.
 
@@ -163,6 +170,7 @@ LeDatabaseByScripterExamples >> scripterWithOtherPageNavigated [
 { #category : #accessing }
 LeDatabaseByScripterExamples >> scripterWithToCDuplicateNavigated [
 	<gtExample>
+	<return: #BlScripter>
 	| scripter |
 	scripter := self scripterOnDatabaseToolWithToCDuplicatePage.
 
@@ -198,6 +206,7 @@ LeDatabaseByScripterExamples >> scripterWithToCDuplicateNavigated [
 { #category : #accessing }
 LeDatabaseByScripterExamples >> scripterWithToCNavigated [
 	<gtExample>
+	<return: #BlScripter>
 	| scripter |
 	scripter := self scripterOnDatabaseToolWithToC.
 
@@ -232,6 +241,7 @@ LeDatabaseByScripterExamples >> scripterWithToCNavigated [
 { #category : #accessing }
 LeDatabaseByScripterExamples >> scripterWithToCNavigatedAndOtherTabClicked [
 	<gtExample>
+	<return: #BlScripter>
 	| scripter check |
 	scripter := self scripterWithToCNavigated.
 

@@ -3,6 +3,7 @@ Extension { #name : #LeModelExamples }
 { #category : #'*Lepiter-Snippet-Words' }
 LeModelExamples >> databaseWithWordSnippet [
 	<gtExample>
+	<return: #LeTemporaryDatabase>
 	| temporaryDatabase database pageOne snippetOne attachmentName |
 	temporaryDatabase := LeTemporaryDatabase new.
 	database := temporaryDatabase database.
@@ -12,14 +13,14 @@ LeModelExamples >> databaseWithWordSnippet [
 			add.
 
 	attachmentName := database
-		addAttachmentWithContent: self toolkitExplanationString
-		named: LeWordSnippet explanationAttachmentFileName.
+			addAttachmentWithContent: self toolkitExplanationString
+			named: LeWordSnippet explanationAttachmentFileName.
 
 	snippetOne := LeWordSnippet new.
 	snippetOne explanationAttachmentName: attachmentName.
 
 	pageOne addSnippet: snippetOne.
-	
+
 	self assert: snippetOne explanation isNotNil.
 
 	^ temporaryDatabase

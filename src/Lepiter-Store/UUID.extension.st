@@ -3,6 +3,7 @@ Extension { #name : #UUID }
 { #category : #'*Lepiter-Store' }
 UUID >> gtLeJsonV4Methods [
 	<gtExample>
+	<return: #GtSearchIntersectionFilter>
 	^ UUID class gtMethodsInClass & 'leJsonV4' gtSubstringMatch
 ]
 

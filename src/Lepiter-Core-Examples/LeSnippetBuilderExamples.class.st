@@ -7,6 +7,7 @@ Class {
 { #category : #'examples - basic' }
 LeSnippetBuilderExamples >> basicBuilder [
 	<gtExample>
+	<return: #LeSnippetBuilder>
 	| aBuilder |
 	aBuilder := LeTextSnippet builder.
 	^ aBuilder
@@ -15,6 +16,7 @@ LeSnippetBuilderExamples >> basicBuilder [
 { #category : #'examples - basic' }
 LeSnippetBuilderExamples >> basicSnippet [
 	<gtExample>
+	<return: #LeNullContent>
 	| aBuilder aPage |
 	aBuilder := self basicBuilder.
 	aPage := aBuilder build.
@@ -25,23 +27,25 @@ LeSnippetBuilderExamples >> basicSnippet [
 { #category : #'examples - blocks' }
 LeSnippetBuilderExamples >> pageInDatabase [
 	<gtExample>
+	<return: #LePage>
 	| aDatabase aPage |
 	aDatabase := self database.
 	aPage := aDatabase pageBuilder
-		title: 'one';
-		add.
+			title: 'one';
+			add.
 	^ aPage
 ]
 
 { #category : #'examples - blocks' }
 LeSnippetBuilderExamples >> pharoBlockInPageAndDatabase [
 	<gtExample>
+	<return: #LePharoSnippet>
 	| aDatabase aPage aSnippet |
 	aPage := self pageInDatabase.
 	aDatabase := aPage database.
 	aSnippet := aPage snippetBuilder
-		pharo: 'a := 42';
-		add.
+			pharo: 'a := 42';
+			add.
 	self assert: aSnippet code equals: 'a := 42'.
 	self assert: aSnippet parent equals: aPage.
 	self assert: aSnippet database equals: aDatabase.
@@ -56,12 +60,13 @@ LeSnippetBuilderExamples >> pharoBlockInPageAndDatabase [
 { #category : #'examples - blocks' }
 LeSnippetBuilderExamples >> textSnippetInPageAndDatabase [
 	<gtExample>
+	<return: #LeTextSnippet>
 	| aDatabase aPage aSnippet |
 	aPage := self pageInDatabase.
 	aDatabase := aPage database.
 	aSnippet := aPage snippetBuilder
-		string: 'one > one';
-		add.
+			string: 'one > one';
+			add.
 	self assert: aSnippet string equals: 'one > one'.
 	self assert: aSnippet parent equals: aPage.
 	self assert: aSnippet database equals: aDatabase.

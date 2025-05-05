@@ -23,6 +23,7 @@ LeWordSnippetUpdateExamples >> assertSnippetModifiedFor: aSnippet [
 { #category : #'examples - snippets' }
 LeWordSnippetUpdateExamples >> createTargetSnippet [
 	<gtExample>
+	<return: #LeWordSnippet>
 	^ LeWordExamples new snippetWithExplanation
 ]
 

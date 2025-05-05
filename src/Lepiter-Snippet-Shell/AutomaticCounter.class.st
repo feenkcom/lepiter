@@ -42,6 +42,7 @@ AutomaticCounter >> asElement [
 { #category : #examples }
 AutomaticCounter >> example [
 	<gtExample>
+	<return: #AutomaticCounter>
 	self assert: self value isZero.
 	self assert: self isRunning not
 ]

@@ -10,9 +10,10 @@ LeExportSampleData >> sampleDatabase [
 	The database is opened without a monitor, so no changes will be saved"
 
 	<gtExample>
+	<return: #LeDatabase>
 	| aDatabase |
 	aDatabase := LeLocalStoreLoad current
-		onlyLoadReadOnlyFrom: self sampleDatabaseLocation.
+			onlyLoadReadOnlyFrom: self sampleDatabaseLocation.
 
 	self assert: aDatabase isNotNil.
 
@@ -24,6 +25,7 @@ LeExportSampleData >> sampleDatabaseLocation [
 	"Answer the sample database for the examples"
 
 	<gtExample>
+	<return: #FileLocator>
 	| aDirectory |
 	aDirectory := self testDataLocation / 'html-export'.
 
@@ -34,9 +36,10 @@ LeExportSampleData >> sampleDatabaseLocation [
 { #category : #'examples - database' }
 LeExportSampleData >> samplePage [
 	"Answer the html of a sample page"
-	<gtExample>
-	| database page |
 
+	<gtExample>
+	<return: #LePage>
+	| database page |
 	database := self sampleDatabase.
 	page := database pageNamed: 'HTML Export Sample Page'.
 
@@ -48,12 +51,13 @@ LeExportSampleData >> samplePage [
 { #category : #'examples - database' }
 LeExportSampleData >> sampleSnippetsPage [
 	"Answer the html of a sample page"
-	<gtExample>
-	| database page |
 
+	<gtExample>
+	<return: #LePage>
+	| database page |
 	database := self sampleDatabase.
 	page := database pageNamed: 'SnippetsToHTML'.
-	
+
 	self assert: page isNotNil.
 
 	^ page
@@ -64,6 +68,7 @@ LeExportSampleData >> testDataLocation [
 	"Answer the location of the test data based on the git repository"
 
 	<gtExample>
+	<return: #FileLocator>
 	| fileReference |
 	fileReference := FileLocator gtResource / 'feenkcom' / 'lepiter' / 'test-data'.
 	self assert: fileReference exists.

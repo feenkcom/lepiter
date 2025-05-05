@@ -11,6 +11,7 @@ Class {
 { #category : #'examples - updating' }
 LeDatabaseSnippetUpdaterExamples >> updateSnippetOneToTwo [
 	<gtExample>
+	<return: #LeTextSnippet>
 	| aSnippet aCreateTime aCreateEmail anEditTime anEditEmail aNewUserEmail aNewText |
 	aSnippet := self textSnippetInPageAndDatabase.
 	aCreateTime := aSnippet createTime.
@@ -36,6 +37,7 @@ LeDatabaseSnippetUpdaterExamples >> updateSnippetOneToTwo [
 { #category : #'examples - updating' }
 LeDatabaseSnippetUpdaterExamples >> updateSnippetOneToTwo_Simplified_String [
 	<gtExample>
+	<return: #LeTextSnippet>
 	| aSnippet |
 	aSnippet := self textSnippetInPageAndDatabase.
 	aSnippet updateString: 'one > two'.
@@ -46,6 +48,7 @@ LeDatabaseSnippetUpdaterExamples >> updateSnippetOneToTwo_Simplified_String [
 { #category : #'examples - updating' }
 LeDatabaseSnippetUpdaterExamples >> updateSnippetOneToTwo_Simplified_Text [
 	<gtExample>
+	<return: #LeTextSnippet>
 	| aSnippet |
 	aSnippet := self textSnippetInPageAndDatabase.
 	aSnippet updateText: 'one > two' asRopedText.

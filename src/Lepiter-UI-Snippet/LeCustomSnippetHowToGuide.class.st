@@ -15,102 +15,100 @@ To subscribe to the announcements from the snippet override both {{gtMethod:LeCo
 Class {
 	#name : #LeCustomSnippetHowToGuide,
 	#superclass : #Object,
-	#category : 'Lepiter-UI-Snippet-Docs'
+	#category : #'Lepiter-UI-Snippet-Docs'
 }
 
 { #category : #examples }
 LeCustomSnippetHowToGuide >> snippetsStructure [
 	<gtExample>
+	<return: #GtMondrian>
 	| view |
 	view := GtMondrian new.
 	view nodes
-		shape: [ :eachHierarchy |
+		shape: [ :eachHierarchy | 
 			BrVerticalPane new
 				alignTopCenter;
 				fitContent;
 				cellSpacing: 10;
 				border: (BlBorder paint: Color gray width: 1);
 				padding: (BlInsets left: 20 right: 20);
-				addChildren: {
-					BrLabel new
-						aptitude: BrGlamorousLabelAptitude new;
-						text: eachHierarchy value.
-
-					BlElement new
-						in: [ :e | e graph beChildrenContainer: #default ];
-						constraintsDo: [ :c |
-							c horizontal fitContent.
-							c vertical fitContent ]
-				}
-		];
-		with: { 
-			LeSnippet -> 'Domain Models'.
-			LeAbstractSnippetViewModel -> 'View Models'.
-			LeSnippetElement -> 'Views'.
-		};
-		forEach: [ :eachHierarchy |
+				addChildren: {BrLabel new
+							aptitude: BrGlamorousLabelAptitude new;
+							text: eachHierarchy value.
+						BlElement new
+							in: [ :e | e graph beChildrenContainer: #default ];
+							constraintsDo: [ :c | 
+								c horizontal fitContent.
+								c vertical fitContent ]} ];
+		with: {LeSnippet -> 'Domain Models'.
+				LeAbstractSnippetViewModel -> 'View Models'.
+				LeSnippetElement -> 'Views'};
+		forEach: [ :eachHierarchy | 
 			view nodes
-				shape: [ :eachClass |
+				shape: [ :eachClass | 
 					| aShortClassName |
-
 					aShortClassName := eachClass name gtRemovePrefix: 'Le'.
-					(eachClass = LeAbstractSnippetViewModel or: [ eachClass = LeSnippetElement or: [ aShortClassName = 'Snippet' ] ])
+					(eachClass = LeAbstractSnippetViewModel
+						or: [ eachClass = LeSnippetElement or: [ aShortClassName = 'Snippet' ] ])
 						ifFalse: [ aShortClassName := aShortClassName copyReplaceAll: 'Snippet' with: '' ].
-					
+
 					aShortClassName := aShortClassName asRopedText.
-					
+
 					eachClass isAbstract
 						ifTrue: [ aShortClassName := aShortClassName asRopedText italic ].
-						
+
 					eachClass isDeprecated
-						ifTrue: [ aShortClassName := aShortClassName asRopedText decorationDo: [ :d | d lineThrough ] ].
-					
-					((eachClass inheritsFrom: LeSnippetElement) and: [ aShortClassName asString endsWith: 'Element' ])
-						ifTrue: [
-							(aShortClassName from: aShortClassName size + 1 - 'Element' size to: aShortClassName size)
-								foreground: Color gray ].
-							
-					((eachClass inheritsFrom: LeAbstractSnippetViewModel) and: [ aShortClassName asString endsWith: 'ViewModel' ])
-						ifTrue: [
-							(aShortClassName from: aShortClassName size + 1 - 'ViewModel' size to: aShortClassName size)
-								foreground: Color gray ].
-					
+						ifTrue: [ aShortClassName := aShortClassName asRopedText
+									decorationDo: [ :d | d lineThrough ] ].
+
+					((eachClass inheritsFrom: LeSnippetElement)
+						and: [ aShortClassName asString endsWith: 'Element' ])
+						ifTrue: [ (aShortClassName
+								from: aShortClassName size + 1 - 'Element' size
+								to: aShortClassName size) foreground: Color gray ].
+
+					((eachClass inheritsFrom: LeAbstractSnippetViewModel)
+						and: [ aShortClassName asString endsWith: 'ViewModel' ])
+						ifTrue: [ (aShortClassName
+								from: aShortClassName size + 1 - 'ViewModel' size
+								to: aShortClassName size) foreground: Color gray ].
+
 					BrLabel new
 						beSmallSize;
 						aptitude: BrGlamorousLabelAptitude new;
-						text: aShortClassName.
-				];
+						text: aShortClassName ];
 				with: (eachHierarchy key withAllSubclasses sorted: [ :a :b | a name < b name ]).
-			
+
 			view edges
 				fromRightCenter;
 				toLeftCenter;
 				connectFrom: #superclass.
-			
-			view layout horizontalTree nodeDistance: 10
-	].
 
-	view edges 
-			shape: [ :x |
-				BlLineElement new
-					border: (BlBorder paint: (Color blue alpha: 0.3) width: 2) ];
-			passive;
-			fromRightCenter;
-			toLeftCenter;
-			connect: (LeSnippet withAllSubclasses
-				select: [ :each | each includesSelector: #asSnippetViewModel ]
-				thenCollect: [ :each | each -> (each >> #asSnippetViewModel) referencedClasses ] ) from: #key toAll: #value.
+			view layout horizontalTree nodeDistance: 10 ].
 
-	view edges 
-			shape: [ :x |
-				BlLineElement new
-					border: (BlBorder paint: (Color green muchDarker alpha: 0.3) width: 2) ];
-			passive;
-			fromRightCenter;
-			toLeftCenter;
-			connect: (LeAbstractSnippetViewModel withAllSubclasses
-				select: [ :each | each includesSelector: #snippetElementClass ]
-				thenCollect: [ :each | each -> (each >> #snippetElementClass) referencedClasses ] ) from: #key toAll: #value.
+	view edges
+		shape: [ :x | BlLineElement new border: (BlBorder paint: (Color blue alpha: 0.3) width: 2) ];
+		passive;
+		fromRightCenter;
+		toLeftCenter;
+		connect: (LeSnippet withAllSubclasses
+					select: [ :each | each includesSelector: #asSnippetViewModel ]
+					thenCollect: [ :each | each -> (each >> #asSnippetViewModel) referencedClasses ])
+			from: #key
+			toAll: #value.
+
+	view edges
+		shape: [ :x | 
+			BlLineElement new
+				border: (BlBorder paint: (Color green muchDarker alpha: 0.3) width: 2) ];
+		passive;
+		fromRightCenter;
+		toLeftCenter;
+		connect: (LeAbstractSnippetViewModel withAllSubclasses
+					select: [ :each | each includesSelector: #snippetElementClass ]
+					thenCollect: [ :each | each -> (each >> #snippetElementClass) referencedClasses ])
+			from: #key
+			toAll: #value.
 
 	view layout horizontal cellSpacing: 50.
 	^ view

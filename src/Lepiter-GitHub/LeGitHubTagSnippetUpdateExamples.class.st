@@ -23,7 +23,7 @@ LeGitHubTagSnippetUpdateExamples >> assertSnippetModifiedFor: targetSnippet [
 { #category : #'examples - snippets' }
 LeGitHubTagSnippetUpdateExamples >> createTargetSnippet [
 	<gtExample>
-	
+	<return: #LeGitHubTagSnippet>
 	^ LeGitHubTagSnippet new
 		ownerName: 'feenkcom';
 		projectName: 'gtoolkit';

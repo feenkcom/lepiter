@@ -1,74 +1,74 @@
 Class {
 	#name : #LeMissingCodeReferencesExamples,
 	#superclass : #Object,
-	#category : 'Lepiter-Validator-Examples'
+	#category : #'Lepiter-Validator-Examples'
 }
 
 { #category : #examples }
 LeMissingCodeReferencesExamples >> emptyMissingReferences [
 	<gtExample>
+	<return: #LePageValidatorMissingReferencesResult>
 	| targetPage visitor missingReferences |
 	targetPage := self pageWithNoMissingReferences.
 	visitor := LeMissingCodeReferencesModelVisitor new.
-	missingReferences := visitor 
-		missingReferencesInPage: targetPage.
-	
-	self assert:	 missingReferences isNotEmpty not.
+	missingReferences := visitor missingReferencesInPage: targetPage.
+
+	self assert: missingReferences isNotEmpty not.
 	self assert: missingReferences exampleAnnotations size equals: 0.
 	self assert: missingReferences methodAnnotations size equals: 0.
 	self assert: missingReferences classAnnotations size equals: 0.
-	
+
 	^ missingReferences
 ]
 
 { #category : #examples }
 LeMissingCodeReferencesExamples >> missingReferencesResultWithMissingClass [
 	<gtExample>
+	<return: #LePageValidatorMissingReferencesResult>
 	| targetPage visitor missingReferences |
 	targetPage := self pageWithMissingClassReference.
 	visitor := LeMissingCodeReferencesModelVisitor new.
-	missingReferences := visitor 
-		missingReferencesInPage: targetPage.
-	
-	self assert:	 missingReferences isNotEmpty.
+	missingReferences := visitor missingReferencesInPage: targetPage.
+
+	self assert: missingReferences isNotEmpty.
 	self assert: missingReferences exampleAnnotations size equals: 0.
 	self assert: missingReferences methodAnnotations size equals: 0.
 	self assert: missingReferences classAnnotations size equals: 1.
-	
+
 	^ missingReferences
 ]
 
 { #category : #examples }
 LeMissingCodeReferencesExamples >> missingReferencesResultWithMissingMethod [
 	<gtExample>
+	<return: #LePageValidatorMissingReferencesResult>
 	| targetPage visitor missingReferences |
 	targetPage := self pageWithMissingMethodReference.
 	visitor := LeMissingCodeReferencesModelVisitor new.
-	missingReferences := visitor 
-		missingReferencesInPage: targetPage.
-	
-	self assert:	 missingReferences isNotEmpty.
+	missingReferences := visitor missingReferencesInPage: targetPage.
+
+	self assert: missingReferences isNotEmpty.
 	self assert: missingReferences exampleAnnotations size equals: 0.
 	self assert: missingReferences methodAnnotations size equals: 1.
 	self assert: missingReferences classAnnotations size equals: 0.
-	
+
 	^ missingReferences
 ]
 
 { #category : #examples }
 LeMissingCodeReferencesExamples >> missingReferencesResultWithMultipleReferenceTypes [
 	<gtExample>
+	<return: #LePageValidatorMissingReferencesResult>
 	| targetPage visitor missingReferences |
 	targetPage := self pagesWithMultipleMissingReferences.
 	visitor := LeMissingCodeReferencesModelVisitor new.
-	missingReferences := visitor 
-		missingReferencesInPage: targetPage.
-	
-	self assert:	 missingReferences isNotEmpty.
+	missingReferences := visitor missingReferencesInPage: targetPage.
+
+	self assert: missingReferences isNotEmpty.
 	self assert: missingReferences exampleAnnotations size equals: 1.
 	self assert: missingReferences methodAnnotations size equals: 1.
 	self assert: missingReferences classAnnotations size equals: 1.
-	
+
 	^ missingReferences
 ]
 

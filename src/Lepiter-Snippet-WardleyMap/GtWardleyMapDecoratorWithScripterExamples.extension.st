@@ -3,6 +3,7 @@ Extension { #name : #GtWardleyMapDecoratorWithScripterExamples }
 { #category : #'*Lepiter-Snippet-WardleyMap' }
 GtWardleyMapDecoratorWithScripterExamples >> mapWithLepiterPageAction [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self
 			scripterWithModel: [ GtWardleyMapDecoratorExamples new mapWithLepiterPageAction ]
@@ -49,6 +50,7 @@ GtWardleyMapDecoratorWithScripterExamples >> mapWithLepiterPageAction [
 { #category : #'*Lepiter-Snippet-WardleyMap' }
 GtWardleyMapDecoratorWithScripterExamples >> mapWithLepiterPageAction_ClickOnMapCanvasDecorator [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self mapWithLepiterPageAction.
 

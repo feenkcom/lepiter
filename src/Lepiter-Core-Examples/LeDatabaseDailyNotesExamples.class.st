@@ -7,6 +7,7 @@ Class {
 { #category : #accessing }
 LeDatabaseDailyNotesExamples >> databaseWithPharoClassPage [
 	<gtExample>
+	<return: #LeDatabase>
 	| database page |
 	database := self emptyDatabase.
 	page := LePage new initializePharoClassName: #SomeClass.
@@ -18,6 +19,7 @@ LeDatabaseDailyNotesExamples >> databaseWithPharoClassPage [
 { #category : #accessing }
 LeDatabaseDailyNotesExamples >> databaseWithUnnamedPage [
 	<gtExample>
+	<return: #LeDatabase>
 	| database page |
 	database := self emptyDatabase.
 	page := LePage new initializeUnnamedPage.
@@ -31,6 +33,7 @@ LeDatabaseDailyNotesExamples >> databaseWithUnnamedPage [
 { #category : #accessing }
 LeDatabaseDailyNotesExamples >> emptyDatabase [
 	<gtExample>
+	<return: #LeDatabase>
 	| database |
 	database := LeDatabase new.
 	self assert: database dailyNotesGroup isEmpty.

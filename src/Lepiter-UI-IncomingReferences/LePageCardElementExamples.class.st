@@ -6,18 +6,16 @@ Class {
 
 { #category : #'examples - showroom' }
 LePageCardElementExamples >> pageCardElement [
-
 	<gtExample>
+	<return: #LePageCardElement>
 	| anElement aPage |
 	aPage := LeIncomingReferencesForUIExamples new
-		         pageThreeOfDatabaseWithLinkedReferencesAmongPages.
+			pageThreeOfDatabaseWithLinkedReferencesAmongPages.
 
 	anElement := LePageCardElement new.
 	anElement pageViewModel: aPage asContentUIModel.
 
-	self
-		assert: anElement containerElement label characters
-		equals: aPage title.
+	self assert: anElement containerElement label characters equals: aPage title.
 
 	^ anElement
 ]

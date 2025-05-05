@@ -53,7 +53,8 @@ LeExampleSnippetOptionalAttributesUpdateExamples >> assertSnippetModifiedFor: ta
 { #category : #'examples - snippets' }
 LeExampleSnippetOptionalAttributesUpdateExamples >> createTargetSnippet [
 	<gtExample>
-	^ LeExampleSnippet new 
+	<return: #LeExampleSnippet>
+	^ LeExampleSnippet new
 		exampleBehaviorName: 'BlBasicExamples';
 		exampleSelector: #circle;
 		codeExpanded: true;
