@@ -33,29 +33,28 @@ LeJenkinsSnippetElement >> contentElement [
 
 { #category : #accessing }
 LeJenkinsSnippetElement >> createFormElement [
-	| formElement jenkinsAccount |
-	formElement := BlElement new.
-	formElement
+	| resultElement jenkinsAccount |
+	resultElement := BlElement new.
+	resultElement
 		constraintsDo: [ :c | 
 			c vertical fitContent.
 			c horizontal matchParent ].
-	formElement
-		layout:
-			(BlGridLayout horizontal
+	resultElement
+		layout: (BlGridLayout horizontal
 				columnCount: 2;
 				cellSpacing: 10).
-		urlInputElement := self inputElementNamed: 'Url' in: formElement.
-	userInputElement := self inputElementNamed: 'User' in: formElement.
-	tokenInputElement := self inputElementNamed: 'Token' in: formElement.
-	
+	urlInputElement := self inputElementNamed: 'Url' in: resultElement.
+	userInputElement := self inputElementNamed: 'User' in: resultElement.
+	tokenInputElement := self inputElementNamed: 'Token' in: resultElement.
+
 	tokenInputElement editor text replacingText: $*.
 	jenkinsAccount := GtJenkinsUserIdentity instance jenkinsAccount.
 	jenkinsAccount
 		ifNotNil: [ userInputElement text: jenkinsAccount username.
-			urlInputElement text: ''.
+			urlInputElement text: (jenkinsAccount jenkinsUrl ifNil: [ '' ]).
 			tokenInputElement text: jenkinsAccount token.
 			tokenInputElement editor text replacingText: $* ].
-	^ formElement
+	^ resultElement
 ]
 
 { #category : #accessing }
