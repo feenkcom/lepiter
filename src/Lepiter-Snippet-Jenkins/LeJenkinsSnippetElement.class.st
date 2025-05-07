@@ -217,12 +217,13 @@ LeJenkinsSnippetElement >> snippetToolbar [
 
 { #category : #accessing }
 LeJenkinsSnippetElement >> storeJenkinsAccountToPreferencesFolderWith: username token: tokenString andUrl: aJenkinsUrl [
-	GtJenkinsUserIdentity instance 
-		jenkinsAccount: (GtJenkinsAccount new 
-			username:username; 
-			token: tokenString).
+	GtJenkinsUserIdentity instance
+		jenkinsAccount: (GtJenkinsAccount new
+				jenkinsUrl: aJenkinsUrl;
+				username: username;
+				token: tokenString).
 	self jenkinsSnippetViewModel jenkinsUrl: aJenkinsUrl.
-	GtJenkinsUserIdentity instance storeAuthTokens.
+	GtJenkinsUserIdentity instance storeAuthTokens
 ]
 
 { #category : #'api - jenkins snippet view model' }
