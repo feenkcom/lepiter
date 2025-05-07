@@ -7,6 +7,7 @@ Class {
 { #category : #accessing }
 LeAsyncSearchSnippetGroupStream >> gtItemsFor: aView [
 	<gtView>
+	
 	^ aView explicit
 		title: 'Items' translated;
 		priority: 10;
@@ -15,7 +16,9 @@ LeAsyncSearchSnippetGroupStream >> gtItemsFor: aView [
 			BrSimpleList new
 				matchParent;
 				stream: self asyncSimilarCopy;
-				itemStencil: [ LeExpandableSnippetElement new padding: (BlInsets right: 5) ];
+				itemStencil: [ 
+					LeExpandableSnippetElement new 
+						padding: (BlInsets right: 5) ];
 				itemDataBinder: [ :element :each | 
 					| viewModel |
 					viewModel := each asSnippetViewModel.
