@@ -168,20 +168,18 @@ LeJenkinsSnippetElement >> inputElementNamed: aString in: aFormElement [
 { #category : #'api - jenkins snippet view model' }
 LeJenkinsSnippetElement >> onJenkinsSnippetViewModelChanged [
 	"Is sent when a new jenkinsSnippet view model is assigned to the element"
-	
+
 	| username tokenString urlString client |
-	urlInputElement text: self jenkinsSnippetViewModel jenkinsUrl.
+	self jenkinsSnippetViewModel jenkinsUrl
+		ifNotNil: [ :aUrl | urlInputElement text: aUrl ].
 	username := userInputElement editor text asString.
 	tokenString := tokenInputElement editor text asString.
 	urlString := urlInputElement editor text asString.
-	(tokenString size > 0 and: [username size > 0  ]) ifTrue: [
-		client := JcJenkinsClient new
-				username: username
-				token: tokenString
-				url: urlInputElement editor text asString.
-		"client hasValidUrl ifTrue: [
-			self addInspectResultToContainer: client blueOcean]"].
-	
+	(tokenString size > 0 and: [ username size > 0 ])
+		ifTrue: [ client := JcJenkinsClient new
+					username: username
+					token: tokenString
+					url: urlInputElement editor text asString ]
 ]
 
 { #category : #accessing }
