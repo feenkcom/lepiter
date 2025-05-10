@@ -170,8 +170,7 @@ LeJenkinsSnippetElement >> onJenkinsSnippetViewModelChanged [
 	"Is sent when a new jenkinsSnippet view model is assigned to the element"
 
 	| username tokenString urlString client |
-	self jenkinsSnippetViewModel jenkinsUrl
-		ifNotNil: [ :aUrl | urlInputElement text: aUrl ].
+	urlInputElement text: self snippetViewModel jenkinsUrl.
 	username := userInputElement editor text asString.
 	tokenString := tokenInputElement editor text asString.
 	urlString := urlInputElement editor text asString.
