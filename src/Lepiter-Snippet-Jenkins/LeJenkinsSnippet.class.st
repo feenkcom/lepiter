@@ -21,8 +21,8 @@ LeJenkinsSnippet class >> description [
 ]
 
 { #category : #accessing }
-LeJenkinsSnippet class >> empty [ 
-	^ self new jenkinsUrl: ''.
+LeJenkinsSnippet class >> empty [
+	^ self new jenkinsUrl: ''
 ]
 
 { #category : #accessing }
