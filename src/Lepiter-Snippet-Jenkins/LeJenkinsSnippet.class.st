@@ -22,7 +22,14 @@ LeJenkinsSnippet class >> description [
 
 { #category : #accessing }
 LeJenkinsSnippet class >> empty [
-	^ self new jenkinsUrl: ''
+	^ self new jenkinsUrl: self getDefaultJenkinsUrl
+]
+
+{ #category : #accessing }
+LeJenkinsSnippet class >> getDefaultJenkinsUrl [
+	^ GtJenkinsUserIdentity instance jenkinsAccount
+		ifNil: [ '' ]
+		ifNotNil: #jenkinsUrl
 ]
 
 { #category : #accessing }
