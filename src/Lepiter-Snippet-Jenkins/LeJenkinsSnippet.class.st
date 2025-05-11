@@ -22,7 +22,7 @@ LeJenkinsSnippet class >> description [
 
 { #category : #accessing }
 LeJenkinsSnippet class >> empty [
-	^ self new jenkinsUrl: ''
+	^ self new
 ]
 
 { #category : #accessing }
@@ -66,6 +66,20 @@ LeJenkinsSnippet >> contentAsString [
 	^ String streamContents: [ :aStream |
 			aStream
 				nextPutAll: (self jenkinsUrl ifEmpty: [ '<jenkinsUrl>' ])]
+]
+
+{ #category : #accessing }
+LeJenkinsSnippet >> getDefaultJenkinsUrl [
+	^ GtJenkinsUserIdentity instance jenkinsAccount
+		ifNil: [ '' ]
+		ifNotNil: #jenkinsUrl
+]
+
+{ #category : #'as yet unclassified' }
+LeJenkinsSnippet >> initialize [
+	super initialize.
+
+	self jenkinsUrl: self getDefaultJenkinsUrl
 ]
 
 { #category : #accessing }
