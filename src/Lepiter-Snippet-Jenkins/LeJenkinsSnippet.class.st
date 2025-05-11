@@ -22,7 +22,7 @@ LeJenkinsSnippet class >> description [
 
 { #category : #accessing }
 LeJenkinsSnippet class >> empty [
-	^ self new jenkinsUrl: GtJenkinsUserIdentity instance jenkinsAccount jenkinsUrl
+	^ self new jenkinsUrl: ''
 ]
 
 { #category : #accessing }
