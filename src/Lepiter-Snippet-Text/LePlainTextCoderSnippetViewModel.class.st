@@ -97,6 +97,7 @@ LePlainTextCoderSnippetViewModel >> onCoderSourceModified: aGtCoderSourceCodeCha
 
 { #category : #'api - focus' }
 LePlainTextCoderSnippetViewModel >> onFocusChanged: aBoolean [
+	super onFocusChanged: aBoolean.
 	self coderViewModel focused: aBoolean
 ]
 
