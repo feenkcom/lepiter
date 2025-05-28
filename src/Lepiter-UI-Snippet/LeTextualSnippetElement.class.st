@@ -38,16 +38,19 @@ LeTextualSnippetElement >> mergeWithPrevious [
 	self snippetViewModel mergeWithPrevious
 ]
 
-{ #category : #'private - focus' }
-LeTextualSnippetElement >> registerFocusEventHandlers [
-	"When we lose focus we should also deselect text so that the whole page feels like one single document"
-	super registerFocusEventHandlers.
+{ #category : #'api - snippet view model' }
+LeTextualSnippetElement >> onPostSnippetViewModelChanged [
+	super onPostSnippetViewModelChanged.
+	self snippetViewModel
+		ifNotNil: [ self snippetViewModel announcer weak
+				when: LeSnippetRequestRemoveSelection
+				send: #removeSelection
+				to: self ]
+]
 
-	self when: BlFocusOutEvent do: [ :anEvent |
-		"when elements are removed from the scene graph due to tab switching or scrolling they lose focus.
-		We are only interested when focus is lost explicitly via user interaction"
-		anEvent isDueToRemoval
-			ifFalse: [ self editor ifNotNil: [ :anEditor | anEditor deselecter all deselect ] ] ]
+{ #category : #private }
+LeTextualSnippetElement >> removeSelection [
+	self editor ifNotNil: [ :anEditor | anEditor deselecter all deselect ]
 ]
 
 { #category : #'api - snippet' }
