@@ -84,6 +84,13 @@ LeExampleSnippetViewModelExamples >> compileErrorClassSideMethodExampleSnippetVi
 	^ aViewModel
 ]
 
+{ #category : #accessing }
+LeExampleSnippetViewModelExamples >> compilerErrorsToHandle [
+	^ self 
+		forPharo12: [OCUndeclaredVariableWarning, #CodeError asClass] 
+		forPharo11AndPharo10: [OCSemanticWarning, SyntaxErrorNotification]
+]
+
 { #category : #'examples - snippet' }
 LeExampleSnippetViewModelExamples >> expressionInsteadOfBehaviorNameExampleSnippet [
 	<gtExample>
@@ -242,7 +249,7 @@ LeExampleSnippetViewModelExamples >> obtainGtExampleFromViewModel: aViewModel [
 
 	| anExample |
 	[ aViewModel gtExampleDo: [ :theExample | anExample := theExample ] ]
-		on: OCSemanticWarning, SyntaxErrorNotification
+		on: self compilerErrorsToHandle
 		do: [ :aNotification | 
 			AssertionFailure signal:
 				'Compiler notification must not happen: ' , aNotification asString ].
