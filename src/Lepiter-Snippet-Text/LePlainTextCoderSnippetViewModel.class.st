@@ -45,10 +45,8 @@ LePlainTextCoderSnippetViewModel >> initializeCoderAddOns: aTextualCoderViewMode
 		addShortcut: (LeSnippetMoveSnippetDownShortcut new combination: (self keyboardShortcut: #MoveSnippetDown));
 		"Split the current snippet"
 		addShortcut: (LeSnippetSplitSnippetShortcut new combination: (self keyboardShortcut: #SplitSnippet));
-		"we also split on new line"
-		addShortcut: (LeSnippetSplitSnippetShortcut new combination: (self keyboardShortcut: #NewLine));
 		"New Line in LeSnippet"
-		addShortcut: (BrEditorShortcut lineEnding combination: (self keyboardShortcut: #SecondaryNewLine));
+		addShortcut: (BrEditorShortcut lineEnding);
 		"Delete previous character, or merge with previous block"
 		addShortcut: (LeSnippetDeletePreviousShortcut new combination: (self keyboardShortcut: #DeletePrevious));
 		"Delete next character, or merge with following block"
