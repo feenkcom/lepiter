@@ -10,28 +10,28 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'Brick' with: [
-				spec repository: 'github://feenkcom/Brick:v0.8.1587/src' ].
+				spec repository: 'github://feenkcom/Brick:v0.8.1588/src' ].
 		spec
 			baseline: 'GToolkitFileUtility' with: [
 				spec repository: 'github://feenkcom/gtoolkit-utility:v0.8.376/src' ].
 		spec
 			baseline: 'GToolkitInspector' with: [
-				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.2801/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.2802/src' ].
 		spec
 			baseline: 'GToolkitCoder' with: [
-				spec repository: 'github://feenkcom/gtoolkit-coder:v0.8.2144/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-coder:v0.8.2145/src' ].
 		spec
 			baseline: 'GToolkit4Pharo' with: [
-				spec repository: 'github://feenkcom/gt4pharo:v0.6.2249/src' ].
+				spec repository: 'github://feenkcom/gt4pharo:v0.6.2250/src' ].
 		spec
 			baseline: 'GToolkit4Json' with: [
-				spec repository: 'github://feenkcom/gt4json:v0.6.1548/src' ].
+				spec repository: 'github://feenkcom/gt4json:v0.6.1549/src' ].
 		spec
 			baseline: 'GToolkitReleaser' with: [
-				spec repository: 'github://feenkcom/gtoolkit-releaser:v0.8.288/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-releaser:v0.8.289/src' ].
 		spec
 			baseline: 'LepiterXDoc' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.3116/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.6.3117/src' ].
 		spec
 			baseline: 'SmaCCRuntime' with: [
 				spec repository: 'github://j-brant/SmaCC:v3.0.102' ].
