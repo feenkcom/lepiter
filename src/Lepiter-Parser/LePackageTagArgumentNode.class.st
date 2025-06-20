@@ -11,7 +11,7 @@ LePackageTagArgumentNode >> acceptVisitor: anAnnotationParseVisitor [
 
 { #category : #accessing }
 LePackageTagArgumentNode >> imageObjectOn: anImageObject [
-	^ anImageObject classTagNamed: self value source asSymbol ifAbsent: [ nil ]
+	^ anImageObject tagNamed: self value source asSymbol ifAbsent: [ nil ]
 ]
 
 { #category : #accessing }
