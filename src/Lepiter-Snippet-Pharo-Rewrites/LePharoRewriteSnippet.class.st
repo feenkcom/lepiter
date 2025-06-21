@@ -281,5 +281,7 @@ LePharoRewriteSnippet >> storeOn: aStream [
 	self search storeOn: aStream.
 	aStream nextPutAll: '; replace: '.
 	self replace storeOn: aStream.
+	aStream nextPutAll: '; scope: '.
+	self scope storeOn: aStream.
 	aStream nextPutAll: '; yourself)'
 ]
