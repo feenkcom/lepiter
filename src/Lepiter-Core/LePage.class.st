@@ -301,6 +301,11 @@ LePage >> gtCopyActionFor: anAction [
 		action: [ :aButton | Clipboard clipboardText: self asRemoteLink ]
 ]
 
+{ #category : #'gt - inspector' }
+LePage >> gtDefaultInspectorTool [
+ ^ self asPhlowTool
+]
+
 { #category : #search }
 LePage >> gtSpotterForSnippetsFor: aSearch [
 	"NB: We only search in text and code snippets."
