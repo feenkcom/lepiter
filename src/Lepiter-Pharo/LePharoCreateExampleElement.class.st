@@ -67,7 +67,7 @@ LePharoCreateExampleElement >> createClass [
 	| change |
 	self selectedClass notNil ifTrue: [ ^ self ].
 	change := GtRBAddClassWithSlotsChange
-		definition:
+		definitionString:
 			'Object subclass: #' , className , '
 				slots: {}
 				classVariables: {}
