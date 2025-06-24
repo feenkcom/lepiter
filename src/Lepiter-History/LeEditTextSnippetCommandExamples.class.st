@@ -24,14 +24,14 @@ LeEditTextSnippetCommandExamples >> changedStateAttributes [
 { #category : #'examples - execution' }
 LeEditTextSnippetCommandExamples >> executeEditSnippetCommand_undoState [
 	<gtExample>
+	<return: #SubclassResponsibility>
 	| undoSpecification |
-	
 	undoSpecification := super executeEditSnippetCommand_undoState.
-	
-	self 
+
+	self
 		assert: (undoSpecification snippetState attributeNamed: 'string') attributeValue
 		equals: self initialStringValue.
-	
+
 	^ undoSpecification
 ]
 

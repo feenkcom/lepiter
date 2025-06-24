@@ -79,12 +79,12 @@ LeInspectorPlaygroundElement >> initialize [
 
 	"resizer is added in this method"
 	self initializeResizerElement.
-	self background: self theme default backdropColor.
+	self background: self theme default backdropBackground.
 
 	self addChild: (BrVerticalPane new 
 		matchParent;
 		margin: (BlInsets all: 10);
-		background: self theme default contentBackgroundColor;
+		background: self theme default contentBackground;
 		aptitude: BrShadowAptitude;
 		addChild: self pageElement as: #page).
 ]

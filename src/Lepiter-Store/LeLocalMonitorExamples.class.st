@@ -15,8 +15,8 @@ Class {
 { #category : #'examples - monitor' }
 LeLocalMonitorExamples >> databaseRoundTrip [
 	<gtExample>
+	<return: #LeDatabase>
 	| page1 page2 page4 snippet imported link links |
-
 	imported := self importedDatabase.
 
 	self assert: imported size equals: 4.
@@ -61,16 +61,19 @@ LeLocalMonitorExamples >> importedDatabase [
 LeLocalMonitorExamples >> monitorBlockAdded [
 	<gtExample>
 	<after: #stopMonitor>
+	<return: #LeLocalStoreMonitor>
 	| page3 page3FromFile |
-
 	self monitorWithDuration: Duration zero.
 	page3 := database pageNamed: 'Page 3'.
 	self assert: page3 children size equals: 1.
-	page3 snippetBuilder string: 'Page 3 Added Paragraph 1'; add.
+	page3 snippetBuilder
+		string: 'Page 3 Added Paragraph 1';
+		add.
 	page3FromFile := monitor reloadPage: page3.
 	self assert: page3FromFile children size equals: 2.
-	self assert: page3FromFile children items second string
-			equals: 'Page 3 Added Paragraph 1'.
+	self
+		assert: page3FromFile children items second string
+		equals: 'Page 3 Added Paragraph 1'.
 	monitor stopMonitoring.
 	^ monitor
 ]
@@ -79,8 +82,8 @@ LeLocalMonitorExamples >> monitorBlockAdded [
 LeLocalMonitorExamples >> monitorBlockModified [
 	<gtExample>
 	<after: #stopMonitor>
+	<return: #LeLocalStoreMonitor>
 	| page3 page3FromFile block31 |
-
 	self monitorWithDuration: Duration zero.
 	page3 := database pageNamed: 'Page 3'.
 	self assert: page3 children size equals: 1.
@@ -88,8 +91,9 @@ LeLocalMonitorExamples >> monitorBlockModified [
 	block31 updateText: (block31 text copy append: '. Append 1.' asRopedText).
 	page3FromFile := monitor reloadPage: page3.
 	self assert: page3FromFile children size equals: 1.
-	self assert: page3FromFile children items first string
-			equals: 'Page 3 Paragraph 1. Append 1.'.
+	self
+		assert: page3FromFile children items first string
+		equals: 'Page 3 Paragraph 1. Append 1.'.
 	monitor stopMonitoring.
 	^ monitor
 ]
@@ -98,8 +102,8 @@ LeLocalMonitorExamples >> monitorBlockModified [
 LeLocalMonitorExamples >> monitorBlockRemoved [
 	<gtExample>
 	<after: #stopMonitor>
+	<return: #LeLocalStoreMonitor>
 	| page2 page2FromFile block21 |
-
 	self monitorWithDuration: Duration zero.
 	page2 := database pageNamed: 'Page 2'.
 	self assert: page2 children size equals: 2.
@@ -108,8 +112,9 @@ LeLocalMonitorExamples >> monitorBlockRemoved [
 	self assert: page2 children size equals: 1.
 	page2FromFile := monitor reloadPage: page2.
 	self assert: page2FromFile children size equals: 1.
-	self assert: page2FromFile children items first string
-			equals: 'Page 2 link to [[Page 1]]'.
+	self
+		assert: page2FromFile children items first string
+		equals: 'Page 2 link to [[Page 1]]'.
 	monitor stopMonitoring.
 	^ monitor
 ]
@@ -118,25 +123,26 @@ LeLocalMonitorExamples >> monitorBlockRemoved [
 LeLocalMonitorExamples >> monitorExplicitLinkBetweenPagesAdded [
 	<gtExample>
 	<after: #stopMonitor>
+	<return: #LeLocalStoreMonitor>
 	| page1 page2 explicitLink explicitLinksFile explicitLinksFromFile |
-	
 	self monitorWithDuration: Duration zero.
 	page1 := database pageNamed: 'Page 1'.
 	page2 := database pageNamed: 'Page 2'.
-	
-	explicitLink := LeAttachedLink new 
-		originReference: (LeLinkPageUidReference forPage: page1);
-		targetReference: (LeLinkPageUidReference forPage: page2).
-	
-	explicitLinksFile := monitor storage explicitLinksFileOrNilIn: monitor localRoot.
+
+	explicitLink := LeAttachedLink new
+			originReference: (LeLinkPageUidReference forPage: page1);
+			targetReference: (LeLinkPageUidReference forPage: page2).
+
+	explicitLinksFile := monitor storage
+			explicitLinksFileOrNilIn: monitor localRoot.
 	self assert: explicitLinksFile isNil.
-	
+
 	database addExplicitLink: explicitLink.
-	
+
 	explicitLinksFromFile := monitor reloadExplicitLinks: database explicitLinks.
 	self assert: explicitLinksFromFile title equals: database explicitLinks title.
 	self assert: explicitLinksFromFile size equals: 1.
-	
+
 	monitor stopMonitoring.
 	^ monitor
 ]
@@ -144,22 +150,24 @@ LeLocalMonitorExamples >> monitorExplicitLinkBetweenPagesAdded [
 { #category : #'examples - monitor' }
 LeLocalMonitorExamples >> monitorExplicitLinkBetweenPagesRemoved [
 	<gtExample>
+	<return: #LeLocalStoreMonitor>
 	| explicitLink explicitLinksFile explicitLinksFromFile |
-	
 	self monitorExplicitLinkBetweenPagesAdded.
-	
-	monitor startMonitoring. 
-	explicitLink := database explicitLinks items detect: [ :each | each isAttachedLink ].
-	
-	database removeExplicitLinks: { explicitLink }.
-	
-	explicitLinksFile := monitor storage explicitLinksFileOrNilIn: monitor localRoot.
+
+	monitor startMonitoring.
+	explicitLink := database explicitLinks items
+			detect: [ :each | each isAttachedLink ].
+
+	database removeExplicitLinks: {explicitLink}.
+
+	explicitLinksFile := monitor storage
+			explicitLinksFileOrNilIn: monitor localRoot.
 	self assert: explicitLinksFile isNotNil.
-	
+
 	explicitLinksFromFile := monitor reloadExplicitLinks: database explicitLinks.
 	self assert: explicitLinksFromFile title equals: database explicitLinks title.
 	self assert: explicitLinksFromFile size equals: 0.
-	
+
 	monitor stopMonitoring.
 	^ monitor
 ]
@@ -167,10 +175,11 @@ LeLocalMonitorExamples >> monitorExplicitLinkBetweenPagesRemoved [
 { #category : #'as yet unclassified' }
 LeLocalMonitorExamples >> monitorNamedPageEmptied [
 	"Removing all content from a named page should leave it on disk (with no content)"
+
 	<gtExample>
 	<after: #stopMonitor>
+	<return: #LeLocalStoreMonitor>
 	| page1 |
-
 	self monitorWithDuration: Duration zero.
 	page1 := database pageNamed: 'Page 1'.
 	self assert: page1 childrenCount equals: 1.
@@ -184,8 +193,8 @@ LeLocalMonitorExamples >> monitorNamedPageEmptied [
 LeLocalMonitorExamples >> monitorPageRemoved [
 	<gtExample>
 	<after: #stopMonitor>
+	<return: #LeLocalStoreMonitor>
 	| page3 page3Filename |
-
 	self monitorWithDuration: Duration zero.
 	page3 := database pageNamed: 'Page 3'.
 	page3Filename := memStore / (monitor pageFilename: page3).
@@ -200,8 +209,8 @@ LeLocalMonitorExamples >> monitorPageRemoved [
 LeLocalMonitorExamples >> monitorPageTitleChanged [
 	<gtExample>
 	<after: #stopMonitor>
+	<return: #LeLocalStoreMonitor>
 	| page3 page3Filename newPage3 |
-
 	self monitorWithDuration: Duration zero.
 	page3 := database pageNamed: 'Page 3'.
 	page3Filename := memStore / (monitor pageFilename: page3).

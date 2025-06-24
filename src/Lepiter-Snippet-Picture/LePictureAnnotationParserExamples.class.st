@@ -7,6 +7,7 @@ Class {
 { #category : #examples }
 LePictureAnnotationParserExamples >> parseReferenceKeyAndValue [
 	<gtExample>
+	<return: #LePictureAnnotationNode>
 	| anAst |
 	anAst := LePictureAnnotationParser parse: 'reference=fig123'.
 
@@ -18,6 +19,7 @@ LePictureAnnotationParserExamples >> parseReferenceKeyAndValue [
 { #category : #examples }
 LePictureAnnotationParserExamples >> parseReferenceKeyAndValue_number [
 	<gtExample>
+	<return: #LePictureAnnotationNode>
 	| anAst |
 	anAst := LePictureAnnotationParser parse: 'reference=123'.
 
@@ -29,6 +31,7 @@ LePictureAnnotationParserExamples >> parseReferenceKeyAndValue_number [
 { #category : #examples }
 LePictureAnnotationParserExamples >> parseReferenceValue [
 	<gtExample>
+	<return: #LePictureAnnotationNode>
 	| anAst |
 	anAst := LePictureAnnotationParser parse: 'fig123'.
 
@@ -40,9 +43,10 @@ LePictureAnnotationParserExamples >> parseReferenceValue [
 { #category : #examples }
 LePictureAnnotationParserExamples >> parseReferenceValue_number [
 	<gtExample>
+	<return: #LePictureAnnotationNode>
 	| anAst |
 	anAst := LePictureAnnotationParser parse: '42'.
-	
+
 	self assert: anAst hasPictureReferenceSpecified.
 
 	^ anAst

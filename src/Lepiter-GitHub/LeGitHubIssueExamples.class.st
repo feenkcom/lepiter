@@ -1,12 +1,13 @@
 Class {
 	#name : #LeGitHubIssueExamples,
 	#superclass : #LeGitHubExamples,
-	#category : 'Lepiter-GitHub-Examples'
+	#category : #'Lepiter-GitHub-Examples'
 }
 
 { #category : #'examples - ui auxiliar ' }
 LeGitHubIssueExamples >> basicEditorModelElement [
 	<gtExample>
+	<return: #LeGitHubIssueEditorModelElement>
 	| anElement |
 	anElement := LeGitHubIssueEditorModelElement new.
 	^ anElement
@@ -15,6 +16,7 @@ LeGitHubIssueExamples >> basicEditorModelElement [
 { #category : #'examples - model' }
 LeGitHubIssueExamples >> basicModel [
 	<gtExample>
+	<return: #LeGitHubIssueModel>
 	| aModel |
 	aModel := LeGitHubIssueModel new.
 	^ aModel
@@ -23,6 +25,7 @@ LeGitHubIssueExamples >> basicModel [
 { #category : #'examples - ui model' }
 LeGitHubIssueExamples >> basicModelElement [
 	<gtExample>
+	<return: #LeGitHubIssueModelElement>
 	| anElement |
 	anElement := LeGitHubIssueModelElement new.
 	^ anElement
@@ -31,6 +34,7 @@ LeGitHubIssueExamples >> basicModelElement [
 { #category : #'examples - snippet' }
 LeGitHubIssueExamples >> basicSnippet [
 	<gtExample>
+	<return: #LeGitHubIssueSnippet>
 	| aSnippet |
 	aSnippet := LeGitHubIssueSnippet new.
 	^ aSnippet
@@ -39,15 +43,16 @@ LeGitHubIssueExamples >> basicSnippet [
 { #category : #'examples - ui snippet' }
 LeGitHubIssueExamples >> basicSnippetElement [
 	<gtExample>
+	<return: #LeGitHubIssueSnippetElement>
 	| anElement |
-	anElement := LeGitHubIssueSnippetElement new.
-	"self assert: anElement hasContent not."
-	^ anElement 
+	anElement := LeGitHubIssueSnippetElement new.	"self assert: anElement hasContent not."
+	^ anElement
 ]
 
 { #category : #'examples - ui auxiliar ' }
 LeGitHubIssueExamples >> basicSummaryModelElement [
 	<gtExample>
+	<return: #LeGitHubIssueSummaryModelElement>
 	| anElement |
 	anElement := LeGitHubIssueSummaryModelElement new.
 	^ anElement
@@ -56,6 +61,7 @@ LeGitHubIssueExamples >> basicSummaryModelElement [
 { #category : #'examples - ui auxiliar ' }
 LeGitHubIssueExamples >> editorModelElement [
 	<gtExample>
+	<return: #LeGitHubIssueEditorModelElement>
 	| anElement aModel |
 	anElement := self basicEditorModelElement.
 
@@ -63,7 +69,7 @@ LeGitHubIssueExamples >> editorModelElement [
 	anElement model: aModel.
 
 	self assert: anElement model equals: aModel.
-	
+
 	^ anElement
 ]
 
@@ -75,6 +81,7 @@ LeGitHubIssueExamples >> issueNumber [
 { #category : #'examples - model' }
 LeGitHubIssueExamples >> model [
 	<gtExample>
+	<return: #LeGitHubIssueModel>
 	| aModel |
 	aModel := self basicModel.
 	aModel ownerName: self ownerName.
@@ -86,6 +93,7 @@ LeGitHubIssueExamples >> model [
 { #category : #'examples - ui model' }
 LeGitHubIssueExamples >> modelElement [
 	<gtExample>
+	<return: #LeGitHubIssueModelElement>
 	| anElement aModel |
 	anElement := self basicModelElement.
 
@@ -93,13 +101,14 @@ LeGitHubIssueExamples >> modelElement [
 	anElement model: aModel.
 
 	self assert: anElement model equals: aModel.
-	
+
 	^ anElement
 ]
 
 { #category : #'examples - snippet' }
 LeGitHubIssueExamples >> snippet [
 	<gtExample>
+	<return: #LeGitHubIssueSnippet>
 	| aSnippet |
 	aSnippet := self basicSnippet.
 	aSnippet ownerName: self ownerName.
@@ -111,29 +120,32 @@ LeGitHubIssueExamples >> snippet [
 { #category : #'examples - ui snippet' }
 LeGitHubIssueExamples >> snippetElement [
 	<gtExample>
+	<return: #LeGitHubIssueSnippetElement>
 	| anElement aSnippet |
 	anElement := self basicSnippetElement.
 	aSnippet := self snippet.
 	anElement snippetViewModel: aSnippet asSnippetViewModel.
 	self assert: anElement snippet equals: aSnippet.
-	^ anElement 
+	^ anElement
 ]
 
 { #category : #'examples - ui snippet' }
 LeGitHubIssueExamples >> snippetElement_WithResponse [
 	<gtExample>
+	<return: #LeGitHubIssueSnippetElement>
 	| anElement aSnippet |
 	anElement := self basicSnippetElement.
 	aSnippet := self snippet.
 	aSnippet model response.
 	anElement snippetViewModel: aSnippet asSnippetViewModel.
 	self assert: anElement snippet equals: aSnippet.
-	^ anElement 
+	^ anElement
 ]
 
 { #category : #'examples - ui auxiliar ' }
 LeGitHubIssueExamples >> summaryModelElement [
 	<gtExample>
+	<return: #LeGitHubIssueSummaryModelElement>
 	| anElement aModel |
 	anElement := self basicSummaryModelElement.
 
@@ -142,13 +154,14 @@ LeGitHubIssueExamples >> summaryModelElement [
 	anElement model: aModel.
 
 	self assert: anElement model equals: aModel.
-	
+
 	^ anElement
 ]
 
 { #category : #'examples - ui auxiliar ' }
 LeGitHubIssueExamples >> summaryModelElement_ResponseAfter [
 	<gtExample>
+	<return: #LeGitHubIssueSummaryModelElement>
 	| anElement aModel |
 	anElement := self basicSummaryModelElement.
 
@@ -157,6 +170,6 @@ LeGitHubIssueExamples >> summaryModelElement_ResponseAfter [
 	aModel response.
 
 	self assert: anElement model equals: aModel.
-	
+
 	^ anElement
 ]

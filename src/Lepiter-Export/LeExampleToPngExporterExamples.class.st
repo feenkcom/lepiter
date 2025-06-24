@@ -10,8 +10,10 @@ Class {
 { #category : #examples }
 LeExampleToPngExporterExamples >> exportGtFilter [
 	<gtExample>
+	<return: #LeExampleToPngExporter>
 	| anExample aFileReference anExporter |
-	anExample := (GtSearchClassFilterExamples >> #classesInCurrentPackageFilter) gtExample.
+	anExample := (GtSearchClassFilterExamples >> #classesInCurrentPackageFilter)
+			gtExample.
 	aFileReference := FileSystem memory workingDirectory / 'picture.png'.
 
 	anExporter := LeExampleToPngExporter new
@@ -33,8 +35,10 @@ LeExampleToPngExporterExamples >> exportGtFilter [
 { #category : #examples }
 LeExampleToPngExporterExamples >> exportGtFilter_Scripter [
 	<gtExample>
+	<return: #LeExampleToPngExporter>
 	| anExample aFileReference anExporter |
-	anExample := (GtSearchClassFilterExamples >> #classesInCurrentPackageFilter) gtExample.
+	anExample := (GtSearchClassFilterExamples >> #classesInCurrentPackageFilter)
+			gtExample.
 	aFileReference := FileSystem memory workingDirectory / 'picture.png'.
 
 	anExporter := LeExampleToPngExporter new
@@ -56,6 +60,7 @@ LeExampleToPngExporterExamples >> exportGtFilter_Scripter [
 { #category : #examples }
 LeExampleToPngExporterExamples >> exportGtHistory [
 	<gtExample>
+	<return: #LeExampleToPngExporter>
 	| anExample aFileReference anExporter |
 	anExample := (GtTour >> #timelineElement) gtExample.
 	aFileReference := FileSystem memory workingDirectory / 'picture.png'.
@@ -80,6 +85,7 @@ LeExampleToPngExporterExamples >> exportGtHistory [
 { #category : #examples }
 LeExampleToPngExporterExamples >> exportGtHistory_Scripter [
 	<gtExample>
+	<return: #LeExampleToPngExporter>
 	| anExample aFileReference anExporter |
 	anExample := (GtTour >> #timelineElement) gtExample.
 	aFileReference := FileSystem memory workingDirectory / 'picture.png'.
@@ -104,6 +110,7 @@ LeExampleToPngExporterExamples >> exportGtHistory_Scripter [
 { #category : #examples }
 LeExampleToPngExporterExamples >> exportMethodCoder [
 	<gtExample>
+	<return: #LeExampleToPngExporter>
 	| anExample aFileReference anExporter |
 	anExample := (GtPharoMethodCoderExamples >> #forThisMethodCoder) gtExample.
 	aFileReference := FileSystem memory workingDirectory / 'picture.png'.
@@ -128,6 +135,7 @@ LeExampleToPngExporterExamples >> exportMethodCoder [
 { #category : #examples }
 LeExampleToPngExporterExamples >> exportMethodCoder_Scripter [
 	<gtExample>
+	<return: #LeExampleToPngExporter>
 	| anExample aFileReference anExporter |
 	anExample := (GtPharoMethodCoderExamples >> #forThisMethodCoder) gtExample.
 	aFileReference := FileSystem memory workingDirectory / 'picture.png'.

@@ -3,6 +3,7 @@ Extension { #name : #LeContentAttachmentsExample }
 { #category : #'*Lepiter-Snippet-Words' }
 LeContentAttachmentsExample >> wordSnippetAttachments [
 	<gtExample>
+	<return: #LeContentAttachmentsHolder>
 	| page snippet attachments attachmentOne |
 	page := LeModelExamples new pageThreeWithOneWordAttachment.
 	snippet := page children first.

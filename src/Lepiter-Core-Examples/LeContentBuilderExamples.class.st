@@ -7,6 +7,7 @@ Class {
 { #category : #'examples - basic' }
 LeContentBuilderExamples >> basicDatabase [
 	<gtExample>
+	<return: #LeDatabase>
 	| aDatabase |
 	aDatabase := LeDatabase new.
 	self assert: aDatabase size equals: 0.
@@ -16,6 +17,7 @@ LeContentBuilderExamples >> basicDatabase [
 { #category : #'examples - basic' }
 LeContentBuilderExamples >> database [
 	<gtExample>
+	<return: #LeDatabase>
 	| aDatabase |
 	aDatabase := self basicDatabase.
 	aDatabase userEmail: self userEmailString.
@@ -26,8 +28,8 @@ LeContentBuilderExamples >> database [
 { #category : #'examples - basic' }
 LeContentBuilderExamples >> userEmail [
 	<gtExample>
-	^ LeEmail new 
-		email: self userEmailString
+	<return: #LeEmail>
+	^ LeEmail new email: self userEmailString
 ]
 
 { #category : #accessing }

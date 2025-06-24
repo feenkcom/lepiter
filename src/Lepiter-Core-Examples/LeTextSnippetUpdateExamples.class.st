@@ -23,6 +23,7 @@ LeTextSnippetUpdateExamples >> assertSnippetModifiedFor: targetSnippet [
 { #category : #'examples - snippets' }
 LeTextSnippetUpdateExamples >> createTargetSnippet [
 	<gtExample>
+	<return: #LeTextSnippet>
 	^ LeTextSnippet string: 'some text v1'
 ]
 

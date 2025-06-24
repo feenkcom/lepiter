@@ -52,7 +52,7 @@ LeExampleSnippetElement >> computeExamplePreviewElement [
 							vExact: self snippetViewModel previewHeight;
 							geometry: (BlRoundedRectangleGeometry cornerRadius: 4);
 							alignCenter;
-							background: self theme default backdropColor;
+							background: self theme default backdropBackground;
 							addChild: (BrLabel new
 									aptitude: (BrGlamorousLabelAptitude new light foreground: Color veryDarkGray);
 									text: 'Example not found')) ].

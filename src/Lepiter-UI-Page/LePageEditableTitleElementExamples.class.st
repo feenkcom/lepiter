@@ -7,6 +7,7 @@ Class {
 { #category : #'examples - page - editable title' }
 LePageEditableTitleElementExamples >> basicPageEditableTitleElement [
 	<gtExample>
+	<return: #LePageEditableTitleElement>
 	| anElement |
 	anElement := LePageEditableTitleElement new.
 	self assert: anElement hasPage not.
@@ -16,7 +17,8 @@ LePageEditableTitleElementExamples >> basicPageEditableTitleElement [
 { #category : #'private - instance creation' }
 LePageEditableTitleElementExamples >> database [
 	<gtExample>
-	| database folderReference localStore  |
+	<return: #LeDatabase>
+	| database folderReference localStore |
 	folderReference := FileSystem memory / 'storage-main'.
 	folderReference ensureCreateDirectory.
 
@@ -30,27 +32,39 @@ LePageEditableTitleElementExamples >> database [
 { #category : #'private - instance creation' }
 LePageEditableTitleElementExamples >> databaseWithPageAAndLinkToPageB [
 	<gtExample>
+	<return: #LeDatabase>
 	| aDatabase |
 	aDatabase := self database.
-	(aDatabase pageBuilder title: 'a'; add)
-		snippetBuilder string: '[[b]]'; add.
-	^ aDatabase	
+	(aDatabase pageBuilder
+		title: 'a';
+		add) snippetBuilder
+		string: '[[b]]';
+		add.
+	^ aDatabase
 ]
 
 { #category : #'private - instance creation' }
 LePageEditableTitleElementExamples >> databaseWithTwoPagesAndTwoDailyNotes [
 	<gtExample>
+	<return: #LeDatabase>
 	| aDatabase |
 	aDatabase := self titledPageWithBlockHierachy database.
-	aDatabase pageBuilder title: 'two'; add.
-	aDatabase pageBuilder noteOf: Date today; add.
-	aDatabase pageBuilder noteOf: Date yesterday; add.
+	aDatabase pageBuilder
+		title: 'two';
+		add.
+	aDatabase pageBuilder
+		noteOf: Date today;
+		add.
+	aDatabase pageBuilder
+		noteOf: Date yesterday;
+		add.
 	^ aDatabase
 ]
 
 { #category : #'examples - page - editable title' }
 LePageEditableTitleElementExamples >> pageEditableTitleElement_ApprovedTitleRename [
 	<gtExample>
+	<return: #LePageEditableTitleElement>
 	| anElement aPage aDatabase |
 	anElement := self basicPageEditableTitleElement.
 	aDatabase := self databaseWithTwoPagesAndTwoDailyNotes.
@@ -68,6 +82,7 @@ LePageEditableTitleElementExamples >> pageEditableTitleElement_ApprovedTitleRena
 { #category : #'examples - page - editable title' }
 LePageEditableTitleElementExamples >> pageEditableTitleElement_DisapprovedTitleRename [
 	<gtExample>
+	<return: #LePageEditableTitleElement>
 	| anElement aPage aDatabase |
 	anElement := self basicPageEditableTitleElement.
 	aDatabase := self databaseWithTwoPagesAndTwoDailyNotes.
@@ -85,6 +100,7 @@ LePageEditableTitleElementExamples >> pageEditableTitleElement_DisapprovedTitleR
 { #category : #'examples - page - editable title' }
 LePageEditableTitleElementExamples >> pageEditableTitleElement_LongTitle [
 	<gtExample>
+	<return: #LePageEditableTitleElement>
 	| anElement aPage aScripter |
 	anElement := self basicPageEditableTitleElement.
 	aPage := self titledPage.
@@ -108,18 +124,17 @@ LePageEditableTitleElementExamples >> pageEditableTitleElement_LongTitle [
 
 { #category : #'examples - page - editable title' }
 LePageEditableTitleElementExamples >> pageEditableTitleElement_RenamePageBToC [
-
 	<gtExample>
+	<return: #LePageEditableTitleElement>
 	| anElement aPage aDatabase |
 	anElement := self basicPageEditableTitleElement.
 	aDatabase := self databaseWithPageAAndLinkToPageB.
 	aPage := aDatabase pageBuilder
-		         title: 'b';
-		         add.
+			title: 'b';
+			add.
 
 	anElement pageViewModel: aPage asContentUIModel.
-	anElement titleElement
-		text: 'c'.
+	anElement titleElement text: 'c'.
 	anElement acceptPageTitle.
 	self assert: aPage database equals: aDatabase.
 	self assert: anElement titleElement text asString equals: aPage title.
@@ -130,6 +145,7 @@ LePageEditableTitleElementExamples >> pageEditableTitleElement_RenamePageBToC [
 { #category : #'examples - page - editable title' }
 LePageEditableTitleElementExamples >> pageEditableTitleElement_TitledPage [
 	<gtExample>
+	<return: #LePageEditableTitleElement>
 	| anElement aPage aScripter |
 	anElement := self basicPageEditableTitleElement.
 	aPage := self titledPage.
@@ -151,8 +167,8 @@ LePageEditableTitleElementExamples >> pageEditableTitleElement_TitledPage [
 
 { #category : #'examples - page - editable title' }
 LePageEditableTitleElementExamples >> pageEditableTitleElement_UntitledPage [
-
 	<gtExample>
+	<return: #LePageEditableTitleElement>
 	| anElement aPage |
 	anElement := self basicPageEditableTitleElement.
 	aPage := self untitledPage.
@@ -164,26 +180,44 @@ LePageEditableTitleElementExamples >> pageEditableTitleElement_UntitledPage [
 { #category : #'private - instance creation' }
 LePageEditableTitleElementExamples >> titledPage [
 	<gtExample>
-
-	^ self database pageBuilder title: 'one'; add
+	<return: #LePage>
+	^ self database pageBuilder
+		title: 'one';
+		add
 ]
 
 { #category : #'private - instance creation' }
 LePageEditableTitleElementExamples >> titledPageWithBlockHierachy [
 	<gtExample>
+	<return: #LePage>
 	| aPage aSnippetOne aSnippetTwo |
-	aPage := self database pageBuilder title: 'one'; add.
-	aSnippetOne := aPage snippetBuilder string: 'block one > one'; add.
-	aSnippetTwo := aPage snippetBuilder string: 'block one > two'; add.
-	aSnippetOne snippetBuilder string: 'block one > one > one'; add.
-	aSnippetOne snippetBuilder string: 'block one > one > two'; add.
-	aSnippetTwo snippetBuilder string: 'block one > two > one'; add.
-	aSnippetTwo snippetBuilder string: 'block one > two > two'; add.
+	aPage := self database pageBuilder
+			title: 'one';
+			add.
+	aSnippetOne := aPage snippetBuilder
+			string: 'block one > one';
+			add.
+	aSnippetTwo := aPage snippetBuilder
+			string: 'block one > two';
+			add.
+	aSnippetOne snippetBuilder
+		string: 'block one > one > one';
+		add.
+	aSnippetOne snippetBuilder
+		string: 'block one > one > two';
+		add.
+	aSnippetTwo snippetBuilder
+		string: 'block one > two > one';
+		add.
+	aSnippetTwo snippetBuilder
+		string: 'block one > two > two';
+		add.
 	^ aPage
 ]
 
 { #category : #'private - instance creation' }
 LePageEditableTitleElementExamples >> untitledPage [
 	<gtExample>
+	<return: #LePage>
 	^ self database pageBuilder addOnlyAfterSettingTitle
 ]

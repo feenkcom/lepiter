@@ -7,12 +7,13 @@ Class {
 { #category : #examples }
 LeIncomingPageLinksTypeAndAmountElementExamples >> linksTypeAndAmountElement [
 	<gtExample>
+	<return: #LeIncomingPageLinksTypeAndAmountElement>
 	| anElement theIncomingReferences anIncomingPageLinksViewModel |
-	
-	theIncomingReferences := LeIncomingReferencesForUIExamples new linkedReferences_PageThree.
+	theIncomingReferences := LeIncomingReferencesForUIExamples new
+			linkedReferences_PageThree.
 	anIncomingPageLinksViewModel := LeIncomingPageLinksTypeAndAmountViewModel new
-		incomingPageLinksGroupModel: theIncomingReferences.
-	
+			incomingPageLinksGroupModel: theIncomingReferences.
+
 	anElement := LeIncomingPageLinksTypeAndAmountElement new.
 	anElement incomingPageLinksTypeAndAmountViewModel: anIncomingPageLinksViewModel.
 

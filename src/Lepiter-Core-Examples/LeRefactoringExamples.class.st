@@ -7,6 +7,7 @@ Class {
 { #category : #methods }
 LeRefactoringExamples >> renameInstVarNamedMethod [
 	<gtExample>
+	<return: #OrderedCollection>
 	| model refactoring snippetChanges queryingObjectChanges pharoSnippets textSnippets |
 	model := GtRBNamespace new.
 	refactoring := GtRBRenameMethodRefactoring

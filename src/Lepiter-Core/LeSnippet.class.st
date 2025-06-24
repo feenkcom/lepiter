@@ -234,6 +234,11 @@ LeSnippet >> detachFromParent [
 	self parent: nil
 ]
 
+{ #category : #searching }
+LeSnippet >> elementTypeForCodeUnitSearch [
+	^ GtSearchSnippetItemType new
+]
+
 { #category : #history }
 LeSnippet >> extractCommonState [
 	^ LeCommonSnippetStateExtractor fromSnippet: self

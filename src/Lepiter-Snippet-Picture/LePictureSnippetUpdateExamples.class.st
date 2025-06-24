@@ -23,8 +23,8 @@ LePictureSnippetUpdateExamples >> assertSnippetModifiedFor: targetSnippet [
 { #category : #'examples - snippets' }
 LePictureSnippetUpdateExamples >> createTargetSnippet [
 	<gtExample>
-	^ LePictureSnippet new 
-		urlString: 'www.example.com/picture1'
+	<return: #LePictureSnippet>
+	^ LePictureSnippet new urlString: 'www.example.com/picture1'
 ]
 
 { #category : #'examples - snippets' }

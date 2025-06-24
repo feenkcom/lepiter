@@ -23,6 +23,7 @@ LePharoLinkSnippetUpdateExamples >> assertSnippetModifiedFor: targetSnippet [
 { #category : #'examples - snippets' }
 LePharoLinkSnippetUpdateExamples >> createTargetSnippet [
 	<gtExample>
+	<return: #LePharoLinkSnippet>
 	^ LePharoLinkSnippet code: '1+2'
 ]
 

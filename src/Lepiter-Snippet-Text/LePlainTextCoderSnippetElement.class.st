@@ -86,7 +86,8 @@ LePlainTextCoderSnippetElement >> renamePageIn: anEditorElement [
 		when: GtRenameActionAnnouncement
 		do: [ :ann | 
 			(#(#accept) includes: ann eventType)
-				ifTrue: [ link target renameTo: renameAction newName ] ].
+				ifTrue: [ link target renameTo: renameAction newName ] ]
+		for: self.
 	renameAction install
 ]
 

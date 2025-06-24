@@ -111,6 +111,7 @@ LeUIStylingPageByScripterExamples >> newMemoryLogger [
 { #category : #accessing }
 LeUIStylingPageByScripterExamples >> pageClickOnTheFirstPageWorldTab [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter aLogger |
 	aScripter := self pageSecondTimeInWorldTab.
 
@@ -168,6 +169,7 @@ LeUIStylingPageByScripterExamples >> pageClickOnTheFirstPageWorldTab [
 { #category : #accessing }
 LeUIStylingPageByScripterExamples >> pageIntoWorldTab [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter aLogger |
 	aScripter := GtWorldByScripterExamples new tabElementInScripter.
 
@@ -238,55 +240,56 @@ LeUIStylingPageByScripterExamples >> pageIntoWorldTab [
 { #category : #'examples - model' }
 LeUIStylingPageByScripterExamples >> pageOneWithClass [
 	<gtExample>
+	<return: #LePage>
 	| aPage |
 	aPage := LeUIByScripterExamples new pageOne.
-	
-	aPage snippetBuilder 
+
+	aPage snippetBuilder
 		string: '{{gtClass:Object}}';
 		add.
-	
+
 	^ aPage
 ]
 
 { #category : #'examples - model' }
 LeUIStylingPageByScripterExamples >> pageOneWithPackage [
 	<gtExample>
+	<return: #LePage>
 	| aPage |
 	aPage := LeUIByScripterExamples new pageOne.
-	
-	aPage snippetBuilder 
+
+	aPage snippetBuilder
 		string: '{{gtPackage:Kernel}}';
 		add.
-	
+
 	^ aPage
 ]
 
 { #category : #'examples - model' }
 LeUIStylingPageByScripterExamples >> pageOneWithText [
 	<gtExample>
+	<return: #LePage>
 	| aPage |
 	aPage := LeUIByScripterExamples new pageOne.
-	
-	aPage snippetBuilder 
+
+	aPage snippetBuilder
 		string: self textWithExampleAnnotations;
 		add.
-	
+
 	^ aPage
 ]
 
 { #category : #accessing }
 LeUIStylingPageByScripterExamples >> pageSecondTimeInWorldTab [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self pageIntoWorldTab.
 
 	aScripter
 		substep: 'Add page into a world tab'
 		do: [ :aStep | 
-			aStep
-				clickStep: [ :s | 
-					s
-						// LeOpenPageInNewWorldTabElementId ].
+			aStep clickStep: [ :s | s // LeOpenPageInNewWorldTabElementId ].
 
 			aStep
 				assertStep: [ :s | 
@@ -333,6 +336,7 @@ LeUIStylingPageByScripterExamples >> pageSecondTimeInWorldTab [
 { #category : #accessing }
 LeUIStylingPageByScripterExamples >> pageSwitchToTheFirstWorldTabThenBackToTheSecondWorldTab [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter aLogger |
 	aScripter := self pageIntoWorldTab.
 
@@ -405,6 +409,7 @@ LeUIStylingPageByScripterExamples >> pageSwitchToTheFirstWorldTabThenBackToTheSe
 { #category : #accessing }
 LeUIStylingPageByScripterExamples >> pageWithClassClicked [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self pageWithClassIntoWorldTab.
 
@@ -439,6 +444,7 @@ LeUIStylingPageByScripterExamples >> pageWithClassClicked [
 { #category : #accessing }
 LeUIStylingPageByScripterExamples >> pageWithClassIntoWorldTab [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := GtWorldByScripterExamples new tabElementInScripter.
 
@@ -486,6 +492,7 @@ LeUIStylingPageByScripterExamples >> pageWithClassIntoWorldTab [
 { #category : #accessing }
 LeUIStylingPageByScripterExamples >> pageWithClassPrimaryClicked [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self pageWithClassIntoWorldTab.
 
@@ -518,6 +525,7 @@ LeUIStylingPageByScripterExamples >> pageWithClassPrimaryClicked [
 { #category : #accessing }
 LeUIStylingPageByScripterExamples >> pageWithPackageClicked [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self pageWithPackageIntoWorldTab.
 
@@ -552,6 +560,7 @@ LeUIStylingPageByScripterExamples >> pageWithPackageClicked [
 { #category : #accessing }
 LeUIStylingPageByScripterExamples >> pageWithPackageIntoWorldTab [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := GtWorldByScripterExamples new tabElementInScripter.
 
@@ -596,6 +605,7 @@ LeUIStylingPageByScripterExamples >> pageWithPackageIntoWorldTab [
 { #category : #accessing }
 LeUIStylingPageByScripterExamples >> pageWithPackagePrimaryClicked [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self pageWithPackageIntoWorldTab.
 
@@ -690,6 +700,7 @@ LeUIStylingPageByScripterExamples >> step: aRootStep label: aStepLabel snippetIn
 { #category : #'examples - example annotations' }
 LeUIStylingPageByScripterExamples >> textSnippetWithExampleAnnotations [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := LeUIByScripterExamples new emptyPageElementInPager.
 
@@ -732,12 +743,12 @@ LeUIStylingPageByScripterExamples >> textSnippetWithExampleAnnotations [
 { #category : #'examples - example annotations' }
 LeUIStylingPageByScripterExamples >> textWithExampleAnnotations [
 	<gtExample>
-	
+	<return: #ByteString>
 	^ 'I am a number of the following value: {{gtExample: '
-		, LeUIDummyExamples name,' >> #'
+		, LeUIDummyExamples name , ' >> #'
 		, (LeUIDummyExamples >> #number) selector asString
-		,' | label=#yourself}}. I can also be displayed using embedded inspectors: {{gtExample: '
-		, LeUIDummyExamples name,' >> #'
+		, ' | label=#yourself}}. I can also be displayed using embedded inspectors: {{gtExample: '
+		, LeUIDummyExamples name , ' >> #'
 		, (LeUIDummyExamples >> #number) selector asString
-		,' | noCode | previewHeight = 250 }}. '
+		, ' | noCode | previewHeight = 250 }}. '
 ]

@@ -18,35 +18,33 @@ Class {
 { #category : #'examples - commands' }
 LeUnindentSnippetCommandExamples >> createUnindentSnippetCommand [
 	<gtExample>
+	<return: #LePageUnindentSnippetCommand>
 	| targetSnippet command |
-	
 	targetSnippet := self targetPage children first children first.
 	command := targetSnippet commandBuilder unindentSnippetCommand.
-	
+
 	self assertCommand: command forSnippet: targetSnippet.
-	
+
 	^ command
 ]
 
 { #category : #'examples - execution' }
 LeUnindentSnippetCommandExamples >> executeUnindentSnippetCommand [
 	<gtExample>
+	<return: #LePage>
 	| command page initialTargetSnippet result |
-	
 	command := self createUnindentSnippetCommand.
 	page := self targetPage.
 	initialTargetSnippet := page children first children first.
 
 	result := command execute.
-	
+
 	self assert: page children size equals: 2.
 	self assert: page editHistory eventStore size equals: 1.
-	
+
 	self assert: page children second == initialTargetSnippet.
-	
-	self 
-		assertStructure: self modifiedPageStructure
-		forContent: page.
+
+	self assertStructure: self modifiedPageStructure forContent: page.
 
 	^ page
 ]

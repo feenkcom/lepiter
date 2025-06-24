@@ -45,13 +45,14 @@ LeElementSnippeAllAttributesUpdateExamples >> assertSnippetModifiedFor: targetSn
 { #category : #'examples - snippets' }
 LeElementSnippeAllAttributesUpdateExamples >> createTargetSnippet [
 	<gtExample>
+	<return: #LeElementSnippet>
 	| targetSnippet |
 	targetSnippet := LeElementSnippet code: 'BlElement new'.
-	
+
 	self assert: targetSnippet elementHeight equals: 100.
 	self assert: targetSnippet codeHeight equals: 50.
 	self assert: targetSnippet codeVisible.
-	
+
 	^ targetSnippet
 ]
 

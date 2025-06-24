@@ -272,6 +272,7 @@ LeAbstractSnippetViewModel >> notifyFocusChanged: aBoolean from: aSourceObject [
 
 { #category : #'api - focus' }
 LeAbstractSnippetViewModel >> onFocusChanged: aBoolean [
+	aBoolean ifTrue: [ self removeSelectionsInOtherSnippetViews ]
 ]
 
 { #category : #'api - snippet model' }
@@ -285,6 +286,21 @@ LeAbstractSnippetViewModel >> postCopy [
 	
 	announcer := nil.
 	snippetsCollection := nil
+]
+
+{ #category : #private }
+LeAbstractSnippetViewModel >> removeSelectionsInOtherSnippetViews [
+	self
+		snippetsCollectionDo: [ :sc | 
+			sc children
+				do: [ :child | 
+					child
+						withAllSnippetChildrenBreadthFirstDo: [ :each | each ~~ self ifTrue: [ each requestRemoveSelection ] ] ] ]
+]
+
+{ #category : #private }
+LeAbstractSnippetViewModel >> requestRemoveSelection [
+	self announce: (LeSnippetRequestRemoveSelection new snippetViewModel: self)
 ]
 
 { #category : #private }

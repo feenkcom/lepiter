@@ -7,9 +7,9 @@ Class {
 { #category : #examples }
 LeExportSnippetExamples >> textSnippetWithClassAnnotation [
 	<gtExample>
+	<return: #LeTextSnippet>
 	| snippet |
-	snippet := LeTextSnippet
-			string: '{{gtClass:' , BrButton name , '}}'.
+	snippet := LeTextSnippet string: '{{gtClass:' , BrButton name , '}}'.
 
 	^ snippet
 ]
@@ -17,9 +17,10 @@ LeExportSnippetExamples >> textSnippetWithClassAnnotation [
 { #category : #examples }
 LeExportSnippetExamples >> textSnippetWithClassAnnotationCollapsed [
 	<gtExample>
+	<return: #LeTextSnippet>
 	| snippet |
 	snippet := LeTextSnippet
-			string: '{{gtClass:' , BrButton  name , ' | expanded=false}}'.
+			string: '{{gtClass:' , BrButton name , ' | expanded=false}}'.
 
 	^ snippet
 ]
@@ -27,9 +28,9 @@ LeExportSnippetExamples >> textSnippetWithClassAnnotationCollapsed [
 { #category : #examples }
 LeExportSnippetExamples >> textSnippetWithClassAnnotationExpanded [
 	<gtExample>
+	<return: #LeTextSnippet>
 	| snippet |
-	snippet := LeTextSnippet
-			string: '{{gtClass:' , BrButton name , ' | expanded}}'.
+	snippet := LeTextSnippet string: '{{gtClass:' , BrButton name , ' | expanded}}'.
 
 	^ snippet
 ]
@@ -37,9 +38,10 @@ LeExportSnippetExamples >> textSnippetWithClassAnnotationExpanded [
 { #category : #examples }
 LeExportSnippetExamples >> textSnippetWithClassAnnotationLabeledAndText [
 	<gtExample>
+	<return: #LeTextSnippet>
 	| snippet |
-
-	snippet := LeTextSnippet  string: '{{gtClass:BrButton|label=Button}} **has** *very* nice API.'.
+	snippet := LeTextSnippet
+			string: '{{gtClass:BrButton|label=Button}} **has** *very* nice API.'.
 
 	^ snippet
 ]
@@ -47,8 +49,11 @@ LeExportSnippetExamples >> textSnippetWithClassAnnotationLabeledAndText [
 { #category : #examples }
 LeExportSnippetExamples >> textSnippetWithExampleAnnotation [
 	<gtExample>
+	<return: #LeTextSnippet>
 	| snippet |
-	snippet := LeTextSnippet new string: '{{gtExample:', BrExamplesShowroom name, ' >> #', #glamorousLargeButton, '}}'.
+	snippet := LeTextSnippet new
+			string: '{{gtExample:' , BrExamplesShowroom name , ' >> #' , #glamorousLargeButton
+					, '}}'.
 
 	^ snippet
 ]
@@ -56,8 +61,11 @@ LeExportSnippetExamples >> textSnippetWithExampleAnnotation [
 { #category : #examples }
 LeExportSnippetExamples >> textSnippetWithExampleAnnotationWithLabel [
 	<gtExample>
+	<return: #LeTextSnippet>
 	| snippet |
-	snippet := LeTextSnippet new string: '{{gtExample:', BrExamplesShowroom name, ' >> #', #glamorousLargeButton, ' | label=#printString}}'.
+	snippet := LeTextSnippet new
+			string: '{{gtExample:' , BrExamplesShowroom name , ' >> #' , #glamorousLargeButton
+					, ' | label=#printString}}'.
 
 	^ snippet
 ]
@@ -65,8 +73,11 @@ LeExportSnippetExamples >> textSnippetWithExampleAnnotationWithLabel [
 { #category : #examples }
 LeExportSnippetExamples >> textSnippetWithExampleAnnotationWithPreviewExpanded [
 	<gtExample>
+	<return: #LeTextSnippet>
 	| snippet |
-	snippet := LeTextSnippet new string: '{{gtExample:', BrExamplesShowroom name, ' >> #', #glamorousLargeButton, ' | previewExpanded=true}}'.
+	snippet := LeTextSnippet new
+			string: '{{gtExample:' , BrExamplesShowroom name , ' >> #' , #glamorousLargeButton
+					, ' | previewExpanded=true}}'.
 
 	^ snippet
 ]
@@ -74,9 +85,9 @@ LeExportSnippetExamples >> textSnippetWithExampleAnnotationWithPreviewExpanded [
 { #category : #examples }
 LeExportSnippetExamples >> textSnippetWithExternalLabelUrlLink [
 	<gtExample>
+	<return: #LeTextSnippet>
 	| snippet |
-
-	snippet := LeTextSnippet  string: '[GToolkit](https://gtoolkit.com)'.
+	snippet := LeTextSnippet string: '[GToolkit](https://gtoolkit.com)'.
 
 	^ snippet
 ]
@@ -84,9 +95,9 @@ LeExportSnippetExamples >> textSnippetWithExternalLabelUrlLink [
 { #category : #examples }
 LeExportSnippetExamples >> textSnippetWithExternalUrlLink [
 	<gtExample>
+	<return: #LeTextSnippet>
 	| snippet |
-
-	snippet := LeTextSnippet  string: '<https://gtoolkit.com>'.
+	snippet := LeTextSnippet string: '<https://gtoolkit.com>'.
 
 	^ snippet
 ]
@@ -94,20 +105,22 @@ LeExportSnippetExamples >> textSnippetWithExternalUrlLink [
 { #category : #examples }
 LeExportSnippetExamples >> textSnippetWithImageLinkWithAbsolutePath [
 	<gtExample>
+	<return: #LeTextSnippet>
 	| snippet database page temporaryDirectory imageFile |
 	temporaryDirectory := GtTemporaryDirectory new.
 	database := LeLocalStoreLoad current onlyLoadFrom: temporaryDirectory reference.
 	database optionAt: #temporaryDirectory put: temporaryDirectory.
-	
-	imageFile := FileLocator gtResource / 'feenkcom' / 'gtoolkit' / 'doc' / 'gtoolkit.png'.
+
+	imageFile := FileLocator gtResource / 'feenkcom' / 'gtoolkit' / 'doc'
+			/ 'gtoolkit.png'.
 	self assert: imageFile exists.
-	
+
 	page := database pageBuilder
 			title: 'Image link';
 			add.
 
 	snippet := page snippetBuilder
-			string: ('![Attachment Image Link]({1})' format: { imageFile asZnRelativeUrl });
+			string: ('![Attachment Image Link]({1})' format: {imageFile asZnRelativeUrl});
 			add.
 
 	^ snippet
@@ -116,22 +129,24 @@ LeExportSnippetExamples >> textSnippetWithImageLinkWithAbsolutePath [
 { #category : #examples }
 LeExportSnippetExamples >> textSnippetWithImageLinkWithRelativeAttachmentPath [
 	<gtExample>
+	<return: #LeTextSnippet>
 	| snippet database page temporaryDirectory imageFile attachmentPath |
 	temporaryDirectory := GtTemporaryDirectory new.
 	database := LeLocalStoreLoad current onlyLoadFrom: temporaryDirectory reference.
 	database optionAt: #temporaryDirectory put: temporaryDirectory.
-	
-	imageFile := FileLocator gtResource / 'feenkcom' / 'gtoolkit' / 'doc' / 'gtoolkit.png'.
+
+	imageFile := FileLocator gtResource / 'feenkcom' / 'gtoolkit' / 'doc'
+			/ 'gtoolkit.png'.
 	self assert: imageFile exists.
-	
+
 	attachmentPath := database addAttachmentByCopy: imageFile.
-	
+
 	page := database pageBuilder
 			title: 'Image link';
 			add.
 
 	snippet := page snippetBuilder
-			string: ('![Attachment Image Link](file:///{1})' format: { attachmentPath });
+			string: ('![Attachment Image Link](file:///{1})' format: {attachmentPath});
 			add.
 
 	^ snippet
@@ -140,22 +155,24 @@ LeExportSnippetExamples >> textSnippetWithImageLinkWithRelativeAttachmentPath [
 { #category : #examples }
 LeExportSnippetExamples >> textSnippetWithImageLinkWithRelativeAttachmentPathWithTwoSlashes [
 	<gtExample>
+	<return: #LeTextSnippet>
 	| snippet database page temporaryDirectory imageFile attachmentPath |
 	temporaryDirectory := GtTemporaryDirectory new.
 	database := LeLocalStoreLoad current onlyLoadFrom: temporaryDirectory reference.
 	database optionAt: #temporaryDirectory put: temporaryDirectory.
-	
-	imageFile := FileLocator gtResource / 'feenkcom' / 'gtoolkit' / 'doc' / 'gtoolkit.png'.
+
+	imageFile := FileLocator gtResource / 'feenkcom' / 'gtoolkit' / 'doc'
+			/ 'gtoolkit.png'.
 	self assert: imageFile exists.
-	
+
 	attachmentPath := database addAttachmentByCopy: imageFile.
-	
+
 	page := database pageBuilder
 			title: 'Image link';
 			add.
 
 	snippet := page snippetBuilder
-			string: ('![Attachment Image Link](file://{1})' format: { attachmentPath });
+			string: ('![Attachment Image Link](file://{1})' format: {attachmentPath});
 			add.
 
 	^ snippet
@@ -164,6 +181,7 @@ LeExportSnippetExamples >> textSnippetWithImageLinkWithRelativeAttachmentPathWit
 { #category : #examples }
 LeExportSnippetExamples >> textSnippetWithMethodAnnotation [
 	<gtExample>
+	<return: #LeTextSnippet>
 	| snippet |
 	snippet := LeTextSnippet
 			string: '{{gtMethod:' , (BrButton >> #action:) printString , '}}'.
@@ -174,6 +192,7 @@ LeExportSnippetExamples >> textSnippetWithMethodAnnotation [
 { #category : #examples }
 LeExportSnippetExamples >> textSnippetWithMethodAnnotationCollapsed [
 	<gtExample>
+	<return: #LeTextSnippet>
 	| snippet |
 	snippet := LeTextSnippet
 			string: '{{gtMethod:' , (BrButton >> #action:) printString , ' | expanded=false}}'.
@@ -184,6 +203,7 @@ LeExportSnippetExamples >> textSnippetWithMethodAnnotationCollapsed [
 { #category : #examples }
 LeExportSnippetExamples >> textSnippetWithMethodAnnotationExpanded [
 	<gtExample>
+	<return: #LeTextSnippet>
 	| snippet |
 	snippet := LeTextSnippet
 			string: '{{gtMethod:' , (BrButton >> #action:) printString , ' | expanded}}'.
@@ -194,6 +214,7 @@ LeExportSnippetExamples >> textSnippetWithMethodAnnotationExpanded [
 { #category : #examples }
 LeExportSnippetExamples >> textSnippetWithMethodAnnotationLabeled [
 	<gtExample>
+	<return: #LeTextSnippet>
 	| snippet |
 	snippet := LeTextSnippet
 			string: '{{gtMethod:' , (BrButton >> #action:) printString , ' | label=Button}}'.
@@ -204,6 +225,7 @@ LeExportSnippetExamples >> textSnippetWithMethodAnnotationLabeled [
 { #category : #examples }
 LeExportSnippetExamples >> textSnippetWithPackageAnnotation [
 	<gtExample>
+	<return: #LeTextSnippet>
 	| snippet |
 	snippet := LeTextSnippet
 			string: '{{gtPackage:' , BrButton package name asString , '}}'.
@@ -214,6 +236,7 @@ LeExportSnippetExamples >> textSnippetWithPackageAnnotation [
 { #category : #examples }
 LeExportSnippetExamples >> textSnippetWithPackageAnnotationLabeled [
 	<gtExample>
+	<return: #LeTextSnippet>
 	| snippet |
 	snippet := LeTextSnippet
 			string: '{{gtPackage:' , BrButton package name asString , ' | label=Button package}}'.

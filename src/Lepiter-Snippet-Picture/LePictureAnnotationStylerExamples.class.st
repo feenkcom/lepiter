@@ -7,6 +7,7 @@ Class {
 { #category : #examples }
 LePictureAnnotationStylerExamples >> styleReferenceKeyAndValue [
 	<gtExample>
+	<return: #LePage>
 	| anAst aStyler aText aViewModel aString aPage aSnippet aDatabase aPicture aResult aPictureNode aPictureNodeQuery aSnippetReference |
 	aString := '{{gtPictureReference:reference=fig123}}'.
 	aText := aString asRopedText.
@@ -48,5 +49,6 @@ LePictureAnnotationStylerExamples >> styleReferenceKeyAndValue [
 { #category : #examples }
 LePictureAnnotationStylerExamples >> styler [
 	<gtExample>
+	<return: #LePictureAnnotationStyler>
 	^ LePictureAnnotationStyler new
 ]

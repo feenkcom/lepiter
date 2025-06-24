@@ -230,7 +230,7 @@ LeElementSnippetElement >> initialize [
 	sceneContainer addChild: showCoderToggle.
 	sceneContainer addAptitude: (maximizerLook := BrGlamorousWithMaximizerAptitude new
 		// #displayElement;
-		preferredBackground: BrGlamorousColors backdropColor).
+		preferredBackground: self theme default backdropBackground).
 
 	self onSnippetViewModelFocused: false
 ]

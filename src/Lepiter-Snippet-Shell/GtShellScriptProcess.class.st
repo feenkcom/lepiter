@@ -74,8 +74,9 @@ GtShellScriptProcess >> env: key value: value [
 { #category : #examples }
 GtShellScriptProcess >> example10stepsOf1Second [
 	<gtExample>
-	self script: 
-'for ((i = 0 ; i < 10 ; i++)); do
+	<return: #GtShellScriptProcess>
+	self
+		script: 'for ((i = 0 ; i < 10 ; i++)); do
   echo `date` @ $i
   sleep 1
 done
@@ -85,6 +86,7 @@ echo `date` done'
 { #category : #examples }
 GtShellScriptProcess >> exampleEmpty [
 	<gtExample>
+	<return: #GtShellScriptProcess>
 	self assert: self isRunning not.
 	self assert: self didRun not
 ]
@@ -92,26 +94,32 @@ GtShellScriptProcess >> exampleEmpty [
 { #category : #examples }
 GtShellScriptProcess >> exampleFailure [
 	<gtExample>
-	self script: 'echo Something went wrong >&2
+	<return: #GtShellScriptProcess>
+	self
+		script: 'echo Something went wrong >&2
 exit 1'
 ]
 
 { #category : #examples }
 GtShellScriptProcess >> exampleListWorkingDirectory [
 	<gtExample>
+	<return: #GtShellScriptProcess>
 	self script: 'ls -1'
 ]
 
 { #category : #examples }
 GtShellScriptProcess >> examplePrintWorkingDirectory [
 	<gtExample>
+	<return: #GtShellScriptProcess>
 	self script: 'pwd'
 ]
 
 { #category : #examples }
 GtShellScriptProcess >> exampleStdoutVsStderr [
 	<gtExample>
-	self script: 'echo 2001: A Space Odyssey
+	<return: #GtShellScriptProcess>
+	self
+		script: 'echo 2001: A Space Odyssey
 echo "I can''t do that, Dave" >&2'
 ]
 

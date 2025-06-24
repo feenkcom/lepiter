@@ -22,12 +22,12 @@ LePictureByScripterExamples >> acceptUrl: aParentStep [
 { #category : #'examples - ui' }
 LePictureByScripterExamples >> addPictureSnippetAfterTheFirstSnippet [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
-	
 	aScripter := LeUIByScripterExamples new emptyPageElement.
 
 	LeUIByScripterExamples addSnippetNamed: 'Picture' step: aScripter.
-	
+
 	^ aScripter
 ]
 
@@ -60,9 +60,10 @@ LePictureByScripterExamples >> displayedImage [
 { #category : #'examples - ui' }
 LePictureByScripterExamples >> filledValues [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self addPictureSnippetAfterTheFirstSnippet.
-	
+
 	self typePictureUrl: aScripter.
 	self typePictureCaption: aScripter.
 	self resizeImage: aScripter.
@@ -98,15 +99,18 @@ LePictureByScripterExamples >> imageHeight [
 { #category : #'examples - reference' }
 LePictureByScripterExamples >> pageOneWithTwoAttachmentPictures_definedReferenceIds_reference3 [
 	<gtExample>
+	<return: #BlScripter>
 	| aPageHolder aPage aSnippet aScripter aPictureSnippet |
-	aPageHolder := LeModelExamples new pageOneWithTwoAttachmentPictures_definedReferenceIds.
+	aPageHolder := LeModelExamples new
+			pageOneWithTwoAttachmentPictures_definedReferenceIds.
 	aPage := aPageHolder page.
 	aPictureSnippet := self
 			findPictureReference: 'picture3'
 			inDatabase: aPage database.
-	aSnippet := LeTextSnippet new string: '{{gtPictureReference:picture3}} is on [[Page one]].'.
+	aSnippet := LeTextSnippet new
+			string: '{{gtPictureReference:picture3}} is on [[Page one]].'.
 	aPage addFirstSnippet: aSnippet.
-	
+
 	aScripter := self scripterWithPage: aPage.
 	self assertScripter: aScripter pictureReference: aPictureSnippet.
 
@@ -116,15 +120,18 @@ LePictureByScripterExamples >> pageOneWithTwoAttachmentPictures_definedReference
 { #category : #'examples - reference' }
 LePictureByScripterExamples >> pageOneWithTwoAttachmentPictures_definedReferenceIds_reference4 [
 	<gtExample>
+	<return: #BlScripter>
 	| aPageHolder aPage aSnippet aScripter aPictureSnippet |
-	aPageHolder := LeModelExamples new pageOneWithTwoAttachmentPictures_definedReferenceIds.
+	aPageHolder := LeModelExamples new
+			pageOneWithTwoAttachmentPictures_definedReferenceIds.
 	aPage := aPageHolder page.
 	aPictureSnippet := self
 			findPictureReference: 'picture4'
 			inDatabase: aPage database.
-	aSnippet := LeTextSnippet new string: '{{gtPictureReference:picture4}} is on [[Page two]].'.
+	aSnippet := LeTextSnippet new
+			string: '{{gtPictureReference:picture4}} is on [[Page two]].'.
 	aPage addFirstSnippet: aSnippet.
-	
+
 	aScripter := self scripterWithPage: aPage.
 	self assertScripter: aScripter pictureReference: aPictureSnippet.
 
@@ -134,15 +141,18 @@ LePictureByScripterExamples >> pageOneWithTwoAttachmentPictures_definedReference
 { #category : #'examples - reference' }
 LePictureByScripterExamples >> pageOneWithTwoAttachmentPictures_definedReferenceIds_toc1_reference3 [
 	<gtExample>
+	<return: #BlScripter>
 	| aPageHolder aPage aSnippet aScripter aPictureSnippet |
-	aPageHolder := LeModelExamples new pageOneWithTwoAttachmentPictures_definedReferenceIds_toc1.
+	aPageHolder := LeModelExamples new
+			pageOneWithTwoAttachmentPictures_definedReferenceIds_toc1.
 	aPage := aPageHolder page.
 	aPictureSnippet := self
 			findPictureReference: 'picture3'
 			inDatabase: aPage database.
-	aSnippet := LeTextSnippet new string: '{{gtPictureReference:picture3}} is on [[Page one]].'.
+	aSnippet := LeTextSnippet new
+			string: '{{gtPictureReference:picture3}} is on [[Page one]].'.
 	aPage addFirstSnippet: aSnippet.
-	
+
 	aScripter := self scripterWithPage: aPage.
 	self assertScripter: aScripter pictureReference: aPictureSnippet.
 
@@ -152,15 +162,18 @@ LePictureByScripterExamples >> pageOneWithTwoAttachmentPictures_definedReference
 { #category : #'examples - reference' }
 LePictureByScripterExamples >> pageOneWithTwoAttachmentPictures_definedReferenceIds_toc1_reference4 [
 	<gtExample>
+	<return: #BlScripter>
 	| aPageHolder aPage aSnippet aScripter aPictureSnippet |
-	aPageHolder := LeModelExamples new pageOneWithTwoAttachmentPictures_definedReferenceIds_toc1.
+	aPageHolder := LeModelExamples new
+			pageOneWithTwoAttachmentPictures_definedReferenceIds_toc1.
 	aPage := aPageHolder page.
 	aPictureSnippet := self
 			findPictureReference: 'picture4'
 			inDatabase: aPage database.
-	aSnippet := LeTextSnippet new string: '{{gtPictureReference:picture4}} is on [[Page two]].'.
+	aSnippet := LeTextSnippet new
+			string: '{{gtPictureReference:picture4}} is on [[Page two]].'.
 	aPage addFirstSnippet: aSnippet.
-	
+
 	aScripter := self scripterWithPage: aPage.
 	self assertScripter: aScripter pictureReference: aPictureSnippet.
 
@@ -170,17 +183,21 @@ LePictureByScripterExamples >> pageOneWithTwoAttachmentPictures_definedReference
 { #category : #'examples - reference' }
 LePictureByScripterExamples >> pageOneWithTwoAttachmentPictures_definedReferenceIds_toc2_reference3 [
 	<gtExample>
+	<return: #BlScripter>
 	| aPageHolder aPage aSnippet aScripter aPictureSnippet |
-	aPageHolder := LeModelExamples new pageOneWithTwoAttachmentPictures_definedReferenceIds_toc2.
+	aPageHolder := LeModelExamples new
+			pageOneWithTwoAttachmentPictures_definedReferenceIds_toc2.
 	aPage := aPageHolder page.
-	aSnippet := LeTextSnippet new string: '{{gtPictureReference:picture3}} is on [[Page one]].'.
+	aSnippet := LeTextSnippet new
+			string: '{{gtPictureReference:picture3}} is on [[Page one]].'.
 	aPage addFirstSnippet: aSnippet.
 	aPictureSnippet := self
 			findPictureReference: 'picture4'
 			inDatabase: aPage database.
-	aSnippet := LeTextSnippet new string: '{{gtPictureReference:picture4}} is on [[Page two]].'.
+	aSnippet := LeTextSnippet new
+			string: '{{gtPictureReference:picture4}} is on [[Page two]].'.
 	aPage addFirstSnippet: aSnippet.
-	
+
 	aScripter := self scripterWithPage: aPage.
 	self assertScripter: aScripter pictureReference: aPictureSnippet.
 
@@ -190,15 +207,18 @@ LePictureByScripterExamples >> pageOneWithTwoAttachmentPictures_definedReference
 { #category : #'examples - reference' }
 LePictureByScripterExamples >> pageOneWithTwoAttachmentPictures_definedReferenceIds_toc2_reference4 [
 	<gtExample>
+	<return: #BlScripter>
 	| aPageHolder aPage aSnippet aScripter aPictureSnippet |
-	aPageHolder := LeModelExamples new pageOneWithTwoAttachmentPictures_definedReferenceIds_toc2.
+	aPageHolder := LeModelExamples new
+			pageOneWithTwoAttachmentPictures_definedReferenceIds_toc2.
 	aPage := aPageHolder page.
 	aPictureSnippet := self
 			findPictureReference: 'picture4'
 			inDatabase: aPage database.
-	aSnippet := LeTextSnippet new string: '{{gtPictureReference:picture4}} is on [[Page two]].'.
+	aSnippet := LeTextSnippet new
+			string: '{{gtPictureReference:picture4}} is on [[Page two]].'.
 	aPage addFirstSnippet: aSnippet.
-	
+
 	aScripter := self scripterWithPage: aPage.
 	self assertScripter: aScripter pictureReference: aPictureSnippet.
 
@@ -208,15 +228,18 @@ LePictureByScripterExamples >> pageOneWithTwoAttachmentPictures_definedReference
 { #category : #'examples - reference' }
 LePictureByScripterExamples >> pageTwoWithOneAttachmentPictures_definedReferenceIds_reference3 [
 	<gtExample>
+	<return: #BlScripter>
 	| aPageHolder aPage aSnippet aScripter aPictureSnippet |
-	aPageHolder := LeModelExamples new pageTwoWithOneAttachmentPictures_definedReferenceIds.
+	aPageHolder := LeModelExamples new
+			pageTwoWithOneAttachmentPictures_definedReferenceIds.
 	aPage := aPageHolder page.
 	aPictureSnippet := self
 			findPictureReference: 'picture3'
 			inDatabase: aPage database.
-	aSnippet := LeTextSnippet new string: '{{gtPictureReference:picture3}} is on [[Page one]].'.
+	aSnippet := LeTextSnippet new
+			string: '{{gtPictureReference:picture3}} is on [[Page one]].'.
 	aPage addSnippet: aSnippet.
-	
+
 	aScripter := self scripterWithPage: aPage.
 	self assertScripter: aScripter pictureReference: aPictureSnippet.
 
@@ -226,15 +249,18 @@ LePictureByScripterExamples >> pageTwoWithOneAttachmentPictures_definedReference
 { #category : #'examples - reference' }
 LePictureByScripterExamples >> pageTwoWithOneAttachmentPictures_definedReferenceIds_reference4 [
 	<gtExample>
+	<return: #BlScripter>
 	| aPageHolder aPage aSnippet aScripter aPictureSnippet |
-	aPageHolder := LeModelExamples new pageTwoWithOneAttachmentPictures_definedReferenceIds.
+	aPageHolder := LeModelExamples new
+			pageTwoWithOneAttachmentPictures_definedReferenceIds.
 	aPage := aPageHolder page.
 	aPictureSnippet := self
 			findPictureReference: 'picture4'
 			inDatabase: aPage database.
-	aSnippet := LeTextSnippet new string: '{{gtPictureReference:picture4}} is on [[Page one]].'.
+	aSnippet := LeTextSnippet new
+			string: '{{gtPictureReference:picture4}} is on [[Page one]].'.
 	aPage addSnippet: aSnippet.
-	
+
 	aScripter := self scripterWithPage: aPage.
 	self assertScripter: aScripter pictureReference: aPictureSnippet.
 
@@ -244,15 +270,18 @@ LePictureByScripterExamples >> pageTwoWithOneAttachmentPictures_definedReference
 { #category : #'examples - reference' }
 LePictureByScripterExamples >> pageTwoWithOneAttachmentPictures_definedReferenceIds_toc1_reference3 [
 	<gtExample>
+	<return: #BlScripter>
 	| aPageHolder aPage aSnippet aScripter aPictureSnippet |
-	aPageHolder := LeModelExamples new pageTwoWithOneAttachmentPictures_definedReferenceIds_toc1.
+	aPageHolder := LeModelExamples new
+			pageTwoWithOneAttachmentPictures_definedReferenceIds_toc1.
 	aPage := aPageHolder page.
 	aPictureSnippet := self
 			findPictureReference: 'picture3'
 			inDatabase: aPage database.
-	aSnippet := LeTextSnippet new string: '{{gtPictureReference:picture3}} is on [[Page one]].'.
+	aSnippet := LeTextSnippet new
+			string: '{{gtPictureReference:picture3}} is on [[Page one]].'.
 	aPage addSnippet: aSnippet.
-	
+
 	aScripter := self scripterWithPage: aPage.
 	self assertScripter: aScripter pictureReference: aPictureSnippet.
 
@@ -262,15 +291,18 @@ LePictureByScripterExamples >> pageTwoWithOneAttachmentPictures_definedReference
 { #category : #'examples - reference' }
 LePictureByScripterExamples >> pageTwoWithOneAttachmentPictures_definedReferenceIds_toc1_reference4 [
 	<gtExample>
+	<return: #BlScripter>
 	| aPageHolder aPage aSnippet aScripter aPictureSnippet |
-	aPageHolder := LeModelExamples new pageTwoWithOneAttachmentPictures_definedReferenceIds_toc1.
+	aPageHolder := LeModelExamples new
+			pageTwoWithOneAttachmentPictures_definedReferenceIds_toc1.
 	aPage := aPageHolder page.
 	aPictureSnippet := self
 			findPictureReference: 'picture4'
 			inDatabase: aPage database.
-	aSnippet := LeTextSnippet new string: '{{gtPictureReference:picture4}} is on [[Page two]].'.
+	aSnippet := LeTextSnippet new
+			string: '{{gtPictureReference:picture4}} is on [[Page two]].'.
 	aPage addSnippet: aSnippet.
-	
+
 	aScripter := self scripterWithPage: aPage.
 	self assertScripter: aScripter pictureReference: aPictureSnippet.
 
@@ -280,6 +312,7 @@ LePictureByScripterExamples >> pageTwoWithOneAttachmentPictures_definedReference
 { #category : #'examples - reference' }
 LePictureByScripterExamples >> pageTwoWithOneAttachmentPictures_definedReferenceIds_toc2_reference3 [
 	<gtExample>
+	<return: #BlScripter>
 	| aPageHolder aPage aSnippet aScripter aPictureSnippet |
 	aPageHolder := LeModelExamples new
 			pageTwoWithOneAttachmentPictures_definedReferenceIds_toc2.
@@ -298,15 +331,18 @@ LePictureByScripterExamples >> pageTwoWithOneAttachmentPictures_definedReference
 { #category : #'examples - reference' }
 LePictureByScripterExamples >> pageTwoWithOneAttachmentPictures_definedReferenceIds_toc2_reference4 [
 	<gtExample>
+	<return: #BlScripter>
 	| aPageHolder aPage aSnippet aScripter aPictureSnippet |
-	aPageHolder := LeModelExamples new pageTwoWithOneAttachmentPictures_definedReferenceIds_toc2.
+	aPageHolder := LeModelExamples new
+			pageTwoWithOneAttachmentPictures_definedReferenceIds_toc2.
 	aPage := aPageHolder page.
 	aPictureSnippet := self
 			findPictureReference: 'picture4'
 			inDatabase: aPage database.
-	aSnippet := LeTextSnippet new string: '{{gtPictureReference:picture4}} is on [[Page two]].'.
+	aSnippet := LeTextSnippet new
+			string: '{{gtPictureReference:picture4}} is on [[Page two]].'.
 	aPage addSnippet: aSnippet.
-	
+
 	aScripter := self scripterWithPage: aPage.
 	self assertScripter: aScripter pictureReference: aPictureSnippet.
 
@@ -316,6 +352,7 @@ LePictureByScripterExamples >> pageTwoWithOneAttachmentPictures_definedReference
 { #category : #'examples - reference' }
 LePictureByScripterExamples >> pageWithPictureReference [
 	<gtExample>
+	<return: #BlScripter>
 	| aPage aScripter aPictureSnippet |
 	aPage := LePictureAnnotationStylerExamples new styleReferenceKeyAndValue.
 	aPictureSnippet := self
@@ -346,6 +383,7 @@ LePictureByScripterExamples >> pictureUrl [
 { #category : #'examples - ui' }
 LePictureByScripterExamples >> resizeImage [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self addPictureSnippetAfterTheFirstSnippet.
 
@@ -392,9 +430,10 @@ LePictureByScripterExamples >> scripterWithPage: aPage [
 { #category : #'examples - ui' }
 LePictureByScripterExamples >> typePictureCaption [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self addPictureSnippetAfterTheFirstSnippet.
-	
+
 	self typePictureCaption: aScripter.
 
 	^ aScripter
@@ -445,6 +484,7 @@ LePictureByScripterExamples >> typePictureCaption: aParentStep [
 { #category : #'examples - ui' }
 LePictureByScripterExamples >> typePictureUrl [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self addPictureSnippetAfterTheFirstSnippet.
 

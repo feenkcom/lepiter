@@ -25,8 +25,8 @@ LeDockerSnippetUpdateExamples >> assertSnippetModifiedFor: targetSnippet [
 { #category : #'examples - snippets' }
 LeDockerSnippetUpdateExamples >> createTargetSnippet [
 	<gtExample>
-	^ LeDockerSnippet new 
-		url: 'www.example.com/docker1'
+	<return: #LeDockerSnippet>
+	^ LeDockerSnippet new url: 'www.example.com/docker1'
 ]
 
 { #category : #actions }

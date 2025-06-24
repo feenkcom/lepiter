@@ -150,9 +150,7 @@ LePageTitleAndSummaryElement >> summaryElement [
 	^ summaryElement
 		ifNil: [ summaryElement := BrLabel new
 				beSmallSize;
-				aptitude:
-					(BrGlamorousLabelAptitude new
-						foreground: self theme header disabledTextColor);
+				aptitude: BrGlamorousSummaryLabelAptitude;
 				margin: (BlInsets left: 10);
 				hMatchParent;
 				vFitContent ]

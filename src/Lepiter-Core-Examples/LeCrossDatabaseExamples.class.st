@@ -33,16 +33,18 @@ LeCrossDatabaseExamples >> createDatabases [
 { #category : #examples }
 LeCrossDatabaseExamples >> databaseWithCrossReferences [
 	"Answer a LeLogicalDatabase with primary and workspace DBs with cross-database references"
-	<gtExample>
-	| links link targetPage |
 
+	<gtExample>
+	<return: #LeLogicalDatabase>
+	| links link targetPage |
 	self createDatabases.
 	self populateDatabases.
 
 	self assert: logicalDB pageCount equals: 2.
 	self assert: logicalDB playgroundDB equals: playgroundDatabase.
 
-	links := ((playgroundDatabase pageNamed: #'DB2 Page1') children at: 2) outgoingExplicitLinks.
+	links := ((playgroundDatabase pageNamed: #'DB2 Page1') children at: 2)
+			outgoingExplicitLinks.
 	self assert: links size equals: 1.
 	link := links first.
 	targetPage := primaryDatabase pageNamed: #'DB1 Page1'.

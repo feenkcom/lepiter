@@ -16,6 +16,7 @@ LeWordExamples >> anotherWord [
 { #category : #'examples - explanation text builder' }
 LeWordExamples >> basicExplanationTextBuilder [
 	<gtExample>
+	<return: #LeWordExplanationTextBuilder>
 	| aBuilder |
 	aBuilder := LeWordExplanationTextBuilder new.
 	self assert: aBuilder explanation isNil.
@@ -25,17 +26,19 @@ LeWordExamples >> basicExplanationTextBuilder [
 { #category : #'examples - auxiliar elements' }
 LeWordExamples >> basicInputElement [
 	<gtExample>
+	<return: #LeWordInputElement>
 	| anElement |
 	anElement := LeWordInputElement new.
 
 	self assert: anElement editorElement text asString isEmpty.
-	
+
 	^ anElement
 ]
 
 { #category : #'examples - snippet' }
 LeWordExamples >> basicSnippet [
 	<gtExample>
+	<return: #LeWordSnippet>
 	| aSnippet |
 	aSnippet := LeWordSnippet new.
 	self assert: aSnippet word isNotNil.
@@ -47,61 +50,72 @@ LeWordExamples >> basicSnippet [
 { #category : #'examples - auxiliar elements' }
 LeWordExamples >> basicViewElement [
 	<gtExample>
+	<return: #LeWordViewElement>
 	| anElement |
 	anElement := LeWordViewElement new.
 
 	self assert: anElement editorElement text asString isEmpty.
-	
+
 	^ anElement
 ]
 
 { #category : #'examples - snippet element' }
 LeWordExamples >> editInputEditorText [
 	<gtExample>
+	<return: #LeSnippetContainerElement>
 	| anElement anInputElement anEditor |
 	anElement := self element.
-	
+
 	anInputElement := (anElement childWithId: LeSnippetElementId) inputElement.
 	anEditor := anInputElement editor.
 
-	anEditor selecter all; select.
+	anEditor selecter
+		all;
+		select.
 	anEditor inserter
 		atCursor;
 		string: self anotherWord;
 		insert.
-	
-	self assert: anInputElement editorElement text asString equals: self anotherWord.
+
+	self
+		assert: anInputElement editorElement text asString
+		equals: self anotherWord.
 	self assert: anElement snippetViewModel word equals: self anotherWord.
-	self assert: anElement snippetViewModel state equals: LeWordSnippetViewModelEditState default.
+	self
+		assert: anElement snippetViewModel state
+		equals: LeWordSnippetViewModelEditState default.
 	self assert: anElement snippetViewModel response isNil.
 	self assert: anElement snippetViewModel snippetModel word equals: self word.
-	
+
 	^ anElement
 ]
 
 { #category : #'examples - snippet element' }
 LeWordExamples >> element [
 	<gtExample>
-
+	<return: #LeSnippetContainerElement>
 	| aSnippet aViewModel anElement anInputElement |
 	aSnippet := self snippet.
 	aViewModel := aSnippet asSnippetViewModel.
 	anElement := aViewModel snippetView asElement.
 	anElement snippetViewModel: aViewModel.
-	
+
 	anInputElement := (anElement childWithId: LeSnippetElementId) inputElement.
 
 	self assert: anInputElement editorElement text asString equals: self word.
 	self assert: anElement snippetViewModel word equals: self word.
-	self assert: anElement snippetViewModel state equals: LeWordSnippetViewModelEditState default.
+	self
+		assert: anElement snippetViewModel state
+		equals: LeWordSnippetViewModelEditState default.
 	self assert: anElement snippetViewModel response isNil.
-	
+
 	^ anElement
 ]
 
 { #category : #'examples - explanation text builder' }
 LeWordExamples >> explanationTextBuilder [
 	<gtExample>
+	<return: #LeWordExplanationTextBuilder>
 	| aBuilder aText |
 	aBuilder := self basicExplanationTextBuilder.
 	aBuilder explanation: self helloExplanation.
@@ -115,6 +129,7 @@ LeWordExamples >> explanationTextBuilder [
 { #category : #'examples - model' }
 LeWordExamples >> helloExplanation [
 	<gtExample>
+	<return: #LeWordExplanation>
 	^ LeWordExplanation new
 		word: self helloWord;
 		rawData: self helloWordJsonObject
@@ -128,6 +143,7 @@ LeWordExamples >> helloWord [
 { #category : #'examples - model' }
 LeWordExamples >> helloWordJsonObject [
 	<gtExample>
+	<return: #Array>
 	^ STONJSON fromString: self helloWordJsonRawData
 ]
 
@@ -191,12 +207,13 @@ LeWordExamples >> helloWordJsonRawData [
 { #category : #'examples - auxiliar elements' }
 LeWordExamples >> inputElement [
 	<gtExample>
+	<return: #LeWordInputElement>
 	| anElement |
 	anElement := self basicInputElement.
 	anElement word: self word.
-	
+
 	self assert: anElement editorElement text asString equals: self word.
-	
+
 	^ anElement
 ]
 
@@ -234,6 +251,7 @@ LeWordExamples >> searchAnotherWordExplanation [
 { #category : #'examples - snippet' }
 LeWordExamples >> snippet [
 	<gtExample>
+	<return: #LeWordSnippet>
 	| aSnippet |
 	aSnippet := self basicSnippet.
 	aSnippet word: self word.
@@ -245,6 +263,7 @@ LeWordExamples >> snippet [
 { #category : #'examples - snippet' }
 LeWordExamples >> snippetWithExplanation [
 	<gtExample>
+	<return: #LeWordSnippet>
 	| aSnippet |
 	aSnippet := self basicSnippet.
 	aSnippet word: self helloWord.
@@ -257,12 +276,13 @@ LeWordExamples >> snippetWithExplanation [
 { #category : #'examples - auxiliar elements' }
 LeWordExamples >> viewElement [
 	<gtExample>
+	<return: #LeWordViewElement>
 	| anElement |
 	anElement := self basicViewElement.
 	anElement explanation: self helloExplanation.
-	
+
 	self assert: anElement editorElement text isNotEmpty.
-	
+
 	^ anElement
 ]
 

@@ -8,11 +8,11 @@ LeContentCommandExamples >> createTargetDatabase [
 { #category : #'*Lepiter-Core-Examples' }
 LeContentCommandExamples >> createTargetPage [
 	<gtExample>
-	
-	| newPage|
+	<return: #LePage>
+	| newPage |
 	newPage := LePage named: 'TestPage'.
-		
+
 	self assertEmptyPageHistoryForPage: newPage.
-	
+
 	^ newPage
 ]
