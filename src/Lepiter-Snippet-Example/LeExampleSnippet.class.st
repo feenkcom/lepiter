@@ -221,7 +221,7 @@ LeExampleSnippet >> contentAsString [
 { #category : #converting }
 LeExampleSnippet >> convertToScript [
 	| newSource ast |
-	ast := self exampleMethodAST.
+	ast := self exampleMethod.
 	ast ifNil: [ ^ self ].
 	newSource := self snippetSourceFrom: ast body.
 	self addSnippetAfterSelf: (LePharoSnippet new code: newSource).
@@ -307,12 +307,6 @@ LeExampleSnippet >> exampleMethod [
 				compiledMethodAt: exampleSelector
 				ifPresent: [ :method | method parseTree ]
 				ifAbsent: [ nil ] ]
-]
-
-{ #category : #converting }
-LeExampleSnippet >> exampleMethodAST [
-	^ self exampleMethod
-		  ifNotNil: [ :method | method parseTree ]
 ]
 
 { #category : #'api - example selector' }
@@ -464,7 +458,7 @@ LeExampleSnippet >> markdownOn: stream level: anInteger [
 		cr;
 		<< '```';
 		cr;
-		<< self contentAsString trimBoth;
+		<< ("self contentAsString trimBoth" self snippetSourceFrom: self exampleMethod body);
 		cr;
 		<< '```';
 		cr.
