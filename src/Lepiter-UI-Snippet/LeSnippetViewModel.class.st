@@ -102,25 +102,22 @@ LeSnippetViewModel >> gtActionIndentFor: anAction [
 { #category : #'gt - extensions' }
 LeSnippetViewModel >> gtActionInspectSnippetFor: anAction [
 	<gtAction>
-
-	^ anAction button
-		tooltip: 'Inspect Snippet Element';
-		icon: BrGlamorousVectorIcons inspect;
-		target: LeSnippetContextMenuActionTarget uniqueInstance;
-		priority: 5;
-		action: [ :aButton :aSnippetElement | aSnippetElement phlow spawnObject: aSnippetElement ]
-]
-
-{ #category : #'gt - extensions' }
-LeSnippetViewModel >> gtActionInspectViewModelFor: anAction [
-	<gtAction>
-
-	^ anAction button
-		tooltip: 'Inspect Snippet View Model';
-		icon: BrGlamorousVectorIcons debug;
-		target: LeSnippetContextMenuActionTarget uniqueInstance;
-		priority: 6;
-		action: [ :aButton :aSnippetElement | aSnippetElement phlow spawnObject: aSnippetElement snippetViewModel ]
+	
+	^ anAction dropdown
+			tooltip: 'Inspect…';
+			icon: BrGlamorousVectorIcons inspect;
+			target: LeSnippetContextMenuActionTarget uniqueInstance;
+			priority: 5;
+			content: [ :one :aSnippetElement |
+				BrGlamorousSimpleContextMenuContent new
+					items: {
+						'Inspect Snippet' -> [ aSnippetElement phlow spawnObject: aSnippetElement snippetViewModel snippetModel ].
+						'Inspect Snippet Element' -> [ aSnippetElement phlow spawnObject: aSnippetElement ].
+						'Inspect Snippet View Model' -> [ aSnippetElement phlow spawnObject: aSnippetElement snippetViewModel ]
+					};
+					hMatchParent;
+					vMatchParent];
+			yourself.
 ]
 
 { #category : #'gt - extensions' }
