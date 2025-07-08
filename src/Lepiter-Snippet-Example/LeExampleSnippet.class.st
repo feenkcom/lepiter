@@ -144,6 +144,16 @@ LeExampleSnippet >> asSnippetViewModel [
 	^ LeExampleSnippetViewModel new snippetModel: self
 ]
 
+{ #category : #converting }
+LeExampleSnippet >> assertSelectors [
+	^ #(assert: #assert:description: #assert:equals:)
+]
+
+{ #category : #converting }
+LeExampleSnippet >> astWithInlinedSelfSends [
+	^ self inlineSelfSendsIn: self exampleMethod
+]
+
 { #category : #testing }
 LeExampleSnippet >> canMoveToAnotherDatabase [
 	^ true
@@ -341,6 +351,23 @@ LeExampleSnippet >> exampleSelector: aNewExampleSelector [
 	self notifyExampleSelectorChanged
 ]
 
+{ #category : #converting }
+LeExampleSnippet >> fixAssertSendsIn: anAST [
+	| rewriter ast |
+	ast := RBParser parseExpression: (self snippetSourceFrom: anAST body).
+	rewriter := RBParseTreeRewriter new.
+	self assertSelectors
+		do: [ :sel | 
+			| msg |
+			msg := String
+					streamContents: [ :stream | 
+						sel keywords
+							doWithIndex: [ :key :i | stream << ' ' << key << ' ``@a' << i printString ] ].
+			rewriter replace: '``@r' , msg with: 'self' , msg ].
+	(rewriter executeTree: ast) ifTrue: [ ast := rewriter tree ].
+	^ ast
+]
+
 { #category : #'private - subscriptions' }
 LeExampleSnippet >> handleSystemClassAnnouncement: anAnnouncement [
 	(exampleBehaviorName sameContentAs: anAnnouncement classAffected originalName)
@@ -434,6 +461,36 @@ LeExampleSnippet >> initialize [
 	previewHeight := self defaultPreviewHeight.
 	
 	self subscribeToSystem
+]
+
+{ #category : #converting }
+LeExampleSnippet >> inlineSelfSendsIn: ast [
+	ast
+		nodesDo: [ :each | 
+			| model refactoring |
+			(each isMessage
+				and: [ each receiver isSelfVariable
+						and: [ (self assertSelectors includes: each selector) not ] ])
+				ifTrue: [ model := GtRBNamespace new.
+					(model classFor: self exampleClass) compile: ast source.
+					refactoring := GtInlineMethodRefactoring
+							model: model
+							inline: each sourceInterval
+							inMethod: self exampleSelector
+							forClass: self exampleClass.
+					[ refactoring primitiveExecute.
+					^ self
+						inlineSelfSendsIn: ((model classFor: self exampleClass) methodFor: self exampleSelector) ast ]
+						on: Error
+						do: [ :ex | ex return ] ] ].
+	^ ast
+]
+
+{ #category : #converting }
+LeExampleSnippet >> inlinedSnippetSource [
+	| ast |
+	ast := self fixAssertSendsIn: self astWithInlinedSelfSends.
+	^ ast formattedCode
 ]
 
 { #category : #converting }
