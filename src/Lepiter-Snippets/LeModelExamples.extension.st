@@ -6,7 +6,7 @@ LeModelExamples >> changeSnippetsPageTitle [
 ]
 
 { #category : #'*Lepiter-Snippets' }
-LeModelExamples >> createClassChange [
+LeModelExamples >> createClassChangePharo11 [
 ^ 'OmEntry {
 	#tags : {
 		#author : ''GlamorousAuthor'',
@@ -55,6 +55,58 @@ LeModelExamples >> createClassChange [
 ]
 
 { #category : #'*Lepiter-Snippets' }
+LeModelExamples >> createClassChangePharo12 [
+^ 'OmEntry {
+	#tags : {
+		#time : DateAndTime [ ''2025-07-08T17:29:05.254614+02:00'' ],
+		#prior : OmReference [ ''9'' ],
+		#self : OmReference [ ''10'' ]
+	},
+	#content : EpClassAddition {
+		#class : RGClassDefinition {
+			#annotations : IdentityDictionary {
+				#superclassName : #Object,
+				#traitCompositionSource : ''{}'',
+				#definitionSource : ''Object << #LeOnDemandDummyClass\r\tslots: {};\r\tpackage: \''LepiterOnDemandDummies\''''
+			},
+			#name : #LeOnDemandDummyClass,
+			#methods : IdentityDictionary { },
+			#protocols : Set [ ],
+			#instanceVariables : OrderedCollection [ ],
+			#metaClass : RGMetaclassDefinition {
+				#annotations : IdentityDictionary {
+					#traitCompositionSource : ''{}'',
+					#definitionSource : ''Object class << LeOnDemandDummyClass class\r\tslots: {}''
+				},
+				#name : #''LeOnDemandDummyClass class'',
+				#methods : IdentityDictionary { },
+				#protocols : Set [ ],
+				#instanceVariables : OrderedCollection [ ],
+				#baseClass : @7
+			},
+			#comment : RGCommentDefinition {
+				#annotations : IdentityDictionary {
+					#className : #LeOnDemandDummyClass,
+					#isMeta : false
+				},
+				#parent : @7,
+				#content : ''''
+			},
+			#classVariables : OrderedCollection [ ],
+			#package : RGPackageDefinition {
+				#name : #LepiterOnDemandDummies,
+				#definedClasses : IdentityDictionary { },
+				#definedMethods : IdentityDictionary { },
+				#extensionMethods : IdentityDictionary { }
+			},
+			#packageTag : #Uncategorized,
+			#sharedPools : OrderedCollection [ ]
+		}
+	}
+}'
+]
+
+{ #category : #'*Lepiter-Snippets' }
 LeModelExamples >> createMethodChange [
 	^ 'OmEntry {
 	#tags : {
@@ -91,7 +143,9 @@ LeModelExamples >> databaseWithPageHavingChangeAndDependentSnippets [
 			add.
 
 	createClassPath := database
-			addAttachmentWithContent: self createClassChange
+			addAttachmentWithContent: (self 
+				forPharo12: [self createClassChangePharo12] 
+				forPharo11AndPharo10: [self createClassChangePharo11])
 			named: 'createClass.ombu'.
 	createClassSnippet := LeChangesSnippet new
 			fileName: createClassPath;
