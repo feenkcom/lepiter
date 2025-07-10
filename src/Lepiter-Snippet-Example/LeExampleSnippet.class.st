@@ -479,6 +479,7 @@ LeExampleSnippet >> inlineSelfSendsIn: ast [
 							inMethod: self exampleSelector
 							forClass: self exampleClass.
 					[ refactoring primitiveExecute.
+					self mergeVariablesIn: model.
 					^ self
 						inlineSelfSendsIn: ((model classFor: self exampleClass) methodFor: self exampleSelector) ast ]
 						on: Error
@@ -523,6 +524,30 @@ LeExampleSnippet >> markdownOn: stream level: anInteger [
 		childrenDo: [ :child | 
 			stream cr.
 			child markdownOn: stream level: anInteger + 1 ]
+]
+
+{ #category : #converting }
+LeExampleSnippet >> mergeVariablesIn: model [
+	((model classFor: self exampleClass) methodFor: self exampleSelector) ast
+		nodesDo: [ :each | 
+			(each isAssignment and: [ each value isVariable ])
+				ifTrue: [ | refactoring from to |
+					each variable name last isDigit
+						ifTrue: [ from := each variable.
+							to := each value ]
+						ifFalse: [ from := each value.
+							to := each variable ].
+					refactoring := GtMergeVariablesRefactoring
+							model: model
+							mergeVariableFrom: from sourceInterval
+							into: to sourceInterval
+							from: self exampleSelector
+							in: self exampleClass.
+					[ refactoring primitiveExecute.
+					^ self
+						mergeVariablesIn: ((model classFor: self exampleClass) methodFor: self exampleSelector) ast ]
+						on: Error
+						do: [ :ex | ex return ] ] ]
 ]
 
 { #category : #'api - no code' }
