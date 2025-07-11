@@ -516,7 +516,9 @@ LeExampleSnippet >> markdownOn: stream level: anInteger [
 		cr;
 		<< '```';
 		cr;
-		<< ("self contentAsString trimBoth" self snippetSourceFrom: self exampleMethod body);
+		<< (self exampleMethod
+				ifNil: [ self contentAsString trimBoth ]
+				ifNotNil: [ :aMethod | self snippetSourceFrom: aMethod body ]);
 		cr;
 		<< '```';
 		cr.
