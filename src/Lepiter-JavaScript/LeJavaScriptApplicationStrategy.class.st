@@ -1,7 +1,7 @@
 Class {
 	#name : #LeJavaScriptApplicationStrategy,
 	#superclass : #LeExternalServerStrategy,
-	#category : 'Lepiter-JavaScript'
+	#category : #'Lepiter-JavaScript'
 }
 
 { #category : #private }
@@ -15,16 +15,17 @@ LeJavaScriptApplicationStrategy >> newJavaScriptApplicationFor: aLeDatabase [
 { #category : #private }
 LeJavaScriptApplicationStrategy >> updatedSettings: applicationJsSettings [
 	"Update the supplied settings with the lepiter configuration"
-	| lepiterJsSettings lepiterDatabase jsDir |
 
+	| lepiterJsSettings lepiterDatabase jsDir |
 	lepiterDatabase := content database.
+	lepiterDatabase isDatabase ifFalse: [ ^ applicationJsSettings ].
 	lepiterJsSettings := lepiterDatabase properties jsLinkSettings.
-	lepiterJsSettings directory ifNotNil:
-		[ :relativeDir | 
+	lepiterJsSettings directory
+		ifNotNil: [ :relativeDir | 
 			jsDir := lepiterDatabase localStoreRootDirectory resolve: relativeDir.
 			applicationJsSettings workingDirectory: jsDir ].
-	lepiterJsSettings nodejsPath ifNotNil:
-		[ :nodejsPath | applicationJsSettings serverExecutable: nodejsPath ].
+	lepiterJsSettings nodejsPath
+		ifNotNil: [ :nodejsPath | applicationJsSettings serverExecutable: nodejsPath ].
 	applicationJsSettings serverDebugMode: lepiterJsSettings serverDebugMode.
 
 	^ applicationJsSettings
