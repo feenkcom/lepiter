@@ -9,9 +9,13 @@ LeSnippet >> asContentUIModel [
 
 { #category : #'*Lepiter-UI' }
 LeSnippet >> asLepiterPagePhlowTool [
-	^ GtPhlowCompositeTool new
-		addTool: (LeSnippetInPagePhlowTool snippet: self);
-		addTool: (GtPhlowTool default object: self)
+	| composite |
+	composite := GtPhlowCompositeTool new.
+
+	self page
+		ifNotNil: [ composite addTool: (LeSnippetInPagePhlowTool snippet: self) ].
+
+	^ composite addTool: (GtPhlowTool default object: self)
 ]
 
 { #category : #'*Lepiter-UI' }
