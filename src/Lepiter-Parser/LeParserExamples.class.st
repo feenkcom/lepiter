@@ -565,7 +565,7 @@ LeParserExamples >> packageTagAnnotation [
 		allNodesDo: [ :each | 
 			(each isKindOf: LePackageAnnotationNode)
 				ifTrue: [ found := true.
-					self assert: (each imageObject isKindOf: RPackageTag).
+					self assert: (each imageObject isPharoPackageTagModel).
 					self assert: each tag notNil ] ].
 	self assert: found.
 	^ aNode
