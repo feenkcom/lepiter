@@ -10,34 +10,34 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'Brick' with: [
-				spec repository: 'github://feenkcom/Brick:v0.8.1617/src' ].
+				spec repository: 'github://feenkcom/Brick:v0.8.1618/src' ].
 		spec
 			baseline: 'GToolkitFileUtility' with: [
-				spec repository: 'github://feenkcom/gtoolkit-utility:v0.8.384/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-utility:v0.8.385/src' ].
 		spec
 			baseline: 'GToolkitInspector' with: [
-				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.2862/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.2863/src' ].
 		spec
 			baseline: 'GToolkitCoder' with: [
-				spec repository: 'github://feenkcom/gtoolkit-coder:v0.8.2190/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-coder:v0.8.2191/src' ].
 		spec
 			baseline: 'GToolkit4Pharo' with: [
-				spec repository: 'github://feenkcom/gt4pharo:v0.6.2304/src' ].
+				spec repository: 'github://feenkcom/gt4pharo:v0.6.2305/src' ].
 		spec
 			baseline: 'GToolkit4Json' with: [
-				spec repository: 'github://feenkcom/gt4json:v0.6.1608/src' ].
+				spec repository: 'github://feenkcom/gt4json:v0.6.1609/src' ].
 		spec
 			baseline: 'GToolkitReleaser' with: [
-				spec repository: 'github://feenkcom/gtoolkit-releaser:v0.8.296/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-releaser:v0.8.297/src' ].
 		spec
 			baseline: 'LepiterXDoc' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.3180/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.6.3181/src' ].
 		spec
 			baseline: 'SmaCCRuntime' with: [
-				spec repository: 'github://j-brant/SmaCC:v3.0.106' ].
+				spec repository: 'github://j-brant/SmaCC:v3.0.107' ].
 		spec
 			baseline: 'JSONParser' with: [
-				spec repository: 'github://j-brant/SmaCC:v3.0.106' ].
+				spec repository: 'github://j-brant/SmaCC:v3.0.107' ].
 		spec
 			baseline: 'Beacon' with: [
 				spec repository: 'github://feenkcom/pharo-beacon:de37185d7059e38a0af0ff008944ecf7a953e406/repository' ].
