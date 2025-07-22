@@ -90,13 +90,26 @@ LeSnippetViewModel >> findHighlighterFor: aParserClass using: highlightersDictio
 { #category : #'gt - extensions' }
 LeSnippetViewModel >> gtActionIndentFor: anAction [
 	<gtAction>
-
 	^ anAction button
 		tooltip: 'Indent snippet';
 		icon: BrGlamorousVectorIcons right;
 		target: LeSnippetContextMenuActionTarget uniqueInstance;
 		priority: 4;
-		action: [ :aButton :aSnippetElement | self requestIndent ]
+		action: [ :aButton :aSnippetElement | self requestIndent ];
+		menuItemHideOnClick: false;
+		menuItemGroup: BrMenuItemGroupConfiguration navigation
+]
+
+{ #category : #'gt - extensions' }
+LeSnippetViewModel >> gtActionInspectModelFor: anAction [
+	<gtAction>
+	^ anAction button
+		tooltip: 'Inspect Snippet Model';
+		icon: BrGlamorousVectorIcons inspect;
+		target: LeSnippetContextMenuActionTarget uniqueInstance;
+		priority: 7;
+		action: [ :aButton :aSnippetElement | aSnippetElement phlow spawnObject: aSnippetElement snippetViewModel snippetModel ];
+		menuItemGroup: BrMenuItemGroupConfiguration inspection
 ]
 
 { #category : #'gt - extensions' }
@@ -108,55 +121,59 @@ LeSnippetViewModel >> gtActionInspectSnippetFor: anAction [
 		icon: BrGlamorousVectorIcons inspect;
 		target: LeSnippetContextMenuActionTarget uniqueInstance;
 		priority: 5;
-		action: [ :aButton :aSnippetElement | aSnippetElement phlow spawnObject: aSnippetElement ]
+		action: [ :aButton :aSnippetElement | aSnippetElement phlow spawnObject: aSnippetElement ];
+		menuItemGroup: BrMenuItemGroupConfiguration inspection
 ]
 
 { #category : #'gt - extensions' }
 LeSnippetViewModel >> gtActionInspectViewModelFor: anAction [
 	<gtAction>
-
 	^ anAction button
 		tooltip: 'Inspect Snippet View Model';
-		icon: BrGlamorousVectorIcons debug;
+		icon: BrGlamorousVectorIcons inspect;
 		target: LeSnippetContextMenuActionTarget uniqueInstance;
 		priority: 6;
-		action: [ :aButton :aSnippetElement | aSnippetElement phlow spawnObject: aSnippetElement snippetViewModel ]
+		action: [ :aButton :aSnippetElement | aSnippetElement phlow spawnObject: aSnippetElement snippetViewModel ];
+		menuItemGroup: BrMenuItemGroupConfiguration inspection
 ]
 
 { #category : #'gt - extensions' }
 LeSnippetViewModel >> gtActionMoveDownFor: anAction [
 	<gtAction>
-
 	^ anAction button
 		tooltip: 'Move snippet down';
 		icon: BrGlamorousVectorIcons down;
 		target: LeSnippetContextMenuActionTarget uniqueInstance;
 		priority: 2;
-		action: [ :aButton :aSnippetElement | self requestMoveDown ]
+		action: [ :aButton :aSnippetElement | self requestMoveDown ];
+		menuItemHideOnClick: false;
+		menuItemGroup: BrMenuItemGroupConfiguration navigation
 ]
 
 { #category : #'gt - extensions' }
 LeSnippetViewModel >> gtActionMoveUpFor: anAction [
 	<gtAction>
-
 	^ anAction button
 		tooltip: 'Move snippet up';
 		icon: BrGlamorousVectorIcons up;
 		target: LeSnippetContextMenuActionTarget uniqueInstance;
 		priority: 1;
-		action: [ :aButton :aSnippetElement | self requestMoveUp ]
+		action: [ :aButton :aSnippetElement | self requestMoveUp ];
+		menuItemHideOnClick: false;
+		menuItemGroup: BrMenuItemGroupConfiguration navigation
 ]
 
 { #category : #'gt - extensions' }
 LeSnippetViewModel >> gtActionUnindentFor: anAction [
 	<gtAction>
-
 	^ anAction button
 		tooltip: 'Unindent snippet';
 		icon: BrGlamorousVectorIcons left;
 		target: LeSnippetContextMenuActionTarget uniqueInstance;
 		priority: 3;
-		action: [ :aButton :aSnippetElement | self requestUnindent ]
+		action: [ :aButton :aSnippetElement | self requestUnindent ];
+		menuItemHideOnClick: false;
+		menuItemGroup: BrMenuItemGroupConfiguration navigation
 ]
 
 { #category : #'filter view' }
