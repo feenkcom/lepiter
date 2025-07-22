@@ -11,5 +11,5 @@ LePackageNameArgumentNode >> acceptVisitor: anAnnotationParseVisitor [
 
 { #category : #accessing }
 LePackageNameArgumentNode >> imageObject [
-	^ RPackageOrganizer default packageNamed: value source asString ifAbsent: nil
+	^ self packageOrganizer packageNamed: value source asString ifAbsent: nil
 ]

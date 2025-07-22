@@ -81,7 +81,7 @@ LeAnnotationCompletionVisitor >> optionsFor: annotationType startingWith: aStrin
 LeAnnotationCompletionVisitor >> packageCompletionsFor: aString [
 	| selectors |
 	selectors := GtPrefixTree new.
-	RPackageOrganizer default packages
+	self packageOrganizer packages
 		do: [ :package | 
 			(aString isEmpty or: [ package name beginsWith: aString ])
 				ifTrue: [ selectors add: package name ] ].
