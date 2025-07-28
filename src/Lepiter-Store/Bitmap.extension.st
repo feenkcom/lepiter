@@ -4,7 +4,8 @@ Extension { #name : #Bitmap }
 Bitmap class >> leFromJsonV4Dictionary: aDictionary [
 	"Create a new instance of the receiver from the supplied dictionary."
 
-	^ self decompressFromByteArray: (self evaluate: (aDictionary at: #byteArrayString))
+	^ self decompressFromByteArray: (self compiler 
+		evaluate: (aDictionary at: #byteArrayString))
 ]
 
 { #category : #'*Lepiter-Store' }
