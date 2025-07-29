@@ -1,6 +1,6 @@
 Trait {
 	#name : #TLeInvalidCommentsConstraint,
-	#category : 'Lepiter-Validator-Model'
+	#category : #'Lepiter-Validator-Model'
 }
 
 { #category : #examples }
@@ -27,7 +27,12 @@ TLeInvalidCommentsConstraint >> packagesToAnalyse [
 
 { #category : #accessing }
 TLeInvalidCommentsConstraint >> pageForClassCommentOf: aClass [
+	| classComment |
+	classComment := self
+		forPharo12: [ aClass comment ]
+		forPharo11AndPharo10: [ aClass organization classComment ].
+		
 	^ (LePage pharoCommentClassName: aClass name)
-			addSnippet: (LeTextSnippet string: aClass organization classComment);
-			yourself
+		addSnippet: (LeTextSnippet string: classComment);
+		yourself
 ]
