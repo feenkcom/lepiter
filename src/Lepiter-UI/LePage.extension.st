@@ -256,14 +256,7 @@ LePage >> gtRemoveActionFor: anAction [
 
 { #category : #'*Lepiter-UI' }
 LePage >> gtSpotterActDefaultFrom: aSpotterElement [
-	| pageTool toolElement |
-
-	pageTool := self asLepiterPagePhlowTool.
-	toolElement := pageTool asElementDo: [ :e | e ].
-	(GtPager 
-		openWrappedOn: toolElement 
-		title: self tabLabel 
-		from: aSpotterElement) maximized
+	BlSpace showTool: self asLepiterPagePhlowTool from: aSpotterElement
 ]
 
 { #category : #'*Lepiter-UI' }
