@@ -386,13 +386,9 @@ LePlainTextSnippet >> spawnLinkTarget: aNode from: aButton inNewTab: aBoolean [
 							aSpace icon: aTool icon.
 							aSpace extent: 1200 @ 600.
 							aSpace root background: Color transparent.
-							aSpace
-								addChild: (GtPager
-										createOn: (GtPagerWrapperElement new
-												tool: aTool;
-												embellisher: (GtPagerPageEmbellisher new extension: GtPagerPageEmbellisherExtension null))) maximized.
-							aSpace withHalos.
-							aButton showSpace: aSpace ]
+							aSpace inPager: aTool.
+							aSpace withSceneDriller.
+							aSpace showFrom: aButton ]
 						ifFalse: [ aButton phlow spawnTool: aLink target asPhlowTool ] ] ]
 		ifNone: [  "ignore" ]
 ]

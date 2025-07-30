@@ -8,7 +8,7 @@ GtWardleyMapDecoratorWithScripterExamples >> mapWithLepiterPageAction [
 	aScripter := self
 			scripterWithModel: [ GtWardleyMapDecoratorExamples new mapWithLepiterPageAction ]
 			element: [ :aMap | 
-				GtPager
+				GtPagerSettings usedPager
 					createWrappedOn: (GtWardleyMapElement new
 							wardleyMapViewModel: (GtWardleyMapViewModel new wardleyMapModel: aMap)) ].
 
