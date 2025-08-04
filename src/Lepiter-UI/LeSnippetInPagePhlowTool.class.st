@@ -16,6 +16,6 @@ LeSnippetInPagePhlowTool >> asElementDo: aOneArgBlock [
 
 	anElement selectionTransformation: [ :aNode | 
 		aNode value asPhlowTool ].
-	anElement selectAndScrollTo: self snippet.
+	anElement selectAndScrollToSnippet: self snippet.
 	^ aOneArgBlock cull: anElement
 ]
