@@ -12,7 +12,7 @@ I am used for announcements that needs to be propagated to all children. For exa
 Class {
 	#name : #LeTreePropagater,
 	#superclass : #LeAnnouncementPropagater,
-	#category : 'Lepiter-Core-Notifier'
+	#category : #'Lepiter-Core-Notifier'
 }
 
 { #category : #'api - promoting' }

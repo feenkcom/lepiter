@@ -5,7 +5,7 @@ Class {
 		'left',
 		'right'
 	],
-	#category : 'Lepiter-Core-Database - Filters'
+	#category : #'Lepiter-Core-Database - Filters'
 }
 
 { #category : #accessing }

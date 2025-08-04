@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'time'
 	],
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #accessing }

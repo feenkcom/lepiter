@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'urlString'
 	],
-	#category : 'Lepiter-Core-Database - Filters Links'
+	#category : #'Lepiter-Core-Database - Filters Links'
 }
 
 { #category : #testing }

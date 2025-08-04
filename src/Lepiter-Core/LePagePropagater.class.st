@@ -1,7 +1,7 @@
 Class {
 	#name : #LePagePropagater,
 	#superclass : #LeAnnouncementPropagater,
-	#category : 'Lepiter-Core-Notifier'
+	#category : #'Lepiter-Core-Notifier'
 }
 
 { #category : #'api - accessing' }

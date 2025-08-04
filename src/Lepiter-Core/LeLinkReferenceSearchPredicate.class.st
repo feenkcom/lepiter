@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'searchBlock'
 	],
-	#category : 'Lepiter-Core-Search'
+	#category : #'Lepiter-Core-Search'
 }
 
 { #category : #testing }

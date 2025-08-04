@@ -91,6 +91,14 @@ LeDatabaseClassStoreMonitor >> corruptSelectors [
 	^ corruptSelectors
 ]
 
+{ #category : #'as yet unclassified' }
+LeDatabaseClassStoreMonitor >> deletePageWithId: aUuid [
+	"Answer the stored object, in this case the DB class.
+	ToDo: The method storing the page should be expanded."
+
+	self removePageSelectorNow: (storage pageSelectorForUid: aUuid).
+]
+
 { #category : #accessing }
 LeDatabaseClassStoreMonitor >> explicitLinksOrNil [
 
@@ -585,6 +593,14 @@ LeDatabaseClassStoreMonitor >> stopMonitoring [
 	self updateEntries.
 
 	self announce: (LeLocalStoreMonitorStopped new monitor: self).
+]
+
+{ #category : #'as yet unclassified' }
+LeDatabaseClassStoreMonitor >> storedObjectWithId: aUuid [
+	"Answer the stored object, in this case the DB class.
+	ToDo: The method storing the page should be expanded."
+
+	^ dbClass
 ]
 
 { #category : #private }

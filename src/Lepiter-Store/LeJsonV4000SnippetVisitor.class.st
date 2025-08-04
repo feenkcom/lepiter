@@ -6,7 +6,7 @@ Class {
 		'updater',
 		'substitutions'
 	],
-	#category : 'Lepiter-Store-JsonV4'
+	#category : #'Lepiter-Store-JsonV4'
 }
 
 { #category : #initialization }

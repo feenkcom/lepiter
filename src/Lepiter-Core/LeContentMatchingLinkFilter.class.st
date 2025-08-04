@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'linkFilter'
 	],
-	#category : 'Lepiter-Core-Database - Filters Links'
+	#category : #'Lepiter-Core-Database - Filters Links'
 }
 
 { #category : #accessing }

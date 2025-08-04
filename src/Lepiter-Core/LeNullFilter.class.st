@@ -1,7 +1,7 @@
 Class {
 	#name : #LeNullFilter,
 	#superclass : #LeFilter,
-	#category : 'Lepiter-Core-Database - Filters'
+	#category : #'Lepiter-Core-Database - Filters'
 }
 
 { #category : #testing }

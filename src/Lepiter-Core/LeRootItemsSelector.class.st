@@ -5,7 +5,7 @@ I define root items, e.g., {{gtClass:LeSnippets}} that should be displayed in a 
 Class {
 	#name : #LeRootItemsSelector,
 	#superclass : #Object,
-	#category : 'Lepiter-Core-Utility'
+	#category : #'Lepiter-Core-Utility'
 }
 
 { #category : #'api - collect' }

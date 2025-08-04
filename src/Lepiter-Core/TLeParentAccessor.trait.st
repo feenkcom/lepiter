@@ -3,7 +3,7 @@ Trait {
 	#instVars : [
 		'parent'
 	],
-	#category : 'Lepiter-Core-Utility'
+	#category : #'Lepiter-Core-Utility'
 }
 
 { #category : #'private - asserting' }

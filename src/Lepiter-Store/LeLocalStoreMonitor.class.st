@@ -102,6 +102,12 @@ LeLocalStoreMonitor >> corruptFiles [
 	^ corruptFiles
 ]
 
+{ #category : #testing }
+LeLocalStoreMonitor >> deletePageWithId: aUuid [
+
+	^ (self storedObjectWithId: aUuid) delete
+]
+
 { #category : #'schema updating' }
 LeLocalStoreMonitor >> forceSchemaUpgradeFrom: aString [ 
 	"Run the receiver's db files through an update from the supplied version number, e.g. '3.0'"
@@ -186,6 +192,12 @@ LeLocalStoreMonitor >> hasCorruptPages [
 	"Answer a boolean indicating whether the receiver is aware of any corrupt files"
 
 	^ corruptFiles isNotEmpty 
+]
+
+{ #category : #testing }
+LeLocalStoreMonitor >> hasPageId: aUuid [
+
+	^ (localRoot / (storage pageFilenameForUid: aUuid)) exists
 ]
 
 { #category : #initialization }
@@ -490,6 +502,12 @@ LeLocalStoreMonitor >> stopMonitoring [
 	self announce: (LeLocalStoreMonitorStopped new monitor: self).
 
 	self updateEntries
+]
+
+{ #category : #testing }
+LeLocalStoreMonitor >> storedObjectWithId: aUuid [
+
+	^ localRoot / (storage pageFilenameForUid: aUuid)
 ]
 
 { #category : #private }

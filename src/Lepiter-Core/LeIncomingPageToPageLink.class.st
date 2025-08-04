@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'referencingPage'
 	],
-	#category : 'Lepiter-Core-IncomingReferences'
+	#category : #'Lepiter-Core-IncomingReferences'
 }
 
 { #category : #testing }

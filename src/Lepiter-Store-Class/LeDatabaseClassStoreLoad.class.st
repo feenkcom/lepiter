@@ -41,6 +41,12 @@ LeDatabaseClassStoreLoad >> hasDuplicatePages [
 	^ duplicates isNotEmpty
 ]
 
+{ #category : #testing }
+LeDatabaseClassStoreLoad >> hasPageId: aUuid [
+
+	^ self subclassResponsibility
+]
+
 { #category : #initialization }
 LeDatabaseClassStoreLoad >> initialize [ 
 

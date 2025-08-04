@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'newExplicitLink'
 	],
-	#category : 'Lepiter-Core-Links'
+	#category : #'Lepiter-Core-Links'
 }
 
 { #category : #accessing }

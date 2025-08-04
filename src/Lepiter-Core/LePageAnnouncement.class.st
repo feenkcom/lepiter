@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'page'
 	],
-	#category : 'Lepiter-Core-Announcements'
+	#category : #'Lepiter-Core-Announcements'
 }
 
 { #category : #'api - accessing' }
