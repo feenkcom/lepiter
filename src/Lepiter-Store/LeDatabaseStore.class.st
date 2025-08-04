@@ -154,6 +154,24 @@ LeDatabaseStore >> gtPropertiesFor: aView [
 		view: #gtItemsFor:
 ]
 
+{ #category : #testing }
+LeDatabaseStore >> hasPageId: aUuid [
+
+	^ self subclassResponsibility
+]
+
+{ #category : #testing }
+LeDatabaseStore >> isClassStore [
+
+	^ false
+]
+
+{ #category : #testing }
+LeDatabaseStore >> isLocalStore [
+
+	^ false
+]
+
 { #category : #'private - db properties' }
 LeDatabaseStore >> loadDatabasePropertiesIn: aDatabase [
 	"Load the lepiter.properties file and update the database"

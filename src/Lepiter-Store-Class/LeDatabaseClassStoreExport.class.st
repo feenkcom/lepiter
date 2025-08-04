@@ -46,3 +46,9 @@ LeDatabaseClassStoreExport >> exportProperties [
 
 	self savePropertiesDictionary: database properties dbProperties.
 ]
+
+{ #category : #testing }
+LeDatabaseClassStoreExport >> hasPageId: aUuid [
+
+	^ self subclassResponsibility
+]

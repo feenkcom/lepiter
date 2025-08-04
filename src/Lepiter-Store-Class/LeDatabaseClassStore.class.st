@@ -236,6 +236,18 @@ LeDatabaseClassStore >> hasAttachmentWithId: aUuid [
 		hasAttachmentWithId: ('attachment_', attachmentUUID) asSymbol inClass: dbClass
 ]
 
+{ #category : #testing }
+LeDatabaseClassStore >> hasPageId: aUuid [
+
+	^ storage hasPageId: aUuid inClass: dbClass
+]
+
+{ #category : #testing }
+LeDatabaseClassStore >> isClassStore [
+
+	^ true
+]
+
 { #category : #private }
 LeDatabaseClassStore >> loadExplicitLinks [
 	"Load all the explicit links from the receiver's class"
