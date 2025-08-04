@@ -99,6 +99,11 @@ LePageToolContentElement >> registerSpawnBelowHandler [
 					spawnBelowTool: aSpawnEvent tool ] ]
 ]
 
+{ #category : #'api - scrolling' }
+LePageToolContentElement >> selectAndScrollToSnippet: aSnippet [
+	
+]
+
 { #category : #'selection - handling' }
 LePageToolContentElement >> selectTitle [
 	titleElement requestFocus
