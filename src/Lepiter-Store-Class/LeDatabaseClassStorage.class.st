@@ -40,6 +40,12 @@ LeDatabaseClassStorage >> hasAttachmentWithId: aSelector inClass: aClass [
 ]
 
 { #category : #testing }
+LeDatabaseClassStorage >> hasPageId: aUuid inClass: dbClass [
+
+	^ dbClass respondsTo: (self pageSelectorForUid: aUuid)
+]
+
+{ #category : #testing }
 LeDatabaseClassStorage >> hasPageStored: aPage inClass: dbClass [
 
 	^ dbClass respondsTo: (self pageSelectorFor: aPage)
