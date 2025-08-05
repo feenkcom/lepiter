@@ -470,7 +470,8 @@ LeExampleSnippet >> inlineSelfSendsIn: ast [
 			| model refactoring |
 			(each isMessage
 				and: [ each receiver isSelfVariable
-						and: [ (self assertSelectors includes: each selector) not ] ])
+						and: [ (self assertSelectors includes: each selector) not
+								and: [ (self isRecursiveMethod: each selector in: (Set with: each selector)) not ] ] ])
 				ifTrue: [ model := GtRBNamespace new.
 					(model classFor: self exampleClass) compile: ast source.
 					refactoring := GtInlineMethodRefactoring
@@ -505,6 +506,19 @@ LeExampleSnippet >> instanceClassName [
 LeExampleSnippet >> isForMetaclass [
 
 	^ exampleBehaviorName endsWith: ' class'
+]
+
+{ #category : #converting }
+LeExampleSnippet >> isRecursiveMethod: aSymbol in: aSet [
+	(self exampleClass compiledMethodAt: aSymbol ifAbsent: [  ])
+		ifNotNil: [ :method | 
+			method ast
+				nodesDo: [ :each | 
+					(each isMessage and: [ each receiver isSelfVariable ])
+						ifTrue: [ (aSet includes: each selector) ifTrue: [ ^ true ].
+							aSet add: each selector.
+							(self isRecursiveMethod: each selector in: aSet) ifTrue: [ ^ true ] ] ] ].
+	^ false
 ]
 
 { #category : #'private - exporting' }
