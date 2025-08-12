@@ -43,9 +43,10 @@ LeContextMenuSpotterStart >> spotterPictureFileStringFor: pictureString [
 							pictureString ]
 						ifTrue: [
 							"The file is local and isn't in the database, copy it in (and answer the relative path string"
-							self
-								database isLogicalDatabase
-								ifTrue: [ nil ]
-								ifFalse: [ self database addAttachmentByCopy: pictureString asFileReference ] ] ] ]
+							| db |
+							db := self database isLogicalDatabase
+								ifTrue: [ self database primaryDB ]
+								ifFalse: [self database].
+							db addAttachmentByCopy: pictureString asFileReference ] ] ]
 		ifFalse: [ nil ]
 ]
