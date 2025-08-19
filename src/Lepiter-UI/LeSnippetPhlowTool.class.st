@@ -54,5 +54,5 @@ LeSnippetPhlowTool >> snippet: aSnippet [
 
 { #category : #'api - accessing' }
 LeSnippetPhlowTool >> title [
-	^ self block title
+	^ self snippet title
 ]
