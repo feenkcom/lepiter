@@ -14,12 +14,14 @@ LeNotifierExamples >> addAllAnnouncementsIn: aDatabase into: aCollection [
 	aDatabase
 		when: Announcement
 		do: [ :anAnnouncement :anAnnouncer | 
-			aCollection add: anAnnouncer ];
+			aCollection add: anAnnouncer ]
+		for: self;
 		allChildrenBreadthFirstDo: [ :aContent | 
 			aContent
 				when: Announcement
 				do: [ :anAnnouncement :anAnnouncer | 
-					aCollection add: anAnnouncer ] ]
+					aCollection add: anAnnouncer ]
+				for: self ]
 ]
 
 { #category : #'examples - notifier' }
@@ -78,7 +80,8 @@ LeNotifierExamples >> databaseNotification_BlockThree_OneSubscription [
 	aDatabase := aBlockThree database.
 	aDatabase
 		when: Announcement
-		do: [ :anAnnouncement :anAnnouncer | aCollection add: anAnnouncer ].
+		do: [ :anAnnouncement :anAnnouncer | aCollection add: anAnnouncer ]
+		for: self.
 	aBlockThree notifier
 		database;
 		announce: Announcement.
@@ -97,10 +100,12 @@ LeNotifierExamples >> databaseNotification_BlockThree_TwoSubscriptions [
 	aDatabase := aBlockThree database.
 	aBlockThree
 		when: Announcement
-		do: [ :anAnnouncement :anAnnouncer | aCollection add: anAnnouncer ].
+		do: [ :anAnnouncement :anAnnouncer | aCollection add: anAnnouncer ]
+		for: self.
 	aDatabase
 		when: Announcement
-		do: [ :anAnnouncement :anAnnouncer | aCollection add: anAnnouncer ].
+		do: [ :anAnnouncement :anAnnouncer | aCollection add: anAnnouncer ]
+		for: self.
 	aBlockThree notifier
 		database;
 		announce: Announcement.
@@ -206,10 +211,12 @@ LeNotifierExamples >> localAndDatabaseNotification_BlockThree_TwoSubscriptions [
 	aDatabase := aBlockThree database.
 	aBlockThree
 		when: Announcement
-		do: [ :anAnnouncement :anAnnouncer | aCollection add: anAnnouncer ].
+		do: [ :anAnnouncement :anAnnouncer | aCollection add: anAnnouncer ]
+		for: self.
 	aDatabase
 		when: Announcement
-		do: [ :anAnnouncement :anAnnouncer | aCollection add: anAnnouncer ].
+		do: [ :anAnnouncement :anAnnouncer | aCollection add: anAnnouncer ]
+		for: self.
 	aBlockThree notifier
 		local;
 		database;
