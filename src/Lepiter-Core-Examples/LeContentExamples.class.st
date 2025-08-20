@@ -470,7 +470,8 @@ LeContentExamples >> removeLinkToEmptyPage [
 
 	aDatabase
 		when: LeDatabasePageRemoved
-		do: [ :announcement | removedPages add: announcement page ].
+		do: [ :announcement | removedPages add: announcement page ]
+		for: self.
 	referringPage := aDatabase anyOne.
 	referringPage snippetBuilder
 		string: 'Link to [[an empty page]]';
@@ -499,7 +500,8 @@ LeContentExamples >> removeLinkToNonExistingPage [
 
 	aDatabase
 		when: LeDatabasePageRemoved
-		do: [ :announcement | removedPages add: announcement page ].
+		do: [ :announcement | removedPages add: announcement page ]
+		for: self.
 	referringPage := aDatabase anyOne.
 	referringPage snippetBuilder
 		string: 'Link to [[an empty page]]';
