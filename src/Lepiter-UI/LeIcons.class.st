@@ -1,7 +1,7 @@
 Class {
 	#name : #LeIcons,
 	#superclass : #Object,
-	#category : 'Lepiter-UI-Basic - UI'
+	#category : #'Lepiter-UI-Basic - UI'
 }
 
 { #category : #accessing }

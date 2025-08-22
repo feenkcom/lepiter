@@ -3,7 +3,7 @@ Class {
 	#superclass : #LeParagraphStyle,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #comparing }

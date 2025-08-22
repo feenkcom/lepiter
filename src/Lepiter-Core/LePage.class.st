@@ -735,6 +735,7 @@ LePage >> updateTitle: aTitle [
 	anOldTitle := self title.
 	anOldType := self type.
 	oldDatabaseKey := anOldType databaseKey.
+	self database isDatabase ifFalse: [ ^ self ].
 	self updater 
 		title: aString; 
 		callback: [

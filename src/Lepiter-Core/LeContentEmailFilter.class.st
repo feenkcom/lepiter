@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'email'
 	],
-	#category : 'Lepiter-Core-Database - Filters'
+	#category : #'Lepiter-Core-Database - Filters'
 }
 
 { #category : #accessing }

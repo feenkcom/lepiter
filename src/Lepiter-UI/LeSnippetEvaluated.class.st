@@ -10,7 +10,7 @@ Class {
 		'element',
 		'evaluationResult'
 	],
-	#category : 'Lepiter-UI-Basic - Events'
+	#category : #'Lepiter-UI-Basic - Events'
 }
 
 { #category : #'api - accessing' }

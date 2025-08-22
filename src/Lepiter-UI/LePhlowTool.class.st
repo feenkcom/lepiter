@@ -1,7 +1,7 @@
 Class {
 	#name : #LePhlowTool,
 	#superclass : #GtPhlowTool,
-	#category : 'Lepiter-UI-Phlow Tools'
+	#category : #'Lepiter-UI-Phlow Tools'
 }
 
 { #category : #testing }

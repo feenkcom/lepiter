@@ -1,7 +1,7 @@
 Class {
 	#name : #LeIncomingImplicitPageLinksGroup,
 	#superclass : #LeIncomingPageLinksGroup,
-	#category : 'Lepiter-Core-IncomingReferences'
+	#category : #'Lepiter-Core-IncomingReferences'
 }
 
 { #category : #initialization }

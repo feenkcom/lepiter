@@ -1,7 +1,7 @@
 Class {
 	#name : #LeConnectorExamples,
 	#superclass : #Object,
-	#category : 'Lepiter-UI-Examples'
+	#category : #'Lepiter-UI-Examples'
 }
 
 { #category : #accessing }

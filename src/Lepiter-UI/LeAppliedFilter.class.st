@@ -5,7 +5,7 @@ Class {
 		'database',
 		'filter'
 	],
-	#category : 'Lepiter-UI-Database - Filters'
+	#category : #'Lepiter-UI-Database - Filters'
 }
 
 { #category : #accessing }

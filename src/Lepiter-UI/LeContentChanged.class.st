@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'content'
 	],
-	#category : 'Lepiter-UI-Basic - Events'
+	#category : #'Lepiter-UI-Basic - Events'
 }
 
 { #category : #'api - accessing' }

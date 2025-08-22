@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'snippetUid'
 	],
-	#category : 'Lepiter-Core-Links'
+	#category : #'Lepiter-Core-Links'
 }
 
 { #category : #'instance creation' }

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'linkReferenceViewModel'
 	],
-	#category : 'Lepiter-UI-! Link Reference'
+	#category : #'Lepiter-UI-! Link Reference'
 }
 
 { #category : #'api - converting' }

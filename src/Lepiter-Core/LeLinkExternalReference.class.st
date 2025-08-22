@@ -1,7 +1,7 @@
 Class {
 	#name : #LeLinkExternalReference,
 	#superclass : #LeLinkReference,
-	#category : 'Lepiter-Core-Links'
+	#category : #'Lepiter-Core-Links'
 }
 
 { #category : #testing }

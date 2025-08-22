@@ -7,7 +7,7 @@ Class {
 		'content',
 		'announcer'
 	],
-	#category : 'Lepiter-UI-! Content Elements - View Models'
+	#category : #'Lepiter-UI-! Content Elements - View Models'
 }
 
 { #category : #announcer }

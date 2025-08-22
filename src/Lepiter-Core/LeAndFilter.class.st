@@ -1,7 +1,7 @@
 Class {
 	#name : #LeAndFilter,
 	#superclass : #LeCompositeFilter,
-	#category : 'Lepiter-Core-Database - Filters'
+	#category : #'Lepiter-Core-Database - Filters'
 }
 
 { #category : #testing }

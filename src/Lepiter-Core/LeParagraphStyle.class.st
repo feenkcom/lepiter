@@ -1,7 +1,7 @@
 Class {
 	#name : #LeParagraphStyle,
 	#superclass : #LeModel,
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #'api - instance creation' }

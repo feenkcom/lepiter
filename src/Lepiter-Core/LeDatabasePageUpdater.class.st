@@ -19,7 +19,7 @@ Class {
 		'callbacks',
 		'isUpdated'
 	],
-	#category : 'Lepiter-Core-Builders'
+	#category : #'Lepiter-Core-Builders'
 }
 
 { #category : #'private - updating' }

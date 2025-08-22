@@ -3,7 +3,7 @@ Trait {
 	#instVars : [
 		'linkReferenceViewModel'
 	],
-	#category : 'Lepiter-UI-! Link Reference'
+	#category : #'Lepiter-UI-! Link Reference'
 }
 
 { #category : #'api - link reference view model' }
