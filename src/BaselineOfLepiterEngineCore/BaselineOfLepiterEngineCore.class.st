@@ -47,6 +47,7 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 				package: 'Lepiter-Store'
 					with: [ spec requires: #('Lepiter-Core' 'Lepiter-Utilities' 'GToolkit4Json') ];
 				package: 'Lepiter-Store-Class' with: [ spec requires: #('Lepiter-Store') ];
+				package: 'Lepiter-Topics' with: [ spec requires: #('Lepiter-Core') ];
 				package: 'Lepiter-Translator-Roam'
 					with: [ spec requires: #('Lepiter-Store') ];
 				package: 'Lepiter-Translator-JupyterNotebook'
@@ -83,9 +84,8 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 					with: [ spec
 							requires: #('Lepiter-Snippet-Text' 'Lepiter-Store-Class' 'Lepiter-Utilities') ];
 				package: 'Lepiter-BasicServer'
-					with: [ spec requires: #(Beacon JSONWebToken ZincHTTPComponentsRest) ]
-					";
+					with: [  ";
 				package: 'LepiterLatex'
-					with: [ spec requires: #('Lepiter-Core') ] "
-					]
+					with: [ spec requires: #('Lepiter-Core') ] "spec
+							requires: #(Beacon JSONWebToken ZincHTTPComponentsRest) ] ]
 ]
