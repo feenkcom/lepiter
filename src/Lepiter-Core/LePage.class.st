@@ -24,7 +24,8 @@ Class {
 		'type',
 		'latestEditTime',
 		'uid',
-		'editHistory'
+		'editHistory',
+		'topicMap'
 	],
 	#category : #'Lepiter-Core-Model'
 }
