@@ -60,7 +60,6 @@ LePage class >> leJsonV4AttributeMapping [
 	^ super leJsonV4AttributeMapping
 		add: (#type -> #pageType);
 		add: (#basicUid -> #uid);
-		add: (#topicMap -> #topicMap);
 		yourself
 ]
 

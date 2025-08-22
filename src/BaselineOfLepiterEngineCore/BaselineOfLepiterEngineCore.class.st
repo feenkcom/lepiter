@@ -47,8 +47,6 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 				package: 'Lepiter-Store'
 					with: [ spec requires: #('Lepiter-Core' 'Lepiter-Utilities' 'GToolkit4Json') ];
 				package: 'Lepiter-Store-Class' with: [ spec requires: #('Lepiter-Store') ];
-				package: 'Lepiter-Topics'
-					with: [ spec requires: #('Lepiter-Core') ];
 				package: 'Lepiter-Translator-Roam'
 					with: [ spec requires: #('Lepiter-Store') ];
 				package: 'Lepiter-Translator-JupyterNotebook'
