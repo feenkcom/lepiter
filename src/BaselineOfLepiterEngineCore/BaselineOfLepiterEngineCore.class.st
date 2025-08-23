@@ -10,28 +10,28 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'Brick' with: [
-				spec repository: 'github://feenkcom/Brick:v0.8.1647/src' ].
+				spec repository: 'github://feenkcom/Brick:v0.8.1648/src' ].
 		spec
 			baseline: 'GToolkitFileUtility' with: [
 				spec repository: 'github://feenkcom/gtoolkit-utility:v0.8.389/src' ].
 		spec
 			baseline: 'GToolkitInspector' with: [
-				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.2941/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.2942/src' ].
 		spec
 			baseline: 'GToolkitCoder' with: [
-				spec repository: 'github://feenkcom/gtoolkit-coder:v0.8.2252/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-coder:v0.8.2253/src' ].
 		spec
 			baseline: 'GToolkit4Pharo' with: [
-				spec repository: 'github://feenkcom/gt4pharo:v0.6.2381/src' ].
+				spec repository: 'github://feenkcom/gt4pharo:v0.6.2382/src' ].
 		spec
 			baseline: 'GToolkit4Json' with: [
-				spec repository: 'github://feenkcom/gt4json:v0.6.1687/src' ].
+				spec repository: 'github://feenkcom/gt4json:v0.6.1688/src' ].
 		spec
 			baseline: 'GToolkitReleaser' with: [
 				spec repository: 'github://feenkcom/gtoolkit-releaser:v0.8.300/src' ].
 		spec
 			baseline: 'LepiterXDoc' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.3263/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.6.3264/src' ].
 		spec
 			baseline: 'SmaCCRuntime' with: [
 				spec repository: 'github://j-brant/SmaCC:v3.0.114' ].
@@ -81,6 +81,8 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 			spec requires: #(#'Lepiter-Core' #'Lepiter-UI') ].
 		spec package: 'Lepiter-ToC' with: [
 			spec requires: #(#'Lepiter-Core' #'Lepiter-UI') ].
+		spec package: 'Lepiter-Topics' with: [
+			spec requires: #(#'Lepiter-Core') ].
 		spec package: 'Lepiter-Export' with: [
 			spec requires: #(#Brick #'Lepiter-Core' #LepiterXDoc #SmaCCRuntime #'Lepiter-UI-Snippet' #'Lepiter-Store' #'Lepiter-Snippet-Text') ].
 		spec package: 'Lepiter-HTML' with: [
