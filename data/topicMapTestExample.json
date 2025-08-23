@@ -1,6 +1,112 @@
 {
-	"comment" : "This file is a frozen snapshot of the GT book topic map, for testing purposes. It should normally not be  updated to be consistent with the current version of the book, to avoid breaking test examples.",
+
 	"database" : "Glamorous Toolkit Book",
+	"comment" : "This file is a frozen snapshot of the GT book topic map, for testing purposes. It should normally not be  updated to be consistent with the current version of the book, to avoid breaking test examples.",
+	"categories" : [
+		"Introduction",
+		"Media",
+		"Tutorial",
+		"Case study",
+		"Pattern",
+		"FAQ",
+		"Examples",
+		"Documentation",
+		"Definition",
+		"Index",
+		"Tag"
+	],
+	"groups" : [
+		{
+			"group" : "Glamorous Toolkit Basics",
+			"topics" : [
+				"About Glamorous Toolkit",
+				"Book Organization and Navigation",
+				"Community & Support",
+				"Debugging in Glamorous Toolkit",
+				"Explainable Systems",
+				"Games and Simulations in Glamorous Toolkit",
+				"Getting Started with GT",
+				"GT Component Documentation",
+				"Live Documentation",
+				"Pharo Integration and Compatibility"
+			]
+		},
+		{
+			"group" : "Core infrastructure and skills",
+			"topics" : [
+				"Algorithm Explanations",
+				"Announcements and Event Handling",
+				"Asynchronous Programming",
+				"Code Analysis",
+				"Code Configuration and Package Management",
+				"Collections and Data Structures",
+				"Deployment and Persistence",
+				"Distributed and Remote Execution",
+				"Domain Modeling",
+				"Extension Methods",
+				"Object-Oriented Programming Concepts",
+				"Parsing and Language Manipulation",
+				"Performance Analysis and Profiling",
+				"Pragmas and Annotations",
+				"Programming Smalltalk",
+				"Recovering from Crashes",
+				"Reflection and Metaprogramming",
+				"Scripting and Automation",
+				"Security and Authentication",
+				"Smalltalk History",
+				"Text Editing",
+				"Utilities and Extensions",
+				"Wardley Maps"
+			]
+		},
+		{
+			"group" : "Moldable Development topics",
+			"topics" : [
+				"Building Custom Tools",
+				"Examples and Documentation",
+				"Inspector actions",
+				"Inspector Views",
+				"Moldable Development Practices",
+				"Moldable Exceptions",
+				"Querying and Navigating Code"
+			]
+		},
+		{
+			"group" : "Using GT components",
+			"topics" : [
+				"Using Beacon",
+				"Using Bloc",
+				"Using Coder",
+				"Using Lepiter",
+				"Using Magritte",
+				"Using Metacello",
+				"Using Mondrian",
+				"Using PetitParser",
+				"Using SmaCC"
+			]
+		},
+		{
+			"group" : "Working with external systems",
+			"topics" : [
+				"Working with Baselines and Dependencies",
+				"Working with Bash",
+				"Working with Cobol",
+				"Working with External APIs",
+				"Working with External Data",
+				"Working with External Tools",
+				"Working with GemStone",
+				"Working with Git and GitHub",
+				"Working with Java",
+				"Working with JavaScript",
+				"Working with Legacy Languages",
+				"Working with LLMs",
+				"Working with Python",
+				"Working with React and React Native",
+				"Working with Rust",
+				"Working with the File System"
+			]
+		}
+	],
 	"pages" : [
 		{
 			"page" : "How to deal with \"Detached Working Copy\" message",
@@ -4670,98 +4776,6 @@
 				"Book Organization and Navigation"
 			],
 			"category" : "Index"
-		}
-	],
-	"groups" : [
-		{
-			"group" : "Using GT components",
-			"topics" : [
-				"Using Beacon",
-				"Using Bloc",
-				"Using Coder",
-				"Using Lepiter",
-				"Using Magritte",
-				"Using Metacello",
-				"Using Mondrian",
-				"Using PetitParser",
-				"Using SmaCC"
-			]
-		},
-		{
-			"group" : "Working with external systems",
-			"topics" : [
-				"Working with Baselines and Dependencies",
-				"Working with Bash",
-				"Working with Cobol",
-				"Working with External APIs",
-				"Working with External Data",
-				"Working with External Tools",
-				"Working with GemStone",
-				"Working with Git and GitHub",
-				"Working with Java",
-				"Working with JavaScript",
-				"Working with Legacy Languages",
-				"Working with LLMs",
-				"Working with Python",
-				"Working with React and React Native",
-				"Working with Rust",
-				"Working with the File System"
-			]
-		},
-		{
-			"group" : "Glamorous Toolkit Basics",
-			"topics" : [
-				"About Glamorous Toolkit",
-				"Book Organization and Navigation",
-				"Community & Support",
-				"Debugging in Glamorous Toolkit",
-				"Explainable Systems",
-				"Games and Simulations in Glamorous Toolkit",
-				"Getting Started with GT",
-				"GT Component Documentation",
-				"Live Documentation",
-				"Pharo Integration and Compatibility"
-			]
-		},
-		{
-			"group" : "Moldable Development topics",
-			"topics" : [
-				"Building Custom Tools",
-				"Examples and Documentation",
-				"Inspector actions",
-				"Inspector Views",
-				"Moldable Development Practices",
-				"Moldable Exceptions",
-				"Querying and Navigating Code"
-			]
-		},
-		{
-			"group" : "Core infrastructure and skills",
-			"topics" : [
-				"Algorithm Explanations",
-				"Announcements and Event Handling",
-				"Asynchronous Programming",
-				"Code Analysis",
-				"Code Configuration and Package Management",
-				"Collections and Data Structures",
-				"Deployment and Persistence",
-				"Distributed and Remote Execution",
-				"Domain Modeling",
-				"Extension Methods",
-				"Object-Oriented Programming Concepts",
-				"Parsing and Language Manipulation",
-				"Performance Analysis and Profiling",
-				"Pragmas and Annotations",
-				"Programming Smalltalk",
-				"Recovering from Crashes",
-				"Reflection and Metaprogramming",
-				"Scripting and Automation",
-				"Security and Authentication",
-				"Smalltalk History",
-				"Text Editing",
-				"Utilities and Extensions",
-				"Wardley Maps"
-			]
 		}
 	]
 }
