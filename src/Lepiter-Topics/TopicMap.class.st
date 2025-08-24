@@ -18,6 +18,20 @@ TopicMap class >> forJson: aFileReference [
 		yourself
 ]
 
+{ #category : #accessing }
+TopicMap >> categories [
+	^ self json at: 'categories'
+]
+
+{ #category : #accessing }
+TopicMap >> category2Page [
+	| dict |
+	dict := Dictionary new.
+	self page2Category
+		associationsDo: [ :assoc | (dict at: assoc value ifAbsentPut: OrderedCollection new) add: assoc key ].
+	^ dict
+]
+
 { #category : #utility }
 TopicMap >> clearCaches [
 	"If we update the json and write it out, we need to clear the caches so they will be updated too."
@@ -31,6 +45,36 @@ TopicMap >> clearCaches [
 TopicMap >> database [
 	^ database
 		ifNil: [ database := LeDatabase databaseNamed: (self json at: 'database') ]
+]
+
+{ #category : #views }
+TopicMap >> gtCategoriesFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Categories';
+		priority: 20;
+		items: [ self categories ];
+		column: 'Index'
+			text: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray ]
+			width: 45;
+		column: 'Count'
+			text: [ :cat | (self category2Page at: cat) size ]
+			width: 50;
+		column: 'Item' text: [ :eachItem | eachItem gtDisplayText ];
+		send: [ :cat | self category2Page at: cat ];
+		actionUpdateButton
+]
+
+{ #category : #views }
+TopicMap >> gtCategoryMapFor: aView [
+	<gtView>
+	^ aView forward
+		title: 'Page to Category map';
+		priority: 22;
+		object: [ self page2Category ];
+		view: #gtItemsFor:;
+		send: [ :assoc | assoc key ];
+		actionUpdateButton
 ]
 
 { #category : #views }
@@ -83,4 +127,9 @@ TopicMap >> page2Topics [
 					select: [ :d | self database hasPageNamed: (d at: 'page') ]
 					thenCollect: [ :d | (self database pageNamed: (d at: 'page')) -> (d at: 'topics') ])
 					asDictionary ]
+]
+
+{ #category : #querying }
+TopicMap >> pages [
+	^ self page2Topics keys
 ]
