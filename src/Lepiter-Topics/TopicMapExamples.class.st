@@ -22,11 +22,10 @@ TopicMapExamples >> categories [
 { #category : #example }
 TopicMapExamples >> category2Page [
 	<gtExample>
-	| category2Page |
-	category2Page := self topicMap category2Page.
-	self
-		assert: category2Page size
-		equals: self topicMap categories size.
+	| category2Page topicMap |
+	topicMap := self topicMap.
+	category2Page := topicMap category2Page.
+	self assert: category2Page size equals: topicMap categories size.
 	^ category2Page
 ]
 
@@ -55,11 +54,10 @@ TopicMapExamples >> json [
 { #category : #example }
 TopicMapExamples >> missingPages [
 	<gtExample>
-	| missingPages |
-	missingPages := self topicMap missingPages.
-	self
-		assert: missingPages size + self topicMap pages size
-		equals: (self topicMap json at: 'pages') size.
+	| missingPages topicMap |
+	topicMap := self topicMap.
+	missingPages := topicMap missingPages.
+	self assert: missingPages size + topicMap pages size equals: (topicMap json at: 'pages') size.
 	^ missingPages
 ]
 
@@ -68,20 +66,19 @@ TopicMapExamples >> page2Category [
 	<gtExample>
 	| page2Category |
 	page2Category := self topicMap page2Category.
-	self
-		assert: page2Category size
-		equals: self page2Topics size.
+	self assert: page2Category size equals: self page2Topics size.
 	^ page2Category
 ]
 
 { #category : #example }
 TopicMapExamples >> page2Topics [
 	<gtExample>
-	| page2Topics |
-	page2Topics := self topicMap page2Topics.
+	| page2Topics topicMap |
+	topicMap := self topicMap.
+	page2Topics := topicMap page2Topics.
 	self
 		assert: page2Topics size
-		equals: (self topicMap json at: 'pages') size - self topicMap missingPages size.
+		equals: (topicMap json at: 'pages') size - topicMap missingPages size.
 	^ page2Topics
 ]
 
