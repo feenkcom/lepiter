@@ -15,23 +15,48 @@ TMPageGroup class >> for: aTopicMap [
 		yourself
 ]
 
+{ #category : #accessing }
+TMPageGroup >> database [
+	^ self topicMap database
+]
+
 { #category : #views }
 TMPageGroup >> gtPagesFor: aView [
 	<gtView>
-	^ aView columnedList
+	^ aView columnedTree
 		title: 'Pages';
-		items: [ self pages ];
+		items: [ GtTreeNode fromCollection: self pageView ];
+		children: [ :aNode | 
+			(aNode value isCollection and: [ aNode value isString not ])
+				ifTrue: [ GtTreeNode fromNode: aNode ]
+				ifFalse: [ aNode value isAssociation
+						ifTrue: [ GtTreeNode
+								fromCollection: {aNode value key.
+										aNode value value}
+								parent: aNode ]
+						ifFalse: [ #() ] ] ];
 		column: 'Index'
 			text: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray ]
 			width: 45;
-		column: 'Page'
-			text: [ :each | each title ]
-			width: 400;
-		column: 'Category'
-			text: [ :each | self topicMap page2Category at: each ]
-			width: 100;
-		"children: [ :aPage | self topicMap page2Topics at: aPage ];"
+		column: 'Page' text: [ :each | each key title ] width: 300;
+		column: 'Category' text: [ :each | each value at: 'category' ] width: 100;
+		column: 'Value' text: [ :each | each value gtDisplayString ];
+		send: [ :each | each value ];
 		actionUpdateButton
+]
+
+{ #category : #accessing }
+TMPageGroup >> pageView [
+	"Instead of leveraging dictionaries, we should just make our our tree nodes that have tree nodes as children.
+	What are the children of a page group?"
+
+
+	^ ((self topicMap json at: 'pages')
+		select: [ :d | self database hasPageNamed: (d at: 'page') ]
+		thenCollect: [ :d | 
+			(self database pageNamed: (d at: 'page'))
+				-> {'category' -> (d at: 'category').
+						'topics' -> (d at: 'topics')} asDictionary ]) asDictionary
 ]
 
 { #category : #accessing }
