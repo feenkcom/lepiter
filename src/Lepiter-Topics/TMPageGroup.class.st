@@ -25,24 +25,20 @@ TMPageGroup >> gtPagesFor: aView [
 	<gtView>
 	^ aView columnedTree
 		title: 'Pages';
-		items: [ GtTreeNode fromCollection: self pageView ];
-		children: [ :aNode | 
-			(aNode value isCollection and: [ aNode value isString not ])
-				ifTrue: [ GtTreeNode fromNode: aNode ]
-				ifFalse: [ aNode value isAssociation
-						ifTrue: [ GtTreeNode
-								fromCollection: {aNode value key.
-										aNode value value}
-								parent: aNode ]
-						ifFalse: [ #() ] ] ];
+		items: [ self pageNodes ];
 		column: 'Index'
 			text: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray ]
 			width: 45;
-		column: 'Page' text: [ :each | each key title ] width: 300;
-		column: 'Category' text: [ :each | each value at: 'category' ] width: 100;
-		column: 'Value' text: [ :each | each value gtDisplayString ];
+		column: 'Page'
+			text: [ :each | each name ]
+			width: 300;
 		send: [ :each | each value ];
 		actionUpdateButton
+]
+
+{ #category : #navigation }
+TMPageGroup >> pageNodes [
+	^ self pages collect: [ :aPage | TMPageNode for: aPage within: self ]
 ]
 
 { #category : #accessing }
