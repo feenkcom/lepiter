@@ -1,5 +1,5 @@
 "
-I am an abstract parent for trees of Topic Map nodes representing pages, topics, groups, and categories.
+I am an abstract parent for trees of Topic Map nodes representing pages, topics, fields, and styles.
 I supposrt navigation via dedicated views of page groups.
 "
 Class {
@@ -34,4 +34,18 @@ TMAbstractTreeNode >> pageGroup [
 { #category : #accessing }
 TMAbstractTreeNode >> pageGroup: anObject [
 	pageGroup := anObject
+]
+
+{ #category : #printing }
+TMAbstractTreeNode >> printOn: aStream [
+	super printOn: aStream.
+	aStream
+		nextPut: $(;
+		nextPutAll: self name;
+		nextPut: $)
+]
+
+{ #category : #accessing }
+TMAbstractTreeNode >> topicMap [
+	^ self pageGroup topicMap
 ]
