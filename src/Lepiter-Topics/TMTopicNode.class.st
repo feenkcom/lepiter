@@ -8,17 +8,21 @@ Class {
 }
 
 { #category : #'instance creation' }
-TMTopicNode class >> for: aString within: aPageGroup [
+TMTopicNode class >> for: aTopic in: aTopicMap [
 ^ self new
-	pageGroup: aPageGroup;
-	topic: aString;
+	topic: aTopic;
+	topicMap: aTopicMap;
 	yourself 
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMTopicNode >> children [
 	^ self styles
-		collect: [ :aStyle | TMStyleNode for: aStyle within: (self pageGroup copyWithPages: self pages) ]
+		collect: [ :aStyle | 
+			TMStyleNode
+				for: aStyle
+				in: self topicMap
+				within: (TMPageGroup for: self topicMap with: self pages) ]
 ]
 
 { #category : #accessing }
@@ -29,6 +33,11 @@ TMTopicNode >> name [
 { #category : #querying }
 TMTopicNode >> pages [
 	^ self topicMap topic2Pages at: self topic
+]
+
+{ #category : #navigation }
+TMTopicNode >> sendTo [
+	^ TMPageGroup for: self topicMap with: self pages
 ]
 
 { #category : #accessing }
@@ -42,6 +51,6 @@ TMTopicNode >> topic [
 ]
 
 { #category : #accessing }
-TMTopicNode >> topic: anObject [
-	topic := anObject
+TMTopicNode >> topic: aString [
+	topic := aString
 ]

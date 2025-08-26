@@ -1,17 +1,18 @@
 "
 I am an abstract parent for trees of Topic Map nodes representing pages, topics, fields, and styles.
-I supposrt navigation via dedicated views of page groups.
+
+I support navigation via dedicated views of page groups.
 "
 Class {
 	#name : #TMAbstractTreeNode,
 	#superclass : #Object,
 	#instVars : [
-		'pageGroup'
+		'topicMap'
 	],
 	#category : #'Lepiter-Topics-Model'
 }
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMAbstractTreeNode >> children [
 	self subclassResponsibility
 ]
@@ -21,19 +22,14 @@ TMAbstractTreeNode >> isAbstract [
 	^ self == TMAbstractTreeNode
 ]
 
+{ #category : #testing }
+TMAbstractTreeNode >> isPageNode [
+	^ false
+]
+
 { #category : #accessing }
 TMAbstractTreeNode >> name [
 	self subclassResponsibility
-]
-
-{ #category : #accessing }
-TMAbstractTreeNode >> pageGroup [
-	^ pageGroup
-]
-
-{ #category : #accessing }
-TMAbstractTreeNode >> pageGroup: anObject [
-	pageGroup := anObject
 ]
 
 { #category : #printing }
@@ -45,7 +41,19 @@ TMAbstractTreeNode >> printOn: aStream [
 		nextPut: $)
 ]
 
+{ #category : #navigation }
+TMAbstractTreeNode >> sendTo [
+	"NB: this is also the pageGroup to send to when we click within the columnedTree view."
+
+	self subclassResponsibility
+]
+
 { #category : #accessing }
 TMAbstractTreeNode >> topicMap [
-	^ self pageGroup topicMap
+	^ topicMap
+]
+
+{ #category : #accessing }
+TMAbstractTreeNode >> topicMap: anObject [
+	topicMap := anObject
 ]
