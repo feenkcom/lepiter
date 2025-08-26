@@ -16,9 +16,9 @@ TMPageGroup class >> for: aTopicMap [
 ]
 
 { #category : #'instance creation' }
-TMPageGroup >> copyWithPages: aPageCollection [
-	^ self class new
-		topicMap: self topicMap;
+TMPageGroup class >> for: aTopicMap with: aPageCollection [
+	^ self new
+		topicMap: aTopicMap;
 		pages: aPageCollection;
 		yourself
 ]
@@ -41,13 +41,42 @@ TMPageGroup >> gtPagesFor: aView [
 		column: 'Page'
 			text: [ :each | each name ]
 			width: 300;
-		send: [ :each | each pageGroup ];
+		column: 'Style'
+			text: [ :each | each isPageNode ifTrue: [ each style ] ifFalse: [ '-' ] ]
+			width: 300;
+		send: [ :each | each sendTo ];
 		actionUpdateButton
+]
+
+{ #category : #searching }
+TMPageGroup >> gtSpotterForPageContent: aSearch [
+	<gtSearch>
+	^ aSearch list
+		title: 'Page content';
+		priority: 25;
+		items: [ self pages ];
+		itemsLimit: Float infinity;
+		itemName: #asMarkdownPage;
+		sendCategory: [ :aCategory :aStep :thisSearch | TMPageGroup for: self topicMap with: aCategory items contents ];
+		filterBySubstring
+]
+
+{ #category : #searching }
+TMPageGroup >> gtSpotterForPageTitles: aSearch [
+	<gtSearch>
+	^ aSearch list
+		title: 'Page titles';
+		priority: 20;
+		items: [ self pages ];
+		itemsLimit: Float infinity;
+		itemName: #title;
+		sendCategory: [ :aCategory :aStep :thisSearch | TMPageGroup for: self topicMap with: aCategory items contents ];
+		filterBySubstring
 ]
 
 { #category : #navigation }
 TMPageGroup >> pageNodes [
-	^ self pages collect: [ :aPage | TMPageNode for: aPage within: self ]
+	^ self pages collect: [ :aPage | TMPageNode for: aPage in: self topicMap ]
 ]
 
 { #category : #accessing }
@@ -72,6 +101,16 @@ TMPageGroup >> pages [
 { #category : #accessing }
 TMPageGroup >> pages: aPageCollection [
 	pages := aPageCollection
+]
+
+{ #category : #printing }
+TMPageGroup >> printOn: aStream [
+super printOn: aStream.
+	aStream
+		nextPut: $(;
+		print: self pages size;
+		nextPutAll: ' page';
+		nextPut: $)
 ]
 
 { #category : #accessing }

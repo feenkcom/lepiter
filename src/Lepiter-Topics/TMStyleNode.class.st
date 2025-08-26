@@ -2,22 +2,34 @@ Class {
 	#name : #TMStyleNode,
 	#superclass : #TMAbstractTreeNode,
 	#instVars : [
-		'style'
+		'style',
+		'context'
 	],
 	#category : #'Lepiter-Topics-Model'
 }
 
 { #category : #'instance creation' }
-TMStyleNode class >> for: aString within: aPageGroup [
+TMStyleNode class >> for: aString in: aTopicMap within: aPageGroup [
 ^ self new
-	pageGroup: aPageGroup;
 	style: aString;
+	topicMap: aTopicMap;
+	context: aPageGroup;
 	yourself 
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMStyleNode >> children [
-	^ self pages collect: [ :aPage | TMPageNode for: aPage within: self pageGroup ]
+	^ self pages collect: [ :aPage | TMPageNode for: aPage in: self topicMap ]
+]
+
+{ #category : #accessing }
+TMStyleNode >> context [
+	^ context
+]
+
+{ #category : #accessing }
+TMStyleNode >> context: aPageGroup [
+	context := aPageGroup
 ]
 
 { #category : #accessing }
@@ -29,8 +41,13 @@ TMStyleNode >> name [
 TMStyleNode >> pages [
 	"NB: We only want the pages in *this* page group with this style."
 
-	^ self pageGroup pages
+	^ self context pages
 		select: [ :aPage | (self topicMap page2Style at: aPage) = self style ]
+]
+
+{ #category : #'as yet unclassified' }
+TMStyleNode >> sendTo [
+	^ TMPageGroup for: self topicMap with: self pages
 ]
 
 { #category : #accessing }

@@ -8,16 +8,21 @@ Class {
 }
 
 { #category : #'instance creation' }
-TMPageNode class >> for: aPage within: aPageGroup [
+TMPageNode class >> for: aPage in: aTopicMap [
 ^ self new
-	pageGroup: aPageGroup;
 	page: aPage;
+	topicMap: aTopicMap;
 	yourself 
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMPageNode >> children [
-	^ self topics collect: [ :each | TMTopicNode for: each within: self pageGroup ]
+	^ self topics collect: [ :each | TMTopicNode for: each in: self topicMap ]
+]
+
+{ #category : #testing }
+TMPageNode >> isPageNode [
+	^ true
 ]
 
 { #category : #accessing }
@@ -31,8 +36,18 @@ TMPageNode >> page [
 ]
 
 { #category : #accessing }
-TMPageNode >> page: anObject [
-	page := anObject
+TMPageNode >> page: aPage [
+	page := aPage
+]
+
+{ #category : #navigation }
+TMPageNode >> sendTo [
+	^ self page
+]
+
+{ #category : #accessing }
+TMPageNode >> style [
+	^ self topicMap page2Style at: self page
 ]
 
 { #category : #querying }
