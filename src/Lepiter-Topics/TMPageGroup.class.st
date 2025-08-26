@@ -15,6 +15,14 @@ TMPageGroup class >> for: aTopicMap [
 		yourself
 ]
 
+{ #category : #'instance creation' }
+TMPageGroup >> copyWithPages: aPageCollection [
+	^ self class new
+		topicMap: self topicMap;
+		pages: aPageCollection;
+		yourself
+]
+
 { #category : #accessing }
 TMPageGroup >> database [
 	^ self topicMap database
@@ -26,13 +34,14 @@ TMPageGroup >> gtPagesFor: aView [
 	^ aView columnedTree
 		title: 'Pages';
 		items: [ self pageNodes ];
+		children: #children;
 		column: 'Index'
 			text: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray ]
 			width: 45;
 		column: 'Page'
 			text: [ :each | each name ]
 			width: 300;
-		send: [ :each | each value ];
+		send: [ :each | each pageGroup ];
 		actionUpdateButton
 ]
 
@@ -61,8 +70,8 @@ TMPageGroup >> pages [
 ]
 
 { #category : #accessing }
-TMPageGroup >> pages: anObject [
-	pages := anObject
+TMPageGroup >> pages: aPageCollection [
+	pages := aPageCollection
 ]
 
 { #category : #accessing }

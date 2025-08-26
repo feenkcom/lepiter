@@ -1,3 +1,9 @@
+"
+I am responsible for mapping Lepiter database pages to their topics and styles.
+
+I am initialized from a JSON file that contains this mapping, as well as the list of fields grouping the various topics.
+
+"
 Class {
 	#name : #TopicMap,
 	#superclass : #Object,
@@ -6,7 +12,8 @@ Class {
 		'json',
 		'database',
 		'page2Topics',
-		'page2Category'
+		'page2Style',
+		'topic2Pages'
 	],
 	#category : #'Lepiter-Topics-Model'
 }
@@ -18,27 +25,14 @@ TopicMap class >> forJson: aFileReference [
 		yourself
 ]
 
-{ #category : #accessing }
-TopicMap >> categories [
-	^ self json at: 'categories'
-]
-
-{ #category : #accessing }
-TopicMap >> category2Page [
-	| dict |
-	dict := Dictionary new.
-	self page2Category
-		associationsDo: [ :assoc | (dict at: assoc value ifAbsentPut: OrderedCollection new) add: assoc key ].
-	^ dict
-]
-
 { #category : #utility }
 TopicMap >> clearCaches [
 	"If we update the json and write it out, we need to clear the caches so they will be updated too."
 
 	database := nil.
 	page2Topics := nil.
-	page2Category := nil
+	page2Style := nil.
+	topic2Pages := nil
 ]
 
 { #category : #accessing }
@@ -47,34 +41,10 @@ TopicMap >> database [
 		ifNil: [ database := LeDatabase databaseNamed: (self json at: 'database') ]
 ]
 
-{ #category : #views }
-TopicMap >> gtCategoriesFor: aView [
-	<gtView>
-	^ aView columnedList
-		title: 'Categories';
-		priority: 20;
-		items: [ self categories ];
-		column: 'Index'
-			text: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray ]
-			width: 45;
-		column: 'Count'
-			text: [ :cat | (self category2Page at: cat) size ]
-			width: 50;
-		column: 'Item' text: [ :eachItem | eachItem gtDisplayText ];
-		send: [ :cat | self category2Page at: cat ];
-		actionUpdateButton
-]
-
-{ #category : #views }
-TopicMap >> gtCategoryMapFor: aView [
-	<gtView>
-	^ aView forward
-		title: 'Page to Category map';
-		priority: 22;
-		object: [ self page2Category ];
-		view: #gtItemsFor:;
-		send: [ :assoc | assoc key ];
-		actionUpdateButton
+{ #category : #accessing }
+TopicMap >> fields2Topics [
+	^ ((self json at: 'fields')
+		collect: [ :d | (d at: 'field') -> (d at: 'topics') ]) asDictionary
 ]
 
 { #category : #views }
@@ -85,6 +55,36 @@ TopicMap >> gtJsonFor: aView [
 		priority: 10;
 		object: [ self json ];
 		view: #gtTreeFor:context:
+]
+
+{ #category : #views }
+TopicMap >> gtStyleMapFor: aView [
+	<gtView>
+	^ aView forward
+		title: 'Page to Style map';
+		priority: 22;
+		object: [ self page2Style ];
+		view: #gtItemsFor:;
+		send: [ :assoc | assoc key ];
+		actionUpdateButton
+]
+
+{ #category : #views }
+TopicMap >> gtStylesFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Styles';
+		priority: 20;
+		items: [ self styles ];
+		column: 'Index'
+			text: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray ]
+			width: 45;
+		column: 'Count'
+			text: [ :cat | (self style2Pages at: cat) size ]
+			width: 50;
+		column: 'Item' text: [ :eachItem | eachItem gtDisplayText ];
+		send: [ :cat | self style2Pages at: cat ];
+		actionUpdateButton
 ]
 
 { #category : #accessing }
@@ -112,11 +112,11 @@ TopicMap >> missingPages [
 ]
 
 { #category : #mapping }
-TopicMap >> page2Category [
-	^ page2Category
-		ifNil: [ page2Category := ((self json at: 'pages')
+TopicMap >> page2Style [
+	^ page2Style
+		ifNil: [ page2Style := ((self json at: 'pages')
 					select: [ :d | self database hasPageNamed: (d at: 'page') ]
-					thenCollect: [ :d | (self database pageNamed: (d at: 'page')) -> (d at: 'category') ])
+					thenCollect: [ :d | (self database pageNamed: (d at: 'page')) -> (d at: 'style') ])
 					asDictionary ]
 ]
 
@@ -132,4 +132,39 @@ TopicMap >> page2Topics [
 { #category : #querying }
 TopicMap >> pages [
 	^ self page2Topics keys
+]
+
+{ #category : #mapping }
+TopicMap >> style2Pages [
+	| dict |
+	dict := Dictionary new.
+	self page2Style
+		associationsDo: [ :assoc | (dict at: assoc value ifAbsentPut: OrderedCollection new) add: assoc key ].
+	^ dict
+]
+
+{ #category : #accessing }
+TopicMap >> styles [
+	^ self json at: 'styles'
+]
+
+{ #category : #mapping }
+TopicMap >> topic2Pages [
+	^ topic2Pages
+		ifNil: [ topic2Pages := Dictionary new.
+			self page2Topics
+				associationsDo: [ :assoc | 
+					assoc value
+						do: [ :topic | (topic2Pages at: topic ifAbsentPut: OrderedCollection new) add: assoc key ] ].
+			topic2Pages ]
+]
+
+{ #category : #mapping }
+TopicMap >> topic2Styles: aTopic [
+	"NB: we list the styles of pages for a topic in the same canonical order defined in TopicMap>>#styles"
+
+	^ self styles
+		select: [ :aStyle | 
+			((self topic2Pages at: aTopic) collect: [ :aPage | self page2Style at: aPage ])
+				includes: aStyle ]
 ]

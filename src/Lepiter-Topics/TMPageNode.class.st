@@ -16,8 +16,13 @@ TMPageNode class >> for: aPage within: aPageGroup [
 ]
 
 { #category : #accessing }
+TMPageNode >> children [
+	^ self topics collect: [ :each | TMTopicNode for: each within: self pageGroup ]
+]
+
+{ #category : #accessing }
 TMPageNode >> name [
-	^ self page title
+	^ 'Page: ', self page title
 ]
 
 { #category : #accessing }
@@ -30,11 +35,7 @@ TMPageNode >> page: anObject [
 	page := anObject
 ]
 
-{ #category : #'as yet unclassified' }
-TMPageNode >> printOn: aStream [
-	super printOn: aStream.
-	aStream
-		nextPut: $(;
-		nextPutAll: self name;
-		nextPut: $)
+{ #category : #querying }
+TMPageNode >> topics [
+	^ self topicMap page2Topics at: self page
 ]

@@ -11,25 +11,6 @@ Class {
 }
 
 { #category : #example }
-TopicMapExamples >> categories [
-	<gtExample>
-	| categories |
-	categories := self topicMap categories.
-	self assert: categories size equals: 11.
-	^ categories
-]
-
-{ #category : #example }
-TopicMapExamples >> category2Page [
-	<gtExample>
-	| category2Page topicMap |
-	topicMap := self topicMap.
-	category2Page := topicMap category2Page.
-	self assert: category2Page size equals: topicMap categories size.
-	^ category2Page
-]
-
-{ #category : #example }
 TopicMapExamples >> database [
 	<gtExample>
 	| database |
@@ -38,6 +19,16 @@ TopicMapExamples >> database [
 		assert: database 
 		equals: LeDatabase gtBook.
 	^ database
+]
+
+{ #category : #example }
+TopicMapExamples >> fields2Topics [
+	<gtExample>
+	| fields2Topics topicMap |
+	topicMap := self topicMap.
+	fields2Topics := topicMap fields2Topics.
+	self assert: fields2Topics size equals: 5.
+	^ fields2Topics
 ]
 
 { #category : #example }
@@ -62,12 +53,12 @@ TopicMapExamples >> missingPages [
 ]
 
 { #category : #example }
-TopicMapExamples >> page2Category [
+TopicMapExamples >> page2Style [
 	<gtExample>
-	| page2Category |
-	page2Category := self topicMap page2Category.
-	self assert: page2Category size equals: self page2Topics size.
-	^ page2Category
+	| page2Style |
+	page2Style := self topicMap page2Style.
+	self assert: page2Style size equals: self page2Topics size.
+	^ page2Style
 ]
 
 { #category : #example }
@@ -91,6 +82,39 @@ TopicMapExamples >> pages [
 	pages := self topicMap pages.
 	self assert: pages size equals: self page2Topics size.
 	^ pages
+]
+
+{ #category : #example }
+TopicMapExamples >> style2Pages [
+	<gtExample>
+	| category2Page topicMap |
+	topicMap := self topicMap.
+	category2Page := topicMap style2Pages.
+	self assert: category2Page size equals: topicMap styles size.
+	^ category2Page
+]
+
+{ #category : #example }
+TopicMapExamples >> styles [
+	<gtExample>
+	| categories |
+	categories := self topicMap styles.
+	self assert: categories size equals: 11.
+	^ categories
+]
+
+{ #category : #example }
+TopicMapExamples >> topic2Pages [
+	<gtExample>
+	| topicMap topic2Pages page2Topics |
+	topicMap := self topicMap.
+	topic2Pages := topicMap topic2Pages.
+	page2Topics := topicMap page2Topics.
+	self pages
+		do: [ :aPage | 
+			(page2Topics at: aPage)
+				do: [ :aTopic | self assert: ((topic2Pages at: aTopic) includes: aPage) ] ].
+	^ topic2Pages
 ]
 
 { #category : #example }
