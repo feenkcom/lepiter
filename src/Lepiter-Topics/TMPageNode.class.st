@@ -31,6 +31,11 @@ TMPageNode >> children [
 	^ self topics collect: [ :each | TMTopicNode for: each in: self topicMap ]
 ]
 
+{ #category : #accessing }
+TMPageNode >> fields [
+	^ (self topicNodes nodes flatCollect: #fields) copyWithoutDuplicates
+]
+
 { #category : #'as yet unclassified' }
 TMPageNode >> gtSpwanPageActionFor: anAction [
 	<gtAction>
@@ -74,6 +79,11 @@ TMPageNode >> relatedTitle [
 { #category : #accessing }
 TMPageNode >> style [
 	^ self topicMap style4Page: self page
+]
+
+{ #category : #accessing }
+TMPageNode >> styles [
+	^ {self style}
 ]
 
 { #category : #querying }

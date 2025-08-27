@@ -32,6 +32,11 @@ TMStyleNode >> context: aPageGroup [
 	context := aPageGroup
 ]
 
+{ #category : #querying }
+TMStyleNode >> fields [
+	^ (self topicNodes nodes flatCollect: #fields) copyWithoutDuplicates
+]
+
 { #category : #accessing }
 TMStyleNode >> name [
 	^ 'Style: ' , self style
@@ -53,4 +58,14 @@ TMStyleNode >> style [
 { #category : #accessing }
 TMStyleNode >> style: anObject [
 	style := anObject
+]
+
+{ #category : #accessing }
+TMStyleNode >> styles [
+	^ {style}
+]
+
+{ #category : #querying }
+TMStyleNode >> topics [
+	^ (self pageNodes flatCollect: #topics) copyWithoutDuplicates
 ]

@@ -20,11 +20,6 @@ TMDatabaseNode >> children [
 ]
 
 { #category : #accessing }
-TMDatabaseNode >> fieldNodes [
-	^ TMNodeCollectionNode for: self children in: self topicMap
-]
-
-{ #category : #accessing }
 TMDatabaseNode >> fields [
 	^ self topicMap fields
 ]
@@ -46,29 +41,12 @@ TMDatabaseNode >> pages [
 	^ self database pages
 ]
 
-{ #category : #'as yet unclassified' }
-TMDatabaseNode >> summary [
-	^ {{'Database'.
-			self database}.
-		{'#Fields'.
-			self fields size printString.
-			self fieldNodes}.
-		{'#Topics'.
-			self topics size printString.
-			self topicNodes}.
-		{'#Pages'.
-			self pages size printString.
-			self pageGroup}}
-]
-
 { #category : #accessing }
-TMDatabaseNode >> topicNodes [
-	^ TMNodeCollectionNode
-		for: (self topics collect: [ :aTopic | TMTopicNode for: aTopic in: self topicMap ])
-		in: self topicMap
+TMDatabaseNode >> styles [
+	^ self topicMap styles
 ]
 
 { #category : #accessing }
 TMDatabaseNode >> topics [
-	^ self topicMap topics
+	^ self topicMap topics sorted
 ]

@@ -22,6 +22,16 @@ TMAbstractTreeNode >> database [
 	^ self topicMap database
 ]
 
+{ #category : #accessing }
+TMAbstractTreeNode >> fieldNodes [
+	^ TMNodeCollectionNode for: self children in: self topicMap
+]
+
+{ #category : #accessing }
+TMAbstractTreeNode >> fields [
+	self subclassResponsibility
+]
+
 { #category : #actions }
 TMAbstractTreeNode >> gtPageGroupActionFor: anAction [
 	<gtAction>
@@ -90,7 +100,14 @@ TMAbstractTreeNode >> name [
 
 { #category : #accessing }
 TMAbstractTreeNode >> pageGroup [
-	^ TMPageGroup for: self topicMap with: self pages
+	"Possibly overridden by subclasses."
+
+	^ self topicMap pageGroup
+]
+
+{ #category : #accessing }
+TMAbstractTreeNode >> pageNodes [
+	^ self pageGroup
 ]
 
 { #category : #accessing }
@@ -115,8 +132,38 @@ TMAbstractTreeNode >> relatedInfo [
 ]
 
 { #category : #accessing }
+TMAbstractTreeNode >> styleNodes [
+	^ TMNodeCollectionNode
+		for: (self styles
+				collect: [ :aStyle | 
+					TMStyleNode
+						for: aStyle
+						in: self topicMap
+						within: self pageGroup ])
+		in: self topicMap
+]
+
+{ #category : #accessing }
+TMAbstractTreeNode >> styles [
+	self subclassResponsibility
+]
+
+{ #category : #accessing }
 TMAbstractTreeNode >> summary [
-	^ {}
+	^ {{'Database'.
+			self database}.
+		{'#Fields'.
+			self fields size printString.
+			self fieldNodes}.
+		{'#Topics'.
+			self topics size printString.
+			self topicNodes}.
+		{'#Styles'.
+			self styles size printString.
+			self styleNodes}.
+		{'#Pages'.
+			self pages size printString.
+			self pageGroup}}
 ]
 
 { #category : #accessing }
@@ -127,4 +174,16 @@ TMAbstractTreeNode >> topicMap [
 { #category : #accessing }
 TMAbstractTreeNode >> topicMap: anObject [
 	topicMap := anObject
+]
+
+{ #category : #accessing }
+TMAbstractTreeNode >> topicNodes [
+	^ TMNodeCollectionNode
+		for: (self topics collect: [ :aTopic | TMTopicNode for: aTopic in: self topicMap ])
+		in: self topicMap
+]
+
+{ #category : #accessing }
+TMAbstractTreeNode >> topics [
+	self subclassResponsibility
 ]

@@ -58,6 +58,11 @@ TopicMap >> database [
 		ifNil: [ database := LeDatabase databaseNamed: (self json at: 'database') ]
 ]
 
+{ #category : #views }
+TopicMap >> databaseNode [
+	^ TMDatabaseNode for: self database
+]
+
 { #category : #querying }
 TopicMap >> defaultValue [
 	"Default value for lookups that fail (missing style, topic etc)."
@@ -130,7 +135,7 @@ TopicMap >> gtTopicMapTreeFor: aView [
 	^ aView forward
 		title: 'Topic Map Tree';
 		priority: 10;
-		object: [ TMDatabaseNode for: self database ];
+		object: [ self databaseNode ];
 		view: #gtTreeFor:
 ]
 
@@ -176,9 +181,14 @@ TopicMap >> page2Topics [
 					asDictionary ]
 ]
 
+{ #category : #accessing }
+TopicMap >> pageGroup [
+	^ TMPageGroup for: self with: self pages
+]
+
 { #category : #querying }
 TopicMap >> pages [
-	^ self page2Topics keys
+	^ self page2Topics keys sortedAs: #title
 ]
 
 { #category : #querying }

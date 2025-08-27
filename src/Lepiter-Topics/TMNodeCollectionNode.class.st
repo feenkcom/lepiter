@@ -25,6 +25,11 @@ TMNodeCollectionNode >> children [
 ]
 
 { #category : #accessing }
+TMNodeCollectionNode >> fields [
+	^ (self children flatCollect: #fields) copyWithoutDuplicates
+]
+
+{ #category : #accessing }
 TMNodeCollectionNode >> name [
 	^ 'Node collection'
 ]
@@ -52,4 +57,14 @@ super printOn: aStream.
 		print: self pages size;
 		nextPutAll: ' nodes';
 		nextPut: $)
+]
+
+{ #category : #accessing }
+TMNodeCollectionNode >> styles [
+	^ (self children flatCollect: #styles) copyWithoutDuplicates
+]
+
+{ #category : #accessing }
+TMNodeCollectionNode >> topics [
+	^ (self children flatCollect: #topics) copyWithoutDuplicates
 ]

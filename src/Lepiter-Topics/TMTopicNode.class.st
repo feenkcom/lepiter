@@ -31,6 +31,11 @@ TMTopicNode >> field [
 ]
 
 { #category : #accessing }
+TMTopicNode >> fields [
+	^ {self field}
+]
+
+{ #category : #accessing }
 TMTopicNode >> name [
 	^ 'Topic: ' , self topic
 ]
@@ -58,4 +63,9 @@ TMTopicNode >> topic [
 { #category : #accessing }
 TMTopicNode >> topic: aString [
 	topic := aString
+]
+
+{ #category : #accessing }
+TMTopicNode >> topics [
+	^ {self topic}
 ]
