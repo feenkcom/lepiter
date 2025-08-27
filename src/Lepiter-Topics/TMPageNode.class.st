@@ -31,13 +31,13 @@ TMPageNode >> children [
 	^ self topics collect: [ :each | TMTopicNode for: each in: self topicMap ]
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMPageNode >> fields [
 	^ (self topicNodes nodes flatCollect: #fields) copyWithoutDuplicates
 ]
 
-{ #category : #'as yet unclassified' }
-TMPageNode >> gtSpwanPageActionFor: anAction [
+{ #category : #actions }
+TMPageNode >> gtSpawnPageActionFor: anAction [
 	<gtAction>
 	^ anAction button
 		tooltip: 'Spawn page';
@@ -61,7 +61,7 @@ TMPageNode >> page: aPage [
 	page := aPage
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMPageNode >> pages [
 	^ {self page}
 ]
@@ -81,7 +81,7 @@ TMPageNode >> style [
 	^ self topicMap style4Page: self page
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMPageNode >> styles [
 	^ {self style}
 ]

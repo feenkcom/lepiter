@@ -17,12 +17,12 @@ TMAbstractTreeNode >> children [
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMAbstractTreeNode >> database [
 	^ self topicMap database
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMAbstractTreeNode >> fieldNodes [
 	^ TMNodeCollectionNode
 		for: (self fields collect: [ :aField | TMFieldNode for: aField in: self topicMap ])
@@ -100,17 +100,17 @@ TMAbstractTreeNode >> name [
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMAbstractTreeNode >> pageGroup [
 	^ TMPageGroup for: self topicMap with: self pages
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMAbstractTreeNode >> pageNodes [
 	^ self pageGroup
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMAbstractTreeNode >> pages [
 	self subclassResponsibility
 ]
@@ -137,7 +137,7 @@ TMAbstractTreeNode >> sizeAndFirstIfAlone: aCollection [
 		, (aCollection size = 1 ifTrue: [ ' — ' , aCollection first ] ifFalse: [ '' ])
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMAbstractTreeNode >> styleNodes [
 	^ TMNodeCollectionNode
 		for: (self styles
@@ -149,12 +149,12 @@ TMAbstractTreeNode >> styleNodes [
 		in: self topicMap
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMAbstractTreeNode >> styles [
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : #views }
 TMAbstractTreeNode >> summary [
 	^ {{'Database'.
 			self database}.
@@ -172,24 +172,24 @@ TMAbstractTreeNode >> summary [
 			self pageGroup}}
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMAbstractTreeNode >> topicMap [
 	^ topicMap
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMAbstractTreeNode >> topicMap: anObject [
 	topicMap := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMAbstractTreeNode >> topicNodes [
 	^ TMNodeCollectionNode
 		for: (self topics collect: [ :aTopic | TMTopicNode for: aTopic in: self topicMap ])
 		in: self topicMap
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMAbstractTreeNode >> topics [
 	self subclassResponsibility
 ]

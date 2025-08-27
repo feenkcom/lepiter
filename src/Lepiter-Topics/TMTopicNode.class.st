@@ -30,7 +30,7 @@ TMTopicNode >> field [
 	^ self topicMap field4Topic: self topic
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMTopicNode >> fields [
 	^ {self field}
 ]
@@ -50,7 +50,7 @@ TMTopicNode >> relatedInfo [
 	^ 'Field: ' , self field
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMTopicNode >> styles [
 	^ self topicMap styles4Topic: self topic
 ]
@@ -65,7 +65,7 @@ TMTopicNode >> topic: aString [
 	topic := aString
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMTopicNode >> topics [
 	^ {self topic}
 ]

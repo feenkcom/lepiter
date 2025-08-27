@@ -11,7 +11,7 @@ Class {
 	#category : #'Lepiter-Topics-Model'
 }
 
-{ #category : #accessing }
+{ #category : #'instance creation' }
 TMNodeCollectionNode class >> for: aNodeCollection in: aTopicMap [
 ^ self new
 	nodes: aNodeCollection;
@@ -24,7 +24,7 @@ TMNodeCollectionNode >> children [
 	^ self nodes
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMNodeCollectionNode >> fields [
 	^ (self children flatCollect: #fields) copyWithoutDuplicates
 ]
@@ -49,7 +49,7 @@ TMNodeCollectionNode >> pages [
 	^ (self children flatCollect: #pages) copyWithoutDuplicates
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #printing }
 TMNodeCollectionNode >> printOn: aStream [
 super printOn: aStream.
 	aStream
@@ -59,12 +59,12 @@ super printOn: aStream.
 		nextPut: $)
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMNodeCollectionNode >> styles [
 	^ (self children flatCollect: #styles) copyWithoutDuplicates
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMNodeCollectionNode >> topics [
 	^ (self children flatCollect: #topics) copyWithoutDuplicates
 ]

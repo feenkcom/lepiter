@@ -30,7 +30,7 @@ TMFieldNode >> field: anObject [
 	field := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMFieldNode >> fields [
 	^ {field}
 ]
@@ -40,19 +40,19 @@ TMFieldNode >> name [
 	^ 'Field: ' , self field
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMFieldNode >> pages [
 	^ (self children flatCollect: #pages) copyWithoutDuplicates
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMFieldNode >> styles [
 	| topicStyles |
 	topicStyles := (self children flatCollect: #styles) copyWithoutDuplicates.
 	^ self topicMap styles select: [ :aStyle | topicStyles includes: aStyle ]
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMFieldNode >> topics [
 	^ self topicMap topic4Field: self field
 ]

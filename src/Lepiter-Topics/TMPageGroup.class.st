@@ -53,12 +53,12 @@ TMPageGroup >> items [
 	^ nodes
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMPageGroup >> pageNodes [
 	^ self nodes
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMPageGroup >> pages [
 	"Each node is a TMPageNode"
 

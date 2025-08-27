@@ -19,7 +19,7 @@ TMDatabaseNode >> children [
 	^ self fields collect: [:aField | TMFieldNode for: aField in: self topicMap ]
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMDatabaseNode >> fields [
 	^ self topicMap fields
 ]
@@ -29,24 +29,17 @@ TMDatabaseNode >> name [
 	^ self database databaseName
 ]
 
-{ #category : #accessing }
-TMDatabaseNode >> pageNodes [
-	^ TMNodeCollectionNode
-		for: (self pages collect: [ :aPage | TMPageNode for: aPage in: self topicMap ])
-		in: self topicMap
-]
-
-{ #category : #accessing }
+{ #category : #navigation }
 TMDatabaseNode >> pages [
 	^ self database pages
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMDatabaseNode >> styles [
 	^ self topicMap styles
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMDatabaseNode >> topics [
 	^ self topicMap topics sorted
 ]

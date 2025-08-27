@@ -60,7 +60,7 @@ TMStyleNode >> style: anObject [
 	style := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #navigation }
 TMStyleNode >> styles [
 	^ {style}
 ]
