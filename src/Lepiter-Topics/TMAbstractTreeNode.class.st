@@ -24,7 +24,9 @@ TMAbstractTreeNode >> database [
 
 { #category : #accessing }
 TMAbstractTreeNode >> fieldNodes [
-	^ TMNodeCollectionNode for: self children in: self topicMap
+	^ TMNodeCollectionNode
+		for: (self fields collect: [ :aField | TMFieldNode for: aField in: self topicMap ])
+		in: self topicMap
 ]
 
 { #category : #accessing }
@@ -100,9 +102,7 @@ TMAbstractTreeNode >> name [
 
 { #category : #accessing }
 TMAbstractTreeNode >> pageGroup [
-	"Possibly overridden by subclasses."
-
-	^ self topicMap pageGroup
+	^ TMPageGroup for: self topicMap with: self pages
 ]
 
 { #category : #accessing }
