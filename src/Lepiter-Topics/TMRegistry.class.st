@@ -30,6 +30,11 @@ TMRegistry class >> cleanUp [
 ]
 
 { #category : #accessing }
+TMRegistry class >> gtBookTopicMap [
+	^ self uniqueInstance topicMapFor: LeDatabase gtBookName
+]
+
+{ #category : #accessing }
 TMRegistry class >> uniqueInstance [
 	^ uniqueInstance ifNil: [ uniqueInstance := self new ]
 ]

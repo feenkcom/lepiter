@@ -1,18 +1,17 @@
+"
+I am like my parent, but specifically contain just pages.
+"
 Class {
 	#name : #TMPageGroup,
-	#superclass : #Object,
-	#instVars : [
-		'topicMap',
-		'pages'
-	],
+	#superclass : #TMNodeCollectionNode,
+	#traits : 'TGtGroup',
+	#classTraits : 'TGtGroup classTrait',
 	#category : #'Lepiter-Topics-Model'
 }
 
 { #category : #'instance creation' }
 TMPageGroup class >> for: aTopicMap [
-	^ self new
-		topicMap: aTopicMap;
-		yourself
+	^ self for: aTopicMap with: aTopicMap pages
 ]
 
 { #category : #'instance creation' }
@@ -21,31 +20,6 @@ TMPageGroup class >> for: aTopicMap with: aPageCollection [
 		topicMap: aTopicMap;
 		pages: aPageCollection;
 		yourself
-]
-
-{ #category : #accessing }
-TMPageGroup >> database [
-	^ self topicMap database
-]
-
-{ #category : #views }
-TMPageGroup >> gtPagesFor: aView [
-	<gtView>
-	^ aView columnedTree
-		title: 'Pages';
-		items: [ self pageNodes ];
-		children: #children;
-		column: 'Index'
-			text: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray ]
-			width: 45;
-		column: 'Page'
-			text: [ :each | each name ]
-			width: 300;
-		column: 'Style'
-			text: [ :each | each isPageNode ifTrue: [ each style ] ifFalse: [ '-' ] ]
-			width: 300;
-		send: [ :each | each sendTo ];
-		actionUpdateButton
 ]
 
 { #category : #searching }
@@ -57,7 +31,7 @@ TMPageGroup >> gtSpotterForPageContent: aSearch [
 		items: [ self pages ];
 		itemsLimit: Float infinity;
 		itemName: #asMarkdownPage;
-		sendCategory: [ :aCategory :aStep :thisSearch | TMPageGroup for: self topicMap with: aCategory items contents ];
+		sendCategory: [ :aCategory :aStep :thisSearch | self class for: self topicMap with: aCategory items contents ];
 		filterBySubstring
 ]
 
@@ -70,55 +44,31 @@ TMPageGroup >> gtSpotterForPageTitles: aSearch [
 		items: [ self pages ];
 		itemsLimit: Float infinity;
 		itemName: #title;
-		sendCategory: [ :aCategory :aStep :thisSearch | TMPageGroup for: self topicMap with: aCategory items contents ];
+		sendCategory: [ :aCategory :aStep :thisSearch | self class for: self topicMap with: aCategory items contents ];
 		filterBySubstring
 ]
 
-{ #category : #navigation }
-TMPageGroup >> pageNodes [
-	^ self pages collect: [ :aPage | TMPageNode for: aPage in: self topicMap ]
+{ #category : #accessing }
+TMPageGroup >> items [
+	^ nodes
 ]
 
 { #category : #accessing }
-TMPageGroup >> pageView [
-	"Instead of leveraging dictionaries, we should just make our our tree nodes that have tree nodes as children.
-	What are the children of a page group?"
-
-
-	^ ((self topicMap json at: 'pages')
-		select: [ :d | self database hasPageNamed: (d at: 'page') ]
-		thenCollect: [ :d | 
-			(self database pageNamed: (d at: 'page'))
-				-> {'category' -> (d at: 'category').
-						'topics' -> (d at: 'topics')} asDictionary ]) asDictionary
+TMPageGroup >> pageNodes [
+	^ self nodes
 ]
 
 { #category : #accessing }
 TMPageGroup >> pages [
-	^ pages ifNil: [ pages := self topicMap pages ]
+	"Each node is a TMPageNode"
+
+	^ nodes collect: #page
 ]
 
 { #category : #accessing }
 TMPageGroup >> pages: aPageCollection [
-	pages := aPageCollection
-]
+	"Wrap the pages as nodes."
 
-{ #category : #printing }
-TMPageGroup >> printOn: aStream [
-super printOn: aStream.
-	aStream
-		nextPut: $(;
-		print: self pages size;
-		nextPutAll: ' page';
-		nextPut: $)
-]
-
-{ #category : #accessing }
-TMPageGroup >> topicMap [
-	^ topicMap
-]
-
-{ #category : #accessing }
-TMPageGroup >> topicMap: aTopicMap [
-	topicMap := aTopicMap
+	^ self
+		nodes: (aPageCollection collect: [ :aPage | TMPageNode for: aPage in: self topicMap ])
 ]
