@@ -131,6 +131,12 @@ TMAbstractTreeNode >> relatedInfo [
 	^ '-'
 ]
 
+{ #category : #utility }
+TMAbstractTreeNode >> sizeAndFirstIfAlone: aCollection [
+	^ aCollection size printString
+		, (aCollection size = 1 ifTrue: [ ' — ' , aCollection first ] ifFalse: [ '' ])
+]
+
 { #category : #accessing }
 TMAbstractTreeNode >> styleNodes [
 	^ TMNodeCollectionNode
@@ -153,16 +159,16 @@ TMAbstractTreeNode >> summary [
 	^ {{'Database'.
 			self database}.
 		{'#Fields'.
-			self fields size printString.
+			self sizeAndFirstIfAlone: self fields.
 			self fieldNodes}.
 		{'#Topics'.
-			self topics size printString.
+			self sizeAndFirstIfAlone: self topics.
 			self topicNodes}.
 		{'#Styles'.
-			self styles size printString.
+			self sizeAndFirstIfAlone: self styles.
 			self styleNodes}.
 		{'#Pages'.
-			self pages size printString.
+			self sizeAndFirstIfAlone: (self pages collect: #title).
 			self pageGroup}}
 ]
 
