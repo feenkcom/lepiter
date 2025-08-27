@@ -294,9 +294,8 @@ LePage >> gtBindingsActionFor: anAction [
 { #category : #accessing }
 LePage >> gtCopyActionFor: anAction [
 	<lePageAction>
-
 	^ anAction button 
-		tooltip: 'Copy as Remote Reference to the clipboard';
+		tooltip: 'Copy as reference to the clipboard';
 		icon: BrGlamorousVectorIcons clipboard;
 		action: [ :aButton | Clipboard clipboardText: self asRemoteLink ]
 ]
