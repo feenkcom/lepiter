@@ -42,7 +42,7 @@ TMStyleNode >> pages [
 	"NB: We only want the pages in *this* page group with this style."
 
 	^ self context pages
-		select: [ :aPage | (self topicMap page2Style at: aPage) = self style ]
+		select: [ :aPage | (self topicMap style4Page: aPage) = self style ]
 ]
 
 { #category : #'as yet unclassified' }

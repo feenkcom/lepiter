@@ -42,7 +42,7 @@ TMTopicNode >> sendTo [
 
 { #category : #accessing }
 TMTopicNode >> styles [
-	^ self topicMap topic2Styles: self topic
+	^ self topicMap styles4Topic: self topic
 ]
 
 { #category : #accessing }

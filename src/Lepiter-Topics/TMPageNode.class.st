@@ -8,11 +8,22 @@ Class {
 }
 
 { #category : #'instance creation' }
+TMPageNode class >> for: aPage [
+	^ self new
+		page: aPage;
+		topicMap: aPage topicMap;
+		yourself
+]
+
+{ #category : #'instance creation' }
 TMPageNode class >> for: aPage in: aTopicMap [
-^ self new
-	page: aPage;
-	topicMap: aTopicMap;
-	yourself 
+	"Use this for testing if the topic map to use is not necessarily
+	the default one, but a special test map."
+
+	^ self new
+		page: aPage;
+		topicMap: aTopicMap;
+		yourself
 ]
 
 { #category : #navigation }
@@ -40,6 +51,16 @@ TMPageNode >> page: aPage [
 	page := aPage
 ]
 
+{ #category : #accessing }
+TMPageNode >> related [
+	^ self style
+]
+
+{ #category : #accessing }
+TMPageNode >> relatedTitle [
+	^ 'Style'
+]
+
 { #category : #navigation }
 TMPageNode >> sendTo [
 	^ self page
@@ -47,7 +68,7 @@ TMPageNode >> sendTo [
 
 { #category : #accessing }
 TMPageNode >> style [
-	^ self topicMap page2Style at: self page
+	^ self topicMap style4Page: self page
 ]
 
 { #category : #querying }

@@ -106,14 +106,13 @@ TopicMapExamples >> styles [
 { #category : #example }
 TopicMapExamples >> topic2Pages [
 	<gtExample>
-	| topicMap topic2Pages page2Topics |
+	| topicMap topic2Pages |
 	topicMap := self topicMap.
-	topic2Pages := topicMap topic2Pages.
-	page2Topics := topicMap page2Topics.
+	topic2Pages := self topicMap topic2Pages.
 	self pages
 		do: [ :aPage | 
-			(page2Topics at: aPage)
-				do: [ :aTopic | self assert: ((topic2Pages at: aTopic) includes: aPage) ] ].
+			(topicMap topics4Page: aPage)
+				do: [ :aTopic | self assert: ((topicMap pages4Topic: aTopic) includes: aPage) ] ].
 	^ topic2Pages
 ]
 

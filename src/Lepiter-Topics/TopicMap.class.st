@@ -57,6 +57,11 @@ TopicMap >> database [
 ]
 
 { #category : #accessing }
+TopicMap >> fields [
+	^ self fields2Topics keys
+]
+
+{ #category : #accessing }
 TopicMap >> fields2Topics [
 	^ ((self json at: 'fields')
 		collect: [ :d | (d at: 'field') -> (d at: 'topics') ]) asDictionary
@@ -149,6 +154,16 @@ TopicMap >> pages [
 	^ self page2Topics keys
 ]
 
+{ #category : #querying }
+TopicMap >> pages4Style: aStyle [
+	^ self style2Pages at: aStyle
+]
+
+{ #category : #querying }
+TopicMap >> pages4Topic: aTopic [
+	^ self topic2Pages at: aTopic
+]
+
 { #category : #mapping }
 TopicMap >> style2Pages [
 	| dict |
@@ -158,9 +173,24 @@ TopicMap >> style2Pages [
 	^ dict
 ]
 
+{ #category : #querying }
+TopicMap >> style4Page: aPage [
+	^ self page2Style at: aPage
+]
+
 { #category : #accessing }
 TopicMap >> styles [
 	^ self json at: 'styles'
+]
+
+{ #category : #querying }
+TopicMap >> styles4Topic: aTopic [
+	"NB: we list the styles of pages for a topic in the same canonical order defined in TopicMap>>#styles"
+
+	^ self styles
+		select: [ :aStyle | 
+			((self topic2Pages at: aTopic) collect: [ :aPage | self style4Page: aPage ])
+				includes: aStyle ]
 ]
 
 { #category : #mapping }
@@ -174,12 +204,7 @@ TopicMap >> topic2Pages [
 			topic2Pages ]
 ]
 
-{ #category : #mapping }
-TopicMap >> topic2Styles: aTopic [
-	"NB: we list the styles of pages for a topic in the same canonical order defined in TopicMap>>#styles"
-
-	^ self styles
-		select: [ :aStyle | 
-			((self topic2Pages at: aTopic) collect: [ :aPage | self page2Style at: aPage ])
-				includes: aStyle ]
+{ #category : #querying }
+TopicMap >> topics4Page: aPage [
+	^ self page2Topics at: aPage
 ]
