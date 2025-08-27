@@ -26,6 +26,11 @@ TMTopicNode >> children [
 ]
 
 { #category : #accessing }
+TMTopicNode >> field [
+	^ self topicMap field4Topic: self topic
+]
+
+{ #category : #accessing }
 TMTopicNode >> name [
 	^ 'Topic: ' , self topic
 ]
@@ -35,9 +40,9 @@ TMTopicNode >> pages [
 	^ self topicMap topic2Pages at: self topic
 ]
 
-{ #category : #navigation }
-TMTopicNode >> sendTo [
-	^ TMPageGroup for: self topicMap with: self pages
+{ #category : #accessing }
+TMTopicNode >> relatedInfo [
+	^ 'Field: ' , self field
 ]
 
 { #category : #accessing }

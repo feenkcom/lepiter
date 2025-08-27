@@ -13,7 +13,9 @@ Class {
 		'database',
 		'page2Topics',
 		'page2Style',
-		'topic2Pages'
+		'topic2Pages',
+		'fields2Topics',
+		'topic2Field'
 	],
 	#category : #'Lepiter-Topics-Model'
 }
@@ -56,15 +58,30 @@ TopicMap >> database [
 		ifNil: [ database := LeDatabase databaseNamed: (self json at: 'database') ]
 ]
 
-{ #category : #accessing }
-TopicMap >> fields [
-	^ self fields2Topics keys
+{ #category : #querying }
+TopicMap >> defaultValue [
+	"Default value for lookups that fail (missing style, topic etc)."
+
+	^ '<unknown>'
 ]
 
 { #category : #accessing }
-TopicMap >> fields2Topics [
-	^ ((self json at: 'fields')
-		collect: [ :d | (d at: 'field') -> (d at: 'topics') ]) asDictionary
+TopicMap >> field2Topics [
+	^ fields2Topics
+		ifNil: [ fields2Topics := ((self json at: 'fields')
+					collect: [ :d | (d at: 'field') -> (d at: 'topics') ]) asDictionary ]
+]
+
+{ #category : #querying }
+TopicMap >> field4Topic: aTopic [
+	^ self topic2Field at: aTopic ifAbsent: self defaultValue
+]
+
+{ #category : #accessing }
+TopicMap >> fields [
+	"NB: respect the order of the fields in the JSON file."
+
+	^ (self json at: 'fields') collect: [ :d | d at: 'field' ]
 ]
 
 { #category : #views }
@@ -72,7 +89,7 @@ TopicMap >> gtJsonFor: aView [
 	<gtView>
 	^ aView forward
 		title: 'JSON';
-		priority: 10;
+		priority: 50;
 		object: [ self json ];
 		view: #gtTreeFor:context:
 ]
@@ -105,6 +122,16 @@ TopicMap >> gtStylesFor: aView [
 		column: 'Item' text: [ :eachItem | eachItem gtDisplayText ];
 		send: [ :cat | self style2Pages at: cat ];
 		actionUpdateButton
+]
+
+{ #category : #views }
+TopicMap >> gtTopicMapTreeFor: aView [
+	<gtView>
+	^ aView forward
+		title: 'Topic Map Tree';
+		priority: 10;
+		object: [ TMDatabaseNode for: self database ];
+		view: #gtTreeFor:
 ]
 
 { #category : #accessing }
@@ -156,12 +183,12 @@ TopicMap >> pages [
 
 { #category : #querying }
 TopicMap >> pages4Style: aStyle [
-	^ self style2Pages at: aStyle
+	^ self style2Pages at: aStyle ifAbsent: {self defaultValue}
 ]
 
 { #category : #querying }
 TopicMap >> pages4Topic: aTopic [
-	^ self topic2Pages at: aTopic
+	^ self topic2Pages at: aTopic ifAbsent: {self defaultValue}
 ]
 
 { #category : #mapping }
@@ -175,7 +202,7 @@ TopicMap >> style2Pages [
 
 { #category : #querying }
 TopicMap >> style4Page: aPage [
-	^ self page2Style at: aPage
+	^ self page2Style at: aPage ifAbsent: self defaultValue
 ]
 
 { #category : #accessing }
@@ -194,6 +221,15 @@ TopicMap >> styles4Topic: aTopic [
 ]
 
 { #category : #mapping }
+TopicMap >> topic2Field [
+	^ topic2Field
+		ifNil: [ topic2Field := Dictionary new.
+			self field2Topics
+				associationsDo: [ :assoc | assoc value do: [ :aTopic | topic2Field at: aTopic put: assoc key ] ].
+			topic2Field ]
+]
+
+{ #category : #mapping }
 TopicMap >> topic2Pages [
 	^ topic2Pages
 		ifNil: [ topic2Pages := Dictionary new.
@@ -205,6 +241,16 @@ TopicMap >> topic2Pages [
 ]
 
 { #category : #querying }
+TopicMap >> topic4Field: aField [
+	^ self field2Topics at: aField ifAbsent: self defaultValue
+]
+
+{ #category : #accessing }
+TopicMap >> topics [
+	^ self topic2Pages keys
+]
+
+{ #category : #querying }
 TopicMap >> topics4Page: aPage [
-	^ self page2Topics at: aPage
+	^ self page2Topics at: aPage ifAbsent: {self defaultValue}
 ]

@@ -17,11 +17,40 @@ TMAbstractTreeNode >> children [
 	self subclassResponsibility
 ]
 
+{ #category : #actions }
+TMAbstractTreeNode >> gtPageGroupActionFor: anAction [
+	<gtAction>
+	^ anAction button
+		tooltip: 'Inspect pages';
+		icon: BrGlamorousVectorIcons changes;
+		action: [ :aButton | aButton phlow spawnObject: self pageGroup ]
+]
+
 { #category : #views }
-TMAbstractTreeNode >> gtChildrenFor: aView [
+TMAbstractTreeNode >> gtSummaryFor: aView [
+	<gtView>
+	"self summary ifEmpty: [ ^ aView empty ]."
+	^ aView columnedList
+		title: 'Summary';
+		priority: 20;
+		items: [ self summary ];
+		actionUpdateButtonTooltip: 'Update item list';
+		column: 'Index'
+			text: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray ]
+			width: 45;
+		column: 'Key'
+			text: #first
+			width: 100;
+		column: 'Value' text: #second;
+		send: #last
+]
+
+{ #category : #views }
+TMAbstractTreeNode >> gtTreeFor: aView [
 	<gtView>
 	^ aView columnedTree
-		title: 'Children';
+		title: 'Tree';
+		priority: 10;
 		items: [ self children];
 		children: #children;
 		column: 'Index'
@@ -30,8 +59,14 @@ TMAbstractTreeNode >> gtChildrenFor: aView [
 		column: 'Node'
 			text: [ :each | each name ]
 			width: 300;
-		column: self relatedTitle
-			text: [ :each | each related ]
+		column: '# Children'
+			text: [ :each | each children size ]
+			width: 100;
+		column: '# Pages'
+			text: [ :each | each pages size ]
+			width: 100;
+		column: 'Info'
+			text: [ :each | each relatedInfo ]
 			width: 300;
 		send: [ :each | each ];
 		actionUpdateButton
@@ -42,13 +77,18 @@ TMAbstractTreeNode >> isAbstract [
 	^ self == TMAbstractTreeNode
 ]
 
-{ #category : #testing }
-TMAbstractTreeNode >> isPageNode [
-	^ false
+{ #category : #accessing }
+TMAbstractTreeNode >> name [
+	self subclassResponsibility
 ]
 
 { #category : #accessing }
-TMAbstractTreeNode >> name [
+TMAbstractTreeNode >> pageGroup [
+	^ TMPageGroup for: self topicMap with: self pages
+]
+
+{ #category : #accessing }
+TMAbstractTreeNode >> pages [
 	self subclassResponsibility
 ]
 
@@ -62,24 +102,15 @@ TMAbstractTreeNode >> printOn: aStream [
 ]
 
 { #category : #accessing }
-TMAbstractTreeNode >> related [
+TMAbstractTreeNode >> relatedInfo [
 	"Related information to display."
 
 	^ '-'
 ]
 
 { #category : #accessing }
-TMAbstractTreeNode >> relatedTitle [
-	"Title of related information to display."
-
-	^ '-'
-]
-
-{ #category : #navigation }
-TMAbstractTreeNode >> sendTo [
-	"NB: this is also the pageGroup to send to when we click within the columnedTree view."
-
-	self subclassResponsibility
+TMAbstractTreeNode >> summary [
+	^ {}
 ]
 
 { #category : #accessing }

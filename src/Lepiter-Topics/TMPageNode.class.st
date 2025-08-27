@@ -31,11 +31,6 @@ TMPageNode >> children [
 	^ self topics collect: [ :each | TMTopicNode for: each in: self topicMap ]
 ]
 
-{ #category : #testing }
-TMPageNode >> isPageNode [
-	^ true
-]
-
 { #category : #accessing }
 TMPageNode >> name [
 	^ 'Page: ', self page title
@@ -52,18 +47,18 @@ TMPageNode >> page: aPage [
 ]
 
 { #category : #accessing }
-TMPageNode >> related [
-	^ self style
+TMPageNode >> pages [
+	^ {self page}
+]
+
+{ #category : #accessing }
+TMPageNode >> relatedInfo [
+	^ 'Style:', self style
 ]
 
 { #category : #accessing }
 TMPageNode >> relatedTitle [
 	^ 'Style'
-]
-
-{ #category : #navigation }
-TMPageNode >> sendTo [
-	^ self page
 ]
 
 { #category : #accessing }
@@ -73,5 +68,5 @@ TMPageNode >> style [
 
 { #category : #querying }
 TMPageNode >> topics [
-	^ self topicMap page2Topics at: self page
+	^ self topicMap topics4Page: self page
 ]

@@ -12,7 +12,7 @@ LePage >> gtTopicMapActionFor: anAction [
 	^ anAction button
 		tooltip: 'Inspect topic map';
 		icon: BrGlamorousVectorIcons bookmark;
-		action: [ :aButton | aButton phlow spawnObject: self topicMap ]
+		action: [ :aButton | aButton phlow spawnObject: (TMPageNode for: self) ]
 ]
 
 { #category : #'*Lepiter-Topics' }

@@ -22,11 +22,11 @@ TopicMapExamples >> database [
 ]
 
 { #category : #example }
-TopicMapExamples >> fields2Topics [
+TopicMapExamples >> field2Topics [
 	<gtExample>
 	| fields2Topics topicMap |
 	topicMap := self topicMap.
-	fields2Topics := topicMap fields2Topics.
+	fields2Topics := topicMap field2Topics.
 	self assert: fields2Topics size equals: 5.
 	^ fields2Topics
 ]

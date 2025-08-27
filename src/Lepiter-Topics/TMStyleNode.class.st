@@ -45,11 +45,6 @@ TMStyleNode >> pages [
 		select: [ :aPage | (self topicMap style4Page: aPage) = self style ]
 ]
 
-{ #category : #'as yet unclassified' }
-TMStyleNode >> sendTo [
-	^ TMPageGroup for: self topicMap with: self pages
-]
-
 { #category : #accessing }
 TMStyleNode >> style [
 	^ style

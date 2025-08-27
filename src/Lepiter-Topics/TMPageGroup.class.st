@@ -28,26 +28,6 @@ TMPageGroup >> database [
 	^ self topicMap database
 ]
 
-{ #category : #views }
-TMPageGroup >> gtPagesFor: aView [
-	<gtView>
-	^ aView columnedTree
-		title: 'Pages';
-		items: [ self pageNodes ];
-		children: #children;
-		column: 'Index'
-			text: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray ]
-			width: 45;
-		column: 'Page'
-			text: [ :each | each name ]
-			width: 300;
-		column: 'Style'
-			text: [ :each | each isPageNode ifTrue: [ each style ] ifFalse: [ '-' ] ]
-			width: 300;
-		send: [ :each | each sendTo ];
-		actionUpdateButton
-]
-
 { #category : #searching }
 TMPageGroup >> gtSpotterForPageContent: aSearch [
 	<gtSearch>
@@ -72,6 +52,33 @@ TMPageGroup >> gtSpotterForPageTitles: aSearch [
 		itemName: #title;
 		sendCategory: [ :aCategory :aStep :thisSearch | TMPageGroup for: self topicMap with: aCategory items contents ];
 		filterBySubstring
+]
+
+{ #category : #views }
+TMPageGroup >> gtTreeFor: aView [
+	<gtView>
+	^ aView columnedTree
+		title: 'Tree';
+		priority: 10;
+		items: [ self pageNodes];
+		children: #children;
+		column: 'Index'
+			text: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray ]
+			width: 45;
+		column: 'Node'
+			text: [ :each | each name ]
+			width: 300;
+		column: '# Children'
+			text: [ :each | each children size ]
+			width: 100;
+		column: '# Pages'
+			text: [ :each | each pages size ]
+			width: 100;
+		column: 'Info'
+			text: [ :each | each relatedInfo ]
+			width: 300;
+		send: [ :each | each ];
+		actionUpdateButton
 ]
 
 { #category : #navigation }
@@ -109,7 +116,7 @@ super printOn: aStream.
 	aStream
 		nextPut: $(;
 		print: self pages size;
-		nextPutAll: ' page';
+		nextPutAll: ' pages';
 		nextPut: $)
 ]
 
