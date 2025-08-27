@@ -17,11 +17,17 @@ TMAbstractTreeNode >> children [
 	self subclassResponsibility
 ]
 
+{ #category : #accessing }
+TMAbstractTreeNode >> database [
+	^ self topicMap database
+]
+
 { #category : #actions }
 TMAbstractTreeNode >> gtPageGroupActionFor: anAction [
 	<gtAction>
 	^ anAction button
 		tooltip: 'Inspect pages';
+		priority: 30;
 		icon: BrGlamorousVectorIcons changes;
 		action: [ :aButton | aButton phlow spawnObject: self pageGroup ]
 ]

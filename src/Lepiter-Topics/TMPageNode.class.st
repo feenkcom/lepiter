@@ -31,6 +31,16 @@ TMPageNode >> children [
 	^ self topics collect: [ :each | TMTopicNode for: each in: self topicMap ]
 ]
 
+{ #category : #'as yet unclassified' }
+TMPageNode >> gtSpwanPageActionFor: anAction [
+	<gtAction>
+	^ anAction button
+		tooltip: 'Spawn page';
+		priority: 20;
+		icon: LeIcons lepiterIcon;
+		action: [ :aButton | aButton phlow spawnObject: self page ]
+]
+
 { #category : #accessing }
 TMPageNode >> name [
 	^ 'Page: ', self page title

@@ -10,7 +10,6 @@ Class {
 { #category : #'instance creation' }
 TMDatabaseNode class >> for: aDatabase [
 	^ self new
-		database: aDatabase;
 		topicMap: aDatabase topicMap;
 		yourself
 ]
@@ -18,16 +17,6 @@ TMDatabaseNode class >> for: aDatabase [
 { #category : #navigation }
 TMDatabaseNode >> children [
 	^ self fields collect: [:aField | TMFieldNode for: aField in: self topicMap ]
-]
-
-{ #category : #accessing }
-TMDatabaseNode >> database [
-	^ database
-]
-
-{ #category : #accessing }
-TMDatabaseNode >> database: aDatabase [
-	database := aDatabase
 ]
 
 { #category : #accessing }
