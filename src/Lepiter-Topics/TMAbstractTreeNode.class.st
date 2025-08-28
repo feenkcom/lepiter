@@ -23,6 +23,11 @@ TMAbstractTreeNode >> database [
 ]
 
 { #category : #navigation }
+TMAbstractTreeNode >> databaseNode [
+	^ self topicMap databaseNode
+]
+
+{ #category : #navigation }
 TMAbstractTreeNode >> fieldNodes [
 	^ TMNodeCollectionNode
 		for: (self fields collect: [ :aField | TMFieldNode for: aField in: self topicMap ])
@@ -67,7 +72,7 @@ TMAbstractTreeNode >> gtSummaryFor: aView [
 TMAbstractTreeNode >> gtTreeFor: aView [
 	<gtView>
 	^ aView columnedTree
-		title: 'Tree';
+		title: 'Topic map tree';
 		priority: 10;
 		items: [ self children];
 		children: #children;
@@ -82,6 +87,9 @@ TMAbstractTreeNode >> gtTreeFor: aView [
 			width: 100;
 		column: '# Pages'
 			text: [ :each | each pages size ]
+			width: 100;
+		column: '# Styles'
+			text: [ :each | each styles size ]
 			width: 100;
 		column: 'Info'
 			text: [ :each | each relatedInfo ]
@@ -107,6 +115,9 @@ TMAbstractTreeNode >> pageGroup [
 
 { #category : #navigation }
 TMAbstractTreeNode >> pageNodes [
+	self
+		deprecated: 'Use pageGroup instead'
+		transformWith: '`@receiver pageNodes' -> '`@receiver pageGroup'.
 	^ self pageGroup
 ]
 
@@ -157,7 +168,8 @@ TMAbstractTreeNode >> styles [
 { #category : #views }
 TMAbstractTreeNode >> summary [
 	^ {{'Database'.
-			self database}.
+			self database.
+			self databaseNode}.
 		{'#Fields'.
 			self sizeAndFirstIfAlone: self fields.
 			self fieldNodes}.

@@ -10,8 +10,8 @@ LeDatabase >> gtTopicMapMenuFor: anAction [
 		content: [ :aButton | 
 			BrGlamorousSimpleContextMenuContent new
 				items: {'Inspect topic map' -> [ aButton phlow spawnObject: self topicMap ].
-						'Enable topic map actions' -> [ TMRegistry uniqueInstance enableActions ].
-						'Disable topic map actions' -> [ TMRegistry uniqueInstance disableActions ]};
+						'Enable topic map actions' -> [ TMRegistry uniqueInstance enableExtensions ].
+						'Disable topic map actions' -> [ TMRegistry uniqueInstance disableExtensions ]};
 				yourself ]
 ]
 

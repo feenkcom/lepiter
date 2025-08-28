@@ -14,9 +14,11 @@ TMRegistry uniqueInstance enableActions
 Class {
 	#name : #TMRegistry,
 	#superclass : #Object,
+	#traits : 'TGtEnableExtensions',
+	#classTraits : 'TGtEnableExtensions classTrait',
 	#instVars : [
 		'registry',
-		'actionsEnabled'
+		'extensionsEnabled'
 	],
 	#classInstVars : [
 		'uniqueInstance'
@@ -25,39 +27,14 @@ Class {
 }
 
 { #category : #accessing }
-TMRegistry class >> cleanUp [
-	uniqueInstance := nil
-]
-
-{ #category : #accessing }
 TMRegistry class >> gtBookTopicMap [
 	^ self uniqueInstance topicMapFor: LeDatabase gtBookName
-]
-
-{ #category : #accessing }
-TMRegistry class >> uniqueInstance [
-	^ uniqueInstance ifNil: [ uniqueInstance := self new ]
-]
-
-{ #category : #testing }
-TMRegistry >> actionsEnabled [
-	^ actionsEnabled
 ]
 
 { #category : #initialization }
 TMRegistry >> defaultRegistry [
 	^ {'Glamorous Toolkit Book' -> 'feenkcom/lepiter/data/gtbookTopicMap.json'}
 		asDictionary
-]
-
-{ #category : #testing }
-TMRegistry >> disableActions [
-	actionsEnabled := false
-]
-
-{ #category : #testing }
-TMRegistry >> enableActions [
-	actionsEnabled := true
 ]
 
 { #category : #views }
@@ -82,17 +59,12 @@ TMRegistry >> hasTopicMapFor: aDatabaseName [
 TMRegistry >> initialize [
 	super initialize.
 	registry := self defaultRegistry.
-	self disableActions
+	self disableExtensions
 ]
 
 { #category : #accessing }
 TMRegistry >> registry [
 	^ registry
-]
-
-{ #category : #accessing }
-TMRegistry >> registry: anObject [
-	registry := anObject
 ]
 
 { #category : #accessing }

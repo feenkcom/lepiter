@@ -54,8 +54,8 @@ TMPageGroup >> items [
 ]
 
 { #category : #navigation }
-TMPageGroup >> pageNodes [
-	^ self nodes
+TMPageGroup >> pageGroup [
+	^ self
 ]
 
 { #category : #navigation }
