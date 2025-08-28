@@ -83,6 +83,9 @@ TMAbstractTreeNode >> gtTreeFor: aView [
 		column: '# Pages'
 			text: [ :each | each pages size ]
 			width: 100;
+		column: '# Styles'
+			text: [ :each | each styles size ]
+			width: 100;
 		column: 'Info'
 			text: [ :each | each relatedInfo ]
 			width: 300;

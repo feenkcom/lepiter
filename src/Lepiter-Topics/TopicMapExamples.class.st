@@ -11,6 +11,21 @@ Class {
 }
 
 { #category : #example }
+TopicMapExamples >> aboutGtTopicNode [
+	"NB: Fragile test, #styles could change in book."
+
+	<gtExample>
+	| aboutGtTopicNode |
+	aboutGtTopicNode := self gtBasicsFieldNode topicNodes nodes
+			detect: [ :n | n topic = 'About Glamorous Toolkit' ].
+	self assert: aboutGtTopicNode fields size equals: 1.
+	self assert: aboutGtTopicNode topics size equals: 1.
+	self assert: aboutGtTopicNode styles size equals: 5.
+	self assert: aboutGtTopicNode pages size < aboutGtTopicNode database pages size.
+	^ aboutGtTopicNode
+]
+
+{ #category : #example }
 TopicMapExamples >> database [
 	<gtExample>
 	| database |
@@ -22,6 +37,15 @@ TopicMapExamples >> database [
 ]
 
 { #category : #example }
+TopicMapExamples >> databaseNode [
+	<gtExample>
+	| databaseNode |
+	databaseNode := self topicMap databaseNode.
+	self assert: databaseNode fields size equals: 5.
+	^ databaseNode
+]
+
+{ #category : #example }
 TopicMapExamples >> field2Topics [
 	<gtExample>
 	| fields2Topics topicMap |
@@ -29,6 +53,37 @@ TopicMapExamples >> field2Topics [
 	fields2Topics := topicMap field2Topics.
 	self assert: fields2Topics size equals: 5.
 	^ fields2Topics
+]
+
+{ #category : #example }
+TopicMapExamples >> gtBasicsFieldNode [
+	"NB: Fragile test, #topics could change in book."
+
+	<gtExample>
+	| gtBasicsFieldNode |
+	gtBasicsFieldNode := self databaseNode fieldNodes nodes
+			detect: [ :n | n field = 'Glamorous Toolkit Basics' ].
+	self assert: gtBasicsFieldNode topics size equals: 10.
+	self assert: gtBasicsFieldNode styles size equals: 11.
+	self assert: gtBasicsFieldNode pages size < gtBasicsFieldNode database pages size.
+	^ gtBasicsFieldNode
+]
+
+{ #category : #example }
+TopicMapExamples >> introductionWithinAboutGtTopicStyleNode [
+	"NB: Since pages can have multiple topics, a style within 
+	a topic can branch to multiple other topics and fields,
+	as is the case here."
+
+	<gtExample>
+	| aboutGtTopicNode |
+	aboutGtTopicNode := self aboutGtTopicNode styleNodes nodes
+			detect: [ :n | n style = 'Introduction' ].
+	self assert: aboutGtTopicNode fields size equals: 3.
+	self assert: aboutGtTopicNode topics size equals: 10.
+	self assert: aboutGtTopicNode styles size equals: 1.
+	self assert: aboutGtTopicNode pages size < aboutGtTopicNode database pages size.
+	^ aboutGtTopicNode
 ]
 
 { #category : #example }
@@ -134,4 +189,19 @@ TopicMapExamples >> topicMapTestFile [
 
 	<gtExample>
 	^ FileLocator gtResource / 'feenkcom/lepiter/data/topicMapTestExample.json'
+]
+
+{ #category : #example }
+TopicMapExamples >> whatIsGtPageNode [
+	"NB: Fragile test, #topics, styles could change. Page title could change."
+
+	<gtExample>
+	| whatIsGtPageNode |
+	whatIsGtPageNode := self introductionWithinAboutGtTopicStyleNode pageNodes nodes
+			detect: [ :n | n page title = 'What is Glamorous Toolkit?' ].
+	self assert: whatIsGtPageNode fields size equals: 3.
+	self assert: whatIsGtPageNode topics size equals: 5.
+	self assert: whatIsGtPageNode styles size equals: 1.
+	self assert: whatIsGtPageNode pages size equals: 1.
+	^ whatIsGtPageNode
 ]

@@ -36,6 +36,16 @@ TMPageNode >> fields [
 	^ (self topicNodes nodes flatCollect: #fields) copyWithoutDuplicates
 ]
 
+{ #category : #views }
+TMPageNode >> gtLivePageFor: aView [
+	<gtView>
+	^ aView forward
+		title: 'Page';
+		priority: 30;
+		object: [ self page ];
+		view: #gtLiveFor:
+]
+
 { #category : #actions }
 TMPageNode >> gtSpawnPageActionFor: anAction [
 	<gtAction>
