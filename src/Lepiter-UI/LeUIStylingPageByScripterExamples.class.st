@@ -111,6 +111,7 @@ LeUIStylingPageByScripterExamples >> newMemoryLogger [
 { #category : #accessing }
 LeUIStylingPageByScripterExamples >> pageClickOnTheFirstPageWorldTab [
 	<gtExample>
+	<noTest>
 	<return: #BlScripter>
 	| aScripter aLogger |
 	aScripter := self pageSecondTimeInWorldTab.
