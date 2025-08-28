@@ -197,7 +197,7 @@ TopicMapExamples >> whatIsGtPageNode [
 
 	<gtExample>
 	| whatIsGtPageNode |
-	whatIsGtPageNode := self introductionWithinAboutGtTopicStyleNode pageNodes nodes
+	whatIsGtPageNode := self introductionWithinAboutGtTopicStyleNode pageGroup nodes
 			detect: [ :n | n page title = 'What is Glamorous Toolkit?' ].
 	self assert: whatIsGtPageNode fields size equals: 3.
 	self assert: whatIsGtPageNode topics size equals: 5.

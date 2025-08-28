@@ -67,5 +67,5 @@ TMStyleNode >> styles [
 
 { #category : #querying }
 TMStyleNode >> topics [
-	^ (self pageNodes flatCollect: #topics) copyWithoutDuplicates
+	^ (self pageGroup flatCollect: #topics) copyWithoutDuplicates
 ]

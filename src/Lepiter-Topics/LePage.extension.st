@@ -24,8 +24,10 @@ LePage >> gtTopicMapMenuFor: anAction [
 		tooltip: 'Topic Map Menu';
 		content: [ :aButton | 
 			BrGlamorousSimpleContextMenuContent new
-				items: {'Enable topic map actions' -> [ TMRegistry uniqueInstance enableActions ].
-						'Disable topic map actions' -> [ TMRegistry uniqueInstance disableActions ]};
+				items: {'Inspect topic map' -> [ aButton phlow spawnObject: (TMPageNode for: self) ].
+						'Enable topic map actions' -> [ TMRegistry uniqueInstance enableActions ].
+						'Disable topic map actions'
+							-> [ TMRegistry uniqueInstance disableActions ]};
 				yourself ]
 ]
 

@@ -25,10 +25,10 @@ TMPageGroupExamples >> gtBookTopicMap [
 ]
 
 { #category : #examples }
-TMPageGroupExamples >> pageNodes [
+TMPageGroupExamples >> pageGroup [
 	<gtExample>
 	| pageNodes |
-	pageNodes := self gtBookPageGroup pageNodes.
+	pageNodes := self gtBookPageGroup pageGroup.
 	self assert: pageNodes size equals: self gtBookPageGroup pages size.
 	^ pageNodes
 ]
@@ -37,7 +37,7 @@ TMPageGroupExamples >> pageNodes [
 TMPageGroupExamples >> projectDiaryPageNode [
 	<gtExample>
 	| projectDiaryPageNode |
-	projectDiaryPageNode := self pageNodes
+	projectDiaryPageNode := self pageGroup
 			detect: [ :n | n page title = 'Project Diary' ].
 	self assert: projectDiaryPageNode page title equals: 'Project Diary'.
 	self assert: projectDiaryPageNode style equals: 'Pattern'.
