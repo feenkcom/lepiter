@@ -16,7 +16,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'registry',
-		'actionsEnabled'
+		'extensionsEnabled'
 	],
 	#classInstVars : [
 		'uniqueInstance'
@@ -39,11 +39,6 @@ TMRegistry class >> uniqueInstance [
 	^ uniqueInstance ifNil: [ uniqueInstance := self new ]
 ]
 
-{ #category : #testing }
-TMRegistry >> actionsEnabled [
-	^ actionsEnabled
-]
-
 { #category : #initialization }
 TMRegistry >> defaultRegistry [
 	^ {'Glamorous Toolkit Book' -> 'feenkcom/lepiter/data/gtbookTopicMap.json'}
@@ -51,13 +46,18 @@ TMRegistry >> defaultRegistry [
 ]
 
 { #category : #testing }
-TMRegistry >> disableActions [
-	actionsEnabled := false
+TMRegistry >> disableExtensions [
+	extensionsEnabled := false
 ]
 
 { #category : #testing }
-TMRegistry >> enableActions [
-	actionsEnabled := true
+TMRegistry >> enableExtensions [
+	extensionsEnabled := true
+]
+
+{ #category : #testing }
+TMRegistry >> extensionsEnabled [
+	^ extensionsEnabled
 ]
 
 { #category : #views }
@@ -82,7 +82,7 @@ TMRegistry >> hasTopicMapFor: aDatabaseName [
 TMRegistry >> initialize [
 	super initialize.
 	registry := self defaultRegistry.
-	self disableActions
+	self disableExtensions
 ]
 
 { #category : #accessing }

@@ -7,7 +7,7 @@ LePage >> gtTopicMapActionFor: anAction [
 		- add an id."
 
 	<lePageAction>
-	TMRegistry uniqueInstance actionsEnabled ifFalse: [ ^ anAction empty ].
+	TMRegistry uniqueInstance extensionsEnabled ifFalse: [ ^ anAction empty ].
 	self hasTopicMap ifFalse: [ ^ anAction empty ].
 	^ anAction button
 		tooltip: 'Inspect topic map';
@@ -25,9 +25,9 @@ LePage >> gtTopicMapMenuFor: anAction [
 		content: [ :aButton | 
 			BrGlamorousSimpleContextMenuContent new
 				items: {'Inspect topic map' -> [ aButton phlow spawnObject: (TMPageNode for: self) ].
-						'Enable topic map actions' -> [ TMRegistry uniqueInstance enableActions ].
+						'Enable topic map actions' -> [ TMRegistry uniqueInstance enableExtensions ].
 						'Disable topic map actions'
-							-> [ TMRegistry uniqueInstance disableActions ]};
+							-> [ TMRegistry uniqueInstance disableExtensions ]};
 				yourself ]
 ]
 
