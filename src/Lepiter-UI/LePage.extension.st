@@ -216,20 +216,6 @@ LePage >> gtMarkdownPageFor: aView [
 ]
 
 { #category : #'*Lepiter-UI' }
-LePage >> gtOpenInNewTabActionFor: anAction [
-	<lePageAction>
-	^ anAction button
-		id: LeOpenPageInNewWorldTabElementId;
-		tooltip: 'Open page in a new world tab';
-		icon: BrGlamorousVectorIcons spawn;
-		action: [ :aButton | 
-			BlSpace new
-				pageInPager: self;
-				withSceneDriller;
-				showFrom: aButton ]
-]
-
-{ #category : #'*Lepiter-UI' }
 LePage >> gtReachablePagesMapFor: aView [
 	"Inspired by: Optimizing the links in the book for first time readers
 	The map shows the current page in blue, reachable pages in dark green, and unreachable pages in red. To avoid clutter, the ToC page is not included, but is considered for reachability. Nodes are scaled according to their word count.

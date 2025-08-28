@@ -32,6 +32,11 @@ TMStyleNode >> context: aPageGroup [
 	context := aPageGroup
 ]
 
+{ #category : #querying }
+TMStyleNode >> fields [
+	^ (self topicNodes nodes flatCollect: #fields) copyWithoutDuplicates
+]
+
 { #category : #accessing }
 TMStyleNode >> name [
 	^ 'Style: ' , self style
@@ -42,12 +47,7 @@ TMStyleNode >> pages [
 	"NB: We only want the pages in *this* page group with this style."
 
 	^ self context pages
-		select: [ :aPage | (self topicMap page2Style at: aPage) = self style ]
-]
-
-{ #category : #'as yet unclassified' }
-TMStyleNode >> sendTo [
-	^ TMPageGroup for: self topicMap with: self pages
+		select: [ :aPage | (self topicMap style4Page: aPage) = self style ]
 ]
 
 { #category : #accessing }
@@ -58,4 +58,14 @@ TMStyleNode >> style [
 { #category : #accessing }
 TMStyleNode >> style: anObject [
 	style := anObject
+]
+
+{ #category : #navigation }
+TMStyleNode >> styles [
+	^ {style}
+]
+
+{ #category : #querying }
+TMStyleNode >> topics [
+	^ (self pageNodes flatCollect: #topics) copyWithoutDuplicates
 ]

@@ -4,13 +4,19 @@ I provide a registry of topic maps for Lepiter databases.
 The actual registry is a a Dictionary that maps the names of databases to the path (String) of the topicMap file relative to `FileLocator gtResource``.
 
 By default there is just a topic map for the GT book. More entries can be added by accessing the `registry` slot.
+
+To enable views and actions, evaluate:
+```
+TMRegistry uniqueInstance enableActions
+```
+
 "
 Class {
 	#name : #TMRegistry,
 	#superclass : #Object,
 	#instVars : [
 		'registry',
-		'viewsEnabled'
+		'actionsEnabled'
 	],
 	#classInstVars : [
 		'uniqueInstance'
@@ -24,8 +30,18 @@ TMRegistry class >> cleanUp [
 ]
 
 { #category : #accessing }
+TMRegistry class >> gtBookTopicMap [
+	^ self uniqueInstance topicMapFor: LeDatabase gtBookName
+]
+
+{ #category : #accessing }
 TMRegistry class >> uniqueInstance [
 	^ uniqueInstance ifNil: [ uniqueInstance := self new ]
+]
+
+{ #category : #testing }
+TMRegistry >> actionsEnabled [
+	^ actionsEnabled
 ]
 
 { #category : #initialization }
@@ -35,13 +51,13 @@ TMRegistry >> defaultRegistry [
 ]
 
 { #category : #testing }
-TMRegistry >> disableViews [
-	viewsEnabled := false
+TMRegistry >> disableActions [
+	actionsEnabled := false
 ]
 
 { #category : #testing }
-TMRegistry >> enableViews [
-	viewsEnabled := true
+TMRegistry >> enableActions [
+	actionsEnabled := true
 ]
 
 { #category : #views }
@@ -66,7 +82,7 @@ TMRegistry >> hasTopicMapFor: aDatabaseName [
 TMRegistry >> initialize [
 	super initialize.
 	registry := self defaultRegistry.
-	self disableViews
+	self disableActions
 ]
 
 { #category : #accessing }
@@ -82,9 +98,4 @@ TMRegistry >> registry: anObject [
 { #category : #accessing }
 TMRegistry >> topicMapFor: aDatabaseName [
 	^ TopicMap forJson: FileLocator gtResource / (self registry at: aDatabaseName)
-]
-
-{ #category : #testing }
-TMRegistry >> viewsEnabled [
-	^ viewsEnabled
 ]

@@ -2,28 +2,30 @@ Extension { #name : #LePage }
 
 { #category : #'*Lepiter-Topics' }
 LePage >> gtTopicMapActionFor: anAction [
-	"To do: add an id."
+	"To do: 
+		- fix this to show the topic map for just this page
+		- add an id."
 
 	<lePageAction>
-	TMRegistry uniqueInstance viewsEnabled ifFalse: [ ^ anAction empty ].
+	TMRegistry uniqueInstance actionsEnabled ifFalse: [ ^ anAction empty ].
 	self hasTopicMap ifFalse: [ ^ anAction empty ].
 	^ anAction button
 		tooltip: 'Inspect topic map';
-		icon: BrGlamorousVectorIcons directions;
-		action: [ :aButton | aButton phlow spawnObject: self topicMap ]
+		icon: BrGlamorousVectorIcons bookmark;
+		action: [ :aButton | aButton phlow spawnObject: (TMPageNode for: self) ]
 ]
 
 { #category : #'*Lepiter-Topics' }
 LePage >> gtTopicMapMenuFor: anAction [
 	<gtAction>
 	^ anAction dropdown
-		icon: BrGlamorousVectorIcons directions;
+		icon: BrGlamorousVectorIcons bookmark;
 		priority: 20;
 		tooltip: 'Topic Map Menu';
 		content: [ :aButton | 
 			BrGlamorousSimpleContextMenuContent new
-				items: {'Enable topic map views' -> [ TMRegistry uniqueInstance enableViews ].
-						'Disable topic map views' -> [ TMRegistry uniqueInstance disableViews ]};
+				items: {'Enable topic map actions' -> [ TMRegistry uniqueInstance enableActions ].
+						'Disable topic map actions' -> [ TMRegistry uniqueInstance disableActions ]};
 				yourself ]
 ]
 

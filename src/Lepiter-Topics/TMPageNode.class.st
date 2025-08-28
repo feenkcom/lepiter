@@ -8,11 +8,22 @@ Class {
 }
 
 { #category : #'instance creation' }
+TMPageNode class >> for: aPage [
+	^ self new
+		page: aPage;
+		topicMap: aPage topicMap;
+		yourself
+]
+
+{ #category : #'instance creation' }
 TMPageNode class >> for: aPage in: aTopicMap [
-^ self new
-	page: aPage;
-	topicMap: aTopicMap;
-	yourself 
+	"Use this for testing if the topic map to use is not necessarily
+	the default one, but a special test map."
+
+	^ self new
+		page: aPage;
+		topicMap: aTopicMap;
+		yourself
 ]
 
 { #category : #navigation }
@@ -20,9 +31,19 @@ TMPageNode >> children [
 	^ self topics collect: [ :each | TMTopicNode for: each in: self topicMap ]
 ]
 
-{ #category : #testing }
-TMPageNode >> isPageNode [
-	^ true
+{ #category : #navigation }
+TMPageNode >> fields [
+	^ (self topicNodes nodes flatCollect: #fields) copyWithoutDuplicates
+]
+
+{ #category : #actions }
+TMPageNode >> gtSpawnPageActionFor: anAction [
+	<gtAction>
+	^ anAction button
+		tooltip: 'Spawn page';
+		priority: 20;
+		icon: LeIcons lepiterIcon;
+		action: [ :aButton | aButton phlow spawnObject: self page ]
 ]
 
 { #category : #accessing }
@@ -41,16 +62,31 @@ TMPageNode >> page: aPage [
 ]
 
 { #category : #navigation }
-TMPageNode >> sendTo [
-	^ self page
+TMPageNode >> pages [
+	^ {self page}
+]
+
+{ #category : #accessing }
+TMPageNode >> relatedInfo [
+	^ 'Style:', self style
+]
+
+{ #category : #accessing }
+TMPageNode >> relatedTitle [
+	^ 'Style'
 ]
 
 { #category : #accessing }
 TMPageNode >> style [
-	^ self topicMap page2Style at: self page
+	^ self topicMap style4Page: self page
+]
+
+{ #category : #navigation }
+TMPageNode >> styles [
+	^ {self style}
 ]
 
 { #category : #querying }
 TMPageNode >> topics [
-	^ self topicMap page2Topics at: self page
+	^ self topicMap topics4Page: self page
 ]
