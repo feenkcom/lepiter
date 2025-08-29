@@ -94,9 +94,26 @@ TopicMap >> gtJsonFor: aView [
 	<gtView>
 	^ aView forward
 		title: 'JSON';
-		priority: 50;
+		priority: 60;
 		object: [ self json ];
 		view: #gtTreeFor:context:
+]
+
+{ #category : #views }
+TopicMap >> gtMissingPagesFor: aView [
+	"Pages listed in the JSON but absent from the database.
+	These pages may have been removed, but more likely have been renamed.
+	Renamed pages will appear in the Unmapped pages view under their new name."
+
+	<gtView>
+	^ aView columnedList
+		title: 'Missing pages';
+		priority: 45;
+		items: [ self missingPages ];
+		column: 'Index'
+			text: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray ]
+			width: 45;
+		column: 'Value' text: [ :each | each gtDisplayString ]
 ]
 
 { #category : #actions }
@@ -146,6 +163,21 @@ TopicMap >> gtTopicMapTreeFor: aView [
 		view: #gtTreeFor:
 ]
 
+{ #category : #views }
+TopicMap >> gtUnmappedPagesFor: aView [
+	"Pages not listed in the JSON. These will need an assistant to update the JSON."
+
+	<gtView>
+	^ aView columnedList
+		title: 'Unmapped pages';
+		priority: 40;
+		items: [ self unmappedPages ];
+		column: 'Index'
+			text: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray ]
+			width: 45;
+		column: 'Value' text: [ :each | each gtDisplayString ]
+]
+
 { #category : #accessing }
 TopicMap >> json [
 	^ json ifNil: [ json := STONJSON fromString: self jsonFile contents ]
@@ -165,9 +197,9 @@ TopicMap >> jsonFile: aFileReference [
 TopicMap >> missingPages [
 	"Pages listed in the JSON but not (or no longer) in the database."
 
-	^ (self json at: 'pages')
+	^ ((self json at: 'pages')
 		collect: [ :d | d at: 'page' ]
-		thenReject: [ :p | self database hasPageNamed: p ]
+		thenReject: [ :p | self database hasPageNamed: p ]) sorted
 ]
 
 { #category : #mapping }
@@ -270,4 +302,9 @@ TopicMap >> topics [
 { #category : #querying }
 TopicMap >> topics4Page: aPage [
 	^ self page2Topics at: aPage ifAbsent: {self defaultValue}
+]
+
+{ #category : #querying }
+TopicMap >> unmappedPages [
+	^ (self database pages copyWithoutAll: self pages) sortedAs: #title
 ]
