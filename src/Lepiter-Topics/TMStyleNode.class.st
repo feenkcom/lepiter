@@ -69,3 +69,17 @@ TMStyleNode >> styles [
 TMStyleNode >> topics [
 	^ (self pageGroup flatCollect: #topics) copyWithoutDuplicates
 ]
+
+{ #category : #treemaps }
+TMStyleNode >> treeMapDeep [
+	^ {}
+]
+
+{ #category : #treemaps }
+TMStyleNode >> treeMapLeaves [
+	^ self pageGroup
+		collect: [ :n | 
+			n
+				treeMapParent: self;
+				yourself ]
+]

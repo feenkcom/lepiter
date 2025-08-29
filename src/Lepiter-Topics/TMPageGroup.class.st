@@ -39,3 +39,8 @@ TMPageGroup >> pages: aPageCollection [
 	^ self
 		nodes: (aPageCollection collect: [ :aPage | TMPageNode for: aPage in: self topicMap ])
 ]
+
+{ #category : #treemaps }
+TMPageGroup >> treeMapLeaves [
+	^ self
+]

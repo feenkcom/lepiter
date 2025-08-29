@@ -110,3 +110,10 @@ TMPageNode >> styles [
 TMPageNode >> topics [
 	^ self topicMap topics4Page: self page
 ]
+
+{ #category : #'as yet unclassified' }
+TMPageNode >> treeMapDeep [
+	"For a treemap, a page has no further children."
+
+	^ {}
+]
