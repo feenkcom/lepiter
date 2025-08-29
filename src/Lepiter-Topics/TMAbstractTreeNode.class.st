@@ -260,3 +260,10 @@ TMAbstractTreeNode >> treeMapParent: aTMTreeNode [
 
 	treeMapParent := aTMTreeNode
 ]
+
+{ #category : #accessing }
+TMAbstractTreeNode >> treeMapPath [
+	^ (self treeMapParent
+		ifNil: [ '' ]
+		ifNotNil: [ self treeMapParent treeMapPath , String cr ]) , self name
+]

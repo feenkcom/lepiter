@@ -117,3 +117,11 @@ TMPageNode >> treeMapDeep [
 
 	^ {}
 ]
+
+{ #category : #treemaps }
+TMPageNode >> treeMapTooltip [
+	^ BrEditor new
+		aptitude: BrGlamorousRegularEditorAptitude new;
+		text: self treeMapPath;
+		yourself
+]
