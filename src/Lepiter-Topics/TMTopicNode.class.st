@@ -17,12 +17,16 @@ TMTopicNode class >> for: aTopic in: aTopicMap [
 
 { #category : #navigation }
 TMTopicNode >> children [
-	^ self styles
+	"Why not simply self styleNodes?"
+
+	"^ self styles
 		collect: [ :aStyle | 
 			TMStyleNode
 				for: aStyle
 				in: self topicMap
-				within: (TMPageGroup for: self topicMap with: self pages) ]
+				within: (TMPageGroup for: self topicMap with: self pages) ]"
+
+	^ self styleNodes
 ]
 
 { #category : #accessing }
