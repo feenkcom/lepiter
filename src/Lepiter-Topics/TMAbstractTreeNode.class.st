@@ -29,7 +29,7 @@ TMAbstractTreeNode >> databaseNode [
 
 { #category : #navigation }
 TMAbstractTreeNode >> fieldNodes [
-	^ TMNodeCollectionNode
+	^ TMNodeGroup
 		for: (self fields collect: [ :aField | TMFieldNode for: aField in: self topicMap ])
 		in: self topicMap
 ]
@@ -46,7 +46,35 @@ TMAbstractTreeNode >> gtPageGroupActionFor: anAction [
 		tooltip: 'Inspect pages';
 		priority: 30;
 		icon: BrGlamorousVectorIcons changes;
-		action: [ :aButton | aButton phlow spawnObject: self pageGroup ]
+		action: [ :aButton | aButton phlow spawnObject: self pageGroup ];
+		primaryModifierAction: [ :aButton | aButton phlow showObject: self pageGroup ]
+			mouseCursor: BlCopyCursor new
+]
+
+{ #category : #searching }
+TMAbstractTreeNode >> gtSpotterForPageContent: aSearch [
+	<gtSearch>
+	^ aSearch list
+		title: 'Page content';
+		priority: 25;
+		items: [ self pages ];
+		itemsLimit: Float infinity;
+		itemName: #asMarkdownPage;
+		sendCategory: [ :aCategory :aStep :thisSearch | TMPageGroup for: self topicMap with: aCategory items contents ];
+		filterBySubstring
+]
+
+{ #category : #searching }
+TMAbstractTreeNode >> gtSpotterForPageTitles: aSearch [
+	<gtSearch>
+	^ aSearch list
+		title: 'Page titles';
+		priority: 20;
+		items: [ self pages ];
+		itemsLimit: Float infinity;
+		itemName: #title;
+		sendCategory: [ :aCategory :aStep :thisSearch | TMPageGroup for: self topicMap with: aCategory items contents ];
+		filterBySubstring
 ]
 
 { #category : #views }
@@ -150,7 +178,7 @@ TMAbstractTreeNode >> sizeAndFirstIfAlone: aCollection [
 
 { #category : #navigation }
 TMAbstractTreeNode >> styleNodes [
-	^ TMNodeCollectionNode
+	^ TMNodeGroup
 		for: (self styles
 				collect: [ :aStyle | 
 					TMStyleNode
@@ -196,7 +224,7 @@ TMAbstractTreeNode >> topicMap: anObject [
 
 { #category : #navigation }
 TMAbstractTreeNode >> topicNodes [
-	^ TMNodeCollectionNode
+	^ TMNodeGroup
 		for: (self topics collect: [ :aTopic | TMTopicNode for: aTopic in: self topicMap ])
 		in: self topicMap
 ]

@@ -1,6 +1,11 @@
 Extension { #name : #LePage }
 
 { #category : #'*Lepiter-Topics' }
+LePage >> asPageNode [
+	^ TMPageNode for: self
+]
+
+{ #category : #'*Lepiter-Topics' }
 LePage >> gtTopicMapActionFor: anAction [
 	"To do: 
 		- fix this to show the topic map for just this page
@@ -12,7 +17,9 @@ LePage >> gtTopicMapActionFor: anAction [
 	^ anAction button
 		tooltip: 'Inspect topic map';
 		icon: BrGlamorousVectorIcons bookmark;
-		action: [ :aButton | aButton phlow spawnObject: (TMPageNode for: self) ]
+		action: [ :aButton | aButton phlow spawnObject: self asPageNode ];
+		primaryModifierAction: [ :aButton | aButton phlow showObject: self asPageNode ]
+			mouseCursor: BlCopyCursor new
 ]
 
 { #category : #'*Lepiter-Topics' }
