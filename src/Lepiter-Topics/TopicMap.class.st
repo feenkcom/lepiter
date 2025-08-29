@@ -99,34 +99,41 @@ TopicMap >> gtJsonFor: aView [
 		view: #gtTreeFor:context:
 ]
 
-{ #category : #views }
-TopicMap >> gtStyleMapFor: aView [
-	<gtView>
-	^ aView forward
-		title: 'Page to Style map';
-		priority: 22;
-		object: [ self page2Style ];
-		view: #gtItemsFor:;
-		send: [ :assoc | assoc key ];
-		actionUpdateButton
+{ #category : #actions }
+TopicMap >> gtPageGroupActionFor: anAction [
+	<gtAction>
+	^ anAction button
+		tooltip: 'Inspect pages';
+		priority: 20;
+		icon: BrGlamorousVectorIcons changes;
+		action: [ :aButton | aButton phlow spawnObject: self pageGroup ];
+		primaryModifierAction: [ :aButton | aButton phlow showObject: self pageGroup ]
+			mouseCursor: BlCopyCursor new
 ]
 
 { #category : #views }
-TopicMap >> gtStylesFor: aView [
+TopicMap >> gtSummaryFor: aView [
 	<gtView>
-	^ aView columnedList
-		title: 'Styles';
+	^ aView forward
+		title: 'Summary';
 		priority: 20;
-		items: [ self styles ];
-		column: 'Index'
-			text: [ :eachItem :eachIndex | eachIndex asRopedText foreground: Color gray ]
-			width: 45;
-		column: 'Count'
-			text: [ :cat | (self style2Pages at: cat) size ]
-			width: 50;
-		column: 'Item' text: [ :eachItem | eachItem gtDisplayText ];
-		send: [ :cat | self style2Pages at: cat ];
-		actionUpdateButton
+		object: [ self databaseNode ];
+		view: #gtSummaryFor:
+]
+
+{ #category : #actions }
+TopicMap >> gtTopicMapMenuFor: anAction [
+	<gtAction>
+	^ anAction dropdown
+		icon: BrGlamorousVectorIcons hamburger;
+		priority: 40;
+		tooltip: 'Topic Map Menu';
+		content: [ :aButton | 
+			BrGlamorousSimpleContextMenuContent new
+				items: {'Inspect database node' -> [ aButton phlow spawnObject: self databaseNode ].
+						'Enable topic map actions' -> [ TMRegistry uniqueInstance enableExtensions ].
+						'Disable topic map actions' -> [ TMRegistry uniqueInstance disableExtensions ]};
+				yourself ]
 ]
 
 { #category : #views }

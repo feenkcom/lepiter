@@ -46,7 +46,9 @@ TMAbstractTreeNode >> gtPageGroupActionFor: anAction [
 		tooltip: 'Inspect pages';
 		priority: 30;
 		icon: BrGlamorousVectorIcons changes;
-		action: [ :aButton | aButton phlow spawnObject: self pageGroup ]
+		action: [ :aButton | aButton phlow spawnObject: self pageGroup ];
+		primaryModifierAction: [ :aButton | aButton phlow showObject: self pageGroup ]
+			mouseCursor: BlCopyCursor new
 ]
 
 { #category : #searching }
