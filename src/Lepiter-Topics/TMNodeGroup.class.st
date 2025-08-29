@@ -3,8 +3,10 @@ I hold as my children a collection of other nodes.
 I am useful for generating ad hoc views of collections of pages, topics, etc.
 "
 Class {
-	#name : #TMNodeCollectionNode,
+	#name : #TMNodeGroup,
 	#superclass : #TMAbstractTreeNode,
+	#traits : 'TGtGroup',
+	#classTraits : 'TGtGroup classTrait',
 	#instVars : [
 		'nodes'
 	],
@@ -12,7 +14,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-TMNodeCollectionNode class >> for: aNodeCollection in: aTopicMap [
+TMNodeGroup class >> for: aNodeCollection in: aTopicMap [
 ^ self new
 	nodes: aNodeCollection;
 	topicMap: aTopicMap;
@@ -20,37 +22,42 @@ TMNodeCollectionNode class >> for: aNodeCollection in: aTopicMap [
 ]
 
 { #category : #navigation }
-TMNodeCollectionNode >> children [
+TMNodeGroup >> children [
 	^ self nodes
 ]
 
 { #category : #navigation }
-TMNodeCollectionNode >> fields [
+TMNodeGroup >> fields [
 	^ (self children flatCollect: #fields) copyWithoutDuplicates
 ]
 
 { #category : #accessing }
-TMNodeCollectionNode >> name [
-	^ 'Node collection'
-]
-
-{ #category : #accessing }
-TMNodeCollectionNode >> nodes [
+TMNodeGroup >> items [
 	^ nodes
 ]
 
 { #category : #accessing }
-TMNodeCollectionNode >> nodes: anObject [
+TMNodeGroup >> name [
+	^ 'Node collection'
+]
+
+{ #category : #accessing }
+TMNodeGroup >> nodes [
+	^ nodes
+]
+
+{ #category : #accessing }
+TMNodeGroup >> nodes: anObject [
 	nodes := anObject
 ]
 
 { #category : #accessing }
-TMNodeCollectionNode >> pages [
+TMNodeGroup >> pages [
 	^ (self children flatCollect: #pages) copyWithoutDuplicates
 ]
 
 { #category : #printing }
-TMNodeCollectionNode >> printOn: aStream [
+TMNodeGroup >> printOn: aStream [
 super printOn: aStream.
 	aStream
 		nextPut: $(;
@@ -60,11 +67,11 @@ super printOn: aStream.
 ]
 
 { #category : #navigation }
-TMNodeCollectionNode >> styles [
+TMNodeGroup >> styles [
 	^ (self children flatCollect: #styles) copyWithoutDuplicates
 ]
 
 { #category : #navigation }
-TMNodeCollectionNode >> topics [
+TMNodeGroup >> topics [
 	^ (self children flatCollect: #topics) copyWithoutDuplicates
 ]
