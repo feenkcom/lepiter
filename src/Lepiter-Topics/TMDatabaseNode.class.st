@@ -16,7 +16,7 @@ TMDatabaseNode class >> for: aDatabase [
 
 { #category : #navigation }
 TMDatabaseNode >> children [
-	^ self fields collect: [:aField | TMFieldNode for: aField in: self topicMap ]
+	^ self fields collect: [ :aField | TMFieldNode for: aField in: self topicMap ]
 ]
 
 { #category : #navigation }

@@ -7,7 +7,8 @@ Class {
 	#name : #TMAbstractTreeNode,
 	#superclass : #Object,
 	#instVars : [
-		'topicMap'
+		'topicMap',
+		'treeMapParent'
 	],
 	#category : #'Lepiter-Topics-Model'
 }
@@ -232,4 +233,30 @@ TMAbstractTreeNode >> topicNodes [
 { #category : #navigation }
 TMAbstractTreeNode >> topics [
 	self subclassResponsibility
+]
+
+{ #category : #treemaps }
+TMAbstractTreeNode >> treeMapDeep [
+	^ self children
+		collect: [ :n | 
+			n
+				treeMapParent: self;
+				yourself ]
+]
+
+{ #category : #treemaps }
+TMAbstractTreeNode >> treeMapLeaves [
+	^ {}
+]
+
+{ #category : #treemaps }
+TMAbstractTreeNode >> treeMapParent [
+	^ treeMapParent
+]
+
+{ #category : #treemaps }
+TMAbstractTreeNode >> treeMapParent: aTMTreeNode [
+	"NB: the parent of a TopicNode is normally a FieldNode, but it could be a PageNode."
+
+	treeMapParent := aTMTreeNode
 ]

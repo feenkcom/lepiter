@@ -69,3 +69,12 @@ TMTopicNode >> topic: aString [
 TMTopicNode >> topics [
 	^ {self topic}
 ]
+
+{ #category : #treemaps }
+TMTopicNode >> treeMapDeep [
+	^ self styleNodes
+		collect: [ :n | 
+			n
+				treeMapParent: self;
+				yourself ]
+]
