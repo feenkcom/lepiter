@@ -53,7 +53,9 @@ TMPageNode >> gtSpawnPageActionFor: anAction [
 		tooltip: 'Spawn page';
 		priority: 20;
 		icon: LeIcons lepiterIcon;
-		action: [ :aButton | aButton phlow spawnObject: self page ]
+		action: [ :aButton | aButton phlow spawnObject: self page ];
+		primaryModifierAction: [ :aButton | aButton phlow showObject: self page ]
+			mouseCursor: BlCopyCursor new
 ]
 
 { #category : #'as yet unclassified' }
