@@ -56,6 +56,12 @@ TMPageNode >> gtSpawnPageActionFor: anAction [
 		action: [ :aButton | aButton phlow spawnObject: self page ]
 ]
 
+{ #category : #'as yet unclassified' }
+TMPageNode >> gtTreeMapFor: aView [
+	<gtView>
+	^ aView empty
+]
+
 { #category : #accessing }
 TMPageNode >> name [
 	^ 'Page: ', self page title

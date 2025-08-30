@@ -52,6 +52,18 @@ TMAbstractTreeNode >> gtPageGroupActionFor: anAction [
 			mouseCursor: BlCopyCursor new
 ]
 
+{ #category : #actions }
+TMAbstractTreeNode >> gtSpawnTopicMapActionFor: anAction [
+	<gtAction>
+	^ anAction button
+		tooltip: 'Topic map';
+		priority: 35;
+		icon: TopicMap icon;
+		action: [ :aButton | aButton phlow spawnObject: self topicMap ];
+		primaryModifierAction: [ :aButton | aButton phlow showObject: self topicMap ]
+			mouseCursor: BlCopyCursor new
+]
+
 { #category : #searching }
 TMAbstractTreeNode >> gtSpotterForPageContent: aSearch [
 	<gtSearch>
