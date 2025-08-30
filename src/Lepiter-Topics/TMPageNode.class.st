@@ -37,16 +37,6 @@ TMPageNode >> fields [
 ]
 
 { #category : #views }
-TMPageNode >> gtDatabaseTreeFor: aView [
-	<gtView>
-	^ aView forward
-		title: 'Database fields';
-		priority: 40;
-		object: [ self databaseNode ];
-		view: #gtTreeFor:
-]
-
-{ #category : #views }
 TMPageNode >> gtLivePageFor: aView [
 	<gtView>
 	^ aView forward
@@ -112,7 +102,7 @@ TMPageNode >> topics [
 ]
 
 { #category : #'as yet unclassified' }
-TMPageNode >> treeMapDeep [
+TMPageNode >> treeMapChildren [
 	"For a treemap, a page has no further children."
 
 	^ {}

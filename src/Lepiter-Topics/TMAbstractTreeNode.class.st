@@ -101,7 +101,7 @@ TMAbstractTreeNode >> gtSummaryFor: aView [
 TMAbstractTreeNode >> gtTreeFor: aView [
 	<gtView>
 	^ aView columnedTree
-		title: 'Topic map tree';
+		title: 'Topic Map';
 		priority: 10;
 		items: [ self children];
 		children: #children;
@@ -124,6 +124,17 @@ TMAbstractTreeNode >> gtTreeFor: aView [
 			text: [ :each | each relatedInfo ]
 			width: 300;
 		send: [ :each | each ];
+		actionUpdateButton
+]
+
+{ #category : #views }
+TMAbstractTreeNode >> gtTreeMapFor: aView [
+	<gtView>
+	^ aView forward
+		title: 'Tree Map';
+		priority: 30;
+		object: [ self treeMap ];
+		view: #gtLiveFor:;
 		actionUpdateButton
 ]
 
@@ -189,6 +200,21 @@ TMAbstractTreeNode >> styleNodes [
 		in: self topicMap
 ]
 
+{ #category : #treemaps }
+TMAbstractTreeNode >> stylePalette [
+	^ {'Introduction' -> Color red lighter.
+		'Media' -> Color green.
+		'Tutorial' -> Color blue muchLighter.
+		'Case study' -> Color purple.
+		'Pattern' -> Color orange.
+		'FAQ' -> Color lightRed.
+		'Examples' -> Color paleYellow.
+		'Documentation' -> Color paleBlue.
+		'Definition' -> Color black.
+		'Index' -> Color gray.
+		'Tag' -> Color veryLightGray} asDictionary
+]
+
 { #category : #navigation }
 TMAbstractTreeNode >> styles [
 	self subclassResponsibility
@@ -236,7 +262,35 @@ TMAbstractTreeNode >> topics [
 ]
 
 { #category : #treemaps }
-TMAbstractTreeNode >> treeMapDeep [
+TMAbstractTreeNode >> treeMap [
+	| stylePalette treemap |
+	stylePalette := self stylePalette.
+	treemap := GtNestedRectangleTreeMap new
+			roots: {self};
+			leaves: [ :aNode | aNode treeMapLeaves ];
+			deep: [ :aNode | aNode treeMapChildren ];
+			leavesSize: [ :aPageNode | aPageNode page asMarkdownString size max: 1000 ];
+			leafElement: [ :anElement :aLeafContext | 
+				| page pageNode |
+				pageNode := aLeafContext model.
+				page := pageNode page.
+				anElement
+					background: (stylePalette at: pageNode style ifAbsent: Color veryLightGray).
+				anElement
+					when: BlClickEvent
+					do: [ :e | e target phlow spawnObject: pageNode ].
+				anElement
+					aptitude: (BrGlamorousWithExplicitTooltipAptitude content: [ pageNode treeMapTooltip ]) ];
+			containerElement: [ :anElement :aNodeContext | 
+				| node |
+				node := aNodeContext model.
+				anElement border: (BlBorder paint: node treeMapNodeColor width: 3).
+				anElement padding: (BlInsets all: 2) ].
+	^ treemap
+]
+
+{ #category : #treemaps }
+TMAbstractTreeNode >> treeMapChildren [
 	^ self children
 		collect: [ :n | 
 			n
@@ -247,6 +301,16 @@ TMAbstractTreeNode >> treeMapDeep [
 { #category : #treemaps }
 TMAbstractTreeNode >> treeMapLeaves [
 	^ {}
+]
+
+{ #category : #treemaps }
+TMAbstractTreeNode >> treeMapNodeColor [
+	^ Color gray
+]
+
+{ #category : #treemaps }
+TMAbstractTreeNode >> treeMapNodeLabel [
+	^ self name
 ]
 
 { #category : #treemaps }

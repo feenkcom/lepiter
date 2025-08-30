@@ -71,7 +71,7 @@ TMStyleNode >> topics [
 ]
 
 { #category : #treemaps }
-TMStyleNode >> treeMapDeep [
+TMStyleNode >> treeMapChildren [
 	^ {}
 ]
 
