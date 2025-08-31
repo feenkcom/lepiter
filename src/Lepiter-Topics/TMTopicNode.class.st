@@ -75,10 +75,15 @@ TMTopicNode >> topics [
 ]
 
 { #category : #treemaps }
-TMTopicNode >> treeMapDeep [
+TMTopicNode >> treeMapChildren [
 	^ self styleNodes
 		collect: [ :n | 
 			n
 				treeMapParent: self;
 				yourself ]
+]
+
+{ #category : #treemaps }
+TMTopicNode >> treeMapNodeColor [
+	^ Color blue
 ]

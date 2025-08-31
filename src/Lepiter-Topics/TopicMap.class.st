@@ -29,6 +29,13 @@ TopicMap class >> forJson: aFileReference [
 
 { #category : #icons }
 TopicMap class >> icon [
+	"Placeholder"
+
+	^ BrGlamorousVectorIcons bookmark
+]
+
+{ #category : #icons }
+TopicMap class >> iconOLD [
 	"Based on https://www.svgrepo.com/svg/509081/directions.
 	Just a placeholder icon -- to be replaced by one we create ourselves 
 	with Inkscape or OmniGraffle"
@@ -157,10 +164,20 @@ TopicMap >> gtTopicMapMenuFor: anAction [
 TopicMap >> gtTopicMapTreeFor: aView [
 	<gtView>
 	^ aView forward
-		title: 'Topic Map Tree';
+		title: 'Topic Map';
 		priority: 10;
 		object: [ self databaseNode ];
 		view: #gtTreeFor:
+]
+
+{ #category : #views }
+TopicMap >> gtTreeMapFor: aView [
+	<gtView>
+	^ aView forward
+		title: 'Tree Map';
+		priority: 30;
+		object: [ self databaseNode ];
+		view: #gtTreeMapFor:
 ]
 
 { #category : #views }

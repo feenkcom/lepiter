@@ -4,14 +4,16 @@ Extension { #name : #LeDatabase }
 LeDatabase >> gtTopicMapMenuFor: anAction [
 	<gtAction>
 	^ anAction dropdown
-		icon: BrGlamorousVectorIcons bookmark;
+		icon: TopicMap icon;
 		priority: 20;
 		tooltip: 'Topic Map Menu';
 		content: [ :aButton | 
 			BrGlamorousSimpleContextMenuContent new
 				items: {'Inspect topic map' -> [ aButton phlow spawnObject: self topicMap ].
-						'Enable topic map actions' -> [ TMRegistry uniqueInstance enableExtensions ].
-						'Disable topic map actions' -> [ TMRegistry uniqueInstance disableExtensions ]};
+						'Enable topic map actions'
+							-> [ TMRegistry uniqueInstance enableExtensions ].
+						'Disable topic map actions'
+							-> [ TMRegistry uniqueInstance disableExtensions ]};
 				yourself ]
 ]
 

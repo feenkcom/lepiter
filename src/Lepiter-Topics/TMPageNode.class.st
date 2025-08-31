@@ -37,16 +37,6 @@ TMPageNode >> fields [
 ]
 
 { #category : #views }
-TMPageNode >> gtDatabaseTreeFor: aView [
-	<gtView>
-	^ aView forward
-		title: 'Database fields';
-		priority: 40;
-		object: [ self databaseNode ];
-		view: #gtTreeFor:
-]
-
-{ #category : #views }
 TMPageNode >> gtLivePageFor: aView [
 	<gtView>
 	^ aView forward
@@ -63,7 +53,15 @@ TMPageNode >> gtSpawnPageActionFor: anAction [
 		tooltip: 'Spawn page';
 		priority: 20;
 		icon: LeIcons lepiterIcon;
-		action: [ :aButton | aButton phlow spawnObject: self page ]
+		action: [ :aButton | aButton phlow spawnObject: self page ];
+		primaryModifierAction: [ :aButton | aButton phlow showObject: self page ]
+			mouseCursor: BlCopyCursor new
+]
+
+{ #category : #'as yet unclassified' }
+TMPageNode >> gtTreeMapFor: aView [
+	<gtView>
+	^ aView empty
 ]
 
 { #category : #accessing }
@@ -112,7 +110,7 @@ TMPageNode >> topics [
 ]
 
 { #category : #'as yet unclassified' }
-TMPageNode >> treeMapDeep [
+TMPageNode >> treeMapChildren [
 	"For a treemap, a page has no further children."
 
 	^ {}
