@@ -26,12 +26,6 @@ TMPageNode class >> for: aPage in: aTopicMap [
 		yourself
 ]
 
-{ #category : #mondrian }
-TMPageNode >> allMondrianChildren [
-	"Stop the recursion here."
-	^ {}
-]
-
 { #category : #navigation }
 TMPageNode >> children [
 	^ self topics collect: [ :each | TMTopicNode for: each in: self topicMap ]
@@ -68,6 +62,12 @@ TMPageNode >> gtSpawnPageActionFor: anAction [
 TMPageNode >> gtTreeMapFor: aView [
 	<gtView>
 	^ aView empty
+]
+
+{ #category : #mondrian }
+TMPageNode >> mondrianChildren [
+	"Stop the recursion here."
+	^ OrderedCollection new
 ]
 
 { #category : #mondrian }

@@ -31,7 +31,7 @@ TMDatabaseNode >> mondrianNodeColor [
 
 { #category : #mondrian }
 TMDatabaseNode >> mondrianNodeSize [
-	^ 40 @ 40
+	^ 20 @ 20
 ]
 
 { #category : #accessing }

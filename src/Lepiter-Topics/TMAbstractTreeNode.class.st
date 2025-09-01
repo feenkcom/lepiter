@@ -24,8 +24,8 @@ TMAbstractTreeNode >> = other [
 TMAbstractTreeNode >> allMondrianChildren [
 	| allChildren |
 	allChildren := OrderedCollection withAll: self mondrianChildren.
-	self children do: [ :each | allChildren addAll: each allMondrianChildren ].
-	^ allChildren
+	self mondrianChildren do: [ :each | allChildren addAll: each allMondrianChildren ].
+	^ allChildren copyWithoutDuplicates
 ]
 
 { #category : #navigation }
@@ -195,12 +195,27 @@ TMAbstractTreeNode >> mondrianNodeElement [
 	^ BlElement new
 		size: self mondrianNodeSize;
 		border: self mondrianNodeBorderColor;
-		background: self mondrianNodeColor
+		background: self mondrianNodeColor;
+		aptitude: (BrGlamorousWithExplicitTooltipAptitude content: self mondrianTooltip)
 ]
 
 { #category : #mondrian }
 TMAbstractTreeNode >> mondrianNodeSize [
 	^ 10 @ 10
+]
+
+{ #category : #mondrian }
+TMAbstractTreeNode >> mondrianTooltip [
+	^ [ BrLabel new
+		aptitude: BrGlamorousLabelAptitude new glamorousRegularFontAndSize;
+		padding: (BlInsets all: 2);
+		text: self printString;
+		alignCenter ] asStencil
+]
+
+{ #category : #mondrian }
+TMAbstractTreeNode >> mondrianTooltipLabel [
+	^ self name
 ]
 
 { #category : #accessing }
