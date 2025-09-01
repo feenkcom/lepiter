@@ -13,6 +13,21 @@ Class {
 	#category : #'Lepiter-Topics-Model'
 }
 
+{ #category : #comparing }
+TMAbstractTreeNode >> = other [
+	self == other ifTrue: [ ^ true ].
+	self class = other class ifFalse: [^ false ].
+	^ self name = other name
+]
+
+{ #category : #navigation }
+TMAbstractTreeNode >> allChildren [
+	| allChildren |
+	allChildren := OrderedCollection withAll: self children.
+	self children do: [ :each | allChildren addAll: each allChildren ].
+	^ allChildren
+]
+
 { #category : #navigation }
 TMAbstractTreeNode >> children [
 	self subclassResponsibility
@@ -58,7 +73,7 @@ TMAbstractTreeNode >> gtSpawnTopicMapActionFor: anAction [
 	^ anAction button
 		tooltip: 'Topic map';
 		priority: 35;
-		icon: TopicMap icon;
+		icon: TopicMap topicMapIcon;
 		action: [ :aButton | aButton phlow spawnObject: self topicMap ];
 		primaryModifierAction: [ :aButton | aButton phlow showObject: self topicMap ]
 			mouseCursor: BlCopyCursor new
@@ -148,6 +163,11 @@ TMAbstractTreeNode >> gtTreeMapFor: aView [
 		object: [ self treeMap ];
 		view: #gtLiveFor:;
 		actionUpdateButton
+]
+
+{ #category : #comparing }
+TMAbstractTreeNode >> hash [
+	^ self name hash
 ]
 
 { #category : #testing }
@@ -356,4 +376,9 @@ TMAbstractTreeNode >> treeMapPath [
 { #category : #treemaps }
 TMAbstractTreeNode >> treeMapRoots [
 	^ {self}
+]
+
+{ #category : #navigation }
+TMAbstractTreeNode >> withAllChildren [
+	^ {self} , self allChildren
 ]

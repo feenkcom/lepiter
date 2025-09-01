@@ -27,6 +27,12 @@ TMPageNode class >> for: aPage in: aTopicMap [
 ]
 
 { #category : #navigation }
+TMPageNode >> allChildren [
+	"Stop the recursion here."
+	^ {}
+]
+
+{ #category : #navigation }
 TMPageNode >> children [
 	^ self topics collect: [ :each | TMTopicNode for: each in: self topicMap ]
 ]

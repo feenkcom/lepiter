@@ -21,6 +21,13 @@ TMNodeGroup class >> for: aNodeCollection in: aTopicMap [
 	yourself 
 ]
 
+{ #category : #comparing }
+TMNodeGroup >> = other [
+	self == other ifTrue: [ ^ true ].
+	self class = other class ifFalse: [^ false ].
+	^ self nodes asSet = other nodes asSet
+]
+
 { #category : #navigation }
 TMNodeGroup >> children [
 	^ self nodes
@@ -29,6 +36,13 @@ TMNodeGroup >> children [
 { #category : #navigation }
 TMNodeGroup >> fields [
 	^ (self children flatCollect: #fields) copyWithoutDuplicates
+]
+
+{ #category : #comparing }
+TMNodeGroup >> hash [
+	"Bad hack? Should we combine all the hashes?"
+
+	^ self nodes first hash
 ]
 
 { #category : #accessing }
