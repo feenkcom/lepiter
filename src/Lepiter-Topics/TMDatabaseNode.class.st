@@ -24,6 +24,20 @@ TMDatabaseNode >> fields [
 	^ self topicMap fields
 ]
 
+{ #category : #actions }
+TMDatabaseNode >> gtDatabaseActionFor: anAction [
+	<gtAction>
+	self database ifNil: [ ^ anAction noAction ].
+	self database isDatabase ifFalse: [ ^ anAction noAction ].
+
+	^ anAction button
+		tooltip: 'Inspect the database';
+		priority: 40;
+		icon: LeIcons lepiterDatabase;
+		id: LePageDatabaseActionId;
+		action: [ :aButton | aButton phlow spawnObject: self database ]
+]
+
 { #category : #mondrian }
 TMDatabaseNode >> mondrianNodeColor [
 	^ Color blue

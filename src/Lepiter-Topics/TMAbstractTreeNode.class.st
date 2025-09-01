@@ -178,6 +178,10 @@ TMAbstractTreeNode >> isAbstract [
 { #category : #mondrian }
 TMAbstractTreeNode >> mondrianChildren [
 	^ self children
+		collect: [ :n | 
+			n
+				treeMapParent: self;
+				yourself ]
 ]
 
 { #category : #mondrian }
@@ -209,7 +213,7 @@ TMAbstractTreeNode >> mondrianTooltip [
 	^ [ BrLabel new
 		aptitude: BrGlamorousLabelAptitude new glamorousRegularFontAndSize;
 		padding: (BlInsets all: 2);
-		text: self printString;
+		text: self mondrianTooltipLabel;
 		alignCenter ] asStencil
 ]
 

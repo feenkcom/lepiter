@@ -82,6 +82,23 @@ TMPageNode >> mondrianNodeElement [
 		yourself
 ]
 
+{ #category : #mondrian }
+TMPageNode >> mondrianTooltip [
+	^ [ BrEditor new
+		aptitude: BrGlamorousRegularEditorAptitude new;
+		padding: (BlInsets all: 2);
+		text: self mondrianTooltipLabel;
+		yourself ] asStencil
+]
+
+{ #category : #mondrian }
+TMPageNode >> mondrianTooltipLabel [
+	"NB: This will show only *one* of the paths!
+	If there are multiple topics, only the last one will be shown."
+
+	^ self treeMapPath
+]
+
 { #category : #accessing }
 TMPageNode >> name [
 	^ 'Page: ', self page title
@@ -138,6 +155,7 @@ TMPageNode >> treeMapChildren [
 TMPageNode >> treeMapTooltip [
 	^ BrEditor new
 		aptitude: BrGlamorousRegularEditorAptitude new;
+		padding: (BlInsets all: 2);
 		text: self treeMapPath;
 		yourself
 ]

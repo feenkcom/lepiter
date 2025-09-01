@@ -33,6 +33,10 @@ TMTopicNode >> fields [
 { #category : #mondrian }
 TMTopicNode >> mondrianChildren [
 	^ self pageGroup
+		collect: [ :n | 
+			n
+				treeMapParent: self;
+				yourself ]
 ]
 
 { #category : #mondrian }
