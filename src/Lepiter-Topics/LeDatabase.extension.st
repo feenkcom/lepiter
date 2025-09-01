@@ -4,7 +4,7 @@ Extension { #name : #LeDatabase }
 LeDatabase >> gtTopicMapMenuFor: anAction [
 	<gtAction>
 	^ anAction dropdown
-		icon: TopicMap icon;
+		icon: TopicMap topicMapIcon;
 		priority: 20;
 		tooltip: 'Topic Map Menu';
 		content: [ :aButton | 

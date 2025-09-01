@@ -85,5 +85,5 @@ TMTopicNode >> treeMapChildren [
 
 { #category : #treemaps }
 TMTopicNode >> treeMapNodeColor [
-	^ Color blue
+	^ Color green
 ]
