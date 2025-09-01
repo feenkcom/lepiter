@@ -31,7 +31,7 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 				spec repository: 'github://feenkcom/gtoolkit-releaser:v0.8.300/src' ].
 		spec
 			baseline: 'LepiterXDoc' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.3286/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.6.3287/src' ].
 		spec
 			baseline: 'SmaCCRuntime' with: [
 				spec repository: 'github://j-brant/SmaCC:v3.0.116' ].
@@ -43,7 +43,7 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 				spec repository: 'github://feenkcom/pharo-beacon:791ef3c1ef13abff0d9f035cc5a9ec3f5342a668/repository' ].
 		spec
 			baseline: 'JSONWebToken' with: [
-				spec repository: 'github://feenkcom/JSONWebToken:v0.5.152/source' ].
+				spec repository: 'github://feenkcom/JSONWebToken:v0.5.153/source' ].
 		spec
 			baseline: 'ZincHTTPComponentsRest' with: [
 				spec repository: 'github://feenkcom/zinc:v3.0.72/repository' ].
