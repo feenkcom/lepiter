@@ -219,8 +219,8 @@ TMAbstractTreeNode >> stylePalette [
 		'Tutorial' -> Color blue muchLighter.
 		'Case study' -> Color purple.
 		'Pattern' -> Color orange.
-		'FAQ' -> Color lightRed.
-		'Examples' -> Color paleYellow.
+		'FAQ' -> Color paleYellow.
+		'Examples' -> Color lightRed.
 		'Documentation' -> Color paleBlue.
 		'Definition' -> Color black.
 		'Index' -> Color gray.
@@ -278,7 +278,7 @@ TMAbstractTreeNode >> treeMap [
 	| stylePalette treemap |
 	stylePalette := self stylePalette.
 	treemap := GtNestedRectangleTreeMap new
-			roots: {self};
+			roots: self treeMapRoots;
 			leaves: [ :aNode | aNode treeMapLeaves ];
 			deep: [ :aNode | aNode treeMapChildren ];
 			leavesSize: [ :aPageNode | aPageNode page asMarkdownString size max: 1000 ];
@@ -295,8 +295,17 @@ TMAbstractTreeNode >> treeMap [
 					aptitude: (BrGlamorousWithExplicitTooltipAptitude content: [ pageNode treeMapTooltip ]) ];
 			containerElement: [ :anElement :aNodeContext | 
 				| node |
-				node := aNodeContext model.
-				anElement border: (BlBorder paint: node treeMapNodeColor width: 3).
+				node := aNodeContext model.	"aNodeContext level = 2
+					ifTrue: [ anElement
+							addChild: (BrLabel new
+									text: node name;
+									aptitude: (BrGlamorousLabelAptitude new
+											fontSize: 10;
+											foreground: Color blue);
+									background: Color white;
+									constraintsDo: [ :c | c ignoreByLayout ]) ]."
+
+				anElement border: (BlBorder paint: node treeMapNodeColor width: 2).
 				anElement padding: (BlInsets all: 2) ].
 	^ treemap
 ]
@@ -342,4 +351,9 @@ TMAbstractTreeNode >> treeMapPath [
 	^ (self treeMapParent
 		ifNil: [ '' ]
 		ifNotNil: [ self treeMapParent treeMapPath , String cr ]) , self name
+]
+
+{ #category : #treemaps }
+TMAbstractTreeNode >> treeMapRoots [
+	^ {self}
 ]

@@ -44,3 +44,11 @@ TMPageGroup >> pages: aPageCollection [
 TMPageGroup >> treeMapLeaves [
 	^ self
 ]
+
+{ #category : #treemaps }
+TMPageGroup >> treeMapRoots [
+	"This fails:
+		^ self fieldNodes"
+
+	^ super treeMapRoots
+]

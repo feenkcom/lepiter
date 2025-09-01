@@ -56,3 +56,8 @@ TMFieldNode >> styles [
 TMFieldNode >> topics [
 	^ self topicMap topic4Field: self field
 ]
+
+{ #category : #treemaps }
+TMFieldNode >> treeMapNodeColor [
+	^ Color blue
+]
