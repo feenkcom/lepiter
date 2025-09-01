@@ -27,12 +27,6 @@ TMPageNode class >> for: aPage in: aTopicMap [
 ]
 
 { #category : #navigation }
-TMPageNode >> allChildren [
-	"Stop the recursion here."
-	^ {}
-]
-
-{ #category : #navigation }
 TMPageNode >> children [
 	^ self topics collect: [ :each | TMTopicNode for: each in: self topicMap ]
 ]
@@ -68,6 +62,41 @@ TMPageNode >> gtSpawnPageActionFor: anAction [
 TMPageNode >> gtTreeMapFor: aView [
 	<gtView>
 	^ aView empty
+]
+
+{ #category : #mondrian }
+TMPageNode >> mondrianChildren [
+	"Stop the recursion here."
+	^ OrderedCollection new
+]
+
+{ #category : #mondrian }
+TMPageNode >> mondrianNodeColor [
+	^ self stylePalette at: self style
+]
+
+{ #category : #mondrian }
+TMPageNode >> mondrianNodeElement [
+	^ super mondrianNodeElement
+		geometry: BlCircleGeometry new;
+		yourself
+]
+
+{ #category : #mondrian }
+TMPageNode >> mondrianTooltip [
+	^ [ BrEditor new
+		aptitude: BrGlamorousRegularEditorAptitude new;
+		padding: (BlInsets all: 2);
+		text: self mondrianTooltipLabel;
+		yourself ] asStencil
+]
+
+{ #category : #mondrian }
+TMPageNode >> mondrianTooltipLabel [
+	"NB: This will show only *one* of the paths!
+	If there are multiple topics, only the last one will be shown."
+
+	^ self treeMapPath
 ]
 
 { #category : #accessing }
@@ -126,6 +155,7 @@ TMPageNode >> treeMapChildren [
 TMPageNode >> treeMapTooltip [
 	^ BrEditor new
 		aptitude: BrGlamorousRegularEditorAptitude new;
+		padding: (BlInsets all: 2);
 		text: self treeMapPath;
 		yourself
 ]

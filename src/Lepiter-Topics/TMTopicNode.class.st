@@ -17,15 +17,6 @@ TMTopicNode class >> for: aTopic in: aTopicMap [
 
 { #category : #navigation }
 TMTopicNode >> children [
-	"Why not simply self styleNodes?"
-
-	"^ self styles
-		collect: [ :aStyle | 
-			TMStyleNode
-				for: aStyle
-				in: self topicMap
-				within: (TMPageGroup for: self topicMap with: self pages) ]"
-
 	^ self styleNodes
 ]
 
@@ -37,6 +28,20 @@ TMTopicNode >> field [
 { #category : #navigation }
 TMTopicNode >> fields [
 	^ {self field}
+]
+
+{ #category : #mondrian }
+TMTopicNode >> mondrianChildren [
+	^ self pageGroup
+		collect: [ :n | 
+			n
+				treeMapParent: self;
+				yourself ]
+]
+
+{ #category : #mondrian }
+TMTopicNode >> mondrianNodeColor [
+	^ Color green muchDarker
 ]
 
 { #category : #accessing }

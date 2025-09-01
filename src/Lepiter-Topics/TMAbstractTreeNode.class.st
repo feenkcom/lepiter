@@ -20,12 +20,12 @@ TMAbstractTreeNode >> = other [
 	^ self name = other name
 ]
 
-{ #category : #navigation }
-TMAbstractTreeNode >> allChildren [
+{ #category : #mondrian }
+TMAbstractTreeNode >> allMondrianChildren [
 	| allChildren |
-	allChildren := OrderedCollection withAll: self children.
-	self children do: [ :each | allChildren addAll: each allChildren ].
-	^ allChildren
+	allChildren := OrderedCollection withAll: self mondrianChildren.
+	self mondrianChildren do: [ :each | allChildren addAll: each allMondrianChildren ].
+	^ allChildren copyWithoutDuplicates
 ]
 
 { #category : #navigation }
@@ -175,6 +175,53 @@ TMAbstractTreeNode >> isAbstract [
 	^ self == TMAbstractTreeNode
 ]
 
+{ #category : #mondrian }
+TMAbstractTreeNode >> mondrianChildren [
+	^ self children
+		collect: [ :n | 
+			n
+				treeMapParent: self;
+				yourself ]
+]
+
+{ #category : #mondrian }
+TMAbstractTreeNode >> mondrianNodeBorderColor [
+	^ Color black
+]
+
+{ #category : #mondrian }
+TMAbstractTreeNode >> mondrianNodeColor [
+	^ Color white
+]
+
+{ #category : #mondrian }
+TMAbstractTreeNode >> mondrianNodeElement [
+	^ BlElement new
+		size: self mondrianNodeSize;
+		border: self mondrianNodeBorderColor;
+		background: self mondrianNodeColor;
+		aptitude: (BrGlamorousWithExplicitTooltipAptitude content: self mondrianTooltip)
+]
+
+{ #category : #mondrian }
+TMAbstractTreeNode >> mondrianNodeSize [
+	^ 10 @ 10
+]
+
+{ #category : #mondrian }
+TMAbstractTreeNode >> mondrianTooltip [
+	^ [ BrLabel new
+		aptitude: BrGlamorousLabelAptitude new glamorousRegularFontAndSize;
+		padding: (BlInsets all: 2);
+		text: self mondrianTooltipLabel;
+		alignCenter ] asStencil
+]
+
+{ #category : #mondrian }
+TMAbstractTreeNode >> mondrianTooltipLabel [
+	^ self name
+]
+
 { #category : #accessing }
 TMAbstractTreeNode >> name [
 	self subclassResponsibility
@@ -183,14 +230,6 @@ TMAbstractTreeNode >> name [
 { #category : #navigation }
 TMAbstractTreeNode >> pageGroup [
 	^ TMPageGroup for: self topicMap with: self pages
-]
-
-{ #category : #navigation }
-TMAbstractTreeNode >> pageNodes [
-	self
-		deprecated: 'Use pageGroup instead'
-		transformWith: '`@receiver pageNodes' -> '`@receiver pageGroup'.
-	^ self pageGroup
 ]
 
 { #category : #navigation }
@@ -378,7 +417,7 @@ TMAbstractTreeNode >> treeMapRoots [
 	^ {self}
 ]
 
-{ #category : #navigation }
-TMAbstractTreeNode >> withAllChildren [
-	^ {self} , self allChildren
+{ #category : #mondrian }
+TMAbstractTreeNode >> withAllMondrianChildren [
+	^ {self} , self allMondrianChildren
 ]
