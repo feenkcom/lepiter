@@ -20,11 +20,11 @@ TMAbstractTreeNode >> = other [
 	^ self name = other name
 ]
 
-{ #category : #navigation }
-TMAbstractTreeNode >> allChildren [
+{ #category : #mondrian }
+TMAbstractTreeNode >> allMondrianChildren [
 	| allChildren |
-	allChildren := OrderedCollection withAll: self children.
-	self children do: [ :each | allChildren addAll: each allChildren ].
+	allChildren := OrderedCollection withAll: self mondrianChildren.
+	self children do: [ :each | allChildren addAll: each allMondrianChildren ].
 	^ allChildren
 ]
 
@@ -175,6 +175,34 @@ TMAbstractTreeNode >> isAbstract [
 	^ self == TMAbstractTreeNode
 ]
 
+{ #category : #mondrian }
+TMAbstractTreeNode >> mondrianChildren [
+	^ self children
+]
+
+{ #category : #mondrian }
+TMAbstractTreeNode >> mondrianNodeBorderColor [
+	^ Color black
+]
+
+{ #category : #mondrian }
+TMAbstractTreeNode >> mondrianNodeColor [
+	^ Color white
+]
+
+{ #category : #mondrian }
+TMAbstractTreeNode >> mondrianNodeElement [
+	^ BlElement new
+		size: self mondrianNodeSize;
+		border: self mondrianNodeBorderColor;
+		background: self mondrianNodeColor
+]
+
+{ #category : #mondrian }
+TMAbstractTreeNode >> mondrianNodeSize [
+	^ 10 @ 10
+]
+
 { #category : #accessing }
 TMAbstractTreeNode >> name [
 	self subclassResponsibility
@@ -183,14 +211,6 @@ TMAbstractTreeNode >> name [
 { #category : #navigation }
 TMAbstractTreeNode >> pageGroup [
 	^ TMPageGroup for: self topicMap with: self pages
-]
-
-{ #category : #navigation }
-TMAbstractTreeNode >> pageNodes [
-	self
-		deprecated: 'Use pageGroup instead'
-		transformWith: '`@receiver pageNodes' -> '`@receiver pageGroup'.
-	^ self pageGroup
 ]
 
 { #category : #navigation }
@@ -378,7 +398,7 @@ TMAbstractTreeNode >> treeMapRoots [
 	^ {self}
 ]
 
-{ #category : #navigation }
-TMAbstractTreeNode >> withAllChildren [
-	^ {self} , self allChildren
+{ #category : #mondrian }
+TMAbstractTreeNode >> withAllMondrianChildren [
+	^ {self} , self allMondrianChildren
 ]

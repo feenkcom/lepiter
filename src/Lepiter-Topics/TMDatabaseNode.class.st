@@ -24,6 +24,16 @@ TMDatabaseNode >> fields [
 	^ self topicMap fields
 ]
 
+{ #category : #mondrian }
+TMDatabaseNode >> mondrianNodeColor [
+	^ Color blue
+]
+
+{ #category : #mondrian }
+TMDatabaseNode >> mondrianNodeSize [
+	^ 40 @ 40
+]
+
 { #category : #accessing }
 TMDatabaseNode >> name [
 	^ self database databaseName

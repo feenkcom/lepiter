@@ -26,8 +26,8 @@ TMPageNode class >> for: aPage in: aTopicMap [
 		yourself
 ]
 
-{ #category : #navigation }
-TMPageNode >> allChildren [
+{ #category : #mondrian }
+TMPageNode >> allMondrianChildren [
 	"Stop the recursion here."
 	^ {}
 ]
@@ -68,6 +68,18 @@ TMPageNode >> gtSpawnPageActionFor: anAction [
 TMPageNode >> gtTreeMapFor: aView [
 	<gtView>
 	^ aView empty
+]
+
+{ #category : #mondrian }
+TMPageNode >> mondrianNodeColor [
+	^ self stylePalette at: self style
+]
+
+{ #category : #mondrian }
+TMPageNode >> mondrianNodeElement [
+	^ super mondrianNodeElement
+		geometry: BlCircleGeometry new;
+		yourself
 ]
 
 { #category : #accessing }

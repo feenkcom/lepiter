@@ -35,6 +35,11 @@ TMFieldNode >> fields [
 	^ {field}
 ]
 
+{ #category : #mondrian }
+TMFieldNode >> mondrianNodeColor [
+	^ Color red muchDarker
+]
+
 { #category : #accessing }
 TMFieldNode >> name [
 	^ 'Field: ' , self field
