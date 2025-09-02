@@ -9,17 +9,31 @@ Class {
 }
 
 { #category : #'instance creation' }
+TMStyleNode class >> for: aString in: aTopicMap [
+	"When the context is all of the pages of the topic map."
+
+	^ self new
+		style: aString;
+		topicMap: aTopicMap;
+		context: aTopicMap pageGroup;
+		yourself
+]
+
+{ #category : #'instance creation' }
 TMStyleNode class >> for: aString in: aTopicMap within: aPageGroup [
-^ self new
-	style: aString;
-	topicMap: aTopicMap;
-	context: aPageGroup;
-	yourself 
+	"When the context is provided by some parent, eg a specific topic and its pages."
+
+	^ self new
+		style: aString;
+		topicMap: aTopicMap;
+		context: aPageGroup;
+		yourself
 ]
 
 { #category : #navigation }
 TMStyleNode >> children [
-	^ self pages collect: [ :aPage | TMPageNode for: aPage in: self topicMap ]
+	^ self pageGroupFor: self pages	"^ self
+		pageGroupFor: (self pages collect: [ :aPage | TMPageNode for: aPage in: self topicMap ])"
 ]
 
 { #category : #accessing }

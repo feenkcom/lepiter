@@ -15,6 +15,11 @@ TMPageGroup class >> for: aPageCollection in: aTopicMap [
 		yourself
 ]
 
+{ #category : #testing }
+TMPageGroup >> isTMPageGroup [
+	^ true
+]
+
 { #category : #navigation }
 TMPageGroup >> pageGroup [
 	^ self

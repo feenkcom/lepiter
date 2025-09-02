@@ -14,9 +14,17 @@ TMDatabaseNode class >> for: aDatabase [
 		yourself
 ]
 
+{ #category : #'instance creation' }
+TMDatabaseNode class >> for: aDatabase in: aTopicMap [
+	^ self new
+		topicMap: aTopicMap;
+		yourself
+]
+
 { #category : #navigation }
 TMDatabaseNode >> children [
-	^ self fields collect: [ :aField | TMFieldNode for: aField in: self topicMap ]
+	^ self
+		nodeGroupFor: (self fields collect: [ :aField | TMFieldNode for: aField in: self topicMap ])
 ]
 
 { #category : #navigation }

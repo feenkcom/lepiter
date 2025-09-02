@@ -13,6 +13,13 @@ Class {
 	#category : #'Lepiter-Topics-Model'
 }
 
+{ #category : #'instance creation' }
+TMAbstractTreeNode class >> for: anObject in: aTopicMap [
+	"All subclasses implement at least this API, and possibly others."
+
+	self subclassResponsibility
+]
+
 { #category : #comparing }
 TMAbstractTreeNode >> = other [
 	self == other ifTrue: [ ^ true ].
@@ -147,6 +154,11 @@ TMAbstractTreeNode >> hash [
 { #category : #testing }
 TMAbstractTreeNode >> isAbstract [
 	^ self == TMAbstractTreeNode
+]
+
+{ #category : #testing }
+TMAbstractTreeNode >> isTMTreeNode [
+	^ true
 ]
 
 { #category : #mondrian }

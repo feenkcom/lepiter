@@ -30,7 +30,7 @@ TMNodeGroup >> = other [
 
 { #category : #navigation }
 TMNodeGroup >> children [
-	^ self nodes
+	^ self nodeGroupFor: self nodes
 ]
 
 { #category : #navigation }
@@ -43,6 +43,11 @@ TMNodeGroup >> hash [
 	"Bad hack? Should we combine all the hashes?"
 
 	^ self nodes first hash
+]
+
+{ #category : #testing }
+TMNodeGroup >> isTMNodeGroup [
+	^ true
 ]
 
 { #category : #accessing }
