@@ -35,6 +35,14 @@ TMAbstractTreeNode >> allMondrianChildren [
 	^ allChildren copyWithoutDuplicates
 ]
 
+{ #category : #treemaps }
+TMAbstractTreeNode >> allTreeMapChildren [
+	| allChildren |
+	allChildren := OrderedCollection withAll: self treeMapChildren.
+	self treeMapChildren do: [ :each | allChildren addAll: each allTreeMapChildren ].
+	^ allChildren
+]
+
 { #category : #navigation }
 TMAbstractTreeNode >> children [
 	self subclassResponsibility
@@ -402,4 +410,9 @@ TMAbstractTreeNode >> treeMapRoots [
 { #category : #mondrian }
 TMAbstractTreeNode >> withAllMondrianChildren [
 	^ {self} , self allMondrianChildren
+]
+
+{ #category : #treemaps }
+TMAbstractTreeNode >> withAllTreeMapChildren [
+	^ {self} , self allTreeMapChildren
 ]
