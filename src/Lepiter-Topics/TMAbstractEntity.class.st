@@ -16,7 +16,10 @@ TMAbstractEntity >> gtSpotterForPageContent: aSearch [
 		items: [ self pages ];
 		itemsLimit: Float infinity;
 		itemName: #asMarkdownPage;
-		sendCategory: [ :aCategory :aStep :thisSearch | self pageGroupFor: aCategory items contents ];
+		sendCategory: [ :aCategory :aStep :thisSearch | 
+			(self pageGroupFor: aCategory items contents)
+				queryString: aStep searchQuery;
+				yourself ];
 		filterBySubstring
 ]
 
@@ -29,7 +32,10 @@ TMAbstractEntity >> gtSpotterForPageTitles: aSearch [
 		items: [ self pages ];
 		itemsLimit: Float infinity;
 		itemName: #title;
-		sendCategory: [ :aCategory :aStep :thisSearch | self pageGroupFor: aCategory items contents ];
+		sendCategory: [ :aCategory :aStep :thisSearch | 
+			(self pageGroupFor: aCategory items contents)
+				queryString: aStep searchQuery;
+				yourself ];
 		filterBySubstring
 ]
 
