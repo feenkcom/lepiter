@@ -32,6 +32,8 @@ TMTopicNode >> fields [
 
 { #category : #mondrian }
 TMTopicNode >> mondrianChildren [
+	"For mondrian my children are pages, not styles."
+
 	^ self pageGroup
 		collect: [ :n | 
 			n

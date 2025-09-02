@@ -28,18 +28,25 @@ TMAbstractTreeNode >> = other [
 ]
 
 { #category : #mondrian }
-TMAbstractTreeNode >> allMondrianChildren [
+TMAbstractTreeNode >> allMondrianGraphChildren [
+	"In this version we filter out duplicate copies of pages, so we get a graph instead of a tree.
+	NB: each page will only show a single parent in its tooltip, namely the last topic visited."
+
 	| allChildren |
 	allChildren := OrderedCollection withAll: self mondrianChildren.
-	self mondrianChildren do: [ :each | allChildren addAll: each allMondrianChildren ].
+	self mondrianChildren
+		do: [ :each | allChildren addAll: each allMondrianGraphChildren ].
 	^ allChildren copyWithoutDuplicates
 ]
 
-{ #category : #treemaps }
-TMAbstractTreeNode >> allTreeMapChildren [
+{ #category : #mondrian }
+TMAbstractTreeNode >> allMondrianTreeChildren [
+	"Here we keep multiple copies of pages that have multiple topics, so the result is a tree."
+
 	| allChildren |
-	allChildren := OrderedCollection withAll: self treeMapChildren.
-	self treeMapChildren do: [ :each | allChildren addAll: each allTreeMapChildren ].
+	allChildren := OrderedCollection withAll: self mondrianChildren.
+	self mondrianChildren
+		do: [ :each | allChildren addAll: each allMondrianTreeChildren ].
 	^ allChildren
 ]
 
@@ -171,6 +178,11 @@ TMAbstractTreeNode >> isTMTreeNode [
 
 { #category : #mondrian }
 TMAbstractTreeNode >> mondrianChildren [
+	"For Mondrian, we take the following path:
+		database -> field -> topic -> page (colored by style)
+	By default, each page may appear multiple times, once for each topic.
+	NB: Multiples copies are filtered by allMondrianGraphChildren."
+
 	^ self children
 		collect: [ :n | 
 			n
@@ -408,11 +420,11 @@ TMAbstractTreeNode >> treeMapRoots [
 ]
 
 { #category : #mondrian }
-TMAbstractTreeNode >> withAllMondrianChildren [
-	^ {self} , self allMondrianChildren
+TMAbstractTreeNode >> withAllMondrianGraphChildren [
+	^ {self} , self allMondrianGraphChildren
 ]
 
-{ #category : #treemaps }
-TMAbstractTreeNode >> withAllTreeMapChildren [
-	^ {self} , self allTreeMapChildren
+{ #category : #mondrian }
+TMAbstractTreeNode >> withAllMondrianTreeChildren [
+	^ {self} , self allMondrianTreeChildren
 ]
