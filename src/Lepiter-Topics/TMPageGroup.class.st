@@ -41,14 +41,15 @@ TMPageGroup >> pages: aPageCollection [
 ]
 
 { #category : #treemaps }
-TMPageGroup >> treeMapLeaves [
-	^ self
+TMPageGroup >> treeMapChildren [
+	^ self styleNodes
+		collect: [ :n | 
+			n
+				treeMapParent: self;
+				yourself ]
 ]
 
 { #category : #treemaps }
-TMPageGroup >> treeMapRoots [
-	"This fails:
-		^ self fieldNodes"
-
-	^ super treeMapRoots
+TMPageGroup >> treeMapLeaves [
+	^ self
 ]

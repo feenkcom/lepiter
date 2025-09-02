@@ -131,6 +131,15 @@ TopicMapExamples >> pageGroupChildrenOfStylesWithinAboutGt [
 ]
 
 { #category : #example }
+TopicMapExamples >> pageGroupFromTopicMap [
+	<gtExample>
+	| pageGroup |
+	pageGroup := self topicMap pageGroup.
+	self assert: pageGroup isTMPageGroup.
+	^ pageGroup
+]
+
+{ #category : #example }
 TopicMapExamples >> pageNodeWhatIsGt [
 	"NB: Fragile test, #topics, styles could change. Page title could change."
 
