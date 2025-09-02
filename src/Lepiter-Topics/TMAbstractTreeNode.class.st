@@ -335,7 +335,8 @@ TMAbstractTreeNode >> treeMap [
 					aptitude: (BrGlamorousWithExplicitTooltipAptitude content: [ pageNode treeMapTooltip ]) ];
 			containerElement: [ :anElement :aNodeContext | 
 				| node |
-				node := aNodeContext model.	"aNodeContext level = 2
+				node := aNodeContext model.
+				aNodeContext level = 2
 					ifTrue: [ anElement
 							addChild: (BrLabel new
 									text: node name;
@@ -343,10 +344,10 @@ TMAbstractTreeNode >> treeMap [
 											fontSize: 10;
 											foreground: Color blue);
 									background: Color white;
-									constraintsDo: [ :c | c ignoreByLayout ]) ]."
+									constraintsDo: [ :c | c ignoreByLayout ]) ].
 
 				anElement border: (BlBorder paint: node treeMapNodeColor width: 2).
-				anElement padding: (BlInsets all: 2) ].
+				anElement padding: (BlInsets top: 12  bottom: 2 left: 2 right: 2) ].
 	^ treemap
 ]
 
