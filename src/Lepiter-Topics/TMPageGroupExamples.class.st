@@ -11,7 +11,7 @@ TMPageGroupExamples >> gtBookPageGroup [
 	<gtExample>
 	| pageGroup topicMap |
 	topicMap := self gtBookTopicMap.
-	pageGroup := TMPageGroup for: topicMap.
+	pageGroup := topicMap pageGroup.
 	self assert: pageGroup pages size equals: topicMap pages size.
 	^ pageGroup
 ]

@@ -5,7 +5,7 @@ I support navigation via dedicated views of page groups.
 "
 Class {
 	#name : #TMAbstractTreeNode,
-	#superclass : #Object,
+	#superclass : #TMAbstractEntity,
 	#instVars : [
 		'topicMap',
 		'treeMapParent'
@@ -77,32 +77,6 @@ TMAbstractTreeNode >> gtSpawnTopicMapActionFor: anAction [
 		action: [ :aButton | aButton phlow spawnObject: self topicMap ];
 		primaryModifierAction: [ :aButton | aButton phlow showObject: self topicMap ]
 			mouseCursor: BlCopyCursor new
-]
-
-{ #category : #searching }
-TMAbstractTreeNode >> gtSpotterForPageContent: aSearch [
-	<gtSearch>
-	^ aSearch list
-		title: 'Page content';
-		priority: 25;
-		items: [ self pages ];
-		itemsLimit: Float infinity;
-		itemName: #asMarkdownPage;
-		sendCategory: [ :aCategory :aStep :thisSearch | TMPageGroup for: self topicMap with: aCategory items contents ];
-		filterBySubstring
-]
-
-{ #category : #searching }
-TMAbstractTreeNode >> gtSpotterForPageTitles: aSearch [
-	<gtSearch>
-	^ aSearch list
-		title: 'Page titles';
-		priority: 20;
-		items: [ self pages ];
-		itemsLimit: Float infinity;
-		itemName: #title;
-		sendCategory: [ :aCategory :aStep :thisSearch | TMPageGroup for: self topicMap with: aCategory items contents ];
-		filterBySubstring
 ]
 
 { #category : #views }
@@ -225,11 +199,6 @@ TMAbstractTreeNode >> mondrianTooltipLabel [
 { #category : #accessing }
 TMAbstractTreeNode >> name [
 	self subclassResponsibility
-]
-
-{ #category : #navigation }
-TMAbstractTreeNode >> pageGroup [
-	^ TMPageGroup for: self topicMap with: self pages
 ]
 
 { #category : #navigation }

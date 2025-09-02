@@ -15,10 +15,10 @@ Class {
 
 { #category : #'instance creation' }
 TMNodeGroup class >> for: aNodeCollection in: aTopicMap [
-^ self new
-	nodes: aNodeCollection;
-	topicMap: aTopicMap;
-	yourself 
+	^ self new
+		nodes: aNodeCollection;
+		topicMap: aTopicMap;
+		yourself
 ]
 
 { #category : #comparing }
