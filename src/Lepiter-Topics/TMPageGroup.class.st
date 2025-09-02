@@ -4,6 +4,9 @@ I am like my parent, but specifically contain just pages.
 Class {
 	#name : #TMPageGroup,
 	#superclass : #TMNodeGroup,
+	#instVars : [
+		'queryString'
+	],
 	#category : #'Lepiter-Topics-Model'
 }
 
@@ -18,6 +21,11 @@ TMPageGroup class >> for: aPageCollection in: aTopicMap [
 { #category : #testing }
 TMPageGroup >> isTMPageGroup [
 	^ true
+]
+
+{ #category : #accessing }
+TMPageGroup >> name [
+	^ 'Page group', self queryString
 ]
 
 { #category : #navigation }
@@ -40,9 +48,24 @@ TMPageGroup >> pages: aPageCollection [
 		nodes: (aPageCollection collect: [ :aPage | TMPageNode for: aPage in: self topicMap ])
 ]
 
+{ #category : #accessing }
+TMPageGroup >> queryString [
+	^ queryString ifNil: [ queryString := '' ]
+]
+
+{ #category : #accessing }
+TMPageGroup >> queryString: aString [
+	queryString := ' query: ', aString
+]
+
 { #category : #treemaps }
 TMPageGroup >> treeMapChildren [
-	^ self styleNodes
+	"^ self styleNodes
+		collect: [ :n | 
+			n
+				treeMapParent: self;
+				yourself ]"
+	^ self topicNodes
 		collect: [ :n | 
 			n
 				treeMapParent: self;
