@@ -17,7 +17,8 @@ TMFieldNode class >> for: aField in: aTopicMap [
 
 { #category : #accessing }
 TMFieldNode >> children [
-	^ self topics collect: [ :each | TMTopicNode for: each in: self topicMap ]
+	^ self
+		nodeGroupFor: (self topics collect: [ :each | TMTopicNode for: each in: self topicMap ])
 ]
 
 { #category : #accessing }

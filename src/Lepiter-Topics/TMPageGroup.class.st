@@ -8,16 +8,16 @@ Class {
 }
 
 { #category : #'instance creation' }
-TMPageGroup class >> for: aTopicMap [
-	^ self for: aTopicMap with: aTopicMap pages
-]
-
-{ #category : #'instance creation' }
-TMPageGroup class >> for: aTopicMap with: aPageCollection [
+TMPageGroup class >> for: aPageCollection in: aTopicMap [
 	^ self new
 		topicMap: aTopicMap;
 		pages: aPageCollection;
 		yourself
+]
+
+{ #category : #testing }
+TMPageGroup >> isTMPageGroup [
+	^ true
 ]
 
 { #category : #navigation }
@@ -41,14 +41,15 @@ TMPageGroup >> pages: aPageCollection [
 ]
 
 { #category : #treemaps }
-TMPageGroup >> treeMapLeaves [
-	^ self
+TMPageGroup >> treeMapChildren [
+	^ self styleNodes
+		collect: [ :n | 
+			n
+				treeMapParent: self;
+				yourself ]
 ]
 
 { #category : #treemaps }
-TMPageGroup >> treeMapRoots [
-	"This fails:
-		^ self fieldNodes"
-
-	^ super treeMapRoots
+TMPageGroup >> treeMapLeaves [
+	^ self
 ]

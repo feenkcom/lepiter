@@ -15,10 +15,10 @@ Class {
 
 { #category : #'instance creation' }
 TMNodeGroup class >> for: aNodeCollection in: aTopicMap [
-^ self new
-	nodes: aNodeCollection;
-	topicMap: aTopicMap;
-	yourself 
+	^ self new
+		nodes: aNodeCollection;
+		topicMap: aTopicMap;
+		yourself
 ]
 
 { #category : #comparing }
@@ -30,7 +30,7 @@ TMNodeGroup >> = other [
 
 { #category : #navigation }
 TMNodeGroup >> children [
-	^ self nodes
+	^ self nodeGroupFor: self nodes
 ]
 
 { #category : #navigation }
@@ -43,6 +43,11 @@ TMNodeGroup >> hash [
 	"Bad hack? Should we combine all the hashes?"
 
 	^ self nodes first hash
+]
+
+{ #category : #testing }
+TMNodeGroup >> isTMNodeGroup [
+	^ true
 ]
 
 { #category : #accessing }

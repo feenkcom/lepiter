@@ -9,6 +9,9 @@ Class {
 
 { #category : #'instance creation' }
 TMPageNode class >> for: aPage [
+	"This version forces the registered topic map associated
+	with the page to be used, rather than a test example."
+
 	^ self new
 		page: aPage;
 		topicMap: aPage topicMap;
@@ -28,7 +31,8 @@ TMPageNode class >> for: aPage in: aTopicMap [
 
 { #category : #navigation }
 TMPageNode >> children [
-	^ self topics collect: [ :each | TMTopicNode for: each in: self topicMap ]
+	^ self
+		nodeGroupFor: (self topics collect: [ :each | TMTopicNode for: each in: self topicMap ])
 ]
 
 { #category : #navigation }

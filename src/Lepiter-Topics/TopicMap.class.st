@@ -6,7 +6,7 @@ I am initialized from a JSON file that contains this mapping, as well as the lis
 "
 Class {
 	#name : #TopicMap,
-	#superclass : #Object,
+	#superclass : #TMAbstractEntity,
 	#instVars : [
 		'jsonFile',
 		'json',
@@ -44,10 +44,9 @@ TopicMap class >> forJson: aFileReference [
 
 { #category : #icons }
 TopicMap class >> topicMapIcon [
-	"Placeholder"
+	"^ BrGlamorousVectorIcons bookmark"
 
-	^ BrGlamorousVectorIcons bookmark
-	"^ TopicMap directionsIcon"
+	^ TopicMap directionsIcon
 ]
 
 { #category : #utility }
@@ -238,11 +237,6 @@ TopicMap >> page2Topics [
 					asDictionary ]
 ]
 
-{ #category : #accessing }
-TopicMap >> pageGroup [
-	^ TMPageGroup for: self with: self pages
-]
-
 { #category : #querying }
 TopicMap >> pages [
 	^ self page2Topics keys sortedAs: #title
@@ -310,6 +304,11 @@ TopicMap >> topic2Pages [
 { #category : #querying }
 TopicMap >> topic4Field: aField [
 	^ self field2Topics at: aField ifAbsent: self defaultValue
+]
+
+{ #category : #querying }
+TopicMap >> topicMap [
+	^ self
 ]
 
 { #category : #accessing }

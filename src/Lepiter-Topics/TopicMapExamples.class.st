@@ -11,21 +11,6 @@ Class {
 }
 
 { #category : #example }
-TopicMapExamples >> aboutGtTopicNode [
-	"NB: Fragile test, #styles could change in book."
-
-	<gtExample>
-	| aboutGtTopicNode |
-	aboutGtTopicNode := self gtBasicsFieldNode topicNodes nodes
-			detect: [ :n | n topic = 'About Glamorous Toolkit' ].
-	self assert: aboutGtTopicNode fields size equals: 1.
-	self assert: aboutGtTopicNode topics size equals: 1.
-	self assert: aboutGtTopicNode styles size equals: 5.
-	self assert: aboutGtTopicNode pages size < aboutGtTopicNode database pages size.
-	^ aboutGtTopicNode
-]
-
-{ #category : #example }
 TopicMapExamples >> database [
 	<gtExample>
 	| database |
@@ -42,6 +27,8 @@ TopicMapExamples >> databaseNode [
 	| databaseNode |
 	databaseNode := self topicMap databaseNode.
 	self assert: databaseNode fields size equals: 5.
+	self assert: databaseNode children isTMNodeGroup.
+	self assert: databaseNode children isTMPageGroup not.
 	^ databaseNode
 ]
 
@@ -56,34 +43,19 @@ TopicMapExamples >> field2Topics [
 ]
 
 { #category : #example }
-TopicMapExamples >> gtBasicsFieldNode [
+TopicMapExamples >> fieldNodeGtBasics [
 	"NB: Fragile test, #topics could change in book."
 
 	<gtExample>
-	| gtBasicsFieldNode |
-	gtBasicsFieldNode := self databaseNode fieldNodes nodes
+	| fieldNodeGtBasics |
+	fieldNodeGtBasics := self databaseNode fieldNodes nodes
 			detect: [ :n | n field = 'Glamorous Toolkit Basics' ].
-	self assert: gtBasicsFieldNode topics size equals: 10.
-	self assert: gtBasicsFieldNode styles size equals: 11.
-	self assert: gtBasicsFieldNode pages size < gtBasicsFieldNode database pages size.
-	^ gtBasicsFieldNode
-]
-
-{ #category : #example }
-TopicMapExamples >> introductionWithinAboutGtTopicStyleNode [
-	"NB: Since pages can have multiple topics, a style within 
-	a topic can branch to multiple other topics and fields,
-	as is the case here."
-
-	<gtExample>
-	| aboutGtTopicNode |
-	aboutGtTopicNode := self aboutGtTopicNode styleNodes nodes
-			detect: [ :n | n style = 'Introduction' ].
-	self assert: aboutGtTopicNode fields size equals: 3.
-	self assert: aboutGtTopicNode topics size equals: 10.
-	self assert: aboutGtTopicNode styles size equals: 1.
-	self assert: aboutGtTopicNode pages size < aboutGtTopicNode database pages size.
-	^ aboutGtTopicNode
+	self assert: fieldNodeGtBasics topics size equals: 10.
+	self assert: fieldNodeGtBasics styles size equals: 11.
+	self assert: fieldNodeGtBasics pages size < fieldNodeGtBasics database pages size.
+	self assert: fieldNodeGtBasics children isTMTreeNode.
+	self assert: fieldNodeGtBasics children isTMPageGroup not.
+	^ fieldNodeGtBasics
 ]
 
 { #category : #example }
@@ -108,6 +80,22 @@ TopicMapExamples >> missingPages [
 ]
 
 { #category : #example }
+TopicMapExamples >> nodeGroupChildrenOfFieldNodeGtBasics [
+	"NB: Fragile test, #topics could change in book."
+
+	<gtExample>
+	| nodeGroup |
+	nodeGroup := self fieldNodeGtBasics children.
+	self assert: nodeGroup size equals: 10.
+	self assert: nodeGroup isTMTreeNode.
+	self assert: nodeGroup isTMNodeGroup.
+	self assert: nodeGroup isTMPageGroup not.
+	self assert: nodeGroup children isTMNodeGroup.
+	self assert: nodeGroup children isTMPageGroup not.
+	^ nodeGroup
+]
+
+{ #category : #example }
 TopicMapExamples >> page2Style [
 	<gtExample>
 	| page2Style |
@@ -129,6 +117,46 @@ TopicMapExamples >> page2Topics [
 ]
 
 { #category : #example }
+TopicMapExamples >> pageGroupChildrenOfStylesWithinAboutGt [
+	<gtExample>
+	| pageGroup |
+	pageGroup := self styleNodeIntroductionWithinAboutGtTopic children.
+	self assert: pageGroup size equals: 6.
+	self assert: pageGroup isTMTreeNode.
+	self assert: pageGroup isTMNodeGroup.
+	self assert: pageGroup isTMPageGroup.
+	self assert: pageGroup children isTMNodeGroup.
+	self assert: pageGroup children isTMPageGroup not.
+	^ pageGroup
+]
+
+{ #category : #example }
+TopicMapExamples >> pageGroupFromTopicMap [
+	<gtExample>
+	| pageGroup |
+	pageGroup := self topicMap pageGroup.
+	self assert: pageGroup isTMPageGroup.
+	^ pageGroup
+]
+
+{ #category : #example }
+TopicMapExamples >> pageNodeWhatIsGt [
+	"NB: Fragile test, #topics, styles could change. Page title could change."
+
+	<gtExample>
+	| pageNodeWhatIsGt |
+	pageNodeWhatIsGt := self styleNodeIntroductionWithinAboutGtTopic pageGroup nodes
+			detect: [ :n | n page title = 'What is Glamorous Toolkit?' ].
+	self assert: pageNodeWhatIsGt fields size equals: 3.
+	self assert: pageNodeWhatIsGt topics size equals: 5.
+	self assert: pageNodeWhatIsGt styles size equals: 1.
+	self assert: pageNodeWhatIsGt pages size equals: 1.
+	self assert: pageNodeWhatIsGt children isTMNodeGroup.
+	self assert: pageNodeWhatIsGt children isTMPageGroup not.
+	^ pageNodeWhatIsGt
+]
+
+{ #category : #example }
 TopicMapExamples >> pages [
 	"NB: missing pages are filtered out."
 
@@ -136,6 +164,7 @@ TopicMapExamples >> pages [
 	| pages |
 	pages := self topicMap pages.
 	self assert: pages size equals: self page2Topics size.
+	self assert: pages isTMPageGroup not.
 	^ pages
 ]
 
@@ -147,6 +176,25 @@ TopicMapExamples >> style2Pages [
 	category2Page := topicMap style2Pages.
 	self assert: category2Page size equals: topicMap styles size.
 	^ category2Page
+]
+
+{ #category : #example }
+TopicMapExamples >> styleNodeIntroductionWithinAboutGtTopic [
+	"NB: Since pages can have multiple topics, a style within 
+	a topic can branch to multiple other topics and fields,
+	as is the case here."
+
+	<gtExample>
+	| aboutGtStyleNode |
+	aboutGtStyleNode := self topicNodeAboutGt styleNodes nodes
+			detect: [ :n | n style = 'Introduction' ].
+	self assert: aboutGtStyleNode fields size equals: 3.
+	self assert: aboutGtStyleNode topics size equals: 10.
+	self assert: aboutGtStyleNode styles size equals: 1.
+	self assert: aboutGtStyleNode pages size < aboutGtStyleNode database pages size.
+	self assert: aboutGtStyleNode children isTMNodeGroup.
+	self assert: aboutGtStyleNode children isTMPageGroup.
+	^ aboutGtStyleNode
 ]
 
 { #category : #example }
@@ -192,16 +240,18 @@ TopicMapExamples >> topicMapTestFile [
 ]
 
 { #category : #example }
-TopicMapExamples >> whatIsGtPageNode [
-	"NB: Fragile test, #topics, styles could change. Page title could change."
+TopicMapExamples >> topicNodeAboutGt [
+	"NB: Fragile test, #styles could change in book."
 
 	<gtExample>
-	| whatIsGtPageNode |
-	whatIsGtPageNode := self introductionWithinAboutGtTopicStyleNode pageGroup nodes
-			detect: [ :n | n page title = 'What is Glamorous Toolkit?' ].
-	self assert: whatIsGtPageNode fields size equals: 3.
-	self assert: whatIsGtPageNode topics size equals: 5.
-	self assert: whatIsGtPageNode styles size equals: 1.
-	self assert: whatIsGtPageNode pages size equals: 1.
-	^ whatIsGtPageNode
+	| topicNodeaAboutGt |
+	topicNodeaAboutGt := self fieldNodeGtBasics topicNodes nodes
+			detect: [ :n | n topic = 'About Glamorous Toolkit' ].
+	self assert: topicNodeaAboutGt fields size equals: 1.
+	self assert: topicNodeaAboutGt topics size equals: 1.
+	self assert: topicNodeaAboutGt styles size equals: 5.
+	self assert: topicNodeaAboutGt pages size < topicNodeaAboutGt database pages size.
+	self assert: topicNodeaAboutGt children isTMNodeGroup.
+	self assert: topicNodeaAboutGt children isTMPageGroup not.
+	^ topicNodeaAboutGt
 ]
