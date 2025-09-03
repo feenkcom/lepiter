@@ -40,7 +40,7 @@ TMPageGroup >> pages [
 	^ nodes collect: #page
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 TMPageGroup >> pages: aPageCollection [
 	"Wrap the pages as nodes."
 

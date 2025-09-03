@@ -41,11 +41,13 @@ TMAbstractTreeNode >> allMondrianGraphChildren [
 
 { #category : #mondrian }
 TMAbstractTreeNode >> allMondrianTreeChildren [
-	"Here we keep multiple copies of pages that have multiple topics, so the result is a tree."
+	"Here we keep multiple copies of pages that have multiple topics, so the result is a tree,
+	however we must use TMPageForTopicNode instead of TMPageNode for pages so Mondrian is not confused
+	by multiple nodes for the same pages."
 
 	| allChildren |
-	allChildren := OrderedCollection withAll: self mondrianChildren.
-	self mondrianChildren
+	allChildren := OrderedCollection withAll: self mondrianTreeChildren.
+	self mondrianTreeChildren
 		do: [ :each | allChildren addAll: each allMondrianTreeChildren ].
 	^ allChildren
 ]
@@ -188,7 +190,7 @@ TMAbstractTreeNode >> mondrianChildren [
 	"For Mondrian, we take the following path:
 		database -> field -> topic -> page (colored by style)
 	By default, each page may appear multiple times, once for each topic.
-	NB: Multiples copies are filtered by allMondrianGraphChildren."
+	Multiples copies are filtered by allMondrianGraphChildren."
 
 	^ self children
 		collect: [ :n | 
@@ -235,6 +237,16 @@ TMAbstractTreeNode >> mondrianTooltip [
 { #category : #mondrian }
 TMAbstractTreeNode >> mondrianTooltipLabel [
 	^ self name
+]
+
+{ #category : #mondrian }
+TMAbstractTreeNode >> mondrianTreeChildren [
+	"For Mondrian, we take the following path:
+		database -> field -> topic -> page (colored by style)
+	By default, each page may appear multiple times, once for each topic.
+	NB: Multiples copies are filtered by allMondrianGraphChildren."
+
+	^ self mondrianChildren
 ]
 
 { #category : #accessing }
