@@ -65,6 +65,13 @@ TMAbstractTreeNode >> databaseNode [
 	^ self topicMap databaseNode
 ]
 
+{ #category : #treemaps }
+TMAbstractTreeNode >> defaultNodeColor [
+	"Can be used for treemaps, mondrian graphs, sceneries etc."
+
+	^ Color gray
+]
+
 { #category : #navigation }
 TMAbstractTreeNode >> fieldNodes [
 	^ TMNodeGroup
@@ -197,7 +204,9 @@ TMAbstractTreeNode >> mondrianNodeBorderColor [
 
 { #category : #mondrian }
 TMAbstractTreeNode >> mondrianNodeColor [
-	^ Color white
+	"Can override the default in subclasses if needed."
+
+	^ self defaultNodeColor
 ]
 
 { #category : #mondrian }
@@ -387,7 +396,9 @@ TMAbstractTreeNode >> treeMapLeaves [
 
 { #category : #treemaps }
 TMAbstractTreeNode >> treeMapNodeColor [
-	^ Color gray
+	"Can override the default in subclasses if needed."
+
+	^ self defaultNodeColor
 ]
 
 { #category : #treemaps }
