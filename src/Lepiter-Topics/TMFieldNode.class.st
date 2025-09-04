@@ -21,6 +21,11 @@ TMFieldNode >> children [
 		nodeGroupFor: (self topics collect: [ :each | TMTopicNode for: each in: self topicMap ])
 ]
 
+{ #category : #mondrian }
+TMFieldNode >> defaultNodeColor [
+	^ Color paleRed
+]
+
 { #category : #accessing }
 TMFieldNode >> field [
 	^ field
@@ -34,11 +39,6 @@ TMFieldNode >> field: anObject [
 { #category : #navigation }
 TMFieldNode >> fields [
 	^ {field}
-]
-
-{ #category : #mondrian }
-TMFieldNode >> mondrianNodeColor [
-	^ Color red muchDarker
 ]
 
 { #category : #accessing }
@@ -61,9 +61,4 @@ TMFieldNode >> styles [
 { #category : #navigation }
 TMFieldNode >> topics [
 	^ self topicMap topic4Field: self field
-]
-
-{ #category : #treemaps }
-TMFieldNode >> treeMapNodeColor [
-	^ Color blue
 ]

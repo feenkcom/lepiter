@@ -20,6 +20,11 @@ TMTopicNode >> children [
 	^ self styleNodes
 ]
 
+{ #category : #mondrian }
+TMTopicNode >> defaultNodeColor [
+	^ Color paleGreen
+]
+
 { #category : #accessing }
 TMTopicNode >> field [
 	^ self topicMap field4Topic: self topic
@@ -42,8 +47,14 @@ TMTopicNode >> mondrianChildren [
 ]
 
 { #category : #mondrian }
-TMTopicNode >> mondrianNodeColor [
-	^ Color green muchDarker
+TMTopicNode >> mondrianTreeChildren [
+	"For mondrian my children are pages, not styles."
+
+	^ (TMPageForTopicGroup for: self pages in: self topicMap)
+		collect: [ :n | 
+			n
+				treeMapParent: self;
+				yourself ]
 ]
 
 { #category : #accessing }
@@ -88,9 +99,4 @@ TMTopicNode >> treeMapChildren [
 			n
 				treeMapParent: self;
 				yourself ]
-]
-
-{ #category : #treemaps }
-TMTopicNode >> treeMapNodeColor [
-	^ Color green
 ]

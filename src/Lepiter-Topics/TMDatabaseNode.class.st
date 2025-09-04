@@ -27,6 +27,11 @@ TMDatabaseNode >> children [
 		nodeGroupFor: (self fields collect: [ :aField | TMFieldNode for: aField in: self topicMap ])
 ]
 
+{ #category : #mondrian }
+TMDatabaseNode >> defaultNodeColor [
+	^ Color paleBlue
+]
+
 { #category : #navigation }
 TMDatabaseNode >> fields [
 	^ self topicMap fields
@@ -44,11 +49,6 @@ TMDatabaseNode >> gtDatabaseActionFor: anAction [
 		icon: LeIcons lepiterDatabase;
 		id: LePageDatabaseActionId;
 		action: [ :aButton | aButton phlow spawnObject: self database ]
-]
-
-{ #category : #mondrian }
-TMDatabaseNode >> mondrianNodeColor [
-	^ Color blue
 ]
 
 { #category : #mondrian }

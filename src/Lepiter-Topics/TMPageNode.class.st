@@ -35,6 +35,11 @@ TMPageNode >> children [
 		nodeGroupFor: (self topics collect: [ :each | TMTopicNode for: each in: self topicMap ])
 ]
 
+{ #category : #mondrian }
+TMPageNode >> defaultNodeColor [
+	^ self stylePalette at: self style
+]
+
 { #category : #navigation }
 TMPageNode >> fields [
 	^ (self topicNodes nodes flatCollect: #fields) copyWithoutDuplicates
@@ -72,11 +77,6 @@ TMPageNode >> gtTreeMapFor: aView [
 TMPageNode >> mondrianChildren [
 	"Stop the recursion here."
 	^ OrderedCollection new
-]
-
-{ #category : #mondrian }
-TMPageNode >> mondrianNodeColor [
-	^ self stylePalette at: self style
 ]
 
 { #category : #mondrian }

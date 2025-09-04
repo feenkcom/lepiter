@@ -41,11 +41,13 @@ TMAbstractTreeNode >> allMondrianGraphChildren [
 
 { #category : #mondrian }
 TMAbstractTreeNode >> allMondrianTreeChildren [
-	"Here we keep multiple copies of pages that have multiple topics, so the result is a tree."
+	"Here we keep multiple copies of pages that have multiple topics, so the result is a tree,
+	however we must use TMPageForTopicNode instead of TMPageNode for pages so Mondrian is not confused
+	by multiple nodes for the same pages."
 
 	| allChildren |
-	allChildren := OrderedCollection withAll: self mondrianChildren.
-	self mondrianChildren
+	allChildren := OrderedCollection withAll: self mondrianTreeChildren.
+	self mondrianTreeChildren
 		do: [ :each | allChildren addAll: each allMondrianTreeChildren ].
 	^ allChildren
 ]
@@ -63,6 +65,13 @@ TMAbstractTreeNode >> database [
 { #category : #navigation }
 TMAbstractTreeNode >> databaseNode [
 	^ self topicMap databaseNode
+]
+
+{ #category : #treemaps }
+TMAbstractTreeNode >> defaultNodeColor [
+	"Can be used for treemaps, mondrian graphs, sceneries etc."
+
+	^ Color gray
 ]
 
 { #category : #navigation }
@@ -181,7 +190,7 @@ TMAbstractTreeNode >> mondrianChildren [
 	"For Mondrian, we take the following path:
 		database -> field -> topic -> page (colored by style)
 	By default, each page may appear multiple times, once for each topic.
-	NB: Multiples copies are filtered by allMondrianGraphChildren."
+	Multiples copies are filtered by allMondrianGraphChildren."
 
 	^ self children
 		collect: [ :n | 
@@ -197,7 +206,9 @@ TMAbstractTreeNode >> mondrianNodeBorderColor [
 
 { #category : #mondrian }
 TMAbstractTreeNode >> mondrianNodeColor [
-	^ Color white
+	"Can override the default in subclasses if needed."
+
+	^ self defaultNodeColor
 ]
 
 { #category : #mondrian }
@@ -226,6 +237,16 @@ TMAbstractTreeNode >> mondrianTooltip [
 { #category : #mondrian }
 TMAbstractTreeNode >> mondrianTooltipLabel [
 	^ self name
+]
+
+{ #category : #mondrian }
+TMAbstractTreeNode >> mondrianTreeChildren [
+	"For Mondrian, we take the following path:
+		database -> field -> topic -> page (colored by style)
+	By default, each page may appear multiple times, once for each topic.
+	NB: Multiples copies are filtered by allMondrianGraphChildren."
+
+	^ self mondrianChildren
 ]
 
 { #category : #accessing }
@@ -387,7 +408,9 @@ TMAbstractTreeNode >> treeMapLeaves [
 
 { #category : #treemaps }
 TMAbstractTreeNode >> treeMapNodeColor [
-	^ Color gray
+	"Can override the default in subclasses if needed."
+
+	^ self defaultNodeColor
 ]
 
 { #category : #treemaps }
