@@ -47,6 +47,11 @@ TMTopicNode >> mondrianChildren [
 ]
 
 { #category : #mondrian }
+TMTopicNode >> mondrianRoadMapNodes [
+	^ self subclassResponsibility
+]
+
+{ #category : #mondrian }
 TMTopicNode >> mondrianTreeChildren [
 	"For mondrian my children are pages, not styles."
 

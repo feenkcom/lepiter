@@ -55,6 +55,11 @@ TMNodeGroup >> items [
 	^ nodes
 ]
 
+{ #category : #mondrian }
+TMNodeGroup >> mondrianRoadMapNodes [
+	^ self subclassResponsibility
+]
+
 { #category : #accessing }
 TMNodeGroup >> name [
 	^ 'Node collection'

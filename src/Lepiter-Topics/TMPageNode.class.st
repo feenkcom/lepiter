@@ -87,6 +87,11 @@ TMPageNode >> mondrianNodeElement [
 ]
 
 { #category : #mondrian }
+TMPageNode >> mondrianRoadMapNodes [
+	^ self subclassResponsibility
+]
+
+{ #category : #mondrian }
 TMPageNode >> mondrianTooltip [
 	^ [ BrEditor new
 		aptitude: BrGlamorousRegularEditorAptitude new;

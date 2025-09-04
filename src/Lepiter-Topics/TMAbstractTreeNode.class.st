@@ -226,6 +226,33 @@ TMAbstractTreeNode >> mondrianNodeSize [
 ]
 
 { #category : #mondrian }
+TMAbstractTreeNode >> mondrianRoadMap [
+	^ self mondrianRoadMapFor: self mondrianRoadMapNodes
+]
+
+{ #category : #mondrian }
+TMAbstractTreeNode >> mondrianRoadMapFor: aTMNodeCollection [
+	"NB: The input nodes must have treeMapParent set."
+
+	| mondrian |
+	mondrian := GtMondrian new.
+	mondrian nodes
+		shape: [ :aTmNode | aTmNode topicNodeElement ];
+		with: aTMNodeCollection.
+	mondrian edges connectFrom: #treeMapParent.
+	mondrian layout
+		custom: (GtGradHorizontalTreeLayout new
+				levelDistance: 50;
+				nodeDistance: 20).
+	^ mondrian
+]
+
+{ #category : #mondrian }
+TMAbstractTreeNode >> mondrianRoadMapNodes [
+	^ self subclassResponsibility
+]
+
+{ #category : #mondrian }
 TMAbstractTreeNode >> mondrianTooltip [
 	^ [ BrLabel new
 		aptitude: BrGlamorousLabelAptitude new glamorousRegularFontAndSize;
@@ -340,6 +367,17 @@ TMAbstractTreeNode >> topicMap [
 { #category : #navigation }
 TMAbstractTreeNode >> topicMap: anObject [
 	topicMap := anObject
+]
+
+{ #category : #mondrian }
+TMAbstractTreeNode >> topicNodeElement [
+	^ BlTextElement new
+		text: self name asRopedText;
+		border: self mondrianNodeBorderColor;
+		background: self mondrianNodeColor;
+		padding: (BlInsets all: 5);
+		geometry: (BlRoundedRectangleGeometry cornerRadius: 8);
+		aptitude: (BrGlamorousWithExplicitTooltipAptitude content: self mondrianTooltip)
 ]
 
 { #category : #navigation }
