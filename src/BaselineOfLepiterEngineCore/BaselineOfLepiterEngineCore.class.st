@@ -71,8 +71,8 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 					with: [ spec requires: #('Lepiter-Core' 'Lepiter-UI') ];
 				package: 'Lepiter-ToC'
 					with: [ spec requires: #('Lepiter-Core' 'Lepiter-UI') ];
-			package: 'Lepiter-Topics' with: [
-				spec requires: #('Lepiter-Core') ];
+				package: 'Lepiter-Topics' with: [
+					spec requires: #('Lepiter-Core' 'Lepiter-UI' 'GToolkit-BlocGraph-Grad' 'GToolkit-Mondrian') ];
 				package: 'Lepiter-Export'
 					with: [ spec
 							requires: #('Brick' 'Lepiter-Core' 'LepiterXDoc' 'SmaCCRuntime' 'Lepiter-UI-Snippet' 'Lepiter-Store' 'Lepiter-Snippet-Text') ];

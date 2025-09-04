@@ -41,6 +41,11 @@ TMFieldNode >> fields [
 	^ {field}
 ]
 
+{ #category : #mondrian }
+TMFieldNode >> mondrianRoadMapNodes [
+	^ self subclassResponsibility
+]
+
 { #category : #accessing }
 TMFieldNode >> name [
 	^ 'Field: ' , self field

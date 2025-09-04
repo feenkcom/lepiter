@@ -51,6 +51,11 @@ TMStyleNode >> fields [
 	^ (self topicNodes nodes flatCollect: #fields) copyWithoutDuplicates
 ]
 
+{ #category : #mondrian }
+TMStyleNode >> mondrianRoadMapNodes [
+	^ self subclassResponsibility
+]
+
 { #category : #accessing }
 TMStyleNode >> name [
 	^ 'Style: ' , self style
