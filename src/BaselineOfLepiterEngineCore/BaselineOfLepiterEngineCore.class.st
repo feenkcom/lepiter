@@ -31,7 +31,7 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 				spec repository: 'github://feenkcom/gtoolkit-releaser:v0.8.300/src' ].
 		spec
 			baseline: 'LepiterXDoc' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.3298/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.6.3299/src' ].
 		spec
 			baseline: 'SmaCCRuntime' with: [
 				spec repository: 'github://j-brant/SmaCC:v3.0.116' ].
@@ -81,8 +81,6 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 			spec requires: #(#'Lepiter-Core' #'Lepiter-UI') ].
 		spec package: 'Lepiter-ToC' with: [
 			spec requires: #(#'Lepiter-Core' #'Lepiter-UI') ].
-		spec package: 'Lepiter-Topics' with: [
-			spec requires: #(#'Lepiter-Core') ].
 		spec package: 'Lepiter-Export' with: [
 			spec requires: #(#Brick #'Lepiter-Core' #LepiterXDoc #SmaCCRuntime #'Lepiter-UI-Snippet' #'Lepiter-Store' #'Lepiter-Snippet-Text') ].
 		spec package: 'Lepiter-HTML' with: [
