@@ -338,6 +338,6 @@ LeChangesSnippetViewModel >> updateChanges [
 	aFile := self resolveFileName: fileNameWithExtension.
 
 	theChanges := GtEpicea new.
-	theChanges ombuFile: aFile.
-	self changes: theChanges
+	[theChanges ombuFile: aFile.
+	self changes: theChanges] on: Error do: [ :e | e asBeaconSignal emit]
 ]
