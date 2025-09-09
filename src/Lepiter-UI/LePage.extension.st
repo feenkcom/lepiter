@@ -76,7 +76,7 @@ LePage >> dependenciesMapFor: aMondrian [
 					size: (each = self ifTrue: [ 10 @ 10 ] ifFalse: [ 5 @ 5 ]);
 					border: (each = self ifTrue: [ BlBorder paint: Color black ] ifFalse: [ BlBorder empty ]);
 					when: BlClickEvent do: [ :e | e target phlow spawnObject: each ];
-					aptitude: (self hoverPage: each forNodeEement: element);
+					aptitude: (self hoverPage: each forNodeElement: element);
 					geometry: BlCircleGeometry new;
 					background: (each isDailyNote ifTrue: [ Color blue ] ifFalse: [ Color red ]) ];
 		with: all.
@@ -262,7 +262,7 @@ LePage >> gtSpotterDatabaseFor: aSearch [
 ]
 
 { #category : #'*Lepiter-UI' }
-LePage >> hoverPage: aPage forNodeEement: aMondrianNodeElement [
+LePage >> hoverPage: aPage forNodeElement: aMondrianNodeElement [
 	^ (BrGlamorousWithExplicitTooltipAptitude
 		content: [ | aContainer |
 			aContainer := BlElement new
@@ -320,7 +320,7 @@ LePage >> reachablePagesMapFor: aMondrian from: aStartPage [
 				geometry: BlCircleGeometry new;
 				when: BlClickEvent
 					do: [ :e | e currentTarget phlow spawnTool: each asPhlowTool ];
-				aptitude: (self hoverPage: each forNodeEement: element) ];
+				aptitude: (self hoverPage: each forNodeElement: element) ];
 		with: nonTocPages.
 	aMondrian edges
 		stencil: [ BlLineElement new
