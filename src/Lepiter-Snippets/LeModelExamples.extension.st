@@ -144,8 +144,8 @@ LeModelExamples >> databaseWithPageHavingChangeAndDependentSnippets [
 
 	createClassPath := database
 			addAttachmentWithContent: (self 
-				forPharo12: [self createClassChangePharo12] 
-				forPharo11AndPharo10: [self createClassChangePharo11])
+				forPharo12AndNewer: [self createClassChangePharo12] 
+				forPharo11: [self createClassChangePharo11])
 			named: 'createClass.ombu'.
 	createClassSnippet := LeChangesSnippet new
 			fileName: createClassPath;

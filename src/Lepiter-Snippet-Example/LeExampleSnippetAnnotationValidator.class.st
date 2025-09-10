@@ -6,7 +6,7 @@ Class {
 	#instVars : [
 		'isValid'
 	],
-	#category : 'Lepiter-Snippet-Example-Snippet'
+	#category : #'Lepiter-Snippet-Example-Snippet'
 }
 
 { #category : #initialization }

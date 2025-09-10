@@ -29,8 +29,8 @@ TLeInvalidCommentsConstraint >> packagesToAnalyse [
 TLeInvalidCommentsConstraint >> pageForClassCommentOf: aClass [
 	| classComment |
 	classComment := self
-		forPharo12: [ aClass comment ]
-		forPharo11AndPharo10: [ aClass organization classComment ].
+		forPharo12AndNewer: [ aClass comment ]
+		forPharo11: [ aClass organization classComment ].
 		
 	^ (LePage pharoCommentClassName: aClass name)
 		addSnippet: (LeTextSnippet string: classComment);

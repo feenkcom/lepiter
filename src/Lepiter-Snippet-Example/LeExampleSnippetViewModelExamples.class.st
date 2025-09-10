@@ -87,8 +87,8 @@ LeExampleSnippetViewModelExamples >> compileErrorClassSideMethodExampleSnippetVi
 { #category : #accessing }
 LeExampleSnippetViewModelExamples >> compilerErrorsToHandle [
 	^ self 
-		forPharo12: [OCUndeclaredVariableWarning, #CodeError asClass] 
-		forPharo11AndPharo10: [OCSemanticWarning, SyntaxErrorNotification]
+		forPharo12AndNewer: [OCUndeclaredVariableWarning, #CodeError asClass] 
+		forPharo11: [OCSemanticWarning, SyntaxErrorNotification]
 ]
 
 { #category : #'examples - snippet' }
