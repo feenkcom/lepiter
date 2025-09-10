@@ -8,9 +8,9 @@ LePharoClassDatabase >> pageNamed: aSymbol [
 			| targetClass classComment |
 			targetClass := self class environment at: aSymbol.
 			classComment := self 
-				forPharo12: [
+				forPharo12AndNewer: [
 					targetClass instanceSide comment ] 
-				forPharo11AndPharo10: [ 
+				forPharo11: [ 
 					targetClass instanceSide organization classComment ].
 			
 				(LePage pharoCommentClassName: aSymbol)
