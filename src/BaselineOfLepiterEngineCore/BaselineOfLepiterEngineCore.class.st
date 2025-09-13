@@ -10,28 +10,28 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'Brick' with: [
-				spec repository: 'github://feenkcom/Brick:v0.8.1670/src' ].
+				spec repository: 'github://feenkcom/Brick:v0.8.1671/src' ].
 		spec
 			baseline: 'GToolkitFileUtility' with: [
-				spec repository: 'github://feenkcom/gtoolkit-utility:v0.8.396/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-utility:v0.8.397/src' ].
 		spec
 			baseline: 'GToolkitInspector' with: [
-				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.2978/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.8.2979/src' ].
 		spec
 			baseline: 'GToolkitCoder' with: [
-				spec repository: 'github://feenkcom/gtoolkit-coder:v0.8.2284/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-coder:v0.8.2285/src' ].
 		spec
 			baseline: 'GToolkit4Pharo' with: [
-				spec repository: 'github://feenkcom/gt4pharo:v0.6.2415/src' ].
+				spec repository: 'github://feenkcom/gt4pharo:v0.6.2416/src' ].
 		spec
 			baseline: 'GToolkit4Json' with: [
-				spec repository: 'github://feenkcom/gt4json:v0.6.1724/src' ].
+				spec repository: 'github://feenkcom/gt4json:v0.6.1725/src' ].
 		spec
 			baseline: 'GToolkitReleaser' with: [
-				spec repository: 'github://feenkcom/gtoolkit-releaser:v0.8.304/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-releaser:v0.8.305/src' ].
 		spec
 			baseline: 'LepiterXDoc' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.6.3315/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.6.3316/src' ].
 		spec
 			baseline: 'SmaCCRuntime' with: [
 				spec repository: 'github://j-brant/SmaCC:v3.0.116' ].
@@ -43,10 +43,10 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 				spec repository: 'github://feenkcom/pharo-beacon:791ef3c1ef13abff0d9f035cc5a9ec3f5342a668/repository' ].
 		spec
 			baseline: 'JSONWebToken' with: [
-				spec repository: 'github://feenkcom/JSONWebToken:v0.5.153/source' ].
+				spec repository: 'github://feenkcom/JSONWebToken:v0.5.154/source' ].
 		spec
 			baseline: 'ZincHTTPComponentsRest' with: [
-				spec repository: 'github://feenkcom/zinc:v3.0.72/repository' ].
+				spec repository: 'github://feenkcom/zinc:v3.0.73/repository' ].
 
 		spec package: 'Lepiter-Parser' with: [
 			spec requires: #(#SmaCCRuntime) ].
