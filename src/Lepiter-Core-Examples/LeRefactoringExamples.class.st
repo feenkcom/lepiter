@@ -67,6 +67,7 @@ LeRefactoringExamples >> renameInstVarNamedMethod [
 
 { #category : #methods }
 LeRefactoringExamples >> renameMethodInGemstoneSnippet [
+	<gtIgnoreConstraint: #GtSendersOfHaltSelectorsInGtPackagesConstraint>
 	<gtExample>
 	<return: #OrderedCollection>
 	| model refactoring snippetChanges queryingObjectChanges pharoSnippets |
