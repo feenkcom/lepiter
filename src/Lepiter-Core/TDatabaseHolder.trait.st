@@ -6,6 +6,8 @@ The database is initialized on the first access to `#database`.
 It is also possible for trait users to explicitly send `#initializeDatabase` in their `initialize` method.
 
 Examples are in {{gtClass:name=DatabaseHolderExamples}}.
+
+To generate the page methods from existing pages, send `addPages:` with the list of pages.
 "
 Trait {
 	#name : #TDatabaseHolder,
