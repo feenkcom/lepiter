@@ -17,13 +17,6 @@ Class {
 }
 
 { #category : #accessing }
-LeYoutubeReferenceElement >> computeImageUrl: aStringUrl [
-	| videoId |
-	videoId := self videoIdFrom: aStringUrl.
-	^ 'http://img.youtube.com/vi/' , videoId , '/0.jpg'
-]
-
-{ #category : #accessing }
 LeYoutubeReferenceElement >> defaultErrorStencil [
 
 	^ BrValuableStencil new valuable: [ :anException | | container message |
@@ -178,20 +171,9 @@ LeYoutubeReferenceElement >> onResizerResizedEvent: anEvent [
 
 { #category : #accessing }
 LeYoutubeReferenceElement >> onSnippetViewModelChanged [
-	| db rootDir urlString |
 	super onSnippetViewModelChanged.
-
-	db := self snippet database.
-
-	rootDir := (db isDatabase not or: [ db monitor isNil ])
-		ifTrue: [ FileLocator workingDirectory resolve ]
-		ifFalse: [ db monitor localRoot ].
-
-	urlString := self snippet urlString.
-	gtUrlUtility := GtUrlStringUtility new 
-		rootDirectory: rootDir;
-		urlString: urlString.
-	editorElement text: urlString asRopedText.
+	gtUrlUtility := self snippet urlStringUtility.
+	editorElement text: self snippet urlString.
 	self updatePicture
 ]
 
@@ -244,25 +226,18 @@ LeYoutubeReferenceElement >> snippetToolbar [
 
 { #category : #accessing }
 LeYoutubeReferenceElement >> updatePicture [
-	| imageElement utility imageUrl |
+	| imageElement  imageUrl |
 	imageElement := gtUrlUtility isValid
 			ifFalse: [ BlElement new size: 0 @ 0 ]
-			ifTrue: [ imageUrl := self computeImageUrl: gtUrlUtility urlString.
-				utility := GtUrlStringUtility new.
-				utility urlString: imageUrl.
-				utility isValid
-					ifFalse: [ BlElement new size: 0 @ 0 ]
-					ifTrue: [ title label: self snippet title.
-						authorName label: self snippet authorName ].
+			ifTrue: [ imageUrl := self snippet thumbnailUrl.
+				title label: self snippet title.
+				authorName label: self snippet authorName.
 				GtWebViewElement new
 					constraintsDo: [ :c | c frame horizontal alignCenter ];
 					when: BlElementExtentChangedEvent
 						doOnce: [ :anEvent | self updatePictureWidth: anEvent currentTarget ];
 					margin: (BlInsets bottom: 5);
-					html: '<iframe style="aspect-ratio: 16 / 9;
-  height: 100%;" src="https://www.youtube.com/embed/'
-							, (self videoIdFrom: gtUrlUtility urlString)
-							, '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>' ].
+					html: self snippet htmlIFrame16per9 ].
 	pictureContainer removeChildNamed: #imageElement.
 	pictureContainer addChild: imageElement as: #imageElement
 ]
@@ -310,7 +285,7 @@ LeYoutubeReferenceElement >> urlString: urlString [
 LeYoutubeReferenceElement >> videoIdFrom: aStringUrl [
 	^ LeYoutubeUrl new
 		string: aStringUrl;
-		embedVideoIdAndStart
+		videoIdAndStart
 ]
 
 { #category : #accessing }
