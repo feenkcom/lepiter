@@ -89,3 +89,45 @@ LeInsertContentCommandExamples >> createInsertEmptySnippetBetweenSnippetsInPageC
 
 	^ command
 ]
+
+{ #category : #'*Lepiter-Snippet-Text' }
+LeInsertContentCommandExamples >> createInsertFirstSnippetInPageCommand [
+	<gtExample>
+	<return: #LeContentInsertChildSnippetCommand>
+	| sourceSnippet command |
+	
+	sourceSnippet := (LeTextSnippet string: 'first')
+		uid: LeUID new.
+
+	command := self targetPage commandBuilder insertChildSnippetTreeCommand
+			snippetTypeName: LeTextSnippet name.
+	command initialSnippetState appendState: sourceSnippet extractUpdatableState.
+
+	self assertValidCommandFor: command.
+	self assert: command insertPath isAtLastChildPosition.
+
+	^ command
+]
+
+{ #category : #'*Lepiter-Snippet-Text' }
+LeInsertContentCommandExamples >> createInsertFirstSnippetTreeInPageCommand [
+	<gtExample>
+	<return: #LeContentInsertChildSnippetCommand>
+	| sourceSnippet command |
+	
+	sourceSnippet := (LeTextSnippet string: 'first').
+	sourceSnippet 
+		addSnippet: (LeTextSnippet string: 'first first');
+		addSnippet: (LeTextSnippet string: 'first second').
+	sourceSnippet children last
+		addSnippet: (LeTextSnippet string: 'first second first');
+		addSnippet: (LeTextSnippet string: 'first second second').
+
+	command := self targetPage commandBuilder insertChildSnippetTreeCommand
+			forSnippet: sourceSnippet.
+
+	self assertValidCommandFor: command.
+	self assert: command insertPath isAtLastChildPosition.
+
+	^ command
+]
