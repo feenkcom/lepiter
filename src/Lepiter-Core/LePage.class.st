@@ -300,6 +300,12 @@ LePage >> gtCopyActionFor: anAction [
 		action: [ :aButton | Clipboard clipboardText: self asRemoteLink ]
 ]
 
+{ #category : #'as yet unclassified' }
+LePage >> gtDefaultInspectorTool [
+	<return: #LePhlowTool>
+	^ self asLepiterPagePhlowTool
+]
+
 { #category : #search }
 LePage >> gtSpotterForSnippetsFor: aSearch [
 	"NB: We only search in text and code snippets."

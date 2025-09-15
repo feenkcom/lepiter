@@ -35,12 +35,6 @@ LeContent >> asToolElement [
 ]
 
 { #category : #'*Lepiter-UI' }
-LeContent >> gtDefaultInspectorTool [
-	<return: #LePhlowTool>
-	^ self asLepiterPagePhlowTool
-]
-
-{ #category : #'*Lepiter-UI' }
 LeContent >> gtLiveFor: aView [
 	<gtView>
 	self class isAbstract

@@ -219,3 +219,37 @@ LeInsertContentCommandExamples >> executeInsertEmptySnippetBetweenSnippetsInPage
 
 	^ self targetPage
 ]
+
+{ #category : #'examples - execution' }
+LeInsertContentCommandExamples >> executeInsertFirstSnippetInPageCommand [
+	<gtExample>
+	<return: #LePage>
+	| command result |
+	command := self createInsertFirstSnippetInPageCommand.
+	result := command execute.
+
+	self assertStructure: {#snippetNew -> 'first'} forInsertCommandResult: result.
+	self assertInsertedSnippetUidInResult: result.
+
+	^ self targetPage
+]
+
+{ #category : #'examples - execution' }
+LeInsertContentCommandExamples >> executeInsertFirstSnippetTreeInPageCommand [
+	<gtExample>
+	<return: #LePage>
+	| command result testSnippet |
+	command := self createInsertFirstSnippetTreeInPageCommand.
+	result := command execute.
+
+	self assertStructure: {#snippetNew -> 'first'} forInsertCommandResult: result.
+	self assertInsertedSnippetUidInResult: result.
+	testSnippet := result insertedSnippet.
+	self assert: testSnippet childrenCount equals: 2.
+	self assert: testSnippet children first string equals: 'first first'.
+	self assert: testSnippet children second string equals: 'first second'.
+	self assert: testSnippet children second children first string equals: 'first second first'.
+	self assert: testSnippet children second children second string equals: 'first second second'.
+
+	^ self targetPage
+]
