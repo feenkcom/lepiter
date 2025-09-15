@@ -53,7 +53,7 @@ LeCodeSnippet class >> stateAttributes [
 { #category : #references }
 LeCodeSnippet >> addParameterTo: oldName using: aRewriter [
 	| source ast |
-	self isForLocalImage ifFalse: [ ^ nil ].
+	self shouldPerformLocalRefactoring ifFalse: [ ^ nil ].
 	source := self coder currentSourceString.
 	ast := RBParser parseFaultyExpression: source.
 	(aRewriter executeTree: ast)
@@ -75,7 +75,7 @@ LeCodeSnippet >> appendText: aText source: anObject [
 { #category : #references }
 LeCodeSnippet >> changeToRenameClass: oldName to: newName [
 	| modifiedSource |
-	self isForLocalImage ifFalse: [ ^ nil ].
+	self shouldPerformLocalRefactoring ifFalse: [ ^ nil ].
 	modifiedSource := SmaCCString on: self string.
 	self coder ast wait ast
 		withAllNodesDo: [ :each | 
@@ -106,7 +106,7 @@ LeCodeSnippet >> changeToRenameClass: oldName to: newName [
 { #category : #references }
 LeCodeSnippet >> changeToRenameSelector: oldName to: newName using: aRewriter [
 	| modifiedSource source ast |
-	self isForLocalImage ifFalse: [ ^ nil ].
+	self shouldPerformLocalRefactoring ifFalse: [ ^ nil ].
 	aRewriter
 		ifNotNil: [ source := self coder currentSourceString.
 			ast := RBParser parseFaultyExpression: source.
@@ -332,7 +332,7 @@ LeCodeSnippet >> printOn: aStream [
 { #category : #references }
 LeCodeSnippet >> removeParameterFrom: oldName using: aRewriter [
 	| source ast |
-	self isForLocalImage ifFalse: [ ^ nil ].
+	self shouldPerformLocalRefactoring ifFalse: [ ^ nil ].
 	source := self coder currentSourceString.
 	ast := RBParser parseFaultyExpression: source.
 	(aRewriter executeTree: ast)
@@ -354,6 +354,11 @@ LeCodeSnippet >> shouldAddTraceEventForChange: aGtCoderSourceCodeChanged [
 			aGtCoderSourceCodeChanged updateStrategy notNil and: [
 				(aGtCoderSourceCodeChanged updateStrategy 
 					propertyNamed: #isFromEditCommand ifAbsent: [ false ]) not ]]
+]
+
+{ #category : #testing }
+LeCodeSnippet >> shouldPerformLocalRefactoring [
+	^ self isForLocalImage
 ]
 
 { #category : #printing }
