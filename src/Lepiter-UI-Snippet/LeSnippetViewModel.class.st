@@ -229,6 +229,16 @@ LeSnippetViewModel >> insertNewSnippetOfType: aLeSnippetClass [
 ]
 
 { #category : #'api - actions' }
+LeSnippetViewModel >> insertSnippetFromCommand: aLeSnippetCommand [
+	"Add new snippet(s) that are either:
+	- a sibling of the receiver if there are no children.
+	- the first child of the receiver.
+	Give focus to the newly created snippet"
+
+	self insertNewSnippet: aLeSnippetCommand execute insertedSnippet.
+]
+
+{ #category : #'api - actions' }
 LeSnippetViewModel >> removeSelf [
 	| nextFocusedSnippet |
 	
