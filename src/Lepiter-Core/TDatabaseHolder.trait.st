@@ -1,6 +1,6 @@
 "
 I decorate a class with a transient Lepiter database.
-Pages are defined as methods with a `<page>` pragma.
+Pages are defined as methods with a `<lePage>` pragma.
 
 The database is initialized on the first access to `#database`.
 It is also possible for trait users to explicitly send `#initializeDatabase` in their `initialize` method.
@@ -14,6 +14,26 @@ Trait {
 	],
 	#category : #'Lepiter-Core-Utility'
 }
+
+{ #category : #utility }
+TDatabaseHolder >> addPages: aPageCollection [
+	"Generate a method for each page."
+
+	aPageCollection
+		do: [ :aPage | 
+			| cleanTitle selector methodBody |
+			cleanTitle := aPage title
+					reject: [ :aChar | aChar isLetter not and: [ aChar isSpaceSeparator not ] ].
+			selector := (((Character space split: cleanTitle) collect: #capitalized)
+					joinUsing: '') uncapitalized.
+			methodBody := selector
+					, '
+	<lePage>
+	<gtExample>
+	^ ' , aPage storeString.
+			self class compile: methodBody.
+			self class organization classify: selector asSymbol under: 'page' ]
+]
 
 { #category : #accessing }
 TDatabaseHolder >> database [
