@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'referencedPage'
 	],
-	#category : 'Lepiter-UI-Phlow Tools'
+	#category : #'Lepiter-UI-Phlow Tools'
 }
 
 { #category : #accessing }

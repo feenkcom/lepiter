@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'content'
 	],
-	#category : 'Lepiter-Core-Builders'
+	#category : #'Lepiter-Core-Builders'
 }
 
 { #category : #'private - building' }

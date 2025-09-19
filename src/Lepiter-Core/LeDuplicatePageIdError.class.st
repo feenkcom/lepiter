@@ -146,25 +146,24 @@ LeDuplicatePageIdError >> gtDetailsFor: aView [
 		column: 'Title' text: [ :each | each value title ];
 		column: 'Uid' text: [ :each | each value uidString ];
 		column: 'DB key' text: [ :each | each value databaseKey ];
-		column: 'On disk'
-			text: [ :each | 
-				database monitor
-					ifNil: [ 'N/A' ]
-					ifNotNil: [ (database monitor pageFileReference: each value) exists ] ];
+		column: 'In store'
+			text: [ :each |
+				database monitor isNotNil
+				and: [ database monitor hasPageId: each value uid ] ];
 		contextItemLabel: 'Inspect database key'
 			action: [ :anElement :each | anElement phlow spawnObject: each value databaseKey ];
 		contextItemLabel: 'Inspect id'
 			action: [ :anElement :each | anElement phlow spawnObject: each value uidString ];
-		contextItemLabel: 'Inspect file'
-			action: [ :anElement :each | anElement phlow spawnObject: (database monitor pageFileReference: each value) ]
-			if: [ :each | 
-				database monitor notNil
-					and: [ (database monitor pageFileReference: each value) exists ] ];
-		contextItemLabel: 'Delete page & file'
-			action: [ :anElement :each | self deletePageFile: each value ]
-			if: [ :each | 
-				database monitor notNil
-					and: [ (database monitor pageFileReference: each value) exists ] ];
+		contextItemLabel: 'Inspect store'
+			action: [ :anElement :each | anElement phlow spawnObject: (database monitor storedObjectWithId: each value uid) ]
+			if: [ :each |
+				database monitor isNotNil
+				and: [ database monitor hasPageId: each value uid ]];
+		contextItemLabel: 'Delete stored page'
+			action: [ :anElement :each | database monitor deletePageWithId: each value uid ]
+			if: [ :each |
+				database monitor isNotNil
+				and: [ database monitor hasPageId: each value uid ]];
 		send: #value
 ]
 

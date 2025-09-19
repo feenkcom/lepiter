@@ -8,7 +8,7 @@ Class {
 		'snippetsViewModel',
 		'updateRequester'
 	],
-	#category : 'Lepiter-UI-! Link Reference'
+	#category : #'Lepiter-UI-! Link Reference'
 }
 
 { #category : #initialization }

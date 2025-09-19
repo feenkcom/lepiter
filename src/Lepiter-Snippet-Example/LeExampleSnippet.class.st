@@ -144,6 +144,16 @@ LeExampleSnippet >> asSnippetViewModel [
 	^ LeExampleSnippetViewModel new snippetModel: self
 ]
 
+{ #category : #converting }
+LeExampleSnippet >> assertSelectors [
+	^ #(assert: #assert:description: #assert:equals:)
+]
+
+{ #category : #converting }
+LeExampleSnippet >> astWithInlinedSelfSends [
+	^ self inlineSelfSendsIn: self exampleMethod
+]
+
 { #category : #testing }
 LeExampleSnippet >> canMoveToAnotherDatabase [
 	^ true
@@ -221,7 +231,7 @@ LeExampleSnippet >> contentAsString [
 { #category : #converting }
 LeExampleSnippet >> convertToScript [
 	| newSource ast |
-	ast := self exampleMethodAST.
+	ast := self exampleMethod.
 	ast ifNil: [ ^ self ].
 	newSource := self snippetSourceFrom: ast body.
 	self addSnippetAfterSelf: (LePharoSnippet new code: newSource).
@@ -309,12 +319,6 @@ LeExampleSnippet >> exampleMethod [
 				ifAbsent: [ nil ] ]
 ]
 
-{ #category : #converting }
-LeExampleSnippet >> exampleMethodAST [
-	^ self exampleMethod
-		  ifNotNil: [ :method | method parseTree ]
-]
-
 { #category : #'api - example selector' }
 LeExampleSnippet >> exampleSelector [
 	<return: #Symbol>
@@ -345,6 +349,23 @@ LeExampleSnippet >> exampleSelector: aNewExampleSelector [
 	exampleSelector := newSelector.
 	self onNewExampleSelectorSet: newSelector.
 	self notifyExampleSelectorChanged
+]
+
+{ #category : #converting }
+LeExampleSnippet >> fixAssertSendsIn: anAST [
+	| rewriter ast |
+	ast := RBParser parseExpression: (self snippetSourceFrom: anAST body).
+	rewriter := RBParseTreeRewriter new.
+	self assertSelectors
+		do: [ :sel | 
+			| msg |
+			msg := String
+					streamContents: [ :stream | 
+						sel keywords
+							doWithIndex: [ :key :i | stream << ' ' << key << ' ``@a' << i printString ] ].
+			rewriter replace: '``@r' , msg with: 'self' , msg ].
+	(rewriter executeTree: ast) ifTrue: [ ast := rewriter tree ].
+	^ ast
 ]
 
 { #category : #'private - subscriptions' }
@@ -443,6 +464,38 @@ LeExampleSnippet >> initialize [
 ]
 
 { #category : #converting }
+LeExampleSnippet >> inlineSelfSendsIn: ast [
+	ast
+		nodesDo: [ :each | 
+			| model refactoring |
+			(each isMessage
+				and: [ each receiver isSelfVariable
+						and: [ (self assertSelectors includes: each selector) not
+								and: [ (self isRecursiveMethod: each selector in: (Set with: each selector)) not ] ] ])
+				ifTrue: [ model := GtRBNamespace new.
+					(model classFor: self exampleClass) compile: ast source.
+					refactoring := GtInlineMethodRefactoring
+							model: model
+							inline: each sourceInterval
+							inMethod: self exampleSelector
+							forClass: self exampleClass.
+					[ refactoring primitiveExecute.
+					self mergeVariablesIn: model.
+					^ self
+						inlineSelfSendsIn: ((model classFor: self exampleClass) methodFor: self exampleSelector) ast ]
+						on: Error
+						do: [ :ex | ex return ] ] ].
+	^ ast
+]
+
+{ #category : #converting }
+LeExampleSnippet >> inlinedSnippetSource [
+	| ast |
+	ast := self fixAssertSendsIn: self astWithInlinedSelfSends.
+	^ ast formattedCode
+]
+
+{ #category : #converting }
 LeExampleSnippet >> instanceClassName [
 	^ exampleBehaviorName first: (exampleBehaviorName
 			   indexOf: $ 
@@ -455,6 +508,19 @@ LeExampleSnippet >> isForMetaclass [
 	^ exampleBehaviorName endsWith: ' class'
 ]
 
+{ #category : #converting }
+LeExampleSnippet >> isRecursiveMethod: aSymbol in: aSet [
+	(self exampleClass compiledMethodAt: aSymbol ifAbsent: [  ])
+		ifNotNil: [ :method | 
+			method ast
+				nodesDo: [ :each | 
+					(each isMessage and: [ each receiver isSelfVariable ])
+						ifTrue: [ (aSet includes: each selector) ifTrue: [ ^ true ].
+							aSet add: each selector.
+							(self isRecursiveMethod: each selector in: aSet) ifTrue: [ ^ true ] ] ] ].
+	^ false
+]
+
 { #category : #'private - exporting' }
 LeExampleSnippet >> markdownOn: stream level: anInteger [
 	"Placeholder. What should we do here?"
@@ -464,7 +530,9 @@ LeExampleSnippet >> markdownOn: stream level: anInteger [
 		cr;
 		<< '```';
 		cr;
-		<< self contentAsString trimBoth;
+		<< (self exampleMethod
+				ifNil: [ self contentAsString trimBoth ]
+				ifNotNil: [ :aMethod | self snippetSourceFrom: aMethod body ]);
 		cr;
 		<< '```';
 		cr.
@@ -472,6 +540,30 @@ LeExampleSnippet >> markdownOn: stream level: anInteger [
 		childrenDo: [ :child | 
 			stream cr.
 			child markdownOn: stream level: anInteger + 1 ]
+]
+
+{ #category : #converting }
+LeExampleSnippet >> mergeVariablesIn: model [
+	((model classFor: self exampleClass) methodFor: self exampleSelector) ast
+		nodesDo: [ :each | 
+			(each isAssignment and: [ each value isVariable ])
+				ifTrue: [ | refactoring from to |
+					each variable name last isDigit
+						ifTrue: [ from := each variable.
+							to := each value ]
+						ifFalse: [ from := each value.
+							to := each variable ].
+					refactoring := GtMergeVariablesRefactoring
+							model: model
+							mergeVariableFrom: from sourceInterval
+							into: to sourceInterval
+							from: self exampleSelector
+							in: self exampleClass.
+					[ refactoring primitiveExecute.
+					^ self
+						mergeVariablesIn: ((model classFor: self exampleClass) methodFor: self exampleSelector) ast ]
+						on: Error
+						do: [ :ex | ex return ] ] ]
 ]
 
 { #category : #'api - no code' }

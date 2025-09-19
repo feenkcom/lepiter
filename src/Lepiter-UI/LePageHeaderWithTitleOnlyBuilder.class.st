@@ -8,7 +8,7 @@ I am used by {{gtClass:LePageToolContentElement}} in {{gtMethod:LePageToolConten
 Class {
 	#name : #LePageHeaderWithTitleOnlyBuilder,
 	#superclass : #LePageHeaderBuilder,
-	#category : 'Lepiter-UI-Support - Page Toolbar'
+	#category : #'Lepiter-UI-Support - Page Toolbar'
 }
 
 { #category : #'api - building' }

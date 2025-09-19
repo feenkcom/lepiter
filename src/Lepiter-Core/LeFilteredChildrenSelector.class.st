@@ -11,7 +11,7 @@ Class {
 	#instVars : [
 		'element'
 	],
-	#category : 'Lepiter-Core-Utility'
+	#category : #'Lepiter-Core-Utility'
 }
 
 { #category : #'api - accessing' }

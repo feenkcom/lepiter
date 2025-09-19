@@ -40,6 +40,12 @@ LeDatabaseClassStorage >> hasAttachmentWithId: aSelector inClass: aClass [
 ]
 
 { #category : #testing }
+LeDatabaseClassStorage >> hasPageId: aUuid inClass: dbClass [
+
+	^ dbClass respondsTo: (self pageSelectorForUid: aUuid)
+]
+
+{ #category : #testing }
 LeDatabaseClassStorage >> hasPageStored: aPage inClass: dbClass [
 
 	^ dbClass respondsTo: (self pageSelectorFor: aPage)
@@ -75,11 +81,6 @@ LeDatabaseClassStorage >> loadFromMethod: aCompiledMethod [
 	| jsonString |
 
 	jsonString := (aCompiledMethod parseTree comments at: 2) contents.
-	self 
-		forPharo11AndPharo12: [] 
-		forPharo10: [ 
-			"In Pharo 10 double quotes are doubled in comments, but not in Pharo 11"
-			jsonString :=  jsonString copyReplaceAll: '""' with: '"' ].
 			
 	^ [ LeJsonV4 uniqueInstance deserialize: jsonString readStream ]
 		on: NeoJSONParseError 

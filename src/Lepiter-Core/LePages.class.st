@@ -1,7 +1,7 @@
 Class {
 	#name : #LePages,
 	#superclass : #LeCollection,
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #visiting }

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'previewHeight'
 	],
-	#category : 'Lepiter-Snippet-Example-Snippet - Events'
+	#category : #'Lepiter-Snippet-Example-Snippet - Events'
 }
 
 { #category : #generated }

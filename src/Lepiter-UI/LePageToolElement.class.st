@@ -165,6 +165,11 @@ LePageToolElement >> pageModel [
 	^ self pageViewModel pageModel
 ]
 
+{ #category : #'api - scrolling' }
+LePageToolElement >> selectAndScrollToSnippet: aSnippet [
+	self contentElement selectAndScrollToSnippet: aSnippet
+]
+
 { #category : #'api - accessing' }
 LePageToolElement >> selectionTransformation: aBlock [
 	self contentElement selectionTransformation: aBlock

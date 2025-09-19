@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'origin'
 	],
-	#category : 'Lepiter-Core-IncomingReferences'
+	#category : #'Lepiter-Core-IncomingReferences'
 }
 
 { #category : #adding }

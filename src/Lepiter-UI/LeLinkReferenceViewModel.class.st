@@ -8,7 +8,7 @@ Class {
 		'pageViewModel',
 		'previewViewModel'
 	],
-	#category : 'Lepiter-UI-! Link Reference'
+	#category : #'Lepiter-UI-! Link Reference'
 }
 
 { #category : #'private - create' }

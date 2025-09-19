@@ -11,7 +11,7 @@ Class {
 		'evaluationResult',
 		'topParentElement'
 	],
-	#category : 'Lepiter-UI-Basic - Announcements'
+	#category : #'Lepiter-UI-Basic - Announcements'
 }
 
 { #category : #'api - accessing' }

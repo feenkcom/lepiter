@@ -72,7 +72,7 @@ LePage >> dependenciesMapFor: aMondrian [
 					size: (each = self ifTrue: [ 10 @ 10 ] ifFalse: [ 5 @ 5 ]);
 					border: (each = self ifTrue: [ BlBorder paint: Color black ] ifFalse: [ BlBorder empty ]);
 					when: BlClickEvent do: [ :e | e target phlow spawnObject: each ];
-					aptitude: (self hoverPage: each forNodeEement: element);
+					aptitude: (self hoverPage: each forNodeElement: element);
 					geometry: BlCircleGeometry new;
 					background: (each isDailyNote ifTrue: [ Color blue ] ifFalse: [ Color red ]) ];
 		with: all.
@@ -212,20 +212,6 @@ LePage >> gtMarkdownPageFor: aView [
 ]
 
 { #category : #'*Lepiter-UI' }
-LePage >> gtOpenInNewTabActionFor: anAction [
-	<lePageAction>
-	^ anAction button
-		id: LeOpenPageInNewWorldTabElementId;
-		tooltip: 'Open page in a new world tab';
-		icon: BrGlamorousVectorIcons spawn;
-		action: [ :aButton | 
-			BlSpace new
-				pageInPager: self;
-				withSceneDriller;
-				showFrom: aButton ]
-]
-
-{ #category : #'*Lepiter-UI' }
 LePage >> gtReachablePagesMapFor: aView [
 	"Inspired by: Optimizing the links in the book for first time readers
 	The map shows the current page in blue, reachable pages in dark green, and unreachable pages in red. To avoid clutter, the ToC page is not included, but is considered for reachability. Nodes are scaled according to their word count.
@@ -252,14 +238,7 @@ LePage >> gtRemoveActionFor: anAction [
 
 { #category : #'*Lepiter-UI' }
 LePage >> gtSpotterActDefaultFrom: aSpotterElement [
-	| pageTool toolElement |
-
-	pageTool := self asPhlowTool.
-	toolElement := pageTool asElementDo: [ :e | e ].
-	(GtPager 
-		openWrappedOn: toolElement 
-		title: self tabLabel 
-		from: aSpotterElement) maximized
+	BlSpace showTool: self asPhlowTool from: aSpotterElement
 ]
 
 { #category : #'*Lepiter-UI' }
@@ -279,7 +258,7 @@ LePage >> gtSpotterDatabaseFor: aSearch [
 ]
 
 { #category : #'*Lepiter-UI' }
-LePage >> hoverPage: aPage forNodeEement: aMondrianNodeElement [
+LePage >> hoverPage: aPage forNodeElement: aMondrianNodeElement [
 	^ (BrGlamorousWithExplicitTooltipAptitude
 		content: [ | aContainer |
 			aContainer := BlElement new
@@ -337,7 +316,7 @@ LePage >> reachablePagesMapFor: aMondrian from: aStartPage [
 				geometry: BlCircleGeometry new;
 				when: BlClickEvent
 					do: [ :e | e currentTarget phlow spawnTool: each asPhlowTool ];
-				aptitude: (self hoverPage: each forNodeEement: element) ];
+				aptitude: (self hoverPage: each forNodeElement: element) ];
 		with: nonTocPages.
 	aMondrian edges
 		stencil: [ BlLineElement new

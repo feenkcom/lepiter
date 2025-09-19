@@ -1,7 +1,7 @@
 Class {
 	#name : #LeIsolatedSnippetPhlowTool,
 	#superclass : #LeSnippetPhlowTool,
-	#category : 'Lepiter-UI-Phlow Tools'
+	#category : #'Lepiter-UI-Phlow Tools'
 }
 
 { #category : #'api - converting' }

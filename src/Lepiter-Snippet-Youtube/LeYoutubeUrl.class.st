@@ -15,17 +15,6 @@ LeYoutubeUrl >> allowedYoutubeHosts [
 	'm.youtube.com' 'm.youtu.be')
 ]
 
-{ #category : #accessing }
-LeYoutubeUrl >> embedVideoIdAndStart [
-	"Return YouTube video start-at position"
-
-	<return: #String>
-	^ self videoId
-		ifNil: [ ^ '' ]
-		ifNotNil: [ :aVideoId | 
-			'{1}?start={2}' format: {aVideoId. self startAt} ]
-]
-
 { #category : #'gt - extensions' }
 LeYoutubeUrl >> gtOverview [
 	^ {GtPhlowOverviewItem new
@@ -36,9 +25,9 @@ LeYoutubeUrl >> gtOverview [
 			value: self url.
 		GtPhlowOverviewItem new
 			name: 'Is valid YouTube video url';
-			if: self isValidYoutubeUrl description: 'Valid YouTube URL';
+			if: self isValidYoutubeUrl description: 'Yes';
 			if: self isValidYoutubeUrl not
-				description: ('Invalid Youtube URL' asRopedText
+				description: ('No' asRopedText
 						foreground: BrGlamorousColors errorBackgroundColor);
 			value: self isValidYoutubeUrl.
 		GtPhlowOverviewItem new
@@ -52,7 +41,7 @@ LeYoutubeUrl >> gtOverview [
 			value: self startAt.
 		GtPhlowOverviewItem new
 			name: 'Embed video ID and start at time';
-			value: self embedVideoIdAndStart}
+			value: self videoIdAndStart}
 ]
 
 { #category : #'gt - extensions' }
@@ -123,4 +112,15 @@ LeYoutubeUrl >> videoId [
 				at: 'v'
 				ifAbsent: [ self url pathSegments ifNotEmpty: #last ifEmpty: [ nil ] ] ]
 		ifFalse: [ self url pathSegments ifNotEmpty: #last ifEmpty: [ nil ] ]
+]
+
+{ #category : #accessing }
+LeYoutubeUrl >> videoIdAndStart [
+	"Return YouTube video start-at position"
+
+	<return: #String>
+	^ self videoId
+		ifNil: [ ^ '' ]
+		ifNotNil: [ :aVideoId | 
+			'{1}?start={2}' format: {aVideoId. self startAt} ]
 ]

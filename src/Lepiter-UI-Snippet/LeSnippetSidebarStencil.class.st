@@ -40,13 +40,14 @@ LeSnippetSidebarStencil >> createSidebarContainerFor: aSnippetElement [
 			(GtInspectorRoundButtonStencil small asElement
 				constraintsDo: [ :c | c frame vertical alignCenterAt: 1 ];
 				addAptitude:
-					(BrGlamorousWithExplicitDropdownAptitude
+					(BrGlamorousWithExplicitDropdownAptitude new
+						withGainFocusOnShow;
 						handle: [ GtInspectorRoundButtonStencil small asElement
 								aptitude: BrIconAptitude;
 								icon:
 									[ BrGlamorousVectorIcons hamburger asElement asScalableElement
 										size: 12 @ 12 ] asStencil ]
-						content: [ self createSidebarMenuFor: aSnippetElement ]);
+						submenu: [ self createSidebarMenuItemsFor: aSnippetElement ]);
 				icon:
 					[ (BrGlamorousVectorIcons hamburger asElement
 						background: Color darkGray) asScalableElement size: 12 @ 12 ]
@@ -55,6 +56,9 @@ LeSnippetSidebarStencil >> createSidebarContainerFor: aSnippetElement [
 
 { #category : #'api - instantiation' }
 LeSnippetSidebarStencil >> createSidebarMenuFor: aSnippetElement [
+	"This method can be removed. It is here just in case someone pulls changes
+	in an existing GToolkit image."
+
 	| theActionElements |
 
 	theActionElements := Array streamContents: [ :aStream |
@@ -75,6 +79,25 @@ LeSnippetSidebarStencil >> createSidebarMenuFor: aSnippetElement [
 			c horizontal fitContent.
 			c vertical fitContent ];
 		addChildren: theActionElements
+]
+
+{ #category : #'api - instantiation' }
+LeSnippetSidebarStencil >> createSidebarMenuItemsFor: aSnippetElement [
+	| aMenuItems someMenuItems |
+	aMenuItems := BrMenuItems new.
+
+	someMenuItems := Array
+			streamContents: [ :aStream | 
+				aSnippetElement snippetViewModel gtActions
+					select: [ :eachAction | eachAction target = LeSnippetContextMenuActionTarget uniqueInstance ]
+					thenDo: [ :eachSnippetContentAction | 
+						eachSnippetContentAction
+							asMenuItem: [ :aMenuItem | aStream nextPut: aMenuItem ]
+							withHostElement: aSnippetElement ] ].
+
+	aMenuItems addItems: someMenuItems.
+	
+	^ aMenuItems
 ]
 
 { #category : #accessing }

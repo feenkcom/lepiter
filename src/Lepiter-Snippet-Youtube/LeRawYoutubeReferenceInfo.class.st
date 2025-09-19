@@ -28,13 +28,17 @@ LeRawYoutubeReferenceInfo >> authorUrl [
 	^ rawData ifNotNil: [:rd | rd at: 'author_url' ]  ifNil: [nil]
 ]
 
-{ #category : #accessing }
-LeRawYoutubeReferenceInfo >> gtYoutubeReferenceInfoFor: aView [
+{ #category : #views }
+LeRawYoutubeReferenceInfo >> gtRawDataFor: aView [
 	<gtView>
-	| view |
-	view := self rawData gtTreeFor: aView.
-	view title: 'Video info'.
-	^ view
+	self rawData ifNil: [ ^ aView empty ].
+	^ aView columnedList
+		title: 'Raw data';
+		items: [ [
+			self rawData ] value associations ];
+		column: 'Key' text: [ :each | each key gtDisplayString ];
+		column: 'Value' text: [ :each | each value gtDisplayString ];
+		send: [ :each | each value ]
 ]
 
 { #category : #accessing }
@@ -50,6 +54,11 @@ LeRawYoutubeReferenceInfo >> rawData [
 { #category : #accessing }
 LeRawYoutubeReferenceInfo >> rawData: response [ 
 	rawData := response
+]
+
+{ #category : #accessing }
+LeRawYoutubeReferenceInfo >> thumbnailUrl [
+	^ rawData ifNotNil: [:rd | rd at: 'thumbnail_url' ]  ifNil: [nil]
 ]
 
 { #category : #accessing }

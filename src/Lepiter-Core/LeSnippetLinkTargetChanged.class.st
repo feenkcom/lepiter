@@ -5,7 +5,7 @@ Class {
 		'link',
 		'target'
 	],
-	#category : 'Lepiter-Core-Announcements'
+	#category : #'Lepiter-Core-Announcements'
 }
 
 { #category : #accessing }

@@ -23,7 +23,7 @@ LePage >> gtToggleCommentsActionFor: anAction [
 	<lePageAction>
 	self hasCommentSnippets ifFalse: [ ^ anAction empty ].
 	^ anAction button
-		id: LeOpenPageInNewWorldTabElementId;
+		id: LeToggleCommentsElementId;
 		priority: 100;
 		tooltip: 'Show / hide comments';
 		icon: LeCommentSnippetElement noteIcon;

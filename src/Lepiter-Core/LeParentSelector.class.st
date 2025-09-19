@@ -9,7 +9,7 @@ Class {
 	#superclass : #LeRootItemsSelector,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
-	#category : 'Lepiter-Core-Utility'
+	#category : #'Lepiter-Core-Utility'
 }
 
 { #category : #'api - collect' }

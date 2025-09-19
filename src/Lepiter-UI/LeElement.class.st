@@ -9,7 +9,7 @@ Class {
 	#superclass : #BlElement,
 	#traits : 'TBrLayoutResizable',
 	#classTraits : 'TBrLayoutResizable classTrait',
-	#category : 'Lepiter-UI-! Content Elements'
+	#category : #'Lepiter-UI-! Content Elements'
 }
 
 { #category : #asserting }

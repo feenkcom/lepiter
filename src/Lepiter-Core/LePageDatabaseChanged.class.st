@@ -5,7 +5,7 @@ Class {
 		'previousDatabase',
 		'currentDatabase'
 	],
-	#category : 'Lepiter-Core-Announcements'
+	#category : #'Lepiter-Core-Announcements'
 }
 
 { #category : #accessing }

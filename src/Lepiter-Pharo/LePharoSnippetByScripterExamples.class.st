@@ -168,7 +168,7 @@ LePharoSnippetByScripterExamples >> evaluateWhenMaximized [
 		pharo: 'a odd';
 		add.
 	anElement := page asPhlowTool asElementDo: [ :e | e ].
-	aPager := GtPager createWrappedOn: anElement.
+	aPager := GtPagerSettings usedPager createWrappedOn: anElement.
 	aPager maximized.
 	aPager asElement.
 	aScripter := self

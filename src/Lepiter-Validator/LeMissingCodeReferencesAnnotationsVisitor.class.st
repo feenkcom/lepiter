@@ -6,7 +6,7 @@ Class {
 	#instVars : [
 		'missingReferences'
 	],
-	#category : 'Lepiter-Validator-Visitors'
+	#category : #'Lepiter-Validator-Visitors'
 }
 
 { #category : #visiting }

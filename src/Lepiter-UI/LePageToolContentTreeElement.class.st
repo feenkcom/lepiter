@@ -199,6 +199,21 @@ LePageToolContentTreeElement >> redoCurrent [
 				aViewModel class = LeSnippetsTreeViewModel ]) 
 ]
 
+{ #category : #'api - scrolling' }
+LePageToolContentTreeElement >> selectAndScrollToSnippet: aSnippet [
+	| snippetsTreeViewModel snippetViewModel |
+	self snippetsViewModel ifNil: [ ^ self ].
+	snippetsTreeViewModel := self snippetsViewModel viewModelCollections
+			detect: [ :aViewModel | aViewModel class = LeSnippetsTreeViewModel ]
+			ifNone: [ ^ self ].
+	(snippetsTreeViewModel includesSnippetViewModelForSnippet: aSnippet)
+		ifFalse: [ ^ self ].
+	snippetViewModel := snippetsTreeViewModel findSnippetViewModel: aSnippet.
+	snippetViewModel ifNil: [ ^ self ].
+
+	snippetsTreeViewModel scrollToViewModel: snippetViewModel
+]
+
 { #category : #'private - selection' }
 LePageToolContentTreeElement >> selectOnEnter: anElement [ 
 	self titleElement selectOnExit: anElement

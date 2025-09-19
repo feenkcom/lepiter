@@ -294,15 +294,15 @@ LePage >> gtBindingsActionFor: anAction [
 { #category : #accessing }
 LePage >> gtCopyActionFor: anAction [
 	<lePageAction>
-
 	^ anAction button 
-		tooltip: 'Copy as Remote Reference to the clipboard';
+		tooltip: 'Copy as reference to the clipboard';
 		icon: BrGlamorousVectorIcons clipboard;
 		action: [ :aButton | Clipboard clipboardText: self asRemoteLink ]
 ]
 
 { #category : #'gt - inspector' }
 LePage >> gtDefaultInspectorTool [
+ <return: #LePhlowTool>
  ^ self asPhlowTool
 ]
 
@@ -740,6 +740,7 @@ LePage >> updateTitle: aTitle [
 	anOldTitle := self title.
 	anOldType := self type.
 	oldDatabaseKey := anOldType databaseKey.
+	self database isDatabase ifFalse: [ ^ self ].
 	self updater 
 		title: aString; 
 		callback: [
