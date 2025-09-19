@@ -324,12 +324,8 @@ LeAnnotationStylerVisitor >> styleButton: anAnnotation for: object defaultLabel:
 								aSpace icon: aTool icon.
 								aSpace extent: 1200 @ 600.
 								aSpace root background: Color transparent.
-								aSpace
-									addChild: (GtPager
-											createOn: (GtPagerWrapperElement new
-													tool: aTool;
-													embellisher: (GtPagerPageEmbellisher new extension: GtPagerPageEmbellisherExtension null))) maximized.
-								aSpace withHalos.
+								aSpace inPager: aTool.
+								aSpace withSceneDriller.
 								button showSpace: aSpace ] ].
 				button viewModel
 					when: BlMouseEnterEvent

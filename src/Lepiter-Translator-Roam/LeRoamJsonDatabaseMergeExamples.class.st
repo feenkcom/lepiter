@@ -7,17 +7,18 @@ Class {
 { #category : #examples }
 LeRoamJsonDatabaseMergeExamples >> roamMetadataMerge [
 	"Merge a sample database in to an empty database and confirm that the metadata is maintained correctly."
-	<gtExample>
-	| database json mergeDb mergeP1 mergeP2 dbP1 dbP2 |
 
-	json := (self class >> #sampleRoamExport) comments second copyReplaceAll: '""' with: '"'.
+	<gtExample>
+	<return: #LeDatabase>
+	| database json mergeDb mergeP1 mergeP2 dbP1 dbP2 |
+	json := (self class >> #sampleRoamExport) comments second
+			copyReplaceAll: '""'
+			with: '"'.
 	mergeDb := LeRoamJsonTranslator new databaseFromStream: json readStream.
 	database := LeDatabase new.
 	database userEmail: 'import@user.com'.
 	LeDatabaseMerge merge: mergeDb into: database.
-	self assert: database pageCount equals: 2.
-
-	"The original DB is damaged as part of the merge, recreate it"
+	self assert: database pageCount equals: 2.	"The original DB is damaged as part of the merge, recreate it"
 	mergeDb := LeRoamJsonTranslator new databaseFromStream: json readStream.
 	mergeP1 := mergeDb pageNamed: 'Page 1'.
 	mergeP2 := mergeDb pageNamed: 'Page 2'.

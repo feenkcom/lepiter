@@ -86,12 +86,8 @@ LePageTitleAndSummaryElement >> initializeListeners [
 					aSpace icon: aTool icon.
 					aSpace extent: 1200 @ 600.
 					aSpace root background: Color transparent.
-					aSpace
-						addChild: (GtPager
-								createOn: (GtPagerWrapperElement new
-										tool: aTool;
-										embellisher: (GtPagerPageEmbellisher new extension: GtPagerPageEmbellisherExtension null))) maximized.
-					aSpace withHalos.
+					aSpace inPager: aTool.
+					aSpace withSceneDriller.
 					self showSpace: aSpace ] ].
 	self
 		when: BlMouseEnterEvent
@@ -150,9 +146,7 @@ LePageTitleAndSummaryElement >> summaryElement [
 	^ summaryElement
 		ifNil: [ summaryElement := BrLabel new
 				beSmallSize;
-				aptitude:
-					(BrGlamorousLabelAptitude new
-						foreground: self theme header disabledTextColor);
+				aptitude: BrGlamorousSummaryLabelAptitude;
 				margin: (BlInsets left: 10);
 				hMatchParent;
 				vFitContent ]

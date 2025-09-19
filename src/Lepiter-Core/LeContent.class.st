@@ -648,7 +648,7 @@ LeContent >> gtSnippetsFor: aView [
 	self children ifNil: [ ^ aView empty ].
 	^ aView forward
 		title: 'Snippets';
-		priority: 2;
+		priority: 9;
 		object: [ self children ];
 		view: #gtSnippetsFor:
 ]

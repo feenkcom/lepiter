@@ -3,9 +3,10 @@ Extension { #name : #LeExportSpecificationsExamples }
 { #category : #'*Lepiter-Snippet-Element' }
 LeExportSpecificationsExamples >> snippetSpecifications [
 	<gtExample>
+	<return: #LeExportSpecifications>
 	| specifications |
 	specifications := LeExportSpecifications new.
-	
+
 	specifications
 		addSpecification: (LeExportClassKindSpecification new
 				classKind: BlElement;
@@ -22,7 +23,7 @@ LeExportSpecificationsExamples >> snippetSpecifications [
 				classKind: LeElementSnippetElement;
 				forwardTo: #displayElement;
 				condition: #isNotNil).
-				
+
 	specifications
 		addSpecification: (LeExportClassKindSpecification new
 				classKind: GtPresenterSlideShowElement;

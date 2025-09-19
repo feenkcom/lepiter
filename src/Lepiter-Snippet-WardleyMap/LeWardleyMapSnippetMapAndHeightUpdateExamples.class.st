@@ -33,6 +33,7 @@ LeWardleyMapSnippetMapAndHeightUpdateExamples >> assertSnippetModifiedFor: aSnip
 { #category : #'examples - snippets' }
 LeWardleyMapSnippetMapAndHeightUpdateExamples >> createTargetSnippet [
 	<gtExample>
+	<return: #LeWardleyMapSnippet>
 	^ LeWardleyMapSnippetExamples new emptySnippet
 ]
 

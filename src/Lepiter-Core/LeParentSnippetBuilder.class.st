@@ -5,7 +5,7 @@ Class {
 		'database',
 		'parent'
 	],
-	#category : 'Lepiter-Core-Builders'
+	#category : #'Lepiter-Core-Builders'
 }
 
 { #category : #'api - building' }

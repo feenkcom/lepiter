@@ -13,17 +13,17 @@ LeExampleSnippetViewModelExamples class >> classSideExample [
 
 { #category : #'examples - snippet' }
 LeExampleSnippetViewModelExamples >> classSideExampleSnippet [
-
 	<gtExample>
+	<return: #LeExampleSnippet>
 	^ LeExampleSnippet new
-		  exampleBehaviorName: self class classSide name;
-		  exampleSelector: #classSideExample
+		exampleBehaviorName: self class classSide name;
+		exampleSelector: #classSideExample
 ]
 
 { #category : #'examples - snippet view model' }
 LeExampleSnippetViewModelExamples >> classSideExampleSnippetViewModel [
-
 	<gtExample>
+	<return: #LeExampleSnippetViewModel>
 	| aSnippet aViewModel anExample |
 	aSnippet := self classSideExampleSnippet.
 	aViewModel := aSnippet asSnippetViewModel.
@@ -38,18 +38,17 @@ LeExampleSnippetViewModelExamples >> classSideExampleSnippetViewModel [
 
 { #category : #'examples - snippet' }
 LeExampleSnippetViewModelExamples >> compileErrorClassSideBehaviorExampleSnippet [
-
 	<gtExample>
+	<return: #LeExampleSnippet>
 	^ LeExampleSnippet new
-		  exampleBehaviorName:
-			  '3#3IncorrectClassName class' ;
-		  exampleSelector: #classSideExample
+		exampleBehaviorName: '3#3IncorrectClassName class';
+		exampleSelector: #classSideExample
 ]
 
 { #category : #'examples - snippet view model' }
 LeExampleSnippetViewModelExamples >> compileErrorClassSideBehaviorExampleSnippetViewModel [
-
 	<gtExample>
+	<return: #LeExampleSnippetViewModel>
 	| aSnippet aViewModel anExample |
 	aSnippet := self compileErrorClassSideBehaviorExampleSnippet.
 	aViewModel := aSnippet asSnippetViewModel.
@@ -63,17 +62,17 @@ LeExampleSnippetViewModelExamples >> compileErrorClassSideBehaviorExampleSnippet
 
 { #category : #'examples - snippet' }
 LeExampleSnippetViewModelExamples >> compileErrorClassSideMethodExampleSnippet [
-
 	<gtExample>
+	<return: #LeExampleSnippet>
 	^ LeExampleSnippet new
-		  exampleBehaviorName: self class classSide name;
-		  exampleSelector: #'classSide-@-Example'
+		exampleBehaviorName: self class classSide name;
+		exampleSelector: #'classSide-@-Example'
 ]
 
 { #category : #'examples - snippet view model' }
 LeExampleSnippetViewModelExamples >> compileErrorClassSideMethodExampleSnippetViewModel [
-
 	<gtExample>
+	<return: #LeExampleSnippetViewModel>
 	| aSnippet aViewModel anExample |
 	aSnippet := self compileErrorClassSideMethodExampleSnippet.
 	aViewModel := aSnippet asSnippetViewModel.
@@ -85,20 +84,26 @@ LeExampleSnippetViewModelExamples >> compileErrorClassSideMethodExampleSnippetVi
 	^ aViewModel
 ]
 
+{ #category : #accessing }
+LeExampleSnippetViewModelExamples >> compilerErrorsToHandle [
+	^ self 
+		forPharo12AndNewer: [OCUndeclaredVariableWarning, #CodeError asClass] 
+		forPharo11: [OCSemanticWarning, SyntaxErrorNotification]
+]
+
 { #category : #'examples - snippet' }
 LeExampleSnippetViewModelExamples >> expressionInsteadOfBehaviorNameExampleSnippet [
-
 	<gtExample>
+	<return: #LeExampleSnippet>
 	^ LeExampleSnippet new
-		  exampleBehaviorName:
-			  '(3+3 notExistingMethod) class';
-		  exampleSelector: #classSideExample
+		exampleBehaviorName: '(3+3 notExistingMethod) class';
+		exampleSelector: #classSideExample
 ]
 
 { #category : #'examples - snippet view model' }
 LeExampleSnippetViewModelExamples >> expressionInsteadOfBehaviorNameExampleSnippetViewModel [
-
 	<gtExample>
+	<return: #LeExampleSnippetViewModel>
 	| aSnippet aViewModel anExample |
 	aSnippet := self expressionInsteadOfBehaviorNameExampleSnippet.
 	aViewModel := aSnippet asSnippetViewModel.
@@ -112,24 +117,24 @@ LeExampleSnippetViewModelExamples >> expressionInsteadOfBehaviorNameExampleSnipp
 
 { #category : #'examples - support' }
 LeExampleSnippetViewModelExamples >> instanceSideExample [
-
 	<gtExample>
+	<return: #SmallInteger>
 	^ 42
 ]
 
 { #category : #'examples - snippet' }
 LeExampleSnippetViewModelExamples >> instanceSideExampleSnippet [
-
 	<gtExample>
+	<return: #LeExampleSnippet>
 	^ LeExampleSnippet new
-		  exampleBehaviorName: self class name;
-		  exampleSelector: #instanceSideExample
+		exampleBehaviorName: self class name;
+		exampleSelector: #instanceSideExample
 ]
 
 { #category : #'examples - snippet view model' }
 LeExampleSnippetViewModelExamples >> instanceSideExampleSnippetViewModel [
-
 	<gtExample>
+	<return: #LeExampleSnippetViewModel>
 	| aSnippet aViewModel anExample |
 	aSnippet := self instanceSideExampleSnippet.
 	aViewModel := aSnippet asSnippetViewModel.
@@ -144,22 +149,21 @@ LeExampleSnippetViewModelExamples >> instanceSideExampleSnippetViewModel [
 
 { #category : #'examples - snippet' }
 LeExampleSnippetViewModelExamples >> notExistingClassSideBehaviorExampleSnippet [
-
 	<gtExample>
+	<return: #LeExampleSnippet>
 	^ LeExampleSnippet new
-		  exampleBehaviorName:
-			  'NotExistingBehaviorOf' , self class classSide name;
-		  exampleSelector: #classSideExample
+		exampleBehaviorName: 'NotExistingBehaviorOf' , self class classSide name;
+		exampleSelector: #classSideExample
 ]
 
 { #category : #'examples - snippet view model' }
 LeExampleSnippetViewModelExamples >> notExistingClassSideBehaviorExampleSnippetViewModel [
-
 	<gtExample>
+	<return: #LeExampleSnippetViewModel>
 	| aSnippet aViewModel anExample |
 	aSnippet := self notExistingClassSideBehaviorExampleSnippet.
 	aViewModel := aSnippet asSnippetViewModel.
-	
+
 	anExample := self obtainGtExampleFromViewModel: aViewModel.
 
 	self assert: anExample isNil.
@@ -169,17 +173,17 @@ LeExampleSnippetViewModelExamples >> notExistingClassSideBehaviorExampleSnippetV
 
 { #category : #'examples - snippet' }
 LeExampleSnippetViewModelExamples >> notExistingClassSideMethodExampleSnippet [
-
 	<gtExample>
+	<return: #LeExampleSnippet>
 	^ LeExampleSnippet new
-		  exampleBehaviorName: self class classSide name;
-		  exampleSelector: #notExistingClassSideExample
+		exampleBehaviorName: self class classSide name;
+		exampleSelector: #notExistingClassSideExample
 ]
 
 { #category : #'examples - snippet view model' }
 LeExampleSnippetViewModelExamples >> notExistingClassSideMethodExampleSnippetViewModel [
-
 	<gtExample>
+	<return: #LeExampleSnippetViewModel>
 	| aSnippet aViewModel anExample |
 	aSnippet := self notExistingClassSideMethodExampleSnippet.
 
@@ -194,17 +198,17 @@ LeExampleSnippetViewModelExamples >> notExistingClassSideMethodExampleSnippetVie
 
 { #category : #'examples - snippet' }
 LeExampleSnippetViewModelExamples >> notExistingInstanceSideBehaviorExampleSnippet [
-
 	<gtExample>
+	<return: #LeExampleSnippet>
 	^ LeExampleSnippet new
-		  exampleBehaviorName: 'NotExistingBehaviorOf' , self class name;
-		  exampleSelector: #instanceSideExample
+		exampleBehaviorName: 'NotExistingBehaviorOf' , self class name;
+		exampleSelector: #instanceSideExample
 ]
 
 { #category : #'examples - snippet view model' }
 LeExampleSnippetViewModelExamples >> notExistingInstanceSideBehaviorExampleSnippetViewModel [
-
 	<gtExample>
+	<return: #LeExampleSnippetViewModel>
 	| aSnippet aViewModel anExample |
 	aSnippet := self notExistingInstanceSideBehaviorExampleSnippet.
 	aViewModel := aSnippet asSnippetViewModel.
@@ -218,17 +222,17 @@ LeExampleSnippetViewModelExamples >> notExistingInstanceSideBehaviorExampleSnipp
 
 { #category : #'examples - snippet' }
 LeExampleSnippetViewModelExamples >> notExistingInstanceSideMethodExampleSnippet [
-
 	<gtExample>
+	<return: #LeExampleSnippet>
 	^ LeExampleSnippet new
-		  exampleBehaviorName: self class name;
-		  exampleSelector: #notExistingInstanceSideExample
+		exampleBehaviorName: self class name;
+		exampleSelector: #notExistingInstanceSideExample
 ]
 
 { #category : #'examples - snippet view model' }
 LeExampleSnippetViewModelExamples >> notExistingInstanceSideMethodExampleSnippetViewModel [
-
 	<gtExample>
+	<return: #LeExampleSnippetViewModel>
 	| aSnippet aViewModel anExample |
 	aSnippet := self notExistingInstanceSideMethodExampleSnippet.
 	aViewModel := aSnippet asSnippetViewModel.
@@ -245,7 +249,7 @@ LeExampleSnippetViewModelExamples >> obtainGtExampleFromViewModel: aViewModel [
 
 	| anExample |
 	[ aViewModel gtExampleDo: [ :theExample | anExample := theExample ] ]
-		on: OCSemanticWarning, SyntaxErrorNotification
+		on: self compilerErrorsToHandle
 		do: [ :aNotification | 
 			AssertionFailure signal:
 				'Compiler notification must not happen: ' , aNotification asString ].

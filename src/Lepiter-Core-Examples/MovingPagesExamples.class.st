@@ -16,8 +16,9 @@ Class {
 MovingPagesExamples >> changesSnippetPage [
 	<immoveablePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'A Changes snippet')
-		addSnippet: (LeChangesSnippetHeightUpdateExamples new createTargetSnippet);
+		addSnippet: LeChangesSnippetHeightUpdateExamples new createTargetSnippet;
 		yourself
 ]
 
@@ -25,6 +26,7 @@ MovingPagesExamples >> changesSnippetPage [
 MovingPagesExamples >> commentSnippetPage [
 	<moveablePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'A Comment snippet page')
 		addSnippet: (LeCommentSnippet new
 				string: 'Some editorial text';
@@ -36,6 +38,7 @@ MovingPagesExamples >> commentSnippetPage [
 MovingPagesExamples >> dockerSnippetPage [
 	<moveablePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'A Docker snippet page')
 		addSnippet: LeDockerSnippetUpdateExamples new createTargetSnippet;
 		yourself
@@ -45,6 +48,7 @@ MovingPagesExamples >> dockerSnippetPage [
 MovingPagesExamples >> elementSnippetPage [
 	<moveablePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'An Element snippet page')
 		addSnippet: (LeElementSnippet new
 				code: 'GtInspector newOn: ''Hello World!''';
@@ -61,6 +65,7 @@ MovingPagesExamples >> elementSnippetPage [
 { #category : #'example - database' }
 MovingPagesExamples >> emptyDatabase [
 	<gtExample>
+	<return: #LeDatabase>
 	| db |
 	db := LeDatabase new monitor: LeVolatileMonitor new.
 	LeBasicDatabasesRegistry new
@@ -72,6 +77,7 @@ MovingPagesExamples >> emptyDatabase [
 { #category : #'example - database' }
 MovingPagesExamples >> emptyTemporaryDatabase [
 	<gtExample>
+	<return: #LeTemporaryDatabase>
 	| db temporaryDatabase |
 	temporaryDatabase := LeTemporaryDatabase new.
 	db := temporaryDatabase.
@@ -83,6 +89,7 @@ MovingPagesExamples >> emptyTemporaryDatabase [
 MovingPagesExamples >> exampleSnippetPage [
 	<moveablePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'An Example snippet page')
 		addSnippet: LeExampleSnippetViewModelExamples new instanceSideExampleSnippet;
 		yourself
@@ -92,8 +99,10 @@ MovingPagesExamples >> exampleSnippetPage [
 MovingPagesExamples >> filePictureSnippetPage [
 	"Local file that is NOT an attachment.
 	Should be moveable but currently isn't"
+
 	<immoveablePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'A local file Picture snippet page')
 		addSnippet: LeExportSnippetExamples new pictureSnippetWithHttps;
 		yourself
@@ -105,6 +114,7 @@ MovingPagesExamples >> fileSnippetPage [
 
 	<moveablePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'An empty File snippet page')
 		addSnippet: (LeFileSnippet new
 				fileReference: nil;
@@ -117,6 +127,7 @@ MovingPagesExamples >> fileSnippetPage [
 MovingPagesExamples >> gemstoneSnippetPage [
 	<moveablePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'A GemStone snippet page')
 		addSnippet: ((LeGemStoneSnippet sessionName: 'nonExistentConnector:1')
 				code: '4+3';
@@ -128,6 +139,7 @@ MovingPagesExamples >> gemstoneSnippetPage [
 MovingPagesExamples >> httpsPictureSnippetPage [
 	<immoveablePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'An https Picture snippet page')
 		addSnippet: LeExportSnippetExamples new pictureSnippetWithHttps;
 		yourself
@@ -136,12 +148,14 @@ MovingPagesExamples >> httpsPictureSnippetPage [
 { #category : #pages }
 MovingPagesExamples >> immoveablePageMethods [
 	<gtExample>
+	<return: #Array>
 	^ self class methods select: [ :m | m hasPragmaNamed: #immoveablePage ]
 ]
 
 { #category : #pages }
 MovingPagesExamples >> immoveablePages [
 	<gtExample>
+	<return: #Array>
 	^ self immoveablePageMethods collect: [ :m | self perform: m selector ]
 ]
 
@@ -149,17 +163,19 @@ MovingPagesExamples >> immoveablePages [
 MovingPagesExamples >> javaScriptSnippetPage [
 	<moveablePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'A JavaScript snippet page')
-	addSnippet: (LeJavaScriptSnippet new
-			code: '1 + 2';
-			yourself);
-	yourself
+		addSnippet: (LeJavaScriptSnippet new
+				code: '1 + 2';
+				yourself);
+		yourself
 ]
 
 { #category : #'example - page' }
 MovingPagesExamples >> jenkinsSnippetPage [
 	<moveablePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'A Jenkins snippet page')
 		addSnippet: (LeJenkinsSnippet new
 				jenkinsUrl: '';
@@ -171,6 +187,7 @@ MovingPagesExamples >> jenkinsSnippetPage [
 MovingPagesExamples >> linkedTextSnippetPage [
 	<moveablePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'A linked text snippet page')
 		addSnippet: (LeTextSnippet new
 				string: 'I link to [[Plain text snippet page]] and [[A Pharo snippet page]].';
@@ -181,9 +198,10 @@ MovingPagesExamples >> linkedTextSnippetPage [
 { #category : #'example - page' }
 MovingPagesExamples >> mockedSnippetPage [
 	"Work in progress?"
-	<immoveablePage>
 
+	<immoveablePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'A Docker snippet page')
 		addSnippet: (LeMockedSnippet new string: 'Mocked');
 		yourself
@@ -192,6 +210,7 @@ MovingPagesExamples >> mockedSnippetPage [
 { #category : #'example - moving' }
 MovingPagesExamples >> moveAllPages [
 	<gtExample>
+	<return: #LeDatabase>
 	| source target sourceSize targetSize |
 	source := self moveablePageDatabase.
 	target := self emptyDatabase.
@@ -217,7 +236,9 @@ MovingPagesExamples >> moveAllPages [
 MovingPagesExamples >> moveAllPagesWithPictures [
 	"NB: These examples use a TemporaryDatabase.
 	For the moment moving does not work for picture snippets."
+
 	<gtExample>
+	<return: #LeTemporaryDatabase>
 	| source target sourceSize targetSize |
 	source := self temporaryDatabaseWithPicturePages.
 	target := self emptyTemporaryDatabase.
@@ -226,8 +247,7 @@ MovingPagesExamples >> moveAllPagesWithPictures [
 	self assert: sourceSize > 0.
 	self assert: targetSize equals: 0.
 	source database pages
-		do: [ :p | 
-			"| newSourceSize newTargetSize |
+		do: [  "| newSourceSize newTargetSize |
 			self assert: p canMoveToAnotherDatabase.
 			p moveToDatabase: target.
 			newSourceSize := source pages size.
@@ -235,13 +255,14 @@ MovingPagesExamples >> moveAllPagesWithPictures [
 			self assert: newSourceSize equals: sourceSize - 1.
 			self assert: newTargetSize equals: targetSize + 1.
 			sourceSize := newSourceSize.
-			targetSize := newTargetSize" ].
+			targetSize := newTargetSize":p |  ].
 	^ target
 ]
 
 { #category : #pages }
 MovingPagesExamples >> moveablePageDatabase [
 	<gtExample>
+	<return: #LeDatabase>
 	| db |
 	db := self emptyDatabase.
 	self moveablePages do: [ :page | db addPage: page ].
@@ -251,12 +272,14 @@ MovingPagesExamples >> moveablePageDatabase [
 { #category : #pages }
 MovingPagesExamples >> moveablePageMethods [
 	<gtExample>
+	<return: #Array>
 	^ self class methods select: [ :m | m hasPragmaNamed: #moveablePage ]
 ]
 
 { #category : #pages }
 MovingPagesExamples >> moveablePages [
 	<gtExample>
+	<return: #Array>
 	^ self moveablePageMethods collect: [ :m | self perform: m selector ]
 ]
 
@@ -264,6 +287,7 @@ MovingPagesExamples >> moveablePages [
 MovingPagesExamples >> pharoRewriteSnippetPage [
 	<moveablePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'A Pharo rewrite snippet page')
 		addSnippet: (LePharoRewriteSnippet new
 				search: 'children isNil ifTrue: [ ^ self ].';
@@ -276,6 +300,7 @@ MovingPagesExamples >> pharoRewriteSnippetPage [
 MovingPagesExamples >> pharoSnippetPage [
 	<moveablePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'A Pharo snippet page')
 		addSnippet: (LePharoSnippet new
 				code: '3 + 4';
@@ -290,6 +315,7 @@ MovingPagesExamples >> pharoSnippetPage [
 MovingPagesExamples >> pythonSnippetPage [
 	<moveablePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'A Python snippet page')
 		addSnippet: (LePythonSnippet new
 				code: '1 + 2';
@@ -301,6 +327,7 @@ MovingPagesExamples >> pythonSnippetPage [
 MovingPagesExamples >> shellScriptSnippetPage [
 	<moveablePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'A Shell Script snippet page')
 		addSnippet: (LeShellScriptSnippet new
 				code: 'pwd';
@@ -312,21 +339,23 @@ MovingPagesExamples >> shellScriptSnippetPage [
 MovingPagesExamples >> smaccRewriteSnippetPage [
 	<moveablePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'A SmaCC Rewrite snippet page')
-	addSnippet: (LeSmaCCRewriteSnippet new
-			search: '';
-			replace: '';
-			scope: nil;
-			parser: nil;
-			startingState: nil;
-			yourself);
-	yourself
+		addSnippet: (LeSmaCCRewriteSnippet new
+				search: '';
+				replace: '';
+				scope: nil;
+				parser: nil;
+				startingState: nil;
+				yourself);
+		yourself
 ]
 
 { #category : #'example - page' }
 MovingPagesExamples >> stringSnippetPage [
 	<moveablePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'A String snippet page')
 		addSnippet: (LeStringSnippet new
 				contentString: '{
@@ -363,6 +392,7 @@ MovingPagesExamples >> stringSnippetPage [
 MovingPagesExamples >> temporaryDatabaseWithPicturePages [
 	<todo: 'Use this to test moving pages to another temporary database'>
 	<gtExample>
+	<return: #LeTemporaryDatabase>
 	| db |
 	db := LeModelExamples new databaseWithTwoPagesHavingPictureSnippets.
 	db database addPage: self httpsPictureSnippetPage.
@@ -374,6 +404,7 @@ MovingPagesExamples >> temporaryDatabaseWithPicturePages [
 MovingPagesExamples >> textSnippetPage [
 	<moveablePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'Plain text snippet page')
 		addSnippet: (LeTextSnippet new
 				string: 'A text snippet without links.';
@@ -388,6 +419,7 @@ MovingPagesExamples >> textSnippetPage [
 MovingPagesExamples >> unknownSnippetPage [
 	<moveablePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'An Unknown snippet page')
 		addSnippet: (LeDatabaseReloadWithUnknownSnippetExamples new reloadPageWithUnknownSnippet
 				pageNamed: #page1) children first;
@@ -398,6 +430,7 @@ MovingPagesExamples >> unknownSnippetPage [
 MovingPagesExamples >> wardleyMapSnippetPage [
 	<moveablePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'A Wardley Map snippet page')
 		addSnippet: (LeWardleyMapSnippet new
 				wardleyMap: GtWardleyMapModelExamples new newMapWithPipelineInnerNodes);
@@ -408,6 +441,7 @@ MovingPagesExamples >> wardleyMapSnippetPage [
 MovingPagesExamples >> wordSnippetPage [
 	<immoveablePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'A word explanation snippet')
 		addSnippet: (LeWordSnippet new
 				word: 'Explanation';
@@ -484,6 +518,7 @@ MovingPagesExamples >> wordSnippetPage [
 MovingPagesExamples >> youTubeSnippetPage [
 	<moveablePage>
 	<gtExample>
+	<return: #LePage>
 	^ (LePage named: 'A YouTube snippet page')
 		addSnippet: (LeYoutubeReferenceSnippet new
 				urlString: 'https://www.youtube.com/watch?v=vtD-xD0Eo3c';

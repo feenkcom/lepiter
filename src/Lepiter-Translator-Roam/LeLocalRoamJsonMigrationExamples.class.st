@@ -11,12 +11,12 @@ Class {
 { #category : #tests }
 LeLocalRoamJsonMigrationExamples >> loadFromRoamJson [
 	<gtExample>
+	<return: #LeDatabase>
 	| page1 page2 link links |
-
 	"V3 updates schema in-place, so copy the on-disk db to memory"
 	memStore := FileSystem memory root / 'db'.
-	(self testDataLocation / 'v1') copyAllTo: memStore.
-	
+	self testDataLocation / 'v1' copyAllTo: memStore.
+
 	database := LeLocalStoreLoad forRoamJson loadFrom: memStore.
 
 	self assert: database size equals: 3.
@@ -30,6 +30,4 @@ LeLocalRoamJsonMigrationExamples >> loadFromRoamJson [
 	self assert: link target equals: page1.
 
 	^ database
-
-
 ]

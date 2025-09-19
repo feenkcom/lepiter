@@ -18,7 +18,7 @@ LeLepiterToolStencil >> create [
 	^ LeHomeDatabasesElement new 
 		databaseViewModel: self currentKnowledgeBase asContentUIModel;
 		padding: (BlInsets all: 20);
-		background: BrGlamorousColors backdropColor
+		background: BlTheme default default backdropBackground
 ]
 
 { #category : #'api - instantiation' }

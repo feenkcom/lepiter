@@ -19,37 +19,38 @@ LeEditTextValueSnippetCommandExamples >> assertTargetSnippetContentChanged [
 { #category : #'examples - execution undo/redo' }
 LeEditTextValueSnippetCommandExamples >> executeCommand_executeUndoCommand [
 	<gtExample>
+	<return: #SubclassResponsibility>
 	| result |
-	
 	result := super executeCommand_executeUndoCommand.
-	
+
 	self assert: result targetCommandResult subcommandResults size equals: 2.
-	result targetCommandResult subcommandResults do: [ :aResult | 
-		self assertExecutionResultFor:  aResult  ]. 
-	
-	self assert: result targetCommandResult subcommandResults second undoSpecification 
-		snippetState shouldTransformForLogStorage not.
-	
+	result targetCommandResult subcommandResults
+		do: [ :aResult | self assertExecutionResultFor: aResult ].
+
+	self
+		assert: result targetCommandResult subcommandResults second undoSpecification
+				snippetState shouldTransformForLogStorage not.
+
 	^ result
 ]
 
 { #category : #'examples - execution' }
 LeEditTextValueSnippetCommandExamples >> executeEditSnippetCommand_undoSpecification [
 	<gtExample>
+	<return: #SubclassResponsibility>
 	| undoSpecification |
-	
 	undoSpecification := super executeEditSnippetCommand_undoSpecification.
-	
-	self 
-		assert: undoSpecification commandTypeName 
+
+	self
+		assert: undoSpecification commandTypeName
 		equals: LeContentCompositeCommand name.
-	self 
-		assert: undoSpecification subcommandSpecifications first commandTypeName 
+	self
+		assert: undoSpecification subcommandSpecifications first commandTypeName
 		equals: LeEditTextValueSnippetCommand name.
-	self 
-		assert: undoSpecification subcommandSpecifications second commandTypeName 
+	self
+		assert: undoSpecification subcommandSpecifications second commandTypeName
 		equals: LeEditGenericSnippetCommand name.
-	
+
 	^ undoSpecification
 ]
 

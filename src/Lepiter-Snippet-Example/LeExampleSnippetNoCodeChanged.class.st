@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'noCode'
 	],
-	#category : 'Lepiter-Snippet-Example-Snippet - Events'
+	#category : #'Lepiter-Snippet-Example-Snippet - Events'
 }
 
 { #category : #generated }

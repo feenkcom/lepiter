@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'snippet'
 	],
-	#category : 'Lepiter-UI-Phlow Tools'
+	#category : #'Lepiter-UI-Phlow Tools'
 }
 
 { #category : #'api - instance creation' }
@@ -38,7 +38,7 @@ LeSnippetPhlowTool >> block: aSnippet [
 
 { #category : #'api - accessing' }
 LeSnippetPhlowTool >> object [
-	^ self block
+	^ self snippet
 ]
 
 { #category : #'api - accessing' }
@@ -54,5 +54,5 @@ LeSnippetPhlowTool >> snippet: aSnippet [
 
 { #category : #'api - accessing' }
 LeSnippetPhlowTool >> title [
-	^ self block title
+	^ self snippet title
 ]

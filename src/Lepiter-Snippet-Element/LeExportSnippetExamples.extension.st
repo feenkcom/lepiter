@@ -3,6 +3,7 @@ Extension { #name : #LeExportSnippetExamples }
 { #category : #'*Lepiter-Snippet-Element' }
 LeExportSnippetExamples >> elementSnippetWithGlamorousBreadcrumb [
 	<gtExample>
+	<return: #LeExportSnippetWithElementHolder>
 	| element snippet |
 	element := BrExamplesShowroom new glamorousBreadcrumb.
 
@@ -21,8 +22,8 @@ LeExportSnippetExamples >> elementSnippetWithGlamorousBreadcrumb [
 { #category : #'*Lepiter-Snippet-Element' }
 LeExportSnippetExamples >> elementSnippetWithInexistentMethod [
 	<gtExample>
+	<return: #LeElementSnippet>
 	| snippet |
-
 	snippet := LeElementSnippet
 			code: LeExportSnippetExamples name , ' new inexistentMethod'.
 
@@ -32,7 +33,7 @@ LeExportSnippetExamples >> elementSnippetWithInexistentMethod [
 { #category : #'*Lepiter-Snippet-Element' }
 LeExportSnippetExamples >> elementSnippetWithSlideshow [
 	<gtExample>
-
+	<return: #LeExportSnippetWithSlideshowHolder>
 	| slideshow allSlides snippet |
 	slideshow := GtPresenterSlideShow create: LeExportSlides new.
 	allSlides := slideshow slides slides.
@@ -42,8 +43,9 @@ LeExportSnippetExamples >> elementSnippetWithSlideshow [
 		description: [ 'Slideshow must have more than one slide' ].
 
 	snippet := LeElementSnippet
-			code: GtPresenterSlideShow name , ' ' , #create: asString , ' ' , LeExportSlides name , ' new'.
-			
+			code: GtPresenterSlideShow name , ' ' , #create: asString , ' ' , LeExportSlides name
+					, ' new'.
+
 	^ LeExportSnippetWithSlideshowHolder new
 		snippet: snippet;
 		slideshow: slideshow;
@@ -53,7 +55,7 @@ LeExportSnippetExamples >> elementSnippetWithSlideshow [
 { #category : #'*Lepiter-Snippet-Element' }
 LeExportSnippetExamples >> elementSnippetWithZeroSlides [
 	<gtExample>
-
+	<return: #LeExportSnippetWithSlideshowHolder>
 	| slideshow allSlides snippet |
 	slideshow := GtPresenterSlideShow create: LeExportZeroSlides new.
 	allSlides := slideshow slides slides.
@@ -63,8 +65,9 @@ LeExportSnippetExamples >> elementSnippetWithZeroSlides [
 		description: [ 'Slideshow must have zero slides' ].
 
 	snippet := LeElementSnippet
-			code: GtPresenterSlideShow name , ' ' , #create: asString , ' ' , LeExportZeroSlides name , ' new'.
-			
+			code: GtPresenterSlideShow name , ' ' , #create: asString , ' '
+					, LeExportZeroSlides name , ' new'.
+
 	^ LeExportSnippetWithSlideshowHolder new
 		snippet: snippet;
 		slideshow: slideshow;

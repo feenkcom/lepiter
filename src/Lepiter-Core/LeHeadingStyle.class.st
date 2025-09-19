@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'level'
 	],
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #comparing }

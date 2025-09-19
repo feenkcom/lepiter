@@ -168,6 +168,7 @@ LeUIByScripterExamples >> databaseTwoName [
 { #category : #'examples - database' }
 LeUIByScripterExamples >> databaseWithPageOne [
 	<gtExample>
+	<return: #LeDatabase>
 	| database |
 	database := self emptyDatabase.
 
@@ -179,6 +180,7 @@ LeUIByScripterExamples >> databaseWithPageOne [
 { #category : #'examples - database' }
 LeUIByScripterExamples >> databaseWithPageTwo [
 	<gtExample>
+	<return: #LeDatabase>
 	| database |
 	database := self emptyDatabase.
 
@@ -190,20 +192,22 @@ LeUIByScripterExamples >> databaseWithPageTwo [
 { #category : #'examples - database' }
 LeUIByScripterExamples >> emptyDatabase [
 	<gtExample>
-	| database folderReference localStore  |
+	<return: #LeDatabase>
+	| database folderReference localStore |
 	folderReference := FileSystem memory / 'storage-main'.
 	folderReference ensureCreateDirectory.
-	
+
 	localStore := LeLocalStoreLoad current.
 	localStore localRoot: folderReference.
 	database := localStore loadAndMonitorFrom: folderReference.
 	self assert: database explicitLinks size equals: 0.
-	^ database 
+	^ database
 ]
 
 { #category : #'examples - ui' }
 LeUIByScripterExamples >> emptyPageElement [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self
 			pageOneElementUsingDatabaseModel: [ self databaseWithPageOne ]
@@ -215,6 +219,7 @@ LeUIByScripterExamples >> emptyPageElement [
 { #category : #'examples - ui' }
 LeUIByScripterExamples >> emptyPageElementInPager [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self
 			pageOneElementUsingDatabaseModel: [ self databaseWithPageOne ]
@@ -226,6 +231,7 @@ LeUIByScripterExamples >> emptyPageElementInPager [
 { #category : #'examples - ui' }
 LeUIByScripterExamples >> emptyPageElementInPagerMaximized [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self
 			pageOneElementUsingDatabaseModel: [ self databaseWithPageOne ]
@@ -237,6 +243,7 @@ LeUIByScripterExamples >> emptyPageElementInPagerMaximized [
 { #category : #'examples - ui' }
 LeUIByScripterExamples >> logicalDatabasePageOneElementInPager [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self
 			pageOneElementUsingDatabaseModel: [ self logicalDatabaseWithEmptyPage ]
@@ -248,6 +255,7 @@ LeUIByScripterExamples >> logicalDatabasePageOneElementInPager [
 { #category : #'examples - database' }
 LeUIByScripterExamples >> logicalDatabaseWithEmptyPage [
 	<gtExample>
+	<return: #LeLogicalDatabase>
 	| database |
 	database := self logicalDatabaseWithTwoEmptyDatabases.
 
@@ -263,6 +271,7 @@ LeUIByScripterExamples >> logicalDatabaseWithEmptyPage [
 { #category : #'examples - database' }
 LeUIByScripterExamples >> logicalDatabaseWithTwoEmptyDatabases [
 	<gtExample>
+	<return: #LeLogicalDatabase>
 	| databaseOne databaseTwo database |
 	databaseOne := self emptyDatabase.
 	databaseTwo := self emptyDatabase.
@@ -279,7 +288,7 @@ LeUIByScripterExamples >> logicalDatabaseWithTwoEmptyDatabases [
 
 	database := LeLogicalDatabase primaryDB: databaseOne.
 	database addDB: databaseTwo.
-	
+
 	self assert: database databases size equals: 2.
 	self assert: database pages size equals: 0.
 
@@ -300,6 +309,7 @@ LeUIByScripterExamples >> pageInPager: aPage [
 { #category : #'examples - database' }
 LeUIByScripterExamples >> pageOne [
 	<gtExample>
+	<return: #LePage>
 	| aDatabase aPageOne |
 	aDatabase := self databaseWithPageOne.
 	aPageOne := self pageOneIn: aDatabase.
@@ -310,6 +320,7 @@ LeUIByScripterExamples >> pageOne [
 { #category : #'examples - elements' }
 LeUIByScripterExamples >> pageOneElementInPager [
 	<gtExample>
+	<return: #GtPager>
 	| aDatabase aPageOne aPageElement |
 	aDatabase := self databaseWithPageOne.
 	aPageOne := self pageOneIn: aDatabase.
@@ -360,19 +371,20 @@ LeUIByScripterExamples >> pageOneElementUsingDatabaseModel: aModelBlock extra: a
 { #category : #'examples - removed page' }
 LeUIByScripterExamples >> pageOneFromDatabaseWithOnlyOnePage [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self
-		scripterWithModel: [ LeModelExamples new pageOneFromDatabaseWithOnlyOnePage ]
-		element: [ :aPageHolder | 
-			GtPager createWrappedOn: (aPageHolder page asLepiterPagePhlowTool 
-				asElementDo: [ :anElement | anElement ]) ].
-				
+			scripterWithModel: [ LeModelExamples new pageOneFromDatabaseWithOnlyOnePage ]
+			element: [ :aPageHolder | 
+				GtPager
+					createWrappedOn: (aPageHolder page asLepiterPagePhlowTool asElementDo: [ :anElement | anElement ]) ].
+
 	aScripter assert
 		label: 'Assert page snippet tree widget exists';
 		// LePageSnippetsTreeElementId;
 		exists;
 		play.
-		
+
 	^ aScripter
 ]
 
@@ -381,6 +393,7 @@ LeUIByScripterExamples >> pageOneFromDatabaseWithOnlyOnePage_RemoveLastPage [
 	"See https://github.com/feenkcom/gtoolkit/issues/4186"
 
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self pageOneFromDatabaseWithOnlyOnePage.
 
@@ -393,7 +406,7 @@ LeUIByScripterExamples >> pageOneFromDatabaseWithOnlyOnePage_RemoveLastPage [
 		onSpaceRoot;
 		// LePageConfirmationActionId;
 		play.
-		
+
 	aScripter assert
 		label: 'Assert page snippet tree widget does not exist';
 		// LePageSnippetsTreeElementId;
@@ -408,6 +421,7 @@ LeUIByScripterExamples >> pageOneFromDatabaseWithOnlyOnePage_RemoveLastPage_Chec
 	"See https://github.com/feenkcom/gtoolkit/issues/4186"
 
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self pageOneFromDatabaseWithOnlyOnePage_RemoveLastPage.
 

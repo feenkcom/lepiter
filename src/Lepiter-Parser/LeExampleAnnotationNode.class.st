@@ -45,7 +45,7 @@ LeExampleAnnotationNode >> previewExpanded [
 	items
 		do: [ :each | 
 			each isPreviewExpanded
-				ifTrue: [ ^ each booleanValueWithDefault: false ] ].
+				ifTrue: [ ^ each booleanValueWithDefault: true ] ].
 	^ false
 ]
 

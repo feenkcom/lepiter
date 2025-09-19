@@ -85,6 +85,7 @@ LeInMemoryDatabaseExamples >> emptyDatabaseNamed: aDatabaseName [
 { #category : #'examples - database' }
 LeInMemoryDatabaseExamples >> logicalDatabaseWithPageLinks_AddDbOneThenDbTwo [
 	<gtExample>
+	<return: #LeTwoDatabasesExampleResult>
 	| aResult aDatabaseOne aDatabaseTwo aLogicalDatabase |
 	aResult := self twoDatabasesWithPageLinks.
 	aDatabaseOne := aResult databaseOne.
@@ -113,6 +114,7 @@ LeInMemoryDatabaseExamples >> logicalDatabaseWithPageLinks_AddDbOneThenDbTwo [
 { #category : #'examples - database' }
 LeInMemoryDatabaseExamples >> logicalDatabaseWithPageLinks_AddDbTwoThenDbOne [
 	<gtExample>
+	<return: #LeTwoDatabasesExampleResult>
 	| aResult aDatabaseOne aDatabaseTwo aLogicalDatabase |
 	aResult := self twoDatabasesWithPageLinks.
 	aDatabaseOne := aResult databaseOne.
@@ -164,13 +166,14 @@ LeInMemoryDatabaseExamples >> registeredDatabases [
 LeInMemoryDatabaseExamples >> storeRootDirectory [
 	<gtExample>
 	<after: #cleanUp>
-	
+	<return: #FileReference>
 	^ storeRootDirectory ifNil: [ storeRootDirectory := FileSystem memory root ]
 ]
 
 { #category : #'examples - database' }
 LeInMemoryDatabaseExamples >> twoDatabasesWithPageLinks [
 	<gtExample>
+	<return: #LeTwoDatabasesExampleResult>
 	| aDatabaseOne aDatabaseTwo aPageOne aPageTwo aPageOneRemoteLink aPageTwoSnippet |
 	aDatabaseOne := self emptyDatabaseNamed: self databaseOneName.
 	aDatabaseTwo := self emptyDatabaseNamed: self databaseTwoName.

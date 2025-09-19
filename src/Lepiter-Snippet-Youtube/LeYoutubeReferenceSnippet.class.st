@@ -69,15 +69,53 @@ LeYoutubeReferenceSnippet >> contentAsString [
 	^ urlString
 ]
 
-{ #category : #accessing }
-LeYoutubeReferenceSnippet >> gtYoutubeReferenceInfoFor: aView [
+{ #category : #views }
+LeYoutubeReferenceSnippet >> gtHtmlIFrame16per9For: aView [
 	<gtView>
-	^ self leRawYoutubeReferenceInfo gtYoutubeReferenceInfoFor: aView.
+	^ aView textEditor
+		title: 'HTML';
+		priority: 2;
+		text: [ self htmlIFrame16per9 ]
+]
+
+{ #category : #views }
+LeYoutubeReferenceSnippet >> gtVideoInfoFor: aView [
+	<gtView>
+	self leRawYoutubeReferenceInfo ifNil: [ ^ aView empty ].
+	^ aView forward
+		title: 'Video info';
+		object: [ 
+			self leRawYoutubeReferenceInfo ];
+		view: #gtRawDataFor:
+]
+
+{ #category : #views }
+LeYoutubeReferenceSnippet >> gtYoutubeInfoFor: aView [
+	<gtView>
+	^ aView forward
+		title: 'Youtube Info';
+		priority: 3;
+		object: [ self leRawYoutubeReferenceInfo ];
+		view: #gtRawDataFor:
 ]
 
 { #category : #accessing }
 LeYoutubeReferenceSnippet >> html [
 	^ self leRawYoutubeReferenceInfo html
+]
+
+{ #category : #'as yet unclassified' }
+LeYoutubeReferenceSnippet >> htmlIFrame16per9 [
+	^ '<iframe 
+	style="aspect-ratio: 16 / 9; height: 100%;" 
+	src="https://www.youtube.com/embed/' , self videoIdAndStart
+		, '" 
+	title="YouTube video player" 
+	frameborder="0" 
+	allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share"
+	referrerpolicy="strict-origin-when-cross-origin" 
+	allowfullscreen>
+</iframe>'
 ]
 
 { #category : #accessing }
@@ -100,6 +138,11 @@ LeYoutubeReferenceSnippet >> storeOn: aStream [
 	aStream nextPutAll: '(LeYoutubeReferenceSnippet new urlString: '.
 	self urlString storeOn: aStream.
 	aStream nextPutAll: '; yourself)'
+]
+
+{ #category : #accessing }
+LeYoutubeReferenceSnippet >> thumbnailUrl [
+	^ self leRawYoutubeReferenceInfo thumbnailUrl
 ]
 
 { #category : #accessing }
@@ -134,6 +177,35 @@ LeYoutubeReferenceSnippet >> urlString: aString source: anObject [
 	leRawYoutubeReferenceInfo := LeRawYoutubeReferenceInfo fromYoutubeStringUrl: aString.
 	self updateEditTimeAndEmail.
 	self announceContentChangedBy: anObject
+]
+
+{ #category : #'as yet unclassified' }
+LeYoutubeReferenceSnippet >> urlStringUtility [
+	| db rootDir |
+	db := self database.
+
+	rootDir := (db isDatabase not or: [ db monitor isNil ])
+			ifTrue: [ FileLocator workingDirectory resolve ]
+			ifFalse: [ db monitor localRoot ].
+
+	urlString := self urlString.
+	^ GtUrlStringUtility new
+		rootDirectory: rootDir;
+		urlString: urlString
+]
+
+{ #category : #accessing }
+LeYoutubeReferenceSnippet >> videoId [
+	^ LeYoutubeUrl new
+		string: self urlString;
+		videoId
+]
+
+{ #category : #accessing }
+LeYoutubeReferenceSnippet >> videoIdAndStart [
+	^ LeYoutubeUrl new
+		string: self urlString;
+		videoIdAndStart
 ]
 
 { #category : #accessing }

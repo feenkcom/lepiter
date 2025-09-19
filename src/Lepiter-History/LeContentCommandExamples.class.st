@@ -112,32 +112,31 @@ LeContentCommandExamples >> assertValidCommandFor: aCommand [
 { #category : #'examples - setup  pages' }
 LeContentCommandExamples >> ensureTargetPageWithTwoBasicSnippetsAndFirstTarget [
 	<gtExample>
+	<return: #LePage>
 	| targetPage |
-	
 	targetPage := self targetPage.
 	targetPage addSnippet: (self textSnippetWithString: 'Target').
 	targetPage addSnippet: (self textSnippetWithString: 'A').
-	
+
 	^ targetPage
 ]
 
 { #category : #'examples - setup  pages' }
 LeContentCommandExamples >> targetDatabase [
 	<gtExample>
-	
-	^ theDatabase ifNil: [
-		theDatabase := self createTargetDatabase  ]
+	<return: #LeNullDatabase>
+	^ theDatabase ifNil: [ theDatabase := self createTargetDatabase ]
 ]
 
 { #category : #'examples - setup  pages' }
 LeContentCommandExamples >> targetPage [
 	<gtExample>
-	
-	^ self thePage ifNil: [
-		self thePage: self createTargetPage.
-		self targetDatabase isDatabase ifTrue: [ 
-			self targetDatabase addPage: self thePage ].
-		self thePage ]
+	<return: #LePage>
+	^ self thePage
+		ifNil: [ self thePage: self createTargetPage.
+			self targetDatabase isDatabase
+				ifTrue: [ self targetDatabase addPage: self thePage ].
+			self thePage ]
 ]
 
 { #category : #'examples - setup  pages' }

@@ -40,8 +40,9 @@ LePagePhlowTool >> asTabElement [
 	anElement
 		when: LeDatabaseSidebarChangePageWish
 		do: [ :aWish | 
-			aWish currentTarget
-				fireEvent: (GtPhlowToolObjectChangeWish new object: aWish pageUIModel pageModel) ].
+			self page: aWish pageUIModel pageModel.
+			aWish currentTarget fireEvent: (GtPhlowToolObjectChangeWish new 
+				object: aWish pageUIModel pageModel) ].
 	^ anElement
 ]
 

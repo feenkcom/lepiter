@@ -46,122 +46,122 @@ LeEditSnippetCommandExamples >> assertTargetSnippetContentChanged [
 { #category : #'examples - commands' }
 LeEditSnippetCommandExamples >> createEditSnippetCommand [
 	<gtExample>
+	<return: #SubclassResponsibility>
 	| command |
-	
 	self ensurePageWithTargetSnippet.
 	command := self instantiateEditSnippetCommand.
-		
+
 	self assertValidCommandFor: command.
-	
+
 	^ command
 ]
 
 { #category : #'examples - setup  pages' }
 LeEditSnippetCommandExamples >> ensurePageWithTargetSnippet [
 	<gtExample>
+	<return: #SubclassResponsibility>
 	| page |
-	
 	page := self targetPage.
-	page addSnippet: self initialTargetSnippet. 
-	
+	page addSnippet: self initialTargetSnippet.
+
 	^ page
 ]
 
 { #category : #'examples - execution undo/redo' }
 LeEditSnippetCommandExamples >> executeCommand_executeUndoCommand [
 	<gtExample>
+	<return: #SubclassResponsibility>
 	| command initialSnippetState result |
-	
 	command := self createEditSnippetCommand.
 	initialSnippetState := self targetSnippet extractUpdatableState.
-	
+
 	command execute.
 	result := self targetPage editHistory undoCurrent.
-	
-	self 
-		assert: self targetSnippet  extractUpdatableState
+
+	self
+		assert: self targetSnippet extractUpdatableState
 		equals: initialSnippetState.
-		
+
 	self assertExecutionResultFor: result.
-	
+
 	^ result
 ]
 
 { #category : #'examples - execution undo/redo' }
 LeEditSnippetCommandExamples >> executeCommand_executeUndoCommand_editHistory [
 	<gtExample>
+	<return: #SubclassResponsibility>
 	| editHistory |
-	
 	self executeCommand_executeUndoCommand.
-	
+
 	editHistory := self targetPage editHistory.
-	self assert:  editHistory eventStore events size equals: 2.
-	self assert:  editHistory undoActions size equals: 0.
-	self assert:  editHistory redoActions size equals: 1.
-	
-	^ self targetPage 
+	self assert: editHistory eventStore events size equals: 2.
+	self assert: editHistory undoActions size equals: 0.
+	self assert: editHistory redoActions size equals: 1.
+
+	^ self targetPage
 ]
 
 { #category : #'examples - execution undo/redo' }
 LeEditSnippetCommandExamples >> executeCommand_executeUndo_executeRedoCommand [
 	<gtExample>
+	<return: #SubclassResponsibility>
 	| result |
-	
 	self executeCommand_executeUndoCommand.
-	
+
 	result := self targetPage editHistory redoCurrent.
-	
+
 	self assertExecutionResultFor: result.
-	
+
 	^ result
 ]
 
 { #category : #'examples - execution undo/redo' }
 LeEditSnippetCommandExamples >> executeCommand_executeUndo_executeRedoCommand_editHistory [
 	<gtExample>
+	<return: #SubclassResponsibility>
 	| editHistory |
-	
 	self executeCommand_executeUndo_executeRedoCommand.
-	
+
 	editHistory := self targetPage editHistory.
-	self assert:  editHistory eventStore events size equals: 3.
-	self assert:  editHistory undoActions size equals: 1.
-	self assert:  editHistory redoActions size equals: 0.
-	
-	^ self targetPage 
+	self assert: editHistory eventStore events size equals: 3.
+	self assert: editHistory undoActions size equals: 1.
+	self assert: editHistory redoActions size equals: 0.
+
+	^ self targetPage
 ]
 
 { #category : #'examples - execution undo/redo' }
 LeEditSnippetCommandExamples >> executeCommand_executeUndo_executeRedoCommand_pageStructure [
 	<gtExample>
-	
+	<return: #SubclassResponsibility>
 	self executeCommand_executeUndo_executeRedoCommand.
-	
+
 	self assertTargetPageContentChanged.
 	self assertTargePageIsSerialisable.
-	
+
 	^ self targetPage
 ]
 
 { #category : #'examples - execution' }
 LeEditSnippetCommandExamples >> executeEditSnippetCommand [
 	<gtExample>
+	<return: #SubclassResponsibility>
 	| command result |
-	
 	command := self createEditSnippetCommand.
 	result := command execute.
-	
+
 	self assertExecutionResultFor: result.
-	
+
 	^ result
 ]
 
 { #category : #'examples - execution' }
 LeEditSnippetCommandExamples >> executeEditSnippetCommand_pageStructure [
 	<gtExample>
-	
+	<return: #SubclassResponsibility>
 	self executeEditSnippetCommand.
-	
+
 	self assertOneEventInPageHistory.
 	self assertTargetPageContentChanged.
 	self assertTargePageIsSerialisable.
@@ -173,35 +173,33 @@ LeEditSnippetCommandExamples >> executeEditSnippetCommand_pageStructure [
 { #category : #'examples - execution' }
 LeEditSnippetCommandExamples >> executeEditSnippetCommand_traceEvent [
 	<gtExample>
+	<return: #SubclassResponsibility>
 	| result traceEvent |
-	
 	result := self executeEditSnippetCommand.
 	traceEvent := result traceEvent.
-	
+
 	self assert: traceEvent uid notNil.
 	self assert: traceEvent timestamp notNil.
 	self assert: traceEvent mainCommandSpecification notNil.
 	self assert: traceEvent undoCommandSpecification notNil.
-	
-	self 
+
+	self
 		assert: traceEvent undoCommandSpecification identityHash
 		equals: result undoSpecification identityHash.
-	
+
 	^ traceEvent
 ]
 
 { #category : #'examples - execution' }
 LeEditSnippetCommandExamples >> executeEditSnippetCommand_undoSpecification [
 	<gtExample>
+	<return: #SubclassResponsibility>
 	| result undoSpecification |
-	
 	result := self executeEditSnippetCommand.
 	undoSpecification := result undoSpecification.
-	
-	self 
-		assert: undoSpecification contentUid 
-		equals: self targetSnippet uid.
-	
+
+	self assert: undoSpecification contentUid equals: self targetSnippet uid.
+
 	^ undoSpecification
 ]
 

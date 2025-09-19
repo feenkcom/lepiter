@@ -348,6 +348,12 @@ LeLocalStore >> hasAttachmentWithId: aUuid [
 	^ attachmentDirectory exists
 ]
 
+{ #category : #testing }
+LeLocalStore >> isLocalStore [
+
+	^ true
+]
+
 { #category : #private }
 LeLocalStore >> loadExplicitLinks [
 	

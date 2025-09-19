@@ -7,12 +7,15 @@ Class {
 { #category : #'examples - blocks' }
 LeParentSnippetBuilderExamples >> emptySnippetInPageAndDatabase [
 	<gtExample>
+	<return: #LeTextSnippet>
 	| aDatabase aPage aSnippet |
 	aDatabase := self database.
 	aPage := aDatabase pageBuilder
-		title: 'one';
-		add.
-	aSnippet := aPage snippetBuilder empty; add.
+			title: 'one';
+			add.
+	aSnippet := aPage snippetBuilder
+			empty;
+			add.
 	self assert: aSnippet text isNotNil.
 	self assert: aSnippet text asString equals: ''.
 	self assert: aSnippet parent equals: aPage.

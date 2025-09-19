@@ -902,6 +902,12 @@ LeDatabase >> pageNames [
 ]
 
 { #category : #'api - accessing' }
+LeDatabase >> pageUIDs [
+
+	^ pagesByUuid keys
+]
+
+{ #category : #'api - accessing' }
 LeDatabase >> pageWithID: pageId [
 	| uid |
 

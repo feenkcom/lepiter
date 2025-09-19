@@ -17,9 +17,9 @@ LeDeleteSingleCharacterEditTextValueSnippetCommandExamples >> initialStringValue
 { #category : #accessing }
 LeDeleteSingleCharacterEditTextValueSnippetCommandExamples >> instantiateBasicTextEditCommand [
 	<gtExample>
-	
-	^ BrTextEditorHistoryDeletionCommand new 
-		texts: { 'b' asRopedText };
+	<return: #BrTextEditorHistoryDeletionCommand>
+	^ BrTextEditorHistoryDeletionCommand new
+		texts: {'b' asRopedText};
 		undoIndices: #(2);
 		redoIndices: #(2)
 ]

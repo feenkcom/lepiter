@@ -3,9 +3,10 @@ Extension { #name : #LeExportVisitorExamples }
 { #category : #'*Lepiter-Snippet-Example' }
 LeExportVisitorExamples >> exampleSnippetCodeWithPreview [
 	<gtExample>
+	<return: #LeExportVisitorHolder>
 	| snippet context visitor resources |
 	snippet := LeExportSnippetExamples new exampleSnippetCodeWithPreview.
-	
+
 	resources := LeExportResources new.
 
 	context := LeExportContext new.
@@ -26,6 +27,7 @@ LeExportVisitorExamples >> exampleSnippetCodeWithPreview [
 { #category : #'*Lepiter-Snippet-Example' }
 LeExportVisitorExamples >> exampleSnippetCodeWithPreview_PrepareResources [
 	<gtExample>
+	<return: #LeExportVisitorHolder>
 	| holder context resources |
 	holder := self exampleSnippetCodeWithPreview.
 	context := holder context.

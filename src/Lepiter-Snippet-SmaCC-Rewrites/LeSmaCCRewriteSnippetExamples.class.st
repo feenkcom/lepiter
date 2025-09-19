@@ -7,6 +7,7 @@ Class {
 { #category : #accessing }
 LeSmaCCRewriteSnippetExamples >> executeReplaceInDirectory [
 	<gtExample>
+	<return: #LeSmaCCRewriteReplaceResult>
 	| snippet context results fileResults |
 	context := self snippetContext.
 	snippet := self rewriteSnippet.
@@ -22,6 +23,7 @@ LeSmaCCRewriteSnippetExamples >> executeReplaceInDirectory [
 { #category : #accessing }
 LeSmaCCRewriteSnippetExamples >> executeSearch [
 	<gtExample>
+	<return: #LeSmaCCRewriteSearchResult>
 	| snippet context results fileResult nodes |
 	context := self snippetContext.
 	snippet := self rewriteSnippet.
@@ -40,6 +42,7 @@ LeSmaCCRewriteSnippetExamples >> executeSearch [
 { #category : #accessing }
 LeSmaCCRewriteSnippetExamples >> executeSearchAcrossDirectory [
 	<gtExample>
+	<return: #LeSmaCCRewriteSearchResult>
 	| snippet context results fileResults |
 	context := self snippetContext.
 	snippet := self rewriteSnippet.
@@ -54,6 +57,7 @@ LeSmaCCRewriteSnippetExamples >> executeSearchAcrossDirectory [
 { #category : #accessing }
 LeSmaCCRewriteSnippetExamples >> fileReferences [
 	<gtExample>
+	<return: #AsyncWithoutDuplicatesStream>
 	| snippet context results refs |
 	context := self snippetContext.
 	snippet := self rewriteSnippet.
@@ -67,6 +71,7 @@ LeSmaCCRewriteSnippetExamples >> fileReferences [
 { #category : #accessing }
 LeSmaCCRewriteSnippetExamples >> filterDescriptors [
 	<gtExample>
+	<return: #OrderedCollection>
 	| snippet context descriptors |
 	context := self snippetContext.
 	snippet := self rewriteSnippet.
@@ -90,6 +95,7 @@ LeSmaCCRewriteSnippetExamples >> javaFile [
 { #category : #accessing }
 LeSmaCCRewriteSnippetExamples >> rewriteSnippet [
 	<gtExample>
+	<return: #LeSmaCCRewriteSnippet>
 	| page snippet |
 	page := LePage named: 'Test page'.
 	page
@@ -110,12 +116,13 @@ LeSmaCCRewriteSnippetExamples >> rewriteSnippet [
 { #category : #accessing }
 LeSmaCCRewriteSnippetExamples >> snippetContext [
 	<gtExample>
+	<return: #LeSharedSnippetContext>
 	| context directory |
 	context := LeSharedSnippetContext new.
 	context selfObject: 1.
 	directory := self sourceDirectory.
 	(context sharedBindings bindingOf: #one) value: 1.
-	(context sharedBindings bindingOf: #noValue) value: nil.	
+	(context sharedBindings bindingOf: #noValue) value: nil.
 	(context sharedBindings bindingOf: #file) value: directory / self javaFile.
 	(context sharedBindings bindingOf: #files) value: {directory / self javaFile}.
 	(context sharedBindings bindingOf: #directory) value: directory.
@@ -125,6 +132,7 @@ LeSmaCCRewriteSnippetExamples >> snippetContext [
 { #category : #accessing }
 LeSmaCCRewriteSnippetExamples >> sourceDirectory [
 	<gtExample>
+	<return: #FileReference>
 	| fileSystem dir |
 	fileSystem := FileSystem memory.
 	dir := fileSystem / 'src'.
@@ -145,9 +153,6 @@ LeSmaCCRewriteSnippetExamples >> sourceDirectory [
         System.err.println("Goodbye, World!"); 
     }
 }' ].
-	dir / 'README.txt'
-		writeStreamDo: [ :stream | 
-			stream
-				<< 'Testing' ].
+	dir / 'README.txt' writeStreamDo: [ :stream | stream << 'Testing' ].
 	^ dir
 ]

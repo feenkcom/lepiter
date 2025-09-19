@@ -4,8 +4,16 @@ Extension { #name : #LePharoClassDatabase }
 LePharoClassDatabase >> pageNamed: aSymbol [
 
 	^ pagesByName at: aSymbol ifAbsentPut:
-		[ (LePage pharoCommentClassName: aSymbol)
-			addSnippet: (LeTextSnippet string: (self class 
-				environment at: aSymbol) instanceSide organization classComment);
+		[ 
+			| targetClass classComment |
+			targetClass := self class environment at: aSymbol.
+			classComment := self 
+				forPharo12AndNewer: [
+					targetClass instanceSide comment ] 
+				forPharo11: [ 
+					targetClass instanceSide organization classComment ].
+			
+				(LePage pharoCommentClassName: aSymbol)
+			addSnippet: (LeTextSnippet string: classComment);
 			yourself ]
 ]

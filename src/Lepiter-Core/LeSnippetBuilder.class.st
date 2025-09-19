@@ -1,7 +1,7 @@
 Class {
 	#name : #LeSnippetBuilder,
 	#superclass : #LeContentBuilder,
-	#category : 'Lepiter-Core-Builders'
+	#category : #'Lepiter-Core-Builders'
 }
 
 { #category : #'private - asserting' }

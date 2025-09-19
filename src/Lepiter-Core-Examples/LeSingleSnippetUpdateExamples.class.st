@@ -49,6 +49,7 @@ LeSingleSnippetUpdateExamples >> assertSnippetsModifiedInPage: aTargetPage [
 { #category : #'examples - snippets' }
 LeSingleSnippetUpdateExamples >> createTargetSnippet [
 	<gtExample>
+	<return: #SubclassResponsibility>
 	self subclassResponsibility
 ]
 

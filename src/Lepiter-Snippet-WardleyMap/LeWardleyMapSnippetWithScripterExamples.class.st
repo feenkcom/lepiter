@@ -9,6 +9,7 @@ Class {
 { #category : #accessing }
 LeWardleyMapSnippetWithScripterExamples >> snippetWithNodesAndEdges [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self
 			scripterWithModel: [ LeWardleyMapSnippetExamples new snippetWithNodesAndEdges ]
@@ -26,9 +27,10 @@ LeWardleyMapSnippetWithScripterExamples >> snippetWithNodesAndEdges [
 { #category : #accessing }
 LeWardleyMapSnippetWithScripterExamples >> snippetWithNodesAndEdges_NodeAAddProposition [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter aNodeName |
 	aScripter := self snippetWithNodesAndEdges.
-	
+
 	aNodeName := 'Node A'.
 
 	aScripter do

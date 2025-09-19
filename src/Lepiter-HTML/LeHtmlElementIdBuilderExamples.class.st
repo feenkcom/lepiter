@@ -7,6 +7,7 @@ Class {
 { #category : #examples }
 LeHtmlElementIdBuilderExamples >> headerDuplicateId [
 	<gtExample>
+	<return: #LeHtmlElementId>
 	| aNode aHeader aResult aBuilder aResult2 |
 	aNode := LeParserExamples new headers.
 	aHeader := aNode parts at: 1.
@@ -16,7 +17,7 @@ LeHtmlElementIdBuilderExamples >> headerDuplicateId [
 
 	self assert: aResult contentNode source equals: '#header with a #text'.
 	self assert: aResult elementId equals: 'header-with-atext'.
-	
+
 	aResult2 := aBuilder build.
 	self assert: (aResult2 elementId = aResult elementId) not.
 	self assert: aResult2 elementId equals: 'header-with-atext2'.
@@ -27,6 +28,7 @@ LeHtmlElementIdBuilderExamples >> headerDuplicateId [
 { #category : #examples }
 LeHtmlElementIdBuilderExamples >> headerWithChinese [
 	<gtExample>
+	<return: #LeHtmlElementId>
 	| aNode aHeader aResult |
 	aNode := LeParserExamples new headers2.
 	aHeader := aNode parts at: 8.
@@ -34,7 +36,7 @@ LeHtmlElementIdBuilderExamples >> headerWithChinese [
 	aResult := LeHtmlElementIdBuilder new
 			contentNode: aHeader;
 			build.
-			
+
 	self assert: aResult contentNode source equals: '#### 中国 header'.
 	self assert: aResult elementId equals: '中国-header'.
 
@@ -44,6 +46,7 @@ LeHtmlElementIdBuilderExamples >> headerWithChinese [
 { #category : #examples }
 LeHtmlElementIdBuilderExamples >> headerWithClassAnnotation [
 	<gtExample>
+	<return: #LeHtmlElementId>
 	| aNode aHeader aResult |
 	aNode := LeParserExamples new headers2.
 	aHeader := aNode parts at: 6.
@@ -51,8 +54,10 @@ LeHtmlElementIdBuilderExamples >> headerWithClassAnnotation [
 	aResult := LeHtmlElementIdBuilder new
 			contentNode: aHeader;
 			build.
-			
-	self assert: aResult contentNode source equals: '### I am {{gtClass:BrButton}} header'.
+
+	self
+		assert: aResult contentNode source
+		equals: '### I am {{gtClass:BrButton}} header'.
 	self assert: aResult elementId equals: 'i-amheader'.
 
 	^ aResult
@@ -61,6 +66,7 @@ LeHtmlElementIdBuilderExamples >> headerWithClassAnnotation [
 { #category : #examples }
 LeHtmlElementIdBuilderExamples >> headerWithHash [
 	<gtExample>
+	<return: #LeHtmlElementId>
 	| aNode aHeader aResult |
 	aNode := LeParserExamples new headers.
 	aHeader := aNode parts at: 1.
@@ -68,7 +74,7 @@ LeHtmlElementIdBuilderExamples >> headerWithHash [
 	aResult := LeHtmlElementIdBuilder new
 			contentNode: aHeader;
 			build.
-			
+
 	self assert: aResult contentNode source equals: '#header with a #text'.
 	self assert: aResult elementId equals: 'header-with-atext'.
 
@@ -78,6 +84,7 @@ LeHtmlElementIdBuilderExamples >> headerWithHash [
 { #category : #examples }
 LeHtmlElementIdBuilderExamples >> headerWithParentheses [
 	<gtExample>
+	<return: #LeHtmlElementId>
 	| aNode aHeader aResult |
 	aNode := LeParserExamples new headers2.
 	aHeader := aNode parts at: 1.
@@ -85,8 +92,10 @@ LeHtmlElementIdBuilderExamples >> headerWithParentheses [
 	aResult := LeHtmlElementIdBuilder new
 			contentNode: aHeader;
 			build.
-			
-	self assert: aResult contentNode source equals: '# I am __Header One (Letter A)__'.
+
+	self
+		assert: aResult contentNode source
+		equals: '# I am __Header One (Letter A)__'.
 	self assert: aResult elementId equals: 'i-am-header-oneletter-a'.
 
 	^ aResult
@@ -95,6 +104,7 @@ LeHtmlElementIdBuilderExamples >> headerWithParentheses [
 { #category : #examples }
 LeHtmlElementIdBuilderExamples >> headerWithStar [
 	<gtExample>
+	<return: #LeHtmlElementId>
 	| aNode aHeader aResult |
 	aNode := LeParserExamples new headers2.
 	aHeader := aNode parts at: 4.
@@ -102,8 +112,10 @@ LeHtmlElementIdBuilderExamples >> headerWithStar [
 	aResult := LeHtmlElementIdBuilder new
 			contentNode: aHeader;
 			build.
-			
-	self assert: aResult contentNode source equals: '## I am *Header Two {Letter B}*'.
+
+	self
+		assert: aResult contentNode source
+		equals: '## I am *Header Two {Letter B}*'.
 	self assert: aResult elementId equals: 'i-amheader-twoletter-b'.
 
 	^ aResult

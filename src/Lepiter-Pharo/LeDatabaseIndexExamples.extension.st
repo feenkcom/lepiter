@@ -3,6 +3,7 @@ Extension { #name : #LeDatabaseIndexExamples }
 { #category : #'*Lepiter-Pharo' }
 LeDatabaseIndexExamples >> database [
 	<gtExample>
+	<return: #LeDatabase>
 	| page pageUID database |
 	database := LeDatabase new.
 
@@ -23,7 +24,7 @@ LeDatabaseIndexExamples >> database [
 
 	page
 		addSnippet: (LeTextSnippet new
-				string: '{{gtClass:Object}} {{gtMethod:name=Set>>grow}} {{gtExample:LeDatabaseIndexExamples>>database}}').
+				string: '{{gtClass:Object}} {{gtMethod:name=Set>>grow}} {{gtExample:LeDatabaseIndexExamples>>#database}}').
 
 
 	self assert: (database pageWithID: pageUID) uid equals: pageUID.

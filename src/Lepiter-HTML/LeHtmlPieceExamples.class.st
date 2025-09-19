@@ -39,24 +39,24 @@ LeHtmlPieceExamples >> doubleBracketFormatTemplate [
 { #category : #examples }
 LeHtmlPieceExamples >> formatDoubleBracketPiece [
 	<gtExample>
-	
+	<return: #LeHtmlDoubleBracketFormatPiece>
 	| piece output |
 	piece := LeHtmlDoubleBracketFormatPiece new
-		at: #'lang' put: 'en';
-		at: #charset put: 'UTF-8';
-		at: #author put: 'feenk.com';
-		at: #title put: 'Template | Feenk';
-		at: #content put: self helloWorldPiece;
-		template: self doubleBracketFormatTemplate.
-		
+			at: #lang put: 'en';
+			at: #charset put: 'UTF-8';
+			at: #author put: 'feenk.com';
+			at: #title put: 'Template | Feenk';
+			at: #content put: self helloWorldPiece;
+			template: self doubleBracketFormatTemplate.
+
 	self assert: piece template equals: self doubleBracketFormatTemplate.
 	self assert: piece arguments size equals: 5.
-	
-	output := String streamContents: [ :aStream |
-		piece writeWithContext: (LeHtmlContext new stream: aStream) ].
-	
+
+	output := String
+			streamContents: [ :aStream | piece writeWithContext: (LeHtmlContext new stream: aStream) ].
+
 	self assert: output equals: self doubleBracketFormatOutput.
-	
+
 	^ piece
 ]
 
@@ -78,41 +78,41 @@ LeHtmlPieceExamples >> formatOutput [
 { #category : #examples }
 LeHtmlPieceExamples >> formatPiece [
 	<gtExample>
-	
+	<return: #LeHtmlFormatPiece>
 	| piece output |
 	piece := LeHtmlFormatPiece new
-		at: #'lang' put: 'en';
-		at: #charset put: 'UTF-8';
-		at: #author put: 'feenk.com';
-		at: #title put: 'Template | Feenk';
-		at: #content put: self helloWorldPiece;
-		template: self formatTemplate.
-		
+			at: #lang put: 'en';
+			at: #charset put: 'UTF-8';
+			at: #author put: 'feenk.com';
+			at: #title put: 'Template | Feenk';
+			at: #content put: self helloWorldPiece;
+			template: self formatTemplate.
+
 	self assert: piece template equals: self formatTemplate.
 	self assert: piece arguments size equals: 5.
-	
-	output := String streamContents: [ :aStream |
-		piece writeWithContext: (LeHtmlContext new stream: aStream) ].
-	
+
+	output := String
+			streamContents: [ :aStream | piece writeWithContext: (LeHtmlContext new stream: aStream) ].
+
 	self assert: output equals: self formatOutput.
-	
+
 	^ piece
 ]
 
 { #category : #examples }
 LeHtmlPieceExamples >> formatPieceWithCurlyBrackets [
 	<gtExample>
-	
+	<return: #LeHtmlDoubleBracketFormatPiece>
 	| piece output |
 	piece := LeHtmlDoubleBracketFormatPiece new
-		at: #'test}test' put: 'test';
-		template: 'hello, {{test}test}}!'.
-	
-	output := String streamContents: [ :aStream |
-		piece writeWithContext: (LeHtmlContext new stream: aStream) ].
-	
+			at: #'test}test' put: 'test';
+			template: 'hello, {{test}test}}!'.
+
+	output := String
+			streamContents: [ :aStream | piece writeWithContext: (LeHtmlContext new stream: aStream) ].
+
 	self assert: output equals: 'hello, test!'.
-	
+
 	^ piece
 ]
 
@@ -134,5 +134,6 @@ LeHtmlPieceExamples >> formatTemplate [
 { #category : #examples }
 LeHtmlPieceExamples >> helloWorldPiece [
 	<gtExample>
+	<return: #LeHtmlHelloWorldPiece>
 	^ LeHtmlHelloWorldPiece new
 ]

@@ -17,9 +17,10 @@ LeInsertMultipleCharactersEditTextValueSnippetCommandExamples >> initialStringVa
 { #category : #accessing }
 LeInsertMultipleCharactersEditTextValueSnippetCommandExamples >> instantiateBasicTextEditCommand [
 	<gtExample>
-	
-	^ BrTextEditorHistoryInsertionCommand new 
-		strings: { '1' . '1' };
+	<return: #BrTextEditorHistoryInsertionCommand>
+	^ BrTextEditorHistoryInsertionCommand new
+		strings: {'1'.
+				'1'};
 		undoIndices: #(1 4);
 		redoIndices: #(1 3)
 ]

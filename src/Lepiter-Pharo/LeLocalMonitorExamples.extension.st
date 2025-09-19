@@ -42,12 +42,13 @@ LeLocalMonitorExamples >> snippetTypes [
 	"Create a database and one page with all block types"
 
 	<gtExample>
+	<return: #LeDatabase>
 	| page1 |
 	self reset.
 	database := LeDatabase new.
 	page1 := database pageBuilder
-		title: 'Page 1';
-		add.
+			title: 'Page 1';
+			add.
 	page1 snippetBuilder
 		string: 'Text Block';
 		add.

@@ -10,7 +10,7 @@ Class {
 	#superclass : #Object,
 	#traits : 'TGtAssert + TGtUniqueInstance',
 	#classTraits : 'TGtAssert classTrait + TGtUniqueInstance classTrait',
-	#category : 'Lepiter-Core-Notifier'
+	#category : #'Lepiter-Core-Notifier'
 }
 
 { #category : #factory }

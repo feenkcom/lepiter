@@ -5,7 +5,7 @@ Class {
 		'linkReferenceViewModel',
 		'uid'
 	],
-	#category : 'Lepiter-UI-! Link Reference'
+	#category : #'Lepiter-UI-! Link Reference'
 }
 
 { #category : #'api - accessing' }

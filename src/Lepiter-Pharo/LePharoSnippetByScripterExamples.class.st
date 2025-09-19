@@ -61,9 +61,10 @@ LePharoSnippetByScripterExamples >> assertPharoSnippetElementContentIn: aStep [
 { #category : #'examples - page' }
 LePharoSnippetByScripterExamples >> checkEveryPharoSnippetHasSameVariableValue [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self executeFirstPharoSnippet.
-	
+
 	self assertBindingsIn: aScripter.
 
 	^ aScripter
@@ -88,9 +89,10 @@ LePharoSnippetByScripterExamples >> clickOnPharoSnippetAt: anIndex step: aStep [
 { #category : #'examples - page' }
 LePharoSnippetByScripterExamples >> clickOnTheFirstPharoSnippet [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self pageContentElementWithPharoSnippetsSharingSameVariable.
-	
+
 	self clickOnPharoSnippetAt: 1 step: aScripter.
 
 	^ aScripter
@@ -122,6 +124,7 @@ LePharoSnippetByScripterExamples >> editEveryVisiblePharoSnippetIn: aStep append
 { #category : #'examples - rename variable' }
 LePharoSnippetByScripterExamples >> enterNewLocalVariableName [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self startRenameLocalVariable.
 
@@ -152,6 +155,7 @@ LePharoSnippetByScripterExamples >> enterNewNameWithScripter: aScripter [
 { #category : #'examples - scripter' }
 LePharoSnippetByScripterExamples >> evaluateWhenMaximized [
 	<gtExample>
+	<return: #BlScripter>
 	| anElement aPager aScripter page examples aSnippetOne |
 	examples := LeUIExamples new.
 	page := examples database pageBuilder
@@ -164,7 +168,7 @@ LePharoSnippetByScripterExamples >> evaluateWhenMaximized [
 		pharo: 'a odd';
 		add.
 	anElement := page asPhlowTool asElementDo: [ :e | e ].
-	aPager := GtPager createWrappedOn: anElement.
+	aPager := GtPagerSettings usedPager createWrappedOn: anElement.
 	aPager maximized.
 	aPager asElement.
 	aScripter := self
@@ -191,6 +195,7 @@ LePharoSnippetByScripterExamples >> evaluateWhenMaximized [
 { #category : #'examples - page' }
 LePharoSnippetByScripterExamples >> executeAndAgainScrollDownPharoSnippets [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self scrollUpPharoSnippets.
 	aScripter
@@ -229,11 +234,12 @@ LePharoSnippetByScripterExamples >> executeAndAgainScrollDownPharoSnippets [
 { #category : #'examples - page' }
 LePharoSnippetByScripterExamples >> executeFirstPharoSnippet [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self pageContentElementWithPharoSnippetsSharingSameVariable.
-	
+
 	self executePharoSnippetAt: 1 step: aScripter.
-	
+
 	^ aScripter
 ]
 
@@ -301,30 +307,23 @@ LePharoSnippetByScripterExamples >> moveDownPharoSnippetAt: anIndex step: aStep 
 
 { #category : #'examples - page - pharo snippets' }
 LePharoSnippetByScripterExamples >> pageContentElementWithEnumeradedPharoSnippets [
-
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self
-		             scripterWithModel: [ 
-		             LeUIExamples new
-			             titledPageWithPharoCodeHierarchy_numbers ]
-		             element: [ :aPage | 
-			             LePageToolContentTreeElement new pageViewModel:
-				             aPage asContentUIModel ].
+			scripterWithModel: [ LeUIExamples new titledPageWithPharoCodeHierarchy_numbers ]
+			element: [ :aPage | LePageToolContentTreeElement new pageViewModel: aPage asContentUIModel ].
 	^ aScripter
 ]
 
 { #category : #'examples - page' }
 LePharoSnippetByScripterExamples >> pageContentElementWithPharoSnippetsSharingSameVariable [
-
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self
-		             scripterWithModel: [ 
-		             LeUIExamples new titledPageWithPharoCodeHierarchy ]
-		             element: [ :aPage | 
-			             LePageToolContentTreeElement new pageViewModel:
-				             aPage asContentUIModel ].
+			scripterWithModel: [ LeUIExamples new titledPageWithPharoCodeHierarchy ]
+			element: [ :aPage | LePageToolContentTreeElement new pageViewModel: aPage asContentUIModel ].
 	^ aScripter
 ]
 
@@ -364,6 +363,7 @@ LePharoSnippetByScripterExamples >> scrollDownEnumeradedPharoSnippets [
 { #category : #'examples - page' }
 LePharoSnippetByScripterExamples >> scrollDownPharoSnippets [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self executeFirstPharoSnippet.
 	aScripter
@@ -433,6 +433,7 @@ LePharoSnippetByScripterExamples >> scrollUpEnumeradedPharoSnippets [
 { #category : #'examples - page' }
 LePharoSnippetByScripterExamples >> scrollUpPharoSnippets [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self scrollDownPharoSnippets.
 	aScripter
@@ -471,6 +472,7 @@ LePharoSnippetByScripterExamples >> scrollUpPharoSnippets [
 { #category : #'examples - rename variable' }
 LePharoSnippetByScripterExamples >> startRenameLocalVariable [
 	<gtExample>
+	<return: #BlScripter>
 	| aScripter |
 	aScripter := self pageContentElementWithPharoSnippetsSharingSameVariable.
 

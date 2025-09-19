@@ -277,13 +277,33 @@ LePage >> explicitReferences [
 ]
 
 { #category : #accessing }
+LePage >> gtBindingsActionFor: anAction [
+	<lePageAction>
+	^ anAction dropdown
+		tooltip: 'Inspect variable bindings';
+		icon: BrGlamorousVectorIcons inspect;
+		withDropdownIndicator;
+		content: [ :aButton | 
+			(aButton parent parent parent parent pageViewModel sharedSnippetContext
+				gtViewSharedBindingsFor: GtPhlowView empty) asElement
+				size: 300 @ 100;
+				aptitude: BrGlamorousWithVerticalResizerAptitude
+						+ BrGlamorousWithHorizontalResizerAptitude ]
+]
+
+{ #category : #accessing }
 LePage >> gtCopyActionFor: anAction [
 	<lePageAction>
-
 	^ anAction button 
-		tooltip: 'Copy as Remote Reference to the clipboard';
+		tooltip: 'Copy as reference to the clipboard';
 		icon: BrGlamorousVectorIcons clipboard;
 		action: [ :aButton | Clipboard clipboardText: self asRemoteLink ]
+]
+
+{ #category : #'as yet unclassified' }
+LePage >> gtDefaultInspectorTool [
+	<return: #LePhlowTool>
+	^ self asLepiterPagePhlowTool
 ]
 
 { #category : #search }
@@ -720,6 +740,7 @@ LePage >> updateTitle: aTitle [
 	anOldTitle := self title.
 	anOldType := self type.
 	oldDatabaseKey := anOldType databaseKey.
+	self database isDatabase ifFalse: [ ^ self ].
 	self updater 
 		title: aString; 
 		callback: [

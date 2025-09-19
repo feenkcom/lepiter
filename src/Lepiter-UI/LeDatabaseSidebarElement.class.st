@@ -102,7 +102,7 @@ LeDatabaseSidebarElement >> initializeElement [
 		constraintsDo: [ :c |
 			c horizontal matchParent.
 			c vertical matchParent ];
-		background: BrGlamorousColors neutralBackgroundColor.
+		background: self theme default navigationBackground.
 ]
 
 { #category : #initialization }

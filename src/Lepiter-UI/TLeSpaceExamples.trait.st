@@ -18,11 +18,14 @@ TLeSpaceExamples >> closeSpace: aSpace with: anElement [
 { #category : #'examples - support' }
 TLeSpaceExamples >> newSpace [
 	<gtExample>
+	<return: #BlSpace>
+	<return: #BlSpace>
+	<return: #Error>
 	| aSpace |
 	aSpace := BlSpace new.
 	aSpace host: BlHeadlessHost new.
 	aSpace title: 'Async Element Examples'.
-	aSpace extent: 600@400.
+	aSpace extent: 600 @ 400.
 	aSpace withHalos.
 	^ aSpace
 ]

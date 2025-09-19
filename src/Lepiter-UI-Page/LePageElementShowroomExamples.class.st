@@ -7,25 +7,22 @@ Class {
 { #category : #'examples - showroom' }
 LePageElementShowroomExamples >> allElements [
 	<gtExample>
-
+	<return: #BlScrollableElement>
 	^ (BrHorizontalFlow new
 		hMatchParent;
 		vFitContent;
-		addChildren: {
-			self
-				createExampleCard: self pageTitleAndEditInfoElement fitContent
-				named: 'Title and edit info'
-				class: LePageTitleAndSummaryElement.
-				
-			self
-				createExampleCard: self pageEditableTitleElement
-				named: 'Editable title'
-				class: LePageEditableTitleElement.
-				
-			self
-				createExampleCard: (self pageCardElement exact: 150@200)
-				named: 'Page card'
-				class: LePageCardElement }) asScrollableElement
+		addChildren: {self
+					createExampleCard: self pageTitleAndEditInfoElement fitContent
+					named: 'Title and edit info'
+					class: LePageTitleAndSummaryElement.
+				self
+					createExampleCard: self pageEditableTitleElement
+					named: 'Editable title'
+					class: LePageEditableTitleElement.
+				self
+					createExampleCard: (self pageCardElement exact: 150 @ 200)
+					named: 'Page card'
+					class: LePageCardElement}) asScrollableElement
 ]
 
 { #category : #private }
@@ -60,10 +57,10 @@ LePageElementShowroomExamples >> editTime [
 { #category : #'examples - showroom' }
 LePageElementShowroomExamples >> pageCardElement [
 	<gtExample>
+	<return: #LePageCardElement>
 	| aPageCardElement |
-
 	aPageCardElement := LePageCardElement new
-		pageViewModel: self pageWithTitleViewModel.
+			pageViewModel: self pageWithTitleViewModel.
 
 	^ aPageCardElement
 ]
@@ -71,30 +68,30 @@ LePageElementShowroomExamples >> pageCardElement [
 { #category : #'examples - showroom' }
 LePageElementShowroomExamples >> pageEditableTitleElement [
 	<gtExample>
+	<return: #LePageEditableTitleElement>
 	| anEditableTitleElement |
-	
 	anEditableTitleElement := LePageEditableTitleElement new
-		pageViewModel: self pageWithTitleViewModel.
-		
+			pageViewModel: self pageWithTitleViewModel.
+
 	^ anEditableTitleElement
 ]
 
 { #category : #'examples - showroom' }
 LePageElementShowroomExamples >> pageTitleAndEditInfoElement [
 	<gtExample>
+	<return: #LePageTitleAndSummaryElement>
 	| aTitleAndEditInfoElement |
-	
 	aTitleAndEditInfoElement := LePageTitleAndSummaryElement new
-		pageViewModel: self pageWithTitleViewModel.
-		
+			pageViewModel: self pageWithTitleViewModel.
+
 	^ aTitleAndEditInfoElement
 ]
 
 { #category : #'instance creation' }
 LePageElementShowroomExamples >> pageWithTitle [
 	<gtExample>
+	<return: #LePage>
 	| aPage |
-	
 	aPage := LePage named: 'Page with a title'.
 	aPage
 		createTime: self createTime;
@@ -107,8 +104,8 @@ LePageElementShowroomExamples >> pageWithTitle [
 
 { #category : #'instance creation' }
 LePageElementShowroomExamples >> pageWithTitleViewModel [
-
 	<gtExample>
+	<return: #LePageViewModel>
 	| aPage aPageViewModel |
 	aPage := self pageWithTitle.
 	aPageViewModel := aPage asContentUIModel.

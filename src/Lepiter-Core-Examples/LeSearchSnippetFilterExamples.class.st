@@ -7,6 +7,7 @@ Class {
 { #category : #accessing }
 LeSearchSnippetFilterExamples >> astFilter [
 	<gtExample>
+	<return: #Array>
 	| database snippets filter |
 	database := self database.
 	filter := LeSearchRBASTSnippetFilter sourceExpression: '`#l'.
@@ -19,6 +20,7 @@ LeSearchSnippetFilterExamples >> astFilter [
 { #category : #accessing }
 LeSearchSnippetFilterExamples >> classFilter [
 	<gtExample>
+	<return: #GtSearchIntersectionFilter>
 	| database snippets |
 	database := self database.
 	snippets := database leSnippetsInDB & OrderedCollection leReferences.
@@ -37,6 +39,7 @@ LeSearchSnippetFilterExamples >> database [
 { #category : #accessing }
 LeSearchSnippetFilterExamples >> snippetsInDatabase [
 	<gtExample>
+	<return: #LeSearchDatabaseSnippetFilter>
 	| database snippets |
 	database := self database.
 	snippets := database leSnippetsInDB.
@@ -47,6 +50,7 @@ LeSearchSnippetFilterExamples >> snippetsInDatabase [
 { #category : #accessing }
 LeSearchSnippetFilterExamples >> snippetsInPage [
 	<gtExample>
+	<return: #LeSearchPageSnippetFilter>
 	| database snippets |
 	database := self database.
 	snippets := database pages first leSnippetsInPage.
@@ -57,6 +61,7 @@ LeSearchSnippetFilterExamples >> snippetsInPage [
 { #category : #accessing }
 LeSearchSnippetFilterExamples >> substringFilter [
 	<gtExample>
+	<return: #Array>
 	| database snippets filter |
 	database := self database.
 	filter := LeSearchSubstringSnippetFilter substring: 'redcol'.

@@ -1,22 +1,24 @@
 Class {
 	#name : #LeLocalV3001MigrationExamples,
 	#superclass : #LeLocalExamples,
-	#category : 'Lepiter-Store-Local-Examples'
+	#category : #'Lepiter-Store-Local-Examples'
 }
 
 { #category : #examples }
 LeLocalV3001MigrationExamples >> migrateFromV3 [
 	<gtExample>
+	<return: #LeDatabase>
 	| page1 page2 page4 dailyNote snippet link links properties |
-
 	"V3 updates schema in-place, so copy the on-disk db to memory"
 	memStore := FileSystem memory root / 'db'.
-	(self testDataLocation / 'v3.1') copyAllTo: memStore.
-	
+	self testDataLocation / 'v3.1' copyAllTo: memStore.
+
 	database := LeLocalStoreLoad current loadFrom: memStore.
 
 	properties := STONJSON fromString: (memStore / 'lepiter.properties') contents.
-	self assert: (properties at: #schema) equals: LeLocalJsonV4Storage currentVersionString.
+	self
+		assert: (properties at: #schema)
+		equals: LeLocalJsonV4Storage currentVersionString.
 
 	self assert: database size equals: 5.
 	self assert: database linksCount equals: 1.

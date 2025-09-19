@@ -9,8 +9,14 @@ Class {
 		'priority',
 		'definingMethod'
 	],
-	#category : 'Lepiter-UI-Snippet-Spotter'
+	#category : #'Lepiter-UI-Snippet-Spotter'
 }
+
+{ #category : #'api - actions' }
+LeContextMenuItemSpecification >> actOn: menuObject [
+
+	^ menuObject snippetBelowRequested: self asSnippet
+]
 
 { #category : #'api - converting' }
 LeContextMenuItemSpecification >> asSnippet [

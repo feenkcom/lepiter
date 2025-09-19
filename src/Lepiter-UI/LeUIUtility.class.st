@@ -1,7 +1,7 @@
 Class {
 	#name : #LeUIUtility,
 	#superclass : #Object,
-	#category : 'Lepiter-UI-Utility'
+	#category : #'Lepiter-UI-Utility'
 }
 
 { #category : #'api - snippet elements' }

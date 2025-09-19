@@ -23,6 +23,7 @@ LePythonSnippetUpdateExamples >> assertSnippetModifiedFor: targetSnippet [
 { #category : #'examples - snippets' }
 LePythonSnippetUpdateExamples >> createTargetSnippet [
 	<gtExample>
+	<return: #LePythonSnippet>
 	^ LePythonSnippet code: '1+2'
 ]
 

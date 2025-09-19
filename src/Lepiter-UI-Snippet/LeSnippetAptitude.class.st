@@ -248,7 +248,7 @@ LeSnippetAptitude >> newAddSnippetDropdown [
 							send: #onSpotterExitAnnouncement:
 							to: self ];
 					objectActOn: [ :anActOnEvent :aMenuItem :theButton | 
-						self snippetBelowRequested: aMenuItem asSnippet.
+						aMenuItem actOn: self.
 						anActOnEvent beActed ];
 					spotterElementFor: aButton ]
 			containerDo: [ :aMenuContainer | 
@@ -354,6 +354,14 @@ LeSnippetAptitude >> snippetBelowRequested: aSnippet [
 		^ self inform: 'Must be attached to a container' ].
 
 	self widget snippetViewModel insertNewSnippet: aSnippet
+]
+
+{ #category : #private }
+LeSnippetAptitude >> snippetCommandBelowRequested: aSnippetCommand [
+	self hasOwner ifNil: [ 
+		^ self inform: 'Must be attached to a container' ].
+
+	self widget snippetViewModel insertSnippetFromCommand: aSnippetCommand
 ]
 
 { #category : #'private - accessing' }

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'linkReferencePreviewViewModel'
 	],
-	#category : 'Lepiter-UI-! Link Reference'
+	#category : #'Lepiter-UI-! Link Reference'
 }
 
 { #category : #accessing }

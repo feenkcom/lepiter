@@ -33,17 +33,17 @@ LeContextMenuSnippetItemsCollector class >> gtClassViewMenuItemsFor: aView [
 { #category : #building }
 LeContextMenuSnippetItemsCollector >> collectMenuItems [
 	| menuItems |
-	
 	menuItems := OrderedCollection new.
+	self pragmaRootClass allSubclasses
+		do: [ :eachClass | 
+			| targetPragmas |
+			targetPragmas := self collectPragmasInClass: eachClass.
 
-	LeSnippet allSubclasses do: [ :eachClass | 
-		| targetPragmas |
-		targetPragmas := self collectPragmasInClass: eachClass.
-
-		targetPragmas do: [ :aPragma | 
-			| newMenuItem |
-			newMenuItem := self createMenuItemFromPragma: aPragma.
-			menuItems add: newMenuItem ] ].
+			targetPragmas
+				do: [ :aPragma | 
+					| newMenuItem |
+					newMenuItem := self createMenuItemFromPragma: aPragma.
+					menuItems add: newMenuItem ] ].
 
 	self sortMenuItems: menuItems.
 
@@ -51,10 +51,8 @@ LeContextMenuSnippetItemsCollector >> collectMenuItems [
 ]
 
 { #category : #building }
-LeContextMenuSnippetItemsCollector >> collectPragmasInClass: aClass [ 
-	^ Pragma
-		allNamed: #leSnippetSpecification
-		in: aClass class
+LeContextMenuSnippetItemsCollector >> collectPragmasInClass: aClass [
+	^ Pragma allNamed: self pragmaSelector in: aClass class
 ]
 
 { #category : #building }
@@ -83,6 +81,18 @@ LeContextMenuSnippetItemsCollector >> gtMenuItemsFor: aView [
 						foreground: BrGlamorousColors disabledButtonTextColor ] 
 				ifFalse: [ 
 					aMenuItem priority asRopedText ] ]
+]
+
+{ #category : #configuration }
+LeContextMenuSnippetItemsCollector >> pragmaRootClass [
+	"Where to start searching for pragmas."
+
+	^ LeSnippet
+]
+
+{ #category : #configuration }
+LeContextMenuSnippetItemsCollector >> pragmaSelector [
+	^ #leSnippetSpecification
 ]
 
 { #category : #building }

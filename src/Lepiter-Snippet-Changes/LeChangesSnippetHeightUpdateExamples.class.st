@@ -25,8 +25,9 @@ LeChangesSnippetHeightUpdateExamples >> assertSnippetModifiedFor: targetSnippet 
 { #category : #'examples - snippets' }
 LeChangesSnippetHeightUpdateExamples >> createTargetSnippet [
 	<gtExample>
+	<return: #LeChangesSnippet>
 	^ LeChangesSnippet new
-		fileName:  'test.ombu';
+		fileName: 'test.ombu';
 		previewHeight: 220
 ]
 

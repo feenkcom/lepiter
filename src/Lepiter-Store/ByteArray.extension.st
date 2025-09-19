@@ -7,7 +7,7 @@ ByteArray class >> leFromJsonV4Dictionary: aDictionary [
 
 	serialized := aDictionary at: #byteArrayString.
 	^ (serialized beginsWith: '#[')
-		ifTrue: [ self evaluate: serialized ]
+		ifTrue: [ self compiler evaluate: serialized ]
 		ifFalse: [ serialized base64Decoded ]
 ]
 
@@ -23,7 +23,7 @@ ByteArray class >> leJsonV4MappingFor: aNeoJSONMapper [
 		mapping 
 			mapProperty: #byteArrayString
 			getter: [ :object | object base64Encoded ]
-			setter: [ :byteArrayString | self evaluate: byteArrayString ] ].
+			setter: [ :byteArrayString | self compiler evaluate: byteArrayString ] ].
 
 ]
 
