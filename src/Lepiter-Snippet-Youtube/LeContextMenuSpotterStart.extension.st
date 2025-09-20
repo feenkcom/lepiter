@@ -6,6 +6,7 @@ LeContextMenuSpotterStart >> gtSearchExampleMethodFor: aSearch [
 	^ aSearch explicit
 		priority: 4;
 		title: 'Add example snippet';
+		itemName: #title;
 		search: [ :aContext | 
 			((AsyncMaybeOnceStream
 				forFuture: [ self concreteMethodExampleInContext: aContext ] asAsyncFuture)
