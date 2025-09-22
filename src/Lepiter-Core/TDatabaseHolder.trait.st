@@ -44,7 +44,7 @@ TDatabaseHolder >> database [
 			database ]
 ]
 
-{ #category : #action }
+{ #category : #view }
 TDatabaseHolder >> gtDatabaseFor: aView [
 	<gtView>
 	database ifNil: [ ^ aView empty ].
@@ -73,7 +73,7 @@ TDatabaseHolder >> gtRefreshDatabaseActionFor: anAction [
 			button ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 TDatabaseHolder >> initializeDatabase [
 	"Create and initialize a transient Lepiter database for the dynamically created pages. We need to create a transient registry as well, so that links will work within the database. Automatically load all pages defined in methods with a <lePage> pragma."
 
