@@ -1,3 +1,6 @@
+"
+I illustrate usages of `TLeInMemoryDatabaseHolder`.
+"
 Class {
 	#name : #LeInMemoryDatabaseHolderExamples,
 	#superclass : #Object,
@@ -13,8 +16,22 @@ LeInMemoryDatabaseHolderExamples >> badFolderIsNotADatabase [
 	aFolder := self folderForPath: 'feenkcom'.
 	self assert: aFolder isNotNil.
 	self assert: aFolder exists.
-	self should: [self transientDatabaseFor: aFolder] raise: AssertionFailure.
+	self should: [self inMemoryDatabaseFor: aFolder] raise: AssertionFailure.
 	^ aFolder
+]
+
+{ #category : #examples }
+LeInMemoryDatabaseHolderExamples >> gtBookAsAnInMemoryDatabase [
+	"Copies all the GT Book files into main memory, so not a test."
+
+	<gtExample>
+	<noTest>
+	| db |
+	db := self inMemoryDatabaseFor: LeDatabase gtBook localStoreRootDirectory.
+	self
+		assert: (LeDatabasesRegistry uniqueInstance defaultLogicalDatabase databases
+				includes: db) not.
+	^ db
 ]
 
 { #category : #examples }
@@ -111,7 +128,7 @@ LeInMemoryDatabaseHolderExamples >> testDatabaseFolder [
 LeInMemoryDatabaseHolderExamples >> testDatabaseIsTransient [
 	<gtExample>
 	| db |
-	db := self transientDatabaseFor: self testDatabaseFolder.
+	db := self inMemoryDatabaseFor: self testDatabaseFolder.
 	self
 		assert: (LeDatabasesRegistry uniqueInstance defaultLogicalDatabase databases
 				includes: db) not.

@@ -1,9 +1,15 @@
 "
 Similar to TDatabaseHolder, I add a database to a class, but instead of using storeString methods to create the pages, I copy existing database files to an in-memory database.
-Since the source database does not have to be loaded, this can be used for databases:
+
+Since the source database does not have to be loaded, this can be used for:
+
 - testing (mock databases)
 - help databases (eg for Sceneries)
 - slideshows (to replace the storeString methods)
+
+NB: set or override `databaseName` and send `#initializeDatabase` to initialize the in0memory database.
+NB: If the source database exists, use that instead of an in-memory copy.
+See `LeInMemoryDatabaseHolderExamples>>#gtBookAsAnInMemoryDatabase` for an example of forcing the creation of an in-memory copy.
 "
 Trait {
 	#name : #TLeInMemoryDatabaseHolder,
@@ -38,7 +44,7 @@ TLeInMemoryDatabaseHolder >> databaseNamed: aDatabaseName [
 
 	^ LeDatabase
 		databaseNamed: aDatabaseName
-		ifNone: [ self transientDatabaseFor: (self folderForPath: aDatabaseName) ]
+		ifNone: [ self inMemoryDatabaseFor: (self folderForPath: aDatabaseName) ]
 ]
 
 { #category : #utility }
@@ -77,6 +83,22 @@ TLeInMemoryDatabaseHolder >> gtRefreshDatabaseActionFor: anAction [
 			button ]
 ]
 
+{ #category : #utility }
+TLeInMemoryDatabaseHolder >> inMemoryDatabaseFor: aLeDatabaseFolder [
+	| sourceFolder targetFolder newDatabase |
+	self
+		assert: (aLeDatabaseFolder / 'lepiter.properties') exists
+		description: aLeDatabaseFolder printString
+				, 'does not appear to be a valid Lepiter database (no lepiter.properties).'.
+	sourceFolder := aLeDatabaseFolder asFileReference asAbsolute.
+	targetFolder := FileSystem memory root.
+	sourceFolder children
+		do: [ :each | each copyAllTo: targetFolder / each basename ].
+	newDatabase := LeLocalStoreLoad current loadAndMonitorFrom: targetFolder.
+	newDatabase stopMonitoring.
+	^ newDatabase
+]
+
 { #category : #initialization }
 TLeInMemoryDatabaseHolder >> initializeDatabase [
 	self databaseName ifNil: [self error: 'databaseName not initialized' ].
@@ -90,20 +112,4 @@ TLeInMemoryDatabaseHolder >> renewDatabase [
 	database := nil.
 	self initializeDatabase.
 	^ database
-]
-
-{ #category : #utility }
-TLeInMemoryDatabaseHolder >> transientDatabaseFor: aLeDatabaseFolder [
-	| sourceFolder targetFolder newDatabase |
-	self
-		assert: (aLeDatabaseFolder / 'lepiter.properties') exists
-		description: aLeDatabaseFolder printString
-				, 'does not appear to be a valid Lepiter database (no lepiter.properties).'.
-	sourceFolder := aLeDatabaseFolder asFileReference asAbsolute.
-	targetFolder := FileSystem memory root.
-	sourceFolder children
-		do: [ :each | each copyAllTo: targetFolder / each basename ].
-	newDatabase := LeLocalStoreLoad current loadAndMonitorFrom: targetFolder.
-	newDatabase stopMonitoring.
-	^ newDatabase
 ]
