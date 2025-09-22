@@ -7,11 +7,7 @@ LePharoClassDatabase >> pageNamed: aSymbol [
 		[ 
 			| targetClass classComment |
 			targetClass := self class environment at: aSymbol.
-			classComment := self 
-				forPharo12AndNewer: [
-					targetClass instanceSide comment ] 
-				forPharo11: [ 
-					targetClass instanceSide organization classComment ].
+			classComment := targetClass instanceSide gtComment.
 			
 				(LePage pharoCommentClassName: aSymbol)
 			addSnippet: (LeTextSnippet string: classComment);
