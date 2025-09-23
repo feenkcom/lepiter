@@ -103,28 +103,33 @@ LeAnnotationStylerVisitor >> initialize [
 LeAnnotationStylerVisitor >> markCompleted: aTodoAnnotation [
 	self
 		modifyTodoAnnotation: aTodoAnnotation
-		with:
-			[ :model :source | 
+		with: [ :model :source | 
 			| property |
 			property := 'completed=' , Date today iso8601.
 			aTodoAnnotation completed
-				ifNil:
-					[ model
-						insertText: ((aTodoAnnotation items isEmpty ifTrue: [ '' ] ifFalse: [ '|' ]) , property) asRopedText
+				ifNil: [ model
+						insertText: ((aTodoAnnotation items isEmpty ifTrue: [ '' ] ifFalse: [ '|' ]) , property)
+								asRopedText
 						at: aTodoAnnotation stopPosition ]
-				ifNotNil:
-					[ :completed | model updateString: (source first: completed startPosition - 1) , property , (source allButFirst: completed stopPosition) ] ]
+				ifNotNil: [ :completed | 
+					model
+						updateString: (source first: completed startPosition - 1) , property
+								, (source allButFirst: completed stopPosition) ].
+
+			model announceTextChangedBy: model ]
 ]
 
 { #category : #private }
 LeAnnotationStylerVisitor >> markUncompleted: aTodoAnnotation [
 	self
 		modifyTodoAnnotation: aTodoAnnotation
-		with:
-			[ :model :source | 
+		with: [ :model :source | 
 			aTodoAnnotation completed
-				ifNotNil:
-					[ :completed | model updateString: (source first: completed equals stopPosition) , (source allButFirst: completed stopPosition) ] ]
+				ifNotNil: [ :completed | 
+					model
+						updateString: (source first: completed equals stopPosition)
+								, (source allButFirst: completed stopPosition);
+						announceTextChangedBy: model ] ]
 ]
 
 { #category : #private }
