@@ -30,6 +30,14 @@ LeContextMenuSnippetItemsCollector class >> gtClassViewMenuItemsFor: aView [
 		view: #gtMenuItemsFor:
 ]
 
+{ #category : #private }
+LeContextMenuSnippetItemsCollector >> addFixedItems: menuItems [ 
+	"Add static menu entries to the collection of menu items"
+
+	LePasteSnippetCommandItem enabled ifTrue:
+		[ menuItems add: LePasteSnippetCommandItem contextMenuItemSpecification ]
+]
+
 { #category : #building }
 LeContextMenuSnippetItemsCollector >> collectMenuItems [
 	| menuItems |
@@ -44,7 +52,7 @@ LeContextMenuSnippetItemsCollector >> collectMenuItems [
 					| newMenuItem |
 					newMenuItem := self createMenuItemFromPragma: aPragma.
 					menuItems add: newMenuItem ] ].
-
+	self addFixedItems: menuItems.
 	self sortMenuItems: menuItems.
 
 	^ menuItems

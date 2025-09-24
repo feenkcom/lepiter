@@ -14,8 +14,10 @@ Class {
 
 { #category : #'api - actions' }
 LeContextMenuItemSpecification >> actOn: menuObject [
-
-	^ menuObject snippetBelowRequested: self asSnippet
+	| aboveSnippet |
+	
+	aboveSnippet := menuObject widget snippetViewModel snippetModel.
+	^ aboveSnippet addSnippetAfterSelf: self asSnippet
 ]
 
 { #category : #'api - converting' }
