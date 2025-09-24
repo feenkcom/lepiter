@@ -16,6 +16,8 @@ The latter case is useful if the help database needs to be edited or extended.
 Subclasses may choose to implement class-side utility methods to load or unload the database.
 
 The in-memory database is initialized lazily. To pre-load it, send `initializeDatabase`, for example in the `initialize` method, after setting the `databaseName`.
+
+*NB:* If the source files are required to be present in a release image, be sure to add them by updating `GtImageSetup class>>#copyDataAndDocsFolders`.
 "
 Class {
 	#name : #LeAbstractInMemoryDatabaseSingleton,
