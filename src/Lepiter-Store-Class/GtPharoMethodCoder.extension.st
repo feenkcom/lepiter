@@ -3,6 +3,7 @@ Extension { #name : #GtPharoMethodCoder }
 { #category : #'*Lepiter-Store-Class' }
 GtPharoMethodCoder >> gtLepiterPageStoreFor: anAST into: coderAddOns [
 	<gtCoderContextMenuAddOns: 202>
+	<gtCoderContextMenuAddOns>
 	(anAST methodNode isNil
 		or: [ anAST methodNode pragmas
 				noneSatisfy: [ :each | each selector = #lepiterPageStore ] ])
@@ -16,6 +17,5 @@ GtPharoMethodCoder >> gtLepiterPageStoreFor: anAST into: coderAddOns [
 			self
 				notifyObjectSpawn: (LeDatabaseClassJsonV4Storage new loadFromMethod: self compiledMethod)
 				requesterObject: aCoderUIModel ]
-		id: nil)
-			ifNotNil: [ :anAction | anAction priority: 202 ]
+		id: nil) ifNotNil: [ :anAction | anAction priority: 202 ]
 ]
