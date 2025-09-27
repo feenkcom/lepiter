@@ -2,7 +2,6 @@ Extension { #name : #GtPharoMethodCoder }
 
 { #category : #'*Lepiter-Store-Class' }
 GtPharoMethodCoder >> gtLepiterPageStoreFor: anAST into: coderAddOns [
-	<gtCoderContextMenuAddOns: 202>
 	<gtCoderContextMenuAddOns>
 	(anAST methodNode isNil
 		or: [ anAST methodNode pragmas
