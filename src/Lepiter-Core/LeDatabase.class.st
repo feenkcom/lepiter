@@ -44,6 +44,13 @@ LeDatabase class >> databaseNamed: aString [
 ]
 
 { #category : #'instance creation' }
+LeDatabase class >> databaseNamed: aString ifNone: noneBlock [
+	^ LeDatabasesRegistry uniqueInstance defaultLogicalDatabase
+		databaseNamed: aString
+		ifNone: noneBlock
+]
+
+{ #category : #'instance creation' }
 LeDatabase class >> gtBook [
 	^ self databaseNamed: self gtBookName
 ]
