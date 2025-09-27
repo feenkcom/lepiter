@@ -119,7 +119,7 @@ LeJenkinsSnippetElement >> createShowFormToggleButton [
 		padding: (BlInsets all: 10);
 		zIndex: 10;
 		aptitude: BrGlamorousButtonWithIconAptitude + BrGlamorousToggleBackgroundAptitude;
-		icon: BrGlamorousIcons hamburger asElement;
+		icon: BrGlamorousVectorIcons hamburger asElement;
 		label: 'Form' asString;
 		when: BrToggleActivatedEvent
 			do: [ :anEvent | self snippetViewModel showForm ];

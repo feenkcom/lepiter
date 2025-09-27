@@ -30,7 +30,7 @@ Class {
 		'currentNode',
 		'visited'
 	],
-	#category : 'Lepiter-Utilities-Model'
+	#category : #'Lepiter-Utilities-Model'
 }
 
 { #category : #'api - search' }

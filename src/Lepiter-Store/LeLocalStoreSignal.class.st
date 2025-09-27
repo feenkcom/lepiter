@@ -9,7 +9,7 @@ Class {
 		'pageTitle',
 		'operation'
 	],
-	#category : 'Lepiter-Store-LocalJSON-Beacon'
+	#category : #'Lepiter-Store-LocalJSON-Beacon'
 }
 
 { #category : #testing }

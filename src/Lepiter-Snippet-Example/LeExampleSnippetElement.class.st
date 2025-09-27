@@ -163,7 +163,7 @@ LeExampleSnippetElement >> initialize [
 		beSmallSize;
 		disable;
 		aptitude: BrGlamorousButtonWithIconAptitude;
-		icon: BrGlamorousIcons save;
+		icon: BrGlamorousVectorIcons save;
 		label: 'Export example preview to a file';
 		margin: (BlInsets top: 1 left: 4 bottom: 0 right: 3);
 		action: [ self exportExample ].

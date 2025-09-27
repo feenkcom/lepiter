@@ -13,7 +13,7 @@ Class {
 		'importer',
 		'snippet'
 	],
-	#category : 'Lepiter-Utilities-ImageImport'
+	#category : #'Lepiter-Utilities-ImageImport'
 }
 
 { #category : #accessing }

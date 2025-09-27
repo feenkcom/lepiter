@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'tagEditor'
 	],
-	#category : 'Lepiter-GitHub-UI Model Elements'
+	#category : #'Lepiter-GitHub-UI Model Elements'
 }
 
 { #category : #initialization }

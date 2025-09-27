@@ -1,7 +1,7 @@
 Class {
 	#name : #LeGitHubUtility,
 	#superclass : #Object,
-	#category : 'Lepiter-GitHub-Utility'
+	#category : #'Lepiter-GitHub-Utility'
 }
 
 { #category : #testing }

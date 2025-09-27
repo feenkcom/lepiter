@@ -1,7 +1,7 @@
 Class {
 	#name : #LeGitHubSnippetViewModel,
 	#superclass : #LeSnippetViewModel,
-	#category : 'Lepiter-GitHub-UI Snippet View Models'
+	#category : #'Lepiter-GitHub-UI Snippet View Models'
 }
 
 { #category : #testing }

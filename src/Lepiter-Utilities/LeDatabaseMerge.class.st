@@ -36,7 +36,7 @@ Class {
 		'sourceDatabase',
 		'targetDatabase'
 	],
-	#category : 'Lepiter-Utilities'
+	#category : #'Lepiter-Utilities'
 }
 
 { #category : #building }

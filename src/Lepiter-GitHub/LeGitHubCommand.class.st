@@ -7,7 +7,7 @@ Class {
 		'userName',
 		'projectName'
 	],
-	#category : 'Lepiter-GitHub-Client'
+	#category : #'Lepiter-GitHub-Client'
 }
 
 { #category : #communication }

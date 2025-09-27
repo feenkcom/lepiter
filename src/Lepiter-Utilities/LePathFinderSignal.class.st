@@ -5,7 +5,7 @@ Class {
 		'backlinksSize',
 		'pagesLeftSize'
 	],
-	#category : 'Lepiter-Utilities-Beacon'
+	#category : #'Lepiter-Utilities-Beacon'
 }
 
 { #category : #accessing }

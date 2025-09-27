@@ -1,7 +1,7 @@
 Class {
 	#name : #LeGitHubIssueSnippetElement,
 	#superclass : #LeGitHubSnippetElement,
-	#category : 'Lepiter-GitHub-UI Snippet Elements'
+	#category : #'Lepiter-GitHub-UI Snippet Elements'
 }
 
 { #category : #initialization }

@@ -65,7 +65,7 @@ LeHomeAddDatabaseElement >> initializeButtonElement [
 	aDropdownLook := BrGlamorousWithExplicitDropdownAptitude
 			handle: [
 				BrButton new
-					icon: BrGlamorousIcons add;
+					icon: BrGlamorousVectorIcons add;
 					label: 'New Database';
 					aptitude: 	BrGlamorousButtonWithIconAndLabelAptitude 
 						- BrGlamorousButtonExteriorAptitude ]
