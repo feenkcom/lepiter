@@ -303,13 +303,13 @@ LeYoutubeReferenceElement >> videoTitleContainer [
 			aptitude: BrGlamorousButtonRectangularAptitude
 			+ BrGlamorousButtonLabelAptitude;
 			action:  [ WebBrowser openOn: self snippet authorUrl ];
-			icon: BrGlamorousIcons go asElement;
+			icon: BrGlamorousVectorIcons web;
 			label: 'Author'.
 	title := BrButton new.
 	title aptitude: BrGlamorousButtonRectangularAptitude
 			+ BrGlamorousButtonLabelAptitude;
 			action:  [ WebBrowser openOn: self snippet youtubeUrl ];
-			icon: BrGlamorousIcons go asElement;
+			icon: BrGlamorousVectorIcons web;
 			label: 'Watch on YouTube'.
 	container addChild: title; addChild: authorName.
 	^ container
