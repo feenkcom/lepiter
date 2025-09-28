@@ -136,7 +136,10 @@ LeContextMenuSpotterStartExamples >> imageUrlForLocalFileUppercase [
 	| sourceUrl pictureUrl |
 	self createDatabaseOnDisk.
 	sourceUrl := dbDir parent / #'image.JPG'.
-	PluginBasedJPEGReadWriter putForm: BrGlamorousVectorIcons gt onFileNamed: sourceUrl.
+	BlExporter png
+		fileName: sourceUrl fullName;
+		element: BrGlamorousVectorIcons gt asElement;
+		export.
 	pictureUrl := LeContextMenuSpotterStart new
 			database: diskDb;
 			spotterPictureFileStringFor: sourceUrl fullName.
