@@ -316,7 +316,7 @@ LeLocalStore >> gtActionDBPropertiesFileFor: anAction [
 	^ anAction button
 		tooltip: 'Browse lepiter.properties file';
 		priority: 10;
-		icon: BrGlamorousIcons folder;
+		icon: BrGlamorousVectorIcons folder;
 		action: [ :b | b phlow spawnObject: self dbPropertiesFile ]
 ]
 

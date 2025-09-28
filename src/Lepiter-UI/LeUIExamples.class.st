@@ -727,7 +727,7 @@ LeUIExamples >> toolbarWithButton [
 	<return: #LeToolbarElement>
 	| anElement aButton |
 	anElement := self basicToolbar.
-	aButton := self buttonIcon: BrGlamorousIcons inspect tooltip: 'Inspect'.
+	aButton := self buttonIcon: BrGlamorousVectorIcons inspect tooltip: 'Inspect'.
 	anElement addItem: aButton.
 	^ anElement
 ]
@@ -738,7 +738,7 @@ LeUIExamples >> toolbarWithTwoButtons [
 	<return: #LeToolbarElement>
 	| anElement aButton |
 	anElement := self toolbarWithButton.
-	aButton := self buttonIcon: BrGlamorousIcons browse tooltip: 'Browse'.
+	aButton := self buttonIcon: BrGlamorousVectorIcons browse tooltip: 'Browse'.
 	anElement addItem: aButton.
 	^ anElement
 ]
@@ -750,7 +750,7 @@ LeUIExamples >> toolbarWithTwoButtonsAndFixedSeparator [
 	| anElement aButton |
 	anElement := self toolbarWithButton.
 	anElement addFixedSeparator.
-	aButton := self buttonIcon: BrGlamorousIcons browse tooltip: 'Browse'.
+	aButton := self buttonIcon: BrGlamorousVectorIcons browse tooltip: 'Browse'.
 	anElement addItem: aButton.
 	^ anElement
 ]

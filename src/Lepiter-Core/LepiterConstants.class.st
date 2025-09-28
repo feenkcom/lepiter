@@ -46,12 +46,12 @@ LepiterConstants class >> codeExpandedParameterName [
 
 { #category : #ui }
 LepiterConstants class >> confluenceButtonIcon [
-	^ BrGlamorousIcons cloud
+	^ BrGlamorousVectorIcons cloud
 ]
 
 { #category : #ui }
 LepiterConstants class >> createButtonIcon [
-	^ BrGlamorousIcons edit
+	^ BrGlamorousVectorIcons edit
 ]
 
 { #category : #ui }
@@ -128,7 +128,7 @@ LepiterConstants class >> documentUserDataKey [
 
 { #category : #ui }
 LepiterConstants class >> editButtonIcon [
-	^ BrGlamorousIcons edit
+	^ BrGlamorousVectorIcons edit
 ]
 
 { #category : #ui }
@@ -138,7 +138,7 @@ LepiterConstants class >> editButtonLabel [
 
 { #category : #ui }
 LepiterConstants class >> editingModeIcon [
-	^ BrGlamorousIcons edit 
+	^ BrGlamorousVectorIcons edit 
 ]
 
 { #category : #colors }
@@ -380,7 +380,7 @@ LepiterConstants class >> previewShowParameterName [
 
 { #category : #ui }
 LepiterConstants class >> readingModeIcon [
-	^ BrGlamorousIcons edit
+	^ BrGlamorousVectorIcons edit
 ]
 
 { #category : #'changes diff' }

@@ -32,12 +32,12 @@ LeFileSelectStencil >> create [
 				bottom: 0
 				right: 3) + textEditorPiece wordMargin;
 		beSmallSize;
-		icon: BrGlamorousIcons loadfromdisk;
+		icon: BrGlamorousVectorIcons loadfromdisk;
 		label: label;
 		addAptitude:
 			(BrGlamorousWithExplicitDropdownAptitude
 				handle: [ BrButton new
-						icon: BrGlamorousIcons loadfromdisk;
+						icon: BrGlamorousVectorIcons loadfromdisk;
 						label: label;
 						beSmallSize;
 						aptitude: (BrGlamorousLinkSquaredButtonWithLabelAndIconAptitude new)

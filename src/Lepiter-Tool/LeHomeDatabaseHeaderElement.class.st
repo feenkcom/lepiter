@@ -120,7 +120,7 @@ LeHomeDatabaseHeaderElement >> newRemoveButtonElement [
 		aptitude: BrGlamorousButtonWithIconAptitude
 			+ (BrGlamorousWithExplicitDropdownAptitude
 					handle: [ BrButton new
-						icon: BrGlamorousIcons empty;
+						icon: BrGlamorousVectorIcons empty;
 						aptitude: BrGlamorousButtonRectangularAptitude + BrGlamorousButtonIconAptitude ]
 					content: (LeHomeRemoveDatabaseDropdownContentStencil new
 						databaseElement: self; 

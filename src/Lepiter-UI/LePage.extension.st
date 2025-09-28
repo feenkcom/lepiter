@@ -175,7 +175,7 @@ LePage >> gtCopyPageFilePathActionFor: anAction [
 	^ anAction button
 		tooltip: 'Inspect the page''s file';
 		priority: 5;
-		icon: BrGlamorousIcons folder;
+		icon: BrGlamorousVectorIcons folder;
 		action: [ :aButton |
 			Clipboard clipboardText: (self database monitor pageFilename: self).
 			aButton phlow spawnObject: (self database monitor pageFileReference: self) ]

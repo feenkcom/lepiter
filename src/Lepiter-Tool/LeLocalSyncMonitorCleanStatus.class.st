@@ -26,5 +26,5 @@ LeLocalSyncMonitorCleanStatus >> statusColor [
 
 { #category : #accessing }
 LeLocalSyncMonitorCleanStatus >> statusIcon [
-	^ BrGlamorousIcons greencircle
+	^ BrGlamorousVectorIcons greencircle
 ]

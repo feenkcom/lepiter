@@ -244,7 +244,7 @@ LeWorldStatusDropdown >> statusIcon [
 	"Report an error in case we do not have a database."
 	(leWorldElement isNil or: [ 
 		leWorldElement database isNil ]) 
-			ifTrue: [ ^ BrGlamorousIcons redcircle ].
+			ifTrue: [ ^ BrGlamorousVectorIcons redcircle ].
 	
 	^ leWorldElement database localSyncMonitorStatus statusIcon
 ]

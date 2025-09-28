@@ -17,12 +17,12 @@ LePictureImportStencil >> create [
 	"Specify the button to be used when the dropdown is hidden"
 	aButton := BrButton new.
 	aButton
-		icon: BrGlamorousIcons loadfromdisk;
+		icon: BrGlamorousVectorIcons loadfromdisk;
 		label: self tooltip;
 		aptitude: BrGlamorousButtonWithIconAptitude;
 		addAptitude: (BrGlamorousWithExplicitDropdownAptitude
 				handle: [ BrButton new
-						icon: BrGlamorousIcons folder;
+						icon: BrGlamorousVectorIcons folder;
 						label: self tooltip;
 						aptitude: BrGlamorousButtonWithIconAptitude - BrGlamorousButtonWithLabelTooltipAptitude2
 								- BrGlamorousButtonExteriorAptitude ]

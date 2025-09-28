@@ -420,7 +420,7 @@ LePharoRewriteSnippetElement >> initialize [
 				margin: (BlInsets top: 3 bottom: 10);
 				beSmallSize;
 				aptitude: BrGlamorousButtonWithIconAptitude;
-				icon: BrGlamorousIcons playinspect asElement;
+				icon: BrGlamorousVectorIcons playinspect asElement;
 				label: 'Search' asString;
 				action: [ rewriteElement phlow
 						spawnObject: (self snippet executeSearchInFilter: self searchFilter) ])
@@ -441,7 +441,7 @@ LePharoRewriteSnippetElement >> initialize [
 				margin: (BlInsets top: 3 bottom: 3);
 				beSmallSize;
 				aptitude: BrGlamorousButtonWithIconAptitude;
-				icon: BrGlamorousIcons playinspect asElement;
+				icon: BrGlamorousVectorIcons playinspect asElement;
 				label: 'Replace' asString;
 				action: [ (self snippet executeRewriteInFilter: self searchFilter)
 						then: [ :obj | rewriteElement inUIProcessDo: [ rewriteElement phlow spawnObject: obj ] ] ])

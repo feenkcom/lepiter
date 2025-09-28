@@ -95,10 +95,17 @@ LeContextMenuSpotterStartExamples >> imageUrlForLocalFile [
 	<gtExample>
 	<after: #deleteTemporaryDirectory>
 	<return: #ByteString>
-	| sourceUrl pictureUrl |
+	| sourceUrl pictureUrl element scripter |
 	self createDatabaseOnDisk.
 	sourceUrl := dbDir parent / #'image.jpg'.
-	PluginBasedJPEGReadWriter putForm: BrGlamorousIcons gt onFileNamed: sourceUrl.
+	element := BrGlamorousVectorIcons gt asElement.
+	scripter := BlScripter new element: element.
+	BlExporter jpg
+		background: Color white;
+		fileName: sourceUrl;
+		element: element;
+		export.
+	
 	pictureUrl := LeContextMenuSpotterStart new
 			database: diskDb;
 			spotterPictureFileStringFor: sourceUrl fullName.
@@ -136,7 +143,10 @@ LeContextMenuSpotterStartExamples >> imageUrlForLocalFileUppercase [
 	| sourceUrl pictureUrl |
 	self createDatabaseOnDisk.
 	sourceUrl := dbDir parent / #'image.JPG'.
-	PluginBasedJPEGReadWriter putForm: BrGlamorousIcons gt onFileNamed: sourceUrl.
+	BlExporter png
+		fileName: sourceUrl fullName;
+		element: BrGlamorousVectorIcons gt asElement;
+		export.
 	pictureUrl := LeContextMenuSpotterStart new
 			database: diskDb;
 			spotterPictureFileStringFor: sourceUrl fullName.
