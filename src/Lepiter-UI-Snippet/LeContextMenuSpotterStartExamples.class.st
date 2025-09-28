@@ -95,10 +95,17 @@ LeContextMenuSpotterStartExamples >> imageUrlForLocalFile [
 	<gtExample>
 	<after: #deleteTemporaryDirectory>
 	<return: #ByteString>
-	| sourceUrl pictureUrl |
+	| sourceUrl pictureUrl element scripter |
 	self createDatabaseOnDisk.
 	sourceUrl := dbDir parent / #'image.jpg'.
-	PluginBasedJPEGReadWriter putForm: BrGlamorousVectorIcons gt onFileNamed: sourceUrl.
+	element := BrGlamorousVectorIcons gt asElement.
+	scripter := BlScripter new element: element.
+	BlExporter jpg
+		background: Color white;
+		fileName: sourceUrl;
+		element: element;
+		export.
+	
 	pictureUrl := LeContextMenuSpotterStart new
 			database: diskDb;
 			spotterPictureFileStringFor: sourceUrl fullName.
