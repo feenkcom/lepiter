@@ -542,6 +542,11 @@ LePage >> page [
 ]
 
 { #category : #accessing }
+LePage >> pageFileReference [
+	^ self database monitor pageFileReference: self
+]
+
+{ #category : #accessing }
 LePage >> pageTypeClass [
 	"Answer the class used to store the pages in ${class:name=LeDatabase}$."
 
