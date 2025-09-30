@@ -255,12 +255,23 @@ LeWordSnippet >> readCachedExplanationBy: aSource [
 		attachmentName: self explanationAttachmentName;
 		reader: [ :aBinaryContent | 
 			| anArray |
-			anArray := STON fromString: aBinaryContent utf8Decoded.
-			self 
-				explanation: (LeWordExplanation new 
-					word: anArray first;
-					rawData: anArray second)
-				source: aSource ];
+			anArray := [ STON fromString: aBinaryContent utf8Decoded ]
+					on: STONReaderError
+					do: [ :anError | 
+						anError emit.
+						NonInteractiveTranscript stderr
+							show: 'Cannot read world explanation from `';
+							show: self explanationAttachmentName;
+							show: '`, error: ';
+							show: anError;
+							newLine.
+						anError return: #() ].
+			anArray size > 1
+				ifTrue: [ self
+						explanation: (LeWordExplanation new
+								word: anArray first;
+								rawData: anArray second)
+						source: aSource ] ];
 		read
 ]
 
