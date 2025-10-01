@@ -4,8 +4,11 @@ Extension { #name : #LeNamedPageType }
 LeNamedPageType class >> leJsonV3AttributeMapping [
 
 	^ super leJsonV3AttributeMapping
-		add: (#title -> #title);
-		yourself
+		add: #title -> #title;
+		in: [ :aMapping | 
+			(self defaultSystemPageTypes includes: self)
+				ifFalse: [ aMapping add: #pageTypeRepo -> #pageTypeRepo ].
+			aMapping ]
 
 ]
 
@@ -19,9 +22,11 @@ LeNamedPageType class >> leJsonV3Name [
 LeNamedPageType class >> leJsonV4AttributeMapping [
 
 	^ super leJsonV4AttributeMapping
-		add: (#title -> #title);
-		yourself
-
+		add: #title -> #title;
+		in: [ :aMapping | 
+			(self defaultSystemPageTypes includes: self)
+				ifFalse: [ aMapping add: #pageTypeRepo -> #pageTypeRepo ].
+			aMapping ]
 ]
 
 { #category : #'*Lepiter-Store' }

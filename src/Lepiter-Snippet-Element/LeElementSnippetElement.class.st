@@ -89,7 +89,8 @@ LeElementSnippetElement >> createRefreshContentButton [
 		icon: BrGlamorousVectorIcons refresh asElement;
 		label: 'Refresh' asString;
 		action: [
-			self generateDisplayElement];
+			self generateDisplayElement.
+			self fireEvent: (LeElementSnippetEvaluated new element: self; snippet: self snippet)];
 		yourself
 ]
 
@@ -265,7 +266,12 @@ LeElementSnippetElement >> onCodeEvaluated: anEvaluatedAnnouncement [
 	(anEvaluatedAnnouncement requesterObject isRequestedByElementOrItsChild: self)
 		ifFalse: [ ^ self ].
 
-	self setElement: [ anEvaluatedAnnouncement evaluationResult value ]
+	self setElement: [ anEvaluatedAnnouncement evaluationResult value ].
+	self
+		fireEvent: (LeSnippetEvaluated new
+				element: self;
+				snippet: self snippet;
+				evaluationResult: anEvaluatedAnnouncement evaluationResult)
 ]
 
 { #category : #'private - event handling' }
@@ -515,4 +521,9 @@ LeElementSnippetElement >> updateCoderWhenFocused: isFocused [
 	isFocused
 		ifTrue: [ coderElement requestFocus ]
 		ifFalse: [ coderElement loseFocus ]
+]
+
+{ #category : #private }
+LeElementSnippetElement >> updateElementHeightTo: aHeight [
+	elementContainer vExact: aHeight
 ]
