@@ -251,7 +251,7 @@ LeDatabase >> attachmentDirectoryAndMetadataFor: aFileReference [
 
 { #category : #'api - attachments' }
 LeDatabase >> attachmentNames [
-	"Return attachment names that, referencing to attachment files that are used by this snippet.
+	"Return attachment names that refer to attachment files that are used by this snippet.
 	Polymorhic to {{gtMethod: LeContent >> #attachmentNames }}"
 
 	^ #()
@@ -380,7 +380,7 @@ LeDatabase >> defaultEmail [
 { #category : #'private - accessing' }
 LeDatabase >> defaultFilename [
 	"Answer the default filename.
-	If filename is nil the database doesn't yet havde a name, use lepiterexportXXX.json, where XXX is an auto-incrementing number (this is different from the version number generated in #save)"
+	If filename is nil the database doesn't yet have a name, use lepiterexportXXX.json, where XXX is an auto-incrementing number (this is different from the version number generated in #save)"
 	| exportNumber basename fileReference |
 
 	exportNumber := 1.
