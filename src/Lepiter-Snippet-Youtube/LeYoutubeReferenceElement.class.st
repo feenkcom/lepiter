@@ -232,7 +232,7 @@ LeYoutubeReferenceElement >> updatePicture [
 			ifTrue: [ imageUrl := self snippet thumbnailUrl.
 				title label: self snippet title.
 				authorName label: self snippet authorName.
-				GtWebViewElement new
+				GtProtoWebViewElement new
 					constraintsDo: [ :c | c frame horizontal alignCenter ];
 					when: BlElementExtentChangedEvent
 						doOnce: [ :anEvent | self updatePictureWidth: anEvent currentTarget ];
