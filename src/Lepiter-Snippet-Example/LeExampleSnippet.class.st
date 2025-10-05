@@ -151,7 +151,15 @@ LeExampleSnippet >> assertSelectors [
 
 { #category : #converting }
 LeExampleSnippet >> astWithInlinedSelfSends [
-	^ self inlineSelfSendsIn: self exampleMethod
+	| refactoring |
+	refactoring := GtInlineAllSelfSendsRefactoring
+			selector: self exampleSelector
+			class: self exampleClass.
+	refactoring setOption: #inlineExpression toUse: [ :ref :string | false ].
+	refactoring
+		ignoreSelectors: self assertSelectors , #(new basicNew new: basicNew:).
+	[ refactoring primitiveExecute ] on: Error do: [ :ex | ex return ].
+	^ refactoring ast
 ]
 
 { #category : #testing }
@@ -464,31 +472,6 @@ LeExampleSnippet >> initialize [
 ]
 
 { #category : #converting }
-LeExampleSnippet >> inlineSelfSendsIn: ast [
-	ast
-		nodesDo: [ :each | 
-			| model refactoring |
-			(each isMessage
-				and: [ each receiver isSelfVariable
-						and: [ (self assertSelectors includes: each selector) not
-								and: [ (self isRecursiveMethod: each selector in: (Set with: each selector)) not ] ] ])
-				ifTrue: [ model := GtRBNamespace new.
-					(model classFor: self exampleClass) compile: ast source.
-					refactoring := GtInlineMethodRefactoring
-							model: model
-							inline: each sourceInterval
-							inMethod: self exampleSelector
-							forClass: self exampleClass.
-					[ refactoring primitiveExecute.
-					self mergeVariablesIn: model.
-					^ self
-						inlineSelfSendsIn: ((model classFor: self exampleClass) methodFor: self exampleSelector) ast ]
-						on: Error
-						do: [ :ex | ex return ] ] ].
-	^ ast
-]
-
-{ #category : #converting }
 LeExampleSnippet >> inlinedSnippetSource [
 	| ast |
 	ast := self fixAssertSendsIn: self astWithInlinedSelfSends.
@@ -506,19 +489,6 @@ LeExampleSnippet >> instanceClassName [
 LeExampleSnippet >> isForMetaclass [
 
 	^ exampleBehaviorName endsWith: ' class'
-]
-
-{ #category : #converting }
-LeExampleSnippet >> isRecursiveMethod: aSymbol in: aSet [
-	(self exampleClass compiledMethodAt: aSymbol ifAbsent: [  ])
-		ifNotNil: [ :method | 
-			method ast
-				nodesDo: [ :each | 
-					(each isMessage and: [ each receiver isSelfVariable ])
-						ifTrue: [ (aSet includes: each selector) ifTrue: [ ^ true ].
-							aSet add: each selector.
-							(self isRecursiveMethod: each selector in: aSet) ifTrue: [ ^ true ] ] ] ].
-	^ false
 ]
 
 { #category : #'private - exporting' }
@@ -540,30 +510,6 @@ LeExampleSnippet >> markdownOn: stream level: anInteger [
 		childrenDo: [ :child | 
 			stream cr.
 			child markdownOn: stream level: anInteger + 1 ]
-]
-
-{ #category : #converting }
-LeExampleSnippet >> mergeVariablesIn: model [
-	((model classFor: self exampleClass) methodFor: self exampleSelector) ast
-		nodesDo: [ :each | 
-			(each isAssignment and: [ each value isVariable ])
-				ifTrue: [ | refactoring from to |
-					each variable name last isDigit
-						ifTrue: [ from := each variable.
-							to := each value ]
-						ifFalse: [ from := each value.
-							to := each variable ].
-					refactoring := GtMergeVariablesRefactoring
-							model: model
-							mergeVariableFrom: from sourceInterval
-							into: to sourceInterval
-							from: self exampleSelector
-							in: self exampleClass.
-					[ refactoring primitiveExecute.
-					^ self
-						mergeVariablesIn: ((model classFor: self exampleClass) methodFor: self exampleSelector) ast ]
-						on: Error
-						do: [ :ex | ex return ] ] ]
 ]
 
 { #category : #'api - no code' }
