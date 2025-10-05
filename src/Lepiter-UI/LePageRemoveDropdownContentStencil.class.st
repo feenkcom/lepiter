@@ -68,7 +68,7 @@ LePageRemoveDropdownContentStencil >> icon: anObject [
 LePageRemoveDropdownContentStencil >> initialize [
 	super initialize.
 	action := [ :aConfirmationButton | self removePage ].
-	icon := BrGlamorousVectorIcons remove.
+	icon := BrGlamorousVectorIcons bin.
 	label := 'Remove Page'.
 ]
 
