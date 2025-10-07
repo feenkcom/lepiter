@@ -144,24 +144,6 @@ LeExampleSnippet >> asSnippetViewModel [
 	^ LeExampleSnippetViewModel new snippetModel: self
 ]
 
-{ #category : #converting }
-LeExampleSnippet >> assertSelectors [
-	^ #(assert: #assert:description: #assert:equals:)
-]
-
-{ #category : #converting }
-LeExampleSnippet >> astWithInlinedSelfSends [
-	| refactoring |
-	refactoring := GtInlineAllSelfSendsRefactoring
-			selector: self exampleSelector
-			class: self exampleClass.
-	refactoring setOption: #inlineExpression toUse: [ :ref :string | false ].
-	refactoring
-		ignoreSelectors: self assertSelectors , #(new basicNew new: basicNew:).
-	[ refactoring primitiveExecute ] on: Error do: [ :ex | ex return ].
-	^ refactoring ast
-]
-
 { #category : #testing }
 LeExampleSnippet >> canMoveToAnotherDatabase [
 	^ true
@@ -359,23 +341,6 @@ LeExampleSnippet >> exampleSelector: aNewExampleSelector [
 	self notifyExampleSelectorChanged
 ]
 
-{ #category : #converting }
-LeExampleSnippet >> fixAssertSendsIn: anAST [
-	| rewriter ast |
-	ast := RBParser parseExpression: (self snippetSourceFrom: anAST body).
-	rewriter := RBParseTreeRewriter new.
-	self assertSelectors
-		do: [ :sel | 
-			| msg |
-			msg := String
-					streamContents: [ :stream | 
-						sel keywords
-							doWithIndex: [ :key :i | stream << ' ' << key << ' ``@a' << i printString ] ].
-			rewriter replace: '``@r' , msg with: 'self' , msg ].
-	(rewriter executeTree: ast) ifTrue: [ ast := rewriter tree ].
-	^ ast
-]
-
 { #category : #'private - subscriptions' }
 LeExampleSnippet >> handleSystemClassAnnouncement: anAnnouncement [
 	(exampleBehaviorName sameContentAs: anAnnouncement classAffected originalName)
@@ -473,9 +438,9 @@ LeExampleSnippet >> initialize [
 
 { #category : #converting }
 LeExampleSnippet >> inlinedSnippetSource [
-	| ast |
-	ast := self fixAssertSendsIn: self astWithInlinedSelfSends.
-	^ ast formattedCode
+	^ GtCreateSnippetSourceFromMethod new
+		method: self exampleClass >> exampleSelector;
+		generate
 ]
 
 { #category : #converting }
@@ -878,16 +843,9 @@ LeExampleSnippet >> similarTo: anotherExampleSnippet [
 
 { #category : #converting }
 LeExampleSnippet >> snippetSourceFrom: anAST [
-	| ast |
-	ast := self updateInstanceVariableReferencesIn: anAST.
-	ast := self updateSelfReferencesIn: ast.
-	ast temporaryNames do: [ :each | ast removeTemporaryNamed: each ].
-	(ast statements notEmpty and: [ ast statements last isReturn ]) 
-		ifTrue: [ 
-			ast
-				replaceNode: ast statements last
-				withNode: ast statements last value ].
-	^ ast formattedCode
+	^ GtCreateSnippetSourceFromMethod new
+		method: self exampleClass >> self exampleSelector;
+		snippetSourceFrom: anAST
 ]
 
 { #category : #printing }
@@ -1051,47 +1009,4 @@ LeExampleSnippet >> unsetPreviewShowSelector [
 { #category : #'private - subscriptions' }
 LeExampleSnippet >> unsubscribeFromSystem [
 	SystemAnnouncer uniqueInstance unsubscribe: self
-]
-
-{ #category : #converting }
-LeExampleSnippet >> updateInstanceVariableReferencesIn: anAST [
-	| rewrites |
-	rewrites := RBParseTreeRewriter new.
-	self exampleClass allInstVarNames
-		do:
-			[ :each | 
-			rewrites
-				replace: each , ' := ``@a' with: 'self instVarNamed: ''' , each , ''' put: ``@a';
-				replace: each with: 'self instVarNamed: ''' , each , '''' ].
-	rewrites executeTree: anAST.
-	^ rewrites tree
-]
-
-{ #category : #converting }
-LeExampleSnippet >> updateSelfReferencesIn: anAST [
-	| selfNodes newNode |
-	selfNodes := OrderedCollection new.
-	anAST nodesDo: [ :each | (each isVariable and: [ each name = #self ]) ifTrue: [ selfNodes add: each ] ].
-	selfNodes isEmpty ifTrue: [ ^ anAST ].
-	self isForMetaclass
-		ifTrue: [ newNode := RBVariableNode named: self instanceClassName ]
-		ifFalse:
-			[ selfNodes size > 1
-				ifTrue:
-					[ | name index |
-					name := 'instance'.
-					index := 1.
-					[ anAST allTemporaryVariables anySatisfy: [ :each | each asString = name ] ]
-						whileTrue:
-							[ name := 'instance' , index printString.
-							index := index + 1 ].
-					anAST
-						addNodeFirst:
-							(RBAssignmentNode
-								variable: (RBVariableNode named: name)
-								value: (RBMessageNode receiver: (RBVariableNode named: self instanceClassName) selector: #new)).
-					newNode := RBVariableNode named: name ]
-				ifFalse: [ newNode := RBMessageNode receiver: (RBVariableNode named: self instanceClassName) selector: #new ] ].
-	selfNodes do: [ :each | each replaceWith: newNode copy ].
-	^ anAST
 ]
