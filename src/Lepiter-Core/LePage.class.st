@@ -543,7 +543,9 @@ LePage >> page [
 
 { #category : #accessing }
 LePage >> pageFileReference [
-	^ self database monitor pageFileReference: self
+	^ self database monitor 
+		ifNotNil: [ :aMonitor |
+			aMonitor pageFileReference: self ]
 ]
 
 { #category : #accessing }
