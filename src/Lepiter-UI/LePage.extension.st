@@ -15,12 +15,18 @@ LePage >> asContentUIModel [
 
 { #category : #'*Lepiter-UI' }
 LePage >> asLepiterPagePhlowTool [
-	^ self type asLepiterPagePhlowToolFocusStatus: true
+	^ self type 
+		ifNil: [ GtPhlowTool default object: self]
+		ifNotNil: [ :aPageType |
+			aPageType asLepiterPagePhlowToolFocusStatus: true ]
 ]
 
 { #category : #'*Lepiter-UI' }
 LePage >> asLepiterPagePhlowToolWithoutFocus [
-	^ self type asLepiterPagePhlowToolFocusStatus: false
+	^ self type 
+		ifNil: [ GtPhlowTool default object: self]
+		ifNotNil: [ :aPageType |
+			aPageType asLepiterPagePhlowToolFocusStatus: false ]
 ]
 
 { #category : #'*Lepiter-UI' }
