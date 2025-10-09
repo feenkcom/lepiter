@@ -78,7 +78,7 @@ GtWardleyMapAction >> page: aLePage [
 	self
 		icon: LeIcons lepiterPage;
 		tooltip: ('Navigate to the page named {1}' format: { aLePage title });
-		action: [ :aButton | aButton phlow spawnTool: (LePagePhlowTool page: aLePage) ];
+		action: [ :aButton | aButton phlow spawnObject: aLePage ];
 		lepiterPageOption: aLePage
 ]
 
@@ -92,7 +92,7 @@ GtWardleyMapAction >> pageNamed: aLePageName [
 			LeDatabasesRegistry defaultLogicalDatabase
 				pageNamed: aLePageName
 				ifPresent: [ :aPage | 
-					aButton phlow spawnTool: (LePagePhlowTool page: aPage) ]
+					aButton phlow spawnObject: aPage ]
 				ifAbsent: [ 
 					| aNotification |
 					aNotification := GtNotificationMessage new 
@@ -110,7 +110,7 @@ GtWardleyMapAction >> pageUid: aLePageUid [
 			LeDatabasesRegistry defaultLogicalDatabase
 				pageWithID: aLePageUid
 				ifPresent: [ :aPage | 
-					aButton phlow spawnTool: (LePagePhlowTool page: aPage) ]
+					aButton phlow spawnObject: aPage ]
 				ifAbsent: [ 
 					| aNotification |
 					aNotification := GtNotificationMessage new 
