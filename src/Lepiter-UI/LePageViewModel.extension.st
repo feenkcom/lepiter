@@ -7,10 +7,7 @@ LePageViewModel >> asPhlowReferencedToolFrom: aReferencedPage [
 
 { #category : #'*Lepiter-UI' }
 LePageViewModel >> asPhlowTool [
-	^ GtPhlowCompositeTool new
-		addTool: (LePagePhlowTool page: self pageModel);
-		addTool: (GtPhlowTool default object: self pageModel)";
-		addTool: (GtConnectorTool new object: self)"
+	^ self pageModel asLepiterPagePhlowTool
 ]
 
 { #category : #'*Lepiter-UI' }
