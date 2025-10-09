@@ -15,22 +15,12 @@ LePage >> asContentUIModel [
 
 { #category : #'*Lepiter-UI' }
 LePage >> asLepiterPagePhlowTool [
-	^ self asLepiterPagePhlowToolFocusStatus: true
-]
-
-{ #category : #'*Lepiter-UI' }
-LePage >> asLepiterPagePhlowToolFocusStatus: aBoolean [
-	^ GtPhlowCompositeTool new
-		addTool: (LePagePhlowTool new
-			shouldFocusFirstSnippet: aBoolean;
-			page: self);
-		addTool: (GtPhlowTool default object: self)";
-		addTool: (GtConnectorTool new object: self)"
+	^ self type asLepiterPagePhlowToolFocusStatus: true
 ]
 
 { #category : #'*Lepiter-UI' }
 LePage >> asLepiterPagePhlowToolWithoutFocus [
-	^ self asLepiterPagePhlowToolFocusStatus: false
+	^ self type asLepiterPagePhlowToolFocusStatus: false
 ]
 
 { #category : #'*Lepiter-UI' }
