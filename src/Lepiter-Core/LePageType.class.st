@@ -18,6 +18,11 @@ LePageType class >> default [
 	^ LeNamedPageType new
 ]
 
+{ #category : #testing }
+LePageType class >> isAbstract [ 
+	^ self name = #LePageType
+]
+
 { #category : #accessing }
 LePageType class >> pageTypeClass [
 	"Answer the class used to store the pages in ${class:name=LeDatabase}$.

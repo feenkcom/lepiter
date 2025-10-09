@@ -670,12 +670,9 @@ LeDatabase >> initialize [
 	readOnly := false.
 	pagesByType := IdentityDictionary new.
 	pagesByUuid := Dictionary new.
-	"Populate all the page types"
-	LePageType subclassesDo: [ :pageType |
-		pagesByType
-			at: pageType pageTypeClass
-			ifAbsentPut: [ GtStringContentDictionary new ] ].
 	blocksByUID := Dictionary new.
+	
+	self populatePageTypes.
 	self ensureExplicitLinksStorage.
 	self weak
 		when: LePageTitleChanged 
@@ -1010,6 +1007,15 @@ LeDatabase >> pagesWithNameDo: aBlock [
 
 	^ self pagesByName do: [ :assoc |
 		aBlock value: assoc value ]
+]
+
+{ #category : #initialization }
+LeDatabase >> populatePageTypes [
+	LePageType allSubclassesDo: [ :pageTypeClass |
+		pageTypeClass isAbstract ifFalse: [
+			pagesByType
+				at: pageTypeClass pageTypeClass
+				ifAbsentPut: [ GtStringContentDictionary new ] ] ]
 ]
 
 { #category : #printing }
