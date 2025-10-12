@@ -416,6 +416,16 @@ LeLogicalDatabase >> hasProperties [
 	^ properties isNull not and: [ properties hasLocalFile ]
 ]
 
+{ #category : #'api - accessing' }
+LeLogicalDatabase >> hasSnippetWithUID: aLeUID [
+	self databasesDo: [ :db |
+		db 
+			blockWithUID: aLeUID
+			ifPresent: [ :aLeSnippet | ^ true ] 
+			ifAbsent: [ ] ].
+	^ false
+]
+
 { #category : #initialization }
 LeLogicalDatabase >> initialize [
 
@@ -816,6 +826,18 @@ LeLogicalDatabase >> setupAddedDB: aLeDatabase [
 LeLogicalDatabase >> size [
 
 	^ self pageCount
+]
+
+{ #category : #'api - accessing' }
+LeLogicalDatabase >> snippetWithUID: aLeUID [
+	"Answer the snippet with the supplied UID"
+
+	self databasesDo: [ :db |
+		db 
+			blockWithUID: aLeUID
+			ifPresent: [ :aLeSnippet | ^ aLeSnippet ] 
+			ifAbsent: [ ] ].
+	KeyNotFound signalFor: aLeUID
 ]
 
 { #category : #'api - enumerating' }
