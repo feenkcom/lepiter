@@ -1,12 +1,11 @@
 Class {
 	#name : #LeSharedSnippetContext,
 	#superclass : #Object,
-	#traits : 'TGtCoderWithSelfObjectHolder',
-	#classTraits : 'TGtCoderWithSelfObjectHolder classTrait',
+	#traits : 'TGtPhlowWithSelfObjectHolder',
+	#classTraits : 'TGtPhlowWithSelfObjectHolder classTrait',
 	#instVars : [
 		'announcer',
 		'sharedBindings',
-		'selfObject',
 		'variablePreviewToggle',
 		'externalSnippetContext',
 		'pharoRuntimeContext'
