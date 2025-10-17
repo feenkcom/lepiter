@@ -590,7 +590,7 @@ LeSnippet >> previousSibling [
 ]
 
 { #category : #'api - enumerating' }
-LeSnippet >> previousSnippetDo: aBlock ifNone: aNoneBlock [
+LeSnippet >> previousSiblingDo: aBlock ifNone: aNoneBlock [
 	"Find a previous snippet in the tree and evaluate aBlock if such snippet found, aNoneBlock otherwise.
 	The previous snippet is considered to be the first found from:
 	- The last descended child from the receiver's previous sibling
@@ -605,6 +605,16 @@ LeSnippet >> previousSnippetDo: aBlock ifNone: aNoneBlock [
 				ifTrue: [ aNoneBlock value ]
 				ifFalse: [ aBlock value: self parent ] ]
 		ifFalse: [ aBlock value: (self parent children at: myIndex - 1) lastChildOrSelf ]
+]
+
+{ #category : #'api - enumerating' }
+LeSnippet >> previousSnippetDo: aBlock ifNone: aNoneBlock [
+	self
+		deprecated: 'Use #previousSiblingDo:ifNone: instead'
+		transformWith:
+			'`@receiver previousBlockDo: `@arg1 ifNone: `@arg2'
+			-> '`@receiver previousSiblingDo: `@arg1 ifNone: `@arg2'.
+	self previousSiblingDo: aBlock ifNone: aNoneBlock
 ]
 
 { #category : #refactoring }
