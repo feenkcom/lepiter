@@ -614,7 +614,7 @@ LeSnippet >> previousSnippetDo: aBlock ifNone: aNoneBlock [
 		transformWith:
 			'`@receiver previousBlockDo: `@arg1 ifNone: `@arg2'
 			-> '`@receiver previousSiblingDo: `@arg1 ifNone: `@arg2'."
-	self previousSiblingDo: aBlock ifNone: aNoneBlock
+	^ self previousSiblingDo: aBlock ifNone: aNoneBlock
 ]
 
 { #category : #refactoring }
