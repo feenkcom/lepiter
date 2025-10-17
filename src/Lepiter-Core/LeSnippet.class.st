@@ -609,11 +609,11 @@ LeSnippet >> previousSiblingDo: aBlock ifNone: aNoneBlock [
 
 { #category : #'api - enumerating' }
 LeSnippet >> previousSnippetDo: aBlock ifNone: aNoneBlock [
-	self
+"	self
 		deprecated: 'Use #previousSiblingDo:ifNone: instead'
 		transformWith:
 			'`@receiver previousBlockDo: `@arg1 ifNone: `@arg2'
-			-> '`@receiver previousSiblingDo: `@arg1 ifNone: `@arg2'.
+			-> '`@receiver previousSiblingDo: `@arg1 ifNone: `@arg2'."
 	self previousSiblingDo: aBlock ifNone: aNoneBlock
 ]
 
