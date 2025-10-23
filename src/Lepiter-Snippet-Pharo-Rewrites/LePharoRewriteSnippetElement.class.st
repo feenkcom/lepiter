@@ -890,7 +890,7 @@ LePharoRewriteSnippetElement >> searchFilter [
 		ifFound: [ :filtersElement | 
 			filtersElement
 				filtersDo: [ :descriptor :value | filters add: (descriptor newFilterWithValue: value) ] ].
-	^ filters ifEmpty: [ nil ] ifNotEmpty: [ filters reduce: [ :a :b | a | b ] ]
+	^ filters ifEmpty: [ nil ] ifNotEmpty: [ filters reduce: [ :a :b | a & b ] ]
 ]
 
 { #category : #private }
