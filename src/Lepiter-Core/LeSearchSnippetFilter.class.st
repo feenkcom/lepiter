@@ -64,6 +64,7 @@ LeSearchSnippetFilter >> gtItemsByPageFor: aView [
 							ifNil: [ '' ] 
 							ifNotNil: [ :each | each title ] ) ] ];
 		column: 'Items' text: [ :assoc | assoc value size ];
+		column: 'Page edit time' text: [ :assoc | assoc key editTime ];
 		send: [ :assoc | self & (LeSearchPageSnippetFilter forPage:  assoc key) ]
 ]
 
