@@ -1,7 +1,7 @@
 Class {
 	#name : #LePages,
 	#superclass : #LeCollection,
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #visiting }
@@ -19,7 +19,7 @@ LePages >> gtPagesFor: aView [
 		priority: 10;
 		items: [ self ];
 		children: [ :eachPage | eachPage children ];
-		expandUpTo: 5;
+		"expandUpTo: 5;"
 		column: 'Content' text: #contentAsString;
 		column: 'Edit Time' text: #latestEditTime;
 		column: 'Author' text: #editEmail
