@@ -205,6 +205,7 @@ LePharoRewriteSnippet >> potentialMethodsInFilter: aFilter [
 			select: [ :each | each isFromTrait not ].
 	ast := self searchAST.
 	literals := Set withAll: ast sentMessages.
+	literals addAll: ast gtLiterals.
 	literals isEmpty
 		ifTrue: [ ast
 				nodesDo: [ :each | 
@@ -212,7 +213,17 @@ LePharoRewriteSnippet >> potentialMethodsInFilter: aFilter [
 						ifTrue: [ (self class environment bindingOf: each name)
 								ifNotNil: [ :binding | 
 									(binding value isBehavior and: [ binding name = binding value name ])
-										ifTrue: [ literals add: binding ] ] ] ] ].
+										ifTrue: [ | inPatternBlock current |
+											inPatternBlock := false.
+											current := each.
+											[ inPatternBlock or: [ current isNil ] ]
+												whileFalse: [ (current isKindOf: RBPatternBlockNode) ifTrue: [ inPatternBlock := true ].
+													(current parent isKindOf: RBPatternWrapperBlockNode)
+														ifTrue: [ current == current parent wrappedNode
+																ifTrue: [ current := current parent ]
+																ifFalse: [ inPatternBlock := true ] ].
+													current := current parent ].
+											inPatternBlock ifFalse: [ literals add: binding ] ] ] ] ] ].
 	literals notEmpty
 		ifTrue: [ | astFilter |
 			astFilter := (literals

@@ -443,8 +443,8 @@ LePharoRewriteSnippetElement >> initialize [
 				aptitude: BrGlamorousButtonWithIconAptitude;
 				icon: BrGlamorousVectorIcons playinspect asElement;
 				label: 'Replace' asString;
-				action: [ (self snippet executeRewriteInFilter: self searchFilter)
-						then: [ :obj | rewriteElement inUIProcessDo: [ rewriteElement phlow spawnObject: obj ] ] ])
+				action: [ rewriteElement phlow
+						spawnTool: (GtPhlowExplicitTool new stencil: [ self rewriteElement ]) ])
 		as: #replaceButton
 ]
 
@@ -804,6 +804,16 @@ LePharoRewriteSnippetElement >> replaceSelectorPartIndexFor: aNode [
 	self
 		replaceEditorDo: [ :element | ^ self selectorPartIndexFor: aNode in: element ].
 	^ 0
+]
+
+{ #category : #private }
+LePharoRewriteSnippetElement >> rewriteElement [
+	| asyncElement |
+	asyncElement := BrAsyncWidget new
+			matchParent;
+			stencil: [ ((self snippet executeRewriteInFilter: self searchFilter)
+					then: [ :obj | GtInspector forObject: obj ]) wait ].
+	^ asyncElement
 ]
 
 { #category : #actions }

@@ -450,7 +450,11 @@ LePage >> leSnippetsInPage [
 
 { #category : #accessing }
 LePage >> linkedPages [
-	"Return just the array of pages that this page links to."
+	"Return just the array of pages that this page links to.
+	NB: This appears not to catch all pages. 
+	Compare with the result when instead of checking `l isExistingPage`
+	we just check `l targetReference notNil`."
+
 	^ (self allOutgoingExplicitLinks items
 		select: [ :l | l isTextualLink and: [ l isExistingPage ] ])
 		collect: [ :l | l targetReference content ]
