@@ -132,10 +132,23 @@ LePharoRewriteSnippet >> filterDescriptorNamesAndValuesDo: aBlock [
 LePharoRewriteSnippet >> filterDescriptorsUsing: snippetContext [
 	| variableBindings descriptors variables |
 	descriptors := GtSearchFilter globalFilterDescriptors.
-	variableBindings := snippetContext 
-		ifNil: [ GtSharedVariablesBindings new ]
-		ifNotNil: [ :aContext |
-			aContext sharedBindings ].
+	(snippetContext notNil and: [ snippetContext hasSelfObject ])
+		ifTrue: [ (snippetContext selfObject isKindOf: GtSearchFilter)
+				ifTrue: [ descriptors
+						addFirst: (GtFilterDescriptor new
+								valueNotRequired;
+								creator: [ :value | snippetContext selfObject ];
+								named: 'self';
+								order: 0) ]
+				ifFalse: [ descriptors
+						addFirst: (GtFilterDescriptor new
+								valueNotRequired;
+								creator: [ :value | snippetContext selfObject class gtMethodsInClass ];
+								named: snippetContext selfObject class name;
+								order: 0) ] ].
+	variableBindings := snippetContext
+			ifNil: [ GtSharedVariablesBindings new ]
+			ifNotNil: [ :aContext | aContext sharedBindings ].
 	variables := self allSnippetVariables
 			select: [ :each | 
 				(variableBindings hasBindingOf: each asSymbol) not
@@ -151,14 +164,6 @@ LePharoRewriteSnippet >> filterDescriptorsUsing: snippetContext [
 								ifNil: [ self inform: each , ' is not a search filter. Using all methods instead.'.
 									GtSearchImageMethodsFilter forAllMethods ] ];
 						named: each;
-						order: 0) ].
-	(snippetContext notNil and: [ 
-		snippetContext selfObject isKindOf: GtSearchFilter])
-			ifTrue: [ descriptors
-				addFirst: (GtFilterDescriptor new
-						valueNotRequired;
-						creator: [ :value | snippetContext selfObject ];
-						named: 'self';
 						order: 0) ].
 	^ descriptors
 ]

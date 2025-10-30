@@ -393,8 +393,8 @@ LePharoRewriteSnippetElement >> initialize [
 					+ BrGlamorousToggleBackgroundAptitude;
 			fitContent;
 			beSmallSize;
-			margin: (BlInsets top: 5);
 			label: 'Full methods';
+			margin: (BlInsets top: 3);
 			when: BrToggleActivatedEvent
 				do: [ :anEvent | self snippet isMethodPattern: true ];
 			when: BrToggleDeactivatedEvent
@@ -1258,7 +1258,9 @@ LePharoRewriteSnippetElement >> updateScope [
 			self snippet
 				filterDescriptorNamesAndValuesDo: [ :name :value | 
 					(descriptors detect: [ :each | each name = name ] ifNone: [  ])
-						ifNotNil: [ :descriptor | filtersElement addFilterForDescriptor: descriptor andValue: value ] ] ]
+						ifNotNil: [ :descriptor | filtersElement addFilterForDescriptor: descriptor andValue: value ] ].
+			(filtersElement currentFilters isEmpty and: [ descriptors notEmpty ])
+				ifTrue: [ filtersElement addFilterForDescriptor: descriptors first andValue: '' ] ]
 ]
 
 { #category : #private }
