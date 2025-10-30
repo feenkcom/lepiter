@@ -107,8 +107,8 @@ LePharoSnippet >> isForLocalImage [
 
 { #category : #enumerating }
 LePharoSnippet >> moveFollowingSnippetsToPage: pageName [
-	"Use this to split a lepiter snippet by evaluating or inspecting this in a code
-	snippet at the split point.
+	"Use this to move lepiter snippets to another page by evaluating or 
+	inspecting this in a code snippet just before the snippets to move.
 		thisSnippet moveFollowingSnippetsToPage: 'A page name'
 	NB: If used in a top-level code snippet, it will move all following snippets
 	of the page. If used within a nested snippet, it will only move the following
