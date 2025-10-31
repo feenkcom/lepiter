@@ -143,8 +143,11 @@ LePharoRewriteSnippet >> filterDescriptorsUsing: snippetContext [
 				ifFalse: [ descriptors
 						addFirst: (GtFilterDescriptor new
 								valueNotRequired;
-								creator: [ :value | snippetContext selfObject class gtMethodsInClass ];
-								named: snippetContext selfObject class name;
+								creator: [ :value | 
+									| cls |
+									cls := snippetContext selfObject class instanceSide.
+									cls gtMethodsInClass | cls class gtMethodsInClass ];
+								named: snippetContext selfObject class instanceSide name;
 								order: 0) ] ].
 	variableBindings := snippetContext
 			ifNil: [ GtSharedVariablesBindings new ]
