@@ -232,10 +232,11 @@ LeDatabaseClassStorage >> save: anObject inClass: aClass selector: aSymbol title
 			nextPut: $";
 			<< jsonString;
 			nextPut: $" ].
-	aClass class
-		compile: sourceCode
-		classified: protocol.
-
+	
+	GtPharoCodeModifier current critical: 
+		[ aClass class
+			compile: sourceCode
+			classified: protocol ].
 ]
 
 { #category : #saving }
