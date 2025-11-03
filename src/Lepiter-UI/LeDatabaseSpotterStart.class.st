@@ -23,7 +23,8 @@ LeDatabaseSpotterStart >> gtSpotterForPagesFor: aSearch [
 	^ aSearch explicit
 		title: 'Named pages';
 		priority: 1;
-		search: [ :aContext | self navigationModel database asyncPagesForWord: aContext searchQuery ];
+		search: [ :aContext | 
+		self navigationModel database asyncPagesForWord: aContext searchQuery ];
 		itemName: #title;
 		wantsToDisplayOnEmptyQuery: false
 ]

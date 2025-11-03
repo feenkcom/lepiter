@@ -179,13 +179,13 @@ LeDatabase >> asyncPagesContainingText: aQueryString [
 		pagesWithNameDo: [ :eachPage | (filter isMatchedItem: eachPage) ifTrue: [ results add: eachPage ] ].
 	self
 		unnamedPagesDo: [ :eachPage | (filter isMatchedItem: eachPage) ifTrue: [ results add: eachPage ] ].
-	results asAsyncStream ] asAsyncFuture asAsyncStream flatten
+	results asAsyncStream ] asAsyncFuture asAsyncStream flatten asAsyncPageStream
 ]
 
 { #category : #accessing }
 LeDatabase >> asyncPagesForWord: aString [
-	^ ((self index asyncTitlesForWord: aString)
-		collect: [ :each | self pageNamed: each ifAbsent: [  ] ]) select: #notNil
+	^ (((self index asyncTitlesForWord: aString)
+		collect: [ :each | self pageNamed: each ifAbsent: [  ] ]) select: #notNil) asAsyncPageStream
 ]
 
 { #category : #'api - query' }
