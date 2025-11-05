@@ -40,7 +40,7 @@ TLeInMemoryDatabaseHolder >> databaseName: aDatabaseName [
 
 { #category : #utility }
 TLeInMemoryDatabaseHolder >> databaseNamed: aDatabaseName [
-	"If there is a database registered underthis name, just return it."
+	"If there is a database registered under this name, just return it."
 
 	^ LeDatabase
 		databaseNamed: aDatabaseName

@@ -212,6 +212,22 @@ LePage >> gtMarkdownPageFor: aView [
 ]
 
 { #category : #'*Lepiter-UI' }
+LePage >> gtPageActionsDropdownMenuFor: anAction [
+	"To automatically add actions as menu items, define an action as 
+	an extension method, with LePageActionTarget as the `target:`
+	I am modeled after the class actions dropdown: Behavior>>#gtClassActionsDropdownFor:"
+
+	<lePageAction>
+	(LePageActionTarget actionsForObject: self) ifEmpty: [ ^ anAction empty ].
+	^ anAction dropdown
+		tooltip: 'Page actions';
+		icon: BrGlamorousVectorIcons hamburger;
+		id: GtCoderClassActionsDropdownButtonId;
+		priority: 100;
+		menuItemsForObject: self fromTarget: LePageActionTarget
+]
+
+{ #category : #'*Lepiter-UI' }
 LePage >> gtReachablePagesMapFor: aView [
 	"Inspired by: Optimizing the links in the book for first time readers
 	The map shows the current page in blue, reachable pages in dark green, and unreachable pages in red. To avoid clutter, the ToC page is not included, but is considered for reachability. Nodes are scaled according to their word count.
