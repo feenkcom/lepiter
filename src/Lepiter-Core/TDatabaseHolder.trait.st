@@ -8,6 +8,8 @@ It is also possible for trait users to explicitly send `#initializeDatabase` in 
 Examples are in {{gtClass:name=DatabaseHolderExamples}}.
 
 To generate the page methods from existing pages, send `addPages:` with the list of pages.
+
+See also: {{gtClass:name=InMemoryDatabaseHolder}}, which creates an in-memory database from a physical Lepiter database on disk.
 "
 Trait {
 	#name : #TDatabaseHolder,
