@@ -1,5 +1,5 @@
 "
-I am a target for LePage dropdown actions appearing in the hambuirger menu of a lepiter page.
+I am a target for LePage dropdown actions appearing in the hamburger menu of a lepiter page.
 
 To use me as a target, define an action as an extension method in LePage, with me as a `target:`.
 
