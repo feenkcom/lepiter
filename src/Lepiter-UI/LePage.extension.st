@@ -228,6 +228,23 @@ LePage >> gtPageActionsDropdownMenuFor: anAction [
 ]
 
 { #category : #'*Lepiter-UI' }
+LePage >> gtPageInspectorActionsDropdownMenuFor: anAction [
+	"This dropdown is for the Inspector view of a LePage, rather than the main page view."
+
+	<gtAction>
+	"NB: the following line causes an infinite loop via `self gtActions`"
+	"(LePageInspectorActionTarget actionsForObject: self)
+		ifEmpty: [ ^ anAction empty ]."
+	^ anAction dropdown
+		tooltip: 'Page actions';
+		icon: BrGlamorousVectorIcons hamburger;
+		id: LePageActionTargetDropdownButtonId;
+		priority: 40;
+		menuItemsForObject: self fromTarget: LePageInspectorActionTarget;
+		yourself
+]
+
+{ #category : #'*Lepiter-UI' }
 LePage >> gtReachablePagesMapFor: aView [
 	"Inspired by: Optimizing the links in the book for first time readers
 	The map shows the current page in blue, reachable pages in dark green, and unreachable pages in red. To avoid clutter, the ToC page is not included, but is considered for reachability. Nodes are scaled according to their word count.
