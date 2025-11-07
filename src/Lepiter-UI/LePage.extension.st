@@ -222,7 +222,7 @@ LePage >> gtPageActionsDropdownMenuFor: anAction [
 	^ anAction dropdown
 		tooltip: 'Page actions';
 		icon: BrGlamorousVectorIcons hamburger;
-		id: GtCoderClassActionsDropdownButtonId;
+		id: LePageActionTargetDropdownButtonId;
 		priority: 100;
 		menuItemsForObject: self fromTarget: LePageActionTarget
 ]
