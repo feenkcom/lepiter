@@ -784,6 +784,12 @@ LeLogicalDatabase >> removeDB: aLeDatabase [
 	^ aLeDatabase 
 ]
 
+{ #category : #utils }
+LeLogicalDatabase >> requestUnlinkedReferencesUpdate [
+	self databasesDo: [ :aDatabase |
+		aDatabase requestUnlinkedReferencesUpdate ]
+]
+
 { #category : #'private - properties' }
 LeLogicalDatabase >> saveProperties [
 	"Update the properties to reflect the receiver's current state and save to disk"

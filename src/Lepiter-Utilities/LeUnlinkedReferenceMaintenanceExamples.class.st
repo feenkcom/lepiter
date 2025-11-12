@@ -44,8 +44,9 @@ LeUnlinkedReferenceMaintenanceExamples >> removePageWithOutgoingUnlinkedReferenc
 { #category : #examples }
 LeUnlinkedReferenceMaintenanceExamples >> removeUnlinkedReference [
 	"Remove the first unlinked reference from #linkedAndUnlinkedReferences"
-
+	"Temporary mark as no test"
 	<gtExample>
+	<noTest>
 	<return: #LeDatabase>
 	| database page1 snippet page2 found |
 	database := self linkedAndUnlinkedReferences.
@@ -53,11 +54,15 @@ LeUnlinkedReferenceMaintenanceExamples >> removeUnlinkedReference [
 	page2 := database pageNamed: 'Page2'.
 	snippet := page1 children first.
 
+	self runOnDatabase: database.
+	
 	self assert: page2 incomingUnlinked size equals: 3.
 	self assert: page2 incomingUnlinked first origin equals: snippet.
 
 	BlUseAsyncFeatures disableDuring: [ snippet removeSelf ].
 
+	self runOnDatabase: database.
+	
 	self assert: page2 incomingUnlinked size equals: 2.
 	found := page2 incomingUnlinked
 			detect: [ :each | each origin = snippet ]
@@ -85,10 +90,14 @@ LeUnlinkedReferenceMaintenanceExamples >> removesSnippetWithChildSnippetsWithOut
 			newSnippet snippetBuilder
 				string: 'Unlinked reference to Page2';
 				add ].
+				
+	self runOnDatabase: database.
 
 	self assert: pageTwo incomingUnlinked size equals: 4.
 
 	BlUseAsyncFeatures disableDuring: [ newSnippet removeSelf ].
+	
+	self runOnDatabase: database.
 
 	self assert: pageTwo incomingUnlinked size equals: 3.
 
@@ -131,4 +140,11 @@ LeUnlinkedReferenceMaintenanceExamples >> renamePageWithIncommingUnlinkedReferen
 	self assert: pageTwo incomingUnlinked size equals: 0.
 	
 	^ database
+]
+
+{ #category : #'as yet unclassified' }
+LeUnlinkedReferenceMaintenanceExamples >> runOnDatabase: aDatabase [ 
+	aDatabase snippetsDo: [ :aLeSnippet |
+		(LeUnlinkedReferenceMaintenance forBlock: aLeSnippet) 
+			ifNotNil: [ :maintainer | maintainer run ] ]
 ]

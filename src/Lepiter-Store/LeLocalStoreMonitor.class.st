@@ -445,9 +445,8 @@ LeLocalStoreMonitor >> scheduleNextUpdate [
 	updatePromise ifNotNil: [ updatePromise cancelSoft ].
 
 	updatePromise := ([ self runTimedUpdate ] asAsyncFuture 
-		delayed: saveDelay) await: (AsyncFutureExecutionConfiguration new 
-			customGroup: #Lepiter;
-			errorHandler: AsyncPassExceptionHandler new)
+		delayed: saveDelay) 
+			awaitInLepiterWorkerWithErrorHandler: AsyncPassExceptionHandler new
 ]
 
 { #category : #notifications }
@@ -515,8 +514,7 @@ LeLocalStoreMonitor >> submitReload [
 
 	([ self class shutdownMonitor 
 		critical: [ self reloadWithNotificationOnError ] ]
-			asAsyncFuture await: (AsyncFutureExecutionConfiguration new 
-				customGroup: #Lepiter))
+			asAsyncFuture awaitInLepiterWorker)
 					then: [ ]
 					otherwise: [ :anException |
 						anException freeze.

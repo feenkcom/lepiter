@@ -127,6 +127,8 @@ LeIncomingReferencesExamples >> incomingUnlinkedReferencesWithPage3First [
 			self page1.
 			self page2.
 			self page4 ].
+			
+	LeUnlinkedReferenceMaintenance synchronouslyUpdateDatabase:  self database.
 
 	incomingReferences := LeIncomingImplicitPageLinksGroup forPage: self page3.
 	self assert: incomingReferences size equals: 1.
