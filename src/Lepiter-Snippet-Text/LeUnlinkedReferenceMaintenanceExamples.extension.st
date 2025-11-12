@@ -6,12 +6,15 @@ LeUnlinkedReferenceMaintenanceExamples >> addPageWithOutgoingUnlinkedReference [
 	<return: #LeDatabase>
 	| database pageTwo newPage |
 	database := self linkedAndUnlinkedReferences.
+	
 	pageTwo := database pageNamed: 'Page2'.
 
 	newPage := LePage named: 'New page'.
 	newPage addSnippet: (LeTextSnippet string: 'Page2 new snippet').
 
 	BlUseAsyncFeatures disableDuring: [ database addPage: newPage ].
+	
+	self runOnDatabase: database.
 
 	self assert: pageTwo incomingUnlinked size equals: 4.
 
@@ -24,6 +27,7 @@ LeUnlinkedReferenceMaintenanceExamples >> addSnippetWithIncommingUnlinkedReferen
 	<return: #LeDatabase>
 	| database pageOne pageTwo |
 	database := self linkedAndUnlinkedReferences.
+	
 	pageOne := database pageNamed: 'Page1'.
 	pageTwo := database pageNamed: 'Page2'.
 
@@ -31,6 +35,8 @@ LeUnlinkedReferenceMaintenanceExamples >> addSnippetWithIncommingUnlinkedReferen
 
 	BlUseAsyncFeatures
 		disableDuring: [ pageOne addSnippet: (LeTextSnippet string: 'Page2 new snippet') ].
+		
+	self runOnDatabase: database.
 
 	self assert: pageTwo incomingUnlinked size equals: 4.
 	^ database
@@ -88,6 +94,8 @@ LeUnlinkedReferenceMaintenanceExamples >> noUnlinkedReferencesToUnamedPage [
 	BlUseAsyncFeatures
 		disableDuring: [ page2
 				addSnippet: (LeTextSnippet string: 'Unlinked reference to Page 1 but not to Page 3') ].
+				
+	self runOnDatabase: database.
 
 	self assert: unnamedPage incomingUnlinked size equals: 0.
 	self assert: unnamedPage incomingLinks size equals: 0.
@@ -118,6 +126,8 @@ LeUnlinkedReferenceMaintenanceExamples >> noUnlinkedReferencesToUnamedPageWithSa
 
 			page2
 				addSnippet: (LeTextSnippet string: 'Unlinked reference to named Page 1') ].
+				
+	self runOnDatabase: database.
 
 	self assert: unnamedPage incomingUnlinked size equals: 0.
 	self assert: unnamedPage incomingLinks size equals: 0.
