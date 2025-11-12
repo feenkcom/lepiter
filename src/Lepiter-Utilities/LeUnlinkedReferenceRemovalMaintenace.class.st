@@ -104,6 +104,6 @@ LeUnlinkedReferenceRemovalMaintenace >> submit [
 	"Submit the receiver for processing in the low priority non-UI single pool"
 
 	BlUseAsyncFeatures 
-		ifEnabledDo: [ [ self run ] asAsyncFuture await: (AsyncFutureExecutionConfiguration new customGroup: #Lepiter) ]
+		ifEnabledDo: [ [ self run ] asAsyncFuture awaitInLepiterWorker ]
 		otherwise: [ self run ]
 ]

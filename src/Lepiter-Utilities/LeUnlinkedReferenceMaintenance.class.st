@@ -194,8 +194,7 @@ LeUnlinkedReferenceMaintenance >> submit [
 
 	BlUseAsyncFeatures
 		ifEnabledDo: [
-			runningPromise := [ self run ] asAsyncFuture
-				await: (AsyncFutureExecutionConfiguration new customGroup: #Lepiter) ]
+			runningPromise := [ self run ] asAsyncFuture awaitInLepiterWorker ]
 		otherwise: [ self run ]
 ]
 

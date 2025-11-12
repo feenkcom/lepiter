@@ -149,8 +149,7 @@ GtAbstractLepiterDb class >> registereWithDefaultLogicalDatabase [
 	This should be called after the reload on startup has been initialised."
 
 	([ self ensureRegisteredWithDefaultLogicalDatabase ]
-		asAsyncFuture await: (AsyncFutureExecutionConfiguration new 
-			customGroup: #Lepiter))
+		asAsyncFuture awaitInLepiterWorker)
 				then: [ ]
 				otherwise: [ :exception |
 					self inform: 'Error while adding knowledgebase: ' 
