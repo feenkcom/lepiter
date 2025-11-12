@@ -232,9 +232,11 @@ LePage >> gtPageInspectorActionsDropdownMenuFor: anAction [
 	"This dropdown is for the Inspector view of a LePage, rather than the main page view."
 
 	<gtAction>
-	"NB: the following line causes an infinite loop via `self gtActions`"
-	"(LePageInspectorActionTarget actionsForObject: self)
-		ifEmpty: [ ^ anAction empty ]."
+	"This is too slow to be useful."
+	"(#gtAction gtPragmas & LePage gtMethodsInClass & #target: gtSenders
+		& LePageInspectorActionTarget gtReferences) isEmpty
+		ifTrue: [ ^ anAction empty ]."
+
 	^ anAction dropdown
 		tooltip: 'Page actions';
 		icon: BrGlamorousVectorIcons hamburger;

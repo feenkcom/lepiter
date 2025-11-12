@@ -4,7 +4,7 @@ Class {
 	#category : #'Lepiter-UI-Coder - Ids'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #converting }
 LePageActionTargetDropdownButtonId >> asSymbol [
 	^ #'lepage--action-dropdown'
 ]
