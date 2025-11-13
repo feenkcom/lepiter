@@ -424,9 +424,10 @@ LeUIByScripterExamples >> pageOneFromDatabaseWithOnlyOnePage_RemoveLastPage_Chec
 	| aScripter |
 	aScripter := self pageOneFromDatabaseWithOnlyOnePage_RemoveLastPage.
 
-	aScripter click
+	aScripter treePager
 		label: 'Maximize page';
-		// GtPagerMaximizeButtonElementId;
+		hoverPaneColumn: 1;
+		clickMaximizeColumn: 1;
 		play.
 
 	aScripter assert

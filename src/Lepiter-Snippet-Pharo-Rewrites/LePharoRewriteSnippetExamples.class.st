@@ -29,14 +29,14 @@ LePharoRewriteSnippetExamples >> cancelExecuteRewrites [
 		clickStep: [ :s | 
 			s
 				label: 'Canceling';
-				// #toolArea;
+				onTreePagerPaneColumn: 2;
 				// BrAsyncWidget;
 				// BrButton ].
 	scripter
 		checkStep: [ :s | 
 			s
 				label: 'Has canceled';
-				// #toolArea;
+				onTreePagerPaneColumn: 2;
 				// BrAsyncWidget;
 				// #label;
 				value: [ :each | each text asString ] equals: 'AsyncFutureCancelled' ].
