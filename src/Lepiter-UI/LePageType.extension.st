@@ -14,6 +14,7 @@ LePageType >> asLepiterPagePhlowTool [
 						icon: BrGlamorousVectorIcons inspect;
 						name: 'Page';
 						stencil: [ (GtPhlowTool default object: self page) asElement ]) ]
+]
 
 LePageType >> asLepiterPagePhlowToolFocusStatus: aBoolean [
 	^ GtPhlowCompositeTool new
