@@ -20,7 +20,7 @@ LePharoRewriteSnippetExamples >> cancelExecuteRewrites [
 							yourself).
 				page ]
 			element: [ :page | 
-				GtPager
+				GtPagerSettings usedPager
 					createWrappedOn: (page asLepiterPagePhlowTool asElementDo: [ :anElement | anElement ]) ].
 	scripter click
 		// #replaceButton;
@@ -100,7 +100,7 @@ LePharoRewriteSnippetExamples >> scripterOnInitialExample [
 							yourself).
 				page ]
 			element: [ :page | 
-				GtPager
+				GtPagerSettings usedPager
 					createWrappedOn: (page asLepiterPagePhlowTool asElementDo: [ :anElement | anElement ]) ].
 	scripter
 		checkStep: [ :s | 
