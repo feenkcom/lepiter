@@ -52,7 +52,7 @@ LeSnippetHeaderElement >> onSnippetViewModelChanged [
 { #category : #accessing }
 LeSnippetHeaderElement >> spawnPage [
 	self snippetViewModel
-		ifNotNil: [ :vm | self phlow spawnTool: (LePagePhlowTool page: vm snippetModel page) ]
+		ifNotNil: [ :vm | self phlow spawnObject: vm snippetModel page ]
 ]
 
 { #category : #'api - snippet view model' }

@@ -128,16 +128,6 @@ LePage >> asMarkdownPage [
 ]
 
 { #category : #'api - converting' }
-LePage >> asPagePhlowTool [
-	"Inspect me to obtain a LePage tool view first."
-
-	^ GtPhlowCompositeTool new
-		addTool: (LePagePhlowTool new
-				shouldFocusFirstSnippet: true;
-				page: self)
-]
-
-{ #category : #'api - converting' }
 LePage >> asRemoteLink [
 	"Answer the string representing a remote link to the receiver"
 
@@ -460,10 +450,15 @@ LePage >> leSnippetsInPage [
 
 { #category : #accessing }
 LePage >> linkedPages [
-	"Return just the array of pages that this page links to."
-	^ (self allOutgoingExplicitLinks items
-		select: [ :l | l isTextualLink and: [ l isExistingPage ] ])
-		collect: [ :l | l targetReference content ]
+	"Return the list of pages in the same database that this page links to."
+
+	^ self allOutgoingExplicitLinks items
+		select: [ :link | 
+			link isTextualLink
+				and: [ link targetReference content notNil
+						and: [ link targetReference content isNamedPage
+								and: [ link targetReference content database = self database ] ] ] ]
+		thenCollect: [ :l | l targetReference content ]
 ]
 
 { #category : #'private - exporting' }
@@ -539,6 +534,13 @@ LePage >> onRemovedFromDatabase: aDatabase [
 { #category : #'api - accessing' }
 LePage >> page [
 	^ self
+]
+
+{ #category : #accessing }
+LePage >> pageFileReference [
+	^ self database monitor 
+		ifNotNil: [ :aMonitor |
+			aMonitor pageFileReference: self ]
 ]
 
 { #category : #accessing }

@@ -179,13 +179,13 @@ LeDatabase >> asyncPagesContainingText: aQueryString [
 		pagesWithNameDo: [ :eachPage | (filter isMatchedItem: eachPage) ifTrue: [ results add: eachPage ] ].
 	self
 		unnamedPagesDo: [ :eachPage | (filter isMatchedItem: eachPage) ifTrue: [ results add: eachPage ] ].
-	results asAsyncStream ] asAsyncFuture asAsyncStream flatten
+	results asAsyncStream ] asAsyncFuture asAsyncStream flatten asAsyncPageStream
 ]
 
 { #category : #accessing }
 LeDatabase >> asyncPagesForWord: aString [
-	^ ((self index asyncTitlesForWord: aString)
-		collect: [ :each | self pageNamed: each ifAbsent: [  ] ]) select: #notNil
+	^ (((self index asyncTitlesForWord: aString)
+		collect: [ :each | self pageNamed: each ifAbsent: [  ] ]) select: #notNil) asAsyncPageStream
 ]
 
 { #category : #'api - query' }
@@ -693,6 +693,8 @@ LeDatabase >> initialize [
 			at: pageType pageTypeClass
 			ifAbsentPut: [ GtStringContentDictionary new ] ].
 	blocksByUID := Dictionary new.
+	
+	self populatePageTypes.
 	self ensureExplicitLinksStorage.
 	self weak
 		when: LePageTitleChanged 
@@ -1037,6 +1039,15 @@ LeDatabase >> pagesWithNameDo: aBlock [
 		aBlock value: assoc value ]
 ]
 
+{ #category : #initialization }
+LeDatabase >> populatePageTypes [
+	LePageType allSubclassesDo: [ :pageTypeClass |
+		pageTypeClass isAbstract ifFalse: [
+			pagesByType
+				at: pageTypeClass pageTypeClass
+				ifAbsentPut: [ GtStringContentDictionary new ] ] ]
+]
+
 { #category : #printing }
 LeDatabase >> printOn: aStream [
 
@@ -1148,6 +1159,11 @@ LeDatabase >> removePage: aPage [
 	aPage announce: (LePageRemovedFromDatabase new 
 		database: self;
 		page: aPage).
+]
+
+{ #category : #utils }
+LeDatabase >> requestUnlinkedReferencesUpdate [
+	LeUnlinkedReferenceMaintenance updateDatabase: self
 ]
 
 { #category : #'api - attachments' }

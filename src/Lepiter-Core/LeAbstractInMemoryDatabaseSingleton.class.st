@@ -21,9 +21,9 @@ The in-memory database is initialized lazily. To pre-load it, send `initializeDa
 "
 Class {
 	#name : #LeAbstractInMemoryDatabaseSingleton,
-	#superclass : #Object,
-	#traits : 'TLeInMemoryDatabaseHolder + TGtUniqueInstance',
-	#classTraits : 'TLeInMemoryDatabaseHolder classTrait + TGtUniqueInstance classTrait',
+	#superclass : #InMemoryDatabaseHolder,
+	#traits : 'TGtUniqueInstance',
+	#classTraits : 'TGtUniqueInstance classTrait',
 	#category : #'Lepiter-Core-Utility'
 }
 

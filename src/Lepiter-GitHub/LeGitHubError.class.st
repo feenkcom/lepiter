@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'exception'
 	],
-	#category : 'Lepiter-GitHub-Model'
+	#category : #'Lepiter-GitHub-Model'
 }
 
 { #category : #'api - accessing' }

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'issueNumber'
 	],
-	#category : 'Lepiter-GitHub-Model'
+	#category : #'Lepiter-GitHub-Model'
 }
 
 { #category : #'api - response' }

@@ -232,7 +232,7 @@ LeYoutubeReferenceElement >> updatePicture [
 			ifTrue: [ imageUrl := self snippet thumbnailUrl.
 				title label: self snippet title.
 				authorName label: self snippet authorName.
-				GtWebViewElement new
+				GtProtoWebViewElement new
 					constraintsDo: [ :c | c frame horizontal alignCenter ];
 					when: BlElementExtentChangedEvent
 						doOnce: [ :anEvent | self updatePictureWidth: anEvent currentTarget ];
@@ -303,13 +303,13 @@ LeYoutubeReferenceElement >> videoTitleContainer [
 			aptitude: BrGlamorousButtonRectangularAptitude
 			+ BrGlamorousButtonLabelAptitude;
 			action:  [ WebBrowser openOn: self snippet authorUrl ];
-			icon: BrGlamorousIcons go asElement;
+			icon: BrGlamorousVectorIcons web;
 			label: 'Author'.
 	title := BrButton new.
 	title aptitude: BrGlamorousButtonRectangularAptitude
 			+ BrGlamorousButtonLabelAptitude;
 			action:  [ WebBrowser openOn: self snippet youtubeUrl ];
-			icon: BrGlamorousIcons go asElement;
+			icon: BrGlamorousVectorIcons web;
 			label: 'Watch on YouTube'.
 	container addChild: title; addChild: authorName.
 	^ container

@@ -26,7 +26,7 @@ LeGitHubModelElement >> defaultLayout [
 LeGitHubModelElement >> gtLiveFor: aView [
 	<gtView>
 	^ (super gtLiveFor: aView)
-		actionButtonIcon: BrGlamorousIcons inspect 
+		actionButtonIcon: BrGlamorousVectorIcons inspect 
 			label: 'Model' 
 			tooltip: 'Inspect model object' 
 			action: [ :aButton | aButton phlow spawnObject: self model ]

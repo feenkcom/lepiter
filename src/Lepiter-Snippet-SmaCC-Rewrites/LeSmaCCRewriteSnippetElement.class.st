@@ -113,7 +113,7 @@ LeSmaCCRewriteSnippetElement >> initialize [
 				margin: (BlInsets top: 3 bottom: 10);
 				beSmallSize;
 				aptitude: BrGlamorousButtonWithIconAptitude;
-				icon: BrGlamorousIcons playinspect asElement;
+				icon: BrGlamorousVectorIcons playinspect asElement;
 				label: 'Search' asString;
 				action: [ rewriteElement phlow
 						spawnObject: (self snippet executeSearchIn: self searchFiles) ])
@@ -126,7 +126,7 @@ LeSmaCCRewriteSnippetElement >> initialize [
 				margin: (BlInsets top: 3 bottom: 3);
 				beSmallSize;
 				aptitude: BrGlamorousButtonWithIconAptitude;
-				icon: BrGlamorousIcons playinspect asElement;
+				icon: BrGlamorousVectorIcons playinspect asElement;
 				label: 'Replace' asString;
 				action: [ rewriteElement phlow
 						spawnObject: (self snippet executeReplaceIn: self searchFiles) ])

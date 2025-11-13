@@ -133,7 +133,7 @@ LeLogicalDatabaseProperties >> gtJsonFor: aView [
 	^ aView textEditor
 		title: 'JSON';
 		priority: 5;
-		actionButtonIcon: BrGlamorousIcons tree 
+		actionButtonIcon: BrGlamorousVectorIcons tree 
 			action: [ :aButton | 
 				aButton phlow spawnObject: (
 					STONJSON fromString: self localFile contents) ];

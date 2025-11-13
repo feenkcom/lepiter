@@ -416,6 +416,16 @@ LeLogicalDatabase >> hasProperties [
 	^ properties isNull not and: [ properties hasLocalFile ]
 ]
 
+{ #category : #'api - accessing' }
+LeLogicalDatabase >> hasSnippetWithUID: aLeUID [
+	self databasesDo: [ :db |
+		db 
+			blockWithUID: aLeUID
+			ifPresent: [ :aLeSnippet | ^ true ] 
+			ifAbsent: [ ] ].
+	^ false
+]
+
 { #category : #initialization }
 LeLogicalDatabase >> initialize [
 
@@ -774,6 +784,12 @@ LeLogicalDatabase >> removeDB: aLeDatabase [
 	^ aLeDatabase 
 ]
 
+{ #category : #utils }
+LeLogicalDatabase >> requestUnlinkedReferencesUpdate [
+	self databasesDo: [ :aDatabase |
+		aDatabase requestUnlinkedReferencesUpdate ]
+]
+
 { #category : #'private - properties' }
 LeLogicalDatabase >> saveProperties [
 	"Update the properties to reflect the receiver's current state and save to disk"
@@ -816,6 +832,18 @@ LeLogicalDatabase >> setupAddedDB: aLeDatabase [
 LeLogicalDatabase >> size [
 
 	^ self pageCount
+]
+
+{ #category : #'api - accessing' }
+LeLogicalDatabase >> snippetWithUID: aLeUID [
+	"Answer the snippet with the supplied UID"
+
+	self databasesDo: [ :db |
+		db 
+			blockWithUID: aLeUID
+			ifPresent: [ :aLeSnippet | ^ aLeSnippet ] 
+			ifAbsent: [ ] ].
+	KeyNotFound signalFor: aLeUID
 ]
 
 { #category : #'api - enumerating' }

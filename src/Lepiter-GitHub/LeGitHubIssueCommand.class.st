@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'issueNumber'
 	],
-	#category : 'Lepiter-GitHub-Client'
+	#category : #'Lepiter-GitHub-Client'
 }
 
 { #category : #'private - execution' }

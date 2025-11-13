@@ -21,5 +21,5 @@ LeLocalSyncMissingMonitorStatus >> statusColor [
 
 { #category : #accessing }
 LeLocalSyncMissingMonitorStatus >> statusIcon [
-	^ BrGlamorousIcons redcircle
+	^ BrGlamorousVectorIcons redcircle
 ]

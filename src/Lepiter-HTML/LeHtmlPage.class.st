@@ -29,8 +29,8 @@ LeHtmlPage >> gtActionWebBrowseFor: anAction [
 
 	^ anAction button
 		priority: 5;
-		icon: BrGlamorousIcons go;
-		tooltip: 'Open in OS';
+		icon: BrGlamorousVectorIcons link;
+		tooltip: 'Open in operating system';
 		action: [ WebBrowser openOn: self directory fullName ]
 ]
 

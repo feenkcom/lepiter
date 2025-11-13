@@ -243,8 +243,8 @@ LeSnippetAptitude >> newAddSnippetDropdown [
 								when: GtSpotterExitAnnouncement
 								send: #onSpotterExitAnnouncement:
 								to: self ];
-						objectActOn: [ :anActOnEvent :aMenuItem :theButton |
-							aMenuItem actOn: self.
+						objectActOn: [ :anActOnEvent :aMenuItem :theButton | 
+							widget snippet addSnippetAfterSelf: aMenuItem asSnippet.
 							anActOnEvent beActed ];
 						spotterElementFor: aButton ]
 				containerDo: [ :aMenuContainer | aMenuContainer background: BrGlamorousColors secondaryHeaderBackgroundColor ])

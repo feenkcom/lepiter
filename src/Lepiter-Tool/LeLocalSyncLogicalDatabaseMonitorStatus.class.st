@@ -74,10 +74,10 @@ LeLocalSyncLogicalDatabaseMonitorStatus >> statusIcon [
 	"Answer the icon to display in the receiver's button"
 
 	self isErrorStatus ifTrue: 
-		[ ^ BrGlamorousIcons redcircle ].
+		[ ^ BrGlamorousVectorIcons redcircle ].
 
 	self hasPendingChanges ifTrue: 
-		[ ^ BrGlamorousIcons yellowcircle ].
+		[ ^ BrGlamorousVectorIcons yellowcircle ].
 
-	^ BrGlamorousIcons greencircle
+	^ BrGlamorousVectorIcons greencircle
 ]

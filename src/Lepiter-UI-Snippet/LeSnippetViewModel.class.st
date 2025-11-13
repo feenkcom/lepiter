@@ -238,6 +238,34 @@ LeSnippetViewModel >> insertSnippetFromCommand: aLeSnippetCommand [
 	self insertNewSnippet: aLeSnippetCommand execute insertedSnippet.
 ]
 
+{ #category : #'as yet unclassified' }
+LeSnippetViewModel >> nextSiblingViewModel [
+	| nextSiblingViewModel |
+	nextSiblingViewModel := nil.
+	self snippetModel
+		nextSiblingDo: [ :nextSnippet | 
+			self
+				snippetsCollectionDo: [ :snippetCollection | 
+					nextSiblingViewModel := snippetCollection
+							findOrCreateSnippetViewModel: nextSnippet ] ]
+		ifNone: [  ].
+	^ nextSiblingViewModel
+]
+
+{ #category : #'as yet unclassified' }
+LeSnippetViewModel >> previousSiblingViewModel [
+	| previousSiblingViewModel |
+	previousSiblingViewModel := nil.
+	self snippetModel
+		previousSiblingDo: [ :previousSnippet | 
+			self
+				snippetsCollectionDo: [ :snippetCollection | 
+					previousSiblingViewModel := snippetCollection
+							findOrCreateSnippetViewModel: previousSnippet ] ]
+		ifNone: [  ].
+	^ previousSiblingViewModel
+]
+
 { #category : #'api - actions' }
 LeSnippetViewModel >> removeSelf [
 	| nextFocusedSnippet |

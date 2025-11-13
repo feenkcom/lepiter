@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'tagName'
 	],
-	#category : 'Lepiter-GitHub-Model'
+	#category : #'Lepiter-GitHub-Model'
 }
 
 { #category : #accessing }

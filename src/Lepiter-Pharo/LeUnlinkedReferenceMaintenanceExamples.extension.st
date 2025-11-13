@@ -38,6 +38,10 @@ LeUnlinkedReferenceMaintenanceExamples >> linkedAndUnlinkedReferences [
 	self assert: link origin equals: page1 children first.
 	self assert: link target equals: page2.
 	self assert: link targetUID equals: page2 title.
+	
+	"Hack for now as we disabled the unlinked maintenance"
+	self runOnDatabase: database.
+	
 	^ database
 ]
 

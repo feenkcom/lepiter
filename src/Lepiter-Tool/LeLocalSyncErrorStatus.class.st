@@ -26,7 +26,7 @@ LeLocalSyncErrorStatus >> statusColor [
 
 { #category : #accessing }
 LeLocalSyncErrorStatus >> statusIcon [
-	^ BrGlamorousIcons redcircle
+	^ BrGlamorousVectorIcons redcircle
 ]
 
 { #category : #'gt-extensions' }
@@ -36,7 +36,7 @@ LeLocalSyncErrorStatus >> statusWidget [
 	container
 		addChild: (BrButton new
 				aptitude: BrGlamorousButtonWithIconAptitude;
-				icon: BrGlamorousIcons inspect;
+				icon: BrGlamorousVectorIcons inspect;
 				label: 'View status';
 				margin: (BlInsets left: 5);
 				action: [ :aButtonElement | 
@@ -50,7 +50,7 @@ LeLocalSyncErrorStatus >> statusWidget [
 	container
 		addChild: (BrButton new
 				aptitude: BrGlamorousButtonWithIconAptitude;
-				icon: BrGlamorousIcons play;
+				icon: BrGlamorousVectorIcons play;
 				label: 'Start Monitoring';
 				margin: (BlInsets left: 5);
 				in: [ :aButton | LeLocalMonitorElementHandler forElement: aButton monitor: self database monitor ];

@@ -393,8 +393,8 @@ LePharoRewriteSnippetElement >> initialize [
 					+ BrGlamorousToggleBackgroundAptitude;
 			fitContent;
 			beSmallSize;
-			margin: (BlInsets top: 5);
 			label: 'Full methods';
+			margin: (BlInsets top: 3);
 			when: BrToggleActivatedEvent
 				do: [ :anEvent | self snippet isMethodPattern: true ];
 			when: BrToggleDeactivatedEvent
@@ -420,7 +420,7 @@ LePharoRewriteSnippetElement >> initialize [
 				margin: (BlInsets top: 3 bottom: 10);
 				beSmallSize;
 				aptitude: BrGlamorousButtonWithIconAptitude;
-				icon: BrGlamorousIcons playinspect asElement;
+				icon: BrGlamorousVectorIcons playinspect asElement;
 				label: 'Search' asString;
 				action: [ rewriteElement phlow
 						spawnObject: (self snippet executeSearchInFilter: self searchFilter) ])
@@ -441,10 +441,10 @@ LePharoRewriteSnippetElement >> initialize [
 				margin: (BlInsets top: 3 bottom: 3);
 				beSmallSize;
 				aptitude: BrGlamorousButtonWithIconAptitude;
-				icon: BrGlamorousIcons playinspect asElement;
+				icon: BrGlamorousVectorIcons playinspect asElement;
 				label: 'Replace' asString;
-				action: [ (self snippet executeRewriteInFilter: self searchFilter)
-						then: [ :obj | rewriteElement inUIProcessDo: [ rewriteElement phlow spawnObject: obj ] ] ])
+				action: [ rewriteElement phlow
+						spawnTool: (GtPhlowExplicitTool new stencil: [ self rewriteElement ]) ])
 		as: #replaceButton
 ]
 
@@ -806,6 +806,16 @@ LePharoRewriteSnippetElement >> replaceSelectorPartIndexFor: aNode [
 	^ 0
 ]
 
+{ #category : #private }
+LePharoRewriteSnippetElement >> rewriteElement [
+	| asyncElement |
+	asyncElement := BrAsyncWidget new
+			matchParent;
+			stencil: [ ((self snippet executeRewriteInFilter: self searchFilter)
+					then: [ :obj | GtInspector forObject: obj ]) wait ].
+	^ asyncElement
+]
+
 { #category : #actions }
 LePharoRewriteSnippetElement >> safePatternSelectorIn: aNode basedOn: aString [
 	| selectors current index |
@@ -890,7 +900,7 @@ LePharoRewriteSnippetElement >> searchFilter [
 		ifFound: [ :filtersElement | 
 			filtersElement
 				filtersDo: [ :descriptor :value | filters add: (descriptor newFilterWithValue: value) ] ].
-	^ filters ifEmpty: [ nil ] ifNotEmpty: [ filters reduce: [ :a :b | a | b ] ]
+	^ filters ifEmpty: [ nil ] ifNotEmpty: [ filters reduce: [ :a :b | a & b ] ]
 ]
 
 { #category : #private }
@@ -1248,7 +1258,9 @@ LePharoRewriteSnippetElement >> updateScope [
 			self snippet
 				filterDescriptorNamesAndValuesDo: [ :name :value | 
 					(descriptors detect: [ :each | each name = name ] ifNone: [  ])
-						ifNotNil: [ :descriptor | filtersElement addFilterForDescriptor: descriptor andValue: value ] ] ]
+						ifNotNil: [ :descriptor | filtersElement addFilterForDescriptor: descriptor andValue: value ] ].
+			(filtersElement currentFilters isEmpty and: [ descriptors notEmpty ])
+				ifTrue: [ filtersElement addFilterForDescriptor: descriptors first andValue: '' ] ]
 ]
 
 { #category : #private }

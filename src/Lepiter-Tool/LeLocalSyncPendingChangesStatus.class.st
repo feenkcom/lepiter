@@ -21,5 +21,5 @@ LeLocalSyncPendingChangesStatus >> statusColor [
 
 { #category : #accessing }
 LeLocalSyncPendingChangesStatus >> statusIcon [
-	^ BrGlamorousIcons yellowcircle
+	^ BrGlamorousVectorIcons yellowcircle
 ]

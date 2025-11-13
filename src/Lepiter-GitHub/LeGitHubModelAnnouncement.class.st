@@ -5,7 +5,7 @@ Class {
 		'source',
 		'model'
 	],
-	#category : 'Lepiter-GitHub-Announcements'
+	#category : #'Lepiter-GitHub-Announcements'
 }
 
 { #category : #accessing }

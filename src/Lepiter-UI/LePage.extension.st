@@ -15,22 +15,18 @@ LePage >> asContentUIModel [
 
 { #category : #'*Lepiter-UI' }
 LePage >> asLepiterPagePhlowTool [
-	^ self asLepiterPagePhlowToolFocusStatus: true
-]
-
-{ #category : #'*Lepiter-UI' }
-LePage >> asLepiterPagePhlowToolFocusStatus: aBoolean [
-	^ GtPhlowCompositeTool new
-		addTool: (LePagePhlowTool new
-			shouldFocusFirstSnippet: aBoolean;
-			page: self);
-		addTool: (GtPhlowTool default object: self)";
-		addTool: (GtConnectorTool new object: self)"
+	^ self type 
+		ifNil: [ GtPhlowTool default object: self]
+		ifNotNil: [ :aPageType |
+			aPageType asLepiterPagePhlowToolFocusStatus: true ]
 ]
 
 { #category : #'*Lepiter-UI' }
 LePage >> asLepiterPagePhlowToolWithoutFocus [
-	^ self asLepiterPagePhlowToolFocusStatus: false
+	^ self type 
+		ifNil: [ GtPhlowTool default object: self]
+		ifNotNil: [ :aPageType |
+			aPageType asLepiterPagePhlowToolFocusStatus: false ]
 ]
 
 { #category : #'*Lepiter-UI' }
@@ -171,7 +167,7 @@ LePage >> gtCopyPageFilePathActionFor: anAction [
 	^ anAction button
 		tooltip: 'Inspect the page''s file';
 		priority: 5;
-		icon: BrGlamorousIcons folder;
+		icon: BrGlamorousVectorIcons folder;
 		action: [ :aButton |
 			Clipboard clipboardText: (self database monitor pageFilename: self).
 			aButton phlow spawnObject: (self database monitor pageFileReference: self) ]
@@ -212,6 +208,41 @@ LePage >> gtMarkdownPageFor: aView [
 ]
 
 { #category : #'*Lepiter-UI' }
+LePage >> gtPageActionsDropdownMenuFor: anAction [
+	"To automatically add actions as menu items, define an action as 
+	an extension method, with LePageActionTarget as the `target:`
+	I am modeled after the class actions dropdown: Behavior>>#gtClassActionsDropdownFor:"
+
+	<lePageAction>
+	(LePageActionTarget actionsForObject: self) ifEmpty: [ ^ anAction empty ].
+	^ anAction dropdown
+		tooltip: 'Page actions';
+		icon: BrGlamorousVectorIcons hamburger;
+		id: LePageActionTargetDropdownButtonId;
+		priority: 100;
+		menuItemsForObject: self fromTarget: LePageActionTarget
+]
+
+{ #category : #'*Lepiter-UI' }
+LePage >> gtPageInspectorActionsDropdownMenuFor: anAction [
+	"This dropdown is for the Inspector view of a LePage, rather than the main page view."
+
+	<gtAction>
+	"This is too slow to be useful."
+	"(#gtAction gtPragmas & LePage gtMethodsInClass & #target: gtSenders
+		& LePageInspectorActionTarget gtReferences) isEmpty
+		ifTrue: [ ^ anAction empty ]."
+
+	^ anAction dropdown
+		tooltip: 'Page actions';
+		icon: BrGlamorousVectorIcons hamburger;
+		id: LePageActionTargetDropdownButtonId;
+		priority: 40;
+		menuItemsForObject: self fromTarget: LePageInspectorActionTarget;
+		yourself
+]
+
+{ #category : #'*Lepiter-UI' }
 LePage >> gtReachablePagesMapFor: aView [
 	"Inspired by: Optimizing the links in the book for first time readers
 	The map shows the current page in blue, reachable pages in dark green, and unreachable pages in red. To avoid clutter, the ToC page is not included, but is considered for reachability. Nodes are scaled according to their word count.
@@ -229,8 +260,8 @@ LePage >> gtRemoveActionFor: anAction [
 
 	^ anAction dropdown 
 		id: LePageRemoveActionId;
-		tooltip: 'Remove Page';
-		icon: BrGlamorousVectorIcons remove;
+		tooltip: 'Remove page';
+		icon: BrGlamorousVectorIcons bin;
 		content: [:aButton | (LePageRemoveDropdownContentStencil new
 						page: self;
 						anchor: aButton)]

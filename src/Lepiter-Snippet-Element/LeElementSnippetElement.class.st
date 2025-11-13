@@ -86,7 +86,7 @@ LeElementSnippetElement >> createRefreshContentButton [
 		padding: (BlInsets all: 10);
 		zIndex: 10;
 		aptitude: BrGlamorousButtonWithIconAptitude + BrGlamorousToggleBackgroundAptitude;
-		icon: BrGlamorousIcons refresh asElement;
+		icon: BrGlamorousVectorIcons refresh asElement;
 		label: 'Refresh' asString;
 		action: [
 			self generateDisplayElement.
@@ -114,7 +114,7 @@ LeElementSnippetElement >> createShowCodeToggleButton [
 		padding: (BlInsets all: 10);
 		zIndex: 10;
 		aptitude: BrGlamorousButtonWithIconAptitude + BrGlamorousToggleBackgroundAptitude;
-		icon: BrGlamorousIcons browse asElement;
+		icon: BrGlamorousVectorIcons browse asElement;
 		label: 'Browse Code' asString;
 		when: BrToggleActivatedEvent
 			do: [ :anEvent | self snippetViewModel showCode ];

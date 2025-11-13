@@ -132,10 +132,26 @@ LePharoRewriteSnippet >> filterDescriptorNamesAndValuesDo: aBlock [
 LePharoRewriteSnippet >> filterDescriptorsUsing: snippetContext [
 	| variableBindings descriptors variables |
 	descriptors := GtSearchFilter globalFilterDescriptors.
-	variableBindings := snippetContext 
-		ifNil: [ GtSharedVariablesBindings new ]
-		ifNotNil: [ :aContext |
-			aContext sharedBindings ].
+	(snippetContext notNil and: [ snippetContext hasSelfObject ])
+		ifTrue: [ (snippetContext selfObject isKindOf: GtSearchFilter)
+				ifTrue: [ descriptors
+						addFirst: (GtFilterDescriptor new
+								valueNotRequired;
+								creator: [ :value | snippetContext selfObject ];
+								named: 'self';
+								order: 0) ]
+				ifFalse: [ descriptors
+						addFirst: (GtFilterDescriptor new
+								valueNotRequired;
+								creator: [ :value | 
+									| cls |
+									cls := snippetContext selfObject class instanceSide.
+									cls gtMethodsInClass | cls class gtMethodsInClass ];
+								named: snippetContext selfObject class instanceSide name;
+								order: 0) ] ].
+	variableBindings := snippetContext
+			ifNil: [ GtSharedVariablesBindings new ]
+			ifNotNil: [ :aContext | aContext sharedBindings ].
 	variables := self allSnippetVariables
 			select: [ :each | 
 				(variableBindings hasBindingOf: each asSymbol) not
@@ -151,14 +167,6 @@ LePharoRewriteSnippet >> filterDescriptorsUsing: snippetContext [
 								ifNil: [ self inform: each , ' is not a search filter. Using all methods instead.'.
 									GtSearchImageMethodsFilter forAllMethods ] ];
 						named: each;
-						order: 0) ].
-	(snippetContext notNil and: [ 
-		snippetContext selfObject isKindOf: GtSearchFilter])
-			ifTrue: [ descriptors
-				addFirst: (GtFilterDescriptor new
-						valueNotRequired;
-						creator: [ :value | snippetContext selfObject ];
-						named: 'self';
 						order: 0) ].
 	^ descriptors
 ]
@@ -205,6 +213,7 @@ LePharoRewriteSnippet >> potentialMethodsInFilter: aFilter [
 			select: [ :each | each isFromTrait not ].
 	ast := self searchAST.
 	literals := Set withAll: ast sentMessages.
+	literals addAll: ast gtLiterals.
 	literals isEmpty
 		ifTrue: [ ast
 				nodesDo: [ :each | 
@@ -212,7 +221,17 @@ LePharoRewriteSnippet >> potentialMethodsInFilter: aFilter [
 						ifTrue: [ (self class environment bindingOf: each name)
 								ifNotNil: [ :binding | 
 									(binding value isBehavior and: [ binding name = binding value name ])
-										ifTrue: [ literals add: binding ] ] ] ] ].
+										ifTrue: [ | inPatternBlock current |
+											inPatternBlock := false.
+											current := each.
+											[ inPatternBlock or: [ current isNil ] ]
+												whileFalse: [ (current isKindOf: RBPatternBlockNode) ifTrue: [ inPatternBlock := true ].
+													(current parent isKindOf: RBPatternWrapperBlockNode)
+														ifTrue: [ current == current parent wrappedNode
+																ifTrue: [ current := current parent ]
+																ifFalse: [ inPatternBlock := true ] ].
+													current := current parent ].
+											inPatternBlock ifFalse: [ literals add: binding ] ] ] ] ] ].
 	literals notEmpty
 		ifTrue: [ | astFilter |
 			astFilter := (literals

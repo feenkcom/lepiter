@@ -40,7 +40,7 @@ TLeInMemoryDatabaseHolder >> databaseName: aDatabaseName [
 
 { #category : #utility }
 TLeInMemoryDatabaseHolder >> databaseNamed: aDatabaseName [
-	"If there is a database registered underthis name, just return it."
+	"If there is a database registered under this name, just return it."
 
 	^ LeDatabase
 		databaseNamed: aDatabaseName
@@ -77,7 +77,7 @@ TLeInMemoryDatabaseHolder >> gtRefreshDatabaseActionFor: anAction [
 			button := BrButton new
 					"id: GtInspectorInspectButtonId;"
 					aptitude: BrGlamorousButtonWithIconAptitude;
-					icon: BrGlamorousIcons refresh;
+					icon: BrGlamorousVectorIcons refresh;
 					label: 'Refresh database';
 					action: [ :aButton :aModel :anEvent | aButton phlow spawnObject: self renewDatabase ].
 			button ]

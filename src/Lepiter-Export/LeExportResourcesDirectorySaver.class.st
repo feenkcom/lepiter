@@ -47,7 +47,7 @@ LeExportResourcesDirectorySaver >> gtRootDirectoryFor: aView [
 		priority: 1;
 		object: [ rootDirectory ];
 		view: #gtTreeFor:;
-		actionButtonIcon: BrGlamorousIcons browse
+		actionButtonIcon: BrGlamorousVectorIcons browse
 			label: 'In Web Browser'
 			tooltip: 'Open HTML index file in a web browser'
 			action: [ :aButton | 

@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#traits : 'TBlDebug',
 	#classTraits : 'TBlDebug classTrait',
-	#category : 'Lepiter-GitHub-Client'
+	#category : #'Lepiter-GitHub-Client'
 }
 
 { #category : #'api - communication' }
