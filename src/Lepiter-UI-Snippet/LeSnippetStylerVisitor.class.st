@@ -665,7 +665,8 @@ LeSnippetStylerVisitor >> styleOpenExternalLinkButton: aLink text: aSubText [
 
 	aSubText
 		appendingAdornment: [ :aTBrTextEditorTextualPiece :anEditorElement | 
-			| button oldLook |
+			| button oldLook urlUtility |
+			urlUtility := self resolveUrl: aLink url.
 			button := self class
 					textLinkButtonPadding: aTBrTextEditorTextualPiece wordPadding
 					margin: aTBrTextEditorTextualPiece wordMargin.
@@ -677,11 +678,15 @@ LeSnippetStylerVisitor >> styleOpenExternalLinkButton: aLink text: aSubText [
 				icon: BrGlamorousVectorIcons link;
 				label: aLink displayLabel;
 				action: [ :aButton | 
-					| urlUtility |
-					urlUtility := self resolveUrl: aLink url.
 					urlUtility isFile
 						ifTrue: [ aButton phlow spawnObject: urlUtility asFileReference ]
 						ifFalse: [ WebBrowser openOn: urlUtility asString ] ].
+			urlUtility isFile
+				ifFalse: [ button
+						addAptitude: (BrGlamorousWithExplicitContextMenuAptitude
+								items: {'Copy URL to Clipboard' -> [ GtClipboard clipboardText: urlUtility asString ].
+										'Inspect URL String'
+											-> [ button phlow spawnObject: urlUtility asString ]}) ].
 			button ]
 ]
 
