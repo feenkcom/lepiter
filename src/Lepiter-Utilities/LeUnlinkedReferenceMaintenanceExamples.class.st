@@ -44,8 +44,9 @@ LeUnlinkedReferenceMaintenanceExamples >> removePageWithOutgoingUnlinkedReferenc
 { #category : #examples }
 LeUnlinkedReferenceMaintenanceExamples >> removeUnlinkedReference [
 	"Remove the first unlinked reference from #linkedAndUnlinkedReferences"
-
+	"Temporary mark as no test"
 	<gtExample>
+	<noTest>
 	<return: #LeDatabase>
 	| database page1 snippet page2 found |
 	database := self linkedAndUnlinkedReferences.

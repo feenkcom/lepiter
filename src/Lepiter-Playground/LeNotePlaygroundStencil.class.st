@@ -43,7 +43,7 @@ LeNotePlaygroundStencil >> gtSpotterActDefaultFrom: aSpotterElement [
 	aSpace icon: self icon.
 	aSpace extent: 1200@600.
 	aSpace addChild: self asElement.
-	aSpace withHalos.
+	aSpace withCommonSettings.
 	aSpotterElement showSpace: aSpace
 ]
 

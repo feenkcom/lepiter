@@ -62,7 +62,7 @@ GtWardleyMapDecoratorWithScripterExamples >> mapWithLepiterPageAction_ClickOnMap
 		play.
 
 	aScripter assert exists
-		// (GtPagerPageElementId indexed: 2);
+		onPagerPaneWithIndex: 2;
 		play.
 
 	^ aScripter

@@ -1131,6 +1131,11 @@ LeDatabase >> removePage: aPage [
 		page: aPage).
 ]
 
+{ #category : #utils }
+LeDatabase >> requestUnlinkedReferencesUpdate [
+	LeUnlinkedReferenceMaintenance updateDatabase: self
+]
+
 { #category : #'api - attachments' }
 LeDatabase >> resolveDbFile: aString [
 	"Resolve the supplied relative path reference against the receiver's database"

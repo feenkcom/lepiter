@@ -75,7 +75,7 @@ GtPythonVarNodeVisitor >> visitAssignmentStatement: anAssignmentStatement [
 	result := self visitStatement: anAssignmentStatement.
 	assignmentOperator := anAssignmentStatement assigns first value.
 	assignmentOperator = '='
-		ifTrue: [ anAssignmentStatement lhs
+		ifTrue: [ anAssignmentStatement variables first
 				withAllNodesOfType: PyVariableExpressionNode
 				do: [ :aNode | assignedVariables add: aNode nameToken value ] ].
 	^ result
