@@ -18,7 +18,7 @@ LeHomePagesElement >> isForTodayNote [
 
 { #category : #'private - event handling' }
 LeHomePagesElement >> onPageClick: aLePageViewModel [
-	BlSpace spawnPage: aLePageViewModel pageModel from: self
+	aLePageViewModel pageModel gtSpotterActDefaultFrom: self
 ]
 
 { #category : #'private - accessing' }

@@ -8,7 +8,8 @@ Class {
 	#name : #LePageType,
 	#superclass : #LeModel,
 	#instVars : [
-		'page'
+		'page',
+		'pageTypeRepo'
 	],
 	#category : #'Lepiter-Core-Model'
 }
@@ -18,8 +19,42 @@ LePageType class >> default [
 	^ LeNamedPageType new
 ]
 
+{ #category : #default }
+LePageType class >> defaultSystemPageTypes [
+	^ {LeDailyNotePageType.
+		LeNamedPageType.
+		LePharoClassCommentPageType.
+		LePharoClassPageType.
+		LeProxyClassPageType.
+		LeUnnamedPageType.
+		LeUnknownNamedPageType.
+		LeUnknownUnnamedPageType}
+]
+
+{ #category : #action }
+LePageType class >> gtSamplePageFor: anAction [
+	<gtClassAction>
+	(self respondsTo: #samplePage) ifFalse: [ ^ anAction noAction ].
+
+	^ anAction button
+		priority: 0;
+		tooltip: 'Browse Sample Page';
+		icon: BrGlamorousVectorIcons eg;
+		action: [ :aButton | aButton phlow spawnObject: (self perform: #samplePage) ]
+]
+
+{ #category : #initialization }
+LePageType class >> initialize [
+	super initialize.
+	self = LePageType
+		ifFalse: [ self leJsonV4MappingFor: LeJsonV4 uniqueInstance newWriter.
+			self leJsonV4MappingFor: LeJsonV4 uniqueInstance newReader.
+			LeDatabasesRegistry defaultLogicalDatabase databases
+				do: [ :aDatabase | aDatabase pagesByType at: self ifAbsentPut: [ GtStringContentDictionary new ] ] ]
+]
+
 { #category : #testing }
-LePageType class >> isAbstract [ 
+LePageType class >> isAbstract [
 	^ self name = #LePageType
 ]
 
@@ -31,11 +66,42 @@ LePageType class >> pageTypeClass [
 	^ self
 ]
 
+{ #category : #converting }
+LePageType >> asPreviewElement [
+	^ LePageToolContentTreeElement new
+		withTitleOnly;
+		pageViewModel: self page asContentUIModel;
+		matchParent
+]
+
 { #category : #accessing }
 LePageType >> databaseKey [
 	"Answer the attribute used to index a page of the receiver's type in the database."
 
 	^ self subclassResponsibility
+]
+
+{ #category : #converting }
+LePageType >> defaultPhlowTool [
+	^ LePagePhlowTool new
+		shouldFocusFirstSnippet: true;
+		page: self page
+]
+
+{ #category : #action }
+LePageType >> gtSpawnWithDefaultPhlowToolActionFor: anAction [
+	<gtAction>
+	^ anAction button
+		priority: 0;
+		tooltip: 'Inspect with default page phlow tool';
+		icon: LeIcons lepiterPage;
+		action: [ :aButton | aButton phlow spawnTool: self page asLepiterPagePhlowTool ]
+]
+
+{ #category : #initialization }
+LePageType >> initialize [
+super initialize.
+self pageTypeRepo
 ]
 
 { #category : #'api - testing' }
@@ -78,6 +144,22 @@ LePageType >> pageTypeClass [
 	"Answer the class used to store the pages in ${class:name=LeDatabase}$."
 
 	^ self class pageTypeClass
+]
+
+{ #category : #accessing }
+LePageType >> pageTypeRepo [
+	"Return a URL where one can get more details about downloading the code needed to support this page type"
+
+	(self class defaultSystemPageTypes
+		, {LeExampleCustomPageType.
+				LeExampleUnnamedCustomPageType} includes: self class)
+		ifTrue: [ ^ pageTypeRepo ]
+		ifFalse: [ self shouldBeImplemented ]
+]
+
+{ #category : #accessing }
+LePageType >> pageTypeRepo: anObject [
+	pageTypeRepo := anObject
 ]
 
 { #category : #accessing }

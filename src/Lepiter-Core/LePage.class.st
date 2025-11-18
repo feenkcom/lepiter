@@ -290,10 +290,10 @@ LePage >> gtCopyActionFor: anAction [
 		action: [ :aButton | Clipboard clipboardText: self asRemoteLink ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'gt - inspector' }
 LePage >> gtDefaultInspectorTool [
-	<return: #LePhlowTool>
-	^ self asLepiterPagePhlowTool
+ <return: #LePhlowTool>
+ ^ self asPhlowTool
 ]
 
 { #category : #search }
