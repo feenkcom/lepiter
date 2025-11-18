@@ -91,6 +91,18 @@ LePharoSnippet >> compileExampleMethod: aSelector in: aClass classified: aSymbol
 ]
 
 { #category : #enumerating }
+LePharoSnippet >> copyFollowingSnippetsToPage: pageName [
+	"Like moveFollowingSnippetsToPage:, but copy instead of move."
+
+	| targetPage |
+	targetPage := self page database ensurePageNamed: pageName.
+	self followingSnippets
+		do: [ :each | 
+			targetPage addSnippet: each ].
+	^ targetPage
+]
+
+{ #category : #enumerating }
 LePharoSnippet >> followingSnippets [
 	^ self withFollowingSnippets allButFirst
 ]
