@@ -678,6 +678,11 @@ LeDatabase >> initialize [
 		when: LePageTitleChanged 
 		send: #onPageTitleChanged: 
 		to: self.
+		
+	self weak
+		when: LePageTypeChanged 
+		send: #onPageTypeChanged: 
+		to: self.
 ]
 
 { #category : #'api - testing' }
@@ -818,7 +823,7 @@ LeDatabase >> newUniqueUuid [
 { #category : #'private - hooks' }
 LeDatabase >> onPageTitleChanged: aLePageTitleChanged [
 	| page |
-
+	
 	page := aLePageTitleChanged page.
 	self updateByTypeStorageDueTo: aLePageTitleChanged.
 	self updateUnresolvedReferencesForPage: page.
@@ -828,6 +833,21 @@ LeDatabase >> onPageTitleChanged: aLePageTitleChanged [
 		page: page;
 		isChangedToDailyNote: aLePageTitleChanged isChangedToDailyNote;
 		isChangedToNormalPage: aLePageTitleChanged isChangedToNormalPage).
+]
+
+{ #category : #'private - hooks' }
+LeDatabase >> onPageTypeChanged: aLePageTypeChanged [
+	| page |
+	
+	page := aLePageTypeChanged page.
+	self updateByTypeStorageDueTo: aLePageTypeChanged.
+	self updateUnresolvedReferencesForPage: page.
+	
+	self reSortCollectionsDueTo: aLePageTypeChanged.
+	self announce: (LeDatabaseResorted new 
+		page: page;
+		isChangedToDailyNote: aLePageTypeChanged isChangedToDailyNote;
+		isChangedToNormalPage: aLePageTypeChanged isChangedToNormalPage).
 ]
 
 { #category : #'api - adding / removing' }
@@ -994,6 +1014,14 @@ LeDatabase >> pagesByName [
 	This is internal structure that may change."
 
 	^ pagesByType at: LeNamedPageType
+]
+
+{ #category : #'private - accessing' }
+LeDatabase >> pagesByUnknownPageType [
+	"Answer the pages that are stored as having an unknown page type.
+	This is internal structure that may change."
+
+	^ pagesByType at: LeUnknownPageType
 ]
 
 { #category : #'api - enumerating' }

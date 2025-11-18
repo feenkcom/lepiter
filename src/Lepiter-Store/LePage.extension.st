@@ -87,14 +87,31 @@ LePage >> newReloadFromPage: aLePage [
 	latestEditTime := nil.
 
 	type = aLePage type
-		ifFalse: [  "Temporary fix to send a notification when the title of a page changed.
+		ifFalse: [  
+			
+		"Temporary fix to send a notification when the title of a page changed.
 		Should be improved to to use a generic mechanism for changing the type of a page."((type
 				isNamedPageType or: [ type isUnnamedPageType ])
 				and: [ aLePage type isNamedPageType ])
 				ifTrue: [ self updateTitle: aLePage type title ]
 				ifFalse: [ (type isNamedPageType and: [ aLePage type isUnnamedPageType ])
 						ifTrue: [ self updateTitle: '' ]
-						ifFalse: [ type := aLePage type ] ].
+						ifFalse: [ 
+							| previousType previousDatabaseKey |
+							previousType := type.
+							previousDatabaseKey := previousType databaseKey.
+							type := aLePage type.
+							
+							"This is another hack that only announcer a page type change in case a name page is not involved"
+							self notifier 
+								local; 
+								database; 
+								announce: (LePageTypeChanged new
+									page: self;
+									oldType: previousType;
+									oldDatabaseKey:previousDatabaseKey;
+									newType: type;
+									newDatabaseKey: type databaseKey).] ].
 			changed := true ].
 			
 	LeReloadOptimization ifEnabled: [

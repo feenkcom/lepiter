@@ -59,6 +59,11 @@ LePageType >> isTodayDailyNote [
 ]
 
 { #category : #'api - testing' }
+LePageType >> isUnknownPageType [
+	^ false
+]
+
+{ #category : #'api - testing' }
 LePageType >> isUnnamedPageType [
 	^ false
 ]
