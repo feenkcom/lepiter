@@ -1,5 +1,5 @@
 Class {
 	#name : #LeNullTime,
 	#superclass : #LeNullModel,
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }

@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'dbProperties'
 	],
-	#category : 'Lepiter-Store-Settings'
+	#category : #'Lepiter-Store-Settings'
 }
 
 { #category : #accessing }

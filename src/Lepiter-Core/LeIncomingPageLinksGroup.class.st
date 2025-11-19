@@ -10,7 +10,7 @@ Class {
 		'page',
 		'links'
 	],
-	#category : 'Lepiter-Core-IncomingReferences'
+	#category : #'Lepiter-Core-IncomingReferences'
 }
 
 { #category : #'instance creation' }

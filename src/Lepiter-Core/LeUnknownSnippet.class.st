@@ -15,6 +15,13 @@ Class {
 	#category : #'Lepiter-Core-Model'
 }
 
+{ #category : #serializing }
+LeUnknownSnippet class >> deSerializeAllImplementorsInstances [
+	"Answer a collection of instances to be tested for serialisation / deserialisation"
+
+	^ {  }
+]
+
 { #category : #factory }
 LeUnknownSnippet class >> empty [
 	"Return a block with empty text"

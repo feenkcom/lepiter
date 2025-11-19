@@ -72,8 +72,7 @@ LeJsonV4SerialisationExamples >> deSerializeAllImplementors [
 			Fraction.
 			GtPackageExampleGroup.
 			Point.
-			ScaledDecimal.
-			LeUnknownSnippet}.
+			ScaledDecimal}.
 	allClasses removeAll: excludedClasses.	"Give developers the chance to exclude classes that are not part of core Gt"
 	(self class methods
 		select: [ :method | method hasPragmaNamed: #leJsonV4ExcludedClasses ])
@@ -163,6 +162,61 @@ LeJsonV4SerialisationExamples >> scaledDecimal [
 	self assert: deserialized class equals: ScaledDecimal.
 	self assert: original equals: deserialized.
 	self assert: deserialized scale equals: 4
+]
+
+{ #category : #examples }
+LeJsonV4SerialisationExamples >> unknownObjectForTesting [
+	"Demonstrate serialisation and reconstructing an object that has an unknown object."
+
+	<gtExample>
+	<return: #Duration>
+	| stringWithUnknownType reconstructed resolvedObject serialisedString |
+	stringWithUnknownType := LeJsonV4 default serialize: (Dictionary new
+		at: 'unknownKeyForTesting' put:(Dictionary new
+			at: '__type' put: 'missingType';
+			at: 'name' put: 'A Name';
+			yourself);
+		yourself).
+
+	reconstructed := LeJsonV4 default deserialize: stringWithUnknownType readStream.
+	resolvedObject := reconstructed at: 'unknownKeyForTesting'.
+
+	self assert: resolvedObject class equals: LeUnknownObjectForTesting.
+	self assert: resolvedObject unknownParsedObject map equals: (((GtStringContentDictionary new) add: ('name'->'A Name'); add: ('__type'->'missingType'); yourself)).
+	
+	serialisedString := LeJsonV4 default serialize: reconstructed.
+	self assert: serialisedString equals: stringWithUnknownType.
+
+	^ reconstructed
+]
+
+{ #category : #examples }
+LeJsonV4SerialisationExamples >> unknownPageType [
+	"Demonstrate serialisation and reconstructing an unknown page type."
+
+	<gtExample>
+	<return: #Duration>
+	| stringWithUnknownType reconstructed resolvedObject serialisedString |
+	stringWithUnknownType := LeJsonV4 default serialize: (Dictionary new
+		at: 'pageType' put:(Dictionary new
+			at: '__type' put: 'missingPageType';
+			at: 'name' put: 'A Name';
+			yourself);
+		yourself).
+
+	reconstructed := LeJsonV4 default deserialize: stringWithUnknownType readStream.
+	resolvedObject := reconstructed at: 'pageType'.
+
+	self assert: resolvedObject class equals: LeUnknownPageType.
+	self assert: resolvedObject map equals: (((GtStringContentDictionary new) 
+		add: ('name'->'A Name'); 
+		add: ('__type'->'missingPageType'); 
+		yourself)).
+	
+	serialisedString := LeJsonV4 default serialize: reconstructed.
+	self assert: serialisedString equals: stringWithUnknownType.
+
+	^ reconstructed
 ]
 
 { #category : #examples }

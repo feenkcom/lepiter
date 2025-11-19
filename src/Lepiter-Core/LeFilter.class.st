@@ -1,7 +1,7 @@
 Class {
 	#name : #LeFilter,
 	#superclass : #Object,
-	#category : 'Lepiter-Core-Database - Filters'
+	#category : #'Lepiter-Core-Database - Filters'
 }
 
 { #category : #accessing }

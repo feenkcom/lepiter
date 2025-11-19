@@ -421,7 +421,7 @@ MovingPagesExamples >> unknownSnippetPage [
 	<gtExample>
 	<return: #LePage>
 	^ (LePage named: 'An Unknown snippet page')
-		addSnippet: (LeDatabaseReloadWithUnknownSnippetExamples new reloadPageWithUnknownSnippet
+		addSnippet: (LeDatabaseReloadWithUnknownEntitiesExamples new reloadPageWithUnknownSnippet
 				pageNamed: #page1) children first;
 		yourself
 ]

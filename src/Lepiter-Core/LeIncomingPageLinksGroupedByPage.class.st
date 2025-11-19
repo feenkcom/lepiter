@@ -1,7 +1,7 @@
 Class {
 	#name : #LeIncomingPageLinksGroupedByPage,
 	#superclass : #LeIncomingPageLinksGroupedByOrigin,
-	#category : 'Lepiter-Core-IncomingReferences'
+	#category : #'Lepiter-Core-IncomingReferences'
 }
 
 { #category : #testing }

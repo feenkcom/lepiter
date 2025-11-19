@@ -17,7 +17,7 @@ Class {
 	#instVars : [
 		'date'
 	],
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #'instance creation' }

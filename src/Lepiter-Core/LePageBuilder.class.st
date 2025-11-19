@@ -1,7 +1,7 @@
 Class {
 	#name : #LePageBuilder,
 	#superclass : #LeContentBuilder,
-	#category : 'Lepiter-Core-Builders'
+	#category : #'Lepiter-Core-Builders'
 }
 
 { #category : #'api - building' }

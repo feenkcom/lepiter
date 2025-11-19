@@ -19,7 +19,7 @@ Class {
 	#instVars : [
 		'source'
 	],
-	#category : 'Lepiter-Core-Announcements'
+	#category : #'Lepiter-Core-Announcements'
 }
 
 { #category : #accessing }

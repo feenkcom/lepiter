@@ -1,7 +1,7 @@
 Class {
 	#name : #LeLinkPageReference,
 	#superclass : #LeLinkContentReference,
-	#category : 'Lepiter-Core-Links'
+	#category : #'Lepiter-Core-Links'
 }
 
 { #category : #'instance creation' }

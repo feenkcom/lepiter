@@ -5,7 +5,7 @@ Class {
 		'originSearchPredicate',
 		'targetSearchPredicate'
 	],
-	#category : 'Lepiter-Core-Search'
+	#category : #'Lepiter-Core-Search'
 }
 
 { #category : #initialization }

@@ -10,7 +10,7 @@ Class {
 	#instVars : [
 		'defaultTitle'
 	],
-	#category : 'Lepiter-Core-Model'
+	#category : #'Lepiter-Core-Model'
 }
 
 { #category : #'instance creation' }
