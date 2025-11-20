@@ -414,6 +414,11 @@ LePharoRewriteSnippetElement >> initialize [
 				combination: BlKeyCombination primaryR;
 				repeatable: false;
 				action: [ self renameSearchItem ]).
+	LeSnippetEditorElementShortcuter new
+		editor: searchEditor;
+		indent;
+		moveUpAndDown;
+		loseFocus.
 	rewriteElement addChild: searchEditor as: #searchEditor.
 	rewriteElement
 		addChild: (BrButton new
@@ -435,6 +440,11 @@ LePharoRewriteSnippetElement >> initialize [
 				combination: BlKeyCombination primaryR;
 				repeatable: false;
 				action: [ self renameReplaceItem ]).
+	LeSnippetEditorElementShortcuter new
+		editor: replaceEditor;
+		indent;
+		moveUpAndDown;
+		loseFocus.
 	rewriteElement addChild: replaceEditor as: #replaceEditor.
 	rewriteElement
 		addChild: (BrButton new
