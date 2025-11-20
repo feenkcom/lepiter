@@ -1,7 +1,7 @@
 Class {
 	#name : #LeFileNameArgumentNode,
 	#superclass : #LeNameArgumentNode,
-	#category : 'Lepiter-Parser'
+	#category : #'Lepiter-Parser'
 }
 
 { #category : #generated }

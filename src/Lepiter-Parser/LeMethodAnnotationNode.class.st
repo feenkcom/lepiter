@@ -1,7 +1,7 @@
 Class {
 	#name : #LeMethodAnnotationNode,
 	#superclass : #LeAnnotationNode,
-	#category : 'Lepiter-Parser'
+	#category : #'Lepiter-Parser'
 }
 
 { #category : #generated }
@@ -10,9 +10,16 @@ LeMethodAnnotationNode >> acceptVisitor: anAnnotationParseVisitor [
 ]
 
 { #category : #testing }
-LeMethodAnnotationNode >> doesReferenceExist [
-	^ self nameNode 
-		ifNil: [ false ]
-		ifNotNil: [ :aNameNode |
-			aNameNode doesReferenceExist ]
+LeMethodAnnotationNode >> contextMenuModelForHostElement: aHostElement [
+	| aCompiledMethod |
+	aCompiledMethod := self imageObject compiledMethod.
+	^ aCompiledMethod
+		ifNotNil: [ GtCoderMethodTarget
+				menuItemsForObject: aCompiledMethod
+				hostElement: aHostElement ]
+]
+
+{ #category : #testing }
+LeMethodAnnotationNode >> hasContextMenuModel [
+	^ self doesReferenceExist
 ]
