@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'prefix'
 	],
-	#category : 'Lepiter-Parser'
+	#category : #'Lepiter-Parser'
 }
 
 { #category : #generated }

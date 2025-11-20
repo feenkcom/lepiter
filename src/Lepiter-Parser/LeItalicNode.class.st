@@ -6,7 +6,7 @@ Class {
 		'parts',
 		'rightStar'
 	],
-	#category : 'Lepiter-Parser'
+	#category : #'Lepiter-Parser'
 }
 
 { #category : #generated }

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'parts'
 	],
-	#category : 'Lepiter-Parser'
+	#category : #'Lepiter-Parser'
 }
 
 { #category : #generated }

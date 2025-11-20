@@ -1,7 +1,7 @@
 Class {
 	#name : #LeHeightArgumentNode,
 	#superclass : #LeArgumentNode,
-	#category : 'Lepiter-Parser'
+	#category : #'Lepiter-Parser'
 }
 
 { #category : #generated }
