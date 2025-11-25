@@ -260,12 +260,15 @@ LePage >> gtReachablePagesMapFor: aView [
 
 { #category : #'*Lepiter-UI' }
 LePage >> gtRemoveActionFor: anAction [
-	<lePageAction>
+	<gtAction>
 
 	^ anAction dropdown 
 		id: LePageRemoveActionId;
 		tooltip: 'Remove page';
+		priority: 10;
 		icon: BrGlamorousVectorIcons bin;
+		target: LePageActionTarget;
+		menuItemGroup: BrMenuItemGroupConfiguration editing;
 		content: [:aButton | (LePageRemoveDropdownContentStencil new
 						page: self;
 						anchor: aButton)]
