@@ -63,7 +63,7 @@ LeDatabaseNavigationModel >> gtAddPageFor: anAction [
 
 	^ anAction button
 		icon: BrGlamorousVectorIcons add;
-		tooltip: 'Add Page';
+		tooltip: 'Add page';
 		action: [ | aPage |
 			aPage := LePage unnamedPage.
 			self database addPage: aPage.
@@ -95,7 +95,7 @@ LeDatabaseNavigationModel >> gtSearchPageFor: anAction [
 	^ anAction explicit
 		stencil: [ GtSpotterDropdownButtonStencil new
 				valuable: (LeDatabaseSpotterStart new navigationModel: self);
-				tooltip: 'Search Pages';
+				tooltip: 'Search pages';
 				objectActOn: [ :anActOnEvent :anItem :theButton | 
 					self page: anItem asContentUIModel.
 					anActOnEvent beActed.
