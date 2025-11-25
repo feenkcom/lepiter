@@ -499,7 +499,6 @@ LeDatabase >> gtInspectNavigationActionFor: anAction [
 	"Appears as a LeDatabase navigation gtAction menu item."
 
 	<gtAction>
-	self hasTopicMap ifFalse: [ ^ anAction empty ].
 	^ anAction button
 		tooltip: 'Inspect Database';
 		priority: 10;
