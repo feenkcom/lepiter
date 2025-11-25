@@ -494,6 +494,22 @@ LeDatabase >> gtDailyNotesFor: aView [
 		actionUpdateButton
 ]
 
+{ #category : #actions }
+LeDatabase >> gtInspectNavigationActionFor: anAction [
+	"Appears as a LeDatabase navigation gtAction menu item."
+
+	<gtAction>
+	self hasTopicMap ifFalse: [ ^ anAction empty ].
+	^ anAction button
+		tooltip: 'Inspect Database';
+		priority: 10;
+		target: LeDatabaseActionTarget;
+		icon: BrGlamorousVectorIcons inspect;
+		menuItemGroup: BrMenuItemGroupConfiguration inspection;
+		action: [ :aButton :aModel :anEvent | aButton phlow spawnObject: self ];
+		primaryModifierAction: [ :aButton :aModel :anEvent | aButton phlow showObject: self ]
+]
+
 { #category : #'gt-extensions' }
 LeDatabase >> gtMapFor: aView [
 	<gtView>
