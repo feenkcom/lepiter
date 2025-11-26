@@ -5,5 +5,5 @@ I am an abstract {{gtClass:Announcement}} for all lepiter {{gtClass:BlElement}} 
 Class {
 	#name : #LeUIAnnouncement,
 	#superclass : #Announcement,
-	#category : 'Lepiter-UI-Basic - Announcements'
+	#category : #'Lepiter-UI-Basic - Announcements'
 }

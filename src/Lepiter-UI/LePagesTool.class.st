@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'pages'
 	],
-	#category : 'Lepiter-UI-Phlow Tools'
+	#category : #'Lepiter-UI-Phlow Tools'
 }
 
 { #category : #'api - instance creation' }

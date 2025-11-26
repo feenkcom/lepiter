@@ -91,14 +91,13 @@ LePageRemoveDropdownContentStencil >> newConfirmationButton [
 		requestFocus;
 		aptitude: BrGlamorousButtonWithIconAptitude new;
 		label: self label;
-		margin:
-			(BlInsets
+		margin: (BlInsets
 				top: 0
 				left: 10
 				bottom: 10
 				right: 0);
 		action: [ :theButton | 
-			self hideDropdown.
+			theButton dispatchEvent: (BrDropdownHideWish new anchor: theButton).
 			self action cull: theButton ]
 ]
 

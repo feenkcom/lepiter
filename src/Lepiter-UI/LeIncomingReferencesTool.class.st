@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'appliedFilter'
 	],
-	#category : 'Lepiter-UI-Phlow Tools'
+	#category : #'Lepiter-UI-Phlow Tools'
 }
 
 { #category : #'instance creation' }

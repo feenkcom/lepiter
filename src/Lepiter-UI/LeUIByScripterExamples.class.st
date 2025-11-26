@@ -397,7 +397,12 @@ LeUIByScripterExamples >> pageOneFromDatabaseWithOnlyOnePage_RemoveLastPage [
 	aScripter := self pageOneFromDatabaseWithOnlyOnePage.
 
 	aScripter click
-		label: 'Click on the remove page button';
+		label: 'Click on the dropdown button';
+		// LePageActionTargetDropdownButtonId;
+		play.
+	aScripter click
+		label: 'Click on the remove page menu item';
+		onSpaceRoot;
 		// LePageRemoveActionId;
 		play.
 	aScripter click
