@@ -11,7 +11,8 @@ Class {
 		'errorText',
 		'authorName',
 		'title',
-		'snippetContainer'
+		'snippetContainer',
+		'server'
 	],
 	#category : #'Lepiter-Snippet-Youtube-View-Element'
 }
@@ -82,7 +83,9 @@ LeYoutubeReferenceElement >> initialize [
 	self initializeEditor.
 	self initializePictureContainer.
 
-	self initializeSceneResizer
+	self initializeSceneResizer.
+	
+	server := LeYoutubeWebViewServer runningInstance
 ]
 
 { #category : #accessing }
@@ -237,7 +240,7 @@ LeYoutubeReferenceElement >> updatePicture [
 					when: BlElementExtentChangedEvent
 						doOnce: [ :anEvent | self updatePictureWidth: anEvent currentTarget ];
 					margin: (BlInsets bottom: 5);
-					html: self snippet htmlIFrame16per9 ].
+					url: (server urlForVideoId: self snippet videoIdAndStart)].
 	pictureContainer removeChildNamed: #imageElement.
 	pictureContainer addChild: imageElement as: #imageElement
 ]
