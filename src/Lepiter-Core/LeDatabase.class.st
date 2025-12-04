@@ -399,8 +399,12 @@ LeDatabase >> detachPage: aPage [
 
 	self assertNotReadOnly.
 
-	(pagesByType at: aPage pageTypeClass)
-		removeKey: aPage databaseKey
+	pagesByType 
+		at: aPage pageTypeClass
+		ifPresent: [ :aDictionary | 
+			aDictionary 
+				removeKey: aPage databaseKey
+				ifAbsent: [ "do nothing" ] ]
 		ifAbsent: [ "do nothing" ].
 	pagesByUuid removeKey: aPage uid ifAbsent: [ "do nothing" ].
 
@@ -1032,6 +1036,11 @@ LeDatabase >> pagesByName [
 ]
 
 { #category : #'private - accessing' }
+LeDatabase >> pagesByType [
+	^ pagesByType
+]
+
+{ #category : #'private - accessing' }
 LeDatabase >> pagesByUnknownPageType [
 	"Answer the pages that are stored as having an unknown page type.
 	This is internal structure that may change."
@@ -1208,7 +1217,11 @@ LeDatabase >> setPage: aLePage [
 	Raise an error if a page with the same title exists."
 
 	| pages duplicate |
-	pages := pagesByType at: aLePage pageTypeClass.	"Allow an exception handler to either ignore a duplicate page or repair it, and carry on"
+	pages := pagesByType 
+		at: aLePage pageTypeClass
+		ifAbsentPut: [ GtStringContentDictionary new ].	
+	
+	"Allow an exception handler to either ignore a duplicate page or repair it, and carry on"
 	duplicate := (pages includesKey: aLePage databaseKey)
 			ifTrue: [ LeDuplicatePageIdError new
 					database: self;
@@ -1409,9 +1422,12 @@ LeDatabase >> updateByTypeStorageDueTo: aLePageTitleChanged [
 			(pagesByType at: oldTypeClass) removeKey: aLePageTitleChanged oldDatabaseKey ] 
 		ifAbsent: [ ] 
 		forPageType: oldTypeClass.
-	(pagesByType at: newTypeClass) 
-		at: aLePageTitleChanged newDatabaseKey 
-		put: aPage
+	
+	(pagesByType 
+		at: newTypeClass
+		ifAbsentPut: [ GtStringContentDictionary new ]) 
+			at: aLePageTitleChanged newDatabaseKey 
+			put: aPage
 ]
 
 { #category : #'private - adding / removing' }
