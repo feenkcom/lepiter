@@ -21,17 +21,20 @@ BlSpace class >> spawnPage: aLePage from: anElement [
 	- opened in a new window."
 
 	<return: #BlSpace or: nil>
-	| aSpaceOrNil |
-	self 
-		assert: [ aLePage isNotNil ] 
-		description: [ 'Page must be non-nil' ].
-	aSpaceOrNil := self
-			spawnTool: [ aLePage asLepiterPagePhlowTool ]
-			from: anElement.
-	aSpaceOrNil ifNotNil: [ :aSpace | 
-		aSpace 
-			title: aLePage printPageTabLabel;
-			icon: LeIcons lepiterPage ].
-			
-	^ aSpaceOrNil
+	^ self new spawnPage: aLePage from: anElement
+]
+
+{ #category : #'*Lepiter-UI' }
+BlSpace >> spawnPage: aLePage from: anElement [
+	"A page phlow tool is either:
+	- spawned to the next GtPager pane, or
+	- displayed as a new GtWorld tab, or
+	- opened in a new window."
+
+	<return: #BlSpace or: nil>
+	self assert: [ aLePage isNotNil ] description: [ 'Page must be non-nil' ].
+	^ self
+		title: aLePage printPageTabLabel;
+		icon: LeIcons lepiterPage;
+		spawnTool: [ aLePage asLepiterPagePhlowTool ] from: anElement.
 ]
