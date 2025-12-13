@@ -140,6 +140,12 @@ LeLocalStoreMonitor >> gtAttachmentsFor: aView [
 				inDatabase: self database ]
 ]
 
+{ #category : #'as yet unclassified' }
+LeLocalStoreMonitor >> gtDisplayOn: stream [
+	stream nextPutAll: 'Monitor on '.
+	localRoot gtDisplayOn: stream
+]
+
 { #category : #'gt-extensions' }
 LeLocalStoreMonitor >> gtViewCorruptFilesFor: aView [
 	<gtView>

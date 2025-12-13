@@ -223,7 +223,7 @@ LeUIByScripterExamples >> emptyPageElementInPager [
 	| aScripter |
 	aScripter := self
 			pageOneElementUsingDatabaseModel: [ self databaseWithPageOne ]
-			extra: [ :anElement | GtPager createWrappedOn: anElement ].
+			extra: [ :anElement | GtPagerSettings usedPager createWrappedOn: anElement ].
 
 	^ aScripter
 ]
@@ -235,7 +235,7 @@ LeUIByScripterExamples >> emptyPageElementInPagerMaximized [
 	| aScripter |
 	aScripter := self
 			pageOneElementUsingDatabaseModel: [ self databaseWithPageOne ]
-			extra: [ :anElement | (GtPager createWrappedOn: anElement) maximized ].
+			extra: [ :anElement | (GtPagerSettings usedPager createWrappedOn: anElement) maximized ].
 
 	^ aScripter
 ]
@@ -247,7 +247,7 @@ LeUIByScripterExamples >> logicalDatabasePageOneElementInPager [
 	| aScripter |
 	aScripter := self
 			pageOneElementUsingDatabaseModel: [ self logicalDatabaseWithEmptyPage ]
-			extra: [ :anElement | GtPager createWrappedOn: anElement ].
+			extra: [ :anElement | GtPagerSettings usedPager createWrappedOn: anElement ].
 
 	^ aScripter
 ]
@@ -299,9 +299,8 @@ LeUIByScripterExamples >> logicalDatabaseWithTwoEmptyDatabases [
 LeUIByScripterExamples >> pageInPager: aPage [
 	<gtExample>
 	| aPageElement |
-	aPageElement := aPage asLepiterPagePhlowTool 
-		asElementDo: [ :anElement | 
-			GtPager createWrappedOn: anElement ].
+	aPageElement := aPage asLepiterPagePhlowTool
+			asElementDo: [ :anElement | GtPagerSettings usedPager createWrappedOn: anElement ].
 
 	^ aPageElement
 ]
@@ -376,7 +375,7 @@ LeUIByScripterExamples >> pageOneFromDatabaseWithOnlyOnePage [
 	aScripter := self
 			scripterWithModel: [ LeModelExamples new pageOneFromDatabaseWithOnlyOnePage ]
 			element: [ :aPageHolder | 
-				GtPager
+				GtPagerSettings usedPager
 					createWrappedOn: (aPageHolder page asLepiterPagePhlowTool asElementDo: [ :anElement | anElement ]) ].
 
 	aScripter assert
@@ -398,7 +397,12 @@ LeUIByScripterExamples >> pageOneFromDatabaseWithOnlyOnePage_RemoveLastPage [
 	aScripter := self pageOneFromDatabaseWithOnlyOnePage.
 
 	aScripter click
-		label: 'Click on the remove page button';
+		label: 'Click on the dropdown button';
+		// LePageActionTargetDropdownButtonId;
+		play.
+	aScripter click
+		label: 'Click on the remove page menu item';
+		onSpaceRoot;
 		// LePageRemoveActionId;
 		play.
 	aScripter click
@@ -425,9 +429,10 @@ LeUIByScripterExamples >> pageOneFromDatabaseWithOnlyOnePage_RemoveLastPage_Chec
 	| aScripter |
 	aScripter := self pageOneFromDatabaseWithOnlyOnePage_RemoveLastPage.
 
-	aScripter click
+	aScripter treePager
 		label: 'Maximize page';
-		// GtPagerMaximizeButtonElementId;
+		hoverPaneColumn: 1;
+		clickMaximizeColumn: 1;
 		play.
 
 	aScripter assert

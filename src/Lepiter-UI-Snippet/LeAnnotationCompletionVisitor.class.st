@@ -101,7 +101,7 @@ LeAnnotationCompletionVisitor >> packageTagCompletionsFor: aString with: aPackag
 		and: [ aPackageAnnotation nameNode isDefined ]) ifFalse: [ ^ self ].
 
 	selectors := GtPrefixTree new.
-	aPackageAnnotation nameNode imageObject classTags
+	aPackageAnnotation nameNode imageObject tags
 		do: [ :aTag | 
 			(aString isEmpty or: [ aTag name beginsWith: aString ])
 				ifTrue: [ selectors add: aTag name ] ].

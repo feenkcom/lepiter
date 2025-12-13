@@ -307,6 +307,11 @@ LeAnnotationStylerVisitor >> styleButton: anAnnotation for: object defaultLabel:
 						textLinkButtonPadding: (BlInsets top: 2)
 						margin: BlInsets empty.
 				button aptitude glamorousCodeFont.
+				
+				anAnnotation hasContextMenuModel ifTrue: [
+					button addAptitude: (BrGlamorousWithExplicitContextMenuAptitude new 
+						handleSubmenu: [ anAnnotation contextMenuModelForHostElement: button ]) ].
+				
 				button
 					id: anId;
 					beSmallSize;
@@ -325,7 +330,7 @@ LeAnnotationStylerVisitor >> styleButton: anAnnotation for: object defaultLabel:
 								aSpace extent: 1200 @ 600.
 								aSpace root background: Color transparent.
 								aSpace inPager: aTool.
-								aSpace withSceneDriller.
+								aSpace withCommonSettings.
 								button showSpace: aSpace ] ].
 				button viewModel
 					when: BlMouseEnterEvent

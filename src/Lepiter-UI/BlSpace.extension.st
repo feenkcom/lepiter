@@ -35,3 +35,18 @@ BlSpace class >> spawnPage: aLePage from: anElement [
 			
 	^ aSpaceOrNil
 ]
+
+{ #category : #'*Lepiter-UI' }
+BlSpace >> spawnPage: aLePage from: anElement [
+	"A page phlow tool is either:
+	- spawned to the next GtPager pane, or
+	- displayed as a new GtWorld tab, or
+	- opened in a new window."
+
+	<return: #BlSpace or: nil>
+	self assert: [ aLePage isNotNil ] description: [ 'Page must be non-nil' ].
+	^ self
+		title: aLePage printPageTabLabel;
+		icon: LeIcons lepiterPage;
+		spawnTool: [ aLePage asLepiterPagePhlowTool ] from: anElement.
+]

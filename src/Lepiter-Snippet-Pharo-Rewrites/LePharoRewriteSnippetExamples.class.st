@@ -20,7 +20,7 @@ LePharoRewriteSnippetExamples >> cancelExecuteRewrites [
 							yourself).
 				page ]
 			element: [ :page | 
-				GtPager
+				GtPagerSettings usedPager
 					createWrappedOn: (page asLepiterPagePhlowTool asElementDo: [ :anElement | anElement ]) ].
 	scripter click
 		// #replaceButton;
@@ -29,14 +29,14 @@ LePharoRewriteSnippetExamples >> cancelExecuteRewrites [
 		clickStep: [ :s | 
 			s
 				label: 'Canceling';
-				// #toolArea;
+				onTreePagerPaneColumn: 2;
 				// BrAsyncWidget;
 				// BrButton ].
 	scripter
 		checkStep: [ :s | 
 			s
 				label: 'Has canceled';
-				// #toolArea;
+				onTreePagerPaneColumn: 2;
 				// BrAsyncWidget;
 				// #label;
 				value: [ :each | each text asString ] equals: 'AsyncFutureCancelled' ].
@@ -100,7 +100,7 @@ LePharoRewriteSnippetExamples >> scripterOnInitialExample [
 							yourself).
 				page ]
 			element: [ :page | 
-				GtPager
+				GtPagerSettings usedPager
 					createWrappedOn: (page asLepiterPagePhlowTool asElementDo: [ :anElement | anElement ]) ].
 	scripter
 		checkStep: [ :s | 

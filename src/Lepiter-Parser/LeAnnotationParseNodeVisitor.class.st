@@ -3,5 +3,5 @@ Class {
 	#superclass : #Object,
 	#traits : 'TLeAnnotationParseNodeVisitor',
 	#classTraits : 'TLeAnnotationParseNodeVisitor classTrait',
-	#category : 'Lepiter-Parser'
+	#category : #'Lepiter-Parser'
 }

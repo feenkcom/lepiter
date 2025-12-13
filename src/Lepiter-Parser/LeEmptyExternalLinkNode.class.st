@@ -7,7 +7,7 @@ Class {
 		'leftParenthesis',
 		'rightParenthesis'
 	],
-	#category : 'Lepiter-Parser'
+	#category : #'Lepiter-Parser'
 }
 
 { #category : #generated }
