@@ -399,8 +399,12 @@ LeDatabase >> detachPage: aPage [
 
 	self assertNotReadOnly.
 
-	(pagesByType at: aPage pageTypeClass)
-		removeKey: aPage databaseKey
+	pagesByType 
+		at: aPage pageTypeClass
+		ifPresent: [ :aDictionary | 
+			aDictionary 
+				removeKey: aPage databaseKey
+				ifAbsent: [ "do nothing" ] ]
 		ifAbsent: [ "do nothing" ].
 	pagesByUuid removeKey: aPage uid ifAbsent: [ "do nothing" ].
 
@@ -492,6 +496,21 @@ LeDatabase >> gtDailyNotesFor: aView [
 				ifTrue: [ ''  ]
 				ifFalse: [ aPageOrDailyNote editEmail ] ];
 		actionUpdateButton
+]
+
+{ #category : #actions }
+LeDatabase >> gtInspectNavigationActionFor: anAction [
+	"Appears as a LeDatabase navigation gtAction menu item."
+
+	<gtAction>
+	^ anAction button
+		tooltip: 'Inspect Database';
+		priority: 10;
+		target: LeDatabaseActionTarget;
+		icon: BrGlamorousVectorIcons inspect;
+		menuItemGroup: BrMenuItemGroupConfiguration inspection;
+		action: [ :aButton :aModel :anEvent | aButton phlow spawnObject: self ];
+		primaryModifierAction: [ :aButton :aModel :anEvent | aButton phlow showObject: self ]
 ]
 
 { #category : #'gt-extensions' }
@@ -678,6 +697,11 @@ LeDatabase >> initialize [
 		when: LePageTitleChanged 
 		send: #onPageTitleChanged: 
 		to: self.
+		
+	self weak
+		when: LePageTypeChanged 
+		send: #onPageTypeChanged: 
+		to: self.
 ]
 
 { #category : #'api - testing' }
@@ -818,7 +842,7 @@ LeDatabase >> newUniqueUuid [
 { #category : #'private - hooks' }
 LeDatabase >> onPageTitleChanged: aLePageTitleChanged [
 	| page |
-
+	
 	page := aLePageTitleChanged page.
 	self updateByTypeStorageDueTo: aLePageTitleChanged.
 	self updateUnresolvedReferencesForPage: page.
@@ -828,6 +852,21 @@ LeDatabase >> onPageTitleChanged: aLePageTitleChanged [
 		page: page;
 		isChangedToDailyNote: aLePageTitleChanged isChangedToDailyNote;
 		isChangedToNormalPage: aLePageTitleChanged isChangedToNormalPage).
+]
+
+{ #category : #'private - hooks' }
+LeDatabase >> onPageTypeChanged: aLePageTypeChanged [
+	| page |
+	
+	page := aLePageTypeChanged page.
+	self updateByTypeStorageDueTo: aLePageTypeChanged.
+	self updateUnresolvedReferencesForPage: page.
+	
+	self reSortCollectionsDueTo: aLePageTypeChanged.
+	self announce: (LeDatabaseResorted new 
+		page: page;
+		isChangedToDailyNote: aLePageTypeChanged isChangedToDailyNote;
+		isChangedToNormalPage: aLePageTypeChanged isChangedToNormalPage).
 ]
 
 { #category : #'api - adding / removing' }
@@ -994,6 +1033,19 @@ LeDatabase >> pagesByName [
 	This is internal structure that may change."
 
 	^ pagesByType at: LeNamedPageType
+]
+
+{ #category : #'private - accessing' }
+LeDatabase >> pagesByType [
+	^ pagesByType
+]
+
+{ #category : #'private - accessing' }
+LeDatabase >> pagesByUnknownPageType [
+	"Answer the pages that are stored as having an unknown page type.
+	This is internal structure that may change."
+
+	^ pagesByType at: LeUnknownPageType
 ]
 
 { #category : #'api - enumerating' }
@@ -1165,7 +1217,11 @@ LeDatabase >> setPage: aLePage [
 	Raise an error if a page with the same title exists."
 
 	| pages duplicate |
-	pages := pagesByType at: aLePage pageTypeClass.	"Allow an exception handler to either ignore a duplicate page or repair it, and carry on"
+	pages := pagesByType 
+		at: aLePage pageTypeClass
+		ifAbsentPut: [ GtStringContentDictionary new ].	
+	
+	"Allow an exception handler to either ignore a duplicate page or repair it, and carry on"
 	duplicate := (pages includesKey: aLePage databaseKey)
 			ifTrue: [ LeDuplicatePageIdError new
 					database: self;
@@ -1366,9 +1422,12 @@ LeDatabase >> updateByTypeStorageDueTo: aLePageTitleChanged [
 			(pagesByType at: oldTypeClass) removeKey: aLePageTitleChanged oldDatabaseKey ] 
 		ifAbsent: [ ] 
 		forPageType: oldTypeClass.
-	(pagesByType at: newTypeClass) 
-		at: aLePageTitleChanged newDatabaseKey 
-		put: aPage
+	
+	(pagesByType 
+		at: newTypeClass
+		ifAbsentPut: [ GtStringContentDictionary new ]) 
+			at: aLePageTitleChanged newDatabaseKey 
+			put: aPage
 ]
 
 { #category : #'private - adding / removing' }

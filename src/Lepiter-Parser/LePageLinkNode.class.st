@@ -1,7 +1,7 @@
 Class {
 	#name : #LePageLinkNode,
 	#superclass : #LeDefinedLinkNode,
-	#category : 'Lepiter-Parser'
+	#category : #'Lepiter-Parser'
 }
 
 { #category : #generated }

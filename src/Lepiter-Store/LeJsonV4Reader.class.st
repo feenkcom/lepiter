@@ -85,6 +85,24 @@ LeJsonV4Reader >> parseMap [
 ]
 
 { #category : #parsing }
+LeJsonV4Reader >> parseMapKeysAndValuesDo: block [
+	self
+		parseMapKeysDo: [ :key | 
+			| parsedValue |
+			
+			parsedValue := self parseValue.
+			parsedValue class = LeUnknownParsedObject ifTrue: [
+				self unknownObjectsResolversMap 
+					at: key
+					ifPresent: [ :aResolverType |
+						parsedValue := aResolverType resolveUnknownObject: parsedValue ]
+					ifAbsent: [ 
+						Error signal: 'Unknown object type' ] ].
+			
+			block value: key value: parsedValue  ]
+]
+
+{ #category : #parsing }
 LeJsonV4Reader >> parseValue [ 
 
 	^ self objectFor: super parseValue
@@ -100,6 +118,17 @@ LeJsonV4Reader >> postCopy [
 	objects := nil
 ]
 
+{ #category : #accessing }
+LeJsonV4Reader >> unknownObjectsResolversMap [
+	^ (LeUnknownObjectResolver allSubclasses
+		reject: [ :each | each isAbstract ])
+			inject: Dictionary new 
+			into: [ :currentMap :aType |
+				currentMap
+					at: aType attributeKey put: aType;
+					yourself ]
+]
+
 { #category : #private }
 LeJsonV4Reader >> unknownSnippetTypeFrom: map [
 	"If the supplied map looks like a snippet, answer an unknown snippet, otherwise raise an exception"
@@ -107,7 +136,7 @@ LeJsonV4Reader >> unknownSnippetTypeFrom: map [
 	| children snippet |
 	"map is considered a snippet if it has all the keys of LeBlock"
 	((LeSnippet leJsonV4AttributeMapping collect: #key as: GtStringContentSet)
-		difference: map keys) ifNotEmpty: [ self error: 'Unknown snippet type' ].
+		difference: map keys) ifNotEmpty: [ ^ LeUnknownParsedObject forMap: map ].
 
 	children := map at: 'children'.
 	map at: 'children' put: LeSnippets new.

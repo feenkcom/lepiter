@@ -78,6 +78,11 @@ LeNullDatabase >> isLogicalDatabase [
 	^ false
 ]
 
+{ #category : #testing }
+LeNullDatabase >> isPrimary [
+	^ false
+]
+
 { #category : #'as yet unclassified' }
 LeNullDatabase >> linksWithOriginReferenceMatching: aLeWardleyMapNodeReference [ 
 	^ LeExplicitLinks new

@@ -1,7 +1,7 @@
 Class {
 	#name : #LeShortHashLinkNode,
 	#superclass : #LeHashLinkNode,
-	#category : 'Lepiter-Parser'
+	#category : #'Lepiter-Parser'
 }
 
 { #category : #generated }

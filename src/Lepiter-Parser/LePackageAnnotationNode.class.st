@@ -10,6 +10,24 @@ LePackageAnnotationNode >> acceptVisitor: anAnnotationParseVisitor [
 ]
 
 { #category : #accessing }
+LePackageAnnotationNode >> contextMenuModelForHostElement: aHostElement [
+	^ self imageObject
+		ifNotNil: [ :anImageObject | 
+			self tagNode
+				ifNil: [ GtCoderPackageTarget
+						menuItemsForObject: anImageObject
+						hostElement: aHostElement ]
+				ifNotNil: [ GtCoderPackageTagTarget
+						menuItemsForObject: anImageObject
+						hostElement: aHostElement ] ]
+]
+
+{ #category : #testing }
+LePackageAnnotationNode >> hasContextMenuModel [
+	^ self isDefined
+]
+
+{ #category : #accessing }
 LePackageAnnotationNode >> imageObject [
 	^ self nameNode
 		ifNotNil: [ :nameNode | 

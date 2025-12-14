@@ -56,21 +56,38 @@ LeDatabaseNavigationModel >> databaseViewModel: anObject [
 	self onDatabaseViewModelChanged
 ]
 
-{ #category : #accessing }
+{ #category : #actions }
 LeDatabaseNavigationModel >> gtAddPageFor: anAction [
 	<leNavigationAction>
 	self hasDatabase ifFalse: [ ^ anAction noAction ].
 
 	^ anAction button
 		icon: BrGlamorousVectorIcons add;
-		tooltip: 'Add Page';
+		tooltip: 'Add page';
 		action: [ | aPage |
 			aPage := LePage unnamedPage.
 			self database addPage: aPage.
 			self page: aPage asContentUIModel ]
 ]
 
-{ #category : #accessing }
+{ #category : #actions }
+LeDatabaseNavigationModel >> gtDatabaseActionsDropdownMenuFor: anAction [
+	"To automatically add actions as menu items, define an action as 
+	an extension method, with LeDatabaseActionTarget as the `target:`
+	I am modeled after the class actions dropdown: Behavior>>#gtClassActionsDropdownFor:"
+
+	<leNavigationAction>
+	(LeDatabaseActionTarget actionsForObject: self database)
+		ifEmpty: [ ^ anAction empty ].
+	^ anAction dropdown
+		tooltip: 'Database actions';
+		icon: BrGlamorousVectorIcons hamburger;
+		id: LeDatabaseActionTargetDropdownButtonId;
+		priority: 100;
+		menuItemsForObject: self database fromTarget: LeDatabaseActionTarget
+]
+
+{ #category : #actions }
 LeDatabaseNavigationModel >> gtSearchPageFor: anAction [
 	<leNavigationAction>
 	self hasDatabase ifFalse: [ ^ anAction noAction ].
@@ -78,7 +95,7 @@ LeDatabaseNavigationModel >> gtSearchPageFor: anAction [
 	^ anAction explicit
 		stencil: [ GtSpotterDropdownButtonStencil new
 				valuable: (LeDatabaseSpotterStart new navigationModel: self);
-				tooltip: 'Search Pages';
+				tooltip: 'Search pages';
 				objectActOn: [ :anActOnEvent :anItem :theButton | 
 					self page: anItem asContentUIModel.
 					anActOnEvent beActed.
