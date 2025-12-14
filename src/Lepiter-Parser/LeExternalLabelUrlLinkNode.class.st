@@ -17,6 +17,38 @@ LeExternalLabelUrlLinkNode >> displayLabel [
 	^ self label ifEmpty: [ self url ]
 ]
 
+{ #category : #actions }
+LeExternalLabelUrlLinkNode >> gtCopyUrlToClipboardActionFor: anAction [
+	<gtAction>
+	| urlUtility |
+	self attributes
+		at: #urlUtility
+		ifPresent: [ :present | urlUtility := present ]
+		ifAbsent: [ ^ anAction noAction ].
+	urlUtility isFile ifTrue: [ ^ anAction noAction ].
+	^ anAction button
+		priority: 1;
+		label: 'Copy URL to Clipboard';
+		target: LeExternalLinkNodeActionTarget;
+		action: [ :aButton | GtClipboard clipboardText: urlUtility asString ]
+]
+
+{ #category : #actions }
+LeExternalLabelUrlLinkNode >> gtInspectUrlStringActionFor: anAction [
+	<gtAction>
+	| urlUtility |
+	self attributes
+		at: #urlUtility
+		ifPresent: [ :present | urlUtility := present ]
+		ifAbsent: [ ^ anAction noAction ].
+	urlUtility isFile ifTrue: [ ^ anAction noAction ].
+	^ anAction button
+		priority: 2;
+		label: 'Inspect URL String';
+		target: LeExternalLinkNodeActionTarget;
+		action: [ :aButton | aButton phlow spawnObject: urlUtility asString ]
+]
+
 { #category : #accessing }
 LeExternalLabelUrlLinkNode >> label [ 
 	| linkString endOfLabel |

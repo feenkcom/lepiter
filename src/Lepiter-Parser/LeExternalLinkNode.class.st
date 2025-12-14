@@ -12,6 +12,21 @@ LeExternalLinkNode >> acceptVisitor: aContentVisitor [
 	^ aContentVisitor visitExternalLink: self
 ]
 
+{ #category : #initialization }
+LeExternalLinkNode >> addContextMenuTo: aButton [
+	| aMenuItems |
+	aMenuItems := BrMenuItems new.
+	LeExternalLinkNodeActionTarget
+		actionsForObject: self
+		collect: [ :eachAction | 
+			eachAction
+				asMenuItem: [ :aMenuItem | aMenuItems addItem: aMenuItem ]
+				withHostElement: aButton ].
+	aMenuItems items
+		ifNotEmpty: [ aButton
+				addAptitude: (BrGlamorousWithExplicitContextMenuAptitude new handleSubmenu: [ aMenuItems ]) ]
+]
+
 { #category : #accessing }
 LeExternalLinkNode >> displayLabel [
 	"Answer the string that should be used to display the receiver"
