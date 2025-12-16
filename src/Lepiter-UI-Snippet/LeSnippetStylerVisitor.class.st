@@ -673,6 +673,7 @@ LeSnippetStylerVisitor >> styleOpenExternalLinkButton: aLink text: aSubText [
 					margin: aTBrTextEditorTextualPiece wordMargin.
 			oldLook := button aptitude.
 			button
+				id: #'lepiter--external-link';
 				removeAptitude: oldLook;
 				addAptitude: (BrGlamorousButtonLabelAndIconAptitude new defaultColor: oldLook defaultColor);
 				addAptitude: (BrGlamorousWithExplicitTooltipAptitude text: aLink url asString asRopedText);

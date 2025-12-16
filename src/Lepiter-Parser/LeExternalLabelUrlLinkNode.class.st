@@ -28,6 +28,7 @@ LeExternalLabelUrlLinkNode >> gtCopyUrlToClipboardActionFor: anAction [
 	urlUtility isFile ifTrue: [ ^ anAction noAction ].
 	^ anAction button
 		priority: 1;
+		id: #'menu--copy-url';
 		label: 'Copy URL to Clipboard';
 		target: LeExternalLinkNodeActionTarget;
 		action: [ :aButton | GtClipboard clipboardText: urlUtility asString ]
@@ -44,6 +45,7 @@ LeExternalLabelUrlLinkNode >> gtInspectUrlStringActionFor: anAction [
 	urlUtility isFile ifTrue: [ ^ anAction noAction ].
 	^ anAction button
 		priority: 2;
+		id: #'menu--inspect-string';
 		label: 'Inspect URL String';
 		target: LeExternalLinkNodeActionTarget;
 		action: [ :aButton | aButton phlow spawnObject: urlUtility asString ]
