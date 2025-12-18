@@ -665,23 +665,25 @@ LeSnippetStylerVisitor >> styleOpenExternalLinkButton: aLink text: aSubText [
 
 	aSubText
 		appendingAdornment: [ :aTBrTextEditorTextualPiece :anEditorElement | 
-			| button oldLook |
+			| button oldLook urlUtility |
+			urlUtility := self resolveUrl: aLink url.
+			aLink attributes at: #urlUtility put: urlUtility.
 			button := self class
 					textLinkButtonPadding: aTBrTextEditorTextualPiece wordPadding
 					margin: aTBrTextEditorTextualPiece wordMargin.
 			oldLook := button aptitude.
 			button
+				id: #'lepiter--external-link';
 				removeAptitude: oldLook;
 				addAptitude: (BrGlamorousButtonLabelAndIconAptitude new defaultColor: oldLook defaultColor);
 				addAptitude: (BrGlamorousWithExplicitTooltipAptitude text: aLink url asString asRopedText);
 				icon: BrGlamorousVectorIcons link;
 				label: aLink displayLabel;
 				action: [ :aButton | 
-					| urlUtility |
-					urlUtility := self resolveUrl: aLink url.
 					urlUtility isFile
 						ifTrue: [ aButton phlow spawnObject: urlUtility asFileReference ]
 						ifFalse: [ WebBrowser openOn: urlUtility asString ] ].
+			aLink addContextMenuTo: button.
 			button ]
 ]
 
