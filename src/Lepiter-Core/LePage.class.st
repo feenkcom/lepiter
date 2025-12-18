@@ -309,14 +309,14 @@ LePage >> gtCopyGTBookWebsiteUrlActionFor: anAction [
 		menuItemGroup: BrMenuItemGroupConfiguration editing;
 		menuItemPreview: 'book.gtoolkit.com/...';
 		action: [ :aButton | 
-			'https://book.gtoolkit.com/{1}'
+			Clipboard clipboardText: ('https://book.gtoolkit.com/{1}'
 				format: {LeExportFilenameAndExtensionHypertextReferenceBuilder new
 							hrefFromPageLink: (LeExportPageLinksBuilder new
 									pages: {self};
 									sequencer: LeExportIntegerSequencer new;
 									html;
 									build;
-									links) links anyOne} ];
+									links) links anyOne}) ];
 		primaryModifierAction: [ :aButton | 
 			aButton phlow
 				spawnObject: ('https://book.gtoolkit.com/{1}'
