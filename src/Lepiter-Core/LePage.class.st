@@ -290,6 +290,7 @@ LePage >> gtCopyActionFor: anAction [
 		icon: BrGlamorousVectorIcons clipboard;
 		target: LePageActionTarget;
 		menuItemGroup: BrMenuItemGroupConfiguration editing;
+		menuItemPreview: [ '{{gtPage:...}}' ];
 		action: [ :aButton | Clipboard clipboardText: self asRemoteLink ]
 ]
 
