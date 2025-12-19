@@ -290,7 +290,44 @@ LePage >> gtCopyActionFor: anAction [
 		icon: BrGlamorousVectorIcons clipboard;
 		target: LePageActionTarget;
 		menuItemGroup: BrMenuItemGroupConfiguration editing;
+		menuItemPreview: [ '{{gtPage:...}}' ];
 		action: [ :aButton | Clipboard clipboardText: self asRemoteLink ]
+]
+
+{ #category : #accessing }
+LePage >> gtCopyGTBookWebsiteUrlActionFor: anAction [
+	<gtAction>
+	self database ifNil: [ ^ anAction noAction ].
+	self database isDatabase ifFalse: [ ^ anAction noAction ].
+	self database uuidString = '2j9m7db2i4oz116bexd7wbdxo'
+		ifFalse: [ ^ anAction noAction ].
+
+	^ anAction button
+		tooltip: 'Copy public GToolkit Book URL';
+		priority: 11;
+		icon: BrGlamorousVectorIcons clipboard;
+		target: LePageActionTarget;
+		menuItemGroup: BrMenuItemGroupConfiguration editing;
+		menuItemPreview: 'book.gtoolkit.com/...';
+		action: [ :aButton | 
+			Clipboard clipboardText: ('https://book.gtoolkit.com/{1}'
+				format: {LeExportFilenameAndExtensionHypertextReferenceBuilder new
+							hrefFromPageLink: (LeExportPageLinksBuilder new
+									pages: {self};
+									sequencer: LeExportIntegerSequencer new;
+									html;
+									build;
+									links) links anyOne}) ];
+		primaryModifierAction: [ :aButton | 
+			aButton phlow
+				spawnObject: ('https://book.gtoolkit.com/{1}'
+						format: {LeExportFilenameAndExtensionHypertextReferenceBuilder new
+									hrefFromPageLink: (LeExportPageLinksBuilder new
+											pages: {self};
+											sequencer: LeExportIntegerSequencer new;
+											html;
+											build;
+											links) links anyOne}) asZnUrl ]
 ]
 
 { #category : #'as yet unclassified' }

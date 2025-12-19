@@ -268,7 +268,7 @@ LePage >> gtRemoveActionFor: anAction [
 		priority: 10;
 		icon: BrGlamorousVectorIcons bin;
 		target: LePageActionTarget;
-		menuItemGroup: BrMenuItemGroupConfiguration editing;
+		menuItemGroup: BrMenuItemGroupConfiguration removal;
 		content: [:aButton | (LePageRemoveDropdownContentStencil new
 						page: self;
 						anchor: aButton)]

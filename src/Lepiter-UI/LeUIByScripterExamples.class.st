@@ -400,14 +400,14 @@ LeUIByScripterExamples >> pageOneFromDatabaseWithOnlyOnePage_RemoveLastPage [
 		label: 'Click on the dropdown button';
 		// LePageActionTargetDropdownButtonId;
 		play.
-	aScripter click
+	aScripter menuStep
 		label: 'Click on the remove page menu item';
-		onSpaceRoot;
-		// LePageRemoveActionId;
+		hoverMenuItemWithId: LePageRemoveActionId;
+		onPopover;
 		play.
 	aScripter click
 		label: 'Confirm page removal';
-		onSpaceRoot;
+		onPopover;
 		// LePageConfirmationActionId;
 		play.
 
