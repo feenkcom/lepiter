@@ -77,6 +77,7 @@ LePharoSnippetByScripterExamples >> clickOnPharoSnippetAt: anIndex step: aStep [
 		clickStep: [ :s | 
 			s
 				label: 'Click on a pharo snippet at ' , anIndex asString , ' position';
+				ignoreTargetVisibility;
 				onBreadthFirstChildOfClass: BrSimpleTree;
 				onBreadthFirstChildOfClass: BrInfiniteTreeElement;
 				onChildAt: anIndex;
