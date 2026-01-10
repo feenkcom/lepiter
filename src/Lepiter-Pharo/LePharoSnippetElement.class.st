@@ -23,7 +23,7 @@ LePharoSnippetElement >> initialize [
 
 	self initializeCoderToolbar.
 
-	editorElement := GtSourceCoderEditorElement new.
+	editorElement := GtSourceCoderElement new.
 	editorElement padding: (BlInsets top: 5 left: 7 bottom: 5 right: 0).
 	editorElement margin: BlInsets empty.
 	editorElement editor 

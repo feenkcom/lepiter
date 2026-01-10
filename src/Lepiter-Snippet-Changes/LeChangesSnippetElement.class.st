@@ -108,7 +108,7 @@ LeChangesSnippetElement >> initialize [
 		padding: (BlInsets top: 5 left: 7 bottom: 5 right: 5);
 		yourself.	
 	
-	fileNameEditor := GtTextualCoderEditorElement new
+	fileNameEditor := GtTextualCoderElement new
 		hMatchParent;
 		vFitContent;
 		constraintsDo: [ :c | c minWidth: 50 ];

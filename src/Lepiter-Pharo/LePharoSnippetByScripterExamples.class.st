@@ -23,7 +23,7 @@ LePharoSnippetByScripterExamples >> assertBindingsIn: aStep [
 				do: [ :aList :aData | 
 					| allBindings aValue |
 					allBindings := (aList query // LePharoSnippetElement
-							// GtSourceCoderEditorElement) result
+							// GtSourceCoderElement) result
 							collect: [ :eachCoder | eachCoder textualCoderViewModel compositeVariableBindings asDictionary ].
 					aValue := aData at: #scriptExecutionResult.
 					self assert: aValue value equals: {42}.
@@ -282,7 +282,7 @@ LePharoSnippetByScripterExamples >> executePharoSnippetAt: anIndex step: aStep [
 						onBreadthFirstChildOfClass: BrInfiniteTreeElement;
 						onChildAt: anIndex;
 						onBreadthFirstChildOfClass: LePharoSnippetElement;
-						onBreadthFirstChildOfClass: GtSourceCoderEditorElement ] ].
+						onBreadthFirstChildOfClass: GtSourceCoderElement ] ].
 
 	^ aStep
 ]

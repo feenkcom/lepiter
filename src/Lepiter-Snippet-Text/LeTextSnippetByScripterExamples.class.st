@@ -51,7 +51,7 @@ LeTextSnippetByScripterExamples >> changeTextSnippetText [
 						label: 'Check whether text editor and text snippet have different BlText instances';
 						satisfies: [ :anEditor | anEditor text ~~ aScripter model text ]
 							description: [ 'Text editor must not share same BlText instance with the block model' ];
-						onBreadthFirstChildOfClass: GtTextualCoderEditorElement ].
+						onBreadthFirstChildOfClass: GtTextualCoderElement ].
 
 			aStep
 				checkStep: [ :s | 
@@ -59,7 +59,7 @@ LeTextSnippetByScripterExamples >> changeTextSnippetText [
 						label: 'Text editor have same text content as snippet';
 						satisfies: [ :anEditor | anEditor text characters = aScripter model text characters ]
 							description: [ 'Text editor must have same content as the snippet' ];
-						onBreadthFirstChildOfClass: GtTextualCoderEditorElement ] ].
+						onBreadthFirstChildOfClass: GtTextualCoderElement ] ].
 
 	^ aScripter
 ]
@@ -92,7 +92,7 @@ LeTextSnippetByScripterExamples >> compareElementAndSnippetTextInstances [
 				label: 'Text editor and snippet have differentes text instances';
 				satisfies: [ :anEditor | anEditor text ~~ aScripter model text ]
 					description: [ 'Text editor must not have the same BlText instance as the snipept model' ];
-				onBreadthFirstChildOfClass: GtTextualCoderEditorElement ].
+				onBreadthFirstChildOfClass: GtTextualCoderElement ].
 
 	aScripter
 		checkStep: [ :s | 
@@ -100,7 +100,7 @@ LeTextSnippetByScripterExamples >> compareElementAndSnippetTextInstances [
 				label: 'Text editor have same text content as snippet';
 				satisfies: [ :anEditor | anEditor text characters = aScripter model text characters ]
 					description: [ 'Text editor must have same content as the snippet' ];
-				onBreadthFirstChildOfClass: GtTextualCoderEditorElement ].
+				onBreadthFirstChildOfClass: GtTextualCoderElement ].
 
 	^ aScripter
 ]
@@ -424,7 +424,7 @@ LeTextSnippetByScripterExamples >> typeTextInTextSnippetElement [
 							| aText |
 							aText := anEditor text.
 							aText insertString: ' INSERTED ' at: 5 ];
-						onBreadthFirstChildOfClass: GtTextualCoderEditorElement ].
+						onBreadthFirstChildOfClass: GtTextualCoderElement ].
 			aStep wait
 				forEmptySpaceTaskQueue;
 				play.
@@ -435,7 +435,7 @@ LeTextSnippetByScripterExamples >> typeTextInTextSnippetElement [
 						label: 'Check whether text editor and text snippet have different BlText instances';
 						satisfies: [ :anEditor | anEditor text ~~ aScripter model text ]
 							description: [ 'Text editor must not share same BlText instance with the block model' ];
-						onBreadthFirstChildOfClass: GtTextualCoderEditorElement ].
+						onBreadthFirstChildOfClass: GtTextualCoderElement ].
 
 			aStep
 				checkStep: [ :s | 
@@ -443,7 +443,7 @@ LeTextSnippetByScripterExamples >> typeTextInTextSnippetElement [
 						label: 'Text editor have same text content as snippet';
 						satisfies: [ :anEditor | anEditor text characters = aScripter model text characters ]
 							description: [ 'Text editor must have same content as the snippet' ];
-						onBreadthFirstChildOfClass: GtTextualCoderEditorElement ] ].
+						onBreadthFirstChildOfClass: GtTextualCoderElement ] ].
 
 	^ aScripter
 ]
