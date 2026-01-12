@@ -131,7 +131,7 @@ LeExampleSnippetElement >> initialize [
 		margin: (BlInsets left: 2 right: 2).
 		
 	LeSnippetEditorElementShortcuter new
-		editor: exampleEditor;
+		editor: exampleEditor editorElement;
 		indent;
 		moveUpAndDown;
 		loseFocus.
