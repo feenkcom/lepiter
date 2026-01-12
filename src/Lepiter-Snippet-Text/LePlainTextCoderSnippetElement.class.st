@@ -34,7 +34,7 @@ LePlainTextCoderSnippetElement >> initialize [
 { #category : #initialization }
 LePlainTextCoderSnippetElement >> initializeEditorElement [
 	editorElement := GtTextualCoderElement new.
-	editorElement aptitudeDo: [ :aLook | aLook glamorousRegularDefaultFont ].
+	editorElement editorElement aptitudeDo: [ :aLook | aLook glamorousRegularDefaultFont ].
 
 	editorElement padding: (BlInsets top: 5 bottom: 5).
 	editorElement margin: BlInsets empty.
