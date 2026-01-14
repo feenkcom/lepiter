@@ -10,37 +10,37 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'Brick' with: [
-				spec repository: 'github://feenkcom/Brick:v0.9.31/src' ].
+				spec repository: 'github://feenkcom/Brick:v0.9.32/src' ].
 		spec
 			baseline: 'GToolkitFileUtility' with: [
-				spec repository: 'github://feenkcom/gtoolkit-utility:v0.9.18/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-utility:v0.9.19/src' ].
 		spec
 			baseline: 'GToolkitInspector' with: [
-				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.9.65/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.9.66/src' ].
 		spec
 			baseline: 'GToolkitCoder' with: [
-				spec repository: 'github://feenkcom/gtoolkit-coder:v0.9.45/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-coder:v0.9.46/src' ].
 		spec
 			baseline: 'GToolkit4Pharo' with: [
-				spec repository: 'github://feenkcom/gt4pharo:v0.7.62/src' ].
+				spec repository: 'github://feenkcom/gt4pharo:v0.7.63/src' ].
 		spec
 			baseline: 'GToolkit4Json' with: [
-				spec repository: 'github://feenkcom/gt4json:v0.7.65/src' ].
+				spec repository: 'github://feenkcom/gt4json:v0.7.66/src' ].
 		spec
 			baseline: 'GToolkitReleaser' with: [
-				spec repository: 'github://feenkcom/gtoolkit-releaser:v0.8.334/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-releaser:v0.8.335/src' ].
 		spec
 			baseline: 'LepiterXDoc' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.7.75/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.7.76/src' ].
 		spec
 			baseline: 'SmaCCRuntime' with: [
-				spec repository: 'github://j-brant/SmaCC:v3.0.131' ].
+				spec repository: 'github://j-brant/SmaCC:v3.0.132' ].
 		spec
 			baseline: 'JSONParser' with: [
-				spec repository: 'github://j-brant/SmaCC:v3.0.131' ].
+				spec repository: 'github://j-brant/SmaCC:v3.0.132' ].
 		spec
 			baseline: 'Beacon' with: [
-				spec repository: 'github://feenkcom/pharo-beacon:77c26a9194d7e0494d56f0f1b86c55fc08925cf5/repository' ].
+				spec repository: 'github://feenkcom/pharo-beacon:19b1f28dce5738a4ce28900fdc5fec381b064fe8/repository' ].
 		spec
 			baseline: 'JSONWebToken' with: [
 				spec repository: 'github://feenkcom/JSONWebToken:v0.5.154/source' ].
