@@ -5,7 +5,7 @@ Lepiter snippet that allows users to link to an existing GToolkit Example.
 Class {
 	#name : #ManifestLepiterSnippetExample,
 	#superclass : #PackageManifest,
-	#category : 'Lepiter-Snippet-Example-Manifest'
+	#category : #'Lepiter-Snippet-Example-Manifest'
 }
 
 { #category : #'private - templates' }

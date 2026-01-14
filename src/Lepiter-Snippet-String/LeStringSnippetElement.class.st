@@ -91,7 +91,7 @@ LeStringSnippetElement >> initializeContentElement [
 
 { #category : #initialization }
 LeStringSnippetElement >> initializeEditorElement [
-	editorElement := GtSourceCoderEditorElement new
+	editorElement := GtSourceCoderElement new
 			hMatchParent;
 			vFitContentLimited;
 			padding: (BlInsets

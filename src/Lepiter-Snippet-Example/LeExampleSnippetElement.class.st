@@ -123,7 +123,7 @@ LeExampleSnippetElement >> initialize [
 		padding: (BlInsets top: 5 left: 7 bottom: 5 right: 5);
 		yourself.	
 	
-	exampleEditor := GtTextualCoderEditorElement new
+	exampleEditor := GtTextualCoderElement new
 		hMatchParent;
 		vFitContent;
 		aptitude: BrGlamorousRegularEditorAptitude + BrGlamorousEditorSpacingAptitude;
@@ -131,7 +131,7 @@ LeExampleSnippetElement >> initialize [
 		margin: (BlInsets left: 2 right: 2).
 		
 	LeSnippetEditorElementShortcuter new
-		editor: exampleEditor;
+		editor: exampleEditor editorElement;
 		indent;
 		moveUpAndDown;
 		loseFocus.

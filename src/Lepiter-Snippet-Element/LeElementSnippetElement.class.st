@@ -46,7 +46,7 @@ LeElementSnippetElement >> createCoderDecorationBar [
 
 { #category : #initialization }
 LeElementSnippetElement >> createCoderElement [
-	^ GtSourceCoderEditorElement new
+	^ GtSourceCoderElement new
 		padding: (BlInsets top: 5 left: 7 bottom: 5 right: 0);
 		margin: BlInsets empty;
 		vExact: 100;

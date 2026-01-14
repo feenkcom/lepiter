@@ -23,7 +23,7 @@ LeExternalEvaluatedSnippetElement class >> isAbstract [
 
 { #category : #initialization }
 LeExternalEvaluatedSnippetElement >> coderEditorElementClass [
-	^ GtSourceCoderEditorElement
+	^ GtSourceCoderElement
 ]
 
 { #category : #initialization }
