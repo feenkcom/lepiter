@@ -45,11 +45,11 @@ LeContent class >> leJsonV3AttributeMapping [
 LeContent class >> leJsonV4AttributeMapping [
 
 	^ super leJsonV4AttributeMapping
-		add: (#children -> #children);
 		add: (#createEmail -> #createEmail);
 		add: (#createTime -> #createTime);
 		add: (#editEmail -> #editEmail);
 		add: (#editTime -> #editTime);
+		add: (#children -> #children);
 		yourself
 ]
 
