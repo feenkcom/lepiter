@@ -1,6 +1,12 @@
 Extension { #name : #ScaledDecimal }
 
 { #category : #'*Lepiter-Store' }
+ScaledDecimal class >> deSerializeAllImplementorsInstances [
+
+	^ { 4.5s3 }
+]
+
+{ #category : #'*Lepiter-Store' }
 ScaledDecimal class >> leFromJsonV4Dictionary: aDictionary [
 	"Create a new instance of the receiver from the supplied dictionary.
 	Subclasses can override this to provide custom mappings."

@@ -1,6 +1,12 @@
 Extension { #name : #Fraction }
 
 { #category : #'*Lepiter-Store' }
+Fraction class >> deSerializeAllImplementorsInstances [
+
+	^ #()
+]
+
+{ #category : #'*Lepiter-Store' }
 Fraction class >> leFromJsonV4Dictionary: aDictionary [
 	"Create a new instance of the receiver from the supplied dictionary.
 	Subclasses can override this to provide custom mappings."
