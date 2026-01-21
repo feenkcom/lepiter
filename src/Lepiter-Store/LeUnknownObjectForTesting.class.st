@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'unknownParsedObject'
 	],
-	#category : #'Lepiter-Store-Examples'
+	#category : 'Lepiter-Store-Examples'
 }
 
 { #category : #serialization }

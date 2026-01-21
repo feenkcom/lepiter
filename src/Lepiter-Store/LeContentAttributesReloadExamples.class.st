@@ -1,7 +1,7 @@
 Class {
 	#name : #LeContentAttributesReloadExamples,
 	#superclass : #Object,
-	#category : #'Lepiter-Store-Examples'
+	#category : 'Lepiter-Store-Examples'
 }
 
 { #category : #examples }

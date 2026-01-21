@@ -11,7 +11,7 @@ Class {
 		'targetSnippetsByUid',
 		'referenceSnippetsByUid'
 	],
-	#category : #'Lepiter-Store-Reload'
+	#category : 'Lepiter-Store-Reload'
 }
 
 { #category : #'instance creation' }

@@ -5,7 +5,7 @@ Class {
 		'existingPage',
 		'loadedPage'
 	],
-	#category : #'Lepiter-Store-Reload - Optimizations'
+	#category : 'Lepiter-Store-Reload - Optimizations'
 }
 
 { #category : #checking }

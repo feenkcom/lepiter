@@ -17,7 +17,7 @@ Class {
 	#instVars : [
 		'firstMappedObject'
 	],
-	#category : #'Lepiter-Store-JSONV3'
+	#category : 'Lepiter-Store-JSONV3'
 }
 
 { #category : #'initialize-release' }

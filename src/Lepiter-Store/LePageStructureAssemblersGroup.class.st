@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#traits : 'TGtGroupWithItems',
 	#classTraits : 'TGtGroupWithItems classTrait',
-	#category : #'Lepiter-Store-Reload'
+	#category : 'Lepiter-Store-Reload'
 }
 
 { #category : #'gt - extensions' }

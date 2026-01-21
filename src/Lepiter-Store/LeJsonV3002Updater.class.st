@@ -5,7 +5,7 @@ Upgrade to V4.0.
 Class {
 	#name : #LeJsonV3002Updater,
 	#superclass : #LeJsonV3SchemaUpdater,
-	#category : #'Lepiter-Store-JSONV3'
+	#category : 'Lepiter-Store-JSONV3'
 }
 
 { #category : #accessing }

@@ -5,7 +5,7 @@ Class {
 		'uuid',
 		'directory'
 	],
-	#category : #'Lepiter-Store-LocalJSON-Store'
+	#category : 'Lepiter-Store-LocalJSON-Store'
 }
 
 { #category : #accessing }

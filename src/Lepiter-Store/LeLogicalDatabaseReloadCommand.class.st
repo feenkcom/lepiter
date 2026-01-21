@@ -10,7 +10,7 @@ Class {
 	#instVars : [
 		'contentReloadErrorStrategy'
 	],
-	#category : #'Lepiter-Store-Reload'
+	#category : 'Lepiter-Store-Reload'
 }
 
 { #category : #updating }

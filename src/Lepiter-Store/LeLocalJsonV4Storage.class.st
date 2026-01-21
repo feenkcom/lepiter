@@ -1,7 +1,7 @@
 Class {
 	#name : #LeLocalJsonV4Storage,
 	#superclass : #LeLocalStorage,
-	#category : #'Lepiter-Store-LocalJSON-Store'
+	#category : 'Lepiter-Store-LocalJSON-Store'
 }
 
 { #category : #versions }

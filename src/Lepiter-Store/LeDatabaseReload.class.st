@@ -25,7 +25,7 @@ Class {
 		'shouldDeletePages',
 		'contentReloadErrorStrategy'
 	],
-	#category : #'Lepiter-Store-Reload'
+	#category : 'Lepiter-Store-Reload'
 }
 
 { #category : #accessing }

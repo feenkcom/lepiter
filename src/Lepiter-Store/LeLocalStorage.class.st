@@ -12,7 +12,7 @@ The database is a directory containing a page per file, with `db.properties` con
 Class {
 	#name : #LeLocalStorage,
 	#superclass : #Object,
-	#category : #'Lepiter-Store-LocalJSON-Store'
+	#category : 'Lepiter-Store-LocalJSON-Store'
 }
 
 { #category : #accessing }

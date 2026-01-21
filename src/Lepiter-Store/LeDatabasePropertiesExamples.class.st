@@ -1,7 +1,7 @@
 Class {
 	#name : #LeDatabasePropertiesExamples,
 	#superclass : #Object,
-	#category : #'Lepiter-Store-Local-Examples'
+	#category : 'Lepiter-Store-Local-Examples'
 }
 
 { #category : #example }

@@ -21,7 +21,7 @@ Class {
 	#superclass : #Object,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
-	#category : #'Lepiter-Store-JSONV3'
+	#category : 'Lepiter-Store-JSONV3'
 }
 
 { #category : #private }

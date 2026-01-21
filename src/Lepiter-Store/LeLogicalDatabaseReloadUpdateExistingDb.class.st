@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'database'
 	],
-	#category : #'Lepiter-Store-Reload'
+	#category : 'Lepiter-Store-Reload'
 }
 
 { #category : #accessing }

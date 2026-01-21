@@ -6,5 +6,5 @@
 Class {
 	#name : #LeLocalJSONStoreStartup,
 	#superclass : #Announcement,
-	#category : #'Lepiter-Store-LocalJSON-Store'
+	#category : 'Lepiter-Store-LocalJSON-Store'
 }

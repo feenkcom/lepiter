@@ -23,7 +23,7 @@ The default actions are:
 Class {
 	#name : #LeJsonV4LogicalPropertiesUpdater,
 	#superclass : #Object,
-	#category : #'Lepiter-Store-JsonV4'
+	#category : 'Lepiter-Store-JsonV4'
 }
 
 { #category : #updating }

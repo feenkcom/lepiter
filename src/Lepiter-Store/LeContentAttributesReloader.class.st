@@ -5,7 +5,7 @@ Class {
 		'targetContent',
 		'changedAttributes'
 	],
-	#category : #'Lepiter-Store-Reload'
+	#category : 'Lepiter-Store-Reload'
 }
 
 { #category : #'instance creation' }

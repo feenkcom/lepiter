@@ -8,7 +8,7 @@ Class {
 	#superclass : #Object,
 	#traits : 'TAssertable',
 	#classTraits : 'TAssertable classTrait',
-	#category : #'Lepiter-Store-Local-Examples'
+	#category : 'Lepiter-Store-Local-Examples'
 }
 
 { #category : #private }

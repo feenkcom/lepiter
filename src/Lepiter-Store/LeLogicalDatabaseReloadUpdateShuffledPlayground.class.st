@@ -5,7 +5,7 @@ Class {
 		'playgroundDB',
 		'isAlsoPrimaryDB'
 	],
-	#category : #'Lepiter-Store-Reload'
+	#category : 'Lepiter-Store-Reload'
 }
 
 { #category : #updating }

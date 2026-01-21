@@ -1,7 +1,7 @@
 Class {
 	#name : #LeJsonV3001Updater,
 	#superclass : #LeJsonV3SchemaUpdater,
-	#category : #'Lepiter-Store-JSONV3'
+	#category : 'Lepiter-Store-JSONV3'
 }
 
 { #category : #'accessing structure variables' }

@@ -27,7 +27,7 @@ Class {
 		'major',
 		'minor'
 	],
-	#category : #'Lepiter-Store-LocalJSON-Store'
+	#category : 'Lepiter-Store-LocalJSON-Store'
 }
 
 { #category : #'instance creation' }

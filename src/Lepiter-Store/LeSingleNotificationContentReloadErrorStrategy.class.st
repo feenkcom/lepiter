@@ -8,7 +8,7 @@ Class {
 		'contentErrors',
 		'currentDatabaseName'
 	],
-	#category : #'Lepiter-Store-Reload'
+	#category : 'Lepiter-Store-Reload'
 }
 
 { #category : #callbacks }

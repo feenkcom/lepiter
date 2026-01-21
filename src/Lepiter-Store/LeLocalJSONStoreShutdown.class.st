@@ -6,5 +6,5 @@
 Class {
 	#name : #LeLocalJSONStoreShutdown,
 	#superclass : #Announcement,
-	#category : #'Lepiter-Store-LocalJSON-Store'
+	#category : 'Lepiter-Store-LocalJSON-Store'
 }

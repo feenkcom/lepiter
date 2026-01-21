@@ -7,7 +7,7 @@ Class {
 		'duplicates',
 		'corrupted'
 	],
-	#category : #'Lepiter-Store-LocalJSON-Store'
+	#category : 'Lepiter-Store-LocalJSON-Store'
 }
 
 { #category : #testing }

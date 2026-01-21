@@ -6,7 +6,7 @@ My subclasses indicate concrete types of changes.
 Class {
 	#name : #LePageStructureChange,
 	#superclass : #Object,
-	#category : #'Lepiter-Store-Reload'
+	#category : 'Lepiter-Store-Reload'
 }
 
 { #category : #testing }

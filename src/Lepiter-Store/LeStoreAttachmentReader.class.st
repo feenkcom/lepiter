@@ -7,7 +7,7 @@ Class {
 		'attachmentName',
 		'isBinaryContent'
 	],
-	#category : #'Lepiter-Store-Attachments'
+	#category : 'Lepiter-Store-Attachments'
 }
 
 { #category : #'api - accessing' }

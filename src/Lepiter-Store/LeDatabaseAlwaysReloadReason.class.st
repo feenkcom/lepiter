@@ -1,7 +1,7 @@
 Class {
 	#name : #LeDatabaseAlwaysReloadReason,
 	#superclass : #LeDatabaseReloadReason,
-	#category : #'Lepiter-Store-Reload - Optimizations'
+	#category : 'Lepiter-Store-Reload - Optimizations'
 }
 
 { #category : #printing }

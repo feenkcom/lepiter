@@ -10,7 +10,7 @@ Class {
 	#instVars : [
 		'jsonPage'
 	],
-	#category : #'Lepiter-Store-JsonV4'
+	#category : 'Lepiter-Store-JsonV4'
 }
 
 { #category : #private }

@@ -5,7 +5,7 @@ If there is no handler, it forks the exception so the load can continue.
 Class {
 	#name : #LeForkDebuggerContentReloadErrorStrategy,
 	#superclass : #LeDatabaseContentReloadErrorStrategy,
-	#category : #'Lepiter-Store-Reload'
+	#category : 'Lepiter-Store-Reload'
 }
 
 { #category : #action }

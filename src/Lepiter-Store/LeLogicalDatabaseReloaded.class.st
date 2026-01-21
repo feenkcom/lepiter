@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'database'
 	],
-	#category : #'Lepiter-Store-Reload - Announcements'
+	#category : 'Lepiter-Store-Reload - Announcements'
 }
 
 { #category : #accessing }

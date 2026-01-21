@@ -29,7 +29,7 @@ Class {
 		'localRoot',
 		'attachmentsDirectory'
 	],
-	#category : #'Lepiter-Store-LocalJSON-Store'
+	#category : 'Lepiter-Store-LocalJSON-Store'
 }
 
 { #category : #accessing }
@@ -178,6 +178,21 @@ LeLocalStore >> attachmentProperties: attachmentPath [
 	^ LeAttachment loadFrom: attachmentFileReference parent / LeAttachment basename
 ]
 
+{ #category : #accessing }
+LeLocalStore >> attachmentsDirectory [
+	^ attachmentsDirectory
+]
+
+{ #category : #accessing }
+LeLocalStore >> attachmentsDirectory: anObject [
+	attachmentsDirectory := anObject
+]
+
+{ #category : #accessing }
+LeLocalStore >> attachmentsDirectoryName [
+	^ self class attachmentsDirectoryName
+]
+
 { #category : #attachments }
 LeLocalStore >> attachmentUtf8Stream: attachmentPath do: aBlock [
 	"Answer a stream on the binary contents of the supplied attachment path"
@@ -201,21 +216,6 @@ LeLocalStore >> attachmentWithDataForId: aUuid [
 		id: fileUID;
 		database: self database;
 		metadata: properties
-]
-
-{ #category : #accessing }
-LeLocalStore >> attachmentsDirectory [
-	^ attachmentsDirectory
-]
-
-{ #category : #accessing }
-LeLocalStore >> attachmentsDirectory: anObject [
-	attachmentsDirectory := anObject
-]
-
-{ #category : #accessing }
-LeLocalStore >> attachmentsDirectoryName [
-	^ self class attachmentsDirectoryName
 ]
 
 { #category : #accessing }
@@ -417,12 +417,6 @@ LeLocalStore >> lookupAttachmentDirectoryAndMetadataFor: aFileReference usingId:
 ]
 
 { #category : #accessing }
-LeLocalStore >> pageFileReference: aLePage [
-
-	^ localRoot / (self pageFilename: aLePage)
-]
-
-{ #category : #accessing }
 LeLocalStore >> pageFilename: aLePage [
 
 	^ storage pageFilename: aLePage
@@ -432,6 +426,12 @@ LeLocalStore >> pageFilename: aLePage [
 LeLocalStore >> pageFilenameForId: aLePage [
 
 	^ storage pageFilenameForUid: aLePage
+]
+
+{ #category : #accessing }
+LeLocalStore >> pageFileReference: aLePage [
+
+	^ localRoot / (self pageFilename: aLePage)
 ]
 
 { #category : #accessing }

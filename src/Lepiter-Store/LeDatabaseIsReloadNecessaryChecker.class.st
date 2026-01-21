@@ -7,7 +7,7 @@ Class {
 	#classVars : [
 		'ReloadAlways'
 	],
-	#category : #'Lepiter-Store-Reload - Optimizations'
+	#category : 'Lepiter-Store-Reload - Optimizations'
 }
 
 { #category : #evaluation }

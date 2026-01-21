@@ -11,7 +11,7 @@ A subclass is created for each step of the upgrade, allowing the database to be 
 Class {
 	#name : #LeJsonV4SchemaUpdater,
 	#superclass : #Object,
-	#category : #'Lepiter-Store-JsonV4'
+	#category : 'Lepiter-Store-JsonV4'
 }
 
 { #category : #'private - accessing' }

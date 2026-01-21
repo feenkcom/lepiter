@@ -5,7 +5,7 @@ Class {
 		'database',
 		'logicalDatabase'
 	],
-	#category : #'Lepiter-Store-Reload - Announcements'
+	#category : 'Lepiter-Store-Reload - Announcements'
 }
 
 { #category : #accessing }

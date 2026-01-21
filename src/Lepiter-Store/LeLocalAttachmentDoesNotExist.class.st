@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'uuid'
 	],
-	#category : #'Lepiter-Store-LocalJSON-Store'
+	#category : 'Lepiter-Store-LocalJSON-Store'
 }
 
 { #category : #accessing }

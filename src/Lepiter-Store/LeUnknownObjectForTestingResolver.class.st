@@ -1,7 +1,7 @@
 Class {
 	#name : #LeUnknownObjectForTestingResolver,
 	#superclass : #LeUnknownObjectResolver,
-	#category : #'Lepiter-Store-Examples'
+	#category : 'Lepiter-Store-Examples'
 }
 
 { #category : #accessing }

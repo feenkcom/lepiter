@@ -1,7 +1,7 @@
 Class {
 	#name : #LeReloadOptimization,
 	#superclass : #DynamicVariable,
-	#category : #'Lepiter-Store-Reload - Optimizations'
+	#category : 'Lepiter-Store-Reload - Optimizations'
 }
 
 { #category : #accessing }

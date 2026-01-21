@@ -1,7 +1,7 @@
 Class {
 	#name : #LeUnknownPageTypeResolver,
 	#superclass : #LeUnknownObjectResolver,
-	#category : #'Lepiter-Store-JsonV4'
+	#category : 'Lepiter-Store-JsonV4'
 }
 
 { #category : #accessing }

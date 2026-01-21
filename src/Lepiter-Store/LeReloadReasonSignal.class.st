@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'reason'
 	],
-	#category : #'Lepiter-Store-Reload - Optimizations'
+	#category : 'Lepiter-Store-Reload - Optimizations'
 }
 
 { #category : #'gt - extensions' }

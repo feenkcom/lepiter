@@ -34,7 +34,7 @@ Class {
 		'database',
 		'memStore'
 	],
-	#category : #'Lepiter-Store-Local-Examples'
+	#category : 'Lepiter-Store-Local-Examples'
 }
 
 { #category : #accessing }

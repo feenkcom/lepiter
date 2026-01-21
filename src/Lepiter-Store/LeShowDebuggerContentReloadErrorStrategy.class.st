@@ -4,7 +4,7 @@ Executes the given computation normally without any kind of wrapping. This raise
 Class {
 	#name : #LeShowDebuggerContentReloadErrorStrategy,
 	#superclass : #LeDatabaseContentReloadErrorStrategy,
-	#category : #'Lepiter-Store-Reload'
+	#category : 'Lepiter-Store-Reload'
 }
 
 { #category : #action }

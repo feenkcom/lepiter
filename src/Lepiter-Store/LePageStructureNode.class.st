@@ -14,7 +14,7 @@ Class {
 		'typeName',
 		'changeStatuses'
 	],
-	#category : #'Lepiter-Store-Reload'
+	#category : 'Lepiter-Store-Reload'
 }
 
 { #category : #'instance creation' }

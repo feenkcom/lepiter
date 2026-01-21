@@ -1,7 +1,7 @@
 Class {
 	#name : #LeLocalAbstractProperties,
 	#superclass : #Object,
-	#category : #'Lepiter-Store-LocalJSON-Store'
+	#category : 'Lepiter-Store-LocalJSON-Store'
 }
 
 { #category : #'api - testing' }

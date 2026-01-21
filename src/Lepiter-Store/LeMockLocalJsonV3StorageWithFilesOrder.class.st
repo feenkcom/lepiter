@@ -1,7 +1,7 @@
 Class {
 	#name : #LeMockLocalJsonV3StorageWithFilesOrder,
 	#superclass : #LeLocalJsonV3Storage,
-	#category : #'Lepiter-Store-Mocks'
+	#category : 'Lepiter-Store-Mocks'
 }
 
 { #category : #enumerating }

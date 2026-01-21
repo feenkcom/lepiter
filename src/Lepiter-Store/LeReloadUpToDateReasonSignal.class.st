@@ -1,5 +1,5 @@
 Class {
 	#name : #LeReloadUpToDateReasonSignal,
 	#superclass : #LeReloadReasonSignal,
-	#category : #'Lepiter-Store-Reload - Optimizations'
+	#category : 'Lepiter-Store-Reload - Optimizations'
 }

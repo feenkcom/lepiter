@@ -12,7 +12,7 @@ Class {
 		'properties',
 		'pageTitle'
 	],
-	#category : #'Lepiter-Store-Exceptions'
+	#category : 'Lepiter-Store-Exceptions'
 }
 
 { #category : #accessing }

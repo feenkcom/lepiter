@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'monitor'
 	],
-	#category : #'Lepiter-Store-LocalJSON-Store'
+	#category : 'Lepiter-Store-LocalJSON-Store'
 }
 
 { #category : #accessing }

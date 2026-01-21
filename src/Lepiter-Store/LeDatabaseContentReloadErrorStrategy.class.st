@@ -10,7 +10,7 @@ Subclasses can also make use of two callback methods ({{gtMethod:LeDatabaseConte
 Class {
 	#name : #LeDatabaseContentReloadErrorStrategy,
 	#superclass : #Object,
-	#category : #'Lepiter-Store-Reload'
+	#category : 'Lepiter-Store-Reload'
 }
 
 { #category : #accessing }

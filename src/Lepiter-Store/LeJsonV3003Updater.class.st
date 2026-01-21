@@ -7,7 +7,7 @@ Upgrade 3.3 to 4.0.
 Class {
 	#name : #LeJsonV3003Updater,
 	#superclass : #LeJsonV3SchemaUpdater,
-	#category : #'Lepiter-Store-JSONV3'
+	#category : 'Lepiter-Store-JSONV3'
 }
 
 { #category : #accessing }

@@ -1,5 +1,5 @@
 Class {
 	#name : #LeStoreMonitorSavedChanges,
 	#superclass : #LeStoreMonitorSaved,
-	#category : #'Lepiter-Store-LocalJSON-Store'
+	#category : 'Lepiter-Store-LocalJSON-Store'
 }

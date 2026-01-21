@@ -1,7 +1,7 @@
 Class {
 	#name : #LeLocalStoreExport,
 	#superclass : #LeLocalStore,
-	#category : #'Lepiter-Store-LocalJSON-Store'
+	#category : 'Lepiter-Store-LocalJSON-Store'
 }
 
 { #category : #'api - exporting' }

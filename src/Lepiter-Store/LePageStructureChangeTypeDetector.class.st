@@ -6,7 +6,7 @@ The change in structure is calculated based on snippet ids.
 Class {
 	#name : #LePageStructureChangeTypeDetector,
 	#superclass : #Object,
-	#category : #'Lepiter-Store-Reload'
+	#category : 'Lepiter-Store-Reload'
 }
 
 { #category : #api }

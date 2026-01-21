@@ -1,7 +1,7 @@
 Class {
 	#name : #LeReloadReason,
 	#superclass : #Object,
-	#category : #'Lepiter-Store-Reload - Optimizations'
+	#category : 'Lepiter-Store-Reload - Optimizations'
 }
 
 { #category : #'gt - extensions' }

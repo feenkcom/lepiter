@@ -6,7 +6,7 @@ Class {
 		'storage',
 		'dbProperties'
 	],
-	#category : #'Lepiter-Store-Model'
+	#category : 'Lepiter-Store-Model'
 }
 
 { #category : #'instance creation' }

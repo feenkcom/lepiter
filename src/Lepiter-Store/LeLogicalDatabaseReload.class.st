@@ -11,7 +11,7 @@ Class {
 		'updateCommands',
 		'contentReloadErrorStrategy'
 	],
-	#category : #'Lepiter-Store-Reload'
+	#category : 'Lepiter-Store-Reload'
 }
 
 { #category : #private }

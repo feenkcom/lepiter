@@ -3,7 +3,7 @@ Class {
 	#superclass : #LeLocalAbstractProperties,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
-	#category : #'Lepiter-Store-LocalJSON-Store'
+	#category : 'Lepiter-Store-LocalJSON-Store'
 }
 
 { #category : #'api - testing' }

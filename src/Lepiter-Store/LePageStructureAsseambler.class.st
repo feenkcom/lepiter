@@ -11,7 +11,7 @@ Class {
 		'reloaderContext',
 		'snippetStructure'
 	],
-	#category : #'Lepiter-Store-Reload'
+	#category : 'Lepiter-Store-Reload'
 }
 
 { #category : #actions }
@@ -250,6 +250,11 @@ LePageStructureAsseambler >> reloadContentForStructure: aStructureNode intoConte
 	^ existingSnippet
 ]
 
+{ #category : #accessing }
+LePageStructureAsseambler >> reloaderContext [
+	^ reloaderContext
+]
+
 { #category : #actions }
 LePageStructureAsseambler >> reloadUnknownSnippet: existingSnippet fromSnippet: replacementSnippet intoContent: aParentContent [
 	
@@ -263,11 +268,6 @@ LePageStructureAsseambler >> reloadUnknownSnippet: existingSnippet fromSnippet: 
 	aParentContent addSnippet: replacementSnippet.
 	
 	^ replacementSnippet
-]
-
-{ #category : #accessing }
-LePageStructureAsseambler >> reloaderContext [
-	^ reloaderContext
 ]
 
 { #category : #accessing }

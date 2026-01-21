@@ -1,8 +1,27 @@
 Class {
 	#name : #LeDatabasePropertyExamples,
 	#superclass : #LeLocalExamples,
-	#category : #'Lepiter-Store-Local-Examples'
+	#category : 'Lepiter-Store-Local-Examples'
 }
+
+{ #category : #examples }
+LeDatabasePropertyExamples >> databaseWithoutPersonalInfo [
+	"Confirm that attachment properties don't include personal information when saved to disk"
+
+	<gtExample>
+	<return: #LeDatabasePropertyExamples>
+	| testAttachment pathString properties |
+	memStore := FileSystem memory root / 'db'.
+	memStore ensureCreateDirectory.
+	testAttachment := memStore parent / 'test.attachment'.
+	testAttachment ensureCreateFile.
+	database := LeLocalStoreLoad current loadAndMonitorFrom: memStore.
+	pathString := database addAttachmentByCopy: testAttachment.
+
+	properties := STONJSON
+			fromString: ((memStore / pathString) parent / LeAttachment basename) contents.
+	self deny: (properties includesKey: #originalReference)
+]
 
 { #category : #examples }
 LeDatabasePropertyExamples >> databaseWithPersonalInfo [
@@ -29,23 +48,4 @@ LeDatabasePropertyExamples >> databaseWithPersonalInfo [
 	self
 		assert: ((properties at: #originalReference) at: #filename)
 		equals: '/test.attachment'
-]
-
-{ #category : #examples }
-LeDatabasePropertyExamples >> databaseWithoutPersonalInfo [
-	"Confirm that attachment properties don't include personal information when saved to disk"
-
-	<gtExample>
-	<return: #LeDatabasePropertyExamples>
-	| testAttachment pathString properties |
-	memStore := FileSystem memory root / 'db'.
-	memStore ensureCreateDirectory.
-	testAttachment := memStore parent / 'test.attachment'.
-	testAttachment ensureCreateFile.
-	database := LeLocalStoreLoad current loadAndMonitorFrom: memStore.
-	pathString := database addAttachmentByCopy: testAttachment.
-
-	properties := STONJSON
-			fromString: ((memStore / pathString) parent / LeAttachment basename) contents.
-	self deny: (properties includesKey: #originalReference)
 ]

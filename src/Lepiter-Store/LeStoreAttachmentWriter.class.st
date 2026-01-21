@@ -8,7 +8,7 @@ Class {
 		'attachmentName',
 		'writer'
 	],
-	#category : #'Lepiter-Store-Attachments'
+	#category : 'Lepiter-Store-Attachments'
 }
 
 { #category : #'api - accessing' }

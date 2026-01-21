@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'primaryDB'
 	],
-	#category : #'Lepiter-Store-Reload'
+	#category : 'Lepiter-Store-Reload'
 }
 
 { #category : #updating }

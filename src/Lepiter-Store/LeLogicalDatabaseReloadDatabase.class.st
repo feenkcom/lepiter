@@ -15,7 +15,7 @@ Class {
 		'isPrimaryDB',
 		'isPlaygroundDB'
 	],
-	#category : #'Lepiter-Store-Reload'
+	#category : 'Lepiter-Store-Reload'
 }
 
 { #category : #accessing }

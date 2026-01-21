@@ -5,7 +5,7 @@ Class {
 		'currentProperties',
 		'storageProperties'
 	],
-	#category : #'Lepiter-Store-Reload - Optimizations'
+	#category : 'Lepiter-Store-Reload - Optimizations'
 }
 
 { #category : #accessing }

@@ -1,7 +1,7 @@
 Class {
 	#name : #LePageStructureAsseamblerExamples,
 	#superclass : #Object,
-	#category : #'Lepiter-Store-Examples'
+	#category : 'Lepiter-Store-Examples'
 }
 
 { #category : #assertions }

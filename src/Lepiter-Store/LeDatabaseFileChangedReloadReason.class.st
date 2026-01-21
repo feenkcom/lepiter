@@ -6,7 +6,7 @@ Class {
 		'modelHash',
 		'storageHash'
 	],
-	#category : #'Lepiter-Store-Reload - Optimizations'
+	#category : 'Lepiter-Store-Reload - Optimizations'
 }
 
 { #category : #'gt - extensions' }

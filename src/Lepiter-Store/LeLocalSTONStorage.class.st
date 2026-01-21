@@ -1,7 +1,7 @@
 Class {
 	#name : #LeLocalSTONStorage,
 	#superclass : #LeLocalStorage,
-	#category : #'Lepiter-Store-LocalJSON-Store'
+	#category : 'Lepiter-Store-LocalJSON-Store'
 }
 
 { #category : #loading }

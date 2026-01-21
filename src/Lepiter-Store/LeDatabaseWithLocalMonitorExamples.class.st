@@ -5,7 +5,7 @@ I am used by other examples, providing a {{gtClass:LeDatabase}} with {{gtClass:L
 Class {
 	#name : #LeDatabaseWithLocalMonitorExamples,
 	#superclass : #Object,
-	#category : #'Lepiter-Store-Local-Examples'
+	#category : 'Lepiter-Store-Local-Examples'
 }
 
 { #category : #'examples - database' }

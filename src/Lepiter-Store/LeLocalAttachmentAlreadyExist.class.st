@@ -5,7 +5,7 @@ Class {
 		'basename',
 		'uuid'
 	],
-	#category : #'Lepiter-Store-LocalJSON-Store'
+	#category : 'Lepiter-Store-LocalJSON-Store'
 }
 
 { #category : #accessing }

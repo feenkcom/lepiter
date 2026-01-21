@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'map'
 	],
-	#category : #'Lepiter-Store-JsonV4'
+	#category : 'Lepiter-Store-JsonV4'
 }
 
 { #category : #'instance creation' }

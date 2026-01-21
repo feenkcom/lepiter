@@ -5,5 +5,5 @@ LeLocalStoreMonitorSaved is announced each time the monitor has completed a cycl
 Class {
 	#name : #LeStoreMonitorSaved,
 	#superclass : #LeStoreMonitorAnnouncement,
-	#category : #'Lepiter-Store-LocalJSON-Store'
+	#category : 'Lepiter-Store-LocalJSON-Store'
 }

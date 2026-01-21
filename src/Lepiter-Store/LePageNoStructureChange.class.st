@@ -6,5 +6,5 @@ There could be changes in content for individual snippets, but the structure is 
 Class {
 	#name : #LePageNoStructureChange,
 	#superclass : #LePageStructureChange,
-	#category : #'Lepiter-Store-Reload'
+	#category : 'Lepiter-Store-Reload'
 }

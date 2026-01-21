@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'monitor'
 	],
-	#category : #'Lepiter-Store-Local-Examples'
+	#category : 'Lepiter-Store-Local-Examples'
 }
 
 { #category : #'examples - monitor' }

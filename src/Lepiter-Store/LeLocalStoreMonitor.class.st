@@ -37,7 +37,7 @@ Class {
 		'SessionAnnouncer',
 		'ShutdownMonitor'
 	],
-	#category : #'Lepiter-Store-LocalJSON-Store'
+	#category : 'Lepiter-Store-LocalJSON-Store'
 }
 
 { #category : #'api - accessing' }

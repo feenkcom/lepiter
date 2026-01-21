@@ -1,7 +1,7 @@
 Class {
 	#name : #LeLocalV4000MigrationExamples,
 	#superclass : #LeLocalExamples,
-	#category : #'Lepiter-Store-Local-Examples'
+	#category : 'Lepiter-Store-Local-Examples'
 }
 
 { #category : #'as yet unclassified' }
