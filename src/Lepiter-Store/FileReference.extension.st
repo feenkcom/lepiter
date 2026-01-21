@@ -10,6 +10,12 @@ FileReference >> asLepiterZnUrl [
 ]
 
 { #category : #'*Lepiter-Store' }
+FileReference class >> deSerializeAllImplementorsInstances [
+
+	^ #()
+]
+
+{ #category : #'*Lepiter-Store' }
 FileReference class >> leFromJsonV3Dictionary: aDictionary [
 	"Create a new instance of the receiver from the supplied dictionary."
 

@@ -55,32 +55,26 @@ LeJsonV4SerialisationExamples >> checkInstance: instance [
 { #category : #examples }
 LeJsonV4SerialisationExamples >> deSerializeAllImplementors [
 	"Perform a basic check on all implementors of #leJsonV4Name that the basic serialisation / deserialisation doesn't raise an error and looks sensible"
-
 	<gtExample>
 	<return: #LeJsonV4SerialisationExamples>
-	| allImplementors allClasses leJsonV4 clsCount testedCount excludedClasses |
+	| allImplementors allClasses leJsonV4 clsCount testedCount |
+
 	LeJsonV4 cleanUp.
+	leJsonV4 := LeJsonV4 uniqueInstance.
 	allImplementors := SystemNavigation default allImplementorsOf: #leJsonV4Name.
 	allClasses := allImplementors
 			flatCollect: [ :method | method methodClass instanceSide withAllSubclasses ]
 			as: Set.
+	allClasses addAll: leJsonV4 explicitClassesToMap.
 	clsCount := allClasses size.
 	testedCount := 0.
-	leJsonV4 := LeJsonV4 uniqueInstance.	"excludedClasses is a set of classes that can't serialise the default instance due to its implementation"
-	excludedClasses := {FileLocator.
-			FileReference.
-			Fraction.
-			GtPackageExampleGroup.
-			Point.
-			ScaledDecimal}.
-	allClasses removeAll: excludedClasses.	"Give developers the chance to exclude classes that are not part of core Gt"
 	(self class methods
 		select: [ :method | method hasPragmaNamed: #leJsonV4ExcludedClasses ])
 		do: [ :method | allClasses removeAll: (self perform: method selector) ].
 	allClasses
 		do: [ :cls | 
-			(cls perform: #leJsonV4Name)
-				ifNotNil: [ cls deSerializeAllImplementorsInstances
+			((cls respondsTo: #leJsonV4Name) and: [ (cls perform: #leJsonV4Name) isNotNil ])
+				ifTrue: [ cls deSerializeAllImplementorsInstances
 						do: [ :instance | self checkInstance: instance ] ].
 			testedCount := testedCount + 1 ]
 ]

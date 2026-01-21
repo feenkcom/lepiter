@@ -56,3 +56,18 @@ Object class >> leJsonV4MappingFor: aNeoJSONMapper [
 		self leJsonV4AddMappingsTo: mapping ].
 
 ]
+
+{ #category : #'*Lepiter-Store' }
+Object class >> leJsonV4MappingFor: aNeoJSONMapper named: aSymbol [
+	"By default, Lepiter objects are written as a mapping.
+	Any subclasses that want a different representation should over-write this method.
+	This mapping is used for classes listed in LeJsonV4>>explicitClassNamesToMap"
+
+	aNeoJSONMapper for: self named: aSymbol do: [ :mapping | 
+		mapping
+			mapProperty: #'__type' 
+			getter: [ :object | aSymbol ] 
+			setter: [ :um | self error: 'Objects should not be read here' ].
+		self leJsonV4AddMappingsTo: mapping ].
+
+]
