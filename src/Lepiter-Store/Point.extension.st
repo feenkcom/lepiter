@@ -1,6 +1,12 @@
 Extension { #name : #Point }
 
 { #category : #'*Lepiter-Store' }
+Point class >> deSerializeAllImplementorsInstances [
+
+	^ { 1@2 }
+]
+
+{ #category : #'*Lepiter-Store' }
 Point class >> leFromJsonV4Dictionary: aDictionary [
 	"Create a new instance of the receiver from the supplied dictionary."
 	| pointString splitString |

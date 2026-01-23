@@ -51,6 +51,15 @@ LeAbstractSnippetViewModel >> announcer [
 	^ announcer ifNil: [ announcer := Announcer new ]
 ]
 
+{ #category : #'gt-extension' }
+LeAbstractSnippetViewModel >> asSnippetElement [
+	| aSnippetElement |
+	aSnippetElement := self snippetView asElement.
+	aSnippetElement snippetViewModel: self.
+	aSnippetElement padding: (BlInsets all: 10).
+	^ aSnippetElement
+]
+
 { #category : #accessing }
 LeAbstractSnippetViewModel >> content [
 	self
@@ -217,19 +226,12 @@ LeAbstractSnippetViewModel >> gtChildrenFor: aView [
 { #category : #'gt-extension' }
 LeAbstractSnippetViewModel >> gtLiveFor: aView [
 	<gtView>
-	
-	self class isAbstract
-		ifTrue: [ ^ aView empty ].
+	self class isAbstract ifTrue: [ ^ aView empty ].
 
 	^ aView explicit
 		title: 'Live';
 		priority: 1;
-		stencil: [
-			| aSnippetElement |
-			aSnippetElement := self snippetView asElement.
-			aSnippetElement snippetViewModel: self.
-			aSnippetElement padding: (BlInsets all: 10).
-			aSnippetElement ]
+		stencil: [ self asSnippetElement ]
 ]
 
 { #category : #initialization }

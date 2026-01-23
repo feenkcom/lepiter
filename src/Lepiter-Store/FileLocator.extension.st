@@ -14,6 +14,12 @@ FileLocator >> asLepiterZnUrl [
 ]
 
 { #category : #'*Lepiter-Store' }
+FileLocator class >> deSerializeAllImplementorsInstances [
+
+	^ #()
+]
+
+{ #category : #'*Lepiter-Store' }
 FileLocator class >> leFromJsonV4Dictionary: aDictionary [
 	"Create a new instance of the receiver from the supplied dictionary."
 	| src regex originName path |

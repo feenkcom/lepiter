@@ -17,6 +17,15 @@ LeJsonV4Reader >> for: smalltalkClass do: block [
 	^ mapping
 ]
 
+{ #category : #mapping }
+LeJsonV4Reader >> for: smalltalkClass named: aSymbol do: block [
+	| mapping |
+
+	mapping := super for: smalltalkClass do: block.
+	typeMap at: aSymbol put: smalltalkClass.
+	^ mapping
+]
+
 { #category : #'initialize-release' }
 LeJsonV4Reader >> initialize [
 
