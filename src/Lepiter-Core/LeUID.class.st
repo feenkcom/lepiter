@@ -77,6 +77,18 @@ LeUID >> uid: aUUID [
 ]
 
 { #category : #'api - accessing' }
+LeUID >> uidPlainString [ 
+
+	^ uid printString
+]
+
+{ #category : #accessing }
+LeUID >> uidPlainString: anUuidString [
+
+	uid := UUID fromString: anUuidString
+]
+
+{ #category : #'api - accessing' }
 LeUID >> uidString [ 
 
 	^ uid base64Encoded
@@ -86,4 +98,14 @@ LeUID >> uidString [
 LeUID >> uidString: aString64 [
 
 	uid := UUID fromBase64EncodedString: aString64
+]
+
+{ #category : #accessing }
+LeUID >> uidStringDescription [
+	<magritteDescription>
+	
+	 ^ MAStringDescription new
+		  accessor: #uidString;
+		  withUUIDBase64FormatComment;
+		  beRequired
 ]
