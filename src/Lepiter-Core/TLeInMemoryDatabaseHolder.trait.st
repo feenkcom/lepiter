@@ -7,9 +7,15 @@ Since the source database does not have to be loaded, this can be used for:
 - help databases (eg for Sceneries)
 - slideshows (to replace the storeString methods)
 
-NB: set or override `databaseName` and send `#initializeDatabase` to initialize the in0memory database.
-NB: If the source database exists, use that instead of an in-memory copy.
+Set or override `databaseName` and send `#initializeDatabase` to initialize the in-memory database.
+If the source database exists, use that instead of an in-memory copy.
 See `LeInMemoryDatabaseHolderExamples>>#gtBookAsAnInMemoryDatabase` for an example of forcing the creation of an in-memory copy.
+
+To use this in a slideshow:
+(1) Create the new database within the same project as your slideshow.
+(2) Add this trait to your slideshow.
+(3) Override `databaseName` in the slideshow to the name of the new database.
+Load the database to make changes, otherwise leave it unloaded.
 "
 Trait {
 	#name : #TLeInMemoryDatabaseHolder,
