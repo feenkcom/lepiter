@@ -73,22 +73,6 @@ TLeInMemoryDatabaseHolder >> gtDatabaseFor: aView [
 		actionUpdateButton
 ]
 
-{ #category : #actions }
-TLeInMemoryDatabaseHolder >> gtRefreshDatabaseActionFor: anAction [
-	<gtAction>
-	database ifNil: [ ^ anAction empty ].
-	^ anAction explicit
-		priority: 15;
-		stencil: [ | button |
-			button := BrButton new
-					"id: GtInspectorInspectButtonId;"
-					aptitude: BrGlamorousButtonWithIconAptitude;
-					icon: BrGlamorousVectorIcons refresh;
-					label: 'Refresh database';
-					action: [ :aButton :aModel :anEvent | aButton phlow spawnObject: self renewDatabase ].
-			button ]
-]
-
 { #category : #utility }
 TLeInMemoryDatabaseHolder >> inMemoryDatabaseFor: aLeDatabaseFolder [
 	| sourceFolder targetFolder newDatabase |
