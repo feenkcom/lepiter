@@ -112,10 +112,33 @@ TLeInMemoryDatabaseHolder >> initializeDatabase [
 ]
 
 { #category : #utility }
+TLeInMemoryDatabaseHolder >> loadDatabase [
+	| dbDir registry |
+	registry := LeDatabasesRegistry defaultLogicalDatabase.
+	^ registry
+		databaseNamed: self databaseName
+		ifNone: [ dbDir := self folderForPath: self databaseName.
+			registry properties addRegisteredDirectory: dbDir.
+			registry reload.
+			self initializeDatabase.
+			registry databaseNamed: self databaseName ]
+]
+
+{ #category : #utility }
 TLeInMemoryDatabaseHolder >> renewDatabase [
 	"Recreate the database from scratch, eg after adding new pages."
 
 	database := nil.
 	self initializeDatabase.
 	^ database
+]
+
+{ #category : #utility }
+TLeInMemoryDatabaseHolder >> unloadDatabase [
+	| registry db |
+	registry := LeDatabasesRegistry defaultLogicalDatabase.
+	db := registry databaseNamed: self databaseName ifNone: [ ^ self database ].
+	registry removeDB: db.
+	self initializeDatabase.
+	^ self database
 ]
