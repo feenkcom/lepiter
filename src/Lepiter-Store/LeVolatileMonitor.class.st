@@ -37,6 +37,11 @@ LeVolatileMonitor >> initialize [
 	uuid := UUID new.
 ]
 
+{ #category : #compatibility }
+LeVolatileMonitor >> isLocalStore [
+	^ false
+]
+
 { #category : #testing }
 LeVolatileMonitor >> isVolatileMonitor [
 	^ true
