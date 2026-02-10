@@ -91,8 +91,8 @@ TLeInMemoryDatabaseHolder >> inMemoryDatabaseFor: aLeDatabaseFolder [
 
 { #category : #initialization }
 TLeInMemoryDatabaseHolder >> initializeDatabase [
-	self databaseName ifNil: [self error: 'databaseName not initialized' ].
-	database := self databaseNamed: self databaseName
+	self databaseName
+		ifNotNil: [ database := self databaseNamed: self databaseName ]
 ]
 
 { #category : #utility }
