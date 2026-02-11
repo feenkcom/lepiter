@@ -73,22 +73,6 @@ TLeInMemoryDatabaseHolder >> gtDatabaseFor: aView [
 		actionUpdateButton
 ]
 
-{ #category : #actions }
-TLeInMemoryDatabaseHolder >> gtRefreshDatabaseActionFor: anAction [
-	<gtAction>
-	database ifNil: [ ^ anAction empty ].
-	^ anAction explicit
-		priority: 15;
-		stencil: [ | button |
-			button := BrButton new
-					"id: GtInspectorInspectButtonId;"
-					aptitude: BrGlamorousButtonWithIconAptitude;
-					icon: BrGlamorousVectorIcons refresh;
-					label: 'Refresh database';
-					action: [ :aButton :aModel :anEvent | aButton phlow spawnObject: self renewDatabase ].
-			button ]
-]
-
 { #category : #utility }
 TLeInMemoryDatabaseHolder >> inMemoryDatabaseFor: aLeDatabaseFolder [
 	| sourceFolder targetFolder newDatabase |
@@ -107,8 +91,21 @@ TLeInMemoryDatabaseHolder >> inMemoryDatabaseFor: aLeDatabaseFolder [
 
 { #category : #initialization }
 TLeInMemoryDatabaseHolder >> initializeDatabase [
-	self databaseName ifNil: [self error: 'databaseName not initialized' ].
-	database := self databaseNamed: self databaseName
+	self databaseName
+		ifNotNil: [ database := self databaseNamed: self databaseName ]
+]
+
+{ #category : #utility }
+TLeInMemoryDatabaseHolder >> loadDatabase [
+	| dbDir registry |
+	registry := LeDatabasesRegistry defaultLogicalDatabase.
+	^ registry
+		databaseNamed: self databaseName
+		ifNone: [ dbDir := self folderForPath: self databaseName.
+			registry properties addRegisteredDirectory: dbDir.
+			registry reload.
+			self initializeDatabase.
+			registry databaseNamed: self databaseName ]
 ]
 
 { #category : #utility }
@@ -118,4 +115,14 @@ TLeInMemoryDatabaseHolder >> renewDatabase [
 	database := nil.
 	self initializeDatabase.
 	^ database
+]
+
+{ #category : #utility }
+TLeInMemoryDatabaseHolder >> unloadDatabase [
+	| registry db |
+	registry := LeDatabasesRegistry defaultLogicalDatabase.
+	db := registry databaseNamed: self databaseName ifNone: [ ^ self database ].
+	registry removeDB: db.
+	self initializeDatabase.
+	^ self database
 ]
