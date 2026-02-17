@@ -16,6 +16,10 @@ To use this in a slideshow:
 (2) Add this trait to your slideshow.
 (3) Override `databaseName` in the slideshow to the name of the new database.
 Load the database to make changes, otherwise leave it unloaded.
+
+NB: if my users are expected to function in a release image, then their lepiter databases must be added to gtResources.
+See {{gtMethod:name=GtImageSetup class>>#copyDataAndDocsFolders}}.
+
 "
 Trait {
 	#name : #TLeInMemoryDatabaseHolder,
