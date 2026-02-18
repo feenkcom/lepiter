@@ -48,7 +48,7 @@ LePageFooterToolbarElement >> initialize [
 ]
 
 { #category : #actions }
-LePageFooterToolbarElement >> modePageToDatabase: aNewDatabase [
+LePageFooterToolbarElement >> movePageToDatabase: aNewDatabase [
 	self pageModel moveToDatabase: aNewDatabase
 ]
 
@@ -63,7 +63,7 @@ LePageFooterToolbarElement >> newAvailableDatabasesList [
 				aptitude: BrGlamorousButtonRectangularAptitude + BrGlamorousButtonLabelAptitude;
 				action: [ :aButton :aButtonModel |
 					aButton fireEvent: BrDropdownHideWish new.
-					self modePageToDatabase: aButton viewModel model ] ];
+					self movePageToDatabase: aButton viewModel model ] ];
 		itemDataBinder: [ :eachButton :eachDatabase |
 			eachButton viewModel model: eachDatabase.
 			eachButton 
