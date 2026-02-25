@@ -124,6 +124,12 @@ LeDuplicatePageIdError >> deletePageFile: aPage [
 ]
 
 { #category : #accessing }
+LeDuplicatePageIdError >> existingPage [
+
+	^ existingPage
+]
+
+{ #category : #accessing }
 LeDuplicatePageIdError >> file [
 	^ file
 ]
@@ -200,6 +206,12 @@ LeDuplicatePageIdError >> isResumable [
 LeDuplicatePageIdError >> messageText [
 	^ messageText ifNil: [ 
 		messageText := self standardMessageText ]
+]
+
+{ #category : #accessing }
+LeDuplicatePageIdError >> newPage [
+
+	^ newPage
 ]
 
 { #category : #'private - adding / removing' }
