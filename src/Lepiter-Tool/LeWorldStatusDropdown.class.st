@@ -106,7 +106,10 @@ LeWorldStatusDropdown >> leWorldElement: aLeWorld [
 	leWorldElement announcer
 		when: LeWorldElementDatabaseRemoved
 		send: #onDatabaseRemoved:
-		to: self
+		to: self.
+	
+	"It is possible to add the element to a world that already has a database"
+	self onDatabaseChanged.
 ]
 
 { #category : #'building widgets' }
