@@ -26,13 +26,14 @@ LeFileReferenceAnnotationStylerExamples >> styleReferenceRelativePath [
 	aViewModel := aSnippet asSnippetViewModel.
 	aSnippetStyler := LeSnippetStyler new snippetViewModel: aViewModel.
 	aVisitor := LeSnippetStylerVisitor new
-		styler: aSnippetStyler;
-		text: aText.
+			styler: aSnippetStyler;
+			text: aText.
 	aFileStyler := LeFileReferenceAnnotationStyler new composite: aVisitor.
 
 	aFile := (anAst // LeFileReferenceAnnotationNode) anyOne.
 	aReference := aFileStyler fileReferenceFor: aFile.
-	self assert: (aReference pathString endsWith: 'docs/readme.md').
+	self assert: aReference basename equals: 'readme.md'.
+	self assert: aReference parent basename equals: 'docs'.
 	^ aReference
 ]
 
