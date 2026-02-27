@@ -22,7 +22,7 @@ LeFileReferenceAnnotationCompletionVisitorExamples >> completeFileReferenceAtSta
 	aResult completionActionsWithIndexDo: [ :each :index | actions add: each ].
 
 	self assert: actions size equals: 5.
-	self assert: (actions collect: #text) asSet equals: (Set with: 'path=' with: 'label=' with: 'range=' with: 'expanded=' with: 'height=').
+	self assert: (actions collect: #text) asSet equals: (Set with: 'path=' with: 'label=' with: 'range=' with: 'expanded' with: 'height=').
 
 	^ aResult
 ]
@@ -44,7 +44,28 @@ LeFileReferenceAnnotationCompletionVisitorExamples >> completeFileReferenceAttri
 	aResult completionActionsWithIndexDo: [ :each :index | actions add: each ].
 
 	self assert: actions size equals: 4.
-	self assert: (actions collect: #text) asSet equals: (Set with: 'label=' with: 'range=' with: 'expanded=' with: 'height=').
+	self assert: (actions collect: #text) asSet equals: (Set with: 'label=' with: 'range=' with: 'expanded' with: 'height=').
+
+	^ aResult
+]
+
+{ #category : #examples }
+LeFileReferenceAnnotationCompletionVisitorExamples >> completeFileReferenceExpandedBoolean [
+	<gtExample>
+	<return: #GtCompletionResult>
+	| aString aResult aStrategy actions position texts |
+	aString := '{{gtFileReference:path=/tmp/readme.md|expanded=}}'.
+	position := aString size - 1.
+	
+	aStrategy := LeCompletionStrategy new.
+	aResult := aStrategy completionResultFor: aString at: position requested: true.
+
+	actions := OrderedCollection new.
+	aResult completionActionsWithIndexDo: [ :each :index | actions add: each ].
+	texts := actions collect: #text.
+
+	self assert: actions isEmpty.
+	self assert: texts isEmpty.
 
 	^ aResult
 ]
@@ -66,7 +87,7 @@ LeFileReferenceAnnotationCompletionVisitorExamples >> completeFileReferenceLabel
 	aResult completionActionsWithIndexDo: [ :each :index | actions add: each ].
 
 	self assert: actions size equals: 4.
-	self assert: (actions collect: #text) asSet equals: (Set with: 'label=' with: 'range=' with: 'expanded=' with: 'height=').
+	self assert: (actions collect: #text) asSet equals: (Set with: 'label=' with: 'range=' with: 'expanded' with: 'height=').
 
 	^ aResult
 ]
@@ -212,7 +233,7 @@ LeFileReferenceAnnotationCompletionVisitorExamples >> completeFileReferencePathO
 	aResult completionActionsWithIndexDo: [ :each :index | actions add: each ].
 
 	self assert: actions size equals: 4.
-	self assert: (actions collect: #text) asSet equals: (Set with: 'path=' with: 'range=' with: 'expanded=' with: 'height=').
+	self assert: (actions collect: #text) asSet equals: (Set with: 'path=' with: 'range=' with: 'expanded' with: 'height=').
 
 	^ aResult
 ]
