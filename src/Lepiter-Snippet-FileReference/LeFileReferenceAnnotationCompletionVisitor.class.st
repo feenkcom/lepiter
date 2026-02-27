@@ -59,14 +59,14 @@ LeFileReferenceAnnotationCompletionVisitor >> composite: aComposite [
 	composite := aComposite
 ]
 
-{ #category : #private }
+{ #category : #completion }
 LeFileReferenceAnnotationCompletionVisitor >> fileReferenceAttributesFor: aFileReferenceAnnotation [
 	| words |
 	words := GtPrefixTree new.
 	aFileReferenceAnnotation pathArgument ifNil: [ words add: 'path=' ].
 	aFileReferenceAnnotation labelArgument ifNil: [ words add: 'label=' ].
 	aFileReferenceAnnotation rangeArgument ifNil: [ words add: 'range=' ].
-	aFileReferenceAnnotation expandedArgument ifNil: [ words add: 'expanded=' ].
+	aFileReferenceAnnotation expandedArgument ifNil: [ words add: 'expanded' ].
 	aFileReferenceAnnotation heightArgument ifNil: [ words add: 'height=' ].
 	^ words
 ]
@@ -152,14 +152,14 @@ LeFileReferenceAnnotationCompletionVisitor >> position [
 	^ self composite position
 ]
 
-{ #category : #private }
+{ #category : #completion }
 LeFileReferenceAnnotationCompletionVisitor >> startAttributes [
 	| words |
 	words := GtPrefixTree new.
 	words add: 'path='.
 	words add: 'label='.
 	words add: 'range='.
-	words add: 'expanded='.
+	words add: 'expanded'.
 	words add: 'height='.
 	^ words
 ]
@@ -177,6 +177,34 @@ LeFileReferenceAnnotationCompletionVisitor >> visitFileReferenceAnnotation: anAn
 			words := self fileReferenceAttributesFor: anAnnotation.
 			words notEmpty ifTrue: [ ^ self addStreamFor: words startingWith: '' ] ].
 	^ self visitFileReferenceParse: anAnnotation
+]
+
+{ #category : #visiting }
+LeFileReferenceAnnotationCompletionVisitor >> visitFileReferenceExpanded: aFileReferenceExpanded [
+	| valueToken prefix words source start stop |
+	valueToken := aFileReferenceExpanded value.
+	valueToken ifNotNil: [
+		(self isPosition: self position insideToken: valueToken)
+			ifFalse: [ ^ self visitFileReferenceArgument: aFileReferenceExpanded ].
+		prefix := self pathPrefixFor: valueToken.
+		words := GtPrefixTree new.
+		words add: 'true'.
+		words add: 'false'.
+		^ self addStreamFor: words startingWith: prefix ].
+	
+	aFileReferenceExpanded equals ifNil: [ ^ self visitFileReferenceArgument: aFileReferenceExpanded ].
+	(self position < aFileReferenceExpanded equals stopPosition)
+		ifTrue: [ ^ self visitFileReferenceArgument: aFileReferenceExpanded ].
+	start := aFileReferenceExpanded equals stopPosition + 1.
+	source := self text asString.
+	stop := self position min: (source size + 1).
+	prefix := stop < start
+		ifTrue: [ '' ]
+		ifFalse: [ source copyFrom: start to: stop ].
+	words := GtPrefixTree new.
+	words add: 'true'.
+	words add: 'false'.
+	^ self addStreamFor: words startingWith: prefix
 ]
 
 { #category : #visiting }
