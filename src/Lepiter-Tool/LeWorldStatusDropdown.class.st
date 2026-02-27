@@ -12,7 +12,7 @@ LeWorldStatusDropdown listens directly to the database for page changes and to t
 "
 Class {
 	#name : #LeWorldStatusDropdown,
-	#superclass : #BlElement,
+	#superclass : #BrFrame,
 	#instVars : [
 		'leWorldElement',
 		'dropdownElement',
@@ -57,13 +57,10 @@ LeWorldStatusDropdown >> hasPendingChanges [
 LeWorldStatusDropdown >> initialize [
 	super initialize.
 	pageChanged := false.
-	self layout: BlFrameLayout new.
-	self constraintsDo: [ :c |
-		c vertical fitContent.
-		c horizontal fitContent ].
-	 
-	self addInteractiveModelState: BrLayoutHorizontalResizerModel fitContent.
-	self addInteractiveModelState: BrLayoutVerticalResizerModel fitContent.
+	
+	self viewModel: BrWidgetModel new.
+	self hFitContent.
+	self vFitContent.
 	
 	self initializeDropdownElement.
 	updater := BrElementUpdater new
@@ -74,6 +71,12 @@ LeWorldStatusDropdown >> initialize [
 	
 	self addAptitude: (BrLayoutResizerAptitude new
 		anyToFitContent: self).
+		
+	self dropdownElement 
+		when: GtPhlowObjectToSpawn 
+		do: [ :anEvent | 
+			anEvent isConsumed ifFalse: [
+					self phlow spawnOrShowObject: anEvent object ] ]
 
 ]
 
