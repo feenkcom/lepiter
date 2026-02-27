@@ -12,7 +12,7 @@ LeWorldStatusDropdown listens directly to the database for page changes and to t
 "
 Class {
 	#name : #LeWorldStatusDropdown,
-	#superclass : #BlElement,
+	#superclass : #BrFrame,
 	#instVars : [
 		'leWorldElement',
 		'dropdownElement',
@@ -57,13 +57,10 @@ LeWorldStatusDropdown >> hasPendingChanges [
 LeWorldStatusDropdown >> initialize [
 	super initialize.
 	pageChanged := false.
-	self layout: BlFrameLayout new.
-	self constraintsDo: [ :c |
-		c vertical fitContent.
-		c horizontal fitContent ].
-	 
-	self addInteractiveModelState: BrLayoutHorizontalResizerModel fitContent.
-	self addInteractiveModelState: BrLayoutVerticalResizerModel fitContent.
+	
+	self viewModel: BrWidgetModel new.
+	self hFitContent.
+	self vFitContent.
 	
 	self initializeDropdownElement.
 	updater := BrElementUpdater new
@@ -74,6 +71,12 @@ LeWorldStatusDropdown >> initialize [
 	
 	self addAptitude: (BrLayoutResizerAptitude new
 		anyToFitContent: self).
+		
+	self dropdownElement 
+		when: GtPhlowObjectToSpawn 
+		do: [ :anEvent | 
+			anEvent isConsumed ifFalse: [
+					self phlow spawnOrShowObject: anEvent object ] ]
 
 ]
 
@@ -136,6 +139,8 @@ LeWorldStatusDropdown >> newDropdownContent [
 		exact: 600@400.
 	listElement := self newListElement.
 	container addChild: listElement.
+	container addAptitude:  (BrGlamorousWithVerticalResizerAptitude
+				+ BrGlamorousWithHorizontalResizerAptitude new beLeft).
 	^ container
 ]
 
@@ -184,13 +189,6 @@ LeWorldStatusDropdown >> onDatabaseRemoved: anAnnouncement [
 				db monitor unsubscribe: self ] ]
 ]
 
-{ #category : #accessing }
-LeWorldStatusDropdown >> onDatabaseSaved [
-	"Deprecated: Allow existing dropdown instances to continue operating"
-
-	^ self onDatabaseMonitorUpdate
-]
-
 { #category : #callbacks }
 LeWorldStatusDropdown >> onLogicalDatabaseReloaded [
 	
@@ -228,8 +226,8 @@ LeWorldStatusDropdown >> registerDatabaseEvents [
 
 { #category : #updating }
 LeWorldStatusDropdown >> requestUpdate [
-	self updater ifNotNil: [ :anUpdateRequester | 
-		anUpdateRequester requestUpdate ]
+	self updater ifNotNil: [ :anUpdater | 
+		anUpdater requestUpdate ]
 ]
 
 { #category : #'building widgets' }
