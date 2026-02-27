@@ -64,9 +64,10 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 				spec requires: #('LepiterEngineCore' ) ];
 			package: 'Lepiter-Snippet-File' with: [
 				spec requires: #('LepiterEngineCore' ) ];
+			package: 'Lepiter-Snippet-FileReference' with: [
+				spec requires: #('LepiterEngineCore' ) ];
 			package: 'Lepiter-Snippet-Shell' with: [
 				spec requires: #('LepiterEngineCore' ) ] ].
-
 ]
 
 { #category : #baselines }

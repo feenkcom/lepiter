@@ -24,6 +24,23 @@ LeFileReferenceAnnotationParserExamples >> parseBareLabelValue [
 ]
 
 { #category : #examples }
+LeFileReferenceAnnotationParserExamples >> parseExpandedDefault [
+	<gtExample>
+	<return: #LeFileReferenceAnnotationNode>
+	| anAst |
+	anAst := LeFileReferenceAnnotationParser parse: 'path=/tmp/readme.md|expanded'.
+
+	self assert: anAst notNil.
+	self assert: anAst items size equals: 2.
+	self assert: anAst expandedArgument notNil.
+	self assert: anAst expandedArgument name value equals: 'expanded'.
+	self assert: anAst expandedArgument valueString isNil.
+	self assert: anAst expandedValue equals: true.
+
+	^ anAst
+]
+
+{ #category : #examples }
 LeFileReferenceAnnotationParserExamples >> parseExpandedFalse [
 	<gtExample>
 	<return: #LeFileReferenceAnnotationNode>
