@@ -189,13 +189,6 @@ LeWorldStatusDropdown >> onDatabaseRemoved: anAnnouncement [
 				db monitor unsubscribe: self ] ]
 ]
 
-{ #category : #accessing }
-LeWorldStatusDropdown >> onDatabaseSaved [
-	"Deprecated: Allow existing dropdown instances to continue operating"
-
-	^ self onDatabaseMonitorUpdate
-]
-
 { #category : #callbacks }
 LeWorldStatusDropdown >> onLogicalDatabaseReloaded [
 	
@@ -233,8 +226,8 @@ LeWorldStatusDropdown >> registerDatabaseEvents [
 
 { #category : #updating }
 LeWorldStatusDropdown >> requestUpdate [
-	self updater ifNotNil: [ :anUpdateRequester | 
-		anUpdateRequester requestUpdate ]
+	self updater ifNotNil: [ :anUpdater | 
+		anUpdater requestUpdate ]
 ]
 
 { #category : #'building widgets' }
