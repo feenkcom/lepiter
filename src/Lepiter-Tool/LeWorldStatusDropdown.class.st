@@ -136,6 +136,8 @@ LeWorldStatusDropdown >> newDropdownContent [
 		exact: 600@400.
 	listElement := self newListElement.
 	container addChild: listElement.
+	container addAptitude:  (BrGlamorousWithVerticalResizerAptitude
+				+ BrGlamorousWithHorizontalResizerAptitude new beLeft).
 	^ container
 ]
 
