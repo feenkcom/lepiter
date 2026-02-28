@@ -93,6 +93,21 @@ LePage >> dependenciesMapFor: aMondrian [
 ]
 
 { #category : #'*Lepiter-UI' }
+LePage >> gtBrowsePageActionFor: anAction [
+	<gtAction>
+	GtLConnectionRegistry instance hasConnectableDefaultConnection
+		ifFalse: [ ^ anAction empty ].
+	^ anAction button
+		tooltip: 'Browse page';
+		priority: 10;
+		target: LePageActionTarget;
+		icon: LeIcons lepiterIcon;
+		menuItemGroup: BrMenuItemGroupConfiguration navigation;
+		action: [ :aButton | 
+			aButton phlow spawnObject: self ]
+]
+
+{ #category : #'*Lepiter-UI' }
 LePage >> gtConnectionsFor: aView [
 	<gtView>
 	^ aView explicit

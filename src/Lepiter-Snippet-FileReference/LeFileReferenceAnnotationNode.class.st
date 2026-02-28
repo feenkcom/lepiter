@@ -46,7 +46,7 @@ LeFileReferenceAnnotationNode >> expandedValue [
 	argument := self expandedArgument.
 	argument ifNil: [ ^ nil ].
 	raw := argument valueString.
-	raw ifNil: [ ^ nil ].
+	raw ifNil: [ ^ true ].
 	^ raw = 'true'
 ]
 

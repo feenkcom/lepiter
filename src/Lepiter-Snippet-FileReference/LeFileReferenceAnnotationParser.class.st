@@ -6,7 +6,7 @@ Class {
 
 { #category : #'generated-accessing' }
 LeFileReferenceAnnotationParser class >> cacheId [
-	^'2026-02-26T14:26:53.245922-06:00'
+	^'2026-02-27T07:16:28.044648-06:00'
 ]
 
 { #category : #generated }
@@ -55,7 +55,7 @@ Range
 	: ""range"" 'name' ""="" 'equals' <integer> 'start' "":"" 'colon' <integer> 'end' {{FileReferenceRange}}
 	;
 Expanded
-	: ""expanded"" 'name' ""="" 'equals' ExpandedValue 'value' {{FileReferenceExpanded}}
+	: ""expanded"" 'name' (""="" 'equals' ExpandedValue 'value')? {{FileReferenceExpanded}}
 	;
 ExpandedValue
 	: ""true""
@@ -82,26 +82,27 @@ LeFileReferenceAnnotationParser class >> obsolete [
 { #category : #generated }
 LeFileReferenceAnnotationParser class >> reduceTable [
 ^#(
-	#(22 1 #liftFirstValue: 687106 false) 
-	#(22 1 #liftFirstValue: 687105 false) 
-	#(18 0 #reduceActionFor______bar__Item__item___1: 390145 false) 
-	#(19 1 #liftFirstValue: 435205 false) 
-	#(19 1 #liftFirstValue: 435201 false) 
-	#(20 1 #reduceActionForPath2: 492546 false) 
-	#(19 1 #liftFirstValue: 435202 false) 
-	#(19 1 #liftFirstValue: 435203 false) 
-	#(19 1 #liftFirstValue: 435204 false) 
-	#(16 2 #reduceActionForFileReferenceAnnotation1: 349185 false) 
-	#(25 1 #liftFirstValue: 936962 false) 
-	#(25 1 #liftFirstValue: 936961 false) 
-	#(24 3 #reduceActionForExpanded1: 840705 false) 
-	#(26 3 #reduceActionForHeight1: 975873 false) 
-	#(21 3 #reduceActionForLabel1: 608257 false) 
-	#(20 3 #reduceActionForPath1: 492545 false) 
-	#(16 3 #reduceActionForFileReferenceAnnotation2: 349186 false) 
-	#(18 2 #reduceActionFor______bar__Item__item___2: 390146 false) 
-	#(17 2 #reduceActionFor______bar__Item__item__1: 390145 false) 
-	#(23 5 #reduceActionForRange1: 729089 false)
+	#(24 1 #reduceActionForExpanded1: 838657 false) 
+	#(22 1 #liftFirstValue: 685058 false) 
+	#(22 1 #liftFirstValue: 685057 false) 
+	#(18 0 #reduceActionFor______bar__Item__item___1: 388097 false) 
+	#(19 1 #liftFirstValue: 433157 false) 
+	#(19 1 #liftFirstValue: 433153 false) 
+	#(20 1 #reduceActionForPath2: 490498 false) 
+	#(19 1 #liftFirstValue: 433154 false) 
+	#(19 1 #liftFirstValue: 433155 false) 
+	#(19 1 #liftFirstValue: 433156 false) 
+	#(16 2 #reduceActionForFileReferenceAnnotation1: 347137 false) 
+	#(25 1 #liftFirstValue: 937986 false) 
+	#(25 1 #liftFirstValue: 937985 false) 
+	#(24 3 #reduceActionForExpanded2: 838658 false) 
+	#(26 3 #reduceActionForHeight1: 976897 false) 
+	#(21 3 #reduceActionForLabel1: 606209 false) 
+	#(20 3 #reduceActionForPath1: 490497 false) 
+	#(16 3 #reduceActionForFileReferenceAnnotation2: 347138 false) 
+	#(18 2 #reduceActionFor______bar__Item__item___2: 388098 false) 
+	#(17 2 #reduceActionFor______bar__Item__item__1: 388097 false) 
+	#(23 5 #reduceActionForRange1: 727041 false)
 	).
 ]
 
@@ -129,44 +130,52 @@ LeFileReferenceAnnotationParser class >> symbolTypes [
 LeFileReferenceAnnotationParser class >> transitionTable [
 ^#(
 #[1 0 9 0 3 0 13 0 5 0 17 0 6 0 21 0 7 0 25 0 8 0 53 0 12 0 53 0 13 0 37 0 16 0 41 0 19 0 41 0 20 0 41 0 21 0 53 0 22 0 41 0 23 0 41 0 24 0 41 0 26] 
-#[0 0 69 0 2] 
+#[1 0 69 0 2 0 6 0 10 0 6 0 27] 
 #[0 0 73 0 2] 
 #[0 0 77 0 2] 
 #[0 0 81 0 2] 
 #[0 0 85 0 2] 
-#[0 0 6 0 10 0 27] 
 #[0 0 10 0 10 0 27] 
+#[0 0 14 0 10 0 27] 
 #[0 0 0 0 27] 
-#[1 0 14 0 10 0 89 0 18 0 14 0 27] 
-#[0 0 18 0 10 0 27] 
+#[1 0 18 0 10 0 89 0 18 0 18 0 27] 
 #[0 0 22 0 10 0 27] 
 #[0 0 26 0 10 0 27] 
 #[0 0 30 0 10 0 27] 
 #[0 0 34 0 10 0 27] 
 #[0 0 38 0 10 0 27] 
+#[0 0 42 0 10 0 27] 
 #[0 0 101 0 4 0 9 0 25] 
 #[0 0 105 0 14] 
 #[0 0 109 0 12 0 13 0 22] 
 #[0 0 113 0 12 0 13 0 22] 
 #[0 0 117 0 14] 
-#[1 0 121 0 10 0 125 0 17 0 42 0 27] 
-#[0 0 46 0 10 0 27] 
+#[1 0 121 0 10 0 125 0 17 0 46 0 27] 
 #[0 0 50 0 10 0 27] 
 #[0 0 54 0 10 0 27] 
 #[0 0 58 0 10 0 27] 
 #[0 0 62 0 10 0 27] 
 #[0 0 66 0 10 0 27] 
+#[0 0 70 0 10 0 27] 
 #[0 0 129 0 1] 
-#[1 0 9 0 3 0 13 0 5 0 17 0 6 0 21 0 7 0 25 0 8 0 53 0 12 0 53 0 13 0 133 0 19 0 133 0 20 0 133 0 21 0 53 0 22 0 133 0 23 0 133 0 24 0 133 0 26 0 70 0 27] 
-#[0 0 74 0 10 0 27] 
-#[0 0 137 0 14] 
+#[1 0 9 0 3 0 13 0 5 0 17 0 6 0 21 0 7 0 25 0 8 0 53 0 12 0 53 0 13 0 133 0 19 0 133 0 20 0 133 0 21 0 53 0 22 0 133 0 23 0 133 0 24 0 133 0 26 0 74 0 27] 
 #[0 0 78 0 10 0 27] 
-#[0 0 82 0 10 0 27]
+#[0 0 137 0 14] 
+#[0 0 82 0 10 0 27] 
+#[0 0 86 0 10 0 27]
 	).
 ]
 
 { #category : #'generated-reduction actions' }
 LeFileReferenceAnnotationParser >> reduceActionForExpanded1: nodes [
+	| result |
+	result := LeFileReferenceExpandedNode new.
+	result name: (nodes at: 1).
+	^ result
+]
+
+{ #category : #'generated-reduction actions' }
+LeFileReferenceAnnotationParser >> reduceActionForExpanded2: nodes [
 	| result |
 	result := LeFileReferenceExpandedNode new.
 	result name: (nodes at: 1).
@@ -276,4 +285,9 @@ LeFileReferenceAnnotationParser >> reduceActionFor______bar__Item__item___2: nod
 { #category : #testing }
 LeFileReferenceAnnotationParser >> tryAllTokens [
 	^ true
+]
+
+{ #category : #testing }
+LeFileReferenceAnnotationParser >> useAllTokenIds [
+	^ false
 ]
