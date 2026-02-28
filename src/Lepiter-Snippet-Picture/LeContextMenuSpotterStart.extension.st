@@ -19,12 +19,13 @@ LeContextMenuSpotterStart >> gtSpotterForPictureFor: aSearch [
 ]
 
 { #category : #'*Lepiter-Snippet-Picture' }
-LeContextMenuSpotterStart >> spotterPictureFileStringFor: pictureString [
+LeContextMenuSpotterStart >> spotterPictureFileStringFor: aFilePathString [
 	"Answer the Picture Snippet URL string for the given pictureString, which may be a local file or URL.
 	If the string doesn't have a known image file type, answer nil.
 	If the picture is a local file and not already part of the database, copy it in."
 
-	| mimeType extension urlUtility url |
+	| mimeType extension urlUtility url pictureString |
+	pictureString := (((aFilePathString removeSuffix: '''') removePrefix: '''') removeSuffix: '"') removePrefix: '"'.
 	extension := (pictureString copyAfterLast: $.) asLowercase.
 	mimeType := ZnMimeType forFilenameExtension: extension.
 	mimeType main = 'image' ifFalse: [ ^ nil ].
