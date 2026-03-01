@@ -65,19 +65,6 @@ LeFileReferenceAnnotationStyler >> styleAnnotation: anAnnotation [
 ]
 
 { #category : #styling }
-LeFileReferenceAnnotationStyler >> styleAutoHidingAnnotation: anAnnotation [
-	| first last range |
-	anAnnotation pathArgument ifNil: [ ^ self ].
-	first := anAnnotation parent startPosition max: 1.
-	last := anAnnotation parent stopPosition min: self text size.
-	range := first to: last.
-	composite
-		styleAutoHiding: range
-		and: range
-		whenOutside: anAnnotation parent sourceInterval
-]
-
-{ #category : #styling }
 LeFileReferenceAnnotationStyler >> styleButton: anAnnotation [
 	| attribute fileReference labelString isValid |
 	anAnnotation pathArgument ifNil: [ ^ self ].
@@ -93,7 +80,7 @@ LeFileReferenceAnnotationStyler >> styleButton: anAnnotation [
 				textLinkButtonPadding: (BlInsets top: 2)
 				margin: BlInsets empty
 				valid: isValid.
-			button aptitude glamorousRegularFont.
+			button aptitude glamorousCodeFont.
 			button
 				beSmallSize;
 				label: labelString;
@@ -138,7 +125,8 @@ LeFileReferenceAnnotationStyler >> text [
 { #category : #visiting }
 LeFileReferenceAnnotationStyler >> visitFileReferenceAnnotation: anAnnotation [
 	self styleAnnotation: anAnnotation.
-	self styleAutoHidingAnnotation: anAnnotation.
+	anAnnotation pathArgument
+		ifNotNil: [ self styleAutoHidingAnnotation: anAnnotation ].
 	self styleButton: anAnnotation.
 	self styleExpandingObject: anAnnotation
 ]

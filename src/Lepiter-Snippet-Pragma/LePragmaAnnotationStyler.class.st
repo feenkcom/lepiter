@@ -94,9 +94,10 @@ LePragmaAnnotationStyler >> styleLinkButton: aPragmaAnnotation [
 				textLinkButtonPadding: (BlInsets top: 2)
 				margin: BlInsets empty
 				valid: (self pragmaExists: aPragmaAnnotation).
+			button aptitude glamorousCodeFont.
 			button
 				beSmallSize;
-				label: pragmaName;
+				label: '<', pragmaName, '>';
 				action: [ :aButton | aButton phlow spawnObject: pragmaType ].
 			button ].
 	self text
@@ -113,6 +114,8 @@ LePragmaAnnotationStyler >> text [
 { #category : #visiting }
 LePragmaAnnotationStyler >> visitPragmaAnnotation: aPragmaAnnotation [
 	self styleAnnotation: aPragmaAnnotation.
+	aPragmaAnnotation hasPragmaNameSpecified
+		ifTrue: [ self styleAutoHidingAnnotation: aPragmaAnnotation ].
 	self styleLinkButton: aPragmaAnnotation.
 	self styleExpandingObject: aPragmaAnnotation
 ]

@@ -38,19 +38,6 @@ LePictureAnnotationStyler >> styleAnnotation: aPictureAnnotation [
 ]
 
 { #category : #private }
-LePictureAnnotationStyler >> styleAutoHidingAnnotation: anAnnotation [
-	| first last range |
-	anAnnotation hasPictureReferenceSpecified ifFalse: [ ^ self ].
-	first := anAnnotation parent startPosition max: 1.
-	last := anAnnotation parent stopPosition min: self text size.
-	range := first to: last.
-	composite
-		styleAutoHiding: range
-		and: range
-		whenOutside: anAnnotation parent sourceInterval
-]
-
-{ #category : #private }
 LePictureAnnotationStyler >> styleButton: anAnnotation [
 	| attribute aReference aSnippetReference |
 	anAnnotation hasPictureReferenceSpecified ifFalse: [ ^ self ].
@@ -89,6 +76,7 @@ LePictureAnnotationStyler >> text [
 { #category : #generated }
 LePictureAnnotationStyler >> visitPictureAnnotation: aPictureAnnotation [
 	self styleAnnotation: aPictureAnnotation.
-	self styleAutoHidingAnnotation: aPictureAnnotation.
-	self styleButton: aPictureAnnotation.
+	aPictureAnnotation hasPictureReferenceSpecified
+		ifTrue: [ self styleAutoHidingAnnotation: aPictureAnnotation ].
+	self styleButton: aPictureAnnotation
 ]
