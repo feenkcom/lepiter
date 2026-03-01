@@ -80,7 +80,7 @@ LeFileReferenceAnnotationStyler >> styleButton: anAnnotation [
 				textLinkButtonPadding: (BlInsets top: 2)
 				margin: BlInsets empty
 				valid: isValid.
-			button aptitude glamorousRegularFont.
+			button aptitude glamorousCodeFont.
 			button
 				beSmallSize;
 				label: labelString;
