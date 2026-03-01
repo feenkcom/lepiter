@@ -70,7 +70,7 @@ LePragmaAnnotationStyler >> styleExpandingObject: aPragmaAnnotation [
 		attributesCreatingBlock: [
 			(GtResizablePreviewAttribute new)
 				withCache: self elements key: cacheKey;
-				result: GtPragmaType;
+				result: pragmaType;
 				showSelector: #gtViewsFor:;
 				height: 200 ];
 		onCachingDo: [ :aBoolean :theAttribute | self expanded at: cacheKey put: aBoolean ].
