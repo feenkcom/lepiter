@@ -271,7 +271,7 @@ LePage >> gtBindingsActionFor: anAction [
 	<lePageAction>
 	^ anAction dropdown
 		tooltip: 'Inspect variable bindings';
-		icon: BrGlamorousVectorIcons inspect;
+		icon: BrGlamorousVectorIcons twoColumnTable;
 		withDropdownIndicator;
 		content: [ :aButton | 
 			(aButton parent parent parent parent pageViewModel sharedSnippetContext
