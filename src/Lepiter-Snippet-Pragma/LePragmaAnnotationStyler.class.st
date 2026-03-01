@@ -113,6 +113,8 @@ LePragmaAnnotationStyler >> text [
 { #category : #visiting }
 LePragmaAnnotationStyler >> visitPragmaAnnotation: aPragmaAnnotation [
 	self styleAnnotation: aPragmaAnnotation.
+	aPragmaAnnotation hasPragmaNameSpecified
+		ifTrue: [ self styleAutoHidingAnnotation: aPragmaAnnotation ].
 	self styleLinkButton: aPragmaAnnotation.
 	self styleExpandingObject: aPragmaAnnotation
 ]
