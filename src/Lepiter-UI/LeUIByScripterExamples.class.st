@@ -295,6 +295,401 @@ LeUIByScripterExamples >> logicalDatabaseWithTwoEmptyDatabases [
 	^ database
 ]
 
+{ #category : #'examples - removed page' }
+LeUIByScripterExamples >> page49OfDatabaseWithManyPagesOfDifferentCreateTimes [
+	<gtExample>
+	<return: #BlScripter>
+	| aScripter |
+	aScripter := self
+			scripterWithModel: [ LeModelExamples new page49OfDatabaseWithManyPagesOfDifferentCreateTimes ]
+			element: [ :aPageHolder | 
+				GtPagerSettings usedPager
+					createWrappedOn: (aPageHolder page asLepiterPagePhlowTool asElementDo: [ :anElement | anElement ]) ].
+
+	aScripter assert
+		label: 'Assert page snippet tree widget exists';
+		// LePageSnippetsTreeElementId;
+		exists;
+		play.
+
+	^ aScripter
+]
+
+{ #category : #'examples - removed page' }
+LeUIByScripterExamples >> page49OfDatabaseWithManyPagesOfDifferentCreateTimes_DisplaySidebar [
+
+	<gtExample>
+	<return: #BlScripter>
+	| aScripter |
+	aScripter := self page49OfDatabaseWithManyPagesOfDifferentCreateTimes.
+
+	aScripter treePager
+		label: 'Maximize page';
+		hoverPaneColumn: 1;
+		clickMaximizeColumn: 1;
+		play.
+
+	aScripter assert
+		// LeDatabaseSidebarGroupedListElement;
+		// #scrollable;
+		value: [ :anInfiniteElement | anInfiniteElement childrenCount ] equals: 27;
+		label: 'Assert sidebar displays pages';
+		play.
+		
+	aScripter assert
+		// LeDatabaseSidebarGroupedListElement;
+		// BrGroupedList;
+		value: [ :aGroupList | aGroupList selectedItems size = 1 and: [ 
+			aGroupList selectedItems anyOne title asString ] ] equals: 'Page 49';
+		label: 'Assert sidebar has selected page "Page 49"';
+		play.
+
+	^ aScripter
+]
+
+{ #category : #'examples - removed page' }
+LeUIByScripterExamples >> page49OfDatabaseWithManyPagesOfDifferentCreateTimes_DisplaySidebar_RemovePage [
+	<gtExample>
+	<return: #BlScripter>
+	| aScripter |
+	aScripter := self page49OfDatabaseWithManyPagesOfDifferentCreateTimes_DisplaySidebar.
+
+	aScripter click
+		label: 'Click on the dropdown button';
+		// LePageActionTargetDropdownButtonId;
+		play.
+	aScripter menuStep
+		label: 'Click on the remove page menu item';
+		hoverMenuItemWithId: LePageRemoveActionId;
+		onPopover;
+		play.
+	aScripter click
+		label: 'Confirm page removal';
+		onPopover;
+		// LePageConfirmationActionId;
+		play.
+
+	aScripter assert
+		label: 'Assert page snippet tree widget exists';
+		// LePageSnippetsTreeElementId;
+		exists;
+		play.
+
+	aScripter assert
+		// LeDatabaseSidebarGroupedListElement;
+		// BrGroupedList;
+		value: [ :aGroupList | aGroupList selectedItems size = 1 and: [ 
+			aGroupList selectedItems anyOne title asString ] ] equals: 'Page 51';
+		label: 'Assert sidebar has selected page "Page 51"';
+		play.
+
+	^ aScripter
+]
+
+{ #category : #'examples - removed page' }
+LeUIByScripterExamples >> page50OfDatabaseWithManyPagesOfDifferentCreateTimes [
+	<gtExample>
+	<return: #BlScripter>
+	| aScripter |
+	aScripter := self
+			scripterWithModel: [ LeModelExamples new page50OfDatabaseWithManyPagesOfDifferentCreateTimes ]
+			element: [ :aPageHolder | 
+				GtPagerSettings usedPager
+					createWrappedOn: (aPageHolder page asLepiterPagePhlowTool asElementDo: [ :anElement | anElement ]) ].
+
+	aScripter assert
+		label: 'Assert page snippet tree widget exists';
+		// LePageSnippetsTreeElementId;
+		exists;
+		play.
+
+	^ aScripter
+]
+
+{ #category : #'examples - removed page' }
+LeUIByScripterExamples >> page50OfDatabaseWithManyPagesOfDifferentCreateTimesAndToC [
+	<gtExample>
+	<return: #BlScripter>
+	| aScripter |
+	aScripter := self
+			scripterWithModel: [ LeModelExamples new page50OfDatabaseWithManyPagesOfDifferentCreateTimesAndToC ]
+			element: [ :aPageHolder | 
+				GtPagerSettings usedPager
+					createWrappedOn: (aPageHolder page asLepiterPagePhlowTool asElementDo: [ :anElement | anElement ]) ].
+
+	aScripter assert
+		label: 'Assert page snippet tree widget exists';
+		// LePageSnippetsTreeElementId;
+		exists;
+		play.
+
+	^ aScripter
+]
+
+{ #category : #'examples - removed page' }
+LeUIByScripterExamples >> page50OfDatabaseWithManyPagesOfDifferentCreateTimesAndToC_DisplaySidebar [
+
+	<gtExample>
+	<return: #BlScripter>
+	| aScripter |
+	aScripter := self page50OfDatabaseWithManyPagesOfDifferentCreateTimesAndToC.
+
+	aScripter treePager
+		label: 'Maximize page';
+		hoverPaneColumn: 1;
+		clickMaximizeColumn: 1;
+		play.
+
+	aScripter assert
+		// LeDatabaseSidebarTreeElement;
+		// #scrollable;
+		value: [ :anInfiniteElement | anInfiniteElement childrenCount ] equals: 31;
+		label: 'Assert sidebar displays pages';
+		play.
+		
+	aScripter assert
+		// LeDatabaseSidebarTreeElement;
+		// BrSimpleTree;
+		value: [ :aTree | aTree selectedItems size = 1 and: [ 
+			aTree selectedItems anyOne page title asString ] ] equals: 'Page 50';
+		label: 'Assert sidebar has selected page "Page 50"';
+		play.
+
+	^ aScripter
+]
+
+{ #category : #'examples - removed page' }
+LeUIByScripterExamples >> page50OfDatabaseWithManyPagesOfDifferentCreateTimesAndToC_DisplaySidebar_RemovePage [
+	<gtExample>
+	<return: #BlScripter>
+	| aScripter |
+	aScripter := self page50OfDatabaseWithManyPagesOfDifferentCreateTimesAndToC_DisplaySidebar.
+
+	aScripter click
+		label: 'Click on the dropdown button';
+		// LePageActionTargetDropdownButtonId;
+		play.
+	aScripter menuStep
+		label: 'Click on the remove page menu item';
+		hoverMenuItemWithId: LePageRemoveActionId;
+		onPopover;
+		play.
+	aScripter click
+		label: 'Confirm page removal';
+		onPopover;
+		// LePageConfirmationActionId;
+		play.
+
+	aScripter assert
+		label: 'Assert page snippet tree widget exists';
+		// LePageSnippetsTreeElementId;
+		exists;
+		play.
+
+	aScripter assert
+		// LeDatabaseSidebarTreeElement;
+		// BrSimpleTree;
+		value: [ :aTree | aTree selectedItems size = 1 and: [ 
+			aTree selectedItems anyOne page title asString ] ] equals: 'Page 51';
+		label: 'Assert sidebar has selected page "Page 51"';
+		play.
+
+	^ aScripter
+]
+
+{ #category : #'examples - removed page' }
+LeUIByScripterExamples >> page50OfDatabaseWithManyPagesOfDifferentCreateTimes_DisplaySidebar [
+
+	<gtExample>
+	<return: #BlScripter>
+	| aScripter |
+	aScripter := self page50OfDatabaseWithManyPagesOfDifferentCreateTimes.
+
+	aScripter treePager
+		label: 'Maximize page';
+		hoverPaneColumn: 1;
+		clickMaximizeColumn: 1;
+		play.
+
+	aScripter assert
+		// LeDatabaseSidebarGroupedListElement;
+		// #scrollable;
+		value: [ :anInfiniteElement | anInfiniteElement childrenCount ] equals: 27;
+		label: 'Assert sidebar displays pages';
+		play.
+		
+	aScripter assert
+		// LeDatabaseSidebarGroupedListElement;
+		// BrGroupedList;
+		value: [ :aGroupList | aGroupList selectedItems size = 1 and: [ 
+			aGroupList selectedItems anyOne title asString ] ] equals: 'Page 50';
+		label: 'Assert sidebar has selected page "Page 50"';
+		play.
+
+	^ aScripter
+]
+
+{ #category : #'examples - removed page' }
+LeUIByScripterExamples >> page50OfDatabaseWithManyPagesOfDifferentCreateTimes_DisplaySidebar_RemovePage [
+	<gtExample>
+	<return: #BlScripter>
+	| aScripter |
+	aScripter := self page50OfDatabaseWithManyPagesOfDifferentCreateTimes_DisplaySidebar.
+
+	aScripter click
+		label: 'Click on the dropdown button';
+		// LePageActionTargetDropdownButtonId;
+		play.
+	aScripter menuStep
+		label: 'Click on the remove page menu item';
+		hoverMenuItemWithId: LePageRemoveActionId;
+		onPopover;
+		play.
+	aScripter click
+		label: 'Confirm page removal';
+		onPopover;
+		// LePageConfirmationActionId;
+		play.
+
+	aScripter assert
+		label: 'Assert page snippet tree widget exists';
+		// LePageSnippetsTreeElementId;
+		exists;
+		play.
+
+	aScripter assert
+		// LeDatabaseSidebarGroupedListElement;
+		// BrGroupedList;
+		value: [ :aGroupList | aGroupList selectedItems size = 1 and: [ 
+			aGroupList selectedItems anyOne title asString ] ] equals: 'Page 53';
+		label: 'Assert sidebar has selected page "Page 53"';
+		play.
+
+	^ aScripter
+]
+
+{ #category : #'examples - removed page' }
+LeUIByScripterExamples >> page50OfDatabaseWithManyPagesOfDifferentCreateTimes_RemovePage [
+	<gtExample>
+	<return: #BlScripter>
+	| aScripter |
+	aScripter := self page50OfDatabaseWithManyPagesOfDifferentCreateTimes.
+
+	aScripter click
+		label: 'Click on the dropdown button';
+		// LePageActionTargetDropdownButtonId;
+		play.
+	aScripter menuStep
+		label: 'Click on the remove page menu item';
+		hoverMenuItemWithId: LePageRemoveActionId;
+		onPopover;
+		play.
+	aScripter click
+		label: 'Confirm page removal';
+		onPopover;
+		// LePageConfirmationActionId;
+		play.
+
+	aScripter assert
+		label: 'Assert page snippet tree widget does not exist';
+		// LePageSnippetsTreeElementId;
+		notExists;
+		play.
+
+	^ aScripter
+]
+
+{ #category : #'examples - removed page' }
+LeUIByScripterExamples >> page60OfDatabaseWithManyPagesOfDifferentCreateTimesAndToC [
+	<gtExample>
+	<return: #BlScripter>
+	| aScripter |
+	aScripter := self
+			scripterWithModel: [ LeModelExamples new page60OfDatabaseWithManyPagesOfDifferentCreateTimesAndToC ]
+			element: [ :aPageHolder | 
+				GtPagerSettings usedPager
+					createWrappedOn: (aPageHolder page asLepiterPagePhlowTool asElementDo: [ :anElement | anElement ]) ].
+
+	aScripter assert
+		label: 'Assert page snippet tree widget exists';
+		// LePageSnippetsTreeElementId;
+		exists;
+		play.
+
+	^ aScripter
+]
+
+{ #category : #'examples - removed page' }
+LeUIByScripterExamples >> page60OfDatabaseWithManyPagesOfDifferentCreateTimesAndToC_DisplaySidebar [
+
+	<gtExample>
+	<return: #BlScripter>
+	| aScripter |
+	aScripter := self page60OfDatabaseWithManyPagesOfDifferentCreateTimesAndToC.
+
+	aScripter treePager
+		label: 'Maximize page';
+		hoverPaneColumn: 1;
+		clickMaximizeColumn: 1;
+		play.
+
+	aScripter assert
+		// LeDatabaseSidebarTreeElement;
+		// #scrollable;
+		value: [ :anInfiniteElement | anInfiniteElement childrenCount ] equals: 31;
+		label: 'Assert sidebar displays pages';
+		play.
+		
+	aScripter assert
+		// LeDatabaseSidebarTreeElement;
+		// BrSimpleTree;
+		value: [ :aTree | aTree selectedItems size = 1 and: [ 
+			aTree selectedItems anyOne page title asString ] ] equals: 'Page 60';
+		label: 'Assert sidebar has selected page "Page 60"';
+		play.
+
+	^ aScripter
+]
+
+{ #category : #'examples - removed page' }
+LeUIByScripterExamples >> page60OfDatabaseWithManyPagesOfDifferentCreateTimesAndToC_DisplaySidebar_RemovePage [
+	<gtExample>
+	<return: #BlScripter>
+	| aScripter |
+	aScripter := self page60OfDatabaseWithManyPagesOfDifferentCreateTimesAndToC_DisplaySidebar.
+
+	aScripter click
+		label: 'Click on the dropdown button';
+		// LePageActionTargetDropdownButtonId;
+		play.
+	aScripter menuStep
+		label: 'Click on the remove page menu item';
+		hoverMenuItemWithId: LePageRemoveActionId;
+		onPopover;
+		play.
+	aScripter click
+		label: 'Confirm page removal';
+		onPopover;
+		// LePageConfirmationActionId;
+		play.
+
+	aScripter assert
+		label: 'Assert page snippet tree widget exists';
+		// LePageSnippetsTreeElementId;
+		exists;
+		play.
+
+	aScripter assert
+		// LeDatabaseSidebarTreeElement;
+		// BrSimpleTree;
+		value: [ :aTree | aTree selectedItems size = 1 and: [ 
+			aTree selectedItems anyOne page title asString ] ] equals: 'Page 59';
+		label: 'Assert sidebar has selected page "Page 59"';
+		play.
+
+	^ aScripter
+]
+
 { #category : #'examples - elements' }
 LeUIByScripterExamples >> pageInPager: aPage [
 	<gtExample>

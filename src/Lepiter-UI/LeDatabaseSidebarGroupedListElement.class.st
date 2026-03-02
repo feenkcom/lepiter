@@ -253,10 +253,29 @@ LeDatabaseSidebarGroupedListElement >> updateListItems [
 ]
 
 { #category : #'private - updating' }
+LeDatabaseSidebarGroupedListElement >> updateOldSelection [
+	listElement selectedIndices ifEmpty: [ ^ self ].
+
+	listElement
+		selectedEntityDo: [ :anEntity :anIndex | 
+			anEntity isItem
+				ifFalse: [ listElement selectNext ]
+				ifTrue: [ 
+					listElement deselectOne: anIndex.
+					listElement selectOne: anIndex ].
+			^ self ].
+			
+	listElement selectPrevious
+]
+
+{ #category : #'private - updating' }
 LeDatabaseSidebarGroupedListElement >> updateSelection [
 	| aPage aPageDate aNavigationModel |
-	self hasSelection ifFalse: [ ^ self ].
-	self selection class = LeContentViewModel ifTrue: [ ^ self ].
+	self hasSelection ifFalse: [
+		self updateOldSelection.
+		^ self ].
+	self selection class = LeContentViewModel 
+		ifTrue: [ ^ self ].
 
 	aPage := self selection pageModel.
 	aPageDate := aPage createTime ifNotNil: #asDate.

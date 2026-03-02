@@ -102,15 +102,21 @@ LeDatabaseSidebarTreeElement >> navigationModel [
 { #category : #accessing }
 LeDatabaseSidebarTreeElement >> navigationModel: anObject [
 	navigationModel := anObject.
-	navigationModel weak when: LeUIDatabaseNavigationModelChanged send: #onNavigationModelChanged to: self.
-	navigationModel weak when: LeUIPageSelected send: #updateSelection to: self
+	navigationModel weak
+		when: LeUIDatabaseNavigationModelChanged
+		send: #onNavigationModelChanged:
+		to: self.
+	navigationModel weak
+		when: LeUIPageSelected
+		send: #onSelectionChanged:
+		to: self
 ]
 
 { #category : #accessing }
 LeDatabaseSidebarTreeElement >> notifyListSelectionChangedTo: aTreeNode [
 	| aPageUIModel |
 	aPageUIModel := aTreeNode page asContentUIModel.
-	self selection pageModel = aPageUIModel pageModel ifTrue: [ ^ self ].
+	(self selection ifNotNil: #pageModel) = aPageUIModel pageModel ifTrue: [ ^ self ].
 
 	aTreeNode isForPage
 		ifTrue: [ self navigationModel
@@ -130,18 +136,24 @@ LeDatabaseSidebarTreeElement >> onContentUIModelChanged [
 	self updateTreeItems.
 ]
 
-{ #category : #accessing }
+{ #category : #'private - event handling' }
 LeDatabaseSidebarTreeElement >> onNavigationModelChanged [
-	self updateTreeItems.
-	self updateSelection
+	"Can be removed in the future."
+
+	self updateTreeItems
 ]
 
-{ #category : #accessing }
-LeDatabaseSidebarTreeElement >> onSelectionChanged [
+{ #category : #'private - event handling' }
+LeDatabaseSidebarTreeElement >> onNavigationModelChanged: anAnnouncement [
+	self updateTreeItems.
+]
+
+{ #category : #'private - event handling' }
+LeDatabaseSidebarTreeElement >> onSelectionChanged: anAnnouncement [
 	self updateSelection.
 ]
 
-{ #category : #accessing }
+{ #category : #'private - event handling' }
 LeDatabaseSidebarTreeElement >> onTreeSelectionChanged: aBrSelectionChanged [
 	aBrSelectionChanged selectedDo: [ :anInterval | 
 		self treeElement selectedNodeDo: [ :aNode | 
@@ -181,18 +193,33 @@ LeDatabaseSidebarTreeElement >> treeElement: anObject [
 	treeElement := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #'private - updating' }
+LeDatabaseSidebarTreeElement >> updateOldSelection [
+	treeElement selectedIndices ifEmpty: [ ^ self ].
+
+	treeElement
+		selectedNodeDo: [ :aNode :anIndex | 
+			aNode value isForPage
+				ifFalse: [ treeElement selectPrevious ]
+				ifTrue: [ 
+					treeElement deselectOne: anIndex.
+					treeElement selectOne: anIndex ].
+			^ self ].
+
+	treeElement selectPrevious
+]
+
+{ #category : #'private - updating' }
 LeDatabaseSidebarTreeElement >> updateSelection [
 	| pageTreeNode |
-	self hasSelection ifFalse: [ ^ self ].
-
+	self hasSelection ifFalse: [ self updateOldSelection. ^ self ].
 	self selection class = LeContentViewModel ifTrue: [ ^ self ].
 
 	pageTreeNode := LeTableOfContentsNode new page: self selection pageModel.
 	self treeElement selectAndScrollTo: pageTreeNode
 ]
 
-{ #category : #accessing }
+{ #category : #'private - updating' }
 LeDatabaseSidebarTreeElement >> updateTreeItems [
 	self treeElement
 		items: self items
