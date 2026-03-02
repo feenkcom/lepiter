@@ -54,6 +54,8 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 				spec requires: #('LepiterEngineCore' 'Gt4JSLink' 'Gt4ChromeDevTools' ). ];
 			package: 'Lepiter-Python' with: [
 				spec requires: #('LepiterEngineCore' 'Gt4PythonBridge' 'GToolkit4LSP' ). ];
+			package: 'Lepiter-Snippet-Pragma' with: [
+				spec requires: #('LepiterEngineCore' ) ];
 			package: 'Lepiter-Snippet-PharoLink' with: [
 				spec requires: #('LepiterEngineCore' 'Gt4PharoLink' ). ];
 			package: 'Lepiter-Snippet-Pharo-Rewrites' with: [

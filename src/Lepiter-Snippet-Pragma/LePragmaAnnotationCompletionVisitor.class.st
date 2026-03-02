@@ -77,12 +77,12 @@ LePragmaAnnotationCompletionVisitor >> visitPragmaAnnotation: aPragmaAnnotation 
 	parent := aPragmaAnnotation parent.
 	(aPragmaAnnotation pragmaNameNode isNil
 		and: [ parent notNil
-		and: [ parent respondsTo: #colon ]
-		and: [ self position >= parent colon stopPosition ] ])
-		ifTrue: [
-			candidates := self pragmaCandidates.
+				and: [ (parent respondsTo: #colon)
+						and: [ self position >= parent colon stopPosition ] ] ])
+		ifTrue: [ candidates := self pragmaCandidates.
 			prefix := ''.
-			candidates notEmpty ifTrue: [ ^ self addStreamFor: candidates startingWith: prefix ] ].
+			candidates notEmpty
+				ifTrue: [ ^ self addStreamFor: candidates startingWith: prefix ] ].
 	^ self visitPragmaParse: aPragmaAnnotation
 ]
 
