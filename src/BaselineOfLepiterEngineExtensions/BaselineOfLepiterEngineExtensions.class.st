@@ -10,7 +10,7 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'LepiterEngineCore' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.7.133/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.7.134/src' ].
 		spec
 			baseline: 'GToolkit4DockerEngine' with: [
 				spec repository: 'github://feenkcom/gt4dockerengine:v0.5.135/src' ].
@@ -34,7 +34,7 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 				spec repository: 'github://feenkcom/gtoolkit-visualizer:v0.9.117/src' ].
 		spec
 			baseline: 'LepiterYoutube' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.7.133/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.7.134/src' ].
 		spec
 			baseline: 'GToolkit4LSP' with: [
 				spec repository: 'github://feenkcom/gt4lsp:v0.7.65/src' ].
@@ -63,6 +63,8 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 			spec requires: #(#LepiterEngineCore #Gt4JSLink #Gt4ChromeDevTools) ].
 		spec package: 'Lepiter-Python' with: [
 			spec requires: #(#LepiterEngineCore #Gt4PythonBridge #GToolkit4LSP) ].
+		spec package: 'Lepiter-Snippet-Pragma' with: [
+			spec requires: #(#LepiterEngineCore) ].
 		spec package: 'Lepiter-Snippet-PharoLink' with: [
 			spec requires: #(#LepiterEngineCore #Gt4PharoLink) ].
 		spec package: 'Lepiter-Snippet-Pharo-Rewrites' with: [
