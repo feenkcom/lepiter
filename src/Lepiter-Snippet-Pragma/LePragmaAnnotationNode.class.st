@@ -48,6 +48,11 @@ LePragmaAnnotationNode >> initialize [
 	bars := OrderedCollection new: 2.
 ]
 
+{ #category : #testing }
+LePragmaAnnotationNode >> isDefined [
+	^ self hasPragmaNameSpecified
+]
+
 { #category : #accessing }
 LePragmaAnnotationNode >> items [
 	^ items
