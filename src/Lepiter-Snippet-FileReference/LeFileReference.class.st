@@ -20,13 +20,12 @@ LeFileReference class >> for: aFileReference range: anInterval [
 ]
 
 { #category : #'instance creation' }
-LeFileReference class >> fromAnnotation: anAnnotation inPage: aPage [
+LeFileReference class >> fromAnnotation: anAnnotation [
 	| pathString fileReference rangeStart rangeEnd interval |
 	pathString := anAnnotation pathString ifNil: [ ^ nil ].
 	fileReference := pathString asFileReference.
 	fileReference isAbsolute ifFalse: [
-		(aPage notNil and: [ aPage pageFileReference notNil ]) ifTrue: [
-			fileReference := aPage pageFileReference parent resolveReference: fileReference ] ].
+		fileReference := FileLocator imageDirectory resolveReference: fileReference ].
 	rangeStart := anAnnotation rangeStart.
 	rangeEnd := anAnnotation rangeEnd.
 	interval := (rangeStart notNil and: [ rangeEnd notNil ])

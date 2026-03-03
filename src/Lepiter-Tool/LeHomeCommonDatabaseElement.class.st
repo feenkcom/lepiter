@@ -70,7 +70,7 @@ LeHomeCommonDatabaseElement >> onDatabasePageAdded: anAnnouncement [
 ]
 
 { #category : #callbacks }
-LeHomeCommonDatabaseElement >> onDatatabasePageRemoved: anAnnouncement [
+LeHomeCommonDatabaseElement >> onDatabasePageRemoved: anAnnouncement [
 	self enqueueTask: (BlTaskAction new action: [ 
 		self updateRecentPagesCardsElement ]).
 ]
@@ -89,10 +89,10 @@ LeHomeCommonDatabaseElement >> subscribeToContent [
 			send: #onDatabasePageAdded: 
 			to: self;
 		when: LeDatabasePageRemoved
-			send: #onDatatabasePageRemoved:
+			send: #onDatabasePageRemoved:
 			to: self;
 		when: LePageUnloadAnnouncement 
-			send: #onDatatabasePageRemoved:
+			send: #onDatabasePageRemoved:
 			to: self
 ]
 

@@ -93,13 +93,12 @@ LeFileReferenceAnnotationStyler >> styleButton: anAnnotation [
 		to: anAnnotation parent stopPosition
 ]
 
-{ #category : #private }
+{ #category : #styling }
 LeFileReferenceAnnotationStyler >> styleExpandingObject: anAnnotation [
 	| cacheKey attribute expandedObject |
 	anAnnotation pathArgument ifNil: [ ^ self ].
 	expandedObject := LeFileReference
-		fromAnnotation: anAnnotation
-		inPage: self snippetViewModel snippetModel page.
+		fromAnnotation: anAnnotation.
 	expandedObject ifNil: [ ^ self ].
 	cacheKey := anAnnotation source.
 	attribute := (GtCachedTextExpandButtonAttribute new)

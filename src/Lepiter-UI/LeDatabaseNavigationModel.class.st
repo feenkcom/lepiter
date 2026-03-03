@@ -30,7 +30,7 @@ LeDatabaseNavigationModel >> database: anObject [
 			send: #onDatabaseChanged:
 			to: self;
 		when: LeDatabasePageRemoved
-			send: #onDatabaseChanged:
+			send: #onDatabasePageRemoved:
 			to: self;
 		when: LeDatabaseResorted
 			send: #onDatabaseChanged:
@@ -137,9 +137,20 @@ LeDatabaseNavigationModel >> initialize [
 		to: self
 ]
 
-{ #category : #accessing }
+{ #category : #'private - event handling' }
 LeDatabaseNavigationModel >> onDatabaseChanged: anAnnouncement [
+
 	self onNavigationModelChanged
+]
+
+{ #category : #'private - event handling' }
+LeDatabaseNavigationModel >> onDatabasePageRemoved: anAnnouncement [
+	pageViewModel ifNotNil: [ :aViewModel | 
+		aViewModel pageModel = anAnnouncement page ifTrue: [ 
+			"Let's remove the selected page if it is the removed page."
+			pageViewModel := nil ] ].
+
+	self onDatabaseChanged: anAnnouncement
 ]
 
 { #category : #accessing }
@@ -158,7 +169,8 @@ LeDatabaseNavigationModel >> onSelection: anAnnouncement [
 		assert: [ anAnnouncement page isKindOf: LePageViewModel ]
 		description: [ 'Must be a UI model' ].
 
-	pageViewModel pageModel = anAnnouncement page pageModel ifTrue: [ ^ self ].
+	(pageViewModel isNotNil and: [ pageViewModel pageModel = anAnnouncement page pageModel ]) 
+		ifTrue: [ ^ self ].
 
 	self page: anAnnouncement page
 ]
