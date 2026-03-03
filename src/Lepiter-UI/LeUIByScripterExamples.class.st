@@ -379,8 +379,8 @@ LeUIByScripterExamples >> page49OfDatabaseWithManyPagesOfDifferentCreateTimes_Di
 		// LeDatabaseSidebarGroupedListElement;
 		// BrGroupedList;
 		value: [ :aGroupList | aGroupList selectedItems size = 1 and: [ 
-			aGroupList selectedItems anyOne title asString ] ] equals: 'Page 51';
-		label: 'Assert sidebar has selected page "Page 51"';
+			aGroupList selectedItems anyOne title asString ] ] equals: 'Page 48';
+		label: 'Assert sidebar has selected page "Page 48"';
 		play.
 
 	^ aScripter
