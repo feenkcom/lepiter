@@ -12,7 +12,7 @@ LeModelExamples >> databaseWithManyPagesOfDifferentCreateTimes [
 	aTemporaryDatabase := LeTemporaryDatabase new.
 	aDatabase := aTemporaryDatabase database.
 
-	aTime := DateAndTime now.
+	aTime := DateAndTime year: 2026 month: 2 day: 3 hour: 2 minute: 8 second: 6 nanoSecond: 0 offset: 0 hours.
 	1
 		to: 100
 		do: [ :anIndex | 
@@ -42,7 +42,7 @@ LeModelExamples >> databaseWithManyPagesOfDifferentCreateTimesAndToC [
 	aTemporaryDatabase := LeTemporaryDatabase new.
 	aDatabase := aTemporaryDatabase database.
 	
-	aTime := DateAndTime now.
+	aTime := DateAndTime year: 2026 month: 2 day: 3 hour: 2 minute: 8 second: 6 nanoSecond: 0 offset: 0 hours.
 	aToCPage := aDatabase pageBuilder
 		title: 'Table of Contents';
 		createTime: aTime - 25 hours;
