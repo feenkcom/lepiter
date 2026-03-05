@@ -37,6 +37,25 @@ LePragmaArgumentNode >> name: aSmaCCToken [
 	name := aSmaCCToken
 ]
 
+{ #category : #accessing }
+LePragmaArgumentNode >> nameString [
+	| token |
+	token := self name.
+	^ token isNil
+		ifTrue: [ nil ]
+		ifFalse: [ token value ]
+]
+
+{ #category : #accessing }
+LePragmaArgumentNode >> normalizedValue [
+	| raw |
+	raw := self valueString.
+	raw isNil ifTrue: [ ^ nil ].
+	(raw size >= 2 and: [ raw first = $" and: [ raw last = $" ] ])
+		ifFalse: [ ^ raw ].
+	^ ((raw copyFrom: 2 to: raw size - 1) copyReplaceAll: '""' with: '"')
+]
+
 { #category : #generated }
 LePragmaArgumentNode >> tokenVariables [
 	^ #(#value #name #equals)
@@ -50,4 +69,13 @@ LePragmaArgumentNode >> value [
 { #category : #generated }
 LePragmaArgumentNode >> value: aSmaCCToken [
 	value := aSmaCCToken
+]
+
+{ #category : #accessing }
+LePragmaArgumentNode >> valueString [
+	| token |
+	token := self value.
+	^ token isNil
+		ifTrue: [ nil ]
+		ifFalse: [ token value ]
 ]
