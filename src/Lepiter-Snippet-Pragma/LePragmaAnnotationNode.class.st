@@ -77,6 +77,12 @@ LePragmaAnnotationNode >> hasPragmaNameSpecified [
 ]
 
 { #category : #'as yet unclassified' }
+LePragmaAnnotationNode >> height [
+	"polymorphic"
+	^ nil
+]
+
+{ #category : #'as yet unclassified' }
 LePragmaAnnotationNode >> imageObject [
 	^ GtPragmaType new keyword: self pragmaName
 ]
@@ -123,4 +129,10 @@ LePragmaAnnotationNode >> pragmaName [
 { #category : #accessing }
 LePragmaAnnotationNode >> pragmaNameNode [
 	^ items detect: [ :each | each isKindOf: LePragmaNameNode ] ifNone: [  ]
+]
+
+{ #category : #'as yet unclassified' }
+LePragmaAnnotationNode >> showSelector [
+	"polymorphic"
+	^ nil
 ]
