@@ -41,6 +41,11 @@ LePragmaAnnotationNode >> hasPragmaNameSpecified [
 	^ self pragmaNameNode notNil
 ]
 
+{ #category : #'as yet unclassified' }
+LePragmaAnnotationNode >> imageObject [
+	^ GtPragmaType new keyword: self pragmaName
+]
+
 { #category : #'generated-initialize-release' }
 LePragmaAnnotationNode >> initialize [
 	super initialize.
@@ -61,6 +66,12 @@ LePragmaAnnotationNode >> items [
 { #category : #accessing }
 LePragmaAnnotationNode >> items: aCollection [
 	items := aCollection
+]
+
+{ #category : #accessing }
+LePragmaAnnotationNode >> nameNode [
+	"polymorphic method"
+	^ self pragmaNameNode
 ]
 
 { #category : #accessing }
