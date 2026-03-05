@@ -9,6 +9,17 @@ LePageAnnotationNode >> acceptVisitor: anAnnotationParseVisitor [
 	^ anAnnotationParseVisitor visitPageAnnotation: self
 ]
 
+{ #category : #accessing }
+LePageAnnotationNode >> asPageInDefaultLogicalDatabase [
+	| aLeDatabase |
+	aLeDatabase := LeDatabasesRegistry uniqueInstance defaultLogicalDatabase
+			databaseWithID: self dbUuidString.
+	^ aLeDatabase
+		pageNamed: self pageName
+		ifPresent: [ :thePage | thePage ]
+		ifAbsent: [ nil ]
+]
+
 { #category : #'api - accessing' }
 LePageAnnotationNode >> dbUuidString [
 	^ self dbNode ifNotNil: [ :node | node value source ]
