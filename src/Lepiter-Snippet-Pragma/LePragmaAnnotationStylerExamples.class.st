@@ -57,7 +57,7 @@ LePragmaAnnotationStylerExamples >> styleExpandedPragmaAnnotation [
 	| text attributes expandedAttribute |
 	text := self textOfSnippetWithExpandedPragmaAnnotation.
 	attributes := text attributesAt: 1.
-	self assertForegroundOfText: text hasColor: (Color black alpha: 0.6).
+	self assertForegroundOfText: text hasColor: BrGlamorousColors textMarkupColor.
 	self
 		assert: (attributes anySatisfy: [ :each | each class = BrTextAdornmentDynamicAttribute ]).
 	self
@@ -69,9 +69,7 @@ LePragmaAnnotationStylerExamples >> styleExpandedPragmaAnnotation [
 			ifNone: [ self assert: false description: 'Missing expanded attribute' ].
 	self assert: expandedAttribute isExpanded.
 
-	self
-		assertForegroundOfButtonLabel: text
-		hasColor: BrGlamorousColors linkColor.
+	self assertForegroundOfButtonLabel: text hasColor: BrGlamorousColors linkColor.
 
 	^ text
 ]
