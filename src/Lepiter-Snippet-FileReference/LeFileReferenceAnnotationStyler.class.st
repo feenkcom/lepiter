@@ -37,14 +37,11 @@ LeFileReferenceAnnotationStyler >> expanded [
 
 { #category : #accessing }
 LeFileReferenceAnnotationStyler >> fileReferenceFor: anAnnotation [
-	| pathString fileReference page |
+	| pathString fileReference |
 	pathString := anAnnotation pathString ifNil: [ ^ nil ].
 	fileReference := pathString asFileReference.
 	fileReference isAbsolute ifTrue: [ ^ fileReference ].
-	page := self snippetViewModel snippetModel page.
-	page ifNil: [ ^ fileReference ].
-	page pageFileReference ifNil: [ ^ fileReference ].
-	^ page pageFileReference parent resolveReference: fileReference
+	^ FileLocator imageDirectory resolveReference: fileReference
 ]
 
 { #category : #accessing }

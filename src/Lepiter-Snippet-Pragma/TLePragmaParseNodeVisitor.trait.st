@@ -16,6 +16,11 @@ TLePragmaParseNodeVisitor >> visitPragmaArgument: aPragmaArgument [
 ]
 
 { #category : #generated }
+TLePragmaParseNodeVisitor >> visitPragmaExpanded: aPragmaExpanded [
+	^ self visitPragmaArgument: aPragmaExpanded
+]
+
+{ #category : #generated }
 TLePragmaParseNodeVisitor >> visitPragmaName: aPragmaName [
 	^ self visitPragmaArgument: aPragmaName
 ]

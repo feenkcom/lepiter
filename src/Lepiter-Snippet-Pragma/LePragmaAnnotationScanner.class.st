@@ -7,7 +7,7 @@ Class {
 { #category : #'generated-initialization' }
 LePragmaAnnotationScanner class >> initializeKeywordMap [
 	keywordMap := Dictionary new.
-	#(#(5 'pragma' 2))
+	#(#(8 'expanded' 2) #(8 'false' 3) #(8 'pragma' 4) #(8 'true' 5))
 		do: [ :each | 
 			(keywordMap at: each first ifAbsentPut: [ Dictionary new ])
 				at: (each at: 2)
@@ -17,12 +17,12 @@ LePragmaAnnotationScanner class >> initializeKeywordMap [
 
 { #category : #generated }
 LePragmaAnnotationScanner >> emptySymbolTokenId [
-	^ 12
+	^ 16
 ]
 
 { #category : #generated }
 LePragmaAnnotationScanner >> errorTokenId [
-	^ 13
+	^ 17
 ]
 
 { #category : #generated }
@@ -36,7 +36,7 @@ LePragmaAnnotationScanner >> scan1 [
 
 { #category : #generated }
 LePragmaAnnotationScanner >> scan2 [
-	[ self recordMatch: #(5).
+	[ self recordMatch: #(8).
 	self step.
 	currentCharacter == $" ifTrue: [ ^ self scan1 ].
 	currentCharacter isAlphaNumeric ] whileTrue.
@@ -48,9 +48,9 @@ LePragmaAnnotationScanner >> scanForToken [
 	self step.
 	currentCharacter == $" ifTrue: [ ^ self scan1 ].
 	currentCharacter == $= ifTrue: [ ^ self recordAndReportMatch: #(1) ].
-	currentCharacter == $| ifTrue: [ ^ self recordAndReportMatch: #(3) ].
+	currentCharacter == $| ifTrue: [ ^ self recordAndReportMatch: #(6) ].
 	(currentCharacter isSeparator or: [ currentCharacter == Character pageUp ])
-		ifTrue: [ [ self recordMatch: #(4).
+		ifTrue: [ [ self recordMatch: #(7).
 			self step.
 			currentCharacter isSeparator or: [ currentCharacter == Character pageUp ] ]
 				whileTrue.
@@ -61,5 +61,5 @@ LePragmaAnnotationScanner >> scanForToken [
 
 { #category : #generated }
 LePragmaAnnotationScanner >> tokenActions [
-	^ #(nil nil nil #whitespace)
+	^ #(nil nil nil nil nil nil #whitespace)
 ]

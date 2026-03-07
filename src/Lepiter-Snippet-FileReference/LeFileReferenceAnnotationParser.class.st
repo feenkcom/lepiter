@@ -6,7 +6,7 @@ Class {
 
 { #category : #'generated-accessing' }
 LeFileReferenceAnnotationParser class >> cacheId [
-	^'2026-02-27T07:16:28.044648-06:00'
+	^'2026-03-06T06:12:24.266-06:00'
 ]
 
 { #category : #generated }
@@ -20,14 +20,15 @@ LeFileReferenceAnnotationParser class >> definitionComment [
 <whitespace>
 	: \s+
 	;
+<integer>
+	: \d+
+	;
 <bareValue>
-	: \d+[^|}\s=:][^|}\s=:]*|[^\d|}\s=:][^|}\s=:]*
+	: [a-zA-Z] \: [^|}\s\:\=]*	# Windows c:\ filenames
+	| [^|}\s\:\=]+
 	;
 <quotedValue>
 	: \""(\""\""|[^\""])*\""
-	;
-<integer>
-	: \d+
 	;
 
 FileReferenceAnnotation 
@@ -82,27 +83,27 @@ LeFileReferenceAnnotationParser class >> obsolete [
 { #category : #generated }
 LeFileReferenceAnnotationParser class >> reduceTable [
 ^#(
-	#(24 1 #reduceActionForExpanded1: 838657 false) 
-	#(22 1 #liftFirstValue: 685058 false) 
-	#(22 1 #liftFirstValue: 685057 false) 
-	#(18 0 #reduceActionFor______bar__Item__item___1: 388097 false) 
-	#(19 1 #liftFirstValue: 433157 false) 
-	#(19 1 #liftFirstValue: 433153 false) 
-	#(20 1 #reduceActionForPath2: 490498 false) 
-	#(19 1 #liftFirstValue: 433154 false) 
-	#(19 1 #liftFirstValue: 433155 false) 
-	#(19 1 #liftFirstValue: 433156 false) 
-	#(16 2 #reduceActionForFileReferenceAnnotation1: 347137 false) 
-	#(25 1 #liftFirstValue: 937986 false) 
-	#(25 1 #liftFirstValue: 937985 false) 
-	#(24 3 #reduceActionForExpanded2: 838658 false) 
-	#(26 3 #reduceActionForHeight1: 976897 false) 
-	#(21 3 #reduceActionForLabel1: 606209 false) 
-	#(20 3 #reduceActionForPath1: 490497 false) 
-	#(16 3 #reduceActionForFileReferenceAnnotation2: 347138 false) 
-	#(18 2 #reduceActionFor______bar__Item__item___2: 388098 false) 
-	#(17 2 #reduceActionFor______bar__Item__item__1: 388097 false) 
-	#(23 5 #reduceActionForRange1: 727041 false)
+	#(24 1 #reduceActionForExpanded1: 860161 false) 
+	#(22 1 #liftFirstValue: 706562 false) 
+	#(22 1 #liftFirstValue: 706561 false) 
+	#(18 0 #reduceActionFor______bar__Item__item___1: 409601 false) 
+	#(19 1 #liftFirstValue: 454661 false) 
+	#(19 1 #liftFirstValue: 454657 false) 
+	#(20 1 #reduceActionForPath2: 512002 false) 
+	#(19 1 #liftFirstValue: 454658 false) 
+	#(19 1 #liftFirstValue: 454659 false) 
+	#(19 1 #liftFirstValue: 454660 false) 
+	#(16 2 #reduceActionForFileReferenceAnnotation1: 368641 false) 
+	#(25 1 #liftFirstValue: 959490 false) 
+	#(25 1 #liftFirstValue: 959489 false) 
+	#(24 3 #reduceActionForExpanded2: 860162 false) 
+	#(26 3 #reduceActionForHeight1: 998401 false) 
+	#(21 3 #reduceActionForLabel1: 627713 false) 
+	#(20 3 #reduceActionForPath1: 512001 false) 
+	#(16 3 #reduceActionForFileReferenceAnnotation2: 368642 false) 
+	#(18 2 #reduceActionFor______bar__Item__item___2: 409602 false) 
+	#(17 2 #reduceActionFor______bar__Item__item__1: 409601 false) 
+	#(23 5 #reduceActionForRange1: 748545 false)
 	).
 ]
 
@@ -118,7 +119,7 @@ LeFileReferenceAnnotationParser class >> startingStateForFileReferenceAnnotation
 
 { #category : #generated }
 LeFileReferenceAnnotationParser class >> symbolNames [
-	^ #('":"' '"="' '"expanded"' '"false"' '"height"' '"label"' '"path"' '"range"' '"true"' '"|"' '<whitespace>' '<bareValue>' '<quotedValue>' '<integer>' 'B e g i n' 'FileReferenceAnnotation' '("|" ''bar'' Item ''item'')' '("|" ''bar'' Item ''item'')*' 'Item' 'Path' 'Label' 'Value' 'Range' 'Expanded' 'ExpandedValue' 'Height' 'E O F' 'error')
+	^ #('":"' '"="' '"expanded"' '"false"' '"height"' '"label"' '"path"' '"range"' '"true"' '"|"' '<whitespace>' '<integer>' '<bareValue>' '<quotedValue>' 'B e g i n' 'FileReferenceAnnotation' '("|" ''bar'' Item ''item'')' '("|" ''bar'' Item ''item'')*' 'Item' 'Path' 'Label' 'Value' 'Range' 'Expanded' 'ExpandedValue' 'Height' 'E O F' 'error')
 ]
 
 { #category : #generated }
@@ -129,7 +130,7 @@ LeFileReferenceAnnotationParser class >> symbolTypes [
 { #category : #generated }
 LeFileReferenceAnnotationParser class >> transitionTable [
 ^#(
-#[1 0 9 0 3 0 13 0 5 0 17 0 6 0 21 0 7 0 25 0 8 0 53 0 12 0 53 0 13 0 37 0 16 0 41 0 19 0 41 0 20 0 41 0 21 0 53 0 22 0 41 0 23 0 41 0 24 0 41 0 26] 
+#[1 0 9 0 3 0 13 0 5 0 17 0 6 0 21 0 7 0 25 0 8 0 53 0 13 0 53 0 14 0 37 0 16 0 41 0 19 0 41 0 20 0 41 0 21 0 53 0 22 0 41 0 23 0 41 0 24 0 41 0 26] 
 #[1 0 69 0 2 0 6 0 10 0 6 0 27] 
 #[0 0 73 0 2] 
 #[0 0 77 0 2] 
@@ -146,10 +147,10 @@ LeFileReferenceAnnotationParser class >> transitionTable [
 #[0 0 38 0 10 0 27] 
 #[0 0 42 0 10 0 27] 
 #[0 0 101 0 4 0 9 0 25] 
-#[0 0 105 0 14] 
-#[0 0 109 0 12 0 13 0 22] 
-#[0 0 113 0 12 0 13 0 22] 
-#[0 0 117 0 14] 
+#[0 0 105 0 12] 
+#[0 0 109 0 13 0 14 0 22] 
+#[0 0 113 0 13 0 14 0 22] 
+#[0 0 117 0 12] 
 #[1 0 121 0 10 0 125 0 17 0 46 0 27] 
 #[0 0 50 0 10 0 27] 
 #[0 0 54 0 10 0 27] 
@@ -158,9 +159,9 @@ LeFileReferenceAnnotationParser class >> transitionTable [
 #[0 0 66 0 10 0 27] 
 #[0 0 70 0 10 0 27] 
 #[0 0 129 0 1] 
-#[1 0 9 0 3 0 13 0 5 0 17 0 6 0 21 0 7 0 25 0 8 0 53 0 12 0 53 0 13 0 133 0 19 0 133 0 20 0 133 0 21 0 53 0 22 0 133 0 23 0 133 0 24 0 133 0 26 0 74 0 27] 
+#[1 0 9 0 3 0 13 0 5 0 17 0 6 0 21 0 7 0 25 0 8 0 53 0 13 0 53 0 14 0 133 0 19 0 133 0 20 0 133 0 21 0 53 0 22 0 133 0 23 0 133 0 24 0 133 0 26 0 74 0 27] 
 #[0 0 78 0 10 0 27] 
-#[0 0 137 0 14] 
+#[0 0 137 0 12] 
 #[0 0 82 0 10 0 27] 
 #[0 0 86 0 10 0 27]
 	).

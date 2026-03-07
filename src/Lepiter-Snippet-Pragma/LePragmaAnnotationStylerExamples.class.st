@@ -37,6 +37,37 @@ LePragmaAnnotationStylerExamples >> styleExistingPragmaAnnotation [
 ]
 
 { #category : #examples }
+LePragmaAnnotationStylerExamples >> styleExpandedPragmaAnnotation [
+	<gtExample>
+	<return: #BlText>
+	| aString anAst aText aStyler aSnippet aViewModel aPage aDatabase anAnnotation attributes |
+	aString := '{{gtPragma:gtView|expanded=true}}'.
+	aText := aString asRopedText.
+	anAst := LeParser parse: aString.
+
+	anAnnotation := (anAst // LePragmaAnnotationNode) anyOne.
+	self assert: anAnnotation notNil.
+	self assert: anAnnotation expandedValue equals: true.
+
+	aDatabase := LeDatabase new.
+	aPage := LePage new.
+	aPage title: 'Pragma reference expanded'.
+	aDatabase addPage: aPage.
+	aSnippet := LeTextSnippet new string: aString.
+	aPage addSnippet: aSnippet.
+
+	aViewModel := aSnippet asSnippetViewModel.
+	aStyler := LeSnippetStyler new snippetViewModel: aViewModel.
+
+	aStyler style: aText ast: anAst.
+	attributes := aText attributesAt: anAnnotation parent startPosition.
+
+	self assert: (attributes anySatisfy: [ :each | (each respondsTo: #isExpanded) and: [ each isExpanded ] ]).
+
+	^ aText
+]
+
+{ #category : #examples }
 LePragmaAnnotationStylerExamples >> styleMissingPragmaAnnotation [
 	<gtExample>
 	<return: #BlText>

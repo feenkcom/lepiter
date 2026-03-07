@@ -59,14 +59,15 @@ LePragmaAnnotationStyler >> styleAnnotation: aPragmaAnnotation [
 
 { #category : #styling }
 LePragmaAnnotationStyler >> styleExpandingObject: aPragmaAnnotation [
-	| pragmaName cacheKey attribute pragmaType |
+	| pragmaName cacheKey attribute pragmaType isExpanded |
 	pragmaName := aPragmaAnnotation pragmaName.
 	pragmaName ifNil: [ ^ self ].
 	(self pragmaExists: aPragmaAnnotation) ifFalse: [ ^ self ].
 	pragmaType := GtPragmaType new keyword: pragmaName asSymbol; yourself.
 	cacheKey := aPragmaAnnotation source.
+	isExpanded := aPragmaAnnotation expandedValue ifNil: [ false ].
 	attribute := (GtCachedTextExpandButtonAttribute new)
-		isExpanded: (self expanded at: cacheKey ifAbsentPut: [ false ]);
+		isExpanded: (self expanded at: cacheKey ifAbsentPut: [ isExpanded ]);
 		attributesCreatingBlock: [
 			(GtResizablePreviewAttribute new)
 				withCache: self elements key: cacheKey;

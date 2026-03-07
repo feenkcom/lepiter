@@ -7,7 +7,7 @@ Class {
 { #category : #'generated-initialization' }
 LeFileReferenceAnnotationScanner class >> initializeKeywordMap [
 	keywordMap := Dictionary new.
-	#(#(12 'expanded' 3) #(12 'false' 4) #(12 'height' 5) #(12 'label' 6) #(12 'path' 7) #(12 'range' 8) #(12 'true' 9))
+	#(#(13 'expanded' 3) #(13 'false' 4) #(13 'height' 5) #(13 'label' 6) #(13 'path' 7) #(13 'range' 8) #(13 'true' 9))
 		do: [ :each | 
 			(keywordMap at: each first ifAbsentPut: [ Dictionary new ])
 				at: (each at: 2)
@@ -27,7 +27,7 @@ LeFileReferenceAnnotationScanner >> errorTokenId [
 
 { #category : #generated }
 LeFileReferenceAnnotationScanner >> scan1 [
-	[ self recordMatch: #(12).
+	[ self recordMatch: #(13).
 	self step.
 	currentCharacter == $" ifTrue: [ ^ self scan1X1 ].
 	(currentCharacter isSeparator
@@ -39,7 +39,7 @@ LeFileReferenceAnnotationScanner >> scan1 [
 
 { #category : #generated }
 LeFileReferenceAnnotationScanner >> scan1X1 [
-	self recordMatch: #(12 13).
+	self recordMatch: #(13 14).
 	self step.
 	currentCharacter == $" ifTrue: [ ^ self scan1 ].
 	(currentCharacter <= Character backspace
@@ -47,7 +47,7 @@ LeFileReferenceAnnotationScanner >> scan1X1 [
 				or: [ (currentCharacter between: $! and: $9)
 						or: [ (currentCharacter between: $; and: $<)
 								or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ] ] ])
-		ifTrue: [ [ self recordMatch: #(12).
+		ifTrue: [ [ self recordMatch: #(13).
 			self step.
 			currentCharacter <= Character backspace
 				or: [ (currentCharacter between: (Character value: 14) and: Character arrowDown)
@@ -62,7 +62,7 @@ LeFileReferenceAnnotationScanner >> scan1X1 [
 LeFileReferenceAnnotationScanner >> scan2 [
 	[ self step.
 	currentCharacter == $"
-		ifTrue: [ self recordMatch: #(13).
+		ifTrue: [ self recordMatch: #(14).
 			self step.
 			currentCharacter == $" ifTrue: [ ^ self scan2 ].
 			^ self reportLastMatch ].
@@ -78,30 +78,26 @@ LeFileReferenceAnnotationScanner >> scanForToken [
 	currentCharacter == $| ifTrue: [ ^ self recordAndReportMatch: #(10) ].
 	currentCharacter isDigit ifTrue: [ ^ self scanForTokenX1 ].
 	(currentCharacter isSeparator or: [ currentCharacter == Character pageUp ])
-		ifTrue: [ [ self recordMatch: #(11).
-			self step.
-			currentCharacter isSeparator or: [ currentCharacter == Character pageUp ] ]
-				whileTrue.
-			^ self reportLastMatch ].
+		ifTrue: [ ^ self scanForTokenX4 ].
+	((currentCharacter between: $A and: $Z)
+		or: [ currentCharacter between: $a and: $z ])
+		ifTrue: [ ^ self scanForTokenX2 ].
 	(currentCharacter <= ${ or: [ currentCharacter >= $~ ])
-		ifTrue: [ self scanForTokenX2 ].
+		ifTrue: [ self scanForTokenX3 ].
 	^ self reportLastMatch
 ]
 
 { #category : #generated }
 LeFileReferenceAnnotationScanner >> scanForTokenX1 [
-	self recordMatch: #(14).
+	[ self recordMatch: #(12 13).
 	self step.
-	currentCharacter isDigit
-		ifTrue: [ [ self recordMatch: #(12 14).
-			self step.
-			currentCharacter isDigit ] whileTrue ].
+	currentCharacter isDigit ] whileTrue.
 	(currentCharacter <= Character backspace
 		or: [ (currentCharacter between: (Character value: 14) and: Character arrowDown)
 				or: [ (currentCharacter between: $! and: $/)
 						or: [ (currentCharacter between: $; and: $<)
 								or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ] ] ])
-		ifTrue: [ [ self recordMatch: #(12).
+		ifTrue: [ [ self recordMatch: #(13).
 			self step.
 			currentCharacter <= Character backspace
 				or: [ (currentCharacter between: (Character value: 14) and: Character arrowDown)
@@ -114,7 +110,26 @@ LeFileReferenceAnnotationScanner >> scanForTokenX1 [
 
 { #category : #generated }
 LeFileReferenceAnnotationScanner >> scanForTokenX2 [
-	[ self recordMatch: #(12).
+	self recordMatch: #(13).
+	self step.
+	(currentCharacter <= Character backspace
+		or: [ (currentCharacter between: (Character value: 14) and: Character arrowDown)
+				or: [ (currentCharacter between: $! and: $<)
+						or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ] ])
+		ifTrue: [ [ self recordMatch: #(13).
+			self step.
+			currentCharacter <= Character backspace
+				or: [ (currentCharacter between: (Character value: 14) and: Character arrowDown)
+						or: [ (currentCharacter between: $! and: $9)
+								or: [ (currentCharacter between: $; and: $<)
+										or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ] ] ] ]
+				whileTrue ].
+	^ self reportLastMatch
+]
+
+{ #category : #generated }
+LeFileReferenceAnnotationScanner >> scanForTokenX3 [
+	[ self recordMatch: #(13).
 	self step.
 	currentCharacter <= Character backspace
 		or: [ (currentCharacter between: (Character value: 14) and: Character arrowDown)
@@ -122,6 +137,15 @@ LeFileReferenceAnnotationScanner >> scanForTokenX2 [
 						or: [ (currentCharacter between: $; and: $<)
 								or: [ (currentCharacter between: $> and: ${) or: [ currentCharacter >= $~ ] ] ] ] ] ]
 		whileTrue
+]
+
+{ #category : #generated }
+LeFileReferenceAnnotationScanner >> scanForTokenX4 [
+	[ self recordMatch: #(11).
+	self step.
+	currentCharacter isSeparator or: [ currentCharacter == Character pageUp ] ]
+		whileTrue.
+	^ self reportLastMatch
 ]
 
 { #category : #generated }
