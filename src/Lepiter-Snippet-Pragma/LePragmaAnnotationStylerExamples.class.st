@@ -11,88 +11,143 @@ Class {
 LePragmaAnnotationStylerExamples >> styleExistingPragmaAnnotation [
 	<gtExample>
 	<return: #BlText>
-	| aString anAst aText aStyler aSnippet aViewModel aPage aDatabase anAnnotation |
-	aString := '{{gtPragma:gtView}}'.
-	aText := aString asRopedText.
-	anAst := LeParser parse: aString.
+	| string anAst text styler snippet snippetViewModel annotation attributes foregroundAttribute textColor buttonAttribute buttonElement scripter buttonLabel buttonColor buttonLabelAttributes buttonLabelForegroundAttribute |
+	string := '{{gtPragma:gtView}}'.
+	anAst := LeParser parse: string.
+	annotation := (anAst // LePragmaAnnotationNode) anyOne.
+	self assert: annotation notNil.
+	snippet := LeTextSnippet new string: string.
+	text := snippet text.
 
-	anAnnotation := (anAst // LePragmaAnnotationNode) anyOne.
-	self assert: anAnnotation notNil.
+	snippetViewModel := snippet asSnippetViewModel.
+	styler := LeSnippetStyler new snippetViewModel: snippetViewModel.
+	styler style: text ast: anAst.
+	
+	attributes := text attributesAt: annotation parent startPosition.
+	foregroundAttribute := attributes
+			detect: [ :each | each class = BlTextForegroundAttribute ]
+			ifNone: [ self assert: false description: 'Missing foreground attribute' ].
+	textColor := foregroundAttribute paint.
+	self assert: textColor red equals: 0.0.
+	self assert: textColor green equals: 0.0.
+	self assert: textColor blue equals: 0.0.
+	self assert: textColor alpha equals: 0.6.
 
-	aDatabase := LeDatabase new.
-	aPage := LePage new.
-	aPage title: 'Pragma reference'.
-	aDatabase addPage: aPage.
-	aSnippet := LeTextSnippet new string: aString.
-	aPage addSnippet: aSnippet.
+	self assert: (attributes 
+				anySatisfy: [ :each | each class = BrTextAdornmentDynamicAttribute ]).
+	self assert: (attributes
+				anySatisfy: [ :each | each class = GtCachedTextExpandButtonAttribute ]).
 
-	aViewModel := aSnippet asSnippetViewModel.
-	aStyler := LeSnippetStyler new snippetViewModel: aViewModel.
+	buttonAttribute := attributes
+			detect: [ :each | each class = GtButtonAttribute ]
+			ifNone: [ self assert: false description: 'Missing button attribute' ].
+	buttonElement := buttonAttribute stencil asElement.
+	scripter := BlScripter new element: buttonElement.
+	buttonLabel := scripter elementWithoutParent label.
+	buttonLabelAttributes := buttonLabel attributesAt: annotation parent startPosition.
+	buttonLabelForegroundAttribute := buttonLabelAttributes
+			detect: [ :each | each class = BlTextForegroundAttribute ]
+			ifNone: [ self assert: false description: 'Missing foreground attribute' ].
+	buttonColor := buttonLabelForegroundAttribute paint.
+	self assert: buttonColor equals: BrGlamorousColors linkColor.
 
-	aStyler style: aText ast: anAst.
-
-	self assert: (aText attributesAt: anAnnotation parent startPosition) notEmpty.
-
-	^ aText
+	^ text
 ]
 
 { #category : #examples }
 LePragmaAnnotationStylerExamples >> styleExpandedPragmaAnnotation [
 	<gtExample>
 	<return: #BlText>
-	| aString anAst aText aStyler aSnippet aViewModel aPage aDatabase anAnnotation attributes |
-	aString := '{{gtPragma:gtView|expanded=true}}'.
-	aText := aString asRopedText.
-	anAst := LeParser parse: aString.
+	
+		| string anAst text styler snippet snippetViewModel annotation attributes foregroundAttribute textColor buttonAttribute buttonElement scripter buttonLabel buttonColor buttonLabelAttributes buttonLabelForegroundAttribute expandedAttribute |
+	string := '{{gtPragma:gtView|expanded=true}}'.
+	anAst := LeParser parse: string.
+	annotation := (anAst // LePragmaAnnotationNode) anyOne.
+	self assert: annotation notNil.
+	snippet := LeTextSnippet new string: string.
+	text := snippet text.
 
-	anAnnotation := (anAst // LePragmaAnnotationNode) anyOne.
-	self assert: anAnnotation notNil.
-	self assert: anAnnotation expandedValue equals: true.
+	snippetViewModel := snippet asSnippetViewModel.
+	styler := LeSnippetStyler new snippetViewModel: snippetViewModel.
+	styler style: text ast: anAst.
+	
+	attributes := text attributesAt: annotation parent startPosition.
+	foregroundAttribute := attributes
+			detect: [ :each | each class = BlTextForegroundAttribute ]
+			ifNone: [ self assert: false description: 'Missing foreground attribute' ].
+	textColor := foregroundAttribute paint.
+	self assert: textColor red equals: 0.0.
+	self assert: textColor green equals: 0.0.
+	self assert: textColor blue equals: 0.0.
+	self assert: textColor alpha equals: 0.6.
 
-	aDatabase := LeDatabase new.
-	aPage := LePage new.
-	aPage title: 'Pragma reference expanded'.
-	aDatabase addPage: aPage.
-	aSnippet := LeTextSnippet new string: aString.
-	aPage addSnippet: aSnippet.
+	self assert: (attributes 
+				anySatisfy: [ :each | each class = BrTextAdornmentDynamicAttribute ]).
+	self assert: (attributes
+				anySatisfy: [ :each | each class = GtCachedTextExpandButtonAttribute ]).
 
-	aViewModel := aSnippet asSnippetViewModel.
-	aStyler := LeSnippetStyler new snippetViewModel: aViewModel.
+	expandedAttribute := attributes
+			detect: [ :each | each class = GtCachedTextExpandButtonAttribute ]
+			ifNone: [ self assert: false description: 'Missing expanded attribute' ].
+	self assert: expandedAttribute isExpanded.
 
-	aStyler style: aText ast: anAst.
-	attributes := aText attributesAt: anAnnotation parent startPosition.
+				
+	buttonAttribute := attributes
+			detect: [ :each | each class = GtButtonAttribute ]
+			ifNone: [ self assert: false description: 'Missing button attribute' ].
+	buttonElement := buttonAttribute stencil asElement.
+	scripter := BlScripter new element: buttonElement.
+	buttonLabel := scripter elementWithoutParent label.
+	buttonLabelAttributes := buttonLabel attributesAt: annotation parent startPosition.
+	buttonLabelForegroundAttribute := buttonLabelAttributes
+			detect: [ :each | each class = BlTextForegroundAttribute ]
+			ifNone: [ self assert: false description: 'Missing foreground attribute' ].
+	buttonColor := buttonLabelForegroundAttribute paint.
+	self assert: buttonColor equals: BrGlamorousColors linkColor.
 
-	self assert: (attributes anySatisfy: [ :each | (each respondsTo: #isExpanded) and: [ each isExpanded ] ]).
-
-	^ aText
+	^ text
 ]
 
 { #category : #examples }
 LePragmaAnnotationStylerExamples >> styleMissingPragmaAnnotation [
 	<gtExample>
 	<return: #BlText>
-	| aString anAst aText aStyler aSnippet aViewModel aPage aDatabase anAnnotation |
+	| string anAst text styler snippet snippetViewModel annotation attributes foregroundAttribute textColor buttonAttribute buttonElement scripter buttonLabel buttonColor buttonLabelAttributes buttonLabelForegroundAttribute |
+	string := '{{gtPragma:doesNotExistPragma}}'.
+	anAst := LeParser parse: string.
+	annotation := (anAst // LePragmaAnnotationNode) anyOne.
+	self assert: annotation notNil.
+	snippet := LeTextSnippet new string: string.
+	text := snippet text.
 
-	aString := '{{gtPragma:doesNotExistPragma}}'.
-	aText := aString asRopedText.
-	anAst := LeParser parse: aString.
+	snippetViewModel := snippet asSnippetViewModel.
+	styler := LeSnippetStyler new snippetViewModel: snippetViewModel.
+	styler style: text ast: anAst.
+	
+	attributes := text attributesAt: annotation parent startPosition.
+	foregroundAttribute := attributes
+			detect: [ :each | each class = BlTextForegroundAttribute ]
+			ifNone: [ self assert: false description: 'Missing foreground attribute' ].
+	textColor := foregroundAttribute paint.
+	self assert: textColor equals: BrGlamorousColors linkWithErrorColor.
 
-	anAnnotation := (anAst // LePragmaAnnotationNode) anyOne.
-	self assert: anAnnotation notNil.
+	self assert: (attributes 
+				anySatisfy: [ :each | each class = BrTextAdornmentDynamicAttribute ]).
+	self assert: (attributes
+				anySatisfy: [ :each | each class = GtCachedTextExpandButtonAttribute ]) not.
 
-	aDatabase := LeDatabase new.
-	aPage := LePage new.
-	aPage title: 'Pragma reference missing'.
-	aDatabase addPage: aPage.
-	aSnippet := LeTextSnippet new string: aString.
-	aPage addSnippet: aSnippet.
+	buttonAttribute := attributes
+			detect: [ :each | each class = GtButtonAttribute ]
+			ifNone: [ self assert: false description: 'Missing button attribute' ].
+	buttonElement := buttonAttribute stencil asElement.
+	scripter := BlScripter new element: buttonElement.
+	buttonLabel := scripter elementWithoutParent label.
+	buttonLabelAttributes := buttonLabel attributesAt: annotation parent startPosition.
+	buttonLabelForegroundAttribute := buttonLabelAttributes
+			detect: [ :each | each class = BlTextForegroundAttribute ]
+			ifNone: [ self assert: false description: 'Missing foreground attribute' ].
+	buttonColor := buttonLabelForegroundAttribute paint.
+	self assert: buttonColor equals: BrGlamorousColors linkWithErrorColor.
 
-	aViewModel := aSnippet asSnippetViewModel.
-	aStyler := LeSnippetStyler new snippetViewModel: aViewModel.
-
-	aStyler style: aText ast: anAst.
-
-	self assert: (aText attributesAt: anAnnotation parent startPosition) notEmpty.
-
-	^ aText
+	^ text
 ]
