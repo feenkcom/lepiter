@@ -14,12 +14,16 @@ LeWordAnnotationCompletionVisitorExamples >> completeWordAnnotationAttributePref
 	| aString aResult aStrategy actions anAst aWordValue position texts displayTexts |
 	aString := '{{gtWordExplanation:toolkit|he}}'.
 	anAst := LeParser parse: aString.
-	aWordValue := (anAst // LeWordValueNode)
-		detect: [ :each | each value source = 'he' ].
+	aWordValue := anAst // LeWordValueNode
+			detect: [ :each | each value source = 'he' ]
+			ifNone: [ nil ].
 	position := aWordValue value stopPosition.
-	
+
 	aStrategy := LeCompletionStrategy new.
-	aResult := aStrategy completionResultFor: aString at: position requested: true.
+	aResult := aStrategy
+			completionResultFor: aString
+			at: position
+			requested: true.
 
 	actions := OrderedCollection new.
 	aResult completionActionsWithIndexDo: [ :each :index | actions add: each ].
