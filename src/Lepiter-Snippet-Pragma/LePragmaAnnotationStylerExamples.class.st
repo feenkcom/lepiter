@@ -8,91 +8,144 @@ Class {
 }
 
 { #category : #examples }
-LePragmaAnnotationStylerExamples >> styleExistingPragmaAnnotation [
+LePragmaAnnotationStylerExamples >> assertForegroundOfButtonLabel: text hasColor: color [
+	| buttonLabel scripter buttonAttribute buttonElement attributes |
+	attributes := text attributesAt: 1.
+	buttonAttribute := attributes
+			detect: [ :each | each class = GtButtonAttribute ]
+			ifNone: [ self assert: false description: 'Missing button attribute' ].
+	buttonElement := buttonAttribute stencil asElement.
+	scripter := BlScripter new element: buttonElement.
+	buttonLabel := scripter elementWithoutParent label.
+	self assertForegroundOfText: buttonLabel hasColor: color
+]
+
+{ #category : #examples }
+LePragmaAnnotationStylerExamples >> assertForegroundOfText: text hasColor: expectedColor [
+	| textColor foregroundAttribute attributes |
+	attributes := text attributesAt: 1.
+	foregroundAttribute := attributes
+			detect: [ :each | each class = BlTextForegroundAttribute ]
+			ifNone: [ self assert: false description: 'Missing foreground attribute' ].
+	textColor := foregroundAttribute paint.
+	self assert: textColor equals: expectedColor
+]
+
+{ #category : #examples }
+LePragmaAnnotationStylerExamples >> attributesOfExistingPragmaAnnotation [
 	<gtExample>
 	<return: #BlText>
-	| aString anAst aText aStyler aSnippet aViewModel aPage aDatabase anAnnotation |
-	aString := '{{gtPragma:gtView}}'.
-	aText := aString asRopedText.
-	anAst := LeParser parse: aString.
-
-	anAnnotation := (anAst // LePragmaAnnotationNode) anyOne.
-	self assert: anAnnotation notNil.
-
-	aDatabase := LeDatabase new.
-	aPage := LePage new.
-	aPage title: 'Pragma reference'.
-	aDatabase addPage: aPage.
-	aSnippet := LeTextSnippet new string: aString.
-	aPage addSnippet: aSnippet.
-
-	aViewModel := aSnippet asSnippetViewModel.
-	aStyler := LeSnippetStyler new snippetViewModel: aViewModel.
-
-	aStyler style: aText ast: anAst.
-
-	self assert: (aText attributesAt: anAnnotation parent startPosition) notEmpty.
-
-	^ aText
+	| text attributes |
+	text := self textOfSnippetWithPragmaAnnotation.
+	attributes := text attributesAt: 1.
+	self
+		assert: (attributes anySatisfy: [ :each | each class = BrTextAdornmentDynamicAttribute ]).
+	self
+		assert: (attributes
+				anySatisfy: [ :each | each class = GtCachedTextExpandButtonAttribute ]).
+	self assertForegroundOfText: text hasColor: (Color black alpha: 0.6).
+	self
+		assertForegroundOfButtonLabel: text
+		hasColor: BrGlamorousColors linkColor.
+	^ attributes
 ]
 
 { #category : #examples }
 LePragmaAnnotationStylerExamples >> styleExpandedPragmaAnnotation [
 	<gtExample>
 	<return: #BlText>
-	| aString anAst aText aStyler aSnippet aViewModel aPage aDatabase anAnnotation attributes |
-	aString := '{{gtPragma:gtView|expanded=true}}'.
-	aText := aString asRopedText.
-	anAst := LeParser parse: aString.
+	| text attributes expandedAttribute |
+	text := self textOfSnippetWithExpandedPragmaAnnotation.
+	attributes := text attributesAt: 1.
+	self assertForegroundOfText: text hasColor: BrGlamorousColors textMarkupColor.
+	self
+		assert: (attributes anySatisfy: [ :each | each class = BrTextAdornmentDynamicAttribute ]).
+	self
+		assert: (attributes
+				anySatisfy: [ :each | each class = GtCachedTextExpandButtonAttribute ]).
 
-	anAnnotation := (anAst // LePragmaAnnotationNode) anyOne.
-	self assert: anAnnotation notNil.
-	self assert: anAnnotation expandedValue equals: true.
+	expandedAttribute := attributes
+			detect: [ :each | each class = GtCachedTextExpandButtonAttribute ]
+			ifNone: [ self assert: false description: 'Missing expanded attribute' ].
+	self assert: expandedAttribute isExpanded.
 
-	aDatabase := LeDatabase new.
-	aPage := LePage new.
-	aPage title: 'Pragma reference expanded'.
-	aDatabase addPage: aPage.
-	aSnippet := LeTextSnippet new string: aString.
-	aPage addSnippet: aSnippet.
+	self assertForegroundOfButtonLabel: text hasColor: BrGlamorousColors linkColor.
 
-	aViewModel := aSnippet asSnippetViewModel.
-	aStyler := LeSnippetStyler new snippetViewModel: aViewModel.
-
-	aStyler style: aText ast: anAst.
-	attributes := aText attributesAt: anAnnotation parent startPosition.
-
-	self assert: (attributes anySatisfy: [ :each | (each respondsTo: #isExpanded) and: [ each isExpanded ] ]).
-
-	^ aText
+	^ text
 ]
 
 { #category : #examples }
 LePragmaAnnotationStylerExamples >> styleMissingPragmaAnnotation [
 	<gtExample>
 	<return: #BlText>
-	| aString anAst aText aStyler aSnippet aViewModel aPage aDatabase anAnnotation |
+	| attributes text |
+	text := self textOfSnippetWithMissingPragmaAnnotation.
+	attributes := text attributesAt: 1.
 
-	aString := '{{gtPragma:doesNotExistPragma}}'.
-	aText := aString asRopedText.
-	anAst := LeParser parse: aString.
+	self
+		assertForegroundOfText: text
+		hasColor: BrGlamorousColors linkWithErrorColor.
 
-	anAnnotation := (anAst // LePragmaAnnotationNode) anyOne.
-	self assert: anAnnotation notNil.
+	self
+		assert: (attributes anySatisfy: [ :each | each class = BrTextAdornmentDynamicAttribute ]).
+	self
+		assert: (attributes
+				anySatisfy: [ :each | each class = GtCachedTextExpandButtonAttribute ]) not.
 
-	aDatabase := LeDatabase new.
-	aPage := LePage new.
-	aPage title: 'Pragma reference missing'.
-	aDatabase addPage: aPage.
-	aSnippet := LeTextSnippet new string: aString.
-	aPage addSnippet: aSnippet.
+	self
+		assertForegroundOfButtonLabel: text
+		hasColor: BrGlamorousColors linkWithErrorColor.
 
-	aViewModel := aSnippet asSnippetViewModel.
-	aStyler := LeSnippetStyler new snippetViewModel: aViewModel.
+	^ text
+]
 
-	aStyler style: aText ast: anAst.
+{ #category : #examples }
+LePragmaAnnotationStylerExamples >> textOfSnippetWithExpandedPragmaAnnotation [
+	<gtExample>
+	| string text annotation snippetViewModel styler snippet anAst |
+	string := '{{gtPragma:gtView|expanded=true}}'.
+	anAst := LeParser parse: string.
+	annotation := (anAst // LePragmaAnnotationNode) anyOne.
+	self assert: annotation notNil.
+	snippet := LeTextSnippet new string: string.
+	text := snippet text.
 
-	self assert: (aText attributesAt: anAnnotation parent startPosition) notEmpty.
+	snippetViewModel := snippet asSnippetViewModel.
+	styler := LeSnippetStyler new snippetViewModel: snippetViewModel.
+	styler style: text ast: anAst.
+	^ text
+]
 
-	^ aText
+{ #category : #examples }
+LePragmaAnnotationStylerExamples >> textOfSnippetWithMissingPragmaAnnotation [
+	<gtExample>
+	| string text annotation snippetViewModel styler snippet anAst |
+	string := '{{gtPragma:doesNotExistPragma}}'.
+	anAst := LeParser parse: string.
+	annotation := (anAst // LePragmaAnnotationNode) anyOne.
+	self assert: annotation notNil.
+	snippet := LeTextSnippet new string: string.
+	text := snippet text.
+
+	snippetViewModel := snippet asSnippetViewModel.
+	styler := LeSnippetStyler new snippetViewModel: snippetViewModel.
+	styler style: text ast: anAst.
+	^ text
+]
+
+{ #category : #examples }
+LePragmaAnnotationStylerExamples >> textOfSnippetWithPragmaAnnotation [
+	<gtExample>
+	| string text annotation snippetViewModel styler snippet anAst |
+	string := '{{gtPragma:gtView}}'.
+	anAst := LeParser parse: string.
+	annotation := (anAst // LePragmaAnnotationNode) anyOne.
+	self assert: annotation notNil.
+	snippet := LeTextSnippet new string: string.
+	text := snippet text.
+
+	snippetViewModel := snippet asSnippetViewModel.
+	styler := LeSnippetStyler new snippetViewModel: snippetViewModel.
+	styler style: text ast: anAst.
+	^ text
 ]

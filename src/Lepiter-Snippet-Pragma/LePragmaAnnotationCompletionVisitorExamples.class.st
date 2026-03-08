@@ -74,9 +74,6 @@ LePragmaAnnotationCompletionVisitorExamples >> completePragmaName [
 	<gtExample>
 	<return: #GtCompletionResult>
 	| aString aResult aStrategy actions position prefix |
-	LePragmaAnnotationParser initialize.
-	LePragmaAnnotationCompletionVisitor initialize.
-
 	prefix := 'gt'.
 	aString := '{{gtPragma:' , prefix , '}}'.
 	position := (aString indexOf: $}) - 1.
