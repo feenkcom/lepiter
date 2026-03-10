@@ -333,7 +333,7 @@ LePage >> gtCopyGTBookWebsiteUrlActionFor: anAction [
 { #category : #'as yet unclassified' }
 LePage >> gtDefaultInspectorTool [
 	<return: #LePhlowTool>
-	^ self asLepiterPagePhlowTool
+	^ self asLepiterPagePhlowToolWithoutFocus
 ]
 
 { #category : #search }

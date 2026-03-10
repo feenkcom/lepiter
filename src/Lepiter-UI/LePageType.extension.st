@@ -6,6 +6,5 @@ LePageType >> asLepiterPagePhlowToolFocusStatus: aBoolean [
 		addTool: (LePagePhlowTool new
 			shouldFocusFirstSnippet: aBoolean;
 			page: page);
-		addTool: (GtPhlowTool default object: page)";
-		addTool: (GtConnectorTool new object: self)"
+		addTool: (GtPhlowTool default object: page)
 ]
