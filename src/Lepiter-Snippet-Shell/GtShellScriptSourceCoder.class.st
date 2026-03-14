@@ -65,15 +65,6 @@ GtShellScriptSourceCoder >> initializeAddOns: addOns [
 	"addOns addStyler: (GtCoderAstSmaCCParserStyler new smaccStyler: PsqlParser gtStyler)."
 	
 	addOns
-		addMainAction: 'Evaluate' translated
-		icon: BrGlamorousVectorIcons play
-		action: [ :aCoderUIModel :anElement | 
-			GtCoderCodeExecutor doIt
-				coderViewModel: aCoderUIModel;
-				element: anElement;
-				execute ]
-		id: GtSourceCoderDoItActionId.
-	addOns
 		addMainAction: 'Inspect' translated
 		icon: BrGlamorousVectorIcons playinspect
 		action: [ :aCoderUIModel :anElement | 
@@ -82,6 +73,15 @@ GtShellScriptSourceCoder >> initializeAddOns: addOns [
 				element: anElement;
 				execute ]
 		id: GtSourceCoderDoItAndGoActionId.
+	addOns
+		addMainAction: 'Evaluate' translated
+		icon: BrGlamorousVectorIcons play
+		action: [ :aCoderUIModel :anElement | 
+			GtCoderCodeExecutor doIt
+				coderViewModel: aCoderUIModel;
+				element: anElement;
+				execute ]
+		id: GtSourceCoderDoItActionId.
 ]
 
 { #category : #initialization }
