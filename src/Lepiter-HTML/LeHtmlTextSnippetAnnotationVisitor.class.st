@@ -191,3 +191,17 @@ LeHtmlTextSnippetAnnotationVisitor >> visitPageAnnotation: aPageAnnotation [
 				attributes: #('page-annotation')
 				with: aPageAnnotation pageName ]
 ]
+
+{ #category : #generated }
+LeHtmlTextSnippetAnnotationVisitor >> visitPragmaAnnotation: aLePragmaAnnotationNode [
+	| label |
+	label := aLePragmaAnnotationNode isDefined
+			ifTrue: [ '<', aLePragmaAnnotationNode pragmaName, '>' ]
+			ifFalse: [ '<>' ].
+
+	context html
+		inlineTag: 'code'
+		attributes: {'class'.
+				'annotation annotation-label annotation-label-class'}
+		with: label
+]

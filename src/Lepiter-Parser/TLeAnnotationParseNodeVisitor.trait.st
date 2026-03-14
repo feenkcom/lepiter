@@ -136,6 +136,11 @@ TLeAnnotationParseNodeVisitor >> visitPageNameArgument: aPageNameArgument [
 ]
 
 { #category : #generated }
+TLeAnnotationParseNodeVisitor >> visitPragmaAnnotation: aPragmaAnnotationNode [
+	^ self visitAnnotation: aPragmaAnnotationNode
+]
+
+{ #category : #generated }
 TLeAnnotationParseNodeVisitor >> visitPreviewExpandedArgument: aPreviewExpandedArgument [
 	^ self visitArgument: aPreviewExpandedArgument
 ]

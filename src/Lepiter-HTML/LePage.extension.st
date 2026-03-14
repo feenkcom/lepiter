@@ -7,10 +7,11 @@ LePage >> gtHTMLLocalExportActionFor: anAction [
 	self database isDatabase ifFalse: [ ^ anAction noAction ].
 
 	^ anAction button
-		label: 'HTML';
+		label: 'Export as HTML';
 		tooltip: 'Export the page into an HTML format and store locally';
 		priority: 10;
-		icon: BrGlamorousVectorIcons spawn;
+		target: LePageActionTarget;
+		icon: BrGlamorousVectorIcons save;
 		action: [ :aButton | 
 			| tempDir output |
 			tempDir := GtTemporaryDirectory new.

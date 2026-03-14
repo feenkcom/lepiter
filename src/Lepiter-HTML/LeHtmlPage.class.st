@@ -35,6 +35,22 @@ LeHtmlPage >> gtActionWebBrowseFor: anAction [
 ]
 
 { #category : #'gt - extensions' }
+LeHtmlPage >> gtHtmlFor: aView [
+	<gtView>
+	| someFiles |
+	self directory ifNil: [ ^ aView empty ].
+	self directory exists ifFalse: [ ^ aView empty ].
+	someFiles := self directory filesMatching: '*.html;*.htm'.
+	someFiles ifEmpty: [ ^ aView empty ].
+
+	^ aView forward
+		title: 'HTML';
+		priority: 10;
+		object: [ someFiles anyOne ];
+		view: #gtHtmlFor:
+]
+
+{ #category : #'gt - extensions' }
 LeHtmlPage >> gtOpenInWebBrowserFor: anAction [
 	<gtAction>
 	pageFile ifNil: [ ^ anAction noAction ].

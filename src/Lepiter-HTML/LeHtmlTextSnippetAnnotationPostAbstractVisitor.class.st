@@ -62,3 +62,10 @@ LeHtmlTextSnippetAnnotationPostAbstractVisitor >> visitPackageAnnotation: aPacka
 	nameNode := aPackageAnnotation nameNode.
 	context html escape: nameNode value source
 ]
+
+{ #category : #generated }
+LeHtmlTextSnippetAnnotationPostAbstractVisitor >> visitPragmaAnnotation: aLePragmaAnnotationNode [
+	aLePragmaAnnotationNode isDefined
+		ifTrue: [ context html escape: '<' , aLePragmaAnnotationNode pragmaName , '>' ]
+		ifFalse: [ context html escape: '<>' ]
+]

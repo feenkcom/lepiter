@@ -76,3 +76,10 @@ LeExportTextSnippetAnnotationVisitor >> visitExampleAnnotation: anExampleAnnotat
 		
 	self addResource: aResource
 ]
+
+{ #category : #generated }
+LeExportTextSnippetAnnotationVisitor >> visitPragmaAnnotation: aLePragmaAnnotationNode [
+	"do nothing"
+
+	
+]
