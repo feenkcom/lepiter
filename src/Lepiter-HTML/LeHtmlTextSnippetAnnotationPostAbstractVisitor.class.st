@@ -42,6 +42,14 @@ LeHtmlTextSnippetAnnotationPostAbstractVisitor >> visitClassAnnotation: aClassAn
 ]
 
 { #category : #generated }
+LeHtmlTextSnippetAnnotationPostAbstractVisitor >> visitFileReferenceAnnotation: aLeFileReferenceAnnotationNode [ 
+	| path |
+	path := aLeFileReferenceAnnotationNode pathString ifNil: [ '' ].
+	
+	context html escape: path
+]
+
+{ #category : #generated }
 LeHtmlTextSnippetAnnotationPostAbstractVisitor >> visitMethodAnnotation: aMethodAnnotation [
 	| nameNode |
 	aMethodAnnotation hasLabel ifTrue: [ 

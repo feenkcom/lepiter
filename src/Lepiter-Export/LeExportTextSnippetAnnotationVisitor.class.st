@@ -78,6 +78,13 @@ LeExportTextSnippetAnnotationVisitor >> visitExampleAnnotation: anExampleAnnotat
 ]
 
 { #category : #generated }
+LeExportTextSnippetAnnotationVisitor >> visitFileReferenceAnnotation: aLeFileReferenceAnnotationNode [
+	"do nothing"
+
+	
+]
+
+{ #category : #generated }
 LeExportTextSnippetAnnotationVisitor >> visitPragmaAnnotation: aLePragmaAnnotationNode [
 	"do nothing"
 
