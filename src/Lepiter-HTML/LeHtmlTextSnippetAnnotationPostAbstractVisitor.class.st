@@ -42,6 +42,14 @@ LeHtmlTextSnippetAnnotationPostAbstractVisitor >> visitClassAnnotation: aClassAn
 ]
 
 { #category : #generated }
+LeHtmlTextSnippetAnnotationPostAbstractVisitor >> visitFileReferenceAnnotation: aLeFileReferenceAnnotationNode [ 
+	| path |
+	path := aLeFileReferenceAnnotationNode pathString ifNil: [ '' ].
+	
+	context html escape: path
+]
+
+{ #category : #generated }
 LeHtmlTextSnippetAnnotationPostAbstractVisitor >> visitMethodAnnotation: aMethodAnnotation [
 	| nameNode |
 	aMethodAnnotation hasLabel ifTrue: [ 
@@ -61,4 +69,11 @@ LeHtmlTextSnippetAnnotationPostAbstractVisitor >> visitPackageAnnotation: aPacka
 	
 	nameNode := aPackageAnnotation nameNode.
 	context html escape: nameNode value source
+]
+
+{ #category : #generated }
+LeHtmlTextSnippetAnnotationPostAbstractVisitor >> visitPragmaAnnotation: aLePragmaAnnotationNode [
+	aLePragmaAnnotationNode isDefined
+		ifTrue: [ context html escape: '<' , aLePragmaAnnotationNode pragmaName , '>' ]
+		ifFalse: [ context html escape: '<>' ]
 ]

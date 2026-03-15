@@ -71,6 +71,11 @@ TLeAnnotationParseNodeVisitor >> visitFileNameArgument: aFileNameArgument [
 ]
 
 { #category : #generated }
+TLeAnnotationParseNodeVisitor >> visitFileReferenceAnnotation: aFileReferenceAnnotationNode [
+	^ self visitAnnotation: aFileReferenceAnnotationNode
+]
+
+{ #category : #generated }
 TLeAnnotationParseNodeVisitor >> visitFullArgument: aFullArgument [
 	^ self visitArgument: aFullArgument
 ]
@@ -133,6 +138,11 @@ TLeAnnotationParseNodeVisitor >> visitPageAnnotation: aPageAnnotation [
 { #category : #generated }
 TLeAnnotationParseNodeVisitor >> visitPageNameArgument: aPageNameArgument [
 	^ self visitNameArgument: aPageNameArgument
+]
+
+{ #category : #generated }
+TLeAnnotationParseNodeVisitor >> visitPragmaAnnotation: aPragmaAnnotationNode [
+	^ self visitAnnotation: aPragmaAnnotationNode
 ]
 
 { #category : #generated }

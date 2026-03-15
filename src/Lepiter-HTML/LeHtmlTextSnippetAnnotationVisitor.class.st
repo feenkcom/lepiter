@@ -128,6 +128,17 @@ LeHtmlTextSnippetAnnotationVisitor >> visitExampleAnnotation: anExampleAnnotatio
 ]
 
 { #category : #generated }
+LeHtmlTextSnippetAnnotationVisitor >> visitFileReferenceAnnotation: aLeFileReferenceAnnotationNode [
+	| label |
+	label := aLeFileReferenceAnnotationNode pathString ifNil: [ '' ].
+
+	context html
+		inlineTag: 'code'
+		attributes: {'annotation annotation-label annotation-label-class'}
+		with: label
+]
+
+{ #category : #generated }
 LeHtmlTextSnippetAnnotationVisitor >> visitMethodAnnotation: aMethodAnnotation [
 	| methodNameArgument method methodExists |
 	methodNameArgument := aMethodAnnotation nameNode.
@@ -190,4 +201,17 @@ LeHtmlTextSnippetAnnotationVisitor >> visitPageAnnotation: aPageAnnotation [
 				inlineTag: #span
 				attributes: #('page-annotation')
 				with: aPageAnnotation pageName ]
+]
+
+{ #category : #generated }
+LeHtmlTextSnippetAnnotationVisitor >> visitPragmaAnnotation: aLePragmaAnnotationNode [
+	| label |
+	label := aLePragmaAnnotationNode isDefined
+			ifTrue: [ '<' , aLePragmaAnnotationNode pragmaName , '>' ]
+			ifFalse: [ '<>' ].
+
+	context html
+		inlineTag: 'code'
+		attributes: {'annotation annotation-label annotation-label-class'}
+		with: label
 ]
