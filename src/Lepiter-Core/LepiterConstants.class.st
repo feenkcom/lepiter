@@ -76,7 +76,7 @@ LepiterConstants class >> defaultClassShowSelector [
 
 { #category : #'pillar parameter default values' }
 LepiterConstants class >> defaultExamplesShowSelector [
-	^ #gtExpandableExamplesFor: "#gtExamplesFor:"
+	^ #gtExpandableExamplesFor:context: "#gtExamplesFor:context:"
 ]
 
 { #category : #'file export' }
