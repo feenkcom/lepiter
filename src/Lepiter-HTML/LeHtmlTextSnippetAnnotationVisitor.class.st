@@ -164,10 +164,13 @@ LeHtmlTextSnippetAnnotationVisitor >> visitMethodAnnotation: aMethodAnnotation [
 							ifTrue: [ 'expanded-annotation-view' ]
 							ifFalse: [ 'collapsed-annotation-view' ]}}
 		do: [ 
-			context html 
-				inlineTag: 'code'
-				attributes: #('class' '')
-				with: method sourceCode ]
+			context html
+				inlineTag: 'pre'
+				do: [
+					context html
+						inlineTag: 'code'
+						attributes: #('class' '')
+						with: method sourceCode ] ]
 ]
 
 { #category : #generated }
