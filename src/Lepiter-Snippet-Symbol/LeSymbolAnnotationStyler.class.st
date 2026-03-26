@@ -57,19 +57,25 @@ LeSymbolAnnotationStyler >> styleButton: aSymbolAnnotation [
 	symbolValue := aSymbolAnnotation symbolValue.
 	symbolValue ifNil: [ ^ self ].
 	attribute := GtButtonAttribute new
-		beAppend;
-		stencil: [ | button |
-			label := '#', aSymbolAnnotation symbolName.
-			button := LeSnippetStylerVisitor
-				textLinkButtonPadding: (BlInsets top: 2)
-				margin: BlInsets empty
-				valid: true.
-			button aptitude glamorousCodeFont.
-			button
-				beSmallSize;
-				label: label;
-				action: [ :aButton | aButton phlow spawnObject: symbolValue gtReferences ].
-			button ].
+			beAppend;
+			stencil: [ | button |
+				label := '#' , aSymbolAnnotation symbolName.
+				button := LeSnippetStylerVisitor
+						textLinkButtonPadding: (BlInsets top: 2)
+						margin: BlInsets empty
+						valid: true.
+				button aptitude glamorousCodeFont.
+				LeSnippetStylerVisitor
+					textLinkButton: button
+					contextMenuTarget: LeSymbolAnnotationActionTarget
+					object: symbolValue
+					context: (GtPhlowContext new at: #symbolAnnotation put: aSymbolAnnotation)
+					valid: true.
+				button
+					beSmallSize;
+					label: label;
+					action: [ :aButton | aButton phlow spawnObject: symbolValue gtReferences ].
+				button ].
 	self text
 		attribute: attribute
 		from: aSymbolAnnotation parent startPosition

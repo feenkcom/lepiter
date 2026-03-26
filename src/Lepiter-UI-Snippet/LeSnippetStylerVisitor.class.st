@@ -33,6 +33,19 @@ LeSnippetStylerVisitor class >> removeStyler: aVisitorClass [
 ]
 
 { #category : #widgets }
+LeSnippetStylerVisitor class >> textLinkButton: aButton contextMenuTarget: aPhlowTarget object: anObject context: aPhlowContext valid: isValid [
+	"Add a context menu support for the button used for in-text links in Lepiter."
+
+	isValid ifFalse: [ ^ self ].
+	aButton
+		addAptitude: (BrGlamorousWithExplicitContextMenuAptitude new
+				handleSubmenu: [ aPhlowTarget
+						menuItemsForObject: anObject
+						inContext: aPhlowContext
+						hostElement: aButton ])
+]
+
+{ #category : #widgets }
 LeSnippetStylerVisitor class >> textLinkButtonPadding: additionalPadding margin: additionalMargin [
 	"Answer a button used for in-text links in Lepiter.
 	This sets a common font, size, color and style for the button"

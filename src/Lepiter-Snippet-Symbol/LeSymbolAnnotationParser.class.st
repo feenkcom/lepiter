@@ -6,7 +6,7 @@ Class {
 
 { #category : #'generated-accessing' }
 LeSymbolAnnotationParser class >> cacheId [
-	^'2026-03-07T17:54:42.324867+01:00'
+	^'2026-03-26T11:21:13.224135-03:00'
 ]
 
 { #category : #generated }
@@ -16,7 +16,7 @@ LeSymbolAnnotationParser class >> definitionComment [
 %root SymbolParse;
 %glr;
 <lemma>
-	: (<isLetter> | <isDigit> | "":"" | ""_"" | ""-"")+ 
+	: (<isLetter> | <isDigit> | : | _ | -)+ 
 	;
 <whitespace>
 	: \s+
@@ -51,10 +51,10 @@ LeSymbolAnnotationParser class >> parseEmbeddedStream: aStream startingAt: anInt
 { #category : #generated }
 LeSymbolAnnotationParser class >> reduceTable [
 ^#(
-	#(7 1 #reduceActionForSymbol3: 183299 false) 
-	#(7 1 #reduceActionForSymbol3: 183297 false) 
-	#(6 1 #reduceActionForSymbolAnnotation1: 138241 false) 
-	#(7 3 #reduceActionForSymbol2: 183298 false)
+	#(7 1 #reduceActionForSymbol3: 176131 false) 
+	#(7 1 #reduceActionForSymbol3: 176129 false) 
+	#(6 1 #reduceActionForSymbolAnnotation1: 131073 false) 
+	#(7 3 #reduceActionForSymbol2: 176130 false)
 	).
 ]
 
