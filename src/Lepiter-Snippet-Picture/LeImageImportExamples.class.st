@@ -24,7 +24,7 @@ LeImageImportExamples >> importImages [
 			string: '![Feenk](https://feenk.com/assets/pictures/feenk.png)'.
 	page addSnippet: textSnippet.
 	pictureSnippet := LePictureSnippet new
-			urlString: 'https://feenk.com/assets/pictures/casestudy-connections.png'.
+			urlString: 'https://feenk.com/assets/pictures/assessment-steering.jpeg'.
 	page addSnippet: pictureSnippet.
 	badUrl := '![](https://feenk.com/assets/pictures/doesntexist.png)'.
 	badUrlSnippet := LeTextSnippet string: badUrl.
