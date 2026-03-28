@@ -6,7 +6,7 @@ Class {
 	#instVars : [
 		'announcer'
 	],
-	#category : 'Lepiter-UI-Page-! View Models'
+	#category : #'Lepiter-UI-Page-! View Models'
 }
 
 { #category : #announcer }

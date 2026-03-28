@@ -6,7 +6,7 @@ Class {
 	#instVars : [
 		'titleElement'
 	],
-	#category : 'Lepiter-UI-Page-! Views'
+	#category : #'Lepiter-UI-Page-! Views'
 }
 
 { #category : #accessing }

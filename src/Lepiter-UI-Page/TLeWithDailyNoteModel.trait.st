@@ -3,7 +3,7 @@ Trait {
 	#instVars : [
 		'dailyNoteModel'
 	],
-	#category : 'Lepiter-UI-Page-! View Models'
+	#category : #'Lepiter-UI-Page-! View Models'
 }
 
 { #category : #accessing }

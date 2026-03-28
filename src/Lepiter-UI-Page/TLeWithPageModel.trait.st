@@ -3,7 +3,7 @@ Trait {
 	#instVars : [
 		'pageModel'
 	],
-	#category : 'Lepiter-UI-Page-! View Models'
+	#category : #'Lepiter-UI-Page-! View Models'
 }
 
 { #category : #'api - page model' }

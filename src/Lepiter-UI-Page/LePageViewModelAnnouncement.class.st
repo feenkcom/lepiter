@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'pageViewModel'
 	],
-	#category : 'Lepiter-UI-Page-Events'
+	#category : #'Lepiter-UI-Page-Events'
 }
 
 { #category : #accessing }

@@ -5,7 +5,7 @@ Class {
 		'dailyNote',
 		'pageTreeNodeModels'
 	],
-	#category : 'Lepiter-UI-Page-Tree-Nodes'
+	#category : #'Lepiter-UI-Page-Tree-Nodes'
 }
 
 { #category : #'instance creation' }
