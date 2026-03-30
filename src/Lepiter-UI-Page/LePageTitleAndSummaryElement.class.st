@@ -43,8 +43,13 @@ LePageTitleAndSummaryElement >> emailElement [
 { #category : #initialization }
 LePageTitleAndSummaryElement >> initialize [
 	super initialize.
-	self initializeTitleElement.
-	self layout: BlLinearLayout horizontal.
+	self initializeTitleElement.	"	self layout: BlLinearLayout horizontal.
+"
+	self layout: BrEditorTextFlowLayout new.	";
+										constraintsDo: [ :c | 
+											c horizontal fitContent.
+											c vertical fitContent ]"
+
 	self addChild: self titleElement as: #title.
 	self addChild: self summaryElement as: #summary.
 	self initializeListeners
@@ -100,19 +105,9 @@ LePageTitleAndSummaryElement >> initializeListeners [
 ]
 
 { #category : #initialization }
-LePageTitleAndSummaryElement >> initializeSummaryElement [
-	summaryElement := BrLabel new
-		beSmallSize;
-		aptitude: (BrGlamorousLabelAptitude new foreground: self theme header disabledTextColor);
-		margin: (BlInsets left: 10);
-		hMatchParent;
-		vFitContent
-]
-
-{ #category : #initialization }
 LePageTitleAndSummaryElement >> initializeTitleElement [
 	titleElement := BrLabel new
-		beSmallSize;
+		"beSmallSize;"
 		aptitude: (BrGlamorousLabelAptitude new);
 		hFitContent;
 		vFitContent
@@ -145,10 +140,10 @@ LePageTitleAndSummaryElement >> subscribeToPageViewModel [
 LePageTitleAndSummaryElement >> summaryElement [
 	^ summaryElement
 		ifNil: [ summaryElement := BrLabel new
-				beSmallSize;
+				""beSmallSize;
 				aptitude: BrGlamorousSummaryLabelAptitude;
 				margin: (BlInsets left: 10);
-				hMatchParent;
+				hFitContent;
 				vFitContent ]
 ]
 

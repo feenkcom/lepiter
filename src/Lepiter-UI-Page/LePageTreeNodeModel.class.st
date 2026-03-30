@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'page'
 	],
-	#category : 'Lepiter-UI-Page-Tree-Nodes'
+	#category : #'Lepiter-UI-Page-Tree-Nodes'
 }
 
 { #category : #'instance creation' }

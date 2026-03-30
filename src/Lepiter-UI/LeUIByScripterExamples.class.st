@@ -332,7 +332,7 @@ LeUIByScripterExamples >> page49OfDatabaseWithManyPagesOfDifferentCreateTimes_Di
 	aScripter assert
 		// LeDatabaseSidebarGroupedListElement;
 		// #scrollable;
-		value: [ :anInfiniteElement | anInfiniteElement childrenCount ] equals: 27;
+		value: [ :anInfiniteElement | anInfiniteElement childrenCount ] equals: 25;
 		label: 'Assert sidebar displays pages';
 		play.
 		
@@ -443,7 +443,7 @@ LeUIByScripterExamples >> page50OfDatabaseWithManyPagesOfDifferentCreateTimesAnd
 	aScripter assert
 		// LeDatabaseSidebarTreeElement;
 		// #scrollable;
-		value: [ :anInfiniteElement | anInfiniteElement childrenCount ] equals: 31;
+		value: [ :anInfiniteElement | anInfiniteElement childrenCount ] equals: 27;
 		label: 'Assert sidebar displays pages';
 		play.
 		
@@ -514,7 +514,7 @@ LeUIByScripterExamples >> page50OfDatabaseWithManyPagesOfDifferentCreateTimes_Di
 	aScripter assert
 		// LeDatabaseSidebarGroupedListElement;
 		// #scrollable;
-		value: [ :anInfiniteElement | anInfiniteElement childrenCount ] equals: 27;
+		value: [ :anInfiniteElement | anInfiniteElement childrenCount ] equals: 25;
 		label: 'Assert sidebar displays pages';
 		play.
 		
@@ -636,7 +636,7 @@ LeUIByScripterExamples >> page60OfDatabaseWithManyPagesOfDifferentCreateTimesAnd
 	aScripter assert
 		// LeDatabaseSidebarTreeElement;
 		// #scrollable;
-		value: [ :anInfiniteElement | anInfiniteElement childrenCount ] equals: 31;
+		value: [ :anInfiniteElement | anInfiniteElement childrenCount ] equals: 27;
 		label: 'Assert sidebar displays pages';
 		play.
 		
