@@ -437,7 +437,7 @@ LePlainTextSnippet >> unlinkedTarget: aLeContent in: aLeLink [
 
 { #category : #'api - editing' }
 LePlainTextSnippet >> updateFromCommandText: aText source: anObject [
-	"Text snippets do not need this. It exists now only because they should be polymorphic with code snipets for the state update to work."
+	"Text snippets do not need this. It exists now only because they should be polymorphic with code snippets for the state update to work."
 	
 	self updateText: aText source: anObject
 ]

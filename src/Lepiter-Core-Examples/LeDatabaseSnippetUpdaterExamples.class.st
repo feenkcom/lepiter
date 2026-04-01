@@ -9,6 +9,32 @@ Class {
 }
 
 { #category : #'examples - updating' }
+LeDatabaseSnippetUpdaterExamples >> updateBlockQuoteSnippetOneToTwo [
+	<gtExample>
+	<return: #LeBlockQuoteSnippet>
+	| aSnippet aCreateTime aCreateEmail anEditTime anEditEmail aNewUserEmail aNewText |
+	aSnippet := self blockQuoteSnippetInPageAndDatabase.
+	aCreateTime := aSnippet createTime.
+	aCreateEmail := aSnippet createEmail.
+	anEditTime := aSnippet editTime.
+	anEditEmail := aSnippet editEmail.
+	aNewUserEmail := 'connie@dogs.com'.
+	aSnippet database userEmail: aNewUserEmail.
+	aNewText := 'one > two' asRopedText.
+	aSnippet updateText: aNewText.
+	self assert: aSnippet text characters equals: aNewText characters.
+	self assert: aSnippet string equals: aNewText asString.
+	self assert: aSnippet createTime == aCreateTime.
+	self assert: aSnippet createEmail == aCreateEmail.
+	"self assert: (aSnippet editTime == anEditTime) not.
+	self assert: (aSnippet editEmail == anEditEmail) not.
+	self assert: aSnippet editEmail equals: aSnippet database userEmail.
+	self assert: aSnippet editEmail email equals: aNewUserEmail."
+	self assert: aSnippet text equals: aNewText.
+	^ aSnippet
+]
+
+{ #category : #'examples - updating' }
 LeDatabaseSnippetUpdaterExamples >> updateSnippetOneToTwo [
 	<gtExample>
 	<return: #LeTextSnippet>
