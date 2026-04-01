@@ -25,6 +25,27 @@ LeSnippetBuilderExamples >> basicSnippet [
 ]
 
 { #category : #'examples - blocks' }
+LeSnippetBuilderExamples >> blockQuoteSnippetInPageAndDatabase [
+	<gtExample>
+	<return: #LeBlockQuoteSnippet>
+	| aDatabase aPage aSnippet |
+	aPage := self pageInDatabase.
+	aDatabase := aPage database.
+	aSnippet := aPage snippetBuilder
+			blockQuote: 'one > one';
+			add.
+	self assert: aSnippet string equals: 'one > one'.
+	self assert: aSnippet parent equals: aPage.
+	self assert: aSnippet database equals: aDatabase.
+	self assert: aSnippet createTime isNotNil.
+	self assert: aSnippet createTime <= LeTime now.
+	self assert: aSnippet createEmail equals: aDatabase userEmail.
+	self assert: aSnippet editTime equals: aSnippet createTime.
+	self assert: aSnippet editEmail equals: aSnippet createEmail.
+	^ aSnippet
+]
+
+{ #category : #'examples - blocks' }
 LeSnippetBuilderExamples >> pageInDatabase [
 	<gtExample>
 	<return: #LePage>
