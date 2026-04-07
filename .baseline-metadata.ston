@@ -16,7 +16,7 @@
 		"github://feenkcom/xdoc/src" : "v0.9.31",
 		"github://feenkcom/gtoolkit-debugadapterprotocol/src" : "v0.6.6",
 		"github://feenkcom/gt4lsp/src" : "v0.7.98",
-		"github://feenkcom/gtoolkit-releaser/src" : "v0.8.349",
+		"github://feenkcom/gtoolkit-releaser/src" : "v0.8.350",
 		"github://feenkcom/gtoolkit-coder/src" : "v0.9.108",
 		"github://feenkcom/gt4pharo/src" : "v0.7.146",
 		"github://feenkcom/gtoolkit-remote-javascript/src" : "v0.6.26"
