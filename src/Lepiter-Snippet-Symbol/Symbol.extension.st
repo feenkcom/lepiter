@@ -14,6 +14,19 @@ Symbol >> gtSymbolAnnotationBrowseImplementorsFor: anAction context: aPhlowConte
 ]
 
 { #category : #'*Lepiter-Snippet-Symbol' }
+Symbol >> gtSymbolAnnotationBrowsePragmasFor: anAction context: aPhlowContext [
+	<gtAction>
+	^ anAction button
+		target: LeSymbolAnnotationActionTarget;
+		priority: 22;
+		icon: BrGlamorousVectorIcons inspect;
+		tooltip: 'Browse pragmas';
+		menuItemPreview: [ self printString ];
+		menuItemGroup: BrMenuItemGroupConfiguration navigation;
+		action: [ :aButton | aButton phlow spawnObject: self gtPragmas ]
+]
+
+{ #category : #'*Lepiter-Snippet-Symbol' }
 Symbol >> gtSymbolAnnotationBrowseRerencesFor: anAction context: aPhlowContext [
 	<gtAction>
 	^ anAction button
