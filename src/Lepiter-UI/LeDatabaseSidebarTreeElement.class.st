@@ -80,7 +80,7 @@ LeDatabaseSidebarTreeElement >> initializeTreeElement [
 		nodeType: [ :anItemTypeFactory :aTreeNode :anItemIndex | aTreeNode value class ];
 		nodeStencil: [ :aNodeType |
 			aNodeType treeNodeInfoElementClass new
-				hMatchParent;
+				hFitContent;
 				vFitContent ];
 		nodeDataBinder: [ :anItemElement :aTreeNode |
 			anItemElement contentViewModel: aTreeNode asNodeViewModel ];
