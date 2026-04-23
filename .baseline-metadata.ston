@@ -1,6 +1,6 @@
 {
 	"repositories" : {
-		"github://feenkcom/Brick/src" : "v0.9.84",
+		"github://feenkcom/Brick/src" : "v0.9.85",
 		"github://feenkcom/gtoolkit-utility/src" : "v0.9.25",
 		"github://feenkcom/gtoolkit-chrome/src" : "v0.6.1",
 		"github://feenkcom/gt4dockerengine/src" : "v0.5.135",
@@ -8,17 +8,17 @@
 		"github://feenkcom/JSONWebToken/source" : "v0.5.154",
 		"github://feenkcom/zinc/repository" : "v3.1.1",
 		"github://feenkcom/gtoolkit-remote-python/src" : "v0.6.7",
-		"github://feenkcom/gtoolkit-inspector/src" : "v0.9.163",
-		"github://feenkcom/gtoolkit-remote/src" : "v0.9.91",
-		"github://feenkcom/gtoolkit-visualizer/src" : "v0.9.187",
-		"github://feenkcom/gt4json/src" : "v0.7.164",
+		"github://feenkcom/gtoolkit-inspector/src" : "v0.9.164",
+		"github://feenkcom/gtoolkit-remote/src" : "v0.9.92",
+		"github://feenkcom/gtoolkit-visualizer/src" : "v0.9.188",
+		"github://feenkcom/gt4json/src" : "v0.7.165",
 		"github://feenkcom/pharo-beacon/repository" : "14f253625b0e28a538c28182025440036991b339",
 		"github://feenkcom/xdoc/src" : "v0.9.32",
 		"github://feenkcom/gtoolkit-debugadapterprotocol/src" : "v0.6.7",
-		"github://feenkcom/gt4lsp/src" : "v0.7.106",
+		"github://feenkcom/gt4lsp/src" : "v0.7.107",
 		"github://feenkcom/gtoolkit-releaser/src" : "v0.8.351",
-		"github://feenkcom/gtoolkit-coder/src" : "v0.9.119",
-		"github://feenkcom/gt4pharo/src" : "v0.7.159",
+		"github://feenkcom/gtoolkit-coder/src" : "v0.9.120",
+		"github://feenkcom/gt4pharo/src" : "v0.7.160",
 		"github://feenkcom/gtoolkit-remote-javascript/src" : "v0.6.28"
 	}
 }
