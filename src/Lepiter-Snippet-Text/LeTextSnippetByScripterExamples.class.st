@@ -260,6 +260,41 @@ LeTextSnippetByScripterExamples >> linkPageOneAndPageTwoOfDisconnectedDatabases_
 ]
 
 { #category : #'examples - two databases' }
+LeTextSnippetByScripterExamples >> linkPageOneAndPageTwoOfDisconnectedDatabases_connectDatabases_addDBs [
+	"Create a Database One with Page Two.
+	Create a Database Two with Page Two.
+	Keep both databases separate.
+	Add Page One remote link into Page Two.
+	Add Database One into a logical database.
+	Add Database Two into a logical database.
+	Display Page Two (According to https://github.com/feenkcom/gtoolkit/issues/3081 the link should be red)."
+
+	<gtExample>
+	<return: #LeTextSnippetExampleResult>
+	| aResult aDatabaseOne aDatabaseTwo aLogicalDatabase |
+	aResult := self linkPageOneAndPageTwoOfDisconnectedDatabases.
+	aDatabaseOne := aResult databaseOne.
+	aDatabaseTwo := aResult databaseTwo.
+
+	aLogicalDatabase := LeLogicalDatabase primaryDB: aDatabaseOne.
+
+	self assert: aDatabaseTwo explicitLinks size equals: 1.
+	self assert: aDatabaseTwo explicitLinks first targetReference isResolved not.
+
+	aLogicalDatabase addDBs: { aDatabaseTwo }.
+
+	self assert: aDatabaseTwo explicitLinks size equals: 1.
+	self assert: aDatabaseTwo explicitLinks first targetReference isResolved.
+
+	^ LeTextSnippetExampleResult new
+		databaseOne: aDatabaseOne;
+		databaseTwo: aDatabaseTwo;
+		pageOne: aResult pageOne;
+		pageTwo: aResult pageTwo;
+		pageTwoSnippet: aResult pageTwoSnippet
+]
+
+{ #category : #'examples - two databases' }
 LeTextSnippetByScripterExamples >> linkPageOneAndPageTwoOfDisconnectedDatabases_connectDatabases_databaseTwoFirst [
 	"Create a Database One with Page Two.
 	Create a Database Two with Page Two.
@@ -282,6 +317,41 @@ LeTextSnippetByScripterExamples >> linkPageOneAndPageTwoOfDisconnectedDatabases_
 	self assert: aDatabaseTwo explicitLinks first targetReference isResolved not.
 
 	aLogicalDatabase addDB: aDatabaseOne.
+
+	self assert: aDatabaseTwo explicitLinks size equals: 1.
+	self assert: aDatabaseTwo explicitLinks first targetReference isResolved.
+
+	^ LeTextSnippetExampleResult new
+		databaseOne: aDatabaseOne;
+		databaseTwo: aDatabaseTwo;
+		pageOne: aResult pageOne;
+		pageTwo: aResult pageTwo;
+		pageTwoSnippet: aResult pageTwoSnippet
+]
+
+{ #category : #'examples - two databases' }
+LeTextSnippetByScripterExamples >> linkPageOneAndPageTwoOfDisconnectedDatabases_connectDatabases_databaseTwoFirst_addDBs [
+	"Create a Database One with Page Two.
+	Create a Database Two with Page Two.
+	Keep both databases separate.
+	Add Page One remote link into Page Two.
+	Add Database Two into a logical database.
+	Add Database One into a logical database.
+	Display Page Two (According to https://github.com/feenkcom/gtoolkit/issues/3081 the link should be red)."
+
+	<gtExample>
+	<return: #LeTextSnippetExampleResult>
+	| aResult aDatabaseOne aDatabaseTwo aLogicalDatabase |
+	aResult := self linkPageOneAndPageTwoOfDisconnectedDatabases.
+	aDatabaseOne := aResult databaseOne.
+	aDatabaseTwo := aResult databaseTwo.
+
+	aLogicalDatabase := LeLogicalDatabase primaryDB: aDatabaseTwo.
+
+	self assert: aDatabaseTwo explicitLinks size equals: 1.
+	self assert: aDatabaseTwo explicitLinks first targetReference isResolved not.
+
+	aLogicalDatabase addDBs: { aDatabaseOne }.
 
 	self assert: aDatabaseTwo explicitLinks size equals: 1.
 	self assert: aDatabaseTwo explicitLinks first targetReference isResolved.

@@ -32,6 +32,29 @@ LeLogicalDatabaseExamples >> addDatabaseOnePage [
 	^ aCollection first
 ]
 
+{ #category : #'examples - modifications' }
+LeLogicalDatabaseExamples >> addDatabaseOnePage_addDBs [
+	<gtExample>
+	<return: #LeDatabasePageAdded>
+	| aDatabase aPage aCollection |
+	aDatabase := self logicalDatabaseWithPrimaryWorkspaceAndAdditionalDBS_addDBs.
+
+	aCollection := OrderedCollection new.
+	aDatabase
+		when: LeDatabasePageAdded
+		send: #add:
+		to: aCollection.
+	aPage := aDatabase registeredDBs first pageBuilder
+			uniqueTitle;
+			add.
+
+	self assert: aCollection size equals: 1.
+	self assert: aCollection first database equals: aDatabase registeredDBs first.
+	self assert: aCollection first page equals: aPage.
+
+	^ aCollection first
+]
+
 { #category : #'examples - support' }
 LeLogicalDatabaseExamples >> addPagesToDatabase: aDatabase prefix: aPrefix [
 	<gtEample>
@@ -278,6 +301,47 @@ LeLogicalDatabaseExamples >> crossDatabaseLinkLoadRegistered [
 	^ logicalDB
 ]
 
+{ #category : #'examples - cross database' }
+LeLogicalDatabaseExamples >> crossDatabaseLinkLoadRegistered_addDBs [
+	"Check that a link to an external database is correctly resolved when the target database is loaded"
+
+	<gtExample>
+	<return: #LeLogicalDatabase>
+	| logicalDB linkText primaryDB registeredDB targetPage sourcePage |
+	primaryDB := self primaryDatabase.
+	registeredDB := self additionalOneDatabase.
+
+	targetPage := LePage named: #TargetPage.
+	targetPage addSnippet: (LeTextSnippet string: 'target page').
+	registeredDB addPage: targetPage.
+
+	linkText := String
+			streamContents: [ :stream | 
+				stream
+					<< '{{gtPage:';
+					<< targetPage title;
+					<< '|db=';
+					<< registeredDB uuid asString36;
+					<< '}}' ].
+
+	sourcePage := LePage named: #SourcePage.
+	sourcePage addSnippet: (LeTextSnippet string: linkText).
+	primaryDB addPage: sourcePage.
+
+	logicalDB := LeLogicalDatabase
+			primaryDB: primaryDB
+			playgroundDB: self workspaceDatabase.	"At this point the link hasn't been resolved"
+	self
+		assert: sourcePage children first outgoingTextualLinks first targetReference content
+				isNil.
+
+	logicalDB addDBs: { registeredDB }.	"Now the link has been resolved"
+	self
+		assert: sourcePage children first outgoingTextualLinks first targetReference content
+				isNotNil.
+	^ logicalDB
+]
+
 { #category : #private }
 LeLogicalDatabaseExamples >> currentFileSystem [
 	^ theFileSystem ifNil: [
@@ -339,6 +403,22 @@ LeLogicalDatabaseExamples >> logicalDatabaseWithPrimaryWorkspaceAndAdditionalDBS
 		playgroundDB: self workspaceDatabaseWithPages;
 		addDB: self additionalOneDatabaseWithPages;
 		addDB: self additionalTwoDatabaseWithPages;
+		yourself
+]
+
+{ #category : #'examples - database' }
+LeLogicalDatabaseExamples >> logicalDatabaseWithPrimaryWorkspaceAndAdditionalDBS_addDBs [
+	"Answer a logical database with primary and workspace DBs, and:
+	- Four pages in the primary DB.
+	- An unnamed page in the workspace DB.
+	- An pharo class snippet in the workspace DB."
+
+	<gtExample>
+	<return: #LeLogicalDatabase>
+	^ LeLogicalDatabase new
+		primaryDB: self primaryDatabaseWithPages;
+		playgroundDB: self workspaceDatabaseWithPages;
+		addDBs: { self additionalOneDatabaseWithPages. self additionalTwoDatabaseWithPages };
 		yourself
 ]
 

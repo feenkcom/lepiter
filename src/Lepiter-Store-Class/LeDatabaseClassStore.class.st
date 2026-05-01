@@ -169,10 +169,9 @@ LeDatabaseClassStore >> dbClassName: aSymbol package: packageName [
 		at: aSymbol
 		ifPresent: [ :aClass | aClass ]
 		ifAbsent: 
-			[ GtAbstractLepiterDb subclass: aSymbol
-				instanceVariableNames: '' 
-				classVariableNames: ''
-				package: packageName ].
+			[ ((GtAbstractLepiterDb << aSymbol)
+				slots: {};
+				package: packageName) install ].
 	dbPackage := packageName.
 ]
 
