@@ -87,6 +87,21 @@ LeLogicalDatabase >> addDB: aLeDatabase [
 	^ self setupAddedDB: aLeDatabase
 ]
 
+{ #category : #accessing }
+LeLogicalDatabase >> addDBs: aCollectionOfLeDatabases [
+	"Add the supplied databases to the receiver"
+
+	self assert: [ aCollectionOfLeDatabases isNotNil ].
+	self assert: [ aCollectionOfLeDatabases isNotEmpty ].
+	self assert: [ aCollectionOfLeDatabases allSatisfy: #isDatabase ].
+	self
+		assert: [ aCollectionOfLeDatabases
+				allSatisfy: [ :eachDb | primaryDB ~= eachDb and: [ playgroundDB ~= eachDb ] ] ].
+
+	aCollectionOfLeDatabases do: [ :eachDb | self basicAddDB: eachDb ].
+	^ self setupAddedDBs: aCollectionOfLeDatabases
+]
+
 { #category : #'api - convenience' }
 LeLogicalDatabase >> addKnowledgebaseFromDirectory: aFileReference [
 	"Create a new database instance and add as registered DB"
@@ -826,6 +841,23 @@ LeLogicalDatabase >> setupAddedDB: aLeDatabase [
 	self pagesDo: [ :page | page onAddedToDatabase ].
 
 	^ aLeDatabase 
+]
+
+{ #category : #private }
+LeLogicalDatabase >> setupAddedDBs: aCollectionOfLeDatabases [
+	"Set up the announcements and update links for a newly added DB.
+	This is called by #addDB: and the logical DB reload code."
+
+	aCollectionOfLeDatabases do: [ :eachDb | eachDb parent: self ].
+
+	aCollectionOfLeDatabases do: [ :eachDb | self subscribeToDatabase: eachDb ].
+	aCollectionOfLeDatabases do: [ :eachDb | self notifyDatabaseAdded: eachDb ].
+
+	"Cross-database links are updated by the target page.
+	Update links from existing databases that reference the newly loaded database."
+	self pagesDo: [ :page | page onAddedToDatabase ].
+
+	^ aCollectionOfLeDatabases
 ]
 
 { #category : #'api - accessing' }
