@@ -312,7 +312,10 @@ LeDatabaseStore >> uuid [
 { #category : #'accessing - db properties' }
 LeDatabaseStore >> uuidString [
 	"Answer the UUID of the receiver's DB in String36 format"
-	<return: #String>
 
-	^ self uuid asString36
+	<return: #String>
+	^ self dbProperties
+		at: 'uuidString36'
+		ifPresent: [ :aString | aString ]
+		ifAbsentPut: [ self uuid asString36 ]
 ]
