@@ -86,7 +86,7 @@ LeExampleSnippetViewModelExamples >> compileErrorClassSideMethodExampleSnippetVi
 
 { #category : #accessing }
 LeExampleSnippetViewModelExamples >> compilerErrorsToHandle [
-	^ OCUndeclaredVariableWarning, #CodeError asClass
+	^ OCUndeclaredVariableWarning, RBParser gtParseErrorClass
 ]
 
 { #category : #'examples - snippet' }
