@@ -279,6 +279,44 @@ LeOnDiskDatabaseExamples >> logicalDatabaseWithPageLinks_DbOneFromPropertiesThen
 ]
 
 { #category : #'examples - database' }
+LeOnDiskDatabaseExamples >> logicalDatabaseWithPageLinks_DbOneFromPropertiesThenAddDbTwo_addDBs [
+	<gtExample>
+	<after: #cleanUp>
+	<return: #LeTwoDatabasesExampleResult>
+	| aResult aDatabaseOne aDatabaseTwo aProperties aLogicalDatabase |
+	aResult := self twoDatabasesWithPageLinks.
+
+	aDatabaseOne := aResult databaseOne.
+	aDatabaseTwo := aResult databaseTwo.
+
+	aProperties := LeLogicalDatabaseProperties new
+			primaryDatabaseDirectory: aDatabaseOne monitor localRoot;
+			playgroundDatabaseDirectory: aDatabaseOne monitor localRoot;
+			localFile: self propertiesFileReference;
+			save.
+	aLogicalDatabase := LeLogicalDatabase withProperties: aProperties.
+
+	self registerDatabase: aLogicalDatabase.
+
+	self assert: aDatabaseTwo explicitLinks size equals: 1.
+	self assert: aDatabaseTwo explicitLinks first targetReference isResolved not.
+
+	aLogicalDatabase addDBs: { aDatabaseTwo }.
+
+	self assert: aDatabaseOne explicitLinks size equals: 0.
+	self assert: aDatabaseTwo explicitLinks size equals: 1.
+	self assert: aDatabaseTwo explicitLinks first targetReference isResolved.
+
+	^ LeTwoDatabasesExampleResult new
+		databaseOne: aDatabaseOne;
+		databaseTwo: aDatabaseTwo;
+		pageOne: aResult pageOne;
+		pageTwo: aResult pageTwo;
+		pageTwoSnippet: aResult pageTwoSnippet;
+		logicalDatabase: aLogicalDatabase
+]
+
+{ #category : #'examples - database' }
 LeOnDiskDatabaseExamples >> logicalDatabaseWithPageLinks_DbOneIsPrimaryAndTwoIsPlaygroundFromProperties [
 	<gtExample>
 	<after: #cleanUp>
@@ -637,6 +675,46 @@ LeOnDiskDatabaseExamples >> logicalDatabaseWithPageLinks_DbTwoFromPropertiesThen
 		databaseOne: aNewDatabaseOne;
 		databaseTwo: aNewDatabaseTwo;
 		pageOne: (aNewDatabaseOne pageNamed: self pageOneName);
+		pageTwo: (aNewDatabaseTwo pageNamed: self pageTwoName);
+		pageTwoSnippet: (aNewDatabaseTwo pageNamed: self pageTwoName) children first;
+		logicalDatabase: aLogicalDatabase
+]
+
+{ #category : #'examples - database' }
+LeOnDiskDatabaseExamples >> logicalDatabaseWithPageLinks_DbTwoFromPropertiesThenAddDbOne_addDBs [
+	<gtExample>
+	<after: #cleanUp>
+	<return: #LeTwoDatabasesExampleResult>
+	| aResult aDatabaseOne aDatabaseTwo aProperties aLogicalDatabase aNewDatabaseTwo |
+	aResult := self twoDatabasesWithPageLinks.
+
+	aDatabaseOne := aResult databaseOne.
+	aDatabaseTwo := aResult databaseTwo.
+
+	aProperties := LeLogicalDatabaseProperties new
+			primaryDatabaseDirectory: aDatabaseTwo monitor localRoot;
+			playgroundDatabaseDirectory: aDatabaseTwo monitor localRoot;
+			localFile: self propertiesFileReference.
+	aLogicalDatabase := LeLogicalDatabase withProperties: aProperties.
+
+	self registerDatabase: aLogicalDatabase.
+
+	self assert: aDatabaseTwo explicitLinks size equals: 1.
+	self assert: aDatabaseTwo explicitLinks first targetReference isResolved not.
+
+	aLogicalDatabase addDBs: { aDatabaseOne }.
+
+	aNewDatabaseTwo := aLogicalDatabase databaseWithID: aDatabaseTwo uuidString.
+
+	self assert: aDatabaseOne explicitLinks size equals: 0.
+	self assert: aNewDatabaseTwo explicitLinks size equals: 1.
+	self assert: aNewDatabaseTwo explicitLinks first targetReference isResolved.
+
+	^ LeTwoDatabasesExampleResult new
+		previousResult: aResult;
+		databaseOne: aDatabaseOne;
+		databaseTwo: aNewDatabaseTwo;
+		pageOne: (aDatabaseOne pageNamed: self pageOneName);
 		pageTwo: (aNewDatabaseTwo pageNamed: self pageTwoName);
 		pageTwoSnippet: (aNewDatabaseTwo pageNamed: self pageTwoName) children first;
 		logicalDatabase: aLogicalDatabase
