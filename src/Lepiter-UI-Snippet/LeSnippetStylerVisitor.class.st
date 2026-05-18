@@ -667,7 +667,9 @@ LeSnippetStylerVisitor >> styleOpenExternalImage: aLink text: aSubText [
 										pictureContainer
 											childWithId: #imageElement
 											ifFound: [ :anImageElement | (BrResizerElementLength exact: anEvent extent y) adjustHeightFor: anImageElement ]
-											ifNone: [  ] ] ]) ].
+											ifNone: [  ] ] ]).
+											
+				pictureContainer ].
 
 	aSubText attribute: attribute
 ]

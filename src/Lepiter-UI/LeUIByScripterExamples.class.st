@@ -859,6 +859,48 @@ LeUIByScripterExamples >> pageOneTitle [
 	^ 'Page One'
 ]
 
+{ #category : #'examples - links' }
+LeUIByScripterExamples >> pageToCOfDatabaseWithManyPagesOfDifferentCreateTimesAndToC [
+	"See https://github.com/feenkcom/gtoolkit/issues/5072"
+	
+	<gtExample>
+	<return: #BlScripter>
+	| aScripter aToCSnippedUid aToCSnippetElementId aPageOne aPageOneSnippetUid aPageOneSnippetElementId |
+	aScripter := self
+			scripterWithModel: [ LeModelExamples new pageToCOfDatabaseWithManyPagesOfDifferentCreateTimesAndToC ]
+			element: [ :aPageHolder | 
+				GtPagerSettings usedPager
+					createWrappedOn: (aPageHolder page asLepiterPagePhlowTool asElementDo: [ :anElement | anElement ]) ].
+
+	aScripter assert
+		label: 'Assert page snippet tree widget exists';
+		// LePageSnippetsTreeElementId;
+		exists;
+		play.
+		
+	aToCSnippedUid := aScripter model page children first uid.
+	aToCSnippetElementId := LeSnippetId new uid: aToCSnippedUid.
+	aPageOne := aScripter model database pageNamed: 'Page 1'.
+	aPageOneSnippetUid := aPageOne children first uid.
+	aPageOneSnippetElementId := LeSnippetId new uid: aPageOneSnippetUid.
+	
+	aScripter click 
+		label: 'Expand Page 1';
+		// aToCSnippetElementId;
+		// BrInlineExpanderElement;
+		@ 1;
+		play.
+		
+	aScripter assert 
+		label: 'Assert Page 1 is expanded';
+		exists;
+		// aToCSnippetElementId;
+		// aPageOneSnippetElementId;
+		play.
+
+	^ aScripter
+]
+
 { #category : #'examples - support' }
 LeUIByScripterExamples >> pageTwoIn: aDatabase [
 	"Find Page Two"
