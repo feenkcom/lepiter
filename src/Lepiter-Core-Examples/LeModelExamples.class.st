@@ -176,3 +176,25 @@ LeModelExamples >> pageOneFromDatabaseWithOnlyOnePage [
 		page: page;
 		temporaryDatabase: temporaryDatabase
 ]
+
+{ #category : #examples }
+LeModelExamples >> pageToCOfDatabaseWithManyPagesOfDifferentCreateTimesAndToC [
+	<gtExample>
+	<return: #LePageExampleHolder>
+	| temporaryDatabase database page1 page2 |
+	temporaryDatabase := self databaseWithManyPagesOfDifferentCreateTimesAndToC.
+	database := temporaryDatabase database.
+
+	page1 := database tableOfContents.
+	page2 := database pageNamed: 'Table of Contents'.
+
+	self
+		assert: page1 == page2
+		description: [ 'Pages must be of identical instancies: {1} vs. {2}'
+				format: {page1.
+						page2} ].
+
+	^ LePageExampleHolder new
+		page: page1;
+		temporaryDatabase: temporaryDatabase
+]
