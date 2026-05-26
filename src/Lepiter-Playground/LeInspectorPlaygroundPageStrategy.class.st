@@ -17,9 +17,20 @@ LeInspectorPlaygroundPageStrategy >> createNewPageForObject: anObject [
 ]
 
 { #category : #accessing }
-LeInspectorPlaygroundPageStrategy >> ensurePlaygroundPageInDatabase: aDatabase forObject: anObject [
-	^ aDatabase
+LeInspectorPlaygroundPageStrategy >> detectPlaygroundPageInDatabase: aDatabase forObject: anObject ifPresent: aPresentBlock ifAbsent: anAbsentBlock [
+
+	^aDatabase
 		at: (self pageDatabaseKeyBasedOnObject: anObject)
+		ifPresent: aPresentBlock
+		ifAbsent: anAbsentBlock
+		forPageType: self playgroundPageType
+]
+
+{ #category : #accessing }
+LeInspectorPlaygroundPageStrategy >> ensurePlaygroundPageInDatabase: aDatabase forObject: anObject [
+	^self
+		detectPlaygroundPageInDatabase: aDatabase
+		forObject: anObject
 		ifPresent: [ :aPage | 
 			self configureExistingPage: aPage forObject: anObject.
 			aPage ]
@@ -28,7 +39,6 @@ LeInspectorPlaygroundPageStrategy >> ensurePlaygroundPageInDatabase: aDatabase f
 			newPage := self createNewPageForObject: anObject.
 			aDatabase addPage: newPage.
 			newPage ]
-		forPageType: self playgroundPageType
 ]
 
 { #category : #accessing }
