@@ -51,3 +51,16 @@ Symbol >> gtSymbolAnnotationCopyFor: anAction context: aPhlowContext [
 		menuItemGroup: BrMenuItemGroupConfiguration editing;
 		action: [ :aButton | Clipboard clipboardText: self printString ]
 ]
+
+{ #category : #'*Lepiter-Snippet-Symbol' }
+Symbol >> gtSymbolAnnotationCopyLepiterLinkFor: anAction context: aPhlowContext [
+	<gtAction>
+	^ anAction button
+		target: LeSymbolAnnotationActionTarget;
+		priority: 22;
+		icon: BrGlamorousVectorIcons clipboard;
+		tooltip: 'Copy lepiter link';
+		menuItemPreview: [ '\{\{gtSymbol:{1}\}\}' format: {self asString} ];
+		menuItemGroup: BrMenuItemGroupConfiguration editing;
+		action: [ :aButton | Clipboard clipboardText: ('\{\{gtSymbol:{1}\}\}' format: {self asString }) ]
+]
