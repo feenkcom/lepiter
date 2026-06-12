@@ -260,6 +260,41 @@ LeDatabaseClassMonitorExamples >> monitorPageRemoved [
 ]
 
 { #category : #'examples - monitor' }
+LeDatabaseClassMonitorExamples >> monitorPageReplaceWithSameName [
+	<gtExample>
+	<after: #stopMonitor>
+	| page1 |
+	self monitorWithDuration: 1 hour.
+
+	monitor pauseUpdates.
+
+	self replacePage1OutOfOrder.
+	monitor updateEntriesSorted: monitor removeFirstSortFunction.
+
+	page1 := database pageNamed: 'Page 1'.
+	self assert: page1 uid asString equals: '14d61e4a-5feb-4586-b6dd-1aeed53a298a'.
+	
+	monitor stopMonitoring.
+]
+
+{ #category : #'examples - monitor' }
+LeDatabaseClassMonitorExamples >> monitorPageReplaceWithSameNameUnSorted [
+	<gtExample>
+	<after: #stopMonitor>
+
+	self monitorWithDuration: 1 hour.
+	monitor pauseUpdates.
+
+	"Replacing the pages and attempting to update without sorting will trigger a duplicate page error"
+	self replacePage1OutOfOrder.
+	self
+		should: [ monitor updateEntriesSorted: nil ]
+		raise: LeDuplicatePageIdError.
+
+	monitor stopMonitoring.
+]
+
+{ #category : #'examples - monitor' }
 LeDatabaseClassMonitorExamples >> monitorPageTitleChanged [
 	<gtExample>
 	<after: #stopMonitor>
@@ -334,6 +369,91 @@ LeDatabaseClassMonitorExamples >> monitorSaveDelay [
 
 	monitor stopMonitoring.
 	^ monitor.
+]
+
+{ #category : #'private - helpers' }
+LeDatabaseClassMonitorExamples >> page1Source [
+
+^ 'page_86glamqd0eumsqgeo11l2kt1w
+"Automatically generated
+Page 1"
+	<lepiterPageStore>
+"{
+	""__schema"" : ""4.1"",
+	""__type"" : ""page"",
+	""children"" : {
+		""__type"" : ""snippets"",
+		""items"" : [
+			{
+				""__type"" : ""textSnippet"",
+				""children"" : {
+					""__type"" : ""snippets"",
+					""items"" : [ ]
+				},
+				""createEmail"" : {
+					""__type"" : ""email"",
+					""emailString"" : ""<unknown>""
+				},
+				""createTime"" : {
+					""__type"" : ""time"",
+					""time"" : {
+						""__type"" : ""dateAndTime"",
+						""dateAndTimeString"" : ""2026-06-11T16:19:33.516646+02:00""
+					}
+				},
+				""editEmail"" : {
+					""__type"" : ""email"",
+					""emailString"" : ""<unknown>""
+				},
+				""editTime"" : {
+					""__type"" : ""time"",
+					""time"" : {
+						""__type"" : ""dateAndTime"",
+						""dateAndTimeString"" : ""2026-06-11T16:19:33.516646+02:00""
+					}
+				},
+				""uid"" : {
+					""__type"" : ""uid"",
+					""uidString"" : ""zQuM0zNgR0KeyUllGMnxUw==""
+				},
+				""paragraphStyle"" : {
+					""__type"" : ""textStyle""
+				},
+				""string"" : """"
+			}
+		]
+	},
+	""createEmail"" : {
+		""__type"" : ""email"",
+		""emailString"" : ""<unknown>""
+	},
+	""createTime"" : {
+		""__type"" : ""time"",
+		""time"" : {
+			""__type"" : ""dateAndTime"",
+			""dateAndTimeString"" : ""2026-06-11T16:19:37.948416+02:00""
+		}
+	},
+	""editEmail"" : {
+		""__type"" : ""email"",
+		""emailString"" : ""<unknown>""
+	},
+	""editTime"" : {
+		""__type"" : ""time"",
+		""time"" : {
+			""__type"" : ""dateAndTime"",
+			""dateAndTimeString"" : ""2026-06-11T16:19:37.948416+02:00""
+		}
+	},
+	""pageType"" : {
+		""__type"" : ""namedPage"",
+		""title"" : ""Page 1""
+	},
+	""uid"" : {
+		""__type"" : ""uuid"",
+		""uuid"" : ""14d61e4a-5feb-4586-b6dd-1aeed53a298a""
+	}
+}"'
 ]
 
 { #category : #accessing }
@@ -416,6 +536,41 @@ Monitor Method Added"
 		""uuid"" : ""1ee5cd56-13bb-0d00-a478-643a08fd77fd""
 	}
 }"
+]
+
+{ #category : #'examples - monitor' }
+LeDatabaseClassMonitorExamples >> removeFirstSortFunctionOrder [
+	"Confirm that the sort function keeps the order of other entries"
+	<gtExample>
+	| sortFunction entries sorted |
+
+	sortFunction := LeDatabaseClassStoreMonitor new removeFirstSortFunction.
+	entries := (1 to: 10) collect: [ :i |
+			LeDatabaseClassStoreQueueStorePageEntry new monitor: i ]
+		as: OrderedCollection.
+	entries 
+		addFirst: (LeDatabaseClassStoreQueueRemovePageEntry new monitor: 200);
+		add: (LeDatabaseClassStoreQueueRemovePageEntry new monitor: 100).
+	sorted := entries sorted: sortFunction.
+	self assert: sorted first monitor equals: 200.
+	self assert: sorted second monitor equals: 100.
+	self assert: ((sorted copyFrom: 3 to: 12) collect: #monitor as: Array)
+		equals: (1 to: 10) asArray.
+]
+
+{ #category : #'private - helpers' }
+LeDatabaseClassMonitorExamples >> replacePage1OutOfOrder [
+	"Add a new Page1 and then remove the existing page 1.
+	Assumes that the monitor has been paused, so creates the events out of order, simulating a code management system replaying operations out of order."
+	| existingPage1 existingPage1Selector |
+
+	existingPage1 := database pageNamed: 'Page 1'.
+	existingPage1Selector := monitor storage pageSelectorFor: existingPage1.
+
+	monitor dbClass class
+		compile: self page1Source
+		classified: #pages.	
+	monitor dbClass class removeSelector: existingPage1Selector.
 ]
 
 { #category : #private }
