@@ -273,6 +273,14 @@ LeDatabaseClassStoreMonitor >> onMethodRemoved: anAnnouncement [
 	self removePageSelector: anAnnouncement method selector.
 ]
 
+{ #category : #actions }
+LeDatabaseClassStoreMonitor >> pauseUpdates [
+	"Pause processing of the receiver's queue"
+
+	updatePromise ifNotNil: [ updatePromise cancelSoft ].
+	state := #paused.
+]
+
 { #category : #'startup-shutdown' }
 LeDatabaseClassStoreMonitor >> primitiveReloadWithErrorStrategy: aContentReloadErrorStrategy [
 	"Reload the receiver's database."
@@ -436,6 +444,17 @@ LeDatabaseClassStoreMonitor >> reloadWithNotificationOnError [
 	self reloadWithErrorStrategy: LeDatabaseContentReloadErrorStrategy singleNotificationOnErrorStrategy
 ]
 
+{ #category : #sorting }
+LeDatabaseClassStoreMonitor >> removeFirstSortFunction [
+	"Answer a PropertySortFunction that places remove operations first"
+	
+	^ [ :entry |
+		entry class == LeDatabaseClassStoreQueueRemovePageEntry
+			ifTrue: [ 0 ]
+			ifFalse: [ 1 ]
+	 ] ascending
+]
+
 { #category : #private }
 LeDatabaseClassStoreMonitor >> removePage: aPage [
 	"Remove the supplied page from the local store"
@@ -466,6 +485,24 @@ LeDatabaseClassStoreMonitor >> removePageSelectorNow: aSymbol [
 		pageTitle: aSymbol;
 		operation: #remove;
 		emit.
+]
+
+{ #category : #actions }
+LeDatabaseClassStoreMonitor >> resumeUpdatesRemoveFirst [
+
+	self resumeUpdatesSorted: self removeFirstSortFunction
+]
+
+{ #category : #actions }
+LeDatabaseClassStoreMonitor >> resumeUpdatesSorted: sortFunction [
+	"Resume updates.
+	If aBoolean is true, sort the queue so that removes are processed first."
+
+	state := #running.
+	[ [ [ self updateEntriesSorted: sortFunction ]
+	on: UnhandledError fork: [ :ex | ex pass ] ]
+		ensure: [ self scheduleNextUpdate ] ] asAsyncFuture
+			awaitInLepiterWorkerWithErrorHandler: AsyncPassExceptionHandler new.
 ]
 
 { #category : #private }
@@ -648,6 +685,14 @@ LeDatabaseClassStoreMonitor >> uidsInStore [
 { #category : #private }
 LeDatabaseClassStoreMonitor >> updateEntries [
 	"Perform all the queued updates"
+
+	self updateEntriesSorted: nil.
+]
+
+{ #category : #private }
+LeDatabaseClassStoreMonitor >> updateEntriesSorted: sortFunction [
+	"Perform all the queued updates.
+	If sortFunction is not nil, use it to sort the entries first."
 	| oldQueue newQueue entries entry sendChanged |
 
 	sendChanged := self hasChanges.
@@ -665,6 +710,10 @@ LeDatabaseClassStoreMonitor >> updateEntries [
 	entries := OrderedCollection new.
 	[ (entry := oldQueue nextOrNil) isNotNil ] whileTrue:
 		[ entries add: entry ].
+
+	sortFunction ifNotNil:
+		[ entries := entries sorted: sortFunction ].
+
 	entries do: [ :each | 
 		currentEntry := each.
 		each apply ].
