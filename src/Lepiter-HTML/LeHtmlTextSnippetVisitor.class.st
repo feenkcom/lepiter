@@ -247,7 +247,17 @@ LeHtmlTextSnippetVisitor >> visitString: aString [
 
 { #category : #generated }
 LeHtmlTextSnippetVisitor >> visitText: aText [
-	context html escape: aText content.
+	| aString |
+	aString := aText content.
+	aString size = 1
+		ifFalse: [ context html escape: aString ]
+		ifTrue: [
+	aString first = Character lf
+		ifTrue: [ context html nextPutAll: '<br>' ]
+		ifFalse: [
+	aString first = Character tab
+		ifTrue: [ context html nextPutAll: '&emsp;' ]
+		ifFalse: [ context html escape: aString ] ] ].
 	
 	exportedNodes add: aText
 ]
