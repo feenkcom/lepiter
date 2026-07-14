@@ -336,7 +336,7 @@ LeSnippetStylerVisitor >> styleAutoHiding: leftRange and: rightRange whenOutside
 				attribute: anAttribute
 				from: rightRange first
 				to: rightRange last ].
-	cursorAttribute := BrTextCursorAttribute new
+	cursorAttribute := BrTextCursorDynamicAttribute new
 			enterAction: [ :aTextEditor | 
 				| left right |
 				aTextEditor text
@@ -397,7 +397,7 @@ LeSnippetStylerVisitor >> styleAutoHiding: anInterval text: aSubText [
 	(self isCursorInside: anInterval)
 		ifFalse: [ aSubText attribute: anAttribute ].
 
-	cursorAttribute := BrTextCursorAttribute new
+	cursorAttribute := BrTextCursorDynamicAttribute new
 			enterAction: [ :aTextEditor | 
 			"we have a reference to the attribute instance. find its interval dynamically"
 			aTextEditor text
