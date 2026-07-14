@@ -680,6 +680,17 @@ LeLogicalDatabase >> pagesWithNameDo: aBlock [
 
 ]
 
+{ #category : #'as yet unclassified' }
+LeLogicalDatabase >> pauseClassStoreUpdates [
+	"Pause updates on all ClassStore monitors.
+	This is typically used when a code management system may replay changes out of sequence."
+
+	self databasesDo: [ :db |
+		db monitor ifNotNil: [ :aMonitor |
+			aMonitor isClassStore ifTrue:
+				[ aMonitor pauseUpdates ] ] ]
+]
+
 { #category : #accessing }
 LeLogicalDatabase >> playgroundDB [
 	^ playgroundDB
@@ -803,6 +814,17 @@ LeLogicalDatabase >> removeDB: aLeDatabase [
 LeLogicalDatabase >> requestUnlinkedReferencesUpdate [
 	self databasesDo: [ :aDatabase |
 		aDatabase requestUnlinkedReferencesUpdate ]
+]
+
+{ #category : #'as yet unclassified' }
+LeLogicalDatabase >> resumeClassStoreUpdatesRemoveFirst [
+	"Resume updates on all ClassStore monitors.
+	This is typically used when a code management system may replay changes out of sequence."
+
+	self databasesDo: [ :db |
+		db monitor ifNotNil: [ :aMonitor |
+			aMonitor isClassStore ifTrue:
+				[ aMonitor resumeUpdatesRemoveFirst ] ] ]
 ]
 
 { #category : #'private - properties' }
