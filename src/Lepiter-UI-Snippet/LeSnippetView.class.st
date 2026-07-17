@@ -5,7 +5,8 @@ Class {
 		'snippetElementClass',
 		'needsEmbellishments',
 		'needsContentDecorationBar',
-		'desiredSnippetWidth'
+		'desiredSnippetWidth',
+		'snippetElementStencil'
 	],
 	#category : #'Lepiter-UI-Snippet-! Views'
 }
@@ -51,7 +52,9 @@ LeSnippetView >> create [
 	<return: #Object>
 	| aSnippetElement aSnippetLook anExtraLeftMargin aSnippetElementContainer |
 
-	aSnippetElement := self snippetElementClass new.
+	aSnippetElement := self snippetElementStencil
+			ifNotNil: #asElement
+			ifNil: [ self snippetElementClass new ].
 
 	self needsEmbellishments
 		ifFalse: [
@@ -163,4 +166,15 @@ LeSnippetView >> snippetElementClass [
 { #category : #accessing }
 LeSnippetView >> snippetElementClass: anObject [
 	snippetElementClass := anObject
+]
+
+{ #category : #accessing }
+LeSnippetView >> snippetElementStencil [
+	<return: #LePlainTextSnippetElementStencil or: nil>
+	^ snippetElementStencil
+]
+
+{ #category : #accessing }
+LeSnippetView >> snippetElementStencil: aStencilOrNil [
+	snippetElementStencil := aStencilOrNil
 ]

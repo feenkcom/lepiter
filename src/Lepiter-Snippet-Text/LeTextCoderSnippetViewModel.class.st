@@ -1,6 +1,9 @@
 Class {
 	#name : #LeTextCoderSnippetViewModel,
 	#superclass : #LePlainTextCoderSnippetViewModel,
+	#instVars : [
+		'snippetElementStencil'
+	],
 	#category : #'Lepiter-Snippet-Text-Snippet'
 }
 
@@ -43,6 +46,24 @@ LeTextCoderSnippetViewModel >> onSnippetModelChanged [
 { #category : #accessing }
 LeTextCoderSnippetViewModel >> snippetElementClass [
 	^ LeTextCoderSnippetElement
+]
+
+{ #category : #accessing }
+LeTextCoderSnippetViewModel >> snippetElementStencil [
+	<return: #LePlainTextSnippetElementStencil or: nil>
+	^ snippetElementStencil
+		ifNil: [ self class defaultSnippetElementStencilClass
+				ifNotNil: [ :aClass | aClass new snippetElementClass: self snippetElementClass ] ]
+]
+
+{ #category : #accessing }
+LeTextCoderSnippetViewModel >> snippetElementStencil: aStencil [
+	self
+		assert: [ (aStencil isKindOf: LePlainTextSnippetElementStencil)
+				or: [ aStencil inheritsFrom: LePlainTextSnippetElementStencil ] ].
+
+	snippetElementStencil := aStencil asStencil.
+	snippetElementStencil snippetElementClass: self snippetElementClass
 ]
 
 { #category : #'filter view' }
