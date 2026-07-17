@@ -44,6 +44,11 @@ LePlainTextCoderSnippetElement >> initializeEditorElement [
 	editorElement editor ensureNoUndoRedoShortcuts
 ]
 
+{ #category : #initialization }
+LePlainTextCoderSnippetElement >> initializeEditorElement: aNewEditorElement [
+	editorElement initializeEditorElement: aNewEditorElement
+]
+
 { #category : #'private - event handling' }
 LePlainTextCoderSnippetElement >> onLinkTargetChanged: aLeSnippetLinkTargetChanged [
 	self hasSnippetViewModel

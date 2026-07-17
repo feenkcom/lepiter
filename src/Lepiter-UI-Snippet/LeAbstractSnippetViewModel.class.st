@@ -22,8 +22,23 @@ Class {
 		'sharedContext',
 		'titleElement'
 	],
+	#classVars : [
+		'DefaultSnippetElementStencilClass'
+	],
 	#category : #'Lepiter-UI-Snippet-! View Models'
 }
+
+{ #category : #accessing }
+LeAbstractSnippetViewModel class >> defaultSnippetElementStencilClass [
+	^ DefaultSnippetElementStencilClass
+]
+
+{ #category : #accessing }
+LeAbstractSnippetViewModel class >> defaultSnippetElementStencilClass: aStencilClassOrNil [
+	"Set a default snippet element stencil class that is used to create snippet elements."
+
+	DefaultSnippetElementStencilClass := aStencilClassOrNil
+]
 
 { #category : #testing }
 LeAbstractSnippetViewModel class >> isAbstract [
@@ -387,10 +402,17 @@ LeAbstractSnippetViewModel >> snippetElementClass [
 ]
 
 { #category : #'api - accessing' }
+LeAbstractSnippetViewModel >> snippetElementStencil [
+	<return: #LePlainTextSnippetElementStencil or: nil>
+	^ nil
+]
+
+{ #category : #'api - accessing' }
 LeAbstractSnippetViewModel >> snippetView [
 	<return: #LeSnippetView>
-
-	^ LeSnippetView new snippetElementClass: self snippetElementClass
+	^ LeSnippetView new
+		snippetElementClass: self snippetElementClass;
+		snippetElementStencil: self snippetElementStencil
 ]
 
 { #category : #private }
