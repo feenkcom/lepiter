@@ -50,7 +50,7 @@ LeTextualSnippetElement >> onPostSnippetViewModelChanged [
 
 { #category : #private }
 LeTextualSnippetElement >> removeSelection [
-	self editor ifNotNil: [ :anEditor | anEditor deselecter all deselect ]
+	self editor ifNotNil: [ :anEditor | anEditor deselectAll ]
 ]
 
 { #category : #'api - snippet' }
