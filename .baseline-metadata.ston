@@ -10,7 +10,7 @@
 		"github://feenkcom/gtoolkit-remote-python/src" : "v0.6.9",
 		"github://feenkcom/gtoolkit-inspector/src" : "v0.9.255",
 		"github://feenkcom/gtoolkit-remote/src" : "v0.9.161",
-		"github://feenkcom/gtoolkit-visualizer/src" : "v0.9.286",
+		"github://feenkcom/gtoolkit-visualizer/src" : "v0.9.287",
 		"github://feenkcom/gt4json/src" : "v0.7.256",
 		"github://feenkcom/pharo-beacon/repository" : "d1af72fc3fb759440b1b4b3e62144d1c7f8d73f2",
 		"github://feenkcom/xdoc/src" : "v0.9.55",
