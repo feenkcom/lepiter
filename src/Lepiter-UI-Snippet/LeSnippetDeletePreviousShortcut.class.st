@@ -15,10 +15,14 @@ LeSnippetDeletePreviousShortcut >> name [
 ]
 
 { #category : #evaluation }
-LeSnippetDeletePreviousShortcut >> performOnEditor: aBrTextEditor snippet: aLeSnippetElement dueTo: aShortcutEvent [
-	(aBrTextEditor cursors first position isZero and: [ aBrTextEditor hasSelection not ])
-		ifTrue: [ ^ aLeSnippetElement mergeWithPrevious ].
-
-	BrEditorShortcut deleteOneLetterBeforeCursor
-		performDueTo: aShortcutEvent
+LeSnippetDeletePreviousShortcut >> performOnEditor: aBrTextEditor editorElement: anEditorElement snippetElement: aSnippetElement dueTo: aShortcutEvent [
+	anEditorElement
+		selectedStringAndIntervalDo: [ :aSelectedString :aSelectedInterval :aTextSize :aDocumentId :aCaretOffset |
+			BrEditorShortcut deleteOneLetterBeforeCursor 
+				performDueTo: aShortcutEvent ]
+		orCursorPositionDo: [ :aStringPosition :aTextSize :aDocumentId :aCaretOffset | 
+			aCaretOffset isZero
+				ifTrue: [ aSnippetElement mergeWithPrevious ]
+				ifFalse: [ BrEditorShortcut deleteOneLetterBeforeCursor 
+					performDueTo: aShortcutEvent ] ]
 ]
