@@ -6,7 +6,7 @@ I identify a {{gtClass:LeWordSnippetViewModel}} state in which a word {{gtClass:
 Class {
 	#name : #LeWordSnippetViewModelViewState,
 	#superclass : #LeWordSnippetViewModelState,
-	#category : #'Lepiter-Snippet-Words-UI View Model'
+	#category : 'Lepiter-Snippet-Words-UI View Model'
 }
 
 { #category : #visitor }

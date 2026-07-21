@@ -5,7 +5,7 @@ Class {
 		'items',
 		'bars'
 	],
-	#category : #'Lepiter-Snippet-Words-Annotations'
+	#category : 'Lepiter-Snippet-Words-Annotations'
 }
 
 { #category : #generated }

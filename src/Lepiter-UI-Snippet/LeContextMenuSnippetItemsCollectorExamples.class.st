@@ -1,7 +1,7 @@
 Class {
 	#name : #LeContextMenuSnippetItemsCollectorExamples,
 	#superclass : #Object,
-	#category : #'Lepiter-UI-Snippet-Spotter'
+	#category : 'Lepiter-UI-Snippet-Spotter'
 }
 
 { #category : #'examples - builder' }

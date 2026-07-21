@@ -11,7 +11,7 @@ Class {
 		'response',
 		'state'
 	],
-	#category : #'Lepiter-Snippet-Words-UI View Model'
+	#category : 'Lepiter-Snippet-Words-UI View Model'
 }
 
 { #category : #visiting }

@@ -1,7 +1,7 @@
 Class {
 	#name : #LeWordHeightNode,
 	#superclass : #LeWordArgumentNode,
-	#category : #'Lepiter-Snippet-Words-Annotations'
+	#category : 'Lepiter-Snippet-Words-Annotations'
 }
 
 { #category : #generated }

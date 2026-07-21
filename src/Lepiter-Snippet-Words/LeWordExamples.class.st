@@ -5,7 +5,7 @@ I provide examples for the word snippet.
 Class {
 	#name : #LeWordExamples,
 	#superclass : #Object,
-	#category : #'Lepiter-Snippet-Words-Examples'
+	#category : 'Lepiter-Snippet-Words-Examples'
 }
 
 { #category : #'accessing - words' }

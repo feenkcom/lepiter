@@ -1,7 +1,7 @@
 Class {
 	#name : #LeSnippetFullWidth,
 	#superclass : #LeSnippetWidth,
-	#category : #'Lepiter-UI-Snippet-! Views'
+	#category : 'Lepiter-UI-Snippet-! Views'
 }
 
 { #category : #accessing }

@@ -1,7 +1,7 @@
 Class {
 	#name : #LeTextSnippetAttributeLabelElementId,
 	#superclass : #LeTextSnippetAttributeElementId,
-	#category : #'Lepiter-UI-Snippet-Element IDs'
+	#category : 'Lepiter-UI-Snippet-Element IDs'
 }
 
 { #category : #converting }

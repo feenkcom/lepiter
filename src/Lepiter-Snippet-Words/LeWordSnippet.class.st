@@ -18,7 +18,7 @@ Class {
 		'explanation',
 		'explanationAttachmentName'
 	],
-	#category : #'Lepiter-Snippet-Words-Snippet'
+	#category : 'Lepiter-Snippet-Words-Snippet'
 }
 
 { #category : #'api - accessing menu' }

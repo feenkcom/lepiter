@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'source'
 	],
-	#category : #'Lepiter-Snippet-Words-Announcements'
+	#category : 'Lepiter-Snippet-Words-Announcements'
 }
 
 { #category : #accessing }

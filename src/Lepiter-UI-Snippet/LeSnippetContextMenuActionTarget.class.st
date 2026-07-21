@@ -1,7 +1,7 @@
 Class {
 	#name : #LeSnippetContextMenuActionTarget,
 	#superclass : #LeSnippetActionTarget,
-	#category : #'Lepiter-UI-Snippet-! View Models'
+	#category : 'Lepiter-UI-Snippet-! View Models'
 }
 
 { #category : #comparing }

@@ -10,7 +10,7 @@ Class {
 		'word',
 		'message'
 	],
-	#category : #'Lepiter-Snippet-Words-Client'
+	#category : 'Lepiter-Snippet-Words-Client'
 }
 
 { #category : #initialization }

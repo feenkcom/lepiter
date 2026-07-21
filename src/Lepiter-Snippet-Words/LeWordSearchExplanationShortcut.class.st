@@ -5,7 +5,7 @@ I perform a word explanation search on when an editor shortcut is pressed (typic
 Class {
 	#name : #LeWordSearchExplanationShortcut,
 	#superclass : #LeSnippetEditorShortcut,
-	#category : #'Lepiter-Snippet-Words-Shortcuts'
+	#category : 'Lepiter-Snippet-Words-Shortcuts'
 }
 
 { #category : #accessing }

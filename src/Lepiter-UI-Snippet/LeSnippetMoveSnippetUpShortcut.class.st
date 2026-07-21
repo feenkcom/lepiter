@@ -1,12 +1,21 @@
 Class {
 	#name : #LeSnippetMoveSnippetUpShortcut,
 	#superclass : #LeSnippetEditorShortcut,
-	#category : #'Lepiter-UI-Snippet-Shortcuts'
+	#category : 'Lepiter-UI-Snippet-Shortcuts'
 }
 
 { #category : #accessing }
 LeSnippetMoveSnippetUpShortcut >> description [
 	^ 'Moves snippet up, shifting the other snippets down.'
+]
+
+{ #category : #initialization }
+LeSnippetMoveSnippetUpShortcut >> initialize [
+	super initialize.
+	
+	self 
+		shortcutId: LeShortcutIds default moveSnippetUpShortcutId
+		inRegistry: BlShortcutKeymapRegistry default lepiter 
 ]
 
 { #category : #accessing }

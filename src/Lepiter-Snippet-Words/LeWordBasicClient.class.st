@@ -6,7 +6,7 @@ I document {{gtClass:LeWordClient}} common API that clients must implement.
 Class {
 	#name : #LeWordBasicClient,
 	#superclass : #Object,
-	#category : #'Lepiter-Snippet-Words-Client'
+	#category : 'Lepiter-Snippet-Words-Client'
 }
 
 { #category : #'api - communication' }

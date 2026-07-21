@@ -10,7 +10,7 @@ Class {
 		'exception',
 		'word'
 	],
-	#category : #'Lepiter-Snippet-Words-Client'
+	#category : 'Lepiter-Snippet-Words-Client'
 }
 
 { #category : #accessing }

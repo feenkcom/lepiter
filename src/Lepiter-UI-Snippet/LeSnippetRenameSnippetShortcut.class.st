@@ -1,12 +1,21 @@
 Class {
 	#name : #LeSnippetRenameSnippetShortcut,
 	#superclass : #LeSnippetEditorShortcut,
-	#category : #'Lepiter-UI-Snippet-Shortcuts'
+	#category : 'Lepiter-UI-Snippet-Shortcuts'
 }
 
 { #category : #accessing }
 LeSnippetRenameSnippetShortcut >> description [
 	^ 'Requests to rename a snippet.'
+]
+
+{ #category : #initialization }
+LeSnippetRenameSnippetShortcut >> initialize [
+	super initialize.
+	
+	self 
+		shortcutId: LeShortcutIds default renameSnippetShortcutId
+		inRegistry: BlShortcutKeymapRegistry default lepiter 
 ]
 
 { #category : #accessing }

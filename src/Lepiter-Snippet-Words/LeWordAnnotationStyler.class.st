@@ -3,7 +3,7 @@ Class {
 	#superclass : #LeComponentStyler,
 	#traits : 'TLeWordParseNodeVisitor - {#acceptNode:}',
 	#classTraits : 'TLeWordParseNodeVisitor classTrait',
-	#category : #'Lepiter-Snippet-Words-Annotations'
+	#category : 'Lepiter-Snippet-Words-Annotations'
 }
 
 { #category : #initialization }

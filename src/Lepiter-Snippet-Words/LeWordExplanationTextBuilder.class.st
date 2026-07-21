@@ -15,7 +15,7 @@ Class {
 		'explanation',
 		'text'
 	],
-	#category : #'Lepiter-Snippet-Words-UI Auxiliar Elements'
+	#category : 'Lepiter-Snippet-Words-UI Auxiliar Elements'
 }
 
 { #category : #'api - building' }

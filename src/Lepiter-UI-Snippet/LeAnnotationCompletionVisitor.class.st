@@ -3,7 +3,7 @@ Class {
 	#superclass : #LeAnnotationParseNodeVisitor,
 	#traits : 'TSmaCCComponentVisitor + (TLeAnnotationParseNodeVisitor - {#acceptNode:})',
 	#classTraits : 'TSmaCCComponentVisitor classTrait + TLeAnnotationParseNodeVisitor classTrait',
-	#category : #'Lepiter-UI-Snippet-Text completion'
+	#category : 'Lepiter-UI-Snippet-Text completion'
 }
 
 { #category : #private }

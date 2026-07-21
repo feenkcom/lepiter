@@ -7,7 +7,7 @@ Class {
 		'expanded',
 		'cachedPreview'
 	],
-	#category : #'Lepiter-UI-Snippet-Text styler'
+	#category : 'Lepiter-UI-Snippet-Text styler'
 }
 
 { #category : #accessing }

@@ -9,17 +9,17 @@ Class {
 		'referencedPage',
 		'results'
 	],
-	#category : #'Lepiter-UI-Snippet-Text styler'
+	#category : 'Lepiter-UI-Snippet-Text styler'
 }
-
-{ #category : #accessing }
-LeSnippetStylerVisitor class >> addStyler: aVisitorClass [
-	self addComponentVisitorClass: aVisitorClass
-]
 
 { #category : #accessing }
 LeSnippetStylerVisitor class >> additionalStylers [
 	^ self componentVisitorClasses
+]
+
+{ #category : #accessing }
+LeSnippetStylerVisitor class >> addStyler: aVisitorClass [
+	self addComponentVisitorClass: aVisitorClass
 ]
 
 { #category : #accessing }
@@ -702,6 +702,16 @@ LeSnippetStylerVisitor >> styleOpenExternalLinkButton: aLink text: aSubText [
 			button ]
 ]
 
+{ #category : #accessing }
+LeSnippetStylerVisitor >> styler [
+	^ styler
+]
+
+{ #category : #accessing }
+LeSnippetStylerVisitor >> styler: anObject [
+	styler := anObject
+]
+
 { #category : #'private - styling' }
 LeSnippetStylerVisitor >> styleResult: result for: aCodeNode [
 	| evaluatedCodeAttribute |
@@ -743,16 +753,6 @@ LeSnippetStylerVisitor >> styleSmalltalkCodeBlock: aCodeNode [
 			(text
 				from: aCodeNode code startPosition
 				to: aCodeNode code stopPosition)
-]
-
-{ #category : #accessing }
-LeSnippetStylerVisitor >> styler [
-	^ styler
-]
-
-{ #category : #accessing }
-LeSnippetStylerVisitor >> styler: anObject [
-	styler := anObject
 ]
 
 { #category : #'api - accessing' }

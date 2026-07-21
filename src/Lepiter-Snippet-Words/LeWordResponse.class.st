@@ -7,7 +7,7 @@ I am a {{gtClass:LeWordClient}} response, providing response information.
 Class {
 	#name : #LeWordResponse,
 	#superclass : #Object,
-	#category : #'Lepiter-Snippet-Words-Client'
+	#category : 'Lepiter-Snippet-Words-Client'
 }
 
 { #category : #'api - testing' }

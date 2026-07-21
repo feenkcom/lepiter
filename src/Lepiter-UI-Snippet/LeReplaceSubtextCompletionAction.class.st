@@ -6,7 +6,7 @@ Class {
 		'database',
 		'page'
 	],
-	#category : #'Lepiter-UI-Snippet-Text completion'
+	#category : 'Lepiter-UI-Snippet-Text completion'
 }
 
 { #category : #'private - accessing' }

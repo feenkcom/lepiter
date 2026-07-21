@@ -13,7 +13,7 @@ Class {
 		'languageElement',
 		'contentElement'
 	],
-	#category : #'Lepiter-UI-Snippet-! Views'
+	#category : 'Lepiter-UI-Snippet-! Views'
 }
 
 { #category : #testing }

@@ -10,7 +10,7 @@ Class {
 		'textEditorPiece',
 		'subText'
 	],
-	#category : #'Lepiter-UI-Snippet-Text actions'
+	#category : 'Lepiter-UI-Snippet-Text actions'
 }
 
 { #category : #'api - instantiation' }

@@ -6,7 +6,7 @@ Class {
 		'collapsedElement',
 		'expandedElement'
 	],
-	#category : #'Lepiter-UI-Snippet-! Views'
+	#category : 'Lepiter-UI-Snippet-! Views'
 }
 
 { #category : #accessing }

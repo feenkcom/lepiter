@@ -6,7 +6,7 @@ Class {
 		'newText',
 		'frameId'
 	],
-	#category : #'Lepiter-UI-Snippet-Signals'
+	#category : 'Lepiter-UI-Snippet-Signals'
 }
 
 { #category : #accessing }

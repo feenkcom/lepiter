@@ -5,7 +5,7 @@ An element that represents a snippet. Often a snippet element may be wrapped in 
 Class {
 	#name : #LeSnippetElementId,
 	#superclass : #BlElementUniqueId,
-	#category : #'Lepiter-UI-Snippet-! Views'
+	#category : 'Lepiter-UI-Snippet-! Views'
 }
 
 { #category : #converting }

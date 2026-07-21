@@ -5,5 +5,5 @@
 Class {
 	#name : #LeSnippetCollectionScrollToChanged,
 	#superclass : #Announcement,
-	#category : #'Lepiter-UI-Snippet-Events'
+	#category : 'Lepiter-UI-Snippet-Events'
 }

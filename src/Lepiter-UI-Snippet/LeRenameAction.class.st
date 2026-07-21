@@ -1,7 +1,7 @@
 Class {
 	#name : #LeRenameAction,
 	#superclass : #GtRenameAction,
-	#category : #'Lepiter-UI-Snippet-Text actions'
+	#category : 'Lepiter-UI-Snippet-Text actions'
 }
 
 { #category : #private }

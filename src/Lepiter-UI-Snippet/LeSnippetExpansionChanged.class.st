@@ -10,7 +10,7 @@ Class {
 	#instVars : [
 		'expanded'
 	],
-	#category : #'Lepiter-UI-Snippet-Events'
+	#category : 'Lepiter-UI-Snippet-Events'
 }
 
 { #category : #accessing }

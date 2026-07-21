@@ -1,12 +1,21 @@
 Class {
 	#name : #LeSnippetUnindentSnippetShortcut,
 	#superclass : #LeSnippetEditorShortcut,
-	#category : #'Lepiter-UI-Snippet-Shortcuts'
+	#category : 'Lepiter-UI-Snippet-Shortcuts'
 }
 
 { #category : #accessing }
 LeSnippetUnindentSnippetShortcut >> description [
 	^ 'Unindents the snippet.'
+]
+
+{ #category : #accessing }
+LeSnippetUnindentSnippetShortcut >> initialize [
+	super initialize.
+	
+	self 
+		shortcutId: LeShortcutIds default unindentSnippetShortcutId
+		inRegistry: BlShortcutKeymapRegistry default lepiter 
 ]
 
 { #category : #accessing }

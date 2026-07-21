@@ -5,7 +5,7 @@ Class {
 		'word',
 		'state'
 	],
-	#category : #'Lepiter-Snippet-Words-Announcements'
+	#category : 'Lepiter-Snippet-Words-Announcements'
 }
 
 { #category : #accessing }

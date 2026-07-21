@@ -7,7 +7,7 @@ Class {
 		'normalFontSize',
 		'lastUniqueId'
 	],
-	#category : #'Lepiter-UI-Snippet-Text styler'
+	#category : 'Lepiter-UI-Snippet-Text styler'
 }
 
 { #category : #styling }
@@ -544,6 +544,11 @@ LeAnnotationStylerVisitor >> styleName: aClassAnnotation [
 		foreground: aLinkColor
 ]
 
+{ #category : #accessing }
+LeAnnotationStylerVisitor >> styler [
+	^ composite styler
+]
+
 { #category : #styling }
 LeAnnotationStylerVisitor >> styleTag: aPackageAnnotation [
 	| nameNode aLinkColor tagNode |
@@ -561,11 +566,6 @@ LeAnnotationStylerVisitor >> styleTag: aPackageAnnotation [
 	(self text from: tagNode startPosition to: tagNode stopPosition)
 		foreground: aLinkColor.
 		
-]
-
-{ #category : #accessing }
-LeAnnotationStylerVisitor >> styler [
-	^ composite styler
 ]
 
 { #category : #accessing }

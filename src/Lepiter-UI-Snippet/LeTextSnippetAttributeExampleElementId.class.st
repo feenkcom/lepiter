@@ -1,7 +1,7 @@
 Class {
 	#name : #LeTextSnippetAttributeExampleElementId,
 	#superclass : #LeTextSnippetAttributeElementId,
-	#category : #'Lepiter-UI-Snippet-Element IDs'
+	#category : 'Lepiter-UI-Snippet-Element IDs'
 }
 
 { #category : #accessing }

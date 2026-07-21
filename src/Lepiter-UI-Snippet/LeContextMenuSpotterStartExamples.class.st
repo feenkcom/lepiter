@@ -5,7 +5,7 @@ Class {
 		'dbDir',
 		'diskDb'
 	],
-	#category : #'Lepiter-UI-Snippet-Examples'
+	#category : 'Lepiter-UI-Snippet-Examples'
 }
 
 { #category : #private }

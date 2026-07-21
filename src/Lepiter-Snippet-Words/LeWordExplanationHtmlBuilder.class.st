@@ -7,7 +7,7 @@ Class {
 		'explanation',
 		'context'
 	],
-	#category : #'Lepiter-Snippet-Words-Support'
+	#category : 'Lepiter-Snippet-Words-Support'
 }
 
 { #category : #'api - building' }

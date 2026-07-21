@@ -8,7 +8,7 @@ Class {
 	#instVars : [
 		'database'
 	],
-	#category : #'Lepiter-UI-Snippet-Spotter'
+	#category : 'Lepiter-UI-Snippet-Spotter'
 }
 
 { #category : #'as yet unclassified' }

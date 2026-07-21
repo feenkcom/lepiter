@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'commandGenerator'
 	],
-	#category : #'Lepiter-UI-Snippet-Spotter'
+	#category : 'Lepiter-UI-Snippet-Spotter'
 }
 
 { #category : #'api - actions' }

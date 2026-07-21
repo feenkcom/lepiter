@@ -7,7 +7,7 @@ Class {
 		'requests',
 		'currentRequest'
 	],
-	#category : #'Lepiter-Snippet-Words-Annotations'
+	#category : 'Lepiter-Snippet-Words-Annotations'
 }
 
 { #category : #api }

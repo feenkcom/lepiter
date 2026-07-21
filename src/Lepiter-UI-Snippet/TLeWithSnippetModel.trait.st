@@ -3,7 +3,7 @@ Trait {
 	#instVars : [
 		'snippetModel'
 	],
-	#category : #'Lepiter-UI-Snippet-! View Models'
+	#category : 'Lepiter-UI-Snippet-! View Models'
 }
 
 { #category : #'api - snippet model' }

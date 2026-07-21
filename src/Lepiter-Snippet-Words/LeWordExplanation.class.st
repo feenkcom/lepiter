@@ -11,7 +11,7 @@ Class {
 	#instVars : [
 		'word'
 	],
-	#category : #'Lepiter-Snippet-Words-Model'
+	#category : 'Lepiter-Snippet-Words-Model'
 }
 
 { #category : #accessing }

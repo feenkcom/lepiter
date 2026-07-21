@@ -1,7 +1,7 @@
 Class {
 	#name : #LeWordParseNode,
 	#superclass : #SmaCCParseNode,
-	#category : #'Lepiter-Snippet-Words-Annotations'
+	#category : 'Lepiter-Snippet-Words-Annotations'
 }
 
 { #category : #generated }

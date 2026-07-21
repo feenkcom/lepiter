@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'coderViewModel'
 	],
-	#category : #'Lepiter-UI-Snippet-! View Models'
+	#category : 'Lepiter-UI-Snippet-! View Models'
 }
 
 { #category : #'api - accessing' }

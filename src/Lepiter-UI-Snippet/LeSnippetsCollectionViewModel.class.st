@@ -7,7 +7,7 @@ Class {
 		'viewModelToScrollTo',
 		'sharedSnippetContext'
 	],
-	#category : #'Lepiter-UI-Snippet-! View Models'
+	#category : 'Lepiter-UI-Snippet-! View Models'
 }
 
 { #category : #testing }

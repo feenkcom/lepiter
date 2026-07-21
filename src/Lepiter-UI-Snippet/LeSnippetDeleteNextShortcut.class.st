@@ -1,12 +1,21 @@
 Class {
 	#name : #LeSnippetDeleteNextShortcut,
 	#superclass : #LeSnippetEditorShortcut,
-	#category : #'Lepiter-UI-Snippet-Shortcuts'
+	#category : 'Lepiter-UI-Snippet-Shortcuts'
 }
 
 { #category : #accessing }
 LeSnippetDeleteNextShortcut >> description [
 	^ 'Delete next character, or merge with the next snippet'
+]
+
+{ #category : #accessing }
+LeSnippetDeleteNextShortcut >> initialize [
+	super initialize.
+	
+	self 
+		shortcutId: LeShortcutIds default deleteNextShortcutId
+		inRegistry: BlShortcutKeymapRegistry default lepiter 
 ]
 
 { #category : #accessing }

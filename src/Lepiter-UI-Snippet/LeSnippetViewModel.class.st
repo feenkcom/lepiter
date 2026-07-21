@@ -5,7 +5,7 @@
 Class {
 	#name : #LeSnippetViewModel,
 	#superclass : #LeAbstractSnippetViewModel,
-	#category : #'Lepiter-UI-Snippet-! View Models'
+	#category : 'Lepiter-UI-Snippet-! View Models'
 }
 
 { #category : #'actions - utils' }
