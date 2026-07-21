@@ -9,6 +9,15 @@ LeSnippetDeletePreviousShortcut >> description [
 	^ 'Delete previous character, or merge with the previous snippet'
 ]
 
+{ #category : #initialization }
+LeSnippetDeletePreviousShortcut >> initialize [
+	super initialize.
+	
+	self 
+		shortcutId: LeShortcutIds default deletePreviousShortcutId
+		inRegistry: BlShortcutKeymapRegistry default lepiter 
+]
+
 { #category : #accessing }
 LeSnippetDeletePreviousShortcut >> name [
 	^ 'Delete previous'

@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#traits : 'TSmaCCComponentVisitor + (TLeWordParseNodeVisitor - {#acceptNode:})',
 	#classTraits : 'TSmaCCComponentVisitor classTrait + TLeWordParseNodeVisitor classTrait',
-	#category : #'Lepiter-Snippet-Words-Annotations'
+	#category : 'Lepiter-Snippet-Words-Annotations'
 }
 
 { #category : #initialization }

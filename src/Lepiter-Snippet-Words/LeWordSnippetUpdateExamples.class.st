@@ -1,7 +1,7 @@
 Class {
 	#name : #LeWordSnippetUpdateExamples,
 	#superclass : #LeSingleSnippetUpdateExamples,
-	#category : #'Lepiter-Snippet-Words-Examples'
+	#category : 'Lepiter-Snippet-Words-Examples'
 }
 
 { #category : #asserting }

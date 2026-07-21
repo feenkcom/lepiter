@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'rawData'
 	],
-	#category : #'Lepiter-Snippet-Words-Model'
+	#category : 'Lepiter-Snippet-Words-Model'
 }
 
 { #category : #'gt-extensions' }

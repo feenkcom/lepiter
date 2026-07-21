@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'syncClient'
 	],
-	#category : #'Lepiter-Snippet-Words-Client'
+	#category : 'Lepiter-Snippet-Words-Client'
 }
 
 { #category : #'api - communication' }

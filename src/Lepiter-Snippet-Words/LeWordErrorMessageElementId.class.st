@@ -1,7 +1,7 @@
 Class {
 	#name : #LeWordErrorMessageElementId,
 	#superclass : #BlElementUniqueId,
-	#category : #'Lepiter-Snippet-Words-UI Snippet Element'
+	#category : 'Lepiter-Snippet-Words-UI Snippet Element'
 }
 
 { #category : #converting }

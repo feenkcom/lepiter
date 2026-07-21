@@ -9,6 +9,15 @@ LeSnippetMoveSnippetDownShortcut >> description [
 	^ 'Moves snippet down, shifting the other snippets up.'
 ]
 
+{ #category : #initialization }
+LeSnippetMoveSnippetDownShortcut >> initialize [
+	super initialize.
+	
+	self 
+		shortcutId: LeShortcutIds default moveSnippetDownShortcutId
+		inRegistry: BlShortcutKeymapRegistry default lepiter 
+]
+
 { #category : #accessing }
 LeSnippetMoveSnippetDownShortcut >> name [
 	^ 'Move snippet down'

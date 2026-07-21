@@ -1,7 +1,7 @@
 Class {
 	#name : #LeWordAnnotationScanner,
 	#superclass : #SmaCCScanner,
-	#category : #'Lepiter-Snippet-Words-Annotations'
+	#category : 'Lepiter-Snippet-Words-Annotations'
 }
 
 { #category : #'generated-initialization' }

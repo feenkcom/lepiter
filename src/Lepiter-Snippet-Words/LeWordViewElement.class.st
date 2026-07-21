@@ -15,7 +15,7 @@ Class {
 		'explanation',
 		'editorElement'
 	],
-	#category : #'Lepiter-Snippet-Words-UI Auxiliar Elements'
+	#category : 'Lepiter-Snippet-Words-UI Auxiliar Elements'
 }
 
 { #category : #'api - editor' }

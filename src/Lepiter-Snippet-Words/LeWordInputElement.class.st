@@ -15,7 +15,7 @@ Class {
 		'editorElement',
 		'editorShortcuts'
 	],
-	#category : #'Lepiter-Snippet-Words-UI Auxiliar Elements'
+	#category : 'Lepiter-Snippet-Words-UI Auxiliar Elements'
 }
 
 { #category : #'api - editor' }

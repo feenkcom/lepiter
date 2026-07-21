@@ -8,7 +8,7 @@ Class {
 	#superclass : #Object,
 	#traits : 'TGtUniqueInstance',
 	#classTraits : 'TGtUniqueInstance classTrait',
-	#category : #'Lepiter-Snippet-Words-UI View Model'
+	#category : 'Lepiter-Snippet-Words-UI View Model'
 }
 
 { #category : #visitor }

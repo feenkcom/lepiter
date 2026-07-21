@@ -13,7 +13,7 @@ Class {
 	#instVars : [
 		'partOfSpeach'
 	],
-	#category : #'Lepiter-Snippet-Words-Model'
+	#category : 'Lepiter-Snippet-Words-Model'
 }
 
 { #category : #accessing }

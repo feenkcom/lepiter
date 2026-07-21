@@ -10,6 +10,15 @@ LeSnippetDeleteNextShortcut >> description [
 ]
 
 { #category : #accessing }
+LeSnippetDeleteNextShortcut >> initialize [
+	super initialize.
+	
+	self 
+		shortcutId: LeShortcutIds default deleteNextShortcutId
+		inRegistry: BlShortcutKeymapRegistry default lepiter 
+]
+
+{ #category : #accessing }
 LeSnippetDeleteNextShortcut >> name [
 	^ 'Delete next'
 ]

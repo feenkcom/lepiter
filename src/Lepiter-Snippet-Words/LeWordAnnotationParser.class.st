@@ -1,7 +1,7 @@
 Class {
 	#name : #LeWordAnnotationParser,
 	#superclass : #SmaCCGLRParser,
-	#category : #'Lepiter-Snippet-Words-Annotations'
+	#category : 'Lepiter-Snippet-Words-Annotations'
 }
 
 { #category : #'generated-accessing' }

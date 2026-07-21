@@ -10,6 +10,15 @@ LeSnippetUnindentSnippetShortcut >> description [
 ]
 
 { #category : #accessing }
+LeSnippetUnindentSnippetShortcut >> initialize [
+	super initialize.
+	
+	self 
+		shortcutId: LeShortcutIds default unindentSnippetShortcutId
+		inRegistry: BlShortcutKeymapRegistry default lepiter 
+]
+
+{ #category : #accessing }
 LeSnippetUnindentSnippetShortcut >> name [
 	^ 'Unindent'
 ]

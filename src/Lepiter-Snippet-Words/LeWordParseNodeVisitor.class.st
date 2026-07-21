@@ -3,5 +3,5 @@ Class {
 	#superclass : #Object,
 	#traits : 'TLeWordParseNodeVisitor',
 	#classTraits : 'TLeWordParseNodeVisitor classTrait',
-	#category : #'Lepiter-Snippet-Words-Annotations'
+	#category : 'Lepiter-Snippet-Words-Annotations'
 }
