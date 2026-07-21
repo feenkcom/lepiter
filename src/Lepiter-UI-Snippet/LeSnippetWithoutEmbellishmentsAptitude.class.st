@@ -6,7 +6,7 @@ Class {
 		'margin',
 		'snippetContent'
 	],
-	#category : #'Lepiter-UI-Snippet-Looks'
+	#category : 'Lepiter-UI-Snippet-Looks'
 }
 
 { #category : #initialization }

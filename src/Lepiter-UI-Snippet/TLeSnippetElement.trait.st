@@ -1,6 +1,6 @@
 Trait {
 	#name : #TLeSnippetElement,
-	#category : #'Lepiter-UI-Snippet-! Views'
+	#category : 'Lepiter-UI-Snippet-! Views'
 }
 
 { #category : #'api - snippet view model' }

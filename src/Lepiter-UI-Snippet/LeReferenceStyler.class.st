@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'referencedPage'
 	],
-	#category : #'Lepiter-UI-Snippet-Text styler'
+	#category : 'Lepiter-UI-Snippet-Text styler'
 }
 
 { #category : #accessing }

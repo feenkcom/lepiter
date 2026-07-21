@@ -11,7 +11,7 @@ Class {
 		'source',
 		'focused'
 	],
-	#category : #'Lepiter-UI-Snippet-Events'
+	#category : 'Lepiter-UI-Snippet-Events'
 }
 
 { #category : #accessing }

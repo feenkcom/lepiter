@@ -5,7 +5,7 @@ See {{gtMethod:LeSnippetAptitude>>#newAddSnippetDropdown}} where the {{gtMethod:
 "
 Trait {
 	#name : #TLeContextMenuItemSpecification,
-	#category : #'Lepiter-UI-Snippet-Spotter'
+	#category : 'Lepiter-UI-Snippet-Spotter'
 }
 
 { #category : #'api - converting' }

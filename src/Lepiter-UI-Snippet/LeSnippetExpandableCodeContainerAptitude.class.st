@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'language'
 	],
-	#category : #'Lepiter-UI-Snippet-Looks'
+	#category : 'Lepiter-UI-Snippet-Looks'
 }
 
 { #category : #initialization }

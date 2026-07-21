@@ -25,7 +25,7 @@ Class {
 	#classVars : [
 		'DefaultSnippetElementStencilClass'
 	],
-	#category : #'Lepiter-UI-Snippet-! View Models'
+	#category : 'Lepiter-UI-Snippet-! View Models'
 }
 
 { #category : #accessing }
@@ -144,6 +144,33 @@ LeAbstractSnippetViewModel >> focusDueToNavigationUp [
 ]
 
 { #category : #'api - focus' }
+LeAbstractSnippetViewModel >> focused [
+	<return: #Boolean>
+
+	^ focused
+]
+
+{ #category : #'api - focus' }
+LeAbstractSnippetViewModel >> focused: aBoolean [
+	self focused: aBoolean from: self
+]
+
+{ #category : #'api - focus' }
+LeAbstractSnippetViewModel >> focused: aBoolean from: aSourceObject [
+	focused = aBoolean
+		ifTrue: [ ^ self ].
+
+	focused := aBoolean.
+	self onFocusChanged: aBoolean.
+	self notifyFocusChanged: focused from: aSourceObject.
+
+	self snippetsCollectionDo: [ :aSnippetsCollectionUIModel |
+		aBoolean
+			ifTrue: [ aSnippetsCollectionUIModel focusSnippetUIModel: self  ]
+			ifFalse: [ aSnippetsCollectionUIModel unfocusSnippetUIModel: self ] ]
+]
+
+{ #category : #'api - focus' }
 LeAbstractSnippetViewModel >> focusNextSnippet [
 	"Try to give focus to the snippet after me that is either:
 	- a next parent of the snippet if this is the last child
@@ -193,33 +220,6 @@ LeAbstractSnippetViewModel >> focusPreviousSnippet [
 					isFound := true ] ].
 
 	^ isFound
-]
-
-{ #category : #'api - focus' }
-LeAbstractSnippetViewModel >> focused [
-	<return: #Boolean>
-
-	^ focused
-]
-
-{ #category : #'api - focus' }
-LeAbstractSnippetViewModel >> focused: aBoolean [
-	self focused: aBoolean from: self
-]
-
-{ #category : #'api - focus' }
-LeAbstractSnippetViewModel >> focused: aBoolean from: aSourceObject [
-	focused = aBoolean
-		ifTrue: [ ^ self ].
-
-	focused := aBoolean.
-	self onFocusChanged: aBoolean.
-	self notifyFocusChanged: focused from: aSourceObject.
-
-	self snippetsCollectionDo: [ :aSnippetsCollectionUIModel |
-		aBoolean
-			ifTrue: [ aSnippetsCollectionUIModel focusSnippetUIModel: self  ]
-			ifFalse: [ aSnippetsCollectionUIModel unfocusSnippetUIModel: self ] ]
 ]
 
 { #category : #'gt-extension' }
@@ -407,14 +407,6 @@ LeAbstractSnippetViewModel >> snippetElementStencil [
 	^ nil
 ]
 
-{ #category : #'api - accessing' }
-LeAbstractSnippetViewModel >> snippetView [
-	<return: #LeSnippetView>
-	^ LeSnippetView new
-		snippetElementClass: self snippetElementClass;
-		snippetElementStencil: self snippetElementStencil
-]
-
 { #category : #private }
 LeAbstractSnippetViewModel >> snippetsCollection: aLeSnippetsCollectionUIModel [
 	self
@@ -429,6 +421,14 @@ LeAbstractSnippetViewModel >> snippetsCollectionDo: aBlock [
 	"Evaluate aBlock with the current snippets collection as an arguments if it is assigned"
 	
 	snippetsCollection ifNotNil: aBlock
+]
+
+{ #category : #'api - accessing' }
+LeAbstractSnippetViewModel >> snippetView [
+	<return: #LeSnippetView>
+	^ LeSnippetView new
+		snippetElementClass: self snippetElementClass;
+		snippetElementStencil: self snippetElementStencil
 ]
 
 { #category : #accessing }

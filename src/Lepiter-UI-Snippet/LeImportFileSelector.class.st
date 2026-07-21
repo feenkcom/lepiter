@@ -7,7 +7,7 @@ Class {
 		'importTypes',
 		'importTypeLabels'
 	],
-	#category : #'Lepiter-UI-Snippet-Text actions'
+	#category : 'Lepiter-UI-Snippet-Text actions'
 }
 
 { #category : #private }

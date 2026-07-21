@@ -1,7 +1,7 @@
 Class {
 	#name : #LeSnippetEditorShortcut,
 	#superclass : #BrEditorShortcut,
-	#category : #'Lepiter-UI-Snippet-Shortcuts'
+	#category : 'Lepiter-UI-Snippet-Shortcuts'
 }
 
 { #category : #'gt-extensions' }

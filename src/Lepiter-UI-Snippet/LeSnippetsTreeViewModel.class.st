@@ -1,7 +1,7 @@
 Class {
 	#name : #LeSnippetsTreeViewModel,
 	#superclass : #LeSnippetsCollectionViewModel,
-	#category : #'Lepiter-UI-Snippet-! View Models'
+	#category : 'Lepiter-UI-Snippet-! View Models'
 }
 
 { #category : #private }

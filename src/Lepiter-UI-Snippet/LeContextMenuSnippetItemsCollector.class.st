@@ -16,7 +16,7 @@ The current list of menu items for creating  snippets:
 Class {
 	#name : #LeContextMenuSnippetItemsCollector,
 	#superclass : #Object,
-	#category : #'Lepiter-UI-Snippet-Spotter'
+	#category : 'Lepiter-UI-Snippet-Spotter'
 }
 
 { #category : #'gt - extensions' }

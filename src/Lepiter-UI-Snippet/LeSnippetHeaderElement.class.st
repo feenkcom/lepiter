@@ -7,7 +7,7 @@ Class {
 		'pageButton',
 		'descriptionLabel'
 	],
-	#category : #'Lepiter-UI-Snippet-! Views'
+	#category : 'Lepiter-UI-Snippet-! Views'
 }
 
 { #category : #accessing }

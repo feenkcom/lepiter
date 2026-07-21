@@ -4,7 +4,7 @@ Class {
 	#classInstVars : [
 		'uniqueInstance'
 	],
-	#category : #'Lepiter-UI-Snippet-! View Models'
+	#category : 'Lepiter-UI-Snippet-! View Models'
 }
 
 { #category : #accessing }

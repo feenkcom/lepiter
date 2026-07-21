@@ -1,7 +1,7 @@
 Class {
 	#name : #LeDynamicSnippetViewModel,
 	#superclass : #LeAbstractSnippetViewModel,
-	#category : #'Lepiter-UI-Snippet-! View Models'
+	#category : 'Lepiter-UI-Snippet-! View Models'
 }
 
 { #category : #accessing }

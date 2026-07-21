@@ -8,7 +8,7 @@ Class {
 		'bindings',
 		'onSuccess'
 	],
-	#category : #'Lepiter-UI-Snippet-Support'
+	#category : 'Lepiter-UI-Snippet-Support'
 }
 
 { #category : #accessing }
