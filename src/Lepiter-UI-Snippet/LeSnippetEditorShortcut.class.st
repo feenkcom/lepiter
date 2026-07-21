@@ -21,13 +21,22 @@ LeSnippetEditorShortcut >> performOnEditor: aBrTextEditor block: aLeSnippetEleme
 ]
 
 { #category : #evaluation }
+LeSnippetEditorShortcut >> performOnEditor: aBrTextEditor editorElement: anEditorElement snippetElement: aSnippetElement dueTo: aShortcutEvent [
+	self
+		performOnEditor: aBrTextEditor
+		snippet: aSnippetElement
+		dueTo: aShortcutEvent
+]
+
+{ #category : #evaluation }
 LeSnippetEditorShortcut >> performOnEditor: aBrTextEditor element: aBrEditorElement dueTo: aShortcutEvent [
 	aBrEditorElement
 		withAllParentsDetect: [ :eachParent | eachParent isKindOf: LeSnippetElement ]
 		ifFound: [ :aSnippetElement | 
 			self
 				performOnEditor: aBrTextEditor
-				snippet: aSnippetElement
+				editorElement: aBrEditorElement
+				snippetElement: aSnippetElement
 				dueTo: aShortcutEvent ]
 		ifNone: [  ]
 ]
