@@ -7,6 +7,48 @@ Trait {
 }
 
 { #category : #'gt - extensions' }
+TLeWithSnippetViewModel >> gtActionInspectSnippetModelFor: anAction [
+	<gtAction>
+	^ anAction button
+		priority: 80;
+		target: GtPhlowObjectContextMenuTarget;
+		icon: BrGlamorousVectorIcons inspect;
+		tooltip: 'Inspect snippet model';
+		id: GtInspectorInspectButtonId;
+		menuItemGroup: BrMenuItemGroupConfiguration navigation;
+		menuItemPreview: [ self snippetViewModel snippetModel gtDisplayText ];
+		action: [ :aButton |
+			aButton phlow spawnObject: self snippetViewModel ];
+		primaryModifierAction: [ :aButton |
+			BlSpace new
+				withCommonSettings;
+				objectInPager: self snippetViewModel snippetModel;
+				showFrom: aButton ]
+			mouseCursor: BlCopyCursor new
+]
+
+{ #category : #'gt - extensions' }
+TLeWithSnippetViewModel >> gtActionInspectSnippetViewModelFor: anAction [
+	<gtAction>
+	^ anAction button
+		priority: 78;
+		target: GtPhlowObjectContextMenuTarget;
+		icon: BrGlamorousVectorIcons inspect;
+		tooltip: 'Inspect snippet view model';
+		id: GtInspectorInspectButtonId;
+		menuItemGroup: BrMenuItemGroupConfiguration navigation;
+		menuItemPreview: [ self snippetViewModel gtDisplayText ];
+		action: [ :aButton |
+			aButton phlow spawnObject: self snippetViewModel ];
+		primaryModifierAction: [ :aButton |
+			BlSpace new
+				withCommonSettings;
+				objectInPager: self snippetViewModel;
+				showFrom: aButton ]
+			mouseCursor: BlCopyCursor new
+]
+
+{ #category : #'gt - extensions' }
 TLeWithSnippetViewModel >> gtSnippetModelProperty [
 	<gtInspectorElementOverview>
 	self hasSnippetViewModel ifFalse: [ ^ nil ].
