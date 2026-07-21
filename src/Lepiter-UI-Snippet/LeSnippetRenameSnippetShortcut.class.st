@@ -9,6 +9,15 @@ LeSnippetRenameSnippetShortcut >> description [
 	^ 'Requests to rename a snippet.'
 ]
 
+{ #category : #initialization }
+LeSnippetRenameSnippetShortcut >> initialize [
+	super initialize.
+	
+	self 
+		shortcutId: LeShortcutIds default renameSnippetShortcutId
+		inRegistry: BlShortcutKeymapRegistry default lepiter 
+]
+
 { #category : #accessing }
 LeSnippetRenameSnippetShortcut >> name [
 	^ 'Rename snippet'

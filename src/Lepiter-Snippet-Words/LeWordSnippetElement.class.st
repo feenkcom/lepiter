@@ -71,8 +71,14 @@ LeWordSnippetElement >> initializeContentElement [
 	inputElement
 		whenEditor: BrTextEditorModifiedEvent
 		do: [ :anEvent | self onWordInputModified: anEvent ];
-		addEditorShortcut: (LeWordSearchExplanationShortcut new combination: (LeTextualSnippetElement keyboardShortcut: #NewLine); repeatable: false);
-		addEditorShortcut: (LeWordSearchExplanationShortcut new combination: (LeTextualSnippetElement keyboardShortcut: #SecondaryNewLine); repeatable: false).
+		addEditorShortcut: (LeWordSearchExplanationShortcut new 
+			shortcutId: BrEditorShortcutIds default newLineShortcutId
+				inRegistry: BlShortcutKeymapRegistry default editor; 
+			repeatable: false);
+		addEditorShortcut: (LeWordSearchExplanationShortcut new 
+			shortcutId: LeShortcutIds default secondaryNewLineShortcutId
+				inRegistry: BlShortcutKeymapRegistry default lepiter; 
+			repeatable: false).
 
 	LeSnippetEditorElementShortcuter new
 		editor: inputElement;

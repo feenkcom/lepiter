@@ -9,6 +9,15 @@ LeSnippetIndentSnippetShortcut >> description [
 	^ 'Indents the snippet.'
 ]
 
+{ #category : #initialization }
+LeSnippetIndentSnippetShortcut >> initialize [
+	super initialize.
+	
+	self 
+		shortcutId: LeShortcutIds default indentSnippetShortcutId
+		inRegistry: BlShortcutKeymapRegistry default lepiter 
+]
+
 { #category : #accessing }
 LeSnippetIndentSnippetShortcut >> name [
 	^ 'Indent'

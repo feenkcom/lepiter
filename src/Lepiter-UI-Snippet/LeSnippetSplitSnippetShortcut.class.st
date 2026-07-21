@@ -12,6 +12,15 @@ LeSnippetSplitSnippetShortcut >> description [
 	- deleting the text before the cursor in the receiver''s snippet'
 ]
 
+{ #category : #initialization }
+LeSnippetSplitSnippetShortcut >> initialize [
+	super initialize.
+	
+	self 
+		shortcutId: LeShortcutIds default splitSnippetShortcutId
+		inRegistry: BlShortcutKeymapRegistry default lepiter 
+]
+
 { #category : #accessing }
 LeSnippetSplitSnippetShortcut >> name [
 	^ 'Split snippet'
