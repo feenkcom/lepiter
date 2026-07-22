@@ -22,7 +22,6 @@ LeSnippetContainerElement >> gtActionInspectInnerTextEditorElementFor: anAction 
 		target: GtPhlowObjectContextMenuTarget;
 		icon: BrGlamorousVectorIcons inspect;
 		tooltip: 'Inspect inner text editor element';
-		id: GtInspectorInspectButtonId;
 		menuItemGroup: BrMenuItemGroupConfiguration navigation;
 		menuItemPreview: [ (self query // GtSourceCoderEditorInnerId) anyOne ];
 		action: [ :aButton | aButton phlow spawnObject: (self query // GtSourceCoderEditorInnerId) anyOne ];
