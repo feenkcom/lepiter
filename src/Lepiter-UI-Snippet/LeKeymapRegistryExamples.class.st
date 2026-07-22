@@ -45,10 +45,8 @@ LeKeymapRegistryExamples >> lepiterKeymapRegistry [
 	<gtExample>
 	<return: #LeKeymapRegistry>
 	| registry |
-	
 	registry := LeKeymapRegistry new.
-	self assert: registry numberOfKeymaps >= 9.
-	
+	self assert: registry numberOfKeymaps equals: 9.
 	^ registry
 ]
 
