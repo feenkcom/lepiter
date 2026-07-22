@@ -474,11 +474,20 @@ LeSnippetStylerVisitor >> styleBold: aBoldNode [
 
 { #category : #'private - styling' }
 LeSnippetStylerVisitor >> styleCode: aCodeNode size: anInteger [
-	(self text from: aCodeNode startPosition to: aCodeNode stopPosition)
-		glamorousCodeFont.
+	| aLeft aRight aSubText |
+	aLeft := aCodeNode startPosition to: aCodeNode startPosition + anInteger - 1.
+	aRight := aCodeNode stopPosition - anInteger + 1 to: aCodeNode stopPosition.
+	aSubText := self text from: aCodeNode startPosition to: aCodeNode stopPosition.
+
+	self isNewFluentStylableAPI
+		ifTrue: [ aSubText glamorousCodeFont.
+			aSubText hideMarkupLeft: 1 right: 1.
+			^ self ].
+
+	aSubText glamorousCodeFont.
 	self
-		styleAutoHiding: (aCodeNode startPosition to: aCodeNode startPosition + anInteger - 1)
-		and: (aCodeNode stopPosition - anInteger + 1 to: aCodeNode stopPosition)
+		styleAutoHiding: aLeft
+		and: aRight
 		whenOutside: aCodeNode sourceInterval
 ]
 
@@ -525,14 +534,29 @@ LeSnippetStylerVisitor >> styleExpandingButton: aLink text: aSubText [
 
 { #category : #'private - styling' }
 LeSnippetStylerVisitor >> styleExternalLink: anExternalLink [
-	| linkText |
-
+	| linkText isValid urlString |
 	linkText := self text
-		from: anExternalLink startPosition
-		to: anExternalLink stopPosition.
-	self styleLinkText: linkText valid: (self isValidLink: anExternalLink url).
+			from: anExternalLink startPosition
+			to: anExternalLink stopPosition.
+	urlString := anExternalLink url.
+	isValid := self isValidLink: urlString.
+
+	self isNewFluentStylableAPI
+		ifTrue: [ | urlUtility aPreviewText color |
+			urlUtility := self resolveUrl: urlString.
+			anExternalLink attributes at: #urlUtility put: urlUtility.
+			color := isValid
+					ifTrue: [ BrGlamorousColors linkColor ]
+					ifFalse: [ BrGlamorousColors linkWithErrorColor ].
+			aPreviewText := anExternalLink displayLabel asRopedText foreground: color.
+
+			linkText previewAsText: aPreviewText.
+			GtJustContextStackSignal emit.
+			^ self ].
+
+	self styleLinkText: linkText valid: isValid.
 	self styleAutoHiding: anExternalLink sourceInterval text: linkText.
-	self styleExternalLinkButton: anExternalLink text: linkText.
+	self styleExternalLinkButton: anExternalLink text: linkText
 ]
 
 { #category : #'private - styling' }

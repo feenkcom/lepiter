@@ -158,7 +158,8 @@ LeDatabaseClassStoreMonitor >> gtViewStatusDetailsFor: aView [
 		items: [ {
 			'Has pending change' -> self hasChanges.
 			'Has corrupt files' -> self hasCorruptPages .
-			'Is monitor stopped' -> self isRunning not}];
+			'State' -> state.
+			'Is subscribed to SystemAnnouncer' -> self isSubscribed. }];
 		column: 'Name' text: #key;
 		column: 'Value' text: #value;
 		send: #value
@@ -224,6 +225,13 @@ LeDatabaseClassStoreMonitor >> isRunningCleanly [
 	"Answer a boolean indicating whether the receiver is running without any known issues"
 
 	^ state = #running and: [ self hasCorruptPages not ]
+]
+
+{ #category : #testing }
+LeDatabaseClassStoreMonitor >> isSubscribed [
+	"Answer a boolean indicating whether the receiver is subscribed to the SystemAnnouncer"
+
+	^ SystemAnnouncer uniqueInstance hasSubscriber: self.
 ]
 
 { #category : #private }
