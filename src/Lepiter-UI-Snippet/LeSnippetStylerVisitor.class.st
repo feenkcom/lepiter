@@ -427,14 +427,13 @@ LeSnippetStylerVisitor >> styleAutoHiding: anInterval text: aSubText [
 
 { #category : #'private - styling' }
 LeSnippetStylerVisitor >> styleBold: aBoldNode [
-	(self text from: aBoldNode startPosition to: aBoldNode stopPosition)
-		attributes: {BlFontWeightAttribute bold}.
-	self
-		styleAutoHiding:
-			(aBoldNode leftStars first startPosition to: aBoldNode leftStars last stopPosition)
-		and:
-			(aBoldNode rightStars first startPosition to: aBoldNode rightStars last stopPosition)
-		whenOutside: aBoldNode sourceInterval
+	| aSubText aLeft aRight |
+	aSubText := self text from: aBoldNode startPosition to: aBoldNode stopPosition.
+	aLeft := aBoldNode leftStars last stopPosition - aBoldNode leftStars first startPosition + 1.
+	aRight := aBoldNode rightStars last stopPosition - aBoldNode rightStars first startPosition + 1.
+	
+	aSubText bold.
+	aSubText hideMarkupLeft: (aLeft max: 0) right: (aRight max: 0).
 ]
 
 { #category : #'private - styling' }
@@ -554,15 +553,15 @@ LeSnippetStylerVisitor >> styleHeader: aHeaderNode [
 
 { #category : #'private - styling' }
 LeSnippetStylerVisitor >> styleItalic: anItalicNode [
-	(self text
-		from: anItalicNode startPosition
-		to: anItalicNode stopPosition)
-			italic.
-
-	self
-		styleAutoHiding: anItalicNode leftStar sourceInterval
-		and: anItalicNode rightStar sourceInterval
-		whenOutside: anItalicNode sourceInterval
+	| aSubText aLeft aRight |
+	aSubText := self text
+			from: anItalicNode startPosition
+			to: anItalicNode stopPosition.
+	aLeft := anItalicNode leftStar sourceInterval size.
+	aRight := anItalicNode sourceInterval size.
+	
+	aSubText italic.
+	aSubText hideMarkupLeft: 1 right: 1.
 ]
 
 { #category : #'private - styling' }

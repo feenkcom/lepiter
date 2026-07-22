@@ -1,6 +1,6 @@
 Class {
 	#name : #LeKeymapRegistry,
-	#superclass : #BlShortcutKeymapRegistryCategory,
+	#superclass : #BlKeymapRegistryCategory,
 	#category : #'Lepiter-UI-Snippet-Shortcuts'
 }
 
