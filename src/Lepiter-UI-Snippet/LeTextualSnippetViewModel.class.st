@@ -7,7 +7,7 @@ Textual snippets support merging, splitting and seamless cursor navigation betwe
 Class {
 	#name : #LeTextualSnippetViewModel,
 	#superclass : #LeSnippetViewModel,
-	#category : 'Lepiter-UI-Snippet-! View Models'
+	#category : #'Lepiter-UI-Snippet-! View Models'
 }
 
 { #category : #'api - snippet' }

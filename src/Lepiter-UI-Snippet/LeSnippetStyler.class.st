@@ -9,7 +9,7 @@ Class {
 		'subscribedMethods',
 		'subscribedToSystemAnnouncer'
 	],
-	#category : 'Lepiter-UI-Snippet-Text styler'
+	#category : #'Lepiter-UI-Snippet-Text styler'
 }
 
 { #category : #'private - asserting' }

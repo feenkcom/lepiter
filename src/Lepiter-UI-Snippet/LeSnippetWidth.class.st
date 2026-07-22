@@ -6,7 +6,7 @@ Represents how large a snippet should be within a page
 Class {
 	#name : #LeSnippetWidth,
 	#superclass : #Object,
-	#category : 'Lepiter-UI-Snippet-! Views'
+	#category : #'Lepiter-UI-Snippet-! Views'
 }
 
 { #category : #accessing }

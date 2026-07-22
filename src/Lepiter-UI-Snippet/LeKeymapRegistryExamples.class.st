@@ -4,7 +4,7 @@ I contain examples for {{gtClass:LeKeymapRegistry}} verifying that all Lepiter-s
 Class {
 	#name : #LeKeymapRegistryExamples,
 	#superclass : #Object,
-	#category : 'Lepiter-UI-Snippet-Examples'
+	#category : #'Lepiter-UI-Snippet-Examples'
 }
 
 { #category : #examples }

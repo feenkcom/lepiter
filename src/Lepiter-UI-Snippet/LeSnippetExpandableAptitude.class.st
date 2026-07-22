@@ -7,7 +7,7 @@ The snippet toolbar is taken into account when calculating the height of a snipp
 Class {
 	#name : #LeSnippetExpandableAptitude,
 	#superclass : #LeSnippetWithToolbarAptitude,
-	#category : 'Lepiter-UI-Snippet-Looks'
+	#category : #'Lepiter-UI-Snippet-Looks'
 }
 
 { #category : #private }

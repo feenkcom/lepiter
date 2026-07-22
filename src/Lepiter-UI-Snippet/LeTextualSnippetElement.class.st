@@ -8,7 +8,7 @@ KeyboardShortcuts holds a list of named shortcuts used by subclasses.  No keyboa
 Class {
 	#name : #LeTextualSnippetElement,
 	#superclass : #LeSnippetElement,
-	#category : 'Lepiter-UI-Snippet-! Views'
+	#category : #'Lepiter-UI-Snippet-! Views'
 }
 
 { #category : #accessing }

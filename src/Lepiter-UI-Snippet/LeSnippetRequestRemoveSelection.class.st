@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'snippetViewModel'
 	],
-	#category : 'Lepiter-UI-Snippet-Events'
+	#category : #'Lepiter-UI-Snippet-Events'
 }
 
 { #category : #accessing }

@@ -1,7 +1,7 @@
 Class {
 	#name : #LeSnippetMoveSnippetUpShortcut,
 	#superclass : #LeSnippetEditorShortcut,
-	#category : 'Lepiter-UI-Snippet-Shortcuts'
+	#category : #'Lepiter-UI-Snippet-Shortcuts'
 }
 
 { #category : #accessing }

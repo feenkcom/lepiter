@@ -5,7 +5,7 @@ Class {
 		'toolbarContainer',
 		'toolbarElement'
 	],
-	#category : 'Lepiter-UI-Snippet-Looks'
+	#category : #'Lepiter-UI-Snippet-Looks'
 }
 
 { #category : #private }

@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#traits : 'TAssertable',
 	#classTraits : 'TAssertable classTrait',
-	#category : 'Lepiter-UI-Snippet-Examples'
+	#category : #'Lepiter-UI-Snippet-Examples'
 }
 
 { #category : #completion }
@@ -108,13 +108,6 @@ LeCompleterExamples >> completeMetaclass [
 ]
 
 { #category : #completion }
-LeCompleterExamples >> completer [
-	<gtExample>
-	<return: #LeCompletionStrategy>
-	^ LeCompletionStrategy new database: LeDatabase new
-]
-
-{ #category : #completion }
 LeCompleterExamples >> completeSecondArgument [
 	<gtExample>
 	<return: #Array>
@@ -141,8 +134,10 @@ LeCompleterExamples >> completeStartArgument [
 ]
 
 { #category : #completion }
-LeCompleterExamples >> completionActionsFor: text at: position [
-	^ ((self completionActionStreamFor: text at: position) take: 1000) toArray wait
+LeCompleterExamples >> completer [
+	<gtExample>
+	<return: #LeCompletionStrategy>
+	^ LeCompletionStrategy new database: LeDatabase new
 ]
 
 { #category : #completion }
@@ -151,4 +146,9 @@ LeCompleterExamples >> completionActionStreamFor: text at: position [
 		completionResultFor: text
 		at: position
 		requested: true) stream
+]
+
+{ #category : #completion }
+LeCompleterExamples >> completionActionsFor: text at: position [
+	^ ((self completionActionStreamFor: text at: position) take: 1000) toArray wait
 ]

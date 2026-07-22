@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#traits : 'TAssertable',
 	#classTraits : 'TAssertable classTrait',
-	#category : 'Lepiter-UI-Snippet-Examples'
+	#category : #'Lepiter-UI-Snippet-Examples'
 }
 
 { #category : #examples }

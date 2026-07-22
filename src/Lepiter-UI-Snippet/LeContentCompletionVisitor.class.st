@@ -10,7 +10,7 @@ Class {
 		'stream',
 		'completionResult'
 	],
-	#category : 'Lepiter-UI-Snippet-Text completion'
+	#category : #'Lepiter-UI-Snippet-Text completion'
 }
 
 { #category : #accessing }

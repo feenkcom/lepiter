@@ -3,7 +3,7 @@ Trait {
 	#instVars : [
 		'snippetViewModel'
 	],
-	#category : 'Lepiter-UI-Snippet-! Views'
+	#category : #'Lepiter-UI-Snippet-! Views'
 }
 
 { #category : #'gt - extensions' }

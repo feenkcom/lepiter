@@ -12,7 +12,7 @@ Class {
 		'secondaryNewLineShortcutId',
 		'unindentSnippetShortcutId'
 	],
-	#category : 'Lepiter-UI-Snippet-Shortcuts'
+	#category : #'Lepiter-UI-Snippet-Shortcuts'
 }
 
 { #category : #accessing }

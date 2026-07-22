@@ -43,7 +43,7 @@ Class {
 		'shouldShowBottomToolbar',
 		'shouldShowActionsOnFocus'
 	],
-	#category : 'Lepiter-UI-Snippet-Looks'
+	#category : #'Lepiter-UI-Snippet-Looks'
 }
 
 { #category : #'private - bottom toolbar' }

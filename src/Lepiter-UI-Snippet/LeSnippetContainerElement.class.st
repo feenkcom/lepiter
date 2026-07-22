@@ -11,8 +11,28 @@ Class {
 	#instVars : [
 		'snippetElement'
 	],
-	#category : 'Lepiter-UI-Snippet-! Views'
+	#category : #'Lepiter-UI-Snippet-! Views'
 }
+
+{ #category : #'gt - extensions' }
+LeSnippetContainerElement >> gtActionInspectInnerTextEditorElementFor: anAction [
+	<gtAction>
+	^ anAction button
+		priority: 85;
+		target: GtPhlowObjectContextMenuTarget;
+		icon: BrGlamorousVectorIcons inspect;
+		tooltip: 'Inspect inner text editor element';
+		id: GtInspectorInspectButtonId;
+		menuItemGroup: BrMenuItemGroupConfiguration navigation;
+		menuItemPreview: [ (self query // GtSourceCoderEditorInnerId) anyOne ];
+		action: [ :aButton | aButton phlow spawnObject: (self query // GtSourceCoderEditorInnerId) anyOne ];
+		primaryModifierAction: [ :aButton | 
+				BlSpace new
+					withCommonSettings;
+					objectInPager: (self query // GtSourceCoderEditorInnerId) anyOne;
+					showFrom: aButton ]
+			mouseCursor: BlCopyCursor new
+]
 
 { #category : #initialization }
 LeSnippetContainerElement >> initialize [
