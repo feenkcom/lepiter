@@ -9,6 +9,9 @@ Class {
 		'referencedPage',
 		'results'
 	],
+	#classVars : [
+		'IsNewFluentStylableAPI'
+	],
 	#category : #'Lepiter-UI-Snippet-Text styler'
 }
 
@@ -25,6 +28,16 @@ LeSnippetStylerVisitor class >> additionalStylers [
 { #category : #accessing }
 LeSnippetStylerVisitor class >> defaultComponentVisitorClasses [
 	^ OrderedCollection with: LeAnnotationStylerVisitor
+]
+
+{ #category : #accessing }
+LeSnippetStylerVisitor class >> dontUseNewFluentStylableAPI [
+	IsNewFluentStylableAPI := false
+]
+
+{ #category : #settings }
+LeSnippetStylerVisitor class >> isNewFluentStylableAPI [
+	^ IsNewFluentStylableAPI == true
 ]
 
 { #category : #accessing }
@@ -81,6 +94,11 @@ LeSnippetStylerVisitor class >> textLinkButtonPadding: additionalPadding margin:
 			c vertical fitContent. ].
 	^ button
 
+]
+
+{ #category : #accessing }
+LeSnippetStylerVisitor class >> useNewFluentStylableAPI [
+	IsNewFluentStylableAPI := true
 ]
 
 { #category : #visiting }
@@ -239,6 +257,11 @@ LeSnippetStylerVisitor >> isCursorInside: anInterval [
 				and: anInterval last ]
 		ifFound: [ :aCursor | true ]
 		ifNone: [ false ]
+]
+
+{ #category : #'private - styling' }
+LeSnippetStylerVisitor >> isNewFluentStylableAPI [
+	^ self class isNewFluentStylableAPI
 ]
 
 { #category : #'private - testing' }
@@ -427,13 +450,25 @@ LeSnippetStylerVisitor >> styleAutoHiding: anInterval text: aSubText [
 
 { #category : #'private - styling' }
 LeSnippetStylerVisitor >> styleBold: aBoldNode [
+	| aSubText aLeft aRight |
+	self isNewFluentStylableAPI
+		ifTrue: [ aSubText := self text from: aBoldNode startPosition to: aBoldNode stopPosition.
+			aLeft := aBoldNode leftStars last stopPosition
+					- aBoldNode leftStars first startPosition + 1.
+			aRight := aBoldNode rightStars last stopPosition
+					- aBoldNode rightStars first startPosition + 1.
+
+			aSubText bold.
+			aSubText hideMarkupLeft: (aLeft max: 0) right: (aRight max: 0).
+			^ self ].
+
 	(self text from: aBoldNode startPosition to: aBoldNode stopPosition)
 		attributes: {BlFontWeightAttribute bold}.
 	self
-		styleAutoHiding:
-			(aBoldNode leftStars first startPosition to: aBoldNode leftStars last stopPosition)
-		and:
-			(aBoldNode rightStars first startPosition to: aBoldNode rightStars last stopPosition)
+		styleAutoHiding: (aBoldNode leftStars first startPosition
+				to: aBoldNode leftStars last stopPosition)
+		and: (aBoldNode rightStars first startPosition
+				to: aBoldNode rightStars last stopPosition)
 		whenOutside: aBoldNode sourceInterval
 ]
 
@@ -554,10 +589,20 @@ LeSnippetStylerVisitor >> styleHeader: aHeaderNode [
 
 { #category : #'private - styling' }
 LeSnippetStylerVisitor >> styleItalic: anItalicNode [
-	(self text
-		from: anItalicNode startPosition
-		to: anItalicNode stopPosition)
-			italic.
+	self isNewFluentStylableAPI
+		ifTrue: [ | aSubText aLeft aRight |
+			aSubText := self text
+					from: anItalicNode startPosition
+					to: anItalicNode stopPosition.
+			aLeft := anItalicNode leftStar sourceInterval size.
+			aRight := anItalicNode sourceInterval size.
+
+			aSubText italic.
+			aSubText hideMarkupLeft: 1 right: 1.
+			^ self ].
+
+	(self text from: anItalicNode startPosition to: anItalicNode stopPosition)
+		italic.
 
 	self
 		styleAutoHiding: anItalicNode leftStar sourceInterval
