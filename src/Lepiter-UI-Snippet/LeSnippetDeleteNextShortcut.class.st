@@ -24,13 +24,14 @@ LeSnippetDeleteNextShortcut >> name [
 ]
 
 { #category : #evaluation }
-LeSnippetDeleteNextShortcut >> performOnEditor: aBrTextEditor snippet: aLeSnippetElement dueTo: aShortcutEvent [
-	
-	"#textSnaphot is safe to use from a non-UI thread"
-	(aBrTextEditor cursors first position = aBrTextEditor textSnapshot size
-		and: [ aBrTextEditor hasSelection not ])
-			ifTrue: [ ^ aLeSnippetElement mergeWithNext ].
-
-	BrEditorShortcut deleteOneLetterAfterCursor
-		performDueTo: aShortcutEvent
+LeSnippetDeleteNextShortcut >> performOnEditor: aBrTextEditor editorElement: anEditorElement snippetElement: aSnippetElement dueTo: aShortcutEvent [
+	anEditorElement
+		selectedStringAndIntervalDo: [ :aSelectedString :aSelectedInterval :aTextSize :aDocumentId :aCaretOffset |
+			BrEditorShortcut deleteOneLetterAfterCursor 
+				performDueTo: aShortcutEvent ]
+		orCursorPositionDo: [ :aStringPosition :aTextSize :aDocumentId :aCaretOffset | 
+			aCaretOffset = aTextSize
+				ifTrue: [ aSnippetElement mergeWithNext ]
+				ifFalse: [ BrEditorShortcut deleteOneLetterAfterCursor 
+					performDueTo: aShortcutEvent ] ]
 ]
