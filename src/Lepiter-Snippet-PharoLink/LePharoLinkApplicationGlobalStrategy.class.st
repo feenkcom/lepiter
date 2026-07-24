@@ -1,7 +1,7 @@
 Class {
 	#name : #LePharoLinkApplicationGlobalStrategy,
 	#superclass : #LePharoLinkApplicationStrategy,
-	#category : 'Lepiter-Snippet-PharoLink-Settings'
+	#category : #'Lepiter-Snippet-PharoLink-Settings'
 }
 
 { #category : #accessing }

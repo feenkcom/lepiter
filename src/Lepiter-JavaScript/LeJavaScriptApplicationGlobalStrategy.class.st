@@ -1,7 +1,7 @@
 Class {
 	#name : #LeJavaScriptApplicationGlobalStrategy,
 	#superclass : #LeJavaScriptApplicationStrategy,
-	#category : 'Lepiter-JavaScript'
+	#category : #'Lepiter-JavaScript'
 }
 
 { #category : #accessing }

@@ -1,7 +1,7 @@
 Class {
 	#name : #LePythonApplicationDatabaseStrategy,
 	#superclass : #LePythonApplicationStrategy,
-	#category : 'Lepiter-Python-Settings'
+	#category : #'Lepiter-Python-Settings'
 }
 
 { #category : #accessing }
