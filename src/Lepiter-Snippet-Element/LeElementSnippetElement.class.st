@@ -240,17 +240,17 @@ LeElementSnippetElement >> initializeCoderAddOns: anObject [
 
 	anObject addOns
 		"Create New snippet (after the current snippet)"
-		addShortcut: (LeSnippetSplitSnippetShortcut new combination: (self keyboardShortcut: #SplitSnippet));
+		addShortcut: LeSnippetSplitSnippetShortcut new;
 		"Delete previous character, or merge with previous snippet"	
-		addShortcut: (LeSnippetDeletePreviousShortcut new combination: (self keyboardShortcut: #DeletePrevious));
+		addShortcut: LeSnippetDeletePreviousShortcut new;
 		"Indent LeSnippet"
-		addShortcut: (LeSnippetIndentSnippetShortcut new combination: (self keyboardShortcut: #IndentSnippet));
+		addShortcut: LeSnippetIndentSnippetShortcut new;
 		"Unindent LeSnippet"
-		addShortcut: (LeSnippetUnindentSnippetShortcut new combination: (self keyboardShortcut: #UnindentSnippet));
+		addShortcut: LeSnippetUnindentSnippetShortcut new;
 		"Move Snippet up"
-		addShortcut: (LeSnippetMoveSnippetUpShortcut new combination: (self keyboardShortcut: #MoveSnippetUp));
+		addShortcut: LeSnippetMoveSnippetUpShortcut new;
 		"Move Snippet down"
-		addShortcut: (LeSnippetMoveSnippetDownShortcut new combination: (self keyboardShortcut: #MoveSnippetDown))
+		addShortcut: LeSnippetMoveSnippetDownShortcut new
 ]
 
 { #category : #'private - coder' }

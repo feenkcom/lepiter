@@ -40,25 +40,25 @@ LeUnknownSnippetElement >> initializeTextEditorShortcuts [
 	
 	editorElement
 		"Create New snippet (after the current snippet)"
-		addEditorShortcut: (LeSnippetSplitSnippetShortcut new combination: (self keyboardShortcut: #SplitSnippet));
+		addEditorShortcut: LeSnippetSplitSnippetShortcut new;
 		"Delete previous character, or merge with previous snippet"
-		addEditorShortcut: (LeSnippetDeletePreviousShortcut new combination: (self keyboardShortcut: #DeletePrevious));
+		addEditorShortcut: LeSnippetDeletePreviousShortcut new;
 		"Delete next character, or merge with following snippet"
-		addEditorShortcut: (LeSnippetDeleteNextShortcut new combination: (self keyboardShortcut: #DeleteNext));
+		addEditorShortcut: LeSnippetDeleteNextShortcut new;
 		"New Line in LeSnippet"
-		addEditorShortcut: (BrEditorShortcut lineEnding combination: (self keyboardShortcut: #NewLine));
+		addEditorShortcut: BrEditorShortcut lineEnding;
 		"Lose focus LeSnippet"
-		addEditorShortcut: (BrEditorShortcut loseFocus combination: (self keyboardShortcut: #LoseFocus));
+		addEditorShortcut: BrEditorShortcut loseFocus;
 		"Indent LeSnippet"
-		addEditorShortcut: (LeSnippetIndentSnippetShortcut new combination: (self keyboardShortcut: #IndentSnippet));
+		addEditorShortcut: LeSnippetIndentSnippetShortcut new;
 		"Unindent LeSnippet"
-		addEditorShortcut: (LeSnippetUnindentSnippetShortcut new combination: (self keyboardShortcut: #UnindentSnippet));
+		addEditorShortcut: LeSnippetUnindentSnippetShortcut new;
 		"Move snippet up"
-		addEditorShortcut: (LeSnippetMoveSnippetUpShortcut new combination: (self keyboardShortcut: #MoveSnippetUp));
+		addEditorShortcut: LeSnippetMoveSnippetUpShortcut new;
 		"Alt-Shift-Down -> Move snippet down"
-		addEditorShortcut: (LeSnippetMoveSnippetDownShortcut new combination: (self keyboardShortcut: #MoveSnippetDown));
+		addEditorShortcut: LeSnippetMoveSnippetDownShortcut new;
 		"Primary-R -> Rename"
-		addEditorShortcut: (LeSnippetRenameSnippetShortcut new combination: (self keyboardShortcut: #RenameSnippet)).
+		addEditorShortcut: LeSnippetRenameSnippetShortcut new.
 ]
 
 { #category : #'api - snippet view model' }

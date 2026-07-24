@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'dbProperties'
 	],
-	#category : 'Lepiter-JavaScript'
+	#category : #'Lepiter-JavaScript'
 }
 
 { #category : #accessing }

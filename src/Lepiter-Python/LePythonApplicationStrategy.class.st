@@ -6,7 +6,7 @@ LePythonApplicationStrategy is responsible for answering the appropriate server 
 Class {
 	#name : #LePythonApplicationStrategy,
 	#superclass : #LeExternalServerStrategy,
-	#category : 'Lepiter-Python-Settings'
+	#category : #'Lepiter-Python-Settings'
 }
 
 { #category : #'instance creation' }

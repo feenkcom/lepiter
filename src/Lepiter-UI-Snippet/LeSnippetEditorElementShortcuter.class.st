@@ -32,13 +32,13 @@ LeSnippetEditorElementShortcuter >> editor: anObject [
 	editor := anObject
 ]
 
-{ #category : #'api - shortcuts' }
+{ #category : #shortcuts }
 LeSnippetEditorElementShortcuter >> indent [
 	self editor
 		"Indent LeSnippet"
-		addEditorShortcut: (LeSnippetIndentSnippetShortcut new combination: (self keyboardShortcut: #IndentSnippet));
+		addEditorShortcut: LeSnippetIndentSnippetShortcut new;
 		"Unindent LeSnippet"
-		addEditorShortcut: (LeSnippetUnindentSnippetShortcut new combination: (self keyboardShortcut: #UnindentSnippet)).
+		addEditorShortcut: LeSnippetUnindentSnippetShortcut new.
 ]
 
 { #category : #private }
@@ -48,19 +48,18 @@ LeSnippetEditorElementShortcuter >> keyboardShortcut: aSymbol [
 	^ LeSnippetElement keyboardShortcut: aSymbol
 ]
 
-{ #category : #'api - shortcuts' }
+{ #category : #shortcuts }
 LeSnippetEditorElementShortcuter >> loseFocus [
 	self editor
 		"Lose focus LeBlock"
-		addEditorShortcut: (BrEditorShortcut loseFocus combination: (self keyboardShortcut: #LoseFocus))
-		
+		addEditorShortcut: BrEditorShortcut loseFocus
 ]
 
-{ #category : #'api - shortcuts' }
+{ #category : #shortcuts }
 LeSnippetEditorElementShortcuter >> moveUpAndDown [
 	self editor
 		"Move block up"
-		addEditorShortcut: (LeSnippetMoveSnippetUpShortcut new combination: (self keyboardShortcut: #MoveSnippetUp));
+		addEditorShortcut: LeSnippetMoveSnippetUpShortcut new;
 		"Move block down"
-		addEditorShortcut: (LeSnippetMoveSnippetDownShortcut new combination: (self keyboardShortcut: #MoveSnippetDown))
+		addEditorShortcut: LeSnippetMoveSnippetDownShortcut new
 ]

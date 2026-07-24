@@ -28,31 +28,31 @@ LePlainTextCoderSnippetViewModel >> initialize [
 	self initializeCoderAddOns: textCoderViewModel
 ]
 
-{ #category : #'api - snippet model' }
+{ #category : #initialization }
 LePlainTextCoderSnippetViewModel >> initializeCoderAddOns: aTextualCoderViewModel [
 	"Initialise the keyboard shortcuts in the code editor"
 
 	aTextualCoderViewModel
 		"Lose focus LeSnippet"
-		addShortcut: (BrEditorShortcut loseFocus combination: (self keyboardShortcut: #LoseFocus));
+		addShortcut: BrEditorShortcut loseFocus;
 		"Indent LeSnippet"
-		addShortcut: (LeSnippetIndentSnippetShortcut new combination: (self keyboardShortcut: #IndentSnippet));
+		addShortcut: LeSnippetIndentSnippetShortcut new;
 		"Unindent LeSnippet"
-		addShortcut: (LeSnippetUnindentSnippetShortcut new combination: (self keyboardShortcut: #UnindentSnippet));
+		addShortcut: LeSnippetUnindentSnippetShortcut new;
 		"Move snippet up"
-		addShortcut: (LeSnippetMoveSnippetUpShortcut new combination: (self keyboardShortcut: #MoveSnippetUp));
+		addShortcut: LeSnippetMoveSnippetUpShortcut new;
 		"Move snippet down"
-		addShortcut: (LeSnippetMoveSnippetDownShortcut new combination: (self keyboardShortcut: #MoveSnippetDown));
+		addShortcut: LeSnippetMoveSnippetDownShortcut new;
 		"Split the current snippet"
-		addShortcut: (LeSnippetSplitSnippetShortcut new combination: (self keyboardShortcut: #SplitSnippet));
+		addShortcut: LeSnippetSplitSnippetShortcut new;
 		"New Line in LeSnippet"
-		addShortcut: (BrEditorShortcut lineEnding);
+		addShortcut: BrEditorShortcut lineEnding;
 		"Delete previous character, or merge with previous block"
-		addShortcut: (LeSnippetDeletePreviousShortcut new combination: (self keyboardShortcut: #DeletePrevious));
+		addShortcut: LeSnippetDeletePreviousShortcut new;
 		"Delete next character, or merge with following block"
-		addShortcut: (LeSnippetDeleteNextShortcut new combination: (self keyboardShortcut: #DeleteNext));
+		addShortcut: LeSnippetDeleteNextShortcut new;
 		"Primary-R -> Rename"
-		addShortcut: (LeSnippetRenameSnippetShortcut new combination: (self keyboardShortcut: #RenameSnippet)).
+		addShortcut: LeSnippetRenameSnippetShortcut new.
 ]
 
 { #category : #initialization }

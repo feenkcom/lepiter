@@ -10,7 +10,7 @@ Class {
 		'varNodes',
 		'stack'
 	],
-	#category : 'Lepiter-JavaScript'
+	#category : #'Lepiter-JavaScript'
 }
 
 { #category : #accessing }

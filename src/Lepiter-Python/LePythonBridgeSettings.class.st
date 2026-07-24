@@ -8,7 +8,7 @@ Class {
 	#instVars : [
 		'dbProperties'
 	],
-	#category : 'Lepiter-Python-Settings'
+	#category : #'Lepiter-Python-Settings'
 }
 
 { #category : #accessing }
