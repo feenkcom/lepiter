@@ -88,7 +88,7 @@ LePythonSnippetElement >> initializeTextEditor [
 			do: [ :event | self updateLspSourceFrom: event ].
 	editorElement
 		addEditorShortcut: (BlShortcutWithAction new
-				combination: BlKeyCombination primaryR;
+				coderShortcutId: GtCoderShortcutIds default inlineRenameShortcutId;
 				action: [ GtLSPRenameRefactoringController new
 						editor: editorElement;
 						lspFile: (self userData at: #lspFile);

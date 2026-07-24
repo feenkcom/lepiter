@@ -411,7 +411,7 @@ LePharoRewriteSnippetElement >> initialize [
 				content: [ self createContextMenuContentFor: searchEditor isSearch: true ]).
 	searchEditor
 		addShortcut: (BlShortcutWithAction new
-				combination: BlKeyCombination primaryR;
+				coderShortcutId: GtCoderShortcutIds default inlineRenameShortcutId;
 				repeatable: false;
 				action: [ self renameSearchItem ]).
 	LeSnippetEditorElementShortcuter new
@@ -437,7 +437,7 @@ LePharoRewriteSnippetElement >> initialize [
 				content: [ self createContextMenuContentFor: replaceEditor isSearch: false ]).
 	replaceEditor
 		addShortcut: (BlShortcutWithAction new
-				combination: BlKeyCombination primaryR;
+				coderShortcutId: GtCoderShortcutIds default inlineRenameShortcutId;
 				repeatable: false;
 				action: [ self renameReplaceItem ]).
 	LeSnippetEditorElementShortcuter new
