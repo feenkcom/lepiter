@@ -27,9 +27,8 @@ LeSnippetSplitSnippetShortcut >> name [
 ]
 
 { #category : #evaluation }
-LeSnippetSplitSnippetShortcut >> performOnEditor: aBrTextEditor snippet: aLeSnippetElement dueTo: aShortcutEvent [
-	| cursorPosition |
-
-	cursorPosition := aBrTextEditor cursors first position.
-	aLeSnippetElement splitAt: cursorPosition
+LeSnippetSplitSnippetShortcut >> performOnEditor: aBrTextEditor editorElement: anEditorElement snippetElement: aSnippetElement dueTo: aShortcutEvent [
+	anEditorElement
+		selectedStringAndIntervalDo: [ :aSelectedString :aSelectedInterval :aTextSize :aDocumentId :aCaretOffset | aSnippetElement splitAt: aCaretOffset ]
+		orCursorPositionDo: [ :aStringPosition :aTextSize :aDocumentId :aCaretOffset | aSnippetElement splitAt: aCaretOffset ]
 ]
