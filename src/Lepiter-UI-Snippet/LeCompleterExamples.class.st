@@ -134,6 +134,18 @@ LeCompleterExamples >> completeStartArgument [
 ]
 
 { #category : #completion }
+LeCompleterExamples >> completeTraitName [
+	<gtExample>
+	<return: #Array>
+	| actions text position |
+	text := '{{gtClass:TGtA}}' asRopedText.
+	position := text size - 2.
+	actions := self completionActionsFor: text at: position.
+	self assert: (actions anySatisfy: [ :each | each label = 'TGtAnnouncer' ]).
+	^ actions
+]
+
+{ #category : #completion }
 LeCompleterExamples >> completer [
 	<gtExample>
 	<return: #LeCompletionStrategy>

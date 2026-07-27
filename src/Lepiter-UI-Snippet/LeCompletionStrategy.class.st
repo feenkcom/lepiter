@@ -34,9 +34,11 @@ LeCompletionStrategy >> addPageLinkCompletionsFor: aText at: positionInteger to:
 
 { #category : #accessing }
 LeCompletionStrategy >> allClasses [
+	allClasses
+		ifNil: [ allClasses := GtPrefixTree new.
+			ProtoObject withAllSubclassesDo: [ :each | allClasses add: each name ].
+			Smalltalk allTraits do: [ :each | allClasses add: each name ] ].
 	^ allClasses
-		ifNil: [ allClasses := GtPrefixTree
-				withAll: (ProtoObject withAllSubclasses collect: [ :each | each name ]) ]
 ]
 
 { #category : #accessing }
