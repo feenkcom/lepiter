@@ -371,6 +371,26 @@ LeDatabaseClassMonitorExamples >> monitorSaveDelay [
 	^ monitor.
 ]
 
+{ #category : #'as yet unclassified' }
+LeDatabaseClassMonitorExamples >> monitorStartPauseStopResume [
+	"Simulate an pausing the monitor while a reload is in progress"
+	<gtExample>
+	<after: #stopMonitor>
+	<return: #LeDatabaseClassStoreMonitor>
+
+	self monitorWithDuration: 1 minute.
+	database stopMonitoring.
+	monitor pauseUpdates.
+	monitor resumeUpdatesRemoveFirst.
+	database startMonitoring.
+	self assert: monitor isRunning
+		description: 'database monitor not running'.
+	self assert: monitor isSubscribed
+		description: 'database monitor not subscribed'.
+	database stopMonitoring.
+	^ monitor
+]
+
 { #category : #'private - helpers' }
 LeDatabaseClassMonitorExamples >> page1Source [
 
