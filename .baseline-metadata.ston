@@ -11,7 +11,7 @@
 		"github://feenkcom/gtoolkit-inspector/src" : "v0.9.281",
 		"github://feenkcom/gtoolkit-remote/src" : "v0.9.181",
 		"github://feenkcom/gtoolkit-visualizer/src" : "v0.9.313",
-		"github://feenkcom/gt4json/src" : "v0.7.282",
+		"github://feenkcom/gt4json/src" : "v0.7.283",
 		"github://feenkcom/pharo-beacon/repository" : "d1af72fc3fb759440b1b4b3e62144d1c7f8d73f2",
 		"github://feenkcom/xdoc/src" : "v0.9.57",
 		"github://feenkcom/gtoolkit-debugadapterprotocol/src" : "v0.6.9",
