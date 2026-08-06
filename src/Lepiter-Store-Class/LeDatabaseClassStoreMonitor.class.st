@@ -599,9 +599,10 @@ LeDatabaseClassStoreMonitor >> shutDown [
 
 { #category : #'startup-shutdown' }
 LeDatabaseClassStoreMonitor >> startMonitoring [
-	state = #running ifTrue: [ ^ self ].
-	state := #running.
+
+	(state = #running and: [ self isSubscribed ]) ifTrue: [ ^ self ].
 	
+	state := #running.
 	self announce: (LeLocalStoreMonitorStarted new monitor: self).
 	
 	database weak when: LeSnippetContentChanged send: #processSnippetContentChanged: to: self.
