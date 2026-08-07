@@ -10,7 +10,7 @@ LeSnippetEditorShortcut >> gtSourceCodeFor: aView [
 
 	^ aView forward
 		title: 'Source';
-		object: [ self class >> #performOnEditor:snippet:dueTo: ];
+		object: [ self class >> #performOnEditor:editorElement:snippetElement:dueTo: ];
 		view: #gtSourceFor:
 ]
 
