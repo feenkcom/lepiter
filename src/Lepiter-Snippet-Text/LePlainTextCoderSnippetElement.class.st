@@ -57,7 +57,7 @@ LePlainTextCoderSnippetElement >> initializeEditorElement [
 
 	editorElement padding: (BlInsets top: 5 bottom: 5).
 	editorElement margin: BlInsets empty.
-	editorElement editor
+	editorElement
 		addEventHandler: (LeEditorReachedBorderEventHandler new snippetElement: self).
 
 	editorElement editor ensureNoUndoRedoShortcuts
