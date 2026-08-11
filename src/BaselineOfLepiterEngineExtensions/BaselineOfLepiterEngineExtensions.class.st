@@ -38,6 +38,8 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 				spec requires: #('LepiterEngineCore' 'Lepiter-Pharo' ). ];
 			package: 'Lepiter-Snippet-Picture' with: [
 				spec requires: #('LepiterEngineCore' ). ];
+			package: 'Lepiter-Snippet-ObjectReference' with: [
+				spec requires: #('LepiterEngineCore' ). ];
 			package: 'Lepiter-Snippet-Words' with: [
 				spec requires: #('LepiterEngineCore' ). ];
 			package: 'Lepiter-GitHub' with: [
