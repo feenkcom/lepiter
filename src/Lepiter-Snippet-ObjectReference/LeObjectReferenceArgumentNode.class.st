@@ -15,6 +15,18 @@ LeObjectReferenceArgumentNode >> acceptVisitor: anObjectReferenceParseVisitor [
 ]
 
 { #category : #generated }
+LeObjectReferenceArgumentNode >> dequote: aString [
+	| input |
+	input := aString readStream.
+	^ String
+		streamContents: [ :output | 
+			[ input atEnd ]
+				whileFalse: [ output nextPutAll: (input upTo: $\).
+					input atEnd
+						ifFalse: [ output nextPut: input next ] ] ]
+]
+
+{ #category : #generated }
 LeObjectReferenceArgumentNode >> equals [
 	^equals
 ]

@@ -141,7 +141,7 @@ LeObjectReferenceAnnotationNode >> showNode [
 
 { #category : #accessing }
 LeObjectReferenceAnnotationNode >> showSelector [
-	^self showNode ifNotNil: [:node | node value source]
+	^self showNode ifNotNil: [ :node | node selectorValue ]
 ]
 
 { #category : #accessing }
