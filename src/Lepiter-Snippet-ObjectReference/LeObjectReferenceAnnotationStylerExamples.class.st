@@ -54,9 +54,9 @@ LeObjectReferenceAnnotationStylerExamples >> exampleStyler [
 	| styler |
 	styler := LeObjectReferenceExampleStyler new.
 	styler objectRegistry: self sampleRegistry.
-	self assert: (styler objectForUuid: self sampleId)
+	self assert: (styler objectForId: self sampleId)
 		equals: self sampleObject.
-	self assert: (styler objectForUuid: self missingId) isNil.
+	self assert: (styler objectForId: self missingId) isNil.
 	^styler
 ]
 

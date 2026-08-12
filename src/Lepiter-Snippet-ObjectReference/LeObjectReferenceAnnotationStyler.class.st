@@ -69,11 +69,11 @@ LeObjectReferenceAnnotationStyler >> objectExists: anObjectAnnotation [
 	| uuid |
 	uuid := anObjectAnnotation uuid.
 	uuid ifNil: [^false].
-	^(self objectForUuid: uuid) notNil
+	^(self objectForId: uuid) notNil
 ]
 
 { #category : #private }
-LeObjectReferenceAnnotationStyler >> objectForUuid: aUuidString [
+LeObjectReferenceAnnotationStyler >> objectForId: aUuidString [
 	^self effectiveObjectRegistry
 		ifNotNil: [:registry | registry at: aUuidString ifAbsent: [nil]]
 		ifNil: [nil]
@@ -114,7 +114,7 @@ LeObjectReferenceAnnotationStyler >> styleExpandingObject: anObjectAnnotation [
 	| uuid object cacheKey attribute isExpanded showSelector height |
 	uuid := anObjectAnnotation uuid.
 	uuid ifNil: [^self].
-	object := self objectForUuid: uuid.
+	object := self objectForId: uuid.
 	object ifNil: [^self].
 	cacheKey := anObjectAnnotation source.
 	isExpanded := anObjectAnnotation expandedValue ifNil: [false].
@@ -141,7 +141,7 @@ LeObjectReferenceAnnotationStyler >> styleLinkButton: anObjectAnnotation [
 	| attribute uuid object label |
 	uuid := anObjectAnnotation uuid.
 	uuid ifNil: [^self].
-	object := self objectForUuid: uuid.
+	object := self objectForId: uuid.
 	label := object
 				ifNotNil: [self labelFor: anObjectAnnotation object: object]
 				ifNil: [anObjectAnnotation fallbackLabel ifNil: [uuid]].
