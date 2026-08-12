@@ -6,12 +6,14 @@ Class {
 
 { #category : #'generated-accessing' }
 LePragmaAnnotationParser class >> cacheId [
-	^'2026-03-05T13:18:40.885778+01:00'
+	^'2026-08-12T10:14:01.057982-05:00'
 ]
 
 { #category : #generated }
 LePragmaAnnotationParser class >> definitionComment [
-"%prefix Le;
+"%glr;
+
+%prefix Le;
 %suffix Node;
 %hierarchy PragmaArgument (PragmaName PragmaExpanded);
 %root PragmaParse;
@@ -19,7 +21,7 @@ LePragmaAnnotationParser class >> definitionComment [
 	: \s+
 	;
 <lemma>
-	: (<isLetter> | <isDigit> | "":"" | ""_"")+ 
+	: <isLetter> (<isLetter> | <isDigit> | \: | \_)*
 	;
 PragmaAnnotation 
 	: Item 'item' ( ""|"" 'bar' Item 'item' )* ""|"" 'bar'? {{}}
@@ -58,20 +60,20 @@ LePragmaAnnotationParser class >> parseEmbeddedStream: aStream startingAt: anInt
 { #category : #generated }
 LePragmaAnnotationParser class >> reduceTable [
 ^#(
-	#(15 1 #reduceActionForExpanded1: 407553 false) 
-	#(14 1 #reduceActionForPragma3: 293891 false) 
-	#(14 1 #reduceActionForPragma3: 293889 false) 
-	#(12 0 #reduceActionFor_______bar__Item__item____1: 216065 false) 
-	#(13 1 #liftFirstValue: 263169 false) 
-	#(13 1 #liftFirstValue: 263170 false) 
-	#(15 2 #reduceActionForExpanded2: 407554 false) 
-	#(10 2 #reduceActionForPragmaAnnotation1: 182273 false) 
-	#(15 3 #reduceActionForExpanded3: 407556 false) 
-	#(15 3 #reduceActionForExpanded3: 407555 false) 
-	#(14 3 #reduceActionForPragma2: 293890 false) 
-	#(10 3 #reduceActionForPragmaAnnotation2: 182274 false) 
-	#(12 2 #reduceActionFor_______bar__Item__item____2: 216066 false) 
-	#(11 2 #reduceActionFor_______bar__Item__item___1: 216065 false)
+	#(15 1 #reduceActionForExpanded1: 421889 false) 
+	#(14 1 #reduceActionForPragma3: 308227 false) 
+	#(14 1 #reduceActionForPragma3: 308225 false) 
+	#(12 0 #reduceActionFor_______bar__Item__item____1: 230401 false) 
+	#(13 1 #liftFirstValue: 277505 false) 
+	#(13 1 #liftFirstValue: 277506 false) 
+	#(15 2 #reduceActionForExpanded2: 421890 false) 
+	#(10 2 #reduceActionForPragmaAnnotation1: 196609 false) 
+	#(15 3 #reduceActionForExpanded3: 421892 false) 
+	#(15 3 #reduceActionForExpanded3: 421891 false) 
+	#(14 3 #reduceActionForPragma2: 308226 false) 
+	#(10 3 #reduceActionForPragmaAnnotation2: 196610 false) 
+	#(12 2 #reduceActionFor_______bar__Item__item____2: 230402 false) 
+	#(11 2 #reduceActionFor_______bar__Item__item___1: 230401 false)
 	).
 ]
 
