@@ -80,7 +80,7 @@ LeObjectReferenceAnnotationStylerExamples >> labelForAnnotation: anAnnotationStr
 			[| selector |
 			selector := annotation labelSelector ifNil: ['gtDisplayString'].
 			[object perform: selector asSymbol] on: Error do: [:e | e printString]]
-		ifNil: [annotation fallbackLabel ifNil: [annotation uuid]]
+		ifNil: [annotation fallbackLabelString ifNil: [annotation uuid]]
 ]
 
 { #category : #fixtures }
@@ -238,7 +238,7 @@ LeObjectReferenceAnnotationStylerExamples >> styledTextWithFallbackLabel [
 	<gtExample>
 	| styler text string range foregroundAttr |
 	styler := self exampleStyler.
-	string := '\{\{gtObject:id={1}|fallbackLabel=#missingWidget\}\}'
+	string := '\{\{gtObject:id={1}|fallbackLabelString=''missingWidget''\}\}'
 				format: {self missingId}.
 	text := string asRopedText.
 	styler style: text.
@@ -251,8 +251,9 @@ LeObjectReferenceAnnotationStylerExamples >> styledTextWithFallbackLabel [
 		equals: BrGlamorousColors linkWithErrorColor.
 	self
 		assert: (self hasAttribute: GtButtonAttribute inRange: range of: text).
-	self assert: (self
-				labelForAnnotation: self missingId , '|fallbackLabel=#missingWidget'
+	self
+		assert: (self labelForAnnotation: self missingId
+						, '|fallbackLabelString=''missingWidget'''
 				withRegistry: self sampleRegistry)
 		equals: 'missingWidget'.
 	^text

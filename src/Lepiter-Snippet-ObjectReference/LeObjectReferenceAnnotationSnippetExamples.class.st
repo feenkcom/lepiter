@@ -9,12 +9,12 @@ LeObjectReferenceAnnotationSnippetExamples >> parseNewAttributes [
 	<gtExample>
 	| ast annotation |
 	ast := LeParser
-				parse: '{{gtObject:id=eehjmwhvkh4de3o55fyirb3fo|show=#gtViewsFor:|height=300|fallbackLabel=#missingWidget}}'.
+				parse: '{{gtObject:id=eehjmwhvkh4de3o55fyirb3fo|show=#gtViewsFor:|height=300|fallbackLabelString=''missingWidget''}}'.
 	annotation := (ast // LeObjectReferenceAnnotationNode) anyOne.
 	self assert: annotation uuid equals: 'eehjmwhvkh4de3o55fyirb3fo'.
 	self assert: annotation showSelector equals: 'gtViewsFor:'.
 	self assert: annotation heightValue equals: 300.
-	self assert: annotation fallbackLabel equals: 'missingWidget'.
+	self assert: annotation fallbackLabelString equals: 'missingWidget'.
 	^ast
 ]
 
@@ -40,7 +40,7 @@ LeObjectReferenceAnnotationSnippetExamples >> sampleId [
 LeObjectReferenceAnnotationSnippetExamples >> styleSnippetWithFallbackLabel [
 	<gtExample>
 	| string text snippet snippetViewModel styler anAst |
-	string := '{{gtObject:id=0000000000000000000000000|fallbackLabel=#missingWidget}}'.
+	string := '{{gtObject:id=0000000000000000000000000|fallbackLabelString=''missingWidget''}}'.
 	anAst := LeParser parse: string.
 	snippet := LeTextSnippet new string: string.
 	text := snippet text.

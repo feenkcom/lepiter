@@ -136,15 +136,15 @@ LeObjectReferenceAnnotationStyler >> styleExpandingObject: anObjectAnnotation [
 		to: anObjectAnnotation parent stopPosition
 ]
 
-{ #category : #private }
+{ #category : #'private - styling' }
 LeObjectReferenceAnnotationStyler >> styleLinkButton: anObjectAnnotation [
 	| attribute uuid object label |
 	uuid := anObjectAnnotation uuid.
 	uuid ifNil: [^self].
-	object := self objectForId: uuid.
+	object := self objectForUuid: uuid.
 	label := object
 				ifNotNil: [self labelFor: anObjectAnnotation object: object]
-				ifNil: [anObjectAnnotation fallbackLabel ifNil: [uuid]].
+				ifNil: [anObjectAnnotation fallbackLabelString ifNil: [uuid]].
 	attribute := (GtButtonAttribute new)
 				beAppend;
 				stencil: 

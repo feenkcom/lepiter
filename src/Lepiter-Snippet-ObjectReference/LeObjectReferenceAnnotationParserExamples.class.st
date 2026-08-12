@@ -4,19 +4,19 @@ Class {
 	#category : #'Lepiter-Snippet-ObjectReference'
 }
 
-{ #category : #running }
+{ #category : #examples }
 LeObjectReferenceAnnotationParserExamples >> parseAllAttributes [
 	<gtExample>
 	<return: #LeObjectReferenceAnnotationNode>
 	| anAst |
 	anAst := LeObjectReferenceAnnotationParser
-				parse: '24493a4a-289b-4c9f-b8d6-f905333846f3|label=#printString|expanded=true|fallbackLabel=#fallback|show=#gtItemsFor:|height=250'.
+				parse: '24493a4a-289b-4c9f-b8d6-f905333846f3|label=#printString|expanded=true|fallbackLabelString=''fallback''|show=#gtItemsFor:|height=250'.
 	self assert: anAst notNil.
 	self assert: anAst items size equals: 6.
 	self assert: anAst uuid equals: '24493a4a-289b-4c9f-b8d6-f905333846f3'.
 	self assert: anAst labelSelector equals: 'printString'.
 	self assert: anAst expandedValue equals: true.
-	self assert: anAst fallbackLabel equals: 'fallback'.
+	self assert: anAst fallbackLabelString equals: 'fallback'.
 	self assert: anAst showSelector equals: 'gtItemsFor:'.
 	self assert: anAst heightValue equals: 250.
 	^anAst
@@ -89,18 +89,18 @@ LeObjectReferenceAnnotationParserExamples >> parseUuidWithExpandedFalse [
 	^anAst
 ]
 
-{ #category : #running }
+{ #category : #examples }
 LeObjectReferenceAnnotationParserExamples >> parseUuidWithFallbackLabel [
 	<gtExample>
 	<return: #LeObjectReferenceAnnotationNode>
 	| anAst |
 	anAst := LeObjectReferenceAnnotationParser
-				parse: '24493a4a-289b-4c9f-b8d6-f905333846f3|fallbackLabel=#someName'.
+				parse: 'id=24493a4a-289b-4c9f-b8d6-f905333846f3|fallbackLabelString=''some Name'''.
 	self assert: anAst notNil.
 	self assert: anAst items size equals: 2.
 	self assert: anAst uuid equals: '24493a4a-289b-4c9f-b8d6-f905333846f3'.
 	self assert: anAst hasFallbackLabelSpecified.
-	self assert: anAst fallbackLabel equals: 'someName'.
+	self assert: anAst fallbackLabelString equals: 'some Name'.
 	^anAst
 ]
 
