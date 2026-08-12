@@ -48,14 +48,19 @@ LeObjectReferenceAnnotationNode >> expandedValue [
 ]
 
 { #category : #accessing }
-LeObjectReferenceAnnotationNode >> fallbackLabel [
-	^self fallbackLabelNode ifNotNil: [:node | node value source]
-]
-
-{ #category : #accessing }
 LeObjectReferenceAnnotationNode >> fallbackLabelNode [
 	^items detect: [:each | each isKindOf: LeObjectReferenceFallbackLabelNode]
 		ifNone: []
+]
+
+{ #category : #accessing }
+LeObjectReferenceAnnotationNode >> fallbackLabelString [
+	^self fallbackLabelNode
+		ifNotNil: 
+			[:node |
+			| src |
+			src := node value source.
+			src allButFirst allButLast]
 ]
 
 { #category : #testing }

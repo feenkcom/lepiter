@@ -32,14 +32,14 @@ LeObjectReferenceAnnotationCompletionVisitor >> addStreamFor: words startingWith
 						position: self position])
 ]
 
-{ #category : #visiting }
+{ #category : #private }
 LeObjectReferenceAnnotationCompletionVisitor >> objectReferenceAttributesFor: anAnnotation [
 	| words |
 	words := GtPrefixTree new.
 	anAnnotation hasLabelSpecified ifFalse: [words add: 'label=#'].
 	anAnnotation hasExpandedSpecified ifFalse: [words add: 'expanded'].
 	anAnnotation hasFallbackLabelSpecified
-		ifFalse: [words add: 'fallbackLabel=#'].
+		ifFalse: [words add: 'fallbackLabelString='''].
 	anAnnotation hasShowSpecified ifFalse: [words add: 'show=#'].
 	anAnnotation hasHeightSpecified ifFalse: [words add: 'height='].
 	^words

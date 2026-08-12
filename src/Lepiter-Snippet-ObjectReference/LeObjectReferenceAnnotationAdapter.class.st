@@ -20,7 +20,7 @@ LeObjectReferenceAnnotationAdapter >> expanded [
 
 { #category : #accessing }
 LeObjectReferenceAnnotationAdapter >> fallbackLabel [
-	^annotation fallbackLabel ifNil: [annotation uuid]
+	^annotation fallbackLabelString ifNil: [annotation uuid]
 ]
 
 { #category : #accessing }
@@ -54,7 +54,8 @@ LeObjectReferenceAnnotationAdapter >> labelNode [
 LeObjectReferenceAnnotationAdapter >> nameNode [
 	^(LeObjectReferenceAnnotationAdapterNameNode new)
 		isDefined: object notNil;
-		source: (annotation fallbackLabel ifNil: [annotation uuid ifNil: ['?']])
+		source: (annotation fallbackLabelString
+					ifNil: [annotation uuid ifNil: ['?']])
 ]
 
 { #category : #accessing }
