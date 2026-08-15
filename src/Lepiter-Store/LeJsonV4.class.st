@@ -71,8 +71,8 @@ LeJsonV4 >> allClassMappingsFor: aNeoJSONMapper [
 				[ method methodClass instanceSide leJsonV4MappingFor: aNeoJSONMapper ] ] ].
 
 	"Add classes in #explicitClassNamesToMap"
-	self explicitClassesToMap do: [ :cls |
-		| jsonName |
+	self explicitClassesToMap select: [ :cls | cls isNotNil ] thenDo: [ :cls |
+		| jsonName |		
 		jsonName := cls name asString.
 		jsonName at: 1 put: jsonName first asLowercase.
 		cls leJsonV4MappingFor: aNeoJSONMapper named: jsonName ].
