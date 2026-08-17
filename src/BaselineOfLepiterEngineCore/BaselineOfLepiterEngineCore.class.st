@@ -30,7 +30,7 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 					with: [ spec repository: 'github://j-brant/SmaCC' ];
 				baseline: 'JSONParser' with: [ spec repository: 'github://j-brant/SmaCC' ];
 				baseline: 'Beacon'
-					with: [ spec repository: 'github://feenkcom/pharo-beacon/repository' ];
+					with: [ spec repository: 'github://feenkcom/pharo-beacon:main/src' ];
 				baseline: 'JSONWebToken'
 					with: [ spec repository: 'github://feenkcom/JSONWebToken/source' ];
 				baseline: 'ZincHTTPComponentsRest'
