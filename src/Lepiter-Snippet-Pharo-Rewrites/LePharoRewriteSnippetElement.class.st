@@ -605,24 +605,44 @@ LePharoRewriteSnippetElement >> renameReplaceSelector: aNode [
 		searchEditorDo: [ :searchElement | 
 			self
 				replaceEditorDo: [ :replaceElement | 
-					| action searchIntervals replaceIntervals |
-					searchIntervals := OrderedCollection
-							with: (aNode selectorParts at: position) sourceInterval.
-					(aNode attributeNamed: #senders)
-						do: [ :each | 
-							each == aNode
-								ifFalse: [ searchIntervals add: (each selectorParts at: position) sourceInterval ] ].
-					action := GtCompositeRenameAction
-							locations: searchIntervals
-							element: replaceElement.
-					replaceIntervals := OrderedCollection new.
-					(self parseExpression: searchElement editor text)
-						allNodesOfType: GtPharoMessageNode
-						do: [ :each | 
-							each selector = aNode selector
-								ifTrue: [ replaceIntervals add: (each selectorParts at: position) sourceInterval ] ].
-					action addLocations: replaceIntervals to: searchElement editor.
-					action install ] ]
+					replaceElement
+						selectedStringAndIntervalDo: [ :aSelectedString :aSelectedInterval :aTextSize :aDocumentId :aCaretOffset | 
+							self
+								renameReplaceSelector: aNode
+								position: position
+								searchElement: searchElement
+								replaceElement: replaceElement
+								documentId: aDocumentId ]
+						orCursorPositionDo: [ :aStringPosition :aTextSize :aDocumentId :aCaretOffset | 
+							self
+								renameReplaceSelector: aNode
+								position: position
+								searchElement: searchElement
+								replaceElement: replaceElement
+								documentId: aDocumentId ] ] ]
+]
+
+{ #category : #initialization }
+LePharoRewriteSnippetElement >> renameReplaceSelector: aNode position: position searchElement: searchElement replaceElement: replaceElement documentId: aDocumentId [
+	| action searchIntervals replaceIntervals |
+	searchIntervals := OrderedCollection
+			with: (aNode selectorParts at: position) sourceInterval.
+	(aNode attributeNamed: #senders)
+		do: [ :each | 
+			each == aNode
+				ifFalse: [ searchIntervals add: (each selectorParts at: position) sourceInterval ] ].
+	action := GtCompositeRenameAction
+			locations: searchIntervals
+			element: replaceElement.
+	action documentId: aDocumentId.
+	replaceIntervals := OrderedCollection new.
+	(self parseExpression: searchElement editor text)
+		allNodesOfType: GtPharoMessageNode
+		do: [ :each | 
+			each selector = aNode selector
+				ifTrue: [ replaceIntervals add: (each selectorParts at: position) sourceInterval ] ].
+	action addLocations: replaceIntervals to: searchElement editor.
+	action install
 ]
 
 { #category : #private }
@@ -631,19 +651,37 @@ LePharoRewriteSnippetElement >> renameReplaceVariable: aNode [
 		searchEditorDo: [ :searchElement | 
 			self
 				replaceEditorDo: [ :replaceElement | 
-					| action intervals replaceIntervals |
-					intervals := OrderedCollection with: aNode sourceInterval.
-					(aNode attributeNamed: #ocurrences)
-						do: [ :each | each == aNode ifFalse: [ intervals add: each sourceInterval ] ].
-					action := GtCompositeRenameAction
-							locations: intervals
-							element: replaceElement.
-					replaceIntervals := OrderedCollection new.
-					(self parseExpression: searchElement editor text)
-						allNodesOfType: GtPharoVariableNode
-						do: [ :each | each = aNode ifTrue: [ replaceIntervals add: each sourceInterval ] ].
-					action addLocations: replaceIntervals to: searchElement editor.
-					action install ] ]
+					replaceElement
+						selectedStringAndIntervalDo: [ :aSelectedString :aSelectedInterval :aTextSize :aDocumentId :aCaretOffset | 
+							self
+								renameReplaceVariable: aNode
+								searchElement: searchElement
+								replaceElement: replaceElement
+								documentId: aDocumentId ]
+						orCursorPositionDo: [ :aStringPosition :aTextSize :aDocumentId :aCaretOffset | 
+							self
+								renameReplaceVariable: aNode
+								searchElement: searchElement
+								replaceElement: replaceElement
+								documentId: aDocumentId ] ] ]
+]
+
+{ #category : #private }
+LePharoRewriteSnippetElement >> renameReplaceVariable: aNode searchElement: searchElement replaceElement: replaceElement documentId: aDocumentId [
+	| action intervals replaceIntervals |
+	intervals := OrderedCollection with: aNode sourceInterval.
+	(aNode attributeNamed: #ocurrences)
+		do: [ :each | each == aNode ifFalse: [ intervals add: each sourceInterval ] ].
+	action := GtCompositeRenameAction
+			locations: intervals
+			element: replaceElement.
+	action documentId: aDocumentId.
+	replaceIntervals := OrderedCollection new.
+	(self parseExpression: searchElement editor text)
+		allNodesOfType: GtPharoVariableNode
+		do: [ :each | each = aNode ifTrue: [ replaceIntervals add: each sourceInterval ] ].
+	action addLocations: replaceIntervals to: searchElement editor.
+	action install
 ]
 
 { #category : #initialization }
@@ -665,24 +703,44 @@ LePharoRewriteSnippetElement >> renameSearchSelector: aNode [
 		searchEditorDo: [ :searchElement | 
 			self
 				replaceEditorDo: [ :replaceElement | 
-					| action searchIntervals replaceIntervals |
-					searchIntervals := OrderedCollection
-							with: (aNode selectorParts at: position) sourceInterval.
-					(aNode attributeNamed: #senders)
-						do: [ :each | 
-							each == aNode
-								ifFalse: [ searchIntervals add: (each selectorParts at: position) sourceInterval ] ].
-					action := GtCompositeRenameAction
-							locations: searchIntervals
-							element: searchElement.
-					replaceIntervals := OrderedCollection new.
-					(self parseExpression: replaceElement editor text)
-						allNodesOfType: GtPharoMessageNode
-						do: [ :each | 
-							each selector = aNode selector
-								ifTrue: [ replaceIntervals add: (each selectorParts at: position) sourceInterval ] ].
-					action addLocations: replaceIntervals to: replaceElement editor.
-					action install ] ]
+					searchElement
+						selectedStringAndIntervalDo: [ :aSelectedString :aSelectedInterval :aTextSize :aDocumentId :aCaretOffset | 
+							self
+								renameSearchSelector: aNode
+								position: position
+								searchElement: searchElement
+								replaceElement: replaceElement
+								documentId: aDocumentId ]
+						orCursorPositionDo: [ :aStringPosition :aTextSize :aDocumentId :aCaretOffset | 
+							self
+								renameSearchSelector: aNode
+								position: position
+								searchElement: searchElement
+								replaceElement: replaceElement
+								documentId: aDocumentId ] ] ]
+]
+
+{ #category : #private }
+LePharoRewriteSnippetElement >> renameSearchSelector: aNode position: position searchElement: searchElement replaceElement: replaceElement documentId: aDocumentId [
+	| action searchIntervals replaceIntervals |
+	searchIntervals := OrderedCollection
+			with: (aNode selectorParts at: position) sourceInterval.
+	(aNode attributeNamed: #senders)
+		do: [ :each | 
+			each == aNode
+				ifFalse: [ searchIntervals add: (each selectorParts at: position) sourceInterval ] ].
+	action := GtCompositeRenameAction
+			locations: searchIntervals
+			element: searchElement.
+	action documentId: aDocumentId.
+	replaceIntervals := OrderedCollection new.
+	(self parseExpression: replaceElement editor text)
+		allNodesOfType: GtPharoMessageNode
+		do: [ :each | 
+			each selector = aNode selector
+				ifTrue: [ replaceIntervals add: (each selectorParts at: position) sourceInterval ] ].
+	action addLocations: replaceIntervals to: replaceElement editor.
+	action install
 ]
 
 { #category : #private }
@@ -691,19 +749,37 @@ LePharoRewriteSnippetElement >> renameSearchVariable: aNode [
 		searchEditorDo: [ :searchElement | 
 			self
 				replaceEditorDo: [ :replaceElement | 
-					| action searchIntervals replaceIntervals |
-					searchIntervals := OrderedCollection with: aNode sourceInterval.
-					(aNode attributeNamed: #ocurrences)
-						do: [ :each | each == aNode ifFalse: [ searchIntervals add: each sourceInterval ] ].
-					action := GtCompositeRenameAction
-							locations: searchIntervals
-							element: searchElement.
-					replaceIntervals := OrderedCollection new.
-					(self parseExpression: replaceElement editor text)
-						allNodesOfType: GtPharoVariableNode
-						do: [ :each | each = aNode ifTrue: [ replaceIntervals add: each sourceInterval ] ].
-					action addLocations: replaceIntervals to: replaceElement editor.
-					action install ] ]
+					searchElement
+						selectedStringAndIntervalDo: [ :aSelectedString :aSelectedInterval :aTextSize :aDocumentId :aCaretOffset | 
+							self
+								renameSearchVariable: aNode
+								searchElement: searchElement
+								replaceElement: replaceElement
+								documentId: aDocumentId ]
+						orCursorPositionDo: [ :aStringPosition :aTextSize :aDocumentId :aCaretOffset | 
+							self
+								renameSearchVariable: aNode
+								searchElement: searchElement
+								replaceElement: replaceElement
+								documentId: aDocumentId ] ] ]
+]
+
+{ #category : #private }
+LePharoRewriteSnippetElement >> renameSearchVariable: aNode searchElement: searchElement replaceElement: replaceElement documentId: aDocumentId [
+	| action searchIntervals replaceIntervals |
+	searchIntervals := OrderedCollection with: aNode sourceInterval.
+	(aNode attributeNamed: #ocurrences)
+		do: [ :each | each == aNode ifFalse: [ searchIntervals add: each sourceInterval ] ].
+	action := GtCompositeRenameAction
+			locations: searchIntervals
+			element: searchElement.
+	action documentId: aDocumentId.
+	replaceIntervals := OrderedCollection new.
+	(self parseExpression: replaceElement editor text)
+		allNodesOfType: GtPharoVariableNode
+		do: [ :each | each = aNode ifTrue: [ replaceIntervals add: each sourceInterval ] ].
+	action addLocations: replaceIntervals to: replaceElement editor.
+	action install
 ]
 
 { #category : #actions }
