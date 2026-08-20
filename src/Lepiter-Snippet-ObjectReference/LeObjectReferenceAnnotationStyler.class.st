@@ -141,7 +141,7 @@ LeObjectReferenceAnnotationStyler >> styleLinkButton: anObjectAnnotation [
 	| attribute uuid object label |
 	uuid := anObjectAnnotation uuid.
 	uuid ifNil: [^self].
-	object := self objectForUuid: uuid.
+	object := self objectForId: uuid.
 	label := object
 				ifNotNil: [self labelFor: anObjectAnnotation object: object]
 				ifNil: [anObjectAnnotation fallbackLabelString ifNil: [uuid]].
