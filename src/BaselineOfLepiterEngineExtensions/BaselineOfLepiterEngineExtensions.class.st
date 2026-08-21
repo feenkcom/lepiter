@@ -10,13 +10,13 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'LepiterEngineCore' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.7.356/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.7.357/src' ].
 		spec
 			baseline: 'GToolkit4DockerEngine' with: [
 				spec repository: 'github://feenkcom/gt4dockerengine:v0.5.135/src' ].
 		spec
 			baseline: 'Gt4JSLink' with: [
-				spec repository: 'github://feenkcom/gtoolkit-remote-javascript:v0.6.37/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-remote-javascript:v0.6.38/src' ].
 		spec
 			baseline: 'Gt4ChromeDevTools' with: [
 				spec repository: 'github://feenkcom/gtoolkit-chrome:v0.6.1/src' ].
@@ -28,16 +28,16 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 				spec repository: 'github://feenkcom/gtoolkit-debugadapterprotocol:v0.6.9/src' ].
 		spec
 			baseline: 'Gt4PharoLink' with: [
-				spec repository: 'github://feenkcom/gtoolkit-remote:v0.9.183/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-remote:v0.9.184/src' ].
 		spec
 			baseline: 'GToolkitVisualizer' with: [
-				spec repository: 'github://feenkcom/gtoolkit-visualizer:v0.9.317/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-visualizer:v0.9.318/src' ].
 		spec
 			baseline: 'LepiterYoutube' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.7.356/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.7.357/src' ].
 		spec
 			baseline: 'GToolkit4LSP' with: [
-				spec repository: 'github://feenkcom/gt4lsp:v0.7.197/src' ].
+				spec repository: 'github://feenkcom/gt4lsp:v0.7.198/src' ].
 
 		spec package: 'Lepiter-Pharo' with: [
 			spec requires: #(#LepiterEngineCore) ].
@@ -46,6 +46,8 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 		spec package: 'Lepiter-Snippet-Element' with: [
 			spec requires: #(#LepiterEngineCore #'Lepiter-Pharo') ].
 		spec package: 'Lepiter-Snippet-Picture' with: [
+			spec requires: #(#LepiterEngineCore) ].
+		spec package: 'Lepiter-Snippet-ObjectReference' with: [
 			spec requires: #(#LepiterEngineCore) ].
 		spec package: 'Lepiter-Snippet-Words' with: [
 			spec requires: #(#LepiterEngineCore) ].
