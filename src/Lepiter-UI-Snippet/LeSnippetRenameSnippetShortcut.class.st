@@ -25,5 +25,7 @@ LeSnippetRenameSnippetShortcut >> name [
 
 { #category : #evaluation }
 LeSnippetRenameSnippetShortcut >> performOnEditor: aBrTextEditor snippet: aLeSnippetElement dueTo: aShortcutEvent [
-	aLeSnippetElement renamePageIn: aShortcutEvent currentTarget
+	aBrTextEditor
+		selectedStringAndIntervalDo: [ :aSelectedString :aSelectedInterval :aTextSize :aDocumentId :aCaretOffset | aLeSnippetElement renamePageIn: aShortcutEvent currentTarget documentId: aDocumentId ]
+		orCursorPositionDo: [ :aStringPosition :aTextSize :aDocumentId :aCaretOffset | aLeSnippetElement renamePageIn: aShortcutEvent currentTarget documentId: aDocumentId ]
 ]

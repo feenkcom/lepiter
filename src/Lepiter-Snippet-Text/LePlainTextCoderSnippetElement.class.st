@@ -89,7 +89,7 @@ LePlainTextCoderSnippetElement >> onSnippetViewModelChanged [
 ]
 
 { #category : #'private - editing' }
-LePlainTextCoderSnippetElement >> renamePageIn: anEditorElement [
+LePlainTextCoderSnippetElement >> renamePageIn: anEditorElement documentId: aDocumentId [
 	| position link interval renameAction |
 	anEditorElement editor cursors isEmpty
 		ifTrue: [ ^ self ].
@@ -106,6 +106,7 @@ LePlainTextCoderSnippetElement >> renamePageIn: anEditorElement [
 	renameAction := LeRenameAction
 		locations: {interval}
 		element: anEditorElement.
+	renameAction documentId: aDocumentId.
 	renameAction
 		when: GtRenameActionAnnouncement
 		do: [ :ann | 

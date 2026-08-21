@@ -26,27 +26,8 @@ LePragmaAnnotationScanner >> errorTokenId [
 ]
 
 { #category : #generated }
-LePragmaAnnotationScanner >> scan1 [
-	self step.
-	(':_' includes: currentCharacter)
-		ifTrue: [ self step.
-			currentCharacter == $" ifTrue: [ ^ self scan2 ] ].
-	^ self reportLastMatch
-]
-
-{ #category : #generated }
-LePragmaAnnotationScanner >> scan2 [
-	[ self recordMatch: #(8).
-	self step.
-	currentCharacter == $" ifTrue: [ ^ self scan1 ].
-	currentCharacter isAlphaNumeric ] whileTrue.
-	^ self reportLastMatch
-]
-
-{ #category : #generated }
 LePragmaAnnotationScanner >> scanForToken [
 	self step.
-	currentCharacter == $" ifTrue: [ ^ self scan1 ].
 	currentCharacter == $= ifTrue: [ ^ self recordAndReportMatch: #(1) ].
 	currentCharacter == $| ifTrue: [ ^ self recordAndReportMatch: #(6) ].
 	(currentCharacter isSeparator or: [ currentCharacter == Character pageUp ])
@@ -55,7 +36,11 @@ LePragmaAnnotationScanner >> scanForToken [
 			currentCharacter isSeparator or: [ currentCharacter == Character pageUp ] ]
 				whileTrue.
 			^ self reportLastMatch ].
-	currentCharacter isAlphaNumeric ifTrue: [ ^ self scan2 ].
+	currentCharacter isLetter
+		ifTrue: [ [ self recordMatch: #(8).
+			self step.
+			currentCharacter isAlphaNumeric or: [ ':_' includes: currentCharacter ] ]
+				whileTrue ].
 	^ self reportLastMatch
 ]
 

@@ -21,6 +21,53 @@ LeTextSnippetByScripterExamples >> assertTextSnippetElementContentIn: aStep [
 		onBreadthFirstChildOfClass: BrInfiniteTreeElement
 ]
 
+{ #category : #examples }
+LeTextSnippetByScripterExamples >> backspaceKeypressAfterAnnotation [
+	<gtExample>
+	<return: #BlScripter>
+	| aScripter |
+	aScripter := self
+		scripterWithModel: [ | aPage |
+			aPage := LeUIExamples new database pageBuilder
+				title: 'Backspace keypress after annotation';
+				add.
+			aPage snippetBuilder
+				string: '{{gtClass:Object}} some text after';
+				add.
+			aPage ]
+		element: [ :aPage | LePageToolContentTreeElement new pageViewModel: aPage asContentUIModel ].
+
+	aScripter
+		substep: 'Delete one character via a real Backspace keypress'
+		do: [ :aStep | 
+			aStep requestFocus
+				label: 'Focus the text editor';
+				// GtTextualCoderElement;
+				play.
+
+			aStep
+				doStep: [ :s | 
+					s
+						label: 'Move cursor several characters after the annotation';
+						block: [ :anEditor | anEditor editor moveCursorTo: 25 ];
+						// GtTextualCoderElement ].
+			
+			aStep keyPressStep: [ :s | 
+				s
+					label: 'Press Backspace';
+					key: BlKeyboardKey backspace ].
+
+			aStep
+				checkStep: [ :s | 
+					s
+						label: 'Check that the ''t'' starting ''text'' was deleted';
+						value: [ :anEditor | anEditor text asString ]
+							equals: '{{gtClass:Object}} some ext after';
+						onBreadthFirstChildOfClass: GtTextualCoderElement ] ].
+
+	^ aScripter
+]
+
 { #category : #'examples - text snippet' }
 LeTextSnippetByScripterExamples >> changeTextSnippetText [
 	<gtExample>
@@ -101,6 +148,53 @@ LeTextSnippetByScripterExamples >> compareElementAndSnippetTextInstances [
 				satisfies: [ :anEditor | anEditor text characters = aScripter model text characters ]
 					description: [ 'Text editor must have same content as the snippet' ];
 				onBreadthFirstChildOfClass: GtTextualCoderElement ].
+
+	^ aScripter
+]
+
+{ #category : #examples }
+LeTextSnippetByScripterExamples >> deleteKeypressAfterAnnotation [
+	<gtExample>
+	<return: #BlScripter>
+	| aScripter |
+	aScripter := self
+		scripterWithModel: [ | aPage |
+			aPage := LeUIExamples new database pageBuilder
+				title: 'Delete keypress after annotation';
+				add.
+			aPage snippetBuilder
+				string: '{{gtClass:Object}} some text after';
+				add.
+			aPage ]
+		element: [ :aPage | LePageToolContentTreeElement new pageViewModel: aPage asContentUIModel ].
+
+	aScripter
+		substep: 'Delete one character via a real Delete keypress'
+		do: [ :aStep | 
+			aStep requestFocus
+				label: 'Focus the text editor';
+				// GtTextualCoderElement;
+				play.
+
+			aStep
+				doStep: [ :s | 
+					s
+						label: 'Move cursor several characters after the annotation';
+						block: [ :anEditor | anEditor editor moveCursorTo: 24 ];
+						// GtTextualCoderElement ].
+			
+			aStep keyPressStep: [ :s | 
+				s
+					label: 'Press Delete';
+					key: BlKeyboardKey delete ].
+
+			aStep
+				checkStep: [ :s | 
+					s
+						label: 'Check that the ''t'' starting ''text'' was deleted';
+						value: [ :anEditor | anEditor text asString ]
+							equals: '{{gtClass:Object}} some ext after';
+						onBreadthFirstChildOfClass: GtTextualCoderElement ] ].
 
 	^ aScripter
 ]
