@@ -102,7 +102,7 @@ LeDatabaseReload >> reload [
 
 	monitor storage updateDbStore: monitor.
 	self reloadDatabaseProperties.
-	self properties preloadScript ifNotNil: [ :script | script fileIn ].
+	self properties preloadScript ifNotNil: [ :script | self class compiler evaluate: script contents].
 
 	[ | explicitLinks |
 	contentReloadErrorStrategy actBeforeDatabaseReloadFor: self database.

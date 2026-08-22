@@ -92,7 +92,7 @@ LeLocalStoreLoad >> loadAndMonitorWithDelay: aDuration [
 	storage updateDbStore: self.
 	attachmentsDirectory ensureCreateDirectory.
 	self preloadScript ifNotNil: 
-		[ :script | script fileIn ].
+		[ :script | self class compiler evaluate: script contents].
 	
 	database := LeDatabase new.
 	database monitor: monitor.
@@ -136,7 +136,7 @@ LeLocalStoreLoad >> loadFrom: aFileReference [
 	storage updateDbStore: self.
 	attachmentsDirectory ensureCreateDirectory.
 	self preloadScript ifNotNil: 
-		[ :script | script fileIn ].
+		[ :script | self class compiler evaluate: script contents].
 	
 	database := LeDatabase new.
 	self loadDatabasePropertiesIn: database.
