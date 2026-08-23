@@ -100,7 +100,7 @@ LeDatabaseClassStoreLoad >> loadFrom: aSymbol package: aString [
 	self dbClassName: aSymbol package: aString.
 	storage updateDbStore: self.
 	self preloadScript ifNotNil: 
-		[ :script | script fileIn ].
+		[ :script | self class compiler evaluate: script contents ].
 
 	database := LeDatabase new.
 	self loadDatabasePropertiesIn: database.
@@ -137,7 +137,7 @@ LeDatabaseClassStoreLoad >> loadFromClass: aDbClass [
 	dbPackage := dbClass package name.
 	storage updateDbStore: self.
 	self preloadScript ifNotNil: 
-		[ :script | script fileIn ].
+		[ :script | self class compiler evaluate: script contents].
 
 	database := LeDatabase new.
 	self loadDatabasePropertiesIn: database.
