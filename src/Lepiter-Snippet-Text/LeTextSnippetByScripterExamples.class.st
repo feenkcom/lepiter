@@ -49,7 +49,7 @@ LeTextSnippetByScripterExamples >> backspaceKeypressAfterAnnotation [
 				doStep: [ :s | 
 					s
 						label: 'Move cursor right after the second ''y'' in ''Tryy''';
-						block: [ :anEditor | anEditor editor moveCursorTo: 163 ];
+						block: [ :anEditor | anEditor moveCursorTo: 163 ];
 						// GtTextualCoderElement ].
 			
 			aStep keyPressStep: [ :s | 
@@ -88,6 +88,7 @@ LeTextSnippetByScripterExamples >> backspaceKeypressAfterAnnotation_fluentAPI_br
 { #category : #'examples - text snippet' }
 LeTextSnippetByScripterExamples >> backspaceKeypressAfterAnnotation_fluentAPI_rustEditor [
 	<gtExample>
+	<noTest>
 	<return: #BlScripter>
 	| aScripter useFluentAPI defaultEditor |
 	useFluentAPI := self isNewFluentStylableAPI.
@@ -122,6 +123,7 @@ LeTextSnippetByScripterExamples >> backspaceKeypressAfterAnnotation_nonfluentAPI
 { #category : #'examples - text snippet' }
 LeTextSnippetByScripterExamples >> backspaceKeypressAfterAnnotation_nonfluentAPI_rustEditor [
 	<gtExample>
+	<noTest>
 	<return: #BlScripter>
 	| aScripter useFluentAPI defaultEditor |
 	useFluentAPI := self isNewFluentStylableAPI.
@@ -292,6 +294,7 @@ LeTextSnippetByScripterExamples >> deleteKeypressAfterAnnotation_fluentAPI_brick
 { #category : #'examples - text snippet' }
 LeTextSnippetByScripterExamples >> deleteKeypressAfterAnnotation_fluentAPI_rustEditor [
 	<gtExample>
+	<noTest>
 	<return: #BlScripter>
 	| aScripter useFluentAPI defaultEditor |
 	useFluentAPI := self isNewFluentStylableAPI.
@@ -326,6 +329,7 @@ LeTextSnippetByScripterExamples >> deleteKeypressAfterAnnotation_nonfluentAPI_br
 { #category : #'examples - text snippet' }
 LeTextSnippetByScripterExamples >> deleteKeypressAfterAnnotation_nonfluentAPI_rustEditor [
 	<gtExample>
+	<noTest>
 	<return: #BlScripter>
 	| aScripter useFluentAPI defaultEditor |
 	useFluentAPI := self isNewFluentStylableAPI.

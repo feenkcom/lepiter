@@ -136,7 +136,7 @@ LePage >> asRemoteLink [
 			<< '{{gtPage:';
 			<< type remoteLinkId;
 			<< '|db=';
-			<< self database uuidString;
+			<< (self database ifNotNil: #uuidString);
 			<< '}}' ].
 
 ]
@@ -284,6 +284,8 @@ LePage >> gtBindingsActionFor: anAction [
 { #category : #accessing }
 LePage >> gtCopyActionFor: anAction [
 	<gtAction>
+	self database isDatabase ifFalse: [ ^ anAction noAction ].
+	
 	^ anAction button
 		tooltip: 'Copy as reference to the clipboard';
 		priority: 10;
