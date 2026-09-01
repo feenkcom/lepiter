@@ -42,7 +42,7 @@ LeTextSnippetByScripterExamples >> backspaceKeypressAfterAnnotation [
 		do: [ :aStep | 
 			aStep requestFocus
 				label: 'Focus the text editor';
-				// GtTextualCoderElement;
+				// GtSourceCoderEditorInnerId;
 				play.
 
 			aStep
@@ -50,7 +50,7 @@ LeTextSnippetByScripterExamples >> backspaceKeypressAfterAnnotation [
 					s
 						label: 'Move cursor right after the second ''y'' in ''Tryy''';
 						block: [ :anEditor | anEditor moveCursorTo: 163 ];
-						// GtTextualCoderElement ].
+						// GtSourceCoderEditorInnerId ].
 			
 			aStep keyPressStep: [ :s | 
 				s
@@ -248,15 +248,15 @@ LeTextSnippetByScripterExamples >> deleteKeypressAfterAnnotation [
 		do: [ :aStep | 
 			aStep requestFocus
 				label: 'Focus the text editor';
-				// GtTextualCoderElement;
+				// GtSourceCoderEditorInnerId;
 				play.
 
 			aStep
 				doStep: [ :s | 
 					s
 						label: 'Move cursor right before the second ''y'' in ''Tryy''';
-						block: [ :anEditor | anEditor editor moveCursorTo: 162 ];
-						// GtTextualCoderElement ].
+						block: [ :anEditor | anEditor moveCursorTo: 162 ];
+						// GtSourceCoderEditorInnerId ].
 			
 			aStep keyPressStep: [ :s | 
 				s
