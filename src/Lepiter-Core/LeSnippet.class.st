@@ -424,7 +424,7 @@ LeSnippet >> moveDownThroughCommand [
 
 { #category : #'api - editing' }
 LeSnippet >> moveToPage: aPage [
-	self page removeSnippet: self.
+	self removeSelf.
 	aPage addSnippet: self
 ]
 
