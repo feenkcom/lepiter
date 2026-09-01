@@ -21,7 +21,7 @@ LeTextSnippetByScripterExamples >> assertTextSnippetElementContentIn: aStep [
 		onBreadthFirstChildOfClass: BrInfiniteTreeElement
 ]
 
-{ #category : #examples }
+{ #category : #'examples - text snippet' }
 LeTextSnippetByScripterExamples >> backspaceKeypressAfterAnnotation [
 	<gtExample>
 	<return: #BlScripter>
@@ -32,7 +32,7 @@ LeTextSnippetByScripterExamples >> backspaceKeypressAfterAnnotation [
 				title: 'Backspace keypress after annotation';
 				add.
 			aPage snippetBuilder
-				string: '{{gtClass:Object}} some text after';
+				string: 'A snippet with {{gtClass:Object}} **annotation**, that can be *expanded* or *spawned*. The following link [gtoolkit.com](https://gtoolkit.com) can be clicked. Tryy it.';
 				add.
 			aPage ]
 		element: [ :aPage | LePageToolContentTreeElement new pageViewModel: aPage asContentUIModel ].
@@ -42,15 +42,15 @@ LeTextSnippetByScripterExamples >> backspaceKeypressAfterAnnotation [
 		do: [ :aStep | 
 			aStep requestFocus
 				label: 'Focus the text editor';
-				// GtTextualCoderElement;
+				// GtSourceCoderEditorInnerId;
 				play.
 
 			aStep
 				doStep: [ :s | 
 					s
-						label: 'Move cursor several characters after the annotation';
-						block: [ :anEditor | anEditor editor moveCursorTo: 25 ];
-						// GtTextualCoderElement ].
+						label: 'Move cursor right after the second ''y'' in ''Tryy''';
+						block: [ :anEditor | anEditor moveCursorTo: 163 ];
+						// GtSourceCoderEditorInnerId ].
 			
 			aStep keyPressStep: [ :s | 
 				s
@@ -60,10 +60,80 @@ LeTextSnippetByScripterExamples >> backspaceKeypressAfterAnnotation [
 			aStep
 				checkStep: [ :s | 
 					s
-						label: 'Check that the ''t'' starting ''text'' was deleted';
+						label: 'Check that the second ''y'' in ''Tryy'' was deleted';
 						value: [ :anEditor | anEditor text asString ]
-							equals: '{{gtClass:Object}} some ext after';
+							equals: 'A snippet with {{gtClass:Object}} **annotation**, that can be *expanded* or *spawned*. The following link [gtoolkit.com](https://gtoolkit.com) can be clicked. Try it.';
 						onBreadthFirstChildOfClass: GtTextualCoderElement ] ].
+
+	^ aScripter
+]
+
+{ #category : #'examples - text snippet' }
+LeTextSnippetByScripterExamples >> backspaceKeypressAfterAnnotation_fluentAPI_brickEditor [
+	<gtExample>
+	<return: #BlScripter>
+	| aScripter useFluentAPI defaultEditor |
+	useFluentAPI := self isNewFluentStylableAPI.
+	defaultEditor := self defaultSnippetElementStencilClass.
+	self setDefaultSnippetElementStencilClass: LePlainTextCoderSnippetElementStencil.
+	self setFluentStylableAPI: true.
+	[ aScripter := self backspaceKeypressAfterAnnotation ]
+		ensure: [ 
+			self setFluentStylableAPI: useFluentAPI.
+			self setDefaultSnippetElementStencilClass: defaultEditor ].
+
+	^ aScripter
+]
+
+{ #category : #'examples - text snippet' }
+LeTextSnippetByScripterExamples >> backspaceKeypressAfterAnnotation_fluentAPI_rustEditor [
+	<gtExample>
+	<noTest>
+	<return: #BlScripter>
+	| aScripter useFluentAPI defaultEditor |
+	useFluentAPI := self isNewFluentStylableAPI.
+	defaultEditor := self defaultSnippetElementStencilClass.
+	self setDefaultSnippetElementStencilClass: LePlainTextCoderSnippetElementWithRustTextEditorStencil.
+	self setFluentStylableAPI: true.
+	[ aScripter := self backspaceKeypressAfterAnnotation ]
+		ensure: [ 
+			self setFluentStylableAPI: useFluentAPI.
+			self setDefaultSnippetElementStencilClass: defaultEditor ].
+
+	^ aScripter
+]
+
+{ #category : #'examples - text snippet' }
+LeTextSnippetByScripterExamples >> backspaceKeypressAfterAnnotation_nonfluentAPI_brickEditor [
+	<gtExample>
+	<return: #BlScripter>
+	| aScripter useFluentAPI defaultEditor |
+	useFluentAPI := self isNewFluentStylableAPI.
+	self setFluentStylableAPI: false.
+	defaultEditor := self defaultSnippetElementStencilClass.
+	self setDefaultSnippetElementStencilClass: LePlainTextCoderSnippetElementStencil.
+	[ aScripter := self backspaceKeypressAfterAnnotation ]
+		ensure: [ 
+			self setFluentStylableAPI: useFluentAPI.
+			self setDefaultSnippetElementStencilClass: defaultEditor ].
+
+	^ aScripter
+]
+
+{ #category : #'examples - text snippet' }
+LeTextSnippetByScripterExamples >> backspaceKeypressAfterAnnotation_nonfluentAPI_rustEditor [
+	<gtExample>
+	<noTest>
+	<return: #BlScripter>
+	| aScripter useFluentAPI defaultEditor |
+	useFluentAPI := self isNewFluentStylableAPI.
+	self setFluentStylableAPI: false.
+	defaultEditor := self defaultSnippetElementStencilClass.
+	self setDefaultSnippetElementStencilClass: LePlainTextCoderSnippetElementWithRustTextEditorStencil.
+	[ aScripter := self backspaceKeypressAfterAnnotation ]
+		ensure: [ 
+			self setFluentStylableAPI: useFluentAPI.
+			self setDefaultSnippetElementStencilClass: defaultEditor ].
 
 	^ aScripter
 ]
@@ -152,7 +222,12 @@ LeTextSnippetByScripterExamples >> compareElementAndSnippetTextInstances [
 	^ aScripter
 ]
 
-{ #category : #examples }
+{ #category : #'examples - support' }
+LeTextSnippetByScripterExamples >> defaultSnippetElementStencilClass [
+	^ LeTextCoderSnippetViewModel defaultSnippetElementStencilClass
+]
+
+{ #category : #'examples - text snippet' }
 LeTextSnippetByScripterExamples >> deleteKeypressAfterAnnotation [
 	<gtExample>
 	<return: #BlScripter>
@@ -163,7 +238,7 @@ LeTextSnippetByScripterExamples >> deleteKeypressAfterAnnotation [
 				title: 'Delete keypress after annotation';
 				add.
 			aPage snippetBuilder
-				string: '{{gtClass:Object}} some text after';
+				string: 'A snippet with {{gtClass:Object}} **annotation**, that can be *expanded* or *spawned*. The following link [gtoolkit.com](https://gtoolkit.com) can be clicked. Tryy it.';
 				add.
 			aPage ]
 		element: [ :aPage | LePageToolContentTreeElement new pageViewModel: aPage asContentUIModel ].
@@ -173,15 +248,15 @@ LeTextSnippetByScripterExamples >> deleteKeypressAfterAnnotation [
 		do: [ :aStep | 
 			aStep requestFocus
 				label: 'Focus the text editor';
-				// GtTextualCoderElement;
+				// GtSourceCoderEditorInnerId;
 				play.
 
 			aStep
 				doStep: [ :s | 
 					s
-						label: 'Move cursor several characters after the annotation';
-						block: [ :anEditor | anEditor editor moveCursorTo: 24 ];
-						// GtTextualCoderElement ].
+						label: 'Move cursor right before the second ''y'' in ''Tryy''';
+						block: [ :anEditor | anEditor moveCursorTo: 162 ];
+						// GtSourceCoderEditorInnerId ].
 			
 			aStep keyPressStep: [ :s | 
 				s
@@ -191,10 +266,80 @@ LeTextSnippetByScripterExamples >> deleteKeypressAfterAnnotation [
 			aStep
 				checkStep: [ :s | 
 					s
-						label: 'Check that the ''t'' starting ''text'' was deleted';
+						label: 'Check that the second ''y'' in ''Tryy'' was deleted';
 						value: [ :anEditor | anEditor text asString ]
-							equals: '{{gtClass:Object}} some ext after';
+							equals: 'A snippet with {{gtClass:Object}} **annotation**, that can be *expanded* or *spawned*. The following link [gtoolkit.com](https://gtoolkit.com) can be clicked. Try it.';
 						onBreadthFirstChildOfClass: GtTextualCoderElement ] ].
+
+	^ aScripter
+]
+
+{ #category : #'examples - text snippet' }
+LeTextSnippetByScripterExamples >> deleteKeypressAfterAnnotation_fluentAPI_brickEditor [
+	<gtExample>
+	<return: #BlScripter>
+	| aScripter useFluentAPI defaultEditor |
+	useFluentAPI := self isNewFluentStylableAPI.
+	self setFluentStylableAPI: true.
+	defaultEditor := self defaultSnippetElementStencilClass.
+	self setDefaultSnippetElementStencilClass: LePlainTextCoderSnippetElementStencil.
+	[ aScripter := self deleteKeypressAfterAnnotation ]
+		ensure: [ 
+			self setFluentStylableAPI: useFluentAPI.
+			self setDefaultSnippetElementStencilClass: defaultEditor ].
+
+	^ aScripter
+]
+
+{ #category : #'examples - text snippet' }
+LeTextSnippetByScripterExamples >> deleteKeypressAfterAnnotation_fluentAPI_rustEditor [
+	<gtExample>
+	<noTest>
+	<return: #BlScripter>
+	| aScripter useFluentAPI defaultEditor |
+	useFluentAPI := self isNewFluentStylableAPI.
+	self setFluentStylableAPI: true.
+	defaultEditor := self defaultSnippetElementStencilClass.
+	self setDefaultSnippetElementStencilClass: LePlainTextCoderSnippetElementWithRustTextEditorStencil.
+	[ aScripter := self deleteKeypressAfterAnnotation ]
+		ensure: [ 
+			self setFluentStylableAPI: useFluentAPI.
+			self setDefaultSnippetElementStencilClass: defaultEditor ].
+
+	^ aScripter
+]
+
+{ #category : #'examples - text snippet' }
+LeTextSnippetByScripterExamples >> deleteKeypressAfterAnnotation_nonfluentAPI_brickEditor [
+	<gtExample>
+	<return: #BlScripter>
+	| aScripter useFluentAPI defaultEditor |
+	useFluentAPI := self isNewFluentStylableAPI.
+	self setFluentStylableAPI: false.
+	defaultEditor := self defaultSnippetElementStencilClass.
+	self setDefaultSnippetElementStencilClass: LePlainTextCoderSnippetElementStencil.
+	[ aScripter := self deleteKeypressAfterAnnotation ]
+		ensure: [ 
+			self setFluentStylableAPI: useFluentAPI.
+			self setDefaultSnippetElementStencilClass: defaultEditor ].
+
+	^ aScripter
+]
+
+{ #category : #'examples - text snippet' }
+LeTextSnippetByScripterExamples >> deleteKeypressAfterAnnotation_nonfluentAPI_rustEditor [
+	<gtExample>
+	<noTest>
+	<return: #BlScripter>
+	| aScripter useFluentAPI defaultEditor |
+	useFluentAPI := self isNewFluentStylableAPI.
+	self setFluentStylableAPI: false.
+	defaultEditor := self defaultSnippetElementStencilClass.
+	self setDefaultSnippetElementStencilClass: LePlainTextCoderSnippetElementWithRustTextEditorStencil.
+	[ aScripter := self deleteKeypressAfterAnnotation ]
+		ensure: [ 
+			self setFluentStylableAPI: useFluentAPI.
+			self setDefaultSnippetElementStencilClass: defaultEditor ].
 
 	^ aScripter
 ]
@@ -279,6 +424,11 @@ LeTextSnippetByScripterExamples >> insertPageRemoteLink [
 						onChildFromMessage: #text ] ].
 
 	^ aScripter
+]
+
+{ #category : #'examples - support' }
+LeTextSnippetByScripterExamples >> isNewFluentStylableAPI [
+	^ LeSnippetStylerVisitor isNewFluentStylableAPI
 ]
 
 { #category : #'examples - two databases' }
@@ -553,6 +703,18 @@ LeTextSnippetByScripterExamples >> scrollUpEnumeradedTextSnippets [
 
 							self assertTextSnippetElementContentIn: aStep ] ] ].
 	^ aScripter
+]
+
+{ #category : #'examples - support' }
+LeTextSnippetByScripterExamples >> setDefaultSnippetElementStencilClass: aClassOrNil [
+	LeTextCoderSnippetViewModel defaultSnippetElementStencilClass: aClassOrNil
+]
+
+{ #category : #'examples - support' }
+LeTextSnippetByScripterExamples >> setFluentStylableAPI: aBoolean [
+	aBoolean
+		ifTrue: [ LeSnippetStylerVisitor useNewFluentStylableAPI ]
+		ifFalse: [ LeSnippetStylerVisitor dontUseNewFluentStylableAPI ]
 ]
 
 { #category : #'examples - by scripter' }
