@@ -551,7 +551,6 @@ LeSnippetStylerVisitor >> styleExternalLink: anExternalLink [
 			aPreviewText := anExternalLink displayLabel asRopedText foreground: color.
 
 			linkText previewAsText: aPreviewText.
-			GtJustContextStackSignal emit.
 			^ self ].
 
 	self styleLinkText: linkText valid: isValid.
