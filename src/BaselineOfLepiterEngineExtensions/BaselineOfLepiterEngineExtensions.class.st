@@ -10,34 +10,34 @@ BaselineOfLepiterEngineExtensions >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'LepiterEngineCore' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.7.397/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.7.398/src' ].
 		spec
 			baseline: 'GToolkit4DockerEngine' with: [
 				spec repository: 'github://feenkcom/gt4dockerengine:v0.5.135/src' ].
 		spec
 			baseline: 'Gt4JSLink' with: [
-				spec repository: 'github://feenkcom/gtoolkit-remote-javascript:v0.6.51/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-remote-javascript:v0.6.52/src' ].
 		spec
 			baseline: 'Gt4ChromeDevTools' with: [
 				spec repository: 'github://feenkcom/gtoolkit-chrome:v0.6.2/src' ].
 		spec
 			baseline: 'Gt4PythonBridge' with: [
-				spec repository: 'github://feenkcom/gtoolkit-remote-python:v0.6.13/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-remote-python:v0.6.14/src' ].
 		spec
 			baseline: 'Gt4DebugAdapterProtocol' with: [
-				spec repository: 'github://feenkcom/gtoolkit-debugadapterprotocol:v0.6.12/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-debugadapterprotocol:v0.6.13/src' ].
 		spec
 			baseline: 'Gt4PharoLink' with: [
-				spec repository: 'github://feenkcom/gtoolkit-remote:v0.9.206/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-remote:v0.9.207/src' ].
 		spec
 			baseline: 'GToolkitVisualizer' with: [
-				spec repository: 'github://feenkcom/gtoolkit-visualizer:v0.9.355/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-visualizer:v0.9.356/src' ].
 		spec
 			baseline: 'LepiterYoutube' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.7.397/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.7.398/src' ].
 		spec
 			baseline: 'GToolkit4LSP' with: [
-				spec repository: 'github://feenkcom/gt4lsp:v0.7.219/src' ].
+				spec repository: 'github://feenkcom/gt4lsp:v0.7.220/src' ].
 
 		spec package: 'Lepiter-Pharo' with: [
 			spec requires: #(#LepiterEngineCore) ].
