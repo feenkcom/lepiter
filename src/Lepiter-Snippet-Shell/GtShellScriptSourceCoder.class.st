@@ -25,7 +25,9 @@ GtShellScriptSourceCoder >> bindingName: aNameString [
 
 { #category : #'api - ast' }
 GtShellScriptSourceCoder >> computeAst: theSourceString [
-	^ theSourceString
+	^ GtShellScriptParser
+		parseWithErrors: theSourceString
+		startingAt: GtShellScriptParser startingStateForStart
 ]
 
 { #category : #private }
