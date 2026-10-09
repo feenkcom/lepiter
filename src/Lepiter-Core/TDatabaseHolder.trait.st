@@ -35,13 +35,9 @@ TDatabaseHolder >> addPages: aPageCollection [
 	<lePage>
 	<gtExample>
 	^ ' , aPage storeString.
+	
 			self class compile: methodBody.
-			self 
-				forPharo12AndNewer: [ 
-					self class classify: selector asSymbol under: 'page' ]
-				forPharo11: [ 
-					self class organization 
-						classify: selector asSymbol under: 'page' ] ]
+			self class classify: selector asSymbol under: 'page' ]
 ]
 
 { #category : #accessing }

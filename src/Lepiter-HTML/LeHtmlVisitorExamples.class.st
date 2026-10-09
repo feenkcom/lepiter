@@ -26,14 +26,8 @@ LeHtmlVisitorExamples >> textSnippetWithClassAnnotation [
 		assertHtml: html
 		includes: 'expandable-annotation-view collapsed-annotation-view'.
 	self 
-		forPharo12AndNewer: [
-			self 
-				assertHtml: html 
-				includes: '&lt;&lt; #BrButton'] 
-		forPharo11: [
-			self 
-				assertHtml: html 
-				includes: 'subclass: #BrButton' ].
+		assertHtml: html 
+		includes: '&lt;&lt; #BrButton'.
 
 	^ LeHtmlVisitorHolder new
 		visitor: visitor;
@@ -60,14 +54,8 @@ LeHtmlVisitorExamples >> textSnippetWithClassAnnotationCollapsed [
 		assertHtml: html
 		includes: 'expandable-annotation-view collapsed-annotation-view'.
 	self 
-		forPharo12AndNewer: [
-			self 
-				assertHtml: html 
-				includes: '&lt;&lt; #BrButton'] 
-		forPharo11: [
-			self 
-				assertHtml: html 
-				includes: 'subclass: #BrButton' ].
+		assertHtml: html 
+		includes: '&lt;&lt; #BrButton'.
 
 	^ LeHtmlVisitorHolder new
 		visitor: visitor;
@@ -94,14 +82,8 @@ LeHtmlVisitorExamples >> textSnippetWithClassAnnotationExpanded [
 		assertHtml: html
 		includes: 'expandable-annotation-view expanded-annotation-view'.
 	self 
-		forPharo12AndNewer: [
-			self 
-				assertHtml: html 
-				includes: '&lt;&lt; #BrButton'] 
-		forPharo11: [
-			self 
-				assertHtml: html 
-				includes: 'subclass: #BrButton' ].
+		assertHtml: html 
+		includes: '&lt;&lt; #BrButton'.
 
 	^ LeHtmlVisitorHolder new
 		visitor: visitor;
@@ -129,14 +111,8 @@ LeHtmlVisitorExamples >> textSnippetWithClassAnnotationLabeledAndText [
 		assertHtml: html
 		includes: 'expandable-annotation-view collapsed-annotation-view'.
 	self 
-		forPharo12AndNewer: [
-			self 
-				assertHtml: html 
-				includes: '&lt;&lt; #BrButton'] 
-		forPharo11: [
-			self 
-				assertHtml: html 
-				includes: 'subclass: #BrButton' ].
+		assertHtml: html 
+		includes: '&lt;&lt; #BrButton'.
 
 	^ LeHtmlVisitorHolder new
 		visitor: visitor;
