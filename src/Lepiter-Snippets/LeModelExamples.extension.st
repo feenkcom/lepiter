@@ -6,56 +6,7 @@ LeModelExamples >> changeSnippetsPageTitle [
 ]
 
 { #category : #'*Lepiter-Snippets' }
-LeModelExamples >> createClassChangePharo11 [
-^ 'OmEntry {
-	#tags : {
-		#author : ''GlamorousAuthor'',
-		#time : DateAndTime [ ''2024-04-01T12:32:40.324219-03:00'' ],
-		#prior : OmReference [ ''7'' ],
-		#self : OmReference [ ''8'' ]
-	},
-	#content : EpClassAddition {
-		#class : RGClassDefinition {
-			#annotations : IdentityDictionary {
-				#traitCompositionSource : ''{}'',
-				#definitionSource : ''Object subclass: #LeOnDemandDummyClass\r\tinstanceVariableNames: \''\''\r\tclassVariableNames: \''\''\r\tpackage: \''LepiterOnDemandDummies\'''',
-				#superclassName : ''Object''
-			},
-			#name : #LeOnDemandDummyClass,
-			#methods : IdentityDictionary { },
-			#protocols : Set [ ],
-			#instanceVariables : OrderedCollection [ ],
-			#metaClass : RGMetaclassDefinition {
-				#annotations : IdentityDictionary {
-					#traitCompositionSource : ''{}'',
-					#definitionSource : ''LeOnDemandDummyClass class\r\tinstanceVariableNames: \''\''''
-				},
-				#name : #''LeOnDemandDummyClass class'',
-				#methods : IdentityDictionary { },
-				#protocols : Set [ ],
-				#instanceVariables : OrderedCollection [ ],
-				#baseClass : @7
-			},
-			#comment : RGCommentDefinition {
-				#annotations : IdentityDictionary {
-					#className : #LeOnDemandDummyClass,
-					#isMetaSide : false
-				},
-				#parent : @7,
-				#content : ''''
-			},
-			#classVariables : OrderedCollection [ ],
-			#category : #LepiterOnDemandDummies,
-			#package : #LepiterOnDemandDummies,
-			#sharedPools : OrderedCollection [ ]
-		}
-	}
-}
-'
-]
-
-{ #category : #'*Lepiter-Snippets' }
-LeModelExamples >> createClassChangePharo12 [
+LeModelExamples >> createClassChanges [
 ^ 'OmEntry {
 	#tags : {
 		#time : DateAndTime [ ''2025-07-08T17:29:05.254614+02:00'' ],
@@ -143,9 +94,7 @@ LeModelExamples >> databaseWithPageHavingChangeAndDependentSnippets [
 			add.
 
 	createClassPath := database
-			addAttachmentWithContent: (self 
-				forPharo12AndNewer: [self createClassChangePharo12] 
-				forPharo11: [self createClassChangePharo11])
+			addAttachmentWithContent: self createClassChanges
 			named: 'createClass.ombu'.
 	createClassSnippet := LeChangesSnippet new
 			fileName: createClassPath;

@@ -28,7 +28,7 @@ TLeInvalidCommentsConstraint >> packagesToAnalyse [
 { #category : #accessing }
 TLeInvalidCommentsConstraint >> pageForClassCommentOf: aClass [
 	| classComment |
-	classComment := aClass gtComment.
+	classComment := aClass comment.
 		
 	^ (LePage pharoCommentClassName: aClass name)
 		addSnippet: (LeTextSnippet string: classComment);
