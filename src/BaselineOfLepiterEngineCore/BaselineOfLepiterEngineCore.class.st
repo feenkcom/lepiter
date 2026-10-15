@@ -27,8 +27,8 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 				baseline: 'LepiterXDoc'
 					with: [ spec repository: 'github://feenkcom/lepiter:main/src' ];
 				baseline: 'SmaCCRuntime'
-					with: [ spec repository: 'github://j-brant/SmaCC' ];
-				baseline: 'JSONParser' with: [ spec repository: 'github://j-brant/SmaCC' ];
+					with: [ spec repository: 'github://j-brant/SmaCC:/src' ];
+				baseline: 'JSONParser' with: [ spec repository: 'github://j-brant/SmaCC:/src' ];
 				baseline: 'Beacon'
 					with: [ spec repository: 'github://feenkcom/pharo-beacon:main/src' ];
 				baseline: 'JSONWebToken'
