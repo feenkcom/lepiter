@@ -213,3 +213,44 @@ LeHtmlContextExamples >> urlAttributePieceEscapesAmpersand [
 
 	^ aPiece
 ]
+
+{ #category : #examples }
+LeHtmlContextExamples >> urlAttributePieceKeepsDefaultBaseUrl [
+	<gtExample>
+	<return: #LeHtmlPageUrlAttributePiece>
+	| aStream aContext aPiece |
+	aStream := WriteStream on: String new.
+	aContext := LeHtmlContext new.
+	aContext page: (LePage named: 'Page').
+	aContext newStream: aStream.
+	aPiece := LeHtmlPageUrlAttributePiece new.
+
+	aPiece writeWithContext: aContext.
+
+	self
+		assert: aStream contents = 'https://book.gtoolkit.com/index.html'
+		description: [ 'The default base URL must be used, but the URL is {1}' format: {aStream contents} ].
+
+	^ aPiece
+]
+
+{ #category : #examples }
+LeHtmlContextExamples >> urlAttributePieceUsesBaseUrlOfContext [
+	<gtExample>
+	<return: #LeHtmlPageUrlAttributePiece>
+	| aStream aContext aPiece |
+	aStream := WriteStream on: String new.
+	aContext := LeHtmlContext new.
+	aContext page: (LePage named: 'Page').
+	aContext newStream: aStream.
+	aContext baseUrl: 'https://book.example.org'.
+	aPiece := LeHtmlPageUrlAttributePiece new.
+
+	aPiece writeWithContext: aContext.
+
+	self
+		assert: aStream contents = 'https://book.example.org/index.html'
+		description: [ 'The base URL of the context must be used, but the URL is {1}' format: {aStream contents} ].
+
+	^ aPiece
+]

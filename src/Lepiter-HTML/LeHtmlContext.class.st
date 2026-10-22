@@ -12,7 +12,8 @@ Class {
 		'date',
 		'hrefBuilder',
 		'author',
-		'siteName'
+		'siteName',
+		'baseUrl'
 	],
 	#category : #'Lepiter-HTML-! Core'
 }
@@ -34,6 +35,19 @@ LeHtmlContext >> authorName: aString [
 		author := nil.
 		^ self ].
 	self author: (LeHtmlAuthor new name: aString)
+]
+
+{ #category : #accessing }
+LeHtmlContext >> baseUrl [
+	"Answer the URL (a string or a ZnUrl) under which the exported pages are published, or nil if it is not known.
+	It is used to write the absolute URL of a page, e.g., for the og:url meta tag."
+
+	^ baseUrl
+]
+
+{ #category : #accessing }
+LeHtmlContext >> baseUrl: aStringOrUrl [
+	baseUrl := aStringOrUrl
 ]
 
 { #category : #copying }

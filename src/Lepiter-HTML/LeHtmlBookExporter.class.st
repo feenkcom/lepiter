@@ -13,7 +13,8 @@ Class {
 		'htmlTime',
 		'fileStore',
 		'hrefBuilder',
-		'siteName'
+		'siteName',
+		'baseUrl'
 	],
 	#category : #'Lepiter-HTML-! Core'
 }
@@ -51,6 +52,18 @@ LeHtmlBookExporter >> assembleResources [
 			assemble 
 	
 	] timeToRun
+]
+
+{ #category : #accessing }
+LeHtmlBookExporter >> baseUrl [
+	^ baseUrl
+]
+
+{ #category : #accessing }
+LeHtmlBookExporter >> baseUrl: aStringOrUrl [
+	"Set the URL under which the exported pages are published. A default one of the URL piece is used if it is nil."
+
+	baseUrl := aStringOrUrl
 ]
 
 { #category : #accessing }
@@ -129,6 +142,7 @@ LeHtmlBookExporter >> exportPageLink: aPageLink [
 		resources: self resources;
 		database: self database;
 		siteName: self siteName;
+		baseUrl: self baseUrl;
 		sequencer: self sequencer;
 		fileStore: self fileStore;
 		hrefBuilder: self hrefBuilder;

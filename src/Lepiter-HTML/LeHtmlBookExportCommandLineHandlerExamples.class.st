@@ -8,6 +8,34 @@ Class {
 }
 
 { #category : #examples }
+LeHtmlBookExportCommandLineHandlerExamples >> baseUrlOption [
+	<gtExample>
+	<return: #LeHtmlBookExportCommandLineHandler>
+	| aHandler |
+	aHandler := self handlerWithArguments: #('exportbook' '--base-url= https://book.example.org ').
+
+	self
+		assert: aHandler optionBaseUrl = 'https://book.example.org'
+		description: [ 'The base URL option must be trimmed, but it is {1}' format: {aHandler optionBaseUrl printString} ].
+
+	^ aHandler
+]
+
+{ #category : #examples }
+LeHtmlBookExportCommandLineHandlerExamples >> baseUrlOptionIsOptional [
+	<gtExample>
+	<return: #LeHtmlBookExportCommandLineHandler>
+	| aHandler |
+	aHandler := self handlerWithArguments: #('exportbook').
+
+	self
+		assert: aHandler optionBaseUrl isNil
+		description: [ 'The base URL is not defined by default, the default of the URL piece is used' ].
+
+	^ aHandler
+]
+
+{ #category : #examples }
 LeHtmlBookExportCommandLineHandlerExamples >> glamorousToolkitBookSiteName [
 	<gtExample>
 	<return: #LeHtmlGtBookExportCommandLineHandler>

@@ -16,7 +16,7 @@ LeHtmlBookExportCommandLineHandler class >> description [
 
 { #category : #activation }
 LeHtmlBookExportCommandLineHandler >> activate [
-	| aBookExporter aBookName aBook aTargetDirName aTargetDir theWorkflowBuilder aMainPage aPageTemplateFileName aPiece anInputDirName aHrefBuilder aSiteName |
+	| aBookExporter aBookName aBook aTargetDirName aTargetDir theWorkflowBuilder aMainPage aPageTemplateFileName aPiece anInputDirName aHrefBuilder aSiteName aBaseUrl |
 	self activateHelp ifTrue: [ ^ self ].
 	anInputDirName := self optionBookInputDirectoryName.
 	anInputDirName ifNotNil: [ self ensureBookLoaded: anInputDirName ].
@@ -29,6 +29,7 @@ LeHtmlBookExportCommandLineHandler >> activate [
 	aPiece := self findTemplatePieceForFileNamed: aPageTemplateFileName.
 	aHrefBuilder := self optionHypertextReferenceBuilder.
 	aSiteName := self optionSiteName.
+	aBaseUrl := self optionBaseUrl.
 	theWorkflowBuilder := [ NonInteractiveTranscript stdout
 			show: 'Exporting "';
 			show: aBookName;
@@ -38,6 +39,7 @@ LeHtmlBookExportCommandLineHandler >> activate [
 		aBookExporter := LeHtmlBookExporter new
 				database: aBook;
 				siteName: aSiteName;
+				baseUrl: aBaseUrl;
 				mainPage: aMainPage;
 				piece: aPiece;
 				hrefBuilder: aHrefBuilder;
@@ -54,6 +56,13 @@ LeHtmlBookExportCommandLineHandler >> activate [
 	(self hasOption: 'save')
 		ifTrue: [ ^ Smalltalk snapshot: true andQuit: (self hasOption: 'no-quit') not ].
 	(self hasOption: 'no-quit') ifFalse: [ self quit ]
+]
+
+{ #category : #defaults }
+LeHtmlBookExportCommandLineHandler >> defaultBaseUrl [
+	"The default base URL of the URL piece is used if the base URL is nil."
+
+	^ nil
 ]
 
 { #category : #defaults }
@@ -162,6 +171,22 @@ LeHtmlBookExportCommandLineHandler >> findTemplatePieceForFileNamed: aPageTempla
 	^ aPageTemplateFile
 		ifNil: [ self defaultTemplatePiece ]
 		ifNotNil: [ :aFile | LeHtmlGtBookPiece fromFile: aFile ]
+]
+
+{ #category : #'accessing - arguments' }
+LeHtmlBookExportCommandLineHandler >> optionBaseUrl [
+	| aBaseUrl |
+	aBaseUrl := self
+			optionAt: 'base-url'
+			ifPresent: [ :anInput | 
+				| aName |
+				aName := anInput trimBoth.
+				self
+					assert: [ aName isNotEmpty ]
+					description: [ 'Base URL must not be empty: `{1}`' format: {anInput} ].
+				aName ]
+			ifAbsent: [ self defaultBaseUrl ].
+	^ aBaseUrl
 ]
 
 { #category : #'accessing - arguments' }
