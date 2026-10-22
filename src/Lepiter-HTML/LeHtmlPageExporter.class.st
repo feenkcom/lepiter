@@ -9,12 +9,24 @@ Class {
 }
 
 { #category : #convenience }
+LeHtmlPageExporter class >> contextForPage: aPage [
+	"Answer a context to export the page alone.
+	The site name is the name of the database of the page. If the page is not in a named database,
+	it is the default site name of {{gtClass:LeHtmlGtBookPiece}}."
+
+	| aContext |
+	aContext := LeHtmlContext new
+			page: aPage;
+			database: aPage database.
+	aContext siteName ifNil: [ aContext siteName: LeHtmlGtBookPiece defaultSiteName ].
+	^ aContext
+]
+
+{ #category : #convenience }
 LeHtmlPageExporter class >> exportPage: page to: directory [
 	| pageLinks context database html pageLinkBuilder |
 	database := page database.
-	context := LeHtmlContext new
-			page: page;
-			database: database.
+	context := self contextForPage: page.
 	
 	pageLinkBuilder := LeExportPageLinksBuilder new
 			in: [ :theBuilder | database ifNotNil: [ theBuilder database: database ] ];
