@@ -141,6 +141,22 @@ LeHtmlContextExamples >> siteNameDefaultsToDatabaseName [
 ]
 
 { #category : #examples }
+LeHtmlContextExamples >> siteNameIgnoresDatabaseWithoutName [
+	<gtExample>
+	<return: #LeHtmlContext>
+	| aContext |
+	"A page that is not in a database has a null database that has an empty name."
+	aContext := LeHtmlContext new.
+	aContext database: LePage new database.
+
+	self
+		assert: aContext siteName isNil
+		description: [ 'An empty database name is not a site name, but it is {1}' format: {aContext siteName printString} ].
+
+	^ aContext
+]
+
+{ #category : #examples }
 LeHtmlContextExamples >> siteNameIsNilWithoutDatabase [
 	<gtExample>
 	<return: #LeHtmlContext>

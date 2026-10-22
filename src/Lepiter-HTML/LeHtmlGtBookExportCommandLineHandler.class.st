@@ -31,5 +31,5 @@ LeHtmlGtBookExportCommandLineHandler >> defaultMainPageName [
 
 { #category : #defaults }
 LeHtmlGtBookExportCommandLineHandler >> defaultSiteName [
-	^ 'gtoolkit book'
+	^ LeHtmlGtBookPiece defaultSiteName
 ]

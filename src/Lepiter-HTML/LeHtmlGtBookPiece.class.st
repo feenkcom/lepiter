@@ -9,6 +9,13 @@ Class {
 	#category : #'Lepiter-HTML-Piece - Model'
 }
 
+{ #category : #defaults }
+LeHtmlGtBookPiece class >> defaultSiteName [
+	"The site name of the Glamorous Toolkit book and of pages exported with its templates when the name of a database is not known."
+
+	^ 'gtoolkit book'
+]
+
 { #category : #'instance creation' }
 LeHtmlGtBookPiece class >> fromFile: aFileReference [
 	self
