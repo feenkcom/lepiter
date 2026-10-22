@@ -12,7 +12,8 @@ Class {
 		'resourceTime',
 		'htmlTime',
 		'fileStore',
-		'hrefBuilder'
+		'hrefBuilder',
+		'siteName'
 	],
 	#category : #'Lepiter-HTML-! Core'
 }
@@ -127,6 +128,7 @@ LeHtmlBookExporter >> exportPageLink: aPageLink [
 		pageLinks: self pageLinks;
 		resources: self resources;
 		database: self database;
+		siteName: self siteName;
 		sequencer: self sequencer;
 		fileStore: self fileStore;
 		hrefBuilder: self hrefBuilder;
@@ -274,6 +276,19 @@ LeHtmlBookExporter >> sequencer [
 { #category : #accessing }
 LeHtmlBookExporter >> sequencer: anObject [
 	sequencer := anObject
+]
+
+{ #category : #accessing }
+LeHtmlBookExporter >> siteName [
+	<return: #String or: nil>
+	^ siteName
+]
+
+{ #category : #accessing }
+LeHtmlBookExporter >> siteName: aString [
+	"Set the name of the site. The name of the database is used if it is nil."
+
+	siteName := aString
 ]
 
 { #category : #'api - initialization' }

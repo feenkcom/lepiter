@@ -83,6 +83,29 @@ LeHtmlPageExporterExamples >> pageWithHtmlTagsInTextSnippetUsedAsPagePreview [
 ]
 
 { #category : #examples }
+LeHtmlPageExporterExamples >> pageWithSiteNameUsedInTemplate [
+	<gtExample>
+	<return: #LeHtmlPageExporter>
+	| aPage anExporter anHtml |
+	aPage := LePage new.
+	aPage title: 'Page with a site name'.
+
+	anExporter := LeHtmlPageExporter new
+			page: aPage;
+			piece: (LeHtmlGtBookPiece new
+					template: '<meta property="og:site_name" content="{{siteNameAttribute}}">';
+					yourself).
+	anExporter context siteName: 'Rewilding "Book"'.
+	anHtml := anExporter contents.
+
+	self
+		assertHtml: anHtml
+		includes: '<meta property="og:site_name" content="Rewilding &quot;Book&quot;">'.
+
+	^ anExporter
+]
+
+{ #category : #examples }
 LeHtmlPageExporterExamples >> pageWithSpecialCharactersInTextSnippetUsedAsPagePreview [
 	<gtExample>
 	<return: #LeHtmlPageExporter>

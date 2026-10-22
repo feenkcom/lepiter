@@ -11,7 +11,8 @@ Class {
 		'database',
 		'date',
 		'hrefBuilder',
-		'author'
+		'author',
+		'siteName'
 	],
 	#category : #'Lepiter-HTML-! Core'
 }
@@ -182,6 +183,20 @@ LeHtmlContext >> pageLinks [
 { #category : #accessing }
 LeHtmlContext >> pageLinks: anObject [
 	pageLinks := anObject
+]
+
+{ #category : #accessing }
+LeHtmlContext >> siteName [
+	"Answer the name of the site (usually the name of the book) or nil if it is not known.
+	It is the name of the database unless a site name is set explicitly."
+
+	<return: #String or: nil>
+	^ siteName ifNil: [ database ifNotNil: [ :aDatabase | aDatabase databaseName ] ]
+]
+
+{ #category : #accessing }
+LeHtmlContext >> siteName: aString [
+	siteName := aString
 ]
 
 { #category : #'api - initialization' }

@@ -60,6 +60,121 @@ LeHtmlContextExamples >> copyWithNewStreamWritesToNewStream [
 ]
 
 { #category : #examples }
+LeHtmlContextExamples >> explicitSiteNameWinsOverDatabaseName [
+	<gtExample>
+	<return: #LeHtmlContext>
+	| someExamples aContext |
+	someExamples := LeContentExamples new.
+	aContext := LeHtmlContext new.
+	[ | aDatabase |
+		aDatabase := someExamples basicDatabaseWithMonitor.
+		aDatabase databaseName: 'My book'.
+		aContext database: aDatabase.
+		aContext siteName: 'My Site'.
+
+		self
+			assert: aContext siteName = 'My Site'
+			description: [ 'The explicit site name must be used, but it is {1}' format: {aContext siteName} ] ]
+		ensure: [ someExamples stopDatabaseMonitor ].
+
+	^ aContext
+]
+
+{ #category : #examples }
+LeHtmlContextExamples >> siteNameAttributePieceEscapesSiteName [
+	<gtExample>
+	<return: #LeHtmlSiteNameAttributePiece>
+	| aStream aContext aPiece |
+	aStream := WriteStream on: String new.
+	aContext := LeHtmlContext new.
+	aContext newStream: aStream.
+	aContext siteName: 'Tom & "Jerry"'.
+	aPiece := LeHtmlSiteNameAttributePiece new.
+
+	aPiece writeWithContext: aContext.
+
+	self
+		assert: aStream contents = 'Tom &amp; &quot;Jerry&quot;'
+		description: [ 'The site name must be escaped as an attribute value, but it is {1}'
+				format: {aStream contents} ].
+
+	^ aPiece
+]
+
+{ #category : #examples }
+LeHtmlContextExamples >> siteNameAttributePieceWritesNothingWithoutSiteName [
+	<gtExample>
+	<return: #LeHtmlSiteNameAttributePiece>
+	| aStream aContext aPiece |
+	aStream := WriteStream on: String new.
+	aContext := LeHtmlContext new.
+	aContext newStream: aStream.
+	aPiece := LeHtmlSiteNameAttributePiece new.
+
+	aPiece writeWithContext: aContext.
+
+	self
+		assert: aStream contents isEmpty
+		description: [ 'Nothing must be written without a site name, but it is {1}' format: {aStream contents} ].
+
+	^ aPiece
+]
+
+{ #category : #examples }
+LeHtmlContextExamples >> siteNameDefaultsToDatabaseName [
+	<gtExample>
+	<return: #LeHtmlContext>
+	| someExamples aContext |
+	someExamples := LeContentExamples new.
+	aContext := LeHtmlContext new.
+	[ | aDatabase |
+		aDatabase := someExamples basicDatabaseWithMonitor.
+		aDatabase databaseName: 'My book'.
+		aContext database: aDatabase.
+
+		self
+			assert: aContext siteName = 'My book'
+			description: [ 'The site name is the database name, but it is {1}' format: {aContext siteName} ] ]
+		ensure: [ someExamples stopDatabaseMonitor ].
+
+	^ aContext
+]
+
+{ #category : #examples }
+LeHtmlContextExamples >> siteNameIsNilWithoutDatabase [
+	<gtExample>
+	<return: #LeHtmlContext>
+	| aContext |
+	aContext := LeHtmlContext new.
+
+	self
+		assert: aContext siteName isNil
+		description: [ 'The site name is not defined without a database' ].
+
+	^ aContext
+]
+
+{ #category : #examples }
+LeHtmlContextExamples >> unknownPlaceholderWritesNothing [
+	<gtExample>
+	<return: #LeHtmlGtBookPiece>
+	| aStream aContext aPiece |
+	"An older exporter does not know a newer placeholder, e.g., siteNameAttribute, and the page is exported without it."
+	aStream := WriteStream on: String new.
+	aContext := LeHtmlContext new.
+	aContext newStream: aStream.
+	aPiece := LeHtmlGtBookPiece new template: 'a{{unknownPlaceholder}}b'; yourself.
+
+	aPiece writeWithContext: aContext.
+
+	self
+		assert: aStream contents = 'ab'
+		description: [ 'An unknown placeholder must write nothing, but the output is {1}' format: {aStream contents} ].
+
+	^ aPiece
+]
+
+{ #category : #examples }
 LeHtmlContextExamples >> urlAttributePieceEscapesAmpersand [
 	<gtExample>
 	<return: #LeHtmlPageUrlAttributePiece>

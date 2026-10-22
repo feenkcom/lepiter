@@ -16,7 +16,7 @@ LeHtmlBookExportCommandLineHandler class >> description [
 
 { #category : #activation }
 LeHtmlBookExportCommandLineHandler >> activate [
-	| aBookExporter aBookName aBook aTargetDirName aTargetDir theWorkflowBuilder aMainPage aPageTemplateFileName aPiece anInputDirName aHrefBuilder |
+	| aBookExporter aBookName aBook aTargetDirName aTargetDir theWorkflowBuilder aMainPage aPageTemplateFileName aPiece anInputDirName aHrefBuilder aSiteName |
 	self activateHelp ifTrue: [ ^ self ].
 	anInputDirName := self optionBookInputDirectoryName.
 	anInputDirName ifNotNil: [ self ensureBookLoaded: anInputDirName ].
@@ -28,6 +28,7 @@ LeHtmlBookExportCommandLineHandler >> activate [
 	aPageTemplateFileName := self optionPageTemplateFileName.
 	aPiece := self findTemplatePieceForFileNamed: aPageTemplateFileName.
 	aHrefBuilder := self optionHypertextReferenceBuilder.
+	aSiteName := self optionSiteName.
 	theWorkflowBuilder := [ NonInteractiveTranscript stdout
 			show: 'Exporting "';
 			show: aBookName;
@@ -36,6 +37,7 @@ LeHtmlBookExportCommandLineHandler >> activate [
 			show: ' directory: '.
 		aBookExporter := LeHtmlBookExporter new
 				database: aBook;
+				siteName: aSiteName;
 				mainPage: aMainPage;
 				piece: aPiece;
 				hrefBuilder: aHrefBuilder;
@@ -71,6 +73,13 @@ LeHtmlBookExportCommandLineHandler >> defaultMainPageName [
 
 { #category : #defaults }
 LeHtmlBookExportCommandLineHandler >> defaultPageTemplateFileName [
+	^ nil
+]
+
+{ #category : #defaults }
+LeHtmlBookExportCommandLineHandler >> defaultSiteName [
+	"The name of the database is used if the site name is nil."
+
 	^ nil
 ]
 
@@ -252,6 +261,22 @@ LeHtmlBookExportCommandLineHandler >> optionPageTemplateFileName [
 				aName ]
 			ifAbsent: [ self defaultPageTemplateFileName ].
 	^ aPageTemplateFileName
+]
+
+{ #category : #'accessing - arguments' }
+LeHtmlBookExportCommandLineHandler >> optionSiteName [
+	| aSiteName |
+	aSiteName := self
+			optionAt: 'site-name'
+			ifPresent: [ :anInput | 
+				| aName |
+				aName := anInput trimBoth.
+				self
+					assert: [ aName isNotEmpty ]
+					description: [ 'Site name must not be empty: `{1}`' format: {anInput} ].
+				aName ]
+			ifAbsent: [ self defaultSiteName ].
+	^ aSiteName
 ]
 
 { #category : #activation }
