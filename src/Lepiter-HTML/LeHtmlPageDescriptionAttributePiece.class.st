@@ -29,10 +29,12 @@ LeHtmlPageDescriptionAttributePiece >> writeWithContext: aContext [
 					snippet: aSnippet.
 				aSnippet ast acceptVisitor: aVisitor ]. 
 		
-			aContext html escapeAttributeValue: anHtml.
+			"The visitor writes an HTML text that is already escaped (ampersand, less-than),
+			so escaping it again would double the escapes. Only the quotes of the attribute value are left."
+			aContext html nextPutAll: (anHtml copyReplaceAll: '"' with: '&quot;').
 			^ self
 		]
 	].
 	
-	aContext html escape: aPage title.
+	aContext html escapeAttributeValue: aPage title
 ]

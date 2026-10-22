@@ -39,7 +39,8 @@ LeHtmlContext >> authorName: aString [
 LeHtmlContext >> copyWithNewStream: aStream [
 	| aCopy |
 	aCopy := self copy.
-	aCopy newStream: aStream
+	aCopy newStream: aStream.
+	^ aCopy
 ]
 
 { #category : #'api - accessing' }
@@ -135,6 +136,7 @@ LeHtmlContext >> html [
 { #category : #'api - initialization' }
 LeHtmlContext >> newStream: aWriteStream [
 	stream := nil.
+	htmlStream := nil.
 	self stream: aWriteStream
 ]
 
