@@ -28,3 +28,8 @@ LeHtmlGtBookExportCommandLineHandler >> defaultHypertextReferenceBuilder [
 LeHtmlGtBookExportCommandLineHandler >> defaultMainPageName [
 	^ 'Glamorous Toolkit'
 ]
+
+{ #category : #defaults }
+LeHtmlGtBookExportCommandLineHandler >> defaultSiteName [
+	^ LeHtmlGtBookPiece defaultSiteName
+]

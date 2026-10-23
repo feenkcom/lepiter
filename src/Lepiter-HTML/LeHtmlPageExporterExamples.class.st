@@ -7,6 +7,42 @@ Class {
 }
 
 { #category : #examples }
+LeHtmlPageExporterExamples >> contextOfPageInDatabaseHasDatabaseName [
+	<gtExample>
+	<return: #LeHtmlContext>
+	| someExamples aContext |
+	someExamples := LeContentExamples new.
+	[ | aDatabase aPage |
+		aDatabase := someExamples basicDatabaseWithMonitor.
+		aDatabase databaseName: 'My book'.
+		aPage := LePage named: 'Page in a database'.
+		aDatabase addPage: aPage.
+
+		aContext := LeHtmlPageExporter contextForPage: aPage.
+
+		self
+			assert: aContext siteName = 'My book'
+			description: [ 'The database name must be used, but it is {1}' format: {aContext siteName printString} ] ]
+		ensure: [ someExamples stopDatabaseMonitor ].
+
+	^ aContext
+]
+
+{ #category : #examples }
+LeHtmlPageExporterExamples >> contextOfPageWithoutDatabaseHasDefaultSiteName [
+	<gtExample>
+	<return: #LeHtmlContext>
+	| aContext |
+	aContext := LeHtmlPageExporter contextForPage: (LePage named: 'Page without a database').
+
+	self
+		assert: aContext siteName = 'gtoolkit book'
+		description: [ 'The default site name must be used, but it is {1}' format: {aContext siteName printString} ].
+
+	^ aContext
+]
+
+{ #category : #examples }
 LeHtmlPageExporterExamples >> exportSamplePage [
 	<gtExample>
 	<return: #LeHtmlPageExporter>
@@ -78,6 +114,29 @@ LeHtmlPageExporterExamples >> pageWithHtmlTagsInTextSnippetUsedAsPagePreview [
 			self
 				assert: (aLine endsWith: '">')
 				description: [ 'The meta tag must end right after the attribute value: {1}' format: {aLine} ] ].
+
+	^ anExporter
+]
+
+{ #category : #examples }
+LeHtmlPageExporterExamples >> pageWithSiteNameUsedInTemplate [
+	<gtExample>
+	<return: #LeHtmlPageExporter>
+	| aPage anExporter anHtml |
+	aPage := LePage new.
+	aPage title: 'Page with a site name'.
+
+	anExporter := LeHtmlPageExporter new
+			page: aPage;
+			piece: (LeHtmlGtBookPiece new
+					template: '<meta property="og:site_name" content="{{siteNameAttribute}}">';
+					yourself).
+	anExporter context siteName: 'Rewilding "Book"'.
+	anHtml := anExporter contents.
+
+	self
+		assertHtml: anHtml
+		includes: '<meta property="og:site_name" content="Rewilding &quot;Book&quot;">'.
 
 	^ anExporter
 ]

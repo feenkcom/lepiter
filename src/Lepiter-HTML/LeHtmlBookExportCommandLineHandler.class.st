@@ -16,7 +16,7 @@ LeHtmlBookExportCommandLineHandler class >> description [
 
 { #category : #activation }
 LeHtmlBookExportCommandLineHandler >> activate [
-	| aBookExporter aBookName aBook aTargetDirName aTargetDir theWorkflowBuilder aMainPage aPageTemplateFileName aPiece anInputDirName aHrefBuilder |
+	| aBookExporter aBookName aBook aTargetDirName aTargetDir theWorkflowBuilder aMainPage aPageTemplateFileName aPiece anInputDirName aHrefBuilder aSiteName aBaseUrl |
 	self activateHelp ifTrue: [ ^ self ].
 	anInputDirName := self optionBookInputDirectoryName.
 	anInputDirName ifNotNil: [ self ensureBookLoaded: anInputDirName ].
@@ -28,6 +28,8 @@ LeHtmlBookExportCommandLineHandler >> activate [
 	aPageTemplateFileName := self optionPageTemplateFileName.
 	aPiece := self findTemplatePieceForFileNamed: aPageTemplateFileName.
 	aHrefBuilder := self optionHypertextReferenceBuilder.
+	aSiteName := self optionSiteName.
+	aBaseUrl := self optionBaseUrl.
 	theWorkflowBuilder := [ NonInteractiveTranscript stdout
 			show: 'Exporting "';
 			show: aBookName;
@@ -36,6 +38,8 @@ LeHtmlBookExportCommandLineHandler >> activate [
 			show: ' directory: '.
 		aBookExporter := LeHtmlBookExporter new
 				database: aBook;
+				siteName: aSiteName;
+				baseUrl: aBaseUrl;
 				mainPage: aMainPage;
 				piece: aPiece;
 				hrefBuilder: aHrefBuilder;
@@ -55,6 +59,13 @@ LeHtmlBookExportCommandLineHandler >> activate [
 ]
 
 { #category : #defaults }
+LeHtmlBookExportCommandLineHandler >> defaultBaseUrl [
+	"The default base URL of the URL piece is used if the base URL is nil."
+
+	^ nil
+]
+
+{ #category : #defaults }
 LeHtmlBookExportCommandLineHandler >> defaultBookName [
 	^ nil
 ]
@@ -71,6 +82,13 @@ LeHtmlBookExportCommandLineHandler >> defaultMainPageName [
 
 { #category : #defaults }
 LeHtmlBookExportCommandLineHandler >> defaultPageTemplateFileName [
+	^ nil
+]
+
+{ #category : #defaults }
+LeHtmlBookExportCommandLineHandler >> defaultSiteName [
+	"The name of the database is used if the site name is nil."
+
 	^ nil
 ]
 
@@ -153,6 +171,22 @@ LeHtmlBookExportCommandLineHandler >> findTemplatePieceForFileNamed: aPageTempla
 	^ aPageTemplateFile
 		ifNil: [ self defaultTemplatePiece ]
 		ifNotNil: [ :aFile | LeHtmlGtBookPiece fromFile: aFile ]
+]
+
+{ #category : #'accessing - arguments' }
+LeHtmlBookExportCommandLineHandler >> optionBaseUrl [
+	| aBaseUrl |
+	aBaseUrl := self
+			optionAt: 'base-url'
+			ifPresent: [ :anInput | 
+				| aName |
+				aName := anInput trimBoth.
+				self
+					assert: [ aName isNotEmpty ]
+					description: [ 'Base URL must not be empty: `{1}`' format: {anInput} ].
+				aName ]
+			ifAbsent: [ self defaultBaseUrl ].
+	^ aBaseUrl
 ]
 
 { #category : #'accessing - arguments' }
@@ -252,6 +286,22 @@ LeHtmlBookExportCommandLineHandler >> optionPageTemplateFileName [
 				aName ]
 			ifAbsent: [ self defaultPageTemplateFileName ].
 	^ aPageTemplateFileName
+]
+
+{ #category : #'accessing - arguments' }
+LeHtmlBookExportCommandLineHandler >> optionSiteName [
+	| aSiteName |
+	aSiteName := self
+			optionAt: 'site-name'
+			ifPresent: [ :anInput | 
+				| aName |
+				aName := anInput trimBoth.
+				self
+					assert: [ aName isNotEmpty ]
+					description: [ 'Site name must not be empty: `{1}`' format: {anInput} ].
+				aName ]
+			ifAbsent: [ self defaultSiteName ].
+	^ aSiteName
 ]
 
 { #category : #activation }
