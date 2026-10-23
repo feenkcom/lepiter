@@ -1000,6 +1000,11 @@ LeContent >> moveUpSnippet: aLeSnippet [
 			true ]
 ]
 
+{ #category : #'api - accessing' }
+LeContent >> nestingLevel [
+	self subclassResponsibility
+]
+
 { #category : #'api - notifications' }
 LeContent >> notifier [
 	<return: #LeNotifier>
