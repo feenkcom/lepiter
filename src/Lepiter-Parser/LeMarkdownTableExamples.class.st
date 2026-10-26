@@ -25,6 +25,33 @@ LeMarkdownTableExamples >> alignmentAndOptionalPipes [
 ]
 
 { #category : #examples }
+LeMarkdownTableExamples >> columnJustification [
+	<gtExample>
+	| root table cells |
+	root := LeParser parse: '| Left | Center | Right | Default |', String lf,
+		'| :--- | :----: | -----: | --- |', String lf,
+		'| a | b | c | d |'.
+	table := root parts first.
+	cells := table separator cells.
+	self assert: table alignments asArray equals: #(left center right default).
+	cells withIndexDo: [ :cell :index |
+		self assert: cell class equals: LeTableDelimiterCellNode.
+		self assert: cell parent == table separator.
+		self assert: cell text value equals: cell source.
+		self assert: cell isLeftAligned equals: (index = 1).
+		self assert: cell isCenterAligned equals: (index = 2).
+		self assert: cell isRightAligned equals: (index = 3).
+		self assert: cell isDefaultAligned equals: (index = 4) ].
+	self assert: cells first leftAlignment isNotNil.
+	self assert: cells second centerAlignment isNotNil.
+	self assert: cells third rightAlignment isNotNil.
+	self assert: cells fourth defaultAlignment isNotNil.
+	self assert: cells first rightAlignment isNil.
+	self assert: cells fourth leftAlignment isNil.
+	^ table
+]
+
+{ #category : #examples }
 LeMarkdownTableExamples >> emptyCellsWithoutWhitespace [
 	<gtExample>
 	| root table |

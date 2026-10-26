@@ -5,8 +5,7 @@ Class {
 	#name : #LeTableCellNode,
 	#superclass : #LeContentNode,
 	#instVars : [
-		'parts',
-		'text'
+		'parts'
 	],
 	#category : #'Lepiter-Parser'
 }
@@ -18,11 +17,7 @@ LeTableCellNode >> acceptVisitor: aContentVisitor [
 
 { #category : #accessing }
 LeTableCellNode >> alignment [
-	| value |
-	value := text value trimBoth.
-	^ (value beginsWith: ':')
-		ifTrue: [ (value endsWith: ':') ifTrue: [ #center ] ifFalse: [ #left ] ]
-		ifFalse: [ (value endsWith: ':') ifTrue: [ #right ] ifFalse: [ #default ] ]
+	^ #default
 ]
 
 { #category : #generated }
@@ -32,7 +27,7 @@ LeTableCellNode >> compositeNodeVariables [
 
 { #category : #accessing }
 LeTableCellNode >> contentSource [
-	^ text ifNotNil: [ text value ] ifNil: [ String streamContents: [ :stream | parts do: [ :each | stream nextPutAll: each source ] ] ]
+	^ String streamContents: [ :stream | parts do: [ :each | stream nextPutAll: each source ] ]
 ]
 
 { #category : #'generated-initialize-release' }
@@ -60,15 +55,6 @@ LeTableCellNode >> postCopy [
 
 { #category : #accessing }
 LeTableCellNode >> text [
-	^ text
-]
-
-{ #category : #accessing }
-LeTableCellNode >> text: aToken [
-	text := aToken
-]
-
-{ #category : #generated }
-LeTableCellNode >> tokenVariables [
-	^ #(text)
+	"Inline cells have parts rather than a single source token."
+	^ nil
 ]

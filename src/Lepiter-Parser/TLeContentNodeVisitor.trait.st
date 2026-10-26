@@ -116,6 +116,11 @@ TLeContentNodeVisitor >> visitTableCell: aTableCell [
 ]
 
 { #category : #generated }
+TLeContentNodeVisitor >> visitTableDelimiterCell: aTableDelimiterCell [
+	^ self visitTableCell: aTableDelimiterCell
+]
+
+{ #category : #generated }
 TLeContentNodeVisitor >> visitTableRow: aTableRow [
 	^ self visitContent: aTableRow
 ]

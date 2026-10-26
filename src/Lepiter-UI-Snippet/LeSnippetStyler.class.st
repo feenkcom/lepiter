@@ -229,19 +229,18 @@ LeSnippetStyler >> tableCellTextFor: aCell [
 
 { #category : #tables }
 LeSnippetStyler >> tableElementFor: aTable [
-	"Build a bounded, scrollable preview. The header defines the visible columns;
-	missing body cells are empty and surplus body cells are not displayed."
-	| list alignments |
+	"Build a bounded, scrollable preview. Column justification is retained in
+	the AST but deliberately not applied by this preview yet."
+	| list |
 	list := BrColumnedList new.
 	list hMatchParent.
 	list vExact: ((aTable rows size + 1) * 36 + 8 min: 320).
-	alignments := aTable alignments.
 	aTable header cells withIndexDo: [ :cell :index |
 		list column
 			title: (self tableCellTextFor: cell);
 			stencil: [ :row |
 				self tableLabelFor: (row cells at: index ifAbsent: [ nil ])
-					alignment: (alignments at: index) ] ].
+					alignment: #default ] ].
 	list items: aTable rows.
 	list withHeaders.
 	^ list
