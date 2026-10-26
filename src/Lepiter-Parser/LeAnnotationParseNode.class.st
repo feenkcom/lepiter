@@ -26,3 +26,10 @@ LeAnnotationParseNode >> hasContextMenuModel [
 	<return: #Boolean>
 	^ false
 ]
+
+{ #category : #copying }
+LeAnnotationParseNode >> postCopy [
+	super postCopy.
+	"Embedded annotation position caches belong to this copy, not its source."
+	attributes := attributes ifNotNil: [ attributes copy ]
+]

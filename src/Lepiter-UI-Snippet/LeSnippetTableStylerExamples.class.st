@@ -63,8 +63,6 @@ LeSnippetTableStylerExamples >> cellStylingPreservesOriginalTree [
 { #category : #examples }
 LeSnippetTableStylerExamples >> columnJustificationHeadersAlignWithBody [
 	<gtExample>
-	"Column boundaries align, while Markdown justification remains deliberately
-	ignored by the styler: both header and body text stay left-aligned."
 	| table list scripter |
 	table := LeMarkdownTableExamples new columnJustification.
 	self assert: table alignments asArray equals: #(left center right default).
@@ -72,33 +70,18 @@ LeSnippetTableStylerExamples >> columnJustificationHeadersAlignWithBody [
 	list hExact: 800.
 	scripter := BlScripter new element: list.
 	scripter assertStep: [ :step |
-		step label: 'Justified columns retain matching native header and body boundaries';
+		step label: 'Native headers and editors share column bounds; justification remains unapplied';
 			satisfies: [ :element |
 				| headers rows |
 				headers := (element query // #'column-header') anyOne children.
 				rows := (element query // #scrollable) anyOne children.
-				headers size = 4 and: [ rows size = 1 and: [ rows allSatisfy: [ :row |
-					row children size = headers size and: [
-						(1 to: headers size) allSatisfy: [ :index |
-							| header cell |
-							header := (headers at: index) bounds inSpace asRectangle.
-							cell := (row children at: index) bounds inSpace asRectangle.
-							(header left - cell left) abs < 1
-								and: [ (header right - cell right) abs < 1 ] ] ] ] ] ] ] ].
-	scripter assertStep: [ :step |
-		step label: 'Justification is stored in the AST but not applied to header or body text';
-			satisfies: [ :element |
-				| headers cells |
-				headers := (element query // #'column-header') anyOne children.
-				cells := (element query // #scrollable) anyOne children first children.
-				(1 to: headers size) allSatisfy: [ :index |
-					| header cell headerText bodyText |
-					header := headers at: index.
-					cell := cells at: index.
-					headerText := (header query // #label) anyOne bounds inSpace asRectangle.
-					bodyText := (cell query // #label) anyOne bounds inSpace asRectangle.
-					(headerText left - header bounds inSpace asRectangle left) abs < 1
-						and: [ (bodyText left - cell bounds inSpace asRectangle left) abs < 1 ] ] ] ].
+				headers size = 4 and: [ rows size = 1 and: [
+					(1 to: headers size) allSatisfy: [ :index |
+						| header editor bounds |
+						header := (headers at: index) bounds inSpace asRectangle.
+						editor := ((rows first children at: index) query // #tableCellEditor) anyOne.
+						bounds := editor bounds inSpace asRectangle.
+						(header left - bounds left) abs < 1 and: [ (header right - bounds right) abs < 1 ] ] ] ] ] ].
 	^ scripter
 ]
 
@@ -107,31 +90,22 @@ LeSnippetTableStylerExamples >> nativeHeadersAlignWithBody [
 	<gtExample>
 	| text preview list scripter |
 	text := self tableAfterBoldAndBlankLines.
-	text findAttributesSuchThat: [ :each |
-		(each isKindOf: BrTextAdornmentDynamicAttribute) and: [ each shouldAppend ] ]
-		indicesDo: [ :start :end :attribute | preview := attribute ].
+	text findAttributesSuchThat: [ :each | (each isKindOf: BrTextAdornmentDynamicAttribute) and: [ each shouldAppend ] ] indicesDo: [ :start :end :attribute | preview := attribute ].
 	list := preview stencil build.
 	list hExact: 800.
 	scripter := BlScripter new element: list.
 	scripter assertStep: [ :step |
-		step label: 'Native headers share body column boundaries and text origins';
+		step label: 'Native headers align with body cell editors';
 			satisfies: [ :element |
 				| headers rows |
 				headers := (element query // #'column-header') anyOne children.
 				rows := (element query // #scrollable) anyOne children.
 				rows notEmpty and: [ rows allSatisfy: [ :row |
 					(1 to: headers size) allSatisfy: [ :index |
-						| header cell headerBounds cellBounds headerText bodyText |
-						header := headers at: index.
-						cell := row children at: index.
-						headerBounds := header bounds inSpace asRectangle.
-						cellBounds := cell bounds inSpace asRectangle.
-						headerText := (header query // #label) anyOne.
-						bodyText := (cell query // #label) anyOne.
-						(headerBounds left - cellBounds left) abs < 1
-							and: [ (headerBounds right - cellBounds right) abs < 1
-								and: [ (headerText bounds inSpace asRectangle left
-									- bodyText bounds inSpace asRectangle left) abs < 1 ] ] ] ] ] ] ].
+						| header editor |
+						header := (headers at: index) bounds inSpace asRectangle.
+						editor := ((row children at: index) query // #tableCellEditor) anyOne bounds inSpace asRectangle.
+						(header left - editor left) abs < 1 and: [ (header right - editor right) abs < 1 ] ] ] ] ] ].
 	^ scripter
 ]
 

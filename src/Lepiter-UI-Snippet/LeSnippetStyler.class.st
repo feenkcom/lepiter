@@ -214,6 +214,7 @@ LeSnippetStyler >> tableCellTextFor: aCell [
 	source trimBoth isEmpty ifTrue: [ ^ '' asRopedText ].
 	localCell := aCell copy.
 	localCell parent: nil.
+	localCell fixParentPointers.
 	offset := aCell startPosition - 1.
 	tokens := IdentitySet withAll: localCell allTokens.
 	tokens do: [ :token | token startPosition: token startPosition - offset ].
@@ -225,6 +226,21 @@ LeSnippetStyler >> tableCellTextFor: aCell [
 	[ (source at: first) isSeparator ] whileTrue: [ first := first + 1 ].
 	[ (source at: last) isSeparator ] whileTrue: [ last := last - 1 ].
 	^ cellText copyFrom: first to: last
+]
+
+{ #category : #tables }
+LeSnippetStyler >> tableEditorFor: aCell [
+	"Render inline annotation adornments in a wrapping, selectable editor.
+	Changes to the table are made in the original Markdown, not this preview."
+	^ BrEditor new
+		id: #tableCellEditor;
+		aptitude: BrGlamorousRegularEditorAptitude;
+		beReadOnlyWithSelection;
+		hMatchParent;
+		vFitContentLimited;
+		padding: (BlInsets top: 5 bottom: 5);
+		text: (self tableCellTextFor: aCell);
+		yourself
 ]
 
 { #category : #tables }
@@ -240,8 +256,7 @@ LeSnippetStyler >> tableElementFor: aTable [
 			title: (self tableCellTextFor: cell);
 			weight: 1;
 			stencil: [ :row |
-				self tableLabelFor: (row cells at: index ifAbsent: [ nil ])
-					alignment: #default ] ].
+				self tableEditorFor: (row cells at: index ifAbsent: [ nil ]) ] ].
 	list items: aTable rows.
 	list withHeaders.
 	^ list

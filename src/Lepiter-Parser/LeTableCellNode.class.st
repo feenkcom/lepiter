@@ -49,8 +49,15 @@ LeTableCellNode >> parts: aCollection [
 
 { #category : #copying }
 LeTableCellNode >> postCopy [
-	super postCopy.
-	attributes := attributes ifNotNil: [ attributes copy ]
+	| originalParents |
+	"Generated setters used during a deep copy may detach the original
+	children of embedded annotations. Preserve those parent links while
+	building an independently parented copy of this cell."
+	originalParents := OrderedCollection new.
+	self allNodesDo: [ :node | originalParents add: node -> node parent ].
+	[ super postCopy ] ensure: [
+		originalParents do: [ :association | association key parent: association value ] ].
+	self fixParentPointers
 ]
 
 { #category : #accessing }
