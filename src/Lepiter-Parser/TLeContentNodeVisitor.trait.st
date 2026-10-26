@@ -6,11 +6,6 @@ Trait {
 }
 
 { #category : #generated }
-TLeContentNodeVisitor >> visitAnnotation: anAnnotation [
-	^ self visitContent: anAnnotation
-]
-
-{ #category : #generated }
 TLeContentNodeVisitor >> visitBlockLink: aBlockLink [
 	^ self visitDefinedLink: aBlockLink
 ]
@@ -51,16 +46,6 @@ TLeContentNodeVisitor >> visitEmptyDoubleBracketLink: anEmptyDoubleBracketLink [
 ]
 
 { #category : #generated }
-TLeContentNodeVisitor >> visitEmptyExternalLink: anEmptyExternalLink [
-	^ self visitContent: anEmptyExternalLink
-]
-
-{ #category : #generated }
-TLeContentNodeVisitor >> visitEmptyHashLink: anEmptyHashLink [
-	^ self visitEmptyLink: anEmptyHashLink
-]
-
-{ #category : #generated }
 TLeContentNodeVisitor >> visitEmptyLink: anEmptyLink [
 	^ self visitLink: anEmptyLink
 ]
@@ -83,16 +68,6 @@ TLeContentNodeVisitor >> visitExternalLink: anExternalLink [
 { #category : #generated }
 TLeContentNodeVisitor >> visitExternalUrlLink: anExternalUrlLink [
 	^ self visitExternalLink: anExternalUrlLink
-]
-
-{ #category : #generated }
-TLeContentNodeVisitor >> visitFullHashLink: aFullHashLink [
-	^ self visitHashLink: aFullHashLink
-]
-
-{ #category : #generated }
-TLeContentNodeVisitor >> visitHashLink: aHashLink [
-	^ self visitPageLink: aHashLink
 ]
 
 { #category : #generated }
@@ -126,13 +101,28 @@ TLeContentNodeVisitor >> visitPageLink: aPageLink [
 ]
 
 { #category : #generated }
-TLeContentNodeVisitor >> visitShortHashLink: aShortHashLink [
-	^ self visitHashLink: aShortHashLink
+TLeContentNodeVisitor >> visitString: aString [
+	^ self visitContent: aString
 ]
 
 { #category : #generated }
-TLeContentNodeVisitor >> visitString: aString [
-	^ self visitContent: aString
+TLeContentNodeVisitor >> visitTable: aTable [
+	^ self visitContent: aTable
+]
+
+{ #category : #generated }
+TLeContentNodeVisitor >> visitTableCell: aTableCell [
+	^ self visitContent: aTableCell
+]
+
+{ #category : #generated }
+TLeContentNodeVisitor >> visitTableRow: aTableRow [
+	^ self visitContent: aTableRow
+]
+
+{ #category : #generated }
+TLeContentNodeVisitor >> visitTableSeparator: aTableSeparator [
+	^ self visitContent: aTableSeparator
 ]
 
 { #category : #generated }
