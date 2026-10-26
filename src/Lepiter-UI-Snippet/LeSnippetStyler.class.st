@@ -204,6 +204,66 @@ LeSnippetStyler >> subscribeToSystem [
 			to: self
 ]
 
+{ #category : #tables }
+LeSnippetStyler >> tableCellTextFor: aCell [
+	"Reuse the grammar-produced inline AST; translate a copy for label styling."
+	| source cellText localCell tokens offset first last |
+	aCell ifNil: [ ^ '' asRopedText ].
+	source := aCell contentSource.
+	cellText := source asRopedText.
+	source trimBoth isEmpty ifTrue: [ ^ '' asRopedText ].
+	localCell := aCell copy.
+	localCell parent: nil.
+	offset := aCell startPosition - 1.
+	tokens := IdentitySet withAll: localCell allTokens.
+	tokens do: [ :token | token startPosition: token startPosition - offset ].
+	localCell withAllNodesDo: [ :node | node removeAttributeNamed: #startPosition; removeAttributeNamed: #stopPosition ].
+	localCell completeSource: source.
+	self style: cellText ast: localCell.
+	first := 1.
+	last := source size.
+	[ (source at: first) isSeparator ] whileTrue: [ first := first + 1 ].
+	[ (source at: last) isSeparator ] whileTrue: [ last := last - 1 ].
+	^ cellText copyFrom: first to: last
+]
+
+{ #category : #tables }
+LeSnippetStyler >> tableElementFor: aTable [
+	"Use the list's native headers and a shared proportional width policy.
+	Column justification remains in the AST and is not applied here."
+	| list |
+	list := BrColumnedList new.
+	list hMatchParent.
+	list vFitContentLimited.
+	aTable header cells withIndexDo: [ :cell :index |
+		list column
+			title: (self tableCellTextFor: cell);
+			weight: 1;
+			stencil: [ :row |
+				self tableLabelFor: (row cells at: index ifAbsent: [ nil ])
+					alignment: #default ] ].
+	list items: aTable rows.
+	list withHeaders.
+	^ list
+]
+
+{ #category : #tables }
+LeSnippetStyler >> tableLabelFor: aCell alignment: anAlignment [
+	| label |
+	label := BrLabel new
+		aptitude: BrGlamorousLabelAptitude;
+		hMatchParent;
+		padding: (BlInsets top: 5 bottom: 5);
+		text: (self tableCellTextFor: aCell);
+		yourself.
+	anAlignment = #right
+		ifTrue: [ label alignCenterRight ]
+		ifFalse: [ anAlignment = #center
+			ifTrue: [ label alignCenter ]
+			ifFalse: [ label alignCenterLeft ] ].
+	^ label
+]
+
 { #category : #private }
 LeSnippetStyler >> unsubscribeFromSystem [
 	subscribedToSystemAnnouncer

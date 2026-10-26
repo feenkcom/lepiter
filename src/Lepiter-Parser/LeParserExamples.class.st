@@ -44,6 +44,22 @@ LeParserExamples >> annotationUidLink [
 	^ aNode
 ]
 
+{ #category : #examples }
+LeParserExamples >> annotationsAfterLeadingNewline [
+	<gtExample>
+	| paragraph root |
+	paragraph := 'Text, like the one in this very snippet, is modelled as {{gtClass:BlText}}. A simple way to get a text object is to use {{gtMethod:String>>asRopedText}}.'.
+	{ String lf. String cr. String crlf } do: [ :eol |
+		{ eol , paragraph. eol , eol , paragraph } do: [ :source |
+			{ source. source asRopedText } do: [ :input |
+				root := LeParser parseWithErrors: input.
+				self assert: root class equals: LeStringNode.
+				self assert: root source equals: source.
+				self assert: (root allNodesOfType: LeDocumenterAnnotationNode) size equals: 2.
+				self assert: (root allNodesOfType: SmaCCErrorNode) isEmpty ] ] ].
+	^ root
+]
+
 { #category : #'examples - links' }
 LeParserExamples >> blockLink [
 	<gtExample>
