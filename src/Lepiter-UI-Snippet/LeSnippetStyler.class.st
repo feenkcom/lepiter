@@ -229,15 +229,16 @@ LeSnippetStyler >> tableCellTextFor: aCell [
 
 { #category : #tables }
 LeSnippetStyler >> tableElementFor: aTable [
-	"Build a bounded, scrollable preview. Column justification is retained in
-	the AST but deliberately not applied by this preview yet."
+	"Use the list's native headers and a shared proportional width policy.
+	Column justification remains in the AST and is not applied here."
 	| list |
 	list := BrColumnedList new.
 	list hMatchParent.
-	list vExact: ((aTable rows size + 1) * 36 + 8 min: 320).
+	list vFitContentLimited.
 	aTable header cells withIndexDo: [ :cell :index |
 		list column
 			title: (self tableCellTextFor: cell);
+			weight: 1;
 			stencil: [ :row |
 				self tableLabelFor: (row cells at: index ifAbsent: [ nil ])
 					alignment: #default ] ].
@@ -252,7 +253,7 @@ LeSnippetStyler >> tableLabelFor: aCell alignment: anAlignment [
 	label := BrLabel new
 		aptitude: BrGlamorousLabelAptitude;
 		hMatchParent;
-		padding: (BlInsets all: 5);
+		padding: (BlInsets top: 5 bottom: 5);
 		text: (self tableCellTextFor: aCell);
 		yourself.
 	anAlignment = #right

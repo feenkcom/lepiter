@@ -820,6 +820,9 @@ LeScanner >> tableSeparatorMatchesHeader [
 	start = 1 ifTrue: [ ^ false ].
 	previousEnd := start - 2.
 	(previousEnd > 0 and: [ (source at: start - 1) = Character lf and: [ (source at: previousEnd) = Character cr ] ]) ifTrue: [ previousEnd := previousEnd - 1 ].
+	"A leading newline (including CRLF) has no preceding header line."
+	previousEnd < 1 ifTrue: [ ^ false ].
+	(#(10 13 133) includes: (source at: previousEnd) asInteger) ifTrue: [ ^ false ].
 	previousStart := previousEnd.
 	[ previousStart > 1 and: [ (#(10 13 133) includes: (source at: previousStart - 1) asInteger) not ] ] whileTrue: [ previousStart := previousStart - 1 ].
 	end := start.

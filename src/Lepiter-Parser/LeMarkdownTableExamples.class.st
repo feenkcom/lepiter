@@ -180,3 +180,21 @@ LeMarkdownTableExamples >> surroundingTextAndLineEndings [
 		self assert: root source equals: source ].
 	^ root
 ]
+
+{ #category : #examples }
+LeMarkdownTableExamples >> tableAfterLeadingNewline [
+	<gtExample>
+	| root |
+	{ String lf. String cr. String crlf } do: [ :eol |
+		| source |
+		source := eol , '| a | b |' , eol , '| --- | --- |' , eol , '| c | d |'.
+		{ source. source asRopedText } do: [ :input |
+			| table |
+			root := LeParser parseWithErrors: input.
+			table := root parts detect: [ :each | each isKindOf: LeTableNode ].
+			self assert: table header cells size equals: 2.
+			self assert: table rows size equals: 1.
+			self assert: root source equals: source.
+			self assert: (root allNodesOfType: SmaCCErrorNode) isEmpty ] ].
+	^ root
+]
