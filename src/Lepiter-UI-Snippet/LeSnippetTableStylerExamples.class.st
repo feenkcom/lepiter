@@ -138,3 +138,58 @@ LeSnippetTableStylerExamples >> styledTable [
 LeSnippetTableStylerExamples >> styler [
 	^ LeSnippetStyler new snippetViewModel: LeTextSnippet new asSnippetViewModel; yourself
 ]
+
+{ #category : #examples }
+LeSnippetTableStylerExamples >> tableAfterBoldAndBlankLines [
+	<gtExample>
+	| source text root table previews |
+	source := 'asdasd a **aa**', String lf, ' ', String lf, String lf,
+		'| | Before | Now |', String lf,
+		'|---|---|---|', String lf,
+		'| classes | 31,477 | 31,477 |', String lf,
+		'| traits | 807 | 807 |', String lf,
+		'| total | 32,284 | 32,284 |', String lf,
+		'| methods | 340,322 | **340,319** |', String lf,
+		'| methodsIncludingTraitCopies | 436,835 | **436,832** | ', String lf.
+	root := LeParser parse: source.
+	table := root parts detect: [ :part | part isKindOf: LeTableNode ].
+	self assert: table rows size equals: 5.
+	text := source asRopedText.
+	self styler privateStyle: text.
+	previews := OrderedCollection new.
+	text findAttributesSuchThat: [ :each | (each isKindOf: BrTextAdornmentDynamicAttribute) and: [ each shouldAppend ] ] indicesDo: [ :start :end :attribute | previews add: attribute ].
+	self assert: previews size equals: 1.
+	previews first stencil build.
+	self assert: text asString equals: source.
+	^ text
+]
+
+{ #category : #examples }
+LeSnippetTableStylerExamples >> tables [
+	<gtExample>
+	"An editor containing two rendered tables and the surrounding prose.
+	Move the cursor next to a table to reveal its editable Markdown source."
+	| source text root tables previews editor |
+	source := 'Before and now', String lf,
+		LeMarkdownTableExamples new sample source, String lf, String lf,
+		'Column justification', String lf,
+		LeMarkdownTableExamples new columnJustification source, String lf, String lf,
+		'Place the cursor next to a table to edit its Markdown.'.
+	root := LeParser parse: source.
+	tables := root parts select: [ :part | part isKindOf: LeTableNode ].
+	self assert: tables size equals: 2.
+	text := source asRopedText.
+	self styler style: text ast: root.
+	previews := OrderedCollection new.
+	text findAttributesSuchThat: [ :each |
+		(each isKindOf: BrTextAdornmentDynamicAttribute) and: [ each shouldAppend ] ]
+		indicesDo: [ :start :end :attribute | previews add: attribute ].
+	self assert: previews size equals: tables size.
+	self assert: text asString equals: source.
+	editor := BrEditor new
+		aptitude: BrGlamorousRegularEditorAptitude;
+		text: text;
+		size: 800 @ 600;
+		yourself.
+	^ editor
+]

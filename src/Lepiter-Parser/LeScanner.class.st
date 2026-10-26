@@ -778,7 +778,9 @@ LeScanner >> tableAtLineStart [
 { #category : #tables }
 LeScanner >> tableColumnCountIn: aString [
 	| value count escaped ticks |
-	value := aString trimBoth.
+	"Scanner input can be roped editor text, not only a String. Convert only
+	this line before applying the String trimming protocol."
+	value := aString asString trimBoth.
 	count := 1.
 	escaped := false.
 	ticks := false.
