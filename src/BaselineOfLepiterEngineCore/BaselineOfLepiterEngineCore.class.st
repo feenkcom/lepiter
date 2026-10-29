@@ -28,10 +28,10 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 				spec repository: 'github://feenkcom/gt4json:v0.7.343/src' ].
 		spec
 			baseline: 'GToolkitReleaser' with: [
-				spec repository: 'github://feenkcom/gtoolkit-releaser:v0.8.384/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-releaser:v0.8.385/src' ].
 		spec
 			baseline: 'LepiterXDoc' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.7.424/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.7.425/src' ].
 		spec
 			baseline: 'SmaCCRuntime' with: [
 				spec repository: 'github://j-brant/SmaCC:9148af1163e7ac33fdeea05b300c6cbcf71d6fa5/src' ].
