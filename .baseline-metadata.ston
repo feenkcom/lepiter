@@ -9,16 +9,16 @@
 		"github://feenkcom/zinc/repository" : "v3.1.3",
 		"github://j-brant/SmaCC/src" : "da3f53a5ccd8cf78f213da4661f681065a88fa68",
 		"github://feenkcom/gtoolkit-remote-python/src" : "v0.6.15",
-		"github://feenkcom/gtoolkit-inspector/src" : "v0.9.343",
+		"github://feenkcom/gtoolkit-inspector/src" : "v0.9.344",
 		"github://feenkcom/gtoolkit-remote/src" : "v0.9.219",
-		"github://feenkcom/gtoolkit-visualizer/src" : "v0.9.381",
-		"github://feenkcom/gt4json/src" : "v0.7.345",
+		"github://feenkcom/gtoolkit-visualizer/src" : "v0.9.382",
+		"github://feenkcom/gt4json/src" : "v0.7.346",
 		"github://feenkcom/xdoc/src" : "v0.9.78",
 		"github://feenkcom/gtoolkit-debugadapterprotocol/src" : "v0.6.14",
 		"github://feenkcom/gt4lsp/src" : "v0.7.237",
 		"github://feenkcom/gtoolkit-releaser/src" : "v0.8.385",
 		"github://feenkcom/gtoolkit-coder/src" : "v0.9.259",
-		"github://feenkcom/gt4pharo/src" : "v0.7.336",
+		"github://feenkcom/gt4pharo/src" : "v0.7.337",
 		"github://feenkcom/gtoolkit-remote-javascript/src" : "v0.6.57"
 	}
 }
