@@ -927,3 +927,20 @@ LeSnippetStylerVisitor >> visitItalic: anItalicNode [
 	self styleItalic: anItalicNode.
 	^ self visitContent: anItalicNode
 ]
+
+{ #category : #visiting }
+LeSnippetStylerVisitor >> visitTable: aTable [
+	"Keep the Markdown as editable text and append its rendered preview.
+	The normal auto-hiding cursor attributes reveal the source when the cursor
+	is next to or inside the table, and hide it again when the cursor leaves."
+	| sourceText |
+	self showMarkup ifTrue: [ ^ self visitContent: aTable ].
+	sourceText := text from: aTable startPosition to: aTable stopPosition.
+	sourceText glamorousCodeFont.
+	self styleAutoHiding: aTable sourceInterval text: sourceText.
+	(text from: aTable stopPosition to: aTable stopPosition)
+		attribute: (BrTextAdornmentDynamicAttribute new
+			beAppend;
+			stencil: [ styler tableElementFor: aTable ]).
+	^ aTable
+]
