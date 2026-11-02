@@ -55,10 +55,14 @@ LePharoClassDatabase >> savePage: aLePage [
 
 { #category : #'api - accessing' }
 LePharoClassDatabase >> savePageNamed: aSymbol [
+	"Save the comment through a recorded change, so that it can be undone and keeps the undo history"
 
-	^ pagesByName at: aSymbol 
-		ifPresent: [ :page | 
+	^ pagesByName at: aSymbol
+		ifPresent: [ :page |
 			self assert: page childrenCount equals: 1.
-			(self class environment at: aSymbol) comment: page children first string ]
+			GtRefactoryChangeManager instance
+				performChange: (RBCommentChange
+						comment: page children first string
+						in: (self class environment at: aSymbol)) ]
 		ifAbsent: [ self error: 'Class comment not modified: ', aSymbol ]
 ]
