@@ -111,10 +111,15 @@ LeMarkdownTableExamples >> headerOnlyAndEmptyCells [
 LeMarkdownTableExamples >> nonTables [
 	<gtExample>
 	| root |
-	{ 'a | b'. '| a | b |', String lf, '| -- | --- |'. '| a | b |', String lf, '| --- |'. '`a|b`', String lf, '---|---'. '| a | b |', String lf, '| --- | x |' } do: [ :source |
-		root := LeParser parse: source.
-		self assert: (root parts noneSatisfy: [ :each | each isKindOf: LeTableNode ]).
-		self assert: root source equals: source ].
+	{'a | b'.
+		'| a | b |' , String lf , '| : | --- |'.
+		'| a | b |' , String lf , '| --- |'.
+		'`a|b`' , String lf , '---|---'.
+		'| a | b |' , String lf , '| --- | x |'}
+		do: [ :source | 
+			root := LeParser parse: source.
+			self assert: (root parts noneSatisfy: [ :each | each isKindOf: LeTableNode ]).
+			self assert: root source equals: source ].
 	^ root
 ]
 
@@ -144,6 +149,25 @@ LeMarkdownTableExamples >> sample [
 	self assert: table startPosition equals: 1.
 	self assert: table stopPosition equals: source size.
 	^ table
+]
+
+{ #category : #examples }
+LeMarkdownTableExamples >> shortDelimiters [
+	"A delimiter cell needs only one dash, with or without alignment colons and surrounding spaces."
+
+	<gtExample>
+	| root table |
+	{'| A | B | C | D |' , String lf , '| :-- | :-: | --: | -- |' , String lf
+			, '| 1 | 2 | 3 | 4 |'.
+		'|A|B|C|D|' , String lf , '|:-|:--:|-:|-|' , String lf , '|1|2|3|4|'}
+		do: [ :source | 
+			root := LeParser parse: source.
+			table := root parts first.
+			self assert: table class equals: LeTableNode.
+			self assert: table alignments asArray equals: #(left center right default).
+			self assert: table rows size equals: 1.
+			self assert: root source equals: source ].
+	^ root
 ]
 
 { #category : #examples }
