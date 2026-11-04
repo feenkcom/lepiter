@@ -333,7 +333,7 @@ LeSnippetStylerVisitor >> snippetViewModel [
 	^ styler snippetViewModel
 ]
 
-{ #category : #'private - styling' }
+{ #category : #styling }
 LeSnippetStylerVisitor >> styleAutoHiding: leftRange and: rightRange whenOutside: nodeInterval [
 	| anAttribute marker1 marker2 cursorAttribute |
 	self showMarkup ifTrue: [ ^ self ].
@@ -350,15 +350,14 @@ LeSnippetStylerVisitor >> styleAutoHiding: leftRange and: rightRange whenOutside
 	anAttribute := BrTextAdornmentDynamicAttribute new
 			beReplace;
 			stencil: [ :aTBrTextEditorTextualPiece :anEditorElement | #() ].
-	(self isCursorInside: nodeInterval)
-		ifFalse: [ self text
-				attribute: anAttribute
-				from: leftRange first
-				to: leftRange last.
-			self text
-				attribute: anAttribute
-				from: rightRange first
-				to: rightRange last ].
+	self text
+		attribute: anAttribute
+		from: leftRange first
+		to: leftRange last.
+	self text
+		attribute: anAttribute
+		from: rightRange first
+		to: rightRange last.
 	cursorAttribute := BrTextCursorDynamicAttribute new
 			enterAction: [ :aTextEditor | 
 				| left right |

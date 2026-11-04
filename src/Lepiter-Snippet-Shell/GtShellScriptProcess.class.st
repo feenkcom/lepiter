@@ -292,10 +292,8 @@ GtShellScriptProcess >> output [
 
 { #category : #private }
 GtShellScriptProcess >> pollChildProcessCompletion [
-	poller := [ 
-		[ childProcess isRunning ] whileTrue: [ 0.5 seconds wait ].
+	poller := [ [ childProcess isRunning ] whileTrue: [ 0.5 seconds wait ].
 		state := #ran.
-		onSuccess ifNotNil: [ onSuccess value: self output ].
 		self announce: GtShellScriptStopped ]
 			forkAt: Processor userBackgroundPriority
 			named: 'poller'
@@ -310,9 +308,14 @@ GtShellScriptProcess >> pollStderr [
 
 { #category : #private }
 GtShellScriptProcess >> pollStdout [
+	"Call onSuccess only from the onExit block: it runs once the 
+	child has terminated and stdout is fully drained, so the block 
+	always receives the complete output."
+
 	childProcess asynchronousStdout
 		pollStringEvery: 0.5 seconds
 		do: [ :aString | stdout show: aString ]
+		onExit: [ onSuccess ifNotNil: [ onSuccess value: self output ] ]
 ]
 
 { #category : #printing }
