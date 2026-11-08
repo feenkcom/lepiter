@@ -1,6 +1,13 @@
 Extension { #name : #BlSpace }
 
 { #category : #'*Lepiter-UI' }
+BlSpace >> knowledgeBaseIfNone: aBlock [
+
+	^ aBlock value
+
+]
+
+{ #category : #'*Lepiter-UI' }
 BlSpace >> pageInPager: aLePage [
 	"A lepiter page phlow tool is either:
 	- spawned to the next GtPager pane, or
