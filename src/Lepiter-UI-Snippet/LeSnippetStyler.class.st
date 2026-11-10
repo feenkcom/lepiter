@@ -243,22 +243,35 @@ LeSnippetStyler >> tableEditorFor: aCell [
 		yourself
 ]
 
-{ #category : #tables }
+{ #category : #'private - tables' }
 LeSnippetStyler >> tableElementFor: aTable [
-	"Use the list's native headers and a shared proportional width policy.
+	"Use native headers with editors that materialize inline adornments.
 	Column justification remains in the AST and is not applied here."
+
 	| list |
 	list := BrColumnedList new.
 	list hMatchParent.
 	list vFitContentLimited.
-	aTable header cells withIndexDo: [ :cell :index |
-		list column
-			title: (self tableCellTextFor: cell);
-			weight: 1;
-			stencil: [ :row |
-				self tableEditorFor: (row cells at: index ifAbsent: [ nil ]) ] ].
+	aTable header cells
+		withIndexDo: [ :cell :index | 
+			list column
+				title: (self tableCellTextFor: cell);
+				weight: 1;
+				stencil: [ :row | self tableEditorFor: (row cells at: index ifAbsent: [ nil ]) ] ].
 	list items: aTable rows.
-	list withHeaders.
+	list
+		withHeadersDo: [ :header | 
+			header
+				labelStencil: [ :column | 
+					BrEditor new
+						id: #tableHeaderEditor;
+						aptitude: BrGlamorousRegularEditorAptitude;
+						beReadOnlyWithSelection;
+						hMatchParent;
+						vFitContentLimited;
+						padding: (BlInsets top: 5 bottom: 5);
+						text: column title;
+						yourself ] ].
 	^ list
 ]
 
