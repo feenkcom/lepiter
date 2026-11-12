@@ -196,6 +196,7 @@ LePharoSnippetByScripterExamples >> evaluateWhenMaximized [
 { #category : #'examples - page' }
 LePharoSnippetByScripterExamples >> executeAndAgainScrollDownPharoSnippets [
 	<gtExample>
+	<timeLimit: 120000>
 	<return: #BlScripter>
 	| aScripter |
 	aScripter := self scrollUpPharoSnippets.
@@ -434,6 +435,7 @@ LePharoSnippetByScripterExamples >> scrollUpEnumeradedPharoSnippets [
 { #category : #'examples - page' }
 LePharoSnippetByScripterExamples >> scrollUpPharoSnippets [
 	<gtExample>
+	<timeLimit: 120000>
 	<return: #BlScripter>
 	| aScripter |
 	aScripter := self scrollDownPharoSnippets.

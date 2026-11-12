@@ -25,6 +25,7 @@ LeGtBookDatabaseExplicitReloadExamples >> copyGlamorousToolkitBookInMemory [
 { #category : #examples }
 LeGtBookDatabaseExplicitReloadExamples >> reloadAllPagesFromDisk [
 	<gtExample>
+	<timeLimit: 120000>
 	<return: #LePageStructureAssemblersGroup>
 	| existinDatabase replacementDatabase asseamblers |
 	existinDatabase := self copyGlamorousToolkitBookInMemory.
