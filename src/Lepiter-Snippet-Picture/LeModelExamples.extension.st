@@ -5,6 +5,7 @@ LeModelExamples >> databaseWithPageHavingLargePictureSnippets [
 	"Pages with picture snippets."
 
 	<gtExample>
+	<timeLimit: 120000>
 	<return: #LeTemporaryDatabase>
 	| temporaryDatabase database page form pngFile possibleColors |
 	temporaryDatabase := LeTemporaryDatabase new.
@@ -393,6 +394,7 @@ LeModelExamples >> pageWithLargePictureSnippets [
 	"Page with a picture snippet."
 
 	<gtExample>
+	<timeLimit: 120000>
 	<return: #LePageExampleHolder>
 	| temporaryDatabase database page |
 	temporaryDatabase := self databaseWithPageHavingLargePictureSnippets.
