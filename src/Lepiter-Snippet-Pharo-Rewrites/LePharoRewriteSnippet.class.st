@@ -92,20 +92,29 @@ LePharoRewriteSnippet >> contentAsString [
 				print: (scope ifNil: [ '' ]) ]
 ]
 
-{ #category : #actions }
+{ #category : #execution }
 LePharoRewriteSnippet >> executeRewriteInFilter: aFilter [
-	| model rewriter potentialMethods |
+	| model result rewriter potentialMethods |
 	model := RBNamespace new.
-	rewriter := RBParseTreeRewriter new.
+	result := LePharoRewriteResult new.
+	result changes: model changes.
+	rewriter := GtParseTreeRewriter new.
 	self isMethodPattern
 		ifTrue: [ rewriter replaceMethod: self search with: self replace ]
 		ifFalse: [ rewriter replace: self search with: self replace ].
 	potentialMethods := self potentialMethodsInFilter: aFilter.
 	^ (potentialMethods
 		do: [ :each | 
-			(rewriter executeTree: each ast copy)
-				ifTrue: [ (model classFor: each methodClass) compileTree: rewriter tree ] ])
-		await then: [ :value | model ] otherwise: [ :error | error ]
+			[ (rewriter executeTree: each ast)
+				ifTrue: [ (model classFor: each methodClass) compileTree: rewriter tree ] ]
+				on: GtParseTreeRewriteError
+				do: [ :error | 
+					error originalError ifNotNil: [ :original | original freeze ].
+					result addError: error freeze forMethod: each ] ]) await
+		then: [ :value | 
+			result changes: model changes.
+			result ]
+		otherwise: [ :error | error ]
 ]
 
 { #category : #actions }
