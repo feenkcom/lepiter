@@ -12,7 +12,7 @@ Class {
 	#instVars : [
 		'stack'
 	],
-	#category : 'Lepiter-Utilities-ToC'
+	#category : #'Lepiter-Utilities-ToC'
 }
 
 { #category : #'instance creation' }

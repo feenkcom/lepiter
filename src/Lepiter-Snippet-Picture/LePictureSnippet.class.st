@@ -126,6 +126,17 @@ LePictureSnippet >> createReference [
 	self reference: self database pictureReferenceNextId
 ]
 
+{ #category : #accessing }
+LePictureSnippet >> figureNumberLabel [
+	"Answer my number label, for example 'Figure 3', numbered like gtPictureReference annotations
+	(see LePictureSnippetReference>>#numberLabel), or nil if I am not in a page"
+
+	<return: #String or: nil>
+	^ (LePictureSnippetReference forSnippet: self)
+		ifNotNil: [ :aReference | aReference numberLabel ]
+
+]
+
 { #category : #'api - testing' }
 LePictureSnippet >> hasCaption [
 	^ self caption isNotNil and: [ self caption trimBoth isNotEmpty ]

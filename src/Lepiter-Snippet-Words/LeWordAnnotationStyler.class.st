@@ -8,7 +8,7 @@ Class {
 
 { #category : #initialization }
 LeWordAnnotationStyler class >> initialize [
-	LeSnippetStylerVisitor additionalStylers add: self
+	LeSnippetStylerVisitor additionalStylers addIfNotPresent: self
 ]
 
 { #category : #initialization }

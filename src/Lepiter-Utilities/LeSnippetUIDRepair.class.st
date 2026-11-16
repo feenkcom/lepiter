@@ -42,7 +42,7 @@ Class {
 		'snippetUIDs',
 		'pages'
 	],
-	#category : 'Lepiter-Utilities'
+	#category : #'Lepiter-Utilities'
 }
 
 { #category : #private }

@@ -6,7 +6,7 @@ Class {
 		'operation',
 		'parameter'
 	],
-	#category : 'Lepiter-Utilities-Beacon'
+	#category : #'Lepiter-Utilities-Beacon'
 }
 
 { #category : #testing }

@@ -87,6 +87,26 @@ LeHtmlTextSnippetPostAbstractVisitorExamples >> textSnippetWithExternalUrlLink [
 		snippet: snippet
 ]
 
+{ #category : #'examples - unknown annotations' }
+LeHtmlTextSnippetPostAbstractVisitorExamples >> textSnippetWithMalformedAnnotation [
+	<gtExample>
+	<return: #LeHtmlVisitorHolder>
+	| snippet visitor html |
+	snippet := LeTextSnippet string: 'See {{gtClass:}} and {{gtFoo:<b>}} here'.
+
+	visitor := LeHtmlTextSnippetPostAbstractVisitor new
+			context: LeHtmlContext new;
+			snippet: snippet.
+	html := visitor contentsFor: snippet.
+
+	self assertHtml: html equals: 'See {{gtClass:}} and {{gtFoo:&lt;b>}} here'.
+
+	^ LeHtmlVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+
+]
+
 { #category : #'examples - text snippet' }
 LeHtmlTextSnippetPostAbstractVisitorExamples >> textSnippetWithMethodAnnotation [
 	<gtExample>
@@ -165,4 +185,44 @@ LeHtmlTextSnippetPostAbstractVisitorExamples >> textSnippetWithPackageAnnotation
 	^ LeHtmlVisitorHolder new
 		visitor: visitor;
 		snippet: snippet
+]
+
+{ #category : #'examples - unknown annotations' }
+LeHtmlTextSnippetPostAbstractVisitorExamples >> textSnippetWithUnknownAnnotation [
+	<gtExample>
+	<return: #LeHtmlVisitorHolder>
+	| snippet visitor html |
+	snippet := LeTextSnippet string: 'See {{gtFoo:bar}} here'.
+
+	visitor := LeHtmlTextSnippetPostAbstractVisitor new
+			context: LeHtmlContext new;
+			snippet: snippet.
+	html := visitor contentsFor: snippet.
+
+	self assertHtml: html equals: 'See {{gtFoo:bar}} here'.
+
+	^ LeHtmlVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+
+]
+
+{ #category : #'examples - unknown annotations' }
+LeHtmlTextSnippetPostAbstractVisitorExamples >> textSnippetWithUnterminatedAnnotation [
+	<gtExample>
+	<return: #LeHtmlVisitorHolder>
+	| snippet visitor html |
+	snippet := LeTextSnippet string: 'See {{gtClass:BrButton'.
+
+	visitor := LeHtmlTextSnippetPostAbstractVisitor new
+			context: LeHtmlContext new;
+			snippet: snippet.
+	html := visitor contentsFor: snippet.
+
+	self assertHtml: html equals: 'See {{gtClass:BrButton'.
+
+	^ LeHtmlVisitorHolder new
+		visitor: visitor;
+		snippet: snippet
+
 ]

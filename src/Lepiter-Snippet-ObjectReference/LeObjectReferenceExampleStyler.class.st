@@ -122,9 +122,9 @@ LeObjectReferenceExampleStyler >> styleLinkButton: anObjectAnnotation [
 				ifNil: [anObjectAnnotation fallbackLabelString ifNil: [uuid]].
 	attribute := (GtButtonAttribute new)
 				beAppend;
-				stencil: 
+				stencil:
 						[| button |
-						button := GtLMessageStyler
+						button := LeSnippetStylerVisitor
 									textLinkButtonPadding: (BlInsets top: 2)
 									margin: BlInsets empty
 									valid: (self objectExists: anObjectAnnotation).
@@ -138,6 +138,7 @@ LeObjectReferenceExampleStyler >> styleLinkButton: anObjectAnnotation [
 		attribute: attribute
 		from: anObjectAnnotation parent startPosition
 		to: anObjectAnnotation parent stopPosition
+
 ]
 
 { #category : #accessing }

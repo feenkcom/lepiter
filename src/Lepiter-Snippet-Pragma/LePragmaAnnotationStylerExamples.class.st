@@ -50,6 +50,33 @@ LePragmaAnnotationStylerExamples >> attributesOfExistingPragmaAnnotation [
 	^ attributes
 ]
 
+{ #category : #'examples - registration' }
+LePragmaAnnotationStylerExamples >> registrationIsIdempotent [
+	<gtExample>
+	<return: #OrderedCollection>
+	| stylers stylersBefore completions completionsBefore |
+	stylers := LeSnippetStylerVisitor additionalStylers.
+	stylersBefore := stylers copy.
+	completions := LeContentCompletionVisitor additionalCompletionVisitors.
+	completionsBefore := completions copy.
+	[ LePragmaAnnotationStyler
+		initialize;
+		initialize.
+	LePragmaAnnotationCompletionVisitor
+		initialize;
+		initialize.
+	self assert: (stylers occurrencesOf: LePragmaAnnotationStyler) equals: 1.
+	self assert: (completions occurrencesOf: LePragmaAnnotationCompletionVisitor) equals: 1 ]
+		ensure: [ stylers
+				removeAll;
+				addAll: stylersBefore.
+			completions
+				removeAll;
+				addAll: completionsBefore ].
+	^ stylers
+
+]
+
 { #category : #examples }
 LePragmaAnnotationStylerExamples >> styleExpandedPragmaAnnotation [
 	<gtExample>

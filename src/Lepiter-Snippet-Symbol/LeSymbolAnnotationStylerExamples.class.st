@@ -31,6 +31,24 @@ LeSymbolAnnotationStylerExamples >> assertForegroundOfText: text hasColor: expec
 	self assert: textColor equals: expectedColor
 ]
 
+{ #category : #'examples - registration' }
+LeSymbolAnnotationStylerExamples >> registrationIsIdempotent [
+	<gtExample>
+	<return: #OrderedCollection>
+	| stylers stylersBefore |
+	stylers := LeSnippetStylerVisitor additionalStylers.
+	stylersBefore := stylers copy.
+	[ LeSymbolAnnotationStyler
+		initialize;
+		initialize.
+	self assert: (stylers occurrencesOf: LeSymbolAnnotationStyler) equals: 1 ]
+		ensure: [ stylers
+				removeAll;
+				addAll: stylersBefore ].
+	^ stylers
+
+]
+
 { #category : #examples }
 LeSymbolAnnotationStylerExamples >> styleExistingSymbolAnnotation [
 	<gtExample>

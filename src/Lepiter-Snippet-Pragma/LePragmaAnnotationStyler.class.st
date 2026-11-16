@@ -15,7 +15,7 @@ Class {
 
 { #category : #initialization }
 LePragmaAnnotationStyler class >> initialize [
-	LeSnippetStylerVisitor additionalStylers add: self
+	LeSnippetStylerVisitor additionalStylers addIfNotPresent: self
 ]
 
 { #category : #initialization }

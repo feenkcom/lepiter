@@ -38,6 +38,33 @@ LeWordAnnotationStylerExamples >> assertNoForegroundOfText: text [
 	self assert: (attributes anySatisfy: [ :each | each class = BlTextForegroundAttribute ]) not
 ]
 
+{ #category : #'examples - registration' }
+LeWordAnnotationStylerExamples >> registrationIsIdempotent [
+	<gtExample>
+	<return: #OrderedCollection>
+	| stylers stylersBefore completions completionsBefore |
+	stylers := LeSnippetStylerVisitor additionalStylers.
+	stylersBefore := stylers copy.
+	completions := LeContentCompletionVisitor additionalCompletionVisitors.
+	completionsBefore := completions copy.
+	[ LeWordAnnotationStyler
+		initialize;
+		initialize.
+	LeWordAnnotationCompletionVisitor
+		initialize;
+		initialize.
+	self assert: (stylers occurrencesOf: LeWordAnnotationStyler) equals: 1.
+	self assert: (completions occurrencesOf: LeWordAnnotationCompletionVisitor) equals: 1 ]
+		ensure: [ stylers
+				removeAll;
+				addAll: stylersBefore.
+			completions
+				removeAll;
+				addAll: completionsBefore ].
+	^ stylers
+
+]
+
 { #category : #examples }
 LeWordAnnotationStylerExamples >> styleExistingWordAnnotation [
 	<gtExample>

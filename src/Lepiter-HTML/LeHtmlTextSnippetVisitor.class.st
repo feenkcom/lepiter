@@ -58,6 +58,15 @@ LeHtmlTextSnippetVisitor >> initialize [
 	exportedNodes := OrderedCollection new.
 ]
 
+{ #category : #private }
+LeHtmlTextSnippetVisitor >> logUnsupportedAnnotation: anAnnotation [
+	^ context log
+		addItem: (LeExportUnsupportedTextSnippetNodeLogItem new
+				snippet: snippet;
+				node: anAnnotation)
+
+]
+
 { #category : #'private - exporting' }
 LeHtmlTextSnippetVisitor >> resourcesFor: aSource [
 	| snippetResources |
@@ -118,10 +127,24 @@ LeHtmlTextSnippetVisitor >> visitContent: aContent [
 
 { #category : #generated }
 LeHtmlTextSnippetVisitor >> visitDocumenterAnnotation: aDocumenterAnnotation [
-	aDocumenterAnnotation annotation
-		acceptVisitor: (LeHtmlTextSnippetAnnotationVisitor new 
-			context: context;
-			snippet: snippet)
+	| anAnnotation aVisitor |
+	anAnnotation := aDocumenterAnnotation annotation.
+	anAnnotation ifNil: [ ^ aDocumenterAnnotation ].
+	anAnnotation isErrorNode
+		ifTrue: [ ^ self writeUnknownAnnotation: aDocumenterAnnotation ].
+
+	aVisitor := self
+			annotationVisitorFor: anAnnotation
+			default: (LeHtmlTextSnippetAnnotationVisitor new
+					context: context;
+					snippet: snippet).
+
+	aVisitor
+		ifNil: [ self logUnsupportedAnnotation: anAnnotation ]
+		ifNotNil: [ anAnnotation acceptVisitor: aVisitor ].
+
+	^ aDocumenterAnnotation
+
 ]
 
 { #category : #generated }
@@ -230,6 +253,22 @@ LeHtmlTextSnippetVisitor >> visitItalic: anItalic [
 ]
 
 { #category : #generated }
+LeHtmlTextSnippetVisitor >> visitSmaCCError: aSmaCCErrorNode [
+	"Text that could not be parsed, for example an annotation without its closing braces.
+	Write it as it was typed, so that no text is lost, and log it."
+
+	exportedNodes add: aSmaCCErrorNode.
+	context html escape: aSmaCCErrorNode source.
+	context log
+		addItem: (LeExportUnsupportedTextSnippetNodeLogItem new
+				snippet: snippet;
+				node: aSmaCCErrorNode).
+
+	^ aSmaCCErrorNode
+
+]
+
+{ #category : #generated }
 LeHtmlTextSnippetVisitor >> visitString: aString [
 	exportedNodes add: aString.
 	
@@ -250,4 +289,23 @@ LeHtmlTextSnippetVisitor >> visitText: aText [
 	context html escape: aText content.
 	
 	exportedNodes add: aText
+]
+
+{ #category : #'private - exporting' }
+LeHtmlTextSnippetVisitor >> writeUnknownAnnotation: aDocumenterAnnotation [
+	"Write an unknown or malformed annotation, for example {{gtFoo:bar}}, as it was typed, and log it"
+
+	context html
+		inlineTag: 'span'
+		attributes: #('class' 'annotation annotation-unknown')
+		with: aDocumenterAnnotation source.
+
+	context log
+		addItem: (LeExportUnresolvedAnnotationLogItem new
+				snippet: snippet;
+				annotation: aDocumenterAnnotation;
+				reason: 'Unknown or malformed annotation: ' , aDocumenterAnnotation source).
+
+	^ aDocumenterAnnotation
+
 ]
