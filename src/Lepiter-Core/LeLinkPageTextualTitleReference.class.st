@@ -30,12 +30,11 @@ LeLinkPageTextualTitleReference >> isExistingPage [
 ]
 
 { #category : #testing }
-LeLinkPageTextualTitleReference >> isReferencingContent: aLeContent [ 
-	self assert: [ aLeContent notNil ].
-	
-	^ (super isReferencingContent: aLeContent) and: [
-			aLeContent isPage and: [
-				aLeContent title sameContentAs: self pageTitle ] ]
+LeLinkPageTextualTitleReference >> isReferencingContent: aLeContent [
+	self assert: [aLeContent notNil].
+	^aLeContent isPage and: 
+			[(aLeContent title sameContentAs: self pageTitle)
+				and: [super isReferencingContent: aLeContent]]
 ]
 
 { #category : #accessing }
