@@ -6,6 +6,44 @@ Class {
 	#category : #'Lepiter-HTML-Examples'
 }
 
+{ #category : #'examples - unknown annotations' }
+LeHtmlVisitorExamples >> headerWithUnknownAnnotation [
+	"The header id ignores annotations (the builder joins the trimmed text parts), the header text keeps the unknown annotation"
+
+	<gtExample>
+	<return: #LeHtmlContext>
+	| aSnippet aContext html |
+	aSnippet := LeTextSnippet string: '# Header {{gtFoo:bar}} text'.
+
+	html := self htmlForTextSnippet: aSnippet context: (aContext := LeHtmlContext new).
+
+	self assertHtml: html includes: '<h2 id="headertext">'.
+	self
+		assertHtml: html
+		includes: '<span class="annotation annotation-unknown">{{gtFoo:bar}}</span>'.
+	self assert: aContext log asArray size equals: 1.
+
+	^ aContext
+
+]
+
+{ #category : #private }
+LeHtmlVisitorExamples >> htmlForTextSnippet: aSnippet context: aContext [
+	| aResources |
+	aResources := LeExportResources new.
+	aSnippet
+		acceptVisitor: (LeExportVisitor new
+				context: (LeExportContext new
+						resources: aResources;
+						fileStore: LeExportMemoryStore new)).
+	aContext resources: aResources.
+
+	^ LeHtmlVisitor new
+		context: aContext;
+		contentsFor: aSnippet
+
+]
+
 { #category : #'examples - text snippet' }
 LeHtmlVisitorExamples >> textSnippetWithClassAnnotation [
 	<gtExample>
@@ -296,6 +334,50 @@ LeHtmlVisitorExamples >> textSnippetWithImageLinkWithRelativeAttachmentPathWithT
 		snippet: snippet
 ]
 
+{ #category : #'examples - unknown annotations' }
+LeHtmlVisitorExamples >> textSnippetWithKnownAndUnknownAnnotations [
+	"Well-formed core annotations are exported as before"
+
+	<gtExample>
+	<return: #LeHtmlContext>
+	| aSnippet aContext html |
+	aSnippet := LeTextSnippet string: 'See {{gtClass:BrButton}} and {{gtFoo:bar}} here'.
+
+	html := self htmlForTextSnippet: aSnippet context: (aContext := LeHtmlContext new).
+
+	self assertHtml: html includes: '>BrButton<'.
+	self
+		assertHtml: html
+		includes: ' and <span class="annotation annotation-unknown">{{gtFoo:bar}}</span> here'.
+	self assert: aContext log asArray size equals: 1.
+
+	^ aContext
+
+]
+
+{ #category : #'examples - unknown annotations' }
+LeHtmlVisitorExamples >> textSnippetWithMalformedAnnotation [
+	"A known annotation with a syntax error is written as it was typed and logged"
+
+	<gtExample>
+	<return: #LeHtmlContext>
+	| aSnippet aContext html |
+	aSnippet := LeTextSnippet string: 'See {{gtClass:}} here'.
+
+	html := self htmlForTextSnippet: aSnippet context: (aContext := LeHtmlContext new).
+
+	self
+		assertHtml: html
+		includes: 'See <span class="annotation annotation-unknown">{{gtClass:}}</span> here'.
+	self assert: aContext log asArray size equals: 1.
+	self
+		assert: aContext log asArray first class
+		equals: LeExportUnresolvedAnnotationLogItem.
+
+	^ aContext
+
+]
+
 { #category : #'examples - text snippet' }
 LeHtmlVisitorExamples >> textSnippetWithMethodAnnotation [
 	<gtExample>
@@ -369,6 +451,73 @@ LeHtmlVisitorExamples >> textSnippetWithMethodAnnotationExpanded [
 	^ LeHtmlVisitorHolder new
 		visitor: visitor;
 		snippet: snippet
+]
+
+{ #category : #'examples - unknown annotations' }
+LeHtmlVisitorExamples >> textSnippetWithUnknownAnnotation [
+	"An unknown annotation is written as it was typed and logged"
+
+	<gtExample>
+	<return: #LeHtmlContext>
+	| aSnippet aContext html aLogItem |
+	aSnippet := LeTextSnippet string: 'See {{gtFoo:bar}} here'.
+
+	html := self htmlForTextSnippet: aSnippet context: (aContext := LeHtmlContext new).
+
+	self
+		assertHtml: html
+		includes: 'See <span class="annotation annotation-unknown">{{gtFoo:bar}}</span> here'.
+	self assert: aContext log asArray size equals: 1.
+	aLogItem := aContext log asArray first.
+	self assert: aLogItem class equals: LeExportUnresolvedAnnotationLogItem.
+	self assert: aLogItem snippet equals: aSnippet.
+	self assert: aLogItem annotation class equals: LeDocumenterAnnotationNode.
+	self assert: aLogItem isProblemLog.
+	self assert: (aLogItem description includesSubstring: '{{gtFoo:bar}}').
+
+	^ aContext
+
+]
+
+{ #category : #'examples - unknown annotations' }
+LeHtmlVisitorExamples >> textSnippetWithUnknownAnnotationIsEscaped [
+	<gtExample>
+	<return: #LeHtmlContext>
+	| aSnippet aContext html |
+	aSnippet := LeTextSnippet string: 'See {{gtFoo:<b>&}} here'.
+
+	html := self htmlForTextSnippet: aSnippet context: (aContext := LeHtmlContext new).
+
+	self
+		assertHtml: html
+		includes: 'See <span class="annotation annotation-unknown">{{gtFoo:&lt;b>&amp;}}</span> here'.
+	self assert: (html includesSubstring: '<b>') not.
+
+	^ aContext
+
+]
+
+{ #category : #'examples - unknown annotations' }
+LeHtmlVisitorExamples >> textSnippetWithUnterminatedAnnotation [
+	"An annotation without its closing braces cannot be parsed as an annotation at all.
+	The parser answers an error node for the rest of the text, which is written as it was typed and logged."
+
+	<gtExample>
+	<return: #LeHtmlContext>
+	| aSnippet aContext html |
+	aSnippet := LeTextSnippet string: 'See {{gtClass:BrButton'.
+
+	html := self htmlForTextSnippet: aSnippet context: (aContext := LeHtmlContext new).
+
+	self assertHtml: html includes: 'See {{gtClass:BrButton'.
+	self assert: aContext log asArray size equals: 1.
+	self
+		assert: aContext log asArray first class
+		equals: LeExportUnsupportedTextSnippetNodeLogItem.
+	self assert: aContext log asArray first node isErrorNode.
+
+	^ aContext
+
 ]
 
 { #category : #'examples - text snippet' }

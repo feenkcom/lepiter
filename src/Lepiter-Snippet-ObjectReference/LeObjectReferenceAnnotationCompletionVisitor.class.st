@@ -11,7 +11,7 @@ Class {
 
 { #category : #initialization }
 LeObjectReferenceAnnotationCompletionVisitor class >> initialize [
-	LeContentCompletionVisitor additionalCompletionVisitors add: self
+	LeContentCompletionVisitor additionalCompletionVisitors addIfNotPresent: self
 ]
 
 { #category : #initialization }

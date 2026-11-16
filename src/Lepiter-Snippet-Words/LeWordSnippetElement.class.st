@@ -20,7 +20,7 @@ Class {
 		'errorLabelElement',
 		'editButton'
 	],
-	#category : 'Lepiter-Snippet-Words-UI Snippet Element'
+	#category : #'Lepiter-Snippet-Words-UI Snippet Element'
 }
 
 { #category : #'private - accessing' }

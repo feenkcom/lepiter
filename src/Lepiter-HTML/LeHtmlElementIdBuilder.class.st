@@ -98,6 +98,16 @@ LeHtmlElementIdBuilder >> pushFilteredString: aString [
 	stream nextPutAll: aTrimmedString
 ]
 
+{ #category : #visiting }
+LeHtmlElementIdBuilder >> visitDocumenterAnnotation: aDocumenterAnnotation [
+	"Annotations do not contribute to element ids.
+	Their nodes come from annotation grammars (see LeParser class>>#annotationParsers)
+	that I do not necessarily understand, so I do not visit them."
+
+	^ aDocumenterAnnotation
+
+]
+
 { #category : #generated }
 LeHtmlElementIdBuilder >> visitText: aText [
 	self pushFilteredString: aText content

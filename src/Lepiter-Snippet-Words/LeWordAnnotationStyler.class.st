@@ -3,12 +3,12 @@ Class {
 	#superclass : #LeComponentStyler,
 	#traits : 'TLeWordParseNodeVisitor - {#acceptNode:}',
 	#classTraits : 'TLeWordParseNodeVisitor classTrait',
-	#category : 'Lepiter-Snippet-Words-Annotations'
+	#category : #'Lepiter-Snippet-Words-Annotations'
 }
 
 { #category : #initialization }
 LeWordAnnotationStyler class >> initialize [
-	LeSnippetStylerVisitor additionalStylers add: self
+	LeSnippetStylerVisitor additionalStylers addIfNotPresent: self
 ]
 
 { #category : #initialization }

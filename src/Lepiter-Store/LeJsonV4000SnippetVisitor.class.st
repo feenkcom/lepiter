@@ -64,3 +64,13 @@ LeJsonV4000SnippetVisitor >> visitBlockLink: aBlockLink [
 	newUidString = oldUidString ifFalse:
 		[ substitutions add: { start + 1. newUidString. end - 1. } ].
 ]
+
+{ #category : #visiting }
+LeJsonV4000SnippetVisitor >> visitDocumenterAnnotation: aDocumenterAnnotation [
+	"I only update block links.
+	Annotation nodes come from annotation grammars (see LeParser class>>#annotationParsers)
+	that I do not understand, so I do not visit them."
+
+	^ aDocumenterAnnotation
+
+]

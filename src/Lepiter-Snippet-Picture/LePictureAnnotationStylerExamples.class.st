@@ -4,6 +4,24 @@ Class {
 	#category : #'Lepiter-Snippet-Picture-Examples'
 }
 
+{ #category : #'examples - registration' }
+LePictureAnnotationStylerExamples >> registrationIsIdempotent [
+	<gtExample>
+	<return: #OrderedCollection>
+	| stylers stylersBefore |
+	stylers := LeSnippetStylerVisitor additionalStylers.
+	stylersBefore := stylers copy.
+	[ LePictureAnnotationStyler
+		initialize;
+		initialize.
+	self assert: (stylers occurrencesOf: LePictureAnnotationStyler) equals: 1 ]
+		ensure: [ stylers
+				removeAll;
+				addAll: stylersBefore ].
+	^ stylers
+
+]
+
 { #category : #examples }
 LePictureAnnotationStylerExamples >> styleReferenceKeyAndValue [
 	<gtExample>

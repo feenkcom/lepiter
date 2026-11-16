@@ -8,12 +8,13 @@ Class {
 
 { #category : #accessing }
 LePictureAnnotationStyler class >> buttonLabelTemplate [
-	^ 'Figure {1}'
+	^ LePictureSnippetReference labelTemplate
+
 ]
 
 { #category : #initialization }
 LePictureAnnotationStyler class >> initialize [
-	LeSnippetStylerVisitor additionalStylers add: self
+	LeSnippetStylerVisitor additionalStylers addIfNotPresent: self
 ]
 
 { #category : #initialization }
@@ -48,24 +49,21 @@ LePictureAnnotationStyler >> styleButton: anAnnotation [
 
 	attribute := GtButtonAttribute new
 			beAppend;
-			stencil: [ | button label |
-				label := self class buttonLabelTemplate format: { 
-					aSnippetReference hasCaption
-						ifTrue: [ aSnippetReference caption ]
-						ifFalse: [ aSnippetReference index ] }.
+			stencil: [ | button |
 				button := LeSnippetStylerVisitor
 						textLinkButtonPadding: (BlInsets top: 2)
 						margin: BlInsets empty.
 				button aptitude glamorousRegularFont.
 				button
 					beSmallSize;
-					label: label;
+					label: aSnippetReference label;
 					action: [ :aButton | aButton phlow spawnObject: aSnippetReference snippetModel ].
 				button ].
 	self text
 		attribute: attribute
 		from: anAnnotation parent startPosition
 		to: anAnnotation parent stopPosition
+
 ]
 
 { #category : #private }

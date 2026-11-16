@@ -31,6 +31,33 @@ LeFileReferenceAnnotationStylerExamples >> assertForegroundOfText: text hasColor
 	self assert: textColor equals: expectedColor
 ]
 
+{ #category : #'examples - registration' }
+LeFileReferenceAnnotationStylerExamples >> registrationIsIdempotent [
+	<gtExample>
+	<return: #OrderedCollection>
+	| stylers stylersBefore completions completionsBefore |
+	stylers := LeSnippetStylerVisitor additionalStylers.
+	stylersBefore := stylers copy.
+	completions := LeContentCompletionVisitor additionalCompletionVisitors.
+	completionsBefore := completions copy.
+	[ LeFileReferenceAnnotationStyler
+		initialize;
+		initialize.
+	LeFileReferenceAnnotationCompletionVisitor
+		initialize;
+		initialize.
+	self assert: (stylers occurrencesOf: LeFileReferenceAnnotationStyler) equals: 1.
+	self assert: (completions occurrencesOf: LeFileReferenceAnnotationCompletionVisitor) equals: 1 ]
+		ensure: [ stylers
+				removeAll;
+				addAll: stylersBefore.
+			completions
+				removeAll;
+				addAll: completionsBefore ].
+	^ stylers
+
+]
+
 { #category : #examples }
 LeFileReferenceAnnotationStylerExamples >> styleExistingRelativePathWithoutLabel [
 	<gtExample>

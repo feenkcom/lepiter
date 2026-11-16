@@ -10,7 +10,6 @@ Class {
 { #category : #examples }
 LeSymbolAnnotationCompletionVisitorExamples >> completeSymbolAfterColon [
 	<gtExample>
-	<noTest>
 	<return: #GtCompletionResult>
 	| aString aResult aStrategy actions position |
 	aString := '{{gtSymbol:}}'.
@@ -26,7 +25,6 @@ LeSymbolAnnotationCompletionVisitorExamples >> completeSymbolAfterColon [
 { #category : #examples }
 LeSymbolAnnotationCompletionVisitorExamples >> completeSymbolAtStart [
 	<gtExample>
-	<noTest>
 	<return: #GtCompletionResult>
 	| aString aResult aStrategy actions position |
 	aString := '{{gtSymbol:}}'.
@@ -45,7 +43,6 @@ LeSymbolAnnotationCompletionVisitorExamples >> completeSymbolAtStart [
 { #category : #examples }
 LeSymbolAnnotationCompletionVisitorExamples >> completeSymbolName [
 	<gtExample>
-	<noTest>
 	<return: #GtCompletionResult>
 	| aString aResult aStrategy actions position prefix |
 	prefix := 'as'.
@@ -57,4 +54,22 @@ LeSymbolAnnotationCompletionVisitorExamples >> completeSymbolName [
 	aResult completionActionsWithIndexDo: [ :each :index | actions add: each ].
 	self assert: (actions anySatisfy: [ :each | (each respondsTo: #text) and: [ each text notNil ] ]).
 	^ aResult
+]
+
+{ #category : #'examples - registration' }
+LeSymbolAnnotationCompletionVisitorExamples >> registrationIsIdempotent [
+	<gtExample>
+	<return: #OrderedCollection>
+	| completions completionsBefore |
+	completions := LeContentCompletionVisitor additionalCompletionVisitors.
+	completionsBefore := completions copy.
+	[ LeSymbolAnnotationCompletionVisitor
+		initialize;
+		initialize.
+	self assert: (completions occurrencesOf: LeSymbolAnnotationCompletionVisitor) equals: 1 ]
+		ensure: [ completions
+				removeAll;
+				addAll: completionsBefore ].
+	^ completions
+
 ]

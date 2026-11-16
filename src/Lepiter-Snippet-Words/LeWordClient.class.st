@@ -12,7 +12,7 @@ Class {
 		'onResponse',
 		'response'
 	],
-	#category : 'Lepiter-Snippet-Words-Client'
+	#category : #'Lepiter-Snippet-Words-Client'
 }
 
 { #category : #'api - factory' }

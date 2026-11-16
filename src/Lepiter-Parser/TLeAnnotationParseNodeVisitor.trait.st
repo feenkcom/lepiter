@@ -72,7 +72,12 @@ TLeAnnotationParseNodeVisitor >> visitFileNameArgument: aFileNameArgument [
 
 { #category : #generated }
 TLeAnnotationParseNodeVisitor >> visitFileReferenceAnnotation: aFileReferenceAnnotationNode [
-	^ self visitAnnotation: aFileReferenceAnnotationNode
+	"aFileReferenceAnnotationNode comes from the gtFileReference annotation grammar (see LeParser class>>#annotationParsers).
+	Its children are not nodes of my grammar, so I do not visit them.
+	Visitors that support file references override me or use the trait of that grammar (TLeFileReferenceParseNodeVisitor)."
+
+	^ aFileReferenceAnnotationNode
+
 ]
 
 { #category : #generated }
@@ -142,12 +147,20 @@ TLeAnnotationParseNodeVisitor >> visitPageNameArgument: aPageNameArgument [
 
 { #category : #generated }
 TLeAnnotationParseNodeVisitor >> visitPragmaAnnotation: aPragmaAnnotationNode [
-	^ self visitAnnotation: aPragmaAnnotationNode
+	"aPragmaAnnotationNode comes from the gtPragma annotation grammar (see LeParser class>>#annotationParsers).
+	Its children are not nodes of my grammar, so I do not visit them.
+	Visitors that support pragmas override me or use the trait of that grammar (TLePragmaParseNodeVisitor)."
+
+	^ aPragmaAnnotationNode
+
 ]
 
 { #category : #generated }
-TLeAnnotationParseNodeVisitor >> visitPragmaName: aPageAnnotation [
-	^ self visitAnnotation: aPageAnnotation
+TLeAnnotationParseNodeVisitor >> visitPragmaName: aPragmaNameNode [
+	"aPragmaNameNode comes from the gtPragma annotation grammar, see #visitPragmaAnnotation:"
+
+	^ aPragmaNameNode
+
 ]
 
 { #category : #generated }

@@ -14,7 +14,7 @@ Class {
 
 { #category : #'class initialization' }
 LeFileReferenceAnnotationCompletionVisitor class >> initialize [
-	LeContentCompletionVisitor additionalCompletionVisitors add: self
+	LeContentCompletionVisitor additionalCompletionVisitors addIfNotPresent: self
 ]
 
 { #category : #'class initialization' }

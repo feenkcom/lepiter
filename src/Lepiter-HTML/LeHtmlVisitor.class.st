@@ -88,6 +88,40 @@ LeHtmlVisitor >> logUnsupportedSnippet: aLeSnippet [
 	context logger unsupportedSnippet: aLeSnippet
 ]
 
+{ #category : #private }
+LeHtmlVisitor >> pictureElementIdFor: aLePictureSnippet [
+	"Answer the element id of a picture snippet with a reference, or nil.
+	gtPictureReference annotations link to it (see LeHtmlFigureImageWriter class>>#elementIdForPictureReference:).
+	The id may already be reserved by #visitPage:."
+
+	| anElementId |
+	aLePictureSnippet hasReference ifFalse: [ ^ nil ].
+
+	anElementId := LeHtmlFigureImageWriter
+			elementIdForPictureReference: aLePictureSnippet reference.
+	self elementIds addIfNotPresent: anElementId.
+	^ anElementId
+
+]
+
+{ #category : #private }
+LeHtmlVisitor >> pictureLabelFor: aLePictureSnippet [
+	"Answer the label of a picture snippet with a reference, for example 'Figure 3', or nil.
+	The number is the one gtPictureReference annotations show, so a reader finds the figure a link label names.
+	Pictures without a reference get no label: nothing can reference them, and their captions stay as they were."
+
+	aLePictureSnippet hasReference ifFalse: [ ^ nil ].
+	^ aLePictureSnippet figureNumberLabel
+
+]
+
+{ #category : #private }
+LeHtmlVisitor >> reserveFigureElementIdsIn: aLePage [
+	aLePage
+		acceptVisitor: (LeHtmlFigureElementIdsCollector new elementIds: self elementIds)
+
+]
+
 { #category : #convenience }
 LeHtmlVisitor >> resourcesFor: aLeSnippet [
 	<return: #Collection of: #TLeExportResource>
@@ -140,6 +174,15 @@ LeHtmlVisitor >> visitJavaScriptSnippet: aLeJavaScriptSnippet [
 ]
 
 { #category : #visiting }
+LeHtmlVisitor >> visitPage: aLePage [
+	"Reserve the figure ids of the page before writing it, so that header ids do not take them"
+
+	self reserveFigureElementIdsIn: aLePage.
+	^ self visitContent: aLePage
+
+]
+
+{ #category : #visiting }
 LeHtmlVisitor >> visitPharoSnippet: aLePharoSnippet [
 	context html
 		tag: #div
@@ -158,19 +201,22 @@ LeHtmlVisitor >> visitPictureSnippet: aLePictureSnippet [
 
 	| snippetResources |
 	snippetResources := self resourcesFor: aLePictureSnippet.
-	
-	snippetResources 
+
+	snippetResources
 		ifEmpty: [ "ignore" ]
 		ifOne: [ :aResource |
 			LeHtmlFigureImageWriter new
 				html: context html;
+				elementId: (self pictureElementIdFor: aLePictureSnippet);
+				label: (self pictureLabelFor: aLePictureSnippet);
 				imageSrc: aResource imgSrc;
 				caption: aLePictureSnippet caption;
 				width: aLePictureSnippet asSnippetViewModel snippetView desiredSnippetWidth;
 				write ]
 		ifMore: [ :aCollection | "ignore" ].
 
-	^ self visitContent: aLePictureSnippet 
+	^ self visitContent: aLePictureSnippet
+
 ]
 
 { #category : #visiting }

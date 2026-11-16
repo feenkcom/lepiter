@@ -101,6 +101,33 @@ LeObjectReferenceAnnotationStylerExamples >> multiObjectRegistry [
 		yourself
 ]
 
+{ #category : #'examples - registration' }
+LeObjectReferenceAnnotationStylerExamples >> registrationIsIdempotent [
+	<gtExample>
+	<return: #OrderedCollection>
+	| stylers stylersBefore completions completionsBefore |
+	stylers := LeSnippetStylerVisitor additionalStylers.
+	stylersBefore := stylers copy.
+	completions := LeContentCompletionVisitor additionalCompletionVisitors.
+	completionsBefore := completions copy.
+	[ LeObjectReferenceAnnotationStyler
+		initialize;
+		initialize.
+	LeObjectReferenceAnnotationCompletionVisitor
+		initialize;
+		initialize.
+	self assert: (stylers occurrencesOf: LeObjectReferenceAnnotationStyler) equals: 1.
+	self assert: (completions occurrencesOf: LeObjectReferenceAnnotationCompletionVisitor) equals: 1 ]
+		ensure: [ stylers
+				removeAll;
+				addAll: stylersBefore.
+			completions
+				removeAll;
+				addAll: completionsBefore ].
+	^ stylers
+
+]
+
 { #category : #fixtures }
 LeObjectReferenceAnnotationStylerExamples >> sampleId [
 	^'eehjmwhvkh4de3o55fyirb3fo'

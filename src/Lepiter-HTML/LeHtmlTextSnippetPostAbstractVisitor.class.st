@@ -95,10 +95,26 @@ LeHtmlTextSnippetPostAbstractVisitor >> visitDefinedLink: aDefinedLink [
 
 { #category : #generated }
 LeHtmlTextSnippetPostAbstractVisitor >> visitDocumenterAnnotation: aDocumenterAnnotation [
-	aDocumenterAnnotation annotation
-		acceptVisitor: (LeHtmlTextSnippetAnnotationPostAbstractVisitor new 
-			context: context;
-			snippet: snippet)
+	| anAnnotation aVisitor |
+	anAnnotation := aDocumenterAnnotation annotation.
+	anAnnotation ifNil: [ ^ aDocumenterAnnotation ].
+
+	"Unknown or malformed annotations, for example {{gtFoo:bar}}, are written as they were typed"
+	anAnnotation isErrorNode
+		ifTrue: [ context html escape: aDocumenterAnnotation source.
+			^ aDocumenterAnnotation ].
+
+	aVisitor := self
+			annotationVisitorFor: anAnnotation
+			default: (LeHtmlTextSnippetAnnotationPostAbstractVisitor new
+					context: context;
+					snippet: snippet).
+
+	"Annotations without plain text support are left out of the abstract"
+	aVisitor ifNotNil: [ anAnnotation acceptVisitor: aVisitor ].
+
+	^ aDocumenterAnnotation
+
 ]
 
 { #category : #generated }
@@ -113,6 +129,15 @@ LeHtmlTextSnippetPostAbstractVisitor >> visitExternalLabelUrlLink: anExternalLab
 { #category : #generated }
 LeHtmlTextSnippetPostAbstractVisitor >> visitExternalUrlLink: anExternalUrlLink [
 	context html escape: (anExternalUrlLink url ifNil: [ '' ])
+]
+
+{ #category : #generated }
+LeHtmlTextSnippetPostAbstractVisitor >> visitSmaCCError: aSmaCCErrorNode [
+	"Text that could not be parsed, for example an annotation without its closing braces, is written as it was typed"
+
+	context html escape: aSmaCCErrorNode source.
+	^ aSmaCCErrorNode
+
 ]
 
 { #category : #generated }

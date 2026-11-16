@@ -7,6 +7,43 @@ Class {
 	#category : #'Lepiter-Snippet-FileReference'
 }
 
+{ #category : #'examples - core visitor' }
+LeFileReferenceAnnotationParserExamples >> coreAnnotationVisitorDoesNotDescendIntoFileReference [
+	"LeAnnotationParseNodeVisitor knows only the core annotation grammar.
+	It must not visit the children of a file reference annotation, they are nodes of another grammar."
+
+	<gtExample>
+	<return: #LeFileReferenceAnnotationNode>
+	| anAst aResult |
+	anAst := LeFileReferenceAnnotationParser parse: 'path=docs/readme.md|label=Readme|expanded'.
+	self assert: anAst class equals: LeFileReferenceAnnotationNode.
+
+	aResult := anAst acceptVisitor: LeAnnotationParseNodeVisitor new.
+
+	self assert: aResult == anAst.
+	^ anAst
+
+]
+
+{ #category : #'examples - core visitor' }
+LeFileReferenceAnnotationParserExamples >> coreAnnotationVisitorDoesNotDescendIntoFileReferenceInText [
+	"The same in a text snippet: the annotation node comes from the gtFileReference grammar
+	registered in LeParser class>>#annotationParsers"
+
+	<gtExample>
+	<return: #LeFileReferenceAnnotationNode>
+	| anAst anAnnotation aResult |
+	anAst := LeParser parse: 'See {{gtFileReference:path=docs/readme.md}} here'.
+	anAnnotation := (anAst allNodesOfType: LeDocumenterAnnotationNode) first annotation.
+	self assert: anAnnotation class equals: LeFileReferenceAnnotationNode.
+
+	aResult := anAnnotation acceptVisitor: LeAnnotationParseNodeVisitor new.
+
+	self assert: aResult == anAnnotation.
+	^ anAnnotation
+
+]
+
 { #category : #examples }
 LeFileReferenceAnnotationParserExamples >> parseBareLabelValue [
 	<gtExample>

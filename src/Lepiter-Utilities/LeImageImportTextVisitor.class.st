@@ -38,6 +38,16 @@ LeImageImportTextVisitor >> snippet: aLeTextSnippet [
 	snippet := aLeTextSnippet 
 ]
 
+{ #category : #visiting }
+LeImageImportTextVisitor >> visitDocumenterAnnotation: aDocumenterAnnotation [
+	"I only look for external image links.
+	Annotation nodes come from annotation grammars (see LeParser class>>#annotationParsers)
+	that I do not understand, so I do not visit them."
+
+	^ aDocumenterAnnotation
+
+]
+
 { #category : #generated }
 LeImageImportTextVisitor >> visitExternalImageLink: anExternalImageLink [
 	"Attempt to download the supplied link and add it as an attachment to the snippet's database."

@@ -35,14 +35,21 @@ LeExportTextSnippetVisitor >> snippet: anObject [
 
 { #category : #generated }
 LeExportTextSnippetVisitor >> visitDocumenterAnnotation: aDocumenterAnnotation [
-	| visitor |
-	visitor := LeExportTextSnippetAnnotationVisitor new
-		context: context;
-		snippet: snippet.
-		
-	aDocumenterAnnotation annotation acceptVisitor: visitor.
-	
+	| anAnnotation aVisitor |
+	anAnnotation := aDocumenterAnnotation annotation.
+	anAnnotation ifNil: [ ^ aDocumenterAnnotation ].
+
+	aVisitor := self
+			annotationVisitorFor: anAnnotation
+			default: (LeExportTextSnippetAnnotationVisitor new
+					context: context;
+					snippet: snippet).
+
+	"Annotations without export support do not create any export resources"
+	aVisitor ifNotNil: [ anAnnotation acceptVisitor: aVisitor ].
+
 	^ aDocumenterAnnotation
+
 ]
 
 { #category : #generated }

@@ -7,6 +7,39 @@ Class {
 	#category : #'Lepiter-Snippet-Pragma'
 }
 
+{ #category : #'examples - core visitor' }
+LePragmaAnnotationParserExamples >> coreAnnotationVisitorDoesNotDescendIntoPragma [
+	"LeAnnotationParseNodeVisitor knows only the core annotation grammar.
+	It must not visit the children of a pragma annotation, they are nodes of another grammar."
+
+	<gtExample>
+	<return: #LePragmaAnnotationNode>
+	| anAst aResult |
+	anAst := LePragmaAnnotationParser parse: 'gtView|expanded'.
+	self assert: anAst class equals: LePragmaAnnotationNode.
+
+	aResult := anAst acceptVisitor: LeAnnotationParseNodeVisitor new.
+
+	self assert: aResult == anAst.
+	^ anAst
+
+]
+
+{ #category : #'examples - core visitor' }
+LePragmaAnnotationParserExamples >> coreAnnotationVisitorDoesNotDescendIntoPragmaName [
+	<gtExample>
+	<return: #LePragmaNameNode>
+	| anAst aPragmaName aResult |
+	anAst := LePragmaAnnotationParser parse: 'gtView|expanded'.
+	aPragmaName := (anAst allNodesOfType: LePragmaNameNode) first.
+
+	aResult := aPragmaName acceptVisitor: LeAnnotationParseNodeVisitor new.
+
+	self assert: aResult == aPragmaName.
+	^ aPragmaName
+
+]
+
 { #category : #examples }
 LePragmaAnnotationParserExamples >> parseExpandedDefault [
 	<gtExample>

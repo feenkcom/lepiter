@@ -11,7 +11,7 @@ Class {
 
 { #category : #'class initialization' }
 LeFileReferenceAnnotationStyler class >> initialize [
-	LeSnippetStylerVisitor additionalStylers add: self
+	LeSnippetStylerVisitor additionalStylers addIfNotPresent: self
 ]
 
 { #category : #'class initialization' }
