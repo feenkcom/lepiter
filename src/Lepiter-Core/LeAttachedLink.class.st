@@ -130,8 +130,22 @@ LeAttachedLink >> reloadFromExternalLink: anotherAttachedLink [
 
 { #category : #actions }
 LeAttachedLink >> resolveReferences [
+	"Resolve both references, the origin even if the target cannot be found.
+	Use it when the target is known to exist, e.g. in #updateLocalUnresolvedReferencesForPage:,
+	which only selects links to the page that was just added; otherwise use #resolveReferencesIfTargetIsFound."
+	
 	self originReference resolveReference.
-	self targetReference resolveAndLinkReference.
+	self targetReference resolveAndLinkReference
+]
+
+{ #category : #actions }
+LeAttachedLink >> resolveReferencesIfTargetIsFound [
+	"Resolve the origin only once the target was found. Otherwise every database addition would
+	try the origin again, and a missing origin snippet would notify the user every time."
+	
+	super resolveReferencesIfTargetIsFound.
+	self targetReference isResolved
+		ifTrue: [self originReference resolveReference]
 ]
 
 { #category : #accessing }
