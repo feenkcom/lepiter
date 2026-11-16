@@ -250,15 +250,14 @@ TLeExplicitLinksKnowledgeBase >> setExplicitLinksContainer: newExplicitLinks [
 { #category : #updating }
 TLeExplicitLinksKnowledgeBase >> updateLocalUnresolvedReferencesForPage: aPage [
 	| unresolvedIncomingLinks |
-	unresolvedIncomingLinks := OrderedCollection new.
-	unresolvedIncomingLinks := self explicitLinks select: [ :aLink |
-		| targetReference |
-		targetReference := aLink targetReference.
-		targetReference isPageReference and: [ 
-			targetReference isResolved not and: [ 
-				targetReference isReferencingContent: aPage ] ] ].
-	unresolvedIncomingLinks do: [ :aLink | 
-		aLink resolveReferences ].
+	unresolvedIncomingLinks := self explicitLinks select: 
+					[:aLink |
+					| targetReference |
+					targetReference := aLink targetReference.
+					targetReference isPageReference and: 
+							[targetReference isResolved not
+								and: [targetReference isReferencingContent: aPage]]].
+	unresolvedIncomingLinks do: [:aLink | aLink resolveReferences]
 ]
 
 { #category : #updating }
