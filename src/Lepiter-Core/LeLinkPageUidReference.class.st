@@ -39,12 +39,11 @@ LeLinkPageUidReference >> isExistingPage [
 ]
 
 { #category : #testing }
-LeLinkPageUidReference >> isReferencingContent: aLeContent [ 
-	self assert: [ aLeContent notNil ].
-	
-	^ (super isReferencingContent: aLeContent) and: [
-			aLeContent isPage and: [
-				aLeContent uid = self pageUid ] ]
+LeLinkPageUidReference >> isReferencingContent: aLeContent [
+	self assert: [aLeContent notNil].
+	^aLeContent isPage and: 
+			[aLeContent uid = self pageUid
+				and: [super isReferencingContent: aLeContent]]
 ]
 
 { #category : #accessing }

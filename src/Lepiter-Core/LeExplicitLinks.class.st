@@ -203,9 +203,9 @@ LeExplicitLinks >> removeAll: aCollectionOfLinks [
 ]
 
 { #category : #enumerating }
-LeExplicitLinks >> select: aBlock [ 
-	^ self class new
-		addAllLinks: (externalLinksByUuid select: aBlock)
+LeExplicitLinks >> select: aBlock [
+	^self class new
+		addAllLinks: (externalLinksByUuid selectEvaluatingInAnyOrder: aBlock)
 ]
 
 { #category : #accessing }
