@@ -632,6 +632,53 @@ LeParserExamples >> specialCharacterBracketLink [
 	^ node
 ]
 
+{ #category : #examples }
+LeParserExamples >> tableWithLeadingAndTrailingSpaces [
+	<gtExample>
+	<return: #LeStringNode>
+	| node |
+	{String lf.
+		String cr.
+		String crlf}
+		do: [ :eol | 
+			| source table padding |
+			padding := ' ' , String tab.
+			source := eol
+					join: ({'  | Category | Strings |'.
+							'  |---|---|'.
+							'  | Text ASTs | 2.99 MiB |'.
+							'  | Text | 1.48 MiB |'.
+							'  | Code ASTs (coder caches) | 634 KiB |'.
+							'  | Links | 338 KiB |'.
+							'  | Code source | 216 KiB |'.
+							'  | others | smaller amounts |'} collect: [ :line | line , padding ]).
+			node := self parse: source.
+			self assert: node parts size equals: 1.
+			table := node parts first.
+			self assert: table class equals: LeTableNode.
+			self assert: table header cells size equals: 2.
+			self assert: table separator cells size equals: 2.
+			self assert: table rows size equals: 6.
+			self assert: (table rows allSatisfy: [ :row | row cells size = 2 ]).
+			self
+				assert: table header cells first contentSource trimBoth
+				equals: 'Category'.
+			self
+				assert: table rows last cells last contentSource trimBoth
+				equals: 'smaller amounts'.
+			self assert: table source equals: source.
+			self assert: table startPosition equals: 1.
+			self assert: table stopPosition equals: source size.
+			table
+				withAllNodesDo: [ :each | 
+					each allTokens
+						do: [ :token | 
+							self
+								assert: (source copyFrom: token startPosition to: token stopPosition)
+								equals: token value ] ] ].
+	^ node
+]
+
 { #category : #'examples - strings' }
 LeParserExamples >> text [
 	<gtExample>
