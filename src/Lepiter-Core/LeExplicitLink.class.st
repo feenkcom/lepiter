@@ -90,6 +90,18 @@ LeExplicitLink >> originReference [
 	self subclassResponsibility
 ]
 
+{ #category : #actions }
+LeExplicitLink >> resolveReferences [
+	self subclassResponsibility
+]
+
+{ #category : #actions }
+LeExplicitLink >> resolveReferencesIfTargetIsFound [
+	"Resolve and link the target reference if its target can now be found.
+	Subclasses with other references resolve them only once the target was found."
+	self targetReference resolveAndLinkReference
+]
+
 { #category : #accessing }
 LeExplicitLink >> targetReference [
 	self subclassResponsibility

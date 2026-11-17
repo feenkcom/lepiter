@@ -699,39 +699,38 @@ LeLogicalDatabase >> playgroundDB [
 { #category : #accessing }
 LeLogicalDatabase >> playgroundDB: aLeDatabase [
 	| anOldPlayground shouldUnsubscribe |
-	self assert: [ aLeDatabase isNotNil ].
-	
+	self assert: [aLeDatabase isNotNil].
 	anOldPlayground := playgroundDB.
-	
-	aLeDatabase = anOldPlayground ifTrue: [ ^ self ].
-	
+	aLeDatabase = anOldPlayground ifTrue: [^self].
+
 	"Ensure the same instance is used if the primary and playground DBs are the same"
-	aLeDatabase storeLocation = primaryDB storeLocation ifTrue: 
-		[ (anOldPlayground isNotNil and: [ anOldPlayground ~= primaryDB ]) ifTrue: 
-			[ self unsubscribeFromDatabase: anOldPlayground.
+	aLeDatabase storeLocation = primaryDB storeLocation
+		ifTrue: 
+			[(anOldPlayground isNotNil and: [anOldPlayground ~= primaryDB])
+				ifTrue: 
+					[self unsubscribeFromDatabase: anOldPlayground.
+					playgroundDB := primaryDB.
+					self notifyDatabaseRemoved: anOldPlayground].
 			playgroundDB := primaryDB.
-			self notifyDatabaseRemoved: anOldPlayground ].
-
-		playgroundDB := primaryDB.
-		^ self ].
-						
-	shouldUnsubscribe := anOldPlayground isNotNil and: [ anOldPlayground ~= primaryDB ].
-
+			^self].
+	shouldUnsubscribe := anOldPlayground isNotNil
+				and: [anOldPlayground ~= primaryDB].
 	self basicPlaygroundDB: aLeDatabase.
 	playgroundDB parent: self.
+	shouldUnsubscribe
+		ifTrue: 
+			[self unsubscribeFromDatabase: anOldPlayground.
+			self notifyDatabaseRemoved: anOldPlayground].
+	aLeDatabase = primaryDB
+		ifFalse: 
+			[self subscribeToDatabase: aLeDatabase.
+			self notifyDatabaseAdded: aLeDatabase].
 
-	shouldUnsubscribe ifTrue: [
-		self unsubscribeFromDatabase: anOldPlayground.
-		self notifyDatabaseRemoved: anOldPlayground ].
-	
-	aLeDatabase = primaryDB ifFalse: [
-		self subscribeToDatabase: aLeDatabase.
-		self notifyDatabaseAdded: aLeDatabase ].
-	
-	"Cross-database links are updated by the target page.
-	Update links from existing databases that reference the newly loaded database."
-	aLeDatabase = primaryDB ifFalse: [
-		self pagesDo: [ :page | page onAddedToDatabase ] ]
+	"Cross-database links between the new playground database and the existing ones may now 
+	be resolvable. We no longer send #onAddedToDatabase to every page: for pages it only
+	resolved the links to that page, checking every page against every link. Resolving the
+	unresolved links directly gives the same result and only costs one pass over the links."
+	aLeDatabase = primaryDB ifFalse: [self resolveUnresolvedPageLinks]
 ]
 
 { #category : #accessing }
@@ -816,6 +815,14 @@ LeLogicalDatabase >> requestUnlinkedReferencesUpdate [
 		aDatabase requestUnlinkedReferencesUpdate ]
 ]
 
+{ #category : #updating }
+LeLogicalDatabase >> resolveUnresolvedPageLinks [
+	"Resolve the unresolved page links of all my databases.
+	This is needed after adding a database: links from the new database to existing ones
+	and links from existing databases to the new one may now be resolvable."
+	self databasesDo: [:aDatabase | aDatabase resolveUnresolvedPageLinks]
+]
+
 { #category : #'as yet unclassified' }
 LeLogicalDatabase >> resumeClassStoreUpdatesRemoveFirst [
 	"Resume updates on all ClassStore monitors.
@@ -852,34 +859,33 @@ LeLogicalDatabase >> scanForLinksTo: aPage [
 LeLogicalDatabase >> setupAddedDB: aLeDatabase [
 	"Set up the announcements and update links for a newly added DB.
 	This is called by #addDB: and the logical DB reload code."
-
 	aLeDatabase parent: self.
-	
 	self subscribeToDatabase: aLeDatabase.
 	self notifyDatabaseAdded: aLeDatabase.
 
-	"Cross-database links are updated by the target page.
-	Update links from existing databases that reference the newly loaded database."
-	self pagesDo: [ :page | page onAddedToDatabase ].
-
-	^ aLeDatabase 
+	"Cross-database links between the newly loaded database and the existing ones may now 
+	be resolvable. We no longer send #onAddedToDatabase to every page: for pages it only
+	resolved the links to that page, checking every page against every link. Resolving the
+	unresolved links directly gives the same result and only costs one pass over the links."
+	self resolveUnresolvedPageLinks.
+	^aLeDatabase
 ]
 
 { #category : #private }
 LeLogicalDatabase >> setupAddedDBs: aCollectionOfLeDatabases [
 	"Set up the announcements and update links for a newly added DB.
 	This is called by #addDB: and the logical DB reload code."
+	aCollectionOfLeDatabases do: [:eachDb | eachDb parent: self].
+	aCollectionOfLeDatabases do: [:eachDb | self subscribeToDatabase: eachDb].
+	aCollectionOfLeDatabases do: [:eachDb | self notifyDatabaseAdded: eachDb].
 
-	aCollectionOfLeDatabases do: [ :eachDb | eachDb parent: self ].
-
-	aCollectionOfLeDatabases do: [ :eachDb | self subscribeToDatabase: eachDb ].
-	aCollectionOfLeDatabases do: [ :eachDb | self notifyDatabaseAdded: eachDb ].
-
-	"Cross-database links are updated by the target page.
-	Update links from existing databases that reference the newly loaded database."
-	self pagesDo: [ :page | page onAddedToDatabase ].
-
-	^ aCollectionOfLeDatabases
+	"Cross-database links between the newly loaded databases and the existing ones may now
+	be resolvable. We no longer send #onAddedToDatabase to every page: for pages it only
+	resolved the links to that page, checking every page against every link. Resolving the
+	unresolved links directly gives the same result and only costs one pass over the links."
+	self resolveUnresolvedPageLinks.
+	
+	^aCollectionOfLeDatabases
 ]
 
 { #category : #'api - accessing' }

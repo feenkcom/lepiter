@@ -215,6 +215,26 @@ TLeExplicitLinksKnowledgeBase >> removeIncomingExplicitLinksForContent: aLeConte
 	incomingLinks removeAll
 ]
 
+{ #category : #updating }
+TLeExplicitLinksKnowledgeBase >> resolveUnresolvedPageLinks [
+	"Resolve every unresolved page link whose target page can now be found, in creation order.
+	Called through LeLogicalDatabase>>#resolveUnresolvedPageLinks after a database is added
+	(#addDB:, #addDBs:, #playgroundDB:): links from the new database to pages of existing ones,
+	and links from existing databases to pages of the new one, may now resolve.
+	Many selected links still have no target, e.g. [[A missing page]] or a 
+	{{gtPage:...|db=...}} link to a database that is not loaded. This is why each link is sent
+	#resolveReferencesIfTargetIsFound and not #resolveReferences. The latter would also try
+	the origin of such attached links on every database addition, and notify again
+	for every missing origin snippet."
+	
+	| unresolvedLinks |
+	unresolvedLinks := self explicitLinks select: 
+					[:aLink |
+					aLink targetReference isPageReference
+						and: [aLink targetReference isResolved not]].
+	unresolvedLinks do: [:aLink | aLink resolveReferencesIfTargetIsFound]
+]
+
 { #category : #initialization }
 TLeExplicitLinksKnowledgeBase >> setExplicitLinks: aCollectionOfLinks [
 	"Set the receiver's explicit links.
@@ -249,16 +269,23 @@ TLeExplicitLinksKnowledgeBase >> setExplicitLinksContainer: newExplicitLinks [
 
 { #category : #updating }
 TLeExplicitLinksKnowledgeBase >> updateLocalUnresolvedReferencesForPage: aPage [
+	"Resolve the unresolved page links that reference aPage, in creation order.
+	Called for every database of the logical database when a page is added, renamed or changes type
+	(#addPage:, #onPageTitleChanged:, #onPageTypeChanged:).
+	The selection keeps only links whose title or uid and database match aPage, so the target lookup
+	finds aPage and #resolveReferences can be used: the origin of an attached link is only tried
+	for links to aPage. Exception: a title link matching a page that is not a named page
+	(e.g. a daily note) is selected, but #pageNamed: does not find it."
+	
 	| unresolvedIncomingLinks |
-	unresolvedIncomingLinks := OrderedCollection new.
-	unresolvedIncomingLinks := self explicitLinks select: [ :aLink |
-		| targetReference |
-		targetReference := aLink targetReference.
-		targetReference isPageReference and: [ 
-			targetReference isResolved not and: [ 
-				targetReference isReferencingContent: aPage ] ] ].
-	unresolvedIncomingLinks do: [ :aLink | 
-		aLink resolveReferences ].
+	unresolvedIncomingLinks := self explicitLinks select: 
+					[:aLink |
+					| targetReference |
+					targetReference := aLink targetReference.
+					targetReference isPageReference and: 
+							[targetReference isResolved not
+								and: [targetReference isReferencingContent: aPage]]].
+	unresolvedIncomingLinks do: [:aLink | aLink resolveReferences]
 ]
 
 { #category : #updating }

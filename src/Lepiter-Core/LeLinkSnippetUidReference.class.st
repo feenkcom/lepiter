@@ -36,12 +36,11 @@ LeLinkSnippetUidReference >> description [
 ]
 
 { #category : #testing }
-LeLinkSnippetUidReference >> isReferencingContent: aLeContent [ 
-	self assert: [ aLeContent notNil ].
-	
-	^ (super isReferencingContent: aLeContent) and: [ 
-			aLeContent isSnippet and: [
-				aLeContent uid = self snippetUid ] ]
+LeLinkSnippetUidReference >> isReferencingContent: aLeContent [
+	self assert: [aLeContent notNil].
+	^aLeContent isSnippet and: 
+			[aLeContent uid = self snippetUid
+				and: [super isReferencingContent: aLeContent]]
 ]
 
 { #category : #testing }
