@@ -32,11 +32,9 @@ LeAttachment >> acceptVisitor: aVisitor [
 
 { #category : #printing }
 LeAttachment >> fileNameDescription [
-	^ self originalReference 
-		ifNil: [ 
-			self originalBasename
-				ifNil: [ '<none>' ] ]
-		ifNotNil: #basename 
+	^ self originalReference
+		ifNil: [ self originalBasename ifNil: [ '<none>' ] ]
+		ifNotNil: [ :v | v basename ]
 ]
 
 { #category : #printing }

@@ -131,14 +131,14 @@ LePage >> asMarkdownPage [
 LePage >> asRemoteLink [
 	"Answer the string representing a remote link to the receiver"
 
-	^ String streamContents: [ :stream |
-		stream
-			<< '{{gtPage:';
-			<< type remoteLinkId;
-			<< '|db=';
-			<< (self database ifNotNil: #uuidString);
-			<< '}}' ].
-
+	^ String
+		streamContents: [ :stream | 
+			stream
+				<< '{{gtPage:';
+				<< type remoteLinkId;
+				<< '|db=';
+				<< (self database ifNotNil: [ :v | v uuidString ]);
+				<< '}}' ]
 ]
 
 { #category : #'private - asserting' }

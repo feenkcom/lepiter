@@ -27,7 +27,7 @@ LeExportResourcesDirectorySaver >> gtResourcesFor: aView [
 	^ aView columnedList
 		title: 'Resources';
 		priority: 5;
-		items: [ resources ifNil: [ #() ] ifNotNil: #asArray ];
+		items: [ resources ifNil: [ #() ] ifNotNil: [ :v | v asArray ] ];
 		column: 'Index'
 			text: [ :_ :anIndex | anIndex ]
 			width: 60;

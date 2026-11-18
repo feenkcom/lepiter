@@ -518,19 +518,23 @@ LeDatabase >> gtMapFor: aView [
 	<gtView>
 	^ aView mondrian
 		title: 'Map';
-		painting: [:m |
-			m nodes 
-				stencil: [:each | BlElement new
-					size: 5@5; 
-					geometry: BlCircleGeometry new; 
-					background: (each isDailyNote ifTrue: [Color blue] ifFalse: [Color red])];
-				with: (self pagesByDate select: [:each | 
-					each allChildOutgoingTextualLinks notEmpty or: [each incomingLinks notEmpty]]) .
+		painting: [ :m | 
+			m nodes
+				stencil: [ :each | 
+					BlElement new
+						size: 5 @ 5;
+						geometry: BlCircleGeometry new;
+						background: (each isDailyNote ifTrue: [ Color blue ] ifFalse: [ Color red ]) ];
+				with: (self pagesByDate
+						select: [ :each | each allChildOutgoingTextualLinks notEmpty or: [ each incomingLinks notEmpty ] ]).
 			m edges
-				stencil: [:each | BlLineElement new
-					zIndex: -1; 
-					border: (BlBorder paint: (Color veryVeryLightGray alpha: 0.5))];
-				connectToAll: [ :each | (each allChildOutgoingTextualLinks collect: [:l | l target ifNotNil: #page]) asSet ].
+				stencil: [ :each | 
+					BlLineElement new
+						zIndex: -1;
+						border: (BlBorder paint: (Color veryVeryLightGray alpha: 0.5)) ];
+				connectToAll: [ :each | 
+					(each allChildOutgoingTextualLinks
+						collect: [ :l | l target ifNotNil: [ :v | v page ] ]) asSet ].
 			m layout force.
 			m ]
 ]

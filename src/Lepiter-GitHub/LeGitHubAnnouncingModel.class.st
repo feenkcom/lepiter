@@ -6,7 +6,7 @@ Class {
 	#instVars : [
 		'announcer'
 	],
-	#category : 'Lepiter-GitHub-Model'
+	#category : #'Lepiter-GitHub-Model'
 }
 
 { #category : #announcer }

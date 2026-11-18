@@ -200,10 +200,10 @@ LeLogicalDatabaseExamples >> atforPageType [
 	| database page |
 	database := self primaryAndWorkspaceDB.
 	page := database at: #Page1 forPageType: LeNamedPageType.
-	self assert: page title equals: #Page1.
+	self assert: page title equals: 'Page1'.
 
 	page := database pageNamed: #Page2.
-	self assert: page title equals: #Page2.
+	self assert: page title equals: 'Page2'.
 
 	^ database
 ]
@@ -436,7 +436,7 @@ LeLogicalDatabaseExamples >> pagesByDate [
 	self assert: pagesByDate first children first string equals: 'self asString'.
 	
 	self assert: pagesByDate last type class equals: LeNamedPageType.
-	self assert: pagesByDate last title equals: #Page1.
+	self assert: pagesByDate last title equals: 'Page1'.
 
 	^ database
 ]

@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#traits : 'TAssertable',
 	#classTraits : 'TAssertable classTrait',
-	#category : 'Lepiter-GitHub-Examples'
+	#category : #'Lepiter-GitHub-Examples'
 }
 
 { #category : #accessing }

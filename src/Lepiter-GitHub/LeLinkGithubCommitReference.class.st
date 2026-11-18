@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'commitId'
 	],
-	#category : 'Lepiter-GitHub-Model'
+	#category : #'Lepiter-GitHub-Model'
 }
 
 { #category : #accessing }

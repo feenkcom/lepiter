@@ -1,7 +1,7 @@
 Class {
 	#name : #LeGitHubErrorMessageElementId,
 	#superclass : #BlElementUniqueId,
-	#category : 'Lepiter-GitHub-UI IDs'
+	#category : #'Lepiter-GitHub-UI IDs'
 }
 
 { #category : #converting }

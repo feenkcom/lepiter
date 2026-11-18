@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'issueEditor'
 	],
-	#category : 'Lepiter-GitHub-UI Model Elements'
+	#category : #'Lepiter-GitHub-UI Model Elements'
 }
 
 { #category : #initialization }

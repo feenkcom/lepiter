@@ -1,7 +1,7 @@
 Class {
 	#name : #LeGitHubSuccess,
 	#superclass : #LeGitHubResponse,
-	#category : 'Lepiter-GitHub-Model'
+	#category : #'Lepiter-GitHub-Model'
 }
 
 { #category : #'api - accessing' }

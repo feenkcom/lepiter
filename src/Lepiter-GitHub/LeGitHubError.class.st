@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'exception'
 	],
-	#category : 'Lepiter-GitHub-Model'
+	#category : #'Lepiter-GitHub-Model'
 }
 
 { #category : #'api - accessing' }
@@ -25,5 +25,5 @@ LeGitHubError >> exception: anObject [
 { #category : #'api - accessing' }
 LeGitHubError >> message [
 	<return: #String>
-	^ self exception ifNotNil: #messageText
+	^ self exception ifNotNil: [ :v | v messageText ]
 ]

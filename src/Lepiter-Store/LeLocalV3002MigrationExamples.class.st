@@ -44,7 +44,7 @@ LeLocalV3002MigrationExamples >> migrateFromV3 [
 	self assert: snippet code equals: '4 + 3'.	"Confirm that the db store now only contains the new file extensions (and not .json)"
 	self
 		assert: (memStore files collect: #extension as: Set)
-		equals: #('2bak' '0bak' properties lepiter links bak) asSet.
+		equals: #('2bak' '0bak' 'properties' 'lepiter' 'links' 'bak') asSet.
 
 	^ database
 ]

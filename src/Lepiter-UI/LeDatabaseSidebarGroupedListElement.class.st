@@ -213,8 +213,7 @@ LeDatabaseSidebarGroupedListElement >> requestSelectionUpdate [
 		navigationModel: navigationModel;
 		groupedItems: groupedItemsBuilder;
 		emit.
-
-	selectionUpdater ifNotNil: #requestUpdate
+	selectionUpdater ifNotNil: [ :v | v requestUpdate ]
 ]
 
 { #category : #'api - navigation model' }
@@ -271,14 +270,13 @@ LeDatabaseSidebarGroupedListElement >> updateOldSelection [
 { #category : #'private - updating' }
 LeDatabaseSidebarGroupedListElement >> updateSelection [
 	| aPage aPageDate aNavigationModel |
-	self hasSelection ifFalse: [
-		self updateOldSelection.
-		^ self ].
-	self selection class = LeContentViewModel 
-		ifTrue: [ ^ self ].
+	self hasSelection
+		ifFalse: [ self updateOldSelection.
+			^ self ].
+	self selection class = LeContentViewModel ifTrue: [ ^ self ].
 
 	aPage := self selection pageModel.
-	aPageDate := aPage createTime ifNotNil: #asDate.
+	aPageDate := aPage createTime ifNotNil: [ :v | v asDate ].
 	aNavigationModel := navigationModel.
 	LeDatabaseSidebarGroupedListUpdateSelectionSignal new
 		page: aPage;
@@ -293,8 +291,7 @@ LeDatabaseSidebarGroupedListElement >> updateSelection [
 			(listElement viewModel entityAt: anIndex)
 				ifNotNil: [ :eachEntity | 
 					(eachEntity isItem and: [ eachEntity object == aPage ])
-						ifTrue: [ 
-							listElement scrollToIndex: anIndex.
+						ifTrue: [ listElement scrollToIndex: anIndex.
 							listElement selectOne: anIndex.
 							LeDatabaseSidebarGroupedListScrolledToIndexSignal new
 								page: aPage;
@@ -302,5 +299,5 @@ LeDatabaseSidebarGroupedListElement >> updateSelection [
 								navigationModel: aNavigationModel;
 								groupedItems: self groupedItems;
 								pageIndex: anIndex.
-							^ self ] ] ].
+							^ self ] ] ]
 ]
