@@ -35,13 +35,13 @@ LeLocalStorage >> loadFromFile: aFileReference [
 
 { #category : #'schema updating' }
 LeLocalStorage >> loadJsonFrom: aFileReference [
-	"Load the JSON object from the supplied file, without any interpretation of the contents, but keeping the attribute order"
+	"Load the JSON object from the supplied file, without any interpretation of the contents, but keeping the attribute order.
+	The maps compare keys by content, so that the updaters find and replace keys of either kind (and never add a second key)"
 
 	^ aFileReference readStreamDo: [ :stream |
 		(NeoJSONReader new on: stream) 
-			mapClass: OrderedDictionary;
+			mapClass: GtStringContentOrderedDictionary;
 			next ].
-
 ]
 
 { #category : #accessing }

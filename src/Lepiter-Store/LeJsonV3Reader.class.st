@@ -47,7 +47,14 @@ LeJsonV3Reader >> for: smalltalkClass do: block [
 LeJsonV3Reader >> initialize [
 
 	super initialize.
-	typeMap := Dictionary new.
+	typeMap := GtStringContentDictionary new.
+]
+
+{ #category : #accessing }
+LeJsonV3Reader >> mapClass [
+	"Return the collection type to use for JSON maps: keys compared by content, as in LeJsonV4Reader>>#mapClass"
+
+	^ mapClass ifNil: [ GtStringContentDictionary ]
 ]
 
 { #category : #accessing }
