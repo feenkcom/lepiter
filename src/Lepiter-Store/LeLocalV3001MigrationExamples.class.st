@@ -17,7 +17,7 @@ LeLocalV3001MigrationExamples >> migrateFromV3 [
 
 	properties := STONJSON fromString: (memStore / 'lepiter.properties') contents.
 	self
-		assert: (properties at: #schema)
+		assert: (properties at: 'schema')
 		equals: LeLocalJsonV4Storage currentVersionString.
 
 	self assert: database size equals: 5.

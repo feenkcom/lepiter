@@ -135,14 +135,14 @@ LeLocalJsonV4Storage >> updateFile: file from: oldVersion [
 	| extension updater jsonObject version backup newFileReference |
 
 	jsonObject := self loadJsonFrom: file.
-	version := LeDbVersion fromString: (jsonObject at: #'__schema').
+	version := LeDbVersion fromString: (jsonObject at: '__schema').
 	version > oldVersion ifTrue: [ ^ self ].
 
 	updater := LeJsonV4SchemaUpdater updaterFor: oldVersion minor.
 	extension := file extension.
-	extension = #lepiter ifTrue:
+	extension = 'lepiter' ifTrue:
 		[ updater update: jsonObject ]
-	ifFalse: [ extension = #links ifTrue:
+	ifFalse: [ extension = 'links' ifTrue:
 		[ updater updateLinks: jsonObject ]
 	ifFalse: [ self error: 'Unknown file type: ', extension ] ].
 	newFileReference := updater fileReferenceFor: jsonObject named: file.
@@ -153,7 +153,6 @@ LeLocalJsonV4Storage >> updateFile: file from: oldVersion [
 	Be conservative and always resolve and copy the file reference to avoid updating the original."
 	file resolve copy renameTo: backup basename.
 	self write: jsonObject toJsonFile: newFileReference.
-
 ]
 
 { #category : #enumerating }

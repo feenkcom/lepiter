@@ -43,7 +43,7 @@ LeDatabaseReloadInEmptyDatabaseExamples >> databaseReloadContentFromStorageWithR
 
 	linksFile := database monitor explicitLinksFileReference.
 	jsonContent := STONJSON fromString: linksFile contents.
-	jsonContent at: #items put: {(jsonContent at: #items) last}.
+	jsonContent at: 'items' put: {(jsonContent at: 'items') last}.
 
 	linksFile
 		writeStreamDo: [ :aStream | STONJSON put: jsonContent onStream: aStream ].

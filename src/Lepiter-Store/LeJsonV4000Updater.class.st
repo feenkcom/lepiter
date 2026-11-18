@@ -54,28 +54,27 @@ LeJsonV4000Updater >> update: jsonObject [
 	jsonPage := jsonObject.
 
 	"Iterate over all the snippets and ensure that the old UID is valid base64."
-	self updateChildren: (jsonObject at: #children)
+	self updateChildren: (jsonObject at: 'children')
 ]
 
 { #category : #private }
 LeJsonV4000Updater >> updateChildren: snippetDictionary [
 	"Update the supplied snippet dictionary"
 
-	(snippetDictionary at: #items) do: [ :item |
-		self updateUID: (item at: #uid).
-		(item at: #'__type') = #textSnippet ifTrue:
+	(snippetDictionary at: 'items') do: [ :item |
+		self updateUID: (item at: 'uid').
+		(item at: '__type') = 'textSnippet' ifTrue:
 			[ self updateSnippetLinks: item ].
-		self updateChildren: (item at: #children) ].
+		self updateChildren: (item at: 'children') ].
 ]
 
 { #category : #private }
 LeJsonV4000Updater >> updateLinkItems: itemsDictionary [
 
-	itemsDictionary at: #originReference ifPresent:
+	itemsDictionary at: 'originReference' ifPresent:
 		[ :reference | self updateReference: reference ].
-	itemsDictionary at: #targetReference ifPresent:
+	itemsDictionary at: 'targetReference' ifPresent:
 		[ :reference | self updateReference: reference ].
-
 ]
 
 { #category : #private }
@@ -83,12 +82,12 @@ LeJsonV4000Updater >> updateLinks: jsonObject [
 	"Update the supplied JSON links object by one version
 	from (self class minorVersion) to (self class minorVersion+1)"
 
-	self assert: (jsonObject at: #'__type') equals: #explicitLinks.
+	self assert: (jsonObject at: '__type') equals: 'explicitLinks'.
 	super update: jsonObject.
 	jsonPage := jsonObject.
 
 	"Iterate over all the snippets and ensure that the old UID is valid base64."
-	(jsonObject at: #items) do: [ :each |
+	(jsonObject at: 'items') do: [ :each |
 		self updateLinkItems: each ]
 ]
 
@@ -96,11 +95,11 @@ LeJsonV4000Updater >> updateLinks: jsonObject [
 LeJsonV4000Updater >> updateReference: referenceDictionary [
 	| uidDictionary |
 
-	(referenceDictionary at: #'__type') = #snippetReference ifFalse: [ ^ self ].
+	(referenceDictionary at: '__type') = 'snippetReference' ifFalse: [ ^ self ].
 	
-	uidDictionary := referenceDictionary at: #snippetUid.
-	self assert: (uidDictionary at: #'__type') equals: #uid.
-	uidDictionary at: #uidString put: (self cleanUidString: (uidDictionary at: #uidString)).
+	uidDictionary := referenceDictionary at: 'snippetUid'.
+	self assert: (uidDictionary at: '__type') equals: 'uid'.
+	uidDictionary at: 'uidString' put: (self cleanUidString: (uidDictionary at: 'uidString')).
 ]
 
 { #category : #private }
@@ -108,13 +107,13 @@ LeJsonV4000Updater >> updateSnippetLinks: snippetDictionary [
 	"Replace any snippet links, i.e. text of the form ((snippetuid)), with a 4.1 version"
 	| snippetString ast visitor |
 
-	snippetString := snippetDictionary at: #string.
+	snippetString := snippetDictionary at: 'string'.
 	ast := LeParser parseWithErrors: snippetString.
 	visitor := LeJsonV4000SnippetVisitor new 
 		updater: self;
 		snippetString: snippetString.
 	ast acceptVisitor: visitor.
-	snippetDictionary at: #string put: visitor updatedSnippetString.
+	snippetDictionary at: 'string' put: visitor updatedSnippetString.
 ]
 
 { #category : #private }
@@ -122,6 +121,6 @@ LeJsonV4000Updater >> updateUID: uidDictionary [
 	"Ensure that the current uidString is valid base64.  
 	If not, use the valid portion and add a differentiator."
 
-	self assert: (uidDictionary at: #'__type') equals: #uid.
-	uidDictionary at: #uidString put: (self cleanUidString: (uidDictionary at: #uidString)).
+	self assert: (uidDictionary at: '__type') equals: 'uid'.
+	uidDictionary at: 'uidString' put: (self cleanUidString: (uidDictionary at: 'uidString')).
 ]
