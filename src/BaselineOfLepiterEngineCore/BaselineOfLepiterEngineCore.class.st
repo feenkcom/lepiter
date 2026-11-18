@@ -82,6 +82,8 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 				package: 'Lepiter-Core-Examples'
 					with: [ spec
 							requires: #('Lepiter-Snippet-Text' 'Lepiter-Store-Class' 'Lepiter-Utilities') ];
+				package: 'Lepiter-MemoryMetrics'
+					with: [ spec requires: #('Lepiter-Core' 'Lepiter-Snippet-Text' 'GToolkitReleaser') ];
 				package: 'Lepiter-BasicServer'
 					with: [ spec requires: #(Beacon JSONWebToken ZincHTTPComponentsRest) ]
 					";
