@@ -10,13 +10,14 @@ Class {
 	#category : #'Lepiter-Export-Resources - Builders'
 }
 
-{ #category : #'api - building' }
+{ #category : #assembling }
 LeExportResourcesAssembler >> assemble [
-	"Assemble all non-ready resources"
+	"Optional resources are not activated by discovery or assembly."
 
-	resources do: [ :each | 
-		(condition canAssemble: each) ifTrue: [ 
-			each acceptVisitor: self ] ]
+	resources
+		do: [ :each | 
+			(each isOptionalResource not and: [ condition canAssemble: each ])
+				ifTrue: [ each acceptVisitor: self ] ]
 ]
 
 { #category : #'api - initialization' }

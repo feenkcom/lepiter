@@ -31,11 +31,19 @@ LeExportTextSnippetExampleAnnotationResource >> canExampleBeExecuted [
 	^ self hasExample and: [ self example canBeExecuted ]
 ]
 
-{ #category : #initialization }
+{ #category : #accessing }
+LeExportTextSnippetExampleAnnotationResource >> computedLabel [
+	"Compute text independently of preview generation and resource state."
+
+	self wantsLabelOutput ifFalse: [ ^ nil ].
+	self canExampleBeExecuted ifFalse: [ ^ nil ].
+	self hasExampleResult ifFalse: [ self example run ].
+	^ self label
+]
+
+{ #category : #defaults }
 LeExportTextSnippetExampleAnnotationResource >> defaultState [
-	^ (self reference isNotNil and: [ self reference exists ])
-		ifTrue: [ LeExportResourceState ready ]
-		ifFalse: [ LeExportResourceState uninitialized ]
+	^ LeExportResourceState optional
 ]
 
 { #category : #accessing }

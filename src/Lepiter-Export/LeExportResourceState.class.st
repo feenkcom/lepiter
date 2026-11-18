@@ -36,6 +36,11 @@ LeExportResourceState class >> assembling [
 ]
 
 { #category : #'instance creation' }
+LeExportResourceState class >> optional [
+	^ LeExportOptionalResourceState new
+]
+
+{ #category : #'instance creation' }
 LeExportResourceState class >> problemMessage: aMessage [
 	^ LeExportProblemResourceState new message: aMessage
 ]

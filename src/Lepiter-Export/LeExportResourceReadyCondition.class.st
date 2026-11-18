@@ -8,8 +8,5 @@ Class {
 
 { #category : #testing }
 LeExportResourceReadyCondition >> canAssemble: aResource [
-	"Return true if a resource can be assembled, false otherwise."
-
-	<return: #Boolean>
-	^ aResource state isReady not
+	^ aResource isOptionalResource not and: [ aResource state isReady not ]
 ]
