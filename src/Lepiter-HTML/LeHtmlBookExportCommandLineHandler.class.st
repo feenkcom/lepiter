@@ -110,18 +110,19 @@ LeHtmlBookExportCommandLineHandler >> ensureBookLoaded: anInputDirName [
 	self
 		assert: [ anInputDir exists ]
 		description: [ 'Book input directory must exist: `{1}`' format: {anInputDir fullName} ].
-		
+
 	aResolvedInputDir := anInputDir resolve.
-		
-	LeDatabasesRegistry defaultLogicalDatabase databasesDo: [ :aDatabase | 
-		(aDatabase isKindOf: LeDatabase) ifTrue: [ 
-			| aRootDir |
-			aRootDir := aDatabase localStoreRootDirectory ifNotNil: #resolve.
-			aRootDir = anInputDir ifTrue: [ ^ self ] ] ].
-			
+
+	LeDatabasesRegistry defaultLogicalDatabase
+		databasesDo: [ :aDatabase | 
+			(aDatabase isKindOf: LeDatabase)
+				ifTrue: [ | aRootDir |
+					aRootDir := aDatabase localStoreRootDirectory ifNotNil: [ :v | v resolve ].
+					aRootDir = anInputDir ifTrue: [ ^ self ] ] ].
+
 	LeDatabasesRegistry defaultLogicalDatabase properties
 		addRegisteredDirectory: anInputDir.
-	LeDatabasesRegistry default defaultLogicalDatabase reload.
+	LeDatabasesRegistry default defaultLogicalDatabase reload
 ]
 
 { #category : #accessing }

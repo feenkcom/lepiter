@@ -25,5 +25,5 @@ LeGitHubError >> exception: anObject [
 { #category : #'api - accessing' }
 LeGitHubError >> message [
 	<return: #String>
-	^ self exception ifNotNil: #messageText
+	^ self exception ifNotNil: [ :v | v messageText ]
 ]

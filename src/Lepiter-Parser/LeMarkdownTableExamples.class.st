@@ -108,6 +108,33 @@ LeMarkdownTableExamples >> headerOnlyAndEmptyCells [
 ]
 
 { #category : #examples }
+LeMarkdownTableExamples >> indentedTableWithTrailingSpaces [
+	<gtExample>
+	| source root table padding |
+	padding := ' ' , String tab.
+	source := String lf
+			join: ({'  | Category | Strings |'.
+					'  |---|---|'.
+					'  | Text ASTs | 2.99 MiB |'.
+					'  | Text | 1.48 MiB |'.
+					'  | Code ASTs (coder caches) | 634 KiB |'.
+					'  | Links | 338 KiB |'.
+					'  | Code source | 216 KiB |'.
+					'  | others | smaller amounts |'} collect: [ :line | line , padding ]).
+	root := LeParser parse: source.
+	self assert: root parts size equals: 1.
+	table := root parts first.
+	self assert: table class equals: LeTableNode.
+	self assert: table rows size equals: 6.
+	self assert: table header cells size equals: 2.
+	self assert: (table rows allSatisfy: [ :row | row cells size = 2 ]).
+	self assert: table source equals: source.
+	self assert: table startPosition equals: 1.
+	self assert: table stopPosition equals: source size.
+	^ table
+]
+
+{ #category : #examples }
 LeMarkdownTableExamples >> nonTables [
 	<gtExample>
 	| root |

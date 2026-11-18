@@ -62,12 +62,12 @@ LeExportSnippetResource >> gtSnippetFor: aView [
 
 { #category : #accessing }
 LeExportSnippetResource >> page [
-	^ snippet ifNotNil: #page
+	^ snippet ifNotNil: [ :v | v page ]
 ]
 
 { #category : #accessing }
 LeExportSnippetResource >> pageTitle [
-	^ self page ifNotNil: #title
+	^ self page ifNotNil: [ :v | v title ]
 ]
 
 { #category : #accessing }
@@ -87,7 +87,7 @@ LeExportSnippetResource >> printDetailsOn: aStream [
 		nextPutAll: 'page=';
 		print: self pageTitle;
 		nextPutAll: ', state=';
-		nextPutAll: (self state ifNotNil: #name) asString
+		nextPutAll: (self state ifNotNil: [ :v | v name ]) asString
 ]
 
 { #category : #printing }

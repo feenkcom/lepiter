@@ -72,7 +72,7 @@ LeJenkinsSnippet >> contentAsString [
 LeJenkinsSnippet >> getDefaultJenkinsUrl [
 	^ GtJenkinsUserIdentity instance jenkinsAccount
 		ifNil: [ '' ]
-		ifNotNil: #jenkinsUrl
+		ifNotNil: [ :v | v jenkinsUrl ]
 ]
 
 { #category : #'as yet unclassified' }
