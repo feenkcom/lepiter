@@ -24,9 +24,13 @@ LeExampleSnippetElement >> browseExample [
 { #category : #'private - updating' }
 LeExampleSnippetElement >> computeExamplePreviewElement [
 	<return: #BlElement>
-	| anElement |
+	| anElement aFingerprint |
+	"Take the fingerprint before computing, so that changes during the computation mark the result as outdated"
+	aFingerprint := self snippetViewModel examplePreviewFingerprint.
+
 	self snippetViewModel
-		cachedExamplePreviewDo: [ :aCachedComputedPreview | 
+		cachedExamplePreviewForFingerprint: aFingerprint
+		do: [ :aCachedComputedPreview | 
 			self
 				assert: [ aCachedComputedPreview element isNotNil ]
 				description: [ 'Cached example preview element must be non-nil.' ].
@@ -57,7 +61,9 @@ LeExampleSnippetElement >> computeExamplePreviewElement [
 									aptitude: (BrGlamorousLabelAptitude new light foreground: Color veryDarkGray);
 									text: 'Example not found')) ].
 
-	self snippetViewModel cacheExamplePreview: anElement.
+	self snippetViewModel
+		cacheExamplePreview: anElement
+		withFingerprint: aFingerprint.
 	^ anElement
 ]
 
@@ -199,9 +205,28 @@ LeExampleSnippetElement >> initializeAsyncFuture [
 				whenSuccess: [ :theContainer :aComputedExamplePreview | self updateExamplePreviewWithPreview: aComputedExamplePreview ] ]
 ]
 
+{ #category : #'hooks - children' }
+LeExampleSnippetElement >> onAddedToSceneGraph [
+	"Subscribe to system changes. Catch up with changes that happened while I was not
+	in the scene graph, and retry previews that failed or are still missing"
+
+	super onAddedToSceneGraph.
+	self subscribeToSystem.
+	self hasSnippetViewModel ifFalse: [ ^ self ].
+	self snippetViewModel isCachedExamplePreviewCurrent
+		ifFalse: [ self requestExamplePreviewUpdate ]
+]
+
 { #category : #'private - event handling' }
 LeExampleSnippetElement >> onExampleSnippetContentChanged [
 	self enqueueTask: (BlTaskAction new action: [ self requestExamplePreviewUpdate ])
+]
+
+{ #category : #'hooks - children' }
+LeExampleSnippetElement >> onRemovedFromSceneGraph [
+	super onRemovedFromSceneGraph.
+
+	self unsubscribeFromSystem
 ]
 
 { #category : #'api - snippet view model' }
@@ -219,6 +244,20 @@ LeExampleSnippetElement >> onSnippetViewModelFocused: aBoolean [
 
 	aBoolean
 		ifFalse: [ self loseFocus ]
+]
+
+{ #category : #'private - event handling' }
+LeExampleSnippetElement >> onSystemAnnouncement: aSystemAnnouncement [
+	"Class announcements are checked first: ClassRenamed and ClassRemoved also answer true to #affectsMethods,
+	but do not understand the method announcement protocol"
+
+	self hasSnippetViewModel ifFalse: [ ^ self ].
+
+	aSystemAnnouncement affectsClasses
+		ifTrue: [ ^ self snippetViewModel handleSystemClassAnnouncement: aSystemAnnouncement ].
+
+	aSystemAnnouncement affectsMethods
+		ifTrue: [ self snippetViewModel handleSystemMethodAnnouncement: aSystemAnnouncement ]
 ]
 
 { #category : #'private - updating' }
@@ -264,6 +303,23 @@ LeExampleSnippetElement >> subscribeToSnippetViewModel [
 		when: LeExampleSnippetContentChanged, LeExampleSnippetViewModelExampleChanged
 			send: #onExampleSnippetContentChanged
 			to: self
+]
+
+{ #category : #'private - subscriptions' }
+LeExampleSnippetElement >> subscribeToSystem [
+	"Use a single weak subscription for class and method announcements.
+	Note: #onAddedToSceneGraph may be sent more than once without a removal in between."
+
+	self unsubscribeFromSystem.
+	SystemAnnouncer uniqueInstance weak
+		when: ClassAnnouncement , MethodAnnouncement
+		send: #onSystemAnnouncement:
+		to: self
+]
+
+{ #category : #'private - subscriptions' }
+LeExampleSnippetElement >> unsubscribeFromSystem [
+	SystemAnnouncer uniqueInstance unsubscribe: self
 ]
 
 { #category : #'private - updating' }

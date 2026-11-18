@@ -39,8 +39,12 @@ LeExampleSnippetViewModel >> annotationCoderViewModel: aNewAnnotationCoderViewMo
 ]
 
 { #category : #'api - cache' }
-LeExampleSnippetViewModel >> cacheExamplePreview: anElement [
-	mutex critical: [ self optionAt: self cachedExamplePreviewKey put: anElement ]
+LeExampleSnippetViewModel >> cacheExamplePreview: aComputedPreview withFingerprint: aFingerprint [
+	"Cache a computed preview together with the fingerprint it was computed for"
+
+	mutex
+		critical: [ self optionAt: self cachedExamplePreviewKey put: aComputedPreview.
+			self optionAt: self cachedExamplePreviewFingerprintKey put: aFingerprint ]
 ]
 
 { #category : #'api - cache' }
@@ -61,15 +65,52 @@ LeExampleSnippetViewModel >> cachedExamplePreviewDo: aBlock ifAbsent: absentBloc
 				ifAbsent: absentBlock ]
 ]
 
+{ #category : #'private - cache' }
+LeExampleSnippetViewModel >> cachedExamplePreviewFingerprintKey [
+	^ #cachedExamplePreviewFingerprint
+]
+
+{ #category : #'api - cache' }
+LeExampleSnippetViewModel >> cachedExamplePreviewForFingerprint: aFingerprint do: aBlock [
+	"Evaluate aBlock with the cached preview if it was computed for the given fingerprint;
+	otherwise remove the outdated preview"
+
+	| aPreview |
+	mutex
+		critical: [ (self isCachedExamplePreviewComputedFor: aFingerprint)
+				ifTrue: [ aPreview := self optionAt: self cachedExamplePreviewKey ]
+				ifFalse: [ self clearCachedExamplePreview ] ].
+
+	aPreview ifNotNil: aBlock
+]
+
+{ #category : #'private - cache' }
+LeExampleSnippetViewModel >> cachedExamplePreviewGenerationKey [
+	^ #cachedExamplePreviewGeneration
+]
+
 { #category : #'api - cache' }
 LeExampleSnippetViewModel >> cachedExamplePreviewKey [
 	^ #cachedExamplePreview
 ]
 
+{ #category : #'private - cache' }
+LeExampleSnippetViewModel >> cachedGtExampleKey [
+	"The cached value is an association: referenced method key -> GtExample"
+
+	^ #cachedGtExample
+]
+
 { #category : #'api - cache' }
 LeExampleSnippetViewModel >> clearCachedExamplePreview [
+	"Remove the cached preview without bumping the generation:
+	previews that are being computed stay valid. See #invalidateCachedExamplePreview"
+
 	mutex
-		critical: [ self clearOption: self cachedExamplePreviewKey ifAbsent: [  "ignore" ] ]
+		critical: [ self clearOption: self cachedExamplePreviewKey ifAbsent: [  "ignore" ].
+			self
+				clearOption: self cachedExamplePreviewFingerprintKey
+				ifAbsent: [  "ignore" ] ]
 ]
 
 { #category : #'api - code expanded' }
@@ -121,6 +162,18 @@ LeExampleSnippetViewModel >> exampleBehaviorName: aExampleBehaviorName [
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#setterDelegateTemplate'>
 
 	self snippetModel exampleBehaviorName: aExampleBehaviorName
+]
+
+{ #category : #'api - cache' }
+LeExampleSnippetViewModel >> examplePreviewFingerprint [
+	"Return what a preview computed now depends on:
+	the generation of the snippet settings and the version of the referenced example method"
+
+	| aGeneration |
+	aGeneration := mutex
+			critical: [ self optionAt: self cachedExamplePreviewGenerationKey ifAbsent: [ 0 ] ].
+	^ {aGeneration.
+		self referencedExampleMethodKey}
 ]
 
 { #category : #'api - example selector' }
@@ -188,45 +241,23 @@ LeExampleSnippetViewModel >> gtExampleDo: aBlock [
 
 { #category : #'api - accessing' }
 LeExampleSnippetViewModel >> gtExampleDo: aBlock ifAbsent: absentBlock [
+	"Evaluate aBlock with the GtExample of the referenced method, or evaluate absentBlock.
+	A cached GtExample is reused only if it was created for the current version of the referenced method"
 
-	"Try to retrieve a GtExample for an example snippet"
+	| anExampleMethod aMethodKey aCachedExample aGtExample |
+	anExampleMethod := self referencedCompiledMethod ifNil: [ ^ absentBlock value ].
+	aMethodKey := self methodKeyOf: anExampleMethod.
+	aCachedExample := mutex
+			critical: [ self optionAt: self cachedGtExampleKey ifAbsent: [ nil ] ].
+	(aCachedExample notNil
+		and: [ aCachedExample key = aMethodKey
+				and: [ aCachedExample value methodClass == anExampleMethod methodClass ] ])
+		ifTrue: [ ^ aBlock value: aCachedExample value ].
 
-	<return: #GtExample>
-	| anExampleClass anExampleMethod gtExample anInstanceSideBehaviorName isClassSide |
-	self
-		optionAt: #gtExample
-		ifPresent: [ :aGtExample | 
-			aGtExample exists and: [ 
-				((aGtExample methodClass name sameContentAs: self exampleBehaviorName) and: [ 
-					 aGtExample selector = self exampleSelector ]) ifTrue: [ 
-					^ aBlock value: aGtExample ] ] ]
-		ifAbsent: [  ].
-
-	self snippetModel hasExampleBehaviorName ifFalse: [ absentBlock value. ^ self ].
-
-	self snippetModel hasExampleSelector ifFalse: [ absentBlock value. ^ self ].
-
-	anInstanceSideBehaviorName := self exampleBehaviorName trimBoth.
-	isClassSide := anInstanceSideBehaviorName endsWith: ' class'.
-	anInstanceSideBehaviorName := isClassSide
-		ifTrue: [ self exampleBehaviorName allButLast: ' class' size ]
-		ifFalse: [ self exampleBehaviorName ].
-
-	anExampleClass := self class environment
-		                  at: anInstanceSideBehaviorName asSymbol
-		                  ifAbsent: [ nil ].
-
-	anExampleClass ifNil: [ absentBlock value. ^ self ].
-	
-	isClassSide ifTrue: [ anExampleClass := anExampleClass classSide ].
-
-	anExampleMethod := (anExampleClass lookupSelector:
-		                    self exampleSelector asSymbol) ifNil: [ absentBlock value. ^ self ].
-
-	gtExample := anExampleMethod gtExample.
-	gtExample ifNil: [ absentBlock value. ^ self ].
-	self optionAt: #gtExample put: gtExample.
-	aBlock value: gtExample
+	aGtExample := anExampleMethod gtExample ifNil: [ ^ absentBlock value ].
+	mutex
+		critical: [ self optionAt: self cachedGtExampleKey put: aMethodKey -> aGtExample ].
+	^ aBlock value: aGtExample
 ]
 
 { #category : #'private - event handling' }
@@ -262,28 +293,32 @@ LeExampleSnippetViewModel >> handleAnnotationAstChange: anAst [
 
 { #category : #'private - event handling' }
 LeExampleSnippetViewModel >> handleSystemClassAnnouncement: aClassAnnouncement [
-	self gtExampleDo: [ :aGtExample |
-		(aClassAnnouncement affectsClass: aGtExample methodClass)
-			ifFalse: [ ^ self ].
-			
-		self
-			clearOption: #gtExample
-			ifAbsent: [ ] ].
+	"Is sent by a displayed example snippet element.
+	If the referenced name does not resolve anymore (class renamed or removed), only react
+	when the cached preview was computed for another fingerprint, so that snippets referencing
+	a missing class do not recompute on every class announcement"
 
-	self announce: LeExampleSnippetViewModelExampleChanged new
+	| aBehaviorName |
+	aBehaviorName := self referencedInstanceSideBehaviorName ifNil: [ ^ self ].
+	(aBehaviorName
+		sameContentAs: aClassAnnouncement classAffected instanceSide originalName)
+		ifTrue: [ ^ self onReferencedExampleChanged ].
+
+	self referencedBehavior ifNotNil: [ ^ self ].
+	self isCachedExamplePreviewOutdated ifTrue: [ self onReferencedExampleChanged ]
 ]
 
 { #category : #'private - event handling' }
 LeExampleSnippetViewModel >> handleSystemMethodAnnouncement: aMethodAnnouncement [
-	true ifTrue: [ ^ self ].
-	self gtExampleDo: [ :aGtExample |
-		(aMethodAnnouncement affectsMethod: aGtExample method)
-			ifFalse: [ ^ self ].
-			
-		self
-			clearOption: #gtExample
-			ifAbsent: [ ] ].
-	self announce: LeExampleSnippetViewModelExampleChanged new
+	"Is sent by a displayed example snippet element.
+	Compare the preview fingerprint (settings generation and version of the looked-up method)
+	instead of class names, so that inherited and trait methods are handled too;
+	changes that keep the source (e.g. recategorization) do not re-run the example."
+
+	self exampleSelector = aMethodAnnouncement selector ifFalse: [ ^ self ].
+	self isCachedExamplePreviewCurrent ifTrue: [ ^ self ].
+
+	self onReferencedExampleChanged
 ]
 
 { #category : #'api - annotation coder view model' }
@@ -299,29 +334,80 @@ LeExampleSnippetViewModel >> hasAnnotationCoderViewModel [
 LeExampleSnippetViewModel >> initialize [
 	| annotationCoder |
 	super initialize.
-	
+
 	mutex := Mutex new.
-	
+
 	annotationCoder := GtTextCoder new
-		parser: LeAnnotationParser;
-		parserStartingState: LeAnnotationParser startingStateForExampleAnnotation.
-	
-	self annotationCoderViewModel: (annotationCoder asCoderViewModel 
-		addStyler: LeExampleSnippetStyler new).
-	
-	self weak 
-		when: LeExampleSnippetContentChanged 
-		send: #requestUpdateAnnotationText 
-		to: self.
-	
-	true ifTrue: [ ^ self ].
-	SystemAnnouncer uniqueInstance weak 
-		when: ClassAnnouncement
-			send: #handleSystemClassAnnouncement:
-			to: self;
-		when: MethodAnnouncement
-			send: #handleSystemMethodAnnouncement:
-			to: self
+			parser: LeAnnotationParser;
+			parserStartingState: LeAnnotationParser startingStateForExampleAnnotation.
+
+	self
+		annotationCoderViewModel: (annotationCoder asCoderViewModel addStyler: LeExampleSnippetStyler new).
+
+	self weak
+		when: LeExampleSnippetContentChanged
+		send: #requestUpdateAnnotationText
+		to: self
+]
+
+{ #category : #'api - cache' }
+LeExampleSnippetViewModel >> invalidateCachedExamplePreview [
+	"Snippet settings or the referenced example changed:
+	previews that are still being computed are outdated as well"
+
+	mutex
+		critical: [ self
+				optionAt: self cachedExamplePreviewGenerationKey
+				put: (self optionAt: self cachedExamplePreviewGenerationKey ifAbsent: [ 0 ]) + 1.
+			self clearOption: self cachedGtExampleKey ifAbsent: [  "ignore" ].
+			self clearCachedExamplePreview ]
+]
+
+{ #category : #'private - cache' }
+LeExampleSnippetViewModel >> isCachedExamplePreviewComputedFor: aFingerprint [
+	"Must be called within mutex"
+
+	<return: #Boolean>
+	^ (self hasOptionAt: self cachedExamplePreviewKey)
+		and: [ (self optionAt: self cachedExamplePreviewFingerprintKey ifAbsent: [ nil ])
+				= aFingerprint ]
+]
+
+{ #category : #'api - cache' }
+LeExampleSnippetViewModel >> isCachedExamplePreviewCurrent [
+	"Return true if a preview is cached and was computed for the current fingerprint"
+
+	<return: #Boolean>
+	| aFingerprint |
+	aFingerprint := self examplePreviewFingerprint.
+	^ mutex critical: [ self isCachedExamplePreviewComputedFor: aFingerprint ]
+]
+
+{ #category : #'api - cache' }
+LeExampleSnippetViewModel >> isCachedExamplePreviewOutdated [
+	"Return true if a preview is cached, but was computed for another fingerprint"
+
+	<return: #Boolean>
+	| aFingerprint |
+	aFingerprint := self examplePreviewFingerprint.
+	^ mutex
+		critical: [ (self hasOptionAt: self cachedExamplePreviewKey)
+				and: [ (self isCachedExamplePreviewComputedFor: aFingerprint) not ] ]
+]
+
+{ #category : #'api - accessing' }
+LeExampleSnippetViewModel >> isReferencedBehaviorClassSide [
+	<return: #Boolean>
+	^ self snippetModel hasExampleBehaviorName
+		and: [ self exampleBehaviorName trimBoth endsWith: ' class' ]
+]
+
+{ #category : #'private - cache' }
+LeExampleSnippetViewModel >> methodKeyOf: aCompiledMethod [
+	"Return what identifies a version of an example method: its defining class name and source hash"
+
+	^ {aCompiledMethod methodClass name.
+		aCompiledMethod sourceCode hash}
 ]
 
 { #category : #'api - no code' }
@@ -371,12 +457,17 @@ LeExampleSnippetViewModel >> onPreviousAnnotationCoderViewModelUnset: aPreviousA
 	aPreviousAnnotationCoderViewModel unsubscribe: self
 ]
 
+{ #category : #'private - event handling' }
+LeExampleSnippetViewModel >> onReferencedExampleChanged [
+	self invalidateCachedExamplePreview.
+	self announce: LeExampleSnippetViewModelExampleChanged new
+]
+
 { #category : #'api - code expanded' }
 LeExampleSnippetViewModel >> onSnippetCodeExpandedChanged: aLeExampleSnippetCodeExpandedChanged [
 	<modelEventHandler: #snippet event: #LeExampleSnippetCodeExpandedChanged>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#onPropertyChangedTemplate'>
-	
-	self clearCachedExamplePreview.
+	self invalidateCachedExamplePreview.
 	self announce: aLeExampleSnippetCodeExpandedChanged
 ]
 
@@ -384,8 +475,7 @@ LeExampleSnippetViewModel >> onSnippetCodeExpandedChanged: aLeExampleSnippetCode
 LeExampleSnippetViewModel >> onSnippetExampleBehaviorNameChanged: aLeExampleSnippetExampleBehaviorNameChanged [
 	<modelEventHandler: #snippet event: #LeExampleSnippetExampleBehaviorNameChanged>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#onPropertyChangedTemplate'>
-	
-	self clearCachedExamplePreview.
+	self invalidateCachedExamplePreview.
 	self announce: aLeExampleSnippetExampleBehaviorNameChanged
 ]
 
@@ -393,25 +483,23 @@ LeExampleSnippetViewModel >> onSnippetExampleBehaviorNameChanged: aLeExampleSnip
 LeExampleSnippetViewModel >> onSnippetExampleSelectorChanged: aLeExampleSnippetExampleSelectorChanged [
 	<modelEventHandler: #snippet event: #LeExampleSnippetExampleSelectorChanged>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#onPropertyChangedTemplate'>
-
-	self clearCachedExamplePreview.
+	self invalidateCachedExamplePreview.
 	self announce: aLeExampleSnippetExampleSelectorChanged
 ]
 
 { #category : #'api - snippet model' }
 LeExampleSnippetViewModel >> onSnippetModelChanged [
 	super onSnippetModelChanged.
-	
-	self clearCachedExamplePreview.
-	self updateAnnotationText.
+
+	self invalidateCachedExamplePreview.
+	self updateAnnotationText
 ]
 
 { #category : #'api - no code' }
 LeExampleSnippetViewModel >> onSnippetNoCodeChanged: aLeExampleSnippetNoCodeChanged [
 	<modelEventHandler: #snippet event: #LeExampleSnippetNoCodeChanged>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#onPropertyChangedTemplate'>
-	
-	self clearCachedExamplePreview.
+	self invalidateCachedExamplePreview.
 	self announce: aLeExampleSnippetNoCodeChanged
 ]
 
@@ -419,8 +507,7 @@ LeExampleSnippetViewModel >> onSnippetNoCodeChanged: aLeExampleSnippetNoCodeChan
 LeExampleSnippetViewModel >> onSnippetPreviewExpandedChanged: aLeExampleSnippetPreviewExpandedChanged [
 	<modelEventHandler: #snippet event: #LeExampleSnippetPreviewExpandedChanged>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#onPropertyChangedTemplate'>
-	
-	self clearCachedExamplePreview.
+	self invalidateCachedExamplePreview.
 	self announce: aLeExampleSnippetPreviewExpandedChanged
 ]
 
@@ -428,15 +515,13 @@ LeExampleSnippetViewModel >> onSnippetPreviewExpandedChanged: aLeExampleSnippetP
 LeExampleSnippetViewModel >> onSnippetPreviewHeightChanged: aLeExampleSnippetPreviewHeightChanged [
 	<modelEventHandler: #snippet event: #LeExampleSnippetPreviewHeightChanged>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#onPropertyChangedTemplate'>
-	
-	self clearCachedExamplePreview.
+	self invalidateCachedExamplePreview.
 	self announce: aLeExampleSnippetPreviewHeightChanged
 ]
 
 { #category : #'api - preview show selector' }
 LeExampleSnippetViewModel >> onSnippetPreviewSelectSelectorChanged: aLeExampleSnippetPreviewSelectorSelectorChanged [
-	
-	self clearCachedExamplePreview.
+	self invalidateCachedExamplePreview.
 	self announce: aLeExampleSnippetPreviewSelectorSelectorChanged
 ]
 
@@ -444,8 +529,7 @@ LeExampleSnippetViewModel >> onSnippetPreviewSelectSelectorChanged: aLeExampleSn
 LeExampleSnippetViewModel >> onSnippetPreviewShowSelectorChanged: aLeExampleSnippetPreviewShowSelectorChanged [
 	<modelEventHandler: #snippet event: #LeExampleSnippetPreviewShowSelectorChanged>
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#onPropertyChangedTemplate'>
-	
-	self clearCachedExamplePreview.
+	self invalidateCachedExamplePreview.
 	self announce: aLeExampleSnippetPreviewShowSelectorChanged
 ]
 
@@ -517,6 +601,56 @@ LeExampleSnippetViewModel >> previewShowSelector: aPreviewShowSelector [
 	<generatedFrom: #'TGtRobocoderMetamodelPropertyMirrorTemplate>>#setterDelegateTemplate'>
 
 	self snippetModel previewShowSelector: aPreviewShowSelector
+]
+
+{ #category : #'api - accessing' }
+LeExampleSnippetViewModel >> referencedBehavior [
+	"Return the behavior currently referenced by the example snippet, or nil"
+
+	<return: #Behavior or: nil>
+	| aBehaviorName aBehavior |
+	aBehaviorName := self referencedInstanceSideBehaviorName ifNil: [ ^ nil ].
+	aBehavior := self class environment
+			at: aBehaviorName asSymbol
+			ifAbsent: [ ^ nil ].
+	aBehavior isBehavior ifFalse: [ ^ nil ].
+
+	^ self isReferencedBehaviorClassSide
+		ifTrue: [ aBehavior classSide ]
+		ifFalse: [ aBehavior ]
+]
+
+{ #category : #'api - accessing' }
+LeExampleSnippetViewModel >> referencedCompiledMethod [
+	"Return the compiled method currently referenced by the example snippet, or nil"
+
+	<return: #CompiledMethod or: nil>
+	| aBehavior |
+	self snippetModel hasExampleSelector ifFalse: [ ^ nil ].
+	aBehavior := self referencedBehavior ifNil: [ ^ nil ].
+
+	^ aBehavior lookupSelector: self exampleSelector asSymbol
+]
+
+{ #category : #'private - cache' }
+LeExampleSnippetViewModel >> referencedExampleMethodKey [
+	"Return what identifies the current version of the referenced example method, or nil if it does not exist"
+
+	^ self referencedCompiledMethod
+		ifNotNil: [ :aCompiledMethod | self methodKeyOf: aCompiledMethod ]
+]
+
+{ #category : #'api - accessing' }
+LeExampleSnippetViewModel >> referencedInstanceSideBehaviorName [
+	"Return the referenced class name without ' class', or nil"
+
+	<return: #String or: nil>
+	| aBehaviorName |
+	self snippetModel hasExampleBehaviorName ifFalse: [ ^ nil ].
+	aBehaviorName := self exampleBehaviorName trimBoth.
+	^ self isReferencedBehaviorClassSide
+		ifTrue: [ aBehaviorName allButLast: ' class' size ]
+		ifFalse: [ aBehaviorName ]
 ]
 
 { #category : #'private - event handling' }
