@@ -10,28 +10,28 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'Brick' with: [
-				spec repository: 'github://feenkcom/Brick:v0.9.183/src' ].
+				spec repository: 'github://feenkcom/Brick:v0.9.184/src' ].
 		spec
 			baseline: 'GToolkitFileUtility' with: [
-				spec repository: 'github://feenkcom/gtoolkit-utility:v0.9.66/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-utility:v0.9.67/src' ].
 		spec
 			baseline: 'GToolkitInspector' with: [
-				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.9.367/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.9.368/src' ].
 		spec
 			baseline: 'GToolkitCoder' with: [
-				spec repository: 'github://feenkcom/gtoolkit-coder:v0.9.277/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-coder:v0.9.278/src' ].
 		spec
 			baseline: 'GToolkit4Pharo' with: [
-				spec repository: 'github://feenkcom/gt4pharo:v0.7.359/src' ].
+				spec repository: 'github://feenkcom/gt4pharo:v0.7.360/src' ].
 		spec
 			baseline: 'GToolkit4Json' with: [
-				spec repository: 'github://feenkcom/gt4json:v0.7.369/src' ].
+				spec repository: 'github://feenkcom/gt4json:v0.7.370/src' ].
 		spec
 			baseline: 'GToolkitReleaser' with: [
-				spec repository: 'github://feenkcom/gtoolkit-releaser:v0.8.389/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-releaser:v0.8.390/src' ].
 		spec
 			baseline: 'LepiterXDoc' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.7.454/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.7.455/src' ].
 		spec
 			baseline: 'SmaCCRuntime' with: [
 				spec repository: 'github://j-brant/SmaCC:b24de30230a52b873f5423459806b56cd777340c/src' ].
@@ -89,6 +89,8 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 			spec requires: #(#'Lepiter-Core' #'Lepiter-Store' #'Lepiter-UI') ].
 		spec package: 'Lepiter-Core-Examples' with: [
 			spec requires: #(#'Lepiter-Snippet-Text' #'Lepiter-Store-Class' #'Lepiter-Utilities') ].
+		spec package: 'Lepiter-MemoryMetrics' with: [
+			spec requires: #(#'Lepiter-Core' #'Lepiter-Snippet-Text' #GToolkitReleaser) ].
 		spec package: 'Lepiter-BasicServer' with: [
 			spec requires: #(#Beacon #JSONWebToken #ZincHTTPComponentsRest) ].
 	]
