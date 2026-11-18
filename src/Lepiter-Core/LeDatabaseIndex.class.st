@@ -95,6 +95,16 @@ LeDatabaseIndex >> basicUnsubscribe [
 	database unsubscribe: self
 ]
 
+{ #category : #metrics }
+LeDatabaseIndex >> cacheSizeInMemory [
+	"Size of the prefix trees of the index, including their prefix strings"
+
+	^ {titleCache.
+		selectorCache.
+		classCache}
+		sumNumbers: [ :aTree | aTree ifNil: [ 0 ] ifNotNil: [ aTree cacheSizeInMemory ] ]
+]
+
 { #category : #private }
 LeDatabaseIndex >> classCache [
 	^ classCache ifNil: [ classCache := LeSnippetPrefixTree new ]

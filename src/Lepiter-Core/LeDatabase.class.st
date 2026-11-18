@@ -683,6 +683,13 @@ LeDatabase >> index [
 	^ index ifNil: [ index := LeDatabaseIndex new database: self ]
 ]
 
+{ #category : #metrics }
+LeDatabase >> indexSizeInMemory [
+	"Size of the index of the database, without creating the index if it does not exist"
+
+	^ index ifNil: [ 0 ] ifNotNil: [ :anIndex | anIndex cacheSizeInMemory ]
+]
+
 { #category : #initialization }
 LeDatabase >> initialize [
 	super initialize.
