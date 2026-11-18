@@ -1,6 +1,9 @@
 Class {
 	#name : #LeParser,
 	#superclass : #SmaCCGLRParser,
+	#instVars : [
+		'codeFenceLength'
+	],
 	#classVars : [
 		'AnnotationParsers'
 	],
@@ -108,7 +111,7 @@ LeParser class >> annotationParsers [
 
 { #category : #'generated-accessing' }
 LeParser class >> cacheId [
-	^'2026-11-17T22:04:59.593605+01:00'
+	^'2026-11-18T12:44:22.394107-03:00'
 ]
 
 { #category : #generated }
@@ -205,7 +208,7 @@ linkText <linkText>
 	| `` ([^`\r\n] | ` [^`\r\n])+ ``
 	;
 <blockCode>
-	: ```
+	: ```+
 	;
 <backquote>
 	: `
@@ -575,171 +578,171 @@ LeParser class >> parseAnnotation: aString from: aParser [
 { #category : #generated }
 LeParser class >> reduceTable [
 ^#(
-	#(74 0 #reduceActionForPartsWithoutStars1: 5392385 false) 
-	#(107 0 #reduceActionForSwitchToLinkText1: 7997441 true) 
-	#(96 0 #reduceActionForSwitchToAnnotation1: 7085057 true) 
-	#(65 0 #reduceActionForTableCell2: 4995074 false) 
-	#(63 1 #reduceActionForCellText1: 4727809 false) 
-	#(64 1 #liftFirstValue: 4798470 false) 
-	#(76 1 #reduceActionFor_hash___numberSign__1: 5467137 false) 
-	#(64 1 #liftFirstValue: 4798474 false) 
-	#(100 1 #reduceActionForExternalUrlLink1: 7321601 false) 
-	#(64 1 #liftFirstValue: 4798465 false) 
-	#(102 1 #reduceActionForExternalLabelUrlLink1: 7410689 false) 
-	#(101 1 #reduceActionForExternalImageLink1: 7362561 false) 
-	#(64 1 #liftFirstValue: 4798466 false) 
-	#(64 1 #liftFirstValue: 4798469 false) 
-	#(64 1 #liftFirstValue: 4798467 false) 
-	#(64 1 #liftFirstValue: 4798468 false) 
-	#(94 1 #reduceActionForCellText1: 6837249 false) 
-	#(62 1 #reduceActionForCellInner7: 4560903 false) 
-	#(61 1 #reduceActionForCellText1: 4476932 false) 
-	#(64 1 #liftFirstValue: 4798471 false) 
-	#(64 1 #liftFirstValue: 4798472 false) 
-	#(64 1 #liftFirstValue: 4798473 false) 
-	#(64 1 #liftFirstValue: 4798476 false) 
-	#(64 1 #liftFirstValue: 4798475 false) 
-	#(110 0 #reduceActionForPartsWithoutStars1: 8389634 false) 
-	#(61 1 #liftFirstValue: 4476929 false) 
-	#(61 1 #liftFirstValue: 4476930 false) 
-	#(66 1 #reduceActionFor_hash___numberSign__1: 5008385 false) 
-	#(61 1 #liftFirstValue: 4476931 false) 
-	#(62 1 #liftFirstValue: 4560897 false) 
-	#(63 1 #reduceActionForCellText1: 4727810 false) 
-	#(45 0 #reduceActionFor__tablePipe___pipe__TableCell__cell___1: 2987009 false) 
-	#(65 1 #reduceActionForTableCell1: 4995073 false) 
-	#(40 1 #reduceActionForString1: 2281473 false) 
-	#(67 1 #reduceActionForLines4: 5060612 false) 
-	#(71 1 #reduceActionForLines4: 5228546 false) 
-	#(72 1 #reduceActionForLines4: 5271553 false) 
-	#(73 1 #reduceActionForLines4: 5302273 false) 
-	#(80 0 #reduceActionForCodeBlockLanguage1: 5849089 true) 
-	#(71 1 #reduceActionFor_hash___numberSign__1: 5228545 false) 
-	#(75 1 #reduceActionForHeader2: 5456898 false) 
-	#(93 1 #reduceActionFor_hash___numberSign__1: 6791169 false) 
-	#(62 1 #liftFirstValue: 4560902 false) 
-	#(62 1 #liftFirstValue: 4560899 false) 
-	#(99 1 #liftFirstValue: 7239682 false) 
-	#(99 1 #liftFirstValue: 7239683 false) 
-	#(99 1 #liftFirstValue: 7239681 false) 
-	#(40 1 #reduceActionForString5: 2281477 false) 
-	#(62 1 #liftFirstValue: 4560901 false) 
-	#(62 1 #liftFirstValue: 4560900 false) 
-	#(62 1 #liftFirstValue: 4560898 false) 
-	#(103 2 #reduceActionForKeywordLink1: 7461889 false) 
-	#(105 2 #reduceActionForEmptyDoubleBracketLink1: 7644161 false) 
-	#(105 2 #reduceActionForEmptyDoubleBracketLink1: 7644162 false) 
-	#(55 1 #reduceActionFor_hash___numberSign__1: 4075521 false) 
-	#(59 1 #liftFirstValue: 4286466 false) 
-	#(59 1 #liftFirstValue: 4286465 false) 
-	#(43 2 #reduceActionForTableRow2: 2722818 false) 
-	#(111 1 #reduceActionForCellText1: 8438785 false) 
-	#(67 2 #reduceActionForLines2: 5060610 false) 
-	#(43 2 #reduceActionForTableRow3: 2722819 false) 
-	#(46 2 #reduceActionForTableCells1: 3043329 false) 
-	#(66 2 #reduceActionForCellPart__part__2: 5008386 false) 
-	#(70 1 #reduceActionForCellText1: 5195777 false) 
-	#(40 2 #reduceActionForString2: 2281474 false) 
-	#(68 1 #reduceActionForLines4: 5172225 false) 
-	#(69 1 #reduceActionFor_hash___numberSign__1: 5180417 false) 
-	#(108 1 #reduceActionForCellText1: 8050689 false) 
-	#(109 1 #liftFirstValue: 8127494 false) 
-	#(109 1 #liftFirstValue: 8127498 false) 
-	#(109 1 #liftFirstValue: 8127489 false) 
-	#(109 1 #liftFirstValue: 8127490 false) 
-	#(109 1 #liftFirstValue: 8127493 false) 
-	#(109 1 #liftFirstValue: 8127491 false) 
-	#(109 1 #liftFirstValue: 8127492 false) 
-	#(82 1 #reduceActionForCellInner7: 5945351 false) 
-	#(78 1 #reduceActionForCellInner7: 5641217 false) 
-	#(77 1 #reduceActionForCellText1: 5549061 false) 
-	#(109 1 #liftFirstValue: 8127495 false) 
-	#(109 1 #liftFirstValue: 8127496 false) 
-	#(109 1 #liftFirstValue: 8127497 false) 
-	#(109 1 #liftFirstValue: 8127500 false) 
-	#(109 1 #liftFirstValue: 8127499 false) 
-	#(109 1 #liftFirstValue: 8127501 false) 
-	#(109 1 #liftFirstValue: 8127502 false) 
-	#(109 1 #liftFirstValue: 8127503 false) 
-	#(74 2 #reduceActionForCellPart__part__2: 5392386 false) 
-	#(77 1 #liftFirstValue: 5549060 false) 
-	#(79 0 #reduceActionForCodeBlockSource1: 5797889 true) 
-	#(77 1 #liftFirstValue: 5549057 false) 
-	#(81 1 #liftFirstValue: 5904385 false) 
-	#(77 1 #liftFirstValue: 5549058 false) 
-	#(77 1 #liftFirstValue: 5549059 false) 
-	#(82 1 #liftFirstValue: 5945350 false) 
-	#(82 1 #liftFirstValue: 5945347 false) 
-	#(82 1 #liftFirstValue: 5945349 false) 
-	#(82 1 #liftFirstValue: 5945348 false) 
-	#(82 1 #liftFirstValue: 5945346 false) 
-	#(82 1 #liftFirstValue: 5945345 false) 
-	#(108 1 #reduceActionForCellText1: 8050690 false) 
-	#(76 2 #reduceActionForCellPart__part__2: 5467138 false) 
-	#(75 2 #reduceActionForHeader1: 5456897 false) 
-	#(73 2 #reduceActionForLineParts3: 5302275 false) 
-	#(93 2 #reduceActionForLines2: 6791170 false) 
-	#(97 0 #reduceActionForSwitchToDefault1: 7142401 true) 
-	#(40 2 #reduceActionForString3: 2281475 false) 
-	#(40 2 #reduceActionForString3: 2281478 false) 
-	#(104 3 #reduceActionForBlockLink1: 7533569 false) 
-	#(53 1 #reduceActionFor_hash___numberSign__1: 3969025 false) 
-	#(56 1 #liftFirstValue: 4133890 false) 
-	#(56 1 #liftFirstValue: 4133889 false) 
-	#(54 3 #reduceActionForCellItalic1: 4042753 false) 
-	#(55 2 #reduceActionForCellPart__part__2: 4075522 false) 
-	#(43 3 #reduceActionForTableRow1: 2722817 false) 
-	#(110 2 #reduceActionForLines2: 8389633 false) 
-	#(51 1 #reduceActionForTableDelimiterCell1: 3627009 false) 
-	#(51 1 #reduceActionForTableDelimiterCell2: 3627010 false) 
-	#(51 1 #reduceActionForTableDelimiterCell3: 3627011 false) 
-	#(51 1 #reduceActionForTableDelimiterCell4: 3627012 false) 
-	#(42 3 #reduceActionForTable2: 2547714 false) 
-	#(49 0 #reduceActionFor__tablePipe___pipe__TableCell__cell___1: 3452929 false) 
-	#(45 2 #reduceActionFor__tablePipe___pipe__TableCell__cell___2: 2987010 false) 
-	#(67 3 #reduceActionForLines3: 5060611 false) 
-	#(69 2 #reduceActionForCellPart__part__2: 5180418 false) 
-	#(91 1 #liftFirstValue: 6590465 false) 
-	#(90 1 #reduceActionFor_hash___numberSign__1: 6525953 false) 
-	#(91 1 #liftFirstValue: 6590466 false) 
-	#(73 3 #reduceActionForLines3: 5302274 false) 
-	#(40 3 #reduceActionForString4: 2281476 false) 
-	#(58 1 #reduceActionFor_hash___numberSign__1: 4234241 false) 
-	#(53 2 #reduceActionForCellPart__part__2: 3969026 false) 
-	#(47 2 #reduceActionForTableSeparator2: 3118082 false) 
-	#(42 4 #reduceActionForTable1: 2547713 false) 
-	#(47 2 #reduceActionForTableSeparator3: 3118083 false) 
-	#(50 2 #reduceActionForTableCells1: 3524609 false) 
-	#(43 4 #reduceActionForTableRow4: 2722820 false) 
-	#(44 2 #reduceActionFor__tablePipe___pipe__TableCell__cell__1: 2987009 false) 
-	#(67 4 #reduceActionForLines1: 5060609 false) 
-	#(86 1 #liftFirstValue: 6334465 false) 
-	#(84 1 #reduceActionForLines4: 6234113 false) 
-	#(85 1 #reduceActionFor_hash___numberSign__1: 6258689 false) 
-	#(86 1 #liftFirstValue: 6334466 false) 
-	#(89 3 #reduceActionForCellItalic1: 6497281 false) 
-	#(90 2 #reduceActionForCellPart__part__2: 6525954 false) 
-	#(98 0 #reduceActionForParseAnnotation1: 7193601 true) 
-	#(57 3 #reduceActionForCellItalic1: 4190209 false) 
-	#(58 2 #reduceActionForCellPart__part__2: 4234242 false) 
-	#(52 5 #reduceActionForCellBold1: 3919873 false) 
-	#(47 3 #reduceActionForTableSeparator1: 3118081 false) 
-	#(41 2 #reduceActionForTableRows2: 2462722 false) 
-	#(49 2 #reduceActionFor__tablePipe___pipe__TableCell__cell___2: 3452930 false) 
-	#(88 1 #reduceActionFor_hash___numberSign__1: 6438913 false) 
-	#(85 2 #reduceActionForCellPart__part__2: 6258690 false) 
-	#(78 4 #reduceActionForCode2: 5641218 false) 
-	#(106 5 #reduceActionForDoubleBracketLink1: 7840769 false) 
-	#(60 5 #reduceActionForCellBold1: 4344833 false) 
-	#(41 3 #reduceActionForTableRows1: 2462721 false) 
-	#(47 4 #reduceActionForTableSeparator4: 3118084 false) 
-	#(48 2 #reduceActionFor__tablePipe___pipe__TableCell__cell__1: 3452929 false) 
-	#(87 3 #reduceActionForCellItalic1: 6398977 false) 
-	#(88 2 #reduceActionForCellPart__part__2: 6438914 false) 
-	#(83 5 #reduceActionForCellBold1: 6116353 false) 
-	#(84 3 #reduceActionForInnerBoldStringParts2: 6234114 false) 
-	#(92 5 #reduceActionForCellBold1: 6657025 false) 
-	#(95 7 #reduceActionForDocumenterAnnotation1: 6872065 false)
+	#(74 0 #reduceActionForPartsWithoutStars1: 5393409 false) 
+	#(107 0 #reduceActionForSwitchToLinkText1: 7998465 true) 
+	#(96 0 #reduceActionForSwitchToAnnotation1: 7086081 true) 
+	#(65 0 #reduceActionForTableCell2: 4996098 false) 
+	#(63 1 #reduceActionForCellText1: 4728833 false) 
+	#(64 1 #liftFirstValue: 4799494 false) 
+	#(76 1 #reduceActionFor_hash___numberSign__1: 5468161 false) 
+	#(64 1 #liftFirstValue: 4799498 false) 
+	#(100 1 #reduceActionForExternalUrlLink1: 7322625 false) 
+	#(64 1 #liftFirstValue: 4799489 false) 
+	#(102 1 #reduceActionForExternalLabelUrlLink1: 7411713 false) 
+	#(101 1 #reduceActionForExternalImageLink1: 7363585 false) 
+	#(64 1 #liftFirstValue: 4799490 false) 
+	#(64 1 #liftFirstValue: 4799493 false) 
+	#(64 1 #liftFirstValue: 4799491 false) 
+	#(64 1 #liftFirstValue: 4799492 false) 
+	#(94 1 #reduceActionForCellText1: 6838273 false) 
+	#(62 1 #reduceActionForCellInner7: 4561927 false) 
+	#(61 1 #reduceActionForCellText1: 4477956 false) 
+	#(64 1 #liftFirstValue: 4799495 false) 
+	#(64 1 #liftFirstValue: 4799496 false) 
+	#(64 1 #liftFirstValue: 4799497 false) 
+	#(64 1 #liftFirstValue: 4799500 false) 
+	#(64 1 #liftFirstValue: 4799499 false) 
+	#(110 0 #reduceActionForPartsWithoutStars1: 8390658 false) 
+	#(61 1 #liftFirstValue: 4477953 false) 
+	#(61 1 #liftFirstValue: 4477954 false) 
+	#(66 1 #reduceActionFor_hash___numberSign__1: 5009409 false) 
+	#(61 1 #liftFirstValue: 4477955 false) 
+	#(62 1 #liftFirstValue: 4561921 false) 
+	#(63 1 #reduceActionForCellText1: 4728834 false) 
+	#(45 0 #reduceActionFor__tablePipe___pipe__TableCell__cell___1: 2988033 false) 
+	#(65 1 #reduceActionForTableCell1: 4996097 false) 
+	#(40 1 #reduceActionForString1: 2282497 false) 
+	#(67 1 #reduceActionForLines4: 5061636 false) 
+	#(71 1 #reduceActionForLines4: 5229570 false) 
+	#(72 1 #reduceActionForLines4: 5272577 false) 
+	#(73 1 #reduceActionForLines4: 5303297 false) 
+	#(80 0 #reduceActionForCodeBlockLanguage1: 5850113 true) 
+	#(71 1 #reduceActionFor_hash___numberSign__1: 5229569 false) 
+	#(75 1 #reduceActionForHeader2: 5457922 false) 
+	#(93 1 #reduceActionFor_hash___numberSign__1: 6792193 false) 
+	#(62 1 #liftFirstValue: 4561926 false) 
+	#(62 1 #liftFirstValue: 4561923 false) 
+	#(99 1 #liftFirstValue: 7240706 false) 
+	#(99 1 #liftFirstValue: 7240707 false) 
+	#(99 1 #liftFirstValue: 7240705 false) 
+	#(40 1 #reduceActionForString5: 2282501 false) 
+	#(62 1 #liftFirstValue: 4561925 false) 
+	#(62 1 #liftFirstValue: 4561924 false) 
+	#(62 1 #liftFirstValue: 4561922 false) 
+	#(103 2 #reduceActionForKeywordLink1: 7462913 false) 
+	#(105 2 #reduceActionForEmptyDoubleBracketLink1: 7645185 false) 
+	#(105 2 #reduceActionForEmptyDoubleBracketLink1: 7645186 false) 
+	#(55 1 #reduceActionFor_hash___numberSign__1: 4076545 false) 
+	#(59 1 #liftFirstValue: 4287490 false) 
+	#(59 1 #liftFirstValue: 4287489 false) 
+	#(43 2 #reduceActionForTableRow2: 2723842 false) 
+	#(111 1 #reduceActionForCellText1: 8439809 false) 
+	#(67 2 #reduceActionForLines2: 5061634 false) 
+	#(43 2 #reduceActionForTableRow3: 2723843 false) 
+	#(46 2 #reduceActionForTableCells1: 3044353 false) 
+	#(66 2 #reduceActionForCellPart__part__2: 5009410 false) 
+	#(70 1 #reduceActionForCellText1: 5196801 false) 
+	#(40 2 #reduceActionForString2: 2282498 false) 
+	#(68 1 #reduceActionForLines4: 5173249 false) 
+	#(69 1 #reduceActionFor_hash___numberSign__1: 5181441 false) 
+	#(108 1 #reduceActionForCellText1: 8051713 false) 
+	#(109 1 #liftFirstValue: 8128518 false) 
+	#(109 1 #liftFirstValue: 8128522 false) 
+	#(109 1 #liftFirstValue: 8128513 false) 
+	#(109 1 #liftFirstValue: 8128514 false) 
+	#(109 1 #liftFirstValue: 8128517 false) 
+	#(109 1 #liftFirstValue: 8128515 false) 
+	#(109 1 #liftFirstValue: 8128516 false) 
+	#(82 1 #reduceActionForCellInner7: 5946375 false) 
+	#(78 1 #reduceActionForCellInner7: 5642241 false) 
+	#(77 1 #reduceActionForCellText1: 5550085 false) 
+	#(109 1 #liftFirstValue: 8128519 false) 
+	#(109 1 #liftFirstValue: 8128520 false) 
+	#(109 1 #liftFirstValue: 8128521 false) 
+	#(109 1 #liftFirstValue: 8128524 false) 
+	#(109 1 #liftFirstValue: 8128523 false) 
+	#(109 1 #liftFirstValue: 8128525 false) 
+	#(109 1 #liftFirstValue: 8128526 false) 
+	#(109 1 #liftFirstValue: 8128527 false) 
+	#(74 2 #reduceActionForCellPart__part__2: 5393410 false) 
+	#(77 1 #liftFirstValue: 5550084 false) 
+	#(79 0 #reduceActionForCodeBlockSource1: 5798913 true) 
+	#(77 1 #liftFirstValue: 5550081 false) 
+	#(81 1 #liftFirstValue: 5905409 false) 
+	#(77 1 #liftFirstValue: 5550082 false) 
+	#(77 1 #liftFirstValue: 5550083 false) 
+	#(82 1 #liftFirstValue: 5946374 false) 
+	#(82 1 #liftFirstValue: 5946371 false) 
+	#(82 1 #liftFirstValue: 5946373 false) 
+	#(82 1 #liftFirstValue: 5946372 false) 
+	#(82 1 #liftFirstValue: 5946370 false) 
+	#(82 1 #liftFirstValue: 5946369 false) 
+	#(108 1 #reduceActionForCellText1: 8051714 false) 
+	#(76 2 #reduceActionForCellPart__part__2: 5468162 false) 
+	#(75 2 #reduceActionForHeader1: 5457921 false) 
+	#(73 2 #reduceActionForLineParts3: 5303299 false) 
+	#(93 2 #reduceActionForLines2: 6792194 false) 
+	#(97 0 #reduceActionForSwitchToDefault1: 7143425 true) 
+	#(40 2 #reduceActionForString3: 2282499 false) 
+	#(40 2 #reduceActionForString3: 2282502 false) 
+	#(104 3 #reduceActionForBlockLink1: 7534593 false) 
+	#(53 1 #reduceActionFor_hash___numberSign__1: 3970049 false) 
+	#(56 1 #liftFirstValue: 4134914 false) 
+	#(56 1 #liftFirstValue: 4134913 false) 
+	#(54 3 #reduceActionForCellItalic1: 4043777 false) 
+	#(55 2 #reduceActionForCellPart__part__2: 4076546 false) 
+	#(43 3 #reduceActionForTableRow1: 2723841 false) 
+	#(110 2 #reduceActionForLines2: 8390657 false) 
+	#(51 1 #reduceActionForTableDelimiterCell1: 3628033 false) 
+	#(51 1 #reduceActionForTableDelimiterCell2: 3628034 false) 
+	#(51 1 #reduceActionForTableDelimiterCell3: 3628035 false) 
+	#(51 1 #reduceActionForTableDelimiterCell4: 3628036 false) 
+	#(42 3 #reduceActionForTable2: 2548738 false) 
+	#(49 0 #reduceActionFor__tablePipe___pipe__TableCell__cell___1: 3453953 false) 
+	#(45 2 #reduceActionFor__tablePipe___pipe__TableCell__cell___2: 2988034 false) 
+	#(67 3 #reduceActionForLines3: 5061635 false) 
+	#(69 2 #reduceActionForCellPart__part__2: 5181442 false) 
+	#(91 1 #liftFirstValue: 6591489 false) 
+	#(90 1 #reduceActionFor_hash___numberSign__1: 6526977 false) 
+	#(91 1 #liftFirstValue: 6591490 false) 
+	#(73 3 #reduceActionForLines3: 5303298 false) 
+	#(40 3 #reduceActionForString4: 2282500 false) 
+	#(58 1 #reduceActionFor_hash___numberSign__1: 4235265 false) 
+	#(53 2 #reduceActionForCellPart__part__2: 3970050 false) 
+	#(47 2 #reduceActionForTableSeparator2: 3119106 false) 
+	#(42 4 #reduceActionForTable1: 2548737 false) 
+	#(47 2 #reduceActionForTableSeparator3: 3119107 false) 
+	#(50 2 #reduceActionForTableCells1: 3525633 false) 
+	#(43 4 #reduceActionForTableRow4: 2723844 false) 
+	#(44 2 #reduceActionFor__tablePipe___pipe__TableCell__cell__1: 2988033 false) 
+	#(67 4 #reduceActionForLines1: 5061633 false) 
+	#(86 1 #liftFirstValue: 6335489 false) 
+	#(84 1 #reduceActionForLines4: 6235137 false) 
+	#(85 1 #reduceActionFor_hash___numberSign__1: 6259713 false) 
+	#(86 1 #liftFirstValue: 6335490 false) 
+	#(89 3 #reduceActionForCellItalic1: 6498305 false) 
+	#(90 2 #reduceActionForCellPart__part__2: 6526978 false) 
+	#(98 0 #reduceActionForParseAnnotation1: 7194625 true) 
+	#(57 3 #reduceActionForCellItalic1: 4191233 false) 
+	#(58 2 #reduceActionForCellPart__part__2: 4235266 false) 
+	#(52 5 #reduceActionForCellBold1: 3920897 false) 
+	#(47 3 #reduceActionForTableSeparator1: 3119105 false) 
+	#(41 2 #reduceActionForTableRows2: 2463746 false) 
+	#(49 2 #reduceActionFor__tablePipe___pipe__TableCell__cell___2: 3453954 false) 
+	#(88 1 #reduceActionFor_hash___numberSign__1: 6439937 false) 
+	#(85 2 #reduceActionForCellPart__part__2: 6259714 false) 
+	#(78 4 #reduceActionForCode2: 5642242 false) 
+	#(106 5 #reduceActionForDoubleBracketLink1: 7841793 false) 
+	#(60 5 #reduceActionForCellBold1: 4345857 false) 
+	#(41 3 #reduceActionForTableRows1: 2463745 false) 
+	#(47 4 #reduceActionForTableSeparator4: 3119108 false) 
+	#(48 2 #reduceActionFor__tablePipe___pipe__TableCell__cell__1: 3453953 false) 
+	#(87 3 #reduceActionForCellItalic1: 6400001 false) 
+	#(88 2 #reduceActionForCellPart__part__2: 6439938 false) 
+	#(83 5 #reduceActionForCellBold1: 6117377 false) 
+	#(84 3 #reduceActionForInnerBoldStringParts2: 6235138 false) 
+	#(92 5 #reduceActionForCellBold1: 6658049 false) 
+	#(95 7 #reduceActionForDocumenterAnnotation1: 6873089 false)
 	).
 ]
 
@@ -1028,6 +1031,15 @@ LeParser >> handleEmbeddedError: aSmaCCParserError [
 	^ errorNode
 ]
 
+{ #category : #'parsing code blocks' }
+LeParser >> openingFenceLength [
+	"Number of backticks of the fence that opens the code block: the token that was just scanned."
+
+	^ (currentToken notNil and: [ currentToken value notNil ])
+		ifTrue: [ currentToken value size max: 3 ]
+		ifFalse: [ 3 ]
+]
+
 { #category : #parsing }
 LeParser >> parseAnnotation [
 	| name node position stream |
@@ -1044,9 +1056,10 @@ LeParser >> parseAnnotation [
 	^ node
 ]
 
-{ #category : #parsing }
+{ #category : #'parsing code blocks' }
 LeParser >> parseCodeBlockLanguage [
 	| stream char position outputStream |
+	codeFenceLength := self openingFenceLength.
 	stream := scanner stream.
 	[ stream atEnd not
 		and: [ (char := stream peek) isSeparator and: [ char isLineBreak not ] ] ]
@@ -1057,18 +1070,41 @@ LeParser >> parseCodeBlockLanguage [
 		and: [ (char := stream peek) isLineBreak not and: [ char ~= $` ] ] ]
 		whileTrue: [ outputStream nextPut: stream next ].
 	^ outputStream position > 0
-		ifTrue:
-			[ SmaCCToken value: outputStream contents start: position + 1 ids: #() ]
+		ifTrue: [ SmaCCToken
+				value: outputStream contents
+				start: position + 1
+				ids: #() ]
 ]
 
-{ #category : #parsing }
+{ #category : #'parsing code blocks' }
 LeParser >> parseCodeBlockSource [
-	| stream source position |
+	"The source runs up to the first run of at least as many backticks as the opening fence (CommonMark), or to the end of the text when there is none. The closing fence is left for the scanner."
+
+	| stream source position fenceLength |
 	stream := scanner stream.
 	position := stream position.
-	source := stream upToAll: '```'.
-	self position: stream position - 3.
-	^ SmaCCToken value: source start: position + 1 ids: #()
+	fenceLength := codeFenceLength ifNil: [ 3 ].
+	source := WriteStream on: String new.
+	[ stream atEnd ]
+		whileFalse: [ stream peek = $`
+				ifFalse: [ source nextPut: stream next ]
+				ifTrue: [ | start run |
+					start := stream position.
+					run := 0.
+					[ stream atEnd not and: [ stream peek = $` ] ]
+						whileTrue: [ stream next.
+							run := run + 1 ].
+					run >= fenceLength
+						ifTrue: [ self position: start.
+							^ SmaCCToken
+								value: source contents
+								start: position + 1
+								ids: #() ].
+					run timesRepeat: [ source nextPut: $` ] ] ].
+	^ SmaCCToken
+		value: source contents
+		start: position + 1
+		ids: #()
 ]
 
 { #category : #'generated-reduction actions' }
