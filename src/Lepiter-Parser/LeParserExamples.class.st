@@ -9,6 +9,21 @@ Class {
 	#category : #'Lepiter-Parser'
 }
 
+{ #category : #examples }
+LeParserExamples >> adjacentCodeBlocks [
+	"Two code blocks one after another stay two code blocks."
+
+	<gtExample>
+	<return: #LeStringNode>
+	| node codeBlocks |
+	node := self parse: '```<r>a<r>```<r>```<r>b<r>```' expandMacros.
+	codeBlocks := node parts select: [ :each | each isKindOf: LeCodeBlockNode ].
+	self assert: codeBlocks size equals: 2.
+	self assert: codeBlocks first code source trim equals: 'a'.
+	self assert: codeBlocks second code source trim equals: 'b'.
+	^ node
+]
+
 { #category : #'examples - annotations' }
 LeParserExamples >> annotationNameLink [
 	<gtExample>
@@ -220,6 +235,20 @@ console.log(3 + 4);
 	self assert: codeBlocks second code source trim equals: 'Unknown.language'.
 	self assert: codeBlocks third language source equals: 'js'.
 	self assert: codeBlocks third code source trim equals: 'console.log(3 + 4);'.
+	^ node
+]
+
+{ #category : #examples }
+LeParserExamples >> codeBlockClosedByLongerFence [
+	"A closing fence may be longer than the opening one."
+
+	<gtExample>
+	<return: #LeStringNode>
+	| node codeBlocks |
+	node := self parse: '```<r>abc<r>`````' expandMacros.
+	codeBlocks := node parts select: [ :each | each isKindOf: LeCodeBlockNode ].
+	self assert: codeBlocks size equals: 1.
+	self assert: codeBlocks first code source trim equals: 'abc'.
 	^ node
 ]
 
@@ -551,6 +580,40 @@ LeParserExamples >> methodAnnotation [
 					self assert: each expanded ] ].
 	self assert: found.
 	^ aNode
+]
+
+{ #category : #examples }
+LeParserExamples >> nestedCodeBlock [
+	"A code block opened with four backticks is closed only by a fence of at least four backticks, so it can contain three-backtick lines."
+
+	<gtExample>
+	<return: #LeStringNode>
+	| node codeBlocks |
+	node := self parse: '````<r>```Smalltalk<r>3 + 4<r>```<r>````' expandMacros.
+	codeBlocks := node parts select: [ :each | each isKindOf: LeCodeBlockNode ].
+	self assert: codeBlocks size equals: 1.
+	self assert: codeBlocks first language isNil.
+	self
+		assert: codeBlocks first code source trim
+		equals: '```Smalltalk<r>3 + 4<r>```' expandMacros.
+	^ node
+]
+
+{ #category : #examples }
+LeParserExamples >> nestedCodeBlockWithLanguage [
+	"The language of a long fence is read after all its backticks."
+
+	<gtExample>
+	<return: #LeStringNode>
+	| node codeBlocks |
+	node := self parse: '````markdown<r>```js<r>1<r>```<r>````' expandMacros.
+	codeBlocks := node parts select: [ :each | each isKindOf: LeCodeBlockNode ].
+	self assert: codeBlocks size equals: 1.
+	self assert: codeBlocks first language source equals: 'markdown'.
+	self
+		assert: codeBlocks first code source trim
+		equals: '```js<r>1<r>```' expandMacros.
+	^ node
 ]
 
 { #category : #'examples - annotations' }
