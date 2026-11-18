@@ -324,15 +324,12 @@ LeExampleSnippet >> exampleSelector: aNewExampleSelector [
 	<propertyAnnouncement: #LeExampleSnippetExampleSelectorChanged>
 	<generatedFrom: #'TGtRobocoderWithPropertyTraitTemplate>>#propertySetterTemplate'>
 	| newSelector |
+	newSelector := aNewExampleSelector ifNotNil: [ :v | v asSymbol ].
+	(self hasExampleSelector and: [ self exampleSelector = newSelector ])
+		ifTrue: [ ^ self ].
 
-	newSelector := aNewExampleSelector ifNotNil: #asSymbol.
-	(self hasExampleSelector
-		and: [ self exampleSelector = newSelector ])
-			ifTrue: [ ^ self ].
-	
 	self hasExampleSelector
-		ifTrue: [
-			| aPreviousExampleSelector |
+		ifTrue: [ | aPreviousExampleSelector |
 			aPreviousExampleSelector := exampleSelector.
 			exampleSelector := nil.
 			self onPreviousExampleSelectorUnset: aPreviousExampleSelector ].

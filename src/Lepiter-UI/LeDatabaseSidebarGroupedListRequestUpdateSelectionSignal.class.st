@@ -27,7 +27,7 @@ LeDatabaseSidebarGroupedListRequestUpdateSelectionSignal >> navigationModel [
 { #category : #accessing }
 LeDatabaseSidebarGroupedListRequestUpdateSelectionSignal >> navigationModel: anObject [
 	navigationModel := anObject.
-	page := navigationModel ifNotNil: #page.
+	page := navigationModel ifNotNil: [ :v | v page ]
 ]
 
 { #category : #accessing }

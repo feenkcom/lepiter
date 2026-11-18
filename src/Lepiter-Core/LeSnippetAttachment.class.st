@@ -43,12 +43,17 @@ LeSnippetAttachment >> fileReference [
 { #category : #accessing }
 LeSnippetAttachment >> gtSnippetsFor: aView [
 	<gtView>
-	
-	^ aView columnedList title: 'Snippets'; tooltip: 'Snippets using this attachment';
-	items: [ self snippets ];
-	column: 'Index' text: [ :_ :anIndex | anIndex ] width: 40;
-	column: 'Name' text: #contentAsString weight: 2;
-	column: 'Page' text: [ :aSnippet | aSnippet page ifNotNil: #title ]
+	^ aView columnedList
+		title: 'Snippets';
+		tooltip: 'Snippets using this attachment';
+		items: [ self snippets ];
+		column: 'Index'
+			text: [ :_ :anIndex | anIndex ]
+			width: 40;
+		column: 'Name'
+			text: #contentAsString
+			weight: 2;
+		column: 'Page' text: [ :aSnippet | aSnippet page ifNotNil: [ :v | v title ] ]
 ]
 
 { #category : #accessing }

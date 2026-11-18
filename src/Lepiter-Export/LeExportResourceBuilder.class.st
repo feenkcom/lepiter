@@ -53,7 +53,7 @@ LeExportResourceBuilder >> gtResourcesFor: aView [
 	^ aView columnedList
 		title: 'Local resources';
 		priority: 1;
-		items: [ createdResources ifNil: [ #() ] ifNotNil: #asArray ];
+		items: [ createdResources ifNil: [ #() ] ifNotNil: [ :v | v asArray ] ];
 		column: 'Index'
 			text: [ :_ :anIndex | anIndex ]
 			width: 60;

@@ -59,7 +59,7 @@ LePictureAnnotationNode >> items: anOrderedCollection [
 
 { #category : #accessing }
 LePictureAnnotationNode >> pictureReference [
-	^ self pictureReferenceNode value ifNotNil: #source
+	^ self pictureReferenceNode value ifNotNil: [ :v | v source ]
 ]
 
 { #category : #accessing }

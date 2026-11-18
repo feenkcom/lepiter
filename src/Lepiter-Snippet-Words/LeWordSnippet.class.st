@@ -115,8 +115,8 @@ LeWordSnippet >> contentAsString [
 		streamContents: [ :aStream | 
 			aStream
 				nextPutAll: (self explanation
-						ifNotNil: #word
-						ifNil: [ self word ifNotNil: #asString ifNil: [ '' ] ]) ]
+						ifNotNil: [ :v | v word ]
+						ifNil: [ self word ifNotNil: [ :v | v asString ] ifNil: [ '' ] ]) ]
 ]
 
 { #category : #'api - accessing' }
