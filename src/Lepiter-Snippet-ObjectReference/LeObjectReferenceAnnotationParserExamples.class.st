@@ -17,7 +17,7 @@ LeObjectReferenceAnnotationParserExamples >> parseAllAttributes [
 	self assert: anAst labelSelector equals: 'printString'.
 	self assert: anAst expandedValue equals: true.
 	self assert: anAst fallbackLabelString equals: 'fallback'.
-	self assert: anAst showSelector equals: 'gtItemsFor:'.
+	self assert: anAst showSelector equals: #gtItemsFor:.
 	self assert: anAst heightValue equals: 250.
 	^anAst
 ]
@@ -144,6 +144,6 @@ LeObjectReferenceAnnotationParserExamples >> parseUuidWithShow [
 	self assert: anAst items size equals: 2.
 	self assert: anAst uuid equals: '24493a4a-289b-4c9f-b8d6-f905333846f3'.
 	self assert: anAst hasShowSpecified.
-	self assert: anAst showSelector equals: 'gtItemsFor:'.
+	self assert: anAst showSelector equals: #gtItemsFor:.
 	^anAst
 ]
