@@ -15,6 +15,17 @@ Class {
 	#category : #'Lepiter-HTML-! Core'
 }
 
+{ #category : #'text lines' }
+LeHtmlTextSnippetVisitor >> blocksOfTextLinesIn: aString [
+	"Answer the lines of the string grouped in blocks of lines of the same kind, or nil when no line is a list item or a quote (and the usual single paragraph is enough)."
+
+	| lines |
+	aString sortedChildren size = aString parts size ifFalse: [ ^ nil ].
+	lines := self textLinesIn: aString parts.
+	(lines anySatisfy: [ :each | each isPlain not ]) ifFalse: [ ^ nil ].
+	^ self groupTextLines: lines
+]
+
 { #category : #accessing }
 LeHtmlTextSnippetVisitor >> context [
 	^ context
@@ -50,12 +61,34 @@ LeHtmlTextSnippetVisitor >> elementIds: aCollection [
 	elementIds := aCollection
 ]
 
+{ #category : #'text lines' }
+LeHtmlTextSnippetVisitor >> groupTextLines: aCollectionOfLines [
+	"Consecutive lines of the same kind are one block."
+
+	| blocks |
+	blocks := OrderedCollection new.
+	aCollectionOfLines
+		do: [ :each | 
+			(blocks isNotEmpty and: [ blocks last first kind = each kind ])
+				ifTrue: [ blocks last add: each ]
+				ifFalse: [ blocks add: (OrderedCollection with: each) ] ].
+	^ blocks
+]
+
 { #category : #initialization }
 LeHtmlTextSnippetVisitor >> initialize [ 
 	super initialize.
 	
 	"I am used to identify nodes that are not exported."
 	exportedNodes := OrderedCollection new.
+]
+
+{ #category : #'text lines' }
+LeHtmlTextSnippetVisitor >> isEndOfLineNode: aNode [
+	^ (aNode isKindOf: LeTextNode)
+		and: [ aNode content isNotEmpty
+				and: [ aNode content
+						allSatisfy: [ :each | each = Character cr or: [ each = Character lf ] ] ] ]
 ]
 
 { #category : #private }
@@ -85,6 +118,23 @@ LeHtmlTextSnippetVisitor >> snippet [
 { #category : #accessing }
 LeHtmlTextSnippetVisitor >> snippet: anObject [
 	snippet := anObject
+]
+
+{ #category : #'text lines' }
+LeHtmlTextSnippetVisitor >> textLinesIn: aCollectionOfNodes [
+	"Split the nodes at the end-of-line text nodes."
+
+	| lines current |
+	lines := OrderedCollection new.
+	current := OrderedCollection new.
+	aCollectionOfNodes
+		do: [ :each | 
+			(self isEndOfLineNode: each)
+				ifTrue: [ lines add: (LeHtmlTextLine nodes: current asArray eol: each).
+					current := OrderedCollection new ]
+				ifFalse: [ current add: each ] ].
+	lines add: (LeHtmlTextLine nodes: current asArray eol: nil).
+	^ lines
 ]
 
 { #category : #generated }
@@ -268,18 +318,20 @@ LeHtmlTextSnippetVisitor >> visitSmaCCError: aSmaCCErrorNode [
 
 ]
 
-{ #category : #generated }
+{ #category : #visiting }
 LeHtmlTextSnippetVisitor >> visitString: aString [
+	"A parse error node (`SmaCCErrorNode`) forwards unknown messages to its children, so `isHeaderNode` cannot be sent to the first part safely. Test its class instead.
+	Lines that start with `- `, `N. ` or `>` are written as lists and blockquotes, otherwise the browser would glue the lines together. Text without such lines is written as before."
+
 	exportedNodes add: aString.
-	
-	aString parts ifNotEmpty: [ 
-		aString parts first isHeaderNode ifFalse: [ 
-			context html
-				tag: #p
-				do: [ self visitContent: aString ].
-			^ aString
-		]
-	].
+
+	aString parts
+		ifNotEmpty: [ :parts | 
+			(parts first isKindOf: LeHeaderNode)
+				ifFalse: [ (self blocksOfTextLinesIn: aString)
+						ifNil: [ context html tag: #p do: [ self visitContent: aString ] ]
+						ifNotNil: [ :blocks | blocks do: [ :each | self writeBlockOfTextLines: each ] ].
+					^ aString ] ].
 
 	^ self visitContent: aString
 ]
@@ -289,6 +341,94 @@ LeHtmlTextSnippetVisitor >> visitText: aText [
 	context html escape: aText content.
 	
 	exportedNodes add: aText
+]
+
+{ #category : #'text lines' }
+LeHtmlTextSnippetVisitor >> writeBlockOfTextLines: aCollectionOfLines [
+	| kind |
+	kind := aCollectionOfLines first kind.
+	kind = #ul
+		ifTrue: [ ^ self
+				writeListOfTextLines: aCollectionOfLines
+				tag: #ul
+				attributes: #() ].
+	kind = #ol
+		ifTrue: [ ^ self
+				writeListOfTextLines: aCollectionOfLines
+				tag: #ol
+				attributes: (aCollectionOfLines first number = 1
+						ifTrue: [ #() ]
+						ifFalse: [ {'start'.
+								aCollectionOfLines first number printString} ]) ].
+	kind = #quote ifTrue: [ ^ self writeQuoteOfTextLines: aCollectionOfLines ].
+	^ self writeParagraphOfTextLines: aCollectionOfLines
+]
+
+{ #category : #'text lines' }
+LeHtmlTextSnippetVisitor >> writeContentOfTextLine: aLine [
+	"Write the text after the marker, then the other nodes of the line."
+
+	exportedNodes addAll: aLine droppedNodes.
+	aLine prefixText isEmpty ifFalse: [ context html escape: aLine prefixText ].
+	self acceptNodes: aLine nodes
+]
+
+{ #category : #'text lines' }
+LeHtmlTextSnippetVisitor >> writeListOfTextLines: aCollectionOfLines tag: aTag attributes: anArray [
+	| writeItems |
+	writeItems := [ aCollectionOfLines
+			do: [ :each | 
+				context html inlineTag: #li do: [ self writeContentOfTextLine: each ].
+				each eol ifNotNil: [ :node | exportedNodes add: node ] ] ].
+	anArray isEmpty
+		ifTrue: [ context html tag: aTag do: writeItems ]
+		ifFalse: [ context html
+				tag: aTag
+				attributes: anArray
+				do: writeItems ]
+]
+
+{ #category : #'text lines' }
+LeHtmlTextSnippetVisitor >> writeParagraphOfTextLines: aCollectionOfLines [
+	"Write the lines in one paragraph, keeping the line breaks between them. Nothing is written when the lines are empty."
+
+	| lastIndex |
+	(aCollectionOfLines allSatisfy: [ :each | each isEmpty ])
+		ifTrue: [ aCollectionOfLines
+				do: [ :each | 
+					exportedNodes addAll: each droppedNodes.
+					each eol ifNotNil: [ :node | exportedNodes add: node ] ].
+			^ self ].
+	lastIndex := aCollectionOfLines size.
+	context html
+		tag: #p
+		do: [ aCollectionOfLines
+				withIndexDo: [ :each :index | 
+					self writeContentOfTextLine: each.
+					each eol
+						ifNotNil: [ :node | 
+							index < lastIndex
+								ifTrue: [ self acceptNode: node ]
+								ifFalse: [ exportedNodes add: node ] ] ] ]
+]
+
+{ #category : #'text lines' }
+LeHtmlTextSnippetVisitor >> writeQuoteOfTextLines: aCollectionOfLines [
+	"A line with only the `>` marker ends a paragraph of the quote."
+
+	| paragraph |
+	paragraph := OrderedCollection new.
+	context html
+		tag: #blockquote
+		do: [ aCollectionOfLines
+				do: [ :each | 
+					each isEmpty
+						ifTrue: [ self writeParagraphOfTextLines: paragraph.
+							paragraph := OrderedCollection new.
+							exportedNodes addAll: each droppedNodes.
+							each eol ifNotNil: [ :node | exportedNodes add: node ] ]
+						ifFalse: [ paragraph add: each ] ].
+			self writeParagraphOfTextLines: paragraph ]
 ]
 
 { #category : #'private - exporting' }
