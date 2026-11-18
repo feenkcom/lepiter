@@ -113,7 +113,7 @@ LeLinkResolutionOrderExamples >> addingADatabaseResolvesTheCrossDatabaseLinksInC
 				add.
 	self addReferrersTo: aDatabaseTwo linkingTo: aTargetPage asRemoteLink.
 	self assert: (aDatabaseTwo explicitLinks items
-				conform: [:each | each targetReference isResolved not]).
+				allSatisfy:  [:each | each targetReference isResolved not]).
 	aLogicalDatabase := LeLogicalDatabase primaryDB: aDatabaseOne.
 	aLogicalDatabase addDB: aDatabaseTwo.
 	self assertLinks: aTargetPage incomingLinks
@@ -254,7 +254,7 @@ LeLinkResolutionOrderExamples >> assertElsewhereLinksAreUnresolvedIn: aDatabase 
 				select: [:each | each targetReference pageTitle = self elsewherePageTitle].
 	self assert: theLinks size equals: 10.
 	self
-		assert: (theLinks conform: [:each | each targetReference isResolved not])
+		assert: (theLinks allSatisfy: [:each | each targetReference isResolved not])
 ]
 
 { #category : #asserting }
@@ -284,7 +284,7 @@ LeLinkResolutionOrderExamples >> databaseWithLinksToNotYetCreatedPage [
 	self assert: aDatabase explicitLinksCount equals: 20.
 	self assert: (self linkingSnippetsIn: aDatabase) size equals: 10.
 	self assert: (aDatabase explicitLinks items
-				conform: [:each | each targetReference isResolved not]).
+				allSatisfy: [:each | each targetReference isResolved not]).
 	^aDatabase
 ]
 

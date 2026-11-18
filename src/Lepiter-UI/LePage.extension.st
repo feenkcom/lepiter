@@ -87,7 +87,7 @@ LePage >> dependenciesMapFor: aMondrian [
 		connect: all
 			toAll: [ :each | 
 				each allChildOutgoingTextualLinks
-					collectAsSet: [ :x | x target ifNotNil: #page ] ].
+					collectAsSet: [ :x | x target ifNotNil: [ :v | v page ] ] ].
 	aMondrian layout force.
 	^ aMondrian
 ]
@@ -346,7 +346,7 @@ LePage >> reachablePagesMapFor: aMondrian from: aStartPage [
 	allReachedPages := aStartPage
 			deepCollect: [ :each | 
 				each allChildOutgoingTextualLinks
-					collectAsSet: [ :x | x target ifNotNil: #page ] ].
+					collectAsSet: [ :x | x target ifNotNil: [ :v | v page ] ] ].
 	maxWordVal := (self database pages collect: #wordCount) max sqrt.
 	minSize := 5.
 	maxSize := 25.
@@ -356,7 +356,7 @@ LePage >> reachablePagesMapFor: aMondrian from: aStartPage [
 			| element color size scaledSize |
 			color := (allReachedPages includes: each)
 					ifTrue: [ Color green muchDarker ]
-					ifFalse: [ Color red  ].
+					ifFalse: [ Color red ].
 			scaledSize := ((maxSize - minSize) * each wordCount sqrt / maxWordVal)
 					truncated + minSize.
 			size := scaledSize @ scaledSize.
@@ -364,12 +364,12 @@ LePage >> reachablePagesMapFor: aMondrian from: aStartPage [
 				ifTrue: [ color := Color blue.
 					size := 30 @ 30 ].
 			element := BlElement new
-				background: color;
-				size: size;
-				geometry: BlCircleGeometry new;
-				when: BlClickEvent
-					do: [ :e | e currentTarget phlow spawnTool: each asPhlowTool ];
-				aptitude: (self hoverPage: each forNodeElement: element) ];
+					background: color;
+					size: size;
+					geometry: BlCircleGeometry new;
+					when: BlClickEvent
+						do: [ :e | e currentTarget phlow spawnTool: each asPhlowTool ];
+					aptitude: (self hoverPage: each forNodeElement: element) ];
 		with: nonTocPages.
 	aMondrian edges
 		stencil: [ BlLineElement new

@@ -9,7 +9,9 @@ Class {
 
 { #category : #'api - instantiation' }
 LePlainTextSnippetElementStencil >> basicElement [
-	^ self snippetElementClass ifNotNil: #new ifNil: [ GtTextualCoderElement new ]
+	^ self snippetElementClass
+		ifNotNil: [ :v | v new ]
+		ifNil: [ GtTextualCoderElement new ]
 ]
 
 { #category : #accessing }

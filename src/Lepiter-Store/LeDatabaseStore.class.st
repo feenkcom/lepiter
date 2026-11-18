@@ -279,7 +279,9 @@ LeDatabaseStore >> tableOfContentsPageID [
 LeDatabaseStore >> tableOfContentsPageID: aUUID [
 	"Store the page to be used as a Table of Contents"
 
-	self updateProperty: #tableOfContents value: (aUUID ifNotNil: #asString36) 
+	self
+		updateProperty: #tableOfContents
+		value: (aUUID ifNotNil: [ :v | v asString36 ])
 ]
 
 { #category : #'private - db properties' }

@@ -67,11 +67,8 @@ LeAnnotationStylerVisitor >> elements [
 LeAnnotationStylerVisitor >> exampleFor: aMethodDefinition [
 	^ self examples
 		at: aMethodDefinition
-		ifAbsentPut: [
-			aMethodDefinition compiledMethod 
-				ifNotNil: [ :aMethod |
-					aMethod gtExample 
-						ifNotNil: #asExampleWithResult ] ]
+		ifAbsentPut: [ aMethodDefinition compiledMethod
+				ifNotNil: [ :aMethod | aMethod gtExample ifNotNil: [ :v | v asExampleWithResult ] ] ]
 ]
 
 { #category : #accessing }
@@ -448,34 +445,28 @@ LeAnnotationStylerVisitor >> styleCreateButtonFor: aChangesAnnotation [
 { #category : #styling }
 LeAnnotationStylerVisitor >> styleExpandingExample: anExampleAnnotation [
 	| attribute anExample anId |
+	anExampleAnnotation isDefined ifFalse: [ ^ self ].
 
-	anExampleAnnotation isDefined
-		ifFalse: [ ^ self ].
-		
-	anExample := anExampleAnnotation imageObject 
-		ifNotNil: [ :aMethodDefinition | 
-			aMethodDefinition compiledMethod 
-				ifNotNil: [ :aCompiledMethod | 
-					aCompiledMethod gtExample 
-						ifNotNil: #asCachedExampleWithResult ] ].
-						
+	anExample := anExampleAnnotation imageObject
+			ifNotNil: [ :aMethodDefinition | 
+				aMethodDefinition compiledMethod
+					ifNotNil: [ :aCompiledMethod | aCompiledMethod gtExample ifNotNil: [ :v | v asCachedExampleWithResult ] ] ].
+
 	anId := LeTextSnippetAttributeExampleElementId indexed: self nextUniqueId.
 
 	attribute := GtExamplePreviewAttribute new
-		withCache: self elements key: anExampleAnnotation source;
-		beAppend;
-		elementId: anId;
-		example: anExample;
-		codeExpanded: anExampleAnnotation codeExpanded;
-		noCode: anExampleAnnotation noCode;
-		previewExpanded: anExampleAnnotation previewExpanded;
-		previewShowSelector:
-			(anExampleAnnotation previewShowSelector
-				ifNil: [ LepiterConstants defaultShowSelector ]);
-		previewSelectSelector:(anExampleAnnotation previewSelectSelector);
-		previewHeight:
-			(anExampleAnnotation previewHeight
-				ifNil: [ LepiterConstants defaultPreviewHeight ]).
+			withCache: self elements key: anExampleAnnotation source;
+			beAppend;
+			elementId: anId;
+			example: anExample;
+			codeExpanded: anExampleAnnotation codeExpanded;
+			noCode: anExampleAnnotation noCode;
+			previewExpanded: anExampleAnnotation previewExpanded;
+			previewShowSelector: (anExampleAnnotation previewShowSelector
+					ifNil: [ LepiterConstants defaultShowSelector ]);
+			previewSelectSelector: anExampleAnnotation previewSelectSelector;
+			previewHeight: (anExampleAnnotation previewHeight
+					ifNil: [ LepiterConstants defaultPreviewHeight ]).
 
 	(self text
 		from: anExampleAnnotation parent startPosition

@@ -51,25 +51,28 @@ LeSnippetView >> contentPaddingLeft [
 LeSnippetView >> create [
 	<return: #Object>
 	| aSnippetElement aSnippetLook anExtraLeftMargin aSnippetElementContainer |
-
 	aSnippetElement := self snippetElementStencil
-			ifNotNil: #asElement
+			ifNotNil: [ :v | v asElement ]
 			ifNil: [ self snippetElementClass new ].
 
 	self needsEmbellishments
-		ifFalse: [
-			aSnippetElement snippetContent
-				ifNotNil: [ :aSnippetContent |
-					aSnippetElement addAptitude: (LeSnippetWithoutEmbellishmentsAptitude new
-						snippetContent: aSnippetContent) ].
+		ifFalse: [ aSnippetElement snippetContent
+				ifNotNil: [ :aSnippetContent | 
+					aSnippetElement
+						addAptitude: (LeSnippetWithoutEmbellishmentsAptitude new snippetContent: aSnippetContent) ].
 			^ aSnippetElement ].
 
 	aSnippetLook := self newSnippetElementLook.
 
 	anExtraLeftMargin := self needsContentDecorationBar
-		ifTrue: [ self contentPaddingLeft ]
-		ifFalse: [ 0 ].
-	aSnippetLook margin: (BlInsets top: 3 left: anExtraLeftMargin bottom: 3 right: 0).
+			ifTrue: [ self contentPaddingLeft ]
+			ifFalse: [ 0 ].
+	aSnippetLook
+		margin: (BlInsets
+				top: 3
+				left: anExtraLeftMargin
+				bottom: 3
+				right: 0).
 
 	aSnippetLook snippetContent: aSnippetElement snippetContent.
 
@@ -78,7 +81,8 @@ LeSnippetView >> create [
 
 	aSnippetElement clipChildren: false.
 	aSnippetLook snippetToolbar: aSnippetElement snippetToolbar.
-	aSnippetLook sidebarStencil: (LeSnippetSidebarStencil new snippetElement: aSnippetElement).
+	aSnippetLook
+		sidebarStencil: (LeSnippetSidebarStencil new snippetElement: aSnippetElement).
 
 	aSnippetElement addAptitude: aSnippetLook.
 	aSnippetElement id: LeSnippetElementId.
