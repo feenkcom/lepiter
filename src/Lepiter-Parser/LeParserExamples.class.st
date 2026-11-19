@@ -9,6 +9,21 @@ Class {
 	#category : #'Lepiter-Parser'
 }
 
+{ #category : #examples }
+LeParserExamples >> adjacentCodeBlocks [
+	"Two code blocks one after another stay two code blocks."
+
+	<gtExample>
+	<return: #LeStringNode>
+	| node codeBlocks |
+	node := self parse: '```<r>a<r>```<r>```<r>b<r>```' expandMacros.
+	codeBlocks := node parts select: [ :each | each isKindOf: LeCodeBlockNode ].
+	self assert: codeBlocks size equals: 2.
+	self assert: codeBlocks first code source trim equals: 'a'.
+	self assert: codeBlocks second code source trim equals: 'b'.
+	^ node
+]
+
 { #category : #'examples - annotations' }
 LeParserExamples >> annotationNameLink [
 	<gtExample>
@@ -220,6 +235,20 @@ console.log(3 + 4);
 	self assert: codeBlocks second code source trim equals: 'Unknown.language'.
 	self assert: codeBlocks third language source equals: 'js'.
 	self assert: codeBlocks third code source trim equals: 'console.log(3 + 4);'.
+	^ node
+]
+
+{ #category : #examples }
+LeParserExamples >> codeBlockClosedByLongerFence [
+	"A closing fence may be longer than the opening one."
+
+	<gtExample>
+	<return: #LeStringNode>
+	| node codeBlocks |
+	node := self parse: '```<r>abc<r>`````' expandMacros.
+	codeBlocks := node parts select: [ :each | each isKindOf: LeCodeBlockNode ].
+	self assert: codeBlocks size equals: 1.
+	self assert: codeBlocks first code source trim equals: 'abc'.
 	^ node
 ]
 
@@ -553,6 +582,40 @@ LeParserExamples >> methodAnnotation [
 	^ aNode
 ]
 
+{ #category : #examples }
+LeParserExamples >> nestedCodeBlock [
+	"A code block opened with four backticks is closed only by a fence of at least four backticks, so it can contain three-backtick lines."
+
+	<gtExample>
+	<return: #LeStringNode>
+	| node codeBlocks |
+	node := self parse: '````<r>```Smalltalk<r>3 + 4<r>```<r>````' expandMacros.
+	codeBlocks := node parts select: [ :each | each isKindOf: LeCodeBlockNode ].
+	self assert: codeBlocks size equals: 1.
+	self assert: codeBlocks first language isNil.
+	self
+		assert: codeBlocks first code source trim
+		equals: '```Smalltalk<r>3 + 4<r>```' expandMacros.
+	^ node
+]
+
+{ #category : #examples }
+LeParserExamples >> nestedCodeBlockWithLanguage [
+	"The language of a long fence is read after all its backticks."
+
+	<gtExample>
+	<return: #LeStringNode>
+	| node codeBlocks |
+	node := self parse: '````markdown<r>```js<r>1<r>```<r>````' expandMacros.
+	codeBlocks := node parts select: [ :each | each isKindOf: LeCodeBlockNode ].
+	self assert: codeBlocks size equals: 1.
+	self assert: codeBlocks first language source equals: 'markdown'.
+	self
+		assert: codeBlocks first code source trim
+		equals: '```js<r>1<r>```' expandMacros.
+	^ node
+]
+
 { #category : #'examples - annotations' }
 LeParserExamples >> packageAnnotation [
 	<gtExample>
@@ -601,6 +664,61 @@ LeParserExamples >> parser [
 	<gtExample>
 	<return: #'LeParser class'>
 	^ LeParser
+]
+
+{ #category : #examples }
+LeParserExamples >> relativeAngleLink [
+	<gtExample>
+	| node link |
+	node := self parse: '<gt-figures/1000.png>'.
+	self assert: node parts size equals: 1.
+	link := node parts first.
+	self assert: link class equals: LeExternalUrlLinkNode.
+	self assert: link url equals: 'gt-figures/1000.png'.
+	^ node
+]
+
+{ #category : #examples }
+LeParserExamples >> relativeImageLink [
+	<gtExample>
+	| node image |
+	node := self parse: '![Example](gt-figures/1000.png)'.
+	self assert: node parts size equals: 1.
+	image := node parts first.
+	self assert: image class equals: LeExternalImageLinkNode.
+	self assert: image label equals: 'Example'.
+	self assert: image url equals: 'gt-figures/1000.png'.
+	^ node
+]
+
+{ #category : #examples }
+LeParserExamples >> relativeImageLinkWithAngleDestination [
+	<gtExample>
+	| node image source |
+	source := '![Example](<gt-figures/1000.png>)'.
+	node := self parse: source.
+	self assert: node parts size equals: 1.
+	image := node parts first.
+	self assert: image class equals: LeExternalImageLinkNode.
+	self assert: image label equals: 'Example'.
+	self assert: image url equals: 'gt-figures/1000.png'.
+	self assert: image source equals: source.
+	^ node
+]
+
+{ #category : #examples }
+LeParserExamples >> relativeLabelLinkWithAngleDestination [
+	<gtExample>
+	| node link source |
+	source := '[Example](<gt-figures/1000.png>)'.
+	node := self parse: source.
+	self assert: node parts size equals: 1.
+	link := node parts first.
+	self assert: link class equals: LeExternalLabelUrlLinkNode.
+	self assert: link label equals: 'Example'.
+	self assert: link url equals: 'gt-figures/1000.png'.
+	self assert: link source equals: source.
+	^ node
 ]
 
 { #category : #'examples - links' }

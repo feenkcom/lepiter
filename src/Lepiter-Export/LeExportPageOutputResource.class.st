@@ -53,7 +53,7 @@ LeExportPageOutputResource >> defaultState [
 LeExportPageOutputResource >> gtContentFor: aView [
 	<gtView>
 	^ aView textEditor
-		title: 'HTML';
+		title: 'Markdown';
 		priority: 5;
 		text: [ self content ifNil: [ '' ] ];
 		aptitude: [ BrGlamorousCodeEditorAptitude ];

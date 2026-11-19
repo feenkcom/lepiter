@@ -116,7 +116,8 @@ LeDatabaseSidebarTreeElement >> navigationModel: anObject [
 LeDatabaseSidebarTreeElement >> notifyListSelectionChangedTo: aTreeNode [
 	| aPageUIModel |
 	aPageUIModel := aTreeNode page asContentUIModel.
-	(self selection ifNotNil: #pageModel) = aPageUIModel pageModel ifTrue: [ ^ self ].
+	(self selection ifNotNil: [ :v | v pageModel ]) = aPageUIModel pageModel
+		ifTrue: [ ^ self ].
 
 	aTreeNode isForPage
 		ifTrue: [ self navigationModel

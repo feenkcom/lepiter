@@ -490,9 +490,9 @@ LeRoamJsonExamples >> pageWithSnippetJSONExport [
 	roamJSON := String
 			streamContents: [ :stream | LeRoamJsonTranslator default page: page toStream: stream ].
 	jsonObject := STONJSON fromString: roamJSON.
-	blocks := jsonObject at: #children.
+	blocks := jsonObject at: 'children'.
 	snippetBlock := blocks second.
-	code := snippetBlock at: #string.
+	code := snippetBlock at: 'string'.
 
 	self assert: code equals: '```smalltalk\42 inspect\```' withCRs.
 

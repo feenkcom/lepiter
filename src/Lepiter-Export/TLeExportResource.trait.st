@@ -63,6 +63,12 @@ TLeExportResource >> beReadyState [
 	self state: LeExportResourceState ready
 ]
 
+{ #category : #state }
+TLeExportResource >> beRequiredResource [
+	self isOptionalResource
+		ifTrue: [ self state: LeExportResourceState uninitialized ]
+]
+
 { #category : #initialization }
 TLeExportResource >> defaultState [
 	<return: #LeExportResourceState>
@@ -72,6 +78,11 @@ TLeExportResource >> defaultState [
 { #category : #testing }
 TLeExportResource >> isAssetResource [
 	^ false
+]
+
+{ #category : #testing }
+TLeExportResource >> isOptionalResource [
+	^ self state isKindOf: LeExportOptionalResourceState
 ]
 
 { #category : #accessing }

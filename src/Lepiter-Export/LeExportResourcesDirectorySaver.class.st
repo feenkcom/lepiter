@@ -27,7 +27,7 @@ LeExportResourcesDirectorySaver >> gtResourcesFor: aView [
 	^ aView columnedList
 		title: 'Resources';
 		priority: 5;
-		items: [ resources ifNil: [ #() ] ifNotNil: #asArray ];
+		items: [ resources ifNil: [ #() ] ifNotNil: [ :v | v asArray ] ];
 		column: 'Index'
 			text: [ :_ :anIndex | anIndex ]
 			width: 60;
@@ -108,10 +108,10 @@ LeExportResourcesDirectorySaver >> saveBytes: aByteArray intoPath: aRelativePath
 			aStream nextPutAll: aByteArray ].
 ]
 
-{ #category : #'api - saving' }
+{ #category : #saving }
 LeExportResourcesDirectorySaver >> saveResource: aResource [
+	aResource isOptionalResource ifTrue: [ ^ self ].
 	aResource state isReady ifFalse: [ ^ self ].
-
 	aResource accept: self
 ]
 

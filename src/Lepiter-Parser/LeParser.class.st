@@ -1,6 +1,9 @@
 Class {
 	#name : #LeParser,
 	#superclass : #SmaCCGLRParser,
+	#instVars : [
+		'codeFenceLength'
+	],
 	#classVars : [
 		'AnnotationParsers'
 	],
@@ -108,7 +111,7 @@ LeParser class >> annotationParsers [
 
 { #category : #'generated-accessing' }
 LeParser class >> cacheId [
-	^'2026-11-17T22:04:59.593605+01:00'
+	^'2026-11-18T19:47:42.386089-03:00'
 ]
 
 { #category : #generated }
@@ -171,7 +174,7 @@ annotation <whitespace>
 	: \!
 	;
 <labelUrl>
-	: \[ [^\[\]]* \]\( (<urlCharacterWithoutParen> | (\( <urlCharacterWithoutParen>* \)))* \)
+	: \[ [^\[\]]* \]\( ((<urlCharacterWithoutParen> | (\( <urlCharacterWithoutParen>* \)))* | \< [^\<\>\r\n]* \>) \)
 	;
 <imageUrl>
 	: <exclamationMark> <labelUrl>
@@ -205,7 +208,7 @@ linkText <linkText>
 	| `` ([^`\r\n] | ` [^`\r\n])+ ``
 	;
 <blockCode>
-	: ```
+	: ```+
 	;
 <backquote>
 	: `
@@ -575,171 +578,171 @@ LeParser class >> parseAnnotation: aString from: aParser [
 { #category : #generated }
 LeParser class >> reduceTable [
 ^#(
-	#(74 0 #reduceActionForPartsWithoutStars1: 5392385 false) 
-	#(107 0 #reduceActionForSwitchToLinkText1: 7997441 true) 
-	#(96 0 #reduceActionForSwitchToAnnotation1: 7085057 true) 
-	#(65 0 #reduceActionForTableCell2: 4995074 false) 
-	#(63 1 #reduceActionForCellText1: 4727809 false) 
-	#(64 1 #liftFirstValue: 4798470 false) 
-	#(76 1 #reduceActionFor_hash___numberSign__1: 5467137 false) 
-	#(64 1 #liftFirstValue: 4798474 false) 
-	#(100 1 #reduceActionForExternalUrlLink1: 7321601 false) 
-	#(64 1 #liftFirstValue: 4798465 false) 
-	#(102 1 #reduceActionForExternalLabelUrlLink1: 7410689 false) 
-	#(101 1 #reduceActionForExternalImageLink1: 7362561 false) 
-	#(64 1 #liftFirstValue: 4798466 false) 
-	#(64 1 #liftFirstValue: 4798469 false) 
-	#(64 1 #liftFirstValue: 4798467 false) 
-	#(64 1 #liftFirstValue: 4798468 false) 
-	#(94 1 #reduceActionForCellText1: 6837249 false) 
-	#(62 1 #reduceActionForCellInner7: 4560903 false) 
-	#(61 1 #reduceActionForCellText1: 4476932 false) 
-	#(64 1 #liftFirstValue: 4798471 false) 
-	#(64 1 #liftFirstValue: 4798472 false) 
-	#(64 1 #liftFirstValue: 4798473 false) 
-	#(64 1 #liftFirstValue: 4798476 false) 
-	#(64 1 #liftFirstValue: 4798475 false) 
-	#(110 0 #reduceActionForPartsWithoutStars1: 8389634 false) 
-	#(61 1 #liftFirstValue: 4476929 false) 
-	#(61 1 #liftFirstValue: 4476930 false) 
-	#(66 1 #reduceActionFor_hash___numberSign__1: 5008385 false) 
-	#(61 1 #liftFirstValue: 4476931 false) 
-	#(62 1 #liftFirstValue: 4560897 false) 
-	#(63 1 #reduceActionForCellText1: 4727810 false) 
-	#(45 0 #reduceActionFor__tablePipe___pipe__TableCell__cell___1: 2987009 false) 
-	#(65 1 #reduceActionForTableCell1: 4995073 false) 
-	#(40 1 #reduceActionForString1: 2281473 false) 
-	#(67 1 #reduceActionForLines4: 5060612 false) 
-	#(71 1 #reduceActionForLines4: 5228546 false) 
-	#(72 1 #reduceActionForLines4: 5271553 false) 
-	#(73 1 #reduceActionForLines4: 5302273 false) 
-	#(80 0 #reduceActionForCodeBlockLanguage1: 5849089 true) 
-	#(71 1 #reduceActionFor_hash___numberSign__1: 5228545 false) 
-	#(75 1 #reduceActionForHeader2: 5456898 false) 
-	#(93 1 #reduceActionFor_hash___numberSign__1: 6791169 false) 
-	#(62 1 #liftFirstValue: 4560902 false) 
-	#(62 1 #liftFirstValue: 4560899 false) 
-	#(99 1 #liftFirstValue: 7239682 false) 
-	#(99 1 #liftFirstValue: 7239683 false) 
-	#(99 1 #liftFirstValue: 7239681 false) 
-	#(40 1 #reduceActionForString5: 2281477 false) 
-	#(62 1 #liftFirstValue: 4560901 false) 
-	#(62 1 #liftFirstValue: 4560900 false) 
-	#(62 1 #liftFirstValue: 4560898 false) 
-	#(103 2 #reduceActionForKeywordLink1: 7461889 false) 
-	#(105 2 #reduceActionForEmptyDoubleBracketLink1: 7644161 false) 
-	#(105 2 #reduceActionForEmptyDoubleBracketLink1: 7644162 false) 
-	#(55 1 #reduceActionFor_hash___numberSign__1: 4075521 false) 
-	#(59 1 #liftFirstValue: 4286466 false) 
-	#(59 1 #liftFirstValue: 4286465 false) 
-	#(43 2 #reduceActionForTableRow2: 2722818 false) 
-	#(111 1 #reduceActionForCellText1: 8438785 false) 
-	#(67 2 #reduceActionForLines2: 5060610 false) 
-	#(43 2 #reduceActionForTableRow3: 2722819 false) 
-	#(46 2 #reduceActionForTableCells1: 3043329 false) 
-	#(66 2 #reduceActionForCellPart__part__2: 5008386 false) 
-	#(70 1 #reduceActionForCellText1: 5195777 false) 
-	#(40 2 #reduceActionForString2: 2281474 false) 
-	#(68 1 #reduceActionForLines4: 5172225 false) 
-	#(69 1 #reduceActionFor_hash___numberSign__1: 5180417 false) 
-	#(108 1 #reduceActionForCellText1: 8050689 false) 
-	#(109 1 #liftFirstValue: 8127494 false) 
-	#(109 1 #liftFirstValue: 8127498 false) 
-	#(109 1 #liftFirstValue: 8127489 false) 
-	#(109 1 #liftFirstValue: 8127490 false) 
-	#(109 1 #liftFirstValue: 8127493 false) 
-	#(109 1 #liftFirstValue: 8127491 false) 
-	#(109 1 #liftFirstValue: 8127492 false) 
-	#(82 1 #reduceActionForCellInner7: 5945351 false) 
-	#(78 1 #reduceActionForCellInner7: 5641217 false) 
-	#(77 1 #reduceActionForCellText1: 5549061 false) 
-	#(109 1 #liftFirstValue: 8127495 false) 
-	#(109 1 #liftFirstValue: 8127496 false) 
-	#(109 1 #liftFirstValue: 8127497 false) 
-	#(109 1 #liftFirstValue: 8127500 false) 
-	#(109 1 #liftFirstValue: 8127499 false) 
-	#(109 1 #liftFirstValue: 8127501 false) 
-	#(109 1 #liftFirstValue: 8127502 false) 
-	#(109 1 #liftFirstValue: 8127503 false) 
-	#(74 2 #reduceActionForCellPart__part__2: 5392386 false) 
-	#(77 1 #liftFirstValue: 5549060 false) 
-	#(79 0 #reduceActionForCodeBlockSource1: 5797889 true) 
-	#(77 1 #liftFirstValue: 5549057 false) 
-	#(81 1 #liftFirstValue: 5904385 false) 
-	#(77 1 #liftFirstValue: 5549058 false) 
-	#(77 1 #liftFirstValue: 5549059 false) 
-	#(82 1 #liftFirstValue: 5945350 false) 
-	#(82 1 #liftFirstValue: 5945347 false) 
-	#(82 1 #liftFirstValue: 5945349 false) 
-	#(82 1 #liftFirstValue: 5945348 false) 
-	#(82 1 #liftFirstValue: 5945346 false) 
-	#(82 1 #liftFirstValue: 5945345 false) 
-	#(108 1 #reduceActionForCellText1: 8050690 false) 
-	#(76 2 #reduceActionForCellPart__part__2: 5467138 false) 
-	#(75 2 #reduceActionForHeader1: 5456897 false) 
-	#(73 2 #reduceActionForLineParts3: 5302275 false) 
-	#(93 2 #reduceActionForLines2: 6791170 false) 
-	#(97 0 #reduceActionForSwitchToDefault1: 7142401 true) 
-	#(40 2 #reduceActionForString3: 2281475 false) 
-	#(40 2 #reduceActionForString3: 2281478 false) 
-	#(104 3 #reduceActionForBlockLink1: 7533569 false) 
-	#(53 1 #reduceActionFor_hash___numberSign__1: 3969025 false) 
-	#(56 1 #liftFirstValue: 4133890 false) 
-	#(56 1 #liftFirstValue: 4133889 false) 
-	#(54 3 #reduceActionForCellItalic1: 4042753 false) 
-	#(55 2 #reduceActionForCellPart__part__2: 4075522 false) 
-	#(43 3 #reduceActionForTableRow1: 2722817 false) 
-	#(110 2 #reduceActionForLines2: 8389633 false) 
-	#(51 1 #reduceActionForTableDelimiterCell1: 3627009 false) 
-	#(51 1 #reduceActionForTableDelimiterCell2: 3627010 false) 
-	#(51 1 #reduceActionForTableDelimiterCell3: 3627011 false) 
-	#(51 1 #reduceActionForTableDelimiterCell4: 3627012 false) 
-	#(42 3 #reduceActionForTable2: 2547714 false) 
-	#(49 0 #reduceActionFor__tablePipe___pipe__TableCell__cell___1: 3452929 false) 
-	#(45 2 #reduceActionFor__tablePipe___pipe__TableCell__cell___2: 2987010 false) 
-	#(67 3 #reduceActionForLines3: 5060611 false) 
-	#(69 2 #reduceActionForCellPart__part__2: 5180418 false) 
-	#(91 1 #liftFirstValue: 6590465 false) 
-	#(90 1 #reduceActionFor_hash___numberSign__1: 6525953 false) 
-	#(91 1 #liftFirstValue: 6590466 false) 
-	#(73 3 #reduceActionForLines3: 5302274 false) 
-	#(40 3 #reduceActionForString4: 2281476 false) 
-	#(58 1 #reduceActionFor_hash___numberSign__1: 4234241 false) 
-	#(53 2 #reduceActionForCellPart__part__2: 3969026 false) 
-	#(47 2 #reduceActionForTableSeparator2: 3118082 false) 
-	#(42 4 #reduceActionForTable1: 2547713 false) 
-	#(47 2 #reduceActionForTableSeparator3: 3118083 false) 
-	#(50 2 #reduceActionForTableCells1: 3524609 false) 
-	#(43 4 #reduceActionForTableRow4: 2722820 false) 
-	#(44 2 #reduceActionFor__tablePipe___pipe__TableCell__cell__1: 2987009 false) 
-	#(67 4 #reduceActionForLines1: 5060609 false) 
-	#(86 1 #liftFirstValue: 6334465 false) 
-	#(84 1 #reduceActionForLines4: 6234113 false) 
-	#(85 1 #reduceActionFor_hash___numberSign__1: 6258689 false) 
-	#(86 1 #liftFirstValue: 6334466 false) 
-	#(89 3 #reduceActionForCellItalic1: 6497281 false) 
-	#(90 2 #reduceActionForCellPart__part__2: 6525954 false) 
-	#(98 0 #reduceActionForParseAnnotation1: 7193601 true) 
-	#(57 3 #reduceActionForCellItalic1: 4190209 false) 
-	#(58 2 #reduceActionForCellPart__part__2: 4234242 false) 
-	#(52 5 #reduceActionForCellBold1: 3919873 false) 
-	#(47 3 #reduceActionForTableSeparator1: 3118081 false) 
-	#(41 2 #reduceActionForTableRows2: 2462722 false) 
-	#(49 2 #reduceActionFor__tablePipe___pipe__TableCell__cell___2: 3452930 false) 
-	#(88 1 #reduceActionFor_hash___numberSign__1: 6438913 false) 
-	#(85 2 #reduceActionForCellPart__part__2: 6258690 false) 
-	#(78 4 #reduceActionForCode2: 5641218 false) 
-	#(106 5 #reduceActionForDoubleBracketLink1: 7840769 false) 
-	#(60 5 #reduceActionForCellBold1: 4344833 false) 
-	#(41 3 #reduceActionForTableRows1: 2462721 false) 
-	#(47 4 #reduceActionForTableSeparator4: 3118084 false) 
-	#(48 2 #reduceActionFor__tablePipe___pipe__TableCell__cell__1: 3452929 false) 
-	#(87 3 #reduceActionForCellItalic1: 6398977 false) 
-	#(88 2 #reduceActionForCellPart__part__2: 6438914 false) 
-	#(83 5 #reduceActionForCellBold1: 6116353 false) 
-	#(84 3 #reduceActionForInnerBoldStringParts2: 6234114 false) 
-	#(92 5 #reduceActionForCellBold1: 6657025 false) 
-	#(95 7 #reduceActionForDocumenterAnnotation1: 6872065 false)
+	#(74 0 #reduceActionForPartsWithoutStars1: 5416961 false) 
+	#(107 0 #reduceActionForSwitchToLinkText1: 8022017 true) 
+	#(96 0 #reduceActionForSwitchToAnnotation1: 7109633 true) 
+	#(65 0 #reduceActionForTableCell2: 5019650 false) 
+	#(63 1 #reduceActionForCellText1: 4752385 false) 
+	#(76 1 #reduceActionFor_hash___numberSign__1: 5491713 false) 
+	#(64 1 #liftFirstValue: 4823046 false) 
+	#(64 1 #liftFirstValue: 4823050 false) 
+	#(100 1 #reduceActionForExternalUrlLink1: 7346177 false) 
+	#(64 1 #liftFirstValue: 4823041 false) 
+	#(102 1 #reduceActionForExternalLabelUrlLink1: 7435265 false) 
+	#(101 1 #reduceActionForExternalImageLink1: 7387137 false) 
+	#(64 1 #liftFirstValue: 4823042 false) 
+	#(64 1 #liftFirstValue: 4823045 false) 
+	#(64 1 #liftFirstValue: 4823043 false) 
+	#(64 1 #liftFirstValue: 4823044 false) 
+	#(94 1 #reduceActionForCellText1: 6861825 false) 
+	#(62 1 #reduceActionForCellInner7: 4585479 false) 
+	#(61 1 #reduceActionForCellText1: 4501508 false) 
+	#(64 1 #liftFirstValue: 4823047 false) 
+	#(64 1 #liftFirstValue: 4823048 false) 
+	#(64 1 #liftFirstValue: 4823049 false) 
+	#(64 1 #liftFirstValue: 4823052 false) 
+	#(64 1 #liftFirstValue: 4823051 false) 
+	#(110 0 #reduceActionForPartsWithoutStars1: 8414210 false) 
+	#(61 1 #liftFirstValue: 4501505 false) 
+	#(61 1 #liftFirstValue: 4501506 false) 
+	#(66 1 #reduceActionFor_hash___numberSign__1: 5032961 false) 
+	#(61 1 #liftFirstValue: 4501507 false) 
+	#(62 1 #liftFirstValue: 4585473 false) 
+	#(63 1 #reduceActionForCellText1: 4752386 false) 
+	#(45 0 #reduceActionFor__tablePipe___pipe__TableCell__cell___1: 3011585 false) 
+	#(65 1 #reduceActionForTableCell1: 5019649 false) 
+	#(40 1 #reduceActionForString1: 2306049 false) 
+	#(67 1 #reduceActionForLines4: 5085188 false) 
+	#(71 1 #reduceActionForLines4: 5253122 false) 
+	#(72 1 #reduceActionForLines4: 5296129 false) 
+	#(73 1 #reduceActionForLines4: 5326849 false) 
+	#(80 0 #reduceActionForCodeBlockLanguage1: 5873665 true) 
+	#(71 1 #reduceActionFor_hash___numberSign__1: 5253121 false) 
+	#(75 1 #reduceActionForHeader2: 5481474 false) 
+	#(93 1 #reduceActionFor_hash___numberSign__1: 6815745 false) 
+	#(62 1 #liftFirstValue: 4585478 false) 
+	#(62 1 #liftFirstValue: 4585475 false) 
+	#(99 1 #liftFirstValue: 7264258 false) 
+	#(99 1 #liftFirstValue: 7264259 false) 
+	#(99 1 #liftFirstValue: 7264257 false) 
+	#(40 1 #reduceActionForString5: 2306053 false) 
+	#(62 1 #liftFirstValue: 4585477 false) 
+	#(62 1 #liftFirstValue: 4585476 false) 
+	#(62 1 #liftFirstValue: 4585474 false) 
+	#(103 2 #reduceActionForKeywordLink1: 7486465 false) 
+	#(105 2 #reduceActionForEmptyDoubleBracketLink1: 7668737 false) 
+	#(105 2 #reduceActionForEmptyDoubleBracketLink1: 7668738 false) 
+	#(55 1 #reduceActionFor_hash___numberSign__1: 4100097 false) 
+	#(59 1 #liftFirstValue: 4311042 false) 
+	#(59 1 #liftFirstValue: 4311041 false) 
+	#(43 2 #reduceActionForTableRow2: 2747394 false) 
+	#(111 1 #reduceActionForCellText1: 8463361 false) 
+	#(67 2 #reduceActionForLines2: 5085186 false) 
+	#(43 2 #reduceActionForTableRow3: 2747395 false) 
+	#(46 2 #reduceActionForTableCells1: 3067905 false) 
+	#(66 2 #reduceActionForCellPart__part__2: 5032962 false) 
+	#(70 1 #reduceActionForCellText1: 5220353 false) 
+	#(40 2 #reduceActionForString2: 2306050 false) 
+	#(68 1 #reduceActionForLines4: 5196801 false) 
+	#(69 1 #reduceActionFor_hash___numberSign__1: 5204993 false) 
+	#(108 1 #reduceActionForCellText1: 8075265 false) 
+	#(109 1 #liftFirstValue: 8152070 false) 
+	#(109 1 #liftFirstValue: 8152074 false) 
+	#(109 1 #liftFirstValue: 8152065 false) 
+	#(109 1 #liftFirstValue: 8152066 false) 
+	#(109 1 #liftFirstValue: 8152069 false) 
+	#(109 1 #liftFirstValue: 8152067 false) 
+	#(109 1 #liftFirstValue: 8152068 false) 
+	#(82 1 #reduceActionForCellInner7: 5969927 false) 
+	#(78 1 #reduceActionForCellInner7: 5665793 false) 
+	#(77 1 #reduceActionForCellText1: 5573637 false) 
+	#(109 1 #liftFirstValue: 8152071 false) 
+	#(109 1 #liftFirstValue: 8152072 false) 
+	#(109 1 #liftFirstValue: 8152073 false) 
+	#(109 1 #liftFirstValue: 8152076 false) 
+	#(109 1 #liftFirstValue: 8152075 false) 
+	#(109 1 #liftFirstValue: 8152077 false) 
+	#(109 1 #liftFirstValue: 8152078 false) 
+	#(109 1 #liftFirstValue: 8152079 false) 
+	#(74 2 #reduceActionForCellPart__part__2: 5416962 false) 
+	#(77 1 #liftFirstValue: 5573636 false) 
+	#(79 0 #reduceActionForCodeBlockSource1: 5822465 true) 
+	#(77 1 #liftFirstValue: 5573633 false) 
+	#(81 1 #liftFirstValue: 5928961 false) 
+	#(77 1 #liftFirstValue: 5573634 false) 
+	#(77 1 #liftFirstValue: 5573635 false) 
+	#(82 1 #liftFirstValue: 5969926 false) 
+	#(82 1 #liftFirstValue: 5969923 false) 
+	#(82 1 #liftFirstValue: 5969925 false) 
+	#(82 1 #liftFirstValue: 5969924 false) 
+	#(82 1 #liftFirstValue: 5969922 false) 
+	#(82 1 #liftFirstValue: 5969921 false) 
+	#(108 1 #reduceActionForCellText1: 8075266 false) 
+	#(76 2 #reduceActionForCellPart__part__2: 5491714 false) 
+	#(75 2 #reduceActionForHeader1: 5481473 false) 
+	#(73 2 #reduceActionForLineParts3: 5326851 false) 
+	#(93 2 #reduceActionForLines2: 6815746 false) 
+	#(97 0 #reduceActionForSwitchToDefault1: 7166977 true) 
+	#(40 2 #reduceActionForString3: 2306051 false) 
+	#(40 2 #reduceActionForString3: 2306054 false) 
+	#(104 3 #reduceActionForBlockLink1: 7558145 false) 
+	#(53 1 #reduceActionFor_hash___numberSign__1: 3993601 false) 
+	#(56 1 #liftFirstValue: 4158466 false) 
+	#(56 1 #liftFirstValue: 4158465 false) 
+	#(54 3 #reduceActionForCellItalic1: 4067329 false) 
+	#(55 2 #reduceActionForCellPart__part__2: 4100098 false) 
+	#(43 3 #reduceActionForTableRow1: 2747393 false) 
+	#(110 2 #reduceActionForLines2: 8414209 false) 
+	#(51 1 #reduceActionForTableDelimiterCell1: 3651585 false) 
+	#(51 1 #reduceActionForTableDelimiterCell2: 3651586 false) 
+	#(51 1 #reduceActionForTableDelimiterCell3: 3651587 false) 
+	#(51 1 #reduceActionForTableDelimiterCell4: 3651588 false) 
+	#(42 3 #reduceActionForTable2: 2572290 false) 
+	#(49 0 #reduceActionFor__tablePipe___pipe__TableCell__cell___1: 3477505 false) 
+	#(45 2 #reduceActionFor__tablePipe___pipe__TableCell__cell___2: 3011586 false) 
+	#(67 3 #reduceActionForLines3: 5085187 false) 
+	#(69 2 #reduceActionForCellPart__part__2: 5204994 false) 
+	#(91 1 #liftFirstValue: 6615041 false) 
+	#(90 1 #reduceActionFor_hash___numberSign__1: 6550529 false) 
+	#(91 1 #liftFirstValue: 6615042 false) 
+	#(73 3 #reduceActionForLines3: 5326850 false) 
+	#(40 3 #reduceActionForString4: 2306052 false) 
+	#(58 1 #reduceActionFor_hash___numberSign__1: 4258817 false) 
+	#(53 2 #reduceActionForCellPart__part__2: 3993602 false) 
+	#(47 2 #reduceActionForTableSeparator2: 3142658 false) 
+	#(42 4 #reduceActionForTable1: 2572289 false) 
+	#(47 2 #reduceActionForTableSeparator3: 3142659 false) 
+	#(50 2 #reduceActionForTableCells1: 3549185 false) 
+	#(43 4 #reduceActionForTableRow4: 2747396 false) 
+	#(44 2 #reduceActionFor__tablePipe___pipe__TableCell__cell__1: 3011585 false) 
+	#(67 4 #reduceActionForLines1: 5085185 false) 
+	#(86 1 #liftFirstValue: 6359041 false) 
+	#(84 1 #reduceActionForLines4: 6258689 false) 
+	#(85 1 #reduceActionFor_hash___numberSign__1: 6283265 false) 
+	#(86 1 #liftFirstValue: 6359042 false) 
+	#(89 3 #reduceActionForCellItalic1: 6521857 false) 
+	#(90 2 #reduceActionForCellPart__part__2: 6550530 false) 
+	#(98 0 #reduceActionForParseAnnotation1: 7218177 true) 
+	#(57 3 #reduceActionForCellItalic1: 4214785 false) 
+	#(58 2 #reduceActionForCellPart__part__2: 4258818 false) 
+	#(52 5 #reduceActionForCellBold1: 3944449 false) 
+	#(47 3 #reduceActionForTableSeparator1: 3142657 false) 
+	#(41 2 #reduceActionForTableRows2: 2487298 false) 
+	#(49 2 #reduceActionFor__tablePipe___pipe__TableCell__cell___2: 3477506 false) 
+	#(88 1 #reduceActionFor_hash___numberSign__1: 6463489 false) 
+	#(85 2 #reduceActionForCellPart__part__2: 6283266 false) 
+	#(78 4 #reduceActionForCode2: 5665794 false) 
+	#(106 5 #reduceActionForDoubleBracketLink1: 7865345 false) 
+	#(60 5 #reduceActionForCellBold1: 4369409 false) 
+	#(41 3 #reduceActionForTableRows1: 2487297 false) 
+	#(47 4 #reduceActionForTableSeparator4: 3142660 false) 
+	#(48 2 #reduceActionFor__tablePipe___pipe__TableCell__cell__1: 3477505 false) 
+	#(87 3 #reduceActionForCellItalic1: 6423553 false) 
+	#(88 2 #reduceActionForCellPart__part__2: 6463490 false) 
+	#(83 5 #reduceActionForCellBold1: 6140929 false) 
+	#(84 3 #reduceActionForInnerBoldStringParts2: 6258690 false) 
+	#(92 5 #reduceActionForCellBold1: 6681601 false) 
+	#(95 7 #reduceActionForDocumenterAnnotation1: 6896641 false)
 	).
 ]
 
@@ -775,7 +778,7 @@ LeParser class >> transitionTable [
 #[1 0 229 0 3 0 103 0 4 0 137 0 5 0 25 0 8 0 137 0 10 0 33 0 11 0 137 0 12 0 41 0 13 0 45 0 14 0 137 0 15 0 14 0 16 0 137 0 17 0 137 0 18 0 137 0 19 0 237 0 21 0 69 0 23 0 73 0 25 0 137 0 26 0 137 0 27 0 137 0 28 0 137 0 29 0 137 0 30 0 18 0 31 0 97 0 32 0 18 0 33 0 241 0 42 0 109 0 43 0 113 0 46 0 125 0 52 0 125 0 54 0 125 0 61 0 125 0 62 0 125 0 63 0 137 0 64 0 141 0 65 0 145 0 66 0 125 0 95 0 189 0 96 0 125 0 99 0 125 0 100 0 125 0 101 0 125 0 102 0 125 0 104 0 125 0 105 0 125 0 106 0 225 0 107] 
 #[1 0 22 0 3 0 22 0 4 0 22 0 5 0 22 0 8 0 245 0 9 0 22 0 10 0 22 0 11 0 22 0 12 0 22 0 13 0 22 0 14 0 22 0 15 0 22 0 16 0 22 0 17 0 22 0 18 0 22 0 19 0 22 0 21 0 22 0 23 0 22 0 25 0 22 0 26 0 22 0 27 0 22 0 28 0 22 0 29 0 22 0 30 0 22 0 31 0 22 0 33] 
 #[1 0 249 0 6 0 253 0 10] 
-#[1 0 107 0 3 0 107 0 4 0 107 0 5 0 107 0 8 0 107 0 10 0 107 0 11 0 107 0 12 0 107 0 13 0 107 0 14 0 107 0 15 0 107 0 16 0 107 0 17 0 107 0 18 0 107 0 19 0 30 0 20 0 107 0 21 0 107 0 23 0 30 0 24 0 107 0 25 0 107 0 26 0 107 0 27 0 107 0 28 0 107 0 29 0 107 0 30 0 107 0 31 0 30 0 32 0 107 0 33 0 30 0 112] 
+#[1 0 107 0 3 0 107 0 4 0 107 0 5 0 107 0 8 0 107 0 10 0 107 0 11 0 107 0 12 0 107 0 13 0 107 0 14 0 107 0 15 0 107 0 16 0 107 0 17 0 107 0 18 0 107 0 19 0 26 0 20 0 107 0 21 0 107 0 23 0 26 0 24 0 107 0 25 0 107 0 26 0 107 0 27 0 107 0 28 0 107 0 29 0 107 0 30 0 107 0 31 0 26 0 32 0 107 0 33 0 26 0 112] 
 #[0 1 1 0 3] 
 #[0 0 34 0 3 0 4 0 5 0 8 0 10 0 11 0 12 0 13 0 14 0 15 0 16 0 17 0 18 0 19 0 20 0 21 0 23 0 25 0 26 0 27 0 28 0 29 0 30 0 31 0 33 0 34 0 112] 
 #[0 0 38 0 3 0 4 0 5 0 8 0 10 0 11 0 12 0 13 0 14 0 15 0 16 0 17 0 18 0 19 0 20 0 21 0 23 0 24 0 25 0 26 0 27 0 28 0 29 0 30 0 31 0 32 0 33 0 34 0 112] 
@@ -828,7 +831,7 @@ LeParser class >> transitionTable [
 #[0 0 206 0 3 0 4 0 5 0 8 0 10 0 11 0 12 0 13 0 14 0 15 0 16 0 17 0 18 0 19 0 20 0 21 0 23 0 25 0 26 0 27 0 28 0 29 0 30 0 31 0 33 0 34 0 112] 
 #[0 1 249 0 4] 
 #[0 0 22 0 3 0 4 0 5 0 8 0 10 0 11 0 12 0 13 0 14 0 15 0 16 0 17 0 18 0 19 0 20 0 21 0 23 0 25 0 26 0 27 0 28 0 29 0 30 0 31 0 33 0 34 0 112] 
-#[0 0 26 0 3 0 4 0 5 0 8 0 10 0 11 0 12 0 13 0 14 0 15 0 16 0 17 0 18 0 19 0 20 0 21 0 23 0 25 0 26 0 27 0 28 0 29 0 30 0 31 0 33 0 34 0 112] 
+#[0 0 30 0 3 0 4 0 5 0 8 0 10 0 11 0 12 0 13 0 14 0 15 0 16 0 17 0 18 0 19 0 20 0 21 0 23 0 25 0 26 0 27 0 28 0 29 0 30 0 31 0 33 0 34 0 112] 
 #[1 0 229 0 3 0 103 0 4 0 137 0 5 0 25 0 8 0 137 0 10 0 33 0 11 0 137 0 12 0 41 0 13 0 45 0 14 0 137 0 15 0 14 0 16 0 137 0 17 0 137 0 18 0 137 0 19 1 5 0 21 0 69 0 23 0 137 0 26 0 137 0 27 0 137 0 28 0 137 0 29 0 137 0 30 1 9 0 55 1 13 0 59 1 13 0 60 1 13 0 62 1 13 0 63 0 137 0 64 1 13 0 95 0 189 0 96 1 13 0 99 1 13 0 100 1 13 0 101 1 13 0 102 1 13 0 104 1 13 0 105 1 13 0 106 0 225 0 107] 
 #[0 0 0 0 112] 
 #[0 0 210 0 3 0 4 0 5 0 8 0 10 0 11 0 12 0 13 0 14 0 15 0 16 0 17 0 18 0 19 0 20 0 21 0 23 0 24 0 25 0 26 0 27 0 28 0 29 0 30 0 31 0 32 0 33 0 112] 
@@ -906,7 +909,7 @@ LeParser class >> transitionTable [
 #[1 1 194 0 3 1 194 0 4 1 194 0 5 1 194 0 8 1 194 0 10 1 194 0 11 1 194 0 12 1 194 0 13 1 194 0 14 1 194 0 15 1 194 0 16 1 194 0 17 1 194 0 18 1 194 0 19 1 194 0 20 1 59 0 21 1 194 0 23 1 194 0 25 1 194 0 26 1 194 0 27 1 194 0 28 1 194 0 29 1 194 0 30 1 194 0 31 1 194 0 33 1 194 0 34 1 194 0 112] 
 #[0 1 198 0 3 0 4 0 5 0 8 0 10 0 11 0 12 0 13 0 14 0 15 0 16 0 17 0 18 0 19 0 21 0 23 0 26 0 27 0 28 0 29 0 30] 
 #[0 1 202 0 20 0 34 0 112] 
-#[0 0 30 0 3 0 4 0 5 0 8 0 10 0 11 0 12 0 13 0 14 0 15 0 16 0 17 0 18 0 19 0 20 0 21 0 23 0 24 0 25 0 26 0 27 0 28 0 29 0 30 0 31 0 32 0 33 0 112] 
+#[0 0 26 0 3 0 4 0 5 0 8 0 10 0 11 0 12 0 13 0 14 0 15 0 16 0 17 0 18 0 19 0 20 0 21 0 23 0 24 0 25 0 26 0 27 0 28 0 29 0 30 0 31 0 32 0 33 0 112] 
 #[0 1 206 0 20 0 112] 
 #[1 2 45 0 35 2 49 0 36 2 53 0 37 2 57 0 38 2 165 0 50 2 169 0 51] 
 #[0 1 210 0 20 0 31 0 33 0 34 0 112] 
@@ -1028,6 +1031,15 @@ LeParser >> handleEmbeddedError: aSmaCCParserError [
 	^ errorNode
 ]
 
+{ #category : #'parsing code blocks' }
+LeParser >> openingFenceLength [
+	"Number of backticks of the fence that opens the code block: the token that was just scanned."
+
+	^ (currentToken notNil and: [ currentToken value notNil ])
+		ifTrue: [ currentToken value size max: 3 ]
+		ifFalse: [ 3 ]
+]
+
 { #category : #parsing }
 LeParser >> parseAnnotation [
 	| name node position stream |
@@ -1044,9 +1056,10 @@ LeParser >> parseAnnotation [
 	^ node
 ]
 
-{ #category : #parsing }
+{ #category : #'parsing code blocks' }
 LeParser >> parseCodeBlockLanguage [
 	| stream char position outputStream |
+	codeFenceLength := self openingFenceLength.
 	stream := scanner stream.
 	[ stream atEnd not
 		and: [ (char := stream peek) isSeparator and: [ char isLineBreak not ] ] ]
@@ -1057,18 +1070,41 @@ LeParser >> parseCodeBlockLanguage [
 		and: [ (char := stream peek) isLineBreak not and: [ char ~= $` ] ] ]
 		whileTrue: [ outputStream nextPut: stream next ].
 	^ outputStream position > 0
-		ifTrue:
-			[ SmaCCToken value: outputStream contents start: position + 1 ids: #() ]
+		ifTrue: [ SmaCCToken
+				value: outputStream contents
+				start: position + 1
+				ids: #() ]
 ]
 
-{ #category : #parsing }
+{ #category : #'parsing code blocks' }
 LeParser >> parseCodeBlockSource [
-	| stream source position |
+	"The source runs up to the first run of at least as many backticks as the opening fence (CommonMark), or to the end of the text when there is none. The closing fence is left for the scanner."
+
+	| stream source position fenceLength |
 	stream := scanner stream.
 	position := stream position.
-	source := stream upToAll: '```'.
-	self position: stream position - 3.
-	^ SmaCCToken value: source start: position + 1 ids: #()
+	fenceLength := codeFenceLength ifNil: [ 3 ].
+	source := WriteStream on: String new.
+	[ stream atEnd ]
+		whileFalse: [ stream peek = $`
+				ifFalse: [ source nextPut: stream next ]
+				ifTrue: [ | start run |
+					start := stream position.
+					run := 0.
+					[ stream atEnd not and: [ stream peek = $` ] ]
+						whileTrue: [ stream next.
+							run := run + 1 ].
+					run >= fenceLength
+						ifTrue: [ self position: start.
+							^ SmaCCToken
+								value: source contents
+								start: position + 1
+								ids: #() ].
+					run timesRepeat: [ source nextPut: $` ] ] ].
+	^ SmaCCToken
+		value: source contents
+		start: position + 1
+		ids: #()
 ]
 
 { #category : #'generated-reduction actions' }

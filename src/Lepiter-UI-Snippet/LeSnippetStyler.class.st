@@ -76,6 +76,19 @@ LeSnippetStyler >> hideMarkup [
 	self restyle.
 ]
 
+{ #category : #accessing }
+LeSnippetStyler >> imageRootDirectory [
+	"Use a monitored database when available; detached snippets have neither database nor monitor."
+
+	| aDatabase aMonitor |
+	aDatabase := self snippetViewModel
+			ifNotNil: [ :model | model snippetModel database ].
+	aMonitor := aDatabase ifNotNil: [ aDatabase monitor ].
+	^ aMonitor
+		ifNotNil: [ aMonitor localRoot ]
+		ifNil: [ FileLocator workingDirectory resolve ]
+]
+
 { #category : #initialization }
 LeSnippetStyler >> initialize [
 	super initialize.

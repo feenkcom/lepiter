@@ -40,7 +40,7 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReload [
 	{primaryDB.
 		playgroundDB.
 		registeredDB}
-		do: [ :db | self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].	"Using a separate DB instance, update the page"
+		do: [ :db | self assert: (db pageNamed: #Page1) children first string equals: 'Snippet1' ].	"Using a separate DB instance, update the page"
 	{primaryDB.
 		playgroundDB.
 		registeredDB}
@@ -125,18 +125,18 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadAddRegistered [
 				addRegisteredDirectory: registeredDB localStoreRootDirectory).
 	registeredDB := nil.	"Confirm that each DB is in the expected state"
 	logicalDB
-		databasesDo: [ :db | self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].
+		databasesDo: [ :db | self assert: (db pageNamed: #Page1) children first string equals: 'Snippet1' ].
 	self assert: logicalDB registeredDBs isEmpty.
 	self assert: announcements size equals: 2.
 	self
 		assert: ((announcements first: 2)
 				collect: [ :each | each database databaseName ]
 				as: Array)
-		equals: {#primary.
-				#playground}.	"Reload the logical database"
+		equals: {'primary'.
+				'playground'}.	"Reload the logical database"
 	LeReloadOptimization disableDuring: [ logicalDB primaryDB reload ].	"Confirm that the registered DB has appeared"
 	self assert: logicalDB registeredDBs size equals: 1.
-	self assert: logicalDB registeredDBs first databaseName equals: #registered.
+	self assert: logicalDB registeredDBs first databaseName equals: 'registered'.
 	self assert: announcements size equals: 9.
 	self assert: (announcements at: 3) class equals: LeLogicalDatabaseAboutToReload.
 	self assert: (announcements at: 4) class equals: LeDatabaseAboutToReload.
@@ -148,7 +148,7 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadAddRegistered [
 	self assert: (announcements at: 7) class equals: LeDatabaseReloaded.
 	self assert: (announcements at: 7) database equals: playgroundDB.
 	self assert: (announcements at: 8) class equals: LeDatabasesAddedAnnouncement.
-	self assert: (announcements at: 8) database databaseName equals: #registered.
+	self assert: (announcements at: 8) database databaseName equals: 'registered'.
 	self assert: (announcements at: 9) class equals: LeLogicalDatabaseReloaded.
 	self assert: (announcements at: 9) database equals: logicalDB.
 
@@ -192,18 +192,18 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadAddRegistered_OptimizedR
 				addRegisteredDirectory: registeredDB localStoreRootDirectory).
 	registeredDB := nil.	"Confirm that each DB is in the expected state"
 	logicalDB
-		databasesDo: [ :db | self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].
+		databasesDo: [ :db | self assert: (db pageNamed: #Page1) children first string equals: 'Snippet1' ].
 	self assert: logicalDB registeredDBs isEmpty.
 	self assert: announcements size equals: 2.
 	self
 		assert: ((announcements first: 2)
 				collect: [ :each | each database databaseName ]
 				as: Array)
-		equals: {#primary.
-				#playground}.	"Reload the logical database"
+		equals: {'primary'.
+				'playground'}.	"Reload the logical database"
 	LeReloadOptimization disableDuring: [ logicalDB primaryDB reload ].	"Confirm that the registered DB has appeared"
 	self assert: logicalDB registeredDBs size equals: 1.
-	self assert: logicalDB registeredDBs first databaseName equals: #registered.
+	self assert: logicalDB registeredDBs first databaseName equals: 'registered'.
 	self assert: announcements size equals: 9.
 	self assert: (announcements at: 3) class equals: LeLogicalDatabaseAboutToReload.
 	self assert: (announcements at: 4) class equals: LeDatabaseAboutToReload.
@@ -215,7 +215,7 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadAddRegistered_OptimizedR
 	self assert: (announcements at: 7) class equals: LeDatabaseReloaded.
 	self assert: (announcements at: 7) database equals: playgroundDB.
 	self assert: (announcements at: 8) class equals: LeDatabasesAddedAnnouncement.
-	self assert: (announcements at: 8) database databaseName equals: #registered.
+	self assert: (announcements at: 8) database databaseName equals: 'registered'.
 	self assert: (announcements at: 9) class equals: LeLogicalDatabaseReloaded.
 	self assert: (announcements at: 9) database equals: logicalDB.
 
@@ -258,7 +258,7 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadShuffle [
 				playgroundDatabaseDirectory: playgroundDB localStoreRootDirectory;
 				addRegisteredDirectory: primaryDB localStoreRootDirectory).	"Confirm that each DB is in the expected state"
 	logicalDB
-		databasesDo: [ :db | self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].
+		databasesDo: [ :db | self assert: (db pageNamed: #Page1) children first string equals: 'Snippet1' ].
 	self assert: announcements size equals: 3.	"Reload the logical database"
 	LeReloadOptimization disableDuring: [ logicalDB primaryDB reload ].	"Confirm that the databases have been swapped, and the instance identity maintained"
 	self assert: logicalDB primaryDB identicalTo: registeredDB.
@@ -317,7 +317,7 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadShuffle_OptimizedReload 
 				playgroundDatabaseDirectory: playgroundDB localStoreRootDirectory;
 				addRegisteredDirectory: primaryDB localStoreRootDirectory).	"Confirm that each DB is in the expected state"
 	logicalDB
-		databasesDo: [ :db | self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].
+		databasesDo: [ :db | self assert: (db pageNamed: #Page1) children first string equals: 'Snippet1' ].
 	self assert: announcements size equals: 3.	"Reload the logical database"
 	LeReloadOptimization enableDuring: [ logicalDB primaryDB reload ].	"Confirm that the databases have been swapped, and the instance identity maintained"
 	self assert: logicalDB primaryDB identicalTo: registeredDB.
@@ -371,7 +371,7 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadShuffle_OptimizedReload_
 				playgroundDatabaseDirectory: playgroundDB localStoreRootDirectory;
 				addRegisteredDirectory: primaryDB localStoreRootDirectory).	"Confirm that each DB is in the expected state"
 	logicalDB
-		databasesDo: [ :db | self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].
+		databasesDo: [ :db | self assert: (db pageNamed: #Page1) children first string equals: 'Snippet1' ].
 	self assert: announcements size equals: 3.	"Reload the logical database"
 	LeReloadOptimization enableDuring: [ logicalDB primaryDB reload ].	"Confirm that the databases have been swapped, and the instance identity maintained"
 	self assert: logicalDB primaryDB identicalTo: registeredDB.
@@ -425,7 +425,7 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadShuffle_addDBs [
 				playgroundDatabaseDirectory: playgroundDB localStoreRootDirectory;
 				addRegisteredDirectory: primaryDB localStoreRootDirectory).	"Confirm that each DB is in the expected state"
 	logicalDB
-		databasesDo: [ :db | self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].
+		databasesDo: [ :db | self assert: (db pageNamed: #Page1) children first string equals: 'Snippet1' ].
 	self assert: announcements size equals: 3.	"Reload the logical database"
 	LeReloadOptimization disableDuring: [ logicalDB primaryDB reload ].	"Confirm that the databases have been swapped, and the instance identity maintained"
 	self assert: logicalDB primaryDB identicalTo: registeredDB.
@@ -494,7 +494,7 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadUnloadRegistered [
 	{primaryDB.
 		playgroundDB.
 		registeredDB}
-		do: [ :db | self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].
+		do: [ :db | self assert: (db pageNamed: #Page1) children first string equals: 'Snippet1' ].
 	self assert: announcements size equals: 3.
 	self
 		assert: (announcements collect: #class as: Set) asArray
@@ -591,7 +591,7 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadUnloadRegistered_Optimiz
 	{primaryDB.
 		playgroundDB.
 		registeredDB}
-		do: [ :db | self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].
+		do: [ :db | self assert: (db pageNamed: #Page1) children first string equals: 'Snippet1' ].
 	self assert: announcements size equals: 3.
 	self
 		assert: (announcements collect: #class as: Set) asArray
@@ -686,7 +686,7 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadUnloadRegistered_Optimiz
 	{primaryDB.
 		playgroundDB.
 		registeredDB}
-		do: [ :db | self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].
+		do: [ :db | self assert: (db pageNamed: #Page1) children first string equals: 'Snippet1' ].
 	self assert: announcements size equals: 3.
 	self
 		assert: (announcements collect: #class as: Set) asArray
@@ -781,7 +781,7 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReloadUnloadRegistered_addDBs 
 	{primaryDB.
 		playgroundDB.
 		registeredDB}
-		do: [ :db | self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].
+		do: [ :db | self assert: (db pageNamed: #Page1) children first string equals: 'Snippet1' ].
 	self assert: announcements size equals: 3.
 	self
 		assert: (announcements collect: #class as: Set) asArray
@@ -870,7 +870,7 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseReload_addDBs [
 	{primaryDB.
 		playgroundDB.
 		registeredDB}
-		do: [ :db | self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].	"Using a separate DB instance, update the page"
+		do: [ :db | self assert: (db pageNamed: #Page1) children first string equals: 'Snippet1' ].	"Using a separate DB instance, update the page"
 	{primaryDB.
 		playgroundDB.
 		registeredDB}
@@ -952,12 +952,12 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseWithFileLocatorRootReload [
 				addRegisteredDirectory: registeredDB localStoreRootDirectory).	"Confirm that each DB is in the expected state"
 	{primaryDB.
 		registeredDB}
-		do: [ :db | self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].	"Reload the logical database in place without any changes"
+		do: [ :db | self assert: (db pageNamed: #Page1) children first string equals: 'Snippet1' ].	"Reload the logical database in place without any changes"
 	LeReloadOptimization disableDuring: [ logicalDB primaryDB reload ].	"Confirm that each DB has been reloaded correctly"
 	{primaryDB.
 		registeredDB}
 		do: [  "Confirm that each DB has the same page":db | 
-			self assert: (db pageNamed: #Page1) children first string equals: #Snippet1.	"Confirm that each DB has the logical DB as its parent"
+			self assert: (db pageNamed: #Page1) children first string equals: 'Snippet1'.	"Confirm that each DB has the logical DB as its parent"
 			self assert: db parent equals: logicalDB ].
 
 	self assert: announcements size equals: 8.
@@ -1022,12 +1022,12 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseWithFileLocatorRootReload_Opti
 				addRegisteredDirectory: registeredDB localStoreRootDirectory).	"Confirm that each DB is in the expected state"
 	{primaryDB.
 		registeredDB}
-		do: [ :db | self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].	"Reload the logical database in place without any changes"
+		do: [ :db | self assert: (db pageNamed: #Page1) children first string equals: 'Snippet1' ].	"Reload the logical database in place without any changes"
 	LeReloadOptimization enableDuring: [ logicalDB primaryDB reload ].	"Confirm that each DB has been reloaded correctly"
 	{primaryDB.
 		registeredDB}
 		do: [  "Confirm that each DB has the same page":db | 
-			self assert: (db pageNamed: #Page1) children first string equals: #Snippet1.	"Confirm that each DB has the logical DB as its parent"
+			self assert: (db pageNamed: #Page1) children first string equals: 'Snippet1'.	"Confirm that each DB has the logical DB as its parent"
 			self assert: db parent equals: logicalDB ].
 
 	self assert: announcements size equals: 4.
@@ -1084,12 +1084,12 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseWithFileLocatorRootReload_Opti
 				addRegisteredDirectory: registeredDB localStoreRootDirectory).	"Confirm that each DB is in the expected state"
 	{primaryDB.
 		registeredDB}
-		do: [ :db | self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].	"Reload the logical database in place without any changes"
+		do: [ :db | self assert: (db pageNamed: #Page1) children first string equals: 'Snippet1' ].	"Reload the logical database in place without any changes"
 	LeReloadOptimization enableDuring: [ logicalDB primaryDB reload ].	"Confirm that each DB has been reloaded correctly"
 	{primaryDB.
 		registeredDB}
 		do: [  "Confirm that each DB has the same page":db | 
-			self assert: (db pageNamed: #Page1) children first string equals: #Snippet1.	"Confirm that each DB has the logical DB as its parent"
+			self assert: (db pageNamed: #Page1) children first string equals: 'Snippet1'.	"Confirm that each DB has the logical DB as its parent"
 			self assert: db parent equals: logicalDB ].
 
 	self assert: announcements size equals: 4.
@@ -1146,12 +1146,12 @@ LeLogicalDatabaseReloadExamples >> logicalDatabaseWithFileLocatorRootReload_addD
 				addRegisteredDirectory: registeredDB localStoreRootDirectory).	"Confirm that each DB is in the expected state"
 	{primaryDB.
 		registeredDB}
-		do: [ :db | self assert: (db pageNamed: #Page1) children first string equals: #Snippet1 ].	"Reload the logical database in place without any changes"
+		do: [ :db | self assert: (db pageNamed: #Page1) children first string equals: 'Snippet1' ].	"Reload the logical database in place without any changes"
 	LeReloadOptimization disableDuring: [ logicalDB primaryDB reload ].	"Confirm that each DB has been reloaded correctly"
 	{primaryDB.
 		registeredDB}
 		do: [  "Confirm that each DB has the same page":db | 
-			self assert: (db pageNamed: #Page1) children first string equals: #Snippet1.	"Confirm that each DB has the logical DB as its parent"
+			self assert: (db pageNamed: #Page1) children first string equals: 'Snippet1'.	"Confirm that each DB has the logical DB as its parent"
 			self assert: db parent equals: logicalDB ].
 
 	self assert: announcements size equals: 8.

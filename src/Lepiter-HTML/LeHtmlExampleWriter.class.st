@@ -84,20 +84,22 @@ LeHtmlExampleWriter >> writeCode [
 		].
 ]
 
-{ #category : #'api - writing' }
+{ #category : #writing }
 LeHtmlExampleWriter >> writePreview [
-	resources 
-		ifEmpty: [ "ignore" ]
-		ifOne: [ :aResource |
+	resources
+		ifEmpty: [  ]
+		ifOne: [ :aResource | 
+			aResource beRequiredResource.
 			LeHtmlFigureImageWriter new
 				html: html;
 				imageSrc: aResource pathName;
 				width: self width;
 				write ]
-		ifMore: [ :aCollection |
+		ifMore: [ :aCollection | 
+			aCollection do: [ :each | each beRequiredResource ].
 			LeHtmlCarouselWriter new
 				html: html;
 				sequencer: sequencer;
 				resources: aCollection;
-				write ].
+				write ]
 ]

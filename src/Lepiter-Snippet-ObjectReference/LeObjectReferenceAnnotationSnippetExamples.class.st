@@ -12,7 +12,7 @@ LeObjectReferenceAnnotationSnippetExamples >> parseNewAttributes [
 				parse: '{{gtObject:id=eehjmwhvkh4de3o55fyirb3fo|show=#gtViewsFor:|height=300|fallbackLabelString=''missingWidget''}}'.
 	annotation := (ast // LeObjectReferenceAnnotationNode) anyOne.
 	self assert: annotation uuid equals: 'eehjmwhvkh4de3o55fyirb3fo'.
-	self assert: annotation showSelector equals: 'gtViewsFor:'.
+	self assert: annotation showSelector equals: #gtViewsFor:.
 	self assert: annotation heightValue equals: 300.
 	self assert: annotation fallbackLabelString equals: 'missingWidget'.
 	^ast

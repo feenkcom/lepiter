@@ -66,6 +66,25 @@ LeHtmlBookExporter >> baseUrl: aStringOrUrl [
 	baseUrl := aStringOrUrl
 ]
 
+{ #category : #exporting }
+LeHtmlBookExporter >> buildResources [
+	"Discover all page resources before any page is rendered."
+
+	self ensurePageLinks.
+	pageLinks
+		do: [ :link | 
+			link page
+				acceptVisitor: (LeExportVisitor new
+						context: (LeHtmlContext new
+								page: link page;
+								pageLinks: self pageLinks;
+								resources: self resources;
+								database: self database;
+								sequencer: self sequencer;
+								fileStore: self fileStore;
+								log: self log)) ]
+]
+
 { #category : #accessing }
 LeHtmlBookExporter >> database [
 	^ database
@@ -114,10 +133,11 @@ LeHtmlBookExporter >> ensurePageLinks [
 			links
 ]
 
-{ #category : #'api - exporting' }
+{ #category : #exporting }
 LeHtmlBookExporter >> export [
+	self buildResources.
 	self exportHtml.
-	self assembleResources.
+	self assembleResources
 ]
 
 { #category : #'api - exporting' }
@@ -151,7 +171,7 @@ LeHtmlBookExporter >> exportPageLink: aPageLink [
 	anHtml := LeHtmlPageExporter new
 		context: aContext;
 		piece: self piece;
-		contentsDo: [ :theExporter | theExporter export ].
+		contentsDo: [ :theExporter | theExporter exportHtml ].
 		
 	resources addResource: (LeExportPageOutputResource new 
 		content: anHtml;

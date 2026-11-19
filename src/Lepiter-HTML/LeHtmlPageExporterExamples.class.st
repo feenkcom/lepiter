@@ -43,6 +43,30 @@ LeHtmlPageExporterExamples >> contextOfPageWithoutDatabaseHasDefaultSiteName [
 ]
 
 { #category : #examples }
+LeHtmlPageExporterExamples >> exampleAnnotationLabel [
+	<gtExample>
+	| page exporter html output |
+	page := LePage named: 'Label only'.
+	page
+		addSnippet: (LeTextSnippet
+				string: 'Size: {{gtExample:LeHtmlPageExporterExamples>>#labelValue|label=#size}}.').
+	exporter := LeHtmlPageExporter new
+			context: (LeHtmlPageExporter contextForPage: page).
+	html := exporter contentsDo: [ exporter export ].
+	self assert: (html includesSubstring: 'example_inlined').
+	self assert: (html includesSubstring: '>3</code>').
+	exporter context assembler assemble.
+	exporter context resources do: [ :each | self assert: each isOptionalResource ].
+	output := FileSystem memory root.
+	LeExportResourcesDirectorySaver new
+		resources: exporter context resources;
+		rootDirectory: output;
+		save.
+	self assert: output children isEmpty.
+	^ exporter
+]
+
+{ #category : #examples }
 LeHtmlPageExporterExamples >> exportSamplePage [
 	<gtExample>
 	<return: #LeHtmlPageExporter>
@@ -78,6 +102,12 @@ LeHtmlPageExporterExamples >> exportSamplePageFullHtml [
 	self assertNotEmptyHtml: html.
 
 	^ exporter
+]
+
+{ #category : #fixtures }
+LeHtmlPageExporterExamples >> labelValue [
+	<gtExample>
+	^ #(1 2 3)
 ]
 
 { #category : #assertions }

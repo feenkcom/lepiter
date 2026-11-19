@@ -68,11 +68,11 @@ LeDatabaseReloadExamples >> addPage [
 	self assert: (db1 hasPageNamed: #Page3).
 	self
 		assert: (db1 pageNamed: #Page3) children first string
-		equals: #Page3Snippet1.
+		equals: 'Page3Snippet1'.
 
 	self assert: announcements size equals: 1.
 	self assert: announcements first class equals: LeDatabasePageAdded.
-	self assert: announcements first page title equals: #Page3.
+	self assert: announcements first page title equals: 'Page3'.
 
 	^ db1
 ]
@@ -103,8 +103,8 @@ LeDatabaseReloadExamples >> addSnippets [
 	db1 reload.
 
 	self assert: page childrenCount equals: 4.
-	self assert: (page children at: 4) string equals: #AddedSnippet.
-	self assert: page children first string equals: #'111'.
+	self assert: (page children at: 4) string equals: 'AddedSnippet'.
+	self assert: page children first string equals: '111'.
 
 	self assert: announcements size equals: 3.
 	self
@@ -112,8 +112,8 @@ LeDatabaseReloadExamples >> addSnippets [
 		equals: {LeContentTreeAdded.
 				LeContentTreeAdded.
 				LeContentTreeChanged}.
-	self assert: announcements first content string equals: #'111'.
-	self assert: announcements second content string equals: #AddedSnippet.
+	self assert: announcements first content string equals: '111'.
+	self assert: announcements second content string equals: 'AddedSnippet'.
 
 	^ db1
 ]
@@ -180,8 +180,8 @@ LeDatabaseReloadExamples >> modifySnippet [
 	db2 stopMonitoring.
 
 	page := db1 pageNamed: #Page2.
-	self assert: page children first string equals: #Snippet2.
-	self assert: (page children at: 2) string equals: #'4+3'.
+	self assert: page children first string equals: 'Snippet2'.
+	self assert: (page children at: 2) string equals: '4+3'.
 
 	announcements := OrderedCollection new.
 	db1 weak
@@ -190,16 +190,16 @@ LeDatabaseReloadExamples >> modifySnippet [
 		to: announcements.
 	db1 reload.
 
-	self assert: page children first string equals: #ModifiedSnippet2.
-	self assert: (page children at: 2) string equals: #'4+3+2'.
+	self assert: page children first string equals: 'ModifiedSnippet2'.
+	self assert: (page children at: 2) string equals: '4+3+2'.
 
 	self assert: announcements size equals: 2.
 	self
 		assert: (announcements collect: #class) asArray
 		equals: {LeSnippetTextChanged.
 				LeSnippetTextChanged}.
-	self assert: announcements first snippet string equals: #ModifiedSnippet2.
-	self assert: announcements second snippet string equals: #'4+3+2'
+	self assert: announcements first snippet string equals: 'ModifiedSnippet2'.
+	self assert: announcements second snippet string equals: '4+3+2'
 ]
 
 { #category : #private }
@@ -275,8 +275,8 @@ LeDatabaseReloadExamples >> removeSnippet [
 
 	page := db1 pageNamed: #Page2.
 	self assert: page childrenCount equals: 2.
-	self assert: page children first string equals: #Snippet2.
-	self assert: (page children at: 2) string equals: #'4+3'.
+	self assert: page children first string equals: 'Snippet2'.
+	self assert: (page children at: 2) string equals: '4+3'.
 
 	announcements := OrderedCollection new.
 	db1 weak
@@ -286,14 +286,14 @@ LeDatabaseReloadExamples >> removeSnippet [
 	db1 reload.
 
 	self assert: page childrenCount equals: 1.
-	self assert: page children first string equals: #'4+3'.
+	self assert: page children first string equals: '4+3'.
 
 	self assert: announcements size equals: 2.
 	self
 		assert: (announcements collect: #class) asArray
 		equals: {LeContentTreeRemoved.
 				LeContentTreeChanged}.
-	self assert: announcements first content string equals: #Snippet2.
+	self assert: announcements first content string equals: 'Snippet2'.
 
 	^ db1
 ]

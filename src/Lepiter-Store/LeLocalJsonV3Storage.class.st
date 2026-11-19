@@ -113,7 +113,7 @@ LeLocalJsonV3Storage >> updateFile: file from: oldVersion [
 	| updater jsonObject version backup newFileReference |
 
 	jsonObject := self loadJsonFrom: file.
-	version := LeDbVersion fromString: (jsonObject at: #'__schema').
+	version := LeDbVersion fromString: (jsonObject at: '__schema').
 	version > oldVersion ifTrue: [ ^ self ].
 
 	updater := LeJsonV3SchemaUpdater updaterFor: oldVersion minor.
@@ -126,7 +126,6 @@ LeLocalJsonV3Storage >> updateFile: file from: oldVersion [
 	Be conservative and always resolve and copy the file reference to avoid updating the original."
 	file resolve copy renameTo: backup basename.
 	self write: jsonObject toJsonFile: newFileReference.
-
 ]
 
 { #category : #enumerating }
