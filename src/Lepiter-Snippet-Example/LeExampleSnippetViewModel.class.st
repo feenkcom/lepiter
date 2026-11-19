@@ -73,7 +73,8 @@ LeExampleSnippetViewModel >> cachedExamplePreviewFingerprintKey [
 { #category : #'api - cache' }
 LeExampleSnippetViewModel >> cachedExamplePreviewForFingerprint: aFingerprint do: aBlock [
 	"Evaluate aBlock with the cached preview if it was computed for the given fingerprint;
-	otherwise remove the outdated preview"
+	otherwise remove the outdated preview, so that #updateExamplePreviewWithPreview:
+	does not display results of superseded computations"
 
 	| aPreview |
 	mutex
@@ -242,7 +243,8 @@ LeExampleSnippetViewModel >> gtExampleDo: aBlock [
 { #category : #'api - accessing' }
 LeExampleSnippetViewModel >> gtExampleDo: aBlock ifAbsent: absentBlock [
 	"Evaluate aBlock with the GtExample of the referenced method, or evaluate absentBlock.
-	A cached GtExample is reused only if it was created for the current version of the referenced method"
+	A cached GtExample is reused only if it was created for the current version of the referenced method
+	(same source and the same class object, not a class re-created under the same name)"
 
 	| anExampleMethod aMethodKey aCachedExample aGtExample |
 	anExampleMethod := self referencedCompiledMethod ifNil: [ ^ absentBlock value ].
@@ -294,9 +296,10 @@ LeExampleSnippetViewModel >> handleAnnotationAstChange: anAst [
 { #category : #'private - event handling' }
 LeExampleSnippetViewModel >> handleSystemClassAnnouncement: aClassAnnouncement [
 	"Is sent by a displayed example snippet element.
-	If the referenced name does not resolve anymore (class renamed or removed), only react
-	when the cached preview was computed for another fingerprint, so that snippets referencing
-	a missing class do not recompute on every class announcement"
+	Class removal is matched by name (#originalName of the obsolete class).
+	If the referenced name does not resolve anymore for another reason (the class was renamed),
+	only react when the cached preview was computed for another fingerprint,
+	so that snippets referencing a missing class do not recompute on every class announcement"
 
 	| aBehaviorName |
 	aBehaviorName := self referencedInstanceSideBehaviorName ifNil: [ ^ self ].

@@ -118,14 +118,14 @@ LeExampleSnippetSystemSubscriptionExamples >> pageWithTemporaryExampleSnippet [
 ]
 
 { #category : #private }
-LeExampleSnippetSystemSubscriptionExamples >> scripterForPage: aPageBlock [
+LeExampleSnippetSystemSubscriptionExamples >> scripterDisplayingPage: aPageBlock [
 	| aScripter |
 	aScripter := BlScripter new.
 	aScripter
 		substep: 'Initialize model and UI'
 		do: [ :aStep | 
 			aStep set
-				label: 'Initialize a page with an example snippet';
+				label: 'Initialize a page with example snippets';
 				model: aPageBlock;
 				play.
 			aStep set
@@ -136,6 +136,15 @@ LeExampleSnippetSystemSubscriptionExamples >> scripterForPage: aPageBlock [
 						matchParent ];
 				onModel;
 				play ].
+	^ aScripter
+]
+
+{ #category : #private }
+LeExampleSnippetSystemSubscriptionExamples >> scripterForPage: aPageBlock [
+	"Display a page with a single example snippet and check its system subscription"
+
+	| aScripter |
+	aScripter := self scripterDisplayingPage: aPageBlock.
 	aScripter set
 		label: 'Remember the example snippet element';
 		key: #exampleElement value: [ :anElement | anElement ];
@@ -317,6 +326,56 @@ LeExampleSnippetSystemSubscriptionExamples >> scripterWithTemporaryExampleSnippe
 	^ aScripter
 ]
 
+{ #category : #'examples - scripter' }
+LeExampleSnippetSystemSubscriptionExamples >> scripterWithTwoTemporaryExampleSnippets_rebindElement [
+	"Recycled elements (e.g. while scrolling) must show the state of their new view model right away,
+	not the preview of their previous view model until the requested update arrives"
+
+	<gtExample>
+	<after: #cleanUp>
+	<return: #BlScripter>
+	| aScripter |
+	aScripter := self
+			scripterDisplayingPage: [ | aPage |
+				aPage := self pageWithTemporaryExampleSnippet.
+				aPage
+					addSnippet: (LeExampleSnippet new
+							exampleBehaviorName: self temporaryClass name;
+							exampleSelector: self temporaryExampleSelector;
+							noCode: false;
+							yourself).
+				aPage ].
+	aScripter assert
+		label: 'Both example previews are computed and displayed';
+		value: [ :aTarget | 
+				(aTarget
+					allChildrenBreadthFirstSelect: [ :each | each class == LeExampleSnippetElement ])
+					count: [ :each | self isPreviewCurrentAndDisplayedIn: each ] ]
+			equals: 2;
+		play.
+	aScripter do
+		label: 'Bind the first example snippet element to the view model of the second snippet';
+		action: [ :aTarget :aUserData | 
+			| theElements aReboundElement aViewModel aCachedPreview |
+			theElements := aTarget
+					allChildrenBreadthFirstSelect: [ :each | each class == LeExampleSnippetElement ].
+			aReboundElement := theElements first.
+			aViewModel := theElements second snippetViewModel.
+			aViewModel cachedExamplePreviewDo: [ :aPreview | aCachedPreview := aPreview ].
+			aReboundElement snippetViewModel: aViewModel.
+			aUserData
+				at: #isNewPreviewShownRightAway
+				put: (aCachedPreview notNil
+						and: [ aCachedPreview element hasParent: aReboundElement ]) ];
+		play.
+	aScripter assert
+		label: 'The rebound element shows the preview of its new view model without waiting for an update';
+		value: [ :aTarget :aUserData | aUserData at: #isNewPreviewShownRightAway ]
+			equals: true;
+		play.
+	^ aScripter
+]
+
 { #category : #private }
 LeExampleSnippetSystemSubscriptionExamples >> systemSubscriptionsCountOf: anObject [
 	| aCount |
@@ -334,7 +393,7 @@ LeExampleSnippetSystemSubscriptionExamples >> temporaryClass [
 
 { #category : #private }
 LeExampleSnippetSystemSubscriptionExamples >> temporaryExampleSelector [
-	^ #temporaryExample
+	^ #renamedExample
 ]
 
 { #category : #private }

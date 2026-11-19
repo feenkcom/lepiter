@@ -23,12 +23,15 @@ LeExampleSnippetElement >> browseExample [
 
 { #category : #'private - updating' }
 LeExampleSnippetElement >> computeExamplePreviewElement [
-	<return: #BlElement>
-	| anElement aFingerprint |
-	"Take the fingerprint before computing, so that changes during the computation mark the result as outdated"
-	aFingerprint := self snippetViewModel examplePreviewFingerprint.
+	"I run in a future: read the view model once, since the element may be bound
+	to another view model while I compute (e.g. when the snippet list is scrolled)"
 
-	self snippetViewModel
+	<return: #BlElement>
+	| aViewModel anElement aFingerprint |
+	aViewModel := self snippetViewModel.	"Take the fingerprint before computing, so that changes during the computation mark the result as outdated"
+	aFingerprint := aViewModel examplePreviewFingerprint.
+
+	aViewModel
 		cachedExamplePreviewForFingerprint: aFingerprint
 		do: [ :aCachedComputedPreview | 
 			self
@@ -37,23 +40,23 @@ LeExampleSnippetElement >> computeExamplePreviewElement [
 
 			^ aCachedComputedPreview ].
 
-	self snippetViewModel
+	aViewModel
 		gtExampleDo: [ :aGtExample | 
 			anElement := LeExampleSnippetComputedPreview new
 					example: aGtExample;
 					element: (GtExamplePreviewStencil new
 							example: aGtExample asCachedExampleWithResult;
-							codeExpanded: self snippetViewModel codeExpanded;
-							noCode: self snippetViewModel noCode;
-							previewExpanded: self snippetViewModel previewExpanded;
-							previewShowSelector: self snippetViewModel previewShowSelector;
-							previewSelectSelector: self snippetViewModel previewSelectSelector;
-							previewHeight: self snippetViewModel previewHeight;
+							codeExpanded: aViewModel codeExpanded;
+							noCode: aViewModel noCode;
+							previewExpanded: aViewModel previewExpanded;
+							previewShowSelector: aViewModel previewShowSelector;
+							previewSelectSelector: aViewModel previewSelectSelector;
+							previewHeight: aViewModel previewHeight;
 							asElement) ]
 		ifAbsent: [ anElement := LeExampleSnippetNoPreview new
 					element: (BrHorizontalPane new
 							hMatchParent;
-							vExact: self snippetViewModel previewHeight;
+							vExact: aViewModel previewHeight;
 							geometry: (BlRoundedRectangleGeometry cornerRadius: 4);
 							alignCenter;
 							background: self theme default backdropBackground;
@@ -61,9 +64,7 @@ LeExampleSnippetElement >> computeExamplePreviewElement [
 									aptitude: (BrGlamorousLabelAptitude new light foreground: Color veryDarkGray);
 									text: 'Example not found')) ].
 
-	self snippetViewModel
-		cacheExamplePreview: anElement
-		withFingerprint: aFingerprint.
+	aViewModel cacheExamplePreview: anElement withFingerprint: aFingerprint.
 	^ anElement
 ]
 
@@ -232,6 +233,7 @@ LeExampleSnippetElement >> onRemovedFromSceneGraph [
 { #category : #'api - snippet view model' }
 LeExampleSnippetElement >> onSnippetViewModelChanged [
 	super onSnippetViewModelChanged.
+	self showCachedExamplePreviewOrRenderingElement.
 	self requestExamplePreviewUpdate
 ]
 
@@ -248,8 +250,8 @@ LeExampleSnippetElement >> onSnippetViewModelFocused: aBoolean [
 
 { #category : #'private - event handling' }
 LeExampleSnippetElement >> onSystemAnnouncement: aSystemAnnouncement [
-	"Class announcements are checked first: ClassRenamed and ClassRemoved also answer true to #affectsMethods,
-	but do not understand the method announcement protocol"
+	"Class announcements are checked first: some of them (ClassRemoved, ClassRenamed, ClassRepackaged)
+	also answer true to #affectsMethods, but do not understand the method announcement protocol"
 
 	self hasSnippetViewModel ifFalse: [ ^ self ].
 
@@ -272,6 +274,18 @@ LeExampleSnippetElement >> requestExamplePreviewUpdate [
 LeExampleSnippetElement >> runExample [
 	self snippetViewModel gtExampleDo: [ :aGtExample |
 		self phlow spawnObject: aGtExample run returnValue ]
+]
+
+{ #category : #'private - updating' }
+LeExampleSnippetElement >> showCachedExamplePreviewOrRenderingElement [
+	"Show the state of the current snippet view model right away, so that a recycled element
+	does not display the preview and annotation of its previous view model until the requested update arrives"
+
+	self snippetViewModel
+		cachedExamplePreviewForFingerprint: self snippetViewModel examplePreviewFingerprint
+		do: [ :aCachedComputedPreview | ^ self updateExamplePreviewWithPreview: aCachedComputedPreview ].
+
+	self updateExamplePreviewWithRendingElement
 ]
 
 { #category : #'api - view' }

@@ -345,7 +345,8 @@ LeExampleSnippet >> exampleSelector: aNewExampleSelector [
 LeExampleSnippet >> handleSystemClassAnnouncement: anAnnouncement [
 	"Transitional: example snippets no longer subscribe to the system announcer.
 	Snippets created before this change (also in saved images) are still subscribed;
-	they drop their subscription on the first system change."
+	they drop their subscription on the first system change.
+	Can be removed once no image created before this change is in use."
 
 	self unsubscribeFromSystem
 ]
