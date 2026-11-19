@@ -10,34 +10,34 @@ BaselineOfLepiterEngineCore >> baseline: spec [
 	spec for: #'common' do: [
 		spec
 			baseline: 'Brick' with: [
-				spec repository: 'github://feenkcom/Brick:v0.9.187/src' ].
+				spec repository: 'github://feenkcom/Brick:v0.9.188/src' ].
 		spec
 			baseline: 'GToolkitFileUtility' with: [
-				spec repository: 'github://feenkcom/gtoolkit-utility:v0.9.70/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-utility:v0.9.71/src' ].
 		spec
 			baseline: 'GToolkitInspector' with: [
-				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.9.372/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-inspector:v0.9.373/src' ].
 		spec
 			baseline: 'GToolkitCoder' with: [
-				spec repository: 'github://feenkcom/gtoolkit-coder:v0.9.282/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-coder:v0.9.283/src' ].
 		spec
 			baseline: 'GToolkit4Pharo' with: [
-				spec repository: 'github://feenkcom/gt4pharo:v0.7.364/src' ].
+				spec repository: 'github://feenkcom/gt4pharo:v0.7.365/src' ].
 		spec
 			baseline: 'GToolkit4Json' with: [
-				spec repository: 'github://feenkcom/gt4json:v0.7.374/src' ].
+				spec repository: 'github://feenkcom/gt4json:v0.7.375/src' ].
 		spec
 			baseline: 'GToolkitReleaser' with: [
-				spec repository: 'github://feenkcom/gtoolkit-releaser:v0.8.393/src' ].
+				spec repository: 'github://feenkcom/gtoolkit-releaser:v0.8.394/src' ].
 		spec
 			baseline: 'LepiterXDoc' with: [
-				spec repository: 'github://feenkcom/lepiter:v0.7.460/src' ].
+				spec repository: 'github://feenkcom/lepiter:v0.7.461/src' ].
 		spec
 			baseline: 'SmaCCRuntime' with: [
-				spec repository: 'github://j-brant/SmaCC:b24de30230a52b873f5423459806b56cd777340c/src' ].
+				spec repository: 'github://j-brant/SmaCC:ef9cc90dddf7a8bcbba06f01d8ea4347f8fd595f/src' ].
 		spec
 			baseline: 'JSONParser' with: [
-				spec repository: 'github://j-brant/SmaCC:b24de30230a52b873f5423459806b56cd777340c/src' ].
+				spec repository: 'github://j-brant/SmaCC:ef9cc90dddf7a8bcbba06f01d8ea4347f8fd595f/src' ].
 		spec
 			baseline: 'Beacon' with: [
 				spec repository: 'github://feenkcom/pharo-beacon:v0.5.128/src' ].
