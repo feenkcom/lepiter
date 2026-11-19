@@ -24,10 +24,10 @@ LeDatabasePropertyExamples >> databaseWithPersonalInfo [
 	dbProperties := STONJSON
 			fromString: (memStore / database properties propertiesBasename) contents.
 
-	self assert: (dbProperties at: #savePersonalInformation) equals: true.
-	self assert: (properties includesKey: #originalReference).
+	self assert: (dbProperties at: 'savePersonalInformation') equals: true.
+	self assert: (properties includesKey: 'originalReference').
 	self
-		assert: ((properties at: #originalReference) at: #filename)
+		assert: ((properties at: 'originalReference') at: 'filename')
 		equals: '/test.attachment'
 ]
 

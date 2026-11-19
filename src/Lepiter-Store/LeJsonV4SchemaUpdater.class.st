@@ -50,5 +50,5 @@ LeJsonV4SchemaUpdater >> fileReferenceFor: jsonObject named: file [
 LeJsonV4SchemaUpdater >> update: jsonObject [
 	"Update the supplied JSON object by one version"
 
-	jsonObject at: #'__schema' put: ('4.', (self class minorVersion + 1) asString)
+	jsonObject at: '__schema' put: ('4.', (self class minorVersion + 1) asString)
 ]

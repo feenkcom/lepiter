@@ -63,10 +63,14 @@ LeExternalLabelUrlLinkNode >> label [
 
 { #category : #accessing }
 LeExternalLabelUrlLinkNode >> url [
-	| linkString endOfLabel |
+	"Answer the destination, excluding Markdown delimiters."
 
+	| linkString endOfLabel destination |
 	linkString := self link source.
 	endOfLabel := linkString indexOfSubCollection: ']('.
 	self assert: endOfLabel > 0.
-	^ linkString copyFrom: endOfLabel + 2 to: linkString size - 1.
+	destination := linkString copyFrom: endOfLabel + 2 to: linkString size - 1.
+	((destination beginsWith: '<') and: [ destination endsWith: '>' ])
+		ifTrue: [ destination := destination copyFrom: 2 to: destination size - 1 ].
+	^ destination
 ]
