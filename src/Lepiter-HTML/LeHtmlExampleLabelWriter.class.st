@@ -28,13 +28,11 @@ LeHtmlExampleLabelWriter >> resource: anObject [
 	resource := anObject
 ]
 
-{ #category : #'api - writing' }
+{ #category : #writing }
 LeHtmlExampleLabelWriter >> write [
-	resource hasExampleResult ifFalse: [
-		resource acceptVisitor: context assembler ].
-		
-	resource hasExampleResult 
-		ifTrue: [ self writeLabel ]
+	| label |
+	label := resource computedLabel.
+	label ifNotNil: [ self writeLabel ]
 ]
 
 { #category : #'writing - private' }

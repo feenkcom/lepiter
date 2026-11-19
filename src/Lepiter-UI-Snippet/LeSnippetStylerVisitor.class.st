@@ -311,16 +311,15 @@ LeSnippetStylerVisitor >> referencedPage: aLePage [
 
 { #category : #private }
 LeSnippetStylerVisitor >> resolveUrl: aUrlString [
-	"For file urls, resolve against the database directory or root directory, and allow file urls of the form 'file://path/to/image.png' (the host is missing), with the same resolution"
-	<return: #GtUrlStringUtility>
-	| rootDir |
-	
-	rootDir :=  (self snippetViewModel notNil and: [ self snippetViewModel snippetModel database monitor notNil ])
-		ifTrue: [ self snippetViewModel snippetModel database monitor localRoot ]
-		ifFalse: [ FileLocator workingDirectory resolve ].
+	"Resolve local images without requiring a synthetic database. CommonMark destinations may be enclosed in angle brackets."
+
+	| destination |
+	destination := aUrlString.
+	((destination beginsWith: '<') and: [ destination endsWith: '>' ])
+		ifTrue: [ destination := destination copyFrom: 2 to: destination size - 1 ].
 	^ GtUrlStringUtility new
-		rootDirectory: rootDir;
-		urlString: aUrlString.
+		rootDirectory: styler imageRootDirectory;
+		urlString: destination
 ]
 
 { #category : #'private - testing' }

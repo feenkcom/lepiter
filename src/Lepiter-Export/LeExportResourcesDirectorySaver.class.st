@@ -108,10 +108,10 @@ LeExportResourcesDirectorySaver >> saveBytes: aByteArray intoPath: aRelativePath
 			aStream nextPutAll: aByteArray ].
 ]
 
-{ #category : #'api - saving' }
+{ #category : #saving }
 LeExportResourcesDirectorySaver >> saveResource: aResource [
+	aResource isOptionalResource ifTrue: [ ^ self ].
 	aResource state isReady ifFalse: [ ^ self ].
-
 	aResource accept: self
 ]
 

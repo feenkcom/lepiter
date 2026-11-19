@@ -666,6 +666,61 @@ LeParserExamples >> parser [
 	^ LeParser
 ]
 
+{ #category : #examples }
+LeParserExamples >> relativeAngleLink [
+	<gtExample>
+	| node link |
+	node := self parse: '<gt-figures/1000.png>'.
+	self assert: node parts size equals: 1.
+	link := node parts first.
+	self assert: link class equals: LeExternalUrlLinkNode.
+	self assert: link url equals: 'gt-figures/1000.png'.
+	^ node
+]
+
+{ #category : #examples }
+LeParserExamples >> relativeImageLink [
+	<gtExample>
+	| node image |
+	node := self parse: '![Example](gt-figures/1000.png)'.
+	self assert: node parts size equals: 1.
+	image := node parts first.
+	self assert: image class equals: LeExternalImageLinkNode.
+	self assert: image label equals: 'Example'.
+	self assert: image url equals: 'gt-figures/1000.png'.
+	^ node
+]
+
+{ #category : #examples }
+LeParserExamples >> relativeImageLinkWithAngleDestination [
+	<gtExample>
+	| node image source |
+	source := '![Example](<gt-figures/1000.png>)'.
+	node := self parse: source.
+	self assert: node parts size equals: 1.
+	image := node parts first.
+	self assert: image class equals: LeExternalImageLinkNode.
+	self assert: image label equals: 'Example'.
+	self assert: image url equals: 'gt-figures/1000.png'.
+	self assert: image source equals: source.
+	^ node
+]
+
+{ #category : #examples }
+LeParserExamples >> relativeLabelLinkWithAngleDestination [
+	<gtExample>
+	| node link source |
+	source := '[Example](<gt-figures/1000.png>)'.
+	node := self parse: source.
+	self assert: node parts size equals: 1.
+	link := node parts first.
+	self assert: link class equals: LeExternalLabelUrlLinkNode.
+	self assert: link label equals: 'Example'.
+	self assert: link url equals: 'gt-figures/1000.png'.
+	self assert: link source equals: source.
+	^ node
+]
+
 { #category : #'examples - links' }
 LeParserExamples >> specialCharacterBracketLink [
 	<gtExample>
