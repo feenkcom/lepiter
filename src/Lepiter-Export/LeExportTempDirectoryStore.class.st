@@ -23,7 +23,7 @@ LeExportTempDirectoryStore >> gtFilesFor: aView [
 	^ aView forward
 		title: 'Files';
 		priority: 10;
-		object: [ tempDirectory root ];
+		object: [ tempDirectory ];
 		view: #gtTreeFor:
 ]
 

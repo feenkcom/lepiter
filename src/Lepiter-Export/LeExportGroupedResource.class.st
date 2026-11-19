@@ -84,18 +84,21 @@ LeExportGroupedResource >> state [
 	children size = 1 ifTrue: [ ^ children anyOne state ].
 	
 	someChildren := children reject: [ :each | each source == type ].
+	someChildren size = 1 ifTrue: [ ^ someChildren anyOne state ].
 	allStates := someChildren collect: #state.
 	stateTypes := allStates groupedBy: #class.
-
-	stateTypes size = 1 ifTrue: [ ^ allStates anyOne ].
+	stateTypes size = 1 ifTrue: [ 
+		^ allStates anyOne asTotalStateFromSameTypes: allStates ].
 	
 	name := ''.
 	label := '' asRopedText.
 	
 	stateTypes keysAndValuesDo: [ :stateClass :states | 
-		name := name, ' ', states anyOne name.
+		| totalState |
+		totalState := states anyOne asTotalStateFromSameTypes: states.
+		name := name, ' ', totalState name.
 		label ifNotEmpty: [ label append: ' ' asRopedText ].
-		label append: states anyOne label.
+		label append: totalState label.
 	].
 
 	^ LeExportGroupedResourceState new
