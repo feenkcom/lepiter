@@ -245,17 +245,11 @@ LeCodeSnippet >> executeWithLoggingAction: aBlock afterChange: aGtCoderSourceCod
 ]
 
 { #category : #initialization }
-LeCodeSnippet >> initialize [ 
+LeCodeSnippet >> initialize [
 	super initialize.
 
 	coder := self newCoder.
-	coder weak
-		when: GtCoderSourceCodeChanged
-			send: #onCoderSourceModified:
-			to: self;
-		when: GtCoderRenameTemporaryRequestedAnnouncement
-			send: #onCoderRenameTemporaryRequested:
-			to: self
+	coder directNotifier: (LeCodeSnippetCoderNotifier snippet: self)
 ]
 
 { #category : #'api - testing' }
