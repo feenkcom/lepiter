@@ -49,7 +49,7 @@ LeAnnotationCompletionVisitor >> completeShowArgument: anArgument [
 
 { #category : #private }
 LeAnnotationCompletionVisitor >> optionalValues [
-	^ #('expanded' 'full' 'previewExpanded' 'noCode' 'codeExpanded')
+	^ #(expanded full previewExpanded noCode codeExpanded)
 ]
 
 { #category : #private }

@@ -16,7 +16,7 @@ AbstractFileReference >> asLepiterZnUrl [
 AbstractFileReference >> gtLepiterPageFor: aView [
 	<gtView>
 
-	(self isFile and: [ self extension = #lepiter ]) ifFalse: [ ^ aView empty ].
+	(self isFile and: [ self extension = 'lepiter' ]) ifFalse: [ ^ aView empty ].
 	^ aView forward 
 		title: 'Lepiter page';
 		priority: 10;
