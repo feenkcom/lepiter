@@ -64,12 +64,12 @@ LeBasicDatabaseReloadExamples >> newDb: dbName root: aFileReference [
 { #category : #private }
 LeBasicDatabaseReloadExamples >> populate: aLeDatabase [
 	| page |
-	page := LePage named: #Page1.
-	page addSnippet: (LeTextSnippet string: #Snippet1).
+	page := LePage named: 'Page1'.
+	page addSnippet: (LeTextSnippet string: 'Snippet1').
 	aLeDatabase addPage: page.
-	page := LePage named: #Page2.
-	page addSnippet: (LeTextSnippet string: #Snippet2).
-	page addSnippet: (LeTextSnippet string: #'4+3').
+	page := LePage named: 'Page2'.
+	page addSnippet: (LeTextSnippet string: 'Snippet2').
+	page addSnippet: (LeTextSnippet string: '4+3').
 	aLeDatabase addPage: page.
 	^ aLeDatabase
 ]

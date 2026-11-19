@@ -14,5 +14,5 @@ LePragmaNameNode >> acceptVisitor: aPragmaParseVisitor [
 
 { #category : #'as yet unclassified' }
 LePragmaNameNode >> isDefined [
-	^ GtPragmaType all anySatisfy: [ :each | each keyword = self value value ]
+	^ GtPragmaType all anySatisfy: [ :each | each keyword sameContentAs: self value value ]
 ]

@@ -9,6 +9,12 @@ Class {
 	#category : #'Lepiter-Export-Resources - State'
 }
 
+{ #category : #converting }
+LeExportAssembledResourceState >> asTotalStateFromSameTypes: someStates [
+	^ self class new
+		duration: (someStates sum: [ :eachState | eachState duration ])
+]
+
 { #category : #accessing }
 LeExportAssembledResourceState >> color [
 	^ BrGlamorousColors successBackgroundColor

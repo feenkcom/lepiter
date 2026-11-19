@@ -131,7 +131,7 @@ LeJsonV4Reader >> postCopy [
 LeJsonV4Reader >> unknownObjectsResolversMap [
 	^ (LeUnknownObjectResolver allSubclasses
 		reject: [ :each | each isAbstract ])
-			inject: Dictionary new 
+			inject: GtStringContentDictionary new 
 			into: [ :currentMap :aType |
 				currentMap
 					at: aType attributeKey put: aType;

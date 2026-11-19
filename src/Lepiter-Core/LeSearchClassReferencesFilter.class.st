@@ -53,7 +53,7 @@ LeSearchClassReferencesFilter >> leHighlighters [
 								nodeClassName: #LeClassNameArgumentNode
 								variableNames: #(value)
 								styleBlock: [ :styler :token | 
-									token source = self name
+									(token source sameContentAs: self name)
 										ifTrue: [ styler underlineColor: BrGlamorousColors textHighlightColor thickness: 3 ] ]});
 		yourself
 ]
@@ -63,11 +63,11 @@ LeSearchClassReferencesFilter >> matches: anObject [
 	^ (super matches: anObject)
 		and: [ (anObject
 				optionAt: #variables
-				ifPresent: [ :variables | variables includes: name ]
+				ifPresent: [ :variables | variables anySatisfy: [ :each | each sameContentAs: name ] ]
 				ifAbsent: [ false ])
 				or: [ anObject
 						optionAt: #selectors
-						ifPresent: [ :selectors | selectors includes: name ]
+						ifPresent: [ :selectors | selectors anySatisfy: [ :each | each sameContentAs: name ] ]
 						ifAbsent: [ false ] ] ]
 ]
 

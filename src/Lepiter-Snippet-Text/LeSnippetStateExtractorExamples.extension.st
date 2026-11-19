@@ -23,7 +23,7 @@ LeSnippetStateExtractorExamples >> extractSpecificStateTextSnippet [
 		assert: (state attributes collect: #attributeName) sorted
 		equals: #(paragraphStyle string).
 
-	self assert: (state attributeNamed: 'string') attributeValue equals: 'a'.
+	self assert: (state attributeNamed: #string) attributeValue equals: 'a'.
 
 	^ state
 ]

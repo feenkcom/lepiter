@@ -13,16 +13,25 @@ BaselineOfLepiterEngine class >> gtDependencyAnalysisPreloadedBaselines [
 { #category : #baseline }
 BaselineOfLepiterEngine >> baseline: spec [
 	<baseline>
-	spec for: #'common' do: [
-		spec baseline: 'LepiterEngineExtensions' with: [
-				spec repository: 'github://feenkcom/lepiter:main/src' ].
-		spec package: 'Lepiter-Validator' with: [
-				spec requires: #('LepiterEngineExtensions' ). ].
-		spec package: 'Lepiter-Tool' with: [
-				spec requires: #('LepiterEngineExtensions' ). ].
-		spec package: 'Lepiter-Snippets' with: [ 
-				spec requires: #('LepiterEngineExtensions') ].
-		spec package: 'Lepiter-Setup' ].
+	spec
+		for: #common
+		do: [ spec
+				baseline: 'LepiterEngineExtensions'
+				with: [ spec repository: 'github://feenkcom/lepiter:main/src' ].
+			spec
+				package: 'Lepiter-Validator'
+				with: [ spec requires: #('LepiterEngineExtensions') ].
+			spec
+				package: 'Lepiter-Tool'
+				with: [ spec requires: #('LepiterEngineExtensions') ].
+			spec
+				package: 'Lepiter-Snippets'
+				with: [ spec requires: #('LepiterEngineExtensions') ].
+			spec
+				package: 'Lepiter-Markdown'
+				with: [ spec
+						requires: #('LepiterEngineExtensions') ].
+			spec package: 'Lepiter-Setup' ]
 ]
 
 { #category : #converting }

@@ -3,6 +3,11 @@ Trait {
 	#category : #'Lepiter-Export-Resources - State'
 }
 
+{ #category : #converting }
+TLeExportResourceState >> asTotalStateFromSameTypes: someStates [
+	^ self
+]
+
 { #category : #accessing }
 TLeExportResourceState >> color [
 	^ Color black
