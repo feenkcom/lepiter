@@ -37,9 +37,8 @@ LeDailyNoteTitleParser >> parse: aTitle [
 	(aTitle isNil or: [ aTitle isEmpty ]) ifTrue: [ ^ nil ].
 	aCollection := String space split: aTitle.
 	aCollection size = 3 ifFalse: [ ^ nil ].
-	aMonth := Date monthNames 
-		indexOf: aCollection first
-		ifAbsent: [ ^ nil ].
+	aMonth := Date monthNames findFirst: [ :each | each sameContentAs: aCollection first ].
+	aMonth = 0 ifTrue: [ ^ nil ].
 	aDay := aCollection second select: #isDigit.
 	aDay := Number readFrom: aDay ifFail: [ ^ nil ].
 	(aDay isInteger and: [ aDay between: 1 and: 31 ])

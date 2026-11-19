@@ -99,7 +99,7 @@ LeContentCommand >> initialize [
 { #category : #initialization }
 LeContentCommand >> initializeFromSpecification: aCommandSpecification withBuilder: aBuilder [
 	self assert: [ aCommandSpecification notNil ].
-	self assert: [ aCommandSpecification commandTypeName = self className ].
+	self assert: [ aCommandSpecification commandTypeName sameContentAs: self className ].
 ]
 
 { #category : #accessing }
