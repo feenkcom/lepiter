@@ -561,6 +561,53 @@ LeHtmlVisitorExamples >> textSnippetWithParagraphsAndLists [
 	^ html
 ]
 
+{ #category : #examples }
+LeHtmlVisitorExamples >> textSnippetWithTable [
+	<gtExample>
+	| html source |
+	source := String lf
+			join: #('| Left | Center | Right |' '| :--- | :---: | ---: |' '| **bold** | `code` | <https://example.org> |' '| A & B | | last |').
+	html := self
+			htmlForTextSnippet: (LeTextSnippet string: source)
+			context: LeHtmlContext new.
+	self assertHtml: html includes: '<table>'.
+	self assertHtml: html includes: '<thead>'.
+	self assertHtml: html includes: '<tbody>'.
+	self assert: (self countOf: '<tr>' in: html) equals: 3.
+	self assert: (self countOf: '<th ' in: html) equals: 3.
+	self assert: (self countOf: '<td ' in: html) equals: 6.
+	self assertHtml: html includes: 'text-align: left'.
+	self assertHtml: html includes: 'text-align: center'.
+	self assertHtml: html includes: 'text-align: right'.
+	self assertHtml: html includes: '<b>'.
+	self assertHtml: html includes: '<code'.
+	self assertHtml: html includes: 'href="https://example.org/"'.
+	self assertHtml: html includes: 'A &amp; B'.
+	self assert: (html includesSubstring: '<p>') not.
+	self assert: (html includesSubstring: ':---') not.
+	^ html
+]
+
+{ #category : #examples }
+LeHtmlVisitorExamples >> textSnippetWithTableBetweenParagraphs [
+	<gtExample>
+	| html source |
+	source := String lf
+			join: #('Before' '' '| A | B |' '| --- | --- |' '| one | two |' '' 'After').
+	html := self
+			htmlForTextSnippet: (LeTextSnippet string: source)
+			context: LeHtmlContext new.
+	self assertHtml: html includes: '<table>'.
+	self assert: (self countOf: '<p>' in: html) equals: 2.
+	self
+		assert: (html indexOfSubCollection: '</p>') < (html indexOfSubCollection: '<table>').
+	self
+		assert: (html
+				indexOfSubCollection: '<p>'
+				startingAt: (html indexOfSubCollection: '</table>')) > 0.
+	^ html
+]
+
 { #category : #'examples - unknown annotations' }
 LeHtmlVisitorExamples >> textSnippetWithUnknownAnnotation [
 	"An unknown annotation is written as it was typed and logged"
