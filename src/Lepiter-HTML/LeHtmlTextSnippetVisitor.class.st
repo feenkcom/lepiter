@@ -320,11 +320,21 @@ LeHtmlTextSnippetVisitor >> visitSmaCCError: aSmaCCErrorNode [
 
 { #category : #visiting }
 LeHtmlTextSnippetVisitor >> visitString: aString [
-	"A parse error node (`SmaCCErrorNode`) forwards unknown messages to its children, so `isHeaderNode` cannot be sent to the first part safely. Test its class instead.
-	Lines that start with `- `, `N. ` or `>` are written as lists and blockquotes, otherwise the browser would glue the lines together. Text without such lines is written as before."
+	"Split around tables so block-level table elements never appear inside paragraphs."
 
+	| pending |
 	exportedNodes add: aString.
-
+	(aString parts anySatisfy: [ :each | each isKindOf: LeTableNode ])
+		ifTrue: [ pending := OrderedCollection new.
+			aString parts
+				do: [ :each | 
+					(each isKindOf: LeTableNode)
+						ifTrue: [ self writeTableSurroundingParts: pending.
+							pending removeAll.
+							self acceptNode: each ]
+						ifFalse: [ pending add: each ] ].
+			self writeTableSurroundingParts: pending.
+			^ aString ].
 	aString parts
 		ifNotEmpty: [ :parts | 
 			(parts first isKindOf: LeHeaderNode)
@@ -332,8 +342,31 @@ LeHtmlTextSnippetVisitor >> visitString: aString [
 						ifNil: [ context html tag: #p do: [ self visitContent: aString ] ]
 						ifNotNil: [ :blocks | blocks do: [ :each | self writeBlockOfTextLines: each ] ].
 					^ aString ] ].
-
 	^ self visitContent: aString
+]
+
+{ #category : #visiting }
+LeHtmlTextSnippetVisitor >> visitTable: aTable [
+	"Tables are block elements. Delimiter rows specify alignment and are not rendered."
+
+	exportedNodes add: aTable.
+	context html
+		tag: #table
+		do: [ context html
+				tag: #thead
+				do: [ self
+						writeTableRow: aTable header
+						tag: #th
+						separator: aTable separator ].
+			context html
+				tag: #tbody
+				do: [ aTable rows
+						do: [ :row | 
+							self
+								writeTableRow: row
+								tag: #td
+								separator: aTable separator ] ] ].
+	^ aTable
 ]
 
 { #category : #generated }
@@ -429,6 +462,41 @@ LeHtmlTextSnippetVisitor >> writeQuoteOfTextLines: aCollectionOfLines [
 							each eol ifNotNil: [ :node | exportedNodes add: node ] ]
 						ifFalse: [ paragraph add: each ] ].
 			self writeParagraphOfTextLines: paragraph ]
+]
+
+{ #category : #writing }
+LeHtmlTextSnippetVisitor >> writeTableRow: aRow tag: aTag separator: aSeparator [
+	exportedNodes add: aRow.
+	context html
+		tag: #tr
+		do: [ aRow cells
+				withIndexDo: [ :cell :index | 
+					| alignment attributes |
+					alignment := index <= aSeparator cells size
+							ifTrue: [ (aSeparator cells at: index) alignment ]
+							ifFalse: [ #default ].
+					attributes := alignment = #default
+							ifTrue: [ #() ]
+							ifFalse: [ {'style'.
+									'text-align: ' , alignment asString} ].
+					context html
+						tag: aTag
+						attributes: attributes
+						do: [ exportedNodes add: cell.
+							cell parts do: [ :part | self acceptNode: part ] ] ] ]
+]
+
+{ #category : #writing }
+LeHtmlTextSnippetVisitor >> writeTableSurroundingParts: parts [
+	"Keep paragraphs and lists outside the table; do not wrap block tables in p elements."
+
+	| lines |
+	parts ifEmpty: [ ^ self ].
+	(parts anySatisfy: [ :each | each isKindOf: LeHeaderNode ])
+		ifTrue: [ parts do: [ :each | self acceptNode: each ].
+			^ self ].
+	lines := self textLinesIn: parts.
+	(self groupTextLines: lines) do: [ :block | self writeBlockOfTextLines: block ]
 ]
 
 { #category : #'private - exporting' }
