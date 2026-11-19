@@ -69,7 +69,7 @@ LeHtmlDoubleBracketFormatPiece >> gtTemplateFor: aView [
 LeHtmlDoubleBracketFormatPiece >> initialize [
 	super initialize.
 
-	arguments := Dictionary new
+	arguments := GtStringContentDictionary new
 ]
 
 { #category : #accessing }

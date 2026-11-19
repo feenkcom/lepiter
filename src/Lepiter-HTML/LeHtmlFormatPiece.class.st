@@ -69,7 +69,7 @@ LeHtmlFormatPiece >> gtTemplateFor: aView [
 LeHtmlFormatPiece >> initialize [
 	super initialize.
 
-	arguments := Dictionary new
+	arguments := GtStringContentDictionary new
 ]
 
 { #category : #accessing }

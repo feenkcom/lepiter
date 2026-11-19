@@ -204,7 +204,7 @@ LeLogicalDatabaseProperties >> isNull [
 LeLogicalDatabaseProperties >> load [
 	| dictionary |
 
-	(localFile isNotNil and: [ localFile exists ]) ifFalse: [ ^ Dictionary new ].
+	(localFile isNotNil and: [ localFile exists ]) ifFalse: [ ^ GtStringContentDictionary new ].
 	dictionary := localFile
 		readStreamEncoded: #utf8 
 		do: [ :aStream | 
