@@ -119,11 +119,11 @@ LeDatabaseExamples >> corruptionInvalidJsonFromClassStore [
 					newDbOnClass: self dbClassName
 					package: self dbPackageName
 					saveDelay: Duration zero.
-			page := LePage named: #Page1.
-			snippet := LeTextSnippet string: #Snippet1.
+			page := LePage named: 'Page1'.
+			snippet := LeTextSnippet string: 'Snippet1'.
 			page addSnippet: snippet.
 			database addPage: page.
-			self assert: (database hasPageNamed: #Page1).
+			self assert: (database hasPageNamed: 'Page1').
 			self deny: database monitor hasCorruptPages.
 			corruptSource := 'page_123
 			"Corrupt source example"
@@ -155,8 +155,8 @@ LeDatabaseExamples >> corruptionInvalidJsonFromLocalStore [
 	database := LeLocalStoreLoad current
 			loadAndMonitorFrom: db
 			saveDelay: Duration zero.
-	page := LePage named: #Page1.
-	snippet := LeTextSnippet string: #Snippet1.
+	page := LePage named: 'Page1'.
+	snippet := LeTextSnippet string: 'Snippet1'.
 	page addSnippet: snippet.
 	database addPage: page.
 	pageFile := database monitor pageFileReference: page.	"db / (page uid asString36 , '.json')"
@@ -184,11 +184,11 @@ LeDatabaseExamples >> corruptionLoadDuplicatePageFromClass [
 					newDbOnClass: self dbClassName
 					package: self dbPackageName
 					saveDelay: Duration zero.
-			page := LePage named: #Page1.
-			snippet := LeTextSnippet string: #Snippet1.
+			page := LePage named: 'Page1'.
+			snippet := LeTextSnippet string: 'Snippet1'.
 			page addSnippet: snippet.
 			database addPage: page.
-			self assert: (database hasPageNamed: #Page1).
+			self assert: (database hasPageNamed: 'Page1').
 			self deny: database monitor hasCorruptPages.
 			database monitor stopMonitoring.
 			pageSource := (database monitor dbClass class
@@ -225,8 +225,8 @@ LeDatabaseExamples >> corruptionLoadDuplicatePageFromLocal [
 	database := LeLocalStoreLoad current
 			loadAndMonitorFrom: db
 			saveDelay: Duration zero.
-	page := LePage named: #Page1.
-	snippet := LeTextSnippet string: #Snippet1.
+	page := LePage named: 'Page1'.
+	snippet := LeTextSnippet string: 'Snippet1'.
 	page addSnippet: snippet.
 	database addPage: page.
 	pageFile := database monitor pageFileReference: page.
@@ -259,11 +259,11 @@ LeDatabaseExamples >> corruptionReloadDuplicatePageFromClass [
 					newDbOnClass: self dbClassName
 					package: self dbPackageName
 					saveDelay: Duration zero.
-			page := LePage named: #Page1.
-			snippet := LeTextSnippet string: #Snippet1.
+			page := LePage named: 'Page1'.
+			snippet := LeTextSnippet string: 'Snippet1'.
 			page addSnippet: snippet.
 			database addPage: page.
-			self assert: (database hasPageNamed: #Page1).
+			self assert: (database hasPageNamed: 'Page1').
 			self deny: database monitor hasCorruptPages.
 			pageSource := (database monitor dbClass class
 					>> (database monitor storage pageSelectorFor: page)) sourceCode.
@@ -294,8 +294,8 @@ LeDatabaseExamples >> corruptionReloadDuplicatePageFromLocal [
 	database := LeLocalStoreLoad current
 			loadAndMonitorFrom: db
 			saveDelay: Duration zero.
-	page := LePage named: #Page1.
-	snippet := LeTextSnippet string: #Snippet1.
+	page := LePage named: 'Page1'.
+	snippet := LeTextSnippet string: 'Snippet1'.
 	page addSnippet: snippet.
 	database addPage: page.
 	pageFile := database monitor pageFileReference: page.

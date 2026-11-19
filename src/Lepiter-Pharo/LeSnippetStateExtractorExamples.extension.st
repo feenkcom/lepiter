@@ -21,7 +21,7 @@ LeSnippetStateExtractorExamples >> extractSpecificStatePharoSnippet [
 	state := (LePharoSnippet code: '1') extractSpecificState.
 	self assert: (state attributes collect: #attributeName) sorted equals: #(code).
 
-	self assert: (state attributeNamed: 'code') attributeValue equals: '1'.
+	self assert: (state attributeNamed: #code) attributeValue equals: '1'.
 
 	^ state
 ]

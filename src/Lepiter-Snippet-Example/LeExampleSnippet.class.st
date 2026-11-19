@@ -340,15 +340,19 @@ LeExampleSnippet >> exampleSelector: aNewExampleSelector [
 
 { #category : #'private - subscriptions' }
 LeExampleSnippet >> handleSystemClassAnnouncement: anAnnouncement [
-	(exampleBehaviorName sameContentAs: anAnnouncement classAffected originalName)
-		ifTrue: [ self notifyExampleBehaviorNameChanged ]
+	"Transitional: example snippets no longer subscribe to the system announcer.
+	Snippets created before this change (also in saved images) are still subscribed;
+	they drop their subscription on the first system change.
+	Can be removed once no image created before this change is in use."
+
+	self unsubscribeFromSystem
 ]
 
 { #category : #'private - subscriptions' }
 LeExampleSnippet >> handleSystemMethodAnnouncement: anAnnouncement [
-	((exampleBehaviorName sameContentAs: anAnnouncement methodClass originalName)
-		and: [ exampleSelector = anAnnouncement selector ])
-		ifTrue: [ self notifyExampleSelectorChanged ]
+	"Transitional, see #handleSystemClassAnnouncement:"
+
+	self unsubscribeFromSystem
 ]
 
 { #category : #'api - code expanded' }
@@ -423,14 +427,12 @@ LeExampleSnippet >> hasPreviewShowSelector [
 { #category : #initialization }
 LeExampleSnippet >> initialize [
 	super initialize.
-	
+
 	codeExpanded := self defaultCodeExpanded.
 	noCode := self defaultNoCode.
 	previewExpanded := self defaultPreviewExpanded.
 	previewShowSelector := self defaultPreviewShowSelector.
-	previewHeight := self defaultPreviewHeight.
-	
-	self subscribeToSystem
+	previewHeight := self defaultPreviewHeight
 ]
 
 { #category : #converting }
@@ -884,18 +886,6 @@ LeExampleSnippet >> storeOn: aStream [
 		self previewHeight storeOn: aStream ].
 
 	aStream nextPutAll: ')'
-]
-
-{ #category : #'private - subscriptions' }
-LeExampleSnippet >> subscribeToSystem [
-	self unsubscribeFromSystem.
-	SystemAnnouncer uniqueInstance weak
-		when: ClassAnnouncement
-			send: #handleSystemClassAnnouncement:
-			to: self;
-		when: MethodAnnouncement
-			send: #handleSystemMethodAnnouncement:
-			to: self
 ]
 
 { #category : #'api - code expanded' }
