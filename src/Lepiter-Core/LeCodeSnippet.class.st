@@ -226,7 +226,7 @@ LeCodeSnippet >> executeWithLoggingAction: aBlock afterChange: aGtCoderSourceCod
 	
 			undoSpecification := fakeCommand createUndoCommandSpecification.
 			(undoSpecification snippetState 
-				attributeNamed: 'code')
+				attributeNamed: #code)
 					string: aGtCoderSourceCodeChanged previousText asString ]
 		ifNotNil: [
 			fakeCommand := self commandBuilder editTextValueSnippetCommand
