@@ -37,16 +37,16 @@ LeSnippetStateExtractorExamples >> extractCommonStateForAllSnippetTypes [
 					editTime: editTime.
 			state := snippet extractCommonState.
 			self
-				assert: (state attributeNamed: 'createEmail') attributeValue
+				assert: (state attributeNamed: #createEmail) attributeValue
 				equals: createEmail.
 			self
-				assert: (state attributeNamed: 'createTime') attributeValue
+				assert: (state attributeNamed: #createTime) attributeValue
 				equals: createTime.
 			self
-				assert: (state attributeNamed: 'editEmail') attributeValue
+				assert: (state attributeNamed: #editEmail) attributeValue
 				equals: editEmail.
 			self
-				assert: (state attributeNamed: 'editTime') attributeValue
+				assert: (state attributeNamed: #editTime) attributeValue
 				equals: editTime.
 			snippet -> state ]
 ]
