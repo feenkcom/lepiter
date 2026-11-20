@@ -9,11 +9,16 @@ Class {
 
 { #category : #accessing }
 LeRawYoutubeReferenceInfo class >> fromYoutubeStringUrl: aYoutubeStringUrl [
+	"The oEmbed response is read with STONJSON: a Dictionary with String keys, as the accessors expect
+	(#forJsonREST alone reads a NeoJSONObject, whose keys are Symbols, when NeoJSON is loaded)"
 	| response embedUrl |
 	embedUrl := 'https://www.youtube.com/oembed?url=' , aYoutubeStringUrl
 		, '&format=json'.
-	[ response := ZnClient new forJsonREST get: embedUrl ]
-		on: NeoJSONParseError
+	[ response := ZnClient new
+		forJsonREST;
+		contentReader: [ :anEntity | STONJSON fromString: anEntity contents ];
+		get: embedUrl ]
+		on: NeoJSONParseError, STONReaderError
 		do: [ response := nil ].
 	^ self new rawData: response
 ]
