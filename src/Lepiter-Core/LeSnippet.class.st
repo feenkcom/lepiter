@@ -510,6 +510,11 @@ LeSnippet >> nextSnippetDo: aBlock ifNone: aNoneBlock [
 		ifFalse: [ aBlock value: (self parent children at: myIndex + 1) ]
 ]
 
+{ #category : #'api - accessing' }
+LeContent >> nestingLevel [
+	^ 1 + self parent nestingLevel
+]
+
 { #category : #'api - notifications' }
 LeSnippet >> notifier [
 	^ LeNotifier new

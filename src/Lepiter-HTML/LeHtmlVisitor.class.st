@@ -188,7 +188,7 @@ LeHtmlVisitor >> visitPharoSnippet: aLePharoSnippet [
 		tag: #div
 		attributes: (self
 				classesFor: aLePharoSnippet
-				withClasses: 'snippet textual-snippet code-snippet pharo-snippet')
+				withClasses: 'snippet textual-snippet code-snippet pharo-snippet nesting-level-', (aLePharoSnippet nestingLevel printString)))
 		do: [ context html
 				tag: #pre
 				attributes: #('class' 'no_bottom_margin')
@@ -225,7 +225,7 @@ LeHtmlVisitor >> visitPythonSnippet: aLePythonSnippet [
 		tag: #div
 		attributes: (self
 				classesFor: aLePythonSnippet
-				withClasses: 'snippet textual-snippet code-snippet python-snippet')
+				withClasses: 'snippet textual-snippet code-snippet python-snippet nesting-level-', (aLePythonSnippet nestingLevel printString))))
 		do: [ context html
 				tag: #pre
 				attributes: #('class' 'no_bottom_margin')
@@ -249,7 +249,7 @@ LeHtmlVisitor >> visitTextSnippet: aLeTextSnippet [
 		tag: #div
 		attributes: (self
 				classesFor: aLeTextSnippet
-				withClasses: 'snippet textual-snippet text-snippet')
+				withClasses: 'snippet textual-snippet text-snippet nesting-level-', (aLeTextSnippet nestingLevel printString))
 		do: [ | visitor |
 			visitor := LeHtmlTextSnippetVisitor new
 					elementIds: self elementIds;
