@@ -37,6 +37,20 @@ LeSearchSnippetFilterExamples >> database [
 ]
 
 { #category : #accessing }
+LeSearchSnippetFilterExamples >> methodAnnotationFilter [
+	"The {{gtMethod:}} and {{gtExample:}} annotations of a text snippet are references to their selectors (LeTextSnippet>>#classAndSelectorReferencesPromise, LeSearchReferencesFilter>>#matches:)"
+
+	<gtExample>
+	<return: #GtSearchIntersectionFilter>
+	| database snippets |
+	database := self database.
+	snippets := database leSnippetsInDB & #grow leReferences.
+	self assert: snippets contents size equals: 1.
+	self assert: (database leSnippetsInDB & #database leReferences) contents size equals: 1.
+	^ snippets
+]
+
+{ #category : #accessing }
 LeSearchSnippetFilterExamples >> snippetsInDatabase [
 	<gtExample>
 	<return: #LeSearchDatabaseSnippetFilter>

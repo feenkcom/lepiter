@@ -151,7 +151,7 @@ LeExampleSnippet >> canMoveToAnotherDatabase [
 
 { #category : #accessing }
 LeExampleSnippet >> changeToRenameClass: oldName to: newName [
-	self instanceClassName = oldName ifFalse: [ ^ nil ].
+	(self instanceClassName sameContentAs: oldName) ifFalse: [ ^ nil ].
 	^ LeExampleSnippetChange new
 		snippet: self;
 		change: #exampleBehaviorName
