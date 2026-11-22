@@ -769,7 +769,7 @@ LeContent >> initialize [
 	super initialize.
 	database := self defaultDatabase.
 	children := self defaultChildren.
-	announcer := Announcer new.
+	announcer := LeUseMixedSubscriptionRegistryFlag newAnnouncer
 ]
 
 { #category : #'api - command building' }
@@ -1204,6 +1204,11 @@ LeContent >> wasEdited [
 	In other words, it does not mean that it was edited in an existing editing session"
 	<return: #Boolean>
 	^ self editTime ~= self createTime
+]
+
+{ #category : #'api - enumerating' }
+LeContent >> withAllAnnouncersDo: aBlock [
+	self withAllChildrenDepthFirstDo: [:each | aBlock value: each announcer]
 ]
 
 { #category : #accessing }

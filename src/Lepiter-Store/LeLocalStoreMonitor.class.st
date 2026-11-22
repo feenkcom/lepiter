@@ -208,14 +208,13 @@ LeLocalStoreMonitor >> hasPageId: aUuid [
 
 { #category : #initialization }
 LeLocalStoreMonitor >> initialize [
-
 	super initialize.
-	announcer := Announcer new.
+	announcer := LeUseMixedSubscriptionRegistryFlag newAnnouncer.
 	state := #stopped.
 	saveDelay := self defaultDelay.
 	saveQueue := WaitfreeQueue new.
 	removeQueue := WaitfreeQueue new.
-	corruptFiles := #().
+	corruptFiles := #()
 ]
 
 { #category : #testing }
@@ -593,4 +592,9 @@ LeLocalStoreMonitor >> userEmail: aString [
 	It is assumed that the value has already been validated by the database."
 
 	self updateProperty: #userEmail value: aString
+]
+
+{ #category : #'api - enumerating' }
+LeLocalStoreMonitor >> withAllAnnouncersDo: aBlock [
+	aBlock value: announcer
 ]
