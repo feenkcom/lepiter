@@ -1503,3 +1503,10 @@ LeDatabase >> uuidString [
 
 	^ monitor uuidString
 ]
+
+{ #category : #'api - enumerating' }
+LeDatabase >> withAllAnnouncersDo: aBlock [
+	super withAllAnnouncersDo: aBlock.
+	monitor ifNotNil: [:aMonitor | aMonitor withAllAnnouncersDo: aBlock].
+	self pagesDo: [:aPage | aPage withAllAnnouncersDo: aBlock]
+]

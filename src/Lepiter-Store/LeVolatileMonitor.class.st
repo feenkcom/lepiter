@@ -93,3 +93,8 @@ LeVolatileMonitor >> uuidString [
 
 	^ uuid asString36
 ]
+
+{ #category : #'api - enumerating' }
+LeVolatileMonitor >> withAllAnnouncersDo: aBlock [
+	
+]

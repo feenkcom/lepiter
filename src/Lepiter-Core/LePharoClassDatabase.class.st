@@ -66,3 +66,9 @@ LePharoClassDatabase >> savePageNamed: aSymbol [
 						in: (self class environment at: aSymbol)) ]
 		ifAbsent: [ self error: 'Class comment not modified: ', aSymbol ]
 ]
+
+{ #category : #'api - enumerating' }
+LePharoClassDatabase >> withAllAnnouncersDo: aBlock [
+	super withAllAnnouncersDo: aBlock.
+	pagesByName do: [:aPage | aPage withAllAnnouncersDo: aBlock]
+]
