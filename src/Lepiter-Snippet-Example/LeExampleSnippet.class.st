@@ -767,9 +767,12 @@ LeExampleSnippet >> previewSelectSelector [
 
 { #category : #'api - preview show selector' }
 LeExampleSnippet >> previewSelectSelector: aNewPreviewSelectSelector [
+	"A selector, as for #previewShowSelector: (read from JSON as a String)"
+	| newSelector |
 
+	newSelector := aNewPreviewSelectSelector ifNotNil: [ aNewPreviewSelectSelector asSymbol ].
 	(self hasPreviewSelectSelector
-		and: [ self previewSelectSelector = aNewPreviewSelectSelector ])
+		and: [ self previewSelectSelector = newSelector ])
 			ifTrue: [ ^ self ].
 	
 	self hasPreviewSelectSelector
@@ -778,8 +781,8 @@ LeExampleSnippet >> previewSelectSelector: aNewPreviewSelectSelector [
 			aPreviousPreviewSelectSelector := previewSelectSelector.
 			previewSelectSelector := nil.
 			self onPreviousPreviewSelectSelectorUnset: aPreviousPreviewSelectSelector ].
-	previewSelectSelector := aNewPreviewSelectSelector.
-	self onNewPreviewSelectSelectorSet: aNewPreviewSelectSelector.
+	previewSelectSelector := newSelector.
+	self onNewPreviewSelectSelectorSet: newSelector.
 	self notifyPreviewSelectSelectorChanged
 ]
 
