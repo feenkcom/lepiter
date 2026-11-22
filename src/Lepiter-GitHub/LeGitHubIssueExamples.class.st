@@ -105,6 +105,23 @@ LeGitHubIssueExamples >> modelElement [
 	^ anElement
 ]
 
+{ #category : #'examples - model' }
+LeGitHubIssueExamples >> model_WithResponseFromJson [
+	"The response data is GitHub JSON read with STON, so its keys are Strings, as when downloaded (LeGitHubIssueCommand>>#download) or read from the snippet cache (LeGitHubSnippet>>#updateModelResponseSource:)"
+
+	<gtExample>
+	<return: #LeGitHubIssueModel>
+	| aModel aRawData |
+	aModel := self model.
+	aRawData := STONJSON fromString: '{"title":"Issue title","body":"Issue body","html_url":"https://github.com/feenkcom/gtoolkit/issues/1772"}'.
+	aModel response: (LeGitHubSuccess new rawData: aRawData) source: self.
+
+	self assert: aModel title equals: 'Issue title'.
+	self assert: aModel body equals: 'Issue body'.
+	self assert: aModel htmlUrl equals: 'https://github.com/feenkcom/gtoolkit/issues/1772'.
+	^ aModel
+]
+
 { #category : #'examples - snippet' }
 LeGitHubIssueExamples >> snippet [
 	<gtExample>

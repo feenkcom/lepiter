@@ -120,7 +120,7 @@ LeGitHubIssueUrlValidator >> validate [
 	anUrl := [ self url asZnUrl ] on: Error do: [ ^ self beInvalid ].
 	isValid := true.
 
-	anUrl scheme = 'https' ifFalse: [ ^ self beInvalid ].
+	anUrl isHttps ifFalse: [ ^ self beInvalid ].
 	anUrl host = 'github.com' ifFalse: [ ^ self beInvalid ].
 	anUrl pathSegments size = 4 ifFalse: [ ^ self beInvalid ].
 	anUrl pathSegments third = 'issues' ifFalse: [ ^ self beInvalid ].

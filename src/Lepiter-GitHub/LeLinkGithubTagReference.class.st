@@ -28,10 +28,10 @@ LeLinkGithubTagReference >> download [
 	aCommitInfo := LeLinkGithubCommitReference new
 		userName: self userName;
 		projectName: self projectName;
-		commitId: ((aRawData at: #object) at: #sha);
+		commitId: ((aRawData at: 'object') at: 'sha');
 		download.
 		
-	aRawData at: #commit put: aCommitInfo.
+	aRawData at: 'commit' put: aCommitInfo.
 	
 	^ aRawData.
 ]

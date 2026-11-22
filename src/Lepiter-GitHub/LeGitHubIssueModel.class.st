@@ -10,7 +10,7 @@ Class {
 { #category : #'api - response' }
 LeGitHubIssueModel >> body [
 	<return: #String>
-	^ self responseAtPath: #( body ) ifAbsent: [ '' ]
+	^ self responseAtPath: #( 'body' ) ifAbsent: [ '' ]
 ]
 
 { #category : #accessing }
@@ -78,5 +78,5 @@ LeGitHubIssueModel >> longIdentificator [
 { #category : #'api - response' }
 LeGitHubIssueModel >> title [
 	<return: #String>
-	^ self responseAtPath: #( title ) ifAbsent: [ '' ]
+	^ self responseAtPath: #( 'title' ) ifAbsent: [ '' ]
 ]
