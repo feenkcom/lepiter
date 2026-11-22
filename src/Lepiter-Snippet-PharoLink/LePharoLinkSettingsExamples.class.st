@@ -36,7 +36,7 @@ LePharoLinkSettingsExamples >> setAbsoluteServerExecutable [
 	propertiesObject := self propertiesDictionaryFrom: settings.
 
 	self
-		assert: ((propertiesObject at: #pharoLink) at: #serverExecutable)
+		assert: ((propertiesObject at: 'pharoLink') at: 'serverExecutable')
 		equals: fileReference fullName.
 
 	^ fileReference
@@ -55,7 +55,7 @@ LePharoLinkSettingsExamples >> setAbsoluteServerImage [
 	propertiesObject := self propertiesDictionaryFrom: settings.
 
 	self
-		assert: ((propertiesObject at: #pharoLink) at: #serverImage)
+		assert: ((propertiesObject at: 'pharoLink') at: 'serverImage')
 		equals: fileReference fullName.
 
 	^ fileReference
@@ -73,7 +73,7 @@ LePharoLinkSettingsExamples >> setClientAddressLocalhost [
 	propertiesObject := self propertiesDictionaryFrom: settings.
 
 	self
-		assert: ((propertiesObject at: #pharoLink) at: #clientAddress)
+		assert: ((propertiesObject at: 'pharoLink') at: 'clientAddress')
 		equals: 'localhost:1234'.
 
 	socketAddress := settings clientSocketAddress.
@@ -96,7 +96,7 @@ LePharoLinkSettingsExamples >> setFileLocatorServerExecutable [
 	propertiesObject := self propertiesDictionaryFrom: settings.
 
 	self
-		assert: ((propertiesObject at: #pharoLink) at: #serverExecutable)
+		assert: ((propertiesObject at: 'pharoLink') at: 'serverExecutable')
 		equals: (self
 				pathFrom: {'{home}'.
 						'path'}).
@@ -117,7 +117,7 @@ LePharoLinkSettingsExamples >> setFileLocatorServerImage [
 	propertiesObject := self propertiesDictionaryFrom: settings.
 
 	self
-		assert: ((propertiesObject at: #pharoLink) at: #serverImage)
+		assert: ((propertiesObject at: 'pharoLink') at: 'serverImage')
 		equals: (self pathFrom: {'{image}'}).
 
 	^ fileReference
@@ -138,13 +138,13 @@ LePharoLinkSettingsExamples >> setRelativeServerExecutable [
 	settings serverExecutable: fileString.
 	propertiesObject := self propertiesDictionaryFrom: settings.
 	self
-		assert: ((propertiesObject at: #pharoLink) at: #serverExecutable)
+		assert: ((propertiesObject at: 'pharoLink') at: 'serverExecutable')
 		equals: fileString.
 
 	settings serverExecutable: fileString asFileReference.
 	propertiesObject := self propertiesDictionaryFrom: settings.
 	self
-		assert: ((propertiesObject at: #pharoLink) at: #serverExecutable)
+		assert: ((propertiesObject at: 'pharoLink') at: 'serverExecutable')
 		equals: fileString.
 
 	^ fileString
@@ -165,13 +165,13 @@ LePharoLinkSettingsExamples >> setRelativeServerImage [
 	settings serverImage: fileString.
 	propertiesObject := self propertiesDictionaryFrom: settings.
 	self
-		assert: ((propertiesObject at: #pharoLink) at: #serverImage)
+		assert: ((propertiesObject at: 'pharoLink') at: 'serverImage')
 		equals: fileString.
 
 	settings serverImage: fileString asFileReference.
 	propertiesObject := self propertiesDictionaryFrom: settings.
 	self
-		assert: ((propertiesObject at: #pharoLink) at: #serverImage)
+		assert: ((propertiesObject at: 'pharoLink') at: 'serverImage')
 		equals: fileString.
 
 	^ fileString
