@@ -271,6 +271,7 @@ LePage >> gtBindingsActionFor: anAction [
 	<lePageAction>
 	^ anAction dropdown
 		tooltip: 'Inspect variable bindings';
+		id: #'lepiter--page-bindings-button';
 		icon: BrGlamorousVectorIcons twoColumnTable;
 		withDropdownIndicator;
 		content: [ :aButton | 

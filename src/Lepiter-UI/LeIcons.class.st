@@ -7,27 +7,26 @@ Class {
 { #category : #accessing }
 LeIcons class >> lepiterDatabase [
 	<script: 'self lepiterDatabase inspect'>
-
-	^ [
-		BlElement new
-			size: 16@16;
-			addChildren: { 
-				BlElement new
-					size: 16@16;
-					outskirts: BlOutskirts centered;
-					geometry: (BlSvgPath new
-						svg: 'M 1 13.6 L 1 2.4 C 1 1.6272 4.136 1 8 1 C 11.864 1 15 1.6272 15 2.4 L 15 13.6 C 15 14.3728 11.864 15 8 15 C 4.136 15 1 14.3728 1 13.6 M 1 2.4 C 1 3.1728 4.136 3.8 8 3.8 C 11.864 3.8 15 3.1728 15 2.4'
-						viewbox: (0@0 extent: 16@16));
-					border: (BlBorder builder paint: Color black; width: 1; "capRound; "build).
-					(BlTextElement new text: 'ĭ' asRopedText glamorousRegularFont bold; padding: (BlInsets top: 5.5 bottom: 2.5)) asScalableElement size: 16@16
-			} ] asStencil
+	^ [ | anOutline |
+	anOutline := BlElement new.
+	anOutline
+		size: 16 @ 16;
+		outskirts: BlOutskirts centered;
+		geometry: (BlSvgPath new
+				svg: 'M 1 13.6 L 1 2.4 C 1 1.6272 4.136 1 8 1 C 11.864 1 15 1.6272 15 2.4 L 15 13.6 C 15 14.3728 11.864 15 8 15 C 4.136 15 1 14.3728 1 13.6 M 1 2.4 C 1 3.1728 4.136 3.8 8 3.8 C 11.864 3.8 15 3.1728 15 2.4'
+				viewbox: (0 @ 0 extent: 16 @ 16));
+		border: (BlBorder paint: anOutline theme label defaultTextForeground width: 1).
+	BlElement new
+		size: 16 @ 16;
+		addChildren: {anOutline.
+				self newLepiterGlyphWithPadding: (BlInsets top: 5.5 bottom: 2.5)};
+		yourself ] asStencil
 ]
 
 { #category : #accessing }
 LeIcons class >> lepiterIcon [
 	<script: 'self lepiterIcon inspect'>
-
-	^ [ (BlTextElement new text: 'ĭ' asRopedText glamorousRegularFont bold; padding: (BlInsets all: 1)) asScalableElement size: 16@16 ] asStencil
+	^ [ self newLepiterGlyphWithPadding: (BlInsets all: 1) ] asStencil
 ]
 
 { #category : #accessing }
@@ -47,4 +46,18 @@ LeIcons class >> lepiterPage [
 					border: (BlBorder builder paint: Color black; width: 1; "capRound;" build).
 					(BlTextElement new text: 'ĭ' asRopedText glamorousRegularFont bold; padding: (BlInsets all: 4)) asScalableElement size: 16@16
 			} ] asStencil
+]
+
+{ #category : #private }
+LeIcons class >> newLepiterGlyphWithPadding: anInsets [
+	| aGlyph |
+	aGlyph := BlTextElement new.
+	aGlyph
+		text: ('ĭ' asRopedText
+				glamorousRegularFont;
+				bold;
+				foreground: aGlyph theme label defaultTextForeground;
+				yourself);
+		padding: anInsets.
+	^ aGlyph asScalableElement size: 16 @ 16
 ]
