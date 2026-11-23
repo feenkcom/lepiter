@@ -12,24 +12,28 @@ Class {
 
 { #category : #private }
 LeSnippetExpandableAptitude >> visuallyFocus [
+	| aTheme |
 	super visuallyFocus.
-
-	snippetContainer effect: (BlGaussianShadowEffect
-		color: (BrGlamorousColors primaryBorderColor)
-		width: 2
-		offset: 0 @ 1).
-	snippetContainer background: Color white
+	aTheme := snippetContainer theme.
+	snippetContainer
+		effect: (BlGaussianShadowEffect
+				color: aTheme default primaryShadowColor
+				width: 2
+				offset: 0 @ 1);
+		background: aTheme default contentBackground
 ]
 
 { #category : #private }
 LeSnippetExpandableAptitude >> visuallyHover [
+	| aTheme |
 	super visuallyHover.
-
-	snippetContainer effect: (BlGaussianShadowEffect
-		color: (BrGlamorousColors defaultShadowColor)
-		width: 2
-		offset: 0 @ 1).
-	snippetContainer background: Color white
+	aTheme := snippetContainer theme.
+	snippetContainer
+		effect: (BlGaussianShadowEffect
+				color: aTheme default defaultShadowColor
+				width: 2
+				offset: 0 @ 1);
+		background: aTheme default contentBackground
 ]
 
 { #category : #private }

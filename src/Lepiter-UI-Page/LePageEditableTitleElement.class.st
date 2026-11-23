@@ -65,7 +65,8 @@ LePageEditableTitleElement >> createAddButton [
 
 { #category : #initialization }
 LePageEditableTitleElement >> createTitleElement [
-	| anEditor |
+	| anEditor aBackground |
+	aBackground := self theme default contentBackground.
 	anEditor := BrEditor new
 			aptitude: ((BrGlamorousEditableLabelAptitude basicNew
 					setDefaultBorderColor: Color transparent;
@@ -73,6 +74,7 @@ LePageEditableTitleElement >> createTitleElement [
 					initialize)
 					fontSize: 25;
 					defaultBackground: Color transparent;
+					editableBackground: aBackground;
 					glamorousRegularFont;
 					bold);
 			margin: (BlInsets
@@ -87,7 +89,7 @@ LePageEditableTitleElement >> createTitleElement [
 					right: 5);
 			hMatchParent;
 			vFitContent;
-			background: Color white;
+			background: aBackground;
 			when: BrEditorAcceptWish do: [ :aWish | self onAcceptTitleWish: aWish ];
 			when: BlFocusOutEvent do: [ :anEvent | self acceptPageTitle ];
 			addShortcut: (BlShortcutWithAction new
