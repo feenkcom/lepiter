@@ -51,7 +51,7 @@ LeSearchReferencesFilter >> leHighlighters [
 								nodeClassName: #LeMethodNameArgumentNode
 								variableNames: #(selector)
 								styleBlock: [ :styler :token | 
-									(token source = selector or: [ token source = ('#' , selector) ])
+									((token source sameContentAs: selector) or: [ token source = ('#' , selector) ])
 										ifTrue: [ styler underlineColor: BrGlamorousColors textHighlightColor thickness: 3 ] ]});
 		yourself
 ]

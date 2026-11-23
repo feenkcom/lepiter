@@ -31,7 +31,7 @@ LeJsonV3003Updater >> fileReferenceFor: jsonObject named: file [
 	"Answer the new file name to be used to store the page.
 	V4.0 changed the file extension from .json to .lepiter."
 
-	file extension = #links ifTrue: [ ^ self linksFileFor: file ].
+	file extension = 'links' ifTrue: [ ^ self linksFileFor: file ].
 	^ file withExtension: 'lepiter'
 
 ]

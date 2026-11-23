@@ -45,7 +45,7 @@ LeUnknownSnippet class >> leJsonV3MappingFor: aNeoJSONMapper [
 				self error: 'Unknown snippet decoding happens in LeJsonV3Reader' ];
 			writer: [ :jsonWriter :leUnknownSnippet | | map |
 				map := STONJSON fromString: leUnknownSnippet jsonString.
-				map at: #children put: leUnknownSnippet children.
+				map at: 'children' put: leUnknownSnippet children.
 				map neoJsonOn: jsonWriter ] ]
 ]
 
@@ -60,7 +60,7 @@ LeUnknownSnippet class >> leJsonV4MappingFor: aNeoJSONMapper [
 				self error: 'Unknown snippet decoding happens in LeJsonV4Reader' ];
 			writer: [ :jsonWriter :leUnknownSnippet | | map |
 				map := STONJSON fromString: leUnknownSnippet jsonString.
-				map at: #children put: leUnknownSnippet children.
+				map at: 'children' put: leUnknownSnippet children.
 				map neoJsonOn: jsonWriter ] ]
 ]
 

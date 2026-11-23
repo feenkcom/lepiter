@@ -101,6 +101,21 @@ LeGitHubTagExamples >> modelElement [
 	^ anElement
 ]
 
+{ #category : #'examples - model' }
+LeGitHubTagExamples >> model_WithResponseFromJson [
+	"The response data is GitHub JSON read with STON, so its keys are Strings, as when downloaded (LeGitHubTagCommand>>#download adds the commit under 'commit') or read from the snippet cache (LeGitHubSnippet>>#updateModelResponseSource:)"
+
+	<gtExample>
+	<return: #LeGitHubTagModel>
+	| aModel aRawData |
+	aModel := self model.
+	aRawData := STONJSON fromString: '{"ref":"refs/tags/v0.8.439","object":{"sha":"0123456789abcdef","type":"commit"},"commit":{"sha":"0123456789abcdef","commit":{"message":"Release v0.8.439"}}}'.
+	aModel response: (LeGitHubSuccess new rawData: aRawData) source: self.
+
+	self assert: aModel message equals: 'Release v0.8.439'.
+	^ aModel
+]
+
 { #category : #'examples - snippet' }
 LeGitHubTagExamples >> snippet [
 	<gtExample>

@@ -41,7 +41,7 @@ LeJSLinkSettingsExamples >> setAbsoluteDirectory [
 	propertiesObject := self propertiesDictionaryFrom: settings.
 
 	self
-		assert: ((propertiesObject at: #jsLink) at: #directory)
+		assert: ((propertiesObject at: 'jsLink') at: 'directory')
 		equals: fileReference fullName.
 
 	^ fileReference
@@ -60,7 +60,7 @@ LeJSLinkSettingsExamples >> setAbsoluteNodeJSPath [
 	propertiesObject := self propertiesDictionaryFrom: settings.
 
 	self
-		assert: ((propertiesObject at: #jsLink) at: #nodejsPath)
+		assert: ((propertiesObject at: 'jsLink') at: 'nodejsPath')
 		equals: fileString.
 
 	^ fileString asFileReference
@@ -79,7 +79,7 @@ LeJSLinkSettingsExamples >> setFileLocatorDirectory [
 	propertiesObject := self propertiesDictionaryFrom: settings.
 
 	self
-		assert: ((propertiesObject at: #jsLink) at: #directory)
+		assert: ((propertiesObject at: 'jsLink') at: 'directory')
 		equals: (self
 				pathFrom: {'{home}'.
 						'path'}).
@@ -100,7 +100,7 @@ LeJSLinkSettingsExamples >> setFileLocatorNodeJSPath [
 	propertiesObject := self propertiesDictionaryFrom: settings.
 
 	self
-		assert: ((propertiesObject at: #jsLink) at: #nodejsPath)
+		assert: ((propertiesObject at: 'jsLink') at: 'nodejsPath')
 		equals: (self
 				pathFrom: {'{home}'.
 						'.local'.
@@ -124,11 +124,11 @@ LeJSLinkSettingsExamples >> setRelativeDirectory [
 
 	settings directory: fileString.
 	propertiesObject := self propertiesDictionaryFrom: settings.
-	self assert: ((propertiesObject at: #jsLink) at: #directory) equals: fileString.
+	self assert: ((propertiesObject at: 'jsLink') at: 'directory') equals: fileString.
 
 	settings directory: fileString asFileReference.
 	propertiesObject := self propertiesDictionaryFrom: settings.
-	self assert: ((propertiesObject at: #jsLink) at: #directory) equals: fileString.
+	self assert: ((propertiesObject at: 'jsLink') at: 'directory') equals: fileString.
 
 	^ fileString
 ]
@@ -146,7 +146,7 @@ LeJSLinkSettingsExamples >> setRelativeNodeJSPath [
 	propertiesObject := self propertiesDictionaryFrom: settings.
 
 	self
-		assert: ((propertiesObject at: #jsLink) at: #nodejsPath)
+		assert: ((propertiesObject at: 'jsLink') at: 'nodejsPath')
 		equals: fileString.
 
 	^ fileString asFileReference

@@ -184,6 +184,26 @@ LeModelExamples >> pageHavingStringAndPharoSnippets [
 ]
 
 { #category : #'*Lepiter-Snippets' }
+LeModelExamples >> pageHavingStringAndPharoSnippetsEvaluated [
+	"The Pharo snippet of the page reads the variable bound by the string snippet, whose binding name is typed as a String"
+	<gtExample>
+	<return: #LePageExampleHolder>
+	| holder page stringSnippet pharoSnippet context stringViewModel pharoViewModel |
+	holder := self pageHavingStringAndPharoSnippets.
+	page := holder page.
+	stringSnippet := page children detect: [ :each | each isKindOf: LeStringSnippet ].
+	pharoSnippet := page children detect: [ :each | each isKindOf: LePharoSnippet ].
+	context := LeSharedSnippetContext new.
+	stringViewModel := stringSnippet asSnippetViewModel.
+	stringViewModel sharedSnippetContext: context.
+	pharoViewModel := pharoSnippet asSnippetViewModel.
+	pharoViewModel sharedSnippetContext: context.
+	self assert: (context sharedBindings hasBindingOf: self stringBindingName).
+	self assert: pharoViewModel coderViewModel doIt value equals: self stringJSONContents.
+	^ holder
+]
+
+{ #category : #'*Lepiter-Snippets' }
 LeModelExamples >> stringAndPharoPageTitle [
 	^ 'String and Pharo snippets'
 ]

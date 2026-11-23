@@ -41,7 +41,7 @@ LePythonBridgeSettingsExamples >> setAbsoluteDirectory [
 	propertiesObject := self propertiesDictionaryFrom: settings.
 
 	self
-		assert: ((propertiesObject at: #pythonBridge) at: #directory)
+		assert: ((propertiesObject at: 'pythonBridge') at: 'directory')
 		equals: fileReference fullName.
 
 	^ fileReference
@@ -60,7 +60,7 @@ LePythonBridgeSettingsExamples >> setAbsolutePipenvPath [
 	propertiesObject := self propertiesDictionaryFrom: settings.
 
 	self
-		assert: ((propertiesObject at: #pythonBridge) at: #pipenvPath)
+		assert: ((propertiesObject at: 'pythonBridge') at: 'pipenvPath')
 		equals: fileString.
 
 	^ fileString asFileReference
@@ -79,7 +79,7 @@ LePythonBridgeSettingsExamples >> setFileLocatorDirectory [
 	propertiesObject := self propertiesDictionaryFrom: settings.
 
 	self
-		assert: ((propertiesObject at: #pythonBridge) at: #directory)
+		assert: ((propertiesObject at: 'pythonBridge') at: 'directory')
 		equals: (self
 				pathFrom: {'{home}'.
 						'path'}).
@@ -100,7 +100,7 @@ LePythonBridgeSettingsExamples >> setFileLocatorPipenvPath [
 	propertiesObject := self propertiesDictionaryFrom: settings.
 
 	self
-		assert: ((propertiesObject at: #pythonBridge) at: #pipenvPath)
+		assert: ((propertiesObject at: 'pythonBridge') at: 'pipenvPath')
 		equals: (self
 				pathFrom: {'{home}'.
 						'.local'.
@@ -125,13 +125,13 @@ LePythonBridgeSettingsExamples >> setRelativeDirectory [
 	settings directory: fileString.
 	propertiesObject := self propertiesDictionaryFrom: settings.
 	self
-		assert: ((propertiesObject at: #pythonBridge) at: #directory)
+		assert: ((propertiesObject at: 'pythonBridge') at: 'directory')
 		equals: fileString.
 
 	settings directory: fileString asFileReference.
 	propertiesObject := self propertiesDictionaryFrom: settings.
 	self
-		assert: ((propertiesObject at: #pythonBridge) at: #directory)
+		assert: ((propertiesObject at: 'pythonBridge') at: 'directory')
 		equals: fileString.
 
 	^ fileString
@@ -150,7 +150,7 @@ LePythonBridgeSettingsExamples >> setRelativePipenvPath [
 	propertiesObject := self propertiesDictionaryFrom: settings.
 
 	self
-		assert: ((propertiesObject at: #pythonBridge) at: #pipenvPath)
+		assert: ((propertiesObject at: 'pythonBridge') at: 'pipenvPath')
 		equals: fileString.
 
 	^ fileString asFileReference

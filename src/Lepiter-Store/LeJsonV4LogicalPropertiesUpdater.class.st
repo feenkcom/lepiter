@@ -51,7 +51,7 @@ LeJsonV4LogicalPropertiesUpdater class >> updateFile: propertiesFile [
 	| jsonDictionary |
 
 	jsonDictionary := STONJSON fromString: propertiesFile contents.
-	jsonDictionary at: #schema put: LeLocalJsonV4Storage currentVersionString.
+	jsonDictionary at: 'schema' put: LeLocalJsonV4Storage currentVersionString.
 
 	propertiesFile resolve copy renameTo: (propertiesFile basename, '.3bak').
 	propertiesFile writeStreamDo: [ :stream |

@@ -145,6 +145,35 @@ LeExampleSnippetViewModelExamples >> instanceSideExampleSnippetViewModel [
 	^ aViewModel
 ]
 
+{ #category : #'examples - snippet view model' }
+LeExampleSnippetViewModelExamples >> loadedSnippetPreviewSelectsTheView [
+	"An example snippet read from JSON keeps its previewSelectSelector as a selector (a Symbol, as its other selectors):
+	its preview selects that view (GtPhlowTabByViewMethodSelector>>#matchesTab: compares it with the view method selector), and a rename of that selector changes the snippet."
+
+	<gtExample>
+	<return: #LeExampleSnippetViewModel>
+	| aSnippet aLoadedSnippet aViewModel aPreviewElement aTabGroup |
+	aSnippet := self instanceSideExampleSnippet
+		previewSelectSelector: #gtRawFor:;
+		yourself.
+	aLoadedSnippet := LeJsonV4 uniqueInstance
+		deserialize: (LeJsonV4 uniqueInstance serialize: aSnippet) readStream.
+
+	aViewModel := aLoadedSnippet asSnippetViewModel.
+	aPreviewElement := GtExamplePreviewStencil new
+		previewShowSelector: LeExampleSnippet defaultPreviewShowSelector;
+		previewSelectSelector: aViewModel previewSelectSelector;
+		newPreviewElementFor: self instanceSideExample.
+	aTabGroup := aPreviewElement phlow firstChildWithViewContent.
+	self
+		assert: aTabGroup viewModel selectedTab widget phlow entity methodSelector
+		equals: #gtRawFor:.
+
+	self
+		assert: (aLoadedSnippet changeToRenameSelector: #gtRawFor: to: #gtRaw1For: using: nil) notNil.
+	^ aViewModel
+]
+
 { #category : #'examples - snippet' }
 LeExampleSnippetViewModelExamples >> notExistingClassSideBehaviorExampleSnippet [
 	<gtExample>
