@@ -81,7 +81,7 @@ LeCodeSnippet >> changeToRenameClass: oldName to: newName [
 		withAllNodesDo: [ :each | 
 			each isErrorNode
 				ifFalse: [ each isVariable
-						ifTrue: [ each name value = oldName
+						ifTrue: [ (each name value sameContentAs: oldName)
 								ifTrue: [ modifiedSource
 										replaceFrom: each startPosition
 										to: each stopPosition

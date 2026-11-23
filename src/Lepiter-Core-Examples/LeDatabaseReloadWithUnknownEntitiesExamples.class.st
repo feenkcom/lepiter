@@ -354,3 +354,24 @@ LeDatabaseReloadWithUnknownEntitiesExamples >> reloadPageInDatabaseWithUnknownSn
 	
 	^ database
 ]
+
+{ #category : #examples }
+LeDatabaseReloadWithUnknownEntitiesExamples >> unknownSnippetIsWrittenWithOneChildrenKey [
+	"An unknown snippet is written from the JSON it was read from, with its current children (LeUnknownSnippet class>>#leJsonV4MappingFor: and #leJsonV3MappingFor:).
+	That JSON is read with STONJSON, so its keys are Strings; the children must replace the 'children' key, not be added under a second key."
+
+	<gtExample>
+	<return: #LeUnknownSnippet>
+	| database snippet jsonV4 jsonV3 |
+	database := self loadNewPageWithUnknownSnippet.
+	snippet := (database pageNamed: 'page1') children first.
+
+	jsonV4 := LeJsonV4 uniqueInstance serialize: snippet.
+	self assert: (jsonV4 allRangesOfSubstring: '"children"') size equals: 1.
+
+	jsonV3 := String streamContents: [ :aStream |
+		LeJsonV3 uniqueInstance serialize: snippet on: aStream prettyPrint: false ].
+	self assert: (jsonV3 allRangesOfSubstring: '"children"') size equals: 1.
+
+	^ snippet
+]

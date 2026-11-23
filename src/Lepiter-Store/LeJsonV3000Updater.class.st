@@ -19,17 +19,17 @@ LeJsonV3000Updater >> update: jsonObject [
 
 	super update: jsonObject.
 	"Convert Named Pages"
-	((jsonObject at: #pageType) at: #'__type') = #defaultType ifTrue: 
-		[ jsonObject at: #pageType put: { 
-			#'__type' -> 'namedPage'.
-			#title -> (jsonObject at: #title) } asDictionary.
-		jsonObject removeKey: #title.
+	((jsonObject at: 'pageType') at: '__type') = 'defaultType' ifTrue: 
+		[ jsonObject at: 'pageType' put: { 
+			'__type' -> 'namedPage'.
+			'title' -> (jsonObject at: 'title') } asDictionary.
+		jsonObject removeKey: 'title'.
 		^ self ].
 
 	"Convert Daily Notes.
 	The pageType object hasn't changed representation, just remove the existing title"
-	((jsonObject at: #pageType) at: #'__type') = #dailyNote ifTrue: 
-		[ jsonObject removeKey: #title.
+	((jsonObject at: 'pageType') at: '__type') = 'dailyNote' ifTrue: 
+		[ jsonObject removeKey: 'title'.
 		^ self ].
 
 	self error: 'Bad 3.0 page'.

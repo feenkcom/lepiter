@@ -24,7 +24,7 @@ LeGitHubTagModel >> initialize [
 { #category : #'api - response' }
 LeGitHubTagModel >> message [
 	<return: #String>
-	^ self responseAtPath: #( commit commit message ) ifAbsent: [ '' ]
+	^ self responseAtPath: #( 'commit' 'commit' 'message' ) ifAbsent: [ '' ]
 ]
 
 { #category : #printing }

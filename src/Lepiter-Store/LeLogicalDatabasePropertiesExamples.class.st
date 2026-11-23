@@ -234,3 +234,21 @@ LeLogicalDatabasePropertiesExamples >> stonDictionaryString [
 	"primaryDatabaseDirectory" : "FileLocator{#origin:#preferences,#path:RelativePath[''pharo'',''lepiterdbs'',''v3'',''default'']}"
 }'
 ]
+
+{ #category : #examples }
+LeLogicalDatabasePropertiesExamples >> updateOldPropertiesFileWritesOneSchema [
+	"LeJsonV4LogicalPropertiesUpdater class>>#updateFile: sets the schema of an old properties file, read with STONJSON (String keys); the file keeps one schema key"
+
+	<gtExample>
+	<return: #FileReference>
+	| file contents |
+	file := FileSystem memory root / 'lepiter.properties'.
+	file writeStreamDo: [ :aStream | aStream nextPutAll: '{"schema":"3.0","registeredDatabases":[]}' ].
+
+	LeJsonV4LogicalPropertiesUpdater updateFile: file.
+
+	contents := file contents.
+	self assert: (contents allRangesOfSubstring: '"schema"') size equals: 1.
+	self assert: ((STONJSON fromString: contents) at: 'schema') equals: LeLocalJsonV4Storage currentVersionString.
+	^ file
+]

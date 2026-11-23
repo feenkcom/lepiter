@@ -109,7 +109,7 @@ LeTextSnippet >> changeToRenameClass: oldName to: newName [
 	modifiedSource := SmaCCString on: self string.
 	self ast
 		withAllNodesDo: [ :node | 
-			((node isKindOf: LeClassNameArgumentNode) and: [ node className = oldName ])
+			((node isKindOf: LeClassNameArgumentNode) and: [ (node className sameContentAs: oldName) ])
 				ifTrue: [ modifiedSource
 						replaceFrom: node value startPosition
 						to: node value stopPosition
@@ -134,7 +134,7 @@ LeTextSnippet >> changeToRenameSelector: oldName to: newName using: aRewriter [
 				ifTrue: [ selector := node selector value.
 					firstIsHash := selector first = $#.
 					firstIsHash ifTrue: [ selector := selector allButFirst ].
-					selector = oldName
+					(selector sameContentAs: oldName)
 						ifTrue: [ modifiedSource
 								replaceFrom: node selector startPosition
 								to: node selector stopPosition
@@ -161,7 +161,7 @@ LeTextSnippet >> classAndSelectorReferencesPromise [
 						ifTrue: [ | selector |
 							selector := node selector value.
 							selector first = $# ifTrue: [ selector := selector allButFirst ].
-							selectors add: selector ] ] ]
+							selectors add: selector asSymbol ] ] ]
 		andTokensDo: [ :token |  ]
 		includesErrors: true.
 	{classes.
