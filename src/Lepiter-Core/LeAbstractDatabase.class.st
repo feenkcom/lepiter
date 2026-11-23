@@ -54,10 +54,8 @@ LeAbstractDatabase >> asyncSnippetReferencesTo: aString [
 
 { #category : #initialization }
 LeAbstractDatabase >> initialize [
-
 	super initialize.
-	announcer := Announcer new.
-
+	announcer := LeUseMixedSubscriptionRegistryFlag newAnnouncer
 ]
 
 { #category : #'api - accessing' }
@@ -117,4 +115,9 @@ LeAbstractDatabase >> readOnly: aBoolean [
 { #category : #'api - enumerating' }
 LeAbstractDatabase >> snippetsIterator [
 	^ LeDatabaseToCSnippetsIterator new database: self
+]
+
+{ #category : #'api - enumerating' }
+LeAbstractDatabase >> withAllAnnouncersDo: aBlock [
+	aBlock value: self announcer
 ]

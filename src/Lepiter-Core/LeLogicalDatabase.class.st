@@ -443,11 +443,10 @@ LeLogicalDatabase >> hasSnippetWithUID: aLeUID [
 
 { #category : #initialization }
 LeLogicalDatabase >> initialize [
-
 	super initialize.
-	announcer := Announcer new.
+	announcer := LeUseMixedSubscriptionRegistryFlag newAnnouncer.
 	registeredDBs := #().
-	properties := LeLogicalDatabaseProperties null.
+	properties := LeLogicalDatabaseProperties null
 ]
 
 { #category : #'api - testing' }
@@ -1002,4 +1001,13 @@ LeLogicalDatabase >> userEmail: anEmail [
 	"Set the user's email address in the primaryDB"
 
 	primaryDB userEmail: anEmail
+]
+
+{ #category : #'api - enumerating' }
+LeLogicalDatabase >> withAllAnnouncersDo: aBlock [
+	aBlock value: self announcer.
+	self databasesDo: 
+			[:aDatabase |
+			aDatabase
+				ifNotNil: [:aPresentDatabase | aPresentDatabase withAllAnnouncersDo: aBlock]]
 ]

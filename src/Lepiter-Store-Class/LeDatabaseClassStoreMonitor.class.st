@@ -196,13 +196,12 @@ LeDatabaseClassStoreMonitor >> hasPageStored: aPage [
 
 { #category : #initialization }
 LeDatabaseClassStoreMonitor >> initialize [
-
 	super initialize.
-	announcer := Announcer new.
+	announcer := LeUseMixedSubscriptionRegistryFlag newAnnouncer.
 	state := #stopped.
 	saveDelay := self defaultDelay.
 	queue := WaitfreeQueue new.
-	corruptSelectors := #().
+	corruptSelectors := #()
 ]
 
 { #category : #testing }
@@ -748,4 +747,9 @@ LeDatabaseClassStoreMonitor >> userEmail: aString [
 	It is assumed that the value has already been validated by the database."
 
 	self updateProperty: #userEmail value: aString
+]
+
+{ #category : #'api - enumerating' }
+LeDatabaseClassStoreMonitor >> withAllAnnouncersDo: aBlock [
+	aBlock value: announcer
 ]
