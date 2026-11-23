@@ -32,20 +32,20 @@ LeIcons class >> lepiterIcon [
 { #category : #accessing }
 LeIcons class >> lepiterPage [
 	<script: 'self lepiterPage inspect'>
-
-	^ [
-		BlElement new
-			size: 16@16;
-			addChildren: { 
-				BlElement new
-					size: 16@16;
-					outskirts: BlOutskirts centered;
-					geometry: (BlSvgPath new
-						svg: 'M 15 5.1426 C 15 3.81638 14.8222 3.6523 13.52342 2.3398 L 13.5097 2.32622 C 12.20406 1 12.19048 1 10.85054 1 C 9.06638 1 1 1 1 1 L 1 15 L 15 15 L 15 5.1426 Z M 15 5.07428 C 15 3.81638 14.98628 3.81638 12.19048 3.81638 L 12.19048 3.81638 C 12.19048 1.01372 12.19048 1 10.93258 1'
-						viewbox: (0@0 extent: 16@16));
-					border: (BlBorder builder paint: Color black; width: 1; "capRound;" build).
-					(BlTextElement new text: 'ĭ' asRopedText glamorousRegularFont bold; padding: (BlInsets all: 4)) asScalableElement size: 16@16
-			} ] asStencil
+	^ [ | anOutline |
+	anOutline := BlElement new.
+	anOutline
+		size: 16 @ 16;
+		outskirts: BlOutskirts centered;
+		geometry: (BlSvgPath new
+				svg: 'M 15 5.1426 C 15 3.81638 14.8222 3.6523 13.52342 2.3398 L 13.5097 2.32622 C 12.20406 1 12.19048 1 10.85054 1 C 9.06638 1 1 1 1 1 L 1 15 L 15 15 L 15 5.1426 Z M 15 5.07428 C 15 3.81638 14.98628 3.81638 12.19048 3.81638 L 12.19048 3.81638 C 12.19048 1.01372 12.19048 1 10.93258 1'
+				viewbox: (0 @ 0 extent: 16 @ 16));
+		border: (BlBorder paint: anOutline theme label defaultTextForeground width: 1).
+	BlElement new
+		size: 16 @ 16;
+		addChildren: {anOutline.
+				self newLepiterGlyphWithPadding: (BlInsets all: 4)};
+		yourself ] asStencil
 ]
 
 { #category : #private }
