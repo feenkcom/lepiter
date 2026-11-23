@@ -63,11 +63,11 @@ LeSearchClassReferencesFilter >> matches: anObject [
 	^ (super matches: anObject)
 		and: [ (anObject
 				optionAt: #variables
-				ifPresent: [ :variables | variables anySatisfy: [ :each | each sameContentAs: name ] ]
+				ifPresent: [ :variables | variables includesSameContentAs: name ]
 				ifAbsent: [ false ])
 				or: [ anObject
 						optionAt: #selectors
-						ifPresent: [ :selectors | selectors anySatisfy: [ :each | each sameContentAs: name ] ]
+						ifPresent: [ :selectors | selectors includesSameContentAs: name ]
 						ifAbsent: [ false ] ] ]
 ]
 
