@@ -26,32 +26,22 @@ LeSnippetSidebarStencil >> createSidebarContainerFor: aSnippetElement [
 			c ignored vertical alignCenter ];
 		clipChildren: false;
 		preventMouseEvents;
-		addChild:
-			(GtInspectorRoundButtonStencil small asElement
-				icon:
-					(BrPlusIconStencil close
-						thickness: 1;
-						radius: 4;
-						asElement);
+		addChild: (GtInspectorRoundButtonStencil small asElement
+				icon: BrGlamorousVectorIcons close asElement;
 				action: [ aSnippetElement snippetViewModel removeSelf ];
 				elevation: (BlRelativeElevation elevation: 20);
 				constraintsDo: [ :c | c frame vertical alignCenterAt: 0 ]);
-		addChild:
-			(GtInspectorRoundButtonStencil small asElement
+		addChild: (GtInspectorRoundButtonStencil small asElement
 				constraintsDo: [ :c | c frame vertical alignCenterAt: 1 ];
-				addAptitude:
-					(BrGlamorousWithExplicitDropdownAptitude new
+				addAptitude: (BrGlamorousWithExplicitDropdownAptitude new
 						withGainFocusOnShow;
 						handle: [ GtInspectorRoundButtonStencil small asElement
-								aptitude: BrIconAptitude;
-								icon:
-									[ BrGlamorousVectorIcons hamburger asElement asScalableElement
-										size: 12 @ 12 ] asStencil ]
-						submenu: [ self createSidebarMenuItemsFor: aSnippetElement ]);
-				icon:
-					[ (BrGlamorousVectorIcons hamburger asElement
-						background: Color darkGray) asScalableElement size: 12 @ 12 ]
-						asStencil)
+									aptitude: BrIconAptitude;
+									icon: [ BrGlamorousVectorIcons hamburger asElement asScalableElement size: 12 @ 12 ]
+											asStencil ]
+							submenu: [ self createSidebarMenuItemsFor: aSnippetElement ]);
+				icon: [ (BrGlamorousVectorIcons hamburger asElement background: Color darkGray)
+						asScalableElement size: 12 @ 12 ] asStencil)
 ]
 
 { #category : #'api - instantiation' }
