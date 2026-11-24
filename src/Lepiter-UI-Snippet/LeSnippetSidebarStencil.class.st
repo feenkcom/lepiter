@@ -36,12 +36,10 @@ LeSnippetSidebarStencil >> createSidebarContainerFor: aSnippetElement [
 				addAptitude: (BrGlamorousWithExplicitDropdownAptitude new
 						withGainFocusOnShow;
 						handle: [ GtInspectorRoundButtonStencil small asElement
-									aptitude: BrIconAptitude;
-									icon: [ BrGlamorousVectorIcons hamburger asElement asScalableElement size: 12 @ 12 ]
-											asStencil ]
+									aptitude: BrGlamorousButtonIconAptitude;
+									icon: BrGlamorousVectorIcons hamburger asElement ]
 							submenu: [ self createSidebarMenuItemsFor: aSnippetElement ]);
-				icon: [ (BrGlamorousVectorIcons hamburger asElement background: Color darkGray)
-						asScalableElement size: 12 @ 12 ] asStencil)
+				icon: BrGlamorousVectorIcons hamburger asElement)
 ]
 
 { #category : #'api - instantiation' }

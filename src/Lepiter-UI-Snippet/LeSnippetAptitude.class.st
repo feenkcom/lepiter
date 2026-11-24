@@ -232,8 +232,8 @@ LeSnippetAptitude >> newAddSnippetDropdown [
 	aButton
 		addAptitude: (BrGlamorousWithExplicitDropdownAptitude
 				handle: [ self newPlusElement
-						aptitude: BrIconAptitude;
-						background: BrGlamorousColors secondaryHeaderBackgroundColor ]
+						aptitude: BrGlamorousButtonIconAptitude;
+						background: aButton theme header secondaryBackgroundColor ]
 				content: [ GtSpotterDropdownButtonStencil new
 						valuable: (LeContextMenuSpotterStart new database: widget database);
 						extent: [ 300 @ 400 ];
@@ -247,7 +247,7 @@ LeSnippetAptitude >> newAddSnippetDropdown [
 							widget snippet addSnippetAfterSelf: aMenuItem asSnippet.
 							anActOnEvent beActed ];
 						spotterElementFor: aButton ]
-				containerDo: [ :aMenuContainer | aMenuContainer background: BrGlamorousColors secondaryHeaderBackgroundColor ])
+				containerDo: [ :aMenuContainer | aMenuContainer background: aButton theme header secondaryBackgroundColor ])
 				doNotHideWidget.
 	^ aButton
 ]
@@ -255,9 +255,8 @@ LeSnippetAptitude >> newAddSnippetDropdown [
 { #category : #'instance creation' }
 LeSnippetAptitude >> newPlusElement [
 	<return: #BlElement>
-
 	^ GtInspectorRoundButtonStencil small asElement
-		icon: (BrPlusIconStencil add thickness: 1; radius: 4; asElement);
+		icon: BrGlamorousVectorIcons add asElement;
 		yourself
 ]
 
