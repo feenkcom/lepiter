@@ -29,7 +29,7 @@ LeEditCodeSnippetCommandExamples >> executeEditSnippetCommand_undoState [
 	undoSpecification := super executeEditSnippetCommand_undoState.
 
 	self
-		assert: (undoSpecification snippetState attributeNamed: 'code') attributeValue
+		assert: (undoSpecification snippetState attributeNamed: #code) attributeValue
 		equals: self initialStringValue.
 
 	^ undoSpecification
