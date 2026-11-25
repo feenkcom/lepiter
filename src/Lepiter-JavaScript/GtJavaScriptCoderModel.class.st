@@ -51,8 +51,7 @@ GtJavaScriptCoderModel >> bindAndExecute: sourceString [
 	"The variables to be returned are:
 	1. globals declared in the code
 	2. undeclared names that are in pharoBindings"
-	varNames := visitor declaredVarNames, 
-		(visitor allUndeclaredNames asSet intersection: pharoBindings bindingNames asSet).
+	varNames := self returnedVariableNamesFrom: visitor.
 
 	"Assign the final statement to snippetResult"
 	lastStatement := ast items last.
@@ -183,6 +182,17 @@ GtJavaScriptCoderModel >> primitiveEvaluate: aSourceString inContext: aGtSourceC
 	^ result
 		at: 'snippetResult'
 		ifAbsent: anEvaluationFailBlock
+]
+
+{ #category : #'private - execution' }
+GtJavaScriptCoderModel >> returnedVariableNamesFrom: aVarNodeVisitor [
+	"Answer the names of the variables to return to the page:
+	1. globals declared in the code
+	2. undeclared names that are page variables (the parsed names are Strings, #hasBindingOf: converts them)"
+
+	^ aVarNodeVisitor declaredVarNames
+		, (aVarNodeVisitor allUndeclaredNames asSet
+				select: [ :each | pharoBindings hasBindingOf: each ])
 ]
 
 { #category : #'private - execution' }
