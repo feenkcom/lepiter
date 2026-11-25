@@ -36,7 +36,7 @@ LeUseMixedSubscriptionRegistryFlag class >> enabledDuring: aBlock [
 { #category : #testing }
 LeUseMixedSubscriptionRegistryFlag class >> isEnabled [
 	^LeUseMixedSubscriptionRegistryOverride value
-		ifNil: [Enabled ifNil: [false]]
+		ifNil: [Enabled ifNil: [true]]
 ]
 
 { #category : #'instance creation' }
