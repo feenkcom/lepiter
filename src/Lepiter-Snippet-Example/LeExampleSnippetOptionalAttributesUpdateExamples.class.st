@@ -10,7 +10,7 @@ LeExampleSnippetOptionalAttributesUpdateExamples >> assertModificationAnnounceme
 	self assert: anAnnouncementsCollection size equals: 5.
 	
 	self 
-		assert: (anAnnouncementsCollection collect: #className) asArray 
+		assert: (anAnnouncementsCollection collect: [ :each | each class name ]) asArray 
 		equals: #(
 			LeExampleSnippetCodeExpandedChanged
 			LeExampleSnippetNoCodeChanged
@@ -39,7 +39,7 @@ LeExampleSnippetOptionalAttributesUpdateExamples >> assertModificationAnnounceme
 LeExampleSnippetOptionalAttributesUpdateExamples >> assertSnippetModifiedFor: targetSnippet [
 	self 
 		assert: targetSnippet exampleBehaviorName 
-		equals:'BlBasicExamples'.
+		equals: #BlBasicExamples.
 	self 
 		assert: targetSnippet exampleSelector 
 		equals: #circle.

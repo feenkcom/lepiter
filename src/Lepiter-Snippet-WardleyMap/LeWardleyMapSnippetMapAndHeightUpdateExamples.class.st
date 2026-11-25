@@ -10,7 +10,7 @@ LeWardleyMapSnippetMapAndHeightUpdateExamples >> assertModificationAnnouncements
 	self assert: anAnnouncementsCollection size equals: 2.
 	
 	self 
-		assert: (anAnnouncementsCollection collect: #className) asArray 
+		assert: (anAnnouncementsCollection collect: [ :each | each class name ]) asArray 
 		equals: #(
 			LeSnippetContentChanged
 			LeSnippetHeightChanged).
