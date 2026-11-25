@@ -45,30 +45,19 @@ LeSnippetExpandableWithBarAptitude >> initializeSnippetContainer [
 { #category : #initialization }
 LeSnippetExpandableWithBarAptitude >> initializeSnippetExpander [
 	snippetExpander := BlElement new
-		constraintsDo: [ :c |
-			c horizontal exact: 8.
-			c vertical matchParent ];
-		background: Color veryLightGray;
-		geometry: (BlRoundedRectangleGeometry cornerRadii: (BlCornerRadii new topLeft: 4; topRight: 0; bottomRight: 0; bottomLeft: 4))
-]
-
-{ #category : #private }
-LeSnippetExpandableWithBarAptitude >> visuallyFocus [
-	super visuallyFocus.
-
-	snippetExpander background: (BrGlamorousColors primaryBorderColor ) gtOpaqueColorOnWhite
-]
-
-{ #category : #private }
-LeSnippetExpandableWithBarAptitude >> visuallyHover [
-	super visuallyHover.
-
-	snippetExpander background: BrGlamorousColors lightBorderColor
-]
-
-{ #category : #private }
-LeSnippetExpandableWithBarAptitude >> visuallyUnfocusAndUnhover [
-	super visuallyUnfocusAndUnhover.
-
-	snippetExpander background: BrGlamorousColors lightBorderColor
+			constraintsDo: [ :c | 
+				c horizontal exact: 8.
+				c vertical matchParent ];
+			geometry: (BlRoundedRectangleGeometry
+					cornerRadii: (BlCornerRadii new
+							topLeft: 4;
+							topRight: 0;
+							bottomRight: 0;
+							bottomLeft: 4)).
+	self
+		add: (BrLazyStyleCommonAptitude new
+				@ snippetExpander;
+				default: [ :aStyle :aTheme | aStyle background: aTheme button fadedBackgroundColor ];
+				when: BlElementState focused
+					style: [ :aStyle :aTheme | aStyle background: aTheme default primaryBorderColor ])
 ]
