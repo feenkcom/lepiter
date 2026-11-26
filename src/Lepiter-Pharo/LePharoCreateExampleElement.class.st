@@ -100,7 +100,7 @@ LePharoCreateExampleElement >> createExample [
 	snippet
 		convertToExample: selectorName
 		in: class
-		classified: (class instanceSide package name = packageName ifTrue: [ #examples ] ifFalse: [ '*' , packageName ])
+		classified: (self exampleProtocolFor: class inPackageNamed: packageName)
 ]
 
 { #category : #initialization }
@@ -114,6 +114,16 @@ LePharoCreateExampleElement >> createLabel: aString [
 		focusability: BlFocusability none;
 		margin: (BlInsets top: 5 right: 2);
 		constraintsDo: [ :c | c grid horizontal alignLeft ]
+]
+
+{ #category : #private }
+LePharoCreateExampleElement >> exampleProtocolFor: aClass inPackageNamed: aPackageName [
+	"The protocol of the new example: examples in the package of the class, an extension otherwise.
+	The package name can be typed (a String); package names are Symbols"
+
+	^ (aClass instanceSide package name sameContentAs: aPackageName)
+		ifTrue: [ #examples ]
+		ifFalse: [ '*' , aPackageName ]
 ]
 
 { #category : #initialization }

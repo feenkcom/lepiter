@@ -37,8 +37,9 @@ LeCommandSpecification >> commandTypeName [
 
 { #category : #accessing }
 LeCommandSpecification >> commandTypeName: aTypeName [
+	"The command type name is a class name: keep it as a Symbol, whichever kind the command gives"
 
-	commandTypeName := aTypeName
+	commandTypeName := aTypeName ifNotNil: [ :aName | aName asSymbol ]
 ]
 
 { #category : #accessing }

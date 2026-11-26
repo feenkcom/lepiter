@@ -10,7 +10,7 @@ LeElementSnippeAllAttributesUpdateExamples >> assertModificationAnnouncements: a
 	self assert: anAnnouncementsCollection size equals: 4.
 	
 	self 
-		assert: (anAnnouncementsCollection collect: #className) asArray 
+		assert: (anAnnouncementsCollection collect: [ :each | each class name ]) asArray 
 		equals: #(
 			LeSnippetTextChanged
 			LeElementSnippetElementHeightChanged

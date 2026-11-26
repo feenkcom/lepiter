@@ -47,17 +47,39 @@ GtPythonCoderModel >> bindAndExecute: sourceString inContext: aGtSourceCoderEval
 	application isRunning ifFalse: [ application start ].
 	commandFactory := application newCommandStringFactory.
 	"Only bind when read"
-	pythonBindings do: [ :binding |
-		(varNodeVisitor accessedFirstVariableNames includes: binding key)
-			ifTrue: [ commandFactory addBinding: binding ] ].
+	(self bindingsReadFrom: pythonBindings by: varNodeVisitor)
+		do: [ :binding | commandFactory addBinding: binding ].
 	"Only bind when written"
-	returnBindings := pythonBindings select: [ :binding | 
-		varNodeVisitor assignedVariableNames includes: binding key ].
+	returnBindings := self bindingsAssignedFrom: pythonBindings by: varNodeVisitor.
 	commandFactory
 		script: trimmedSource asString;
 		resultExpression: (self returnVariablesExpressionFrom: returnBindings) string.
 
 	^ commandFactory sendAndWait
+]
+
+{ #category : #'private - execution' }
+GtPythonCoderModel >> bindingsAssignedFrom: aCollectionOfBindings by: aVarNodeVisitor [
+	"Answer the bindings of the page variables that the snippet assigns, to be returned to the page.
+	The parsed names are Strings, the page variable names Symbols: compare them as Symbols"
+
+	| assignedNames |
+	assignedNames := aVarNodeVisitor assignedVariableNames
+			collect: [ :each | each asSymbol ]
+			as: Set.
+	^ aCollectionOfBindings select: [ :binding | assignedNames includes: binding key asSymbol ]
+]
+
+{ #category : #'private - execution' }
+GtPythonCoderModel >> bindingsReadFrom: aCollectionOfBindings by: aVarNodeVisitor [
+	"Answer the bindings of the page variables that the snippet reads before assigning them.
+	The parsed names are Strings, the page variable names Symbols: compare them as Symbols"
+
+	| readNames |
+	readNames := aVarNodeVisitor accessedFirstVariableNames
+			collect: [ :each | each asSymbol ]
+			as: Set.
+	^ aCollectionOfBindings select: [ :binding | readNames includes: binding key asSymbol ]
 ]
 
 { #category : #'api - ast' }

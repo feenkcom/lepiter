@@ -7,6 +7,33 @@ Class {
 }
 
 { #category : #examples }
+GtPythonCoderModelExamples >> pageVariablesSentAndReturned [
+	"The page variables (Symbol names) that a Python snippet reads are sent to Python, and the ones it assigns are returned to the page.
+	The parsed names are Strings"
+
+	<gtExample>
+	<return: #GtPythonCoderModel>
+	| coder bindings visitor |
+	coder := GtPythonCoderModel new.
+	bindings := {PBBinding key: #x wrap: 42.
+			PBBinding key: #y wrap: 7}.
+
+	visitor := GtPythonVarNodeVisitor new.
+	visitor accept: (PythonParser parseWithErrors: 'z = x + 1').
+	self
+		assert: ((coder bindingsReadFrom: bindings by: visitor) collect: [ :each | each key ]) asArray
+		equals: #(#x).
+	self assert: (coder bindingsAssignedFrom: bindings by: visitor) isEmpty.
+
+	visitor := GtPythonVarNodeVisitor new.
+	visitor accept: (PythonParser parseWithErrors: 'y = 7').
+	self
+		assert: ((coder bindingsAssignedFrom: bindings by: visitor) collect: [ :each | each key ]) asArray
+		equals: #(#y).
+	^ coder
+]
+
+{ #category : #examples }
 GtPythonCoderModelExamples >> returnWithAssignment [
 	"Ensure that the python parser indicates the last statement in the script is a statement with the correct value"
 
