@@ -31,10 +31,11 @@ GtJavaScriptCoderModelExamples >> pageVariablesReturned [
 	^ coder
 ]
 
-{ #category : #private }
+{ #category : #examples }
 GtJavaScriptCoderModelExamples >> returnedNamesOf: aSourceString in: aCoder [
 	| visitor |
 	visitor := LeJavaScriptVarNodeVisitor new.
-	(JSParser parse: (SmaCCString on: aSourceString)) acceptVisitor: visitor.
-	^ ((aCoder returnedVariableNamesFrom: visitor) collect: [ :each | each asString ]) asArray sort
+	visitor acceptNode: (JSParser parse: (SmaCCString on: aSourceString)).
+	^ ((aCoder returnedVariableNamesFrom: visitor)
+		collect: [ :each | each asString ]) asArray sort
 ]
