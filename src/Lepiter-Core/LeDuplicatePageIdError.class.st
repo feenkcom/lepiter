@@ -13,51 +13,43 @@ Class {
 { #category : #'gt - extensions' }
 LeDuplicatePageIdError >> createAnnotatedPagesElement [
 	| pagesContainer headerElement rightContainer |
-	pagesContainer :=  BrHorizontalPane new
-		matchParent.
-		
-	headerElement := BrHorizontalPane new
-		"padding: (BlInsets all: 0);"
-		hMatchParent;
-		vFitContent.
+	pagesContainer := BrHorizontalPane new matchParent.
+	headerElement := (BrHorizontalPane new)
+				hMatchParent;
+				vFitContent.
+	headerElement
+		addChild: (self createHeaderWithLabel: self createExistingPageLabel
+					forPage: existingPage);
+		addChild: (self createHeaderWithLabel: self createNewPageLabel
+					forPage: newPage).
+	pagesContainer addChild: ((LePageToolContentTreeElement new)
+				withTitleOnly;
+				pageViewModel: existingPage asContentUIModel;
+				geometry: (BlRoundedRectangleGeometry cornerRadius: 4);
+				border: (BlBorder paint: (Color gray alpha: 0.2) width: 1);
+				margin: (BlInsets all: 5);
+				matchParent).
+	rightContainer := (BrHorizontalPane new)
+				margin: (BlInsets all: 5);
+				matchParent.
+	"addAptitude: (BrGlamorousWithHorizontalResizerAptitude new beLeft);"
 
-	headerElement 
-		addChild: self createExistingPageLabel;
-		addChild: self createNewPageLabel.
-		
-	pagesContainer addChild: (LePageToolContentTreeElement new 
-		withTitleOnly;
-		pageViewModel: existingPage asContentUIModel;
-		geometry: (BlRoundedRectangleGeometry cornerRadius: 4);
-		border: (BlBorder paint: (Color gray alpha: 0.2) width: 1);
-		margin: (BlInsets all: 5);
-		matchParent).
-		
-	rightContainer := BrHorizontalPane new
-		margin: (BlInsets all: 5);
-		"addAptitude: (BrGlamorousWithHorizontalResizerAptitude new beLeft);"
-		matchParent.
-		
 	"rightContainer addChild: (BrFrame new
 		constraintsDo: [ :c |
 			c vertical matchParent.
 			c horizontal exact: 10 ]
 		yourself)."
-		
-	rightContainer addChild: (LePageToolContentTreeElement new 
-		withTitleOnly;
-		pageViewModel: newPage asContentUIModel;
-		geometry: (BlRoundedRectangleGeometry cornerRadius: 4);
-		border: (BlBorder paint: (Color gray alpha: 0.2) width: 1);
-		matchParent).
-		
-	pagesContainer 
-		addChild: rightContainer.
-	
-	^ BrVerticalPane new
-	 	matchParent;
-	 	addChild: headerElement;
-	 	addChild: pagesContainer
+	rightContainer addChild: ((LePageToolContentTreeElement new)
+				withTitleOnly;
+				pageViewModel: newPage asContentUIModel;
+				geometry: (BlRoundedRectangleGeometry cornerRadius: 4);
+				border: (BlBorder paint: (Color gray alpha: 0.2) width: 1);
+				matchParent).
+	pagesContainer addChild: rightContainer.
+	^(BrVerticalPane new)
+		matchParent;
+		addChild: headerElement;
+		addChild: pagesContainer
 ]
 
 { #category : #'gt - extensions' }
@@ -102,12 +94,31 @@ LeDuplicatePageIdError >> createExplanationWithPagesElement [
 ]
 
 { #category : #'gt - extensions' }
+LeDuplicatePageIdError >> createHeaderWithLabel: aLabel forPage: aPage [
+	^(BrHorizontalPane new)
+		hMatchParent;
+		vFitContent;
+		alignCenterLeft;
+		addChild: aLabel;
+		addChild: (self createRemoveButtonFor: aPage)
+]
+
+{ #category : #'gt - extensions' }
 LeDuplicatePageIdError >> createNewPageLabel [
 	^ BrLabel new 
 		aptitude: BrGlamorousLabelAptitude;
 		text: ('New page' asRopedText glamorousCodeSmallSize
 			foreground: BrGlamorousColors defaultButtonTextColor);
 	 	hMatchParent
+]
+
+{ #category : #'gt - extensions' }
+LeDuplicatePageIdError >> createRemoveButtonFor: aPage [
+	^(BrButton new)
+		aptitude: BrGlamorousButtonWithIconAptitude;
+		icon: BrGlamorousVectorIcons remove;
+		label: 'Remove the page file and the page from the database';
+		action: [self deletePageFile: aPage]
 ]
 
 { #category : #'private - adding / removing' }
@@ -143,33 +154,43 @@ LeDuplicatePageIdError >> file: anObject [
 LeDuplicatePageIdError >> gtDetailsFor: aView [
 	<gtView>
 	<gtExceptionView>
-	^ aView columnedList
+	^(aView columnedList)
 		title: 'Details';
 		priority: 0.1;
-		items: {'Page already in DB' -> existingPage.
+		items: 
+				{'Page already in DB' -> existingPage.
 				'Page to add' -> newPage};
 		column: 'Page' text: #key;
-		column: 'Title' text: [ :each | each value title ];
-		column: 'Uid' text: [ :each | each value uidString ];
-		column: 'DB key' text: [ :each | each value databaseKey ];
+		column: 'Title' text: [:each | each value title];
+		column: 'Uid' text: [:each | each value uidString];
+		column: 'DB key' text: [:each | each value databaseKey];
 		column: 'In store'
-			text: [ :each |
+			text: 
+				[:each |
 				database monitor isNotNil
-				and: [ database monitor hasPageId: each value uid ] ];
+					and: [database monitor hasPageId: each value uid]];
+		column: ''
+			stencil: [:each | self createRemoveButtonFor: each value]
+			width: 40;
 		contextItemLabel: 'Inspect database key'
-			action: [ :anElement :each | anElement phlow spawnObject: each value databaseKey ];
+			action: [:anElement :each | anElement phlow spawnObject: each value databaseKey];
 		contextItemLabel: 'Inspect id'
-			action: [ :anElement :each | anElement phlow spawnObject: each value uidString ];
+			action: [:anElement :each | anElement phlow spawnObject: each value uidString];
 		contextItemLabel: 'Inspect store'
-			action: [ :anElement :each | anElement phlow spawnObject: (database monitor storedObjectWithId: each value uid) ]
-			if: [ :each |
+			action: 
+				[:anElement :each |
+				anElement phlow
+					spawnObject: (database monitor storedObjectWithId: each value uid)]
+			if: 
+				[:each |
 				database monitor isNotNil
-				and: [ database monitor hasPageId: each value uid ]];
+					and: [database monitor hasPageId: each value uid]];
 		contextItemLabel: 'Delete stored page'
-			action: [ :anElement :each | database monitor deletePageWithId: each value uid ]
-			if: [ :each |
+			action: [:anElement :each | database monitor deletePageWithId: each value uid]
+			if: 
+				[:each |
 				database monitor isNotNil
-				and: [ database monitor hasPageId: each value uid ]];
+					and: [database monitor hasPageId: each value uid]];
 		send: #value
 ]
 
