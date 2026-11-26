@@ -47,5 +47,5 @@ LeDatabasePropertyExamples >> databaseWithoutPersonalInfo [
 
 	properties := STONJSON
 			fromString: ((memStore / pathString) parent / LeAttachment basename) contents.
-	self deny: (properties includesKey: #originalReference)
+	self deny: (properties includesKey: 'originalReference')
 ]
