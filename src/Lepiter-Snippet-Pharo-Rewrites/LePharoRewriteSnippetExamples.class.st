@@ -8,6 +8,12 @@ Class {
 
 { #category : #'examples - rewrites' }
 LePharoRewriteSnippetExamples >> cancelExecuteRewrites [
+	"The search block waits on a delay for every node it visits. Without it, the pattern has
+	no selectors or literals, so the rewrite scans every method in the image without yielding.
+	That can starve the scripter process, so the cancel step never runs and the example
+	times out. The delay keeps the rewrite future running long enough to be cancelled, and
+	lets the scripter handle the cancel click."
+
 	<gtExample>
 	| scripter |
 	scripter := self
@@ -15,7 +21,7 @@ LePharoRewriteSnippetExamples >> cancelExecuteRewrites [
 				page := LeModelExamples new pageOneFromDatabaseWithOnlyOnePage page.
 				page
 					addFirstSnippet: (LePharoRewriteSnippet new
-							search: '`{:node :dict | false}';
+							search: '`{:node :dict | (Delay forMilliseconds: 333) wait. false}';
 							replace: 'should not be used';
 							yourself).
 				page ]
