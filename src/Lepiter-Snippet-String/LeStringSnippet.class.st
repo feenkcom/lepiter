@@ -143,7 +143,9 @@ LeStringSnippet >> format [
 
 { #category : #accessing }
 LeStringSnippet >> format: aFormatString [
-	format = aFormatString ifTrue: [ ^ self ].
+	"The format is a parser class name: a String when read from disk, a Symbol when a parser is selected"
+
+	(format sameContentAs: aFormatString) ifTrue: [ ^ self ].
 	format := aFormatString.
 	self notifyFormatChanged
 ]
