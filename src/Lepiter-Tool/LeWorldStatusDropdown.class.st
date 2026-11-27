@@ -256,24 +256,19 @@ LeWorldStatusDropdown >> tooltip [
 ]
 
 { #category : #updating }
-LeWorldStatusDropdown >> updateContent [ 
+LeWorldStatusDropdown >> updateContent [
+	dropdownElement icon: self statusIcon.
 	currentDropdownContent ifNil: [ ^ self ].
-	currentDropdownContent removeChildren. 
-	currentDropdownContent addChild: self newDropdownContent.
-]
-
-{ #category : #updating }
-LeWorldStatusDropdown >> updateStatus [
-
-	dropdownElement enqueueTask: (BlTaskAction new 
-		action: [ dropdownElement icon: self statusIcon ]).
-
+	currentDropdownContent removeChildren.
+	currentDropdownContent addChild: self newDropdownContent
 ]
 
 { #category : #updating }
 LeWorldStatusDropdown >> updateWidget [
-	self updateStatus.
-	self requestUpdate.
+	"The updater keeps at most one update pending, so repeated database changes
+	do not pile up tasks, e.g. in a world whose space never runs them"
+
+	self requestUpdate
 ]
 
 { #category : #accessing }
